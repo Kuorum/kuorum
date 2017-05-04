@@ -279,6 +279,10 @@ class DebateController {
             command.body = debateRSDTO.body
             command.videoPost = debateRSDTO.videoUrl
 
+            if(debateRSDTO.datePublished){
+                command.publishOn = debateRSDTO.datePublished
+            }
+
             if (debateRSDTO.photoUrl) {
                 KuorumFile kuorumFile = KuorumFile.findByUrl(debateRSDTO.photoUrl)
                 command.headerPictureId = kuorumFile?.id
@@ -430,6 +434,7 @@ class DebateController {
             debateRDTO.videoUrl = debateRSDTO.videoUrl
             debateRDTO.title = debateRSDTO.title
             debateRDTO.body = debateRSDTO.body
+            debateRDTO.publishOn = debateRSDTO.datePublished
         }
 
         debateRDTO

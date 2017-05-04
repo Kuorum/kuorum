@@ -19,7 +19,6 @@ import org.kuorum.rest.model.communication.post.PostRSDTO
 import org.kuorum.rest.model.contact.ContactPageRSDTO
 import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
 import org.kuorum.rest.model.contact.filter.FilterRDTO
-import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
 import payment.contact.ContactService
 
 class PostController {
@@ -187,6 +186,9 @@ class PostController {
             command.title = postRSDTO.title
             command.body = postRSDTO.body
             command.videoPost = postRSDTO.videoUrl
+            if(postRSDTO.datePublished){
+                command.publishOn = postRSDTO.datePublished
+            }
 
             if (postRSDTO.photoUrl) {
                 KuorumFile kuorumFile = KuorumFile.findByUrl(postRSDTO.photoUrl)
@@ -374,6 +376,7 @@ class PostController {
             postRDTO.body = postRSDTO.body
             postRDTO.photoUrl = postRSDTO.photoUrl
             postRDTO.videoUrl = postRSDTO.videoUrl
+            postRDTO.publishOn = postRSDTO.datePublished
         }
 
         postRDTO
