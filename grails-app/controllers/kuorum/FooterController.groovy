@@ -9,6 +9,7 @@ class FooterController {
     def team() {}
     def tech() {}
     def citizens() {}
+    def userGuides() {}
     def leaders() {}
     def government() {}
     def widget() {}

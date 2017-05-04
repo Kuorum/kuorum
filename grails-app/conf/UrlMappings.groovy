@@ -55,6 +55,8 @@ class UrlMappings {
                                     "/services/organizations"              {controller="redirect"; action= "redirect301"; newMapping='footerGovernment'}
         name footerCitizens:        "/$lang/services/corporations"   (controller:"footer", action: "citizens" )
                                     "/services/corporations"   {controller="redirect"; action= "redirect301"; newMapping='footerCitizens'}
+        name footerUserGuides:       "/$lang/services/user-guides"   (controller:"footer", action: "userGuides" )
+                                    "/services/user-guides"   {controller="redirect"; action= "redirect301"; newMapping='footerUserGuides'}
         name footerAboutUs:         "/$lang/about/our-story"             (controller:"footer", action: "aboutUs" )
                                     "/about/our-story"                  {controller="redirect"; action= "redirect301"; newMapping='footerAboutUs'}
                                     "/about"                            {controller="redirect"; action= "redirect301"; newMapping='footerAboutUs'}
