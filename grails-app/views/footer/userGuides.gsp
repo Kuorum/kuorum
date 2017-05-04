@@ -19,16 +19,16 @@
     <ul class="list-team">
         <li>
             <div class="box-ppal">
-                <a href="https://s3-eu-west-1.amazonaws.com/kuorumorg/static/users/KuorumUserGuide1(eng).pdf" target="_blank">
-                    <img class="guide" src="${resource(dir: 'images', file: 'guide1.png')}" alt="Guide I" itemprop="image">
+                <a href="https://s3-eu-west-1.amazonaws.com/kuorumorg/static/users/KuorumUserGuide1(${langGuides}).pdf" target="_blank">
+                    <img class="guide" src="${resource(dir: 'images', file: 'guide1(eng).png')}" alt="Guide I" itemprop="image">
                 </a>
                 <p itemprop="description"><g:message code="footer.menu.userGuide1.description"/></p>
             </div>
         </li>
         <li>
             <div class="box-ppal">
-                <a href="https://s3-eu-west-1.amazonaws.com/kuorumorg/static/users/KuorumUserGuide2(eng).pdf" target="_blank">
-                    <img class="guide" src="${resource(dir: 'images', file: 'guide2.png')}" alt="Guide II" itemprop="image">
+                <a href="https://s3-eu-west-1.amazonaws.com/kuorumorg/static/users/KuorumUserGuide2(${langGuides}).pdf" target="_blank">
+                    <img class="guide" src="${resource(dir: 'images', file: 'guide2(eng).png')}" alt="Guide II" itemprop="image">
                 </a>
                 <p itemprop="description"><g:message code="footer.menu.userGuide2.description"/></p>
             </div>

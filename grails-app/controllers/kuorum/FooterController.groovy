@@ -9,7 +9,16 @@ class FooterController {
     def team() {}
     def tech() {}
     def citizens() {}
-    def userGuides() {}
+    def userGuides() {
+        Locale locale = LocaleContextHolder.getLocale();
+        String langGuides = "en"
+        if (locale.getLanguage() == "es"){
+            langGuides = "es"
+        }
+        [
+                langGuides:langGuides
+        ]
+    }
     def leaders() {}
     def government() {}
     def widget() {}
