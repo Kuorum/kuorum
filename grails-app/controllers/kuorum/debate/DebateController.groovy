@@ -137,7 +137,11 @@ class DebateController {
 
         //flash.message = resultDebate.msg.toString()
 
-        redirect mapping: nextStep, params: [debateId: resultDebate.debate.id]
+        if (CampaignStatusRSDTO.DRAFT.equals(((DebateRSDTO)resultDebate.debate).newsletter.status)){
+            redirect mapping: nextStep, params: [debateId: resultDebate.debate.id]
+        }else{
+            redirect mapping: "debateShow",  params:resultDebate.debate.encodeAsLinkProperties()
+        }
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
@@ -287,11 +291,13 @@ class DebateController {
                 command.headerPictureId = kuorumFile?.id
             }
         }
-
+        Long numberRecipients = debateRSDTO.newsletter?.filter?.amountOfContacts!=null?
+                debateRSDTO.newsletter?.filter?.amountOfContacts:
+                contactService.getUsers(user, null).total;
         [
                 filters: filters,
                 command: command,
-                totalContacts: contactPageRSDTO.total,
+                numberRecipients: numberRecipients,
                 debate: debateRSDTO
         ]
     }

@@ -134,6 +134,9 @@
                             DebateCommand:{
                                 body:{
                                     nullable:"<g:message code="kuorum.web.commands.payment.massMailing.DebateCommand.body.nullable"/>"
+                                },
+                                title:{
+                                    nullable:"<g:message code="kuorum.web.commands.payment.massMailing.DebateCommand.title.nullable"/>"
                                 }
                             }
                         }

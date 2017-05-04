@@ -22,12 +22,19 @@ class PostContentCommand {
     Date publishOn
 
     static constraints = {
-        title nullable: false
-        body nullable: false
+        title nullable: true, validator: { val, obj ->
+            if (obj.publishOn && !val){
+                return "kuorum.web.commands.payment.massMailing.DebateCommand.title.nullable"
+            }
+        }
+        body nullable: true, validator: { val, obj ->
+            if (obj.publishOn && !val){
+                return "kuorum.web.commands.payment.massMailing.DebateCommand.body.nullable"
+            }
+        }
         fileType nullable: true
         headerPictureId nullable: true
         videoPost nullable: true
-        publishOn nullable: true, validator: { val, obj ->
-        }
+        publishOn nullable: true
     }
 }
