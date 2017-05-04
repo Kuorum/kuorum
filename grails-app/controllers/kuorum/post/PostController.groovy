@@ -19,6 +19,7 @@ import org.kuorum.rest.model.communication.post.PostRSDTO
 import org.kuorum.rest.model.contact.ContactPageRSDTO
 import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
 import org.kuorum.rest.model.contact.filter.FilterRDTO
+import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
 import payment.contact.ContactService
 
 class PostController {
@@ -100,8 +101,11 @@ class PostController {
         Map<String, Object> resultPost = saveAndSendPostContent(user, command, postId)
 
         //flash.message = resultPost.msg.toString()
-
-        redirect mapping: nextStep, params: [postId: resultPost.post.id]
+        if (CampaignStatusRSDTO.DRAFT.equals(((PostRSDTO)resultPost.post).newsletter.status)){
+            redirect mapping: nextStep, params: [postId: resultPost.post.id]
+        }else{
+            redirect mapping: "postShow",  params:resultPost.post.encodeAsLinkProperties()
+        }
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
@@ -271,7 +275,7 @@ class PostController {
         String msg
         PostRDTO postRDTO = convertCommandContentToPost(command, user, postId)
 
-        PostRSDTO savedPost = new PostRSDTO()
+        PostRSDTO savedPost = null
         if(command.publishOn){
             // Published or Scheduled
             savedPost = postService.savePost(user, postRDTO, postId)
@@ -379,6 +383,7 @@ class PostController {
         PostRDTO postRDTO = new PostRDTO()
         postRDTO.title = command.title
         postRDTO.body = command.body
+        postRDTO.publishOn = command.publishOn
 
         // Multimedia URL
         if (command.fileType == FileType.IMAGE.toString() && command.headerPictureId) {
