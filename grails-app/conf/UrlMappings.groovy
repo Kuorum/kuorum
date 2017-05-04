@@ -137,9 +137,9 @@ class UrlMappings {
         name projects:                  "/project/$regionName?/$commission?" (controller: "project", action:"index")
 
         name debateCreate:      "/account/debate/new" (controller: "debate"){action = [GET: "create", POST: "saveSettings"]}
-        name debateEditSettings: "/account/debate/$debateId/edit-settings" (controller: "debate"){action = [GET: "editSettingsStep", POST: "saveSettings"]}
+        name debateEdit:        "/account/debate/$debateId/edit-settings" (controller: "debate"){action = [GET: "editSettingsStep", POST: "saveSettings"]}
         name debateEditContent:  "/account/debate/$debateId/edit-content" (controller: "debate"){action = [GET: "editContentStep", POST: "saveContent"]}
-        name debateEdit:        "/account/debate/$debateId/edit" (controller: "debate"){action = [GET: "edit", POST: "update"]}
+
         name debateRemove:      "/ajax/account/debate/$debateId/remove" (controller: "debate", action: "remove")
         name debateShow:        "/$userAlias/d/$title-$debateId"(controller: "debate", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
                                 "/$userAlias/d/-$debateId"      (controller: "debate", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
@@ -152,11 +152,11 @@ class UrlMappings {
         name debateProposalVoteComment: "/ajax/proposalComment/vote"(controller: "debateProposal", action: "voteComment")
 
         name postCreate:            "/account/post/new" (controller: "post"){action = [GET: "create", POST: "saveSettings"]}
-        name postEditSettings:      "/account/post/$postId/edit-settings" (controller: "post"){action = [GET: "editSettingsStep", POST: "saveSettings"]}
+        name postEdit:              "/account/post/$postId/edit-settings" (controller: "post"){action = [GET: "editSettingsStep", POST: "saveSettings"]}
         name postEditContent:       "/account/post/$postId/edit-content" (controller: "post"){action = [GET: "editContentStep", POST: "saveContent"]}
         name postShow:              "/$userAlias/p/$title-$postId"  (controller: "post", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
                                     "/$userAlias/p/-$postId"        (controller: "post", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-        name postEdit:              "/account/post/$postId/edit" (controller: "post"){action = [GET: "edit", POST: "update"]}
+
         name postLike:              "/ajax/likePost"(controller: "post", action: "likePost")
 
         name langProjectShow:   "/$lang/$userAlias/$hashtag" (controller: "project", action:"show") {constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)}); lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}

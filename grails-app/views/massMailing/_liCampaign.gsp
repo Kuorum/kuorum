@@ -43,7 +43,7 @@
     </g:if>
     <g:else>
         <li>
-            <g:link mapping="politicianMassMailingShow" params="[campaignId:campaign.id]" class="campaignEdit"><span class="fa fa-edit"></span> <span class="sr-only">Edit</span></g:link>
+            <g:link mapping="politicianMassMailingSettings" params="[campaignId:campaign.id]" class="campaignEdit"><span class="fa fa-edit"></span> <span class="sr-only">Edit</span></g:link>
         </li>
     </g:else>
         <li>

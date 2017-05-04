@@ -21,7 +21,7 @@
     </ol>
     <g:render template="/campaigns/edit/settingsStep" model="[command: command, filters: filters, totalContacts: totalContacts,
                                                               debate: debate, anonymousFilter: anonymousFilter, next: 'debateEditContent',
-                                                              mappings:[step:'settings', settings:'debateEditSettings',
+                                                              mappings:[step:'settings', settings:'debateEdit',
                                                                         content:'debateEditContent', showResult: 'debateShow',
                                                                         next: 'debateEditContent']]"/>
 </content>

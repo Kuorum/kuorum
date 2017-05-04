@@ -7,7 +7,7 @@
     <span class="fa fa-comments-o"></span>
     <h3>
         <g:link mapping="debateShow" params="${debate.encodeAsLinkProperties()}" class="title">
-            ${debate.title}<span></span>
+            ${debate.name}<span></span>
         </g:link>
     </h3>
     <p class="name">

@@ -7,7 +7,7 @@
     <span class="fa fa-newspaper-o"></span>
     <h3>
         <g:link mapping="postShow" params="${post.encodeAsLinkProperties()}" class="title">
-            ${post.title}<span></span>
+            ${post.name}<span></span>
         </g:link>
     </h3>
     <p class="name">

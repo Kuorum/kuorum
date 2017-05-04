@@ -18,5 +18,5 @@
         <li class="active">${breadCrumbName}</li>
     </ol>
     <g:render template="/campaigns/edit/contentStep" model="[command: command, post: post, numberRecipients:numberRecipients,
-                                                             mappings:[step:'content', settings:'postEditSettings', content:'postEditContent', showResult: 'postShow']]"/>
+                                                             mappings:[step:'content', settings:'postEdit', content:'postEditContent', showResult: 'postShow']]"/>
 </content>
