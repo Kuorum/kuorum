@@ -19,6 +19,7 @@ import org.kuorum.rest.model.communication.post.PostRSDTO
 import org.kuorum.rest.model.contact.ContactPageRSDTO
 import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
 import org.kuorum.rest.model.contact.filter.FilterRDTO
+import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
 import payment.contact.ContactService
 
 class PostController {
@@ -54,7 +55,7 @@ class PostController {
     }
 
     def editContentStep(){
-        return postModelContent(new PostContentCommand(), Long.parseLong(params.postId))
+        return postModelContent(Long.parseLong(params.postId))
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
@@ -86,12 +87,12 @@ class PostController {
 
         //flash.message = resultPost.msg.toString()
 
-        redirect mapping: nextStep, params: [postId: resultPost.post.id]
+        redirect mapping: nextStep, params: resultPost.post.encodeAsLinkProperties()
     }
 
     def saveContent(PostContentCommand command) {
         if (command.hasErrors()) {
-            render view: 'create', model: postModelContent(command, Long.parseLong(params.postId))
+            render view: 'editContentStep', model: postModelContent(Long.parseLong(params.postId), command)
             return
         }
         String nextStep = params.redirectLink
@@ -100,8 +101,7 @@ class PostController {
         Map<String, Object> resultPost = saveAndSendPostContent(user, command, postId)
 
         //flash.message = resultPost.msg.toString()
-
-        redirect mapping: nextStep, params: [postId: resultPost.post.id]
+        redirect mapping: nextStep, params:resultPost.post.encodeAsLinkProperties()
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
@@ -178,11 +178,12 @@ class PostController {
         ]
     }
 
-    private def postModelContent(PostContentCommand command, Long postId) {
+    private def postModelContent(Long postId, PostContentCommand command = null) {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        PostRSDTO postRSDTO = postService.findPost(user, Long.parseLong(params.postId))
+        PostRSDTO postRSDTO = postService.findPost(user, postId)
         def numberRecipients = 0;
-        if(postRSDTO) {
+        if(!command) {
+            command = new PostContentCommand()
             command.title = postRSDTO.title
             command.body = postRSDTO.body
             command.videoPost = postRSDTO.videoUrl
@@ -191,12 +192,15 @@ class PostController {
                 KuorumFile kuorumFile = KuorumFile.findByUrl(postRSDTO.photoUrl)
                 command.headerPictureId = kuorumFile?.id
             }
-            numberRecipients = postRSDTO.newsletter?.filter?.amountOfContacts?:contactService.getUsers(user, null).total;
+            numberRecipients = postRSDTO.newsletter?.filter?.amountOfContacts!=null?
+                    postRSDTO.newsletter?.filter?.amountOfContacts:
+                    contactService.getUsers(user, null).total;
         }
         [
                 command: command,
                 post: postRSDTO,
-                numberRecipients:numberRecipients
+                numberRecipients:numberRecipients,
+                status: postRSDTO.campaignStatusRSDTO
         ]
     }
 
@@ -271,7 +275,7 @@ class PostController {
         String msg
         PostRDTO postRDTO = convertCommandContentToPost(command, user, postId)
 
-        PostRSDTO savedPost = new PostRSDTO()
+        PostRSDTO savedPost = null
         if(command.publishOn){
             // Published or Scheduled
             savedPost = postService.savePost(user, postRDTO, postId)
@@ -379,6 +383,7 @@ class PostController {
         PostRDTO postRDTO = new PostRDTO()
         postRDTO.title = command.title
         postRDTO.body = command.body
+        postRDTO.publishOn = command.publishOn
 
         // Multimedia URL
         if (command.fileType == FileType.IMAGE.toString() && command.headerPictureId) {

@@ -119,9 +119,7 @@ class DebateController {
 
         //flash.message = resultDebate.msg.toString()
 
-        redirect mapping: nextStep, params: [
-                debateId: resultDebate.debate.id
-        ]
+        redirect mapping: nextStep, params: resultDebate.debate.encodeAsLinkProperties()
     }
 
     def saveContent(DebateContentCommand command) {
@@ -136,8 +134,7 @@ class DebateController {
         Map<String, Object> resultDebate = saveAndSendDebateContent(user, command, debateId)
 
         //flash.message = resultDebate.msg.toString()
-
-        redirect mapping: nextStep, params: [debateId: resultDebate.debate.id]
+        redirect mapping: nextStep, params:resultDebate.debate.encodeAsLinkProperties()
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
@@ -287,12 +284,15 @@ class DebateController {
                 command.headerPictureId = kuorumFile?.id
             }
         }
-
+        Long numberRecipients = debateRSDTO.newsletter?.filter?.amountOfContacts!=null?
+                debateRSDTO.newsletter?.filter?.amountOfContacts:
+                contactService.getUsers(user, null).total;
         [
                 filters: filters,
                 command: command,
-                totalContacts: contactPageRSDTO.total,
-                debate: debateRSDTO
+                numberRecipients: numberRecipients,
+                debate: debateRSDTO,
+                status: debateRSDTO.campaignStatusRSDTO
         ]
     }
 

@@ -1,7 +1,7 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <g:set var="breadCrumbName">
-        <g:message code="tools.campaign.new.debate"/>
+        ${debate.name}
     </g:set>
 
     <title>${breadCrumbName}</title>
@@ -19,7 +19,7 @@
         <li><g:link mapping="politicianCampaignsNew"><g:message code="tools.campaign.new.title"/></g:link></li>
         <li class="active">${breadCrumbName}</li>
     </ol>
-    <g:render template="/campaigns/edit/contentStep" model="[command: command, filters: filters, totalContacts: totalContacts,
-                                                             debate: debate, anonymousFilter: anonymousFilter,
+    <g:render template="/campaigns/edit/contentStep" model="[command: command, debate: debate,
+                                                             numberRecipients:numberRecipients, status: status,
                                                              mappings:[step:'content', settings:'debateEditSettings', content:'debateEditContent', showResult: 'debateShow']]"/>
 </content>

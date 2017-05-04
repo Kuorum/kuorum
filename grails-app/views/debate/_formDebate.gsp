@@ -28,7 +28,7 @@
             <div class="text-right">
                 <ul class="form-final-options">
                     <li>
-                        <a href="#" id="save-draft-debate">
+                        <a href="#" id="save-draft-debate" data-redirectLink="politicianCampaigns">
                             <g:message code="tools.massMailing.saveDraft"/>
                         </a>
                     </li>

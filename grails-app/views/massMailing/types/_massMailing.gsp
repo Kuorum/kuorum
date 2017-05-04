@@ -31,7 +31,7 @@
             <div class="col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-8 form-control-campaign">
                 <ul class="form-final-options">
                     <li>
-                        <a href="#" id="save-draft-campaign">
+                        <a href="#" id="save-draft-campaign" data-redirectLink="politicianCampaigns">
                             <g:message code="tools.massMailing.saveDraft"/>
                         </a>
                     </li>
