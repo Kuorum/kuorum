@@ -4859,6 +4859,7 @@ h5#results {margin: 0 0 15px;}
 .list-team {text-align: center;}
 .list-team > li {width: 100%; margin-bottom: 15px;}
 .list-team > li > .box-ppal > img {width: 140px; height: 140px; border-radius: 70px; border: solid 5px #fff; margin: 0 0 10px 0;}
+.list-team > li > .box-ppal > a img.guide {width: 100% !important; height: 100% !important; border-radius: 0 !important; margin: 0 0 17px !important;}
 .list-team > li > .box-ppal {padding: 20px; margin: 0; box-shadow: 0 0 2px rgba(200,200,200,0.6); /* min-height: 485px; margin: 0 0 10px;*/}
 .list-team > li > .box-ppal > h1 {padding: 0; font-size: 33px; font-size: 3.3rem; margin: 0 0 5px 0;}
 .list-team > li > .box-ppal > h2 {padding: 0; font-size: 20px; font-size: 2rem; margin: 0 0 20px 0; color: #a8a8a8;}

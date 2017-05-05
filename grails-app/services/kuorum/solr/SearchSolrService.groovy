@@ -38,6 +38,7 @@ class SearchSolrService {
         prepareScore(params, query)
 
         query.setSort("score", SolrQuery.ORDER.desc)
+        query.addSort("relevance", SolrQuery.ORDER.desc)
         query.addSort("kuorumRelevance", SolrQuery.ORDER.desc)
         query.addSort("constituencyIso3166_2Length", SolrQuery.ORDER.asc)
         query.addSort("regionIso3166_2Length", SolrQuery.ORDER.asc)
