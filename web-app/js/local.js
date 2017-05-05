@@ -1684,6 +1684,8 @@ function prepareContactTags(){
 
             $(input).tagsinput({
                 allowDuplicates: false,
+                freeInput: true,
+                addOnBlur: true,
                 typeaheadjs: {
                     minLength: 2,
                     hint: true,
@@ -1693,6 +1695,14 @@ function prepareContactTags(){
                     valueKey: 'name',
                     source: tagsnames.ttAdapter()
                 }
+            });
+
+
+            // Add tags when focusout
+            $(".bootstrap-tagsinput input").on('focusout', function() {
+                var elem = $(this).closest(".bootstrap-tagsinput").parent().children("input.tagsField");
+                elem.tagsinput('add', $(this).val());
+                $(this).typeahead('val', '');
             });
         });
     }
