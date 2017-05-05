@@ -84,8 +84,11 @@ $(function(){
     var $nextButton = $('.form-final-options #next[data-redirectLink]');
     $nextButton.on('click', stepSubmit);
 
-    var $nextButton = $('.form-final-options #save-draft-debate[data-redirectLink]');
-    $nextButton.on('click', stepSubmit);
+    var $saveDraft = $('.form-final-options #save-draft[data-redirectLink]');
+    $saveDraft.on('click', stepSubmit);
+
+    var $saveDraftDebate = $('.form-final-options #save-draft-debate[data-redirectLink]');
+    $saveDraftDebate.on('click', stepSubmit);
 
     var $sendButton = $('#campaignConfirm #saveCampaignBtn[data-redirectLink]');
     $sendButton.on('click', stepSubmit);
