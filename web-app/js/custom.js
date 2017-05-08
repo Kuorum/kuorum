@@ -116,6 +116,7 @@ $(document).ready(function() {
             ajaxFollow(url, buttonFollow, function(data, status, xhr) {
                 var message = buttonFollow.attr('data-message-follow');
                 var userId = buttonFollow.attr('data-userId');
+                removeUserCampaigns(userId)
                 $("button.follow[data-userId="+userId+"]").html(message).removeClass('disabled').addClass('enabled');
             });
         } else {
@@ -138,7 +139,11 @@ $(document).ready(function() {
     function addUserCampaigns(userId){
         if (sortCampaigns != undefined ){
             sortCampaigns.appendCampaignsOfUser(userId);
-
+        }
+    }
+    function removeUserCampaigns(userId){
+        if (sortCampaigns != undefined ){
+            sortCampaigns.removeCampaignsOfUser(userId);
         }
     }
 

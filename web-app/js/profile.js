@@ -108,6 +108,9 @@ function SortCampaigns() {
                 that.orderList();
             })
         }
+    },
+    this.removeCampaignsOfUser = function(userId){
+        $("ul.campaign-list .card-footer .owner .user[data-userid="+userId+"]").closest("article").closest("li").remove()
     }
 
 
