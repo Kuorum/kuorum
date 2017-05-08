@@ -29,7 +29,11 @@
             %{--</g:if>--}%
 
             <ul class="campaign-list clearfix" data-addCampaignsByUserUrl="${g.createLink(mapping:'politicianCampaignsLists' )}">
-                <li class="info-empty hidden"> <h1>No ves post/debates porque no sigues a nadie</h1></li>
+                <li class="info-empty hidden">
+                    <div class="box-ppal">
+                        <h3><g:message code='dashboard.payment.followingCampaignList.empty'/></h3>
+                    </div>
+                </li>
                 <g:render template="/campaigns/cards/campaignsList" model="[debates:debates, posts:posts, showAuthor: showAuthor]" />
             </ul>
         </div>
