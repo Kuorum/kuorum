@@ -192,6 +192,12 @@ $(document).ready(function() {
                 401: function() {
                     display.info("Estás deslogado");
                     setTimeout('location.reload()',5000);
+                },
+                403: function(data){
+                    var message = buttonFollow.attr('data-message-follow');
+                    var userId = buttonFollow.attr('data-userId');
+                    $("button.follow[data-userId="+userId+"]").html(message).removeClass('disabled').addClass('enabled');
+                    notMailConfirmedWarn();
                 }
             },
             beforeSend: function(){
