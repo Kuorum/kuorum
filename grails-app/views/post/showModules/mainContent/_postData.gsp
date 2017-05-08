@@ -7,7 +7,7 @@
         <div class="clearfix">
             <span class="time-ago pull-left"><kuorumDate:humanDate date="${post.datePublished}"/> </span>
             <userUtil:ifUserIsTheLoggedOne user="${postUser}">
-                <g:link class="edit" mapping="postEdit" params="${post.encodeAsLinkProperties()}">
+                <g:link class="edit" mapping="postEditContent" params="${post.encodeAsLinkProperties()}">
                     <span class="fa fa-pencil-square-o pull-right fa-2x" aria-hidden="true"></span>
                 </g:link>
             </userUtil:ifUserIsTheLoggedOne>
