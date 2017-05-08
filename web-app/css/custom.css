@@ -173,7 +173,7 @@ html.loading body {
 .loading.xs {
     background: url('../images/loading@2x.gif') center center / 17px auto no-repeat transparent;
     padding: 0;
-    height: 19px;
+    height: 15px;
     width: 50px;
 }
 
@@ -1283,6 +1283,7 @@ div.tagsinput {border:1px solid #DDDDDD;}
 #sendLater {/*margin-left: 10px;*/ margin-bottom: 0; min-width: 85px;}
 
 .form-final-options {margin: 15px 0 0; padding: 0;}
+.form-final-options {position: absolute; right: 25px; bottom: 25px;}
 .form-final-options > li {list-style: none; display: inline-block; margin-right: 10px; position: relative;}
 .form-final-options > li:last-child {margin-right: 0;}
 .form-final-options > li a {color: #a8a8a8;}
@@ -1484,7 +1485,7 @@ ul.list > li > ul.list-actions > li > a:active {color: #20a2ea;}
 #dashboardGraphs {min-height: 415px;}
 .nav-tabs.simple > li {margin-bottom: 10px; margin-right: 22px; float: none;}
 .nav-tabs.simple {margin-bottom: 20px;}
-ul.user-list-followers .loading.xs {width: 18px}
+ul.user-list-followers .loading.xs {width: 10px; height: 10px;}
 
 .alert-box {display: none; background-color: #ca1d3f; color: #fff; height: 54px; text-align: center; position: fixed; top: 0; left: 0; width: 100%; padding: 5px; font-size: 16px; font-size: 1.6rem; line-height: 1.4;}
 .alert-box.on {display: block;}
