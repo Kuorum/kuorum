@@ -29,11 +29,13 @@
                 <span class="sr-only"><g:message code="tools.contact.list.contact.edit"/></span>
             </g:link>
         </li>
-        <li>
-            <g:link mapping="politicianContactRemoveAjax" params="[contactId:contact.id]" role="button" class="contactDelete">
-                <span class="fa fa-trash"></span>
-                <span class="sr-only"><g:message code="tools.contact.list.contact.delete"/></span>
-            </g:link>
-        </li>
+        <g:if test="${contact.email}" var="hasEmail">
+            <li>
+                <g:link mapping="politicianContactRemoveAjax" params="[contactId:contact.id]" role="button" class="contactDelete">
+                    <span class="fa fa-trash"></span>
+                    <span class="sr-only"><g:message code="tools.contact.list.contact.delete"/></span>
+                </g:link>
+            </li>
+        </g:if>
     </ul>
 </li>
