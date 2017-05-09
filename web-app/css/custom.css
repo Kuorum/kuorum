@@ -2729,7 +2729,7 @@ ul.campaign-list > li .box-ppal .card-body .card-text{margin:0;padding:1em 0 0 0
 ul.campaign-list > li .box-ppal .card-body .card-text a{color: #00a3ed;}
 ul.campaign-list > li .box-ppal .card-body .card-text a:hover{text-decoration: underline;}
 
-ul.campaign-list > li .box-ppal .card-footer{width:100%; height:36px;display:block; padding: 0 1em 0.5em; text-align: right}
+ul.campaign-list > li .box-ppal .card-footer{width:100%; height:36px;display:block; padding: 0 1em 0.5em; text-align: right; margin-top: 12px;}
 ul.campaign-list > li .box-ppal .card-footer > ul {margin: 0;padding: 0;list-style: none;}
 ul.campaign-list > li .box-ppal .card-footer > ul {margin: 0;padding: 0;list-style: none;}
 ul.campaign-list > li .box-ppal .card-footer:after {clear:both; content: " "}
