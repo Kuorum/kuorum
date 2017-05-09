@@ -1283,7 +1283,6 @@ div.tagsinput {border:1px solid #DDDDDD;}
 #sendLater {/*margin-left: 10px;*/ margin-bottom: 0; min-width: 85px;}
 
 .form-final-options {margin: 15px 0 0; padding: 0;}
-.form-final-options {position: absolute; right: 25px; bottom: 25px;}
 .form-final-options > li {list-style: none; display: inline-block; margin-right: 10px; position: relative;}
 .form-final-options > li:last-child {margin-right: 0;}
 .form-final-options > li a {color: #a8a8a8;}
@@ -5932,7 +5931,8 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .header-campaign .qq-upload-drop-area {background-size: 70px auto;}
     .header-campaign #au-uploaderImageId__headerPictureId_NEW_ {height: 128px;}
     #filtersInfo .modal-dialog {width: 560px;}
-    /*fieldset.form-group.new-filter-options > div {padding: 0px 28px 0 0;}*/
+    fieldset.buttons {min-height: 40px;}
+    fieldset.form-group {min-height: 40px;}
     .new-filter-options > div:first-child > a > .text {display: none;}
     /*.new-filter-options > label.control-label {color: #a8a8a8}*/
     .new-filter-options.last > div:first-child > a > .text {display: inline; margin-left: 5px;}
@@ -6302,6 +6302,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
     /* CAMPAIGNS */
     .form-final-options {margin-top: 20px;}
+    .form-control-campaign {position: absolute; bottom: 25px; right: 15px;}
     .form-final-options > li:first-child {display: inline-block; margin-bottom: 10px;}
     .header-campaign .qq-upload-drop-area {background-size: 155px auto; background-position: center 14%;}
     #tabs-new-campaign .textareaContainer textarea {min-height: 349px;}
@@ -6716,6 +6717,11 @@ p.party{
     /*/!*content: " | \f05d";*!/*/
 /*}*/
 
+
+fieldset.buttons {min-height: 50px;}
+fieldset.form-group {min-height: 50px;}
+.buttons > .text-right > ul.form-final-options {position: absolute; bottom: 25px; right: 25px}
+
 @media only screen and (max-width: 480px){
     .profile-header img{
         min-height: 120px;
@@ -6776,6 +6782,7 @@ p.party{
         font-size: 12px;
         text-align: center;
     }
+
 }
 
 .extra-padding{
@@ -8830,6 +8837,9 @@ ul.globus li img {
         float: left;
         bottom: 9px;
     }
+
+
+    .form-control-campaign {position: absolute; bottom: 25px; right: 15px}
 }
 
 @media screen and (max-width: 980px) {
