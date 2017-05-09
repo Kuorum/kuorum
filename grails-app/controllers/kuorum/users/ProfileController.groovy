@@ -4,6 +4,7 @@ import grails.plugin.springsecurity.annotation.Secured
 import grails.plugin.springsecurity.ui.RegistrationCode
 import grails.plugin.springsecurity.ui.ResetPasswordCommand
 import kuorum.KuorumFile
+import kuorum.Region
 import kuorum.causes.CausesService
 import kuorum.core.model.Gender
 import kuorum.core.model.UserType
@@ -73,6 +74,7 @@ class ProfileController {
     def editAccountDetails(){
         KuorumUser user = params.user
         AccountDetailsCommand command = new AccountDetailsCommand(user)
+        command.homeRegion = regionService.findUserRegion(user)
         [command:command]
     }
 
