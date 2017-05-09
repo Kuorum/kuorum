@@ -44,6 +44,8 @@ $(function () {
         $.post( link)
             .done(function(data) {
                 filterContacts.searchContactsCallBacks.loadTableContacts();
+                var contacts = data.contacts;
+                filterContacts.updateAmountContacts(contacts);
             })
             .fail(function(messageError) {
                 display.warn("Error deleting");
