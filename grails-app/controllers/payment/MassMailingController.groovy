@@ -91,7 +91,7 @@ class MassMailingController {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         Long campaignId = Long.parseLong(params.campaignId)
         CampaignRSDTO campaignRSDTO = massMailingService.findCampaign(user, campaignId)
-        if (campaignRSDTO.template == CampaignTemplateDTO.HTML){
+        if (campaignRSDTO.template == CampaignTemplateDTO.HTML || campaignRSDTO.template == CampaignTemplateDTO.PLAIN_TEXT){
             editContentStepText()
             return;
         }
@@ -105,6 +105,7 @@ class MassMailingController {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         Long campaignId = Long.parseLong(params.campaignId)
         CampaignRSDTO campaignRSDTO = massMailingService.findCampaign(user, campaignId)
+        CampaignTemplateDTO templateDTO = (campaignRSDTO.template == CampaignTemplateDTO.HTML) ? CampaignTemplateDTO.HTML : CampaignTemplateDTO.PLAIN_TEXT
 
         MassMailingContentTextCommand command = new MassMailingContentTextCommand()
 
@@ -114,7 +115,7 @@ class MassMailingController {
         render view: 'editContentStep',
                 model: [
                         command: command,
-                        contentType: CampaignTemplateDTO.HTML,
+                        contentType: templateDTO,
                         campaign: campaignRSDTO,
                         numberRecipients: numberRecipients]
     }
