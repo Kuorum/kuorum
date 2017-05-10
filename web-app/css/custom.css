@@ -1593,7 +1593,6 @@ ul.user-list-followers .loading.xs {width: 10px; height: 10px;}
 #contactsList > li > p > a{color: #545454;}
 #contactsList > li .email, #contactsList > li .email a {color: #a8a8a8;}
 #contactsList > li .email span.fa.fa-exclamation-circle {margin-right: 0px;}
-.raw-email{padding-left:5px;}
 .container-lists {margin-top: 10px; display: none;}
 .container-lists li {display: inline-block;}
 .off .bootstrap-tagsinput {display: none; padding: 0; margin: 12px 0 10px 0; background-color: transparent; border: none; box-shadow: none; min-height: 0;}
@@ -6341,7 +6340,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     #tabs-stats-campaign .table .only-mobile {display: none !important;}
 
     #contactsList > li > .title > a {display:inline-flex; overflow: hidden;max-width: 10em;}
-    #contactsList > li .email .raw-email {display:inline-flex; overflow: hidden;max-width: 12em;}
+    #contactsList > li .email .raw-email {display:inline-flex; overflow: hidden;max-width: 11.5em;}
 
     ul.campaign-list {
         margin-left:-7px;
@@ -7231,8 +7230,17 @@ hr{
     border-top: 1px solid #9e9e9e;
 }
 
-p.email > span.fa:first-child, p.followers > span.fa:first-child{
-    width: 20px;
+
+p.email > span.emailAddress{
+    padding-right: 5px;
+}
+
+p.email > span.follower{
+    padding-right: 10px;
+}
+
+p.followers > span.fa:first-child{
+    padding-right: 5px;
 }
 
 @media only screen and (max-width: 767px) {
@@ -7971,6 +7979,26 @@ div [class^='comment-box col-'] {
     margin-left: -10px;
     border-width: 0 10px 10px;
     background-color: transparent;
+}
+
+p.email > span.fa + .tooltip.bottom .tooltip-arrow{
+    position: relative;
+    top: -10px;
+}
+
+p.email > span.fa:first-child + .tooltip.bottom .tooltip-arrow{
+    position: relative;
+    top: -10px;
+}
+
+p.email > span.fa + .tooltip.bottom .tooltip-inner{
+    position: relative;
+    top: -10px;
+}
+
+p.email > span.fa:first-child + .tooltip.bottom .tooltip-inner{
+    position: relative;
+    top: -10px;
 }
 
 .conversation-box button.pin-proposal + .tooltip.bottom {
