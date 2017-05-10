@@ -7231,6 +7231,10 @@ hr{
     border-top: 1px solid #9e9e9e;
 }
 
+p.email > span.fa:first-child, p.followers > span.fa:first-child{
+    width: 20px;
+}
+
 @media only screen and (max-width: 767px) {
     #political-experience .panel-body{
         padding: 20px 40px 0 60px;

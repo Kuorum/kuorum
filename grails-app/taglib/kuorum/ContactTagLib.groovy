@@ -40,14 +40,20 @@ class ContactTagLib {
 
     def printContactMail = {attrs ->
         ContactRSDTO contact = attrs.contact
+        String envelope = "<span class='fa fa-envelope-o'></span>"
+        String follower = "<span class='fa fa-user'></span>"
         if (contact.blackList){
             out << """
                     <abbr title="${g.message(code:'tools.contact.edit.email.blackList')}" class='text-danger'>
                         <span class="fa fa-exclamation-circle"></span>
                     </abbr>
                     """
+        }else if(contact.email && contact.isFollower){
+            out << follower + envelope
+        }else if(contact.email && !contact.isFollower){
+            out << envelope
         }else{
-            out << "<span class='fa fa-envelope-o'></span>"
+            out << follower
         }
         out << "<span class='raw-email'>${contact.email}</span>"
 

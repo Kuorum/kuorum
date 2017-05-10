@@ -16,7 +16,7 @@
     </h3>
     <p class="email"><contactUtil:printContactMail contact="${contact}"/></p>
     <p class="followers">
-        <span class="fa fa-user"></span> <g:message code="tools.contact.list.contact.followers" args="[contact.numFollowers]"/>
+        <span class="fa fa-users"></span><g:message code="tools.contact.list.contact.followers" args="[contact.numFollowers]"/>
     </p>
     <div class="container-lists">
         <g:render template="/contacts/inputs/editContactTags" model="[contact:contact]"/>
