@@ -87,6 +87,10 @@ class RegionService {
                 userRegion = country
             }
         }
+        if(userRegion){
+            //Recover most accurate info from API
+            userRegion = findRegionById(userRegion.iso3166_2,user.language.locale)
+        }
         return userRegion;
     }
     List<Region> findUserRegions(KuorumUser user){
@@ -192,6 +196,13 @@ class RegionService {
             return null
         }
 
+    }
+
+    public Region findRegionById(String isoCode, Locale locale){
+        RegionRSDTO regionRSDTO = findRegionDataById(isoCode, locale)
+        Region region = new Region(regionRSDTO.properties);
+        region.iso3166_2=regionRSDTO.iso3166;
+        region
     }
 
     public RegionRSDTO findRegionDataById(String isoCode, Locale locale){

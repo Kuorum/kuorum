@@ -201,7 +201,7 @@ class KuorumUserController {
         }
     }
 
-    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    @Secured(['ROLE_USER'])
     def follow(String userAlias){
         KuorumUser following = kuorumUserService.findByAlias(userAlias)
         if (!following){
@@ -213,7 +213,7 @@ class KuorumUserController {
         render follower.following.size()
     }
 
-    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    @Secured(['ROLE_USER']) // Incomplete users can't follow users
     def unFollow(String userAlias){
         KuorumUser following = kuorumUserService.findByAlias(userAlias)
         if (!following){

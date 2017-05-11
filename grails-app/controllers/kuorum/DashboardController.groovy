@@ -145,18 +145,33 @@ class DashboardController {
         List<CauseRSDTO> causes = causesService.findDefendedCauses(user);
 
         List fields = [
-                [urlMapping: 'profileEditAccountDetails', total: (new AccountDetailsCommand(user)).properties?.findAll{!it.value && !["password"].contains(it.key)}.size()],
-                [urlMapping: 'profileCauses', total:causes?0:1],
-                [urlMapping: 'profileEditUser', total:new EditUserProfileCommand(user).properties.findAll{!it.value && !["workingSector", "studies", "enterpriseSector"].contains(it.key)}.size()],
-                [urlMapping: 'profileNews', total:user.relevantEvents?0:1],
-                [urlMapping: 'profilePictures', total: new EditProfilePicturesCommand(user).properties.findAll {!it.value}.size()],
-                [urlMapping: 'profileSocialNetworks', total:(new SocialNetworkCommand(user)).properties.findAll{!it.value}.size()]
+                [urlMapping: 'profileEditAccountDetails',
+                 uncompleted: (new AccountDetailsCommand(user)).properties?.findAll{!it.value && !["password"].contains(it.key)}.size(),
+                 total: (new AccountDetailsCommand(user)).properties.findAll{it.value && !["password"].contains(it.key)}.size()],
+                [urlMapping: 'profileCauses',
+                 uncompleted:causes?0:1,
+                 total: 1],
+                [urlMapping: 'profileEditUser',
+                 uncompleted: new EditUserProfileCommand(user).properties.findAll{!it.value && !["workingSector", "studies", "enterpriseSector"].contains(it.key)}.size(),
+                 total: new EditUserProfileCommand(user).properties.findAll {it.value && !["workingSector", "studies", "enterpriseSector"].contains(it.key)}.size()],
+                [urlMapping: 'profileNews',
+                 uncompleted:user.relevantEvents?0:1,
+                 total: 1],
+                [urlMapping: 'profilePictures',
+                 uncompleted: new EditProfilePicturesCommand(user).properties.findAll {!it.value && !["class", "errors", "constraints"].contains(it.key)}.size(),
+                 total: new EditProfilePicturesCommand(user).properties.findAll{it.value && !["class", "errors", "constraints"].contains(it.key)}.size()],
+                [urlMapping: 'profileSocialNetworks',
+                 uncompleted: (new SocialNetworkCommand(user)).properties.findAll{!it.value}.size(),
+                 total: (new SocialNetworkCommand(user)).properties.size()]
         ]
-        Integer totalFields = 9+3+2+8+1+1; // FAST CHAPU
-        Integer emptyFields= fields.sum{it.total}
+        fields.each{it['completed']=it.total - it.uncompleted}
+        //Integer totalFields = 9+3+2+8+1+1; // FAST CHAPU
+        Integer totalFields = fields*.total.sum(); // FAST CHAPU
+        Integer emptyFields= fields.sum{it.uncompleted}
         return [
                 percentage: (1 - emptyFields/totalFields)*100,
-                fields:fields
+                fields:fields,
+
         ]
     }
 

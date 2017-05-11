@@ -31,7 +31,7 @@
                 <contactUtil:printContactMail contact="${contact}"/>
             </p>
             <p class="followers">
-                <span class="fa fa-user"></span><g:message code="tools.contact.list.contact.followers" args="[contact.numFollowers]"/>
+                <span class="fa fa-users"></span><g:message code="tools.contact.list.contact.followers" args="[contact.numFollowers]"/>
             </p>
             <ul class="social-links">
                 <g:if test="${contact?.social?.facebook}">

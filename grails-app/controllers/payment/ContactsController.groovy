@@ -33,6 +33,9 @@ class ContactsController {
     SpringSecurityService springSecurityService
     DashboardService dashboardService
 
+    // Grails renderer -> For CSV hack
+    grails.gsp.PageRenderer groovyPageRenderer
+
     def index(ContactFilterCommand filterCommand){
 
         if (dashboardService.forceUploadContacts()){
@@ -124,7 +127,14 @@ class ContactsController {
     def removeContact(Long contactId){
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         contactService.removeContact(user, contactId)
-        render ""
+
+        SearchContactRSDTO searchContactRSDTO = new SearchContactRSDTO()
+        searchContactRSDTO.sort = new SortContactsRDTO(field:ConditionFieldTypeRDTO.NAME, direction: SortContactsRDTO.Direction.ASC)
+        ContactPageRSDTO contacts = contactService.getUsers(user,searchContactRSDTO)
+
+        Map result =[contacts: contacts.getTotal()]
+
+        render result as JSON
     }
 
     def editContact(Long contactId){
@@ -236,15 +246,15 @@ class ContactsController {
         log.info("Creating temporal file ${csv.absoluteFile}")
         uploadedFile.transferTo(csv)
         log.info("Saved data into temporal file ${csv.absoluteFile}")
-//        InputStream data = uploadedFile.inputStream
-//        byte[] buffer = new byte[data.available()];
-//        data.read(buffer)
-//        OutputStream outStream = new FileOutputStream(csv);
-//        outStream.write(buffer);
-//        outStream.close()
         request.getSession().setAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY, csvDataSession)
         try {
-            modelUploadCSVContacts()
+            def model = modelUploadCSVContacts()
+            // THe table is rendered using the hack because some files are wrong and it is not possible to detect them.
+            // If painting the table fails, the exception is thrown and can be handled with ErrorController.
+            // If the exception is thrown while is been rendered, AWS not redirect to ErrorController, it shows a ugly page.
+            def table = groovyPageRenderer.render(template: '/contacts/csvTableExample', model: model)
+            model["table"] = table
+            model
         } catch(KuorumException e) {
             log.error("Error in the CSV file", e)
             flash.error = g.message(code: e.getMessage())

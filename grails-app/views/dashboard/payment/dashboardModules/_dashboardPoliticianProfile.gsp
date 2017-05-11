@@ -14,11 +14,11 @@
                 </a>
                 <ul id="addInfo" class="dropdown-menu dropdown-menu-right" aria-labelledby="openAddInfo" role="menu">
                     <g:each in="${emptyEditableData.fields}" var="fieldToCheck">
-                        <g:if test="${fieldToCheck.total}">
+                        <g:if test="${fieldToCheck.uncompleted}">
                             <li>
                                 <g:link mapping="${fieldToCheck.urlMapping}" itemprop="url">
-                                    <span class="counter">${fieldToCheck.total}</span>
                                     <span class="text"><g:message code="profile.menu.${fieldToCheck.urlMapping}"/></span>
+                                    <span class="counter">${fieldToCheck.completed}/${fieldToCheck.total}</span>
                                 </g:link>
                             </li>
                         </g:if>

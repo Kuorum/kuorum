@@ -44,6 +44,8 @@ $(function () {
         $.post( link)
             .done(function(data) {
                 filterContacts.searchContactsCallBacks.loadTableContacts();
+                var contacts = data.contacts;
+                filterContacts.updateAmountContacts(contacts);
             })
             .fail(function(messageError) {
                 display.warn("Error deleting");
@@ -295,6 +297,10 @@ function FilterContacts() {
         var activeOperator = ".text-operator";
         if (val == "STATUS"){
             activeOperator = ".status-operator";
+        }else if (val =="BLACK_LIST"){
+            activeOperator = ".boolean-operator"
+        }else if (val =="CONTACT_TYPE"){
+            activeOperator =".contactType-operator"
         }
 
         $fieldSet.find(".filter-operator").addClass("hide");

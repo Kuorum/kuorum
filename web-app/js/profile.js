@@ -83,6 +83,7 @@ function SortCampaigns() {
         $.each(campaigns, function(idx, itm) {
             campaignList.append(itm);
         });
+        that.showInfoEmpty();
     };
 
     this.appendCampaignsOfUser= function(userId){
@@ -106,7 +107,20 @@ function SortCampaigns() {
             }).done(function(data, status, xhr) {
                 campaignList.append(data);
                 that.orderList();
+                that.showInfoEmpty();
             })
+        }
+    },
+    this.removeCampaignsOfUser = function(userId){
+        $("ul.campaign-list .card-footer .owner .user[data-userid="+userId+"]").closest("article").closest("li").remove()
+        that.showInfoEmpty();
+    }
+
+    this.showInfoEmpty = function(){
+        if (campaignList.find("li:not(.info-empty)").length<=0){
+            campaignList.find("li.info-empty").removeClass("hidden")
+        }else{
+            campaignList.find("li.info-empty").addClass("hidden")
         }
     }
 
