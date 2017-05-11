@@ -173,7 +173,7 @@ html.loading body {
 .loading.xs {
     background: url('../images/loading@2x.gif') center center / 17px auto no-repeat transparent;
     padding: 0;
-    height: 19px;
+    height: 15px;
     width: 50px;
 }
 
@@ -835,10 +835,11 @@ header.transp .navbar-collapse.collapse.in {background-color: #000;}
 }
 .dropdown-menu {
     background-color: #fcfcfc;
-    padding: 0 0 4px 0;
     border-radius: 0;
     box-shadow: 0 3px 3px rgba(0, 0, 0, 0.15);
 }
+.dropdown-menu#addInfo .counter {float: right}
+
 .dropdown-menu .divider {background-color: #d9d9d9;}
 .dropdown-menu > li > a {color: #a8a8a8; padding: 3px 14px;}
 .dropdown-menu > li > a:hover,
@@ -1483,7 +1484,7 @@ ul.list > li > ul.list-actions > li > a:active {color: #20a2ea;}
 #dashboardGraphs {min-height: 415px;}
 .nav-tabs.simple > li {margin-bottom: 10px; margin-right: 22px; float: none;}
 .nav-tabs.simple {margin-bottom: 20px;}
-ul.user-list-followers .loading.xs {width: 18px}
+ul.user-list-followers .loading.xs {width: 10px; height: 10px;}
 
 .alert-box {display: none; background-color: #ca1d3f; color: #fff; height: 54px; text-align: center; position: fixed; top: 0; left: 0; width: 100%; padding: 5px; font-size: 16px; font-size: 1.6rem; line-height: 1.4;}
 .alert-box.on {display: block;}
@@ -1592,7 +1593,6 @@ ul.user-list-followers .loading.xs {width: 18px}
 #contactsList > li > p > a{color: #545454;}
 #contactsList > li .email, #contactsList > li .email a {color: #a8a8a8;}
 #contactsList > li .email span.fa.fa-exclamation-circle {margin-right: 0px;}
-.raw-email{padding-left:5px;}
 .container-lists {margin-top: 10px; display: none;}
 .container-lists li {display: inline-block;}
 .off .bootstrap-tagsinput {display: none; padding: 0; margin: 12px 0 10px 0; background-color: transparent; border: none; box-shadow: none; min-height: 0;}
@@ -2727,7 +2727,7 @@ ul.campaign-list > li .box-ppal .card-body .card-text{margin:0;padding:1em 0 0 0
 ul.campaign-list > li .box-ppal .card-body .card-text a{color: #00a3ed;}
 ul.campaign-list > li .box-ppal .card-body .card-text a:hover{text-decoration: underline;}
 
-ul.campaign-list > li .box-ppal .card-footer{width:100%; height:36px;display:block; padding: 0 1em 0.5em; text-align: right}
+ul.campaign-list > li .box-ppal .card-footer{width:100%; height:36px;display:block; padding: 0 1em 0.5em; text-align: right; margin-top: 12px;}
 ul.campaign-list > li .box-ppal .card-footer > ul {margin: 0;padding: 0;list-style: none;}
 ul.campaign-list > li .box-ppal .card-footer > ul {margin: 0;padding: 0;list-style: none;}
 ul.campaign-list > li .box-ppal .card-footer:after {clear:both; content: " "}
@@ -5930,7 +5930,8 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .header-campaign .qq-upload-drop-area {background-size: 70px auto;}
     .header-campaign #au-uploaderImageId__headerPictureId_NEW_ {height: 128px;}
     #filtersInfo .modal-dialog {width: 560px;}
-    /*fieldset.form-group.new-filter-options > div {padding: 0px 28px 0 0;}*/
+    fieldset.buttons {min-height: 40px;}
+    fieldset.form-group {min-height: 40px;}
     .new-filter-options > div:first-child > a > .text {display: none;}
     /*.new-filter-options > label.control-label {color: #a8a8a8}*/
     .new-filter-options.last > div:first-child > a > .text {display: inline; margin-left: 5px;}
@@ -6300,6 +6301,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
     /* CAMPAIGNS */
     .form-final-options {margin-top: 20px;}
+    .form-control-campaign {position: absolute; bottom: 25px; right: 15px;}
     .form-final-options > li:first-child {display: inline-block; margin-bottom: 10px;}
     .header-campaign .qq-upload-drop-area {background-size: 155px auto; background-position: center 14%;}
     #tabs-new-campaign .textareaContainer textarea {min-height: 349px;}
@@ -6338,7 +6340,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     #tabs-stats-campaign .table .only-mobile {display: none !important;}
 
     #contactsList > li > .title > a {display:inline-flex; overflow: hidden;max-width: 10em;}
-    #contactsList > li .email .raw-email {display:inline-flex; overflow: hidden;max-width: 12em;}
+    #contactsList > li .email .raw-email {display:inline-flex; overflow: hidden;max-width: 11.5em;}
 
     ul.campaign-list {
         margin-left:-7px;
@@ -6714,6 +6716,11 @@ p.party{
     /*/!*content: " | \f05d";*!/*/
 /*}*/
 
+
+fieldset.buttons {min-height: 50px;}
+fieldset.form-group {min-height: 50px;}
+.buttons > .text-right > ul.form-final-options {position: absolute; bottom: 25px; right: 25px}
+
 @media only screen and (max-width: 480px){
     .profile-header img{
         min-height: 120px;
@@ -6774,6 +6781,7 @@ p.party{
         font-size: 12px;
         text-align: center;
     }
+
 }
 
 .extra-padding{
@@ -7220,6 +7228,19 @@ hr{
 
 .timeline hr{
     border-top: 1px solid #9e9e9e;
+}
+
+
+p.email > span.emailAddress{
+    padding-right: 5px;
+}
+
+p.email > span.follower{
+    padding-right: 10px;
+}
+
+p.followers > span.fa:first-child{
+    padding-right: 5px;
 }
 
 @media only screen and (max-width: 767px) {
@@ -7958,6 +7979,26 @@ div [class^='comment-box col-'] {
     margin-left: -10px;
     border-width: 0 10px 10px;
     background-color: transparent;
+}
+
+p.email > span.fa + .tooltip.bottom .tooltip-arrow{
+    position: relative;
+    top: -10px;
+}
+
+p.email > span.fa:first-child + .tooltip.bottom .tooltip-arrow{
+    position: relative;
+    top: -10px;
+}
+
+p.email > span.fa + .tooltip.bottom .tooltip-inner{
+    position: relative;
+    top: -10px;
+}
+
+p.email > span.fa:first-child + .tooltip.bottom .tooltip-inner{
+    position: relative;
+    top: -10px;
 }
 
 .conversation-box button.pin-proposal + .tooltip.bottom {
@@ -8828,6 +8869,9 @@ ul.globus li img {
         float: left;
         bottom: 9px;
     }
+
+
+    .form-control-campaign {position: absolute; bottom: 25px; right: 15px}
 }
 
 @media screen and (max-width: 980px) {

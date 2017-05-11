@@ -127,7 +127,14 @@ class ContactsController {
     def removeContact(Long contactId){
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         contactService.removeContact(user, contactId)
-        render ""
+
+        SearchContactRSDTO searchContactRSDTO = new SearchContactRSDTO()
+        searchContactRSDTO.sort = new SortContactsRDTO(field:ConditionFieldTypeRDTO.NAME, direction: SortContactsRDTO.Direction.ASC)
+        ContactPageRSDTO contacts = contactService.getUsers(user,searchContactRSDTO)
+
+        Map result =[contacts: contacts.getTotal()]
+
+        render result as JSON
     }
 
     def editContact(Long contactId){

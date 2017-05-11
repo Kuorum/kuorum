@@ -14,7 +14,7 @@
     </li>
     <li class="underline" id="navigation-contacts">
         <g:link mapping="politicianContacts" class="navbar-link ${nav.activeMenuCss(mappingName:'politicianContacts')}">
-            <span class="fa fa-users fa-lg"></span>
+            <span class="fa fa-address-card fa-lg"></span>
             <span class=""><g:message code="tools.contact.title"/> </span>
         </g:link>
     </li>
