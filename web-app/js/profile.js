@@ -127,16 +127,42 @@ function SortCampaigns() {
 
 }
 
+
+function openAuthModal() {
+    $('#authorizeProfileEdition').modal("show");
+    var $form = $('form#accountDetailsForm');
+    var $submitButton = $('form#accountDetailsForm #authorizeProfileEditionButtonOk');
+    var $cancelButton = $('form#accountDetailsForm #authorizeProfileEditionButtonClose');
+
+    $cancelButton.on('click', function(e){
+        e.preventDefault();
+        $('#authorizeProfileEdition').modal("hide");
+    });
+
+    $submitButton.on('click', function(e){
+        e.preventDefault();
+        if ($form.valid()){
+            console.log('Válido');
+            $form.submit();
+        }
+    });
+}
+
 var sortCampaigns;
 $(function () {
 
     sortCampaigns = new SortCampaigns();
-
     sortCampaigns.orderList();
 
     $('ul#campaign-sorter li a').on('click', function(e){
         var option = $(this).attr('href').substr(1);
         sortCampaigns.setCampaignOption(option);
         sortCampaigns.orderList();
+    });
+
+    // Open authorization modal in edit settings
+    $('body').on('click', '#auth', function(e){
+        e.preventDefault();
+        openAuthModal();
     });
 });
