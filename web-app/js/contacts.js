@@ -295,6 +295,10 @@ function FilterContacts() {
         var activeOperator = ".text-operator";
         if (val == "STATUS"){
             activeOperator = ".status-operator";
+        }else if (val =="BLACK_LIST"){
+            activeOperator = ".boolean-operator"
+        }else if (val =="CONTACT_TYPE"){
+            activeOperator =".contactType-operator"
         }
 
         $fieldSet.find(".filter-operator").addClass("hide");
