@@ -48,8 +48,7 @@
                             <span aria-hidden="true" class="fa fa-times-circle-o fa"></span><span class="sr-only"><g:message code="modalDefend.close"/></span>
                         </button>
                         <h4>
-                            Autorizar cambios
-                            %{--<g:message code="tools.massMailing.warnFilterEdited.title"/>--}%
+                            <g:message code="kuorum.web.commands.profile.AccountDetailsCommand.password.modal.title"/>
                         </h4>
                     </div>
                     <div class="modal-body">
@@ -61,16 +60,13 @@
                             </div>
                         </fieldset>
 
-                        %{--<p><g:message code="tools.massMailing.warnFilterEdited.text"/> </p>--}%
-                        <p>Por favor, vuelve a ingresar tu contraseña para guardar los cambios en tu cuenta.</p>
+                        <p><g:message code="kuorum.web.commands.profile.AccountDetailsCommand.password.modal.body"/> </p>
                         <fieldset class="text-right">
                             <a href="#" class="btn btn-grey-light btn-lg" data-dismiss="modal" id="authorizeProfileEditionButtonClose">
-                                Revisar
-                                %{--<g:message code="tools.massMailing.warnFilterEdited.cancel"/>--}%
+                                <g:message code="kuorum.web.commands.profile.AccountDetailsCommand.password.modal.cancel"/>
                             </a>
                             <a href="#" class="btn btn-blue inverted btn-lg" id="authorizeProfileEditionButtonOk">
-                                Confirmar
-                                %{--<g:message code="tools.massMailing.warnFilterEdited.button"/>--}%
+                                <g:message code="kuorum.web.commands.profile.AccountDetailsCommand.password.modal.confirm"/>
                             </a>
                         </fieldset>
 
