@@ -73,6 +73,32 @@
                             cssLabel="sr-only"/>
                 </div>
             </div>
+            <div class="filter-operator boolean-operator hide">
+                <div class="col-sm-3">
+                    <formUtil:selectEnum
+                            field="operatorBoolean"
+                            command="${listCommand}"
+                            prefixFieldName="${prefixField}"
+                            enumClass="${org.kuorum.rest.model.contact.filter.condition.BooleanConditionOperatorTypeRDTO.class}"
+                            cssLabel="sr-only"/>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="hidden" value="NO_VALID" name="${prefixField}value"/>
+                </div>
+            </div>
+            <div class="filter-operator contactType-operator hide">
+                <div class="col-sm-3">
+                    <formUtil:selectEnum
+                            field="operatorBoolean"
+                            command="${listCommand}"
+                            prefixFieldName="${prefixField}"
+                            enumClass="${org.kuorum.rest.model.contact.filter.condition.ContactTypeConditionOperatorTypeRDTO.class}"
+                            cssLabel="sr-only"/>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="hidden" value="NO_VALID" name="${prefixField}value"/>
+                </div>
+            </div>
         </fieldset>
     </formUtil:dynamicComplexInputs>
 

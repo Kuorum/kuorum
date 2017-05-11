@@ -26,6 +26,7 @@ import kuorum.web.commands.ProjectCommand
 import org.bson.types.ObjectId
 
 @Transactional
+@Deprecated
 class ProjectService {
 
     IndexSolrService indexSolrService
@@ -79,6 +80,7 @@ class ProjectService {
      * @return
      */
 
+    @Deprecated
     ProjectVote voteProject(Project project, KuorumUser user, VoteType voteType){
 //        if (!regionService.isRelevantRegionForUser(user, project.region)){
 //            throw new KuorumException("Votando una ley que no es de su region (user: ${user.id}, region:${project.region})")
