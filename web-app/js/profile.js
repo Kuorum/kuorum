@@ -172,7 +172,7 @@ $(function () {
         console.log("mouseleave")
         suggestFollowersAnimated.stop();
     })
-});
+
     // Open authorization modal in edit settings
     $('body').on('click', '#auth', function(e){
         e.preventDefault();
