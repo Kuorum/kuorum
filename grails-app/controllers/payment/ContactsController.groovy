@@ -235,7 +235,7 @@ class ContactsController {
             redirect(mapping: 'politicianContactImportCSV')
             return
         }
-        if (!uploadedFile.originalFilename.endsWith(CONTACT_CSV_UPLOADED_EXTENSION)) {
+        if (!uploadedFile.originalFilename?.toLowerCase().endsWith(CONTACT_CSV_UPLOADED_EXTENSION)) {
             flash.error = g.message(code: 'tools.contact.import.csv.error.wrongExtension', args: [CONTACT_CSV_UPLOADED_EXTENSION])
             redirect(mapping: 'politicianContactImportCSV')
             return
