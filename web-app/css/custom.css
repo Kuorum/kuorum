@@ -6343,7 +6343,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     #tabs-stats-campaign .table .only-mobile {display: none !important;}
 
     #contactsList > li > .title > a {display:inline-flex; overflow: hidden;max-width: 10em;}
-    #contactsList > li .email .raw-email {display:inline-flex; overflow: hidden;max-width: 11.5em;}
+    #contactsList > li .email .raw-email {display:inline-flex; overflow: hidden;max-width: 12em;}
 
     ul.campaign-list {
         margin-left:-7px;
@@ -7245,6 +7245,9 @@ p.email > span.follower{
 p.followers > span.fa:first-child{
     padding-right: 5px;
 }
+
+#contactsList > li p.email > span.follower + span.emailAddress + span.raw-email{ max-width: 11em; }
+
 
 @media only screen and (max-width: 767px) {
     #political-experience .panel-body{
