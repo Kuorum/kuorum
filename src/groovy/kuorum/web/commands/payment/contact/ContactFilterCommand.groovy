@@ -3,14 +3,7 @@ package kuorum.web.commands.payment.contact
 import grails.validation.Validateable
 import org.kuorum.rest.model.contact.filter.FilterRDTO
 import org.kuorum.rest.model.contact.filter.OperatorTypeRDTO
-import org.kuorum.rest.model.contact.filter.condition.BooleanConditionOperatorTypeRDTO
-import org.kuorum.rest.model.contact.filter.condition.ConditionBooleanRDTO
-import org.kuorum.rest.model.contact.filter.condition.ConditionFieldTypeRDTO
-import org.kuorum.rest.model.contact.filter.condition.ConditionRDTO
-import org.kuorum.rest.model.contact.filter.condition.ConditionTextRDTO
-import org.kuorum.rest.model.contact.filter.condition.ContactTypeConditionOperatorTypeRDTO
-import org.kuorum.rest.model.contact.filter.condition.NumberConditionOperatorTypeRDTO
-import org.kuorum.rest.model.contact.filter.condition.TextConditionOperatorTypeRDTO
+import org.kuorum.rest.model.contact.filter.condition.*
 
 /**
  * Created by iduetxe on 22/08/16.
@@ -73,7 +66,7 @@ class ContactFilterOptionCommand{
             this.operatorText = conditionRDTO.operator
         }else if (conditionRDTO instanceof ConditionBooleanRDTO){
             this.operatorBoolean = conditionRDTO.operator
-        }else if (conditionRDTO instanceof ContactTypeConditionOperatorTypeRDTO){
+        }else if (conditionRDTO instanceof ConditionContactTypeRDTO){
             this.operatorContactType = conditionRDTO.operator
         }else{
             this.operatorNumber = conditionRDTO.operator
