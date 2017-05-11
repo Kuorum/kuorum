@@ -69,28 +69,50 @@ $(document).tooltip({
     selector: '[rel="tooltip"]'
 });
 
+function Animate(domQuery,options){
+    this.animatedIcon = $(domQuery);
+    //var origin = this.animatedIcon.position();
+    var that = this;
+    var running = false;
+    var _options = options || {}
+
+    if (_options.stopOnHover){
+        this.animatedIcon.hover(function(){
+            that.stop();
+        });
+
+        this.animatedIcon.mouseleave(function (){
+            that.start();
+        });
+    }
+
+    this.start = function(){
+        if (!running) {
+            console.log(running)
+            that.animatedIcon.animate({"top": 0});
+            goOn();
+            running = true;
+        }
+    }
+
+    this.stop = function(){
+        that.animatedIcon.clearQueue();
+        that.animatedIcon.stop();
+        running = false;
+    }
+
+    var goOn = function(){
+        that.animatedIcon.animate({ "top": "-=5px"}, 500, "linear",goBack);
+    }
+
+    var goBack=function(){
+        that.animatedIcon.animate({ "top": "+=5px"}, 500, "linear", goOn);
+    }
+}
 // Animación tooltip para importación de contactos
 $(function(){
-    var animatedIcon = $(".animated-info-icon");
-    var origin = animatedIcon.position();
-
-    animatedIcon.animate({"top": "-=5px"}, 500, "linear",function(){ goBack();});
-
-    animatedIcon.hover(function(){
-        animatedIcon.stop();
-    });
-    animatedIcon.mouseleave(function (){
-        animatedIcon.animate({"top": origin.top});
-        goOn();
-    });
-
-    function goOn(){
-        $( ".animated-info-icon" ).animate({ "top": "-=5px"}, 500, "linear",function(){ goBack(); });
-    }
-
-    function goBack (){
-        $( ".animated-info-icon" ).animate({ "top": "+=5px"}, 500, "linear", function(){ goOn(); });
-    }
+    var animatedIcon = new Animate(".animated-info-icon", {stopOnHover:true});
+    animatedIcon.start();
 });
 
 
