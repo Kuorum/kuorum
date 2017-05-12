@@ -44,7 +44,8 @@ $(function () {
         $.post( link)
             .done(function(data) {
                 filterContacts.searchContactsCallBacks.loadTableContacts();
-                var contacts = data.contacts;
+                var oldValue = $('span.amountRecipients').text(); // ÑAPA para filtros  dinámicos
+                var contacts = parseInt(oldValue) - 1;
                 filterContacts.updateAmountContacts(contacts);
             })
             .fail(function(messageError) {

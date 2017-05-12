@@ -165,8 +165,7 @@ class DashboardController {
                  total: (new SocialNetworkCommand(user)).properties.size()]
         ]
         fields.each{it['completed']=it.total - it.uncompleted}
-        //Integer totalFields = 9+3+2+8+1+1; // FAST CHAPU
-        Integer totalFields = fields*.total.sum(); // FAST CHAPU
+        Integer totalFields = fields*.total.sum();
         Integer emptyFields= fields.sum{it.uncompleted}
         return [
                 percentage: (1 - emptyFields/totalFields)*100,
