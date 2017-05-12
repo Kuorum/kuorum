@@ -7984,24 +7984,22 @@ div [class^='comment-box col-'] {
     background-color: transparent;
 }
 
-p.email > span.fa + .tooltip.bottom .tooltip-arrow{
-    position: relative;
-    top: -10px;
-}
-
-p.email > span.fa:first-child + .tooltip.bottom .tooltip-arrow{
-    position: relative;
-    top: -10px;
-}
-
+p.email > span.fa:first-child + .tooltip.bottom .tooltip-inner,
 p.email > span.fa + .tooltip.bottom .tooltip-inner{
     position: relative;
     top: -10px;
+    left: 35%;
 }
 
-p.email > span.fa:first-child + .tooltip.bottom .tooltip-inner{
+p.email > span.emailAddress + .tooltip.bottom .tooltip-arrow{
     position: relative;
     top: -10px;
+    left: 47%;
+}
+p.email > span.follower + .tooltip.bottom .tooltip-arrow{
+    position: relative;
+    top: -10px;
+    left: 45%;
 }
 
 .conversation-box button.pin-proposal + .tooltip.bottom {
