@@ -111,7 +111,7 @@ class MassMailingController {
 
         command.text = campaignRSDTO.body
         command.subject = campaignRSDTO.subject
-        def numberRecipients = campaignRSDTO.filter?.amountOfContacts?:contactService.getUsers(user, null).total;
+        def numberRecipients = getNumberRecipients(campaignRSDTO, user);
         render view: 'editContentStep',
                 model: [
                         command: command,
@@ -134,14 +134,18 @@ class MassMailingController {
             KuorumFile kuorumFile = KuorumFile.findByUrl(campaignRSDTO.imageUrl)
             command.headerPictureId = kuorumFile?.id
         }
-
-        def numberRecipients = campaignRSDTO.filter?.amountOfContacts?:contactService.getUsers(user, null).total;
+        def numberRecipients = getNumberRecipients(campaignRSDTO, user);
         render view: 'editContentStep', model: [
                 command: command,
                 contentType: CampaignTemplateDTO.NEWSLETTER,
                 campaign: campaignRSDTO,
                 numberRecipients: numberRecipients]
+
     }
+
+    Long getNumberRecipients(CampaignRSDTO campaignRSDTO, KuorumUser user){
+        campaignRSDTO.filter?.amountOfContacts!=null?campaignRSDTO.filter?.amountOfContacts:contactService.getUsers(user, null).total
+    };
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def saveTimeZone(TimeZoneCommand timeZoneCommand) {

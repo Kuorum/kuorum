@@ -613,6 +613,17 @@ $(document).ready(function() {
           });
         }
 
+        // abrir modal editar campaña planificada
+        var $linkScheduled = $('a.modalEditScheduled').attr('href');
+        $('body').on('click', 'a.modalEditScheduled', function(e) {
+            e.preventDefault();
+            $("#modalEditScheduled").modal("show");
+        });
+        $('body').on('click', 'a#modalEditScheduledButtonOk', function (e){
+            e.preventDefault();
+            window.location = $linkScheduled;
+        });
+
         // cerrar modal confirmar envío campaña
         $('body').on('click','a.deleteCampaignBtn', function(e) {
             e.preventDefault();
