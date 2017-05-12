@@ -7994,12 +7994,6 @@ p.email > span.fa:first-child + .tooltip.bottom .tooltip-arrow{
     top: -10px;
 }
 
-p.email > span.follower + .tooltip.bottom .tooltip-arrow{
-    position: relative;
-    top: -10px;
-    left: 32px;
-}
-
 p.email > span.fa + .tooltip.bottom .tooltip-inner{
     position: relative;
     top: -10px;
