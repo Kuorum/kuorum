@@ -1318,10 +1318,10 @@ div.tagsinput {border:1px solid #DDDDDD;}
 #filtersInfo .modal-header h4, #campaignConfirm .modal-header h4 {font-size: 22px; margin: 0 0 10px 0; font-variant: normal; font-weight: normal; text-align: center;}
 #filtersInfo .modal-body, #campaignConfirm .modal-body {text-align: center;}
 #filtersInfo .modal-body .scroll-container {display: block; height: 220px; overflow-y: auto;}
-#filtersInfo .modal-body table {width: 100%;}
-#filtersInfo .modal-body table th, #filtersInfo .modal-body table td {width: 50%; text-align: left; padding: 10px 15px;}
-#filtersInfo .modal-body table tr th {background-color: #f7f7f7; border-bottom-width: 1px;}
-#filtersInfo .modal-body table tfoot tr td {text-align: center; color:#ccc; }
+.modal-body table {width: 100%;}
+.modal-body table th, .modal-body table td {width: 50%; text-align: left; padding: 10px 15px;}
+.modal-body table tr th {background-color: #f7f7f7; border-bottom-width: 1px;}
+.modal-body table tfoot tr td {text-align: center; color:#ccc; }
 /*#filtersInfo .modal-body > table > tbody > tr > td {padding: 0;}*/
 #campaignConfirm .modal-body {background: url('../images/campaignModalConfirm.jpg')  center 0 no-repeat transparent; padding-top: 245px;}
 
