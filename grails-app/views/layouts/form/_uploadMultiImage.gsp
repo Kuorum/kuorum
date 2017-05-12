@@ -5,6 +5,36 @@
 
 <div id="fine-uploader-gallery" class="kuorum-upload-multi-image"></div>
 
+<!-- MODAL IMAGES CHANGED -->
+<div class="modal fade in" id="multi-uploader-replaced-images-modal" tabindex="-1" role="dialog" aria-labelledby="multi-uploader-replaced-images-modal-title" aria-hidden="true">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                    <span aria-hidden="true" class="fa fa-times-circle-o fa"></span><span class="sr-only"><g:message code="modalDefend.close"/></span>
+                </button>
+                <h4>
+                    <g:message code="uploader.multiImage.replaceImages.modal.title"/>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <p><g:message code="uploader.multiImage.replaceImages.modal.body"/> </p>
+                <div class="scroll-container">
+                    <table class="table-bordered replaced-images-list">
+                        <thead>
+                            <th><g:message code="uploader.multiImage.replaceImages.modal.table.image"/></th>
+                            <th><g:message code="uploader.multiImage.replaceImages.modal.table.times"/></th>
+                        </thead>
+                        <tbody>
+                            <tr><td>image/img1.jpg</td><td>2</td></tr></li>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script type="text/template" id="qq-template-gallery">
 <div class="qq-uploader-selector qq-uploader qq-gallery" qq-drop-area-text="Drop files here">
     <div class="qq-total-progress-bar-container-selector qq-total-progress-bar-container">
@@ -14,9 +44,9 @@
         <span class="qq-upload-drop-area-text-selector"></span>
     </div>
     <div class="qq-upload-button-selector btn btn-blue">
-        <div>Upload a file</div>
+        <div><g:message code="tools.contact.import.options.csv"/> </div>
     </div>
-    <a class="images-uploaded-action">Replace images on text</a>
+    <a class="images-uploaded-action"><g:message code="uploader.multiImage.replaceImages.actionButton"/> </a>
     <span class="qq-drop-processing-selector qq-drop-processing">
         <span>Processing dropped files...</span>
         <span class="qq-drop-processing-spinner-selector qq-drop-processing-spinner"></span>
@@ -128,11 +158,18 @@
             e.preventDefault();
             var $textarea =  $("textarea[name=text]")
             var text = $textarea.val();
+            var $tbody = $("#multi-uploader-replaced-images-modal table.replaced-images-list tbody");
+            $tbody.html("");
+
             Object.keys(imagesCampaign${campaign.id}).map(function(key, index) {
                 var regex = new RegExp('src=[\'"][^\'"]*'+key+'[\'"]', 'gi')
                 text =text.replace(regex, "src='"+imagesCampaign${campaign.id}[key]+"'")
+                if (regex.test(text)){
+                    $tbody.append("<tr><td>"+key+"</td><td>"+text.match(regex).length+"</td></tr></li>");
+                }
             });
             $textarea.val(text)
+            $("#multi-uploader-replaced-images-modal").modal("show")
         })
     });
 </script>
