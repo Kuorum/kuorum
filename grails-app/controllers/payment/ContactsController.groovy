@@ -134,7 +134,7 @@ class ContactsController {
 
         Map result =[contacts: contacts.getTotal()]
 
-        render result as JSON
+        render "" //ÑAPA para filtros dinamicos
     }
 
     def editContact(Long contactId){
