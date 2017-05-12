@@ -399,12 +399,16 @@ $(document).ready(function() {
         var closeInputs =$form.children(".addTagBtn");
         var url = $form.attr("action");
         var postData = $form.serialize();
+
         $.post(url, postData)
             .done(function(data) {
                 var $ul = $form.find("ul");
                 $ul.html("");
+                var urlSearchByTag = $ul.attr("data-genericTagLink");
                 for (i = 0; i < data.tags.length; i++) {
-                    $ul.append('<li><a href="#" class="tag label label-info">'+data.tags[i]+'</a></li>');
+                    var tagName = data.tags[i];
+                    var tagLink = urlSearchByTag.replace("REPLACED_TAG",tagName)
+                    $ul.append('<li><a href="'+tagLink+'" class="tag label label-info">'+tagName+'</a></li>');
                     tagsnames.add({name:data.tags[i]})
                 }
                 closeInputs.click();
