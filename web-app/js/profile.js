@@ -164,12 +164,10 @@ $(function () {
     suggestFollowersAnimated = new Animate("#followOthers")
 
     $(".info-empty").mouseenter(function(e){
-        console.log("enter")
         suggestFollowersAnimated.start();
     })
 
     $(".info-empty").mouseleave(function(e){
-        console.log("mouseleave")
         suggestFollowersAnimated.stop();
     })
 

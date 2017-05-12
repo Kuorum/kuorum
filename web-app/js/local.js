@@ -88,7 +88,6 @@ function Animate(domQuery,options){
 
     this.start = function(){
         if (!running) {
-            console.log(running)
             that.animatedIcon.animate({"top": 0});
             goOn();
             running = true;
