@@ -6,6 +6,7 @@ import kuorum.core.FileGroup
 import kuorum.core.FileType
 import kuorum.core.exception.KuorumException
 import kuorum.users.KuorumUser
+import pl.burningice.plugins.image.BurningImageService
 
 import javax.servlet.http.HttpServletResponse
 
@@ -13,7 +14,7 @@ import javax.servlet.http.HttpServletResponse
 class LocalFileService implements FileService{
 
     def grailsApplication
-    def burningImageService
+    BurningImageService burningImageService
     private static final TMP_PATH = "/tmp"
     private static final MODAL_BOX_WIDTH=558
 
@@ -109,10 +110,14 @@ class LocalFileService implements FileService{
         String filePath = "${folderPath}/${kuorumFile.fileName}"
         burningImageService.doWith(filePath, folderPath)
                 .execute {pl.burningice.plugins.image.engines.Action it ->
-            log.info(it.loadedImage.size.getWidth())
+//            log.info(it.loadedImage.size.getWidth())
 //            log.info(it.loadedImage.size.getHeight())
 //            it.crop(x,y,h,w)
-            it.crop(x,y,w-0.00000000001,h-0.00000000001) // HEIGHT COMES WITH AN ERROR. Reducing the size 0.00000000001, the proportion is more or less the same and fix the problem
+//            it.crop(x,y,w-0.00000000001,h-0.00000000001) // HEIGHT COMES WITH AN ERROR. Reducing the size 0.00000000001, the proportion is more or less the same and fix the problem
+            it.crop(x,y,w-2,h-2);
+            if (kuorumFile.fileGroup.imageWidth >0 && kuorumFile.fileGroup.imageWidth < it.loadedImage.size.getWidth() ){
+                it.scaleAccurate(kuorumFile.fileGroup.imageWidth, kuorumFile.fileGroup.imageHeight)
+            }
         }
         postProcessCroppingImage(kuorumFile)
 //        def imageWidth = fileGroup.imageWidth
