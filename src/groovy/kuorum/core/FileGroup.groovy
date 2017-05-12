@@ -4,15 +4,15 @@ package kuorum.core
  */
 public enum FileGroup {
 
-    USER_AVATAR("UsersFiles", 1024 * 1000 *1 /*1 MB */, '1', 110),
-    USER_PROFILE("UsersFiles", 1024 * 1000 *1/*1 MB */, '728/328', 110),
-    PROJECT_IMAGE("ProjectsFiles", 1024 * 1000 *2 /*1 MB */, '16/9', 738),
-    POST_IMAGE("PoliticianFiles", 1024 *1000 *1 /*1 MB */,'16/9',738),
-    MASS_MAIL_IMAGE("MassFiles", 1024 *1000 *1 /*1 MB */,'5/1',738),
-    CUSTOM_TEMPLATE_IMAGE("CustomTemplate", 1024 *1000 *1 /*1 MB */,'5/1',738),
-    PDF("PDFFiles", 1024 * 1000 *10 /*10 MB */,'',0),
+    USER_AVATAR("UsersFiles", 1024 * 1000 *1 /*1 MB */, '1', 510,510),
+    USER_PROFILE("UsersFiles", 1024 * 1000 *4/*4 MB */, '728/328', 1200,541),
+    PROJECT_IMAGE("ProjectsFiles", 1024 * 1000 *4 /*4 MB */, '16/9', 1234,695),
+    POST_IMAGE("PoliticianFiles", 1024 *1000 *4 /*4 MB */,'16/9',1234,695),
+    MASS_MAIL_IMAGE("MassFiles", 1024 *1000 *4 /*4 MB */,'5/1',640, 129),
+    CUSTOM_TEMPLATE_IMAGE("CustomTemplate", 1024 *1000 *3 /*3 MB */,'',0,0),
+    PDF("PDFFiles", 1024 * 1000 *10 /*10 MB */,'',0,0),
     //TODO: Revisar el campo 'folderPath' para este caso
-    YOUTUBE("YoutubeFiles",0,'',0)
+    YOUTUBE("YoutubeFiles",0,'',0,0)
 
     static final Long MIN_SIZE_IMAGE = 1024 * 10
 
@@ -20,13 +20,15 @@ public enum FileGroup {
     Long maxSize
     String aspectRatio
     Integer imageWidth
+    Integer imageHeight
 
 
-    FileGroup(String folderPath, Long maxSize, String aspectRatio, Integer imageWidth){
+    FileGroup(String folderPath, Long maxSize, String aspectRatio, Integer imageWidth, Integer imageHeight){
         this.folderPath = folderPath
         this.maxSize = maxSize
         this.aspectRatio = aspectRatio
         this.imageWidth = imageWidth
+        this.imageHeight = imageHeight
     }
 
 }
