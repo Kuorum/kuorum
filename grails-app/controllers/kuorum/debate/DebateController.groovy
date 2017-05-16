@@ -20,6 +20,7 @@ import org.kuorum.rest.model.communication.debate.search.SortProposalRDTO
 import org.kuorum.rest.model.contact.ContactPageRSDTO
 import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
 import org.kuorum.rest.model.contact.filter.FilterRDTO
+import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
 import payment.campaign.DebateService
 import payment.campaign.ProposalService
 import payment.contact.ContactService
@@ -82,7 +83,7 @@ class DebateController {
         String viewerUid = cookieUUIDService.buildUserUUID()
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         DebateRSDTO debateRSDTO = debateService.findDebate( user, Long.parseLong((String) params.debateId), viewerUid)
-
+        setDebateAsDraft(user, debateRSDTO)
         return debateModelContent(new DebateContentCommand(), debateRSDTO)
 
     }
@@ -226,7 +227,7 @@ class DebateController {
     }
 
     private DebateRDTO convertCommandSettingsToDebate(DebateSettingsCommand command, KuorumUser user, FilterRDTO anonymousFilter, Long debateId) {
-        DebateRDTO debateRDTO = new DebateRDTO()
+        DebateRDTO debateRDTO = createDebateRDTO(user, debateId)
         debateRDTO.name = command.campaignName
         debateRDTO.setTriggeredTags(command.tags)
         if (command.filterEdited) {
@@ -235,21 +236,11 @@ class DebateController {
         } else {
             debateRDTO.setFilterId(command.filterId)
         }
-
-        if(debateId){
-            DebateRSDTO debateRSDTO = debateService.findDebate(user, debateId)
-            debateRDTO.photoUrl = debateRSDTO.photoUrl
-            debateRDTO.videoUrl = debateRSDTO.videoUrl
-            debateRDTO.title = debateRSDTO.title
-            debateRDTO.body = debateRSDTO.body
-            debateRDTO.publishOn = debateRSDTO.datePublished
-        }
-
         debateRDTO
     }
 
     private DebateRDTO convertCommandContentToDebate(DebateContentCommand command, KuorumUser user, Long debateId) {
-        DebateRDTO debateRDTO = new DebateRDTO()
+        DebateRDTO debateRDTO = createDebateRDTO(user, debateId)
         debateRDTO.title = command.title
         debateRDTO.body = command.body
         debateRDTO.publishOn = command.publishOn
@@ -277,14 +268,35 @@ class DebateController {
             }
         }
 
+        debateRDTO
+    }
+
+    private createDebateRDTO(KuorumUser user, Long debateId){
+        DebateRDTO debateRDTO = new DebateRDTO();
         if(debateId){
             DebateRSDTO debateRSDTO = debateService.findDebate(user, debateId)
-            debateRDTO.name = debateRSDTO.name
-            debateRDTO.triggeredTags = debateRSDTO.triggeredTags
-            debateRDTO.anonymousFilter = debateRDTO.anonymousFilter
-            debateRDTO.filterId = debateRSDTO.newsletter?.filter?.id
+            populateDebate(debateRDTO, debateRSDTO)
         }
+    }
 
-        debateRDTO
+    private void populateDebate(DebateRDTO debateRDTO, DebateRSDTO debateRSDTO){
+        debateRDTO.name = debateRSDTO.name
+        debateRDTO.triggeredTags = debateRSDTO.triggeredTags
+        debateRDTO.anonymousFilter = debateRDTO.anonymousFilter
+        debateRDTO.filterId = debateRSDTO.newsletter?.filter?.id
+        debateRDTO.photoUrl = debateRSDTO.photoUrl
+        debateRDTO.videoUrl = debateRSDTO.videoUrl
+        debateRDTO.title = debateRSDTO.title
+        debateRDTO.body = debateRSDTO.body
+        debateRDTO.publishOn = debateRSDTO.datePublished
+    }
+
+    private void setDebateAsDraft(KuorumUser user, DebateRSDTO debate){
+        if (debate.newsletter.status == CampaignStatusRSDTO.SCHEDULED){
+            DebateRDTO debateRDTO = new DebateRDTO();
+            populateDebate(debateRDTO , debate)
+            debateRDTO.setPublishOn(null)
+            debateService.saveDebate(user, debateRDTO, debate.getId())
+        }
     }
 }

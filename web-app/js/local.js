@@ -617,14 +617,11 @@ $(document).ready(function() {
         }
 
         // abrir modal editar campaña planificada
-        var $linkScheduled = $('a.modalEditScheduled').attr('href');
         $('body').on('click', 'a.modalEditScheduled', function(e) {
             e.preventDefault();
+            var linkScheduled = $(this).attr('href');
             $("#modalEditScheduled").modal("show");
-        });
-        $('body').on('click', 'a#modalEditScheduledButtonOk', function (e){
-            e.preventDefault();
-            window.location = $linkScheduled;
+            $("a#modalEditScheduledButtonOk").attr("href", linkScheduled)
         });
 
         // cerrar modal confirmar envío campaña

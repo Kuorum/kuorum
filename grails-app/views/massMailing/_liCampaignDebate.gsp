@@ -41,7 +41,8 @@
             </li>
         </g:if>
         <li>
-            <g:link mapping="debateEditContent" params="${debate.encodeAsLinkProperties()}" role="button" class="campaignEdit"><span class="fa fa-edit"></span><span class="sr-only">Edit</span></g:link>
+            <g:set var="modal" value="${debate.newsletter.status == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SCHEDULED ?'modalEditScheduled':''}"/>
+            <g:link mapping="debateEditContent" params="${debate.encodeAsLinkProperties()}" role="button" class="campaignEdit ${modal}"><span class="fa fa-edit"></span><span class="sr-only">Edit</span></g:link>
         </li>
     </ul>
 

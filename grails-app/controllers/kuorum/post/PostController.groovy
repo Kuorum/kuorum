@@ -55,7 +55,11 @@ class PostController {
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def editContentStep(){
-        return postModelContent(Long.parseLong(params.postId))
+        Long postId = Long.parseLong(params.postId)
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        def model =  postModelContent(postId)
+        setPostAsDraft(user,postId)
+        model
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
@@ -206,7 +210,7 @@ class PostController {
     }
 
     private PostRDTO convertCommandSettingsToPost(PostSettingsCommand command, KuorumUser user, FilterRDTO anonymousFilter, Long postId) {
-        PostRDTO postRDTO = new PostRDTO()
+        PostRDTO postRDTO = createPostRDTO(user, postId)
         postRDTO.name = command.campaignName
         postRDTO.triggeredTags = command.tags
 
@@ -215,7 +219,11 @@ class PostController {
         } else {
             postRDTO.setFilterId(command.filterId)
         }
+        postRDTO
+    }
 
+    private PostRDTO createPostRDTO(KuorumUser user = null, Long postId = null){
+        PostRDTO postRDTO = new PostRDTO()
         if(postId){
             PostRSDTO postRSDTO = postService.findPost(user, postId)
             postRDTO.title = postRSDTO.title
@@ -223,13 +231,16 @@ class PostController {
             postRDTO.photoUrl = postRSDTO.photoUrl
             postRDTO.videoUrl = postRSDTO.videoUrl
             postRDTO.publishOn = postRSDTO.datePublished
+            postRDTO.name = postRSDTO.name
+            postRDTO.triggeredTags = postRSDTO.triggeredTags
+            postRDTO.anonymousFilter = postRSDTO.anonymousFilter
+            postRDTO.filterId = postRSDTO.newsletter?.filter?.id
         }
-
-        postRDTO
+        return postRDTO;
     }
 
     private PostRDTO convertCommandContentToPost(PostContentCommand command, KuorumUser user, Long postId) {
-        PostRDTO postRDTO = new PostRDTO()
+        PostRDTO postRDTO = createPostRDTO(user, postId)
         postRDTO.title = command.title
         postRDTO.body = command.body
         postRDTO.publishOn = command.publishOn
@@ -256,15 +267,6 @@ class PostController {
                 command.setHeaderPictureId(null)
             }
         }
-
-        if(postId){
-            PostRSDTO postRSDTO = postService.findPost(user, postId)
-            postRDTO.name = postRSDTO.name
-            postRDTO.triggeredTags = postRSDTO.triggeredTags
-            postRDTO.filterId = postRSDTO.newsletter?.filter?.id
-            postRDTO.anonymousFilter = postRSDTO.anonymousFilter
-        }
-
         postRDTO
     }
 
@@ -275,4 +277,10 @@ class PostController {
         render post as JSON;
     }
 
+
+    private void setPostAsDraft(KuorumUser user, Long postId){
+        PostRDTO postRDTO = createPostRDTO(user, postId)
+        postRDTO.publishOn = null
+        postService.savePost(user, postRDTO, postId)
+    }
 }

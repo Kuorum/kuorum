@@ -105,7 +105,7 @@ class MassMailingController {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         Long campaignId = Long.parseLong(params.campaignId)
         CampaignRSDTO campaignRSDTO = massMailingService.findCampaign(user, campaignId)
-        updateCampaignToDraft(user, campaignRSDTO)
+        updateScheduledCampaignToDraft(user, campaignRSDTO)
         CampaignTemplateDTO templateDTO = campaignRSDTO.template?:CampaignTemplateDTO.PLAIN_TEXT
 
         MassMailingContentTextCommand command = new MassMailingContentTextCommand()
@@ -145,7 +145,7 @@ class MassMailingController {
 
     }
 
-    Long getNumberRecipients(CampaignRSDTO campaignRSDTO, KuorumUser user){
+    private Long getNumberRecipients(CampaignRSDTO campaignRSDTO, KuorumUser user){
         campaignRSDTO.filter?.amountOfContacts!=null?campaignRSDTO.filter?.amountOfContacts:contactService.getUsers(user, null).total
     };
 
@@ -518,10 +518,12 @@ class MassMailingController {
         campaignRQDTO
     }
 
-    private void updateCampaignToDraft(KuorumUser user, CampaignRSDTO campaignRSDTO){
-        CampaignRQDTO campaignRQDTO = transformRStoRQ(campaignRSDTO)
-        campaignRQDTO.setSentOn(null)
-        campaignRQDTO.setStatus(CampaignStatusRSDTO.DRAFT)
-        massMailingService.campaignDraft(user, campaignRQDTO, campaignRSDTO.getId())
+    private void updateScheduledCampaignToDraft(KuorumUser user, CampaignRSDTO campaignRSDTO){
+        if(campaignRSDTO.status == CampaignStatusRSDTO.SCHEDULED){
+            CampaignRQDTO campaignRQDTO = transformRStoRQ(campaignRSDTO)
+            campaignRQDTO.setSentOn(null)
+            campaignRQDTO.setStatus(CampaignStatusRSDTO.DRAFT)
+            massMailingService.campaignDraft(user, campaignRQDTO, campaignRSDTO.getId())
+        }
     }
 }
