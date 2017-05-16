@@ -271,12 +271,13 @@ class DebateController {
         debateRDTO
     }
 
-    private createDebateRDTO(KuorumUser user, Long debateId){
+    private DebateRDTO createDebateRDTO(KuorumUser user, Long debateId){
         DebateRDTO debateRDTO = new DebateRDTO();
         if(debateId){
             DebateRSDTO debateRSDTO = debateService.findDebate(user, debateId)
             populateDebate(debateRDTO, debateRSDTO)
         }
+        return debateRDTO
     }
 
     private void populateDebate(DebateRDTO debateRDTO, DebateRSDTO debateRSDTO){
