@@ -105,12 +105,14 @@ class MassMailingController {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         Long campaignId = Long.parseLong(params.campaignId)
         CampaignRSDTO campaignRSDTO = massMailingService.findCampaign(user, campaignId)
-        CampaignTemplateDTO templateDTO = (campaignRSDTO.template == CampaignTemplateDTO.HTML) ? CampaignTemplateDTO.HTML : CampaignTemplateDTO.PLAIN_TEXT
+        updateCampaignToDraft(user, campaignRSDTO)
+        CampaignTemplateDTO templateDTO = campaignRSDTO.template?:CampaignTemplateDTO.PLAIN_TEXT
 
         MassMailingContentTextCommand command = new MassMailingContentTextCommand()
 
         command.text = campaignRSDTO.body
         command.subject = campaignRSDTO.subject
+        command.scheduled = campaignRSDTO.sentOn
         def numberRecipients = getNumberRecipients(campaignRSDTO, user);
         render view: 'editContentStep',
                 model: [
@@ -514,5 +516,12 @@ class MassMailingController {
         campaignRQDTO.setImageUrl(rsdto.imageUrl)
         campaignRQDTO.setTemplate(rsdto.template)
         campaignRQDTO
+    }
+
+    private void updateCampaignToDraft(KuorumUser user, CampaignRSDTO campaignRSDTO){
+        CampaignRQDTO campaignRQDTO = transformRStoRQ(campaignRSDTO)
+        campaignRQDTO.setSentOn(null)
+        campaignRQDTO.setStatus(CampaignStatusRSDTO.DRAFT)
+        massMailingService.campaignDraft(user, campaignRQDTO, campaignRSDTO.getId())
     }
 }
