@@ -1239,7 +1239,7 @@ div.tagsinput {border:1px solid #DDDDDD;}
     background: none;
     padding: 5px 0 0;
 }
-.form-group.image.header-campaign {width: auto; height: auto; min-height: 100px;}
+.form-group.image.header-campaign {width: auto; height: auto; min-height: 122px;}
 .header-campaign .qq-upload-drop-area {border-color: #dedede;}
 .header-campaign .qq-upload-button {line-height: 1; padding: 0;}
 
@@ -2838,7 +2838,6 @@ select.form-control option {cursor: pointer; color: #a8a8a8;}
 .cancel a, .cancel a:hover, .cancel a:active, .cancel a:focus {color: #545454;}
 
 .btn + .cancel {font-size: 16px; font-size: 1.65rem; line-height: 1.1; padding: 15px 0; margin-left: 36px;}
-.form-group.image {position: relative;}
 
 /* estilos mensajes error */
 span.error {
@@ -3268,7 +3267,7 @@ textarea.error,
 
 /* estilos para el resize upload image */
 .uploaderImageContainer > div {margin: 0; position: relative;}
-.form-group.image {width: 100%; height: 140px;}
+.form-group.image {position: relative;width: 100%; height: auto;}
 .form-group.image.perfil {height: 220px;}
 .form-group.image.perfil .uploaderImageContainer > div {width: 284px;}
 .form-group.image.perfil .qq-upload-drop-area {padding: 28% 20px 20px 20px; height: 210px; width:210px;}
@@ -3304,12 +3303,13 @@ textarea.error,
     border: 1px solid #EFEFEF;
     display: block;
 }
-.uploaderImageContainer.USER_PROFILE .qq-upload-drop-area {height:234px;}
+.uploaderImageContainer.USER_PROFILE .qq-upload-drop-area {height:171px;}
 .uploaderImageContainer.USER_AVATAR .qq-upload-drop-area {height:367px;}
 .uploaderImageContainer.POST_IMAGE .qq-upload-drop-area {height:393px;}
 .uploaderImageContainer.MASS_MAIL_IMAGE .qq-upload-drop-area {height:122px;}
-.uploaderImageContainer.PROJECT_IMAGE .qq-upload-drop-area {height:342px;}
-.uploaderImageContainer.PROJECT_IMAGE > div {height:332px;}
+.uploaderImageContainer.MASS_MAIL_IMAGE > div {height:122px;}
+.uploaderImageContainer.PROJECT_IMAGE .qq-upload-drop-area {height:193px;}
+.uploaderImageContainer.PROJECT_IMAGE > div {height:193px;}
 .button-container {width: 80%; margin: 0 auto; border-radius: 4px; padding: 0;}
 .qq-upload-drop-area-active {
     background-color:#FFF8ED;
@@ -5469,6 +5469,10 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .carousel.news .carousel-control {top: 30%;}
 
     .leader-post h1.title {word-wrap: normal;}
+    .uploaderImageContainer.USER_PROFILE .qq-upload-drop-area {height:234px;}
+    .uploaderImageContainer.USER_PROFILE > div {height:234px;}
+    .uploaderImageContainer.PROJECT_IMAGE .qq-upload-drop-area {height:228px;}
+    .uploaderImageContainer.PROJECT_IMAGE > div {height:228px;}
 }
 @media only screen and (min-width: 533px) {
     #detailsInfoVotes .table tbody th {width: 205px;}
@@ -5499,6 +5503,9 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     /* STATS CAMPAIGNS */
     #tabs-stats-campaign .table td:nth-child(4) {height: 70px;}
 
+    .uploaderImageContainer.PROJECT_IMAGE .qq-upload-drop-area {height:297px;}
+    .uploaderImageContainer.PROJECT_IMAGE > div {height:297px;}
+
 }
 
 @media only screen and (min-width: 640px) {
@@ -5528,6 +5535,8 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     #main > div.box-steps > ul#mails.threeSteps {width: 600px}
     #main > div.box-steps > ul#mails.threeSteps > li.arrow{ position: relative; top: 20px;}
 
+    .uploaderImageContainer.PROJECT_IMAGE .qq-upload-drop-area {height:316px;}
+    .uploaderImageContainer.PROJECT_IMAGE > div {height:316px;}
 }
 
 /* Small devices (tablets, 768px and down) */
@@ -5622,7 +5631,6 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .box-ppal.profile .activity > li {width: 16%; margin-bottom: 0;}
     .box-ppal.profile .activity > li:nth-child(2) {border-right: 1px solid #dadada;}
     #info-sup-scroll .activity {margin: 0 auto;}
-    .form-group.image {height: 235px;}
     .config .icheckbox_line-orange,
     .config .iradio_line-orange {margin: 0 5px 5px 0;}
     h2.underline {font-size: 25px; font-size: 2.5rem;}
@@ -5998,6 +6006,9 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
     .header-campaign .progress {position: absolute; z-index: 99; margin-top: 64px; margin-left: 21%;}
     .button-container {padding-top: 7px;}
+
+    .uploaderImageContainer.PROJECT_IMAGE .qq-upload-drop-area {height:268px;}
+    .uploaderImageContainer.PROJECT_IMAGE > div {height:268px;}
 }
 
 /* Medium devices (desktops, 992px and up) */
@@ -6021,7 +6032,6 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .config.search > article > .clearfix > h1 {width: 70%; float: left;}
     .config.search > article > .clearfix > #results {width: 30%; float: right; line-height: 30px; margin: 20px 0 0 0; text-align: right;}
 
-    .form-group.image {height: 300px;}
     #otros-proyectos .kakareo.post > .link-wrapper p,
     .homeSub .kakareo-list.project .kakareo.post > .link-wrapper p,
     .kakareo-list.project .kakareo.post > .link-wrapper p {height: 92px; overflow: hidden; margin-bottom: 10px;}
@@ -6360,6 +6370,9 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
         float: left;
         bottom: 7px;
     }
+
+    .uploaderImageContainer.PROJECT_IMAGE .qq-upload-drop-area {height:270px;}
+    .uploaderImageContainer.PROJECT_IMAGE > div {height:270px;}
 }
 
 @media only screen and (min-width: 1024px) {
@@ -6399,7 +6412,8 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     /* NEW / EDIT CONTACT */
     .edit-contact .tab-pane#notes .form-group:last-child {padding-top: 255px;}
 
-
+    .uploaderImageContainer.PROJECT_IMAGE .qq-upload-drop-area {height:310px;}
+    .uploaderImageContainer.PROJECT_IMAGE > div {height:310px;}
 }
 
 /* especial ipad horizontal */
