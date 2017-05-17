@@ -13,14 +13,16 @@
         dataLayer.push({
             'userLoggedAlias': '${sec.loggedInUserInfo(field:'alias')}',
             'userLoggedEmail': '${sec.loggedInUserInfo(field:'username')}',
-            'userLoggedName': '${sec.loggedInUserInfo(field:'name')}'
+            'userLoggedName': '${sec.loggedInUserInfo(field:'name')}',
+            'language':'${currentLang.language}'
           });
     </sec:ifLoggedIn>
     <sec:ifNotLoggedIn>
         dataLayer.push({
             'userLoggedAlias': 'NO_LOGGED',
             'userLoggedEmail': 'NO_LOGGED',
-            'userLoggedName': 'NO_LOGGED'
+            'userLoggedName': 'NO_LOGGED',
+            'language':'${currentLang.language}'
           });
     </sec:ifNotLoggedIn>
 </script>
