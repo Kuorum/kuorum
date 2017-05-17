@@ -89,7 +89,7 @@
             <div class="filter-operator contactType-operator hide">
                 <div class="col-sm-3">
                     <formUtil:selectEnum
-                            field="operatorBoolean"
+                            field="operatorContactType"
                             command="${listCommand}"
                             prefixFieldName="${prefixField}"
                             enumClass="${org.kuorum.rest.model.contact.filter.condition.ContactTypeConditionOperatorTypeRDTO.class}"
