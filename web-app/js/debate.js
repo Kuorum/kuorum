@@ -521,6 +521,15 @@ var debateFunctions = {
                 success: function (htmlProposal) {
                     callback(htmlProposal)
                     $mediumEditor.html("");
+                    if (typeof(dataLayer) != "undefined"){
+                        dataLayer.push({
+                            'event': 'debate-proposal-published',
+                            'pageCategory':'debate',
+                            'debateId':debateId,
+                            'debateAlias':debateAlias,
+                            'alias':alias
+                        })
+                    }
                 },
                 complete : function(){
                     $buttonPublish.on("click",debateFunctions.publishProposal)
