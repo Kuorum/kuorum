@@ -5261,33 +5261,20 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
 /* clases para campaign steps ======================================================================================================== */
 /* ======================================================================================================================================== */
-#main > div.box-steps > ul#mails.threeSteps > li a {
+#main > div.box-steps > ul#mails > li a {
     background-color: #fff;
     background-repeat: no-repeat;
     border: 1px solid #a8a8a8;
     color: #a8a8a8;
 }
-#main > div.box-steps > ul#mails.threeSteps > li.active a{
+#main > div.box-steps > ul#mails > li.active a{
     background-color: #fff;
     background-repeat: no-repeat;
     border: 1px solid #ff9431;
     color: #ff9431;
 }
-
-#main > div.box-steps > ul#mails.twoSteps > li a {
-    background-color: #fff;
-    background-repeat: no-repeat;
-    border: 1px solid #a8a8a8;
-    color: #a8a8a8;
-}
-#main > div.box-steps > ul#mails.twoSteps > li.active a{
-    background-color: #fff;
-    background-repeat: no-repeat;
-    border: 1px solid #ff9431;
-    color: #ff9431;
-}
-#main > div.box-steps > ul#mails.twoSteps > li a:hover{color: #ff9431; border: 1px solid #ff9431;}
-#main > div.box-steps > ul#mails.threeSteps > li a:hover{color: #ff9431; border: 1px solid #ff9431;}
+#main > div.box-steps > ul#mails > li.arrow {color: #a8a8a8;position: relative; top: 20px;}
+#main > div.box-steps > ul#mails > li a:hover{color: #ff9431; border: 1px solid #ff9431;}
 
 
 
@@ -5393,8 +5380,6 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
     #main > div.box-steps{background-color: #fff; color:#545454; border: solid 1px #e5e5e5; box-shadow: 0 0 2px rgba(200,200,200,0.6);}
     #main > div.box-steps{margin-bottom: 25px; padding: 20px 15px 0 15px;}
-    #main > div.box-steps > ul#mails.twoSteps {width: 420px}
-    #main > div.box-steps > ul#mails > li.arrow {color: #a8a8a8;}
 }
 
 /* Very small devices (mobile, 480px and up) */
@@ -5454,9 +5439,6 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
     #main > div.box-steps{background-color: #fff; color:#545454; border: solid 1px #e5e5e5; box-shadow: 0 0 2px rgba(200,200,200,0.6);}
     #main > div.box-steps{margin-bottom: 25px; padding: 20px 15px 0 15px;}
-    #main > div.box-steps > ul#mails.twoSteps {width: 420px;}
-    #main > div.box-steps > ul#mails.twoSteps > li.arrow{ position: relative; top: 20px;}
-    #main > div.box-steps > ul#mails > li.arrow {color: #a8a8a8;}
 
     /* DASHBOARD */
     /*#profileInfo > span {margin-top: 50px;}*/
@@ -5533,7 +5515,6 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     #contactsList > li {padding: 10px 0 0 140px; min-height: 175px;}
 
     #main > div.box-steps > ul#mails.threeSteps {width: 600px}
-    #main > div.box-steps > ul#mails.threeSteps > li.arrow{ position: relative; top: 20px;}
 
     .uploaderImageContainer.PROJECT_IMAGE .qq-upload-drop-area {height:316px;}
     .uploaderImageContainer.PROJECT_IMAGE > div {height:316px;}
@@ -9016,8 +8997,15 @@ ul.globus li img {
         padding-right: 0;
     }
 
-    ul#mails.threeSteps li {  float: none;  }
-    ul#mails.threeSteps li.arrow {position: relative; top: 0;}
+    #main > div.box-steps > ul#mails {width:100%; margin-left:5%;}
+    #main > div.box-steps > ul#mails > li {margin:0;float:left !important;width: 27% !important;}
+    #main > div.box-steps > ul#mails > li.arrow {width: 2% !important; top:0;}
+    #main > div.box-steps > ul#mails > li.arrow .fa{font-size: 1.5em; padding-top: 18px;}
+    #main > div.box-steps > ul#mails > li a {border:none;width: 100%;}
+    #main > div.box-steps > ul#mails > li a:hover {border:none;}
+    #main > div.box-steps > ul#mails > li a .label{display:none;}
+    #main > div.box-steps > ul#mails > li.active a {border:none;}
+
 }
 
 /** Notification **/
