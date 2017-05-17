@@ -46,7 +46,8 @@
     <div class="qq-upload-button-selector btn btn-blue">
         <div><g:message code="tools.contact.import.options.csv"/> </div>
     </div>
-    <a class="images-uploaded-action"><g:message code="uploader.multiImage.replaceImages.actionButton"/> </a>
+    <div class="qq-images-uploaded-arrow"> <span class="fa fa-3x fa-angle-right"></span> </div>
+    <a class="images-uploaded-action btn btn-blue"><g:message code="uploader.multiImage.replaceImages.actionButton"/> </a>
     <span class="qq-drop-processing-selector qq-drop-processing">
         <span>Processing dropped files...</span>
         <span class="qq-drop-processing-spinner-selector qq-drop-processing-spinner"></span>
@@ -164,9 +165,11 @@
             Object.keys(imagesCampaign${campaign.id}).map(function(key, index) {
                 var regex = new RegExp('src=[\'"][^\'"]*'+key+'[\'"]', 'gi')
                 text =text.replace(regex, "src='"+imagesCampaign${campaign.id}[key]+"'")
+                var matches = 0;
                 if (regex.test(text)){
-                    $tbody.append("<tr><td>"+key+"</td><td>"+text.match(regex).length+"</td></tr></li>");
+                    matches = text.match(regex).length;
                 }
+                $tbody.append("<tr><td>"+key+"</td><td>"+matches+"</td></tr></li>");
             });
             $textarea.val(text)
             $("#multi-uploader-replaced-images-modal").modal("show")
