@@ -19,7 +19,7 @@
             <div class="card-body">
                 <h1>${debate.title}</h1>
                 <g:if test="${!debateMultimedia}">
-                    <div class="card-text">${raw(debate.body.encodeAsRemovingHtmlTags())}</div>
+                    <div class="card-text"><modulesUtil:shortText text="${debate.body}"/></div>
                 </g:if>
             </div>
             <div class="card-footer">

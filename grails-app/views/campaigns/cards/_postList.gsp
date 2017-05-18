@@ -19,7 +19,7 @@
                 <div class="card-body">
                 <h1>${post.title}</h1>
                 <g:if test="${!postMultimedia}">
-                    <div class="card-text">${raw(post.body.encodeAsRemovingHtmlTags())}</div>
+                    <div class="card-text"><modulesUtil:shortText text="${post.body}"/></div>
                 </g:if>
             </div>
             <div class="card-footer">
