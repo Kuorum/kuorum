@@ -119,6 +119,7 @@ public class AcumulativeVotes {
 }
 
 @Validateable
+@Deprecated
 class ProjectUpdate {
 
     String description
