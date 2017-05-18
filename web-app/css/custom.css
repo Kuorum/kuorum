@@ -1092,8 +1092,10 @@ table.csv .highlight_row {background-color: #f7f7f7;}
   line-height: 22px;
   cursor: text;
 }
-#contactsList .bootstrap-tagsinput, .edit-contact-header .bootstrap-tagsinput {padding-bottom: 1px; min-height: 0; padding-top: 1px;}
+.edit-contact-header .bootstrap-tagsinput {padding-bottom: 1px; min-height: 0; padding-top: 1px; max-width:300px;}
 #contactsList .bootstrap-tagsinput .tag, .edit-contact-header .bootstrap-tagsinput .tag{margin-bottom: 1px;}
+#contactsList .bootstrap-tagsinput {width:300px;} /*This width is for fix the postion of the save button [It's a ñapa]*/
+#contactsList .engagement-container {margin-top:9px;}
 
 div.tagsinput {border:1px solid #DDDDDD;}
 .bootstrap-tagsinput .tt-input {min-width: 15em;}
@@ -1584,13 +1586,14 @@ ul.user-list-followers .loading.xs {width: 10px; height: 10px;}
 
 #contactsList { min-height: 10em;}
 #contactsList > h3.noContacts {text-align: center}
-#contactsList > li {padding: 85px 0 0 0; border-bottom: 1px solid #e5e5e5; position: relative; min-height: 170px;}
-#contactsList > li .user-img {display: block; width: 64px; height: 64px; border-radius: 50%; position: absolute; left: 48px; top: 10px; overflow: hidden; background-color: #e5e5e5;}
+#contactsList > li {padding: 0 0 0 0; border-bottom: 1px solid #e5e5e5; position: relative; min-height: 90px;}
+#contactsList > li > .contact-info {margin:0 0 10px 140px;padding-top:40px;}
+#contactsList > li .user-img {display: block; width: 64px; height: 64px; border-radius: 50%; position: absolute; left: 48px; top: 40px; overflow: hidden; background-color: #e5e5e5;}
 #contactsList > li .checkbox-inline {padding: 0px; position: absolute; left: 10px; top: 35px;}
 #contactsList > li p {margin: 0;}
 #contactsList > li .title {font-size: 17px; font-size: 1.7rem; margin: 0 0 4px 0;}
-#contactsList > li > .title > a,
-#contactsList > li > p > a{color: #545454;}
+#contactsList > li > .contact-info > .title > a,
+#contactsList > li > .contact-info > p > a{color: #545454;}
 #contactsList > li .email, #contactsList > li .email a {color: #a8a8a8;}
 #contactsList > li .email span.fa.fa-exclamation-circle {margin-right: 0px;}
 .container-lists {margin-top: 10px; display: none;}
@@ -1601,8 +1604,8 @@ ul.user-list-followers .loading.xs {width: 10px; height: 10px;}
 .off .bootstrap-tagsinput .tag > span {display: none !important;}
 .bootstrap-tagsinput .twitter-typeahead {display: inline-block;}
 
-.addTag {margin-top: -6px;}
-.addTag.off {margin-top: 3px; padding-bottom: 8px;}
+.addTag {margin-top: -6px;margin-bottom:10px;}
+.addTag.off {margin-top: 3px;}
 .addTag > ul {display: inline-block; margin: 0; padding: 0;}
 .addTag > ul > li a {color: #20a2ea;}
 .addTag > ul > li a:hover, #addTag > ul > li a:focus, #addTag > ul > li a:active {color: #fff; background-color: #20a2ea;}
@@ -5513,7 +5516,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     #myWidgetLabel {font-size: 34px;}
     #detailsInfoVotes .table tbody th {width: 300px;}
     #detailsInfoVotes.autor .table tbody th {width: 335px;}
-    #contactsList > li {padding: 10px 0 0 140px; min-height: 175px;}
+    #contactsList > li {padding: 10px 0 0 0px; min-height: 175px;}
 
     #main > div.box-steps > ul#mails.threeSteps {width: 522px}
     #main > div.box-steps > ul#mails.twoSteps {width: 331px}
@@ -6320,9 +6323,13 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     /*#contactsOrderOptions.box-order-options > ul {width: 25%;}*/
     /*#contactsOrderOptions.box-order-options > div {width: 28%;}*/
     #contactsList > li > h3, #contactsList > li > p {padding-right: 74%;}
-    .container-lists {position: absolute; right: 0; top: 7px; border-left: 1px solid #e5e5e5; width: 68%; padding: 10px 20px; margin: 0;}
     #contactsList > li {min-height: 105px; padding-top: 15px;}
     .container-lists {width: 63%; padding-bottom: 0;}
+
+    #contactsList > li > .contact-info {padding-top:0px; width:200px; display:inline-block; float: left;}
+    #contactsList > li > .container-lists { border-left: 1px solid #e5e5e5; padding: 0px 20px;display:inline-block; margin:0 0 10px 0;}
+    #contactsList > li > .container-lists  .addTag.off{margin-top:0px;}
+    #contactsList > li .user-img { top: 10px}
 
     /* STATS CAMPAIGNS */
     #tabs-stats-campaign .table thead {display: table-header-group;}
@@ -6335,7 +6342,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     #tabs-stats-campaign .table td:nth-child(2), #tabs-stats-campaign .table td:nth-child(3), #tabs-stats-campaign .table td:nth-child(4), #tabs-stats-campaign .table td:nth-child(5),#tabs-stats-campaign .table td:nth-child(6) {text-align: center;}
     #tabs-stats-campaign .table .only-mobile {display: none !important;}
 
-    #contactsList > li > .title > a {display:inline-flex; overflow: hidden;max-width: 10em;}
+    #contactsList > li > .contact-info > .title > a {display:inline-flex; overflow: hidden;max-width: 10em;}
     #contactsList > li .email .raw-email {display:inline-flex; overflow: hidden;max-width: 12em;}
 
     ul.campaign-list {

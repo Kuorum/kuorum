@@ -1729,14 +1729,16 @@ function prepareContactTags(){
                     source: tagsnames.ttAdapter()
                 }
             });
+            $(input).siblings("#inputAddTags").on("click", function(e){
+                console.log("Click")
+            })
+        });
 
-
-            // Add tags when focusout
-            $(".bootstrap-tagsinput input").on('focusout', function() {
-                var elem = $(this).closest(".bootstrap-tagsinput").parent().children("input.tagsField");
-                elem.tagsinput('add', $(this).val());
-                $(this).typeahead('val', '');
-            });
+        // Add tags when focusout
+        $(".bootstrap-tagsinput input").on('focusout', function() {
+            var elem = $(this).closest(".bootstrap-tagsinput").parent().children("input.tagsField");
+            elem.tagsinput('add', $(this).val());
+            $(this).typeahead('val', '');
         });
     }
 }

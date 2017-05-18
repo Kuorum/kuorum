@@ -1,23 +1,25 @@
 <li>
-    <formUtil:checkBox
-        command="${bulkActionContactsCommand}"
-        field="listIds"
-        label=" "
-        value="${contact.id}"
-    />
+    <div class="contact-info">
+        <formUtil:checkBox
+            command="${bulkActionContactsCommand}"
+            field="listIds"
+            label=" "
+            value="${contact.id}"
+        />
 
-    <span class="user-img"><img src="${image.contactImgSrc(contact:contact)}" alt="${contact.name} ${contact.surname}" itemprop="image"></span>
-    <h3 class="title">
-        <g:link mapping="politicianContactEdit" params="[contactId:contact.id]" class="contactStats">${contact.name} ${contact.surname}</g:link>
-        <g:link mapping="politicianContactEdit" params="[contactId:contact.id]" target="_blank">
+        <span class="user-img"><img src="${image.contactImgSrc(contact:contact)}" alt="${contact.name} ${contact.surname}" itemprop="image"></span>
+        <h3 class="title">
+            <g:link mapping="politicianContactEdit" params="[contactId:contact.id]" class="contactStats">${contact.name} ${contact.surname}</g:link>
+            <g:link mapping="politicianContactEdit" params="[contactId:contact.id]" target="_blank">
 
-            <span class="fa fa-external-link fa-sm"></span><span class="sr-only"><g:message code="tools.contact.list.contact.edit"/></span>
-        </g:link>
-    </h3>
-    <p class="email"><contactUtil:printContactMail contact="${contact}"/></p>
-    <p class="followers">
-        <span class="fa fa-users"></span><g:message code="tools.contact.list.contact.followers" args="[contact.numFollowers]"/>
-    </p>
+                <span class="fa fa-external-link fa-sm"></span><span class="sr-only"><g:message code="tools.contact.list.contact.edit"/></span>
+            </g:link>
+        </h3>
+        <p class="email"><contactUtil:printContactMail contact="${contact}"/></p>
+        <p class="followers">
+            <span class="fa fa-users"></span><g:message code="tools.contact.list.contact.followers" args="[contact.numFollowers]"/>
+        </p>
+    </div>
     <div class="container-lists">
         <g:render template="/contacts/inputs/editContactTags" model="[contact:contact]"/>
         <g:render template="/contacts/inputs/showContactEngagement" model="[contact:contact]"/>
