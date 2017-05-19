@@ -7,7 +7,7 @@
     <span class="fa fa-envelope-o"></span>
     <h3>
         <g:set var="modal" value="${campaign.status == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SCHEDULED ?'modalEditScheduled':''}"/>
-        <g:link mapping='politicianMassMailingContent' params="[campaignId:campaign.id]" class="title ${modal}" absolute="true">
+        <g:link mapping='politicianMassMailingShow' params="[campaignId:campaign.id]" class="title ${modal}" absolute="true">
             ${campaign.name}<span></span>
         </g:link>
     </h3>
@@ -44,7 +44,7 @@
     </g:if>
     <g:else>
         <li>
-            <g:link mapping="politicianMassMailingContent" params="[campaignId:campaign.id]" class="campaignEdit ${modal}"><span class="fa fa-edit"></span> <span class="sr-only">Edit</span></g:link>
+            <g:link mapping="politicianMassMailingShow" params="[campaignId:campaign.id]" class="campaignEdit ${modal}"><span class="fa fa-edit"></span> <span class="sr-only">Edit</span></g:link>
         </li>
     </g:else>
         <li>

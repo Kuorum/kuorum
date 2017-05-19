@@ -372,20 +372,7 @@ class MassMailingController {
         KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
         CampaignRSDTO campaignRSDTO = massMailingService.findCampaign(loggedUser, campaignId)
         if (campaignRSDTO.status == CampaignStatusRSDTO.DRAFT || campaignRSDTO.status == CampaignStatusRSDTO.SCHEDULED ){
-            MassMailingSettingsCommand command = new MassMailingSettingsCommand()
-            command.filterId = campaignRSDTO.filter?.id ?: null
-            if ( campaignRSDTO.triggeredTags){
-                command.tags = campaignRSDTO.triggeredTags
-            }
-
-            def model = modelMassMailingSettings(loggedUser, command, campaignRSDTO.getId());
-            if (campaignRSDTO.filter && !model.filters.find{it.id==campaignRSDTO.filter.id}){
-                // Not found campaign filter. That means that the filter is custom filter for the campaign
-                ExtendedFilterRSDTO anonymousFilter = contactService.getFilter(loggedUser, campaignRSDTO.filter.id)
-                model.put("anonymousFilter", anonymousFilter)
-            }
-            model.put("campaignId", campaignId)
-            render view: 'createMassMailing', model: model
+            redirect (mapping:'politicianMassMailingContent', params: [campaignId: campaignId])
         }else{
             TrackingMailStatsByCampaignPageRSDTO trackingPage = massMailingService.findTrackingMails(loggedUser, campaignId)
             render view: 'showCampaign', model: [campaign: campaignRSDTO, trackingPage:trackingPage]
