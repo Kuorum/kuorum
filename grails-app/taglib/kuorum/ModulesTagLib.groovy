@@ -128,7 +128,7 @@ class ModulesTagLib {
         """
     }
 
-    private static final Integer MAX_LENGTH_TEXT = 300
+    private static final Integer MAX_LENGTH_TEXT = 250
     def shortText = { attrs ->
         Integer maxLength = attrs.maxLength!=null?Integer.parseInt(attrs.maxLength):MAX_LENGTH_TEXT
         String orgText = attrs.text.encodeAsRemovingHtmlTags()
