@@ -44,7 +44,7 @@
         <span class="qq-upload-drop-area-text-selector"></span>
     </div>
     <div class="qq-upload-button-selector btn btn-blue">
-        <div><g:message code="tools.contact.import.options.csv"/> </div>
+        <div><g:message code="uploader.multiImage.replaceImages.upload"/> </div>
     </div>
     <div class="qq-images-uploaded-arrow"> <span class="fa fa-3x fa-angle-right"></span> </div>
     <a class="images-uploaded-action btn btn-blue"><g:message code="uploader.multiImage.replaceImages.actionButton"/> </a>
