@@ -2741,7 +2741,7 @@ ul.campaign-list > li .box-ppal .card-footer > ul li .label { color:inherit; pad
 
 ul.campaign-list > li.info-empty  p{margin:auto; padding:40px;text-align: center;color: #a8a8a8;font-size: 2rem;}
 ul.campaign-list > li.info-empty .text-empty-campaignList {width: 90%;}
-ul.campaign-list > li.info-empty .icon-empty-campaignList {width:5%}
+ul.campaign-list > li.info-empty .icon-empty-campaignList {width:5%; display:none;}
 ul.campaign-list > li.info-empty .icon-empty-campaignList img{width: 30px; vertical-align: top; margin-left: 25px;}
 
 
@@ -6363,6 +6363,8 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
     .uploaderImageContainer.PROJECT_IMAGE .qq-upload-drop-area {height:270px;}
     .uploaderImageContainer.PROJECT_IMAGE > div {height:270px;}
+
+    ul.campaign-list > li.info-empty .icon-empty-campaignList {display:inline-block;}
 }
 
 @media only screen and (min-width: 1024px) {
