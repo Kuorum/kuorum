@@ -1593,7 +1593,7 @@ ul.user-list-followers .loading.xs {width: 10px; height: 10px;}
 #contactsList > li p {margin: 0;}
 #contactsList > li .title {font-size: 17px; font-size: 1.7rem; margin: 0 0 4px 0;}
 #contactsList > li > .contact-info > .title > a,
-#contactsList > li > .contact-info > p > a{color: #545454;}
+#contactsList > li > .contact-info > p > a{color: #545454;white-space:nowrap;}
 #contactsList > li .email, #contactsList > li .email a {color: #a8a8a8;}
 #contactsList > li .email span.fa.fa-exclamation-circle {margin-right: 0px;}
 .container-lists {margin-top: 10px; display: none;}
