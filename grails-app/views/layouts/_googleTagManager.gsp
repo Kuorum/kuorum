@@ -22,7 +22,7 @@
             'userLoggedAlias': 'NO_LOGGED',
             'userLoggedEmail': 'NO_LOGGED',
             'userLoggedName': 'NO_LOGGED',
-            'language':'${currentLang.language}'
+            'language':'${currentLang?.language?:"en"}'
           });
     </sec:ifNotLoggedIn>
 </script>
