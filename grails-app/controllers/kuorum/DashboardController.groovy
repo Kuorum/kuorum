@@ -182,6 +182,19 @@ class DashboardController {
         render template: "/dashboard/dashboardModules/causeCardList", model:[causes:causesSuggested.data]
     }
 
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def dashboardCampaigns(Pagination pagination){
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        String viewerUid = cookieUUIDService.buildUserUUID()
+        Integer page = pagination.offset/pagination.max;
+        PagePostRSDTO pagePosts = dashboardService.findAllContactsPosts(user, viewerUid, page)
+        List<PostRSDTO> posts = pagePosts.data
+        PageDebateRSDTO pageDebates = dashboardService.findAllContactsDebates(user, page)
+        List<DebateRSDTO> debates = pageDebates.data
+        response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${pageDebates.total < pagination.offset || pagePosts.total < pagination.offset}")
+        render template: "/campaigns/cards/campaignsList", model:[debates:debates, posts:posts, showAuthor: true]
+    }
+
     private def splitClucksInParts(List<Cluck> clucks){
         if (clucks && clucks.size() > 2){
             return [clucks_1:clucks[0..1], clucks_2:clucks[2..clucks.size()-1]]

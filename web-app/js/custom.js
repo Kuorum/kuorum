@@ -888,6 +888,7 @@ $(document).ready(function() {
          //Para que sea un integer
         url += paramAppender + "offset=" + offset + "&" + $('#' + formId).serialize();
         var parentId = link.attr('data-parent-id');
+        var callback = link.attr('data-callback')
         var loadingId = parentId + "-loading";
         var parent = $("#" + parentId);
         parent.append('<div class="loading" id="' + loadingId + '"><span class="sr-only">Cargando...</span></div>');
@@ -906,6 +907,9 @@ $(document).ready(function() {
                 link.attr('data-offset', offset + max);
                 if (moreResults){
                     link.remove()
+                }
+                if (callback != undefined && callback != ""){
+                    window[callback]();
                 }
             })
             .fail(function(data) {

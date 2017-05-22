@@ -612,7 +612,7 @@ class KuorumUserService {
     }
 
     List<KuorumUser> bestPoliticiansSince(KuorumUser user, List<ObjectId> userFiltered = [], Pagination pagination = new Pagination()){
-        SearchParams searchParams = new SearchParams(pagination.getProperties());
+        SearchParams searchParams = new SearchParams(pagination.getProperties().findAll{k,v->k!="class"});
         searchParams.max +=1
         List<Region> regions;
         String politicalParty = ""

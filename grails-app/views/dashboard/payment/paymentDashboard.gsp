@@ -28,7 +28,7 @@
                 %{--</ul>--}%
             %{--</g:if>--}%
 
-            <ul class="campaign-list clearfix" data-addCampaignsByUserUrl="${g.createLink(mapping:'politicianCampaignsLists' )}">
+            <ul class="campaign-list clearfix" data-addCampaignsByUserUrl="${g.createLink(mapping:'politicianCampaignsLists' )}" id="campaign-list-id" >
                 <li class="info-empty hidden">
                     <div class="box-ppal">
                         <p>
@@ -44,6 +44,19 @@
                 </li>
                 <g:render template="/campaigns/cards/campaignsList" model="[debates:debates, posts:posts, showAuthor: showAuthor]" />
             </ul>
+            <!-- ver más -->
+            <nav:loadMoreLink
+                    formId="campaign-list-loadMore"
+                    mapping="dashboardCampaignsSeeMore"
+                    parentId="campaign-list-id"
+                    callback="campaignListCallback"
+                    pagination="${[max:50]}"
+                    numElements="${100}"/>
+            <script>
+                function campaignListCallback(){
+                    sortCampaigns.orderList();
+                }
+            </script>
         </div>
         <div class="col-md-4">
             <g:render template="/dashboard/payment/dashboardModules/dashboardPoliticianProfile" model="[user:user, emptyEditableData:emptyEditableData, numberCampaigns:numberCampaigns]"/>

@@ -140,9 +140,9 @@ class DashboardService {
         numPoliticiansForUser > 0
     }
 
-    PagePostRSDTO findAllContactsPosts (KuorumUser user, String viewerUid = null){
+    PagePostRSDTO findAllContactsPosts (KuorumUser user, String viewerUid = null, Integer page = 0){
         Map<String, String> params = [userId: user.id.toString()]
-        Map<String, String> query = [:]
+        Map<String, String> query = [page:page]
         if (viewerUid){
             query.put("viewerUid",viewerUid)
         }
@@ -156,9 +156,9 @@ class DashboardService {
         response.data
     }
 
-    PageDebateRSDTO findAllContactsDebates (KuorumUser user){
+    PageDebateRSDTO findAllContactsDebates (KuorumUser user, Integer page = 0){
         Map<String, String> params = [userId: user.id.toString()]
-        Map<String, String> query = [:]
+        Map<String, String> query = [page:page]
 
         def response = restKuorumApiService.get(
             RestKuorumApiService.ApiMethod.USER_CONTACTS_DEBATES_ALL,
