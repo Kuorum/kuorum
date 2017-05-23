@@ -134,6 +134,7 @@ class DashboardController {
                 emptyEditableData:emptyEditableData(user),
                 debates: debates,
                 posts: posts,
+                totalCampaigns: pagePosts.total + pageDebates.total,
                 showAuthor: true
         ]
 
