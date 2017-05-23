@@ -145,7 +145,8 @@ class IndexSolrService {
     }
 
     private void deleteDocument(String id){
-        server.deleteByQuery("id:${id}")
+//        server.deleteByQuery("id:${id}")
+        server.deleteById(id)
         server.commit()
     }
     void delete(Project project){
