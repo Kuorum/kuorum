@@ -90,6 +90,8 @@
     </form>
 </div>
 
+<g:render template="timeZoneSelectorPopUp"/>
+
 <!-- MODAL CONFIRM -->
 <div class="modal fade in" id="campaignConfirm" tabindex="-1" role="dialog" aria-labelledby="campaignConfirmTitle" aria-hidden="true">
     <div class="modal-dialog ">
