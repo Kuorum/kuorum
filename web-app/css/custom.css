@@ -5532,6 +5532,8 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     #mails.campaigns {width: 36em;}
 
     #main > div.box-steps #mails.threeSteps {width: auto;}
+
+    .politician-list .box-ppal .card-footer {position:relative; bottom: 0; }
 }
 
 /* Small devices (tablets, 768px and down) */
@@ -6343,6 +6345,8 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     #tabs-stats-campaign .table .only-mobile {display: none !important;}
 
     #contactsList > li > .contact-info > .title > a {display:inline-flex; overflow: hidden;max-width: 10em;}
+    #contactsList > li > .contact-info > .title > a + a {text-decoration: none}
+
     #contactsList > li .email .raw-email {display:inline-flex; overflow: hidden;max-width: 12em;}
 
     ul.campaign-list {
