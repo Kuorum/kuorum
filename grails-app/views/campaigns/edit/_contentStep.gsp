@@ -90,7 +90,7 @@
     </form>
 </div>
 
-<g:render template="timeZoneSelectorPopUp"/>
+<g:render template="/massMailing/timeZoneSelectorPopUp"/>
 
 <!-- MODAL CONFIRM -->
 <div class="modal fade in" id="campaignConfirm" tabindex="-1" role="dialog" aria-labelledby="campaignConfirmTitle" aria-hidden="true">
