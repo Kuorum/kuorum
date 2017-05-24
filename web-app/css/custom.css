@@ -5929,7 +5929,8 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .header-campaign .qq-upload-drop-area {background-size: 70px auto;}
     .header-campaign #au-uploaderImageId__headerPictureId_NEW_ {height: 128px;}
     #filtersInfo .modal-dialog {width: 560px;}
-    fieldset.buttons {min-height: 40px;}
+    fieldset.buttons {min-height: 40px; margin-top:0; padding-top:0}
+    .buttons > .text-right > ul.form-final-options {position: absolute; bottom: 25px; right: 25px}
     fieldset.form-group {min-height: 40px;}
     .new-filter-options > div:first-child > a > .text {display: none;}
     /*.new-filter-options > label.control-label {color: #a8a8a8}*/
@@ -6730,9 +6731,9 @@ p.party{
 /*}*/
 
 
-fieldset.buttons {min-height: 50px;}
+fieldset.buttons {min-height: 50px;    margin-top: -20px; padding-bottom: 15px;}
 fieldset.form-group {min-height: 50px;}
-.buttons > .text-right > ul.form-final-options {position: absolute; bottom: 25px; right: 25px}
+
 
 @media only screen and (max-width: 480px){
     .profile-header img{
