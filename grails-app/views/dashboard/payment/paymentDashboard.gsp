@@ -50,8 +50,8 @@
                     mapping="dashboardCampaignsSeeMore"
                     parentId="campaign-list-id"
                     callback="campaignListCallback"
-                    pagination="${[max:50]}"
-                    numElements="${100}"/>
+                    pagination="${[max:10]}"
+                    numElements="${totalCampaigns}"/>
             <script>
                 function campaignListCallback(){
                     sortCampaigns.orderList();
