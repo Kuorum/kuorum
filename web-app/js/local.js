@@ -556,7 +556,6 @@ $(document).ready(function() {
                 $('#infoFilterCampaigns').removeClass().find('.filtered').text('');
             }
             if ($('#filterCampaigns option:selected').is('#newsletter')) {
-                console.log('here');
                 $('.totalList').text(newsletter);
                 $('#infoFilterCampaigns').removeClass().find('.filtered').text('');
             }
@@ -1140,7 +1139,6 @@ $(document).ready(function() {
     // hacer un bloque clicable y que tome que es su primer elemento la url del enlace a.hidden
     $('body').on('click','.link-wrapper', function(e) {
         //ÑAAAPAAAAA para que no salte el evento del link-wrapper en los popover
-        console.log('vamos para allá');
         var target = $(e.target);
         var popover = target.parents(".popover");
         if (!popover.hasClass("popover")){

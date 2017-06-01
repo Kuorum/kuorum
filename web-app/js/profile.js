@@ -9,7 +9,7 @@ function SortCampaigns() {
         sort: function(a, b){
             var aTime = $(a).find('.link-wrapper').attr('data-datepublished');
             var bTime = $(b).find('.link-wrapper').attr('data-datepublished');
-            return bTime.localeCompare(aTime);
+            return aTime==undefined ? bTime.localeCompare(aTime):0;
         },
         filter: function (e) {
             $('ul.campaign-list li').removeClass('hide');
