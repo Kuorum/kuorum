@@ -6,7 +6,7 @@
                 data-toggle="tooltip"
                 data-placement="bottom"
                 title=""
-                data-original-title="${g.message(code:'tour.dashboard.tooltip.content')}">
+                data-original-title="${g.message(code:'dashboard.payment.chooseCampaign.tooltip.newsletter')}">
             <span class="fa fa-envelope-o"></span>
             <span class="label"><g:message code="tools.campaign.new.newsletter"/></span>
         </g:link>
@@ -17,7 +17,7 @@
                 data-toggle="tooltip"
                 data-placement="bottom"
                 title=""
-                data-original-title="${g.message(code:'tour.dashboard.tooltip.content')}">
+                data-original-title="${g.message(code:'dashboard.payment.chooseCampaign.tooltip.post')}">
             <span class="fa fa-newspaper-o"></span>
             <span class="label"><g:message code="tools.campaign.new.post"/></span>
         </g:link>
@@ -28,7 +28,7 @@
                 data-toggle="tooltip"
                 data-placement="bottom"
                 title=""
-                data-original-title="${g.message(code:'tour.dashboard.tooltip.content')}">
+                data-original-title="${g.message(code:'dashboard.payment.chooseCampaign.tooltip.debate')}">
             <span class="fa fa-comments-o"></span>
             <span class="label"><g:message code="tools.campaign.new.debate"/></span>
         </g:link>
