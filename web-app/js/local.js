@@ -1138,18 +1138,14 @@ $(document).ready(function() {
 
 
     // hacer un bloque clicable y que tome que es su primer elemento la url del enlace a.hidden
-    $(function() {
-
-        $('body').on('click','.link-wrapper', function(e) {
-            //ÑAAAPAAAAA para que no salte el evento del link-wrapper en los popover
-
-            var target = $(e.target);
-            var popover = target.parents(".popover");
-            if (!popover.hasClass("popover")){
-                window.location = $(this).find('a.hidden').attr('href');
-            }
-        });
-
+    $('body').on('click','.link-wrapper', function(e) {
+        //ÑAAAPAAAAA para que no salte el evento del link-wrapper en los popover
+        console.log('vamos para allá');
+        var target = $(e.target);
+        var popover = target.parents(".popover");
+        if (!popover.hasClass("popover")){
+            window.location = $(this).find('a.hidden').attr('href');
+        }
     });
 
     // popover-trigger dentro del kakareo no lanza el enlace del bloque clicable
