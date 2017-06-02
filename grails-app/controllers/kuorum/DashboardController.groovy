@@ -17,6 +17,7 @@ import kuorum.web.commands.profile.EditProfilePicturesCommand
 import kuorum.web.commands.profile.EditUserProfileCommand
 import kuorum.web.commands.profile.SocialNetworkCommand
 import kuorum.web.constants.WebConstants
+import org.kuorum.rest.model.communication.PageCampaignRSDTO
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.kuorum.rest.model.communication.debate.PageDebateRSDTO
 import org.kuorum.rest.model.communication.post.PagePostRSDTO
@@ -99,10 +100,7 @@ class DashboardController {
     private def buildPaymentDashboard(KuorumUser user){
         String viewerUid = cookieUUIDService.buildUserUUID()
 
-        PagePostRSDTO pagePosts = dashboardService.findAllContactsPosts(user, viewerUid)
-        List<PostRSDTO> posts = pagePosts.data
-        PageDebateRSDTO pageDebates = dashboardService.findAllContactsDebates(user)
-        List<DebateRSDTO> debates = pageDebates.data
+        PageCampaignRSDTO pageCampaigns = dashboardService.findAllContactsCampaigns(user, viewerUid)
 
         List<CampaignRSDTO> myCampaigns = massMailingService.findCampaigns(user)
         List<DebateRSDTO> myDebates = debateService.findAllDebates(user)
@@ -132,9 +130,8 @@ class DashboardController {
 //                recommendedUsers:recommendedUsers,
                 user:user,
                 emptyEditableData:emptyEditableData(user),
-                debates: debates,
-                posts: posts,
-                totalCampaigns: pagePosts.total + pageDebates.total,
+                campaigns: pageCampaigns.data,
+                totalCampaigns: pageCampaigns.total,
                 showAuthor: true
         ]
 
@@ -188,12 +185,10 @@ class DashboardController {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         String viewerUid = cookieUUIDService.buildUserUUID()
         Integer page = pagination.offset/pagination.max;
-        PagePostRSDTO pagePosts = dashboardService.findAllContactsPosts(user, viewerUid, page)
-        List<PostRSDTO> posts = pagePosts.data
-        PageDebateRSDTO pageDebates = dashboardService.findAllContactsDebates(user, page)
-        List<DebateRSDTO> debates = pageDebates.data
-        response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${pageDebates.total < pagination.offset || pagePosts.total < pagination.offset}")
-        render template: "/campaigns/cards/campaignsList", model:[debates:debates, posts:posts, showAuthor: true]
+        PageCampaignRSDTO pageCampaigns = dashboardService.findAllContactsCampaigns(user, viewerUid, page)
+        List<CampaignRSDTO> campaigns = pageCampaigns.data
+        response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${pageCampaigns.total < pagination.offset}")
+        render template: "/campaigns/cards/campaignsList", model:[campaigns:campaigns, showAuthor: true]
     }
 
     private def splitClucksInParts(List<Cluck> clucks){

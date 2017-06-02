@@ -12,6 +12,7 @@ import kuorum.notifications.Notice
 import kuorum.notifications.NoticeType
 import kuorum.users.KuorumUser
 import kuorum.util.rest.RestKuorumApiService
+import org.kuorum.rest.model.communication.PageCampaignRSDTO
 import org.kuorum.rest.model.communication.debate.PageDebateRSDTO
 import org.kuorum.rest.model.communication.post.PagePostRSDTO
 import org.kuorum.rest.model.contact.ContactPageRSDTO
@@ -148,6 +149,22 @@ class DashboardService {
         }
         def response = restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.USER_CONTACTS_POSTS_ALL,
+                params,
+                query,
+                new TypeReference<PagePostRSDTO>() {}
+        );
+
+        response.data
+    }
+
+    PageCampaignRSDTO findAllContactsCampaigns (KuorumUser user, String viewerUid = null, Integer page = 0){
+        Map<String, String> params = [userId: user.id.toString()]
+        Map<String, String> query = [page:page]
+        if (viewerUid){
+            query.put("viewerUid",viewerUid)
+        }
+        def response = restKuorumApiService.get(
+                RestKuorumApiService.ApiMethod.USER_CONTACTS_CAMPAIGNS_ALL,
                 params,
                 query,
                 new TypeReference<PagePostRSDTO>() {}
