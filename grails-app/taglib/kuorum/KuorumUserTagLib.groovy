@@ -237,31 +237,31 @@ class KuorumUserTagLib {
         )
     }
 
+    // NEGRITA: if !cargo -> "User" else "Cargo"
+    // GRIS: if region -> "Region" else nothing
+
     def politicianPosition={attrs->
         KuorumUser user = attrs.user
-        if (user.userType == UserType.POLITICIAN || user.userType == UserType.CANDIDATE){
-            String position = user?.professionalDetails?.position?:""
-            Region regionValue = user?.professionalDetails?.region;
-            def regionName = "";
-            if (regionValue){
-                Locale locale = LocaleContextHolder.getLocale();
-                try {
-                    RegionRSDTO regionRSDTO = regionService.findRegionDataById(regionValue.iso3166_2, locale)
-                    regionName = regionRSDTO?.name ?: regionValue.name
-                }catch (Exception e){
-                    // REGION NOT FOUND
-                    regionName = "";
-                }
+
+        Region regionValue = user?.personalData?.province?:user?.professionalDetails?.region;
+        def regionName = "";
+        if (regionValue){
+            Locale locale = LocaleContextHolder.getLocale();
+            try {
+                RegionRSDTO regionRSDTO = regionService.findRegionDataById(regionValue.iso3166_2, locale)
+                regionName = regionRSDTO?.name ?: regionValue.name
+            }catch (Exception e){
+                regionName = "";
             }
-            String coma = position && regionName?", ":""
-            out << "${position}${coma}${regionName}"
         }
+        out << "${regionName}"
+
     }
 
     def roleName={attrs ->
         KuorumUser user = attrs.user
-        if (user.userType == UserType.POLITICIAN || user.userType == UserType.CANDIDATE){
-            String rolePolitician = user.professionalDetails?.politicalParty?:message(code:"kuorum.core.model.UserType.${user.userType}")
+        if (user.userType == UserType.POLITICIAN || user.userType == UserType.CANDIDATE || user.userType == UserType.PERSON){
+            String rolePolitician = user.professionalDetails?.position?:message(code:"kuorum.core.model.UserType.${user.userType}")
             out << rolePolitician
         }else{
             out << g.message(code:"${kuorum.core.model.gamification.GamificationAward.name}.${user.gamification.activeRole}.${user.personalData.gender}")

@@ -1069,6 +1069,25 @@ table.csv .highlight_row {background-color: #f7f7f7;}
     background-color: transparent;
 }
 
+.box-ppal a.new-campaign-tip + .tooltip.bottom .tooltip-inner{
+    position: relative;
+    top: -9px;
+    background-color: #FF9431;
+    color: #fff;
+    font-size: 14px;
+    opacity: 1;
+    width: 200px;
+}
+
+.box-ppal a.new-campaign-tip + .tooltip.bottom .tooltip-arrow {
+    position: relative;
+    top: -9px;
+    left: 95px;
+    border-bottom-color: #FF9431;
+    border-width: 0 10px 10px;
+    background-color: transparent;
+}
+
 /* TAGS INPUT PLUGIN (08/2016) */
 #mySingleField {height: 35px;}
 
@@ -8852,6 +8871,10 @@ ul.globus li img {
 @media screen and (max-width: 1199px) {
     .container-overflow-image {
         min-height: 720px;
+    }
+
+    ul#mails > li > div.tooltip {
+        display: none !important;
     }
 }
 
