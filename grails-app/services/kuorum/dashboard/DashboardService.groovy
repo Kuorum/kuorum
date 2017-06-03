@@ -167,7 +167,7 @@ class DashboardService {
                 RestKuorumApiService.ApiMethod.USER_CONTACTS_CAMPAIGNS_ALL,
                 params,
                 query,
-                new TypeReference<PagePostRSDTO>() {}
+                new TypeReference<PageCampaignRSDTO>() {}
         );
 
         response.data

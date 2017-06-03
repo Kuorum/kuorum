@@ -187,7 +187,7 @@ class DashboardController {
         Integer page = pagination.offset/pagination.max;
         PageCampaignRSDTO pageCampaigns = dashboardService.findAllContactsCampaigns(user, viewerUid, page)
         List<CampaignRSDTO> campaigns = pageCampaigns.data
-        response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${pageCampaigns.total < pagination.offset}")
+        response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${pageCampaigns.total < (pagination.offset+pagination.max)}")
         render template: "/campaigns/cards/campaignsList", model:[campaigns:campaigns, showAuthor: true]
     }
 

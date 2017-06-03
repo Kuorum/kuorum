@@ -106,6 +106,7 @@ class RestKuorumApiService {
         ACCOUNT_POST            ("/communication/post/{userAlias}/{postId}"),
         ACCOUNT_POST_LIKES      ("/communication/post/{userAlias}/{postId}/likes"),
 
+        USER_CONTACTS_CAMPAIGNS_ALL ("/user/{userId}/dashboard/campaigns"),
         USER_CONTACTS_POSTS_ALL ("/user/{userId}/dashboard/post"),
         USER_CONTACTS_DEBATES_ALL   ("/user/{userId}/dashboard/debate"),
 
