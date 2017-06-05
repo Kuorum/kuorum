@@ -2402,7 +2402,7 @@ video#bgvid {
 .landing.prices .full-video {background-image: url('../images/background-prices.jpg'); padding-top: 50px;}
 .landing.prices .full-video a {color: #5fa1e7; font-size: 21px; font-size: 2.1rem;}
 .landing.prices .full-video h2 {font-size: 120px; font-size: 12rem; font-family: Arial,Helvetica,sans-serif; font-weight: bold; margin: 0 auto;}
-.main.prices .promo-options {width: 100%; padding-bottom: 0; margin-bottom: 0; border-bottom: none;}
+.main.prices .promo-options {width: 100%; padding-bottom: 0; margin-bottom: 0; border-bottom: none; text-align: center;}
 .main.prices .promo-options > div {border: 1px solid #545454; background: transparent;}
 .main.prices .promo-options > div h2 {background-color: #545454; color: #fff; font-size: 27px; font-size: 2.7rem; text-align: center; margin: 0 0 70px 0; line-height: 2;}
 .main.prices .promo-options > div h3,
@@ -2428,13 +2428,29 @@ video#bgvid {
     left: -25px;
     position: absolute;
 }
-.main.prices .promo-options > div.recomended {margin-top: -32px;}
+/*.main.prices .promo-options > div.recomended {margin-top: -32px;}*/
 .main.prices .promo-options > div.recomended h2 {margin-top: -10px;}
 .main.prices .promo-options > div.recomended h2,
 .main.prices .promo-options > div.recomended .tag {background-color: #6e6e6e;}
 .main.prices .promo-options > div.recomended .tag {color: #fff; font-size: 14px; font-size: 1.4rem; text-transform: uppercase; font-family: Arial,Helvetica,sans-serif; text-align: center; line-height: 2.5; display: block; letter-spacing: 1px;}
 .main.prices .promo-options > div.recomended .tag:first-letter {font-size: 120%;}
 
+.main.prices .promo-options > .promo {font-size:0; float: none; display: inline-block; padding-bottom: 25px;}
+.main.prices .promo-options > .promo h2, #payment ul.checklist {font-family: 'Georgia', 'Times New Roman', Times, serif;}
+.main.prices .promo-options > .promo a.btn {font-size: 21px; padding: 14px 65px !important;}
+.main.prices .promo-options > .promo:not(:first-child) {border-left: none;}
+
+.main.prices .promo-options > .promo.recomended .discount {font-size: 17px;}
+
+#payment {text-align:center; font-family: Arial, Helvetica, sans-serif;-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; padding-bottom: 60px; margin-bottom: 60px; border: 1px solid #e5e5e5;}
+#payment .big-margin-top {margin-top: 60px;}
+#payment > h1 {font-size: 29px; margin-bottom: 15px;}
+#payment > p {font-size: 20px; color: #a8a8a8;}
+#payment ul.checklist {list-style: none; padding: 0; font-size: 18px; text-align: left; margin: 0 auto; display: inline-block;}
+
+#payment ul.checklist li > div {display:inline-block;}
+#payment ul.checklist li > p > i {margin-right: 10px;}
+#payment ul.checklist li > div:not(:first-child) {padding-left: 10px;}
 
 /* PARA EL QUIERO TRASTEAR MÁS DEL DASHBOARD */
 #trasteando {padding: 0 0 40px; color: #a8a8a8;}
@@ -5558,6 +5574,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 /* Small devices (tablets, 768px and down) */
 @media only screen and (max-width: 998px) {
     form#pass-forget .form-group {text-align: center;}
+    .main.prices .promo-options > div {border: 1px solid #545454 !important;}
 }
 
 /* Small devices (tablets, 768px and up) */
@@ -5652,8 +5669,10 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .contratando .nav-tabs > li {margin-right: 40px; padding: 20px;}
     .contratando > div > h2 {font-size: 2.5rem;}
     .contratando > div > h1 {font-size: 40px; font-size: 4rem; margin: 20px 0 10px; padding-bottom: 20px;}
+    
     .promo-options > div > form .options-wrapper {margin: 0 auto; width: 45%;}
     .promo-options {padding-bottom: 20px;}
+
     .embudoMore .btn {font-size: 25px !important; font-size: 2.5rem !important;}
     .embudoMore {width: 500px;}
     .pide-cuenta ul {width: 100%;}
@@ -6069,7 +6088,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .list-team > li {width: 300px; display: block; float: left; margin-right: 15px;}
     .list-team > li:nth-of-type(even) {margin-right: 0;}
     .pago {background-size: 280px auto;}
-    .promo-options {padding-bottom: 40px; margin-top: 80px;}
+    .promo-options {padding-bottom: 40px; margin-top: 30px;}
     .config > header h1 {font-size: 25px; font-size: 2.5rem;}
     .funnelFormDetectUser .form-group:last-child {width: 94%;}
     .contratando .nav-tabs > li {margin-right: 20px; padding: 20px 10px;}
@@ -6303,7 +6322,6 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
     .landing.editors .full-video h1 {padding-left: 50%;}
 
-    .main.prices .promo-options > div {min-height: 696px;}
     .main.prices .promo-options > div p.price .currency {left: 25px;}
     .main.prices .promo-options > div p.price .amount {font-size: 80px; font-size: 8rem;}
 
@@ -6479,6 +6497,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .main.prices .promo-options > div p.price .currency {left: 35px; top: -35px;}
     .main.prices .promo-options > div p.price .amount {font-size: 90px; font-size: 9rem;}
     .main.prices .promo-options > div {min-height: 700px;}
+    .main.prices .promo-options > .promo {min-height: 264px;}
 
     .landing.prices .full-video h2 {font-size: 140px; font-size: 14rem;}
     .landing.prices .full-video p {max-width: 720px;}
