@@ -82,7 +82,7 @@ class KuorumUserController {
     }
 
     def show(String userAlias){
-        String viewerUid = cookieUUIDService.buildUserUUID()
+                                                            String viewerUid = cookieUUIDService.buildUserUUID()
         KuorumUser user = kuorumUserService.findByAlias(userAlias)
         if (!user) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND)
@@ -100,8 +100,7 @@ class KuorumUserController {
                 causes:causes,
                 userReputation: userReputationRSDTO,
                 userNews:userNews,
-                debates:debates,
-                posts: posts
+                campaigns:debates + posts,
         ]
     }
 
