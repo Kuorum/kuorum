@@ -133,7 +133,7 @@
             },
             statusCode: {
                 500: function() {
-                    display.warn("Ha habido algún problbema recortando la foto. Vuelva a intentarlo")
+                    display.warn("${g.message(code:'uploader.error.cropping')}")
                 }
             },
             beforeSend:function(){

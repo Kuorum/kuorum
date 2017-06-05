@@ -12,6 +12,9 @@ import kuorum.users.KuorumUser
 public interface FileService {
 
     public KuorumFile uploadTemporalFile(InputStream inputStream, KuorumUser kuorumUser, String fileName, FileGroup fileGroup) throws KuorumException;
+    public KuorumFile uploadTemporalFile(InputStream inputStream, KuorumUser kuorumUser, String fileName, FileGroup fileGroup, String path) throws KuorumException;
+
+    List<KuorumFile> listFilesFromPath(FileGroup fileGroup, String path)
     /**
      * Converts a normal file to temporal file.
      * @param KuorumFile

@@ -12,4 +12,7 @@
     <li class="${activeMapping=='footerCitizens'?'active':''}">
         <g:link mapping="footerCitizens"><g:message code="layout.footer.citizens"/></g:link>
     </li>
+    <li class="${activeMapping=='footerUserGuides'?'active':''}">
+        <g:link mapping="footerUserGuides"><g:message code="layout.footer.userGuides"/></g:link>
+    </li>
 </ul>

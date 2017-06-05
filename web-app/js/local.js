@@ -69,6 +69,51 @@ $(document).tooltip({
     selector: '[rel="tooltip"]'
 });
 
+function Animate(domQuery,options){
+    this.animatedIcon = $(domQuery);
+    //var origin = this.animatedIcon.position();
+    var that = this;
+    var running = false;
+    var _options = options || {}
+
+    if (_options.stopOnHover){
+        this.animatedIcon.hover(function(){
+            that.stop();
+        });
+
+        this.animatedIcon.mouseleave(function (){
+            that.start();
+        });
+    }
+
+    this.start = function(){
+        if (!running) {
+            that.animatedIcon.animate({"top": 0});
+            goOn();
+            running = true;
+        }
+    }
+
+    this.stop = function(){
+        that.animatedIcon.clearQueue();
+        that.animatedIcon.stop();
+        running = false;
+    }
+
+    var goOn = function(){
+        that.animatedIcon.animate({ "top": "-=5px"}, 500, "linear",goBack);
+    }
+
+    var goBack=function(){
+        that.animatedIcon.animate({ "top": "+=5px"}, 500, "linear", goOn);
+    }
+}
+// Animación tooltip para importación de contactos
+$(function(){
+    var animatedIcon = new Animate(".animated-info-icon", {stopOnHover:true});
+    animatedIcon.start();
+});
+
 
 // EVENTOS ON RESIZE
 $(window).on('resize',function() {
@@ -354,12 +399,16 @@ $(document).ready(function() {
         var closeInputs =$form.children(".addTagBtn");
         var url = $form.attr("action");
         var postData = $form.serialize();
+
         $.post(url, postData)
             .done(function(data) {
                 var $ul = $form.find("ul");
                 $ul.html("");
+                var urlSearchByTag = $ul.attr("data-genericTagLink");
                 for (i = 0; i < data.tags.length; i++) {
-                    $ul.append('<li><a href="#" class="tag label label-info">'+data.tags[i]+'</a></li>');
+                    var tagName = data.tags[i];
+                    var tagLink = urlSearchByTag.replace("REPLACED_TAG",tagName)
+                    $ul.append('<li><a href="'+tagLink+'" class="tag label label-info">'+tagName+'</a></li>');
                     tagsnames.add({name:data.tags[i]})
                 }
                 closeInputs.click();
@@ -475,10 +524,13 @@ $(document).ready(function() {
         var sent = $('li.SENT').length;
         var scheduled = $('li.SCHEDULED').length;
         var draft = $('li.DRAFT').length;
+        var newsletter = $('li.newsletterItem').length;
+        var debate = $('li.debateItem').length;
+        var post = $('li.postItem').length;
 
 
         //select filtro campañas según estado
-        $('#filterCampaigns').on('change', function () {
+        /*$('#filterCampaigns').on('change', function () {
             if ($('#filterCampaigns option:selected').is('#all')) {
                 $('.totalList').text(counterList);
                 $('#infoFilterCampaigns').removeClass().find('.filtered').text('');
@@ -494,6 +546,26 @@ $(document).ready(function() {
             if ($('#filterCampaigns option:selected').is('#DRAFT')) {
                 $('.totalList').text(draft);
                 $('#infoFilterCampaigns').removeClass().find('.filtered').text('draft');
+            }
+        });*/
+
+        //select filtro campañas según tipo
+        $('#filterCampaigns').on('change', function () {
+            if ($('#filterCampaigns option:selected').is('#all')) {
+                $('.totalList').text(counterList);
+                $('#infoFilterCampaigns').removeClass().find('.filtered').text('');
+            }
+            if ($('#filterCampaigns option:selected').is('#newsletter')) {
+                $('.totalList').text(newsletter);
+                $('#infoFilterCampaigns').removeClass().find('.filtered').text('');
+            }
+            if ($('#filterCampaigns option:selected').is('#debate')) {
+                $('.totalList').text(debate);
+                $('#infoFilterCampaigns').removeClass().find('.filtered').text('');
+            }
+            if ($('#filterCampaigns option:selected').is('#post')) {
+                $('.totalList').text(post);
+                $('#infoFilterCampaigns').removeClass().find('.filtered').text('');
             }
         });
 
@@ -519,7 +591,7 @@ $(document).ready(function() {
             outerWindow: 1
         };
         var options = {
-            valueNames: [ 'id', 'name', 'title', 'recip-number', 'open-number', 'click-number', 'state', { name: 'timestamp', attr: 'val' } ],
+            valueNames: [ 'id', 'name', 'title', 'recip-number', 'open-number', 'click-number', 'state', 'type',{ name: 'timestamp', attr: 'val' } ],
             page: 10,
             searchClass: "searchCampaigns",
             plugins: [
@@ -538,10 +610,18 @@ $(document).ready(function() {
           removeBtn.click(function(e) {
               e.preventDefault();
               var link = $(this).attr("href");
-              var itemId =  $(this).closest('li').find('.id').text();
+              var itemId =  $(this).parents("ul#campaignsList > li").find('.id').text();
               prepareAndOpenCampaignConfirmDeletionModal(link, itemId)
           });
         }
+
+        // abrir modal editar campaña planificada
+        $('body').on('click', 'a.modalEditScheduled', function(e) {
+            e.preventDefault();
+            var linkScheduled = $(this).attr('href');
+            $("#modalEditScheduled").modal("show");
+            $("a#modalEditScheduledButtonOk").attr("href", linkScheduled)
+        });
 
         // cerrar modal confirmar envío campaña
         $('body').on('click','a.deleteCampaignBtn', function(e) {
@@ -576,8 +656,8 @@ $(document).ready(function() {
             } else {
                 // filter items in the list
                 campaignList.filter(function (item) {
-                    if (item.values().state == selection) {
-                        return (item.values().state == selection);
+                    if (item.values().type == selection) {
+                        return (item.values().type == selection);
                     }
                 });
             }
@@ -663,7 +743,10 @@ $(document).ready(function() {
 
         if (isAllContactsSelected) {
             // Send filter
-            postData = $('#contactFilterForm').serialize();
+            var $filterData = $('#contactFilterForm');
+            var inputs = filterContacts.getFilterInputs($filterData)
+            postData = inputs.serialize();
+
             postData += "&checkedAll=1";
         } else {
             // Send list of ids
@@ -905,6 +988,20 @@ $(document).ready(function() {
 
     });
 
+    // Switch porcentaje/numero para ratios de apertura y clicks de cada campaña
+    $('span.stat').hover(
+        function(){
+            var num = $(this).attr("data-openratenum");
+            $(this).text(num);
+        }
+    );
+    $('span.stat').mouseout(
+        function(){
+            var percentage = $(this).attr("data-openrateptg");
+            $(this).text(percentage);
+        }
+    );
+
 
     ////////////////////////////////////////////////  EDITAR ////////////////////////////////////////
     // Abre el aviso superior para usuarios semilogados en la Propuesta.
@@ -953,18 +1050,24 @@ $(document).ready(function() {
         e.preventDefault();
         e.stopPropagation();
         var $form = $(this).parents("form[name=login-header]");
-        modalLogin($form, function(){
-            document.location.reload();
-        });
+        var callback = $form.attr("callback")
+        var callbackFunction = noLoggedCallbacks[callback]
+        if (noLoggedCallbacks[callback] == undefined){
+            callbackFunction = noLoggedCallbacks.reloadPage
+        }
+        modalLogin($form, callbackFunction);
     });
 
     $('#registro form[name=signup-modal] input[type=submit]').on('click', function(e){
         e.preventDefault();
         e.stopPropagation();
         var $form = $(this).parents("form[name=signup-modal]");
-        modalRegister($form, function(){
-            document.location.reload();
-        });
+        var callback = $form.attr("callback")
+        var callbackFunction = noLoggedCallbacks[callback]
+        if (noLoggedCallbacks[callback] == undefined){
+            callbackFunction = noLoggedCallbacks.reloadPage
+        }
+        modalRegister($form, callbackFunction);
     });
 
     // Funcionamiento de los radio button como nav-tabs
@@ -1034,23 +1137,26 @@ $(document).ready(function() {
 
 
     // hacer un bloque clicable y que tome que es su primer elemento la url del enlace a.hidden
-    $(function() {
-
-        $('body').on('click','.link-wrapper', function(e) {
-            //ÑAAAPAAAAA para que no salte el evento del link-wrapper en los popover
-            var target = $(e.target);
-            var popover = target.parents(".popover");
-            if (!popover.hasClass("popover")){
-                window.location = $(this).find('a.hidden').attr('href');
-            }
-        });
-
+    $('body').on('click','.link-wrapper', function(e) {
+        //ÑAAAPAAAAA para que no salte el evento del link-wrapper en los popover
+        var target = $(e.target);
+        var popover = target.parents(".popover");
+        if (!popover.hasClass("popover")){
+            window.location = $(this).find('a.hidden').attr('href');
+        }
     });
 
     // popover-trigger dentro del kakareo no lanza el enlace del bloque clicable
     $('.link-wrapper .popover-trigger').click(function(e) {
         e.stopPropagation();
         e.preventDefault();
+    });
+
+    $('ul.campaign-list').on("click",'.link-wrapper .card-footer .post-like', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $button = $(this)
+        postFunctions.onClickPostLike($button)
     });
 
 
@@ -1082,7 +1188,8 @@ $(document).ready(function() {
         var text = $(this).find(".search-filter-text").html();
         $("input[name=searchType]").val(value);
         $(".open-filter > a > span + span:first").html(text);
-        $(".open-filter > a > span").first().attr("class",iconClasses )
+        $(".open-filter > a > span").first().attr("class",iconClasses );
+        $(".input-group-btn .btn.search").click();
     });
 
     // setTimeout(prepareProgressBar, 500)
@@ -1133,7 +1240,7 @@ $(document).ready(function() {
                 },
                 success: function(result) {
                     $link.attr("data-pagination-offset", offset);
-                    $ul.append(result);
+                    $(result).insertBefore($ul.find("li").last())
                     if (total <= (offset+1)*max){
                         $seeMoreContainer.fadeOut("fast")
                     }
@@ -1473,6 +1580,7 @@ $(document).ready(function() {
     });
 
     prepareForms()
+
 });
 
 function prepareForms(){
@@ -1519,6 +1627,12 @@ function counterCharacters(idField) {
     });
 }
 
+var noLoggedCallbacks = {
+    reloadPage : function(){
+        document.location.reload();
+    }
+}
+
 
 function stringStartsWith (string, prefix) {
     if (string == undefined || string.length < prefix.length){
@@ -1530,6 +1644,7 @@ function stringStartsWith (string, prefix) {
 function moveToHash(hash){
     var dest = 0;
     hash = hash + "-tag";
+    hash = hash.replace("=",""); // Facebook login adds #_=_ at the end of the URL. This makes to fail this logic
     if ($(hash).length){ //If the element exists
         if ($(hash).offset().top > $(document).height() - $(window).height()) {
             dest = $(document).height() - $(window).height();
@@ -1596,6 +1711,8 @@ function prepareContactTags(){
 
             $(input).tagsinput({
                 allowDuplicates: false,
+                freeInput: true,
+                addOnBlur: true,
                 typeaheadjs: {
                     minLength: 2,
                     hint: true,
@@ -1606,71 +1723,98 @@ function prepareContactTags(){
                     source: tagsnames.ttAdapter()
                 }
             });
+            $(input).siblings("#inputAddTags").on("click", function(e){
+                console.log("Click")
+            })
         });
+
+        // Add tags when focusout
+        $(".bootstrap-tagsinput input").on('focusout', function() {
+            var elem = $(this).closest(".bootstrap-tagsinput").parent().children("input.tagsField");
+            elem.tagsinput('add', $(this).val());
+            $(this).typeahead('val', '');
+        });
+    }
+}
+
+function waitFormChecked($form, callback){
+    if ($form.hasClass("checked")){
+        callback();
+    }else{
+        //console.log("Waiting ....")
+        window.setTimeout(function(){waitFormChecked($form, callback)}, 500);
     }
 }
 
 function modalLogin($form, callback){
     pageLoadingOn();
-    $form.parents(".modal").modal("hide")
-    setTimeout(function() {
-        if ($form.valid()){
-            var url = $form.attr("action")
-            var data={
-                j_username:$form.find("input[name=j_username]").val(),
-                j_password:$form.find("input[name=j_password]").val()
-            };
-            $.ajax({
-                type: "POST",
-                url: url,
-                data: data,
-                success: function (dataLogin) {
-                    console.log(dataLogin);
-                    if (dataLogin.success){
-                        callback()
-                    }else{
-                        // Form validation doesn't allow to take this conditional branch
-                        document.location.href = dataLogin.url
+    if ($form.valid()) {
+        waitFormChecked($form, function () {
+            if ($form.valid()) {
+                $form.parents(".modal").modal("hide")
+                var url = $form.attr("action")
+                var data = {
+                    j_username: $form.find("input[name=j_username]").val(),
+                    j_password: $form.find("input[name=j_password]").val()
+                };
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: data,
+                    success: function (dataLogin) {
+                        console.log(dataLogin);
+                        if (dataLogin.success) {
+                            callback()
+                        } else {
+                            // Form validation doesn't allow to take this conditional branch
+                            document.location.href = dataLogin.url
+                        }
+                    },
+                    complete: function () {
+                        pageLoadingOff();
                     }
-                },
-                complete : function(){
-                    pageLoadingOff();
-                }
-            });
-        }else{
-            pageLoadingOff();
-        }
-    }, 500);
+                });
+            } else {
+                pageLoadingOff();
+            }
+        });
+    } else {
+        pageLoadingOff();
+    }
 }
 
 function modalRegister($form, callback){
     pageLoadingOn();
-    $form.parents(".modal").modal("hide")
-    setTimeout(function() {
-        if ($form.valid()){
-            var url = $form.attr("action-ajax")
-            var data={
-                name:$form.find("input[name=name]").val(),
-                email:$form.find("input[name=email]").val()
-            };
-            $.ajax({
-                type: "POST",
-                url: url,
-                data: data,
-                success: function (dataLogin) {
-                    if (dataLogin.success){
-                        callback()
-                    }else{
-                        // Form validation doesn't allow to take this conditional branch
-                        $form.submit() // Goes to register page usign normal flow and handling errors
+    if ($form.valid()) {
+        waitFormChecked($form, function () {
+            if ($form.valid()) {
+                $form.parents(".modal").modal("hide")
+                var url = $form.attr("action-ajax")
+                var data = {
+                    name: $form.find("input[name=name]").val(),
+                    email: $form.find("input[name=email]").val()
+                };
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: data,
+                    success: function (dataLogin) {
+                        if (dataLogin.success) {
+                            callback()
+                        } else {
+                            // Form validation doesn't allow to take this conditional branch
+                            $form.submit() // Goes to register page usign normal flow and handling errors
+                        }
+                    },
+                    complete: function () {
+                        pageLoadingOff();
                     }
-                },
-                complete : function(){
-                    pageLoadingOff();
-                }
-            });
-        }else{
-            pageLoadingOff();
-        }
-    }, 500);
+                });
+            } else {
+                pageLoadingOff();
+            }
+        })
+    } else {
+        pageLoadingOff();
+    }
 }

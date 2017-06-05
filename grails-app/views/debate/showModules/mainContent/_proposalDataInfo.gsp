@@ -1,12 +1,12 @@
 <div id="proposal_${proposal.id}" class="conversation-box" data-debateId="${proposal.debateId}" data-debateAlias="${proposal.debateAlias}">
     <div class="header clearfix">
         <userUtil:showUserByAlias alias="${proposal.userAlias}" extraCss="pull-left"/>
-        <span class="time-ago middle-point left"><kuorumDate:humanDate date="${proposal.datePublished}"/> </span>
+        <span class="time-ago middle-point left"> <kuorumDate:humanDate date="${proposal.datePublished}"/> </span>
         <ul class="icons pull-right">
             <userUtil:ifUserIsTheLoggedOne user="${debate.userAlias}">
                 <li>
                     <button
-                            class="pin-propusal ${proposal.pinned?'active':''}"
+                            class="pin-proposal ${proposal.pinned?'active':''}"
                             rel="tooltip"
                             type="button"
                             data-urlAction="${g.createLink(mapping: 'debateProposalPin')}"
@@ -26,18 +26,20 @@
                 </li>
             </userUtil:ifUserIsTheLoggedOne>
             <userUtil:elseIfUserNotIsTheLoggedOne user="${debate.userAlias}">
-                <li >
-                    <span class="fa-stack fa-lg pin-propusal ${proposal.pinned?'active':''}"
-                          aria-hidden="true"
-                          rel="tooltip"
-                          data-toggle="tooltip"
-                          data-placement="bottom"
-                          title=""
-                          data-original-title="${g.message(code:'debate.show.proposal.pinned.tooltip', args: [debateUser.name])}">
-                        <span class="fa fa-circle dark fa-stack-2x"></span>
-                        <span class="fa fa-flag-o fa-stack-1x fa-inverse"></span>
-                    </span>
-                </li>
+                <g:if test="${proposal.pinned}">
+                    <li >
+                        <span class="fa-stack fa-lg pin-proposal active"
+                              aria-hidden="true"
+                              rel="tooltip"
+                              data-toggle="tooltip"
+                              data-placement="bottom"
+                              title=""
+                              data-original-title="${g.message(code:'debate.show.proposal.pinned.tooltip', args: [debateUser.name])}">
+                            <span class="fa fa-circle dark fa-stack-2x"></span>
+                            <span class="fa fa-flag-o fa-stack-1x fa-inverse"></span>
+                        </span>
+                    </li>
+                </g:if>
             </userUtil:elseIfUserNotIsTheLoggedOne>
         </ul>
     </div>
@@ -60,7 +62,7 @@
             <div class="comment-counter pull-right">
                 <userUtil:ifUserIsTheLoggedOne user="${proposal.userAlias}">
                     <button type="button" class="delete" data-ajaxDelete='${g.createLink(mapping: 'debateProposalDelete')}'>
-                        <span class="middle-point right delete"><g:message code="post.show.comments.delete"/></span>
+                        <span class="middle-point right"><g:message code="post.show.comments.delete"/></span>
                     </button>
                 </userUtil:ifUserIsTheLoggedOne>
                 <button type="button" class="comment">

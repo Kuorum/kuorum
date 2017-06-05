@@ -2,8 +2,6 @@ package kuorum
 
 import org.kuorum.rest.model.notification.campaign.CampaignRSDTO
 
-import java.text.DecimalFormat
-
 class CampaignTagLib {
     static defaultEncodeAs = [taglib:'raw']
     //static encodeAsForTags = [tagName: [taglib:'html'], otherTagName: [taglib:'none']]
@@ -23,7 +21,13 @@ class CampaignTagLib {
             Number openRateNum = campaignRSDTO.numberOpens/campaignRSDTO.numberRecipients*100
             openRateValue = g.formatNumber(number: openRateNum, maxFractionDigits: 1, type: 'number', format: '\\$###.#0')
         }
-        out << openRateValue
+        else{
+            openRateValue = '- '
+        }
+        out << """
+                <span class="open-number stat" data-openRateNum="${campaignRSDTO.numberOpens}" data-openRatePtg="${openRateValue}%">${openRateValue}%</span>
+
+        """
 
     }
 
@@ -36,7 +40,13 @@ class CampaignTagLib {
             Number clickRateNum = campaignRSDTO.numberClicks/campaignRSDTO.numberRecipients*100
             clickRateValue = g.formatNumber(number: clickRateNum, maxFractionDigits: 1, type: 'number', format: '\\$###.#0')
         }
-        out << clickRateValue
+        else{
+            clickRateValue = '- '
+        }
+        out << """
+                <span class="click-number stat" data-openRateNum="${campaignRSDTO.numberClicks}" data-openRatePtg="${clickRateValue}%">${clickRateValue}%</span>
+
+        """
 
     }
 }

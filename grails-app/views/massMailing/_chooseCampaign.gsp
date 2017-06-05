@@ -1,15 +1,37 @@
 <ul id="mails" class="campaigns">
-    <li class="fontIcon"><g:link mapping="politicianMassMailingNew" role="button" class="mail">
-        <span class="fa fa-envelope-o"></span>
-        <span class="label"><g:message code="tools.campaign.new.newsLetter"/></span></g:link>
+    <li class="fontIcon">
+        <!--<span class="fa-stack fa-lg active"-->
+        <g:link mapping="politicianMassMailingNew" role="button" class="mail new-campaign-tip"
+                rel="tooltip"
+                data-toggle="tooltip"
+                data-placement="bottom"
+                title=""
+                data-original-title="${g.message(code:'dashboard.payment.chooseCampaign.tooltip.newsletter')}">
+            <span class="fa fa-envelope-o"></span>
+            <span class="label"><g:message code="tools.campaign.new.newsletter"/></span>
+        </g:link>
     </li>
-    %{--<li class="fontIcon"><g:link mapping="debateCreate" role="button" class="mail">--}%
-    %{--<span class="fa fa-newspaper-o"></span>--}%
-    %{--<span class="label"><g:message code="tools.campaign.new.post"/></span></g:link>--}%
-    %{--</li>--}%
-    <li class="fontIcon"><g:link mapping="debateCreate" role="button" class="mail">
-        <span class="fa fa-comments-o"></span>
-        <span class="label"><g:message code="tools.campaign.new.debate"/></span></g:link>
+    <li class="fontIcon">
+        <g:link mapping="postCreate" role="button" class="mail new-campaign-tip"
+                rel="tooltip"
+                data-toggle="tooltip"
+                data-placement="bottom"
+                title=""
+                data-original-title="${g.message(code:'dashboard.payment.chooseCampaign.tooltip.post')}">
+            <span class="fa fa-newspaper-o"></span>
+            <span class="label"><g:message code="tools.campaign.new.post"/></span>
+        </g:link>
+    </li>
+    <li class="fontIcon">
+        <g:link mapping="debateCreate" role="button" class="mail new-campaign-tip"
+                rel="tooltip"
+                data-toggle="tooltip"
+                data-placement="bottom"
+                title=""
+                data-original-title="${g.message(code:'dashboard.payment.chooseCampaign.tooltip.debate')}">
+            <span class="fa fa-comments-o"></span>
+            <span class="label"><g:message code="tools.campaign.new.debate"/></span>
+        </g:link>
     </li>
     %{--<li class="fontIcon"><g:link mapping="debateCreate" role="button" class="mail">--}%
     %{--<span class="fa fa-bar-chart-o"></span>--}%

@@ -10,7 +10,11 @@ class KuorumUrlCodec {
         String res = target.toString().toLowerCase()
         res = res.replaceAll(" ","-")
         res = Normalizer.normalize(res, Normalizer.Form.NFD)
-        res.replaceAll("[^a-zA-Z0-9\\-]","")
+        res = res.replaceAll("[^a-zA-Z0-9\\-]","")
+        if (res.startsWith("-")){
+            res = res.replaceFirst(/^-*/, "")
+        }
+        res
     }
 
     static decode = {target->

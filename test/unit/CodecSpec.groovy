@@ -27,6 +27,8 @@ class CodecSpec extends Specification {
         ""                  | ""
         "aâäáeéëê iÍÏï#%/"  |"aaaaeeee-iiii"
         "Aa Ha ÄÁa"         |"aa-ha-aaa"
+        "-1-2-3"            |"1-2-3"
+        "---1-2-3"          |"1-2-3"
     }
 
     @Unroll

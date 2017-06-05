@@ -12,8 +12,6 @@ class SearchProjects extends Pagination implements Serializable{
 
     ProjectStatusType projectStatusType
 
-    String institutionName
-
     CommissionType commissionType
 
     String regionName

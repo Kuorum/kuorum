@@ -2,11 +2,7 @@ package kuorum.util.rest
 
 import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.ObjectMapper
-import groovyx.net.http.ContentType
-import groovyx.net.http.EncoderRegistry
-import groovyx.net.http.HttpResponseDecorator
-import groovyx.net.http.ParserRegistry
-import groovyx.net.http.RESTClient
+import groovyx.net.http.*
 import kuorum.core.exception.KuorumException
 import org.apache.commons.io.IOUtils
 import org.apache.http.entity.InputStreamEntity
@@ -34,6 +30,19 @@ class RestKuorumApiService {
                 headers: ["User-Agent": "Kuorum Web", "token": kuorumRestApiKey],
                 query: query,
                 requestContentType: ContentType.JSON
+        )
+        return response
+    }
+
+    def delete(ApiMethod apiMethod, Map<String,String> params, Map<String,String> query, TypeReference typeToMap) {
+        RESTClient mailKuorumServices = getRestMailKuorumServices(typeToMap);
+
+        String path = apiMethod.buildUrl(apiPath,params);
+        def response = mailKuorumServices.delete(
+                path: path,
+                headers: ["User-Agent": "Kuorum Web", "token":kuorumRestApiKey],
+                query:query,
+                requestContentType : groovyx.net.http.ContentType.JSON
         )
         return response
     }
@@ -82,13 +91,25 @@ class RestKuorumApiService {
         ACCOUNT_MASS_MAILING_SEND       ("/communication/massmailing/{userAlias}/{campaignId}/send"),
         ACCOUNT_MASS_MAILING_TRACKING   ("/communication/massmailing/{userAlias}/{campaignId}/trackingMails"),
 
+        ACCOUNT_DEBATES_ALL     ("/communication/debate/"),
         ACCOUNT_DEBATES         ("/communication/debate/{userAlias}"),
         ACCOUNT_DEBATE          ("/communication/debate/{userAlias}/{debateId}"),
         ACCOUNT_DEBATE_PROPOSALS("/communication/debate/{userAlias}/{debateId}/proposal"),
         ACCOUNT_DEBATE_PROPOSAL ("/communication/debate/{userAlias}/{debateId}/proposal/{proposalId}"),
         ACCOUNT_DEBATE_PROPOSAL_LIKE     ("/communication/debate/{userAlias}/{debateId}/proposal/{proposalId}/likes"),
-        ACCOUNT_DEBATE_PROPOSAL_COMMENTS  ("/communication/debate/{userAlias}/{debateId}/proposal/{proposalId}/comment"),
-        ACCOUNT_DEBATE_PROPOSAL_COMMENT  ("/communication/debate/{userAlias}/{debateId}/proposal/{proposalId}/comment/{commentId}"),
+        ACCOUNT_DEBATE_PROPOSAL_COMMENTS      ("/communication/debate/{userAlias}/{debateId}/proposal/{proposalId}/comment"),
+        ACCOUNT_DEBATE_PROPOSAL_COMMENT       ("/communication/debate/{userAlias}/{debateId}/proposal/{proposalId}/comment/{commentId}"),
+        ACCOUNT_DEBATE_PROPOSAL_COMMENT_VOTE  ("/communication/debate/{userAlias}/{debateId}/proposal/{proposalId}/comment/{commentId}/vote"),
+
+        ACCOUNT_POSTS_ALL       ("/communication/post/"),
+        ACCOUNT_POSTS           ("/communication/post/{userAlias}"),
+        ACCOUNT_POST            ("/communication/post/{userAlias}/{postId}"),
+        ACCOUNT_POST_LIKES      ("/communication/post/{userAlias}/{postId}/likes"),
+
+        USER_CONTACTS_CAMPAIGNS_ALL ("/user/{userId}/dashboard/campaigns"),
+        USER_CONTACTS_POSTS_ALL ("/user/{userId}/dashboard/post"),
+        USER_CONTACTS_DEBATES_ALL   ("/user/{userId}/dashboard/debate"),
+
 
         ADMIN_MAILS_SEND("/admin/notification/mailing/send");
 

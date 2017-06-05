@@ -11,6 +11,7 @@ import kuorum.users.PersonalData
 import org.bson.types.ObjectId
 
 @MongoUpdatable
+@Deprecated
 class Post {
 
     ObjectId id

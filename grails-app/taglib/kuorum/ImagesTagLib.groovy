@@ -73,6 +73,7 @@ out << """
     }
 
     def imageYoutubeSrc = {attrs ->
+        Boolean maxResolution = attrs.maxResolution?Boolean.parseBoolean(attrs.maxResolution):false;
         String youtubeFileName = ""
         if (attrs.youtube instanceof String){
             youtubeFileName = attrs.youtube.decodeYoutubeName()
@@ -81,6 +82,9 @@ out << """
             youtubeFileName = youtube.fileName
         }
         String screenShot = "mqdefault.jpg" // Si es de alta resolucion se podría poner maxresdefault.jpg
+        if (maxResolution){
+            screenShot = "maxresdefault.jpg"
+        }
         out << "https://img.youtube.com/vi/${youtubeFileName}/${screenShot}"
     }
 

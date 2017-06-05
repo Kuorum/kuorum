@@ -3,10 +3,13 @@ package payment.campaign
 import com.fasterxml.jackson.core.type.TypeReference
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.transaction.Transactional
+import kuorum.solr.IndexSolrService
 import kuorum.users.KuorumUser
+import kuorum.util.TimeZoneUtil
 import kuorum.util.rest.RestKuorumApiService
 import org.kuorum.rest.model.communication.debate.DebateRDTO
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
+import org.kuorum.rest.model.communication.debate.PageDebateRSDTO
 
 import java.text.SimpleDateFormat
 
@@ -14,7 +17,19 @@ import java.text.SimpleDateFormat
 class DebateService {
 
     RestKuorumApiService restKuorumApiService
+    IndexSolrService indexSolrService
 
+    PageDebateRSDTO findAllDebates(Integer page = 0, Integer size = 10) {
+        Map<String, String> params = [:]
+        Map<String, String> query = [page:page, size:size]
+        def response = restKuorumApiService.get(
+                RestKuorumApiService.ApiMethod.ACCOUNT_DEBATES_ALL,
+                params,
+                query,
+                new TypeReference<PageDebateRSDTO>(){}
+        )
+        response.data
+    }
     List<DebateRSDTO> findAllDebates(KuorumUser user) {
         Map<String, String> params = [userAlias: user.id.toString()]
         Map<String, String> query = [:]
@@ -34,7 +49,11 @@ class DebateService {
     }
 
     DebateRSDTO findDebate(KuorumUser user, Long debateId, String viewerUid = null) {
-        Map<String, String> params = [userAlias: user.id.toString(), debateId: debateId.toString()]
+        findDebate(user.getId().toString(), debateId, viewerUid);
+    }
+
+    DebateRSDTO findDebate(String userId, Long debateId, String viewerUid = null) {
+        Map<String, String> params = [userAlias: userId, debateId: debateId.toString()]
         Map<String, String> query = [:]
         if (viewerUid){
             query.put("viewerUid",viewerUid)
@@ -56,15 +75,18 @@ class DebateService {
 
     DebateRSDTO saveDebate(KuorumUser user, DebateRDTO debateRDTO, Long debateId) {
         if (debateRDTO.publishOn != null) {
-            debateRDTO.publishOn = convertToUserTimeZone(debateRDTO.publishOn, user.timeZone)
+            debateRDTO.publishOn = TimeZoneUtil.convertToUserTimeZone(debateRDTO.publishOn, user.timeZone)
         }
         debateRDTO.body = debateRDTO.body.encodeAsRemovingScriptTags().encodeAsTargetBlank()
 
+        DebateRSDTO debate
         if (debateId) {
-            updateDebate(user, debateRDTO, debateId)
+            debate = updateDebate(user, debateRDTO, debateId)
         } else {
-            createDebate(user, debateRDTO)
+            debate = createDebate(user, debateRDTO)
         }
+        indexSolrService.deltaIndex();
+        return debate;
     }
 
     DebateRSDTO createDebate(KuorumUser user, DebateRDTO debateRDTO) {
@@ -115,18 +137,6 @@ class DebateService {
         )
 
         debateId
-    }
-
-    private static Date convertToUserTimeZone(Date date, TimeZone userTimeZone) {
-        if (date) {
-            def dateFormat = 'yyyy/MM/dd HH:mm'
-            String rawDate = date.format(dateFormat)
-            SimpleDateFormat sdf = new SimpleDateFormat(dateFormat)
-            sdf.setTimeZone(userTimeZone)
-            return sdf.parse(rawDate)
-        } else {
-            return new Date()
-        }
     }
 
 }

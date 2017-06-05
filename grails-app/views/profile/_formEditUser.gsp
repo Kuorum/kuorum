@@ -5,24 +5,12 @@
         <formUtil:textArea command="${command}" field="bio" showLabel="true"/>
     </fieldset>
 
-    <g:if test="${user.userType == UserType.POLITICIAN || user.userType == kuorum.core.model.UserType.CANDIDATE}">
-        <g:render template="/profile/formEditUserPolitician" model="[user:user, command:command]"/>
-    </g:if>
-    <g:else>
+    %{--<g:if test="${user.userType == UserType.POLITICIAN || user.userType == kuorum.core.model.UserType.CANDIDATE}">--}%
+        %{--<g:render template="/profile/formEditUserPolitician" model="[user:user, command:command]"/>--}%
+    %{--</g:if>--}%
+    %{--<g:else>--}%
         <g:render template="/profile/formEditUserCitizen" model="[user:user, command:command]"/>
-    </g:else>
-</div>
-<div class="box-ppal-section">
-    <h4 class="box-ppal-section-title"><g:message code="profile.editUser.profileImage"/></h4>
-
-    <fieldset class="form-group image perfil" data-multimedia-switch="on" data-multimedia-type="IMAGE">
-        <formUtil:editImage command="${command}" field="photoId" fileGroup="${kuorum.core.FileGroup.USER_AVATAR}"/>
-    </fieldset>
-
-    <fieldset class="form-group image fondoperfil" data-multimedia-switch="on" data-multimedia-type="IMAGE">
-        <formUtil:editImage command="${command}" field="imageProfile" fileGroup="${kuorum.core.FileGroup.USER_PROFILE}"/>
-    </fieldset>
-
+    %{--</g:else>--}%
 </div>
 <div class="box-ppal-section">
     <fieldset class="form-group text-center">

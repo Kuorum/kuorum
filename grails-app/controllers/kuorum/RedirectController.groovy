@@ -20,6 +20,7 @@ class RedirectController {
 
     def redirect301 = {
         def newMapping = params.remove("newMapping")
+        log.info("OLD URL: Redirecting to ${newMapping} with params: ${params}")
         def link = g.createLink(mapping: newMapping, params: params)
         response.setHeader "Location", link
         response.status = 301
@@ -71,25 +72,6 @@ class RedirectController {
         }
     }
 
-    def redirect301Post = {
-        Post post = ObjectId.isValid(params.postId)?Post.get(new ObjectId(params.postId)):null;
-        if (post){
-            def link = g.createLink(mapping: "postShow", params: post.encodeAsLinkProperties())
-            response.setHeader "Location", link
-            response.status = HttpStatus.SC_MOVED_PERMANENTLY
-            render('')
-            return false
-        }else{
-            def link = g.createLink(mapping: 'landingSearch', params: [word:params.urlName], absolute: true)
-            link = link + "#results"
-            response.setHeader "Location", link
-            response.status = HttpStatus.SC_GONE
-            flash.message=g.message(code:'redirect.project.notFound')
-            render("<script>window.location = '${link}' ;</script>")
-            return false
-        }
-    }
-    
     def blogRedirect(String articlePath){
         if (params.lang){
             render "CloudFront redirect"

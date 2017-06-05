@@ -1,5 +1,9 @@
 package kuorum.dashboard
 
+import com.fasterxml.jackson.core.type.TypeReference
+import com.google.gdata.client.contacts.ContactsService
+import grails.plugin.springsecurity.SpringSecurityService
+import groovy.time.TimeCategory
 import kuorum.Region
 import kuorum.RegionService
 import kuorum.core.model.Gender
@@ -7,14 +11,24 @@ import kuorum.core.model.UserType
 import kuorum.notifications.Notice
 import kuorum.notifications.NoticeType
 import kuorum.users.KuorumUser
+import kuorum.util.rest.RestKuorumApiService
+import org.kuorum.rest.model.communication.PageCampaignRSDTO
+import org.kuorum.rest.model.communication.debate.PageDebateRSDTO
+import org.kuorum.rest.model.communication.post.PagePostRSDTO
+import org.kuorum.rest.model.contact.ContactPageRSDTO
 import org.springframework.context.MessageSource
-import groovy.time.*
+import payment.contact.ContactService
 
 class DashboardService {
 
     MessageSource messageSource
 
     RegionService regionService
+
+    RestKuorumApiService restKuorumApiService
+
+    SpringSecurityService springSecurityService;
+    ContactService contactService;
 
     /**
      * Method to show notices if the user's data profile is incomplete
@@ -55,7 +69,11 @@ class DashboardService {
         resultMessage
     }
 
-
+    boolean forceUploadContacts(){
+        KuorumUser user = springSecurityService.currentUser
+        ContactPageRSDTO contacts = contactService.getUsers(user)
+        return contacts.total==0 && !user.skipUploadContacts
+    }
     /**
      * Method to get the type of the current notice
      *
@@ -121,6 +139,52 @@ class DashboardService {
             }
         }
         numPoliticiansForUser > 0
+    }
+
+    PagePostRSDTO findAllContactsPosts (KuorumUser user, String viewerUid = null, Integer page = 0){
+        Map<String, String> params = [userId: user.id.toString()]
+        Map<String, String> query = [page:page]
+        if (viewerUid){
+            query.put("viewerUid",viewerUid)
+        }
+        def response = restKuorumApiService.get(
+                RestKuorumApiService.ApiMethod.USER_CONTACTS_POSTS_ALL,
+                params,
+                query,
+                new TypeReference<PagePostRSDTO>() {}
+        );
+
+        response.data
+    }
+
+    PageCampaignRSDTO findAllContactsCampaigns (KuorumUser user, String viewerUid = null, Integer page = 0){
+        Map<String, String> params = [userId: user.id.toString()]
+        Map<String, String> query = [page:page]
+        if (viewerUid){
+            query.put("viewerUid",viewerUid)
+        }
+        def response = restKuorumApiService.get(
+                RestKuorumApiService.ApiMethod.USER_CONTACTS_CAMPAIGNS_ALL,
+                params,
+                query,
+                new TypeReference<PageCampaignRSDTO>() {}
+        );
+
+        response.data
+    }
+
+    PageDebateRSDTO findAllContactsDebates (KuorumUser user, Integer page = 0){
+        Map<String, String> params = [userId: user.id.toString()]
+        Map<String, String> query = [page:page]
+
+        def response = restKuorumApiService.get(
+            RestKuorumApiService.ApiMethod.USER_CONTACTS_DEBATES_ALL,
+            params,
+            query,
+            new TypeReference<PageDebateRSDTO>(){}
+        );
+
+        response.data
     }
 }
 

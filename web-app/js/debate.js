@@ -8,20 +8,26 @@ var editor = new MediumEditor('.editable', {
     }
 });
 
-var editorComment = new MediumEditor('.editable-comment', {
-    buttonLabels: 'fontawesome',
-    targetBlank: true,
-    disableDoubleReturn: false,
-    anchorPreview: {
-        /* These are the default options for anchor preview,
-         if nothing is passed this is what it used */
-        hideDelay: 500,
-        previewValueSelector: 'a'
-    },
-    toolbar: {
-        buttons: ['anchor']
-    }
-});
+
+
+function prepareEditorComment(){
+    var editorComment = new MediumEditor('.editable-comment', {
+        buttonLabels: 'fontawesome',
+        targetBlank: true,
+        disableDoubleReturn: false,
+        anchorPreview: {
+            /* These are the default options for anchor preview,
+             if nothing is passed this is what it used */
+            hideDelay: 500,
+            previewValueSelector: 'a'
+        },
+        toolbar: {
+            buttons: ['anchor']
+        }
+    });
+}
+
+prepareEditorComment();
 
 $(function () {
     //Calculo de altura de las cajas de comentarios de debate
@@ -52,7 +58,7 @@ $(function () {
                     lines: calculateParragraphLines(parragrahHeight, parragraphNumber === totalParragraph)
                 };
             });
-
+            var boxHeight = 4 * lineHeight; //132 px;
             if (parragraphNumber > 1) { //en este caso habrá margenes entre párrafos
                 var numberVisibleLines = 4;
                 var idx = 0;
@@ -86,9 +92,9 @@ $(function () {
                     default:
                         $conversationBox.height(4 * lineHeight); //132 px
                 }
-                
-                $conversationBox.attr('data-height', $conversationBox.height());
+                boxHeight = $conversationBox.height();
             }
+            $conversationBox.attr('data-height', boxHeight);
         });
     });
 });
@@ -111,84 +117,13 @@ $(function(){
     // CommentButton
     $(".proposal-list").on('click','.conversation-box .footer .comment-counter button.comment', function (event) {
         var $conversationBox = $(event.target.parentElement).closest('.conversation-box');
-        conversationSectionClick($conversationBox)
+        debateFunctions.conversationSectionClick($conversationBox)
 
     });
 
 
     // Save comment
-    $(".proposal-list").on('click','.conversation-box-comments .comment-box .actions button.save-comment', saveCommentButtonClick);
-
-    function saveCommentButtonClick(e, callback){
-        if (isPageLoading()){
-            return;
-        }
-        var $button = $(e.target)
-        var $conversationBox = $($button.parents('.conversation-box-comments')[0]).prev();
-        var $commentsList = $conversationBox.next().children(".conversation-box-comments-list");
-        if ( $commentsList.is(":visible") ){
-            var userLogged = $button.attr("data-userLogged")
-            var debateId = $button.attr("data-debateId");
-            var debateAlias = $button.attr("data-debateAlias");
-            var proposalId = $button.attr("data-proposalId");
-            if (userLogged == undefined || userLogged == "" ){
-                // USER NO LOGGED
-                console.log("No LOGGED")
-                $('#registroDebate').find("form").attr("callback", "publishComment")
-                $('#registroDebate').find("form").attr("data-proposalId", proposalId)
-                $('#registroDebate').modal('show');
-            }else {
-                // BOTON SALVAR
-                var $mediumEditor = $button.parents('.comment-box').find('.editable-comment');
-                if (!validMediumEditor($mediumEditor)) {
-                    return;
-                }
-                pageLoadingOn();
-                var body = $mediumEditor.html();
-                var url = $button.attr("data-postUrl");
-                var data = {
-                    debateId: debateId,
-                    debateAlias: debateAlias,
-                    proposalId: proposalId,
-                    body: body
-                };
-                $.ajax({
-                    type: "POST",
-                    url: url,
-                    data: data,
-                    success: function (htmlComment) {
-                        var comment = $(htmlComment).hide().fadeIn(2000);
-                        var commentDivId = comment.attr("id");
-                        console.log(commentDivId)
-                        $commentsList.append(comment)
-                        $mediumEditor.html("")
-
-                        if (callback != undefined){
-                            callback(commentDivId)
-                        }
-                    },
-                    dataType: "html",
-                    complete: function(){
-                        pageLoadingOff();
-                    }
-                });
-            }
-        }else{
-            // ABRIR COMENTARIOS
-            conversationSectionClick($conversationBox)
-        }
-    }
-
-    function conversationSectionClick($conversationBox){
-        var $conversationBoxComments = $conversationBox.next('.conversation-box-comments');
-        var $conversationBoxCommentsComment = $conversationBoxComments.find('.comment-box .editable-comment');
-        var $conversationBoxCommentsArrow = $conversationBoxComments.find('.go-up');
-        var navbarHeight = $('.navbar').height();
-
-        var isVisible = $conversationBoxCommentsComment.is(':visible');
-
-        $conversationBoxCommentsArrow.trigger('click', [isVisible, $conversationBoxCommentsComment]);
-    }
+    $(".proposal-list").on('click','.conversation-box-comments .comment-box .actions button.save-comment', debateFunctions.saveCommentButtonClick);
 
     // See More button (TOOGLE)
     $(".proposal-list").on('click','.conversation-box button.btn-see-more.stack', function (event) {
@@ -229,12 +164,12 @@ $(function(){
         var $placeholder = $(event.target).closest('.comment-box');
         var $conversationComments = $placeholder.prev();
         var $actionsContent = $(event.target).closest('.actions');
-        var $commentPropusal = $placeholder.find('.comment-propusal');
+        var $commentProposal = $placeholder.find('.comment-proposal');
         var navbarHeight = $('.navbar').outerHeight();
         var $arrowButton = $(event.target).closest('.go-up').find('.angle');
 
         if (!isVisible) {
-            $commentPropusal.slideToggle();
+            $commentProposal.slideToggle();
             $conversationComments.slideToggle(1000, function () {
                 $arrowButton.toggleClass('fa-angle-down fa-angle-up');
                 if (isVisible === false) {
@@ -254,65 +189,317 @@ $(function(){
         }
     });
 
-    $(".publish-proposal").on("click", publishProposal);
+    $(".publish-proposal").on("click", debateFunctions.publishProposal);
 
-    $('#registroDebate form[name=login-header] input[type=submit]').on("click", function(e){
-        e.preventDefault();
-        e.stopPropagation();
-        var $form = $(this).parents("form[name=login-header]");
-        var callback = $form.attr("callback")
-        modalLogin($form, noLoggedCallbacks[callback]);
+    // Mark proposal as liked
+    $(".proposal-list").on("click", ".proposal-like", debateFunctions.onClickProposalLike);
+
+    // Pin proposal
+    $(".proposal-list").on("click","button.pin-proposal", function() {
+        var $button = $(this);
+        var userLogged = $button.attr("data-userLogged");
+        if (userLogged == undefined || userLogged == "" ) {
+            // USER NO LOGGED
+            $('#registro').modal('show');
+        } else {
+            $(this).toggleClass("active", "");
+            var pin = $button.hasClass("active");
+            var url =$button.attr("data-urlAction");
+            var debateId = $button.attr("data-debateId");
+            var debateAlias = $button.attr("data-debateAlias");
+            var proposalId = $button.attr("data-proposalId");
+            var data = {
+                debateId:debateId,
+                debateAlias:debateAlias,
+                proposalId:proposalId,
+                pin:pin
+            };
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: data,
+                success: function(jsonData){
+                    //console.log(jsonData)
+                    removeProposalFromFilter($button);
+                    checkPinnedFilter();
+                },
+                dataType: "html"
+            });
+        }
     });
 
-    $('#registroDebate form[name=debate-modal] input[type=submit]').on("click", function(e){
-        e.preventDefault();
-        var $form = $(this).parents("form[name=debate-modal]")
-        var callback = $form.attr("callback")
-        modalRegister($form, noLoggedCallbacks[callback]);
-    })
-
-    var noLoggedCallbacks = {
-        publishProposal: function(){
-            var $buttonPublish = $(".publish-proposal")
-            $buttonPublish.attr("data-userLoggedAlias", "logged"); //Chapu para que el if no saque de nuevo la modal
-            var eventFake = {target:$buttonPublish}
-            publishProposal(eventFake, function(proposalDivId){
-                var href = document.location.href;
-                var sharpPos = href.indexOf("#") < 0 ? href.length:href.indexOf("#");
-                var newUrl = href.substring(0,sharpPos);
-                newUrl = newUrl + "#"+proposalDivId
-                document.location.href = newUrl;
-                document.location.reload()
-            })
-        },
-        publishComment: function(){
-            var proposalId = $('#registroDebate').find("form").attr("data-proposalId")
-            var $buttonSaveComment = $("#proposal_"+proposalId).next("div").find(".actions button.save-comment")
-            $buttonSaveComment.attr("data-userLogged", "logged"); //Chapu para que el if no saque de nuevo la modal
-            var eventFake = {target:$buttonSaveComment}
-            pageLoadingOff();
-            saveCommentButtonClick(eventFake, function(commentDivId){
-                pageLoadingOn();
-                var href = document.location.href;
-                var sharpPos = href.indexOf("#") < 0 ? href.length:href.indexOf("#");
-                var newUrl = href.substring(0,sharpPos);
-                newUrl = newUrl + "#"+commentDivId
-                document.location.href = newUrl;
-                document.location.reload()
-            })
+    // Handle notification menu
+    $(".notification-menu").on("click", ".notification-text a", function(e){
+        var href = $(this).attr("href");
+        if (href.indexOf(window.location.pathname) >= 0 && href.indexOf("#")>=0){
+            e.preventDefault();
+            var hash = href.substring(href.indexOf("#")+1);
+            openElement(hash)
         }
+    });
+
+    // DELETE PROPOSAL
+    $(".proposal-list").on("click",".conversation-box button.delete",function(e){
+        var $button = $(this)
+        var buttonId = guid();
+        $button.attr("id", buttonId);
+        $modalButton = $("#modalDeleteDebateButton");
+        $modalButton.attr("data-buttonId", buttonId)
+        $modalButton.attr("data-deleteFunction", "deleteProposal")
+        $("#debateDeleteConfirm").modal("show")
+    });
+
+    // DELEtE COMMENT
+    $(".proposal-list").on("click",".conversation-box-comments ul.conversation-box-comments-list li.conversation-box-comment button.delete",function(e) {
+        var $button = $(this)
+        var buttonId = guid();
+        $button.attr("id", buttonId);
+        $modalButton = $("#modalDeleteDebateButton");
+        $modalButton.attr("data-buttonId", buttonId)
+        $modalButton.attr("data-deleteFunction", "deleteComment")
+        $("#debateDeleteConfirm").modal("show")
+    });
+
+    // MODAL DELETE CONFIRM
+    $("#modalDeleteDebateButton").on("click", function(e){
+        e.preventDefault();
+        var $button = $(this)
+        var buttonId = $modalButton.attr("data-buttonId")
+        var functionName = $modalButton.attr("data-deleteFunction")
+        var $realButtonClick = $("#"+buttonId);
+        deletes[functionName]($realButtonClick, function(){
+            $("#debateDeleteConfirm").modal("hide")
+        });
+
+    });
+
+    $(".proposal-list").on("click",".conversation-box-comment .footer button.angle",function(e) {
+        var $button = $(this)
+        var userAliasLogged = $button.attr("data-userAlias")
+        if (userAliasLogged == undefined || userAliasLogged==""){
+            var buttonId = guid();
+            $button.attr("id", buttonId)
+            $('#registro').find("form").attr("callback", "voteCommentNoLogged")
+            $('#registro').find("form").attr("data-buttonId", buttonId)
+            $('#registro').modal('show');
+        }else{
+            debateFunctions.voteComment($button)
+        }
+
+    });
+
+
+    // INIT CALLBACKS
+    noLoggedCallbacks['publishProposalNoLogged'] = function(){
+        pageLoadingOn();
+        var $buttonPublish = $(".publish-proposal")
+        $buttonPublish.attr("data-userLoggedAlias", "logged"); //Chapu para que el if no saque de nuevo la modal
+        var eventFake = {target:$buttonPublish}
+        debateFunctions.publishProposal(eventFake, function(htmlProposal){
+            var proposal = $(htmlProposal).hide().fadeIn(2000);
+            var proposalDivId = proposal.find("div.conversation-box").attr("id");
+            var href = document.location.href;
+            var sharpPos = href.indexOf("#") < 0 ? href.length:href.indexOf("#");
+            var newUrl = href.substring(0,sharpPos);
+            newUrl = newUrl + "#"+proposalDivId
+            document.location.href = newUrl;
+            document.location.reload()
+        })
+    };
+    noLoggedCallbacks['publishCommentNoLogged']= function(){
+        var proposalId = $('#registro').find("form").attr("data-proposalId")
+        var $buttonSaveComment = $("#proposal_"+proposalId).next("div").find(".actions button.save-comment")
+        $buttonSaveComment.attr("data-userLogged", "logged"); //Chapu para que el if no saque de nuevo la modal
+        var eventFake = {target:$buttonSaveComment}
+        pageLoadingOff();
+        debateFunctions.saveCommentButtonClick(eventFake, function($commentsList, htmlComment){
+            pageLoadingOn();
+            var comment = $(htmlComment).hide().fadeIn(2000);
+            var commentDivId = comment.attr("id");
+            var href = document.location.href;
+            var sharpPos = href.indexOf("#") < 0 ? href.length:href.indexOf("#");
+            var newUrl = href.substring(0,sharpPos);
+            newUrl = newUrl + "#"+commentDivId
+            document.location.href = newUrl;
+            document.location.reload()
+        })
+    };
+    noLoggedCallbacks['voteCommentNoLogged']= function(){
+        var buttonId = $('#registro').find("form").attr("data-buttonId")
+        var $button = $("#"+buttonId)
+        debateFunctions.voteComment($button, function(){
+            var commentDivId = $button.parents(".conversation-box-comment").attr("id")
+            var href = document.location.href;
+            var sharpPos = href.indexOf("#") < 0 ? href.length:href.indexOf("#");
+            var newUrl = href.substring(0,sharpPos);
+            newUrl = newUrl + "#"+commentDivId;
+            document.location.href = newUrl;
+            document.location.reload()
+        })
+
+    };
+    noLoggedCallbacks['likeProposalNoLogged']= function(){
+        var buttonId = $('#registro').find("form").attr("data-buttonId");
+        var $button = $("#"+buttonId);
+        debateFunctions.likeProposal($button, function(){
+            var proposalId = $button.parents(".conversation-box").attr("id");
+            var href = document.location.href;
+            var sharpPos = href.indexOf("#") < 0 ? href.length:href.indexOf("#");
+            var newUrl = href.substring(0,sharpPos);
+            newUrl = newUrl + "#"+proposalId;
+            document.location.href = newUrl;
+            document.location.reload();
+        })
+    };
+
+});
+
+
+function validMediumEditor($mediumEditor){
+    var text = $mediumEditor.html();
+    if (text == undefined || text == ""){
+        $mediumEditor.parent().addClass("error");
+        return false
     }
+    return true;
+}
 
+var debateFunctions = {
+    voteComment: function ($button, callback){
+        var vote = -1;
+        if ($button.find("span").hasClass("fa-angle-up")){
+            vote = 1;
+        }
+        var $proposalDiv = $button.parents("div.conversation-box-comments").prev()
+        var $commentLi = $button.parents("li.conversation-box-comment")
+        var proposalDivId = $proposalDiv.attr("id")
+        var proposalId = proposalDivId.substring(proposalDivId.indexOf("_")+1);
+        var debateId = $proposalDiv.attr("data-debateId")
+        var debateAlias = $proposalDiv.attr("data-debateAlias")
+        var commentId = $button.attr("data-commentId")
+        var url = $button.attr("data-ajaxVote")
+        var $number = $button.siblings(".number")
+        var data = {
+            proposalId:proposalId,
+            debateId:debateId,
+            debateAlias:debateAlias,
+            commentId:commentId,
+            vote:vote
+        }
 
-    function publishProposal(e, callback){
+        pageLoadingOn();
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: data,
+            success: function(jsonData){
+                $number.html(jsonData.votes)
+                $button.parents(".footer-comment-votes").removeClass("vote-up");
+                $button.parents(".footer-comment-votes").removeClass("vote-down");
+                if (vote > 0){
+                    $button.parents(".footer-comment-votes").addClass("vote-up");
+                }else{
+                    $button.parents(".footer-comment-votes").addClass("vote-down");
+                }
+                if (callback != undefined){
+                    callback()
+                }
+            },
+            error:function(){
+                display.error("Sorry: Error voting comment")
+            },
+            complete: function () {
+                pageLoadingOff();
+            }
+        });
+    },
+    onClickProposalLike: function(e) {
+        var $button = $(this);
+        var userLogged = $button.attr("data-userLogged");
+        if (userLogged == undefined || userLogged == "" ) {
+            // USER NOT LOGGED
+            var buttonId = guid();
+            $button.attr("id", buttonId)
+            $('#registro').find("form").attr("callback", "likeProposalNoLogged")
+            $('#registro').find("form").attr("data-buttonId", buttonId)
+            $('#registro').modal('show');
+        } else {
+            debateFunctions.likeProposal($button);
+        }
+    },
+    likeProposal: function($button, callback){
+        // Unbind
+        $(".proposal-list").off("click", ".proposal-like");
+
+        var like = $button.find(".fa").hasClass("fa-heart-o"); // Empty heart -> Converting to LIKE = TRUE
+
+        // Prediction: toggle button
+        $button.toggleClass("active");
+        $button.find(".fa").toggleClass("fa-heart-o fa-heart");
+        var count = parseInt($button.find(".number").text());
+        if (like) {
+            $button.find(".number").text(count + 1)
+        } else {
+            $button.find(".number").text(count - 1)
+        }
+
+        var url = $button.attr("data-urlAction");
+        var debateId = $button.attr("data-debateId");
+        var debateAlias = $button.attr("data-debateAlias");
+        var proposalId = $button.attr("data-proposalId");
+        var data = {
+            debateId: debateId,
+            debateAlias: debateAlias,
+            proposalId: proposalId,
+            like: like
+        };
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: data,
+            success: function () {
+                if (callback != undefined){
+                    callback()
+                }
+            },
+            error: function () {
+                // Recover from prediction
+                $button.toggleClass("active");
+                $button.find(".fa").toggleClass("fa-heart-o fa-heart");
+                var count = parseInt($button.find(".number").text());
+                if (like) {
+                    $button.find(".number").text(count - 1)
+                } else {
+                    $button.find(".number").text(count + 1)
+                }
+            },
+            complete: function () {
+                // Re-bind
+                $(".proposal-list").on("click", ".proposal-like", debateFunctions.onClickProposalLike);
+            },
+            dataType: "html"
+        });
+    },
+    printProposal: function(htmlProposal){
+        var proposal = $(htmlProposal).hide().fadeIn(2000);
+        var proposalDivId = proposal.find("div.conversation-box").attr("id");
+        $(".proposal-list").prepend(proposal);
+
+        // Update proposal counter
+        var $counterProposals = $('.leader-post .comment-counter .number');
+        $counterProposals.text(parseInt($counterProposals.text()) + 1);
+        $("#proposal-option a[href=#latest]").trigger("click");
+        prepareEditorComment();
+    },
+    publishProposal: function(e, callback){
         e = e || window.event;
+        callback = callback || debateFunctions.printProposal
         var $buttonPublish = $(e.target)
-        console.log($buttonPublish );
         var alias = $buttonPublish.attr("data-userLoggedAlias")
         if (alias == ""){
             // USER NO LOGGED
-            $('#registroDebate').find("form").attr("callback", "publishProposal")
-            $('#registroDebate').modal('show');
+            $('#registro').find("form").attr("callback", "publishProposalNoLogged")
+            $('#registro').modal('show');
         }else{
             var $mediumEditor = $(".comment.editable.medium-editor-element");
             if (!validMediumEditor($mediumEditor)){return;}
@@ -332,143 +519,99 @@ $(function(){
                 url: url,
                 data: data,
                 success: function (htmlProposal) {
-                    var proposal = $(htmlProposal).hide().fadeIn(2000);
-                    var proposalDivId = proposal.find("div.conversation-box").attr("id");
-                    $(".proposal-list").prepend(proposal);
+                    callback(htmlProposal)
                     $mediumEditor.html("");
-
-                    // Update proposal counter
-                    var $counterProposals = $('.leader-post .comment-counter .number');
-                    $counterProposals.text(parseInt($counterProposals.text()) + 1);
-                    $("#proposal-option a[href=#latest]").trigger("click");
-                    if (callback != undefined){
-                        callback(proposalDivId)
+                    if (typeof(dataLayer) != "undefined"){
+                        dataLayer.push({
+                            'event': 'debate-proposal-published',
+                            'pageCategory':'debate',
+                            'debateId':debateId,
+                            'debateAlias':debateAlias,
+                            'alias':alias
+                        })
                     }
                 },
                 complete : function(){
-                    $buttonPublish.on("click",publishProposal)
+                    $buttonPublish.on("click",debateFunctions.publishProposal)
                     pageLoadingOff();
                 },
                 dataType: "html"
             });
         }
-    }
-
-    function onClickProposalLike() {
-        // Unbind
-        $(".proposal-list").off("click", ".proposal-like");
-
-        var $button = $(this);
-        var userLogged = $button.attr("data-userLogged");
-        if (userLogged == undefined || userLogged == "" ) {
-            // USER NOT LOGGED
+    },
+    printComment: function($commentsList, htmlComment){
+        var comment = $(htmlComment).hide().fadeIn(2000);
+        $commentsList.append(comment)
+    },
+    saveCommentButtonClick: function (e, callback){
+        if (isPageLoading()){
+            return;
+        }
+        var $button = $(e.target)
+        var $conversationBox = $($button.parents('.conversation-box-comments')[0]).prev();
+        var $commentsList = $conversationBox.next().children(".conversation-box-comments-list");
+        if ( $commentsList.is(":visible") ){
+            debateFunctions.saveComment($commentsList,$button, callback)
+        }else{
+            // ABRIR COMENTARIOS
+            debateFunctions.conversationSectionClick($conversationBox)
+        }
+    },
+    saveComment:function($commentsList, $button, callback){
+        callback = callback || debateFunctions.printComment
+        var userLogged = $button.attr("data-userLogged")
+        var debateId = $button.attr("data-debateId");
+        var debateAlias = $button.attr("data-debateAlias");
+        var proposalId = $button.attr("data-proposalId");
+        if (userLogged == undefined || userLogged == "" ){
+            // USER NO LOGGED
+            $('#registro').find("form").attr("callback", "publishCommentNoLogged")
+            $('#registro').find("form").attr("data-proposalId", proposalId)
             $('#registro').modal('show');
-        } else {
-            var like = $(this).find(".fa").hasClass("fa-heart-o"); // Empty heart -> Converting to LIKE = TRUE
-
-            // Prediction: toggle button
-            $button.toggleClass("active");
-            $button.find(".fa").toggleClass("fa-heart-o fa-heart");
-            var count = parseInt($button.find(".number").text());
-            if (like) {
-                $button.find(".number").text(count + 1)
-            } else {
-                $button.find(".number").text(count - 1)
+        }else {
+            // BOTON SALVAR
+            var $mediumEditor = $button.parents('.comment-box').find('.editable-comment');
+            if (!validMediumEditor($mediumEditor)) {
+                return;
             }
-
-            var url = $(this).attr("data-urlAction");
-            var debateId = $(this).attr("data-debateId");
-            var debateAlias = $(this).attr("data-debateAlias");
-            var proposalId = $(this).attr("data-proposalId");
+            pageLoadingOn();
+            var body = $mediumEditor.html();
+            var url = $button.attr("data-postUrl");
             var data = {
                 debateId: debateId,
                 debateAlias: debateAlias,
                 proposalId: proposalId,
-                like: like
+                body: body
             };
             $.ajax({
                 type: "POST",
                 url: url,
                 data: data,
-                success: function () {
-
+                success: function (htmlComment) {
+                    callback($commentsList, htmlComment);
+                    $mediumEditor.html("")
                 },
-                error: function () {
-                    // Recover from prediction
-                    $button.toggleClass("active");
-                    $button.find(".fa").toggleClass("fa-heart-o fa-heart");
-                    var count = parseInt($button.find(".number").text());
-                    if (like) {
-                        $button.find(".number").text(count - 1)
-                    } else {
-                        $button.find(".number").text(count + 1)
-                    }
-                },
-                complete: function () {
-                    // Re-bind
-                    $(".proposal-list").on("click", ".proposal-like", onClickProposalLike);
-                },
-                dataType: "html"
+                dataType: "html",
+                complete: function(){
+                    pageLoadingOff();
+                }
             });
         }
+    },
+    conversationSectionClick: function($conversationBox){
+        var $conversationBoxComments = $conversationBox.next('.conversation-box-comments');
+        var $conversationBoxCommentsComment = $conversationBoxComments.find('.comment-box .editable-comment');
+        var $conversationBoxCommentsArrow = $conversationBoxComments.find('.go-up');
+        var navbarHeight = $('.navbar').height();
+
+        var isVisible = $conversationBoxCommentsComment.is(':visible');
+
+        $conversationBoxCommentsArrow.trigger('click', [isVisible, $conversationBoxCommentsComment]);
     }
+}
 
-    // Mark proposal as liked
-    $(".proposal-list").on("click", ".proposal-like", onClickProposalLike);
-
-    // Pin proposal
-    $(".proposal-list").on("click","button.pin-propusal", function() {
-        var userLogged = $(this).attr("data-userLogged");
-        if (userLogged == undefined || userLogged == "" ) {
-            // USER NO LOGGED
-            $('#registro').modal('show');
-        } else {
-            $(this).toggleClass("active", "");
-            var pin = $(this).hasClass("active");
-            var url =$(this).attr("data-urlAction");
-            var debateId = $(this).attr("data-debateId");
-            var debateAlias = $(this).attr("data-debateAlias");
-            var proposalId = $(this).attr("data-proposalId");
-            var data = {
-                debateId:debateId,
-                debateAlias:debateAlias,
-                proposalId:proposalId,
-                pin:pin
-            };
-            $.ajax({
-                type: "POST",
-                url: url,
-                data: data,
-                success: function(jsonData){
-                    console.log(jsonData)
-                },
-                dataType: "html"
-            });
-        }
-    });
-
-    function validMediumEditor($mediumEditor){
-        var text = $mediumEditor.html();
-        if (text == undefined || text == ""){
-            $mediumEditor.parent().addClass("error");
-            return false
-        }
-        return true;
-    }
-
-    // Handle notification menu
-    $(".notification-menu").on("click", ".notification-text a", function(e){
-        var href = $(this).attr("href");
-        if (href.indexOf(window.location.pathname) >= 0 && href.indexOf("#")>=0){
-            e.preventDefault();
-            var hash = href.substring(href.indexOf("#")+1);
-            openElement(hash)
-        }
-    });
-
-    // DELETE PROPOSAL
-    $(".proposal-list").on("click",".conversation-box button.delete",function(){
-        var $button = $(this);
+var deletes ={
+    deleteProposal: function($button, callback){
         var $proposalDiv = $button.parents("div.conversation-box")
         var proposalDivId = $proposalDiv.attr("id")
         var proposalId = proposalDivId.substring(proposalDivId.indexOf("_")+1);
@@ -487,16 +630,16 @@ $(function(){
             data: data,
             success: function(jsonData){
                 $proposalDiv.parent("li").fadeOut();
+                if (callback != undefined){
+                    callback()
+                }
             },
             complete: function () {
                 pageLoadingOff();
             }
         });
-    });
-
-    // DELEtE COMMENT
-    $(".proposal-list").on("click",".conversation-box-comments ul.conversation-box-comments-list li.conversation-box-comment button.delete",function() {
-        var $button = $(this);
+    },
+    deleteComment: function ($button, callback){
         var $proposalDiv = $button.parents("div.conversation-box-comments").prev()
         var $commentLi = $button.parents("li.conversation-box-comment")
         var proposalDivId = $proposalDiv.attr("id")
@@ -519,6 +662,9 @@ $(function(){
             data: data,
             success: function(jsonData){
                 $commentLi.fadeOut();
+                if (callback != undefined){
+                    callback()
+                }
             },
             error:function(){
                 display.error("Sorry: Error deleting comment")
@@ -527,10 +673,8 @@ $(function(){
                 pageLoadingOff();
             }
         });
-    });
-
-});
-
+    }
+}
 
 function SortProposals() {
     var that = this;
@@ -557,16 +701,16 @@ function SortProposals() {
     };
     this.proposalsOptions['best']={
         sort:function(a,b){
-            var aDateTime = $(a).find(".comment-counter .fa-heart-o").next().text();
-            var bDateTime = $(b).find(".comment-counter .fa-heart-o").next().text();
-            return aDateTime.localeCompare(bDateTime);
+            var aLikes = parseInt($(a).find(".comment-counter button.proposal-like .number").text().trim());
+            var bLikes = parseInt($(b).find(".comment-counter button.proposal-like .number").text().trim());
+            return bLikes - aLikes;
         },
         filter:function(idx){return false;},
         name:"best"
     };
     this.proposalsOptions['pinned']={
         sort:that.proposalsOptions.latest.sort,
-        filter:function(idx){return !$(this).find(".pin-propusal").hasClass("active");},
+        filter:function(idx){return !$(this).find(".pin-proposal").hasClass("active");},
         name:"pinned"
     };
 
@@ -595,6 +739,9 @@ function SortProposals() {
 }
 var sortProposals;
 $(function () {
+
+    checkPinnedFilter();
+
     sortProposals = new SortProposals();
     var hash = window.location.hash
     if (hash != undefined || hash != "") {
@@ -613,9 +760,16 @@ $(function () {
     openElement(hash)
 
     if (hash == "openProposal"){
-        $(".leader-post > .footer .comment-counter button").trigger("click")
+        $(".leader-post > .footer .comment-counter button").trigger("click");
     }
 });
+
+function removeProposalFromFilter(element){
+    var active = element.hasClass('active');
+    if(!active){
+        sortProposals.reorderList();
+    }
+}
 
 function openElement(hash){
     var $element = $("#" + hash);
@@ -632,3 +786,17 @@ function openElement(hash){
         }
     }
 }
+
+function checkPinnedFilter (){
+
+    if($('.proposal-list ul.icons .active').length == 0){
+        $('#proposal-option li').find('a[href*="pinned"]').hide();
+        $('#proposal-option li').find('a[href*="latest"]').click();
+        if(window.location.hash == '#pinned' ){
+            window.location.hash = '#latest';
+        }
+    } else{
+        $('#proposal-option li').find('a[href*="pinned"]').show();
+    }
+}
+

@@ -83,31 +83,6 @@ class ProjectTagLib {
         }
     }
 
-    /**
-     * Region attribute is deprecated, do not use
-     */
-    def showProjectRegionIcon={attrs ->
-        Project project = attrs.project
-        Region region
-        if (project) {
-            region = project.region
-        } else {
-            region = attrs.region
-        }
-        String cssClass= ""
-        switch (region.regionType) {
-            case RegionType.LOCAL:          cssClass = "icon2-ciudad"; break;
-            case RegionType.STATE:          cssClass = "icon2-region"; break;
-            case RegionType.NATION:         cssClass = "icon2-estado"; break;
-            case RegionType.SUPRANATIONAL:  cssClass = "icon2-europe"; break;
-        }
-        String regionTypeText = message(code:'kuorum.core.model.RegionType.'+region.regionType)
-        out << """
-                <span class="fa ${cssClass} fa-lg" data-toggle="tooltip" data-placement="bottom" title="" rel="tooltip" data-original-title="${regionTypeText}"></span>
-                <span class="sr-only">${regionTypeText}</span>
-        """
-    }
-
     def showProjectModule={attrs->
         Project project = attrs.project
         ProjectUpdate projectUpdate =attrs.projectUpdate?:null

@@ -23,6 +23,7 @@ import org.apache.solr.client.solrj.impl.HttpSolrServer
 import org.apache.solr.common.SolrDocument
 import org.apache.solr.common.SolrInputDocument
 import org.bson.types.ObjectId
+import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.springframework.beans.factory.annotation.Value
 
 import javax.annotation.PreDestroy
@@ -50,7 +51,6 @@ class IndexSolrService {
     def fullIndex() {
 
         Date start = new Date()
-//        createUserScore(start)
         def res = [:]
         log.warn("Reindexing all mongo")
         Integer numIndexed = solrFullIndex()
@@ -145,7 +145,8 @@ class IndexSolrService {
     }
 
     private void deleteDocument(String id){
-        server.deleteByQuery("id:${id}")
+//        server.deleteByQuery("id:${id}")
+        server.deleteById(id)
         server.commit()
     }
     void delete(Project project){
@@ -215,6 +216,7 @@ class IndexSolrService {
         solrInputDocument
     }
 
+    @Deprecated
     SolrPost createSolrElement(Post post){
         if (!post.published){
             log.info("No se indexa el post ${post.id} porque no está publicado")
@@ -229,11 +231,9 @@ class IndexSolrService {
             text:post.text,
             dateCreated:post.dateCreated,
             tags:[post.project.hashtag],
-            hashtagProject:post.project.hashtag,
+            alias:post.project.hashtag,
             owner:"${post.owner.name}",
             ownerId: "${post.owner.id.toString()}",
-            victory: post.victory,
-            commissions: post.project.commissions,
             regionName: post.project.region.name,
 //            institutionName:post.project.institution.name,
             regionIso3166_2: post.project.region.iso3166_2,
@@ -244,24 +244,39 @@ class IndexSolrService {
         )
     }
 
+
     SolrPost recoverPostFromSolr(SolrDocument solrDocument){
         new SolrPost(
-                id:new ObjectId(solrDocument.id),
+                id:solrDocument.id,
                 name:solrDocument.name,
                 type:SolrType.valueOf(solrDocument.type),
                 text:solrDocument.text,
                 dateCreated:solrDocument.dateCreated,
-                hashtagProject:solrDocument.hashtagProject,
+                alias:solrDocument.alias,
                 owner:solrDocument.owner,
                 ownerId:solrDocument.ownerId,
-                victory:solrDocument.victory,
-                commissions: solrDocument.commissions.collect{CommissionType.valueOf(it)},
                 regionName:solrDocument.regionName,
-                institutionName:solrDocument.institutionName,
                 regionIso3166_2: solrDocument.regionIso3166_2,
                 urlImage: solrDocument.urlImage,
                 kuorumRelevance: solrDocument.kuorumRelevance,
-                numberPeopleInterestedFor: solrDocument.numberPeopleInterestedFor,
+                regionIso3166_2Length: solrDocument.regionIso3166_2Length
+        )
+    }
+
+    SolrDebate recoverDebateFromSolr(SolrDocument solrDocument){
+        new SolrDebate(
+                id:solrDocument.id,
+                name:solrDocument.name,
+                type:SolrType.valueOf(solrDocument.type),
+                text:solrDocument.text,
+                dateCreated:solrDocument.dateCreated,
+                alias:solrDocument.alias,
+                owner:solrDocument.owner,
+                ownerId:solrDocument.ownerId,
+                regionName:solrDocument.regionName,
+                regionIso3166_2: solrDocument.regionIso3166_2,
+                urlImage: solrDocument.urlImage,
+                kuorumRelevance: solrDocument.kuorumRelevance,
                 regionIso3166_2Length: solrDocument.regionIso3166_2Length
         )
     }
@@ -300,35 +315,21 @@ class IndexSolrService {
                 postalCode = kuorumUser.personalData.postalCode
             }
         }
-        DBCollection bestUsersCollection = createUserScore(new Date());
-        Map<String, Object> bestUserData = [:]
-        DBObject limitFields = new BasicDBObject();
-        limitFields.put("score",1)
-        limitFields.put("numFollowers",1)
-        DBObject mongoData = bestUsersCollection.findOne(new BasicDBObject("_id", kuorumUser.id), limitFields)
-        if (mongoData){
-            bestUserData = mongoData.toMap()
-        }else{
-            bestUserData = ["score":0, "numFollowers":0]
-        }
 
-        SolrType type = SolrType.createFromUserType(kuorumUser.userType)
         new SolrKuorumUser(
                 id:kuorumUser.id.toString(),
                 name: kuorumUser.toString(),
-                type:type,
-                subType:type.generateSubtype(kuorumUser),
+                alias: kuorumUser.alias,
+                type:SolrType.KUORUM_USER,
                 dateCreated:kuorumUser.dateCreated,
-                commissions: kuorumUser.relevantCommissions,
                 regionName: regionName,
 //                tags:kuorumUser.tags,
                 regionIso3166_2: regionIso,
                 urlImage: kuorumUser.avatar?.url,
-                role:kuorumUser.gamification.activeRole,
                 gender:kuorumUser.personalData.gender?:Gender.FEMALE,
                 text:kuorumUser.bio,
-                kuorumRelevance: bestUserData.score,
-                numberPeopleInterestedFor: bestUserData.numFollowers,
+                kuorumRelevance: 0,
+                numberPeopleInterestedFor: 0,
                 regionIso3166_2Length: regionIso.length()
         )
     }
@@ -337,20 +338,15 @@ class IndexSolrService {
         new SolrKuorumUser(
                 id:new ObjectId(solrDocument.id),
                 name:solrDocument.name,
+                alias:solrDocument.alias,
                 type:SolrType.valueOf(solrDocument.type),
-                subType:SolrSubType.valueOf(solrDocument.subType),
                 dateCreated:solrDocument.dateCreated,
-                commissions: solrDocument.commissions.collect{CommissionType.valueOf(it)},
                 urlImage: solrDocument.urlImage,
                 tags: solrDocument.tags,
-                role:GamificationAward.valueOf(solrDocument.role),
-                gender: Gender.valueOf(solrDocument.gender),
                 regionName: solrDocument.regionName,
                 regionIso3166_2: solrDocument.regionIso3166_2,
                 text:solrDocument.text,
-                institutionName:solrDocument.institutionName,
                 kuorumRelevance: solrDocument.kuorumRelevance,
-                numberPeopleInterestedFor: solrDocument.numberPeopleInterestedFor,
                 regionIso3166_2Length: solrDocument.regionIso3166_2Length
         )
     }
@@ -364,13 +360,10 @@ class IndexSolrService {
                 id:project.id.toString(),
                 name:project.shortName,
                 type:SolrType.PROJECT,
-                subType:SolrType.PROJECT.generateSubtype(project.status),
                 text:project.description,
                 dateCreated:project.dateCreated,
                 tags:[project.hashtag],
-                hashtag:project.hashtag,
-                commissions:project.commissions,
-//                institutionName:project.institution.name,
+                alias:project.hashtag,
                 regionName: project.region.name,
                 regionIso3166_2: project.region.iso3166_2,
                 urlImage: project.image?.url,
@@ -404,7 +397,7 @@ class IndexSolrService {
                 subType:solrSubType,
                 text:solrDocument.text,
                 dateCreated:solrDocument.dateCreated,
-                hashtag:solrDocument.hashtag,
+                alias:solrDocument.hashtag,
                 commissions: solrDocument.commissions.collect{CommissionType.valueOf(it)},
                 institutionName:solrDocument.institutionName,
                 regionName:solrDocument.regionName,
@@ -422,162 +415,11 @@ class IndexSolrService {
 
     SolrElement recoverSolrElementFromSolr(SolrDocument solrDocument){
         switch (SolrType.valueOf(solrDocument.type)){
-            case SolrType.KUORUM_USER:
-            case SolrType.CANDIDATE:
-            case SolrType.ORGANIZATION:
-            case SolrType.POLITICIAN:   return recoverKuorumUserFromSolr(solrDocument); break;
-            case SolrType.PROJECT:      return recoverProjectFromSolr(solrDocument); break;
+            case SolrType.KUORUM_USER:  return recoverKuorumUserFromSolr(solrDocument); break;
+//            case SolrType.PROJECT:      return recoverProjectFromSolr(solrDocument); break;
             case SolrType.POST:         return recoverPostFromSolr(solrDocument); break;
+            case SolrType.DEBATE:       return recoverDebateFromSolr(solrDocument); break;
             default: throw new KuorumException("No se ha reconocido el tipo ${solrDocument.type}")
-        }
-    }
-
-    private Date chapuSyncReloadScore = new Date() -1
-
-    private static  final Integer SCORE_POST_CREATED = 1;
-    private static  final Integer SCORE_POST_DEBATE = 2;
-    private static  final Integer SCORE_POST_DEFEND = 3;
-    private static  final Integer SCORE_PROJECT_OPEN = 15;
-    private static  final Integer SCORE_PROJECT_CLOSE = 2;
-    public DBCollection createUserScore(Date startDate){
-
-        def tempCollectionName = "bestPoliticians"
-        DBCollection userScoredCollection = Post.collection.getDB().getCollection(tempCollectionName);
-        //TODO: HACER ESTO MEJOR QUE CON ESTE SYNC CHAAAPUUU
-        synchronized (this){
-            Boolean reloadScore = chapuSyncReloadScore < new Date() -1
-            if (!reloadScore && userScoredCollection.count()>0){
-                return userScoredCollection
-            }
-            userScoredCollection.drop();
-            chapuSyncReloadScore = chapuSyncReloadScore.clearTime()+1
-
-            log.warn("Calculando SCORE. Operacion lenta. Hay que cachearla o hacerla por la noche")
-
-            //TODO: CACHE THIS QUERY
-            //TODO: Use startDate. Now is getting best politicians ever
-            String mapPost = """
-                function() {
-                    if (this.defender != undefined){
-                        emit(this.defender, ${SCORE_POST_DEFEND})
-                    }
-                    if (this.debates != undefined) {
-                        this.debates.forEach( function(debate) {
-                            emit(debate.kuorumUserId, ${SCORE_POST_DEBATE})
-                        });
-                    }
-                    emit(this.owner, ${SCORE_POST_CREATED})
-                }
-            """
-
-            String reducePost = """
-                function(key, values) {
-                    var acc = 0;
-                    values.forEach( function(value) {
-                        acc +=value;
-                    });
-                    return acc;
-                }
-            """
-
-            DBObject queryPost = new BasicDBObject();
-            DBObject existsDefender = new BasicDBObject(); existsDefender.put('$exists','1');
-            queryPost.put("defender",existsDefender);
-            DBObject sortResult = new BasicDBObject();
-            sortResult.put('value',-1)
-
-            DBCollection postCollection = Post.collection
-
-            MapReduceCommand bestPoliticians = new MapReduceCommand(
-                    postCollection,
-                    mapPost,
-                    reducePost ,
-                    tempCollectionName,
-                    MapReduceCommand.OutputType.MERGE,null);
-            //        bestPoliticians.sort = sortByValue
-            //        bestPoliticians.limit = pagination.max
-
-            MapReduceOutput result = Post.collection.mapReduce(bestPoliticians)
-
-
-            def addProjectScore = """
-            function (){
-                db.project.find().forEach(function(project){
-                    var ownerScore = db.${tempCollectionName}.find({_id:project.owner})[0];
-                    var projectScore = ${SCORE_PROJECT_CLOSE};
-                    if (project.status=="${ProjectStatusType.OPEN}"){
-                        projectScore = ${SCORE_PROJECT_OPEN};
-                    }
-                    if (ownerScore == undefined || ownerScore == null){
-                        ownerScore = {
-                            _id: project.owner,
-                            value : 0
-                        };
-                    }
-                    ownerScore.value = ownerScore.value + projectScore;
-                    db.${tempCollectionName}.save(ownerScore);
-                });
-            }
-
-            """
-
-            userScoredCollection.getDB().eval(addProjectScore)
-
-            def cpUserData = """
-            function (){
-                db.${tempCollectionName}.find().forEach(function(score){
-                    var kuorumUser = db.kuorumUser.find({_id:score._id})[0];
-                    var numFollowers = kuorumUser.followers.length;
-                    var iso3166Length = 0;
-                    if (kuorumUser.politicianOnRegion != undefined){
-                        iso3166Length = kuorumUser.politicianOnRegion.iso3166_2.length
-                    }
-                    db.${tempCollectionName}.update(
-                        {_id:score._id},
-                        {\$set:{
-                            numFollowers:numFollowers,
-                            iso3166Length : iso3166Length,
-                            user:kuorumUser,
-                            score:score.value
-                            }
-                        }
-                    );
-                });
-            }
-            """
-            userScoredCollection.getDB().eval(cpUserData)
-
-            def cpPoliticiansWithOutScore = """
-            function (){
-                db.kuorumUser.find({userType:'${UserType.POLITICIAN}'}).forEach(function(politician){
-                    var score = db.${tempCollectionName}.find({_id:politician._id})[0];
-                    var iso3166Length = 0
-                    if (politician.politicianOnRegion != undefined){
-                        iso3166Length = politician.politicianOnRegion.iso3166_2.length
-                    }
-                    if (score == undefined){
-                        var numFollowers = politician.followers.length
-                        var newScore = {
-                            _id: politician._id,
-                            score : 0,
-                            numFollowers:numFollowers,
-                            iso3166Length : iso3166Length,
-                            user:politician
-                        };
-                        db.${tempCollectionName}.save(newScore);
-                    }
-                });
-            }
-            """
-            userScoredCollection.getDB().eval(cpPoliticiansWithOutScore)
-            DBObject index = new BasicDBObject("score", -1)
-            index.append("iso3166Length", -1)
-            userScoredCollection.createIndex(index)
-
-            DBObject removeFakePolitician = new BasicDBObject()
-            removeFakePolitician.append("_id", new ObjectId("54ce5269e4b0d335a40f5ee3"));//Usuario congreso
-            userScoredCollection.remove(removeFakePolitician);
-            return userScoredCollection
         }
     }
 }

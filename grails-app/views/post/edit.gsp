@@ -1,18 +1,26 @@
-<%@ page import="kuorum.core.FileGroup" %>
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
-    <title><g:message code="kuorum.name"/> </title>
-    <meta name="layout" content="columnCLayout">
-    <parameter name="specialContainerCssClass" value="edit-post" />
+    <g:set var="breadCrumbName">
+        <g:message code="admin.createPost.title"/>
+    </g:set>
+
+    <title>${breadCrumbName}</title>
+    <meta name="layout" content="paymentPlainLayout">
+    <!-- Schema.org markup for Google+ -->
+    <meta itemprop="name" content="${g.message(code:"kuorum.name")}">
+    <meta itemprop="description" content="${g.message(code:"layout.head.meta.description")}">
+    <meta itemprop="image" content="${resource(dir: 'images', file:'landingSearch-rrss.png', absolute:true)}" />
+    <meta itemprop="image" content="${resource(dir: 'images', file: 'logo@2x.png')}" />
+
 </head>
 
 <content tag="mainContent">
-    <formUtil:validateForm bean="${command}" form="editPost"/>
-    <g:form mapping="postEdit" params="${post.encodeAsLinkProperties()}" role="form" name="editPost" class="box-ppal">
-        <g:render template="form" model="[command:command, project:post.project]"/>
-    </g:form>
-</content>
-
-<content tag="cColumn">
-    <g:render template="/post/editPostColumnC" model="[project:post.project]"/>
+    <ol class="breadcrumb">
+        <li><g:link mapping="politicianCampaigns"><g:message code="head.logged.account.tools.massMailing"/></g:link></li>
+        <li class="active">${breadCrumbName}</li>
+    </ol>
+    <div class="box-ppal campaign-new">
+        <g:render template="/post/formEditPost" model="[command: command, filters: filters, totalContacts: totalContacts, post: post, anonymousFilter: anonymousFilter]"/>
+    </div>
+    <g:render template="/massMailing/timeZoneSelectorPopUp"/>
 </content>

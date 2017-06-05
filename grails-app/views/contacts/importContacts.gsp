@@ -16,5 +16,8 @@
     </ol>
     <div class="container-fluid box-ppal dashboard">
         <g:render template="/contacts/importOptions"/>
+        <div class="contacts-tooltip icons pull-right">
+            <g:render template="tools/tooltipContactsImport"/>
+        </div>
     </div>
 </content>

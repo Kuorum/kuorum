@@ -9,6 +9,7 @@ import grails.plugin.springsecurity.ui.ResetPasswordCommand
 import grails.plugin.springsecurity.ui.SpringSecurityUiService
 import grails.validation.Validateable
 import kuorum.KuorumFile
+import kuorum.core.model.AvailableLanguage
 import kuorum.files.FileService
 import kuorum.mail.MailchimpService
 import kuorum.notifications.NotificationService
@@ -17,6 +18,7 @@ import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
 import kuorum.web.commands.customRegister.ContactRegister
 import kuorum.web.commands.customRegister.ForgotUserPasswordCommand
+import kuorum.web.commands.customRegister.RequestDemoCommand
 import org.springframework.context.i18n.LocaleContextHolder
 
 class RegisterController extends grails.plugin.springsecurity.ui.RegisterController {
@@ -88,7 +90,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
 
     def contactRegister(ContactRegister contactRegister){
         if (!contactRegister.validate()){
-            flash.message = g.message(code: 'register.contactRegister.error.validation')
+            flash.error = g.message(error: contactRegister.errors.allErrors[0])
             if (contactRegister.politician){
                 redirect mapping:"userShow", params: contactRegister.politician.encodeAsLinkProperties()
             }else{
@@ -101,7 +103,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
             KuorumUser user = springSecurityService.getCurrentUser();
             notificationService.sendPoliticianContactNotification(contactRegister.politician, user, contactRegister.message, contactRegister.cause)
             flash.message = g.message(code: 'register.contactRegister.success.userLogged', args: [contactRegister.politician.name])
-            redirect mapping:"userShow", params: contactRegister.politician.encodeAsLinkProperties()
+            redirect (mapping:"userShow", params: contactRegister.politician.encodeAsLinkProperties())
         }else{
             KuorumUser user = KuorumUser.findByEmail(contactRegister.email)
             if (user){
@@ -181,7 +183,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         }
         notificationService.sendWelcomeRegister(user)
 //        render view:'selectMyPassword', model:[userId:user.id, command:new ResetPasswordCommand()]
-        redirect mapping:'dashboard'
+        redirect mapping:'dashboard', params: [tour:true]
     }
 
 
@@ -231,6 +233,18 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         kuorumMailService.sendResetPasswordMail(command.user, url)
 
         redirect mapping:"resetPasswordSent"
+    }
+
+    def requestADemo(RequestDemoCommand command){
+        if (command.hasErrors()){
+            render g.message(code:'kuorum.web.commands.customRegister.RequestDemoCommand.error');
+            return ;
+        }
+        Locale locale = LocaleContextHolder.getLocale();
+        AvailableLanguage language = AvailableLanguage.fromLocaleParam(locale.getLanguage());
+        kuorumMailService.sendRequestADemo(command.getName(), command.getEmail(), language)
+        kuorumMailService.sendRequestADemoAdmin(command.getName(), command.getEmail(), command.getEnterprise(), command.getPhone(), language)
+        render g.message(code:'kuorum.web.commands.customRegister.RequestDemoCommand.success');
     }
 
     def forgotPasswordSuccess = {
@@ -334,7 +348,7 @@ class KuorumRegisterCommand{
 
     public String getUsername(){ email }// RegisterController.passwordValidator uses username
     static constraints = {
-        importFrom KuorumUser, include:["name"]
+        name nullable: false, maxSize: 15
         email nullable:false, email:true, validator: { val, obj ->
             if (val && KuorumUser.findByEmail(val.toLowerCase())) {
                 obj.email = val.toLowerCase()

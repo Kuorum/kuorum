@@ -16,7 +16,7 @@
 </content>
 
 <content tag="howItWorks">
-    <g:render template="/dashboard/landingLeaders/howItWorks"/>
+    <g:render template="/dashboard/landingLeaders/howItWorks" model="[command:command, msgPrefix:'landingOrganizations']"/>
 </content>
 
 <content tag="engage">
@@ -31,7 +31,7 @@
                            img:'testimony-thai-jungpanich.jpg',
                            name:'Thai Jungpanich ',
                            logo:'logo-oxfam.png',
-                           logoAlt:'Conservatives',
+                           logoAlt:'Oxfam',
                            quote:g.message(code: 'landingOrganizations.trustUs.user1.quote'),
                            role:g.message(code: 'landingOrganizations.trustUs.user1.role')
                    ],[

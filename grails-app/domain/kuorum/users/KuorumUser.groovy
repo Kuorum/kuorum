@@ -30,11 +30,12 @@ class KuorumUser {
     String password
     AvailableLanguage language = AvailableLanguage.en_EN
     Boolean verified = Boolean.FALSE
+    Boolean skipUploadContacts = Boolean.FALSE
 
     KuorumFile avatar
     KuorumFile imageProfile
 
-    PersonalData personalData = new PersonData()
+        PersonalData personalData = new PersonData()
     UserType userType = UserType.PERSON
     String timeZoneId;
 
@@ -93,11 +94,6 @@ class KuorumUser {
      */
     Date lastNotificationChecked = new Date()
 
-    //Politician FIELDS
-//    PoliticalParty politicalParty
-//    Institution institution
-//    @Deprecated //Use ProfesionalDetails.region
-//    Region politicianOnRegion
     PoliticianActivity politicianActivity
 
     List<PoliticianRelevantEvent> relevantEvents
@@ -139,6 +135,7 @@ class KuorumUser {
         imageProfile nullable:true
         userType nullable: false
         notice nullable: true
+        skipUploadContacts nullable: true
         editorRules nullable:true
         timeZoneId nullable:true
 

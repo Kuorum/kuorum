@@ -29,35 +29,12 @@ class SearchController{
         ]
     }
 
-   private userRoleJson(SolrKuorumUser user){
-       def type = user.role.toString()
-       def i18n = g.message(code: "${user.role.class.name}.${user.role}.${user.gender}")
-       if (user.subType == SolrSubType.POLITICIAN){
-           type = user.subType.toString()
-           i18n = g.message(code: "${user.subType.class.name}.${user.subType}")
-       }
-//       if (user.gender)
-        [
-            type:type,
-            i18n:i18n
-        ]
-   }
-
 //    @PostConstruct
     void init() {
         JSON.createNamedConfig('suggest') {
 //            log("suggest JSON marshaled created")
             it.registerObjectMarshaller( SolrType)          { SolrType solrType             -> messageEnumJson(solrType)}
-            it.registerObjectMarshaller( SolrSubType)       { SolrSubType solrSubType       -> messageEnumJson(solrSubType)}
             it.registerObjectMarshaller( CommissionType )   { CommissionType commissionType -> messageEnumJson(commissionType)}
-            it.registerObjectMarshaller( SolrProject )   { SolrProject solrProject ->
-                [
-                    status:solrProject.subType,
-                    title:solrProject.name,
-                    hashtag:solrProject.hashtag,
-                    url:g.createLink(mapping: 'projectShow', params:solrProject.encodeAsLinkProperties())
-                ]
-            }
             it.registerObjectMarshaller( SolrKuorumUser )   { SolrKuorumUser solrKuorumUser ->
                 def urlImage = solrKuorumUser.urlImage
                 if (!urlImage){
@@ -65,7 +42,6 @@ class SearchController{
                 }
                 [
                     name:solrKuorumUser.name,
-                    role:userRoleJson(solrKuorumUser),
                     urlAvatar:urlImage,
                     url:g.createLink(mapping: 'userShow', params:solrKuorumUser.encodeAsLinkProperties())
                 ]
@@ -104,7 +80,7 @@ class SearchController{
             return;
         }
 
-        searchParams.type = SolrType.POLITICIAN
+        searchParams.type = SolrType.KUORUM_USER
         searchParams.max = 12;
         SolrResults docs = searchDocs(searchParams, params)
         if (docs.elements){
@@ -118,7 +94,7 @@ class SearchController{
         SolrResults docs
         String regionCountryCode = request.session.getAttribute(WebConstants.COUNTRY_CODE_SESSION)
         if (searchParams.hasErrors()){
-            searchParams=new SearchParams(word: '', type: searchParams.type?:SolrType.POLITICIAN)
+            searchParams=new SearchParams(word: '', type: searchParams.type?:SolrType.KUORUM_USER)
             docs = searchSolrService.search(searchParams)
         }else{
             searchParams.searchType = searchParams.searchType?:SearchType.ALL
@@ -149,7 +125,6 @@ class SearchController{
             }
             if (!suggestedRegion){
                 suggestedRegion = regionService.findMostAccurateRegion(searchParams.word,null, language)
-                params.regionCode = suggestedRegion?.iso3166_2 //Chapu para el menu lateral
             }
 
             List<Region> regions = []

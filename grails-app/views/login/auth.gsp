@@ -25,12 +25,17 @@
             </div>
         </div>
         <div class="form-group">
-            <input type="submit" value="${g.message(code:'login.email.form.login')}" class="btn btn-blue btn-lg"> <p class="cancel"><g:message code="head.noLogged.register_or"/> <g:link mapping="register"><g:message code="head.noLogged.register"/></g:link></p>
+            <input type="submit" value="${g.message(code:'login.email.form.login')}" class="btn btn-blue btn-lg">
+            <p>
+                <g:link mapping="resetPassword">
+                    <g:message  code="login.email.form.password.forgotten"/>
+                </g:link>
+            </p>
         </div>
         <div class="form-group">
-            <g:link mapping="resetPassword">
-                <g:message  code="login.email.form.password.forgotten"/>
-            </g:link>
+            <p>
+                <g:message code="head.noLogged.register" args="[g.createLink(mapping: 'register'),'']"/>
+            </p>
         </div>
     </form>
      <script type='text/javascript'>

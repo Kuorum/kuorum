@@ -96,6 +96,10 @@ class SpringSecurityOAuthController {
     protected void authenticateAndRedirect(OAuthToken oAuthToken, redirectUrl) {
         session.removeAttribute SPRING_SECURITY_OAUTH_TOKEN
         SecurityContextHolder.context.authentication = oAuthToken
+        if (oAuthToken.newUser){
+            String uri = redirectUrl.get("uri")
+            redirectUrl.put("uri", uri+"?tour=true")
+        }
         redirect (redirectUrl)
     }
 

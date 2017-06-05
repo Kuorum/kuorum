@@ -1,14 +1,9 @@
 package kuorum.users
 
 import grails.plugin.springsecurity.annotation.Secured
-import kuorum.campaign.Campaign
-import kuorum.campaign.CampaignService
 import kuorum.causes.CausesService
-import kuorum.core.model.UserType
-import kuorum.core.model.kuorumUser.UserParticipating
 import kuorum.core.model.search.Pagination
 import kuorum.core.model.search.SearchUserPosts
-import kuorum.core.model.solr.SolrType
 import kuorum.post.Cluck
 import kuorum.post.Post
 import kuorum.project.Project
@@ -16,16 +11,14 @@ import kuorum.register.RegisterService
 import kuorum.web.constants.WebConstants
 import org.bson.types.ObjectId
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
+import org.kuorum.rest.model.communication.post.PostRSDTO
 import org.kuorum.rest.model.kuorumUser.news.UserNewRSDTO
 import org.kuorum.rest.model.kuorumUser.reputation.UserReputationRSDTO
-import org.kuorum.rest.model.notification.campaign.CampaignRSDTO
 import org.kuorum.rest.model.tag.CauseRSDTO
-import org.springframework.web.servlet.LocaleResolver
 import payment.campaign.DebateService
 import payment.campaign.MassMailingService
 import springSecurity.KuorumRegisterCommand
 
-import javax.imageio.spi.RegisterableService
 import javax.servlet.http.HttpServletResponse
 
 class KuorumUserController {
@@ -38,11 +31,11 @@ class KuorumUserController {
     def postService
     def projectService
     RegisterService registerService
+    CookieUUIDService cookieUUIDService
+
 
     CausesService causesService
     UserNewsService userNewsService
-
-    CampaignService campaignService
 
     UserReputationService userReputationService;
 
@@ -89,25 +82,25 @@ class KuorumUserController {
     }
 
     def show(String userAlias){
+                                                            String viewerUid = cookieUUIDService.buildUserUUID()
         KuorumUser user = kuorumUserService.findByAlias(userAlias)
         if (!user) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND)
             return false
         }
-        List<KuorumUser> recommendPoliticians = kuorumUserService.recommendPoliticians(user, new Pagination(max:12))
+        List<KuorumUser> recommendPoliticians = kuorumUserService.suggestUsers(new Pagination(max:12),[user])
         List<CauseRSDTO> causes = causesService.findDefendedCauses(user)
-        Campaign campaign = campaignService.findActiveCampaign(user)
         UserReputationRSDTO userReputationRSDTO = userReputationService.getReputation(user)
         List<UserNewRSDTO> userNews = userNewsService.findUserNews(user)
         List<DebateRSDTO> debates = debateService.findAllDebates(user).findAll{it.datePublished && it.datePublished < new Date()}
+        List<PostRSDTO> posts = postService.findAllPosts(user,viewerUid).findAll{it.datePublished && it.datePublished < new Date()}
         [
                 politician:user,
                 recommendPoliticians:recommendPoliticians,
-                campaign:campaign,
                 causes:causes,
                 userReputation: userReputationRSDTO,
                 userNews:userNews,
-                debates:debates
+                campaigns:debates + posts,
         ]
     }
 
@@ -207,7 +200,7 @@ class KuorumUserController {
         }
     }
 
-    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    @Secured(['ROLE_USER'])
     def follow(String userAlias){
         KuorumUser following = kuorumUserService.findByAlias(userAlias)
         if (!following){
@@ -219,7 +212,7 @@ class KuorumUserController {
         render follower.following.size()
     }
 
-    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    @Secured(['ROLE_USER']) // Incomplete users can't follow users
     def unFollow(String userAlias){
         KuorumUser following = kuorumUserService.findByAlias(userAlias)
         if (!following){

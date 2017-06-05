@@ -17,10 +17,14 @@
 <content tag="mainContent">
     <ol class="breadcrumb">
         <li><g:link mapping="politicianCampaigns"><g:message code="head.logged.account.tools.massMailing"/></g:link></li>
+        <li><g:link mapping="politicianCampaignsNew"><g:message code="tools.campaign.new.title"/></g:link></li>
         <li class="active">${breadCrumbName}</li>
     </ol>
-    <div class="box-ppal">
-        <g:render template="/debate/formDebate" model="[command: command, filters: filters, totalContacts: totalContacts, debateId: debateId, anonymousFilter: anonymousFilter]"/>
-    </div>
+    <g:render template="/debate/formDebate" model="[command: command, filters: filters, totalContacts: totalContacts,
+                                                    debate: debate, anonymousFilter: anonymousFilter,
+                                                    mappings:[step:'settings', settings:'debateEdit',
+                                                              content:'debateEditContent', showResult: 'debateShow',
+                                                              next: 'debateEditContent']]"/>
+
     <g:render template="/massMailing/timeZoneSelectorPopUp"/>
 </content>

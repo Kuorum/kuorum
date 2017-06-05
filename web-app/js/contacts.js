@@ -44,6 +44,9 @@ $(function () {
         $.post( link)
             .done(function(data) {
                 filterContacts.searchContactsCallBacks.loadTableContacts();
+                var oldValue = $('span.amountRecipients').text(); // ÑAPA para filtros  dinámicos
+                var contacts = parseInt(oldValue) - 1;
+                filterContacts.updateAmountContacts(contacts);
             })
             .fail(function(messageError) {
                 display.warn("Error deleting");
@@ -74,10 +77,6 @@ $(function () {
         }
         return false;
     });
-
-
-    //Preparar el select segun el option seleccionado
-    filterContacts.changedFilterValueEvent();
 
     // abrir opciones nuevo filtro con botón
     $('body').on('click','#filterContacts', function(e) {
@@ -131,6 +130,7 @@ $(function () {
         filterContacts.deleteFilter();
     });
 
+
 });
 
 
@@ -159,9 +159,12 @@ function FilterContacts() {
 
     }
 
+    this.getFilterInputs=function($filterData){
+        return $filterData.find("input, select").not($filterData.find("[id$='template'] input, [id$='template'] select, .hide select, .hide input"));
+    };
     this.serializedFilterData = function(){
         var $filterData = that.getFormFilterIdSelected();
-        var inputs = $filterData.find("input, select").not($filterData.find("[id$='template'] input, [id$='template'] select"))
+        var inputs = that.getFilterInputs($filterData)
         var postData = inputs.serializeArray();
         postData.push({name:"filterId", value:that.getFilterId()});
         return postData;
@@ -295,6 +298,10 @@ function FilterContacts() {
         var activeOperator = ".text-operator";
         if (val == "STATUS"){
             activeOperator = ".status-operator";
+        }else if (val =="BLACK_LIST"){
+            activeOperator = ".boolean-operator"
+        }else if (val =="CONTACT_TYPE"){
+            activeOperator =".contactType-operator"
         }
 
         $fieldSet.find(".filter-operator").addClass("hide");
@@ -445,6 +452,9 @@ function FilterContacts() {
 
     this.newsletterCallBacks = {
         init:function(){
+            //Preparar el select segun el option seleccionado
+            that.changedFilterValueEvent();
+
             that.newsletterCallBacks.changeSelectRecipients();
             if ($("#recipients option[data-anononymus='true']").length>0){
                 that.loadFilter();
@@ -465,11 +475,13 @@ function FilterContacts() {
         },
         disableSendButtons:function(){
             $("#openCalendar").addClass("disabled");
-            $("#send").addClass("disabled");
+            $("#send-draft").addClass("disabled"); // Post && Debate send button
+            $("#send").addClass("disabled"); // News letter send button
         },
         enableSendButtons:function(){
             $("#openCalendar").removeClass("disabled");
-            $("#send").removeClass("disabled");
+            $("#send-draft").removeClass("disabled"); // Post && Debate send button
+            $("#send").removeClass("disabled"); // News letter send button
         },
 
         campaignFilterRefresh:{
@@ -518,7 +530,17 @@ function FilterContacts() {
 
     this.searchContactsCallBacks = {
         init:function(){
-
+            if(window.location.search) {
+                slideDownFilterInfo()
+                var $filterData = $("#filterData");
+                $filterData.find("select#field").change();
+                $filterData.find("input:disabled").val("")
+                that.searchContactsCallBacks.loadTableContacts();
+            }else{
+                console.log("No search")
+                //Preparar el select segun el option seleccionado
+                that.changedFilterValueEvent();
+            }
         },
         filterEditedEvent: function(filterIdSelected){
 
@@ -558,7 +580,12 @@ function FilterContacts() {
         loadTableContacts:function(){
             $("#listContacts").html("");
             var link = $("#listContacts").attr("data-ajaxUrlContacts");
+            $("#contactFilterForm .hide select").prop("disabled",true);
+            $("#contactFilterForm .hide input").prop("disabled",true);
             var postData = $("#contactFilterForm").serializeArray();
+            //var postData = that.serializedFilterData() ?????
+            $("#contactFilterForm .hide input").prop("disabled",false);
+            $("#contactFilterForm .hide select").prop("disabled",false);
             pageLoadingOn();
             $.post( link, postData)
                 .done(function(data) {

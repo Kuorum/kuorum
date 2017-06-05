@@ -71,58 +71,56 @@
         </li>
         <li itemscope itemtype="http://schema.org/Person">
             <div class="box-ppal">
-                <img src="${resource(dir: 'images', file: 'foto-miguel.jpg')}" alt="Foto" itemprop="image">
+                <img src="${resource(dir: 'images', file: 'foto-toni.png')}" alt="Foto" itemprop="image">
                 <h1 itemprop="name"><g:message code="footer.menu.footerTeam.member5"/></h1>
                 <h2 itemprop="jobTitle"><g:message code="footer.menu.footerTeam.position5"/></h2>
                 <p itemprop="description"><g:message code="footer.menu.footerTeam.description5"/></p>
-                <p itemprop="description"><g:message code="footer.menu.footerTeam.description5b"/></p>
                 <ul class="social">
                     %{--<li><a href="#" target="_blank"><span class="fa fa-twitter fa-2x"></span> <span class="sr-only">Twitter</span></a></li>--}%
-                    <li><a href="https://es.linkedin.com/pub/miguel-fernández-pérez/22/391/223" target="_blank"><span class="fa fa-linkedin fa-2x"></span> <span class="sr-only">LinkedIn</span></a></li>
+                    <li><a href="https://www.linkedin.com/in/antonio-martos-ortega-2b91995a/" target="_blank"><span class="fa fa-linkedin fa-2x"></span> <span class="sr-only">LinkedIn</span></a></li>
                 </ul>
             </div>
         </li>
 
         <li itemscope itemtype="http://schema.org/Person">
             <div class="box-ppal">
-                <img src="${resource(dir: 'images', file: 'foto-arianne.png')}" alt="Foto" itemprop="image">
-                <h1 itemprop="name"><g:message code="footer.menu.footerTeam.member6"/></h1>
-                <h2 itemprop="jobTitle"><g:message code="footer.menu.footerTeam.position6"/></h2>
-                <p itemprop="description"><g:message code="footer.menu.footerTeam.description6"/></p>
-                <p itemprop="description"><g:message code="footer.menu.footerTeam.description6b"/></p>
-                <ul class="social">
-                    %{--<li><a href="https://twitter.com/Jackie_Flore" target="_blank"><span class="fa fa-twitter fa-2x"></span> <span class="sr-only">Twitter</span></a></li>--}%
-                    <li><a href="https://au.linkedin.com/in/arianne-zaragoza-bba151a0/es" target="_blank"><span class="fa fa-linkedin fa-2x"></span> <span class="sr-only">LinkedIn</span></a></li>
-                </ul>
-            </div>
-        </li>
-        <li itemscope itemtype="http://schema.org/Person">
-            <div class="box-ppal">
-                <img src="${resource(dir: 'images', file: 'foto-jiaxi.jpg')}" alt="Foto" itemprop="image">
+                <img src="${resource(dir: 'images', file: 'foto-yan.png')}" alt="Foto" itemprop="image">
                 <h1 itemprop="name"><g:message code="footer.menu.footerTeam.member11"/></h1>
                 <h2 itemprop="jobTitle"><g:message code="footer.menu.footerTeam.position11"/></h2>
                 <p itemprop="description"><g:message code="footer.menu.footerTeam.description11"/></p>
-                <p itemprop="description"><g:message code="footer.menu.footerTeam.description11b"/></p>
                 <ul class="social">
                     %{--<li><a href="https://twitter.com/Jackie_Flore" target="_blank"><span class="fa fa-twitter fa-2x"></span> <span class="sr-only">Twitter</span></a></li>--}%
-                    <li><a href="https://uk.linkedin.com/in/jiaxi-huang-a3b680123" target="_blank"><span class="fa fa-linkedin fa-2x"></span> <span class="sr-only">LinkedIn</span></a></li>
+                    <li><a href="https://www.linkedin.com/in/yanhua-hu-75984a12a/" target="_blank"><span class="fa fa-linkedin fa-2x"></span> <span class="sr-only">LinkedIn</span></a></li>
                 </ul>
             </div>
         </li>
 
         <li itemscope itemtype="http://schema.org/Person">
             <div class="box-ppal">
-                <img src="${resource(dir: 'images', file: 'foto-will.jpg')}" alt="Foto" itemprop="image">
-                <h1 itemprop="name"><g:message code="footer.menu.footerTeam.member12"/></h1>
-                <h2 itemprop="jobTitle"><g:message code="footer.menu.footerTeam.position12"/></h2>
-                <p itemprop="description"><g:message code="footer.menu.footerTeam.description12"/></p>
-                <p itemprop="description"><g:message code="footer.menu.footerTeam.description12b"/></p>
+                <img src="${resource(dir: 'images', file: 'foto-majo.png')}" alt="Foto" itemprop="image">
+                <h1 itemprop="name"><g:message code="footer.menu.footerTeam.member6"/></h1>
+                <h2 itemprop="jobTitle"><g:message code="footer.menu.footerTeam.position6"/></h2>
+                <p itemprop="description"><g:message code="footer.menu.footerTeam.description6"/></p>
                 <ul class="social">
                     %{--<li><a href="https://twitter.com/Jackie_Flore" target="_blank"><span class="fa fa-twitter fa-2x"></span> <span class="sr-only">Twitter</span></a></li>--}%
-                    <li><a href="https://www.linkedin.com/in/william-davis7" target="_blank"><span class="fa fa-linkedin fa-2x"></span> <span class="sr-only">LinkedIn</span></a></li>
+                    <li><a href="https://www.linkedin.com/in/maria-jos%C3%A9-de-la-torre-17899083/" target="_blank"><span class="fa fa-linkedin fa-2x"></span> <span class="sr-only">LinkedIn</span></a></li>
                 </ul>
             </div>
         </li>
+
+        %{--<li itemscope itemtype="http://schema.org/Person">--}%
+            %{--<div class="box-ppal">--}%
+                %{--<img src="${resource(dir: 'images', file: 'foto-will.jpg')}" alt="Foto" itemprop="image">--}%
+                %{--<h1 itemprop="name"><g:message code="footer.menu.footerTeam.member12"/></h1>--}%
+                %{--<h2 itemprop="jobTitle"><g:message code="footer.menu.footerTeam.position12"/></h2>--}%
+                %{--<p itemprop="description"><g:message code="footer.menu.footerTeam.description12"/></p>--}%
+                %{--<p itemprop="description"><g:message code="footer.menu.footerTeam.description12b"/></p>--}%
+                %{--<ul class="social">--}%
+                    %{--<li><a href="https://twitter.com/Jackie_Flore" target="_blank"><span class="fa fa-twitter fa-2x"></span> <span class="sr-only">Twitter</span></a></li>--}%
+                    %{--<li><a href="https://www.linkedin.com/in/william-davis7" target="_blank"><span class="fa fa-linkedin fa-2x"></span> <span class="sr-only">LinkedIn</span></a></li>--}%
+                %{--</ul>--}%
+            %{--</div>--}%
+        %{--</li>--}%
 
         %{--<li itemscope itemtype="http://schema.org/Person">--}%
             %{--<div class="box-ppal">--}%

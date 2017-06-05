@@ -1,5 +1,6 @@
 package kuorum.register
 
+import grails.converters.JSON
 import grails.plugin.springsecurity.oauth.FacebookOAuthToken
 import grails.plugin.springsecurity.oauth.OAuthToken
 import kuorum.KuorumFile
@@ -39,7 +40,12 @@ class FacebookOAuthService implements IOAuthService {
             throw new KuorumException("Email de Facebook no proporcionado", "login.rrss.error.noEmail");
         }
 
-        KuorumUser user = KuorumUser.findByEmail(fbProfile.email)?:createNewUser(fbProfile)
+        KuorumUser user = KuorumUser.findByEmail(fbProfile.email)
+        Boolean newUser = false;
+        if (!user){
+            user = createNewUser(fbProfile);
+            newUser = true;
+        }
 
         log.info("Logando suario '${user.email}' con facebook" )
         FacebookUser facebookUser = updateSavedAccessToken(accessToken, user, fbProfile)
@@ -53,6 +59,11 @@ class FacebookOAuthService implements IOAuthService {
         UserDetails userDetails =  mongoUserDetailsService.createUserDetails(user)
 
         def authorities = mongoUserDetailsService.getRoles(user)
+
+        OAuthToken.metaClass.newUser = false;
+        oAuthToken.metaClass = null
+        oAuthToken.newUser = newUser
+
         oAuthToken.principal = userDetails
         oAuthToken.authorities = authorities
         return oAuthToken
@@ -93,7 +104,8 @@ class FacebookOAuthService implements IOAuthService {
 
     private Date getExpirationDateFromToken(Token accessToken){
         Calendar cal = Calendar.getInstance()
-        Integer secondsAlive = Integer.parseInt(accessToken.rawResponse.split("&")[1].split("=")[1]);
+        def responseData = JSON.parse(accessToken.rawResponse)
+        Integer secondsAlive = responseData.expires_in
         cal.add(Calendar.SECOND, secondsAlive)
         cal.getTime()
     }

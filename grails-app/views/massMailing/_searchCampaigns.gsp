@@ -1,5 +1,5 @@
 <!-- FILTRO Y BUSCADOR DE CAMPAÑAS -->
-<div class="box-ppal">
+<div class="box-ppal filterbox">
     <form class="form-horizontal" id="search-form-campaign">
         <fieldset class="form-group" id="toFilters">
             <div class="col-sm-3">
@@ -8,9 +8,9 @@
                 </label>
                 <select name="filterCampaigns" class="form-control input-lg" id="filterCampaigns">
                     <option value="all" name="all" id="all"><g:message code="tools.massMailing.list.filter.all"/> </option>
-                    <g:each in="${org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.values()}" var="campaingStatus">
-                        <option value="${campaingStatus}" name="${campaingStatus}" id="${campaingStatus}">
-                            <g:message code="${org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.class.name}.${campaingStatus}"/>
+                    <g:each in="${['newsletter', 'debate', 'post']}" var="campaignType">
+                        <option value="${campaignType}" name="${campaignType}" id="${campaignType}">
+                            <g:message code="${'tools.campaign.new'}.${campaignType}"/>
                         </option>
                     </g:each>
                 </select>
@@ -55,14 +55,49 @@
         <g:each in="${campaigns}" var="campaign" status="i">
             <g:render template="liCampaign" model="[campaign:campaign, user:user, idx:i]"/>
         </g:each>
-        <g:each in="${projects}" var="project" status="i">
-            <g:render template="liCampaignProject" model="[project:project, user:user, idx:project.id]"/>
-        </g:each>
         <g:each in="${debates}" var="debate" status="i">
             <g:render template="liCampaignDebate" model="[debate: debate, user: user, idx: debate.id]"/>
         </g:each>
+        <g:each in="${posts}" var="post" status="i">
+            <g:render template="liCampaignPost" model="[post: post, user: user, idx: post.id]"/>
+        </g:each>
     </ul>
-    <!-- MODAL CONFIRM -->
+
+    <div class="pag-list-campaigns clearfix">
+        <ul class="paginationBottom"></ul>
+        <span class="counterList">Total of <span class="totalList"></span></span>
+    </div>
+
+
+    <!-- MODAL AUTH PROFILE CHANGES -->
+    <div class="modal fade in" id="modalEditScheduled" tabindex="-1" role="dialog" aria-labelledby="modalEditScheduledTitle" aria-hidden="true">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                        <span aria-hidden="true" class="fa fa-times-circle-o fa"></span><span class="sr-only"><g:message code="modalDefend.close"/></span>
+                    </button>
+                    <h4>
+                        <g:message code="tools.massMailing.editCampaignModal.title"/>
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <p><g:message code="tools.massMailing.editCampaignModal.text"/> </p>
+                    <fieldset class="text-right">
+                        <a href="#" class="btn btn-grey-light btn-lg" data-dismiss="modal" id="modalEditScheduledButtonClose">
+                            <g:message code="tools.massMailing.editCampaignModal.cancel"/>
+                        </a>
+                        <a href="#" class="btn btn-blue inverted btn-lg" id="modalEditScheduledButtonOk">
+                            <g:message code="tools.massMailing.editCampaignModal.pause"/>
+                        </a>
+                    </fieldset>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL CONFIRM  DELETE-->
     <div class="modal fade in" id="campaignDeleteConfirm" tabindex="-1" role="dialog" aria-labelledby="campaignDeleteTitle" aria-hidden="true">
         <div class="modal-dialog ">
             <div class="modal-content">
@@ -83,8 +118,4 @@
         </div>
     </div>
 
-    <div class="pag-list-campaigns clearfix">
-        <ul class="paginationBottom"></ul>
-        <span class="counterList">Total of <span class="totalList"></span></span>
-    </div>
 </div>

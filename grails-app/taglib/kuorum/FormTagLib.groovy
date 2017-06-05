@@ -2,13 +2,15 @@ package kuorum
 
 import grails.plugin.springsecurity.SpringSecurityService
 import kuorum.core.FileGroup
-import kuorum.core.model.CommissionType
 import kuorum.core.model.RegionType
 import kuorum.project.Project
 import kuorum.users.KuorumUser
 import kuorum.web.constants.WebConstants
 import org.bson.types.ObjectId
 import org.codehaus.groovy.grails.validation.*
+import org.kuorum.rest.model.geolocation.RegionRSDTO
+import org.kuorum.rest.model.notification.campaign.CampaignRSDTO
+import org.springframework.context.i18n.LocaleContextHolder
 
 class FormTagLib {
     static defaultEncodeAs = 'raw'
@@ -16,8 +18,23 @@ class FormTagLib {
 
     def grailsApplication
     SpringSecurityService springSecurityService
+    RegionService regionService;
 
     static namespace = "formUtil"
+
+    def uploadCampaignImages = {attrs, body->
+        String field = attrs.field
+        CampaignRSDTO campaign = attrs.campaign
+        def model = [
+            fileGroup:FileGroup.MASS_MAIL_IMAGE,
+            campaign:campaign,
+            requestEndPoint:g.createLink(mapping:'politicianCampaignsUploadImages', params: [campaignId:campaign.id]),
+            sessionEndPoint:g.createLink(mapping:'politicianCampaignsListImages', params: [campaignId:campaign.id]),
+            body:body,
+            field:field
+        ]
+        out << g.render(template:'/layouts/form/uploadMultiImage', model:model)
+    }
 
     def editImage ={attrs ->
         def command = attrs.command
@@ -380,12 +397,16 @@ class FormTagLib {
         def showLabel = attrs.showLabel?Boolean.parseBoolean(attrs.showLabel):false
         Region regionValue = command."${field}"?:null
         def value = regionValue?.iso3166_2?:''
-        def showedValue = regionValue?.name?:""
+        def showedValue = "";
+        if (value){
+            Locale locale = LocaleContextHolder.getLocale();
+            RegionRSDTO regionRSDTO = regionService.findRegionDataById(value, locale)
+            showedValue = regionRSDTO.name
+        }
 
         def label = attrs.label?:message(code: "${command.class.name}.${field}.label")
         def placeHolder = attrs.placeHolder?:message(code: "${command.class.name}.${field}.placeHolder", default: '')
         String helpBlock = attrs.helpBlock?:message(code: "${command.class.name}.${field}.helpBlock", default: '')
-
         if (showLabel){
             out << "<label for='${field}'>${label}</label>"
         }
@@ -789,7 +810,7 @@ class FormTagLib {
         def id = attrs.id?:field
         def prefixFieldName=attrs.prefixFieldName?:""
         def value = command."$field"?:''
-        def placeHolder = message(code: "${command.class.name}.${field}.placeHolder")
+        def placeHolder = attrs.placeholder?:message(code: "${command.class.name}.${field}.placeHolder")
         def error = hasErrors(bean: command, field: field,'error')
         ConstrainedProperty constraints = command.constraints.find{it.key.toString() == field}.value
         MaxSizeConstraint maxSizeConstraint = constraints.appliedConstraints.find{it instanceof MaxSizeConstraint}

@@ -1,12 +1,10 @@
 package kuorum.core.model.solr
 
 /**
- * Created by iduetxe on 17/02/14.
+ * Mapped solr post
  */
 class SolrPost extends SolrElement{
-    String hashtagProject
+    String alias
     String owner
     String ownerId
-    String text
-    Boolean victory
 }

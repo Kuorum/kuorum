@@ -6,6 +6,7 @@ import kuorum.users.KuorumUser
 import kuorum.util.rest.RestKuorumApiService
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.kuorum.rest.model.communication.debate.ProposalCommentRDTO
+import org.kuorum.rest.model.communication.debate.ProposalCommentRSDTO
 import org.kuorum.rest.model.communication.debate.ProposalRDTO
 import org.kuorum.rest.model.communication.debate.ProposalRSDTO
 import org.kuorum.rest.model.communication.debate.search.ProposalPageRSDTO
@@ -103,8 +104,8 @@ class ProposalService {
         }
     }
 
-    void deleteProposal(KuorumUser user, String debateAlias, Long debateId, Long proposalId, Long commentId){
-        Map<String, String> params = [userAlias: debateAlias,debateId:debateId.toString(), proposalId:proposalId.toString(), commentId:commentId.toString()]
+    void deleteProposal(KuorumUser user, String debateAlias, Long debateId, Long proposalId){
+        Map<String, String> params = [userAlias: debateAlias,debateId:debateId.toString(), proposalId:proposalId.toString()]
         Map<String, String> query = [userAction:user.alias]
         restKuorumApiService.delete(
                 RestKuorumApiService.ApiMethod.ACCOUNT_DEBATE_PROPOSAL,
@@ -137,13 +138,31 @@ class ProposalService {
 
     void deleteComment(KuorumUser user,Long debateId, String debateAlias, Long proposalId, Long commentId) {
         Map<String, String> params = [userAlias: debateAlias,debateId:debateId.toString(), proposalId:proposalId.toString(), commentId:commentId.toString() ]
-        Map<String, String> query = [:]
+        Map<String, String> query = [userAction:user.alias]
         restKuorumApiService.delete(
                 RestKuorumApiService.ApiMethod.ACCOUNT_DEBATE_PROPOSAL_COMMENT,
                 params,
                 query
         )
 
+    }
+
+    ProposalCommentRSDTO voteComment(KuorumUser user,Long debateId, String debateAlias, Long proposalId, Long commentId, Integer vote) {
+        Map<String, String> params = [userAlias: debateAlias,debateId:debateId.toString(), proposalId:proposalId.toString(), commentId:commentId.toString() ]
+        Map<String, String> query = [userAction:user.alias, vote:vote.toString()]
+        def response = restKuorumApiService.put(
+                RestKuorumApiService.ApiMethod.ACCOUNT_DEBATE_PROPOSAL_COMMENT_VOTE,
+                params,
+                query,
+                null,
+                new TypeReference<ProposalCommentRSDTO>(){}
+        )
+        ProposalCommentRSDTO proposalCommentRSDTO= null
+        if (response.data) {
+            proposalCommentRSDTO = (ProposalCommentRSDTO) response.data
+        }
+
+        proposalCommentRSDTO
     }
 
 

@@ -43,6 +43,32 @@ class FileController {
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def uploadCampaignImages() {
+        def fileData = getFileData(request)
+        FileGroup fileGroup = FileGroup.CUSTOM_TEMPLATE_IMAGE
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        String campaignId= params.campaignId
+        String path = "${user.id}/${campaignId}"
+        KuorumFile kuorumFile = fileService.uploadTemporalFile(fileData.inputStream, user, fileData.fileName, fileGroup, path)
+        kuorumFile = fileService.convertTemporalToFinalFile(kuorumFile)
+
+        render ([success:true,absolutePath:kuorumFile.url, fileId:kuorumFile.id.toString(), status:200] as JSON)
+//        render ([success:true] as JSON)
+    }
+
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def getCampaignImages() {
+        String campaignId= params.campaignId
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        String path = "${user.id}/${campaignId}"
+        List<KuorumFile> files = fileService.listFilesFromPath(FileGroup.CUSTOM_TEMPLATE_IMAGE, path)
+
+        render (files.collect{kf->
+            [name:kf.originalName, uuid:kf.id.toString(), thumbnailUrl:kf.url]
+        } as JSON)
+    }
+
+        @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def cropImage() {
         KuorumFile kuorumFile = KuorumFile.get(new ObjectId(params.fileId))
         Double x = Double.parseDouble(params.x)
@@ -60,7 +86,7 @@ class FileController {
         if (request instanceof MultipartHttpServletRequest) {
             MultipartFile uploadedFile = ((MultipartHttpServletRequest) request).getFile('qqfile')
 
-            return [inputStream:uploadedFile.inputStream, fileName:uploadedFile.name]
+            return [inputStream:uploadedFile.inputStream, fileName:uploadedFile.originalFilename]
         }
         return [inputStream:request.inputStream, fileName:params.qqfile]
     }

@@ -116,6 +116,7 @@ $(document).ready(function() {
             ajaxFollow(url, buttonFollow, function(data, status, xhr) {
                 var message = buttonFollow.attr('data-message-follow');
                 var userId = buttonFollow.attr('data-userId');
+                removeUserCampaigns(userId)
                 $("button.follow[data-userId="+userId+"]").html(message).removeClass('disabled').addClass('enabled');
             });
         } else {
@@ -125,7 +126,24 @@ $(document).ready(function() {
                 var userId = buttonFollow.attr('data-userId');
                 $("button.follow[data-userId="+userId+"]").html(message).removeClass('enabled').addClass('disabled');
                 deleteUserRecommendation(userId);
+                addUserCampaigns(userId);
+                var $followingCounter = $(".activity li.following span.counter");
+                if ($followingCounter.length > 0){
+                    var numFollowing = parseInt($followingCounter.html());
+                    $followingCounter.html(numFollowing +1);
+                }
             });
+        }
+    }
+
+    function addUserCampaigns(userId){
+        if (sortCampaigns != undefined ){
+            sortCampaigns.appendCampaignsOfUser(userId);
+        }
+    }
+    function removeUserCampaigns(userId){
+        if (sortCampaigns != undefined ){
+            sortCampaigns.removeCampaignsOfUser(userId);
         }
     }
 
@@ -179,6 +197,12 @@ $(document).ready(function() {
                 401: function() {
                     display.info("Estás deslogado");
                     setTimeout('location.reload()',5000);
+                },
+                403: function(data){
+                    var message = buttonFollow.attr('data-message-follow');
+                    var userId = buttonFollow.attr('data-userId');
+                    $("button.follow[data-userId="+userId+"]").html(message).removeClass('disabled').addClass('enabled');
+                    notMailConfirmedWarn();
                 }
             },
             beforeSend: function(){
@@ -864,6 +888,7 @@ $(document).ready(function() {
          //Para que sea un integer
         url += paramAppender + "offset=" + offset + "&" + $('#' + formId).serialize();
         var parentId = link.attr('data-parent-id');
+        var callback = link.attr('data-callback')
         var loadingId = parentId + "-loading";
         var parent = $("#" + parentId);
         parent.append('<div class="loading" id="' + loadingId + '"><span class="sr-only">Cargando...</span></div>');
@@ -882,6 +907,9 @@ $(document).ready(function() {
                 link.attr('data-offset', offset + max);
                 if (moreResults){
                     link.remove()
+                }
+                if (callback != undefined && callback != ""){
+                    window[callback]();
                 }
             })
             .fail(function(data) {

@@ -2,7 +2,6 @@ package kuorum
 
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.causes.CausesService
-import kuorum.core.model.project.ProjectBasicStats
 import kuorum.core.model.search.Pagination
 import kuorum.project.Project
 import kuorum.users.KuorumUser
@@ -14,7 +13,6 @@ class ModulesController {
     def springSecurityService
     def postService
     def projectService
-    def projectStatsService
     def notificationService
     def kuorumUserService
     CausesService causesService;
@@ -52,7 +50,7 @@ class ModulesController {
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def recommendedPoliticiansUserDashboard() {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        List<KuorumUser> recommendedUsers = kuorumUserService.recommendPoliticians(user, new Pagination(max:14))
+        List<KuorumUser> recommendedUsers = kuorumUserService.recommendUsers(user, new Pagination(max:14))
         render template:'/modules/recommendedUsers',
                 model:[
                         recommendedUsers:recommendedUsers,
@@ -79,7 +77,7 @@ class ModulesController {
         if (springSecurityService.isLoggedIn()){
             user = KuorumUser.get(springSecurityService.principal.id)
         }
-        List<KuorumUser> politicians = kuorumUserService.recommendPoliticians(user, new Pagination(max:NUM_RELEVANT_POLITICIANS))
+        List<KuorumUser> politicians = kuorumUserService.recommendUsers(user, new Pagination(max:NUM_RELEVANT_POLITICIANS))
         render template: "/dashboard/landingPageModules/relevantPoliticians", model: [politicians:politicians]
     }
 

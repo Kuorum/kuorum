@@ -14,6 +14,7 @@ public enum MailType {
     REGISTER_ACCOUNT_COMPLETED          (MailGroupType.REGISTER,"register-completed",     [], [], MailTypeRSDTO.REGISTER_ACCOUNT_COMPLETED),
     REGISTER_CHANGE_EMAIL_VERIFY        (MailGroupType.REGISTER,"register-emailChangeNew",["confirmationLink"], [], MailTypeRSDTO.REGISTER_CHANGE_EMAIL_VERIFY),
     REGISTER_CHANGE_EMAIL_REQUESTED     (MailGroupType.REGISTER,"register-emailChangeOld",["newEmailAccount"], [], MailTypeRSDTO.REGISTER_CHANGE_EMAIL_REQUESTED),
+    REGISTER_REQUEST_DEMO               (MailGroupType.REGISTER,"no-mandrillapp",[], [], MailTypeRSDTO.REGISTER_REQUEST_DEMO),
     //TODO: Change this email to REGISTER_WELCOME
     NOTIFICATION_OFFER_PURCHASED        (MailGroupType.REGISTER,"register-suscription",   [], ["user"], MailTypeRSDTO.REGISTER_WELCOME),
     CAMPAIGN_POLL_THANK_YOU             (MailGroupType.REGISTER,"register-modalelections",[],["recovery", "education", "democracy", "equalty", "constitution", "foreign", "politician", "politicianLink"]),
@@ -34,7 +35,7 @@ public enum MailType {
     NOTIFICATION_COMMENTED_POST_USERS   (MailGroupType.EVENT_ME,         "me-commentAnswer",            [],["commenter","commenterLink","comment", "postName", "postOwner","postOwnerLink","postLink"]),
     NOTIFICATION_VICTORY_USERS          (MailGroupType.EVENT_PROPOSAL,   "proposal-victory",            [],["defender","defenderLink","postName", "postOwner","postOwnerLink","postLink"]),
     NOTIFICATION_VICTORY_DEFENDER       (MailGroupType.EVENT_POLITICIAN, "politician-victoryMine",      [],["defender","defenderLink","postName", "postOwner","postOwnerLink","postLink"]),
-    NOTIFICATION_CONTACT                (MailGroupType.EVENT_POLITICIAN, "politician-contact",          [],["politician","politicianLink","contact", "contactLink","message","cause"]),
+    NOTIFICATION_CONTACT                (MailGroupType.EVENT_POLITICIAN, "politician-contact",          [],["contact", "contactLink","contactMessage","causeName"], MailTypeRSDTO.NOTIFICATION_CONTACT),
 
     POST_CREATED_1                      (MailGroupType.TIME, "time-proposalPublished-0", [],[]),
     POST_CREATED_2                      (MailGroupType.TIME, "time-proposalPublished-1", [],[]),
@@ -46,7 +47,7 @@ public enum MailType {
     POLITICIAN_SUBSCRIPTION       (MailGroupType.ADMIN, "admin-suscription", [],["userLink", "user", "offerType", "totalPrice"]),
     EDITOR_SUBSCRIPTION           (MailGroupType.ADMIN, "admin-suscription-editor", [],["userLink", "user"]),
     POLITICIAN_SUBSCRIPTION_TESTER(MailGroupType.ADMIN, "admin-suscription-beta-tester", [],["userLink", "user"]),
-    BATCH_PROCESS                 (MailGroupType.ADMIN, "admin-batchProcess",[],["rawMail", "SUBJECT"]);
+    BATCH_PROCESS                 (MailGroupType.ADMIN, "admin-batchProcess",[],["body", "subject"], MailTypeRSDTO.ADMIN_COMMUNICATION);
 
 
     String nameTemplate

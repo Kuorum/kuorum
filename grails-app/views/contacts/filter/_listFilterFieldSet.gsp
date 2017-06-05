@@ -1,12 +1,13 @@
-<%@ page import=" org.kuorum.rest.model.contact.filter.FilterRDTO" %>
+<%@ page import="org.kuorum.rest.model.contact.filter.condition.ConditionFieldTypeRDTO; org.kuorum.rest.model.contact.filter.condition.TextConditionOperatorTypeRDTO; org.kuorum.rest.model.contact.filter.condition.ConditionTextRDTO;  org.kuorum.rest.model.contact.filter.FilterRDTO" %>
 <r:require modules="contacts"/>
 %{--<g:each in="${filters}" var="filter">--}%
     %{--<g:render template="/contacts/filter/filterFieldSet" model="[filter:filter]"/>--}%
 %{--</g:each>--}%
-%{--<g:render template="/contacts/filter/filterFieldSet" model="[filter:new org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO([id:-2, filterConditions:[new org.kuorum.rest.model.contact.filter.ConditionRDTO()]])]"/>--}%
 
 <div id="filterData">
-
+    <g:if test="${anonymousFilter}">
+        <g:render template="/contacts/filter/filterFieldSet" model="[filter:anonymousFilter]"/>
+    </g:if>
 </div>
 
 <!-- MODAL CONTACT -->

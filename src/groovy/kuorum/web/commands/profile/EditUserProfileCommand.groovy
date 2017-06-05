@@ -6,11 +6,9 @@ import kuorum.RegionService
 import kuorum.core.model.*
 import kuorum.postalCodeHandlers.PostalCodeHandler
 import kuorum.users.KuorumUser
-import kuorum.web.binder.RegionBinder
 import org.bson.types.ObjectId
 import org.codehaus.groovy.grails.web.context.ServletContextHolder
 import org.codehaus.groovy.grails.web.servlet.GrailsApplicationAttributes
-import org.grails.databinding.BindUsing
 import org.grails.databinding.BindingFormat
 
 /**
@@ -23,14 +21,10 @@ class EditUserProfileCommand{
     public EditUserProfileCommand(KuorumUser user){
         this.gender = user.personalData?.gender
         this.bio = user.bio
-        this.photoId = user.avatar?.id?.toString()
-        this.imageProfile = user.imageProfile?.id?.toString()
         if (user.userType == UserType.ORGANIZATION){
             this.enterpriseSector = user.personalData?.enterpriseSector
-        }else if (user.userType == UserType.POLITICIAN){
-            this.position = user.professionalDetails?.position
-            this.politicalParty = user.professionalDetails?.politicalParty
         }else{
+            this.position = user.professionalDetails?.position
             this.birthday= user.personalData?.birthday
             this.workingSector = user.personalData?.workingSector
             this.studies = user.personalData?.studies
@@ -40,8 +34,6 @@ class EditUserProfileCommand{
 
     String bio
     Gender gender
-    String photoId
-    String imageProfile
 
     //Citizen
     @BindingFormat("dd/MM/yyyy")
@@ -52,18 +44,16 @@ class EditUserProfileCommand{
 
     //Politician
     String position
-    String politicalParty
+    //String politicalParty
 
     static constraints = {
         gender nullable: true
         birthday nullable:true
-        photoId nullable: true
         workingSector nullable: true
         studies nullable: true
         enterpriseSector nullable:true
         bio nullable: true, maxSize: 1000
-        imageProfile nullable: true
-        politicalParty nullable:true
+        //politicalParty nullable:true
         position nullable:true
     }
 

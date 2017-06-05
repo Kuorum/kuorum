@@ -2,389 +2,285 @@ package kuorum.post
 
 import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
+import groovy.time.TimeCategory
 import kuorum.KuorumFile
-import kuorum.core.FileGroup
 import kuorum.core.FileType
-import kuorum.core.model.CommitmentType
-import kuorum.core.model.PostType
-import kuorum.core.model.UserType
-import kuorum.core.model.VoteType
-import kuorum.core.model.gamification.GamificationElement
-import kuorum.core.model.search.Pagination
 import kuorum.files.FileService
-import kuorum.project.Project
+import kuorum.users.CookieUUIDService
 import kuorum.users.KuorumUser
-import kuorum.web.commands.PostCommand
-import kuorum.web.commands.post.CommentPostCommand
-import kuorum.web.commands.post.PostDefendCommand
-import kuorum.web.commands.post.PromotePostCommand
-import kuorum.web.constants.WebConstants
-import org.bson.types.ObjectId
-import springSecurity.KuorumRegisterCommand
+import kuorum.users.KuorumUserService
+import kuorum.web.commands.payment.contact.ContactFilterCommand
+import kuorum.web.commands.payment.massMailing.post.LikePostCommand
+import kuorum.web.commands.payment.post.PostContentCommand
+import kuorum.web.commands.payment.post.PostSettingsCommand
+import org.kuorum.rest.model.communication.post.PostRDTO
+import org.kuorum.rest.model.communication.post.PostRSDTO
+import org.kuorum.rest.model.contact.ContactPageRSDTO
+import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
+import org.kuorum.rest.model.contact.filter.FilterRDTO
+import payment.contact.ContactService
 
-import javax.servlet.http.HttpServletResponse
-
-@Deprecated
 class PostController {
 
-    def postService
-    def postVoteService
     def springSecurityService
-    def projectService
-    def cluckService
-    def gamificationService
-    def grailsApplication
-    def fileService
-    def registerService
 
-    def index() {
-        [postInstanceList:Post.list()]
+    KuorumUserService kuorumUserService
+    FileService fileService
+    ContactService contactService
+    PostService postService
+    CookieUUIDService cookieUUIDService
+
+    def show() {
+        String viewerUid = cookieUUIDService.buildUserUUID()
+        KuorumUser postUser = kuorumUserService.findByAlias(params.userAlias)
+        PostRSDTO postRSDTO = postService.findPost(postUser, Long.parseLong(params.postId),viewerUid)
+
+        return  [post: postRSDTO, postUser: postUser]
     }
 
-    def show(){
-        Post post = params.post
-        if (!post){
-            response.sendError(HttpServletResponse.SC_NOT_FOUND)
-            return;
-        }
-        KuorumUser user= null
-        PostVote userVote=null
-        if (springSecurityService.isLoggedIn()){
-            user = KuorumUser.get(springSecurityService.principal.id)
-            userVote = PostVote.findByPostAndUser(post,user)
-        }
-        List<Post> relatedPost = postService.relatedPosts(post,  user,  3 )
-        List<KuorumUser> usersVotes = postVoteService.findVotedUsers(post, new Pagination(max:20))
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def create() {
+        return postModelSettings(new PostSettingsCommand(), null)
+    }
 
-        def model = [post:post,relatedPost:relatedPost, usersVotes:usersVotes, userVote:userVote]
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def editSettingsStep(){
+        String viewerUid = cookieUUIDService.buildUserUUID()
+        KuorumUser postUser = KuorumUser.get(springSecurityService.principal.id)
+        PostRSDTO postRSDTO = postService.findPost(postUser, Long.parseLong(params.postId), viewerUid)
+
+        return postModelSettings(new PostSettingsCommand(), postRSDTO)
+
+    }
+
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def editContentStep(){
+        Long postId = Long.parseLong(params.postId)
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        def model =  postModelContent(postId)
+        setPostAsDraft(user,postId)
         model
     }
 
-    @Secured(['ROLE_USER', 'ROLE_ADMIN', 'ROLE_PREMIUM', 'ROLE_POLITICIAN'])
-    def edit(){
-        Post post = params.post
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        if (!postService.isEditableByUser(post, user)){
-            response.sendError(HttpServletResponse.SC_FORBIDDEN)
-            return;
-        }
-        PostCommand command = new PostCommand()
-        command.postId = post.id.toString()
-        command.imageId = post.multimedia?.fileType == FileType.IMAGE?post.multimedia.id:null
-        command.videoPost = post.multimedia?.fileType == FileType.YOUTUBE?post.multimedia.url:''
-        command.fileType = post.multimedia?.fileType
-        command.textPost = post.text
-        command.title = post.title
-        [command:command,post:post ]
-    }
-
-    @Secured(['ROLE_USER', 'ROLE_ADMIN', 'ROLE_PREMIUM', 'ROLE_POLITICIAN'])
-    def update(PostCommand command){
-        Post post = params.post
-        boolean wasPublised = post.published
-        if (!post){
-            response.sendError(HttpServletResponse.SC_NOT_FOUND)
-            return;
-        }
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        if (!postService.isEditableByUser(post, user)){
-            response.sendError(HttpServletResponse.SC_FORBIDDEN)
-            return;
-        }
-        if (command.hasErrors()){
-            render view: "edit", model:[command:command,post:post ]
-            return
-        }
-        post.multimedia = preparePostFile(post, command,user)
-        post.text = command.textPost
-        post.title = command.title
-
-        postService.updatePost(post)
-        if (command.isDraft){
-            flash.message = message(code:"post.edit.step1.saveDraft.success")
-            redirect mapping:"toolsMyPosts"
-        }else{
-            if (!wasPublised){
-                postService.publishPost(post);
-            }
-            flash.message = message(code:"post.edit.step1.update.success")
-            redirect mapping:"postShow", params:post.encodeAsLinkProperties()
-        }
-    }
-
-    private KuorumFile preparePostFile(Post post, PostCommand command, KuorumUser user){
-        KuorumFile multimedia = null
-        if (!command.fileType){
-            multimedia = null
-        }else if (command.fileType == FileType.IMAGE && command.imageId){
-            multimedia = KuorumFile.get(new ObjectId(command.imageId))
-        }else if(command.fileType == FileType.YOUTUBE && command.videoPost && !post.multimedia){
-            multimedia = fileService.createYoutubeKuorumFile(command.videoPost, user)
-        }else if (command.fileType == FileType.YOUTUBE && command.videoPost && post.multimedia){
-            if (command.videoPost == post.multimedia.url){
-                multimedia = KuorumFile.get(post.multimedia.id)
-            }else{
-                fileService.deleteFile(post.multimedia)
-                multimedia = fileService.createYoutubeKuorumFile(command.videoPost, user)
-            }
-        }
-        multimedia
-    }
-
-    @Secured(['ROLE_USER', 'ROLE_ADMIN', 'ROLE_PREMIUM', 'ROLE_POLITICIAN'])
-    def create(String hashtag){
-        Project project = projectService.findProjectByHashtag(hashtag.encodeAsHashtag())
-        if (!project){
-            response.sendError(HttpServletResponse.SC_NOT_FOUND)
-            return;
-        }
-        PostCommand command = new PostCommand()
-        [command:command, project:project]
-    }
-
-    @Secured(['ROLE_USER', 'ROLE_ADMIN', 'ROLE_PREMIUM', 'ROLE_POLITICIAN'])
-    def save(PostCommand command){
-        Project project = projectService.findProjectByHashtag(params.hashtag.encodeAsHashtag())
-        if (!project){
-            response.sendError(HttpServletResponse.SC_NOT_FOUND)
-            return
-        }
-        if (command.hasErrors()){
-            render view: "create", model:[command:command,project:project]
-            return;
-        }
-
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        Post post = new Post()
-
-        post.multimedia = preparePostFile(post, command, user)
-        post.text = command.textPost
-        post.title = command.title
-
-        postService.savePost(post, project, user)
-        if (command.isDraft){
-            flash.message = message(code:"post.edit.step1.saveDraft.success")
-            redirect mapping:"toolsMyPosts"
-        }else{
-            postService.publishPost(post)
-            flash.message = message(code:"post.edit.step1.save.success")
-            redirect mapping:"postShow", params:post.encodeAsLinkProperties()
-
-        }
-    }
-
-
-    private static final boolean WITH_POST_REVIEW = false;
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
-    def review(){
-        Post post = params.post
-        if (post.owner.id != springSecurityService.principal.id){
-            response.sendError(HttpServletResponse.SC_FORBIDDEN)
-            return;
-        }
-        [post:post]
-        //TODO: EL proceso de review no queda claro y la gente no llega a publicar. Solo salva. Se hace de modo r�pido
-        if (!WITH_POST_REVIEW){
-            redirect mapping:"postPublish", params:post.encodeAsLinkProperties()
-        }
-    }
-
-    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
-    def publish(){
-        Post post = params.post
-        if (post.owner.id != springSecurityService.principal.id){
-            response.sendError(HttpServletResponse.SC_FORBIDDEN)
-            return;
-        }
-        postService.publishPost(post)
-        flash.args = [justPublished:true]
-        redirect mapping:"postPublished", params:post.encodeAsLinkProperties()
-    }
-
-    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
-    def deletePost(){
-        Post post = params.post
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        if (!postService.isDeletableByUser(post, user)){
-            response.sendError(HttpServletResponse.SC_FORBIDDEN)
-            return;
-        }
-        postService.deletePost(post, user)
-        flash.message=message(code:'profile.profileMyPosts.post.success')
-        redirect( mapping:'toolsMyPosts')
-    }
-
-    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
-    def postPublished(){
-        Post post = params.post
-        if (post.owner.id != springSecurityService.principal.id){
-            response.sendError(HttpServletResponse.SC_FORBIDDEN)
-            return;
-        }
-        def model = [post:post]
-        if (flash.args?.justPublished){
-            def numVotesToBePublic = 10 // DEPRECATED
-            def gamification = [
-                    title: "${message(code:'post.edit.step3.gamification.title')}",
-                    text:"${message(code:'post.edit.step3.gamification.motivationText', args:[numVotesToBePublic])}",
-                    eggs:gamificationService.gamificationConfigCreatePost()[GamificationElement.EGG]?:0,
-                    plumes:gamificationService.gamificationConfigCreatePost()[GamificationElement.PLUME]?:0,
-                    corns:gamificationService.gamificationConfigCreatePost()[GamificationElement.CORN]?:0
-            ]
-            model += [gamificationData:gamification]
-        }
-        model
-    }
-
-    @Secured('IS_AUTHENTICATED_REMEMBERED')
-    def favorite() {
-        Post post = params.post
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        if (user.favorites.contains(post.id)){
-            postService.favoriteRemovePost(post,user)
-            response.setHeader(WebConstants.AJAX_IS_FAVORITE, "false")
-            response.setHeader(WebConstants.AJAX_NUM_LIST, "${user.favorites.size()}")
-            render "Deleted from favorites"
-        }else{
-            postService.favoriteAddPost(post,user)
-            response.setHeader(WebConstants.AJAX_IS_FAVORITE, "true")
-            response.setHeader(WebConstants.AJAX_NUM_LIST, "${user.favorites.size()}")
-            render template: "/cluck/liCluck", model: [post:post]
-        }
-
-    }
-
-    @Secured('IS_AUTHENTICATED_REMEMBERED')
-    def deleteComment(Integer commentPosition){
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        Post post = params.post
-        if (postService.isCommentDeletableByUser(user, post, commentPosition)){
-            postService.deleteComment(user,post,commentPosition)
-        }else{
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED)
-            return;
-        }
-
-        render "Comment deleted"
-    }
-
-    @Secured('IS_AUTHENTICATED_REMEMBERED')
-    def addComment(CommentPostCommand command){
-        if (command.hasErrors()){
-            render "EMpty comment"
-        }else{
-            Post post = params.post
-            KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-            PostComment postComent = new PostComment(kuorumUser: user, text:command.comment)
-            postComent = postService.addComment(params.post, postComent)
-            render template: '/post/postComment', model:[post:post, comment:postComent, pos:post.comments.size()-1, display:'none']
-        }
-    }
-    @Secured('IS_AUTHENTICATED_REMEMBERED')
-    def voteComment(Integer commentPosition){
-        VoteType voteType = VoteType.valueOf(params['voteType'])
-        Post post = params.post
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        postService.voteComment(user, post, commentPosition, voteType);
-        render "Post voted"
-    }
-
-
-    @Secured('isAuthenticated()')
-    def cluckPost() {
-        KuorumUser kuorumUser = KuorumUser.get(springSecurityService.principal.id)
-        Post post = params.post
-        Cluck cluck = cluckService.createCluck(post, kuorumUser)
-        //TODO: que se renderiza
-        render "OK"
-    }
-
-    @Secured('isAuthenticated()')
-    def votePost() {
-        KuorumUser kuorumUser = KuorumUser.get(springSecurityService.principal.id)
-        Boolean anonymous = params.anonymous?Boolean.valueOf(params.anonymous):Boolean.FALSE
-        Post post = params.post
-        postVoteService.votePost(post, kuorumUser, anonymous)
-        Range<Long> range = postVoteService.findPostRange(post)
-        def gamification = [
-                title: "${message(code:'post.show.boxes.like.vote.gamification.title', args:[post.owner.name])}",
-                text:"${message(code:'post.show.boxes.like.vote.gamification.motivationText', args:[post.owner.name])}",
-                eggs:gamificationService.gamificationConfigVotePost()[GamificationElement.EGG]?:0,
-                plumes:gamificationService.gamificationConfigVotePost()[GamificationElement.PLUME]?:0,
-                corns:gamificationService.gamificationConfigVotePost()[GamificationElement.CORN]?:0
-        ]
-        render ([numLikes:post.numVotes, limitTo:range.to +1, gamification:gamification] as JSON)
-    }
-
-    def votePostWithRegister(KuorumRegisterCommand command) {
+    def saveSettings(PostSettingsCommand command) {
         if (command.hasErrors()) {
-            render view: 'index', model: [command: command]
-            return redirect(mapping: 'register', params: command.properties)
+            render view: 'create', model: postModelSettings(command, null)
+            return
         }
-        Post post = params.post
-        Boolean anonymous = params.anonymous?Boolean.valueOf(params.anonymous):Boolean.FALSE
-        KuorumUser user = registerService.registerUserVotingPost(command, post, anonymous)
-//        String referer = request.getHeader("Referer");
-//        response.sendRedirect(referer);
-        redirect mapping:"postShow", params: post.encodeAsLinkProperties()
-    }
-
-    def listVotes(){
-        Post post = params.post
-        List<KuorumUser> users = postVoteService.findVotedUsers(post, new Pagination())
-        render (template:'/kuorumUser/embebedUsersList', model:[users:users])
-    }
-
-    def listClucks(){
-        Post post = params.post
-        List<KuorumUser> users = cluckService.findPostCluckers(post, new Pagination())
-        render (template:'/kuorumUser/embebedUsersList', model:[users:users])
-    }
-
-    @Secured('isAuthenticated()')
-    def addDebate(CommentPostCommand command) {
+        String nextStep = params.redirectLink
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        Post post = params.post
-        if (command.hasErrors() || !postService.isAllowedToAddDebate(post, user) ){
-            render "Something wrong. Not possible to arrive here using web normally"
-        }else{
-            PostComment postComment = new PostComment(
-                    text: command.comment,
-                    dateCreated:new Date(),
-                    moderated: Boolean.FALSE,
-                    deleted :Boolean.FALSE,
-                    kuorumUser: user
-            )
-            postService.addDebate(post, postComment)
-            postComment = post.debates.last()
-            if (user.userType == UserType.POLITICIAN){
-                render (template: '/post/debates/postDebatePolitician', model:[debate:postComment])
-            }else{
-                render (template: '/post/debates/postDebateActivist', model:[debate:postComment])
+        FilterRDTO anonymousFilter = recoverAnonymousFilterSettings(params, command)
+        Long postId = params.postId?Long.parseLong(params.postId):null
+        Map<String, Object> resultPost = saveAndSendPostSettings(user, command, postId, anonymousFilter)
+
+        //flash.message = resultPost.msg.toString()
+
+        redirect mapping: nextStep, params: resultPost.post.encodeAsLinkProperties()
+    }
+
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def saveContent(PostContentCommand command) {
+        if (command.hasErrors()) {
+            render view: 'editContentStep', model: postModelContent(Long.parseLong(params.postId), command)
+            return
+        }
+        String nextStep = params.redirectLink
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        Long postId = params.postId?Long.parseLong(params.postId):null
+        Map<String, Object> resultPost = saveAndSendPostContent(user, command, postId)
+
+        //flash.message = resultPost.msg.toString()
+        redirect mapping: nextStep, params:resultPost.post.encodeAsLinkProperties()
+    }
+
+    private def postModelSettings(PostSettingsCommand command, PostRSDTO postRSDTO) {
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        List<ExtendedFilterRSDTO> filters = contactService.getUserFilters(user)
+        ContactPageRSDTO contactPageRSDTO = contactService.getUsers(user)
+
+        if(postRSDTO){
+            command.campaignName = postRSDTO.name
+            command.tags = postRSDTO.triggeredTags
+            command.filterId = postRSDTO.newsletter?.filter?.id
+            if(postRSDTO.newsletter.filter && !filters.find{it.id==postRSDTO.newsletter.filter.id}){
+                ExtendedFilterRSDTO anonymousFilter = contactService.getFilter(user, postRSDTO.newsletter.filter.id)
+                filters.add(anonymousFilter)
             }
         }
-    }
-    @Secured("ROLE_POLITICIAN")
-    def addDefender(PostDefendCommand command) {
-        if (command.hasErrors()){
-            flash.error = message(code:'modalDefend.error')
-            redirect (mapping:"postShow", params:post.encodeAsLinkProperties())
-            return;
-        }
-        Post post = params.post
-        KuorumUser politician = KuorumUser.get(springSecurityService.principal.id)
-        postService.defendPost(post, politician, command.text)
-        flash.message = message(code:'modalDefend.success')
-        redirect (mapping:"postShow", params:post.encodeAsLinkProperties())
+
+
+        [
+                filters: filters,
+                command: command,
+                totalContacts: contactPageRSDTO.total,
+                post: postRSDTO
+        ]
     }
 
-    @Secured('isAuthenticated()')
-    def addVictory(Boolean victoryOk) {
+    private def postModelContent(Long postId, PostContentCommand command = null) {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        Post post = params.post
-        postService.victory(post, user, victoryOk)
-//        flash.message = message(code:'modalVictory.success', args:[post.defender.name])
-//        redirect (mapping:"postShow", params:post.encodeAsLinkProperties())
-        render message(code:'modalVictory.success', args:[post.defender.name])
+        PostRSDTO postRSDTO = postService.findPost(user, postId)
+        def numberRecipients = 0;
+        if(!command) {
+            command = new PostContentCommand()
+            command.title = postRSDTO.title
+            command.body = postRSDTO.body
+            command.videoPost = postRSDTO.videoUrl
+            if(postRSDTO.datePublished){
+                command.publishOn = postRSDTO.datePublished
+            }
+
+            if (postRSDTO.photoUrl) {
+                KuorumFile kuorumFile = KuorumFile.findByUrl(postRSDTO.photoUrl)
+                command.headerPictureId = kuorumFile?.id
+            }
+            numberRecipients = postRSDTO.newsletter?.filter?.amountOfContacts!=null?
+                    postRSDTO.newsletter?.filter?.amountOfContacts:
+                    contactService.getUsers(user, null).total;
+        }
+        [
+                command: command,
+                post: postRSDTO,
+                numberRecipients:numberRecipients,
+                status: postRSDTO.campaignStatusRSDTO
+        ]
+    }
+
+    private FilterRDTO recoverAnonymousFilterSettings(params, PostSettingsCommand command) {
+        ContactFilterCommand filterCommand = (ContactFilterCommand) bindData(new ContactFilterCommand(), params)
+        contactService.transformCommand(filterCommand, "Custom filter for ${command.campaignName}")
+    }
+
+    private Map<String, Object> saveAndSendPostSettings(KuorumUser user, PostSettingsCommand command,
+                                                        Long postId = null, FilterRDTO anonymousFilter = null) {
+        String msg
+        PostRDTO postRDTO = convertCommandSettingsToPost(command, user, anonymousFilter, postId)
+
+        PostRSDTO savedPost = postService.savePost(user, postRDTO, postId)
+        msg = g.message(code: 'tools.massMailing.saveDraft.advise', args: [savedPost.title])
+
+        [msg: msg, post: savedPost]
+
+    }
+
+    private Map<String, Object> saveAndSendPostContent(KuorumUser user, PostContentCommand command,
+                                                       Long postId) {
+        String msg
+        PostRDTO postRDTO = convertCommandContentToPost(command, user, postId)
+
+        PostRSDTO savedPost = null
+        if(command.publishOn){
+            // Published or Scheduled
+            savedPost = postService.savePost(user, postRDTO, postId)
+
+            Date date = new Date()
+            Date after5minutes = new Date()
+
+            // If Scheduled in the next 5 minutes, consider published
+            use (TimeCategory){
+                after5minutes = date + 5.minutes
+            }
+
+            if(command.publishOn > after5minutes){
+                // Shceduled over 5 minutes
+                msg = g.message(code: 'tools.massMailing.schedule.advise', args: [
+                        savedPost.title,
+                        g.formatDate(date: command.publishOn, type: "datetime", style: "SHORT")
+                ])
+            }
+            else {
+                // Published or scheduled within 5 minutes
+                msg = g.message(code: 'tools.massMailing.saved.advise', args: [
+                        savedPost.title,
+                        g.formatDate(date: command.publishOn, type: "datetime", style: "SHORT")
+                ])
+            }
+        }
+        else {
+            // Draft
+            savedPost = postService.savePost(user, postRDTO, postId)
+            msg = g.message(code: 'tools.massMailing.saveDraft.advise', args: [
+                    savedPost.title
+            ])
+        }
+
+        [msg: msg, post: savedPost]
+
+    }
+
+    private PostRDTO convertCommandSettingsToPost(PostSettingsCommand command, KuorumUser user, FilterRDTO anonymousFilter, Long postId) {
+        PostRDTO postRDTO = createPostRDTO(user, postId)
+        postRDTO.name = command.campaignName
+        postRDTO.triggeredTags = command.tags
+
+        if (command.filterEdited) {
+            postRDTO.setAnonymousFilter(anonymousFilter)
+        } else {
+            postRDTO.setFilterId(command.filterId)
+        }
+        postRDTO
+    }
+
+    private PostRDTO createPostRDTO(KuorumUser user = null, Long postId = null){
+        PostRDTO postRDTO = new PostRDTO()
+        if(postId){
+            PostRSDTO postRSDTO = postService.findPost(user, postId)
+            postRDTO.title = postRSDTO.title
+            postRDTO.body = postRSDTO.body
+            postRDTO.photoUrl = postRSDTO.photoUrl
+            postRDTO.videoUrl = postRSDTO.videoUrl
+            postRDTO.publishOn = postRSDTO.datePublished
+            postRDTO.name = postRSDTO.name
+            postRDTO.triggeredTags = postRSDTO.triggeredTags
+            postRDTO.anonymousFilter = postRSDTO.anonymousFilter
+            postRDTO.filterId = postRSDTO.newsletter?.filter?.id
+        }
+        return postRDTO;
+    }
+
+    private PostRDTO convertCommandContentToPost(PostContentCommand command, KuorumUser user, Long postId) {
+        PostRDTO postRDTO = createPostRDTO(user, postId)
+        postRDTO.title = command.title
+        postRDTO.body = command.body
+        postRDTO.publishOn = command.publishOn
+
+        // Multimedia URL
+        if (command.fileType == FileType.IMAGE.toString() && command.headerPictureId) {
+            // Save image
+            KuorumFile picture = KuorumFile.get(command.headerPictureId)
+            picture = fileService.convertTemporalToFinalFile(picture)
+            fileService.deleteTemporalFiles(user)
+            postRDTO.setPhotoUrl(picture.getUrl())
+
+            // Remove video
+            postRDTO.setVideoUrl(null)
+        } else if (command.fileType == FileType.YOUTUBE.toString() && command.videoPost) {
+            // Save video
+            KuorumFile urlYoutubeFile = fileService.createYoutubeKuorumFile(command.videoPost, user)
+            postRDTO.setVideoUrl(urlYoutubeFile?.url)
+
+            // Remove image
+            if (command.headerPictureId) {
+                KuorumFile picture = KuorumFile.get(command.headerPictureId)
+                fileService.deleteKuorumFile(picture)
+                command.setHeaderPictureId(null)
+            }
+        }
+        postRDTO
+    }
+
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def likePost(LikePostCommand command){
+        KuorumUser currentUser= springSecurityService.currentUser;
+        PostRSDTO post = postService.likePost(command.postId, currentUser, command.like, command.userAlias);
+        render post as JSON;
+    }
+
+
+    private void setPostAsDraft(KuorumUser user, Long postId){
+        PostRDTO postRDTO = createPostRDTO(user, postId)
+        postRDTO.publishOn = null
+        postService.savePost(user, postRDTO, postId)
     }
 }

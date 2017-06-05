@@ -8,14 +8,14 @@
                 <g:render template="/search/searchUserElement" model="[solrUser:solrElement]"/>
             </li>
         </g:if>
-        <g:elseif test="${solrElement instanceof kuorum.core.model.solr.SolrPost}">
-            <li>
-                <g:render template="/search/searchPostElement" model="[solrPost:solrElement]"/>
+        <g:elseif test="${solrElement instanceof kuorum.core.model.solr.SolrDebate}">
+            <li class="${columnsCss}">
+                <g:render template="/search/searchDebateElement" model="[solrDebate:solrElement]"/>
             </li>
         </g:elseif>
-        <g:elseif test="${solrElement instanceof kuorum.core.model.solr.SolrProject}">
+        <g:elseif test="${solrElement instanceof kuorum.core.model.solr.SolrPost}">
             <li class="${columnsCss}">
-                <g:render template="/search/searchProjectElement" model="[solrProject:solrElement]"/>
+                <g:render template="/search/searchPostElement" model="[solrPost:solrElement]"/>
             </li>
         </g:elseif>
         <g:else>

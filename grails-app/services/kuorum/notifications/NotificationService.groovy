@@ -2,30 +2,16 @@ package kuorum.notifications
 
 import com.fasterxml.jackson.core.type.TypeReference
 import grails.transaction.Transactional
-import grails.util.Environment
 import kuorum.OfferPurchased
 import kuorum.campaign.PollCampaignVote
-import kuorum.core.exception.KuorumException
-import kuorum.core.model.ProjectStatusType
-import kuorum.core.model.VoteType
-import kuorum.core.model.search.Pagination
 import kuorum.core.model.search.SearchNotifications
-import kuorum.project.Project
-import kuorum.mail.MailType
-import kuorum.mail.MailUserData
-import kuorum.post.Cluck
 import kuorum.post.Post
 import kuorum.post.PostComment
-import kuorum.post.PostVote
-import kuorum.project.ProjectVote
 import kuorum.users.KuorumUser
 import kuorum.util.rest.RestKuorumApiService
-import org.bson.types.ObjectId
 import org.codehaus.groovy.grails.web.mapping.LinkGenerator
-import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.kuorum.rest.model.kuorumUser.config.NotificationConfigRDTO
 import org.kuorum.rest.model.notification.NotificationPageRSDTO
-import org.kuorum.rest.model.notification.NotificationRSDTO
 
 @Transactional
 class NotificationService {
@@ -84,10 +70,9 @@ class NotificationService {
         kuorumMailService.sendPollCampaignMail(pollCampaign)
     }
 
-    @Deprecated
     public void sendPoliticianContactNotification(KuorumUser politician, KuorumUser user, String message, String cause){
         kuorumMailService.sendPoliticianContact(politician, user, message, cause)
-        kuorumMailService.sendPoliticianContactKuorumNotification(politician, user, message, cause)
+        //kuorumMailService.sendPoliticianContactKuorumNotification(politician, user, message, cause) // MandrillApp API problems
     }
 
     @Deprecated

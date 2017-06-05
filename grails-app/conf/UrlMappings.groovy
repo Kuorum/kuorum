@@ -1,7 +1,6 @@
 import grails.util.Environment
 import kuorum.core.exception.KuorumException
 import kuorum.core.model.AvailableLanguage
-import kuorum.core.model.UserType
 import org.springframework.security.access.AccessDeniedException
 
 class UrlMappings {
@@ -41,7 +40,11 @@ class UrlMappings {
         name landingCorporations:   "/$lang/corporate-innovation" (controller: "dashboard", action:"landingCorporations")
                                     "/corporate-innovation" { controller="redirect"; action= "redirect301"; newMapping='landingCorporations'}
                                     "/$lang/corporations" { controller="redirect"; action= "redirect301"; newMapping='landingCorporations'}
-        "/corporations" { controller="redirect"; action= "redirect301"; newMapping='landingCorporations'}
+                                    "/corporations" { controller="redirect"; action= "redirect301"; newMapping='landingCorporations'}
+        name landingCorporationsBrands:   "/$lang/influential-brands" (controller: "dashboard", action:"landingCorporationsBrands")
+                                    "/influential-brands" { controller="redirect"; action= "redirect301"; newMapping='landingCorporationsBrands'}
+                                    "/$lang/brands" { controller="redirect"; action= "redirect301"; newMapping='landingCorporationsBrands'}
+                                    "/brands" { controller="redirect"; action= "redirect301"; newMapping='landingCorporationsBrands'}
         name footerTechnology:      "/$lang/services/what-is-kuorum"    (controller:"footer", action: "tech" )
                                     "/services/what-is-kuorum"          { controller="redirect"; action= "redirect301"; newMapping='footerTechnology'}
                                     "/kuorum/what-is-kuorum"          { controller="redirect"; action= "redirect301"; newMapping='footerTechnology'}
@@ -52,6 +55,8 @@ class UrlMappings {
                                     "/services/organizations"              {controller="redirect"; action= "redirect301"; newMapping='footerGovernment'}
         name footerCitizens:        "/$lang/services/corporations"   (controller:"footer", action: "citizens" )
                                     "/services/corporations"   {controller="redirect"; action= "redirect301"; newMapping='footerCitizens'}
+        name footerUserGuides:       "/$lang/services/user-guides"   (controller:"footer", action: "userGuides" )
+                                    "/services/user-guides"   {controller="redirect"; action= "redirect301"; newMapping='footerUserGuides'}
         name footerAboutUs:         "/$lang/about/our-story"             (controller:"footer", action: "aboutUs" )
                                     "/about/our-story"                  {controller="redirect"; action= "redirect301"; newMapping='footerAboutUs'}
                                     "/about"                            {controller="redirect"; action= "redirect301"; newMapping='footerAboutUs'}
@@ -95,6 +100,8 @@ class UrlMappings {
         name resetPasswordChange:   "/$lang/sign-up/change-pass"(controller: "register"){action=[GET:"resetPassword", POST:"resetPassword"]}
                                     "/registro/cambiar-password"{controller="redirect"; action= "redirect301"; newMapping='resetPasswordChange'}
 
+        name requestADemo:          "/register/requestADemo"(controller: "register", action: "requestADemo")
+
 
         name login:     "/$lang/log-in" (controller:"login", action:"index")
                         "/log-in"       {controller="redirect"; action= "redirect301"; newMapping='login'}
@@ -123,23 +130,37 @@ class UrlMappings {
         /***** LOGGED URLs ****/ //Language no matters
         /**********************/
         name dashboard:                     "/dashboard" (controller: "dashboard", action:"dashboard")
+        name dashboardSkipUploadContacts:   "/dashboard/skipContacts" (controller: "dashboard", action:"skipContacts")
         name dashboardCausesSeeMore:        "/ajax/dashboard/causes/see-more" (controller: "dashboard", action:"dashboardCauses")
         name dashboardPoliticiansSeeMore:   "/ajax/dashboard/politicians/see-more" (controller: "dashboard", action:"dashboardPoliticians")
+        name dashboardCampaignsSeeMore:     "/ajax/dashboard/campaigns/see-more" (controller: "dashboard", action:"dashboardCampaigns")
 
         name projectCreate:             "/project/new"(controller: "project"){action = [GET:"create", POST:"save"]}
         name projectEdit:               "/project/$userAlias/$hashtag/edit"(controller: "project"){action = [GET:"edit", POST:"update"]}
         name projects:                  "/project/$regionName?/$commission?" (controller: "project", action:"index")
 
-        name debateCreate:      "/account/debate/new" (controller: "debate"){action = [GET: "create", POST: "save"]}
-        name debateEdit:        "/account/debate/$debateId/edit" (controller: "debate"){action = [GET: "edit", POST: "update"]}
-        name debateRemove:      "/ajax/account/debate/$debateId/remove" (controller: "debate", action: "remove")
-        name debateShow:        "/$userAlias/d/$title-$debateId"(controller: "debate", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+        name debateCreate:      "/account/debate/new" (controller: "debate"){action = [GET: "create", POST: "saveSettings"]}
+        name debateEdit:        "/account/$userAlias/d/$urlTitle-$debateId/edit-settings" (controller: "debate"){action = [GET: "editSettingsStep", POST: "saveSettings"]}
+        name debateEditContent:  "/account/$userAlias/d/$urlTitle-$debateId/edit-content" (controller: "debate"){action = [GET: "editContentStep", POST: "saveContent"]}
+
+        name debateRemove:      "/ajax/account/$userAlias/d/$urlTitle-$debateId/remove" (controller: "debate", action: "remove")
+        name debateShow:        "/$userAlias/d/$urlTitle-$debateId"(controller: "debate", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+                                "/$userAlias/d/-$debateId"      (controller: "debate", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
         name debateProposalNew: "/ajax/addProposal"(controller: "debateProposal", action: "addProposal")
         name debateProposalDelete:"/ajax/deleteProposal"(controller: "debateProposal", action: "deleteProposal")
         name debateProposalPin: "/ajax/pinProposal"(controller: "debateProposal", action: "pinProposal")
         name debateProposalLike:"/ajax/likeProposal"(controller: "debateProposal", action: "likeProposal")
         name debateProposalComment: "/ajax/proposalComment/add"(controller: "debateProposal", action: "addComment")
         name debateProposalDeleteComment: "/ajax/proposalComment/delete"(controller: "debateProposal", action: "deleteComment")
+        name debateProposalVoteComment: "/ajax/proposalComment/vote"(controller: "debateProposal", action: "voteComment")
+
+        name postCreate:            "/account/post/new" (controller: "post"){action = [GET: "create", POST: "saveSettings"]}
+        name postEdit:              "/account/$userAlias/p/$urlTitle-$postId/edit-settings" (controller: "post"){action = [GET: "editSettingsStep", POST: "saveSettings"]}
+        name postEditContent:       "/account/$userAlias/p/$urlTitle-$postId/edit-content" (controller: "post"){action = [GET: "editContentStep", POST: "saveContent"]}
+        name postShow:              "/$userAlias/p/$urlTitle-$postId"  (controller: "post", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+                                    "/$userAlias/p/-$postId"        (controller: "post", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+
+        name postLike:              "/ajax/likePost"(controller: "post", action: "likePost")
 
         name langProjectShow:   "/$lang/$userAlias/$hashtag" (controller: "project", action:"show") {constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)}); lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
         name projectShow:       "/$userAlias/$hashtag"                          {controller="redirect"; action= "redirect301Project"; constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
@@ -159,31 +180,12 @@ class UrlMappings {
 
         name projectUpdate:             "/project/$userAlias/$hashtag/actualizar"(controller: "project"){action = [GET:"createProjectUpdate", POST:"addProjectUpdate"]}
 
-        name langPostShow:  "/$lang/$userAlias/$hashtag/$postBrief-$postId"(controller: "post", action: "show") {constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)}); lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-        name postShow:      "/$userAlias/$hashtag/$postBrief-$postId"{controller="redirect"; action= "redirect301Project"; constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-                            "/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId"          {controller="redirect"; action= "redirect301Post";}
-                            "/proyectos/$regionName/$commission/$hashtag/$urlPostTypeVieja/$postBrief-$postId"  {controller="redirect"; action= "redirect301Post";}
-                            "/leyes/$regionName/$commission/$hashtag/$urlPostTypeVieja/$postBrief-$postId"      {controller="redirect"; action= "redirect301Post";}
+        name langPostShow:  "/$lang/$userAlias/$hashtag/$postBrief-$postId"(controller: "redirect", action: "redirect301Project") {constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)}); lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+        name OldPostShow:      "/$userAlias/$hashtag/$postBrief-$postId"{controller="redirect"; action= "redirect301Project"; constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+                            "/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId"          {controller="redirect"; action= "redirect301Project";}
+                            "/proyectos/$regionName/$commission/$hashtag/$urlPostTypeVieja/$postBrief-$postId"  {controller="redirect"; action= "redirect301Project";}
+                            "/leyes/$regionName/$commission/$hashtag/$urlPostTypeVieja/$postBrief-$postId"      {controller="redirect"; action= "redirect301Project";}
 
-        name postCreate:    "/$userAlias/$hashtag/nuevo-post"(controller: "post"){action = [GET:"create", POST:"save"]}
-        name postReview:    "/$userAlias/$hashtag/$postBrief-$postId/review"(controller: "post", action: "review")
-        name postPublish:   "/$userAlias/$hashtag/$postBrief-$postId/publish"(controller: "post", action:"publish")
-        name postPublished: "/$userAlias/$hashtag/$postBrief-$postId/published"(controller: "post", action:"postPublished")
-        name postEdit:      "/$userAlias/$hashtag/$postBrief-$postId/edit"(controller: "post"){action = [GET:"edit", POST:"update"]}
-        name postDelete:    "/$userAlias/$hashtag/$postBrief-$postId/delete-post"(controller: "post", action: "deletePost")
-        name postToggleFavorite:"/ajax/$userAlias/$hashtag/$postBrief-$postId/favourite"(controller: "post",action: "favorite")
-        name postDelComment:"/$userAlias/$hashtag/$postBrief-$postId/delete-comment"(controller: "post",action: "deleteComment")
-        name postAddComment:"/$userAlias/$hashtag/$postBrief-$postId/add-comment"(controller: "post",action: "addComment")
-        name postVoteComment:"/ajax/$userAlias/$hashtag/$postBrief-$postId/vote-comment"(controller: "post",action: "voteComment")
-        name postCluckIt:   "/$userAlias/$hashtag/$postBrief-$postId/cluck"(controller: "post",action: "cluckPost")
-        name postVoteIt:    "/$userAlias/$hashtag/$postBrief-$postId/vote"(controller: "post",action: "votePost")
-        name postVoteAndRegister:    "/$userAlias/$hashtag/$postBrief-$postId/register-and-vote"(controller: "post"){action = [POST:"votePostWithRegister"]}
-        name postVotesList: "/ajax/$userAlias/$hashtag/$postBrief-$postId/list-votes"(controller: "post",action: "listVotes")
-        name postClucksList:"/ajax/$userAlias/$hashtag/$postBrief-$postId/list-clucks"(controller: "post",action: "listClucks")
-
-        name postAddDebate: "/ajax/$userAlias/$hashtag/$postBrief-$postId/addDebate"(controller: "post", action:"addDebate")
-        name postAddVictory:"/ajax/$userAlias/$hashtag/$postBrief-$postId/victory"(controller: "post", action:"addVictory")
-        name postAddDefender:"/ajax/project/propuesta/apadrinar"(controller: "post", action:"addDefender")
 
 
         name widgetJs:      "/widget.js"(controller: "widget", action:"kuorumWidgetjs")
@@ -204,7 +206,7 @@ class UrlMappings {
         name bulkActionAddTagsContactsAjax:         "/ajax/contact/addTags" (controller:"contacts", action: "addTagsBulkAction")
         name bulkActionRemoveTagsContactsAjax:      "/ajax/contact/removeTags" (controller: "contacts", action: "removeTagsBulkAction")
 
-        name userFollowAndRegisteruserFollowAndRegister:          "/$userAlias/subscribe" (controller: "kuorumUser", action: "subscribeTo")
+        name userFollowAndRegister:          "/$userAlias/subscribe" (controller: "kuorumUser", action: "subscribeTo")
         name userClucks:        "/ajax/$userAlias/clucks"  (controller: "kuorumUser", action: "userClucks")
         name userPost:          "/ajax/$userAlias/posts"  (controller: "kuorumUser", action: "userPosts")
         name userVictories:     "/ajax/$userAlias/victories"  (controller: "kuorumUser", action: "userVictories")
@@ -239,6 +241,7 @@ class UrlMappings {
         name profileNews:                   "/edit-profile/news"                               (controller: "profile"){action=[GET:"editNews", POST:"updateNews"]}
         name profileQuickNotes:             "/edit-profile/quick-notes"                        (controller: "profile"){action=[GET:"editQuickNotes", POST:"updateQuickNotes"]}
         name profileProfessionalDetails:    "/edit-profile/professional-details"               (controller: "profile"){action=[GET:"editProfessionalDetails", POST:"updateProfessionalDetails"]}
+        name profilePictures:               "/edit-profile/pictures"                           (controller: "profile"){action=[GET:"editPictures", POST: "updatePictures"]}
 
 
         name profileMailing : "/notifications/mailing" (controller: "profile", action:"showUserEmails")
@@ -303,9 +306,17 @@ class UrlMappings {
         name politicianInbox:                           "/account/inbox" (controller:"politician", action: "betaTesterPage")
         name politicianCampaigns:                       "/account/campaigns" (controller:"massMailing", action: "index")
         name politicianCampaignsNew:                    "/account/campaigns/new" (controller:"massMailing", action: "newCampaign")
-        name politicianMassMailingNew:                  "/account/mass-mailing/new" (controller:"massMailing"){ action=[GET:"createMassMailing",POST:'saveMassMailing']}
+        name politicianCampaignsLists:                  "/ajax/account/campaigns/lists" (controller:"campaign", action: "findLiUserCampaigns")
+        name politicianCampaignsUploadImages:           "/ajax/account/campaign/$campaignId/uploadImages" (controller:"file", action: "uploadCampaignImages");
+        name politicianCampaignsListImages:             "/ajax/account/campaign/$campaignId/listImages" (controller:"file", action: "getCampaignImages");
+        name politicianMassMailingNew:                  "/account/mass-mailing/new" (controller:"massMailing"){ action=[GET:"createMassMailing", POST:'saveMassMailingSettings']}
+        name politicianMassMailingSettings:             "/account/mass-mailing/$campaignId/edit-settings" (controller: "massMailing"){ action=[GET:"editSettingsStep", POST: 'saveMassMailingSettings']}
+        name politicianMassMailingTemplate:             "/account/mass-mailing/$campaignId/edit-template" (controller: "massMailing"){ action=[GET:"editTemplateStep", POST: 'saveMassMailingTemplate']}
+        name politicianMassMailingContent:              "/account/mass-mailing/$campaignId/edit-content" (controller: "massMailing", action:"editContentStep")
+        name politicianMassMailingContentText:          "/account/mass-mailing/$campaignId/edit-content-text" (controller: "massMailing"){ action=[GET:"editContentStepText", POST: 'saveMassMailingContentText']}
+        name politicianMassMailingContentTemplate:      "/account/mass-mailing/$campaignId/edit-content-template" (controller: "massMailing"){ action=[GET:"editContentStepTemplate", POST: 'saveMassMailingContentTemplate']}
         name politicianMassMailingShow:                 "/account/mass-mailing/$campaignId" (controller:"massMailing"){ action=[GET:"showCampaign",POST:'updateCampaign']}
-        name politicianMassMailingSendTest:             "/account/mass-mailing/test" (controller:"massMailing", action: "sendMassMailingTest")
+        name politicianMassMailingSendTest:             "/account/mass-mailing/$campaignId/test" (controller:"massMailing", action: "sendMassMailingTest")
         name politicianMassMailingRemove:               "/ajax/account/mass-mailing/$campaignId/remove" (controller:"massMailing", action:"removeCampaign")
         name politicianMassMailingTrackEvents:          "/ajax/account/mass-mailing/$campaignId/trackEvents" (controller:"massMailing", action: "showTrackingMails")
         name politicianMassMailingHtml:                 "/account/mass-mailing/$campaignId/html" (controller:"massMailing", action: "showMailCampaign")
@@ -365,10 +376,6 @@ class UrlMappings {
         // ADMIN STATS
         name adminStats:            "/admin/estadisticas"           (controller:"adminStats", action: "stats")
         name adminStatsPieChart:    "/admin/estadisticas/pie-chart" (controller:"adminStats", action: "statsDataPieChart")
-
-        // PSOE POLL
-        name campaignPoll:        "/campaign/poll" (controller: "campaign", action: "saveCitizenPriorities")
-
 
         // DEPRECATED SEO - THINK AGAIN
         name discover:                      "/descubre"                                 {controller="redirect"; action= "redirect301"; newMapping='searcherSearch'}

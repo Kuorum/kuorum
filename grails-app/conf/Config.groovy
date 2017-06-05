@@ -179,8 +179,8 @@ grails.plugin.springsecurity.rememberMe.persistent=true
 grails.plugin.springsecurity.rememberMe.persistentToken.domainClassName='kuorum.web.users.PersistentLoginToken'
 // Added by the Spring Security OAuth plugin:
 grails.plugin.springsecurity.oauth.domainClass = 'kuorum.users.OAuthID'
-
-grails.plugin.springsecurity.rememberMe.domain = ".kuorum.org"
+grails.plugin.springsecurity.successHandler.defaultTargetUrl='/dashboard'
+//grails.plugin.springsecurity.rememberMe.domain = ".kuorum.org"
 grails.plugin.springsecurity.loginDomain = "https://kuorum.org"
 grails.plugin.cookiesession.domain=".kuorum.org"
 grails.plugin.cookiesession.springsecuritycompatibility=true
@@ -188,7 +188,7 @@ oauth {
     debug = true
     providers {
         facebook {
-            api = org.scribe.builder.api.FacebookApi
+            api = kuorum.payment.contact.facebook.oauth.FacebookApiOauth2
             key = 'FACEBOOK KEY'
             secret = 'FACEBOOK SECRET'
             successUri = '/oauth/facebook/success'

@@ -1,16 +1,15 @@
 import grails.util.Holders
 import kuorum.Region
-import kuorum.core.model.CommissionType
 import kuorum.core.model.UserType
+import kuorum.core.model.solr.SolrDebate
 import kuorum.core.model.solr.SolrKuorumUser
-import kuorum.core.model.solr.SolrProject
 import kuorum.core.model.solr.SolrPost
 import kuorum.project.Project
-import kuorum.post.Post
 import kuorum.users.KuorumUser
+import org.bson.types.ObjectId
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
-import org.kuorum.rest.model.communication.debate.ProposalCommentRSDTO
 import org.kuorum.rest.model.communication.debate.ProposalRSDTO
+import org.kuorum.rest.model.communication.post.PostRSDTO
 import org.kuorum.rest.model.notification.NotificationProposalCommentRSDTO
 import org.kuorum.rest.model.tag.CauseRSDTO
 
@@ -28,22 +27,10 @@ class LinkPropertiesCodec {
             case CauseRSDTO:
                 params = prepareParams(target);
                 break
-            case Project:
-            case SolrProject:
-//                Project project = (Project) target
-                params = prepareParams(target);
-                break
+            case PostRSDTO:
             case SolrPost:
-                params = prepareParams(target)
-                break
-            case Post:
-                params = prepareParams(target.project)
-                params+= [
-                        postId:target.id,
-                        postBrief:target.title[0..Math.min(NUM_CHARS_URL_POST_TITLE, target.title.size()-1)].encodeAsKuorumUrl()
-                ]
-                break
             case DebateRSDTO:
+            case SolrDebate:
             case ProposalRSDTO:
             case NotificationProposalCommentRSDTO:
                 params = prepareParams(target)
@@ -87,60 +74,54 @@ class LinkPropertiesCodec {
     }
 
     private static def prepareParams(SolrKuorumUser user){
-        //userTypeUrl is the name that match with UrlMappings to redirect to correct action
-//        UserType userType = UserType.valueOf(user.subType.toString())
-//        String userTypeUrl = transEnumToUrl(userType)
-//        [
-//                id: user.id.toString(),
-//                urlName:user.name.encodeAsKuorumUrl(),
-//                userTypeUrl:userTypeUrl.encodeAsKuorumUrl(),
-//        ]
         [
                 userAlias:user.name
-        ]
-    }
-
-    private static def prepareParams(SolrProject project){
-        String commissionName = translate("${CommissionType.canonicalName}.${project.commissions.first()}")
-        [
-                hashtag: project.hashtag.decodeHashtag(),
-                regionName:project.regionName.encodeAsKuorumUrl(),
-//                institutionName:project.institutionName.encodeAsKuorumUrl(),
-                commission:commissionName.encodeAsKuorumUrl()
-        ]
-    }
-
-    private static def prepareParams(SolrPost post){
-        String commissionName = translate("${CommissionType.canonicalName}.${post.commissions.first()}")
-        [
-                hashtag: post.hashtagProject.decodeHashtag(),
-                regionName:post.regionName.encodeAsKuorumUrl(),
-//                institutionName:post.institutionName.encodeAsKuorumUrl(),
-                commission:commissionName.encodeAsKuorumUrl(),
-                postId:post.id,
-                postBrief:post.name[0..Math.min(NUM_CHARS_URL_POST_TITLE, post.name.size()-1)].encodeAsKuorumUrl()
         ]
     }
 
     private static def prepareParams(DebateRSDTO debate) {
         [
                 userAlias: debate.userAlias.toLowerCase(),
-                title: debate.title.encodeAsKuorumUrl(),
+                urlTitle: getNameTitleUrl(debate),
                 debateId: debate.id
+        ]
+    }
+    private static def prepareParams(SolrDebate debate) {
+        KuorumUser user = KuorumUser.get(new ObjectId(debate.ownerId))
+        [
+                userAlias: user.alias,
+                urlTitle: debate.name.encodeAsKuorumUrl(),
+                debateId: debate.id.split("_")[1]
+        ]
+    }
+
+    private static def prepareParams(PostRSDTO postRSDTO) {
+        [
+                userAlias: postRSDTO.userAlias.toLowerCase(),
+                urlTitle: getNameTitleUrl(postRSDTO),
+                postId: postRSDTO.id
+        ]
+    }
+    private static def prepareParams(SolrPost solrPost) {
+        KuorumUser user = KuorumUser.get(new ObjectId(solrPost.ownerId))
+        [
+                userAlias: user.alias.toLowerCase(),
+                urlTitle: solrPost.name.encodeAsKuorumUrl(),
+                postId: solrPost.id.split("_")[1]
         ]
     }
 
     private static def prepareParams(ProposalRSDTO proposalRSDTO) {
         [
                 userAlias: proposalRSDTO.debateAlias.toLowerCase(),
-                title: proposalRSDTO.debateTitle.encodeAsKuorumUrl(),
+                urlTitle: getNameTitleUrl(proposalRSDTO),
                 debateId: proposalRSDTO.debateId
         ]
     }
     private static def prepareParams(NotificationProposalCommentRSDTO notificationProposalCommentRSDTO) {
         [
                 userAlias: notificationProposalCommentRSDTO.debateAlias.toLowerCase(),
-                title: notificationProposalCommentRSDTO.debateTitle.encodeAsKuorumUrl(),
+                urlTitle: notificationProposalCommentRSDTO.debateTitle.encodeAsKuorumUrl(),
                 debateId: notificationProposalCommentRSDTO.debateId
         ]
     }
@@ -164,6 +145,22 @@ class LinkPropertiesCodec {
             case UserType.POLITICIAN: return "politicos"
             case UserType.CANDIDATE: return "candidato"
         }
+    }
+
+    private static String getNameTitleUrl(def debatePost){
+        //debatePost is a DebateRSDTO or PostRSDTO or ProposalRSDTO
+        String urlText = ""
+        if (debatePost instanceof ProposalRSDTO){
+            urlText = debatePost.debateTitle
+        }else{
+            urlText = debatePost.title;
+        }
+
+        if (!urlText){
+            // The post or the debate are not complete and the title is not set [Also is not published]
+            urlText = debatePost.name
+        }
+        return urlText.encodeAsKuorumUrl()
     }
 
 

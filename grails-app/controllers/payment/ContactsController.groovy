@@ -5,22 +5,13 @@ import grails.converters.JSON
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.core.exception.KuorumException
+import kuorum.dashboard.DashboardService
 import kuorum.users.KuorumUser
-import kuorum.web.commands.payment.contact.BulkActionContactsCommand
-import kuorum.web.commands.payment.contact.BulkAddTagsContactsCommand
-import kuorum.web.commands.payment.contact.BulkRemoveTagsContactsCommand
-import kuorum.web.commands.payment.contact.ContactCommand
-import kuorum.web.commands.payment.contact.ContactFilterCommand
-import kuorum.web.commands.payment.contact.NewContactCommand
+import kuorum.web.commands.payment.contact.*
 import kuorum.web.commands.payment.massMailing.MassMailingCommand
-import kuorum.web.commands.payment.contact.BulkRemoveContactsCommand
 import kuorum.web.session.CSVDataSession
 import org.bson.types.ObjectId
-import org.kuorum.rest.model.contact.BulkUpdateContactTagsRDTO
-import org.kuorum.rest.model.contact.ContactPageRSDTO
-import org.kuorum.rest.model.contact.ContactRDTO
-import org.kuorum.rest.model.contact.ContactRSDTO
-import org.kuorum.rest.model.contact.SearchContactRSDTO
+import org.kuorum.rest.model.contact.*
 import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
 import org.kuorum.rest.model.contact.filter.FilterRDTO
 import org.kuorum.rest.model.contact.filter.condition.ConditionFieldTypeRDTO
@@ -40,8 +31,18 @@ class ContactsController {
 
     ContactService contactService
     SpringSecurityService springSecurityService
+    DashboardService dashboardService
 
-    def index(){
+    // Grails renderer -> For CSV hack
+    grails.gsp.PageRenderer groovyPageRenderer
+
+    def index(ContactFilterCommand filterCommand){
+
+        if (dashboardService.forceUploadContacts()){
+            render view: "/dashboard/payment/paymentNoContactsDashboard", model: [:]
+            return;
+        }
+
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         SearchContactRSDTO searchContactRSDTO  = new SearchContactRSDTO()
         searchContactRSDTO.sort = new SortContactsRDTO(field:ConditionFieldTypeRDTO.NAME, direction: SortContactsRDTO.Direction.ASC)
@@ -50,17 +51,34 @@ class ContactsController {
             redirect mapping:"politicianContactImport"
             return
         }
+
+        MassMailingCommand command = new MassMailingCommand();
+        ExtendedFilterRSDTO anonymousFilter = null;
+        if (filterCommand.filterConditions){
+            anonymousFilter = new ExtendedFilterRSDTO();
+            anonymousFilter.id = -1;
+            anonymousFilter.filterConditions = filterCommand.buildFilter().filterConditions;
+            anonymousFilter.operator = filterCommand.operator
+            //SearchContactRSDTO temporalContact = new SearchContactRSDTO(filter: anonymousFilter);
+            ContactPageRSDTO temporalContacts = contactService.getUsers(user, anonymousFilter);
+            anonymousFilter.amountOfContacts = temporalContacts.total;
+            anonymousFilter.name = g.message(code:'tools.contact.filter.newAnonymousName');
+            command.filterId = anonymousFilter.id
+        }
+
         List<ExtendedFilterRSDTO> filters = contactService.getUserFilters(user)
 
         [
                 contacts:contacts,
                 filters:filters,
+                anonymousFilter:anonymousFilter,
                 totalContacts:contacts.total,
-                command:new MassMailingCommand(),
+                command:command,
                 searchContacts:searchContactRSDTO,
                 bulkActionContactsCommand: new BulkActionContactsCommand(),
                 bulkAddTagsContactsCommand: new BulkAddTagsContactsCommand()
         ]
+
     }
 
     def searchContacts(ContactFilterCommand filterCommand){
@@ -109,7 +127,14 @@ class ContactsController {
     def removeContact(Long contactId){
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         contactService.removeContact(user, contactId)
-        render ""
+
+        SearchContactRSDTO searchContactRSDTO = new SearchContactRSDTO()
+        searchContactRSDTO.sort = new SortContactsRDTO(field:ConditionFieldTypeRDTO.NAME, direction: SortContactsRDTO.Direction.ASC)
+        ContactPageRSDTO contacts = contactService.getUsers(user,searchContactRSDTO)
+
+        Map result =[contacts: contacts.getTotal()]
+
+        render "" //ÑAPA para filtros dinamicos
     }
 
     def editContact(Long contactId){
@@ -179,11 +204,12 @@ class ContactsController {
             contactRDTO.surname = command.surname
             contactRDTO.email = command.email
             contactRSDTO = contactService.addContact(user, contactRDTO)
+            String displayerName = "${contactRSDTO.name} ${contactRSDTO.surname}"
             if (contactRSDTO){
-                flash.message=g.message(code: 'tools.contact.new.success', args: [contactRSDTO.email])
+                flash.message=g.message(code: 'tools.contact.new.success', args: [displayerName])
                 redirect(mapping: "politicianContactEdit", params: [contactId:contactRSDTO.id])
             }else{
-                flash.error=g.message(code: 'tools.contact.new.error', args: [contactRSDTO.email])
+                flash.error=g.message(code: 'tools.contact.new.error', args: [displayerName])
                 render view: 'newContact', model:[command:command]
             }
         }
@@ -209,7 +235,7 @@ class ContactsController {
             redirect(mapping: 'politicianContactImportCSV')
             return
         }
-        if (!uploadedFile.originalFilename.endsWith(CONTACT_CSV_UPLOADED_EXTENSION)) {
+        if (!uploadedFile.originalFilename?.toLowerCase().endsWith(CONTACT_CSV_UPLOADED_EXTENSION)) {
             flash.error = g.message(code: 'tools.contact.import.csv.error.wrongExtension', args: [CONTACT_CSV_UPLOADED_EXTENSION])
             redirect(mapping: 'politicianContactImportCSV')
             return
@@ -220,15 +246,15 @@ class ContactsController {
         log.info("Creating temporal file ${csv.absoluteFile}")
         uploadedFile.transferTo(csv)
         log.info("Saved data into temporal file ${csv.absoluteFile}")
-//        InputStream data = uploadedFile.inputStream
-//        byte[] buffer = new byte[data.available()];
-//        data.read(buffer)
-//        OutputStream outStream = new FileOutputStream(csv);
-//        outStream.write(buffer);
-//        outStream.close()
         request.getSession().setAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY, csvDataSession)
         try {
-            modelUploadCSVContacts()
+            def model = modelUploadCSVContacts()
+            // THe table is rendered using the hack because some files are wrong and it is not possible to detect them.
+            // If painting the table fails, the exception is thrown and can be handled with ErrorController.
+            // If the exception is thrown while is been rendered, AWS not redirect to ErrorController, it shows a ugly page.
+            def table = groovyPageRenderer.render(template: '/contacts/csvTableExample', model: model)
+            model["table"] = table
+            model
         } catch(KuorumException e) {
             log.error("Error in the CSV file", e)
             flash.error = g.message(code: e.getMessage())
@@ -460,7 +486,12 @@ class ContactsController {
         render tags as JSON
     }
 
-    def importSuccess(){}
+    def importSuccess(){
+        log.info("Skipping force upload contacts")
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        user.skipUploadContacts = true;
+        user.save()
+    }
 
 
 

@@ -7,14 +7,13 @@ $(function(){
     });
 
     $('body').on('click', '#campaignWarnFilterEditedButtonOk', function(e){
-        e.preventDefault();
-        $("#campaignWarnFilterEdited").modal("hide");
-        $("#campaignConfirm").modal("show");
+        var $form = $('form#politicianMassMailingForm');
+        $form.submit();
     });
 
 })
 
-
+/*
 function prepareAndOpenCampaignConfirmModal() {
     var amountContacts = $('select#recipients option:selected').attr("data-amountContacts");
     $("#campaignConfirmTitle > span").html(amountContacts);
@@ -24,4 +23,13 @@ function prepareAndOpenCampaignConfirmModal() {
     }else{
         $("#campaignConfirm").modal("show");
     }
+}*/
+
+
+function prepareAndOpenCampaignConfirmModal(){
+    var amountContacts = $('select#recipients option:selected').attr("data-amountContacts");
+    $("#campaignConfirmTitle > span").html(amountContacts);
+    $("#campaignWarnFilterEdited .modal-body > p > span").html(amountContacts);
+
+    $("#campaignConfirm").modal("show");
 }

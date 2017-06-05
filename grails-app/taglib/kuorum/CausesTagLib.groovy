@@ -3,6 +3,7 @@ package kuorum
 import kuorum.core.model.UserType
 import kuorum.core.model.search.Pagination
 import kuorum.core.model.search.SearchType
+import kuorum.core.model.solr.SolrType
 import kuorum.users.KuorumUser
 import org.kuorum.rest.model.tag.CauseRSDTO
 import org.kuorum.rest.model.tag.SupportedCauseRSDTO
@@ -32,7 +33,7 @@ class CausesTagLib {
         }else{
             causeSupportClass = "noLogged"
         }
-        String searchLink = g.createLink(mapping:"searcherSearch", params:[type:UserType.POLITICIAN, word:cause.name, searchType:SearchType.CAUSE])
+        String searchLink = g.createLink(mapping:"searcherSearch", params:[type:SolrType.KUORUM_USER, word:cause.name, searchType:SearchType.CAUSE])
         String supportCause = g.createLink(mapping:"causeSupport", params:[causeName:cause.name], absolute: true)
 
         String showCounter = ""

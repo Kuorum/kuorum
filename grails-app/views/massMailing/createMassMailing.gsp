@@ -1,8 +1,8 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <g:set var="breadCrumbName">
-        <g:if test="${command?.subject}">
-            <g:message code="head.logged.account.tools.massMailing.edit" args="[command.subject]"/>
+        <g:if test="${command?.campaignName}">
+            <g:message code="head.logged.account.tools.massMailing.edit" args="[command.campaignName]"/>
         </g:if>
         <g:else>
             <g:message code="head.logged.account.tools.massMailing.new"/>
@@ -22,10 +22,11 @@
 <content tag="mainContent">
     <ol class="breadcrumb">
         <li><g:link mapping="politicianCampaigns"><g:message code="head.logged.account.tools.massMailing"/></g:link></li>
+        <li><g:link mapping="politicianCampaignsNew"><g:message code="tools.campaign.new.title"/></g:link></li>
         <li class="active">${breadCrumbName}</li>
     </ol>
-    <div class="box-ppal">
-         <g:render template="types/massMailing" model="[command: command, filters: filters, totalContacts: totalContacts, campaignId: campaignId, anonymousFilter: anonymousFilter]"/>
-    </div>
+
+    <g:render template="types/massMailing" model="[command: command, filters: filters, totalContacts: totalContacts, campaignId: campaignId, anonymousFilter: anonymousFilter]"/>
+
     <g:render template="timeZoneSelectorPopUp"/>
 </content>

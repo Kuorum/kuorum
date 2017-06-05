@@ -1,14 +1,14 @@
 package kuorum.debate
 
+import grails.converters.JSON
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.users.KuorumUser
+import kuorum.web.commands.payment.debate.DebateProposalCommand
 import kuorum.web.commands.payment.massMailing.CommentProposalCommand
-import kuorum.web.commands.payment.massMailing.DebateProposalCommand
 import kuorum.web.commands.payment.massMailing.LikeProposalCommand
 import kuorum.web.commands.payment.massMailing.PinProposalCommand
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
-import org.kuorum.rest.model.communication.debate.ProposalCommentRDTO
 import org.kuorum.rest.model.communication.debate.ProposalCommentRSDTO
 import org.kuorum.rest.model.communication.debate.ProposalRSDTO
 import payment.campaign.DebateService
@@ -42,11 +42,6 @@ class DebateProposalController {
         render "true"
     }
 
-    @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
-    def addProposalAndRegister(){
-
-    }
-
     def pinProposal(PinProposalCommand command){
         KuorumUser user = springSecurityService.currentUser
 
@@ -69,7 +64,16 @@ class DebateProposalController {
         render template: "/debate/showModules/mainContent/proposalDataComment", model:[debate:debate, proposal:proposalRSDTO, comment:comment]
     }
 
-    def voteComment(){}
+    def voteComment(){
+        KuorumUser user = springSecurityService.currentUser
+        Long proposalId = Long.parseLong(params.proposalId)
+        Long debateId = Long.parseLong(params.debateId)
+        String debateAlias = params.debateAlias
+        Long commentId = Long.parseLong(params.commentId)
+        Integer vote = Integer.parseInt(params.vote)
+        ProposalCommentRSDTO comment = proposalService.voteComment(user, debateId,debateAlias, proposalId, commentId, vote)
+        render comment as JSON
+    }
 
     def deleteComment(){
         Long proposalId = Long.parseLong(params.proposalId)

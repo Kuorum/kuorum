@@ -1,10 +1,13 @@
 <%@ page import="org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO" %>
 
-<li class="${campaign.status}" id="campaignPos_${idx}">
+<li class="${campaign.status} newsletterItem" id="campaignPos_${idx}">
     <span class="id sr-only">${campaign.id}</span>
     <span class="state">${campaign.status}</span>
+    <span class="type">newsletter</span>
+    <span class="fa fa-envelope-o"></span>
     <h3>
-        <g:link mapping="politicianMassMailingShow" params="[campaignId:campaign.id]" class="title">
+        <g:set var="modal" value="${campaign.status == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SCHEDULED ?'modalEditScheduled':''}"/>
+        <g:link mapping='politicianMassMailingShow' params="[campaignId:campaign.id]" class="title ${modal}" absolute="true">
             ${campaign.name}<span></span>
         </g:link>
     </h3>
@@ -25,11 +28,11 @@
 
         </li>
         <li class="open">
-            <span class='open-number'><campaignUtil:openRate campaign="${campaign}"/></span>
+            <campaignUtil:openRate campaign="${campaign}"/>
             <g:message code="tools.massMailing.list.opens"/>
         </li>
         <li class="click">
-            <span class='click-number'><campaignUtil:clickRate campaign="${campaign}"/></span>
+            <campaignUtil:clickRate campaign="${campaign}"/>
             <g:message code="tools.massMailing.list.click"/>
         </li>
     </ul>
@@ -41,7 +44,7 @@
     </g:if>
     <g:else>
         <li>
-            <g:link mapping="politicianMassMailingShow" params="[campaignId:campaign.id]" class="campaignEdit"><span class="fa fa-edit"></span> <span class="sr-only">Edit</span></g:link>
+            <g:link mapping="politicianMassMailingShow" params="[campaignId:campaign.id]" class="campaignEdit ${modal}"><span class="fa fa-edit"></span> <span class="sr-only">Edit</span></g:link>
         </li>
     </g:else>
         <li>

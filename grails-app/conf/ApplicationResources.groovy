@@ -85,6 +85,7 @@ modules = {
         resource url:'js/custom.js'
         resource url:'css/custom.css'
         resource url:'js/local.js'
+        resource url:'js/profile.js'
     }
 
     debate {
@@ -95,6 +96,11 @@ modules = {
         resource url:'js/debate.js'
     }
 
+    post {
+        dependsOn("basic", "forms")
+        resource url:'js/post.js'
+    }
+
     campaignForm{
         dependsOn("basic", "forms")
         resource url: 'js/camapign-form.js'
@@ -103,6 +109,11 @@ modules = {
     debateForm {
         dependsOn("campaignForm")
         resource url:'js/debate-form.js'
+    }
+
+    postForm {
+        dependsOn("campaignForm")
+        resource url: 'js/debate-form.js'
     }
 
     newsletter{
@@ -124,6 +135,16 @@ modules = {
     contacts{
         dependsOn("basic", "forms")
         resource url:'js/contacts.js'
+    }
+
+    findUploader{
+        dependsOn("basic")
+        resource url : 'js/fineUploader/fine-uploader.core.js'
+//        resource url : 'js/fineUploader/fine-uploader.js'
+        resource url : 'js/fineUploader/jquery.fine-uploader.js'
+        resource url : 'js/fineUploader/fine-uploader.css'
+        resource url : 'js/fineUploader/fine-uploader-gallery.css'
+        resource url : 'js/fineUploader/fine-uploader-kuorum.css'
     }
 
     vimeo {

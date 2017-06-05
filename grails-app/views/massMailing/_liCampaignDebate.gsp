@@ -3,9 +3,11 @@
 <li class="${debate.newsletter.status} debateItem" id="campaignPos_${idx}">
     <span class="id sr-only">${debate.id}</span>
     <span class="state">${debate.campaignStatusRSDTO}</span>
+    <span class="type">debate</span>
+    <span class="fa fa-comments-o"></span>
     <h3>
         <g:link mapping="debateShow" params="${debate.encodeAsLinkProperties()}" class="title">
-            ${debate.title}<span></span>
+            ${debate.name}<span></span>
         </g:link>
     </h3>
     <p class="name">
@@ -24,11 +26,11 @@
             <g:message code="tools.massMailing.list.recipients"/>
         </li>
         <li class="open">
-            <span class='open-number'><campaignUtil:openRate campaign="${debate.newsletter}"/></span>
+            <campaignUtil:openRate campaign="${debate.newsletter}"/>
             <g:message code="tools.massMailing.list.opens"/>
         </li>
         <li class="click">
-            <span class='click-number'><campaignUtil:clickRate campaign="${debate.newsletter}"/></span>
+            <campaignUtil:clickRate campaign="${debate.newsletter}"/>
             <g:message code="tools.massMailing.list.click"/>
         </li>
     </ul>
@@ -39,7 +41,8 @@
             </li>
         </g:if>
         <li>
-            <g:link mapping="debateEdit" params="[debateId: debate.id]" role="button" class="campaignEdit"><span class="fa fa-edit"></span><span class="sr-only">Edit</span></g:link>
+            <g:set var="modal" value="${debate.newsletter.status == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SCHEDULED ?'modalEditScheduled':''}"/>
+            <g:link mapping="debateEditContent" params="${debate.encodeAsLinkProperties()}" role="button" class="campaignEdit ${modal}"><span class="fa fa-edit"></span><span class="sr-only">Edit</span></g:link>
         </li>
     </ul>
 

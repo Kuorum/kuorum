@@ -4,7 +4,7 @@
     <li><g:link mapping="profileEditUser" itemprop="url"><g:message code="head.navigation.userMenu.editUser"/></g:link></li>
     <li><g:link mapping="profileEditAccountDetails" itemprop="url"><g:message code="head.navigation.userMenu.configAccount"/></g:link></li>
     %{--<li><g:link mapping="toolsNotifications"><g:message code="head.navigation.userMenu.tools"/></g:link></li>--}%
-    %{--<li><g:link mapping="tourStart"><g:message code="head.navigation.userMenu.tour"/></g:link></li>--}%
+    <li class="hidden-xs"><g:link mapping="dashboard" params="[tour:true]"><g:message code="head.navigation.userMenu.tour"/></g:link></li>
     <sec:ifAnyGranted roles="ROLE_ADMIN">
         <li><g:link mapping="adminPrincipal"><g:message code="admin.adminPrincipal.title"/></g:link></li>
     </sec:ifAnyGranted>

@@ -10,10 +10,9 @@ import kuorum.core.model.project.ProjectBasicStats
 import kuorum.users.KuorumUser
 import org.bson.types.ObjectId
 
+@Deprecated
 @MongoUpdatable
 class Project {
-
-    ProjectStatsService projectStatsService
 
     ObjectId id
     String hashtag
@@ -77,48 +76,17 @@ class Project {
         updates nullable: true
         shortUrl nullable:true
 
-        // NO se por que es obligatorio meter este estos valores en la constraints aunque sena transient
-        projectStatsService nullable: true
-        projectBasicStats nullable: true
     }
 
     static mapping = {
         hashtag index:true, indexAttributes: [unique:true]
     }
 
-    static transients = ['lastUpdate', 'percentagePositiveVotes', 'percentageNegativeVotes', 'percentageAbsVotes', 'numPublicPost', 'projectBasicStats', 'projectStatsService']
+    static transients = ['lastUpdate', 'percentagePositiveVotes', 'percentageNegativeVotes', 'percentageAbsVotes', 'numPublicPost']
 
     Date getLastUpdate(){
         this.updates.sort{it.dateCreated}.last().dateCreated
     }
-
-    @Deprecated
-    Long getPercentageNegativeVote(){
-        getProjectBasicStats().percentageNegativeVotes
-    }
-
-    @Deprecated
-    Long getPercentagePositiveVotes(){
-        getProjectBasicStats().percentagePositiveVotes
-    }
-
-    @Deprecated
-    Long getPercentageAbsVotes(){
-        getProjectBasicStats().percentageAbsVotes
-    }
-
-    @Deprecated
-    Long getPublicPost(){
-        getProjectBasicStats().numPublicPosts
-    }
-
-    ProjectBasicStats getProjectBasicStats() {
-        if (!projectBasicStats && projectStatsService) {
-            projectBasicStats = projectStatsService.calculateProjectBasicStats(this)
-        }
-        projectBasicStats
-    }
-
     def beforeInsert() {
         prepareIndexMetaData()
     }
@@ -151,6 +119,7 @@ public class AcumulativeVotes {
 }
 
 @Validateable
+@Deprecated
 class ProjectUpdate {
 
     String description

@@ -8,7 +8,7 @@
         <div class="panel-body text-center">
 
             <div class="campaign-progress-bar-wrapper">
-                <h4><g:message code="register.progressBar.title" /></h4>
+                %{--<h4><g:message code="register.progressBar.title" /></h4>--}%
                 <div class="campaign-progress-bar">
                     <div class="pop-up">
                         <g:message code="register.progressBar.popup" args="[user.name]" />
@@ -24,7 +24,7 @@
             <g:form mapping="userFollowAndRegister" params="${user.encodeAsLinkProperties()}" class="login" name="followAndRegister">
                 <fieldset class="row">
                     <div class="form-group col-md-12">
-                        <formUtil:input command="${command}" field="name"/>
+                        <formUtil:input command="${command}" field="name" showCharCounter="false"/>
                     </div>
                     <div class="form-group col-md-12">
                         <formUtil:input command="${command}" field="email" type="email"/>

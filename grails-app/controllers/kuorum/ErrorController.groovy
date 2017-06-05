@@ -25,6 +25,11 @@ class ErrorController {
     }
     def internalError(){
         def exception = request.exception.cause
+        if (request.getForwardURI() == g.createLink(mapping: "politicianContactImportCSV")){
+            flash.error=g.message(code:'tools.contact.import.csv.error.generic')
+            redirect (mapping:"politicianContactImportCSV")
+            return;
+        }
         def email = grailsApplication.config.kuorum.contact.email
         log.error("KuorumException: "+exception.message)
         [email:email]

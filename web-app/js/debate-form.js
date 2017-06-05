@@ -11,6 +11,14 @@ $(function(){
             $("#campatingTextErrorSpan").fadeOut()
         }
 
+        if ($("input[name=title]").val() == "") {
+            var errorMsg = i18n.kuorum.web.commands.payment.massMailing.DebateCommand.title.nullable;
+            $("input[name=title]").closest("div").append('<span id="campatingTextErrorSpan" for="text" class="error"><span class="tooltip-arrow"></span>'+errorMsg+'</span>');
+            valid = false;
+        } else {
+            $("#campatingTextErrorSpan").fadeOut()
+        }
+
         if (!valid) {
             var msg = $("#politicianMassMailingForm").attr("data-generalErrorMessage")
             display.warn(msg)
@@ -20,8 +28,9 @@ $(function(){
     }
 
     // Abrir modal confirmar envio de debate
-    $('body').on('click','.form-final-options #send-debate', function(e) {
+    $('body').on('click','.form-final-options #send-draft', function(e) {
         e.preventDefault();
+        console.log("CLICK")
         if (isValidDebateForm()) {
             // Autoset publish day for today
             var date = new Date();
@@ -48,7 +57,7 @@ $(function(){
         $(this).parents("form").submit();
     });
 
-    function prepareAndOpenDebateConfirmModal() {
+    /*function prepareAndOpenDebateConfirmModal() {
         var amountContacts = $('select#recipients option:selected').attr("data-amountContacts");
         $("#campaignConfirmTitle > span").html(amountContacts);
         $("#campaignWarnFilterEdited .modal-body > p > span").html(amountContacts);
@@ -57,7 +66,47 @@ $(function(){
         } else {
             $("#campaignConfirm").modal("show");
         }
+    }*/
+
+
+    function prepareAndOpenDebateConfirmModal(){
+        var amountContacts = $('select#recipients option:selected').attr("data-amountContacts");
+        $("#campaignConfirmTitle > span").html(amountContacts);
+        $("#campaignWarnFilterEdited .modal-body > p > span").html(amountContacts);
+
+        $("#campaignConfirm").modal("show");
     }
 
+    // CREATE CAMPAIGN moving on STEPS
+    var $stepButton = $('ul.campaigns.twoSteps > li > a');
+    $stepButton.on('click', stepSubmit);
 
+    var $nextButton = $('.form-final-options #next[data-redirectLink]');
+    $nextButton.on('click', stepSubmit);
+
+    var $saveDraft = $('.form-final-options #save-draft[data-redirectLink]');
+    $saveDraft.on('click', stepSubmit);
+
+    var $saveDraftDebate = $('.form-final-options #save-draft-debate[data-redirectLink]');
+    $saveDraftDebate.on('click', stepSubmit);
+
+    var $sendButton = $('#campaignConfirm #saveCampaignBtn[data-redirectLink]');
+    $sendButton.on('click', stepSubmit);
 });
+
+function stepSubmit (e){
+    e.preventDefault();
+    var $form = $('form#politicianMassMailingForm');
+    var $inputHidden = $form.find('#redirectLink');
+    var redirect = $(this).attr('data-redirectLink');
+    $inputHidden.attr('value', redirect);
+    var $filter = $('select#recipients option:selected').length;
+    if($filter && filterContacts.isFilterEdited()){
+        var amountContacts = $('select#recipients option:selected').attr("data-amountContacts");
+        $("#campaignConfirmTitle > span").html(amountContacts);
+        $("#campaignWarnFilterEdited .modal-body > p > span").html(amountContacts);
+        $("#campaignWarnFilterEdited").modal("show");
+    }else{
+        $form.submit();
+    }
+}

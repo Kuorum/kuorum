@@ -2,28 +2,14 @@ package kuorum.files
 
 import com.amazonaws.auth.AWSCredentials
 import com.amazonaws.auth.BasicAWSCredentials
-import com.amazonaws.services.s3.model.CannedAccessControlList
-import com.amazonaws.services.s3.model.CompleteMultipartUploadResult
-import com.amazonaws.services.s3.model.DeleteObjectRequest
-import com.amazonaws.services.s3.model.GetObjectRequest
-import com.amazonaws.services.s3.model.PutObjectRequest
-import com.amazonaws.services.s3.model.S3Object
-import grails.transaction.Transactional
+import com.amazonaws.services.s3.AmazonS3
+import com.amazonaws.services.s3.AmazonS3Client
+import com.amazonaws.services.s3.model.*
 import kuorum.KuorumFile
-
-import com.amazonaws.auth.profile.ProfileCredentialsProvider;
-import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.AmazonS3Client;
-import com.amazonaws.services.s3.model.AbortMultipartUploadRequest;
-import com.amazonaws.services.s3.model.CompleteMultipartUploadRequest;
-import com.amazonaws.services.s3.model.InitiateMultipartUploadRequest;
-import com.amazonaws.services.s3.model.InitiateMultipartUploadResult;
-import com.amazonaws.services.s3.model.PartETag;
-import com.amazonaws.services.s3.model.UploadPartRequest
 import kuorum.core.FileGroup
 import kuorum.core.FileType
 import kuorum.core.exception.KuorumException
-import kuorum.users.KuorumUser;
+import kuorum.users.KuorumUser
 
 class AmazonFileService extends LocalFileService{
 
@@ -33,9 +19,41 @@ class AmazonFileService extends LocalFileService{
 
 
     public KuorumFile uploadTemporalFile(InputStream inputStream, KuorumUser kuorumUser, String fileName, FileGroup fileGroup) throws KuorumException{
-        KuorumFile kuorumFile = uploadLocalTemporalFile(inputStream, kuorumUser, fileName, fileGroup)
+        KuorumFile kuorumFile = uploadLocalTemporalFile(inputStream, kuorumUser, fileName, fileGroup, kuorumUser.alias)
         uploadAmazonFile(kuorumFile, Boolean.TRUE)
         kuorumFile
+    }
+
+    @Override
+    KuorumFile uploadTemporalFile(InputStream inputStream, KuorumUser kuorumUser, String fileName, FileGroup fileGroup, String path) throws KuorumException {
+        KuorumFile kuorumFile = uploadLocalTemporalFile(inputStream, kuorumUser, fileName, fileGroup, path)
+        uploadAmazonFile(kuorumFile, Boolean.TRUE)
+        kuorumFile
+    }
+
+    @Override
+    List<KuorumFile> listFilesFromPath(FileGroup fileGroup, String path) {
+        String accessKey = grailsApplication.config.kuorum.amazon.accessKey
+        String secretKey = grailsApplication.config.kuorum.amazon.secretKey
+        String bucketName = grailsApplication.config.kuorum.amazon.bucketName;
+
+        AWSCredentials credentials = new BasicAWSCredentials(accessKey,secretKey);
+        AmazonS3 s3Client = new AmazonS3Client(credentials);
+
+        String searchPath = fileGroup.folderPath+"/"+cleanPath(path)
+        ObjectListing listing = s3Client.listObjects( bucketName, searchPath );
+        List<S3ObjectSummary> summaries = listing.getObjectSummaries();
+        while (listing.isTruncated()) {
+            listing = s3Client.listNextBatchOfObjects (listing);
+            summaries.addAll (listing.getObjectSummaries());
+        }
+
+        List<KuorumFile> files = listing.objectSummaries.collect{S3ObjectSummary s3o ->
+            String encodedKey = s3o.key.split("/").collect{java.net.URLEncoder.encode(it, "UTF-8")}.join("/")
+            String url = "https://${bucketName}.s3.amazonaws.com/${encodedKey}"
+            return KuorumFile.findByUrl(url)
+        }
+        return files
     }
 
     KuorumFile convertTemporalToFinalFile(KuorumFile kuorumFile){
@@ -63,7 +81,7 @@ class AmazonFileService extends LocalFileService{
             String accessKey = grailsApplication.config.kuorum.amazon.accessKey
             String secretKey = grailsApplication.config.kuorum.amazon.secretKey
             String bucketName = grailsApplication.config.kuorum.amazon.bucketName;
-            String keyName    = "${asTemporal?BUCKET_TMP_FOLDER:kuorumFile.fileGroup.folderPath}/${kuorumFile.fileName}";
+            String keyName    = generateAmazonKey(kuorumFile, asTemporal)
             String filePath   = "${calculateLocalStoragePath(kuorumFile)}/${kuorumFile.fileName}";
 
             AWSCredentials credentials = new BasicAWSCredentials(accessKey,secretKey);
@@ -151,9 +169,28 @@ class AmazonFileService extends LocalFileService{
             AWSCredentials credentials = new BasicAWSCredentials(accessKey,secretKey)
             AmazonS3 s3client = new AmazonS3Client(credentials);
 //            AmazonS3 s3client = new AmazonS3Client(new ProfileCredentialsProvider());
-            s3client.deleteObject(new DeleteObjectRequest(bucketName, "${temporal?BUCKET_TMP_FOLDER:file.fileGroup.folderPath}/${file.fileName}"));
+            s3client.deleteObject(new DeleteObjectRequest(bucketName, generateAmazonKey(file, temporal)));
 //            s3client.deleteObject(new DeleteObjectRequest(bucketName, file.storagePath)); //OLD IMAGES NOT HAS storagePath
         }
+    }
+
+    private String generateAmazonKey(KuorumFile file, boolean temporal = false){
+        if (file.relativePath && file.relativePath.size()>1){ // relativePath !="/"
+            return "${temporal?BUCKET_TMP_FOLDER:file.fileGroup.folderPath}/${cleanPath(file.relativePath)}/${file.fileName}"
+        }else{
+            return "${temporal?BUCKET_TMP_FOLDER:file.fileGroup.folderPath}/${file.fileName}"
+        }
+    }
+
+    private String cleanPath(String path){
+        if (path && path.startsWith("/")){
+            return path.substring(1)
+        }else if (path){
+            return path
+        }else{
+            return "";
+        }
+
     }
 
     @Override

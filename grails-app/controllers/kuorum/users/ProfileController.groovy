@@ -4,12 +4,12 @@ import grails.plugin.springsecurity.annotation.Secured
 import grails.plugin.springsecurity.ui.RegistrationCode
 import grails.plugin.springsecurity.ui.ResetPasswordCommand
 import kuorum.KuorumFile
+import kuorum.Region
 import kuorum.causes.CausesService
 import kuorum.core.model.Gender
 import kuorum.core.model.UserType
 import kuorum.files.FileService
 import kuorum.mail.KuorumMailAccountService
-import kuorum.mail.MailType
 import kuorum.notifications.Notification
 import kuorum.notifications.NotificationService
 import kuorum.register.RegisterService
@@ -24,6 +24,9 @@ import org.kuorum.rest.model.kuorumUser.config.NotificationConfigRDTO
 import org.kuorum.rest.model.kuorumUser.config.NotificationMailConfigRDTO
 import org.kuorum.rest.model.notification.MailsMessageRSDTO
 import org.kuorum.rest.model.tag.CauseRSDTO
+
+import java.util.regex.Matcher
+import java.util.regex.Pattern
 
 @Secured(['IS_AUTHENTICATED_REMEMBERED'])
 class ProfileController {
@@ -41,6 +44,8 @@ class ProfileController {
     RegisterService registerService
     CausesService causesService;
     PoliticianService politicianService
+    Pattern pattern
+    Matcher matcher
 
     def beforeInterceptor ={
         if (springSecurityService.isLoggedIn()){//Este if es para la confirmacion del email
@@ -69,6 +74,7 @@ class ProfileController {
     def editAccountDetails(){
         KuorumUser user = params.user
         AccountDetailsCommand command = new AccountDetailsCommand(user)
+        command.homeRegion = regionService.findUserRegion(user)
         [command:command]
     }
 
@@ -148,8 +154,8 @@ class ProfileController {
         }
         log.info("Solicitud de cambio de email del usuario ${user.email} con el token ${registrationCode.token}" )
         String url = generateLink('profileChangeEmailConfirm', [t: registrationCode.token])
-
-        kuorumMailService.sendChangeEmailRequested(user, email)
+        String emailToShow = email.replaceAll(/[\.|@]/,'<span>$0</span>')
+        kuorumMailService.sendChangeEmailRequested(user, emailToShow)
         kuorumMailService.sendChangeEmailVerification(user,url, email)
         return [url:url]
     }
@@ -212,10 +218,29 @@ class ProfileController {
             return
         }
         prepareUserEditProfile(user,command)
-        prepareUserImages(user,command, fileService)
         kuorumUserService.updateUser(user)
         flash.message=message(code:'profile.editUser.success')
         redirect mapping:'profileEditUser'
+    }
+
+    def editPictures(){
+        KuorumUser user = params.user
+        EditProfilePicturesCommand command = new EditProfilePicturesCommand(user)
+
+        [command: command]
+    }
+
+    def updatePictures(EditProfilePicturesCommand command){
+        KuorumUser user = params.user
+        if (command.hasErrors()){
+            render view:"editPictures", model: [command:command,user:user]
+            return
+        }
+        prepareUserImages(user,command, fileService)
+        kuorumUserService.updateUser(user)
+        flash.message=message(code:'profile.editUser.success')
+        redirect mapping:'profilePictures'
+
     }
 
     def editCommissions () {
@@ -247,18 +272,18 @@ class ProfileController {
             personalData.gender = Gender.ORGANIZATION
         }else{
             personalData = new PersonData(user.personalData?.properties)
-            if (user.userType==UserType.POLITICIAN || user.userType==user.userType.CANDIDATE){
+//            if (user.userType==UserType.POLITICIAN || user.userType==user.userType.CANDIDATE){
                 if (!user.professionalDetails){
                     user.professionalDetails = new ProfessionalDetails()
                 }
                 user.professionalDetails.position = command.position
-                user.professionalDetails.politicalParty = command.politicalParty
-            }else{
+//                user.professionalDetails.politicalParty = command.politicalParty
+//            }else{
                 personalData.birthday = command.birthday
                 personalData.studies =  command.studies
                 personalData.workingSector =  command.workingSector
                 user.userType = UserType.PERSON
-            }
+//            }
             personalData.gender = command.gender
         }
         if (user.personalData){
@@ -270,7 +295,7 @@ class ProfileController {
         user.personalData = personalData
     }
 
-    public static  void prepareUserImages(KuorumUser user, EditUserProfileCommand command, FileService fileService){
+    public static  void prepareUserImages(KuorumUser user, EditProfilePicturesCommand command, FileService fileService){
 
         if (command.photoId && (!user.avatar || user.avatar.id.toString() != command.photoId)){
             KuorumFile avatar = KuorumFile.get(new ObjectId(command.photoId))
@@ -364,7 +389,7 @@ class ProfileController {
         command.proposalLike = notificationConfig.mailConfig.proposalLike
         command.proposalPinned = notificationConfig.mailConfig.proposalPinned
         command.proposalNew = notificationConfig.mailConfig.proposalNew
-        notificationService.saveNotificationsConfig(user, notificationConfig);
+        command.postLike = notificationConfig.mailConfig.postLike
         [user:user, command: command]
     }
     def configurationEmailsSave(MailNotificationsCommand command) {
@@ -380,6 +405,7 @@ class ProfileController {
         notificationConfig.mailConfig.proposalLike = command.proposalLike
         notificationConfig.mailConfig.proposalPinned = command.proposalPinned
         notificationConfig.mailConfig.proposalNew = command.proposalNew
+        notificationConfig.mailConfig.postLike = command.postLike
         notificationService.saveNotificationsConfig(user, notificationConfig)
         flash.message = message(code:'profile.emailNotifications.success')
         redirect mapping:'profileEmailNotifications'

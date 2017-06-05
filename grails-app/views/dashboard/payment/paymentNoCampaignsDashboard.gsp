@@ -7,6 +7,9 @@
     <meta itemprop="description" content="${g.message(code:"layout.head.meta.description")}">
     <meta itemprop="image" content="${resource(dir: 'images', file:'landingSearch-rrss.png', absolute:true)}" />
     <meta itemprop="image" content="${resource(dir: 'images', file: 'logo@2x.png')}" />
+    <g:if test="${tour}">
+        <r:require module="tour"/>
+    </g:if>
 </head>
 
 <content tag="mainContent">

@@ -1,15 +1,17 @@
 package kuorum
 
 import kuorum.core.model.UserType
+import kuorum.core.model.solr.SolrDebate
 import kuorum.core.model.solr.SolrKuorumUser
 import kuorum.core.model.solr.SolrPost
-import kuorum.core.model.solr.SolrProject
 import kuorum.post.Post
 import kuorum.register.RegisterService
 import kuorum.users.KuorumUser
 import org.bson.types.ObjectId
+import org.kuorum.rest.model.geolocation.RegionRSDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 import org.kuorum.rest.model.kuorumUser.reputation.UserReputationRSDTO
+import org.springframework.context.i18n.LocaleContextHolder
 
 class KuorumUserTagLib {
     static defaultEncodeAs = 'raw'
@@ -20,6 +22,8 @@ class KuorumUserTagLib {
     def springSecurityService
     def userReputationService
     RegisterService registerService
+    RegionService regionService;
+
     private Integer NUM_MAX_ON_USER_LIST = 100
 
     def loggedUserName = {attrs ->
@@ -48,7 +52,7 @@ class KuorumUserTagLib {
         attrs.showRole
         attrs.showName
         attrs.extraCss
-        KuorumUser user = KuorumUser.findByAlias(alias);
+        KuorumUser user = KuorumUser.findByAlias(alias.toLowerCase());
         attrs.put("user", user)
         out << showUser(user:user, showRole: attrs.showRole, showName:attrs.showName, extraCss: attrs.extraCss)
     }
@@ -60,7 +64,7 @@ class KuorumUserTagLib {
         if (attrs.user instanceof SolrKuorumUser){
             user = KuorumUser.get(new ObjectId(attrs.user.id))
             name = user.name
-        }else if (attrs.user instanceof SolrPost || attrs.user instanceof SolrProject ){
+        }else if (attrs.user instanceof SolrPost || attrs.user instanceof SolrDebate ){
             user = KuorumUser.get(new ObjectId(attrs.user.ownerId))
             name = attrs.user.highlighting.owner?:user.name
         }else if (attrs.user instanceof BasicDataKuorumUserRSDTO){
@@ -111,13 +115,13 @@ class KuorumUserTagLib {
             }
             out << "</div>"
         }
-        if (showRole){
-            out << """
-                <span class="user-type">
-                    <small>${userUtil.roleName(user:user)}</small>
-                </span>
-                """
-        }
+//        if (showRole){
+//            out << """
+//                <span class="user-type">
+//                    <small>${userUtil.roleName(user:user)}</small>
+//                </span>
+//                """
+//        }
         out << "</${htmlWrapper}>" //END DIV
     }
 
@@ -233,20 +237,31 @@ class KuorumUserTagLib {
         )
     }
 
+    // NEGRITA: if !cargo -> "User" else "Cargo"
+    // GRIS: if region -> "Region" else nothing
+
     def politicianPosition={attrs->
         KuorumUser user = attrs.user
-        if (user.userType == UserType.POLITICIAN || user.userType == UserType.CANDIDATE){
-            String position = user?.professionalDetails?.position?:""
-            String regionName = user?.professionalDetails?.region?.name?:""
-            String coma = position && regionName?", ":""
-            out << "${position}${coma}${regionName}"
+
+        Region regionValue = user?.personalData?.province?:user?.professionalDetails?.region;
+        def regionName = "";
+        if (regionValue){
+            Locale locale = LocaleContextHolder.getLocale();
+            try {
+                RegionRSDTO regionRSDTO = regionService.findRegionDataById(regionValue.iso3166_2, locale)
+                regionName = regionRSDTO?.name ?: regionValue.name
+            }catch (Exception e){
+                regionName = "";
+            }
         }
+        out << "${regionName}"
+
     }
 
     def roleName={attrs ->
         KuorumUser user = attrs.user
-        if (user.userType == UserType.POLITICIAN || user.userType == UserType.CANDIDATE){
-            String rolePolitician = user.professionalDetails?.politicalParty?:message(code:"kuorum.core.model.UserType.${user.userType}")
+        if (user.userType == UserType.POLITICIAN || user.userType == UserType.CANDIDATE || user.userType == UserType.PERSON){
+            String rolePolitician = user.professionalDetails?.position?:message(code:"kuorum.core.model.UserType.${user.userType}")
             out << rolePolitician
         }else{
             out << g.message(code:"${kuorum.core.model.gamification.GamificationAward.name}.${user.gamification.activeRole}.${user.personalData.gender}")
@@ -269,7 +284,7 @@ class KuorumUserTagLib {
         String faIcon = ""
         String tooltip = "";
         if (user.userType == UserType.PERSON){
-            faIcon = "fa-child"
+            faIcon = "icon-megaphone"
             tooltip = message(code:'kuorum.core.model.UserType.PERSON');
         }else if (user.userType == UserType.ORGANIZATION){
             faIcon = "fa-university"

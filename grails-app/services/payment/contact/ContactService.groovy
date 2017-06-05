@@ -4,11 +4,8 @@ import com.fasterxml.jackson.core.type.TypeReference
 import grails.transaction.Transactional
 import kuorum.users.KuorumUser
 import kuorum.util.rest.RestKuorumApiService
-import org.kuorum.rest.model.contact.BulkUpdateContactTagsRDTO
-import org.kuorum.rest.model.contact.ContactPageRSDTO
-import org.kuorum.rest.model.contact.ContactRDTO
-import org.kuorum.rest.model.contact.ContactRSDTO
-import org.kuorum.rest.model.contact.SearchContactRSDTO
+import kuorum.web.commands.payment.contact.ContactFilterCommand
+import org.kuorum.rest.model.contact.*
 import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
 import org.kuorum.rest.model.contact.filter.FilterRDTO
 
@@ -62,6 +59,17 @@ class ContactService {
             filters = response.data
         }
         filters
+    }
+
+    FilterRDTO transformCommand (ContactFilterCommand filterCommand, String anonymousFilterName){
+        if (!filterCommand.filterName) {
+            filterCommand.filterName = anonymousFilterName
+        }
+        FilterRDTO filterRDTO = filterCommand.buildFilter()
+        if (!filterRDTO?.filterConditions) {
+            return null
+        }
+        return filterRDTO
     }
 
     ExtendedFilterRSDTO createFilter(KuorumUser user, FilterRDTO filterRSDTO){

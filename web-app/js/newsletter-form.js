@@ -11,7 +11,7 @@ $(function () {
     $('body').on('click','.form-final-options #send', function(e) {
         e.preventDefault();
         if (isValidCampaignForm()) {
-            $("#sendMassMailingType").val("SEND");
+            $sendButton.attr("data-massMailingType", "SEND")
             prepareAndOpenCampaignConfirmModal();
         }
     });
@@ -95,8 +95,44 @@ $(function () {
     $('body').on('click','.form-final-options #sendLater', function(e) {
         e.preventDefault();
         if (isValidCampaignForm() && correctCampaingScheduled()){
-            $("#sendMassMailingType").val("SCHEDULED");
+            $sendButton.attr("data-massMailingType", "SCHEDULED")
             prepareAndOpenCampaignConfirmModal();
         }
     });
+
+
+    // CREATE CAMPAIGN moving on STEPS
+    var $stepButton = $('ul.campaigns.threeSteps > li > a');
+    $stepButton.on('click', stepSubmit);
+
+    var $nextButton = $('.form-final-options #next[data-redirectLink]');
+    $nextButton.on('click', stepSubmit);
+
+    var $nextButton = $('.form-final-options #save-draft-campaign[data-redirectLink]');
+    $nextButton.on('click', stepSubmit);
+
+    var $sendButton = $('#campaignConfirm #saveCampaignBtn[data-redirectLink]');
+    $sendButton.on('click', function(e){
+        var mailingType = $sendButton.attr("data-massMailingType")
+        $("#sendMassMailingType").val(mailingType);
+        stepSubmit(e)
+    });
+
 });
+
+function stepSubmit (e){
+    e.preventDefault();
+    var $form = $('form#politicianMassMailingForm');
+    var $inputHidden = $form.find('#redirectLink');
+    var redirect = $(this).attr('data-redirectLink');
+    $inputHidden.attr('value', redirect);
+    var $filter = $('select#recipients option:selected').length;
+    if($filter && filterContacts.isFilterEdited()){
+        var amountContacts = $('select#recipients option:selected').attr("data-amountContacts");
+        $("#campaignConfirmTitle > span").html(amountContacts);
+        $("#campaignWarnFilterEdited .modal-body > p > span").html(amountContacts);
+        $("#campaignWarnFilterEdited").modal("show");
+    }else{
+        $form.submit();
+    }
+}

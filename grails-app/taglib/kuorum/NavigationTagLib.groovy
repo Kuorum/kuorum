@@ -151,12 +151,17 @@ class NavigationTagLib {
         String formId = attrs.formId?:''
         String cssClass = attrs.cssClass?:''
         String dataFormId = formId?"data-form-id='${formId}'":''
+        String callback = attrs.callback?:''
 
         def link = createLink(mapping: mapping, params:mappingParams)
         if (numElements>=pagination.max){
             out <<"""
                 <div class="load-more ${cssClass}">
-                    <a href="${link}" class="loadMore" data-parent-id="${parentId}" ${dataFormId} data-offset="${pagination.max}">
+                    <a href="${link}"
+                        class="loadMore"
+                        data-parent-id="${parentId}" ${dataFormId}
+                        data-offset="${pagination.max}"
+                        data-callback="${callback}">
                         ${message(code:"search.list.seeMore")}
                         <span class="fa fa-angle-down"></span>
                     </a>

@@ -1,27 +1,20 @@
 package kuorum.post
 
-import com.mongodb.BasicDBObject
-import com.mongodb.DBObject
+import com.fasterxml.jackson.core.type.TypeReference
 import grails.transaction.Transactional
 import kuorum.core.exception.KuorumException
-import kuorum.core.exception.KuorumExceptionUtil
-import kuorum.core.model.CommitmentType
-import kuorum.core.model.PostType
 import kuorum.core.model.ProjectStatusType
-import kuorum.core.model.UserType
-import kuorum.core.model.VoteType
 import kuorum.core.model.search.Pagination
 import kuorum.core.model.search.SearchUserPosts
-import kuorum.project.Project
 import kuorum.mail.KuorumMailService
-import kuorum.notifications.Notification
+import kuorum.project.Project
 import kuorum.users.KuorumUser
-import kuorum.users.PoliticianActivity
-import org.jsoup.Jsoup
-import org.jsoup.safety.Whitelist
-
-import java.util.regex.Matcher
-import java.util.regex.Pattern
+import kuorum.util.TimeZoneUtil
+import kuorum.util.rest.RestKuorumApiService
+import org.kuorum.rest.model.communication.post.PagePostRSDTO
+import org.kuorum.rest.model.communication.post.PostRDTO
+import org.kuorum.rest.model.communication.post.PostRSDTO
+import org.kuorum.rest.model.pagination.PageRSDTO
 
 @Transactional
 class PostService {
@@ -31,271 +24,137 @@ class PostService {
     def indexSolrService
     def postVoteService
     def notificationService
-    def gamificationService
     def fileService
-    def shortUrlService
     KuorumMailService kuorumMailService
+    RestKuorumApiService restKuorumApiService
 
-    /**
-     * Save a post and creates the first firstCluck and first vote (owner vote)
-     * @param post post data
-     * @param project project's post
-     * @param owner The persona who has created the post
-     * @return
-     */
-    Post savePost(Post post, Project project, KuorumUser owner) {
+    PagePostRSDTO findAllPosts(Integer page = 0, Integer size = 10){
+        Map<String, String> params = [:]
+        Map<String, String> query = [page:page.toString(), size:size.toString()]
+        def response = restKuorumApiService.get(
+                RestKuorumApiService.ApiMethod.ACCOUNT_POSTS_ALL,
+                params,
+                query,
+                new TypeReference<PagePostRSDTO>(){}
+        )
 
-        if (!project || !owner){
-            KuorumException exception = new KuorumException("No se ha indicado el dieño ${owner} o la ley ${project}", "error.post.saving.data")
-            log.error("No se ha indicado el dieño ${owner} o la ley ${project}")
-            throw exception
+        response.data
+
+    }
+    List<PostRSDTO> findAllPosts(KuorumUser user, String viewerUid = null){
+        Map<String, String> params = [userAlias: user.id.toString()]
+        Map<String, String> query = [:]
+        if (viewerUid){
+            query.put("viewerUid",viewerUid)
         }
-        post.numVotes = 0
-        post.numClucks = 0
-        post.owner = owner
-        post.project =  project
-        post.text = removeCustomCrossScripting(post.text)
-        post.ownerPersonalData = owner.personalData
+        def response = restKuorumApiService.get(
+                RestKuorumApiService.ApiMethod.ACCOUNT_POSTS,
+                params,
+                query,
+                new TypeReference<List<PostRSDTO>>(){}
+        )
 
-        if (post.multimedia){
-            fileService.convertTemporalToFinalFile(post.multimedia)
-            fileService.deleteTemporalFiles(owner)
-        }
+        response.data
+    }
 
-        if (!post.save()){
-            KuorumException exception = KuorumExceptionUtil.createExceptionFromValidatable(post, "Error salvando el post ${post}")
-            log.warn("No se ha podido salvar un post debido a ${post.errors}")
-            throw exception
+    PostRSDTO savePost(KuorumUser user, PostRDTO postRDTO, Long postId){
+
+        PostRSDTO post = null;
+        if (postId) {
+            post= updatePost(user, postRDTO, postId)
+        } else {
+            post= createPost(user, postRDTO)
         }
-        post.shortUrl = shortUrlService.shortUrl(post) //Short URL needs the post id
-        post.save()
-        log.info("Se ha creado el post ${post.id}")
+        indexSolrService.deltaIndex();
         post
     }
 
-    Post publishPost(Post post){
-        if (!post.published){
-            Cluck cluck = cluckService.createActionCluck(post, post.owner, CluckAction.CREATE)
-            cluck.isFirstCluck = Boolean.TRUE
-            cluck.save()
-            post.published = Boolean.TRUE
-            post.shortUrl = shortUrlService.shortUrl(post)
-            post.save()
-            updateUserActivity(post, post.owner)
-            postVoteService.votePost(post, post.owner)
-            indexSolrService.index(post)
-            log.info("Se ha publicado el post ${post.id}")
-        }else{
-            log.warn("Se ha intentado publicar 2 veces el post ${post.id}")
+    PostRSDTO createPost(KuorumUser user, PostRDTO postRDTO){
+        if (postRDTO.publishOn != null) {
+            postRDTO.publishOn = TimeZoneUtil.convertToUserTimeZone(postRDTO.publishOn, user.timeZone)
         }
-        post
-    }
 
-    KuorumUser updateUserActivity(Post post, KuorumUser user){
-        switch (post.postType){
-            case PostType.HISTORY:
-                user.activity.histories << post.id
-                user.activity.numHistories ++
-                break;
-            case PostType.PURPOSE:
-                user.activity.purposes<< post.id
-                user.activity.numPurposes ++
-                break;
-            case PostType.QUESTION:
-                user.activity.questions<< post.id
-                user.activity.numQuestions ++
-                break;
-        }
-        user.save()
-    }
-
-    Boolean isEditableByUser(Post post, KuorumUser user){
-        post &&(
-                user.authorities.find{it.authority=="ROLE_ADMIN"} ||
-                    (post.owner == user &&
-                            !post.defender &&
-                            post.debates.isEmpty() &&
-                            post.numVotes < getPostConfiguration().limitVotesToBeEditable
-                    )
+        Map<String, String> params = [userAlias: user.id.toString()]
+        Map<String, String> query = [:]
+        def response = restKuorumApiService.post(
+                RestKuorumApiService.ApiMethod.ACCOUNT_POSTS,
+                params,
+                query,
+                postRDTO,
+                new TypeReference<PostRSDTO>(){}
         )
+
+        PostRSDTO postSaved = null
+        if (response.data) {
+            postSaved = response.data
+        }
+
+        postSaved
     }
-    Boolean isDeletableByUser(Post post, KuorumUser user){
-        post &&(
-                user.authorities.find{it.authority=="ROLE_ADMIN"} ||
-                        (post.owner == user &&
-                                !post.defender &&
-                                post.debates.isEmpty() &&
-                                post.numVotes < getPostConfiguration().limitVotesToBeDeletable
-                        )
+
+    PostRSDTO findPost(KuorumUser user, Long postId, String viewerUid = null){
+        Map<String, String> params = [userAlias: user.id.toString(), postId: postId.toString()]
+        Map<String, String> query = [:]
+        if (viewerUid){
+            query.put("viewerUid",viewerUid)
+        }
+        def response = restKuorumApiService.get(
+                RestKuorumApiService.ApiMethod.ACCOUNT_POST,
+                params,
+                query,
+                new TypeReference<PostRSDTO>(){}
         )
+
+        response.data
     }
 
-    void deletePost(Post post, KuorumUser user){
-        if (!isDeletableByUser(post,user)){
-            throw new KuorumException("El usuario ${user} no puede borrar el post ${post.id}","")
+    PostRSDTO updatePost(KuorumUser user, PostRDTO postRDTO, Long postId) {
+
+        if (postRDTO.publishOn != null) {
+            postRDTO.publishOn = TimeZoneUtil.convertToUserTimeZone(postRDTO.publishOn, user.timeZone)
         }
-        indexSolrService.delete(post)
-        PostVote.collection.remove([post:post.id])
-        Cluck.collection.remove([post:post.id])
-        Notification.collection.remove([post:post.id])
-        post.delete()
+        Map<String, String> params = [userAlias: user.id.toString(), postId: postId.toString()]
+        Map<String, String> query = [:]
+        def response = restKuorumApiService.put(
+                RestKuorumApiService.ApiMethod.ACCOUNT_POST,
+                params,
+                query,
+                postRDTO,
+                new TypeReference<PostRSDTO>(){}
+        )
+
+        PostRSDTO postSaved = null
+        if (response.data) {
+            postSaved = response.data
+        }
+
+        postSaved
     }
 
-    def updatePost(Post post){
-        log.info("Updating post $post")
-        post.text = removeCustomCrossScripting(post.text)
-        if (post.multimedia){
-            fileService.convertTemporalToFinalFile(post.multimedia)
-            fileService.deleteTemporalFiles(post.owner)
+    PostRSDTO likePost (Long postId, KuorumUser currentUser, Boolean like, String userAlias){
+        Map<String, String> params = [userAlias: userAlias, postId: postId.toString()]
+        Map<String, String> query = [viewerUid: currentUser.id.toString()]
+        PostRSDTO postRSDTO;
+        if(like){
+            def response = restKuorumApiService.put(
+                    RestKuorumApiService.ApiMethod.ACCOUNT_POST_LIKES,
+                    params,
+                    query,
+                    null,
+                    new TypeReference<PostRSDTO>(){}
+            );
+            postRSDTO = response.data
         }
-        post.mongoUpdate()
-    }
-
-    /**
-     * Removes all not allowed html tags
-     * @param raw
-     * @return
-     */
-    private String removeCustomCrossScripting(String raw){
-        String text = raw
-        if (text){
-            text = text.replaceAll("\r\n","<br/>")
-            text = text.replaceAll("\n","<br/>")
-            text = text.replaceAll("\r","<br/>")
-            text = text.replaceAll('<br/>','<br>')
-            def brs = ~/<br>\s*<br>/
-            while(text.find(brs)){
-                text = text.replaceAll(brs,'<br>')
-            }
-            text = text.replaceAll('<br>','</p><p>')
-            text = text.replaceAll("&nbsp;", " ")
-            text = text.replaceAll(~/>\s*</, "> <")
-            //REMOVING NOT CLOSED TAGS of <a> JSOUP creates its ends or its starts with no href
-            text = removeNotClosedTag(text, 'a')
-
-
-            Whitelist whitelist = Whitelist.basic()
-                    .addEnforcedAttribute("a", "target", "_blank")
-            text = Jsoup.clean(text, whitelist);
-            text = text.replaceAll("\n","") // JSOUP adds new lines codes.
-
-            def emtpyTags = ~/<[abiup][^>]*>\s*<\/[abiup]>/
-            while(text.find(emtpyTags)){
-                text = text.replaceAll(emtpyTags,'')
-            }
-            text = text.trim()
+        else {
+            def response = restKuorumApiService.delete(
+                    RestKuorumApiService.ApiMethod.ACCOUNT_POST_LIKES,
+                    params,
+                    query,
+                    new TypeReference<PostRSDTO>(){}
+            );
+            postRSDTO = response.data
         }
-
-        text
-    }
-
-    private String removeNotClosedTag(String text, String tag){
-        Pattern openPattern = Pattern.compile("<${tag}[^>]*>");
-        Matcher  openMatcher = openPattern.matcher(text);
-        int openCount = 0;
-        while (openMatcher.find())
-            openCount++;
-
-        Pattern closePattern = Pattern.compile("</${tag}[^>]*>");
-        Matcher  closeMatcher = closePattern.matcher(text);
-        int closeCount = 0;
-        while (closeMatcher.find())
-            closeCount ++;
-
-        if (openCount > closeCount || openCount < closeCount){
-            text = text.replaceAll(openPattern, "")
-            text = text.replaceAll(closePattern, "")
-        }
-        return text;
-    }
-
-    Integer calculateNumEmails(Double price){
-        Integer numMails
-        Double mailPrice = grailsApplication.config.kuorum.promotion.mailPrice
-        switch (price as int){
-            case 0: numMails = 0; break;
-            case 1..<5: numMails = 5; break;
-            case 5..<15: numMails = 30; break;
-            default:
-                Double remainingAmount = price - 15
-                Integer extraNumMails = (remainingAmount / mailPrice) as Integer  //Truncate
-                numMails = 100 + extraNumMails
-                break;
-        }
-        numMails
-    }
-
-    PostComment addComment(Post post, PostComment comment, Boolean sendNotification = true){
-        log.info("Creating comment: ${comment.text}")
-        if (!comment.validate()){
-            throw KuorumExceptionUtil.createExceptionFromValidatable(comment)
-        }
-        comment.dateCreated = new Date()
-        //Atomic operation
-        def commentData = [
-                kuorumUserId: comment.kuorumUser.id,
-                text:removeCustomCrossScripting(comment.text.encodeAsHtmlLinks()),
-                dateCreated: comment.dateCreated,
-                moderated:comment.moderated,
-                deleted :comment.deleted ]
-        Post.collection.update ( [_id:post.id],['$push':['comments':commentData]])
-        post.refresh()
-        if (sendNotification){
-            notificationService.sendCommentNotifications(post, comment)
-        }
-        post.comments.last()
-    }
-
-    Post deleteComment(KuorumUser  deletedBy, Post post, Integer commentPosition){
-        if (commentPosition>post.comments.size()){
-            throw new KuorumException("Se ha intentado borrar un commentario que no existe","error.post.indexCommentOutOfBound")
-        }
-        if (isCommentDeletableByUser(deletedBy, post, commentPosition)){
-            PostComment postComment = post.comments[commentPosition]
-            String field = "deleted"
-            if (deletedBy == postComment.kuorumUser){
-                field = "deleted"
-            }else{
-                field = "moderated"
-            }
-            DBObject dbObject = new BasicDBObject()
-            dbObject.append("comments.${commentPosition}.${field}",Boolean.TRUE)
-            Post.collection.update([_id:post.id],['$set':dbObject])
-            post.refresh()
-
-        }else{
-            throw new KuorumException("El usuario no tiene permisos para borrar el comentario","error.post.notAllowDeleteComment")
-        }
-    }
-
-    Post voteComment(KuorumUser  votedBy, Post post, Integer commentPosition, VoteType voteType){
-        if (commentPosition>post.comments.size()){
-            throw new KuorumException("Se ha intentado votar un commentario que no existe","error.post.indexCommentOutOfBound")
-        }
-        if (isCommentVotableByUser(votedBy, post, commentPosition)){
-            PostComment postComment = post.comments[commentPosition]
-            String field = null;
-            switch (voteType){
-                case VoteType.POSITIVE:
-                    field = "positiveVotes"
-                    break;
-                case VoteType.NEGATIVE:
-                    field = "negativeVotes"
-                    break;
-                default:
-                    field = null;
-                    log.warn("Se ha intentado votar el comentario ${commentPosition} del post(${post.id}) con ${voteType}")
-            }
-            if (field){
-                DBObject dbObject = new BasicDBObject()
-                dbObject.append("comments.${commentPosition}.${field}",votedBy.id)
-                Post.collection.update([_id:post.id],['$push':dbObject])
-                post.refresh()
-            }
-
-        }else{
-            log.warn("Un usuario ha intentado votar 2 veces")
-        }
+        return  postRSDTO;
     }
 
     /**
@@ -307,70 +166,6 @@ class PostService {
      * @param commentPosition
      * @return
      */
-    Boolean isCommentDeletableByUser(KuorumUser deleteBy, Post post, Integer commentPosition){
-        if (!post || !deleteBy || commentPosition==null || commentPosition>post.comments.size()){
-            return false
-        }
-
-        Boolean isAdmin = deleteBy.authorities.collect{it.authority}.contains("ROLE_ADMIN")
-        PostComment postComment = post.comments[commentPosition]
-        isAdmin || postComment.kuorumUser == deleteBy || post.owner == deleteBy
-    }
-
-    Boolean isCommentVotableByUser(KuorumUser user, Post post, Integer commentPosition){
-        if (!post || !user || commentPosition==null || commentPosition>post.comments.size()){
-            return false
-        }
-        PostComment postComment = post.comments[commentPosition]
-        return  (!postComment.negativeVotes || !postComment.negativeVotes.contains(user.id)) &&
-                (!postComment.positiveVotes || !postComment.positiveVotes.contains(user.id))
-    }
-
-    Post addDebate(Post post, PostComment comment,Boolean sendNotification = true){
-        if (isAllowedToAddDebate(post, comment.kuorumUser)){
-            KuorumUser user = comment.kuorumUser
-            if (!post.debates.collect{it.kuorumUser.id}.contains(user.id) && user.userType == UserType.POLITICIAN){
-                if (!user.politicianActivity){
-                    user.politicianActivity = new PoliticianActivity()
-                }
-                user.politicianActivity.numDebates ++
-                user.save()
-            }
-            //Atomic operation
-            def commentData = [
-                    kuorumUserId: user.id,
-                    text:removeCustomCrossScripting(comment.text.encodeAsHtmlLinks()),
-                    dateCreated: new Date(),
-                    moderated:comment.moderated,
-                    deleted :comment.deleted ]
-            Post.collection.update ( [_id:post.id],['$push':['debates':commentData]])
-            post.refresh()
-            if (sendNotification){
-                cluckService.createActionCluck(post, comment.kuorumUser, CluckAction.DEBATE)
-            }
-            post
-        }else{
-            throw new KuorumException("El usuario no es el dueño del proyecto o del post", "error.security.post.notDebateAllowed")
-        }
-    }
-
-    Boolean isAllowedToAddDebate(Post post, KuorumUser user) {
-        user &&
-        (
-                post.project.owner == user
-                ||
-                post.owner == user && !post.debates.isEmpty()
-        )
-    }
-
-    KuorumUser favoriteAddPost(Post post, KuorumUser user){
-        KuorumUser.collection.update([_id:user.id],['$addToSet':[favorites:post.id]])
-        user.refresh()
-    }
-    KuorumUser favoriteRemovePost(Post post, KuorumUser user){
-        KuorumUser.collection.update([_id:user.id],['$pull':[favorites:post.id]])
-        user.refresh()
-    }
 
     List<Post> userPosts(SearchUserPosts searchUserPosts){
         def criteria = Post.createCriteria()
@@ -383,16 +178,6 @@ class PostService {
         result
     }
 
-    Long countUserPost(SearchUserPosts searchUserPosts){
-        def criteria = Post.createCriteria()
-        def result = criteria.count() {
-            eq('owner', searchUserPosts.user)
-            if (searchUserPosts.publishedPosts!=null) eq('published', searchUserPosts.publishedPosts)
-            if (searchUserPosts.victory!=null) eq('victory', searchUserPosts.victory)
-        }
-        result
-    }
-
     List<Post> politicianDefendedPosts(SearchUserPosts searchUserPosts){
         def criteria = Post.createCriteria()
         def result = criteria.list(max:searchUserPosts.max, offset:searchUserPosts.offset) {
@@ -400,16 +185,6 @@ class PostService {
             if (searchUserPosts.publishedPosts!=null) eq('published', searchUserPosts.publishedPosts)
             if (searchUserPosts.victory!=null) eq('victory', searchUserPosts.victory)
             order("dateCreated","desc")
-        }
-        result
-    }
-
-    Long countPoliticianDefendedPosts(SearchUserPosts searchUserPosts){
-        def criteria = Post.createCriteria()
-        def result = criteria.count() {
-            eq('defender', searchUserPosts.user)
-            if (searchUserPosts.publishedPosts!=null) eq('published', searchUserPosts.publishedPosts)
-            if (searchUserPosts.victory!=null) eq('victory', searchUserPosts.victory)
         }
         result
     }
@@ -454,23 +229,6 @@ class PostService {
      * @param pagination
      * @return
      */
-    List<Post> relatedPosts(Post post,KuorumUser user, Integer max){
-        //TODO: Improve algorithm
-
-        //Post of the project
-        List<Post> posts = Post.findAllByProjectAndIdNotEqual(post.project, post.id, [max: max, sort: "numVotes", order: "desc", offset: 0])
-
-        //If not enough post then => Post with the same owner
-        if (posts.size() < max){
-            posts += Post.findAllByOwnerAndIdNotEqual(post.owner, post.id, [max: max - posts.size(), sort: "numVotes", order: "desc", offset: 0])
-        }
-
-        //If not enough post then => List post ordere by numVotes
-        if (posts.size() < max){
-            posts += Post.findAllByIdNotEqual(post.id, [max: max - posts.size(), sort: "numVotes", order: "desc", offset: 0])
-        }
-        posts
-    }
 
     Post victory(Post post, KuorumUser owner, Boolean victoryOk){
 
@@ -525,50 +283,5 @@ class PostService {
 
     Long countProjectDefends(Project project){
         Post.countByProjectAndDefenderIsNotNull(project)
-    }
-
-    Post defendPost(Post post, KuorumUser politician, String text){
-        if (politician.userType != UserType.POLITICIAN){
-            throw new KuorumException("El usuario ${politician.name} (${politician.id}) no es un político para defender la publicacion ${post.id}", "error.security.post.defend.isNotPolitician")
-        }
-
-        if (post.defender){
-            String message =  "Se ha intentado apadrinar una ${post.portType} qua ya había sido defendida."
-            log.error(message)
-            throw new KuorumException(message, 'error.security.post.defend.alreadyDefended')
-        }
-        Date defenderDate = new Date()
-        Post.collection.update ( [_id:post.id],['$set':[defender:politician.id,defenderDate:defenderDate]])
-        post.refresh()
-        cluckService.createActionCluck(post, politician, CluckAction.DEFEND)
-        politician.politicianActivity.numDefends +=1
-        politician.save()
-        addDebate(post, new PostComment(text:text, kuorumUser: politician), false)
-
-        notificationService.sendPostDefendedNotification(post)
-        post
-    }
-
-    /**
-     * This function simulates ACLs for post, and which politicians can work as politician on this post.
-     *
-     * If user is not politician => FALSE
-     * If politician is not of the same institucion => False
-     * Otherwise => True
-     *
-     * @param post
-     * @param user
-     * @return
-     */
-    Boolean isAllowedToDefendAPost(Post post, KuorumUser politician){
-        return (
-                politician.userType == UserType.POLITICIAN &&
-                politician?.professionalDetails?.region &&
-                politician.professionalDetails.region == post.project.region
-        )
-    }
-
-    def getPostConfiguration(){
-        grailsApplication.config.kuorum.post
     }
 }

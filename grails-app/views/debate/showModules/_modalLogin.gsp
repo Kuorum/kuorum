@@ -12,7 +12,6 @@
                 <!-- Formulario de Registro -->
                 <g:render template="/layouts/registerForm" model="[registerCommand: new springSecurity.KuorumRegisterCommand(), formId:'debate-modal']"/>
             </div>
-            </div>
         </div>
     </div>
 </div>

@@ -153,7 +153,7 @@ class CustomRegisterController {
 
     def step3Save(PromotionalCodeCommand command){
         if(!command.promotionalCode){
-            redirect(mapping:"dashboard")
+            redirect(mapping:"dashboard", params: [tour:true])
             return;
         }else{
             if (command.hasErrors()){
@@ -163,7 +163,7 @@ class CustomRegisterController {
                 KuorumUser user =  KuorumUser.get(springSecurityService.principal.id)
                 promotionalCodeService.setPromotionalCode(user, command.promotionalCode)
                 flash.message=g.message(code: 'subscriber.step3.promotionalCode.success')
-                redirect(mapping:"dashboard")
+                redirect(mapping:"dashboard", params: [tour:true])
             }
         }
     }

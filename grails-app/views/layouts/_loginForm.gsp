@@ -5,6 +5,7 @@
             errorElement:'span',
             onkeyup: false,
             onclick: false,
+            async:false,
             rules: {
                 "j_username":{
                     required: true ,
@@ -18,18 +19,26 @@
                         data: {
                             j_username: function() {return $( "#${modalId} input[name=j_username]" ).val();},
                             j_password: function() {return $( "#${modalId} input[name=j_password]" ).val();}
+                        },
+                        beforeSend: function () {
+                            var $form = $(this)
+                            $form.removeClass("checked")
+                        },
+                        complete: function () {
+                            var $form = $(this)
+                            $form.addClass("checked")
                         }
                     }
                 }
             },
             messages: {
                 "j_username":{
-                    required: "Necesitamos un nombre para dirigirnos a ti",
-                    email: "Formato de email erróneo"
+                    required: "${g.message(code:'kuorum.web.commands.profile.AccountDetailsCommand.email.nullable')}",
+                    email: "${g.message(code:'springSecurity.KuorumRegisterCommand.email.wrongFormat')}"
                 },
                 "j_password":{
-                    required: "Neceistamos un email para comunicarnos contigo",
-                    remote:"No match"
+                    required: "${g.message(code:'springSecurity.errors.login.fail')}",
+                    remote:"${g.message(code:'springSecurity.errors.login.fail')}"
                 }
             }
         });
@@ -51,16 +60,15 @@
     </div>
     <div class="form-group">
         <input type="submit" class="btn btn-blue btn-lg" value="${g.message(code:'login.email.form.login')}">
-        <p class="cancel">
-            <g:message code="head.noLogged.register_or"/>
-            <g:link mapping="register" class="change-home-register">
-                <g:message code="head.noLogged.register"/>
+        <p>
+            <g:link mapping="resetPassword">
+                <g:message  code="login.email.form.password.forgotten"/>
             </g:link>
         </p>
     </div>
     <div class="form-group">
-        <g:link mapping="resetPassword">
-            <g:message  code="login.email.form.password.forgotten"/>
-        </g:link>
+        <p>
+            <g:message code="head.noLogged.register" args="[g.createLink(mapping: 'register'),'change-home-register' ]"/>
+        </p>
     </div>
 </form>

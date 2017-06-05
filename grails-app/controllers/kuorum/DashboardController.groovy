@@ -3,21 +3,25 @@ package kuorum
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.causes.CausesService
-import kuorum.core.model.UserType
 import kuorum.core.model.search.Pagination
+import kuorum.dashboard.DashboardService
 import kuorum.post.Cluck
+import kuorum.post.PostService
 import kuorum.project.Project
-import kuorum.project.ProjectEvent
 import kuorum.solr.SearchSolrService
+import kuorum.users.CookieUUIDService
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserStatsService
 import kuorum.web.commands.profile.AccountDetailsCommand
+import kuorum.web.commands.profile.EditProfilePicturesCommand
 import kuorum.web.commands.profile.EditUserProfileCommand
 import kuorum.web.commands.profile.SocialNetworkCommand
-import kuorum.web.commands.profile.politician.ProfessionalDetailsCommand
-import kuorum.web.commands.profile.politician.QuickNotesCommand
 import kuorum.web.constants.WebConstants
+import org.kuorum.rest.model.communication.PageCampaignRSDTO
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
+import org.kuorum.rest.model.communication.debate.PageDebateRSDTO
+import org.kuorum.rest.model.communication.post.PagePostRSDTO
+import org.kuorum.rest.model.communication.post.PostRSDTO
 import org.kuorum.rest.model.notification.campaign.CampaignRSDTO
 import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
 import org.kuorum.rest.model.tag.CauseRSDTO
@@ -39,6 +43,9 @@ class DashboardController {
     ContactService contactService
     MassMailingService massMailingService
     DebateService debateService
+    PostService postService
+    DashboardService dashboardService
+    CookieUUIDService cookieUUIDService
 
     private  static final Integer MAX_PROJECT_EVENTS = 2
 
@@ -51,18 +58,29 @@ class DashboardController {
             return
         }
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        log.info("Dashboard ${user}")
 //        if (kuorumUserService.isPaymentUser(user)){
-            Map model = buildPaymentDashboadr(user);
-            if (model.contacts.total==0) {
+            Map model = buildPaymentDashboard(user);
+            model.put("tour", params.tour?true:false)
+            if (dashboardService.forceUploadContacts()) {
                 render view: "/dashboard/payment/paymentNoContactsDashboard", model: model
-            }else if (!model.numberCampaigns){
-                render view: "/dashboard/payment/paymentNoCampaignsDashboard", model: model
+//            }else if (!model.numberCampaigns){
+//                render view: "/dashboard/payment/paymentNoCampaignsDashboard", model: model
             }else{
+                List<KuorumUser> recommendations = kuorumUserService.recommendUsers(user, new Pagination([max:50]))
+                model.put("recommendations",recommendations)
                 render view: "/dashboard/payment/paymentDashboard", model: model
             }
 //        }else{
 //            buildUserDashboard(user)
 //        }
+    }
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def skipContacts(){
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        user.skipUploadContacts = true;
+        user.save()
+        redirect mapping:'dashboard'
     }
 
 //    private Map buildUserDashboard(KuorumUser user){
@@ -79,14 +97,20 @@ class DashboardController {
 //        ]
 //    }
 
-    private def buildPaymentDashboadr(KuorumUser user){
-        List<CampaignRSDTO> campaigns = massMailingService.findCampaigns(user)
-        CampaignRSDTO lastCampaign = null
-        List<DebateRSDTO> debates = debateService.findAllDebates(user)
+    private def buildPaymentDashboard(KuorumUser user){
+        String viewerUid = cookieUUIDService.buildUserUUID()
 
-        List<CampaignRSDTO> sentDebateNewsletters = debates*.newsletter.findAll{it.status==CampaignStatusRSDTO.SENT}
-        List<CampaignRSDTO> sentMassMailCampaigns = campaigns.findAll{it.status==CampaignStatusRSDTO.SENT}
-        List<CampaignRSDTO> sentCampaigns = sentMassMailCampaigns + sentDebateNewsletters
+        PageCampaignRSDTO pageCampaigns = dashboardService.findAllContactsCampaigns(user, viewerUid)
+
+        List<CampaignRSDTO> myCampaigns = massMailingService.findCampaigns(user)
+        List<DebateRSDTO> myDebates = debateService.findAllDebates(user)
+        List<PostRSDTO> myPosts = postService.findAllPosts(user)
+        List<CampaignRSDTO> sentDebateNewsletters = myDebates*.newsletter.findAll{it.status==CampaignStatusRSDTO.SENT}
+        List<CampaignRSDTO> sentPostNewsletters = myPosts*.newsletter.findAll{it.status==CampaignStatusRSDTO.SENT}
+        List<CampaignRSDTO> sentMassMailCampaigns = myCampaigns.findAll{it.status==CampaignStatusRSDTO.SENT}
+        List<CampaignRSDTO> sentCampaigns = sentMassMailCampaigns + sentDebateNewsletters + sentPostNewsletters
+        Long numberCampaigns = sentCampaigns?.size()?:0;
+        CampaignRSDTO lastCampaign = null
         Long durationDays = 0;
         if (sentCampaigns){
             lastCampaign = sentCampaigns.sort {it.sentOn}.last()?:null
@@ -96,66 +120,56 @@ class DashboardController {
             }
         }
 
-        Long numberCampaigns = debates?.size()?:0 + campaigns?.size()?:0;
-
-        List<KuorumUser> recommendedUsers = kuorumUserService.recommendPoliticians(user, new Pagination(max:16))
+//        List<KuorumUser> recommendedUsers = kuorumUserService.recommendPoliticians(user, new Pagination(max:16))
 
         [
                 lastCampaign:lastCampaign,
                 numberCampaigns:numberCampaigns,
                 durationDays:durationDays,
-                contacts: contactService.getUsers(user),
-                recommendedUsers:recommendedUsers,
+//                contacts: contactService.getUsers(user),
+//                recommendedUsers:recommendedUsers,
                 user:user,
-                emptyEditableData:emptyEditableData(user)
+                emptyEditableData:emptyEditableData(user),
+                campaigns: pageCampaigns.data,
+                totalCampaigns: pageCampaigns.total,
+                showAuthor: true
         ]
 
     }
 
     //FAST CHAPU - Evaluating empty data
     def emptyEditableData(KuorumUser user){
-        if (user.userType == UserType.POLITICIAN || user.userType == UserType.CANDIDATE){
-            List<CauseRSDTO> causes = causesService.findDefendedCauses(user);
 
-            List fields = [
-                    [urlMapping: 'profileEditAccountDetails', total: (new AccountDetailsCommand(user)).properties?.findAll{!it.value && !["password"].contains(it.key)}.size()],
-                    [urlMapping: 'profileCauses', total:causes?0:1],
-                    [urlMapping: 'profileEditUser', total:new EditUserProfileCommand(user).properties.findAll{!it.value && !["birthday", "workingSector", "studies", "enterpriseSector"].contains(it.key)}.size()],
-                    [urlMapping: 'profileNews', total:user.relevantEvents?0:1],
-                    [urlMapping: 'profileSocialNetworks', total:(new SocialNetworkCommand(user)).properties.findAll{!it.value}.size()]
-            ]
-            QuickNotesCommand quickNotesCommand = new QuickNotesCommand(user);
-            fields.add([urlMapping:'profileQuickNotes', total:
-                    quickNotesCommand.institutionalOffice.properties.findAll{!it.value && !["dbo"].contains(it.key)}.size() +
-                            quickNotesCommand.politicalOffice.properties.findAll{!it.value && !["dbo"].contains(it.key)}.size() +
-                            quickNotesCommand.politicianExtraInfo.properties.findAll{!it.value && !["dbo", "externalId"].contains(it.key)}.size()]
-            )
+        List<CauseRSDTO> causes = causesService.findDefendedCauses(user);
 
-            ProfessionalDetailsCommand professionalDetailsCommand = new ProfessionalDetailsCommand(user)
-            fields.add([urlMapping: 'profileProfessionalDetails', total:
-                    professionalDetailsCommand.properties.findAll{!it.value}.size() +
-                            professionalDetailsCommand.careerDetails.properties.findAll{!it.value && !["dbo"].contains(it.key)}.size()
-            ])
+        List fields = [
+                [urlMapping: 'profileEditAccountDetails',
+                 uncompleted: (new AccountDetailsCommand(user)).properties?.findAll{!it.value && !["password", "user"].contains(it.key)}.size(),
+                 total: (new AccountDetailsCommand(user)).properties.findAll{!["password", "user"].contains(it.key)}.size()],
+                [urlMapping: 'profileCauses',
+                 uncompleted:causes?0:1,
+                 total: 1],
+                [urlMapping: 'profileEditUser',
+                 uncompleted: new EditUserProfileCommand(user).properties.findAll{!it.value && !["workingSector", "studies", "enterpriseSector", "position"].contains(it.key)}.size(),
+                 total: new EditUserProfileCommand(user).properties.findAll {!["workingSector", "studies", "enterpriseSector", "position"].contains(it.key)}.size()],
+                [urlMapping: 'profileNews',
+                 uncompleted:user.relevantEvents?0:1,
+                 total: 1],
+                [urlMapping: 'profilePictures',
+                 uncompleted: new EditProfilePicturesCommand(user).properties.findAll {!it.value && !["class", "errors", "constraints"].contains(it.key)}.size(),
+                 total: new EditProfilePicturesCommand(user).properties.findAll{!["class", "errors", "constraints"].contains(it.key)}.size()],
+                [urlMapping: 'profileSocialNetworks',
+                 uncompleted: (new SocialNetworkCommand(user)).properties.findAll{!it.value}.size(),
+                 total: (new SocialNetworkCommand(user)).properties.size()]
+        ]
+        fields.each{it['completed']=it.total - it.uncompleted}
+        Integer totalFields = fields*.total.sum();
+        Integer emptyFields= fields.sum{it.uncompleted}
+        return [
+                percentage: (1 - emptyFields/totalFields)*100,
+                fields:fields,
 
-            Integer totalFields = 53; // FAST CHAPU
-            Integer emptyFields= fields.sum{it.total}
-            return [
-                    percentage: (1 - emptyFields/totalFields)*100,
-                    fields:fields
-            ]
-        }else{
-            List fields = [
-                    [urlMapping: 'profileEditAccountDetails', total: (new AccountDetailsCommand(user)).properties?.findAll{!it.value && !["password"].contains(it.key)}.size()],
-                    [urlMapping: 'profileEditUser', total:new EditUserProfileCommand(user).properties.findAll{!it.value && !["position", "politicalParty"].contains(it.key)}.size()],
-                    [urlMapping: 'profileSocialNetworks', total:4],
-            ]
-            Integer totalFields = 9+7+4; // FAST CHAPU
-            Integer emptyFields= fields.sum{it.total}
-            return [
-                    percentage: (1 - emptyFields/totalFields)*100,
-                    fields:fields
-            ]
-        }
+        ]
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
@@ -164,6 +178,17 @@ class DashboardController {
         SuggestedCausesRSDTO causesSuggested = causesService.suggestCauses(user, pagination)
         response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${causesSuggested.total < pagination.offset}")
         render template: "/dashboard/dashboardModules/causeCardList", model:[causes:causesSuggested.data]
+    }
+
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def dashboardCampaigns(Pagination pagination){
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        String viewerUid = cookieUUIDService.buildUserUUID()
+        Integer page = pagination.offset/pagination.max;
+        PageCampaignRSDTO pageCampaigns = dashboardService.findAllContactsCampaigns(user, viewerUid, page)
+        List<CampaignRSDTO> campaigns = pageCampaigns.data
+        response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${pageCampaigns.total < (pagination.offset+pagination.max)}")
+        render template: "/campaigns/cards/campaignsList", model:[campaigns:campaigns, showAuthor: true]
     }
 
     private def splitClucksInParts(List<Cluck> clucks){
@@ -177,9 +202,9 @@ class DashboardController {
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def dashboardPoliticians(Pagination pagination){
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        List<KuorumUser> suggesterPoliticians=  kuorumUserService.recommendPoliticians(user, pagination)
+        List<KuorumUser> suggesterPoliticians=  kuorumUserService.recommendUsers(user, pagination)
         response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${suggesterPoliticians.size() < pagination.max}")
-        render template: "/dashboard/listDashboardPoliticians", model:[politicians:suggesterPoliticians]
+        render template: "/dashboard/listDashboardUserRecommendations", model:[politicians:suggesterPoliticians]
     }
 
     def landingPoliticians(){
@@ -251,6 +276,16 @@ class DashboardController {
             redirect (mapping:"dashboard")
         }else{
             render(view: "landingCorporations", model: [command: new KuorumRegisterCommand()])
+        }
+    }
+
+    def landingCorporationsBrands(){
+        if (springSecurityService.isLoggedIn()){
+//            render(view: "dashboard", model: dashboard())
+            flash.message = flash.message
+            redirect (mapping:"dashboard")
+        }else{
+            render(view: "landingCorporationsBrands", model: [command: new KuorumRegisterCommand()])
         }
     }
 

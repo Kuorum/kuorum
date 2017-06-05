@@ -10,9 +10,9 @@
                     <img src="${image.userImgSrc(user: user)}" alt="${user.fullName}" class="user-img" itemprop="image"><span
                         itemprop="name">${user.fullName}</span>
                 </g:link>
-                <span class="user-type">
-                    <small><userUtil:roleName user="${user}"/></small>
-                </span>
+                %{--<span class="user-type">--}%
+                    %{--<small><userUtil:roleName user="${user}"/></small>--}%
+                %{--</span>--}%
             </div><!-- /user -->
             <userUtil:followButton user="${user}" cssSize="btn-xs"/>
             %{--<userUtil:ifIsFollower user="${user}">--}%

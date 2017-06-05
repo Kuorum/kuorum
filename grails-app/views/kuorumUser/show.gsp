@@ -9,6 +9,7 @@
     <parameter name="specialMainContentCssClass" value="politician-card" />
     <g:render template="userMetaTags" model="[user:politician]"/>
     <link rel="canonical" href="${g.createLink(mapping:"userShow", params: politician.encodeAsLinkProperties(), absolute:true)}"/>
+    <r:require modules="post"/>
 </head>
 
 <content tag="mainContent">
@@ -55,23 +56,24 @@
             <div class="extra-padding" id="politician-bio">
                 <g:render template="/kuorumUser/userShowTemplates/userNews" model="[user:politician, userNews:userNews]"/>
                 <h4><g:message code="politician.bio"/></h4>
-                <p class="limit-height" data-collapsedHeight="50"  itemprop="description">${politician.bio}</p>
+                <div class="limit-height" data-collapsedHeight="100"  itemprop="description">
+                    <div class="clearfix">${politician.bio}</div>
+                </div>
+                %{--<p class="limit-height" data-collapsedHeight="50"  itemprop="description">${politician.bio}</p>--}%
             </div><!--/.extra-padding -->
         </div><!--/.panel-body-->
     </div><!--/.panel panel-default -->
 
-
-    %{--<ul id="proposal-option" class="nav nav-pills nav-underline">--}%
-        %{--<li class="active"><a href="#latest"><g:message code="debate.proposals.nav.latest"/> </a></li>--}%
-        %{--<li><a href="#oldest"><g:message code="debate.proposals.nav.oldest"/></a></li>--}%
-        %{--<li><a href="#best"><g:message code="debate.proposals.nav.best"/></a></li>--}%
-        %{--<li><a href="#pinned"><g:message code="debate.proposals.nav.pinned"/></a></li>--}%
-    %{--</ul>--}%
+    <g:if test="${debates && posts}">
+    <ul id="campaign-sorter" class="nav nav-pills nav-underline hidden-xs">
+        <li class="active"><a href="#latest"><g:message code="search.filters.all"/> </a></li>
+        <li><a href="#posts"><g:message code="search.filters.SolrType.POST"/></a></li>
+        <li><a href="#debates"><g:message code="search.filters.SolrType.DEBATE"/></a></li>
+    </ul>
+    </g:if>
 
     <ul class="campaign-list clearfix">
-        <g:each in="${debates}" var="debate">
-            <g:render template="activity/debateList" model="[debate:debate, user:politician]"/>
-        </g:each>
+        <g:render template="/campaigns/cards/campaignsList" model="[campaigns:campaigns]"/>
     </ul>
 </content>
 
@@ -83,7 +85,7 @@
     <g:render template="/dashboard/dashboardModules/supportedCauses" model="[user:politician, supportedCauses:causes]"/>
     <g:render template="/modules/recommendedUsers" model="[recommendedUsers:recommendPoliticians, boxTitle:g.message(code:'modules.similarPoliticians.title')]"/>
     %{--<g:render template="showExtendedPoliticianTemplates/columnC/valuationChart" model="[user:politician]"/>--}%
-    <g:render template="userShowTemplates/columnC/professionalDetails" model="[politician:politician]"/>
+    %{--<g:render template="userShowTemplates/columnC/professionalDetails" model="[politician:politician]"/>--}%
     <g:render template="userShowTemplates/columnC/quickNotes" model="[politician:politician]"/>
 </content>
 
@@ -92,14 +94,11 @@
 
 </content>
 
-<content tag="preFooterSections">
-    <g:render template="userShowTemplates/recommendedPoliticians" model="[politician:politician, recommendPoliticians:recommendPoliticians]"/>
-</content>
+%{--<content tag="preFooterSections">--}%
+    %{--<g:render template="userShowTemplates/recommendedPoliticians" model="[politician:politician, recommendPoliticians:recommendPoliticians]"/>--}%
+%{--</content>--}%
 
 <content tag="modals">
-    <g:if test="${campaign}">
-        <g:render template="userShowTemplates/modals/modalElection" model="[politician:politician, campaign:campaign]"/>
-    </g:if>
     <g:if test="${causes}">
         <g:render template="userShowTemplates/modals/modalContact" model="[politician:politician, causes:causes]"/>
     </g:if>

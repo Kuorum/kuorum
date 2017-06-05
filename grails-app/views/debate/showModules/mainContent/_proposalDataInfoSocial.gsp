@@ -1,4 +1,6 @@
-<r:require modules="social"/>
+<g:if test="${!request.xhr}">
+    <r:require modules="social"/>
+</g:if>
 
 <g:set var="debateLink"><g:createLink
         mapping="debateShow"

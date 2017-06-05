@@ -153,6 +153,7 @@ html.loading {
     padding: 0;
     text-align: inherit;
 }
+
 body {
     -webkit-transition: opacity .5s ease-in;
     transition: opacity .5s ease-in;
@@ -172,9 +173,10 @@ html.loading body {
 .loading.xs {
     background: url('../images/loading@2x.gif') center center / 17px auto no-repeat transparent;
     padding: 0;
-    height: 19px;
+    height: 15px;
     width: 50px;
 }
+
 .loadingSearch {
     color: #a8a8a8;
     text-align: center;
@@ -190,12 +192,14 @@ html.loading body {
 }
 label {font-weight: normal;}
 
-
+.form-horizontal#politicianMassMailingForm {min-height: 250px}
 .form-horizontal .checkbox-inline{padding-top: 0px; margin-top:-0.3em;}
 .form-horizontal .tab-pane .form-group.image{margin-left:0;}
 .form-horizontal .form-group .form-control-campaign {text-align: right;}
 .checkbox-inline input[type=checkbox] {display: none;}
 
+
+.uploadCampaignImages { margin-bottom: 20px;}
 .checkbox-inline > span.check-box-icon {
     background-color: #fafafa;
     border: 1px solid #cacece;
@@ -278,6 +282,7 @@ select.input-lg {padding: 0px 16px 0px 10px;height:36px;}
 .input-lg {padding: 10px 12px;}
 .modal-content {border-radius: 3px;}
 .modal-title {font-weight: bold;}
+.modal-footer {margin:0;border: 0;padding-top: 0;}
 a,
 a:hover,
 a:active,
@@ -497,8 +502,13 @@ header.transp #search-form .open-filter {background-color: rgba(219,219,219,0.4)
 
 
 
+.login .form-group:nth-child(n+3) {text-align:center;margin:0px;}
 .login .form-group:last-child {color: #a8a8a8; margin-bottom: 0; font-size: 14px; font-size: 1.4rem;}
-.login .form-group:last-child a {color: #545454;}
+.login .form-group a {color: #545454;}
+.login .form-group p {color: #a8a8a8; margin:0;}
+.login .form-group:nth-child(3) p {margin:10px 0 0 0;}
+.login .form-group:last-child p:last-child a {color:#ff9431;}
+#login-modal.login .form-group:last-child p:last-child a {color:#20a2ea;}
 .login .btn.btn-lg {padding-left: 40px !important;padding-right: 40px !important;}
 .login.pass .btn.btn-lg {padding: 15px !important;}
 .modal-register.modal .modal-header {border: none;}
@@ -507,7 +517,7 @@ header.transp #search-form .open-filter {background-color: rgba(219,219,219,0.4)
 .container-fluid.userprofile #adminActions{left:inherit; right:20px; top: 5px; z-index: 1000;}
 .container-fluid.userprofile #adminActions a{color: #a8a8a8;}
 .container-fluid.userprofile #adminActions span{margin: 0 4px 2px 0;}
-.container-fluid.userprofile #main {padding-bottom:10px;}
+.container-fluid.userprofile #main {padding-bottom:25px;}
 /*#open-filter-search {
   display: block;
   position: absolute;
@@ -673,7 +683,7 @@ header.transp #search-form .open-filter {background-color: rgba(219,219,219,0.4)
 }
 .btn.follow {
     width: 105px;
-    padding: 8px 8px !important;
+    padding: 9px 8px !important;
     margin: 0;
     line-height: 1.1;
 }
@@ -704,7 +714,7 @@ header.transp #search-form .open-filter {background-color: rgba(219,219,219,0.4)
     font-size: 25px !important;
     width: 100%;
 }
-.popover .btn.btn-blue.disabled {background-color: #a8a8a8 !important;}
+.popover .btn.btn-blue.disabled {}
 .boxes .btn {margin-bottom: 20px !important;}
 .boxes .cancel {margin: 0 !important; float: right;}
 .boxes .btn + .cancel {float: left;}
@@ -825,10 +835,11 @@ header.transp .navbar-collapse.collapse.in {background-color: #000;}
 }
 .dropdown-menu {
     background-color: #fcfcfc;
-    padding: 0 0 4px 0;
     border-radius: 0;
     box-shadow: 0 3px 3px rgba(0, 0, 0, 0.15);
 }
+.dropdown-menu#addInfo .counter {float: right}
+
 .dropdown-menu .divider {background-color: #d9d9d9;}
 .dropdown-menu > li > a {color: #a8a8a8; padding: 3px 14px;}
 .dropdown-menu > li > a:hover,
@@ -871,7 +882,7 @@ span + .text-notification {padding: 0 0 0 36px; margin-top: -6px;}
 .badge {background-color: #ff9431; padding: 4px 6px;}
 .badge-small {background-color: transparent; color:#ff9431;}
 .navbar-nav .visible-xs {display: inline-block !important;}
-.user-img {border-radius: 19px; width: 34px; height: 34px; margin: 4px 4px 4px 0;}
+.user-img {border-radius: 19px; width: 34px; height: 34px; margin: 1px 4px 1px 1px;}
 .boxes.alerts .user-img,
 .boxes.guays .user-img,
 .boxes.follow .user-img {display: inline-block;}
@@ -984,16 +995,19 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 .bootstrap-filestyle .btn {border-radius: 0 !important;}
 .bootstrap-filestyle .input-group-btn {outline: none;}
 
+.box-ppal.edit-contact, .box-ppal.edit-contact-header {box-shadow: 0 0 2px rgba(200,200,200,0.6);}
 .box-ppal.import-contacts, .box-ppal.dashboard {padding: 25px 0 10px;}
-.breadcrumb + .box-ppal.import-contacts, .breadcrumb + .box-ppal.dashboard {margin-top: 0;}
+.breadcrumb + .box-ppal.import-contacts, .breadcrumb + .box-ppal.dashboard {margin-top: 0; box-shadow: 0 0 2px rgba(200,200,200,0.6);}
 .breadcrumb + .box-ppal.import-contacts {padding-bottom: 0; margin-bottom:20px}
 .box-ppal .bootstrap-filestyle {margin-bottom: 20px;}
 .box-ppal.import-contacts > p,
 .box-ppal.dashboard > p,
 .box-ppal.choose-campaign > p {color: #a8a8a8; text-align: center; font-size: 17px; font-size: 1.7rem; max-width: 800px; margin: 0 auto 20px; padding: 0 1em;}
+.box-ppal.choose-campaign div.skip-contacts {position:absolute; bottom:25px; text-align: center;width: 100%;}
+.box-ppal.choose-campaign div.skip-contacts a{cursor: pointer;}
 .box-ppal.import-contacts > p a {color: #20a2ea;}
 .box-ppal.import-contacts form {margin-bottom: 30px;}
-.box-ppal.import-contacts-videos {padding: 25px 25px 0 25px;}
+.box-ppal.import-contacts-videos {padding: 25px 25px 0 25px; box-shadow: 0 0 2px rgba(200,200,200,0.6);}
 .box-ppal.import-contacts-videos h1 {font-size: 21px; font-size: 2.1rem; color: #a8a8a8; margin-bottom: 22px;}
 .box-ppal.import-contacts-videos iframe {width: 100%; margin-bottom: 40px;}
 
@@ -1019,6 +1033,61 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .box-ppal.import-contacts.csv .bootstrap-tagsinput {width: calc(100% - 23%);}
 .box-ppal.import-contacts.csv input.btn {margin-top: 5px;}
 
+.box-ppal .contacts-tooltip{
+    position: absolute;
+    right: 10px;
+    top: 16px;
+}
+
+.box-ppal .contacts-tooltip .tooltip{
+    left: -190px;
+}
+
+.box-ppal span.animated-info-icon{color: #FF9431; cursor: default;}
+
+.box-ppal span.animated-info-icon + .tooltip.bottom .tooltip-inner {
+    position: relative;
+    background-color: #FF9431;
+    color: white;
+    font-size: 14px;
+    font-family: "Helvetica Neue", Helvetica,Arial,sans-serif !important;
+    width: 250px;
+    padding: 10px;
+    top: -7px;
+    right: 10px;
+    left: -10px;
+    margin-left: -165px; /* KAKA PORQUE REVIENTA AL ABRIR TOOLTIP EN RESPONSIVE */
+}
+
+.box-ppal span.animated-info-icon + .tooltip.bottom .tooltip-arrow {
+    position: relative;
+    border-bottom-color: #FF9431;
+    top: -7px;
+    right: 10px;
+    margin-left: -9px;
+    border-width: 0 10px 10px;
+    background-color: transparent;
+}
+
+.box-ppal a.new-campaign-tip + .tooltip.bottom .tooltip-inner{
+    position: relative;
+    top: -9px;
+    background-color: #FF9431;
+    color: #fff;
+    font-size: 14px;
+    opacity: 1;
+    width: 200px;
+}
+
+.box-ppal a.new-campaign-tip + .tooltip.bottom .tooltip-arrow {
+    position: relative;
+    top: -9px;
+    left: 95px;
+    border-bottom-color: #FF9431;
+    border-width: 0 10px 10px;
+    background-color: transparent;
+}
+
 /* TAGS INPUT PLUGIN (08/2016) */
 #mySingleField {height: 35px;}
 
@@ -1042,9 +1111,12 @@ table.csv .highlight_row {background-color: #f7f7f7;}
   line-height: 22px;
   cursor: text;
 }
-#contactsList .bootstrap-tagsinput, .edit-contact-header .bootstrap-tagsinput {padding-bottom: 1px; min-height: 0; padding-top: 1px;}
+.edit-contact-header .bootstrap-tagsinput {padding-bottom: 1px; min-height: 0; padding-top: 1px; max-width:300px;}
 #contactsList .bootstrap-tagsinput .tag, .edit-contact-header .bootstrap-tagsinput .tag{margin-bottom: 1px;}
+#contactsList .bootstrap-tagsinput {width:300px;} /*This width is for fix the postion of the save button [It's a ñapa]*/
+#contactsList .engagement-container {margin-top:9px;}
 
+div.tagsinput {border:1px solid #DDDDDD;}
 .bootstrap-tagsinput .tt-input {min-width: 15em;}
 
 .bootstrap-tagsinput input[type="text"] {
@@ -1188,7 +1260,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
     background: none;
     padding: 5px 0 0;
 }
-.form-group.image.header-campaign {width: auto; height: auto; min-height: 100px;}
+.form-group.image.header-campaign {width: auto; height: auto; min-height: 122px;}
 .header-campaign .qq-upload-drop-area {border-color: #dedede;}
 .header-campaign .qq-upload-button {line-height: 1; padding: 0;}
 
@@ -1267,10 +1339,10 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 #filtersInfo .modal-header h4, #campaignConfirm .modal-header h4 {font-size: 22px; margin: 0 0 10px 0; font-variant: normal; font-weight: normal; text-align: center;}
 #filtersInfo .modal-body, #campaignConfirm .modal-body {text-align: center;}
 #filtersInfo .modal-body .scroll-container {display: block; height: 220px; overflow-y: auto;}
-#filtersInfo .modal-body table {width: 100%;}
-#filtersInfo .modal-body table th, #filtersInfo .modal-body table td {width: 50%; text-align: left; padding: 10px 15px;}
-#filtersInfo .modal-body table tr th {background-color: #f7f7f7; border-bottom-width: 1px;}
-#filtersInfo .modal-body table tfoot tr td {text-align: center; color:#ccc; }
+.modal-body table {width: 100%;}
+.modal-body table th, .modal-body table td {width: 50%; text-align: left; padding: 10px 15px;}
+.modal-body table tr th {background-color: #f7f7f7; border-bottom-width: 1px;}
+.modal-body table tfoot tr td {text-align: center; color:#ccc; }
 /*#filtersInfo .modal-body > table > tbody > tr > td {padding: 0;}*/
 #campaignConfirm .modal-body {background: url('../images/campaignModalConfirm.jpg')  center 0 no-repeat transparent; padding-top: 245px;}
 
@@ -1287,6 +1359,11 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 
 #bulk-action-add-tags-modal .bootstrap-tagsinput {display: block;}
 #bulk-action-remove-tags-modal .bootstrap-tagsinput {display: block;}
+
+#request-demo-modal.modal form .form-group label {color:#545454;}
+#request-demo-modal.modal form .form-group.button {text-align: center;}
+#request-demo-modal.modal form .form-group.button input{margin-top:15px;}
+#request-demo-modal-form {padding:15px;}
 
 .datepicker-days tbody td {cursor: pointer;}
 .datepicker th {text-align: center;}
@@ -1336,7 +1413,8 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .box-order-options .filter-warning span.on {background-color:#dedede; color: #fff}
 .box-order-options .checkbox-inline {float: left; padding: 0px; margin-top: 4px;}
 .box-order-options .bulk-actions {width: 16%; display: inline-block; float:left;}
-.pag-list-campaigns, .pag-list-contacts {margin: 20px 0;}
+.pag-list-campaigns {margin: 20px 0;}
+.pag-list-contacts {margin: 0 0 20px;}
 .pag-list-campaigns > ul, .pag-list-contacts > ul {float: right; padding: 0; margin: 0;}
 .pag-list-campaigns > ul > li, .pag-list-contacts > ul > li {list-style: none; display: inline-block;}
 .pag-list-campaigns > span, .pag-list-contacts > span {display: block; line-height: 32px; float: right; margin-right: 5px;}
@@ -1364,12 +1442,12 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .box-order-options + .list li {list-style: none;}
 
 #campaignsList > li {padding: 25px 10px 10px 35px; border-bottom: 1px solid #e5e5e5; position: relative;}
-#campaignsList > li > .state {position: absolute; text-indent: -9999px; top: 33px; left: 5px; display: block; width: 27px; height: 27px; background-repeat: no-repeat; background-position: center center;}
+#campaignsList > li > .state {position: absolute; text-indent: -9999px; top: 20px; left: 5px; display: block; width: 27px; height: 27px; background-repeat: no-repeat; background-position: center center;}
 #campaignsList > li.SENT > .state {background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAYAAACN1PRVAAAFBklEQVRIS41Wa2xURRT+5u62FWw1YLC7bWorlERFICi+jTEYH3+IRaiNKO1ulza1hiAIBlFjq9EICDY+gJJ220oh8QGGaDRqGtPKQymCL34YTYQ27m4bbbHbKu127/jN3Ufv3r1tmeTkzp0553znNWdG4FJGYO31ENH7yHoLaT7pStIQJP6AkD9CoBO5RSch6vSp1IkpsUKehZBiFXkeIC0g5djw/8c1BfoldO0Q8vxHJ9NpD9Zfm43ov08BYi0Fiy/F+ThPP2XaocsG5Lf0WuXSwQLl10A4tpOxlKTZAI1wLUpykGbY8kgcJ+h6ennKLJ8K1lueD6ezCZAPWUD+YphOU0E3rf4Vmhg0QqpjHvO1JJ7LAovML0yB1ww4ARaonglEmij8mElIcv4pHWyEI6sTV+8eTvNUljoQmHk7HFo5C6aC+1kmnhM0qCwR0hiYJESochMnr/HPGWeOQMqdiDp2oKB5YNq8yTonQudr6P3L1DMryS/xFtwZmyD2RWJgwQpWmnaEs3lxJuXRLrgKt7Ccx6cFMjMEvU/yd5sR5thgjsVyuP1fCyiL+s49y/i+arLmK4zKR3Ft64VpgWR1BkLjKvQXqfADgz/kbWS0qpOyAo2IDG8Q6KtczLjupOvq0KrBcyNWUvDz6YGM0G0l30sxOWyGq2Uv+isXsZA+4X+iaHpYVD6BgGcjhFjHjaKYctmFsbESFB5UFQf0e+YjqhVjINyBBR+OTXivgHqeI/+LXMsw1gUu0PAtyGtpRMjTzmg9HudXnWW3QNDbxkkJ6YrYhqiHy19PQYlAxc3QtCbOCkgNGBzebgAaoYsQCM+TMlMjIA/BNVKGUM4aGrKXe4nq/IZgnk4C3M3FxAGuhbtlD/70LYEmWymwKK6MXokXIJ3vQousJ3h90qMkmvgJerQW+W3HmLdl9OwjU2WeVp51k3fpRHhkOfJa99MI5kHUpVqNMEG+pdd3cD3bsneWealCrv+Esd7nvRO64BlNHoMzCqyLW3clPZOoMWKuQig0FWLVgKcbZ2mAj8XxXZIx6LmXwTps9cySM1kHV9ErxnVhhFJvp4IbpkD7mUBVKUCKOeCpYuG9bcrZUZtq5N00NroiWY0KUOgtVLg4DVDgB4aqytpwDb6Qdz9D/kRcZpxzVmPAexMV7eDisvjGCDdWMpRfJJUHKpeyEfv5v9AEeIZhqoG7+WSaEcbZZVVOdKQeZZTAb+uykBN+JqWDqIswI1KKqw4MmXLAW5rHQFWn8gjMrTlHCUZZp/Ggv8Nf1bZiQ6IJ2vjTsd4Y8t0IqX/MWeKiVPdVAwaGt6Yc5Ni5K6GVR2xDp3QFPbWsYtXQ1dNBjSGm4RG42jriXV9Z07OBJrzOzUTX5+EVbyBrdFuKh2kxS1hvHHTe7KrHWrr+4PBmZfTEfRZaczkPbDNFy0z6lIefUXgXnNr3mOMPp2HF7sHryFPL6lvNfXV7J0Y3ZHQV8t7rUQupN3Vf5VyGcw89Ug8c8whTUQdjf5z0O6UusmAyjTYmcBu/D5J5jkUm7Uikv0H6fcWIRhlOsYLCdm8Q1YwVqXBfZhtVIY7R4I3WSrV/XZ1fPQuZWT4qUhU1d7I02az30cv36fWbcLees+5P/W40WpZ4mG2LTVUnqHDbAPzNdSrW2TPFYeQWdk12u08NpjT3ls6AM/tW5uZ+Wn0PV2aT1LURIf1DOmU8UDMzuzB7n/qfdPwPBt7B4OnyQfEAAAAASUVORK5CYII=');}
 #campaignsList > li.SCHEDULED > .state {background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAaCAYAAABCfffNAAAEe0lEQVRIS5VWfWhbVRT/3Ze0zaJ2W5LWIZvODYeKYh1jiB/I1CGIdnV0oZp2m5swcML8ZwjioIqg+IegzvqBrCwfrQa3sSmj+EGLn+jAwUBBtlHQdtoleXGtc+bjvevvvvdMXvKSMC/c9N1zfvf87jnnnnMr0GqMnl8Gv1gPaHcD4gZALic8wPk75zSkOAm/OYWF8FnsEqVmpkRDRVq2o5C9k4Z3cj5AzBLHuBte5mKB82di4ujwfYToYr2RPS9JMrccUj7HjU9yQ1tLT2uV38CUw9gW+bx+Ty1JKt8D09xP0F0e4xI6hHVy0/Eq4j2EzEBowxgMjbj3V0mS+q08SZqGbqwj+Iyy41ZYhHaeXhqcV3GuhhD3Uv4IZ7drT5G6vdgaeeM/mU0yNnc1ym3jEHKDCzxL4y+g3X+oWawxKf2Y1ddxzzAkHnTt/YvfWzAUnlAymySR28ffF6sgcQYakx5b+mWNV1IKYnnbxLXwt03i8c6spU9fCKFQep3yQRf+BCPzKHM0K5DM3cwoT5BuhQO4QGV/owQi/dsiFK4Y41XuI6aPmKMVowfnw9BKH3J9f0Um5dP0ZkQgnn2esVVe2F4JvITBsPLMO949F0SwI0lFL/O/GUNdx2pAydwdzAdlosux9R3z+JRy/1MKNjrgaRi+jdi+5GxDEuVJMZhk/HtZiJuxNfSxB5fMjVK/vRIViLcUiTK4yhF+QPcea0hgxV6FK5jg16amJHF9gBdIeetz7HyhSPJcqIpW938vSV5rSqIUidw4f/ubkhzMrGGIGCaEHDunFMklLtiPZIG52cZ8qOTZIy19KGVWoeyLQDML7GEB61pLeQ8N9bPoPvEcyLoAxe+Zl9WO7hdF8jcXiziLVOzAUChV2ajqx/CRVKgCVb1K47STCgzQ60MekgMLXWgv/sC8rHSTZLhQLULylGwJ4Wq9WKcqv88Y91Bb4FQYSWye4XqWif/a60n+dno9RXmnrRM/Kk/YRXGTA55AR+hhRIVhra3im+uCL3AlF7bMEBo0o4SLobmG7T2e3c2wv6msc6o8H1XFmObZttgkbHAQfQzDt54TXo7AeiL0I4Q+5MD/4N9XeFJ9F40rZqetyxQ6wjvoDXP0P0dCj9HWe9wVdEJ1jKHeLazmaPhVI+txTHq66GVRJfK3MTppYtdU7Ag5gMHIEbuVxLNDjOMBfvkdwEXr4VoRHsEGoW5V65HKroepvU0v1laAAodRmo/hiev/sUlUy57R3+EXn9vKYNLkGPO1HwHzJ0S7VfuuDlVDl3LLeLgoU7yHiutc2tMwBZts6JSSVR+tsfkITF5XKTfVHVu18ylOdV1n2H3L3LWUJbPWeX9uqcPPUL+TpaB6ojVqn19FZJRedjxq/E9Gy8DJkyTfw4L+yg3zGhqdDsDXGSP9MwTWn7IZxZ8MW4pV8SoL9Nd6UPPTjmeugaFFGdteq+KhQuQeVq87w8qfZO7G2cfYFIXqBp7ROiRpfTGK5n1MPt8bsdIh8tPwAoR5jrITrP7jiHWfbhXFfwFoyZDIbT0KhwAAAABJRU5ErkJggg==');}
 #campaignsList > li.DRAFT > .state {background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAACXUlEQVQ4T52Uz0tUURTHz50foAktBly07BeU2UxC0SaEFm1atJSgNoWk2BshxcoCmWXG9OvNjyyLWberKIv+gTYh/VAqjRZRm6xAaBLE8fY5j/dCZ54604PvnHvn3vO533PfmTHyH4/N5XZJJJKR5eVOMaYk8fhV09MzryjTCM9mMhFJJFISjY6ItcfIjaA/KCuLi1fMwMBCY8BSqUnK5SKAU1VGFnA6KrHYzbqBtlhMSqWSoNQtuBsGuLcGKpKvC2gLhQPcl4uLBPE4JceA3g+Dbgi0rtuBqxzJB9E8oCmA/YBbOKDAvGOF08l1gcBSJI2hJCqS3EJyN+Mpyj8JWOd3fOgk8dKaQO/OrM37m13id0CnASR9Ry8BngG80zvE2nGTTj8MBfplFtjYjm6gnyiNdlS9iDfMhzjonbS2zpmurkoNkBewj9PG2KjlXmP8w4dtC+nZL6z34uxZsLYKaPP5PWy4B2g/MUucY+NZFAabYX2Y3nvOr0Sb23v+AT2YiDrTt+mir8hB20OcfeTA8zh7XL3mAbmzNlpD76wT3UafOb2XJL3w1Y+2jTEXjONMhBwkxi9zlE1H2aAlvkJb0e6QhA98N7gWzCsZ4APiEYDjHsDafj6bamDGzLI2BOxRmLPgOwV+Y+OsOM5hyWY3SXPzdRZPIG3a4Pnkweiz9WCBQy0jisMscYL4m2Y9R7zIPI50XZ092QgWAF8zSKEyLi7j4hauu5nfRTO8rEHT1/e0HlgAnGbQ5ie8BTqNu0PMf+nf1MqmrQeqd/iCxHYgS8QYcTOJ7xmPNArTA/8CHvDtgw1o76YAAAAASUVORK5CYII=');}
 #campaignsList > li.PROCESSING > .state {background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAYAAACN1PRVAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4AgSCCcWMPIzewAAABl0RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAAKaSURBVEjH7ZbPSxVRFMe/594ZX4ZGC6GiSIgw7A8QqrcooR/7aBNEQYFtooTCdJinMQxkb/Gg2oQZFS2k31DUXlcFbYKCNKIgDCWCMp/y3p3zbSMymWLl1CI6cHfnnM+cc7733AH+osnPOHV2dq4xxqz4XYhzzvX29r5bFNbV1dVsrb0AYPMSinKqetFbzMtauxbAVhGpXWIXW8xiHqpqspiXMcZ6C7RupXOuwfd9S3JDVgL5AVYoFPYnSXIol8s1A/BERADUZg4LguAgyW5jTCOAYQAg6YvIqkxamQYZY7oBrFfVHgDbZ04PyanMKguC4EAKdCaO4yj1EePGmGxmVigU1gM4RrJRVXvSoKzNq1ar63zfbwLwlOTDIAg2pR2yVuMykj6AFmvtox/22Z9Qo4gYAKv/5CI2+Iv2D8MW2A7TSZIMk3z/K8lITpF8RXJ0Xpi19qiILE8FlJMk6XDO7QCwl+S9nwR9BXDKObfDObcvSZIHc16PxAMwRvKlqnrW2iZVfVYuly+XSqUygNEwDO+Q3AOAAN7OczU8AE0AnkRR1AegAuBDGIb3Se4CUAUwAmDQjI+PHwbQSvI4yU/GGL++vt5P5asFYFV1oFKp7ATQmj4kT5L8IiK5tra2XCpu2YwmbkxMTOyO4/j87G9Be3t7Q11d3cBMknPOuZue520QkeMktwBoi6Kof25lYRiuEpHbJLeJyFnn3C1r7UYAJwC0qOqROI6vfafGUqn0UVX7RGRERDqMMY8AXCG5DcB159zd+WYVRdEYyUsA3pA8LSKPAfQD2KKqV2tqamZnbtOBQ0NDL/L5/LCITImID+C1qvZNTk4Wi8Xip4XEMTg4+Dyfz48AmDbG1AB4BeBSkiTFKIo+479lad8A1mQzSakS41oAAAAASUVORK5CYII=');}
-#campaignsList > li h3 {margin: 10px 0 5px 0; font-size: 18px; font-size: 1.8rem;}
+#campaignsList > li h3 {margin: 0 0 5px 0; font-size: 18px; font-size: 1.8rem;}
 #campaignsList > li h3 a {color: #545454;}
 #campaignsList > li > p,
 #campaignsList > li > ul.list-campaign-stats > li,
@@ -1377,11 +1455,10 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 #campaignsList > li > ul.list-campaign-stats {padding: 10px 0 0 0; margin: 0 0 0 -30px; border-top: 1px solid #e5e5e5;}
 #campaignsList > li > ul.list-campaign-stats > li {display: inline-block; margin: 0; width: 30%; text-align: center; font-size: 15px; font-size: 1.5rem;}
 #campaignsList > li > ul.list-campaign-stats > li span {position: relative; min-height: 24px; font-size: 16px; font-size: 1.6rem; display: block; margin-bottom: 2px;}
-#campaignsList > li > ul.list-campaign-stats > li span.open-number::after,
-#campaignsList > li > ul.list-campaign-stats > li span.click-number::after {content:'%'; position:absolute;}
 #campaignsList > li > ul.list-campaign-stats > li span.open-number:empty::before,
 #campaignsList > li > ul.list-campaign-stats > li span.click-number:empty::before {content:'-'; left:30px; position:absolute; top:2px;}
 #campaignsList > li > ul.list-campaign-stats > li span.recip-number:empty::before {left:32px;}
+#campaignsList > li > .type {display: none;}
 
 ul.list > li > ul.list-actions {position:absolute; top:10px; right: 10px;text-align: right;margin: 0;padding: 0; border:0;}
 ul.list > li > ul.list-actions > li {display: inline-block;margin-right: 10px;}
@@ -1397,36 +1474,38 @@ ul.list > li > ul.list-actions > li > a:active {color: #20a2ea;}
 
 /* DASHBOARD (08/2016) */
 #mails {text-align: center;}
-#mails li {list-style: none; display: block; float: left; margin-bottom: 20px; margin-right: 35px;}
+#mails li {list-style: none; display: block; float: left; margin: 0 17px 20px;}
 /*#mails li:last-child {margin-right: 0;}*/
-#mails li > a {display: block; width: 107px; height: 91px; padding-top: 60px; font-size: 16px; font-size: 1.6rem; background-color: #fff; background-repeat: no-repeat; border: 1px solid #ff9431;}
+#mails li > a {margin:auto; display: block; width: 107px; height: 91px; padding-top: 60px; font-size: 16px; font-size: 1.6rem; background-color: #fff; background-repeat: no-repeat; border: 1px solid #ff9431;}
 #mails li > a:hover, #mails li > a:focus, #mails li > a:active {text-decoration: none; background-color: #fbfbfb;}
 #mails li > #gmail {background-image: url('../images/mail-gmail.png'); background-position: center 15px;}
 #mails li > #yahoo {background-image: url('../images/mail-yahoo.png'); background-position: center 25px;}
 #mails li > #outlook {background-image: url('../images/mail-outlook.png'); background-position: center 10px;}
 #mails li > #uploadFile {padding-top: 34px;}
 
-.container-fluid.box-ppal.choose-campaign {padding:30px 0px;}
+.container-fluid.box-ppal.choose-campaign {padding:70px 0px 50px 0px; box-shadow: 0 0 2px rgba(200,200,200,0.6);}
 #mails {margin:0 auto; width:24em;}
-#mails li.fontIcon > a {padding:16px;}
+#mails li.fontIcon > a {padding:16px 2px;}
 #mails li.fontIcon > a > span.fa {font-size: 2em;width: 100%;margin-bottom: 10px;}
 #mails li.fontIcon > a > span.label {color:inherit; padding:0; font-weight: inherit;font-size: inherit}
 
 .dashboard, .box-ppal.dashboard {margin-top: 20px;}
-.dashboard > div > .box-ppal {min-height: 333px;}
+.dashboard > div > .box-ppal {min-height: 225px; box-shadow: 0 0 2px rgba(200,200,200,0.6);}
 .dashboard .box-ppal > h2 {font-size: 20px; font-size: 2rem; color: #a8a8a8; padding-bottom: 10px; border-bottom: solid 1px #e5e5e5; margin: 0 0 20px 0;}
-.box-ppal#createNewCampaign p {font-size: 20px; font-size: 2rem; color: #a8a8a8; line-height: 1.4; text-align: center;}
+.box-ppal#createNewCampaign {margin-bottom:20px;}
+.box-ppal#createNewCampaign p {font-size: 20px; font-size: 2rem; color: #a8a8a8; line-height: 1.4; text-align: center;margin-bottom: 30px;}
 .box-ppal#createNewCampaign p strong {font-size: 26px; font-size: 2.6rem; color: #545454; font-weight: normal;}
 .box-ppal#createNewCampaign .btn {padding: 48px 17px !important; margin: 20px 0 10px;}
 .box-ppal#followOthers > h2 {margin-bottom: 0;}
 .box-ppal#followOthers .user-list-followers {padding: 20px 0 0px !important;}
-.box-ppal#politicianProfile
+.box-ppal#politicianProfile {padding-bottom:0; margin-bottom:20px;}
 .box-ppal#politicianProfile h2 {font-size: 30px; font-size: 3rem; margin: 10px 0;}
 .box-ppal#politicianProfile h3 {font-size: 18px; font-size: 1.8rem; color: #a8a8a8; margin: 0 0 14px 0;}
 .box-ppal#politicianProfile .activity {margin: 0;}
 #dashboardGraphs {min-height: 415px;}
 .nav-tabs.simple > li {margin-bottom: 10px; margin-right: 22px; float: none;}
 .nav-tabs.simple {margin-bottom: 20px;}
+ul.user-list-followers .loading.xs {width: 10px; height: 10px;}
 
 .alert-box {display: none; background-color: #ca1d3f; color: #fff; height: 54px; text-align: center; position: fixed; top: 0; left: 0; width: 100%; padding: 5px; font-size: 16px; font-size: 1.6rem; line-height: 1.4;}
 .alert-box.on {display: block;}
@@ -1462,10 +1541,10 @@ ul.list > li > ul.list-actions > li > a:active {color: #20a2ea;}
 #profileInfo .dropdown-menu {width: 165px; margin-top: 5px;}
 #profileInfo .dropdown-menu > li:first-child {border-bottom: none; padding: 0;}
 
-.campaign-progress-bar-wrapper {padding: 0px 15px 10px 15px;}
-.campaign-progress-bar-wrapper h4 {font-variant: normal; color: #666; margin: 10px 0px 20px 0px;font-weight: normal;font-size: 1.35em;}
+.campaign-progress-bar-wrapper {padding: 15px 15px 10px 15px;}
+.campaign-progress-bar-wrapper h4 {font-variant: normal; color: #666; margin: 2px 0px 18px 0px;font-weight: normal;font-size: 1.35em;}
 .campaign-progress-bar-wrapper .campaign-progress-bar {position: relative;}
-.campaign-progress-bar-wrapper .campaign-progress-bar:hover .pop-up {display: block;}
+.campaign-progress-bar-wrapper .campaign-progress-bar:hover .pop-up {display: block;z-index:1000;}
 .campaign-progress-bar-wrapper .campaign-progress-bar .pop-up {border: 2px solid #666; position: absolute; padding: 10px 20px; bottom: 22px; background: #fff; text-align: initial; display: none;}
 .campaign-progress-bar-wrapper .campaign-progress-bar .pop-up .arrow {position: absolute; bottom: -26px; left: calc(50% - 13px); border: 13px solid #666; width: 1px; height: 1px; border-left-color: transparent; border-right-color: transparent; border-bottom-color: transparent;}
 .campaign-progress-bar-wrapper .campaign-progress-bar .pop-up .arrow::after {content: " "; position: absolute; border: 11px solid #fff; width: 1px; height: 1px; left: -11px; top: -14px; border-left-color: transparent; border-right-color: transparent; border-bottom-color: transparent;}
@@ -1504,7 +1583,9 @@ ul.list > li > ul.list-actions > li > a:active {color: #20a2ea;}
 .campaign-progress-bar-wrapper .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done::after {content: ""; position: absolute; border: 10px solid #ff9934; border-left-color: transparent; border-right-color: transparent; border-bottom-color: transparent; width: 1px; height: 1px; right: -10px; top: -10px;}
 
 #followAndRegister{padding: 10px 15px 0;}
-#followAndRegister .btn{width:100%;}
+#followAndRegister .btn{width:100%;margin-bottom:7px; padding: 9px !important;}
+#followAndRegister.login .form-group:last-child {font-size: 11px; font-size: 1.1rem;}
+#followAndRegister.login .form-group {margin-bottom: 15px;}
 
 #inviteFriendsModal {text-align: center;}
 #inviteFriendsModal h4 {color: #545454; margin-top: 20px; font-variant: normal; font-size: 24px; font-size: 2.4rem; font-weight: normal; margin-bottom: 0;}
@@ -1524,16 +1605,16 @@ ul.list > li > ul.list-actions > li > a:active {color: #20a2ea;}
 
 #contactsList { min-height: 10em;}
 #contactsList > h3.noContacts {text-align: center}
-#contactsList > li {padding: 85px 0 0 0; border-bottom: 1px solid #e5e5e5; position: relative; min-height: 170px;}
-#contactsList > li .user-img {display: block; width: 64px; height: 64px; border-radius: 50%; position: absolute; left: 48px; top: 10px; overflow: hidden; background-color: #e5e5e5;}
+#contactsList > li {padding: 0 0 0 0; border-bottom: 1px solid #e5e5e5; position: relative; min-height: 90px;}
+#contactsList > li > .contact-info {margin:0 0 10px 140px;padding-top:40px;}
+#contactsList > li .user-img {display: block; width: 64px; height: 64px; border-radius: 50%; position: absolute; left: 48px; top: 40px; overflow: hidden; background-color: #e5e5e5;}
 #contactsList > li .checkbox-inline {padding: 0px; position: absolute; left: 10px; top: 35px;}
 #contactsList > li p {margin: 0;}
 #contactsList > li .title {font-size: 17px; font-size: 1.7rem; margin: 0 0 4px 0;}
-#contactsList > li > .title > a,
-#contactsList > li > p > a{color: #545454;}
+#contactsList > li > .contact-info > .title > a,
+#contactsList > li > .contact-info > p > a{color: #545454;white-space:nowrap;}
 #contactsList > li .email, #contactsList > li .email a {color: #a8a8a8;}
 #contactsList > li .email span.fa.fa-exclamation-circle {margin-right: 0px;}
-.raw-email{padding-left:5px;}
 .container-lists {margin-top: 10px; display: none;}
 .container-lists li {display: inline-block;}
 .off .bootstrap-tagsinput {display: none; padding: 0; margin: 12px 0 10px 0; background-color: transparent; border: none; box-shadow: none; min-height: 0;}
@@ -1542,8 +1623,8 @@ ul.list > li > ul.list-actions > li > a:active {color: #20a2ea;}
 .off .bootstrap-tagsinput .tag > span {display: none !important;}
 .bootstrap-tagsinput .twitter-typeahead {display: inline-block;}
 
-.addTag {margin-top: -6px;}
-.addTag.off {margin-top: 3px; padding-bottom: 8px;}
+.addTag {margin-top: -6px;margin-bottom:10px;}
+.addTag.off {margin-top: 3px;}
 .addTag > ul {display: inline-block; margin: 0; padding: 0;}
 .addTag > ul > li a {color: #20a2ea;}
 .addTag > ul > li a:hover, #addTag > ul > li a:focus, #addTag > ul > li a:active {color: #fff; background-color: #20a2ea;}
@@ -1593,7 +1674,7 @@ ul.list > li > ul.list-actions > li > a:active {color: #20a2ea;}
 .edit-contact-header > div:first-child ul,
 .edit-contact-header > div:first-child ul li {list-style: none; display: inline; margin-right: 5px;}
 .edit-contact-header > div:first-child ul li:last-child {margin: 0;}
-.edit-contact-header > div:first-child ul li button{padding: 6px 14px !important}
+.edit-contact-header > div:first-child ul li button{padding: 9px 14px !important}
 .edit-contact-header ul.btns {position: absolute; top: 0; right: 0;}
 .edit-contact-header ul.social-links a {font-size: 2rem;}
 .edit-contact-header ul.social-links a:hover,
@@ -1705,12 +1786,20 @@ ul.list > li > ul.list-actions > li > a:active {color: #20a2ea;}
 
 .box-ppal {background-color: #fff; color: #545454; border: solid 1px #e5e5e5; padding: 0; margin: 0 0 40px 0; position: relative;}
 .box-ppal {padding: 22px 10px 0;}
-.box-ppal .box-ppal-section{padding-left: 20px}
+.box-ppal.filterbox{padding-bottom:0;box-shadow: 0 0 2px rgba(200,200,200,0.6);}
+.box-ppal.list-contacts{box-shadow: 0 0 2px rgba(200,200,200,0.6);}
+.box-ppal.list-campaigns{box-shadow: 0 0 2px rgba(200,200,200,0.6);}
+.box-ppal .box-ppal-section{padding: 0 20px}
 .box-ppal .box-ppal-section .box-ppal-section-title{margin:0 0 10px -20px; font-variant:small-caps;}
 .box-ppal-section + .box-ppal-section, .dynamic-fieldset.profile-dynamic-fields + .dynamic-fieldset.profile-dynamic-fields{border-top: 1px #e5e5e5 solid; padding-top: 20px;}
-.box-ppal-title {background-color: #fff; border-width: 1px 1px 0 1px; border-color: #e5e5e5; border-style:solid; padding:20px 15px}
-.box-ppal-title h1 { margin-bottom:15px;margin:0 0 10px 0;font-size: 2.5rem}
-.box-ppal-title h3 { color: #a8a8a8; margin:0px;font-size:1.4rem;}
+.box-ppal-title {background-color: #fff;
+    border-width: 0 0 1px;
+    border-color: #e5e5e5;
+    border-style: solid;
+    padding: 0 0 20px;
+    margin-bottom: 20px;}
+.box-ppal-title h1 {margin:0 0 10px 0 !important;font-size: 2.5rem}
+.box-ppal-title h3 {color: #a8a8a8; margin:0px;font-size:1.4rem;}
 .box-ppal.profile {padding: 0; margin-bottom: 10px;}
 .config .box-ppal {padding: 10px;}
 .team > section > .box-ppal{padding:0; margin:0; background-color: transparent;border:0}
@@ -1876,12 +1965,12 @@ ul.list > li > ul.list-actions > li > a:active {color: #20a2ea;}
 .popover[class*=tour-] .popover-navigation button:last-child,
 .popover[class*=tour-] .popover-navigation #totour2,
 .popover[class*=tour-] .popover-navigation #totour3 {float: right !important; width: 45%;}
-.popover.tour .popover-content {font-size: 16px; font-size: 1.6rem;}
+.popover.tour .popover-content {font-size: 12px;}
 .popover.tour .popover-content,
-.popover.tour .popover-navigation {padding: 4px !important;}
+.popover.tour .popover-navigation {padding: 6px 4px 10px 4px!important;}
 .popover.tour .popover-navigation {width: 100%; height: 50px;}
 .tour-step-background {background: none !important;}
-/*.tour-backdrop {background: #fff !important;}*/
+.tour-backdrop {z-index:1000;}
 .popover[class*="tour-"] {z-index: 1200 !important;}
 
 .slimScrollBar {z-index: 9999 !important;}
@@ -1933,15 +2022,15 @@ ul.list > li > ul.list-actions > li > a:active {color: #20a2ea;}
     margin: -18px 0 0 0!important;
     display: block !important;*/
 }
-.popover .scroll .user-type {margin-top: -15px !important;}
-.popover .follow {width: auto;border-radius: 0; margin: 7px 0 0 0!important; float: right;}
+.popover .scroll .user-type {margin-left: 1px !important;}
+.popover .follow {width: auto; -webkit-border-radius: 2px !important; -moz-border-radius: 2px !important; border-radius: 2px !important; margin: 9px 0 0 0!important; float: right; padding: 6px 6px 5px !important; width: 80px !important;}
 .popover-box .follow {margin: 1px 0 0 90px !important;}
 .popover .infoActivity {border-top: solid 1px #dadada; margin: 6px 0 0; padding: 6px 0 0;}
 .popover .infoActivity li {list-style: none; float: left; margin-right: 6px; font-size: 14px; font-size: 1.4rem; color: #797979;}
 .popover .infoActivity .fa-check {color: #bfd9f5;}
 .popover-user-list ul {margin: 0 20px 0 0 !important; padding: 0;}
 .popover-user-list ul li {padding: 2px; display: block !important; margin: 0 0 5px 0;}
-.popover-user-list ul li .user-img {margin-bottom: 0 !important;}
+/*.popover-user-list ul li .user-img {margin-bottom: 0 !important;}*/
 .popover-user-list ul li:hover,
 .popover-user-list ul li:active,
 .popover-user-list ul li:focus {background-color: #efefef !important;}
@@ -2171,7 +2260,7 @@ ul.list > li > ul.list-actions > li > a:active {color: #20a2ea;}
 .video > .front,
 .vimeo > .front {display: block; background-color: #000; position: relative; width: 100%; overflow: hidden;}
 .video > .front > img,
-.vimeo > .front > img {opacity: 0.25;}
+.vimeo > .front > img {opacity: 0.6;}
 .video > .youtube,
 .vimeo > .youtube {width: 100%; display: none;}
 
@@ -2513,16 +2602,16 @@ video#bgvid {
 
 /*.boxes.follow .user-type {display: block; margin-left: 4px;}*/
 .personal .user-type {padding: 0; font-size: 20px; font-size: 2rem; margin-bottom: 12px; position: relative; left: auto; bottom: auto;}
-.user-list-followers  .user > .actions {/*float: right; margin: -14px 0 0 !important;*/ width: 108px; position: absolute; top: 5px; right: 0;}
+.user-list-followers  .user > .actions {/*float: right; margin: -14px 0 0 !important; width: 108px;*/ position: absolute; top: 5px; right: 0;}
 .user-list-followers  .user > .actions .btn.follow {
-    -webkit-border-radius: 0 !important;
-    -moz-border-radius: 0 !important;
-    border-radius: 0 !important;
+    -webkit-border-radius: 2px !important;
+    -moz-border-radius: 2px !important;
+    border-radius: 2px !important;
     margin: 0 5px 0 0 !important;
-    padding: 2px 6px !important;
+    padding: 6px 6px 5px !important;
     width: 80px;
 }
-.user-list-followers .user > .actions .close {margin: 1px 0 0 0;}
+.user-list-followers .user > .actions .close {margin: 1px 0 0 5px                                                                                                                                                   ;}
 /*.boxes .user-img,
 .condition .user-list-followers .user-img {float: left;}*/
 /*.boxes .user-img.big {margin: 0 6px 6px 0;}*/
@@ -2666,23 +2755,29 @@ video#bgvid {
 
 
 ul.campaign-list{margin: 0;padding: 0;list-style: none;}
-ul.campaign-list li {padding: 0;}
-ul.campaign-list .box-ppal {padding: 0; margin: 0 0 20px 0;height: auto;}
-ul.campaign-list li .box-ppal .card-header-photo {height: 200px;}
-ul.campaign-list li .box-ppal .card-body {padding:1em;overflow: hidden;height: 300px;}
-ul.campaign-list li .box-ppal .card-header-photo + .card-body {height: 120px;}
-ul.campaign-list li .box-ppal .card-body h1{margin:0; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif}
-ul.campaign-list li .box-ppal .card-body .card-text{margin:0;padding:1em 0 0 0;text-overflow: ellipsis;word-break: break-word;}
-ul.campaign-list li .box-ppal .card-body .card-text a{color: #00a3ed;}
-ul.campaign-list li .box-ppal .card-body .card-text a:hover{text-decoration: underline;}
+ul.campaign-list > li {padding: 0;}
+ul.campaign-list .box-ppal {padding: 0; margin: 0 0 20px 0;height: auto; box-shadow: 0 0 2px rgba(200,200,200,0.6);}
+ul.campaign-list > li .box-ppal .card-header-photo {height: auto;}
+ul.campaign-list > li .box-ppal .card-body {padding:1em;overflow: hidden;height: 320px;}
+ul.campaign-list > li .box-ppal .card-header-photo + .card-body {height: 125px; margin-bottom: 15px;}
+ul.campaign-list > li .box-ppal .card-body h1{margin:0; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif}
+ul.campaign-list > li .box-ppal .card-body .card-text{margin:0;padding:1em 0 0 0;text-overflow: ellipsis;word-break: break-word;}
+ul.campaign-list > li .box-ppal .card-body .card-text a{color: #00a3ed;}
+ul.campaign-list > li .box-ppal .card-body .card-text a:hover{text-decoration: underline;}
 
-ul.campaign-list li .box-ppal .card-footer{width:100%; height:2em;display:block; padding: 0 1em 0.5em; text-align: right}
-ul.campaign-list li .box-ppal .card-footer > ul {margin: 0;padding: 0;list-style: none;}
-ul.campaign-list li .box-ppal .card-footer > ul {margin: 0;padding: 0;list-style: none;}
-ul.campaign-list li .box-ppal .card-footer:after {clear:both; content: " "}
-ul.campaign-list li .box-ppal .card-footer > ul li a  {color:#a8a8a8;}
-ul.campaign-list li .box-ppal .card-footer > ul li a:hover {color: #00a3ed; text-decoration: none;}
-ul.campaign-list li .box-ppal .card-footer > ul li .label { color:inherit; padding: 0;font-size: inherit;font-weight: inherit;}
+ul.campaign-list > li .box-ppal .card-footer{width:100%; height:36px;display:block; padding: 0 1em 0.5em; text-align: right; margin-top: 12px;}
+ul.campaign-list > li .box-ppal .card-footer > ul {margin: 0;padding: 0;list-style: none;}
+ul.campaign-list > li .box-ppal .card-footer > ul {margin: 0;padding: 0;list-style: none;}
+ul.campaign-list > li .box-ppal .card-footer:after {clear:both; content: " "}
+ul.campaign-list > li .box-ppal .card-footer > ul li a  {color:#a8a8a8;}
+ul.campaign-list > li .box-ppal .card-footer > ul li a .number{font-size: 20px; vertical-align: top;font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;}
+ul.campaign-list > li .box-ppal .card-footer > ul li a:hover {color: #00a3ed; text-decoration: none;}
+ul.campaign-list > li .box-ppal .card-footer > ul li .label { color:inherit; padding: 0;font-size: inherit;font-weight: inherit;}
+
+ul.campaign-list > li.info-empty  p{margin:auto; padding:40px;text-align: center;color: #a8a8a8;font-size: 2rem;}
+ul.campaign-list > li.info-empty .text-empty-campaignList {width: 90%;}
+ul.campaign-list > li.info-empty .icon-empty-campaignList {width:5%; display:none;}
+ul.campaign-list > li.info-empty .icon-empty-campaignList img{width: 30px; vertical-align: top; margin-left: 25px;}
 
 
 
@@ -2781,7 +2876,6 @@ select.form-control option {cursor: pointer; color: #a8a8a8;}
 .cancel a, .cancel a:hover, .cancel a:active, .cancel a:focus {color: #545454;}
 
 .btn + .cancel {font-size: 16px; font-size: 1.65rem; line-height: 1.1; padding: 15px 0; margin-left: 36px;}
-.form-group.image {position: relative;}
 
 /* estilos mensajes error */
 span.error {
@@ -2930,7 +3024,7 @@ textarea.error,
 .sign h1 {      font-size: 25px; font-size: 2.2rem; margin-top: 0;text-align:center;}
 .sign h2 {font-size: 18px; font-size: 1.8rem; line-height: 1.4; padding: 0;text-align:center;}
 .sign h3 {font-size: 18px; font-size: 1.8rem;text-align:left;}
-.sign .login {margin-top: 20px; margin-bottom: 20px;}
+.sign .login {margin: 20px auto;}
 .sign .login .socialGo .btn.tw,
 .sign .login .socialGo .btn.fb {padding: 15px !important;}
 .sign .login {width: 305px;}
@@ -2944,6 +3038,8 @@ textarea.error,
 .landing + .row.main .onecol .login,
 .landing + .row.main .onecol .socialGo {width: 100%; max-width: 380px; margin: 0 auto 30px; }
 .landing + .row.main .onecol .login {background-color: rgba(0,0,0,.4); padding: 15px 25px 25px 25px;}
+.landing + .row.main .onecol .login p {color:#c6c6c6;}
+.landing + .row.main .onecol .login .form-group:last-child a {/*color:#ff9431;*/}
 .landing + .row.main .onecol .input-lg {height: 50px;}
 .landing + .row.main .onecol .btn.btn-lg {font-size: 21px !important; font-size: 2.1rem !important;}
 .landing + .row.main .onecol .login .cancel {font-size: 21px !important; font-size: 2.1rem !important; color: #c6c6c6 !important;}
@@ -3209,11 +3305,12 @@ textarea.error,
 
 /* estilos para el resize upload image */
 .uploaderImageContainer > div {margin: 0; position: relative;}
-.form-group.image {width: 100%; height: 290px;}
-.form-group.image.perfil {height: 320px;}
+.form-group.image {position: relative;width: 100%; height: auto;}
+.form-group.image.perfil {height: 220px;}
 .form-group.image.perfil .uploaderImageContainer > div {width: 284px;}
-.form-group.image.perfil .qq-upload-drop-area {padding: 52% 20px 20px 20px; height: 284px;}
-.form-group.image.fondoperfil .qq-upload-drop-area {background-size: 100px auto; background-position: center 12%; padding-top: 9%;}
+.form-group.image.perfil .qq-upload-drop-area {padding: 28% 20px 20px 20px; height: 210px; width:210px;}
+.form-group.image.fondoperfil .qq-upload-drop-area {background-size: 100px auto; background-position: center 12%; padding-top: 7%;}
+.form-group.image.fondoperfil {height: 170px;}
 
 /* avatar en config cuadrado */
 .config .uploaderImageContainer.USER_AVATAR > div {height: 390px; max-width:390px; margin: 10px 0 0 0; position: relative;}
@@ -3224,8 +3321,8 @@ textarea.error,
     text-align: center;
     color: #20a2ea;
     text-align: center;
-    padding: 0;
-    height: 30px;
+    padding: 0 !important;
+    height: 31px !important;
 }
 .uploadImage {width:220px; height:220px; margin-right:20px;}
 .qq-upload-button-hover {text-decoration: underline;}
@@ -3244,12 +3341,13 @@ textarea.error,
     border: 1px solid #EFEFEF;
     display: block;
 }
-.uploaderImageContainer.USER_PROFILE .qq-upload-drop-area {height:234px;}
+.uploaderImageContainer.USER_PROFILE .qq-upload-drop-area {height:171px;}
 .uploaderImageContainer.USER_AVATAR .qq-upload-drop-area {height:367px;}
 .uploaderImageContainer.POST_IMAGE .qq-upload-drop-area {height:393px;}
 .uploaderImageContainer.MASS_MAIL_IMAGE .qq-upload-drop-area {height:122px;}
-.uploaderImageContainer.PROJECT_IMAGE .qq-upload-drop-area {height:342px;}
-.uploaderImageContainer.PROJECT_IMAGE > div {height:332px;}
+.uploaderImageContainer.MASS_MAIL_IMAGE > div {height:122px;}
+.uploaderImageContainer.PROJECT_IMAGE .qq-upload-drop-area {height:193px;}
+.uploaderImageContainer.PROJECT_IMAGE > div {height:193px;}
 .button-container {width: 80%; margin: 0 auto; border-radius: 4px; padding: 0;}
 .qq-upload-drop-area-active {
     background-color:#FFF8ED;
@@ -3398,7 +3496,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .modal-register .modal-dialog {width: 290px; margin: 10px auto;}
 .modal-register .modal-dialog .modal-body {padding: 8px;}
 
-.modal-register .modal-dialog .modal-content {height: 295px;}
+.modal-register .modal-dialog .modal-content {height: 305px;}
 
 .modal .input-group-addon,
 .dropdown .input-group-addon {width: 95px;}
@@ -4073,7 +4171,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .politician-list .box-ppal .user .user-type {margin: 0; padding: 0; font-size: 20px; font-size: 2rem; line-height: .9;}
 .politician-list .box-ppal > small {display: block; float: left; width: 50%; margin: 0; padding: 10px; font-size: 18px; font-size: 1.8rem; color: #20A2ea;}
 .politician-list .box-ppal > small .fa {opacity: .5;}
-.politician-list .box-ppal {padding: 0; margin: 0 0 20px 0;}
+.politician-list .box-ppal {padding: 0; margin: 0 0 20px 0;box-shadow: 0 0 2px rgba(200,200,200,0.6);}
 .politician-list .box-ppal .link-wrapper {padding-bottom: 10px;}
 .politician-list .box-ppal .link-wrapper > p {padding: 0 15px; font-size: 13px; font-size: 1.3rem; margin: 0;}
 .politician-list .box-ppal > .pull-right {width: 42%; margin: 0; padding: 10px; font-size: 18px; font-size: 1.8rem; text-align: right;}
@@ -4251,7 +4349,7 @@ fieldset.rating:hover > input + label:hover:before {
 /* CAUSAS */
 .causes-list {margin-top: 0; margin-bottom: 0; padding: 0;}
 .causes-list .link-wrapper .close {margin-top: -2px;}
-.causes-list .box-ppal {padding: 15px 15px 10px 15px; margin-bottom: 20px;}
+.causes-list .box-ppal {padding: 15px 15px 10px 15px; margin-bottom: 20px;box-shadow: 0 0 2px rgba(200,200,200,0.6);}
 .causes-list .causes-tags {margin-bottom: 10px;}
 .causes-list .cause-footer {border-top: 1px solid #e5e5e5; margin-top: 10px; padding: 10px 0 0 0; color: #a8a8a8; font-size: 13px; font-size: 1.3rem;}
 .causes-list .cause-footer .politicians-counter .fa-user {font-size: 16px; font-size: 1.6rem; margin-right: 2px;}
@@ -4502,7 +4600,7 @@ fieldset.rating:hover > input + label:hover:before {
 .config.search > header form ul {list-style: none;}
 .config.search > header ul > li {padding: 15px;}
 .config.search > header form .checkbox {padding: 0; margin: 0; position: relative;}
-.config.search > header form .checkbox input {position: absolute; left: 0; top: 0; float: none; margin: 2px 0 0 0;}
+.config.search > header form .checkbox input {position: absolute; left: 0; top: 0; float: none; margin: -2px 0 0 0;}
 .config.search > header form .checkbox input[type=checkbox]:after {
     display: inline-block;
     content: "\2713";
@@ -4524,16 +4622,18 @@ fieldset.rating:hover > input + label:hover:before {
     color: #545454;
 }
 .config.search label {font-weight: normal; position: relative; padding: 0 0 0 30px;}
+h5#results {margin: 0 0 15px;}
 
 .config.search > article > .clearfix > h1 {font-size: 25px; font-size: 2.5rem; color: #a8a8a8; margin-bottom: 5px;}
 .config.search > article > .clearfix > h1 #term,
 .config.search > article > .clearfix > #results .counter {color: #545454;}
+.config.search section > .box-ppal h5 #term {font-style: italic}
 .config.search > article > .clearfix > #results {color: #a8a8a8;}
 
 .config.search > article .kakareo-list .kakareo .link-wrapper {padding: 22px 15px 15px 15px;}
 .config.search > article .kakareo-list .kakareo .link-wrapper > footer + p {margin: 0; padding: 10px 0 0 0; border-top: 1px solid #dadada;}
 
-.config.search > section > .box-ppal {background-color:transparent; border:none; padding:0px;}
+.config.search > section > .box-ppal {background-color:transparent; border:none; padding:0px; box-shadow:none;}
 .config.search > section > .box-ppal > ul.politician-list li {padding:0px;}
 
 /* páginas de info, listados y errores =========== */
@@ -4630,7 +4730,7 @@ fieldset.rating:hover > input + label:hover:before {
 
 /* configuración =========== */
 /* ====================================================== */
-.config > header .box-ppal {padding: 0;}
+.config > header .box-ppal {padding: 0;box-shadow: 0 0 2px rgba(200,200,200,0.6);}
 .config > header h1 {border-bottom: 1px solid #dadada; padding: 20px 15px 18px; margin: 0;}
 .config > header ul {margin: 0; padding: 0;}
 .config > header ul > li {list-style: none; padding: 15px 20px; margin: 0; border-bottom: 1px solid #dadada; font-size: 1.9rem;}
@@ -4645,6 +4745,15 @@ fieldset.rating:hover > input + label:hover:before {
 .config > header ul > li > a:active > .badge,
 .config > header ul > li.active > a > .badge {background-color: #ffffff; color: #545454;}
 
+.grey-shadow {box-shadow: 0 0 2px rgba(200,200,200,0.6);}
+.config.config > section {margin-bottom:60px;}
+.config.edit-user > section {box-shadow: none; padding: 0 15px 60px; margin: 0;}
+
+.config.search > section {box-shadow: none; margin-bottom:0}
+.config.info.team > section {box-shadow: none; padding: 0 15px; margin-bottom:60px}
+.config.info.team > section>div.box-ppal {box-shadow: none;}
+.config > section > div.box-ppal{margin-bottom:0; box-shadow: 0 0 2px rgba(200,200,200,0.6);}
+.config.config > section > div.box-ppal-title{box-shadow: 0 0 2px rgba(200,200,200,0.6);}
 .config > section .filter-order {margin: 0; padding: 0 0 20px 0; border-bottom: 1px solid #dadada;}
 .config > section .filter-order > li {list-style: none; display: block; margin: 0 4% 0 0; color: #bcbcbc; font-size: 18px; font-size: 1.8rem; text-align: right;}
 .config > section .filter-order > li:first-child {text-align: left;}
@@ -4689,7 +4798,7 @@ fieldset.rating:hover > input + label:hover:before {
 .config .messages-list > li > .link-wrapper > .actions li:last-child {margin: 0;}
 .config .messages-list > li > .link-wrapper > .actions li a {text-decoration: none; color: #a8a8a8;}
 .config .messages-list > li > .link-wrapper > .actions li a .icon2-flame.fa-lg {font-size: 1.7em; line-height: 1.4;}
-.config .messages-list > .box-ppal {padding: 0; margin: 0 0 20px 0;}
+.config .messages-list > .box-ppal {padding: 0; margin: 0 0 20px 0;box-shadow: 0 0 2px rgba(200,200,200,0.6);}
 
 .config form .form-group .prefix {margin-right: 10px; width: 80px;}
 .config form .form-group .phone {width: 192px;}
@@ -4781,16 +4890,18 @@ fieldset.rating:hover > input + label:hover:before {
 
 /* Info */
 .config.info > article {margin-bottom: 20px;}
-.config.info > article > .box-ppal {margin-bottom: 20px; padding: 22px 20px 0;}
+.config.info > article > .box-ppal {margin-bottom: 20px; padding: 22px 20px 0;box-shadow: 0 0 2px rgba(200,200,200,0.6);}
 .config.info > article > .box-ppal > h1 {font-size: 28px; font-size: 2.8rem; padding: 0; margin: 5px 0 15px 0;}
 .config.info > article > .box-ppal > img {margin-bottom: 20px;}
+.config.info > section > div.box-ppal {box-shadow: 0 0 2px rgba(200,200,200,0.6);}
 
 .list-team,
 .list-team ul {margin: 0; padding: 0; list-style: none;}
 .list-team {text-align: center;}
 .list-team > li {width: 100%; margin-bottom: 15px;}
 .list-team > li > .box-ppal > img {width: 140px; height: 140px; border-radius: 70px; border: solid 5px #fff; margin: 0 0 10px 0;}
-.list-team > li > .box-ppal {padding: 20px; margin: 0; /* min-height: 485px; margin: 0 0 10px;*/}
+.list-team > li > .box-ppal > a img.guide {width: 100% !important; height: 100% !important; border-radius: 0 !important; margin: 0 0 17px !important;}
+.list-team > li > .box-ppal {padding: 20px; margin: 0; box-shadow: 0 0 2px rgba(200,200,200,0.6); /* min-height: 485px; margin: 0 0 10px;*/}
 .list-team > li > .box-ppal > h1 {padding: 0; font-size: 33px; font-size: 3.3rem; margin: 0 0 5px 0;}
 .list-team > li > .box-ppal > h2 {padding: 0; font-size: 20px; font-size: 2rem; margin: 0 0 20px 0; color: #a8a8a8;}
 .list-team > li > .box-ppal > p,
@@ -5102,7 +5213,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {border-radiu
 .config.discover header .box-ppal > ul > li .dropdown-menu > li a:focus {text-decoration: none;}
 .config.discover #load-more,
 .config.search #load-more {margin: 0;}
-.config.discover > article > .box-ppal {padding: 22px 15px 0;}
+.config.discover > article > .box-ppal {padding: 22px 15px 0; box-shadow: 0 0 2px rgba(200,200,200,0.6);}
 
 .box-ppal.politician-messages {text-align: center; margin-top: 50px; padding-bottom: 40px;}
 .box-ppal.politician-messages h1 {padding: 0; margin: 0;}
@@ -5186,6 +5297,24 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
 
 
+/* clases para campaign steps ======================================================================================================== */
+/* ======================================================================================================================================== */
+#main > div.box-steps > ul#mails {padding:0;}
+#main > div.box-steps > ul#mails > li a {
+    background-color: #fff;
+    background-repeat: no-repeat;
+    border: 1px solid #a8a8a8;
+    color: #a8a8a8;
+}
+#main > div.box-steps > ul#mails > li.active a{
+    background-color: #fff;
+    background-repeat: no-repeat;
+    border: 1px solid #ff9431;
+    color: #ff9431;
+}
+#main > div.box-steps > ul#mails > li.arrow {color: #a8a8a8;position: relative; top: 20px;}
+#main > div.box-steps > ul#mails > li a:hover{color: #ff9431; border: 1px solid #ff9431;}
+
 
 
 /* clases especiales accesibilidad ======================================================================================================== */
@@ -5214,6 +5343,8 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     padding: 10px;
 } /* en el caso del .first (enlace que va directamente a los contenidos) lo hacemos visible y activo para los que navegan con teclado */
 
+
+#campaignsList > li > span.fa {position: absolute; top:53px; left:8px; font-size:18px;}
 
 
 /* colores =========== */
@@ -5277,11 +5408,22 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
 /* Super small devices (mobile, 480px and down) */
 @media only screen and (max-width: 480px) {
+    section.features > div > div a.btn.btn-sign-up {font-size: 18px !important;}
+    div.fade-carousel > div.content.container .btn {font-size: 22px !important;}
+    .box-ppal#createNewCampaign {margin-bottom: 20px; padding-bottom: 15px;}
+    #mails{padding:0;}
     .carousel.news .carousel-control {top: 30%;}
+    #mails.campaigns {  width: 100% !important; padding:0;}
+    #mails li{  float: none !important;  }
+    #mails li.fontIcon > a{  margin: auto !important;  }
+
+    #main > div.box-steps{background-color: #fff; color:#545454; border: solid 1px #e5e5e5; box-shadow: 0 0 2px rgba(200,200,200,0.6);}
+    #main > div.box-steps{margin-bottom: 25px; padding: 20px 15px 0 15px;}
 }
 
 /* Very small devices (mobile, 480px and up) */
 @media only screen and (min-width: 480px) {
+    .form-group.image.fondoperfil {height:300px;}
     .form-control,
     input[type="text"],
     input[type="number"],
@@ -5294,7 +5436,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     /*#detailsInfoVotes .icons {padding: 0 15px;}*/
     #detailsInfoVotes.autor .table tbody th {width: 170px;}
     #sign .checkbox-inline + .checkbox-inline {margin-left: 10px;}
-    .form-group.image.fondoperfil .qq-upload-drop-area {background-size: auto auto; background-position: center 32%; padding-top: 22%;}
+    .form-group.image.fondoperfil .qq-upload-drop-area {background-size: auto auto; background-position: center 32%; padding-top: 15%;}
     .chat > li .user.author {margin-top: -32px;}
     .listComments > li .user.author {margin-top: -32px;}
     .boxes.vote.drive form,
@@ -5314,7 +5456,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     /* LANDING */
     .main.special.landing .homeSub ul li {width: 50%; height: 110px; line-height: 110px; margin-bottom: 45px;}
     .main.special.profile .homeSub { background-position: center 170px; background-size: 420px auto;}
-    .landing + .row.main .onecol .login .btn.btn-lg {margin-right: 20px;}
+    .landing + .row.main .onecol .login .btn.btn-lg {}
     .main.prices .promo-options > div p.price .currency {left: 95px;}
 
     /* CAMPAIGNS */
@@ -5325,6 +5467,18 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
         background-position: center 12%;
         padding: 4% 0 0;
     }
+
+    #listCampaigns > div.box-ppal{box-shadow: 0 0 2px rgba(200,200,200,0.6); padding:22px 22px 0;}
+    #searchContacts > div.box-ppal{box-shadow: 0 0 2px rgba(200,200,200,0.6);}
+    #main > div.box-ppal.campaign-stats {box-shadow: 0 0 2px rgba(200,200,200,0.6);}
+    #main > div.box-ppal.campaign-new {box-shadow: 0 0 2px rgba(200,200,200,0.6);padding: 22px 15px;}
+    .box-ppal.campaign-new{box-shadow: 0 0 2px rgba(200,200,200,0.6);}
+    .box-ppal.campaign-stats{box-shadow: 0 0 2px rgba(200,200,200,0.6);}
+    #searchContacts > div#listContacts > div.box-ppal.list-contacts {padding: 22px 22px 0;}
+
+    #main > div.box-steps{background-color: #fff; color:#545454; border: solid 1px #e5e5e5; box-shadow: 0 0 2px rgba(200,200,200,0.6);}
+    #main > div.box-steps{margin-bottom: 25px; padding: 20px 15px 0 15px;}
+
     /* DASHBOARD */
     /*#profileInfo > span {margin-top: 50px;}*/
 
@@ -5335,7 +5489,11 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
     .carousel.news .carousel-control {top: 30%;}
 
-    ul.campaign-list li .box-ppal .card-header-photo {height: 250px;}
+    .leader-post h1.title {word-wrap: normal;}
+    .uploaderImageContainer.USER_PROFILE .qq-upload-drop-area {height:234px;}
+    .uploaderImageContainer.USER_PROFILE > div {height:234px;}
+    .uploaderImageContainer.PROJECT_IMAGE .qq-upload-drop-area {height:228px;}
+    .uploaderImageContainer.PROJECT_IMAGE > div {height:228px;}
 }
 @media only screen and (min-width: 533px) {
     #detailsInfoVotes .table tbody th {width: 205px;}
@@ -5366,8 +5524,8 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     /* STATS CAMPAIGNS */
     #tabs-stats-campaign .table td:nth-child(4) {height: 70px;}
 
-
-    ul.campaign-list li .box-ppal .card-header-photo {height: 300px;}
+    .uploaderImageContainer.PROJECT_IMAGE .qq-upload-drop-area {height:297px;}
+    .uploaderImageContainer.PROJECT_IMAGE > div {height:297px;}
 
 }
 
@@ -5393,12 +5551,29 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     #myWidgetLabel {font-size: 34px;}
     #detailsInfoVotes .table tbody th {width: 300px;}
     #detailsInfoVotes.autor .table tbody th {width: 335px;}
-    #contactsList > li {padding: 10px 0 0 140px; min-height: 175px;}
+    #contactsList > li {padding: 10px 0 0 0px; min-height: 175px;}
+
+    #main > div.box-steps > ul#mails.threeSteps {width: 522px}
+    #main > div.box-steps > ul#mails.twoSteps {width: 331px}
+
+    .uploaderImageContainer.PROJECT_IMAGE .qq-upload-drop-area {height:316px;}
+    .uploaderImageContainer.PROJECT_IMAGE > div {height:316px;}
 }
 
 /* Small devices (tablets, 768px and down) */
 @media only screen and (max-width: 767px) {
     .box-order-options .bulk-actions {display: block; width: 100%;}
+
+    #mails.campaigns {width: 36em;}
+
+    #main > div.box-steps #mails.threeSteps {width: auto;}
+
+    .politician-list .box-ppal .card-footer {position:relative; bottom: 0; }
+}
+
+/* Small devices (tablets, 768px and down) */
+@media only screen and (max-width: 998px) {
+    form#pass-forget .form-group {text-align: center;}
 }
 
 /* Small devices (tablets, 768px and up) */
@@ -5479,7 +5654,6 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .box-ppal.profile .activity > li {width: 16%; margin-bottom: 0;}
     .box-ppal.profile .activity > li:nth-child(2) {border-right: 1px solid #dadada;}
     #info-sup-scroll .activity {margin: 0 auto;}
-    .form-group.image {height: 250px;}
     .config .icheckbox_line-orange,
     .config .iradio_line-orange {margin: 0 5px 5px 0;}
     h2.underline {font-size: 25px; font-size: 2.5rem;}
@@ -5533,7 +5707,6 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
     .modal-register.modal form{width: 310px;}
     .modal-register .modal-dialog .modal-body {padding: 20px;}
-    .modal-register .modal-dialog .modal-content {height: 295px;}
 
     .home .play {font-size: 16px; font-size: 1.6rem;text-align: center;}
     .list-project .kakareo.post.ley .laley a {font-size: 18px; font-size: 1.8rem;}
@@ -5567,7 +5740,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
         line-height: 1 !important;
     }
     .btn {
-        padding: 6px 14px !important;
+        padding: 6px 14px 7px !important;
         margin: 0;
         color: #fff !important;
         border-radius: 3px;
@@ -5689,8 +5862,8 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .othersPost #postNav .item {min-height: 107px;}
     .othersPost #postNav > a {padding: 44px 18px;}
     #map {width: 475px; height: 405px;}
-    .popover.tour {width: 385px; max-width: 385px !important; padding: 10px;}
-    .popover.tour .popover-title {font-size: 28px; font-size: 2.8rem; line-height: 1;}
+    .popover.tour {width: 385px; max-width: 385px !important; padding: 15px;}
+    .popover.tour .popover-title {font-size: 2rem; line-height: 1; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;}
     .kakareo footer > ul.actions-kak > li {list-style: none; margin: 0 10px 0 0;}
     .kakareo footer > ul > li.read-later {margin-right: 32px !important;}
     #footer .licenses {margin: 0; width: auto;}
@@ -5794,7 +5967,9 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .header-campaign .qq-upload-drop-area {background-size: 70px auto;}
     .header-campaign #au-uploaderImageId__headerPictureId_NEW_ {height: 128px;}
     #filtersInfo .modal-dialog {width: 560px;}
-    /*fieldset.form-group.new-filter-options > div {padding: 0px 28px 0 0;}*/
+    fieldset.buttons {min-height: 40px; margin-top:0; padding-top:0}
+    .buttons > .text-right > ul.form-final-options {position: absolute; bottom: 25px; right: 25px}
+    fieldset.form-group {min-height: 40px;}
     .new-filter-options > div:first-child > a > .text {display: none;}
     /*.new-filter-options > label.control-label {color: #a8a8a8}*/
     .new-filter-options.last > div:first-child > a > .text {display: inline; margin-left: 5px;}
@@ -5824,13 +5999,15 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     #campaignsList > li {padding: 10px 20px 10px 55px; min-height: 92px;}
     #campaignsList > li > .state {left: 15px;}
     #campaignsList > li > ul.list-campaign-stats {width: 36%; position: absolute; top: 10px; right: 10%; padding: 10px 0 0 10px; margin: 0; border-top: none; border-left: 1px solid #e5e5e5;}
-    #campaignsList > li > ul.list-campaign-stats > li {margin: 0 12px 0 0; width: 24%;}
+    #campaignsList > li > ul.list-campaign-stats > li {margin: 0 12px 0 0; width: 26%;}
     #campaignsList > li > ul.list-campaign-stats > li:last-child {margin: 0;}
     #campaignsList > li > ul.list-campaign-stats > li.recipients {width: 34%;}
     #campaignsList > li > ul.list-campaign-stats > li span {position: relative; min-height: 24px; font-size: 22px; font-size: 2.2rem; margin-bottom: 0;}
     #campaignsList > li > ul.list-campaign-stats > li span:empty {min-width: 100%;}
-    #campaignsList > li > ul.list-campaign-stats > li span.open-number::after,
-    #campaignsList > li > ul.list-campaign-stats > li span.click-number::after {content:'%'; right:-12px; position:absolute; top:2px;}
+    /*#campaignsList > li > ul.list-campaign-stats > li span.open-number::after,
+    #campaignsList > li > ul.list-campaign-stats > li span.click-number::after {content:'%'; right:-12px; position:absolute; top:2px;}*/
+    #campaignsList > li > span.fa {left: 18px;}
+    #campaignsList > li h3 {margin-top: 14px;}
     .campaignDelete, .contactDelete  {right: 5px;}
     .campaignStats, .contactStats, #campaignsList .campaignEdit {right: 28px;}
     .debateItem .campaignStats {right: 58px;}
@@ -5839,7 +6016,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
     /* DASHBOARD (08/2016) */
     #mails {margin: 0 auto; width: 620px; text-align: center;}
-    #mails.campaigns {width: 340px;}
+    #mails.campaigns {width: 510px;}
     .nav-tabs.simple > li {margin-bottom: -1px; margin-right: 1px;}
     .alert-box {height: 54px; padding: 15px;}
     #inviteFriendsModal h4 {font-size: 26px; font-size: 2.6rem;}
@@ -5855,9 +6032,10 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .edit-contact-header > div:first-child .user-img {width: 114px; height: 114px;}
 
     .header-campaign .progress {position: absolute; z-index: 99; margin-top: 64px; margin-left: 21%;}
-    .button-container {padding-top: 15px;}
+    .button-container {padding-top: 7px;}
 
-    ul.campaign-list li .box-ppal .card-header-photo {height: 350px;}
+    .uploaderImageContainer.PROJECT_IMAGE .qq-upload-drop-area {height:268px;}
+    .uploaderImageContainer.PROJECT_IMAGE > div {height:268px;}
 }
 
 /* Medium devices (desktops, 992px and up) */
@@ -5881,7 +6059,6 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .config.search > article > .clearfix > h1 {width: 70%; float: left;}
     .config.search > article > .clearfix > #results {width: 30%; float: right; line-height: 30px; margin: 20px 0 0 0; text-align: right;}
 
-    .form-group.image {height: 325px;}
     #otros-proyectos .kakareo.post > .link-wrapper p,
     .homeSub .kakareo-list.project .kakareo.post > .link-wrapper p,
     .kakareo-list.project .kakareo.post > .link-wrapper p {height: 92px; overflow: hidden; margin-bottom: 10px;}
@@ -5968,8 +6145,8 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .team > section > .box-ppal{padding:0; margin:0; background-color: transparent; border:0}
 
     /*.user-list-followers .user > .actions {float: right; margin: -35px 0 0 0 !important;}*/
-    .user-list-followers .user > .actions .btn.follow{-webkit-border-radius: 0 !important; -moz-border-radius: 0 !important; border-radius: 0 !important; margin: 0 5px 0 0 !important; width: 80px;}
-    .popover-user-header .btn.follow{-webkit-border-radius: 0 !important; -moz-border-radius: 0 !important; border-radius: 0 !important; margin: 13px 0 0 0!important; width: 80px; padding:2px 2px 1px 2px!important;}
+    .user-list-followers .user > .actions .btn.follow{-webkit-border-radius: 2px !important; -moz-border-radius: 2px !important; border-radius: 2px !important; margin: 0 5px 0 0 !important; width: 80px;}
+    .popover-user-header .btn.follow{-webkit-border-radius: 2px !important; -moz-border-radius: 2px !important; border-radius: 2px !important; margin: 9px 0 0 0!important; width: 80px; padding:6px 6px 5px !important;}
 
     .btn.btn-lg.go-for-pass {margin-top: 192px !important; margin-bottom: 60px !important;}
     .arrow2 {right: 24px;}
@@ -6163,19 +6340,22 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
     /* CAMPAIGNS */
     .form-final-options {margin-top: 20px;}
-    .form-final-options > li:first-child {display: block; margin-bottom: 10px;}
+    .form-control-campaign {position: absolute; bottom: 25px; right: 15px;}
+    .form-final-options > li:first-child {display: inline-block; margin-bottom: 10px;}
     .header-campaign .qq-upload-drop-area {background-size: 155px auto; background-position: center 14%;}
     #tabs-new-campaign .textareaContainer textarea {min-height: 349px;}
     #tabs-new-campaign .textareaContainer + div {text-align: left;}
     .form-final-options .btn.btn-blue.inverted {margin: 0;}
     .header-campaign .progress {margin-top: 70px; margin-left: 14%;}
 
-    .form-horizontal .form-group .form-control-campaign {margin-top:-120px;text-align: left;}
+    /*.form-horizontal .form-group .form-control-campaign {margin-top:-120px;text-align: left;}*/
+    /*.form-horizontal .form-group .form-control-campaign {position: absolute;  right: 30px;  bottom: 40px;}*/
 
     /* DASHBOARD */
     /*#profileInfo > span {margin-top: 0; float: right;}*/
     /*#followOthers .user-list-followers .user > .actions {margin-top: -15px !important;}*/
-    .dashboard > div > .box-ppal {min-height: 357px;}
+    .dashboard > div > .box-ppal {min-height: 225px; box-shadow: 0 0 2px rgba(200,200,200,0.6);}
+    .contacts-campaigns h2.campaign-list-title {margin-top: 50px}
 
     /* LIST CONTACTS (08/2016) */
     #boxfiltersContacts .dropdown-menu {min-width: 140px;}
@@ -6183,9 +6363,13 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     /*#contactsOrderOptions.box-order-options > ul {width: 25%;}*/
     /*#contactsOrderOptions.box-order-options > div {width: 28%;}*/
     #contactsList > li > h3, #contactsList > li > p {padding-right: 74%;}
-    .container-lists {position: absolute; right: 0; top: 7px; border-left: 1px solid #e5e5e5; width: 68%; padding: 10px 20px; margin: 0;}
     #contactsList > li {min-height: 105px; padding-top: 15px;}
     .container-lists {width: 63%; padding-bottom: 0;}
+
+    #contactsList > li > .contact-info {padding-top:0px; width:200px; display:inline-block; float: left;}
+    #contactsList > li > .container-lists { border-left: 1px solid #e5e5e5; padding: 0px 20px;display:inline-block; margin:0 0 10px 0;}
+    #contactsList > li > .container-lists  .addTag.off{margin-top:0px;}
+    #contactsList > li .user-img { top: 10px}
 
     /* STATS CAMPAIGNS */
     #tabs-stats-campaign .table thead {display: table-header-group;}
@@ -6198,11 +6382,31 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     #tabs-stats-campaign .table td:nth-child(2), #tabs-stats-campaign .table td:nth-child(3), #tabs-stats-campaign .table td:nth-child(4), #tabs-stats-campaign .table td:nth-child(5),#tabs-stats-campaign .table td:nth-child(6) {text-align: center;}
     #tabs-stats-campaign .table .only-mobile {display: none !important;}
 
-    #contactsList > li > .title > a {display:inline-flex; overflow: hidden;max-width: 10em;}
+    #contactsList > li > .contact-info > .title > a {display:inline-flex; overflow: hidden;max-width: 10em;}
+    #contactsList > li > .contact-info > .title > a + a {text-decoration: none}
+
     #contactsList > li .email .raw-email {display:inline-flex; overflow: hidden;max-width: 12em;}
 
-    ul.campaign-list li:nth-child(even) .box-ppal {margin-left: 15px;}
-    ul.campaign-list li .box-ppal .card-header-photo {height: 195px;}
+    ul.campaign-list {
+        margin-left:-7px;
+        margin-right:-8px;
+    }
+    ul.campaign-list > li .box-ppal{
+        margin-left: 7px;
+        margin-right: 8px;
+    }
+    ul.campaign-list > li > article.box-ppal > div.link-wrapper {height: 375px;}
+    ul.campaign-list > li > article.box-ppal > div.link-wrapper > div.card-footer {position:absolute; bottom:0;}
+    ul.campaign-list > li > article.box-ppal > div.link-wrapper > div.card-footer > ul > li.owner {
+        position: relative;
+        float: left;
+        bottom: 7px;
+    }
+
+    .uploaderImageContainer.PROJECT_IMAGE .qq-upload-drop-area {height:270px;}
+    .uploaderImageContainer.PROJECT_IMAGE > div {height:270px;}
+
+    ul.campaign-list > li.info-empty .icon-empty-campaignList {display:inline-block;}
 }
 
 @media only screen and (min-width: 1024px) {
@@ -6228,7 +6432,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .saveTime li h2 {font-size: 20px; font-size: 1.9rem;}
 
     /* CAMPAIGNS */
-    .form-final-options {margin-top: 50px;}
+    .form-final-options {margin-top: 0px;}
     .form-final-options > li:first-child {display: inline-block; margin-bottom: 0;}
     #campaignsList > li > .state {left: 20px;}
     #campaignsList > li {padding-left: 65px; padding-top: 24px; padding-bottom: 15px;}
@@ -6237,11 +6441,13 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .debateItem .campaignStats {right: 60px;}
     #campaignsList > li > ul.list-campaign-stats {width: 36%;}
     #campaignsList > li h3, #campaignsList > li .name {padding-right: 48%;}
+    #campaignsList > li h3 {margin-top: 0px}
 
     /* NEW / EDIT CONTACT */
     .edit-contact .tab-pane#notes .form-group:last-child {padding-top: 255px;}
 
-
+    .uploaderImageContainer.PROJECT_IMAGE .qq-upload-drop-area {height:310px;}
+    .uploaderImageContainer.PROJECT_IMAGE > div {height:310px;}
 }
 
 /* especial ipad horizontal */
@@ -6303,7 +6509,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
     /* DASHBOARD */
     /*#followOthers .user-list-followers .user > .actions {margin-top: -40px !important;}*/
-    .dashboard > div > .box-ppal {min-height: 348px;}
+    .dashboard > div > .box-ppal {min-height: 225px; box-shadow: 0 0 2px rgba(200,200,200,0.6);}
     /*#profileInfo > span {margin-top: 50px;}*/
 
     /* LIST CONTACTS (08/2016) */
@@ -6322,6 +6528,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .kakareo .wrapper,
     .edit-post .kakareo.post .wrapper,
     .kakareo.post {padding: 22px;}
+    .box-ppal#followOthers {padding: 22px 22px 0;}
 
     .pago {background-size: 342px auto; background-position: center 25px;}
     .embudo #aside-ppal {padding-bottom: 46px;}
@@ -6340,7 +6547,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     /*.boxes.follow .user-list-followers .user > .actions {float: right; margin: -30px 0 0 !important;}*/
     .condition .user-list-followers  > li {width: 47%; float: left;}
     .sign .login .btn + .cancel {margin-left: 34px;}
-    #main {min-height: 674px;}
+    #main {min-height: 650px;}
     .sign h1 {font-size: 42px; font-size: 4.2rem; margin-top: 30px;text-align: left;}
     .sign h2 {font-size: 30px; font-size: 3rem; margin-top: 30px;text-align: left;}
     .sign .login {margin-top: 60px; margin-bottom: 60px;}
@@ -6412,6 +6619,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     /* LIST CONTACTS (08/2016) */
     #boxfiltersContacts ul li .btn {min-width: 0;}
     #boxfiltersContacts .dropdown-menu {min-width: 99px;}
+    #campaignsList > li > span.fa {left: 24px;}
 
 
 
@@ -6543,6 +6751,8 @@ p.party{
 .follow-btn-group .btn.btn-blue.inverted {
     display: inline;
     margin: 0 0 6px 6px;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
 }
 .following{
     margin-bottom: 20px;
@@ -6552,9 +6762,16 @@ p.party{
     margin-right: 6px;
     font-size: 16px;
 }
-.following .fa-check-circle-o:before{
-    content: " | \f05d";
-}
+
+/*Until we show the number of followers, this line is not necessary*/
+/*/!*.following .fa-check-circle-o:before{*!/*/
+    /*/!*content: " | \f05d";*!/*/
+/*}*/
+
+
+fieldset.buttons {min-height: 50px;    margin-top: -20px; padding-bottom: 15px;}
+fieldset.form-group {min-height: 50px;}
+
 
 @media only screen and (max-width: 480px){
     .profile-header img{
@@ -6616,6 +6833,7 @@ p.party{
         font-size: 12px;
         text-align: center;
     }
+
 }
 
 .extra-padding{
@@ -6845,7 +7063,6 @@ hr{
     margin: 0;
     padding: 0;
     text-align: left;
-    margin-top: 18px;
 }
 .panel-share-buttons > li {
     display: inline-block;
@@ -6854,6 +7071,7 @@ hr{
 .panel-share-buttons > li > a:hover{
     color:#b77a17;
 }
+.no-margins{margin:0;}
 .panel-table{
     margin: 0;
 }
@@ -7064,6 +7282,22 @@ hr{
     border-top: 1px solid #9e9e9e;
 }
 
+
+p.email > span.emailAddress{
+    padding-right: 5px;
+}
+
+p.email > span.follower{
+    padding-right: 10px;
+}
+
+p.followers > span.fa:first-child{
+    padding-right: 5px;
+}
+
+#contactsList > li p.email > span.follower + span.emailAddress + span.raw-email{ max-width: 11em; }
+
+
 @media only screen and (max-width: 767px) {
     #political-experience .panel-body{
         padding: 20px 40px 0 60px;
@@ -7148,7 +7382,7 @@ hr{
 .highcharts-title {font-family: 'Georgia', Times, serif;}
 
 
-#politician-bio .center-button {text-align:center;}
+#politician-bio .center-button {text-align:center; margin-top: 12px;}
 #suggested-politicians .container-fluid .center-button {text-align:center;}
 
 /* PSOE modal =========== */
@@ -7269,6 +7503,7 @@ header .header-msg h6:hover{
 #enterTimeZone .modal-footer {margin:0px}
 
 @media only screen and (min-width: 768px){
+    #politician-bio.extra-padding {padding: 0 30px 20px;}
     header h6{
         font-size: 16px;
     }
@@ -7547,6 +7782,7 @@ button.btn-see-more {
     background-color: #FFF;
     border: 1px solid #F0F0F0;
     margin-bottom: 20px;
+    box-shadow: 0 0 2px rgba(200,200,200,0.6);
 }
 
 .leader-post h1.title {
@@ -7557,6 +7793,7 @@ button.btn-see-more {
     color: #333;
     line-height: 1.04;
     margin: 0;
+    word-wrap: break-word;
 }
 
 .leader-post .header {
@@ -7655,10 +7892,11 @@ button.btn-see-more {
 
 .leader-post > .footer .comment-counter .number {
     font-size: 20px;
-    vertical-align: middle;
+    font-family: "Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Arial,sans-serif;
 }
 
 /*** leader-post-stats ***/
+ul.leader-post-stats {box-shadow: 0 0 2px rgba(200,200,200,0.6);}
 .leader-post-stats {
     background-color: #FFF;
     border: 1px solid #F0F0F0;
@@ -7702,7 +7940,12 @@ button.btn-see-more {
 }
 
 ul.proposal-list {margin:0; padding:0;}
-ul.proposal-list li {list-style-type: none;}
+ul.proposal-list li {list-style-type: none; box-shadow: 0 0 2px rgba(200,200,200,0.6);}
+ul.proposal-list ul.social li {list-style-type: none; box-shadow: none;}
+ul.proposal-list ul.icons li {list-style-type: none; box-shadow: none;}
+ul.proposal-list ul.conversation-box-comments-list li {list-style-type: none; box-shadow: none;}
+.comment-box > .user-box,
+ul.proposal-list .comment-box > .comment-proposal > .user-box{margin-bottom: 10px;}
 
 /*** commment-box ***/
 .comment-box {
@@ -7771,27 +8014,72 @@ div [class^='comment-box col-'] {
 .conversation-box-comment .header .user + .time-ago { margin-top: 8px;margin-left: 5px; display:inline-block}
 .conversation-box .header ul {margin:0;}
 
-.conversation-box span.pin-propusal{cursor: default;}
+.conversation-box span.pin-proposal{cursor: default;}
 
-.conversation-box .pin-propusal + .tooltip.bottom .tooltip-arrow {
+.conversation-box button.pin-proposal + .tooltip.bottom .tooltip-arrow {
+    position: relative;
     border-bottom-color: #FF9431;
-    top: -8px;
+    top: -14px;
     left: 50%;
     margin-left: -10px;
     border-width: 0 10px 10px;
     background-color: transparent;
 }
 
-.conversation-box .pin-propusal + .tooltip.bottom {
+.conversation-box span.pin-proposal + .tooltip.bottom .tooltip-arrow {
+    position: relative;
+    border-bottom-color: #FF9431;
+    top: -11px;
+    left: 50%;
+    margin-left: -10px;
+    border-width: 0 10px 10px;
+    background-color: transparent;
+}
+
+p.email > span.fa:first-child + .tooltip.bottom .tooltip-inner,
+p.email > span.fa + .tooltip.bottom .tooltip-inner{
+    position: relative;
+    top: -10px;
+    left: 35%;
+}
+
+p.email > span.emailAddress + .tooltip.bottom .tooltip-arrow{
+    position: relative;
+    top: -10px;
+    left: 47%;
+}
+p.email > span.follower + .tooltip.bottom .tooltip-arrow{
+    position: relative;
+    top: -10px;
+    left: 45%;
+}
+
+.conversation-box button.pin-proposal + .tooltip.bottom {
     background-color: #FF9431;
     opacity: 1;
 }
 
-.conversation-box .pin-propusal + .tooltip.bottom .tooltip-inner {
+.conversation-box span.pin-proposal + .tooltip.bottom {
+    background-color: #FF9431;
+    opacity: 1;
+}
+
+.conversation-box button.pin-proposal + .tooltip.bottom .tooltip-inner {
+    position: relative;
     background-color: #FF9431;
     color: white;
     font-size: 14px;
-    font-family: "Helvetica Neue", Helvetica,Arial,sans-serif !important;;
+    font-family: "Helvetica Neue", Helvetica,Arial,sans-serif !important;
+    top: -5px;
+}
+
+.conversation-box span.pin-proposal + .tooltip.bottom .tooltip-inner {
+    position: relative;
+    background-color: #FF9431;
+    color: white;
+    font-size: 14px;
+    font-family: "Helvetica Neue", Helvetica,Arial,sans-serif !important;
+    top: -5px;
 }
 
 .conversation-box ul {
@@ -7805,8 +8093,8 @@ div [class^='comment-box col-'] {
 }
 
 .conversation-box ul.icons li button,
-.conversation-box ul.icons li .pin-propusal {color: #D0D0D0;}
-.conversation-box ul.icons li .pin-propusal.active {color: #FF9431;}
+.conversation-box ul.icons li .pin-proposal {color: #D0D0D0;}
+.conversation-box ul.icons li .pin-proposal.active {color: #FF9431;}
 
 .conversation-box > .footer .social li a:hover .fa-circle {
     color: #00a3ed;
@@ -7912,8 +8200,10 @@ div [class^='comment-box col-'] {
 }
 
 .conversation-box .footer .comment-counter button:hover,
-.conversation-box .footer .comment-counter button.active {
-    color: #00a3ed;
+.conversation-box .footer .comment-counter button.active,
+.leader-post .footer .comment-counter button.active,
+.link-wrapper .card-footer a.active{
+    color: #00a3ed !important;
     text-decoration: none;
 }
 
@@ -7931,6 +8221,8 @@ div [class^='comment-box col-'] {
     margin-bottom: 20px;
     border-top: 0;
 }
+
+.conversation-box-comments .comment-box {box-shadow:  none;}
 
 .conversation-box-comments button.btn-see-more {
     padding: 25px 20px 10px 20px;
@@ -7987,9 +8279,18 @@ div [class^='comment-box col-'] {
     font-size: 14px;
     color: #D0D0D0;
 }
+.conversation-box-comment .footer .footer-comment-votes{
+    display:inline-block;
+}
 
 .conversation-box-comment .footer .number {
     padding-right: 4px;
+}
+.conversation-box-comment .footer .footer-comment-votes.vote-up .number,
+.conversation-box-comment .footer .footer-comment-votes.vote-down .number,
+.conversation-box-comment .footer .footer-comment-votes.vote-up button.vote-up,
+.conversation-box-comment .footer .footer-comment-votes.vote-down button.vote-down{
+    color: #A8A8A8;
 }
 
 .conversation-box-comments button, .conversation-box-comment .footer button {
@@ -8025,7 +8326,7 @@ div [class^='comment-box col-'] {
     padding-top: 0;
 }
 
-.conversation-box-comments .comment-box .comment-propusal {
+.conversation-box-comments .comment-box .comment-proposal {
     padding-top: 25px;
 }
 
@@ -8051,7 +8352,7 @@ div [class^='comment-box col-'] {
     text-decoration: none;
 }
 
-.conversation-box-comments .comment-box .comment-propusal {
+.conversation-box-comments .comment-box .comment-proposal {
     display: none;
 }
 
@@ -8118,8 +8419,10 @@ div [class^='comment-box col-'] {
     line-height: 40px;
 }
 
-.landing-2 > div.container-fluid > div {
+.landing-2 > div > div {
     font-family:"Helvetica Neue", Helvetica,Arial,sans-serif;
+}
+.landing-2 > div.container-fluid > div {
     overflow: hidden;
 }
 
@@ -8283,6 +8586,16 @@ div [class^='comment-box col-'] {
     background-image: url('../images/landing/corporations-03.jpg');
 }
 
+.fade-carousel .slides .slide-1.landingCorporationsBrands {
+    background-image: url('../images/landing/brands-01.jpg');
+}
+.fade-carousel .slides .slide-2.landingCorporationsBrands {
+    background-image: url('../images/landing/brands-02.jpg');
+}
+.fade-carousel .slides .slide-3.landingCorporationsBrands {
+    background-image: url('../images/landing/brands-03.jpg');
+}
+
 .fade-carousel .slides .slide-1.landingOrganizations {
     background-image: url('../images/landing/organizations-01.jpg');
 }
@@ -8304,6 +8617,7 @@ form.dark {
 .container-overflow-image {
     min-height: 670px;
     text-align: center;
+    overflow-x: hidden;
 }
 
 .container-overflow-image h1 {
@@ -8361,6 +8675,7 @@ form.dark {
 }
 
 @media (max-width: 767px) {
+    #politician-bio.extra-padding {padding: 0 5px;}
     .img-full-container {
         position: static;
         margin: 0 auto;
@@ -8576,9 +8891,14 @@ ul.globus li img {
     .container-overflow-image {
         min-height: 720px;
     }
+
+    ul#mails > li > div.tooltip {
+        display: none !important;
+    }
 }
 
 @media screen and (max-width: 991px) {
+    section.features > div.pull-right {float:none !important;}
     .img-full-container {
         position: relative;
         top: 0;
@@ -8599,6 +8919,16 @@ ul.globus li img {
     header .nav > li > .navbar-link.btn-transparent{
         padding: 6px 9px !important;
     }
+
+    /*ul.campaign-list > li > article.box-ppal > div.link-wrapper {height: 375px;}*/
+    ul.campaign-list > li > article.box-ppal > div.link-wrapper > div.card-footer > ul > li.owner {
+        position: relative;
+        float: left;
+        bottom: 9px;
+    }
+
+
+    .form-control-campaign {position: absolute; bottom: 25px; right: 15px}
 }
 
 @media screen and (max-width: 980px) {
@@ -8724,6 +9054,17 @@ ul.globus li img {
     .case-study .content form .form-group {
         padding-right: 0;
     }
+
+    #main > div.box-steps > ul#mails.twoSteps {width:130px !important;}
+    #main > div.box-steps > ul#mails.threeSteps {width:200px !important;}
+    #main > div.box-steps > ul#mails > li {margin:0;float:left !important;width: 60px !important;}
+    #main > div.box-steps > ul#mails > li.arrow {width: 10px !important; top:0;}
+    #main > div.box-steps > ul#mails > li.arrow .fa{font-size: 1.5em; padding-top: 18px;}
+    #main > div.box-steps > ul#mails > li a {border:none;width: 100%;}
+    #main > div.box-steps > ul#mails > li a:hover {border:none;}
+    #main > div.box-steps > ul#mails > li a .label{display:none;}
+    #main > div.box-steps > ul#mails > li.active a {border:none;}
+
 }
 
 /** Notification **/
@@ -8747,8 +9088,12 @@ ul.globus li img {
 
 .notification-menu > li.user {padding: 0px 20px 15px 20px;  }
 
+.notification-menu > li.user > span > a{
+    float: left;
+}
+
 .notification-menu > li.title + li {
-    padding-top: 20px;
+    padding-top: 5px;
 }
 
 .notification-menu > li.user.new {
@@ -8756,9 +9101,11 @@ ul.globus li img {
 }
 
 .notification-menu > li .notification-text{
-    position:absolute;
+
     line-height: 20px;
     padding-top:5px;
+    display: block;
+
 }
 
 ul.notification-menu > li.see-more {

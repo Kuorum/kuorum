@@ -397,12 +397,13 @@ class KuorumUserService {
      * @param pagination
      * @return
      */
-    List<KuorumUser> recommendPoliticians(KuorumUser user, Pagination pagination = new Pagination()) {
+    List<KuorumUser> recommendUsers(KuorumUser user, Pagination pagination = new Pagination()) {
 
         KuorumUser loggedUser = springSecurityService.getCurrentUser();
         List<ObjectId> filterPoliticians = []
         if (loggedUser){
-            filterPoliticians  = loggedUser.following?:[]
+            filterPoliticians  = []
+            filterPoliticians.addAll(loggedUser.following?:[])
             filterPoliticians << loggedUser.id
             RecommendedUserInfo recommendedUserInfo = RecommendedUserInfo.findByUser(loggedUser)
             if(recommendedUserInfo){
@@ -581,92 +582,69 @@ class KuorumUserService {
         mostActiveUsers
     }
 
-    List<KuorumUser> bestSponsorsEver(Pagination pagination = new Pagination()){
-        bestSponsorsSince(null, pagination)
-    }
-    List<KuorumUser> bestSponsorsSince(Date startDate, Pagination pagination = new Pagination()){
-//Not enought posts this week
-        List<KuorumUser> bestSponsors = []
+    List<KuorumUser> suggestUsers (Pagination pagination = new Pagination(), List<KuorumUser> specialUsersFiltered){
 
-        if (startDate){
-            def bestSponsorsByDate = Cluck.collection.aggregate(
-                    ['$match':[sponsors: ['$exists':1],dateCreated:['$gt':startDate]]],
-                    ['$unwind':'$sponsors'],
-                    ['$group':[_id:'$sponsors.kuorumUserId',total:['$sum':'$sponsors.amount']]],
-                    ['$match':[total:['$gte':1]]],
-                    ['$sort':[total:-1]],
-                    ['$limit':pagination.max]
-            )
-            bestSponsors= bestSponsorsByDate.results().collect{
-                KuorumUser.load(it._id)
+        KuorumUser loggedUser = springSecurityService.getCurrentUser();
+        List<ObjectId> filteredUserIds = []
+        if (loggedUser){
+            filteredUserIds  = []
+            filteredUserIds.addAll(loggedUser.following?:[])
+            filteredUserIds << loggedUser.id
+            RecommendedUserInfo recommendedUserInfo = RecommendedUserInfo.findByUser(loggedUser)
+            if(recommendedUserInfo){
+                filteredUserIds.addAll(recommendedUserInfo.deletedRecommendedUsers)
+            }else{
+                log.warn("User ${loggedUser.name} (${loggedUser.id}) has not calculated recommendedUserInfo")
             }
         }
+        filteredUserIds << specialUsersFiltered.collect{it.id}
 
-        //Not enought sponsor
-        if (bestSponsors.size() < pagination.max){
-            log.info("Buscando los mejores sponsors de la historia de kuorum")
-            BasicDBObject alreadyUsers = new BasicDBObject('$nin', bestSponsors.collect{it.id});
-            def bestSponsorsEver = Cluck.collection.aggregate(
-                    ['$match':[sponsors: ['$exists':1],owner:alreadyUsers]],
-                    ['$unwind':'$sponsors'],
-                    ['$group':[_id:'$sponsors.kuorumUserId',total:['$sum':'$sponsors.amount']]],
-                    ['$match':[total:['$gte':1]]],
-                    ['$sort':[total:-1]],
-                    ['$skip':pagination.offset],
-                    ['$limit':pagination.max]
-            )
-            bestSponsorsEver.results().each{
-                bestSponsors.add(KuorumUser.load(it._id))
-            }
+        com.mongodb.DBCursor search = KuorumUser.collection.find([
+                '_id':['$nin':filteredUserIds],
+                'avatar':['$exists':true]
+        ],[_id:1]).sort([_id:-1]).limit(pagination.max)
+
+        List<KuorumUser> recommendations = []
+        while (search.hasNext()){
+            recommendations << KuorumUser.get(search.next().get("_id"))
         }
-
-        if (bestSponsors.size() < pagination.max){
-            log.warn("Using default sponsors")
-            def userNamesFake = ["eQuo", "PACMA"]
-
-            userNamesFake.each {
-                KuorumUser user = KuorumUser.findByName(it)
-                if (user) bestSponsors.add(user)
-            }
-        }
-        bestSponsors
+        return recommendations;
     }
 
     List<KuorumUser> bestPoliticiansSince(KuorumUser user, List<ObjectId> userFiltered = [], Pagination pagination = new Pagination()){
-        SearchParams searchParams = new SearchParams(pagination.getProperties());
+        SearchParams searchParams = new SearchParams(pagination.getProperties().findAll{k,v->k!="class"});
         searchParams.max +=1
         List<Region> regions;
         String politicalParty = ""
-        if (isPaymentUser(user)){
-            regions = regionService.findUserRegions(user)
-        }else if(user){
-            regions = regionService.findRegionsList(user.professionalDetails?.region)
-            politicalParty = user?.professionalDetails?.politicalParty?:''
-        }else{
-//            regions = [[iso3166_2:"EU-ES"], [iso3166_2:"EU"]]
-        }
+//        if (isPaymentUser(user)){
+//            regions = regionService.findUserRegions(user)
+//        }else if(user){
+//            regions = regionService.findRegionsList(user.professionalDetails?.region)
+//            politicalParty = user?.professionalDetails?.politicalParty?:''
+//        }else{
+////            regions = [[iso3166_2:"EU-ES"], [iso3166_2:"EU"]]
+//        }
         if (regions){
             searchParams.boostedRegions = regions.collect{it.iso3166_2}
 //        searchParams.regionIsoCodes = regions.collect{it.iso3166_2}
         }
-        searchParams.setType(SolrType.POLITICIAN)
+        searchParams.setType(SolrType.KUORUM_USER)
         searchParams.filteredUserIds = userFiltered.collect{it.toString()}
         if (user) searchParams.filteredUserIds << user.id.toString()
-//        List<CauseRSDTO> causes = causesService.findDefendedCauses(user)
-//        if (user?.userType == UserType.POLITICIAN && causes){
-//            String searchCauses = causes*.name.join(" ")
-//            //Se busca a todos los politicos con el * pero se ordena por score aquellos que compartan tag
-//            searchParams.word = "${searchCauses}"
-//        }
-//        if (politicalParty){
-//            searchParams.word = "${politicalParty} ${searchParams.word}"
-//        }
-//        searchParams.word = "${searchParams.word}"
+
         SolrResults results = searchSolrService.search(searchParams)
 
         List<KuorumUser> politicians = results.elements.collect{SolrElement solrElement ->
-            KuorumUser.get(solrElement.getId())
+            KuorumUser politician = KuorumUser.get(solrElement.getId())
+            if (!politician){
+                log.warn("Error suggested user :: ${solrElement.name} | ${solrElement.id}" )
+            }else if (!politician.alias){
+                log.warn("Error suggested user [NO ALIAS]:: ${solrElement.name} | ${solrElement.id}" )
+                politician = null;
+            }
+            politician
         }
+        politicians = politicians.findAll{it}
         return politicians?politicians[0..Math.min(pagination.max-1, politicians.size()-1)]:[]
     }
 
