@@ -5581,7 +5581,6 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 /* Small devices (tablets, 768px and down) */
 @media only screen and (max-width: 998px) {
     form#pass-forget .form-group {text-align: center;}
-    .main.prices .promo-options > div {border: 1px solid #545454 !important;}
 }
 
 /* Small devices (tablets, 768px and up) */
