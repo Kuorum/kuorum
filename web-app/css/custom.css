@@ -3037,6 +3037,8 @@ form#sign {
 
 .sign.purchase h2 {font-size: 16px; font-size: 1.6rem;}
 
+.modal-content .modal-header h4 {margin-bottom: 5px;}
+
 /* entrar /registro landing */
 .landing + .row.main .onecol #main {text-align: center;}
 .landing + .row.main .onecol #main h1 {margin-bottom: 25px;}
@@ -5711,7 +5713,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .sign .login .btn + .cancel {margin-left: 33px;}
 
     .modal-register.modal form{width: 310px;}
-    .modal-register .modal-dialog .modal-body {padding: 20px;}
+    .modal-register .modal-dialog .modal-body {padding: 0px 20px 20px 20px;}
 
     .home .play {font-size: 16px; font-size: 1.6rem;text-align: center;}
     .list-project .kakareo.post.ley .laley a {font-size: 18px; font-size: 1.8rem;}
