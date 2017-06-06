@@ -42,7 +42,7 @@
 
                     </div>
                 </li>
-                <g:render template="/campaigns/cards/campaignsList" model="[debates:debates, posts:posts, showAuthor: showAuthor]" />
+                <g:render template="/campaigns/cards/campaignsList" model="[campaigns:campaigns, showAuthor: showAuthor]" />
             </ul>
             <!-- ver más -->
             <nav:loadMoreLink
