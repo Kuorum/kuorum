@@ -19,6 +19,6 @@
         <div class="contacts-tooltip icons pull-right">
             <g:render template="/contacts/tools/tooltipContactsImport"/>
         </div>
-        <div class="skip-contacts"><g:link mapping="dashboardSkipUploadContacts">skip this</g:link></div>
+        <div class="skip-contacts"><g:link mapping="dashboardSkipUploadContacts"><g:message code="dashboard.payment.noContacts.skipImport"/></g:link></div>
     </div>
 </content>
