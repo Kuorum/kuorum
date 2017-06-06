@@ -5576,6 +5576,8 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     #main > div.box-steps #mails.threeSteps {width: auto;}
 
     .politician-list .box-ppal .card-footer {position:relative; bottom: 0; }
+
+    .main.prices .promo-options > .promo:not(:first-child) {border: 1px solid #545454;}
 }
 
 /* Small devices (tablets, 768px and down) */
