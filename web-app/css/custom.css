@@ -2442,9 +2442,9 @@ video#bgvid {
 
 .main.prices .promo-options > .promo.recomended .discount {font-size: 17px;}
 
-#payment {text-align:center; font-family: Arial, Helvetica, sans-serif;-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; padding-bottom: 60px; margin-bottom: 60px; border: 1px solid #e5e5e5;}
+#payment {text-align:center; font-family: Arial, Helvetica, sans-serif;-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; padding-bottom: 30px;}
 #payment .big-margin-top {margin-top: 60px;}
-#payment > h1 {font-size: 29px; margin-bottom: 15px;}
+#payment > h1 {font-size: 29px; margin-bottom: 15px; padding:0;}
 #payment > p {font-size: 20px; color: #a8a8a8;}
 #payment ul.checklist {list-style: none; padding: 0; font-size: 18px; text-align: left; margin: 0 auto; display: inline-block;}
 
