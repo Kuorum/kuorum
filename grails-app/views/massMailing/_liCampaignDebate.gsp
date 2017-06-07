@@ -12,7 +12,7 @@
     </h3>
     <p class="name">
         <g:message code="${CampaignStatusRSDTO.class.name}.${debate.campaignStatusRSDTO}"/>
-        <input class="timestamp" type="hidden" val="${debate?.datePublished?.time?:'LAST'}" />  %{-- Letters are after than numbers--}%
+        <input class="timestamp" type="hidden" val="${debate?.datePublished?.time?:'LAST'}" />  %{-- Letters after numbers--}%
         <g:if test="${debate.datePublished}">
             <span class="date">
                 (<g:formatDate date="${debate.datePublished}" type="datetime" style="LONG" timeStyle="SHORT" timeZone="${user.timeZone}"/>)
@@ -44,6 +44,11 @@
             <g:set var="modal" value="${debate.newsletter.status == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SCHEDULED ?'modalEditScheduled':''}"/>
             <g:link mapping="debateEditContent" params="${debate.encodeAsLinkProperties()}" role="button" class="campaignEdit ${modal}"><span class="fa fa-edit"></span><span class="sr-only">Edit</span></g:link>
         </li>
+        <g:if test="${debate.newsletter.status != org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT}">
+            <li>
+                <g:link mapping="debateRemove" params="${debate.encodeAsLinkProperties()}"  role="button" class="campaignDelete"><span class="fa fa-trash"></span> <span class="sr-only">Delete</span></g:link>
+            </li>
+        </g:if>
     </ul>
 
     %{-- This delete function is not implemented --}%

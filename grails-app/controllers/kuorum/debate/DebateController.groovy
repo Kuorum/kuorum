@@ -124,7 +124,6 @@ class DebateController {
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def remove(Long debateId) {
-        // TODO: This function is incomplete in other places
         KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
         debateService.removeDebate(loggedUser, debateId)
         render ([msg: "Debate deleted"] as JSON)
