@@ -7,6 +7,7 @@ import kuorum.KuorumFile
 import kuorum.dashboard.DashboardService
 import kuorum.files.FileService
 import kuorum.post.PostService
+import kuorum.users.CookieUUIDService
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
 import kuorum.web.commands.payment.contact.ContactFilterCommand
@@ -43,6 +44,10 @@ class MassMailingController {
     PostService postService
 
     DashboardService dashboardService;
+
+    CustomerService customerService;
+
+    CookieUUIDService cookieUUIDService;
 
     def index() {
 
@@ -91,6 +96,11 @@ class MassMailingController {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         Long campaignId = Long.parseLong(params.campaignId)
         CampaignRSDTO campaignRSDTO = massMailingService.findCampaign(user, campaignId)
+        if (campaignRSDTO == null){
+            flash.error="Campaign not found"
+            redirect(mapping:"politicianCampaigns");
+            return;
+        }
         if (campaignRSDTO.template == CampaignTemplateDTO.HTML || campaignRSDTO.template == CampaignTemplateDTO.PLAIN_TEXT){
             editContentStepText()
             return;
@@ -114,11 +124,13 @@ class MassMailingController {
         command.subject = campaignRSDTO.subject
         command.scheduled = campaignRSDTO.sentOn
         def numberRecipients = getNumberRecipients(campaignRSDTO, user);
+        Boolean validSubscription = customerService.validSubscription(user)
         render view: 'editContentStep',
                 model: [
                         command: command,
                         contentType: templateDTO,
                         campaign: campaignRSDTO,
+                        validSubscription:validSubscription,
                         numberRecipients: numberRecipients]
     }
 
@@ -137,10 +149,12 @@ class MassMailingController {
             command.headerPictureId = kuorumFile?.id
         }
         def numberRecipients = getNumberRecipients(campaignRSDTO, user);
+        Boolean validSubscription = customerService.validSubscription(user)
         render view: 'editContentStep', model: [
                 command: command,
                 contentType: CampaignTemplateDTO.NEWSLETTER,
                 campaign: campaignRSDTO,
+                validSubscription:validSubscription,
                 numberRecipients: numberRecipients]
 
     }
@@ -278,18 +292,26 @@ class MassMailingController {
         Long campaignId = Long.parseLong(params.campaignId)
         def dataSend = saveAndSendContentText(loggedUser, command, campaignId)
 //        flash.message = dataSend.msg
-        redirect(mapping: nextStep, params: [campaignId: dataSend.campaign.id])
+        if (dataSend.goToPaymentProcess){
+            String paymentRedirect = g.createLink(mapping:"politicianMassMailingContent", params:[campaignId: dataSend.campaign.id] )
+            cookieUUIDService.setPaymentRedirect(paymentRedirect)
+            redirect(mapping: "paymentStart")
+        }else{
+            redirect(mapping: nextStep, params: [campaignId: dataSend.campaign.id])
+        }
     }
 
     private def saveAndSendContentText(KuorumUser user, MassMailingContentTextCommand command, Long campaignId = null){
         CampaignRQDTO campaignRQDTO = convertContentToTextCampaign(command, user, campaignId)
 
+        Boolean validSubscription = customerService.validSubscription(user);
+        Boolean goToPaymentProcess = !validSubscription && (command.getSendType()=="SEND" || command.sendType == "SCHEDULED");
         String msg = ""
         CampaignRSDTO savedCampaign = null;
-        if (command.getSendType()=="SEND"){
+        if (validSubscription && command.getSendType()=="SEND"){
             savedCampaign = massMailingService.campaignSend(user, campaignRQDTO, campaignId)
             msg = g.message(code:'tools.massMailing.send.advise', args: [savedCampaign.name])
-        }else if(command.sendType == "SCHEDULED") {
+        }else if(validSubscription && command.sendType == "SCHEDULED") {
             savedCampaign = massMailingService.campaignSchedule(user, campaignRQDTO, command.getScheduled(), campaignId)
             msg = g.message(code: 'tools.massMailing.schedule.advise', args: [savedCampaign.name, g.formatDate(date: savedCampaign.sentOn, type: "datetime", style: "SHORT")])
         }else{
@@ -303,7 +325,7 @@ class MassMailingController {
             msg = g.message(code:'tools.massMailing.saveDraft.adviseTest', args: [savedCampaign.name])
             massMailingService.campaignTest(user, savedCampaign.getId())
         }
-        [msg:msg, campaign:savedCampaign]
+        [msg:msg, campaign:savedCampaign, goToPaymentProcess:goToPaymentProcess]
     }
 
     private CampaignRQDTO convertContentToTextCampaign(MassMailingContentTextCommand command, KuorumUser user, Long campaignId){
