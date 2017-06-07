@@ -1,0 +1,120 @@
+<html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+<head>
+    <g:set var="breadCrumbName">
+        <g:message code="admin.createDebate.title"/>
+    </g:set>
+
+    <title>${breadCrumbName}</title>
+    <meta name="layout" content="paymentPlainLayout">
+    <!-- Schema.org markup for Google+ -->
+    <meta itemprop="name" content="${g.message(code:"kuorum.name")}">
+    <meta itemprop="description" content="${g.message(code:"layout.head.meta.description")}">
+    <meta itemprop="image" content="${resource(dir: 'images', file:'landingSearch-rrss.png', absolute:true)}" />
+    <meta itemprop="image" content="${resource(dir: 'images', file: 'logo@2x.png')}" />
+
+</head>
+
+<content tag="mainContent">
+    %{--<script src="https://js.braintreegateway.com/web/3.16.0/js/client.min.js"></script>--}%
+    %{--<script src="path/to/bower_components/braintree-web/paypal.js"></script>--}%
+    %{--<script src="path/to/bower_components/braintree-web/data-collector.js"></script>--}%
+    <script src="https://js.braintreegateway.com/web/dropin/1.1.0/js/dropin.min.js"></script>
+
+    <h1>Proceed to payment</h1>
+    <p>You have chosen the ${plan.cycleType} plan for €${plan.price}.</p>
+    <g:form mapping="paymentGateway" method="POST" name="payment-options" id="payment-options" role="form">
+        <input type="hidden" name="subscriptionCycle" value="${plan.getCycleType()}"/>
+        <input type="hidden" name="nonce" value=""/>
+        <p class="big-margin-top">Introduce here your discount code:</p>
+        <input type="text" name="promotionalCode" class="code" id="promotionalCode" placeholder="Code" aria-required="true">
+        <p class="note">*The discout will be applied once you complete the payment process.</p>
+        <div class="payment-method" id="payment-method"></div>
+        <a class="btn disabled" id="payment-button">Buy</a>
+        <p class="note">You are accepting the <a class="dark" href="#" target="_blank">service conditions.</a></p>
+    </g:form>
+
+    <script>
+        $(function(){
+            braintree.dropin.create({
+                authorization: '${token}',
+                selector: '#payment-method',
+                locale: 'es_ES',
+                recurring:true,
+                paypal: {
+                    flow: 'vault',
+//                    displayName:'Kuorum Name',
+                    billingAgreementDescription: 'Agreement con mucho texto diciendo que vamos a desplumarte',
+                    billingAgreementCustom: 'Custom AGREEMENT'
+                }
+            }, function (err, instance) {
+//                console.log("########### PAYMENT FORM SUCCESS ##########")
+//                console.log(err)
+//                console.log(instance)
+
+
+                if (instance.isPaymentMethodRequestable()) {
+                    // This will be true if you generated the client token
+                    // with a customer ID and there is a saved payment method
+                    // available to tokenize with that customer.
+//                    console.log("User has a payment already added")
+                    activateButtonPay();
+                }
+
+                instance.on('paymentMethodRequestable', function (event) {
+                    console.log("ADDED TARGET")
+                    if (event.type=="CreditCard"){
+//                        console.log("Activating credit card")
+//                        console.log( $('#payment-button'))
+                        activateButtonPay();
+                    }
+                    if (event.type=="PayPalAccount"){
+                        clickSubmitButton({})
+                    }
+                });
+
+                instance.on('noPaymentMethodRequestable', function (event) {
+//                    console.log('noPaymentMethodRequestable');
+//                    console.log(event);
+                    deactivateButtonPay();
+                });
+
+                function clickSubmitButton(e){
+                    e.preventDefault();
+                    instance.requestPaymentMethod(saveRequestPaymentMethod);
+                }
+
+                function activateButtonPay(){
+                    $('#payment-button').removeClass("disabled");
+                    document.getElementById('payment-button').addEventListener('click', clickSubmitButton);
+                }
+
+                function deactivateButtonPay(){
+                    $('#payment-button').addClass("disabled")
+                    document.getElementById('payment-button').removeEventListener('click',clickSubmitButton)
+
+                }
+            });
+
+
+            function saveRequestPaymentMethod(requestPaymentMethodErr, payload) {
+                // Submit payload.nonce to your server
+//                console.log("SUBMIT PAYLOAD")
+//                console.log(requestPaymentMethodErr)
+//                console.log(payload)
+                var url = '${g.createLink(mapping:'paymentGatewaySavePaymentMethod')}'
+                $.ajax({
+                    method:"POST",
+                    url: url,
+                    data: {nonce: payload.nonce},
+                    success: function (data) {
+                        var $form =$("#payment-options");
+                        console.log("== SUCCESS SAVING PAYMENT METHOD AJAX ==");
+                        $form.find("input[name=nonce]").val(payload.nonce)
+                        $form.submit()
+                    },
+                    dataType: 'json'
+                });
+            }
+        });
+    </script>
+</content>

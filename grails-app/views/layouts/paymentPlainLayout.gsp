@@ -7,9 +7,9 @@
 
     <body>
         <g:render template="/layouts/head"/>
-        <div class="row main">
+        <div class="row main prices">
             <div class="container-fluid">
-                <section id="main" role="main">
+                <section id="payment" class="box-ppal">
                     <g:pageProperty name="page.mainContent"/>
                 </section>
             </div>

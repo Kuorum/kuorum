@@ -73,8 +73,12 @@ class RestKuorumApiService {
         CAUSE_USERS_SUPPORTING  ("/cause/{causeName}/supporting"),
         CAUSE_SUGGESTIONS       ("/cause/suggest"),
 
-        PROMOTIONAL_CODES       ("/promotions/{promotionCode}/"),
-        PROMOTIONAL_CODE_ADD    ("/promotions/{promotionCode}/{userId}"),
+        CUSTOMER_PAYMENT_PLANS  ("/customer/payment/{userId}/plans"),
+        CUSTOMER_PAYMENT_PLAN  ("/customer/payment/{userId}/plans/data"),
+        CUSTOMER_PAYMENT_SUBSCRIPTION  ("/customer/payment/{userId}"),
+        CUSTOMER_PAYMENT_TOKEN  ("/customer/payment/{userId}/paymentMethod"),
+        PROMOTIONAL_CODES       ("/customer/payment/promotions/{promotionCode}/"),
+        PROMOTIONAL_CODE_ADD    ("/customer/payment/promotions/{promotionCode}/{userId}"),
 
         REGION_GET      ("/geolocation/get"),
         REGION_SUGGEST  ("/geolocation/suggest"),

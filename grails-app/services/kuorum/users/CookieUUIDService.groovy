@@ -40,4 +40,18 @@ class CookieUUIDService {
         }
         return userUUID;
     }
+
+    String getPaymentRedirect(){
+        String urlRedirect = cookieService.getCookie(WebConstants.COOKIE_PAYMENT_REDIRECT)
+        return urlRedirect ;
+    }
+
+    void setPaymentRedirect(String urlRedirect){
+        cookieService.setCookie(
+                [name:WebConstants.COOKIE_PAYMENT_REDIRECT,
+                 value:urlRedirect,
+                 maxAge:Integer.MAX_VALUE ,
+                 path:"/",
+                 domain:WebConstants.COOKIE_DOMAIN])
+    }
 }

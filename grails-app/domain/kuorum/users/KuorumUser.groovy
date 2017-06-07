@@ -64,7 +64,9 @@ class KuorumUser {
 
     Notice notice
 
-
+    String brainTreeId
+    String brainTreePaymentToken
+    String brainTreePaymentTokenNonce
     String getFullName(){
         "${name} ${surname?:''}".trim()
     }
@@ -150,6 +152,9 @@ class KuorumUser {
         politicalOffice nullable:true
         careerDetails nullable:true
         politicianExtraInfo nullable:true
+        brainTreeId nullable:true
+        brainTreePaymentToken nullable:true
+        brainTreePaymentTokenNonce nullable:true
     }
 
     static mapping = {

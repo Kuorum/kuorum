@@ -12,6 +12,7 @@ class WebConstants {
     public static final String COUNTRY_CODE_SESSION="countryCode"
 
     public static final String COOKIE_USER_UUID='KUORUM_USER_UUID'
+    public static final String COOKIE_PAYMENT_REDIRECT='KUORUM_PAYMENT_REDIRECT'
     public static final String COOKIE_DOMAIN=".kuorum.org"; // Deprecated
 
     public static final String WEB_FORMAT_DATE="dd/MM/yyyy HH:mm"

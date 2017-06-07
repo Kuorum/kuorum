@@ -2437,16 +2437,17 @@ video#bgvid {
 .main.prices .promo-options > div.recomended .tag:first-letter {font-size: 120%;}
 
 .main.prices .promo-options > .promo {font-size:0; float: none; display: inline-block; padding-bottom: 25px;}
-.main.prices .promo-options > .promo h2, #payment ul.checklist {font-family: 'Georgia', 'Times New Roman', Times, serif;}
+.main.prices .promo-options > .promo h2, #payment ul.checklist {font-family: 'Georgia', 'Times New Roman', Times, serif;text-transform: uppercase}
 .main.prices .promo-options > .promo a.btn {font-size: 21px; padding: 14px 65px !important;}
 .main.prices .promo-options > .promo:not(:first-child) {border-left: none;}
 
-.main.prices .promo-options > .promo.recomended .discount {font-size: 17px;}
+.main.prices .promo-options > .promo.recomended .discount {font-size: 17px; text-transform: uppercase;}
 
-#payment {text-align:center; font-family: Arial, Helvetica, sans-serif;-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; padding-bottom: 30px;}
+#payment {text-align:center; font-family: Arial, Helvetica, sans-serif;-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; padding-bottom: 30px; padding-top: 50px;}
 #payment .big-margin-top {margin-top: 60px;}
 #payment > h1 {font-size: 29px; margin-bottom: 15px; padding:0;}
 #payment > p {font-size: 20px; color: #a8a8a8;}
+#payment > p strong{color: #545454;}
 #payment ul.checklist {list-style: none; padding: 0; font-size: 18px; text-align: left; margin: 0 auto; display: inline-block;}
 
 #payment ul.checklist li > div {display:inline-block;}
@@ -2456,7 +2457,7 @@ video#bgvid {
 #payment form {font-family: 'Georgia', 'Times New Roman', Times, serif;}
 #payment form > p.note {padding-top: 15px; color: #a8a8a8; font-size: 14px;}
 #payment form > input.code {width:250px; height: 48px; padding: 10px; text-align: center; -webkit-border-radius: 5px ;-moz-border-radius: 5px; border-radius: 5px;}
-#payment form > .payment-method {margin-top: 60px; font-family: Arial, Helvetica, sans-serif; font-size: 16px; color: black;}
+#payment form > .payment-method {margin: 60px; font-family: Arial, Helvetica, sans-serif; font-size: 16px; color: black;}
 #payment form > button[type='submit'] {font-size: 21px;padding: 14px 65px !important;width: 255px;height: 55px;}
 #payment form > p.note a.dark {color: #545454;}
 
