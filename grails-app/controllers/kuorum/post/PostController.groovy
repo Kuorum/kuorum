@@ -44,6 +44,13 @@ class PostController {
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def remove(Long postId) {
+        KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
+        postService.removePost(loggedUser, postId)
+        render ([msg: "Post deleted"] as JSON)
+    }
+
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def editSettingsStep(){
         String viewerUid = cookieUUIDService.buildUserUUID()
         KuorumUser postUser = KuorumUser.get(springSecurityService.principal.id)
