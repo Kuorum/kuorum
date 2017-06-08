@@ -14,7 +14,6 @@ import kuorum.util.rest.RestKuorumApiService
 import org.kuorum.rest.model.communication.post.PagePostRSDTO
 import org.kuorum.rest.model.communication.post.PostRDTO
 import org.kuorum.rest.model.communication.post.PostRSDTO
-import org.kuorum.rest.model.pagination.PageRSDTO
 
 @Transactional
 class PostService {
@@ -155,6 +154,18 @@ class PostService {
             postRSDTO = response.data
         }
         return  postRSDTO;
+    }
+
+    Long removePost(KuorumUser user, Long postId) {
+        Map<String, String> params = [userAlias: user.id.toString(), postId: postId.toString()]
+        Map<String, String> query = [:]
+        def response = restKuorumApiService.delete(
+                RestKuorumApiService.ApiMethod.ACCOUNT_POST,
+                params,
+                query
+        )
+
+        postId
     }
 
     /**
