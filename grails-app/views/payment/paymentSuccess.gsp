@@ -1,7 +1,7 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
-    <title><g:message code="funnel.payment.title"/></title>
-    <meta name="layout" content="paymentPlainLayout">
+    <title><g:message code="funnel.subscriptionPaid.title"/></title>
+    <meta name="layout" content="paymentGatewayFunnel">
     <!-- Schema.org markup for Google+ -->
     <meta itemprop="name" content="${g.message(code:"kuorum.name")}">
     <meta itemprop="description" content="${g.message(code:"layout.head.meta.description")}">
@@ -12,8 +12,10 @@
 
 <content tag="mainContent">
 
-    <h1>GREAT</h1>
-    <p>you will be redirect in <span id="remainingSeconds">3</span></p>
+    <h1><g:message code="funnel.subscriptionPaid.title"/> </h1>
+    <h2><g:message code="funnel.subscriptionPaid.description1"/> </h2>
+    <p><g:message code="funnel.subscriptionPaid.description2"/> </p>
+    <p><g:message code="funnel.subscriptionPaid.redirect" args="[3, urlRedirectAfterPay]" encodeAs="raw"/></p>
     <script>
         $(function(){
             var seconds =parseInt($("#remainingSeconds").html());

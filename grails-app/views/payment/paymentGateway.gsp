@@ -5,7 +5,7 @@
     </g:set>
 
     <title>${breadCrumbName}</title>
-    <meta name="layout" content="paymentPlainLayout">
+    <meta name="layout" content="paymentGatewayFunnel">
     <!-- Schema.org markup for Google+ -->
     <meta itemprop="name" content="${g.message(code:"kuorum.name")}">
     <meta itemprop="description" content="${g.message(code:"layout.head.meta.description")}">
@@ -20,17 +20,17 @@
     %{--<script src="path/to/bower_components/braintree-web/data-collector.js"></script>--}%
     <script src="https://js.braintreegateway.com/web/dropin/1.1.0/js/dropin.min.js"></script>
 
-    <h1>Proceed to payment</h1>
-    <p>You have chosen the ${plan.cycleType} plan for €${plan.price}.</p>
+    <h1><g:message code="funnel.payment.gateway.title"/> </h1>
+    <p><g:message code="funnel.payment.gateway.cycle" args="[g.message(code:'org.kuorum.rest.model.payment.SubscriptionCycleDTO.'+plan.cycleType),plan.price]"/></p>
     <g:form mapping="paymentGateway" method="POST" name="payment-options" id="payment-options" role="form">
         <input type="hidden" name="subscriptionCycle" value="${plan.getCycleType()}"/>
         <input type="hidden" name="nonce" value=""/>
-        <p class="big-margin-top">Introduce here your discount code:</p>
+        <p class="big-margin-top"><g:message code="funnel.payment.gateway.discount.title"/></p>
         <input type="text" name="promotionalCode" class="code" id="promotionalCode" placeholder="Code" aria-required="true">
-        <p class="note">*The discout will be applied once you complete the payment process.</p>
+        <p class="note"><g:message code="funnel.payment.gateway.discount.note"/> </p>
         <div class="payment-method" id="payment-method"></div>
-        <a class="btn disabled" id="payment-button">Buy</a>
-        <p class="note">You are accepting the <a class="dark" href="#" target="_blank">service conditions.</a></p>
+        <a class="btn disabled" id="payment-button"><g:message code="funnel.payment.gateway.button"/> </a>
+        <p class="note"><g:message code="register.conditions" args="[g.createLink(mapping: 'footerTermsUse')]"/> </p>
     </g:form>
 
     <script>
@@ -43,8 +43,7 @@
                 paypal: {
                     flow: 'vault',
 //                    displayName:'Kuorum Name',
-                    billingAgreementDescription: 'Agreement con mucho texto diciendo que vamos a desplumarte',
-                    billingAgreementCustom: 'Custom AGREEMENT'
+                    billingAgreementDescription: '${message(code:'funnel.payment.gateway.paypal.agreement')}'
                 }
             }, function (err, instance) {
 //                console.log("########### PAYMENT FORM SUCCESS ##########")
@@ -61,14 +60,15 @@
                 }
 
                 instance.on('paymentMethodRequestable', function (event) {
-                    console.log("ADDED TARGET")
+//                    console.log("ADDED TARGET")
                     if (event.type=="CreditCard"){
 //                        console.log("Activating credit card")
 //                        console.log( $('#payment-button'))
                         activateButtonPay();
                     }
                     if (event.type=="PayPalAccount"){
-                        clickSubmitButton({})
+                        console.log("ADDED PAYPAL")
+                        clickSubmitButton()
                     }
                 });
 
@@ -79,7 +79,11 @@
                 });
 
                 function clickSubmitButton(e){
-                    e.preventDefault();
+                    console.log("Save payemnt method")
+                    if (e!= undefined){
+                        e.preventDefault();
+                    }
+                    console.log("Save payemnt method - 2")
                     instance.requestPaymentMethod(saveRequestPaymentMethod);
                 }
 
@@ -98,7 +102,7 @@
 
             function saveRequestPaymentMethod(requestPaymentMethodErr, payload) {
                 // Submit payload.nonce to your server
-//                console.log("SUBMIT PAYLOAD")
+                console.log("SUBMIT PAYLOAD")
 //                console.log(requestPaymentMethodErr)
 //                console.log(payload)
                 var url = '${g.createLink(mapping:'paymentGatewaySavePaymentMethod')}'

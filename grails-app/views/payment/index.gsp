@@ -1,7 +1,7 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <title><g:message code="funnel.payment.title"/></title>
-    <meta name="layout" content="paymentPlainLayout">
+    <meta name="layout" content="paymentGatewayFunnel">
     <!-- Schema.org markup for Google+ -->
     <meta itemprop="name" content="${g.message(code:"kuorum.name")}">
     <meta itemprop="description" content="${g.message(code:"layout.head.meta.description")}">
