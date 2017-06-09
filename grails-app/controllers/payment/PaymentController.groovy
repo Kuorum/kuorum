@@ -22,6 +22,11 @@ class PaymentController {
 
     def index(){
         KuorumUser user = springSecurityService.currentUser;
+        if (customerService.validSubscription(user)){
+            flash.message="You already has a valid subscription."
+            String urlRedirectAfterPay = cookieUUIDService.getPaymentRedirect()
+            redirect(uri:urlRedirectAfterPay)
+        }
         List<KuorumPaymentPlanDTO> plans = customerService.getUserPaymentPlans(user)
         [
                 plans:plans

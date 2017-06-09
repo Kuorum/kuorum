@@ -26,7 +26,7 @@
         <input type="hidden" name="subscriptionCycle" value="${plan.getCycleType()}"/>
         <input type="hidden" name="nonce" value=""/>
         <p class="big-margin-top"><g:message code="funnel.payment.gateway.discount.title"/></p>
-        <input type="text" name="promotionalCode" class="code" id="promotionalCode" placeholder="Code" aria-required="true">
+        <input type="text" name="promotionalCode" class="code" id="promotionalCode" placeholder="${g.message(code:'funnel.payment.gateway.discount.code.placeHolder')}" aria-required="true">
         <p class="note"><g:message code="funnel.payment.gateway.discount.note"/> </p>
         <div class="payment-method" id="payment-method"></div>
         <a class="btn disabled" id="payment-button"><g:message code="funnel.payment.gateway.button"/> </a>
