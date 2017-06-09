@@ -79,11 +79,10 @@
                 });
 
                 function clickSubmitButton(e){
-                    console.log("Save payemnt method")
                     if (e!= undefined){
                         e.preventDefault();
                     }
-                    console.log("Save payemnt method - 2")
+                    pageLoadingOn();
                     instance.requestPaymentMethod(saveRequestPaymentMethod);
                 }
 
@@ -102,7 +101,8 @@
 
             function saveRequestPaymentMethod(requestPaymentMethodErr, payload) {
                 // Submit payload.nonce to your server
-                console.log("SUBMIT PAYLOAD")
+                pageLoadingOn();
+//                console.log("SUBMIT PAYLOAD")
 //                console.log(requestPaymentMethodErr)
 //                console.log(payload)
                 var url = '${g.createLink(mapping:'paymentGatewaySavePaymentMethod')}'
