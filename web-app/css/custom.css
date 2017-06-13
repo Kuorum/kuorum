@@ -2456,10 +2456,14 @@ video#bgvid {
 
 #payment form {font-family: 'Georgia', 'Times New Roman', Times, serif;}
 #payment form > p.note {padding-top: 15px; color: #a8a8a8; font-size: 14px;}
-#payment form > input.code {width:250px; height: 48px; padding: 10px; text-align: center; -webkit-border-radius: 5px ;-moz-border-radius: 5px; border-radius: 5px;}
-#payment form > .payment-method {margin: 60px; font-family: Arial, Helvetica, sans-serif; font-size: 16px; color: black;}
+#payment form > .payment-method {font-family: Arial, Helvetica, sans-serif; font-size: 16px; color: black;}
 #payment form > button[type='submit'] {font-size: 21px;padding: 14px 65px !important;width: 255px;height: 55px;}
 #payment form > p.note >  a {color: #545454;}
+#payment div.promotionalCodeSet input.code {width:250px; height: 48px; padding: 10px; text-align: center; -webkit-border-radius: 5px ;-moz-border-radius: 5px; border-radius: 5px;}
+#payment div.promotionalCodeSet {display: inline-block}
+#payment fieldset.validate {display: inline-flex}
+#payment fieldset.validate .valid {color: green;}
+#payment div.promotionalCodeSet .focusError {border-color: #BF4343;}
 
 /* PARA EL QUIERO TRASTEAR MÁS DEL DASHBOARD */
 #trasteando {padding: 0 0 40px; color: #a8a8a8;}
@@ -5434,6 +5438,8 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
     #main > div.box-steps{background-color: #fff; color:#545454; border: solid 1px #e5e5e5; box-shadow: 0 0 2px rgba(200,200,200,0.6);}
     #main > div.box-steps{margin-bottom: 25px; padding: 20px 15px 0 15px;}
+
+    #payment div.promotionalCodeSet input.code {margin: 10px 0px;}
 }
 
 /* Very small devices (mobile, 480px and up) */
@@ -5509,6 +5515,8 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .uploaderImageContainer.USER_PROFILE > div {height:234px;}
     .uploaderImageContainer.PROJECT_IMAGE .qq-upload-drop-area {height:228px;}
     .uploaderImageContainer.PROJECT_IMAGE > div {height:228px;}
+
+    #payment form > .payment-method {margin: 60px;}
 }
 @media only screen and (min-width: 533px) {
     #detailsInfoVotes .table tbody th {width: 205px;}

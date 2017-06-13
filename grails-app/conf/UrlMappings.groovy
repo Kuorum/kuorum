@@ -325,11 +325,12 @@ class UrlMappings {
 
         name politicianTeamManagement:                  "/account/team-management" (controller:"politician", action: "betaTesterPage")
 
-        name paymentStart:      "/payment" (controller:"payment")
-        name paymentGateway:    "/payment/gateway" (controller:"payment"){action=[GET:'paymentGateway',POST:'paymentGatewaySubmitSubscription']}
-        name paymentGatewayPlan:"/ajax/payment/gateway/plan" (controller:"payment", action: "getInfoPlan")
-        name paymentGatewaySavePaymentMethod:"/ajax/payment/gateway/paymentMethod" (controller:"payment", action: "savePaymentMethod")
-        name paymentSuccess:    "/payment/success" (controller:"payment", action: 'paymentSuccess')
+        name paymentStart:                              "/payment" (controller:"payment")
+        name paymentGateway:                            "/payment/gateway" (controller:"payment"){action=[GET:'paymentGateway',POST:'paymentGatewaySubmitSubscription']}
+        name paymentGatewayPlan:                        "/ajax/payment/gateway/plan" (controller:"payment", action: "getInfoPlan")
+        name paymentGatewaySavePaymentMethod:           "/ajax/payment/gateway/paymentMethod" (controller:"payment", action: "savePaymentMethod")
+        name paymentSuccess:                            "/payment/success" (controller:"payment", action: 'paymentSuccess')
+        name paymentPromotionalCodeValidation:          "/ajax/payment/promotional-code" (controller: "payment"){action = [POST:"promotionalCodeValidation"]}
 
         "/account/contacts/oauth/$provider/success" (controller: "contactsOAuth", action: "onSuccess")
         "/account/contacts/oauth/$provider/failure" (controller: "contactsOAuth", action: "onFailure")

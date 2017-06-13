@@ -1581,6 +1581,12 @@ $(document).ready(function() {
 
     prepareForms()
 
+    // PAYMENT VALIDATE PROMOTIONAL CODE
+    $('#payment div.promotionalCodeSet a.validateCode').on('click', function(e){
+        e.preventDefault();
+        promotionalCodeValidation();
+    });
+
 });
 
 function prepareForms(){
@@ -1817,4 +1823,26 @@ function modalRegister($form, callback){
     } else {
         pageLoadingOff();
     }
+}
+
+function promotionalCodeValidation(){
+    //$('fieldset.validate .in-progress').removeClass('hidden');
+    var code = $('div.promotionalCodeSet #code').val();
+    var url = $('div.promotionalCodeSet a.validateCode').attr('data-ajaxValidator');
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: {code:code},
+        success: function (data) {
+            if(data.validator){
+                $('div.promotionalCodeSet a.validateCode').addClass('hidden');
+                $('fieldset.validate .valid').removeClass("hidden");
+                $('div.promotionalCodeSet #code').removeClass("focusError");
+                $('form#payment-options input[name=promotionalCode]').attr('value', code);
+            }
+            else{
+                $('div.promotionalCodeSet #code').addClass("focusError");
+            }
+        }
+    });
 }

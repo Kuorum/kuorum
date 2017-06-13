@@ -105,4 +105,9 @@ class PaymentController {
         [urlRedirectAfterPay:urlRedirectAfterPay]
     }
 
+    def promotionalCodeValidation(String code){
+        Boolean validator = promotionalCodeService.checkPromotionalCode(code);
+        render ([validator:validator] as JSON)
+    }
+
 }

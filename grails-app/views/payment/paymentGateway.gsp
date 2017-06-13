@@ -22,11 +22,24 @@
 
     <h1><g:message code="funnel.payment.gateway.title"/> </h1>
     <p><g:message code="funnel.payment.gateway.cycle" args="[g.message(code:'org.kuorum.rest.model.payment.SubscriptionCycleDTO.'+plan.cycleType),plan.price]"/></p>
+
+    <div class="promotionalCodeSet">
+        <p class="big-margin-top"><g:message code="funnel.payment.gateway.discount.title"/></p>
+        <input type="text" name="code" class="code" id="code" placeholder="${g.message(code:'funnel.payment.gateway.discount.code.placeHolder')}" aria-required="true">
+        <fieldset class="validate">
+            <div class="col-xs-12 valid hidden">
+                <span></span><i class="fa fa-check fa-2x"></i>
+            </div>
+        </fieldset>
+        <a class="btn btn-blue validateCode" data-ajaxValidator="${g.createLink(mapping: 'paymentPromotionalCodeValidation')}">
+            <g:message code="funnel.payment.promotionalCode.validate.button"/>
+        </a>
+    </div>
+
     <g:form mapping="paymentGateway" method="POST" name="payment-options" id="payment-options" role="form">
         <input type="hidden" name="subscriptionCycle" value="${plan.getCycleType()}"/>
         <input type="hidden" name="nonce" value=""/>
-        <p class="big-margin-top"><g:message code="funnel.payment.gateway.discount.title"/></p>
-        <input type="text" name="promotionalCode" class="code" id="promotionalCode" placeholder="${g.message(code:'funnel.payment.gateway.discount.code.placeHolder')}" aria-required="true">
+        <input type="hidden" name="promotionalCode" value=""/>
         <p class="note"><g:message code="funnel.payment.gateway.discount.note"/> </p>
         <div class="payment-method" id="payment-method"></div>
         <a class="btn disabled" id="payment-button"><g:message code="funnel.payment.gateway.button"/> </a>
