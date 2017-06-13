@@ -1,10 +1,6 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
-    <g:set var="breadCrumbName">
-        <g:message code="admin.createDebate.title"/>
-    </g:set>
-
-    <title>${breadCrumbName}</title>
+    <title><g:message code="funnel.payment.title"/></title>
     <meta name="layout" content="paymentGatewayFunnel">
     <!-- Schema.org markup for Google+ -->
     <meta itemprop="name" content="${g.message(code:"kuorum.name")}">
