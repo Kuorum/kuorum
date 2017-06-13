@@ -20,10 +20,10 @@
     <div class="promo-options clearfix">
         <g:each in="${plans}" var="plan"><div class="col-xs-12 col-sm-5 col-md-3 promo ${plan.discount?'recomended':''}">
                 <g:if test="${plan.discount}">
-                    <span class="tag">${plan.discount}% <span class="discount"><g:message code="funnel.payment.cycleType.discount"/></span></span>
+                    <span class="tag"><g:formatNumber number="${plan.discount}" format="#"/>% <span class="discount"><g:message code="funnel.payment.cycleType.discount"/></span></span>
                 </g:if>
                 <h2><g:message code="org.kuorum.rest.model.payment.SubscriptionCycleDTO.${plan.cycleType}"/></h2>
-                <p class="price"><span class="amount"><g:formatNumber number="${plan.monthlyPrice}" maxFractionDigits="0"/></span>€/month</p>
+                <p class="price"><span class="amount"><g:formatNumber number="${plan.monthlyPrice}" format="#"/></span>€/month</p>
                 <g:link mapping="paymentGateway" params="[subscriptionCycle:plan.cycleType]" class="btn"><g:message code="funnel.payment.cycleType.submit"/></g:link>
         </div></g:each>
     </div>
