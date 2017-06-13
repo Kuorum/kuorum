@@ -102,6 +102,9 @@ class PaymentController {
 
     def paymentSuccess(){
         String urlRedirectAfterPay = cookieUUIDService.getPaymentRedirect()
+        if(!urlRedirectAfterPay){
+            urlRedirectAfterPay = g.createLink(mapping: 'home')
+        }
         [urlRedirectAfterPay:urlRedirectAfterPay]
     }
 
