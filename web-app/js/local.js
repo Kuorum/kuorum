@@ -1838,6 +1838,7 @@ function promotionalCodeValidation(){
                 $('div.promotionalCodeSet a.validateCode').addClass('hidden');
                 $('fieldset.validate .valid').removeClass("hidden");
                 $('div.promotionalCodeSet #code').removeClass("focusError");
+                $('div.promotionalCodeSet #code').addClass("focusValid");
                 $('form#payment-options input[name=promotionalCode]').attr('value', code);
             }
             else{

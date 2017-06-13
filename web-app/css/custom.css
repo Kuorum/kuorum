@@ -2465,6 +2465,7 @@ video#bgvid {
 #payment fieldset.validate {display: inline-flex}
 #payment fieldset.validate .valid {color: green;}
 #payment div.promotionalCodeSet .focusError {border-color: #BF4343;}
+#payment div.promotionalCodeSet .focusValid {border-color: green;}
 
 #payment div.payment-method .braintree-placeholder{  display: none;  }
 #payment div.payment-method .braintree-option__label{  position: absolute;  margin-left: -15px;  }
