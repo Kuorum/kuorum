@@ -2434,10 +2434,11 @@ video#bgvid {
 .main.prices .promo-options > div.recomended h2,
 .main.prices .promo-options > div.recomended .tag {background-color: #6e6e6e;}
 .main.prices .promo-options > div.recomended .tag {color: #fff; font-size: 14px; font-size: 1.4rem; text-transform: uppercase; font-family: Arial,Helvetica,sans-serif; text-align: center; line-height: 2.5; display: block; letter-spacing: 1px;}
-.main.prices .promo-options > div.recomended .tag:first-letter {font-size: 120%;}
+/*.main.prices .promo-options > div.recomended .tag:first-letter {font-size: 120%;}*/
 
 .main.prices .promo-options > .promo {font-size:0; float: none; display: inline-block; padding-bottom: 25px;}
-.main.prices .promo-options > .promo h2, #payment ul.checklist {font-family: 'Georgia', 'Times New Roman', Times, serif;text-transform: uppercase}
+.main.prices .promo-options > .promo h2{font-family: 'Georgia', 'Times New Roman', Times, serif; text-transform: uppercase;}
+#payment ul.checklist {font-family: 'Georgia', 'Times New Roman', Times, serif;}
 .main.prices .promo-options > .promo a.btn {font-size: 21px; padding: 14px 65px !important;}
 .main.prices .promo-options > .promo:not(:first-child) {border-left: none;}
 
