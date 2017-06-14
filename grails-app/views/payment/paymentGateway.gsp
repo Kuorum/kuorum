@@ -8,6 +8,11 @@
     <meta itemprop="image" content="${resource(dir: 'images', file:'landingSearch-rrss.png', absolute:true)}" />
     <meta itemprop="image" content="${resource(dir: 'images', file: 'logo@2x.png')}" />
 
+    <style>
+        [data-braintree-id="choose-a-way-to-pay"] {
+            position: relative;
+        }
+    </style>
 </head>
 
 <content tag="mainContent">
@@ -130,4 +135,5 @@
             }
         });
     </script>
+
 </content>
