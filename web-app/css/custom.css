@@ -1335,6 +1335,16 @@ div.tagsinput {border:1px solid #DDDDDD;}
     border-width: 11px;
     margin-left: -11px;
 }
+
+#saveFilterAsPopUp {
+    width: inherit;
+}
+
+#saveFilterAsPopUp input#newFilterName {
+    float: left;
+    width: auto;
+}
+
 #filtersInfo .modal-content {padding: 10px;}
 #filtersInfo .modal-header, #campaignConfirm .modal-header  {border: none;}
 #filtersInfo .modal-header h4, #campaignConfirm .modal-header h4 {font-size: 22px; margin: 0 0 10px 0; font-variant: normal; font-weight: normal; text-align: center;}
