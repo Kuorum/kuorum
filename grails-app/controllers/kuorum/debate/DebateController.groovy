@@ -120,7 +120,7 @@ class DebateController {
         Long debateId = params.debateId?Long.parseLong(params.debateId):null
         Map<String, Object> resultDebate = saveAndSendDebateContent(user, command, debateId)
         if (resultDebate.goToPaymentProcess){
-            String paymentRedirect = g.createLink(mapping:"politicianMassMailingContent", params:[campaignId: dataSend.campaign.id] )
+            String paymentRedirect = g.createLink(mapping:"politicianMassMailingContent", params:resultDebate.debate.encodeAsLinkProperties()] )
             cookieUUIDService.setPaymentRedirect(paymentRedirect)
             redirect(mapping: "paymentStart")
         }else {
