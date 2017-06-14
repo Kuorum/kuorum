@@ -52,7 +52,8 @@ class PaymentController {
         String token = customerService.getPaymentToken(user)
         [
                 plan:plan,
-                token:token
+                token:token,
+                locale: user.getLanguage().locale
         ]
     }
 

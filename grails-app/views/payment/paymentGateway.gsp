@@ -52,7 +52,7 @@
             braintree.dropin.create({
                 authorization: '${token}',
                 selector: '#payment-method',
-                locale: 'es_ES',
+                locale: '${locale.toString()}',
                 recurring:true,
                 paypal: {
                     flow: 'vault',
