@@ -1,6 +1,5 @@
 
 function SortCampaigns() {
-
     var that = this;
     var campaignList = $('.politician-card ul.campaign-list, .dashboard ul.campaign-list');
 
@@ -9,7 +8,16 @@ function SortCampaigns() {
         sort: function(a, b){
             var aTime = $(a).find('.link-wrapper').attr('data-datepublished');
             var bTime = $(b).find('.link-wrapper').attr('data-datepublished');
-            return aTime==undefined ? bTime.localeCompare(aTime):0;
+            if(aTime != undefined && bTime != undefined){
+                return bTime.localeCompare(aTime);
+            }
+            if(aTime == undefined && bTime != undefined){
+                return -1;
+            }
+            if(bTime == undefined && aTime != undefined){
+                return 1;
+            }
+            return 0;
         },
         filter: function (e) {
             $('ul.campaign-list li').removeClass('hide');
