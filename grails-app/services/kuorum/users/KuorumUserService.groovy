@@ -28,6 +28,7 @@ import org.bson.types.ObjectId
 import org.codehaus.groovy.grails.commons.GrailsApplication
 import org.codehaus.groovy.grails.web.json.JSONElement
 import org.springframework.security.access.prepost.PreAuthorize
+import payment.CustomerService
 
 @Transactional
 class KuorumUserService {
@@ -42,6 +43,7 @@ class KuorumUserService {
     CausesService causesService
     KuorumUserAuditService kuorumUserAuditService
     RestKuorumApiService restKuorumApiService
+    CustomerService customerService
 
 
     GrailsApplication grailsApplication
@@ -667,6 +669,7 @@ class KuorumUserService {
             throw new KuorumException("Error desactivando un usuario")
         }                   
         indexSolrService.delete(user);
+        customerService.removeSubscription(user)
     }
 
     @Deprecated

@@ -21,6 +21,7 @@ import org.kuorum.rest.model.contact.ContactPageRSDTO
 import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
 import org.kuorum.rest.model.contact.filter.FilterRDTO
 import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
+import payment.CustomerService
 import payment.campaign.DebateService
 import payment.campaign.ProposalService
 import payment.contact.ContactService
@@ -37,6 +38,7 @@ class DebateController {
     DebateService debateService
     ProposalService proposalService
     CookieUUIDService cookieUUIDService
+    CustomerService customerService
 
     def show() {
         String viewerId = cookieUUIDService.buildUserUUID()
@@ -117,9 +119,14 @@ class DebateController {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         Long debateId = params.debateId?Long.parseLong(params.debateId):null
         Map<String, Object> resultDebate = saveAndSendDebateContent(user, command, debateId)
-
-        //flash.message = resultDebate.msg.toString()
-        redirect mapping: nextStep, params:resultDebate.debate.encodeAsLinkProperties()
+        if (resultDebate.goToPaymentProcess){
+            String paymentRedirect = g.createLink(mapping:"debateEditContent", params:resultDebate.debate.encodeAsLinkProperties() )
+            cookieUUIDService.setPaymentRedirect(paymentRedirect)
+            redirect(mapping: "paymentStart")
+        }else {
+            //flash.message = resultDebate.msg.toString()
+            redirect mapping: nextStep, params: resultDebate.debate.encodeAsLinkProperties()
+        }
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
@@ -202,6 +209,9 @@ class DebateController {
                                                   Long debateId = null) {
         DebateRDTO debateRDTO = convertCommandContentToDebate(command, user, debateId)
 
+        Boolean validSubscription = customerService.validSubscription(user);
+        Boolean goToPaymentProcess = !validSubscription && command.publishOn;
+
         String msg
         DebateRSDTO savedDebate
         if (command.publishOn) {
@@ -222,7 +232,7 @@ class DebateController {
             msg = g.message(code:'tools.massMailing.saveDraft.advise', args: [savedDebate.title])
         }
 
-        [msg: msg, debate: savedDebate]
+        [msg: msg, debate: savedDebate,goToPaymentProcess:goToPaymentProcess]
     }
 
     private DebateRDTO convertCommandSettingsToDebate(DebateSettingsCommand command, KuorumUser user, FilterRDTO anonymousFilter, Long debateId) {

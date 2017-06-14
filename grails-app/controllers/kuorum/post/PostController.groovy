@@ -18,6 +18,7 @@ import org.kuorum.rest.model.communication.post.PostRSDTO
 import org.kuorum.rest.model.contact.ContactPageRSDTO
 import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
 import org.kuorum.rest.model.contact.filter.FilterRDTO
+import payment.CustomerService
 import payment.contact.ContactService
 
 class PostController {
@@ -29,6 +30,7 @@ class PostController {
     ContactService contactService
     PostService postService
     CookieUUIDService cookieUUIDService
+    CustomerService customerService
 
     def show() {
         String viewerUid = cookieUUIDService.buildUserUUID()
@@ -96,9 +98,14 @@ class PostController {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         Long postId = params.postId?Long.parseLong(params.postId):null
         Map<String, Object> resultPost = saveAndSendPostContent(user, command, postId)
-
-        //flash.message = resultPost.msg.toString()
-        redirect mapping: nextStep, params:resultPost.post.encodeAsLinkProperties()
+        if (resultPost.goToPaymentProcess){
+            String paymentRedirect = g.createLink(mapping:"postEditContent", params:resultPost.post.encodeAsLinkProperties() )
+            cookieUUIDService.setPaymentRedirect(paymentRedirect)
+            redirect(mapping: "paymentStart")
+        }else {
+            //flash.message = resultPost.msg.toString()
+            redirect mapping: nextStep, params: resultPost.post.encodeAsLinkProperties()
+        }
     }
 
     private def postModelSettings(PostSettingsCommand command, PostRSDTO postRSDTO) {
@@ -177,6 +184,8 @@ class PostController {
         PostRDTO postRDTO = convertCommandContentToPost(command, user, postId)
 
         PostRSDTO savedPost = null
+        Boolean validSubscription = customerService.validSubscription(user);
+        Boolean goToPaymentProcess = !validSubscription && command.publishOn;
         if(command.publishOn){
             // Published or Scheduled
             savedPost = postService.savePost(user, postRDTO, postId)
@@ -212,7 +221,7 @@ class PostController {
             ])
         }
 
-        [msg: msg, post: savedPost]
+        [msg: msg, post: savedPost, goToPaymentProcess:goToPaymentProcess]
 
     }
 
