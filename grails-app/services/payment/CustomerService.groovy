@@ -69,6 +69,17 @@ class CustomerService {
         response.data
     }
 
+    void removeSubscription(KuorumUser user){
+        Map<String, String> params = [userId:user.id.toString()]
+        Map<String, String> query = [:]
+        def response = restKuorumApiService.delete(
+                RestKuorumApiService.ApiMethod.CUSTOMER_PAYMENT_SUBSCRIPTION,
+                params,
+                query,
+                null
+        )
+    }
+
     List<KuorumPaymentPlanDTO> getUserPaymentPlans(KuorumUser user){
         Map<String, String> params = [userId:user.id.toString()]
         Map<String, String> query = [:]
