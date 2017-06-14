@@ -50,6 +50,13 @@
     <script>
         $(function(){
             gtmPaymentEvent("payment-page-loaded")
+
+            // PAYMENT VALIDATE PROMOTIONAL CODE
+            $('#payment div.promotionalCodeSet a.validateCode').on('click', function(e){
+                e.preventDefault();
+                promotionalCodeValidation();
+            });
+
             braintree.dropin.create({
                 authorization: '${token}',
                 selector: '#payment-method',
@@ -141,6 +148,34 @@
                 });
             }
         });
+
+
+        function promotionalCodeValidation(){
+            //$('fieldset.validate .in-progress').removeClass('hidden');
+            var code = $('div.promotionalCodeSet #code').val();
+            var url = $('div.promotionalCodeSet a.validateCode').attr('data-ajaxValidator');
+            gtmPaymentEvent("payment-button-validate-code-click")
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: {code:code},
+                success: function (data) {
+                    if(data.validator){
+                        $('div.promotionalCodeSet a.validateCode').addClass('hidden');
+                        $('fieldset.validate .valid').removeClass("hidden");
+                        $('div.promotionalCodeSet #code').removeClass("focusError");
+                        $('div.promotionalCodeSet #code').addClass("focusValid");
+                        $('form#payment-options input[name=promotionalCode]').attr('value', code);
+                        gtmPaymentEvent("payment-button-validate-code-success")
+                    }
+                    else{
+                        gtmPaymentEvent("payment-button-validate-code-error")
+                        $('div.promotionalCodeSet #code').addClass("focusError");
+                    }
+                }
+            });
+        }
+
         function gtmPaymentEvent(step){
             if (typeof(dataLayer) != "undefined"){
                 dataLayer.push({
