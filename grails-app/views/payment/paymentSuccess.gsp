@@ -30,6 +30,14 @@
                     setTimeout(decreaseSeconds, 1000);
                 }
             }
+
+            if (typeof(dataLayer) != "undefined"){
+                dataLayer.push({
+                    'event': 'payment',
+                    'pageCategory':'payment-success',
+                    'label':'success'
+                })
+            }
         })
     </script>
 </content>

@@ -49,6 +49,14 @@
 
     <script>
         $(function(){
+            gtmPaymentEvent("payment-page-loaded")
+
+            // PAYMENT VALIDATE PROMOTIONAL CODE
+            $('#payment div.promotionalCodeSet a.validateCode').on('click', function(e){
+                e.preventDefault();
+                promotionalCodeValidation();
+            });
+
             braintree.dropin.create({
                 authorization: '${token}',
                 selector: '#payment-method',
@@ -64,12 +72,13 @@
 //                console.log(err)
 //                console.log(instance)
 
-
+                gtmPaymentEvent("payment-platform-loaded")
                 if (instance.isPaymentMethodRequestable()) {
                     // This will be true if you generated the client token
                     // with a customer ID and there is a saved payment method
                     // available to tokenize with that customer.
 //                    console.log("User has a payment already added")
+                    gtmPaymentEvent("payment-readyOnLoad")
                     activateButtonPay();
                 }
 
@@ -78,10 +87,11 @@
                     if (event.type=="CreditCard"){
 //                        console.log("Activating credit card")
 //                        console.log( $('#payment-button'))
+                        gtmPaymentEvent("payment-valid-creditCard")
                         activateButtonPay();
                     }
                     if (event.type=="PayPalAccount"){
-                        console.log("ADDED PAYPAL")
+                        gtmPaymentEvent("payment-valid-paypal")
                         clickSubmitButton()
                     }
                 });
@@ -96,11 +106,13 @@
                     if (e!= undefined){
                         e.preventDefault();
                     }
+                    gtmPaymentEvent("payment-button-submit")
                     pageLoadingOn();
                     instance.requestPaymentMethod(saveRequestPaymentMethod);
                 }
 
                 function activateButtonPay(){
+                    gtmPaymentEvent("payment-button-active")
                     $('#payment-button').removeClass("disabled");
                     document.getElementById('payment-button').addEventListener('click', clickSubmitButton);
                 }
@@ -119,6 +131,7 @@
 //                console.log("SUBMIT PAYLOAD")
 //                console.log(requestPaymentMethodErr)
 //                console.log(payload)
+                gtmPaymentEvent("payment-button-saving-paymentMethod")
                 var url = '${g.createLink(mapping:'paymentGatewaySavePaymentMethod')}'
                 $.ajax({
                     method:"POST",
@@ -128,12 +141,52 @@
                         var $form =$("#payment-options");
                         console.log("== SUCCESS SAVING PAYMENT METHOD AJAX ==");
                         $form.find("input[name=nonce]").val(payload.nonce)
+                        gtmPaymentEvent("payment-button-submit-subscription")
                         $form.submit()
                     },
                     dataType: 'json'
                 });
             }
         });
+
+
+        function promotionalCodeValidation(){
+            //$('fieldset.validate .in-progress').removeClass('hidden');
+            var code = $('div.promotionalCodeSet #code').val();
+            var url = $('div.promotionalCodeSet a.validateCode').attr('data-ajaxValidator');
+            gtmPaymentEvent("payment-button-validate-code-click")
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: {code:code},
+                success: function (data) {
+                    if(data.validator){
+                        $('div.promotionalCodeSet a.validateCode').addClass('hidden');
+                        $('fieldset.validate .valid').removeClass("hidden");
+                        $('div.promotionalCodeSet #code').removeClass("focusError");
+                        $('div.promotionalCodeSet #code').addClass("focusValid");
+                        $('form#payment-options input[name=promotionalCode]').attr('value', code);
+                        gtmPaymentEvent("payment-button-validate-code-success")
+                    }
+                    else{
+                        gtmPaymentEvent("payment-button-validate-code-error")
+                        $('div.promotionalCodeSet #code').addClass("focusError");
+                    }
+                }
+            });
+        }
+
+        function gtmPaymentEvent(step){
+            if (typeof(dataLayer) != "undefined"){
+                dataLayer.push({
+                    'event': 'payment',
+                    'pageCategory':'payment-gateway',
+                    'label':step,
+                    'amount':${plan.price},
+                    'cycle':'${plan.getCycleType()}'
+                })
+            }
+        }
     </script>
 
 </content>

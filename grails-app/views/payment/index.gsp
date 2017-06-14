@@ -24,9 +24,30 @@
                 </g:if>
                 <h2><g:message code="org.kuorum.rest.model.payment.SubscriptionCycleDTO.${plan.cycleType}"/></h2>
                 <p class="price"><span class="amount"><g:formatNumber number="${plan.monthlyPrice}" format="#"/></span>€/month</p>
-                <g:link mapping="paymentGateway" params="[subscriptionCycle:plan.cycleType]" class="btn"><g:message code="funnel.payment.cycleType.submit"/></g:link>
+                <g:link mapping="paymentGateway" params="[subscriptionCycle:plan.cycleType]" class="btn" data-planCycle="${plan.cycleType}"><g:message code="funnel.payment.cycleType.submit"/></g:link>
         </div></g:each>
     </div>
+
+    <script>
+        $(function(){
+            gtmPaymentEvent("choose-plan-cycle-loaded")
+            $(".promo-options a.btn").on("click",function(e){
+                var $a = $(this)
+                var planCycle = $a.attr("data-planCycle")
+                gtmPaymentEvent("choosed-plan-cycle-"+planCycle)
+            })
+        })
+
+        function gtmPaymentEvent(step){
+            if (typeof(dataLayer) != "undefined"){
+                dataLayer.push({
+                    'event': 'payment',
+                    'pageCategory':'payment-choose-plan-cycle',
+                    'label':step
+                })
+            }
+        }
+    </script>
 
     <ul class="checklist">
         <li>
