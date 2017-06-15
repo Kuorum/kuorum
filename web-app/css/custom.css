@@ -1393,7 +1393,7 @@ div.tagsinput {border:1px solid #DDDDDD;}
 
 .form-final-options #selectDate .input-group {margin-bottom: 15px;}
 .form-final-options #selectDate .btn {display: block; width: 100%;}
-.form-final-options #selectDate .input-group-addon {border: none; background-color: transparent;}
+.form-final-options #selectDate .input-group-addon {border: none; background-color: transparent; cursor:pointer;}
 
 #tabs-new-campaign #toFilters > div:nth-child(2) {line-height: 36px; font-size: 16px; font-size: 1.6rem;}
 #toFilters > div:nth-child(3) .input-group .btn.search {line-height: 1.2; height: 34px; border-width: 1px; margin-left: -1px !important; z-index: 9;}
