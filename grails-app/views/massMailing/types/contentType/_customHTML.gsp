@@ -25,7 +25,7 @@
     </fieldset>
 
     <fieldset class="form-group">
-        <label for="text" class="col-sm-2 col-md-1 control-label">Upload fotos:</label>
+        <label for="text" class="col-sm-2 col-md-1 control-label"><g:message code="uploader.multiImage.replaceImages.upload"/></label>
         <div class="col-sm-8 col-md-7  uploadCampaignImages">
             <formUtil:uploadCampaignImages campaign="${[id:campaign.id]}"/>
         </div>
