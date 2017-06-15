@@ -347,7 +347,13 @@ class MassMailingController {
         Long campaignId = params.campaignId?Long.parseLong(params.campaignId):null // if the user has sent a test, it was saved as draft but the url hasn't changed
         def dataSend = saveAndSendContentTemplate(loggedUser, command, campaignId)
 //        flash.message = dataSend.msg
-        redirect(mapping: nextStep, params: [campaignId: dataSend.campaign.id])
+        if (dataSend.goToPaymentProcess){
+            String paymentRedirect = g.createLink(mapping:"politicianMassMailingContent", params:[campaignId: dataSend.campaign.id] )
+            cookieUUIDService.setPaymentRedirect(paymentRedirect)
+            redirect(mapping: "paymentStart")
+        }else{
+            redirect(mapping: nextStep, params: [campaignId: dataSend.campaign.id])
+        }
     }
 
     private def saveAndSendContentTemplate(KuorumUser user, MassMailingContentTemplateCommand command, Long campaignId = null){
