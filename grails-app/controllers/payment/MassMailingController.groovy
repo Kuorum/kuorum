@@ -347,18 +347,25 @@ class MassMailingController {
         Long campaignId = params.campaignId?Long.parseLong(params.campaignId):null // if the user has sent a test, it was saved as draft but the url hasn't changed
         def dataSend = saveAndSendContentTemplate(loggedUser, command, campaignId)
 //        flash.message = dataSend.msg
-        redirect(mapping: nextStep, params: [campaignId: dataSend.campaign.id])
+        if (dataSend.goToPaymentProcess){
+            String paymentRedirect = g.createLink(mapping:"politicianMassMailingContent", params:[campaignId: dataSend.campaign.id] )
+            cookieUUIDService.setPaymentRedirect(paymentRedirect)
+            redirect(mapping: "paymentStart")
+        }else{
+            redirect(mapping: nextStep, params: [campaignId: dataSend.campaign.id])
+        }
     }
 
     private def saveAndSendContentTemplate(KuorumUser user, MassMailingContentTemplateCommand command, Long campaignId = null){
         CampaignRQDTO campaignRQDTO = convertContentToTemplateCampaign(command, user, campaignId)
-
+        Boolean validSubscription = customerService.validSubscription(user);
+        Boolean goToPaymentProcess = !validSubscription && (command.getSendType()=="SEND" || command.sendType == "SCHEDULED");
         String msg = ""
         CampaignRSDTO savedCampaign = null;
-        if (command.getSendType()=="SEND"){
+        if (validSubscription && command.getSendType()=="SEND"){
             savedCampaign = massMailingService.campaignSend(user, campaignRQDTO, campaignId)
             msg = g.message(code:'tools.massMailing.send.advise', args: [savedCampaign.name])
-        }else if(command.sendType == "SCHEDULED") {
+        }else if(validSubscription && command.sendType == "SCHEDULED") {
             savedCampaign = massMailingService.campaignSchedule(user, campaignRQDTO, command.getScheduled(), campaignId)
             msg = g.message(code: 'tools.massMailing.schedule.advise', args: [savedCampaign.name, g.formatDate(date: savedCampaign.sentOn, type: "datetime", style: "SHORT")])
         }else{
@@ -372,7 +379,7 @@ class MassMailingController {
             msg = g.message(code:'tools.massMailing.saveDraft.adviseTest', args: [savedCampaign.name])
             massMailingService.campaignTest(user, savedCampaign.getId())
         }
-        [msg:msg, campaign:savedCampaign]
+        [msg:msg, campaign:savedCampaign, goToPaymentProcess:goToPaymentProcess]
     }
 
     private CampaignRQDTO convertContentToTemplateCampaign(MassMailingContentTemplateCommand command, KuorumUser user, campaignId){
