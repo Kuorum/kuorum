@@ -2478,7 +2478,7 @@ video#bgvid {
 #payment div.promotionalCodeSet .focusValid {border-color: green;}
 
 #payment div.payment-method .braintree-placeholder{  display: none;  }
-#payment div.payment-method .braintree-option__label{  position: absolute;  margin-left: -15px;  }
+#payment div.payment-method .braintree-option__label{  position: relative;  margin-left: -50px;  }
 #payment div.payment-method .braintree-heading{  position: relative;  }
 #payment div.payment-method .braintree-toggle{  padding: 0px 0px 20px 0px;  background: transparent;}
 
