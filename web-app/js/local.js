@@ -427,10 +427,10 @@ $(document).ready(function() {
 
     // abrir/cerrar Save filter as
     $('body').on('click','#saveFilterAsBtnOpenModal, #saveFilterAsBtnCancel', function(e) {
-        e.stopPropagation();
+        //e.stopPropagation();
         e.preventDefault();
         if ($('#saveFilterAsPopUp').hasClass('on')) {
-            $(this).next('#saveFilterAsPopUp').removeClass('on');
+            $(this).closest('#saveFilterAsPopUp').removeClass('on');
         } else {
             $(this).next('#saveFilterAsPopUp').addClass('on');
         }
