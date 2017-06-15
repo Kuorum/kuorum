@@ -2,7 +2,7 @@
     <ul class="nav navbar-nav navbar-right">
         <li>
             <span class="navbar-link user-area">
-                <span>${user.name}</span>
+                %{--<span class="user-name">${user.name}</span>--}%
                 <img src="${image.userImgSrc(user:user)}"alt="${user.name}" class="user-img" itemprop="image">
             </span>
         </li>
