@@ -14,6 +14,6 @@
                 </section>
             </div>
         </div>
-        <g:render template="/layouts/footer/footer"/>
+        <g:render template="/layouts/footer/footerRegister"/>
     </body>
 </g:applyLayout>
