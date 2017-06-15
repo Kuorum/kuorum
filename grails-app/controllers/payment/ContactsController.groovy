@@ -299,7 +299,9 @@ class ContactsController {
             flash.error=g.message(code: 'tools.contact.import.csv.error.notEmailNameColumnSelected')
 
             try {
-                def model = modelUploadCSVContacts(emailPos, namePos)
+                def model = modelUploadCSVContacts(emailPos, namePos, surnamePos)
+                def table = groovyPageRenderer.render(template: '/contacts/csvTableExample', model: model)
+                model["table"] = table
                 render(view: 'importCSVContactsUpload', model: model)
                 return
             } catch (Exception e) {
