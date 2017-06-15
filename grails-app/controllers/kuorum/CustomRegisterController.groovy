@@ -151,23 +151,6 @@ class CustomRegisterController {
         [user:user, command: new PromotionalCodeCommand()]
     }
 
-    def step3Save(PromotionalCodeCommand command){
-        if(!command.promotionalCode){
-            redirect(mapping:"dashboard", params: [tour:true])
-            return;
-        }else{
-            if (command.hasErrors()){
-                KuorumUser user =  KuorumUser.get(springSecurityService.principal.id)
-                render view: "step3", model:[user:user, command: command]
-            }else{
-                KuorumUser user =  KuorumUser.get(springSecurityService.principal.id)
-                promotionalCodeService.setPromotionalCode(user, command.promotionalCode)
-                flash.message=g.message(code: 'subscriber.step3.promotionalCode.success')
-                redirect(mapping:"dashboard", params: [tour:true])
-            }
-        }
-    }
-
     def subscriptionStep1(){
         OfferType offerType = params.offerType?OfferType.valueOf(params.offerType):OfferType.BASIC
         Long kpeople = params.kpeople?Long.parseLong(params.kpeople):1;
