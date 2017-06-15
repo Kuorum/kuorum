@@ -83,7 +83,7 @@ class UrlMappings {
 
         name registerPressKit:      "/$lang/sign-up/pressKit"   (controller: "register",action:"downloadPressKit")
         name registerStep2:         "/$lang/sign-up/step2"      (controller: "customRegister"){action = [GET:"step2", POST:"step2Save"]}
-        name registerStep3:         "/$lang/sign-up/step3"      (controller: "customRegister"){action = [GET:"step3", POST:"step3Save"]}
+        name registerStep3:         "/$lang/sign-up/step3"      (controller: "customRegister", action :"step3")
 
 
         name registerSuccess:       "/$lang/sign-up/success"(controller: "register",action:"registerSuccess")
