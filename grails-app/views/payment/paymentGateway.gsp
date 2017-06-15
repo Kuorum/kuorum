@@ -166,6 +166,7 @@
                         $('div.promotionalCodeSet #code').removeClass("focusError");
                         $('div.promotionalCodeSet #code').addClass("focusValid");
                         $('form#payment-options input[name=promotionalCode]').attr('value', code);
+                        $('div.promotionalCodeSet #code').attr('disabled', 'disabled');
                         gtmPaymentEvent("payment-button-validate-code-success")
                     }
                     else{
