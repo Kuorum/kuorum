@@ -389,6 +389,7 @@ $(document).ready(function() {
             $(this).next('ul').hide();
             $(this).addClass('on');
             $(this).closest('.addTag').delay(1000).removeClass('off');
+            $(this).parent("form").find("input.tt-input").focus();
         }
     });
 
