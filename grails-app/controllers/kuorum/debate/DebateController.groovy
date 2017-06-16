@@ -274,6 +274,7 @@ class DebateController {
                 KuorumFile picture = KuorumFile.get(command.headerPictureId)
                 fileService.deleteKuorumFile(picture)
                 command.setHeaderPictureId(null)
+                debateRDTO.setPhotoUrl(null)
             }
         }
 
