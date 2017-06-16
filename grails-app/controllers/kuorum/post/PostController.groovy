@@ -281,6 +281,7 @@ class PostController {
                 KuorumFile picture = KuorumFile.get(command.headerPictureId)
                 fileService.deleteKuorumFile(picture)
                 command.setHeaderPictureId(null)
+                postRDTO.setPhotoUrl(null)
             }
         }
         postRDTO
