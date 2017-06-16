@@ -3066,7 +3066,7 @@ form#sign {
 
 .sign.purchase h2 {font-size: 16px; font-size: 1.6rem;}
 
-.modal-content .modal-header h4 {margin-bottom: 5px;}
+.modal-content .modal-header h4 {margin-bottom: 5px; text-align:center; font-variant: inherit; font-weight: normal;}
 
 /* entrar /registro landing */
 .landing + .row.main .onecol #main {text-align: center;}
