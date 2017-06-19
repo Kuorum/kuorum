@@ -23,7 +23,7 @@
                     <span class="tag"><g:formatNumber number="${plan.discount}" format="#"/>% <span class="discount"><g:message code="funnel.payment.cycleType.discount"/></span></span>
                 </g:if>
                 <h2><g:message code="org.kuorum.rest.model.payment.SubscriptionCycleDTO.${plan.cycleType}"/></h2>
-                <p class="price"><span class="amount"><g:formatNumber number="${plan.monthlyPrice}" format="#"/></span>€/month</p>
+                <p class="price"><span class="amount"><g:formatNumber number="${plan.monthlyPrice}" format="#"/></span>€<g:message code="landingPrices.form.perMonth"/> </p>
                 <g:link mapping="paymentGateway" params="[subscriptionCycle:plan.cycleType]" class="btn" data-planCycle="${plan.cycleType}"><g:message code="funnel.payment.cycleType.submit"/></g:link>
         </div></g:each>
     </div>
