@@ -73,6 +73,7 @@ class RestKuorumApiService {
         CAUSE_USERS_SUPPORTING  ("/cause/{causeName}/supporting"),
         CAUSE_SUGGESTIONS       ("/cause/suggest"),
 
+        CUSTOMER_ACTIVE_PLANS  ("/customer/payment/plans"),
         CUSTOMER_PAYMENT_PLANS  ("/customer/payment/{userId}/plans"),
         CUSTOMER_PAYMENT_PLAN  ("/customer/payment/{userId}/plans/data"),
         CUSTOMER_PAYMENT_SUBSCRIPTION  ("/customer/payment/{userId}"),

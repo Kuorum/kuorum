@@ -2413,7 +2413,7 @@ video#bgvid {
 .landing.prices .full-video {background-image: url('../images/background-prices.jpg'); padding-top: 50px;}
 .landing.prices .full-video a {color: #5fa1e7; font-size: 21px; font-size: 2.1rem;}
 .landing.prices .full-video h2 {font-size: 120px; font-size: 12rem; font-family: Arial,Helvetica,sans-serif; font-weight: bold; margin: 0 auto;}
-.main.prices .promo-options {width: 100%; padding-bottom: 0; margin-bottom: 0; border-bottom: none; text-align: center;}
+.main.prices .promo-options {width: 100%; padding-bottom: 0; margin-bottom: 0; text-align: center;}
 .main.prices .promo-options > div {border: 1px solid #545454; background: transparent;}
 .main.prices .promo-options > div h2 {background-color: #545454; color: #fff; font-size: 27px; font-size: 2.7rem; text-align: center; margin: 0 0 70px 0; line-height: 2;}
 .main.prices .promo-options > div h3,
@@ -2446,13 +2446,16 @@ video#bgvid {
 .main.prices .promo-options > div.recomended .tag {color: #fff; font-size: 14px; font-size: 1.4rem; text-transform: uppercase; font-family: Arial,Helvetica,sans-serif; text-align: center; line-height: 2.5; display: block; letter-spacing: 1px;}
 /*.main.prices .promo-options > div.recomended .tag:first-letter {font-size: 120%;}*/
 
-.main.prices .promo-options > .promo {font-size:0; float: none; display: inline-block; padding-bottom: 25px;}
+.main.prices .promo-options > .promo {font-size:0; float: none; display: inline-block; padding-bottom: 25px; margin-bottom:0px;}
 .main.prices .promo-options > .promo h2{font-family: 'Georgia', 'Times New Roman', Times, serif; text-transform: capitalize;}
 #payment ul.checklist {font-family: 'Georgia', 'Times New Roman', Times, serif;}
 .main.prices .promo-options > .promo a.btn {font-size: 21px; padding: 14px 65px !important;}
 .main.prices .promo-options > .promo:not(:first-child) {border-left: none;}
 
 .main.prices .promo-options > .promo.recomended .discount {font-size: 17px; text-transform: uppercase;}
+
+.main.prices .promo-options-info { margin: 8px 0 30px 0; color: #6e6e6e;font-size:13px;}
+.main.prices .promo-options-info a { color: #a8a8a8;}
 
 #payment {text-align:center; font-family: Arial, Helvetica, sans-serif;-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; padding-bottom: 30px; padding-top: 50px;}
 #payment .big-margin-top {margin-top: 60px;}
@@ -3845,7 +3848,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
     border-bottom: 1px solid #DADADA;
 }
 
-.promo-options {margin: 20px auto 50px; width: 80%; border-bottom: 1px solid #e5e5e5; padding-bottom: 20px;}
+.promo-options {margin: 20px auto 50px; width: 80%; padding-bottom: 20px;}
 .promo-options h3 {}
 .promo-options > div {
     min-height: 250px;
@@ -3881,6 +3884,16 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .promo-options > div.active > form .btn:hover,
 .promo-options > div.active > form .btn:focus {background-color: #2e6bab !important;}
 .promo-options > div.active > form ul {margin-bottom: 60px;}
+
+.promo-options table.kuorum-prices-table{margin:auto;border:none;font-size: 1.3em;}
+.promo-options table.kuorum-prices-table tbody tr {margin:auto; border:1px solid #545454;}
+.promo-options table.kuorum-prices-table thead tr {border:none;}
+/*.promo-options table.kuorum-prices-table thead tr.recommended {}*/
+.promo-options table.kuorum-prices-table thead tr th{font-family: 'Georgia', 'Times New Roman', Times, serif; border:1px solid #545454; background-color: #545454; color:#fff;text-align:center; padding:15px 40px;font-weight: normal;}
+.promo-options table.kuorum-prices-table thead tr th.recommended{background-color: #6e6e6e;border-color: #6e6e6e;}
+.promo-options table.kuorum-prices-table thead tr th.empty{background-color: transparent;border:none;}
+.promo-options table.kuorum-prices-table thead tr:first-child th {vertical-align: bottom; padding-bottom: 0;padding-top: 15px;line-height: 5px;font-size:0.7em;text-transform:uppercase;font-family: Arial, Helvetica, sans-serif}
+.promo-options table.kuorum-prices-table td{text-align:center; padding:15px 40px;}
 
 .form-promo,
 .form-promo-pay {min-height: 126px; padding: 30px 0 0 0; border-bottom: 1px solid #DADADA; border-top: 1px solid #DADADA;}

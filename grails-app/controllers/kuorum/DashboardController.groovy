@@ -24,8 +24,10 @@ import org.kuorum.rest.model.communication.post.PagePostRSDTO
 import org.kuorum.rest.model.communication.post.PostRSDTO
 import org.kuorum.rest.model.notification.campaign.CampaignRSDTO
 import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
+import org.kuorum.rest.model.payment.KuorumPaymentPlanDTO
 import org.kuorum.rest.model.tag.CauseRSDTO
 import org.kuorum.rest.model.tag.SuggestedCausesRSDTO
+import payment.CustomerService
 import payment.campaign.DebateService
 import payment.campaign.MassMailingService
 import payment.contact.ContactService
@@ -46,6 +48,7 @@ class DashboardController {
     PostService postService
     DashboardService dashboardService
     CookieUUIDService cookieUUIDService
+    CustomerService customerService;
 
     private  static final Integer MAX_PROJECT_EVENTS = 2
 
@@ -256,7 +259,8 @@ class DashboardController {
     }
 
     def landingPrices(){
-        []
+        Map<String, KuorumPaymentPlanDTO> plans = customerService.getActivePlans();
+        [plans:plans    ]
     }
 
     def landingLeaders(){

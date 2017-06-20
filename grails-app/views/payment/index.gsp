@@ -27,7 +27,9 @@
                 <g:link mapping="paymentGateway" params="[subscriptionCycle:plan.cycleType]" class="btn" data-planCycle="${plan.cycleType}"><g:message code="funnel.payment.cycleType.submit"/></g:link>
         </div></g:each>
     </div>
-
+    <div class="promo-options-info clearfix">
+        <g:message code="funnel.payment.cycleType.viewPlans" args="[g.createLink(mapping: 'landingPrices')]"></g:message>
+    </div>
     <script>
         $(function(){
             gtmPaymentEvent("choose-plan-cycle-loaded")

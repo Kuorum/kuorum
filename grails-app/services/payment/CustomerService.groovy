@@ -105,4 +105,15 @@ class CustomerService {
     }
 
 
+    Map<String, List<KuorumPaymentPlanDTO>> getActivePlans(){
+        Map<String, String> params = [:]
+        Map<String, String> query = [:]
+        def response = restKuorumApiService.get(
+                RestKuorumApiService.ApiMethod.CUSTOMER_ACTIVE_PLANS,
+                params,
+                query,
+                new TypeReference<Map<String, List<KuorumPaymentPlanDTO>>>(){}
+        )
+        response.data
+    }
 }
