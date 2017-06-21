@@ -27,18 +27,23 @@ class CustomerService {
         response.responseData.str
     }
 
-    void savePaymentMethod(KuorumUser user, String nonce){
+    boolean savePaymentMethod(KuorumUser user, String nonce){
         Map<String, String> params = [userId:user.id.toString()]
         Map<String, String> query = [:]
         PaymentRQDTO paymentRQDTO= new PaymentRQDTO();
         paymentRQDTO.setPaymentNonce(nonce)
-        def response = restKuorumApiService.put(
-                RestKuorumApiService.ApiMethod.CUSTOMER_PAYMENT_TOKEN,
-                params,
-                query,
-                paymentRQDTO,
-                null
-        )
+        try{
+            def response = restKuorumApiService.put(
+                    RestKuorumApiService.ApiMethod.CUSTOMER_PAYMENT_TOKEN,
+                    params,
+                    query,
+                    paymentRQDTO,
+                    null
+            )
+            return true;
+        }catch (Exception e){
+            return false;
+        }
 //        response.data
     }
 

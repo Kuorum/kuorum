@@ -97,8 +97,8 @@ class PaymentController {
     def savePaymentMethod(String nonce){
 
         KuorumUser user = springSecurityService.currentUser;
-        customerService.savePaymentMethod(user, nonce)
-        render ([success:"success"] as JSON)
+        Boolean saved = customerService.savePaymentMethod(user, nonce)
+        render ([success:saved] as JSON)
     }
 
     def paymentSuccess(){

@@ -131,21 +131,32 @@
 //                console.log("SUBMIT PAYLOAD")
 //                console.log(requestPaymentMethodErr)
 //                console.log(payload)
-                gtmPaymentEvent("payment-button-saving-paymentMethod")
                 var url = '${g.createLink(mapping:'paymentGatewaySavePaymentMethod')}'
-                $.ajax({
-                    method:"POST",
-                    url: url,
-                    data: {nonce: payload.nonce},
-                    success: function (data) {
-                        var $form =$("#payment-options");
-                        console.log("== SUCCESS SAVING PAYMENT METHOD AJAX ==");
-                        $form.find("input[name=nonce]").val(payload.nonce)
-                        gtmPaymentEvent("payment-button-submit-subscription")
-                        $form.submit()
-                    },
-                    dataType: 'json'
-                });
+                if (payload == undefined){
+                    console.log(requestPaymentMethodErr.message)
+                    gtmPaymentEvent("payment-wrong-paymentMethod")
+                    pageLoadingOff();
+                }else{
+                    gtmPaymentEvent("payment-button-saving-paymentMethod")
+                    $.ajax({
+                        method:"POST",
+                        url: url,
+                        data: {nonce: payload.nonce},
+                        success: function (data) {
+                            if (data.success == true){
+                                var $form =$("#payment-options");
+                                console.log("== SUCCESS SAVING PAYMENT METHOD AJAX ==");
+                                $form.find("input[name=nonce]").val(payload.nonce)
+                                gtmPaymentEvent("payment-button-submit-subscription")
+                                $form.submit()
+                            }else{
+                                display.warn("No valid credit card");
+                                pageLoadingOff();
+                            }
+                        },
+                        dataType: 'json'
+                    });
+                }
             }
         });
 
