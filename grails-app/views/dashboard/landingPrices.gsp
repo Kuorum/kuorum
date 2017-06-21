@@ -21,12 +21,12 @@
                 <tr>
                     <th class="empty"></th>
                     <th class="empty"></th>
-                    <th class="recommended">Recomendado</th>
+                    <th class="recommended"><g:message code="landingPrices.offerType.recommended"/></th>
                 </tr>
                 <tr>
-                    <th>Nº Contactos</th>
-                    <th>Mensual</th>
-                    <th class="recommended">Anual</th>
+                    <th><g:message code="landingPrices.offerType.numberContacts"/> </th>
+                    <th><g:message code="org.kuorum.rest.model.payment.SubscriptionCycleDTO.MONTHLY"/> </th>
+                    <th class="recommended"><g:message code="org.kuorum.rest.model.payment.SubscriptionCycleDTO.YEARLY"/></th>
                 </tr>
                 </thead>
                 <tbody>

@@ -3889,7 +3889,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .promo-options table.kuorum-prices-table tbody tr {margin:auto; border:1px solid #545454;}
 .promo-options table.kuorum-prices-table thead tr {border:none;}
 /*.promo-options table.kuorum-prices-table thead tr.recommended {}*/
-.promo-options table.kuorum-prices-table thead tr th{font-family: 'Georgia', 'Times New Roman', Times, serif; border:1px solid #545454; background-color: #545454; color:#fff;text-align:center; padding:15px 40px;font-weight: normal;}
+.promo-options table.kuorum-prices-table thead tr th{font-family: 'Georgia', 'Times New Roman', Times, serif; border:1px solid #545454; background-color: #545454; color:#fff;text-align:center; padding:15px 40px;font-weight: normal; text-transform: capitalize}
 .promo-options table.kuorum-prices-table thead tr th.recommended{background-color: #6e6e6e;border-color: #6e6e6e;}
 .promo-options table.kuorum-prices-table thead tr th.empty{background-color: transparent;border:none;}
 .promo-options table.kuorum-prices-table thead tr:first-child th {vertical-align: bottom; padding-bottom: 0;padding-top: 15px;line-height: 5px;font-size:0.7em;text-transform:uppercase;font-family: Arial, Helvetica, sans-serif}
