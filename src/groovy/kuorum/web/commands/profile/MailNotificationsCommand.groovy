@@ -13,6 +13,7 @@ class MailNotificationsCommand {
 
     boolean followNew;
     boolean proposalNew;
+    boolean proposalNewOwner;
     boolean proposalLike;
     boolean proposalPinned;
     boolean proposalComment;

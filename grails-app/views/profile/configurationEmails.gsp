@@ -34,6 +34,7 @@
                 %{--<label class="checkbox-inline pull-right"><input type="checkbox" class="allActivityMails" value=""><g:message code="profile.emailNotifications.checkAll"/></label>--}%
                 <formUtil:checkBox command="${command}" field="debateNewOwner" extraClass="clearfix" />
                 <formUtil:checkBox command="${command}" field="proposalNew" extraClass="clearfix" />
+                <formUtil:checkBox command="${command}" field="proposalNewOwner" extraClass="clearfix" />
                 <formUtil:checkBox command="${command}" field="proposalComment" extraClass="clearfix" />
                 <formUtil:checkBox command="${command}" field="proposalLike" extraClass="clearfix" />
                 <formUtil:checkBox command="${command}" field="proposalPinned" extraClass="clearfix" />
