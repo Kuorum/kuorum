@@ -7352,6 +7352,7 @@ p.followers > span.fa:first-child{
     padding-right: 5px;
 }
 
+#contactsList > li p.email > span.emailAddress + span.raw-email{ max-width: 11em; white-space: nowrap;}
 #contactsList > li p.email > span.follower + span.emailAddress + span.raw-email{ max-width: 11em; }
 
 
