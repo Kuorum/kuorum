@@ -109,9 +109,17 @@ class PaymentController {
         [urlRedirectAfterPay:urlRedirectAfterPay]
     }
 
-    def promotionalCodeValidation(String code){
+    def promotionalCodeValidation(String code, String cycleType){
+
         Boolean validator = promotionalCodeService.checkPromotionalCode(code);
-        render ([validator:validator] as JSON)
+        KuorumPaymentPlanDTO newPlan;
+        if(validator){
+            KuorumUser user = springSecurityService.currentUser;
+            SubscriptionCycleDTO subscriptionCycleDTO = SubscriptionCycleDTO.valueOf(cycleType);
+            newPlan = customerService.getInfoUserPlan(user, subscriptionCycleDTO, code);
+        }
+
+        render ([validator:validator, newPlan:newPlan] as JSON)
     }
 
 }
