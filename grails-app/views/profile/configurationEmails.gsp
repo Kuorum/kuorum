@@ -32,6 +32,7 @@
                 %{--<span class="span-label"><g:message code="profile.emailNotifications.${mailGroup}.label"/></span>--}%
                 <p class="help-block"><g:message code="profile.emailNotifications.basic.title.helpBlock"/></p>
                 %{--<label class="checkbox-inline pull-right"><input type="checkbox" class="allActivityMails" value=""><g:message code="profile.emailNotifications.checkAll"/></label>--}%
+                <formUtil:checkBox command="${command}" field="debateNewOwner" extraClass="clearfix" />
                 <formUtil:checkBox command="${command}" field="proposalNew" extraClass="clearfix" />
                 <formUtil:checkBox command="${command}" field="proposalComment" extraClass="clearfix" />
                 <formUtil:checkBox command="${command}" field="proposalLike" extraClass="clearfix" />
