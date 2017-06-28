@@ -2462,6 +2462,10 @@ video#bgvid {
 #payment > h1 {font-size: 29px; margin-bottom: 15px; padding:0;}
 #payment > p {font-size: 20px; color: #a8a8a8;}
 #payment > p strong{color: #545454;}
+#payment > div.price-info {font-size: 20px; color: #a8a8a8;}
+#payment > div.price-info span.line-through {text-decoration: line-through}
+#payment > div.price-info span.bold {color: #545454; font-weight: bold}
+#payment > div.price-info span.highlight {font-size: 26px; color: #545454; font-weight: bold}
 #payment ul.checklist {list-style: none; padding: 0; font-size: 18px; text-align: left; margin: 0 auto; display: inline-block;}
 
 #payment ul.checklist li > div {display:inline-block;}

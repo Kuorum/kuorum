@@ -22,7 +22,12 @@
     <script src="https://js.braintreegateway.com/web/dropin/1.1.0/js/dropin.min.js"></script>
 
     <h1><g:message code="funnel.payment.gateway.title"/> </h1>
-    <p><g:message code="funnel.payment.gateway.cycle" args="[g.message(code:'org.kuorum.rest.model.payment.SubscriptionCycleDTO.'+plan.cycleType),plan.price]"/></p>
+    <div class="price-info">
+        <span><g:message code="funnel.payment.gateway.cycle" args="[g.message(code:'org.kuorum.rest.model.payment.SubscriptionCycleDTO.'+plan.cycleType)]"/></span>
+        <span class="plan-price"><g:formatNumber number="${plan.price}" type="number" format="###"/></span>
+        <span class="discounted"></span>
+        <span class="currency">€.</span>
+    </div>
 
     <div class="promotionalCodeSet">
         <p class="big-margin-top"><g:message code="funnel.payment.gateway.discount.title"/></p>
@@ -165,23 +170,27 @@
             //$('fieldset.validate .in-progress').removeClass('hidden');
             var code = $('div.promotionalCodeSet #code').val();
             var url = $('div.promotionalCodeSet a.validateCode').attr('data-ajaxValidator');
-            gtmPaymentEvent("payment-button-validate-code-click")
+            var cycleType = "${plan.cycleType}";
+            gtmPaymentEvent("payment-button-validate-code-click");
             $.ajax({
                 type: "POST",
                 url: url,
-                data: {code:code},
+                data: {code:code, cycleType:cycleType},
                 success: function (data) {
                     if(data.validator){
+
                         $('div.promotionalCodeSet a.validateCode').addClass('hidden');
                         $('fieldset.validate .valid').removeClass("hidden");
                         $('div.promotionalCodeSet #code').removeClass("focusError");
                         $('div.promotionalCodeSet #code').addClass("focusValid");
                         $('form#payment-options input[name=promotionalCode]').attr('value', code);
                         $('div.promotionalCodeSet #code').attr('disabled', 'disabled');
-                        gtmPaymentEvent("payment-button-validate-code-success")
+
+                        modifyFinalPriceView(data);
+                        gtmPaymentEvent("payment-button-validate-code-success");
                     }
                     else{
-                        gtmPaymentEvent("payment-button-validate-code-error")
+                        gtmPaymentEvent("payment-button-validate-code-error");
                         $('div.promotionalCodeSet #code').addClass("focusError");
                     }
                 }
@@ -198,6 +207,18 @@
                     'cycle':'${plan.getCycleType()}'
                 })
             }
+        }
+
+        function modifyFinalPriceView(data){
+
+            var discounted = data.newPlan.finalPrice;
+            discounted = parseFloat(discounted).toFixed(2);
+
+            $('section#payment div.price-info .plan-price').addClass('line-through');
+            $('section#payment div.price-info .currency').addClass('bold');
+            $('section#payment div.price-info .discounted').append(discounted);
+            $('section#payment div.price-info .discounted').addClass('highlight');
+
         }
     </script>
 
