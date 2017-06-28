@@ -4824,6 +4824,7 @@ h5#results {margin: 0 0 15px;}
 .config .form-group {margin: 0 0 20px 0;}
 .config .form-group.postal,
 .config .form-group.nacimiento {width: 200px;}
+.config .form-group.address input {margin: 10px 0 0 0}
 
 .config .list-post {margin: 50px 0 20px; padding: 0;}
 .config .list-post > li {margin: 0; padding: 20px 0 0 0; list-style: none; position: relative; border-bottom: 1px solid #DADADA;}

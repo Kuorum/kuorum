@@ -13,6 +13,9 @@
     <li class="${activeMapping=='profileEmailNotifications'?'active':''}">
         <g:link mapping="profileEmailNotifications"><g:message code="profile.menu.profileEmailNotifications"/></g:link>
     </li>
+    <li class="${activeMapping=='profileNewsletterConfig'?'active':''}">
+        <g:link mapping="profileNewsletterConfig"><g:message code="profile.menu.profileNewsletterConfig"/></g:link>
+    </li>
     <li class="${activeMapping=='profileDeleteAccount'?'active':''}">
         <g:link mapping="profileDeleteAccount"><g:message code="profile.menu.profileDeleteAccount"/></g:link>
     </li>

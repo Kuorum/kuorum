@@ -7,6 +7,7 @@ import kuorum.util.rest.RestKuorumApiService
 import com.fasterxml.jackson.core.type.TypeReference
 import org.kuorum.rest.model.notification.campaign.CampaignRQDTO
 import org.kuorum.rest.model.notification.campaign.CampaignRSDTO
+import org.kuorum.rest.model.notification.campaign.config.NewsletterConfigRDTO
 import org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatsByCampaignPageRSDTO
 
 import java.text.SimpleDateFormat
@@ -125,5 +126,38 @@ class MassMailingService {
             trackingMailStatsByCampaignPageRSDTO = (TrackingMailStatsByCampaignPageRSDTO)response.data
         }
         trackingMailStatsByCampaignPageRSDTO
+    }
+
+    NewsletterConfigRDTO findNewsletterConfig(KuorumUser user){
+        Map<String, String> params = [userAlias:user.id.toString()]
+        Map<String, String> query = [:]
+        def response= restKuorumApiService.get(
+                RestKuorumApiService.ApiMethod.ACCOUNT_MASS_MAILING_CONFIG,
+                params,
+                query,
+                new TypeReference<NewsletterConfigRDTO>(){}
+        )
+        NewsletterConfigRDTO newsletterConfigRDTO=null;
+        if (response.data){
+            newsletterConfigRDTO = (NewsletterConfigRDTO)response.data
+        }
+        newsletterConfigRDTO
+    }
+
+    NewsletterConfigRDTO updateNewsletterConfig(KuorumUser user, NewsletterConfigRDTO config){
+        Map<String, String> params = [userAlias:user.id.toString()]
+        Map<String, String> query = [:]
+        def response= restKuorumApiService.put(
+                RestKuorumApiService.ApiMethod.ACCOUNT_MASS_MAILING_CONFIG,
+                params,
+                query,
+                config,
+                new TypeReference<NewsletterConfigRDTO>(){}
+        )
+        NewsletterConfigRDTO newsletterConfigRDTO=null;
+        if (response.data){
+            newsletterConfigRDTO = (NewsletterConfigRDTO)response.data
+        }
+        newsletterConfigRDTO
     }
 }

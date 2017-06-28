@@ -47,6 +47,62 @@ class RestKuorumApiService {
         return response
     }
 
+    def get(ApiMethod apiMethod, Map<String,String> params, Map<String,String> query, TypeReference typeToMap) {
+        RESTClient mailKuorumServices = getRestMailKuorumServices(typeToMap);
+
+        String path = apiMethod.buildUrl(apiPath,params);
+        def response = mailKuorumServices.get(
+                path: path,
+                headers: ["User-Agent": "Kuorum Web", "token":kuorumRestApiKey],
+                query:query,
+                requestContentType : groovyx.net.http.ContentType.JSON
+        )
+        return response
+    }
+
+    def patch(ApiMethod apiMethod, Map<String,String> params, Map<String,String> query, TypeReference typeToMap) {
+        RESTClient mailKuorumServices = new RESTClient( kuorumRestServices)
+        String path = apiMethod.buildUrl(apiPath,params);
+        def response = mailKuorumServices.patch(
+                path: path,
+                headers: ["User-Agent": "Kuorum Web", "token":kuorumRestApiKey],
+                query:query,
+                requestContentType : groovyx.net.http.ContentType.JSON
+        )
+        return response
+    }
+
+    def put(ApiMethod apiMethod, Map<String,String> params, Map<String,String> query, def body,TypeReference typeToMap) {
+        RESTClient mailKuorumServices = getRestMailKuorumServices(typeToMap);
+        String path = apiMethod.buildUrl(apiPath,params);
+        def response = mailKuorumServices.put(
+                path: path,
+                headers: ["User-Agent": "Kuorum Web", "token":kuorumRestApiKey],
+                query:query,
+                body: body,
+                requestContentType : groovyx.net.http.ContentType.JSON
+        )
+        return response
+    }
+
+    def post(ApiMethod apiMethod, Map<String,String> params, Map<String,String> query, def body,TypeReference typeToMap) {
+
+        RESTClient mailKuorumServices = getRestMailKuorumServices(typeToMap);
+
+//        encoderRegistry
+        String path = apiMethod.buildUrl(apiPath,params);
+
+        def response = mailKuorumServices.post(
+                path: path,
+                headers: ["User-Agent": "Kuorum Web", "token": kuorumRestApiKey],
+                query: query,
+                body: body,
+                requestContentType: groovyx.net.http.ContentType.JSON
+        )
+        return response
+    }
+
+
     public enum ApiMethod{
         USER_STATS_REPUTATION               ('/user/{userId}/stats/reputation'),
         USER_STATS_REPUTATION_EVOLUTION     ('/user/{userId}/stats/reputation/evolution'),
@@ -95,6 +151,7 @@ class RestKuorumApiService {
         ACCOUNT_MASS_MAILING            ("/communication/massmailing/{userAlias}/{campaignId}"),
         ACCOUNT_MASS_MAILING_SEND       ("/communication/massmailing/{userAlias}/{campaignId}/send"),
         ACCOUNT_MASS_MAILING_TRACKING   ("/communication/massmailing/{userAlias}/{campaignId}/trackingMails"),
+        ACCOUNT_MASS_MAILING_CONFIG     ("/communication/massmailing/{userAlias}/config"),
 
         ACCOUNT_DEBATES_ALL     ("/communication/debate/"),
         ACCOUNT_DEBATES         ("/communication/debate/{userAlias}"),
@@ -128,62 +185,6 @@ class RestKuorumApiService {
             params.each{ k, v -> builtUrl = builtUrl.replaceAll("\\{${k}}", v) }
             contextPath+builtUrl
         }
-    }
-
-    def get(ApiMethod apiMethod, Map<String,String> params, Map<String,String> query, TypeReference typeToMap) {
-        RESTClient mailKuorumServices = getRestMailKuorumServices(typeToMap);
-
-        String path = apiMethod.buildUrl(apiPath,params);
-        def response = mailKuorumServices.get(
-                path: path,
-                headers: ["User-Agent": "Kuorum Web", "token":kuorumRestApiKey],
-                query:query,
-                requestContentType : groovyx.net.http.ContentType.JSON
-        )
-        return response
-    }
-
-    def patch(ApiMethod apiMethod, Map<String,String> params, Map<String,String> query, TypeReference typeToMap) {
-        RESTClient mailKuorumServices = new RESTClient( kuorumRestServices)
-        String path = apiMethod.buildUrl(apiPath,params);
-        def response = mailKuorumServices.patch(
-                path: path,
-                headers: ["User-Agent": "Kuorum Web", "token":kuorumRestApiKey],
-                query:query,
-                requestContentType : groovyx.net.http.ContentType.JSON
-        )
-        return response
-    }
-
-    def put(ApiMethod apiMethod, Map<String,String> params, Map<String,String> query, def body,TypeReference typeToMap) {
-        RESTClient mailKuorumServices = getRestMailKuorumServices(typeToMap);
-        String path = apiMethod.buildUrl(apiPath,params);
-        def response = mailKuorumServices.put(
-                path: path,
-                headers: ["User-Agent": "Kuorum Web", "token":kuorumRestApiKey],
-                query:query,
-                body: body,
-                requestContentType : groovyx.net.http.ContentType.JSON
-        )
-        return response
-    }
-
-
-    def post(ApiMethod apiMethod, Map<String,String> params, Map<String,String> query, def body,TypeReference typeToMap) {
-
-        RESTClient mailKuorumServices = getRestMailKuorumServices(typeToMap);
-
-//        encoderRegistry
-        String path = apiMethod.buildUrl(apiPath,params);
-
-        def response = mailKuorumServices.post(
-                path: path,
-                headers: ["User-Agent": "Kuorum Web", "token": kuorumRestApiKey],
-                query: query,
-                body: body,
-                requestContentType: groovyx.net.http.ContentType.JSON
-        )
-        return response
     }
 
     private RESTClient getRestMailKuorumServices(TypeReference clazz){

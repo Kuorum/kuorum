@@ -20,10 +20,13 @@ import kuorum.web.commands.profile.politician.ProfessionalDetailsCommand
 import kuorum.web.commands.profile.politician.QuickNotesCommand
 import kuorum.web.commands.profile.politician.RelevantEventsCommand
 import org.bson.types.ObjectId
+import org.codehaus.groovy.runtime.InvokerHelper
 import org.kuorum.rest.model.kuorumUser.config.NotificationConfigRDTO
 import org.kuorum.rest.model.kuorumUser.config.NotificationMailConfigRDTO
 import org.kuorum.rest.model.notification.MailsMessageRSDTO
+import org.kuorum.rest.model.notification.campaign.config.NewsletterConfigRDTO
 import org.kuorum.rest.model.tag.CauseRSDTO
+import payment.campaign.MassMailingService
 
 import java.util.regex.Matcher
 import java.util.regex.Pattern
@@ -42,6 +45,7 @@ class ProfileController {
     def kuorumMailService
     KuorumMailAccountService kuorumMailAccountService
     RegisterService registerService
+    MassMailingService massMailingService
     CausesService causesService;
     PoliticianService politicianService
     Pattern pattern
@@ -492,5 +496,30 @@ class ProfileController {
         politicianService.updatePoliticianProfessionalDetails(user, command)
         flash.message=message(code:'profile.editUser.success')
         redirect mapping:'profileProfessionalDetails', params: user.encodeAsLinkProperties()
+    }
+
+    def editNewsletterConfig(){
+        KuorumUser user = params.user
+        NewsletterConfigRDTO config = massMailingService.findNewsletterConfig(user)
+        NewsletterConfigCommand command = new NewsletterConfigCommand()
+        use(InvokerHelper) {
+            command.setProperties(config.properties)
+        }
+        [command:command]
+    }
+
+    def updateNewsletterConfig(NewsletterConfigCommand command){
+        if (command.hasErrors()){
+            render(view: 'editNewsletterConfig', model: [command: command])
+            return;
+        }
+        KuorumUser user = params.user
+        NewsletterConfigRDTO config = new NewsletterConfigRDTO()
+        use(InvokerHelper) {
+            config.setProperties(command.properties)
+        }
+        massMailingService.updateNewsletterConfig(user,config)
+        flash.message="Success"
+        redirect(mapping:'profileNewsletterConfig')
     }
 }
