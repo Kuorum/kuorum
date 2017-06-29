@@ -85,23 +85,7 @@ class ContactsController {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         Boolean asJson = params.asJson?true:false
         SearchContactRSDTO searchContactRSDTO  = new SearchContactRSDTO()
-        searchContactRSDTO.page = Long.parseLong(params.page?:"0")
-        searchContactRSDTO.size = params.size?Long.parseLong(params.size):searchContactRSDTO.size
-        searchContactRSDTO.sort = new SortContactsRDTO(
-                field: params.sort?.field?ConditionFieldTypeRDTO.valueOf(params.sort.field):ConditionFieldTypeRDTO.NAME,
-                direction: params.sort?.direction?SortContactsRDTO.Direction.valueOf(params.sort.direction):SortContactsRDTO.Direction.ASC
-        )
-        Long filterId = Long.parseLong(params.filterId?:'0')
-        FilterRDTO filterRDTO = filterCommand.buildFilter()
-
-        if (filterId <0 || filterRDTO.filterConditions ) {
-            searchContactRSDTO.filter = filterRDTO
-        }else if (filterId == 0 ) {
-            // NO FILTER -> ALL CONTACTS
-        }else{
-            searchContactRSDTO.filterId = filterId
-        }
-        searchContactRSDTO.quickSearch = params.quickSearchByName
+        populateSearchContact(searchContactRSDTO, filterCommand, params)
         ContactPageRSDTO contacts = contactService.getUsers(user, searchContactRSDTO)
         if (asJson){
             render contacts as JSON
@@ -634,5 +618,33 @@ class ContactsController {
                     msg: g.message(code: "modal.bulkAction.removeTags.error.validating")
             ] as JSON)
         }
+    }
+
+    def exportContacts(ContactFilterCommand filterCommand){
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        SearchContactRSDTO searchContactRSDTO = new SearchContactRSDTO();
+        populateSearchContact(searchContactRSDTO, filterCommand, params)
+        contactService.exportContacts(user, searchContactRSDTO)
+        render ([success:"ok"] as JSON)
+    }
+
+    private void populateSearchContact(SearchContactRSDTO searchContactRSDTO, ContactFilterCommand filterCommand, def params){
+        searchContactRSDTO.page = Long.parseLong(params.page?:"0")
+        searchContactRSDTO.size = params.size?Long.parseLong(params.size):searchContactRSDTO.size
+        searchContactRSDTO.sort = new SortContactsRDTO(
+                field: params.sort?.field?ConditionFieldTypeRDTO.valueOf(params.sort.field):ConditionFieldTypeRDTO.NAME,
+                direction: params.sort?.direction?SortContactsRDTO.Direction.valueOf(params.sort.direction):SortContactsRDTO.Direction.ASC
+        )
+        Long filterId = Long.parseLong(params.filterId?:'0')
+        FilterRDTO filterRDTO = filterCommand.buildFilter()
+
+        if (filterId <0 || filterRDTO.filterConditions ) {
+            searchContactRSDTO.filter = filterRDTO
+        }else if (filterId == 0 ) {
+            // NO FILTER -> ALL CONTACTS
+        }else{
+            searchContactRSDTO.filterId = filterId
+        }
+        searchContactRSDTO.quickSearch = params.quickSearchByName
     }
 }

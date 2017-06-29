@@ -122,7 +122,8 @@ class RestKuorumApiService {
         USER_CONTACT_FILTERS    ('/contacts/{userId}/filters'),
         USER_CONTACT_FILTER     ("/contacts/{userId}/filters/{filterId}"),
         USER_CONTACT_FOLLOWER   ("/contacts/{userId}/follower"),
-        USER_CONTACT_SUBSCRIBE   ("/contacts/{userId}/suscribe"),
+        USER_CONTACT_SUBSCRIBE  ("/contacts/{userId}/suscribe"),
+        USER_CONTACT_REPORT     ("/contacts/{userId}/report"),
 
         CAUSE_OPERATIONS        ("/cause/{causeName}"),
         CAUSE_USERS_DEFENDING   ("/cause/{causeName}/defending"),

@@ -1611,8 +1611,9 @@ ul.user-list-followers .loading.xs {width: 10px; height: 10px;}
 #boxfiltersContacts > div > ul > li {list-style: none; display: inline;}
 #boxfiltersContacts .searchContainer {margin: 10px 0;}
 #boxfiltersContacts .dropdown-menu {min-width: 95px; margin-top: -6px; right: 14px;}
+#boxfiltersContacts .dropdown-menu > li {text-align:center;}
 #boxfiltersContacts .dropdown-menu > li:first-child {font-weight: normal; padding: 0; border-bottom: none; margin: 0;}
-#boxfiltersContacts #openContactsOptions > span.fa {margin-left:4px;}
+#boxfiltersContacts .dropdown-menu > li a{padding: 5px 10px; }
 
 #contactsList { min-height: 10em;}
 #contactsList > h3.noContacts {text-align: center}

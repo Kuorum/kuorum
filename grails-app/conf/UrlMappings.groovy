@@ -288,6 +288,7 @@ class UrlMappings {
         name politicianContactProfiling:                "/account/contact-profiling" (controller:"politician", action: "betaTesterPage")
         name politicianContacts:                        "/account/contacts" (controller:"contacts", action: "index")
         name politicianContactsSearch:                  "/ajax/account/contacts" (controller:"contacts", action: "searchContacts")
+        name politicianContactExport:                   "/account/contacts/export" (controller:"contacts", action: "exportContacts")
         name politicianContactImport:                   "/account/contacts/import" (controller:"contacts", action: "importContacts")
         name politicianContactImportCSV:                "/account/contacts/import/csv" (controller:"contacts"){action =[GET:"importCSVContacts", POST:"importCSVContactsUpload"]}
         name politicianContactImportCSVSave:            "/account/contacts/import/csv_save" (controller:"contacts", action: "importCSVContactsSave")
