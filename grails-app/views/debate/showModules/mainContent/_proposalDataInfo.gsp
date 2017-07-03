@@ -69,8 +69,10 @@
                     <span class="fa fa-comment-o" aria-hidden="true"></span>
                     <span class="number">${proposal.comments?.size()?:0}</span>
                 </button>
+                <sec:ifLoggedIn><g:set var="isLogged" value="${true}"/></sec:ifLoggedIn>
+                <sec:ifNotLoggedIn><g:set var="isLogged" value="${false}"/></sec:ifNotLoggedIn>
                 <button type="button"
-                        class="proposal-like ${(proposal.liked)?'active':''}"
+                        class="proposal-like ${(proposal.liked) && (isLogged)?'active':''}"
                         data-urlAction="${g.createLink(mapping: 'debateProposalLike')}"
                         data-debateId="${debate.id}"
                         data-debateAlias="${debate.userAlias}"
