@@ -72,7 +72,7 @@
                 <sec:ifLoggedIn><g:set var="isLogged" value="${true}"/></sec:ifLoggedIn>
                 <sec:ifNotLoggedIn><g:set var="isLogged" value="${false}"/></sec:ifNotLoggedIn>
                 <button type="button"
-                        class="proposal-like ${(proposal.liked) && (isLogged)?'active':''}"
+                        class="proposal-like ${proposal.liked && isLogged?'active':''}"
                         data-urlAction="${g.createLink(mapping: 'debateProposalLike')}"
                         data-debateId="${debate.id}"
                         data-debateAlias="${debate.userAlias}"
