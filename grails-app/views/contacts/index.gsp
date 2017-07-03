@@ -63,38 +63,28 @@
                     <div class="col-sm-3 col-md-4 col-lg-3">
                         <ul>
                             <li>
-                                <g:link mapping="politicianContactNew" class="btn btn-blue inverted">
-                                    <span class="fa fa-user-plus"></span>
-                                    <g:message code="tools.contact.list.newContact"/>
-                                </g:link>
-                            </li>
-                            <li>
                                 <g:link mapping="politicianContactImport" class="btn btn-blue inverted">
                                     <span class="fa fa-plus"></span>
                                     <g:message code="tools.contact.list.import"/>
                                 </g:link>
                             </li>
-                            %{--<li>--}%
-                                %{--<a href="#" role="button" id="openContactsOptions" class="btn btn-blue inverted dropdown-toggle" data-toggle="dropdown"><g:message code="tools.contact.list.import"/><span class="fa fa-caret-down fa-lg"></span></a>--}%
-                                %{--<!--<ul id="contactsOptions" class="dropdown-menu dropdown-menu-right" aria-labelledby="openContactsOptions" role="menu">--}%
-                                    %{--<li><g:link mapping="politicianContactImportCSV"><g:message code="tools.contact.list.import.csv"/></g:link></li>--}%
-                                    %{--<li>--}%
-                                        %{--<g:link mapping="politicianContactImportGmail">--}%
-                                            %{--<g:message code="login.rrss.google"/>--}%
-                                        %{--</g:link>--}%
-                                    %{--</li>--}%
-                                    %{--<li>--}%
-                                        %{--<oauth:connect provider="outlook" id="yahoo-connect-link">--}%
-                                            %{--<g:message code="login.rrss.outlook"/>--}%
-                                        %{--</oauth:connect>--}%
-                                    %{--</li>--}%
-                                    %{--<li>--}%
-                                        %{--<oauth:connect provider="yahoo" id="yahoo-connect-link">--}%
-                                            %{--Yahoo!--}%
-                                        %{--</oauth:connect>--}%
-                                    %{--</li>--}%
-                                %{--</ul>-->--}%
-                            %{--</li>--}%
+                            <li>
+                                <a href="#" role="button" id="openContactsOptions" class="btn btn-blue inverted dropdown-toggle" data-toggle="dropdown"><span class="fa fa-caret-down fa-lg"></span></a>
+                                <ul id="contactsOptions" class="dropdown-menu dropdown-menu-right" aria-labelledby="openContactsOptions" role="menu">
+                                    <li>
+                                        <g:link mapping="politicianContactNew" class="">
+                                            <span class="fa fa-user-plus"></span>
+                                            <g:message code="tools.contact.list.newContact"/>
+                                        </g:link>
+                                    </li>
+                                    <li>
+                                        <g:link mapping="politicianContactExport" elementId="exportContacts">
+                                            <span class="fa fa-file-excel-o"></span>
+                                            <g:message code="tools.contact.list.import.csv"/>
+                                        </g:link>
+                                    </li>
+                                </ul>
+                            </li>
                         </ul>
                     </div>
                 </fieldset>
@@ -107,71 +97,87 @@
         <div id="listContacts" data-ajaxUrlContacts="${g.createLink(mapping: 'politicianContactsSearch', absolute:true)}">
             %{--<g:render template="/contacts/listContacts" model="[contacts:contacts,searchContacts:searchContacts]"/>--}%
         </div>
-
-        <!-- Bulk actions modals -->
-        <div id="bulk-action-delete-all-modal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="contactDeleteTitle" aria-hidden="true">
-            <div class="modal-dialog ">
-                <div class="modal-content">
-                    <g:form method="POST" mapping="bulkActionRemoveContactsAjax" role="form" class="submitOrangeButton" autocomplete="off" data-type="1">
-                        <div class="modal-header"><h4><g:message code="tools.contact.bulkActions.deleteAll"/></h4></div>
-                        <div class="modal-body">
-                            <p>
-                                <g:message code="modal.bulkAction.deleteAll.explain" args="[contacts.total]"/>
-                            </p>
-                        </div>
-                        <div class="modal-footer">
-                            <button class="btn" type="submit"><g:message code="modal.bulkAction.deleteAll.deleteContacts"/></button>
-                        </div>
-                    </g:form>
-                </div>
-            </div>
-        </div>
-        <div id="bulk-action-add-tags-modal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="addTagsTitle" aria-hidden="true">
-            <div class="modal-dialog ">
-                <div class="modal-content">
-                    <g:form method="POST" mapping="bulkActionAddTagsContactsAjax" role="form" class="submitOrangeButton" autocomplete="off" data-type="2">
-                        <div class="modal-header"><h4><g:message code="tools.contact.bulkActions.addTags"/></h4></div>
-                        <div class="modal-body">
-                            <p>
-                                <g:message code="modal.bulkAction.addTags.explain" args="[contacts.total]"/>
-                            </p>
-                            <fieldset class="row">
-                                <div class="form-group col-md-12">
-                                    <label for="addTagsField" class="sr-only"><g:message code="tools.contact.bulkActions.addTags"/> </label>
-                                    <input id="addTagsField" name="tags" class="tagsField" type="text" data-urlTags="${g.createLink(mapping:'politicianContactTagsAjax')}" />
-                                </div>
-                            </fieldset>
-                        </div>
-                        <div class="modal-footer">
-                            <button class="btn" type="submit"><g:message code="modal.bulkAction.addTags.addToContacts"/></button>
-                        </div>
-                    </g:form>
-                </div>
-            </div>
-        </div>
-        <div id="bulk-action-remove-tags-modal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="removeTagsTitle" aria-hidden="true">
-            <div class="modal-dialog ">
-                <div class="modal-content">
-                    <g:form method="POST" mapping="bulkActionRemoveTagsContactsAjax" role="form" class="submitOrangeButton" autocomplete="off" data-type="3">
-                        <div class="modal-header"><h4><g:message code="tools.contact.bulkActions.addTags"/></h4></div>
-                        <div class="modal-body">
-                            <p>
-                                <g:message code="modal.bulkAction.removeTags.explain" args="[contacts.total]"/>
-                            </p>
-                            <fieldset class="row">
-                                <div class="form-group col-md-12">
-                                    <label for="removeTagsField" class="sr-only"><g:message code="tools.contact.bulkActions.removeTags"/> </label>
-                                    <input id="removeTagsField" name="tags" class="tagsField" type="text" data-urlTags="${g.createLink(mapping:'politicianContactTagsAjax')}" />
-                                </div>
-                            </fieldset>
-                        </div>
-                        <div class="modal-footer">
-                            <button class="btn" type="submit"><g:message code="modal.bulkAction.removeTags.removeFromContacts"/></button>
-                        </div>
-                    </g:form>
-                </div>
-            </div>
-        </div>
-
     </div>
+
+    <!-- Bulk actions modals -->
+    <div id="bulk-action-delete-all-modal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="contactDeleteTitle" aria-hidden="true">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <g:form method="POST" mapping="bulkActionRemoveContactsAjax" role="form" class="submitOrangeButton" autocomplete="off" data-type="1">
+                    <div class="modal-header"><h4><g:message code="tools.contact.bulkActions.deleteAll"/></h4></div>
+                    <div class="modal-body">
+                        <p>
+                            <g:message code="modal.bulkAction.deleteAll.explain" args="[contacts.total]"/>
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn" type="submit"><g:message code="modal.bulkAction.deleteAll.deleteContacts"/></button>
+                    </div>
+                </g:form>
+            </div>
+        </div>
+    </div>
+    <div id="bulk-action-add-tags-modal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="addTagsTitle" aria-hidden="true">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <g:form method="POST" mapping="bulkActionAddTagsContactsAjax" role="form" class="submitOrangeButton" autocomplete="off" data-type="2">
+                    <div class="modal-header"><h4><g:message code="tools.contact.bulkActions.addTags"/></h4></div>
+                    <div class="modal-body">
+                        <p>
+                            <g:message code="modal.bulkAction.addTags.explain" args="[contacts.total]"/>
+                        </p>
+                        <fieldset class="row">
+                            <div class="form-group col-md-12">
+                                <label for="addTagsField" class="sr-only"><g:message code="tools.contact.bulkActions.addTags"/> </label>
+                                <input id="addTagsField" name="tags" class="tagsField" type="text" data-urlTags="${g.createLink(mapping:'politicianContactTagsAjax')}" />
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn" type="submit"><g:message code="modal.bulkAction.addTags.addToContacts"/></button>
+                    </div>
+                </g:form>
+            </div>
+        </div>
+    </div>
+    <div id="bulk-action-remove-tags-modal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="removeTagsTitle" aria-hidden="true">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <g:form method="POST" mapping="bulkActionRemoveTagsContactsAjax" role="form" class="submitOrangeButton" autocomplete="off" data-type="3">
+                    <div class="modal-header"><h4><g:message code="tools.contact.bulkActions.addTags"/></h4></div>
+                    <div class="modal-body">
+                        <p>
+                            <g:message code="modal.bulkAction.removeTags.explain" args="[contacts.total]"/>
+                        </p>
+                        <fieldset class="row">
+                            <div class="form-group col-md-12">
+                                <label for="removeTagsField" class="sr-only"><g:message code="tools.contact.bulkActions.removeTags"/> </label>
+                                <input id="removeTagsField" name="tags" class="tagsField" type="text" data-urlTags="${g.createLink(mapping:'politicianContactTagsAjax')}" />
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn" type="submit"><g:message code="modal.bulkAction.removeTags.removeFromContacts"/></button>
+                    </div>
+                </g:form>
+            </div>
+        </div>
+    </div>
+
+    <div id="export-contacts-modal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="exportTagsTitle" aria-hidden="true">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <div class="modal-header"><h4><g:message code="modal.exportedContacts.title"/></h4></div>
+                <div class="modal-body">
+                    <p>
+                        <g:message code="modal.exportedContacts.explanation"/>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn" data-dismiss="modal" aria-label="Close"><g:message code="modal.exportedContacts.close"/></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </content>

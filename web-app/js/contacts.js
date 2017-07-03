@@ -130,6 +130,24 @@ $(function () {
         filterContacts.deleteFilter();
     });
 
+    $("#exportContacts").on("click", function(e){
+        pageLoadingOn();
+        e.preventDefault();
+        var $a = $(this)
+        var link = $a.attr("href")
+        var filterData = filterContacts.serializedFilterData()
+        $.post(link, filterData)
+            .done(function(data) {
+                $("#export-contacts-modal").modal("show")
+            })
+            .fail(function(messageError) {
+                display.warn("Error");
+            })
+            .always(function() {
+                pageLoadingOff();
+            });
+    })
+
 
 });
 

@@ -308,4 +308,15 @@ class ContactService {
         }
     }
 
+    void exportContacts(KuorumUser user, SearchContactRSDTO searchContactRSDTO){
+        Map<String, String> params = [userId:user.id.toString()]
+        Map<String, String> query = searchContactRSDTO.encodeAsQueryParams()
+
+        def response= restKuorumApiService.get(
+                RestKuorumApiService.ApiMethod.USER_CONTACT_REPORT,
+                params,
+                query,
+                null)
+    }
+
 }
