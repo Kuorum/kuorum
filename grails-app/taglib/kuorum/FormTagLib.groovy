@@ -405,7 +405,8 @@ class FormTagLib {
             showedValue = regionRSDTO.name
         }
 
-        def label = attrs.label?:message(code: "${command.class.name}.${field}.label")
+        Boolean isRequired = isRequired(command,field)
+        def label = "${attrs.label?:message(code: "${command.class.name}.${field}.label")}${isRequired?'*':''}"
         def placeHolder = attrs.placeHolder?:message(code: "${command.class.name}.${field}.placeHolder", default: '')
         String helpBlock = attrs.helpBlock?:message(code: "${command.class.name}.${field}.helpBlock", default: '')
         if (showLabel){
