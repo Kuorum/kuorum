@@ -311,7 +311,6 @@
 .fa-barcode:before {
   content: "\f02a";
 }
-.fa-kuorumSearchType-CAUSE:before,
 .fa-tag:before {
   content: "\f02b";
 }
@@ -2085,6 +2084,7 @@
 .fa-shopping-basket:before {
   content: "\f291";
 }
+.fa-kuorumSearchType-CAUSE:before,
 .fa-hashtag:before {
   content: "\f292";
 }

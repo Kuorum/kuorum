@@ -6921,7 +6921,7 @@ fieldset.form-group {min-height: 50px;}
     background-color: #ee7612;
 }
 .causes-tags .cause .cause-name {padding: 0 10px 0 26px; display: inline-block; position: relative; color: #fff;}
-.causes-tags .cause .cause-name .fa-tag {font-size: 18px; font-size: 1.8rem; position: absolute; left: 5px; top: 4px;}
+.causes-tags .cause .cause-name .fa {font-size: 16px; font-size: 1.5rem; position: absolute; left: 5px; top: 4px;}
 .cause .cause-support {
     position: absolute;
     right: 1px;
