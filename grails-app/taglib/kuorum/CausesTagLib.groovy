@@ -1,6 +1,5 @@
 package kuorum
 
-import kuorum.core.model.UserType
 import kuorum.core.model.search.Pagination
 import kuorum.core.model.search.SearchType
 import kuorum.core.model.solr.SolrType
@@ -52,7 +51,7 @@ class CausesTagLib {
                 <li class="cause link-wrapper ${causeSupportClass}" id="cause-${cause.name.encodeAsKuorumUrl()}">
                     <a href='${searchLink}' class="sr-only hidden"> Search cause ${cause.name}</a>
                     <div class="cause-name" aria-hidden="true" tabindex="104">
-                        <span class="fa fa-tag"></span>
+                        <span class="fa fa-hashtag"></span>
                         <span>${cause.name}</span>
                     </div>
                     <div class="cause-support">
