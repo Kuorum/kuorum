@@ -2,9 +2,8 @@
     <div class="container-fluid">
         <section class="links">
             <ul>
-                <li><g:link mapping="footerPrivacyPolicy"><g:message code="layout.footer.privacyPolicy"/></g:link></li>
-                <li><g:link mapping="footerTermsUse"><g:message code="layout.footer.termsUse"/></g:link></li>
-                <li><nav:generateLangSelector /></li>
+                <li><g:link mapping="footerPrivacyPolicy" target="_blank"><g:message code="layout.footer.privacyPolicy"/></g:link></li>
+                <li><g:link mapping="footerTermsUse" target="_blank"><g:message code="layout.footer.termsUse"/></g:link></li>
             </ul>
         </section>
     </div><!-- /.container-fluid - da ancho máximo y centra -->
