@@ -8127,7 +8127,7 @@ ul#campaignsList > li > span + .tooltip.bottom .tooltip-arrow{
 ul#campaignsList > li > span + .tooltip.bottom .tooltip-inner {
     position: relative;
     top: -10px;
-    left: 16%;
+    left: 28%;
 }
 
 p.email > span.follower + .tooltip.bottom .tooltip-arrow{
@@ -9011,6 +9011,8 @@ ul.globus li img {
 
 
     .form-control-campaign {position: absolute; bottom: 25px; right: 15px}
+
+    .guide-card > .box-ppal {width: 100%}
 }
 
 @media screen and (max-width: 980px) {
