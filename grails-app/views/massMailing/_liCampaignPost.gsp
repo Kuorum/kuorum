@@ -2,9 +2,13 @@
 
 <li class="${post.newsletter.status} postItem" id="campaignPos_${idx}">
     <span class="id sr-only">${post.id}</span>
-    <span class="state">${post.newsletter.status}</span>
+    <span class="state" aria-hidden="true" rel="tooltip" data-toggle="tooltip" data-placement="bottom"
+          data-original-title="${g.message(code: "org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.${post.campaignStatusRSDTO}")}">
+        ${post.newsletter.status}
+    </span>
     <span class="type">post</span>
-    <span class="fa fa-newspaper-o"></span>
+    <span class="fa fa-newspaper-o" aria-hidden="true" rel="tooltip" data-toggle="tooltip" data-placement="bottom"
+          data-original-title="${g.message(code: 'tools.campaign.new.post')}"></span>
     <h3>
         <g:link mapping="postShow" params="${post.encodeAsLinkProperties()}" class="title">
             ${post.name}<span></span>

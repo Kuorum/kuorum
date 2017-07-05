@@ -7350,6 +7350,10 @@ p.email > span.emailAddress{
     padding-right: 5px;
 }
 
+ul#campaignList > li > span.state {
+
+}
+
 p.email > span.follower{
     padding-right: 10px;
 }
@@ -8112,6 +8116,19 @@ p.email > span.emailAddress + .tooltip.bottom .tooltip-arrow{
     top: -10px;
     left: 47%;
 }
+
+ul#campaignsList > li > span + .tooltip.bottom .tooltip-arrow{
+    position: relative;
+    top: -10px;
+    left: 48%;
+}
+
+ul#campaignsList > li > span + .tooltip.bottom .tooltip-inner {
+    position: relative;
+    top: -10px;
+    left: 16%;
+}
+
 p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     position: relative;
     top: -10px;

@@ -2,9 +2,13 @@
 
 <li class="${campaign.status} newsletterItem" id="campaignPos_${idx}">
     <span class="id sr-only">${campaign.id}</span>
-    <span class="state">${campaign.status}</span>
+    <span class="state" aria-hidden="true" rel="tooltip" data-toggle="tooltip" data-placement="bottom"
+          data-original-title="${g.message(code: 'org.kuorum.rest.model.contact.emailTooltip.text')}">
+        ${campaign.status}
+    </span>
     <span class="type">newsletter</span>
-    <span class="fa fa-envelope-o"></span>
+    <span class="fa fa-envelope-o" aria-hidden="true" rel="tooltip" data-toggle="tooltip" data-placement="bottom"
+          data-original-title="${g.message(code: "org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.${campaign.status}")}"></span>
     <h3>
         <g:set var="modal" value="${campaign.status == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SCHEDULED ?'modalEditScheduled':''}"/>
         <g:link mapping='politicianMassMailingShow' params="[campaignId:campaign.id]" class="title ${modal}" absolute="true">

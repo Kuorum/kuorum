@@ -2,9 +2,13 @@
 
 <li class="${debate.newsletter.status} debateItem" id="campaignPos_${idx}">
     <span class="id sr-only">${debate.id}</span>
-    <span class="state">${debate.campaignStatusRSDTO}</span>
+    <span class="state" aria-hidden="true" rel="tooltip" data-toggle="tooltip" data-placement="bottom"
+          data-original-title="${g.message(code: "org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.${debate.campaignStatusRSDTO}")}">
+        ${debate.campaignStatusRSDTO}
+    </span>
     <span class="type">debate</span>
-    <span class="fa fa-comments-o"></span>
+    <span class="fa fa-comments-o" aria-hidden="true" rel="tooltip" data-toggle="tooltip" data-placement="bottom"
+          data-original-title="${g.message(code: 'tools.campaign.new.debate')}"></span>
     <h3>
         <g:link mapping="debateShow" params="${debate.encodeAsLinkProperties()}" class="title">
             ${debate.name}<span></span>
