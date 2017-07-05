@@ -216,7 +216,7 @@
 
             $('section#payment div.price-info .plan-price').addClass('line-through');
             $('section#payment div.price-info .currency').addClass('bold');
-            $('section#payment div.price-info .discounted').append(discounted);
+            $('section#payment div.price-info .discounted').text(discounted);
             $('section#payment div.price-info .discounted').addClass('highlight');
 
         }
