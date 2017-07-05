@@ -9195,4 +9195,12 @@ ul.notification-menu > li.see-more {
         border-right: 1px solid #e4e4e4;
         border-bottom: 1px solid #e4e4e4;       
     }
+
+    #campaignsList > li > .state {
+        top: 30px;
+    }
+
+    #campaignsList > li > span.fa {
+        top: 60px;
+    }
 }
