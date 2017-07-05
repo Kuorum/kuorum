@@ -34,7 +34,10 @@
         <input type="text" name="code" class="code" id="code" placeholder="${g.message(code:'funnel.payment.gateway.discount.code.placeHolder')}" aria-required="true">
         <fieldset class="validate">
             <div class="col-xs-12 valid hidden">
-                <span></span><i class="fa fa-check fa-2x"></i>
+                <i class="fa fa-check fa-2x"></i>
+            </div>
+            <div class="col-xs-12 in-progress xs hidden">
+                <i class="spinner"></i>
             </div>
         </fieldset>
         <a class="btn btn-blue validateCode" data-ajaxValidator="${g.createLink(mapping: 'paymentPromotionalCodeValidation')}">
@@ -167,7 +170,8 @@
 
 
         function promotionalCodeValidation(){
-            //$('fieldset.validate .in-progress').removeClass('hidden');
+            spinnerOn();
+            $('div.promotionalCodeSet a.validateCode').addClass('hidden');
             var code = $('div.promotionalCodeSet #code').val();
             var url = $('div.promotionalCodeSet a.validateCode').attr('data-ajaxValidator');
             var cycleType = "${plan.cycleType}";
@@ -178,7 +182,7 @@
                 data: {code:code, cycleType:cycleType},
                 success: function (data) {
                     if(data.validator){
-
+                        spinnerOff();
                         $('div.promotionalCodeSet a.validateCode').addClass('hidden');
                         $('fieldset.validate .valid').removeClass("hidden");
                         $('div.promotionalCodeSet #code').removeClass("focusError");
@@ -191,7 +195,9 @@
                     }
                     else{
                         gtmPaymentEvent("payment-button-validate-code-error");
+                        spinnerOff();
                         $('div.promotionalCodeSet #code').addClass("focusError");
+                        $('div.promotionalCodeSet a.validateCode').removeClass('hidden');
                     }
                 }
             });
@@ -207,6 +213,16 @@
                     'cycle':'${plan.getCycleType()}'
                 })
             }
+        }
+
+        function spinnerOn(){
+            $('fieldset.validate .in-progress').removeClass('hidden');
+            $('fieldset.validate .in-progress').addClass('loading');
+        }
+
+        function spinnerOff(){
+            $('fieldset.validate .in-progress').addClass('hidden');
+            $('fieldset.validate .in-progress').removeClass('loading');
         }
 
         function modifyFinalPriceView(data){
