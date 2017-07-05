@@ -71,15 +71,16 @@
                 </button>
                 <sec:ifLoggedIn><g:set var="isLogged" value="${true}"/></sec:ifLoggedIn>
                 <sec:ifNotLoggedIn><g:set var="isLogged" value="${false}"/></sec:ifNotLoggedIn>
+                <g:set var="activeButton" value="${proposal.liked && isLogged}"/>
                 <button type="button"
-                        class="proposal-like ${proposal.liked && isLogged?'active':''}"
+                        class="proposal-like ${activeButton?'active':''}"
                         data-urlAction="${g.createLink(mapping: 'debateProposalLike')}"
                         data-debateId="${debate.id}"
                         data-debateAlias="${debate.userAlias}"
                         data-proposalId="${proposal.id}"
                         data-userLogged="${userUtil.loggedUserAlias()}"
                     >
-                    <g:if test="${proposal.liked}">
+                    <g:if test="${activeButton}">
                         <span class="fa fa-heart" aria-hidden="true"></span>
                     </g:if>
                     <g:else>
