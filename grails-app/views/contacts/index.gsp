@@ -72,15 +72,15 @@
                                 <a href="#" role="button" id="openContactsOptions" class="btn btn-blue inverted dropdown-toggle" data-toggle="dropdown"><span class="fa fa-caret-down fa-lg"></span></a>
                                 <ul id="contactsOptions" class="dropdown-menu dropdown-menu-right" aria-labelledby="openContactsOptions" role="menu">
                                     <li>
-                                        <g:link mapping="politicianContactNew" class="">
-                                            <span class="fa fa-user-plus"></span>
-                                            <g:message code="tools.contact.list.newContact"/>
+                                        <g:link mapping="politicianContactExport" elementId="exportContacts">
+                                            <span class="fa fa-file-excel-o"></span>
+                                            <g:message code="tools.contact.list.export.csv"/>
                                         </g:link>
                                     </li>
                                     <li>
-                                        <g:link mapping="politicianContactExport" elementId="exportContacts">
-                                            <span class="fa fa-file-excel-o"></span>
-                                            <g:message code="tools.contact.list.import.csv"/>
+                                        <g:link mapping="politicianContactNew" class="">
+                                            <span class="fa fa-user-plus"></span>
+                                            <g:message code="tools.contact.list.newContact"/>
                                         </g:link>
                                     </li>
                                 </ul>
