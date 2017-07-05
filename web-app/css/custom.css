@@ -4970,6 +4970,10 @@ h5#results {margin: 0 0 15px;}
 .list-team > li > .box-ppal > .social a:active {color: #20A2ea !important;}
 .list-team > li > .box-ppal > .collapsed {color: #545454;}
 
+.guide-card {padding: 0px;}
+.guide-card > .box-ppal {box-shadow: 0 0 2px rgba(200,200,200,0.6); padding: 20px; width: 96%; heigh: 600px;}
+.guide-card > .box-ppal > p {margin-top: 20px;}
+
 /* Ficha técnica */
 .kakareo.post.ley.ficha {
     margin: -12px 0 50px;
