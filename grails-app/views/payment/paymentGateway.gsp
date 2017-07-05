@@ -158,7 +158,7 @@
                                 gtmPaymentEvent("payment-button-submit-subscription")
                                 $form.submit()
                             }else{
-                                display.warn("No valid credit card");
+                                display.warn("${g.message(code:'funnel.payment.promotionalCode.declinedPaymentMethod')}");
                                 pageLoadingOff();
                             }
                         },
