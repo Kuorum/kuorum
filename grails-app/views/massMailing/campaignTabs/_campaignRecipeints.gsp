@@ -1,5 +1,11 @@
 <h2 class="sr-only"><g:message code="tools.massMailing.list.recipients"/></h2>
 <div class="pag-list-contacts clearfix">
+    <div class="actions">
+        <g:link mapping="politicianMassMailingTrackEventsReport" params="[campaignId:campaignId]" class="btn btn-blue" elementId="exportCampaignEvents">
+            <span class="fa fa-file-excel-o"></span>
+            Export contacts
+        </g:link>
+    </div>
     <nav:contactPagination
             link="${g.createLink(mapping:"politicianMassMailingTrackEvents", params: [campaignId:campaignId], absolute:true)}"
             currentPage="${trackingPage.page}"
@@ -52,4 +58,22 @@
             sizePage="${trackingPage.size}"
             ulClasss="paginationBottom"
             total="${trackingPage.total}"/>
+</div>
+
+
+<div id="export-campaignEvents-modal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="exportTagsTitle" aria-hidden="true">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header"><h4><g:message code="modal.exportedTrackingEvents.title"/></h4></div>
+            <div class="modal-body">
+                <p>
+                    <g:message code="modal.exportedTrackingEvents.explanation"/>
+                    <g:message code="modal.exported.explanation"/>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn" data-dismiss="modal" aria-label="Close"><g:message code="modal.exportedTrackingEvents.close"/></a>
+            </div>
+        </div>
+    </div>
 </div>

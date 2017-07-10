@@ -213,6 +213,7 @@ class NavigationTagLib {
         Long totalPages = Math.floor(totalElements / sizePage)
         String link = attrs.link?:"#"
 
+        out <<"<div class='pagination'>"
         out <<"<ul class='${ulClass}' data-page='${currentPage}' data-size='${sizePage}' data-link='${link}'>"
 
         out << getPaginationLi("<", currentPage-1, currentPage == 0)
@@ -222,6 +223,7 @@ class NavigationTagLib {
         Long upperLimit = (currentPage +1) * sizePage
         upperLimit = upperLimit>totalElements?totalElements:upperLimit
         out <<"<span class='counterList'>${(currentPage) * sizePage +1} - ${upperLimit} of <span class='totalList'>${totalElements}</span></span>"
+        out << "</div>"
     }
 
     private String getPaginationLi(String arrow, Long nextPage, boolean disabled){

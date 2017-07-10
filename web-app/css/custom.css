@@ -1426,19 +1426,17 @@ div.tagsinput {border:1px solid #DDDDDD;}
 .box-order-options .bulk-actions {width: 16%; display: inline-block; float:left;}
 .pag-list-campaigns {margin: 20px 0;}
 .pag-list-contacts {margin: 0 0 20px;}
-.pag-list-campaigns > ul, .pag-list-contacts > ul {float: right; padding: 0; margin: 0;}
-.pag-list-campaigns > ul > li, .pag-list-contacts > ul > li {list-style: none; display: inline-block;}
-.pag-list-campaigns > span, .pag-list-contacts > span {display: block; line-height: 32px; float: right; margin-right: 5px;}
-.pag-list-campaigns a, .pag-list-contacts a {text-align: center; color: #545454; display: block; float: right; width: 32px; height: 32px; line-height: 28px; margin-left: 10px; border: 1px solid #e5e5e5; background-color: #fff; background-position: center center; background-repeat: no-repeat;}
-.pag-list-campaigns a.disabled, .pag-list-contacts a.disabled {background-color: #f7f7f7; color:#ddd}
-.pag-list-campaigns a:hover, .pag-list-campaigns a:focus, .pag-list-campaigns a:active, .pag-list-campaigns .disabled a,
-.pag-list-contacts a:hover, .pag-list-contacts a:focus, .pag-list-contacts a:active, .pag-list-contacts .disabled a {background-color: #f7f7f7; text-decoration: none;}
-.pag-list-campaigns .active a, .pag-list-contacts .active a {background-color: #ddd;}
-.pag-list-campaigns .active a,
-.pag-list-campaigns .disabled a,
-.pag-list-contacts .active a,
-.pag-list-contacts .disabled a {cursor: default; pointer-events: none;}
-.pag-list-contacts .disabled a {border: none; width: 5px; margin-left: 1px; color:}
+.pag-list-campaigns .pagination, .pag-list-contacts .pagination {display:block; margin:0; float: right;}
+.pagination > ul {padding: 0; margin: 0;float:right;}
+.pagination > ul > li{list-style: none; display: inline-block;}
+.pagination  > span {display: block; line-height: 32px; float: right; margin-right: 5px;}
+.pagination a {text-align: center; color: #545454; display: block; float: right; width: 32px; height: 32px; line-height: 28px; margin-left: 10px; border: 1px solid #e5e5e5; background-color: #fff; background-position: center center; background-repeat: no-repeat;}
+.pagination a.disabled {background-color: #f7f7f7; color:#ddd}
+.pagination a:hover, .pagination a:focus, .pagination a:active, .pagination .disabled a {background-color: #f7f7f7; text-decoration: none;}
+.pagination .active a {background-color: #ddd;}
+.pagination  .active a,
+.pagination  .disabled a {cursor: default; pointer-events: none;}
+.pag-list-contacts .pagination .disabled a {border: none; width: 5px; margin-left: 1px; color:}
 .searchContainer {position: relative;}
 .searchContainer::after {font-family: FontAwesome; content:''; position: absolute; right: 8px; top: 5px; color: #a8a8a8;}
 /*.nextCampaings {background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAARCAYAAADkIz3lAAABTElEQVQoU32SPUvDUBSGvZUMDqIuuusiQiYHcdPJLYaYiItYP8Au4uJSUAk4WASniq3iVhFqPsjkHFwc/AUODk5OAcFNTOJzxZbGNr3wcsk9T957zpuIgT7LsqyRJEkqQog7kcdpmjasKEqV+gbgcU8QaALoCmgZXRcKhcMuUNf1KQoNXOaBKlEUHYVh+J0B6WmWnu4BJlFZVdUz27YT2V4bNAxjEafbNE3Hcdt2XbdBPW3N8AuusNhkT/Ltoud5D/+HFKZp7uJyTuENxx3HcZ56JSEwa1JYRRc47eXFJcFpijW0QG9VdIDrV9fV8oBIRrm2BrTGYzOO41IQBB+dcHtqohkimlOK++gReAv4NTN16wF4EKCM8wlnLwy57vv+cybHzmvItAh8ydkn2pRx5f4UDLkEdIPGUCkX/PsQc+x13Ot9QQnT9wx/0vsPX0htrxF9MPAAAAAASUVORK5CYII=');}
@@ -1731,6 +1729,8 @@ ul.user-list-followers .loading.xs {width: 10px; height: 10px;}
 #tabs-stats-campaign .table td.recipient-name a {color: #a8a8a8}
 #tabs-stats-campaign .table td:nth-child(4) {height: 46px;}
 #tabs-stats-campaign .table td:nth-child(4) .only-mobile {display: block; margin-bottom: 5px;}
+#tabs-stats-campaign .pag-list-contacts .actions{float:left;}
+#tabs-stats-campaign .pag-list-contacts .actions a{width: auto;line-height: inherit;}
 #campaignStatsContainer {height: 355px;}
 #campaignEmailContainer {width: 100%; height: 700px; border: 1px solid #dddddd; margin-bottom: 10px;}
 

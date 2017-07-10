@@ -152,6 +152,7 @@ class RestKuorumApiService {
         ACCOUNT_MASS_MAILING            ("/communication/massmailing/{userAlias}/{campaignId}"),
         ACCOUNT_MASS_MAILING_SEND       ("/communication/massmailing/{userAlias}/{campaignId}/send"),
         ACCOUNT_MASS_MAILING_TRACKING   ("/communication/massmailing/{userAlias}/{campaignId}/trackingMails"),
+        ACCOUNT_MASS_MAILING_REPORT     ("/communication/massmailing/{userAlias}/{campaignId}/trackingMails/report"),
         ACCOUNT_MASS_MAILING_CONFIG     ("/communication/massmailing/{userAlias}/config"),
 
         ACCOUNT_DEBATES_ALL     ("/communication/debate/"),

@@ -1582,6 +1582,25 @@ $(document).ready(function() {
 
     prepareForms()
 
+
+    // Modals exports
+    $("#exportCampaignEvents").on("click", function(e){
+        pageLoadingOn();
+        e.preventDefault();
+        var $a = $(this)
+        var link = $a.attr("href")
+        $.post(link)
+            .done(function(data) {
+                $("#export-campaignEvents-modal").modal("show")
+            })
+            .fail(function(messageError) {
+                display.warn("Error exporting");
+            })
+            .always(function() {
+                pageLoadingOff();
+            });
+    })
+
 });
 
 function prepareForms(){

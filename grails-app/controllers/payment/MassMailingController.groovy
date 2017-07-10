@@ -424,6 +424,12 @@ class MassMailingController {
         render template: '/massMailing/campaignTabs/campaignRecipeints', model: [trackingPage:trackingPage, campaignId:campaignId]
     }
 
+    def sendReport(Long campaignId){
+        KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
+        TrackingMailStatsByCampaignPageRSDTO trackingPage = massMailingService.findTrackingMailsReport(loggedUser, campaignId)
+        render ([success:"success"] as JSON)
+    }
+
     def updateCampaign(MassMailingSettingsCommand command){
         KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
         Long campaignId = Long.parseLong(params.campaignId)

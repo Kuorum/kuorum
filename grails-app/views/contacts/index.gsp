@@ -171,6 +171,7 @@
                 <div class="modal-body">
                     <p>
                         <g:message code="modal.exportedContacts.explanation"/>
+                        <g:message code="modal.exported.explanation"/>
                     </p>
                 </div>
                 <div class="modal-footer">

@@ -127,6 +127,16 @@ class MassMailingService {
         }
         trackingMailStatsByCampaignPageRSDTO
     }
+    void findTrackingMailsReport(KuorumUser user, Long campaignId){
+        Map<String, String> params = [userAlias:user.id.toString(), campaignId:campaignId.toString()]
+        Map<String, String> query = [:]
+        def response= restKuorumApiService.get(
+                RestKuorumApiService.ApiMethod.ACCOUNT_MASS_MAILING_REPORT,
+                params,
+                query,
+                null
+        )
+    }
 
     NewsletterConfigRDTO findNewsletterConfig(KuorumUser user){
         Map<String, String> params = [userAlias:user.id.toString()]
