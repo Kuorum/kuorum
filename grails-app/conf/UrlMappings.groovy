@@ -244,6 +244,7 @@ class UrlMappings {
         name profileProfessionalDetails:    "/edit-profile/professional-details"               (controller: "profile"){action=[GET:"editProfessionalDetails", POST:"updateProfessionalDetails"]}
         name profilePictures:               "/edit-profile/pictures"                           (controller: "profile"){action=[GET:"editPictures", POST: "updatePictures"]}
         name profileNewsletterConfig:       "/config/newsletter-config"                        (controller: "profile"){action=[GET:"editNewsletterConfig", POST: "updateNewsletterConfig"]}
+        name profileNewsletterConfigRequestEmailSender:     "/ajax/config/newsletter-config/requestSender"   (controller: "profile"){action=[POST: "requestedEmailSender"]}
 
 
         name profileMailing : "/notifications/mailing" (controller: "profile", action:"showUserEmails")

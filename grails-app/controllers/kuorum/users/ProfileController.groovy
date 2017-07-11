@@ -1,10 +1,10 @@
 package kuorum.users
 
+import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 import grails.plugin.springsecurity.ui.RegistrationCode
 import grails.plugin.springsecurity.ui.ResetPasswordCommand
 import kuorum.KuorumFile
-import kuorum.Region
 import kuorum.causes.CausesService
 import kuorum.core.model.Gender
 import kuorum.core.model.UserType
@@ -501,11 +501,17 @@ class ProfileController {
     def editNewsletterConfig(){
         KuorumUser user = params.user
         NewsletterConfigRDTO config = massMailingService.findNewsletterConfig(user)
+        Boolean isRequested = config.getEmailSenderRequested();
+        String emailSender = config.getEmailSender();
         NewsletterConfigCommand command = new NewsletterConfigCommand()
         use(InvokerHelper) {
             command.setProperties(config.properties)
         }
-        [command:command]
+        [
+                command:command,
+                isRequested:isRequested,
+                emailSender:emailSender
+        ]
     }
 
     def updateNewsletterConfig(NewsletterConfigCommand command){
@@ -521,5 +527,14 @@ class ProfileController {
         massMailingService.updateNewsletterConfig(user,config)
         flash.message="Success"
         redirect(mapping:'profileNewsletterConfig')
+    }
+
+    def requestedEmailSender(){
+        KuorumUser user = params.user;
+        NewsletterConfigRDTO config = massMailingService.findNewsletterConfig(user);
+        config.setEmailSenderRequested(true);
+        massMailingService.updateNewsletterConfig(user, config);
+
+        render([msg: ''] as JSON)
     }
 }

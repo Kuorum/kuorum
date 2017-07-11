@@ -1599,7 +1599,7 @@ $(document).ready(function() {
             .always(function() {
                 pageLoadingOff();
             });
-    })
+    });
 
     // Request custom email sender
     $('.box-ppal .box-ppal-section #requestCustomSender').on('click', function (e){
@@ -1611,10 +1611,20 @@ $(document).ready(function() {
 });
 
 function requestCustomSender($selector) {
-    $selector.attr('disabled', 'disabled');
-    $selector.text('Requested');
-    var checkIcon = $('.box-ppal .box-ppal-section').find('.valid');
-    checkIcon.removeClass('hidden');
+    pageLoadingOn();
+    var map = $selector.attr('data-ajaxRequestSender');
+    $.post(map)
+        .done(function(data){
+            $selector.attr('disabled', 'disabled');
+            var checkIcon = $('.box-ppal .box-ppal-section').find('.valid');
+            checkIcon.removeClass('hidden');
+        })
+        .fail(function(error){
+            display.warn("There was an error doing the request");
+        })
+        .always(function() {
+            pageLoadingOff();
+        });
 }
 
 function prepareForms(){

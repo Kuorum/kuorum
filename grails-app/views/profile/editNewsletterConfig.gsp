@@ -41,21 +41,34 @@
     </g:form>
 </content>
 
+<g:if test="${isRequested && !emailSender}">
+    <g:set var="textInfo" value="${g.message(code:'kuorum.web.commands.profile.NewsletterConfigCommand.customEmailSender.success.requested')}"/>
+    <g:set var="buttonState" value="disabled='disabled'"/>
+</g:if>
+<g:elseif test="${!isRequested && emailSender}">
+    <g:set var="textInfo" value="${g.message(code:'kuorum.web.commands.profile.NewsletterConfigCommand.customEmailSender.success.working', args: emailSender)}"/>
+    <g:set var="buttonVisibility" value="hidden"/>
+</g:elseif>
+<g:else>
+    <g:set var="textInfo" value="${g.message(code:'kuorum.web.commands.profile.NewsletterConfigCommand.customEmailSender.success.requested')}"/>
+    <g:set var="checkVisibility" value="hidden"/>
+</g:else>
+
 <content tag="otherMainContent">
     <div class="box-ppal-section">
         <div class="form-group">
-            <span class="span-label">Custom email sender</span>
-            <p class="help-block">Sending your campaigns under your own domain name is an advanced feature for premium users.
-            Click here to ask for it and the team of Kuorum will contact you, as it requires special settings in your DNS.</p>
+            <span class="span-label"><g:message code="kuorum.web.commands.profile.NewsletterConfigCommand.customEmailSender.label"/></span>
+            <p class="help-block"><g:message code="kuorum.web.commands.profile.NewsletterConfigCommand.customEmailSender.label.helpBlock"/></p>
         </div>
     </div>
     <div class="box-ppal-section">
         <fieldset class="form-group text-center">
-            <input id="requestCustomSender" type="submit" value="Request" class="btn btn-orange btn-lg">
+            <input id="requestCustomSender" type="submit" value="${g.message(code:'kuorum.web.commands.profile.NewsletterConfigCommand.customEmailSender.button.request')}"
+                   class="btn btn-orange btn-lg ${buttonVisibility}" ${buttonState} data-ajaxRequestSender="${g.createLink(mapping: 'profileNewsletterConfigRequestEmailSender')}">
         </fieldset>
         <fieldset class="validate">
-            <div class="col-xs-12 valid hidden">
-                <i class="fa fa-check fa-2x"></i><span>Done! Our team will contact you soon</span>
+            <div class="col-xs-12 valid ${checkVisibility}">
+                <i class="fa fa-check fa-2x"></i><span>${textInfo}</span>
             </div>
         </fieldset>
     </div>
