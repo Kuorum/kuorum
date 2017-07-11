@@ -14,7 +14,7 @@ import kuorum.users.RoleUser
 import org.scribe.model.Token
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.social.facebook.api.Facebook
-import org.springframework.social.facebook.api.FacebookProfile
+import org.springframework.social.facebook.api.User
 import org.springframework.social.facebook.api.impl.FacebookTemplate
 import springSecurity.KuorumRegisterCommand
 
@@ -32,7 +32,7 @@ class FacebookOAuthService implements IOAuthService {
     @Override
     OAuthToken createAuthToken(Token accessToken) throws KuorumException {
         Facebook facebook = new FacebookTemplate(accessToken.token)
-        FacebookProfile fbProfile = facebook.userOperations().userProfile
+        User fbProfile = facebook.userOperations().userProfile
 
         // No email provided
         if (fbProfile.email == null) {
@@ -69,7 +69,7 @@ class FacebookOAuthService implements IOAuthService {
         return oAuthToken
     }
 
-    private KuorumUser createNewUser(FacebookProfile fbProfile ){
+    private KuorumUser createNewUser(User fbProfile ){
         KuorumRegisterCommand registerCommand = new KuorumRegisterCommand(
                 email:fbProfile.email,
                 name: fbProfile.name,
@@ -94,7 +94,7 @@ class FacebookOAuthService implements IOAuthService {
         user
     }
 
-    private FacebookUser updateSavedAccessToken(Token accessToken, KuorumUser user, FacebookProfile fbProfile){
+    private FacebookUser updateSavedAccessToken(Token accessToken, KuorumUser user, User fbProfile){
         FacebookUser facebookUser = FacebookUser.findByUid(fbProfile.id)?:new FacebookUser(uid:fbProfile.id)
         facebookUser.accessToken = accessToken.token
         facebookUser.accessTokenExpires = getExpirationDateFromToken(accessToken)
@@ -110,7 +110,7 @@ class FacebookOAuthService implements IOAuthService {
         cal.getTime()
     }
 
-    private void createAvatar(KuorumUser user, FacebookProfile fbProfile){
+    private void createAvatar(KuorumUser user, User fbProfile){
         if (!user.avatar){
             String imageUrl = "https://graph.facebook.com/${fbProfile.id}/picture?type=large"
             KuorumFile kuorumFile = new KuorumFile(
