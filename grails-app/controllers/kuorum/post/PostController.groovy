@@ -232,6 +232,7 @@ class PostController {
 
         if (command.filterEdited) {
             postRDTO.setAnonymousFilter(anonymousFilter)
+            postRDTO.setFilterId(null)
         } else {
             postRDTO.setFilterId(command.filterId)
         }
