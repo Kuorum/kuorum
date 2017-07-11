@@ -87,6 +87,9 @@ select {padding: 6px 6px 6px 8px !important;}*/
 abbr.text-danger{
     border:none;
 }
+
+span[rel=tooltip] {cursor: default;}
+
 /* text truncation */
 .ellipsis{
     white-space: nowrap;
