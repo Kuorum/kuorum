@@ -1601,7 +1601,21 @@ $(document).ready(function() {
             });
     })
 
+    // Request custom email sender
+    $('.box-ppal .box-ppal-section #requestCustomSender').on('click', function (e){
+        e.preventDefault();
+        var $selector =$(this);
+        requestCustomSender($selector);
+    });
+
 });
+
+function requestCustomSender($selector) {
+    $selector.attr('disabled', 'disabled');
+    $selector.text('Requested');
+    var checkIcon = $('.box-ppal .box-ppal-section').find('.valid');
+    checkIcon.removeClass('hidden');
+}
 
 function prepareForms(){
     // datepicker calendario
@@ -1823,7 +1837,7 @@ function modalRegister($form, callback){
                             callback()
                         } else {
                             // Form validation doesn't allow to take this conditional branch
-                            $form.submit() // Goes to register page usign normal flow and handling errors
+                            $form.submit() // Goes to register page using normal flow and handling errors
                         }
                     },
                     complete: function () {

@@ -1820,6 +1820,13 @@ ul.user-list-followers .loading.xs {width: 10px; height: 10px;}
 .kakareo h1 {font-size: 18px; font-size: 1.8rem; padding: 0; margin: 0 0 15px 0; line-height: 1.3;}
 .kakareo h1 a {color: #428bca;}
 
+.box-ppal .box-ppal-section fieldset.validate { text-align:center; }
+.box-ppal .box-ppal-section fieldset.validate .valid { margin-bottom:20px; }
+.box-ppal .box-ppal-section fieldset.validate .valid .fa { color: green; }
+
+#main .box-ppal:first-child {margin: 0px}
+#main .box-ppal {margin-top: 20px}
+
 #detailsInfoVotes.autor {background-color: #fff; border: solid 1px #ff9431; padding: 15px; margin: 0 0 15px 0; position: relative;}
 #detailsInfoVotes.autor > .row {margin-bottom: 20px;}
 #detailsInfoVotes.autor > .row:first-child > .col-md-4 {margin-bottom: 10px;}

@@ -40,3 +40,23 @@
         </div>
     </g:form>
 </content>
+
+<content tag="otherMainContent">
+    <div class="box-ppal-section">
+        <div class="form-group">
+            <span class="span-label">Custom email sender</span>
+            <p class="help-block">Sending your campaigns under your own domain name is an advanced feature for premium users.
+            Click here to ask for it and the team of Kuorum will contact you, as it requires special settings in your DNS.</p>
+        </div>
+    </div>
+    <div class="box-ppal-section">
+        <fieldset class="form-group text-center">
+            <input id="requestCustomSender" type="submit" value="Request" class="btn btn-orange btn-lg">
+        </fieldset>
+        <fieldset class="validate">
+            <div class="col-xs-12 valid hidden">
+                <i class="fa fa-check fa-2x"></i><span>Done! Our team will contact you soon</span>
+            </div>
+        </fieldset>
+    </div>
+</content>

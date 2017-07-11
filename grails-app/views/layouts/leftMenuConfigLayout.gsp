@@ -29,6 +29,11 @@
                                     <g:pageProperty name="page.mainContent"/>
                                 </div>
                             </div>
+                            <g:if test="${pageProperty(name:'page.otherMainContent')}">
+                                <div class="box-ppal">
+                                    <g:pageProperty name="page.otherMainContent"/>
+                                </div>
+                            </g:if>
                         </section>
                     </section>
                 </div>
