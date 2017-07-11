@@ -194,7 +194,7 @@ oauth {
             successUri = '/oauth/facebook/success'
             failureUri = '/oauth/facebook/failure'
             callback = "http://localhost:8080/kuorum/oauth/facebook/callback" // Is overwritten with properties file
-            scope = 'public_profile user_friends email user_about_me'
+            scope = 'email public_profile user_friends user_about_me'
         }
         // for Google OAuth 2.0
         google {
