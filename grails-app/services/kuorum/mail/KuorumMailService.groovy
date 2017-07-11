@@ -165,7 +165,7 @@ class KuorumMailService {
     }
     def sendRequestADemoAdmin(String name, String email, String enterprise, String phone, AvailableLanguage language){
         String rawMessage = """
-        <h1> Requested a demo </h1>
+        <h1> Demo requested </h1>
         <ul>
             <li>Name: $name</li>
             <li>Email: $email</li>
@@ -175,6 +175,20 @@ class KuorumMailService {
         </ul>
         """
         sendBatchMail(getFeedbackUser("DEMO"), rawMessage, "Requested a demo: ${name}");
+    }
+
+    def sendRequestACustomDomainAdmin(String name, String email, String enterprise, String phone, AvailableLanguage language){
+        String rawMessage = """
+        <h1> Custom domain requested </h1>
+        <ul>
+            <li>Name: $name</li>
+            <li>Email: $email</li>
+            <li>Enterprise: $enterprise</li>
+            <li>Phone: $phone</li>
+            <li>Lang: $language</li>
+        </ul>
+        """
+        sendBatchMail(getFeedbackUser("CUSTOM DOMAIN"), rawMessage, "Requested a custom domain: ${name}");
     }
 
     def sendChangeEmailRequested(KuorumUser user, String newEmail){
