@@ -36,13 +36,17 @@
                             />
                         </li>
                     </g:if>
+                    <g:set var="logged" value="${false}"/>
+                    <sec:ifLoggedIn>
+                        <g:set var="logged" value="${true}"/>
+                    </sec:ifLoggedIn>
                     <li>
-                        <a class="post-like ${post.liked?'active':''}"
+                        <a class="post-like ${post.liked && logged?'active':''}"
                         data-postId="${post.id}"
                         data-userAlias="${post.userAlias}"
                         data-urlAction="${g.createLink(mapping: "postLike")}"
                         data-loggedUser="${sec.username()}">
-                        <span class="fa ${post.liked?'fa-heart':'fa-heart-o'} fa-lg"></span>
+                        <span class="fa ${post.liked && logged?'fa-heart':'fa-heart-o'} fa-lg"></span>
                         <span class="number">${post.likes}</span>
                         </a>
                     </li>
