@@ -384,7 +384,7 @@ a:focus {color: #ff9431;}
 }
 .navbar-nav .form .dropdown-menu {padding: 15px 0; height: 260px}
 .navbar-nav .form .dropdown-menu form,
-.modal-register.modal form  {position: absolute; width: 272px;}
+.modal-register.modal form  { width: 272px;}
 .navbar-nav .form .dropdown-menu #sign-header,
 .modal-dialog #login-modal {display: none;}
 .modal-dialog #signup-modal {display: block;}
@@ -3541,8 +3541,6 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .modal-register .modal-dialog {width: 290px; margin: 10px auto;}
 .modal-register .modal-dialog .modal-body {padding: 8px;}
 
-.modal-register .modal-dialog .modal-content {height: 305px;}
-
 .modal .input-group-addon,
 .dropdown .input-group-addon {width: 95px;}
 .modal .input-append,
@@ -5558,6 +5556,10 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .uploaderImageContainer.PROJECT_IMAGE .qq-upload-drop-area {height:228px;}
     .uploaderImageContainer.PROJECT_IMAGE > div {height:228px;}
 
+    .modal-register .modal-dialog {width: 350px;}
+    .modal-register.modal form{width: 310px;}
+    .modal-register .modal-dialog .modal-body {padding: 0px 20px 20px 20px;}
+
 }
 @media only screen and (min-width: 533px) {
     #detailsInfoVotes .table tbody th {width: 205px;}
@@ -5747,7 +5749,6 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .embudo #aside-ppal .border {width: 370px; margin: 0 auto;}
     .medios-list blockquote {margin: 0;}
     .support-list li {margin-right: 40px;}
-    .modal-register .modal-dialog {width: 350px;}
     #videoHome .modal-dialog,
     #videoHome .modal-dialog .youtube {width: 600px;}
     .no-phone .form-group:nth-child(2) {width: 20%;}
@@ -5769,9 +5770,6 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .sign .login .socialGo .btn.fb {padding: 15px 25px !important;}
     .sign .login {margin: 20px auto;}
     .sign .login .btn + .cancel {margin-left: 33px;}
-
-    .modal-register.modal form{width: 310px;}
-    .modal-register .modal-dialog .modal-body {padding: 0px 20px 20px 20px;}
 
     .home .play {font-size: 16px; font-size: 1.6rem;text-align: center;}
     .list-project .kakareo.post.ley .laley a {font-size: 18px; font-size: 1.8rem;}

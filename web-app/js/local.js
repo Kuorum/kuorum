@@ -1025,15 +1025,15 @@ $(document).ready(function() {
     $('body').on('click','.change-home-register', function(e) {
         e.stopPropagation();
         e.preventDefault();
-        $(this).closest('form').fadeOut('fast');
-        $(this).closest('form').siblings('form').fadeIn('slow');
+        $(this).closest('form').hide();
+        $(this).closest('form').siblings('form').show();
     });
 
     $('body').on('click','.change-home-login', function(e) {
         e.stopPropagation();
         e.preventDefault();
-        $(this).closest('form').fadeOut('fast');
-        $(this).closest('form').siblings('form').fadeIn('slow');
+        $(this).closest('form').hide()
+        $(this).closest('form').siblings('form').show();
     });
 
     // al hacer clic en el botón "Regístrate" de la Home cambio el orden de aparición
