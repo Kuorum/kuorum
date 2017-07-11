@@ -47,8 +47,10 @@
             <li><a href="#" role="button" class="sort" data-sort="click-number"><g:message code="tools.massMailing.list.order.clickRate"/></a></li>
         </ul>
         <div class="pag-list-campaigns">
-            <ul class="paginationTop"></ul>
-            <span class="counterList">Total of <span class="totalList"></span></span>
+            <div class="pagination">
+                <ul class="paginationTop"></ul>
+                <span class="counterList">Total of <span class="totalList"></span></span>
+            </div>
         </div>
     </div>
     <ul id="campaignsList" class="list">
@@ -64,8 +66,10 @@
     </ul>
 
     <div class="pag-list-campaigns clearfix">
-        <ul class="paginationBottom"></ul>
-        <span class="counterList">Total of <span class="totalList"></span></span>
+        <div class="pagination">
+            <ul class="paginationBottom"></ul>
+            <span class="counterList">Total of <span class="totalList"></span></span>
+        </div>
     </div>
 
 
