@@ -242,6 +242,7 @@ class DebateController {
         if (command.filterEdited) {
             //anonymousFilter.setName(g.message(code:'tools.contact.filter.anonymousName', args: anonymousFilter.getName()))
             debateRDTO.setAnonymousFilter(anonymousFilter)
+            debateRDTO.setFilterId(null)
         } else {
             debateRDTO.setFilterId(command.filterId)
         }
