@@ -14,7 +14,7 @@ public enum FileGroup {
     //TODO: Revisar el campo 'folderPath' para este caso
     YOUTUBE("YoutubeFiles",0,'',0,0)
 
-    static final Long MIN_SIZE_IMAGE = 1024 * 10
+    static final Long MIN_SIZE_IMAGE = 1024 * 1 // 1KB
 
     String folderPath
     Long maxSize
