@@ -45,8 +45,8 @@
     <g:set var="textInfo" value="${g.message(code:'kuorum.web.commands.profile.NewsletterConfigCommand.customEmailSender.success.requested')}"/>
     <g:set var="buttonState" value="disabled='disabled'"/>
 </g:if>
-<g:elseif test="${!isRequested && emailSender}">
-    <g:set var="textInfo" value="${g.message(code:'kuorum.web.commands.profile.NewsletterConfigCommand.customEmailSender.success.working', args: emailSender)}"/>
+<g:elseif test="${emailSender}">
+    <g:set var="textInfo" value="${g.message(code:'kuorum.web.commands.profile.NewsletterConfigCommand.customEmailSender.success.working', args: [emailSender])}"/>
     <g:set var="buttonVisibility" value="hidden"/>
 </g:elseif>
 <g:else>
@@ -62,9 +62,9 @@
         </div>
     </div>
     <div class="box-ppal-section">
-        <fieldset class="form-group text-center">
+        <fieldset class="form-group text-center ${buttonVisibility}">
             <input id="requestCustomSender" type="submit" value="${g.message(code:'kuorum.web.commands.profile.NewsletterConfigCommand.customEmailSender.button.request')}"
-                   class="btn btn-orange btn-lg ${buttonVisibility}" ${buttonState} data-ajaxRequestSender="${g.createLink(mapping: 'profileNewsletterConfigRequestEmailSender')}">
+                   class="btn btn-orange btn-lg" ${buttonState} data-ajaxRequestSender="${g.createLink(mapping: 'profileNewsletterConfigRequestEmailSender')}">
         </fieldset>
         <fieldset class="validate">
             <div class="col-xs-12 valid ${checkVisibility}">
