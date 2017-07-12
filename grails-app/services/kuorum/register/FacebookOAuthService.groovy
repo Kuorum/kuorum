@@ -7,6 +7,7 @@ import kuorum.KuorumFile
 import kuorum.core.FileGroup
 import kuorum.core.FileType
 import kuorum.core.exception.KuorumException
+import kuorum.core.model.AvailableLanguage
 import kuorum.users.FacebookUser
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
@@ -72,7 +73,7 @@ class FacebookOAuthService implements IOAuthService {
     private KuorumUser createNewUser(User fbProfile ){
         KuorumRegisterCommand registerCommand = new KuorumRegisterCommand(
                 email:fbProfile.email,
-                name: fbProfile.name,
+                name: fbProfile.firstName?:fbProfile.name,
                 password: "${PASSWORD_PREFIX}${Math.random()}"
         )
         KuorumUser user = registerService.createUser(registerCommand)
@@ -80,7 +81,9 @@ class FacebookOAuthService implements IOAuthService {
         user.accountLocked = false
         user.enabled = true
         user.password = registerCommand.password
-        user.alias = user.alias?:kuorumUserService.generateValidAlias(fbProfile.username?:fbProfile.name)
+        user.alias = user.alias?:kuorumUserService.generateValidAlias(fbProfile.name)
+        user.surname=fbProfile.lastName
+        user.language = AvailableLanguage.fromLocaleParam(fbProfile?.locale?.language)
         RoleUser roleUser = RoleUser.findByAuthority('ROLE_USER')
         user.authorities = [roleUser]
 

@@ -535,7 +535,7 @@ class ProfileController {
         config.setEmailSenderRequested(true);
         massMailingService.updateNewsletterConfig(user, config);
 
-        kuorumMailService.sendRequestACustomDomainAdmin(user.alias, user.email, user.organization, user.personalData.telephone, user.language);
+        kuorumMailService.sendRequestACustomDomainAdmin(user);
 
         render([msg: ''] as JSON)
     }
