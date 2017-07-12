@@ -3,7 +3,7 @@
     <div class="actions">
         <g:link mapping="politicianMassMailingTrackEventsReport" params="[campaignId:campaignId]" class="btn btn-blue" elementId="exportCampaignEvents">
             <span class="fa fa-file-excel-o"></span>
-            Export contacts
+            <g:message code="tools.massMailing.list.recipients.export.csv"/>
         </g:link>
     </div>
     <nav:contactPagination
