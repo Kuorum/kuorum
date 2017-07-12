@@ -188,7 +188,7 @@ class KuorumMailService {
             <li>Lang: ${userRequestingDomain.language}</li>
         </ul>
         """
-        sendBatchMail(getFeedbackUser("CUSTOM DOMAIN"), rawMessage, "Requested a custom domain: ${name}");
+        sendBatchMail(getFeedbackUser("CUSTOM DOMAIN"), rawMessage, "Requested a custom domain: ${userRequestingDomain.name}");
     }
 
     def sendChangeEmailRequested(KuorumUser user, String newEmail){
