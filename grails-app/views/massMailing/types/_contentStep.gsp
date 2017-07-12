@@ -5,7 +5,7 @@
     <g:render template="/campaigns/steps/threeSteps" model="[editReference: 'politicianMassMailingContent']"/>
 </div>
 
-<div class="box-ppal campaign-new newsletter">
+<div class="box-ppal campaign-new">
     <h1 class="sr-only">Newsletter</h1>
 
         <g:if test="${contentType==org.kuorum.rest.model.notification.campaign.CampaignTemplateDTO.HTML}">
