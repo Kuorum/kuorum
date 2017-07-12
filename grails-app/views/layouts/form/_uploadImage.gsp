@@ -3,7 +3,7 @@
 <script>
     var typeErrorText = "${g.message(code:'uploader.error.typeError')}";
     var sizeErrorText = "${g.message(code:'uploader.error.sizeError', args:[Math.round(fileGroup.maxSize/1000/1000)])}";
-    var minSizeErrorText = "${g.message(code:'uploader.error.minSizeError', args: [Math.round(kuorum.core.FileGroup.MIN_SIZE_IMAGE/1000)])}";
+    var minSizeErrorText = "${g.message(code:'uploader.error.minSizeError', args: [Math.round(kuorum.core.FileGroup.MIN_SIZE_IMAGE/1024)])}";
     var emptyErrorText = "${g.message(code:'uploader.error.emptyError')}";
     var onLeaveText = "${g.message(code:'uploader.error.onLeave')}";
     var jcropApi;
