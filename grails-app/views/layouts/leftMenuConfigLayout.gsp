@@ -30,7 +30,7 @@
                                 </div>
                             </div>
                             <g:if test="${pageProperty(name:'page.otherMainContent')}">
-                                <div class="box-ppal">
+                                <div class="box-ppal other-main-content">
                                     <g:pageProperty name="page.otherMainContent"/>
                                 </div>
                             </g:if>

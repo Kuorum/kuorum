@@ -1829,8 +1829,7 @@ ul.user-list-followers .loading.xs {width: 10px; height: 10px;}
 .box-ppal .box-ppal-section fieldset.validate .valid .fa-check { color: green; }
 .box-ppal .box-ppal-section fieldset.validate .valid .fa-close { color: red; }
 
-#main.config .box-ppal:first-child {margin: 0px}
-#main.config .box-ppal {margin-top: 20px}
+#main.config .box-ppal.other-main-content {margin-top: 20px}
 
 #detailsInfoVotes.autor {background-color: #fff; border: solid 1px #ff9431; padding: 15px; margin: 0 0 15px 0; position: relative;}
 #detailsInfoVotes.autor > .row {margin-bottom: 20px;}
