@@ -1,16 +1,15 @@
 package payment.campaign
 
+import com.fasterxml.jackson.core.type.TypeReference
 import grails.transaction.Transactional
 import kuorum.users.KuorumUser
 import kuorum.util.TimeZoneUtil
 import kuorum.util.rest.RestKuorumApiService
-import com.fasterxml.jackson.core.type.TypeReference
 import org.kuorum.rest.model.notification.campaign.CampaignRQDTO
 import org.kuorum.rest.model.notification.campaign.CampaignRSDTO
-import org.kuorum.rest.model.notification.campaign.config.NewsletterConfigRDTO
+import org.kuorum.rest.model.notification.campaign.config.NewsletterConfigRQDTO
+import org.kuorum.rest.model.notification.campaign.config.NewsletterConfigRSDTO
 import org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatsByCampaignPageRSDTO
-
-import java.text.SimpleDateFormat
 
 @Transactional
 class MassMailingService {
@@ -138,23 +137,23 @@ class MassMailingService {
         )
     }
 
-    NewsletterConfigRDTO findNewsletterConfig(KuorumUser user){
+    NewsletterConfigRSDTO findNewsletterConfig(KuorumUser user){
         Map<String, String> params = [userAlias:user.id.toString()]
         Map<String, String> query = [:]
         def response= restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.ACCOUNT_MASS_MAILING_CONFIG,
                 params,
                 query,
-                new TypeReference<NewsletterConfigRDTO>(){}
+                new TypeReference<NewsletterConfigRSDTO>(){}
         )
-        NewsletterConfigRDTO newsletterConfigRDTO=null;
+        NewsletterConfigRSDTO newsletterConfigRDTO=null;
         if (response.data){
-            newsletterConfigRDTO = (NewsletterConfigRDTO)response.data
+            newsletterConfigRDTO = (NewsletterConfigRSDTO)response.data
         }
         newsletterConfigRDTO
     }
 
-    NewsletterConfigRDTO updateNewsletterConfig(KuorumUser user, NewsletterConfigRDTO config){
+    NewsletterConfigRSDTO updateNewsletterConfig(KuorumUser user, NewsletterConfigRQDTO config){
         Map<String, String> params = [userAlias:user.id.toString()]
         Map<String, String> query = [:]
         def response= restKuorumApiService.put(
@@ -162,11 +161,11 @@ class MassMailingService {
                 params,
                 query,
                 config,
-                new TypeReference<NewsletterConfigRDTO>(){}
+                new TypeReference<NewsletterConfigRSDTO>(){}
         )
-        NewsletterConfigRDTO newsletterConfigRDTO=null;
+        NewsletterConfigRSDTO newsletterConfigRDTO=null;
         if (response.data){
-            newsletterConfigRDTO = (NewsletterConfigRDTO)response.data
+            newsletterConfigRDTO = (NewsletterConfigRSDTO)response.data
         }
         newsletterConfigRDTO
     }

@@ -12,7 +12,7 @@ import kuorum.users.PoliticianService
 import kuorum.web.admin.KuorumUserEmailSenderCommand
 import kuorum.web.admin.KuorumUserRightsCommand
 import org.kuorum.rest.model.notification.KuorumMailAccountDetailsRSDTO
-import org.kuorum.rest.model.notification.campaign.config.NewsletterConfigRDTO
+import org.kuorum.rest.model.notification.campaign.config.NewsletterConfigRSDTO
 import org.springframework.web.multipart.MultipartFile
 import org.springframework.web.multipart.MultipartHttpServletRequest
 import payment.campaign.MassMailingService
@@ -131,10 +131,10 @@ class AdminController {
         Boolean requestState;
         KuorumUser user = kuorumUserService.findByAlias(userAlias)
         KuorumUserEmailSenderCommand command = new KuorumUserEmailSenderCommand()
-        NewsletterConfigRDTO configRDTO = massMailingService.findNewsletterConfig(user);
+        NewsletterConfigRSDTO configRSDTO = massMailingService.findNewsletterConfig(user);
         command.user = user;
-        command.emailSender = configRDTO.getEmailSender();
-        requestState = configRDTO.getEmailSenderRequested();
+        command.emailSender = configRSDTO.getEmailSender();
+        requestState = configRSDTO.getEmailSenderRequested();
         [
                 command: command,
                 requestState: requestState
@@ -143,10 +143,10 @@ class AdminController {
 
     def updateUserEmailSender(KuorumUserEmailSenderCommand command){
         KuorumUser user = command.user;
-        NewsletterConfigRDTO configRDTO = massMailingService.findNewsletterConfig(user);
-        configRDTO.setEmailSender(command.emailSender);
+        NewsletterConfigRSDTO configRSDTO = massMailingService.findNewsletterConfig(user);
+        configRSDTO.setEmailSender(command.emailSender);
 
-        massMailingService.updateNewsletterConfig(user, configRDTO);
+        massMailingService.updateNewsletterConfig(user, configRSDTO);
 
         redirect(mapping:'editorAdminEmailSender', params:user.encodeAsLinkProperties())
     }
