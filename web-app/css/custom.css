@@ -1826,7 +1826,8 @@ ul.user-list-followers .loading.xs {width: 10px; height: 10px;}
 
 .box-ppal .box-ppal-section fieldset.validate { text-align:center; }
 .box-ppal .box-ppal-section fieldset.validate .valid { margin-bottom:20px; }
-.box-ppal .box-ppal-section fieldset.validate .valid .fa { color: green; }
+.box-ppal .box-ppal-section fieldset.validate .valid .fa-check { color: green; }
+.box-ppal .box-ppal-section fieldset.validate .valid .fa-close { color: red; }
 
 #main.config .box-ppal:first-child {margin: 0px}
 #main.config .box-ppal {margin-top: 20px}

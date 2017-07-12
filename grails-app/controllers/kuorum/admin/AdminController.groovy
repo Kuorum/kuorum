@@ -1,21 +1,21 @@
 package kuorum.admin
 
-import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.core.model.UserType
 import kuorum.mail.KuorumMailAccountService
 import kuorum.mail.MailchimpService
-import kuorum.project.Project
 import kuorum.register.RegisterService
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserAudit
 import kuorum.users.KuorumUserService
 import kuorum.users.PoliticianService
+import kuorum.web.admin.KuorumUserEmailSenderCommand
 import kuorum.web.admin.KuorumUserRightsCommand
-import org.bson.types.ObjectId
 import org.kuorum.rest.model.notification.KuorumMailAccountDetailsRSDTO
+import org.kuorum.rest.model.notification.campaign.config.NewsletterConfigRDTO
 import org.springframework.web.multipart.MultipartFile
 import org.springframework.web.multipart.MultipartHttpServletRequest
+import payment.campaign.MassMailingService
 
 @Secured(['ROLE_ADMIN'])
 class AdminController {
@@ -26,6 +26,8 @@ class AdminController {
 
     KuorumMailAccountService kuorumMailAccountService
     KuorumUserService kuorumUserService
+
+    MassMailingService massMailingService;
 
     PoliticianService politicianService
 
@@ -125,6 +127,28 @@ class AdminController {
         [audits: KuorumUserAudit.findAllByDateCreatedGreaterThan(new Date()-31, [sort: "id", order: "desc"])]
     }
 
+    def editUserEmailSender(String userAlias){
+        Boolean requestState;
+        KuorumUser user = kuorumUserService.findByAlias(userAlias)
+        KuorumUserEmailSenderCommand command = new KuorumUserEmailSenderCommand()
+        NewsletterConfigRDTO configRDTO = massMailingService.findNewsletterConfig(user);
+        command.user = user;
+        command.emailSender = configRDTO.getEmailSender();
+        requestState = configRDTO.getEmailSenderRequested();
+        [
+                command: command,
+                requestState: requestState
+        ]
+    }
 
+    def updateUserEmailSender(KuorumUserEmailSenderCommand command){
+        KuorumUser user = command.user;
+        NewsletterConfigRDTO configRDTO = massMailingService.findNewsletterConfig(user);
+        configRDTO.setEmailSender(command.emailSender);
+
+        massMailingService.updateNewsletterConfig(user, configRDTO);
+
+        redirect(mapping:'editorAdminEmailSender', params:user.encodeAsLinkProperties())
+    }
 
 }
