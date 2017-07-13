@@ -48,10 +48,8 @@
             <g:set var="modal" value="${post.newsletter.status == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SCHEDULED ?'modalEditScheduled':''}"/>
             <g:link mapping="postEditContent" params="${post.encodeAsLinkProperties()}" role="button" class="postEdit ${modal}"><span class="fa fa-edit"></span><span class="sr-only">Edit</span></g:link>
         </li>
-        <g:if test="${post.newsletter.status != org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT}">
-            <li>
-                <g:link mapping="postRemove" params="${post.encodeAsLinkProperties()}"  role="button" class="campaignDelete"><span class="fa fa-trash"></span> <span class="sr-only">Delete</span></g:link>
-            </li>
-        </g:if>
+        <li>
+            <g:link mapping="postRemove" params="${post.encodeAsLinkProperties()}"  role="button" class="campaignDelete"><span class="fa fa-trash"></span> <span class="sr-only">Delete</span></g:link>
+        </li>
     </ul>
 </li>

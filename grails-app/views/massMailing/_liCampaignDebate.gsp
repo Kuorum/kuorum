@@ -48,11 +48,11 @@
             <g:set var="modal" value="${debate.newsletter.status == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SCHEDULED ?'modalEditScheduled':''}"/>
             <g:link mapping="debateEditContent" params="${debate.encodeAsLinkProperties()}" role="button" class="campaignEdit ${modal}"><span class="fa fa-edit"></span><span class="sr-only">Edit</span></g:link>
         </li>
-        <g:if test="${debate.newsletter.status != org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT}">
+        %{--<g:if test="${debate.newsletter.status != org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT}">--}%
             <li>
                 <g:link mapping="debateRemove" params="${debate.encodeAsLinkProperties()}"  role="button" class="campaignDelete"><span class="fa fa-trash"></span> <span class="sr-only">Delete</span></g:link>
             </li>
-        </g:if>
+        %{--</g:if>--}%
     </ul>
 
     %{-- This delete function is not implemented --}%
