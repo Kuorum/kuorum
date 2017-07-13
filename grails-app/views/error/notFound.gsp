@@ -2,13 +2,15 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <title><g:message code="error.notFound.title"/></title>
-    <meta name="layout" content="normalLayout">
+    <meta name="layout" content="errorLayout">
     <parameter name="extraCssContainer" value="onecol error" />
 </head>
 
 <content tag="mainContent">
-    <div class="intro">
-        <h1><g:message code="error.notFound.title"/> </h1>
+    <div class="col-xs-offset-3 col-xs-6 col-sm-offset-4 col-sm-4">
+        <div class="broken-link">
+            <img src="../images/broken-link.png">
+        </div>
     </div>
 </content>
 

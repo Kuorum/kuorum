@@ -12,7 +12,7 @@ class ErrorController {
         log.info("Page not allowed: ${((HttpServletRequest)request).getRequestURL()} by user ${springSecurityService.principal?.id}")
     }
     def notFound() {
-        log.debug("Page not foung: ${((HttpServletRequest)request).getRequestURL()}")
+        log.debug("Page not found: ${((HttpServletRequest)request).getRequestURL()}")
     }
     def notAuthorized() {
         log.debug("Page not autorized: ${((HttpServletRequest)request).getRequestURL()}")
