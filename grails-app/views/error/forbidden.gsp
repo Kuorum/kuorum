@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <title><g:message code="error.forbidden.title"/></title>
-    <meta name="layout" content="normalLayout">
+    <meta name="layout" content="errorLayout">
     <parameter name="extraCssContainer" value="onecol error" />
 </head>
 

@@ -4774,6 +4774,9 @@ h5#results {margin: 0 0 15px;}
 .onecol.error .broken-link {
     margin: 50px 0 0 0;
 }
+.error-page{
+    min-height: calc(100vh - 171px);
+}
 .onecol.error .intro {
     background: url('../images/ico-error.png') no-repeat left bottom transparent;
     background-size: 240px auto;

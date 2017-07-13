@@ -9,7 +9,7 @@
 
     <body>
         <g:render template="/layouts/head"/>
-        <div class="container-fluid">
+        <div class="container-fluid error-page">
             <div class="row">
                 <div class="container-fluid ${pageProperty(name:'page.extraCssContainer')}">
                     <div class="row">
