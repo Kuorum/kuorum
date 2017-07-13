@@ -175,7 +175,8 @@ class RestKuorumApiService {
         USER_CONTACTS_DEBATES_ALL   ("/user/{userId}/dashboard/debate"),
 
 
-        ADMIN_MAILS_SEND("/admin/notification/mailing/send");
+        ADMIN_MAILS_SEND("/admin/notification/mailing/send"),
+        ADMIN_USER_CONFIG_SENDER("/admin/{userAlias}/config/mailing");
 
         String url;
         ApiMethod(String url){
