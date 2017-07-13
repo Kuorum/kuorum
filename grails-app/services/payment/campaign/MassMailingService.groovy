@@ -5,6 +5,7 @@ import grails.transaction.Transactional
 import kuorum.users.KuorumUser
 import kuorum.util.TimeZoneUtil
 import kuorum.util.rest.RestKuorumApiService
+import org.kuorum.rest.model.admin.AdminConfigMailingRDTO
 import org.kuorum.rest.model.notification.campaign.CampaignRQDTO
 import org.kuorum.rest.model.notification.campaign.CampaignRSDTO
 import org.kuorum.rest.model.notification.campaign.config.NewsletterConfigRQDTO
@@ -168,5 +169,17 @@ class MassMailingService {
             newsletterConfigRDTO = (NewsletterConfigRSDTO)response.data
         }
         newsletterConfigRDTO
+    }
+
+    void updateNewsletterConfig(KuorumUser user, AdminConfigMailingRDTO adminRDTO){
+        Map<String, String> params = [userAlias:user.id.toString()]
+        Map<String, String> query = [:]
+        def response= restKuorumApiService.put(
+                RestKuorumApiService.ApiMethod.ADMIN_USER_CONFIG_SENDER,
+                params,
+                query,
+                adminRDTO,
+                null
+        )
     }
 }

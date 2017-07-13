@@ -11,6 +11,7 @@ import kuorum.users.KuorumUserService
 import kuorum.users.PoliticianService
 import kuorum.web.admin.KuorumUserEmailSenderCommand
 import kuorum.web.admin.KuorumUserRightsCommand
+import org.kuorum.rest.model.admin.AdminConfigMailingRDTO
 import org.kuorum.rest.model.notification.KuorumMailAccountDetailsRSDTO
 import org.kuorum.rest.model.notification.campaign.config.NewsletterConfigRSDTO
 import org.springframework.web.multipart.MultipartFile
@@ -143,10 +144,10 @@ class AdminController {
 
     def updateUserEmailSender(KuorumUserEmailSenderCommand command){
         KuorumUser user = command.user;
-        NewsletterConfigRSDTO configRSDTO = massMailingService.findNewsletterConfig(user);
-        configRSDTO.setEmailSender(command.emailSender);
+        AdminConfigMailingRDTO adminRDTO = new AdminConfigMailingRDTO();
+        adminRDTO.setEmailSender(command.emailSender);
 
-        massMailingService.updateNewsletterConfig(user, configRSDTO);
+        massMailingService.updateNewsletterConfig(user, adminRDTO);
 
         redirect(mapping:'editorAdminEmailSender', params:user.encodeAsLinkProperties())
     }
