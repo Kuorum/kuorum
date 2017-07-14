@@ -5,6 +5,7 @@ import grails.plugin.springsecurity.annotation.Secured
 import groovy.time.TimeCategory
 import kuorum.KuorumFile
 import kuorum.core.FileType
+import kuorum.core.exception.KuorumException
 import kuorum.files.FileService
 import kuorum.users.CookieUUIDService
 import kuorum.users.KuorumUser
@@ -36,7 +37,9 @@ class PostController {
         String viewerUid = cookieUUIDService.buildUserUUID()
         KuorumUser postUser = kuorumUserService.findByAlias(params.userAlias)
         PostRSDTO postRSDTO = postService.findPost(postUser, Long.parseLong(params.postId),viewerUid)
-
+        if (!postRSDTO) {
+            throw new KuorumException(message(code: "post.notFound") as String)
+        }
         return  [post: postRSDTO, postUser: postUser]
     }
 
