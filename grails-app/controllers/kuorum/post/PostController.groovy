@@ -45,7 +45,7 @@ class PostController {
             }
             return  [post: postRSDTO, postUser: postUser]
         }catch (Exception ignored){
-            flash.error = message(code: "debate.notFound")
+            flash.error = message(code: "post.notFound")
             response.sendError(HttpServletResponse.SC_NOT_FOUND)
             return false
         }
