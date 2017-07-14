@@ -3,6 +3,7 @@ package payment.campaign
 import com.fasterxml.jackson.core.type.TypeReference
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.transaction.Transactional
+import kuorum.core.exception.KuorumException
 import kuorum.solr.IndexSolrService
 import kuorum.users.KuorumUser
 import kuorum.util.TimeZoneUtil
@@ -58,19 +59,24 @@ class DebateService {
         if (viewerUid){
             query.put("viewerUid",viewerUid)
         }
-        def response = restKuorumApiService.get(
-                RestKuorumApiService.ApiMethod.ACCOUNT_DEBATE,
-                params,
-                query,
-                new TypeReference<DebateRSDTO>(){}
-        )
+        try {
+            def response = restKuorumApiService.get(
+                    RestKuorumApiService.ApiMethod.ACCOUNT_DEBATE,
+                    params,
+                    query,
+                    new TypeReference<DebateRSDTO>(){}
+            )
 
-        DebateRSDTO debateFound = null
-        if (response.data) {
-            debateFound = (DebateRSDTO) response.data
+            DebateRSDTO debateFound = null
+            if (response.data) {
+                debateFound = (DebateRSDTO) response.data
+            }
+        }catch (KuorumException e){
+            log.info("Error recovering debate $debateId : ${e.message}")
+            return null;
         }
 
-            debateFound
+        debateFound
     }
 
     DebateRSDTO saveDebate(KuorumUser user, DebateRDTO debateRDTO, Long debateId) {
