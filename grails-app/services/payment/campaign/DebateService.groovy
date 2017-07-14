@@ -71,12 +71,11 @@ class DebateService {
             if (response.data) {
                 debateFound = (DebateRSDTO) response.data
             }
+            return debateFound;
         }catch (KuorumException e){
             log.info("Error recovering debate $debateId : ${e.message}")
             return null;
         }
-
-        debateFound
     }
 
     DebateRSDTO saveDebate(KuorumUser user, DebateRDTO debateRDTO, Long debateId) {

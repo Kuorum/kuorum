@@ -22,6 +22,8 @@ import org.kuorum.rest.model.contact.filter.FilterRDTO
 import payment.CustomerService
 import payment.contact.ContactService
 
+import javax.servlet.http.HttpServletResponse
+
 class PostController {
 
     def springSecurityService
@@ -36,11 +38,17 @@ class PostController {
     def show() {
         String viewerUid = cookieUUIDService.buildUserUUID()
         KuorumUser postUser = kuorumUserService.findByAlias(params.userAlias)
-        PostRSDTO postRSDTO = postService.findPost(postUser, Long.parseLong(params.postId),viewerUid)
-        if (!postRSDTO) {
-            throw new KuorumException(message(code: "post.notFound") as String)
+        try{
+            PostRSDTO postRSDTO = postService.findPost(postUser, Long.parseLong(params.postId),viewerUid)
+            if (!postRSDTO) {
+                throw new KuorumException(message(code: "post.notFound") as String)
+            }
+            return  [post: postRSDTO, postUser: postUser]
+        }catch (Exception ignored){
+            flash.error = message(code: "debate.notFound")
+            response.sendError(HttpServletResponse.SC_NOT_FOUND)
+            return false
         }
-        return  [post: postRSDTO, postUser: postUser]
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
