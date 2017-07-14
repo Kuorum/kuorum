@@ -104,7 +104,7 @@ class PostService {
                 new TypeReference<PostRSDTO>(){}
         )
 
-        response.data
+        return response.data?:null;
     }
 
     PostRSDTO updatePost(KuorumUser user, PostRDTO postRDTO, Long postId) {
