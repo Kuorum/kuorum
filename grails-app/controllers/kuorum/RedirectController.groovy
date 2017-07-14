@@ -1,11 +1,9 @@
 package kuorum
 
-import kuorum.post.Post
 import kuorum.project.Project
 import kuorum.project.ProjectService
 import kuorum.users.KuorumUser
 import org.apache.http.HttpStatus
-import org.bson.types.ObjectId
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.springframework.web.servlet.LocaleResolver
 import payment.campaign.DebateService
@@ -62,7 +60,7 @@ class RedirectController {
             render('')
             return false
         }else{
-            def link = g.createLink(mapping: 'landingSearch', params: [word:params.hashtag])
+            def link = g.createLink(mapping: 'searcherSearch', params: [word:params.hashtag])
             link = link + "#results"
             response.setHeader "Location", link
             response.status = HttpStatus.SC_GONE

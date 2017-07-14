@@ -9,13 +9,13 @@
 <content tag="mainContent">
     <div class="col-xs-offset-3 col-xs-6 col-sm-offset-4 col-sm-4">
         <div class="broken-link">
-            <img src="../images/broken-link.png">
+            <img src="${resource(dir: 'images', file: 'broken-link.png')}">
         </div>
     </div>
 </content>
 
 <content tag="preFooter">
     <g:render template="/error/errorFooter" model="[title:message(code: 'error.notFound.description')]"/>
-    <div class="row" style="min-height: 50px;"></div>
+    <div class="row"></div>
     <br/>
 </content>
