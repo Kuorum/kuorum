@@ -548,4 +548,10 @@ class MassMailingController {
             massMailingService.campaignDraft(user, campaignRQDTO, campaignRSDTO.getId())
         }
     }
+
+    def exportCampaigns(){
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        massMailingService.findCampaignsCollectionReport(user);
+        render ([success:"success"] as JSON)
+    }
 }

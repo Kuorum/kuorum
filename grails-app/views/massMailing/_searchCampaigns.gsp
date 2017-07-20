@@ -28,9 +28,24 @@
                 </div>
             </div>
             <div class="col-sm-1">
-                <g:link mapping="politicianCampaignsNew" class="btn btn-blue inverted">
-                    <g:message code="tools.massMailing.list.newCampaign"/>
-                </g:link>
+                <ul>
+                    <li>
+                        <g:link mapping="politicianCampaignsNew" class="btn btn-blue inverted">
+                            <g:message code="tools.massMailing.list.newCampaign"/>
+                        </g:link>
+                    </li>
+                    <li>
+                        <a href="#" role="button" id="openContactsOptions" class="btn btn-blue inverted dropdown-toggle" data-toggle="dropdown"><span class="fa fa-caret-down fa-lg"></span></a>
+                        <ul id="contactsOptions" class="dropdown-menu dropdown-menu-right" aria-labelledby="openContactsOptions" role="menu">
+                            <li>
+                                <g:link mapping="politicianCampaignsExport" elementId="exportCampaigns">
+                                    <span class="fa fa-file-excel-o"></span>
+                                    <g:message code="tools.campaign.list.export.csv"/>
+                                </g:link>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
         </fieldset>
     </form>
