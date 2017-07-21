@@ -35,8 +35,8 @@
                         </g:link>
                     </li>
                     <li>
-                        <a href="#" role="button" id="openContactsOptions" class="btn btn-blue inverted dropdown-toggle" data-toggle="dropdown"><span class="fa fa-caret-down fa-lg"></span></a>
-                        <ul id="contactsOptions" class="dropdown-menu dropdown-menu-right" aria-labelledby="openContactsOptions" role="menu">
+                        <a href="#" role="button" id="openCampaignsOptions" class="btn btn-blue inverted dropdown-toggle" data-toggle="dropdown"><span class="fa fa-caret-down fa-lg"></span></a>
+                        <ul id="campaignsOptions" class="dropdown-menu dropdown-menu-right" aria-labelledby="openCampaignsOptions" role="menu">
                             <li>
                                 <g:link mapping="politicianCampaignsExport" elementId="exportCampaigns">
                                     <span class="fa fa-file-excel-o"></span>
@@ -132,6 +132,23 @@
                     <a href="#LinkOverwitedWithJS" role="button" class="btn btn-blue inverted btn-lg deleteCampaignBtn">
                         <g:message code="tools.massMailing.deleteCampaignModal.button"/>
                     </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="export-campaigns-modal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="exportTagsTitle" aria-hidden="true">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <div class="modal-header"><h4><g:message code="modal.exportedContacts.title"/></h4></div>
+                <div class="modal-body">
+                    <p>
+                        <g:message code="modal.exportedCampaigns.explanation"/>
+                        <g:message code="modal.exported.explanation"/>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn" data-dismiss="modal" aria-label="Close"><g:message code="modal.exportedContacts.close"/></a>
                 </div>
             </div>
         </div>

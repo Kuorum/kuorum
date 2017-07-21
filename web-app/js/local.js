@@ -1608,6 +1608,25 @@ $(document).ready(function() {
         requestCustomSender($selector);
     });
 
+
+    // Request campaign collection export
+    $("#exportCampaigns").on("click", function(e){
+        pageLoadingOn();
+        e.preventDefault();
+        var $a = $(this);
+        var link = $a.attr("href");
+        $.post(link)
+            .done(function(data) {
+                $("#export-campaigns-modal").modal("show");
+            })
+            .fail(function(messageError) {
+                display.warn("Error");
+            })
+            .always(function() {
+                pageLoadingOff();
+            });
+    });
+
 });
 
 function requestCustomSender($selector) {
