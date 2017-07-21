@@ -140,7 +140,7 @@
     <div id="export-campaigns-modal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="exportTagsTitle" aria-hidden="true">
         <div class="modal-dialog ">
             <div class="modal-content">
-                <div class="modal-header"><h4><g:message code="modal.exportedContacts.title"/></h4></div>
+                <div class="modal-header"><h4><g:message code="modal.exportedCampaigns.title"/></h4></div>
                 <div class="modal-body">
                     <p>
                         <g:message code="modal.exportedCampaigns.explanation"/>
