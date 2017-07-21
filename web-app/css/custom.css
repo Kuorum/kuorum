@@ -1618,6 +1618,15 @@ ul.user-list-followers .loading.xs {width: 10px; height: 10px;}
 #boxfiltersContacts .dropdown-menu > li a{padding: 5px 10px; }
 #boxfiltersContacts .dropdown-menu > li a span.fa{margin-right:5px; }
 
+/* LIST CAMPAIGNS */
+#toFilters ul {padding: 0; margin: 0; text-align: right;}
+#toFilters > div > ul > li {list-style: none; display: inline;}
+#toFilters .dropdown-menu {min-width: 95px; right: 14px;}
+#toFilters .dropdown-menu > li {text-align:left;}
+#toFilters .dropdown-menu > li:first-child {font-weight: normal; padding: 0; border-bottom: none; margin: 0;}
+#toFilters .dropdown-menu > li a{padding: 5px 10px; }
+#toFilters .dropdown-menu > li a span.fa{margin-right:5px; }
+
 #contactsList { min-height: 10em;}
 #contactsList > h3.noContacts {text-align: center}
 #contactsList > li {padding: 0 0 0 0; border-bottom: 1px solid #e5e5e5; position: relative; min-height: 90px;}

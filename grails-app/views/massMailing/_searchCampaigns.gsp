@@ -15,7 +15,7 @@
                     </g:each>
                 </select>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-2">
                 <span id="infoFilterCampaigns">
                     <span class="totalList"></span>
                     <g:message code="tools.massMailing.list.filter.counterText"/>
@@ -27,7 +27,7 @@
                     <input type="text" class="form-control searchCampaigns" name="searchCampaign" id="searchCampaign" placeholder="${g.message(code:'tools.campaign.filter.quickSearch.placeHolder')}"/>
                 </div>
             </div>
-            <div class="col-sm-1">
+            <div class="col-sm-3">
                 <ul>
                     <li>
                         <g:link mapping="politicianCampaignsNew" class="btn btn-blue inverted">
