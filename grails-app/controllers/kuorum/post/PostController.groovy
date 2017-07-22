@@ -5,6 +5,7 @@ import grails.plugin.springsecurity.annotation.Secured
 import groovy.time.TimeCategory
 import kuorum.KuorumFile
 import kuorum.core.FileType
+import kuorum.core.exception.KuorumException
 import kuorum.files.FileService
 import kuorum.users.CookieUUIDService
 import kuorum.users.KuorumUser
@@ -21,6 +22,8 @@ import org.kuorum.rest.model.contact.filter.FilterRDTO
 import payment.CustomerService
 import payment.contact.ContactService
 
+import javax.servlet.http.HttpServletResponse
+
 class PostController {
 
     def springSecurityService
@@ -35,9 +38,17 @@ class PostController {
     def show() {
         String viewerUid = cookieUUIDService.buildUserUUID()
         KuorumUser postUser = kuorumUserService.findByAlias(params.userAlias)
-        PostRSDTO postRSDTO = postService.findPost(postUser, Long.parseLong(params.postId),viewerUid)
-
-        return  [post: postRSDTO, postUser: postUser]
+        try{
+            PostRSDTO postRSDTO = postService.findPost(postUser, Long.parseLong(params.postId),viewerUid)
+            if (!postRSDTO) {
+                throw new KuorumException(message(code: "post.notFound") as String)
+            }
+            return  [post: postRSDTO, postUser: postUser]
+        }catch (Exception ignored){
+            flash.error = message(code: "post.notFound")
+            response.sendError(HttpServletResponse.SC_NOT_FOUND)
+            return false
+        }
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])

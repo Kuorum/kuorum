@@ -97,14 +97,19 @@ class PostService {
         if (viewerUid){
             query.put("viewerUid",viewerUid)
         }
-        def response = restKuorumApiService.get(
-                RestKuorumApiService.ApiMethod.ACCOUNT_POST,
-                params,
-                query,
-                new TypeReference<PostRSDTO>(){}
-        )
+        try {
+            def response = restKuorumApiService.get(
+                    RestKuorumApiService.ApiMethod.ACCOUNT_POST,
+                    params,
+                    query,
+                    new TypeReference<PostRSDTO>() {}
+            )
 
-        response.data
+            return response.data ?: null;
+        }catch (KuorumException e){
+            log.info("Post not found [Excpt: ${e.message}")
+            return null;
+        }
     }
 
     PostRSDTO updatePost(KuorumUser user, PostRDTO postRDTO, Long postId) {
