@@ -346,10 +346,10 @@ class ContactsController {
                     }
 
                     ContactRDTO contact = new ContactRDTO()
-                    if (namePos > 0) {
+                    if (namePos >= 0) {
                         contact.setName(line[namePos] as String)
                     }
-                    if (surnamePos > 0) {
+                    if (surnamePos >= 0) {
                         contact.setSurname(line[surnamePos] as String)
                     }
                     contact.setEmail(line[emailPos] as String)
