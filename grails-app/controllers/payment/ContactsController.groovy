@@ -128,6 +128,7 @@ class ContactsController {
         command.name = contact.name
         command.email = contact.email?:g.message(code: 'tools.contact.edit.noMailVisible')
         command.surname = contact.surname
+        command.language = contact.language
         KuorumUser contactUser = contact.mongoId?KuorumUser.get(new ObjectId(contact.mongoId)):null
         [command:command,contact:contact,contactUser:contactUser]
     }
@@ -143,6 +144,7 @@ class ContactsController {
         contact.name = command.name
         contact.email = command.email
         contact.surname = command.surname
+        contact.language = command.language
         ContactRSDTO contactUpdated = contactService.updateContact(user, contact, contact.getId())
         flash.message=g.message(code: 'tools.contact.edit.success', args: [contact.name])
         redirect(mapping:"politicianContactEdit", params: [contactId: contactUpdated.getId()])

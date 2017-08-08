@@ -282,7 +282,7 @@ button:focus {
 /* ====================================================== */
 body.on {padding-top: 120px;}
 
-select.input-lg {padding: 0px 16px 0px 10px;height:36px;}
+select.input-lg {padding: 0px 16px 0px 10px;height:45px;}
 .input-lg {padding: 10px 12px;}
 .modal-content {border-radius: 3px;}
 .modal-title {font-weight: bold;}
@@ -1707,7 +1707,7 @@ ul.user-list-followers .loading.xs {width: 10px; height: 10px;}
 .edit-contact-header > div:first-child p.followers a:hover,
 .edit-contact-header > div:first-child p.followers a:focus,
 .edit-contact-header > div:first-child p.followers a:active {color: #545454;}
-.edit-contact form > div:last-child > div:last-child {text-align: right; min-height: 65px; margin-bottom: 20px;}
+.edit-contact form > div:last-child > div:last-child {text-align: right; min-height: 65px; margin-top: 10px;}
 .edit-contact form > div:last-child > div:last-child .btn {min-width: 90px; position: absolute; bottom: 0; right: 15px; margin: 0;}
 .tab-pane .activity {border: solid 1px #dadada; padding: 0; margin-top: 30px;}
 .tab-pane .activity > li {border-bottom: solid 1px #dadada; padding: 12px 0; width: 100%;}
