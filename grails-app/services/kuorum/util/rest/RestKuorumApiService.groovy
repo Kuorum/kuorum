@@ -195,9 +195,15 @@ class RestKuorumApiService {
         RESTClient mailKuorumServices = new RESTClient( kuorumRestServices)
         EncoderRegistry encoderRegistry = mailKuorumServices.getEncoder();
         encoderRegistry.putAt(groovyx.net.http.ContentType.JSON, {it ->
-            def builder = new groovy.json.JsonBuilder();
-            builder.content = it
-            InputStreamEntity res = new InputStreamEntity(new ByteArrayInputStream(builder.toString().getBytes(StandardCharsets.UTF_8)));
+//            def builder = new groovy.json.JsonBuilder(); // Not use JacksonAnnotations
+//            builder.content = it
+//            String rawJson = builder.toString();
+
+            ObjectMapper builder = new ObjectMapper()
+//            String rawJson = builder.valueToTree(it).toString()
+            String rawJson = builder.writeValueAsString(it)
+
+            InputStreamEntity res = new InputStreamEntity(new ByteArrayInputStream(rawJson.getBytes(StandardCharsets.UTF_8)));
             res.setContentType(groovyx.net.http.ContentType.JSON.toString())
             return res;
         })
