@@ -320,6 +320,8 @@ function FilterContacts() {
             activeOperator = ".boolean-operator"
         }else if (val =="CONTACT_TYPE"){
             activeOperator =".contactType-operator"
+        }else if (val =="LANGUAGE"){
+            activeOperator =".language-operator"
         }
 
         $fieldSet.find(".filter-operator").addClass("hide");

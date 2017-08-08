@@ -99,6 +99,21 @@
                     <input type="text" class="hidden" value="NO_VALID" name="${prefixField}value"/>
                 </div>
             </div>
+            <div class="filter-operator language-operator">
+                <div class="col-sm-3">
+                    <select class="form-control input-lg" disabled="disabled">
+                        <option value="EQUALS" selected><g:message code="org.kuorum.rest.model.contact.filter.condition.TextConditionOperatorTypeRDTO.EQUALS"/></option>
+                    </select>
+                </div>
+                <div class="col-sm-4">
+                    <formUtil:selectEnum
+                            field="value"
+                            command="${listCommand}"
+                            prefixFieldName="${prefixField}"
+                            enumClass="${org.kuorum.rest.model.contact.ContactLanguageRDTO.class}"
+                            cssLabel="sr-only"/>
+                </div>
+            </div>
         </fieldset>
     </formUtil:dynamicComplexInputs>
 
