@@ -265,6 +265,7 @@ class ContactsController {
         Integer namePos = columnOption.findIndexOf{it=="name"}
         Integer surnamePos = columnOption.findIndexOf{it=="surname"}
         Integer emailPos = columnOption.findIndexOf{it=="email"}
+        Integer languagePos = columnOption.findIndexOf{it=="language"}
         List<Number> tagsPos = columnOption.findIndexValues{it=="tag"}
         def tags = params.tags?.split(",")?:[]
 
@@ -274,6 +275,7 @@ class ContactsController {
 
         List<String> realPos = params.realPos
         surnamePos = surnamePos<0 || surnamePos > realPos.size() ? surnamePos : Integer.parseInt(realPos[surnamePos])
+        languagePos = languagePos<0 || languagePos > realPos.size() ? languagePos : Integer.parseInt(realPos[languagePos])
         emailPos = emailPos<0 || emailPos > realPos.size() ? emailPos : Integer.parseInt(realPos[emailPos])
         namePos = namePos<0 || namePos > realPos.size() ? namePos : Integer.parseInt(realPos[namePos])
         tagsPos = tagsPos?.collect{Integer.parseInt(realPos[it.intValue()])}?:[]
@@ -283,7 +285,7 @@ class ContactsController {
             flash.error=g.message(code: 'tools.contact.import.csv.error.notEmailNameColumnSelected')
 
             try {
-                def model = modelUploadCSVContacts(emailPos, namePos, surnamePos)
+                def model = modelUploadCSVContacts(emailPos, namePos, surnamePos, languagePos)
                 def table = groovyPageRenderer.render(template: '/contacts/csvTableExample', model: model)
                 model["table"] = table
                 render(view: 'importCSVContactsUpload', model: model)
@@ -300,7 +302,7 @@ class ContactsController {
         log.info("Recovered temporal file ${csv.absoluteFile}")
         ObjectId loggedUserId = springSecurityService.principal.id
 
-        asyncUploadContacts(loggedUserId, csv,notImport, namePos,surnamePos, emailPos, tagsPos, tags as List)
+        asyncUploadContacts(loggedUserId, csv,notImport, namePos,surnamePos,languagePos, emailPos, tagsPos, tags as List)
 
         session.removeAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY)
         log.info("Programed async uploaded contacts")
@@ -325,7 +327,7 @@ class ContactsController {
         emailPos
     }
 
-    private void asyncUploadContacts(final ObjectId loggedUserId, final File csv, final Integer notImport, final Integer namePos, final Integer surnamePos, final Integer emailPos, final List<Integer> tagsPos, final List<String> tags){
+    private void asyncUploadContacts(final ObjectId loggedUserId, final File csv, final Integer notImport, final Integer namePos, final Integer surnamePos, final Integer languagePos, final Integer emailPos, final List<Integer> tagsPos, final List<String> tags){
 //        Promise p = grails.async.Promises.task {
             try{
                 log.info("Importing ${csv.absoluteFile}")
@@ -351,6 +353,9 @@ class ContactsController {
                     }
                     if (surnamePos >= 0) {
                         contact.setSurname(line[surnamePos] as String)
+                    }
+                    if (languagePos >= 0) {
+                        contact.setLanguage(ContactLanguageRDTO.getContactLanguage(line[languagePos] as String))
                     }
                     contact.setEmail(line[emailPos] as String)
                     def tagsSecuredTransformed = tagsPos.collect{
@@ -391,7 +396,7 @@ class ContactsController {
 //        }
     }
 
-    private Map modelUploadCSVContacts(Integer emailPos = -1, Integer namePos = -1, surnamePos= -1) {
+    private Map modelUploadCSVContacts(Integer emailPos = -1, Integer namePos = -1, surnamePos= -1, languagePos = -1) {
         CSVDataSession csvDataSession = (CSVDataSession) request.getSession().getAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY)
         File csv = csvDataSession.file
         log.info("Calculating uploaded name: "+csv)
@@ -435,7 +440,8 @@ class ContactsController {
                 emptyColumns: emptyColumns,
                 emailPos: emailPos,
                 namePos: namePos,
-                surnamePos: surnamePos
+                surnamePos: surnamePos,
+                languagePos:languagePos
         ]
     }
 
