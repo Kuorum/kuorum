@@ -62,7 +62,7 @@ class ContactFilterOptionCommand{
         this.operatorNumber = NumberConditionOperatorTypeRDTO.EQUALS;
         this.operatorBoolean = BooleanConditionOperatorTypeRDTO.TRUE;
         this.operatorContactType = ContactTypeConditionOperatorTypeRDTO.FOLLOWER;
-        if (conditionRDTO instanceof ConditionTextRDTO) {
+        if (conditionRDTO instanceof ConditionTextRDTO || conditionRDTO instanceof ConditionLanguageRDTO) {
             this.operatorText = conditionRDTO.operator
         }else if (conditionRDTO instanceof ConditionBooleanRDTO){
             this.operatorBoolean = conditionRDTO.operator
