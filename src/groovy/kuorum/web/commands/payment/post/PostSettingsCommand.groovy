@@ -1,6 +1,8 @@
 package kuorum.web.commands.payment.post
 
 import grails.validation.Validateable
+import kuorum.web.commands.payment.massMailing.MassMailingCommand
+import kuorum.web.commands.payment.massMailing.MassMailingSettingsCommand
 import org.grails.databinding.BindUsing
 import org.grails.databinding.DataBindingSource
 import org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO
@@ -17,18 +19,12 @@ class PostSettingsCommand {
     Boolean filterEdited;
     String campaignName;
 
-    @BindUsing({ obj, source ->return PostSettingsCommand.bindTags(source)})
+    @BindUsing({ obj, source ->return MassMailingCommand.bindTags(source)})
     Map<TrackingMailStatusRSDTO, List<String>> tags =[:]
 
     static constraints = {
         campaignName nullable: false
         filterId nullable: false
         filterEdited nullable: true
-    }
-
-    public static Map<TrackingMailStatusRSDTO, List<String>> bindTags(DataBindingSource source){
-        return source["tags"]?.collectEntries{
-            it -> [TrackingMailStatusRSDTO.valueOf(it.key),it.value.split(",")]
-        }
     }
 }

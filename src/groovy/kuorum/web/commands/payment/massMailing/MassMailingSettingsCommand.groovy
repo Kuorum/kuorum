@@ -16,7 +16,7 @@ class MassMailingSettingsCommand {
     Boolean filterEdited;
     String campaignName;
 
-    @BindUsing({ obj, source ->return MassMailingSettingsCommand.bindTags(source)})
+    @BindUsing({ obj, source ->return MassMailingCommand.bindTags(source)})
     Map<TrackingMailStatusRSDTO, List<String>> tags =[:]
 
     static constraints = {
@@ -24,11 +24,4 @@ class MassMailingSettingsCommand {
         filterId nullable: false
         filterEdited nullable: true
     }
-
-    public static Map<TrackingMailStatusRSDTO, List<String>> bindTags(DataBindingSource source){
-        return source["tags"]?.collectEntries{
-            it -> [TrackingMailStatusRSDTO.valueOf(it.key),it.value.split(",")]
-        }
-    }
-
 }

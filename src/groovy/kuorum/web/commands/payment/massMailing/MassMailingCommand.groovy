@@ -70,7 +70,7 @@ class MassMailingCommand {
 
     public static Map<TrackingMailStatusRSDTO, List<String>> bindTags(DataBindingSource source){
         return source["tags"]?.collectEntries{
-            it -> [TrackingMailStatusRSDTO.valueOf(it.key),it.value.split(",")]
+            it -> [TrackingMailStatusRSDTO.valueOf(it.key),it.value.split(",") as List]
         }
     }
 }
