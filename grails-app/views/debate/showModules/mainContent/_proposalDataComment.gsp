@@ -26,5 +26,6 @@
                 <span class="number">${comment.votes}</span>
             </div>
         </div>
+        <g:render template="/debate/showModules/mainContent/commentDataInfoSocial" model="[debate:debate, comment:comment]"/>
     </div>
 </li>

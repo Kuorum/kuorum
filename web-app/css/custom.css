@@ -8359,6 +8359,31 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     display: none;
 }
 
+.conversation-box-comments ul.social {
+    display: inline-flex;
+    margin-right: 15px;
+}
+
+.conversation-box-comments ul.social li{
+    padding: 0px;
+    font-size: 12px;
+    color: #D0D0D0;
+    margin-right: 0px;
+}
+
+.conversation-box-comments ul.social li a{
+    color: #D0D0D0;
+}
+
+.conversation-box-comments ul.social li a:active,
+.conversation-box-comments ul.social li a:hover{
+    color: #00a3ed;
+}
+
+.conversation-box-comments .footer .social li .fa-circle.dark {
+    color: #D0D0D0;
+}
+
 .conversation-box-comments ul li {width: 100%; }
 .conversation-box-comments ul li.active {
     border-left-color: #FF9431;
@@ -8381,7 +8406,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 
 .conversation-box-comment .footer {
     font-family: "Helvetica Neue", Helvetica,Arial,sans-serif !important;;
-    padding-left: 40px;
+    /*padding-left: 40px;*/
     font-size: 14px;
     color: #D0D0D0;
 }
