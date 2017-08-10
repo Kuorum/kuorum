@@ -26,8 +26,8 @@
         <div class="form-group">
             <!-- <input type="submit" value="Os voya a dar una segnuda oportunidad, pero quiero que leáis esto" class="btn btn-grey btn-lg"> -->
             <!-- como input es muy largo y no podemos meter salto de línea, así que uso button -->
-            <a href="#" class="cancel"><g:message code="profile.deleteAccount.deleteForever"/></a>
-            <button type="button" class="btn btn-grey btn-lg"><g:message code="profile.deleteAccount.oneChance"/></button>
+            <a href="#" class="btn btn-lg btn-grey inverted"><g:message code="profile.deleteAccount.deleteForever"/></a>
+            <button type="button" class="btn btn-blue btn-lg"><g:message code="profile.deleteAccount.oneChance"/></button>
         </div>
         </fieldset>
     </g:form>
