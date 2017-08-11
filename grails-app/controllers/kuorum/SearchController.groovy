@@ -8,6 +8,7 @@ import kuorum.core.model.search.SearchParams
 import kuorum.core.model.search.SearchType
 import kuorum.core.model.search.SuggestRegion
 import kuorum.core.model.solr.*
+import kuorum.users.KuorumUser
 import kuorum.web.constants.WebConstants
 import org.springframework.web.servlet.LocaleResolver
 import springSecurity.KuorumRegisterCommand
@@ -194,6 +195,13 @@ class SearchController{
     def suggestTags(String term){
         SearchParams searchParams = new SearchParams(word:term)
         List<String> suggestions = searchSolrService.suggestTags(searchParams)
+        render ([suggestions:suggestions] as JSON)
+    }
+
+    def suggestAlias(String term){
+        List<String> boostedAlias = params.list('boostedAlias')
+        List<String> aliasFriends = ((KuorumUser)springSecurityService.currentUser).following.collect{KuorumUser.get(it).alias}
+        def suggestions = searchSolrService.suggestAlias(term, boostedAlias,aliasFriends)
         render ([suggestions:suggestions] as JSON)
     }
 }
