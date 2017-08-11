@@ -52,6 +52,9 @@ modules = {
         resource url:'js/datepicker/moment-with-locales.min.js'
         resource url:'js/datepicker/bootstrap-datetimepicker.js'
         resource url:'js/datepicker/bootstrap-datepicker.es.js'
+        resource url:'js/datepicker/bootstrap-datepicker.de.js'
+        resource url:'js/datepicker/bootstrap-datepicker.it.js'
+        resource url:'js/datepicker/bootstrap-datepicker.lt.js'
     }
 
     application {

@@ -455,23 +455,6 @@ $(document).ready(function() {
             $('table.csv tbody tr:gt('+clear+')').removeClass('highlight_row').find('input').prop( "checked", false );
         }
     });
-    // Datepiker for all input dates
-    $('.input-group.date').datepicker({
-        language: "es",
-        autoclose: true,
-        todayHighlight: true
-    });
-
-
-    // Datetime piker for all input datestimes
-    $('.input-group.datetime').datetimepicker({
-        locale: "es",
-        format:"DD/MM/YYYY HH:mm",
-        //allowInputToggle:true,
-        //collapse: false,
-        stepping:15,
-        showTimeZone:true
-    });
 
     // abrir/cerrar calendario
     $('body').on('click','#openCalendar', function(e) {
@@ -1647,16 +1630,34 @@ function requestCustomSender($selector) {
 }
 
 function prepareForms(){
+
+    var lang = "en"
+    if (i18n != undefined){
+        lang = i18n.lang;
+    }
+    $.fn.datepicker.defaults.language = lang;
+
     // datepicker calendario
     if ( $('.input-group.date').length > 0 ) {
 
         $('.input-group.date').datepicker({
-            language: "es",
+            language: lang,
             autoclose: true,
             todayHighlight: true
         });
 
     }
+
+    // Datetime piker for all input datestimes
+    $('.input-group.datetime').datetimepicker({
+        locale: lang,
+        format:"DD/MM/YYYY HH:mm",
+        //allowInputToggle:true,
+        //collapse: false,
+        stepping:15,
+        showTimeZone:true
+    });
+
     $(".counted").each(function(input){
         counterCharacters($(this).attr("name"))
     })

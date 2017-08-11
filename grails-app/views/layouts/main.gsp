@@ -70,7 +70,7 @@
     <g:layoutBody/>
 </div>
 %{--<r:require module="application"/>--}%
-<g:render template="/layouts/jsAjaxUrls"/>
+<g:render template="/layouts/jsAjaxUrls" model="[currentLang:currentLang]"/>
 <r:layoutResources />
 %{--<script src="${resource(dir: '/js', file: 'jquery.slimscroll.min.js')}"></script>--}%
 %{--<script src="${resource(dir: '/js', file: 'custom.js')}"></script>--}%
