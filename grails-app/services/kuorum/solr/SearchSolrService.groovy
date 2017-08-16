@@ -310,11 +310,13 @@ class SearchSolrService {
     public def suggestAlias(String search, List<String> boostedAlias, List<String> friendsAlias){
         SolrQuery query = new SolrQuery();
         query.setParam(CommonParams.QT, "/query");
+        query.setParam(CommonParams.Q, "alias:${search}* name:${search}*");
+        query.setParam("qf", "alias^5.0 name^1");
+        query.setParam("bf", "relevance");
+        query.setParam(CommonParams.ROWS, "5");
         query.setParam(CommonParams.FL, "alias,name");
         query.setParam(CommonParams.FQ, "type:"+SolrType.KUORUM_USER);
         query.setParam("defType", "edismax");
-        query.setParam(CommonParams.Q, "alias:${search}* name:${search}*");
-        query.setParam("qf", "alias^5.0 name^1");
         String boost = "";
         if (boostedAlias){
             boost= "alias:(${boostedAlias.join(' ')})^5";

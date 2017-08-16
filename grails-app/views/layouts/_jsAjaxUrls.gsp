@@ -7,7 +7,8 @@
         suggestRegion:'<g:createLink mapping="suggestRegions" absolute="true"/>',
         tour:{
             tour_dashboard:'<g:createLink mapping="tour_dashboard"/>'
-        }
+        },
+        suggestAlias: '<g:createLink mapping="suggestAlias" absolute="true"/>',
     }
     var ajaxHeadNotificationsChecked='<g:createLink mapping="ajaxHeadNotificationsChecked" absolute="true"/>'
     var ajaxHeadMessagesChecked='<g:createLink mapping="ajaxHeadMessagesChecked" absolute="true"/>'

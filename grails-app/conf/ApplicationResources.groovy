@@ -96,6 +96,8 @@ modules = {
         resource url:'js/medium-editor/medium-editor.js'
         resource url:'css/medium-editor/medium-editor.min.css'
         resource url:'css/medium-editor/themes/default.css'
+        resource url:'js/medium-editor/medium-mentions.js'
+        resource url:'css/medium-editor/mention-panel.min.css'
         resource url:'js/debate.js'
     }
 

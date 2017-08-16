@@ -200,7 +200,10 @@ class SearchController{
 
     def suggestAlias(String term){
         List<String> boostedAlias = params.list('boostedAlias')
-        List<String> aliasFriends = ((KuorumUser)springSecurityService.currentUser).following.collect{KuorumUser.get(it).alias}
+        List<String> aliasFriends = []
+        if (springSecurityService.isLoggedIn()){
+            aliasFriends = ((KuorumUser)springSecurityService.currentUser).following.collect{KuorumUser.get(it).alias}
+        }
         def suggestions = searchSolrService.suggestAlias(term, boostedAlias,aliasFriends)
         render ([suggestions:suggestions] as JSON)
     }

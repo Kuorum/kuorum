@@ -5,6 +5,32 @@ var editor = new MediumEditor('.editable', {
     disableDoubleReturn: false,
     toolbar: {
         buttons: ['anchor']
+    },
+    extensions: {
+        "mention": new TCMention({
+            //tagName:"a",
+            getSuggestions:function(prefix, panelEl, buildPanel){
+                var url = urls.suggestAlias
+                var editor = this;
+                var data ={term:prefix.slice(1), boostedAlias:debateFunctions.getActiveAlias()}
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: data,
+                    dataType: 'json'
+                }).done(function(data){
+                    var suggestions = new Array();
+                    for (i = 0; i < data.suggestions.length; i++) {
+                        suggestions[i] = {
+                            value:'@'+data.suggestions[i].alias,
+                            text:data.suggestions[i].alias +" ("+data.suggestions[i].name+")"
+                        }
+                    }
+                    buildPanel(panelEl, suggestions, editor)
+                })
+            },
+            activeTriggerList: ["@"]
+        })
     }
 });
 
@@ -365,6 +391,10 @@ function validMediumEditor($mediumEditor){
 }
 
 var debateFunctions = {
+    getActiveAlias:function(){
+        var aliases = new Set(); $("[data-useralias]").each(function(idx){aliases.add($(this).attr("data-useralias"))})
+        return aliases
+    },
     voteComment: function ($button, callback){
         var vote = -1;
         if ($button.find("span").hasClass("fa-angle-up")){
