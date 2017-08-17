@@ -8351,12 +8351,30 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     width: 100%;
 }
 
+.conversation-box-comments .show-more-comments {
+    text-align: center;
+    height: 0px;
+    position: relative;
+    top: -20px;
+}
+
+.conversation-box-comments .show-more-comments .show-more-block button {
+    color: #bcbcbc;
+}
+
+.conversation-box-comments .show-more-comments .show-more-block button > span{
+    vertical-align: sub;
+}
+.conversation-box-comments .show-more-comments .show-more-block button > span.show-more{
+    vertical-align: text-top;
+}
+
 .conversation-box-comments button.go-up {
     color: #D0D0D0;
 }
 
 .conversation-box-comments ul {
-    display: none;
+    display: block;
 }
 
 .conversation-box-comments ul.social {

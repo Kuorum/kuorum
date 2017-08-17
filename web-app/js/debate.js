@@ -96,8 +96,22 @@ $(function () {
             }
             $conversationBox.attr('data-height', boxHeight);
         });
+
+        $( ".conversation-box-comments-list" ).each(function() {
+            var $commentList = $(this).find("li.conversation-box-comment");
+            $(this).addClass("collapsed");
+            collapseComments($commentList);
+        });
+
     });
 });
+
+function collapseComments($commentList){
+    var counter = $commentList.length;
+    if (counter > 2){
+        $commentList.slice(2, counter).addClass("hidden");
+    }
+}
 
 $(function(){
     // LightbulButton - comment-counter
@@ -106,7 +120,6 @@ $(function(){
         var $commentBox = $(event.target).closest('.leader-post').next('.comment-box');
         var $comment = $commentBox.find('.comment');
         var navbarHeight = $('.navbar').outerHeight();
-
         $('html, body').animate({
             scrollTop: $commentBox.offset().top - navbarHeight - 40
         }, 1000, function () {
@@ -117,6 +130,7 @@ $(function(){
     // CommentButton
     $(".proposal-list").on('click','.conversation-box .footer .comment-counter button.comment', function (event) {
         var $conversationBox = $(event.target.parentElement).closest('.conversation-box');
+        console.log("OTHER");
         debateFunctions.conversationSectionClick($conversationBox)
 
     });
@@ -131,7 +145,7 @@ $(function(){
         var $conversationBox = $actionsContent.closest('.conversation-box');
         var $conversationBoxBody = $actionsContent.closest('.conversation-box').find('.body');
         var collapsibleHeight = $conversationBoxBody.attr('data-height') || $conversationBoxBody.height();
-
+        console.log("TOGGLE");
         $(event.target).toggleClass('fa-angle-down fa-angle-up');
 
         if ($conversationBoxBody.height() > collapsibleHeight) {
@@ -161,17 +175,38 @@ $(function(){
 
     // See More button (CLOSE)
     $(".proposal-list").on('click','.conversation-box-comments .go-up', function (event, isVisible, $target) {
-        var $placeholder = $(event.target).closest('.comment-box');
-        var $conversationComments = $placeholder.prev();
+        var $placeholder = $(event.target).parent();
+        var $conversationComments;
+        var $conversationCommentsList;
+        if($target){
+            $conversationComments = $target.closest(".comment-box");
+            $conversationCommentsList = $conversationComments.parent();
+        }
+        else{
+            $conversationCommentsList = $placeholder.parents(".conversation-box-comments");
+            $conversationComments = $conversationCommentsList.find(".comment-box");
+        }
         var $actionsContent = $(event.target).closest('.actions');
-        var $commentProposal = $placeholder.find('.comment-proposal');
+        var $commentsList = $conversationCommentsList.find(".conversation-box-comments-list");
+        var $commentProposal = $conversationComments.find('.comment-proposal');
         var navbarHeight = $('.navbar').outerHeight();
         var $arrowButton = $(event.target).closest('.go-up').find('.angle');
 
+        var collapsed = $commentsList.hasClass("collapsed");
+
+        var $allComments = $conversationCommentsList.find('li.conversation-box-comment');
+        var $hiddenComments = $conversationCommentsList.find('li.conversation-box-comment:hidden');
+        $hiddenComments.removeClass("hidden");
+        $hiddenComments.css("display", "none");
+
         if (!isVisible) {
+            if (!collapsed){
+                collapseComments($allComments)
+            }
+            $commentsList.toggleClass("collapsed");
             $commentProposal.slideToggle();
-            $conversationComments.slideToggle(1000, function () {
-                $arrowButton.toggleClass('fa-angle-down fa-angle-up');
+            $arrowButton.toggleClass('fa-angle-down fa-angle-up');
+            $hiddenComments.slideToggle(1000, function () {
                 if (isVisible === false) {
                     $('html, body').animate({
                         scrollTop: $target.offset().top - navbarHeight - 40
@@ -550,10 +585,12 @@ var debateFunctions = {
         var $button = $(e.target)
         var $conversationBox = $($button.parents('.conversation-box-comments')[0]).prev();
         var $commentsList = $conversationBox.next().children(".conversation-box-comments-list");
-        if ( $commentsList.is(":visible") ){
+        //if ( $commentsList.is(":visible") ){
+        if ( !$commentsList.hasClass("collapsed") ){
             debateFunctions.saveComment($commentsList,$button, callback)
         }else{
             // ABRIR COMENTARIOS
+            console.log("OTHER OPEN");
             debateFunctions.conversationSectionClick($conversationBox)
         }
     },
@@ -600,7 +637,7 @@ var debateFunctions = {
     },
     conversationSectionClick: function($conversationBox){
         var $conversationBoxComments = $conversationBox.next('.conversation-box-comments');
-        var $conversationBoxCommentsComment = $conversationBoxComments.find('.comment-box .editable-comment');
+        var $conversationBoxCommentsComment = $conversationBoxComments.find('.comment-proposal > .editable-comment');
         var $conversationBoxCommentsArrow = $conversationBoxComments.find('.go-up');
         var navbarHeight = $('.navbar').height();
 

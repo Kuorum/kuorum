@@ -1,4 +1,27 @@
 <div class="conversation-box-comments">
+
+    <g:if test="${proposal.comments.size() > 1}">
+        %{--<div class="show-more-comments clearfix">--}%
+            %{--<div class="show-more-block">--}%
+                %{--<button type="button" class="go-up stack" data-anchor="conversation-box">--}%
+                    %{--<span class="pull-left fa-stack fa-lg" aria-hidden="true">--}%
+                        %{--<span class="fa fa-circle dark fa-stack-2x fa-inverse"></span>--}%
+                        %{--<span class="angle fa fa-angle-down fa-stack-1x"></span>--}%
+                    %{--</span>--}%
+                    %{--<span class="show-more">Show more comments</span>--}%
+                %{--</button>--}%
+            %{--</div>--}%
+        %{--</div>--}%
+        <div class="show-more-comments">
+            <button type="button" class="go-up stack" data-anchor="conversation-box">
+                <span class="pull-left fa-stack fa-lg" aria-hidden="true">
+                    <span class="fa fa-circle dark fa-stack-2x"></span>
+                    <span class="angle fa fa-angle-down fa-stack-1x fa-inverse"></span>
+                </span>
+            </button>
+        </div>
+    </g:if>
+
     <ul class="conversation-box-comments-list">
         <g:each in="${proposal.comments}" var="comment">
             <g:render template="/debate/showModules/mainContent/proposalDataComment" model="[debate:debate, proposal:proposal, comment:comment]"/>
@@ -14,14 +37,14 @@
         </div>
 
         <div class="actions clearfix">
-            <div class="pull-left">
-                <button type="button" class="go-up stack" data-anchor="conversation-box">
-                    <span class="pull-left fa-stack fa-lg" aria-hidden="true">
-                        <span class="fa fa-circle dark fa-stack-2x"></span>
-                        <span class="angle fa fa-angle-down fa-stack-1x fa-inverse"></span>
-                    </span>
-                </button>
-            </div>
+            %{--<div class="pull-left">--}%
+                %{--<button type="button" class="go-up stack" data-anchor="conversation-box">--}%
+                    %{--<span class="pull-left fa-stack fa-lg" aria-hidden="true">--}%
+                        %{--<span class="fa fa-circle dark fa-stack-2x"></span>--}%
+                        %{--<span class="angle fa fa-angle-down fa-stack-1x fa-inverse"></span>--}%
+                    %{--</span>--}%
+                %{--</button>--}%
+            %{--</div>--}%
             <button
                 type="button"
                 class="pull-right btn btn-grey publish save-comment"
