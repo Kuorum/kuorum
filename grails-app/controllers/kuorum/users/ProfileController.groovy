@@ -389,6 +389,7 @@ class ProfileController {
         KuorumUser user = params.user
         NotificationConfigRDTO notificationConfig = notificationService.getNotificationsConfig(user)
         MailNotificationsCommand command = new MailNotificationsCommand()
+        command.mentions = notificationConfig.mailConfig.mentions
         command.followNew = notificationConfig.mailConfig.followNew
         command.proposalComment = notificationConfig.mailConfig.proposalComment
         command.proposalLike = notificationConfig.mailConfig.proposalLike
@@ -407,6 +408,7 @@ class ProfileController {
         }
         NotificationConfigRDTO notificationConfig = new NotificationConfigRDTO();
         notificationConfig.setMailConfig(new NotificationMailConfigRDTO())
+        notificationConfig.mailConfig.mentions = command.mentions
         notificationConfig.mailConfig.followNew = command.followNew
         notificationConfig.mailConfig.proposalComment = command.proposalComment
         notificationConfig.mailConfig.proposalLike = command.proposalLike

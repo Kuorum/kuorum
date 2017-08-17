@@ -11,6 +11,7 @@ import kuorum.mail.MailType
 @Validateable
 class MailNotificationsCommand {
 
+    boolean mentions;
     boolean followNew;
     boolean proposalNew;
     boolean proposalNewOwner;

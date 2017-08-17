@@ -38,6 +38,7 @@
                 <formUtil:checkBox command="${command}" field="proposalComment" extraClass="clearfix" />
                 <formUtil:checkBox command="${command}" field="proposalLike" extraClass="clearfix" />
                 <formUtil:checkBox command="${command}" field="proposalPinned" extraClass="clearfix" />
+                <formUtil:checkBox command="${command}" field="mentions" extraClass="clearfix" />
             </div>
             <div class="form-group">
                 <span class="span-label"><g:message code="profile.emailNotifications.post.title"/></span>
