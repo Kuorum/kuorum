@@ -99,7 +99,8 @@
                 this.getWordFromSelection(e.target, isSpace ? -1 : 0);
                 var classSelected = "mention-selected"
                 if (!isSpace && -1 !== this.activeTriggerList.indexOf(this.trigger) && this.word.length > 1){
-                    var ulNode = document.getElementsByClassName("medium-editor-mention-panel")[0].firstChild;
+                    //var ulNode = document.getElementsByClassName("medium-editor-mention-panel-active")[0].firstChild;
+                    var ulNode = this.mentionPanel.firstElementChild
                     if (this.isActivePanel() && MediumEditor.util.isKey(e, MediumEditor.util.keyCode.UP)){
                         var selectedLi = ulNode.querySelector("li."+classSelected);
                         if (!selectedLi){

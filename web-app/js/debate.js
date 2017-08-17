@@ -47,14 +47,25 @@ function prepareEditorComment(){
         buttonLabels: 'fontawesome',
         targetBlank: true,
         disableDoubleReturn: false,
+        toolbar: {
+            buttons: ['anchor']
+        },
         anchorPreview: {
             /* These are the default options for anchor preview,
              if nothing is passed this is what it used */
             hideDelay: 500,
             previewValueSelector: 'a'
         },
-        toolbar: {
-            buttons: ['anchor']
+        extensions: {
+            "mention": new TCMention({
+                tagName:"a",
+                getSuggestions:getKuorumSuggestions,
+                addNodeAttributes: function(node, selectedText){
+                    var url = urls.userProfile.replace("-userAlias-",selectedText.slice(1))
+                    node.setAttribute("href", url)
+                },
+                activeTriggerList: ["@"]
+            })
         }
     });
 }
