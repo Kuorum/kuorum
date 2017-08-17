@@ -214,10 +214,7 @@
                     if (range.startContainer.parentNode.classList.contains(this.triggerClassName))this.activeMentionAt = range.startContainer.parentNode; else {
                         var nextWordEnd = Math.min(this.wordEnd, range.startContainer.textContent.length);
                         range.setStart(range.startContainer, this.wordStart), range.setEnd(range.startContainer, nextWordEnd);
-                        var element = this.document.createElement(this.tagName);
-                        element.classList.add(this.triggerClassName);
-                        this.extraTriggerClassName && element.classList.add(this.extraTriggerClassName);
-                        this.activeMentionAt = element;
+                        var element = this.buildMentionElement();
                         range.surroundContents(element);
                         selection.removeAllRanges();
                         selection.addRange(range);
@@ -226,6 +223,13 @@
                     this.activeMentionAt.classList.add(this.activeTriggerClassName), this.extraActiveTriggerClassName && this.activeMentionAt.classList.add(this.extraActiveTriggerClassName)
                 }
             },
+            buildMentionElement: function(){
+                var element = this.document.createElement(this.tagName);
+                element.classList.add(this.triggerClassName);
+                this.extraTriggerClassName && element.classList.add(this.extraTriggerClassName);
+                this.activeMentionAt = element;
+                return element;
+            },
             positionPanel: function () {
                 var e = this.activeMentionAt.getBoundingClientRect(), t = e.bottom, i = e.left, n = e.width, a = this.window, s = a.pageXOffset, r = a.pageYOffset;
                 this.mentionPanel.style.top = r + t + "px", this.mentionPanel.style.left = s + i + n + "px"
@@ -233,13 +237,20 @@
             updatePanelContent: function () {
                 this.renderPanelContent(this.mentionPanel, this.word, this.handleSelectMention.bind(this))
             },
-            handleSelectMention: function (e) {
-                if (e) {
-                    var t = this.activeMentionAt.firstChild;
-                    t.textContent = e, mediumEditor["default"].selection.select(this.document, t, e.length);
-                    var i = this.base.getFocusedElement();
-                    i && this.base.events.updateInput(i, {target: i, currentTarget: i}), this.hidePanel(!1)
-                } else this.hidePanel(!1)
+            handleSelectMention: function (selectedText) {
+                if (selectedText) {
+                    var textNode = this.activeMentionAt.firstChild;
+                    this.addNodeAttributes(this.activeMentionAt,selectedText);
+                    textNode.textContent = selectedText;
+                    mediumEditor["default"].selection.select(this.document, textNode, selectedText.length);
+                    var target = this.base.getFocusedElement();
+                    target && this.base.events.updateInput(target, {target: target, currentTarget: target});
+
+                }
+                this.hidePanel(false)
+            },
+            addNodeAttributes: function(textNode, selectedText){
+
             }
         });
         t["default"] = h

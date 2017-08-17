@@ -1,4 +1,25 @@
 
+function getKuorumSuggestions(prefix, panelEl, buildPanel){
+    var url = urls.suggestAlias
+    var editor = this;
+    var data ={term:prefix.slice(1), boostedAlias:debateFunctions.getActiveAlias()}
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: data,
+        dataType: 'json'
+    }).done(function(data){
+        var suggestions = new Array();
+        for (i = 0; i < data.suggestions.length; i++) {
+            suggestions[i] = {
+                value:'@'+data.suggestions[i].alias,
+                text:data.suggestions[i].alias +" ("+data.suggestions[i].name+")"
+            }
+        }
+        editor.buildPanel(panelEl, suggestions, editor)
+    })
+}
+
 var editor = new MediumEditor('.editable', {
     buttonLabels: 'fontawesome',
     targetBlank: true,
@@ -8,26 +29,11 @@ var editor = new MediumEditor('.editable', {
     },
     extensions: {
         "mention": new TCMention({
-            //tagName:"a",
-            getSuggestions:function(prefix, panelEl, buildPanel){
-                var url = urls.suggestAlias
-                var editor = this;
-                var data ={term:prefix.slice(1), boostedAlias:debateFunctions.getActiveAlias()}
-                $.ajax({
-                    type: "POST",
-                    url: url,
-                    data: data,
-                    dataType: 'json'
-                }).done(function(data){
-                    var suggestions = new Array();
-                    for (i = 0; i < data.suggestions.length; i++) {
-                        suggestions[i] = {
-                            value:'@'+data.suggestions[i].alias,
-                            text:data.suggestions[i].alias +" ("+data.suggestions[i].name+")"
-                        }
-                    }
-                    buildPanel(panelEl, suggestions, editor)
-                })
+            tagName:"a",
+            getSuggestions:getKuorumSuggestions,
+            addNodeAttributes: function(node, selectedText){
+                var url = urls.userProfile.replace("-userAlias-",selectedText.slice(1))
+                node.setAttribute("href", url)
             },
             activeTriggerList: ["@"]
         })
