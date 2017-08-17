@@ -152,7 +152,7 @@ $(function () {
 function collapseComments($commentList){
     var counter = $commentList.length;
     if (counter > 2){
-        $commentList.slice(2, counter).addClass("hidden");
+        $commentList.slice(0, -2).addClass("hidden");
     }
 }
 
