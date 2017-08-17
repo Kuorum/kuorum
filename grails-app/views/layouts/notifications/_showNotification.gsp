@@ -11,8 +11,14 @@
 <g:elseif test="${notification instanceof NotificationProposalCommentRSDTO}">
     <g:render template="/layouts/notifications/proposalCommentNotification"  model='[notification:notification]'/>
 </g:elseif>
+<g:elseif test="${notification instanceof NotificationProposalCommentMentionRSDTO}">
+    <g:render template="/layouts/notifications/proposalCommentMentionNotification"  model='[notification:notification]'/>
+</g:elseif>
 <g:elseif test="${notification instanceof NotificationProposalPinnedRSDTO}">
     <g:render template="/layouts/notifications/proposalPinnedNotification"  model='[notification:notification]'/>
+</g:elseif>
+<g:elseif test="${notification instanceof NotificationProposalMentionRSDTO}">
+    <g:render template="/layouts/notifications/proposalMentionNotification"  model='[notification:notification]'/>
 </g:elseif>
 <g:elseif test="${notification instanceof NotificationPostLikeRSDTO}">
     <g:render template="/layouts/notifications/postLikeNotification"  model='[notification:notification]'/>

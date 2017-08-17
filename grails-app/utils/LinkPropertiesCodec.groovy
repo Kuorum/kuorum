@@ -10,7 +10,9 @@ import org.bson.types.ObjectId
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.kuorum.rest.model.communication.debate.ProposalRSDTO
 import org.kuorum.rest.model.communication.post.PostRSDTO
+import org.kuorum.rest.model.notification.NotificationProposalCommentMentionRSDTO
 import org.kuorum.rest.model.notification.NotificationProposalCommentRSDTO
+import org.kuorum.rest.model.notification.NotificationProposalMentionRSDTO
 import org.kuorum.rest.model.tag.CauseRSDTO
 
 /**
@@ -33,6 +35,7 @@ class LinkPropertiesCodec {
             case SolrDebate:
             case ProposalRSDTO:
             case NotificationProposalCommentRSDTO:
+            case NotificationProposalCommentMentionRSDTO:
                 params = prepareParams(target)
                 break
             case KuorumUser:
@@ -123,6 +126,13 @@ class LinkPropertiesCodec {
                 userAlias: notificationProposalCommentRSDTO.debateAlias.toLowerCase(),
                 urlTitle: notificationProposalCommentRSDTO.debateTitle.encodeAsKuorumUrl(),
                 debateId: notificationProposalCommentRSDTO.debateId
+        ]
+    }
+    private static def prepareParams(NotificationProposalCommentMentionRSDTO notificationProposalCommentMentionRSDTO) {
+        [
+                userAlias: notificationProposalCommentMentionRSDTO.debateAlias.toLowerCase(),
+                urlTitle: notificationProposalCommentMentionRSDTO.debateTitle.encodeAsKuorumUrl(),
+                debateId: notificationProposalCommentMentionRSDTO.debateId
         ]
     }
 
