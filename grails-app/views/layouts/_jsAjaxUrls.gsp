@@ -2,12 +2,14 @@
 <script>
     var urls = {
         home:'<g:createLink mapping="home" absolute="true"/>',
+        userProfile:'<g:createLink mapping="userShow" params="[userAlias:'-userAlias-']" absolute="true"/>',
         searchSuggest:'<g:createLink mapping="searcherSuggests" absolute="true"/>',
         search:'<g:createLink mapping="searcherSearch" absolute="true"/>',
         suggestRegion:'<g:createLink mapping="suggestRegions" absolute="true"/>',
         tour:{
             tour_dashboard:'<g:createLink mapping="tour_dashboard"/>'
-        }
+        },
+        suggestAlias: '<g:createLink mapping="suggestAlias" absolute="true"/>',
     }
     var ajaxHeadNotificationsChecked='<g:createLink mapping="ajaxHeadNotificationsChecked" absolute="true"/>'
     var ajaxHeadMessagesChecked='<g:createLink mapping="ajaxHeadMessagesChecked" absolute="true"/>'
@@ -17,6 +19,7 @@
 <script>
 //    TODO: Use jawr. The actual version ignore codification
     var i18n = {
+        lang : '${currentLang.language}',
         readLater : '<g:message code="cluck.footer.readLater"/>',
         customRegister : {
             step4:{

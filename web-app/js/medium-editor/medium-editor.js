@@ -463,6 +463,10 @@ MediumEditor.extensions = {};
             ESCAPE: 27,
             SPACE: 32,
             DELETE: 46,
+            LEFT: 37,
+            UP: 38,
+            RIGHT: 39,
+            DOWN: 40,
             K: 75, // K keycode, and not k
             M: 77,
             V: 86
@@ -3001,7 +3005,6 @@ MediumEditor.extensions = {};
         },
 
         handleKeydown: function (event) {
-
             this.triggerCustomEvent('editableKeydown', event, event.currentTarget);
 
             if (MediumEditor.util.isKey(event, MediumEditor.util.keyCode.SPACE)) {
@@ -3009,7 +3012,7 @@ MediumEditor.extensions = {};
             }
 
             if (MediumEditor.util.isKey(event, MediumEditor.util.keyCode.ENTER) || (event.ctrlKey && MediumEditor.util.isKey(event, MediumEditor.util.keyCode.M))) {
-                return this.triggerCustomEvent('editableKeydownEnter', event, event.currentTarget);
+                //return this.triggerCustomEvent('editableKeydownEnter', event, event.currentTarget);
             }
 
             if (MediumEditor.util.isKey(event, MediumEditor.util.keyCode.TAB)) {
@@ -3018,6 +3021,16 @@ MediumEditor.extensions = {};
 
             if (MediumEditor.util.isKey(event, [MediumEditor.util.keyCode.DELETE, MediumEditor.util.keyCode.BACKSPACE])) {
                 return this.triggerCustomEvent('editableKeydownDelete', event, event.currentTarget);
+            }
+
+            // BLOCK EVENT IF A MODULE WANTS
+            var extensions = this.options.extensions
+            for (var extensionName in extensions) {
+                var extension = extensions[extensionName];
+                if (extension.stopDefaultActionEvent != undefined && extension.stopDefaultActionEvent(event)){
+                    event.stopPropagation();
+                    event.preventDefault();
+                }
             }
         }
     };

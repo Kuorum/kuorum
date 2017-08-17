@@ -52,6 +52,9 @@ modules = {
         resource url:'js/datepicker/moment-with-locales.min.js'
         resource url:'js/datepicker/bootstrap-datetimepicker.js'
         resource url:'js/datepicker/bootstrap-datepicker.es.js'
+        resource url:'js/datepicker/bootstrap-datepicker.de.js'
+        resource url:'js/datepicker/bootstrap-datepicker.it.js'
+        resource url:'js/datepicker/bootstrap-datepicker.lt.js'
     }
 
     application {
@@ -93,6 +96,8 @@ modules = {
         resource url:'js/medium-editor/medium-editor.js'
         resource url:'css/medium-editor/medium-editor.min.css'
         resource url:'css/medium-editor/themes/default.css'
+        resource url:'js/medium-editor/medium-mentions.js'
+        resource url:'css/medium-editor/mention-panel.min.css'
         resource url:'js/debate.js'
     }
 

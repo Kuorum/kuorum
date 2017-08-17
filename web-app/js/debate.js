@@ -1,10 +1,42 @@
 
+function getKuorumSuggestions(prefix, panelEl, buildPanel){
+    var url = urls.suggestAlias
+    var editor = this;
+    var data ={term:prefix.slice(1), boostedAlias:debateFunctions.getActiveAlias()}
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: data,
+        dataType: 'json'
+    }).done(function(data){
+        var suggestions = new Array();
+        for (i = 0; i < data.suggestions.length; i++) {
+            suggestions[i] = {
+                value:'@'+data.suggestions[i].alias,
+                text:data.suggestions[i].alias +" ("+data.suggestions[i].name+")"
+            }
+        }
+        editor.buildPanel(panelEl, suggestions, editor)
+    })
+}
+
 var editor = new MediumEditor('.editable', {
     buttonLabels: 'fontawesome',
     targetBlank: true,
     disableDoubleReturn: false,
     toolbar: {
         buttons: ['anchor']
+    },
+    extensions: {
+        "mention": new TCMention({
+            tagName:"a",
+            getSuggestions:getKuorumSuggestions,
+            addNodeAttributes: function(node, selectedText){
+                var url = urls.userProfile.replace("-userAlias-",selectedText.slice(1))
+                node.setAttribute("href", url)
+            },
+            activeTriggerList: ["@"]
+        })
     }
 });
 
@@ -15,14 +47,25 @@ function prepareEditorComment(){
         buttonLabels: 'fontawesome',
         targetBlank: true,
         disableDoubleReturn: false,
+        toolbar: {
+            buttons: ['anchor']
+        },
         anchorPreview: {
             /* These are the default options for anchor preview,
              if nothing is passed this is what it used */
             hideDelay: 500,
             previewValueSelector: 'a'
         },
-        toolbar: {
-            buttons: ['anchor']
+        extensions: {
+            "mention": new TCMention({
+                tagName:"a",
+                getSuggestions:getKuorumSuggestions,
+                addNodeAttributes: function(node, selectedText){
+                    var url = urls.userProfile.replace("-userAlias-",selectedText.slice(1))
+                    node.setAttribute("href", url)
+                },
+                activeTriggerList: ["@"]
+            })
         }
     });
 }
@@ -400,6 +443,10 @@ function validMediumEditor($mediumEditor){
 }
 
 var debateFunctions = {
+    getActiveAlias:function(){
+        var aliases = new Set(); $("[data-useralias]").each(function(idx){aliases.add($(this).attr("data-useralias"))})
+        return aliases
+    },
     voteComment: function ($button, callback){
         var vote = -1;
         if ($button.find("span").hasClass("fa-angle-up")){

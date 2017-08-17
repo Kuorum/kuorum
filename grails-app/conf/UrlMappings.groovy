@@ -225,6 +225,7 @@ class UrlMappings {
         name searcherSuggests:      "/ajax/search/suggestions"(controller: "search", action:"suggest")
         name suggestRegions:        "/ajax/search/suggestions/regions"(controller: "search", action:"suggestRegions")
         name suggestTags:           "/ajax/search/suggestions/tags"(controller: "search", action:"suggestTags")
+        name suggestAlias:          "/ajax/search/suggestions/alias"(controller: "search", action:"suggestAlias")
 
         name profileEditAccountDetails:     "/config/account-details"                                   (controller: "profile"){action =[GET:"editAccountDetails", POST:"updateAccountDetails"]}
         name profileEditUser:               "/edit-profile"                                    (controller: "profile"){action =[GET:"editUser", POST:"editUserSave"]}
