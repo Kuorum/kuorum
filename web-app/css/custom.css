@@ -6470,7 +6470,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     #tabs-stats-campaign .table td:nth-child(2), #tabs-stats-campaign .table td:nth-child(3), #tabs-stats-campaign .table td:nth-child(4), #tabs-stats-campaign .table td:nth-child(5),#tabs-stats-campaign .table td:nth-child(6) {text-align: center;}
     #tabs-stats-campaign .table .only-mobile {display: none !important;}
 
-    #contactsList > li > .contact-info > .title > a {display:inline-flex; overflow: hidden;max-width: 10em;}
+    #contactsList > li > .contact-info > .title > a {display:inline-block; overflow: hidden;max-width: 10em;}
     #contactsList > li > .contact-info > .title > a + a {text-decoration: none}
 
     #contactsList > li .email .raw-email {display:inline-flex; overflow: hidden;max-width: 12em;}
