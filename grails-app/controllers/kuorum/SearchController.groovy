@@ -199,7 +199,7 @@ class SearchController{
     }
 
     def suggestAlias(String term){
-        List<String> boostedAlias = params.list('boostedAlias')
+        List<String> boostedAlias = params.list('boostedAlias[]')
         List<String> aliasFriends = []
         if (springSecurityService.isLoggedIn()){
             aliasFriends = ((KuorumUser)springSecurityService.currentUser).following.collect{KuorumUser.get(it).alias}

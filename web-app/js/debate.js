@@ -2,7 +2,7 @@
 function getKuorumSuggestions(prefix, panelEl, buildPanel){
     var url = urls.suggestAlias
     var editor = this;
-    var data ={term:prefix.slice(1), boostedAlias:debateFunctions.getActiveAlias()}
+    var data ={term:prefix.slice(1), "boostedAlias":Array.from(debateFunctions.getActiveAlias())}
     $.ajax({
         type: "POST",
         url: url,
