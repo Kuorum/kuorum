@@ -48,7 +48,6 @@
                 <div class="col-sm-4">
                     <formUtil:input
                             field="value"
-                            cssClass="form-control"
                             command="${listCommand}"
                             prefixFieldName="${prefixField}"
                             labelCssClass="sr-only"
