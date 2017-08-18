@@ -142,7 +142,6 @@ $(function () {
 
         $( ".conversation-box-comments-list" ).each(function() {
             var $commentList = $(this).find("li.conversation-box-comment");
-            $(this).addClass("collapsed");
             collapseComments($commentList);
         });
 
@@ -258,6 +257,13 @@ $(function(){
                     });
                 }
             });
+            if($hiddenComments.length === 0){
+                $('html, body').animate({
+                    scrollTop: $target.offset().top - navbarHeight - 40
+                }, 1000, function () {
+                    $target.focus();
+                });
+            }
         } else if (isVisible) {
             $('html, body').animate({
                 scrollTop: $target.offset().top - navbarHeight - 40
@@ -632,12 +638,10 @@ var debateFunctions = {
         var $button = $(e.target)
         var $conversationBox = $($button.parents('.conversation-box-comments')[0]).prev();
         var $commentsList = $conversationBox.next().children(".conversation-box-comments-list");
-        //if ( $commentsList.is(":visible") ){
         if ( !$commentsList.hasClass("collapsed") ){
             debateFunctions.saveComment($commentsList,$button, callback)
         }else{
             // ABRIR COMENTARIOS
-            console.log("OTHER OPEN");
             debateFunctions.conversationSectionClick($conversationBox)
         }
     },
