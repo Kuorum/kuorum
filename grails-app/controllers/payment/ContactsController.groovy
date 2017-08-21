@@ -28,6 +28,7 @@ class ContactsController {
 
     private static final String CONTACT_CSV_UPLOADED_SESSION_KEY="CONTACT_CSV_UPLOADED_SESSION_KEY"
     private static final String CONTACT_CSV_UPLOADED_EXTENSION = ".csv"
+    private static final Integer MAX_CONTACTS_PER_PETITION = 10000;
 
     ContactService contactService
     SpringSecurityService springSecurityService
@@ -371,7 +372,7 @@ class ContactsController {
                     contact.setTags(tagsSecuredTransformed as Set<String>)
                     contact.getTags().addAll(tags)
                     contacts << contact
-                    if (contacts.size() > 1000) {
+                    if (contacts.size() >= MAX_CONTACTS_PER_PETITION) {
                         contactService.addBulkContacts(loggedUser,contacts)
                         contacts.clear()
                     }
