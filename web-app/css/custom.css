@@ -3859,11 +3859,12 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .promo-options table.kuorum-prices-table tbody tr {margin:auto; border:1px solid #545454;}
 .promo-options table.kuorum-prices-table thead tr {border:none;}
 /*.promo-options table.kuorum-prices-table thead tr.recommended {}*/
-.promo-options table.kuorum-prices-table thead tr th{font-family: 'Georgia', 'Times New Roman', Times, serif; border:1px solid #545454; background-color: #545454; color:#fff;text-align:center; padding:15px 40px;font-weight: normal; text-transform: capitalize}
+.promo-options table.kuorum-prices-table th,
+.promo-options table.kuorum-prices-table td{text-align:center; padding:5px 5px; font-size:14px; text-align:center;font-weight: normal;}
+.promo-options table.kuorum-prices-table thead tr th{font-family: 'Georgia', 'Times New Roman', Times, serif; border:1px solid #545454; background-color: #545454; color:#fff; text-transform: capitalize}
 .promo-options table.kuorum-prices-table thead tr th.recommended{background-color: #6e6e6e;border-color: #6e6e6e;}
 .promo-options table.kuorum-prices-table thead tr th.empty{background-color: transparent;border:none;}
 .promo-options table.kuorum-prices-table thead tr:first-child th {vertical-align: bottom; padding-bottom: 0;padding-top: 15px;line-height: 5px;font-size:0.7em;text-transform:uppercase;font-family: Arial, Helvetica, sans-serif}
-.promo-options table.kuorum-prices-table td{text-align:center; padding:15px 40px;}
 
 .form-promo,
 .form-promo-pay {min-height: 126px; padding: 30px 0 0 0; border-bottom: 1px solid #DADADA; border-top: 1px solid #DADADA;}
@@ -5530,7 +5531,8 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .modal-register .modal-dialog {width: 350px;}
     .modal-register.modal form{width: 310px;}
     .modal-register .modal-dialog .modal-body {padding: 0px 20px 20px 20px;}
-
+    .promo-options table.kuorum-prices-table th,
+    .promo-options table.kuorum-prices-table td{padding:5px 5px; font-size:15px;}
 }
 @media only screen and (min-width: 533px) {
     #detailsInfoVotes .table tbody th {width: 205px;}
@@ -5563,7 +5565,8 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
     .uploaderImageContainer.PROJECT_IMAGE .qq-upload-drop-area {height:297px;}
     .uploaderImageContainer.PROJECT_IMAGE > div {height:297px;}
-
+    .promo-options table.kuorum-prices-table th,
+    .promo-options table.kuorum-prices-table td{padding:7px 10px; font-size:inherit;}
 }
 
 @media only screen and (min-width: 640px) {
@@ -6052,6 +6055,9 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
     .uploaderImageContainer.PROJECT_IMAGE .qq-upload-drop-area {height:268px;}
     .uploaderImageContainer.PROJECT_IMAGE > div {height:268px;}
+
+    .promo-options table.kuorum-prices-table th,
+    .promo-options table.kuorum-prices-table td{padding:10px 15px;}
 }
 
 /* Medium devices (desktops, 992px and up) */
