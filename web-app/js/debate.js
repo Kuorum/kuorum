@@ -849,32 +849,6 @@ function SortProposals() {
         $.each(proposals, function(idx, itm) { proposalList.append(itm); });
     }
 }
-// var sortProposals;
-// $(function () {
-//
-//     checkPinnedFilter();
-//
-//     sortProposals = new SortProposals();
-//     var hash = window.location.hash
-//     if (hash != undefined || hash != "") {
-//         hash = hash.substr(1);
-//         sortProposals.setProposalOption(hash)
-//     }
-//     sortProposals.reorderList();
-//
-//     $("#proposal-option li a").on("click", function(e){
-//         var optionName = $(this).attr("href").substr(1);
-//         sortProposals.setProposalOption(optionName);
-//         sortProposals.reorderList();
-//     });
-//
-//     // Marc as active the comment or the proposal
-//     openElement(hash)
-//
-//     if (hash == "openProposal"){
-//         $(".leader-post > .footer .comment-counter button").trigger("click");
-//     }
-// });
 
 function removeProposalFromFilter(element){
     var active = element.hasClass('active');

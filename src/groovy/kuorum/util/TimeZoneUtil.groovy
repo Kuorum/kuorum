@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat
  */
 class TimeZoneUtil {
 
-    private static Date convertToUserTimeZone(Date date, TimeZone userTimeZone){
+    public static Date convertToUserTimeZone(Date date, TimeZone userTimeZone){
         if (date){
             def dateFormat = 'yyyy/MM/dd HH:mm'
             String rawDate = date.format(dateFormat)

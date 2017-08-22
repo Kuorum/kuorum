@@ -20,6 +20,7 @@ class PostContentCommand {
 
     @BindingFormat(WebConstants.WEB_FORMAT_DATE)
     Date publishOn
+    String sendType
 
     static constraints = {
         title nullable: true, validator: { val, obj ->
@@ -36,5 +37,7 @@ class PostContentCommand {
         headerPictureId nullable: true
         videoPost nullable: true
         publishOn nullable: true
+
+        sendType nullable: false, inList:["DRAFT", "SCHEDULED", "SEND", "SEND_TEST"]
     }
 }

@@ -9,7 +9,6 @@ import kuorum.core.model.search.SearchUserPosts
 import kuorum.mail.KuorumMailService
 import kuorum.project.Project
 import kuorum.users.KuorumUser
-import kuorum.util.TimeZoneUtil
 import kuorum.util.rest.RestKuorumApiService
 import org.kuorum.rest.model.communication.post.PagePostRSDTO
 import org.kuorum.rest.model.communication.post.PostRDTO
@@ -69,10 +68,6 @@ class PostService {
     }
 
     PostRSDTO createPost(KuorumUser user, PostRDTO postRDTO){
-        if (postRDTO.publishOn != null) {
-            postRDTO.publishOn = TimeZoneUtil.convertToUserTimeZone(postRDTO.publishOn, user.timeZone)
-        }
-
         Map<String, String> params = [userAlias: user.id.toString()]
         Map<String, String> query = [:]
         def response = restKuorumApiService.post(
@@ -113,10 +108,6 @@ class PostService {
     }
 
     PostRSDTO updatePost(KuorumUser user, PostRDTO postRDTO, Long postId) {
-
-        if (postRDTO.publishOn != null) {
-            postRDTO.publishOn = TimeZoneUtil.convertToUserTimeZone(postRDTO.publishOn, user.timeZone)
-        }
         Map<String, String> params = [userAlias: user.id.toString(), postId: postId.toString()]
         Map<String, String> query = [:]
         def response = restKuorumApiService.put(

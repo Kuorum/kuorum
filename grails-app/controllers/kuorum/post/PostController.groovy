@@ -10,6 +10,7 @@ import kuorum.files.FileService
 import kuorum.users.CookieUUIDService
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
+import kuorum.util.TimeZoneUtil
 import kuorum.web.commands.payment.contact.ContactFilterCommand
 import kuorum.web.commands.payment.massMailing.post.LikePostCommand
 import kuorum.web.commands.payment.post.PostContentCommand
@@ -271,7 +272,12 @@ class PostController {
         PostRDTO postRDTO = createPostRDTO(user, postId)
         postRDTO.title = command.title
         postRDTO.body = command.body
-        postRDTO.publishOn = command.publishOn
+        if(command.sendType == 'SEND'){
+            postRDTO.publishOn = Calendar.getInstance(user.getTimeZone()).time;
+        }
+        else {
+            postRDTO.publishOn = TimeZoneUtil.convertToUserTimeZone(command.publishOn, user.timeZone)
+        }
 
         // Multimedia URL
         if (command.fileType == FileType.IMAGE.toString() && command.headerPictureId) {

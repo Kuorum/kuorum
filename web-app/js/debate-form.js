@@ -30,7 +30,6 @@ $(function(){
     // Abrir modal confirmar envio de debate
     $('body').on('click','.form-final-options #send-draft', function(e) {
         e.preventDefault();
-        console.log("CLICK")
         if (isValidDebateForm()) {
             // Autoset publish day for today
             var date = new Date();
@@ -39,6 +38,7 @@ $(function(){
                 + "/" + date.getFullYear()
                 + " " + date.getHours() + ":" + date.getMinutes();
             $("input[name='publishOn']").val(dateString);
+            $("input[name='sendType']").val("SEND");
             prepareAndOpenDebateConfirmModal();
         }
     });
@@ -46,6 +46,7 @@ $(function(){
     $('body').on('click','.form-final-options #send-debate-later', function(e) {
         e.preventDefault();
         if (isValidDebateForm()) {
+            $("input[name='sendType']").val("SCHEDULED");
             prepareAndOpenCampaignConfirmModal();
         }
     });
@@ -54,6 +55,7 @@ $(function(){
     $('body').on('click','.form-final-options #save-draft-debate', function(e) {
         e.preventDefault();
         $("input[name='publishOn']").val("");
+        $("input[name='sendType']").val("DRAFT");
         $(this).parents("form").submit();
     });
 

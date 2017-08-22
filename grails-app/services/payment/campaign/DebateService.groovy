@@ -1,18 +1,14 @@
 package payment.campaign
 
 import com.fasterxml.jackson.core.type.TypeReference
-import grails.plugin.springsecurity.SpringSecurityService
 import grails.transaction.Transactional
 import kuorum.core.exception.KuorumException
 import kuorum.solr.IndexSolrService
 import kuorum.users.KuorumUser
-import kuorum.util.TimeZoneUtil
 import kuorum.util.rest.RestKuorumApiService
 import org.kuorum.rest.model.communication.debate.DebateRDTO
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.kuorum.rest.model.communication.debate.PageDebateRSDTO
-
-import java.text.SimpleDateFormat
 
 @Transactional
 class DebateService {
@@ -79,9 +75,6 @@ class DebateService {
     }
 
     DebateRSDTO saveDebate(KuorumUser user, DebateRDTO debateRDTO, Long debateId) {
-        if (debateRDTO.publishOn != null) {
-            debateRDTO.publishOn = TimeZoneUtil.convertToUserTimeZone(debateRDTO.publishOn, user.timeZone)
-        }
         debateRDTO.body = debateRDTO.body.encodeAsRemovingScriptTags().encodeAsTargetBlank()
 
         DebateRSDTO debate

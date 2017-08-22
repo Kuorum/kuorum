@@ -19,6 +19,7 @@ class DebateContentCommand {
 
     @BindingFormat(WebConstants.WEB_FORMAT_DATE)
     Date publishOn
+    String sendType
 
     static constraints = {
         title nullable: true, validator: { val, obj ->
@@ -39,6 +40,8 @@ class DebateContentCommand {
                 return "kuorum.web.commands.payment.massMailing.DebateCommand.scheduled.min.error"
             }*/
         }
+
+        sendType nullable: false, inList:["DRAFT", "SCHEDULED", "SEND", "SEND_TEST"]
     }
 
 }

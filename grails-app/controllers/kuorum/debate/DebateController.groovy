@@ -9,6 +9,7 @@ import kuorum.files.FileService
 import kuorum.users.CookieUUIDService
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
+import kuorum.util.TimeZoneUtil
 import kuorum.web.commands.payment.contact.ContactFilterCommand
 import kuorum.web.commands.payment.debate.DebateContentCommand
 import kuorum.web.commands.payment.debate.DebateSettingsCommand
@@ -253,7 +254,12 @@ class DebateController {
         DebateRDTO debateRDTO = createDebateRDTO(user, debateId)
         debateRDTO.title = command.title
         debateRDTO.body = command.body
-        debateRDTO.publishOn = command.publishOn
+        if(command.sendType == 'SEND'){
+            debateRDTO.publishOn = Calendar.getInstance(user.getTimeZone()).time;
+        }
+        else{
+            debateRDTO.publishOn = TimeZoneUtil.convertToUserTimeZone(command.publishOn, user.timeZone)
+        }
 
         // Multimedia URL
         if (command.fileType == FileType.IMAGE.toString() && command.headerPictureId) {
