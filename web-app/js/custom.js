@@ -767,38 +767,6 @@ $(document).ready(function() {
         $('[data-multimedia-type="'+multimediaType+'"]').show()
 
     });
-    $('body').on("click", ".openModalVictory",function(e){
-        var notificationId = $(this).attr("data-notification-id");
-        modalVictory.openModal(notificationId)
-    });
-
-    $('body').on("click", ".openModalDefender",function(e){
-        e.preventDefault();
-        e.stopPropagation();
-        var postId = $(this).attr("data-postId");
-        $("#apadrinar").find("input[name=postId]").val(postId);
-        $('#apadrina-propuesta').modal('show');
-    });
-
-    $('.modalVictoryClose').on("click", function (e) {
-        e.preventDefault();
-        $('#modalVictory').modal('hide');
-    });
-
-    $('.modalVictoryAction').on("click", function (e) {
-        e.preventDefault();
-        var notificationId = $(this).attr("data-notificationId");
-        var victoryOk = $(this).attr("data-victoryOk");
-        var link = $(this).attr("href");
-        $.ajax({
-            url:link,
-            data:{victoryOk:victoryOk}
-        }).done(function(data){
-            $('#modalVictory').modal('hide');
-            modalVictory.hideNotificationActions(notificationId);
-            display.success(data)
-        })
-    });
 
     $('body').on("click",".votePostCommentLink", function(e){
         e.preventDefault();
@@ -1172,50 +1140,6 @@ $(document).ready(function() {
 });
 
 // ***** End jQuey Init *********** //
-
-//
-//var modalDefend = {
-//    data:{},
-//    openModal:function(postId){
-//        var modalData = this.data['post_'+postId]
-//        $("#modalDefenderPolitician img").attr('src',modalData.defender.imageUrl)
-//        $("#modalDefenderPolitician img").attr('alt',modalData.defender.name)
-//        $("#modalDefenderPolitician #sponsorLabel").html(modalData.post.sponsorLabel)
-//        $("#modalDefenderPolitician h1").html(modalData.defender.name)
-//        $("#modalDefenderOwner img").attr('src',modalData.owner.imageUrl)
-//        $("#modalDefenderOwner img").attr('alt',modalData.owner.name)
-//        $("#modalDefenderOwner .name").html(modalData.owner.name)
-//        $("#modalDefenderOwner .what").html(modalData.post.what)
-//        $("#modalDefenderOwner .action span").html(modalData.post.numVotes)
-//        $("#modalSponsor .modal-body").children("p").html(modalData.post.description)
-//        $("#modalSponsor .modal-body").children("div").each(function(i,buttonElement){
-//            var dataButton = modalData.post.options[i]
-//            $(buttonElement).children("a").html(dataButton.textButton)
-//            $(buttonElement).children("a").attr('href',dataButton.defendLink)
-//            $(buttonElement).children("p").html(dataButton.textDescription)
-//        })
-//    }
-//}
-
-var modalVictory = {
-    data:{},
-    openModal:function(notificationId){
-        var modalData = this.data['notification_' + notificationId];
-        $("#modalVictoryUser img").attr('src', modalData.user.imageUrl);
-        $("#modalVictoryUser img").attr('alt', modalData.user.name);
-        $("#modalVictoryDefender img").attr('src', modalData.defender.imageUrl);
-        $("#modalVictoryDefender img").attr('alt', modalData.defender.name);
-        $("#modalVictoryDefender .name").html(modalData.defender.name);
-        $("#modalVictoryDefender .action").html(modalData.post.action);
-        $("#modalVictory .modal-body p").first().html(modalData.post.description);
-        $("#modalVictory .modal-body p").last().html(modalData.post.lawLink);
-        $("#modalVictory .modal-footer a").attr('href', modalData.post.victoryLink);
-        $("#modalVictory .modal-footer a").attr('data-notificationId',notificationId)
-    },
-    hideNotificationActions:function(notificationId){
-        $("[data-notification-id="+notificationId+"]").hide();
-    }
-};
 var karma = {
     title:"",
     text:"",

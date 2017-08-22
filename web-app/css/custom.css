@@ -3025,60 +3025,6 @@ textarea.error,
 .karma li span {display: block;}
 #karma a {color: #ff9431;}
 
-
-/* Modal Dar Victoria */
-#modalVictory .modal-header > .close {position: absolute; top: 5px; right: 5px; z-index: 999; color: #fff;}
-#modalVictory .modal-header .col {width: 100%; margin: 0; float: left; padding: 10px; position: relative;}
-#modalVictory .modal-header > .col:last-child {background-color: #faebcc; color: #545454;}
-#modalVictory .modal-header {position: relative; background-color: #ff9431; padding: 0; color: #fff; height: 110px;}
-#modalVictory .modal-header img {float: left; border: solid 4px #fff; margin-top: 0;}
-#modalVictory .modal-header h3 {font-size: 48px; font-size: 4.8rem; text-transform: uppercase; margin-bottom: 0; margin-top: 10px; line-height: 1;}
-#modalVictory .modal-header h4 {font-size: 22px; font-size: 2.2rem; margin: 0; color: #faebcc;}
-#modalVictory .modal-header .user-img.big {width: 90px; height: 90px; margin: 0 10px 0 0;}
-#modalVictory .modal-header .user {margin: 0; position: relative; width: 100%;}
-#modalVictory .modal-header .user > .user-img.big {width: 70px; height: 70px; border-color: #ff9431; margin: 0 10px 4px 0;}
-#modalVictory .modal-header > .col:last-child .user > span {display: block;}
-#modalVictory .modal-header > .col:last-child .user > .name {font-size: 18px; font-size: 1.8rem; text-overflow: ellipsis; /* pone [...] al final si no cabe */ width: 190px; white-space: nowrap; overflow:hidden; /* para old browser */}
-#modalVictory .modal-header > .col:last-child .user > .what {color: #ff9431;}
-#modalVictory .fdoDiagonal {width: 0; height: 0; border-bottom: 110px solid #faebcc; border-left: 60px solid transparent; position: absolute; top: 0; left: -60px; display: none;}
-#modalVictory .modal-body {margin-top: 90px;}
-#modalVictory .modal-body > p:first-child {color: #a8a8a8;}
-#modalVictory .modal-body > p:first-child strong {color: #545454; font-weight: normal;}
-#modalVictory .modal-body > p:last-child {font-size: 22px; font-size: 2.2rem;}
-#modalVictory .modal-body > p > a {color: #ff9431;}
-#modalVictory .modal-footer {text-align: left; margin-top: 0;}
-#modalVictory .modal-footer a small {display: block;}
-#modalVictory .modal-footer .btn + .cancel {margin: 10px 0 0 6px !important; display: block !important; float: right; color: #545454 !important;}
-
-
-/* Modal Apadrinar */
-#modalSponsor .modal-header > .close {position: absolute; top: 5px; right: 5px; z-index: 999; color: #fff;}
-#modalSponsor .modal-header .col {width: 100%; margin: 0; float: left; padding: 10px; position: relative;}
-#modalSponsor .modal-header > .col:last-child {background-color: #faebcc; color: #545454;}
-#modalSponsor .modal-header {position: relative; background-color: #ff9431; padding: 0; color: #fff; height: 110px;}
-#modalSponsor .modal-header img {float: left; border: solid 4px #fff; margin-top: 0;}
-#modalSponsor .modal-header h1 {font-size: 16px; font-size: 1.6rem; margin: 12px 0 6px 0;}
-#modalSponsor .modal-header h2 {font-size: 26px; font-size: 2.6rem; text-transform: uppercase; margin-bottom: 0; margin-top: 5px; line-height: 1;}
-#modalSponsor .modal-header h3 {font-size: 16px; font-size: 1.6rem; margin: 0; color: #faebcc;}
-#modalSponsor .modal-header .user-img.big {width: 90px; height: 90px; margin: 0 10px 0 0;}
-#modalSponsor .modal-header .user {margin: 0; position: relative; width: 100%;}
-#modalSponsor .modal-header .user > .user-img.big {width: 70px; height: 70px; border-color: #ff9431; margin: 0 10px 4px 0;}
-#modalSponsor .modal-header > .col:last-child .user > span {display: block;}
-#modalSponsor .modal-header > .col:last-child .user > .name {font-size: 16px; font-size: 1.6rem; text-overflow: ellipsis; /* pone [...] al final si no cabe */ width: 190px; white-space: nowrap; overflow:hidden; /* para old browser */}
-#modalSponsor .modal-header > .col:last-child .user > .what,
-#modalSponsor .modal-header > .col:last-child .user > .action {font-size: 12px; font-size: 1.2rem;}
-#modalSponsor .modal-header > .col:last-child .user > .action {line-height: 1;}
-#modalSponsor .modal-header > .col:last-child .user > .action span {font-size: 20px; font-size: 2rem;}
-#modalSponsor .fdoDiagonal {width: 0; height: 0; border-bottom: 110px solid #faebcc; border-left: 60px solid transparent; position: absolute; top: 0; left: -60px; display: none;}
-#modalSponsor .modal-body {margin-top: 90px;}
-#modalSponsor .modal-body > p:first-child {color: #a8a8a8;}
-#modalSponsor .modal-body > p:first-child strong {color: #545454; font-weight: normal;}
-#modalSponsor .modal-body > p:last-child {font-size: 22px; font-size: 2.2rem;}
-#modalSponsor .modal-body > p > a {color: #ff9431;}
-#modalSponsor .modal-body > div > p {font-size: 14px; font-size: 1.4rem; line-height: 1.2;}
-#modalSponsor .modal-body .btn {display: block; margin: 0 0 10px 0 !important; padding: 18px 10px !important;}
-
-
 /* páginas de entrar y registro, con layout de 1 columna */
 .sign h1 {      font-size: 25px; font-size: 2.2rem; margin-top: 0;text-align:center;}
 .sign h2 {font-size: 18px; font-size: 1.8rem; line-height: 1.4; padding: 0;text-align:center;}
@@ -5621,24 +5567,6 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 }
 
 @media only screen and (min-width: 640px) {
-    #modalVictory .modal-body {margin-top: 0;}
-    #modalVictory .modal-header .col {width: 60%;}
-    #modalVictory .modal-header > .col:last-child {width: 40%;}
-    #modalVictory .fdoDiagonal {display: block;}
-    #modalVictory .modal-header .user > .user-img.big {margin: 0 10px 4px -70px;}
-    #modalVictory .modal-header > .close {color: #ff9431;}
-    #modalVictory .modal-header .user {margin: 16px 0 0 0;}
-    #modalVictory .modal-header .user {width: 100%;}
-
-    #modalSponsor .modal-body {margin-top: 0;}
-    #modalSponsor .modal-header .col {width: 60%;}
-    #modalSponsor .modal-header > .col:last-child {width: 40%;}
-    #modalSponsor .fdoDiagonal {display: block;}
-    #modalSponsor .modal-header .user > .user-img.big {margin: 0 10px 4px -70px;}
-    #modalSponsor .modal-header > .close {color: #ff9431;}
-    #modalSponsor .modal-header .user {margin: 16px 0 0 0;}
-    #modalSponsor .modal-header .user {width: 100%;}
-    #modalSponsor .modal-body .btn {display: inline-block; float: left; font-size: 15px !important; font-size: 1.5rem !important; width: 165px; height: 80px; margin: 0 10px 0 0 !important; padding: 22px 10px !important;}
     #myWidgetLabel {font-size: 34px;}
     #detailsInfoVotes .table tbody th {width: 300px;}
     #detailsInfoVotes.autor .table tbody th {width: 335px;}
