@@ -109,21 +109,25 @@ $(document).ready(function() {
     function clickedButtonFollow(button){
         var buttonFollow = $(button);
         if (buttonFollow.hasClass('noLogged')){
+            var buttonFollowUUID = guid()
+            buttonFollow.attr("id",buttonFollowUUID)
+            $('#registro').find("form").attr("callback", "clickFollowAfterLogIn")
+            $('#registro').find("form").attr("buttonId", buttonFollowUUID)
             $('#registro').modal('show');
         }
-        else if ( buttonFollow.hasClass('disabled') ){
-            var url = buttonFollow.attr("data-ajaxunfollowurl");
-            ajaxFollow(url, buttonFollow, function(data, status, xhr) {
+        else if ( followActions.isAlreadyFollowing(buttonFollow) ){
+            var url = followActions.getUnFollowUrl(buttonFollow);
+            followActions.ajaxFollow(url, buttonFollow, function(data, status, xhr) {
                 var message = buttonFollow.attr('data-message-follow');
-                var userId = buttonFollow.attr('data-userId');
+                var userId = followActions.getUserId(buttonFollow)
                 removeUserCampaigns(userId)
                 $("button.follow[data-userId="+userId+"]").html(message).removeClass('disabled').addClass('enabled');
             });
         } else {
-            var url = buttonFollow.attr("data-ajaxfollowurl");
-            ajaxFollow(url, buttonFollow, function(data, status, xhr) {
+            var url = followActions.getFollowUrl(buttonFollow);
+            followActions.ajaxFollow(url, buttonFollow, function(data, status, xhr) {
                 var message = buttonFollow.attr('data-message-unfollow');
-                var userId = buttonFollow.attr('data-userId');
+                var userId = followActions.getUserId(buttonFollow)
                 $("button.follow[data-userId="+userId+"]").html(message).removeClass('enabled').addClass('disabled');
                 deleteUserRecommendation(userId);
                 addUserCampaigns(userId);
@@ -189,32 +193,6 @@ $(document).ready(function() {
         e.stopPropagation();
         clickedButtonContact($(this))
     });
-
-    function ajaxFollow(url, buttonFollow, doneFunction){
-        $.ajax( {
-            url:url,
-            statusCode: {
-                401: function() {
-                    display.info("Estás deslogado");
-                    setTimeout('location.reload()',5000);
-                },
-                403: function(data){
-                    var message = buttonFollow.attr('data-message-follow');
-                    var userId = buttonFollow.attr('data-userId');
-                    $("button.follow[data-userId="+userId+"]").html(message).removeClass('disabled').addClass('enabled');
-                    notMailConfirmedWarn();
-                }
-            },
-            beforeSend: function(){
-                buttonFollow.html('<div class="loading xs"><span class="sr-only">Cargando...</span></div>')
-            },
-            complete:function(){
-            // console.log("end")
-            }
-        }).done(function(data, status, xhr) {
-            doneFunction(data,status,xhr)
-        })
-    }
 
     function clickedDeleteRecommendedUser(button, fadeElement){
         var buttonDeleteRecommendedUser= $(button);
@@ -730,7 +708,7 @@ $(document).ready(function() {
         e.preventDefault();
         var link = $(this);
         var url = link.attr('href');
-        ajaxFollow(url,link, function(data){
+        followActions.ajaxFollow(url,link, function(data){
             $(".roleButton.active").removeClass("active").html("Activar");
             link.addClass("btn-green active");
             link.html(i18n.profile.kuorumStore.roleButton.active);
@@ -743,7 +721,7 @@ $(document).ready(function() {
         e.preventDefault();
         var link = $(this);
         var url = link.attr('href');
-        ajaxFollow(url,link, function(data){
+        followActions.ajaxFollow(url,link, function(data){
             link.addClass("active");
             link.html(i18n.profile.kuorumStore.skillButton.active);
             $("#numEggs").html(data.numEggs);
@@ -1455,4 +1433,65 @@ function reloadDynamicDiv($div){
         .done(function(data) {
             $div.html(data)
         });
+}
+
+var noLoggedCallbacks = {
+    reloadPage : function(){
+        document.location.reload();
+    }
+};
+
+noLoggedCallbacks["clickFollowAfterLogIn"]=function(){
+    console.log("follow after login");
+
+    var buttonFollowUUID = $('#registro').find("form").attr("buttonId")
+    var $button = $("#"+buttonFollowUUID);
+    var url = followActions.getFollowUrl($button)
+    followActions.ajaxFollow(url, $button, noLoggedCallbacks.reloadPage,noLoggedCallbacks.reloadPage);
+}
+
+var followActions = {
+    ajaxFollow: function(url, buttonFollow, doneFunction, handle403Status){
+        $.ajax( {
+            url:url,
+            statusCode: {
+                401: function() {
+                    display.info("Estás deslogado");
+                    setTimeout('location.reload()',5000);
+                },
+                403: function(data){
+                    var message = buttonFollow.attr('data-message-follow');
+                    var userId = followActions.getUserId(buttonFollow)
+                    $("button.follow[data-userId="+userId+"]").html(message).removeClass('disabled').addClass('enabled');
+                    if (window.notMailConfirmedWarn != undefined){
+                        // This function is only created when the page is loaded and the user has not the mailconfirmed
+                        notMailConfirmedWarn();
+                    }
+                    if (handle403Status != undefined){
+                        handle403Status();
+                    }
+                }
+            },
+            beforeSend: function(){
+                buttonFollow.html('<div class="loading xs"><span class="sr-only">Cargando...</span></div>')
+            },
+            complete:function(){
+                // console.log("end")
+            }
+        }).done(function(data, status, xhr) {
+            doneFunction(data,status,xhr)
+        })
+    },
+    getFollowUrl:function($button){
+        return $button.attr("data-ajaxfollowurl");
+    },
+    getUnFollowUrl:function($button){
+        return $button.attr("data-ajaxunfollowurl");
+    },
+    getUserId:function($button){
+        return $button.attr('data-userId');
+    },
+    isAlreadyFollowing: function($button){
+        return $button.hasClass('disabled')
+    }
 }
