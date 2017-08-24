@@ -27,6 +27,7 @@ import kuorum.util.rest.RestKuorumApiService
 import org.bson.types.ObjectId
 import org.codehaus.groovy.grails.commons.GrailsApplication
 import org.codehaus.groovy.grails.web.json.JSONElement
+import org.kuorum.rest.model.kuorumUser.UserDataRDTO
 import org.springframework.security.access.prepost.PreAuthorize
 import payment.CustomerService
 
@@ -80,11 +81,14 @@ class KuorumUserService {
     private void updateKuorumUserOnRest(KuorumUser user){
         Map<String, String> params = [userId: user.alias]
         Map<String, String> query = [:]
+        UserDataRDTO userDataRDTO = new UserDataRDTO();
+        userDataRDTO.setEmail(user.getEmail());
+        userDataRDTO.setName(user.getName());
         restKuorumApiService.put(
                 RestKuorumApiService.ApiMethod.USER_DATA,
                 params,
                 query,
-                null,
+                userDataRDTO,
                 null
         )
     }
