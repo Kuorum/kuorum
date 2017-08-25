@@ -94,6 +94,9 @@ class DebateController {
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def saveSettings(DebateSettingsCommand command) {
         if (command.hasErrors()) {
+            if(command.errors.getFieldError().arguments.first() == "publishOn"){
+                flash.error = message(code: "debate.scheduleError")
+            }
             render view: 'create', model: debateModelSettings(command, null)
             return
         }
@@ -112,6 +115,7 @@ class DebateController {
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def saveContent(DebateContentCommand command) {
         if (command.hasErrors()) {
+            // no se pasa debate para no sobreescribir el command con los datos del error
             render view: 'create', model: debateModelContent(command, null)
             return
         }
@@ -179,6 +183,7 @@ class DebateController {
                 command.headerPictureId = kuorumFile?.id
             }
         }
+        // Esta linea debe de ir en otro lugar (editContent) y quizás más cosas de arriba
         Long numberRecipients = debateRSDTO.newsletter?.filter?.amountOfContacts!=null?
                 debateRSDTO.newsletter?.filter?.amountOfContacts:
                 contactService.getUsers(user, null).total;

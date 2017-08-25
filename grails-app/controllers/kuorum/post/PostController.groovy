@@ -103,6 +103,12 @@ class PostController {
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def saveContent(PostContentCommand command) {
         if (command.hasErrors()) {
+            if(command.errors.getFieldError().arguments.first() == "publishOn"){
+                flash.error = message(code: "post.scheduleError")
+            }
+//            else{
+//                flash.error = message(code: "post.formError")
+//            }
             render view: 'editContentStep', model: postModelContent(Long.parseLong(params.postId), command)
             return
         }
@@ -115,7 +121,7 @@ class PostController {
             cookieUUIDService.setPaymentRedirect(paymentRedirect)
             redirect(mapping: "paymentStart")
         }else {
-            //flash.message = resultPost.msg.toString()
+//            flash.message = resultPost.msg.toString()
             redirect mapping: nextStep, params: resultPost.post.encodeAsLinkProperties()
         }
     }

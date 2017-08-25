@@ -340,6 +340,9 @@ class MassMailingController {
     def saveMassMailingContentTemplate(MassMailingContentTemplateCommand command){
         KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
         if (command.hasErrors()){
+            if(command.errors.getFieldError().arguments.first() == "publishOn"){
+                flash.error = message(code: "kuorum.web.commands.payment.massMailing.MassMailingCommand.scheduled.min.warn")
+            }
             render view: 'politicianMassMailingContent', model: [command: command]
             return;
         }
