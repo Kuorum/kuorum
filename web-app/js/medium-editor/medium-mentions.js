@@ -41,8 +41,9 @@
             extraTriggerClassNameMap: {},
             extraActiveTriggerClassNameMap: {},
             tagName: "strong",
-            renderPanelContent: function (panelEl) {
-                this.getSuggestions(this.word, panelEl, this.buildPanel)
+            renderPanelContent: function (panelEl, suggestions) {
+                //this.getSuggestions(this.word, panelEl, this.buildPanel)
+                this.buildPanel(panelEl, suggestions, this)
             },
             destroyPanelContent: function () {
             },
@@ -98,7 +99,7 @@
                 var isSpace = keyCode === mediumEditor["default"].util.keyCode.SPACE;
                 this.getWordFromSelection(e.target, isSpace ? -1 : 0);
                 var classSelected = "mention-selected"
-                if (!isSpace && -1 !== this.activeTriggerList.indexOf(this.trigger) && this.word.length > 1) {
+                if ( -1 !== this.activeTriggerList.indexOf(this.trigger) && this.word.length > 1) {
                     //var ulNode = document.getElementsByClassName("medium-editor-mention-panel-active")[0].firstChild;
                     var ulNode = this.mentionPanel.firstElementChild
                     if (this.isActivePanel() && MediumEditor.util.isKey(e, MediumEditor.util.keyCode.UP)) {
@@ -154,7 +155,8 @@
                     var siblingNode = isArrowTowardsLeft ? previousSibling : nextSibling;
                     var c = void 0;
                     siblingNode ? 3 !== siblingNode.nodeType ? (c = this.document.createTextNode(""), parentNode.insertBefore(c, siblingNode)) : c = siblingNode : (c = this.document.createTextNode(""), parentNode.appendChild(c));
-                    var u = deleteLastCharacter(firstChild.textContent), m = 0 === u.trim().length;
+                    var u = deleteLastCharacter(firstChild.textContent);
+                    var m = 0 === u.trim().length;
                     if (m) {
                         var g = firstChild.textContent;
                         firstChild.textContent = g.substr(0, g.length - 1), c.textContent = "" + u + c.textContent
@@ -162,11 +164,15 @@
                     isArrowTowardsLeft ? mediumEditor["default"].selection.select(this.document, c, c.length) : mediumEditor["default"].selection.select(this.document, c, Math.min(c.length, 1)), firstChild.textContent.length <= 1 && (this.base.saveSelection(), s(this.activeMentionAt, this.document), this.base.restoreSelection()), this.activeMentionAt = null
                 }
             },
-            getSuggestions:function(prefix, panelEl, buildPanel){
-                buildPanel(panelEl, [
+            getSuggestions:function(prefix, callback){
+                var suggestions = [
                     {alias:prefix+"1", name:prefix.slice(1)+'(1)',link:"http://mydomain.com/"+prefix.slice(1)+"1", avatar:"https://kuorumorg.s3.amazonaws.com/UsersFiles/56379cb8e4b0068dceee05a1.jpg"},
                     {alias:prefix+"2", name:prefix.slice(1)+'(2)',link:"http://mydomain.com/"+prefix.slice(1)+"2", avatar:"https://kuorumorg.s3.amazonaws.com/UsersFiles/56379cb8e4b0068dceee05a1.jpg"}
-                ], this)
+                ];
+                if (prefix.length >6){
+                    suggestions=[];
+                }
+                callback(suggestions)
             },
             buildPanel:function (panelEl, suggestions, editor){
                 panelEl.innerHTML = "";
@@ -205,24 +211,31 @@
 
             },
             getWordFromSelection: function (target, initialDiff) {
-                function getWordPosition(position, diff) {
-                    var n = l[position - 1];
-                    return null === n || void 0 === n ? position : 0 === n.trim().length || 0 >= position || l.length < position ? position : getWordPosition(position + diff, diff)
+                function getWordPosition(position, diff, activeTriggers) {
+                    var prevText = textContent[position - 1];
+                    if (null === prevText || void 0 === prevText){
+                        return position;
+                    }
+                    //if (0 === prevText.trim().length || 0 >= position || textContent.length < position){
+                    if (activeTriggers.indexOf(prevText)>=0 || 0 >= position || textContent.length < position){
+                        return position -1;
+                    }else{
+                        return getWordPosition(position + diff, diff,activeTriggers);
+                    }
                 }
 
-                var n = mediumEditor["default"].selection.getSelectionRange(this.document);
-                //console.log(n)
-                var startContainer = n.startContainer;
-                var offset = n.startOffset;
-                var endContainer = n.endContainer;
+                var range = mediumEditor["default"].selection.getSelectionRange(this.document);
+                var startContainer = range.startContainer;
+                var offset = range.startOffset;
+                var endContainer = range.endContainer;
                 //console.log(startContainer)
                 //console.log(offset)
                 //console.log(endContainer)
                 if (startContainer === endContainer) {
-                    var l = startContainer.textContent;
-                    this.wordStart = getWordPosition(offset + initialDiff, -1)
-                    this.wordEnd = getWordPosition(offset + initialDiff, 1) - 1
-                    this.word = l.slice(this.wordStart, this.wordEnd)
+                    var textContent = startContainer.textContent;
+                    this.wordStart = getWordPosition(offset + initialDiff, -1,this.activeTriggerList)
+                    this.wordEnd = getWordPosition(offset + initialDiff, 1,this.activeTriggerList) - 1
+                    this.word = textContent.slice(this.wordStart, this.wordEnd)
                     this.trigger = this.word.slice(0, 1)
                     this.triggerClassName = this.triggerClassNameMap[this.trigger]
                     this.activeTriggerClassName = this.activeTriggerClassNameMap[this.trigger]
@@ -231,7 +244,20 @@
                 }
             },
             showPanel: function () {
-                this.isActivePanel() || (this.activatePanel(), this.wrapWordInMentionAt()), this.positionPanel(), this.updatePanelContent()
+
+                var editor = this;
+                this.getSuggestions(this.word, function(suggestions){
+                    if (suggestions.length>0){
+                        if(!editor.isActivePanel()){
+                            editor.activatePanel();
+                            editor.wrapWordInMentionAt()
+                        }
+                        editor.positionPanel();
+                        editor.updatePanelContent(suggestions)
+                    }else{
+                        editor.hidePanel();
+                    }
+                });
             },
             activatePanel: function () {
                 this.mentionPanel.classList.add("medium-editor-mention-panel-active"), (this.extraActivePanelClassName || this.extraActiveClassName) && this.mentionPanel.classList.add(this.extraActivePanelClassName || this.extraActiveClassName)
@@ -239,17 +265,37 @@
             isActivePanel: function(){
                 return this.mentionPanel.classList.contains("medium-editor-mention-panel-active");
             },
+            unwrapMention:function(){
+                var selection = this.document.getSelection();
+                if (selection.rangeCount) {
+                    var range = selection.getRangeAt(0).cloneRange();
+                    //var nextWordEnd = Math.min(this.wordEnd, range.startContainer.textContent.length);
+                    //range.setStart(range.startContainer, 0);
+                    //range.setEnd(range.startContainer, nextWordEnd);
+                    var element = this.document.createElement("span");
+                    range.surroundContents(element)
+                    //element.textContent=range.startContainer.textContent.trim()
+                    this.hidePanel(false);
+                    //
+                    //range.startContainer.parentNode.parentNode.appendChild(element);
+                    //range.startContainer.parentNode.parentNode.removeChild(range.startContainer.parentNode)
+                    //selection.removeAllRanges();
+                    mediumEditor["default"].selection.select(this.document, this.activeMentionAt.firstChild, this.word.length)
+
+                }
+            },
             wrapWordInMentionAt: function () {
                 var selection = this.document.getSelection();
                 if (selection.rangeCount) {
                     var range = selection.getRangeAt(0).cloneRange();
+                    console.log(range)
                     if (range.startContainer.parentNode.classList.contains(this.triggerClassName))this.activeMentionAt = range.startContainer.parentNode; else {
                         var nextWordEnd = Math.min(this.wordEnd, range.startContainer.textContent.length);
-                        range.setStart(range.startContainer, this.wordStart), range.setEnd(range.startContainer, nextWordEnd);
+                        range.setStart(range.startContainer, this.wordStart);
+                        range.setEnd(range.startContainer, nextWordEnd);
                         var element = this.buildMentionElement();
                         range.surroundContents(element);
                         selection.removeAllRanges();
-                        selection.addRange(range);
                         mediumEditor["default"].selection.select(this.document, this.activeMentionAt.firstChild, this.word.length)
                     }
                     this.activeMentionAt.classList.add(this.activeTriggerClassName), this.extraActiveTriggerClassName && this.activeMentionAt.classList.add(this.extraActiveTriggerClassName)
@@ -258,6 +304,7 @@
             buildMentionElement: function(){
                 var element = this.document.createElement(this.tagName);
                 element.classList.add(this.triggerClassName);
+                element.classList.add("mention-no-valid");
                 this.extraTriggerClassName && element.classList.add(this.extraTriggerClassName);
                 this.activeMentionAt = element;
                 return element;
@@ -266,21 +313,20 @@
                 var e = this.activeMentionAt.getBoundingClientRect(), t = e.bottom, i = e.left, n = e.width, a = this.window, s = a.pageXOffset, r = a.pageYOffset;
                 this.mentionPanel.style.top = r + t + "px", this.mentionPanel.style.left = s + i + n + "px"
             },
-            updatePanelContent: function () {
-                this.renderPanelContent(this.mentionPanel)
+            updatePanelContent: function (suggestions) {
+                this.renderPanelContent(this.mentionPanel, suggestions)
             },
             handleSelectMention: function (nodeData) {
-                console.log(nodeData)
-                if (nodeData.name) {
+                if (nodeData.link) {
                     var textNode = this.activeMentionAt.firstChild;
                     this.addNodeAttributes(this.activeMentionAt,nodeData);
                     textNode.textContent = nodeData.name;
                     this.activeMentionAt.setAttribute("href", nodeData.link)
                     this.activeMentionAt.setAttribute("data-alias", nodeData.alias)
+                    this.activeMentionAt.className=this.activeMentionAt.className.replace(/mention-no-valid/,'')
                     mediumEditor["default"].selection.select(this.document, textNode, nodeData.name.length);
                     var target = this.base.getFocusedElement();
                     target && this.base.events.updateInput(target, {target: target, currentTarget: target});
-
                 }
                 this.hidePanel(false)
             },

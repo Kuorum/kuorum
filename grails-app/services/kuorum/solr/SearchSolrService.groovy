@@ -332,7 +332,7 @@ class SearchSolrService {
         query.setParam("spellcheck", "false");
         query.setParam("hl", "false");
         QueryResponse rsp = server.query( query, SolrRequest.METHOD.POST );
-        def suggestions = rsp.results.collect{[alias:it.alias, name:it.name]}
+        def suggestions = rsp.results.collect{[alias:it.alias, name:it.name, avatar:it.urlImage]}
         suggestions
     }
 }

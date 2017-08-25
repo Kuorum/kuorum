@@ -1,4 +1,7 @@
-
+var noLoggedCallbacks = noLoggedCallbacks || {}
+var urls={
+    userProfile:"https://kuorum.org/-userAlias-"
+}
 function getKuorumSuggestions(prefix, panelEl, buildPanel){
     var url = urls.suggestAlias
     var editor = this;
@@ -11,9 +14,12 @@ function getKuorumSuggestions(prefix, panelEl, buildPanel){
     }).done(function(data){
         var suggestions = new Array();
         for (i = 0; i < data.suggestions.length; i++) {
+            var link = urls.userProfile.replace("-userAlias-",nodeData.value.slice(1))
             suggestions[i] = {
-                value:'@'+data.suggestions[i].alias,
-                text:data.suggestions[i].alias +" ("+data.suggestions[i].name+")"
+                alias:'@'+data.suggestions[i].alias,
+                avatar:data.avatar,
+                name:data.suggestions[i].alias +" ("+data.suggestions[i].name+")",
+                link:link
             }
         }
         editor.buildPanel(panelEl, suggestions, editor)
@@ -30,11 +36,7 @@ var editor = new MediumEditor('.editable', {
     extensions: {
         "mention": new TCMention({
             tagName:"a",
-            getSuggestions:getKuorumSuggestions,
-            addNodeAttributes: function(node, selectedText){
-                var url = urls.userProfile.replace("-userAlias-",selectedText.slice(1))
-                node.setAttribute("href", url)
-            },
+            //getSuggestions:getKuorumSuggestions,
             activeTriggerList: ["@"]
         })
     }
@@ -60,10 +62,6 @@ function prepareEditorComment(){
             "mention": new TCMention({
                 tagName:"a",
                 getSuggestions:getKuorumSuggestions,
-                addNodeAttributes: function(node, selectedText){
-                    var url = urls.userProfile.replace("-userAlias-",selectedText.slice(1))
-                    node.setAttribute("href", url)
-                },
                 activeTriggerList: ["@"]
             })
         }
@@ -395,7 +393,6 @@ $(function(){
         }
 
     });
-
 
     // INIT CALLBACKS
     noLoggedCallbacks['publishProposalNoLogged'] = function(){
