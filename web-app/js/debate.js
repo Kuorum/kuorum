@@ -143,6 +143,7 @@ $(function () {
         $( ".conversation-box-comments-list" ).each(function() {
             var $commentList = $(this).find("li.conversation-box-comment");
             collapseComments($commentList);
+            actionShowMoreButton($commentList);
         });
 
         var sortProposals;
@@ -176,6 +177,15 @@ function collapseComments($commentList){
     var counter = $commentList.length;
     if (counter > 2){
         $commentList.slice(0, -2).addClass("hidden");
+    }
+}
+
+function actionShowMoreButton($commentList){
+    var counter = $commentList.length;
+    if (counter > 2){
+        var $showMoreButton = $commentList.closest(".conversation-box-comments").find(".show-more-comments");
+        var hiddenComments = counter -2;
+        changeShowMoreMessage($showMoreButton, hiddenComments);
     }
 }
 
@@ -239,6 +249,8 @@ $(function(){
     }
     prepareCollapsableBodys();
 
+
+
     // See More button (CLOSE)
     $(".proposal-list").on('click','.conversation-box-comments .go-up', function (event, isVisible, $target) {
         var $placeholder = $(event.target).parent();
@@ -256,7 +268,8 @@ $(function(){
         var $commentsList = $conversationCommentsList.find(".conversation-box-comments-list");
         var $commentProposal = $conversationComments.find('.comment-proposal');
         var navbarHeight = $('.navbar').outerHeight();
-        var $arrowButton = $(event.target).closest('.go-up').find('.angle');
+        var $showMoreButton = $(event.target).closest('.go-up').parent();
+        var $arrowButton = $showMoreButton.find('.hidden-comments');
 
         var collapsed = $commentsList.hasClass("collapsed");
 
@@ -267,11 +280,13 @@ $(function(){
 
         if (!isVisible) {
             if (!collapsed){
-                collapseComments($allComments)
+                collapseComments($allComments);
             }
             $commentsList.toggleClass("collapsed");
-            $commentProposal.slideToggle();
-            $arrowButton.toggleClass('fa-angle-down fa-angle-up');
+            var $hiddenCommentsAfterCollapse = $conversationCommentsList.find('li.conversation-box-comment:hidden');
+            var counter = $hiddenCommentsAfterCollapse.length;
+            changeShowMoreMessage($showMoreButton, counter);
+            $arrowButton.toggleClass('hidden');
             $hiddenComments.slideToggle(1000, function () {
                 if (isVisible === false) {
                     $('html, body').animate({
@@ -289,11 +304,11 @@ $(function(){
                 });
             }
         } else if (isVisible) {
-            $('html, body').animate({
-                scrollTop: $target.offset().top - navbarHeight - 40
-            }, 1000, function () {
-                $target.focus();
-            });
+            // $('html, body').animate({
+            //     scrollTop: $target.offset().top - navbarHeight - 40
+            // }, 1000, function () {
+            //     $target.focus();
+            // });
         }
     });
 
@@ -462,6 +477,34 @@ $(function(){
 
 });
 
+function changeShowMoreMessage($showMoreButton, numberHidden) {
+    var $messageBuilder = $showMoreButton.find('.message-builder');
+    var dataShow = $messageBuilder.attr("data-status-on");
+    var dataHide = $messageBuilder.attr("data-status-off");
+    var dataSingular = $messageBuilder.attr("data-syntax-singular");
+    var dataSingularHide = $messageBuilder.attr("data-syntax-singularHide");
+    var dataPlural = $messageBuilder.attr("data-syntax-plural");
+    var dataPluralHide = $messageBuilder.attr("data-syntax-pluralHide");
+
+    var $status = $showMoreButton.find('.status');
+    var $hiddenElementsNumber = $showMoreButton.find('.comments');
+    var $syntax = $showMoreButton.find('.syntax');
+
+    var $commentsList = $showMoreButton.parent().find(".conversation-box-comments-list");
+    var collapsed = $commentsList.hasClass("collapsed");
+
+    if(collapsed){
+        $status.text(dataShow);
+        $hiddenElementsNumber.text(numberHidden);
+        $hiddenElementsNumber.removeClass('hidden');
+        (numberHidden !=1) ? $syntax.text(dataPlural): $syntax.text(dataSingular);
+    }else{
+        $status.text(dataHide);
+        $hiddenElementsNumber.addClass('hidden');
+        (numberHidden !=1) ? $syntax.text(dataPluralHide): $syntax.text(dataSingularHide);
+    }
+
+}
 
 function validMediumEditor($mediumEditor){
     var text = $mediumEditor.html();
@@ -662,12 +705,13 @@ var debateFunctions = {
         var $button = $(e.target)
         var $conversationBox = $($button.parents('.conversation-box-comments')[0]).prev();
         var $commentsList = $conversationBox.next().children(".conversation-box-comments-list");
-        if ( !$commentsList.hasClass("collapsed") ){
-            debateFunctions.saveComment($commentsList,$button, callback)
-        }else{
-            // ABRIR COMENTARIOS
-            debateFunctions.conversationSectionClick($conversationBox)
-        }
+        // if ( !$commentsList.hasClass("collapsed") ){
+        //     debateFunctions.saveComment($commentsList,$button, callback)
+        // }else{
+        //     // ABRIR COMENTARIOS
+        //     debateFunctions.conversationSectionClick($conversationBox)
+        // }
+        debateFunctions.saveComment($commentsList,$button, callback)
     },
     saveComment:function($commentsList, $button, callback){
         callback = callback || debateFunctions.printComment
@@ -717,6 +761,7 @@ var debateFunctions = {
         var navbarHeight = $('.navbar').height();
 
         var isVisible = $conversationBoxCommentsComment.is(':visible');
+        console.log($conversationBoxCommentsComment);
 
         $conversationBoxCommentsArrow.trigger('click', [isVisible, $conversationBoxCommentsComment]);
     }

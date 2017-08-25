@@ -4,13 +4,28 @@
         <g:set var="display" value="hidden"/>
     </g:if>
     <div class="show-more-comments ${display}">
-        <button type="button" class="go-up stack" data-anchor="conversation-box">
-            <span class="pull-left fa-stack fa-lg" aria-hidden="true">
-                <span class="fa fa-circle dark fa-stack-2x"></span>
-                <span class="angle fa fa-angle-down fa-stack-1x fa-inverse"></span>
+        <button class="go-up stack" data-anchor="conversation-box">
+            <span class="message-builder"
+                    data-status-on="${g.message(code: 'debate.show.proposal.collapsedComments.message.status.show')}"
+                    data-status-off="${g.message(code: 'debate.show.proposal.collapsedComments.message.status.hide')}"
+                    data-syntax-singular="${g.message(code: 'debate.show.proposal.collapsedComments.message.syntax.singular')}"
+                    data-syntax-singularHide="${g.message(code: 'debate.show.proposal.collapsedComments.message.syntax.singularHide')}"
+                    data-syntax-plural="${g.message(code: 'debate.show.proposal.collapsedComments.message.syntax.plural')}"
+                    data-syntax-pluralHide="${g.message(code: 'debate.show.proposal.collapsedComments.message.syntax.pluralHide')}">
+                <span class="status"></span>
+                <span class="comments"></span>
+                <span class="syntax"></span>
             </span>
         </button>
     </div>
+    %{--<div class="show-more-comments ${display}">--}%
+        %{--<button type="button" class="go-up stack" data-anchor="conversation-box">--}%
+            %{--<span class="pull-left fa-stack fa-lg" aria-hidden="true">--}%
+                %{--<span class="fa fa-circle dark fa-stack-2x"></span>--}%
+                %{--<span class="angle fa fa-angle-down fa-stack-1x fa-inverse"></span>--}%
+            %{--</span>--}%
+        %{--</button>--}%
+    %{--</div>--}%
 
     <ul class="conversation-box-comments-list collapsed">
         <g:each in="${proposal.comments}" var="comment">
