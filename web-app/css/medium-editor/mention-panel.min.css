@@ -1,10 +1,16 @@
 .medium-editor-mention-panel{font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size:16px;left:0;line-height:1.4;min-width:100px;position:absolute;text-align:center;top:0;word-break:break-all;word-wrap:break-word;visibility:hidden;overflow:hidden;z-index:2000;border:1px solid rgba(0,0,0,.15);background-color:#fff}.medium-editor-mention-panel-active{visibility:visible;overflow:visible}
 
 
-.medium-editor-mention-panel ul {margin:0;padding: 5px;}
-.medium-editor-mention-panel ul li {text-align: left; list-style: none; cursor: pointer;}
+.medium-editor-mention-panel ul {margin:0;padding: 0;}
+.medium-editor-mention-panel ul li {text-align: left; list-style: none; cursor: pointer;padding:7px 5px 7px 3px;}
 
 .medium-editor-mention-panel ul li:link,
 .medium-editor-mention-panel ul li:active,
 .medium-editor-mention-panel ul li:hover,
-.medium-editor-mention-panel ul li.mention-selected {background-color: #CCCCCC}
+.medium-editor-mention-panel ul li.mention-selected {background-color: #EBEBEB}
+
+.medium-editor-mention-panel ul li div.medium-suggestion-wrapper .medium-suggestion-img {display:inline-block; border-radius: 19px; width: 34px; height: 34px; margin: -12px 10px 0px 10px;}
+.medium-editor-mention-panel ul li div.medium-suggestion-wrapper .medium-suggestion-wrapper-names {display:inline-block;}
+.medium-editor-mention-panel ul li div.medium-suggestion-wrapper .medium-suggestion-wrapper-names > span {display: block; line-height: 15px;}
+.medium-editor-mention-panel ul li div.medium-suggestion-wrapper .medium-suggestion-wrapper-names span.medium-suggestion-name {}
+.medium-editor-mention-panel ul li div.medium-suggestion-wrapper .medium-suggestion-wrapper-names span.medium-suggestion-alias {font-size: 12px;color:#868686}

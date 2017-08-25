@@ -19,8 +19,8 @@
             return e && e.__esModule ? e : {"default": e}
         }
 
-        function a(e) {
-            return e[e.length - 1]
+        function deleteLastCharacter(text) {
+            return text[text.length - 1]
         }
 
         function s(e, t) {
@@ -41,7 +41,7 @@
             extraTriggerClassNameMap: {},
             extraActiveTriggerClassNameMap: {},
             tagName: "strong",
-            renderPanelContent: function (panelEl, currentMentionText, endMentionCallback) {
+            renderPanelContent: function (panelEl) {
                 this.getSuggestions(this.word, panelEl, this.buildPanel)
             },
             destroyPanelContent: function () {
@@ -50,7 +50,7 @@
             triggerClassNameMap: {"#": "medium-editor-mention-hash", "@": "medium-editor-mention-at"},
             activeTriggerClassNameMap: {"#": "medium-editor-mention-hash-active", "@": "medium-editor-mention-at-active"},
             hideOnBlurDelay: 300,
-            attributeValueLiName:"data-value",
+            attributeJsonDataLiNode:"data-jsonData",
             init: function () {
                 this.initMentionPanel(), this.attachEventHandlers()
             },
@@ -98,76 +98,107 @@
                 var isSpace = keyCode === mediumEditor["default"].util.keyCode.SPACE;
                 this.getWordFromSelection(e.target, isSpace ? -1 : 0);
                 var classSelected = "mention-selected"
-                if (!isSpace && -1 !== this.activeTriggerList.indexOf(this.trigger) && this.word.length > 1){
+                if (!isSpace && -1 !== this.activeTriggerList.indexOf(this.trigger) && this.word.length > 1) {
                     //var ulNode = document.getElementsByClassName("medium-editor-mention-panel-active")[0].firstChild;
                     var ulNode = this.mentionPanel.firstElementChild
-                    if (this.isActivePanel() && MediumEditor.util.isKey(e, MediumEditor.util.keyCode.UP)){
-                        var selectedLi = ulNode.querySelector("li."+classSelected);
-                        if (!selectedLi){
+                    if (this.isActivePanel() && MediumEditor.util.isKey(e, MediumEditor.util.keyCode.UP)) {
+                        var selectedLi = ulNode.querySelector("li." + classSelected);
+                        if (!selectedLi) {
                             ulNode.lastChild.classList.add(classSelected);
-                        }else{
+                        } else {
                             selectedLi.classList.remove(classSelected)
                             selectedLi = selectedLi.previousElementSibling;
-                            if (!selectedLi){
+                            if (!selectedLi) {
                                 selectedLi = ulNode.lastChild;
                             }
                             selectedLi.classList.add(classSelected);
                         }
-                    }else if (this.isActivePanel() && MediumEditor.util.isKey(e, MediumEditor.util.keyCode.DOWN)){
-                        var selectedLi = ulNode.querySelector("li."+classSelected);
-                        if (!selectedLi){
+                    } else if (this.isActivePanel() && MediumEditor.util.isKey(e, MediumEditor.util.keyCode.DOWN)) {
+                        var selectedLi = ulNode.querySelector("li." + classSelected);
+                        if (!selectedLi) {
                             ulNode.firstChild.classList.add(classSelected);
-                        }else{
+                        } else {
                             selectedLi.classList.remove(classSelected)
                             selectedLi = selectedLi.nextElementSibling;
-                            if (!selectedLi){
+                            if (!selectedLi) {
                                 selectedLi = ulNode.firstChild;
                             }
                             selectedLi.classList.add(classSelected);
                         }
-                    }else if (this.isActivePanel() && MediumEditor.util.isKey(e, MediumEditor.util.keyCode.LEFT)){
+                    } else if (this.isActivePanel() && MediumEditor.util.isKey(e, MediumEditor.util.keyCode.LEFT)) {
                         //console.log("left")
-                    }else if (this.isActivePanel() && MediumEditor.util.isKey(e, [MediumEditor.util.keyCode.RIGHT, MediumEditor.util.keyCode.ENTER])){
-                        var selectedLi = ulNode.querySelector("li."+classSelected);
-                        if (selectedLi){
-                            this.handleSelectMention(this.getNodeLiSuggestionValue(selectedLi))
+                    } else if (this.isActivePanel() && MediumEditor.util.isKey(e, [MediumEditor.util.keyCode.RIGHT, MediumEditor.util.keyCode.ENTER])) {
+                        var selectedLi = ulNode.querySelector("li." + classSelected);
+                        if (selectedLi) {
+                            this.handleSelectMention(this.getNodeJsonData(selectedLi))
                         }
-                    }else{
+                    } else {
                         this.showPanel();
                     }
-                } else{
-                    this.hidePanel(MediumEditor.util.isKey(event, MediumEditor.util.keyCode.LEFT));
+                }else{
+                    this.hidePanel(MediumEditor.util.isKey(event, [MediumEditor.util.keyCode.LEFT]));
                 }
             },
-            getNodeLiSuggestionValue:function(nodeLI){
-                return nodeLI.getAttribute(this.attributeValueLiName)
+            getNodeJsonData:function(nodeLI){
+                return JSON.parse(nodeLI.getAttribute(this.attributeJsonDataLiNode));
             },
-            hidePanel: function (e) {
+            hidePanel: function (isArrowTowardsLeft) {
                 this.mentionPanel.classList.remove("medium-editor-mention-panel-active");
-                var t = this.extraActivePanelClassName || this.extraActiveClassName;
-                if (t && this.mentionPanel.classList.remove(t), this.activeMentionAt && (this.activeMentionAt.classList.remove(this.activeTriggerClassName), this.extraActiveTriggerClassName && this.activeMentionAt.classList.remove(this.extraActiveTriggerClassName)), this.activeMentionAt) {
-                    var i = this.activeMentionAt, n = i.parentNode, r = i.previousSibling, l = i.nextSibling, h = i.firstChild, d = e ? r : l, c = void 0;
-                    d ? 3 !== d.nodeType ? (c = this.document.createTextNode(""), n.insertBefore(c, d)) : c = d : (c = this.document.createTextNode(""), n.appendChild(c));
-                    var u = a(h.textContent), m = 0 === u.trim().length;
+                var extraActivePanelClassName = this.extraActivePanelClassName || this.extraActiveClassName;
+                if (extraActivePanelClassName && this.mentionPanel.classList.remove(extraActivePanelClassName), this.activeMentionAt && (this.activeMentionAt.classList.remove(this.activeTriggerClassName), this.extraActiveTriggerClassName && this.activeMentionAt.classList.remove(this.extraActiveTriggerClassName)), this.activeMentionAt) {
+                    var i = this.activeMentionAt;
+                    var parentNode = i.parentNode;
+                    var previousSibling = i.previousSibling;
+                    var nextSibling = i.nextSibling;
+                    var firstChild = i.firstChild;
+                    var siblingNode = isArrowTowardsLeft ? previousSibling : nextSibling;
+                    var c = void 0;
+                    siblingNode ? 3 !== siblingNode.nodeType ? (c = this.document.createTextNode(""), parentNode.insertBefore(c, siblingNode)) : c = siblingNode : (c = this.document.createTextNode(""), parentNode.appendChild(c));
+                    var u = deleteLastCharacter(firstChild.textContent), m = 0 === u.trim().length;
                     if (m) {
-                        var g = h.textContent;
-                        h.textContent = g.substr(0, g.length - 1), c.textContent = "" + u + c.textContent
-                    } else 0 === c.textContent.length && h.textContent.length > 1 && (c.textContent = " ");
-                    e ? mediumEditor["default"].selection.select(this.document, c, c.length) : mediumEditor["default"].selection.select(this.document, c, Math.min(c.length, 1)), h.textContent.length <= 1 && (this.base.saveSelection(), s(this.activeMentionAt, this.document), this.base.restoreSelection()), this.activeMentionAt = null
+                        var g = firstChild.textContent;
+                        firstChild.textContent = g.substr(0, g.length - 1), c.textContent = "" + u + c.textContent
+                    } else 0 === c.textContent.length && firstChild.textContent.length > 1 && (c.textContent = " ");
+                    isArrowTowardsLeft ? mediumEditor["default"].selection.select(this.document, c, c.length) : mediumEditor["default"].selection.select(this.document, c, Math.min(c.length, 1)), firstChild.textContent.length <= 1 && (this.base.saveSelection(), s(this.activeMentionAt, this.document), this.base.restoreSelection()), this.activeMentionAt = null
                 }
             },
             getSuggestions:function(prefix, panelEl, buildPanel){
-                buildPanel(panelEl, [{value:prefix+"1", text:prefix.slice(1)+'(1)'}, {value:prefix+"2", text:prefix.slice(1)+'(2)'}], this)
+                buildPanel(panelEl, [
+                    {alias:prefix+"1", name:prefix.slice(1)+'(1)',link:"http://mydomain.com/"+prefix.slice(1)+"1", avatar:"https://kuorumorg.s3.amazonaws.com/UsersFiles/56379cb8e4b0068dceee05a1.jpg"},
+                    {alias:prefix+"2", name:prefix.slice(1)+'(2)',link:"http://mydomain.com/"+prefix.slice(1)+"2", avatar:"https://kuorumorg.s3.amazonaws.com/UsersFiles/56379cb8e4b0068dceee05a1.jpg"}
+                ], this)
             },
             buildPanel:function (panelEl, suggestions, editor){
                 panelEl.innerHTML = "";
                 var nodeUL = document.createElement("UL");
                 suggestions.forEach(function(suggestion){
+                    // STRUCTURE
+                    var divWrapper=document.createElement("DIV");
+                    divWrapper.className="medium-suggestion-wrapper";
+                    var avatarImg = document.createElement("img");
+                    avatarImg.setAttribute("src",suggestion.avatar);
+                    avatarImg.className="medium-suggestion-img";
+                    divWrapper.appendChild(avatarImg);
+                    var divWrapperNames=document.createElement("div");
+                    divWrapperNames.className="medium-suggestion-wrapper-names";
+                    var name = document.createElement("span");
+                    name.className="medium-suggestion-name";
+                    var nameNode = document.createTextNode(suggestion.name);
+                    name.appendChild(nameNode);
+                    var alias = document.createElement("span");
+                    alias.className="medium-suggestion-alias";
+                    var aliasNode = document.createTextNode(suggestion.alias);
+                    alias.appendChild(aliasNode);
+                    divWrapperNames.appendChild(name);
+                    divWrapperNames.appendChild(alias);
+                    divWrapper.appendChild(divWrapperNames);
+                    // LI NODE
                     var nodeLI = document.createElement("LI");
-                    nodeLI.setAttribute(editor.attributeValueLiName, suggestion.value)
-                    nodeLI.addEventListener("click", function(e){editor.handleSelectMention(editor.getNodeLiSuggestionValue(nodeLI))})
-                    var textnode = document.createTextNode(suggestion.text);
-                    nodeLI.appendChild(textnode)
+                    nodeLI.setAttribute(editor.attributeJsonDataLiNode, JSON.stringify(suggestion))
+                    nodeLI.addEventListener("click", function(e){editor.handleSelectMention(editor.getNodeJsonData(nodeLI))})
+
+
+                    nodeLI.appendChild(divWrapper)
                     nodeUL.appendChild(nodeLI)
                 })
                 panelEl.appendChild(nodeUL);
@@ -236,21 +267,24 @@
                 this.mentionPanel.style.top = r + t + "px", this.mentionPanel.style.left = s + i + n + "px"
             },
             updatePanelContent: function () {
-                this.renderPanelContent(this.mentionPanel, this.word, this.handleSelectMention.bind(this))
+                this.renderPanelContent(this.mentionPanel)
             },
-            handleSelectMention: function (selectedText) {
-                if (selectedText) {
+            handleSelectMention: function (nodeData) {
+                console.log(nodeData)
+                if (nodeData.name) {
                     var textNode = this.activeMentionAt.firstChild;
-                    this.addNodeAttributes(this.activeMentionAt,selectedText);
-                    textNode.textContent = selectedText;
-                    mediumEditor["default"].selection.select(this.document, textNode, selectedText.length);
+                    this.addNodeAttributes(this.activeMentionAt,nodeData);
+                    textNode.textContent = nodeData.name;
+                    this.activeMentionAt.setAttribute("href", nodeData.link)
+                    this.activeMentionAt.setAttribute("data-alias", nodeData.alias)
+                    mediumEditor["default"].selection.select(this.document, textNode, nodeData.name.length);
                     var target = this.base.getFocusedElement();
                     target && this.base.events.updateInput(target, {target: target, currentTarget: target});
 
                 }
                 this.hidePanel(false)
             },
-            addNodeAttributes: function(textNode, selectedText){
+            addNodeAttributes: function(textNode, nodeData){
 
             }
         });
