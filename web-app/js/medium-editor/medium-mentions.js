@@ -265,25 +265,6 @@
             isActivePanel: function(){
                 return this.mentionPanel.classList.contains("medium-editor-mention-panel-active");
             },
-            unwrapMention:function(){
-                var selection = this.document.getSelection();
-                if (selection.rangeCount) {
-                    var range = selection.getRangeAt(0).cloneRange();
-                    //var nextWordEnd = Math.min(this.wordEnd, range.startContainer.textContent.length);
-                    //range.setStart(range.startContainer, 0);
-                    //range.setEnd(range.startContainer, nextWordEnd);
-                    var element = this.document.createElement("span");
-                    range.surroundContents(element)
-                    //element.textContent=range.startContainer.textContent.trim()
-                    this.hidePanel(false);
-                    //
-                    //range.startContainer.parentNode.parentNode.appendChild(element);
-                    //range.startContainer.parentNode.parentNode.removeChild(range.startContainer.parentNode)
-                    //selection.removeAllRanges();
-                    mediumEditor["default"].selection.select(this.document, this.activeMentionAt.firstChild, this.word.length)
-
-                }
-            },
             wrapWordInMentionAt: function () {
                 var selection = this.document.getSelection();
                 if (selection.rangeCount) {
