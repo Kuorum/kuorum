@@ -109,21 +109,25 @@ $(document).ready(function() {
     function clickedButtonFollow(button){
         var buttonFollow = $(button);
         if (buttonFollow.hasClass('noLogged')){
+            var buttonFollowUUID = guid()
+            buttonFollow.attr("id",buttonFollowUUID)
+            $('#registro').find("form").attr("callback", "clickFollowAfterLogIn")
+            $('#registro').find("form").attr("buttonId", buttonFollowUUID)
             $('#registro').modal('show');
         }
-        else if ( buttonFollow.hasClass('disabled') ){
-            var url = buttonFollow.attr("data-ajaxunfollowurl");
-            ajaxFollow(url, buttonFollow, function(data, status, xhr) {
+        else if ( followActions.isAlreadyFollowing(buttonFollow) ){
+            var url = followActions.getUnFollowUrl(buttonFollow);
+            followActions.ajaxFollow(url, buttonFollow, function(data, status, xhr) {
                 var message = buttonFollow.attr('data-message-follow');
-                var userId = buttonFollow.attr('data-userId');
+                var userId = followActions.getUserId(buttonFollow)
                 removeUserCampaigns(userId)
                 $("button.follow[data-userId="+userId+"]").html(message).removeClass('disabled').addClass('enabled');
             });
         } else {
-            var url = buttonFollow.attr("data-ajaxfollowurl");
-            ajaxFollow(url, buttonFollow, function(data, status, xhr) {
+            var url = followActions.getFollowUrl(buttonFollow);
+            followActions.ajaxFollow(url, buttonFollow, function(data, status, xhr) {
                 var message = buttonFollow.attr('data-message-unfollow');
-                var userId = buttonFollow.attr('data-userId');
+                var userId = followActions.getUserId(buttonFollow)
                 $("button.follow[data-userId="+userId+"]").html(message).removeClass('enabled').addClass('disabled');
                 deleteUserRecommendation(userId);
                 addUserCampaigns(userId);
@@ -189,32 +193,6 @@ $(document).ready(function() {
         e.stopPropagation();
         clickedButtonContact($(this))
     });
-
-    function ajaxFollow(url, buttonFollow, doneFunction){
-        $.ajax( {
-            url:url,
-            statusCode: {
-                401: function() {
-                    display.info("Estás deslogado");
-                    setTimeout('location.reload()',5000);
-                },
-                403: function(data){
-                    var message = buttonFollow.attr('data-message-follow');
-                    var userId = buttonFollow.attr('data-userId');
-                    $("button.follow[data-userId="+userId+"]").html(message).removeClass('disabled').addClass('enabled');
-                    notMailConfirmedWarn();
-                }
-            },
-            beforeSend: function(){
-                buttonFollow.html('<div class="loading xs"><span class="sr-only">Cargando...</span></div>')
-            },
-            complete:function(){
-            // console.log("end")
-            }
-        }).done(function(data, status, xhr) {
-            doneFunction(data,status,xhr)
-        })
-    }
 
     function clickedDeleteRecommendedUser(button, fadeElement){
         var buttonDeleteRecommendedUser= $(button);
@@ -730,7 +708,7 @@ $(document).ready(function() {
         e.preventDefault();
         var link = $(this);
         var url = link.attr('href');
-        ajaxFollow(url,link, function(data){
+        followActions.ajaxFollow(url,link, function(data){
             $(".roleButton.active").removeClass("active").html("Activar");
             link.addClass("btn-green active");
             link.html(i18n.profile.kuorumStore.roleButton.active);
@@ -743,7 +721,7 @@ $(document).ready(function() {
         e.preventDefault();
         var link = $(this);
         var url = link.attr('href');
-        ajaxFollow(url,link, function(data){
+        followActions.ajaxFollow(url,link, function(data){
             link.addClass("active");
             link.html(i18n.profile.kuorumStore.skillButton.active);
             $("#numEggs").html(data.numEggs);
@@ -766,38 +744,6 @@ $(document).ready(function() {
         $('[data-multimedia-switch="on"]').hide();
         $('[data-multimedia-type="'+multimediaType+'"]').show()
 
-    });
-    $('body').on("click", ".openModalVictory",function(e){
-        var notificationId = $(this).attr("data-notification-id");
-        modalVictory.openModal(notificationId)
-    });
-
-    $('body').on("click", ".openModalDefender",function(e){
-        e.preventDefault();
-        e.stopPropagation();
-        var postId = $(this).attr("data-postId");
-        $("#apadrinar").find("input[name=postId]").val(postId);
-        $('#apadrina-propuesta').modal('show');
-    });
-
-    $('.modalVictoryClose').on("click", function (e) {
-        e.preventDefault();
-        $('#modalVictory').modal('hide');
-    });
-
-    $('.modalVictoryAction').on("click", function (e) {
-        e.preventDefault();
-        var notificationId = $(this).attr("data-notificationId");
-        var victoryOk = $(this).attr("data-victoryOk");
-        var link = $(this).attr("href");
-        $.ajax({
-            url:link,
-            data:{victoryOk:victoryOk}
-        }).done(function(data){
-            $('#modalVictory').modal('hide');
-            modalVictory.hideNotificationActions(notificationId);
-            display.success(data)
-        })
     });
 
     $('body').on("click",".votePostCommentLink", function(e){
@@ -1172,50 +1118,6 @@ $(document).ready(function() {
 });
 
 // ***** End jQuey Init *********** //
-
-//
-//var modalDefend = {
-//    data:{},
-//    openModal:function(postId){
-//        var modalData = this.data['post_'+postId]
-//        $("#modalDefenderPolitician img").attr('src',modalData.defender.imageUrl)
-//        $("#modalDefenderPolitician img").attr('alt',modalData.defender.name)
-//        $("#modalDefenderPolitician #sponsorLabel").html(modalData.post.sponsorLabel)
-//        $("#modalDefenderPolitician h1").html(modalData.defender.name)
-//        $("#modalDefenderOwner img").attr('src',modalData.owner.imageUrl)
-//        $("#modalDefenderOwner img").attr('alt',modalData.owner.name)
-//        $("#modalDefenderOwner .name").html(modalData.owner.name)
-//        $("#modalDefenderOwner .what").html(modalData.post.what)
-//        $("#modalDefenderOwner .action span").html(modalData.post.numVotes)
-//        $("#modalSponsor .modal-body").children("p").html(modalData.post.description)
-//        $("#modalSponsor .modal-body").children("div").each(function(i,buttonElement){
-//            var dataButton = modalData.post.options[i]
-//            $(buttonElement).children("a").html(dataButton.textButton)
-//            $(buttonElement).children("a").attr('href',dataButton.defendLink)
-//            $(buttonElement).children("p").html(dataButton.textDescription)
-//        })
-//    }
-//}
-
-var modalVictory = {
-    data:{},
-    openModal:function(notificationId){
-        var modalData = this.data['notification_' + notificationId];
-        $("#modalVictoryUser img").attr('src', modalData.user.imageUrl);
-        $("#modalVictoryUser img").attr('alt', modalData.user.name);
-        $("#modalVictoryDefender img").attr('src', modalData.defender.imageUrl);
-        $("#modalVictoryDefender img").attr('alt', modalData.defender.name);
-        $("#modalVictoryDefender .name").html(modalData.defender.name);
-        $("#modalVictoryDefender .action").html(modalData.post.action);
-        $("#modalVictory .modal-body p").first().html(modalData.post.description);
-        $("#modalVictory .modal-body p").last().html(modalData.post.lawLink);
-        $("#modalVictory .modal-footer a").attr('href', modalData.post.victoryLink);
-        $("#modalVictory .modal-footer a").attr('data-notificationId',notificationId)
-    },
-    hideNotificationActions:function(notificationId){
-        $("[data-notification-id="+notificationId+"]").hide();
-    }
-};
 var karma = {
     title:"",
     text:"",
@@ -1531,4 +1433,65 @@ function reloadDynamicDiv($div){
         .done(function(data) {
             $div.html(data)
         });
+}
+
+var noLoggedCallbacks = {
+    reloadPage : function(){
+        document.location.reload();
+    }
+};
+
+noLoggedCallbacks["clickFollowAfterLogIn"]=function(){
+    console.log("follow after login");
+
+    var buttonFollowUUID = $('#registro').find("form").attr("buttonId")
+    var $button = $("#"+buttonFollowUUID);
+    var url = followActions.getFollowUrl($button)
+    followActions.ajaxFollow(url, $button, noLoggedCallbacks.reloadPage,noLoggedCallbacks.reloadPage);
+}
+
+var followActions = {
+    ajaxFollow: function(url, buttonFollow, doneFunction, handle403Status){
+        $.ajax( {
+            url:url,
+            statusCode: {
+                401: function() {
+                    display.info("Estás deslogado");
+                    setTimeout('location.reload()',5000);
+                },
+                403: function(data){
+                    var message = buttonFollow.attr('data-message-follow');
+                    var userId = followActions.getUserId(buttonFollow)
+                    $("button.follow[data-userId="+userId+"]").html(message).removeClass('disabled').addClass('enabled');
+                    if (window.notMailConfirmedWarn != undefined){
+                        // This function is only created when the page is loaded and the user has not the mailconfirmed
+                        notMailConfirmedWarn();
+                    }
+                    if (handle403Status != undefined){
+                        handle403Status();
+                    }
+                }
+            },
+            beforeSend: function(){
+                buttonFollow.html('<div class="loading xs"><span class="sr-only">Cargando...</span></div>')
+            },
+            complete:function(){
+                // console.log("end")
+            }
+        }).done(function(data, status, xhr) {
+            doneFunction(data,status,xhr)
+        })
+    },
+    getFollowUrl:function($button){
+        return $button.attr("data-ajaxfollowurl");
+    },
+    getUnFollowUrl:function($button){
+        return $button.attr("data-ajaxunfollowurl");
+    },
+    getUserId:function($button){
+        return $button.attr('data-userId');
+    },
+    isAlreadyFollowing: function($button){
+        return $button.hasClass('disabled')
+    }
 }

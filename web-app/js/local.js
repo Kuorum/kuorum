@@ -1691,12 +1691,6 @@ function counterCharacters(idField) {
     });
 }
 
-var noLoggedCallbacks = {
-    reloadPage : function(){
-        document.location.reload();
-    }
-}
-
 
 function stringStartsWith (string, prefix) {
     if (string == undefined || string.length < prefix.length){
