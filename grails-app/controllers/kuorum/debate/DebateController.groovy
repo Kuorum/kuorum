@@ -94,9 +94,6 @@ class DebateController {
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def saveSettings(DebateSettingsCommand command) {
         if (command.hasErrors()) {
-            if(command.errors.getFieldError().arguments.first() == "publishOn"){
-                flash.error = message(code: "debate.scheduleError")
-            }
             render view: 'create', model: debateModelSettings(command, null)
             return
         }
@@ -115,8 +112,10 @@ class DebateController {
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def saveContent(DebateContentCommand command) {
         if (command.hasErrors()) {
-            // no se pasa debate para no sobreescribir el command con los datos del error
-            render view: 'create', model: debateModelContent(command, null)
+            if(command.errors.getFieldError().arguments.first() == "publishOn"){
+                flash.error = message(code: "debate.scheduleError")
+            }
+            render view: 'editContentStep', model: debateModelContent(command, null)
             return
         }
 
@@ -169,21 +168,23 @@ class DebateController {
         List<ExtendedFilterRSDTO> filters = contactService.getUserFilters(user)
         ContactPageRSDTO contactPageRSDTO = contactService.getUsers(user)
 
-        if(debateRSDTO) {
-            command.title = debateRSDTO.title
-            command.body = debateRSDTO.body
-            command.videoPost = debateRSDTO.videoUrl
-
-            if(debateRSDTO.datePublished){
-                command.publishOn = debateRSDTO.datePublished
-            }
-
-            if (debateRSDTO.photoUrl) {
-                KuorumFile kuorumFile = KuorumFile.findByUrl(debateRSDTO.photoUrl)
-                command.headerPictureId = kuorumFile?.id
-            }
+        Long debateId = params.debateId?Long.parseLong(params.debateId):null
+        if(!debateRSDTO){
+            debateRSDTO = debateService.findDebate(user, debateId)
         }
-        // Esta linea debe de ir en otro lugar (editContent) y quizás más cosas de arriba
+
+        command.title = debateRSDTO.title
+        command.body = debateRSDTO.body
+        command.videoPost = debateRSDTO.videoUrl
+
+        if(debateRSDTO.datePublished){
+            command.publishOn = debateRSDTO.datePublished
+        }
+
+        if (debateRSDTO.photoUrl) {
+            KuorumFile kuorumFile = KuorumFile.findByUrl(debateRSDTO.photoUrl)
+            command.headerPictureId = kuorumFile?.id
+        }
         Long numberRecipients = debateRSDTO.newsletter?.filter?.amountOfContacts!=null?
                 debateRSDTO.newsletter?.filter?.amountOfContacts:
                 contactService.getUsers(user, null).total;

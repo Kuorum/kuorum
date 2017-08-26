@@ -114,49 +114,65 @@ class MassMailingController {
     def editContentStepText(){
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         Long campaignId = Long.parseLong(params.campaignId)
+        render view: 'editContentStep', model: contentTextModel(campaignId, user, new MassMailingContentTextCommand())
+    }
+
+    def contentTextModel(Long campaignId, KuorumUser user, MassMailingContentTextCommand command){
+
         CampaignRSDTO campaignRSDTO = massMailingService.findCampaign(user, campaignId)
-        updateScheduledCampaignToDraft(user, campaignRSDTO)
-        CampaignTemplateDTO templateDTO = campaignRSDTO.template?:CampaignTemplateDTO.PLAIN_TEXT
+        //updateScheduledCampaignToDraft(user, campaignRSDTO)
 
-        MassMailingContentTextCommand command = new MassMailingContentTextCommand()
+        CampaignTemplateDTO template = campaignRSDTO.template?:CampaignTemplateDTO.PLAIN_TEXT
 
-        command.text = campaignRSDTO.body
-        command.subject = campaignRSDTO.subject
-        command.scheduled = campaignRSDTO.sentOn
+        if(!command){
+            command = new MassMailingContentTextCommand()
+
+            command.text = campaignRSDTO.body
+            command.subject = campaignRSDTO.subject
+        }
+
         def numberRecipients = getNumberRecipients(campaignRSDTO, user);
         Boolean validSubscription = customerService.validSubscription(user)
-        render view: 'editContentStep',
-                model: [
-                        command: command,
-                        contentType: templateDTO,
-                        campaign: campaignRSDTO,
-                        validSubscription:validSubscription,
-                        numberRecipients: numberRecipients]
+
+        [
+            command: command,
+            contentType: template,
+            campaign: campaignRSDTO,
+            validSubscription:validSubscription,
+            numberRecipients: numberRecipients
+        ]
     }
 
     def editContentStepTemplate(){
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         Long campaignId = Long.parseLong(params.campaignId)
+        render view: 'editContentStep', model: contentTemplateModel(campaignId, user, new MassMailingContentTemplateCommand())
+
+    }
+
+    def contentTemplateModel(Long campaignId, KuorumUser user, MassMailingContentTemplateCommand command){
+
         CampaignRSDTO campaignRSDTO = massMailingService.findCampaign(user, campaignId)
 
-        MassMailingContentTemplateCommand command = new MassMailingContentTemplateCommand()
+        CampaignTemplateDTO template = campaignRSDTO.template?:CampaignTemplateDTO.NEWSLETTER
 
-        command.text = campaignRSDTO.body
-        command.subject = campaignRSDTO.subject
+        if(!command){
+            command = new MassMailingContentTemplateCommand()
 
-        if (campaignRSDTO.imageUrl){
-            KuorumFile kuorumFile = KuorumFile.findByUrl(campaignRSDTO.imageUrl)
-            command.headerPictureId = kuorumFile?.id
+            command.text = campaignRSDTO.body
+            command.subject = campaignRSDTO.subject
         }
+
         def numberRecipients = getNumberRecipients(campaignRSDTO, user);
         Boolean validSubscription = customerService.validSubscription(user)
-        render view: 'editContentStep', model: [
+
+        [
                 command: command,
-                contentType: CampaignTemplateDTO.NEWSLETTER,
+                contentType: template,
                 campaign: campaignRSDTO,
                 validSubscription:validSubscription,
-                numberRecipients: numberRecipients]
-
+                numberRecipients: numberRecipients
+        ]
     }
 
     private Long getNumberRecipients(CampaignRSDTO campaignRSDTO, KuorumUser user){
@@ -280,16 +296,19 @@ class MassMailingController {
         campaignRQDTO
     }
 
-    /*** SAVE THIRD STEP HTML ***/
+    /*** SAVE THIRD STEP HTML or PLAINTEXT***/
 
     def saveMassMailingContentText(MassMailingContentTextCommand command){
         KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
+        Long campaignId = Long.parseLong(params.campaignId)
         if (command.hasErrors()){
-            render view: 'politicianMassMailingContent', model: [command: command]
+            if(command.errors.getFieldError().arguments.first() == "scheduled"){
+                flash.error = message(code: "kuorum.web.commands.payment.massMailing.MassMailingCommand.scheduled.min.warn")
+            }
+            render view: 'editContentStep', model: contentTextModel(campaignId, loggedUser, command)
             return;
         }
         String nextStep = params.redirectLink
-        Long campaignId = Long.parseLong(params.campaignId)
         def dataSend = saveAndSendContentText(loggedUser, command, campaignId)
 //        flash.message = dataSend.msg
         if (dataSend.goToPaymentProcess){
@@ -339,15 +358,15 @@ class MassMailingController {
 
     def saveMassMailingContentTemplate(MassMailingContentTemplateCommand command){
         KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
+        Long campaignId = params.campaignId?Long.parseLong(params.campaignId):null
         if (command.hasErrors()){
-            if(command.errors.getFieldError().arguments.first() == "publishOn"){
+            if(command.errors.getFieldError().arguments.first() == "scheduled"){
                 flash.error = message(code: "kuorum.web.commands.payment.massMailing.MassMailingCommand.scheduled.min.warn")
             }
-            render view: 'politicianMassMailingContent', model: [command: command]
+            render view: 'editContentStep', model: contentTemplateModel(campaignId, loggedUser, command)
             return;
         }
-        String nextStep = params.redirectLink
-        Long campaignId = params.campaignId?Long.parseLong(params.campaignId):null // if the user has sent a test, it was saved as draft but the url hasn't changed
+        String nextStep = params.redirectLink // if the user has sent a test, it was saved as draft but the url hasn't changed
         def dataSend = saveAndSendContentTemplate(loggedUser, command, campaignId)
 //        flash.message = dataSend.msg
         if (dataSend.goToPaymentProcess){
