@@ -10,6 +10,7 @@ import kuorum.files.FileService
 import kuorum.users.CookieUUIDService
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
+import kuorum.util.TimeZoneUtil
 import kuorum.web.commands.payment.contact.ContactFilterCommand
 import kuorum.web.commands.payment.massMailing.post.LikePostCommand
 import kuorum.web.commands.payment.post.PostContentCommand
@@ -102,6 +103,12 @@ class PostController {
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def saveContent(PostContentCommand command) {
         if (command.hasErrors()) {
+            if(command.errors.getFieldError().arguments.first() == "publishOn"){
+                flash.error = message(code: "post.scheduleError")
+            }
+//            else{
+//                flash.error = message(code: "post.formError")
+//            }
             render view: 'editContentStep', model: postModelContent(Long.parseLong(params.postId), command)
             return
         }
@@ -114,7 +121,7 @@ class PostController {
             cookieUUIDService.setPaymentRedirect(paymentRedirect)
             redirect(mapping: "paymentStart")
         }else {
-            //flash.message = resultPost.msg.toString()
+//            flash.message = resultPost.msg.toString()
             redirect mapping: nextStep, params: resultPost.post.encodeAsLinkProperties()
         }
     }
@@ -271,7 +278,12 @@ class PostController {
         PostRDTO postRDTO = createPostRDTO(user, postId)
         postRDTO.title = command.title
         postRDTO.body = command.body
-        postRDTO.publishOn = command.publishOn
+        if(command.sendType == 'SEND'){
+            postRDTO.publishOn = Calendar.getInstance(user.getTimeZone()).time;
+        }
+        else {
+            postRDTO.publishOn = TimeZoneUtil.convertToUserTimeZone(command.publishOn, user.timeZone)
+        }
 
         // Multimedia URL
         if (command.fileType == FileType.IMAGE.toString() && command.headerPictureId) {

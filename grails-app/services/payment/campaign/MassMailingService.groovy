@@ -19,7 +19,7 @@ class MassMailingService {
 
 
     CampaignRSDTO campaignSend(KuorumUser user, CampaignRQDTO campaignRQDTO, Long campaignId = null){
-        campaignRQDTO.sentOn = new Date();
+        campaignRQDTO.sentOn = Calendar.getInstance(user.getTimeZone()).time;
         sendScheduledCampaignWithoutDateModifications(user, campaignRQDTO, campaignId)
     }
 

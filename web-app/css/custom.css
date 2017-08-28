@@ -7757,10 +7757,6 @@ button.btn-see-more {
     background-color: #A8A8A8 !important;
 }
 
-.btn-see-more:hover, .go-up:hover {
-    color: #A8A8A8 !important;
-}
-
 .btn.btn-see-more.angle-down::after {
     content: '\f107';
     margin-left: 10px;
@@ -8287,9 +8283,8 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 
 .conversation-box-comments .show-more-comments {
     text-align: center;
-    height: 0px;
-    position: relative;
-    top: -20px;
+    border-bottom: 1px solid #F0F0F0;
+    min-height: 40px;
 }
 
 .conversation-box-comments .show-more-comments .show-more-block button {
@@ -8304,7 +8299,11 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 }
 
 .conversation-box-comments button.go-up {
-    color: #D0D0D0;
+    color: #428bca;
+    width: 100%;
+    height: 40px;
+    vertical-align: middle;
+    font-family: arial;
 }
 
 .conversation-box-comments ul {
@@ -8430,14 +8429,13 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     background: transparent;
 }
 
-.conversation-box-comments .comment-box button.go-up:hover {
-    color: #ff9431;
-    text-decoration: none;
+.conversation-box-comments .show-more-comments button.go-up:hover {
+    text-decoration: underline;
 }
 
-.conversation-box-comments .comment-box .comment-proposal {
-    display: none;
-}
+/*.conversation-box-comments .comment-box .comment-proposal {*/
+    /*display: none;*/
+/*}*/
 
 /*** vote-user ***/
 .vote-user {

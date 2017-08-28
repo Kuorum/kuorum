@@ -9,6 +9,7 @@ import kuorum.files.FileService
 import kuorum.users.CookieUUIDService
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
+import kuorum.util.TimeZoneUtil
 import kuorum.web.commands.payment.contact.ContactFilterCommand
 import kuorum.web.commands.payment.debate.DebateContentCommand
 import kuorum.web.commands.payment.debate.DebateSettingsCommand
@@ -111,7 +112,10 @@ class DebateController {
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def saveContent(DebateContentCommand command) {
         if (command.hasErrors()) {
-            render view: 'create', model: debateModelContent(command, null)
+            if(command.errors.getFieldError().arguments.first() == "publishOn"){
+                flash.error = message(code: "debate.scheduleError")
+            }
+            render view: 'editContentStep', model: debateModelContent(command, null)
             return
         }
 
@@ -164,19 +168,22 @@ class DebateController {
         List<ExtendedFilterRSDTO> filters = contactService.getUserFilters(user)
         ContactPageRSDTO contactPageRSDTO = contactService.getUsers(user)
 
-        if(debateRSDTO) {
-            command.title = debateRSDTO.title
-            command.body = debateRSDTO.body
-            command.videoPost = debateRSDTO.videoUrl
+        Long debateId = params.debateId?Long.parseLong(params.debateId):null
+        if(!debateRSDTO){
+            debateRSDTO = debateService.findDebate(user, debateId)
+        }
 
-            if(debateRSDTO.datePublished){
-                command.publishOn = debateRSDTO.datePublished
-            }
+        command.title = debateRSDTO.title
+        command.body = debateRSDTO.body
+        command.videoPost = debateRSDTO.videoUrl
 
-            if (debateRSDTO.photoUrl) {
-                KuorumFile kuorumFile = KuorumFile.findByUrl(debateRSDTO.photoUrl)
-                command.headerPictureId = kuorumFile?.id
-            }
+        if(debateRSDTO.datePublished){
+            command.publishOn = debateRSDTO.datePublished
+        }
+
+        if (debateRSDTO.photoUrl) {
+            KuorumFile kuorumFile = KuorumFile.findByUrl(debateRSDTO.photoUrl)
+            command.headerPictureId = kuorumFile?.id
         }
         Long numberRecipients = debateRSDTO.newsletter?.filter?.amountOfContacts!=null?
                 debateRSDTO.newsletter?.filter?.amountOfContacts:
@@ -253,7 +260,12 @@ class DebateController {
         DebateRDTO debateRDTO = createDebateRDTO(user, debateId)
         debateRDTO.title = command.title
         debateRDTO.body = command.body
-        debateRDTO.publishOn = command.publishOn
+        if(command.sendType == 'SEND'){
+            debateRDTO.publishOn = Calendar.getInstance(user.getTimeZone()).time;
+        }
+        else{
+            debateRDTO.publishOn = TimeZoneUtil.convertToUserTimeZone(command.publishOn, user.timeZone)
+        }
 
         // Multimedia URL
         if (command.fileType == FileType.IMAGE.toString() && command.headerPictureId) {
