@@ -313,7 +313,7 @@ class SearchSolrService {
         String searchEscapedSpaces = search.replace(" ", "\\ ")
         query.setParam(CommonParams.Q, "suggestAlias:${searchEscapedSpaces}* suggestName:${searchEscapedSpaces}*");
         query.setParam("qf", "suggestAlias^5.0 suggestName^1");
-        query.setParam("bf", "relevance");
+        query.setParam("bf", "ord(relevance)^0.5");
         query.setParam(CommonParams.ROWS, "5");
         query.setParam(CommonParams.FL, "alias,name,urlImage");
         query.setParam(CommonParams.FQ, "type:"+SolrType.KUORUM_USER);
