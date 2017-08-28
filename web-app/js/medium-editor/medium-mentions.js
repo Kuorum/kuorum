@@ -181,7 +181,7 @@
                         textNode.textContent = "" + lastChar + textNode.textContent;
                     } else {
                         if (0 === textNode.textContent.length && firstChild.textContent.length > 1){
-                            textNode.textContent = addExtraSpace?" ":"";
+                            textNode.textContent = " "
                         };
                     }
                     if(isArrowTowardsLeft){
