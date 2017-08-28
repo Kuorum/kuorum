@@ -33,7 +33,7 @@ var editor = new MediumEditor('.editable', {
     extensions: {
         "mention": new TCMention({
             tagName:"a",
-            //getSuggestions:getKuorumSuggestions,
+            getSuggestions:getKuorumSuggestions,
             activeTriggerList: ["@"]
         })
     }
