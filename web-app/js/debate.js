@@ -10,12 +10,11 @@ function getKuorumSuggestions(prefix, callback){
         dataType: 'json'
     }).done(function(data){
         var suggestions = new Array();
-        console.log(data)
         for (i = 0; i < data.suggestions.length; i++) {
             suggestions[i] = {
                 alias:'@'+data.suggestions[i].alias,
                 avatar:data.suggestions[i].avatar,
-                name:data.suggestions[i].alias +" ("+data.suggestions[i].name+")",
+                name:data.suggestions[i].name,
                 link:data.suggestions[i].link
             }
             console.log(suggestions[i])
