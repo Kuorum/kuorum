@@ -15,7 +15,7 @@ function getKuorumSuggestions(prefix, callback){
             suggestions[i] = {
                 alias:'@'+data.suggestions[i].alias,
                 avatar:data.suggestions[i].avatar,
-                name:data.suggestions[i].alias +" ("+data.suggestions[i].name+")",
+                name:data.suggestions[i].name,
                 link:data.suggestions[i].link
             }
             console.log(suggestions[i])
