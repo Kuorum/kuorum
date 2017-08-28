@@ -2,7 +2,6 @@
 <script>
     var urls = {
         home:'<g:createLink mapping="home" absolute="true"/>',
-        userProfile:'<g:createLink mapping="userShow" params="[userAlias:'-userAlias-']" absolute="true"/>',
         searchSuggest:'<g:createLink mapping="searcherSuggests" absolute="true"/>',
         search:'<g:createLink mapping="searcherSearch" absolute="true"/>',
         suggestRegion:'<g:createLink mapping="suggestRegions" absolute="true"/>',

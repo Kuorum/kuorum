@@ -115,9 +115,9 @@ class LocalFileService implements FileService{
 //            it.crop(x,y,h,w)
 //            it.crop(x,y,w-0.00000000001,h-0.00000000001) // HEIGHT COMES WITH AN ERROR. Reducing the size 0.00000000001, the proportion is more or less the same and fix the problem
             it.crop(x,y,w-2,h-2);
-            if (kuorumFile.fileGroup.imageWidth >0 && kuorumFile.fileGroup.imageWidth < it.loadedImage.size.getWidth() ){
-                it.scaleAccurate(kuorumFile.fileGroup.imageWidth, kuorumFile.fileGroup.imageHeight)
-            }
+//            if (kuorumFile.fileGroup.imageWidth >0 && kuorumFile.fileGroup.imageWidth < it.loadedImage.size.getWidth() ){
+//                it.scaleAccurate(kuorumFile.fileGroup.imageWidth, kuorumFile.fileGroup.imageHeight)
+//            }
         }
         postProcessCroppingImage(kuorumFile)
 //        def imageWidth = fileGroup.imageWidth
@@ -219,10 +219,6 @@ class LocalFileService implements FileService{
             }
 
         }
-    }
-
-    public String kk(){
-        return "kk";
     }
 
     private static final List<String> YOUTUBE_THUMBS=["maxresdefault.jpg","mqdefault.jpg", "0.jpg"]

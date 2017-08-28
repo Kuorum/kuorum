@@ -205,6 +205,12 @@ class SearchController{
             aliasFriends = ((KuorumUser)springSecurityService.currentUser).following.collect{KuorumUser.get(it).alias}
         }
         def suggestions = searchSolrService.suggestAlias(term, boostedAlias,aliasFriends)
+        suggestions = suggestions.collect{s->[
+                alias:s.alias,
+                name:s.name,
+                avatar:s.avatar?:g.resource(dir:'images', file: 'user-default.jpg'),
+                link:g.createLink(mapping: 'userShow', params: [userAlias:s.alias])
+        ]}
         render ([suggestions:suggestions] as JSON)
     }
 }

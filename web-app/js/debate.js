@@ -1,8 +1,8 @@
-
-function getKuorumSuggestions(prefix, panelEl, buildPanel){
+function getKuorumSuggestions(prefix, callback){
     var url = urls.suggestAlias
     var editor = this;
     var data ={term:prefix.slice(1), "boostedAlias":Array.from(debateFunctions.getActiveAlias())}
+    console.log(url)
     $.ajax({
         type: "POST",
         url: url,
@@ -10,13 +10,17 @@ function getKuorumSuggestions(prefix, panelEl, buildPanel){
         dataType: 'json'
     }).done(function(data){
         var suggestions = new Array();
+        console.log(data)
         for (i = 0; i < data.suggestions.length; i++) {
             suggestions[i] = {
-                value:'@'+data.suggestions[i].alias,
-                text:data.suggestions[i].alias +" ("+data.suggestions[i].name+")"
+                alias:'@'+data.suggestions[i].alias,
+                avatar:data.suggestions[i].avatar,
+                name:data.suggestions[i].alias +" ("+data.suggestions[i].name+")",
+                link:data.suggestions[i].link
             }
+            console.log(suggestions[i])
         }
-        editor.buildPanel(panelEl, suggestions, editor)
+        callback(suggestions)
     })
 }
 
@@ -31,10 +35,6 @@ var editor = new MediumEditor('.editable', {
         "mention": new TCMention({
             tagName:"a",
             getSuggestions:getKuorumSuggestions,
-            addNodeAttributes: function(node, selectedText){
-                var url = urls.userProfile.replace("-userAlias-",selectedText.slice(1))
-                node.setAttribute("href", url)
-            },
             activeTriggerList: ["@"]
         })
     }
@@ -60,10 +60,6 @@ function prepareEditorComment(){
             "mention": new TCMention({
                 tagName:"a",
                 getSuggestions:getKuorumSuggestions,
-                addNodeAttributes: function(node, selectedText){
-                    var url = urls.userProfile.replace("-userAlias-",selectedText.slice(1))
-                    node.setAttribute("href", url)
-                },
                 activeTriggerList: ["@"]
             })
         }
@@ -410,7 +406,6 @@ $(function(){
         }
 
     });
-
 
     // INIT CALLBACKS
     noLoggedCallbacks['publishProposalNoLogged'] = function(){
