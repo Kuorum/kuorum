@@ -19,18 +19,18 @@
             return e && e.__esModule ? e : {"default": e}
         }
 
-        function deleteLastCharacter(text) {
+        function getLastChar(text) {
             return text[text.length - 1]
         }
 
-        function s(e, t) {
-            var i = e.parentNode;
-            mediumEditor["default"].util.unwrap(e, t);
-            for (var n = i.lastChild, a = n.previousSibling; a;)3 === n.nodeType && 3 === a.nodeType && (a.textContent += n.textContent, i.removeChild(n)), n = a, a = n.previousSibling
+        function unwrapForTextNode(element, doc) {
+            var parentNode = element.parentNode;
+            mediumEditor["default"].util.unwrap(element, doc);
+            for (var n = parentNode.lastChild, a = n.previousSibling; a;)3 === n.nodeType && 3 === a.nodeType && (a.textContent += n.textContent, parentNode.removeChild(n)), n = a, a = n.previousSibling
         }
 
         Object.defineProperty(t, "__esModule", {value: !0}),
-            t.unwrapForTextNode = s;
+            t.unwrapForTextNode = unwrapForTextNode;
         var r = i(1), mediumEditor = n(r);
         var h = t.TCMention = mediumEditor["default"].Extension.extend({
             name: "mention",
@@ -88,7 +88,7 @@
             handleBlur: function () {
                 var e = this;
                 null !== this.hideOnBlurDelay && void 0 !== this.hideOnBlurDelay && (this.hideOnBlurDelayId = setTimeout(function () {
-                    e.hidePanel(!1)
+                    e.hidePanel(false)
                 }, this.hideOnBlurDelay))
             },
             handleFocus: function () {
@@ -160,7 +160,7 @@
             getNodeJsonData:function(nodeLI){
                 return JSON.parse(nodeLI.getAttribute(this.attributeJsonDataLiNode));
             },
-            hidePanel: function (isArrowTowardsLeft) {
+            hidePanel: function (isArrowTowardsLeft,addExtraSpace) {
                 this.mentionPanel.classList.remove("medium-editor-mention-panel-active");
                 var extraActivePanelClassName = this.extraActivePanelClassName || this.extraActiveClassName;
                 if (extraActivePanelClassName && this.mentionPanel.classList.remove(extraActivePanelClassName), this.activeMentionAt && (this.activeMentionAt.classList.remove(this.activeTriggerClassName), this.extraActiveTriggerClassName && this.activeMentionAt.classList.remove(this.extraActiveTriggerClassName)), this.activeMentionAt) {
@@ -170,15 +170,32 @@
                     var nextSibling = i.nextSibling;
                     var firstChild = i.firstChild;
                     var siblingNode = isArrowTowardsLeft ? previousSibling : nextSibling;
-                    var c = void 0;
-                    siblingNode ? 3 !== siblingNode.nodeType ? (c = this.document.createTextNode(""), parentNode.insertBefore(c, siblingNode)) : c = siblingNode : (c = this.document.createTextNode(""), parentNode.appendChild(c));
-                    var u = deleteLastCharacter(firstChild.textContent);
-                    var m = 0 === u.trim().length;
-                    if (m) {
+                    var textNode = void 0;
+                    siblingNode ? 3 !== siblingNode.nodeType ? (textNode = this.document.createTextNode(""), parentNode.insertBefore(textNode, siblingNode)) : textNode = siblingNode : (textNode = this.document.createTextNode(""), parentNode.appendChild(textNode));
+                    var lastChar = getLastChar(firstChild.textContent);
+                    var hasLastEmptyWord = 0 === lastChar.trim().length;
+                    console.log(lastChar)
+                    if (hasLastEmptyWord) {
                         var g = firstChild.textContent;
-                        firstChild.textContent = g.substr(0, g.length - 1), c.textContent = "" + u + c.textContent
-                    } else 0 === c.textContent.length && firstChild.textContent.length > 1 && (c.textContent = " ");
-                    isArrowTowardsLeft ? mediumEditor["default"].selection.select(this.document, c, c.length) : mediumEditor["default"].selection.select(this.document, c, Math.min(c.length, 1)), firstChild.textContent.length <= 1 && (this.base.saveSelection(), s(this.activeMentionAt, this.document), this.base.restoreSelection()), this.activeMentionAt = null
+                        firstChild.textContent = g.substr(0, g.length - 1);
+                        textNode.textContent = "" + lastChar + textNode.textContent;
+                    } else {
+                        if (0 === textNode.textContent.length && firstChild.textContent.length > 1){
+                            textNode.textContent = addExtraSpace?" ":"";
+                        };
+                    }
+                    if(isArrowTowardsLeft){
+                        mediumEditor["default"].selection.select(this.document, textNode, textNode.length)
+                    }else{
+                        var space = addExtraSpace?1:0
+                        mediumEditor["default"].selection.select(this.document, textNode, Math.min(textNode.length, space));
+                    }
+                    if (!addExtraSpace) {
+                        this.base.saveSelection();
+                        unwrapForTextNode(this.activeMentionAt, this.document);
+                        this.base.restoreSelection();
+                    }
+                    this.activeMentionAt = null
                 }
             },
             getSuggestions:function(prefix, callback){
@@ -314,6 +331,7 @@
                 this.renderPanelContent(this.mentionPanel, suggestions)
             },
             handleSelectMention: function (nodeData) {
+                var addExtraSpace = false;
                 if (nodeData.link) {
                     var textNode = this.activeMentionAt.firstChild;
                     this.addNodeAttributes(this.activeMentionAt,nodeData);
@@ -324,8 +342,9 @@
                     mediumEditor["default"].selection.select(this.document, textNode, nodeData.name.length);
                     var target = this.base.getFocusedElement();
                     target && this.base.events.updateInput(target, {target: target, currentTarget: target});
+                    addExtraSpace = true;
                 }
-                this.hidePanel(false)
+                this.hidePanel(false,addExtraSpace)
             },
             addNodeAttributes: function(textNode, nodeData){
 
