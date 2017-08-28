@@ -319,7 +319,7 @@
                     this.addNodeAttributes(this.activeMentionAt,nodeData);
                     textNode.textContent = nodeData.name;
                     this.activeMentionAt.setAttribute("href", nodeData.link)
-                    this.activeMentionAt.setAttribute("data-alias", nodeData.alias)
+                    this.activeMentionAt.setAttribute("data-mention", nodeData.alias)
                     this.activeMentionAt.className=this.activeMentionAt.className.replace(/mention-no-valid/,'')
                     mediumEditor["default"].selection.select(this.document, textNode, nodeData.name.length);
                     var target = this.base.getFocusedElement();

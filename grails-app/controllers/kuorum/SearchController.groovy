@@ -209,7 +209,7 @@ class SearchController{
                 alias:s.alias,
                 name:s.name,
                 avatar:s.avatar?:g.resource(dir:'images', file: 'user-default.jpg'),
-                link:g.createLink(mapping: 'userShow', params: [userAlias:s.alias])
+                link:g.createLink(mapping: 'userShow', params: [userAlias:s.alias], absolute:true)
         ]}
         render ([suggestions:suggestions] as JSON)
     }
