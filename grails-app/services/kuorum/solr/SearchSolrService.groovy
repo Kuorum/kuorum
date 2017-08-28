@@ -314,7 +314,7 @@ class SearchSolrService {
         query.setParam("qf", "alias^5.0 name^1");
         query.setParam("bf", "relevance");
         query.setParam(CommonParams.ROWS, "5");
-        query.setParam(CommonParams.FL, "alias,name");
+        query.setParam(CommonParams.FL, "alias,name,urlImage");
         query.setParam(CommonParams.FQ, "type:"+SolrType.KUORUM_USER);
         query.setParam("defType", "edismax");
         String boost = "";
