@@ -10,7 +10,6 @@ function getKuorumSuggestions(prefix, callback){
         dataType: 'json'
     }).done(function(data){
         var suggestions = new Array();
-        console.log(data)
         for (i = 0; i < data.suggestions.length; i++) {
             suggestions[i] = {
                 alias:'@'+data.suggestions[i].alias,
@@ -34,7 +33,7 @@ var editor = new MediumEditor('.editable', {
     extensions: {
         "mention": new TCMention({
             tagName:"a",
-            getSuggestions:getKuorumSuggestions,
+            //getSuggestions:getKuorumSuggestions,
             activeTriggerList: ["@"]
         })
     }
