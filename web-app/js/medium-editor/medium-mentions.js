@@ -136,8 +136,25 @@
                     } else {
                         this.showPanel();
                     }
+                }else if(MediumEditor.util.isKey(event, [MediumEditor.util.keyCode.DELETE,MediumEditor.util.keyCode.BACKSPACE])){
+                    this.removeSuggestion();
                 }else{
                     this.hidePanel(MediumEditor.util.isKey(event, [MediumEditor.util.keyCode.LEFT]));
+                }
+            },
+            removeSuggestion:function(){
+                var selection = this.document.getSelection();
+                if (selection.rangeCount) {
+                    var range = selection.getRangeAt(0);
+                    if (range.startContainer.parentNode != undefined &&
+                        range.startContainer.parentNode.nodeName=="A" &&
+                            range.startContainer.parentNode.classList.contains("medium-editor-mention-at") &&
+                            !range.startContainer.parentNode.classList.contains("mention-no-valid")){
+                        var mention = range.startContainer.parentNode
+                        var p = mention.parentNode
+                        p.removeChild(mention);
+                        //selection.removeRange(range);
+                    }
                 }
             },
             getNodeJsonData:function(nodeLI){
@@ -269,7 +286,6 @@
                 var selection = this.document.getSelection();
                 if (selection.rangeCount) {
                     var range = selection.getRangeAt(0).cloneRange();
-                    console.log(range)
                     if (range.startContainer.parentNode.classList.contains(this.triggerClassName))this.activeMentionAt = range.startContainer.parentNode; else {
                         var nextWordEnd = Math.min(this.wordEnd, range.startContainer.textContent.length);
                         range.setStart(range.startContainer, this.wordStart);
