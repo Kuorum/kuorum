@@ -221,10 +221,6 @@ class LocalFileService implements FileService{
         }
     }
 
-    public String kk(){
-        return "kk";
-    }
-
     private static final List<String> YOUTUBE_THUMBS=["maxresdefault.jpg","mqdefault.jpg", "0.jpg"]
     String recoverBestYoutubeQuality(String youtubeId) {
         String baseUrl= "https://img.youtube.com/vi/${youtubeId}/";
