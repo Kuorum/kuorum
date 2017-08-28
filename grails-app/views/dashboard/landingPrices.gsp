@@ -30,11 +30,16 @@
                 </tr>
                 </thead>
                 <tbody>
+                <g:set var="iter" value="${0}"/>
                 <g:each in="${plans}" var="planGroup">
+                    <g:set var="index" value="${iter = iter + 1}"/>
+                    <g:if test="${index == plans.size()}">
+                        <g:set var="label_overMax" value="${g.message(code: 'landingPrices.form.overMax.label')}"/>
+                    </g:if>
                     <tr>
                         <td>${planGroup.key}</td>
-                        <td><g:formatNumber number="${planGroup.value.find{it.cycleType == org.kuorum.rest.model.payment.SubscriptionCycleDTO.MONTHLY}.monthlyPrice}"/> €<g:message code="landingPrices.form.perMonth"/></td>
-                        <td><g:formatNumber number="${planGroup.value.find{it.cycleType == org.kuorum.rest.model.payment.SubscriptionCycleDTO.YEARLY}.monthlyPrice}"/> €<g:message code="landingPrices.form.perMonth"/></td>
+                        <td><span class="maximum">${label_overMax}</span> <g:formatNumber number="${planGroup.value.find{it.cycleType == org.kuorum.rest.model.payment.SubscriptionCycleDTO.MONTHLY}.monthlyPrice}"/> €<g:message code="landingPrices.form.perMonth"/></td>
+                        <td><span class="maximum">${label_overMax}</span> <g:formatNumber number="${planGroup.value.find{it.cycleType == org.kuorum.rest.model.payment.SubscriptionCycleDTO.YEARLY}.monthlyPrice}"/> €<g:message code="landingPrices.form.perMonth"/></td>
                     </tr>
                 </g:each>
                 </tbody>
