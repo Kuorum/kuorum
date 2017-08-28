@@ -2468,6 +2468,8 @@ video#bgvid {
 .main.prices .promo-options > div.recomended .tag {color: #fff; font-size: 14px; font-size: 1.4rem; text-transform: uppercase; font-family: Arial,Helvetica,sans-serif; text-align: center; line-height: 2.5; display: block; letter-spacing: 1px;}
 /*.main.prices .promo-options > div.recomended .tag:first-letter {font-size: 120%;}*/
 
+.main .promo-options .kuorum-prices-table span.maximum {color: #a8a8a8; font-size: 12px}
+
 .main.prices .promo-options > .promo {font-size:0; float: none; display: inline-block; padding-bottom: 25px; margin-bottom:0px;}
 .main.prices .promo-options > .promo h2{font-family: 'Georgia', 'Times New Roman', Times, serif; text-transform: capitalize;}
 #payment ul.checklist {font-family: 'Georgia', 'Times New Roman', Times, serif;}
