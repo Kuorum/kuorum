@@ -124,12 +124,9 @@ class MassMailingController {
 
         CampaignTemplateDTO template = campaignRSDTO.template?:CampaignTemplateDTO.PLAIN_TEXT
 
-        if(!command){
-            command = new MassMailingContentTextCommand()
-
-            command.text = campaignRSDTO.body
-            command.subject = campaignRSDTO.subject
-        }
+        // No entra al command cuando viene desde fuera, y está vacío
+        command.text?:(command.text = campaignRSDTO.body);
+        command.subject?:(command.subject = campaignRSDTO.subject);
 
         def numberRecipients = getNumberRecipients(campaignRSDTO, user);
         Boolean validSubscription = customerService.validSubscription(user)
@@ -156,11 +153,12 @@ class MassMailingController {
 
         CampaignTemplateDTO template = campaignRSDTO.template?:CampaignTemplateDTO.NEWSLETTER
 
-        if(!command){
-            command = new MassMailingContentTemplateCommand()
+        command.text?:(command.text = campaignRSDTO.body);
+        command.subject?:(command.subject = campaignRSDTO.subject);
 
-            command.text = campaignRSDTO.body
-            command.subject = campaignRSDTO.subject
+        if(!command.headerPictureId){
+            KuorumFile kuorumFile = KuorumFile.findByUrl(campaignRSDTO.imageUrl);
+            command.headerPictureId = kuorumFile?.id;
         }
 
         def numberRecipients = getNumberRecipients(campaignRSDTO, user);
