@@ -85,6 +85,7 @@ modules = {
         resource url:'js/highstock.js'
         resource url:'js/jquery.mark.min.js'
         resource url:'js/mark.min.js'
+        resource url:'js/youtube-helper.js'
         resource url:'js/custom.js'
         resource url:'css/custom.css'
         resource url:'js/local.js'
