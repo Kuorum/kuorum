@@ -13,6 +13,7 @@
 </content>
 
 <content tag="cColumn">
+    <g:render template="showModules/cCallToAction" model="[debate: debate, debateUser: debateUser,proposalPage:proposalPage]"/>
     <g:render template="showModules/cColumn" model="[debate: debate, debateUser: debateUser, proposalPage:proposalPage]" />
 </content>
 

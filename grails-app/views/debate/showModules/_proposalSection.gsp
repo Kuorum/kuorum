@@ -52,11 +52,11 @@
                     <g:message code="debate.modalDelete.title"/>
                 </h4>
             </div>
-            <div class="modal-body">
-                <a href="#UrlUpdatedByAjax" role="button" class="btn btn-blue inverted btn-lg" id="modalDeleteDebateButton">
+            <fieldset class="modal-body">
+                <a href="#UrlUpdatedByAjax" role="button" class="btn btn-blue inverted btn-lg pull-right" id="modalDeleteDebateButton">
                     <g:message code="tools.massMailing.deleteContactModal.button"/>
                 </a>
-            </div>
+            </fieldset>
         </div>
     </div>
 </div>

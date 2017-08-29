@@ -7944,6 +7944,64 @@ ul.leader-post-stats {box-shadow: 0 0 2px rgba(200,200,200,0.6);}
     vertical-align: text-bottom;
 }
 
+/*** call to action ***/
+.comment-box.action.call-to-action {
+    padding: 25px 20px 10px 20px;
+    /*background-color: #FFF;
+    border: 1px solid #F0F0F0;*/
+}
+
+.comment-box.call-to-action .comment {
+    display: inline-block;
+    border: 1px solid #F0F0F0;
+}
+
+.comment-box.call-to-action .comment {
+    font-family: Georgia, Cambria, "Times New Roman", Times, serif, fontawesome;
+    font-style: normal;
+    font-size: 21px;
+    line-height: 1.58;
+    padding: 0 20px 0 20px;
+    width: 100%;
+}
+
+.comment-box.call-to-action  .publish {
+    font-size: 16px;
+}
+
+.comment-box.call-to-action  .comment-header .call-title{
+    font-size: 26px;
+}
+
+.comment-box.call-to-action  .comment-header .call-subTitle{
+    font-size: 18px;
+    margin: 15px 0;
+    color: #A8A8A8;
+}
+
+.comment-box.call-to-action  .comment-header {
+    display: grid;
+    text-align: center;
+}
+
+.comment-box.call-to-action .comment p a {
+    color: #00a3ed;
+    text-decoration: underline;
+}
+
+.comment-box.call-to-action .actions {
+    display: inline-block;
+    margin: 0;
+    margin: 20px 0 5px 0;
+    min-height: 40px;
+    width: 100%;
+}
+
+.comment-box.call-to-action .actions button {
+    width: 100%;
+    margin: 0;
+}
+
 /*** label ***/
 .label-leader-post {
     color: #BBB;

@@ -409,12 +409,16 @@ $(function(){
     // INIT CALLBACKS
     noLoggedCallbacks['publishProposalNoLogged'] = function(){
         pageLoadingOn();
-        var $buttonPublish = $(".publish-proposal")
+        var buttonId = $('#registro').find("form").attr("data-buttonId");
+        var $buttonPublish = $("#"+buttonId);
         $buttonPublish.attr("data-userLoggedAlias", "logged"); //Chapu para que el if no saque de nuevo la modal
         var eventFake = {target:$buttonPublish}
+        pageLoadingOff();
         debateFunctions.publishProposal(eventFake, function(htmlProposal){
+            console.log("inside");
             var proposal = $(htmlProposal).hide().fadeIn(2000);
             var proposalDivId = proposal.find("div.conversation-box").attr("id");
+            console.log(proposalDivId);
             var href = document.location.href;
             var sharpPos = href.indexOf("#") < 0 ? href.length:href.indexOf("#");
             var newUrl = href.substring(0,sharpPos);
@@ -423,6 +427,7 @@ $(function(){
             document.location.reload()
         })
     };
+
     noLoggedCallbacks['publishCommentNoLogged']= function(){
         var proposalId = $('#registro').find("form").attr("data-proposalId")
         var $buttonSaveComment = $("#proposal_"+proposalId).next("div").find(".actions button.save-comment")
@@ -642,18 +647,22 @@ var debateFunctions = {
     },
     publishProposal: function(e, callback){
         e = e || window.event;
-        callback = callback || debateFunctions.printProposal
-        var $buttonPublish = $(e.target)
-        var alias = $buttonPublish.attr("data-userLoggedAlias")
+        callback = callback || debateFunctions.printProposal;
+        var $buttonPublish = $(e.target);
+        var alias = $buttonPublish.attr("data-userLoggedAlias");
         if (alias == ""){
             // USER NO LOGGED
-            $('#registro').find("form").attr("callback", "publishProposalNoLogged")
+            var buttonId = guid();
+            $buttonPublish.attr("id", buttonId);
+            $('#registro').find("form").attr("callback", "publishProposalNoLogged");
+            $('#registro').find("form").attr("data-buttonId", buttonId);
             $('#registro').modal('show');
         }else{
-            var $mediumEditor = $(".comment.editable.medium-editor-element");
+            var $mediumEditor = $buttonPublish.parents(".comment-box").find(".comment.editable.medium-editor-element");
+            console.log($buttonPublish);
             if (!validMediumEditor($mediumEditor)){return;}
             pageLoadingOn();
-            $buttonPublish.off("click")
+            $buttonPublish.off("click");
             var body = $mediumEditor.html();
             var debateId = $buttonPublish.attr("data-debateId");
             var debateAlias = $buttonPublish.attr("data-debateAlias");
