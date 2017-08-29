@@ -204,6 +204,7 @@ class SearchController{
         if (springSecurityService.isLoggedIn()){
             aliasFriends = ((KuorumUser)springSecurityService.currentUser).following.collect{KuorumUser.get(it).alias}
         }
+        term = term.replaceAll("[^\\x00-\\x7F]", "") // The mention plugin sends a weird character at the end
         def suggestions = searchSolrService.suggestAlias(term, boostedAlias,aliasFriends)
         suggestions = suggestions.collect{s->[
                 alias:s.alias,

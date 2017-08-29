@@ -61,11 +61,12 @@ class ImagesTagLib {
             KuorumFile youtube = attrs.youtube
             youtubeFileName = youtube.fileName
         }
+        String imageYoutubeNotFound = g.resource(dir:"/images", file: "youtube-broken-link.png", absolute: true)
 out << """
     <div class="video">
         <a href="#" class="front">
             <span class="fa fa-play-circle fa-4x"></span>
-            <img src="${imageYoutubeSrc(youtube:attrs.youtube)}">
+            <img src="${imageYoutubeSrc(youtube:attrs.youtube)}" data-youtubeId="${youtubeFileName}" data-urlYoutubeNotFound="${imageYoutubeNotFound}">
         </a>
         <iframe class="youtube" itemprop="video" src="https://www.youtube.com/embed/${youtubeFileName}?fs=1&rel=0&showinfo=0&autoplay=0&enablejsapi=1&showsearch=0" frameborder="0" allowfullscreen></iframe>
     </div>

@@ -25,8 +25,17 @@
 
         function unwrapForTextNode(element, doc) {
             var parentNode = element.parentNode;
-            mediumEditor["default"].util.unwrap(element, doc);
-            for (var n = parentNode.lastChild, a = n.previousSibling; a;)3 === n.nodeType && 3 === a.nodeType && (a.textContent += n.textContent, parentNode.removeChild(n)), n = a, a = n.previousSibling
+            if (parentNode) {
+                mediumEditor["default"].util.unwrap(element, doc);
+                for (var currentNode = parentNode.lastChild, prevNode = currentNode.previousSibling; prevNode;){
+                    if (3 === currentNode.nodeType && 3 === prevNode.nodeType){
+                        prevNode.textContent += currentNode.textContent
+                        parentNode.removeChild(currentNode)
+                    }
+                    currentNode = prevNode;
+                    prevNode = currentNode.previousSibling
+                }
+            }
         }
 
         Object.defineProperty(t, "__esModule", {value: !0}),
@@ -160,7 +169,7 @@
             getNodeJsonData:function(nodeLI){
                 return JSON.parse(nodeLI.getAttribute(this.attributeJsonDataLiNode));
             },
-            hidePanel: function (isArrowTowardsLeft,addExtraSpace) {
+            hidePanel: function (isArrowTowardsLeft,isAValidMention) {
                 this.mentionPanel.classList.remove("medium-editor-mention-panel-active");
                 var extraActivePanelClassName = this.extraActivePanelClassName || this.extraActiveClassName;
                 if (extraActivePanelClassName && this.mentionPanel.classList.remove(extraActivePanelClassName), this.activeMentionAt && (this.activeMentionAt.classList.remove(this.activeTriggerClassName), this.extraActiveTriggerClassName && this.activeMentionAt.classList.remove(this.extraActiveTriggerClassName)), this.activeMentionAt) {
@@ -170,6 +179,12 @@
                     var nextSibling = i.nextSibling;
                     var firstChild = i.firstChild;
                     var siblingNode = isArrowTowardsLeft ? previousSibling : nextSibling;
+                    if(!isAValidMention){
+                        this.base.saveSelection();
+                        unwrapForTextNode(this.activeMentionAt, this.document);
+                        this.base.restoreSelection();
+                        return;
+                    }
                     var textNode = void 0;
                     siblingNode ? 3 !== siblingNode.nodeType ? (textNode = this.document.createTextNode(""), parentNode.insertBefore(textNode, siblingNode)) : textNode = siblingNode : (textNode = this.document.createTextNode(""), parentNode.appendChild(textNode));
                     var lastChar = getLastChar(firstChild.textContent);
@@ -187,10 +202,9 @@
                     if(isArrowTowardsLeft){
                         mediumEditor["default"].selection.select(this.document, textNode, textNode.length)
                     }else{
-                        var space = addExtraSpace?1:0
-                        mediumEditor["default"].selection.select(this.document, textNode, Math.min(textNode.length, space));
+                        mediumEditor["default"].selection.select(this.document, textNode, Math.min(textNode.length, 1));
                     }
-                    if (!addExtraSpace) {
+                    if (!isAValidMention) {
                         this.base.saveSelection();
                         unwrapForTextNode(this.activeMentionAt, this.document);
                         this.base.restoreSelection();

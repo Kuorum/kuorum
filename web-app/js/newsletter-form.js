@@ -86,6 +86,14 @@ $(function () {
         } else {
             $("#campatingTextErrorSpan").fadeOut()
         }
+
+        if ($("input[name=subject]").val() == "") {
+            var errorMsg = i18n.kuorum.web.commands.payment.massMailing.MassMailingCommand.subject.nullable;
+            $("input[name=subject]").parent().append('<span id="campatingTextErrorSpan" for="text" class="error"><span class="tooltip-arrow"></span>'+errorMsg+'</span>');
+            valid = false;
+        } else {
+            $("#campatingTextErrorSpan").fadeOut()
+        }
         if (!valid) {
             var msg = $("#politicianMassMailingForm").attr("data-generalErrorMessage")
             display.warn(msg)

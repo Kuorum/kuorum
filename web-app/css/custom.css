@@ -8045,6 +8045,9 @@ div [class^='comment-box col-'] {
     display: inline-block;
     border: 1px solid #F0F0F0;
 }
+.comment-box .comment:focus {
+    outline:  #00a3ed auto 1px;
+}
 
 .comment-box .comment {
     font-family: Georgia, Cambria, "Times New Roman", Times, serif, fontawesome;
