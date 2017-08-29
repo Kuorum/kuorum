@@ -30,7 +30,11 @@ class MassMailingContentTextCommand {
 
     static constraints = {
 
-        subject nullable: true
+        subject nullable: true, validator: { val, obj ->
+            if (obj.sendType!= "DRAFT" && !val){
+                return "kuorum.web.commands.payment.massMailing.MassMailingCommand.subject.nullable"
+            }
+        }
 
         text nullable: true, validator: { val, obj ->
             if (obj.sendType!= "DRAFT" && !val){

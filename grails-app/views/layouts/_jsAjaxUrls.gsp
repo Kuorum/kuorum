@@ -131,6 +131,9 @@
                                 },
                                 text:{
                                     nullable:"<g:message code="kuorum.web.commands.payment.massMailing.MassMailingCommand.text.nullable"/>"
+                                },
+                                subject:{
+                                    nullable:"<g:message code="kuorum.web.commands.payment.massMailing.MassMailingCommand.subject.nullable"/>"
                                 }
                             },
                             DebateCommand:{
