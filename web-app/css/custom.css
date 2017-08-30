@@ -8066,6 +8066,10 @@ div [class^='comment-box col-'] {
     text-decoration: underline;
 }
 
+.comment-box div span.error {
+    margin-left: -15px;
+}
+
 .comment-box .actions {
     display: inline-block;
     margin: 0;

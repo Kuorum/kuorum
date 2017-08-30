@@ -649,6 +649,16 @@ var debateFunctions = {
         callback = callback || debateFunctions.printProposal;
         var $buttonPublish = $(e.target);
         var alias = $buttonPublish.attr("data-userLoggedAlias");
+        var $mediumEditor = $buttonPublish.parents(".comment-box").find(".comment.editable.medium-editor-element");
+        var content = $mediumEditor.find("p").text();
+        var isValidContent = content?true:false;
+        var errorSpan = $buttonPublish.parents(".comment-box").find("span.error");
+        console.log(errorSpan);
+        if(!isValidContent){
+            errorSpan.show();
+            return;
+        }
+        errorSpan.hide();
         if (alias == ""){
             // USER NO LOGGED
             var buttonId = guid();
@@ -657,8 +667,6 @@ var debateFunctions = {
             $('#registro').find("form").attr("data-buttonId", buttonId);
             $('#registro').modal('show');
         }else{
-            var $mediumEditor = $buttonPublish.parents(".comment-box").find(".comment.editable.medium-editor-element");
-            console.log($buttonPublish);
             if (!validMediumEditor($mediumEditor)){return;}
             pageLoadingOn();
             $buttonPublish.off("click");
@@ -716,11 +724,12 @@ var debateFunctions = {
         debateFunctions.saveComment($commentsList,$button, callback)
     },
     saveComment:function($commentsList, $button, callback){
-        callback = callback || debateFunctions.printComment
-        var userLogged = $button.attr("data-userLogged")
+        callback = callback || debateFunctions.printComment;
+        var userLogged = $button.attr("data-userLogged");
         var debateId = $button.attr("data-debateId");
         var debateAlias = $button.attr("data-debateAlias");
         var proposalId = $button.attr("data-proposalId");
+        var $mediumEditor = $button.parents('.comment-box').find('.editable-comment');
         if (userLogged == undefined || userLogged == "" ){
             // USER NO LOGGED
             $('#registro').find("form").attr("callback", "publishCommentNoLogged")
@@ -728,7 +737,6 @@ var debateFunctions = {
             $('#registro').modal('show');
         }else {
             // BOTON SALVAR
-            var $mediumEditor = $button.parents('.comment-box').find('.editable-comment');
             if (!validMediumEditor($mediumEditor)) {
                 return;
             }

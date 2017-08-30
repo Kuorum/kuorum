@@ -4,7 +4,12 @@
     <div class="user-box col-md-1 col-xs-12">
         <img class="img-circle" alt="${userUtil.loggedUserName()}" src="${image.loggedUserImgSrc()}">
     </div>
+
     <div class="comment editable col-md-11 col-xs-12" data-placeholder="${message(code: "debate.proposal.placeholder")}" style="min-height: 100px; padding-top: 10px"></div>
+    <div class="col-md-11 col-xs-12 pull-right">
+        <span for="editable" class="error" style="display: none;"><span class="tooltip-arrow"></span>${message(code: "debate.proposals.error")}</span>
+    </div>
+
     <div class="actions pull-right">
         <button
                 type="button"
