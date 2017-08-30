@@ -200,7 +200,9 @@ $(function(){
     // CommentButton
     $(".proposal-list").on('click','.conversation-box .footer .comment-counter button.comment', function (event) {
         var $conversationBox = $(event.target.parentElement).closest('.conversation-box');
-        console.log("OTHER");
+        var $commentsBox = $conversationBox.next(".conversation-box-comments");
+        var $mediumEditor = $commentsBox.find("div.editable-comment");
+        $mediumEditor.focus();
         debateFunctions.conversationSectionClick($conversationBox)
 
     });
