@@ -1,3 +1,4 @@
+<%@ page import="org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO" %>
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <title>${debate.title}</title>
@@ -13,7 +14,9 @@
 </content>
 
 <content tag="cColumn">
-    <g:render template="showModules/cCallToAction" model="[debate: debate, debateUser: debateUser,proposalPage:proposalPage]"/>
+    <g:if test="${debate.campaignStatusRSDTO == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT}">
+        <g:render template="showModules/cCallToAction" model="[debate: debate, debateUser: debateUser,proposalPage:proposalPage]"/>
+    </g:if>
     <g:render template="showModules/cColumn" model="[debate: debate, debateUser: debateUser, proposalPage:proposalPage]" />
 </content>
 
