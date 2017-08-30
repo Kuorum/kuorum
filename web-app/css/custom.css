@@ -8046,7 +8046,7 @@ div [class^='comment-box col-'] {
     border: 1px solid #F0F0F0;
 }
 .comment-box .comment:focus {
-    outline:  #00a3ed auto 1px;
+    outline:  #20a2ea auto 1px;
 }
 
 .comment-box .comment {
