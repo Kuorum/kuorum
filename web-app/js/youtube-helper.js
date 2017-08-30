@@ -7,7 +7,6 @@ function YoutubeHelper(){
             url: "https://www.googleapis.com/youtube/v3/videos?part=status&id="+videoID+"&key="+googleApiKey,
             //dataType: "jsonp",
             success: function(data) {
-                console.log(data)
                 if (data.pageInfo.totalResults <= 0){
                     onError();
                 }else{
