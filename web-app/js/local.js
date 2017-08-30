@@ -586,18 +586,16 @@ $(document).ready(function() {
         var campaignList = new List('listCampaigns', options);
 
         // eliminar campaña
-        var removeBtn = $('.campaignDelete');
-        refreshCallbacks();
-        function refreshCallbacks() {
+        function prepareDeleteCampaignButton() {
           // Needed to add new buttons to jQuery-extended object
-          removeBtn = $(removeBtn.selector);
-          removeBtn.click(function(e) {
+            $('.campaignDelete').on("click",function(e) {
               e.preventDefault();
               var link = $(this).attr("href");
               var itemId =  $(this).parents("ul#campaignsList > li").find('.id').text();
               prepareAndOpenCampaignConfirmDeletionModal(link, itemId)
           });
         }
+        prepareDeleteCampaignButton();
 
         // abrir modal editar campaña planificada
         $('body').on('click', 'a.modalEditScheduled', function(e) {
