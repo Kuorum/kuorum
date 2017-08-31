@@ -8,7 +8,6 @@ import kuorum.core.exception.KuorumException
 import kuorum.dashboard.DashboardService
 import kuorum.users.KuorumUser
 import kuorum.web.commands.payment.contact.*
-import kuorum.web.commands.payment.massMailing.MassMailingCommand
 import kuorum.web.session.CSVDataSession
 import org.bson.types.ObjectId
 import org.kuorum.rest.model.contact.*
