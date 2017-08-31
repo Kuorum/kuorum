@@ -508,7 +508,8 @@ class KuorumUserService {
 
     KuorumUser updateEmail(KuorumUser user, String email){
         user.email = email;
-        user.save()
+        user.save(flush:true)
+        updateKuorumUserOnRest(user);
     }
 
 
