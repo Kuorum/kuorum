@@ -18,7 +18,7 @@
 
         <!-- FILTRO Y BUSCADOR DE CONTACTOS -->
         <div class="box-ppal filterbox">
-            <formUtil:validateForm bean="${command}" form="contactFilterForm"/>
+            <formUtil:validateForm command="kuorum.web.commands.payment.contact.ContactFilterCommand" form="contactFilterForm"/>
             <form class="form-horizontal" id="contactFilterForm">
                 <input type="hidden" name="sort.field" value="${searchContacts.sort.field}"/>
                 <input type="hidden" name="sort.direction" value="${searchContacts.sort.direction}"/>
@@ -30,10 +30,10 @@
                         <select name="filterId" class="form-control input-lg" id="recipients">
                             <option value="0" data-amountContacts="${totalContacts}"><g:message code="tools.massMailing.fields.filter.to.all"/></option>
                             <g:each in="${filters}" var="filter">
-                                <option value="${filter.id}" ${command.filterId == filter.id?'selected':''} data-amountContacts="${filter.amountOfContacts}">${filter.name}</option>
+                                <option value="${filter.id}" ${filterId == filter.id?'selected':''} data-amountContacts="${filter.amountOfContacts}">${filter.name}</option>
                             </g:each>
                             <g:if test="${anonymousFilter}">
-                                <option value="${anonymousFilter.id}" data-amountContacts="${anonymousFilter.amountOfContacts}" data-orginal-filter-id="-2" ${command.filterId == anonymousFilter.id?'selected':''}>${anonymousFilter.name}</option>
+                                <option value="${anonymousFilter.id}" data-amountContacts="${anonymousFilter.amountOfContacts}" data-orginal-filter-id="-2" ${filterId == anonymousFilter.id?'selected':''}>${anonymousFilter.name}</option>
                             </g:if>
                             <option value="-2" data-amountContacts="-"><g:message code="tools.massMailing.fields.filter.to.createNew"/></option>
                         </select>
