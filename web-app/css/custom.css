@@ -7969,10 +7969,11 @@ ul.leader-post-stats {box-shadow: 0 0 2px rgba(200,200,200,0.6);}
     font-size: 16px;
 }
 
-.comment-box.call-to-action  .comment-header .call-title{
+.comment-box.call-to-action .comment-header .call-title{
     font-family: Arial, Helvetica, sans-serif;
     font-size: 24px;
     color: #545454;
+    font-weight: bold;
 }
 
 .comment-box.call-to-action  .comment-header .call-subTitle{
