@@ -319,9 +319,9 @@ class UrlMappings {
         name politicianMassMailingNew:                  "/account/mass-mailing/new" (controller:"massMailing"){ action=[GET:"createMassMailing", POST:'saveMassMailingSettings']}
         name politicianMassMailingSettings:             "/account/mass-mailing/$campaignId/edit-settings" (controller: "massMailing"){ action=[GET:"editSettingsStep", POST: 'saveMassMailingSettings']}
         name politicianMassMailingTemplate:             "/account/mass-mailing/$campaignId/edit-template" (controller: "massMailing"){ action=[GET:"editTemplateStep", POST: 'saveMassMailingTemplate']}
-        name politicianMassMailingContent:              "/account/mass-mailing/$campaignId/edit-content" (controller: "massMailing", action:"editContentStep")
-        name politicianMassMailingContentText:          "/account/mass-mailing/$campaignId/edit-content-text" (controller: "massMailing"){ action=[GET:"editContentStepText", POST: 'saveMassMailingContentText']}
-        name politicianMassMailingContentTemplate:      "/account/mass-mailing/$campaignId/edit-content-template" (controller: "massMailing"){ action=[GET:"editContentStepTemplate", POST: 'saveMassMailingContentTemplate']}
+        name politicianMassMailingContent:              "/account/mass-mailing/$campaignId/edit-content" (controller: "massMailing") { action=[GET:"editContentStep", POST: 'saveMassMailingContent']}
+//        name politicianMassMailingContentText:          "/account/mass-mailing/$campaignId/edit-content-text" (controller: "massMailing"){ action=[GET:"editContentStepText", POST: 'saveMassMailingContentText']}
+//        name politicianMassMailingContentTemplate:      "/account/mass-mailing/$campaignId/edit-content-template" (controller: "massMailing"){ action=[GET:"editContentStepTemplate", POST: 'saveMassMailingContent']}
         name politicianMassMailingShow:                 "/account/mass-mailing/$campaignId" (controller:"massMailing"){ action=[GET:"showCampaign",POST:'updateCampaign']}
         name politicianMassMailingSendTest:             "/account/mass-mailing/$campaignId/test" (controller:"massMailing", action: "sendMassMailingTest")
         name politicianMassMailingRemove:               "/ajax/account/mass-mailing/$campaignId/remove" (controller:"massMailing", action:"removeCampaign")
