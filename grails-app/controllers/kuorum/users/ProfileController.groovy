@@ -188,8 +188,8 @@ class ProfileController {
                 redirect mapping:"home"
                 return
             }
-            user.email = registrationCode[DYNAMIC_ATTRIBUTE_NEW_EMAIL]
-            user.save(flush:true)
+            String email = registrationCode[DYNAMIC_ATTRIBUTE_NEW_EMAIL]
+            kuorumUserService.updateEmail(user, String)
             registrationCode.delete()
         }
 
