@@ -8237,11 +8237,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     text-decoration: underline;
 }
 
-.conversation-box > .body p a:hover {
-    color: #ff9431;
-    text-decoration: underline;
-}
-
 .conversation-box .actions {
     min-height: 40px;
 }
