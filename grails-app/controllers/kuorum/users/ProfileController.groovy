@@ -189,7 +189,7 @@ class ProfileController {
                 return
             }
             String email = registrationCode[DYNAMIC_ATTRIBUTE_NEW_EMAIL]
-            kuorumUserService.updateEmail(user, String)
+            kuorumUserService.updateEmail(user, email)
             registrationCode.delete()
         }
 
