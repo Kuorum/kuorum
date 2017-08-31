@@ -8236,7 +8236,8 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     color: #00a3ed;
 }
 
-.conversation-box > .body p a[data-mention] {
+.conversation-box > .body p a[data-mention],
+.conversation-box-comment > .body p a[data-mention] {
     font-weight: bold;
 }
 
