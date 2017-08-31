@@ -506,7 +506,7 @@ class MassMailingController {
         campaignRQDTO
     }
 
-    def sendMassMailingTest(MassMailingContentTextCommand command, KuorumUser user){
+    def sendMassMailingTextTest(MassMailingContentTextCommand command, KuorumUser user){
         KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
         if (command.hasErrors()){
             String msg = "error"
@@ -516,6 +516,20 @@ class MassMailingController {
         command.sendType = "SEND_TEST"
         Long campaignId = params.campaignId?Long.parseLong(params.campaignId):null
         def dataSend = saveAndSendContentText(loggedUser, command, campaignId)
+        render ([msg:dataSend.msg, campaing: dataSend.campaign] as JSON)
+
+    }
+
+    def sendMassMailingTemplateTest(MassMailingContentTemplateCommand command, KuorumUser user){
+        KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
+        if (command.hasErrors()){
+            String msg = "error"
+            ([msg:msg] as JSON)
+            return;
+        }
+        command.sendType = "SEND_TEST"
+        Long campaignId = params.campaignId?Long.parseLong(params.campaignId):null
+        def dataSend = saveAndSendContentTemplate(loggedUser, command, campaignId)
         render ([msg:dataSend.msg, campaing: dataSend.campaign] as JSON)
 
     }
