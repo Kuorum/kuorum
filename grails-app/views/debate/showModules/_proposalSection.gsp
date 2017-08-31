@@ -13,7 +13,7 @@
     <div class="actions pull-right">
         <button
                 type="button"
-                class="btn btn-blue inverted publish publish-proposal"
+                class="btn btn-blue btn-lg publish publish-proposal"
                 data-userLoggedAlias="${userUtil.loggedUserAlias()}"
                 data-postUrl="${g.createLink(mapping: 'debateProposalNew')}"
                 data-debateId="${debate.id}"
