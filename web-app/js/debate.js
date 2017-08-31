@@ -164,6 +164,9 @@ $(function () {
         if (hash == "openProposal"){
             $(".leader-post > .footer .comment-counter button").trigger("click");
         }
+
+        var $callToAction = $('body').find('.comment-box.call-to-action');
+        $callToAction.find('.comment.editable').focus();
     });
 });
 
@@ -644,6 +647,14 @@ var debateFunctions = {
         var $counterProposals = $('.leader-post .comment-counter .number');
         $counterProposals.text(parseInt($counterProposals.text()) + 1);
         $("#proposal-option a[href=#latest]").trigger("click");
+
+        var navbarHeight = $('.navbar').outerHeight();
+        $('html, body').animate({
+            scrollTop: $('#'+proposalDivId).offset().top - navbarHeight - 40
+        }, 1000, function () {
+            $('#'+proposalDivId).focus();
+        });
+
         prepareEditorComment();
     },
     publishProposal: function(e, callback){
@@ -655,7 +666,6 @@ var debateFunctions = {
         var content = $mediumEditor.find("p").text();
         var isValidContent = content?true:false;
         var errorSpan = $buttonPublish.parents(".comment-box").find("span.error");
-        console.log(errorSpan);
         if(!isValidContent){
             errorSpan.show();
             return;
@@ -686,7 +696,7 @@ var debateFunctions = {
                 url: url,
                 data: data,
                 success: function (htmlProposal) {
-                    callback(htmlProposal)
+                    callback(htmlProposal);
                     $mediumEditor.html("");
                     if (typeof(dataLayer) != "undefined"){
                         dataLayer.push({

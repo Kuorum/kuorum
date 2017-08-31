@@ -323,7 +323,8 @@ class UrlMappings {
 //        name politicianMassMailingContentText:          "/account/mass-mailing/$campaignId/edit-content-text" (controller: "massMailing"){ action=[GET:"editContentStepText", POST: 'saveMassMailingContentText']}
 //        name politicianMassMailingContentTemplate:      "/account/mass-mailing/$campaignId/edit-content-template" (controller: "massMailing"){ action=[GET:"editContentStepTemplate", POST: 'saveMassMailingContent']}
         name politicianMassMailingShow:                 "/account/mass-mailing/$campaignId" (controller:"massMailing"){ action=[GET:"showCampaign",POST:'updateCampaign']}
-        name politicianMassMailingSendTest:             "/account/mass-mailing/$campaignId/test" (controller:"massMailing", action: "sendMassMailingTest")
+        name politicianMassMailingTextSendTest:         "/account/mass-mailing/$campaignId/text-test" (controller:"massMailing", action: "sendMassMailingTextTest")
+        name politicianMassMailingTemplateSendTest:     "/account/mass-mailing/$campaignId/template-test" (controller:"massMailing", action: "sendMassMailingTemplateTest")
         name politicianMassMailingRemove:               "/ajax/account/mass-mailing/$campaignId/remove" (controller:"massMailing", action:"removeCampaign")
         name politicianMassMailingTrackEvents:          "/ajax/account/mass-mailing/$campaignId/trackEvents" (controller:"massMailing", action: "showTrackingMails")
         name politicianMassMailingTrackEventsReport:    "/ajax/account/mass-mailing/$campaignId/trackEvents/report" (controller:"massMailing", action: "sendReport")
