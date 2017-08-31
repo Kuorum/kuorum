@@ -8234,7 +8234,10 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 
 .conversation-box > .body p a {
     color: #00a3ed;
-    text-decoration: underline;
+}
+
+.conversation-box > .body p a[data-mention] {
+    font-weight: bold;
 }
 
 .conversation-box .actions {
