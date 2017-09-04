@@ -18,7 +18,7 @@
 <script>
 //    TODO: Use jawr. The actual version ignore codification
     var i18n = {
-        lang : '${currentLang.language}',
+        lang : '${currentLang?.language?:'en'}',
         readLater : '<g:message code="cluck.footer.readLater"/>',
         customRegister : {
             step4:{
