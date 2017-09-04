@@ -61,6 +61,12 @@ function YoutubeHelper(){
         resultUrl = resultUrl +"/" +newImageName;
         return resultUrl;
     }
+
+    this.replaceAllWrongYoutubeImages=function(){
+        $.each( $("div.video img"), function( key, img ) {
+            youtubeHelper.checkValidYoutube(img)
+        });
+    }
 }
 
 var youtubeHelper = new YoutubeHelper();
