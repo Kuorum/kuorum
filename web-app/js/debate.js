@@ -16,7 +16,6 @@ function getKuorumSuggestions(prefix, callback){
                 name:data.suggestions[i].name,
                 link:data.suggestions[i].link
             }
-            console.log(suggestions[i])
         }
         callback(suggestions)
     })
