@@ -8108,7 +8108,7 @@ div [class^='comment-box col-'] {
 }
 
 .conversation-box         .header .user + .time-ago,
-.conversation-box-comment .header .user + .time-ago { margin-top: 8px;margin-left: 5px; display:inline-block}
+.conversation-box-comment .header .user + .time-ago { margin-top: 5px;margin-left: 5px; display:inline-block}
 .conversation-box .header ul {margin:0;}
 
 .conversation-box span.pin-proposal{cursor: default;}
