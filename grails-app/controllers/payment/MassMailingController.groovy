@@ -105,41 +105,6 @@ class MassMailingController {
         model
     }
 
-//    def editContentStepText(){
-//        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-//        Long campaignId = Long.parseLong(params.campaignId)
-//        render view: 'editContentStep', model: contentTextModel(campaignId, user, new MassMailingContentTextCommand())
-//    }
-
-//    def contentTextModel(Long campaignId, KuorumUser user, MassMailingContentTextCommand command){
-//
-//        CampaignRSDTO campaignRSDTO = massMailingService.findCampaign(user, campaignId)
-//        //updateScheduledCampaignToDraft(user, campaignRSDTO)
-//
-//        CampaignTemplateDTO template = campaignRSDTO.template?:CampaignTemplateDTO.PLAIN_TEXT
-//
-//        // No entra al command cuando viene desde fuera, y está vacío
-//        command.text = command.text?:campaignRSDTO.body;
-//        command.subject = command.subject?:campaignRSDTO.subject;
-//
-//        def numberRecipients = getNumberRecipients(campaignRSDTO, user);
-//        Boolean validSubscription = customerService.validSubscription(user)
-//
-//        [
-//            command: command,
-//            contentType: template,
-//            campaign: campaignRSDTO,
-//            validSubscription:validSubscription,
-//            numberRecipients: numberRecipients
-//        ]
-//    }
-
-//    def editContentStepTemplate(){
-//        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-//        Long campaignId = Long.parseLong(params.campaignId)
-//        render view: 'editContentStep', model: contentModel(campaignId, user, new MassMailingContentCommand())
-//    }
-
     private def contentModel(KuorumUser user, MassMailingContentCommand command, CampaignRSDTO campaignRSDTO = null){
 
         campaignRSDTO = campaignRSDTO?:massMailingService.findCampaign(user, command.campaignId)
@@ -171,25 +136,21 @@ class MassMailingController {
         campaignRSDTO.filter?.amountOfContacts!=null?campaignRSDTO.filter?.amountOfContacts:contactService.getUsers(user, null).total
     };
 
-    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
-    def saveTimeZone(TimeZoneCommand timeZoneCommand) {
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-
-        if (timeZoneCommand.hasErrors()) {
-            flash.error="There was a problem with your data."
-            redirect(mapping: "politicianCampaignsNew")
-        } else {
-            user.timeZone = TimeZone.getTimeZone(timeZoneCommand.timeZoneId)
-            kuorumUserService.updateUser(user)
-            if (timeZoneCommand.timeZoneRedirect){
-                redirect url: timeZoneCommand.timeZoneRedirect
-            }else{
-                redirect(mapping: "politicianCampaignsNew")
-            }
-        }
-    }
-
     /*** SAVE FIRST STEP ***/
+
+    def saveMassMailingSettings(MassMailingSettingsCommand command){
+        KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
+        Long campaignId = params.campaignId?Long.parseLong(params.campaignId):null // if the user has sent a test, it was saved as draft but the url hasn't changed
+        if (command.hasErrors()){
+            render view: 'createMassMailing', model: modelMassMailingSettings(loggedUser, command, campaignId)
+            return;
+        }
+        String nextStep = params.redirectLink
+        FilterRDTO anonymousFilter = recoverAnonymousFilter(params, command)
+        def dataSend = saveSettings(loggedUser, command, campaignId, anonymousFilter)
+//        flash.message = dataSend.msg
+        redirect(mapping: nextStep, params: [campaignId: dataSend.campaign.id])
+    }
 
     private def modelMassMailingSettings(KuorumUser user, MassMailingSettingsCommand command, Long campaignId){
         List<ExtendedFilterRSDTO> filters = contactService.getUserFilters(user)
@@ -207,50 +168,12 @@ class MassMailingController {
         [filters:filters, command:command, totalContacts:contactPageRSDTO.total]
     }
 
-    def saveMassMailingSettings(MassMailingSettingsCommand command){
-        KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
-        Long campaignId = params.campaignId?Long.parseLong(params.campaignId):null // if the user has sent a test, it was saved as draft but the url hasn't changed
-        if (command.hasErrors()){
-            render view: 'createMassMailing', model: modelMassMailingSettings(loggedUser, command, campaignId)
-            return;
-        }
-        String nextStep = params.redirectLink
-        FilterRDTO anonymousFilter = recoverAnonymousFilter(params, command)
-        def dataSend = saveAndSendSettings(loggedUser, command, campaignId, anonymousFilter)
-//        flash.message = dataSend.msg
-        redirect(mapping: nextStep, params: [campaignId: dataSend.campaign.id])
-    }
-
-    private def saveAndSendSettings(KuorumUser user, MassMailingSettingsCommand command, Long campaignId = null, FilterRDTO anonymousFilter = null){
-        CampaignRQDTO campaignRQDTO = convertSettingsToCampaign(command, user, anonymousFilter, campaignId)
-        String msg = ""
+    private def saveSettings(KuorumUser user, MassMailingSettingsCommand command, Long campaignId = null, FilterRDTO anonymousFilter = null){
+        CampaignRQDTO campaignRQDTO = mapSettingsToCampaign(command, user, anonymousFilter, campaignId)
         campaignRQDTO.status = CampaignStatusRSDTO.DRAFT;
         CampaignRSDTO savedCampaign = massMailingService.campaignDraft(user, campaignRQDTO, campaignId)
-        msg = g.message(code:'tools.massMailing.saveDraft.advise', args: [savedCampaign.subject])
-
+        String msg = g.message(code:'tools.massMailing.saveDraft.advise', args: [savedCampaign.subject])
         [msg:msg, campaign:savedCampaign]
-    }
-
-    private CampaignRQDTO convertSettingsToCampaign(MassMailingSettingsCommand command, KuorumUser user, FilterRDTO anonymousFilter, Long campaignId){
-        CampaignRQDTO campaignRQDTO = null;
-        if(campaignId){
-            campaignRQDTO = transformRStoRQ(user, campaignId)
-        }else{
-
-            campaignRQDTO = new CampaignRQDTO();
-        }
-        campaignRQDTO.setName(command.campaignName)
-        campaignRQDTO.setTriggerTags(command.tags)
-
-
-        if (command.filterEdited){
-//            anonymousFilter.setName(g.message(code:'tools.contact.filter.anonymousName', args: anonymousFilter.getName()))
-            campaignRQDTO.setAnonymousFilter(anonymousFilter)
-            campaignRQDTO.setFilterId(null)
-        }else {
-            campaignRQDTO.setFilterId(command.filterId)
-        }
-        campaignRQDTO
     }
 
     /*** SAVE TEMPLATE STEP ***/
@@ -288,64 +211,7 @@ class MassMailingController {
         campaignRQDTO
     }
 
-    /*** SAVE THIRD STEP HTML or PLAINTEXT***/
-
-//    def saveMassMailingContentText(MassMailingContentCommand command){
-//        KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
-//        if (command.hasErrors()){
-//            if(command.errors.getFieldError().arguments.first() == "scheduled"){
-//                flash.error = message(code: "kuorum.web.commands.payment.massMailing.MassMailingCommand.scheduled.min.warn")
-//            }
-//            render view: 'editContentStep', model: contentTextModel(loggedUser, command)
-//            return;
-//        }
-//        String nextStep = params.redirectLink
-//        def dataSend = saveAndSendContentText(loggedUser, command, command.getCampaignId())
-////        flash.message = dataSend.msg
-//        if (dataSend.goToPaymentProcess){
-//            String paymentRedirect = g.createLink(mapping:"politicianMassMailingContent", params:[campaignId: dataSend.campaign.id] )
-//            cookieUUIDService.setPaymentRedirect(paymentRedirect)
-//            redirect(mapping: "paymentStart")
-//        }else{
-//            redirect(mapping: nextStep, params: [campaignId: dataSend.campaign.id])
-//        }
-//    }
-
-//    private def saveAndSendContentText(KuorumUser user, MassMailingContentCommand command, Long campaignId = null){
-//        CampaignRQDTO campaignRQDTO = convertContentToTextCampaign(command, user, campaignId)
-//
-//        Boolean validSubscription = customerService.validSubscription(user);
-//        Boolean goToPaymentProcess = !validSubscription && (command.getSendType()=="SEND" || command.sendType == "SCHEDULED");
-//        String msg = ""
-//        CampaignRSDTO savedCampaign = null;
-//        if (validSubscription && command.getSendType()=="SEND"){
-//            savedCampaign = massMailingService.campaignSend(user, campaignRQDTO, campaignId)
-//            msg = g.message(code:'tools.massMailing.send.advise', args: [savedCampaign.name])
-//        }else if(validSubscription && command.sendType == "SCHEDULED") {
-//            savedCampaign = massMailingService.campaignSchedule(user, campaignRQDTO, command.getScheduled(), campaignId)
-//            msg = g.message(code: 'tools.massMailing.schedule.advise', args: [savedCampaign.name, g.formatDate(date: savedCampaign.sentOn, type: "datetime", style: "SHORT")])
-//        }else{
-//            // IS A DRAFT
-//            campaignRQDTO.status = CampaignStatusRSDTO.DRAFT;
-//            savedCampaign = massMailingService.campaignDraft(user, campaignRQDTO, campaignId)
-//            msg = g.message(code:'tools.massMailing.saveDraft.advise', args: [savedCampaign.name])
-//        }
-//
-//        if(command.sendType == "SEND_TEST"){
-//            msg = g.message(code:'tools.massMailing.saveDraft.adviseTest', args: [savedCampaign.name])
-//            massMailingService.campaignTest(user, savedCampaign.getId())
-//        }
-//        [msg:msg, campaign:savedCampaign, goToPaymentProcess:goToPaymentProcess]
-//    }
-
-//    private CampaignRQDTO convertContentToTextCampaign(MassMailingContentTextCommand command, KuorumUser user, Long campaignId){
-//        CampaignRQDTO campaignRQDTO = transformRStoRQ(user, campaignId)
-//        campaignRQDTO.setSubject(command.subject)
-//        campaignRQDTO.setBody(command.text)
-//        campaignRQDTO
-//    }
-
-    /*** SAVE THIRD STEP TEMPLATE ***/
+    /*** SAVE THIRD STEP ***/
 
     def saveMassMailingContent(MassMailingContentCommand command){
         KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
@@ -381,7 +247,7 @@ class MassMailingController {
             savedCampaign = massMailingService.campaignSchedule(user, campaignRQDTO, command.getScheduled(), campaignId)
             msg = g.message(code: 'tools.massMailing.schedule.advise', args: [savedCampaign.name, g.formatDate(date: savedCampaign.sentOn, type: "datetime", style: "SHORT")])
         }else{
-            // IS A DRAFT
+            // IS A DRAFT OR TEST
             campaignRQDTO.status = CampaignStatusRSDTO.DRAFT;
             savedCampaign = massMailingService.campaignDraft(user, campaignRQDTO, campaignId)
             msg = g.message(code:'tools.massMailing.saveDraft.advise', args: [savedCampaign.name])
@@ -394,20 +260,7 @@ class MassMailingController {
         [msg:msg, campaign:savedCampaign, goToPaymentProcess:goToPaymentProcess]
     }
 
-    private CampaignRQDTO mapContentCampaign(MassMailingContentCommand command, KuorumUser user, campaignId){
-        CampaignRQDTO campaignRQDTO = transformRStoRQ(user, campaignId)
-
-        campaignRQDTO.body = command.text
-        campaignRQDTO.subject = command.subject
-
-        if (command.headerPictureId){
-            KuorumFile picture = KuorumFile.get(command.headerPictureId);
-            picture = fileService.convertTemporalToFinalFile(picture)
-            fileService.deleteTemporalFiles(user)
-            campaignRQDTO.setImageUrl(picture.getUrl())
-        }
-        campaignRQDTO
-    }
+    /** END STEPS **/
 
     def showCampaign(Long campaignId){
         KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
@@ -420,7 +273,24 @@ class MassMailingController {
         }
     }
 
-    /** END STEPS **/
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def saveTimeZone(TimeZoneCommand timeZoneCommand) {
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+
+        if (timeZoneCommand.hasErrors()) {
+            flash.error="There was a problem with your data."
+            redirect(mapping: "politicianCampaignsNew")
+        } else {
+            user.timeZone = TimeZone.getTimeZone(timeZoneCommand.timeZoneId)
+            kuorumUserService.updateUser(user)
+            if (timeZoneCommand.timeZoneRedirect){
+                redirect url: timeZoneCommand.timeZoneRedirect
+            }else{
+                redirect(mapping: "politicianCampaignsNew")
+            }
+        }
+    }
+
 
     def showMailCampaign(Long campaignId){
         KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
@@ -498,7 +368,7 @@ class MassMailingController {
         campaignRQDTO
     }
 
-    def sendMassMailingTextTest(MassMailingContentTextCommand command, KuorumUser user){
+    def sendMassMailingTest(MassMailingCommand command, KuorumUser user){
         KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
         if (command.hasErrors()){
             String msg = "error"
@@ -506,22 +376,9 @@ class MassMailingController {
             return;
         }
         command.sendType = "SEND_TEST"
+
         Long campaignId = params.campaignId?Long.parseLong(params.campaignId):null
         def dataSend = saveAndSendContent(loggedUser, command, campaignId)
-        render ([msg:dataSend.msg, campaing: dataSend.campaign] as JSON)
-
-    }
-
-    def sendMassMailingTemplateTest(MassMailingContentTemplateCommand command, KuorumUser user){
-        KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
-        if (command.hasErrors()){
-            String msg = "error"
-            ([msg:msg] as JSON)
-            return;
-        }
-        command.sendType = "SEND_TEST"
-        Long campaignId = params.campaignId?Long.parseLong(params.campaignId):null
-        def dataSend = saveAndSendContentTemplate(loggedUser, command, campaignId)
         render ([msg:dataSend.msg, campaing: dataSend.campaign] as JSON)
 
     }
@@ -579,5 +436,43 @@ class MassMailingController {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         massMailingService.findCampaignsCollectionReport(user);
         render ([msg:""] as JSON)
+    }
+
+
+    private CampaignRQDTO mapSettingsToCampaign(MassMailingSettingsCommand command, KuorumUser user, FilterRDTO anonymousFilter, Long campaignId){
+        CampaignRQDTO campaignRQDTO = null;
+        if(campaignId){
+            campaignRQDTO = transformRStoRQ(user, campaignId)
+        }else{
+
+            campaignRQDTO = new CampaignRQDTO();
+        }
+        campaignRQDTO.setName(command.campaignName)
+        campaignRQDTO.setTriggerTags(command.tags)
+
+
+        if (command.filterEdited){
+//            anonymousFilter.setName(g.message(code:'tools.contact.filter.anonymousName', args: anonymousFilter.getName()))
+            campaignRQDTO.setAnonymousFilter(anonymousFilter)
+            campaignRQDTO.setFilterId(null)
+        }else {
+            campaignRQDTO.setFilterId(command.filterId)
+        }
+        campaignRQDTO
+    }
+
+    private CampaignRQDTO mapContentCampaign(MassMailingContentCommand command, KuorumUser user, campaignId){
+        CampaignRQDTO campaignRQDTO = transformRStoRQ(user, campaignId)
+
+        campaignRQDTO.body = command.text
+        campaignRQDTO.subject = command.subject
+
+        if (command.headerPictureId){
+            KuorumFile picture = KuorumFile.get(command.headerPictureId);
+            picture = fileService.convertTemporalToFinalFile(picture)
+            fileService.deleteTemporalFiles(user)
+            campaignRQDTO.setImageUrl(picture.getUrl())
+        }
+        campaignRQDTO
     }
 }
