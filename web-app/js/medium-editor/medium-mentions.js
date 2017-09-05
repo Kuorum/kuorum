@@ -61,6 +61,7 @@
             activeTriggerClassNameMap: {"#": "medium-editor-mention-hash-active", "@": "medium-editor-mention-at-active"},
             hideOnBlurDelay: 300,
             attributeJsonDataLiNode:"data-jsonData",
+            suggestionRequestsXHR:undefined,
             init: function () {
                 this.initMentionPanel(), this.attachEventHandlers()
             },
@@ -225,6 +226,7 @@
                     suggestions=[];
                 }
                 callback(suggestions)
+                return null;
             },
             buildPanel:function (panelEl, suggestions, editor){
                 panelEl.innerHTML = "";
@@ -298,7 +300,10 @@
             showPanel: function () {
 
                 var editor = this;
-                this.getSuggestions(this.word, function(suggestions){
+                if (this.suggestionRequestsXHR){
+                    this.suggestionRequestsXHR.abort();
+                }
+                this.suggestionRequestsXHR = this.getSuggestions(this.word, function(suggestions){
                     if (suggestions.length>0){
                         if(!editor.isActivePanel()){
                             editor.activatePanel();

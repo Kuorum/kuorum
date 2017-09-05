@@ -1,8 +1,9 @@
 function getKuorumSuggestions(prefix, callback){
+
     var url = urls.suggestAlias
     var editor = this;
     var data ={term:prefix.slice(1), "boostedAlias":Array.from(debateFunctions.getActiveAlias())}
-    $.ajax({
+    var suggestionRequestsXHR = $.ajax({
         type: "POST",
         url: url,
         data: data,
@@ -19,6 +20,7 @@ function getKuorumSuggestions(prefix, callback){
         }
         callback(suggestions)
     })
+    return suggestionRequestsXHR;
 }
 
 var editor = new MediumEditor('.editable', {
