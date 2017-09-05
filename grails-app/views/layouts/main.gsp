@@ -100,25 +100,85 @@
 
 </script>
 
-<!-- Modal registro/login -->
-<div class="modal fade modal-register" id="registro" tabindex="-1" role="dialog" aria-labelledby="registroLoginUsuario" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true" class="fa fa-times-circle-o fa"></span><span class="sr-only">Cerrar</span></button>
-                <h4><g:message code="register.title"/></h4>
-                <h4 class="sr-only" id="registroLoginUsuario">Registro / Login usuario</h4>
-            </div>
-            <div class="modal-body">
-                <!-- Formulario de Entrar -->
-                <g:include controller="login" action="loginForm"/>
-                <!-- Formulario de Registro -->
-                <g:render template="/layouts/registerForm" model="[registerCommand: new KuorumRegisterCommand(), formId:'signup-modal']"/>
+<asset:deferredScripts/>
+
+<sec:ifNotLoggedIn>
+
+
+    <!-- Modal registro/login -->
+    <div class="modal fade modal-register" id="registro" tabindex="-1" role="dialog" aria-labelledby="registroLoginUsuario" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true" class="fa fa-times-circle-o fa"></span><span class="sr-only">Cerrar</span></button>
+                    <h4><g:message code="register.title"/></h4>
+                    <h4 class="sr-only" id="registroLoginUsuario">Registro / Login usuario</h4>
+                </div>
+                <div class="modal-body">
+                    <!-- Formulario de Entrar -->
+                    <g:include controller="login" action="loginForm"/>
+                    <!-- Formulario de Registro -->
+                    <g:render template="/layouts/registerForm" model="[registerCommand: new KuorumRegisterCommand(), formId:'signup-modal']"/>
+                    <g:render template="/register/registerSocial"/>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<asset:deferredScripts/>
+    <div id="fb-root"></div>
+    <script>
+        window.fbAsyncInit = function() {
+            FB.init({
+    //            appId: '226641644202506',
+                appId: '${_facebookConfig?.key?:''}',
+                status: true,
+                cookie: true, // enable cookies to allow the server to access the session
+                oauth: true, // parse social plugins on this page
+                version:'v2.8',
+                xfbml: true});
+
+    //        FB.getLoginStatus(function(response) {
+    //            console.log("FB Login")
+    //            console.log(response)
+    //        });
+        };
+        (function() {
+            var e = document.createElement('script'); e.async = true;
+            e.src = document.location.protocol +
+                    '//connect.facebook.net/es_ES/all.js';
+            document.getElementById('fb-root').appendChild(e);
+        }());
+
+        function FBLogin(callbackSuccess, callbackError)
+        {
+            callbackError = callbackError || function(){display.warn("ERROR LOGIN FACEBOOK")};
+            callbackSuccess = callbackSuccess || noLoggedCallbacks.reloadPage;
+            FB.login(function(response) {
+                if (response.authResponse)
+                {
+                    $.ajax({
+                        type:"POST",
+                        url:"${g.createLink(mapping: 'registerAjaxFacebook')}",
+                        data:response.authResponse,
+                        dataType:"json"
+                    }).success(function(data){
+                        callbackSuccess()
+                    }).error(function(jqXHR, textStatus,errorThrown){
+                        callbackError()
+                    }).done(function(data){
+                    });
+                } else
+                {
+//                    callbackError()
+                }
+            },{scope: 'public_profile,email'});
+        }
+        $("#registro .socialGo .btn.fb").on("click", function(e){
+            e.preventDefault();
+            var callbackFunctionName = $('#registro').find("form").attr("callback");
+            FBLogin(noLoggedCallbacks[callbackFunctionName]);
+        })
+    </script>
+</sec:ifNotLoggedIn>
 </body>
 </html>

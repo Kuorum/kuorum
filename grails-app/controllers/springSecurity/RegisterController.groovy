@@ -13,6 +13,7 @@ import kuorum.core.model.AvailableLanguage
 import kuorum.files.FileService
 import kuorum.mail.MailchimpService
 import kuorum.notifications.NotificationService
+import kuorum.register.FacebookOAuthService
 import kuorum.register.RegisterService
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
@@ -20,6 +21,7 @@ import kuorum.web.commands.customRegister.ContactRegister
 import kuorum.web.commands.customRegister.ForgotUserPasswordCommand
 import kuorum.web.commands.customRegister.RequestDemoCommand
 import org.springframework.context.i18n.LocaleContextHolder
+import org.springframework.security.core.context.SecurityContextHolder
 
 class RegisterController extends grails.plugin.springsecurity.ui.RegisterController {
 
@@ -33,6 +35,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
 
     FileService fileService
     MailchimpService mailchimpService
+    FacebookOAuthService facebookOAuthService
 
     def index() {
         def copy = [:] + (flash.chainedParams ?: [:])
@@ -60,6 +63,20 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
             notificationService.sendEditorPurchaseNotification(user)
         }
         redirect mapping:"home"
+    }
+
+    def registerFacebookAjax(){
+        params.remove("controller")
+        params.remove("action")
+        params.remove("language")
+        params.put("expires_in", Integer.parseInt(params.expiresIn))
+        String rawResponse = params as JSON
+        org.scribe.model.Token token = new org.scribe.model.Token(params.accessToken, params.signedRequest, rawResponse);
+
+        grails.plugin.springsecurity.oauth.OAuthToken oAuthToken = facebookOAuthService.createAuthToken(token);
+        oAuthToken.authenticated = true;
+        SecurityContextHolder.context.authentication = oAuthToken
+        render ([result:"success"] as JSON)
     }
 
     def ajaxRegister(KuorumRegisterCommand command){
