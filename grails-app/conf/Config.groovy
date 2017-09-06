@@ -205,6 +205,7 @@ oauth {
             failureUri = '/oauth/google/failure'
             callback = "http://localhost:8080/kuorum/oauth/google/callback" // Is overwritten with properties file
             scope = 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email'
+            jsKey = 'AIzaSyBlkPXlyoUtZZfco4OF3o27OmL7NjCOXm0'
         }
         outlook {
             api = kuorum.payment.contact.outlook.oauth.OutlookApi
