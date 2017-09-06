@@ -80,7 +80,7 @@ class UrlMappings {
                                     "/registro"         {controller="redirect"; action= "redirect301"; newMapping='register'}
         name registerAjax:          "/ajax/sign-up"     (controller: "register", action:"ajaxRegister")
         name registerAjaxCheckEmail:"/ajax/sign-up/checkEmail"(controller: "register", action:"checkEmail")
-        name registerAjaxFacebook:  "/ajax/sign-up/facebook"(controller: "register", action:"registerFacebookAjax")
+        name registerAjaxRRSSOAuth: "/ajax/sign-up/rrssOAuth"(controller: "register", action:"registerRRSSOAuthAjax")
 
         name registerPressKit:      "/$lang/sign-up/pressKit"   (controller: "register",action:"downloadPressKit")
         name registerStep2:         "/$lang/sign-up/step2"      (controller: "customRegister"){action = [GET:"step2", POST:"step2Save"]}

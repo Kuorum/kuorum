@@ -2,7 +2,7 @@ package kuorum
 
 import org.codehaus.groovy.grails.commons.GrailsApplication
 
-class FacebookConfigFilters {
+class RRSSConfigFilters {
 
     GrailsApplication grailsApplication
 
@@ -16,6 +16,7 @@ class FacebookConfigFilters {
                     model = [:]
                 }
                 model.put("_facebookConfig",getFacebookConfig())
+                model.put("_googleConfig",getGoogleConfig())
 
             }
             afterView = { Exception e ->
@@ -26,5 +27,8 @@ class FacebookConfigFilters {
 
     private def getFacebookConfig(){
         return grailsApplication.config.oauth.providers.facebook
+    }
+    private def getGoogleConfig(){
+        return grailsApplication.config.oauth.providers.google
     }
 }

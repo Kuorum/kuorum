@@ -12,6 +12,7 @@ import kuorum.core.model.Gender
 import kuorum.notifications.NotificationService
 import kuorum.users.*
 import kuorum.util.LookUpEnumUtil
+import org.scribe.model.Token
 import org.springframework.security.core.userdetails.UserDetails
 import springSecurity.KuorumRegisterCommand
 
@@ -132,5 +133,12 @@ class GoogleOAuthService implements IOAuthService{
             user.avatar = kuorumFile
             user.save()
         }
+    }
+
+    @Override
+    Token createTokenFromAjaxParams(Map params) {
+        String rawResponse = params as JSON
+        org.scribe.model.Token token = new org.scribe.model.Token(params.access_token, "", rawResponse);
+        return token;
     }
 }

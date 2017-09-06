@@ -10,4 +10,6 @@ interface IOAuthService {
 
     OAuthToken createAuthToken(org.scribe.model.Token accessToken) throws KuorumException
 
+    org.scribe.model.Token createTokenFromAjaxParams(Map params);
+
 }

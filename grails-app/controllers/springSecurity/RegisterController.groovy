@@ -4,6 +4,7 @@ import grails.converters.JSON
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.authentication.dao.NullSaltSource
+import grails.plugin.springsecurity.oauth.OAuthToken
 import grails.plugin.springsecurity.ui.RegistrationCode
 import grails.plugin.springsecurity.ui.ResetPasswordCommand
 import grails.plugin.springsecurity.ui.SpringSecurityUiService
@@ -14,6 +15,7 @@ import kuorum.files.FileService
 import kuorum.mail.MailchimpService
 import kuorum.notifications.NotificationService
 import kuorum.register.FacebookOAuthService
+import kuorum.register.IOAuthService
 import kuorum.register.RegisterService
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
@@ -65,15 +67,14 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         redirect mapping:"home"
     }
 
-    def registerFacebookAjax(){
+    def registerRRSSOAuthAjax(){
         params.remove("controller")
         params.remove("action")
         params.remove("language")
-        params.put("expires_in", Integer.parseInt(params.expiresIn))
-        String rawResponse = params as JSON
-        org.scribe.model.Token token = new org.scribe.model.Token(params.accessToken, params.signedRequest, rawResponse);
-
-        grails.plugin.springsecurity.oauth.OAuthToken oAuthToken = facebookOAuthService.createAuthToken(token);
+        String providerName = params.remove("provider")
+        IOAuthService providerService = grailsApplication.mainContext.getBean("${providerName}OAuthService");
+        org.scribe.model.Token token = providerService.createTokenFromAjaxParams(params)
+        grails.plugin.springsecurity.oauth.OAuthToken oAuthToken = providerService.createAuthToken(token);
         oAuthToken.authenticated = true;
         SecurityContextHolder.context.authentication = oAuthToken
         render ([result:"success"] as JSON)
