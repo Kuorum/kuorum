@@ -108,12 +108,6 @@
             // Listen for sign-in state changes.
             GoogleAuth.isSignedIn.listen(successLogin);
 
-            // Handle initial sign-in state. (Determine if user is already signed in.)
-            var user = GoogleAuth.currentUser.get();
-            setSigninStatus();
-
-            // Call handleAuthClick function when user clicks on
-            //      "Sign In/Authorize" button.
             $("#registro .socialGo .btn.gog").on("click", function(e){
                 e.preventDefault()
                 handleAuthClick();
@@ -134,16 +128,6 @@
 
     function revokeAccess() {
         GoogleAuth.disconnect();
-    }
-
-    function setSigninStatus(isSignedIn) {
-        var user = GoogleAuth.currentUser.get();
-        var isAuthorized = user.hasGrantedScopes(SCOPE);
-        if (isAuthorized) {
-//            successLogin(true)
-        } else {
-//            console.log("NOT AUTHORIZED")
-        }
     }
 
     function successLogin(isSignedIn) {
