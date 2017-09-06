@@ -136,4 +136,14 @@ class FacebookOAuthService implements IOAuthService {
             }
         }
     }
+
+    @Override
+    Token createTokenFromAjaxParams(Map params) {
+        if (params.expiresIn){ // FACEBOOK STYLE
+            params.put("expires_in", Integer.parseInt(params.expiresIn))
+        }
+        String rawResponse = params as JSON
+        org.scribe.model.Token token = new org.scribe.model.Token(params.accessToken, params.signedRequest, rawResponse);
+        return token;
+    }
 }

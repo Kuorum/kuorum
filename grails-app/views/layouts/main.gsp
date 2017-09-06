@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<%@ page import="org.springframework.web.servlet.support.RequestContextUtils; org.springframework.context.i18n.LocaleContextHolder; springSecurity.KuorumRegisterCommand; grails.plugin.springsecurity.ui.RegisterCommand" contentType="text/html;charset=UTF-8" %>
+<%@ page import="org.springframework.web.servlet.support.RequestContextUtils; org.springframework.context.i18n.LocaleContextHolder;" contentType="text/html;charset=UTF-8" %>
 <g:set var="currentLang" value="${org.springframework.web.servlet.support.RequestContextUtils.getLocale(request)}" />
 <html class="no-js" lang="${currentLang.language}" xml:lang="${currentLang.language}" xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -100,25 +100,10 @@
 
 </script>
 
-<!-- Modal registro/login -->
-<div class="modal fade modal-register" id="registro" tabindex="-1" role="dialog" aria-labelledby="registroLoginUsuario" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true" class="fa fa-times-circle-o fa"></span><span class="sr-only">Cerrar</span></button>
-                <h4><g:message code="register.title"/></h4>
-                <h4 class="sr-only" id="registroLoginUsuario">Registro / Login usuario</h4>
-            </div>
-            <div class="modal-body">
-                <!-- Formulario de Entrar -->
-                <g:include controller="login" action="loginForm"/>
-                <!-- Formulario de Registro -->
-                <g:render template="/layouts/registerForm" model="[registerCommand: new KuorumRegisterCommand(), formId:'signup-modal']"/>
-            </div>
-        </div>
-    </div>
-</div>
-
 <asset:deferredScripts/>
+
+<sec:ifNotLoggedIn>
+    <g:render template="/layouts/modalLogin"/>
+</sec:ifNotLoggedIn>
 </body>
 </html>

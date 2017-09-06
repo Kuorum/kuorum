@@ -4,6 +4,7 @@ import grails.converters.JSON
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.authentication.dao.NullSaltSource
+import grails.plugin.springsecurity.oauth.OAuthToken
 import grails.plugin.springsecurity.ui.RegistrationCode
 import grails.plugin.springsecurity.ui.ResetPasswordCommand
 import grails.plugin.springsecurity.ui.SpringSecurityUiService
@@ -13,6 +14,8 @@ import kuorum.core.model.AvailableLanguage
 import kuorum.files.FileService
 import kuorum.mail.MailchimpService
 import kuorum.notifications.NotificationService
+import kuorum.register.FacebookOAuthService
+import kuorum.register.IOAuthService
 import kuorum.register.RegisterService
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
@@ -20,6 +23,7 @@ import kuorum.web.commands.customRegister.ContactRegister
 import kuorum.web.commands.customRegister.ForgotUserPasswordCommand
 import kuorum.web.commands.customRegister.RequestDemoCommand
 import org.springframework.context.i18n.LocaleContextHolder
+import org.springframework.security.core.context.SecurityContextHolder
 
 class RegisterController extends grails.plugin.springsecurity.ui.RegisterController {
 
@@ -33,6 +37,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
 
     FileService fileService
     MailchimpService mailchimpService
+    FacebookOAuthService facebookOAuthService
 
     def index() {
         def copy = [:] + (flash.chainedParams ?: [:])
@@ -60,6 +65,19 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
             notificationService.sendEditorPurchaseNotification(user)
         }
         redirect mapping:"home"
+    }
+
+    def registerRRSSOAuthAjax(){
+        params.remove("controller")
+        params.remove("action")
+        params.remove("language")
+        String providerName = params.remove("provider")
+        IOAuthService providerService = grailsApplication.mainContext.getBean("${providerName}OAuthService");
+        org.scribe.model.Token token = providerService.createTokenFromAjaxParams(params)
+        grails.plugin.springsecurity.oauth.OAuthToken oAuthToken = providerService.createAuthToken(token);
+        oAuthToken.authenticated = true;
+        SecurityContextHolder.context.authentication = oAuthToken
+        render ([result:"success"] as JSON)
     }
 
     def ajaxRegister(KuorumRegisterCommand command){

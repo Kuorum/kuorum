@@ -516,6 +516,8 @@ header.transp #search-form .open-filter {background-color: rgba(219,219,219,0.4)
 .login .btn.btn-lg {padding-left: 40px !important;padding-right: 40px !important;}
 .login.pass .btn.btn-lg {padding: 15px !important;}
 .modal-register.modal .modal-header {border: none;}
+.modal-register.modal .modal-body h2.social-login-buttons{display:none;}
+.modal-register.modal .modal-body .socialGo li {margin:20px 10px 0;}
 
 
 .container-fluid.userprofile #adminActions{left:inherit; right:20px; top: 5px; z-index: 1000;}
