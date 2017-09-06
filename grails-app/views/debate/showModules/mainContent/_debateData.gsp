@@ -1,11 +1,24 @@
 <!-- ^leader-post !-->
 <div class="leader-post">
     <g:render template="showModules/mainContent/debateDataMultimedia" model="[debate:debate]"/>
+
     <div class="header">
         <h1 class="title">${debate.title}</h1>
+
         <userUtil:showUser user="${debateUser}"/>
+
         <div class="clearfix">
             <span class="time-ago pull-left"><kuorumDate:humanDate date="${debate.datePublished}"/> </span>
+
+            <div class="actions call-to-action-mobile">
+                <button
+                        type="button"
+                        class="btn btn-blue btn-xl btn-circle"
+                >
+                    <span class="fa fa-angle-double-down fa-2x"></span>
+                </button>
+            </div>
+
             <userUtil:ifUserIsTheLoggedOne user="${debateUser}">
                 <g:link class="edit" mapping="debateEditContent" params="${debate.encodeAsLinkProperties()}">
                     <span class="fa fa-pencil-square-o pull-right fa-2x" aria-hidden="true"></span>

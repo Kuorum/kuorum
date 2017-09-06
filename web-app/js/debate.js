@@ -169,6 +169,32 @@ $(function () {
         var $callToAction = $('body').find('.comment-box.call-to-action');
         $callToAction.find('.comment.editable').focus();
     });
+
+    $(window).scroll(function () {
+        var upperLimit = $("section#main .comment-box").offset();
+        var buttonPosition = $("section#main .leader-post .header .call-to-action-mobile").offset();
+        if (buttonPosition.top > upperLimit.top) {
+            if ($(".call-to-action-mobile").is(":visible")) {
+                $('.call-to-action-mobile').toggleClass('hidden');
+            }
+        }
+        else if($(".call-to-action-mobile").hasClass("hidden")){
+            if((buttonPosition.top + 150) < upperLimit.top){
+                $('.call-to-action-mobile').toggleClass('hidden');
+            }
+        }
+    });
+
+    $(".call-to-action-mobile button").on("click", function(){
+        var $proposalBox = $(".comment-box .comment.editable");
+        var navbarHeight = $('.navbar').outerHeight();
+        $('html, body').animate({
+            scrollTop: $proposalBox.offset().top - navbarHeight - 40
+        }, 1000, function () {
+            $proposalBox.focus();
+        });
+    });
+
 });
 
 function collapseComments($commentList){

@@ -620,7 +620,6 @@ header.transp #search-form .open-filter {background-color: rgba(219,219,219,0.4)
     background-color: #fff !important;
     border: 1px solid #20a2ea ;
     color: #20a2ea !important;
-    /*margin: 0 0 6px 0;*/
 }
 .btn.btn-blue.inverted:hover,
 .btn.btn-blue.inverted:active,
@@ -657,7 +656,34 @@ header.transp #search-form .open-filter {background-color: rgba(219,219,219,0.4)
     color: #fff !important;
 }
 
-
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    padding: 6px 0;
+    font-size: 12px !important;
+    line-height: 1.428571429;
+    border-radius: 15px;
+    overflow: hidden;
+}
+.btn-circle.btn-lg {
+    width: 50px;
+    height: 50px;
+    padding: 10px 16px;
+    font-size: 18px !important;
+    line-height: 1.33;
+    border-radius: 25px;
+    overflow: hidden;
+}
+.btn-circle.btn-xl {
+    width: 80px;
+    height: 80px;
+    padding: 10px 16px !important;
+    font-size: 22px !important;
+    line-height: 1.33;
+    border-radius: 40px;
+    overflow: hidden;
+}
 
 .btn.btn-transparent{
     background-color: transparent !important;
@@ -6433,6 +6459,8 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .uploaderImageContainer.PROJECT_IMAGE > div {height:270px;}
 
     ul.campaign-list > li.info-empty .icon-empty-campaignList {display:inline-block;}
+
+    .leader-post .header .call-to-action-mobile{  display: none;  }
 }
 
 @media only screen and (min-width: 1024px) {
@@ -7841,6 +7869,25 @@ button.btn-see-more {
 
 .leader-post .header a.edit:hover {
     color: #00a3ed;
+}
+
+
+.leader-post .header .call-to-action-mobile{
+    position: fixed;
+    z-index: 99999;
+    top: 100px;
+    right: 20px;
+}
+
+.leader-post .header .call-to-action-mobile button{
+    opacity: 0.7;
+}
+
+.leader-post .header .call-to-action-mobile button.btn.btn-blue:active,
+.leader-post .header .call-to-action-mobile button.btn.btn-blue:focus,
+.leader-post .header .call-to-action-mobile button.btn.btn-blue:hover{
+    background-color: #20a2ea !important;
+    color: #fff !important;
 }
 
 .leader-post .time-ago {
