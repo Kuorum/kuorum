@@ -13,9 +13,16 @@
             <div class="actions call-to-action-mobile">
                 <button
                         type="button"
-                        class="btn btn-blue btn-xl btn-circle"
+                        class="btn btn-blue btn-lg call-message"
                 >
-                    <span class="fa fa-angle-double-down fa-2x"></span>
+                    <g:message code="debate.proposals.callToAction.mobile.message"/>
+                </button>
+                <span class="fa fa-caret-down arrow"></span>
+                <button
+                        type="button"
+                        class="btn btn-blue btn-xl btn-circle call-button"
+                >
+                    <span class="fa fa-lightbulb-o fa-2x"></span>
                 </button>
             </div>
 
