@@ -7868,7 +7868,20 @@ button.btn-see-more {
 .leader-post .header a.edit:hover {
     color: #00a3ed;
 }
+.leader-post .header .call-to-action-mobile button.call-message{
+    position: absolute;
+    top: -30px;
+    right: 0px;
+    padding: 5px !important;
+}
 
+.leader-post .header .call-to-action-mobile span.arrow{
+    color: #20a2ea;
+    position: absolute;
+    top: -9px;
+    right: 38px;
+    opacity: 0.6;
+}
 
 .leader-post .header .call-to-action-mobile{
     position: fixed;
