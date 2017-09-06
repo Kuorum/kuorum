@@ -1,7 +1,9 @@
 <div id="proposal_${proposal.id}" class="conversation-box" data-debateId="${proposal.debateId}" data-debateAlias="${proposal.debateAlias}">
     <div class="header clearfix">
         <userUtil:showUserByAlias alias="${proposal.userAlias}" extraCss="pull-left"/>
-        <span class="time-ago middle-point left"> <kuorumDate:humanDate date="${proposal.datePublished}"/> </span>
+        <span class="time-ago middle-point left">
+            <kuorumDate:humanDate date="${proposal.datePublished}"/>
+        </span>
         <ul class="icons pull-right">
             <userUtil:ifUserIsTheLoggedOne user="${debate.userAlias}">
                 <li>

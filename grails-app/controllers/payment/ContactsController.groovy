@@ -8,7 +8,6 @@ import kuorum.core.exception.KuorumException
 import kuorum.dashboard.DashboardService
 import kuorum.users.KuorumUser
 import kuorum.web.commands.payment.contact.*
-import kuorum.web.commands.payment.massMailing.MassMailingCommand
 import kuorum.web.session.CSVDataSession
 import org.bson.types.ObjectId
 import org.kuorum.rest.model.contact.*
@@ -53,7 +52,8 @@ class ContactsController {
             return
         }
 
-        MassMailingCommand command = new MassMailingCommand();
+//        MassMailingCommand command = new MassMailingCommand();
+        Long filterId = null;
         ExtendedFilterRSDTO anonymousFilter = null;
         if (filterCommand.filterConditions){
             anonymousFilter = new ExtendedFilterRSDTO();
@@ -64,7 +64,7 @@ class ContactsController {
             ContactPageRSDTO temporalContacts = contactService.getUsers(user, anonymousFilter);
             anonymousFilter.amountOfContacts = temporalContacts.total;
             anonymousFilter.name = g.message(code:'tools.contact.filter.newAnonymousName');
-            command.filterId = anonymousFilter.id
+            filterId = anonymousFilter.id
         }
 
         List<ExtendedFilterRSDTO> filters = contactService.getUserFilters(user)
@@ -74,7 +74,8 @@ class ContactsController {
                 filters:filters,
                 anonymousFilter:anonymousFilter,
                 totalContacts:contacts.total,
-                command:command,
+                filterId:filterId,
+                command: new ContactFilterCommand(),
                 searchContacts:searchContactRSDTO,
                 bulkActionContactsCommand: new BulkActionContactsCommand(),
                 bulkAddTagsContactsCommand: new BulkAddTagsContactsCommand()

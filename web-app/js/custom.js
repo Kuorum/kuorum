@@ -868,9 +868,7 @@ $(document).ready(function() {
     }
     youtubeHelper.replaceNonExistImage();
     // HANDLE WRONG YOUTUBE VIDEOS
-    $.each( $("div.video img"), function( key, img ) {
-        youtubeHelper.checkValidYoutube(img)
-    });
+    youtubeHelper.replaceAllWrongYoutubeImages();
 
 
     $(".input-region").autocomplete({

@@ -61,6 +61,7 @@
             activeTriggerClassNameMap: {"#": "medium-editor-mention-hash-active", "@": "medium-editor-mention-at-active"},
             hideOnBlurDelay: 300,
             attributeJsonDataLiNode:"data-jsonData",
+            suggestionRequestsXHR:undefined,
             init: function () {
                 this.initMentionPanel(), this.attachEventHandlers()
             },
@@ -155,10 +156,12 @@
                 var selection = this.document.getSelection();
                 if (selection.rangeCount) {
                     var range = selection.getRangeAt(0);
+                    var isEditedText = range.startContainer.parentNode.getAttribute("data-text") != range.startContainer.textContent
                     if (range.startContainer.parentNode != undefined &&
                         range.startContainer.parentNode.nodeName=="A" &&
-                            range.startContainer.parentNode.classList.contains("medium-editor-mention-at") &&
-                            !range.startContainer.parentNode.classList.contains("mention-no-valid")){
+                        range.startContainer.parentNode.classList.contains("medium-editor-mention-at") &&
+                        !range.startContainer.parentNode.classList.contains("mention-no-valid") &&
+                        isEditedText){
                         var mention = range.startContainer.parentNode
                         var p = mention.parentNode
                         p.removeChild(mention);
@@ -173,11 +176,11 @@
                 this.mentionPanel.classList.remove("medium-editor-mention-panel-active");
                 var extraActivePanelClassName = this.extraActivePanelClassName || this.extraActiveClassName;
                 if (extraActivePanelClassName && this.mentionPanel.classList.remove(extraActivePanelClassName), this.activeMentionAt && (this.activeMentionAt.classList.remove(this.activeTriggerClassName), this.extraActiveTriggerClassName && this.activeMentionAt.classList.remove(this.extraActiveTriggerClassName)), this.activeMentionAt) {
-                    var i = this.activeMentionAt;
-                    var parentNode = i.parentNode;
-                    var previousSibling = i.previousSibling;
-                    var nextSibling = i.nextSibling;
-                    var firstChild = i.firstChild;
+                    var activeMentionAt = this.activeMentionAt;
+                    var parentNode = activeMentionAt.parentNode;
+                    var previousSibling = activeMentionAt.previousSibling;
+                    var nextSibling = activeMentionAt.nextSibling;
+                    var firstChild = activeMentionAt.firstChild;
                     var siblingNode = isArrowTowardsLeft ? previousSibling : nextSibling;
                     if(!isAValidMention){
                         this.base.saveSelection();
@@ -186,10 +189,17 @@
                         return;
                     }
                     var textNode = void 0;
-                    siblingNode ? 3 !== siblingNode.nodeType ? (textNode = this.document.createTextNode(""), parentNode.insertBefore(textNode, siblingNode)) : textNode = siblingNode : (textNode = this.document.createTextNode(""), parentNode.appendChild(textNode));
+                    if (!siblingNode){
+                        textNode = this.document.createTextNode("");
+                        parentNode.appendChild(textNode)
+                    }else if (3 === siblingNode.nodeType){
+                        textNode = this.document.createTextNode("");
+                        parentNode.insertBefore(textNode, siblingNode);
+                    }else {
+                        textNode = siblingNode
+                    };
                     var lastChar = getLastChar(firstChild.textContent);
                     var hasLastEmptyWord = 0 === lastChar.trim().length;
-                    console.log(lastChar)
                     if (hasLastEmptyWord) {
                         var g = firstChild.textContent;
                         firstChild.textContent = g.substr(0, g.length - 1);
@@ -204,11 +214,6 @@
                     }else{
                         mediumEditor["default"].selection.select(this.document, textNode, Math.min(textNode.length, 1));
                     }
-                    if (!isAValidMention) {
-                        this.base.saveSelection();
-                        unwrapForTextNode(this.activeMentionAt, this.document);
-                        this.base.restoreSelection();
-                    }
                     this.activeMentionAt = null
                 }
             },
@@ -221,6 +226,7 @@
                     suggestions=[];
                 }
                 callback(suggestions)
+                return null;
             },
             buildPanel:function (panelEl, suggestions, editor){
                 panelEl.innerHTML = "";
@@ -294,7 +300,10 @@
             showPanel: function () {
 
                 var editor = this;
-                this.getSuggestions(this.word, function(suggestions){
+                if (this.suggestionRequestsXHR){
+                    this.suggestionRequestsXHR.abort();
+                }
+                this.suggestionRequestsXHR = this.getSuggestions(this.word, function(suggestions){
                     if (suggestions.length>0){
                         if(!editor.isActivePanel()){
                             editor.activatePanel();
@@ -352,6 +361,7 @@
                     textNode.textContent = nodeData.name;
                     this.activeMentionAt.setAttribute("href", nodeData.link)
                     this.activeMentionAt.setAttribute("data-mention", nodeData.alias)
+                    this.activeMentionAt.setAttribute("data-text", nodeData.name)
                     this.activeMentionAt.className=this.activeMentionAt.className.replace(/mention-no-valid/,'')
                     mediumEditor["default"].selection.select(this.document, textNode, nodeData.name.length);
                     var target = this.base.getFocusedElement();

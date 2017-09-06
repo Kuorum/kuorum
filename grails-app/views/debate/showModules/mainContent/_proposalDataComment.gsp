@@ -1,7 +1,9 @@
 <li class="conversation-box-comment" id="comment_${comment.id}">
     <div class="header clearfix">
         <userUtil:showUserByAlias alias="${comment.userAlias}" extraCss="pull-left"/>
-        <span class="time-ago middle-point left"><kuorumDate:humanDate date="${comment.datePublished}"/> </span>
+        <span class="time-ago middle-point left">
+            <kuorumDate:humanDate date="${comment.datePublished}"/>
+        </span>
     </div>
     <div class="body">
         ${raw(comment.body)}

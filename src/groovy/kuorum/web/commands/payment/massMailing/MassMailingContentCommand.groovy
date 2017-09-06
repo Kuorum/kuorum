@@ -7,15 +7,18 @@ import kuorum.util.TimeZoneUtil
 import org.codehaus.groovy.grails.web.context.ServletContextHolder
 import org.codehaus.groovy.grails.web.servlet.GrailsApplicationAttributes
 import org.grails.databinding.BindingFormat
+import org.kuorum.rest.model.notification.campaign.CampaignTemplateDTO
 
 /**
  * Created by toni on 25/4/17.
  */
 @Validateable
-class MassMailingContentTemplateCommand {
+class MassMailingContentCommand {
+    Long campaignId
     String subject
     String text
     String headerPictureId
+    CampaignTemplateDTO contentType
 
     @BindingFormat('dd/MM/yyyy HH:mm')
     Date scheduled
@@ -30,6 +33,8 @@ class MassMailingContentTemplateCommand {
     }
 
     static constraints = {
+        campaignId nullable: false
+        contentType nullable: false
         subject nullable: true, validator: { val, obj ->
             if (obj.sendType!= "DRAFT" && !val){
                 return "kuorum.web.commands.payment.massMailing.MassMailingCommand.subject.nullable"
@@ -41,7 +46,7 @@ class MassMailingContentTemplateCommand {
             }
         }
         headerPictureId nullable: true, validator: {val, obj ->
-            if (obj.sendType!= "DRAFT" && !val){
+            if (obj.sendType!= "DRAFT" && CampaignTemplateDTO.NEWSLETTER.equals(obj.contentType) && !val){
                 return "kuorum.web.commands.payment.massMailing.MassMailingCommand.headerPictureId.nullable"
             }
         }
