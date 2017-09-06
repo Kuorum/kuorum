@@ -14,7 +14,7 @@
             'userLoggedAlias': '${sec.loggedInUserInfo(field:'alias')}',
             'userLoggedEmail': '${sec.loggedInUserInfo(field:'username')}',
             'userLoggedName': '${sec.loggedInUserInfo(field:'name')}',
-            'language':'${currentLang.language}'
+            'language':'${currentLang?.language?:"en"}'
           });
     </sec:ifLoggedIn>
     <sec:ifNotLoggedIn>

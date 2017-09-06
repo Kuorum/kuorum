@@ -9,7 +9,8 @@
 		'average_HOUR':'${raw(createLink(mapping: 'widgetComparative', absolute: true, params:[interval:org.kuorum.rest.model.kuorumUser.reputation.UserReputationEvolutionRSDTO.Interval.HOUR,averageWidgetType:kuorum.web.widget.AverageWidgetType.GLOBAL_AVERAGE]))}',
 		'average_15MINS':'${raw(createLink(mapping: 'widgetComparative', absolute: true, params:[interval:org.kuorum.rest.model.kuorumUser.reputation.UserReputationEvolutionRSDTO.Interval.MINUTE_15,averageWidgetType:kuorum.web.widget.AverageWidgetType.GLOBAL_AVERAGE]))}',
 		'average_5MINS':'${raw(createLink(mapping: 'widgetComparative', absolute: true, params:[interval:org.kuorum.rest.model.kuorumUser.reputation.UserReputationEvolutionRSDTO.Interval.MINUTE_5,averageWidgetType:kuorum.web.widget.AverageWidgetType.GLOBAL_AVERAGE]))}',
-		'average_1MINS':'${raw(createLink(mapping: 'widgetComparative', absolute: true, params:[interval:org.kuorum.rest.model.kuorumUser.reputation.UserReputationEvolutionRSDTO.Interval.MINUTE,averageWidgetType:kuorum.web.widget.AverageWidgetType.GLOBAL_AVERAGE]))}'
+		'average_1MINS':'${raw(createLink(mapping: 'widgetComparative', absolute: true, params:[interval:org.kuorum.rest.model.kuorumUser.reputation.UserReputationEvolutionRSDTO.Interval.MINUTE,averageWidgetType:kuorum.web.widget.AverageWidgetType.GLOBAL_AVERAGE]))}',
+		'debate':'${raw(createLink(mapping: 'widgetDebate', absolute: true, params:[interval:org.kuorum.rest.model.kuorumUser.reputation.UserReputationEvolutionRSDTO.Interval.MINUTE,averageWidgetType:kuorum.web.widget.AverageWidgetType.GLOBAL_AVERAGE]))}'
 	}
 	var widget = document.getElementById('${divId}');
 	var type = widget.getAttribute("data-type")
@@ -86,6 +87,6 @@
 
 	if (widget) {
 		widget.style.cssText = 'border:' + colorBorde + '; width:' + ancho + '; height:' + alto + '; overflow:hidden;';
-		widget.innerHTML     = '<iframe src="'+url+'" frameborder="0" scrolling="no" width="100%" height="100%" allowTransparency="true" style="overflow: hidden;"></iframe>';
+		widget.innerHTML     = '<iframe src="'+url+'" frameborder="0" scrolling="yes" width="100%" height="100%" allowTransparency="true" style="overflow: hidden;" ></iframe>';
 	}
 })();

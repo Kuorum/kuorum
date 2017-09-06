@@ -197,6 +197,7 @@ class UrlMappings {
         name widgetJs:      "/widget.js"(controller: "widget", action:"kuorumWidgetjs")
         name widgetRatePolitician:     "/widget/ratePolitician" (controller: "rating", action:"widgetRatePolitician")
         name widgetComparative:        "/widget/comparation"    (controller: "rating", action:"widgetComparativePoliticianInfo")
+        name widgetDebate:             "/widget/debate"         (controller: "debate", action:"widget")
 
 
         name langUserShow:          "/$lang/$userAlias"     (controller: "kuorumUser", action: "show") {constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)}); lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
