@@ -54,4 +54,13 @@ class CookieUUIDService {
                  path:"/",
                  domain:WebConstants.COOKIE_DOMAIN])
     }
+
+    String getRememberPasswordRedirect(){
+        String urlRedirect = cookieService.getCookie(WebConstants.COOKIE_URL_CALLBACK_REMEMBER_PASS)
+        if (urlRedirect){
+            return URLDecoder.decode(urlRedirect,"UTF-8")+"#recoverStatus";// Hash to launch the recover event on js
+        }else{
+            return null;
+        }
+    }
 }

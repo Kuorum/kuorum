@@ -17,6 +17,7 @@ import kuorum.notifications.NotificationService
 import kuorum.register.FacebookOAuthService
 import kuorum.register.IOAuthService
 import kuorum.register.RegisterService
+import kuorum.users.CookieUUIDService
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
 import kuorum.web.commands.customRegister.ContactRegister
@@ -37,7 +38,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
 
     FileService fileService
     MailchimpService mailchimpService
-    FacebookOAuthService facebookOAuthService
+    CookieUUIDService cookieUUIDService
 
     def index() {
         def copy = [:] + (flash.chainedParams ?: [:])
@@ -302,10 +303,12 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         springSecurityService.reauthenticate registrationCode.username
 
         flash.message = message(code: 'spring.security.ui.resetPassword.success')
-
-        def conf = SpringSecurityUtils.securityConfig
-        String postResetUrl = conf.ui.register.postResetUrl ?: conf.successHandler.defaultTargetUrl
-        redirect uri: postResetUrl
+        String ulrCallback = cookieUUIDService.getRememberPasswordRedirect();
+        if (!ulrCallback){
+            def conf = SpringSecurityUtils.securityConfig
+            ulrCallback = conf.ui.register.postResetUrl ?: conf.successHandler.defaultTargetUrl
+        }
+        redirect uri: ulrCallback
     }
 
     def downloadPressKit(ResendVerificationMailCommand command){

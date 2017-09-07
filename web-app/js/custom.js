@@ -240,30 +240,6 @@ $(document).ready(function() {
 		e.preventDefault();
 	});
 
-    // Deshabilitar botón defender (Post)
-    $('body').on("click", "#driveDefend .btn", function(e) {
-        e.preventDefault();
-        var anonymous = $("#drive :input").is(":checked");
-        var url = $(this).attr("href");
-        var postId = $(this).attr("data-postId");
-        //votePost(url, postId, anonymous)
-    });
-
-    // Deshabilitar botón defender (Post)
-    $('body').on("click", "#drive-noLogged .btn", function(e) {
-        e.preventDefault();
-        $("#drive-noLogged").submit();
-    });
-
-    // Deshabilitar botón Impulsar (Post)
-    $('body').on("click", "#drive .btn", function(e) {
-        e.preventDefault();
-        var anonymous = $("#drive :input").is(":checked");
-        var url = $(this).attr("href");
-        var postId = $(this).attr("data-postId");
-        votePost(url, postId, anonymous)
-    });
-
 
     $('body').on("click", ".voting ul.noLoggedVoteDiv li a", function(e) {
         e.preventDefault();
@@ -1117,59 +1093,11 @@ $(document).ready(function() {
             })
         })
     })
+
+    noLoggedRememberPasswordCallbacks.helper.init();
 });
 
 // ***** End jQuey Init *********** //
-var karma = {
-    title:"",
-    text:"",
-
-    numEggs:0,
-    numPlumes:0,
-    numCorns:0,
-    //Open es la funcion que abriría el Karma. pero se ha comentado dejando la funcionalidad en realOpen
-    open:function(options){},
-    //Esta funcion no se llama. Se deja así para un futuro carma
-    realOpen:function(options){
-        console.log("Karma disabled");
-        if (options != undefined){
-            this.numEggs = options.eggs || 0;
-            this.numPlumes = options.plumes || 0;
-            this.numCorns = options.corns || 0;
-            this.text = options.text || "";
-            this.title = options.title || ""
-        }
-        this._open()
-    },
-
-    close:function(){
-        $('#karma').css('display','none').removeClass('in');
-    },
-
-    _idLiEggs:"karmaEggs",
-    _idLiPlumes:"karmaPlumes",
-    _idLiCorn:"karmaCorn",
-    _open:function(){
-        this._prepareKarma();
-        $('#karma').fadeIn().addClass('in');
-    },
-
-    _prepareKarma:function(){
-        $("#karma h2").html(this.title);
-        var motivation = $("#karma p span");
-        var motivationText = "<span class='" + motivation.attr('class') + "'>" + motivation.html() + "</span>";
-        $("#karma p").html(this.text + "<br>" + motivationText);
-        $("ul.karma li").removeClass("active");
-        this._prepareIcon(this._idLiEggs, this.numEggs);
-        this._prepareIcon(this._idLiPlumes, this.numPlumes);
-        this._prepareIcon(this._idLiCorn, this.numCorns)
-    },
-
-    _prepareIcon:function(liId, quantity){
-        $("#" + liId + " .counter").html("+" + quantity);
-        if (quantity > 0) $("#"+liId).addClass("active")
-    }
-};
 function prepareProgressBar(){
     $('.progress-bar').progressbar();
     // animo la progress-bar de boxes.likes
@@ -1244,48 +1172,6 @@ var display = {
         $("div.row.main").animate({ marginTop: '0px'}, 500);
     }
 };
-function votePost(url, postId, anonymous){
-    var html = $("article[data-cluck-postId='" + postId + "'] li.like-number").html();
-    var htmlDriveButton = $('#drive > a').html();
-    var loadingHtml = '<div class="loading xs"><span class="sr-only">Cargando...</span></div>';
-    $.ajax({
-        url:url,
-        data:{postId:postId, anonymous:anonymous},
-        beforeSend:function(xhr){
-            $("article[data-cluck-postId='" + postId + "'] li.like-number").html(loadingHtml);
-            $('#drive > a').html(loadingHtml)
-        }
-    }).done(function(data){
-        var numLikes = data.numLikes;
-        var limitTo = data.limitTo;
-        $("article[data-cluck-postId='" + postId + "'] li.like-number").html(html);
-        $("article[data-cluck-postId='"+postId+"'] li.like-number .action").addClass('disabled');
-        $("article[data-cluck-postId='"+postId+"'] li.like-number .counter").each(function(idx, element){
-            numLikes = parseInt($(element).text()) +1;
-            $(element).text(numLikes);
-        });
-
-        //If Page == Post
-        var progressBarNumLikes = $("section.boxes.noted.likes > .likesContainer > div > .likesCounter");
-        $('#m-callback-done').css('opacity', '0');
-        $('.likes .progress-bar').attr("aria-valuetransitiongoal", numLikes);
-        $('.likes .progress-bar').attr("aria-valuenow", numLikes);
-        $('.likes .progress-bar').attr("aria-valuemax", limitTo);
-        $('#drive > a').html(i18n.post.show.boxes.like.vote.buttonVoted).addClass('disabled');
-        $("#drive :input").attr("disabled", true);
-        $("#drive div.form-group a").addClass("disabled");
-        var alreadyVotedText = $("#drive div.form-group a span").attr("data-textalreadyvoted");
-        var span= $("#drive div.form-group a span");
-        $("#drive div.form-group a").html(span.prop('outerHTML') + alreadyVotedText);
-        prepareProgressBar();
-        setTimeout(prepareProgressBar, 500);
-//                setTimeout(prepareProgressBar, 1000)
-
-//            console.log(data.gamification)
-        karma.open(data.gamification)
-
-    });
-}
 
 function openComments(){
     $('.listComments > li').fadeIn('slow');
@@ -1407,6 +1293,53 @@ var noLoggedCallbacks = {
         document.location.reload();
     }
 };
+
+var noLoggedRememberPasswordCallbacks = {
+    helper:{
+        callbackFunctionKey:'noLoggedRememberPasswordCallbackFunctionName',
+        cookieNameUrlAfterRememberPassword:'urlAfterRememberPassword',
+        init:function(){
+            var hash = window.location.hash
+            console.log(hash)
+            if (hash == "#recoverStatus"){
+                var functionName = localStorage.getItem(noLoggedRememberPasswordCallbacks.helper.callbackFunctionKey);
+                functionName = functionName || "doNothing";
+                noLoggedRememberPasswordCallbacks[functionName].recoverState();
+                noLoggedRememberPasswordCallbacks.helper.restoreDefaultStatus();
+            }
+        },
+        restoreDefaultStatus:function(){
+            // REMOVE ALL LOCALSTORAGE
+            for ( var i = 0, len = localStorage.length; i < len; ++i ) {
+                localStorage.removeItem( localStorage.key( i ) ) ;
+            }
+            localStorage.setItem(noLoggedRememberPasswordCallbacks.helper.callbackFunctionKey, "doNothing");
+            cookiesHelper.removeCookie(noLoggedRememberPasswordCallbacks.helper.cookieNameUrlAfterRememberPassword);
+        },
+        saveItem:function(key, value){
+            localStorage.setItem(key,value);
+        },
+        restoreItem:function(key){
+            var value = localStorage.getItem(key);
+            localStorage.removeItem(key);
+            return value;
+        },
+        saveCurrentUrlForRememberPasswordOnCookie:function(){
+            var url =
+                window.location.protocol+
+                window.location.port+
+                '//' +
+                window.location.hostname +
+                window.location.pathname;
+            url = encodeURIComponent(url);
+            cookiesHelper.setCookie(noLoggedRememberPasswordCallbacks.helper.cookieNameUrlAfterRememberPassword, url, 3);
+        }
+    },
+    doNothing : {
+        saveState: function(){},
+        recoverState: function(){}
+    }
+}
 
 noLoggedCallbacks["clickFollowAfterLogIn"]=function(){
     console.log("follow after login");

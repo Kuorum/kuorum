@@ -110,20 +110,20 @@ $(function () {
                 }
                 switch (idx) { //número de párrafos
                     case 2: //se necesitan usar dos párrafos para rellenar el espacio
-                        var height = (parragraphInfo[0].lines * lineHeight) + parragraphMarginBottom + 
+                        var height = (parragraphInfo[0].lines * lineHeight) + parragraphMarginBottom +
                                     (4 - parragraphInfo[0].lines) * lineHeight;
                         $conversationBox.height(height);
                         break;
                     case 3:
                         var height = (parragraphInfo[0].lines * lineHeight) + parragraphMarginBottom +
-                                    (parragraphInfo[1].lines * lineHeight) + parragraphMarginBottom + 
+                                    (parragraphInfo[1].lines * lineHeight) + parragraphMarginBottom +
                                     (4 - parragraphInfo[0].lines - parragraphInfo[1].lines) * lineHeight;
                         $conversationBox.height(height);
                         break;
                     case 4:
                         var height = (parragraphInfo[0].lines * lineHeight) + parragraphMarginBottom +
-                                    (parragraphInfo[1].lines * lineHeight) + parragraphMarginBottom + 
-                                    (parragraphInfo[2].lines * lineHeight) + parragraphMarginBottom + 
+                                    (parragraphInfo[1].lines * lineHeight) + parragraphMarginBottom +
+                                    (parragraphInfo[2].lines * lineHeight) + parragraphMarginBottom +
                                     (4 - parragraphInfo[0].lines - parragraphInfo[1].lines - parragraphInfo[2].lines) * lineHeight;
                         $conversationBox.height(height);
                         break;
@@ -165,10 +165,10 @@ $(function () {
         if (hash == "openProposal"){
             $(".leader-post > .footer .comment-counter button").trigger("click");
         }
-
-        var $callToAction = $('body').find('.comment-box.call-to-action');
-        $callToAction.find('.comment.editable').focus();
     });
+
+    var $callToAction = $('body').find('.comment-box.call-to-action');
+    $callToAction.find('.comment.editable').focus();
 
     $(window).scroll(function () {
         var upperLimit = $("section#main .comment-box").offset();
@@ -684,12 +684,15 @@ var debateFunctions = {
 
         prepareEditorComment();
     },
+    getRelatedMediumEditor:function($buttonPublish){
+        return $buttonPublish.parents(".comment-box").find(".comment.editable.medium-editor-element");
+    },
     publishProposal: function(e, callback){
         e = e || window.event;
         callback = callback || debateFunctions.printProposal;
         var $buttonPublish = $(e.target);
         var alias = $buttonPublish.attr("data-userLoggedAlias");
-        var $mediumEditor = $buttonPublish.parents(".comment-box").find(".comment.editable.medium-editor-element");
+        var $mediumEditor = debateFunctions.getRelatedMediumEditor($buttonPublish)
         var content = $mediumEditor.find("p").text();
         var isValidContent = content?true:false;
         var errorSpan = $buttonPublish.parents(".comment-box").find("span.error");
@@ -702,6 +705,7 @@ var debateFunctions = {
             // USER NO LOGGED
             var buttonId = guid();
             $buttonPublish.attr("id", buttonId);
+            noLoggedRememberPasswordCallbacks.publishProposal.saveState($buttonPublish);
             $('#registro').find("form").attr("callback", "publishProposalNoLogged");
             $('#registro').find("form").attr("data-buttonId", buttonId);
             $('#registro').modal('show');
@@ -813,6 +817,34 @@ var debateFunctions = {
         console.log($conversationBoxCommentsComment);
 
         $conversationBoxCommentsArrow.trigger('click', [isVisible, $conversationBoxCommentsComment]);
+    }
+}
+
+noLoggedRememberPasswordCallbacks["publishProposal"]={
+    contentStorageKey:"content",
+    saveState: function($button){
+        noLoggedRememberPasswordCallbacks.helper.saveItem(noLoggedRememberPasswordCallbacks.helper.callbackFunctionKey,"publishProposal")
+        var $mediumEditor = debateFunctions.getRelatedMediumEditor($button)
+
+        var content = $mediumEditor.html();
+        noLoggedRememberPasswordCallbacks.helper.saveItem(noLoggedRememberPasswordCallbacks.publishProposal.contentStorageKey,content);
+        noLoggedRememberPasswordCallbacks.helper.saveCurrentUrlForRememberPasswordOnCookie()
+
+    },
+    recoverState: function(){
+        var content = noLoggedRememberPasswordCallbacks.helper.restoreItem(noLoggedRememberPasswordCallbacks.publishProposal.contentStorageKey);
+        var $input = $("#main .comment.editable.medium-editor-element");
+
+        //$input.html(content);
+
+        $('html, body').animate({
+            scrollTop:  $input.offset().top -100
+        }, 2000, function () {
+            $input.click()
+            $input.focus()
+            MediumEditor.getEditorFromElement($input[0]).pasteHTML(content, { })
+            content = ""; // It's called twice. Fast fix.
+        });
     }
 }
 

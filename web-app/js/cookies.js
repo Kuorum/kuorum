@@ -26,6 +26,9 @@ var cookiesHelper = {
         }
         return "";
     },
+    removeCookie:function(cname){
+        cookiesHelper.setCookie(cname, "", -1);
+    },
     checkCookie: function(cname, onCookieFound, onNotCookieFound) {
         var cvalue=this.getCookie(cname);
         if (cvalue!="") {
