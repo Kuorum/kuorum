@@ -81,6 +81,6 @@
         <p><g:message code="register.conditions" args="[g.createLink(mapping: 'footerPrivacyPolicy')]" encodeAs="raw"/></p>
     </div>
     <div class="form-group">
-        <p><g:message code="login.intro.loginAfter" args="['#','change-home-login']"/></a></p>
+        <p><g:message code="login.intro.loginAfter" args="['#','change-home-login']"/></p>
     </div>
 </g:form>
