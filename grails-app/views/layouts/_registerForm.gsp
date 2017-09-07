@@ -1,6 +1,10 @@
 
 <script type="text/javascript">
     $(function (){
+        jQuery.validator.addMethod("validate_email",function(value, element) {
+            return (/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test( value ))
+        }, "${g.message(code:'springSecurity.KuorumRegisterCommand.email.wrongFormat')}");
+
         $("#${formId}").validate({
             errorClass:'error',
             errorElement:'span',
@@ -13,6 +17,7 @@
                 },
                 "email":{
                     required: true,
+                    validate_email: true,
                     remote:{
                         url: "${g.createLink(mapping: 'registerAjaxCheckEmail')}",
                         type: "post",

@@ -9,8 +9,9 @@
 
 
 
-    <section id="results-widget-content" class="clearfix">
+    <section id="main" class="clearfix">
         <g:render template="/debate/showModules/mainContent" model="[debate: debate, debateUser: debateUser,proposalPage:proposalPage]" />
+        <g:render template="/layouts/modalLogin"/>
     </section>
     <header>
         <h1>
