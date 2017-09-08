@@ -107,6 +107,11 @@ modules = {
         resource url:'js/post.js'
     }
 
+    widgetResizer {
+        dependsOn("basic", "forms")
+        resource url:'js/widget/widget-helper.js'
+        resource url:'js/widget/iframe-resizer/iframeResizer.contentWindow.min.js'
+    }
     campaignForm{
         dependsOn("basic", "forms")
         resource url: 'js/camapign-form.js'

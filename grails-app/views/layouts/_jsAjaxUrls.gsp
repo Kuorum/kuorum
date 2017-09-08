@@ -1,6 +1,6 @@
 
 <script>
-    var urls = {
+    var kuorumUrls = {
         home:'<g:createLink mapping="home" absolute="true"/>',
         searchSuggest:'<g:createLink mapping="searcherSuggests" absolute="true"/>',
         search:'<g:createLink mapping="searcherSearch" absolute="true"/>',

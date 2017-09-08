@@ -18,6 +18,7 @@
 	var alto = widget.getAttribute("data-height")
 	var lang = widget.getAttribute("data-lang")
 	var url = urlTypes[type]
+	var widgetId = 'kuorum_'+type+"_"+(new Date().getTime());
 	console.log(url)
 	if (url.indexOf("?")>=0){
 		url += "&"
@@ -92,32 +93,41 @@
 		url += "endDate="+endDate+"&"
 	}
 
-	var iframeResizerURL = "http://127.0.0.1:8080/kuorum/js/iframe-resizer-master/iframeResizer.min.js"
-	loadScript(iframeResizerURL)
-
-	%{--iFrameResize({log:true}, '#debate-widget');--}%
-
 	if (widget) {
 		widget.style.cssText = 'border:' + colorBorde + '; width:' + ancho + '; height:' + alto + '; overflow:hidden; top: 20px';
-		widget.innerHTML     = '<iframe src="'+url+'" frameborder="0" scrolling="yes" width="100%" height="100%" allowTransparency="true" style="overflow: hidden;"></iframe>';
+		widget.innerHTML     = '<iframe id="'+widgetId+'" src="'+url+'" frameborder="0" scrolling="no" width="100%" height="100%" allowTransparency="true" style="overflow: hidden;"></iframe>';
+		document.getElementById(widgetId).onload =  function(){
+			%{--// TODO: IE8--}%
+			var iframeResizerURL = "${g.resource(dir: '/js/widget/iframe-resizer', file: 'iframeResizer.min.js', absolute: true)}"
+			loadScript(iframeResizerURL, function(){
+				iFrameResize({
+					log:false,
+					messageCallback: function(messageData){ // Callback fn when message is received
+						var scrollPosition = document.body.scrollTop
+						document.getElementById(widgetId).iFrameResizer.sendMessage(scrollPosition);
+					}
+				}, '#'+widgetId);
+			})
+		}
 	}
 })();
 
+
 function loadScript(src, callback)
 {
-        var s, r, t;
+        var script, r, t;
         r = false;
-        s = document.createElement('script');
-        s.type = 'text/javascript';
-        s.src = src;
-        s.onload = s.onreadystatechange = function() {
+        script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = src;
+        script.onload = script.onreadystatechange = function() {
             console.log( this.readyState );
             if ( !r && (!this.readyState || this.readyState == 'complete') )
             {
               r = true;
-            %{--callback();--}%
+            callback();
             }
         };
         t = document.getElementsByTagName('script')[0];
-        t.parentNode.insertBefore(s, t);
+        t.parentNode.insertBefore(script, t);
 }

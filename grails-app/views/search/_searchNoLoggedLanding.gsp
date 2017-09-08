@@ -54,7 +54,7 @@
                                     var a = $('#suggestDiscoverWord').autocomplete({
                                         paramName:"word",
                                         params:{type:'POLITICIAN', searchType:getSearchType()},
-                                        serviceUrl:urls.searchSuggest,
+                                        serviceUrl:kuorumUrls.searchSuggest,
                                         minChars:1,
                                         width:330,
                                         noCache: true, //default is false, set to true to disable caching

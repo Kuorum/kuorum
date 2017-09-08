@@ -1,6 +1,6 @@
 function getKuorumSuggestions(prefix, callback){
 
-    var url = urls.suggestAlias
+    var url = kuorumUrls.suggestAlias
     var editor = this;
     var data ={term:prefix.slice(1), "boostedAlias":Array.from(debateFunctions.getActiveAlias())}
     var suggestionRequestsXHR = $.ajax({

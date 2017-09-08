@@ -4,7 +4,7 @@
         <style>
         ${raw(params.customCss)}
         </style>
-        <r:require modules="debate"/>
+        <r:require modules="debate,widgetResizer"/>
     </head>
 
 
@@ -21,6 +21,9 @@
             </a>
         </h1>
     </header>
+    %{--<script src="${g.resource(dir: '/js/widget/', file: 'widget-helper.js')}"/>--}%
+    %{--<script src="${g.resource(dir: '/js/widget/iframe-resizer', file: 'iframeResizer.contentWindow.min.js')}"/>--}%
+
     </body>
 
 </g:applyLayout>

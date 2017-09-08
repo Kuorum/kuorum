@@ -850,7 +850,7 @@ $(document).ready(function() {
     $(".input-region").autocomplete({
         paramName:"word",
         params:{country:""},
-        serviceUrl:urls.suggestRegion,
+        serviceUrl:kuorumUrls.suggestRegion,
         minChars:3,
         width:330,
         noCache: false, //default is false, set to true to disable caching

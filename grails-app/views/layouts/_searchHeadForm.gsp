@@ -47,7 +47,7 @@
             var a = $('#srch-term').autocomplete({
                 paramName:"word",
                 params:{type:getFileterType(), searchType:getSearchType()},
-                serviceUrl:urls.searchSuggest,
+                serviceUrl:kuorumUrls.searchSuggest,
                 minChars:1,
                 width:330,
                 noCache: true, //default is false, set to true to disable caching
@@ -76,10 +76,10 @@
                     return format
                 },
                 searchUserText:function(userText){
-                    window.location = urls.search+"?word="+encodeURIComponent(userText)
+                    window.location = kuorumUrls.search+"?word="+encodeURIComponent(userText)
                 },
                 onSelect: function(suggestion){
-                    var location = urls.search
+                    var location = kuorumUrls.search
                             +"?type="+getFileterType()
                             +"&searchType="+getSearchType()
                             +"&word="+encodeURIComponent(suggestion.value)
