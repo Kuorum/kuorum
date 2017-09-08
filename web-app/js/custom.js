@@ -1302,7 +1302,6 @@ var noLoggedRememberPasswordCallbacks = {
         cookieNameUrlAfterRememberPassword:'urlAfterRememberPassword',
         init:function(){
             var hash = window.location.hash
-            console.log(hash)
             if (hash == "#recoverStatus"){
                 var functionName = localStorage.getItem(noLoggedRememberPasswordCallbacks.helper.callbackFunctionKey);
                 functionName = functionName || "doNothing";
