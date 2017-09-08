@@ -49,9 +49,16 @@
 	}
 
 	var aliases = widget.getAttribute("data-userAlias").split(",")
-	for (i = 0; i < aliases.length; i++) {
-		url = url + 'userAlias='+aliases[i] +'&'
+	if(aliases.length > 1){
+        for (i = 0; i < aliases.length; i++) {
+            url = url + 'userAlias='+aliases[i] +'&'
+        }
+	}else{
+	    url = url + 'userAlias=' + aliases + '&'
 	}
+
+	var debateId = widget.getAttribute("data-debateId");
+	url = url + 'debateId=' + debateId + '&'
 
     var borderColor = "#ddd"
     if (style.borderColor !=undefined) {borderColor=style.borderColor}
@@ -85,8 +92,32 @@
 		url += "endDate="+endDate+"&"
 	}
 
+	var iframeResizerURL = "http://127.0.0.1:8080/kuorum/js/iframe-resizer-master/iframeResizer.min.js"
+	loadScript(iframeResizerURL)
+
+	%{--iFrameResize({log:true}, '#debate-widget');--}%
+
 	if (widget) {
-		widget.style.cssText = 'border:' + colorBorde + '; width:' + ancho + '; height:' + alto + '; overflow:hidden;';
-		widget.innerHTML     = '<iframe src="'+url+'" frameborder="0" scrolling="yes" width="100%" height="100%" allowTransparency="true" style="overflow: hidden;" ></iframe>';
+		widget.style.cssText = 'border:' + colorBorde + '; width:' + ancho + '; height:' + alto + '; overflow:hidden; top: 20px';
+		widget.innerHTML     = '<iframe src="'+url+'" frameborder="0" scrolling="yes" width="100%" height="100%" allowTransparency="true" style="overflow: hidden;"></iframe>';
 	}
 })();
+
+function loadScript(src, callback)
+{
+        var s, r, t;
+        r = false;
+        s = document.createElement('script');
+        s.type = 'text/javascript';
+        s.src = src;
+        s.onload = s.onreadystatechange = function() {
+            console.log( this.readyState );
+            if ( !r && (!this.readyState || this.readyState == 'complete') )
+            {
+              r = true;
+            %{--callback();--}%
+            }
+        };
+        t = document.getElementsByTagName('script')[0];
+        t.parentNode.insertBefore(s, t);
+}

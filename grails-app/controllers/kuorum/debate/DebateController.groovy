@@ -69,7 +69,7 @@ class DebateController {
     def widget(){
         String viewerId = cookieUUIDService.buildUserUUID()
         try {
-            DebateRSDTO debate = debateService.findDebate( "tonines", 87,viewerId)
+            DebateRSDTO debate = debateService.findDebate( params.userAlias, Long.parseLong((String) params.debateId), viewerId)
             if (!debate) {
                 throw new KuorumException(message(code: "debate.notFound") as String)
             }
