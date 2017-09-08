@@ -57,33 +57,12 @@ class DebateController {
             searchProposalRSDTO.size = Integer.MAX_VALUE // Sorting and filtering will be done using JS. We expect maximum 100 proposals
 
             ProposalPageRSDTO proposalPage = proposalService.findProposal(debate, searchProposalRSDTO,viewerId)
-
-            return [debate: debate, debateUser: debateUser, proposalPage:proposalPage]
-        } catch (Exception ignored) {
-            flash.error = message(code: "debate.notFound")
-            response.sendError(HttpServletResponse.SC_NOT_FOUND)
-            return false
-        }
-    }
-
-    def widgetDebate(){
-        String viewerId = cookieUUIDService.buildUserUUID()
-        try {
-            DebateRSDTO debate = debateService.findDebate( params.userAlias, Long.parseLong((String) params.debateId), viewerId)
-            if (!debate) {
-                throw new KuorumException(message(code: "debate.notFound") as String)
+            def model = [debate: debate, debateUser: debateUser, proposalPage:proposalPage];
+            if (params.printAsWidget){
+                render view: 'widgetDebate', model: model
+            }else{
+                return model;
             }
-
-            KuorumUser debateUser = kuorumUserService.findByAlias(debate.userAlias)
-            SearchProposalRSDTO searchProposalRSDTO = new SearchProposalRSDTO()
-            searchProposalRSDTO.sort = new SortProposalRDTO()
-            searchProposalRSDTO.sort.direction = SortProposalRDTO.Direction.DESC
-            searchProposalRSDTO.sort.field = SortProposalRDTO.Field.LIKES
-            searchProposalRSDTO.size = Integer.MAX_VALUE // Sorting and filtering will be done using JS. We expect maximum 100 proposals
-
-            ProposalPageRSDTO proposalPage = proposalService.findProposal(debate, searchProposalRSDTO,viewerId)
-
-            return [debate: debate, debateUser: debateUser, proposalPage:proposalPage]
         } catch (Exception ignored) {
             flash.error = message(code: "debate.notFound")
             response.sendError(HttpServletResponse.SC_NOT_FOUND)
