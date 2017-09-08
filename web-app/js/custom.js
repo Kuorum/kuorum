@@ -1094,7 +1094,9 @@ $(document).ready(function() {
         })
     })
 
-    noLoggedRememberPasswordCallbacks.helper.init();
+    $(window).load(function() {
+        noLoggedRememberPasswordCallbacks.helper.init();
+    })
 });
 
 // ***** End jQuey Init *********** //

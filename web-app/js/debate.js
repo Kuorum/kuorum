@@ -69,7 +69,8 @@ prepareEditorComment();
 
 $(function () {
     //Calculo de altura de las cajas de comentarios de debate
-    $(window).load(function() {
+
+    function calcHeightProposalComments(){
         var parragraphMarginBottom = 20; //px
         var lineHeight= 33; //px
 
@@ -165,8 +166,9 @@ $(function () {
         if (hash == "openProposal"){
             $(".leader-post > .footer .comment-counter button").trigger("click");
         }
-    });
-
+    };
+    calcHeightProposalComments();
+    
     var $callToAction = $('body').find('.comment-box.call-to-action');
     $callToAction.find('.comment.editable').focus();
 
@@ -195,25 +197,6 @@ $(function () {
         });
     });
 
-});
-
-function collapseComments($commentList){
-    var counter = $commentList.length;
-    if (counter > 2){
-        $commentList.slice(0, -2).addClass("hidden");
-    }
-}
-
-function actionShowMoreButton($commentList){
-    var counter = $commentList.length;
-    if (counter > 2){
-        var $showMoreButton = $commentList.closest(".conversation-box-comments").find(".show-more-comments");
-        var hiddenComments = counter -2;
-        changeShowMoreMessage($showMoreButton, hiddenComments);
-    }
-}
-
-$(function(){
     // LightbulButton - comment-counter
     var lightbulbButton = $('.leader-post > .footer .comment-counter button');
     lightbulbButton.on('click', function (event) {
@@ -507,6 +490,24 @@ $(function(){
 
 });
 
+
+function collapseComments($commentList){
+    var counter = $commentList.length;
+    if (counter > 2){
+        $commentList.slice(0, -2).addClass("hidden");
+    }
+}
+
+function actionShowMoreButton($commentList){
+    var counter = $commentList.length;
+    if (counter > 2){
+        var $showMoreButton = $commentList.closest(".conversation-box-comments").find(".show-more-comments");
+        var hiddenComments = counter -2;
+        changeShowMoreMessage($showMoreButton, hiddenComments);
+    }
+}
+
+
 function changeShowMoreMessage($showMoreButton, numberHidden) {
     var $messageBuilder = $showMoreButton.find('.message-builder');
     var dataShow = $messageBuilder.attr("data-status-on");
@@ -778,6 +779,7 @@ var debateFunctions = {
             $('#registro').find("form").attr("callback", "publishCommentNoLogged")
             $('#registro').find("form").attr("data-proposalId", proposalId)
             $('#registro').modal('show');
+            noLoggedRememberPasswordCallbacks.publishProposalComment.saveState($button);
         }else {
             // BOTON SALVAR
             if (!validMediumEditor($mediumEditor)) {
@@ -843,6 +845,38 @@ noLoggedRememberPasswordCallbacks["publishProposal"]={
             $input.click()
             $input.focus()
             MediumEditor.getEditorFromElement($input[0]).pasteHTML(content, { })
+            content = ""; // It's called twice. Fast fix.
+        });
+    }
+}
+
+noLoggedRememberPasswordCallbacks["publishProposalComment"]={
+    contentStorageKey:"content",
+    proposalIdKey:"proposalId",
+    saveState: function($button){
+        noLoggedRememberPasswordCallbacks.helper.saveItem(noLoggedRememberPasswordCallbacks.helper.callbackFunctionKey,"publishProposalComment")
+        var $mediumEditor = $button.parents(".comment-box").find(".medium-editor-element");
+        var proposalId = $button.attr("data-proposalid")
+        var content = $mediumEditor.html();
+        noLoggedRememberPasswordCallbacks.helper.saveItem(noLoggedRememberPasswordCallbacks.publishProposalComment.contentStorageKey,content);
+        noLoggedRememberPasswordCallbacks.helper.saveItem(noLoggedRememberPasswordCallbacks.publishProposalComment.proposalIdKey,proposalId);
+        noLoggedRememberPasswordCallbacks.helper.saveCurrentUrlForRememberPasswordOnCookie()
+
+    },
+    recoverState: function(){
+        var content = noLoggedRememberPasswordCallbacks.helper.restoreItem(noLoggedRememberPasswordCallbacks.publishProposalComment.contentStorageKey);
+        var proposalId = noLoggedRememberPasswordCallbacks.helper.restoreItem(noLoggedRememberPasswordCallbacks.publishProposalComment.proposalIdKey);
+        var $input = $("#proposal_"+proposalId).next("div").find(".medium-editor-element");
+
+        console.log( $input.offset())
+        $('html, body').animate({
+            scrollTop:  $input.offset().top -200
+        }, 2000, function () {
+            $input.click()
+            $input.focus()
+            MediumEditor.getEditorFromElement($input[0]).pasteHTML(content, { })
+            console.log("###")
+            console.log($input)
             content = ""; // It's called twice. Fast fix.
         });
     }
