@@ -66,7 +66,7 @@ class DebateController {
         }
     }
 
-    def widget(){
+    def widgetDebate(){
         String viewerId = cookieUUIDService.buildUserUUID()
         try {
             DebateRSDTO debate = debateService.findDebate( params.userAlias, Long.parseLong((String) params.debateId), viewerId)
