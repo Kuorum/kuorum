@@ -93,7 +93,7 @@ modules = {
     }
 
     debate {
-        dependsOn("basic", "forms")
+        dependsOn("basic", "forms", 'kuorumCookies')
         resource url:'js/medium-editor/medium-editor.js'
         resource url:'css/medium-editor/medium-editor.min.css'
         resource url:'css/medium-editor/themes/default.css'
