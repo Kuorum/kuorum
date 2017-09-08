@@ -3533,6 +3533,9 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 #widget .close {font-size: 30px;}
 #widget .modal-header .close {margin-top: -6px;}
 
+body.widget .poweredByKuorum a{float: right;margin-right: 10px;color: #cccccc;}
+body.widget .poweredByKuorum a:hover{text-decoration: underline;}
+
 .modal-register .modal-dialog {width: 290px; margin: 10px auto;}
 .modal-register .modal-dialog .modal-body {padding: 8px;}
 

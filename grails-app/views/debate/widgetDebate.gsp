@@ -10,7 +10,7 @@
 
 
     <section id="main" class="clearfix">
-        <g:render template="/debate/showModules/mainContent" model="[debate: debate, debateUser: debateUser,proposalPage:proposalPage]" />
+        <g:render template="/debate/showModules/mainContent" model="[debate: debate, debateUser: debateUser,proposalPage:proposalPage, poweredByKuorum:true]" />
         <g:render template="/layouts/modalLogin"/>
     </section>
     <header>
