@@ -168,7 +168,7 @@ $(function () {
         }
     };
     calcHeightProposalComments();
-    
+
     var $callToAction = $('body').find('.comment-box.call-to-action');
     $callToAction.find('.comment.editable').focus();
 
@@ -230,7 +230,6 @@ $(function () {
         var $conversationBox = $actionsContent.closest('.conversation-box');
         var $conversationBoxBody = $actionsContent.closest('.conversation-box').find('.body');
         var collapsibleHeight = $conversationBoxBody.attr('data-height') || $conversationBoxBody.height();
-        console.log("TOGGLE");
         $(event.target).toggleClass('fa-angle-down fa-angle-up');
 
         if ($conversationBoxBody.height() > collapsibleHeight) {
