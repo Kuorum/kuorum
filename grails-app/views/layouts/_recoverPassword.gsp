@@ -37,7 +37,7 @@
 </script>
 <g:form mapping="resetPassword" name="pass-forget" role="form" class="login pass">
     <div class="form-group">
-        <label><g:message code="forgotPassword.form.title"/></label>
+        <strong><g:message code="forgotPassword.form.title"/></strong>
         <p><g:message code="forgotPassword.form.subTitle"/></p>
     </div>
     <div class="form-group">
