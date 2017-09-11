@@ -55,6 +55,7 @@
             </a>
         </p>
     </div>
+    <div class="form-group"></div>
 </g:form>
 <div id="pass-forget-success" style="display: none;">
     <h4><g:message code="forgotPasswordSuccess.intro.title"/></h4>
