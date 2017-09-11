@@ -1,9 +1,5 @@
 <script type="text/javascript">
     $(function (){
-        jQuery.validator.addMethod("validate_email",function(value, element) {
-            return (/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test( value ))
-        }, "${g.message(code:'springSecurity.KuorumRegisterCommand.email.wrongFormat')}");
-
         $("#pass-forget").validate({
             errorClass:'error',
             errorElement:'span',
@@ -13,7 +9,6 @@
             rules: {
                 "email": {
                     required: true,
-                    validate_email: true,
                     remote: {
                         url: "${g.createLink(mapping: 'validateResetPasswordAjax')}",
                         type: "post",
@@ -21,6 +16,14 @@
                             email: function () {
                                 return $("#pass-forget input[name=email]").val();
                             }
+                        },
+                        beforeSend: function () {
+                            var $form = $(this)
+                            $form.removeClass("checked")
+                        },
+                        complete: function () {
+                            var $form = $(this)
+                            $form.addClass("checked")
                         }
                     }
                 }

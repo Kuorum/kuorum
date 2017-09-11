@@ -1903,22 +1903,28 @@ function modalRegister($form, callback){
 function modalForgotPassword($form){
     pageLoadingOn();
     if ($form.valid()) {
-            var url = $form.attr("action")
-            var data = {
-                email: $form.find("input[name=email]").val()
-            };
-            $.ajax({
-                type: "POST",
-                url: url,
-                data: data,
-                success: function (dataLogin) {
-                    $form.hide()
-                    $("#pass-forget-success").show()
-                },
-                complete: function () {
-                    pageLoadingOff();
-                }
-            });
+        waitFormChecked($form, function () {
+            if ($form.valid()) {
+                var url = $form.attr("action")
+                var data = {
+                    email: $form.find("input[name=email]").val()
+                };
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: data,
+                    success: function (dataLogin) {
+                        $form.hide()
+                        $("#pass-forget-success").show()
+                    },
+                    complete: function () {
+                        pageLoadingOff();
+                    }
+                })
+            }else{
+                pageLoadingOff();
+            }
+        });
     } else {
         pageLoadingOff();
     }
