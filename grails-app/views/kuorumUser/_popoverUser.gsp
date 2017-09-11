@@ -6,7 +6,7 @@
     <div class="popover-user">
         <div class="popover-user-header clearfix">
             <div class="user pull-left" itemscope itemtype="http://schema.org/Person">
-                <g:link mapping="userShow" params="${user.encodeAsLinkProperties()}" itemprop="url">
+                <g:link mapping="userShow" params="${user.encodeAsLinkProperties()}" itemprop="url" target="${targetBlank}">
                     <img src="${image.userImgSrc(user: user)}" alt="${user.fullName}" class="user-img" itemprop="image"><span
                         itemprop="name">${user.fullName}</span>
                 </g:link>

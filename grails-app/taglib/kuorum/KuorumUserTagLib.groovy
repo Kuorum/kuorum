@@ -94,9 +94,13 @@ class KuorumUserTagLib {
         if (!withPopover){
             popOverSpanElements = ""
         }
+        String targetBlank = "_self";
+        if (pageScope.widgetActive){
+            targetBlank = "_blank"
+        }
         String userLink = g.createLink(mapping: "userShow", params: user.encodeAsLinkProperties())
         out << """
-                <a href="${userLink}" $popOverSpanElements itemprop="url">
+                <a href="${userLink}" $popOverSpanElements target="${targetBlank}" itemprop="url">
                     <img src="${imgSrc}" alt="${user.name}" class="user-img" itemprop="image">
                     ${userName}
                 </a>
@@ -105,6 +109,7 @@ class KuorumUserTagLib {
             UserReputationRSDTO userReputationRSDTO = userReputationService.getReputation(user)
             out << g.render(template: '/kuorumUser/popoverUser', model: [
                     user: user,
+                    targetBlank:targetBlank,
                     userReputation: userReputationRSDTO
             ])
         }

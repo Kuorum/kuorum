@@ -2,6 +2,7 @@ var iFrameResizer = {
     messageCallback: function(message){
         //alert(message,window.parentIFrame.getId());
         $('#registro').css('top', message);
+        $("#debateDeleteConfirm").css('top', message);
     }
 }
 
@@ -14,5 +15,8 @@ $(function(){
         window.parentIFrame.sendMessage('Requesting height of scroll');
         //var y = $('#registro').data('y'); // gets the mouseY position
         //$('#registro').css('top', y);
+    });
+    $('#debateDeleteConfirm').on('show.bs.modal', function (e) {
+        window.parentIFrame.sendMessage('Requesting height of scroll');
     });
 })
