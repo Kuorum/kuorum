@@ -38,7 +38,7 @@
             <div class="user-box col-md-1 col-xs-12">
                 <img class="img-circle" alt="${userUtil.loggedUserName()}" src="${image.loggedUserImgSrc()}">
             </div>
-            <div class="comment editable-comment col-md-11 col-xs-12" data-placeholder="&#xf0e5;  Write your comment here..." style="min-height: 100px; padding-top: 20px"></div>
+            <div class="comment editable-comment col-md-11 col-xs-12" data-placeholder="${message(code: "debate.proposal.comment.placeholder")}" style="min-height: 100px; padding-top: 20px"></div>
         </div>
 
         <div class="actions clearfix">

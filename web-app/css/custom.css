@@ -517,7 +517,8 @@ header.transp #search-form .open-filter {background-color: rgba(219,219,219,0.4)
 .login.pass .btn.btn-lg {padding: 15px !important;}
 .modal-register.modal .modal-header {border: none;}
 .modal-register.modal .modal-body h2.social-login-buttons{display:none;}
-.modal-register.modal .modal-body .socialGo li {margin:20px 5px 0; max-width: 140px;}
+.modal-register.modal .modal-body .socialGo li {margin:20px 5px 0;}
+.modal-register.modal .modal-body .socialGo li a {max-width: 140px;}
 
 
 .container-fluid.userprofile #adminActions{left:inherit; right:20px; top: 5px; z-index: 1000;}
@@ -3535,6 +3536,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 
 body.widget .poweredByKuorum a{float: right;margin-right: 10px;color: #cccccc;}
 body.widget .poweredByKuorum a:hover{text-decoration: underline;}
+body.widget .call-to-action-mobile { display: none;  }
 
 .modal-register .modal-dialog {width: 290px; margin: 10px auto;}
 .modal-register .modal-dialog .modal-body {padding: 8px;}
@@ -5485,6 +5487,8 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
     #payment div.promotionalCodeSet input.code {margin: 10px 0px;}
     #payment form > .payment-method{width: 100%;}
+
+    .modal-register.modal .modal-body .socialGo {text-align: center; margin-bottom: 10px;}
 }
 
 /* Very small devices (mobile, 480px and up) */
@@ -6208,7 +6212,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .sign h1 {font-size: 36px; font-size: 3.6rem; margin-top: 30px;text-align: left;}
     .sign h2 {font-size: 26px; font-size: 2.6rem; line-height: 1.4; padding: 0 30px; margin-top: 25px;text-align: left;}
     .sign .login {margin-top: 50px; margin-bottom: 50px;}
-    .socialGo li {margin: 10px 45px 0 0;    width: 40%;}
+    /*.socialGo li {margin: 10px 45px 0 0;    width: 40%;}*/
     .sign.home .social-home-container .btn.btn-lg {padding: 14px 20px !important;}
 
     .list-project .kakareo.post.ley .total-info {padding-right: 10px;}
@@ -7873,6 +7877,7 @@ button.btn-see-more {
 .leader-post .header a.edit:hover {
     color: #00a3ed;
 }
+
 .leader-post .header .call-to-action-mobile button.call-message{
     position: absolute;
     top: -30px;
