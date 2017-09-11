@@ -58,6 +58,5 @@
     <div class="form-group"></div>
 </g:form>
 <div id="pass-forget-success" style="display: none;">
-    <h4><g:message code="forgotPasswordSuccess.intro.title"/></h4>
-    <p><g:message code="forgotPasswordSuccess.intro.subTitle"/> </p>
+    <p><strong><g:message code="forgotPasswordSuccess.intro.title"/>.</strong> <g:message code="forgotPasswordSuccess.intro.subTitle"/> </p>
 </div>
