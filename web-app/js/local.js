@@ -1074,12 +1074,7 @@ $(document).ready(function() {
         e.preventDefault();
         e.stopPropagation();
         var $form = $(this).parents("form[name=pass-forget]");
-        var callback = $form.attr("callback")
-        var callbackFunction = noLoggedCallbacks[callback]
-        if (noLoggedCallbacks[callback] == undefined){
-            callbackFunction = noLoggedCallbacks.reloadPage
-        }
-        modalForgotPassword($form, callbackFunction);
+        modalForgotPassword($form);
     });
 
     // Funcionamiento de los radio button como nav-tabs
@@ -1905,7 +1900,7 @@ function modalRegister($form, callback){
     }
 }
 
-function modalForgotPassword($form, callback){
+function modalForgotPassword($form){
     pageLoadingOn();
     if ($form.valid()) {
             var url = $form.attr("action")
@@ -1917,13 +1912,8 @@ function modalForgotPassword($form, callback){
                 url: url,
                 data: data,
                 success: function (dataLogin) {
-                    if (dataLogin.success) {
-                        callback()
-                    } else {
-                        // Form validation doesn't allow to take this conditional branch
-                        //document.location.href = dataLogin.url
-                        //display.warn(dataLogin);
-                    }
+                    $form.hide()
+                    $("#pass-forget-success").show()
                 },
                 complete: function () {
                     pageLoadingOff();

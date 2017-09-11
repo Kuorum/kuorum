@@ -15,7 +15,7 @@
                     required: true,
                     validate_email: true,
                     remote: {
-                        url: "${g.createLink(mapping: 'ajaxValidationForgotPassword')}",
+                        url: "${g.createLink(mapping: 'validateResetPasswordAjax')}",
                         type: "post",
                         data: {
                             email: function () {
@@ -56,3 +56,7 @@
         </p>
     </div>
 </g:form>
+<div id="pass-forget-success" style="display: none;">
+    <h4><g:message code="forgotPasswordSuccess.intro.title"/></h4>
+    <p><g:message code="forgotPasswordSuccess.intro.subTitle"/> </p>
+</div>
