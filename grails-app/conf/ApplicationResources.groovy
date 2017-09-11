@@ -93,7 +93,7 @@ modules = {
     }
 
     debate {
-        dependsOn("basic", "forms", 'kuorumCookies', 'application')
+        dependsOn("basic", "forms", 'cookiesHelper', 'application')
         resource url:'js/medium-editor/medium-editor.js'
         resource url:'css/medium-editor/medium-editor.min.css'
         resource url:'css/medium-editor/themes/default.css'
@@ -108,7 +108,7 @@ modules = {
     }
 
     widgetResizer {
-        dependsOn("basic", "forms")
+        dependsOn("basic", 'cookiesHelper')
         resource url:'js/widget/widget-helper.js'
         resource url:'js/widget/iframe-resizer/iframeResizer.contentWindow.min.js'
     }
@@ -176,8 +176,13 @@ modules = {
         resource url:'js/social/googlePlus.js'
     }
 
-    kuorumCookies{
+    cookiesHelper{
         dependsOn 'basic'
+        resource url:'js/cookies-helper.js'
+    }
+
+    kuorumCookies{
+        dependsOn 'cookiesHelper'
         resource url:'js/cookies.js'
     }
 
