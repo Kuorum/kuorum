@@ -8,7 +8,7 @@ function getKuorumSuggestions(prefix, callback){
         url: url,
         data: data,
         dataType: 'json'
-    }).done(function(data){
+    }).success(function(data){
         var suggestions = new Array();
         for (i = 0; i < data.suggestions.length; i++) {
             suggestions[i] = {
