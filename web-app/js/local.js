@@ -1014,15 +1014,25 @@ $(document).ready(function() {
     $('body').on('click','.change-home-register', function(e) {
         e.stopPropagation();
         e.preventDefault();
-        $(this).closest('form').hide();
-        $(this).closest('form').siblings('form').show();
+        $('form#login-modal').hide();
+        $('form#pass-forget').hide();
+        $('form#signup-modal').show();
     });
 
     $('body').on('click','.change-home-login', function(e) {
         e.stopPropagation();
         e.preventDefault();
-        $(this).closest('form').hide()
-        $(this).closest('form').siblings('form').show();
+        $('form#signup-modal').hide();
+        $('form#pass-forget').hide();
+        $('form#login-modal').show();
+    });
+
+    $('body').on('click','.change-home-forgot-password', function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        $('form#signup-modal').hide();
+        $('form#login-modal').hide();
+        $('form#pass-forget').show();
     });
 
     // al hacer clic en el botón "Regístrate" de la Home cambio el orden de aparición
@@ -1058,6 +1068,18 @@ $(document).ready(function() {
             callbackFunction = noLoggedCallbacks.reloadPage
         }
         modalRegister($form, callbackFunction);
+    });
+
+    $('#registro form[name=pass-forget] input[type=submit]').on('click', function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        var $form = $(this).parents("form[name=pass-forget]");
+        var callback = $form.attr("callback")
+        var callbackFunction = noLoggedCallbacks[callback]
+        if (noLoggedCallbacks[callback] == undefined){
+            callbackFunction = noLoggedCallbacks.reloadPage
+        }
+        modalForgotPassword($form, callbackFunction);
     });
 
     // Funcionamiento de los radio button como nav-tabs
@@ -1878,6 +1900,35 @@ function modalRegister($form, callback){
                 pageLoadingOff();
             }
         })
+    } else {
+        pageLoadingOff();
+    }
+}
+
+function modalForgotPassword($form, callback){
+    pageLoadingOn();
+    if ($form.valid()) {
+            var url = $form.attr("action")
+            var data = {
+                email: $form.find("input[name=email]").val()
+            };
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: data,
+                success: function (dataLogin) {
+                    if (dataLogin.success) {
+                        callback()
+                    } else {
+                        // Form validation doesn't allow to take this conditional branch
+                        //document.location.href = dataLogin.url
+                        //display.warn(dataLogin);
+                    }
+                },
+                complete: function () {
+                    pageLoadingOff();
+                }
+            });
     } else {
         pageLoadingOff();
     }

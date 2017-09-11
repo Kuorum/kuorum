@@ -4,7 +4,6 @@ import grails.converters.JSON
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.authentication.dao.NullSaltSource
-import grails.plugin.springsecurity.oauth.OAuthToken
 import grails.plugin.springsecurity.ui.RegistrationCode
 import grails.plugin.springsecurity.ui.ResetPasswordCommand
 import grails.plugin.springsecurity.ui.SpringSecurityUiService
@@ -14,7 +13,6 @@ import kuorum.core.model.AvailableLanguage
 import kuorum.files.FileService
 import kuorum.mail.MailchimpService
 import kuorum.notifications.NotificationService
-import kuorum.register.FacebookOAuthService
 import kuorum.register.IOAuthService
 import kuorum.register.RegisterService
 import kuorum.users.CookieUUIDService
@@ -232,6 +230,25 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
                 }
             }
         }
+    }
+
+    def forgotPasswordForm(){
+        render template: "/layouts/recoverPassword", model:[ modalId:'registro']
+    }
+
+    def ajaxForgotPassword = { ForgotUserPasswordCommand command ->
+
+        if (command.hasErrors()) {
+            render g.message(code:"kuorum.web.commands.customRegister.ForgotUserPasswordCommand.email.register.forgotPassword.notUserNameExists")
+            return
+        }
+
+        def registrationCode = new RegistrationCode(username: command.user.email)
+        registrationCode.save(flush: true)
+
+        String url = generateLinkWithMapping('resetPasswordChange', [t: registrationCode.token])
+
+        kuorumMailService.sendResetPasswordMail(command.user, url)
     }
 
     def forgotPassword(){

@@ -61,9 +61,12 @@
     <div class="form-group">
         <input type="submit" class="btn btn-blue btn-lg" value="${g.message(code:'login.email.form.login')}">
         <p>
-            <g:link mapping="resetPassword">
+            %{--<g:link mapping="resetPassword">--}%
+                %{--<g:message  code="login.email.form.password.forgotten"/>--}%
+            %{--</g:link>--}%
+            <a href="#" class="change-home-forgot-password">
                 <g:message  code="login.email.form.password.forgotten"/>
-            </g:link>
+            </a>
         </p>
     </div>
     <div class="form-group">

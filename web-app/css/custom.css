@@ -390,6 +390,7 @@ a:focus {color: #ff9431;}
 .modal-register.modal form  { width: 272px;}
 .navbar-nav .form .dropdown-menu #sign-header,
 .modal-dialog #login-modal {display: none;}
+.modal-dialog #pass-forget {display: none;}
 .modal-dialog #signup-modal {display: block;}
 
 
@@ -519,6 +520,8 @@ header.transp #search-form .open-filter {background-color: rgba(219,219,219,0.4)
 .modal-register.modal .modal-body h2.social-login-buttons{display:none;}
 .modal-register.modal .modal-body .socialGo li {margin:20px 5px 0;}
 .modal-register.modal .modal-body .socialGo li a {max-width: 140px;}
+
+.modal-register.modal .modal-body #pass-forget {text-align: center;}
 
 
 .container-fluid.userprofile #adminActions{left:inherit; right:20px; top: 5px; z-index: 1000;}
@@ -5489,6 +5492,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     #payment form > .payment-method{width: 100%;}
 
     .modal-register.modal .modal-body .socialGo {text-align: center; margin-bottom: 10px;}
+    .modal-register.modal .modal-body #pass-forget {text-align: center;}
 }
 
 /* Very small devices (mobile, 480px and up) */
