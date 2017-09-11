@@ -37,21 +37,21 @@
 </script>
 <g:form mapping="resetPassword" name="pass-forget" role="form" class="login pass">
     <div class="form-group">
-        <label>He olvidado mi contraseña</label>
-        <p>No te preocupes, nos pasa a todos, recuérdanos tu email y te ayudamos a cambiarla.</p>
+        <label><g:message code="forgotPassword.form.title"/></label>
+        <p><g:message code="forgotPassword.form.subTitle"/></p>
     </div>
     <div class="form-group">
         <label for="email" class="sr-only"><g:message code="login.email.form.email.label"/></label>
         <input type="email" name="email" class="form-control input-lg" id="email" required placeholder="Email" aria-required="true">
     </div>
     <div class="form-group">
-        <input type="submit" value="${message(code: 'forgotPassword.form.submit')}" class="btn btn-lg">
+        <input type="submit" value="${message(code: 'forgotPassword.form.submit')}" class="btn btn-lg btn-blue">
         <p>
             %{--<g:link mapping="resetPassword">--}%
             %{--<g:message  code="login.email.form.password.forgotten"/>--}%
             %{--</g:link>--}%
             <a href="#" class="change-home-login">
-                Ya me acuerdo de la contraseña
+                <g:message code="register.resetPassword.form.cancel"/>
             </a>
         </p>
     </div>
