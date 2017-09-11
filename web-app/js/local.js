@@ -39,7 +39,15 @@ function preparePopover(){
             .on("click", function(e){
                 if ( !($(this).hasClass('user-rating') || $(this).hasClass('rating'))) {
                     var href = $(this).attr("href");
-                    window.location=href;
+                    var target = $(this).attr("target");
+                    console.log("TARGET = "+target)
+                    console.log(target && target == "_blank" )
+                    if (target && target == "_blank" ){
+                        window.open(href, '_blank');
+                        e.preventDefault();
+                    }else{
+                        window.location=href;
+                    }
                 }
             });
 

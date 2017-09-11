@@ -5,6 +5,7 @@
         ${raw(params.customCss)}
         </style>
         <r:require modules="debate,widgetResizer"/>
+        <g:set var="widgetActive" value="${true}" scope="page"/>
     </head>
 
 
