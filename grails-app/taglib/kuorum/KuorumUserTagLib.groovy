@@ -47,6 +47,7 @@ class KuorumUserTagLib {
         }
     }
 
+    @Deprecated
     def showUserByAlias= { attrs, body ->
         String alias = attrs.alias
         attrs.showRole
@@ -450,8 +451,10 @@ class KuorumUserTagLib {
 
     def ifUserIsTheLoggedOne={attrs, body->
         KuorumUser user
-        if (attrs.user instanceof KuorumUser){
+        if (attrs.user instanceof KuorumUser) {
             user = attrs.user
+        }else if (attrs.user instanceof BasicDataKuorumUserRSDTO){
+            user = KuorumUser.get(new ObjectId(attrs.user.id))
         }else{
             user = KuorumUser.findByAlias(attrs.user)
         }
@@ -470,6 +473,8 @@ class KuorumUserTagLib {
             KuorumUser user
             if (attrs.user instanceof KuorumUser){
                 user = attrs.user
+            }else if (attrs.user instanceof BasicDataKuorumUserRSDTO){
+                user = KuorumUser.get(new ObjectId(attrs.user.id))
             }else{
                 user = KuorumUser.findByAlias(attrs.user)
             }

@@ -60,7 +60,7 @@ class DebateProposalController {
         KuorumUser debateUser = KuorumUser.findByAlias(command.debateAlias)
         DebateRSDTO debate = debateService.findDebate(debateUser, command.debateId)
         ProposalRSDTO proposalRSDTO = proposalService.addComment(user, debate, command.proposalId, command.body)
-        ProposalCommentRSDTO comment = proposalRSDTO.comments.reverseFind{it.userAlias == user.alias}
+        ProposalCommentRSDTO comment = proposalRSDTO.comments.reverseFind{it.user.id == user.id.toString()}
         render template: "/debate/showModules/mainContent/proposalDataComment", model:[debate:debate, proposal:proposalRSDTO, comment:comment]
     }
 

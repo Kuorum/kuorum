@@ -18,7 +18,7 @@ class ProposalService {
     RestKuorumApiService restKuorumApiService
 
     ProposalPageRSDTO findProposal(DebateRSDTO debate, SearchProposalRSDTO searchProposalRSDTO, String viewerUid = null){
-        Map<String, String> params = [userAlias: debate.userAlias,debateId:debate.id.toString()]
+        Map<String, String> params = [userAlias: debate.user.alias,debateId:debate.id.toString()]
         Map<String, String> query = searchProposalRSDTO.encodeAsQueryParams()
         if (viewerUid){
             query.put("viewerUid",viewerUid)
@@ -39,7 +39,7 @@ class ProposalService {
     }
 
     ProposalRSDTO addProposal(KuorumUser user, DebateRSDTO debate, String body) {
-        Map<String, String> params = [userAlias: debate.userAlias,debateId:debate.id.toString()]
+        Map<String, String> params = [userAlias: debate.user.alias,debateId:debate.id.toString()]
         Map<String, String> query = [:]
         ProposalRDTO proposalRDTO = new ProposalRDTO();
         proposalRDTO.body=body
@@ -115,7 +115,7 @@ class ProposalService {
     }
 
     ProposalRSDTO addComment(KuorumUser user, DebateRSDTO debate, Long proposalId, String body) {
-        Map<String, String> params = [userAlias: debate.userAlias,debateId:debate.id.toString(), proposalId:proposalId.toString() ]
+        Map<String, String> params = [userAlias: debate.user.alias,debateId:debate.id.toString(), proposalId:proposalId.toString() ]
         Map<String, String> query = [:]
         ProposalCommentRDTO commentRDTO = new ProposalCommentRDTO();
         commentRDTO.body=body.encodeAsRemovingScriptTags().encodeAsTargetBlank()
