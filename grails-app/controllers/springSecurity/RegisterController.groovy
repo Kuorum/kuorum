@@ -280,15 +280,24 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
             return
         }
 
+        String ulrCallback = cookieUUIDService.getRememberPasswordRedirect();
+        String urlCancelResetPassword = g.createLink(mapping:"login")
+        if (!ulrCallback){
+            def conf = SpringSecurityUtils.securityConfig
+            ulrCallback = conf.ui.register.postResetUrl ?: conf.successHandler.defaultTargetUrl
+        }else{
+            urlCancelResetPassword = ulrCallback;
+        }
         if (!request.post) {
-            return [token: token, command: new ResetPasswordCommand()]
+            //Request change password via GET [Not form filled]
+            return [token: token, command: new ResetPasswordCommand(), urlCancelResetPassword:urlCancelResetPassword]
         }
 
         command.username = registrationCode.username
         command.validate()
 
         if (command.hasErrors()) {
-            return [token: token, command: command]
+            return [token: token, command: command, urlCancelResetPassword:urlCancelResetPassword]
         }
 
         String salt = saltSource instanceof NullSaltSource ? null : registrationCode.username
@@ -303,11 +312,6 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         springSecurityService.reauthenticate registrationCode.username
 
         flash.message = message(code: 'spring.security.ui.resetPassword.success')
-        String ulrCallback = cookieUUIDService.getRememberPasswordRedirect();
-        if (!ulrCallback){
-            def conf = SpringSecurityUtils.securityConfig
-            ulrCallback = conf.ui.register.postResetUrl ?: conf.successHandler.defaultTargetUrl
-        }
         redirect uri: ulrCallback
     }
 
