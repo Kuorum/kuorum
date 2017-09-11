@@ -84,7 +84,7 @@ class LinkPropertiesCodec {
 
     private static def prepareParams(DebateRSDTO debate) {
         [
-                userAlias: debate.userAlias.toLowerCase(),
+                userAlias: debate.user.alias.toLowerCase(),
                 urlTitle: getNameTitleUrl(debate),
                 debateId: debate.id
         ]
@@ -100,7 +100,7 @@ class LinkPropertiesCodec {
 
     private static def prepareParams(PostRSDTO postRSDTO) {
         [
-                userAlias: postRSDTO.userAlias.toLowerCase(),
+                userAlias: postRSDTO.user.alias.toLowerCase(),
                 urlTitle: getNameTitleUrl(postRSDTO),
                 postId: postRSDTO.id
         ]
@@ -116,7 +116,7 @@ class LinkPropertiesCodec {
 
     private static def prepareParams(ProposalRSDTO proposalRSDTO) {
         [
-                userAlias: proposalRSDTO.debateAlias.toLowerCase(),
+                userAlias: proposalRSDTO.debateUser.alias.toLowerCase(),
                 urlTitle: getNameTitleUrl(proposalRSDTO),
                 debateId: proposalRSDTO.debateId
         ]

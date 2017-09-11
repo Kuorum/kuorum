@@ -26,13 +26,13 @@
                 <ul>
                     <g:if test="${showAuthor}">
                         <li class="owner">
-                            <userUtil:showUserByAlias
-                                    alias="${debate.userAlias}"
+                            <userUtil:showUser
+                                    user="${debate.user}"
                                     showName="true"
                                     showRole="true"
-                                    showActions="true"
-                                    showDeleteRecommendation="true"
-                                    htmlWrapper="li"
+                                    showActions="false"
+                                    showDeleteRecommendation="false"
+                                    htmlWrapper="div"
                             />
                         </li>
                     </g:if>

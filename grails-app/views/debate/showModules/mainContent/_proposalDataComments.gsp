@@ -56,7 +56,7 @@
                 data-postUrl="${g.createLink(mapping: 'debateProposalComment')}"
                 data-debateId="${debate.id}"
                 data-proposalId="${proposal.id}"
-                data-debateAlias="${debate.userAlias}"
+                data-debateAlias="${debate.user.alias}"
                 data-userLogged="${userUtil.loggedUserAlias()}">
                 <g:message code="debate.show.proposal.comments.save"/>
             </button>

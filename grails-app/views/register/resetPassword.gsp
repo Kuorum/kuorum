@@ -30,9 +30,9 @@
                     required="true"/>
         </div>
         <div class="form-group">
-            <g:link mapping="login" class="cancel">
+            <a href="${urlCancelResetPassword}" class="cancel">
                 <g:message code="register.resetPassword.form.cancel"/>
-            </g:link>
+            </a>
             <input type="submit" class="btn btn-lg" value="${g.message(code:'register.resetPassword.form.submit')}"/>
         </div>
     </g:form>

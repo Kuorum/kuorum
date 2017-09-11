@@ -26,13 +26,13 @@
                 <ul>
                     <g:if test="${showAuthor}">
                         <li class="owner">
-                            <userUtil:showUserByAlias
-                                    alias="${post.userAlias}"
+                            <userUtil:showUser
+                                    user="${post.user}"
                                     showName="true"
                                     showRole="true"
-                                    showActions="true"
-                                    showDeleteRecommendation="true"
-                                    htmlWrapper="li"
+                                    showActions="false"
+                                    showDeleteRecommendation="false"
+                                    htmlWrapper="div"
                             />
                         </li>
                     </g:if>
@@ -43,7 +43,7 @@
                     <li>
                         <a class="post-like ${post.liked && logged?'active':''}"
                         data-postId="${post.id}"
-                        data-userAlias="${post.userAlias}"
+                        data-userAlias="${post.user.alias}"
                         data-urlAction="${g.createLink(mapping: "postLike")}"
                         data-loggedUser="${sec.username()}">
                         <span class="fa ${post.liked && logged?'fa-heart':'fa-heart-o'} fa-lg"></span>

@@ -1,11 +1,11 @@
-<div id="proposal_${proposal.id}" class="conversation-box" data-debateId="${proposal.debateId}" data-debateAlias="${proposal.debateAlias}">
+<div id="proposal_${proposal.id}" class="conversation-box" data-debateId="${proposal.debateId}" data-debateAlias="${proposal.debateUser.alias}">
     <div class="header clearfix">
-        <userUtil:showUserByAlias alias="${proposal.userAlias}" extraCss="pull-left"/>
+        <userUtil:showUser user="${proposal.user}" extraCss="pull-left"/>
         <span class="time-ago middle-point left">
             <kuorumDate:humanDate date="${proposal.datePublished}"/>
         </span>
         <ul class="icons pull-right">
-            <userUtil:ifUserIsTheLoggedOne user="${debate.userAlias}">
+            <userUtil:ifUserIsTheLoggedOne user="${debate.user}">
                 <li>
                     <button
                             class="pin-proposal ${proposal.pinned?'active':''}"
@@ -13,7 +13,7 @@
                             type="button"
                             data-urlAction="${g.createLink(mapping: 'debateProposalPin')}"
                             data-debateId="${debate.id}"
-                            data-debateAlias="${debate.userAlias}"
+                            data-debateAlias="${debate.user.alias}"
                             data-proposalId="${proposal.id}"
                             data-userLogged="${userUtil.loggedUserAlias()}"
                             data-toggle="tooltip"
@@ -27,7 +27,7 @@
                     </button>
                 </li>
             </userUtil:ifUserIsTheLoggedOne>
-            <userUtil:elseIfUserNotIsTheLoggedOne user="${debate.userAlias}">
+            <userUtil:elseIfUserNotIsTheLoggedOne user="${debate.user}">
                 <g:if test="${proposal.pinned}">
                     <li >
                         <span class="fa-stack fa-lg pin-proposal active"
@@ -62,7 +62,7 @@
             <g:render template="/debate/showModules/mainContent/proposalDataInfoSocial" model="[debate:debate, proposal:proposal]"/>
 
             <div class="comment-counter pull-right">
-                <userUtil:ifUserIsTheLoggedOne user="${proposal.userAlias}">
+                <userUtil:ifUserIsTheLoggedOne user="${proposal.user}">
                     <button type="button" class="delete" data-ajaxDelete='${g.createLink(mapping: 'debateProposalDelete')}'>
                         <span class="middle-point right"><g:message code="post.show.comments.delete"/></span>
                     </button>
@@ -78,7 +78,7 @@
                         class="proposal-like ${activeButton?'active':''}"
                         data-urlAction="${g.createLink(mapping: 'debateProposalLike')}"
                         data-debateId="${debate.id}"
-                        data-debateAlias="${debate.userAlias}"
+                        data-debateAlias="${debate.user.alias}"
                         data-proposalId="${proposal.id}"
                         data-userLogged="${userUtil.loggedUserAlias()}"
                     >

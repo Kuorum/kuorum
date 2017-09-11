@@ -13,6 +13,7 @@ import kuorum.util.TimeZoneUtil
 import kuorum.web.commands.payment.contact.ContactFilterCommand
 import kuorum.web.commands.payment.debate.DebateContentCommand
 import kuorum.web.commands.payment.debate.DebateSettingsCommand
+import org.bson.types.ObjectId
 import org.kuorum.rest.model.communication.debate.DebateRDTO
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.kuorum.rest.model.communication.debate.search.ProposalPageRSDTO
@@ -49,7 +50,7 @@ class DebateController {
                 throw new KuorumException(message(code: "debate.notFound") as String)
             }
 
-            KuorumUser debateUser = kuorumUserService.findByAlias(debate.userAlias)
+            KuorumUser debateUser = KuorumUser.get(new ObjectId(debate.user.id));
             SearchProposalRSDTO searchProposalRSDTO = new SearchProposalRSDTO()
             searchProposalRSDTO.sort = new SortProposalRDTO()
             searchProposalRSDTO.sort.direction = SortProposalRDTO.Direction.DESC
