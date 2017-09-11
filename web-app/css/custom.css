@@ -3536,6 +3536,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 
 body.widget .poweredByKuorum a{float: right;margin-right: 10px;color: #cccccc;}
 body.widget .poweredByKuorum a:hover{text-decoration: underline;}
+body.widget .call-to-action-mobile { display: none;  }
 
 .modal-register .modal-dialog {width: 290px; margin: 10px auto;}
 .modal-register .modal-dialog .modal-body {padding: 8px;}
@@ -7876,6 +7877,7 @@ button.btn-see-more {
 .leader-post .header a.edit:hover {
     color: #00a3ed;
 }
+
 .leader-post .header .call-to-action-mobile button.call-message{
     position: absolute;
     top: -30px;
