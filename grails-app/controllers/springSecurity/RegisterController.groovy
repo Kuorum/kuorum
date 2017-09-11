@@ -236,19 +236,13 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         render template: "/layouts/recoverPassword", model:[ modalId:'registro']
     }
 
-    def ajaxForgotPassword = { ForgotUserPasswordCommand command ->
+    def ajaxValidationForgotPassword(ForgotUserPasswordCommand command) {
 
         if (command.hasErrors()) {
-            render g.message(code:"kuorum.web.commands.customRegister.ForgotUserPasswordCommand.email.register.forgotPassword.notUserNameExists")
-            return
+            render Boolean.FALSE.toString();
+        }else{
+            render Boolean.TRUE.toString();
         }
-
-        def registrationCode = new RegistrationCode(username: command.user.email)
-        registrationCode.save(flush: true)
-
-        String url = generateLinkWithMapping('resetPasswordChange', [t: registrationCode.token])
-
-        kuorumMailService.sendResetPasswordMail(command.user, url)
     }
 
     def forgotPassword(){

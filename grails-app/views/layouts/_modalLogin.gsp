@@ -13,7 +13,7 @@
             <div class="modal-body">
                 <!-- Formulario de Entrar -->
                 <g:include controller="login" action="loginForm"/>
-                <g:include controller="register" action="forgotPasswordForm" model="[command: new ForgotUserPasswordCommand()]"/>
+                <g:include controller="register" action="forgotPasswordForm"/>
                 <!-- Formulario de Registro -->
                 <g:render template="/layouts/registerForm" model="[registerCommand: new springSecurity.KuorumRegisterCommand(), formId:'signup-modal']"/>
                 <g:render template="/register/registerSocial"/>

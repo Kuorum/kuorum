@@ -96,7 +96,7 @@ class UrlMappings {
         name resetPassword:         "/$lang/sign-in/recover-password"(controller: "register"){action=[GET:"forgotPassword", POST:"forgotPasswordPost"]}
                                     "/sign-in/recover-password"{controller="redirect"; action= "redirect301"; newMapping='resetPassword'}
                                     "/registro/password-olvidado"{controller="redirect"; action= "redirect301"; newMapping='resetPassword'}
-        name resetPasswordAjax:      "/ajax/forgot-password" (controller:"register", action: "ajaxForgotPassword")
+        name validateResetPasswordAjax:"/ajax/forgot-password" (controller:"register", action: "ajaxValidationForgotPassword")
         name resetPasswordSent:     "/$lang/sign-up/verification-sent"(controller: "register", action:"forgotPasswordSuccess")
                                     "/registro/enviada-verificacion"{controller="redirect"; action= "redirect301"; newMapping='resetPasswordSent'}
         name resetPasswordChange:   "/$lang/sign-up/change-pass"(controller: "register"){action=[GET:"resetPassword", POST:"resetPassword"]}

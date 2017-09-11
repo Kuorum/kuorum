@@ -15,7 +15,7 @@
                     required: true,
                     validate_email: true,
                     remote: {
-                        url: "${g.createLink(mapping: 'resetPasswordAjax')}",
+                        url: "${g.createLink(mapping: 'ajaxValidationForgotPassword')}",
                         type: "post",
                         data: {
                             email: function () {
@@ -35,7 +35,7 @@
         });
     });
 </script>
-<g:form mapping="resetPasswordAjax" name="pass-forget" role="form" class="login pass">
+<g:form mapping="resetPassword" name="pass-forget" role="form" class="login pass">
     <div class="form-group">
         <label>He olvidado mi contraseña</label>
         <p>No te preocupes, nos pasa a todos, recuérdanos tu email y te ayudamos a cambiarla.</p>
