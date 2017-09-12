@@ -28,7 +28,6 @@
     /// FACBOOK AJAX LOGIN
     window.fbAsyncInit = function() {
         FB.init({
-            //            appId: '226641644202506',
             appId: '${_facebookConfig?.key?:''}',
             status: true,
             cookie: true, // enable cookies to allow the server to access the session
@@ -100,7 +99,7 @@
         // Get API key and client ID from API Console.
         // 'scope' field specifies space-delimited list of access scopes.
         gapi.client.init({
-            'apiKey': '${googleConfig?.jsKey?:''}',
+            'apiKey': '${_googleConfig?.jsKey?:''}',
             'discoveryDocs': [discoveryUrl],
             'clientId': '${_googleConfig?.key?:''}',
             'scope': SCOPE
