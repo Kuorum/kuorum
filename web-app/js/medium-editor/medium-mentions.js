@@ -163,8 +163,17 @@
                         !range.startContainer.parentNode.classList.contains("mention-no-valid") &&
                         isEditedText){
                         var mention = range.startContainer.parentNode
+                        console.log(mention);
                         var p = mention.parentNode
                         p.removeChild(mention);
+                        if (p.textContent.endsWith(" ")){
+                            //var spaceNode = this.document.createTextNode(" ");
+                            var spaceNode = this.document.createTextNode("\u00A0");
+                            //var spaceNode = this.document.createTextNode("&nbsp;");
+                            p.innerHTML= p.innerHTML.substring(0, p.innerHTML.length -1)
+                            p.appendChild(spaceNode)
+                            mediumEditor["default"].selection.select(this.document, spaceNode, 1);
+                        }
                         //selection.removeRange(range);
                     }
                 }
@@ -300,8 +309,8 @@
             _showPanelTimeout:undefined,
             showPanel: function () {
                 var editor =this;
-                //Only opens the panel after 300 ms. It avoids (mitigates) a race error with the keyboard input event
-                var panelShowDelayMilliseconds = 300;
+                //Only opens the panel after 100 ms. It avoids (mitigates) a race error with the keyboard input event
+                var panelShowDelayMilliseconds = 100;
                 if(!editor.isActivePanel()) {
                     if (editor._showPanelTimeout){
                         clearTimeout(editor._showPanelTimeout);
