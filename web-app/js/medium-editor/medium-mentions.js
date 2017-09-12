@@ -297,9 +297,22 @@
                     this.extraActiveTriggerClassName = this.extraActiveTriggerClassNameMap[this.trigger]
                 }
             },
+            _showPanelTimeout:undefined,
             showPanel: function () {
-
-                var editor = this;
+                var editor =this;
+                //Only opens the panel after 300 ms. It avoids (mitigates) a race error with the keyboard input event
+                var panelShowDelayMilliseconds = 300;
+                if(!editor.isActivePanel()) {
+                    if (editor._showPanelTimeout){
+                        clearTimeout(editor._showPanelTimeout);
+                    }
+                    editor._showPanelTimeout = setTimeout(function(){editor._showPanel(editor);}, panelShowDelayMilliseconds);
+                }else{
+                    editor._showPanel(editor);
+                }
+            },
+            _showPanel: function (editor) {
+                //var editor = this
                 if (this.suggestionRequestsXHR){
                     this.suggestionRequestsXHR.abort();
                 }
@@ -316,6 +329,7 @@
                     }
                 });
             },
+
             activatePanel: function () {
                 this.mentionPanel.classList.add("medium-editor-mention-panel-active"), (this.extraActivePanelClassName || this.extraActiveClassName) && this.mentionPanel.classList.add(this.extraActivePanelClassName || this.extraActiveClassName)
             },
