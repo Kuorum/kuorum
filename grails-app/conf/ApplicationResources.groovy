@@ -88,6 +88,7 @@ modules = {
         resource url:'js/youtube-helper.js'
         resource url:'js/custom.js'
         resource url:'css/custom.css'
+        resource url:'js/modal-login-form.js'
         resource url:'js/local.js'
         resource url:'js/profile.js'
     }
