@@ -1914,8 +1914,9 @@ function modalForgotPassword($form){
                     url: url,
                     data: data,
                     success: function (dataLogin) {
-                        $form.hide()
-                        $("#pass-forget-success").show()
+                        $form.hide();
+                        $('.socialGo').hide();
+                        $("#pass-forget-success").show();
                     },
                     complete: function () {
                         pageLoadingOff();
