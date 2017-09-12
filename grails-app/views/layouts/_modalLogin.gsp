@@ -99,7 +99,7 @@
         // Get API key and client ID from API Console.
         // 'scope' field specifies space-delimited list of access scopes.
         gapi.client.init({
-            'apiKey': '${_googleConfig?.secret?:''}',
+            'apiKey': '${_googleConfig?.jsKey?:''}',
             'discoveryDocs': [discoveryUrl],
             'clientId': '${_googleConfig?.key?:''}',
             'scope': SCOPE
