@@ -190,11 +190,16 @@ $(function () {
     $(".call-to-action-mobile button").on("click", function(){
         var $proposalBox = $(".comment-box .comment.editable");
         var navbarHeight = $('.navbar').outerHeight();
-        $('html, body').animate({
-            scrollTop: $proposalBox.offset().top - navbarHeight - 40
-        }, 1000, function () {
+        // if is widgetDebate
+        if($('body.widget').length != 0){
             $proposalBox.focus();
-        });
+        }else{
+            $('html, body').animate({
+                scrollTop: $proposalBox.offset().top - navbarHeight - 40
+            }, 1000, function () {
+                $proposalBox.focus();
+            });
+        }
     });
 
     // LightbulButton - comment-counter

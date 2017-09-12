@@ -38,7 +38,7 @@
         });
     });
 </script>
-<g:form mapping="resetPassword" name="pass-forget" role="form" class="login pass" data-toggle="forgotPassword">
+<g:form mapping="resetPassword" name="pass-forget" role="form" class="login pass">
     <div class="form-group">
         <span class="strong"><g:message code="forgotPassword.form.title"/></span>
         <p><g:message code="forgotPassword.form.subTitle"/></p>
