@@ -5256,6 +5256,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li a {border-radius: 0; paddi
 fieldset.multimedia ul.nav.nav-pills.nav-justified li a:first-child {border-radius: 4px 0px 0px 4px;}
 fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {border-radius: 0px 4px 4px 0px;}
 
+.strong {font-weight: bold}
 
 /* boxes columna derecha actialización Proyecto */
 .boxes.performance p {margin: 20px;}
@@ -5778,6 +5779,8 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     fieldset.multimedia ul.nav.nav-pills.nav-justified li a {padding: 5px 15px;}
     .charNum {margin: 0;}
     .login .btn.btn-blue.btn-lg {padding-left: 50px !important; padding-right: 50px !important;}
+    #pass-forget.login .btn.btn-blue.btn-lg { width: 100%; padding-left: 0px !important; padding-right: 0px !important;}
+    #pass-forget.login span.error { margin-bottom: 15px; float: left;}
 
     #detailsInfoVotes .icons {margin: 10px 0;}
     #info-sup-scroll {top: 55px; padding: 10px;}
@@ -5857,6 +5860,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     #detailsInfoVotes .table tbody tr td {text-align: center;}
     #detailsInfoVotes > .infoUpdates {margin-bottom: 0;}
     #detailsInfoVotes.autor .table tbody th {width: 45px;}
+
 
     /* karma */
     #karma {padding: 10px 20px 20px;}
