@@ -1046,6 +1046,16 @@ $(document).ready(function() {
         $('form#sign-modal').fadeOut('fast');
     });
 
+    // Restore normal appearance on modal
+    $('#registro').on('show.bs.modal', function(){
+        $('form#login-modal').hide();
+        $('form#pass-forget').hide();
+        $("#pass-forget-success").hide();
+
+        $('form#signup-modal').show();
+        $('.socialGo').show();
+    });
+
     $('#registro form[name=login-header] input[type=submit]').on('click', function(e){
         e.preventDefault();
         e.stopPropagation();
