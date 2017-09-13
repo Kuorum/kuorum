@@ -7,7 +7,8 @@
         <div class="clearfix">
             <span class="time-ago pull-left"><kuorumDate:humanDate date="${post.datePublished}"/> </span>
             <userUtil:ifUserIsTheLoggedOne user="${postUser}">
-                <g:link class="edit" mapping="postEditContent" params="${post.encodeAsLinkProperties()}">
+                <g:set var="modal" value="${post.newsletter.status == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SCHEDULED ?'modalEditScheduled':''}"/>
+                <g:link class="edit ${modal}" mapping="postEditContent" params="${post.encodeAsLinkProperties()}">
                     <span class="fa fa-pencil-square-o pull-right fa-2x" aria-hidden="true"></span>
                 </g:link>
             </userUtil:ifUserIsTheLoggedOne>
@@ -20,7 +21,6 @@
 
 
     <div class="footer clearfix">
-        %{--<g:render template="/post/showModules/mainContent/postDataLabels" model="[post:post]"/>--}%
         <g:render template="/post/showModules/mainContent/postDataSocial" model="[post:post, postUser:postUser]"/>
 
         <sec:ifLoggedIn><g:set var="isLogged" value="${true}"/></sec:ifLoggedIn>

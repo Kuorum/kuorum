@@ -27,7 +27,8 @@
             </div>
 
             <userUtil:ifUserIsTheLoggedOne user="${debateUser}">
-                <g:link class="edit" mapping="debateEditContent" params="${debate.encodeAsLinkProperties()}">
+                <g:set var="modal" value="${debate.newsletter.status == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SCHEDULED ?'modalEditScheduled':''}"/>
+                <g:link class="edit ${modal}" mapping="debateEditContent" params="${debate.encodeAsLinkProperties()}">
                     <span class="fa fa-pencil-square-o pull-right fa-2x" aria-hidden="true"></span>
                 </g:link>
             </userUtil:ifUserIsTheLoggedOne>

@@ -503,6 +503,35 @@ $(document).ready(function() {
         return false;
     });
 
+    // EDITAR BORRAR CAMPAÑAS
+    // abrir modal editar campaña planificada
+    $('body').on('click', 'a.modalEditScheduled', function(e) {
+        e.preventDefault();
+        var linkScheduled = $(this).attr('href');
+        $("#modalEditScheduled").modal("show");
+        $("a#modalEditScheduledButtonOk").attr("href", linkScheduled)
+    });
+
+    // cerrar modal confirmar borrar campaña
+    $('body').on('click','a.deleteCampaignBtn', function(e) {
+        e.preventDefault();
+        $("#campaignDeleteConfirm").modal("hide");
+        pageLoadingOn();
+        var link = $(this).attr("href")
+        var campaignId = $(this).attr("data-campaign-id")
+        var postData= {};
+        $.post( link, postData)
+            .done(function(data) {
+                campaignList.remove('id', campaignId);
+            })
+            .fail(function(messageError) {
+                display.warn("Error");
+            })
+            .always(function() {
+                pageLoadingOff();
+            });
+    });
+
     // FILTRADO Y BUSCADOR LISTADO CAMPAÑAS
     if ($('#listCampaigns').length) {
 
@@ -605,33 +634,6 @@ $(document).ready(function() {
         }
         prepareDeleteCampaignButton();
 
-        // abrir modal editar campaña planificada
-        $('body').on('click', 'a.modalEditScheduled', function(e) {
-            e.preventDefault();
-            var linkScheduled = $(this).attr('href');
-            $("#modalEditScheduled").modal("show");
-            $("a#modalEditScheduledButtonOk").attr("href", linkScheduled)
-        });
-
-        // cerrar modal confirmar envío campaña
-        $('body').on('click','a.deleteCampaignBtn', function(e) {
-            e.preventDefault();
-            $("#campaignDeleteConfirm").modal("hide");
-            pageLoadingOn();
-            var link = $(this).attr("href")
-            var campaignId = $(this).attr("data-campaign-id")
-            var postData= {};
-            $.post( link, postData)
-                .done(function(data) {
-                    campaignList.remove('id', campaignId);
-                })
-                .fail(function(messageError) {
-                    display.warn("Error");
-                })
-                .always(function() {
-                    pageLoadingOff();
-                });
-        });
         function prepareAndOpenCampaignConfirmDeletionModal(urlDeleteCampaign, campaignId){
             $("#campaignDeleteConfirm a.deleteCampaignBtn").attr("href",urlDeleteCampaign)
             $("#campaignDeleteConfirm a.deleteCampaignBtn").attr("data-campaign-id",campaignId)
