@@ -167,6 +167,21 @@ $(function () {
             $(".leader-post > .footer .comment-counter button").trigger("click");
         }
     };
+
+    function prepareCollapsableBodys(){
+        $.each($(".conversation-box .body"), function(idx,obj){
+            var pxMarginTopParent = 15;
+            var pxMarginBottomParent = 20;
+            var visibleHeight = 134;
+            var maxDivHeight = visibleHeight +pxMarginTopParent+pxMarginBottomParent;
+            //var maxDivHeight = 151;
+            if ($(this).height() > maxDivHeight ){
+                $(this).addClass("collapsible")
+            }
+        });
+    }
+    prepareCollapsableBodys();
+
     calcHeightProposalComments();
 
     var $callToAction = $('body').find('.comment-box.call-to-action');
@@ -248,19 +263,6 @@ $(function () {
             }, 1000);
         }
     });
-
-    function prepareCollapsableBodys(){
-        $.each($(".conversation-box .body"), function(idx,obj){
-            var pxMarginTopParent = 15;
-            var pxMarginBottomParent = 20;
-            var visibleHeight = 134;
-            var maxDivHeight = visibleHeight +pxMarginTopParent+pxMarginBottomParent;
-            if ($(this).height() > maxDivHeight ){
-                $(this).addClass("collapsible")
-            }
-        });
-    }
-    prepareCollapsableBodys();
 
 
 
