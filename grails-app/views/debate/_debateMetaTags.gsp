@@ -1,6 +1,6 @@
 %{--Page description. No longer than 155 characters.--}%
 <meta name="description" content="${debate.title}" />
-<g:set var="debateImage" value="${debate.photoUrl?:debate.videoUrl?g.resource(dir: "images", file: "rrss-share-video.png"):g.resource(dir: "images", file: "rrss-share-noimage.png")}"/>
+<g:set var="debateImage" value="${debate.photoUrl?:debate.videoUrl?g.resource(dir: "images", file: "rrss-share-video.png", absolute: true):g.resource(dir: "images", file: "rrss-share-noimage.png", absolute: true)}"/>
 
 <!-- Google Authorship and Publisher Markup -->
 %{--<link rel="author" href="https://plus.google.com/[Google+_Profile]/posts"/>--}%
@@ -16,6 +16,7 @@
 <!-- Twitter Card data -->
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:image" content="${debateImage}">
+<meta name="twitter:image:alt" content="${debate.title}">
 <meta name="twitter:site" content="@kuorumorg">
 <meta name="twitter:title" content="${g.message(code:'page.politicianProfile.title', args:[debate.title])}">
 %{--Page description less than 200 characters--}%
