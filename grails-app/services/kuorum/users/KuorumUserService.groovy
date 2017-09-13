@@ -674,7 +674,15 @@ class KuorumUserService {
             throw new KuorumException("Error desactivando un usuario")
         }                   
         indexSolrService.delete(user);
-        customerService.removeSubscription(user)
+
+        // CALLING API TO REMOVE CONTACT
+        Map<String, String> params = [userId: user.id.toString()]
+        Map<String, String> query = [:]
+        restKuorumApiService.delete(
+                RestKuorumApiService.ApiMethod.USER,
+                params,
+                query
+        )
     }
 
     @Deprecated

@@ -112,6 +112,7 @@ class RestKuorumApiService {
         USER_CAUSES_DEFENDED    ('/user/{userId}/causes/defend'),
         USER_CAUSES_DEFEND      ('/user/{userId}/causes/defend/{causeName}'),
 
+        USER                    ('/user/{userId}/'),
         USER_NEWS               ('/user/{userId}/news/'),
 
         USER_DATA               ('/user/{userId}/data/'),
