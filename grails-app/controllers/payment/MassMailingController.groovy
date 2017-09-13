@@ -11,7 +11,10 @@ import kuorum.users.CookieUUIDService
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
 import kuorum.web.commands.payment.contact.ContactFilterCommand
-import kuorum.web.commands.payment.massMailing.*
+import kuorum.web.commands.payment.massMailing.MassMailingCommand
+import kuorum.web.commands.payment.massMailing.MassMailingContentCommand
+import kuorum.web.commands.payment.massMailing.MassMailingSettingsCommand
+import kuorum.web.commands.payment.massMailing.MassMailingTemplateCommand
 import kuorum.web.commands.profile.TimeZoneCommand
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.kuorum.rest.model.communication.post.PostRSDTO
@@ -309,7 +312,13 @@ class MassMailingController {
     def sendReport(Long campaignId){
         KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
         TrackingMailStatsByCampaignPageRSDTO trackingPage = massMailingService.findTrackingMailsReport(loggedUser, campaignId)
-        render ([success:"success"] as JSON)
+        Boolean isAjax = request.xhr
+        if(isAjax){
+            render ([success:"success"] as JSON)
+        } else{
+            flash.message = g.message(code: 'modal.exportedTrackingEvents.title')
+            redirect (mapping: 'politicianMassMailingShow', params:[campaignId: campaignId])
+        }
     }
 
     def updateCampaign(MassMailingSettingsCommand command){
