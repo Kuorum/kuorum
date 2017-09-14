@@ -95,23 +95,15 @@ $(function(){
     var $sendButton = $('#campaignConfirm #saveCampaignBtn[data-redirectLink]');
     $sendButton.on('click', stepSubmit);
 
-    // Animate view when click on add image
-    $("a[data-filetype='IMAGE'][data-toggle='tab']").on('shown.bs.tab', function () {
-        var $choosePictureBox = $("#projectUploadImage");
+    // Animate view when click on add image or video
+    $("a[data-toggle='tab']").on('shown.bs.tab', function () {
+        var $navbarTabs = $("ul.nav-pills");
+        var navbarHeight = $('.navbar').outerHeight();
         $('html, body').animate({
-            scrollTop: $choosePictureBox.offset().top
+            scrollTop: $navbarTabs.offset().top - navbarHeight - 40
         }, 1000, function () {
-            $choosePictureBox.focus();
-        });
-    });
-
-    // Animate view when click on add video
-    $("a[data-filetype='YOUTUBE'][data-toggle='tab']").on('shown.bs.tab', function () {
-        var $chooseVideoBox = $("#videoPost");
-        $('html, body').animate({
-            scrollTop: $chooseVideoBox.offset().top
-        }, 1000, function () {
-            $chooseVideoBox.focus();
+            // ÑAPA: solo hace falta hacer focus para el input de video de YT
+            $("#videoPost").focus();
         });
     });
 });
