@@ -1,16 +1,16 @@
 
 function YoutubeHelper(){
-    var googleApiKey = "AIzaSyAVooZZq5A5kpuTrWvwU2X_P6oXpAszOAc"; // TODO: This key to a properties file
+    var googleApiKey = "AIzaSyBlkPXlyoUtZZfco4OF3o27OmL7NjCOXm0"; // TODO: This key to a properties file
     var that = this;
     function validYoutube(videoID, onSuccess, onError){
         $.ajax({
-            url: "https://www.googleapis.com/youtube/v3/videos?part=status&id="+videoID+"&key="+googleApiKey,
+            url: "https://www.googleapis.com/youtube/v3/videos?part=snippet&id="+videoID+"&key="+googleApiKey,
             //dataType: "jsonp",
             success: function(data) {
                 if (data.pageInfo.totalResults <= 0){
                     onError();
                 }else{
-                    onSuccess();
+                    onSuccess(data);
                 }
             },
             error: function(jqXHR, textStatus, errorThrown)
@@ -19,18 +19,29 @@ function YoutubeHelper(){
             }
         });
     }
+
+    function maxResImage(response, img){
+        $.each(response.items, function (index, item) {
+            var maxResUrl = item.snippet.thumbnails.maxres.url;
+            if(maxResUrl != undefined){
+                img.setAttribute('src', maxResUrl);
+            }
+        });
+    }
+
     this.checkValidYoutube= function(img){
         var youtubeId = img.getAttribute("data-youtubeId");
         var imageYoutubeNotFound = img.getAttribute("data-urlYoutubeNotFound");
-        validYoutube(youtubeId, function(){}, function(){
+        validYoutube(youtubeId, function(data){
+            maxResImage(data, img);
+        }, function(){
             img.setAttribute("src", imageYoutubeNotFound);
             var a = img.parentNode
             var videoContainer = a.parentNode
             videoContainer.innerHTML="";
             videoContainer.appendChild(img)
         });
-
-    }
+    };
 
     this.metaTags = ["property='og:image'","itemprop=image", "name='twitter:image:src'"];
     this.replaceNonExistImage=function(){
