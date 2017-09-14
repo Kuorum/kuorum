@@ -500,17 +500,22 @@ class ContactsController {
             redirect controller: 'error', action: 'notFound'
             return
         }
+        if (!email){
+            email = params.md_email //Mandrillapp param
+        }
         ContactRSDTO contact = contactService.checkContactUser(user, email, digest)
         if (contact == null){
             redirect controller: 'error', action: 'notFound'
             return
         }
-        boolean success = contactService.unsubscribeContactUser(user, email, digest)
-        if (!success){
-            flash.error="There was an error deleting your user. If the problem persists, please contact with info@kuorum.org"
-            redirect mapping:'userUnsubscribe', params: [userId:userId, email:email, digest: digest]
-            return
-        }
+
+        // NOT NECESSARY || HANDLE BY MANDRILLAPP WITH THE WEBHOOK -> Event unsub
+//        boolean success = contactService.unsubscribeContactUser(user, email, digest)
+//        if (!success){
+//            flash.error="There was an error deleting your user. If the problem persists, please contact with info@kuorum.org"
+//            redirect mapping:'userUnsubscribe', params: [userId:userId, email:email, digest: digest]
+//            return
+//        }
         [user:user, contact:contact]
     }
 
