@@ -377,7 +377,7 @@ class MassMailingController {
         campaignRQDTO
     }
 
-    def sendMassMailingTest(MassMailingCommand command, KuorumUser user){
+    def sendMassMailingTest(MassMailingContentCommand command, KuorumUser user){
         KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
         if (command.hasErrors()){
             String msg = "error"
