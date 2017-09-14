@@ -94,6 +94,26 @@ $(function(){
 
     var $sendButton = $('#campaignConfirm #saveCampaignBtn[data-redirectLink]');
     $sendButton.on('click', stepSubmit);
+
+    // Animate view when click on add image
+    $("a[data-filetype='IMAGE'][data-toggle='tab']").on('shown.bs.tab', function () {
+        var $choosePictureBox = $("#projectUploadImage");
+        $('html, body').animate({
+            scrollTop: $choosePictureBox.offset().top
+        }, 1000, function () {
+            $choosePictureBox.focus();
+        });
+    });
+
+    // Animate view when click on add video
+    $("a[data-filetype='YOUTUBE'][data-toggle='tab']").on('shown.bs.tab', function () {
+        var $chooseVideoBox = $("#videoPost");
+        $('html, body').animate({
+            scrollTop: $chooseVideoBox.offset().top
+        }, 1000, function () {
+            $chooseVideoBox.focus();
+        });
+    });
 });
 
 function stepSubmit (e){
