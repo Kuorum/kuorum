@@ -68,6 +68,15 @@ function prepareEditorComment(){
 prepareEditorComment();
 
 $(function () {
+
+    // Stops unload when there's something written
+    $(window).bind('beforeunload', function() {
+        var $editableFields = $("div.comment.medium-editor-element");
+        if($editableFields.text().length > 0){
+            return false;
+        }
+    });
+
     //Calculo de altura de las cajas de comentarios de debate
 
     function calcHeightProposalComments(){
