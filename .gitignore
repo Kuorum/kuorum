@@ -17,6 +17,7 @@
 /src/java/development_config.properties
 /src/java/test_config.properties
 /src/java/production_config.properties
+/src/java/preproduction_config.properties
 /src/java/salenda_config.properties
 
 covertura.ser
