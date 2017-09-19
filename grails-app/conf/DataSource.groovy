@@ -53,7 +53,7 @@ environments {
     preproduction {
         grails{
             mongo {
-                host = "172.31.17.196"
+		replicaSet = [ "192.168.0.120:27017"]
                 port = "27017"
                 username = ""
                 password = ""
