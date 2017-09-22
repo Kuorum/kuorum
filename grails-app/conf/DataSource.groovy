@@ -78,9 +78,9 @@ environments {
     production {
         grails{
             mongo {
-                host = "172.31.40.27"
+                replicaSet = [ "192.168.0.50:27017"]
 //                host = "localhost"
-                port = "27017"
+//                port = "27017"
                 username = ""
                 password = ""
                 databaseName = "Kuorum"
