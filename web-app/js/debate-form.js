@@ -31,14 +31,6 @@ $(function(){
     $('body').on('click','.form-final-options #send-draft', function(e) {
         e.preventDefault();
         if (isValidDebateForm()) {
-            // Autoset publish day for today
-            var date = new Date();
-            var dateString = date.getDate()
-                + "/" + ("0" + (date.getMonth() + 1)).slice(-2)
-                + "/" + date.getFullYear()
-                + " " + date.getHours() + ":" + date.getMinutes();
-            $("input[name='publishOn']").val(dateString);
-            $("input[name='sendType']").val("SEND");
             prepareAndOpenDebateConfirmModal();
         }
     });
@@ -93,7 +85,16 @@ $(function(){
     $saveDraftDebate.on('click', stepSubmit);
 
     var $sendButton = $('#campaignConfirm #saveCampaignBtn[data-redirectLink]');
-    $sendButton.on('click', stepSubmit);
+    $sendButton.on('click', function(){
+        var date = new Date();
+        var dateString = date.getDate()
+            + "/" + ("0" + (date.getMonth() + 1)).slice(-2)
+            + "/" + date.getFullYear()
+            + " " + date.getHours() + ":" + date.getMinutes();
+        $("input[name='publishOn']").val(dateString);
+        $("input[name='sendType']").val("SEND");
+        stepSubmit
+    });
 
     // Animate view when click on add image or video
     $("a[data-toggle='tab']").on('shown.bs.tab', function () {

@@ -106,9 +106,6 @@ class PostController {
             if(command.errors.getFieldError().arguments.first() == "publishOn"){
                 flash.error = message(code: "post.scheduleError")
             }
-//            else{
-//                flash.error = message(code: "post.formError")
-//            }
             render view: 'editContentStep', model: postModelContent(Long.parseLong(params.postId), command)
             return
         }
