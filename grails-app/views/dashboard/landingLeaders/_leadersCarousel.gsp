@@ -39,8 +39,13 @@
                                 labelCssClass="sr-only"
                                 required="true"/>
                     </div>
-
-                    <button type="submit" class="btn btn-blue btn-lg col-lg-4"><g:message code="${msgPrefix}.carousel.login.submit"/></button>
+                    <g:render template="/layouts/recaptchaForm"/>
+                    <button type="submit"
+                            data-sitekey="6LddUDIUAAAAAPbU7ETh6XozSwjR1Zfr1vbxf3wd"
+                            data-size="invisible"
+                            data-callback='onSubmit'
+                            class="btn btn-blue btn-lg col-lg-4 g-recaptcha"><g:message code="${msgPrefix}.carousel.login.submit"/>
+                    </button>
                 </fieldset>
             </g:form>
             <p class="conditions hidden-xs"><g:message code="register.conditions" args="[g.createLink(mapping: 'footerTermsUse')]"/></p>
@@ -95,5 +100,6 @@
                 $(this).slideToggle();
             });
         });
+
     });
 </script>

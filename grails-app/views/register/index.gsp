@@ -32,7 +32,14 @@
                     required="true"/>
         </div>
         <div class="form-group">
-            <input type="submit" class="btn btn-lg" value="${g.message(code:'register.email.form.submit')}">
+            <g:render template="/layouts/recaptchaForm"/>
+            <input type="submit"
+                    data-sitekey="6LddUDIUAAAAAPbU7ETh6XozSwjR1Zfr1vbxf3wd"
+                    data-size="invisible"
+                    data-callback='onSubmit'
+                    class="btn btn-lg g-recaptcha"
+                    value="${g.message(code:'register.email.form.submit')}"/>
+            %{--<input type="submit" class="btn btn-lg" value="${g.message(code:'register.email.form.submit')}">--}%
             <p><g:message code="register.conditions" args="[g.createLink(mapping: 'footerPrivacyPolicy')]" encodeAs="raw"/></p>
         </div>
         <div class="form-group">
