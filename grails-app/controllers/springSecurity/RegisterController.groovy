@@ -21,6 +21,7 @@ import kuorum.users.KuorumUserService
 import kuorum.web.commands.customRegister.ContactRegister
 import kuorum.web.commands.customRegister.ForgotUserPasswordCommand
 import kuorum.web.commands.customRegister.RequestDemoCommand
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.i18n.LocaleContextHolder
 import org.springframework.security.core.context.SecurityContextHolder
 
@@ -37,6 +38,9 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
     FileService fileService
     MailchimpService mailchimpService
     CookieUUIDService cookieUUIDService
+
+    @Value('${recaptcha.providers.google.secretKey}')
+    String RECAPTCHA_SECRET
 
     def index() {
         def copy = [:] + (flash.chainedParams ?: [:])
@@ -57,13 +61,31 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
             render view: 'index', model: [command: command]
             return
         }
-
+        if(params.'g-recaptcha-response'){
+            if(!verifyRegister()){
+                flash.error = g.message(error: 'register.locked.recaptcha.error')
+                return
+            }
+        }
         KuorumUser user = registerService.registerUser(command)
         if (params.editor){
             //If the registrations comes from editorLandingPage
             notificationService.sendEditorPurchaseNotification(user)
         }
         redirect mapping:"home"
+    }
+
+    def verifyRegister(){
+        String secretKey = RECAPTCHA_SECRET
+        String response = params.'g-recaptcha-response'
+        URL url = new URL("https://www.google.com/recaptcha/api/siteverify?secret=$secretKey&response=$response")
+        HttpURLConnection con = (HttpURLConnection) url.openConnection()
+        con.setRequestMethod("GET")
+        int status = con.getResponseCode()
+        if(status != HttpURLConnection.HTTP_OK)
+            return false
+        else
+            return true
     }
 
     def registerRRSSOAuthAjax(){

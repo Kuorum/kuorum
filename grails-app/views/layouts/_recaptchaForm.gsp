@@ -3,7 +3,6 @@
     function onSubmit(token) {
         document.getElementById("landing-register").submit();
     }
-
 </script>
 <style>
     .grecaptcha-badge{
