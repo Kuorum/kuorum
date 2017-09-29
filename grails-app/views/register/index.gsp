@@ -34,7 +34,7 @@
         <div class="form-group">
             <g:render template="/layouts/recaptchaForm"/>
             <input type="submit"
-                    data-sitekey="6LddUDIUAAAAAPbU7ETh6XozSwjR1Zfr1vbxf3wd"
+                    data-sitekey="${siteKey}"
                     data-size="invisible"
                     data-callback='onSubmit'
                     class="btn btn-lg g-recaptcha"

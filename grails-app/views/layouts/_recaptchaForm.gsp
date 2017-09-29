@@ -4,8 +4,3 @@
         document.getElementById("landing-register").submit();
     }
 </script>
-<style>
-    .grecaptcha-badge{
-        display: none;
-    }
-</style>

@@ -751,6 +751,11 @@ header.transp #search-form .open-filter {background-color: rgba(219,219,219,0.4)
     font-size: 25px !important;
     width: 100%;
 }
+
+.grecaptcha-badge{
+    display: none;
+}
+
 .popover .btn.btn-blue.disabled {}
 .boxes .btn {margin-bottom: 20px !important;}
 .boxes .cancel {margin: 0 !important; float: right;}

@@ -39,6 +39,9 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
     MailchimpService mailchimpService
     CookieUUIDService cookieUUIDService
 
+    @Value('${recaptcha.providers.google.siteKey}')
+    String RECAPTCHA_SITEKEY
+
     @Value('${recaptcha.providers.google.secretKey}')
     String RECAPTCHA_SECRET
 
@@ -53,7 +56,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
             flash.message = message(code:'register.alreadyRegistered')
             return
         }
-        [command: new KuorumRegisterCommand(copy)]
+        [command: new KuorumRegisterCommand(copy), siteKey: RECAPTCHA_SITEKEY]
     }
 
     def register(KuorumRegisterCommand command) {
@@ -61,12 +64,12 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
             render view: 'index', model: [command: command]
             return
         }
-        if(params.'g-recaptcha-response'){
-            if(!verifyRegister()){
-                flash.error = g.message(error: 'register.locked.recaptcha.error')
-                return
-            }
+
+        if(!verifyRegister()){
+            flash.error = g.message(error: 'register.locked.recaptcha.error')
+            return
         }
+
         KuorumUser user = registerService.registerUser(command)
         if (params.editor){
             //If the registrations comes from editorLandingPage
@@ -104,6 +107,11 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
     def ajaxRegister(KuorumRegisterCommand command){
         if (command.hasErrors()) {
             render ([success:false] as JSON)
+            return
+        }
+
+        if(!verifyRegister()){
+            flash.error = g.message(error: 'register.locked.recaptcha.error')
             return
         }
 

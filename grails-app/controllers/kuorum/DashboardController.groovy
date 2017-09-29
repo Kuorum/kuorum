@@ -19,14 +19,13 @@ import kuorum.web.commands.profile.SocialNetworkCommand
 import kuorum.web.constants.WebConstants
 import org.kuorum.rest.model.communication.PageCampaignRSDTO
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
-import org.kuorum.rest.model.communication.debate.PageDebateRSDTO
-import org.kuorum.rest.model.communication.post.PagePostRSDTO
 import org.kuorum.rest.model.communication.post.PostRSDTO
 import org.kuorum.rest.model.notification.campaign.CampaignRSDTO
 import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
 import org.kuorum.rest.model.payment.KuorumPaymentPlanDTO
 import org.kuorum.rest.model.tag.CauseRSDTO
 import org.kuorum.rest.model.tag.SuggestedCausesRSDTO
+import org.springframework.beans.factory.annotation.Value
 import payment.CustomerService
 import payment.campaign.DebateService
 import payment.campaign.MassMailingService
@@ -49,6 +48,9 @@ class DashboardController {
     DashboardService dashboardService
     CookieUUIDService cookieUUIDService
     CustomerService customerService;
+
+    @Value('${recaptcha.providers.google.siteKey}')
+    String RECAPTCHA_SITEKEY
 
     private  static final Integer MAX_PROJECT_EVENTS = 2
 
@@ -255,7 +257,7 @@ class DashboardController {
     }
 
     def landingCitizens(){
-        [command: new KuorumRegisterCommand()]
+        [command: new KuorumRegisterCommand(), siteKey: RECAPTCHA_SITEKEY]
     }
 
     def landingPrices(){
@@ -269,7 +271,7 @@ class DashboardController {
             flash.message = flash.message
             redirect (mapping:"dashboard")
         }else{
-            render(view: "landingLeaders", model: [command: new KuorumRegisterCommand()])
+            render(view: "landingLeaders", model: [command: new KuorumRegisterCommand(), siteKey: RECAPTCHA_SITEKEY])
         }
     }
 
@@ -279,7 +281,7 @@ class DashboardController {
             flash.message = flash.message
             redirect (mapping:"dashboard")
         }else{
-            render(view: "landingCorporations", model: [command: new KuorumRegisterCommand()])
+            render(view: "landingCorporations", model: [command: new KuorumRegisterCommand(), siteKey: RECAPTCHA_SITEKEY])
         }
     }
 
@@ -289,7 +291,7 @@ class DashboardController {
             flash.message = flash.message
             redirect (mapping:"dashboard")
         }else{
-            render(view: "landingCorporationsBrands", model: [command: new KuorumRegisterCommand()])
+            render(view: "landingCorporationsBrands", model: [command: new KuorumRegisterCommand(), siteKey: RECAPTCHA_SITEKEY])
         }
     }
 
@@ -299,7 +301,7 @@ class DashboardController {
             flash.message = flash.message
             redirect (mapping:"dashboard")
         }else{
-            render(view: "landingOrganizations", model: [command: new KuorumRegisterCommand()])
+            render(view: "landingOrganizations", model: [command: new KuorumRegisterCommand(), siteKey: RECAPTCHA_SITEKEY])
         }
     }
 }
