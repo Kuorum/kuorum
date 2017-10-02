@@ -105,7 +105,7 @@
                 </h4>
             </div>
             <div class="modal-body">
-                <a href="#" class="btn btn-blue inverted btn-lg" id="saveCampaignBtn" data-redirectLink="${mappings.showResult}">
+                <a href="#" class="btn btn-blue inverted btn-lg" id="saveCampaignBtn" data-redirectLink="${mappings.showResult}" data-callback="">
                     <g:message code="tools.massMailing.confirmationModal.button"/>
                 </a>
             </div>

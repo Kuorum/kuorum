@@ -31,6 +31,7 @@ $(function(){
     $('body').on('click','.form-final-options #send-draft', function(e) {
         e.preventDefault();
         if (isValidDebateForm()) {
+            $('#saveCampaignBtn').attr('data-callback', 'sendParams');
             prepareAndOpenDebateConfirmModal();
         }
     });
@@ -38,7 +39,8 @@ $(function(){
     $('body').on('click','.form-final-options #send-debate-later', function(e) {
         e.preventDefault();
         if (isValidDebateForm()) {
-            $("input[name='sendType']").val("SCHEDULED");
+            $('#saveCampaignBtn').attr('data-callback', 'scheduleParams');
+            //$("input[name='sendType']").val("SCHEDULED");
             prepareAndOpenCampaignConfirmModal();
         }
     });
@@ -85,15 +87,17 @@ $(function(){
     $saveDraftDebate.on('click', stepSubmit);
 
     var $sendButton = $('#campaignConfirm #saveCampaignBtn[data-redirectLink]');
-    $sendButton.on('click', function(){
-        var date = new Date();
-        var dateString = date.getDate()
-            + "/" + ("0" + (date.getMonth() + 1)).slice(-2)
-            + "/" + date.getFullYear()
-            + " " + date.getHours() + ":" + date.getMinutes();
-        $("input[name='publishOn']").val(dateString);
-        $("input[name='sendType']").val("SEND");
-        stepSubmit
+    $sendButton.on('click', function(e){
+        e.preventDefault();
+        var callback = $('#saveCampaignBtn').attr('data-callback');
+        var $form = $('form#politicianMassMailingForm');
+        var $inputHidden = $form.find('#redirectLink');
+        var redirect = $(this).attr('data-redirectLink');
+        $inputHidden.attr('value', redirect);
+        if (callback != undefined && callback != ""){
+            window[callback]();
+        }
+        stepSubmit(e);
     });
 
     // Animate view when click on add image or video
@@ -109,12 +113,29 @@ $(function(){
     });
 });
 
+function sendParams() {
+    var date = new Date();
+    var dateString = date.getDate()
+        + "/" + ("0" + (date.getMonth() + 1)).slice(-2)
+        + "/" + date.getFullYear()
+        + " " + date.getHours() + ":" + date.getMinutes();
+    $("input[name='publishOn']").val(dateString);
+    $("input[name='sendType']").val("SEND");
+}
+
+function scheduleParams() {
+    $("input[name='sendType']").val("SCHEDULED");
+}
+
 function stepSubmit (e){
     e.preventDefault();
     var $form = $('form#politicianMassMailingForm');
     var $inputHidden = $form.find('#redirectLink');
-    var redirect = $(this).attr('data-redirectLink');
-    $inputHidden.attr('value', redirect);
+    console.log($inputHidden.val());
+    if($inputHidden.val() == undefined || $inputHidden.val() == ""){
+        var redirect = $(this).attr('data-redirectLink');
+        $inputHidden.attr('value', redirect);
+    }
     var $filter = $('select#recipients option:selected').length;
     if($filter && filterContacts.isFilterEdited()){
         var amountContacts = $('select#recipients option:selected').attr("data-amountContacts");
