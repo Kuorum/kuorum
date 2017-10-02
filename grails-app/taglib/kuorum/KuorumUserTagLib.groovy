@@ -70,7 +70,7 @@ class KuorumUserTagLib {
             name = attrs.user.highlighting.owner?:user.name
         }else if (attrs.user instanceof BasicDataKuorumUserRSDTO){
             user = KuorumUser.get(new ObjectId(attrs.user.id))
-            name = user.name
+            name = user.fullName
         }else{
             user = attrs.user
             name = user.fullName

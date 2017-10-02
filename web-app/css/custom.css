@@ -1970,6 +1970,12 @@ ul.user-list-followers .loading.xs {width: 10px; height: 10px;}
 .user-type {position: absolute; top: 32px; line-height: 1;}
 .popover-user .user-type {left: 2px;}
 .popover-user .popover-user-header {margin-bottom: 15px;}
+.popover-user .popover-user-header .user {
+    max-width: 150px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
 
 .user-list-images,
 .boxes.taking-part .user-list-followers {margin: 0 0 20px 0; padding: 0; display: inline-block; line-height: 1.2;}
@@ -5580,6 +5586,8 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .modal-register .modal-dialog .modal-body {padding: 0px 20px 20px 20px;}
     .promo-options table.kuorum-prices-table th,
     .promo-options table.kuorum-prices-table td{padding:5px 5px; font-size:15px;}
+
+    .conversation-box-comment .header .user {  max-width: 250px !important;  }
 }
 @media only screen and (min-width: 533px) {
     #detailsInfoVotes .table tbody th {width: 205px;}
@@ -6907,7 +6915,6 @@ fieldset.form-group {min-height: 50px;}
         font-size: 12px;
         text-align: center;
     }
-
 }
 
 .extra-padding{
@@ -7623,6 +7630,8 @@ header .header-msg h6:hover{
         margin-bottom: 14px;
     }
     #enterTimeZone .modal-body fieldset.time-zone .form-group select[name='timeZoneId']{display: inline;width: auto;}
+
+    .conversation-box-comment .header .user {  max-width: 500px !important;  }
 }
 
 /* contact modal =========== */
@@ -8188,6 +8197,13 @@ div [class^='comment-box col-'] {
     border: none;
     background-color: transparent;
     color: #D0D0D0;
+}
+
+.conversation-box-comment .header .user {
+    max-width: 150px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .conversation-box         .header .user + .time-ago,
