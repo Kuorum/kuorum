@@ -1,0 +1,92 @@
+package kuorum.landings
+
+import grails.plugin.springsecurity.SpringSecurityService
+import springSecurity.KuorumContactUsCommand
+import springSecurity.KuorumRegisterCommand
+
+class LandingController {
+
+    SpringSecurityService springSecurityService
+
+    def index() { }
+
+    def landingServices(){
+        if (springSecurityService.isLoggedIn()){
+            flash.message = flash.message
+            redirect (mapping:"dashboard")
+        }else{
+//            render(view: "landingServices", model: [command: new KuorumRegisterCommand(), siteKey: RECAPTCHA_SITEKEY])
+            render(view: "landingServices", model: [command: new KuorumRegisterCommand()])
+        }
+    }
+
+    def landingTechnology(){
+        if (springSecurityService.isLoggedIn()){
+            flash.message = flash.message
+            redirect (mapping:"dashboard")
+        }else{
+//            render(view: "landingServices", model: [command: new KuorumRegisterCommand(), siteKey: RECAPTCHA_SITEKEY])
+            render(view: "landingTechnology", model: [command: new KuorumContactUsCommand()])
+        }
+    }
+
+    def landingEnterprise(){
+        if (springSecurityService.isLoggedIn()){
+            flash.message = flash.message
+            redirect (mapping:"dashboard")
+        }else{
+//            render(view: "landingServices", model: [command: new KuorumRegisterCommand(), siteKey: RECAPTCHA_SITEKEY])
+            render(view: "landingEnterprise", model: [command: new KuorumContactUsCommand()])
+        }
+    }
+
+    def landingCasesStudy(){
+        if (springSecurityService.isLoggedIn()){
+            flash.message = flash.message
+            redirect (mapping:"dashboard")
+        }else{
+//            render(view: "landingServices", model: [command: new KuorumRegisterCommand(), siteKey: RECAPTCHA_SITEKEY])
+            render(view: "landingCasesStudy")
+        }
+    }
+
+    def individualCaseStudy(){
+        if (springSecurityService.isLoggedIn()){
+            flash.message = flash.message
+            redirect (mapping:"dashboard")
+        }else{
+//            render(view: "landingServices", model: [command: new KuorumRegisterCommand(), siteKey: RECAPTCHA_SITEKEY])
+            render(view: "individualCaseStudy", model: [command: new KuorumContactUsCommand()])
+        }
+    }
+
+    def landingFooter(){
+        if (springSecurityService.isLoggedIn()){
+            flash.message = flash.message
+            redirect (mapping:"dashboard")
+        }else{
+//            render(view: "landingServices", model: [command: new KuorumRegisterCommand(), siteKey: RECAPTCHA_SITEKEY])
+            render(view: "footerAboutUs")
+        }
+    }
+
+    def footerContactUs(){
+        if (springSecurityService.isLoggedIn()){
+            flash.message = flash.message
+            redirect (mapping:"dashboard")
+        }else{
+//            render(view: "landingServices", model: [command: new KuorumRegisterCommand(), siteKey: RECAPTCHA_SITEKEY])
+            render(view: "footerContactUs", model: [command: new KuorumContactUsCommand()])
+        }
+    }
+
+    def footerOurTeam(){
+        if (springSecurityService.isLoggedIn()){
+            flash.message = flash.message
+            redirect (mapping:"dashboard")
+        }else{
+//            render(view: "landingServices", model: [command: new KuorumRegisterCommand(), siteKey: RECAPTCHA_SITEKEY])
+            render(view: "footerOurTeam")
+        }
+    }
+}
