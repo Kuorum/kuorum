@@ -1,0 +1,17 @@
+<div class="section-header">
+    <h1><g:message code="${msgPrefix}.gain.title"/></h1>
+    <h3 class="hidden-xs"><g:message code="${msgPrefix}.gain.subtitle"/></h3>
+</div>
+<div class="row section-body">
+    <ul class="onecol bullets">
+        <li>
+        <p><g:message code="${msgPrefix}.gain.bullet1"/> </p>
+    </li>
+        <li>
+            <p><g:message code="${msgPrefix}.gain.bullet2"/> </p>
+        </li>
+        <li>
+            <p><g:message code="${msgPrefix}.gain.bullet3"/> </p>
+        </li>
+    </ul>
+</div>
