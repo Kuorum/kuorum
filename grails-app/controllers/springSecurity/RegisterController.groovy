@@ -443,6 +443,46 @@ class KuorumRegisterCommand{
 }
 
 @Validateable
+class KuorumContactUsCommand{
+
+    def grailsApplication
+
+    String email
+    String name
+    String surname
+    String telephone
+    String organization
+    String sector
+    String comment
+    Boolean conditions
+
+    public String getUsername(){ email }// RegisterController.passwordValidator uses username
+    static constraints = {
+        name nullable: false, maxSize: 15
+        email nullable:false, email:true, validator: { val, obj ->
+//            if (val && KuorumUser.findByEmail(val.toLowerCase())) {
+//                obj.email = val.toLowerCase()
+//                return 'registerCommand.username.unique'
+//            }
+            def mailParts = val.split("@")
+            if (mailParts.size() == 2){
+                def domain = mailParts[1]
+                def notAllowed = obj.grailsApplication.config.kuorum.register.notAllowedTemporalDomainEmails.find{"@$domain".equalsIgnoreCase(it)}
+                if (notAllowed){
+                    return 'registerCommand.username.notAllowed'
+                }
+            }
+        }
+        telephone nullable: false
+        organization nullable: false
+        sector nullable: false
+        comment nullable: false
+        conditions nullable: true
+//      validator: RegisterController.passwordValidator
+    }
+}
+
+@Validateable
 class ResendVerificationMailCommand{
 
     String email

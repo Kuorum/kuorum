@@ -1,0 +1,23 @@
+<div class="section-header">
+    <h1><g:message code="${msgPrefix}.trustUs.title"/></h1>
+    <h3 class="hidden-xs"><g:message code="${msgPrefix}.trustUs.subtitle"/></h3>
+</div>
+<div class="row section-body">
+    <ul class="globus col-10">
+        <li class="col-sm-2 col-md-2 col-md-offset-1">
+            <img class="img-responsive" src="${r.resource(dir:'images/landing', file:'onboarding-01.png')}" alt="step 1">
+        </li>
+        <li class="col-sm-2 col-md-2">
+            <img class="img-responsive" src="${r.resource(dir:'images/landing', file:'onboarding-02.png')}" alt="step 2">
+        </li>
+        <li class="col-sm-2 col-md-2">
+            <img class="img-responsive" src="${r.resource(dir:'images/landing', file:'onboarding-03.png')}" alt="step 3">
+        </li>
+        <li class="col-sm-2 col-md-2">
+            <img class="img-responsive" src="${r.resource(dir:'images/landing', file:'onboarding-03.png')}" alt="step 3">
+        </li>
+        <li class="col-sm-2 col-md-2">
+            <img class="img-responsive" src="${r.resource(dir:'images/landing', file:'onboarding-03.png')}" alt="step 3">
+        </li>
+    </ul>
+</div>
