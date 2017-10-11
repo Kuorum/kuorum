@@ -195,9 +195,6 @@ class UrlMappings {
         name projectListPostDefends:    "/ajax/project/$userAlias/$hashtag/listado-post-defendidos" (controller: "project", action:"listClucksProjectDefends")
         name projectListPostVictories:  "/ajax/project/$userAlias/$hashtag/listado-victorias" (controller: "project", action:"listClucksProjectVictories")
 
-        name projectListOfUsers:        "/ajax/herramientas/project"(controller: "tools", action: "ajaxShowProjectListOfUsers")
-        name publishProject:            "/herramientas/project/$hashtag/publicar" (controller:"tools", action: "publishProject")
-
         name projectUpdate:             "/project/$userAlias/$hashtag/actualizar"(controller: "project"){action = [GET:"createProjectUpdate", POST:"addProjectUpdate"]}
 
         name langPostShow:  "/$lang/$userAlias/$hashtag/$postBrief-$postId"(controller: "redirect", action: "redirect301Project") {constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)}); lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
@@ -284,7 +281,7 @@ class UrlMappings {
 
         name ajaxModuleUserCauses:          "/ajax/module/user/causes" (controller:"modules", action: "userCauses")
 
-        name adminPrincipal:        "/admin"                          (controller:"adminProject", action: "index")
+        name adminPrincipal:        "/admin"                          (controller:"admin", action: "index")
         name adminTestMail:         "/admin/mailing/test"           (controller:"mailTesting", action: "index")
         name adminSearcherIndex:    "/admin/searcher/indexar"       (controller:"admin", action: "solrIndex")
         name adminSearcherFullIndex:"/admin/searcher/full-index"    (controller:"admin", action:"fullIndex")
@@ -391,33 +388,12 @@ class UrlMappings {
         // Funel antiguo de compra de politico
         name funnelSuccessfulStories:      "/la-nueva-politica"  (controller:"funnel", action:"funnelSuccessfulStories")
 
-        // HERRAMIENTAS (TOOLS)
-        name toolsFavorites:        "/herramientas/pendientes-de-leer"(controller: "tools", action: "showFavoritesPosts")
-        name toolsMyPosts:          "/herramientas/mis-posts"        (controller: "tools", action: "showUserPosts")
-        name toolsKuorumStore:      "/herramientas/el-gallinero"     (controller: "tools", action: "kuorumStore")
-        name toolsBuyAward:         "/ajax/herramientas/el-gallinero/comprar"     (controller: "tools", action: "kuorumStoreBuyAward")
-        name toolsActivateAward:    "/ajax/herramientas/el-gallinero/activar"     (controller: "tools", action: "kuorumStoreActivateAward")
-
         name tourStart:           "/tour" (controller:"tour", action: "index")
         name tour_dashboard:      "/tour/dashboard" (controller:"tour", action: "tour_dashboard")
-
-        // PROYECTOS (ADMIN)
-        name adminEditProject:      "/admin/project/editar-proyecto/$hashtag" (controller:"adminProject"){action =[GET:"editProject", POST:"updateProject"]}
-        name adminPublishProject:   "/admin/project/editar-proyecto/$hashtag/publicar"     (controller:"adminProject", action: "publishProject")
-        name adminUnpublishProject: "/admin/project/editar-proyecto/$hashtag/despublicar"  (controller:"adminProject", action: "unPublishProject")
-        name adminUnpublishedProjects:"/admin/project/no-publicados"    (controller:"adminProject", action: "unpublishedProjects")
 
         // ADMIN STATS
         name adminStats:            "/admin/estadisticas"           (controller:"adminStats", action: "stats")
         name adminStatsPieChart:    "/admin/estadisticas/pie-chart" (controller:"adminStats", action: "statsDataPieChart")
-
-        // DEPRECATED SEO - THINK AGAIN
-        name discover:                      "/descubre"                                 {controller="redirect"; action= "redirect301"; newMapping='searcherSearch'}
-        name discoverProjects:              "/descubre/project"                         {controller="redirect"; action= "redirect301"; newMapping='searcherSearch'}
-        name discoverProjectsByRegion:      "/descubre/project/$regionName"             {controller="redirect"; action= "redirect301"; newMapping='searcherSearch'}
-        name discoverPoliticians:           "/descubre/politicos"                       {controller="redirect"; action= "redirect301"; newMapping='searcherSearch'}
-        name discoverRecentPosts:           "/descubre/publicaciones-recientes"         {controller="redirect"; action= "redirect301"; newMapping='searcherSearch'}
-        name discoverRecommendedPosts:      "/descubre/publicaciones-mas-impulsadas"    {controller="redirect"; action= "redirect301"; newMapping='searcherSearch'}
 
         /**********************/
         /*** END DEPRECATED ***/
