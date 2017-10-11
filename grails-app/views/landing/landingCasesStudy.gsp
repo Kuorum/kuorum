@@ -12,9 +12,9 @@
 </head>
 
 <content tag="main">
-    <g:render template="/landing/commonModules/sliderNoCallToAction" model="[command:command, msgPrefix:'landingCasesStudy']"/>
+    <g:render template="/landing/commonModules/sliderNoCallToAction" model="[msgPrefix:'landingCasesStudy']"/>
 </content>
 
 <content tag="casesStudyGrid">
-    <g:render template="/landing/casesStudyModules/mainGrid" model="[command:command, msgPrefix:'landingCasesStudy', siteKey:siteKey]"/>
+    <g:render template="/landing/casesStudyModules/mainGrid" model="[msgPrefix:'landingCasesStudy']"/>
 </content>

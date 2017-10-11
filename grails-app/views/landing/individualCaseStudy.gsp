@@ -12,7 +12,7 @@
 </head>
 
 <content tag="main">
-    <g:render template="/landing/commonModules/slider" model="[command:command, msgPrefix:'individualCaseStudy']"/>
+    <g:render template="/landing/commonModules/slider" model="[msgPrefix:'individualCaseStudy']"/>
 </content>
 
 <content tag="caseStudyBody">
@@ -20,5 +20,5 @@
 </content>
 
 <content tag="casesStudyGrid">
-    <g:render template="/landing/casesStudyModules/otherCases" model="[command:command, msgPrefix:'individualCaseStudy', siteKey:siteKey]"/>
+    <g:render template="/landing/casesStudyModules/otherCases" model="[msgPrefix:'individualCaseStudy']"/>
 </content>
