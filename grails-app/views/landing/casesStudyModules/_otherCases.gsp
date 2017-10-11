@@ -39,7 +39,7 @@
         </div>
     </div>
     </br class="hidden-xs">
-    <div id="request-demo-btn">
-        <a href="#" class="btn btn-lg btn-orange" data-effect="scroll"><g:message code="${msgPrefix}.requestDemo"/> </a>
+    <div id="request-demo-btn" class="col-md-4 col-md-offset-4">
+        <a href="#" class="btn btn-lg btn-orange btn-sign-up"><g:message code="${msgPrefix}.requestDemo"/> </a>
     </div>
 </div>
