@@ -30,7 +30,7 @@ class UrlMappings {
         name footerUserGuides:      "/$lang/user-guides" (controller: "footer", action: "footerUserGuides"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
         /**/
 
-        name home:              "/$lang" (controller: "dashboard", action:"landingLeaders"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+        name home:              "/$lang" (controller: "landing", action:"landingServices"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
                                 "/" { controller="redirect"; action= "redirect301"; newMapping='home'}
 
         name landingSearch:     "/$lang/discover"   (controller: "search", action:"searchLanding") {constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
