@@ -16,9 +16,9 @@
 </content>
 
 <content tag="footerLeftColumn">
-    <g:render template="/landing/footerModules/leftColumn" model="[command:command, msgPrefix:'footerOurTeam']"/>
+    <g:render template="/footer/footerModules/leftColumn" model="[command:command, msgPrefix:'footerOurTeam']"/>
 </content>
 
 <content tag="footerSection">
-    <g:render template="/landing/footerModules/team" model="[command:command, msgPrefix:'footerOurTeam']"/>
+    <g:render template="/footer/footerModules/team" model="[command:command, msgPrefix:'footerOurTeam']"/>
 </content>
