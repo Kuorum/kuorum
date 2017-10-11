@@ -1,22 +1,22 @@
 <div class="left">
     <ul>
         <li>
-            <a href="#">¿Qué es Kuorum?</a>
+            <g:link mapping="footerAboutKuorum"><g:message code="layout.footer.technology"/></g:link>
         </li>
         <li>
-            <a href="#">Historia</a>
+            <g:link mapping="footerAboutUs"><g:message code="layout.footer.aboutUs"/></g:link>
         </li>
         <li>
-            <a href="#">Equipo</a>
+            <g:link mapping="footerOurTeam"><g:message code="layout.footer.team"/></g:link>
         </li>
         <li>
-            <a href="#">Prensa</a>
+            <g:link mapping="footerInformation"><g:message code="layout.footer.pressTitle"/></g:link>
         </li>
         <li>
             <a href="#">Guías de usuario</a>
         </li>
         <li>
-            <a href="#">Contacta</a>
+            <g:link mapping="footerContactUs"><g:message code="layout.footer.contact"/></g:link>
         </li>
     </ul>
 </div>

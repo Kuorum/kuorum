@@ -21,14 +21,14 @@
             </section>
         </div>
     </div>
-    <div class="container-overflow-image row light">
+    <div class="container-overflow-image row main">
         <div class="container">
             <section class="features" id="gain">
                 <g:pageProperty name="page.gain"/>
             </section>
         </div>
     </div>
-    <div class="container-overflow-image row main">
+    <div class="container-overflow-image row light">
         <div class="container">
             <section class="features" id="featured-case-study">
                 <g:pageProperty name="page.caseStudy"/>
