@@ -1,6 +1,7 @@
 package kuorum
 
 import org.springframework.context.i18n.LocaleContextHolder
+import springSecurity.KuorumContactUsCommand
 
 class FooterController {
 
@@ -40,4 +41,16 @@ class FooterController {
     def privacyPolicy(){}
     def termsUse(){}
 
+
+    def footerAboutUs(){
+        render(view: "footerAboutUs")
+    }
+
+    def footerContactUs(){
+        render(view: "footerContactUs", model: [command: new KuorumContactUsCommand()])
+    }
+
+    def footerOurTeam(){
+        render(view: "footerOurTeam")
+    }
 }

@@ -12,13 +12,13 @@
 </head>
 
 <content tag="main">
-    <g:render template="/landing/commonModules/slider" model="[command:command, msgPrefix:'footerContactUs']"/>
+    <g:render template="/landing/commonModules/slider" model="[command:command, msgPrefix:'landingFooter']"/>
 </content>
 
 <content tag="footerLeftColumn">
-    <g:render template="/landing/footerModules/leftColumn" model="[command:command, msgPrefix:'footerContactUs']"/>
+    <g:render template="/footer/footerModules/leftColumn" model="[command:command, msgPrefix:'landingFooter']"/>
 </content>
 
 <content tag="footerSection">
-    <g:render template="/landing/commonModules/contactUs" model="[command:command, msgPrefix:'footerContactUs']"/>
+    <g:render template="/footer/footerModules/aboutUs" model="[command:command, msgPrefix:'landingFooter']"/>
 </content>

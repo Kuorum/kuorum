@@ -45,7 +45,6 @@ class LandingController {
             flash.message = flash.message
             redirect (mapping:"dashboard")
         }else{
-//            render(view: "landingServices", model: [command: new KuorumRegisterCommand(), siteKey: RECAPTCHA_SITEKEY])
             render(view: "landingCasesStudy")
         }
     }
@@ -67,26 +66,6 @@ class LandingController {
         }else{
 //            render(view: "landingServices", model: [command: new KuorumRegisterCommand(), siteKey: RECAPTCHA_SITEKEY])
             render(view: "footerAboutUs")
-        }
-    }
-
-    def footerContactUs(){
-        if (springSecurityService.isLoggedIn()){
-            flash.message = flash.message
-            redirect (mapping:"dashboard")
-        }else{
-//            render(view: "landingServices", model: [command: new KuorumRegisterCommand(), siteKey: RECAPTCHA_SITEKEY])
-            render(view: "footerContactUs", model: [command: new KuorumContactUsCommand()])
-        }
-    }
-
-    def footerOurTeam(){
-        if (springSecurityService.isLoggedIn()){
-            flash.message = flash.message
-            redirect (mapping:"dashboard")
-        }else{
-//            render(view: "landingServices", model: [command: new KuorumRegisterCommand(), siteKey: RECAPTCHA_SITEKEY])
-            render(view: "footerOurTeam")
         }
     }
 }
