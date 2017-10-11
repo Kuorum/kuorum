@@ -5,13 +5,16 @@
 <div class="row section-body">
     <ul class="onecol bullets">
         <li>
-        <p><g:message code="${msgPrefix}.gain.bullet1"/> </p>
-    </li>
-        <li>
-            <p><g:message code="${msgPrefix}.gain.bullet2"/> </p>
+            <i class="fa fa-check" aria-hidden="true"></i>
+            <span><g:message code="${msgPrefix}.gain.bullet1"/> </span>
         </li>
         <li>
-            <p><g:message code="${msgPrefix}.gain.bullet3"/> </p>
+            <i class="fa fa-check" aria-hidden="true"></i>
+            <span><g:message code="${msgPrefix}.gain.bullet2"/> </span>
+        </li>
+        <li>
+            <i class="fa fa-check" aria-hidden="true"></i>
+            <span><g:message code="${msgPrefix}.gain.bullet3"/> </span>
         </li>
     </ul>
 </div>

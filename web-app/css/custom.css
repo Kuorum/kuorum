@@ -8987,6 +8987,13 @@ ul.threeColumn .card-body p {
     text-align: center;
 }
 
+ul.bullets {
+    list-style: none;
+    padding: 0;
+    font-size: 18px;
+    text-align: left;
+}
+
 .section-header h1 {
     text-align: center;
     font-weight: bold;
@@ -9133,13 +9140,6 @@ ul.threeColumn .card-body p {
     font-size: 20px;
     line-height: 31px;
     text-align: center;
-}
-
-#services ul.bullets {
-    list-style: none;
-    padding: 0;
-    font-size: 18px;
-    text-align: left;
 }
 
 #services ul.bullets li span{
