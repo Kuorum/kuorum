@@ -21,7 +21,9 @@
                     <img class="img-responsive" src="${r.resource(dir:'images/landing', file:'brands-03.jpg')}" alt="step 2">
                 </div>
                 <div class="card-body">
-                    <a href="#" class="btn btn-lg"><g:message code="${msgPrefix}.solutions.enterprises.button"/></a>
+                    <g:link mapping="landingEnterprise" class="btn btn-lg">
+                        <g:message code="${msgPrefix}.solutions.enterprises.button"/>
+                    </g:link>
                     <p><g:message code="${msgPrefix}.solutions.enterprises.text"/></p>
                 </div>
             </div>
