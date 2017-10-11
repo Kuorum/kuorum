@@ -13,7 +13,7 @@
             <g:link mapping="footerInformation"><g:message code="layout.footer.pressTitle"/></g:link>
         </li>
         <li>
-            <a href="#">Guías de usuario</a>
+            <g:link mapping="footerUserGuides"><g:message code="layout.footer.userGuides"/></g:link>
         </li>
         <li>
             <g:link mapping="footerContactUs"><g:message code="layout.footer.contact"/></g:link>

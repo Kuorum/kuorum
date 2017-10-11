@@ -26,7 +26,8 @@ class UrlMappings {
         name landingIndividualCaseStudy:   "/$lang/ayuntamiento-toledo-participacion-ciudadana" (controller: "landing", action: "individualCaseStudy"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
         name footerAboutKuorum:     "/$lang/about-us" (controller: "footer", action: "footerAboutUs"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
         name footerContactUs:       "/$lang/contact-us" (controller: "footer", action: "footerContactUs"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-        name footerOurTeam:       "/$lang/our-team" (controller: "footer", action: "footerOurTeam"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+        name footerOurTeam:         "/$lang/our-team" (controller: "footer", action: "footerOurTeam"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+        name footerUserGuides:      "/$lang/user-guides" (controller: "footer", action: "footerUserGuides"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
         /**/
 
         name home:              "/$lang" (controller: "dashboard", action:"landingLeaders"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
