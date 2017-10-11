@@ -12,19 +12,20 @@
 </head>
 
 <content tag="main">
-    <g:render template="/landing/commonModules/sliderCallToAction" model="[command:command, msgPrefix:'landingEnterprise']"/>
+    <g:render template="/landing/commonModules/sliderCallToAction" model="[msgPrefix:'landingEnterprise']"/>
+    %{--<g:render template="/dashboard/landingOrganizationsModules/modalRequestDemo"/>--}%
 </content>
 
 <content tag="pain">
-    <g:render template="/landing/enterpriseModules/painBullets" model="[command:command, msgPrefix:'landingEnterprise']"/>
+    <g:render template="/landing/enterpriseModules/painBullets" model="[msgPrefix:'landingEnterprise']"/>
 </content>
 
 <content tag="gain">
-    <g:render template="/landing/enterpriseModules/gainBullets" model="[command:command, msgPrefix:'landingEnterprise']"/>
+    <g:render template="/landing/enterpriseModules/gainBullets" model="[msgPrefix:'landingEnterprise']"/>
 </content>
 
 <content tag="caseStudy">
-    <g:render template="/landing/enterpriseModules/caseStudy" model="[command:command, msgPrefix:'landingEnterprise', msgSection: 'featuresUser', imgBackground:'features-leaders.png']"/>
+    <g:render template="/landing/enterpriseModules/caseStudy" model="[msgPrefix:'landingEnterprise', msgSection: 'featuresUser', imgBackground:'features-leaders.png']"/>
 </content>
 
 <content tag="contactUs">
