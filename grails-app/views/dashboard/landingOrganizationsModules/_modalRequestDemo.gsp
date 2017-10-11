@@ -11,7 +11,7 @@
                 <h4 id="contactModalTitle"><g:message code="landingCorporationsBrands.carousel.login.submit"/></h4>
             </div>
 
-            < class="modal-body">
+            <div class="modal-body">
             <!-- email subscription form -->
                 <formUtil:validateForm form="request-demo-modal-form" bean="${command}"/>
                 <g:form mapping="requestADemo" id="request-demo-modal-form" role="form" method="post" name="request-demo-modal-form">
