@@ -17,11 +17,11 @@
 </content>
 
 <content tag="howItWorks">
-    <g:render template="/landing/servicesModules/services" model="[command:command, msgPrefix:'landingServices']"/>
+    <g:render template="/landing/servicesModules/services" model="[msgPrefix:'landingServices']"/>
 </content>
 
 <content tag="caseStudy">
-    <g:render template="/landing/servicesModules/caseStudy" model="[command:command, msgPrefix:'landingServices']"/>
+    <g:render template="/landing/servicesModules/caseStudy" model="[msgPrefix:'landingServices']"/>
 </content>
 
 <content tag="statistics">
@@ -34,35 +34,4 @@
 
 <content tag="solutions">
     <g:render template="/landing/servicesModules/solutions" model="[msgPrefix:'landingServices']"/>
-</content>
-
-<content tag="engage">
-    <g:render template="/dashboard/landingLeaders/leadersFeaturesCustom" model="[msgPrefix:'landingServices', imgBackground:'features-leaders.png']"/>
-</content>
-
-<content tag="organizations">
-    <g:render template="/dashboard/landingLeaders/leadersTrustUs"  model=
-    "[
-            msgPrefix:'landingLeaders',
-            users:[[
-                           img:'testimony-david-burrowes.jpg',
-                           name:'David Burrowes ',
-                           logo:'logo-conservatives.png',
-                           logoAlt:'Conservatives',
-                           quote:g.message(code: 'landingLeaders.trustUs.user1.quote'),
-                           role:g.message(code: 'landingLeaders.trustUs.user1.role')
-                   ],[
-                           img:'testimony-cat-smith.jpg',
-                           name:'Cat Smith ',
-                           logo:'logo-labour.png',
-                           logoAlt:'Labour',
-                           quote:g.message(code: 'landingLeaders.trustUs.user2.quote'),
-                           role:g.message(code: 'landingLeaders.trustUs.user2.role')
-                   ]
-            ]
-    ]"/>
-</content>
-
-<content tag="features">
-    <g:render template="/dashboard/landingLeaders/leadersFeaturesGeneric"/>
 </content>
