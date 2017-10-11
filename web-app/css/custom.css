@@ -8872,10 +8872,22 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 .fade-carousel .slides .slide-1.landingTechnology {
     background-image: url('../images/landing/organizations-01.jpg');
 }
-.fade-carousel .slides .slide-2.landingTechnology {
+.fade-carousel .slides .slide-1.landingEnterprise {
     background-image: url('../images/landing/organizations-02.jpg');
 }
-.fade-carousel .slides .slide-3.landingTechnology {
+.fade-carousel .slides .slide-1.landingAdministration {
+    background-image: url('../images/landing/corporations-03.jpg');
+}
+.fade-carousel .slides .slide-1.landingOrganization {
+    background-image: url('../images/landing/organizations-03.jpg');
+}
+.fade-carousel .slides .slide-1.footerContactUs {
+    background-image: url('../images/landing/organizations-02.jpg');
+}
+.fade-carousel .slides .slide-1.footerAboutUs {
+    background-image: url('../images/landing/corporations-03.jpg');
+}
+.fade-carousel .slides .slide-1.footerOurTeam {
     background-image: url('../images/landing/organizations-03.jpg');
 }
 
