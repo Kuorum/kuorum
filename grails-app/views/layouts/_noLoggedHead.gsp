@@ -1,20 +1,55 @@
 <!-- Le quitamos las clases underline, etc a estos enlaces -->
 <ul class="nav navbar-nav navbar-right">
+    %{--<li>--}%
+        %{--<g:link mapping="landingLeaders" class="navbar-link ${nav.activeMenuCss(mappingName: 'landingLeaders')} ${nav.activeMenuCss(mappingName: 'home')}">--}%
+            %{--<span><g:message code="head.noLogged.leaders"/></span>--}%
+        %{--</g:link>--}%
+    %{--</li>--}%
+
+    %{--<li>--}%
+        %{--<g:link mapping="landingOrganizations" class="navbar-link ${nav.activeMenuCss(mappingName: 'landingOrganizations')}">--}%
+            %{--<span><g:message code="head.noLogged.organizations"/> </span>--}%
+        %{--</g:link>--}%
+    %{--</li>--}%
+
+    %{--<li>--}%
+        %{--<g:link mapping="landingCorporationsBrands" class="navbar-link ${nav.activeMenuCss(mappingName: 'landingCorporationsBrands')}">--}%
+            %{--<span><g:message code="head.noLogged.corporations"/> </span>--}%
+        %{--</g:link>--}%
+    %{--</li>--}%
     <li>
-        <g:link mapping="landingLeaders" class="navbar-link ${nav.activeMenuCss(mappingName: 'landingLeaders')} ${nav.activeMenuCss(mappingName: 'home')}">
-            <span><g:message code="head.noLogged.leaders"/></span>
+        <g:link mapping="landingServices" class="navbar-link ${nav.activeMenuCss(mappingName: 'landingServices')} ${nav.activeMenuCss(mappingName: 'home')}">
+            <span><g:message code="head.noLogged.services"/></span>
         </g:link>
     </li>
 
-    <li>
-        <g:link mapping="landingOrganizations" class="navbar-link ${nav.activeMenuCss(mappingName: 'landingOrganizations')}">
-            <span><g:message code="head.noLogged.organizations"/> </span>
+
+    <li class="dropdown" itemscope itemtype="http://schema.org/Person">
+        <g:link mapping="landingOrganization" class="dropdown-toggle dropdown-menu-right navbar-link" data-toggle="dropdown" role="button">
+            <span><g:message code="head.noLogged.sectors"/> </span>
         </g:link>
+        <ul id="user-options" class="dropdown-menu dropdown-menu-right" aria-labelledby="open-user-options" role="menu">
+            <li>
+                <g:link mapping="landingEnterprise" class="navbar-link ${nav.activeMenuCss(mappingName: 'landingEnterprise')}">
+                    <span><g:message code="head.noLogged.enterprise"/></span>
+                </g:link>
+            </li>
+            <li>
+                <g:link mapping="landingAdministration" class="navbar-link ${nav.activeMenuCss(mappingName: 'landingAdministration')}">
+                    <span><g:message code="head.noLogged.administration"/></span>
+                </g:link>
+            </li>
+            <li>
+                <g:link mapping="landingOrganization" class="navbar-link ${nav.activeMenuCss(mappingName: 'landingOrganization')}">
+                    <g:message code="head.noLogged.organization"/>
+                </g:link>
+            </li>
+        </ul>
     </li>
 
     <li>
-        <g:link mapping="landingCorporationsBrands" class="navbar-link ${nav.activeMenuCss(mappingName: 'landingCorporationsBrands')}">
-            <span><g:message code="head.noLogged.corporations"/> </span>
+        <g:link mapping="landingTechnology" class="navbar-link ${nav.activeMenuCss(mappingName: 'landingTechnology')}">
+            <span><g:message code="head.noLogged.technology"/> </span>
         </g:link>
     </li>
 

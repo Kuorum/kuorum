@@ -2,14 +2,15 @@
     <div class="container-fluid">
         <section class="links">
             <ul>
-                <li><g:link mapping="footerTechnology"><g:message code="layout.footer.technology"/></g:link> </li>
-                <li><g:link mapping="blog"><g:message code="layout.footer.blog"/></g:link> </li>
-                <li><g:link mapping="footerLeaders"><g:message code="layout.footer.leaders"/></g:link></li>
-                <li><g:link mapping="footerGovernment"><g:message code="layout.footer.government"/></g:link></li>
-                <li><g:link mapping="footerCitizens"><g:message code="layout.footer.citizens"/></g:link></li>
-                <li><g:link mapping="footerAboutUs"><g:message code="layout.footer.about"/></g:link></li>
+                <li><g:link mapping="footerAboutKuorum"><g:message code="layout.footer.technology"/></g:link> </li>
+                <li><g:link mapping="footerAboutUs"><g:message code="layout.footer.aboutUs"/></g:link> </li>
                 <li><g:link mapping="footerInformation"><g:message code="layout.footer.pressTitle"/></g:link></li>
-                <li><g:link mapping="footerWidget"><g:message code="layout.footer.widget"/></g:link></li>
+                <li><g:link mapping="footerContactUs"><g:message code="layout.footer.contact"/></g:link></li>
+                <li><g:link mapping="blog"><g:message code="layout.footer.blog"/></g:link> </li>
+                %{--<li><g:link mapping="footerGovernment"><g:message code="layout.footer.government"/></g:link></li>--}%
+                %{--<li><g:link mapping="footerCitizens"><g:message code="layout.footer.citizens"/></g:link></li>--}%
+                %{--<li><g:link mapping="footerAboutUs"><g:message code="layout.footer.about"/></g:link></li>--}%
+                %{--<li><g:link mapping="footerWidget"><g:message code="layout.footer.widget"/></g:link></li>--}%
                 <li><g:link mapping="footerPrivacyPolicy"><g:message code="layout.footer.privacyPolicy"/></g:link></li>
                 <li><g:link mapping="footerTermsUse"><g:message code="layout.footer.termsUse"/></g:link></li>
                 <sec:ifNotLoggedIn>

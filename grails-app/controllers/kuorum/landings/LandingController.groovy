@@ -59,13 +59,23 @@ class LandingController {
         }
     }
 
-    def landingFooter(){
+    def landingAdministration(){
         if (springSecurityService.isLoggedIn()){
             flash.message = flash.message
             redirect (mapping:"dashboard")
         }else{
 //            render(view: "landingServices", model: [command: new KuorumRegisterCommand(), siteKey: RECAPTCHA_SITEKEY])
-            render(view: "footerAboutUs")
+            render(view: "landingAdministration", model: [command: new KuorumContactUsCommand()])
+        }
+    }
+
+    def landingOrganization(){
+        if (springSecurityService.isLoggedIn()){
+            flash.message = flash.message
+            redirect (mapping:"dashboard")
+        }else{
+//            render(view: "landingServices", model: [command: new KuorumRegisterCommand(), siteKey: RECAPTCHA_SITEKEY])
+            render(view: "landingOrganization", model: [command: new KuorumContactUsCommand()])
         }
     }
 }

@@ -8961,6 +8961,10 @@ div.dark {
 }
 
 /** new landing specific sections **/
+ul.nav.navbar-right ul#user-options  > li:first-child{
+    padding: 0;
+    border-bottom: none;
+}
 
 ul.threeColumn {
     list-style: none;
