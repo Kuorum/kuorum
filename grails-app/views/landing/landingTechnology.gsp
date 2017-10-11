@@ -12,23 +12,24 @@
 </head>
 
 <content tag="main">
-    <g:render template="/landing/commonModules/sliderCallToAction" model="[command:command, msgPrefix:'landingTechnology']"/>
+    <g:render template="/landing/commonModules/sliderCallToAction" model="[msgPrefix:'landingTechnology']"/>
+    <g:render template="/dashboard/landingOrganizationsModules/modalRequestDemo"/>
 </content>
 
 <content tag="howItWorks">
-    <g:render template="/landing/technologyModules/bullets" model="[command:command, msgPrefix:'landingTechnology', msgModule:'technologyModules', msgSection: 'bullets']"/>
+    <g:render template="/landing/technologyModules/bullets" model="[msgPrefix:'landingTechnology']"/>
 </content>
 
 <content tag="featuresCrm">
-    <g:render template="/landing/technologyModules/featureBulletsLeft" model="[command:command, msgPrefix:'landingTechnology', msgSection: 'featuresCrm', imgBackground:'features-leaders.png']"/>
+    <g:render template="/landing/technologyModules/featureBulletsLeft" model="[msgPrefix:'landingTechnology', msgSection: 'featuresCrm', imgBackground:'features-leaders.png']"/>
 </content>
 
 <content tag="featuresUser">
-    <g:render template="/landing/technologyModules/featureBulletsRight" model="[command:command, msgPrefix:'landingTechnology', msgSection: 'featuresUser', imgBackground:'features-leaders.png']"/>
+    <g:render template="/landing/technologyModules/featureBulletsRight" model="[msgPrefix:'landingTechnology', msgSection: 'featuresUser', imgBackground:'features-leaders.png']"/>
 </content>
 
 <content tag="metrics">
-    <g:render template="/landing/technologyModules/featureBulletsLeft" model="[command:command, msgPrefix:'landingTechnology', msgSection: 'metrics', imgBackground:'features-leaders.png']"/>
+    <g:render template="/landing/technologyModules/featureBulletsLeft" model="[msgPrefix:'landingTechnology', msgSection: 'metrics', imgBackground:'features-leaders.png']"/>
 </content>
 
 <content tag="contactUs">

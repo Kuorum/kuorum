@@ -19,9 +19,9 @@
             </li>
         </ul>
         <div class="col-md-8 col-md-offset-2">
-            <g:link mapping="register" class="btn btn-lg btn-sign-up">
-                <g:message code="${msgPrefix}.requestDemo"/>
-            </g:link>
+            <div id="request-demo-btn">
+                <a href="#" class="btn btn-lg btn-orange btn-sign-up"><g:message code="${msgPrefix}.requestDemo"/> </a>
+            </div>
         </div>
     </div>
     <div class="col-md-6 img-full-container">
