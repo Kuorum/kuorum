@@ -13,6 +13,7 @@
 
 <content tag="main">
     <g:render template="/landing/servicesModules/leadersCarousel" model="[command:command, msgPrefix:'landingServices', siteKey:siteKey]"/>
+    <g:render template="/dashboard/landingOrganizationsModules/modalRequestDemo"/>
 </content>
 
 <content tag="howItWorks">
