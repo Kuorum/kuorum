@@ -1,5 +1,9 @@
 <div class="row section-body">
-    <span class="breadcrumb">Breadcrumbs</span>
+    <div class="breadcrumbs">
+        <g:link mapping="landingServices" class="breadcrumb">
+            INICIO
+        </g:link>
+    </div>
     <div class="row">
         <div class="col-lg-4">
             <div class="card">

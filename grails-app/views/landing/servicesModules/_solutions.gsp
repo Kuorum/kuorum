@@ -10,7 +10,9 @@
                     <img class="img-responsive" src="${r.resource(dir:'images/landing', file:'brands-03.jpg')}" alt="step 1">
                 </div>
                 <div class="card-body">
-                    <a href="#" class="btn btn-lg"><g:message code="${msgPrefix}.solutions.administrations.button"/></a>
+                    <g:link mapping="landingAdministration" class="btn btn-lg">
+                        <g:message code="${msgPrefix}.solutions.administrations.button"/>
+                    </g:link>
                     <p><g:message code="${msgPrefix}.solutions.administrations.text"/></p>
                 </div>
             </div>
@@ -34,7 +36,9 @@
                     <img class="img-responsive" src="${r.resource(dir:'images/landing', file:'brands-03.jpg')}" alt="step 3">
                 </div>
                 <div class="card-body">
-                    <a href="#" class="btn btn-lg"><g:message code="${msgPrefix}.solutions.organizations.button"/></a>
+                    <g:link mapping="landingOrganization" class="btn btn-lg">
+                        <g:message code="${msgPrefix}.solutions.organizations.button"/>
+                    </g:link>
                     <p><g:message code="${msgPrefix}.solutions.organizations.text"/></p>
                 </div>
             </div>

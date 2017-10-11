@@ -1,7 +1,11 @@
 <div class="section-body">
     <div class="breadcrumbs">
-        <a href="#" class="breadcrumb">INICIO</a><span> > </span>
-        <a href="#" class="breadcrumb">CASOS DE ÉXITO</a>
+        <g:link mapping="landingServices" class="breadcrumb">
+            INICIO
+        </g:link>
+        <g:link mapping="landingCasesStudy" class="breadcrumb">
+            CASOS DE ÉXITO
+        </g:link>
     </div>
     <div class="row col-lg-10 col-md-offset-1">
         <h1><g:message code="individualCaseStudy.body.case1.title"/> </h1>
