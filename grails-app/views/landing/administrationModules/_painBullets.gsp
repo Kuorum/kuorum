@@ -5,15 +5,15 @@
 <div class="row section-body">
     <ul class="onecol bullets">
         <li>
-            <i class="fa fa-check" aria-hidden="true"></i>
+            <img src="${r.resource(dir:'images/landing', file:'arrow.png')}"/>
             <span><g:message code="${msgPrefix}.pain.bullet1"/> </span>
         </li>
         <li>
-            <i class="fa fa-check" aria-hidden="true"></i>
+            <img src="${r.resource(dir:'images/landing', file:'arrow.png')}"/>
             <span><g:message code="${msgPrefix}.pain.bullet2"/> </span>
         </li>
         <li>
-            <i class="fa fa-check" aria-hidden="true"></i>
+            <img src="${r.resource(dir:'images/landing', file:'arrow.png')}"/>
             <span><g:message code="${msgPrefix}.pain.bullet3"/> </span>
         </li>
     </ul>

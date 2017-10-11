@@ -9036,6 +9036,12 @@ ul.bullets {
     font-size: 28px;
     line-height: 45px;
 }
+#pain .bullets img,
+#gain .bullets img{
+    width: 32px;
+    margin: 0 auto;
+    vertical-align: text-bottom;
+}
 
 /** featured-case-study **/
 #featured-case-study {
@@ -9051,7 +9057,7 @@ ul.bullets {
     right: 0;
     left: 56%;
     overflow: hidden;
-    width: 72%;
+    width: 63%;
 }
 
 #featured-case-study .img-full-container.pull-right {
@@ -9169,6 +9175,11 @@ ul.bullets {
     line-height: 45px;
 }
 
+#services .globus .bullets{
+    font-size: 20px;
+    line-height: 31px;
+}
+
 /** landing statistics **/
 #statistics {
     padding-top: 60px;
@@ -9255,11 +9266,17 @@ ul.bullets {
     text-align: center;
 }
 
-#featured-case-study .img-full-container.left,
 #features-user .img-full-container.left{
     position: absolute;
-    top: 160px;
+    top: 200px;
     left: -32%;
+    overflow: visible;
+}
+
+#featured-case-study .img-full-container.left{
+    position: absolute;
+    top: 200px;
+    left: -15%;
     overflow: visible;
 }
 
@@ -9392,10 +9409,20 @@ ul.globus {
     padding:0;
 }
 
+ul.globus li{
+    line-height: 31px;
+}
+
 ul.globus li img {
     width: 175px;
     margin: 0 auto;
     margin-bottom: 30px;
+}
+
+ul.globus .bullets li img {
+    width: 24px;
+    margin: 0 auto;
+    vertical-align: text-bottom;
 }
 
 

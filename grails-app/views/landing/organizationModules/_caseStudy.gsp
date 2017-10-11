@@ -4,7 +4,7 @@
 </div>
 <div class="section-body">
     <div class="col-md-6 img-full-container left">
-        <img src="${r.resource(dir:'images/landing', file:'features-profile.png')}">
+        <img src="${r.resource(dir:'images/landing', file:'ayu-toledo.png')}">
     </div>
     <div class="col-md-6 pull-right">
         <h1><g:message code="${msgPrefix}.caseStudy.body.bold"/></h1>

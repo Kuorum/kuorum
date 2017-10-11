@@ -5,19 +5,19 @@
 <div class="row section-body">
     <ul class="globus col-10">
         <li class="col-sm-2 col-md-2 col-md-offset-1">
-            <img class="img-responsive" src="${r.resource(dir:'images/landing', file:'onboarding-01.png')}" alt="step 1">
+            <img class="img-responsive" src="${r.resource(dir:'images/landing', file:'logo-stanford.png')}" alt="Stanford">
         </li>
         <li class="col-sm-2 col-md-2">
-            <img class="img-responsive" src="${r.resource(dir:'images/landing', file:'onboarding-02.png')}" alt="step 2">
+            <img class="img-responsive" src="${r.resource(dir:'images/landing', file:'logo-stanford.png')}" alt="NDI">
         </li>
         <li class="col-sm-2 col-md-2">
-            <img class="img-responsive" src="${r.resource(dir:'images/landing', file:'onboarding-03.png')}" alt="step 3">
+            <img class="img-responsive" src="${r.resource(dir:'images/landing', file:'logo-stanford.png')}" alt="NED">
         </li>
         <li class="col-sm-2 col-md-2">
-            <img class="img-responsive" src="${r.resource(dir:'images/landing', file:'onboarding-03.png')}" alt="step 3">
+            <img class="img-responsive" src="${r.resource(dir:'images/landing', file:'logo-stanford.png')}" alt="Unidad Editorial">
         </li>
         <li class="col-sm-2 col-md-2">
-            <img class="img-responsive" src="${r.resource(dir:'images/landing', file:'onboarding-03.png')}" alt="step 3">
+            <img class="img-responsive" src="${r.resource(dir:'images/landing', file:'logo-stanford.png')}" alt="OGP">
         </li>
     </ul>
 </div>
