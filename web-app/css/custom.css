@@ -9024,6 +9024,19 @@ ul.bullets {
     text-align: left;
 }
 
+/** pain and gain sections **/
+#pain,
+#gain {
+    padding-top: 60px;
+    padding-bottom: 60px;
+    text-align: center;
+}
+#pain .bullets,
+#gain .bullets{
+    font-size: 28px;
+    line-height: 45px;
+}
+
 /** featured-case-study **/
 #featured-case-study {
     position: relative;
@@ -9149,6 +9162,11 @@ ul.bullets {
 #services ul.bullets li span{
     margin-left: 10px;
     line-height: 31px;
+}
+
+#services .bullets{
+    font-size: 28px;
+    line-height: 45px;
 }
 
 /** landing statistics **/
