@@ -28,6 +28,9 @@ class UrlMappings {
         name footerContactUs:       "/$lang/contact-us" (controller: "footer", action: "footerContactUs"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
         name footerOurTeam:         "/$lang/our-team" (controller: "footer", action: "footerOurTeam"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
         name footerUserGuides:      "/$lang/user-guides" (controller: "footer", action: "footerUserGuides"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+        name footerPress:           "/$lang/press-and-media" (controller: "footer", action: "footerPress"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+        name footerHistory:         "/$lang/history" (controller: "footer", action: "footerHistory"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+        name footerBlog:            "/$lang/blog" (controller: "footer", action: "customBlog"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
         /**/
 
         name home:              "/$lang" (controller: "landing", action:"landingServices"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}

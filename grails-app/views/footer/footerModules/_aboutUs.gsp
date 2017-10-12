@@ -1,4 +1,4 @@
 <div class="section-header">
-    <h1>This is the footer section</h1>
-    <h3>How do you like it?</h3>
+    <h1><g:message code="${msgPrefix}.title"/></h1>
+    <h3><g:message code="${msgPrefix}.subtitle"/></h3>
 </div>

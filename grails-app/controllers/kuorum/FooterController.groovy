@@ -69,4 +69,16 @@ class FooterController {
 
         ]
     }
+
+    def footerHistory(){
+        render(view: "footerHistory")
+    }
+
+    def footerPress(){
+        render(view: "footerPress")
+    }
+
+    def customBlog(){
+        render(view: "customBlog")
+    }
 }

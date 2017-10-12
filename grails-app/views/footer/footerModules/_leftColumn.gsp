@@ -4,13 +4,13 @@
             <g:link mapping="footerAboutKuorum"><g:message code="layout.footer.technology"/></g:link>
         </li>
         <li>
-            <g:link mapping="footerAboutUs"><g:message code="layout.footer.aboutUs"/></g:link>
+            <g:link mapping="footerHistory"><g:message code="layout.footer.aboutUs"/></g:link>
         </li>
         <li>
             <g:link mapping="footerOurTeam"><g:message code="layout.footer.team"/></g:link>
         </li>
         <li>
-            <g:link mapping="footerInformation"><g:message code="layout.footer.pressTitle"/></g:link>
+            <g:link mapping="footerPress"><g:message code="layout.footer.pressTitle"/></g:link>
         </li>
         <li>
             <g:link mapping="footerUserGuides"><g:message code="layout.footer.userGuides"/></g:link>
