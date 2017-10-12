@@ -21,7 +21,7 @@
             </section>
         </div>
     </div>
-    <div class="container-overflow-image row landing-section-dark">
+    <div class="row landing-section-dark">
         <div class="container">
             <section class="features" id="gain">
                 <g:pageProperty name="page.gain"/>
