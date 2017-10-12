@@ -11,6 +11,7 @@ import grails.validation.Validateable
 import groovyx.net.http.RESTClient
 import kuorum.KuorumFile
 import kuorum.core.model.AvailableLanguage
+import kuorum.core.model.EnterpriseSector
 import kuorum.files.FileService
 import kuorum.mail.MailchimpService
 import kuorum.notifications.NotificationService
@@ -452,7 +453,7 @@ class KuorumContactUsCommand{
     String surname
     String telephone
     String organization
-    String sector
+    EnterpriseSector enterpriseSector
     String comment
     Boolean conditions
 
@@ -475,7 +476,7 @@ class KuorumContactUsCommand{
         }
         telephone nullable: false
         organization nullable: false
-        sector nullable: false
+        enterpriseSector nullable: false
         comment nullable: false
         conditions nullable: true
 //      validator: RegisterController.passwordValidator

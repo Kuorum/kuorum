@@ -57,9 +57,9 @@
                             required="true"/>
                 </div>
                 <div class="form-group col-md-6">
-                    <formUtil:input
+                    <formUtil:selectEnum
                             command="${command}"
-                            field="sector"
+                            field="enterpriseSector"
                             labelCssClass="left"
                             showLabel="true"
                             showCharCounter="false"
