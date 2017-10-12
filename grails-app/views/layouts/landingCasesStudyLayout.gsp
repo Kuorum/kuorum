@@ -14,7 +14,7 @@
             <g:pageProperty name="page.main"/>
         </section>
     </div>
-    <div class="row main">
+    <div class="row landing-section-dark">
         <div class="container">
             <section id="cases-study-grid">
                 <g:pageProperty name="page.casesStudyGrid"/>

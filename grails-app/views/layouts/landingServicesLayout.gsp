@@ -14,35 +14,33 @@
             <g:pageProperty name="page.main"/>
         </section>
     </div>
-    <div class="row main">
+    <div class="row landing-section-dark">
         <div class="container">
             <section id="services">
                 <g:pageProperty name="page.howItWorks"/>
             </section>
         </div>
     </div>
-    <div class="container-overflow-image row light">
+    <div class="container-overflow-image row landing-section-light">
         <div class="container">
             <section class="features" id="featured-case-study">
                 <g:pageProperty name="page.caseStudy"/>
             </section>
         </div>
     </div>
-    <div class="row main">
+    <div class="row landing-section-dark">
         <div class="container">
             <section id="statistics">
                 <g:pageProperty name="page.statistics"/>
             </section>
         </div>
     </div>
-    <div class="row light">
-        <div class="container">
-            <section id="trustUs">
-                <g:pageProperty name="page.trustUs"/>
-            </section>
-        </div>
+    <div class="row landing-section-light">
+        <section id="trustUs">
+            <g:pageProperty name="page.trustUs"/>
+        </section>
     </div>
-    <div class="row main">
+    <div class="row landing-section-dark">
         <div class="container">
             <section id="solutions">
                 <g:pageProperty name="page.solutions"/>

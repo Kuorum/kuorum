@@ -14,14 +14,14 @@
             <g:pageProperty name="page.main"/>
         </section>
     </div>
-    <div class="row light">
+    <div class="row landing-section-light">
         <div class="container">
             <section id="cases-study-body">
                 <g:pageProperty name="page.caseStudyBody"/>
             </section>
         </div>
     </div>
-    <div class="row main">
+    <div class="row landing-section-dark">
         <div class="container">
             <section id="cases-study-grid">
                 <g:pageProperty name="page.casesStudyGrid"/>

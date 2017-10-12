@@ -14,28 +14,28 @@
             <g:pageProperty name="page.main"/>
         </section>
     </div>
-    <div class="row main">
+    <div class="row landing-section-dark">
         <div class="container">
             <section id="pain">
                 <g:pageProperty name="page.pain"/>
             </section>
         </div>
     </div>
-    <div class="container-overflow-image row main">
+    <div class="container-overflow-image row landing-section-dark">
         <div class="container">
             <section class="features" id="gain">
                 <g:pageProperty name="page.gain"/>
             </section>
         </div>
     </div>
-    <div class="container-overflow-image row light">
+    <div class="container-overflow-image row landing-section-light">
         <div class="container">
             <section class="features" id="featured-case-study">
                 <g:pageProperty name="page.caseStudy"/>
             </section>
         </div>
     </div>
-    <div class="row main">
+    <div class="row landing-section-dark">
         <div class="container">
             <section id="contact-us">
                 <g:pageProperty name="page.contactUs"/>

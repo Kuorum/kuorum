@@ -8982,6 +8982,14 @@ div.dark {
 }
 
 /** new landing specific sections **/
+.row.landing-section-dark {
+    /*margin-bottom: 60px;*/
+    background-color: #fbfbfb;
+}
+.row.landing-section-light {
+    /*margin-bottom: 60px;*/
+}
+
 ul.nav.navbar-right ul#navigation-options  > li:first-child{
     padding: 0;
     border-bottom: none;
@@ -9251,10 +9259,8 @@ ul.bullets {
     text-align: center;
 }
 
-#trustUs {
-    padding-top: 60px;
-    padding-bottom: 60px;
-    text-align: center;
+#trustUs ul.globus li{
+    padding: 15px 0;
 }
 
 /** list bullets left **/
@@ -9486,7 +9492,7 @@ ul.globus li img {
     margin-bottom: 30px;
 }
 
-.bullets li img {
+ul .bullets li img {
     width: 24px;
     margin: 0 auto;
     vertical-align: text-bottom;
