@@ -4,7 +4,7 @@
         <!-- leaders !-->
         <div class="item slides active">
             <div class="slide-1 ${msgPrefix}">
-                <div class="overlay"></div>
+                %{--<div class="overlay"></div>--}%
             </div>
         </div> <!-- slide 1 leaders !-->
     </div>

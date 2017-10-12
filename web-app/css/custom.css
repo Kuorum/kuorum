@@ -8890,11 +8890,17 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 .fade-carousel .slides .slide-1.landingOrganization {
     background-image: url('../images/landing/organizations.jpg');
 }
+.fade-carousel .slides .slide-1.landingCasesStudy {
+    background-image: url('../images/landing/case-studies.jpg');
+}
+.fade-carousel .slides .slide-1.individualCaseStudy {
+    background-image: url('../images/landing/case-study-1.jpg');
+}
 .fade-carousel .slides .slide-1.footerContactUs {
     background-image: url('../images/landing/contact.jpg');
 }
 .fade-carousel .slides .slide-1.footerAboutUs {
-    background-image: url('../images/landing/corporations-03.jpg');
+    background-image: url('../images/landing/what-is-kuorum.jpg');
 }
 .fade-carousel .slides .slide-1.footerOurTeam {
     background-image: url('../images/landing/team.jpg');
@@ -8983,11 +8989,7 @@ div.dark {
 
 /** new landing specific sections **/
 .row.landing-section-dark {
-    /*margin-bottom: 60px;*/
     background-color: #fbfbfb;
-}
-.row.landing-section-light {
-    /*margin-bottom: 60px;*/
 }
 
 ul.nav.navbar-right ul#navigation-options  > li:first-child{
