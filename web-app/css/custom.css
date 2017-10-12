@@ -9031,7 +9031,6 @@ ul.bullets {
 }
 
 .section-header h1 {
-    padding-bottom: 25px;
     text-align: center;
     font-weight: bold;
     margin: 0;
@@ -9222,14 +9221,18 @@ ul.bullets {
 
 #statistics h2 {
     color: #ff943b;
-    font-size: 48px;
-    padding-bottom: 30px;
+    font-size: 72px;
+    padding-bottom: 20px;
     font-weight: bold;
-    text-transform: uppercase;
 }
 
 #statistics .section-body p {
     text-align: center;
+}
+
+#statistics .section-body li img {
+    width: 80px;
+    margin-bottom: 20px;
 }
 
 /** solutions **/
@@ -9395,6 +9398,10 @@ ul.bullets {
 
 #footer-section{
     padding-top: 25px;
+    padding-bottom: 25px;
+}
+
+#footer-section h1{
     padding-bottom: 25px;
 }
 
