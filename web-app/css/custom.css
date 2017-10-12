@@ -8981,7 +8981,6 @@ div.dark {
 }
 
 /** new landing specific sections **/
-/*ul.nav.navbar-right ul#user-options  > li:first-child{*/
 ul.nav.navbar-right ul#navigation-options  > li:first-child{
     padding: 0;
     border-bottom: none;
@@ -9331,8 +9330,11 @@ ul.bullets {
     padding-bottom: 60px;
 }
 
+#cases-study-body .breadcrumb,
 #cases-study-grid .breadcrumb{
     color: #20a2ea;
+    padding: 4px 0;
+    text-transform: uppercase;
 }
 
 #cases-study-grid #request-demo-btn{
@@ -9343,15 +9345,16 @@ ul.bullets {
     font-size: 22px !important;
 }
 
+#cases-study-grid .breadcrumb{
+    position: relative;
+    top: -40px;
+}
+
 /** Cases Study Grid section **/
 
 #cases-study-body {
-    padding-top: 60px;
+    padding-top: 20px;
     padding-bottom: 60px;
-}
-
-#cases-study-body .breadcrumb{
-    color: #20a2ea;
 }
 
 #cases-study-body .section-body h1{

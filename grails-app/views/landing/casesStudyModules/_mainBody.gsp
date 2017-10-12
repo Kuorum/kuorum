@@ -1,15 +1,16 @@
 <div class="section-body">
     <div class="breadcrumbs">
         <g:link mapping="landingServices" class="breadcrumb">
-            INICIO
+            <g:message code="${msgPrefix}.breadcrumb.home"/>
         </g:link>
+        >
         <g:link mapping="landingCasesStudy" class="breadcrumb">
-            CASOS DE ÉXITO
+            <g:message code="${msgPrefix}.breadcrumb.casesStudy"/>
         </g:link>
     </div>
     <div class="row col-lg-10 col-md-offset-1">
-        <h1><g:message code="individualCaseStudy.body.case1.title"/> </h1>
-        <p><g:message code="individualCaseStudy.body.case1.content.text"/> </p>
+        <h1><g:message code="${msgPrefix}.body.case1.title"/> </h1>
+        <p><g:message code="${msgPrefix}.body.case1.content.text"/> </p>
     </div>
     <div class="row col-lg-10 col-md-offset-1">
         <formUtil:validateForm bean="${command}" form="request-case-study"/>

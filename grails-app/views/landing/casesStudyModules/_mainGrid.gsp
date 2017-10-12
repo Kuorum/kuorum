@@ -1,7 +1,7 @@
 <div class="row section-body">
     <div class="breadcrumbs">
         <g:link mapping="landingServices" class="breadcrumb">
-            INICIO
+            <g:message code="individualCaseStudy.breadcrumb.home"/>
         </g:link>
     </div>
     <div class="row">
