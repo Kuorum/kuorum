@@ -8751,13 +8751,13 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     width: 100%;
     height: 100%;
     z-index: 2;
-    background-color: #20a2ea;
+    background-color: #545454;
     opacity: .4;
 }
 
 .fade-carousel .content {
     position: absolute;
-    top: 49%;
+    top: 60%;
     left: 50%;
     z-index: 3;
     color: #fff;
@@ -8822,7 +8822,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 .fade-carousel .slides .slide-1,
 .fade-carousel .slides .slide-2,
 .fade-carousel .slides .slide-3 {
-  height: 640px;
+  height: 750px;
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -8867,36 +8867,37 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     background-image: url('../images/landing/organizations-03.jpg');
 }
 
+/* NEW LANDING FADES*/
 .fade-carousel .slides .slide-1.landingServices {
-    background-image: url('../images/landing/organizations-01.jpg');
+    background-image: url('../images/landing/landing-1.jpg');
 }
 .fade-carousel .slides .slide-2.landingServices {
-    background-image: url('../images/landing/organizations-02.jpg');
+    background-image: url('../images/landing/landing-2.jpg');
 }
 .fade-carousel .slides .slide-3.landingServices {
-    background-image: url('../images/landing/organizations-03.jpg');
+    background-image: url('../images/landing/landing-3.jpg');
 }
 
 .fade-carousel .slides .slide-1.landingTechnology {
-    background-image: url('../images/landing/organizations-01.jpg');
+    background-image: url('../images/landing/landing-2.jpg');
 }
 .fade-carousel .slides .slide-1.landingEnterprise {
-    background-image: url('../images/landing/organizations-02.jpg');
+    background-image: url('../images/landing/corporations.jpg');
 }
 .fade-carousel .slides .slide-1.landingAdministration {
-    background-image: url('../images/landing/corporations-03.jpg');
+    background-image: url('../images/landing/administrations.jpg');
 }
 .fade-carousel .slides .slide-1.landingOrganization {
-    background-image: url('../images/landing/organizations-03.jpg');
+    background-image: url('../images/landing/organizations.jpg');
 }
 .fade-carousel .slides .slide-1.footerContactUs {
-    background-image: url('../images/landing/organizations-02.jpg');
+    background-image: url('../images/landing/contact.jpg');
 }
 .fade-carousel .slides .slide-1.footerAboutUs {
     background-image: url('../images/landing/corporations-03.jpg');
 }
 .fade-carousel .slides .slide-1.footerOurTeam {
-    background-image: url('../images/landing/organizations-03.jpg');
+    background-image: url('../images/landing/team.jpg');
 }
 
 /** form **/
@@ -9485,7 +9486,7 @@ ul.globus li img {
     margin-bottom: 30px;
 }
 
-ul.globus .bullets li img {
+.bullets li img {
     width: 24px;
     margin: 0 auto;
     vertical-align: text-bottom;
