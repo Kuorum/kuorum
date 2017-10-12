@@ -5,17 +5,17 @@
 <div class="row section-body">
     <ul class="globus">
         <li class="col-sm-4 col-md-4">
-            <img class="img-responsive" src="${r.resource(dir:'images/landing', file:'icon-email.png')}" alt="step 1">
+            <img class="img-responsive" src="${r.resource(dir:'images/landing/icons', file:'icon-email.png')}" alt="step 1">
             <h2><g:message code="${msgPrefix}.statistics.accounts.title"/> </h2>
             <p><g:message code="${msgPrefix}.statistics.accounts.text"/> </p>
         </li>
         <li class="col-sm-4 col-md-4">
-            <img class="img-responsive" src="${r.resource(dir:'images/landing', file:'icon-email.png')}" alt="step 2">
+            <img class="img-responsive" src="${r.resource(dir:'images/landing/icons', file:'icon-world.png')}" alt="step 2">
             <h2><g:message code="${msgPrefix}.statistics.presence.title"/> </h2>
             <p><g:message code="${msgPrefix}.statistics.presence.text"/> </p>
         </li>
         <li class="col-sm-4 col-md-4">
-            <img class="img-responsive" src="${r.resource(dir:'images/landing', file:'icon-email.png')}" alt="step 3">
+            <img class="img-responsive" src="${r.resource(dir:'images/landing/icons', file:'icon-debate.png')}" alt="step 3">
             <h2><g:message code="${msgPrefix}.statistics.processes.title"/> </h2>
             <p><g:message code="${msgPrefix}.statistics.processes.text"/> </p>
         </li>
