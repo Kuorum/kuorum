@@ -1,5 +1,7 @@
-<div class="section-body">
-    <h1>Equipo</h1>
+<div class="section-header col-md-10 col-md-offset-1">
+    <h1><g:message code="${msgPrefix}.title"/></h1>
+</div>
+<div class="section-body col-md-10 col-md-offset-1">
     <ul class="list-team">
         <li itemscope itemtype="http://schema.org/Person">
             <div class="box-ppal">

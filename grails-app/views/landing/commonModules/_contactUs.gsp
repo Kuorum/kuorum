@@ -1,4 +1,4 @@
-<div class="section-header">
+<div class="section-header col-md-10 col-md-offset-1">
     <h1><g:message code="${msgPrefix}.contactUs.title"/></h1>
     <h3 class="hidden-xs"><g:message code="${msgPrefix}.contactUs.subtitle"/></h3>
 </div>

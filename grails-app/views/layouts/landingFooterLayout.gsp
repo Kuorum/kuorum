@@ -15,7 +15,7 @@
         </section>
     </div>
     <div class="row light">
-        <div class="container landing-footer">
+        <div class="landing-footer">
             <div class="left-container col-md-3">
                 <g:pageProperty name="page.footerLeftColumn"/>
             </div>
