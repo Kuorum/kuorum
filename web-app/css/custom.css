@@ -8906,6 +8906,15 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 .fade-carousel .slides .slide-1.footerOurTeam {
     background-image: url('../images/landing/team.jpg');
 }
+.fade-carousel .slides .slide-1.footerHistory {
+    background-image: url('../images/landing/what-is-kuorum.jpg');
+}
+.fade-carousel .slides .slide-1.footerPress {
+    background-image: url('../images/landing/what-is-kuorum.jpg');
+}
+.fade-carousel .slides .slide-1.footerUserGuides {
+    background-image: url('../images/landing/what-is-kuorum.jpg');
+}
 
 /** form **/
 
