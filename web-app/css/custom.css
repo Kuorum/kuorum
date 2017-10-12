@@ -5728,6 +5728,14 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .box.tools.open .dropdown-menu li a.active {text-decoration: underline; cursor: default; pointer-events: none;}
 
 
+    /* No logged head landing */
+    ul.nav.navbar-right ul#navigation-options.dropdown-menu{
+        left: 0;
+        right: auto;
+    }
+    .nav.no-logged > li > .navbar-link {height: 53px;}
+    /********/
+
     .box-ppal.profile .activity > li:nth-child(3) {border-right: none;}
     #info-sup-scroll .btn.follow {position: relative; top: 5px; right: auto;}
     .box-ppal.profile .activity > li {width: 16%; margin-bottom: 0;}
@@ -8973,9 +8981,21 @@ div.dark {
 }
 
 /** new landing specific sections **/
-ul.nav.navbar-right ul#user-options  > li:first-child{
+/*ul.nav.navbar-right ul#user-options  > li:first-child{*/
+ul.nav.navbar-right ul#navigation-options  > li:first-child{
     padding: 0;
     border-bottom: none;
+}
+
+ul.nav.navbar-right ul#navigation-options.dropdown-menu > li > a{
+    padding: 10px 14px;
+    color: #545454;
+}
+
+ul.nav.navbar-right ul#navigation-options.dropdown-menu > li > a:hover{
+    padding: 10px 14px;
+    color: #ffffff;
+    background-color: #545454;
 }
 
 ul.threeColumn {

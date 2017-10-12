@@ -1,5 +1,5 @@
 <!-- Le quitamos las clases underline, etc a estos enlaces -->
-<ul class="nav navbar-nav navbar-right">
+<ul class="nav navbar-nav navbar-right no-logged">
     %{--<li>--}%
         %{--<g:link mapping="landingLeaders" class="navbar-link ${nav.activeMenuCss(mappingName: 'landingLeaders')} ${nav.activeMenuCss(mappingName: 'home')}">--}%
             %{--<span><g:message code="head.noLogged.leaders"/></span>--}%
@@ -28,7 +28,7 @@
         <g:link mapping="landingOrganization" class="dropdown-toggle dropdown-menu-right navbar-link" data-toggle="dropdown" role="button">
             <span><g:message code="head.noLogged.sectors"/> </span>
         </g:link>
-        <ul id="user-options" class="dropdown-menu dropdown-menu-right" aria-labelledby="open-user-options" role="menu">
+        <ul id="navigation-options" class="dropdown-menu dropdown-menu-right" aria-labelledby="open-user-options" role="menu">
             <li>
                 <g:link mapping="landingEnterprise" class="navbar-link ${nav.activeMenuCss(mappingName: 'landingEnterprise')}">
                     <span><g:message code="head.noLogged.enterprise"/></span>
