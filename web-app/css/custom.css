@@ -9078,6 +9078,11 @@ ul.bullets {
     text-align: left;
 }
 
+.section-body a{
+    color: #20a2ea;
+    cursor: pointer;
+}
+
 .section-body ul.list-team p{
     font-size: 14px;
 }
