@@ -44,7 +44,7 @@
     </div>
     <div class="row landing-section-dark">
         <div class="container">
-            <section id="contact-us">
+            <section id="contact-us" class="col-md-10 col-md-offset-1">
                 <g:pageProperty name="page.contactUs"/>
             </section>
         </div>

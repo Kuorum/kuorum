@@ -8998,7 +8998,7 @@ div.dark {
 }
 
 /** new landing specific sections **/
-.row.landing-section-dark {
+.landing-section-dark {
     background-color: #fbfbfb;
 }
 
@@ -9041,6 +9041,7 @@ ul.threeColumn .card-body a {
 
 ul.threeColumn .card-body p {
     text-align: center;
+    font-size: 18px;
 }
 
 ul.bullets {
@@ -9048,6 +9049,11 @@ ul.bullets {
     padding: 0;
     font-size: 18px;
     text-align: left;
+}
+
+
+ul.bullets li{
+    padding-bottom: 20px;
 }
 
 .section-header h1 {
@@ -9077,6 +9083,11 @@ ul.bullets {
     text-align: left;
 }
 
+.section-body a{
+    color: #20a2ea;
+    cursor: pointer;
+}
+
 .section-body ul.list-team p{
     font-size: 14px;
 }
@@ -9092,10 +9103,6 @@ ul.bullets {
 #gain .bullets{
     font-size: 28px;
     line-height: 45px;
-}
-#pain .bullets li,
-#gain .bullets li{
-    padding-bottom: 20px;
 }
 
 #pain .bullets img,
@@ -9134,6 +9141,7 @@ ul.bullets {
     float: left;
     font-size: 22px;
     padding-top: 25px;
+    padding-bottom: 60px;
     color: #20a2ea;
 }
 
@@ -9228,7 +9236,6 @@ ul.bullets {
 }
 
 #services ul.bullets li span{
-    margin-left: 10px;
     line-height: 31px;
 }
 
@@ -9372,20 +9379,35 @@ ul.bullets {
     font-size: 22px !important;
 }
 
+#cases-study-grid .card-body p{
+    font-size: 18px;
+    text-align: left;
+}
+
 #cases-study-grid .breadcrumb{
     position: relative;
     top: -40px;
+}
+
+
+
+ul.threeColumn .card-body p {
+    text-align: center;
+    font-size: 18px;
 }
 
 /** Cases Study Grid section **/
 
 #cases-study-body {
     padding-top: 20px;
-    padding-bottom: 60px;
+}
+#cases-study-body .content{
+    padding-bottom: 40px;
 }
 
 #cases-study-body .section-body h1{
     font-size: 40px;
+    font-family: "Arial Black";
     text-align: center;
     margin: 40px 0;
 }
@@ -9396,6 +9418,7 @@ ul.bullets {
 
 #cases-study-body .request-case-study .form-group{
     padding: 0;
+    padding: 0 10px;
 }
 
 #cases-study-body .request-case-study input{
@@ -9459,6 +9482,7 @@ ul.bullets {
 #footer-section .section-header p{
     font-size: 22px;
     text-align: left;
+    line-height: 31px;
 }
 
 .left-container {
@@ -9511,6 +9535,7 @@ ul.globus {
 
 ul.globus li{
     line-height: 31px;
+    padding-bottom: 20px;
 }
 
 ul.globus li img {
@@ -9523,6 +9548,30 @@ ul.bullets li img {
     width: 24px;
     margin: 0 auto;
     vertical-align: text-bottom;
+}
+
+#pain ul.bullets li{
+    background: url('../images/landing/arrow.png') no-repeat left 7px;
+    background-size: 32px;
+    padding-left: 50px;
+}
+
+#gain ul.bullets li{
+    background: url('../images/landing/icons/icon-check.png') no-repeat left 7px;
+    background-size: 32px;
+    padding-left: 50px;
+}
+
+#services ul.bullets li{
+    background: url('../images/landing/icons/icon-check.png') no-repeat left 7px;
+    background-size: 32px;
+    padding-left: 50px;
+}
+
+#services ul.globus ul.bullets li{
+    background: url('../images/landing/icons/icon-check.png') no-repeat left 3px;
+    background-size: 25px;
+    padding-left: 40px;
 }
 
 
@@ -9725,7 +9774,7 @@ ul.bullets li img {
         margin-bottom: 0px;
     }
     .fade-carousel .content {
-        top: 43%;
+        top: 60%;
         width: 100%;
         padding: 0;
     }
@@ -9774,6 +9823,26 @@ ul.bullets li img {
     }
     #progress h1 {
         text-align: center;
+    }
+
+    #services h1 {
+        padding-bottom: 25px;
+    }
+
+    #services .bullets{
+        padding: 0 15px;
+    }
+
+    .section-body .bullets{
+        padding: 0 15px;
+    }
+
+    .section-header h1 {
+        padding-bottom: 25px;
+    }
+
+    .landing-footer{
+        padding: 0;
     }
 }
 

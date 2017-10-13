@@ -5,11 +5,9 @@
 <div class="row section-body">
     <ul class="onecol bullets">
         <li>
-            <img src="${r.resource(dir:'images/landing/icons', file:'icon-check.png')}"/>
             <span><g:message code="${msgPrefix}.howItWorks.bullet1"/> </span>
         </li>
         <li>
-            <img src="${r.resource(dir:'images/landing/icons', file:'icon-check.png')}"/>
             <span><g:message code="${msgPrefix}.howItWorks.bullet2"/> </span>
         </li>
     </ul>

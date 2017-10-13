@@ -5,15 +5,12 @@
 <div class="row section-body">
     <ul class="onecol bullets">
         <li>
-            <img src="${r.resource(dir:'images/landing/icons', file:'icon-check.png')}"/>
             <span><g:message code="${msgPrefix}.gain.bullet1"/> </span>
         </li>
         <li>
-            <img src="${r.resource(dir:'images/landing/icons', file:'icon-check.png')}"/>
             <span><g:message code="${msgPrefix}.gain.bullet2"/> </span>
         </li>
         <li>
-            <img src="${r.resource(dir:'images/landing/icons', file:'icon-check.png')}"/>
             <span><g:message code="${msgPrefix}.gain.bullet3"/> </span>
         </li>
     </ul>
