@@ -1,3 +1,4 @@
+<g:set var="command" value="${new kuorum.web.commands.customRegister.RequestCaseStudyCommand()}"/>
 <div class="section-body">
     <div class="breadcrumbs">
         <g:link mapping="landingServices" class="breadcrumb">
