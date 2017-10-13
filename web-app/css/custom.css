@@ -8998,7 +8998,7 @@ div.dark {
 }
 
 /** new landing specific sections **/
-.row.landing-section-dark {
+.landing-section-dark {
     background-color: #fbfbfb;
 }
 
@@ -9051,6 +9051,11 @@ ul.bullets {
     text-align: left;
 }
 
+
+ul.bullets li{
+    padding-bottom: 20px;
+}
+
 .section-header h1 {
     text-align: center;
     font-weight: bold;
@@ -9098,10 +9103,6 @@ ul.bullets {
 #gain .bullets{
     font-size: 28px;
     line-height: 45px;
-}
-#pain .bullets li,
-#gain .bullets li{
-    padding-bottom: 20px;
 }
 
 #pain .bullets img,
@@ -9235,7 +9236,6 @@ ul.bullets {
 }
 
 #services ul.bullets li span{
-    margin-left: 10px;
     line-height: 31px;
 }
 
@@ -9535,6 +9535,7 @@ ul.globus {
 
 ul.globus li{
     line-height: 31px;
+    padding-bottom: 20px;
 }
 
 ul.globus li img {
@@ -9547,6 +9548,30 @@ ul.bullets li img {
     width: 24px;
     margin: 0 auto;
     vertical-align: text-bottom;
+}
+
+#pain ul.bullets li{
+    background: url('../images/landing/arrow.png') no-repeat left 7px;
+    background-size: 32px;
+    padding-left: 50px;
+}
+
+#gain ul.bullets li{
+    background: url('../images/landing/icons/icon-check.png') no-repeat left 7px;
+    background-size: 32px;
+    padding-left: 50px;
+}
+
+#services ul.bullets li{
+    background: url('../images/landing/icons/icon-check.png') no-repeat left 7px;
+    background-size: 32px;
+    padding-left: 50px;
+}
+
+#services ul.globus ul.bullets li{
+    background: url('../images/landing/icons/icon-check.png') no-repeat left 3px;
+    background-size: 25px;
+    padding-left: 40px;
 }
 
 
@@ -9804,8 +9829,20 @@ ul.bullets li img {
         padding-bottom: 25px;
     }
 
+    #services .bullets{
+        padding: 0 15px;
+    }
+
+    .section-body .bullets{
+        padding: 0 15px;
+    }
+
     .section-header h1 {
         padding-bottom: 25px;
+    }
+
+    .landing-footer{
+        padding: 0;
     }
 }
 

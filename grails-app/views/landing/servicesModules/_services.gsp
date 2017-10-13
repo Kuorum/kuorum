@@ -10,23 +10,18 @@
             <p><g:message code="${msgPrefix}.howItWorks.signUp.text"/> </p>
             <ul class="onecol bullets col-12">
                 <li class="col-6 col-md-offset-3 col-sm-offset-3 col-xs-offset-4">
-                    <img src="${r.resource(dir:'images/landing/icons', file:'icon-check.png')}"/>
                     <span><g:message code="${msgPrefix}.howItWorks.signUp.bullet1.text"/></span>
                 </li>
                 <li class="col-6 col-md-offset-3 col-sm-offset-3 col-xs-offset-4">
-                    <img src="${r.resource(dir:'images/landing/icons', file:'icon-check.png')}"/>
                     <span><g:message code="${msgPrefix}.howItWorks.signUp.bullet2.text"/></span>
                 </li>
                 <li class="col-6 col-md-offset-3 col-sm-offset-3 col-xs-offset-4">
-                    <img src="${r.resource(dir:'images/landing/icons', file:'icon-check.png')}"/>
                     <span><g:message code="${msgPrefix}.howItWorks.signUp.bullet3.text"/></span>
                 </li>
                 <li class="col-6 col-md-offset-3 col-sm-offset-3 col-xs-offset-4">
-                    <img src="${r.resource(dir:'images/landing/icons', file:'icon-check.png')}"/>
                     <span><g:message code="${msgPrefix}.howItWorks.signUp.bullet4.text"/></span>
                 </li>
                 <li class="col-6 col-md-offset-3 col-sm-offset-3 col-xs-offset-4">
-                    <img src="${r.resource(dir:'images/landing/icons', file:'icon-check.png')}"/>
                     <span><g:message code="${msgPrefix}.howItWorks.signUp.bullet5.text"/></span>
                 </li>
             </ul>
@@ -37,23 +32,18 @@
             <p><g:message code="${msgPrefix}.howItWorks.connect.text"/> </p>
             <ul class="onecol bullets col-12">
                 <li class="col-6 col-md-offset-3 col-sm-offset-3 col-xs-offset-4">
-                    <img src="${r.resource(dir:'images/landing/icons', file:'icon-check.png')}"/>
                     <span><g:message code="${msgPrefix}.howItWorks.connect.bullet1.text"/></span>
                 </li>
                 <li class="col-6 col-md-offset-3 col-sm-offset-3 col-xs-offset-4">
-                    <img src="${r.resource(dir:'images/landing/icons', file:'icon-check.png')}"/>
                     <span><g:message code="${msgPrefix}.howItWorks.connect.bullet2.text"/></span>
                 </li>
                 <li class="col-6 col-md-offset-3 col-sm-offset-3 col-xs-offset-4">
-                    <img src="${r.resource(dir:'images/landing/icons', file:'icon-check.png')}"/>
                     <span><g:message code="${msgPrefix}.howItWorks.connect.bullet3.text"/></span>
                 </li>
                 <li class="col-6 col-md-offset-3 col-sm-offset-3 col-xs-offset-4">
-                    <img src="${r.resource(dir:'images/landing/icons', file:'icon-check.png')}"/>
                     <span><g:message code="${msgPrefix}.howItWorks.connect.bullet4.text"/></span>
                 </li>
                 <li class="col-6 col-md-offset-3 col-sm-offset-3 col-xs-offset-4">
-                    <img src="${r.resource(dir:'images/landing/icons', file:'icon-check.png')}"/>
                     <span><g:message code="${msgPrefix}.howItWorks.connect.bullet5.text"/></span>
                 </li>
             </ul>
@@ -64,23 +54,18 @@
             <p><g:message code="${msgPrefix}.howItWorks.engage.text"/> </p>
             <ul class="checklist bullets col-12">
                 <li class="col-6 col-md-offset-3 col-sm-offset-3 col-xs-offset-4">
-                    <img src="${r.resource(dir:'images/landing/icons', file:'icon-check.png')}"/>
                     <span><g:message code="${msgPrefix}.howItWorks.engage.bullet1.text"/></span>
                 </li>
                 <li class="col-6 col-md-offset-3 col-sm-offset-3 col-xs-offset-4">
-                    <img src="${r.resource(dir:'images/landing/icons', file:'icon-check.png')}"/>
                     <span><g:message code="${msgPrefix}.howItWorks.engage.bullet2.text"/></span>
                 </li>
                 <li class="col-6 col-md-offset-3 col-sm-offset-3 col-xs-offset-4">
-                    <img src="${r.resource(dir:'images/landing/icons', file:'icon-check.png')}"/>
                     <span><g:message code="${msgPrefix}.howItWorks.engage.bullet3.text"/></span>
                 </li>
                 <li class="col-6 col-md-offset-3 col-sm-offset-3 col-xs-offset-4">
-                    <img src="${r.resource(dir:'images/landing/icons', file:'icon-check.png')}"/>
                     <span><g:message code="${msgPrefix}.howItWorks.engage.bullet4.text"/></span>
                 </li>
                 <li class="col-6 col-md-offset-3 col-sm-offset-3 col-xs-offset-4">
-                    <img src="${r.resource(dir:'images/landing/icons', file:'icon-check.png')}"/>
                     <span><g:message code="${msgPrefix}.howItWorks.engage.bullet5.text"/></span>
                 </li>
             </ul>
