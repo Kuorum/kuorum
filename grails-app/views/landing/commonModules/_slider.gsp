@@ -1,11 +1,16 @@
 <!-- ^fade-carousel !-->
-<div id="carousel-landing-main" class="carousel slide fade-carousel ${msgPrefix}" data-ride="carousel" data-interval="5000" data-pause="null">
-    <div class="carousel-inner" role="listbox">
-        <!-- leaders !-->
-        <div class="item slides active">
-            <div class="slide-1 ${msgPrefix}">
+%{--<div id="carousel-landing-main" class="carousel slide fade-carousel ${msgPrefix}" data-ride="carousel" data-interval="5000" data-pause="null">--}%
+    %{--<div class="carousel-inner" role="listbox">--}%
+        %{--<!-- leaders !-->--}%
+        %{--<div class="item slides active">--}%
+            %{--<div class="slide-1 ${msgPrefix}">--}%
                 %{--<div class="overlay"></div>--}%
-            </div>
-        </div> <!-- slide 1 leaders !-->
-    </div>
+            %{--</div>--}%
+        %{--</div> <!-- slide 1 leaders !-->--}%
+    %{--</div>--}%
+%{--</div>--}%
+
+<div id="carousel-landing-main" class="${msgPrefix}">
+    <img class="img-responsive" src="${r.resource(dir:'images/landing', file: imgHeader+'.jpg')}" alt="step 1">
+    <div class="overlay"></div>
 </div>

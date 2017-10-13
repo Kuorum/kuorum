@@ -8897,23 +8897,10 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 .fade-carousel .slides .slide-1.individualCaseStudy {
     background-image: url('../images/landing/case-study-1.jpg');
 }
-.fade-carousel .slides .slide-1.footerContactUs {
-    background-image: url('../images/landing/contact.jpg');
-}
-.fade-carousel .slides .slide-1.footerAboutUs {
-    background-image: url('../images/landing/what-is-kuorum.jpg');
-}
-.fade-carousel .slides .slide-1.footerOurTeam {
-    background-image: url('../images/landing/team.jpg');
-}
-.fade-carousel .slides .slide-1.footerHistory {
-    background-image: url('../images/landing/what-is-kuorum.jpg');
-}
-.fade-carousel .slides .slide-1.footerPress {
-    background-image: url('../images/landing/what-is-kuorum.jpg');
-}
-.fade-carousel .slides .slide-1.footerUserGuides {
-    background-image: url('../images/landing/what-is-kuorum.jpg');
+
+#carousel-landing-main .img-responsive{
+    position: relative;
+    top: 90px;
 }
 
 /** form **/
@@ -9440,6 +9427,10 @@ ul.threeColumn .card-body p {
     padding: 60px 100px;
 }
 
+.landing-footer .section-header h3{
+    float: left;
+}
+
 .landing-footer .form-group label{
     font-size: 16px;
     font-family: Georgia, Cambria, "Times New Roman", Times, serif;
@@ -9480,8 +9471,7 @@ ul.threeColumn .card-body p {
 }
 
 .left-container {
-    padding-top: 25px;
-    padding-bottom: 25px;
+    padding: 30px;
     float: left;
 }
 
@@ -9836,7 +9826,7 @@ ul.bullets li img {
     }
 
     .landing-footer{
-        padding: 0;
+        padding: 40px 0;
     }
 }
 

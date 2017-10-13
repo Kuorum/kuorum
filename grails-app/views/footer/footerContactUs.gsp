@@ -12,7 +12,7 @@
 </head>
 
 <content tag="main">
-    <g:render template="/landing/commonModules/slider" model="[msgPrefix:'footerContactUs']"/>
+    <g:render template="/landing/commonModules/slider" model="[msgPrefix:'footerContactUs', imgHeader:'contact']"/>
 </content>
 
 <content tag="footerLeftColumn">
