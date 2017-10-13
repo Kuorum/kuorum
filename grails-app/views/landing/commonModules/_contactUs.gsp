@@ -1,8 +1,8 @@
-<div class="section-header col-md-10 col-md-offset-1">
+<div class="section-header">
     <h1><g:message code="${msgPrefix}.contactUs.title"/></h1>
-    <h3 class="hidden-xs"><g:message code="${msgPrefix}.contactUs.subtitle"/></h3>
+    <p><g:message code="${msgPrefix}.contactUs.subtitle"/></p>
 </div>
-<div class="section-body col-md-10 col-md-offset-1">
+<div class="section-body">
     <sec:ifNotLoggedIn>
         <formUtil:validateForm bean="${command}" form="landing-register"/>
         <g:form mapping="register" autocomplete="off" method="post" name="landing-register" class="" role="form" novalidate="novalidate">
