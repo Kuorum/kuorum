@@ -9041,6 +9041,7 @@ ul.threeColumn .card-body a {
 
 ul.threeColumn .card-body p {
     text-align: center;
+    font-size: 18px;
 }
 
 ul.bullets {
@@ -9381,7 +9382,9 @@ ul.bullets {
 
 #cases-study-body {
     padding-top: 20px;
-    padding-bottom: 60px;
+}
+#cases-study-body .content{
+    padding-bottom: 40px;
 }
 
 #cases-study-body .section-body h1{
@@ -9396,6 +9399,7 @@ ul.bullets {
 
 #cases-study-body .request-case-study .form-group{
     padding: 0;
+    padding: 0 10px;
 }
 
 #cases-study-body .request-case-study input{

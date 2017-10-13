@@ -8,11 +8,11 @@
             <g:message code="${msgPrefix}.breadcrumb.casesStudy"/>
         </g:link>
     </div>
-    <div class="row col-lg-10 col-md-offset-1">
+    <div class="content">
         <h1><g:message code="${msgPrefix}.body.case1.title"/> </h1>
         <p><g:message code="${msgPrefix}.body.case1.content.text"/> </p>
     </div>
-    <div class="row col-lg-10 col-md-offset-1">
+    <div class="request-case-study">
         <formUtil:validateForm bean="${command}" form="request-case-study"/>
         <form action="#" class="request-case-study form-inline dark" id="request-case-study" name="request-case-study">
             <fieldset>
@@ -36,13 +36,15 @@
                             placeHolder="${g.message(code: "individualCaseStudy.body.downloadCase.email")}"
                             required="true"/>
                 </div>
-                <g:render template="/layouts/recaptchaForm"/>
-                <button type="submit"
-                        data-sitekey="${siteKey}"
-                        data-size="invisible"
-                        data-callback='onSubmit'
-                        class="btn btn-orange btn-lg col-lg-4 g-recaptcha"><g:message code="${msgPrefix}.body.downloadCase.submit"/>
-                </button>
+                <div class="form-group col-lg-4">
+                    <g:render template="/layouts/recaptchaForm"/>
+                    <button type="submit"
+                            data-sitekey="${siteKey}"
+                            data-size="invisible"
+                            data-callback='onSubmit'
+                            class="btn btn-sign-up btn-orange btn-lg col-lg-4 g-recaptcha"><g:message code="${msgPrefix}.body.downloadCase.submit"/>
+                    </button>
+                </div>
             </fieldset>
         </form>
     </div>
