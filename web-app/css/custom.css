@@ -9373,9 +9373,21 @@ ul.bullets {
     font-size: 22px !important;
 }
 
+#cases-study-grid .card-body p{
+    font-size: 18px;
+    text-align: left;
+}
+
 #cases-study-grid .breadcrumb{
     position: relative;
     top: -40px;
+}
+
+
+
+ul.threeColumn .card-body p {
+    text-align: center;
+    font-size: 18px;
 }
 
 /** Cases Study Grid section **/
