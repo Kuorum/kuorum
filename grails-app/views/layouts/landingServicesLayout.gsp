@@ -35,7 +35,7 @@
             </section>
         </div>
     </div>
-    <div class="row landing-section-light">
+    <div class="landing-section-light">
         <section id="trustUs">
             <g:pageProperty name="page.trustUs"/>
         </section>

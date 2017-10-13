@@ -9140,6 +9140,7 @@ ul.bullets {
     float: left;
     font-size: 22px;
     padding-top: 25px;
+    padding-bottom: 60px;
     color: #20a2ea;
 }
 
@@ -9748,7 +9749,7 @@ ul.bullets li img {
         margin-bottom: 0px;
     }
     .fade-carousel .content {
-        top: 43%;
+        top: 60%;
         width: 100%;
         padding: 0;
     }
@@ -9797,6 +9798,14 @@ ul.bullets li img {
     }
     #progress h1 {
         text-align: center;
+    }
+
+    #services h1 {
+        padding-bottom: 25px;
+    }
+
+    .section-header h1 {
+        padding-bottom: 25px;
     }
 }
 
