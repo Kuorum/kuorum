@@ -7625,11 +7625,55 @@ header .header-msg h6:hover{
     text-align: left;
 }
 
+#cases-study-grid .other-cases .card .card-body h3 a
+{
+    color: #f0ad4e;
+    text-decoration:none;
+}
 #cases-study-grid .breadcrumb{
     position: relative;
     top: -40px;
 }
 
+
+/** Cases Study Grid section **/
+
+#cases-study-body {
+    padding-top: 20px;
+}
+#cases-study-body .content{
+    padding-bottom: 40px;
+    line-height: 2.5em;
+}
+
+#cases-study-body .section-body h1{
+    font-size: 40px;
+    font-family: "Arial Black";
+    text-align: center;
+    margin: 40px 0;
+    line-height: 50px;
+}
+
+#cases-study-body .request-case-study{
+    text-align: center;
+}
+
+#cases-study-body .request-case-study .form-group{
+    padding: 0;
+    padding: 0 10px;
+}
+
+#cases-study-body .request-case-study input{
+    min-height: 55px;
+    width: 100%;
+}
+#cases-study-body .request-case-study .btn{
+    font-size: 25px !important;
+}
+
+#cases-study-body .card-body p + p{
+    margin-top:5px;
+}
 
 @media only screen and (min-width: 768px){
     #cases-study-grid .card .card-body {padding:0;}
@@ -9383,39 +9427,6 @@ ul.bullets li{
 ul.threeColumn .card-body p {
     text-align: center;
     font-size: 18px;
-}
-
-/** Cases Study Grid section **/
-
-#cases-study-body {
-    padding-top: 20px;
-}
-#cases-study-body .content{
-    padding-bottom: 40px;
-}
-
-#cases-study-body .section-body h1{
-    font-size: 40px;
-    font-family: "Arial Black";
-    text-align: center;
-    margin: 40px 0;
-}
-
-#cases-study-body .request-case-study{
-    text-align: center;
-}
-
-#cases-study-body .request-case-study .form-group{
-    padding: 0;
-    padding: 0 10px;
-}
-
-#cases-study-body .request-case-study input{
-    min-height: 55px;
-    width: 100%;
-}
-#cases-study-body .request-case-study .btn{
-    font-size: 25px !important;
 }
 
 #contact-us .section-body .form-group label {
