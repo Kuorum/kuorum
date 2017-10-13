@@ -30,13 +30,13 @@
         </g:link>
         <ul id="navigation-options" class="dropdown-menu dropdown-menu-right" aria-labelledby="open-user-options" role="menu">
             <li>
-                <g:link mapping="landingEnterprise" class="navbar-link ${nav.activeMenuCss(mappingName: 'landingEnterprise')}">
-                    <span><g:message code="head.noLogged.enterprise"/></span>
+                <g:link mapping="landingAdministration" class="navbar-link ${nav.activeMenuCss(mappingName: 'landingAdministration')}">
+                    <span><g:message code="head.noLogged.administration"/></span>
                 </g:link>
             </li>
             <li>
-                <g:link mapping="landingAdministration" class="navbar-link ${nav.activeMenuCss(mappingName: 'landingAdministration')}">
-                    <span><g:message code="head.noLogged.administration"/></span>
+                <g:link mapping="landingEnterprise" class="navbar-link ${nav.activeMenuCss(mappingName: 'landingEnterprise')}">
+                    <span><g:message code="head.noLogged.enterprise"/></span>
                 </g:link>
             </li>
             <li>
