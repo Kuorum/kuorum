@@ -9487,6 +9487,9 @@ ul.threeColumn .card-body p {
     text-decoration: none;
 }
 
+.left-container ul a.active{
+    font-weight: bold;
+}
 /** how-it-works **/
 
 #how-it-works {
