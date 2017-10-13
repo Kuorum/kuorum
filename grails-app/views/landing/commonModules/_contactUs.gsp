@@ -83,7 +83,7 @@
             <fieldset class="form-group text-center">
                 <g:render template="/layouts/recaptchaForm"/>
                 <button type="submit"
-                        data-sitekey="${siteKey}"
+                        data-sitekey="${_googleCaptchaKey}"
                         data-size="invisible"
                         data-callback='onSubmit'
                         class="btn btn-orange btn-lg g-recaptcha"><g:message code="${msgPrefix}.contactUs.submit"/>

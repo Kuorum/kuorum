@@ -49,9 +49,6 @@ class DashboardController {
     CookieUUIDService cookieUUIDService
     CustomerService customerService;
 
-    @Value('${recaptcha.providers.google.siteKey}')
-    String RECAPTCHA_SITEKEY
-
     private  static final Integer MAX_PROJECT_EVENTS = 2
 
     def index(){
@@ -257,7 +254,7 @@ class DashboardController {
     }
 
     def landingCitizens(){
-        [command: new KuorumRegisterCommand(), siteKey: RECAPTCHA_SITEKEY]
+        [command: new KuorumRegisterCommand()]
     }
 
     def landingPrices(){
@@ -271,7 +268,7 @@ class DashboardController {
             flash.message = flash.message
             redirect (mapping:"dashboard")
         }else{
-            render(view: "landingLeaders", model: [command: new KuorumRegisterCommand(), siteKey: RECAPTCHA_SITEKEY])
+            render(view: "landingLeaders", model: [command: new KuorumRegisterCommand()])
         }
     }
 
@@ -281,7 +278,7 @@ class DashboardController {
             flash.message = flash.message
             redirect (mapping:"dashboard")
         }else{
-            render(view: "landingCorporations", model: [command: new KuorumRegisterCommand(), siteKey: RECAPTCHA_SITEKEY])
+            render(view: "landingCorporations", model: [command: new KuorumRegisterCommand()])
         }
     }
 
@@ -291,7 +288,7 @@ class DashboardController {
             flash.message = flash.message
             redirect (mapping:"dashboard")
         }else{
-            render(view: "landingCorporationsBrands", model: [command: new KuorumRegisterCommand(), siteKey: RECAPTCHA_SITEKEY])
+            render(view: "landingCorporationsBrands", model: [command: new KuorumRegisterCommand()])
         }
     }
 
@@ -301,7 +298,7 @@ class DashboardController {
             flash.message = flash.message
             redirect (mapping:"dashboard")
         }else{
-            render(view: "landingOrganizations", model: [command: new KuorumRegisterCommand(), siteKey: RECAPTCHA_SITEKEY])
+            render(view: "landingOrganizations", model: [command: new KuorumRegisterCommand()])
         }
     }
 }

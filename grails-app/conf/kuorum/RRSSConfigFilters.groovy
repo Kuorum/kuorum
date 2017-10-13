@@ -17,6 +17,7 @@ class RRSSConfigFilters {
                 }
                 model.put("_facebookConfig",getFacebookConfig())
                 model.put("_googleConfig",getGoogleConfig())
+                model.put("_googleCaptchaKey",getGoogleCaptchaKey())
 
             }
             afterView = { Exception e ->
@@ -30,5 +31,9 @@ class RRSSConfigFilters {
     }
     private def getGoogleConfig(){
         return grailsApplication.config.oauth.providers.google
+    }
+
+    private def getGoogleCaptchaKey(){
+        return grailsApplication.config.recaptcha.providers.google.siteKey
     }
 }

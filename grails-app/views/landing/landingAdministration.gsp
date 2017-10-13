@@ -29,5 +29,5 @@
 </content>
 
 <content tag="contactUs">
-    <g:render template="/landing/commonModules/contactUs" model="[command:command, msgPrefix:'landingAdministration', siteKey:siteKey]"/>
+    <g:render template="/landing/commonModules/contactUs" model="[msgPrefix:'landingAdministration']"/>
 </content>

@@ -17,7 +17,7 @@
 </content>
 
 <content tag="caseStudyBody">
-    <g:render template="/landing/casesStudyModules/mainBody" model="[command:command, msgPrefix:'individualCaseStudy', siteKey:siteKey]"/>
+    <g:render template="/landing/casesStudyModules/mainBody" model="[command:command, msgPrefix:'individualCaseStudy']"/>
 </content>
 
 <content tag="casesStudyGrid">

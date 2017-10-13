@@ -15,8 +15,7 @@ class LandingController {
             flash.message = flash.message
             redirect (mapping:"dashboard")
         }else{
-//            render(view: "landingServices", model: [command: new KuorumRegisterCommand(), siteKey: RECAPTCHA_SITEKEY])
-            render(view: "landingServices", model: [command: new KuorumRegisterCommand()])
+            return [command: new KuorumRegisterCommand()]
         }
     }
 

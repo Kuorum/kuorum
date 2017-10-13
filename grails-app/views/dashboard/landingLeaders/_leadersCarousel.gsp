@@ -41,7 +41,7 @@
                     </div>
                     <g:render template="/layouts/recaptchaForm"/>
                     <button type="submit"
-                            data-sitekey="${siteKey}"
+                            data-sitekey="${_googleCaptchaKey}"
                             data-size="invisible"
                             data-callback='onSubmit'
                             class="btn btn-blue btn-lg col-lg-4 g-recaptcha"><g:message code="${msgPrefix}.carousel.login.submit"/>

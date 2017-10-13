@@ -41,9 +41,6 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
     MailchimpService mailchimpService
     CookieUUIDService cookieUUIDService
 
-    @Value('${recaptcha.providers.google.siteKey}')
-    String RECAPTCHA_SITEKEY
-
     @Value('${recaptcha.providers.google.secretKey}')
     String RECAPTCHA_SECRET
 
@@ -58,7 +55,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
             flash.message = message(code:'register.alreadyRegistered')
             return
         }
-        [command: new KuorumRegisterCommand(copy), siteKey: RECAPTCHA_SITEKEY]
+        [command: new KuorumRegisterCommand(copy)]
     }
 
     def register(KuorumRegisterCommand command) {
