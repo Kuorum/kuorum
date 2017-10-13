@@ -9349,6 +9349,13 @@ ul.bullets li{
     text-align: center;
 }
 
+#contact-us .section-header p{
+    font-size: 22px;
+    padding: 20px 5px;
+    text-align: center;
+    line-height: 31px;
+}
+
 /** Cases Study Grid section **/
 
 #cases-study-grid {
