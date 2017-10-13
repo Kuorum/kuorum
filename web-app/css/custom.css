@@ -9487,6 +9487,10 @@ ul.threeColumn .card-body p {
     text-decoration: none;
 }
 
+.left-container ul a:hover{
+    text-decoration: underline;
+}
+
 .left-container ul a.active{
     font-weight: bold;
 }
