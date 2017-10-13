@@ -193,14 +193,6 @@ class DashboardController {
         render template: "/campaigns/cards/campaignsList", model:[campaigns:campaigns, showAuthor: true]
     }
 
-    private def splitClucksInParts(List<Cluck> clucks){
-        if (clucks && clucks.size() > 2){
-            return [clucks_1:clucks[0..1], clucks_2:clucks[2..clucks.size()-1]]
-        }
-        return [clucks_1:clucks, clucks_2:[]]
-    }
-
-
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def dashboardPoliticians(Pagination pagination){
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
@@ -209,6 +201,7 @@ class DashboardController {
         render template: "/dashboard/listDashboardUserRecommendations", model:[politicians:suggesterPoliticians]
     }
 
+    @Deprecated
     def landingPoliticians(){
         [command: new KuorumRegisterCommand()]
     }
@@ -233,26 +226,7 @@ class DashboardController {
 //        ]
     }
 
-
-    def customPostMapping(String customLink){
-        Project project = Project.findByHashtag("#losDatosCuentan")
-        redirect mapping: "projectShow" , params: project.encodeAsLinkProperties()
-    }
-
-    def customPostMappingEmpleoJuvenil(){
-        Project project = Project.findByHashtag("#empleoJuvenil")
-        redirect mapping: "projectShow" , params: project.encodeAsLinkProperties()
-    }
-
-    def customPostMappingSayNoToFracking(){
-        Project project = Project.findByHashtag("#sayNoToFracking")
-        redirect mapping: "projectShow" , params: project.encodeAsLinkProperties()
-    }
-    def customPostMappingImmigrationrc(){
-        Project project = Project.findByHashtag("#immigrationRC")
-        redirect mapping: "projectShow" , params: project.encodeAsLinkProperties()
-    }
-
+    @Deprecated
     def landingCitizens(){
         [command: new KuorumRegisterCommand()]
     }
@@ -262,6 +236,7 @@ class DashboardController {
         [plans:plans    ]
     }
 
+    @Deprecated
     def landingLeaders(){
         if (springSecurityService.isLoggedIn()){
 //            render(view: "dashboard", model: dashboard())
@@ -272,6 +247,7 @@ class DashboardController {
         }
     }
 
+    @Deprecated
     def landingCorporations(){
         if (springSecurityService.isLoggedIn()){
 //            render(view: "dashboard", model: dashboard())
@@ -282,6 +258,7 @@ class DashboardController {
         }
     }
 
+    @Deprecated
     def landingCorporationsBrands(){
         if (springSecurityService.isLoggedIn()){
 //            render(view: "dashboard", model: dashboard())
@@ -292,6 +269,7 @@ class DashboardController {
         }
     }
 
+    @Deprecated
     def landingOrganizations(){
         if (springSecurityService.isLoggedIn()){
 //            render(view: "dashboard", model: dashboard())

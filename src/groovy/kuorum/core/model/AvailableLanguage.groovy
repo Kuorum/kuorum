@@ -30,4 +30,14 @@ public enum AvailableLanguage{
         }
         return res;
     }
+
+    public static AvailableLanguage fromLocale(Locale locale){
+        AvailableLanguage res = null;
+        AvailableLanguage.values().each {availableLanguage ->
+            if (availableLanguage.locale.language == locale.getLanguage()){
+                res = availableLanguage
+            }
+        }
+        return res;
+    }
 }

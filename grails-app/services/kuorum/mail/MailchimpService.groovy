@@ -27,6 +27,9 @@ class MailchimpService {
     @Value('${mail.mailChimp.listPressId}')
     String MAILCHIMP_PRESS_LIST_ID
 
+    @Value('${mail.mailChimp.listCaseStudyId}')
+    String MAILCHIMP_CASE_STUDY_LIST_ID
+
     private static final MAILCHIMP_DATE_FORMAT = "dd-MM-yyyy"
 
     KuorumMailService kuorumMailService;
@@ -120,11 +123,7 @@ class MailchimpService {
             mergeVars.COUNTRY_C = regionService.findCountry(user?.professionalDetails?.region)
         }
         mergeVars.USERTYPE = user.userType.toString()
-        if (AvailableLanguage.es_ES.equals(user.language)) {
-            mergeVars.mc_language = "es_ES" // It is necesary to add the countre as "es_ES" because only "es" is spanish from Mexico
-        } else {
-            mergeVars.mc_language = user.language.locale.language.toString()
-        }
+        mergeVars.mc_language = mailChimpLang(user.language)
         mergeVars.groupings = createGroups(user)
         mergeVars
     }
@@ -139,6 +138,14 @@ class MailchimpService {
     }
 
     public void addPress(String name, String email, Locale locale){
+        addToMailChimpList(name, email, locale,MAILCHIMP_PRESS_LIST_ID )
+    }
+
+    public void addCaseStudy(String name, String email, Locale locale){
+        addToMailChimpList(name, email, locale,MAILCHIMP_CASE_STUDY_LIST_ID )
+    }
+
+    private void addToMailChimpList(String name, String email, Locale locale, String listId){
         try {
             MailChimpClient mailChimpClient = new MailChimpClient();
 
@@ -148,7 +155,7 @@ class MailchimpService {
             // Subscribe a person
             SubscribeMethod subscribeMethod = new SubscribeMethod();
             subscribeMethod.apikey = MAILCHIMP_APIKEY;
-            subscribeMethod.id = MAILCHIMP_PRESS_LIST_ID;
+            subscribeMethod.id = listId;
             subscribeMethod.email = mailChimpEmail
             subscribeMethod.double_optin = false;
             subscribeMethod.update_existing = true;
@@ -156,7 +163,7 @@ class MailchimpService {
             subscribeMethod.replace_interests = true;
 
             MailChimpMergeVars mergeVars = new MailChimpMergeVars();
-            mergeVars.mc_language = locale.toString()
+            mergeVars.mc_language = mailChimpLang(locale)
             mergeVars.FNAME = name
             subscribeMethod.merge_vars = mergeVars
             def userMailChimpId = mailChimpClient.execute(subscribeMethod);
@@ -167,6 +174,17 @@ class MailchimpService {
             log.error("No se ha podido añadir al usuario ${email} a mailchimp debido a que MailChimp se ha negado",mailChimpException)
         }catch(Exception e){
             log.error("No se ha podido añadir al usuario ${email} a mailchimp debido a una excepcion",e)
+        }
+    }
+
+    private String mailChimpLang(AvailableLanguage lang){
+        mailChimpLang(lang.locale)
+    }
+    private String mailChimpLang(Locale locale){
+        if (locale.getLanguage().equals("es")) {
+            return "es_ES" // It is necesary to add the countre as "es_ES" because only "es" is spanish from Mexico
+        } else {
+            return locale.language.toString()
         }
     }
 }

@@ -16,7 +16,7 @@
         </div>
         <div class="request-case-study">
             <formUtil:validateForm bean="${command}" form="request-case-study"/>
-            <form action="#" class="request-case-study form-inline dark" id="request-case-study" name="request-case-study">
+            <g:form mapping="registerPressKit" class="request-case-study form-inline dark" name="request-case-study">
                 <fieldset>
                     <div class="form-group col-lg-4">
                         <formUtil:input
@@ -48,7 +48,7 @@
                         </button>
                     </div>
                 </fieldset>
-            </form>
+            </g:form>
         </div>
     </div>
 </div>

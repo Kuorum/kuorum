@@ -21,6 +21,7 @@ import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
 import kuorum.web.commands.customRegister.ContactRegister
 import kuorum.web.commands.customRegister.ForgotUserPasswordCommand
+import kuorum.web.commands.customRegister.RequestCaseStudyCommand
 import kuorum.web.commands.customRegister.RequestDemoCommand
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.i18n.LocaleContextHolder
@@ -364,14 +365,14 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         redirect uri: ulrCallback
     }
 
-    def downloadPressKit(ResendVerificationMailCommand command){
+    def downloadCaseStudy(RequestCaseStudyCommand command){
         if (command.hasErrors()){
             flash.message = "Invalid mail"
             redirect mapping:'landingPoliticians'
             return
         }
         Locale locale = LocaleContextHolder.getLocale();
-        mailchimpService.addPress(command.email.split("@")[0], command.email, locale)
+        mailchimpService.addCaseStudy(command.name, command.email, locale)
         String preFileName = "KuorumCaseStudy"
         String year = "2016"
         String ext = "pdf"
@@ -384,7 +385,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         String fileName = "${preFileName}_${year}_${langPressKit}.${ext}"
         kuorumFile.storagePath="static/press/${fileName}"
         InputStream fileData = fileService.readFile(kuorumFile)
-        response.setContentType("application/zip")
+        response.setContentType("application/pdf")
         response.setHeader("Content-disposition", "attachment; filename=\"${fileName}\"")
         response.outputStream << fileData
         fileData.close()

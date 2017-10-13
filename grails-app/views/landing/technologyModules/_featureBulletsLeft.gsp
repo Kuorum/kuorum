@@ -20,7 +20,7 @@
         </ul>
         <div class="col-md-8 col-md-offset-2">
             <div id="request-demo-btn">
-                <a href="#" class="btn btn-lg btn-orange btn-sign-up"><g:message code="${msgPrefix}.requestDemo"/> </a>
+                <a href="#" class="btn btn-lg btn-orange btn-sign-up btn-open-modal-request-demo"><g:message code="${msgPrefix}.requestDemo"/> </a>
             </div>
         </div>
     </div>

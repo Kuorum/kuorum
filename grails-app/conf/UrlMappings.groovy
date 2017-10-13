@@ -105,7 +105,7 @@ class UrlMappings {
         name registerAjaxCheckEmail:"/ajax/sign-up/checkEmail"(controller: "register", action:"checkEmail")
         name registerAjaxRRSSOAuth: "/ajax/sign-up/rrssOAuth"(controller: "register", action:"registerRRSSOAuthAjax")
 
-        name registerPressKit:      "/$lang/sign-up/pressKit"   (controller: "register",action:"downloadPressKit")
+        name registerPressKit:      "/$lang/sign-up/pressKit"   (controller: "register",action:"downloadCaseStudy")
         name registerStep2:         "/$lang/sign-up/step2"      (controller: "customRegister"){action = [GET:"step2", POST:"step2Save"]}
         name registerStep3:         "/$lang/sign-up/step3"      (controller: "customRegister", action :"step3")
 
@@ -375,15 +375,6 @@ class UrlMappings {
         /**********************/
         /***** DEPRECATED *****/
         /**********************/
-        "/losdatoscuentan" (controller: "dashboard", action:"customPostMapping")
-        "/losDatosCuentan" (controller: "dashboard", action:"customPostMapping")
-        "/empleoJuvenil" (controller: "dashboard", action:"customPostMappingEmpleoJuvenil")
-        "/empleojuvenil" (controller: "dashboard", action:"customPostMappingEmpleoJuvenil")
-        "/sayNoToFracking" (controller: "dashboard", action:"customPostMappingSayNoToFracking")
-        "/SayNoToFracking" (controller: "dashboard", action:"customPostMappingSayNoToFracking")
-        "/saynotofracking" (controller: "dashboard", action:"customPostMappingSayNoToFracking")
-        "/immigrationrc" (controller: "dashboard", action:"customPostMappingImmigrationrc")
-        "/immigrationRC" (controller: "dashboard", action:"customPostMappingImmigrationrc")
 
         // REGISTRO DE POLITICO
         name registerSubscriptionStep1:  "/subscribe/step1" (controller: "customRegister", action:"subscriptionStep1")

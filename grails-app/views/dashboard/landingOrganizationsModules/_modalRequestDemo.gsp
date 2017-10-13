@@ -49,7 +49,7 @@
 //            openModalRequestDemo()
 //        });
 
-        $(".btn-sign-up").on("click", function(e){
+        $(".btn-open-modal-request-demo").on("click", function(e){
             e.preventDefault();
             openModalRequestDemo()
         });
