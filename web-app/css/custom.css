@@ -7596,7 +7596,43 @@ header .header-msg h6:hover{
 #enterTimeZone .modal-body fieldset.time-zone .form-group select[name='timeZoneId']{display: inline;width: 100%;}
 #enterTimeZone .modal-footer {margin:0px}
 
+
+
+/** Cases Study Grid section **/
+
+#cases-study-grid {
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+#cases-study-body .breadcrumb,
+#cases-study-grid .breadcrumb{
+    color: #20a2ea;
+    padding: 4px 0;
+    text-transform: uppercase;
+}
+
+#cases-study-grid #request-demo-btn{
+    text-align: center;
+}
+
+#cases-study-grid #request-demo-btn .btn{
+    font-size: 22px !important;
+}
+#cases-study-grid .card .card-body {padding:0 15px;}
+#cases-study-grid .card-body p{
+    font-size: 18px;
+    text-align: left;
+}
+
+#cases-study-grid .breadcrumb{
+    position: relative;
+    top: -40px;
+}
+
+
 @media only screen and (min-width: 768px){
+    #cases-study-grid .card .card-body {padding:0;}
     #politician-bio.extra-padding {padding: 0 30px 20px;}
     header h6{
         font-size: 16px;
@@ -9342,39 +9378,6 @@ ul.bullets li{
     text-align: center;
     line-height: 31px;
 }
-
-/** Cases Study Grid section **/
-
-#cases-study-grid {
-    padding-top: 60px;
-    padding-bottom: 60px;
-}
-
-#cases-study-body .breadcrumb,
-#cases-study-grid .breadcrumb{
-    color: #20a2ea;
-    padding: 4px 0;
-    text-transform: uppercase;
-}
-
-#cases-study-grid #request-demo-btn{
-    text-align: center;
-}
-
-#cases-study-grid #request-demo-btn .btn{
-    font-size: 22px !important;
-}
-
-#cases-study-grid .card-body p{
-    font-size: 18px;
-    text-align: left;
-}
-
-#cases-study-grid .breadcrumb{
-    position: relative;
-    top: -40px;
-}
-
 
 
 ul.threeColumn .card-body p {
