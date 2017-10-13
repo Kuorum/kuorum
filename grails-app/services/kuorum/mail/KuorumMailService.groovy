@@ -5,6 +5,7 @@ import kuorum.OfferPurchased
 import kuorum.campaign.PollCampaignVote
 import kuorum.core.model.AvailableLanguage
 import kuorum.core.model.CommissionType
+import kuorum.core.model.EnterpriseSector
 import kuorum.core.model.OfferType
 import kuorum.core.model.PostType
 import kuorum.post.Cluck
@@ -163,15 +164,24 @@ class KuorumMailService {
         MailData mailData = new MailData(fromName:DEFAULT_SENDER_NAME,mailType: MailType.REGISTER_REQUEST_DEMO, userBindings: [mailUserData])
         mandrillAppService.sendTemplate(mailData)
     }
-    def sendRequestADemoAdmin(String name, String email, String enterprise, String phone, AvailableLanguage language){
+    def sendRequestADemoAdmin(
+            String name,
+            String surname,
+            String email,
+            String enterprise,
+            EnterpriseSector enterpriseSector,
+            String phone,
+            String comment,
+            AvailableLanguage language){
         String rawMessage = """
         <h1> Demo requested </h1>
         <ul>
-            <li>Name: $name</li>
+            <li>Name: $name ${surname? "${surname} || $surname, $name" :''} </li>
             <li>Email: $email</li>
-            <li>Enterprise: $enterprise</li>
+            <li>Enterprise: $enterprise ${enterpriseSector?"(${enterpriseSector})":''} </li>
             <li>Phone: $phone</li>
             <li>Lang: $language</li>
+            <li>Comment: <p>${comment?:''}</p></li>
         </ul>
         """
         sendBatchMail(getFeedbackUser("DEMO"), rawMessage, "Requested a demo: ${name}");

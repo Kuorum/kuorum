@@ -311,7 +311,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         Locale locale = LocaleContextHolder.getLocale();
         AvailableLanguage language = AvailableLanguage.fromLocaleParam(locale.getLanguage());
         kuorumMailService.sendRequestADemo(command.getName(), command.getEmail(), language)
-        kuorumMailService.sendRequestADemoAdmin(command.getName(), command.getEmail(), command.getEnterprise(), command.getPhone(), language)
+        kuorumMailService.sendRequestADemoAdmin(command.getName(), command.surname, command.getEmail(), command.getEnterprise(), command.getEnterpriseSector(), command.getPhone(), command.comment, language)
         render g.message(code:'kuorum.web.commands.customRegister.RequestDemoCommand.success');
     }
 
