@@ -11,7 +11,6 @@ import grails.validation.Validateable
 import groovyx.net.http.RESTClient
 import kuorum.KuorumFile
 import kuorum.core.model.AvailableLanguage
-import kuorum.core.model.EnterpriseSector
 import kuorum.files.FileService
 import kuorum.mail.MailchimpService
 import kuorum.notifications.NotificationService
@@ -304,6 +303,10 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         if (command.hasErrors()){
             render g.message(code:'kuorum.web.commands.customRegister.RequestDemoCommand.error');
             return ;
+        }
+        if(!verifyRegister()){
+            flash.error = g.message(error: 'register.locked.recaptcha.error')
+            return
         }
         Locale locale = LocaleContextHolder.getLocale();
         AvailableLanguage language = AvailableLanguage.fromLocaleParam(locale.getLanguage());
