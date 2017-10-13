@@ -13,7 +13,7 @@
 
 <content tag="main">
     <g:render template="/landing/commonModules/sliderCallToAction" model="[msgPrefix:'landingOrganization']"/>
-    %{--<g:render template="/dashboard/landingOrganizationsModules/modalRequestDemo"/>--}%
+    <g:render template="/dashboard/landingOrganizationsModules/modalRequestDemo"/>
 </content>
 
 <content tag="pain">

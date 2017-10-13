@@ -24,9 +24,6 @@ class LandingController {
         if (springSecurityService.isLoggedIn()){
             flash.message = flash.message
             redirect (mapping:"dashboard")
-        }else{
-//            render(view: "landingServices", model: [command: new KuorumRegisterCommand(), siteKey: RECAPTCHA_SITEKEY])
-            render(view: "landingTechnology", model: [command: new KuorumContactUsCommand()])
         }
     }
 
@@ -34,9 +31,6 @@ class LandingController {
         if (springSecurityService.isLoggedIn()){
             flash.message = flash.message
             redirect (mapping:"dashboard")
-        }else{
-//            render(view: "landingServices", model: [command: new KuorumRegisterCommand(), siteKey: RECAPTCHA_SITEKEY])
-            render(view: "landingEnterprise", model: [command: new KuorumContactUsCommand()])
         }
     }
 
@@ -44,8 +38,6 @@ class LandingController {
         if (springSecurityService.isLoggedIn()){
             flash.message = flash.message
             redirect (mapping:"dashboard")
-        }else{
-            render(view: "landingCasesStudy")
         }
     }
 
@@ -53,9 +45,6 @@ class LandingController {
         if (springSecurityService.isLoggedIn()){
             flash.message = flash.message
             redirect (mapping:"dashboard")
-        }else{
-//            render(view: "landingServices", model: [command: new KuorumRegisterCommand(), siteKey: RECAPTCHA_SITEKEY])
-            render(view: "individualCaseStudy", model: [command: new KuorumContactUsCommand()])
         }
     }
 
@@ -63,9 +52,6 @@ class LandingController {
         if (springSecurityService.isLoggedIn()){
             flash.message = flash.message
             redirect (mapping:"dashboard")
-        }else{
-//            render(view: "landingServices", model: [command: new KuorumRegisterCommand(), siteKey: RECAPTCHA_SITEKEY])
-            render(view: "landingAdministration", model: [command: new KuorumContactUsCommand()])
         }
     }
 
@@ -73,9 +59,6 @@ class LandingController {
         if (springSecurityService.isLoggedIn()){
             flash.message = flash.message
             redirect (mapping:"dashboard")
-        }else{
-//            render(view: "landingServices", model: [command: new KuorumRegisterCommand(), siteKey: RECAPTCHA_SITEKEY])
-            render(view: "landingOrganization", model: [command: new KuorumContactUsCommand()])
         }
     }
 }
