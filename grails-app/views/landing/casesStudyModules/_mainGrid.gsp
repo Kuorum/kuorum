@@ -1,4 +1,4 @@
-<div class="row section-body">
+<div class="section-body">
     <div class="breadcrumbs">
         <g:link mapping="landingServices" class="breadcrumb">
             <g:message code="individualCaseStudy.breadcrumb.home"/>
