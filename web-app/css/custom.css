@@ -9292,17 +9292,10 @@ ul.bullets li{
 
 /** list bullets left **/
 
+#metrics,
 #features-crm {
     position: relative;
     padding-top: 60px;
-    padding-bottom: 60px;
-    text-align: center;
-}
-
-#metrics {
-    position: relative;
-    padding-top: 60px;
-    padding-bottom: 60px;
     text-align: center;
 }
 
@@ -9353,8 +9346,14 @@ ul.bullets li{
 
 #contact-us {
     padding-top: 60px;
-    padding-bottom: 60px;
     text-align: center;
+}
+
+#contact-us .section-header p{
+    font-size: 22px;
+    padding: 20px 5px;
+    text-align: center;
+    line-height: 31px;
 }
 
 /** Cases Study Grid section **/
@@ -9437,10 +9436,8 @@ ul.threeColumn .card-body p {
 }
 
 /** Footer sections **/
-
-.landing-footer {
-    padding-top: 60px;
-    padding-bottom: 60px;
+.landing-footer{
+    padding: 60px 100px;
 }
 
 .landing-footer .form-group label{
@@ -9453,9 +9450,6 @@ ul.threeColumn .card-body p {
     .landing-footer {
         display: grid;
     }
-}
-.landing-footer{
-    padding: 60px 100px;
 }
 
 #footer-section{
