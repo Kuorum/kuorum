@@ -118,6 +118,11 @@ modules = {
         resource url: 'js/camapign-form.js'
     }
 
+    contactUsForm{
+        dependsOn("basic","forms")
+        resource url: 'js/contact-us-form.js'
+    }
+
     debateForm {
         dependsOn("campaignForm")
         resource url:'js/debate-form.js'

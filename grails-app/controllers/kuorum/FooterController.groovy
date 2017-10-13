@@ -47,7 +47,7 @@ class FooterController {
     }
 
     def footerContactUs(){
-        render(view: "footerContactUs", model: [command: new KuorumContactUsCommand()])
+        render(view: "footerContactUs")
     }
 
     def footerOurTeam(){

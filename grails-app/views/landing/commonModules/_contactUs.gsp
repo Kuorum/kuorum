@@ -1,15 +1,17 @@
+<r:require modules="contactUsForm"/>
+<g:set var="commandRequestDemo" value="${new kuorum.web.commands.customRegister.RequestDemoCommand() }"/>
 <div class="section-header col-md-10 col-md-offset-1">
     <h1><g:message code="${msgPrefix}.contactUs.title"/></h1>
     <h3 class="hidden-xs"><g:message code="${msgPrefix}.contactUs.subtitle"/></h3>
 </div>
 <div class="section-body col-md-10 col-md-offset-1">
     <sec:ifNotLoggedIn>
-        <formUtil:validateForm bean="${command}" form="landing-register"/>
-        <g:form mapping="register" autocomplete="off" method="post" name="landing-register" class="" role="form" novalidate="novalidate">
+        <formUtil:validateForm bean="${commandRequestDemo}" form="request-demo-form"/>
+        <g:form mapping="requestADemo" autocomplete="off" method="post" name="request-demo-form" class="" role="form" novalidate="novalidate">
             <fieldset class="row">
                 <div class="form-group col-md-6">
                     <formUtil:input
-                            command="${command}"
+                            command="${commandRequestDemo}"
                             field="name"
                             labelCssClass="left"
                             showLabel="true"
@@ -18,7 +20,7 @@
                 </div>
                 <div class="form-group col-md-6">
                     <formUtil:input
-                            command="${command}"
+                            command="${commandRequestDemo}"
                             field="surname"
                             labelCssClass="left"
                             showLabel="true"
@@ -29,7 +31,7 @@
             <fieldset class="row">
                 <div class="form-group col-md-6">
                     <formUtil:input
-                            command="${command}"
+                            command="${commandRequestDemo}"
                             field="email"
                             labelCssClass="left"
                             type="email"
@@ -38,8 +40,8 @@
                 </div>
                 <div class="form-group col-md-6">
                     <formUtil:input
-                            command="${command}"
-                            field="telephone"
+                            command="${commandRequestDemo}"
+                            field="phone"
                             labelCssClass="left"
                             type="phone"
                             showLabel="true"
@@ -50,15 +52,15 @@
             <fieldset class="row">
                 <div class="form-group col-md-6">
                     <formUtil:input
-                            command="${command}"
-                            field="organization"
+                            command="${commandRequestDemo}"
+                            field="enterprise"
                             labelCssClass="left"
                             showLabel="true"
                             required="true"/>
                 </div>
                 <div class="form-group col-md-6">
                     <formUtil:selectEnum
-                            command="${command}"
+                            command="${commandRequestDemo}"
                             field="enterpriseSector"
                             labelCssClass="left"
                             showLabel="true"
@@ -69,7 +71,7 @@
             <fieldset class="row form-group">
                 <div class="form-group col-md-12">
                     <formUtil:textArea
-                        command="${command}"
+                        command="${commandRequestDemo}"
                         field="comment"
                         placeholder=" "
                         labelCssClass="left"

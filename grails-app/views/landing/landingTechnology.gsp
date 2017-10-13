@@ -13,7 +13,7 @@
 
 <content tag="main">
     <g:render template="/landing/commonModules/sliderCallToAction" model="[msgPrefix:'landingTechnology']"/>
-    %{--<g:render template="/dashboard/landingOrganizationsModules/modalRequestDemo"/>--}%
+    <g:render template="/dashboard/landingOrganizationsModules/modalRequestDemo"/>
 </content>
 
 <content tag="howItWorks">
@@ -33,5 +33,5 @@
 </content>
 
 <content tag="contactUs">
-    <g:render template="/landing/commonModules/contactUs" model="[command:command, msgPrefix:'landingTechnology', siteKey:siteKey]"/>
+    <g:render template="/landing/commonModules/contactUs" model="[msgPrefix:'landingTechnology', siteKey:siteKey]"/>
 </content>

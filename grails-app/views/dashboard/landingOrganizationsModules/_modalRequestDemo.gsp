@@ -1,7 +1,7 @@
 
 
 <!-- MODAL CONTACT -->
-<g:set var="command" value="${new kuorum.web.commands.customRegister.RequestDemoCommand() }"/>
+<g:set var="commandRequestDemo" value="${new kuorum.web.commands.customRegister.RequestDemoCommand() }"/>
 <div class="modal fade in" id="request-demo-modal" tabindex="-1" role="dialog" aria-labelledby="contactModalTitle" aria-hidden="false">
     <div class="modal-dialog ">
         <div class="modal-content">
@@ -13,22 +13,22 @@
 
             <div class="modal-body">
             <!-- email subscription form -->
-                <formUtil:validateForm form="request-demo-modal-form" bean="${command}"/>
+                <formUtil:validateForm form="request-demo-modal-form" bean="${commandRequestDemo}"/>
                 <g:form mapping="requestADemo" id="request-demo-modal-form" role="form" method="post" name="request-demo-modal-form">
                     <fieldset>
                         <div class="form-group col-sm-6 col-xs-12">
-                            <formUtil:input field="name" command="${command}" showLabel="true" showCharCounter="false"/>
+                            <formUtil:input field="name" command="${commandRequestDemo}" showLabel="true" showCharCounter="false"/>
                         </div>
                         <div class="form-group col-sm-6 col-xs-12">
-                            <formUtil:input field="email" command="${command}" showLabel="true"/>
+                            <formUtil:input field="email" command="${commandRequestDemo}" showLabel="true"/>
                         </div>
                     </fieldset>
                     <fieldset>
                         <div class="form-group col-sm-6 col-xs-12">
-                            <formUtil:input field="enterprise" command="${command}" showLabel="true"/>
+                            <formUtil:input field="enterprise" command="${commandRequestDemo}" showLabel="true"/>
                         </div>
                         <div class="form-group col-sm-6 col-xs-12">
-                            <formUtil:input field="phone" command="${command}" showLabel="true"/>
+                            <formUtil:input field="phone" command="${commandRequestDemo}" showLabel="true"/>
                         </div>
                     </fieldset>
                     <fieldset>
@@ -44,10 +44,10 @@
 
 <script type="text/javascript">
     $(function(){
-        $("#landing-register button[type=submit]").on("click", function(e){
-            e.preventDefault();
-            openModalRequestDemo()
-        });
+//        $("#landing-register button[type=submit]").on("click", function(e){
+//            e.preventDefault();
+//            openModalRequestDemo()
+//        });
 
         $(".btn-sign-up").on("click", function(e){
             e.preventDefault();

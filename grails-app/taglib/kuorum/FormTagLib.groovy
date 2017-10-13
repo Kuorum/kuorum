@@ -155,7 +155,14 @@ class FormTagLib {
         def labelCssClass = attrs.labelCssClass?:''
         def showLabel = attrs.showLabel?Boolean.parseBoolean(attrs.showLabel):false
         def showCharCounter = attrs.showCharCounter?Boolean.parseBoolean(attrs.showCharCounter):true
-        def clazz = command.metaClass.properties.find{it.name == field}.type
+        def clazz
+        try{
+            clazz = command.metaClass.properties.find{it.name == field}.type
+        }catch (Exception e){
+            // Handle exception for development log showing wich field is wrong
+            log.error("Preparing input ${field} for command ${command.class}", e)
+            throw e;
+        }
         def label = buildLabel(command, field, attrs.label)
         def placeHolder = attrs.placeHolder?:message(code: "${command.class.name}.${field}.placeHolder", default: '')
         String helpBlock = attrs.helpBlock?:message(code: "${command.class.name}.${field}.helpBlock", default: '')
