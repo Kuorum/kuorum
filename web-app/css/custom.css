@@ -9073,8 +9073,12 @@ ul.bullets {
 }
 
 .section-body p{
-    font-size: 18px;
+    font-size: 22px;
     text-align: left;
+}
+
+.section-body ul.list-team p{
+    font-size: 14px;
 }
 
 /** pain and gain sections **/
@@ -9128,7 +9132,8 @@ ul.bullets {
 
 #featured-case-study .section-body a{
     float: left;
-    font-size: 18px;
+    font-size: 22px;
+    padding-top: 25px;
     color: #20a2ea;
 }
 
@@ -9404,6 +9409,7 @@ ul.bullets {
 #contact-us .section-body .form-group label {
     float: left;
     margin-left: 5px;
+    font-size: 16px;
     font-family: Georgia, Cambria, "Times New Roman", Times, serif;
 }
 
@@ -9415,6 +9421,7 @@ ul.bullets {
 }
 
 .landing-footer .form-group label{
+    font-size: 16px;
     font-family: Georgia, Cambria, "Times New Roman", Times, serif;
 }
 
@@ -9433,7 +9440,7 @@ ul.bullets {
     padding-bottom: 25px;
 }
 
-#footer-section h1{
+#footer-section .section-header h1{
     padding-bottom: 25px;
 }
 
@@ -9449,7 +9456,7 @@ ul.bullets {
     font-family: "Arial Black";
 }
 
-#footer-section .section-header h3{
+#footer-section .section-header p{
     font-size: 22px;
     text-align: left;
 }
@@ -9462,10 +9469,11 @@ ul.bullets {
 
 .left-container ul{
     list-style: none;
+    padding: 0;
 }
 
 .left-container ul a{
-    font-size: 18px;
+    font-size: 22px;
     line-height: 35px;
     color: inherit;
     text-decoration: none;

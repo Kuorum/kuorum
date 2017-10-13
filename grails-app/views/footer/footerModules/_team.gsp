@@ -1,7 +1,7 @@
-<div class="section-header col-md-10 col-md-offset-1">
+<div class="section-header">
     <h1><g:message code="${msgPrefix}.title"/></h1>
 </div>
-<div class="section-body col-md-10 col-md-offset-1">
+<div class="section-body">
     <ul class="list-team">
         <li itemscope itemtype="http://schema.org/Person">
             <div class="box-ppal">
@@ -62,7 +62,7 @@
                 <h2 itemprop="jobTitle"><g:message code="footer.menu.footerTeam.position5"/></h2>
                 <p itemprop="description"><g:message code="footer.menu.footerTeam.description5"/></p>
                 <ul class="social">
-                    %{--<li><a href="#" target="_blank"><span class="fa fa-twitter fa-2x"></span> <span class="sr-only">Twitter</span></a></li>--}%
+                    <li><a href="#" target="_blank"><span class="fa fa-twitter fa-2x"></span> <span class="sr-only">Twitter</span></a></li>
                     <li><a href="https://www.linkedin.com/in/antonio-martos-ortega-2b91995a/" target="_blank"><span class="fa fa-linkedin fa-2x"></span> <span class="sr-only">LinkedIn</span></a></li>
                 </ul>
             </div>
@@ -75,7 +75,7 @@
                 <h2 itemprop="jobTitle"><g:message code="footer.menu.footerTeam.position11"/></h2>
                 <p itemprop="description"><g:message code="footer.menu.footerTeam.description11"/></p>
                 <ul class="social">
-                    %{--<li><a href="https://twitter.com/Jackie_Flore" target="_blank"><span class="fa fa-twitter fa-2x"></span> <span class="sr-only">Twitter</span></a></li>--}%
+                    <li><a href="https://twitter.com/Jackie_Flore" target="_blank"><span class="fa fa-twitter fa-2x"></span> <span class="sr-only">Twitter</span></a></li>
                     <li><a href="https://www.linkedin.com/in/yanhua-hu-75984a12a/" target="_blank"><span class="fa fa-linkedin fa-2x"></span> <span class="sr-only">LinkedIn</span></a></li>
                 </ul>
             </div>
@@ -88,7 +88,7 @@
                 <h2 itemprop="jobTitle"><g:message code="footer.menu.footerTeam.position6"/></h2>
                 <p itemprop="description"><g:message code="footer.menu.footerTeam.description6"/></p>
                 <ul class="social">
-                    %{--<li><a href="https://twitter.com/Jackie_Flore" target="_blank"><span class="fa fa-twitter fa-2x"></span> <span class="sr-only">Twitter</span></a></li>--}%
+                    <li><a href="https://twitter.com/Jackie_Flore" target="_blank"><span class="fa fa-twitter fa-2x"></span> <span class="sr-only">Twitter</span></a></li>
                     <li><a href="https://www.linkedin.com/in/maria-jos%C3%A9-de-la-torre-17899083/" target="_blank"><span class="fa fa-linkedin fa-2x"></span> <span class="sr-only">LinkedIn</span></a></li>
                 </ul>
             </div>

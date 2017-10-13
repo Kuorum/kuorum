@@ -16,10 +16,10 @@
     </div>
     <div class="row light">
         <div class="landing-footer">
-            <div class="left-container col-md-3">
+            <div class="left-container col-md-4">
                 <g:pageProperty name="page.footerLeftColumn"/>
             </div>
-            <div class="col-md-9">
+            <div class="col-md-8">
                 <section id="footer-section">
                     <g:pageProperty name="page.footerSection"/>
                 </section>
