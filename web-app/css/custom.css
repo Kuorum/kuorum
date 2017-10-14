@@ -9119,6 +9119,7 @@ ul.threeColumn .card-body {
 }
 
 ul.threeColumn .card-body a {
+    font-weight: bold;
     width: 100%;
     text-transform: uppercase;
     margin-bottom: 20px;
@@ -9436,6 +9437,14 @@ ul.bullets li{
     text-align: center;
 }
 
+#contact-us .form-group textarea{
+    height: 160px;
+}
+
+#request-demo-form .form-group textarea{
+    height: 160px;
+}
+
 #contact-us .section-header p{
     font-size: 22px;
     padding: 20px 5px;
@@ -9453,7 +9462,6 @@ ul.threeColumn .card-body p {
     float: left;
     margin-left: 5px;
     font-size: 16px;
-    font-family: Georgia, Cambria, "Times New Roman", Times, serif;
 }
 
 /** Footer sections **/
@@ -9467,7 +9475,6 @@ ul.threeColumn .card-body p {
 
 .landing-footer .form-group label{
     font-size: 16px;
-    font-family: Georgia, Cambria, "Times New Roman", Times, serif;
 }
 
 /*TODO:Meterlo en el max-width existente*/
