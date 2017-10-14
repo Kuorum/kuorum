@@ -12,7 +12,7 @@
 </head>
 
 <content tag="main">
-    <g:render template="/landing/commonModules/slider" model="[msgPrefix:'footerPress', imgHeader:'what-is-kuorum']"/>
+    <g:render template="/landing/commonModules/slider" model="[msgPrefix:'footerPress']"/>
 </content>
 
 <content tag="footerLeftColumn">

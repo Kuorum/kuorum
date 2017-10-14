@@ -8851,7 +8851,8 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     opacity: .4;
 }
 
-.fade-carousel .content {
+.fade-carousel .content,
+.fade-carousel .content-footer {
     position: absolute;
     top: 53%;
     left: 50%;
@@ -8867,10 +8868,11 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 
 .fade-carousel .content hgroup {
     margin-bottom: 0px;
-    opacity:0.8;
 }
 
-.fade-carousel .content h1 {
+.fade-carousel .content h1,
+.fade-carousel .content-footer h1{
+    opacity:0.85;
     font-size: 54px;
     line-height: 70px;
     font-weight: bold;
@@ -8881,6 +8883,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 }
 
 .fade-carousel .content h3 {
+    opacity:0.85;
     font-size: 22px;
     font-weight: bold;
     margin: 0;
@@ -8923,6 +8926,12 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
   height: 640px;
   background-size: cover;
   background-repeat: no-repeat;
+}
+
+.fade-carousel .slides .slide-footer {
+height: 300px;
+background-size: cover;
+background-repeat: no-repeat;
 }
 
 .fade-carousel .slides .slide-1.landingLeaders {
@@ -8987,6 +8996,24 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 }
 .fade-carousel .slides .slide-1.landingOrganization {
     background-image: url('../images/landing/organizations.jpg');
+}
+.fade-carousel .slides .slide-footer.footerAboutUs {
+    background-image: url('../images/landing/what-is-kuorum.jpg');
+}
+.fade-carousel .slides .slide-footer.footerHistory {
+    background-image: url('../images/landing/what-is-kuorum.jpg');
+}
+.fade-carousel .slides .slide-footer.footerOurTeam {
+    background-image: url('../images/landing/what-is-kuorum.jpg');
+}
+.fade-carousel .slides .slide-footer.footerContactUs {
+    background-image: url('../images/landing/what-is-kuorum.jpg');
+}
+.fade-carousel .slides .slide-footer.footerPress {
+    background-image: url('../images/landing/what-is-kuorum.jpg');
+}
+.fade-carousel .slides .slide-footer.footerUserGuides {
+    background-image: url('../images/landing/what-is-kuorum.jpg');
 }
 .fade-carousel .slides .slide-1.landingCasesStudy {
     background-image: url('../images/landing/case-studies.jpg');
@@ -9074,6 +9101,9 @@ div.dark {
 }
 
 @media (max-width: 767px) {
+    .fade-carousel .slides .slide-footer {
+        height: 200px;
+    }
     #politician-bio.extra-padding {padding: 0 5px;}
     .img-full-container {
         position: static;
@@ -9466,7 +9496,7 @@ ul.threeColumn .card-body p {
 
 /** Footer sections **/
 .landing-footer{
-    padding: 60px 100px;
+    padding: 30px 100px;
 }
 
 .landing-footer .section-header h3{
@@ -9486,7 +9516,7 @@ ul.threeColumn .card-body p {
 
 #footer-section{
     padding-top: 25px;
-    padding-bottom: 25px;
+    padding-bottom: 50px;
 }
 
 #footer-section .section-header h1{
@@ -9709,7 +9739,8 @@ ul.bullets li img {
 /*          Media Queries       */
 /********************************/
 @media screen and (min-width: 980px) {
-    .fade-carousel .content { 
+    .fade-carousel .content,
+    .fade-carousel .content-footer {
         width: 1100px; 
     }
 }
@@ -9807,12 +9838,18 @@ ul.bullets li img {
         margin-bottom: 0px;
     }
     .fade-carousel .content {
-        top: 53%;
+        top: 41%;
         width: 100%;
         padding: 0;
     }
-    .fade-carousel .content h1 {
-        line-height: 54px;
+    .fade-carousel .content-footer {
+        width: 100%;
+        padding: 0;
+    }
+    .fade-carousel .content h1,
+    .fade-carousel .content-footer h1 {
+        line-height: 40px;
+        font-size: 34px;
     }
     .fade-carousel .content form input {
         min-height: 45px;
@@ -9848,10 +9885,6 @@ ul.bullets li img {
     .fade-carousel .content .btn {
         width: 100%;
     }
-    .fade-carousel .content hgroup {
-        margin-bottom: 0;
-        opacity:0.85;
-    }
     #engage h1 {
         text-align: center;
     }
@@ -9876,7 +9909,7 @@ ul.bullets li img {
     }
 
     .landing-footer{
-        padding: 40px 0;
+        padding: 20px 0;
     }
 }
 
@@ -9885,9 +9918,19 @@ ul.bullets li img {
         position: relative;
         margin-top: 90px;
     }
-    .fade-carousel .content h1 {
-        font-size: 40px;
-        line-height: 45px;
+    .fade-carousel .content {
+        top: 37%;
+        width: 100%;
+        padding: 0;
+    }
+    .fade-carousel .content-footer{
+        width: 100%;
+        padding: 0;
+    }
+    .fade-carousel .content h1,
+    .fade-carousel .content-footer h1 {
+        font-size: 28px;
+        line-height: 34px;
     }
 
     .fade-carousel .slides .slide-1, 
