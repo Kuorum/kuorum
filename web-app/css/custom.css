@@ -5657,6 +5657,10 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
 /* Small devices (tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
+    #trustUs ul.globus li img {
+        height: 30px;
+        width: auto;
+    }
     header.transp .navbar {background-color: transparent;}
     header.transp + .row.main.landing {margin-top:-55px}
     header .navbar-form { margin: 3px 4px 4px 18px; width: 186px;}
@@ -5682,7 +5686,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
         transition: all .15s ease-in-out;
     }
     .nav > li > .user-area .fa-caret-down {vertical-align: -6%;}
-    .nav > li > a.btn {padding: 10px !important; border: 0; margin: 2px 0 0 4px !important;}
+    .nav > li > a.btn {padding: 10px !important; border: 0; margin: 2px 0 0 15px !important;}
     .nav > li > .user-area > .user-img {margin-right: 0;}
     .nav > li > .navbar-link.new-project .symbol {font-size: 28px; font-size: 2.8rem;}
     .nav > li > .navbar-link.special {font-size: 18px; font-size: 1.8rem;}
@@ -6136,7 +6140,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .navbar {font-size: 15px; font-size: 1.5rem;}
     .nav > li > .navbar-link > .fa.fa-lg {font-size: 18px; font-size: 1.8rem;}
     .nav > li > .navbar-link > .fa.fa-lg.fa-home {font-size: 20px; font-size: 2rem;}
-    .nav > li > .navbar-link {padding: 0 10px;}
+    .nav > li > .navbar-link {padding: 0 15px;}
 
     .config .kakareo-list.project > li,
     .config .politician-list > li {width: 48%; float: left; margin: 0 2% 0 0;padding:0}
@@ -6552,6 +6556,10 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
 
 @media only screen and (min-width: 1152px) {
+    #trustUs ul.globus li img {
+        height: 38px;
+        width: auto;
+    }
     header .navbar-form {width: 290px;}
     .list-updates > li {width: 356px;}
     .list-team > li {width: 350px;}
@@ -6715,6 +6723,10 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
 }
 @media only screen and (min-width: 1280px) {
+    #trustUs ul.globus li img {
+        height: 41px;
+        width: auto;
+    }
     #main.landing .full-video h1 {margin-top: 17%;}
 }
 @media only screen and (min-width: 1366px) {
@@ -6998,6 +7010,9 @@ fieldset.form-group {min-height: 50px;}
 }
 
 @media only screen and (max-width: 767px){
+    #trustUs ul.globus li img {
+        margin-bottom:30px;
+    }
     .extra-padding{
         padding: 0 5px;
     }
@@ -8788,6 +8803,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 }
 
 .fade-carousel .indicators .carousel-indicators {
+    opacity:0.85;
     position: absolute;
     bottom: 50px;
     left: 0;
@@ -8837,7 +8853,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 
 .fade-carousel .content {
     position: absolute;
-    top: 60%;
+    top: 53%;
     left: 50%;
     z-index: 3;
     color: #fff;
@@ -8850,7 +8866,8 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 }
 
 .fade-carousel .content hgroup {
-    margin-bottom: 30px;
+    margin-bottom: 0px;
+    opacity:0.8;
 }
 
 .fade-carousel .content h1 {
@@ -8903,7 +8920,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 .fade-carousel .slides .slide-1,
 .fade-carousel .slides .slide-2,
 .fade-carousel .slides .slide-3 {
-  height: 750px;
+  height: 640px;
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -9091,9 +9108,10 @@ ul.threeColumn {
 }
 
 ul.threeColumn .card {
+    border: solid 1px #e5e5e5;
     box-shadow: 0 0 2px rgba(200, 200, 200, 0.6);
     background-color: #fff;
-    margin: 20px 0;
+    margin: 0;
 }
 
 ul.threeColumn .card-body {
@@ -9133,6 +9151,7 @@ ul.bullets li{
     font-size: 22px;
     text-align: center;
     padding-bottom: 60px;
+    margin-top: 7px;
 }
 
 .section-body {
@@ -9148,6 +9167,7 @@ ul.bullets li{
 .section-body p{
     font-size: 22px;
     text-align: left;
+    line-height: 1.5;
 }
 
 .section-body a,
@@ -9312,6 +9332,7 @@ ul.bullets li{
 }
 
 #services .globus .bullets{
+    padding-top:12px;
     font-size: 20px;
     line-height: 31px;
 }
@@ -9342,7 +9363,6 @@ ul.bullets li{
 
 #solutions {
     padding-top: 60px;
-    padding-bottom: 60px;
     text-align: center;
 }
 
@@ -9502,7 +9522,8 @@ ul.threeColumn .card-body p {
 }
 
 .left-container ul a:hover{
-    text-decoration: underline;
+    text-decoration: none;
+    color: #ff9431;
 }
 
 .left-container ul a.active{
@@ -9779,7 +9800,7 @@ ul.bullets li img {
         margin-bottom: 0px;
     }
     .fade-carousel .content {
-        top: 60%;
+        top: 53%;
         width: 100%;
         padding: 0;
     }
@@ -9822,6 +9843,7 @@ ul.bullets li img {
     }
     .fade-carousel .content hgroup {
         margin-bottom: 0;
+        opacity:0.85;
     }
     #engage h1 {
         text-align: center;
