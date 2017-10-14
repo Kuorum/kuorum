@@ -9313,7 +9313,7 @@ ul.bullets li{
 }
 
 #services h3 {
-    padding-bottom: 60px;
+    padding-bottom: 40px;
 }
 
 #services p {
@@ -9501,7 +9501,7 @@ ul.threeColumn .card-body p {
 #footer-section .section-header p{
     font-size: 22px;
     text-align: left;
-    line-height: 31px;
+    line-height: 36px;
 }
 
 .left-container {
@@ -9516,7 +9516,7 @@ ul.threeColumn .card-body p {
 
 .left-container ul a{
     font-size: 22px;
-    line-height: 35px;
+    line-height: 40px;
     color: inherit;
     text-decoration: none;
 }
