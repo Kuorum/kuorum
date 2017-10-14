@@ -14,7 +14,7 @@
             <g:pageProperty name="page.main"/>
         </section>
     </div>
-    <div class="row light">
+    <div class="row light landing-section-dark">
         <div class="landing-footer">
             <div class="left-container col-md-3">
                 <g:pageProperty name="page.footerLeftColumn"/>

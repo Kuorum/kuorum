@@ -1,7 +1,6 @@
 <div class="section-header">
-    <h1><g:message code="${msgPrefix}.title"/></h1>
 </div>
-<div class="section-body">
+<div class="section-body footer">
     <ul class="list-team">
         <li itemscope itemtype="http://schema.org/Person">
             <div class="box-ppal">

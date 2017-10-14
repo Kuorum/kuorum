@@ -1,7 +1,6 @@
 <r:require modules="contactUsForm"/>
 <g:set var="commandRequestDemo" value="${new kuorum.web.commands.customRegister.RequestDemoCommand() }"/>
 <div class="section-header col-md-10 col-md-offset-1">
-    <h1><g:message code="${msgPrefix}.contactUs.title"/></h1>
     <h3 class="hidden-xs"><g:message code="${msgPrefix}.contactUs.subtitle"/></h3>
 </div>
 <div class="section-body col-md-10 col-md-offset-1">

@@ -21,7 +21,7 @@
             </section>
         </div>
     </div>
-    <div class="container-overflow-image row landing-section-light">
+    <div class="container-overflow-image row landing-section-light" id="caseStudy">
         <div class="container">
             <section class="features" id="featured-case-study">
                 <g:pageProperty name="page.caseStudy"/>

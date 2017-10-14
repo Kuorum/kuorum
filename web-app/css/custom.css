@@ -5658,7 +5658,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 /* Small devices (tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
     #trustUs ul.globus li img {
-        height: 30px;
+        height: 40px;
         width: auto;
     }
     header.transp .navbar {background-color: transparent;}
@@ -9001,19 +9001,19 @@ background-repeat: no-repeat;
     background-image: url('../images/landing/what-is-kuorum.jpg');
 }
 .fade-carousel .slides .slide-footer.footerHistory {
-    background-image: url('../images/landing/what-is-kuorum.jpg');
+    background-image: url('../images/landing/history.jpg');
 }
 .fade-carousel .slides .slide-footer.footerOurTeam {
-    background-image: url('../images/landing/what-is-kuorum.jpg');
+    background-image: url('../images/landing/team.jpg');
 }
 .fade-carousel .slides .slide-footer.footerContactUs {
-    background-image: url('../images/landing/what-is-kuorum.jpg');
+    background-image: url('../images/landing/contact.jpg');
 }
 .fade-carousel .slides .slide-footer.footerPress {
-    background-image: url('../images/landing/what-is-kuorum.jpg');
+    background-image: url('../images/landing/press.jpg');
 }
 .fade-carousel .slides .slide-footer.footerUserGuides {
-    background-image: url('../images/landing/what-is-kuorum.jpg');
+    background-image: url('../images/landing/user-guides.jpg');
 }
 .fade-carousel .slides .slide-1.landingCasesStudy {
     background-image: url('../images/landing/case-studies.jpg');
@@ -9041,9 +9041,13 @@ div.dark {
 
 /** landing specific sections **/
 .container-overflow-image {
-    min-height: 720px;
+    min-height: 700px;
     text-align: center;
     overflow-x: hidden;
+}
+
+#caseStudy.container-overflow-image {
+    min-height: 630px;
 }
 
 .container-overflow-image h1 {
@@ -9101,6 +9105,9 @@ div.dark {
 }
 
 @media (max-width: 767px) {
+    ul.threeColumn .card {
+        margin-bottom: 25px;
+    }
     .fade-carousel .slides .slide-footer {
         height: 200px;
     }
@@ -9141,7 +9148,6 @@ ul.threeColumn .card {
     border: solid 1px #e5e5e5;
     box-shadow: 0 0 2px rgba(200, 200, 200, 0.6);
     background-color: #fff;
-    margin: 0;
 }
 
 ul.threeColumn .card-body {
@@ -9181,7 +9187,7 @@ ul.bullets li{
 .section-header h3 {
     font-size: 22px;
     text-align: center;
-    padding-bottom: 60px;
+    padding-bottom: 40px;
     margin-top: 7px;
 }
 
@@ -9207,7 +9213,7 @@ ul.bullets li{
 }
 
 .section-body ul.list-team p{
-    font-size: 14px;
+    font-size: 16px;
 }
 
 /** pain and gain sections **/
@@ -9338,13 +9344,14 @@ ul.bullets li{
 
 #services h2 {
     font-size: 20px;
-    padding-bottom: 30px;
+    margin-top: 15px;
+    padding-bottom: 15px;
     font-weight: bold;
     text-transform: uppercase;
 }
 
 #services h3 {
-    padding-bottom: 40px;
+    padding-bottom: 15px;
 }
 
 #services p {
@@ -9408,6 +9415,10 @@ ul.bullets li{
     padding: 15px 0;
 }
 
+#trustUs .section-header h3 {
+    padding-bottom: 60px;
+}
+
 /** list bullets left **/
 
 #metrics,
@@ -9421,7 +9432,7 @@ ul.bullets li{
 #features-crm .img-full-container ,
 #metrics .img-full-container {
     position: absolute;
-    top: 190px;
+    top: 155px;
     right: 0;
     left: 56%;
     overflow: hidden;
@@ -9446,16 +9457,22 @@ ul.bullets li{
     text-align: center;
 }
 
+#features-user .section-header h3,
+#features-crm .section-header h3,
+#metrics .section-header h3{
+    padding-bottom: 75px;
+}
+
 #features-user .img-full-container.left{
     position: absolute;
-    top: 200px;
+    top: 155px;
     left: -32%;
     overflow: visible;
 }
 
 #featured-case-study .img-full-container.left{
     position: absolute;
-    top: 200px;
+    top: 180px;
     left: -15%;
     overflow: visible;
 }
@@ -9496,10 +9513,11 @@ ul.threeColumn .card-body p {
 
 /** Footer sections **/
 .landing-footer{
-    padding: 30px 100px;
+    padding: 15px 100px;
 }
 
 .landing-footer .section-header h3{
+    padding-bottom: 20px;
     float: left;
 }
 
@@ -9541,6 +9559,14 @@ ul.threeColumn .card-body p {
     line-height: 34px;
 }
 
+.section-body.footer {
+    padding-bottom: 0px !important;
+}
+
+.landing-footer .left-container {
+    padding: 24px 30px 30px;
+}
+
 .left-container {
     padding: 30px;
     float: left;
@@ -9565,6 +9591,7 @@ ul.threeColumn .card-body p {
 
 .left-container ul a.active{
     font-weight: bold;
+    line-height: 41px;
 }
 /** how-it-works **/
 
@@ -9598,13 +9625,13 @@ ul.globus {
 
 ul.globus li{
     line-height: 31px;
-    padding-bottom: 20px;
+    padding-bottom: 15px;
 }
 
 ul.globus li img {
     width: 175px;
     margin: 0 auto;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
 }
 
 ul.bullets li img {
@@ -9747,7 +9774,13 @@ ul.bullets li img {
 
 @media screen and (max-width: 1199px) {
     .container-overflow-image {
-        min-height: 720px;
+        min-height: 670px;
+    }
+
+    #features-user .section-header h3,
+    #features-crm .section-header h3,
+    #metrics .section-header h3{
+        padding-bottom: 35px;
     }
 
     ul#mails > li > div.tooltip {
