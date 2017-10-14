@@ -25,11 +25,11 @@
 </content>
 
 <content tag="featuresUser">
-    <g:render template="/landing/technologyModules/featureBulletsRight" model="[msgPrefix:'landingTechnology', msgSection: 'featuresUser', imgBackground:'features-leaders.png']"/>
+    <g:render template="/landing/technologyModules/featureBulletsRight" model="[msgPrefix:'landingTechnology', msgSection: 'featuresUser', imgBackground:'features-corporations.png']"/>
 </content>
 
 <content tag="metrics">
-    <g:render template="/landing/technologyModules/featureBulletsLeft" model="[msgPrefix:'landingTechnology', msgSection: 'metrics', imgBackground:'features-leaders.png']"/>
+    <g:render template="/landing/technologyModules/featureBulletsLeft" model="[msgPrefix:'landingTechnology', msgSection: 'metrics', imgBackground:'features-organizations.png']"/>
 </content>
 
 <content tag="contactUs">

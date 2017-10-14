@@ -4,7 +4,7 @@
 </div>
 <div class="section-body">
     <div class="col-md-6 img-full-container left">
-        <img src="${r.resource(dir:'images/landing', file:'features-profile.png')}">
+        <img src="${r.resource(dir:'images/landing', file:imgBackground)}">
     </div>
     <div class="col-md-6 pull-right">
         <ul class="checklist">

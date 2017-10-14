@@ -9490,7 +9490,7 @@ ul.threeColumn .card-body p {
 }
 
 #footer-section .section-header h1{
-    padding-bottom: 25px;
+    padding-bottom: 35px;
 }
 
 #footer-section .list-team h1,
@@ -9506,9 +9506,9 @@ ul.threeColumn .card-body p {
 }
 
 #footer-section .section-header p{
-    font-size: 22px;
+    font-size: 20px;
     text-align: left;
-    line-height: 36px;
+    line-height: 34px;
 }
 
 .left-container {
