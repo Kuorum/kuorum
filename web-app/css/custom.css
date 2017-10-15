@@ -7644,11 +7644,15 @@ header .header-msg h6:hover{
     text-align: left;
 }
 
-#cases-study-grid .other-cases .card .card-body h3 a
-{
-    color: #f0ad4e;
+#cases-study-grid .other-cases .card .card-body h3 a  {
+    color: #545454;
     text-decoration:none;
 }
+#cases-study-grid .other-cases .card .card-body h3 a:hover{
+    color: #ff9431;
+    text-decoration:none;
+}
+
 #cases-study-grid .breadcrumb{
     position: relative;
     top: -40px;
@@ -7661,8 +7665,12 @@ header .header-msg h6:hover{
     padding-top: 20px;
 }
 #cases-study-body .content{
-    padding-bottom: 40px;
+    padding-bottom: 60px;
     line-height: 2.5em;
+}
+
+#cases-study-body .content .article{
+    padding-bottom: 40px;
 }
 
 #cases-study-body .section-body h1{
@@ -9300,7 +9308,7 @@ ul.bullets li{
     font-size: 22px;
     padding-top: 25px;
     padding-bottom: 60px;
-    color: #ff9431;
+    color: #20a2ea;
 }
 
 /** case-study **/
