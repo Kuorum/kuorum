@@ -5489,6 +5489,9 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
 /* Super small devices (mobile, 480px and down) */
 @media only screen and (max-width: 480px) {
+    .fade-carousel .content .btn {
+        width: 100%;
+    }
     section.features > div > div a.btn.btn-sign-up {font-size: 18px !important;}
     div.fade-carousel > div.content.container .btn {font-size: 22px !important;}
     .box-ppal#createNewCampaign {margin-bottom: 20px; padding-bottom: 15px;}
@@ -7617,7 +7620,7 @@ header .header-msg h6:hover{
 
 #cases-study-grid {
     padding-top: 60px;
-    padding-bottom: 60px;
+    padding-bottom: 0;
 }
 
 #cases-study-body .breadcrumb,
@@ -7625,6 +7628,7 @@ header .header-msg h6:hover{
     color: #20a2ea;
     padding: 4px 0;
     text-transform: uppercase;
+    font-weight: bold;
 }
 
 #cases-study-grid #request-demo-btn{
@@ -8866,8 +8870,18 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
               transform: translate3d(-50%,-50%,0);
 }
 
+.fade-carousel.customBlog .content,
+.fade-carousel.landingCasesStudy .content {
+    top: 50%;
+}
+
 .fade-carousel .content hgroup {
     margin-bottom: 0px;
+}
+
+.fade-carousel.customBlog .content hgroup,
+.fade-carousel.landingCasesStudy .content hgroup{
+    margin-bottom: 30px;
 }
 
 .fade-carousel .content h1,
@@ -8997,6 +9011,11 @@ background-repeat: no-repeat;
 .fade-carousel .slides .slide-1.landingOrganization {
     background-image: url('../images/landing/organizations.jpg');
 }
+
+.fade-carousel .slides .slide-1.customBlog {
+    background-image: url('../images/landing/blog.jpg');
+}
+
 .fade-carousel .slides .slide-footer.footerAboutUs {
     background-image: url('../images/landing/what-is-kuorum.jpg');
 }
@@ -9105,6 +9124,21 @@ div.dark {
 }
 
 @media (max-width: 767px) {
+    .fade-carousel .slides .slide-1,
+    .fade-carousel .slides .slide-2,
+    .fade-carousel .slides .slide-3{
+        height: 500px;
+    }
+
+    .fade-carousel .slides .slide-1.customBlog,
+    .fade-carousel .slides .slide-1.landingCasesStudy {
+        height: 300px;
+    }
+    .fade-carousel.customBlog .content .btn,
+    .fade-carousel.landingCasesStudy .content .btn {
+        width: auto;
+    }
+
     ul.threeColumn .card {
         margin-bottom: 25px;
     }
@@ -9266,7 +9300,7 @@ ul.bullets li{
     font-size: 22px;
     padding-top: 25px;
     padding-bottom: 60px;
-    color: #20a2ea;
+    color: #ff9431;
 }
 
 /** case-study **/
@@ -9537,6 +9571,10 @@ ul.threeColumn .card-body p {
     padding-bottom: 50px;
 }
 
+#footer-section .guide-card p{
+    font-size: 16px;
+}
+
 #footer-section .section-header h1{
     padding-bottom: 35px;
 }
@@ -9766,10 +9804,7 @@ ul.bullets li img {
 /*          Media Queries       */
 /********************************/
 @media screen and (min-width: 980px) {
-    .fade-carousel .content,
-    .fade-carousel .content-footer {
-        width: 1100px; 
-    }
+
 }
 
 @media screen and (max-width: 1199px) {
@@ -9916,7 +9951,7 @@ ul.bullets li img {
         width: 100%;
     }
     .fade-carousel .content .btn {
-        width: 100%;
+        width: auto;
     }
     #engage h1 {
         text-align: center;
