@@ -12,7 +12,7 @@
 </head>
 
 <content tag="main">
-    <g:render template="/landing/commonModules/slider" model="[msgPrefix:'individualCaseStudy', imgHeader:'case-study-1']"/>
+    <g:render template="/landing/commonModules/slider" model="[msgPrefix:'individualCaseStudy']"/>
     <g:render template="/dashboard/landingOrganizationsModules/modalRequestDemo"/>
 </content>
 
