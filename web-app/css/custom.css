@@ -9295,10 +9295,6 @@ ul.bullets li{
     width: 63%;
 }
 
-#featured-case-study .img-full-container img {
-    box-shadow: 4px 5px 11px rgba(180, 180, 180, 0.8);
-}
-
 #featured-case-study .img-full-container.pull-right {
     position: absolute;
     top: 160px;
