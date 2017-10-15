@@ -4,15 +4,14 @@
             <ul>
                 <li><g:link mapping="footerAboutKuorum"><g:message code="layout.footer.technology"/></g:link> </li>
                 <li><g:link mapping="footerHistory"><g:message code="layout.footer.aboutUs"/></g:link> </li>
+                <li><g:link mapping="footerOurTeam"><g:message code="layout.footer.ourTeam"/></g:link></li>
                 <li><g:link mapping="footerPress"><g:message code="layout.footer.pressTitle"/></g:link></li>
-                <li><g:link mapping="footerContactUs"><g:message code="layout.footer.contact"/></g:link></li>
+                <li><g:link mapping="footerUserGuides"><g:message code="layout.footer.userGuides"/></g:link></li>
+                <li><g:link mapping="landingCasesStudy"><g:message code="layout.footer.casesStudy"/></g:link> </li>
                 <li><g:link mapping="footerBlog"><g:message code="layout.footer.blog"/></g:link> </li>
-                %{--<li><g:link mapping="footerGovernment"><g:message code="layout.footer.government"/></g:link></li>--}%
-                %{--<li><g:link mapping="footerCitizens"><g:message code="layout.footer.citizens"/></g:link></li>--}%
-                %{--<li><g:link mapping="footerAboutUs"><g:message code="layout.footer.about"/></g:link></li>--}%
-                %{--<li><g:link mapping="footerWidget"><g:message code="layout.footer.widget"/></g:link></li>--}%
-                <li><g:link mapping="footerPrivacyPolicy"><g:message code="layout.footer.privacyPolicy"/></g:link></li>
-                <li><g:link mapping="footerTermsUse"><g:message code="layout.footer.termsUse"/></g:link></li>
+                <li><g:link mapping="footerContactUs"><g:message code="layout.footer.contact"/></g:link></li>
+                %{--<li><g:link mapping="footerPrivacyPolicy"><g:message code="layout.footer.privacyPolicy"/></g:link></li>--}%
+                %{--<li><g:link mapping="footerTermsUse"><g:message code="layout.footer.termsUse"/></g:link></li>--}%
                 <sec:ifNotLoggedIn>
                     <li><nav:generateLangSelector /></li>
                 </sec:ifNotLoggedIn>
