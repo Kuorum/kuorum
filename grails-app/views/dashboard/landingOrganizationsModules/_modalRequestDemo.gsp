@@ -15,6 +15,7 @@
             <!-- email subscription form -->
                 <formUtil:validateForm form="request-demo-modal-form" bean="${commandRequestDemo}"/>
                 <g:form mapping="requestADemo" id="request-demo-modal-form" role="form" method="post" name="request-demo-modal-form">
+                    <input type="hidden" name="comment" class="" value="Request a demo"/>
                     <fieldset>
                         <div class="form-group col-sm-6 col-xs-12">
                             <formUtil:input field="name" command="${commandRequestDemo}" showLabel="true" showCharCounter="false"/>
