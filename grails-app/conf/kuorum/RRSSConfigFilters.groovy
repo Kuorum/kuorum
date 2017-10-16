@@ -12,13 +12,11 @@ class RRSSConfigFilters {
 
             }
             after = { Map model ->
-                if (!model){
-                    model = [:]
+                if (model!= null){
+                    model.put("_facebookConfig",getFacebookConfig())
+                    model.put("_googleConfig",getGoogleConfig())
+                    model.put("_googleCaptchaKey",getGoogleCaptchaKey())
                 }
-                model.put("_facebookConfig",getFacebookConfig())
-                model.put("_googleConfig",getGoogleConfig())
-                model.put("_googleCaptchaKey",getGoogleCaptchaKey())
-
             }
             afterView = { Exception e ->
 
