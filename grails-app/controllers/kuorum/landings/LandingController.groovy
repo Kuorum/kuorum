@@ -1,7 +1,6 @@
 package kuorum.landings
 
 import grails.plugin.springsecurity.SpringSecurityService
-import springSecurity.KuorumRegisterCommand
 
 class LandingController {
 
@@ -42,7 +41,31 @@ class LandingController {
             flash.message = flash.message
             redirect (mapping:"dashboard")
         }else{
-            render(view: "/landing/caseStudies/caseStudy001")
+            render(view: "/landing/caseStudies/caseStudyXXX", model:[caseStudyId:"001", suggestedCaseStudies:["002","003","004"]])
+        }
+    }
+    def caseStudy002(){
+        if (springSecurityService.isLoggedIn()){
+            flash.message = flash.message
+            redirect (mapping:"dashboard")
+        }else{
+            render(view: "/landing/caseStudies/caseStudyXXX", model:[caseStudyId:"002", suggestedCaseStudies:["001","003","004"]])
+        }
+    }
+    def caseStudy003(){
+        if (springSecurityService.isLoggedIn()){
+            flash.message = flash.message
+            redirect (mapping:"dashboard")
+        }else{
+            render(view: "/landing/caseStudies/caseStudyXXX", model:[caseStudyId:"003", suggestedCaseStudies:["001","002","004"]])
+        }
+    }
+    def caseStudy004(){
+        if (springSecurityService.isLoggedIn()){
+            flash.message = flash.message
+            redirect (mapping:"dashboard")
+        }else{
+            render(view: "/landing/caseStudies/caseStudyXXX", model:[caseStudyId:"004", suggestedCaseStudies:["002","003","001"]])
         }
     }
 
