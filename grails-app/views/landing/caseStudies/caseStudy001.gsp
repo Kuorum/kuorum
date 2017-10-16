@@ -12,14 +12,14 @@
 </head>
 
 <content tag="main">
-    <g:render template="/landing/commonModules/slider" model="[msgPrefix:'individualCaseStudy']"/>
+    <g:render template="/landing/commonModules/slider" model="[msgPrefix:'caseStudy001']"/>
     <g:render template="/dashboard/landingOrganizationsModules/modalRequestDemo"/>
 </content>
 
 <content tag="caseStudyBody">
-    <g:render template="/landing/casesStudyModules/mainBody" model="[command:command, msgPrefix:'individualCaseStudy']"/>
+    <g:render template="/landing/caseStudies/modules/caseStudyBody" model="[caseStudyId:'001']"/>
 </content>
 
 <content tag="casesStudyGrid">
-    <g:render template="/landing/casesStudyModules/otherCases" model="[msgPrefix:'individualCaseStudy']"/>
+    <g:render template="/landing/caseStudies/modules/otherCases" model="[otherCases:['001','001','001']]"/>
 </content>

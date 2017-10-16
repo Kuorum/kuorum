@@ -27,7 +27,9 @@ class UrlMappings {
         name landingOrganization:   "/$lang/fundraising-tools" (controller: "landing", action: "landingOrganization"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
                                     "/organizations" { controller="redirect"; action= "redirect301"; newMapping='landingOrganization'}
         name landingCasesStudy:     "/$lang/successful-stories" (controller: "landing", action: "landingCasesStudy"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-        name landingCaseStudy001:   "/$lang/successful-stories/toledo-governmet-citizens-participation" (controller: "landing", action: "individualCaseStudy"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+        name landingCaseStudy001:   "/$lang/successful-stories/toledo-governmet-citizens-participation" (controller: "landing", action: "caseStudy001"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+
+
         name footerAboutKuorum:     "/$lang/what-is-kuorum" (controller: "footer", action: "footerAboutUs"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
         name footerContactUs:       "/$lang/contact" (controller: "footer", action: "footerContactUs"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
         name footerOurTeam:         "/$lang/team" (controller: "footer", action: "footerOurTeam"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
