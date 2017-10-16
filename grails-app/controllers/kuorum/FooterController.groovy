@@ -1,7 +1,6 @@
 package kuorum
 
 import org.springframework.context.i18n.LocaleContextHolder
-import springSecurity.KuorumContactUsCommand
 
 class FooterController {
 
