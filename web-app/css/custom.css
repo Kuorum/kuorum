@@ -9078,7 +9078,7 @@ div.dark {
 }
 
 .container-overflow-image h1 {
-    margin-bottom: 50px;
+    margin-bottom: 45px;
 }
 
 .container-overflow-image div > a.btn {
@@ -9271,6 +9271,10 @@ ul.bullets li{
     line-height: 45px;
 }
 
+#pain .row.section-body {
+    padding-bottom: 0;
+}
+
 #pain .bullets img,
 #gain .bullets img{
     width: 32px;
@@ -9309,6 +9313,10 @@ ul.bullets li{
     padding-top: 25px;
     padding-bottom: 60px;
     color: #20a2ea;
+}
+
+#featured-case-study .section-header h3 {
+    padding-bottom: 66px;
 }
 
 /** case-study **/
@@ -9572,7 +9580,12 @@ ul.threeColumn .card-body p {
     .landing-footer {
         display: grid;
     }
+    #featured-case-study .section-header h3 {
+        padding-bottom: 15px;
+    }
+
 }
+
 
 #footer-section{
     padding-top: 25px;
