@@ -5,7 +5,7 @@
         <img class="img-responsive" src="${r.resource(dir:"images/landing/caseStudies/${caseStudyId}", file:"card.jpg")}" alt="${cardTitle}">
     </div>
     <div class="card-body">
-        <h3><g:link mapping="landingCaseStudy${caseStudyId}">${cardTitle}</g:link></h3>
+        <h3><g:link mapping="${"landingCaseStudy${caseStudyId}".toString()}">${cardTitle}</g:link></h3>
         <p>${cardSubTitle}</p>
     </div>
 </div>

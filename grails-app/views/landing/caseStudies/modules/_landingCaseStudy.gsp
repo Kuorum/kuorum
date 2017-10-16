@@ -9,7 +9,7 @@
     <div class="col-md-6 pull-right">
         <h1><g:message code="landingCasesStudy.${caseStudyId}.landing.title"/></h1>
         <p><g:message code="landingCasesStudy.${caseStudyId}.landing.content"/></p>
-        <g:link mapping="landingCaseStudy${caseStudyId}"  class="link-case-study">
+        <g:link mapping="${"landingCaseStudy${caseStudyId}".toString()}"  class="link-case-study">
             <g:message code="landingCasesStudy.${caseStudyId}.landing.seeMore"/>
         </g:link>
         <span class="link-arrow">></span>
