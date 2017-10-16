@@ -1,7 +1,6 @@
 package kuorum.landings
 
 import grails.plugin.springsecurity.SpringSecurityService
-import springSecurity.KuorumContactUsCommand
 import springSecurity.KuorumRegisterCommand
 
 class LandingController {
