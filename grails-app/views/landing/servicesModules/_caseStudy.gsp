@@ -12,5 +12,6 @@
         <g:link mapping="landingCaseStudy001"  class="link-case-study">
             <g:message code="${msgPrefix}.caseStudy.body.link"/>
         </g:link>
+        <span class="link-arrow">></span>
     </div>
 </div>

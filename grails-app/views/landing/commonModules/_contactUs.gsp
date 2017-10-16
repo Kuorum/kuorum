@@ -82,7 +82,7 @@
                     </div>
             </fieldset>
             <fieldset class="form-group text-center">
-                <g:render template="/layouts/recaptchaForm"/>
+                <g:render template="/layouts/recaptchaForm" model="[formName: 'request-demo-form']"/>
                 <button type="submit"
                         data-sitekey="${_googleCaptchaKey}"
                         data-size="invisible"

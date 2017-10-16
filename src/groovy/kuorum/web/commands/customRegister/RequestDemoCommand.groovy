@@ -1,13 +1,7 @@
 package kuorum.web.commands.customRegister
 
 import grails.validation.Validateable
-import kuorum.core.model.AvailableLanguage
 import kuorum.core.model.EnterpriseSector
-import kuorum.core.model.OfferType
-import kuorum.core.model.UserType
-import kuorum.users.KuorumUser
-import kuorum.web.commands.profile.AccountDetailsCommand
-import springSecurity.KuorumRegisterCommand
 
 /**
  * Form data for request a demo
@@ -30,7 +24,7 @@ class RequestDemoCommand {
         enterprise nullable:false
         phone nullable:true
         enterpriseSector nullable: true
-        comment nullable: true
+        comment nullable: false, minSize: 10
 
     }
 }

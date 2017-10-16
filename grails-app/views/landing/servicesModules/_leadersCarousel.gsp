@@ -3,9 +3,9 @@
     <!-- Indicators -->
     <div class="container indicators">
         <ol class="carousel-indicators">
-            <li data-target="#carousel-new-landing" data-slide-to="0" class="active"></li>
-            <li data-target="#carousel-new-landing" data-slide-to="1"></li>
-            <li data-target="#carousel-new-landing" data-slide-to="2"></li>
+            <li data-target="#carousel-landing-main" data-slide-to="0" class="active"></li>
+            <li data-target="#carousel-landing-main" data-slide-to="1"></li>
+            <li data-target="#carousel-landing-main" data-slide-to="2"></li>
             <li class="text"><g:message code="${msgPrefix}.carousel.slide1.text"/></li>
         </ol>
     </div>

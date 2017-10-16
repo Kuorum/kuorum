@@ -39,7 +39,7 @@
                                 labelCssClass="sr-only"
                                 required="true"/>
                     </div>
-                    <g:render template="/layouts/recaptchaForm"/>
+                    <g:render template="/layouts/recaptchaForm" model="[formName: 'landing-register']"/>
                     <button type="submit"
                             data-sitekey="${_googleCaptchaKey}"
                             data-size="invisible"
