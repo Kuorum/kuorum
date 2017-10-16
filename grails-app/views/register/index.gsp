@@ -32,7 +32,7 @@
                     required="true"/>
         </div>
         <div class="form-group">
-            <g:render template="/layouts/recaptchaForm"/>
+            <g:render template="/layouts/recaptchaForm" model="[formName: 'sign']"/>
             <input type="submit"
                     data-sitekey="${_googleCaptchaKey}"
                     data-size="invisible"

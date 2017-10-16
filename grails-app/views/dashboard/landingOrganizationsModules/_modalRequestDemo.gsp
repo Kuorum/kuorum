@@ -34,7 +34,14 @@
                     </fieldset>
                     <fieldset>
                         <div class="form-group col-xs-12 button">
-                            <input id="request-demo-modal-form-submit-id" type="submit" class="btn btn-lg" value="${g.message(code:'landingCorporationsBrands.carousel.login.submit')}">
+                            <g:render template="/layouts/recaptchaForm"/>
+                            <button type="submit"
+                                    data-sitekey="${_googleCaptchaKey}"
+                                    data-size="invisible"
+                                    data-callback='onSubmit'
+                                    class="btn btn-orange btn-lg g-recaptcha"><g:message code="landingCorporationsBrands.carousel.login.submit"/>
+                            </button>
+                            %{--<input id="request-demo-modal-form-submit-id" type="submit" class="btn btn-lg" value="${g.message(code:'landingCorporationsBrands.carousel.login.submit')}">--}%
                         </div>
                     </fieldset>
                 </g:form>
