@@ -5,37 +5,13 @@
 <div class="row section-body other-cases">
     <div class="row">
         <div class="col-lg-4">
-            <div class="card">
-                <div class="card-header">
-                    <img class="img-responsive" src="${r.resource(dir:'images/landing', file:'brands-03.jpg')}" alt="step 2">
-                </div>
-                <div class="card-body">
-                    <h3><a href=""><g:message code="landingCasesStudy.mainGrid.card1.title"/></a></h3>
-                    <p><g:message code="landingCasesStudy.mainGrid.card1.subtitle"/></p>
-                </div>
-            </div>
+            <g:render template="/landing/caseStudies/caseStudyCard" model="[caseStudyId:'001']"/>
         </div>
         <div class="col-lg-4">
-            <div class="card">
-                <div class="card-header">
-                    <img class="img-responsive" src="${r.resource(dir:'images/landing', file:'brands-03.jpg')}" alt="step 2">
-                </div>
-                <div class="card-body">
-                    <h3><a href=""><g:message code="landingCasesStudy.mainGrid.card1.title"/></a></h3>
-                    <p><g:message code="landingCasesStudy.mainGrid.card1.subtitle"/></p>
-                </div>
-            </div>
+            <g:render template="/landing/caseStudies/caseStudyCard" model="[caseStudyId:'001']"/>
         </div>
         <div class="col-lg-4">
-            <div class="card">
-                <div class="card-header">
-                    <img class="img-responsive" src="${r.resource(dir:'images/landing', file:'brands-03.jpg')}" alt="step 2">
-                </div>
-                <div class="card-body">
-                    <h3><a href=""><g:message code="landingCasesStudy.mainGrid.card1.title"/></a></h3>
-                    <p><g:message code="landingCasesStudy.mainGrid.card1.subtitle"/></p>
-                </div>
-            </div>
+            <g:render template="/landing/caseStudies/caseStudyCard" model="[caseStudyId:'001']"/>
         </div>
     </div>
     </br class="hidden-xs">

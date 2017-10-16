@@ -13,8 +13,6 @@ class LandingController {
         if (springSecurityService.isLoggedIn()){
             flash.message = flash.message
             redirect (mapping:"dashboard")
-        }else{
-            return [command: new KuorumRegisterCommand()]
         }
     }
 

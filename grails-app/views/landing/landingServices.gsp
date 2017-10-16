@@ -12,7 +12,7 @@
 </head>
 
 <content tag="main">
-    <g:render template="/landing/servicesModules/leadersCarousel" model="[command:command, msgPrefix:'landingServices']"/>
+    <g:render template="/landing/servicesModules/leadersCarousel" model="[msgPrefix:'landingServices']"/>
     <g:render template="/dashboard/landingOrganizationsModules/modalRequestDemo"/>
 </content>
 
