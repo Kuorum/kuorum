@@ -4,13 +4,13 @@
 </div>
 <div class="section-body">
     <div class="col-md-6 img-full-container left">
-        <img src="${r.resource(dir:"images/landing/caseStudies/${caseStudyId}/", file:"${imageFile}")}">
+        <img src="${r.resource(dir:"images/landing/caseStudies/${caseStudyId}/", file:"landing.png")}">
     </div>
     <div class="col-md-6 pull-right">
-        <h1><g:message code="${msgPrefix}.caseStudy.body.title"/></h1>
-        <p><g:message code="${msgPrefix}.caseStudy.body.content"/></p>
-        <g:link mapping="landingCaseStudy001"  class="link-case-study">
-            <g:message code="${msgPrefix}.caseStudy.body.seeMore"/>
+        <h1><g:message code="landingCasesStudy.${caseStudyId}.landing.title"/></h1>
+        <p><g:message code="landingCasesStudy.${caseStudyId}.landing.content"/></p>
+        <g:link mapping="landingCaseStudy${caseStudyId}"  class="link-case-study">
+            <g:message code="landingCasesStudy.${caseStudyId}.landing.seeMore"/>
         </g:link>
         <span class="link-arrow">></span>
     </div>
