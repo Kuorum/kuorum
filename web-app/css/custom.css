@@ -9315,6 +9315,15 @@ ul.bullets li{
     color: #20a2ea;
 }
 
+#featured-case-study .section-body span.link-arrow{
+    float: left;
+    font-size: 22px;
+    padding-top: 25px;
+    padding-bottom: 60px;
+    padding-left: 10px;
+    color: #20a2ea;
+}
+
 #featured-case-study .section-header h3 {
     padding-bottom: 66px;
 }
