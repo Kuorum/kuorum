@@ -55,7 +55,7 @@
                                                 required="true"/>
                                     </div>
                                     <div class="form-group col-lg-4">
-                                        <g:render template="/layouts/recaptchaForm"/>
+                                        <g:render template="/layouts/recaptchaForm" model="[formName: 'request-case-study']"/>
                                         <button type="submit"
                                                 data-sitekey="${_googleCaptchaKey}"
                                                 data-size="invisible"
