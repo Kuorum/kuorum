@@ -82,14 +82,48 @@
                     </div>
             </fieldset>
             <fieldset class="form-group text-center">
-                <g:render template="/layouts/recaptchaForm" model="[formName: 'request-demo-form']"/>
-                <button type="submit"
-                        data-sitekey="${_googleCaptchaKey}"
-                        data-size="invisible"
-                        data-callback='onSubmit'
+                <div id="recaptcha-contact-us-id"></div>
+                <button id="contact-us-form-id"
                         class="btn btn-orange btn-lg g-recaptcha"><g:message code="${msgPrefix}.contactUs.submit"/>
                 </button>
             </fieldset>
         </g:form>
     </sec:ifNotLoggedIn>
 </div>
+
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<script type="text/javascript">
+    $(function(){
+        $('#contact-us-form-id').on('click', function (e) {
+            e.preventDefault()
+            recaptchaContactUsRender()
+        });
+    });
+
+    var contactUsRecaptcha;
+    function recaptchaContactUsRender(){
+        contactUsRecaptcha = grecaptcha.render('recaptcha-contact-us-id', {
+            'sitekey' : '${_googleCaptchaKey}',
+            'size' : 'invisible',
+            'callback' : contactUsCallback
+        });
+
+        grecaptcha.reset(contactUsRecaptcha);
+
+        grecaptcha.execute(contactUsRecaptcha);
+    }
+
+    function contactUsCallback(){
+        var $form = $('#request-demo-form');
+        if ($form.valid()){
+            var url = $form.attr("action")
+            $.ajax({
+                url:url,
+                data:$form.serializeArray(),
+                success:function(data){
+                    display.success(data);
+                }
+            })
+        }
+    }
+</script>

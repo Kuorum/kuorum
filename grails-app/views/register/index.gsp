@@ -32,14 +32,9 @@
                     required="true"/>
         </div>
         <div class="form-group">
-            <g:render template="/layouts/recaptchaForm" model="[formName: 'sign']"/>
-            <input type="submit"
-                    data-sitekey="${_googleCaptchaKey}"
-                    data-size="invisible"
-                    data-callback='onSubmit'
-                    class="btn btn-lg g-recaptcha"
-                    value="${g.message(code:'register.email.form.submit')}"/>
-            %{--<input type="submit" class="btn btn-lg" value="${g.message(code:'register.email.form.submit')}">--}%
+            <div id="recaptcha-register-id"></div>
+            <button id="register-submit"
+                    class="btn btn-lg g-recaptcha">${g.message(code:'register.email.form.submit')}</button>
             <p><g:message code="register.conditions" args="[g.createLink(mapping: 'footerPrivacyPolicy')]" encodeAs="raw"/></p>
         </div>
         <div class="form-group">
@@ -48,10 +43,34 @@
             </p>
         </div>
     </g:form>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script>
         $(document).ready(function() {
             $('input[name=name]').focus();
+
+            $('#register-submit').on('click', function (e) {
+                e.preventDefault()
+                recaptchaRegisterRender()
+            });
         });
+
+        var registerRecaptcha;
+        function recaptchaRegisterRender(){
+            registerRecaptcha = grecaptcha.render('recaptcha-register-id', {
+                'sitekey' : '${_googleCaptchaKey}',
+                'size' : 'invisible',
+                'callback' : registerCallback
+            });
+
+            grecaptcha.reset(registerRecaptcha);
+
+            grecaptcha.execute(registerRecaptcha);
+        }
+
+        function registerCallback(){
+            var $form = $('#sign');
+            $form.submit()
+        }
     </script>
     <g:render template="/register/registerSocial"/>
 </content>

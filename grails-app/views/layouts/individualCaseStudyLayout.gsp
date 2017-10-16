@@ -55,11 +55,8 @@
                                                 required="true"/>
                                     </div>
                                     <div class="form-group col-lg-4">
-                                        <g:render template="/layouts/recaptchaForm" model="[formName: 'request-case-study']"/>
-                                        <button type="submit"
-                                                data-sitekey="${_googleCaptchaKey}"
-                                                data-size="invisible"
-                                                data-callback='onSubmit'
+                                        <div id="recaptcha-case-study-id"></div>
+                                        <button id="request-case-study-id"
                                                 class="btn btn-sign-up btn-orange btn-lg col-lg-4 g-recaptcha"><g:message code="individualCaseStudy.body.downloadCase.submit"/>
                                         </button>
                                     </div>
@@ -80,5 +77,42 @@
     </div>
     <g:render template="/layouts/footer/footer"/>
     </div><!-- .container-fluid -->
+
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script type="text/javascript">
+        $(function(){
+            $('#request-case-study-id').on('click', function (e) {
+                e.preventDefault()
+                recaptchaCaseStudyRender()
+            });
+        });
+
+        var requestCaseStudyRecaptcha;
+        function recaptchaCaseStudyRender(){
+            requestCaseStudyRecaptcha = grecaptcha.render('recaptcha-case-study-id', {
+                'sitekey' : '${_googleCaptchaKey}',
+                'size' : 'invisible',
+                'callback' : caseStudyCallback
+            });
+
+            grecaptcha.reset(requestCaseStudyRecaptcha);
+
+            grecaptcha.execute(requestCaseStudyRecaptcha);
+        }
+
+        function caseStudyCallback(){
+            var $form = $('#request-case-study');
+            if ($form.valid()){
+                var url = $form.attr("action")
+                $.ajax({
+                    url:url,
+                    data:$form.serializeArray(),
+                    success:function(data){
+                        display.success(data);
+                    }
+                })
+            }
+        }
+    </script>
     </body>
 </g:applyLayout>

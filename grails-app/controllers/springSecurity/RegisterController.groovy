@@ -312,7 +312,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         Locale locale = LocaleContextHolder.getLocale();
         AvailableLanguage language = AvailableLanguage.fromLocaleParam(locale.getLanguage());
         kuorumMailService.sendRequestADemo(command.getName(), command.getEmail(), language)
-        kuorumMailService.sendRequestADemoAdmin(command.getName(), command.surname, command.getEmail(), command.getEnterprise(), command.getEnterpriseSector(), command.getPhone(), command.comment, language)
+        kuorumMailService.sendRequestADemoAdmin(command.getName(), command.surname, command.getEmail(), command.getEnterprise(), command.getSector(), command.getPhone(), command.comment, language)
         render g.message(code:'kuorum.web.commands.customRegister.RequestDemoCommand.success');
     }
 
@@ -369,6 +369,10 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         if (command.hasErrors()){
             flash.message = "Invalid mail"
             redirect mapping:'landingPoliticians'
+            return
+        }
+        if(!verifyRegister()){
+            flash.error = g.message(error: 'register.locked.recaptcha.error')
             return
         }
         Locale locale = LocaleContextHolder.getLocale();
