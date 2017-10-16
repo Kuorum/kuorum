@@ -55,7 +55,7 @@
             });
         });
         //carousel
-        $('#carousel-new-landing').on('slid.bs.carousel', function (event) {
+        $('#carousel-landing-main').on('slid.bs.carousel', function (event) {
             var $carouselContainer = $(event.target);
             var $carouselText = $($carouselContainer.find('li.text')[0]);
             var messages = {
