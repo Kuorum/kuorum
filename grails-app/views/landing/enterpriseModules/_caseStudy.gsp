@@ -9,7 +9,7 @@
     <div class="col-md-6 pull-right">
         <h1><g:message code="${msgPrefix}.caseStudy.body.bold"/></h1>
         <p><g:message code="${msgPrefix}.caseStudy.body.description"/></p>
-        <g:link mapping="landingIndividualCaseStudy"  class="link-case-study">
+        <g:link mapping="landingCaseStudy001"  class="link-case-study">
             <g:message code="${msgPrefix}.caseStudy.body.seeMore"/>
         </g:link>
     </div>
