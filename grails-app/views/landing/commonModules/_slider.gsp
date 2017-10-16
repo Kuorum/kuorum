@@ -1,7 +1,7 @@
 <div id="carousel-landing-main" class="carousel slide fade-carousel ${msgPrefix}">
     <div class="content-footer container">
         <hgroup>
-            <h1><g:message code="${msgPrefix}.title"/></h1>
+            <h1><g:message code="caseStudy.title"/></h1>
         </hgroup>
     </div>
     <div class="carousel-inner" role="listbox">
