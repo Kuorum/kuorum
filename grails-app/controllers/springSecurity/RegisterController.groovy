@@ -371,6 +371,10 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
             redirect mapping:'landingPoliticians'
             return
         }
+        if(!verifyRegister()){
+            flash.error = g.message(error: 'register.locked.recaptcha.error')
+            return
+        }
         Locale locale = LocaleContextHolder.getLocale();
         mailchimpService.addCaseStudy(command.name, command.email, locale)
         String preFileName = "KuorumCaseStudy"

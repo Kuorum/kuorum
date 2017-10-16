@@ -34,10 +34,8 @@
                     </fieldset>
                     <fieldset>
                         <div class="form-group col-xs-12 button">
-                            <button data-sitekey="${_googleCaptchaKey}"
-                                    data-size="invisible"
-                                    data-callback='requestDemoCallback'
-                                    id="request-demo-modal-form-submit-id"
+                            <div id="recaptcha-modal-id"></div>
+                            <button id="request-demo-modal-form-id"
                                     class="btn btn-orange btn-lg g-recaptcha"><g:message code="landingCorporationsBrands.carousel.login.submit"/>
                             </button>
                         </div>
@@ -51,10 +49,6 @@
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <script type="text/javascript">
     $(function(){
-//        $("#landing-register button[type=submit]").on("click", function(e){
-//            e.preventDefault();
-//            openModalRequestDemo()
-//        });
 
         $(".btn-open-modal-request-demo").on("click", function(e){
             e.preventDefault();
@@ -72,6 +66,23 @@
         }
     });
 
+    var modalRecaptcha;
+    function recaptchaModalRender(){
+        modalRecaptcha = grecaptcha.render('recaptcha-modal-id', {
+            'sitekey' : '${_googleCaptchaKey}',
+            'size' : 'invisible',
+            'callback' : requestDemoCallback
+        });
+
+        grecaptcha.reset(modalRecaptcha);
+
+        grecaptcha.execute(modalRecaptcha);
+    }
+
+    $('#request-demo-modal-form-id').on('click', function (e) {
+        e.preventDefault()
+        recaptchaModalRender()
+    });
 
     function requestDemoCallback(){
         var $form = $('#request-demo-modal-form');

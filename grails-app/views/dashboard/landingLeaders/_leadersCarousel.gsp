@@ -39,11 +39,8 @@
                                 labelCssClass="sr-only"
                                 required="true"/>
                     </div>
-                    <g:render template="/layouts/recaptchaForm" model="[formName: 'landing-register']"/>
-                    <button type="submit"
-                            data-sitekey="${_googleCaptchaKey}"
-                            data-size="invisible"
-                            data-callback='onSubmit'
+                    <div id="recaptcha-register-id"></div>
+                    <button id="register-submit"
                             class="btn btn-blue btn-lg col-lg-4 g-recaptcha"><g:message code="${msgPrefix}.carousel.login.submit"/>
                     </button>
                 </fieldset>
@@ -73,6 +70,7 @@
     </div>
 </div>
 
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <script>
     $(function(){
         //scroll effect
@@ -101,5 +99,37 @@
             });
         });
 
+        $('#register-submit').on('click', function (e) {
+            e.preventDefault()
+            recaptchaRegisterRender()
+        });
+
     });
+
+    var registerRecaptcha;
+    function recaptchaRegisterRender(){
+        registerRecaptcha = grecaptcha.render('recaptcha-register-id', {
+            'sitekey' : '${_googleCaptchaKey}',
+            'size' : 'invisible',
+            'callback' : registerCallback
+        });
+
+        grecaptcha.reset(registerRecaptcha);
+
+        grecaptcha.execute(registerRecaptcha);
+    }
+
+    function registerCallback(){
+        var $form = $('#landing-register');
+        if ($form.valid()){
+            var url = $form.attr("action")
+            $.ajax({
+                url:url,
+                data:$form.serializeArray(),
+                success:function(data){
+                    display.success(data);
+                }
+            })
+        }
+    }
 </script>
