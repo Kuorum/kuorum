@@ -3,11 +3,7 @@ package kuorum.mail
 import grails.transaction.Transactional
 import kuorum.OfferPurchased
 import kuorum.campaign.PollCampaignVote
-import kuorum.core.model.AvailableLanguage
-import kuorum.core.model.CommissionType
-import kuorum.core.model.EnterpriseSector
-import kuorum.core.model.OfferType
-import kuorum.core.model.PostType
+import kuorum.core.model.*
 import kuorum.post.Cluck
 import kuorum.post.Post
 import kuorum.post.PostComment
@@ -169,7 +165,7 @@ class KuorumMailService {
             String surname,
             String email,
             String enterprise,
-            EnterpriseSector enterpriseSector,
+            Sector sector,
             String phone,
             String comment,
             AvailableLanguage language){
@@ -178,7 +174,7 @@ class KuorumMailService {
         <ul>
             <li>Name: $name ${surname? "${surname} || $surname, $name" :''} </li>
             <li>Email: $email</li>
-            <li>Enterprise: $enterprise ${enterpriseSector?"(${enterpriseSector})":''} </li>
+            <li>Enterprise: $enterprise ${sector?"(${sector})":''} </li>
             <li>Phone: $phone</li>
             <li>Lang: $language</li>
             <li>Comment: <p>${comment?:''}</p></li>

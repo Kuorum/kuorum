@@ -14,7 +14,7 @@
             <div class="modal-body">
             <!-- email subscription form -->
                 <formUtil:validateForm form="request-demo-modal-form" bean="${commandRequestDemo}"/>
-                <g:form mapping="requestADemo" id="request-demo-modal-form" role="form" method="post" name="request-demo-modal-form">
+                <g:form mapping="requestADemo" role="form" method="post" name="request-demo-modal-form">
                     <input type="hidden" name="comment" class="" value="Request a demo"/>
                     <fieldset>
                         <div class="form-group col-sm-6 col-xs-12">
@@ -34,22 +34,21 @@
                     </fieldset>
                     <fieldset>
                         <div class="form-group col-xs-12 button">
-                            <g:render template="/layouts/recaptchaForm"/>
-                            <button type="submit"
-                                    data-sitekey="${_googleCaptchaKey}"
+                            <button data-sitekey="${_googleCaptchaKey}"
                                     data-size="invisible"
-                                    data-callback='onSubmit'
+                                    data-callback='requestDemoCallback'
+                                    id="request-demo-modal-form-submit-id"
                                     class="btn btn-orange btn-lg g-recaptcha"><g:message code="landingCorporationsBrands.carousel.login.submit"/>
                             </button>
-                            %{--<input id="request-demo-modal-form-submit-id" type="submit" class="btn btn-lg" value="${g.message(code:'landingCorporationsBrands.carousel.login.submit')}">--}%
                         </div>
                     </fieldset>
                 </g:form>
             </div>
         </div>
     </div>
+</div>
 <!-- fin modal -->
-
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <script type="text/javascript">
     $(function(){
 //        $("#landing-register button[type=submit]").on("click", function(e){
@@ -62,21 +61,6 @@
             openModalRequestDemo()
         });
 
-        $("#request-demo-modal-form-submit-id").on("click", function(e){
-            e.preventDefault();
-            var $form = $(this).parents("form");
-            if ($form.valid()){
-                var url = $form.attr("action")
-                $.ajax({
-                    url:url,
-                    data:$form.serializeArray(),
-                    success:function(data){
-                        display.success(data);
-                        $("#request-demo-modal").modal("hide");
-                    }
-                })
-            }
-        });
         function openModalRequestDemo(){
             var $form = $("#landing-register");
             var name = $form.find("input[name=name]").val()
@@ -86,5 +70,21 @@
             $modalForm.find("input[name=email]").val(email)
             $("#request-demo-modal").modal("show")
         }
-    })
+    });
+
+
+    function requestDemoCallback(){
+        var $form = $('#request-demo-modal-form');
+        if ($form.valid()){
+            var url = $form.attr("action")
+            $.ajax({
+                url:url,
+                data:$form.serializeArray(),
+                success:function(data){
+                    display.success(data);
+                    $("#request-demo-modal").modal("hide");
+                }
+            })
+        }
+    }
 </script>
