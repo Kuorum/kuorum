@@ -62,7 +62,7 @@
                 <div class="form-group col-md-6">
                     <formUtil:selectEnum
                             command="${commandRequestDemo}"
-                            field="enterpriseSector"
+                            field="sector"
                             labelCssClass="left"
                             showLabel="true"
                             showCharCounter="false"
