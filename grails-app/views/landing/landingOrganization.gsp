@@ -25,7 +25,7 @@
 </content>
 
 <content tag="caseStudy">
-    <g:render template="/landing/organizationModules/caseStudy" model="[msgPrefix:'landingOrganization', imgBackground:'features-leaders.png']"/>
+    <g:render template="/landing/caseStudies/modules/landingCaseStudy" model="[msgPrefix:'landingOrganization', caseStudyId:'001', imageFile:'ayu-toledo.png']"/>
 </content>
 
 <content tag="contactUs">
