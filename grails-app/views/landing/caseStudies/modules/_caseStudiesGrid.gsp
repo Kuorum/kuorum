@@ -12,7 +12,7 @@
                 <div class="row">
             </g:if>
             <div class="col-lg-4">
-                <g:render template="/landing/caseStudies/modules/caseStudyCard" model="[caseStudyId:caseStudyId]"/>
+                <g:render template="/landing/caseStudies/modules/caseStudyCard" model="[caseStudyId:caseStudyId, sectionName:'landingCaseStudy']"/>
             </div>
         </g:each>
     </div>

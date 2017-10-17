@@ -6,7 +6,7 @@
     <div class="row">
         <g:each in="${otherCases}" var="otherCaseId">
             <div class="col-lg-4">
-                <g:render template="/landing/caseStudies/modules/caseStudyCard" model="[caseStudyId:otherCaseId]"/>
+                <g:render template="/landing/caseStudies/modules/caseStudyCard" model="[caseStudyId:otherCaseId, sectionName:'landingCaseStudy']"/>
             </div>
         </g:each>
     </div>

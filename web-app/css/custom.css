@@ -8921,7 +8921,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 }
 
 .fade-carousel.customBlog .content,
-.fade-carousel.landingCasesStudy .content {
+.fade-carousel.landingCaseStudy .content {
     top: 50%;
 }
 
@@ -8930,7 +8930,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 }
 
 .fade-carousel.customBlog .content hgroup,
-.fade-carousel.landingCasesStudy .content hgroup{
+.fade-carousel.landingCaseStudy .content hgroup{
     margin-bottom: 30px;
 }
 
@@ -9084,13 +9084,13 @@ background-repeat: no-repeat;
 .fade-carousel .slides .slide-footer.footerUserGuides {
     background-image: url('../images/landing/user-guides.jpg');
 }
-.fade-carousel .slides .slide-1.landingCasesStudy {
+.fade-carousel .slides .slide-1.landingCaseStudy {
     background-image: url('../images/landing/case-studies.jpg');
 }
-.fade-carousel .slides .slide-footer.caseStudy001 {background-image: url('../images/landing/caseStudies/001/headPage.jpg');  }
-.fade-carousel .slides .slide-footer.caseStudy002 {background-image: url('../images/landing/caseStudies/002/headPage.jpg');  }
-.fade-carousel .slides .slide-footer.caseStudy003 {background-image: url('../images/landing/caseStudies/003/headPage.jpg');  }
-.fade-carousel .slides .slide-footer.caseStudy004 {background-image: url('../images/landing/caseStudies/004/headPage.jpg');  }
+.fade-carousel .slides .slide-footer.caseStudy001 {background-image: url('../images/landing/landingCaseStudy/001/headPage.jpg');  }
+.fade-carousel .slides .slide-footer.caseStudy002 {background-image: url('../images/landing/landingCaseStudy/002/headPage.jpg');  }
+.fade-carousel .slides .slide-footer.caseStudy003 {background-image: url('../images/landing/landingCaseStudy/003/headPage.jpg');  }
+.fade-carousel .slides .slide-footer.caseStudy004 {background-image: url('../images/landing/landingCaseStudy/004/headPage.jpg');  }
 
 #carousel-landing-main .img-responsive{
     position: relative;
@@ -9182,11 +9182,11 @@ div.dark {
     }
 
     .fade-carousel .slides .slide-1.customBlog,
-    .fade-carousel .slides .slide-1.landingCasesStudy {
+    .fade-carousel .slides .slide-1.landingCaseStudy {
         height: 300px;
     }
     .fade-carousel.customBlog .content .btn,
-    .fade-carousel.landingCasesStudy .content .btn {
+    .fade-carousel.landingCaseStudy .content .btn {
         width: auto;
     }
 

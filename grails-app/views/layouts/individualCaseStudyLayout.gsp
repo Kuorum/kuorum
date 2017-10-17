@@ -23,7 +23,7 @@
                             <g:message code="individualCaseStudy.breadcrumb.home"/>
                         </g:link>
                         >
-                        <g:link mapping="landingCasesStudy" class="breadcrumb">
+                        <g:link mapping="landingCaseStudy" class="breadcrumb">
                             <g:message code="individualCaseStudy.breadcrumb.casesStudy"/>
                         </g:link>
                     </div>

@@ -26,7 +26,7 @@ class UrlMappings {
                                     "/governments" { controller="redirect"; action= "redirect301"; newMapping='landingAdministration'}
         name landingOrganization:   "/$lang/fundraising-tools" (controller: "landing", action: "landingOrganization"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
                                     "/organizations" { controller="redirect"; action= "redirect301"; newMapping='landingOrganization'}
-        name landingCasesStudy:     "/$lang/successful-stories"                                             (controller: "landing", action: "landingCasesStudy"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+        name landingCaseStudy:      "/$lang/successful-stories"                                             (controller: "landing", action: "landingCaseStudy"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
         name landingCaseStudy001:   "/$lang/successful-stories/toledo-governmet-citizens-participation"           (controller: "landing", action: "caseStudy001"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
         name landingCaseStudy002:   "/$lang/successful-stories/caseSutudy3"                                     (controller: "landing", action: "caseStudy002"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
         name landingCaseStudy003:   "/$lang/successful-stories/mat-es-un-crack-si-se-da-cuenta-de-esto"         (controller: "landing", action: "caseStudy003"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}

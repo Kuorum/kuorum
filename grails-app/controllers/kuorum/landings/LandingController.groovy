@@ -29,7 +29,7 @@ class LandingController {
         }
     }
 
-    def landingCasesStudy(){
+    def landingCaseStudy(){
         if (springSecurityService.isLoggedIn()){
             flash.message = flash.message
             redirect (mapping:"dashboard")

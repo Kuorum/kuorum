@@ -22,6 +22,6 @@
 <content tag="footerSection">
     <div class="section-header">
         <p><g:message code="footerAboutUs.content.text.1"/></p>
-        <p><g:message code="footerAboutUs.content.text.2" args="[createLink(mapping:'landingCasesStudy')]"/></p>
+        <p><g:message code="footerAboutUs.content.text.2" args="[createLink(mapping:'landingCaseStudy')]"/></p>
     </div>
 </content>

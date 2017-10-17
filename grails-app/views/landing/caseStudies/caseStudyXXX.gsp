@@ -18,7 +18,8 @@
 </content>
 
 <content tag="caseStudyBody">
-    <g:render template="/landing/caseStudies/modules/caseStudyBody" model="[caseStudyId:caseStudyId]"/>
+    <h1><g:message code="landingCaseStudy.${caseStudyId}.content.title"/> </h1>
+    <p><g:message code="landingCaseStudy.${caseStudyId}.content.text"/> </p>
 </content>
 
 <content tag="casesStudyGrid">

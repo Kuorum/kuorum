@@ -26,7 +26,7 @@
 </content>
 
 <content tag="caseStudy">
-    <g:render template="/landing/caseStudies/modules/landingCaseStudy" model="[msgPrefix:'landingOrganization', caseStudyId:'003']"/>
+    <g:render template="/landing/caseStudies/modules/landingCaseStudy" model="[msgPrefix:'landingOrganization', caseStudyId:'003', sectionName:'landingCaseStudy']"/>
 </content>
 
 <content tag="contactUs">

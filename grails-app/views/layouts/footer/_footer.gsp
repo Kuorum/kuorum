@@ -7,7 +7,7 @@
                 <li><g:link mapping="footerOurTeam"><g:message code="layout.footer.ourTeam"/></g:link></li>
                 <li><g:link mapping="footerPress"><g:message code="layout.footer.pressTitle"/></g:link></li>
                 <li><g:link mapping="footerUserGuides"><g:message code="layout.footer.userGuides"/></g:link></li>
-                <li><g:link mapping="landingCasesStudy"><g:message code="layout.footer.casesStudy"/></g:link> </li>
+                <li><g:link mapping="landingCaseStudy"><g:message code="layout.footer.casesStudy"/></g:link> </li>
                 <li><g:link mapping="footerBlog"><g:message code="layout.footer.blog"/></g:link> </li>
                 <li><g:link mapping="footerContactUs"><g:message code="layout.footer.contact"/></g:link></li>
                 %{--<li><g:link mapping="footerPrivacyPolicy"><g:message code="layout.footer.privacyPolicy"/></g:link></li>--}%
