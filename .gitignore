@@ -12,6 +12,7 @@
 *.iml
 /kuorum-grailsPlugins.iml
 /.sonar
+/.slcache
 
 # Config files
 /src/java/development_config.properties
