@@ -3,7 +3,7 @@ package kuorum.core.model
 /**
  * Created by toni on 16/10/17.
  */
-enum Sector {
+enum ContactSectorType {
     GOVERNMENT,
     CORPORATION,
     ORGANIZATION

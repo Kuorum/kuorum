@@ -1,7 +1,7 @@
 package kuorum.web.commands.customRegister
 
 import grails.validation.Validateable
-import kuorum.core.model.Sector
+import kuorum.core.model.ContactSectorType
 
 /**
  * Form data for request a demo
@@ -14,7 +14,7 @@ class RequestDemoCommand {
     String surname
     String enterprise
     String phone
-    Sector sector
+    ContactSectorType sector
     String comment
 
     static constraints = {

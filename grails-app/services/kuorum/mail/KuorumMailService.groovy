@@ -165,7 +165,7 @@ class KuorumMailService {
             String surname,
             String email,
             String enterprise,
-            Sector sector,
+            ContactSectorType sector,
             String phone,
             String comment,
             AvailableLanguage language){
