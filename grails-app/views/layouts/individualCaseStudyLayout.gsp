@@ -35,6 +35,7 @@
                             <g:set var="commandRequestCaseStudy" value="${new kuorum.web.commands.customRegister.RequestCaseStudyCommand()}"/>
                             <formUtil:validateForm bean="${commandRequestCaseStudy}" form="request-case-study"/>
                             <g:form mapping="registerPressKit" class="request-case-study form-inline dark" name="request-case-study">
+                                <input type="hidden" name="caseStudyId" value="${g.pageProperty(name:'page.caseStudyId')}"/>
                                 <fieldset>
                                     <div class="form-group col-lg-4">
                                         <formUtil:input
@@ -89,14 +90,14 @@
 
         var requestCaseStudyRecaptcha;
         function recaptchaCaseStudyRender(){
-            requestCaseStudyRecaptcha = grecaptcha.render('recaptcha-case-study-id', {
-                'sitekey' : '${_googleCaptchaKey}',
-                'size' : 'invisible',
-                'callback' : caseStudyCallback
-            });
-
-            grecaptcha.reset(requestCaseStudyRecaptcha);
-
+            if (requestCaseStudyRecaptcha == undefined ){
+                requestCaseStudyRecaptcha = grecaptcha.render('recaptcha-case-study-id', {
+                    'sitekey' : '${_googleCaptchaKey}',
+                    'size' : 'invisible',
+                    'callback' : caseStudyCallback
+                });
+            }
+//            grecaptcha.reset(requestCaseStudyRecaptcha);
             grecaptcha.execute(requestCaseStudyRecaptcha);
         }
 
@@ -111,6 +112,8 @@
                         display.success(data);
                     }
                 })
+            }else{
+                grecaptcha.reset(requestCaseStudyRecaptcha);
             }
         }
     </script>

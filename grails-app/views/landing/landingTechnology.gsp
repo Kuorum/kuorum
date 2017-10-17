@@ -33,5 +33,5 @@
 </content>
 
 <content tag="contactUs">
-    <g:render template="/landing/commonModules/contactUs" model="[msgPrefix:'landingTechnology']"/>
+    <g:render template="/landing/commonModules/contactUs" model="[msgPrefix:'landingTechnology', sectorDefault: null]"/>
 </content>
