@@ -84,13 +84,13 @@
 
     $('#request-demo-modal-form-id').on('click', function (e) {
         e.preventDefault()
-        $('fieldset.email-sent .in-progress').removeClass('hidden');
         recaptchaModalRender()
     });
 
     function requestDemoCallback(){
         var $form = $('#request-demo-modal-form');
         if ($form.valid()){
+            $('fieldset.email-sent .in-progress').removeClass('hidden');
             var url = $form.attr("action")
             $.ajax({
                 url:url,
