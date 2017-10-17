@@ -9092,6 +9092,8 @@ background-repeat: no-repeat;
 .fade-carousel .slides .slide-footer.caseStudy003 {background-image: url('../images/landing/landingCaseStudy/003/headPage.jpg');  }
 .fade-carousel .slides .slide-footer.caseStudy004 {background-image: url('../images/landing/landingCaseStudy/004/headPage.jpg');  }
 
+.fade-carousel .slides .slide-footer.footerBlog001 {background-image: url('../images/landing/footerBlog/001/headPage.jpg');  }
+
 #carousel-landing-main .img-responsive{
     position: relative;
     top: 90px;
