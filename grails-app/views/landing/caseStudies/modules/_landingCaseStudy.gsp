@@ -8,7 +8,7 @@
     </div>
     <div class="col-md-6 pull-right">
         <h1><g:message code="${sectionName}.${caseStudyId}.content.title"/></h1>
-        <p><g:message code="${sectionName}.${caseStudyId}.landing.content"/></p>
+        <p><g:message code="${sectionName}.${caseStudyId}.card.subtitle"/></p>
         <g:link mapping="${"${sectionName}${caseStudyId}".toString()}"  class="link-case-study">
             <g:message code="${sectionName}.page.landing.seeMore"/>
         </g:link>
