@@ -1,4 +1,4 @@
-<g:set var="cardTitle"><g:message code="landingCasesStudy.${caseStudyId}.card.title"/></g:set>
+<g:set var="cardTitle"><g:message code="landingCasesStudy.${caseStudyId}.content.title"/></g:set>
 <g:set var="cardSubTitle"><g:message code="landingCasesStudy.${caseStudyId}.card.subtitle"/></g:set>
 <div class="card">
     <div class="card-header">

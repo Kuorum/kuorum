@@ -47,7 +47,6 @@
                 <h1 itemprop="name"><g:message code="footer.menu.footerTeam.member4"/></h1>
                 <h2 itemprop="jobTitle"><g:message code="footer.menu.footerTeam.position4"/></h2>
                 <p itemprop="description"><g:message code="footer.menu.footerTeam.description4"/></p>
-                <p itemprop="description"><g:message code="footer.menu.footerTeam.description4b"/></p>
                 <ul class="social">
                     <li><a href="https://twitter.com/abbyrodd" target="_blank"><span class="fa fa-twitter fa-2x"></span> <span class="sr-only">Twitter</span></a></li>
                     <li><a href="https://es.linkedin.com/in/abbyrodd" target="_blank"><span class="fa fa-linkedin fa-2x"></span> <span class="sr-only">LinkedIn</span></a></li>
@@ -67,18 +66,18 @@
             </div>
         </li>
 
-        <li itemscope itemtype="http://schema.org/Person">
-            <div class="box-ppal">
-                <img src="${resource(dir: 'images', file: 'foto-yan.png')}" alt="Foto" itemprop="image">
-                <h1 itemprop="name"><g:message code="footer.menu.footerTeam.member11"/></h1>
-                <h2 itemprop="jobTitle"><g:message code="footer.menu.footerTeam.position11"/></h2>
-                <p itemprop="description"><g:message code="footer.menu.footerTeam.description11"/></p>
-                <ul class="social">
-                    <li><a href="https://twitter.com/Jackie_Flore" target="_blank"><span class="fa fa-twitter fa-2x"></span> <span class="sr-only">Twitter</span></a></li>
-                    <li><a href="https://www.linkedin.com/in/yanhua-hu-75984a12a/" target="_blank"><span class="fa fa-linkedin fa-2x"></span> <span class="sr-only">LinkedIn</span></a></li>
-                </ul>
-            </div>
-        </li>
+        %{--<li itemscope itemtype="http://schema.org/Person">--}%
+            %{--<div class="box-ppal">--}%
+                %{--<img src="${resource(dir: 'images', file: 'foto-yan.png')}" alt="Foto" itemprop="image">--}%
+                %{--<h1 itemprop="name"><g:message code="footer.menu.footerTeam.member11"/></h1>--}%
+                %{--<h2 itemprop="jobTitle"><g:message code="footer.menu.footerTeam.position11"/></h2>--}%
+                %{--<p itemprop="description"><g:message code="footer.menu.footerTeam.description11"/></p>--}%
+                %{--<ul class="social">--}%
+                    %{--<li><a href="https://twitter.com/Jackie_Flore" target="_blank"><span class="fa fa-twitter fa-2x"></span> <span class="sr-only">Twitter</span></a></li>--}%
+                    %{--<li><a href="https://www.linkedin.com/in/yanhua-hu-75984a12a/" target="_blank"><span class="fa fa-linkedin fa-2x"></span> <span class="sr-only">LinkedIn</span></a></li>--}%
+                %{--</ul>--}%
+            %{--</div>--}%
+        %{--</li>--}%
 
         <li itemscope itemtype="http://schema.org/Person">
             <div class="box-ppal">

@@ -7646,6 +7646,16 @@ header .header-msg h6:hover{
     padding-bottom: 0;
 }
 
+#cases-study-grid .card-body h3 a{
+    color: #545454;
+    text-decoration: none;
+}
+
+#cases-study-grid .card-body h3 a:hover{
+    color: #ff9431;
+    text-decoration: none;
+}
+
 #cases-study-body .breadcrumb,
 #cases-study-grid .breadcrumb{
     color: #20a2ea;
