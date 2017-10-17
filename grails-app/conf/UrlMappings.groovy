@@ -39,8 +39,11 @@ class UrlMappings {
         name footerUserGuides:      "/$lang/user-guides" (controller: "footer", action: "footerUserGuides"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
         name footerPress:           "/$lang/press-and-media" (controller: "footer", action: "footerPress"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
         name footerHistory:         "/$lang/our-story" (controller: "footer", action: "footerHistory"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-        name footerBlog:            "/$lang/blog" (controller: "footer", action: "customBlog"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
         /**/
+        /*** CUSTOM BLOG ARTICLES ***/
+        name footerBlog:            "/$lang/blog" (controller: "footer", action: "footerBlog"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+        name footerBlog001:         "/$lang/blog/article-001" (controller: "footer", action: "footerBlog001"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+        /* END CUSTOM BLOG ARTICLES */
 
         name home:              "/$lang" (controller: "landing", action:"landingServices"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
                                 "/" { controller="redirect"; action= "redirect301"; newMapping='home'}
@@ -150,11 +153,6 @@ class UrlMappings {
         name searcherSearch:        "/$lang/search"(controller: "search", action:"search")
                                     "/search"{controller="redirect"; action= "redirect301"; newMapping='searcherSearch'}
                                     "/buscar"{controller="redirect"; action= "redirect301"; newMapping='searcherSearch'}
-
-        //BLOG REDIRECT:
-        name blog:          "/$lang/blog/"    (controller: "redirect", action:"blogRedirect")
-                            "/blog/"    (controller: "redirect", action:"blogRedirect")
-                            "/blog/$articlePath**" (controller: "redirect", action:"blogRedirect")
 
         /**********************/
         /***** LOGGED URLs ****/ //Language no matters

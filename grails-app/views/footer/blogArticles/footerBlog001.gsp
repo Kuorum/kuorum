@@ -1,7 +1,7 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <title><g:message code="landingLeaders.head.title"/></title>
-    <meta name="layout" content="landingCasesStudyLayout">
+    <meta name="layout" content="individualCaseStudyLayout">
     <parameter name="extraHeadCss" value="landing"/>
     <g:render template="/dashboard/landingMetaTags"
               model="[
@@ -12,9 +12,15 @@
 </head>
 
 <content tag="main">
-    <g:render template="/landing/commonModules/sliderNoCallToAction" model="[msgPrefix:'customBlog']"/>
+    <g:render template="/landing/commonModules/slider" model="[msgPrefix:'caseStudy'+caseStudyId]"/>
+    <g:render template="/dashboard/landingOrganizationsModules/modalRequestDemo"/>
+</content>
+
+<content tag="caseStudyBody">
+    <h1><g:message code="footerBlog.${blogId}.content.title"/> </h1>
+    <p><g:message code="footerBlog.${blogId}.content.text"/> </p>
 </content>
 
 <content tag="casesStudyGrid">
-    <g:render template="/landing/caseStudies/modules/caseStudiesGrid" model="[msgPrefix:'customBlog', caseStudiesIds:['001','001','001','001','001','001','001','001','001']]"/>
+    <g:render template="/landing/caseStudies/modules/otherCases" model="[otherCases:suggestedBlogs, sectionName:'footerBlog']"/>
 </content>

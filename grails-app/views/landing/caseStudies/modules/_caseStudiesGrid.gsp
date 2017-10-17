@@ -1,7 +1,7 @@
 <div class="section-body">
     <div class="breadcrumbs">
         <g:link mapping="landingServices" class="breadcrumb">
-            <g:message code="individualCaseStudy.breadcrumb.home"/>
+            <g:message code="landingCaseStudy.page.breadcrumb.home"/>
         </g:link>
     </div>
     <div class="row">
@@ -12,7 +12,7 @@
                 <div class="row">
             </g:if>
             <div class="col-lg-4">
-                <g:render template="/landing/caseStudies/modules/caseStudyCard" model="[caseStudyId:caseStudyId, sectionName:'landingCaseStudy']"/>
+                <g:render template="/landing/caseStudies/modules/caseStudyCard" model="[caseStudyId:caseStudyId, sectionName:msgPrefix]"/>
             </div>
         </g:each>
     </div>

@@ -73,5 +73,6 @@ class FooterController {
         [lang:lang]
     }
 
-    def customBlog(){}
+    def footerBlog(){}
+    def footerBlog001(){render (view: "/footer/blogArticles/footerBlog001", model:[blogId:'001', suggestedBlogs:[]])}
 }

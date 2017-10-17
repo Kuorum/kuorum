@@ -7697,8 +7697,7 @@ header .header-msg h6:hover{
 #cases-study-body {
     padding-top: 20px;
 }
-#cases-study-body .content{
-    padding-bottom: 60px;
+#cases-study-body > .content{
     line-height: 2.5em;
 }
 
@@ -7716,6 +7715,7 @@ header .header-msg h6:hover{
 
 #cases-study-body .request-case-study{
     text-align: center;
+    margin-top:65px;
 }
 
 #cases-study-body .request-case-study .form-group{
@@ -8920,7 +8920,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
               transform: translate3d(-50%,-50%,0);
 }
 
-.fade-carousel.customBlog .content,
+.fade-carousel.footerBlog .content,
 .fade-carousel.landingCaseStudy .content {
     top: 50%;
 }
@@ -8929,7 +8929,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     margin-bottom: 0px;
 }
 
-.fade-carousel.customBlog .content hgroup,
+.fade-carousel.footerBlog .content hgroup,
 .fade-carousel.landingCaseStudy .content hgroup{
     margin-bottom: 30px;
 }
@@ -9062,7 +9062,7 @@ background-repeat: no-repeat;
     background-image: url('../images/landing/organizations.jpg');
 }
 
-.fade-carousel .slides .slide-1.customBlog {
+.fade-carousel .slides .slide-1.footerBlog {
     background-image: url('../images/landing/blog.jpg');
 }
 
@@ -9181,11 +9181,11 @@ div.dark {
         height: 500px;
     }
 
-    .fade-carousel .slides .slide-1.customBlog,
+    .fade-carousel .slides .slide-1.footerBlog,
     .fade-carousel .slides .slide-1.landingCaseStudy {
         height: 300px;
     }
-    .fade-carousel.customBlog .content .btn,
+    .fade-carousel.footerBlog .content .btn,
     .fade-carousel.landingCaseStudy .content .btn {
         width: auto;
     }

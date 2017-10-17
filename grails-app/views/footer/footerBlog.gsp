@@ -5,16 +5,16 @@
     <parameter name="extraHeadCss" value="landing"/>
     <g:render template="/dashboard/landingMetaTags"
               model="[
-                      kuorumTitle:g.message(code:'landingCaseStudy.page.head.title'),
-                      kuorumDescription:g.message(code:'landingCaseStudy.page.head.description'),
+                      kuorumTitle:g.message(code:'landingLeaders.head.title'),
+                      kuorumDescription:g.message(code:'landingLeaders.head.description'),
                       kuorumImage:request.siteUrl +r.resource(dir:'images/landing', file:'leaders-01.jpg')
               ]"/>
 </head>
 
 <content tag="main">
-    <g:render template="/landing/commonModules/sliderNoCallToAction" model="[msgPrefix:'landingCaseStudy']"/>
+    <g:render template="/landing/commonModules/sliderNoCallToAction" model="[msgPrefix:'footerBlog']"/>
 </content>
 
 <content tag="casesStudyGrid">
-    <g:render template="/landing/caseStudies/modules/caseStudiesGrid" model="[msgPrefix:'landingCaseStudy', caseStudiesIds:['001','002','003','004']]"/>
+    <g:render template="/landing/caseStudies/modules/caseStudiesGrid" model="[msgPrefix:'footerBlog', caseStudiesIds:['001']]"/>
 </content>

@@ -10,7 +10,7 @@
         <h1><g:message code="${sectionName}.${caseStudyId}.content.title"/></h1>
         <p><g:message code="${sectionName}.${caseStudyId}.landing.content"/></p>
         <g:link mapping="${"${sectionName}${caseStudyId}".toString()}"  class="link-case-study">
-            <g:message code="${sectionName}.landing.seeMore"/>
+            <g:message code="${sectionName}.page.landing.seeMore"/>
         </g:link>
         <span class="link-arrow">></span>
     </div>
