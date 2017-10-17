@@ -29,5 +29,5 @@
 </content>
 
 <content tag="contactUs">
-    <g:render template="/landing/commonModules/contactUs" model="[msgPrefix:'landingAdministration']"/>
+    <g:render template="/landing/commonModules/contactUs" model="[msgPrefix:'landingAdministration', sectorDefault: kuorum.core.model.Sector.GOVERNMENT]"/>
 </content>

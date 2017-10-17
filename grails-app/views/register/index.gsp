@@ -54,13 +54,15 @@
             });
         });
 
-        var registerRecaptcha;
+        var registerRecaptcha = 0;
         function recaptchaRegisterRender(){
-            registerRecaptcha = grecaptcha.render('recaptcha-register-id', {
-                'sitekey' : '${_googleCaptchaKey}',
-                'size' : 'invisible',
-                'callback' : registerCallback
-            });
+            if(!registerRecaptcha){
+                registerRecaptcha = grecaptcha.render('recaptcha-register-id', {
+                    'sitekey' : '${_googleCaptchaKey}',
+                    'size' : 'invisible',
+                    'callback' : registerCallback
+                });
+            }
 
             grecaptcha.reset(registerRecaptcha);
 

@@ -1,3 +1,4 @@
+<%@ page import="kuorum.core.model.Sector" %>
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <title><g:message code="landingLeaders.head.title"/></title>
@@ -29,5 +30,5 @@
 </content>
 
 <content tag="contactUs">
-    <g:render template="/landing/commonModules/contactUs" model="[msgPrefix:'landingOrganization']"/>
+    <g:render template="/landing/commonModules/contactUs" model="[msgPrefix:'landingOrganization', sectorDefault: kuorum.core.model.Sector.ORGANIZATION]"/>
 </content>
