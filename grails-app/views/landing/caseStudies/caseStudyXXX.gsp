@@ -3,6 +3,7 @@
     <title><g:message code="landingLeaders.head.title"/></title>
     <meta name="layout" content="individualCaseStudyLayout">
     <parameter name="extraHeadCss" value="landing"/>
+    <parameter name="caseStudyId" value="${caseStudyId}"/>
     <g:render template="/dashboard/landingMetaTags"
               model="[
                       kuorumTitle:g.message(code:'landingLeaders.head.title'),

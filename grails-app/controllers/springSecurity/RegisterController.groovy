@@ -378,7 +378,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         Locale locale = LocaleContextHolder.getLocale();
         mailchimpService.addCaseStudy(command.name, command.email, locale)
         String preFileName = "KuorumCaseStudy"
-        String year = "2016"
+        String caseStudyId = params.caseStudyId
         String ext = "pdf"
         String langPressKit = "en"
         if (locale.getLanguage() == "es"){
@@ -386,8 +386,8 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         }
 
         KuorumFile kuorumFile = new KuorumFile()
-        String fileName = "${preFileName}_${year}_${langPressKit}.${ext}"
-        kuorumFile.storagePath="static/press/${fileName}"
+        String fileName = "${preFileName}_${caseStudyId}_${langPressKit}.${ext}"
+        kuorumFile.storagePath="static/caseStudy/${fileName}"
         InputStream fileData = fileService.readFile(kuorumFile)
         response.setContentType("application/pdf")
         response.setHeader("Content-disposition", "attachment; filename=\"${fileName}\"")

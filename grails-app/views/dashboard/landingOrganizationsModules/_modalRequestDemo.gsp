@@ -69,6 +69,7 @@
 
     var modalRecaptcha;
     function recaptchaModalRender(){
+
         modalRecaptcha = grecaptcha.render('recaptcha-modal-id', {
             'sitekey' : '${_googleCaptchaKey}',
             'size' : 'invisible',
