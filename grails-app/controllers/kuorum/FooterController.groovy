@@ -40,18 +40,11 @@ class FooterController {
     def privacyPolicy(){}
     def termsUse(){}
 
+    def footerAboutUs(){}
 
-    def footerAboutUs(){
-        render(view: "footerAboutUs")
-    }
+    def footerContactUs(){}
 
-    def footerContactUs(){
-        render(view: "footerContactUs")
-    }
-
-    def footerOurTeam(){
-        render(view: "footerOurTeam")
-    }
+    def footerOurTeam(){}
 
     def footerUserGuides() {
         Locale locale = LocaleContextHolder.getLocale();
@@ -69,15 +62,16 @@ class FooterController {
         ]
     }
 
-    def footerHistory(){
-        render(view: "footerHistory")
-    }
+    def footerHistory(){}
 
     def footerPress(){
-        render(view: "footerPress")
+        Locale locale = LocaleContextHolder.getLocale();
+        String lang = "en"
+        if (locale.getLanguage() == "es"){
+            lang = "es"
+        }
+        [lang:lang]
     }
 
-    def customBlog(){
-        render(view: "customBlog")
-    }
+    def customBlog(){}
 }

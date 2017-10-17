@@ -104,14 +104,15 @@
         function caseStudyCallback(){
             var $form = $('#request-case-study');
             if ($form.valid()){
-                var url = $form.attr("action")
-                $.ajax({
-                    url:url,
-                    data:$form.serializeArray(),
-                    success:function(data){
-                        display.success(data);
-                    }
-                })
+//                var url = $form.attr("action")
+//                $.ajax({
+//                    url:url,
+//                    data:$form.serializeArray(),
+//                    success:function(data){
+//                        display.success(data);
+//                    }
+//                })
+                $form.submit()
             }else{
                 grecaptcha.reset(requestCaseStudyRecaptcha);
             }

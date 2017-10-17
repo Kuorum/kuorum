@@ -20,5 +20,15 @@
 </content>
 
 <content tag="footerSection">
-    <g:render template="/footer/footerModules/aboutUs" model="[msgPrefix:'footerPress']"/>
+
+    <g:set var="docSendLink" value="https://docsend.com/view/ux5z5yc"/>
+    <g:if test="${lang='es'}">
+        <g:set var="docSendLink" value="https://docsend.com/view/hfn672m"/>
+    </g:if>
+
+    <div class="section-header">
+        <p><g:message code="footerPress.content.text" args="[docSendLink, createLink(mapping:'footerContactUs')]"/></p>
+    </div>
+
+
 </content>

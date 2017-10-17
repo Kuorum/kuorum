@@ -20,5 +20,5 @@
 </content>
 
 <content tag="footerSection">
-    <g:render template="/footer/footerModules/team" model="[msgPrefix:'footerOurTeam']"/>
+    <g:render template="/footer/footerModules/team"/>
 </content>

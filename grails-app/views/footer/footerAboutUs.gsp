@@ -20,5 +20,8 @@
 </content>
 
 <content tag="footerSection">
-    <g:render template="/footer/footerModules/aboutUs" model="[msgPrefix:'footerAboutUs']"/>
+    <div class="section-header">
+        <p><g:message code="footerAboutUs.content.text.1"/></p>
+        <p><g:message code="footerAboutUs.content.text.2" args="[createLink(mapping:'landingCasesStudy')]"/></p>
+    </div>
 </content>

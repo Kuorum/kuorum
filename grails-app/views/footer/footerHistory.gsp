@@ -20,5 +20,8 @@
 </content>
 
 <content tag="footerSection">
-    <g:render template="/footer/footerModules/aboutUs" model="[msgPrefix:'footerHistory']"/>
+    <div class="section-header">
+        <p><g:message code="footerHistory.content.text.1" /></p>
+        <p><g:message code="footerHistory.content.text.2" /></p>
+    </div>
 </content>
