@@ -139,5 +139,8 @@
                 }
             })
         }
+        else{
+            $('fieldset.email-sent .in-progress').addClass('hidden');
+        }
     }
 </script>
