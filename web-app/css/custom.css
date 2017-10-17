@@ -1418,6 +1418,29 @@ div.tagsinput {border:1px solid #DDDDDD;}
 #request-demo-modal.modal form .form-group.button input{margin-top:15px;}
 #request-demo-modal-form {padding:15px;}
 
+.sendor,
+.email-sent .sent,
+.email-sent .error,
+.email-sent .in-progress
+{
+    text-align: center;
+    margin-top: 10px;
+}
+
+.email-sent .in-progress span,
+.email-sent .error span,
+.email-sent .sent span{
+    color: #545454;
+}
+
+.email-sent .sent i.fa-check {
+    color: green;
+}
+
+.email-sent .error i.fa-times {
+    color: firebrick;
+}
+
 .datepicker-days tbody td {cursor: pointer;}
 .datepicker th {text-align: center;}
 .datepicker span.month, .datepicker span.year {padding: 0 20px;}
@@ -7777,6 +7800,15 @@ header .header-msg h6:hover{
 .spinner{
     background: url('../images/loading@2x.gif') center center / 17px auto no-repeat transparent;
     color: transparent !important;
+}
+
+.email-sent .spinner{
+    background: url('../images/loading@2x.gif') center center / 17px auto no-repeat transparent;
+    color: transparent !important;
+    width: 20px;
+    height: 20px;
+    position: relative;
+    display: inline-block;
 }
 
 .dynamic-fieldset.profile-dynamic-fields{

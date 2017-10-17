@@ -87,6 +87,7 @@
                         class="btn btn-orange btn-lg g-recaptcha"><g:message code="${msgPrefix}.contactUs.submit"/>
                 </button>
             </fieldset>
+            <g:render template="/landing/commonModules/requestStatus"/>
         </g:form>
     </sec:ifNotLoggedIn>
 </div>
@@ -96,6 +97,7 @@
     $(function(){
         $('#contact-us-form-id').on('click', function (e) {
             e.preventDefault()
+            $('fieldset.email-sent .in-progress').removeClass('hidden');
             recaptchaContactUsRender()
         });
     });
@@ -121,7 +123,17 @@
                 url:url,
                 data:$form.serializeArray(),
                 success:function(data){
-                    display.success(data);
+                    if(data){
+                        display.success(data);
+
+                        $('fieldset.email-sent .error').addClass("hidden");
+                        $('fieldset.email-sent .in-progress').addClass('hidden');
+                        $('fieldset.email-sent .sent').removeClass("hidden");
+                    }
+                    else{
+                        $('fieldset.email-sent .in-progress').addClass('hidden');
+                        $('fieldset.email-sent .error').removeClass("hidden");
+                    }
                 }
             })
         }

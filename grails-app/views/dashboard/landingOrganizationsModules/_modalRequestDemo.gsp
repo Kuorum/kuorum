@@ -40,6 +40,7 @@
                             </button>
                         </div>
                     </fieldset>
+                    <g:render template="/landing/commonModules/requestStatus"/>
                 </g:form>
             </div>
         </div>
@@ -81,6 +82,7 @@
 
     $('#request-demo-modal-form-id').on('click', function (e) {
         e.preventDefault()
+        $('fieldset.email-sent .in-progress').removeClass('hidden');
         recaptchaModalRender()
     });
 
@@ -92,8 +94,22 @@
                 url:url,
                 data:$form.serializeArray(),
                 success:function(data){
-                    display.success(data);
-                    $("#request-demo-modal").modal("hide");
+                    if(data){
+                        display.success(data);
+                        $("#request-demo-modal").modal("hide");
+
+                        $('fieldset.email-sent .error').addClass("hidden");
+                        $('fieldset.email-sent .in-progress').addClass('hidden');
+                        $('fieldset.email-sent .sent').removeClass("hidden");
+                        setTimeout(function(){
+                            $('fieldset.email-sent .sent').addClass("hidden");
+                            $("#request-demo-modal").modal("hide");
+                        }, 2500);
+                    }
+                    else{
+                        $('fieldset.email-sent .in-progress').addClass('hidden');
+                        $('fieldset.email-sent .error').removeClass("hidden");
+                    }
                 }
             })
         }
