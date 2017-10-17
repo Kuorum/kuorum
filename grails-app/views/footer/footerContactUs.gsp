@@ -20,5 +20,5 @@
 </content>
 
 <content tag="footerSection">
-    <g:render template="/landing/commonModules/contactUs" model="[msgPrefix:'footerContactUs']"/>
+    <g:render template="/landing/commonModules/contactUs" model="[msgPrefix:'footerContactUs', sectorDefault: null]"/>
 </content>

@@ -1,5 +1,5 @@
 <r:require modules="contactUsForm"/>
-<g:set var="commandRequestDemo" value="${new kuorum.web.commands.customRegister.RequestDemoCommand() }"/>
+<g:set var="commandRequestDemo" value="${new kuorum.web.commands.customRegister.RequestDemoCommand(sector: sectorDefault) }"/>
 <div class="section-header">
     <g:if test="${msgPrefix=='footerContactUs'}"></g:if>
     <g:else><h1><g:message code="${msgPrefix}.contactUs.title"/></h1></g:else>
