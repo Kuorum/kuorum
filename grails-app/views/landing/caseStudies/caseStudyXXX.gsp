@@ -11,6 +11,16 @@
               ]"/>
 </head>
 
+<content tag="breadcrumb">
+    <g:link mapping="landingServices" class="breadcrumb">
+        <g:message code="landingCaseStudy.page.breadcrumb.home"/>
+    </g:link>
+    >
+    <g:link mapping="landingCaseStudy" class="breadcrumb">
+        <g:message code="landingCaseStudy.page.breadcrumb.casesStudy"/>
+    </g:link>
+</content>
+
 <content tag="main">
     <g:render template="/landing/commonModules/slider" model="[msgPrefix:'caseStudy'+caseStudyId]"/>
     <g:render template="/dashboard/landingOrganizationsModules/modalRequestDemo"/>
@@ -96,4 +106,9 @@
 
 <content tag="casesStudyGrid">
     <g:render template="/landing/caseStudies/modules/otherCases" model="[otherCases:suggestedCaseStudies, sectionName:'landingCaseStudy']"/>
+    <div class="row section-body request-demo">
+        <div id="request-demo-btn" class="col-md-4 col-md-offset-4">
+            <a href="#" class="btn btn-lg btn-orange btn-sign-up btn-open-modal-request-demo"><g:message code="landingCaseStudy.page.requestDemo"/> </a>
+        </div>
+    </div>
 </content>

@@ -19,13 +19,7 @@
             <section id="cases-study-body">
                 <div class="section-body">
                     <div class="breadcrumbs">
-                        <g:link mapping="landingServices" class="breadcrumb">
-                            <g:message code="landingCaseStudy.page.breadcrumb.home"/>
-                        </g:link>
-                        >
-                        <g:link mapping="landingCaseStudy" class="breadcrumb">
-                            <g:message code="landingCaseStudy.page.breadcrumb.casesStudy"/>
-                        </g:link>
+                        <g:pageProperty name="page.breadcrumb"/>
                     </div>
                     <div class="content col-md-10 col-md-offset-1">
                         <div class="article">
