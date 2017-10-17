@@ -24,9 +24,6 @@ class MailchimpService {
     @Value('${mail.mailChimp.listId}')
     String MAILCHIMP_LIST_ID
 
-    @Value('${mail.mailChimp.listPressId}')
-    String MAILCHIMP_PRESS_LIST_ID
-
     @Value('${mail.mailChimp.listCaseStudyId}')
     String MAILCHIMP_CASE_STUDY_LIST_ID
 
@@ -135,10 +132,6 @@ class MailchimpService {
             relevantCommissions.add(commissionType.toString())
         }
         [new MailChimpGroup( name:"relevantCommissions", groups:relevantCommissions)]
-    }
-
-    public void addPress(String name, String email, Locale locale){
-        addToMailChimpList(name, email, locale,MAILCHIMP_PRESS_LIST_ID )
     }
 
     public void addCaseStudy(String name, String email, Locale locale){
