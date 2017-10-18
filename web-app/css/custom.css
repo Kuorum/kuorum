@@ -7080,7 +7080,10 @@ fieldset.form-group {min-height: 50px;}
 
 @media only screen and (max-width: 767px){
     #trustUs ul.globus li img {
-        margin-bottom:30px;
+        margin-bottom:60px;
+    }
+    #trustUs row.section-body {
+        padding-bottom: 10px;
     }
     .extra-padding{
         padding: 0 5px;
