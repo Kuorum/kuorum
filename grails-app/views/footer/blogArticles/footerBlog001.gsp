@@ -1,12 +1,12 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
-    <title><g:message code="landingLeaders.head.title"/></title>
+    <title><g:message code="footerBlog.${blogId}.head.title"/></title>
     <meta name="layout" content="individualCaseStudyLayout">
     <parameter name="extraHeadCss" value="landing"/>
     <g:render template="/dashboard/landingMetaTags"
               model="[
-                      kuorumTitle:g.message(code:'landingLeaders.head.title'),
-                      kuorumDescription:g.message(code:'landingLeaders.head.description'),
+                      kuorumTitle:g.message(code:'footerBlog.'+blogId+'.head.title'),
+                      kuorumDescription:g.message(code:'footerBlog.head.'+blogId+'.description'),
                       kuorumImage:request.siteUrl +r.resource(dir:'images/landing', file:'leaders-01.jpg')
               ]"/>
 </head>
@@ -28,7 +28,10 @@
 
 <content tag="caseStudyBody">
     <h1><g:message code="footerBlog.${blogId}.content.title"/> </h1>
-    <p><g:message code="footerBlog.${blogId}.content.text"/> </p>
+    <p><g:message code="footerBlog.${blogId}.content.text.1"/> </p>
+    <p><g:message code="footerBlog.${blogId}.content.text.2"/> </p>
+    <p><g:message code="footerBlog.${blogId}.content.text.3"/> </p>
+    <image:showYoutube youtube="https://www.youtube.com/embed/TjFhC6jFJG8"/>
 </content>
 
 <content tag="casesStudyGrid">
