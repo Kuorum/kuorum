@@ -28,11 +28,18 @@
 
 <content tag="caseStudyBody">
     <h1><g:message code="landingCaseStudy.${caseStudyId}.content.title"/> </h1>
-    <p><g:message code="landingCaseStudy.${caseStudyId}.content.text"/> </p>
+    <p><g:message code="landingCaseStudy.001.content.text.1"/> </p>
+    <p><g:message code="landingCaseStudy.001.content.text.2"/> </p>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/GcvNO1YlNCg" frameborder="0" allowfullscreen></iframe>
+    <p><g:message code="landingCaseStudy.001.content.text.3"/> </p>
     <g:render template="/landing/caseStudies/modules/requestCaseStudy" model="[caseStudyId:caseStudyId]"/>
 </content>
 
 <content tag="casesStudyGrid">
     <g:render template="/landing/caseStudies/modules/otherCases" model="[otherCases:suggestedCaseStudies, sectionName:'landingCaseStudy']"/>
-    <g:render template="/landing/caseStudies/modules/otherCasesRequestDemo"/>
+    <div class="row section-body request-demo">
+        <div id="request-demo-btn" class="col-md-4 col-md-offset-4">
+            <a href="#" class="btn btn-lg btn-orange btn-sign-up btn-open-modal-request-demo"><g:message code="landingCaseStudy.page.requestDemo"/> </a>
+        </div>
+    </div>
 </content>

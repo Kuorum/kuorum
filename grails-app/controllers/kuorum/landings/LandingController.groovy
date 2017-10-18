@@ -41,7 +41,7 @@ class LandingController {
             flash.message = flash.message
             redirect (mapping:"dashboard")
         }else{
-            render(view: "/landing/caseStudies/caseStudyXXX", model:[caseStudyId:"001", suggestedCaseStudies:["002","003","004"]])
+            render(view: "/landing/caseStudies/caseStudy001", model:[caseStudyId:"001", suggestedCaseStudies:["002","003","004"]])
         }
     }
     def caseStudy002(){
