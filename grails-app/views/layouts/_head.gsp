@@ -18,7 +18,8 @@
         </div>
         <sec:ifNotLoggedIn>
             <div class="navbar-contact-phone hidden-sm hidden-md hidden-lg">
-                <span class="fa fa-phone"></span> 910915091
+                <span class="fa fa-phone"></span>
+                <a href="tel:910915091">910915091</a>
             </div>
         </sec:ifNotLoggedIn>
     </nav>

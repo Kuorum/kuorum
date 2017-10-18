@@ -374,7 +374,7 @@ a:focus {color: #ff9431;}
     -moz-border-radius: 5px;
     border-radius: 5px;
     margin-right: 10px;
-    margin-top: 5px;
+    margin-top: 7px;
     font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
@@ -384,6 +384,10 @@ a:focus {color: #ff9431;}
     text-align: right;
     padding-right: 12px;
     font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.navbar-fixed-top > .navbar-contact-phone a{
+    color: #000;
 }
 
 .navbar-fixed-top > .navbar-contact-phone .fa{

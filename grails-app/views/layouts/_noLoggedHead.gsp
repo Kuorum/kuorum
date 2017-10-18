@@ -1,9 +1,9 @@
 <!-- Le quitamos las clases underline, etc a estos enlaces -->
 <ul class="nav navbar-nav navbar-right no-logged">
     <li>
-        <div class="navbar-contact-phone hidden-xs">
+        <a href="tel:910915091" class="navbar-contact-phone hidden-xs">
             <span class="fa fa-phone"></span> 910915091
-        </div>
+        </a>
     </li>
 
     %{--<li>--}%
