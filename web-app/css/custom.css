@@ -376,7 +376,11 @@ a:focus {color: #ff9431;}
     margin-right: 10px;
     margin-top: 7px;
     font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
-    font-size:11px;
+    font-size:13px;
+}
+
+#navbar-collapse .navbar-contact-phone span.fa{
+    margin-right: 5px;
 }
 
 .navbar-fixed-top > .navbar-contact-phone{
@@ -393,6 +397,7 @@ a:focus {color: #ff9431;}
 
 .navbar-fixed-top > .navbar-contact-phone .fa{
     font-size: 10px;
+    margin-right: 5px;
 }
 
 .navbar {
@@ -6196,7 +6201,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .navbar {font-size: 15px; font-size: 1.5rem;}
     .nav > li > .navbar-link > .fa.fa-lg {font-size: 18px; font-size: 1.8rem;}
     .nav > li > .navbar-link > .fa.fa-lg.fa-home {font-size: 20px; font-size: 2rem;}
-    .nav > li > .navbar-link {padding: 0 15px;}
+    .nav > li > .navbar-link {padding: 0 12px;}
 
     .config .kakareo-list.project > li,
     .config .politician-list > li {width: 48%; float: left; margin: 0 2% 0 0;padding:0}
