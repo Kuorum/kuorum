@@ -10,7 +10,7 @@
 </content>
 
 <content tag="mainContent">
-    <r:require modules="recaptcha"/>
+    <r:require modules="recaptcha_register"/>
     <formUtil:validateForm bean="${command}" form="sign" autocomplete="off"/>
     <g:form mapping="register" name="sign" role="form" method="POST" autocomplete="off" class="login">
         <div class="form-group">
@@ -45,33 +45,6 @@
             </p>
         </div>
     </g:form>
-
-    <script>
-        $(document).ready(function() {
-            $('input[name=name]').focus();
-
-            $('#register-submit').on('click', function (e) {
-                e.preventDefault();
-                var dataRecaptcha = $(this).attr('data-recaptcha');
-                recaptchaRegister(dataRecaptcha);
-            });
-        });
-
-        function recaptchaRegister(dataRecaptcha){
-            grecaptcha.execute(dataRecaptcha);
-        }
-
-        function registerCallback(){
-            var $form = $('#sign');
-            var dataRecaptcha = $('#register-submit').attr('data-recaptcha');
-            if($form.valid()){
-                $form.submit()
-            }
-            else{
-                grecaptcha.reset(dataRecaptcha);
-            }
-        }
-    </script>
     <g:render template="/register/registerSocial"/>
 </content>
 

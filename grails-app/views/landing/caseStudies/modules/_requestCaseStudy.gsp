@@ -1,5 +1,5 @@
 
-<r:require modules="recaptcha"/>
+<r:require modules="recaptcha_caseStudyRequest"/>
 <div class="request-case-study">
     <g:set var="commandRequestCaseStudy" value="${new kuorum.web.commands.customRegister.RequestCaseStudyCommand()}"/>
     <formUtil:validateForm bean="${commandRequestCaseStudy}" form="request-case-study"/>
@@ -33,37 +33,4 @@
             </div>
         </fieldset>
     </g:form>
-    %{--<script src="https://www.google.com/recaptcha/api.js" async defer></script>--}%
-    <script type="text/javascript">
-        $(function(){
-            $('#request-case-study-id').on('click', function (e) {
-                e.preventDefault()
-                var dataRecaptcha = $(this).attr('data-recaptcha');
-                recaptchaCaseStudy(dataRecaptcha)
-            });
-        });
-
-//        var requestCaseStudyRecaptcha;
-        function recaptchaCaseStudy(dataRecaptcha){
-            grecaptcha.execute(dataRecaptcha);
-        }
-
-        function caseStudyCallback(){
-            var $form = $('#request-case-study');
-            var dataRecaptcha = $('#request-case-study-id').attr('data-recaptcha');
-            if ($form.valid()){
-//                var url = $form.attr("action")
-//                $.ajax({
-//                    url:url,
-//                    data:$form.serializeArray(),
-//                    success:function(data){
-//                        display.success(data);
-//                    }
-//                })
-                $form.submit()
-            }else{
-                grecaptcha.reset(dataRecaptcha);
-            }
-        }
-    </script>
 </div>

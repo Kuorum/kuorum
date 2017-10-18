@@ -25,6 +25,26 @@ modules = {
         resource url: 'js/recaptcha/recaptcha-invisible.js'
     }
 
+    recaptcha_caseStudyRequest{
+        dependsOn 'recaptcha'
+        resource url: 'js/recaptcha/recaptcha-caseStudyRequest.js'
+    }
+
+    recaptcha_contactUs{
+        dependsOn 'recaptcha'
+        resource url: 'js/recaptcha/recaptcha-contactUs.js'
+    }
+
+    recaptcha_modalRequest{
+        dependsOn 'recaptcha'
+        resource url: 'js/recaptcha/recaptcha-modalRequest.js'
+    }
+
+    recaptcha_register{
+        dependsOn 'recaptcha'
+        resource url: 'js/recaptcha/recaptcha-register.js'
+    }
+
     lang_es{
         dependsOn 'application'
         resource url:'js/timeago/jquery.timeago.es.js'
