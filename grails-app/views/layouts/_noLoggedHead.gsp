@@ -2,7 +2,7 @@
 <ul class="nav navbar-nav navbar-right no-logged">
     <li>
         <g:set var="kuorumPhone" value="${g.message(code:'kuorum.telephone')}"/>
-        <a href="tel:${kuorumPhone}" class="navbar-contact-phone hidden-xs hidden-sm">
+        <a href="tel:${kuorumPhone}" class="navbar-contact-phone hidden-xs hidden-sm  hidden-md">
             <span class="fa fa-phone"></span>${kuorumPhone}
         </a>
     </li>
