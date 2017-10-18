@@ -10,6 +10,7 @@
 </content>
 
 <content tag="mainContent">
+    <r:require modules="recaptcha"/>
     <formUtil:validateForm bean="${command}" form="sign" autocomplete="off"/>
     <g:form mapping="register" name="sign" role="form" method="POST" autocomplete="off" class="login">
         <div class="form-group">
@@ -32,8 +33,9 @@
                     required="true"/>
         </div>
         <div class="form-group">
-            <div id="recaptcha-register-id"></div>
             <button id="register-submit"
+                    data-recaptcha=""
+                    data-callback="registerCallback"
                     class="btn btn-lg g-recaptcha">${g.message(code:'register.email.form.submit')}</button>
             <p><g:message code="register.conditions" args="[g.createLink(mapping: 'footerPrivacyPolicy')]" encodeAs="raw"/></p>
         </div>
@@ -43,35 +45,31 @@
             </p>
         </div>
     </g:form>
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
     <script>
         $(document).ready(function() {
             $('input[name=name]').focus();
 
             $('#register-submit').on('click', function (e) {
-                e.preventDefault()
-                recaptchaRegisterRender()
+                e.preventDefault();
+                var dataRecaptcha = $(this).attr('data-recaptcha');
+                recaptchaRegister(dataRecaptcha);
             });
         });
 
-        var registerRecaptcha = 0;
-        function recaptchaRegisterRender(){
-            if(!registerRecaptcha){
-                registerRecaptcha = grecaptcha.render('recaptcha-register-id', {
-                    'sitekey' : '${_googleCaptchaKey}',
-                    'size' : 'invisible',
-                    'callback' : registerCallback
-                });
-            }
-
-            grecaptcha.reset(registerRecaptcha);
-
-            grecaptcha.execute(registerRecaptcha);
+        function recaptchaRegister(dataRecaptcha){
+            grecaptcha.execute(dataRecaptcha);
         }
 
         function registerCallback(){
             var $form = $('#sign');
-            $form.submit()
+            var dataRecaptcha = $('#register-submit').attr('data-recaptcha');
+            if($form.valid()){
+                $form.submit()
+            }
+            else{
+                grecaptcha.reset(dataRecaptcha);
+            }
         }
     </script>
     <g:render template="/register/registerSocial"/>
