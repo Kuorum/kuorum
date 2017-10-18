@@ -7085,6 +7085,9 @@ fieldset.form-group {min-height: 50px;}
     #trustUs row.section-body {
         padding-bottom: 10px;
     }
+    #solutions row.section-body {
+        padding-bottom: 25px;
+    }
     .extra-padding{
         padding: 0 5px;
     }
