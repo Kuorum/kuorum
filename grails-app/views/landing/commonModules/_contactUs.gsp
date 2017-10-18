@@ -1,5 +1,5 @@
 <%@ page import="kuorum.core.model.ContactSectorType" %>
-<r:require modules="contactUsForm,recaptcha"/>
+<r:require modules="contactUsForm,recaptcha_contactUs"/>
 <g:set var="commandRequestDemo" value="${new kuorum.web.commands.customRegister.RequestDemoCommand(sector: sectorDefault) }"/>
 <div class="section-header">
     <g:if test="${msgPrefix=='footerContactUs'}"></g:if>
@@ -67,7 +67,7 @@
                             labelCssClass="left"
                             showLabel="true"
                             required="true"
-                        values="[kuorum.core.model.ContactSectorType.CORPORATION,kuorum.core.model.ContactSectorType.GOVERNMENT, kuorum.core.model.ContactSectorType.ORGANIZATION]"
+                            values="[kuorum.core.model.ContactSectorType.CORPORATION,kuorum.core.model.ContactSectorType.GOVERNMENT, kuorum.core.model.ContactSectorType.ORGANIZATION]"
                             defaultEmpty="true"
                     />
                 </div>
@@ -95,47 +95,3 @@
         </g:form>
     </sec:ifNotLoggedIn>
 </div>
-
-<script type="text/javascript">
-    $(function(){
-        $('#contact-us-form-id').on('click', function (e) {
-            e.preventDefault()
-            $('fieldset.email-sent .in-progress').removeClass('hidden');
-            var dataRecaptcha = $(this).attr('data-recaptcha');
-            recaptchaContactUs(dataRecaptcha)
-        });
-    });
-
-    function recaptchaContactUs(dataRecaptcha){
-        grecaptcha.execute(dataRecaptcha);
-    }
-
-    function contactUsCallback(){
-        var $form = $('#request-demo-form');
-        var dataRecaptcha = $('#contact-us-form-id').attr('data-recaptcha');
-        if ($form.valid()){
-            var url = $form.attr("action")
-            $.ajax({
-                url:url,
-                data:$form.serializeArray(),
-                success:function(data){
-                    if(data){
-                        display.success(data);
-
-                        $('fieldset.email-sent .error').addClass("hidden");
-                        $('fieldset.email-sent .in-progress').addClass('hidden');
-                        $('fieldset.email-sent .sent').removeClass("hidden");
-                    }
-                    else{
-                        $('fieldset.email-sent .in-progress').addClass('hidden');
-                        $('fieldset.email-sent .error').removeClass("hidden");
-                    }
-                }
-            })
-        }
-        else{
-            grecaptcha.reset(dataRecaptcha);
-            $('fieldset.email-sent .in-progress').addClass('hidden');
-        }
-    }
-</script>
