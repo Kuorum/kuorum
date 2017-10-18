@@ -30,7 +30,8 @@
     <h1><g:message code="landingCaseStudy.${caseStudyId}.content.title"/> </h1>
     <p><g:message code="landingCaseStudy.001.content.text.1"/> </p>
     <p><g:message code="landingCaseStudy.001.content.text.2"/> </p>
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/GcvNO1YlNCg" frameborder="0" allowfullscreen></iframe>
+    %{--<iframe width="560" height="315" src="https://www.youtube.com/embed/GcvNO1YlNCg" frameborder="0" allowfullscreen></iframe>--}%
+    <image:showYoutube youtube="https://www.youtube.com/embed/GcvNO1YlNCg"/>
     <p><g:message code="landingCaseStudy.001.content.text.3"/> </p>
     <g:render template="/landing/caseStudies/modules/requestCaseStudy" model="[caseStudyId:caseStudyId]"/>
 </content>
