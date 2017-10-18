@@ -1,4 +1,4 @@
-<%@ page import="kuorum.core.model.ContactSectorType; kuorum.core.model.Sector" %>
+<%@ page import="kuorum.core.model.ContactSectorType;" %>
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <title><g:message code="landingOrganization.head.title"/></title>
