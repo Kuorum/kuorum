@@ -17,6 +17,7 @@
                 <formUtil:validateForm form="request-demo-modal-form" bean="${commandRequestDemo}"/>
                 <g:form mapping="requestADemo" role="form" method="post" name="request-demo-modal-form">
                     <input type="hidden" name="comment" class="" value="Request a demo"/>
+                    <input type="hidden" name="sector" value="${kuorum.core.model.ContactSectorType.NONE}"/>
                     <fieldset>
                         <div class="form-group col-sm-6 col-xs-12">
                             <formUtil:input field="name" command="${commandRequestDemo}" showLabel="true" showCharCounter="false"/>

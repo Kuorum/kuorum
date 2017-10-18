@@ -1,3 +1,4 @@
+<%@ page import="kuorum.core.model.ContactSectorType" %>
 <r:require modules="contactUsForm,recaptcha"/>
 <g:set var="commandRequestDemo" value="${new kuorum.web.commands.customRegister.RequestDemoCommand(sector: sectorDefault) }"/>
 <div class="section-header">
@@ -66,6 +67,7 @@
                             labelCssClass="left"
                             showLabel="true"
                             required="true"
+                        values="[kuorum.core.model.ContactSectorType.CORPORATION,kuorum.core.model.ContactSectorType.GOVERNMENT, kuorum.core.model.ContactSectorType.ORGANIZATION]"
                             defaultEmpty="true"
                     />
                 </div>
