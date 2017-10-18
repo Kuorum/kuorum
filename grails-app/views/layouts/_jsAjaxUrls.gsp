@@ -12,6 +12,10 @@
     }
     var ajaxHeadNotificationsChecked='<g:createLink mapping="ajaxHeadNotificationsChecked" absolute="true"/>'
     var ajaxHeadMessagesChecked='<g:createLink mapping="ajaxHeadMessagesChecked" absolute="true"/>'
+
+    var kuorumKeys = {
+        _googleCaptchaKey: '${_googleCaptchaKey}'
+    }
 </script>
 
 

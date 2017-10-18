@@ -20,6 +20,30 @@ modules = {
         resource url:'js/modernizr.js'
     }
 
+    recaptcha{
+        resource url: 'https://www.google.com/recaptcha/api.js?onload=onloadRecaptchaCallback&render=explicit'
+        resource url: 'js/recaptcha/recaptcha-invisible.js'
+    }
+
+    recaptcha_caseStudyRequest{
+        dependsOn 'recaptcha'
+        resource url: 'js/recaptcha/recaptcha-caseStudyRequest.js'
+    }
+
+    recaptcha_contactUs{
+        dependsOn 'recaptcha'
+        resource url: 'js/recaptcha/recaptcha-contactUs.js'
+    }
+
+    recaptcha_modalRequest{
+        dependsOn 'recaptcha'
+        resource url: 'js/recaptcha/recaptcha-modalRequest.js'
+    }
+
+    recaptcha_register{
+        dependsOn 'recaptcha'
+        resource url: 'js/recaptcha/recaptcha-register.js'
+    }
 
     lang_es{
         dependsOn 'application'

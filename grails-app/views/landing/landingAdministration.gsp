@@ -1,7 +1,7 @@
 <%@ page import="kuorum.core.model.ContactSectorType" %>
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
-    <title><g:message code="landingLeaders.head.title"/></title>
+    <title><g:message code="landingAdministration.head.title"/></title>
     <meta name="layout" content="landingSectorsLayout">
     <parameter name="extraHeadCss" value="landing"/>
     <g:render template="/dashboard/landingMetaTags"

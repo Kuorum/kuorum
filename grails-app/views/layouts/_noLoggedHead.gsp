@@ -1,10 +1,10 @@
 <!-- Le quitamos las clases underline, etc a estos enlaces -->
 <ul class="nav navbar-nav navbar-right no-logged">
-    %{--<li>--}%
-        %{--<g:link mapping="landingLeaders" class="navbar-link ${nav.activeMenuCss(mappingName: 'landingLeaders')} ${nav.activeMenuCss(mappingName: 'home')}">--}%
-            %{--<span><g:message code="head.noLogged.leaders"/></span>--}%
-        %{--</g:link>--}%
-    %{--</li>--}%
+    <li>
+        <div class="navbar-contact-phone hidden-xs">
+            <span class="fa fa-phone"></span> 910915091
+        </div>
+    </li>
 
     %{--<li>--}%
         %{--<g:link mapping="landingOrganizations" class="navbar-link ${nav.activeMenuCss(mappingName: 'landingOrganizations')}">--}%
