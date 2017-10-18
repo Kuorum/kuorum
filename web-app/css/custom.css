@@ -9679,6 +9679,10 @@ ul.threeColumn .card-body p {
     /*Prueba de mat para ver si consigue verse bien en el iphone el menu del footer*/
     .landing-footer .left-container {
         width: 100%;
+        float: none;
+    }
+    .landing-footer .section-header h3 {
+        float: none;
     }
 
     .landing-footer {
