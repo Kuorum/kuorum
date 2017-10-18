@@ -16,5 +16,10 @@
                 </nav:ifPageProperty>
             </div>
         </div>
+        <sec:ifNotLoggedIn>
+            <div class="navbar-contact-phone hidden-sm hidden-md hidden-lg">
+                <span class="fa fa-phone"></span> 910915091
+            </div>
+        </sec:ifNotLoggedIn>
     </nav>
 </header>
