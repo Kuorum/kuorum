@@ -1,8 +1,9 @@
 <!-- Le quitamos las clases underline, etc a estos enlaces -->
 <ul class="nav navbar-nav navbar-right no-logged">
     <li>
-        <a href="tel:910915091" class="navbar-contact-phone hidden-xs">
-            <span class="fa fa-phone"></span> 910915091
+        <g:set var="kuorumPhone" value="${g.message(code:'kuorum.telephone')}"/>
+        <a href="tel:${kuorumPhone}" class="navbar-contact-phone hidden-xs">
+            <span class="fa fa-phone"></span>${kuorumPhone}
         </a>
     </li>
 

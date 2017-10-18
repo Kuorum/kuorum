@@ -376,6 +376,7 @@ a:focus {color: #ff9431;}
     margin-right: 10px;
     margin-top: 7px;
     font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size:11px;
 }
 
 .navbar-fixed-top > .navbar-contact-phone{
@@ -5718,7 +5719,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     }
     header.transp .navbar {background-color: transparent;}
     header.transp + .row.main.landing {margin-top:-55px}
-    header .navbar-form { margin: 3px 4px 4px 18px; width: 186px;}
+    header .navbar-form { margin: 3px 4px 4px 18px; width: 176px;}
     header .navbar-form .input-group>.form-control {width: 70%;}
     .nav > li > .navbar-link.user-area img {margin-top: -5px;}
     .navbar-nav>li {margin: 0;}
@@ -6561,7 +6562,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 @media only screen and (min-width: 1024px) {
     header.transp .navbar {background-color: transparent;}
     header.transp + .row.main.landing {margin-top:-55px}
-    header .navbar-form {width: 290px;}
+    header .navbar-form {width: 251px;}
     #main {min-height: 642px;}
     .list-team > li {width: 310px;}
     .list-updates > li {width: 314px;}
