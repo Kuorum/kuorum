@@ -1,24 +1,12 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
-    <title><g:message code="landingLeaders.head.title"/></title>
     <meta name="layout" content="individualCaseStudyLayout">
     <parameter name="extraHeadCss" value="landing"/>
-    <g:render template="/dashboard/landingMetaTags"
-              model="[
-                      kuorumTitle:g.message(code:'landingLeaders.head.title'),
-                      kuorumDescription:g.message(code:'landingLeaders.head.description'),
-                      kuorumImage:request.siteUrl +r.resource(dir:'images/landing', file:'leaders-01.jpg')
-              ]"/>
+    <g:render template="/landing/caseStudies/modules/caseStudyMetas" model="[caseStudyId:caseStudyId]"/>
 </head>
 
 <content tag="breadcrumb">
-    <g:link mapping="landingServices" class="breadcrumb">
-        <g:message code="landingCaseStudy.page.breadcrumb.home"/>
-    </g:link>
-    >
-    <g:link mapping="landingCaseStudy" class="breadcrumb">
-        <g:message code="landingCaseStudy.page.breadcrumb.casesStudy"/>
-    </g:link>
+    <g:render template="/landing/caseStudies/modules/caseStudyBreadCrumb"/>
 </content>
 
 <content tag="main">
@@ -28,7 +16,13 @@
 
 <content tag="caseStudyBody">
     <h1><g:message code="landingCaseStudy.${caseStudyId}.content.title"/> </h1>
-    <p><g:message code="landingCaseStudy.${caseStudyId}.content.text"/> </p>
+    <p><g:message code="landingCaseStudy.${caseStudyId}.content.text.1"/></p>
+    <p><g:message code="landingCaseStudy.${caseStudyId}.content.text.2"/></p>
+    <p><g:message code="landingCaseStudy.${caseStudyId}.content.text.3"/></p>
+    <p><g:message code="landingCaseStudy.${caseStudyId}.content.text.4"/></p>
+    <p><g:message code="landingCaseStudy.${caseStudyId}.content.text.5"/></p>
+    <p><g:message code="landingCaseStudy.${caseStudyId}.content.text.6"/></p>
+    <p><g:message code="landingCaseStudy.${caseStudyId}.content.text.7"/></p>
     <g:render template="/landing/caseStudies/modules/requestCaseStudy" model="[caseStudyId:caseStudyId]"/>
 </content>
 

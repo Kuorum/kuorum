@@ -16,13 +16,11 @@
 
 <content tag="caseStudyBody">
     <h1><g:message code="landingCaseStudy.${caseStudyId}.content.title"/> </h1>
-    <p><g:message code="landingCaseStudy.${caseStudyId}.content.text.1"/> </p>
-    <p><g:message code="landingCaseStudy.${caseStudyId}.content.text.2"/> </p>
-    <image:showYoutube youtube="https://www.youtube.com/embed/GcvNO1YlNCg"/>
-    <p><g:message code="landingCaseStudy.${caseStudyId}.content.text.3"/> </p>
-    <p><g:message code="landingCaseStudy.${caseStudyId}.content.text.4"/> </p>
-    <p><g:message code="landingCaseStudy.${caseStudyId}.content.text.5"/> </p>
-    <p><g:message code="landingCaseStudy.${caseStudyId}.content.text.6"/> </p>
+    <p><g:message code="landingCaseStudy.${caseStudyId}.content.text.1"/></p>
+    <p><g:message code="landingCaseStudy.${caseStudyId}.content.text.2"/></p>
+    <p><g:message code="landingCaseStudy.${caseStudyId}.content.text.3"/></p>
+    <p><g:message code="landingCaseStudy.${caseStudyId}.content.text.4"/></p>
+    <p><g:message code="landingCaseStudy.${caseStudyId}.content.text.5"/></p>
     <g:render template="/landing/caseStudies/modules/requestCaseStudy" model="[caseStudyId:caseStudyId]"/>
 </content>
 
