@@ -78,7 +78,7 @@ class UrlMappings {
         /**/
         /*** CUSTOM BLOG ARTICLES ***/
         name footerBlog:            "/$lang/blog" (controller: "footer", action: "footerBlog"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-        name footerBlog001:         "/$lang/blog/article-001" (controller: "footer", action: "footerBlog001"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+        name footerBlog001:         "/$lang/blog/ii-international-conference-on-online-political-communication" (controller: "footer", action: "footerBlog001"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
         /* END CUSTOM BLOG ARTICLES */
 
         name footerPrivacyPolicy:   "/$lang/legal/privacy-policy"       (controller:"footer", action: "privacyPolicy")
