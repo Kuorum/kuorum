@@ -7710,6 +7710,11 @@ header .header-msg h6:hover{
     margin-top: 30px;
 }
 
+#cases-study-body img {
+    margin-bottom: 13px;
+    margin-top: 13px;
+}
+
 #cases-study-body .breadcrumb,
 #cases-study-grid .breadcrumb{
     color: #20a2ea;
