@@ -20,6 +20,10 @@ modules = {
         resource url:'js/modernizr.js'
     }
 
+    recaptcha{
+        resource url: 'https://www.google.com/recaptcha/api.js?onload=onloadRecaptchaCallback&render=explicit'
+        resource url: 'js/recaptcha/recaptcha-invisible.js'
+    }
 
     lang_es{
         dependsOn 'application'

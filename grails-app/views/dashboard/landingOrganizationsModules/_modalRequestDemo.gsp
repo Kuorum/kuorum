@@ -1,6 +1,7 @@
 
 
 <!-- MODAL CONTACT -->
+<r:require modules="recaptcha"/>
 <g:set var="commandRequestDemo" value="${new kuorum.web.commands.customRegister.RequestDemoCommand() }"/>
 <div class="modal fade in" id="request-demo-modal" tabindex="-1" role="dialog" aria-labelledby="contactModalTitle" aria-hidden="false">
     <div class="modal-dialog ">
@@ -34,8 +35,9 @@
                     </fieldset>
                     <fieldset>
                         <div class="form-group col-xs-12 button">
-                            <div id="recaptcha-modal-id"></div>
                             <button id="request-demo-modal-form-id"
+                                    data-recaptcha=""
+                                    data-callback="requestDemoCallback"
                                     class="btn btn-orange btn-lg g-recaptcha"><g:message code="landingCorporationsBrands.carousel.login.submit"/>
                             </button>
                         </div>
@@ -47,7 +49,7 @@
     </div>
 </div>
 <!-- fin modal -->
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+%{--<script src="https://www.google.com/recaptcha/api.js" async defer></script>--}%
 <script type="text/javascript">
     $(function(){
 
@@ -65,30 +67,21 @@
             $modalForm.find("input[name=email]").val(email)
             $("#request-demo-modal").modal("show")
         }
+
+        $('#request-demo-modal-form-id').on('click', function (e) {
+            e.preventDefault()
+            var dataRecaptcha = $(this).attr('data-recaptcha');
+            recaptchaModal(dataRecaptcha)
+        });
     });
 
-    var modalRecaptcha = 0;
-    function recaptchaModalRender(){
-        if(!modalRecaptcha){
-            modalRecaptcha = grecaptcha.render('recaptcha-modal-id', {
-                'sitekey' : '${_googleCaptchaKey}',
-                'size' : 'invisible',
-                'callback' : requestDemoCallback
-            });
-        }
-
-        grecaptcha.reset(modalRecaptcha);
-
-        grecaptcha.execute(modalRecaptcha);
+    function recaptchaModal(dataRecaptcha){
+        grecaptcha.execute(dataRecaptcha);
     }
-
-    $('#request-demo-modal-form-id').on('click', function (e) {
-        e.preventDefault()
-        recaptchaModalRender()
-    });
 
     function requestDemoCallback(){
         var $form = $('#request-demo-modal-form');
+        var dataRecaptcha = $('#request-demo-modal-form-id').attr('data-recaptcha');
         if ($form.valid()){
             $('fieldset.email-sent .in-progress').removeClass('hidden');
             var url = $form.attr("action")
@@ -114,6 +107,9 @@
                     }
                 }
             })
+        }
+        else {
+            grecaptcha.reset(dataRecaptcha);
         }
     }
 </script>
