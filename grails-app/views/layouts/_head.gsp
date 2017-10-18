@@ -18,7 +18,9 @@
         </div>
         <sec:ifNotLoggedIn>
             <div class="navbar-contact-phone hidden-sm hidden-md hidden-lg">
-                <span class="fa fa-phone"></span> 910915091
+                <g:set var="kuorumPhone" value="${g.message(code:'kuorum.telephone')}"/>
+                <span class="fa fa-phone"></span>
+                <a href="tel:${kuorumPhone}">${kuorumPhone}</a>
             </div>
         </sec:ifNotLoggedIn>
     </nav>

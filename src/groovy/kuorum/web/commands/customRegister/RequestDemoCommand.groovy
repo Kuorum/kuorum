@@ -23,7 +23,7 @@ class RequestDemoCommand {
         email nullable:false, email:true
         enterprise nullable:false
         phone nullable:true
-        sector nullable: true
+        sector nullable: false
         comment nullable: false, minSize: 10
     }
 }

@@ -1,9 +1,10 @@
+<%@ page import="kuorum.core.model.ContactSectorType" %>
 <r:require modules="contactUsForm,recaptcha_contactUs"/>
 <g:set var="commandRequestDemo" value="${new kuorum.web.commands.customRegister.RequestDemoCommand(sector: sectorDefault) }"/>
 <div class="section-header">
     <g:if test="${msgPrefix=='footerContactUs'}"></g:if>
     <g:else><h1><g:message code="${msgPrefix}.contactUs.title"/></h1></g:else>
-    <h3 class="hidden-xs"><g:message code="${msgPrefix}.contactUs.subtitle"/></h3>
+    <h3 class="hidden-xs"><g:message code="${msgPrefix}.contactUs.subtitle" args="[g.message(code:'kuorum.telephone')]"/></h3>
 </div>
 <div class="section-body col-md-10 col-md-offset-1">
     <sec:ifNotLoggedIn>
@@ -65,8 +66,10 @@
                             field="sector"
                             labelCssClass="left"
                             showLabel="true"
-                            showCharCounter="false"
-                            required="true"/>
+                            required="true"
+                            values="[kuorum.core.model.ContactSectorType.CORPORATION,kuorum.core.model.ContactSectorType.GOVERNMENT, kuorum.core.model.ContactSectorType.ORGANIZATION]"
+                            defaultEmpty="true"
+                    />
                 </div>
             </fieldset>
             <fieldset class="row form-group">
