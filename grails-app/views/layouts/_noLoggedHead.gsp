@@ -31,7 +31,7 @@
         </g:link>
         <ul id="navigation-options" class="dropdown-menu dropdown-menu-right" aria-labelledby="open-user-options" role="menu">
             <li>
-                <g:link mapping="landingAdministration" class="navbar-link ${nav.activeMenuCss(mappingName: 'landingAdministration')}">
+                <g:link mapping="landingGovernments" class="navbar-link ${nav.activeMenuCss(mappingName: 'landingAdministration')}">
                     <span><g:message code="head.noLogged.administration"/></span>
                 </g:link>
             </li>

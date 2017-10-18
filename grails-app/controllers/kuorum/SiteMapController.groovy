@@ -4,10 +4,8 @@ import com.mongodb.DBCursor
 import kuorum.core.model.UserType
 import kuorum.post.PostService
 import kuorum.users.KuorumUser
-import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.kuorum.rest.model.communication.debate.PageDebateRSDTO
 import org.kuorum.rest.model.communication.post.PagePostRSDTO
-import org.kuorum.rest.model.communication.post.PostRSDTO
 import payment.campaign.DebateService
 
 class SiteMapController {
@@ -52,7 +50,7 @@ class SiteMapController {
                         'landingServices',
                         'landingTechnology',
                         'landingEnterprise',
-                        'landingAdministration',
+                        'landingGovernments',
                         'landingOrganization',
                         'landingCaseStudy',
                         'landingCaseStudy001',
