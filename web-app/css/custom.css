@@ -9675,6 +9675,12 @@ ul.threeColumn .card-body p {
 
 /*TODO:Meterlo en el max-width existente*/
 @media (max-width: 991px){
+
+    /*Prueba de mat para ver si consigue verse bien en el iphone el menu del footer*/
+    .landing-footer .left-container {
+        width: 100%;
+    }
+
     .landing-footer {
         display: grid;
     }
