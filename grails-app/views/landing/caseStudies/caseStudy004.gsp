@@ -19,6 +19,7 @@
     <p><g:message code="landingCaseStudy.${caseStudyId}.content.text.1"/></p>
     <p><g:message code="landingCaseStudy.${caseStudyId}.content.text.2"/></p>
     <p><g:message code="landingCaseStudy.${caseStudyId}.content.text.3"/></p>
+    <image:showYoutube youtube="https://www.youtube.com/watch?v=JF-yXe4cNuw"/>
     <p><g:message code="landingCaseStudy.${caseStudyId}.content.text.4"/></p>
     <p><g:message code="landingCaseStudy.${caseStudyId}.content.text.5"/></p>
     <g:render template="/landing/caseStudies/modules/requestCaseStudy" model="[caseStudyId:caseStudyId]"/>

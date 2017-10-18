@@ -20,8 +20,8 @@
     <p><g:message code="landingCaseStudy.${caseStudyId}.content.text.2"/></p>
     <p><g:message code="landingCaseStudy.${caseStudyId}.content.text.3"/></p>
     <p><g:message code="landingCaseStudy.${caseStudyId}.content.text.4"/></p>
-    <p><g:message code="landingCaseStudy.${caseStudyId}.content.text.5"/></p>
     <p><img src="${resource(dir: 'images', file: 'case-study-3-img.jpg')}" alt="inception-session" title="inception-session"></p>
+    <p><g:message code="landingCaseStudy.${caseStudyId}.content.text.5"/></p>
     <p><g:message code="landingCaseStudy.${caseStudyId}.content.text.6"/></p>
     %{--<g:render template="/landing/caseStudies/modules/requestCaseStudy" model="[caseStudyId:caseStudyId]"/>--}%
 </content>
