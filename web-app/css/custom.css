@@ -7755,7 +7755,7 @@ header .header-msg h6:hover{
 
 #cases-study-body .section-body h1{
     font-size: 40px;
-    font-family: "Arial Black";
+    font-family: 'Arial Black', 'AvenirNext-Heavy', Arial;
     text-align: center;
     margin: 40px 0;
     line-height: 50px;
@@ -8992,7 +8992,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     margin: 0;
     padding: 0;
     text-transform: uppercase;
-    font-family: 'Arial black', 'AvenirNext-Heavy', Arial;
+    font-family: 'Arial Black', 'AvenirNext-Heavy', Arial;
 }
 
 .fade-carousel .content h3 {
@@ -9722,7 +9722,7 @@ ul.threeColumn .card-body p {
     font-size: 42px;
     font-weight: bold;
     text-align: left;
-    font-family: "Arial Black";
+    font-family: 'Arial Black', 'AvenirNext-Heavy', Arial;
 }
 
 #footer-section .section-header p{
