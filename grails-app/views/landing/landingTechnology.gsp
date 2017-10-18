@@ -1,6 +1,6 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
-    <title><g:message code="landingLeaders.head.title"/></title>
+    <title><g:message code="landingTechnology.head.title"/></title>
     <meta name="layout" content="landingTechnologyLayout">
     <parameter name="extraHeadCss" value="landing"/>
     <g:render template="/dashboard/landingMetaTags"
