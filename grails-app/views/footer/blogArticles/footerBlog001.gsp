@@ -31,7 +31,7 @@
     <p><g:message code="footerBlog.${blogId}.content.text.1"/> </p>
     <p><g:message code="footerBlog.${blogId}.content.text.2"/> </p>
     <p><g:message code="footerBlog.${blogId}.content.text.3" args="[createLink(mapping:'register')]"/> </p>
-    <image:showYoutube youtube="https://www.youtube.com/embed/TjFhC6jFJG8"/>
+    <image:showYoutube youtube="https://www.youtube.com/embed/8r2e9HiSwZ4"/>
 </content>
 
 <content tag="casesStudyGrid">
