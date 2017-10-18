@@ -49,10 +49,16 @@ class SiteMapController {
                 }
 
                 def highPriority = [
-                        'landingLeaders',
-                        'landingCorporations',
-                        'landingCorporationsBrands',
-                        'landingOrganizations',
+                        'landingServices',
+                        'landingTechnology',
+                        'landingEnterprise',
+                        'landingAdministration',
+                        'landingOrganization',
+                        'landingCaseStudy',
+                        'landingCaseStudy001',
+                        'landingCaseStudy002',
+                        'landingCaseStudy003',
+                        'landingCaseStudy004',
                         'register']
                 highPriority.each{mapping ->
                     url {
@@ -63,19 +69,14 @@ class SiteMapController {
                 }
 
                 def footerMappings = [
-                        'footerTechnology',
-                        'footerLeaders',
-                        'footerGovernment',
-                        'footerCitizens',
-                        'footerDevelopers',
-                        'footerAboutUs',
-                        'footerVision',
-                        'footerImpact',
-                        'footerTeam',
-                        'footerInformation',
-                        'footerWidget',
-                        'footerPrivacyPolicy',
-                        'footerTermsUse',
+                        'footerAboutKuorum',
+                        'footerContactUs',
+                        'footerOurTeam',
+                        'footerUserGuides',
+                        'footerPress',
+                        'footerHistory',
+                        'footerBlog',
+                        'footerBlog001'
                 ]
                 footerMappings.each{mapping ->
                     url {
