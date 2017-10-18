@@ -32,19 +32,6 @@ class UrlMappings {
         name landingCaseStudy003:   "/$lang/successful-stories/mat-es-un-crack-si-se-da-cuenta-de-esto"         (controller: "landing", action: "caseStudy003"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
         name landingCaseStudy004:   "/$lang/successful-stories/mat-super-crack"                                 (controller: "landing", action: "caseStudy004"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
 
-
-        name footerAboutKuorum:     "/$lang/what-is-kuorum" (controller: "footer", action: "footerAboutUs"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-        name footerContactUs:       "/$lang/contact" (controller: "footer", action: "footerContactUs"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-        name footerOurTeam:         "/$lang/team" (controller: "footer", action: "footerOurTeam"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-        name footerUserGuides:      "/$lang/user-guides" (controller: "footer", action: "footerUserGuides"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-        name footerPress:           "/$lang/press-and-media" (controller: "footer", action: "footerPress"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-        name footerHistory:         "/$lang/our-story" (controller: "footer", action: "footerHistory"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-        /**/
-        /*** CUSTOM BLOG ARTICLES ***/
-        name footerBlog:            "/$lang/blog" (controller: "footer", action: "footerBlog"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-        name footerBlog001:         "/$lang/blog/article-001" (controller: "footer", action: "footerBlog001"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-        /* END CUSTOM BLOG ARTICLES */
-
         name home:              "/$lang" (controller: "landing", action:"landingServices"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
                                 "/" { controller="redirect"; action= "redirect301"; newMapping='home'}
 
@@ -76,30 +63,24 @@ class UrlMappings {
                                     "/influential-brands" { controller="redirect"; action= "redirect301"; newMapping='landingCorporationsBrands'}
                                     "/$lang/brands" { controller="redirect"; action= "redirect301"; newMapping='landingCorporationsBrands'}
                                     "/brands" { controller="redirect"; action= "redirect301"; newMapping='landingCorporationsBrands'}
-        name footerTechnology:      "/$lang/services/what-is-kuorum"    (controller:"footer", action: "tech" )
-                                    "/services/what-is-kuorum"          { controller="redirect"; action= "redirect301"; newMapping='footerTechnology'}
-                                    "/kuorum/what-is-kuorum"          { controller="redirect"; action= "redirect301"; newMapping='footerTechnology'}
-                                    "/services"                         { controller="redirect"; action= "redirect301"; newMapping='footerTechnology'}
-        name footerLeaders:         "/$lang/services/leaders" (controller:"footer", action: "leaders" )
-                                    "/services/leaders"       {controller="redirect"; action= "redirect301"; newMapping='footerLeaders'}
-        name footerGovernment:      "/$lang/services/organizations"        (controller:"footer", action: "government" )
-                                    "/services/organizations"              {controller="redirect"; action= "redirect301"; newMapping='footerGovernment'}
-        name footerCitizens:        "/$lang/services/corporations"   (controller:"footer", action: "citizens" )
-                                    "/services/corporations"   {controller="redirect"; action= "redirect301"; newMapping='footerCitizens'}
-        name footerUserGuides:       "/$lang/services/user-guides"   (controller:"footer", action: "userGuides" )
-                                    "/services/user-guides"   {controller="redirect"; action= "redirect301"; newMapping='footerUserGuides'}
-        name footerAboutUs:         "/$lang/about/our-story"             (controller:"footer", action: "aboutUs" )
-                                    "/about/our-story"                  {controller="redirect"; action= "redirect301"; newMapping='footerAboutUs'}
-                                    "/about"                            {controller="redirect"; action= "redirect301"; newMapping='footerAboutUs'}
-        name footerVision:          "/$lang/about/mision-and-vision"    (controller:"footer", action: "vision" )
-                                    "/about/mision-and-vision"          {controller="redirect"; action= "redirect301"; newMapping='footerVision'}
-        name footerTeam:            "/$lang/about/our-team"             (controller:"footer", action: "team" )
-                                    "/about/our-team"                   {controller="redirect"; action= "redirect301"; newMapping='footerTeam'}
-        name footerInformation:     "/$lang/press"                      (controller:"footer", action: "information" )
-                                    "/press"                            {controller="redirect"; action= "redirect301"; newMapping='footerInformation'}
-                                    "/press/information-and-resources"  {controller="redirect"; action= "redirect301"; newMapping='footerInformation'}
-        name footerWidget:          "/$lang/press/widget"               (controller:"footer", action: "widget" )
-                                    "/press/widget"                     {controller="redirect"; action= "redirect301"; newMapping='footerWidget'}
+        name footerAboutKuorum:     "/$lang/what-is-kuorum" (controller: "footer", action: "footerAboutUs"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+                                    "/what-is-kuorum" {controller="redirect"; action= "redirect301"; newMapping='footerAboutKuorum'}
+        name footerContactUs:       "/$lang/contact" (controller: "footer", action: "footerContactUs"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+                                    "/contact" {controller="redirect"; action= "redirect301"; newMapping='footerContactUs'}
+        name footerOurTeam:         "/$lang/team" (controller: "footer", action: "footerOurTeam"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+                                    "/team" {controller="redirect"; action= "redirect301"; newMapping='footerOurTeam'}
+        name footerUserGuides:      "/$lang/user-guides" (controller: "footer", action: "footerUserGuides"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+                                    "/user-guides" {controller="redirect"; action= "redirect301"; newMapping='footerUserGuides'}
+        name footerPress:           "/$lang/press-and-media" (controller: "footer", action: "footerPress"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+                                    "/press-and-media" {controller="redirect"; action= "redirect301"; newMapping='footerPress'}
+        name footerHistory:         "/$lang/our-story" (controller: "footer", action: "footerHistory"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+                                    "/our-story" {controller="redirect"; action= "redirect301"; newMapping='footerHistory'}
+        /**/
+        /*** CUSTOM BLOG ARTICLES ***/
+        name footerBlog:            "/$lang/blog" (controller: "footer", action: "footerBlog"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+        name footerBlog001:         "/$lang/blog/article-001" (controller: "footer", action: "footerBlog001"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+        /* END CUSTOM BLOG ARTICLES */
+
         name footerPrivacyPolicy:   "/$lang/legal/privacy-policy"       (controller:"footer", action: "privacyPolicy")
                                     "/legal/privacy-policy"             {controller="redirect"; action= "redirect301"; newMapping='footerPrivacyPolicy'}
                                     "/legal"                            {controller="redirect"; action= "redirect301"; newMapping='footerPrivacyPolicy'}
