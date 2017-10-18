@@ -12,6 +12,6 @@
         <g:link mapping="${"${sectionName}${caseStudyId}".toString()}"  class="link-case-study">
             <g:message code="${sectionName}.page.landing.seeMore"/>
         </g:link>
-        <span class="link-arrow">></span>
+        <span class="link-arrow hidden-xs">></span>
     </div>
 </div>

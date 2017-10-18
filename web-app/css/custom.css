@@ -5547,6 +5547,10 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
 /* Super small devices (mobile, 480px and down) */
 @media only screen and (max-width: 480px) {
+    #services ul.globus ul.bullets li {
+        margin-left: 5%;
+    }
+
     .fade-carousel .content .btn {
         width: 100%;
     }
@@ -5700,6 +5704,10 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
 /* Small devices (tablets, 768px and down) */
 @media only screen and (max-width: 767px) {
+    #services ul.globus ul.bullets li {
+        margin-left: 9%;
+    }
+
     .box-order-options .bulk-actions {display: block; width: 100%;}
 
     #mails.campaigns {width: 36em;}
@@ -9919,6 +9927,10 @@ ul.bullets li img {
 }
 
 @media screen and (max-width: 1199px) {
+    #services ul.globus ul.bullets li {
+        margin-left: 15%;
+    }
+
     .container-overflow-image {
         min-height: 670px;
     }
