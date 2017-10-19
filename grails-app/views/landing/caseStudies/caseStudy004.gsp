@@ -22,7 +22,7 @@
     <image:showYoutube youtube="https://www.youtube.com/watch?v=JF-yXe4cNuw"/>
     <p><g:message code="landingCaseStudy.${caseStudyId}.content.text.4"/></p>
     <p><g:message code="landingCaseStudy.${caseStudyId}.content.text.5"/></p>
-    <g:render template="/landing/caseStudies/modules/requestCaseStudy" model="[caseStudyId:caseStudyId]"/>
+    %{--<g:render template="/landing/caseStudies/modules/requestCaseStudy" model="[caseStudyId:caseStudyId]"/>--}%
 </content>
 
 <content tag="casesStudyGrid">
