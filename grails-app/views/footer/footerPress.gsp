@@ -22,7 +22,7 @@
 <content tag="footerSection">
 
     <g:set var="docSendLink" value="https://docsend.com/view/ux5z5yc"/>
-    <g:if test="${lang='es'}">
+    <g:if test="${lang=='es'}">
         <g:set var="docSendLink" value="https://docsend.com/view/hfn672m"/>
     </g:if>
 
