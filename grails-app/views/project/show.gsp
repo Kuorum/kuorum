@@ -41,7 +41,6 @@
 <content tag="cColumn">
 
     <modulesUtil:projectVotes project="${project}" social="true" title="true" basicPersonalDataCommand="${basicPersonalDataCommand}"/>
-    <modulesUtil:recommendedPosts project="${project}" title="${message(code:"modules.recommendedProjectPosts.title")}"/>
     <modulesUtil:projectActivePeople project="${project}"/>
 
 </content>

@@ -5,9 +5,7 @@ import grails.plugin.springsecurity.annotation.Secured
 import kuorum.causes.CausesService
 import kuorum.core.model.search.Pagination
 import kuorum.dashboard.DashboardService
-import kuorum.post.Cluck
 import kuorum.post.PostService
-import kuorum.project.Project
 import kuorum.solr.SearchSolrService
 import kuorum.users.CookieUUIDService
 import kuorum.users.KuorumUser
@@ -25,12 +23,10 @@ import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
 import org.kuorum.rest.model.payment.KuorumPaymentPlanDTO
 import org.kuorum.rest.model.tag.CauseRSDTO
 import org.kuorum.rest.model.tag.SuggestedCausesRSDTO
-import org.springframework.beans.factory.annotation.Value
 import payment.CustomerService
 import payment.campaign.DebateService
 import payment.campaign.MassMailingService
 import payment.contact.ContactService
-import springSecurity.KuorumRegisterCommand
 
 class DashboardController {
 
@@ -52,7 +48,7 @@ class DashboardController {
     private  static final Integer MAX_PROJECT_EVENTS = 2
 
     def index(){
-        return landingLeaders()
+        return dashboard()
     }
     def dashboard() {
         if (!springSecurityService.isLoggedIn()){
@@ -61,21 +57,17 @@ class DashboardController {
         }
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         log.info("Dashboard ${user}")
-//        if (kuorumUserService.isPaymentUser(user)){
-            Map model = buildPaymentDashboard(user);
-            model.put("tour", params.tour?true:false)
-            if (dashboardService.forceUploadContacts()) {
-                render view: "/dashboard/payment/paymentNoContactsDashboard", model: model
-//            }else if (!model.numberCampaigns){
-//                render view: "/dashboard/payment/paymentNoCampaignsDashboard", model: model
-            }else{
-                List<KuorumUser> recommendations = kuorumUserService.recommendUsers(user, new Pagination([max:50]))
-                model.put("recommendations",recommendations)
-                render view: "/dashboard/payment/paymentDashboard", model: model
-            }
-//        }else{
-//            buildUserDashboard(user)
-//        }
+        Map model = buildPaymentDashboard(user);
+        model.put("tour", params.tour?true:false)
+        if (dashboardService.forceUploadContacts()) {
+            render view: "/dashboard/payment/paymentNoContactsDashboard", model: model
+//          }else if (!model.numberCampaigns){
+//              render view: "/dashboard/payment/paymentNoCampaignsDashboard", model: model
+        }else{
+            List<KuorumUser> recommendations = kuorumUserService.recommendUsers(user, new Pagination([max:50]))
+            model.put("recommendations",recommendations)
+            render view: "/dashboard/dashboard", model: model
+        }
     }
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def skipContacts(){
@@ -84,20 +76,6 @@ class DashboardController {
         user.save()
         redirect mapping:'dashboard'
     }
-
-//    private Map buildUserDashboard(KuorumUser user){
-//        Pagination causesPagination = new Pagination(max:6)
-//        SuggestedCausesRSDTO causesSuggested = causesService.suggestCauses(user, causesPagination)
-//        Pagination politiciansDashboardPagination = new Pagination(max:6)
-//        List<KuorumUser> politicians = kuorumUserService.recommendPoliticians(user,politiciansDashboardPagination)
-//        [
-//                loggedUser:user,
-//                causesSuggested:causesSuggested,
-//                causesPagination:causesPagination,
-//                politicians:politicians,
-//                politiciansDashboardPagination:politiciansDashboardPagination
-//        ]
-//    }
 
     private def buildPaymentDashboard(KuorumUser user){
         String viewerUid = cookieUUIDService.buildUserUUID()
@@ -201,11 +179,6 @@ class DashboardController {
         render template: "/dashboard/listDashboardUserRecommendations", model:[politicians:suggesterPoliticians]
     }
 
-    @Deprecated
-    def landingPoliticians(){
-        [command: new KuorumRegisterCommand()]
-    }
-
     def discover(){
         //TODO: QUE HACER SI NO ES ESPA�A
         Region region = Region.findByIso3166_2("EU-ES")
@@ -226,57 +199,8 @@ class DashboardController {
 //        ]
     }
 
-    @Deprecated
-    def landingCitizens(){
-        [command: new KuorumRegisterCommand()]
-    }
-
     def landingPrices(){
         Map<String, KuorumPaymentPlanDTO> plans = customerService.getActivePlans();
         [plans:plans    ]
-    }
-
-    @Deprecated
-    def landingLeaders(){
-        if (springSecurityService.isLoggedIn()){
-//            render(view: "dashboard", model: dashboard())
-            flash.message = flash.message
-            redirect (mapping:"dashboard")
-        }else{
-            render(view: "landingLeaders", model: [command: new KuorumRegisterCommand()])
-        }
-    }
-
-    @Deprecated
-    def landingCorporations(){
-        if (springSecurityService.isLoggedIn()){
-//            render(view: "dashboard", model: dashboard())
-            flash.message = flash.message
-            redirect (mapping:"dashboard")
-        }else{
-            render(view: "landingCorporations", model: [command: new KuorumRegisterCommand()])
-        }
-    }
-
-    @Deprecated
-    def landingCorporationsBrands(){
-        if (springSecurityService.isLoggedIn()){
-//            render(view: "dashboard", model: dashboard())
-            flash.message = flash.message
-            redirect (mapping:"dashboard")
-        }else{
-            render(view: "landingCorporationsBrands", model: [command: new KuorumRegisterCommand()])
-        }
-    }
-
-    @Deprecated
-    def landingOrganizations(){
-        if (springSecurityService.isLoggedIn()){
-//            render(view: "dashboard", model: dashboard())
-            flash.message = flash.message
-            redirect (mapping:"dashboard")
-        }else{
-            render(view: "landingOrganizations", model: [command: new KuorumRegisterCommand()])
-        }
     }
 }

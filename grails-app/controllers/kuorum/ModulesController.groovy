@@ -65,22 +65,6 @@ class ModulesController {
         render template: "/layouts/footer/footerRegisterRelevantUsers", model: [users:users]
     }
 
-    @Deprecated
-    def recommendedProjects(){
-        List<Project> projects = projectService.relevantProjects(new Pagination(max:NUM_RELEVANT_PROJECT))
-        render template: "/dashboard/landingPageModules/relevantProjects", model: [projects:projects]
-    }
-
-    @Deprecated
-    def recommendedPoliticians(){
-        KuorumUser user = null;
-        if (springSecurityService.isLoggedIn()){
-            user = KuorumUser.get(springSecurityService.principal.id)
-        }
-        List<KuorumUser> politicians = kuorumUserService.recommendUsers(user, new Pagination(max:NUM_RELEVANT_POLITICIANS))
-        render template: "/dashboard/landingPageModules/relevantPoliticians", model: [politicians:politicians]
-    }
-
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def userCauses() {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
