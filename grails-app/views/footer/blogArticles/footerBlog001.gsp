@@ -6,7 +6,7 @@
     <g:render template="/dashboard/landingMetaTags"
               model="[
                       kuorumTitle:g.message(code:'footerBlog.'+blogId+'.head.title'),
-                      kuorumDescription:g.message(code:'footerBlog.head.'+blogId+'.description'),
+                      kuorumDescription:g.message(code:'footerBlog.head.'+blogId+'.card.subtitle'),
                       kuorumImage:request.siteUrl +r.resource(dir:'images/landing', file:'leaders-01.jpg')
               ]"/>
 </head>
