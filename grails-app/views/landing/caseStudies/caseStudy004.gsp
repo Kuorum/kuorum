@@ -11,7 +11,7 @@
 
 <content tag="main">
     <g:render template="/landing/commonModules/slider" model="[msgPrefix:'caseStudy'+caseStudyId]"/>
-    %{--<g:render template="/dashboard/landingOrganizationsModules/modalRequestDemo"/>--}%
+    <g:render template="/dashboard/landingOrganizationsModules/modalRequestDemo"/>
 </content>
 
 <content tag="caseStudyBody">
