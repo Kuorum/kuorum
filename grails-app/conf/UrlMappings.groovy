@@ -37,32 +37,7 @@ class UrlMappings {
 
         name landingSearch:     "/$lang/discover"   (controller: "search", action:"searchLanding") {constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
                                 "/discover"         { controller="redirect"; action= "redirect301"; newMapping='landingSearch'}
-        name landingCitizens:   "/$lang/who-should-i-vote-for" (controller: "dashboard", action:"landingLeaders")
-                                "/who-should-i-vote-for" { controller="redirect"; action= "redirect301"; newMapping='landingLeaders'}
-                                "/citizens" { controller="redirect"; action= "redirect301"; newMapping='landingLeaders'}
-                                "/editors" { controller="redirect"; action= "redirect301"; newMapping='landingLeaders'}
-        name landingPrices:     "/$lang/prices" (controller: "dashboard", action:"landingPrices")
-                                "/prices" { controller="redirect"; action= "redirect301"; newMapping='landingPrices'}
-        name landingPoliticians:"/$lang/win-your-election" (controller: "dashboard", action:"landingLeaders")
-                                "/win-your-election" { controller="redirect"; action= "redirect301"; newMapping='landingLeaders'}
-                                "/politicians"  { controller="redirect"; action= "redirect301"; newMapping='landingLeaders'}
-        name landingOrganizations:  "/$lang/fundraising-tools" (controller: "dashboard", action:"landingOrganizations")
-                                    "/fundraising-tools" { controller="redirect"; action= "redirect301"; newMapping='landingOrganizations'}
-                                    "/$lang/organizations" { controller="redirect"; action= "redirect301"; newMapping='landingOrganizations'}
-                                    "/organizations" { controller="redirect"; action= "redirect301"; newMapping='landingOrganizations'}
-        name landingLeaders:        "/$lang/best-email-marketing" (controller: "dashboard", action:"landingLeaders")
-                                    "/best-email-marketing" { controller="redirect"; action= "redirect301"; newMapping='landingLeaders'}
-                                    "/$lang/leaders" { controller="redirect"; action= "redirect301"; newMapping='landingLeaders'}
-                                    "/leaders" { controller="redirect"; action= "redirect301"; newMapping='landingLeaders'}
-                                    "/kuorum/citizens"        {controller="redirect"; action= "redirect301"; newMapping='landingLeaders'}
-        name landingCorporations:   "/$lang/corporate-innovation" (controller: "dashboard", action:"landingCorporations")
-                                    "/corporate-innovation" { controller="redirect"; action= "redirect301"; newMapping='landingCorporations'}
-                                    "/$lang/corporations" { controller="redirect"; action= "redirect301"; newMapping='landingCorporations'}
-                                    "/corporations" { controller="redirect"; action= "redirect301"; newMapping='landingCorporations'}
-        name landingCorporationsBrands:   "/$lang/influential-brands" (controller: "dashboard", action:"landingCorporationsBrands")
-                                    "/influential-brands" { controller="redirect"; action= "redirect301"; newMapping='landingCorporationsBrands'}
-                                    "/$lang/brands" { controller="redirect"; action= "redirect301"; newMapping='landingCorporationsBrands'}
-                                    "/brands" { controller="redirect"; action= "redirect301"; newMapping='landingCorporationsBrands'}
+
         name footerAboutKuorum:     "/$lang/what-is-kuorum" (controller: "footer", action: "footerAboutUs"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
                                     "/what-is-kuorum" {controller="redirect"; action= "redirect301"; newMapping='footerAboutKuorum'}
         name footerContactUs:       "/$lang/contact" (controller: "footer", action: "footerContactUs"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
@@ -146,7 +121,6 @@ class UrlMappings {
 
         name projectCreate:             "/project/new"(controller: "project"){action = [GET:"create", POST:"save"]}
         name projectEdit:               "/project/$userAlias/$hashtag/edit"(controller: "project"){action = [GET:"edit", POST:"update"]}
-        name projects:                  "/project/$regionName?/$commission?" (controller: "project", action:"index")
 
         name debateCreate:      "/account/debate/new" (controller: "debate"){action = [GET: "create", POST: "saveSettings"]}
         name debateEdit:        "/account/$userAlias/d/$urlTitle-$debateId/edit-settings" (controller: "debate"){action = [GET: "editSettingsStep", POST: "saveSettings"]}
