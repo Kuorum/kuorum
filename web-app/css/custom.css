@@ -5547,6 +5547,11 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
 /* Super small devices (mobile, 480px and down) */
 @media only screen and (max-width: 480px) {
+    #cases-study-body .section-body h1 {
+        font-size: 28px;
+        text-align: left;
+    }
+
     #services ul.globus ul.bullets li {
         margin-left: 5%;
     }
@@ -9211,6 +9216,10 @@ div.dark {
     .fade-carousel .slides .slide-2,
     .fade-carousel .slides .slide-3{
         height: 500px;
+    }
+
+    #cases-study-body .section-body h1 {
+        font-size: 28px;
     }
 
     .fade-carousel .slides .slide-1.footerBlog,
