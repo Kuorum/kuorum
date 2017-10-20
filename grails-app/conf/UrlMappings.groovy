@@ -27,10 +27,15 @@ class UrlMappings {
         name landingOrganization:   "/$lang/fundraising-tools" (controller: "landing", action: "landingOrganization"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
                                     "/organizations" { controller="redirect"; action= "redirect301"; newMapping='landingOrganization'}
         name landingCaseStudy:      "/$lang/successful-stories"                                                     (controller: "landing", action: "landingCaseStudy"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+                                    "/successful-stories"                                                           { controller="redirect"; action= "redirect301"; newMapping='landingCaseStudy'}
         name landingCaseStudy001:   "/$lang/successful-stories/toledo-city-council-digitalises-participation"       (controller: "landing", action: "caseStudy001"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+                                    "/successful-stories/toledo-city-council-digitalises-participation"             { controller="redirect"; action= "redirect301"; newMapping='landingCaseStudy001'}
         name landingCaseStudy002:   "/$lang/successful-stories/national-media-group-gamifies-user-experience"       (controller: "landing", action: "caseStudy002"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+                                    "/successful-stories/national-media-group-gamifies-user-experience"             { controller="redirect"; action= "redirect301"; newMapping='landingCaseStudy002'}
         name landingCaseStudy003:   "/$lang/successful-stories/oxfam-gives-visibility-to-its-advocacy-campaigns"    (controller: "landing", action: "caseStudy003"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+                                    "/successful-stories/oxfam-gives-visibility-to-its-advocacy-campaigns"          { controller="redirect"; action= "redirect301"; newMapping='landingCaseStudy003'}
         name landingCaseStudy004:   "/$lang/successful-stories/kaunas-citizens-design-their-cycle-lane"             (controller: "landing", action: "caseStudy004"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+                                    "/successful-stories/kaunas-citizens-design-their-cycle-lane"                   { controller="redirect"; action= "redirect301"; newMapping='landingCaseStudy004'}
 
         name home:              "/$lang" (controller: "landing", action:"landingServices"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
                                 "/" { controller="redirect"; action= "redirect301"; newMapping='home'}
@@ -53,7 +58,9 @@ class UrlMappings {
         /**/
         /*** CUSTOM BLOG ARTICLES ***/
         name footerBlog:            "/$lang/blog" (controller: "footer", action: "footerBlog"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+                                    "/blog" {controller="redirect"; action= "redirect301"; newMapping='footerBlog'}
         name footerBlog001:         "/$lang/blog/ii-international-conference-on-online-political-communication" (controller: "footer", action: "footerBlog001"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+                                    "/blog/ii-international-conference-on-online-political-communication" {controller="redirect"; action= "redirect301"; newMapping='footerBlog001'}
         /* END CUSTOM BLOG ARTICLES */
 
         name footerPrivacyPolicy:   "/$lang/legal/privacy-policy"       (controller:"footer", action: "privacyPolicy")
