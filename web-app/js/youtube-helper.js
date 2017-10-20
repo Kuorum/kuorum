@@ -3,10 +3,12 @@ function YoutubeHelper(){
     var googleApiKey = "AIzaSyBlkPXlyoUtZZfco4OF3o27OmL7NjCOXm0"; // TODO: This key to a properties file
     var that = this;
     function validYoutube(videoID, onSuccess, onError){
+        var url = "https://www.googleapis.com/youtube/v3/videos?part=snippet&id="+videoID+"&key="+googleApiKey;
         $.ajax({
-            url: "https://www.googleapis.com/youtube/v3/videos?part=snippet&id="+videoID+"&key="+googleApiKey,
+            url: url,
             //dataType: "jsonp",
             success: function(data) {
+                console.log(data)
                 if (data.pageInfo.totalResults <= 0){
                     onError();
                 }else{
@@ -21,11 +23,17 @@ function YoutubeHelper(){
     }
 
     function maxResImage(response, img){
+        console.log(response)
+        console.log(img)
         $.each(response.items, function (index, item) {
-            var maxResUrl = item.snippet.thumbnails.maxres.url;
-            if(maxResUrl != undefined){
+            if (item.snippet.thumbnails.maxres != undefined && item.snippet.thumbnails.maxres.url!= undefined){
+                var maxResUrl = item.snippet.thumbnails.maxres.url;
+                img.setAttribute('src', maxResUrl);
+            }else if (item.snippet.thumbnails.high != undefined && item.snippet.thumbnails.high.url!= undefined){
+                var maxResUrl = item.snippet.thumbnails.high.url;
                 img.setAttribute('src', maxResUrl);
             }
+
         });
     }
 
