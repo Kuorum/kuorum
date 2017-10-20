@@ -15,6 +15,6 @@
     <g:render template="/landing/commonModules/sliderNoCallToAction" model="[msgPrefix:'footerBlog']"/>
 </content>
 
-%{--<content tag="casesStudyGrid">--}%
-    %{--<g:render template="/landing/caseStudies/modules/caseStudiesGrid" model="[msgPrefix:'footerBlog', caseStudiesIds:['001']]"/>--}%
-%{--</content>--}%
+<content tag="casesStudyGrid">
+    <g:render template="/landing/caseStudies/modules/caseStudiesGrid" model="[msgPrefix:'footerBlog', caseStudiesIds:['001']]"/>
+</content>
