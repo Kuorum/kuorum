@@ -7,7 +7,7 @@
               model="[
                       kuorumTitle:g.message(code:'footerBlog.head.title'),
                       kuorumDescription:g.message(code:'footerBlog.head.description'),
-                      kuorumImage:request.siteUrl +r.resource(dir:'images/landing', file:'leaders-01.jpg')
+                      kuorumImage:request.siteUrl +r.resource(dir:'images/landing', file:'blog.jpg')
               ]"/>
 </head>
 
@@ -15,6 +15,6 @@
     <g:render template="/landing/commonModules/sliderNoCallToAction" model="[msgPrefix:'footerBlog']"/>
 </content>
 
-<content tag="casesStudyGrid">
-    <g:render template="/landing/caseStudies/modules/caseStudiesGrid" model="[msgPrefix:'footerBlog', caseStudiesIds:['001']]"/>
-</content>
+%{--<content tag="casesStudyGrid">--}%
+    %{--<g:render template="/landing/caseStudies/modules/caseStudiesGrid" model="[msgPrefix:'footerBlog', caseStudiesIds:['001']]"/>--}%
+%{--</content>--}%
