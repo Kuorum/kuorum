@@ -1,11 +1,13 @@
 <nav:ifPageProperty pageProperty="showHeadSearch">
     <form
+            itemprop="potentialAction" itemscope itemtype="http://schema.org/SearchAction"
             action="${createLink(mapping: 'searcherSearch')}"
             id="search-form"
             class="navbar-form navbar-left"
             role="search"
             method="get"
     >
+        <meta itemprop="target" content="${createLink(mapping: 'searcherSearch', absolute: true)+'?word={query}'}"/>
         <div class="input-group">
 
             <g:set var="searchFilterType" value="${params.searchType?:kuorum.core.model.search.SearchType.ALL}"/>
@@ -25,7 +27,14 @@
                     </g:each>
                 </ul>
             </div>
-            <input type="text" class="form-control" placeholder="${message(code:'search.head.placeHolder')}" name="word" id="srch-term" value="${params.word}">
+            <input
+                    type="text"
+                    class="form-control"
+                    placeholder="${message(code:'search.head.placeHolder')}"
+                    itemprop="query-input"
+                    name="word"
+                    id="srch-term"
+                    value="${params.word}">
             <div class="input-group-btn">
                 <button class="btn search" type="submit"><span class="fa fa-search"></span></button>
             </div>
