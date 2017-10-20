@@ -4,7 +4,7 @@
 </div>
 <div class="row section-body other-cases">
     <div class="row">
-        <g:each in="${otherCases}" var="otherCaseId">
+        <g:each in="${otherCases.sort().reverse()}" var="otherCaseId">
             <div class="col-lg-4">
                 <g:render template="/landing/caseStudies/modules/caseStudyCard" model="[caseStudyId:otherCaseId, sectionName:sectionName]"/>
             </div>
