@@ -134,6 +134,8 @@ grails.project.dependency.resolution = {
         // Email validator need new TLDs (i.e: .city)
         compile group: 'commons-validator', name: 'commons-validator', version: '1.5.1'
 
+//        compile group: 'org.graylog2', name: 'gelfj', version: '1.1.13'
+
 
 
 //        test "org.gebish:geb-spock:$gebVersion"

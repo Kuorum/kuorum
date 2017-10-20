@@ -27,7 +27,13 @@ grails.serverURL = "http://local.kuorum.org:8080/kuorum"
 log4j = {
     appenders {
         console name:'stdout', layout:pattern(conversionPattern: '%d{yyyy MM dd HH:mm:ss,SSS} [%c] # %-5p %m  %n' )
-        rollingFile name:'stacktrace', maxFileSize:"5MB", maxBackupIndex: 10, file:"${System.getProperty('catalina.home')}/logs/kuorum_stacktrace.log", 'append':true, threshold:org.apache.log4j.Level.ALL
+//        appender new org.graylog2.log.GelfAppender(
+//                name: 'gelfAppender',
+//                graylogHost: '192.168.0.203',
+//                graylogPort: 12201,
+//                extractStacktrace: true,
+//                includeLocation: true,
+//        )
     }
 
     info    'grails.app','org.kuorum', 'kuorum'
