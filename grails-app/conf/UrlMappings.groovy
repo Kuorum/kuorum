@@ -21,7 +21,7 @@ class UrlMappings {
         name landingTechnology:     "/$lang/email-blasts-surveys-and-debates" (controller: "landing", action: "landingTechnology"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
                                     "/technology" { controller="redirect"; action= "redirect301"; newMapping='landingTechnology'}
         name landingEnterprise:     "/$lang/employee-engagement" (controller: "landing", action: "landingEnterprise"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-                                    "/corporations" { controller="redirect"; action= "redirect301"; newMapping='landingEnterprise'}
+                                    "/enterprises" { controller="redirect"; action= "redirect301"; newMapping='landingEnterprise'}
         name landingGovernments:    "/$lang/transparency-and-participation" (controller: "landing", action: "landingGovernments"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
                                     "/governments" { controller="redirect"; action= "redirect301"; newMapping='landingGovernments'}
         name landingOrganization:   "/$lang/fundraising-tools" (controller: "landing", action: "landingOrganization"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
