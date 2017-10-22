@@ -5547,6 +5547,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
 /* Super small devices (mobile, 480px and down) */
 @media only screen and (max-width: 480px) {
+
     #cases-study-body .section-body h1 {
         font-size: 28px;
         text-align: left;
@@ -5709,6 +5710,12 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
 /* Small devices (tablets, 768px and down) */
 @media only screen and (max-width: 767px) {
+    #footer-section{
+        padding-bottom: 0;
+    }
+    #cases-study-grid .section-body {
+        padding-bottom: 15px;
+    }
     #services ul.globus ul.bullets li {
         margin-left: 9%;
     }
@@ -7087,11 +7094,8 @@ fieldset.form-group {min-height: 50px;}
     #trustUs ul.globus li img {
         margin-bottom:60px;
     }
-    #trustUs row.section-body {
-        padding-bottom: 10px;
-    }
-    #solutions row.section-body {
-        padding-bottom: 25px;
+    #solutions .row.section-body {
+        padding-bottom: 15px;
     }
     .extra-padding{
         padding: 0 5px;
