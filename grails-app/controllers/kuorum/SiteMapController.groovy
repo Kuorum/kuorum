@@ -93,12 +93,12 @@ class SiteMapController {
                 while (pagePostRSDTO.getData()) {
                     pagePostRSDTO.data.each { post ->
                         url {
-                            loc(g.createLink(mapping: 'postShowLang', params: post.encodeAsLinkProperties()+ [lang:'en'], absolute: true))
+                            loc(g.createLink(mapping: 'langPostShow', params: post.encodeAsLinkProperties()+ [lang:'en'], absolute: true))
                             changefreq('weekly')
                             priority(0.3)
                             lastmod(post.datePublished.format(FORMAT_DATE_SITEMAP))
-                            "xhtml:link rel=\"alternate\" hreflang=\"es\" href=\"${g.createLink( mapping: 'postShowLang', absolute: true, params: post.encodeAsLinkProperties()+ [lang:'es'])}\""()
-                            "xhtml:link rel=\"alternate\" hreflang=\"en\" href=\"${g.createLink( mapping: 'postShowLang', absolute: true, params: post.encodeAsLinkProperties()+ [lang:'en'])}\""()
+                            "xhtml:link rel=\"alternate\" hreflang=\"es\" href=\"${g.createLink( mapping: 'langPostShow', absolute: true, params: post.encodeAsLinkProperties()+ [lang:'es'])}\""()
+                            "xhtml:link rel=\"alternate\" hreflang=\"en\" href=\"${g.createLink( mapping: 'langPostShow', absolute: true, params: post.encodeAsLinkProperties()+ [lang:'en'])}\""()
                         }
                     }
                     page++;
@@ -111,12 +111,12 @@ class SiteMapController {
                 while (pageDebateRSDTO.getData()) {
                     pageDebateRSDTO.data.each { debate ->
                         url {
-                            loc(g.createLink(mapping: 'debateShowLang', params: debate.encodeAsLinkProperties()+ [lang:'en'], absolute: true))
+                            loc(g.createLink(mapping: 'langDebateShow', params: debate.encodeAsLinkProperties()+ [lang:'en'], absolute: true))
                             changefreq('weekly')
                             priority(0.3)
                             lastmod(debate.datePublished.format(FORMAT_DATE_SITEMAP))
-                            "xhtml:link rel=\"alternate\" hreflang=\"es\" href=\"${g.createLink( mapping: 'debateShowLang', absolute: true, params: debate.encodeAsLinkProperties()+ [lang:'es'])}\""()
-                            "xhtml:link rel=\"alternate\" hreflang=\"en\" href=\"${g.createLink( mapping: 'debateShowLang', absolute: true, params: debate.encodeAsLinkProperties()+ [lang:'en'])}\""()
+                            "xhtml:link rel=\"alternate\" hreflang=\"es\" href=\"${g.createLink( mapping: 'langDebateShow', absolute: true, params: debate.encodeAsLinkProperties()+ [lang:'es'])}\""()
+                            "xhtml:link rel=\"alternate\" hreflang=\"en\" href=\"${g.createLink( mapping: 'langDebateShow', absolute: true, params: debate.encodeAsLinkProperties()+ [lang:'en'])}\""()
                         }
                     }
                     page++;
@@ -146,6 +146,8 @@ class SiteMapController {
                         changefreq('weekly')
                         priority(0.5)
                         lastmod(politicianData.lastUpdated.format(FORMAT_DATE_SITEMAP))
+                        "xhtml:link rel=\"alternate\" hreflang=\"es\" href=\"${g.createLink( mapping: 'debateShowLang', absolute: true, params: [userAlias:politicianData.alias,lang:'es'])}\""()
+                        "xhtml:link rel=\"alternate\" hreflang=\"en\" href=\"${g.createLink( mapping: 'debateShowLang', absolute: true, params: [userAlias:politicianData.alias,lang:'en'])}\""()
                     }
                 }
             }
