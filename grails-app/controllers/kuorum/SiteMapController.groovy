@@ -35,11 +35,10 @@ class SiteMapController {
     def sitemap() {
         //TODO: Pensar si salvar a un fichero o a MONGO en vez de generarlo al vuelo
 
-        render(contentType: 'text/xml', encoding: 'UTF-8') {
+        render(contentType: 'application/xml', encoding: 'UTF-8') {
             mkp.yieldUnescaped '<?xml version="1.0" encoding="UTF-8"?>'
-            urlset(xmlns: "http://www.sitemaps.org/schemas/sitemap/0.9",
-                    'xmlns:xsi': "http://www.w3.org/2001/XMLSchema-instance",
-                    'xsi:schemaLocation': "http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd") {
+            urlset(xmlns:"http://www.sitemaps.org/schemas/sitemap/0.9",
+                    'xmlns:xhtml':"http://www.w3.org/1999/xhtml") {
                 url {
                     loc(g.createLink( mapping: 'home', absolute: true))
                     changefreq('monthly')
@@ -60,9 +59,11 @@ class SiteMapController {
                         'register']
                 highPriority.each{mapping ->
                     url {
-                        loc(g.createLink( mapping: mapping, absolute: true))
+                        loc(g.createLink( mapping: mapping, absolute: true, lang:'en'))
                         changefreq('yearly')
                         priority(0.9)
+                        "xhtml:link rel=\"alternate\" hreflang=\"es\" href=\"${g.createLink( mapping: mapping, absolute: true, params: [lang:'es'])}\""()
+                        "xhtml:link rel=\"alternate\" hreflang=\"en\" href=\"${g.createLink( mapping: mapping, absolute: true, params: [lang:'en'])}\""()
                     }
                 }
 
@@ -78,9 +79,11 @@ class SiteMapController {
                 ]
                 footerMappings.each{mapping ->
                     url {
-                        loc(g.createLink( mapping: mapping, absolute: true))
+                        loc(g.createLink( mapping: mapping, absolute: true, lang:'en'))
                         changefreq('yearly')
                         priority(0.7)
+                        "xhtml:link rel=\"alternate\" hreflang=\"es\" href=\"${g.createLink( mapping: mapping, absolute: true, params: [lang:'es'])}\""()
+                        "xhtml:link rel=\"alternate\" hreflang=\"en\" href=\"${g.createLink( mapping: mapping, absolute: true, params: [lang:'en'])}\""()
                     }
                 }
 
@@ -90,10 +93,12 @@ class SiteMapController {
                 while (pagePostRSDTO.getData()) {
                     pagePostRSDTO.data.each { post ->
                         url {
-                            loc(g.createLink(mapping: 'postShow', params: post.encodeAsLinkProperties(), absolute: true))
+                            loc(g.createLink(mapping: 'postShowLang', params: post.encodeAsLinkProperties()+ [lang:'en'], absolute: true))
                             changefreq('weekly')
                             priority(0.3)
                             lastmod(post.datePublished.format(FORMAT_DATE_SITEMAP))
+                            "xhtml:link rel=\"alternate\" hreflang=\"es\" href=\"${g.createLink( mapping: 'postShowLang', absolute: true, params: post.encodeAsLinkProperties()+ [lang:'es'])}\""()
+                            "xhtml:link rel=\"alternate\" hreflang=\"en\" href=\"${g.createLink( mapping: 'postShowLang', absolute: true, params: post.encodeAsLinkProperties()+ [lang:'en'])}\""()
                         }
                     }
                     page++;
@@ -106,10 +111,12 @@ class SiteMapController {
                 while (pageDebateRSDTO.getData()) {
                     pageDebateRSDTO.data.each { debate ->
                         url {
-                            loc(g.createLink(mapping: 'debateShow', params: debate.encodeAsLinkProperties(), absolute: true))
+                            loc(g.createLink(mapping: 'debateShowLang', params: debate.encodeAsLinkProperties()+ [lang:'en'], absolute: true))
                             changefreq('weekly')
                             priority(0.3)
                             lastmod(debate.datePublished.format(FORMAT_DATE_SITEMAP))
+                            "xhtml:link rel=\"alternate\" hreflang=\"es\" href=\"${g.createLink( mapping: 'debateShowLang', absolute: true, params: debate.encodeAsLinkProperties()+ [lang:'es'])}\""()
+                            "xhtml:link rel=\"alternate\" hreflang=\"en\" href=\"${g.createLink( mapping: 'debateShowLang', absolute: true, params: debate.encodeAsLinkProperties()+ [lang:'en'])}\""()
                         }
                     }
                     page++;
