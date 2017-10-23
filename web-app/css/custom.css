@@ -58,6 +58,8 @@ input[type="number"],
 input[type="email"],
 select {padding: 6px 6px 6px 8px !important;}*/
 
+body.noLogged > .container-fluid {margin-top: 35px;}
+
 .form-control:focus,
 .jqte_focused {box-shadow: 0 0 0 rgba(0,0,0,0); border-color: #20a2ea;}
 .form-group {margin-bottom: 20px;}
@@ -5746,6 +5748,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
 /* Small devices (tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
+    body.noLogged > .container-fluid {margin-top:40px;}
     #trustUs ul.globus li img {
         height: 40px;
         width: auto;
@@ -6808,7 +6811,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     #boxfiltersContacts .dropdown-menu {min-width: 99px;}
     #campaignsList > li > span.fa {left: 24px;}
 
-
+    body.noLogged > .container-fluid {margin-top:20px;}
 
 }
 @media only screen and (min-width: 1280px) {
@@ -8152,8 +8155,12 @@ button.btn-see-more {
 .leader-post .header .call-to-action-mobile{
     position: fixed;
     z-index: 1000;
-    top: 100px;
+    top: 115px;
     right: 20px;
+}
+
+body.noLogged .leader-post .header .call-to-action-mobile{
+    top:140px;
 }
 
 .leader-post .header .call-to-action-mobile button{

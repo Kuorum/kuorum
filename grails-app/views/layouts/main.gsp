@@ -57,7 +57,11 @@
     <g:set var="schema" value="http://schema.org/WebSite"/>
 </g:if>
 
-<body itemscope itemtype="${schema}" class="${pageProperty(name:"page.bodyCss")}">
+<g:set var="dynamicBodyCss" value=""/>
+<sec:ifNotLoggedIn>
+    <g:set var="dynamicBodyCss" value="noLogged"/>
+</sec:ifNotLoggedIn>
+<body itemscope itemtype="${schema}" class="${pageProperty(name:"page.bodyCss")} ${dynamicBodyCss}">
 
 
 
