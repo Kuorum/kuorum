@@ -211,25 +211,31 @@ class NavigationTagLib {
         Long currentPage = attrs.currentPage
         Long sizePage = attrs.sizePage
         Long totalPages = Math.floor(totalElements / sizePage)
-        String link = attrs.link?:"#"
+        String link = attrs.link?:""
 
         out <<"<div class='pagination'>"
         out <<"<ul class='${ulClass}' data-page='${currentPage}' data-size='${sizePage}' data-link='${link}'>"
 
-        out << getPaginationLi("<", currentPage-1, currentPage == 0)
-        out << getPaginationLi(">", currentPage+1, currentPage >= totalPages )
+        Long lowerLimit = (currentPage +-1) * sizePage
+        lowerLimit = Math.max(lowerLimit,0)
+        String prevLink = link?"${link}${link.contains("?")?"&":"?"}offset=${lowerLimit}":""
+        out << getPaginationLi("<", currentPage-1, currentPage == 0, prevLink)
+
+        Long upperLimit = (currentPage +1) * sizePage
+        upperLimit = Math.min(totalElements,upperLimit)
+        String nextLink = link?"${link}${link.contains("?")?"&":"?"}offset=${upperLimit}":""
+        out << getPaginationLi(">", currentPage+1, currentPage >= totalPages, nextLink )
 
         out <<"</ul>"
-        Long upperLimit = (currentPage +1) * sizePage
-        upperLimit = upperLimit>totalElements?totalElements:upperLimit
+
         out <<"<span class='counterList'>${(currentPage) * sizePage +1} - ${upperLimit} of <span class='totalList'>${totalElements}</span></span>"
         out << "</div>"
     }
 
-    private String getPaginationLi(String arrow, Long nextPage, boolean disabled){
+    private String getPaginationLi(String arrow, Long nextPage, boolean disabled, String link="#"){
         """
             <li>
-                <a class="page ${disabled?'disabled':''}" data-nextPage='${nextPage}' href="#">${arrow}</a>
+                <a class="page ${disabled?'disabled':''}" data-nextPage='${nextPage}' href="${disabled?'#':link}">${arrow}</a>
             </li>
         """
     }

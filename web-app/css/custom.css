@@ -1526,19 +1526,27 @@ div.tagsinput {border:1px solid #DDDDDD;}
 .box-order-options .bulk-actions {width: 16%; display: inline-block; float:left;}
 .pag-list-campaigns {margin: 20px 0;}
 .pag-list-contacts {margin: 0 0 20px;}
-.pag-list-campaigns .pagination, .pag-list-contacts .pagination {display:block; margin:0; float: right;}
+.pag-list-campaigns .pagination,
+.pag-list-contacts .pagination {display:block; margin:0; float: right;}
+.pagination {color: #a8a8a8;font-size: 1.8rem;}
 .pagination > ul {padding: 0; margin: 0;float:right;}
 .pagination > ul > li{list-style: none; display: inline-block;}
-.pagination  > span {display: block; line-height: 32px; float: right; margin-right: 5px;}
+.pagination > span {display: block; line-height: 32px; float: right; margin-right: 5px;}
 .pagination a {text-align: center; color: #545454; display: block; float: right; width: 32px; height: 32px; line-height: 28px; margin-left: 10px; border: 1px solid #e5e5e5; background-color: #fff; background-position: center center; background-repeat: no-repeat;}
 .pagination a.disabled {background-color: #f7f7f7; color:#ddd}
 .pagination a:hover, .pagination a:focus, .pagination a:active, .pagination .disabled a {background-color: #f7f7f7; text-decoration: none;}
 .pagination .active a {background-color: #ddd;}
-.pagination  .active a,
-.pagination  .disabled a {cursor: default; pointer-events: none;}
+.pagination .active a,
+.pagination .disabled a {cursor: default; pointer-events: none;}
 .pag-list-contacts .pagination .disabled a {border: none; width: 5px; margin-left: 1px; color:}
 .searchContainer {position: relative;}
 .searchContainer::after {font-family: FontAwesome; content:''; position: absolute; right: 8px; top: 5px; color: #a8a8a8;}
+.search-actions{ margin-bottom: 5px;}
+.search .politician-list + .search-actions{ margin-bottom: 25px;}
+.search-text{margin-top:7px}
+
+.pag-list-search .pagination {display:block; margin:0; float: right;}
+
 /*.nextCampaings {background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAARCAYAAADkIz3lAAABTElEQVQoU32SPUvDUBSGvZUMDqIuuusiQiYHcdPJLYaYiItYP8Au4uJSUAk4WASniq3iVhFqPsjkHFwc/AUODk5OAcFNTOJzxZbGNr3wcsk9T957zpuIgT7LsqyRJEkqQog7kcdpmjasKEqV+gbgcU8QaALoCmgZXRcKhcMuUNf1KQoNXOaBKlEUHYVh+J0B6WmWnu4BJlFZVdUz27YT2V4bNAxjEafbNE3Hcdt2XbdBPW3N8AuusNhkT/Ltoud5D/+HFKZp7uJyTuENxx3HcZ56JSEwa1JYRRc47eXFJcFpijW0QG9VdIDrV9fV8oBIRrm2BrTGYzOO41IQBB+dcHtqohkimlOK++gReAv4NTN16wF4EKCM8wlnLwy57vv+cybHzmvItAh8ydkn2pRx5f4UDLkEdIPGUCkX/PsQc+x13Ot9QQnT9wx/0vsPX0htrxF9MPAAAAAASUVORK5CYII=');}
 .prevCampaings {background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAARCAYAAADkIz3lAAABUklEQVQoU32RO0vDUBiGPYkIGQQFF0dx8BcIDuKuU0hbpbHdhLZiJ0EI6KSgg4u4OHhDKYi1TXBzEUcFZyfB1UFQXCSEJD5fsGLb1AMv5/I9vOe7KNu2h4MgGK3X6099/yyVzWZLcRyXYcqNRuOhF6symUyB4AF6R0vAN2mwkkfgObYTNIj7crPZPO2EE1CWZVmTSqlzjhPAG7qub5N32Ir/gvJgmuY4wDHHGbSnaZoD/CWxNvAHHgKWnBdwvoiiqOJ53kcXKHAulxsA2kVVrneokgq28qLIfc4r6LInSHFTFHcINIZWU0GGMMu30qJ+9hLtuuoCcSridAT0RiEF13VvO6uWca7hsEPgBc0zpce2PlKlDrCJHAL39K9I/55bUOKYz+dHfN/f4rsSupYd6PUvlIDktE5Q3M4Mw6jWarXPTigB+XaapBfDMHRkAmmQvH0Dog6MNpzI4sgAAAAASUVORK5CYII=');}*/
 

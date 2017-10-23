@@ -11,14 +11,7 @@
 
 
 <content tag="mainContent">
-    <div class="clearfix">
-        <g:if test="${searchParams.word}">
-            <h5 id="results"><g:message code="search.head.title.filterType.${searchParams.type}" args="[searchParams.word?.encodeAsHTML()]"/> <g:message code="search.head.title.numResults" args="[docs.numResults]"/> </h5>
-        </g:if>
-        <g:else>
-            <h1><g:message code="search.head.title.noWord"/> </h1>
-        </g:else>
-    </div>
+    <g:render template="searchActionsPagination" model="[searchParams:searchParams,docs:docs]"/>
     %{--<g:if test="${docs.suggest}">--}%
         %{--<p><g:message code="search.spelling"/> <g:link mapping="searcherSearch" params="[word:docs.suggest.suggestedQuery, type:searchParams.type]" > ${docs.suggest.suggestedQuery} </g:link>(${docs.suggest.hits})</p>--}%
     %{--</g:if>--}%
@@ -38,18 +31,19 @@
         <g:render template="searchElement" model="[docs:docs.elements]"/>
     </ul>
 
-    <nav:loadMoreLink
-            formId="search-form-loadMore"
-            mapping="searcherSearchSeeMore"
-            parentId="search-list-id"
-        pagination="${searchParams}"
-        numElements="${docs.numResults}"
-    >
-        <input type="hidden" name="word" value="${searchParams.word}" />
-        <input type="hidden" name="type" value="${searchParams.type}" />
-        <input type="hidden" name="searchType" value="${searchParams.searchType}" />
-        <input type="hidden" name="regionCode" value="${params.regionCode}" />
-    </nav:loadMoreLink>
+    <g:render template="searchActionsPagination" model="[searchParams:searchParams,docs:docs]"/>
+    %{--<nav:loadMoreLink--}%
+            %{--formId="search-form-loadMore"--}%
+            %{--mapping="searcherSearchSeeMore"--}%
+            %{--parentId="search-list-id"--}%
+        %{--pagination="${searchParams}"--}%
+        %{--numElements="${docs.numResults}"--}%
+    %{-->--}%
+        %{--<input type="hidden" name="word" value="${searchParams.word}" />--}%
+        %{--<input type="hidden" name="type" value="${searchParams.type}" />--}%
+        %{--<input type="hidden" name="searchType" value="${searchParams.searchType}" />--}%
+        %{--<input type="hidden" name="regionCode" value="${params.regionCode}" />--}%
+    %{--</nav:loadMoreLink>--}%
 </content>
 
 <content tag="leftMenu">
