@@ -43,6 +43,8 @@ class SiteMapController {
                     loc(g.createLink( mapping: 'home', absolute: true))
                     changefreq('monthly')
                     priority(1.0)
+                    "xhtml:link rel=\"alternate\" hreflang=\"es\" href=\"${g.createLink( mapping: 'home', absolute: true, params: [lang:'es'])}\""()
+                    "xhtml:link rel=\"alternate\" hreflang=\"en\" href=\"${g.createLink( mapping: 'home', absolute: true, params: [lang:'en'])}\""()
                 }
 
                 def highPriority = [
@@ -59,7 +61,7 @@ class SiteMapController {
                         'register']
                 highPriority.each{mapping ->
                     url {
-                        loc(g.createLink( mapping: mapping, absolute: true, lang:'en'))
+                        loc(g.createLink( mapping: mapping, absolute: true))
                         changefreq('yearly')
                         priority(0.9)
                         "xhtml:link rel=\"alternate\" hreflang=\"es\" href=\"${g.createLink( mapping: mapping, absolute: true, params: [lang:'es'])}\""()
@@ -79,7 +81,7 @@ class SiteMapController {
                 ]
                 footerMappings.each{mapping ->
                     url {
-                        loc(g.createLink( mapping: mapping, absolute: true, lang:'en'))
+                        loc(g.createLink( mapping: mapping, absolute: true))
                         changefreq('yearly')
                         priority(0.7)
                         "xhtml:link rel=\"alternate\" hreflang=\"es\" href=\"${g.createLink( mapping: mapping, absolute: true, params: [lang:'es'])}\""()
