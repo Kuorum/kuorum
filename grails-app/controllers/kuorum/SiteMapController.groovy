@@ -89,6 +89,14 @@ class SiteMapController {
                     }
                 }
 
+                url {
+                    loc(g.createLink( mapping:'searcherSearch', absolute: true))
+                    changefreq('daily')
+                    priority(0.5)
+                    "xhtml:link rel=\"alternate\" hreflang=\"es\" href=\"${g.createLink( mapping: 'searcherSearch', absolute: true, params: [lang:'es'])}\""()
+                    "xhtml:link rel=\"alternate\" hreflang=\"en\" href=\"${g.createLink( mapping: 'searcherSearch', absolute: true, params: [lang:'en'])}\""()
+                }
+
                 Integer page = 0;
                 Integer size = 100;
                 PagePostRSDTO pagePostRSDTO = postService.findAllPosts(page, size)
