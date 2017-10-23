@@ -29,44 +29,19 @@ class LandingController {
         }
     }
 
-    def landingCaseStudy(){
-        if (springSecurityService.isLoggedIn()){
-            flash.message = flash.message
-            redirect (mapping:"dashboard")
-        }
-    }
+    def landingCaseStudy(){}
 
     def caseStudy001(){
-        if (springSecurityService.isLoggedIn()){
-            flash.message = flash.message
-            redirect (mapping:"dashboard")
-        }else{
-            render(view: "/landing/caseStudies/caseStudy001", model:[caseStudyId:"001", suggestedCaseStudies:["002","003","004"]])
-        }
+        render(view: "/landing/caseStudies/caseStudy001", model:[caseStudyId:"001", suggestedCaseStudies:["002","003","004"]])
     }
     def caseStudy002(){
-        if (springSecurityService.isLoggedIn()){
-            flash.message = flash.message
-            redirect (mapping:"dashboard")
-        }else{
-            render(view: "/landing/caseStudies/caseStudy002", model:[caseStudyId:"002", suggestedCaseStudies:["001","003","004"]])
-        }
+        render(view: "/landing/caseStudies/caseStudy002", model:[caseStudyId:"002", suggestedCaseStudies:["001","003","004"]])
     }
     def caseStudy003(){
-        if (springSecurityService.isLoggedIn()){
-            flash.message = flash.message
-            redirect (mapping:"dashboard")
-        }else{
-            render(view: "/landing/caseStudies/caseStudy003", model:[caseStudyId:"003", suggestedCaseStudies:["001","002","004"]])
-        }
+        render(view: "/landing/caseStudies/caseStudy003", model:[caseStudyId:"003", suggestedCaseStudies:["001","002","004"]])
     }
     def caseStudy004(){
-        if (springSecurityService.isLoggedIn()){
-            flash.message = flash.message
-            redirect (mapping:"dashboard")
-        }else{
-            render(view: "/landing/caseStudies/caseStudy004", model:[caseStudyId:"004", suggestedCaseStudies:["002","003","001"]])
-        }
+        render(view: "/landing/caseStudies/caseStudy004", model:[caseStudyId:"004", suggestedCaseStudies:["002","003","001"]])
     }
 
     def landingGovernments(){
