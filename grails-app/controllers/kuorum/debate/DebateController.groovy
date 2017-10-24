@@ -58,7 +58,7 @@ class DebateController {
             searchProposalRSDTO.size = Integer.MAX_VALUE // Sorting and filtering will be done using JS. We expect maximum 100 proposals
 
             ProposalPageRSDTO proposalPage = proposalService.findProposal(debate, searchProposalRSDTO,viewerId)
-            List<KuorumUser> pinnedUsers = proposalPage.data.findAll{it.pinned}.collect{KuorumUser.get(new ObjectId(it.debateUser.id))}.findAll{it}.unique()
+            List<KuorumUser> pinnedUsers = proposalPage.data.findAll{it.pinned}.collect{KuorumUser.get(new ObjectId(it.user.id))}.findAll{it}.unique()
             def model = [debate: debate, debateUser: debateUser, proposalPage:proposalPage, pinnedUsers:pinnedUsers];
             if (params.printAsWidget){
                 render view: 'widgetDebate', model: model
