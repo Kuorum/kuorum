@@ -1590,7 +1590,7 @@ function requestCustomSender($selector) {
 function prepareForms(){
 
     var lang = "en"
-    if (i18n != undefined){
+    if (typeof i18n !== 'undefined'){
         lang = i18n.lang;
     }
     $.fn.datepicker.defaults.language = lang;
