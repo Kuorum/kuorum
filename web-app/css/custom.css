@@ -2048,7 +2048,7 @@ ul.user-list-followers .loading.xs {width: 10px; height: 10px;}
 .user-list-images,
 .boxes.taking-part .user-list-followers {margin: 0 0 20px 0; padding: 0; display: inline-block; line-height: 1.2;}
 .boxes.taking-part .user-list-followers {margin: 0;}
-.user-list-followers {padding: 20px 10px 0 !important;}
+.user-list-followers {padding: 0px 10px 0 !important;}
 
 .user-list-images li {list-style: none; display: inline-block !important; margin: 0; width: auto;}
 .user-list-images li:last-child {margin-right: 0;}
@@ -2720,6 +2720,13 @@ video#bgvid {
 #aside-ppal .panel.collaborate .panel-body ul li:last-child {margin: 0;}
 #aside-ppal .panel.collaborate .panel-body ul li a {color: #545454;}
 
+#aside-ppal .box-ppal{box-shadow:0 0 2px rgba(200,200,200,0.6);}
+#aside-ppal .box-ppal-title{color: #a8a8a8; padding-bottom: 10px;}
+#aside-ppal .box-ppal-title h3{
+    font-size: 20px;
+    font-size: 2rem;
+}
+#aside-ppal .box-ppal-section{padding:0px;}
 
 .boxes {
     background-color: #fff;
@@ -8254,7 +8261,7 @@ body.noLogged .leader-post .header .call-to-action-mobile{
 }
 
 /*** leader-post-stats ***/
-ul.leader-post-stats {box-shadow: 0 0 2px rgba(200,200,200,0.6);}
+ul.leader-post-stats {box-shadow: 0 0 2px rgba(200,200,200,0.6); margin-bottom:20px;}
 .leader-post-stats {
     background-color: #FFF;
     border: 1px solid #F0F0F0;

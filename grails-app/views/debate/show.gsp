@@ -18,5 +18,8 @@
         <g:render template="showModules/cCallToAction" model="[debate: debate, debateUser: debateUser,proposalPage:proposalPage]"/>
     </g:if>
     <g:render template="showModules/cColumn" model="[debate: debate, debateUser: debateUser, proposalPage:proposalPage]" />
+    <g:if test="${pinnedUsers}">
+        <g:render template="/modules/recommendedUsers" model="[recommendedUsers:pinnedUsers, boxTitle:'Relevant users', id:'pinned-users-module']" />
+    </g:if>
 </content>
 
