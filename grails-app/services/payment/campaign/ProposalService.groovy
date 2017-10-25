@@ -1,6 +1,7 @@
 package payment.campaign
 
 import com.fasterxml.jackson.core.type.TypeReference
+import grails.plugin.cache.CacheEvict
 import grails.transaction.Transactional
 import kuorum.users.KuorumUser
 import kuorum.util.rest.RestKuorumApiService
@@ -11,12 +12,14 @@ import org.kuorum.rest.model.communication.debate.ProposalRDTO
 import org.kuorum.rest.model.communication.debate.ProposalRSDTO
 import org.kuorum.rest.model.communication.debate.search.ProposalPageRSDTO
 import org.kuorum.rest.model.communication.debate.search.SearchProposalRSDTO
+import org.springframework.cache.annotation.Cacheable
 
 @Transactional
 class ProposalService {
 
     RestKuorumApiService restKuorumApiService
 
+    @Cacheable(value = 'proposal', key="#debate.id")
     ProposalPageRSDTO findProposal(DebateRSDTO debate, SearchProposalRSDTO searchProposalRSDTO, String viewerUid = null){
         Map<String, String> params = [userAlias: debate.user.alias,debateId:debate.id.toString()]
         Map<String, String> query = searchProposalRSDTO.encodeAsQueryParams()
@@ -38,6 +41,7 @@ class ProposalService {
         proposalPageRSDTO
     }
 
+    @CacheEvict(value = 'proposal', key="#debate.id")
     ProposalRSDTO addProposal(KuorumUser user, DebateRSDTO debate, String body) {
         Map<String, String> params = [userAlias: debate.user.alias,debateId:debate.id.toString()]
         Map<String, String> query = [:]
@@ -60,6 +64,7 @@ class ProposalService {
         proposalRSDTO
     }
 
+    @CacheEvict(value = 'proposal', key="#debate.id")
     ProposalRSDTO pinProposal(KuorumUser user, String debateAlias, Long debateId, Long proposalId, Boolean pin) {
         Map<String, String> params = [userAlias: debateAlias,debateId:debateId.toString(), proposalId:proposalId.toString()]
         Map<String, String> query = [:]
@@ -83,6 +88,7 @@ class ProposalService {
         proposalRSDTO
     }
 
+    @CacheEvict(value = 'proposal', key="#debate.id")
     void likeProposal(KuorumUser user, String debateAlias, Long debateId, Long proposalId, Boolean like) {
         Map<String, String> params = [userAlias: debateAlias,debateId:debateId.toString(), proposalId:proposalId.toString()]
         Map<String, String> query = [likeUserAlias:user.alias]
@@ -104,6 +110,7 @@ class ProposalService {
         }
     }
 
+    @CacheEvict(value = 'proposal', key="#debate.id")
     void deleteProposal(KuorumUser user, String debateAlias, Long debateId, Long proposalId){
         Map<String, String> params = [userAlias: debateAlias,debateId:debateId.toString(), proposalId:proposalId.toString()]
         Map<String, String> query = [userAction:user.alias]
@@ -114,6 +121,7 @@ class ProposalService {
         )
     }
 
+    @CacheEvict(value = 'proposal', key="#debate.id")
     ProposalRSDTO addComment(KuorumUser user, DebateRSDTO debate, Long proposalId, String body) {
         Map<String, String> params = [userAlias: debate.user.alias,debateId:debate.id.toString(), proposalId:proposalId.toString() ]
         Map<String, String> query = [:]
@@ -136,6 +144,7 @@ class ProposalService {
         proposalRSDTO
     }
 
+    @CacheEvict(value = 'proposal', key="#debate.id")
     void deleteComment(KuorumUser user,Long debateId, String debateAlias, Long proposalId, Long commentId) {
         Map<String, String> params = [userAlias: debateAlias,debateId:debateId.toString(), proposalId:proposalId.toString(), commentId:commentId.toString() ]
         Map<String, String> query = [userAction:user.alias]
@@ -147,6 +156,7 @@ class ProposalService {
 
     }
 
+    @CacheEvict(value = 'proposal', key="#debate.id")
     ProposalCommentRSDTO voteComment(KuorumUser user,Long debateId, String debateAlias, Long proposalId, Long commentId, Integer vote) {
         Map<String, String> params = [userAlias: debateAlias,debateId:debateId.toString(), proposalId:proposalId.toString(), commentId:commentId.toString() ]
         Map<String, String> query = [userAction:user.alias, vote:vote.toString()]

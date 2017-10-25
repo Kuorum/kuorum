@@ -49,6 +49,7 @@ log4j = {
             'org.springframework',
             'org.hibernate',
             'net.sf.ehcache.hibernate'
+            'grails.app.services.grails.plugin.cookie.CookieService'
 }
 
 
@@ -329,3 +330,31 @@ kuorum {
 //Added for date bindings
 grails.databinding.dateFormats = ["dd/MM/yyyy"]
 
+// TODO: Do correct cache [WARN WITH VIEWER - UUID]
+grails.cache.enabled = false
+grails.cache.config = {
+//    cacheManager 'GrailsConcurrentLinkedMapCacheManager'
+    cache {
+        name 'reputation'
+        maxCapacity = 5000
+        eternal false
+        overflowToDisk false
+        maxElementsInMemory 1000
+//        maxElementsOnDisk 10000000
+    }
+    cache {
+        name 'debate'
+        maxCapacity = 100
+        eternal false
+        overflowToDisk false
+        maxElementsInMemory 100
+    }
+
+    cache {
+        name 'proposals'
+        maxCapacity = 100
+        eternal false
+        overflowToDisk false
+        maxElementsInMemory 100
+    }
+}

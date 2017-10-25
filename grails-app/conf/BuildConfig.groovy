@@ -184,15 +184,14 @@ grails.project.dependency.resolution = {
         compile ":burning-image:0.5.2"
 
 
+        compile "org.grails.plugins:cache:1.1.8"
 //        runtime ":jquery:1.11.1"
         compile ":cache-headers:1.1.7"
 //        compile "org.grails.plugins:asset-pipeline:2.11.0"
         runtime ":resources:1.2.14"
-//        runtime ":cached-resources:1.0"
         // Uncomment these (or add new ones) to enable additional resources capabilities
         runtime ":zipped-resources:1.0"
         runtime ":cached-resources:1.1"
-        //runtime ":yui-minify-resources:0.1.5"
 
         //test ':build-test-data:2.1.1'
 //        compile ':fixtures:1.2'
@@ -200,7 +199,7 @@ grails.project.dependency.resolution = {
 //        test ":code-coverage:1.2.7"
 //        test ":codenarc:0.20"
 
-        compile ":quartz:1.0.2"
+//        compile ":quartz:1.0.2"
     }
 }
 

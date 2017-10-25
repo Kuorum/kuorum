@@ -9,6 +9,8 @@ import kuorum.util.rest.RestKuorumApiService
 import org.kuorum.rest.model.communication.debate.DebateRDTO
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.kuorum.rest.model.communication.debate.PageDebateRSDTO
+import org.springframework.cache.annotation.CacheEvict
+import org.springframework.cache.annotation.Cacheable
 
 @Transactional
 class DebateService {
@@ -45,10 +47,12 @@ class DebateService {
         debatesFound
     }
 
+    @Cacheable(value="debate", key='#debateId')
     DebateRSDTO findDebate(KuorumUser user, Long debateId, String viewerUid = null) {
         findDebate(user.getId().toString(), debateId, viewerUid);
     }
 
+    @Cacheable(value="debate", key='#debateId')
     DebateRSDTO findDebate(String userId, Long debateId, String viewerUid = null) {
         Map<String, String> params = [userAlias: userId, debateId: debateId.toString()]
         Map<String, String> query = [:]
@@ -74,6 +78,7 @@ class DebateService {
         }
     }
 
+    @CacheEvict(value="debate", key='#debateId')
     DebateRSDTO saveDebate(KuorumUser user, DebateRDTO debateRDTO, Long debateId) {
         debateRDTO.body = debateRDTO.body.encodeAsRemovingScriptTags().encodeAsTargetBlank()
 

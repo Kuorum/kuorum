@@ -8,6 +8,9 @@ import kuorum.util.rest.RestKuorumApiService
 import kuorum.web.constants.WebConstants
 import org.kuorum.rest.model.kuorumUser.reputation.UserReputationEvolutionRSDTO
 import org.kuorum.rest.model.kuorumUser.reputation.UserReputationRSDTO
+import org.springframework.cache.annotation.CacheEvict
+import org.springframework.cache.annotation.CachePut
+import org.springframework.cache.annotation.Cacheable
 
 @Transactional
 class UserReputationService {
@@ -16,6 +19,7 @@ class UserReputationService {
     SpringSecurityService springSecurityService
     CookieUUIDService cookieUUIDService
 
+    @CacheEvict(value='reputation', key='#politician.id')
     UserReputationRSDTO addReputation(KuorumUser politician, Integer evaluation) {
 
         String evaluatorId = cookieUUIDService.getUserUUID();
@@ -38,6 +42,7 @@ class UserReputationService {
         return userReputation;
     }
 
+    @Cacheable(value='reputation', key = '#politician.id')
     UserReputationRSDTO getReputation(KuorumUser politician) {
         String evaluatorId = cookieUUIDService.getUserUUID();
         Map<String, String> params = [userId:politician.id.toString()]
