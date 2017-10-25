@@ -2141,6 +2141,9 @@ ul.user-list-followers .loading.xs {width: 10px; height: 10px;}
     white-space: nowrap;
 }
 
+.user-list-images .popover-trigger{
+    width: 34px;
+}
 
 /*#main .user .popover-trigger { margin-bottom: 10px;}*/
 #main .user.actor {font-size: 12.5px; font-size: 1.25rem; margin-bottom: 10px;}
@@ -2722,10 +2725,8 @@ video#bgvid {
 
 #aside-ppal .box-ppal{box-shadow:0 0 2px rgba(200,200,200,0.6);}
 #aside-ppal .box-ppal-title{color: #a8a8a8; padding-bottom: 10px;}
-#aside-ppal .box-ppal-title h3{
-    font-size: 20px;
-    font-size: 2rem;
-}
+#aside-ppal .box-ppal-title h3{font-size: 20px;font-size: 2rem;}
+#aside-ppal .box-ppal-title h3 .fa-stack{font-size: 1px;font-size: 1.4rem;}
 #aside-ppal .box-ppal-section{padding:0px;}
 
 .boxes {
@@ -8315,6 +8316,8 @@ ul.leader-post-stats {box-shadow: 0 0 2px rgba(200,200,200,0.6); margin-bottom:2
     color: #545454;
     font-weight: bold;
 }
+.comment-box.call-to-action .comment-header .call-title .fa-stack{
+    font-size: 17px;px; font-size:1.7rem;}
 
 .comment-box.call-to-action  .comment-header .call-subTitle{
     font-family: Arial, Helvetica, sans-serif;
@@ -8327,6 +8330,8 @@ ul.leader-post-stats {box-shadow: 0 0 2px rgba(200,200,200,0.6); margin-bottom:2
     display: grid;
     text-align: center;
 }
+
+#module-debate-pinned-users.comment-box.call-to-action  .comment-header .call-title .fa-stack {color:#FF9431}
 
 .comment-box.call-to-action .comment p a {
     color: #00a3ed;

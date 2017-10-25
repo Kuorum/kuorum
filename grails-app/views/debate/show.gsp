@@ -19,7 +19,7 @@
     </g:if>
     <g:render template="showModules/cColumn" model="[debate: debate, debateUser: debateUser, proposalPage:proposalPage, lastActivity:lastActivity]" />
     <g:if test="${pinnedUsers}">
-        <g:render template="/modules/recommendedUsers" model="[recommendedUsers:pinnedUsers, boxTitle:'Relevant users', id:'pinned-users-module']" />
+        <g:render template="/debate/showModules/pinnedUsers" model="[pinnedUsers:pinnedUsers, debateUser: debateUser]" />
     </g:if>
 </content>
 
