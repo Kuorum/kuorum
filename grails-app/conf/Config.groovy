@@ -151,7 +151,7 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	'/**/js/**':                      ['permitAll'],
 	'/**/css/**':                     ['permitAll'],
 	'/**/images/**':                  ['permitAll'],
-	'/**/favicon.ico':                ['permitAll']
+	'/**/faviconKuorum.ico':                ['permitAll']
 ]
 
 grails.plugin.springsecurity.rejectIfNoRule = false

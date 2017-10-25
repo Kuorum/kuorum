@@ -65,7 +65,7 @@
     <link rel="shortcut icon" href="${resource(dir: 'images/icons', file: 'apple-touch-icon-76x76.png')}">
 
     <!-- For everything else -->
-    <link rel="shortcut icon" href="${resource(dir: 'images/icons', file: 'favicon.ico')}">
+    <link rel="shortcut icon" href="${resource(dir: 'images/icons', file: 'faviconKuorum.ico')}">
 
     <r:require modules="vimeo" />
     <g:set var="lang" value="${org.springframework.web.servlet.support.RequestContextUtils.getLocale(request).language}" />

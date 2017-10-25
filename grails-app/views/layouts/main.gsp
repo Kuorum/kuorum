@@ -41,13 +41,13 @@
     <link rel="shortcut icon" href="${resource(dir: 'images/icons', file: 'apple-touch-icon-76x76.png')}">
 
     <!-- For everything else -->
-    <link rel="shortcut icon" href="${resource(dir: 'images/icons', file: 'favicon.ico')}">
+    <link rel="shortcut icon" href="${resource(dir: 'images/icons', file: 'faviconKuorum.ico')}">
 
     <r:require modules="vimeo" />
     <g:set var="lang" value="${org.springframework.web.servlet.support.RequestContextUtils.getLocale(request).language}" />
     <r:require modules="lang_${lang}, kuorumCookies, application" />
     <g:layoutHead/>
-    <g:javascript library="jquery" plugin="jquery"/>
+
     <r:layoutResources />
     <meta property="twitter:account_id" content="4503599627910348" />
     <g:render template="/layouts/internationalization/otherLangsRef"/>
