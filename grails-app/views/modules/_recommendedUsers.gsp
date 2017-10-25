@@ -2,7 +2,7 @@
     <div class="box-ppal-title">
         <h3>${boxTitle}</h3>
     </div>
-    <div class="box-ppal-section">
+    <div class="box-ppal-section hide-3">
         <ul class="user-list-followers">
             <g:each in="${recommendedUsers}" var="user">
                 <userUtil:showUser
