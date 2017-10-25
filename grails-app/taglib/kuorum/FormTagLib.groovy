@@ -974,8 +974,7 @@ class FormTagLib {
         }
 
 
-        out << """
-		<script type="text/javascript">
+        def scriptValidation = """
 			\$(function (){
 				\$("#${formId}").validate({
                 errorClass:'error',
@@ -991,20 +990,19 @@ class FormTagLib {
                 errorElement:'span',
         """
         def rulesAndMessages = generateRulesAndMessages(obj)
-        out <<
-                """ ${rulesAndMessages.rules} , ${rulesAndMessages.message}
+        scriptValidation = scriptValidation +
+            """
+                 ${rulesAndMessages.rules} , ${rulesAndMessages.message}
 				});
 			});
-			</script>
 			"""
+        r.script( [:],scriptValidation)
         if (dirtyControl){
-            out << """
-            <script>
+            r.script( [:],"""
                 \$(function(){
                     formHelper.dirtyFormControl.prepare(\$("#${formId}"))
                 })
-            </script>
-            """
+            """)
         }
     }
 
