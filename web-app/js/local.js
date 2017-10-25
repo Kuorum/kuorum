@@ -165,6 +165,59 @@ $(document).ready(function() {
 
 // aparece la info en la franja superior bajo el header al hacer scroll
 $(document).ready(function() {
+
+    // HEAD SEARCHER
+    var a = $('#srch-term').autocomplete({
+        paramName:"word",
+        params:{type:getFileterType(), searchType:getSearchType()},
+        serviceUrl:kuorumUrls.searchSuggest,
+        minChars:1,
+        width:330,
+        noCache: true, //default is false, set to true to disable caching
+        onSearchStart: function (query) {
+            $('.loadingSearch').show()
+            query.searchType = getSearchType()
+            query.type = getFileterType()
+        },
+        onSearchComplete: function (query, suggestions) {
+            $('.loadingSearch').hide()
+            $('#srch-regionCode').val("");
+        },
+        formatResult:function (suggestion, currentValue) {
+            var format = ""
+            if (suggestion.type=="SUGGESTION" || suggestion.type=="REGION"){
+                format =  suggestion.value
+            }else if(suggestion.type=="USER"){
+                format = "<img class='user-img' alt='"+suggestion.data.name+"' src='"+suggestion.data.urlAvatar+"'>"
+                format +="<span class='name'>"+suggestion.data.name+"</span>"
+                format +="<span class='user-type'>"+suggestion.data.role.i18n+"</span>"
+            }else if(suggestion.type=="PROJECT"){
+                format = "<span class='statusProject'>"+suggestion.data.status.i18n+"</span>"
+                format += suggestion.data.title
+                format += " <strong>"+suggestion.data.hashtag+"</strong>"
+            }
+            return format
+        },
+        searchUserText:function(userText){
+            window.location = kuorumUrls.search+"?word="+encodeURIComponent(userText)
+        },
+        onSelect: function(suggestion){
+            var location = kuorumUrls.search
+                +"?type="+getFileterType()
+                +"&searchType="+getSearchType()
+                +"&word="+encodeURIComponent(suggestion.value)
+            if(suggestion.type=="REGION"){
+                location +="&regionCode="+suggestion.data.iso3166_2
+            }
+            window.location = location
+        },
+        triggerSelectOnValidInput:false,
+        deferRequestBy: 100 //miliseconds
+    });
+
+    // END HEAD SEARCHER
+
+
     if ($('#header').lenght>0) {
         var headerTop = $('#header').offset().top;
         var headerBottom = headerTop + 300; // Sub-menu should appear after this distance from top.
@@ -1751,4 +1804,10 @@ function prepareContactTags(){
             $(this).typeahead('val', '');
         });
     }
+}
+function getSearchType(){
+    return $("#srch-type").val()
+}
+function getFileterType(){
+    return $("#srch-userType").val()
 }

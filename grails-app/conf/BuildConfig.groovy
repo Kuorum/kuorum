@@ -184,7 +184,7 @@ grails.project.dependency.resolution = {
         compile ":burning-image:0.5.2"
 
 
-        runtime ":jquery:1.11.1"
+//        runtime ":jquery:1.11.1"
         compile ":cache-headers:1.1.7"
 //        compile "org.grails.plugins:asset-pipeline:2.11.0"
         runtime ":resources:1.2.14"

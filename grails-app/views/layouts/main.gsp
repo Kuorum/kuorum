@@ -73,11 +73,9 @@
     <a href="#main" accesskey="S" class="sr-only first"><g:message code="layout.mainContent.skipMenu"/></a>
     <g:layoutBody/>
 </div>
-%{--<r:require module="application"/>--}%
+
 <g:render template="/layouts/jsAjaxUrls" model="[currentLang:currentLang]"/>
 <r:layoutResources />
-%{--<script src="${resource(dir: '/js', file: 'jquery.slimscroll.min.js')}"></script>--}%
-%{--<script src="${resource(dir: '/js', file: 'custom.js')}"></script>--}%
 <script>
     <g:if test="${flash.message}">
     var messageDisplay = '${flash.message}'; // For resend this messages
