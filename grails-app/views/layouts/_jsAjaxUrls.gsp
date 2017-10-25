@@ -47,16 +47,6 @@
                 }
             }
         },
-        profile:{
-            kuorumStore:{
-                skillButton:{
-                    active:"<g:message code="profile.kuorumStore.skillButton.active"/>"
-                },
-                roleButton:{
-                    active:"<g:message code="profile.kuorumStore.roleButton.active"/>"
-                }
-            }
-        },
         form:{
             warn:{
                 leavingEditedForm: "<g:message code="form.warn.leavingEditedForm"/>"

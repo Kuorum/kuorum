@@ -339,12 +339,6 @@ $(document).ready(function() {
             //console.log("pete")
         }
     });
-    // change text when select option in the edit post form
-	$('#updateText').text($('#typePubli li.active').text());
-	$('#selectType').change(function(){
-        	$('#updateText').text($('#typePubli li').eq(this.selectedIndex).text());
-    });
-
 
 	// countdown textarea edición propuesta
 	$(function() {
@@ -368,28 +362,6 @@ $(document).ready(function() {
 			}
 		});
 	});
-
-    $(function() {
-        var totalChars      = parseInt($('#charInitTit span').text());
-        var countTextBox    = $('#title-project.counted');
-        var charsCountEl    = $('#charNumTit span');
-
-        if (countTextBox.length> 0){
-            charsCountEl.text(totalChars - countTextBox.val().length);
-        }
-        countTextBox.keyup(function() {
-
-            var thisChars = this.value.replace(/{.*}/g, '').length;
-
-            if (thisChars > totalChars)
-            {
-                var CharsToDel = (thisChars-totalChars);
-                this.value = this.value.substring(0,this.value.length-CharsToDel);
-            } else {
-                charsCountEl.text( totalChars - thisChars );
-            }
-        });
-    });
 
 	// hacer visible la contraseña
 	$('#show-pass').attr('checked', false);
@@ -562,31 +534,8 @@ $(document).ready(function() {
             ulUserLists.html(data)
         })
     });
-    $('.roleButton').on("click", function(e){
-        e.preventDefault();
-        var link = $(this);
-        var url = link.attr('href');
-        followActions.ajaxFollow(url,link, function(data){
-            $(".roleButton.active").removeClass("active").html("Activar");
-            link.addClass("btn-green active");
-            link.html(i18n.profile.kuorumStore.roleButton.active);
-            $("#numEggs").html(data.numEggs);
-            $("#numCorns").html(data.numCorns);
-            $("#numPlumes").html(data.numPlumes)
-        })
-    });
-    $('.skillButton').on("click", function(e){
-        e.preventDefault();
-        var link = $(this);
-        var url = link.attr('href');
-        followActions.ajaxFollow(url,link, function(data){
-            link.addClass("active");
-            link.html(i18n.profile.kuorumStore.skillButton.active);
-            $("#numEggs").html(data.numEggs);
-            $("#numCorns").html(data.numCorns);
-            $("#numPlumes").html(data.numPlumes)
-        })
-    });
+
+
     $("#deleteAccountForm a").on("click", function(e){
         e.preventDefault();
         $("#deleteAccountForm input[name=forever]").val("true");
@@ -616,16 +565,6 @@ $(document).ready(function() {
                 element.siblings('span').html(q+1)
             });
         }
-    });
-
-    $("#projectChangePostTypeButtonDiv a").click(function(e){
-        e.preventDefault();
-        e.stopPropagation();
-        $("#projectChangePostTypeButtonDiv a").removeClass("active");
-        $(this).addClass("active");
-        var showDivId = $(this).attr("data-showDivId");
-        $("div[data-name=listClucks]").addClass("hidden");
-        $("#"+showDivId).removeClass("hidden")
     });
 
     $(".dynamicList").dynamiclist();

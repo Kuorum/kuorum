@@ -20,4 +20,3 @@
         </div><!-- /.container-fluid -->
     </nav>
 </header>
-<g:render template="/layouts/karma"/>

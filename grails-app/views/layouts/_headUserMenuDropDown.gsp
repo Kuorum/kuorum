@@ -20,7 +20,6 @@
             %{--<span class="badge" role="log" aria-labelledby="mis-post" aria-live="assertive" aria-relevant="additions">${numUserPosts?:''}</span>--}%
         %{--</g:link>--}%
     %{--</li>--}%
-    %{--<li><g:link mapping="toolsKuorumStore"><g:message code="head.navigation.userMenu.kuorumStore"/></g:link></li>--}%
     %{--<li>--}%
         %{--<g:link mapping="profileMessages">--}%
             %{--<span id="messages-user"><g:message code="head.navigation.userMenu.userMessages"/></span>--}%

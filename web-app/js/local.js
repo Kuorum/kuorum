@@ -1331,13 +1331,6 @@ $(document).ready(function() {
 
     ///////////////////// EDICIÓN PROPUESTA //////////////////////////
 
-    // change text when select option in the edit post form
-    $('#updateText').text($('#typePubli li.active').text());
-    $('#selectType').change(function(){
-        $('#updateText').text($('#typePubli li').eq(this.selectedIndex).text());
-    });
-
-
     // countdown textarea edición propuesta
     $(function() {
         var totalChars      = parseInt($('#charInit span').text());
@@ -1363,29 +1356,6 @@ $(document).ready(function() {
 
 
     ///////////////////// EDICIÓN PROYECTO //////////////////////////
-
-    // countdown textarea edición proyecto TÍTULO
-    $(function() {
-        var totalChars      = parseInt($('#charInitTit span').text());
-        var countTextBox    = $('#title-project.counted');
-        var charsCountEl    = $('#charNumTit span');
-
-        if (countTextBox.length> 0){
-            charsCountEl.text(totalChars - countTextBox.val().length);
-        }
-        countTextBox.keyup(function() {
-
-            var thisChars = this.value.replace(/{.*}/g, '').length;
-
-            if (thisChars > totalChars)
-            {
-                var CharsToDel = (thisChars-totalChars);
-                this.value = this.value.substring(0,this.value.length-CharsToDel);
-            } else {
-                charsCountEl.text( totalChars - thisChars );
-            }
-        });
-    });
 
     // countdown textarea edición proyecto HASHTAG
     $(function() {

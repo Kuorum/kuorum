@@ -38,7 +38,7 @@
 </div>
 
 
-<script>
+<r:script>
     var ${validationDataVarName} = ${raw(validationDataVarNameValue)};
     var ${validationDataVarIndex} = ${validationDataVarIndexValue};
     var removableRow_${formId};
@@ -140,4 +140,4 @@
                 addLine_${formId}();
 
             });
-</script>
+</r:script>
