@@ -53,30 +53,6 @@ class ModulesTagLib {
         }
     }
 
-    def recommendedProjects = { attrs ->
-        KuorumUser user = null
-        if (springSecurityService.isLoggedIn()) {
-            user = KuorumUser.get(springSecurityService.principal.id);
-        }
-        List<Project> projects = projectService.relevantProjects(user, new Pagination(max: 2))
-        out << render(template: '/modules/recommendedProjects', model: [projects: projects])
-    }
-
-    def ralatedUsersWithUser = { attrs ->
-        KuorumUser user = attrs.user
-        List<KuorumUser> relatedUsers = []
-        int index = user.following.size() - 1;
-        while (index > 0 && user.following.size() - 4 < index) {
-            relatedUsers.add(KuorumUser.get(user.following.get(index)))
-            index--
-        }
-
-        List<KuorumUser> recommendedUsers = user.following[user.following.size()]
-        if (relatedUsers) {
-            out << render(template: '/modules/users/relatedUsers', model: [relatedUsers: relatedUsers])
-        }
-    }
-
     def recommendedUsersList = { attrs ->
         Integer numUsers = attrs.numUsers as Integer
         KuorumUser user = attrs.user

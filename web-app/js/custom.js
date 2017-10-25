@@ -56,29 +56,6 @@ $(document).ready(function() {
     $("#brand.disabled").on('click', function (e) {
         e.preventDefault();
     });
-    // links kakareo, impulsar
-    $('body').on('click', '.action.cluck', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        if (!$(this).hasClass('disabled')){
-            var url = $(this).attr("href");
-            var postId = $(this).parents("article").first().attr("data-cluck-postId");
-            var html = $("article[data-cluck-postId='" + postId + "'] li.kakareo-number").html();
-            $.ajax({
-                url:url,
-                beforeSend:function(xhr){
-                    $("article[data-cluck-postId='"+postId+"'] li.kakareo-number").html('<div class="loading xs"><span class="sr-only">Cargando...</span></div>')
-                }
-            }).done(function(data){
-                $("article[data-cluck-postId='" + postId + "'] li.kakareo-number").html(html);
-                $("article[data-cluck-postId='"+postId+"'] li.kakareo-number .action").addClass('disabled');
-                $("article[data-cluck-postId='"+postId+"'] li.kakareo-number .counter").each(function(idx, element){
-                    var numKakareos = parseInt($(element).text()) +1;
-                    $(element).text(numKakareos);
-                });
-            });
-        }
-    });
 
     // botón Seguir de las cajas popover y página ley-participantes
     $(document).on({
@@ -233,73 +210,6 @@ $(document).ready(function() {
         });
     }
 
-
-	// Deshabilitar enlaces números (descubre)
-	$('.introDiscover .steps .active').find('a').addClass('disabled');
-	$('body').on("click", ".introDiscover .steps .active a", function(e) {
-		e.preventDefault();
-	});
-
-
-    $('body').on("click", ".voting ul.noLoggedVoteDiv li a", function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        $('#registro').modal('show');
-    });
-    $('body').on("click", ".voting li a.ajaxVote", function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        var projectId = $(this).attr("data-projectId");
-        var votingDiv = $(this).parents(".voting");
-        var iconsHtml = votingDiv.html();
-        votingDiv.html('<div class="loading"><span class="sr-only">Cargando...</span></div>');
-        $.ajax( {
-            url:$(this).attr("href"),
-            statusCode: {
-                401: function() {
-                    display.info("Estás deslogado");
-                    setTimeout('location.reload()',5000);
-                }
-            }
-        }).done(function(data, status, xhr) {
-            votingDiv.html(iconsHtml);
-            $('.voting[data-projectid=' + projectId + '] ul li a').removeClass("active");
-            $('.voting[data-projectid=' + projectId + '] ul li.' + data.voteType + ' a').addClass("active");
-            if (data.newVote){
-                karma.open(data.gamification)
-            }
-        })
-});
-
-	$('body').on("click", ".voting li .yes", function(e) {
-        var lawId = $(this).parents("section").attr("data-lawId");
-        $('section[data-lawId='+lawId+'] .activity .favor').addClass('active');
-	});
-	$('body').on("click", ".voting li .no", function(e) {
-        var lawId = $(this).parents("section").attr("data-lawId");
-        $('section[data-lawId='+lawId+'] .activity .contra').addClass('active');
-	});
-	$('body').on("click", ".voting li .neutral", function(e) {
-        var lawId = $(this).parents("section").attr("data-lawId");
-        $('section[data-lawId='+lawId+'] .activity .abstencion').addClass('active');
-	});
-
-    $(".noMailConfirmedVoteDiv").on("click", function(e){
-        e.preventDefault();
-        //messageError has been defined on layout recovering data from flash.error
-        display.warn(i18n.showMailConfirm)
-    });
-
-
-	// Si hago click en cambio de opinión vuelven los botones
-	$('body').on("click", ".changeOpinion", function(e) {
-		e.preventDefault();
-        var lawId = $(this).parents("section").attr("data-lawId");
-        $('section[data-lawId='+lawId+'] .activity li').removeClass('active');
-		$(this).css('display', 'none');
-		$('section[data-lawId='+lawId+']  .voting ul').css('display', 'block');
-	});
-
 	// Buscador: cambia el placeholder según el filtro elegido
 	$(function() {
 
@@ -344,34 +254,6 @@ $(document).ready(function() {
 //        })
 
     }
-
-    $("#filter-menu ul.dropdown-menu li a").on('click', function(e){
-        e.preventDefault();
-        var element = $(this);
-        var field = element.attr("data-forminput");
-        var value = element.attr("data-value");
-        $("#discover-project-form input[name=" + field + "]").val(value);
-        $(this).parent("button").html(element.html());
-        $("#discover-project-form").submit()
-    });
-    // el enlace callMobile (visible sólo en pantallas de hasta 767px, desaparece si le haces click o si llegas a la votación
-	if ( $('#vote').length > 0 ) {
-
-		$(function() {
-			var callMobile = $('.callMobile');
-			var eTop = $('#vote').offset().top;
-			var realPos = eTop - 80;
-			$(window).scroll(function() {
-				var scroll = $(window).scrollTop();
-				if (scroll >= realPos) {
-					callMobile.fadeOut('slow');
-				} else {
-					callMobile.fadeIn('slow');
-				}
-			});
-		});
-
-	}
 
 	// si boxes lleva foto pongo padding superior
 	if ( $('.boxes.noted.likes.important').children('img.actor').length > 0 ) {
@@ -1178,41 +1060,6 @@ var display = {
 function openComments(){
     $('.listComments > li').fadeIn('slow');
     $('#ver-mas').hide();
-}
-
-function readLater(readLaterElement){
-    var url = $(readLaterElement).attr("href");
-    var postId = $(readLaterElement).parents("article").first().attr("data-cluck-postId");
-    var html = $("article[data-cluck-postId='" + postId + "'] li.read-later").html();
-    var loadingHtml = '<div class="loading xs"><span class="sr-only">Cargando...</span></div>';
-    $.ajax({
-        url:url,
-        beforeSend:function(xhr){
-            $("article[data-cluck-postId='"+postId+"'] li.read-later").html(loadingHtml)
-        }
-    }).done(function(data, status, xhr){
-        var isFavorite = xhr.getResponseHeader('isFavorite');
-        var numFavorites = xhr.getResponseHeader('numList');
-        $("article[data-cluck-postId='"+postId+"'] li.read-later").html(html);
-        $(".pending h1 .badge").text(numFavorites);
-        $("section.boxes.guay.pending").addClass(numFavorites==0 ? "hide" : "");
-        $("section.boxes.guay.pending").removeClass(numFavorites!=0 ? "hide" : "");
-        $("section.boxes.guay.pending ul.kakareo-list li.text-center").addClass(numFavorites < 6 ? 'hide' : '');
-        $("section.boxes.guay.pending ul.kakareo-list li.text-center").removeClass(numFavorites >= 6 ? 'hide' : '');
-
-        if (isFavorite == 'true'){
-            $("article[data-cluck-postId='"+postId+"'] li.read-later a").addClass("disabled");
-            $("article[data-cluck-postId='"+postId+"'] li.read-later a").removeClass("enabled");
-            $("section.boxes.guay.pending ul.kakareo-list").prepend(data);
-            $("section.boxes.guay.pending ul.kakareo-list li:first").addClass(numFavorites<=5 ? '' : 'hide');
-        }
-        else{
-            $("article[data-cluck-postId='"+postId+"'] li.read-later a").removeClass("disabled");
-            $("article[data-cluck-postId='"+postId+"'] li.read-later a").addClass("enabled");
-            $("section.boxes.guay.pending article[data-cluck-postId='"+postId+"']").parent().remove();
-            $("section.boxes.guay.pending ul.kakareo-list li.hide:first").removeClass('hide');
-        }
-    });
 }
 
 $(document).ajaxStop(function () {

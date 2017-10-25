@@ -1264,49 +1264,6 @@ $(document).ready(function() {
     });
 
 
-    // leer después
-    $('body').on('click', '.read-later.logged a', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        readLater($(this))
-    });
-    $('body').on('click', '#postNav .read-later a', function(e) {
-        readLater($(this));
-        e.preventDefault();
-        e.stopPropagation();
-    });
-
-    // modal registro
-    // $('body').on('click', "[data-toggle='modal'][data-target='#registro']", function(e) {
-    //     e.preventDefault();
-    //     e.stopPropagation();
-    //     $("#registro").modal("show")
-    // });
-
-    // Habilitar/deshabilitar link "Marcar como inapropiado"
-    $('body').on("click", ".mark a", function(e) {
-        e.preventDefault();
-        if ( $(this).hasClass('disabled') ){
-            $(this).removeClass('disabled');
-        } else {
-            $(this).addClass('disabled');
-        }
-    });
-
-
-    // Activar/desactivar materia que me interesa en el proyecto -> lo dejo comentado porque sólo debe ocurrir cuando estás logado. Falta programar esto.
-
-    /* $('body').on("click", ".icons.subject a", function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        if ( $(this).hasClass('active') ){
-            $(this).removeClass('active');
-        } else {
-            $(this).addClass('active');
-        }
-    });*/
-
-
     // Activar/desactivar filtros propuestas ciudadanas
     $('body').on("click", ".filters .btn", function(e) {
         e.preventDefault();

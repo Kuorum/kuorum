@@ -11,15 +11,6 @@
 
 
 %{--<content tag="mainContent">--}%
-    %{--<div class="introDiscover">--}%
-        %{--<p class="pre">Las leyes más polémicas en debate</p>--}%
-        %{--<ul class="steps">--}%
-            %{--<li class="active"><a href="#" class="badge">1</a></li>--}%
-            %{--<g:each in="${2..relevantProjects.size()}" var="i">--}%
-                %{--<li><a href="#" class="badge">${i}</a></li>--}%
-            %{--</g:each>--}%
-        %{--</ul>--}%
-    %{--</div>--}%
 
     %{--<g:each in="${relevantProjects}" var="project" status="i">--}%
         %{--<div class="row" style="display:${i!=0?'none':'block'}" id="relevantProject_${i}">--}%
@@ -43,7 +34,6 @@
         %{--<p><g:message code="discover.module.mostActiveUsers.footerText"/></p>--}%
     %{--</aside>--}%
     <aside class="row others">
-        %{--<g:render template="discover/recommendedProjects" model="[recommendedProjects:recommendedProjects]"/>--}%
         <modulesUtil:lastCreatedPosts numPost="3" specialCssClass="col-xs-12 col-sm-4 col-md-4"/>
 
 

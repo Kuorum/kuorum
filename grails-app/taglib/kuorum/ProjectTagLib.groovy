@@ -11,6 +11,7 @@ import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
 import org.bson.types.ObjectId
 
+@Deprecated
 class ProjectTagLib {
     static defaultEncodeAs = 'raw'
 
@@ -81,16 +82,5 @@ class ProjectTagLib {
         if ((springSecurityService.isLoggedIn()) ){
             out << body()
         }
-    }
-
-    def showProjectModule={attrs->
-        Project project = attrs.project
-        ProjectUpdate projectUpdate =attrs.projectUpdate?:null
-        ProjectVote userVote = null
-        if ((springSecurityService.isLoggedIn()) && (SpringSecurityUtils.ifAnyGranted('ROLE_USER, ROLE_ADMIN, ROLE_PREMIUM, ROLE_POLITICIAN'))){
-            KuorumUser user = springSecurityService.getCurrentUser();
-            userVote = projectService.findProjectVote(project, user);
-        }
-        out << render (template:'/modules/projects/projectOnList', model: [project: project,projectUpdate:projectUpdate, userVote:userVote])
     }
 }
