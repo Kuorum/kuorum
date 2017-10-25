@@ -59,7 +59,9 @@ class DebateController {
 
             ProposalPageRSDTO proposalPage = proposalService.findProposal(debate, searchProposalRSDTO,viewerId)
             Date lastActivity = proposalPage?.data?.collect{[it.datePublished]+it.comments*.datePublished}.flatten().max()?:debate.datePublished
-            lastModified(lastActivity)
+            if (lastActivity){
+                lastModified(lastActivity)
+            }
             List<KuorumUser> pinnedUsers = proposalPage.data.findAll{it.pinned}.collect{KuorumUser.get(new ObjectId(it.user.id))}.findAll{it}.unique()
             def model = [debate: debate, debateUser: debateUser, proposalPage:proposalPage, pinnedUsers:pinnedUsers, lastActivity:lastActivity];
             if (params.printAsWidget){
