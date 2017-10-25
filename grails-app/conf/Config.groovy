@@ -49,7 +49,7 @@ log4j = {
             'org.springframework',
             'org.hibernate',
             'net.sf.ehcache.hibernate'
-            'grails.app.services.grails.plugin.cookie.CookieService'
+    off     'grails.app.services.grails.plugin.cookie.CookieService'
 }
 
 
