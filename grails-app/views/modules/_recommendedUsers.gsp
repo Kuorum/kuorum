@@ -2,15 +2,15 @@
     <div class="box-ppal-title">
         <h3>${boxTitle}</h3>
     </div>
-    <div class="box-ppal-section hide-3">
-        <ul class="user-list-followers">
+    <div class="box-ppal-section">
+        <ul class="user-list-followers hide3">
             <g:each in="${recommendedUsers}" var="user">
                 <userUtil:showUser
                         user="${user}"
                         showName="true"
                         showRole="true"
                         showActions="true"
-                        showDeleteRecommendation="false"
+                        showDeleteRecommendation="true"
                         htmlWrapper="li"
                 />
             </g:each>
