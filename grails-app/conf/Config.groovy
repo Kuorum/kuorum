@@ -190,6 +190,14 @@ grails.plugin.springsecurity.successHandler.defaultTargetUrl='/dashboard'
 grails.plugin.springsecurity.loginDomain = "https://kuorum.org"
 grails.plugin.cookiesession.domain=".kuorum.org"
 grails.plugin.cookiesession.springsecuritycompatibility=true
+
+
+cache.headers.presets = [
+        authed_page: false, // No caching for logged in user
+        landings: [shared:true, validFor: 3600 *24 ], // 1day on landings
+        blog: [shared: true, validUntil:new Date()+1],
+        search_results: [validFor: 60, shared: true]
+]
 oauth {
     debug = true
     providers {

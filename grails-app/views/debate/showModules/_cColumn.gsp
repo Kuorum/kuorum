@@ -25,6 +25,6 @@
     </li>
     <li>
         <span class="fa fa-clock-o" aria-hidden="true"></span>
-        <span class="info"><g:message code="debate.lastActivity"/> <kuorumDate:humanDate date="${proposalPage?.data?.collect{[it.datePublished]+it.comments*.datePublished}.flatten().max()?:debate.datePublished}"/> </span>
+        <span class="info"><g:message code="debate.lastActivity"/> <kuorumDate:humanDate date="${lastActivity}"/> </span>
     </li>
 </ul>

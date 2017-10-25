@@ -9,6 +9,7 @@ class LandingController {
     def index() { }
 
     def landingServices(){
+        cache "landings"
         if (springSecurityService.isLoggedIn()){
             flash.message = flash.message
             redirect (mapping:"dashboard")
