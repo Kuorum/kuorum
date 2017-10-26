@@ -493,8 +493,8 @@ class FormTagLib {
             out << "<p class='help-block'>${helpBlock}</p>"
         }
 
-        out << """
-            <script>
+        def tagInputScript = """
+            
             \$(function(){
                 \$('#${id}').tagsInput(
                         {
@@ -521,8 +521,8 @@ class FormTagLib {
                             }
                         })
             })
-        </script>
             """
+        r.script( [:],tagInputScript)
     }
 
     def socialInput={attrs ->
