@@ -23,7 +23,7 @@
 </div>
 
 <div id="fb-root"></div>
-<script>
+<r:script>
 
     /// FACBOOK AJAX LOGIN
     window.fbAsyncInit = function() {
@@ -78,10 +78,10 @@
         var callbackFunctionName = $('#registro').find("form").attr("callback");
         FBLogin(noLoggedCallbacks[callbackFunctionName]);
     })
-</script>
+</r:script>
 
 
-<script>
+<r:script>
     var GoogleAuth;
     var SCOPE = 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email';
     function handleClientLoad() {
@@ -160,7 +160,7 @@
             }
         }
     }
-</script>
+</r:script>
 
 <script async defer src="https://apis.google.com/js/api.js"
         onload="this.onload=function(){};handleClientLoad()"

@@ -1,4 +1,4 @@
-<script type="text/javascript">
+<r:script>
     $(function (){
         $("#${modalId} #login-modal").validate({
             errorClass:'error',
@@ -43,7 +43,7 @@
             }
         });
     });
-</script>
+</r:script>
 <form action='${g.createLink(controller: 'login', action: 'modalAuth')}' method="post" name="login-header" id="login-modal" role="form" class="login">
     <div class="form-group">
         <label for="j_username" class="sr-only"><g:message code="login.email.form.email.label"/></label>

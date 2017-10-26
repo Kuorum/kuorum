@@ -1,5 +1,5 @@
 
-<script type="text/javascript">
+<r:script>
     $(function (){
         jQuery.validator.addMethod("validate_email",function(value, element) {
             return (/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test( value ))
@@ -59,7 +59,7 @@
             }
         });
     });
-</script>
+</r:script>
 <g:form mapping="register" action-ajax="${g.createLink(mapping: 'registerAjax')}" autocomplete="off" method="post" name="${formId}" class="login" role="form" novalidate="novalidate">
     <div class="form-group">
         <formUtil:input

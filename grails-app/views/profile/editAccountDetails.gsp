@@ -18,11 +18,11 @@
 
     <!-- ÑAPA PARA MOSTRAR EL ERROR DE VALIDACIÓN DE CONTRASEÑA FUERA DEL MODAL -->
     <g:hasErrors bean="${command}" field="password">
-        <script>
+        <r:script>
             $(function () {
                 display.error('${g.fieldError(bean: command, field: 'password')}');
             });
-        </script>
+        </r:script>
     </g:hasErrors>
 
     <formUtil:validateForm bean="${command}" form="accountDetailsForm" dirtyControl="true"/>

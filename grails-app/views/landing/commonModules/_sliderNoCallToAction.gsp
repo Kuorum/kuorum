@@ -18,7 +18,7 @@
     </div>
 </div>
 
-<script>
+<r:script>
     $(function(){
         //scroll effect
         $("[data-effect='scroll']").on('click', function(e) {
@@ -47,4 +47,4 @@
         });
 
     });
-</script>
+</r:script>

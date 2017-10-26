@@ -25,7 +25,7 @@
             </div>
         </div>
     </div>
-    <script>
+    <r:script>
         $(function() {
             $("#enterTimeZone").modal({
                 backdrop: 'static',
@@ -33,5 +33,5 @@
             }).modal('show');
             $("input[name=timeZoneRedirect]").val(window.location)
         });
-    </script>
+    </r:script>
 </userUtil:ifLoggedUserHasNotTimeZone>

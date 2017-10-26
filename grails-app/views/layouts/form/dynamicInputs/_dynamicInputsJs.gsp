@@ -84,7 +84,7 @@
         </g:each>
         ${validationDataVarIndex}++;
         formHelper.dirtyFormControl.restart($('#${formId}'));
-        prepareForms();
+        formHelper.prepareForms();
     }
 
     function removeLine_${formId}($row){

@@ -15,11 +15,11 @@
             <input type="submit" value="${message(code: 'forgotPassword.form.submit')}" class="btn btn-lg">
         </div>
     </g:form>
-    <script>
+    <r:script>
         $(document).ready(function() {
             $('#email').focus();
         });
-    </script>
+    </r:script>
 
 </content>
 

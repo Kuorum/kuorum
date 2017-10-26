@@ -47,16 +47,6 @@ $(document).ready(function() {
         2: i18n.customRegister.step4.form.submit.description2,
         ok:i18n.customRegister.step4.form.submit.descriptionOk
     };
-    function changeDescriptionNumSelect(){
-        var numChecked = $("#sign4 input[type=checkbox]:checked").length;
-        if (numChecked < 3){
-            $("#descNumSelect").html(texts[numChecked]);
-            $("#sign4 input[type=submit]").addClass('disabled')
-        }else{
-            $("#descNumSelect").html(texts['ok']);
-            $("#sign4 input[type=submit]").removeClass('disabled')
-        }
-    }
 
     $("#brand.disabled").on('click', function (e) {
         e.preventDefault();
@@ -266,38 +256,6 @@ $(document).ready(function() {
 
 	}
 
-
-    function prepareFormUsingGender(userType){
-        if (userType == "ORGANIZATION"){
-            $(".userData").hide();
-            $(".politicianData").hide();
-            $(".organizationData").show()
-        }else if (userType == "POLITICIAN"){
-            $(".userData").show();
-            $(".politicianData").show();
-            $(".organizationData").hide()
-        }else{
-            $(".userData").show();
-            $(".politicianData").hide();
-            $(".organizationData").hide()
-        }
-
-    }
-    $("input[name=userType], input[name=gender]").on("change", function(e){
-        prepareFormUsingGender($(this).val())
-    });
-    if ($("input[name=userType]:checked").val() != undefined){
-        prepareFormUsingGender($("input[name=userType]:checked").val())
-    }else{
-        prepareFormUsingGender("PERSON")
-    }
-
-    if ($("input[name=gender]:checked").val() != undefined){
-        prepareFormUsingGender($("input[name=gender]:checked").val())
-    }else{
-        prepareFormUsingGender("FEMALE")
-    }
-
 	// para los checkbox del formulario de registro
 	var texts= {
         0: i18n.customRegister.step4.form.submit.description0,
@@ -319,7 +277,6 @@ $(document).ready(function() {
 
 	// seleccionar todos los checkbox
 	$(function () {
-
         changeDescriptionNumSelect();
         var checkAll = $('#selectAll');
 	    var checkboxes = $('input.check');
@@ -368,31 +325,6 @@ $(document).ready(function() {
 	});
 
 
-	// seleccionar todos los checkbox en configuración
-	$(function () {
-        $('.allActivityMails').change(function() {
-            var formGroup = $(this).parents(".form-group");
-            if($(this).is(':checked')) {
-                formGroup.find('input[type=checkbox]').prop('checked', true);
-            } else {
-                formGroup.find('input[type=checkbox]').prop('checked', false);
-            }
-        });
-	});
-
-
-	// le da la clase error al falso textarea
-	$(function () {
-		if ( $('#textPost').hasClass('error') ) {
-		    $('#textPost').closest('.jqte').addClass('error');
-		}
-
-        if ( $('#description').hasClass('error') ) {
-            $('#description').closest('.jqte').addClass('error');
-        }
-	});
-
-
     $('.ajax.popover-trigger.more-users').on('shown.bs.popover', function () {
         var that = $(this);
         var content = $(this).next().children(".popover-content");
@@ -422,8 +354,6 @@ $(document).ready(function() {
         $('[data-multimedia-type="'+multimediaType+'"]').show()
 
     });
-
-    $(".dynamicList").dynamiclist();
 
     // desvanecer y eliminar los usuario de la lista "A quién seguir"
     $('body').on('click','ul.user-list-followers > li.user .close', function(e) {
@@ -522,62 +452,6 @@ $(document).ready(function() {
     youtubeHelper.replaceNonExistImage();
     // HANDLE WRONG YOUTUBE VIDEOS
     youtubeHelper.replaceAllWrongYoutubeImages();
-
-
-    $(".input-region").autocomplete({
-        paramName:"word",
-        params:{country:""},
-        serviceUrl:kuorumUrls.suggestRegion,
-        minChars:3,
-        width:330,
-        noCache: false, //default is false, set to true to disable caching
-        onSearchStart: function (query) {
-//            var realInputId = $(this).attr('data-real-input-id');
-//            realInputId = realInputId.replace(".", "\\.")
-//            $("#"+realInputId).val("");
-        },
-        onSearchComplete: function (query, suggestions) {
-            $('.loadingSearch').hide()
-        },
-        formatResult:function (suggestion, currentValue) {
-            var format = "";
-            if (suggestion.type=="NATION"){
-                //AD ICONS DEPENDING ONT REGION TYPE || EXAMPLE COMMENTED
-//                format = "<img class='user-img' alt='"+suggestion.data.name+"' src='"+suggestion.data.urlAvatar+"'>"
-//                format +="<span class='name'>"+suggestion.data.name+"</span>"
-//                format +="<span class='user-type'>"+suggestion.data.role.i18n+"</span>"
-            }else{
-                format =  suggestion.value
-            }
-            return format
-        },
-        searchUserText:function(userText){
-            $(this).val(userText)
-        },
-        onSelect: function(suggestion){
-            if(suggestion.type=="NATION"){
-                console.log("NATION")
-            }
-            $(this).val(suggestion.data.name);
-            var realInputId = $(this).attr('data-real-input-id');
-            realInputId = realInputId.replace(".", "\\.");
-            $("#"+realInputId).val(suggestion.data.iso3166_2);
-            $("#"+realInputId).valid()
-        },
-        triggerSelectOnValidInput:false,
-        deferRequestBy: 100 //miliseconds
-    }).focusout(function(e){
-        var realInputId = $(this).attr('data-real-input-id');
-        realInputId = realInputId.replace(".", "\\.");
-        if ($(this).val().length ===0){
-            $("#"+realInputId).val("")
-        }
-        $("#"+realInputId).valid()
-    }).keypress(function(e){
-        var realInputId = $(this).attr('data-real-input-id');
-        realInputId = realInputId.replace(".", "\\.");
-        $("#"+realInputId).val("")
-    });
 
 
     /*****************

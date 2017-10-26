@@ -16,7 +16,7 @@
     <h2><g:message code="funnel.subscriptionPaid.description1"/> </h2>
     <p><g:message code="funnel.subscriptionPaid.description2"/> </p>
     <p><g:message code="funnel.subscriptionPaid.redirect" args="[3, urlRedirectAfterPay]" encodeAs="raw"/></p>
-    <script>
+    <r:script>
         $(function(){
             var seconds =parseInt($("#remainingSeconds").html());
             setTimeout(decreaseSeconds, 1000)
@@ -39,5 +39,5 @@
                 })
             }
         })
-    </script>
+    </r:script>
 </content>

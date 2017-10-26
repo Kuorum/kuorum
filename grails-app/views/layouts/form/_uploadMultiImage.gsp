@@ -115,7 +115,7 @@
 </script>
 
 
-<script>
+<r:script>
     var imagesCampaign${campaign.id} = {}
     $(function(){
         var galleryUploader = new qq.FineUploader({
@@ -175,5 +175,5 @@
             $("#multi-uploader-replaced-images-modal").modal("show")
         })
     });
-</script>
+</r:script>
 

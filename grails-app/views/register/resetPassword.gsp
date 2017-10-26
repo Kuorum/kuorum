@@ -36,11 +36,11 @@
             <input type="submit" class="btn btn-lg" value="${g.message(code:'register.resetPassword.form.submit')}"/>
         </div>
     </g:form>
-    <script>
+    <r:script>
         $(document).ready(function() {
             $('#password').focus();
         });
-    </script>
+    </r:script>
 </content>
 
 <content tag="description">

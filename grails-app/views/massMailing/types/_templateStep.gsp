@@ -34,7 +34,7 @@
 
 <g:if test="${campaign.body}">
 %{--SHOW MODAL WARN LOOSING DATES--}%
-    <script>
+    <r:script>
         $(function(){
             $("input[name=contentType]").on("change",function(e){
                 var originalValue = '${campaign.template}';
@@ -55,7 +55,7 @@
                 $("#campaignTemplateEdited").modal("hide")
             })
         });
-    </script>
+    </r:script>
     <div class="modal fade in" id="campaignTemplateEdited" tabindex="-1" role="dialog" aria-labelledby="campaignTemplateEditedTitle" aria-hidden="true">
         <div class="modal-dialog ">
             <div class="modal-content">

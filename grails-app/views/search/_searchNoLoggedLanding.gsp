@@ -45,7 +45,7 @@
                             <input type="hidden" name="regionCode" id="srch-regionCode" value="${params.regionCode}" />
 
 
-                            <script>
+                            <r:script>
                                 function getSearchType(){
                                     console.log($("#srch-type").val())
                                     return $("#srch-type").val()
@@ -105,7 +105,7 @@
                                     });
                                 });
 
-                            </script>
+                            </r:script>
                         </div>
                         <button type="submit" class="btn btn-blue"><g:message code="search.noLogged.landing.search"/></button>
                     </g:form>

@@ -285,24 +285,6 @@ $(document).ready(function() {
         }
     });
 
-    // abrir/cerrar calendario
-    $('body').on('click','#openCalendar', function(e) {
-        e.stopPropagation();
-        e.preventDefault();
-        if ($('#selectDate').hasClass('on')) {
-            $(this).next('#selectDate').removeClass('on');
-        } else {
-            $(this).next('#selectDate').addClass('on');
-        }
-    });
-    $('body').mouseup(function(e) {
-        var subject = $("#selectDate");
-        var subject2 = $(".datepicker");
-        if(e.target.id != subject.attr('id') && !subject.has(e.target).length && !subject2.has(e.target).length) {
-            $('#selectDate').removeClass('on');
-        }
-    });
-
     // Pagination of tracking mails of a campaign
     $("#tabs-stats-campaign").on("click", ".pag-list-contacts li a",function(e){
         e.preventDefault();
@@ -324,7 +306,7 @@ $(document).ready(function() {
         }
     });
 
-    // Handle click on card campaigns list [List of post and debates on dasboard, searcher, user profile]
+    // Handle click on card campaigns list [List of post/debates on dashboard, searcher, userProfile]
     $('ul.campaign-list').on("click",'.link-wrapper .card-footer .post-like', function(e) {
         e.preventDefault();
         e.stopPropagation();
@@ -462,16 +444,6 @@ $(document).ready(function() {
 
     });
 
-
-    // mostrar/ocultar pass en formulario de password
-    $('.show-hide-pass').on('change', function () {
-        var div_parent  = $(this).closest('div');
-        var input_id    = div_parent.children('input:first').attr('id');
-
-        $('#'+input_id).hideShowPassword($(this).prop('checked'));
-    });
-
-
     // Timeago
     $.timeago.settings.allowFuture = true;
     // inicializa formato fechas
@@ -601,29 +573,6 @@ $(document).ready(function() {
 
     });
 
-    // añade la flechita al span de los mensajes de error de los formularios
-    if ( $('.error').length > 0 ) {
-        $('span.error').prepend('<span class="tooltip-arrow"></span>');
-    }
-
-    //Tipo de imagen o youtube seleccionado
-    $("form [data-fileType]").on("click", function(e){
-        $(this).closest("form").find("input[name=fileType]").val($(this).attr("data-fileType"));
-    });
-
-
-    if ( $('.jqte_editor').text() == "" ) {
-        $('.jqte_placeholder_text').css('display', 'block');
-    } else {
-        $('.jqte_placeholder_text').css('display', 'none');
-    }
-
-    $("body").on("click", ".jqte_editor a", function(e){
-        e.preventDefault();
-        var link = $(this).attr("href");
-        window.open(link);
-    });
-
     $(".saveDraft").on("click", function(e){
         e.preventDefault();
         $("input[name=isDraft]").val(true);
@@ -699,12 +648,10 @@ $(document).ready(function() {
         iframe.get(0).contentWindow.postMessage('{"event":"command","func":"' + func + '","args":""}', '*');
     });
 
-    // Language selector
+    // Language selector footer
     $('select#language-selector').on('change', function() {
         window.location.href = $(this).val();
     });
-
-    prepareForms()
 
     // Request custom email sender
     $('.box-ppal .box-ppal-section #requestCustomSender').on('click', function (e){
@@ -730,68 +677,6 @@ function requestCustomSender($selector) {
         .always(function() {
             pageLoadingOff();
         });
-}
-
-function prepareForms(){
-
-    var lang = "en"
-    if (typeof i18n !== 'undefined'){
-        lang = i18n.lang;
-    }
-    $.fn.datepicker.defaults.language = lang;
-
-    // datepicker calendario
-    if ( $('.input-group.date').length > 0 ) {
-
-        $('.input-group.date').datepicker({
-            language: lang,
-            autoclose: true,
-            todayHighlight: true
-        });
-
-    }
-
-    // Datetime piker for all input datestimes
-    $('.input-group.datetime').datetimepicker({
-        locale: lang,
-        format:"DD/MM/YYYY HH:mm",
-        //allowInputToggle:true,
-        //collapse: false,
-        stepping:15,
-        showTimeZone:true
-    });
-
-    $(".counted").each(function(input){
-        counterCharacters($(this).attr("name"))
-    })
-}
-
-function counterCharacters(idField) {
-    // idField puede ser ID o name
-    var idFieldEscaped = idField.replace('[','\\[').replace(']','\\]').replace('\.','\\.');
-    var input = $("[name='"+idFieldEscaped+"']");
-    if (input == undefined){
-        var input = $("[id='"+idFieldEscaped+"']");
-    }
-    var totalCharsText = input.parents(".form-group").find("div[id*='charInit']").find("span").text();
-    var totalChars      = parseInt(totalCharsText);
-    var countTextBox    = input;
-    var charsCountEl    = input.parents(".form-group").find("div[id*='charNum']").find("span");
-    if (countTextBox.length> 0){
-        charsCountEl.text(totalChars - countTextBox.val().length);
-    }
-    countTextBox.keyup(function() {
-
-        var thisChars = this.value.replace(/{.*}/g, '').length;
-
-        if (thisChars > totalChars)
-        {
-            var CharsToDel = (thisChars-totalChars);
-            this.value = this.value.substring(0,this.value.length-CharsToDel);
-        } else {
-            charsCountEl.text( totalChars - thisChars );
-        }
-    });
 }
 
 

@@ -52,12 +52,12 @@
                     callback="campaignListCallback"
                     pagination="${[max:10]}"
                     numElements="${totalCampaigns}"/>
-            <script>
+            <r:script>
                 function campaignListCallback(){
                     sortCampaigns.orderList();
                     youtubeHelper.replaceAllWrongYoutubeImages();
                 }
-            </script>
+            </r:script>
         </div>
         <div class="col-md-4">
             <g:render template="/dashboard/payment/dashboardModules/dashboardPoliticianProfile" model="[user:user, emptyEditableData:emptyEditableData, numberCampaigns:numberCampaigns]"/>

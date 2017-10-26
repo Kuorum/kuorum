@@ -1,4 +1,4 @@
-<script type="text/javascript">
+<r:script>
     $(function (){
         $("#pass-forget").validate({
             errorClass:'error',
@@ -37,7 +37,7 @@
             }
         });
     });
-</script>
+</r:script>
 <g:form mapping="resetPassword" name="pass-forget" role="form" class="login pass">
     <div class="form-group">
         <span class="strong"><g:message code="forgotPassword.form.title"/></span>

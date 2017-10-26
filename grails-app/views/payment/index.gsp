@@ -30,7 +30,7 @@
     <div class="promo-options-info clearfix">
         <g:message code="funnel.payment.cycleType.viewPlans" args="[g.createLink(mapping: 'landingPrices')]"></g:message>
     </div>
-    <script>
+    <r:script>
         $(function(){
             gtmPaymentEvent("choose-plan-cycle-loaded")
             $(".promo-options a.btn").on("click",function(e){
@@ -49,7 +49,7 @@
                 })
             }
         }
-    </script>
+    </r:script>
 
     <ul class="checklist">
         <li>

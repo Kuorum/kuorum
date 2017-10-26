@@ -75,37 +75,42 @@
 </div>
 
 <g:render template="/layouts/jsAjaxUrls" model="[currentLang:currentLang]"/>
-<r:layoutResources />
-<script>
-    <g:if test="${flash.message}">
+
+<g:if test="${flash.message}">
+    <r:script>
     var messageDisplay = '${flash.message}'; // For resend this messages
         $(function(){
             display.success(messageDisplay)
         });
-    </g:if>
-    <g:if test="${flash.error}">
-    var messageError = '${raw(flash.error)}'; // For resend this messages
-        $(function(){
-            display.warn(messageError)
-        });
-    </g:if>
-    <sec:ifAnyGranted roles="ROLE_INCOMPLETE_USER">
-        <nav:ifActiveMapping mappingNames="registerStep2, registerStep3, registerSubscriptionStep1, registerSubscriptionStep1Save, registerSubscriptionStep3, tour_dashboard" equals="false">
+    </r:script>
+</g:if>
+<g:if test="${flash.error}">
+    <r:script>
+        var messageError = '${raw(flash.error)}'; // For resend this messages
+            $(function(){
+                display.warn(messageError)
+            });
+    </r:script>
+</g:if>
+<sec:ifAnyGranted roles="ROLE_INCOMPLETE_USER">
+    <nav:ifActiveMapping mappingNames="registerStep2, registerStep3, registerSubscriptionStep1, registerSubscriptionStep1Save, registerSubscriptionStep3, tour_dashboard" equals="false">
+        <r:script>
             function notMailConfirmedWarn(){
                 display.warn("<userUtil:showMailConfirm /> ${pageProperty(name:'page.hiddeMailConfirmMessage')}");
             }
             $(function(){
                 notMailConfirmedWarn();
             });
-        </nav:ifActiveMapping>
-    </sec:ifAnyGranted>
-
-</script>
-
-<asset:deferredScripts/>
+        </r:script>
+    </nav:ifActiveMapping>
+</sec:ifAnyGranted>
 
 <sec:ifNotLoggedIn>
     <g:render template="/layouts/modalLogin"/>
 </sec:ifNotLoggedIn>
+
+<asset:deferredScripts/>
+<r:layoutResources />
+
 </body>
 </html>

@@ -51,7 +51,7 @@
 </div>
 <!-- fin modal -->
 %{--<script src="https://www.google.com/recaptcha/api.js" async defer></script>--}%
-<script type="text/javascript">
+<r:script>
     $(function(){
 
         $(".btn-open-modal-request-demo").on("click", function(e){
@@ -71,4 +71,4 @@
     });
 
 
-</script>
+</r:script>

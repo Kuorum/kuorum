@@ -4,10 +4,10 @@
     <title><g:message code="admin.stats.title"/> </title>
     <meta name="layout" content="columnCLayout">
     <r:require module="projectStats"/>
-    <script>
+    <r:script>
         var urlDataMap = '${createLink(mapping: 'adminStatsMap')}'
         var urlPieChart = '${createLink(mapping: 'adminStatsPieChart')}'
-    </script>
+    </r:script>
 </head>
 
 
@@ -66,14 +66,14 @@
                 <canvas id="votesChart" width="255" height="255"></canvas>
             </div>
         </div>
-        <script>
+        <r:script>
             var votes = {
                 yes: ${stats.totalVotes.yes},
                 no: ${stats.totalVotes.no},
                 abs:${stats.totalVotes.abs},
                 total:${stats.totalVotes.total}
             };
-        </script>
+        </r:script>
         <ul class="activity">
             <li class="favor"><span>${stats.totalVotes.yes}</span> <g:message code="admin.stats.totalStats.columnC.activeUsers"/> </li>
             <li class="contra"><span>${stats.totalVotes.no}</span> <g:message code="admin.stats.totalStats.columnC.deletedUsers"/></li>

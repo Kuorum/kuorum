@@ -1,6 +1,6 @@
 <r:require modules="customFileUploader" />
 
-<script>
+<r:script>
     var typeErrorText = "${g.message(code:'uploader.error.typeError')}";
     var sizeErrorText = "${g.message(code:'uploader.error.sizeError', args:[Math.round(fileGroup.maxSize/1000/1000)])}";
     var minSizeErrorText = "${g.message(code:'uploader.error.minSizeError', args: [Math.round(kuorum.core.FileGroup.MIN_SIZE_IMAGE/1024)])}";
@@ -8,7 +8,7 @@
     var onLeaveText = "${g.message(code:'uploader.error.onLeave')}";
     var jcropApi;
     var fileId;
-</script>
+</r:script>
 <div class="uploaderImageContainer ${fileGroup} ${cssClass}">
     <uploader:uploader
             id="uploaderImageId_${imageId}"
@@ -99,7 +99,7 @@
         <span for='input_${imageId}' class='error'>${errorMessage}</span>
     </g:if>
 </div>
-<script>
+<r:script>
     function showCoords(coords){
         console.log(coords);
 //        var $preview = $('#preview');
@@ -171,7 +171,7 @@
             });
         </asset:script>
     </g:if>
-</script>
+</r:script>
 <input type="hidden" name="${name}" id="input_${imageId}" value="${value}"/>
 %{--<img src="" id="preview"/>--}%
 <div class="progress hidden" id="progresBar_${imageId}">

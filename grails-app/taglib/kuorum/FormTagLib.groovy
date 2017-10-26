@@ -923,19 +923,14 @@ class FormTagLib {
     }
     private void printGeneralErrors(def errors, def bean){
         if (errors){
-            out << """
-            <script>
-                \$(document).ready(function (){
-                    """
+            StringBuffer showErrors =  new StringBuffer('$(document).ready(function (){')
+
             errors.each{error ->
                 String msg = tranlateErrorCode(error.codes)
-                out << "display.error('', \"${msg}\");"
+                showErrors.append("display.error('', \"${msg}\");")
             }
-            out <<"""
-                });
-            </script>
-                """
-
+            showErrors.append("});");
+            r.script( [:],showErrors.toString())
         }
     }
 

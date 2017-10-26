@@ -68,8 +68,7 @@ class ModulesTagLib {
 
         def link = createLink(mapping: mapping, params: params)
 
-        out << """
-                <script>
+        def delayScript =  """
                     \$(function(){
                         \$.ajax({
                             url: "${link}",
@@ -81,9 +80,9 @@ class ModulesTagLib {
                             \$("#${elementId}").show('slow')
                         });
                     });
-                </script>
-                <div id="${elementId}" class="hidden"></div>
         """
+        out << "<div id=\"${elementId}\" class=\"hidden\"></div>"
+        r.script( [:],tagInputScript)
     }
 
     private static final Integer MAX_LENGTH_TEXT = 250

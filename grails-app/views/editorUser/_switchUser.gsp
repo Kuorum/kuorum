@@ -5,13 +5,13 @@
         <form id="switchUserForm" action='${request.contextPath}/j_spring_security_switch_user' method='POST' class="hidden">
             <input type='text' name='j_username' value="${user.email}"/><br/>
         </form>
-        <script>
+        <r:script>
             $(function(){
                 $("#switchUserLink").on('click',function(e){
                     e.preventDefault();
                     $('#switchUserForm').submit();
                 })
             })
-        </script>
+        </r:script>
     %{--</sec:ifAllGranted>--}%
 </sec:ifNotSwitched>

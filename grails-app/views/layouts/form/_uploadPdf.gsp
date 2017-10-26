@@ -18,7 +18,7 @@
 </div>
 <input type="hidden" name="${name}" id="${inputId}" value="${value}"/>
 
-<script>
+<r:script>
     $(function(){
 
 
@@ -47,4 +47,4 @@
             }
         });
     })
-</script>
+</r:script>
