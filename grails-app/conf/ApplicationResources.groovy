@@ -44,6 +44,11 @@ modules = {
         resource url: 'js/recaptcha/recaptcha-register.js'
     }
 
+    recaptcha_modalRegister{
+        dependsOn 'recaptcha'
+        resource url: 'js/recaptcha/recaptcha-modalRegister.js'
+    }
+
     lang_es{
         dependsOn 'application'
         resource url:'js/timeago/jquery.timeago.es.js'
