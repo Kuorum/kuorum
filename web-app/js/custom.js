@@ -1,6 +1,11 @@
+$(document).ajaxStop(function () {
+    // inicia el timeago
+    $("time.timeago").timeago();
+    preparePopover();
+});
+
 $(document).ready(function() {
 
-    prepareArrowClucks();
     setTimeout(prepareProgressBar, 500);
     prepareProgressBar();
 
@@ -262,41 +267,6 @@ $(document).ready(function() {
 	}
 
 
-	// oculta los comentarios
-//	$('.listComments > li:gt(2)').hide();
-	$('#ver-mas a').click(function(e) {
-		e.preventDefault();
-//		$('.listComments > li:gt(2)').fadeIn('slow');
-        openComments()
-	});
-    $("#comment").focus(function(e){
-        openComments();
-        $("html, body").animate({ scrollTop: $(this).parents(".listComments").offset().top -100}, 1000);
-    });
-
-	// countdown textarea edición propuesta
-	$(function() {
-		var totalChars      = parseInt($('#charInit span').text());
-		var countTextBox    = $('.counted'); // Textarea input box
-		var charsCountEl    = $('#charNum span'); // Remaining chars count will be displayed here
-
-		if (countTextBox.length> 0){
-			charsCountEl.text(totalChars - countTextBox.val().length); //initial value of countchars element
-        }
-		countTextBox.keyup(function() { //user releases a key on the keyboard
-
-			var thisChars = this.value.replace(/{.*}/g, '').length; //get chars count in textarea
-
-			if (thisChars > totalChars) //if we have more chars than it should be
-			{
-				var CharsToDel = (thisChars-totalChars); // total extra chars to delete
-				this.value = this.value.substring(0,this.value.length-CharsToDel); //remove excess chars from textarea
-			} else {
-				charsCountEl.text( totalChars - thisChars ); //count remaining chars
-			}
-		});
-	});
-
     function prepareFormUsingGender(userType){
         if (userType == "ORGANIZATION"){
             $(".userData").hide();
@@ -446,17 +416,6 @@ $(document).ready(function() {
         })
     });
 
-
-    $("#deleteAccountForm a").on("click", function(e){
-        e.preventDefault();
-        $("#deleteAccountForm input[name=forever]").val("true");
-        $("#deleteAccountForm").submit()
-    });
-    $("#deleteAccountForm button").on("click", function(e){
-        e.preventDefault();
-        $("#deleteAccountForm input[name=forever]").val("false");
-        $("#deleteAccountForm").submit()
-    });
     $(".multimedia .groupRadio input[type=radio]").on('click', function(e){
         var multimediaType = $(this).val();
         $('[data-multimedia-switch="on"]').hide();
@@ -830,26 +789,6 @@ function prepareProgressBar(){
 //    });
 }
 
-function prepareArrowClucks(){
-// el hover sobre el kakareo que afecte al triángulo superior
-    $('.kakareo > .link-wrapper').on({
-        mouseenter: function () {
-            $(this).prev('.from').find('.inside').css('border-bottom', '8px solid #efefef');
-        },
-        mouseleave: function () {
-            $(this).prev('.from').find('.inside').css('border-bottom', '8px solid #fafafa');
-        }
-    });
-
-    $('.important .kakareo > .link-wrapper').on({
-        mouseenter: function () {
-            $(this).prev('.from').find('.inside').css('border-bottom', '8px solid #feedce');
-        },
-        mouseleave: function () {
-            $(this).prev('.from').find('.inside').css('border-bottom', '8px solid #fff8ed');
-        }
-    });
-}
 // funciones que llaman a las diferentes notificacones (salen en la parte superior de la pantalla)
 var display = {
     error:function(text){this._notyGeneric(text, "error", "top")},
@@ -893,67 +832,6 @@ var display = {
     }
 };
 
-function openComments(){
-    $('.listComments > li').fadeIn('slow');
-    $('#ver-mas').hide();
-}
-
-$(document).ajaxStop(function () {
-
-	// inicia el timeago
-	$("time.timeago").timeago();
-
-	prepareArrowClucks();
-    preparePopover();
-
-});
-
-
-function Campaign(id, name, headText,headVotedText,  modalDelay){
-    var _id = id;
-    var _name = name;
-    var _headText = headText;
-    var _headVotedText = headVotedText;
-    var _cookieElectionName="Election-"+id;
-    var _modalDelay=modalDelay;
-    var _modalId="#causes-modal";
-
-    var _showModal = function(){
-        $(_modalId).modal("show");
-    };
-    this.showModal = _showModal;
-    this.hideModal = function(){
-        $(_modalId).modal("hide");
-    };
-    this.preparePageForCampaign = function() {
-        cookiesHelper.checkCookie(
-            _cookieElectionName,
-            function(cookieValue){
-                display.blockAdvise(_headVotedText, function(e){
-                    e.preventDefault();
-                    _showModal()
-                });
-            },
-            function(cookieName){
-                display.blockAdvise(_headText, function(e){
-                    e.preventDefault();
-                    _showModal()
-                });
-                // Launch the election modal (if exists) after delay seconds
-                window.setTimeout(_showModal, _modalDelay);
-            }
-        );
-    };
-
-    this.hideCampaign = function(){
-        this.hideModal();
-        display.hideAdvise();
-    };
-    this.notShowCampaignAgain = function(){
-        cookiesHelper.setCookie(_cookieElectionName,true, 99999);
-    };
-    return this;
-}
 
 function relaodAllDynamicDivs(){
     if ($(".reload").length){

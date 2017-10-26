@@ -31,4 +31,16 @@
         </div>
         </fieldset>
     </g:form>
+    <r:script>
+        $("#deleteAccountForm a").on("click", function(e){
+            e.preventDefault();
+            $("#deleteAccountForm input[name=forever]").val("true");
+            $("#deleteAccountForm").submit()
+        });
+        $("#deleteAccountForm button").on("click", function(e){
+            e.preventDefault();
+            $("#deleteAccountForm input[name=forever]").val("false");
+            $("#deleteAccountForm").submit()
+        });
+    </r:script>
 </content>

@@ -263,55 +263,6 @@ $(document).ready(function() {
     // DISABLED NAV TABS
     $(".nav-tabs > li.disabled > a, .nav-tabs > li.disabled").on("click", function(e){e.stopPropagation();return false;})
 
-
-    //importar contacts add tag
-    $('body').on('click','.addTagBtn', function(e) {
-        e.preventDefault();
-        if ($(this).hasClass('on')) {
-            $(this).next('ul').show();
-            $(this).removeClass('on');
-            $(this).closest('.addTag').addClass('off');
-        } else {
-            $(this).next('ul').hide();
-            $(this).addClass('on');
-            $(this).closest('.addTag').delay(1000).removeClass('off');
-            $(this).parent("form").find("input.tt-input").focus();
-        }
-    });
-
-    $("body").on('submit', 'form.addTag', function(e){
-        e.preventDefault();
-        pageLoadingOn();
-        var $form = $(this);
-        var closeInputs =$form.children(".addTagBtn");
-        var url = $form.attr("action");
-        var postData = $form.serialize();
-
-        $.post(url, postData)
-            .done(function(data) {
-                var $ul = $form.find("ul");
-                $ul.html("");
-                var urlSearchByTag = $ul.attr("data-genericTagLink");
-                for (i = 0; i < data.tags.length; i++) {
-                    var tagName = data.tags[i];
-                    var tagLink = urlSearchByTag.replace("REPLACED_TAG",tagName)
-                    $ul.append('<li><a href="'+tagLink+'" class="tag label label-info">'+tagName+'</a></li>');
-                    tagsnames.add({name:data.tags[i]})
-                }
-                closeInputs.click();
-            })
-            .fail(function(messageError) {
-                display.warn("Error");
-            })
-            .always(function() {
-                pageLoadingOff();
-            });
-        //Not submit
-        return false;
-    })
-
-    prepareContactTags();
-
     // abrir/cerrar Save filter as
     $('body').on('click','#saveFilterAsBtnOpenModal, #saveFilterAsBtnCancel', function(e) {
         //e.stopPropagation();
@@ -321,14 +272,6 @@ $(document).ready(function() {
         } else {
             $(this).next('#saveFilterAsPopUp').addClass('on');
         }
-    });
-
-    // Add tags to filter when clicked
-    $('body').on('click', '.addTagBtn', function() {
-        // Get value
-        var value = $(this).text();
-        // TODO: Add to filter
-
     });
 
     // comportamiento para seleccionar filas en la tabla de importar contactos
@@ -360,27 +303,6 @@ $(document).ready(function() {
         }
     });
 
-    $("#tabs-edit-contact #notes #updateContactNotes").on("submit",function(e){
-        e.preventDefault();
-        var postData = $(this).serialize();
-        var link = $(this).attr("action")
-        $.post( link, postData)
-            .done(function(data) {
-                if (data.err != undefined){
-                    display.warn(data.err)
-                }else{
-                    display.success(data.msg)
-                }
-            })
-            .fail(function(messageError) {
-                display.warn("Error");
-            })
-            .always(function() {
-                pageLoadingOff();
-            });
-        return false;
-    });
-
     // Pagination of tracking mails of a campaign
     $("#tabs-stats-campaign").on("click", ".pag-list-contacts li a",function(e){
         e.preventDefault();
@@ -408,146 +330,6 @@ $(document).ready(function() {
         e.stopPropagation();
         var $button = $(this)
         postFunctions.onClickPostLike($button)
-    });
-
-    // Bulk actions -- Open modal
-    $("#listContacts").on("change", "#contactsOrderOptions .bulk-actions", function(e) {
-        e.preventDefault();
-        var type = parseInt($(this).val());
-
-        // Reset type
-        $(this).val(-1);
-
-        var numSelectedContactsElement = $('.num-selected-contacts');
-        var contactsSelected = $('#contactsList .checkbox-inline input[type=checkbox]:checked');
-        var isAllContactsSelected = $('#contactsOrderOptions .checkbox-inline input[type=checkbox]').is(':checked');
-
-        if (isAllContactsSelected) {
-            // Update text
-            numSelectedContactsElement.text(filterContacts.getFilterSelectedAmountOfContacts());
-        } else {
-            // Update text
-            numSelectedContactsElement.text(contactsSelected.length);
-        }
-
-        // Select modal
-        switch (type) {
-            case 1:
-                // "Delete all" popup
-                $('#bulk-action-delete-all-modal').modal('show');
-                break;
-            case 2:
-                // "Add tags" popup
-                $('#bulk-action-add-tags-modal').modal('show');
-                break;
-            case 3:
-                // "Remove tags" popup
-                $('#bulk-action-remove-tags-modal').modal('show');
-                break;
-        }
-    });
-
-    // Bulk actions -- Submit modal form
-    $('#bulk-action-delete-all-modal form, ' +
-        '#bulk-action-add-tags-modal form, ' +
-        '#bulk-action-remove-tags-modal form').submit(function (e) {
-        e.preventDefault();
-
-        var contactsSelected = $('#contactsList .checkbox-inline input[type=checkbox]:checked');
-        var isAllContactsSelected = $('#contactsOrderOptions .checkbox-inline input[type=checkbox]').is(':checked');
-
-        var actionPath = $(this).attr("action");
-        var postData = "";
-
-        if (isAllContactsSelected) {
-            // Send filter
-            var $filterData = $('#contactFilterForm');
-            var inputs = filterContacts.getFilterInputs($filterData)
-            postData = inputs.serialize();
-
-            postData += "&checkedAll=1";
-        } else {
-            // Send list of ids
-            var listIds = "listIds=";
-            contactsSelected.each(function () {
-                listIds += $(this).val() + ",";
-            });
-            listIds = listIds.slice(0, -1);
-            postData = listIds;
-            postData += "&checkedAll=0";
-        }
-
-        // Additional params
-        var type = parseInt($(this).data('type'));
-        switch (type) {
-            case 2:
-                postData += "&tags=" + $('#addTagsField').val();
-                break;
-            case 3:
-                postData += "&tags=" + $('#removeTagsField').val();
-                break;
-        }
-
-        $.post(actionPath, postData)
-            .done(function (data) {
-                if (data.status == 'ok') {
-                    // All good
-                    display.success(data.msg);
-                    setTimeout(function() {
-                        // Update contact's list
-                        filterContacts.searchContactsCallBacks.loadTableContacts();
-
-                        // Close modals
-                        $('#bulk-action-delete-all-modal').modal('hide');
-                        $('#bulk-action-add-tags-modal').modal('hide');
-                        $('#bulk-action-remove-tags-modal').modal('hide');
-                    }, 1000);
-                } else {
-                    display.warn(data.msg);
-                }
-            })
-            .fail(function () {
-                display.warn("Error");
-            });
-    });
-
-    // Bulk actions -- "Check-all" checkbox
-    $('#listContacts').on('change', '#contactsOrderOptions .checkbox-inline input[type=checkbox]', function (e) {
-        var contactsCheckbox = $('#contactsList .checkbox-inline input[type=checkbox]');
-
-        if ($(this).is(':checked')) {
-            // Check all "contact item" checkbox
-            contactsCheckbox.prop('checked', true);
-
-            // Show bulk actions
-            $('.bulk-actions').show();
-        } else {
-            // Uncheck all "contact item" checkbox
-            contactsCheckbox.prop('checked', false);
-
-            // Hide bulk actions
-            $('.bulk-actions').hide();
-        }
-    });
-
-    // Buk actions -- "Contact item" checkbox
-    $('#listContacts').on('change', '#contactsList .checkbox-inline input[type=checkbox]', function (e) {
-        var contactsSelected = $('#contactsList .checkbox-inline input[type=checkbox]:checked');
-
-        if ($(this).is(':checked')) {
-            if (contactsSelected.length >= 2) {
-                // Show bulk actions
-                $('.bulk-actions').show();
-            }
-        } else {
-            // Uncheck "check-all" checkbox
-            $('#contactsOrderOptions .checkbox-inline input[type=checkbox]').prop('checked', false);
-
-            // Check if there are no users selected
-            if (contactsSelected.length < 2) {
-                $('.bulk-actions').hide();
-            }
-        }
     });
 
     // Animar porcentaje perfil político
@@ -1062,59 +844,6 @@ function formatTooltipDate(date) {
     return date.getDate()+"-"+(date.getMonth()+1) + "-" + date.getFullYear() + "  " + strTime;
 }
 
-var tagsnames
-function prepareContactTags(){
-    // input tags
-    if ($('.tagsField').length) {
-
-        $.each($('.tagsField'),function(i, input){
-            var tagsUrl = 'mock/tags.json';
-            if ($(input).attr("data-urlTags") != undefined){
-                tagsUrl=$(input).attr("data-urlTags");
-            }
-            if (tagsnames == undefined){
-                tagsnames = new Bloodhound({
-                    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
-                    queryTokenizer: Bloodhound.tokenizers.whitespace,
-                    prefetch: {
-                        url: tagsUrl,
-                        cache:false, //Prevents local storage
-                        filter: function(list) {
-                            return $.map(list, function(tagsname) {
-                                return { name: tagsname }; });
-                        }
-                    }
-                });
-                tagsnames.initialize();
-            }
-
-            $(input).tagsinput({
-                allowDuplicates: false,
-                freeInput: true,
-                addOnBlur: true,
-                typeaheadjs: {
-                    minLength: 2,
-                    hint: true,
-                    highlight: true,
-                    name: 'tagsnames',
-                    displayKey: 'name',
-                    valueKey: 'name',
-                    source: tagsnames.ttAdapter()
-                }
-            });
-            $(input).siblings("#inputAddTags").on("click", function(e){
-                console.log("Click")
-            })
-        });
-
-        // Add tags when focusout
-        $(".bootstrap-tagsinput input").on('focusout', function() {
-            var elem = $(this).closest(".bootstrap-tagsinput").parent().children("input.tagsField");
-            elem.tagsinput('add', $(this).val());
-            $(this).typeahead('val', '');
-        });
-    }
-}
 function getSearchType(){
     return $("#srch-type").val()
 }

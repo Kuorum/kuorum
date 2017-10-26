@@ -7,6 +7,7 @@
     <meta itemprop="description" content="${g.message(code:"layout.head.meta.description")}">
     <meta itemprop="image" content="${resource(dir: 'images', file:'landingSearch-rrss.png', absolute:true)}" />
     <meta itemprop="image" content="${resource(dir: 'images', file: 'logo@2x.png')}" />
+    <r:require modules="contacts"/>
 </head>
 
 <content tag="mainContent">
