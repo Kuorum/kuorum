@@ -105,7 +105,7 @@
 				iFrameResize({
 					log:false,
 					messageCallback: function(messageData){ // Callback fn when message is received
-						var scrollPosition = document.body.scrollTop
+						var scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
 						document.getElementById(widgetId).iFrameResizer.sendMessage(scrollPosition);
 					}
 				}, '#'+widgetId);
