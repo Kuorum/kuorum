@@ -106,7 +106,6 @@ modules = {
         resource url:'js/isotope.pkgd.min.js'
         resource url: 'js/list.min.js'
         resource url: 'js/list.pagination.min.js'
-        resource url:'js/highstock.js'
         resource url:'js/jquery.mark.min.js'
         resource url:'js/mark.min.js'
         resource url:'js/youtube-helper.js'
@@ -118,7 +117,7 @@ modules = {
     }
 
     debate {
-        dependsOn("basic", "forms", 'cookiesHelper', 'application')
+        dependsOn("basic", "forms", 'cookiesHelper', 'application', 'campaignList')
         resource url:'js/medium-editor/medium-editor.js'
         resource url:'css/medium-editor/medium-editor.min.css'
         resource url:'css/medium-editor/themes/default.css'
@@ -137,6 +136,12 @@ modules = {
         resource url:'js/widget/widget-helper.js'
         resource url:'js/widget/iframe-resizer/iframeResizer.contentWindow.min.js'
     }
+
+    campaignList{
+        dependsOn("basic")
+        resource url: 'js/campaigns/campaign-list.js'
+    }
+
     campaignForm{
         dependsOn("basic", "forms")
         resource url: 'js/camapign-form.js'
@@ -218,6 +223,8 @@ modules = {
 
     comparativeChart{
         dependsOn 'basic'
+        resource url:'js/highstock.js'
+        resource url:'js/charts-kuorum.js'
         resource url:'js/local_comparationChart.js'
     }
 

@@ -236,181 +236,6 @@ $(document).ready(function() {
     }
 });
 
-// valuation chart
-$(function () {
-    printCharts();
-});
-function printCharts(){
-    $(".polValChart").each(function(idx){
-        var uuid = guid();
-        $(this).attr("id",uuid);
-        printChart("#"+uuid);
-    })
-}
-function printChart(divId){
-    if ($(divId).length >0){
-        $(divId).html("");
-        $(divId).parent().show();
-        Highcharts.setOptions({
-            colors: ['#ff9431', '#999999', '#ED561B', '#DDDF00', '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4'],
-            global: {
-                useUTC: false
-            }
-        });
-        var urlHighchart=$(divId).attr("data-urljs");
-        if (urlHighchart == undefined){
-            urlHighchart = 'mock//valpol.json'
-        }
-
-        $.getJSON(urlHighchart, function (activity) {
-            var seriesData = [];
-            $.each(activity.datasets, function (i, dataset) {
-
-                seriesData[i]={
-                    data: dataset.data,
-                    name: dataset.name,
-                    type: dataset.type,
-                    pointInterval: 1 * 3600 * 1000, // cada 1h
-                    color: Highcharts.getOptions().colors[i],
-                    fillOpacity: 0.3,
-                    tooltip: {
-                        valueSuffix: ' ' + dataset.unit
-                    }
-                }
-            });
-            var divHeight = $(divId).height();
-            $('<div class="chart">')
-                .appendTo(divId)
-                .highcharts('StockChart', {
-                    chart: {
-                        spacingBottom: 10,
-                        spacingTop: 0,
-                        zoomType: 'x',
-                        height: divHeight,
-                        events : {
-                            //load : function () {
-                            //    // set up the updating of the chart each second
-                            //    var series = this.series;
-                            //    setInterval(function () {
-                            //        $.getJSON(urlHighchart, function (activity) {
-                            //            $.each(activity.datasets, function (i, dataset) {
-                            //                series[i].setData(dataset.data);
-                            //            });
-                            //        });
-                            //
-                            //    }, 1000);
-                            //}
-                        }
-                    },
-                    title: {
-                        text: null,
-                        //text: activity.title,
-                        align: 'left',
-                        margin: 5,
-                        color: '#666666',
-                        x: 0
-                    },
-                    credits: {
-                        enabled: false
-                    },
-                    legend: {
-                        enabled: true,
-                        layout:"horizontal",
-                        verticalAlign:"top",
-                        align:"left",
-                        floating:true,
-                        itemStyle:
-                        {
-                            fontSize:'14px',
-                            fontWeight:'normal'
-                        },
-                        y:-5,
-                        x:0
-                    },
-                    xAxis: {
-                        type: 'datetime',
-                        //minTickInterval: 24 * 1000 * 3600, // intervalo cada 1h
-                        //minorTickInterval: 24 * 1000 * 3600, // intervalo cada 1h
-                        range: 13 * 24 * 3600 * 1000, // mostramos 1 semana
-                        dateTimeLabelFormats:{
-                            millisecond: '%H:%M:%S.%L',
-                            second: '%H:%M:%S',
-                            minute: '%H:%M',
-                            hour: '%H:%M',
-                            day: '%e/%m',
-                            week: '%e/%m',
-                            month: '%b \'%y',
-                            year: '%Y'
-                        }
-                    },
-                    yAxis: {
-                        title: {
-                            text: null
-                        },
-                        allowDecimals: false,
-                        crosshair: true,
-                        //minTickInterval: 1,
-                        minorGridLineColor: '#F0F0F0',
-                        //minorTickInterval:null,
-                        tickPositions: [1, 2, 3, 4, 5, 6],
-                        plotLines: [{
-                            value: activity.average,
-                            width: 1,
-                            color: '#666666',
-                            dashStyle: 'dash',
-                            label: {
-                                text: activity.averageLabel,
-                                align: 'left',
-                                y: 0,
-                                x: -2,
-                                rotation:270,
-                                style:{
-                                    color:'#666666'
-                                }
-                            }
-                        }],
-                        offset: 20
-                    },
-                    tooltip: {
-                        formatter: function () {
-                            var date = new Date(this.x);
-                            var s = '<b>'+formatTooltipDate(date)+'</b>';
-                            s += '<br/> -----------'; //CHAPU BR
-
-                            $.each(this.points, function () {
-                                s += '<br/><span style="color:'+this.series.color+'">' + this.series.name + '</span><span style="float:right">: ' +
-                                    Math.floor(this.y*100)/100 + '</span>';
-                            });
-                            return s;
-                        },
-                        backgroundColor: 'rgba(240, 240, 240, 0.8)',
-                        borderWidth: 1,
-                        borderRadius:15,
-                        borderColor:'#666',
-                        headerFormat: '',
-                        shadow: false,
-                        style: {
-                            fontSize: '15px'
-                        },
-                        valueDecimals: 2,
-                    },
-                    rangeSelector: {
-                        enabled: false
-                    },
-                    scrollbar: {
-                        enabled: false
-                    },
-                    navigator: {
-                        height: 20,
-                        margin: 10,
-                        maskFill: 'rgba(0, 0, 0, 0.05)',
-                        maskInside: false
-                    },
-                    series: seriesData
-                });
-        });
-    }
-}
 // PAGE LOADING
 function pageLoadingOn (){
     $('html').addClass('loading');
@@ -556,166 +381,6 @@ $(document).ready(function() {
         return false;
     });
 
-    // EDITAR BORRAR CAMPAÑAS
-    // abrir modal editar campaña planificada
-    $('body').on('click', 'a.modalEditScheduled', function(e) {
-        e.preventDefault();
-        var linkScheduled = $(this).attr('href');
-        $("#modalEditScheduled").modal("show");
-        $("a#modalEditScheduledButtonOk").attr("href", linkScheduled)
-    });
-
-    // cerrar modal confirmar borrar campaña
-    $('body').on('click','a.deleteCampaignBtn', function(e) {
-        e.preventDefault();
-        $("#campaignDeleteConfirm").modal("hide");
-        pageLoadingOn();
-        var link = $(this).attr("href")
-        var campaignId = $(this).attr("data-campaign-id")
-        var postData= {};
-        $.post( link, postData)
-            .done(function(data) {
-                campaignList.remove('id', campaignId);
-            })
-            .fail(function(messageError) {
-                display.warn("Error");
-            })
-            .always(function() {
-                pageLoadingOff();
-            });
-    });
-
-    // FILTRADO Y BUSCADOR LISTADO CAMPAÑAS
-    if ($('#listCampaigns').length) {
-
-        $('#search-form-campaign').submit(function(){
-            //The search campaign form has not a submit action. All the search is done with javascript
-            return false;
-        });
-        //contador para el select (antes del plugin)
-        var counterList = $('#campaignsList > li').length;
-        $('.totalList').text(counterList);
-        var sent = $('li.SENT').length;
-        var scheduled = $('li.SCHEDULED').length;
-        var draft = $('li.DRAFT').length;
-        var newsletter = $('li.newsletterItem').length;
-        var debate = $('li.debateItem').length;
-        var post = $('li.postItem').length;
-
-
-        //select filtro campañas según estado
-        /*$('#filterCampaigns').on('change', function () {
-            if ($('#filterCampaigns option:selected').is('#all')) {
-                $('.totalList').text(counterList);
-                $('#infoFilterCampaigns').removeClass().find('.filtered').text('');
-            }
-            if ($('#filterCampaigns option:selected').is('#SENT')) {
-                $('.totalList').text(sent);
-                $('#infoFilterCampaigns').removeClass().find('.filtered').text('sent');
-            }
-            if ($('#filterCampaigns option:selected').is('#SCHEDULED')) {
-                $('.totalList').text(scheduled);
-                $('#infoFilterCampaigns').removeClass().find('.filtered').text('scheduled');
-            }
-            if ($('#filterCampaigns option:selected').is('#DRAFT')) {
-                $('.totalList').text(draft);
-                $('#infoFilterCampaigns').removeClass().find('.filtered').text('draft');
-            }
-        });*/
-
-        //select filtro campañas según tipo
-        $('#filterCampaigns').on('change', function () {
-            if ($('#filterCampaigns option:selected').is('#all')) {
-                $('.totalList').text(counterList);
-                $('#infoFilterCampaigns').removeClass().find('.filtered').text('');
-            }
-            if ($('#filterCampaigns option:selected').is('#newsletter')) {
-                $('.totalList').text(newsletter);
-                $('#infoFilterCampaigns').removeClass().find('.filtered').text('');
-            }
-            if ($('#filterCampaigns option:selected').is('#debate')) {
-                $('.totalList').text(debate);
-                $('#infoFilterCampaigns').removeClass().find('.filtered').text('');
-            }
-            if ($('#filterCampaigns option:selected').is('#post')) {
-                $('.totalList').text(post);
-                $('#infoFilterCampaigns').removeClass().find('.filtered').text('');
-            }
-        });
-
-        // clase active botones ordenar listado
-        $('body').on('click','.sort', function(e) {
-            if (!$(this).hasClass('active')) {
-                $('.sort').removeClass('active');
-                $(this).addClass('active');
-            }
-        });
-
-        //plugin options
-        var paginationTopOptions = {
-            name: "paginationTop",
-            paginationClass: "paginationTop",
-            innerWindow: 1,
-            outerWindow: 1
-        };
-        var paginationBottomOptions = {
-            name: "paginationBottom",
-            paginationClass: "paginationBottom",
-            innerWindow: 1,
-            outerWindow: 1
-        };
-        var options = {
-            valueNames: [ 'id', 'name', 'title', 'recip-number', 'open-number', 'click-number', 'state', 'type',{ name: 'timestamp', attr: 'val' } ],
-            page: 10,
-            searchClass: "searchCampaigns",
-            plugins: [
-                ListPagination(paginationTopOptions),
-                ListPagination(paginationBottomOptions)
-            ]
-        };
-        var campaignList = new List('listCampaigns', options);
-
-        // eliminar campaña
-        function prepareDeleteCampaignButton() {
-          // Needed to add new buttons to jQuery-extended object
-            $('.campaignDelete').on("click",function(e) {
-              e.preventDefault();
-              var link = $(this).attr("href");
-              var itemId =  $(this).parents("ul#campaignsList > li").find('.id').text();
-              prepareAndOpenCampaignConfirmDeletionModal(link, itemId)
-          });
-        }
-        prepareDeleteCampaignButton();
-
-        function prepareAndOpenCampaignConfirmDeletionModal(urlDeleteCampaign, campaignId){
-            $("#campaignDeleteConfirm a.deleteCampaignBtn").attr("href",urlDeleteCampaign)
-            $("#campaignDeleteConfirm a.deleteCampaignBtn").attr("data-campaign-id",campaignId)
-            $("#campaignDeleteConfirm").modal("show");
-        }
-
-        //select filtro campañas según estado
-        $('#filterCampaigns').on('change', function () {
-            var selection = this.value;
-            if ($('select#filterCampaigns option:selected').is('#all')) {
-                campaignList.filter();
-            } else {
-                // filter items in the list
-                campaignList.filter(function (item) {
-                    if (item.values().type == selection) {
-                        return (item.values().type == selection);
-                    }
-                });
-            }
-        });
-        $("#campaignsOrderOptions").on("click", "a", function(e){
-            e.preventDefault();
-        })
-    }
-    // Sorting campaign by default when load campaigns
-    if ($("#campaignsOrderOptions ul li:first a").length >0){
-        $("#campaignsOrderOptions ul li:first a")[0].click();
-    }
-
     // Pagination of tracking mails of a campaign
     $("#tabs-stats-campaign").on("click", ".pag-list-contacts li a",function(e){
         e.preventDefault();
@@ -735,6 +400,14 @@ $(document).ready(function() {
                     pageLoadingOff();
                 });
         }
+    });
+
+    // Handle click on card campaigns list [List of post and debates on dasboard, searcher, user profile]
+    $('ul.campaign-list').on("click",'.link-wrapper .card-footer .post-like', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $button = $(this)
+        postFunctions.onClickPostLike($button)
     });
 
     // Bulk actions -- Open modal
@@ -895,41 +568,6 @@ $(document).ready(function() {
 
     }
 
-    // abrir modal invitar amigos
-    $('body').on('click','#openInviteModal', function(e) {
-        e.preventDefault();
-        $("#inviteFriendsModal").modal("show");
-    });
-    // cerrar modal confirmar envío campaña
-    $('body').on('click','#inviteFriendsBtn', function() {
-        $("#inviteFriendsModal").modal("hide");
-    });
-
-
-    // Not in use
-    /*function prepareImagesCarrousel(){
-        $(".carousel .img-container img").each(function(idx){
-            var rawImage = $(this);
-            var theImage = new Image();
-            theImage.src = rawImage.attr("src");
-            var kuorumRatio = rawImage.parent().width() / rawImage.parent().height()
-            //var kuorumRatio = 205 / 128;
-            var imageRatio =  theImage.width / theImage.height
-
-            console.log(rawImage)
-            console.log("kuorumRatio: " + rawImage.parent().width() +" / " +rawImage.parent().height()+" = "+kuorumRatio)
-            console.log("imageRatio: " + theImage.width +" / " +theImage.height+" = "+imageRatio)
-            if (imageRatio > kuorumRatio){
-                rawImage.css("width", "auto");
-                rawImage.css("height", "100%");
-            }else{
-                rawImage.css("width", "100%");
-                rawImage.css("height", "auto");
-            }
-        });
-    }*/
-
-
     // Carrusel noticias perfil político
     $('.carousel.news').carousel({
           interval: false,
@@ -974,15 +612,6 @@ $(document).ready(function() {
         });
     }
 
-    // custom radio option en formulario Subscribe2
-    if ($('.subscribeForm').length) {
-        var inputOption = $('.subscribeForm input[type=radio]');
-        $(inputOption).click(function(){
-            $(this).closest('.radioOptions').find('label').removeClass();
-            $(this).closest('label').addClass('selected');
-        });
-    }
-
 
     // isotope - plugin para apilar divs de diferente altura
     if ( $('.list-team').length > 0 ) {
@@ -999,13 +628,6 @@ $(document).ready(function() {
         });
     }
 
-    $("#partialUserTryingToVote a").on("click", function(e){
-        e.preventDefault();
-        var voteType = $(this).attr("data-voteType");
-        $("#basicUserDataForm input[name=voteType]").val(voteType);
-        $("#basicUserDataForm").submit()
-    });
-
 
     // controla el comportamiento del módulo de la columna derecha en Propuestas
     $(window).on("load resize",function(e){
@@ -1014,23 +636,6 @@ $(document).ready(function() {
         if (window.matchMedia && window.matchMedia('only screen and (max-width: 1024px)').matches) {
             $('.landing .full-video').find('video').remove();
         }
-
-        // controla el comportamiento del módulo de la columna derecha en Propuestas
-        if ($(window).width() > 991) {
-
-            $(window).scroll(function() {
-                var heightBottom = $('#otras-propuestas').height();
-                if ($(window).scrollTop() + $(window).height() > $(document).height() - heightBottom) {
-                       $('.boxes.vote.drive').removeClass('fixed');
-                } else {
-                        $('.boxes.vote.drive').addClass('fixed');
-                }
-            });
-
-        } else {
-            $('.boxes.vote.drive').removeClass('fixed');
-        }
-
     });
 
     // Switch porcentaje/numero para ratios de apertura y clicks de cada campaña
@@ -1048,15 +653,6 @@ $(document).ready(function() {
     );
 
 
-    ////////////////////////////////////////////////  EDITAR ////////////////////////////////////////
-    // Abre el aviso superior para usuarios semilogados en la Propuesta.
-    // Esto hace que se abra cuando le das al botón "Impulsa esta propuesta" dentro del formulario con clase "semilogado" pero hay que programar el caso real en que queremos que se abra.
-    $('body').on('click','#drive.semilogado .btn', function(e) {
-        e.stopPropagation();
-        e.preventDefault();
-        $('body').css('padding-top', '134px');
-        $('p.warning').fadeIn('slow');
-    });
     // botón de cierre del aviso
     $('body').on('click','.warning .close', function(e) {
         e.stopPropagation();
@@ -1075,24 +671,10 @@ $(document).ready(function() {
     // inicializamos la barra de progreso
     $('.progress-bar').progressbar();
 
-    $("#module-card-ipdb-recruitment-hideWarnButton").on("click", function(e){
-        e.preventDefault();
-        $("#module-card-ipdb-recruitment").fadeOut('fast')
-    });
-
     // desvanecer y eliminar la caja primera del Dashboard (.condition)
     $('body').on('click','aside.condition > .close', function(e) {
 
         $(this).parent('aside.condition').fadeOut('slow', function(){
-          $(this).remove();
-        });
-
-    });
-
-    // desvanecer y eliminar la caja que informa de "subida completada" del .pdf en EDICIÓN DE PROYECTO
-    $('body').on('click','.progress-complete .close', function(e) {
-
-        $(this).closest('.progress-complete').fadeOut('slow', function(){
           $(this).remove();
         });
 
@@ -1147,14 +729,6 @@ $(document).ready(function() {
         e.preventDefault();
     });
 
-    $('ul.campaign-list').on("click",'.link-wrapper .card-footer .post-like', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        var $button = $(this)
-        postFunctions.onClickPostLike($button)
-    });
-
-
     $('#search-results .popover-box .follow').on('click', function() {
         // e.preventDefault();
         // e.stopPropagation();
@@ -1189,11 +763,6 @@ $(document).ready(function() {
 
     // setTimeout(prepareProgressBar, 500)
     // prepareProgressBar();  lo he pasado a custom.js
-
-    // cierre de la ventana del Karma
-    $('body').on('click', '#karma .close', function() {
-        karma.close()
-    });
 
 
     // al hacer clic en los badges vacía el contenido para que desaparezca
@@ -1250,158 +819,10 @@ $(document).ready(function() {
 
     });
 
-
-    // links kakareo, impulsar
-    $('body').on('click', '.action.drive', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        if (!$(this).hasClass('disabled')){
-            var url = $(this).attr("href");
-            var postId = $(this).parents("article").first().attr("data-cluck-postId");
-            votePost(url, postId, false)
-
-        }
-    });
-
-
-    // Activar/desactivar filtros propuestas ciudadanas
-    $('body').on("click", ".filters .btn", function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        if ( $(this).hasClass('active') ){
-            $(this).removeClass('active');
-        } else {
-            $(this).addClass('active');
-        }
-    });
-
-
     // añade la flechita al span de los mensajes de error de los formularios
     if ( $('.error').length > 0 ) {
         $('span.error').prepend('<span class="tooltip-arrow"></span>');
     }
-
-    // votaciones
-    $('body').on("click", ".voting li .yes", function(e) {
-        var lawId = $(this).parents("section").attr("data-lawId");
-        $('section[data-lawId='+lawId+'] .activity .favor').addClass('active');
-    });
-    $('body').on("click", ".voting li .no", function(e) {
-        var lawId = $(this).parents("section").attr("data-lawId");
-        $('section[data-lawId='+lawId+'] .activity .contra').addClass('active');
-    });
-    $('body').on("click", ".voting li .neutral", function(e) {
-        var lawId = $(this).parents("section").attr("data-lawId");
-        $('section[data-lawId='+lawId+'] .activity .abstencion').addClass('active');
-    });
-
-
-    $('#ver-mas a').click(function(e) {
-        e.preventDefault();
-        $('.listComments > li').fadeIn('slow');
-        $('#ver-mas').hide();
-    });
-
-
-    ///////////////////// EDICIÓN PROPUESTA //////////////////////////
-
-    // countdown textarea bio Editar perfil
-    $(function() {
-        var totalChars      = parseInt($('#charInitBio span').text());
-        var countTextBox    = $('.counted'); // Textarea input box
-        var charsCountEl    = $('#charNumBio span'); // Remaining chars count will be displayed here
-
-        if (countTextBox.length> 0){
-            charsCountEl.text(totalChars - countTextBox.val().length); //initial value of countchars element
-        }
-        countTextBox.keyup(function() { //user releases a key on the keyboard
-
-            var thisChars = this.value.replace(/{.*}/g, '').length; //get chars count in textarea
-
-            if (thisChars > totalChars) //if we have more chars than it should be
-            {
-                var CharsToDel = (thisChars-totalChars); // total extra chars to delete
-                this.value = this.value.substring(0,this.value.length-CharsToDel); //remove excess chars from textarea
-            } else {
-                charsCountEl.text( totalChars - thisChars ); //count remaining chars
-            }
-        });
-    });
-
-
-    ///////////////////// EDICIÓN PROPUESTA //////////////////////////
-
-    // countdown textarea edición propuesta
-    $(function() {
-        var totalChars      = parseInt($('#charInit span').text());
-        var countTextBox    = $('.counted'); // Textarea input box
-        var charsCountEl    = $('#charNum span'); // Remaining chars count will be displayed here
-
-        if (countTextBox.length> 0){
-            charsCountEl.text(totalChars - countTextBox.val().length); //initial value of countchars element
-        }
-        countTextBox.keyup(function() { //user releases a key on the keyboard
-
-            var thisChars = this.value.replace(/{.*}/g, '').length; //get chars count in textarea
-
-            if (thisChars > totalChars) //if we have more chars than it should be
-            {
-                var CharsToDel = (thisChars-totalChars); // total extra chars to delete
-                this.value = this.value.substring(0,this.value.length-CharsToDel); //remove excess chars from textarea
-            } else {
-                charsCountEl.text( totalChars - thisChars ); //count remaining chars
-            }
-        });
-    });
-
-
-    ///////////////////// EDICIÓN PROYECTO //////////////////////////
-
-    // countdown textarea edición proyecto HASHTAG
-    $(function() {
-        var totalChars      = parseInt($('#charInitHash span').text());
-        var countTextBox    = $('#hashtag.counted');
-        var charsCountEl    = $('#charNumHash span');
-
-        if (countTextBox.length> 0){
-            charsCountEl.text(totalChars - countTextBox.val().length);
-        }
-        countTextBox.keyup(function() {
-
-            var thisChars = this.value.replace(/{.*}/g, '').length;
-
-            if (thisChars > totalChars)
-            {
-                var CharsToDel = (thisChars-totalChars);
-                this.value = this.value.substring(0,this.value.length-CharsToDel);
-            } else {
-                charsCountEl.text( totalChars - thisChars );
-            }
-        });
-    });
-
-    // countdown textarea edición proyecto DESCRIPCIÓN
-    $(function() {
-        var totalChars      = parseInt($('#charInitTextProj span').text());
-        var countTextBox    = $('#textProject.counted');
-        var charsCountEl    = $('#charNumTextProj span');
-
-        if (countTextBox.length> 0){
-            charsCountEl.text(totalChars - countTextBox.val().length);
-        }
-        countTextBox.keyup(function() {
-
-            var thisChars = this.value.replace(/{.*}/g, '').length;
-
-            if (thisChars > totalChars)
-            {
-                var CharsToDel = (thisChars-totalChars);
-                this.value = this.value.substring(0,this.value.length-CharsToDel);
-            } else {
-                charsCountEl.text( totalChars - thisChars );
-            }
-        });
-    });
 
     //Tipo de imagen o youtube seleccionado
     $("form [data-fileType]").on("click", function(e){
@@ -1429,60 +850,60 @@ $(document).ready(function() {
 
 
     // controlando el video de Vimeo en la modal de la Home
-    $('.play a').click( function(e) {
-
-        var iframeHome = $('#vimeoplayer')[0];
-        var playerHome = $f(iframeHome);
-
-        $("#videoHome").on('hidden.bs.modal', function (e) {
-            playerHome.api('pause');
-        });
-        $("#videoHome").on('shown.bs.modal', function (e) {
-            playerHome.api('play');
-        })
-
-    });
+    // $('.play a').click( function(e) {
+    //
+    //     var iframeHome = $('#vimeoplayer')[0];
+    //     var playerHome = $f(iframeHome);
+    //
+    //     $("#videoHome").on('hidden.bs.modal', function (e) {
+    //         playerHome.api('pause');
+    //     });
+    //     $("#videoHome").on('shown.bs.modal', function (e) {
+    //         playerHome.api('play');
+    //     })
+    //
+    // });
 
     // controlando el video de Vimeo en el Embudo1
-    $(function () {
-
-        $('.vimeo.uno .front').click( function(e) {
-            e.stopPropagation();
-            e.preventDefault();
-            $(this).next('iframe').css('display', 'block');
-            $(this).remove();
-
-            var iframe1 = $('#vimeoplayer1')[0];
-            var player1 = $f(iframe1);
-            player1.api('play');
-
-        });
-
-        $('.vimeo.dos .front').click( function(e) {
-            e.stopPropagation();
-            e.preventDefault();
-            $(this).next('iframe').css('display', 'block');
-            $(this).remove();
-
-            var iframe2 = $('#vimeoplayer2')[0];
-            var player2 = $f(iframe2);
-            player2.api('play');
-
-        });
-
-        $('.vimeo.tres .front').click( function(e) {
-            e.stopPropagation();
-            e.preventDefault();
-            $(this).next('iframe').css('display', 'block');
-            $(this).remove();
-
-            var iframe3 = $('#vimeoplayer3')[0];
-            var player3 = $f(iframe3);
-            player3.api('play');
-
-        });
-
-    });
+    // $(function () {
+    //
+    //     $('.vimeo.uno .front').click( function(e) {
+    //         e.stopPropagation();
+    //         e.preventDefault();
+    //         $(this).next('iframe').css('display', 'block');
+    //         $(this).remove();
+    //
+    //         var iframe1 = $('#vimeoplayer1')[0];
+    //         var player1 = $f(iframe1);
+    //         player1.api('play');
+    //
+    //     });
+    //
+    //     $('.vimeo.dos .front').click( function(e) {
+    //         e.stopPropagation();
+    //         e.preventDefault();
+    //         $(this).next('iframe').css('display', 'block');
+    //         $(this).remove();
+    //
+    //         var iframe2 = $('#vimeoplayer2')[0];
+    //         var player2 = $f(iframe2);
+    //         player2.api('play');
+    //
+    //     });
+    //
+    //     $('.vimeo.tres .front').click( function(e) {
+    //         e.stopPropagation();
+    //         e.preventDefault();
+    //         $(this).next('iframe').css('display', 'block');
+    //         $(this).remove();
+    //
+    //         var iframe3 = $('#vimeoplayer3')[0];
+    //         var player3 = $f(iframe3);
+    //         player3.api('play');
+    //
+    //     });
+    //
+    // });
 
     // hacer clic en player falso del video (.front)
     $('.video').find('.front').click( function(e) {
@@ -1503,49 +924,11 @@ $(document).ready(function() {
 
     prepareForms()
 
-
-    // Modals exports
-    $("#exportCampaignEvents").on("click", function(e){
-        pageLoadingOn();
-        e.preventDefault();
-        var $a = $(this)
-        var link = $a.attr("href")
-        $.post(link)
-            .done(function(data) {
-                $("#export-campaignEvents-modal").modal("show")
-            })
-            .fail(function(messageError) {
-                display.warn("Error exporting");
-            })
-            .always(function() {
-                pageLoadingOff();
-            });
-    });
-
     // Request custom email sender
     $('.box-ppal .box-ppal-section #requestCustomSender').on('click', function (e){
         e.preventDefault();
         var $selector =$(this);
         requestCustomSender($selector);
-    });
-
-
-    // Request campaign collection export
-    $("#exportCampaigns").on("click", function(e){
-        pageLoadingOn();
-        e.preventDefault();
-        var $a = $(this);
-        var link = $a.attr("href");
-        $.post(link)
-            .done(function(data) {
-                $("#export-campaigns-modal").modal("show");
-            })
-            .fail(function(messageError) {
-                display.warn("Error");
-            })
-            .always(function() {
-                pageLoadingOff();
-            });
     });
 
 });

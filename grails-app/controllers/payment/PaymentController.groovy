@@ -25,6 +25,9 @@ class PaymentController {
         if (customerService.validSubscription(user)){
             flash.message="You already has a valid subscription."
             String urlRedirectAfterPay = cookieUUIDService.getPaymentRedirect()
+            if (!urlRedirectAfterPay){
+                urlRedirectAfterPay = g.createLink(mapping: 'dashboard', absolute: true)
+            }
             redirect(uri:urlRedirectAfterPay)
         }
         List<KuorumPaymentPlanDTO> plans = customerService.getUserPaymentPlans(user)

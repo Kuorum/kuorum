@@ -27,6 +27,9 @@
             </div>
 
             <userUtil:ifUserIsTheLoggedOne user="${debateUser}">
+                %{--campaignList contains the js to open modal when the debate is scheduled --}%
+                <r:require modules="campaignList"/>
+
                 <g:set var="modal" value="${debate.newsletter.status == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SCHEDULED ?'modalEditScheduled':''}"/>
                 <g:link class="edit ${modal}" mapping="debateEditContent" params="${debate.encodeAsLinkProperties()}">
                     <span class="fa fa-pencil-square-o pull-right fa-2x" aria-hidden="true"></span>

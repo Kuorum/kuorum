@@ -922,13 +922,6 @@ header.transp .navbar-collapse.collapse.in {background-color: #000;}
 .empty-profile-menu ul.dropdown-menu > li span.counter{float:right;}
 .empty-profile-menu ul.dropdown-menu > li span.text{margin-right: 1em;}
 
-#detailsInfoVotes .dropdown-menu > li:first-child {font-weight: normal;}
-#detailsInfoVotes .dropdown-menu > li:first-child {
-    border-bottom: none;
-    margin: 0;
-    padding: 0;
-}
-#detailsInfoVotes .open > .dropdown-menu {width: 100%;}
 .box .dropdown-menu {padding-bottom: 0;}
 .box .dropdown-menu > li:last-child {border-bottom: none;}
 .box .dropdown-menu > li > ul >li {list-style: none; padding: 0;}
@@ -1685,9 +1678,6 @@ ul.user-list-followers .loading.xs {width: 10px; height: 10px;}
 #followAndRegister.login .form-group:last-child {font-size: 11px; font-size: 1.1rem;}
 #followAndRegister.login .form-group {margin-bottom: 15px;}
 
-#inviteFriendsModal {text-align: center;}
-#inviteFriendsModal h4 {color: #545454; margin-top: 20px; font-variant: normal; font-size: 24px; font-size: 2.4rem; font-weight: normal; margin-bottom: 0;}
-#inviteFriendsModal .modal-header {border: none; padding-bottom: 0;}
 #inviteForm textarea {height: 150px;}
 #inviteForm .form-group {text-align: left;}
 #inviteForm .control-label {font-size: 16px; font-size: 1.6rem;}
@@ -1899,20 +1889,6 @@ ul.user-list-followers .loading.xs {width: 10px; height: 10px;}
 .box-ppal .box-ppal-section fieldset.validate .valid .fa-close { color: red; }
 
 #main.config .box-ppal.other-main-content {margin-top: 20px}
-
-#detailsInfoVotes.autor {background-color: #fff; border: solid 1px #ff9431; padding: 15px; margin: 0 0 15px 0; position: relative;}
-#detailsInfoVotes.autor > .row {margin-bottom: 20px;}
-#detailsInfoVotes.autor > .row:first-child > .col-md-4 {margin-bottom: 10px;}
-#detailsInfoVotes.autor > .infoUpdates {margin-bottom: 0;}
-#detailsInfoVotes.autor > .row:last-child {margin-bottom: 0;}
-#detailsInfoVotes.autor > .row .btn {text-align: left; position: relative; margin: 0 !important;}
-#detailsInfoVotes.autor > .row .btn .caret {position: absolute; top: 50%; right: 8px;}
-#detailsInfoVotes.autor > .totalHash {color: #545454; font-size: 20px; font-size: 2rem;}
-#detailsInfoVotes.autor > .infoUpdates > ul li {list-style: none;}
-#detailsInfoVotes.autor > .infoUpdates > ul:first-child {font-size: 13px; font-size: 1.3rem; color: #bcbcbc;}
-#detailsInfoVotes.autor > .infoUpdates > ul:first-child li {height: auto;}
-#detailsInfoVotes.autor > .infoUpdates > .infoVotes {text-align: right;}
-#detailsInfoVotes.autor .dropdown-menu {background-color: #fff;}
 
 .btn.tw {background-color: #7ecaf4 !important;}
 .btn.tw:hover,
@@ -2342,11 +2318,8 @@ video#bgvid {
 .main.prices .promo-options > div h3,
 .main.prices .promo-options > div ul li {font-size: 18px; font-size: 1.8rem;}
 .main.prices .promo-options > div p.price,
-.subscribeForm p.price {font-family: Arial,Helvetica,sans-serif; font-size: 21px; font-size: 2.1rem; color: #545454; text-align: center; position: relative; margin-bottom: 30px;}
 .main.prices .promo-options > div p.price .amount,
-.subscribeForm p.price .amount {font-size: 100px; font-size: 10rem;}
 .main.prices .promo-options > div p.price .currency,
-.subscribeForm p.price .currency {position: absolute; top: -30px; left: 60px;}
 .main.prices .promo-options > div > form {position: relative; padding-top: 65px; width: calc(100% - 40px);}
 .main.prices .promo-options > div > form .btn {position: absolute; top: 0; margin: 0; font-size: 21px !important; font-size: 2.1rem !important;}
 .main.prices .promo-options > div > form .wrap-select {border-top: 1px solid #545454; border-bottom: 1px solid #545454; margin: 0 -20px; padding: 10px 20px;}
@@ -3266,38 +3239,9 @@ h2.underline {border-bottom: 1px solid #dadada; padding: 0 0 10px 0; margin-top:
 .options > .infoVotes {text-align: right;}
 .infoVotes > li,
 .infoVotes > span {display: inline-block; width: 54px; background-color: #e5e5e5; padding: 5px; font-size: 12px; font-size: 1.2rem; text-align: center;}
-article #detailsInfoVotes .infoVotes > li,
-article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .infoVotes > li:first-child {margin-left: 0;}
 .infoVotes > li.arrow {background: transparent; width: 24px; margin: 0;}
 .infoVotes > li:last-child a {color: #bcbcbc;}
-
-article #detailsInfoVotes .infoVotes > li,
-article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
-#detailsInfoVotes .icons {margin: 5px 0; padding: 0 5px; width: 100%; float: left;}
-#detailsInfoVotes .icons li {list-style: none; display: block; float: left; margin: 0 10px 10px 0;}
-#detailsInfoVotes .icons li:last-child {margin-top: -3px;}
-#detailsInfoVotes .icons.subject li:last-child {margin-top: 0;}
-#detailsInfoVotes .icons li .fa-file-pdf-o.fa-2x {font-size: 2.2em;}
-#detailsInfoVotes .icons.subject {margin: 0;}
-#detailsInfoVotes .icons a,
-#detailsInfoVotes .icons.subject a.active:hover {color: #bcbcbc; display: block; text-decoration: none;}
-#detailsInfoVotes .icons a:hover,
-#detailsInfoVotes .icons.subject a.active {color: #ff9431;}
-#detailsInfoVotes .table {width: 84%;}
-#detailsInfoVotes.autor .table {width: 100%;}
-#detailsInfoVotes.autor .icons li {list-style: none; display: block; float: left; margin: 0 14px 5px 0;}
-#detailsInfoVotes.autor .icons.subject li {margin: 0 20px 10px 0;}
-
-#detailsInfoVotes .table > thead > tr > th,
-#detailsInfoVotes .table > tbody > tr > th,
-#detailsInfoVotes .table > tfoot > tr > th,
-#detailsInfoVotes .table > thead > tr > td,
-#detailsInfoVotes .table > tbody > tr > td,
-#detailsInfoVotes .table > tfoot > tr > td {border: none;}
-#detailsInfoVotes .table tr:last-child {color: #a8a8a8;}
-#detailsInfoVotes .table tbody th {font-weight: normal; width: 26px; text-align: center;}
-#detailsInfoVotes .table tbody tr td {padding: 5px; text-align: center;}
 
 /*#widget .modal-dialog,
 #ya-no .modal-dialog,
@@ -3423,49 +3367,9 @@ body.widget .poweredByKuorum a:hover{text-decoration: underline;}
     background-position: right bottom;
     background-repeat: no-repeat;
 }
-/*.readMore a.collapsed {background-position: right top;}*/
-.top {font-size: 15px; font-size: 1.5rem;}
-.filters {margin: 0 0 20px 0;}
-.filters .btn {background-color: #fff !important; border-radius: 0 !important; border: 1px solid #e5e5e5; border-right: none; color: #5d5d5d !important; font-size: 12px; font-size: 1.2rem; border-radius: 0; padding: 6px 2px !important;}
-.filters .btn:last-child {border-right: 1px solid #e5e5e5;}
-.filters .btn .badge {font-size: 10px; font-size: 1rem; font-weight: normal; background-color: #797979; border-radius: 14px; padding: 4px 6px 5px;}
-.filters .btn:hover,
-.filters .btn.active {background-color: #f8f8f8 !important; box-shadow: 0 0 0 rgba(0, 0, 0, 0) inset;}
-
-.filters .btn.btn-blue {background-color: #20a2ea !important; color: #fff !important;}
-.filters .btn.btn-blue:hover,
-.filters .btn.btn-blue:active,
-.filters .btn.btn-blue:focus {background-color: #2e6bab !important;}
-
 
 /* post =========== */
 /* ====================================================== */
-.boxes.vote.drive {text-align: center;}
-.boxes.vote.drive .checkbox-inline {text-align: left; font-size: 14px; font-size: 1.4rem;}
-.boxes.vote.drive > h1 {font-size: 15px; font-size: 1.5rem; margin: 0; padding: 20px 0 15px;}
-.boxes.vote.drive > h1 > span {font-size: 25px; font-size: 2.5rem;}
-.boxes.vote.drive > h2 {font-size: 13px; font-size: 1.3rem; margin: 15px 0 25px;}
-.progress {height: 15px; border-radius: 0; margin: 0;}
-.header-campaign .progress {height: 22px; border-radius: 0; margin: 10px 0 0 10%; position: relative; width: calc(100% - 20%); max-width: 430px;}
-.progress-bar {background-color: #828282;}
-.boxes.vote.drive .user-list-images > li {display: block; float: left; margin-right: 2px;}
-.boxes.vote.drive .user-list-images > li:last-child {margin-right: 0;}
-.boxes.vote.drive form,
-.boxes.vote.drive .progress,
-.boxes.vote.drive .sponsor,
-.boxes.vote.drive .social,
-.boxes.vote.signin #sign,
-.boxes.vote div.social,
-.boxes.vote > .btn-lg,
-.boxes.performance a.improve {margin: 0 auto;}
-.boxes.vote.drive form  {margin: 10px auto 20px;}
-.boxes.vote.drive .btn {position: relative;}
-.boxes.vote.drive .btn.btn-lg {font-size: 17px !important; font-size: 1.7rem !important; padding-left: 50px !important; margin: 15px 0 !important;}
-.boxes.vote.drive .btn .fa {position: absolute; top: 15px; left: 5%;}
-.boxes.vote.drive .social {margin-bottom: 20px !important;}
-.boxes.vote.drive .social li {font-size: 16px; font-size: 1.6rem;}
-
-.sponsor .user-list-images {margin: 0;}
 
 .comments {margin-bottom: 20px;}
 .listComments {margin: 0; padding: 0;}
@@ -4205,11 +4109,6 @@ fieldset.rating:hover > input + label:hover:before {
 .pago.paypal {background-image: url('../images/pago-paypal.png');}
 .tipo-pago {margin-top: 30px;}
 
-.funnelFormDetectUser .form-group:last-child {margin: 30px 0 0 0; text-align: center;}
-.funnelFormDetectUser .form-group:last-child .btn {width: 100%; font-size: 25px !important; font-size: 2.5rem !important;}
-
-
-
 /* user profile =========== */
 /* ====================================================== */
 .socialContact {margin: 0 0 20px 0; padding: 10px !important;}
@@ -4220,10 +4119,6 @@ fieldset.rating:hover > input + label:hover:before {
 .socialContact li a:focus {color: #a8a8a8;}
 .socialContact li span {color: #545454; margin-right: 4px;}
 
-.boxes.userkarma .activity {margin-bottom: 40px;}
-.boxes.userkarma .follow {width: 100%;}
-.boxes.userkarma .activity li span {color: #545454; font-size: 32px; font-size: 3.2rem;}
-.boxes.userkarma h1 span,
 .boxes.follow h1 span,
 .boxes.laws h1 span {font-size: 18px; font-size: 1.8rem; margin-bottom: 4px; color: #545454;}
 .boxes.follow h1 small span {font-size: 14px; font-size: 1.4rem;}
@@ -4231,14 +4126,11 @@ fieldset.rating:hover > input + label:hover:before {
 .boxes.laws > ul > li:last-child {border: 0;}
 .boxes.laws > ul > li > .counter {display: inline-block; float: right;}
 
-.boxes.userkarma .activity li.victories {padding-bottom: 20px;}
-
 .noprofile h1,
 .noprofile h2 {font-size: 24px; font-size: 2.4rem; margin-bottom: 20px;}
 .noprofile .btn {margin: 10px 0 40px !important; line-height: 1.4;}
 .noprofile .follow {width: 100%;}
 
-.userprofile .boxes.userkarma .activity li span {color: #a8a8a8;}
 .userprofile .boxes.noted {margin-bottom: 20px;}
 .userprofile .boxes.noted h1 {font-family: 'Georgia', 'Times New Roman', Times, serif; font-size: 24px; font-size: 2.4rem; text-transform: none; border-bottom: 1px solid #DADADA; margin-top: 10px; padding: 0 0 8px;}
 .userprofile .boxes.noted .user-list-followers li {float: left; margin-right: 7px;}
@@ -5055,10 +4947,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     select {color: #545454; font-size: 13px; font-size:  1.3rem;}
     .pre {margin: 75px 20px 5px 0;}
     .preFooter .user-list li .user-img {margin-right: 10px;}
-    #detailsInfoVotes .table {width: 95%;}
-    #detailsInfoVotes .table tbody th {width: 148px; text-align: right; padding-right: 10px;}
-    /*#detailsInfoVotes .icons {padding: 0 15px;}*/
-    #detailsInfoVotes.autor .table tbody th {width: 170px;}
+
     #sign .checkbox-inline + .checkbox-inline {margin-left: 10px;}
     .form-group.image.fondoperfil .qq-upload-drop-area {background-size: auto auto; background-position: center 32%; padding-top: 15%;}
     .chat > li .user.author {margin-top: -32px;}
@@ -5126,15 +5015,9 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
     .conversation-box-comment .header .user {  max-width: 250px !important;  }
 }
-@media only screen and (min-width: 533px) {
-    #detailsInfoVotes .table tbody th {width: 205px;}
-    #detailsInfoVotes.autor .table tbody th {width: 230px;}
-}
 
 @media only screen and (min-width: 600px) {
     /* #main {min-height: 639px;}*/
-    #detailsInfoVotes .table tbody th {width: 270px;}
-    #detailsInfoVotes.autor .table tbody th {width: 295px;}
     .main.prices .promo-options > div p.price .currency {left: 155px;}
     .container-lists h4 {margin-left: 0;}
 
@@ -5162,9 +5045,6 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 }
 
 @media only screen and (min-width: 640px) {
-    #myWidgetLabel {font-size: 34px;}
-    #detailsInfoVotes .table tbody th {width: 300px;}
-    #detailsInfoVotes.autor .table tbody th {width: 335px;}
     #contactsList > li {padding: 10px 0 0 0px; min-height: 175px;}
 
     #main > div.box-steps > ul#mails.threeSteps {width: 522px}
@@ -5300,8 +5180,6 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .homeSub.medios h2 {margin-top: 100px;}
     .config > header h1 {font-size: 22px; font-size: 2.2rem;}
     .config.info > article > .box-ppal > h1 {margin: 5px 0 15px;}
-    .funnelFormDetectUser .form-group:last-child .btn {width: 40%;}
-    .funnelFormDetectUser .form-group:last-child {width: 82%;}
     .contratando .form-group {margin-right: 20px; width: 46%;}
     .contratando .nav-tabs > li:last-child {margin-right: 0;}
     .contratando .nav-tabs > li {margin-right: 40px; padding: 20px;}
@@ -5353,7 +5231,6 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     #pass-forget.login .btn.btn-blue.btn-lg { width: 100%; padding-left: 0px !important; padding-right: 0px !important;}
     #pass-forget.login span.error { margin-bottom: 15px; float: left;}
 
-    #detailsInfoVotes .icons {margin: 10px 0;}
     #info-sup-scroll {top: 55px; padding: 10px;}
     #info-sup-scroll  .infoVotes,
     #info-sup-scroll .laley,
@@ -5417,12 +5294,6 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .stats a {padding: 10px 0 0 0;}
     .stats span {display: inline-block; margin: 0 8px 4px 0;}
     .popover-box {width: 47%; float: left; margin: 0 20px 20px 0;}
-    #detailsInfoVotes .table {width: 88%; margin-bottom: 0;}
-    #detailsInfoVotes .table tbody th {width: 26px; padding-right: 5px;}
-    #detailsInfoVotes .table tbody tr td {text-align: center;}
-    #detailsInfoVotes > .infoUpdates {margin-bottom: 0;}
-    #detailsInfoVotes.autor .table tbody th {width: 45px;}
-
 
     /* karma */
     #karma {padding: 10px 20px 20px;}
@@ -5687,7 +5558,6 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .pago {background-size: 280px auto;}
     .promo-options {padding-bottom: 40px; margin-top: 30px;}
     .config > header h1 {font-size: 25px; font-size: 2.5rem;}
-    .funnelFormDetectUser .form-group:last-child {width: 94%;}
     .contratando .nav-tabs > li {margin-right: 20px; padding: 20px 10px;}
     .contratando .form-group {width: 45%;}
     .promo-options > div > form .options-wrapper {width: 100%;}
@@ -5755,14 +5625,6 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     #info-sup-scroll .infoVotes > li,
     #info-sup-scroll .infoVotes > span {padding: 6px; width: 70px; height: 33px; font-size: 16px; font-size: 1.6rem;}
     #info-sup-scroll .infoVotes > li {margin-left: 15px;}
-
-
-    #detailsInfoVotes .table tbody th {font-size: 14px; font-size: 1.4rem; width: 110px;}
-    #detailsInfoVotes .table tbody th {width: 115px;}
-    #detailsInfoVotes .table {width: 92%;}
-    #detailsInfoVotes.autor .table tbody th {width: 115px;}
-    #detailsInfoVotes.autor .icons.subject li {margin: 0 18px 10px 0;}
-    #detailsInfoVotes .icons {margin: 0;}
 
     .navbar-brand {width: 170px; height: 48px; margin-top: -4px; margin-bottom: 7px;}
     .btn.search {line-height: 0.7;}
@@ -5836,8 +5698,6 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .list-updates {width: 104%;}
     .list-updates > li {width: 302px; float: left; margin-right: 15px;}
     .list-updates > li:nth-of-type(even) {margin-right: 0;}
-    .filters .btn {font-size: 18px; font-size: 1.8rem; padding: 6px 4px !important;}
-    .filters .btn .badge {font-size: 17px; font-size: 1.7rem; border-radius: 15px; padding: 2px 8px 6px;}
 
     .box-ppal .notifications-list .actions {position: absolute; top: 10px; right: 0; margin: 0; padding: 0;}
     .notifications-list > li > .user > .actions > li {display: block;}
@@ -6036,7 +5896,6 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .list-updates > li {width: 356px;}
     .list-team > li {width: 350px;}
     #main {min-height: 738px;}
-    #detailsInfoVotes.autor .table tbody th {width: 180px;}
     .arrow2 {right: 35px;}
     .arrow3 {bottom: -90px;}
     .arrow4 {bottom: -55px; left: 120px;}
@@ -6126,15 +5985,6 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     aside .back {margin: 30px 0 14px;}
     .infoVotes > li,
     .infoVotes > span {/*font-size: 18px; font-size: 1.8rem;*/ width: 78px; padding: 7px;}
-    #detailsInfoVotes .table {width: 95%;}
-    #detailsInfoVotes .table tbody th {width: 160px; font-size: 15px; font-size: 1.5rem;}
-    #detailsInfoVotes .icons {padding: 0;}
-    #detailsInfoVotes .icons li {margin-right: 14px; font-size: 13px; font-size: 1.3rem;}
-    #detailsInfoVotes.autor .table {width: 100%;}
-    #detailsInfoVotes.autor .table tbody th {width: 145px;}
-    #detailsInfoVotes.autor .icons.subject li {margin: 0 22px 10px 0;}
-    #detailsInfoVotes.autor .icons li {font-size: 15px; font-size: 1.5rem; margin: 0 18px 5px 0;}
-    .filters .btn {font-size: 20px; font-size: 2rem; padding: 6px 4px !important;}
     .arrow1 {right: -20px; top: 45px;}
     .arrow2 {right: 18px;}
     .arrow2.propuesta {right: 80px;}

@@ -273,72 +273,6 @@ $(document).ready(function() {
         openComments();
         $("html, body").animate({ scrollTop: $(this).parents(".listComments").offset().top -100}, 1000);
     });
-    $("#addComment").on('submit', function(e){
-        e.preventDefault();
-        var form = $(this);
-        if (form.valid()){
-            var parentId = form.attr('data-parent-id');
-            var parent = $("#" + parentId);
-            var url = form.attr('action');
-            $.ajax( {
-                url:url,
-                data:$(this).serialize(),
-                statusCode: {
-                    401: function() {
-                        display.warn("Tienes que registrarte para poder añadir comentarios")
-                    }
-                }
-            })
-                .done(function(data, status, xhr) {
-                    parent.append(data);
-                    $('#ver-mas a').click();
-                    form[0].reset();
-                    if (parent.children().last().prev().length >0){
-                        //NO es el primer elemento
-                        $("html, body").animate({ scrollTop: parent.children().last().prev().offset().top }, 1000);
-                    }
-                })
-                .fail(function(data) {
-                    console.log(data)
-                })
-                .always(function(data) {
-
-                });
-        }else{
-            //console.log("pete")
-        }
-    });
-    $("#addDebate").on('submit', function(e) {
-        e.preventDefault();
-        var form = $(this);
-        if (form.valid()) {
-            var url = form.attr('action');
-            var ulList = $("ul.chat");
-            $.ajax({
-                url:url,
-                data:$(this).serialize(),
-                statusCode: {
-                    401: function() {
-                        display.warn("Tienes que registrarte para poder añadir comentarios")
-                    }
-                }
-            })
-                .done(function(data, status, xhr) {
-                    ulList.find(">li:last-child").before(data);
-                    form.each (function(){  this.reset();});
-//                    $("html, body").animate({ scrollTop: parent.children().last().prev().offset().top }, 1000);
-                })
-                .fail(function(data) {
-                    display.warn("Hubo algun error. Intent otra vez o contacte con info@kuorum.org");
-                    console.log(data)
-                })
-                .always(function(data) {
-
-                });
-        }else{
-            //console.log("pete")
-        }
-    });
 
 	// countdown textarea edición propuesta
 	$(function() {
@@ -361,29 +295,6 @@ $(document).ready(function() {
 				charsCountEl.text( totalChars - thisChars ); //count remaining chars
 			}
 		});
-	});
-
-	// hacer visible la contraseña
-	$('#show-pass').attr('checked', false);
-
-	$('#show-pass').click(function(){
-
-		if ($(this).hasClass('checked')) {
-			$(this).removeClass('checked');
-		} else {
-			$(this).addClass('checked');
-		}
-
-	    name = $('#password').attr('name');
-	    value = $('#password').val();
-
-	    if($(this).hasClass('checked')) {
-	    	html = '<input type="text" name="'+ name + '" value="' + value + '" id="password" class="form-control input-lg">';
-	        $('#password').after(html).remove();
-	    } else {
-	    	html = '<input type="password" name="'+ name + '" value="' + value + '" id="password" class="form-control input-lg">';
-	    	$('#password').after(html).remove();
-	    }
 	});
 
     function prepareFormUsingGender(userType){
@@ -551,20 +462,6 @@ $(document).ready(function() {
         $('[data-multimedia-switch="on"]').hide();
         $('[data-multimedia-type="'+multimediaType+'"]').show()
 
-    });
-
-    $('body').on("click",".votePostCommentLink", function(e){
-        e.preventDefault();
-        var element = $(this);
-        if (!element.hasClass("disabled")){
-            var url = $(this).attr('href');
-            $.ajax(url).done(function(data){
-                element.parent().siblings().children().addClass("disabled");
-                element.addClass("disabled");
-                var q = parseInt(element.siblings('span').html(), 10);
-                element.siblings('span').html(q+1)
-            });
-        }
     });
 
     $(".dynamicList").dynamiclist();

@@ -1,3 +1,4 @@
+<r:require modules="campaignList"/>
 <h2 class="sr-only"><g:message code="tools.massMailing.list.recipients"/></h2>
 <div class="pag-list-contacts clearfix">
     <div class="actions">

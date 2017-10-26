@@ -1,4 +1,5 @@
 <!-- Módulo Gráficos evaluación político -->
+<r:require modules="statCharts"/>
 <section class="panel panel-default" id="right-panel-politicalValuationChart">
     <div class="panel-heading">
         <h3 class="panel-title"><g:message code="politician.valuation.chart.module.title"/> </h3>

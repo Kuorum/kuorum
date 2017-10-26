@@ -55,7 +55,7 @@
         <p class="note"><g:message code="register.conditions" args="[g.createLink(mapping: 'footerTermsUse')]"/> </p>
     </g:form>
 
-    <script>
+    <r:script>
         $(function(){
             gtmPaymentEvent("payment-page-loaded")
 
@@ -236,6 +236,6 @@
             $('section#payment div.price-info .discounted').addClass('highlight');
 
         }
-    </script>
+    </r:script>
 
 </content>

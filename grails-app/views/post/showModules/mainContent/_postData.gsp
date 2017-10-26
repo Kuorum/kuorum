@@ -7,6 +7,8 @@
         <div class="clearfix">
             <span class="time-ago pull-left"><kuorumDate:humanDate date="${post.datePublished}"/> </span>
             <userUtil:ifUserIsTheLoggedOne user="${postUser}">
+            %{--campaignList contains the js to open modal when the debate is scheduled --}%
+                <r:require modules="campaignList"/>
                 <g:set var="modal" value="${post.newsletter.status == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SCHEDULED ?'modalEditScheduled':''}"/>
                 <g:link class="edit ${modal}" mapping="postEditContent" params="${post.encodeAsLinkProperties()}">
                     <span class="fa fa-pencil-square-o pull-right fa-2x" aria-hidden="true"></span>
