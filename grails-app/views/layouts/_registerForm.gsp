@@ -60,6 +60,7 @@
         });
     });
 </r:script>
+<r:require modules="recaptcha_modalRegister"/>
 <g:form mapping="register" action-ajax="${g.createLink(mapping: 'registerAjax')}" autocomplete="off" method="post" name="${formId}" class="login" role="form" novalidate="novalidate">
     <div class="form-group">
         <formUtil:input
@@ -82,7 +83,12 @@
                 required="true"/>
     </div>
     <div class="form-group">
-        <input type="submit" class="btn btn-lg" value="${g.message(code:'register.email.form.submit')}">
+        <button id="register-modal-form-id"
+                data-recaptcha=""
+                data-callback="registerModalCallback"
+                class="btn btn-orange btn-lg g-recaptcha"><g:message code="register.email.form.submit"/>
+        </button>
+        %{--<input type="submit" class="btn btn-lg" value="${g.message(code:'register.email.form.submit')}">--}%
         <p><g:message code="register.conditions" args="[g.createLink(mapping: 'footerPrivacyPolicy')]" encodeAs="raw"/></p>
     </div>
     <div class="form-group">

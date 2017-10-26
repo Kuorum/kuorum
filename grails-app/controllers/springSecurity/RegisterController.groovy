@@ -65,7 +65,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         }
 
         if(!verifyRegister()){
-            flash.error = g.message(error: 'register.locked.recaptcha.error')
+            render ([success:false] as JSON)
             return
         }
 
@@ -116,7 +116,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         }
 
         if(!verifyRegister()){
-            flash.error = g.message(error: 'register.locked.recaptcha.error')
+            render ([success:false] as JSON)
             return
         }
 
@@ -306,7 +306,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
             return ;
         }
         if(!verifyRegister()){
-            flash.error = g.message(error: 'register.locked.recaptcha.error')
+            render ([success:false] as JSON)
             return
         }
         Locale locale = LocaleContextHolder.getLocale();
@@ -372,7 +372,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
             return
         }
         if(!verifyRegister()){
-            flash.error = g.message(error: 'register.locked.recaptcha.error')
+            render ([success:false] as JSON)
             return
         }
         Locale locale = LocaleContextHolder.getLocale();
