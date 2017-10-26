@@ -6,6 +6,7 @@
     <parameter name="showHeadSearch" value="false"/>
     <parameter name="showNavBar" value="false"/>
     <parameter name="extraHeadCss" value="landing"/>
+    <r:require modules="forms"/>
 </head>
 
 <content tag="title">

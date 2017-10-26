@@ -23,7 +23,7 @@
 </div>
 
 <div id="fb-root"></div>
-<r:script>
+<script>
 
     /// FACBOOK AJAX LOGIN
     window.fbAsyncInit = function() {
@@ -73,6 +73,8 @@
             }
         },{scope: 'public_profile,email'});
     }
+</script>
+<r:script>
     $("#registro .socialGo .btn.fb").on("click", function(e){
         e.preventDefault();
         var callbackFunctionName = $('#registro').find("form").attr("callback");
@@ -81,7 +83,7 @@
 </r:script>
 
 
-<r:script>
+<script>
     var GoogleAuth;
     var SCOPE = 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email';
     function handleClientLoad() {
@@ -160,7 +162,7 @@
             }
         }
     }
-</r:script>
+</script>
 
 <script async defer src="https://apis.google.com/js/api.js"
         onload="this.onload=function(){};handleClientLoad()"

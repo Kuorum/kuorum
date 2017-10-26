@@ -50,6 +50,38 @@ $(function(){
         $('.jqte_placeholder_text').css('display', 'none');
     }
 
+    // textarea editor
+    $.each($(".texteditor"), function(idx, val) {
+        var placeholder = $(val).attr("placeholder");
+        if (placeholder == undefined){
+            placeholder = i18n.form.textEditor.textAreaPlaceHolder
+        }
+        $(val).jqte({
+            br: true,
+            center: false,
+            color: false,
+            format: false,
+            indent: false,
+            left: false,
+            ol: false,
+            outdent: false,
+            p: true,
+            placeholder: $(val).attr("placeholder"),
+            linktypes: ["URL", "Email"],
+            remove: true,
+            right: false,
+            rule: false,
+            source: false,
+            sub: false,
+            strike: true,
+            sup: false,
+            ul: true,
+            unlink: true,
+            fsize: false,
+            title: false
+        });
+    });
+
     $("body").on("click", ".jqte_editor a", function(e){
         e.preventDefault();
         var link = $(this).attr("href");
@@ -128,6 +160,56 @@ $(function(){
         realInputId = realInputId.replace(".", "\\.");
         $("#"+realInputId).val("")
     });
+
+
+    /* CHECKBOX COMMISSIONS */
+    // seleccionar todos los checkbox [COMMISIONS] => _commissions.gsp
+    // $(function () {
+    //     var checkAll = $('#selectAll');
+    //     var checkboxes = $('input.check');
+    //
+    //     $('input.check').each(function(){
+    //         var self = $(this),
+    //             label = self.next(),
+    //             label_text = label.html();
+    //         label.remove();
+    //         self.iCheck({
+    //             checkboxClass: 'icheckbox_line-orange',
+    //             radioClass: 'iradio_line-orange',
+    //             inheritID: true,
+    //             aria: true,
+    //             insert:  label_text
+    //         });
+    //     });
+    //
+    //     $('#selectAll').change(function() {
+    //         if($(this).is(':checked')) {
+    //             checkboxes.iCheck('check');
+    //             $('#others').prop('checked', true);
+    //         } else {
+    //             checkboxes.iCheck('uncheck');
+    //             $('#others').prop('checked', false);
+    //         }
+    //     });
+    //
+    //     checkAll.on('ifChecked ifUnchecked', function(event) {
+    //         if (event.type == 'ifChecked') {
+    //             checkboxes.iCheck('check');
+    //         } else {
+    //             checkboxes.iCheck('uncheck');
+    //         }
+    //     });
+    //
+    //     checkboxes.on('ifChanged', function(event){
+    //         if(checkboxes.filter(':checked').length == checkboxes.length) {
+    //             checkAll.prop('checked', 'checked');
+    //         } else {
+    //             checkAll.removeProp('checked');
+    //         }
+    //         checkAll.iCheck('update');
+    //     });
+    // });
+
 
 })
 

@@ -9,45 +9,6 @@ $(document).ready(function() {
     setTimeout(prepareProgressBar, 500);
     prepareProgressBar();
 
-    // textarea editor
-    $.each($(".texteditor"), function(idx, val) {
-        var placeholder = $(val).attr("placeholder");
-        if (placeholder == undefined){
-            placeholder = i18n.form.textEditor.textAreaPlaceHolder
-        }
-        $(val).jqte({
-            br: true,
-            center: false,
-            color: false,
-            format: false,
-            indent: false,
-            left: false,
-            ol: false,
-            outdent: false,
-            p: true,
-            placeholder: $(val).attr("placeholder"),
-            linktypes: ["URL", "Email"],
-            remove: true,
-            right: false,
-            rule: false,
-            source: false,
-            sub: false,
-            strike: true,
-            sup: false,
-            ul: true,
-            unlink: true,
-            fsize: false,
-            title: false
-        });
-    });
-    // para los checkbox del formulario de registro
-    var texts= {
-        0: i18n.customRegister.step4.form.submit.description0,
-        1: i18n.customRegister.step4.form.submit.description1,
-        2: i18n.customRegister.step4.form.submit.description2,
-        ok:i18n.customRegister.step4.form.submit.descriptionOk
-    };
-
     $("#brand.disabled").on('click', function (e) {
         e.preventDefault();
     });
@@ -250,81 +211,6 @@ $(document).ready(function() {
 
     }
 
-	// si boxes lleva foto pongo padding superior
-	if ( $('.boxes.noted.likes.important').children('img.actor').length > 0 ) {
-		$('.boxes.noted.likes.important').css('padding-top', '275px');
-
-	}
-
-	// para los checkbox del formulario de registro
-	var texts= {
-        0: i18n.customRegister.step4.form.submit.description0,
-        1: i18n.customRegister.step4.form.submit.description1,
-        2: i18n.customRegister.step4.form.submit.description2,
-        ok:i18n.customRegister.step4.form.submit.descriptionOk
-    };
-    function changeDescriptionNumSelect(){
-        var numChecked = $("#sign4 input[type=checkbox]:checked").length;
-        if (numChecked < 3){
-            $("#descNumSelect").html(texts[numChecked]);
-            $("#sign4 input[type=submit]").addClass('disabled')
-        }else{
-            $("#descNumSelect").html(texts['ok']);
-            $("#sign4 input[type=submit]").removeClass('disabled')
-        }
-    }
-
-
-	// seleccionar todos los checkbox
-	$(function () {
-        changeDescriptionNumSelect();
-        var checkAll = $('#selectAll');
-	    var checkboxes = $('input.check');
-
-        $('input.check').each(function(){
-            var self = $(this),
-            label = self.next(),
-            label_text = label.html();
-            label.remove();
-            self.iCheck({
-              checkboxClass: 'icheckbox_line-orange',
-              radioClass: 'iradio_line-orange',
-              inheritID: true,
-              aria: true,
-              insert:  label_text
-            });
-        });
-
-	    $('#selectAll').change(function() {
-		    if($(this).is(':checked')) {
-		        checkboxes.iCheck('check');
-		        $('#others').prop('checked', true);
-		    } else {
-		        checkboxes.iCheck('uncheck');
-		        $('#others').prop('checked', false);
-		    }
-		});
-
-	    checkAll.on('ifChecked ifUnchecked', function(event) {
-	        if (event.type == 'ifChecked') {
-	            checkboxes.iCheck('check');
-	        } else {
-	            checkboxes.iCheck('uncheck');
-	        }
-	    });
-
-	    checkboxes.on('ifChanged', function(event){
-	        if(checkboxes.filter(':checked').length == checkboxes.length) {
-	            checkAll.prop('checked', 'checked');
-	        } else {
-	            checkAll.removeProp('checked');
-	        }
-	        checkAll.iCheck('update');
-            changeDescriptionNumSelect();
-	    });
-	});
-
-
     $('.ajax.popover-trigger.more-users').on('shown.bs.popover', function () {
         var that = $(this);
         var content = $(this).next().children(".popover-content");
@@ -512,38 +398,6 @@ $(document).ready(function() {
                 'font-size': (back) ? '14px' : '20px',
                 'opacity': (back) ? 1 : 0.5
             }, 100, function(){hearBeat(numHeartBeats -1, $element)});
-    }
-
-    // botón de cierre de las causas del dashboard
-    // DISCARD CAUSE DASHBOARD
-    if ($('.causes-list').length) {
-        $(".causes-list").on("click","li article a.close", function(e){
-            e.preventDefault();
-            e.stopPropagation();
-            var link = $(this).attr("href");
-            var $liCause = $(this).closest('li');
-            $.get( link)
-                .done(function(data) {
-                    var appendUl = $liCause.parents("ul.causes-list");
-                    addNewCauseToList(appendUl, $liCause);
-                });
-        });
-    }
-
-    function addNewCauseToList($ul, $li){
-        var offset = $ul.next().children("a.loadMore").attr("data-offset");
-        var linkNewCause = $ul.next().children("a.loadMore").attr("href");
-        $.get(linkNewCause, { offset: offset, max:1})
-            .done(function(data){
-//                $ul.append(data)
-                var newCause = $(data).hide();
-                console.log(newCause);
-                $li.children('article').fadeOut('fast', function(){
-                    newCause.unwrap();
-                    $li.replaceWith(newCause);
-                    newCause.fadeIn('fast')
-                });
-            })
     }
 
     /*******************************************/

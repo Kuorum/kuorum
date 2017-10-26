@@ -2474,7 +2474,6 @@ video#bgvid {
     position: relative;
 }
 .boxes.vote {padding: 5px 10px 0;}
-.boxes.noted {background-color: #eff5fd; margin: 0;}
 .boxes.profile-user {padding: 10px; /*min-height: 496px;*/}
 .boxes .edit {font-size: 12px; font-size: 1.2rem; display: inline-block; color: #A8A8A8; position: absolute; top: 10px; right: 10px;}
 .boxes.edit-user {padding: 10px;}
@@ -2578,27 +2577,6 @@ video#bgvid {
 .boxes > h1 {font-size: 22px; font-size: 2.2rem; color: #545454; margin: 0; padding: 10px; border-bottom: 1px solid #dadada;}
 .boxes.vote > h1 {border: none; padding-left: 0; padding-right: 0;}
 .boxes > h2 {font-size: 19px; font-size: 1.9rem; color: #545454;}
-.boxes.noted {min-height: 200px;}
-.boxes.noted h1 {font-size: 33px; font-size: 3.3rem; text-transform: uppercase; border: none;}
-.boxes.noted.likes {text-align: center; color: #407ab7;}
-.boxes.noted.likes h1 {
-    text-align: left;
-    font-family: 'Georgia', 'Times New Roman', Times, serif;
-    color: #407ab7;
-    text-transform: none;
-    font-size: 37px;
-    font-size: 3.7rem;
-    margin: 90px 0 20px 0;
-}
-.boxes.noted.likes .social {margin-bottom: 20px;}
-.boxes.noted.likes .social li a {color: #20a2ea !important;}
-.boxes.noted.likes .social li a:hover,
-.boxes.noted.likes .social li a:active,
-.boxes.noted.likes .social li a:focus {color: #fff !important;}
-.boxes.noted.likes .social li .fa-circle {color: #fff !important;}
-.boxes.noted.likes .social li a:hover .fa-circle,
-.boxes.noted.likes .social li a:active .fa-circle,
-.boxes.noted.likes .social li a:focus .fa-circle {color: #20a2ea !important;}
 .boxes.alerts h1,
 .boxes.pending h1 {font-size: 15px; font-size: 1.5rem;}
 .boxes h1 .bigger {font-size: 150%;}
@@ -2699,7 +2677,6 @@ ul.campaign-list > li.info-empty .icon-empty-campaignList img{width: 30px; verti
     color: #545454;
     margin-top: 35px;
 }
-.edit-post .boxes.noted.likes h1 {margin: 10px 0 30px 0;}
 .edit-post #main h2 {font-size: 28px; font-size: 2.8rem; text-transform: uppercase;}
 .edit-post > p {border-bottom: solid 1px #efefef; padding: 0 0 20px 0; margin: 0;}
 .edit-post form {font-size: 14px; font-size: 1.4rem;}
@@ -3396,14 +3373,6 @@ body.widget .poweredByKuorum a:hover{text-decoration: underline;}
 #addComment label {font-size: 20px; font-size: 2rem;}
 #addComment .form-group.btns {margin: 0;}
 
-.boxes.noted.likes .sponsor {margin: 0 0 20px 0;}
-.boxes.noted.likes .sponsor .user-list-images > li {margin: 0 8px 0 0; display: block; float: left; height: 40px;}
-.boxes.noted.likes .sponsor .user-list-images > li:last-child {margin: 0;}
-.boxes.noted.likes #drive {margin-bottom: 50px;}
-.boxes.noted.likes #drive .form-group {margin: 10px 0;}
-.boxes.noted .follow {display: block; position: relative;}
-.boxes.noted .follow ul > li {float: left; margin-right: 3px;}
-
 .othersPost {margin: 60px 0 70px;}
 .othersPost h1 {font-size: 20px; font-size: 2rem;}
 .othersPost #postNav {padding: 0 43px; margin: 0; position: relative; height: 184px; font-size: 13px; font-size: 1.3rem;}
@@ -3452,27 +3421,9 @@ body.widget .poweredByKuorum a:hover{text-decoration: underline;}
 
 #addDebate {margin: 10px 0;}
 #addDebate textarea {padding: 20px;}
-.boxes.noted.likes.important {background-color: #FFF8ED;}
-.boxes.noted.likes.important,
-.boxes.noted.likes.important h1 {color: #ff9431;}
-.boxes.noted.likes.important > .actor {position: absolute; top: 5px; left: 0;}
 .important .likesContainer #m-callback-done,
 .boxes.likes.important .progress-bar {background-color: #ff9431;}
 .important .likesContainer #m-callback-done .arrowLike {border-top: 8px solid #ff9431;}
-.boxes.noted.likes.important .progress {background-color: #FEEDCE;}
-.boxes.noted.likes.important .more-users {background-color: #ff9431;}
-.boxes.noted.likes.important .more-users:hover,
-.boxes.noted.likes.important .more-users:active,
-.boxes.noted.likes.important .more-users:focus {background-color: #ee7612;}
-.boxes.noted.likes.important .social li a {color: #ff9431 !important;}
-
-.boxes.noted.likes.important .social li a:hover,
-.boxes.noted.likes.important .social li a:active,
-.boxes.noted.likes.important .social li a:focus {color: #fff !important;}
-.boxes.noted.likes.important .social li .fa-circle {color: #fff !important;}
-.boxes.noted.likes.important .social li a:hover .fa-circle,
-.boxes.noted.likes.important .social li a:active .fa-circle,
-.boxes.noted.likes.important .social li a:focus .fa-circle {color: #ff9431 !important;}
 
 
 .promo-options {margin: 20px auto 50px; width: 80%; padding-bottom: 20px;}
@@ -3953,27 +3904,6 @@ fieldset.rating:hover > input + label:hover:before {
 .carousel.news .carousel-control.right {background-image: none; right: 18px;}
 .carousel.news .carousel-control {width: 50px; height: 50px; top: 35%;}
 
-
-/* CAUSAS */
-.causes-list {margin-top: 0; margin-bottom: 0; padding: 0;}
-.causes-list .link-wrapper .close {margin-top: -2px;}
-.causes-list .box-ppal {padding: 15px 15px 10px 15px; margin-bottom: 20px;box-shadow: 0 0 2px rgba(200,200,200,0.6);}
-.causes-list .causes-tags {margin-bottom: 10px;}
-.causes-list .cause-footer {border-top: 1px solid #e5e5e5; margin-top: 10px; padding: 10px 0 0 0; color: #a8a8a8; font-size: 13px; font-size: 1.3rem;}
-.causes-list .cause-footer .politicians-counter .fa-user {font-size: 16px; font-size: 1.6rem; margin-right: 2px;}
-.causes-list li {list-style: none; display: inline-block;}
-.causes-list li .cause {padding-right: 1px;}
-.cause-footer .politicians-counter {width: 50%; float: left;}
-.cause-footer .politicians-counter a {color: #a8a8a8;}
-.cause-footer .politicians-counter .popover-user-list ul {margin: 0 !important;}
-
-.cause-footer .cause {width: 50%; float: right; text-align: right;}
-.cause-footer .cause-support {color: #ff9431;}
-
-.cause-footer .popover-trigger:hover,
-.cause-footer .popover-trigger:focus {text-decoration: none;}
-
-
 .medios-list li {list-style-type:none;}
 .medios-list:first-child {margin-top: 50px;}
 .medios-list blockquote {font-size: 21px; font-size: 2.1rem; font-style: italic; text-align: center; margin: 0 0 40px 0; padding: 0;}
@@ -4130,12 +4060,6 @@ fieldset.rating:hover > input + label:hover:before {
 .noprofile h2 {font-size: 24px; font-size: 2.4rem; margin-bottom: 20px;}
 .noprofile .btn {margin: 10px 0 40px !important; line-height: 1.4;}
 .noprofile .follow {width: 100%;}
-
-.userprofile .boxes.noted {margin-bottom: 20px;}
-.userprofile .boxes.noted h1 {font-family: 'Georgia', 'Times New Roman', Times, serif; font-size: 24px; font-size: 2.4rem; text-transform: none; border-bottom: 1px solid #DADADA; margin-top: 10px; padding: 0 0 8px;}
-.userprofile .boxes.noted .user-list-followers li {float: left; margin-right: 7px;}
-.userprofile .boxes.noted .user-list-followers li:last-child {margin-right: 0;}
-
 
 
 /* autocompletado =========== */

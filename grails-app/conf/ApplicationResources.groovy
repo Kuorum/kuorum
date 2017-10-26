@@ -7,7 +7,6 @@ modules = {
         resource url: 'fonts/icomoon2/styles.css'
         resource url: 'fonts/icomoon3/styles.css'
         resource url: 'css/datepicker3.css'
-        resource url: 'css/bootstrap-tour.min.css'
         resource url:'js/jquery.min.js'
         resource url:'js/bootstrap.min.js'
         resource url:[dir:'css',file:'style_ie.css'], attrs:[media:'screen'], wrapper: { s -> "<!--[if IE]>$s<![endif]-->" }
@@ -86,7 +85,7 @@ modules = {
         resource url:'js/jquery.validate.min.js'
         resource url:'js/readmore.min.js'
         resource url:'js/jquery.timeago.js'
-        resource url:'js/jquery-te-1.4.0.min.js'
+        resource url:'js/jquery-te-1.4.0.min.js' // JQUTE -> Move to form, but it doesn't work
         resource url:'css/jquery-te-1.4.0.css'
         resource url:'js/jquery.noty.packaged.min.js'
         resource url:'js/jquery.noty.theme.js'
@@ -94,18 +93,14 @@ modules = {
         resource url:'js/layouts/center.js'
         resource url:'js/bootstrap-progressbar.min.js'
         resource url:'js/jquery.slimscroll.min.js'
-        resource url:'js/icheck.min.js'
         resource url:'js/jquery.touchSwipe.min.js'
         resource url:'js/jquery.autocomplete.js'
-        resource url:'js/jquery.bgswitcher.js' //HOME
-        resource url:'js/jquery.dynamiclist.min.js' //Dynamic input
+//        resource url:'js/jquery.bgswitcher.js' //HOME
         resource url:'js/hideShowPassword.min.js'
         resource url:'js/bootstrap-filestyle.min.js'
         resource url:'js/typeahead.bundle.min.js' // PARA el input tag con autocompletado
         resource url:'js/bootstrap-tagsinput.min.js' // PARA el input tag con autocompletado
         resource url:'js/isotope.pkgd.min.js'
-        resource url: 'js/list.min.js'
-        resource url: 'js/list.pagination.min.js'
         resource url:'js/jquery.mark.min.js'
         resource url:'js/mark.min.js'
         resource url:'js/youtube-helper.js'
@@ -139,6 +134,8 @@ modules = {
 
     campaignList{
         dependsOn("basic")
+        resource url: 'js/list.min.js'
+        resource url: 'js/list.pagination.min.js'
         resource url: 'js/campaigns/campaign-list.js'
     }
 
@@ -171,8 +168,10 @@ modules = {
     forms{
 //        resource url:'js/jquery-ui/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.js'
 //        resource url:'js/jquery-ui/jquery-ui-1.10.4.custom/css/base/jquery-ui-1.10.4.custom.min.css'
+//        resource url:'js/icheck.min.js' //  CHECKBOX COMMISSIONS  -> check bonito
         resource url:'js/jquery-plugin/tagsinput/jquery.tagsinput.css'
         resource url:'js/jquery-plugin/tagsinput/jquery.tagsinput.js'
+        resource url:'js/jquery.dynamiclist.min.js' //Dynamic input
         resource url:'js/jquery-plugin/jquery.are-you-sure.js'
         resource url:'js/jquery-plugin/duplicateFields.min.js'
         resource url:'js/customForm.js'
@@ -231,7 +230,7 @@ modules = {
     tour{
         dependsOn 'basic'
         resource url:'js/bootstrap-tour.min.js'
-//        resource url:'css/bootstrap-tour.min.css'
+        resource url:'css/bootstrap-tour.min.css'
         resource url:'js/tour_dash_user.js'
     }
 
