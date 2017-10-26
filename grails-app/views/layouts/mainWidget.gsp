@@ -71,7 +71,6 @@
     <g:set var="lang" value="${org.springframework.web.servlet.support.RequestContextUtils.getLocale(request).language}" />
     <r:require modules="lang_${lang}" />
     <g:layoutHead/>
-    <g:javascript library="jquery" plugin="jquery"/>
     <g:javascript library="application"/>
     <r:layoutResources />
     <meta property="twitter:account_id" content="4503599627910348" />
