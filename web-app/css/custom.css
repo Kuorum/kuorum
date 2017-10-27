@@ -105,6 +105,14 @@ a.ellipsis{
     text-overflow: ellipsis;
 }
 img {width: 100%;}
+img {
+    opacity: 1;
+    transition: opacity 0.3s;
+}
+
+img[data-src] {
+    opacity: 0;
+}
 small, .small {font-size: 75%;}
 .main { padding: 0;}
 .navbar-toggle:hover {background-color: #ee7612;}

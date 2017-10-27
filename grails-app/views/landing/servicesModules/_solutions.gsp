@@ -7,7 +7,7 @@
         <li class="col-sm-4 col-md-4">
             <div class="card">
                 <div class="card-header">
-                    <img class="img-responsive" src="${r.resource(dir:'images/landing', file:'administrations-small.jpg')}" alt="step 1">
+                    <img class="img-responsive" data-src="${r.resource(dir:'images/landing', file:'administrations-small.jpg')}" alt="step 1">
                 </div>
                 <div class="card-body">
                     <g:link mapping="${msgPrefix}" class="btn btn-lg">
@@ -20,7 +20,7 @@
         <li class="col-sm-4 col-md-4">
             <div class="card">
                 <div class="card-header">
-                    <img class="img-responsive" src="${r.resource(dir:'images/landing', file:'corporations-small.jpg')}" alt="step 2">
+                    <img class="img-responsive" data-src="${r.resource(dir:'images/landing', file:'corporations-small.jpg')}" alt="step 2">
                 </div>
                 <div class="card-body">
                     <g:link mapping="landingEnterprise" class="btn btn-lg">
@@ -33,7 +33,7 @@
         <li class="col-sm-4 col-md-4">
             <div class="card">
                 <div class="card-header">
-                    <img class="img-responsive" src="${r.resource(dir:'images/landing', file:'organizations-small.jpg')}" alt="step 3">
+                    <img class="img-responsive" data-src="${r.resource(dir:'images/landing', file:'organizations-small.jpg')}" alt="step 3">
                 </div>
                 <div class="card-body">
                     <g:link mapping="landingOrganization" class="btn btn-lg">

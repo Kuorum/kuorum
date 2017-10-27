@@ -1,5 +1,17 @@
 var htmlLoading = '<div class="loading xs"><span class="sr-only">Cargando...</span></div>';
 
+// PAGE LOADING
+function pageLoadingOn (){
+    $('html').addClass('loading');
+}
+function pageLoadingOff (){
+    $('html').removeClass('loading');
+}
+
+function isPageLoading(){
+    return $('html').hasClass('loading');
+}
+
 // inicializa los popover
 function preparePopover(){
     $.fn.extend({
@@ -166,6 +178,13 @@ $(document).ready(function() {
 // aparece la info en la franja superior bajo el header al hacer scroll
 $(document).ready(function() {
 
+    [].forEach.call(document.querySelectorAll('img[data-src]'),    function(img) {
+        img.setAttribute('src', img.getAttribute('data-src'));
+        img.onload = function() {
+            img.removeAttribute('data-src');
+        };
+    });
+
     // HEAD SEARCHER
     var a = $('#srch-term').autocomplete({
         paramName:"word",
@@ -236,17 +255,6 @@ $(document).ready(function() {
     }
 });
 
-// PAGE LOADING
-function pageLoadingOn (){
-    $('html').addClass('loading');
-}
-function pageLoadingOff (){
-    $('html').removeClass('loading');
-}
-
-function isPageLoading(){
-    return $('html').hasClass('loading');
-}
 $(document).ready(function() {
 
     // highlight search resultas with mark.js for list.js

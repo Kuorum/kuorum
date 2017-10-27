@@ -4,7 +4,7 @@
 </div>
 <div class="section-body">
     <div class="col-md-6 img-full-container left">
-        <img alt="Image: ${g.message(code:"${sectionName}.${caseStudyId}.content.title")}" src="${r.resource(dir:"images/landing/${sectionName}/${caseStudyId}/", file:"landing.png")}">
+        <img alt="Image: ${g.message(code:"${sectionName}.${caseStudyId}.content.title")}" data-src="${r.resource(dir:"images/landing/${sectionName}/${caseStudyId}/", file:"landing.png")}">
     </div>
     <div class="col-md-6 pull-right">
         <h1><g:message code="${sectionName}.${caseStudyId}.content.title"/></h1>
