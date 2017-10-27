@@ -57,17 +57,6 @@ $(document).ready(function(){
         modalLogin($form, callbackFunction);
     });
 
-    $('#registro form[name=signup-modal] input[type=submit]').on('click', function(e){
-        e.preventDefault();
-        e.stopPropagation();
-        var $form = $(this).parents("form[name=signup-modal]");
-        var callback = $form.attr("callback")
-        var callbackFunction = noLoggedCallbacks[callback]
-        if (noLoggedCallbacks[callback] == undefined){
-            callbackFunction = noLoggedCallbacks.reloadPage
-        }
-        modalRegister($form, callbackFunction);
-    });
 
     $('#registro form[name=pass-forget] input[type=submit]').on('click', function(e){
         e.preventDefault();
@@ -108,6 +97,7 @@ function modalLogin($form, callback){
                             callback()
                         } else {
                             // Form validation doesn't allow to take this conditional branch
+                            display.error(dataLogin.error)
                             document.location.href = dataLogin.url
                         }
                     },
@@ -119,42 +109,6 @@ function modalLogin($form, callback){
                 pageLoadingOff();
             }
         });
-    } else {
-        pageLoadingOff();
-    }
-}
-
-function modalRegister($form, callback){
-    pageLoadingOn();
-    if ($form.valid()) {
-        waitFormChecked($form, function () {
-            if ($form.valid()) {
-                $form.parents(".modal").modal("hide")
-                var url = $form.attr("action-ajax")
-                var data = {
-                    name: $form.find("input[name=name]").val(),
-                    email: $form.find("input[name=email]").val()
-                };
-                $.ajax({
-                    type: "POST",
-                    url: url,
-                    data: data,
-                    success: function (dataLogin) {
-                        if (dataLogin.success) {
-                            callback()
-                        } else {
-                            // Form validation doesn't allow to take this conditional branch
-                            $form.submit() // Goes to register page using normal flow and handling errors
-                        }
-                    },
-                    complete: function () {
-                        pageLoadingOff();
-                    }
-                });
-            } else {
-                pageLoadingOff();
-            }
-        })
     } else {
         pageLoadingOff();
     }

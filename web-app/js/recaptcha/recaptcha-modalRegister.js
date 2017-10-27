@@ -14,29 +14,58 @@ function recaptchaModal(dataRecaptcha){
 function registerModalCallback(){
     var $form = $('#signup-modal');
     var dataRecaptcha = $('#register-modal-form-id').attr('data-recaptcha');
+    console.log(dataRecaptcha)
     var $submitButton = $('#register-modal-form-id')
     if ($form.valid()){
-        var url = $form.attr("action")
-        $submitButton.addClass("hidden");
-        $.ajax({
-            url:url,
-            data:$form.serializeArray(),
-            success:function(data){
-                if(data){
-                    display.success(data);
-                    setTimeout(function(){
-                        $("#registro").modal("hide");
-                        $submitButton.removeClass("hidden");
-                    }, 2500);
-                }
-                else{
-                    $submitButton.removeClass("hidden")
-                }
-            }
-        })
+        var callback = $form.attr("callback")
+        var callbackFunction = noLoggedCallbacks[callback]
+        if (noLoggedCallbacks[callback] == undefined){
+            callbackFunction = noLoggedCallbacks.reloadPage
+        }
+        modalRegister($form, callbackFunction);
     }
     else {
         grecaptcha.reset(dataRecaptcha);
         $submitButton.removeClass("hidden")
+    }
+}
+
+function modalRegister($form, callback){
+    pageLoadingOn();
+    if ($form.valid()) {
+        waitFormChecked($form, function () {
+            if ($form.valid()) {
+                $form.parents(".modal").modal("hide")
+                var url = $form.attr("action-ajax")
+                var data = $form.serializeArray()
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: data,
+                    success: function (dataLogin) {
+                        if (dataLogin.success) {
+                            callback()
+                        } else {
+                            // Form validation doesn't allow to take this conditional branch
+                            display.error(dataLogin.error)
+                            // $form.submit() // Goes to register page using normal flow and handling errors
+                        }
+                    },
+                    complete: function () {
+                        var dataRecaptcha = $('#register-modal-form-id').attr('data-recaptcha');
+                        grecaptcha.reset(dataRecaptcha);
+                        pageLoadingOff();
+                    }
+                });
+            } else {
+                var dataRecaptcha = $('#register-modal-form-id').attr('data-recaptcha');
+                grecaptcha.reset(dataRecaptcha);
+                pageLoadingOff();
+            }
+        })
+    } else {
+        var dataRecaptcha = $('#register-modal-form-id').attr('data-recaptcha');
+        grecaptcha.reset(dataRecaptcha);
+        pageLoadingOff();
     }
 }

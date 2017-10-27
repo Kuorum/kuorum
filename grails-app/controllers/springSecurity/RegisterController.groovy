@@ -111,12 +111,12 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
 
     def ajaxRegister(KuorumRegisterCommand command){
         if (command.hasErrors()) {
-            render ([success:false] as JSON)
+            render ([success:false, error: g.message(error: command.errors.getAllErrors().first())] as JSON)
             return
         }
 
         if(!verifyRegister()){
-            render ([success:false] as JSON)
+            render ([success:false, error:'You looks like a robot'] as JSON)
             return
         }
 
