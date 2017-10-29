@@ -5026,7 +5026,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     header .navbar-form { margin: 3px 4px 4px 18px; width: 176px;}
     header .navbar-form .input-group>.form-control {width: 70%;}
     .nav > li > .navbar-link.user-area img {margin-top: -5px;}
-    .navbar-nav>li {margin: 0;}
+    .navbar-nav>li {margin: 0 4px;}
     .navbar-nav>li:first-child {margin: 0;}
     .navbar-nav {margin-top: 2px;}
     .navbar-nav>li.notifications>.dropdown-menu{padding-bottom:0;}
@@ -5453,6 +5453,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
 /* Medium devices (desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
+    .navbar-nav>li {margin: 0;}
     .main {min-height: calc(100vh - 171px);}
     .main.landing {min-height: 0;}
     header.transp .navbar {background-color: transparent;}
@@ -8760,7 +8761,14 @@ ul.threeColumn .card-body p {
 /*TODO:Meterlo en el max-width existente*/
 @media (max-width: 991px){
 
-    /*Prueba de mat para ver si consigue verse bien en el iphone el menu del footer*/
+    #main {
+        padding-bottom: 0;
+    }
+
+    ul.leader-post-stats {
+        margin-bottom: 35px;
+    }
+
     .landing-footer .left-container {
         width: 100%;
         float: none;
