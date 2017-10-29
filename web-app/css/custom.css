@@ -5453,6 +5453,10 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
 /* Medium devices (desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
+    #request-demo-btn {
+        margin-left: 33%;
+        width: 33%;
+    }
     .navbar-nav>li {margin: 0;}
     .main {min-height: calc(100vh - 171px);}
     .main.landing {min-height: 0;}
