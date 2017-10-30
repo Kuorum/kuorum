@@ -25,7 +25,7 @@
             </div>
 
             <label for="tagsField"><g:message code="tools.contact.import.addTags"/> </label>
-            <input name="tags" class="tagsField" id="tagsField" type="text" value="" data-urlTags="${g.createLink(mapping:'politicianContactTagsAjax')}">
+            <input name="tags" class="input-lg tagsField" id="tagsField" type="text" value="" data-urlTags="${g.createLink(mapping:'politicianContactTagsAjax')}">
 
             <input type="submit" value="${g.message(code: 'tools.contact.import.start')}" class="btn btn-blue inverted btn-lg">
         </g:form>
