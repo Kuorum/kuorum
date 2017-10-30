@@ -255,35 +255,6 @@ $(document).ready(function() {
         });
     });
 
-    function preapreReadMore(){
-        $('.limit-height').each(function (idx){
-            var collapsedHeight = parseInt($(this).attr("data-collapsedHeight"));
-            var buttonCss = "btn btn-xs btn-blue";
-            if ($(this)[0].hasAttribute("data-collapsedButtonCss")){
-                buttonCss = $(this).attr("data-collapsedButtonCss")
-            }
-            if (typeof buttonCss === typeof undefined && buttonCss === false){
-                buttonCss = "btn btn-xs btn-blue"
-            }
-            if ($(this).height() > collapsedHeight){
-                $(this).readmore({
-                    speed: 500,
-                    collapsedHeight: collapsedHeight,
-                    heightMargin: 16,
-                    moreLink: '<div class="center-button"><a href="#" class="'+buttonCss+'">'+i18n.read.more+' <span class="fa fa-angle-down"></a></div>',
-                    lessLink: '<div class="center-button"><a href="#" class="'+buttonCss+'">'+i18n.read.less+' <span class="fa fa-angle-up"></a></div>',
-                    embedCSS: true,
-                    blockCSS: 'display: block; width: auto;',
-                    startOpen: false,
-    // callbacks
-                    beforeToggle: function(){},
-                    afterToggle: function(){}
-                });
-            }
-        })
-    }
-    preapreReadMore();
-
     // load more
     $("a.loadMore").on("click", function (e) {
         loadMore(e, this)
