@@ -554,6 +554,9 @@ function FilterContacts() {
     };
 
     this.filterEditedEvent = function(e){
+        if (e != undefined){
+            e.preventDefault();
+        }
         that.setFilterAsEdited();
         that.updateAmountContactsSilently();
         var filterIdSelected = that.getFilterId();
@@ -780,7 +783,6 @@ function FilterContacts() {
                 $filterData.find("input:disabled").val("")
                 that.searchContactsCallBacks.loadTableContacts();
             }else{
-                console.log("No search")
                 //Preparar el select segun el option seleccionado
                 that.changedFilterValueEvent();
             }
