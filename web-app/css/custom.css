@@ -350,7 +350,6 @@ a:focus {color: #ff9431;}
     #main{
         padding-bottom: 0;
     }
-    #results-widget-content #real-time .tab-content{padding: 15px 0 0;}
 }
 #main.home {margin: 0 0 40px 0; padding: 0;}
 #main.home, #main.home .full-video {min-height: 495px;}
@@ -3229,21 +3228,6 @@ h2.underline {border-bottom: 1px solid #dadada; padding: 0 0 10px 0; margin-top:
 .infoVotes > li.arrow {background: transparent; width: 24px; margin: 0;}
 .infoVotes > li:last-child a {color: #bcbcbc;}
 
-/*#widget .modal-dialog,
-#ya-no .modal-dialog,
-.modal-register .modal-dialog,
-#eliminar-proyecto .modal-dialog  {margin-top: 20%;}*/
-
-#widget pre {color: #a8a8a8; font-size: 15px; font-size: 1.5rem; height: 80px;}
-#widget .modal-header {padding: 15px 15px 5px;}
-#widget .modal-body {padding: 10px 20px;}
-#widget .close {font-size: 30px;}
-#widget .modal-header .close {margin-top: -6px;}
-
-body.widget .poweredByKuorum a{float: right;margin-right: 10px;color: #cccccc;}
-body.widget .poweredByKuorum a:hover{text-decoration: underline;}
-/*body.widget .call-to-action-mobile { display: none;  }*/
-
 .modal-register .modal-dialog {width: 290px; margin: 10px auto;}
 .modal-register .modal-dialog .modal-body {padding: 8px;}
 
@@ -3861,15 +3845,6 @@ fieldset.rating:hover > input + label:hover:before {
 .panel-default .rating-over .progress {pading-top:1px;background: transparent; box-shadow: inset 0 0 0 rgba(0,0,0,0); height: 20px; margin: 0;}
 .panel-default .rating-over .progress-bar {background-color: #ff9431;}
 
-.widget-user-rating form.rating legend{display: none}
-.widget-user-rating form.rating.user-rate legend{display: block}
-
-.widget-user-rating form.rating {display: block}
-.widget-user-rating form.rating.user-rate {display:none}
-.widget-user-rating form.rating.user-rate {display:none}
-.widget-user-rating:hover form.rating {display:none}
-.widget-user-rating:hover form.rating.user-rate {display: block}
-
 /* 3390 NOTICIAS PERFIL POLÍTICO */
 .carousel.news .carousel-inner > .item {
   -webkit-transition: 500ms ease-in-out left;
@@ -3947,56 +3922,19 @@ fieldset.rating:hover > input + label:hover:before {
 }
 .embudo .like-number a {color: #20A2ea;}
 
-.video-embudo-list {margin: 45px 0 0 0; padding: 0; list-style: none;}
-.video-embudo-list > li {position: relative; margin: 0 0 80px 0;}
-.video-embudo-list > li:last-child {margin-bottom: 0;}
-.video-embudo-list > li .icon2-comillas {color: #ff9431; position: absolute; top: -50px; left: -10px; z-index: 999; font-size: 80px; font-size: 8rem;}
-.video-embudo-list > li:nth-of-type(even) .icon2-comillas {left: auto; right: -10px;}
-
 .vimeo > .front {background: transparent;}
 .vimeo > .front > img {opacity: 1;}
 .vimeo > .front > .fa {position: absolute; top: auto; bottom: 15px; left: auto; right: 15px; margin: 0; width: auto; height: auto;}
 .vimeo > .front .text {color: #fff; position: absolute; top: 14%; left: 8%; width: 40%; font-size: 14px; font-size: 1.4rem; line-height: 1.2;}
 .vimeo > .front .who {color: #fff; position: absolute; bottom: 8%; left: 8%; width: 65%; font-size: 15px; font-size: 1.5rem; font-family: Arial, Helvetica, sans-serif; line-height: 1;}
 
-.video-embudo-list > li:nth-of-type(even) .vimeo > .front > .fa {left: 15px; right: auto;}
-.video-embudo-list > li:nth-of-type(even) .vimeo > .front .text,
-.video-embudo-list > li:nth-of-type(even) .vimeo > .front .who {text-align: right; left: auto; right: 8%;}
-
-.pide-cuenta h1 {text-align: center; font-size: 26px; font-size: 2.6rem; padding: 0 10%; margin-top: 0;}
-.pide-cuenta h2 {text-align: center; text-transform: uppercase; font-size: 18px; font-size: 1.8rem; padding: 0 10%; line-height: 1.2;}
-.pide-cuenta > ul {margin: 30px auto 60px; padding: 0; list-style: none; width: 80%;}
-.pide-cuenta > ul > li {margin-bottom: 20px;}
-.pide-cuenta > ul > li:last-child {margin-bottom: 0;}
-.pide-cuenta > ul > li span,
-.contratando > div:last-child h3,
 .promo-options > div > h3 {font-weight: normal; letter-spacing: 2px; background-color: #888888; display: block; padding: 30px 20px; text-align: center; font-size: 22px; font-size: 2.2rem; text-transform: uppercase; color: #fff;}
-.pide-cuenta > ul > li > ul > li,
-.contratando > div:last-child ul li {list-style: disc; margin-bottom: 10px;}
-.pide-cuenta > ul > li > ul > li:last-child {margin-bottom: 0;}
-.pide-cuenta > ul > li > ul,
-.contratando > div:last-child ul {background-color: #ededed; padding: 40px;}
 .embudoMore {width: 295px; margin: 0 auto 70px;}
 .embudoMore .btn {font-size: 14px !important; font-size: 1.4rem !important;}
 
 .condiciones-compra {width: 80%; margin: 0 auto;}
 
-.contratando > div > h1 {font-size: 30px; font-size: 3rem; margin: 0; padding: 0 0 10px 0; border-bottom: 1px solid #e5e5e5;}
-.contratando > div > h2 {font-size: 20px; font-size: 2rem; line-height: 1.4;}
-.contratando > div:last-child h3,
-.contratando > div:last-child ul {margin-bottom: 0;}
-.contratando > div:last-child h4 {background-color: #ededed; margin: -10px 0 0 0; text-align: center; font-size: 50px; font-size: 5rem; line-height: .6; padding-bottom: 40px;}
 .decimals {font-size: 25px !important; font-size: 2.5rem !important;}
-.contratando > div:last-child h4 small {font-size: 19px; font-size: 1.9rem; color: #545454;}
-
-.contratando .form-group:last-child {margin-right: 0;}
-.contratando .nav-tabs,
-.contratando .nav-tabs > li.active > a,
-.contratando .nav-tabs > li.active > a:hover,
-.contratando .nav-tabs > li.active > a:focus {border: none;}
-.contratando .nav-tabs > li {padding: 20px 0;}
-.contratando .nav-tabs > li input[type="radio"] {margin-right: 8px;}
-.contratando .tab-content .form-inline .form-control {width: 100%;}
 
 .tabs-left > .nav-tabs {border-bottom: 0;}
 .tabs-left > .nav-tabs > li,
@@ -4652,80 +4590,6 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {border-radiu
 
 
 
-/* WIDGETS  =============================================================================================================================== */
-/* ======================================================================================================================================== */
-body.widget {padding: 0; font-family: Arial, Helvetica, sans-serif;}
-section.widget {width: 100%;}
-section.widget header {background-color: #ff9431; padding: 12px; color: #fff; position: relative;}
-section.widget.dark header {background-color: #666;}
-section.widget header > h1 {font-family: 'Georgia'; font-size: 18px; padding: 0; margin: 0;}
-section.widget header > a {color: #fff; text-transform: uppercase;; text-decoration: underline; position: absolute; right: 8px; bottom: 3px; font-size: 9px; font-size: .9rem;}
-section.widget footer {text-align: center;text-align: center; height: 40px; margin-bottom: 18px; margin-top: 5px; border-bottom: 1px solid #e1e1e1;}
-section.widget footer h1 {margin: 0; padding: 0; text-align: center;}
-section.widget footer h1 .navbar-brand {float: none; display: block; margin: 0 auto;}
-section.widget footer h1 a img{width:100px;}
-section.widget footer a {font-size: 14px; font-size: 1.4rem; color: #545454; text-decoration: none; text-transform: uppercase;}
-section.widget footer a:hover,
-section.widget footer a:focus {text-decoration: underline;}
-section.widget .rating {margin: 5px 0 0 0; width: auto; float: right;}
-section.widget .rating fieldset.rating:not(:checked) > label {font-size: 20px; font-size: 2rem;}
-section.widget .rating label:hover > .rate-message {display: none;}
-
-section.widget .user-list-followers > li:hover fieldset.rating:not(:checked) > label:before {color: #fff;}
-section.widget .user-list-followers > li:hover fieldset.rating > input:checked ~ label:before,
-section.widget .user-list-followers > li:hover fieldset.rating > input + label:hover ~ label:before,
-section.widget .user-list-followers > li:hover fieldset.rating > input + label:hover:before {color: #ff9431;}
-
-section.widget .user-list-followers {margin: 0 0 5px 0; padding: 0 !important;}
-section.widget .user-list-followers > li {height: 52px; border-bottom: 1px solid #f0f0f0; padding: 6px; margin: 0;}
-section.widget .user-list-followers > li:hover,
-section.widget .user-list-followers > li:focus {background-color: #f0f0f0;}
-section.widget .user-list-followers > li > a {float: left; max-width: calc(100% - 130px); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
-section.widget .user-list-followers > li > a:hover,
-section.widget .user-list-followers > li > a:focus {text-decoration: underline;;}
-
-body.widget > header {text-align: center; height: 40px; margin-bottom: 25px; padding-top: 10px; border-top: 1px solid #e1e1e1;}
-body.widget > header h1 {margin: 0; padding: 0; text-align: center;}
-body.widget > header h1 .navbar-brand {float: none; display: block; margin: 0 auto;}
-body.widget > header h1 a img{width:100px;}
-body.widget > footer {background-color: #f8f8f8;}
-body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
-
-#results-widget-content {padding: 5px;}
-#results-widget-content section {border:1px solid #f0f0f0; margin-bottom: 10px;}
-/*#results-widget-content #evolution {height: 346px; }*/
-#results-widget-content #valuations-widget-content {float: left;}
-#results-widget-content #real-time {float: left; background-color: #FFFFFF}
-#results-widget-content #real-time .politician-info{}
-#results-widget-content #real-time .politician-info ul {padding: 0px;}
-#results-widget-content #real-time .politician-info ul li{
-    list-style: none;
-    /*height: 1em;*/
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-    text-align: left;
-    font-size:12px;
-    line-height: 20px;
-    margin-bottom: 0px;
-}
-#results-widget-content #real-time .politician-info ul li abbr{border-bottom:none;cursor:auto;}
-#results-widget-content #real-time .politician-chart{}
-#results-widget-content #real-time .politician-chart h4{ margin:0}
-#results-widget-content #real-time .politician-chart h4 .btn{ margin:0; padding: 3px 9px !important; font-size:11px;
-    position: absolute;
-    z-index: 10;
-    right: 30px;
-    top: 0px;
-}
-#results-widget-content #real-time .politician-chart.text-center a{font-variant:normal;font-weight:normal;}
-#results-widget-content #real-time .polValChart{ width: 100%; height: 200px;margin-left: 10px;}
-#results-widget-content #real-time .politician-info.text-center h4{font-variant:normal;font-weight:normal;font-size:16px;line-height: 0.5;}
-#results-widget-content #real-time .politician-info.text-center h5{color:#a8a8a8;font-weight:bold;font-size:12px;}
-#results-widget-content #real-time .politician-info.text-center h6{font-weight:bold;}
-#results-widget-content #real-time .politician-info.text-center .btn.btn-blue{padding: 3px 9px !important; font-size:11px;}
-#results-widget-content #real-time .politician-info.text-center hr{margin-top:15px;margin-bottom:15px;}
-
 
 
 /* clases para campaign steps ======================================================================================================== */
@@ -5113,12 +4977,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .homeSub.medios h2 {margin-top: 100px;}
     .config > header h1 {font-size: 22px; font-size: 2.2rem;}
     .config.info > article > .box-ppal > h1 {margin: 5px 0 15px;}
-    .contratando .form-group {margin-right: 20px; width: 46%;}
-    .contratando .nav-tabs > li:last-child {margin-right: 0;}
-    .contratando .nav-tabs > li {margin-right: 40px; padding: 20px;}
-    .contratando > div > h2 {font-size: 2.5rem;}
-    .contratando > div > h1 {font-size: 40px; font-size: 4rem; margin: 20px 0 10px; padding-bottom: 20px;}
-    
+
     .promo-options > div > form .options-wrapper {margin: 0 auto; width: 45%;}
     .promo-options {padding-bottom: 20px;}
 
@@ -5497,20 +5356,9 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .pago {background-size: 280px auto;}
     .promo-options {padding-bottom: 40px; margin-top: 30px;}
     .config > header h1 {font-size: 25px; font-size: 2.5rem;}
-    .contratando .nav-tabs > li {margin-right: 20px; padding: 20px 10px;}
-    .contratando .form-group {width: 45%;}
     .promo-options > div > form .options-wrapper {width: 100%;}
     .vimeo > .front .text {font-size: 3.2rem; top: 12%; width: 40%;}
-    .pide-cuenta > ul > li {display: inline-block; margin-bottom: 0;}
-    .pide-cuenta > ul {margin-top: 50px;}
-    .pide-cuenta > ul > li > ul {min-height: 188px;}
-    .pide-cuenta h2 {font-size: 25px; font-size: 2.5rem;}
-    .pide-cuenta h1 {font-size: 50px; font-size: 5rem; margin-top: 20px; padding: 0;}
-    .video-embudo-list > li:last-child {margin-bottom: 80px;}
 
-    .video-embudo-list > li:nth-of-type(even) .icon2-comillas {left: auto; right: -20px;}
-    .video-embudo-list > li .icon2-comillas {top: -60px; left: -20px; font-size: 100px; font-size: 10rem;}
-    .video-embudo-list {margin-left: -50px;}
     .embudo #aside-ppal {margin-bottom: 60px;}
     .embudo .arrow4 {bottom: -82px;}
     .embudo .arrow1 {right: -35px;}
@@ -5877,7 +5725,6 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .pago {background-size: 342px auto; background-position: center 25px;}
     .embudo #aside-ppal {padding-bottom: 46px;}
     .config.info > article > .box-ppal > h1 {margin: 5px 0 25px;}
-    .contratando .nav-tabs > li {margin-right: 100px;}
     .embudo .arrow4 {bottom: -72px;}
     .embudo .arrow1 {right: -15px;}
     .home .play {margin: 60px 0 0 0; padding: 0 0 0 30px; font-size: 26px; font-size: 2.6rem;text-align: left;}
@@ -9030,9 +8877,6 @@ ul.bullets li img {
 /********************************/
 /*          Media Queries       */
 /********************************/
-@media screen and (min-width: 980px) {
-
-}
 
 @media screen and (max-width: 1199px) {
     #services ul.globus ul.bullets li {
