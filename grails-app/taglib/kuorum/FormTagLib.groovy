@@ -581,7 +581,7 @@ class FormTagLib {
         def cssLabel=attrs.cssLabel?:""
         def clazz = attrs.enumClass?:command.metaClass.properties.find{it.name == field}.type
         Boolean defaultEmpty = attrs.defaultEmpty?Boolean.parseBoolean(attrs.defaultEmpty):false
-        Boolean isRequired = isRequired(command,field) || attrs.required?Boolean.parseBoolean(attrs.required):false
+        Boolean isRequired = isRequired(command,field) || (attrs.required?Boolean.parseBoolean(attrs.required):false)
         def label ="${attrs.label?:message(code: "${clazz.name}.label")}${isRequired?'*':''}"
         def error = hasErrors(bean: command, field: field,'error')
         out <<"""
