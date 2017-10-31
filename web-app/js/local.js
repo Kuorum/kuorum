@@ -440,9 +440,6 @@ $(document).ready(function() {
         $(this).closest('label').tab('show');
     });
 
-    // inicializamos la barra de progreso
-    $('.progress-bar').progressbar();
-
     // desvanecer y eliminar la caja primera del Dashboard (.condition)
     $('body').on('click','aside.condition > .close', function(e) {
 
