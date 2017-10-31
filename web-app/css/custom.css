@@ -7260,6 +7260,8 @@ div [class^='comment-box col-'] {
 }
 
 .comment-box .actions button {
+    font-weight: bold;
+    text-transform: uppercase;
     margin: 0;
 }
 
