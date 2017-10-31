@@ -8427,6 +8427,11 @@ ul.bullets li{
     text-align: center;
 }
 
+#contact-us #contact-us-form-id {
+    font-weight:bold;
+    text-transform: uppercase;
+}
+
 #contact-us .form-group textarea{
     height: 160px;
 }
