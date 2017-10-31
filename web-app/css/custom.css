@@ -5200,7 +5200,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {border-radiu
 
 /* Medium devices (desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
-    #request-demo-btn {
+    #carousel-landing-main #request-demo-btn {
         margin-left: 33%;
         width: 33%;
     }
