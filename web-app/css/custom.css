@@ -255,12 +255,6 @@ label {font-weight: normal;}
 
 .btn.btn-lg.go-for-pass {margin-top: 30px !important; margin-bottom: 30px !important;}
 
-.boxes.vote.signin > h1 {font-size: 15px; font-size: 1.5rem; margin-bottom: 15px;}
-.boxes.vote.signin > h1 span {font-size: 24px; font-size: 2.4rem;}
-.boxes.vote.signin #sign {margin-bottom: 40px;}
-.boxes.vote.signin #sign > .row {margin-bottom: 10px;}
-.boxes.vote.signin #sign > .groupRadio {text-align: center;}
-
 p { margin: 0 0 20px 0;}
 .help-block {color: #a8a8a8; font-size: 13px; font-size: 1.3rem; font-style: italic;line-height: 1.3em;}
 .mb20 {margin-bottom: 20px !important;}
@@ -339,8 +333,6 @@ a:focus {color: #ff9431;}
 .preFooter > .container-fluid,
 #footer .more > .container-fluid,
 .navbar > .container-fluid,
-#otros-proyectos > .container-fluid,
-#otras-propuestas > .container-fluid,
 #info-sup-scroll > .container-fluid,
 .dropdown-menu.politician > .container-fluid {max-width: 1140px; margin: 0 auto;}
 .navbar > .container-fluid {padding-right: 30px; padding-left: 30px;}
@@ -563,22 +555,7 @@ header.transp #search-form .open-filter {background-color: rgba(219,219,219,0.4)
 .container-fluid.userprofile #adminActions a{color: #a8a8a8;}
 .container-fluid.userprofile #adminActions span{margin: 0 4px 2px 0;}
 .container-fluid.userprofile #main {padding-bottom:25px;}
-/*#open-filter-search {
-  display: block;
-  position: absolute;
-  right: 8px;
-  top: 8px;
-  z-index: 3;
-  color: #a8a8a8;
-}
-#open-filter-search:focus {
-  outline: thin dotted;
-  outline: 5px auto -webkit-focus-ring-color;
-  outline-offset: -2px;
-}*/
 
-/* Buttons =========== */
-/* Default button : orange (botón por defecto: naranja) */
 .btn {
     color: #fff !important;
     font-family: "Helvetica Neue", Helvetica,Arial,sans-serif;
@@ -956,12 +933,6 @@ span + .text-notification {padding: 0 0 0 36px; margin-top: -6px;}
 .boxes.guays .user-img,
 .boxes.follow .user-img {display: inline-block;}
 
-#otros-proyectos,
-#otras-propuestas{background-color: #f5f5f5;  padding: 30px 0;}
-#otros-proyectos > .container-fluid > ul {margin: 0; padding: 0;}
-#otros-proyectos > .container-fluid > ul > li {margin: 0; padding: 0; list-style: none;}
-#otros-proyectos > .container-fluid > ul > li > article {margin: 0 auto; width: 95%;}
-
 #footer {background-color: #666666; color: #fff;}
 #footer ul, #footer ol, section.links ul {padding: 0}
 #footer li {list-style: none;}
@@ -983,25 +954,13 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 #footer .licenses li {margin: 0;}
 #footer .licenses li:last-child {margin-right: 10px;}
 
-
-.collabor li,
 .social li {display: inline-block;}
-.collabor li {margin-right: 8px;}
 .social li {margin-right: 5px; font-size: 18.5px; font-size: 1.85rem;}
 .social li:last-child {margin-right: 0;}
-.ethz, .delhap {display: block; background-size: 95px 65px !important; text-indent: -9999em;}
-.ethz {width: 50px; height: 30px; background: url('../images/colaboramos@2x.png') 0 0 no-repeat transparent;}
-.delhap {width:48px; height: 30px; background: url('../images/colaboramos@2x.png') -50px 0 no-repeat transparent;}
 .agpl {display: block; margin-top: 4px; width: 100px; height: 42px; background: url('../images/logo-agpl@2x.png') 0 0 no-repeat transparent; background-size: 100% auto; text-indent: -9999em;}
 .agpl:hover,
 .agpl:active,
 .agpl:focus {background-position: 0 -48px;}
-.ethz:hover,
-.ethz:active,
-.ethz:focus {background-position: 0 -34px}
-.delhap:hover,
-.delhap:active,
-.delhap:focus {background-position: -50px -34px}
 #footer .social li a, .social li a {color: #ff9431;}
 #footer .social li a:hover,.social li a:hover,
 #footer .social li a:active,.social li a:active,
@@ -1011,8 +970,6 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 #footer .social li a:hover .fa-circle,.social li a:hover .fa-circle,
 #footer .social li a:active .fa-circle,.social li a:active .fa-circle,
 #footer .social li a:focus .fa-circle, .social li a:focus .fa-circle {color: #ff9431;}
-.ethz img {width: 78px; height: 25px;}
-.delhap img {width: 45px; height: 32px;}
 .gpl img,
 .github img {width: 48px; height: 48px;}
 
@@ -1020,32 +977,6 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 .breadcrumb {background-color: transparent; margin-bottom: 0;}
 .breadcrumb a {color: #20a2ea;}
 .breadcrumb > .active {color: #a8a8a8;}
-
-
-/* dashboard */
-.box-ppal.condition {border: 1px solid #20a2ea; margin: 0 0 20px 0;}
-.box-ppal.condition p {margin-bottom: 10px;}
-.box-ppal.condition.politician {border: 1px solid #ff9431;}
-.box-ppal.condition .close + h1 {padding: 0 25px 0 0;}
-.box-ppal.condition h1,
-.box-ppal.condition h2 {font-size: 16px; font-size: 1.6rem; margin: 0 0 30px 0; line-height: 1.4;}
-.box-ppal.condition > button.close {right: 10px; top: 10px; position: absolute;}
-.box-ppal.condition > button.close:hover,
-.box-ppal.condition > button.close:focus {color: #20A2ea; opacity: 1;}
-.box-ppal.condition .photo {margin-bottom: 10px;}
-.box-ppal.condition .no-age .form-group {margin-bottom: 0;}
-.box-ppal.condition .no-age .form-group:nth-child(2) {width: 180px; margin-right: 10px;}
-.box-ppal.condition .no-age .form-group:nth-child(2),
-.box-ppal.condition .no-age .form-group:nth-child(3) {margin-bottom: 20px;}
-.box-ppal.condition .no-postalcode .form-group {margin-bottom: 10px;}
-.box-ppal.condition .no-postalcode .form-group:nth-child(1) {width: 47%; margin-right: 3%;}
-.box-ppal.condition .no-postalcode .form-group:nth-child(2) {width: 50%;}
-.box-ppal.condition .no-postalcode .form-group:last-child {width: 100%; text-align: right;}
-.box-ppal.condition .no-phone .form-group {margin-bottom: 10px;}
-.no-phone .form-group:nth-child(2) {width: 28%; margin-right: 3%;}
-.no-phone .form-group:nth-child(3) {width: 69%;}
-.no-phone .form-group:last-child {width: 100%; text-align: right;}
-.box-ppal.condition form {margin-bottom: 20px;}
 
 /* IMPORT CONTACTS (08/2016) */
 .bootstrap-filestyle.input-group {max-width: 572px; margin: 0 auto;}
@@ -2461,13 +2392,6 @@ video#bgvid {
 #aside-ppal .panel .social li a:hover .fa-circle,
 #aside-ppal .panel .social li a:focus .fa-circle {color: #fff !important;}
 
-#aside-ppal .panel.collaborate .panel-body {font-size: 15px; font-size: 1.5rem;}
-#aside-ppal .panel.collaborate .panel-body ul {margin: 0; padding: 0; text-align: center;}
-#aside-ppal .panel.collaborate .panel-body ul li {list-style: none; display: inline; margin-right: 20px;}
-#aside-ppal .panel.collaborate .panel-body ul li a.btn {margin: 0 0 6px 0; min-width: 90px;}
-#aside-ppal .panel.collaborate .panel-body ul li:last-child {margin: 0;}
-#aside-ppal .panel.collaborate .panel-body ul li a {color: #545454;}
-
 #aside-ppal .box-ppal{box-shadow:0 0 2px rgba(200,200,200,0.6);}
 #aside-ppal .box-ppal-title{color: #a8a8a8; padding-bottom: 10px;}
 #aside-ppal .box-ppal-title h3{font-size: 20px;font-size: 2rem;}
@@ -2481,7 +2405,6 @@ video#bgvid {
     padding: 0;
     position: relative;
 }
-.boxes.vote {padding: 5px 10px 0;}
 .boxes.profile-user {padding: 10px; /*min-height: 496px;*/}
 .boxes .edit {font-size: 12px; font-size: 1.2rem; display: inline-block; color: #A8A8A8; position: absolute; top: 10px; right: 10px;}
 .boxes.edit-user {padding: 10px;}
@@ -2548,11 +2471,6 @@ video#bgvid {
 .boxes > ul > li,
 .boxes .actions li {list-style: none; display: inline-block;}
 
-.boxes.vote .action a {color: #bcbcbc;}
-.boxes.vote .action a:hover,
-.boxes.vote .action a:focus,
-.boxes.vote .action a:active {color: #ff9431;}
-
 .activity {padding: 0; text-align: center;}
 .activity > li {
     width: 32%;
@@ -2583,7 +2501,6 @@ video#bgvid {
 .box-ppal.profile .activity > li .counter {color: #a8a8a8; font-size: 30px; font-size: 3rem; font-weight: bold;}
 
 .boxes > h1 {font-size: 22px; font-size: 2.2rem; color: #545454; margin: 0; padding: 10px; border-bottom: 1px solid #dadada;}
-.boxes.vote > h1 {border: none; padding-left: 0; padding-right: 0;}
 .boxes > h2 {font-size: 19px; font-size: 1.9rem; color: #545454;}
 .boxes.alerts h1,
 .boxes.pending h1 {font-size: 15px; font-size: 1.5rem;}
@@ -3299,24 +3216,8 @@ h2.underline {border-bottom: 1px solid #dadada; padding: 0 0 10px 0; margin-top:
 
 .roleOrganization{margin-left: 6px;}
 
-.boxes.vote > h1 {text-align: center;}
-.boxes.vote > .btn-lg {font-size: 14px !important; font-size: 1.45rem !important; line-height: 1.4 !important; padding: 12px !important; display: block; margin: 10px auto 20px !important;}
-
-.vote .activity > li {border-right: none; color: #545454; font-size: 13px; font-size: 1.3rem; padding: 0 8px 8px 8px;}
-.vote .activity > li.active {background-color: #aed4fb;}
-.vote .activity span {font-size: 32px; font-size: 3.2rem; display: block;}
-.vote .activity  {line-height: 1.3;}
 .kuorum {text-align: center; margin: 20px 0; font-size: 13px; font-size: 1.3rem;}
 .kuorum .counter {font-size: 24px; font-size: 2.4rem;}
-
-.boxes.vote div.social {text-align: center; margin-top: 20px !important; margin-bottom: 20px !important;}
-.boxes.vote ul.social {margin: 0; padding: 0;}
-.boxes.vote ul.social li {margin: 0 15% 0 0;}
-.boxes.vote ul.social li:last-child {margin: 0;}
-.boxes.vote ul.social li a {color: #bcbcbc !important;}
-.boxes.vote ul.social li a:hover,
-.boxes.vote ul.social li a:active,
-.boxes.vote ul.social li a:focus {color: #20a2ea !important;}
 
 .popover-kuorum .text-center {font-size: 19px; font-size: 1.9rem; margin: 10px 0;}
 
@@ -4749,13 +4650,6 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {border-radiu
     .form-group.image.fondoperfil .qq-upload-drop-area {background-size: auto auto; background-position: center 32%; padding-top: 15%;}
     .chat > li .user.author {margin-top: -32px;}
     .listComments > li .user.author {margin-top: -32px;}
-    .boxes.vote.drive form,
-    .boxes.vote.drive .progress,
-    .boxes.vote.drive .sponsor,
-    .boxes.vote.drive .social,
-    .boxes.vote.signin #sign,
-    .boxes.vote div.social,
-    .boxes.vote > .btn-lg,
     .boxes.performance a.improve {width: 272px; margin: 0 auto;}
     .boxes.profile-user > .actions {width: 272px;}
     .form-home-container {width: 320px;}
@@ -4992,10 +4886,6 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {border-radiu
     .support-list li {margin-right: 40px;}
     #videoHome .modal-dialog,
     #videoHome .modal-dialog .youtube {width: 600px;}
-    .no-phone .form-group:nth-child(2) {width: 20%;}
-    .no-phone .form-group:nth-child(3) {width: 77%;}
-    .sign.purchase .no-phone .form-group:nth-child(2) {width: 26%;}
-    .sign.purchase .no-phone .form-group:nth-child(3) {width: 70%;}
     .uploadPdf .progress-pdf .progress {width: 70%; margin: 0;}
     #aside-ppal {background-color: transparent;}
     #footer > .more .links ul {margin: 0; padding: 0; line-height: 46px; text-align: left;}
@@ -5070,9 +4960,6 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {border-radiu
     .seeVictory .sliderItem h1 {font-size: 1.8rem;padding: 10px;}
     .participate > h1, .participAll > h1, .seeVictory > h1, .comments > h1 {font-size: 48px; font-size: 4.8rem;}
     .seeVictory .sliderItem .content a {font-size: 22px; font-size: 2.2rem;}
-    .vote .activity span {font-size: 22px; font-size: 2.2rem;}
-    .vote .activity > li {font-size: 12px; font-size: 1.2rem; padding: 0 2px 6px;}
-    .boxes.vote {padding-top: 0;}
     .boxes.taking-part .user-list-followers li {margin-right: 1px;}
     .boxes.edit-user > .user > a {position: relative; display: block; text-align: center;}
     .boxes.edit-user .user-img.big {float: none; margin: 0;}
@@ -5109,7 +4996,6 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {border-radiu
     .homeSub .homeMore .btn-lg {font-size: 22px !important; font-size: 2.2rem !important;}
     .socialContact li {display: inline; margin-right: 30px; padding: 0;}
     .userprofile .boxes .btn.btn-lg {font-size: 1.4rem !important; padding: 18px !important;}
-    .discover .boxes.vote {margin-top: 46px; padding: 10px;}
     .pre {margin: 5px 20px 5px 0;}
     #search-filters h1 {margin-top: 20px;}
     .onecol.error .intro {
@@ -5342,13 +5228,6 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {border-radiu
     .politician-list .box-ppal > .pull-right {float: none; position: absolute; bottom: 0; right: 0;}
     .config .icheckbox_line-orange,
     .config .iradio_line-orange {margin: 0 7px 7px 0;}
-    .boxes.vote.drive .btn.btn-lg {font-size: 18px !important; font-size: 1.8rem !important; padding-left: 55px !important;}
-    .boxes.vote.drive.fixed {position: fixed; z-index: 999; width: 301px; -webkit-transform: translateZ(0);}
-
-    /* Safari only override */
-    ::i-block-chrome, .boxes.vote.drive.fixed {
-        left: 66.66666667%;
-    }
 
     .list-team {width: 102%;}
     .list-team > li {width: 300px; display: block; float: left; margin-right: 15px;}
@@ -5372,10 +5251,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {border-radiu
     .help-block {margin: 8px 0 0 0;}
     .icheckbox_line-orange,
     .iradio_line-orange {margin-right: 8px; margin-bottom: 8px;}
-    .no-phone .form-group:nth-child(2) {width: 29%;}
-    .no-phone .form-group:nth-child(3) {width: 68%;}
     .box-ppal{padding: 22px 15px 0 15px;}
-    .box-ppal.condition .photo {margin-bottom: 15px;}
 
     .home .play {margin: 90px 0 0 0; padding: 0 0 0 30px; font-size: 22px; font-size: 2.2rem;text-align: left;}
     .homeSub > .row > h1 {font-size: 36px; font-size: 3.6rem;}
@@ -5383,10 +5259,6 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {border-radiu
     .homeSub .homeMore .btn-lg {font-size: 25px !important; font-size: 2.5rem !important;}
     /*.config .notifications-list > li > .text-notification,
     .config .notifications-list > li.user > .text-notification {padding: 0 240px 0 0;}*/
-
-    .box-ppal.condition h1 {font-size: 29px; font-size: 2.9rem;}
-    .box-ppal.condition h2 {font-size: 20px; font-size: 2rem;}
-    .box-ppal.condition.politician > .row h1 {font-size: 29px; font-size: 2.9rem;}
 
     .config > article > .box-ppal, .config > section > .box-ppal {padding: 22px 20px 0 20px; margin-bottom: 60px;}
 
@@ -5427,11 +5299,6 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {border-radiu
     .activity .popover-trigger span,
     .activity > li.posts span {font-size: 30px; font-size: 3rem;}
     .boxes > h1 {font-size: 22px; font-size: 2.2rem;}
-    .vote .activity span {font-size: 36px; font-size: 3.6rem;}
-    .boxes.vote > h1 {margin-top: 16px; font-size: 25px; font-size: 2.5rem;}
-    .boxes.vote > .btn-lg {padding: 12px !important;}
-    .boxes.taking-part .user-list-followers li {margin-right: 2px;}
-    .boxes.vote > .btn-lg {font-size: 15px !important; font-size: 1.5rem !important;}
     .participate .row p {padding: 0 20px;}
     .controls {float: right; width: 277px;}
     .popover-box {width: 30%; margin: 0 30px 20px 0;}
@@ -5543,9 +5410,6 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {border-radiu
     .onecol .subscribeForm fieldset {width: calc(100% - 192px); float: left; margin-left: -15px; margin-right: -15px;}
     .onecol .subscribeForm .buttons {float: right; margin: 0;}
     .landing + .row.main .onecol #main.subscribe {margin-bottom: 0;}
-
-    #aside-ppal .panel.collaborate .panel-body ul li {margin-right: 10px;}
-    #aside-ppal .panel.collaborate .panel-body ul li a.btn {min-width: 74px;}
 
     .box.tools.open .dropdown-menu li a {font-size: 18px; font-size: 1.8rem; line-height: 2.6;}
 
@@ -5687,7 +5551,6 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {border-radiu
     .arrow3 {bottom: -90px;}
     .arrow4 {bottom: -55px; left: 120px;}
     h1.withArrow {margin-bottom: 70px;}
-    .boxes.vote.drive.fixed {width: 350px;}
 
     #main.landing.mainEditors .full-video, #main.landing.mainEditors .full-video {background-position: right -38px;}
 
@@ -5698,9 +5561,6 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {border-radiu
 
     .landing.prices .full-video h2 {font-size: 140px; font-size: 14rem;}
     .landing.prices .full-video p {max-width: 720px;}
-
-    #aside-ppal .panel.collaborate .panel-body ul li {margin-right: 20px;}
-    #aside-ppal .panel.collaborate .panel-body ul li a.btn {min-width: 90px;}
 
     .box.tools.open .dropdown-menu li a {font-size: 20px; font-size: 2rem; line-height: 2.3;}
 
@@ -5734,7 +5594,6 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {border-radiu
     .iradio_line-orange,
     .config .icheckbox_line-orange,
     .config .iradio_line-orange {margin-right: 16px; margin-bottom: 18px;}
-    .box-ppal.condition .no-age .form-group:nth-child(2) {width: 172px;}
     /*.boxes.follow .user-list-followers .user > .actions {float: right; margin: -30px 0 0 !important;}*/
     .condition .user-list-followers  > li {width: 47%; float: left;}
     .sign .login .btn + .cancel {margin-left: 34px;}
@@ -5752,7 +5611,6 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {border-radiu
     .box .badge {top: 2px;}
     .box .badge-small {top: 2px;right:0px;}
     .boxes > h1 {padding: 15px 10px;}
-    .boxes.vote > .btn-lg {font-size: 16px; font-size: 1.6rem !important;}
     .boxes.edit-user {padding: 20px;}
     .boxes.edit-user .name {font-size: 20px; font-size: 2rem; padding-bottom: 4px;}
     .notifications-list > li > .user > .popover-trigger > img {margin: 0 6px 32px 10px;}
@@ -6537,11 +6395,6 @@ p.followers > span.fa:first-child{
     }
 }
 
-
-/* Latest Projects=========== */
-#otros-proyectos.normal-bg{
-    background-color: #fbfbfb;
-}
 
 /* Other Profiles =========== */
 #suggested-politicians{
