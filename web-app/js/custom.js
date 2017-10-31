@@ -320,20 +320,6 @@ $(document).ready(function() {
     /*******************************
      *********** CAUSES ************
      *******************************/
-    // SUPPORT DASHBOARD CARDS CAUSES
-    $("body").on("click", ".causes-list .cause-support", function(e){
-        e.preventDefault();
-        if ($(this).hasClass("disabled")){
-            //The cause card is disappearing and will be removed
-        }else{
-            $(this).addClass("disabled");
-            var $liCause = $(this).closest("li");
-            var appendUl = $(this).parents("ul.causes-list");
-            clickSupportCause($(this), function(){
-                addNewCauseToList(appendUl, $liCause);
-            })
-        }
-    });
     // SUPPORT CAUSES SMALL
     $("body").on("click", ".causes-tags .cause-support", function(e){
         e.preventDefault();
