@@ -8,7 +8,7 @@ function YoutubeHelper(){
             url: url,
             //dataType: "jsonp",
             success: function(data) {
-                console.log(data)
+                // console.log(data)
                 if (data.pageInfo.totalResults <= 0){
                     onError();
                 }else{
@@ -23,19 +23,32 @@ function YoutubeHelper(){
     }
 
     function maxResImage(response, img){
-        console.log(response)
-        console.log(img)
+        // console.log(response)
+        // console.log(img)
         $.each(response.items, function (index, item) {
-            if (item.snippet.thumbnails.maxres != undefined && item.snippet.thumbnails.maxres.url!= undefined){
-                var maxResUrl = item.snippet.thumbnails.maxres.url;
-                img.setAttribute('src', maxResUrl);
-            }else if (item.snippet.thumbnails.high != undefined && item.snippet.thumbnails.high.url!= undefined){
-                var maxResUrl = item.snippet.thumbnails.high.url;
-                img.setAttribute('src', maxResUrl);
+            var priorityQuality = ['maxres', 'standard', 'high', 'medium', 'default']
+            for (var idx in priorityQuality){
+                var quality = priorityQuality[idx]
+                if (_validThumbnail(item.snippet.thumbnails, quality)){
+                    var maxResUrl = item.snippet.thumbnails[quality].url;
+                    img.setAttribute('src', maxResUrl);
+                    // console.log("Replaced youtube image: "+item.id+" -> "+quality +" :: "+maxResUrl)
+                    break;
+                }
             }
 
         });
     }
+    function _validThumbnail(snippetThumbnail, quality){
+        var thumbnail = snippetThumbnail[quality];
+
+        var valid =
+            thumbnail!= undefined &&
+            thumbnail.url!= undefined &&
+            thumbnail.width / thumbnail.height == 16/9;
+        return valid;
+    }
+
 
     this.checkValidYoutube= function(img){
         var youtubeId = img.getAttribute("data-youtubeId");
