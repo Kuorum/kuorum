@@ -7175,6 +7175,8 @@ ul.leader-post-stats {box-shadow: 0 0 2px rgba(200,200,200,0.6); margin-bottom:2
 }
 
 .comment-box.call-to-action .actions button {
+    font-weight: bold;
+    text-transform: uppercase;
     width: 100%;
     margin: 0;
 }
