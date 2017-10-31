@@ -67,45 +67,31 @@ $(document).ready(function(){
 });
 
 
-
-function waitFormChecked($form, callback){
-    if ($form.hasClass("checked")){
-        callback();
-    }else{
-        window.setTimeout(function(){waitFormChecked($form, callback)}, 500);
-    }
-}
-
 function modalLogin($form, callback){
     pageLoadingOn();
     if ($form.valid()) {
-        waitFormChecked($form, function () {
-            if ($form.valid()) {
-                $form.parents(".modal").modal("hide")
-                var url = $form.attr("action")
-                var data = {
-                    j_username: $form.find("input[name=j_username]").val(),
-                    j_password: $form.find("input[name=j_password]").val()
-                };
-                $.ajax({
-                    type: "POST",
-                    url: url,
-                    data: data,
-                    success: function (dataLogin) {
-                        console.log(dataLogin);
-                        if (dataLogin.success) {
-                            callback()
-                        } else {
-                            // Form validation doesn't allow to take this conditional branch
-                            display.error(dataLogin.error)
-                            document.location.href = dataLogin.url
-                        }
-                    },
-                    complete: function () {
-                        pageLoadingOff();
-                    }
-                });
-            } else {
+        console.log("modal Login")
+        $form.parents(".modal").modal("hide")
+        var url = $form.attr("action")
+        var data = {
+            j_username: $form.find("input[name=j_username]").val(),
+            j_password: $form.find("input[name=j_password]").val()
+        };
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: data,
+            success: function (dataLogin) {
+                console.log(dataLogin);
+                if (dataLogin.success) {
+                    callback()
+                } else {
+                    // Form validation doesn't allow to take this conditional branch
+                    display.error(dataLogin.error)
+                    document.location.href = dataLogin.url
+                }
+            },
+            complete: function () {
                 pageLoadingOff();
             }
         });
@@ -117,30 +103,24 @@ function modalLogin($form, callback){
 function modalForgotPassword($form){
     pageLoadingOn();
     if ($form.valid()) {
-        waitFormChecked($form, function () {
-            if ($form.valid()) {
-                var url = $form.attr("action")
-                var data = {
-                    email: $form.find("input[name=email]").val()
-                };
-                $.ajax({
-                    type: "POST",
-                    url: url,
-                    data: data,
-                    success: function (dataLogin) {
-                        $form.hide();
-                        $('.socialGo').hide();
-                        $("#pass-forget-success").show();
-                    },
-                    complete: function () {
-                        pageLoadingOff();
-                    }
-                })
-            }else{
+        var url = $form.attr("action")
+        var data = {
+            email: $form.find("input[name=email]").val()
+        };
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: data,
+            success: function (dataLogin) {
+                $form.hide();
+                $('.socialGo').hide();
+                $("#pass-forget-success").show();
+            },
+            complete: function () {
                 pageLoadingOff();
             }
-        });
+        })
     } else {
         pageLoadingOff();
     }
-}
+};

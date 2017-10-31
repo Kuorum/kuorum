@@ -33,36 +33,29 @@ function registerModalCallback(){
 function modalRegister($form, callback){
     pageLoadingOn();
     if ($form.valid()) {
-        waitFormChecked($form, function () {
-            if ($form.valid()) {
-                $form.parents(".modal").modal("hide")
-                var url = $form.attr("action-ajax")
-                var data = $form.serializeArray()
-                $.ajax({
-                    type: "POST",
-                    url: url,
-                    data: data,
-                    success: function (dataLogin) {
-                        if (dataLogin.success) {
-                            callback()
-                        } else {
-                            // Form validation doesn't allow to take this conditional branch
-                            display.error(dataLogin.error)
-                            // $form.submit() // Goes to register page using normal flow and handling errors
-                        }
-                    },
-                    complete: function () {
-                        var dataRecaptcha = $('#register-modal-form-id').attr('data-recaptcha');
-                        grecaptcha.reset(dataRecaptcha);
-                        pageLoadingOff();
-                    }
-                });
-            } else {
+
+        $form.parents(".modal").modal("hide")
+        var url = $form.attr("action-ajax")
+        var data = $form.serializeArray()
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: data,
+            success: function (dataLogin) {
+                if (dataLogin.success) {
+                    callback()
+                } else {
+                    // Form validation doesn't allow to take this conditional branch
+                    display.error(dataLogin.error)
+                    // $form.submit() // Goes to register page using normal flow and handling errors
+                }
+            },
+            complete: function () {
                 var dataRecaptcha = $('#register-modal-form-id').attr('data-recaptcha');
                 grecaptcha.reset(dataRecaptcha);
                 pageLoadingOff();
             }
-        })
+        });
     } else {
         var dataRecaptcha = $('#register-modal-form-id').attr('data-recaptcha');
         grecaptcha.reset(dataRecaptcha);

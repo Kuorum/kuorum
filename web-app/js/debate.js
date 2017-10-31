@@ -196,20 +196,26 @@ $(function () {
     var $callToAction = $('body').find('.comment-box.call-to-action');
     $callToAction.find('.comment.editable').focus();
 
-    $(window).scroll(function () {
-        var upperLimit = $("section#main .comment-box").offset();
-        var buttonPosition = $("section#main .leader-post .header .call-to-action-mobile").offset();
-        if (buttonPosition.top > upperLimit.top) {
-            if ($(".call-to-action-mobile").is(":visible")) {
-                $('.call-to-action-mobile').toggleClass('hidden');
+    if($("section#main .comment-box").length > 0){
+        // Debate not published has no comment-boxes
+        $(window).scroll(function () {
+            var upperLimit = $("section#main .comment-box").offset();
+            var buttonPosition = $("section#main .leader-post .header .call-to-action-mobile").offset();
+            if (buttonPosition.top > upperLimit.top) {
+                if ($(".call-to-action-mobile").is(":visible")) {
+                    $('.call-to-action-mobile').toggleClass('hidden');
+                }
             }
-        }
-        else if($(".call-to-action-mobile").hasClass("hidden")){
-            if((buttonPosition.top + 150) < upperLimit.top){
-                $('.call-to-action-mobile').toggleClass('hidden');
+            else if($(".call-to-action-mobile").hasClass("hidden")){
+                if((buttonPosition.top + 150) < upperLimit.top){
+                    $('.call-to-action-mobile').toggleClass('hidden');
+                }
             }
-        }
-    });
+        });
+    }else{
+        // Debate not published => Call to action hide due to is not possible to add comments
+        $(".leader-post .call-to-action-mobile").hide()
+    }
 
     $(".call-to-action-mobile button").on("click", function(){
         var $proposalBox = $(".comment-box .comment.editable");
@@ -502,6 +508,35 @@ $(function () {
             document.location.reload();
         })
     };
+
+    function preapreReadMore(){
+        $('.limit-height').each(function (idx){
+            var collapsedHeight = parseInt($(this).attr("data-collapsedHeight"));
+            var buttonCss = "btn btn-xs btn-blue";
+            if ($(this)[0].hasAttribute("data-collapsedButtonCss")){
+                buttonCss = $(this).attr("data-collapsedButtonCss")
+            }
+            if (typeof buttonCss === typeof undefined && buttonCss === false){
+                buttonCss = "btn btn-xs btn-blue"
+            }
+            if ($(this).height() > collapsedHeight){
+                $(this).readmore({
+                    speed: 500,
+                    collapsedHeight: collapsedHeight,
+                    heightMargin: 16,
+                    moreLink: '<div class="center-button"><a href="#" class="'+buttonCss+'">'+i18n.read.more+' <span class="fa fa-angle-down"></a></div>',
+                    lessLink: '<div class="center-button"><a href="#" class="'+buttonCss+'">'+i18n.read.less+' <span class="fa fa-angle-up"></a></div>',
+                    embedCSS: true,
+                    blockCSS: 'display: block; width: auto;',
+                    startOpen: false,
+                    // callbacks
+                    beforeToggle: function(){},
+                    afterToggle: function(){}
+                });
+            }
+        })
+    }
+    preapreReadMore();
 
 });
 

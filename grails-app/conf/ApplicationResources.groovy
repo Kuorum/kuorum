@@ -6,7 +6,6 @@ modules = {
         resource url: 'fonts/icomoon/styles.css'
         resource url: 'fonts/icomoon2/styles.css'
         resource url: 'fonts/icomoon3/styles.css'
-        resource url: 'css/datepicker3.css'
         resource url:'js/jquery.min.js'
         resource url:'js/bootstrap.min.js'
         resource url:[dir:'css',file:'style_ie.css'], attrs:[media:'screen'], wrapper: { s -> "<!--[if IE]>$s<![endif]-->" }
@@ -17,6 +16,7 @@ modules = {
         resource url:[dir:'js',file:'selectivizr.js'], wrapper: { s -> "<!--[if (lt IE 9) & (!IEMobile)]>$s<![endif]-->" }
         // Fin soporte HTML5
         resource url:'js/modernizr.js'
+        resource url:'css/custom.css'
     }
 
     recaptcha{
@@ -76,6 +76,7 @@ modules = {
 
     datepicker{
         dependsOn 'basic'
+        resource url: 'css/datepicker3.css'
         resource url:'js/datepicker/bootstrap-datepicker.js'
         resource url:'js/datepicker/moment-with-locales.min.js'
         resource url:'js/datepicker/bootstrap-datetimepicker.js'
@@ -85,32 +86,30 @@ modules = {
         resource url:'js/datepicker/bootstrap-datepicker.lt.js'
     }
 
-    application {
-        dependsOn "basic,datepicker"
-        resource url:'js/jquery.validate.min.js'
-        resource url:'js/readmore.min.js'
-        resource url:'js/jquery.timeago.js'
-        resource url:'js/jquery-te-1.4.0.min.js' // JQUTE -> Move to form, but it doesn't work
-        resource url:'css/jquery-te-1.4.0.css'
+    noty{
+        dependsOn("basic")
         resource url:'js/jquery.noty.packaged.min.js'
         resource url:'js/jquery.noty.theme.js'
         resource url:'js/layouts/top.js'
         resource url:'js/layouts/center.js'
+    }
+
+    application {
+        dependsOn "basic,noty"
+        resource url:'js/jquery.validate.min.js'
+        resource url:'js/jquery.timeago.js'
         resource url:'js/bootstrap-progressbar.min.js'
         resource url:'js/jquery.slimscroll.min.js'
         resource url:'js/jquery.touchSwipe.min.js'
         resource url:'js/jquery.autocomplete.js'
 //        resource url:'js/jquery.bgswitcher.js' //HOME
-        resource url:'js/hideShowPassword.min.js'
+//        resource url:'js/hideShowPassword.min.js'
         resource url:'js/bootstrap-filestyle.min.js'
-        resource url:'js/typeahead.bundle.min.js' // PARA el input tag con autocompletado
-        resource url:'js/bootstrap-tagsinput.min.js' // PARA el input tag con autocompletado
         resource url:'js/isotope.pkgd.min.js'
         resource url:'js/jquery.mark.min.js'
         resource url:'js/mark.min.js'
         resource url:'js/youtube-helper.js'
         resource url:'js/custom.js'
-        resource url:'css/custom.css'
         resource url:'js/modal-login-form.js'
         resource url:'js/local.js'
         resource url:'js/profile.js'
@@ -118,6 +117,7 @@ modules = {
 
     debate {
         dependsOn("basic", "forms", 'cookiesHelper', 'application', 'campaignList')
+        resource url:'js/readmore.min.js'
         resource url:'js/medium-editor/medium-editor.js'
         resource url:'css/medium-editor/medium-editor.min.css'
         resource url:'css/medium-editor/themes/default.css'
@@ -131,8 +131,13 @@ modules = {
         resource url:'js/post.js'
     }
 
-    widgetResizer {
+    widget{
         dependsOn("basic", 'cookiesHelper')
+        resource url:'css/customWidget.css'
+    }
+
+    widgetResizer {
+        dependsOn("widget")
         resource url:'js/widget/widget-helper.js'
         resource url:'js/widget/iframe-resizer/iframeResizer.contentWindow.min.js'
     }
@@ -171,14 +176,20 @@ modules = {
     }
 
     forms{
+        dependsOn("datepicker")
 //        resource url:'js/jquery-ui/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.js'
 //        resource url:'js/jquery-ui/jquery-ui-1.10.4.custom/css/base/jquery-ui-1.10.4.custom.min.css'
 //        resource url:'js/icheck.min.js' //  CHECKBOX COMMISSIONS  -> check bonito
+
+        resource url:'js/typeahead.bundle.min.js' // PARA el input tag con autocompletado
+        resource url:'js/bootstrap-tagsinput.min.js' // PARA el input tag con autocompletado
         resource url:'js/jquery-plugin/tagsinput/jquery.tagsinput.css'
         resource url:'js/jquery-plugin/tagsinput/jquery.tagsinput.js'
         resource url:'js/jquery.dynamiclist.min.js' //Dynamic input
         resource url:'js/jquery-plugin/jquery.are-you-sure.js'
         resource url:'js/jquery-plugin/duplicateFields.min.js'
+        resource url:'js/jquery-te-1.4.0.min.js' // JQUTE -> Move to form, but it doesn't work
+        resource url:'css/jquery-te-1.4.0.css'
         resource url:'js/customForm.js'
     }
 

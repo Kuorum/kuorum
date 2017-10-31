@@ -141,3 +141,7 @@
 
             });
 </r:script>
+
+<g:if test="${request.isXhr()}">
+    <r:layoutResources disposition="defer"/>
+</g:if>

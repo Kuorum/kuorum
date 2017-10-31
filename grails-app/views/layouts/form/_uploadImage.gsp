@@ -162,14 +162,14 @@
     }
 
     <g:if test="${imageUrl}">
-        <asset:script type="text/javascript">
+
     // DEFERED SCRIPT
             $(function(){
                 console.log( $("#au-uploaderImageId_${imageId} .qq-upload-drop-area"))
                 console.log( "changeImageBackground('${raw(imageUrl)}', '${imageId}')")
                 changeImageBackground('${raw(imageUrl)}', '${imageId}')
             });
-        </asset:script>
+
     </g:if>
 </r:script>
 <input type="hidden" name="${name}" id="input_${imageId}" value="${value}"/>
