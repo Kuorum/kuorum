@@ -29,7 +29,6 @@
                             <userUtil:showUser
                                     user="${post.user}"
                                     showName="true"
-                                    showRole="true"
                                     showActions="false"
                                     showDeleteRecommendation="false"
                                     htmlWrapper="div"
