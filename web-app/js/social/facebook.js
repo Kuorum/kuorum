@@ -1,9 +1,9 @@
 window.fbAsyncInit = function() {
     // init the FB JS SDK
     FB.init({
-        appId      : '226641644202506',                        // App ID from the app dashboard
-//        appId      : '361147123984843',                        // App ID from the app dashboard
-        channelUrl : 'http://kuorum.org', // Channel file for x-domain comms
+        // appId      : '226641644202506',                        // App ID from the app dashboard
+       appId      : '361147123984843',                        // App ID from the app dashboard
+        channelUrl : 'https://kuorum.org', // Channel file for x-domain comms
         status     : true,                                 // Check Facebook Login status
         xfbml      : true                                  // Look for social plugins on the page
     });
