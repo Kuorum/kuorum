@@ -43,13 +43,6 @@ $(function(){
         $(this).closest("form").find("input[name=fileType]").val($(this).attr("data-fileType"));
     });
 
-
-    if ( $('.jqte_editor').text() == "" ) {
-        $('.jqte_placeholder_text').css('display', 'block');
-    } else {
-        $('.jqte_placeholder_text').css('display', 'none');
-    }
-
     // textarea editor
     $.each($(".texteditor"), function(idx, val) {
         var placeholder = $(val).attr("placeholder");
@@ -87,6 +80,12 @@ $(function(){
         var link = $(this).attr("href");
         window.open(link);
     });
+
+    if ( $('.jqte_editor').text() == "" ) {
+        $('.jqte_placeholder_text').css('display', 'block');
+    } else {
+        $('.jqte_placeholder_text').css('display', 'none');
+    }
 
     $("input[name=userType], input[name=gender]").on("change", function(e){
         formHelper.prepareFormUsingGender($(this).val())
