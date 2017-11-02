@@ -7,7 +7,7 @@
                 <span class="fa fa-flag-o fa-stack-1x fa-inverse"></span>
             </span>
         </span>
-        <span class="call-subTitle"><g:message code="modules.debate.pinned.users.subtitle" args="[debateUser.fullName]"/></span>
+        <span class="call-subTitle"><g:message code="modules.debate.pinned.users.subtitle" args="[debateUser.name]"/></span>
     </div>
     <div class="comment-proposal clearfix">
         <ul class="user-list-images">
