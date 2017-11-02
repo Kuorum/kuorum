@@ -121,14 +121,14 @@ class KuorumUserTagLib {
             }
             out << "</div>"
         }
-//        String role = userUtil.roleName(user:user);
-//        if (showRole && role){
-//            out << """
-//                <span class="user-type">
-//                    <small>${role}</small>
-//                </span>
-//                """
-//        }
+        String role = getRoleUser(user)
+        if (showRole && role){
+            out << """
+                <span class="user-type">
+                    ${role}
+                </span>
+                """
+        }
         out << "</${htmlWrapper}>" //END DIV
     }
 
@@ -267,8 +267,17 @@ class KuorumUserTagLib {
 
     def roleName={attrs ->
         KuorumUser user = attrs.user
+        String role = getRoleUser(user)
+        if (role){
+            out << role
+        }
+    }
+
+    private String getRoleUser(KuorumUser user){
         if (user?.professionalDetails?.position){
-            out << user.professionalDetails.position
+            return user.professionalDetails.position
+        }else{
+            return null;
         }
     }
 

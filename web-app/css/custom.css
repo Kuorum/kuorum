@@ -1851,7 +1851,7 @@ ul.user-list-followers .loading.xs {width: 10px; height: 10px;}
 .btn.mail:focus {background-color: #a8a8a8 !important; color: #ffffff !important;}
 
 .user {position: relative;}
-.user-type {position: absolute; top: 32px; line-height: 1;}
+.user-type {position: absolute;top: 19px;left: 43px;font-size: 11px;color: #a8a8a8;}
 .popover-user .user-type {left: 2px;}
 .popover-user .popover-user-header {margin-bottom: 15px;}
 
