@@ -1855,7 +1855,7 @@ ul.user-list-followers .loading.xs {width: 10px; height: 10px;}
 .popover-user .user-type {left: 2px;}
 .popover-user .popover-user-header {margin-bottom: 15px;}
 
-.user.show-user-role{line-height: 1,25em;}
+.user.show-user-role{line-height: 1.25em;}
 .user.show-user-role img.user-img{float:left;}
 .user.show-user-role span{display: inline-block;width:calc(100% - 125px); overflow: hidden; text-overflow: ellipsis;white-space: nowrap}
 .user.show-user-role img.user-img + span{margin-top:1px;}
