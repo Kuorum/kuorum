@@ -3,7 +3,7 @@
     <g:render template="showModules/mainContent/postDataMultimedia" model="[post:post]"/>
     <div class="header">
         <h1 class="title">${post.title}</h1>
-        <userUtil:showUser user="${postUser}"/>
+        <userUtil:showUser user="${postUser}" showRole="true"/>
         <div class="clearfix">
             <span class="time-ago pull-left"><kuorumDate:humanDate date="${post.datePublished}"/> </span>
             <userUtil:ifUserIsTheLoggedOne user="${postUser}">
