@@ -76,12 +76,17 @@ class KuorumUserTagLib {
             name = user.fullName
         }
 
-        Boolean showRole = attrs.showRole?Boolean.parseBoolean(attrs.showRole):false
+        String role = getRoleUser(user)
+        Boolean showRole = role && (attrs.showRole?Boolean.parseBoolean(attrs.showRole):false)
         Boolean showName = attrs.showName?Boolean.parseBoolean(attrs.showName):true
         Boolean showActions = attrs.showActions?Boolean.parseBoolean(attrs.showActions):false
         Boolean showDeleteRecommendation = attrs.showDeleteRecommendation?Boolean.parseBoolean(attrs.showDeleteRecommendation):false
+
         String htmlWrapper = attrs.htmlWrapper?:"div"
         String extraCss = attrs.extraCss?:''
+        if (showRole){
+            extraCss = extraCss + " show-user-role"
+        }
 
 //        def link = g.createLink(mapping:'userShow', params:user.encodeAsLinkProperties())
         out << "<${htmlWrapper} class='user ${extraCss} ${showDeleteRecommendation?'recommendation-deletable':''}' itemtype=\"http://schema.org/Person\" itemscope data-userId='${user.id}' data-userAlias='${user.alias}'>"
@@ -105,6 +110,14 @@ class KuorumUserTagLib {
                     ${userName}
                 </a>
         """
+        if (showRole){
+            out << """
+                <span class="user-type">
+                    ${role}
+                </span>
+                """
+        }
+
         if (withPopover) {
             UserReputationRSDTO userReputationRSDTO = userReputationService.getReputation(user)
             out << g.render(template: '/kuorumUser/popoverUser', model: [
@@ -121,14 +134,7 @@ class KuorumUserTagLib {
             }
             out << "</div>"
         }
-        String role = getRoleUser(user)
-        if (showRole && role){
-            out << """
-                <span class="user-type">
-                    ${role}
-                </span>
-                """
-        }
+
         out << "</${htmlWrapper}>" //END DIV
     }
 
