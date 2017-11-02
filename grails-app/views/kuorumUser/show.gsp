@@ -25,9 +25,7 @@
                     <div class="profile-pic text-center">
                         <img alt="${message(code:'page.politicianProfile.imageAvatar.alt', args: [politician.fullName])}"
                              class="img-circle"
-                             data-src="holder.js/140x140"
                              src="${image.userImgSrc(user:politician)}"
-                             data-holder-rendered="true"
                              itemprop="image">
                             <userUtil:userTypeIcon user="${politician}"/>
                     </div>
