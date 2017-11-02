@@ -14,7 +14,7 @@
     </div>
     <g:if  test="${mainPolitician}">
         <div class="user author" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-            <userUtil:showUser user="${mainPolitician}" showRole="true"/>
+            <userUtil:showUser user="${mainPolitician}"/>
         </div>
     </g:if>
     <div class="cause-footer clearfix">

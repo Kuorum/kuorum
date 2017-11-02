@@ -121,10 +121,11 @@ class KuorumUserTagLib {
             }
             out << "</div>"
         }
-//        if (showRole){
+//        String role = userUtil.roleName(user:user);
+//        if (showRole && role){
 //            out << """
 //                <span class="user-type">
-//                    <small>${userUtil.roleName(user:user)}</small>
+//                    <small>${role}</small>
 //                </span>
 //                """
 //        }
@@ -266,15 +267,8 @@ class KuorumUserTagLib {
 
     def roleName={attrs ->
         KuorumUser user = attrs.user
-        if (user.userType == UserType.POLITICIAN || user.userType == UserType.CANDIDATE || user.userType == UserType.PERSON){
-            String rolePolitician = user.professionalDetails?.position?:message(code:"kuorum.core.model.UserType.${user.userType}")
-            out << rolePolitician
-        }else{
-            out << g.message(code:"${kuorum.core.model.gamification.GamificationAward.name}.${user.gamification.activeRole}.${user.personalData.gender}")
-            if (user.organization){
-                def link = createLink(mapping: 'userShow', params: user.organization.encodeAsLinkProperties())
-                out << "<span class='roleOrganization'>(<a href='$link'>${user.organization.name}</a>)</span>"
-            }
+        if (user?.professionalDetails?.position){
+            out << user.professionalDetails.position
         }
     }
 

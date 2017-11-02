@@ -3,7 +3,6 @@
         <userUtil:showUser
                 user="${user}"
                 showName="true"
-                showRole="true"
                 showActions="true"
                 showDeleteRecommendation="${showDeleteRecommendation}"
                 htmlWrapper="li"

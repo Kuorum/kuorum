@@ -15,7 +15,6 @@
                 <userUtil:showUser
                         user="${user}"
                         showName="false"
-                        showRole="false"
                         showActions="false"
                         showDeleteRecommendation="false"
                         htmlWrapper="li"

@@ -28,7 +28,6 @@
                     <userUtil:showUser
                             user="${solrPost}"
                             showName="true"
-                            showRole="true"
                             showActions="false"
                             showDeleteRecommendation="true"
                     />

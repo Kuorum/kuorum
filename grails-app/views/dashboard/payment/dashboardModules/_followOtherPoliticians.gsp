@@ -5,7 +5,6 @@
             <userUtil:showUser
                     user="${user}"
                     showName="true"
-                    showRole="true"
                     showActions="true"
                     showDeleteRecommendation="true"
                     htmlWrapper="li"

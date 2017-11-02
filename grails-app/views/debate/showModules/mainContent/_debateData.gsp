@@ -5,7 +5,7 @@
     <div class="header">
         <h1 class="title">${debate.title}</h1>
 
-        <userUtil:showUser user="${debateUser}"/>
+        <userUtil:showUser user="${debateUser}" showRole="true"/>
 
         <div class="clearfix">
             <span class="time-ago pull-left"><kuorumDate:humanDate date="${debate.datePublished}"/> </span>
