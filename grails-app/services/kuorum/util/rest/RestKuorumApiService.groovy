@@ -1,6 +1,7 @@
 package kuorum.util.rest
 
 import com.fasterxml.jackson.core.type.TypeReference
+import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import groovyx.net.http.*
 import kuorum.core.exception.KuorumException
@@ -216,6 +217,7 @@ class RestKuorumApiService {
                 if(clazz != null){
                     String jsonString = IOUtils.toString(resp.getEntity().getContent(), "UTF-8");
                     ObjectMapper objectMapper = new ObjectMapper()
+                    objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
                     obj = objectMapper.readValue(jsonString, clazz);
                 }
                 return obj
