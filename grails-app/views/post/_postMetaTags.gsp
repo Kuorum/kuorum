@@ -7,7 +7,7 @@
 %{--<link rel="publisher" href=”https://plus.google.com/[Google+_Page_Profile]"/>--}%
 
 <!-- Schema.org markup for Google+ -->
-<meta itemprop="name" content="${g.message(code:'page.politicianProfile.title', args:[post.title])}">
+<meta itemprop="name" content="${g.message(code:'post.show.title', args:[post.title])}">
 <meta itemprop="description" content="${post.body?.encodeAsRemovingHtmlTags()}">
 %{--<meta itemprop="image" content="${post.multimedia?.url}">--}%
 <meta itemprop="image" content="${postImage}" />
@@ -17,18 +17,18 @@
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:image" content="${postImage}">
 <meta name="twitter:site" content="@kuorumorg">
-<meta name="twitter:title" content="${g.message(code:'page.politicianProfile.title', args:[post.title])}">
+<meta name="twitter:title" content="${g.message(code:'post.show.title', args:[post.title])}">
 %{--Page description less than 200 characters--}%
 <meta name="twitter:description" content="${post.body?.encodeAsRemovingHtmlTags()?:''}">
 <!-- Twitter summary card with large image must be at least 280x150px -->
 %{--<meta name="twitter:image:src" content="${post.multimedia?.url}">--}%
 
 <!-- Open Graph data -->
-<meta property="og:title" content="${g.message(code:'page.politicianProfile.title', args:[post.title])}" />
+<meta property="og:title" content="${g.message(code:'post.show.title', args:[post.title])}" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="${g.createLink(mapping:'postShow', params:post.encodeAsLinkProperties(), absolute:true)}" />
 <meta property="og:image" content="${postImage}" />
-<meta name="title" content="${g.message(code:'page.politicianProfile.title', args:[post.title])}" />
+<meta name="title" content="${g.message(code:'post.show.title', args:[post.title])}" />
 <meta name="description" content="${post.body?.encodeAsRemovingHtmlTags()?:''}" />
 <meta property="og:description" content="${post.body?.encodeAsRemovingHtmlTags()}" />
 <meta property="og:site_name" content="${message(code: 'kuorum.name')}" />

@@ -1,7 +1,7 @@
 <%@ page import="org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO" %>
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
-    <title>${debate.title}</title>
+    <title><g:message code="debate.show.title" args="[debate.title]"/></title>
     <meta name="layout" content="columnCLayout">
     <g:render template="debateMetaTags" model="[debate: debate]"/>
     <r:require modules="debate"/>

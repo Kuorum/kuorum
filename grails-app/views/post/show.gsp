@@ -1,6 +1,6 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
-    <title>${post.title}</title>
+    <title><g:message code="post.show.title" args="[post.title]"/></title>
     <meta name="layout" content="columnCLayout">
     <g:render template="postMetaTags" model="[post: post]"/>
     <r:require modules="post"/>
