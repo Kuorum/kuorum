@@ -131,7 +131,7 @@ class IndexSolrService {
     void index(KuorumUser user){
 //        Delta index is going to be via quartz
 //        log.info("Indexing user:${user}")
-//        solrDeltaIndex()
+        solrDeltaIndex()
     }
 
     void index(Project project){

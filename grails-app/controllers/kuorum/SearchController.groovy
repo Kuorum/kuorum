@@ -202,7 +202,7 @@ class SearchController{
         List<String> boostedAlias = params.list('boostedAlias[]')
         List<String> aliasFriends = []
         if (springSecurityService.isLoggedIn()){
-            aliasFriends = ((KuorumUser)springSecurityService.currentUser).following.collect{KuorumUser.get(it).alias}
+            aliasFriends = ((KuorumUser)springSecurityService.currentUser).following.collect{KuorumUser.get(it)}.findAll{it}.collect{it.alias}
         }
 //        term = term.replaceAll("[^\\x00-\\x7F]", "") // The mention plugin sends a weird character at the end
         def suggestions = searchSolrService.suggestAlias(term, boostedAlias,aliasFriends)
