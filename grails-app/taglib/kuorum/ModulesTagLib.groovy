@@ -11,7 +11,6 @@ import org.bson.types.ObjectId
 class ModulesTagLib {
     static defaultEncodeAs = 'raw'
     //static encodeAsForTags = [tagName: 'raw']
-    def projectService
     def springSecurityService
     def postService
     def kuorumUserService
@@ -19,39 +18,6 @@ class ModulesTagLib {
     private static final Long NUM_RECOMMENDED_POST = 3
 
     static namespace = "modulesUtil"
-
-    def projectVotes = { attrs ->
-        Project project = attrs.project
-        Boolean social = Boolean.parseBoolean(attrs.social ?: "false")
-        Boolean title = Boolean.parseBoolean(attrs.title ?: "false")
-        BasicPersonalDataCommand basicPersonalDataCommand = attrs.basicPersonalDataCommand ?: new BasicPersonalDataCommand()
-        ProjectVote userVote = null
-        if (springSecurityService.isLoggedIn()) {
-            KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-            userVote = projectService.findProjectVote(project, user)
-        }
-        Integer necessaryVotesForKuorum = projectService.necessaryVotesForKuorum(project)
-        out << render(template: "/project/projectVotesModule", model: [project: project, userVote: userVote, necessaryVotesForKuorum: necessaryVotesForKuorum, social: social, title: title, basicPersonalDataCommand: basicPersonalDataCommand])
-    }
-
-    def projectActivePeople = { attrs ->
-        Project project = attrs.project
-        List<KuorumUser> activePeopleOnProject = projectService.activePeopleOnProject(project)
-        if (activePeopleOnProject)
-            out << render(template: '/modules/activePeopleOnProject', model: [users: activePeopleOnProject])
-    }
-
-    def lastCreatedPosts = { attrs ->
-        String specialCssClass = attrs.specialCssClass
-        Project project = attrs.project //Not necessary
-        Pagination pagination = attrs.numPost ? new Pagination(max: Long.parseLong(attrs.numPost)) : new Pagination(max: NUM_RECOMMENDED_POST)
-
-        List<Post> lastCreatedPost = postService.lastCreatedPosts(pagination, project)
-        if (lastCreatedPost) {
-            String title = attrs.title ?: message(code: "modules.lastCreatedPost.title")
-            out << render(template: '/modules/recommendedPosts', model: [recommendedPost: lastCreatedPost, title: title, specialCssClass: specialCssClass])
-        }
-    }
 
     def recommendedUsersList = { attrs ->
         Integer numUsers = attrs.numUsers as Integer
@@ -82,7 +48,7 @@ class ModulesTagLib {
                     });
         """
         out << "<div id=\"${elementId}\" class=\"hidden\"></div>"
-        r.script( [:],tagInputScript)
+        r.script( [:],delayScript)
     }
 
     private static final Integer MAX_LENGTH_TEXT = 250

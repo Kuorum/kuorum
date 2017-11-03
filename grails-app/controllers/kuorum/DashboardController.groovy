@@ -179,26 +179,6 @@ class DashboardController {
         render template: "/dashboard/listDashboardUserRecommendations", model:[politicians:suggesterPoliticians]
     }
 
-    def discover(){
-        //TODO: QUE HACER SI NO ES ESPA�A
-        Region region = Region.findByIso3166_2("EU-ES")
-        redirect mapping:'discoverProjectsByRegion', params: region.encodeAsLinkProperties()
-//        List<Project> relevantProjects = projectService.relevantProjects(new Pagination(max:4))
-//        List<Project> recommendedProjects = projectService.relevantProjects(new Pagination(max:5))
-//        List<KuorumUser> mostActiveUsers = kuorumUserService.mostActiveUsersSince(new Date() -7, new Pagination(max:24))
-////        List<KuorumUser> bestSponsors = kuorumUserService.bestSponsorsSince(new Date() -7, new Pagination(max:24))
-//        List<KuorumUser> bestSponsors = kuorumUserService.mostActiveUsersSince(new Date() -365, new Pagination(max:24))
-//        List<KuorumUser> bestPoliticians = kuorumUserService.bestPoliticiansSince(new Date() -7, new Pagination(max:32))
-////        log.debug("discover")
-//        [
-//                relevantProjects:relevantProjects,
-//                recommendedProjects:recommendedProjects,
-//                mostActiveUsers:mostActiveUsers,
-//                bestSponsors:bestSponsors,
-//                bestPoliticians:bestPoliticians
-//        ]
-    }
-
     def landingPrices(){
         Map<String, KuorumPaymentPlanDTO> plans = customerService.getActivePlans();
         [plans:plans    ]
