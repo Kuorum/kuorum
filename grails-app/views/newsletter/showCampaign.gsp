@@ -27,10 +27,10 @@
         </ul>
         <div id="tabs-stats-campaign" class="tab-content">
             <div class="tab-pane active" id="stats">
-                <g:render template="/massMailing/campaignTabs/campaignStats" model="[campaign:campaign]"/>
+                <g:render template="/newsletter/campaignTabs/campaignStats" model="[campaign:campaign]"/>
             </div>
             <div class="tab-pane" id="recipients">
-                <g:render template="/massMailing/campaignTabs/campaignRecipeints" model="[trackingPage:trackingPage, campaignId:campaign.id]"/>
+                <g:render template="/newsletter/campaignTabs/campaignRecipeints" model="[trackingPage:trackingPage, campaignId:campaign.id]"/>
             </div>
             <div class="tab-pane" id="viewemail">
                 <g:render template="campaignTabs/campaignViewMail" model="[campaign: campaign]"/>

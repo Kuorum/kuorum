@@ -113,6 +113,7 @@ function SortCampaigns() {
                     pageLoadingOff();
                 }
             }).done(function(data, status, xhr) {
+                console.log("Ajax Success")
                 campaignList.append(data);
                 that.orderList();
                 that.showInfoEmpty();

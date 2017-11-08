@@ -20,6 +20,6 @@
                 %{--<g:message code="dashboard.payment.newCampaign.sentNew"/>--}%
             %{--</g:link>--}%
         %{--</p>--}%
-        <g:render template="/massMailing/chooseCampaign"/>
+        <g:render template="/newsletter/chooseCampaign"/>
     </div>
 </content>

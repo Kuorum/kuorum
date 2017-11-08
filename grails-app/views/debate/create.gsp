@@ -26,5 +26,5 @@
                                                               content:'debateEditContent', showResult: 'debateShow',
                                                               next: 'debateEditContent']]"/>
 
-    <g:render template="/massMailing/timeZoneSelectorPopUp"/>
+    <g:render template="/newsletter/timeZoneSelectorPopUp"/>
 </content>

@@ -4,12 +4,12 @@
         <p>
             <g:message code="dashboard.payment.newCampaign.neverSent" args="[g.createLink(mapping: 'blog')]" encodeAs="raw"/>
         </p>
-        <g:render template="/massMailing/chooseCampaign"/>
+        <g:render template="/newsletter/chooseCampaign"/>
     </g:if>
     <g:else>
         <p>
             <g:message code="dashboard.payment.newCampaign.lastCampaignSent" args="[durationDays, g.createLink(mapping: 'blog')]" encodeAs="raw"/>
         </p>
-        <g:render template="/massMailing/chooseCampaign"/>
+        <g:render template="/newsletter/chooseCampaign"/>
     </g:else>
 </div>

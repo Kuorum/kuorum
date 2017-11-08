@@ -24,5 +24,5 @@
                                             mappings:[step:'settings', settings:'postEdit', content:'postEditContent',
                                                       showResult: 'postShow', next: 'postEditContent']]"/>
 
-    <g:render template="/massMailing/timeZoneSelectorPopUp"/>
+    <g:render template="/newsletter/timeZoneSelectorPopUp"/>
 </content>

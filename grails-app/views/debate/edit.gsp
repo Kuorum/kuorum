@@ -22,5 +22,5 @@
     <div class="box-ppal campaign-new">
         <g:render template="/debate/formEditDebate" model="[command: command, filters: filters, totalContacts: totalContacts, debateId: debateId, anonymousFilter: anonymousFilter]"/>
     </div>
-    <g:render template="/massMailing/timeZoneSelectorPopUp"/>
+    <g:render template="/newsletter/timeZoneSelectorPopUp"/>
 </content>

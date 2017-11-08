@@ -8,25 +8,27 @@
 <div class="box-ppal campaign-new">
     <h1 class="sr-only">Newsletter</h1>
     <formUtil:validateForm bean="${command}" form="politicianMassMailingForm" dirtyControl="true"/>
-    <form action="${g.createLink(mapping:'politicianMassMailingNew')}" class="form-horizontal" id="politicianMassMailingForm" method="POST" data-generalErrorMessage="${g.message(code:'kuorum.web.commands.payment.massMailing.MassMailingCommand.form.genericError')}">
+    <form action="#" class="form-horizontal" id="politicianMassMailingForm" method="POST" data-generalErrorMessage="${g.message(code:'kuorum.web.commands.payment.massMailing.MassMailingCommand.form.genericError')}">
         <input type="hidden" name="sendType" value="DRAFT" id="sendMassMailingType"/>
         <input type="hidden" name="redirectLink" id="redirectLink"/>
-        <input type="hidden" name="campaignId" value="${campaignId}"/>
 
         <fieldset class="form-group">
             <label for="campaignName" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.massMailing.MassMailingCommand.campaignName.label"/>:</label>
             <div class="col-sm-8 col-md-7">
                 <formUtil:input
                         command="${command}"
-                        field="campaignName"
-                        placeHolder="${g.message(code: 'kuorum.web.commands.payment.massMailing.MassMailingCommand.campaignName.placeHolder')}"
-                />
+                        field="campaignName"/>
             </div>
+
+            %{--<label for="subject" class="col-sm-2 col-md-1 control-label">Subject:</label>--}%
+            %{--<div class="col-sm-8 col-md-7">--}%
+            %{--<input type="text" class="form-control input-lg" id="subject" placeholder="It’s time to build a better country for everybody" equired aria-required="true">--}%
+            %{--</div>--}%
         </fieldset>
 
-        <g:render template="/massMailing/filter" model="[command: command, filters: filters, anonymousFilter: anonymousFilter]"/>
+        <g:render template="/newsletter/filter" model="[command: command, filters: filters, anonymousFilter: anonymousFilter,totalContacts:totalContacts]"/>
 
-        <g:render template="/massMailing/form/formGroupCampaignTags" model="[command:command, events:[TrackingMailStatusRSDTO.OPEN,TrackingMailStatusRSDTO.CLICK]]"/>
+        <g:render template="/newsletter/form/formGroupCampaignTags" model="[command:command, events:[TrackingMailStatusRSDTO.OPEN,TrackingMailStatusRSDTO.CLICK]]"/>
         <fieldset class="form-group">
             <div class="col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-8 form-control-campaign">
                 <ul class="form-final-options">
@@ -40,28 +42,6 @@
             </div>
         </fieldset>
     </form>
-</div>
-
-<!-- MODAL TEST ADVISE -->
-<div class="modal fade in" id="sendTestModal" tabindex="-1" role="dialog" aria-labelledby="sendTestModalTitle" aria-hidden="true">
-    <div class="modal-dialog ">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
-                    <span aria-hidden="true" class="fa fa-times-circle-o fa"></span><span class="sr-only"><g:message code="modalDefend.close"/></span>
-                </button>
-                <h4 id="sendTestModalTitle">
-                    <g:message code="tools.massMailing.sendTestModal.title"/>
-                </h4>
-            </div>
-            <div class="modal-body">
-                <p><g:message code="tools.massMailing.sendTestModal.text"/></p>
-                <a href="#" class="btn btn-blue inverted btn-lg" id="sendTestModalButonOk">
-                    <g:message code="tools.massMailing.sendTestModal.button"/>
-                </a>
-            </div>
-        </div>
-    </div>
 </div>
 
 <!-- WARN USING ANONYMOUS FILTER -->

@@ -31,7 +31,7 @@ import payment.campaign.MassMailingService
 import payment.contact.ContactService
 
 @Secured(['IS_AUTHENTICATED_REMEMBERED'])
-class MassMailingController {
+class NewsletterController {
 
     SpringSecurityService springSecurityService
 
@@ -71,7 +71,7 @@ class MassMailingController {
 
     }
 
-    def createMassMailing() {
+    def createNewsletter() {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         def returnModels = modelMassMailingSettings(user, new MassMailingSettingsCommand(), null)
 
@@ -145,7 +145,7 @@ class MassMailingController {
         KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
         Long campaignId = params.campaignId?Long.parseLong(params.campaignId):null // if the user has sent a test, it was saved as draft but the url hasn't changed
         if (command.hasErrors()){
-            render view: 'createMassMailing', model: modelMassMailingSettings(loggedUser, command, campaignId)
+            render view: 'createNewsletter', model: modelMassMailingSettings(loggedUser, command, campaignId)
             return;
         }
         String nextStep = params.redirectLink
@@ -306,7 +306,7 @@ class MassMailingController {
         Integer page = params.page?Integer.parseInt(params.page):0;
         Integer size = params.size?Integer.parseInt(params.size):10;
         TrackingMailStatsByCampaignPageRSDTO trackingPage = massMailingService.findTrackingMails(loggedUser, campaignId, page, size)
-        render template: '/massMailing/campaignTabs/campaignRecipeints', model: [trackingPage:trackingPage, campaignId:campaignId]
+        render template: '/newsletter/campaignTabs/campaignRecipeints', model: [trackingPage:trackingPage, campaignId:campaignId]
     }
 
     def sendReport(Long campaignId){
@@ -328,7 +328,7 @@ class MassMailingController {
             if (command.errors.allErrors.findAll{it.field == "scheduled"}){
                 flash.error=g.message(code:'kuorum.web.commands.payment.massMailing.MassMailingCommand.scheduled.min.warn')
             }
-            render view: 'createMassMailing', model: modelMassMailingSettings(loggedUser, command, campaignId)
+            render view: 'createNewsletter', model: modelMassMailingSettings(loggedUser, command, campaignId)
             return;
         }
         FilterRDTO anonymousFilter = recoverAnonymousFilter(params, command)
