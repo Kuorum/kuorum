@@ -161,6 +161,7 @@ class RestKuorumApiService {
         ACCOUNT_DEBATES_ALL     ("/communication/debate/"),
         ACCOUNT_DEBATES         ("/communication/debate/{userAlias}"),
         ACCOUNT_DEBATE          ("/communication/debate/{userAlias}/{debateId}"),
+        ACCOUNT_DEBATE_REPORT   ("/communication/debate/{userAlias}/{debateId}/report"),
         ACCOUNT_DEBATE_PROPOSALS("/communication/debate/{userAlias}/{debateId}/proposal"),
         ACCOUNT_DEBATE_PROPOSAL ("/communication/debate/{userAlias}/{debateId}/proposal/{proposalId}"),
         ACCOUNT_DEBATE_PROPOSAL_LIKE     ("/communication/debate/{userAlias}/{debateId}/proposal/{proposalId}/likes"),

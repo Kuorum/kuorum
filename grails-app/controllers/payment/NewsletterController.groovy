@@ -276,6 +276,18 @@ class NewsletterController {
         }
     }
 
+    def showDebateStats(Long debateId){
+        KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
+        DebateRSDTO debate = debateService.findDebate(loggedUser, debateId)
+        Long campaignId = debate.newsletter.id
+        if (debate.campaignStatusRSDTO == CampaignStatusRSDTO.DRAFT || debate.campaignStatusRSDTO == CampaignStatusRSDTO.SCHEDULED ){
+            redirect (mapping:'politicianMassMailingContent', params: [campaignId: campaignId])
+        }else{
+            TrackingMailStatsByCampaignPageRSDTO trackingPage = massMailingService.findTrackingMails(loggedUser, campaignId)
+            render view: 'showCampaign', model: [campaign: debate.newsletter, trackingPage:trackingPage, debate:debate]
+        }
+    }
+
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def saveTimeZone(TimeZoneCommand timeZoneCommand) {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)

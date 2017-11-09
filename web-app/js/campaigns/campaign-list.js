@@ -1,14 +1,15 @@
 $(function(){
 
     // Modals exports
-    $("#exportCampaignEvents").on("click", function(e){
+    $("#exportCampaignEvents, #exportDebateReport").on("click", function(e){
         pageLoadingOn();
         e.preventDefault();
         var $a = $(this)
         var link = $a.attr("href")
+        var modalId = $a.attr("data-modalId")
         $.post(link)
             .done(function(data) {
-                $("#export-campaignEvents-modal").modal("show")
+                $("#"+modalId).modal("show")
             })
             .fail(function(messageError) {
                 display.warn("Error exporting");

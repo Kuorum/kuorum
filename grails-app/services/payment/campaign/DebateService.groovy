@@ -142,4 +142,15 @@ class DebateService {
         debateId
     }
 
+    void sendReport(KuorumUser user, Long debateId) {
+        Map<String, String> params = [userAlias: user.id.toString(), debateId: debateId.toString()]
+        Map<String, String> query = [:]
+        def response = restKuorumApiService.get(
+                RestKuorumApiService.ApiMethod.ACCOUNT_DEBATE_REPORT,
+                params,
+                query,
+                null
+        )
+        response
+    }
 }

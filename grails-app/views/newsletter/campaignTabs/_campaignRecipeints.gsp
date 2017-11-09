@@ -2,7 +2,7 @@
 <h2 class="sr-only"><g:message code="tools.massMailing.list.recipients"/></h2>
 <div class="pag-list-contacts clearfix">
     <div class="actions">
-        <g:link mapping="politicianMassMailingTrackEventsReport" params="[campaignId:campaignId]" class="btn btn-blue inverted" elementId="exportCampaignEvents">
+        <g:link mapping="politicianMassMailingTrackEventsReport" params="[campaignId:campaignId]" class="btn btn-blue inverted" elementId="exportCampaignEvents" data-modalId="export-campaignEvents-modal">
             <span class="fa fa-file-excel-o"></span>
             <g:message code="tools.massMailing.list.recipients.export.csv"/>
         </g:link>

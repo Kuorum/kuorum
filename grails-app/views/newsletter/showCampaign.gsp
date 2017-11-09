@@ -27,7 +27,7 @@
         </ul>
         <div id="tabs-stats-campaign" class="tab-content">
             <div class="tab-pane active" id="stats">
-                <g:render template="/newsletter/campaignTabs/campaignStats" model="[campaign:campaign]"/>
+                <g:render template="/newsletter/campaignTabs/campaignStats" model="[campaign:campaign,debate:debate]"/>
             </div>
             <div class="tab-pane" id="recipients">
                 <g:render template="/newsletter/campaignTabs/campaignRecipeints" model="[trackingPage:trackingPage, campaignId:campaign.id]"/>

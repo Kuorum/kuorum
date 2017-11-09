@@ -319,6 +319,8 @@ class UrlMappings {
         name politicianMassMailingTrackEventsReport:    "/ajax/account/mass-mailing/$campaignId/trackEvents/report" (controller:"newsletter", action: "sendReport")
         name politicianMassMailingHtml:                 "/account/mass-mailing/$campaignId/html" (controller:"newsletter", action: "showMailCampaign")
         name politicianMassMailingSaveTimeZone:         "/account/mass-mailing/saveTimeZone" (controller: "newsletter"){action = [POST:"saveTimeZone"]}
+        name politicianDebateStatsShow:                 "/account/debate/$debateId" (controller:"newsletter", action:"showDebateStats")
+        name politicianMassMailingDebateStatsReport:    "/ajax/account/debate/$debateId/report" (controller:"debate", action: "sendReport")
 
         name politicianTeamManagement:                  "/account/team-management" (controller:"politician", action: "betaTesterPage")
 

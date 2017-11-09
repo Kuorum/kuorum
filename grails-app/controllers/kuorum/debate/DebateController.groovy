@@ -206,6 +206,18 @@ class DebateController {
         ]
     }
 
+    def sendReport(Long debateId){
+        KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
+        debateService.sendReport(loggedUser, debateId)
+        Boolean isAjax = request.xhr
+        if(isAjax){
+            render ([success:"success"] as JSON)
+        } else{
+            flash.message = g.message(code: 'modal.exportedTrackingEvents.title')
+            redirect (mapping: 'politicianDebateStatsShow', params:[debateId: debateId])
+        }
+    }
+
     private FilterRDTO recoverAnonymousFilterSettings(params, DebateSettingsCommand command) {
         ContactFilterCommand filterCommand = (ContactFilterCommand) bindData(new ContactFilterCommand(), params)
         contactService.transformCommand(filterCommand, "Custom filter for ${command.campaignName}")
