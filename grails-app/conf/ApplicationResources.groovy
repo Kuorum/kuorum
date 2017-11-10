@@ -103,7 +103,6 @@ modules = {
         resource url:'js/jquery.touchSwipe.min.js'
         resource url:'js/jquery.autocomplete.js'
 //        resource url:'js/jquery.bgswitcher.js' //HOME
-//        resource url:'js/hideShowPassword.min.js'
         resource url:'js/bootstrap-filestyle.min.js'
         resource url:'js/isotope.pkgd.min.js'
         resource url:'js/jquery.mark.min.js'
@@ -190,6 +189,7 @@ modules = {
         resource url:'js/jquery-plugin/duplicateFields.min.js'
         resource url:'js/jquery-te-1.4.0.min.js' // JQUTE -> Move to form, but it doesn't work
         resource url:'css/jquery-te-1.4.0.css'
+        resource url:'js/hideShowPassword.min.js'
         resource url:'js/customForm.js'
     }
 
