@@ -11,6 +11,7 @@ import org.kuorum.rest.model.notification.campaign.CampaignRSDTO
 import org.kuorum.rest.model.notification.campaign.config.NewsletterConfigRQDTO
 import org.kuorum.rest.model.notification.campaign.config.NewsletterConfigRSDTO
 import org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatsByCampaignPageRSDTO
+import org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO
 
 @Transactional
 class MassMailingService {
@@ -112,9 +113,12 @@ class MassMailingService {
         campaignSaved
     }
 
-    TrackingMailStatsByCampaignPageRSDTO findTrackingMails(KuorumUser user, Long campaignId, Integer page = 0, Integer size=10){
+    TrackingMailStatsByCampaignPageRSDTO findTrackingMails(KuorumUser user, Long campaignId, TrackingMailStatusRSDTO status = null, Integer page = 0, Integer size=10){
         Map<String, String> params = [userAlias:user.id.toString(), campaignId:campaignId.toString()]
         Map<String, String> query = [page:page.toString(), size:size.toString()]
+        if (status){
+            query.put("status", status)
+        }
         def response= restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.ACCOUNT_MASS_MAILING_TRACKING,
                 params,

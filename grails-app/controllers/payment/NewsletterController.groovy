@@ -26,6 +26,7 @@ import org.kuorum.rest.model.notification.campaign.CampaignRSDTO
 import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
 import org.kuorum.rest.model.notification.campaign.CampaignTemplateDTO
 import org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatsByCampaignPageRSDTO
+import org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO
 import payment.campaign.DebateService
 import payment.campaign.MassMailingService
 import payment.contact.ContactService
@@ -317,13 +318,24 @@ class NewsletterController {
         KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
         Integer page = params.page?Integer.parseInt(params.page):0;
         Integer size = params.size?Integer.parseInt(params.size):10;
-        TrackingMailStatsByCampaignPageRSDTO trackingPage = massMailingService.findTrackingMails(loggedUser, campaignId, page, size)
-        render template: '/newsletter/campaignTabs/campaignRecipeints', model: [trackingPage:trackingPage, campaignId:campaignId]
+        TrackingMailStatusRSDTO status
+        try {
+            status = TrackingMailStatusRSDTO.valueOf(params.status);
+        }catch (Exception e){
+            status = null;
+        }
+        TrackingMailStatsByCampaignPageRSDTO trackingPage = massMailingService.findTrackingMails(loggedUser, campaignId, status, page, size)
+        render template: '/newsletter/campaignTabs/campaignRecipeints',
+                model: [
+                        trackingPage:trackingPage,
+                        campaignId:campaignId,
+                        status:status
+                ]
     }
 
     def sendReport(Long campaignId){
         KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
-        TrackingMailStatsByCampaignPageRSDTO trackingPage = massMailingService.findTrackingMailsReport(loggedUser, campaignId)
+        massMailingService.findTrackingMailsReport(loggedUser, campaignId)
         Boolean isAjax = request.xhr
         if(isAjax){
             render ([success:"success"] as JSON)

@@ -1,4 +1,3 @@
-<r:require modules="campaignList"/>
 <h2 class="sr-only"><g:message code="tools.massMailing.list.recipients"/></h2>
 <div class="pag-list-contacts clearfix">
     <div class="actions">
@@ -18,7 +17,24 @@
     <thead>
     <tr>
         <th><g:message code="kuorum.web.commands.payment.contact.ContactCommand.name.label"/></th>
-        <th><g:message code="tools.massMailing.list.status"/></th>
+        <th class="dropdown">
+            <input type="hidden" name="filter-status" id="filter-status" value="${status}"/>
+            <a data-target="#" href="#" id="status-filter" class="dropdown-toggle dropdown-menu-right" data-toggle="dropdown">
+                <g:if test="${status}">
+                    <g:message code="org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO.${status}"/>
+                </g:if>
+                <g:else>
+                    <g:message code="tools.massMailing.list.status"/>
+                </g:else>
+            </a>
+            <ul id="status-filter-options" class="dropdown-menu" aria-labelledby="status-filter" role="menu">
+                <li> Filtrar por estado</li>
+                <g:each in="${org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO.values()}" var="filterOptionMailStatus">
+                    <li><a href="#${filterOptionMailStatus}"><g:message code="org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO.${filterOptionMailStatus}"/></a></li>
+                </g:each>
+                <li><a href="#">Todos</a></li>
+            </ul>
+        </th>
         <th><g:message code="tools.massMailing.list.opens"/></th>
         <th><g:message code="tools.massMailing.list.click"/></th>
         <th><g:message code="tools.massMailing.list.bounced"/></th>

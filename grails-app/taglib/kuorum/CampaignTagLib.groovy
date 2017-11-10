@@ -15,38 +15,34 @@ class CampaignTagLib {
     def openRate = {attrs ->
 
         CampaignRSDTO campaignRSDTO = attrs.campaign
-        String openRateValue = ""
-
-        if(campaignRSDTO.numberRecipients>0) {
-            Number openRateNum = campaignRSDTO.numberOpens/campaignRSDTO.numberRecipients*100
-            openRateValue = g.formatNumber(number: openRateNum, maxFractionDigits: 1, type: 'number', format: '\\$###.#0')
-        }
-        else{
-            openRateValue = '- '
-        }
-        out << """
-                <span class="open-number stat" data-openRateNum="${campaignRSDTO.numberOpens}" data-openRatePtg="${openRateValue}%">${openRateValue}%</span>
-
-        """
-
+        out << printPrettyStat(campaignRSDTO.numberOpens,campaignRSDTO.numberRecipients)
     }
 
     def clickRate = {attrs ->
 
         CampaignRSDTO campaignRSDTO = attrs.campaign
-        String clickRateValue = ""
+        out << printPrettyStat(campaignRSDTO.numberClicks,campaignRSDTO.numberRecipients)
+    }
 
-        if(campaignRSDTO.numberRecipients>0) {
-            Number clickRateNum = campaignRSDTO.numberClicks/campaignRSDTO.numberRecipients*100
-            clickRateValue = g.formatNumber(number: clickRateNum, maxFractionDigits: 1, type: 'number', format: '\\$###.#0')
+    def unsubscribeRate = {attrs ->
+
+        CampaignRSDTO campaignRSDTO = attrs.campaign
+        out << printPrettyStat(campaignRSDTO.numberUnsubscribe,campaignRSDTO.numberRecipients)
+    }
+
+    private String printPrettyStat(numberOfEvents, numberRecipients){
+        String rateValue = ""
+
+        if(numberRecipients>0) {
+            Number clickRateNum = numberOfEvents/numberRecipients*100
+            rateValue = g.formatNumber(number: clickRateNum, maxFractionDigits: 1, type: 'number', format: '\\$###.#0')
         }
         else{
-            clickRateValue = '- '
+            rateValue = '- '
         }
-        out << """
-                <span class="click-number stat" data-openRateNum="${campaignRSDTO.numberClicks}" data-openRatePtg="${clickRateValue}%">${clickRateValue}%</span>
+        return """
+                <span class="click-number stat" data-openRateNum="${numberOfEvents}" data-openRatePtg="${rateValue}%">${rateValue}%</span>
 
         """
-
     }
 }

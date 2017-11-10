@@ -20,7 +20,12 @@
         <campaignUtil:clickRate campaign="${campaign}"/>
         <g:message code="tools.massMailing.list.click"/>
     </li>
+    <li class="posts">
+        <campaignUtil:unsubscribeRate campaign="${campaign}"/>
+        <g:message code="tools.massMailing.list.unsubscribe"/>
+    </li>
 </ul>
+
 
 
 <div id="export-debateStats-modal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="exportDebateStatsTitle" aria-hidden="true">

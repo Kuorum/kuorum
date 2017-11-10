@@ -5223,7 +5223,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 
     /* NEW / EDIT CONTACT */
     .edit-contact form fieldset {width: 100%;}
-    .tab-pane .activity > li {width: 32%; border-right: solid 1px #dadada; border-bottom: none;}
+    .tab-pane .activity > li {width: 24%; border-right: solid 1px #dadada; border-bottom: none;}
     .tab-pane .activity.des-engagement > li {width: 25%;}
 
     /* STATS CAMPAIGNS */

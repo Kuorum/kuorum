@@ -1,5 +1,42 @@
 $(function(){
 
+
+    // Pagination of tracking mails of a campaign
+    $("#tabs-stats-campaign").on("click", ".pag-list-contacts li a",function(e){
+        e.preventDefault();
+        if (!$(this).hasClass("disabled")){
+            var page = parseInt($(this).attr("data-nextPage"));
+            var link = $(this).parents("ul").attr("data-link")
+            loadTrackingCampaignEvents(link, page)
+        }
+    });
+
+    $("#tabs-stats-campaign").on("click", "#status-filter-options a", function(e){
+        e.preventDefault();
+        var link = $("#tabs-stats-campaign .pagination ul.paginationTop").attr("data-link");
+        var status = $(this).attr("href").substring(1);
+        $("#filter-status").val(status);
+        loadTrackingCampaignEvents(link, 0)
+
+    });
+
+    function loadTrackingCampaignEvents(link, page){
+        pageLoadingOn();
+
+        var status = $("#filter-status").val();
+        var postData = {page:page, status:status}
+        $.post( link, postData)
+            .done(function(data) {
+                $("#recipients").html(data)
+            })
+            .fail(function(messageError) {
+                display.warn("Error");
+            })
+            .always(function() {
+                pageLoadingOff();
+            });
+    }
+
     // Modals exports
     $("#exportCampaignEvents, #exportDebateReport").on("click", function(e){
         pageLoadingOn();

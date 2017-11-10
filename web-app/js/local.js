@@ -293,27 +293,6 @@ $(document).ready(function() {
         }
     });
 
-    // Pagination of tracking mails of a campaign
-    $("#tabs-stats-campaign").on("click", ".pag-list-contacts li a",function(e){
-        e.preventDefault();
-        if (!$(this).hasClass("disabled")){
-            pageLoadingOn();
-            var page = parseInt($(this).attr("data-nextPage"));
-            var link = $(this).parents("ul").attr("data-link")
-            var postData = {page:page}
-            $.post( link, postData)
-                .done(function(data) {
-                    $("#recipients").html(data)
-                })
-                .fail(function(messageError) {
-                    display.warn("Error");
-                })
-                .always(function() {
-                    pageLoadingOff();
-                });
-        }
-    });
-
     // Handle click on card campaigns list [List of post/debates on dashboard, searcher, userProfile]
     $('ul.campaign-list').on("click",'.link-wrapper .card-footer .post-like', function(e) {
         e.preventDefault();
