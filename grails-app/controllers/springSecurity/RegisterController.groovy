@@ -16,6 +16,7 @@ import kuorum.mail.MailchimpService
 import kuorum.notifications.NotificationService
 import kuorum.register.IOAuthService
 import kuorum.register.RegisterService
+import kuorum.solr.IndexSolrService
 import kuorum.users.CookieUUIDService
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
@@ -36,6 +37,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
     SpringSecurityService springSecurityService
     SpringSecurityUiService springSecurityUiService
     NotificationService notificationService
+    IndexSolrService indexSolrService
 
     FileService fileService
     MailchimpService mailchimpService
@@ -106,6 +108,14 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         grails.plugin.springsecurity.oauth.OAuthToken oAuthToken = providerService.createAuthToken(token);
         oAuthToken.authenticated = true;
         SecurityContextHolder.context.authentication = oAuthToken
+        if (oAuthToken.newUser){
+            try{
+                KuorumUser user = KuorumUser.findByEmail(oAuthToken.principal.username)
+                indexSolrService.index(user)
+            }catch (Exception e){
+                log.error("Error recovering and indexing new user. Reindex manually")
+            }
+        }
         render ([result:"success"] as JSON)
     }
 

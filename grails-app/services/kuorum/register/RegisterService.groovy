@@ -93,6 +93,7 @@ class RegisterService {
 
         if (!user.password){
             user.password = "${PREFIX_PASSWORD}${Math.random()}"
+            indexSolrService.index(user)
             user.save()
         }
         springSecurityService.reauthenticate user.email

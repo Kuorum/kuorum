@@ -19,6 +19,7 @@ import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.oauth.OAuthToken
 import kuorum.core.exception.KuorumException
 import kuorum.register.IOAuthService
+import kuorum.solr.IndexSolrService
 import org.springframework.security.core.context.SecurityContextHolder
 import uk.co.desirableobjects.oauth.scribe.holder.RedirectHolder
 
@@ -33,6 +34,7 @@ class SpringSecurityOAuthController {
     def grailsApplication
     def oauthService
     def springSecurityService
+    IndexSolrService indexSolrService;
 
     /**
      * Is called on oauth callback
@@ -99,6 +101,8 @@ class SpringSecurityOAuthController {
         if (oAuthToken.newUser){
             String uri = redirectUrl.get("uri")
             redirectUrl.put("uri", uri+"?tour=true")
+            KuorumUser user = KuorumUser.findByEmail(oAuthToken.principal.username)
+            indexSolrService.index(user)
         }
         redirect (redirectUrl)
     }
