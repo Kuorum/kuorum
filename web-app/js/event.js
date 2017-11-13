@@ -40,8 +40,10 @@ var eventFunctions={
             url: urlConfirm,
             data: data,
             success: function(jsonData){
-                $button.fadeOut("slow",function () {
-                    $(".event-confirm-success").removeClass("hide")
+                var $parentBox = $button.parents(".comment-box.call-to-action")
+                $parentBox.addClass("event-confirmed")
+                $parentBox.find(".unconfirmed").fadeOut("slow",function () {
+                    $parentBox.find(".confirmed").removeClass("hide");
                 })
                 if (callback != undefined){
                     callback()

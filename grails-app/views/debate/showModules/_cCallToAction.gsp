@@ -1,4 +1,4 @@
-<div class="comment-box call-to-action hidden-sm">
+<div class="comment-box call-to-action call-to-action-add-proposal hidden-sm">
     <div class="comment-header">
         <span class="call-title">${message(code: "debate.proposals.callToAction.title")}</span>
         <span class="call-subTitle">${message(code: "debate.proposals.callToAction.subTitle", args: [debateUser.name])}</span>

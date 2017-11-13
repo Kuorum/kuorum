@@ -4652,6 +4652,9 @@ div [class^='comment-box col-'] {
 .comment-box.event-info .comment-proposal p.event-time,
 .comment-box.event-info .comment-proposal p.event-address{margin-left:25px;}
 .comment-box.call-to-action .event-confirm-success{text-align: center;color:green;font-weight: bold; font-size: 20px;}
+.comment-box.call-to-action.event-confirmed .actions{padding:0; margin:0;}
+.comment-box.call-to-action.call-to-action-confirm-event + .call-to-action-add-proposal {display:none;}
+.comment-box.call-to-action.call-to-action-confirm-event.event-confirmed + .call-to-action-add-proposal {display:block;}
 
 /*** conversation-box ***/
 .conversation-box {

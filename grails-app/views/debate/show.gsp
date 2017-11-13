@@ -17,6 +17,7 @@
     <g:if test="${eventData}">
         <r:require modules="event"/>
         <g:render template="showModules/eventCallToAction" model="[debate: debate, debateUser: debateUser,eventData:eventData,eventRegistration:eventRegistration]"/>
+        <g:render template="showModules/cCallToAction" model="[debate: debate, debateUser: debateUser,proposalPage:proposalPage]"/>
         <g:render template="showModules/eventInfo" model="[eventData:eventData]"/>
     </g:if>
     <g:else>
@@ -24,6 +25,7 @@
             <g:render template="showModules/cCallToAction" model="[debate: debate, debateUser: debateUser,proposalPage:proposalPage]"/>
         </g:if>
     </g:else>
+
     <g:if test="${pinnedUsers}">
         <g:render template="/debate/showModules/pinnedUsers" model="[pinnedUsers:pinnedUsers, debateUser: debateUser]" />
     </g:if>
