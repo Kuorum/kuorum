@@ -19,7 +19,7 @@ class Event {
 
     static mapping = {
         debateId index:true, indexAttributes: [unique:true]
-        postId index:true, indexAttributes: [unique:true]
+//        postId index:true, indexAttributes: [unique:true]
     }
 
 }

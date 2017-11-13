@@ -20,7 +20,7 @@ class EventRegistration {
 
     static mapping = {
         debateId index:true
-        postId index:true
+//        postId index:true
     }
 
 }
