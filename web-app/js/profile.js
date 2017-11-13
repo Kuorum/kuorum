@@ -85,7 +85,16 @@ function SortCampaigns() {
         var counter = campaigns.length;
         $("#campaign-sorter li").removeClass("active");
         $("a[href=#"+campaignOption.name+"]").parent().addClass("active");
-        campaigns.sort(campaignOption.sort);
+        campaigns.sort(campaignOption.sort)
+        campaigns = campaigns.filter(function(item, pos, ary) {
+            if (pos){
+                var currId = $(item).find(".link-wrapper").attr("id");
+                var prevId = $(ary[pos - 1]).find(".link-wrapper").attr("id");
+                return prevId != currId;
+            }else{
+                return false;
+            }
+        });
         $('ul.campaign-list > li').show();
         $('ul.campaign-list > li').filter(campaignOption.filter).hide();
         $.each(campaigns, function(idx, itm) {
