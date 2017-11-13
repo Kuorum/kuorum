@@ -17,7 +17,7 @@
                      data-debateId="${debate.id}">
                     %{--EVENT DATA - CHAPU BORRAR --}%
                     <button type="button" class="btn btn-orange btn-lg call-message">
-                        Confirmar asistencia
+                        <g:message code="event.callToAction.button"/>
                     </button>
                     <span class="fa fa-caret-down arrow"></span>
                     <button type="button" class="btn btn-orange btn-xl btn-circle call-button">
@@ -29,7 +29,7 @@
                 %{--EVENT DATA - CHAPU BORRAR --}%
                 <button type="button" class="btn btn-blue btn-lg call-message">
                     <g:if test="${eventRegistration}">
-                        Asistencia confirmada, propon
+                        <g:message code="event.callToAction.success.mobile"/>
                     </g:if>
                     <g:else>
                         <g:message code="debate.proposals.callToAction.mobile.message"/>
