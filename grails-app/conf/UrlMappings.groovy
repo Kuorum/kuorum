@@ -150,6 +150,8 @@ class UrlMappings {
         name debateProposalDeleteComment: "/ajax/proposalComment/delete"(controller: "debateProposal", action: "deleteComment")
         name debateProposalVoteComment: "/ajax/proposalComment/vote"(controller: "debateProposal", action: "voteComment")
 
+        name eventConfirmAssistance:    "/ajax/event/confirm"(controller:"event", action: "confirmAssistance")
+
         name postRemove:            "/ajax/account/$userAlias/p/$urlTitle-$postId/remove" (controller: "post", action: "remove")
         name postCreate:            "/account/post/new" (controller: "post"){action = [GET: "create", POST: "saveSettings"]}
         name postEdit:              "/account/$userAlias/p/$urlTitle-$postId/edit-settings" (controller: "post"){action = [GET: "editSettingsStep", POST: "saveSettings"]}

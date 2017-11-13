@@ -15,7 +15,8 @@
 
 <content tag="cColumn">
     <g:if test="${eventData}">
-        <g:render template="showModules/eventCallToAction" model="[debate: debate, debateUser: debateUser,eventData:eventData]"/>
+        <r:require modules="event"/>
+        <g:render template="showModules/eventCallToAction" model="[debate: debate, debateUser: debateUser,eventData:eventData,eventRegistration:eventRegistration]"/>
         <g:render template="showModules/eventInfo" model="[eventData:eventData]"/>
     </g:if>
     <g:else>

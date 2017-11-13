@@ -114,6 +114,11 @@ modules = {
         resource url:'js/profile.js'
     }
 
+    event {
+        dependsOn("basic")
+        resource url:'js/event.js'
+    }
+
     debate {
         dependsOn("basic", "forms", 'cookiesHelper', 'application', 'campaignList')
         resource url:'js/readmore.min.js'

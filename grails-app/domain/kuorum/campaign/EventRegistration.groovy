@@ -1,5 +1,6 @@
 package kuorum.campaign
 
+import kuorum.core.model.AvailableLanguage
 import org.bson.types.ObjectId
 
 class EventRegistration {
@@ -8,6 +9,8 @@ class EventRegistration {
     Date dateCreated
     String alias
     String name
+    String email
+    AvailableLanguage language
     ObjectId userId
     Long debateId
     Long postId
