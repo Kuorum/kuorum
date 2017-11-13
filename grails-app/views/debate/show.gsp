@@ -14,9 +14,15 @@
 </content>
 
 <content tag="cColumn">
-    <g:if test="${debate.campaignStatusRSDTO == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT}">
-        <g:render template="showModules/cCallToAction" model="[debate: debate, debateUser: debateUser,proposalPage:proposalPage]"/>
+    <g:if test="${eventData}">
+        <g:render template="showModules/eventCallToAction" model="[debate: debate, debateUser: debateUser,eventData:eventData]"/>
+        <g:render template="showModules/eventInfo" model="[eventData:eventData]"/>
     </g:if>
+    <g:else>
+        <g:if test="${debate.campaignStatusRSDTO == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT}">
+            <g:render template="showModules/cCallToAction" model="[debate: debate, debateUser: debateUser,proposalPage:proposalPage]"/>
+        </g:if>
+    </g:else>
     <g:if test="${pinnedUsers}">
         <g:render template="/debate/showModules/pinnedUsers" model="[pinnedUsers:pinnedUsers, debateUser: debateUser]" />
     </g:if>

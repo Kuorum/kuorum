@@ -3,6 +3,8 @@ package kuorum.debate
 import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.KuorumFile
+import kuorum.campaign.Event
+import kuorum.campaign.EventRegistration
 import kuorum.core.FileType
 import kuorum.core.exception.KuorumException
 import kuorum.files.FileService
@@ -63,6 +65,16 @@ class DebateController {
 //            }
             List<KuorumUser> pinnedUsers = proposalPage.data.findAll{it.pinned}.collect{KuorumUser.get(new ObjectId(it.user.id))}.findAll{it}.unique()
             def model = [debate: debate, debateUser: debateUser, proposalPage:proposalPage, pinnedUsers:pinnedUsers];
+
+            // BORRAR - SOLO PARA TOLEDO
+            if (debateUser.id.toString().equals("5a0056bfa9aa0c5bb6a69fae")){
+                model.put("eventData", Event.findByDebateId(debate.id))
+                if (springSecurityService.isLoggedIn()){
+                    KuorumUser userLogged = springSecurityService.currentUser
+                    model.put("eventRegistration", EventRegistration.findByDebateIdAndUserId(debate.id, userLogged.id))
+                }
+            }
+
             if (params.printAsWidget){
                 render view: 'widgetDebate', model: model
             }else{
