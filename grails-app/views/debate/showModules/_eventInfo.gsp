@@ -1,8 +1,8 @@
 
 <div class="comment-box call-to-action event-info hidden-sm">
     <div class="comment-header">
-        <span class="call-title">Event information</span>
-        <span class="call-subTitle">Don't forget the time and palce of this event.</span>
+        <span class="call-title"><g:message code="event.module.info.title"/></span>
+        <span class="call-subTitle"><g:message code="event.module.info.subtitle"/></span>
     </div>
     <div class="comment-proposal clearfix">
         <div class="event-date-time">

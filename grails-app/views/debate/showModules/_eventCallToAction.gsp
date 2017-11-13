@@ -26,7 +26,7 @@
             ${message(code: "event.callToAction.button")}
         </button>
         <div class="event-confirm-success ${extraSuccessClass}">
-            Confirmed <span class="fa fa-check"></span>
+            <g:message code="event.callToAction.success"/> <span class="fa fa-check"></span>
         </div>
     </div>
 </div>
