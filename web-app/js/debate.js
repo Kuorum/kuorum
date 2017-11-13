@@ -217,7 +217,7 @@ $(function () {
         $(".leader-post .call-to-action-mobile").hide()
     }
 
-    $(".call-to-action-mobile button").on("click", function(){
+    $(".call-to-action-mobile.add-proposal button").on("click", function(){
         var $proposalBox = $(".comment-box .comment.editable");
         var navbarHeight = $('.navbar').outerHeight();
         // if is widgetDebate

@@ -5,12 +5,10 @@
     <meta name="layout" content="columnCLayout">
     <g:render template="debateMetaTags" model="[debate: debate]"/>
     <r:require modules="debate"/>
-
-
 </head>
 
 <content tag="mainContent">
-    <g:render template="showModules/mainContent" model="[debate: debate, debateUser: debateUser,proposalPage:proposalPage]" />
+    <g:render template="showModules/mainContent" model="[debate: debate, debateUser: debateUser,proposalPage:proposalPage,eventData:eventData,eventRegistration:eventRegistration]" />
 </content>
 
 <content tag="cColumn">

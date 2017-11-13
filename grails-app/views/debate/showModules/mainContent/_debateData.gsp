@@ -10,18 +10,33 @@
         <div class="clearfix">
             <span class="time-ago pull-left"><kuorumDate:humanDate date="${debate.datePublished}"/> </span>
 
-            <div class="actions call-to-action-mobile">
-                <button
-                        type="button"
-                        class="btn btn-blue btn-lg call-message"
-                >
-                    <g:message code="debate.proposals.callToAction.mobile.message"/>
+            <g:if test="${eventData && !eventRegistration}">
+                <div class="actions call-to-action-mobile call-mobile-event-confirm event-unconfirmed"
+                     data-userLoggedAlias="${userUtil.loggedUserAlias()}"
+                     data-postUrl="${g.createLink(mapping: 'eventConfirmAssistance')}"
+                     data-debateId="${debate.id}">
+                    %{--EVENT DATA - CHAPU BORRAR --}%
+                    <button type="button" class="btn btn-orange btn-lg call-message">
+                        Confirmar asistencia
+                    </button>
+                    <span class="fa fa-caret-down arrow"></span>
+                    <button type="button" class="btn btn-orange btn-xl btn-circle call-button">
+                        <span class="fa fa-ticket fa-2x"></span>
+                    </button>
+                </div>
+            </g:if>
+            <div class="actions call-to-action-mobile add-proposal">
+                %{--EVENT DATA - CHAPU BORRAR --}%
+                <button type="button" class="btn btn-blue btn-lg call-message">
+                    <g:if test="${eventRegistration}">
+                        Asistencia confirmada, propon
+                    </g:if>
+                    <g:else>
+                        <g:message code="debate.proposals.callToAction.mobile.message"/>
+                    </g:else>
                 </button>
                 <span class="fa fa-caret-down arrow"></span>
-                <button
-                        type="button"
-                        class="btn btn-blue btn-xl btn-circle call-button"
-                >
+                <button type="button" class="btn btn-blue btn-xl btn-circle call-button">
                     <span class="fa fa-lightbulb-o fa-2x"></span>
                 </button>
             </div>

@@ -3,17 +3,7 @@ $(function(){
     $(".event-confirm-button").on("click",function(e) {
         e.preventDefault();
         var $button = $(this)
-        var userAliasLogged = $button.attr("data-userLoggedAlias")
-        console.log(userAliasLogged )
-        if (userAliasLogged == undefined || userAliasLogged==""){
-            var buttonId = guid();
-            $button.attr("id", buttonId)
-            $('#registro').find("form").attr("callback", "eventConfirmNoLogged")
-            $('#registro').find("form").attr("data-buttonId", buttonId)
-            $('#registro').modal('show');
-        }else{
-            eventFunctions.confirmAssistance($button)
-        }
+        eventFunctions.clickConfirmAssistance($button);
 
     });
 
@@ -28,9 +18,30 @@ $(function(){
             document.location.reload()
         })
     };
+
+    $(".actions.call-to-action-mobile.call-mobile-event-confirm ").on("click",function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        var $button = $(this)
+        eventFunctions.clickConfirmAssistance($button);
+    })
 });
 
 var eventFunctions={
+    clickConfirmAssistance:function($button){
+        console.log($button)
+        var userAliasLogged = $button.attr("data-userLoggedAlias")
+        console.log(userAliasLogged )
+        if (userAliasLogged == undefined || userAliasLogged==""){
+            var buttonId = guid();
+            $button.attr("id", buttonId)
+            $('#registro').find("form").attr("callback", "eventConfirmNoLogged")
+            $('#registro').find("form").attr("data-buttonId", buttonId)
+            $('#registro').modal('show');
+        }else{
+            eventFunctions.confirmAssistance($button)
+        }
+    },
     confirmAssistance:function($button, callback){
         var debateId = $button.attr("data-debateId")
         var urlConfirm = $button.attr("data-postUrl")
@@ -41,9 +52,10 @@ var eventFunctions={
             data: data,
             success: function(jsonData){
                 var $parentBox = $button.parents(".comment-box.call-to-action")
-                $parentBox.addClass("event-confirmed")
-                $parentBox.find(".unconfirmed").fadeOut("slow",function () {
-                    $parentBox.find(".confirmed").removeClass("hide");
+                $parentBox.addClass("box-event-confirmed")
+                $(".event-unconfirmed").fadeOut("slow",function () {
+                    $(".event-confirmed").removeClass("hide");
+                    $(".event-unconfirmed").remove()
                 })
                 if (callback != undefined){
                     callback()
