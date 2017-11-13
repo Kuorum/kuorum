@@ -52,7 +52,7 @@ class DebateService {
         findDebate(user.getId().toString(), debateId, viewerUid);
     }
 
-    @Cacheable(value="debate", key='#debateId')
+//    @Cacheable(value="debate", key='#debateId')
     DebateRSDTO findDebate(String userId, Long debateId, String viewerUid = null) {
         Map<String, String> params = [userAlias: userId, debateId: debateId.toString()]
         Map<String, String> query = [:]
