@@ -81,7 +81,7 @@
     %{--<g:render template="showExtendedPoliticianTemplates/columnC/contactPolitician" model="[politician:politician]"/>--}%
     <g:render template="userShowTemplates/columnC/subscribeForm" model="[user:politician]"/>
     <g:render template="/dashboard/dashboardModules/supportedCauses" model="[user:politician, supportedCauses:causes]"/>
-    <g:render template="/modules/recommendedUsers" model="[recommendedUsers:recommendPoliticians, boxTitle:g.message(code:'modules.similarPoliticians.title')]"/>
+    <g:render template="userShowTemplates/columnC/recommendedUsers" model="[recommendedUsers:recommendPoliticians, boxTitle:g.message(code:'modules.similarPoliticians.title')]"/>
     %{--<g:render template="showExtendedPoliticianTemplates/columnC/valuationChart" model="[user:politician]"/>--}%
     %{--<g:render template="userShowTemplates/columnC/professionalDetails" model="[politician:politician]"/>--}%
     <g:render template="userShowTemplates/columnC/quickNotes" model="[politician:politician]"/>
