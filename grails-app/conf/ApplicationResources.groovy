@@ -15,7 +15,7 @@ modules = {
         resource url:[dir:'js',file:'respond.min.js'], wrapper: { s -> "<!--[if (lt IE 9) & (!IEMobile)]>$s<![endif]-->" }
         resource url:[dir:'js',file:'selectivizr.js'], wrapper: { s -> "<!--[if (lt IE 9) & (!IEMobile)]>$s<![endif]-->" }
         // Fin soporte HTML5
-        resource url:'js/modernizr.js'
+//        resource url:'js/modernizr.js'
         resource url:'css/custom.css'
     }
 
@@ -261,6 +261,7 @@ modules = {
         resource url:'js/jquery-jvectormap-1.2.2.min.js'
         resource url:'js/jquery-jvectormap-es.js'
         resource url:'js/excanvas.min.js'
+        resource url:'js/modernizr.js'
         resource url:'js/map.js'
     }
 }
