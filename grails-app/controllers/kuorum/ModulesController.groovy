@@ -30,11 +30,6 @@ class ModulesController {
         render template:'/modules/userProfile', model:[user:user, numCauses:numCauses]
     }
 
-    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
-    def userFavorites() {
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        render template:'/modules/userFavorites', model:[favorites:postService.favoritesPosts(user)]
-    }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def recommendedUsers() {

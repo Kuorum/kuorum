@@ -5731,8 +5731,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 
     .config .politician-list > li {width: 48%; float: left; margin: 0 2% 0 0;padding:0}
     .config .politician-list > li:nth-child(even) {margin-right: 0;}
-    .config .kakareo-list.project .kakareo.post.ley .link-wrapper {height: 410px;}
-    .config .kakareo-list.project .kakareo.post footer {position: absolute;}
     .config.search > article > .clearfix > h1 {width: 70%; float: left;}
     .config.search > article > .clearfix > #results {width: 30%; float: right; line-height: 30px; margin: 20px 0 0 0; text-align: right;}
 
