@@ -10,17 +10,7 @@
         <span class="call-subTitle"><g:message code="modules.debate.pinned.users.subtitle" args="[debateUser.name]"/></span>
     </div>
     <div class="comment-proposal clearfix">
-        <ul class="user-list-images">
-            <g:each in="${pinnedUsers}" var="user">
-                <userUtil:showUser
-                        user="${user}"
-                        showName="false"
-                        showActions="false"
-                        showDeleteRecommendation="false"
-                        htmlWrapper="li"
-                />
-            </g:each>
-        </ul>
+        <userUtil:showListUsers users="${pinnedUsers}" visibleUsers="11"/>
     </div>
 </div>
 
