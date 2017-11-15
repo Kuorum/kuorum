@@ -897,9 +897,9 @@ header.transp .navbar-collapse.collapse.in {background-color: #000;}
 .dropdown-menu > li > a {color: #a8a8a8; padding: 3px 14px;}
 .dropdown-menu > li > a:hover,
 .dropdown-menu > li > a:focus {background-color: #efefef; color: #a8a8a8;}
-.dropdown-menu > li:first-child,
+#header .dropdown-menu > li:first-child,
 .box .dropdown-menu > li {padding: 6px 14px; margin: 0; border-bottom: solid 1px #d9d9d9;}
-.dropdown-menu > li:first-child {font-weight: bold;}
+#header .dropdown-menu > li:first-child {font-weight: bold;}
 
 .navbar .text-notification {display: block;}
 
@@ -946,7 +946,7 @@ span + .text-notification {padding: 0 0 0 36px; margin-top: -6px;}
 section.links {margin-top: 10px;}
 section.links ul {width: 100%; margin: 10px auto; text-align: center;}
 section.links li {display: inline; text-align: center; color: #a8a8a8;}
-section.links ul li + li:before {content: "| ";}
+section.links > ul > li + li:before {content: "| ";}
 section.links li:last-child {margin-right: 0;}
 section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding: 0;}
 
@@ -2959,6 +2959,10 @@ form#sign {
     appearance: none;
     border-radius: 0;
 }
+
+.links .lang-selector .dropdown{display:inline-block;}
+.links .lang-selector .dropdown a.dropdown-toggle{cursor:pointer;}
+
 
 /* cuando se tengan los 4 botones de acceso a la web se necesitará este margin */
 /*#remember-pass {margin-top: 51px;}*/
