@@ -1,7 +1,7 @@
 
 function SortCampaigns() {
     var that = this;
-    var campaignList = $('.politician-card ul.campaign-list, .dashboard ul.campaign-list');
+    var campaignList = $('.politician-card ul.search-list, .dashboard ul.search-list');
 
     this.campaignOptions = {};
     this.campaignOptions['latest'] = {
@@ -20,8 +20,8 @@ function SortCampaigns() {
             return 0;
         },
         filter: function (e) {
-            $('ul.campaign-list li').removeClass('hide');
-            $('ul.campaign-list li').removeClass('last-odd');
+            $('ul.search-list li').removeClass('hide');
+            $('ul.search-list li').removeClass('last-odd');
             return false;
         },
         name: 'latest'
@@ -95,8 +95,8 @@ function SortCampaigns() {
                 return false;
             }
         });
-        $('ul.campaign-list > li').show();
-        $('ul.campaign-list > li').filter(campaignOption.filter).hide();
+        $('ul.search-list > li').show();
+        $('ul.search-list > li').filter(campaignOption.filter).hide();
         $.each(campaigns, function(idx, itm) {
             campaignList.append(itm);
         });
@@ -130,7 +130,7 @@ function SortCampaigns() {
         }
     },
     this.removeCampaignsOfUser = function(userId){
-        $("ul.campaign-list .card-footer .owner .user[data-userid="+userId+"]").closest("article").closest("li").remove()
+        $("ul.search-list .card-footer .owner .user[data-userid="+userId+"]").closest("article").closest("li").remove()
         that.showInfoEmpty();
     }
 

@@ -21,7 +21,8 @@ class SearchParams extends Pagination implements Serializable{
     /**
      * Filter by type: PROJECT, POST, USER
      */
-    SolrType type = SolrType.KUORUM_USER
+//    SolrType type = SolrType.KUORUM_USER
+    SolrType type
 
     SearchType searchType = SearchType.ALL
 
@@ -41,6 +42,7 @@ class SearchParams extends Pagination implements Serializable{
         regionIsoCodes nullable:true
         filteredUserIds nullable:true
         searchType nullable:true
+        type nullable:true
         boostedRegions nullable: true
     }
 }

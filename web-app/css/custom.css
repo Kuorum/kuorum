@@ -1455,7 +1455,7 @@ div.tagsinput {border:1px solid #DDDDDD;}
 .searchContainer {position: relative;}
 .searchContainer::after {font-family: FontAwesome; content:''; position: absolute; right: 8px; top: 5px; color: #a8a8a8;}
 .search-actions{ margin-bottom: 5px;}
-.search .politician-list + .search-actions{ margin-bottom: 25px;}
+.search .search-list + .search-actions{ margin-bottom: 25px;}
 .search-text{margin-top:7px}
 
 .pag-list-search .pagination {display:block; margin:0; float: right;}
@@ -2573,30 +2573,32 @@ video#bgvid {
 .boxes.profile-user .profile-pic abbr .fa {background-color:#ff9431}
 
 
-ul.campaign-list{margin: 0;padding: 0;list-style: none;}
-ul.campaign-list > li {padding: 0;}
-ul.campaign-list .box-ppal {padding: 0; margin: 0 0 20px 0;height: auto; box-shadow: 0 0 2px rgba(200,200,200,0.6);}
-ul.campaign-list > li .box-ppal .card-header-photo {height: auto;}
-ul.campaign-list > li .box-ppal .card-body {padding:1em;overflow: hidden;height: 320px;}
-ul.campaign-list > li .box-ppal .card-header-photo + .card-body {height: 125px; margin-bottom: 15px;}
-ul.campaign-list > li .box-ppal .card-body h1{margin:0; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif}
-ul.campaign-list > li .box-ppal .card-body .card-text{margin:0;padding:1em 0 0 0;text-overflow: ellipsis;word-break: break-word;}
-ul.campaign-list > li .box-ppal .card-body .card-text a{color: #00a3ed;}
-ul.campaign-list > li .box-ppal .card-body .card-text a:hover{text-decoration: underline;}
+ul.search-list{margin: 0;padding: 0;list-style: none;}
+ul.search-list .search-article .box-ppal {padding: 0; margin: 0 0 20px 0;height: auto; box-shadow: 0 0 2px rgba(200,200,200,0.6);}
+.dashboard ul.search-list > li {padding:0px;}
+.dashboard ul.search-list > li:nth-child(odd) {padding-left:5px;}
+.dashboard ul.search-list > li:nth-child(even) {padding-right:5px;}
+ul.search-list > li.search-article .box-ppal .card-header-photo {height: auto;}
+ul.search-list > li.search-article .box-ppal .card-body {padding:1em;overflow: hidden;height: 344px;}
+ul.search-list > li.search-article .box-ppal .card-header-photo + .card-body {height: 125px; margin-bottom: 15px;}
+ul.search-list > li.search-article .box-ppal .card-body h1{margin:0; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif}
+ul.search-list > li.search-article .box-ppal .card-body .card-text{margin:0;padding:1em 0 0 0;text-overflow: ellipsis;word-break: break-word;}
+ul.search-list > li.search-article .box-ppal .card-body .card-text a{color: #00a3ed;}
+ul.search-list > li.search-article .box-ppal .card-body .card-text a:hover{text-decoration: underline;}
 
-ul.campaign-list > li .box-ppal .card-footer{width:100%; height:36px;display:block; padding: 0 1em 0.5em; text-align: right; margin-top: 12px;}
-ul.campaign-list > li .box-ppal .card-footer > ul {margin: 0;padding: 0;list-style: none;}
-ul.campaign-list > li .box-ppal .card-footer > ul {margin: 0;padding: 0;list-style: none;}
-ul.campaign-list > li .box-ppal .card-footer:after {clear:both; content: " "}
-ul.campaign-list > li .box-ppal .card-footer > ul li a  {color:#a8a8a8;}
-ul.campaign-list > li .box-ppal .card-footer > ul li a .number{font-size: 20px; vertical-align: top;font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;}
-ul.campaign-list > li .box-ppal .card-footer > ul li a:hover {color: #00a3ed; text-decoration: none;}
-ul.campaign-list > li .box-ppal .card-footer > ul li .label { color:inherit; padding: 0;font-size: inherit;font-weight: inherit;}
+ul.search-list > li.search-article .box-ppal .card-footer{width:100%; height:36px;display:block; padding: 0 1em 0.5em; text-align: right; margin-top: 12px;}
+ul.search-list > li.search-article .box-ppal .card-footer > ul {margin: 0;padding: 0;list-style: none;}
+ul.search-list > li.search-article .box-ppal .card-footer > ul {margin: 0;padding: 0;list-style: none;}
+ul.search-list > li.search-article .box-ppal .card-footer:after {clear:both; content: " "}
+ul.search-list > li.search-article .box-ppal .card-footer > ul li a  {color:#a8a8a8;}
+ul.search-list > li.search-article .box-ppal .card-footer > ul li a .number{font-size: 20px; vertical-align: top;font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;}
+ul.search-list > li.search-article .box-ppal .card-footer > ul li a:hover {color: #00a3ed; text-decoration: none;}
+ul.search-list > li.search-article .box-ppal .card-footer > ul li .label { color:inherit; padding: 0;font-size: inherit;font-weight: inherit;}
 
-ul.campaign-list > li.info-empty  p{margin:auto; padding:40px;text-align: center;color: #a8a8a8;font-size: 2rem;}
-ul.campaign-list > li.info-empty .text-empty-campaignList {width: 90%;}
-ul.campaign-list > li.info-empty .icon-empty-campaignList {width:5%; display:none;}
-ul.campaign-list > li.info-empty .icon-empty-campaignList img{width: 30px; vertical-align: top; margin-left: 25px;}
+ul.search-list > li.info-empty  p{margin:auto; padding:40px;text-align: center;color: #a8a8a8;font-size: 2rem;}
+ul.search-list > li.info-empty .text-empty-campaignList {width: 90%;}
+ul.search-list > li.info-empty .icon-empty-campaignList {width:5%; display:none;}
+ul.search-list > li.info-empty .icon-empty-campaignList img{width: 30px; vertical-align: top; margin-left: 25px;}
 
 
 
@@ -3526,7 +3528,7 @@ h2.underline {border-bottom: 1px solid #dadada; padding: 0 0 10px 0; margin-top:
 .order-options .popover ul li a.active:hover,
 .order-options .popover ul li a.active:focus {text-decoration: none;}
 
-.politician-list + [data-readmore-toggle],
+.search-list + [data-readmore-toggle],
 .logos + [data-readmore-toggle] {
     padding: 20px 0;
     text-align: center;
@@ -3536,8 +3538,8 @@ h2.underline {border-bottom: 1px solid #dadada; padding: 0 0 10px 0; margin-top:
     cursor: pointer;
     margin-bottom: 40px;
 }
-.politician-list + [data-readmore-toggle]:hover,
-.politician-list + [data-readmore-toggle]:focus,
+.search-list + [data-readmore-toggle]:hover,
+.search-list + [data-readmore-toggle]:focus,
 .logos + [data-readmore-toggle]:hover,
 .logos + [data-readmore-toggle]:focus {text-decoration: underline;}
 
@@ -3585,23 +3587,23 @@ h2.underline {border-bottom: 1px solid #dadada; padding: 0 0 10px 0; margin-top:
 .testimonies-list li blockquote .body p:last-child small {display: inline; color: #fff; font-size: 75%;}
 
 /* politician-card-sm */
-.politician-list {margin: 0; padding: 0; list-style: none;}
+.search-list{margin: 0; padding: 0; list-style: none;}
 .card-header-photo {
     height: 145px;
     overflow: hidden;
 }
-.politician-list .box-ppal .user {margin: -60px 15px 0px 15px;}
+.search-list .search-kuorum-user .box-ppal .user {margin: -60px 15px 0px 15px;}
 .profile-pic-div{
     position: relative;
     display: inline-block;
 }
-.politician-list .box-ppal .user .user-img {
+.search-list .search-kuorum-user .box-ppal .user .user-img {
     border: 4px solid #fff;
     width: 96px;
     height: 96px;
     background-color: #fff;
 }
-.politician-list .box-ppal .user .fa-check{
+.search-list .search-kuorum-user .box-ppal .user .fa-check{
     position: absolute;
     bottom: 0px;
     right: 7px;
@@ -3616,11 +3618,11 @@ h2.underline {border-bottom: 1px solid #dadada; padding: 0 0 10px 0; margin-top:
     padding-top: 4px;
     border: #fff solid 2px;
 }
-.politician-list .box-ppal .user .btn.follow{
+.search-list .search-kuorum-user .box-ppal .user .btn.follow{
     margin: 70px 0 0 0 !important;
     float: right;
 }
-.politician-list .box-ppal .user .user-name {
+.search-list .search-kuorum-user .box-ppal .user .user-name {
     text-decoration: none;
     display: block;
     margin-top: 3px;
@@ -3629,25 +3631,25 @@ h2.underline {border-bottom: 1px solid #dadada; padding: 0 0 10px 0; margin-top:
     font-size: 2.5rem;
     font-weight: normal;
 }
-.politician-list .box-ppal cite{
+.search-list .search-kuorum-user .box-ppal cite{
     font-size: 14px;
     margin-top: 5px;
     margin-bottom: 0;
     line-height: 20px;
 }
-.politician-list .box-ppal .user .user-type {margin: 0; padding: 0; font-size: 20px; font-size: 2rem; line-height: .9;}
-.politician-list .box-ppal > small {display: block; float: left; width: 50%; margin: 0; padding: 10px; font-size: 18px; font-size: 1.8rem; color: #20A2ea;}
-.politician-list .box-ppal > small .fa {opacity: .5;}
-.politician-list .box-ppal {padding: 0; margin: 0 0 20px 0;box-shadow: 0 0 2px rgba(200,200,200,0.6);}
-.politician-list .box-ppal .link-wrapper {padding-bottom: 10px;}
-.politician-list .box-ppal .link-wrapper > p {padding: 0 15px; font-size: 13px; font-size: 1.3rem; margin: 0;}
-.politician-list .box-ppal > .pull-right {width: 42%; margin: 0; padding: 10px; font-size: 18px; font-size: 1.8rem; text-align: right;}
-.politician-list .box-ppal .card-footer{
+.search-list .search-kuorum-user .box-ppal .user .user-type {margin: 0; padding: 0; font-size: 20px; font-size: 2rem; line-height: .9;}
+.search-list .search-kuorum-user .box-ppal > small {display: block; float: left; width: 50%; margin: 0; padding: 10px; font-size: 18px; font-size: 1.8rem; color: #20A2ea;}
+.search-list .search-kuorum-user .box-ppal > small .fa {opacity: .5;}
+.search-list .search-kuorum-user .box-ppal {padding: 0; margin: 0 0 20px 0;box-shadow: 0 0 2px rgba(200,200,200,0.6);}
+.search-list .search-kuorum-user .box-ppal .link-wrapper {padding-bottom: 10px;}
+.search-list .search-kuorum-user .box-ppal .link-wrapper > p {padding: 0 15px; font-size: 13px; font-size: 1.3rem; margin: 0;}
+.search-list .search-kuorum-user .box-ppal > .pull-right {width: 42%; margin: 0; padding: 10px; font-size: 18px; font-size: 1.8rem; text-align: right;}
+.search-list .search-kuorum-user .box-ppal .card-footer{
     position: absolute;
     bottom: 10px;
     left: 15px;
 }
-.politician-list .box-ppal .card-footer .fa-check-circle-o{
+.search-list .search-kuorum-user .box-ppal .card-footer .fa-check-circle-o{
     margin-right: 3px;
 }
 
@@ -4001,7 +4003,7 @@ h5#results {margin: 0 0 15px;}
 .config.search > article > .clearfix > #results {color: #a8a8a8;}
 
 .config.search > section > .box-ppal {background-color:transparent; border:none; padding:0px; box-shadow:none;}
-.config.search > section > .box-ppal > ul.politician-list li {padding:0px;}
+.config.search > section > .box-ppal > ul.search-list li.search-kuorum-user {padding:0px;}
 
 /* páginas de info, listados y errores =========== */
 /* ====================================================== */
@@ -5281,7 +5283,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 
     #main > div.box-steps #mails.threeSteps {width: auto;}
 
-    .politician-list .box-ppal .card-footer {position:relative; bottom: 0; }
+    .search-list .search-kuorum-user .box-ppal .card-footer {position:relative; bottom: 0; }
 
     .main.prices .promo-options > .promo:not(:first-child) {border: 1px solid #545454;}
 }
@@ -5552,7 +5554,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .condition .user-list-followers  > li {width: 48%; float: left;}
     .condition .user-list-followers  > li:nth-child(2n) {float: right;}
 
-    .politician-list .box-ppal .link-wrapper {height: 410px;}
+    .search-list .search-kuorum-user .box-ppal .link-wrapper {height: 410px;}
 
     /* LANDING */
     #main.landing .full-video h1 {font-size: 47px; margin-top: 10%;}
@@ -5733,15 +5735,15 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .nav > li > .navbar-link > .fa.fa-lg.fa-home {font-size: 20px; font-size: 2rem;}
     .nav > li > .navbar-link {padding: 0 12px;}
 
-    .config .politician-list > li {width: 48%; float: left; margin: 0 2% 0 0;padding:0}
-    .config .politician-list > li:nth-child(even) {margin-right: 0;}
+    .config .search-list > li {width: 48%; float: left; margin: 0 2% 0 0;padding:0}
+    .config .search-list > li:nth-child(even) {margin-right: 0;}
     .config.search > article > .clearfix > h1 {width: 70%; float: left;}
     .config.search > article > .clearfix > #results {width: 30%; float: right; line-height: 30px; margin: 20px 0 0 0; text-align: right;}
 
-    .politician-list .box-ppal p {height: 116px; margin: 0 0 7px; overflow: hidden;}
-    .politician-list .box-ppal p.party{font-size: 12px; height: auto; margin: 0;}
-    .politician-list .box-ppal > small {float: none; position: absolute; bottom: 0; left: 0;}
-    .politician-list .box-ppal > .pull-right {float: none; position: absolute; bottom: 0; right: 0;}
+    .search-list .search-kuorum-user .box-ppal p {height: 116px; margin: 0 0 7px; overflow: hidden;}
+    .search-list .search-kuorum-user .box-ppal p.party{font-size: 12px; height: auto; margin: 0;}
+    .search-list .search-kuorum-user .box-ppal > small {float: none; position: absolute; bottom: 0; left: 0;}
+    .search-list .search-kuorum-user .box-ppal > .pull-right {float: none; position: absolute; bottom: 0; right: 0;}
     .config .icheckbox_line-orange,
     .config .iradio_line-orange {margin: 0 7px 7px 0;}
 
@@ -5978,17 +5980,12 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 
     #contactsList > li .email .raw-email {display:inline-flex; overflow: hidden;max-width: 12em;}
 
-    ul.campaign-list {
-        margin-left:-7px;
-        margin-right:-8px;
+    ul.search-list > li.search-article .box-ppal{
+        /*margin-right: 8px;*/
     }
-    ul.campaign-list > li .box-ppal{
-        margin-left: 7px;
-        margin-right: 8px;
-    }
-    ul.campaign-list > li > article.box-ppal > div.link-wrapper {height: 375px;}
-    ul.campaign-list > li > article.box-ppal > div.link-wrapper > div.card-footer {position:absolute; bottom:0;}
-    ul.campaign-list > li > article.box-ppal > div.link-wrapper > div.card-footer > ul > li.owner {
+    ul.search-list > li.search-article > article.box-ppal > div.link-wrapper {height: 409px;}
+    ul.search-list > li.search-article > article.box-ppal > div.link-wrapper > div.card-footer {position:absolute; bottom:0;}
+    ul.search-list > li.search-article > article.box-ppal > div.link-wrapper > div.card-footer > ul > li.owner {
         position: relative;
         float: left;
         bottom: 7px;
@@ -5997,7 +5994,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .uploaderImageContainer.PROJECT_IMAGE .qq-upload-drop-area {height:270px;}
     .uploaderImageContainer.PROJECT_IMAGE > div {height:270px;}
 
-    ul.campaign-list > li.info-empty .icon-empty-campaignList {display:inline-block;}
+    ul.search-list > li.info-empty .icon-empty-campaignList {display:inline-block;}
 
     .leader-post .header .call-to-action-mobile{  display: none;  }
     .conversation-box-comment > .header > .user span {  max-width: 450px  }
@@ -8824,8 +8821,7 @@ ul.bullets li img {
         padding: 6px 9px !important;
     }
 
-    /*ul.campaign-list > li > article.box-ppal > div.link-wrapper {height: 375px;}*/
-    ul.campaign-list > li > article.box-ppal > div.link-wrapper > div.card-footer > ul > li.owner {
+    ul.search-list > li.search-article > article.box-ppal > div.link-wrapper > div.card-footer > ul > li.owner {
         position: relative;
         float: left;
         bottom: 9px;

@@ -95,7 +95,7 @@ class SearchController{
         SolrResults docs
         String regionCountryCode = request.session.getAttribute(WebConstants.COUNTRY_CODE_SESSION)
         if (searchParams.hasErrors()){
-            searchParams=new SearchParams(word: '', type: searchParams.type?:SolrType.KUORUM_USER)
+            searchParams=new SearchParams(word: '')
             docs = searchSolrService.search(searchParams)
         }else{
             searchParams.searchType = searchParams.searchType?:SearchType.ALL

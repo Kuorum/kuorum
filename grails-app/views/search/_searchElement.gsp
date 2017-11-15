@@ -4,17 +4,17 @@
 
 <g:each in="${docs}" var="solrElement">
         <g:if test="${solrElement instanceof kuorum.core.model.solr.SolrKuorumUser}">
-            <li class="${columnsCss}">
+            <li class="${columnsCss} search-kuorum-user">
                 <g:render template="/search/searchUserElement" model="[solrUser:solrElement]"/>
             </li>
         </g:if>
         <g:elseif test="${solrElement instanceof kuorum.core.model.solr.SolrDebate}">
-            <li class="${columnsCss}">
+            <li class="${columnsCss} search-article">
                 <g:render template="/search/searchDebateElement" model="[solrDebate:solrElement]"/>
             </li>
         </g:elseif>
         <g:elseif test="${solrElement instanceof kuorum.core.model.solr.SolrPost}">
-            <li class="${columnsCss}">
+            <li class="${columnsCss} search-article">
                 <g:render template="/search/searchPostElement" model="[solrPost:solrElement]"/>
             </li>
         </g:elseif>

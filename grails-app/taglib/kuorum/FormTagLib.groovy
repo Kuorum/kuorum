@@ -741,7 +741,7 @@ class FormTagLib {
             def checked = command."$field"?.contains(it)?'checked':''
             //TODO: LA CLASE DEL LI ES DE OTRA COSA. HACER UNA CUSTOM
             out <<"""
-                <li class="politician-list">
+                <li>
                 <label class="checkbox-inline">
                     <input class="${error}" type="checkbox" name='${field}[${idx}].id' id="${field}" ${checked} value='${it.id}' >
                     ${message(code: "${clazz.name}.${valName}.label", default: valName)}

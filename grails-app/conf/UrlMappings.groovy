@@ -249,6 +249,11 @@ class UrlMappings {
                                     "/search"{controller="redirect"; action= "redirect301"; newMapping='en_searcherSearch'}
                                     "/buscar"{controller="redirect"; action= "redirect301"; newMapping='es_searcherSearch'}
 
+        name searcherSearchUsers:   "/$lang/search"         {controller="redirect"; action= "redirect301"; newMapping='en_searcherSearchUsers';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+        name en_searcherSearchUsers:"/en/search/users"      (controller: "search", action:"search"){lang="en"; type="KUORUM_USER"; mappingName="searcherSearchUsers"}
+        name es_searcherSearchUsers:"/es/buscar/usuarios"   (controller: "search", action:"search"){lang="es"; type="KUORUM_USER"; mappingName="searcherSearchUsers"}
+
+
         /**********************/
         /***** LOGGED URLs ****/ //Language no matters
         /**********************/

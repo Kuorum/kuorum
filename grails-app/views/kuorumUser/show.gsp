@@ -70,7 +70,7 @@
     </ul>
     </g:if>
 
-    <ul class="campaign-list clearfix">
+    <ul class="search-list-list clearfix">
         <g:render template="/campaigns/cards/campaignsList" model="[campaigns:campaigns]"/>
     </ul>
 </content>

@@ -27,7 +27,8 @@
         <g:set var="cssClassUL" value="politician-list clearfix"/>
     </g:else>
 
-    <ul class="${cssClassUL}" id="search-list-id">
+    %{--<ul class="${cssClassUL}" id="search-list-id">--}%
+    <ul class="search-list clearfix" id="search-list-id">
         <g:render template="searchElement" model="[docs:docs.elements]"/>
     </ul>
 
@@ -55,7 +56,7 @@
                 <div class="checkbox">
                     <label>
                         <input type="checkbox" name="type" id="ciudadanos" value="${kuorum.core.model.solr.SolrType.KUORUM_USER}" ${searchParams.type == kuorum.core.model.solr.SolrType.KUORUM_USER?'checked':''}>
-                        <span class="icon-user"></span> <g:message code="search.filters.SolrType.KUORUM_USER"/>
+                        <span class="icon-user"></span> <g:message code="search.filters.SolrType.KUORUM_USER"/> (${docs.facets.type.find{it.facetName==kuorum.core.model.solr.SolrType.KUORUM_USER.toString()}?.hits?:0})
                     </label>
                 </div>
             </li>
@@ -63,7 +64,7 @@
                 <div class="checkbox">
                     <label>
                         <input type="checkbox" name="type" id="search-post" value="${kuorum.core.model.solr.SolrType.POST}" ${searchParams.type == kuorum.core.model.solr.SolrType.POST?'checked':''}>
-                        <span class="fa fa-newspaper-o"></span> <g:message code="search.filters.SolrType.POST"/>
+                        <span class="fa fa-newspaper-o"></span> <g:message code="search.filters.SolrType.POST"/> (${docs.facets.type.find{it.facetName==kuorum.core.model.solr.SolrType.POST.toString()}?.hits?:0})
                     </label>
                 </div>
             </li>
@@ -71,7 +72,7 @@
                 <div class="checkbox">
                     <label>
                         <input type="checkbox" name="type" id="search-debates" value="${kuorum.core.model.solr.SolrType.DEBATE}" ${searchParams.type == kuorum.core.model.solr.SolrType.DEBATE?'checked':''}>
-                        <span class="fa fa-comments-o"></span> <g:message code="search.filters.SolrType.DEBATE"/>
+                        <span class="fa fa-comments-o"></span> <g:message code="search.filters.SolrType.DEBATE"/>(${docs.facets.type.find{it.facetName==kuorum.core.model.solr.SolrType.DEBATE.toString()}?.hits?:0})
                     </label>
                 </div>
             </li>

@@ -54,7 +54,7 @@
         <div class="row">
 
             <g:set var="columnsCss" value="col-xs-12 col-sm-6 col-md-4"/>
-            <ul class="politician-list clearfix" id="search-list-id">
+            <ul class="search-list clearfix" id="search-list-id">
                 <g:render template="searchElement" model="[docs:docs.elements, columnsCss:'col-xs-12 col-sm-6 col-md-4']"/>
             </ul>
         </div>

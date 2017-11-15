@@ -294,7 +294,7 @@ $(document).ready(function() {
     });
 
     // Handle click on card campaigns list [List of post/debates on dashboard, searcher, userProfile]
-    $('ul.campaign-list').on("click",'.link-wrapper .card-footer .post-like', function(e) {
+    $('ul.search-list').on("click",'.link-wrapper .card-footer .post-like', function(e) {
         e.preventDefault();
         e.stopPropagation();
         var $button = $(this)

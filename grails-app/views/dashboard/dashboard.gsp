@@ -28,7 +28,7 @@
                 %{--</ul>--}%
             %{--</g:if>--}%
 
-            <ul class="campaign-list clearfix" data-addCampaignsByUserUrl="${g.createLink(mapping:'politicianCampaignsLists' )}" id="campaign-list-id" >
+            <ul class="search-list clearfix" data-addCampaignsByUserUrl="${g.createLink(mapping:'politicianCampaignsLists' )}" id="campaign-list-id" >
                 <li class="info-empty hidden">
                     <div class="box-ppal">
                         <p>

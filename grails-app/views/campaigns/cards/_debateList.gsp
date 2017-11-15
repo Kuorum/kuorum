@@ -1,5 +1,5 @@
 
-<li class="col-sm-12 col-md-6">
+<li class="col-sm-12 col-md-6 search-article">
     <article role="article" class="box-ppal clearfix">
         <div class="link-wrapper" id="debate-${debate.id}" data-datePublished="${debate.datePublished.time}">
             <g:link mapping="debateShow" params="${debate.encodeAsLinkProperties()}" class="hidden"></g:link>
