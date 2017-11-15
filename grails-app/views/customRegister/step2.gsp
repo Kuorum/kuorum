@@ -20,7 +20,7 @@
         <li class="active">3</li>
     </ol>
     <formUtil:validateForm bean="${command}" form="sign" autocomplete="off"/>
-    <g:form mapping="registerStep2" name="sign" role="form" method="POST" autocomplete="off"  class="signup step2">
+    <g:form mapping="customProcessRegisterStep2" name="sign" role="form" method="POST" autocomplete="off"  class="signup step2">
         <input type="hidden" name="user.id" value="${command?.user?.id}"/>
         <fieldset class="row">
             <div class="form-group col-md-6">

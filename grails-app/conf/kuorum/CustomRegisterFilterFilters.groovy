@@ -15,7 +15,7 @@ class CustomRegisterFilterFilters {
                     KuorumUser kuorumUser = KuorumUser.get(springSecurityService.principal.id)
                     if (STEP1_FIELDS.find{field -> !kuorumUser."$field"}){
                         //It is for redirect when the user has not complete profile
-                        redirect(mapping: 'registerStep2')
+                        redirect(mapping: 'customProcessRegisterStep2')
 
                         return false
                     }

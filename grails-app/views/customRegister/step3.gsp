@@ -18,7 +18,7 @@
         <li>3</li>
     </ol>
     <div class="signup final">
-        %{--<g:form mapping="registerStep3" method="POST">--}%
+        %{--<g:form mapping="customProcessRegisterStep3" method="POST">--}%
             <h3><g:message code="customRegister.step3.congratulations"/> </h3>
             %{--<fieldset class="row">--}%
                 %{--<div class="form-group col-md-6 col-md-offset-3 promotional-code">--}%

@@ -14,7 +14,7 @@
                 "j_password":{
                     required: true,
                     remote:{
-                        url: "${g.createLink(mapping: 'loginCheck')}",
+                        url: "${g.createLink(mapping: 'ajaxLoginCheck')}",
                         type: "post",
                         data: {
                             j_username: function() {return $( "#${modalId} input[name=j_username]" ).val();},

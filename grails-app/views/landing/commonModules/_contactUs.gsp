@@ -9,7 +9,7 @@
 <div class="section-body col-md-10 col-md-offset-1">
     <sec:ifNotLoggedIn>
         <formUtil:validateForm bean="${commandRequestDemo}" form="request-demo-form"/>
-        <g:form mapping="requestADemo" autocomplete="off" method="post" name="request-demo-form" class="" role="form" novalidate="novalidate">
+        <g:form mapping="ajaxRequestADemo" autocomplete="off" method="post" name="request-demo-form" class="" role="form" novalidate="novalidate">
             <fieldset class="row">
                 <div class="form-group col-md-6">
                     <formUtil:input

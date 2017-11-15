@@ -14,6 +14,7 @@ class LanguageInjectorAOP {
                                  final Map params) throws Throwable {
 
         addLang(params)
+        replaceLangMapping(params)
         return pjp.proceed(params);
 
     }
@@ -22,10 +23,18 @@ class LanguageInjectorAOP {
     public Object processLink(final ProceedingJoinPoint pjp,
                               final Map params,
                               final String encoding) throws Throwable {
-
+        org.codehaus.groovy.grails.web.mapping.LinkGenerator link;
         addLang(params)
+        replaceLangMapping(params)
         return pjp.proceed(params, encoding);
 
+    }
+    private void replaceLangMapping(Map params){
+        if (params.mapping && params.params?.lang && (params.mapping =~ VALID_URL_MAPPING).matches()){
+            String lang = params.params.remove('lang')
+//            String lang = params.params.lang
+            params.mapping = "${lang}_${params.mapping}".toString();
+        }
     }
 
     private void addLang(Map params){

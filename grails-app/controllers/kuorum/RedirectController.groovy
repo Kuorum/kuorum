@@ -35,7 +35,7 @@ class RedirectController {
             render('')
             return false
         }else{
-            def link = g.createLink(mapping: 'landingSearch', params: [word:params.urlName])
+            def link = g.createLink(mapping: 'searcherSearch', params: [word:params.urlName])
             link = link + "#results"
             response.setHeader "Location", link
             response.status = HttpStatus.SC_GONE

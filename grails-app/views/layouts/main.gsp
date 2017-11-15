@@ -93,7 +93,7 @@
     </r:script>
 </g:if>
 <sec:ifAnyGranted roles="ROLE_INCOMPLETE_USER">
-    <nav:ifActiveMapping mappingNames="registerStep2, registerStep3, registerSubscriptionStep1, registerSubscriptionStep1Save, registerSubscriptionStep3, tour_dashboard" equals="false">
+    <nav:ifActiveMapping mappingNames="customProcessRegisterStep2, customProcessRegisterStep3, registerSubscriptionStep1, registerSubscriptionStep1Save, registerSubscriptionStep3, tour_dashboard" equals="false">
         <r:script>
             function notMailConfirmedWarn(){
                 display.warn("<userUtil:showMailConfirm /> ${pageProperty(name:'page.hiddeMailConfirmMessage')}");

@@ -15,7 +15,7 @@
             <div class="modal-body">
             <!-- email subscription form -->
                 <formUtil:validateForm form="request-demo-modal-form" bean="${commandRequestDemo}"/>
-                <g:form mapping="requestADemo" role="form" method="post" name="request-demo-modal-form">
+                <g:form mapping="ajaxRequestADemo" role="form" method="post" name="request-demo-modal-form">
                     <input type="hidden" name="comment" class="" value="Request a demo"/>
                     <input type="hidden" name="sector" value="${kuorum.core.model.ContactSectorType.NONE}"/>
                     <fieldset>

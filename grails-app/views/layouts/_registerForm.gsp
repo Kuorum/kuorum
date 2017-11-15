@@ -19,7 +19,7 @@
                     required: true,
                     validate_email: true,
                     remote:{
-                        url: "${g.createLink(mapping: 'registerAjaxCheckEmail')}",
+                        url: "${g.createLink(mapping: 'ajaxRegisterCheckEmail')}",
                         type: "post",
                         data: {
                             email: function() {return $( "#${formId} input[name=email]" ).val();}
@@ -61,7 +61,7 @@
     });
 </r:script>
 <r:require modules="recaptcha_modalRegister"/>
-<g:form mapping="register" action-ajax="${g.createLink(mapping: 'registerAjax')}" autocomplete="off" method="post" name="${formId}" class="login" role="form" novalidate="novalidate">
+<g:form mapping="register" action-ajax="${g.createLink(mapping: 'ajaxRegister')}" autocomplete="off" method="post" name="${formId}" class="login" role="form" novalidate="novalidate">
     <div class="form-group">
         <formUtil:input
                 command="${registerCommand}"

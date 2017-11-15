@@ -58,7 +58,7 @@
                 data['provider']='facebook';
                 $.ajax({
                     type:"POST",
-                    url:"${g.createLink(mapping: 'registerAjaxRRSSOAuth')}",
+                    url:"${g.createLink(mapping: 'ajaxRegisterRRSSOAuth')}",
                     data:response.authResponse,
                     dataType:"json"
                 }).success(function(data){
@@ -150,7 +150,7 @@
                 data['provider']="google"
                 $.ajax({
                     type:"POST",
-                    url:"${g.createLink(mapping: 'registerAjaxRRSSOAuth')}",
+                    url:"${g.createLink(mapping: 'ajaxRegisterRRSSOAuth')}",
                     data:data,
                     dataType:"json"
                 }).success(function(data){

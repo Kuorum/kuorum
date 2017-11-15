@@ -142,7 +142,7 @@ class CustomRegisterController {
 //            politicianService.requestAPoliticianAccount(user)
 //        }
         kuorumUserService.updateUser(user)
-        redirect mapping:"registerStep3"
+        redirect mapping:"customProcessRegisterStep3"
     }
 
     @Secured('IS_AUTHENTICATED_REMEMBERED')
