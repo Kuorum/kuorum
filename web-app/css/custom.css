@@ -3971,6 +3971,7 @@ fieldset.rating:hover > input + label:hover:before {
 /* ====================================================== */
 .config.search > header form ul {list-style: none;}
 .config.search > header ul > li {padding: 15px;}
+.config.search > header ul > li +li {padding-left: 35px;}
 .config.search > header form .checkbox {padding: 0; margin: 0; position: relative;}
 .config.search > header form .checkbox input {position: absolute; left: 0; top: 0; float: none; margin: -2px 0 0 0;}
 .config.search > header form .checkbox input[type=checkbox]:after {
