@@ -2579,7 +2579,7 @@ ul.search-list .search-article .box-ppal {padding: 0; margin: 0 0 20px 0;height:
 .dashboard ul.search-list > li:nth-child(odd) {padding-left:5px;}
 .dashboard ul.search-list > li:nth-child(even) {padding-right:5px;}
 ul.search-list > li.search-article .box-ppal .card-header-photo {height: auto;}
-ul.search-list > li.search-article .box-ppal .card-body {padding:1em;overflow: hidden;height: 344px;}
+ul.search-list > li.search-article .box-ppal .card-body {padding:1em;overflow: hidden;height: 325px;}
 ul.search-list > li.search-article .box-ppal .card-header-photo + .card-body {height: 125px; margin-bottom: 15px;}
 ul.search-list > li.search-article .box-ppal .card-body h1{margin:0; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif}
 ul.search-list > li.search-article .box-ppal .card-body .card-text{margin:0;padding:1em 0 0 0;text-overflow: ellipsis;word-break: break-word;}
@@ -5991,7 +5991,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     ul.search-list > li.search-article .box-ppal{
         /*margin-right: 8px;*/
     }
-    ul.search-list > li.search-article > article.box-ppal > div.link-wrapper {height: 409px;}
+    ul.search-list > li.search-article > article.box-ppal > div.link-wrapper {height: 375px;}
     ul.search-list > li.search-article > article.box-ppal > div.link-wrapper > div.card-footer {position:absolute; bottom:0;}
     ul.search-list > li.search-article > article.box-ppal > div.link-wrapper > div.card-footer > ul > li.owner {
         position: relative;
