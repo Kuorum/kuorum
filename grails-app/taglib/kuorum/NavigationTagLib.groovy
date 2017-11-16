@@ -3,11 +3,15 @@ package kuorum
 import com.opensymphony.module.sitemesh.RequestConstants
 import kuorum.core.model.AvailableLanguage
 import kuorum.core.model.search.Pagination
+import kuorum.core.model.search.SearchType
+import kuorum.core.model.solr.SolrType
 import org.codehaus.groovy.grails.web.mapping.LinkGenerator
 import org.codehaus.groovy.grails.web.mapping.UrlMappingInfo
 import org.codehaus.groovy.grails.web.mapping.UrlMappingsHolder
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
+
+import java.text.Normalizer
 
 class NavigationTagLib {
     static defaultEncodeAs = 'raw'
@@ -61,18 +65,59 @@ class NavigationTagLib {
         UrlMappingInfo urlMappingInfo = urlMappingsHolder.match(urlPath)
         String mappingNameParameter = "mappingName"
         Map<AvailableLanguage, String> urls = [:]
-        if (urlMappingInfo.parameters.containsKey(mappingNameParameter)){
+        if (urlMappingInfo && urlMappingInfo.parameters.containsKey(mappingNameParameter)){
             String mappingName = urlMappingInfo.parameters.get(mappingNameParameter)
+            mappingName = prepareSpecialMappings(mappingName)
+            def normalizedParams = [:]
+            params.each {k, v ->
+                if (v){
+                    normalizedParams.put(
+                            k,
+                            Normalizer.normalize(v, Normalizer.Form.NFD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "")
+                )}
+            }
             languageList.each { lang ->
-                urls.put(lang, g.createLink(mapping: "${lang.locale.language}_${mappingName}".toString(), absolute: true))
+                String link = g.createLink(mapping: "${lang.locale.language}_${mappingName}".toString(), params:normalizedParams, absolute: true);
+                int dollarIndex = link.indexOf('?');
+                if (dollarIndex != -1)
+                {
+                    link = link.substring(0, dollarIndex);
+                }
+                urls.put(lang, link)
             }
         }
         return urls;
     }
 
+    private String prepareSpecialMappings(String mapping){
+        if (mapping.startsWith("searcherSearch")){
+            mapping = "searcherSearch"
+            if (params.type){
+                SolrType searchType = SolrType.valueOf(params.type)
+                mapping = "searcherSearch${searchType}"
+            }
+
+            if (params.searchType){
+                SearchType searchType = SearchType.valueOf(params.searchType)
+                if (SearchType.CAUSE.equals(searchType)){
+                    // ONLY CAUSE IS MAPPED
+                    mapping = mapping+"By"+searchType
+                }
+            }
+        }
+        return mapping;
+    }
+
     @Autowired
     @Qualifier("grailsUrlMappingsHolder")
     UrlMappingsHolder urlMappingsHolder
+
+    def canonical = {attrs, body ->
+        Map<AvailableLanguage, String> urls= generateAllRelatedUrlsDependingOnLang();
+        Locale locale = org.springframework.context.i18n.LocaleContextHolder.getLocale()
+        AvailableLanguage currentLang = AvailableLanguage.fromLocale(locale)
+        out <<"<link rel='canonical' href='${urls[currentLang]}'/>"
+    }
 
     def generateAlternateLangLink = { attrs, body ->
         Map<AvailableLanguage, String> urls= generateAllRelatedUrlsDependingOnLang();

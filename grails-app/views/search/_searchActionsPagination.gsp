@@ -9,7 +9,7 @@
     </div>
     <div class="pag-list-search col-md-6">
         <nav:contactPagination
-                link="${g.createLink(mapping:"searcherSearch", params:[word:searchParams.word, type:searchParams.type, searchType:searchParams.searchType, regionCode:searchParams.regionIsoCodes, max:searchParams.max], absolute:true)}"
+                link="${g.createLink(mapping:"searcherSearch", params:[word:searchParams.word, type:searchParams.type, searchType:searchParams.searchType, regionCode:params.regionCode, max:searchParams.max], absolute:true)}"
                 currentPage="${Math.floor(searchParams.offset/searchParams.max)}"
                 sizePage="${searchParams.max}"
                 ulClasss="paginationTop"

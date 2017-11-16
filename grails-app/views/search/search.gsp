@@ -6,6 +6,7 @@
     <parameter name="extraCssContainer" value="search" />
     %{--<parameter name="idLeftMenu" value="search-filters" />--}%
     %{--<parameter name="idMainContent" value="search-results" />--}%
+    <nav:canonical/>
 </head>
 
 
@@ -15,17 +16,6 @@
     %{--<g:if test="${docs.suggest}">--}%
         %{--<p><g:message code="search.spelling"/> <g:link mapping="searcherSearch" params="[word:docs.suggest.suggestedQuery, type:searchParams.type]" > ${docs.suggest.suggestedQuery} </g:link>(${docs.suggest.hits})</p>--}%
     %{--</g:if>--}%
-
-    <g:set var="cssClassUL" value=""/>
-    <g:if test="${searchParams.type == SolrType.DEBATE}">
-        <g:set var="cssClassUL" value="campaign-list clearfix"/>
-    </g:if>
-    <g:elseif test="${searchParams.type == SolrType.POST}">
-        <g:set var="cssClassUL" value="campaign-list clearfix"/>
-    </g:elseif>
-    <g:else>
-        <g:set var="cssClassUL" value="politician-list clearfix"/>
-    </g:else>
 
     %{--<ul class="${cssClassUL}" id="search-list-id">--}%
     <ul class="search-list clearfix" id="search-list-id">
@@ -49,14 +39,18 @@
 
 <content tag="leftMenu">
     <h1><g:message code="search.filters.title"/></h1>
-    %{--<g:form mapping="searcherSearchFilters" role="form" name="searchFilters" data-updateElementId="search-list-id" rel="nofollow">--}%
     <g:form mapping="searcherSearch" role="form" name="searchFilters" rel="nofollow" method="GET">
         <ul>
             <li>
                 <div class="checkbox">
                     <label>
                         <input type="checkbox" name="type" id="ciudadanos" value="${kuorum.core.model.solr.SolrType.KUORUM_USER}" ${searchParams.type == kuorum.core.model.solr.SolrType.KUORUM_USER?'checked':''}>
-                        <span class="icon-user"></span> <g:message code="search.filters.SolrType.KUORUM_USER"/> (${docs.facets.type.find{it.facetName==kuorum.core.model.solr.SolrType.KUORUM_USER.toString()}?.hits?:0})
+                        <g:link mapping="searcherSearchKUORUM_USER" params="${params.findAll {k,v-> k!='type' && k!='offset' && v}}">
+                            <span class="icon-user"></span>
+                            <g:message code="search.filters.SolrType.KUORUM_USER"/>
+                            <g:set var="hits" value="${docs.facets.type.find{it.facetName==kuorum.core.model.solr.SolrType.KUORUM_USER.toString()}?.hits?:0}"/>
+                            <g:if test="${hits}">(${hits})</g:if>
+                        </g:link>
                     </label>
                 </div>
             </li>
@@ -64,7 +58,12 @@
                 <div class="checkbox">
                     <label>
                         <input type="checkbox" name="type" id="search-post" value="${kuorum.core.model.solr.SolrType.POST}" ${searchParams.type == kuorum.core.model.solr.SolrType.POST?'checked':''}>
-                        <span class="fa fa-newspaper-o"></span> <g:message code="search.filters.SolrType.POST"/> (${docs.facets.type.find{it.facetName==kuorum.core.model.solr.SolrType.POST.toString()}?.hits?:0})
+                        <g:link mapping="searcherSearchPOST" params="${params.findAll {k,v-> k!='type' && k!='offset' && v}}">
+                            <span class="fa fa-newspaper-o"></span>
+                            <g:message code="search.filters.SolrType.POST"/>
+                            <g:set var="hits" value="${docs.facets.type.find{it.facetName==kuorum.core.model.solr.SolrType.POST.toString()}?.hits?:0}"/>
+                            <g:if test="${hits}">(${hits})</g:if>
+                        </g:link>
                     </label>
                 </div>
             </li>
@@ -72,7 +71,12 @@
                 <div class="checkbox">
                     <label>
                         <input type="checkbox" name="type" id="search-debates" value="${kuorum.core.model.solr.SolrType.DEBATE}" ${searchParams.type == kuorum.core.model.solr.SolrType.DEBATE?'checked':''}>
-                        <span class="fa fa-comments-o"></span> <g:message code="search.filters.SolrType.DEBATE"/>(${docs.facets.type.find{it.facetName==kuorum.core.model.solr.SolrType.DEBATE.toString()}?.hits?:0})
+                        <g:link mapping="searcherSearchDEBATE" params="${params.findAll {k,v-> k!='type' && k!='offset' && v}}">
+                            <span class="fa fa-comments-o"></span>
+                            <g:message code="search.filters.SolrType.DEBATE"/>
+                            <g:set var="hits" value="${docs.facets.type.find{it.facetName==kuorum.core.model.solr.SolrType.DEBATE.toString()}?.hits?:0}"/>
+                            <g:if test="${hits}">(${hits})</g:if>
+                        </g:link>
                     </label>
                 </div>
             </li>
@@ -81,5 +85,22 @@
         <input type="hidden" name="searchType" value="${searchParams.searchType}" />
         <input type="hidden" name="regionCode" value="${params.regionCode}" />
     </g:form>
+
+    <g:set var="relevantCauses" value="${docs.facets.tags.findAll{it.hits>0}.sort{-it.hits}.take(10)}"/>
+    <g:if test="${relevantCauses}">
+        <h2><g:message code="search.filters.causes.title"/></h2>
+        <ul class="causes-tags">
+            <g:each in="${relevantCauses}" var="tag">
+                <li class="cause link-wrapper active" id="cause-participacion">
+                    <g:link mapping="searcherSearchByCAUSE" params="${params.findAll {k,v-> k!='searchType' && k!='offset' && v} + [word:tag.facetName]}" class="sr-only hidden"> Search cause participación</g:link>
+                    <div class="cause-name" aria-hidden="true" tabindex="104">
+                        <span class="fa fa-hashtag"></span>
+                        <span>${tag.facetName} (${tag.hits})</span>
+                    </div>
+                </li>
+            </g:each>
+        </ul>
+
+    </g:if>
 </content>
 </html>

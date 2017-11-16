@@ -244,14 +244,38 @@ class UrlMappings {
                         "/salir"        {controller="redirect"; action= "redirect301"; newMapping='logout'}
 
         name searcherSearch:        "/$lang/search"{controller="redirect"; action= "redirect301"; newMapping='en_searcherSearch';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-        name en_searcherSearch:     "/en/search"(controller: "search", action:"search"){lang="en"; mappingName="searcherSearch"}
-        name es_searcherSearch:     "/es/buscar"(controller: "search", action:"search"){lang="es"; mappingName="searcherSearch"}
+        name en_searcherSearch:     "/en/search/$word?"(controller: "search", action:"search"){lang="en"; mappingName="searcherSearch"}
+        name es_searcherSearch:     "/es/buscar/$word?"(controller: "search", action:"search"){lang="es"; mappingName="searcherSearch"}
                                     "/search"{controller="redirect"; action= "redirect301"; newMapping='en_searcherSearch'}
                                     "/buscar"{controller="redirect"; action= "redirect301"; newMapping='es_searcherSearch'}
 
-        name searcherSearchUsers:   "/$lang/search"         {controller="redirect"; action= "redirect301"; newMapping='en_searcherSearchUsers';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-        name en_searcherSearchUsers:"/en/search/users"      (controller: "search", action:"search"){lang="en"; type="KUORUM_USER"; mappingName="searcherSearchUsers"}
-        name es_searcherSearchUsers:"/es/buscar/usuarios"   (controller: "search", action:"search"){lang="es"; type="KUORUM_USER"; mappingName="searcherSearchUsers"}
+        name searcherSearchByCAUSE:   "/$lang/search/users"          {controller="redirect"; action= "redirect301"; newMapping='en_searcherSearchByCAUSE';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+        name en_searcherSearchByCAUSE:"/en/search/cause/$word?"      (controller: "search", action:"search"){lang="en"; searchType="CAUSE"; mappingName="searcherSearchByCAUSE"}
+        name es_searcherSearchByCAUSE:"/es/buscar/causa/$word?"      (controller: "search", action:"search"){lang="es"; searchType="CAUSE"; mappingName="searcherSearchByCAUSE"}
+
+        name searcherSearchKUORUM_USER:   "/$lang/search/users"          {controller="redirect"; action= "redirect301"; newMapping='en_searcherSearchKUORUM_USER';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+        name en_searcherSearchKUORUM_USER:"/en/search/users/$word?"      (controller: "search", action:"search"){lang="en"; type="KUORUM_USER"; mappingName="searcherSearchKUORUM_USER"}
+        name es_searcherSearchKUORUM_USER:"/es/buscar/usuarios/$word?"   (controller: "search", action:"search"){lang="es"; type="KUORUM_USER"; mappingName="searcherSearchKUORUM_USER"}
+
+        name searcherSearchKUORUM_USERByCAUSE:   "/$lang/search/users/cause/$word?"          {controller="redirect"; action= "redirect301"; newMapping='en_searcherSearchKUORUM_USERByCAUSE';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+        name en_searcherSearchKUORUM_USERByCAUSE:"/en/search/users/cause/$word?"             (controller: "search", action:"search"){lang="en"; searchType="CAUSE";type="KUORUM_USER"; mappingName="searcherSearchKUORUM_USERByCAUSE"}
+        name es_searcherSearchKUORUM_USERByCAUSE:"/es/buscar/usuarios/causa/$word?"          (controller: "search", action:"search"){lang="es"; searchType="CAUSE";type="KUORUM_USER"; mappingName="searcherSearchKUORUM_USERByCAUSE"}
+
+        name searcherSearchPOST:   "/$lang/search/post"                {controller="redirect"; action= "redirect301"; newMapping='en_searcherSearchPOST';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+        name en_searcherSearchPOST:"/en/search/post/$word?"            (controller: "search", action:"search"){lang="en"; type="POST"; mappingName="searcherSearchPOST"}
+        name es_searcherSearchPOST:"/es/buscar/publicacion/$word?"     (controller: "search", action:"search"){lang="es"; type="POST"; mappingName="searcherSearchPOST"}
+
+        name searcherSearchPOSTByCAUSE:   "/$lang/search/post/cause/$word?"          {controller="redirect"; action= "redirect301"; newMapping='en_searcherSearchPOSTByCAUSE';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+        name en_searcherSearchPOSTByCAUSE:"/en/search/post/cause/$word?"             (controller: "search", action:"search"){lang="en"; searchType="CAUSE";type="POST"; mappingName="searcherSearchPOSTByCAUSE"}
+        name es_searcherSearchPOSTByCAUSE:"/es/buscar/publicacion/causa/$word?"      (controller: "search", action:"search"){lang="es"; searchType="CAUSE";type="POST"; mappingName="searcherSearchPOSTByCAUSE"}
+
+        name searcherSearchDEBATE:   "/$lang/search/debate"         {controller="redirect"; action= "redirect301"; newMapping='en_searcherSearchDEBATE';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+        name en_searcherSearchDEBATE:"/en/search/debate/$word?"     (controller: "search", action:"search"){lang="en"; type="DEBATE"; mappingName="searcherSearchDEBATE"}
+        name es_searcherSearchDEBATE:"/es/buscar/debate/$word?"     (controller: "search", action:"search"){lang="es"; type="DEBATE"; mappingName="searcherSearchDEBATE"}
+
+        name searcherSearchDEBATEByCAUSE:   "/$lang/search/debate/cause/$word?"          {controller="redirect"; action= "redirect301"; newMapping='en_searcherSearchDEBATEByCAUSE';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+        name en_searcherSearchDEBATEByCAUSE:"/en/search/debate/cause/$word?"             (controller: "search", action:"search"){lang="en"; searchType="CAUSE";type="DEBATE"; mappingName="searcherSearchDEBATEByCAUSE"}
+        name es_searcherSearchDEBATEByCAUSE:"/es/buscar/debate/causa/$word?"          (controller: "search", action:"search"){lang="es"; searchType="CAUSE";type="DEBATE"; mappingName="searcherSearchDEBATEByCAUSE"}
 
 
         /**********************/
@@ -333,9 +357,8 @@ class UrlMappings {
         name userHistoricRate:          "/ajax/$userAlias/historicRate"(controller: "rating", action:"historicPoliticianRate")
         name comparingPoliticianRate:   "/ajax/user/compareRate"(controller: "rating", action:"comparingPoliticianRateData")
 
-        name searcherSearchSeeMore: "/ajax/search/seeMore"(controller: "search", action:"searchSeeMore")
-        name searcherSearchFilters: "/ajax/search/new-filters"(controller: "search", action:"modifyFilters")
-        name searcherSuggests:      "/ajax/search/suggestions"(controller: "search", action:"suggest")
+//        name searcherSearchSeeMore: "/ajax/search/seeMore"(controller: "search", action:"searchSeeMore")
+        name suggestSearcher:       "/ajax/search/suggestions/all"(controller: "search", action:"suggest")
         name suggestRegions:        "/ajax/search/suggestions/regions"(controller: "search", action:"suggestRegions")
         name suggestTags:           "/ajax/search/suggestions/tags"(controller: "search", action:"suggestTags")
         name suggestAlias:          "/ajax/search/suggestions/alias"(controller: "search", action:"suggestAlias")

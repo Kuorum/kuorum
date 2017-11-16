@@ -145,17 +145,6 @@ class SearchController{
         return editedSearchParams;
     }
 
-    def modifyFilters(SearchParams searchParams) {
-        SolrResults docs
-        if (searchParams.hasErrors()){
-            docs = new SolrResults(elements: [], numResults: 0, facets: [], suggest:null)
-            searchParams.word=searchParams.word?:''
-        }else{
-            docs = searchSolrService.search(searchParams)
-        }
-        render template:'/search/searchElement', model:[docs:docs.elements]
-    }
-
     def searchSeeMore(SearchParams searchParams){
         if (searchParams.hasErrors()){
             response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "false")

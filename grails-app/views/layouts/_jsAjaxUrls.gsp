@@ -2,7 +2,7 @@
 <script>
     var kuorumUrls = {
         home:'<g:createLink mapping="home" absolute="true"/>',
-        searchSuggest:'<g:createLink mapping="searcherSuggests" absolute="true"/>',
+        searchSuggest:'<g:createLink mapping="suggestSearcher" absolute="true"/>',
         search:'<g:createLink mapping="searcherSearch" absolute="true"/>',
         suggestRegion:'<g:createLink mapping="suggestRegions" absolute="true"/>',
         tour:{

@@ -3994,6 +3994,12 @@ fieldset.rating:hover > input + label:hover:before {
     color: #545454;
 }
 .config.search label {font-weight: normal; position: relative; padding: 0 0 0 30px;}
+.config.search label a{color:inherit;}
+.config.search label a:hover,
+.config.search label a:focus{text-decoration: none;}
+
+.config.search > header ul.causes-tags {padding: 10px;}
+.config.search > header ul.causes-tags > li.cause{ padding:1px; font-size:12px;}
 h5#results {margin: 0 0 15px;}
 
 .config.search > article > .clearfix > h1 {font-size: 25px; font-size: 2.5rem; color: #a8a8a8; margin-bottom: 5px;}
@@ -4107,6 +4113,7 @@ h5#results {margin: 0 0 15px;}
 /* ====================================================== */
 .config > header .box-ppal {padding: 0;box-shadow: 0 0 2px rgba(200,200,200,0.6);}
 .config > header h1 {border-bottom: 1px solid #dadada; padding: 20px 15px 18px; margin: 0;}
+.config > header h2 {    padding: 10px;border-top: 1px solid #ccc;margin: 0;font-size: 20px;}
 .config > header ul {margin: 0; padding: 0;}
 .config > header ul > li {list-style: none; padding: 15px 20px; margin: 0; border-bottom: 1px solid #dadada; font-size: 1.9rem;}
 .config > header ul > li:last-child {border: none;}
