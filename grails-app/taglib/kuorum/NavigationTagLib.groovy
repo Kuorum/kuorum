@@ -100,7 +100,7 @@ class NavigationTagLib {
 
             if (params.searchType){
                 SearchType searchType = SearchType.valueOf(params.searchType)
-                if (SearchType.CAUSE.equals(searchType)){
+                if (!SearchType.ALL.equals(searchType)){
                     // ONLY CAUSE IS MAPPED
                     mapping = mapping+"By"+searchType
                 }
