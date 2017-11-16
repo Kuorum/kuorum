@@ -32,7 +32,8 @@ class CausesTagLib {
         }else{
             causeSupportClass = "noLogged"
         }
-        String searchLink = g.createLink(mapping:"searcherSearch", params:[type:SolrType.KUORUM_USER, word:cause.name, searchType:SearchType.CAUSE])
+
+        String searchLink = g.createLink(mapping:"searcherSearchKUORUM_USERByCAUSE", params:[word:cause.name])
         String supportCause = g.createLink(mapping:"causeSupport", params:[causeName:cause.name], absolute: true)
 
         String showCounter = ""
