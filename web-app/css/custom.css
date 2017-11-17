@@ -5562,7 +5562,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .condition .user-list-followers  > li {width: 48%; float: left;}
     .condition .user-list-followers  > li:nth-child(2n) {float: right;}
 
-    .search-list .search-kuorum-user .box-ppal .link-wrapper {height: 410px;}
+    .search-list .search-kuorum-user .box-ppal .link-wrapper {height: 375px;}
 
     /* LANDING */
     #main.landing .full-video h1 {font-size: 47px; margin-top: 10%;}
