@@ -19,6 +19,54 @@ class SiteMapController {
     PostService postService;
     DebateService debateService;
 
+    static searchQueries =[
+            es:[
+                    basicSearch:[
+                            "",
+                            "Ignacio Garcia Peredo",
+                            "Helena Galan",
+                    ],
+                    userSearch:[
+                            "",
+                            "Ignacio Garcia Peredo",
+                            "Helena Galan"
+                    ],
+                    debateSearch:[
+                            "",
+                            "toledo",
+                            "toledo participa",
+                            "extremadura",
+                            "Ignacio Garcia Peredo"
+                    ],
+                    postSearch:[
+                            "",
+                            "extremadura",
+                            "Ignacio García Peredo"
+                    ],
+                    usersByCause:[
+                            "atencionomnicanal",
+                            "participacion",
+                            "transparencia",
+                    ]
+            ],
+            en:[
+                    basicSearch:[
+                            ""
+                    ],
+                    userSearch:[
+                            ""
+                    ],
+                    debateSearch:[
+                            ""
+                    ],
+                    postSearch:[
+                            ""
+                    ],
+                    usersByCause:[
+                    ]
+            ]
+    ]
+
     def sitemapIndex(){
         String lang = params.lang
         render(contentType: 'text/xml', encoding: 'UTF-8', ) {
@@ -51,25 +99,61 @@ class SiteMapController {
     }
 
     def sitemapSearchs(){
+        String lang = params.lang
         render(contentType: 'application/xml', encoding: 'UTF-8') {
             mkp.yieldUnescaped '<?xml version="1.0" encoding="UTF-8"?>'
             urlset(xmlns: "http://www.sitemaps.org/schemas/sitemap/0.9",
                     'xmlns:xhtml': "http://www.w3.org/1999/xhtml") {
 
-                List<String> basicSearch =[
-                        "",
-                ]
-                url {
-                    loc(g.createLink( mapping:'searcherSearch', absolute: true))
-                    changefreq('daily')
-                    priority(0.5)
+                searchQueries[lang].basicSearch.each { searchText ->
+                    url {
+                        loc(g.createLink( mapping:'searcherSearch', absolute: true, params: [word:searchText]))
+                        changefreq('daily')
+                        priority(0.5)
 //                    "xhtml:link rel=\"alternate\" hreflang=\"es\" href=\"${g.createLink( mapping: 'searcherSearch', absolute: true, params: [lang:'es'])}\""()
 //                    "xhtml:link rel=\"alternate\" hreflang=\"en\" href=\"${g.createLink( mapping: 'searcherSearch', absolute: true, params: [lang:'en'])}\""()
+                    }
                 }
 
-                List<String> userSearch =[
-                        "Ignacio García Peredo",
-                ]
+
+                searchQueries[lang].userSearch.each { searchText ->
+                    url {
+                        loc(g.createLink( mapping:'searcherSearchKUORUM_USER', absolute: true, params: [word:searchText]))
+                        changefreq('daily')
+                        priority(0.5)
+//                    "xhtml:link rel=\"alternate\" hreflang=\"es\" href=\"${g.createLink( mapping: 'searcherSearch', absolute: true, params: [lang:'es'])}\""()
+//                    "xhtml:link rel=\"alternate\" hreflang=\"en\" href=\"${g.createLink( mapping: 'searcherSearch', absolute: true, params: [lang:'en'])}\""()
+                    }
+                }
+
+                searchQueries[lang].debateSearch.each { searchText ->
+                    url {
+                        loc(g.createLink( mapping:'searcherSearchDEBATE', absolute: true, params: [word:searchText]))
+                        changefreq('daily')
+                        priority(0.5)
+//                    "xhtml:link rel=\"alternate\" hreflang=\"es\" href=\"${g.createLink( mapping: 'searcherSearch', absolute: true, params: [lang:'es'])}\""()
+//                    "xhtml:link rel=\"alternate\" hreflang=\"en\" href=\"${g.createLink( mapping: 'searcherSearch', absolute: true, params: [lang:'en'])}\""()
+                    }
+                }
+
+                searchQueries[lang].postSearch.each { searchText ->
+                    url {
+                        loc(g.createLink( mapping:'searcherSearchPOST', absolute: true, params: [word:searchText]))
+                        changefreq('daily')
+                        priority(0.5)
+//                    "xhtml:link rel=\"alternate\" hreflang=\"es\" href=\"${g.createLink( mapping: 'searcherSearch', absolute: true, params: [lang:'es'])}\""()
+//                    "xhtml:link rel=\"alternate\" hreflang=\"en\" href=\"${g.createLink( mapping: 'searcherSearch', absolute: true, params: [lang:'en'])}\""()
+                    }
+                }
+                searchQueries[lang].usersByCause.each { searchText ->
+                    url {
+                        loc(g.createLink( mapping:'searcherSearchKUORUM_USERByCAUSE', absolute: true, params: [word:searchText]))
+                        changefreq('daily')
+                        priority(0.5)
+//                    "xhtml:link rel=\"alternate\" hreflang=\"es\" href=\"${g.createLink( mapping: 'searcherSearch', absolute: true, params: [lang:'es'])}\""()
+//                    "xhtml:link rel=\"alternate\" hreflang=\"en\" href=\"${g.createLink( mapping: 'searcherSearch', absolute: true, params: [lang:'en'])}\""()
+                    }
+                }
             }
         }
     }
