@@ -90,7 +90,7 @@ class NavigationTagLib {
         }else if (urlMappingInfo){
             def parameters = [:]
             parameters << urlMappingInfo.parameters
-            parameters.put("mappingName", "fake")
+            parameters.put("mappingName", "fake") // Fake to prevent a null pointer recovering urlCreator
             UrlCreator urlCreator = urlMappingsHolder.getReverseMapping(urlMappingInfo.controllerName, urlMappingInfo.actionName, parameters)
             languageList.each { lang ->
                 parameters.put("lang", lang.getLocale().getLanguage())
