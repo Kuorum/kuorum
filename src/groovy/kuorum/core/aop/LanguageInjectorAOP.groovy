@@ -7,7 +7,7 @@ import org.aspectj.lang.annotation.Aspect
 @Aspect
 class LanguageInjectorAOP {
 
-    private static def VALID_URL_MAPPING = /^landing.*|^register.*|^home$|^footer.*|^reset.*|^login.*|^blog.*|^searcher.*|^sitemap.*|^lang.*/
+    private static def VALID_URL_MAPPING = /^landing.*|^register.*|^home$|^footer.*|^reset.*|^login.*|^blog.*|^searcher.*|^lang.*/
 
     @Around("execution(public * org.codehaus.groovy.grails.web.mapping.LinkGenerator+.*(..)) && args(params)")
     public Object processLink(final ProceedingJoinPoint pjp,

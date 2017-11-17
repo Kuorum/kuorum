@@ -6,6 +6,7 @@ import kuorum.core.model.search.Pagination
 import kuorum.core.model.search.SearchType
 import kuorum.core.model.solr.SolrType
 import org.codehaus.groovy.grails.web.mapping.LinkGenerator
+import org.codehaus.groovy.grails.web.mapping.UrlCreator
 import org.codehaus.groovy.grails.web.mapping.UrlMappingInfo
 import org.codehaus.groovy.grails.web.mapping.UrlMappingsHolder
 import org.springframework.beans.factory.annotation.Autowired
@@ -71,10 +72,14 @@ class NavigationTagLib {
             def normalizedParams = [:]
             params.each {k, v ->
                 if (v){
+                    def normalizedValue = v
+                    if (v instanceof String){
+                        normalizedValue = Normalizer.normalize(v, Normalizer.Form.NFD)
+                                .replaceAll("\\p{InCombiningDiacriticalMarks}+", "")
+                    }
                     normalizedParams.put(
                             k,
-                            Normalizer.normalize(v, Normalizer.Form.NFD)
-                                    .replaceAll("\\p{InCombiningDiacriticalMarks}+", "")
+                            normalizedValue
                 )}
             }
             languageList.each { lang ->
@@ -85,6 +90,16 @@ class NavigationTagLib {
                     link = link.substring(0, dollarIndex);
                 }
                 urls.put(lang, link)
+            }
+        }else if (urlMappingInfo){
+            def parameters = [:]
+            parameters << urlMappingInfo.parameters
+            parameters.put("mappingName", "fake") // Fake to prevent a null pointer recovering urlCreator
+            UrlCreator urlCreator = urlMappingsHolder.getReverseMapping(urlMappingInfo.controllerName, urlMappingInfo.actionName, parameters)
+            languageList.each { lang ->
+                parameters.put("lang", lang.getLocale().getLanguage())
+                String url = urlCreator.createURL(parameters, null)
+                urls.put(lang, url)
             }
         }
         return urls;

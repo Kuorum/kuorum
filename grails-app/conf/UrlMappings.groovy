@@ -308,10 +308,15 @@ class UrlMappings {
         name debateEditContent:  "/account/$userAlias/d/$urlTitle-$debateId/edit-content" (controller: "debate"){action = [GET: "editContentStep", POST: "saveContent"]}
 
         name debateRemove:      "/ajax/account/$userAlias/d/$urlTitle-$debateId/remove" (controller: "debate", action: "remove")
-        name debateShow:        "/$userAlias/d/$urlTitle-$debateId"(controller: "debate", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-        name langDebateShow:    "/$lang/$userAlias/d/$urlTitle-$debateId"(controller: "debate", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-                                "/$userAlias/d/-$debateId"      (controller: "debate", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-                                "/$lang/$userAlias/d/-$debateId"      (controller: "debate", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+        name debateShow:        "/$userAlias/d/$urlTitle-$debateId"         (controller: "debate", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+                                "/$userAlias/d/-$debateId"                  (controller: "debate", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+        // DEBATE LANG DEPRECATED
+        name langDebateShow:    "/$lang/$userAlias/d/$urlTitle-$debateId"   {controller="redirect"; action= "redirect301"; newMapping='debateShow';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+                                "/en/$userAlias/d/$urlTitle-$debateId"      {controller="redirect"; action= "redirect301"; newMapping='debateShow';lang=en;}
+                                "/es/$userAlias/d/$urlTitle-$debateId"      {controller="redirect"; action= "redirect301"; newMapping='debateShow';lang=es;}
+                                "/$lang/$userAlias/d/-$debateId"            {controller="redirect"; action= "redirect301"; newMapping='debateShow';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+                                "/en/$userAlias/d/-$debateId"               {controller="redirect"; action= "redirect301"; newMapping='debateShow';lang=en}
+                                "/es/$userAlias/d/-$debateId"               {controller="redirect"; action= "redirect301"; newMapping='debateShow';lang=es}
         name debateProposalNew: "/ajax/addProposal"(controller: "debateProposal", action: "addProposal")
         name debateProposalDelete:"/ajax/deleteProposal"(controller: "debateProposal", action: "deleteProposal")
         name debateProposalPin: "/ajax/pinProposal"(controller: "debateProposal", action: "pinProposal")
@@ -322,16 +327,21 @@ class UrlMappings {
 
         name eventConfirmAssistance:    "/ajax/event/confirm"(controller:"event", action: "confirmAssistance")
 
+        name postLike:              "/ajax/likePost"(controller: "post", action: "likePost")
         name postRemove:            "/ajax/account/$userAlias/p/$urlTitle-$postId/remove" (controller: "post", action: "remove")
         name postCreate:            "/account/post/new" (controller: "post"){action = [GET: "create", POST: "saveSettings"]}
         name postEdit:              "/account/$userAlias/p/$urlTitle-$postId/edit-settings" (controller: "post"){action = [GET: "editSettingsStep", POST: "saveSettings"]}
         name postEditContent:       "/account/$userAlias/p/$urlTitle-$postId/edit-content" (controller: "post"){action = [GET: "editContentStep", POST: "saveContent"]}
-        name postShow:              "/$userAlias/p/$urlTitle-$postId"  (controller: "post", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-        name langPostShow:          "/$lang/$userAlias/p/$urlTitle-$postId"  (controller: "post", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-                                    "/$userAlias/p/-$postId"        (controller: "post", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-                                    "/$lang/$userAlias/p/-$postId"        (controller: "post", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+        name postShow:              "/$userAlias/p/$urlTitle-$postId"           (controller: "post", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+                                    "/$userAlias/p/-$postId"                    (controller: "post", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+        // POST LANG DEPRECATED
+        name langPostShow:          "/$lang/$userAlias/p/$urlTitle-$postId"     {controller="redirect"; action= "redirect301"; newMapping='postShow';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+                                    "/en/$userAlias/p/$urlTitle-$postId"        {controller="redirect"; action= "redirect301"; newMapping='postShow';lang="en";}
+                                    "/es/$userAlias/p/$urlTitle-$postId"        {controller="redirect"; action= "redirect301"; newMapping='postShow';lang="es";}
+                                    "/$lang/$userAlias/p/-$postId"              {controller="redirect"; action= "redirect301"; newMapping='postShow';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+                                    "/en/$userAlias/p/-$postId"                 {controller="redirect"; action= "redirect301"; newMapping='postShow';lang="en";}
+                                    "/es/$userAlias/p/-$postId"                 {controller="redirect"; action= "redirect301"; newMapping='postShow';lang="es";}
 
-        name postLike:              "/ajax/likePost"(controller: "post", action: "likePost")
 
         // REDIRECTS (OLD URLS) - DEPRECATED
 
@@ -531,14 +541,13 @@ class UrlMappings {
         /*** END DEPRECATED ***/
         /**********************/
 
-        name sitemapIndex:  "/$lang/sitemapIndex" (controller: "siteMap", action: "sitemapIndex"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-                            "/sitemapIndex"{ controller="redirect"; action= "redirect301"; newMapping='sitemapIndex'}
+        name sitemapIndex:  "/$lang/sitemap" (controller: "siteMap", action: "sitemapIndex")
 
-        name sitemap:       "/$lang/sitemap" (controller: "siteMap", action: "sitemap"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-                            "/sitemap"{ controller="redirect"; action= "redirect301"; newMapping='sitemap'}
+        name sitemapLandings:   "/$lang/sitemap/landings" (controller: "siteMap", action: "sitemapLandings")
+        name sitemapFooters:    "/$lang/sitemap/footers"   (controller: "siteMap", action: "sitemapFooters")
+        name sitemapSearchs:    "/$lang/sitemap/searchs"  (controller: "siteMap", action: "sitemapSearchs")
+        name sitemapUsers:      "/$lang/sitemap/users/$year/$month"    (controller: "siteMap", action: "sitemapUsers")
 
-        name sitemapCountry:"/$lang/sitemapCountry" (controller: "siteMap", action: "sitemapCountry"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-                            "/sitemapCountry"{ controller="redirect"; action= "redirect301"; newMapping='sitemapCountry'}
 
         "403" (controller: "error", action: "forbidden")
         "404" (controller: "error", action: "notFound")

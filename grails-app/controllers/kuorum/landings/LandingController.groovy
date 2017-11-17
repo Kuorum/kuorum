@@ -9,7 +9,6 @@ class LandingController {
     def index() { }
 
     def landingServices(){
-        cache "landings"
         if (springSecurityService.isLoggedIn()){
             flash.message = flash.message
             redirect (mapping:"dashboard")
@@ -17,6 +16,7 @@ class LandingController {
     }
 
     def landingTechnology(){
+        cache "landings"
         if (springSecurityService.isLoggedIn()){
             flash.message = flash.message
             redirect (mapping:"dashboard")
@@ -24,6 +24,7 @@ class LandingController {
     }
 
     def landingEnterprise(){
+        cache "landings"
         if (springSecurityService.isLoggedIn()){
             flash.message = flash.message
             redirect (mapping:"dashboard")
@@ -33,9 +34,11 @@ class LandingController {
     def landingCaseStudy(){}
 
     def caseStudy001(){
+        cache "landings"
         render(view: "/landing/caseStudies/caseStudy001", model:[caseStudyId:"001", suggestedCaseStudies:["002","003","004"]])
     }
     def caseStudy002(){
+        cache "landings"
         render(view: "/landing/caseStudies/caseStudy002", model:[caseStudyId:"002", suggestedCaseStudies:["001","003","004"]])
     }
     def caseStudy003(){
