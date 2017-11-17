@@ -72,10 +72,14 @@ class NavigationTagLib {
             def normalizedParams = [:]
             params.each {k, v ->
                 if (v){
+                    def normalizedValue = v
+                    if (v instanceof String){
+                        normalizedValue = Normalizer.normalize(v, Normalizer.Form.NFD)
+                                .replaceAll("\\p{InCombiningDiacriticalMarks}+", "")
+                    }
                     normalizedParams.put(
                             k,
-                            Normalizer.normalize(v, Normalizer.Form.NFD)
-                                    .replaceAll("\\p{InCombiningDiacriticalMarks}+", "")
+                            normalizedValue
                 )}
             }
             languageList.each { lang ->
