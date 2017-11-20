@@ -245,7 +245,7 @@ class NavigationTagLib {
         String ulClass= attrs.ulClasss
         Long currentPage = attrs.currentPage
         Long sizePage = attrs.sizePage
-        Long totalPages = Math.floor(totalElements / sizePage)
+        Long totalPages = Math.floor(Math.max(totalElements-1,0) / sizePage)
         String link = attrs.link?:""
 
         out <<"<div class='pagination'>"
