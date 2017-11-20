@@ -1,7 +1,7 @@
 <g:applyLayout name="main">
 
     <head>
-        <title><g:layoutTitle/></title>
+        <title>Kuorum.org | <g:layoutTitle/></title>
         <g:layoutHead/>
         <parameter name="bodyCss" value="landing-2"/>
     </head>

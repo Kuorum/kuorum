@@ -1,5 +1,6 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
+    <title><g:message code="landingCaseStudy.${caseStudyId}.content.title"/></title>
     <meta name="layout" content="individualCaseStudyLayout">
     <parameter name="extraHeadCss" value="landing"/>
     <g:render template="/landing/caseStudies/modules/caseStudyMetas" model="[caseStudyId:caseStudyId]"/>
