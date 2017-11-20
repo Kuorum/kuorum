@@ -25,11 +25,14 @@ class SiteMapController {
                             "",
                             "Ignacio Garcia Peredo",
                             "Helena Galan",
+                            "nomascorrupcion",
                     ],
                     userSearch:[
                             "",
                             "Ignacio Garcia Peredo",
-                            "Helena Galan"
+                            "Helena Galan",
+                            "nomascorrupcion",
+                            "no mas corrupcion",
                     ],
                     debateSearch:[
                             "",
