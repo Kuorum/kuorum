@@ -61,10 +61,9 @@ class RedirectController {
             return false
         }else{
             def link = g.createLink(mapping: 'searcherSearch', params: [word:params.hashtag])
-            link = link + "#results"
             response.setHeader "Location", link
             response.status = HttpStatus.SC_GONE
-            flash.message=g.message(code:'redirect.project.notFound')
+//            flash.message=g.message(code:'redirect.project.notFound')
             render("<script>window.location = '${link}' ;</script>")
             return false
         }

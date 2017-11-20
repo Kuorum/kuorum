@@ -56,7 +56,10 @@ class KuorumUserController {
                 response.setHeader("Location", userLink);
                 return false
             }else{
-                response.sendError(HttpServletResponse.SC_NOT_FOUND)
+                def homeLink = g.createLink(mapping: 'home')
+                response.setStatus(HttpServletResponse.SC_MOVED_PERMANENTLY)
+                response.setHeader("Location", homeLink);
+//                response.sendError(HttpServletResponse.SC_NOT_FOUND)
                 return false
             }
         }

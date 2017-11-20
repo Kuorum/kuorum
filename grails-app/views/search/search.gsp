@@ -6,7 +6,6 @@
     <parameter name="extraCssContainer" value="search" />
     %{--<parameter name="idLeftMenu" value="search-filters" />--}%
     %{--<parameter name="idMainContent" value="search-results" />--}%
-    <nav:canonical/>
 </head>
 
 
