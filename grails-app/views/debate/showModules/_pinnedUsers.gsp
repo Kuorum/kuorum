@@ -10,7 +10,7 @@
         <span class="call-subTitle"><g:message code="modules.debate.pinned.users.subtitle" args="[debateUser.name]"/></span>
     </div>
     <div class="comment-proposal clearfix">
-        <userUtil:showListUsers users="${pinnedUsers}" visibleUsers="11"/>
+        <userUtil:showListUsers users="${pinnedUsers}" visibleUsers="11" messagesPrefix="modules.debate.pinned.users.dropdown"/>
     </div>
 </div>
 
