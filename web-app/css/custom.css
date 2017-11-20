@@ -1875,6 +1875,7 @@ ul.user-list-followers .loading.xs {width: 10px; height: 10px;}
 .boxes.taking-part .user-list-followers {margin: 0 0 20px 0; padding: 0; display: inline-block; line-height: 1.2;}
 .boxes.taking-part .user-list-followers {margin: 0;}
 .user-list-followers {padding: 0px 10px 0 !important;}
+.panel.panel-default .panel-body .user-list-followers {margin-bottom:0px;}
 
 .user-list-images li {list-style: none; display: inline-block !important; margin: 0 7px; width: auto;}
 .user-list-images li:last-child {margin-right: 0;}
@@ -1884,6 +1885,9 @@ ul.user-list-followers .loading.xs {width: 10px; height: 10px;}
 .user-list-followers.hide4 > li + li + li +li +li {display: none;}
 .user-list-followers.hide3 > li + li + li +li {display: none;}
 .user-list-followers.hide2 > li + li + li {display: none;}
+.user-list-followers.hide4 > li + li + li +li {margin-bottom:0px;}
+.user-list-followers.hide3 > li + li + li {margin-bottom:0px;}
+.user-list-followers.hide2 > li + li {margin-bottom:0px;}
 
 .user-list-followers .popover{margin-top:3px;}
 
