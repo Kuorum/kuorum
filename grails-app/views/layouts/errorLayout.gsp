@@ -3,7 +3,7 @@
 <g:applyLayout name="main">
 
     <head>
-        <title><g:layoutTitle/></title>
+        <title><g:layoutTitle/> | Kuorum.org</title>
         <g:layoutHead/>
     </head>
 

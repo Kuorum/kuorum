@@ -110,9 +110,6 @@ class UrlMappings {
         name es_home:           "/es"       (controller: "landing", action:"landingServices"){lang="es"; mappingName="home"}
                                 "/$lang"    { controller="redirect"; action= "redirect301"; newMapping='en_home';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
 
-//        name landingSearch:     "/$lang/discover"   (controller: "search", action:"searchLanding") {constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-//                                "/discover"         { controller="redirect"; action= "redirect301"; newMapping='landingSearch'}
-
         name footerAboutKuorum:     "/what-is-kuorum"       {controller="redirect"; action= "redirect301"; newMapping='en_footerAboutKuorum'}
         name en_footerAboutKuorum:  "/en/what-is-kuorum"    (controller: "footer", action: "footerAboutUs"){lang="en"; mappingName="footerAboutKuorum"}
         name es_footerAboutKuorum:  "/es/que-es-kuorum"     (controller: "footer", action: "footerAboutUs"){lang="es"; mappingName="footerAboutKuorum"}
@@ -513,8 +510,6 @@ class UrlMappings {
 
         name ajaxDeleteRecommendedUser: "/ajax/kuorumUser/deleteRecommendedUser"(controller: 'recommendedUserInfo', action: 'deleteRecommendedUser')
 
-        name politicianRequestBetaTester:               "/account/request-beta-tester-account" (controller:"politician", action: "requestAPoliticianBetaTester")
-        name politicianAnalytics:                       "/account/data-analytics" (controller:"politician", action: "betaTesterPage")
         name politicianContactProfiling:                "/account/contact-profiling" (controller:"politician", action: "betaTesterPage")
         name politicianContacts:                        "/account/contacts" (controller:"contacts", action: "index")
         name politicianContactsSearch:                  "/ajax/account/contacts" (controller:"contacts", action: "searchContacts")

@@ -75,21 +75,6 @@ class SearchController{
         SolrResults docs = searchDocs(searchParams, params)
         [docs:docs, searchParams:searchParams]
     }
-    def searchLanding(SearchParams searchParams){
-        if (springSecurityService.isLoggedIn()){
-            redirect (mapping:"dashboard")
-            return;
-        }
-
-        searchParams.type = SolrType.KUORUM_USER
-        searchParams.max = 12;
-        SolrResults docs = searchDocs(searchParams, params)
-        if (docs.elements){
-            render view:"searchLanding", model:[docs:docs, searchParams:searchParams]
-        }else{
-            render view:"searchLandingNoResults", model:[searchParams:searchParams, command: new KuorumRegisterCommand()]
-        }
-    }
 
     private SolrResults searchDocs(SearchParams searchParams, def params){
         SolrResults docs
