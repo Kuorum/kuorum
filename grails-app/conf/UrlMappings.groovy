@@ -19,7 +19,7 @@ class UrlMappings {
         /** NEW LANDIGNS **/
         name landingServices:       "/$lang/leaders-in-engagement"  {controller="redirect"; action= "redirect301"; newMapping='en_landingServices'; constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
         name en_landingServices:    "/en/leaders-in-engagement"     (controller: "landing", action: "landingServices"){lang = "en"; mappingName="landingServices"}
-        name es_landingServices:    "/es/lideres-comprometidos"     (controller: "landing", action: "landingServices"){lang = "es"; mappingName="landingServices"}
+        name es_landingServices:    "/es/lideres-en-participacion"     (controller: "landing", action: "landingServices"){lang = "es"; mappingName="landingServices"}
                                     "/es/leaders-in-engagement"     {controller="redirect"; action= "redirect301"; newMapping='es_landingServices'}
                                     "/es/best-email-marketing"      {controller="redirect"; action= "redirect301"; newMapping='es_landingServices'}
                                     "/es/win-your-election"         {controller="redirect"; action= "redirect301"; newMapping='es_landingServices'}
@@ -29,39 +29,39 @@ class UrlMappings {
                                     "/$lang/services/leaders"       {controller="redirect"; action= "redirect301"; newMapping='en_landingServices'; constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
                                     "/services/editors"             {controller="redirect"; action= "redirect301"; newMapping='en_landingServices'}
 
-        name landingTechnology:     "/$lang/email-blasts-surveys-and-debates"   {controller="redirect"; action= "redirect301"; newMapping='en_landingTechnology';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-        name en_landingTechnology:  "/en/email-blasts-surveys-and-debates"      (controller: "landing", action: "landingTechnology"){lang="en"; mappingName="landingTechnology"}
-        name es_landingTechnology:  "/es/encuestas-debates-trackeadas"          (controller: "landing", action: "landingTechnology"){lang="es"; mappingName="landingTechnology"}
-                                    "/es/email-blasts-surveys-and-debates"      {controller="redirect"; action= "redirect301"; newMapping='es_landingTechnology'}
-                                    "/email-blasts-surveys-and-debates"         {controller="redirect"; action= "redirect301"; newMapping='en_landingTechnology'}
-                                    "/technology"                               {controller="redirect"; action= "redirect301"; newMapping='en_landingTechnology'}
+        name landingTechnology:     "/$lang/email-blasts-surveys-and-debates"       {controller="redirect"; action= "redirect301"; newMapping='en_landingTechnology';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+        name en_landingTechnology:  "/en/technology-for-debates-surveys-and-events" (controller: "landing", action: "landingTechnology"){lang="en"; mappingName="landingTechnology"}
+        name es_landingTechnology:  "/es/tecnologia-para-debates-encuestas-eventos" (controller: "landing", action: "landingTechnology"){lang="es"; mappingName="landingTechnology"}
+                                    "/es/email-blasts-surveys-and-debates"          {controller="redirect"; action= "redirect301"; newMapping='es_landingTechnology'}
+                                    "/email-blasts-surveys-and-debates"             {controller="redirect"; action= "redirect301"; newMapping='en_landingTechnology'}
+                                    "/technology"                                   {controller="redirect"; action= "redirect301"; newMapping='en_landingTechnology'}
 
-        name landingEnterprise:     "/$lang/employee-engagement"        {controller="redirect"; action= "redirect301"; newMapping='en_landingEnterprise';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-        name en_landingEnterprise:  "/en/employee-engagement"           (controller: "landing", action: "landingEnterprise"){lang="en"; mappingName="landingEnterprise"}
-        name es_landingEnterprise:  "/es/compromiso-empleado-empresa"   (controller: "landing", action: "landingEnterprise"){lang="es"; mappingName="landingEnterprise"}
-                                    "/es/employee-engagementment"       { controller="redirect"; action= "redirect301"; newMapping='es_landingEnterprise'}
-                                    "/employee-engagement"              { controller="redirect"; action= "redirect301"; newMapping='en_landingEnterprise'}
-                                    "/enterprises"                      { controller="redirect"; action= "redirect301"; newMapping='en_landingEnterprise'}
-                                    "/$lang/influential-brands"         { controller="redirect"; action= "redirect301"; newMapping='en_landingEnterprise';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-                                    "/es/influential-brands"            { controller="redirect"; action= "redirect301"; newMapping='es_landingEnterprise'}
-                                    "/$lang/corporate-innovation"       { controller="redirect"; action= "redirect301"; newMapping='en_landingEnterprise';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-                                    "/es/corporate-innovation"          { controller="redirect"; action= "redirect301"; newMapping='es_landingEnterprise'}
+        name landingEnterprise:     "/$lang/employee-engagement"                {controller="redirect"; action= "redirect301"; newMapping='en_landingEnterprise';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+        name en_landingEnterprise:  "/en/innovation-challenges-for-empoyees"    (controller: "landing", action: "landingEnterprise"){lang="en"; mappingName="landingEnterprise"}
+        name es_landingEnterprise:  "/es/retos-innovacion-para-empleados"       (controller: "landing", action: "landingEnterprise"){lang="es"; mappingName="landingEnterprise"}
+                                    "/es/employee-engagementment"               { controller="redirect"; action= "redirect301"; newMapping='es_landingEnterprise'}
+                                    "/employee-engagement"                      { controller="redirect"; action= "redirect301"; newMapping='en_landingEnterprise'}
+                                    "/enterprises"                              { controller="redirect"; action= "redirect301"; newMapping='en_landingEnterprise'}
+                                    "/$lang/influential-brands"                 { controller="redirect"; action= "redirect301"; newMapping='en_landingEnterprise';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+                                    "/es/influential-brands"                    { controller="redirect"; action= "redirect301"; newMapping='es_landingEnterprise'}
+                                    "/$lang/corporate-innovation"               { controller="redirect"; action= "redirect301"; newMapping='en_landingEnterprise';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+                                    "/es/corporate-innovation"                  { controller="redirect"; action= "redirect301"; newMapping='es_landingEnterprise'}
 
-        name landingGovernments:    "/$lang/transparency-and-participation" {controller="redirect"; action= "redirect301"; newMapping='en_landingGovernments';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-        name en_landingGovernments: "/en/transparency-and-participation"    (controller: "landing", action: "landingGovernments"){lang="en"; mappingName="landingGovernments"}
-        name es_landingGovernments: "/es/transparencia-y-participacion"     (controller: "landing", action: "landingGovernments"){lang="es"; mappingName="landingGovernments"}
-                                    "/es/transparency-and-participation"    {controller="redirect"; action= "redirect301"; newMapping='es_landingGovernments'}
-                                    "/transparency-and-participation"       {controller="redirect"; action= "redirect301"; newMapping='en_landingGovernments'}
-                                    "/governments"                          {controller="redirect"; action= "redirect301"; newMapping='en_landingGovernments'}
-                                    "/en/services/government"               {controller="redirect"; action= "redirect301"; newMapping='en_landingGovernments'}
-                                    "/advocate-better"                      {controller="redirect"; action= "redirect301"; newMapping='en_landingGovernments'}
-                                    "/$lang/services/who-should-i-vote-for" {controller="redirect"; action= "redirect301"; newMapping='en_landingGovernments';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-                                    "/es/services/who-should-i-vote-for"    {controller="redirect"; action= "redirect301"; newMapping='es_landingGovernments'}
-                                    "/services/politicians"                 {controller="redirect"; action= "redirect301"; newMapping='en_landingGovernments'}
+        name landingGovernments:    "/$lang/transparency-and-participation"         {controller="redirect"; action= "redirect301"; newMapping='en_landingGovernments';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+        name en_landingGovernments: "/en/tools-for-participation-and-transparency"  (controller: "landing", action: "landingGovernments"){lang="en"; mappingName="landingGovernments"}
+        name es_landingGovernments: "/es/herramientas-participacion-y-transparencia"(controller: "landing", action: "landingGovernments"){lang="es"; mappingName="landingGovernments"}
+                                    "/es/transparency-and-participation"            {controller="redirect"; action= "redirect301"; newMapping='es_landingGovernments'}
+                                    "/transparency-and-participation"               {controller="redirect"; action= "redirect301"; newMapping='en_landingGovernments'}
+                                    "/governments"                                  {controller="redirect"; action= "redirect301"; newMapping='en_landingGovernments'}
+                                    "/en/services/government"                       {controller="redirect"; action= "redirect301"; newMapping='en_landingGovernments'}
+                                    "/advocate-better"                              {controller="redirect"; action= "redirect301"; newMapping='en_landingGovernments'}
+                                    "/$lang/services/who-should-i-vote-for"         {controller="redirect"; action= "redirect301"; newMapping='en_landingGovernments';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+                                    "/es/services/who-should-i-vote-for"            {controller="redirect"; action= "redirect301"; newMapping='es_landingGovernments'}
+                                    "/services/politicians"                         {controller="redirect"; action= "redirect301"; newMapping='en_landingGovernments'}
 
         name landingOrganization:   "/$lang/fundraising-tools"      {controller="redirect"; action= "redirect301"; newMapping='en_landingOrganization';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
         name en_landingOrganization:"/en/fundraising-tools"         (controller: "landing", action: "landingOrganization"){lang="en"; mappingName="landingOrganization"}
-        name es_landingOrganization:"/es/recaudacion-fondos"        (controller: "landing", action: "landingOrganization"){lang="es"; mappingName="landingOrganization"}
+        name es_landingOrganization:"/es/fideliza-socios-y-donantes"(controller: "landing", action: "landingOrganization"){lang="es"; mappingName="landingOrganization"}
                                     "/es/fundraising-tools"         {controller="redirect"; action= "redirect301"; newMapping='es_landingOrganization'}
                                     "/fundraising-tools"            {controller="redirect"; action= "redirect301"; newMapping='en_landingOrganization'}
                                     "/organizations"                {controller="redirect"; action= "redirect301"; newMapping='en_landingOrganization'}
@@ -123,7 +123,7 @@ class UrlMappings {
 
         name footerContactUs:       "/contact"          {controller="redirect"; action= "redirect301"; newMapping='en_footerContactUs'}
         name en_footerContactUs:    "/en/contact"       (controller: "footer", action: "footerContactUs"){lang="en"; mappingName="footerContactUs"}
-        name es_footerContactUs:    "/es/contacto"      (controller: "footer", action: "footerContactUs"){lang="es"; mappingName="footerContactUs"}
+        name es_footerContactUs:    "/es/contacta"      (controller: "footer", action: "footerContactUs"){lang="es"; mappingName="footerContactUs"}
                                     "/es/contact"       {controller="redirect"; action= "redirect301"; newMapping='es_footerContactUs'}
                                     "/$lang/contact"    {controller="redirect"; action= "redirect301"; newMapping='en_footerContactUs';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
 
@@ -145,8 +145,8 @@ class UrlMappings {
                                     "/kuorum/guia-del-usuario"       {controller="redirect"; action= "redirect301"; newMapping='es_footerUserGuides'}
 
         name footerPress:           "/$lang/press-and-media"{controller="redirect"; action= "redirect301"; newMapping='en_footerPress';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-        name en_footerPress:        "/en/press-and-media"   (controller: "footer", action: "footerPress"){lang="en"; mappingName="footerPress"}
-        name es_footerPress:        "/es/prensa-y-medios"   (controller: "footer", action: "footerPress"){lang="es"; mappingName="footerPress"}
+        name en_footerPress:        "/en/press-services"    (controller: "footer", action: "footerPress"){lang="en"; mappingName="footerPress"}
+        name es_footerPress:        "/es/servicios-prensa"  (controller: "footer", action: "footerPress"){lang="es"; mappingName="footerPress"}
                                     "/es/press-and-media"   {controller="redirect"; action= "redirect301"; newMapping='es_footerPress'}
                                     "/press-and-media"      {controller="redirect"; action= "redirect301"; newMapping='en_footerPress'}
                                     "/press/widget"         {controller="redirect"; action= "redirect301"; newMapping='en_footerPress'}
@@ -157,7 +157,7 @@ class UrlMappings {
 
         name footerHistory:         "/$lang/our-story"      {controller="redirect"; action= "redirect301"; newMapping='en_footerHistory';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
         name en_footerHistory:      "/en/our-story"         (controller: "footer", action: "footerHistory"){lang="en"; mappingName="footerHistory"}
-        name es_footerHistory:      "/es/nuestra-historia"  (controller: "footer", action: "footerHistory"){lang="es"; mappingName="footerHistory"}
+        name es_footerHistory:      "/es/quiens-somos"  (controller: "footer", action: "footerHistory"){lang="es"; mappingName="footerHistory"}
                                     "/es/our-story"         {controller="redirect"; action= "redirect301"; newMapping='es_footerHistory'}
                                     "/en/about/our-story"   {controller="redirect"; action= "redirect301"; newMapping='en_footerHistory'}
                                     "/es/about/our-story"   {controller="redirect"; action= "redirect301"; newMapping='es_footerHistory'}
