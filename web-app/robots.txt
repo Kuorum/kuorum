@@ -3,6 +3,7 @@
 
 User-agent: *
 Allow: /
+Allow: /*
 Disallow: /login/auth
 Disallow: /ajax/*
 Disallow: /admin/*
