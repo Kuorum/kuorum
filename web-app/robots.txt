@@ -1,37 +1,15 @@
+
 # robots.txt for http://www.kuorum.org
 
 User-agent: *
+Allow: /
 Disallow: /login/auth
 Disallow: /ajax/*
 Disallow: /admin/*
 Disallow: /editor/*
-Disallow: /mi-perfil/*
-Disallow: /buscar/*
 Disallow: /sec/*
+Disallow: /dashboard/*
+Disallow: /account/*
+Disallow: /edit-profile/*
+Disallow: /config/*
 
-
-## DE LA ANTIGUA WEB
-Disallow: /entidad/*
-Disallow: /login/*
-Disallow: /logout/*
-Disallow: /entidades
-Disallow: /enterpriseUser/*
-Disallow: /congreso/*
-Disallow: /usuario/*
-Disallow: /activity/*
-Disallow: /debates/*
-Disallow: /iniciativas
-Disallow: /iniciativa/*
-Disallow: /votacion/*
-Disallow: /home/*
-Disallow: /sobreNosotros
-Disallow: /nuestraMision
-Disallow: /equipo
-Disallow: /internazionalizacion
-Disallow: /empresaSocial
-Disallow: /servicios
-Disallow: /empleo
-Disallow: /comoLoConseguimos
-Disallow: /politicaDePrivacidad
-Disallow: /condicionesDeUso
-Disallow: /normasDePublicidad
