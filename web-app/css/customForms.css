@@ -1,0 +1,9 @@
+.jqte_placeholder_text {color: #a8a8a8;}
+.jqte * {font-size: 1.5rem;}
+.jqte_editor, .jqte_source {height: 290px; min-height: 290px; max-height: 290px;resize: none;}
+.jqte_editor div, .jqte_editor p {margin: 1em 0 7px}
+.jqte_editor a {color: #428bca;}
+.jqte_editor a:hover {color: #428bca; text-decoration: underline;}
+.jqte_focused {box-shadow: 0 0 0 rgba(0,0,0,0); border-color: #20a2ea;}
+
+.jqte.error {border-color: #BF4343;}

@@ -192,10 +192,11 @@ modules = {
         resource url:'js/jquery.dynamiclist.min.js' //Dynamic input
         resource url:'js/jquery-plugin/jquery.are-you-sure.js'
         resource url:'js/jquery-plugin/duplicateFields.min.js'
-        resource url:'js/jquery-te-1.4.0.min.js' // JQUTE -> Move to form, but it doesn't work
+        resource url:'js/jquery-te-1.4.0.min.js'
         resource url:'css/jquery-te-1.4.0.css'
         resource url:'js/hideShowPassword.min.js'
         resource url:'js/customForm.js'
+        resource url:'css/customForms.css'
     }
 
     contacts{

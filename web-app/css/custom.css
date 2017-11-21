@@ -61,14 +61,7 @@ select {padding: 6px 6px 6px 8px !important;}*/
 body.noLogged > .container-fluid {margin-top: 35px;}
 
 .form-control:focus,
-.jqte_focused {box-shadow: 0 0 0 rgba(0,0,0,0); border-color: #20a2ea;}
 .form-group {margin-bottom: 20px;}
-.jqte_placeholder_text {color: #a8a8a8;}
-.jqte * {font-size: 1.5rem;}
-.jqte_editor, .jqte_source {height: 290px; min-height: 290px; max-height: 290px;resize: none;}
-.jqte_editor div, .jqte_editor p {margin: 1em 0 7px;}
-.jqte_editor a {color: #428bca;}
-.jqte_editor a:hover {color: #428bca; text-decoration: underline;}
 
 .add-on.input-group-addon label {margin-bottom: 0; color: #a8a8a8;}
 .add-on.input-group-addon label input {margin-right: 2px;}
@@ -2724,8 +2717,7 @@ span.error .tooltip-arrow {
     z-index: 10;
 }
 input.error,
-textarea.error,
-.jqte.error {border-color: #BF4343;}
+textarea.error {border-color: #BF4343;}
 
 .radio-inline span.error,
 .checkbox-inline span.error {position: absolute; bottom: -30px; left: 0;}
@@ -2747,47 +2739,6 @@ textarea.error,
     width: auto;
     height: auto;
 }
-
-
-/**************************** karma ************************************/
-/***********************************************************************/
-#karma {
-    width: 95%;
-    max-width: 375px;
-    color: #a8a8a8;
-    position: fixed;
-    right: 8px;
-    top: 165px;
-    z-index: 9999;
-    background-color: #fff;
-    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3);
-    border: solid 1px #a8a8a8;
-    padding: 10px;
-    display: none;
-    -webkit-transform:translate(0,-25%);-ms-transform:translate(0,-25%);transform:translate(0,-25%);
-}
-#karma.in {
-    -webkit-transform:translate(0,0);
-    -ms-transform:translate(0,0);
-    transform:translate(0,0);
-    -webkit-transition:-webkit-transform .3s ease-out;
-    -moz-transition:-moz-transform .3s ease-out;
-    -o-transition:-o-transform .3s ease-out;
-    transition:transform .3s ease-out;
-}
-#karma  h1 {
-    font-size: 36px;
-    font-size: 3.6rem;
-    text-transform: uppercase;
-    color: #545454;
-    text-align: center;
-}
-#karma h2 {font-size: 23px; font-size: 2.3rem; text-align: center; color: #545454;}
-.karma {margin: 0; padding: 0; text-align: center;}
-.karma li {list-style: none; text-align: center; display: inline-block; font-size: 20px; font-size: 2rem; color: #efefef; padding: 0 10px;}
-.karma li.active {color: #ff9431;}
-.karma li span {display: block;}
-#karma a {color: #ff9431;}
 
 /* páginas de entrar y registro, con layout de 1 columna */
 .sign h1 {      font-size: 25px; font-size: 2.2rem; margin-top: 0;text-align:center;}
@@ -5506,11 +5457,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .stats span {display: inline-block; margin: 0 8px 4px 0;}
     .popover-box {width: 47%; float: left; margin: 0 20px 20px 0;}
 
-    /* karma */
-    #karma {padding: 10px 20px 20px;}
-    #karma  h1 {font-size: 36px; font-size: 3.6rem;}
-    #karma h2 {font-size: 23px; font-size: 2.3rem;}
-    .karma li {font-size: 26px; font-size: 2.6rem; padding: 0 10px;}
     #search-results .clearfix h1 {font-size: 25px; font-size: 2.5rem; width: 80%; float: left;}
     #search-results #results {float: right; width: 20%; margin: 25px 0 0 0; text-align: right;}
     #search-results .popover-box .follow {position: absolute; right: 0; top: 0; padding: 12px 0 !important; font-size: 18px !important; font-size: 1.8rem !important; width: 130px; margin: 0 !important;}
@@ -6127,7 +6073,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .sign h1 {font-size: 42px; font-size: 4.2rem; margin-top: 30px;text-align: left;}
     .sign h2 {font-size: 30px; font-size: 3rem; margin-top: 30px;text-align: left;}
     .sign .login {margin-top: 60px; margin-bottom: 60px;}
-    #karma {right: 2.8%;}
+
     .boxes.performance a.improve {font-size: 24px; font-size: 2.4rem;}
     #info-sup-scroll .laley {font-size: 25px; font-size: 2.5rem;}
     .navbar-form {margin: 5px 4px 4px 22%;}
