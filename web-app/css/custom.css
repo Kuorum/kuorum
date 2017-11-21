@@ -486,6 +486,8 @@ header .navbar-form .input-group  input {
     padding:0 0 0 6px;
     /*width:calc(100% - 40px);*/
 }
+header #search-form .input-group .form-control:focus,
+header #search-form .input-group .form-control {margin:0;border:0;border-radius:0;box-shadow:none;}
 header #search-form .input-group-btn {}
 header #search-form .open-filter {
     float:left;
@@ -5698,7 +5700,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .config.search > article > .clearfix > h1 {width: 70%; float: left;}
     .config.search > article > .clearfix > #results {width: 30%; float: right; line-height: 30px; margin: 20px 0 0 0; text-align: right;}
 
-    .search-list .search-kuorum-user .box-ppal p {height: 116px; margin: 0 0 7px; overflow: hidden;}
+    .search-list .search-kuorum-user .box-ppal p {height: 70px; margin: 0 0 7px; overflow: hidden;}
     .search-list .search-kuorum-user .box-ppal p.party{font-size: 12px; height: auto; margin: 0;}
     .search-list .search-kuorum-user .box-ppal > small {float: none; position: absolute; bottom: 0; left: 0;}
     .search-list .search-kuorum-user .box-ppal > .pull-right {float: none; position: absolute; bottom: 0; right: 0;}

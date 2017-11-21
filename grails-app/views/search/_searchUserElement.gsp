@@ -24,7 +24,7 @@
             <p class="party"><userUtil:roleName user="${user}"/></p>
         </div>
         %{--<p><searchUtil:highlightedField solrElement="${solrUser}" field="text" numChars="165"/> </p>--}%
-        <p><kuorumDate:showShortedText text="${user.bio}" numChars="165"/> </p>
+        <p><kuorumDate:showShortedText text="${user.bio}" numChars="140"/> </p>
         <div class='card-footer'>
             <userUtil:ifIsFollower user="${user}">
                 <span class="fa fa-check-circle-o"></span>
