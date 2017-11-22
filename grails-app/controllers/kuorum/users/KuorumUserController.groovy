@@ -14,6 +14,7 @@ import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.kuorum.rest.model.communication.post.PostRSDTO
 import org.kuorum.rest.model.kuorumUser.news.UserNewRSDTO
 import org.kuorum.rest.model.kuorumUser.reputation.UserReputationRSDTO
+import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
 import org.kuorum.rest.model.tag.CauseRSDTO
 import payment.campaign.DebateService
 import payment.campaign.MassMailingService
@@ -95,8 +96,8 @@ class KuorumUserController {
         List<CauseRSDTO> causes = causesService.findDefendedCauses(user)
         UserReputationRSDTO userReputationRSDTO = userReputationService.getReputation(user)
         List<UserNewRSDTO> userNews = userNewsService.findUserNews(user)
-        List<DebateRSDTO> debates = debateService.findAllDebates(user).findAll{it.datePublished && it.datePublished < new Date()}
-        List<PostRSDTO> posts = postService.findAllPosts(user,viewerUid).findAll{it.datePublished && it.datePublished < new Date()}
+        List<DebateRSDTO> debates = debateService.findAllDebates(user).findAll{it.newsletter.status == CampaignStatusRSDTO.SENT}
+        List<PostRSDTO> posts = postService.findAllPosts(user,viewerUid).findAll{it.newsletter.status == CampaignStatusRSDTO.SENT}
         [
                 politician:user,
                 recommendPoliticians:recommendPoliticians,
