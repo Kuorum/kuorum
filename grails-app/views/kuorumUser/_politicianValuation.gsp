@@ -22,13 +22,17 @@
                     </label>
                 </g:each>
             </fieldset>
-            <div class="rating-over">
-                <div class="rate-number show${Math.round(userReputation.userReputation)}">
-                    <label><g:message code="politician.valuation.rate.myRate"/>: </label>
-                    <span class="counter">${userReputation.evaluation?:'-'}</span>
-                </div>
-            </div>
         </form>
+        <div class="rating-info">
+            <div class="rate-number show${Math.round(userReputation.userReputation)}">
+                <label><g:message code="politician.valuation.rate.myRate"/>: </label>
+                <span class="counter">${userReputation.evaluation?:'-'}</span>
+            </div>
+            <div class="rate-number">
+                <label><g:message code="politician.valuation.rate.numVotes"/>: </label>
+                <span class="counter">${userReputation.numberEvaluations?:'0c'}</span>
+            </div>
+        </div>
 
         <hr>
 

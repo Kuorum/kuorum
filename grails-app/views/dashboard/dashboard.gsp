@@ -42,6 +42,7 @@
 
                     </div>
                 </li>
+            %{--This LI is for make a pair of lis that don't disturb the css:nth(odd)--}%
                 <li class="info-empty hidden"></li>
                 <g:render template="/campaigns/cards/campaignsList" model="[campaigns:campaigns, showAuthor: showAuthor]" />
             </ul>
