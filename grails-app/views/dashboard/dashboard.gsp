@@ -42,6 +42,7 @@
 
                     </div>
                 </li>
+                <li class="info-empty hidden"></li>
                 <g:render template="/campaigns/cards/campaignsList" model="[campaigns:campaigns, showAuthor: showAuthor]" />
             </ul>
             <!-- ver más -->
