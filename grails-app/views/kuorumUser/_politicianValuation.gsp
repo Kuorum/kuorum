@@ -1,5 +1,5 @@
 <!-- politician valuation -->
-<div class="user-rating-container">
+<div class="user-rating-container" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
     <div class="popover-trigger user-rating" class="popover-trigger" data-trigger="manual" rel="popover" role="button" data-toggle="popover">
         <g:each in="${(1..5)}" var="i">
             <label for="star${i}" class="${Math.round(userReputation.userReputation)==i?'active':''}">
@@ -30,7 +30,7 @@
             </div>
             <div class="rate-number">
                 <label><g:message code="politician.valuation.rate.numVotes"/>: </label>
-                <span class="counter">${userReputation.numberEvaluations?:'0c'}</span>
+                <span class="counter" itemprop="reviewCount">${userReputation.numberEvaluations?:'0c'}</span>
             </div>
         </div>
 
@@ -41,7 +41,7 @@
             <!-- indicar la clase de la puntuación: show1, show2, show3, show4, show5 -->
             <div class="rate-number show${Math.round(userReputation.userReputation)}">
                 <label><g:message code="politician.valuation.rate.average"/>:</label>
-                <span class="counter user-reputation">
+                <span class="counter user-reputation" itemprop="ratingValue">
                     <g:formatNumber number="${userReputation.userReputation}" maxFractionDigits="2" minFractionDigits="2"/>
                 </span>
             </div>

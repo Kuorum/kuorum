@@ -85,8 +85,8 @@ grails.resources.adhoc.patterns = ['/fonts/*', '/images/*', '/css/*', '/js/*', '
 grails.resources.adhoc.includes = ['/fonts/**', '/images/**', '/css/**', '/js/**', '/plugins/**']
 grails.resources.resourceLocatorEnabled=true
 grails.resources.uriToUrlCacheTimeout = 30000
-grails.resources.mappers.baseurl.enabled=false
-grails.resources.mappers.baseurl.default = "http://local-static.kuorum.org/kuorum/static/"
+//grails.resources.mappers.baseurl.enabled=false
+//grails.resources.mappers.baseurl.default = "http://local-static.kuorum.org/kuorum/static/"
 
 grails.gorm.default.constraints = {
 //    '*'(nullable: true)
