@@ -272,6 +272,7 @@ class UrlMappings {
                         "/entrar"       {controller="redirect"; action= "redirect301"; newMapping='es_login'}
 
         name ajaxLoginCheck:"/ajax/checkLogin"  (controller:"login", action:"checkEmailAndPass")
+        name ajaxLoginModal:"/ajax/login/modal-auth"  (controller:"login", action:"modalAuth")
 
         name loginAuth:     "/$lang/sign-in"    {controller="redirect"; action= "redirect301"; newMapping='en_loginAuth';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
         name en_loginAuth:  "/en/sign-in"       (controller:"login", action:"auth"){lang="en"; mappingName="loginAuth"}

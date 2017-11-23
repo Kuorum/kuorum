@@ -82,7 +82,6 @@ function modalLogin($form, callback){
             url: url,
             data: data,
             success: function (dataLogin) {
-                console.log(dataLogin);
                 if (dataLogin.success) {
                     callback()
                 } else {

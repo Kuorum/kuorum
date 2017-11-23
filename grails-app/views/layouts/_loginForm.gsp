@@ -44,7 +44,7 @@
         });
     });
 </r:script>
-<form action='${g.createLink(controller: 'login', action: 'modalAuth')}' method="post" name="login-header" id="login-modal" role="form" class="login">
+<form action='${g.createLink(mapping: 'ajaxLoginModal')}' method="post" name="login-header" id="login-modal" role="form" class="login">
     <div class="form-group">
         <label for="j_username" class="sr-only"><g:message code="login.email.form.email.label"/></label>
         <input type="email" name="j_username" class="form-control input-lg" id="j_username" required placeholder="Email" aria-required="true">
