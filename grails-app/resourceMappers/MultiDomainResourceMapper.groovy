@@ -7,7 +7,8 @@ class MultiDomainResourceMapper {
     def phase = MapperPhase.DISTRIBUTION
 
     def map(resource, config) {
-        if (config.enabled){
+        Boolean enabled = config?.enabled?Boolean.parseBoolean(config.enabled):false;
+        if (enabled){
             Integer numberDomains = Integer.parseInt(config.numberDomains);
             Integer serverNumber = (numberResources % numberDomains)+1
             resource.linkOverride = "${config.protocol}${serverNumber}-${config.suffixDomain}${resource.linkUrl}".toString();
