@@ -756,6 +756,8 @@ var debateFunctions = {
             // USER NO LOGGED
             var buttonId = guid();
             $buttonPublish.attr("id", buttonId);
+            $form = $buttonPublish.parents("form")
+            $form.removeClass("dirty");
             noLoggedRememberPasswordCallbacks.publishProposal.saveState($buttonPublish);
             $('#registro').find("form").attr("callback", "publishProposalNoLogged");
             $('#registro').find("form").attr("data-buttonId", buttonId);
