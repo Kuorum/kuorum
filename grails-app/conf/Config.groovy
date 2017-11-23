@@ -87,6 +87,10 @@ grails.resources.resourceLocatorEnabled=true
 grails.resources.uriToUrlCacheTimeout = 30000
 //grails.resources.mappers.baseurl.enabled=false
 //grails.resources.mappers.baseurl.default = "http://local-static.kuorum.org/kuorum/static/"
+grails.resources.mappers.multidomain.enabled = false
+grails.resources.mappers.multidomain.protocol = "https://"
+grails.resources.mappers.multidomain.suffixDomain = "static-kuorum.org/kuorum/static"
+grails.resources.mappers.multidomain.numberDomains = 5
 
 grails.gorm.default.constraints = {
 //    '*'(nullable: true)
