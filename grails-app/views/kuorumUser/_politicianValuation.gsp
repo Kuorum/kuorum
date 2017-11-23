@@ -31,7 +31,7 @@
             %{--<span class="rating-info-separator"></span>--}%
             <div class="rate-number">
                 <label><g:message code="politician.valuation.rate.numVotes"/>: </label>
-                <span class="counter" itemprop="ratingCount">${userReputation.numberEvaluations?:'0c'}</span>
+                <span itemprop="ratingCount">${userReputation.numberEvaluations?:'0c'}</span>
             </div>
         </div>
 
