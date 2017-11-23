@@ -249,6 +249,11 @@ class UrlMappings {
                                     "/es/sign-in/recover-password"      {controller="redirect"; action= "redirect301"; newMapping='es_resetPassword'}
                                     "/sign-in/recover-password"         {controller="redirect"; action= "redirect301"; newMapping='en_resetPassword'}
                                     "/registro/password-olvidado"       {controller="redirect"; action= "redirect301"; newMapping='es_resetPassword'}
+                                    "/registro/password-olvidado"       {controller="redirect"; action= "redirect301"; newMapping='es_resetPassword'}
+
+        name registerVerifyAccount:         "/register/verifyRegistration"      {controller="redirect";  action= "redirect301"; newMapping='en_registerVerifyAccount';}
+        name en_registerVerifyAccount:      "/en/register/verify-registration"  (controller: "register", action:"verifyRegistration"){lang="en"; mappingName="registerVerifyAccount"}
+        name es_registerVerifyAccount:      "/es/registro/verificar-cuenta"     (controller: "register", action:"verifyRegistration"){lang="es"; mappingName="registerVerifyAccount"}
 
         name validateResetPasswordAjax:"/ajax/forgot-password" (controller:"register", action: "ajaxValidationForgotPassword")
 

@@ -204,7 +204,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         }
 
         log.info("Usuario $user.name recordando token  $registrationCode.token")
-        String url = generateLink('verifyRegistration', [t: registrationCode.token])
+        String url = generateLinkWithMapping('registerVerifyAccount', [t: registrationCode.token])
 
         kuorumMailService.sendRegisterUser(user,url)
         flash.chainedParams = [link:url]
@@ -216,7 +216,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
 
     def sendConfirmationEmail(){
         KuorumUser user = KuorumUser.findById(springSecurityService.principal.id)
-        String url=createLink(absolute: true, controller: 'register', action: 'verifyRegistration', params: [t: params.t])
+        String url=createLink(absolute: true, mapping:'registerVerifyAccount', params: [t: params.t])
         kuorumMailService.sendRegisterUser(user,url)
         redirect mapping:'home'
     }
