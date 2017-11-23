@@ -226,12 +226,6 @@ class SiteMapController {
 //                        "xhtml:link rel=\"alternate\" hreflang=\"en\" href=\"${g.createLink( mapping: mapping, absolute: true, params: [lang:'en'])}\""()
                     }
                 }
-
-                sitemapindex(xmlns: "http://www.sitemaps.org/schemas/sitemap/0.9") {
-                    sitemap {
-                        loc(g.createLink(mapping: 'sitemapUsers', params:[lang:'es'], absolute: true))
-                    }
-                }
             }
         }
     }
