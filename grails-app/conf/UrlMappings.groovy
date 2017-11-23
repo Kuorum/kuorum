@@ -609,6 +609,7 @@ class UrlMappings {
         name sitemapLandings:   "/$lang/sitemap/landings" (controller: "siteMap", action: "sitemapLandings")
         name sitemapFooters:    "/$lang/sitemap/footers"   (controller: "siteMap", action: "sitemapFooters")
         name sitemapSearchs:    "/$lang/sitemap/searchs"  (controller: "siteMap", action: "sitemapSearchs")
+        name sitemapUsersIdx:   "/$lang/sitemap/users"    (controller: "siteMap", action: "sitemapUsersIndex")
         name sitemapUsers:      "/$lang/sitemap/users/$year/$month"    (controller: "siteMap", action: "sitemapUsers")
 
 

@@ -84,19 +84,9 @@ class SiteMapController {
                 sitemap {
                     loc(g.createLink(mapping: 'sitemapSearchs', params:[lang: lang], absolute: true))
                 }
-                Calendar startDate = Calendar.getInstance();
-                startDate.set(Calendar.YEAR, 2013) // First Kuorum User
-                startDate.set(Calendar.MONTH, 1)
-                startDate.set(Calendar.DAY_OF_MONTH, 1)
-                Calendar endDate = Calendar.getInstance();
-                endDate.add(Calendar.MONTH, 0)
-                while (startDate.before(endDate)){
-                    sitemap {
-                        loc(g.createLink(mapping: 'sitemapUsers', params:[lang: lang, year:startDate.get(Calendar.YEAR), month:startDate.get(Calendar.MONTH)+1], absolute: true))
-                    }
-                    startDate.add(Calendar.MONTH, 1)
+                sitemap {
+                    loc(g.createLink(mapping: 'sitemapUsersIdx', params:[lang: lang], absolute: true))
                 }
-
             }
         }
     }
@@ -230,17 +220,48 @@ class SiteMapController {
         }
     }
 
+    def sitemapUsersIndex() {
+        String lang = params.lang
+        AvailableLanguage language = AvailableLanguage.fromLocaleParam(lang)
+        Calendar startDate = Calendar.getInstance();
+        startDate.clear()
+        startDate.set(Calendar.YEAR, 2013) // First Kuorum User
+        startDate.set(Calendar.MONTH, 1)
+        startDate.set(Calendar.DAY_OF_MONTH, 1)
+        Calendar endDate = Calendar.getInstance();
+        endDate.add(Calendar.MONTH, 0)
+        render(contentType: 'text/xml', encoding: 'UTF-8', ) {
+            mkp.yieldUnescaped '<?xml version="1.0" encoding="UTF-8"?>'
+            sitemapindex(xmlns: "http://www.sitemaps.org/schemas/sitemap/0.9") {
+                while (startDate.before(endDate)) {
+                    def ranges = getDateRanges(startDate.get(Calendar.YEAR), startDate.get(Calendar.MONTH))
+                    def numUsers = KuorumUser.collection.count(
+                            [
+                                    'alias':['$ne':null],
+                                    'alias':['$ne':''],
+                                    'alias':['$exists':true],
+                                    'language':"${language}",
+                                    'dateCreated':[
+                                            '$gte':ranges.startRange,
+                                            '$lt':ranges.endRange
+                                    ]
+                            ])
+                    if (numUsers >0 ){
+                        sitemap {
+                            loc(g.createLink(mapping: 'sitemapUsers', params: [lang: lang, year: startDate.get(Calendar.YEAR), month: startDate.get(Calendar.MONTH) + 1], absolute: true))
+                        }
+                    }
+                    startDate.add(Calendar.MONTH, 1)
+                }
+            }
+        }
+    }
     def sitemapUsers() {
     //TODO: Pensar si salvar a un fichero o a MONGO en vez de generarlo al vuelo
         AvailableLanguage language = AvailableLanguage.fromLocaleParam(params.lang)
         Integer year= Integer.parseInt(params.year)
         Integer month=Integer.parseInt(params.month)-1
-        Calendar startRange = Calendar.getInstance();
-        startRange.set(Calendar.YEAR, year)
-        startRange.set(Calendar.MONTH, month)
-        Calendar endRange = Calendar.getInstance()
-        endRange.setTimeInMillis(startRange.getTimeInMillis());
-        endRange.add(Calendar.MONTH, 1)
+        def ranges = getDateRanges(year, month)
         render(contentType: 'text/xml', encoding: 'UTF-8') {
             mkp.yieldUnescaped '<?xml version="1.0" encoding="UTF-8"?>'
             urlset(xmlns: "http://www.sitemaps.org/schemas/sitemap/0.9",
@@ -254,8 +275,8 @@ class SiteMapController {
                                 'alias':['$exists':true],
                                 'language':"${language}",
                                 'dateCreated':[
-                                        '$gte':startRange.getTime(),
-                                        '$lt':endRange.getTime()
+                                        '$gte':ranges.startRange,
+                                        '$lt':ranges.endRange
                                 ]
                         ],
                         [_id:1, alias: 1, lastUpdated:1])
@@ -302,5 +323,18 @@ class SiteMapController {
                 }
             }
         }
+    }
+
+    private getDateRanges(Integer year, Integer month){
+        Calendar startRange = Calendar.getInstance();
+        startRange.set(Calendar.YEAR, year)
+        startRange.set(Calendar.MONTH, month)
+        Calendar endRange = Calendar.getInstance()
+        endRange.setTimeInMillis(startRange.getTimeInMillis());
+        endRange.add(Calendar.MONTH, 1)
+        return [
+                startRange: startRange.time,
+                endRange: endRange.time
+        ]
     }
 }
