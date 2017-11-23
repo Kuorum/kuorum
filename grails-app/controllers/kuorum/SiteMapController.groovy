@@ -84,9 +84,9 @@ class SiteMapController {
                 sitemap {
                     loc(g.createLink(mapping: 'sitemapSearchs', params:[lang: lang], absolute: true))
                 }
-                sitemap {
-                    loc(g.createLink(mapping: 'sitemapUsersIdx', params:[lang: lang], absolute: true))
-                }
+//                sitemap {
+//                    loc(g.createLink(mapping: 'sitemapUsersIdx', params:[lang: lang], absolute: true))
+//                }
             }
         }
     }
