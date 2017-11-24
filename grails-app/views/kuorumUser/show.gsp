@@ -2,8 +2,7 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <title><g:message code="page.politicianProfile.title" args="[politician.fullName]"/></title>
-    <g:set var="schema" value="http://schema.org/Person" scope="request"/>
-    <parameter name="schema" value="http://schema.org/Person" />
+    <g:set var="schemaData" value="${[schema:'http://schema.org/Person', name:politician.fullName]}" scope="request"/>
     <meta name="layout" content="columnCLayout">
     <parameter name="specialContainerCssClass" value="userprofile" />
     <parameter name="specialMainContentCssClass" value="politician-card" />

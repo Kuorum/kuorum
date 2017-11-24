@@ -53,20 +53,20 @@
     <g:render template="/layouts/internationalization/otherLangsRef"/>
 </head>
 
-<g:if test="${!schema}">
-    <g:set var="schema" value="http://schema.org/WebSite"/>
+<g:if test="${!schemaData?.schema}">
+    <g:set var="schemaData" value="${[schema:'http://schema.org/WebSite', name:g.layoutTitle(default:g.message(code:'layout.head.title.default'))]}" scope="request"/>
 </g:if>
 
 <g:set var="dynamicBodyCss" value=""/>
 <sec:ifNotLoggedIn>
     <g:set var="dynamicBodyCss" value="noLogged"/>
 </sec:ifNotLoggedIn>
-<body itemscope itemtype="${schema}" class="${pageProperty(name:"page.bodyCss")} ${dynamicBodyCss}">
+<body itemscope itemtype="${schemaData.schema}" class="${pageProperty(name:"page.bodyCss")} ${dynamicBodyCss}">
 
 
 
 
-    <span class="hidden" itemprop="name"><g:layoutTitle default="${g.message(code:"layout.head.title.default")}"/></span>
+    <span class="hidden" itemprop="name">${schemaData.name}</span>
     <g:render template="/layouts/googleTagManager"/>
 
 <div class ="container-fluid">

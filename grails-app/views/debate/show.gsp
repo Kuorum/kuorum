@@ -2,6 +2,7 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <title><g:message code="debate.show.title" args="[debate.title]"/></title>
+    <g:set var="schemaData" value="${[schema:'http://schema.org/Article', name:debate.title]}" scope="request"/>
     <meta name="layout" content="columnCLayout">
     <g:render template="debateMetaTags" model="[debate: debate]"/>
     <r:require modules="debate"/>

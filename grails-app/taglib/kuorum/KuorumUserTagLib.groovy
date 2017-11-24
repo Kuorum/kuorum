@@ -81,6 +81,7 @@ class KuorumUserTagLib {
         Boolean showName = attrs.showName?Boolean.parseBoolean(attrs.showName):true
         Boolean showActions = attrs.showActions?Boolean.parseBoolean(attrs.showActions):false
         Boolean showDeleteRecommendation = attrs.showDeleteRecommendation?Boolean.parseBoolean(attrs.showDeleteRecommendation):false
+        String itemprop=params.itemprop?"itemprop='${params.itemprop}'":''
 
         String htmlWrapper = attrs.htmlWrapper?:"div"
         String extraCss = attrs.extraCss?:''
@@ -89,7 +90,7 @@ class KuorumUserTagLib {
         }
 
 //        def link = g.createLink(mapping:'userShow', params:user.encodeAsLinkProperties())
-        out << "<${htmlWrapper} class='user ${extraCss} ${showDeleteRecommendation?'recommendation-deletable':''}' itemtype=\"http://schema.org/Person\" itemscope data-userId='${user.id}' data-userAlias='${user.alias}'>"
+        out << "<${htmlWrapper} class='user ${extraCss} ${showDeleteRecommendation?'recommendation-deletable':''}' ${itemprop} itemtype=\"http://schema.org/Person\" itemscope data-userId='${user.id}' data-userAlias='${user.alias}'>"
         def imgSrc = image.userImgSrc(user:user)
         def userName = ""
         if (showName){

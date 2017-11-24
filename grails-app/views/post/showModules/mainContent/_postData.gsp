@@ -2,10 +2,10 @@
 <div class="leader-post">
     <g:render template="showModules/mainContent/postDataMultimedia" model="[post:post]"/>
     <div class="header">
-        <h1 class="title">${post.title}</h1>
-        <userUtil:showUser user="${postUser}" showRole="true"/>
+        <h1 class="title" itemprop="name">${post.title}</h1>
+        <userUtil:showUser user="${postUser}" showRole="true" itemprop="author"/>
         <div class="clearfix">
-            <span class="time-ago pull-left"><kuorumDate:humanDate date="${post.datePublished}"/> </span>
+            <span class="time-ago pull-left"><kuorumDate:humanDate date="${post.datePublished}" itemprop="dateCreated"/> </span>
             <userUtil:ifUserIsTheLoggedOne user="${postUser}">
             %{--campaignList contains the js to open modal when the debate is scheduled --}%
                 <r:require modules="campaignList"/>
@@ -17,7 +17,7 @@
         </div>
     </div>
 
-    <div class="body">
+    <div class="body" itemprop="articleBody">
         ${raw(post.body)}
     </div>
 

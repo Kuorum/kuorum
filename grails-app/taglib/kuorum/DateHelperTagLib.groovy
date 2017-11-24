@@ -14,13 +14,14 @@ class DateHelperTagLib {
         if (!date) {
             out << "---"
         } else {
+            String itemprop = params.itemprop?"itemprop='${params.itemprop}'":''
             String cssClass = attrs.cssClass?:""
             TimeZone tz = TimeZone.getTimeZone("UTC")
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'")
             df.setTimeZone(tz)
             String dateAsISO = df.format(date)
 
-            out << "<time class='timeago ${cssClass}' datetime='${dateAsISO}'>${dateAsISO}</time>"
+            out << "<time class='timeago ${cssClass}' ${itemprop} datetime='${dateAsISO}'>${dateAsISO}</time>"
         }
     }
 

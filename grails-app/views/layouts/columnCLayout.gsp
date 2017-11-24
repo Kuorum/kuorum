@@ -1,6 +1,6 @@
 <g:applyLayout name="main">
     <head>
-        <title><g:layoutTitle/> | Kuorum.org</title>
+        <title><g:layoutTitle/></title>
         <g:layoutHead/>
         <g:pageProperty name="page.metaData"/>
     </head>

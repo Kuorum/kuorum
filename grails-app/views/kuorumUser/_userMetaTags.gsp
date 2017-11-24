@@ -6,7 +6,7 @@
 %{--<link rel="publisher" href=”https://plus.google.com/[Google+_Page_Profile]"/>--}%
 
 <!-- Schema.org markup for Google+ -->
-<meta itemprop="name" content="${g.message(code:'page.politicianProfile.title', args:[user.name])}">
+<meta itemprop="name" content="${g.message(code:'page.politicianProfile.title', args:[user.fullName])}">
 <meta itemprop="description" content="${g.message(code:'page.politicianProfile.description', args:[user.name])}">
 %{--<meta itemprop="image" content="${post.multimedia?.url}">--}%
 <meta itemprop="image" content="${image.userImgSrc(user:user)}" />

@@ -2,6 +2,7 @@
 <head>
     <title><g:message code="post.show.title" args="[post.title]"/></title>
     <meta name="layout" content="columnCLayout">
+    <g:set var="schemaData" value="${[schema:'http://schema.org/Article', name:post.title]}" scope="request"/>
     <g:render template="postMetaTags" model="[post: post]"/>
     <r:require modules="post"/>
 

@@ -3,12 +3,12 @@
     <g:render template="showModules/mainContent/debateDataMultimedia" model="[debate:debate, poweredByKuorum:poweredByKuorum]"/>
 
     <div class="header">
-        <h1 class="title">${debate.title}</h1>
+        <h1 class="title" itemprop="name">${debate.title}</h1>
 
-        <userUtil:showUser user="${debateUser}" showRole="true"/>
+        <userUtil:showUser user="${debateUser}" showRole="true" itemprop="author"/>
 
         <div class="clearfix">
-            <span class="time-ago pull-left"><kuorumDate:humanDate date="${debate.datePublished}"/> </span>
+            <span class="time-ago pull-left"><kuorumDate:humanDate date="${debate.datePublished}" itemprop="dateCreated"/> </span>
 
             <g:if test="${eventData && !eventRegistration}">
                 <div class="actions call-to-action-mobile call-mobile-event-confirm event-unconfirmed"
@@ -53,7 +53,7 @@
         </div>
     </div>
 
-    <div class="body">
+    <div class="body" itemprop="articleBody">
         ${raw(debate.body)}
     </div>
 
