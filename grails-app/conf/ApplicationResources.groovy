@@ -256,13 +256,13 @@ modules = {
         resource url:'js/tour_dash_user.js'
     }
 
-    projectStats{
-        dependsOn 'basic'
-        resource url:'js/chart.min.js'
-        resource url:'js/jquery-jvectormap-1.2.2.min.js'
-        resource url:'js/jquery-jvectormap-es.js'
-        resource url:'js/excanvas.min.js'
-        resource url:'js/modernizr.js'
-        resource url:'js/map.js'
-    }
+//    projectStats{
+//        dependsOn 'basic'
+//        resource url:'js/chart.min.js'
+//        resource url:'js/jquery-jvectormap-1.2.2.min.js'
+//        resource url:'js/jquery-jvectormap-es.js'
+//        resource url:'js/excanvas.min.js'
+//        resource url:'js/modernizr.js'
+//        resource url:'js/map.js'
+//    }
 }
