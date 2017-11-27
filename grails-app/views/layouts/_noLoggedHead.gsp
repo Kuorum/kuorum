@@ -25,7 +25,7 @@
     </li>
 
 
-    <li class="dropdown" itemscope itemtype="http://schema.org/Person">
+    <li class="dropdown">
         <g:link mapping="landingOrganization" class="dropdown-toggle dropdown-menu-right navbar-link" data-toggle="dropdown" role="button">
             <span><g:message code="head.noLogged.sectors"/> <i class="fa fa-angle-down" aria-hidden="true"></i></span>
         </g:link>
