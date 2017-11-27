@@ -60,7 +60,6 @@ select {padding: 6px 6px 6px 8px !important;}*/
 
 body.noLogged > .container-fluid {margin-top: 35px;}
 
-.form-control:focus,
 .form-group {margin-bottom: 20px;}
 
 .add-on.input-group-addon label {margin-bottom: 0; color: #a8a8a8;}
