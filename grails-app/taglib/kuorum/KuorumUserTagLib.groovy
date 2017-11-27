@@ -81,7 +81,7 @@ class KuorumUserTagLib {
         Boolean showName = attrs.showName?Boolean.parseBoolean(attrs.showName):true
         Boolean showActions = attrs.showActions?Boolean.parseBoolean(attrs.showActions):false
         Boolean showDeleteRecommendation = attrs.showDeleteRecommendation?Boolean.parseBoolean(attrs.showDeleteRecommendation):false
-        String itemprop=params.itemprop?"itemprop='${params.itemprop}'":''
+        String itemprop=attrs.itemprop?"itemprop='${attrs.itemprop}'":''
 
         String htmlWrapper = attrs.htmlWrapper?:"div"
         String extraCss = attrs.extraCss?:''

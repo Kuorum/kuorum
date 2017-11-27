@@ -14,7 +14,7 @@ class DateHelperTagLib {
         if (!date) {
             out << "---"
         } else {
-            String itemprop = params.itemprop?"itemprop='${params.itemprop}'":''
+            String itemprop = attrs.itemprop?"itemprop='${attrs.itemprop}'":''
             String cssClass = attrs.cssClass?:""
             TimeZone tz = TimeZone.getTimeZone("UTC")
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'")
