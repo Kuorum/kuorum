@@ -337,7 +337,7 @@ kuorum {
 grails.databinding.dateFormats = ["dd/MM/yyyy"]
 
 // TODO: Do correct cache [WARN WITH VIEWER - UUID]
-grails.cache.enabled = false
+grails.cache.enabled = true
 grails.cache.config = {
 //    cacheManager 'GrailsConcurrentLinkedMapCacheManager'
     cache {

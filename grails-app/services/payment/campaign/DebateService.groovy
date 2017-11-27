@@ -47,7 +47,7 @@ class DebateService {
         debatesFound
     }
 
-    @Cacheable(value="debate", key='#debateId')
+//    @Cacheable(value="debate", key='#debateId')
     DebateRSDTO findDebate(KuorumUser user, Long debateId, String viewerUid = null) {
         findDebate(user.getId().toString(), debateId, viewerUid);
     }

@@ -43,6 +43,9 @@ class UserReputationService {
     }
 
     @Cacheable(value='reputation', key = '#politician.id')
+    UserReputationRSDTO getReputationWithCache(KuorumUser politician) {
+        return getReputation(politician)
+    }
     UserReputationRSDTO getReputation(KuorumUser politician) {
         String evaluatorId = cookieUUIDService.getUserUUID();
         Map<String, String> params = [userId:politician.id.toString()]
