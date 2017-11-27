@@ -78,7 +78,7 @@ class DebateService {
         }
     }
 
-    @CacheEvict(value="debate", key='#debateId')
+//    @CacheEvict(value="debate", key='#debateId')
     DebateRSDTO saveDebate(KuorumUser user, DebateRDTO debateRDTO, Long debateId) {
         debateRDTO.body = debateRDTO.body.encodeAsRemovingScriptTags().encodeAsTargetBlank()
 
