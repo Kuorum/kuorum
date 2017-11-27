@@ -47,7 +47,7 @@ class UserReputationService {
         return getReputation(politician)
     }
     UserReputationRSDTO getReputation(KuorumUser politician) {
-        String evaluatorId = cookieUUIDService.getUserUUID();
+        String evaluatorId = cookieUUIDService.buildUserUUID();
         Map<String, String> params = [userId:politician.id.toString()]
         Map<String, String> query = [evaluatorId:evaluatorId]
         def response = restKuorumApiService.get(
