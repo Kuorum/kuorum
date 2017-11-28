@@ -132,6 +132,7 @@ class PostController {
             command.campaignName = postRSDTO.name
             command.tags = postRSDTO.triggeredTags
             command.filterId = postRSDTO.newsletter?.filter?.id
+            command.causes = postRSDTO.causes
             if(postRSDTO.newsletter.filter && !filters.find{it.id==postRSDTO.newsletter.filter.id}){
                 ExtendedFilterRSDTO anonymousFilter = contactService.getFilter(user, postRSDTO.newsletter.filter.id)
                 filters.add(anonymousFilter)
@@ -244,6 +245,7 @@ class PostController {
         PostRDTO postRDTO = createPostRDTO(user, postId)
         postRDTO.name = command.campaignName
         postRDTO.triggeredTags = command.tags
+        postRDTO.causes = command.causes
 
         if (command.filterEdited) {
             postRDTO.setAnonymousFilter(anonymousFilter)
@@ -267,6 +269,7 @@ class PostController {
             postRDTO.triggeredTags = postRSDTO.triggeredTags
             postRDTO.anonymousFilter = postRSDTO.anonymousFilter
             postRDTO.filterId = postRSDTO.newsletter?.filter?.id
+            postRDTO.causes = postRSDTO.causes
         }
         return postRDTO;
     }

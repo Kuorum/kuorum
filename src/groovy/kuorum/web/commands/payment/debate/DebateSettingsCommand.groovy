@@ -21,6 +21,10 @@ class DebateSettingsCommand {
     @BindUsing({ obj, source ->return MassMailingCommand.bindTags(source)})
     Map<TrackingMailStatusRSDTO, List<String>> tags =[:]
 
+    @BindUsing({obj,  org.grails.databinding.DataBindingSource source ->
+        String normalizedCauses = source['causes'].replaceAll(';', ',')
+        normalizedCauses.split(',').findAll({it}).collect{it.decodeHashtag().trim()}.unique { a, b -> a <=> b }
+    })
     Set<String> causes;
 
     static constraints = {

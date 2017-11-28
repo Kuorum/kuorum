@@ -19,10 +19,10 @@
         <li><g:link mapping="politicianCampaignsNew"><g:message code="tools.campaign.new.title"/></g:link></li>
         <li class="active">${breadCrumbName}</li>
     </ol>
-    <g:render template="/post/form" model="[command: command, filters: filters, totalContacts: totalContacts, post: post,
-                                            anonymousFilter: anonymousFilter,
-                                            mappings:[step:'settings', settings:'postEdit', content:'postEditContent',
-                                                      showResult: 'postShow', next: 'postEditContent']]"/>
-
+    <g:render template="/campaigns/edit/settingsStep" model="[command: command, filters: filters, totalContacts: totalContacts,
+                                                              post: post, anonymousFilter: anonymousFilter,
+                                                              mappings:[step:'settings', settings:'postEditSettings',
+                                                                        content:'postEditContent', showResult: 'postShow',
+                                                                        next: 'postEditContent']]"/>
     <g:render template="/newsletter/timeZoneSelectorPopUp"/>
 </content>

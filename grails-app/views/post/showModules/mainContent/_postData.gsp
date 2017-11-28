@@ -23,6 +23,7 @@
 
 
     <div class="footer clearfix">
+        <g:render template="/debate/showModules/mainContent/debateDataLabels" model="[causes:post.causes]"/>
         <g:render template="/post/showModules/mainContent/postDataSocial" model="[post:post, postUser:postUser]"/>
 
         <sec:ifLoggedIn><g:set var="isLogged" value="${true}"/></sec:ifLoggedIn>

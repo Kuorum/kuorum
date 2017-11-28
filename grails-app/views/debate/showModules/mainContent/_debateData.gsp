@@ -58,7 +58,7 @@
     </div>
 
     <div class="footer clearfix">
-        <g:render template="/debate/showModules/mainContent/debateDataLabels" model="[debate:debate]"/>
+        <g:render template="/debate/showModules/mainContent/debateDataLabels" model="[causes:debate.causes]"/>
         <g:render template="/debate/showModules/mainContent/debateDataSocial" model="[debate:debate, debateUser:debateUser]"/>
 
         <g:if test="${debate.campaignStatusRSDTO == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT}">

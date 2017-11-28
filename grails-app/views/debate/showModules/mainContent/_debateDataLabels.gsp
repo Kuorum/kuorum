@@ -1,6 +1,6 @@
-<g:if test="${debate.causes}">
+<g:if test="${causes}">
     <ul class="labels">
-        <g:each in="${debate.causes}" var="cause">
+        <g:each in="${causes}" var="cause">
             <li>
                 <span class="label-leader-post" itemprop="about">${cause}</span>
             </li>
