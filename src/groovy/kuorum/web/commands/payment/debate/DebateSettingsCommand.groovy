@@ -21,10 +21,13 @@ class DebateSettingsCommand {
     @BindUsing({ obj, source ->return MassMailingCommand.bindTags(source)})
     Map<TrackingMailStatusRSDTO, List<String>> tags =[:]
 
+    Set<String> causes;
+
     static constraints = {
         filterId nullable: true
         filterEdited nullable: true
         campaignName nullable: false
         tags nullable: true
+        causes nullable: true
     }
 }

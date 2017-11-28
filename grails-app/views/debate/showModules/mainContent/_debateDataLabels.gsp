@@ -1,11 +1,9 @@
-<ul class="labels">
-    <li>
-        <span class="label-leader-post" itemprop="about">Brexit</span>
-    </li>
-    <li>
-        <span class="label-leader-post" itemprop="about">Nothern Powerhouse</span>
-    </li>
-    <li>
-        <span class="label-leader-post" itemprop="about">NHS</span>
-    </li>
-</ul>
+<g:if test="${debate.causes}">
+    <ul class="labels">
+        <g:each in="${debate.causes}" var="cause">
+            <li>
+                <span class="label-leader-post" itemprop="about">${cause}</span>
+            </li>
+        </g:each>
+    </ul>
+</g:if>

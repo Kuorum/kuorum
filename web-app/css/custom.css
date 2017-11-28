@@ -1249,6 +1249,10 @@ div.tagsinput {border:1px solid #DDDDDD;}
 .header-campaign .qq-upload-drop-area {border-color: #dedede;}
 .header-campaign .qq-upload-button {line-height: 1; padding: 0;}
 
+#advanced-features-section {margin-bottom:0;}
+#advanced-features-section a{color:#545454;}
+#advanced-features{display:none;}
+
 .tags-campaign .bootstrap-tagsinput {width: 100%;border:1px solid #DDDDDD; box-shadow: none;}
 .tags-campaign .bootstrap-tagsinput.focus {border:1px solid #20a2ea;}
 .tags-campaign .tag-events { padding-left:2em;margin-top:0.6em;}

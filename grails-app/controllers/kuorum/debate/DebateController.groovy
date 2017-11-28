@@ -170,6 +170,7 @@ class DebateController {
             command.campaignName = debateRSDTO.name
             command.tags = debateRSDTO.triggeredTags
             command.filterId = debateRSDTO.newsletter?.filter?.id
+            command.causes = debateRSDTO.causes
             if(debateRSDTO.newsletter.filter && !filters.find{it.id == debateRSDTO.newsletter.filter.id}){
                 ExtendedFilterRSDTO anonymousFilter = contactService.getFilter(user, debateRSDTO.newsletter.filter.id)
                 filters.add(anonymousFilter)
@@ -279,6 +280,7 @@ class DebateController {
         DebateRDTO debateRDTO = createDebateRDTO(user, debateId)
         debateRDTO.name = command.campaignName
         debateRDTO.setTriggeredTags(command.tags)
+        debateRDTO.causes = command.causes
         if (command.filterEdited) {
             //anonymousFilter.setName(g.message(code:'tools.contact.filter.anonymousName', args: anonymousFilter.getName()))
             debateRDTO.setAnonymousFilter(anonymousFilter)
@@ -346,6 +348,7 @@ class DebateController {
         debateRDTO.title = debateRSDTO.title
         debateRDTO.body = debateRSDTO.body
         debateRDTO.publishOn = debateRSDTO.datePublished
+        debateRDTO.causes = debateRSDTO.causes
     }
 
     private void setDebateAsDraft(KuorumUser user, DebateRSDTO debate){

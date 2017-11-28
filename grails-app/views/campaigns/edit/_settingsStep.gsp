@@ -21,8 +21,19 @@
 
         <g:render template="/newsletter/filter" model="[command: command, filters: filters,anonymousFilter: anonymousFilter, totalContacts: totalContacts, hideSendTestButton: true]"/>
 
-        <g:render template="/newsletter/form/formGroupCampaignTags" model="[command:command, events:[TrackingMailStatusRSDTO.OPEN,TrackingMailStatusRSDTO.CLICK,TrackingMailStatusRSDTO.POST_LIKE]]"/>
 
+        <fieldset class="form-group" id="advanced-features-section">
+            %{--<label for="advanced-feature" class="col-sm-2 col-md-1 control-label">Advanced features:</label>--}%
+            <div class="col-sm-offset-1 col-sm-10">
+                <a href=""><g:message code="tools.massMailing.advanced-features.title"/><span class="fa fa-angle-down"></span></a>
+                <hr/>
+            </div>
+        </fieldset>
+
+        <div id="advanced-features">
+            <g:render template="/newsletter/form/formGroupCampaignTags" model="[command:command, events:[TrackingMailStatusRSDTO.OPEN,TrackingMailStatusRSDTO.CLICK,TrackingMailStatusRSDTO.POST_LIKE]]"/>
+            <g:render template="/newsletter/form/formGroupCampaignCauses" model="[command:command]"/>
+        </div>
         <fieldset class="buttons">
             <div class="text-right">
                 <ul class="form-final-options">

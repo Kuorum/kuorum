@@ -24,9 +24,16 @@
         <li><g:link mapping="politicianCampaignsNew"><g:message code="tools.campaign.new.title"/></g:link></li>
         <li class="active">${breadCrumbName}</li>
     </ol>
-    <g:render template="/campaigns/edit/settingsStep" model="[command: command, filters: filters, totalContacts: totalContacts,
-                                                              debate: debate, anonymousFilter: anonymousFilter, next: 'debateEditContent',
-                                                              mappings:[step:'settings', settings:'debateEdit',
-                                                                        content:'debateEditContent', showResult: 'debateShow',
-                                                                        next: 'debateEditContent']]"/>
+    <g:render template="/campaigns/edit/settingsStep" model="[command: command,
+                                                              filters: filters,
+                                                              totalContacts: totalContacts,
+                                                              debate: debate,
+                                                              anonymousFilter: anonymousFilter,
+                                                              next: 'debateEditContent',
+                                                              mappings:[step:'settings',
+                                                                        settings:'debateEdit',
+                                                                        content:'debateEditContent',
+                                                                        showResult: 'debateShow',
+                                                                        next: 'debateEditContent'
+                                                              ]]"/>
 </content>

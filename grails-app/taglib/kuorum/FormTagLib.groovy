@@ -501,7 +501,7 @@ class FormTagLib {
                             'autocomplete_url':"${autocompleterUrl}",
                             'autocomplete':{
                                 paramName:'term',
-                                width:'100%',
+                                width:'auto',
                                 delay:'300',
                                 onSelect: function( event ) {
                                     if (!\$("#${id}").tagExist(event.value)){
@@ -511,7 +511,7 @@ class FormTagLib {
                                         \$('#${id}_tag').addClass('not_valid');
                                     }
                                 }},
-                            'width':'auto',
+                            'width':'100%',
                             'height':'inherit',
                             'delimiter': [',',';'],
                             'defaultText':'',

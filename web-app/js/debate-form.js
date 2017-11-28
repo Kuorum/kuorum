@@ -111,6 +111,12 @@ $(function(){
             $("#videoPost").focus();
         });
     });
+
+    $("#advanced-features-section a").on("click", function(e){
+        e.preventDefault();
+        $("#advanced-features").slideToggle()
+        $("#causes_tag").css("width","100%")
+    })
 });
 
 function sendParams() {
