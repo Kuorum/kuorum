@@ -355,8 +355,8 @@ class UrlMappings {
         name es_searcherSearchDEBATEByCAUSE:"/es/buscar/debate/causa/$word?"          (controller: "search", action:"search"){lang="es"; searchType="CAUSE";type="DEBATE"; mappingName="searcherSearchDEBATEByCAUSE"}
 
         name searcherSearchDEBATEByREGION:   "/$lang/search/debate/cause/$word?"          {controller="redirect"; action= "redirect301"; newMapping='en_searcherSearchDEBATEByREGION';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-        name en_searcherSearchDEBATEByREGION:"/en/search/debate/cause/$word?"             (controller: "search", action:"search"){lang="en"; searchType="CAUSE";type="REGION"; mappingName="searcherSearchDEBATEByREGION"}
-        name es_searcherSearchDEBATEByREGION:"/es/buscar/debate/causa/$word?"          (controller: "search", action:"search"){lang="es"; searchType="CAUSE";type="REGION"; mappingName="searcherSearchDEBATEByREGION"}
+        name en_searcherSearchDEBATEByREGION:"/en/search/debate/cause/$word?"             (controller: "search", action:"search"){lang="en"; searchType="REGION";type="DEBATE"; mappingName="searcherSearchDEBATEByREGION"}
+        name es_searcherSearchDEBATEByREGION:"/es/buscar/debate/causa/$word?"          (controller: "search", action:"search"){lang="es"; searchType="REGION";type="DEBATE"; mappingName="searcherSearchDEBATEByREGION"}
 
 
         /**********************/
