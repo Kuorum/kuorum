@@ -20,7 +20,7 @@
         <li><g:link mapping="politicianCampaignsNew"><g:message code="tools.campaign.new.title"/></g:link></li>
         <li class="active">${breadCrumbName}</li>
     </ol>
-    <g:render template="/debate/formDebate" model="[command: command, filters: filters, totalContacts: totalContacts,
+    <g:render template="/campaigns/edit/settingsStep" model="[command: command, filters: filters, totalContacts: totalContacts,
                                                     debate: debate, anonymousFilter: anonymousFilter,
                                                     mappings:[step:'settings', settings:'debateEdit',
                                                               content:'debateEditContent', showResult: 'debateShow',

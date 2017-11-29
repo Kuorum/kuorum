@@ -398,6 +398,8 @@ class ProfileController {
         command.proposalNewOwner = notificationConfig.mailConfig.proposalNewOwner
         command.postLike = notificationConfig.mailConfig.postLike
         command.debateNewOwner = notificationConfig.mailConfig.debateNewOwner
+        command.debateNewCause = notificationConfig.mailConfig.debateNewCause
+        command.postNewCause = notificationConfig.mailConfig.postNewCause
         [user:user, command: command]
     }
     def configurationEmailsSave(MailNotificationsCommand command) {
@@ -415,8 +417,10 @@ class ProfileController {
         notificationConfig.mailConfig.proposalPinned = command.proposalPinned
         notificationConfig.mailConfig.proposalNew = command.proposalNew
         notificationConfig.mailConfig.postLike = command.postLike
-        notificationConfig.mailConfig.debateNewOwner = command.debateNewOwner
         notificationConfig.mailConfig.proposalNewOwner = command.proposalNewOwner
+        notificationConfig.mailConfig.debateNewOwner = command.debateNewOwner
+        notificationConfig.mailConfig.debateNewCause = command.debateNewCause
+        notificationConfig.mailConfig.postNewCause = command.postNewCause
         notificationService.saveNotificationsConfig(user, notificationConfig)
         flash.message = message(code:'profile.emailNotifications.success')
         redirect mapping:'profileEmailNotifications'

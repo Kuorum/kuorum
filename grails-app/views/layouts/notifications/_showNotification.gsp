@@ -3,7 +3,7 @@
     <g:render template="/layouts/notifications/followerNotification"  model='[notification:notification]'/>
 </g:if>
 <g:elseif test="${notification instanceof NotificationProposalNewRSDTO}">
-    <g:render template="/layouts/notifications/debateNotification"  model='[notification:notification]'/>
+    <g:render template="/layouts/notifications/debateProposalNewNotification" model='[notification:notification]'/>
 </g:elseif>
 <g:elseif test="${notification instanceof NotificationProposalLikeRSDTO}">
     <g:render template="/layouts/notifications/proposalLikeNotification"  model='[notification:notification]'/>
@@ -22,6 +22,12 @@
 </g:elseif>
 <g:elseif test="${notification instanceof NotificationPostLikeRSDTO}">
     <g:render template="/layouts/notifications/postLikeNotification"  model='[notification:notification]'/>
+</g:elseif>
+<g:elseif test="${notification instanceof NotificationDebateNewRSDTO}">
+    <g:render template="/layouts/notifications/debateDebateNewNotification" model='[notification:notification]'/>
+</g:elseif>
+<g:elseif test="${notification instanceof NotificationPostNewRSDTO}">
+    <g:render template="/layouts/notifications/postNewNotification" model='[notification:notification]'/>
 </g:elseif>
 <g:elseif env="development">
     NOT DONE ${notification.class.name}

@@ -41,6 +41,12 @@
                 <p class="help-block"><g:message code="profile.emailNotifications.basic.title.helpBlock"/></p>
                  <formUtil:checkBox command="${command}" field="postLike" extraClass="clearfix" />
             </div>
+            <div class="form-group">
+                <span class="span-label"><g:message code="profile.emailNotifications.causes.title"/></span>
+                <p class="help-block"><g:message code="profile.emailNotifications.basic.title.helpBlock"/></p>
+                <formUtil:checkBox command="${command}" field="debateNewCause" extraClass="clearfix" />
+                <formUtil:checkBox command="${command}" field="postNewCause" extraClass="clearfix" />
+            </div>
         </div>
         <div class="box-ppal-section">
             <fieldset class="form-group text-center">
