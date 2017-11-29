@@ -132,7 +132,11 @@ class NavigationTagLib {
         Map<AvailableLanguage, String> urls= generateAllRelatedUrlsDependingOnLang();
         Locale locale = org.springframework.context.i18n.LocaleContextHolder.getLocale()
         AvailableLanguage currentLang = AvailableLanguage.fromLocale(locale)
-        out <<"<link rel='canonical' href='${urls[currentLang]}'/>"
+        if (attrs.onlyLink){
+            out << urls[currentLang]
+        }else{
+            out <<"<link rel='canonical' href='${urls[currentLang]}'/>"
+        }
     }
 
     def generateAlternateLangLink = { attrs, body ->
