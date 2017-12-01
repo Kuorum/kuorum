@@ -15,6 +15,7 @@ class LanguageInjectorAOP {
 
         addLang(params)
         replaceLangMapping(params)
+        addAbsoluteParameter(params)
         return pjp.proceed(params);
 
     }
@@ -26,6 +27,7 @@ class LanguageInjectorAOP {
         org.codehaus.groovy.grails.web.mapping.LinkGenerator link;
         addLang(params)
         replaceLangMapping(params)
+        addAbsoluteParameter(params)
         return pjp.proceed(params, encoding);
 
     }
@@ -42,6 +44,12 @@ class LanguageInjectorAOP {
             params.params = params.params?:[:]
             Locale locale = org.springframework.context.i18n.LocaleContextHolder.getLocale()
             params.params.lang = locale.getLanguage()
+        }
+    }
+
+    private void addAbsoluteParameter(Map params){
+        if (!params.absolute ){
+            params.absolute=true
         }
     }
 }
