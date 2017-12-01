@@ -17,7 +17,11 @@
             </div>
         </g:if>
         <div class="card-body">
-            <h1><searchUtil:highlightedField solrElement="${solrDebate}" field="name"/></h1>
+            <h1>
+                <g:link mapping="debateShow" params="${solrDebate.encodeAsLinkProperties()}" class="link-wrapper-clickable">
+                    <searchUtil:highlightedField solrElement="${solrDebate}" field="name"/>
+                </g:link>
+            </h1>
             <g:if test="${!debateMultimedia}">
                 <div class="card-text"><searchUtil:highlightedField solrElement="${solrDebate}" field="text" maxLength="${500}"/></div>
             </g:if>

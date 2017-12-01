@@ -17,7 +17,11 @@
                     </div>
                 </g:if>
                 <div class="card-body">
-                <h1>${post.title}</h1>
+                    <h1>
+                        <g:link mapping="postShow" class="link-wrapper-clickable" params="${post.encodeAsLinkProperties()}">
+                            ${post.title}
+                        </g:link>
+                    </h1>
                 <g:if test="${!postMultimedia}">
                     <div class="card-text"><modulesUtil:shortText text="${post.body}"/></div>
                 </g:if>

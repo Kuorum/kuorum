@@ -17,7 +17,11 @@
                 </div>
             </g:if>
             <div class="card-body">
-                <h1>${debate.title}</h1>
+                <h1>
+                    <g:link mapping="debateShow" class="link-wrapper-clickable" params="${debate.encodeAsLinkProperties()}">
+                        ${debate.title}
+                    </g:link>
+                </h1>
                 <g:if test="${!debateMultimedia}">
                     <div class="card-text"><modulesUtil:shortText text="${debate.body}"/></div>
                 </g:if>
