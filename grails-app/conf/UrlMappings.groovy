@@ -302,7 +302,7 @@ class UrlMappings {
                                     "/es/search"        {controller="redirect"; action= "redirect301"; newMapping='es_searcherSearch'}
                                     "/buscar"           {controller="redirect"; action= "redirect301"; newMapping='es_searcherSearch'}
 
-        name searcherSearchByCAUSE:   "/$lang/search/users"          {controller="redirect"; action= "redirect301"; newMapping='en_searcherSearchByCAUSE';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+        name searcherSearchByCAUSE:   "/$lang/search/cause"          {controller="redirect"; action= "redirect301"; newMapping='en_searcherSearchByCAUSE';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
         name en_searcherSearchByCAUSE:"/en/search/cause/$word?"      (controller: "search", action:"search"){lang="en"; searchType="CAUSE"; mappingName="searcherSearchByCAUSE"}
         name es_searcherSearchByCAUSE:"/es/buscar/causa/$word?"      (controller: "search", action:"search"){lang="es"; searchType="CAUSE"; mappingName="searcherSearchByCAUSE"}
 

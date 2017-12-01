@@ -114,8 +114,13 @@ $(function(){
 
     $("#advanced-features-section a").on("click", function(e){
         e.preventDefault();
-        $("#advanced-features").slideToggle()
+        $("#advanced-features").slideToggle(function () {
+            $("#advanced-features-section .fa-stack").toggleClass("fa-rotate-180","")
+        })
+
+
         $("#causes_tag").css("width","100%")
+
     })
 });
 

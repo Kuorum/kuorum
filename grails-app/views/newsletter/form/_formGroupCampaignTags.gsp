@@ -2,16 +2,10 @@
 <fieldset class="form-group tags-campaign">
     <label for="tagsField" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.massMailing.DebateCommand.tags.label"/>: </label>
     <div class="col-sm-8 col-md-7">
-        <label class="toggle-inputs" data-toggle="collapse" data-target="#tag-events">
+        <label class="toggle-inputs">
             <g:message code="kuorum.web.commands.payment.massMailing.MassMailingCommand.eventsWithTag.label"/>
-            <span class="go-up stack">
-                <span class="fa-stack fa-lg" aria-hidden="true">
-                    <span class="fa fa-circle fa-stack-1x"></span>
-                    <span class="fa fa-angle-down fa-stack-1x fa-inverse"></span>
-                </span>
-            </span>
         </label>
-        <div class="tag-events collapse" id="tag-events">
+        <div class="tag-events collapse">
             <g:each in="${events}" var="event">
                 <div class="tag-event">
                     <span class="tag-event-label">

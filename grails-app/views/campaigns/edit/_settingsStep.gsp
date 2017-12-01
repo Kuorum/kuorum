@@ -25,14 +25,22 @@
         <fieldset class="form-group" id="advanced-features-section">
             %{--<label for="advanced-feature" class="col-sm-2 col-md-1 control-label">Advanced features:</label>--}%
             <div class="col-sm-offset-1 col-sm-10">
-                <a href=""><g:message code="tools.massMailing.advanced-features.title"/><span class="fa fa-angle-down"></span></a>
-                <hr/>
+                <a href="">
+                    <g:message code="tools.massMailing.advanced-features.title"/>
+                    <span class="go-up stack">
+                        <span class="fa-stack fa-lg" aria-hidden="true">
+                            <span class="fa fa-circle fa-stack-1x"></span>
+                            <span class="fa fa-angle-down fa-stack-1x fa-inverse"></span>
+                        </span>
+                    </span>
+                </a>
+
             </div>
         </fieldset>
 
         <div id="advanced-features">
-            <g:render template="/newsletter/form/formGroupCampaignTags" model="[command:command, events:[TrackingMailStatusRSDTO.OPEN,TrackingMailStatusRSDTO.CLICK,TrackingMailStatusRSDTO.POST_LIKE]]"/>
             <g:render template="/newsletter/form/formGroupCampaignCauses" model="[command:command]"/>
+            <g:render template="/newsletter/form/formGroupCampaignTags" model="[command:command, events:[TrackingMailStatusRSDTO.OPEN,TrackingMailStatusRSDTO.CLICK,TrackingMailStatusRSDTO.POST_LIKE]]"/>
         </div>
         <fieldset class="buttons">
             <div class="text-right">

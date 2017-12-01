@@ -7,3 +7,9 @@
 .jqte_focused {box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6); border-color: transparent;}
 
 .jqte.error {border-color: #BF4343;}
+
+
+/* CAUSES */
+div.tagsinput {border:1px solid #DDDDDD;}
+div.tagsinput span.tag { border: 1px solid #D0D0D0; background: #F5F5F5; color: #BBB;padding:2px 5px;}
+div.tagsinput span.tag a {color: #BBB;}

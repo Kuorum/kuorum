@@ -2,7 +2,9 @@
     <ul class="labels">
         <g:each in="${causes}" var="cause">
             <li>
-                <span class="label-leader-post" itemprop="about">${cause}</span>
+                <g:link mapping="searcherSearchByCAUSE" params="[word:cause]" absolute="true" class="label-leader-post" itemprop="about">
+                    ${cause}
+                </g:link>
             </li>
         </g:each>
     </ul>

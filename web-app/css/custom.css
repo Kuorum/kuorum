@@ -1101,7 +1101,6 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 #contactsList .bootstrap-tagsinput {width:300px;} /*This width is for fix the postion of the save button [It's a ñapa]*/
 #contactsList .engagement-container {margin-top:9px;}
 
-div.tagsinput {border:1px solid #DDDDDD;}
 .bootstrap-tagsinput .tt-input {min-width: 15em;}
 
 .bootstrap-tagsinput input[type="text"] {
@@ -7672,8 +7671,13 @@ ul.leader-post-stats {box-shadow: 0 0 2px rgba(200,200,200,0.6); margin-bottom:2
     border: 1px solid #D0D0D0;
     margin-right: 5px;
 }
+.label-leader-post:hover{
+    text-decoration:none;
+    color: #797979;
+    background: #bcbcbc;
+}
 .label-leader-post:before {
-    content: "\f02b";
+    content: "\f292";
     font-family: FontAwesome;
     font-style: normal;
     font-weight: normal;
