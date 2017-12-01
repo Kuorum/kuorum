@@ -5,7 +5,7 @@
         <label class="toggle-inputs">
             <g:message code="kuorum.web.commands.payment.massMailing.MassMailingCommand.eventsWithTag.label"/>
         </label>
-        <div class="tag-events collapse">
+        <div class="tag-events">
             <g:each in="${events}" var="event">
                 <div class="tag-event">
                     <span class="tag-event-label">
