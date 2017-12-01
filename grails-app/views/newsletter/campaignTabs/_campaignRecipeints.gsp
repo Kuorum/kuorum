@@ -1,3 +1,4 @@
+<%@ page import="org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO" %>
 <h2 class="sr-only"><g:message code="tools.massMailing.list.recipients"/></h2>
 <div class="pag-list-contacts clearfix">
     <div class="actions">
@@ -20,19 +21,36 @@
         <th class="dropdown">
             <input type="hidden" name="filter-status" id="filter-status" value="${status}"/>
             <a data-target="#" href="#" id="status-filter" class="dropdown-toggle dropdown-menu-right" data-toggle="dropdown">
-                <g:if test="${status}">
-                    <g:message code="org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO.${status}"/>
-                </g:if>
-                <g:else>
-                    <g:message code="tools.massMailing.list.status"/>
-                </g:else>
+                <g:message code="tools.massMailing.list.status"/>
+                <span class="fa fa-angle-down"></span>
             </a>
             <ul id="status-filter-options" class="dropdown-menu" aria-labelledby="status-filter" role="menu">
-                <li> Filtrar por estado</li>
-                <g:each in="${org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO.values()}" var="filterOptionMailStatus">
-                    <li><a href="#${filterOptionMailStatus}"><g:message code="org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO.${filterOptionMailStatus}"/></a></li>
+                <li><g:message code="tools.massMailing.list.status.dropdown.title"/></li>
+                <li>
+                    <a href="#">
+                        <g:message code="tools.massMailing.list.status.dropdown.all"/>
+                        <g:if test="${!status}">
+                            <span class="fa fa-check"/>
+                        </g:if>
+                    </a>
+                </li>
+                <g:each in="${[
+                        org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO.OPEN,
+                        org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO.CLICK,
+                        org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO.BOUNCED,
+                        org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO.HARD_BOUNCED,
+                        org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO.NOT_SENT,
+                        org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO.UNSUBSCRIBE,
+                ]}" var="filterOptionMailStatus">
+                    <li>
+                        <a href="#${filterOptionMailStatus}">
+                            <g:message code="org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO.${filterOptionMailStatus}"/>
+                            <g:if test="${filterOptionMailStatus == status}">
+                                <span class="fa fa-check"/>
+                            </g:if>
+                        </a>
+                    </li>
                 </g:each>
-                <li><a href="#">Todos</a></li>
             </ul>
         </th>
         <th><g:message code="tools.massMailing.list.opens"/></th>
