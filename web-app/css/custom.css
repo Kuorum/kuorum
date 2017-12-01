@@ -2579,8 +2579,6 @@ video#bgvid {
 ul.search-list{margin: 0;padding: 0;list-style: none;}
 ul.search-list .search-article .box-ppal {padding: 0; margin: 0 0 20px 0;height: auto; box-shadow: 0 0 2px rgba(200,200,200,0.6);}
 ul.search-list > li {padding:0px;}
-ul.search-list > li:nth-child(even) {padding-left:5px;}
-ul.search-list > li:nth-child(odd) {padding-right:5px;}
 ul.search-list > li.search-article .box-ppal .card-header-photo {height: auto;}
 ul.search-list > li.search-article .box-ppal .card-body {padding:1em;overflow: hidden;height: 325px;}
 ul.search-list > li.search-article .box-ppal .card-header-photo + .card-body {height: 125px; margin-bottom: 15px;}
@@ -5961,6 +5959,8 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .uploaderImageContainer.PROJECT_IMAGE > div {height:270px;}
 
     ul.search-list > li.info-empty .icon-empty-campaignList {display:inline-block;}
+    ul.search-list > li:nth-child(even) {padding-left:5px;}
+    ul.search-list > li:nth-child(odd) {padding-right:5px;}
 
     .leader-post .header .call-to-action-mobile{  display: none;  }
     .conversation-box-comment > .header > .user span {  max-width: 450px  }
