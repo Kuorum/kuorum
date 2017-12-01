@@ -8,7 +8,7 @@ class UrlMappings {
     static excludes = ['/robots.txt']
 
     static List<String> RESERVED_PATHS = ['j_spring_security_facebook_redirect', 'register', 'login','js','images','css', 'fonts']
-    static List<String> VALID_LANGUAGE_PATHS = AvailableLanguage.values().collect{it.locale.language}.findAll{it!= "es"}
+    static List<String> VALID_LANGUAGE_PATHS = AvailableLanguage.values().collect{it.locale.language}
 	static mappings = {
 
         /**********************/
@@ -377,11 +377,11 @@ class UrlMappings {
                                 "/$userAlias/d/-$debateId"                  (controller: "debate", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
         // DEBATE LANG DEPRECATED
         name langDebateShow:    "/$lang/$userAlias/d/$urlTitle-$debateId"   {controller="redirect"; action= "redirect301"; newMapping='debateShow';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-                                "/en/$userAlias/d/$urlTitle-$debateId"      {controller="redirect"; action= "redirect301"; newMapping='debateShow';lang=en;}
-                                "/es/$userAlias/d/$urlTitle-$debateId"      {controller="redirect"; action= "redirect301"; newMapping='debateShow';lang=es;}
+                                "/en/$userAlias/d/$urlTitle-$debateId"      {controller="redirect"; action= "redirect301"; newMapping='debateShow';lang="en"}
+                                "/es/$userAlias/d/$urlTitle-$debateId"      {controller="redirect"; action= "redirect301"; newMapping='debateShow';lang="es"}
                                 "/$lang/$userAlias/d/-$debateId"            {controller="redirect"; action= "redirect301"; newMapping='debateShow';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-                                "/en/$userAlias/d/-$debateId"               {controller="redirect"; action= "redirect301"; newMapping='debateShow';lang=en}
-                                "/es/$userAlias/d/-$debateId"               {controller="redirect"; action= "redirect301"; newMapping='debateShow';lang=es}
+                                "/en/$userAlias/d/-$debateId"               {controller="redirect"; action= "redirect301"; newMapping='debateShow';lang="en"}
+                                "/es/$userAlias/d/-$debateId"               {controller="redirect"; action= "redirect301"; newMapping='debateShow';lang="es"}
         name debateProposalNew: "/ajax/addProposal"(controller: "debateProposal", action: "addProposal")
         name debateProposalDelete:"/ajax/deleteProposal"(controller: "debateProposal", action: "deleteProposal")
         name debateProposalPin: "/ajax/pinProposal"(controller: "debateProposal", action: "pinProposal")
@@ -428,7 +428,7 @@ class UrlMappings {
         name widgetComparative:        "/widget/comparation"    (controller: "rating", action:"widgetComparativePoliticianInfo")
 
 
-        name langUserShow:          "/$lang/$userAlias"     (controller: "kuorumUser", action: "show") {constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)}); lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+        name langUserShow:          "/$lang/$userAlias"     {controller="redirect"; action= "redirect301User"; newMapping='userShow'; constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)}); lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
         name userShow:              "/$userAlias"           (controller: "kuorumUser", action: "show") {constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
         name secUserShow:           "/sec/$userAlias"       (controller: "kuorumUser", action: "secShow")
 
