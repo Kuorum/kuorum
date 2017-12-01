@@ -63,7 +63,13 @@ class DebateController {
 //            if (lastActivity){
 //                lastModified(debate.lastActivity)
 //            }
-            List<KuorumUser> pinnedUsers = proposalPage.data.findAll{it.pinned}.collect{KuorumUser.get(new ObjectId(it.user.id))}.findAll{it}.unique()
+            List<KuorumUser> pinnedUsers = proposalPage.data
+                    .findAll{it.pinned}
+                    .collect{KuorumUser.get(new ObjectId(it.user.id))}
+                    .findAll{it}
+                    .unique()
+                    .sort{ ku1, ku2 -> ku1.avatar != null?-1:ku2.avatar!=null?1:0 }
+
             def model = [debate: debate, debateUser: debateUser, proposalPage:proposalPage, pinnedUsers:pinnedUsers];
 
             // BORRAR - SOLO PARA TOLEDO
