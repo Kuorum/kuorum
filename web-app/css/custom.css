@@ -7482,6 +7482,10 @@ button.btn-see-more {
     right: 20px;
 }
 
+.widget .leader-post .header .call-to-action-mobile{
+    top:60px;
+}
+
 body.noLogged .leader-post .header .call-to-action-mobile{
     top:140px;
 }
