@@ -49,7 +49,8 @@ class UrlMappings {
 
         name landingGovernments:    "/$lang/transparency-and-participation"         {controller="redirect"; action= "redirect301"; newMapping='en_landingGovernments';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
         name en_landingGovernments: "/en/tools-for-participation-and-transparency"  (controller: "landing", action: "landingGovernments"){lang="en"; mappingName="landingGovernments"}
-        name es_landingGovernments: "/es/herramientas-participacion-y-transparencia"(controller: "landing", action: "landingGovernments"){lang="es"; mappingName="landingGovernments"}
+        name es_landingGovernments: "/es/herramientas-de-participacion-ciudadana"   (controller: "landing", action: "landingGovernments"){lang="es"; mappingName="landingGovernments"}
+                                    "/es/herramientas-participacion-y-transparencia"    {controller="redirect"; action= "redirect301"; newMapping='es_landingGovernments'}
                                     "/es/transparency-and-participation"            {controller="redirect"; action= "redirect301"; newMapping='es_landingGovernments'}
                                     "/transparency-and-participation"               {controller="redirect"; action= "redirect301"; newMapping='en_landingGovernments'}
                                     "/governments"                                  {controller="redirect"; action= "redirect301"; newMapping='en_landingGovernments'}
