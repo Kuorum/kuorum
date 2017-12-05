@@ -1,3 +1,4 @@
+<%@ page import="org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO" %>
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <g:set var="breadCrumbName">
@@ -20,11 +21,19 @@
         <li><g:link mapping="politicianCampaignsNew"><g:message code="tools.campaign.new.title"/></g:link></li>
         <li class="active">${breadCrumbName}</li>
     </ol>
-    <g:render template="/campaigns/edit/settingsStep" model="[command: command, filters: filters, totalContacts: totalContacts,
-                                                    debate: debate, anonymousFilter: anonymousFilter,
-                                                    mappings:[step:'settings', settings:'debateEdit',
-                                                              content:'debateEditContent', showResult: 'debateShow',
-                                                              next: 'debateEditContent']]"/>
+    <g:render template="/campaigns/edit/settingsStep" model="[
+            command: command,
+            filters: filters,
+            totalContacts: totalContacts,
+            debate: debate,
+            anonymousFilter: anonymousFilter,
+            events:[TrackingMailStatusRSDTO.OPEN,TrackingMailStatusRSDTO.CLICK,TrackingMailStatusRSDTO.DEBATE_PROPOSAL_NEW,TrackingMailStatusRSDTO.DEBATE_PROPOSAL_COMMENT,TrackingMailStatusRSDTO.DEBATE_PROPOSAL_LIKE],
+            mappings:[
+                                                            step:'settings',
+                                                            settings:'debateEdit',
+                                                            content:'debateEditContent',
+                                                            showResult: 'debateShow',
+                                                            next: 'debateEditContent']]"/>
 
     <g:render template="/newsletter/timeZoneSelectorPopUp"/>
 </content>
