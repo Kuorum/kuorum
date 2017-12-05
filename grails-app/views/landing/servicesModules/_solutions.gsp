@@ -10,7 +10,7 @@
                     <img class="img-responsive" data-src="${r.resource(dir:'images/landing', file:'administrations-small.jpg')}" alt="step 1">
                 </div>
                 <div class="card-body">
-                    <g:link mapping="${msgPrefix}" class="btn btn-lg">
+                    <g:link mapping="landingGovernments" class="btn btn-lg">
                         <g:message code="${msgPrefix}.solutions.administrations.button"/>
                     </g:link>
                     <p><g:message code="${msgPrefix}.solutions.administrations.text"/></p>
