@@ -1,4 +1,3 @@
-<%@ page import="org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO" %>
 <r:require modules="datepicker, postForm, debateForm" />
 
 <div class="box-steps container-fluid choose-campaign">
@@ -40,7 +39,7 @@
 
         <div id="advanced-features">
             <g:render template="/newsletter/form/formGroupCampaignCauses" model="[command:command]"/>
-            <g:render template="/newsletter/form/formGroupCampaignTags" model="[command:command, events:[TrackingMailStatusRSDTO.OPEN,TrackingMailStatusRSDTO.CLICK,TrackingMailStatusRSDTO.POST_LIKE]]"/>
+            <g:render template="/newsletter/form/formGroupCampaignTags" model="[command:command, events:events]"/>
         </div>
         <fieldset class="buttons">
             <div class="text-right">
