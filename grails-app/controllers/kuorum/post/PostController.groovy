@@ -7,32 +7,26 @@ import kuorum.KuorumFile
 import kuorum.core.FileType
 import kuorum.core.exception.KuorumException
 import kuorum.files.FileService
+import kuorum.politician.CampaignController
 import kuorum.users.CookieUUIDService
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
 import kuorum.util.TimeZoneUtil
-import kuorum.web.commands.payment.contact.ContactFilterCommand
+import kuorum.web.commands.payment.CampaignSettingsCommand
 import kuorum.web.commands.payment.massMailing.post.LikePostCommand
 import kuorum.web.commands.payment.post.PostContentCommand
-import kuorum.web.commands.payment.post.PostSettingsCommand
+import org.kuorum.rest.model.communication.CampaignRDTO
 import org.kuorum.rest.model.communication.post.PostRDTO
 import org.kuorum.rest.model.communication.post.PostRSDTO
-import org.kuorum.rest.model.contact.ContactPageRSDTO
-import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
 import org.kuorum.rest.model.contact.filter.FilterRDTO
 import payment.CustomerService
-import payment.contact.ContactService
 
 import javax.servlet.http.HttpServletResponse
 
-class PostController {
-
-    def springSecurityService
+class PostController extends CampaignController{
 
     KuorumUserService kuorumUserService
     FileService fileService
-    ContactService contactService
-    PostService postService
     CookieUUIDService cookieUUIDService
     CustomerService customerService
 
@@ -40,7 +34,7 @@ class PostController {
         String viewerUid = cookieUUIDService.buildUserUUID()
         KuorumUser postUser = kuorumUserService.findByAlias(params.userAlias)
         try{
-            PostRSDTO postRSDTO = postService.findPost(postUser, Long.parseLong(params.postId),viewerUid)
+            PostRSDTO postRSDTO = postService.find(postUser, Long.parseLong(params.postId),viewerUid)
             if (!postRSDTO) {
                 throw new KuorumException(message(code: "post.notFound") as String)
             }
@@ -54,7 +48,7 @@ class PostController {
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def create() {
-        return postModelSettings(new PostSettingsCommand(), null)
+        return postModelSettings(new CampaignSettingsCommand(debatable:false), null)
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
@@ -68,9 +62,8 @@ class PostController {
     def editSettingsStep(){
         String viewerUid = cookieUUIDService.buildUserUUID()
         KuorumUser postUser = KuorumUser.get(springSecurityService.principal.id)
-        PostRSDTO postRSDTO = postService.findPost(postUser, Long.parseLong(params.postId), viewerUid)
-
-        return postModelSettings(new PostSettingsCommand(), postRSDTO)
+        PostRSDTO postRSDTO = postService.find(postUser, Long.parseLong(params.postId), viewerUid)
+        return postModelSettings(new CampaignSettingsCommand(debatable:false), postRSDTO)
 
     }
 
@@ -84,7 +77,7 @@ class PostController {
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
-    def saveSettings(PostSettingsCommand command) {
+    def saveSettings(CampaignSettingsCommand command) {
         if (command.hasErrors()) {
             render view: 'create', model: postModelSettings(command, null)
             return
@@ -93,11 +86,11 @@ class PostController {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         FilterRDTO anonymousFilter = recoverAnonymousFilterSettings(params, command)
         Long postId = params.postId?Long.parseLong(params.postId):null
-        Map<String, Object> resultPost = saveAndSendPostSettings(user, command, postId, anonymousFilter)
+        Map<String, Object> result = saveCampaignSettings(user, command, postId, anonymousFilter, postService)
 
         //flash.message = resultPost.msg.toString()
 
-        redirect mapping: nextStep, params: resultPost.post.encodeAsLinkProperties()
+        redirect mapping: nextStep, params: result.campaign.encodeAsLinkProperties()
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
@@ -123,34 +116,15 @@ class PostController {
         }
     }
 
-    private def postModelSettings(PostSettingsCommand command, PostRSDTO postRSDTO) {
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        List<ExtendedFilterRSDTO> filters = contactService.getUserFilters(user)
-        ContactPageRSDTO contactPageRSDTO = contactService.getUsers(user)
-
-        if(postRSDTO){
-            command.campaignName = postRSDTO.name
-            command.tags = postRSDTO.triggeredTags
-            command.filterId = postRSDTO.newsletter?.filter?.id
-            command.causes = postRSDTO.causes
-            if(postRSDTO.newsletter.filter && !filters.find{it.id==postRSDTO.newsletter.filter.id}){
-                ExtendedFilterRSDTO anonymousFilter = contactService.getFilter(user, postRSDTO.newsletter.filter.id)
-                filters.add(anonymousFilter)
-            }
-        }
-
-
-        [
-                filters: filters,
-                command: command,
-                totalContacts: contactPageRSDTO.total,
-                post: postRSDTO
-        ]
+    private def postModelSettings(CampaignSettingsCommand command, PostRSDTO postRSDTO) {
+        def model = modelSettings(command, postRSDTO)
+        command.debatable=false
+        return model
     }
 
     private def postModelContent(Long postId, PostContentCommand command = null) {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        PostRSDTO postRSDTO = postService.findPost(user, postId)
+        PostRSDTO postRSDTO = postService.find(user, postId)
         def numberRecipients = 0;
         if(!command) {
             command = new PostContentCommand()
@@ -177,23 +151,6 @@ class PostController {
         ]
     }
 
-    private FilterRDTO recoverAnonymousFilterSettings(params, PostSettingsCommand command) {
-        ContactFilterCommand filterCommand = (ContactFilterCommand) bindData(new ContactFilterCommand(), params)
-        contactService.transformCommand(filterCommand, "Custom filter for ${command.campaignName}")
-    }
-
-    private Map<String, Object> saveAndSendPostSettings(KuorumUser user, PostSettingsCommand command,
-                                                        Long postId = null, FilterRDTO anonymousFilter = null) {
-        String msg
-        PostRDTO postRDTO = convertCommandSettingsToPost(command, user, anonymousFilter, postId)
-
-        PostRSDTO savedPost = postService.savePost(user, postRDTO, postId)
-        msg = g.message(code: 'tools.massMailing.saveDraft.advise', args: [savedPost.title])
-
-        [msg: msg, post: savedPost]
-
-    }
-
     private Map<String, Object> saveAndSendPostContent(KuorumUser user, PostContentCommand command,
                                                        Long postId) {
         String msg
@@ -204,7 +161,7 @@ class PostController {
         Boolean goToPaymentProcess = !validSubscription && command.publishOn;
         if(command.publishOn){
             // Published or Scheduled
-            savedPost = postService.savePost(user, postRDTO, postId)
+            savedPost = postService.save(user, postRDTO, postId)
 
             Date date = new Date()
             Date after5minutes = new Date()
@@ -231,7 +188,7 @@ class PostController {
         }
         else {
             // Draft
-            savedPost = postService.savePost(user, postRDTO, postId)
+            savedPost = postService.save(user, postRDTO, postId)
             msg = g.message(code: 'tools.massMailing.saveDraft.advise', args: [
                     savedPost.title
             ])
@@ -241,41 +198,8 @@ class PostController {
 
     }
 
-    private PostRDTO convertCommandSettingsToPost(PostSettingsCommand command, KuorumUser user, FilterRDTO anonymousFilter, Long postId) {
-        PostRDTO postRDTO = createPostRDTO(user, postId)
-        postRDTO.name = command.campaignName
-        postRDTO.triggeredTags = command.tags
-        postRDTO.causes = command.causes
-
-        if (command.filterEdited) {
-            postRDTO.setAnonymousFilter(anonymousFilter)
-            postRDTO.setFilterId(null)
-        } else {
-            postRDTO.setFilterId(command.filterId)
-        }
-        postRDTO
-    }
-
-    private PostRDTO createPostRDTO(KuorumUser user = null, Long postId = null){
-        PostRDTO postRDTO = new PostRDTO()
-        if(postId){
-            PostRSDTO postRSDTO = postService.findPost(user, postId)
-            postRDTO.title = postRSDTO.title
-            postRDTO.body = postRSDTO.body
-            postRDTO.photoUrl = postRSDTO.photoUrl
-            postRDTO.videoUrl = postRSDTO.videoUrl
-            postRDTO.publishOn = postRSDTO.datePublished
-            postRDTO.name = postRSDTO.name
-            postRDTO.triggeredTags = postRSDTO.triggeredTags
-            postRDTO.anonymousFilter = postRSDTO.anonymousFilter
-            postRDTO.filterId = postRSDTO.newsletter?.filter?.id
-            postRDTO.causes = postRSDTO.causes
-        }
-        return postRDTO;
-    }
-
     private PostRDTO convertCommandContentToPost(PostContentCommand command, KuorumUser user, Long postId) {
-        PostRDTO postRDTO = createPostRDTO(user, postId)
+        PostRDTO postRDTO = createRDTO(user, postId, postService)
         postRDTO.title = command.title
         postRDTO.body = command.body
         if(command.sendType == 'SEND'){
@@ -320,8 +244,8 @@ class PostController {
 
 
     private void setPostAsDraft(KuorumUser user, Long postId){
-        PostRDTO postRDTO = createPostRDTO(user, postId)
+        PostRDTO postRDTO = createRDTO(user, postId, postService)
         postRDTO.publishOn = null
-        postService.savePost(user, postRDTO, postId)
+        postService.save(user, postRDTO, postId)
     }
 }

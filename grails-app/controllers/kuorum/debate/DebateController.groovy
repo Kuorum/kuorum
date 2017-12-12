@@ -8,14 +8,15 @@ import kuorum.campaign.EventRegistration
 import kuorum.core.FileType
 import kuorum.core.exception.KuorumException
 import kuorum.files.FileService
+import kuorum.politician.CampaignController
 import kuorum.users.CookieUUIDService
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
 import kuorum.util.TimeZoneUtil
-import kuorum.web.commands.payment.contact.ContactFilterCommand
+import kuorum.web.commands.payment.CampaignSettingsCommand
 import kuorum.web.commands.payment.debate.DebateContentCommand
-import kuorum.web.commands.payment.debate.DebateSettingsCommand
 import org.bson.types.ObjectId
+import org.kuorum.rest.model.communication.CampaignRDTO
 import org.kuorum.rest.model.communication.debate.DebateRDTO
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.kuorum.rest.model.communication.debate.search.ProposalPageRSDTO
@@ -26,20 +27,15 @@ import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
 import org.kuorum.rest.model.contact.filter.FilterRDTO
 import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
 import payment.CustomerService
-import payment.campaign.DebateService
 import payment.campaign.ProposalService
-import payment.contact.ContactService
 
 import javax.servlet.http.HttpServletResponse
 
-class DebateController {
+class DebateController extends CampaignController{
 
-    def springSecurityService
 
     KuorumUserService kuorumUserService
     FileService fileService
-    ContactService contactService
-    DebateService debateService
     ProposalService proposalService
     CookieUUIDService cookieUUIDService
     CustomerService customerService
@@ -47,7 +43,7 @@ class DebateController {
     def show() {
         String viewerId = cookieUUIDService.buildUserUUID()
         try {
-            DebateRSDTO debate = debateService.findDebate( params.userAlias, Long.parseLong((String) params.debateId),viewerId)
+            DebateRSDTO debate = debateService.find( params.userAlias, Long.parseLong((String) params.debateId),viewerId)
             if (!debate) {
                 throw new KuorumException(message(code: "debate.notFound") as String)
             }
@@ -95,16 +91,16 @@ class DebateController {
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def create() {
-        return debateModelSettings(new DebateSettingsCommand(), null)
+        return debateModelSettings(new CampaignSettingsCommand(debatable:true), null)
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def editSettingsStep(){
         String viewerUid = cookieUUIDService.buildUserUUID()
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        DebateRSDTO debateRSDTO = debateService.findDebate( user, Long.parseLong((String) params.debateId), viewerUid)
+        DebateRSDTO debateRSDTO = debateService.find( user, Long.parseLong((String) params.debateId), viewerUid)
 
-        return debateModelSettings(new DebateSettingsCommand(), debateRSDTO)
+        return debateModelSettings(new CampaignSettingsCommand(debatable:true), debateRSDTO)
 
     }
 
@@ -112,14 +108,14 @@ class DebateController {
     def editContentStep(){
         String viewerUid = cookieUUIDService.buildUserUUID()
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        DebateRSDTO debateRSDTO = debateService.findDebate( user, Long.parseLong((String) params.debateId), viewerUid)
+        DebateRSDTO debateRSDTO = debateService.find( user, Long.parseLong((String) params.debateId), viewerUid)
         setDebateAsDraft(user, debateRSDTO)
         return debateModelContent(new DebateContentCommand(), debateRSDTO)
 
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
-    def saveSettings(DebateSettingsCommand command) {
+    def saveSettings(CampaignSettingsCommand command) {
         if (command.hasErrors()) {
             render view: 'create', model: debateModelSettings(command, null)
             return
@@ -129,11 +125,11 @@ class DebateController {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         FilterRDTO anonymousFilter = recoverAnonymousFilterSettings(params, command)
         Long debateId = params.debateId?Long.parseLong(params.debateId):null
-        Map<String, Object> resultDebate = saveAndSendDebateSettings(user, command, debateId, anonymousFilter)
+        Map<String, Object> result = saveCampaignSettings(user, command, debateId, anonymousFilter, debateService)
 
         //flash.message = resultDebate.msg.toString()
 
-        redirect mapping: nextStep, params: resultDebate.debate.encodeAsLinkProperties()
+        redirect mapping: nextStep, params: result.campaign.encodeAsLinkProperties()
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
@@ -167,28 +163,10 @@ class DebateController {
         render ([msg: "Debate deleted"] as JSON)
     }
 
-    private def debateModelSettings(DebateSettingsCommand command, DebateRSDTO debateRSDTO) {
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        List<ExtendedFilterRSDTO> filters = contactService.getUserFilters(user)
-        ContactPageRSDTO contactPageRSDTO = contactService.getUsers(user)
-
-        if(debateRSDTO) {
-            command.campaignName = debateRSDTO.name
-            command.tags = debateRSDTO.triggeredTags
-            command.filterId = debateRSDTO.newsletter?.filter?.id
-            command.causes = debateRSDTO.causes
-            if(debateRSDTO.newsletter.filter && !filters.find{it.id == debateRSDTO.newsletter.filter.id}){
-                ExtendedFilterRSDTO anonymousFilter = contactService.getFilter(user, debateRSDTO.newsletter.filter.id)
-                filters.add(anonymousFilter)
-            }
-        }
-
-        [
-                filters: filters,
-                command: command,
-                totalContacts: contactPageRSDTO.total,
-                debate: debateRSDTO
-        ]
+    private def debateModelSettings(CampaignSettingsCommand command, DebateRSDTO debateRSDTO) {
+        def model = modelSettings(command, debateRSDTO)
+        command.debatable=true
+        return model
     }
 
     private def debateModelContent(DebateContentCommand command, DebateRSDTO debateRSDTO) {
@@ -198,7 +176,7 @@ class DebateController {
 
         Long debateId = params.debateId?Long.parseLong(params.debateId):null
         if(!debateRSDTO){
-            debateRSDTO = debateService.findDebate(user, debateId)
+            debateRSDTO = debateService.find(user, debateId)
         }
 
         command.title = debateRSDTO.title
@@ -237,21 +215,6 @@ class DebateController {
         }
     }
 
-    private FilterRDTO recoverAnonymousFilterSettings(params, DebateSettingsCommand command) {
-        ContactFilterCommand filterCommand = (ContactFilterCommand) bindData(new ContactFilterCommand(), params)
-        contactService.transformCommand(filterCommand, "Custom filter for ${command.campaignName}")
-    }
-
-    private Map<String, Object> saveAndSendDebateSettings(KuorumUser user, DebateSettingsCommand command,
-                                                  Long debateId = null, FilterRDTO anonymousFilter = null) {
-
-        DebateRDTO debateRDTO = convertCommandSettingsToDebate(command, user, anonymousFilter, debateId)
-        DebateRSDTO savedDebate = debateService.saveDebate(user, debateRDTO, debateId)
-        String msg = g.message(code:'tools.massMailing.saveDraft.advise', args: [savedDebate.title])
-
-        [msg: msg, debate: savedDebate]
-    }
-
     private Map<String, Object> saveAndSendDebateContent(KuorumUser user, DebateContentCommand command,
                                                   Long debateId = null) {
         DebateRDTO debateRDTO = convertCommandContentToDebate(command, user, debateId)
@@ -262,7 +225,7 @@ class DebateController {
         String msg
         DebateRSDTO savedDebate
         if (command.publishOn) {
-            savedDebate = debateService.saveDebate(user, debateRDTO, debateId)
+            savedDebate = debateService.save(user, debateRDTO, debateId)
             if (command.publishOn < new Date()) {
                 msg = g.message(code: 'tools.massMailing.saved.advise', args: [
                         savedDebate.title
@@ -275,30 +238,15 @@ class DebateController {
             }
         } else {
             // IS A DRAFT
-            savedDebate = debateService.saveDebate(user, debateRDTO, debateId)
+            savedDebate = debateService.save(user, debateRDTO, debateId)
             msg = g.message(code:'tools.massMailing.saveDraft.advise', args: [savedDebate.title])
         }
 
         [msg: msg, debate: savedDebate,goToPaymentProcess:goToPaymentProcess]
     }
 
-    private DebateRDTO convertCommandSettingsToDebate(DebateSettingsCommand command, KuorumUser user, FilterRDTO anonymousFilter, Long debateId) {
-        DebateRDTO debateRDTO = createDebateRDTO(user, debateId)
-        debateRDTO.name = command.campaignName
-        debateRDTO.setTriggeredTags(command.tags)
-        debateRDTO.causes = command.causes
-        if (command.filterEdited) {
-            //anonymousFilter.setName(g.message(code:'tools.contact.filter.anonymousName', args: anonymousFilter.getName()))
-            debateRDTO.setAnonymousFilter(anonymousFilter)
-            debateRDTO.setFilterId(null)
-        } else {
-            debateRDTO.setFilterId(command.filterId)
-        }
-        debateRDTO
-    }
-
     private DebateRDTO convertCommandContentToDebate(DebateContentCommand command, KuorumUser user, Long debateId) {
-        DebateRDTO debateRDTO = createDebateRDTO(user, debateId)
+        DebateRDTO debateRDTO = createRDTO(user, debateId, debateService)
         debateRDTO.title = command.title
         debateRDTO.body = command.body
         if(command.sendType == 'SEND'){
@@ -331,38 +279,14 @@ class DebateController {
                 debateRDTO.setPhotoUrl(null)
             }
         }
-
         debateRDTO
-    }
-
-    private DebateRDTO createDebateRDTO(KuorumUser user, Long debateId){
-        DebateRDTO debateRDTO = new DebateRDTO();
-        if(debateId){
-            DebateRSDTO debateRSDTO = debateService.findDebate(user, debateId)
-            populateDebate(debateRDTO, debateRSDTO)
-        }
-        return debateRDTO
-    }
-
-    private void populateDebate(DebateRDTO debateRDTO, DebateRSDTO debateRSDTO){
-        debateRDTO.name = debateRSDTO.name
-        debateRDTO.triggeredTags = debateRSDTO.triggeredTags
-        debateRDTO.anonymousFilter = debateRDTO.anonymousFilter
-        debateRDTO.filterId = debateRSDTO.newsletter?.filter?.id
-        debateRDTO.photoUrl = debateRSDTO.photoUrl
-        debateRDTO.videoUrl = debateRSDTO.videoUrl
-        debateRDTO.title = debateRSDTO.title
-        debateRDTO.body = debateRSDTO.body
-        debateRDTO.publishOn = debateRSDTO.datePublished
-        debateRDTO.causes = debateRSDTO.causes
     }
 
     private void setDebateAsDraft(KuorumUser user, DebateRSDTO debate){
         if (debate.newsletter.status == CampaignStatusRSDTO.SCHEDULED){
-            DebateRDTO debateRDTO = new DebateRDTO();
-            populateDebate(debateRDTO , debate)
+            DebateRDTO debateRDTO = debateService.map(debate)
             debateRDTO.setPublishOn(null)
-            debateService.saveDebate(user, debateRDTO, debate.getId())
+            debateService.save(user, debateRDTO, debate.getId())
         }
     }
 }

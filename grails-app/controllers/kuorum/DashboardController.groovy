@@ -5,7 +5,7 @@ import grails.plugin.springsecurity.annotation.Secured
 import kuorum.causes.CausesService
 import kuorum.core.model.search.Pagination
 import kuorum.dashboard.DashboardService
-import kuorum.post.PostService
+import payment.campaign.PostService
 import kuorum.solr.SearchSolrService
 import kuorum.users.CookieUUIDService
 import kuorum.users.KuorumUser
@@ -31,7 +31,6 @@ import payment.contact.ContactService
 class DashboardController {
 
     SpringSecurityService springSecurityService
-    def cluckService
     def projectService
     def kuorumUserService
     KuorumUserStatsService kuorumUserStatsService

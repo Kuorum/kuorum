@@ -2,8 +2,8 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <g:set var="breadCrumbName">
-        <g:if test="${debate}">
-            ${debate.name}
+        <g:if test="${campaign}">
+            ${campaign.name}
         </g:if>
         <g:else>
             <g:message code="tools.campaign.new.debate"/>
@@ -29,7 +29,6 @@
             command: command,
             filters: filters,
             totalContacts: totalContacts,
-            debate: debate,
             anonymousFilter: anonymousFilter,
             events:[TrackingMailStatusRSDTO.OPEN,TrackingMailStatusRSDTO.CLICK,TrackingMailStatusRSDTO.DEBATE_PROPOSAL_NEW,TrackingMailStatusRSDTO.DEBATE_PROPOSAL_COMMENT,TrackingMailStatusRSDTO.DEBATE_PROPOSAL_LIKE],
             next: 'debateEditContent',

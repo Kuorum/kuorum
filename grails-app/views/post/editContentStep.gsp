@@ -19,5 +19,10 @@
     </ol>
     <g:render template="/campaigns/edit/contentStep" model="[command: command, post: post,
                                                              numberRecipients:numberRecipients, status: status,
-                                                             mappings:[step:'content', settings:'postEdit', content:'postEditContent', showResult: 'postShow']]"/>
+                                                             mappings:[
+                                                                     step:'content',
+                                                                     settings:'postEdit',
+                                                                     event:'postEditEvent',
+                                                                     content:'postEditContent',
+                                                                     showResult: 'postShow']]"/>
 </content>

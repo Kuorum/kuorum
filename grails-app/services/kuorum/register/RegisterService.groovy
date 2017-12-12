@@ -1,4 +1,5 @@
 package kuorum.register
+
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.authentication.dao.NullSaltSource
@@ -11,7 +12,6 @@ import kuorum.core.model.UserType
 import kuorum.mail.KuorumMailService
 import kuorum.notifications.NotificationService
 import kuorum.post.Post
-import kuorum.post.PostVoteService
 import kuorum.solr.IndexSolrService
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
@@ -33,8 +33,6 @@ class RegisterService {
 
     SpringSecurityService springSecurityService
 
-    PostVoteService postVoteService
-
     KuorumUserService kuorumUserService
 
     NotificationService notificationService
@@ -48,10 +46,6 @@ class RegisterService {
     SpringSecurityUiService springSecurityUiService
 
     public static final PREFIX_PASSWORD = "*registerUser*"
-
-    private static final String META_DATA_REGISTER_VOTING_POST="votingPost"
-    private static final String META_DATA_REGISTER_VOTING_POST_POST="postId"
-    private static final String META_DATA_REGISTER_VOTING_POST_ANONYMOUS="anonymousVote"
 
     private static final String META_DATA_REGISTER_CONCATC_POLITICIAN="contactPolitician"
     private static final String META_DATA_REGISTER_CONCATC_POLITICIAN_ID="politicianId"
@@ -274,11 +268,7 @@ class RegisterService {
         user
     }
     private void processMetaDataRegistration(KuorumUser user, RegistrationCode registrationCode){
-        if(registrationCode[META_DATA_REGISTER_VOTING_POST]){
-            Post post = Post.get(registrationCode[META_DATA_REGISTER_VOTING_POST][META_DATA_REGISTER_VOTING_POST_POST])
-            Boolean anonymous = registrationCode[META_DATA_REGISTER_VOTING_POST][META_DATA_REGISTER_VOTING_POST_ANONYMOUS]
-            postVoteService.votePost(post, user, anonymous)
-        }
+
         if(registrationCode[META_DATA_REGISTER_CONCATC_POLITICIAN]){
             KuorumUser politician = KuorumUser.get(registrationCode[META_DATA_REGISTER_CONCATC_POLITICIAN][META_DATA_REGISTER_CONCATC_POLITICIAN_ID])
             String message = registrationCode[META_DATA_REGISTER_CONCATC_POLITICIAN][META_DATA_REGISTER_CONCATC_POLITICIAN_MESSAGE]

@@ -1,20 +1,17 @@
-package kuorum.web.commands.payment.debate
+package kuorum.web.commands.payment
 
 import grails.validation.Validateable
 import kuorum.web.commands.payment.massMailing.MassMailingCommand
 import org.grails.databinding.BindUsing
 import org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO
 
-/**
- * Created by toni on 27/4/17.
- */
-
 @Validateable
-class DebateSettingsCommand {
+class CampaignSettingsCommand {
 
     // Filter
     Long filterId
     Boolean filterEdited
+    Boolean debatable
 
     String campaignName
 
@@ -33,5 +30,6 @@ class DebateSettingsCommand {
         campaignName nullable: false
         tags nullable: true
         causes nullable: true
+        debatable nullable: true
     }
 }

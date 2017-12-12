@@ -6,7 +6,7 @@ import grails.plugin.springsecurity.annotation.Secured
 import kuorum.KuorumFile
 import kuorum.dashboard.DashboardService
 import kuorum.files.FileService
-import kuorum.post.PostService
+import payment.campaign.PostService
 import kuorum.users.CookieUUIDService
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
@@ -279,7 +279,7 @@ class NewsletterController {
 
     def showDebateStats(Long debateId){
         KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
-        DebateRSDTO debate = debateService.findDebate(loggedUser, debateId)
+        DebateRSDTO debate = debateService.find(loggedUser, debateId)
         Long campaignId = debate.newsletter.id
         if (debate.campaignStatusRSDTO == CampaignStatusRSDTO.DRAFT || debate.campaignStatusRSDTO == CampaignStatusRSDTO.SCHEDULED ){
             redirect (mapping:'politicianMassMailingContent', params: [campaignId: campaignId])

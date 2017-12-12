@@ -3,12 +3,7 @@ package kuorum.users
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.causes.CausesService
 import kuorum.core.model.search.Pagination
-import kuorum.core.model.search.SearchUserPosts
-import kuorum.post.Cluck
-import kuorum.post.Post
-import kuorum.project.Project
 import kuorum.register.RegisterService
-import kuorum.web.constants.WebConstants
 import org.bson.types.ObjectId
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.kuorum.rest.model.communication.post.PostRSDTO
@@ -27,7 +22,6 @@ class KuorumUserController {
     def springSecurityService
     def kuorumUserService
     def kuorumUserStatsService
-    def cluckService
     def searchSolrService
     def postService
     def projectService

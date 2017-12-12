@@ -16,7 +16,7 @@ import kuorum.core.model.solr.SolrResults
 import kuorum.files.FileService
 import kuorum.notifications.NotificationService
 import kuorum.post.Post
-import kuorum.post.PostService
+import payment.campaign.PostService
 import kuorum.solr.IndexSolrService
 import kuorum.solr.SearchSolrService
 import kuorum.users.GamificationService

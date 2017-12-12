@@ -1,12 +1,8 @@
 package kuorum
 
 import grails.plugin.springsecurity.SpringSecurityUtils
-import kuorum.core.model.RegionType
-import kuorum.core.model.UserType
 import kuorum.core.model.solr.SolrProject
 import kuorum.project.Project
-import kuorum.project.ProjectUpdate
-import kuorum.project.ProjectVote
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
 import org.bson.types.ObjectId
@@ -17,8 +13,6 @@ class ProjectTagLib {
 
     def springSecurityService
     def postService
-    def cluckService
-    def postVoteService
     def projectService
     RegionService regionService
     KuorumUserService kuorumUserService

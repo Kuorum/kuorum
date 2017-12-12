@@ -74,7 +74,7 @@ $(function(){
     }
 
     // CREATE CAMPAIGN moving on STEPS
-    var $stepButton = $('ul.campaigns.twoSteps > li > a');
+    var $stepButton = $('ul.campaign-steps > li > a');
     $stepButton.on('click', stepSubmit);
 
     var $nextButton = $('.form-final-options #next[data-redirectLink]');

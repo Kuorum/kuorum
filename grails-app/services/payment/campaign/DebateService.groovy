@@ -9,11 +9,9 @@ import kuorum.util.rest.RestKuorumApiService
 import org.kuorum.rest.model.communication.debate.DebateRDTO
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.kuorum.rest.model.communication.debate.PageDebateRSDTO
-import org.springframework.cache.annotation.CacheEvict
-import org.springframework.cache.annotation.Cacheable
 
 @Transactional
-class DebateService {
+class DebateService implements CampaignService<DebateRSDTO, DebateRDTO> {
 
     RestKuorumApiService restKuorumApiService
     IndexSolrService indexSolrService
@@ -48,12 +46,15 @@ class DebateService {
     }
 
 //    @Cacheable(value="debate", key='#debateId')
-    DebateRSDTO findDebate(KuorumUser user, Long debateId, String viewerUid = null) {
-        findDebate(user.getId().toString(), debateId, viewerUid);
+    DebateRSDTO find(KuorumUser user, Long debateId, String viewerUid = null) {
+        find(user.getId().toString(), debateId, viewerUid);
     }
 
 //    @Cacheable(value="debate", key='#debateId')
-    DebateRSDTO findDebate(String userId, Long debateId, String viewerUid = null) {
+    DebateRSDTO find(String userId, Long debateId, String viewerUid = null) {
+        if (!debateId){
+            return null;
+        }
         Map<String, String> params = [userAlias: userId, debateId: debateId.toString()]
         Map<String, String> query = [:]
         if (viewerUid){
@@ -79,7 +80,7 @@ class DebateService {
     }
 
 //    @CacheEvict(value="debate", key='#debateId')
-    DebateRSDTO saveDebate(KuorumUser user, DebateRDTO debateRDTO, Long debateId) {
+    DebateRSDTO save(KuorumUser user, DebateRDTO debateRDTO, Long debateId) {
         debateRDTO.body = debateRDTO.body.encodeAsRemovingScriptTags().encodeAsTargetBlank()
 
         DebateRSDTO debate
@@ -152,5 +153,23 @@ class DebateService {
                 null
         )
         response
+    }
+
+    @Override
+    DebateRDTO map(DebateRSDTO debateRSDTO) {
+        DebateRDTO debateRDTO = new DebateRDTO()
+        if(debateRSDTO) {
+            debateRDTO.name = debateRSDTO.name
+            debateRDTO.triggeredTags = debateRSDTO.triggeredTags
+            debateRDTO.anonymousFilter = debateRDTO.anonymousFilter
+            debateRDTO.filterId = debateRSDTO.newsletter?.filter?.id
+            debateRDTO.photoUrl = debateRSDTO.photoUrl
+            debateRDTO.videoUrl = debateRSDTO.videoUrl
+            debateRDTO.title = debateRSDTO.title
+            debateRDTO.body = debateRSDTO.body
+            debateRDTO.publishOn = debateRSDTO.datePublished
+            debateRDTO.causes = debateRSDTO.causes
+        }
+        return debateRDTO
     }
 }

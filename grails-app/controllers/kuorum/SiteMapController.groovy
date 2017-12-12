@@ -2,12 +2,9 @@ package kuorum
 
 import com.mongodb.DBCursor
 import kuorum.core.model.AvailableLanguage
-import kuorum.core.model.UserType
-import kuorum.post.PostService
+import payment.campaign.PostService
 import kuorum.users.KuorumUser
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
-import org.kuorum.rest.model.communication.debate.PageDebateRSDTO
-import org.kuorum.rest.model.communication.post.PagePostRSDTO
 import org.kuorum.rest.model.communication.post.PostRSDTO
 import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
 import payment.campaign.DebateService

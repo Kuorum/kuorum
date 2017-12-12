@@ -26,7 +26,7 @@ class DebateProposalController {
     def addProposal(DebateProposalCommand command) {
         KuorumUser user = springSecurityService.currentUser
         KuorumUser debateUser = KuorumUser.findByAlias(command.debateAlias)
-        DebateRSDTO debate = debateService.findDebate(debateUser, command.debateId)
+        DebateRSDTO debate = debateService.find(debateUser, command.debateId)
         ProposalRSDTO proposalRSDTO = proposalService.addProposal(user, debate, command.body)
 
         render template: '/debate/showModules/mainContent/proposalData', model:[debate:debate, debateUser:debateUser,proposal:proposalRSDTO]
@@ -58,7 +58,7 @@ class DebateProposalController {
     def addComment(CommentProposalCommand command){
         KuorumUser user = springSecurityService.currentUser
         KuorumUser debateUser = KuorumUser.findByAlias(command.debateAlias)
-        DebateRSDTO debate = debateService.findDebate(debateUser, command.debateId)
+        DebateRSDTO debate = debateService.find(debateUser, command.debateId)
         ProposalRSDTO proposalRSDTO = proposalService.addComment(user, debate, command.proposalId, command.body)
         ProposalCommentRSDTO comment = proposalRSDTO.comments.reverseFind{it.user.id == user.id.toString()}
         render template: "/debate/showModules/mainContent/proposalDataComment", model:[debate:debate, proposal:proposalRSDTO, comment:comment]

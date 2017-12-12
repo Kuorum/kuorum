@@ -1,7 +1,7 @@
 <r:require modules="datepicker, postForm, debateForm" />
 
 <div class="box-steps container-fluid choose-campaign">
-    <g:render template="/campaigns/steps/twoSteps" model="[mappings: mappings]"/>
+    <g:render template="/campaigns/steps/twoSteps" model="[mappings: mappings, attachEvent:true]"/>
 </div>
 
 <div class="box-ppal campaign-new">
@@ -12,7 +12,7 @@
         <input type="hidden" name="redirectLink" id="redirectLink"/>
 
         <fieldset class="form-group">
-            <label for="campaignName" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.debate.DebateSettingsCommand.campaignName.label"/>:</label>
+            <label for="campaignName" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.CampaignSettingsCommand.campaignName.label"/>:</label>
             <div class="col-sm-8 col-md-7">
                 <formUtil:input command="${command}" field="campaignName"/>
             </div>
@@ -20,6 +20,27 @@
 
         <g:render template="/newsletter/filter" model="[command: command, filters: filters,anonymousFilter: anonymousFilter, totalContacts: totalContacts, hideSendTestButton: true]"/>
 
+        <g:if test="${command.debatable==null}">
+            <fieldset class="form-group">
+                %{--<label for="campaignName" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.debate.CampaignSettingsCommand.campaignName.label"/>:</label>--}%
+                <div class="col-md-offset-1 col-sm-8 col-md-7">
+                    <formUtil:checkBox command="${command}" field="debatable"/>
+                </div>
+            </fieldset>
+        </g:if>
+        <g:else>
+            <fieldset class="form-group">
+                %{--<label for="campaignName" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.debate.CampaignSettingsCommand.campaignName.label"/>:</label>--}%
+                <div class="col-md-offset-1 col-sm-8 col-md-7">
+                    <g:if test="${command.debatable}">
+                        <span class="fa fa-check-square"> <g:message code="kuorum.web.commands.payment.CampaignSettingsCommand.debatable.label"/></span>
+                    </g:if>
+                    <g:else>
+                        <span class="fa fa-square-o"> <g:message code="kuorum.web.commands.payment.CampaignSettingsCommand.debatable.label"/></span>
+                    </g:else>
+                </div>
+            </fieldset>
+        </g:else>
 
         <fieldset class="form-group" id="advanced-features-section">
             %{--<label for="advanced-feature" class="col-sm-2 col-md-1 control-label">Advanced features:</label>--}%

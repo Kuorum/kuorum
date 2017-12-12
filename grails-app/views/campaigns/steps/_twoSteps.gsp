@@ -1,8 +1,21 @@
-<ul id="mails" class="campaigns twoSteps">
+<g:set var="numberStepsClass" value="twoSteps"/>
+<g:if test="${attachEvent}">
+    <g:set var="numberStepsClass" value="threeSteps"/>
+</g:if>
+<ul id="mails" class="campaign-steps ${numberStepsClass}">
     <li class="fontIcon ${mappings.step == 'settings' ?'active':''}">
         <a href="#" data-redirectLink="${mappings.settings}">
             <span class="fa fa-gears"></span>
             <span class="label"><g:message code="tools.campaign.new.steps.settings"/></span>
+        </a>
+    </li>
+    <li class="fontIcon arrow">
+        <span class="fa fa-angle-right fa-3x"></span>
+    </li>
+    <li class="fontIcon ${mappings.step == 'event'?'active':''}">
+        <a href="#" data-redirectLink="${mappings.event}">
+            <span class="fa fa-calendar-check-o"></span>
+            <span class="label"><g:message code="tools.campaign.new.steps.eventData"/></span>
         </a>
     </li>
     <li class="fontIcon arrow">

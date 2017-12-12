@@ -25,7 +25,6 @@
             command: command,
             filters: filters,
             totalContacts: totalContacts,
-            debate: debate,
             anonymousFilter: anonymousFilter,
             events:[TrackingMailStatusRSDTO.OPEN,TrackingMailStatusRSDTO.CLICK,TrackingMailStatusRSDTO.DEBATE_PROPOSAL_NEW,TrackingMailStatusRSDTO.DEBATE_PROPOSAL_COMMENT,TrackingMailStatusRSDTO.DEBATE_PROPOSAL_LIKE],
             mappings:[
