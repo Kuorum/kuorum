@@ -22,6 +22,7 @@
         <li class="active">${breadCrumbName}</li>
     </ol>
     <g:render template="/campaigns/edit/settingsStep" model="[
+            attachEvent:false,
             command: command,
             filters: filters,
             totalContacts: totalContacts,

@@ -371,7 +371,7 @@ class UrlMappings {
 
         name debateCreate:      "/account/debate/new" (controller: "debate"){action = [GET: "create", POST: "saveSettings"]}
         name debateEdit:        "/account/$userAlias/d/$urlTitle-$debateId/edit-settings" (controller: "debate"){action = [GET: "editSettingsStep", POST: "saveSettings"]}
-        name debateEditEvent:   "/account/$userAlias/d/$urlTitle-$debateId/edit-event" (controller: "debate"){action = [GET: "editContentStep", POST: "saveContent"]}
+        name debateEditEvent:   "/account/$userAlias/d/$urlTitle-$debateId/edit-event" (controller: "debate"){action = [GET: "editEvent", POST: "updateEvent"]}
         name debateEditContent: "/account/$userAlias/d/$urlTitle-$debateId/edit-content" (controller: "debate"){action = [GET: "editContentStep", POST: "saveContent"]}
 
         name debateRemove:      "/ajax/account/$userAlias/d/$urlTitle-$debateId/remove" (controller: "debate", action: "remove")
@@ -398,7 +398,7 @@ class UrlMappings {
         name postRemove:            "/ajax/account/$userAlias/p/$urlTitle-$postId/remove" (controller: "post", action: "remove")
         name postCreate:            "/account/post/new" (controller: "post"){action = [GET: "create", POST: "saveSettings"]}
         name postEdit:              "/account/$userAlias/p/$urlTitle-$postId/edit-settings" (controller: "post"){action = [GET: "editSettingsStep", POST: "saveSettings"]}
-        name postEditEvent:         "/account/$userAlias/p/$urlTitle-$postId/edit-event" (controller: "event"){action = [GET: "editEvent", POST: "saveEvent"]}
+        name postEditEvent:         "/account/$userAlias/p/$urlTitle-$postId/edit-event" (controller: "event"){action = [GET: "editEvent", POST: "updateEvent"]}
         name postEditContent:       "/account/$userAlias/p/$urlTitle-$postId/edit-content" (controller: "post"){action = [GET: "editContentStep", POST: "saveContent"]}
         name postShow:              "/$userAlias/p/$urlTitle-$postId"           (controller: "post", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
                                     "/$userAlias/p/-$postId"                    (controller: "post", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}

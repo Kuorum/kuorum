@@ -9,6 +9,7 @@ import kuorum.util.rest.RestKuorumApiService
 import org.kuorum.rest.model.communication.debate.DebateRDTO
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.kuorum.rest.model.communication.debate.PageDebateRSDTO
+import org.kuorum.rest.model.communication.event.EventRDTO
 
 @Transactional
 class DebateService implements CampaignService<DebateRSDTO, DebateRDTO> {
@@ -169,6 +170,15 @@ class DebateService implements CampaignService<DebateRSDTO, DebateRDTO> {
             debateRDTO.body = debateRSDTO.body
             debateRDTO.publishOn = debateRSDTO.datePublished
             debateRDTO.causes = debateRSDTO.causes
+            if (debateRSDTO.event){
+                debateRDTO.event = new EventRDTO();
+                debateRDTO.event.eventDate = debateRSDTO.event.eventDate
+                debateRDTO.event.latitude = debateRSDTO.event.latitude
+                debateRDTO.event.longitude = debateRSDTO.event.longitude
+                debateRDTO.event.zoom = debateRSDTO.event.zoom
+                debateRDTO.event.localName = debateRSDTO.event.localName
+                debateRDTO.event.address = debateRSDTO.event.address
+            }
         }
         return debateRDTO
     }

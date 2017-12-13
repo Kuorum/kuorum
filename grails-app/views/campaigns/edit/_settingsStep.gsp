@@ -1,7 +1,7 @@
 <r:require modules="datepicker, postForm, debateForm" />
 
 <div class="box-steps container-fluid choose-campaign">
-    <g:render template="/campaigns/steps/twoSteps" model="[mappings: mappings, attachEvent:true]"/>
+    <g:render template="/campaigns/steps/twoSteps" model="[mappings: mappings, attachEvent:attachEvent]"/>
 </div>
 
 <div class="box-ppal campaign-new">

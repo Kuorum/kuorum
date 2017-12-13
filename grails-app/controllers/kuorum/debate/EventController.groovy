@@ -9,8 +9,10 @@ import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
 import kuorum.web.commands.payment.CampaignSettingsCommand
 import net.sf.json.JSON
+import org.kuorum.rest.model.communication.CampaignRDTO
 import org.kuorum.rest.model.communication.CampaignRSDTO
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
+import org.kuorum.rest.model.communication.event.EventRDTO
 import org.kuorum.rest.model.communication.post.PostRSDTO
 import org.kuorum.rest.model.contact.ContactPageRSDTO
 import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
@@ -67,6 +69,66 @@ class EventController extends CampaignController{
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def editEvent(){
+        modelEditEvent(params)
+    }
+
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def updateEvent(EventCommand command ){
+        if (command.hasErrors()) {
+            render view: 'editEvent', model: modelEditEvent(params, command)
+            return
+        }
+        String nextStep = params.redirectLink
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        CampaignRSDTO campaignRSDTO = findCampaign(params)
+        CampaignService campaignService = null;
+        CampaignRDTO campaignRDTO = null;
+        if (campaignRSDTO instanceof DebateRSDTO){
+            campaignService = debateService
+        }else{
+            campaignService = postService
+        }
+        campaignRDTO = campaignService.map(campaignRSDTO)
+        updateEventRDTO(campaignRDTO, command)
+        campaignRSDTO = campaignService.save(user,campaignRDTO,campaignRSDTO.id)
+
+        //flash.message = resultPost.msg.toString()
+
+        redirect mapping: nextStep, params: campaignRSDTO.encodeAsLinkProperties()
+    }
+
+    private def updateEventRDTO(CampaignRDTO campaignRDTO, EventCommand eventCommand) {
+        if (!campaignRDTO.event){
+            campaignRDTO.event = new EventRDTO()
+        }
+        campaignRDTO.event.address = eventCommand.address
+        campaignRDTO.event.eventDate = eventCommand.eventDate
+        campaignRDTO.event.latitude = eventCommand.latitude
+        campaignRDTO.event.longitude = eventCommand.longitude
+        campaignRDTO.event.localName = eventCommand.localName
+        campaignRDTO.event.zoom = eventCommand.zoom
+    }
+
+    private def modelEditEvent(def params, EventCommand command = null ){
+        CampaignRSDTO campaignRSDTO = findCampaign(params)
+        if (!command){
+            command = new EventCommand()
+            if (campaignRSDTO.event){
+                command.address = campaignRSDTO.event.address
+                command.localName = campaignRSDTO.event.localName
+                command.longitude = campaignRSDTO.event.longitude
+                command.latitude = campaignRSDTO.event.latitude
+                command.zoom = campaignRSDTO.event.zoom
+                command.eventDate = campaignRSDTO.event.eventDate
+            }
+        }
+        [
+                campaign:campaignRSDTO,
+                command:command
+        ]
+    }
+
+    private CampaignRSDTO findCampaign(def params){
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         CampaignService campaignService
         Long campaignId;
@@ -78,18 +140,9 @@ class EventController extends CampaignController{
             campaignService = debateService
 
         }
-        CampaignRSDTO campaignRSDTO = campaignService.find(user, campaignId)
-        EventCommand command = new EventCommand()
-        [
-                campaign:campaignRSDTO,
-                command:command
-        ]
+        campaignService.find(user, campaignId)
     }
 
-    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
-    def updateEvent(){
-
-    }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def confirmAssistance(Long debateId){

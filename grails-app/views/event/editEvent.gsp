@@ -25,6 +25,7 @@
     <div class="box-steps container-fluid choose-campaign">
         <g:set var="mappings" value="${
             [step:'event',
+             next:'postEditContent',
              settings:'postEdit',
              event:'postEditEvent',
              content:'postEditContent',
@@ -32,6 +33,7 @@
         <g:if test="${campaign instanceof org.kuorum.rest.model.communication.debate.DebateRSDTO}">
             <g:set var="mappings" value="${
                 [step:'event',
+                 next:'debateEditContent',
                  settings:'debateEdit',
                  event:'debateEditEvent',
                  content:'debateEditContent',
@@ -47,9 +49,10 @@
         <form action="#" class="form-horizontal" id="politicianMassMailingForm" method="POST" data-generalErrorMessage="${g.message(code:'kuorum.web.commands.payment.massMailing.DebateCommand.form.genericError')}">
             <input type="hidden" name="sendType" value="DRAFT" id="sendMassMailingType"/>
             <input type="hidden" name="redirectLink" id="redirectLink"/>
-            <input type="hidden" name="latitude" id="latitude"/>
-            <input type="hidden" name="longitude" id="longitude"/>
-            <input type="hidden" name="zoom" id="zoom"/>
+            %{--<input type="hidden" name="latitude" id="latitude" value="${g.formatNumber(number:command.latitude, type:'number', format:'$##.##########')}"/>--}%
+            <input type="hidden" name="latitude" id="latitude" value="${command.latitude}"/>
+            <input type="hidden" name="longitude" id="longitude" value="${command.longitude}"/>
+            <input type="hidden" name="zoom" id="zoom" value="${command.zoom}"/>
 
             <fieldset class="form-group">
                 <label for="eventDate" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.event.EventCommand.eventDate.label"/>:</label>
@@ -70,7 +73,9 @@
                     <formUtil:input command="${command}" field="address"/>
                 </div>
                 <div class="col-sm-8 col-md-1">
-                    <span class="fa fa-map-marker" id="geocode-address"></span>
+                    <a href="#" class="btn btn-grey" id="geocode-address">
+                        <span class="fa fa-map-marker" ></span>
+                    </a>
                 </div>
                 <div id="edit-event-map" class="col-md-4"></div>
             </fieldset>
@@ -88,15 +93,45 @@
             </fieldset>
         </form>
         <script>
+
+            var map
+            var geocoder
+            function googleMapsLibraryLoaded(){
+                if (document.getElementById('zoom').value >0){
+                    initMap();
+                    geocodeAddress(geocoder, map);
+                    document.getElementById('geocode-address').addEventListener('click', function(e) {
+                        e.preventDefault();
+                        geocodeAddress(geocoder, map);
+                    });
+                }else{
+                    document.getElementById('geocode-address').addEventListener('click', function(e) {
+                        e.preventDefault();
+                        initMap();
+                        geocodeAddress(geocoder, map);
+                    });
+                }
+
+            }
             function initMap() {
-                var map = new google.maps.Map(document.getElementById('edit-event-map'), {
-                    zoom: 6,
-                    center: {lat: 40.428054, lng: -3.7043396},
+                var zoom = 6;
+                var center = {lat: 40.428054, lng: -3.7043396};
+                if (document.getElementById('zoom').value >0){
+                    zoom = parseInt(document.getElementById('zoom').value)
+                    center = {
+                        lat: parseFloat(document.getElementById('latitude').value),
+                        lng: parseFloat(document.getElementById('longitude').value)
+                    };
+
+                }
+                map = new google.maps.Map(document.getElementById('edit-event-map'), {
+                    zoom: zoom,
+                    center: center,
                     mapTypeControl:false,
                     streetViewControl:false,
                     scaleControl:false
                 });
-                var geocoder = new google.maps.Geocoder();
+                geocoder = new google.maps.Geocoder();
 
                 map.addListener('zoom_changed', function() {
                     document.getElementById('zoom').value=map.getZoom();
@@ -106,15 +141,16 @@
                     placeMarkerAndPanTo(e.latLng, map);
                 });
 
-                document.getElementById('geocode-address').addEventListener('click', function() {
-                    geocodeAddress(geocoder, map);
-                });
+//                document.getElementById('geocode-address').addEventListener('click', function(e) {
+//                    e.preventDefault();
+//                    geocodeAddress(geocoder, map);
+//                });
             }
 
             function geocodeAddress(geocoder, resultsMap) {
                 var address = document.getElementById('address').value;
                 geocoder.geocode({'address': address}, function(results, status) {
-                    console.log(results)
+//                    console.log(results)
                     if (status ===  google.maps.GeocoderStatus.OK) {
                         resultsMap.setCenter(results[0].geometry.location);
                         var marker = new google.maps.Marker({
@@ -144,7 +180,7 @@
 
         </script>
         <script async defer
-                src="https://maps.googleapis.com/maps/api/js?key=${_googleConfig.jsKey}&callback=initMap">
+                src="https://maps.googleapis.com/maps/api/js?key=${_googleConfig.jsKey}&callback=googleMapsLibraryLoaded">
         </script>
     </div>
 </content>

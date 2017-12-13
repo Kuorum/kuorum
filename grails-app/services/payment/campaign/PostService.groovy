@@ -6,6 +6,7 @@ import kuorum.core.exception.KuorumException
 import kuorum.mail.KuorumMailService
 import kuorum.users.KuorumUser
 import kuorum.util.rest.RestKuorumApiService
+import org.kuorum.rest.model.communication.event.EventRDTO
 import org.kuorum.rest.model.communication.post.PagePostRSDTO
 import org.kuorum.rest.model.communication.post.PostRDTO
 import org.kuorum.rest.model.communication.post.PostRSDTO
@@ -175,6 +176,15 @@ class PostService implements CampaignService<PostRSDTO, PostRDTO>{
             postRDTO.anonymousFilter = postRSDTO.anonymousFilter
             postRDTO.filterId = postRSDTO.newsletter?.filter?.id
             postRDTO.causes = postRSDTO.causes
+            if (postRSDTO.event){
+                postRDTO.event = new EventRDTO();
+                postRDTO.event.eventDate = postRSDTO.event.eventDate
+                postRDTO.event.latitude = postRSDTO.event.latitude
+                postRDTO.event.longitude = postRSDTO.event.longitude
+                postRDTO.event.zoom = postRSDTO.event.zoom
+                postRDTO.event.localName = postRSDTO.event.localName
+                postRDTO.event.address = postRSDTO.event.address
+            }
         }
         return postRDTO;
     }

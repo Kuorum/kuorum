@@ -23,6 +23,7 @@ beans = {
     aop.config("proxy-target-class":true) {
     }
 
+    formattedDoubleConverter kuorum.web.binder.FormattedDoubleConverter
 
    userDetailsService(MongoUserDetailsService)
 

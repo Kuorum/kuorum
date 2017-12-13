@@ -27,6 +27,7 @@
     </ol>
     <g:render template="/campaigns/edit/settingsStep"
               model="[
+                      attachEvent:campaign?.event?true:false,
                       command: command,
                       filters: filters,
                       totalContacts: totalContacts,

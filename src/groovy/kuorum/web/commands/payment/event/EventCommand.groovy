@@ -9,7 +9,9 @@ class EventCommand {
 
     @BindingFormat(WebConstants.WEB_FORMAT_DATE)
     Date eventDate;
+    @BindingFormat(".")
     Double latitude;
+    @BindingFormat(".")
     Double longitude;
     Integer zoom;
     String localName;
