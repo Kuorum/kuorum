@@ -53,6 +53,7 @@ class EventController extends CampaignController{
         }else{
             campaignService = postService
         }
+        command.eventAttached=true
         Map<String, Object> result = saveCampaignSettings(user, command, null, anonymousFilter, campaignService)
 
         //flash.message = resultPost.msg.toString()

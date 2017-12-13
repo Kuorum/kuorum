@@ -12,6 +12,7 @@ class CampaignSettingsCommand {
     Long filterId
     Boolean filterEdited
     Boolean debatable
+    Boolean eventAttached
 
     String campaignName
 
@@ -31,5 +32,6 @@ class CampaignSettingsCommand {
         tags nullable: true
         causes nullable: true
         debatable nullable: true
+        eventAttached nullable: true
     }
 }

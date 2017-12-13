@@ -125,6 +125,7 @@ class DebateController extends CampaignController{
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         FilterRDTO anonymousFilter = recoverAnonymousFilterSettings(params, command)
         Long debateId = params.debateId?Long.parseLong(params.debateId):null
+        command.eventAttached=false
         Map<String, Object> result = saveCampaignSettings(user, command, debateId, anonymousFilter, debateService)
 
         //flash.message = resultDebate.msg.toString()

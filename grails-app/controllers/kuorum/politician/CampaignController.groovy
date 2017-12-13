@@ -4,6 +4,7 @@ import grails.plugin.springsecurity.SpringSecurityService
 import kuorum.campaign.Campaign
 import org.kuorum.rest.model.communication.CampaignRDTO
 import org.kuorum.rest.model.communication.debate.DebateRDTO
+import org.kuorum.rest.model.communication.event.EventRDTO
 import payment.campaign.PostService
 import kuorum.users.KuorumUser
 import kuorum.web.commands.payment.CampaignSettingsCommand
@@ -76,6 +77,9 @@ class CampaignController {
             rdto.setFilterId(null)
         } else {
             rdto.setFilterId(command.filterId)
+        }
+        if (command.eventAttached && !rdto.event){
+            rdto.event = new EventRDTO();
         }
         rdto
     }

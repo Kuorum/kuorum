@@ -86,6 +86,7 @@ class PostController extends CampaignController{
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         FilterRDTO anonymousFilter = recoverAnonymousFilterSettings(params, command)
         Long postId = params.postId?Long.parseLong(params.postId):null
+        command.eventAttached=false
         Map<String, Object> result = saveCampaignSettings(user, command, postId, anonymousFilter, postService)
 
         //flash.message = resultPost.msg.toString()
