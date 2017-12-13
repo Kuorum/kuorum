@@ -371,7 +371,7 @@ class UrlMappings {
 
         name debateCreate:      "/account/debate/new" (controller: "debate"){action = [GET: "create", POST: "saveSettings"]}
         name debateEdit:        "/account/$userAlias/d/$urlTitle-$debateId/edit-settings" (controller: "debate"){action = [GET: "editSettingsStep", POST: "saveSettings"]}
-        name debateEditEvent:   "/account/$userAlias/d/$urlTitle-$debateId/edit-event" (controller: "debate"){action = [GET: "editEvent", POST: "updateEvent"]}
+        name debateEditEvent:   "/account/$userAlias/d/$urlTitle-$debateId/edit-event" (controller: "event"){action = [GET: "editEvent", POST: "updateEvent"]}
         name debateEditContent: "/account/$userAlias/d/$urlTitle-$debateId/edit-content" (controller: "debate"){action = [GET: "editContentStep", POST: "saveContent"]}
 
         name debateRemove:      "/ajax/account/$userAlias/d/$urlTitle-$debateId/remove" (controller: "debate", action: "remove")

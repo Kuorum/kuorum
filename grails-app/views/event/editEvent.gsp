@@ -94,88 +94,96 @@
         </form>
         <script>
 
-            var map
-            var geocoder
-            function googleMapsLibraryLoaded(){
-                if (document.getElementById('zoom').value >0){
-                    initMap();
-                    geocodeAddress(geocoder, map);
-                    document.getElementById('geocode-address').addEventListener('click', function(e) {
-                        e.preventDefault();
-                        geocodeAddress(geocoder, map);
+            function KuorumGoogleMapEditEvent(){
+                var map
+                var geocoder
+                var mapDivContainerId="edit-event-map"
+                var geocoderButtonId='geocode-address'
+                var zoom = 6;
+                var center = {lat: 40.428054, lng: -3.7043396};
+                var that = this;
+
+                this.initMap = function() {
+                    if (map != undefined){
+                        console.log("map alredy defined");
+                        return;
+                    }
+                    map = new google.maps.Map(document.getElementById(mapDivContainerId), {
+//                        zoom: zoom,
+//                        center: center,
+                        mapTypeControl:false,
+                        streetViewControl:false,
+                        scaleControl:false
                     });
-                }else{
-                    document.getElementById('geocode-address').addEventListener('click', function(e) {
-                        e.preventDefault();
-                        initMap();
-                        geocodeAddress(geocoder, map);
+                    geocoder = new google.maps.Geocoder();
+
+                    map.addListener('zoom_changed', function() {
+                        document.getElementById('zoom').value=map.getZoom();
+                    });
+
+                    map.addListener('click', function(e) {
+                        that.placeMarkerAndPanTo(e.latLng);
+                    });
+                }
+                document.getElementById(geocoderButtonId).addEventListener('click', function(e) {
+                    e.preventDefault();
+                    that.geocodeAddress(geocoder, map);
+                });
+
+                this.geocodeAddress= function () {
+                    var address = document.getElementById('address').value;
+                    geocoder.geocode({'address': address}, function(results, status) {
+//                    console.log(results)
+                        if (status ===  google.maps.GeocoderStatus.OK) {
+                            map.setCenter(results[0].geometry.location);
+                            var marker = new google.maps.Marker({
+                                map: map,
+                                position: results[0].geometry.location,
+//                            title:"Hello World!"
+                            });
+
+                            map.fitBounds(results[0].geometry.viewport);
+                            document.getElementById('zoom').value=map.getZoom();
+                            document.getElementById('latitude').value=results[0].geometry.location.lat();
+                            document.getElementById('longitude').value=results[0].geometry.location.lng();
+                        } else {
+                            alert('Geocode was not successful for the following reason: ' + status);
+                        }
                     });
                 }
 
-            }
-            function initMap() {
-                var zoom = 6;
-                var center = {lat: 40.428054, lng: -3.7043396};
+                this.placeMarkerAndPanTo = function(latLng) {
+                    var marker = new google.maps.Marker({
+                        position: latLng,
+                        map: that.map
+                    });
+                    that.map.panTo(latLng);
+                }
+                this.show = function(){
+                    document.getElementById(mapDivContainerId).removeAttribute("style");
+                }
+                // INIT MAP
+                this.initMap()
                 if (document.getElementById('zoom').value >0){
                     zoom = parseInt(document.getElementById('zoom').value)
                     center = {
                         lat: parseFloat(document.getElementById('latitude').value),
                         lng: parseFloat(document.getElementById('longitude').value)
                     };
-
+//                    this.geocodeAddress()
+                    map.setCenter(center);
+                    map.setZoom(zoom);
+                    var marker = new google.maps.Marker({
+                        position: center,
+                        map: map
+                    });
+                    that.show();
                 }
-                map = new google.maps.Map(document.getElementById('edit-event-map'), {
-                    zoom: zoom,
-                    center: center,
-                    mapTypeControl:false,
-                    streetViewControl:false,
-                    scaleControl:false
-                });
-                geocoder = new google.maps.Geocoder();
-
-                map.addListener('zoom_changed', function() {
-                    document.getElementById('zoom').value=map.getZoom();
-                });
-
-                map.addListener('click', function(e) {
-                    placeMarkerAndPanTo(e.latLng, map);
-                });
-
-//                document.getElementById('geocode-address').addEventListener('click', function(e) {
-//                    e.preventDefault();
-//                    geocodeAddress(geocoder, map);
-//                });
             }
 
-            function geocodeAddress(geocoder, resultsMap) {
-                var address = document.getElementById('address').value;
-                geocoder.geocode({'address': address}, function(results, status) {
-//                    console.log(results)
-                    if (status ===  google.maps.GeocoderStatus.OK) {
-                        resultsMap.setCenter(results[0].geometry.location);
-                        var marker = new google.maps.Marker({
-                            map: resultsMap,
-                            position: results[0].geometry.location,
-//                            title:"Hello World!"
-                        });
-
-                        resultsMap.fitBounds(results[0].geometry.viewport);
-                        document.getElementById('zoom').value=resultsMap.getZoom();
-                        document.getElementById('latitude').value=results[0].geometry.location.lat();
-                        document.getElementById('longitude').value=results[0].geometry.location.lng();
-
-                    } else {
-                        alert('Geocode was not successful for the following reason: ' + status);
-                    }
-                });
-            }
-
-            function placeMarkerAndPanTo(latLng, map) {
-                var marker = new google.maps.Marker({
-                    position: latLng,
-                    map: map
-                });
-                map.panTo(latLng);
+            var kuorumGoogleMapEditEvent
+            function googleMapsLibraryLoaded(){
+                kuorumGoogleMapEditEvent = new KuorumGoogleMapEditEvent()
             }
 
         </script>
