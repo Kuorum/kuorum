@@ -1,7 +1,7 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <g:set var="breadCrumbName">
-        ${debate.name}
+        ${campaign.name}
     </g:set>
 
     <title>${breadCrumbName}</title>
@@ -20,10 +20,15 @@
         <li class="active">${breadCrumbName}</li>
     </ol>
     <g:render template="/campaigns/edit/contentStep" model="[
-            attachEvent:debate?.event?true:false,
+            attachEvent:campaign?.event?true:false,
             command: command,
-            debate: debate,
             numberRecipients:numberRecipients,
             status: status,
-            mappings:[step:'content', settings:'debateEditSettings', content:'debateEditContent', showResult: 'debateShow']]"/>
+            mappings:[
+                    step:'content',
+                    settings:'debateEditSettings',
+                    event:'debateEditEvent',
+                    content:'debateEditContent',
+                    showResult: 'debateShow']
+            ]"/>
 </content>

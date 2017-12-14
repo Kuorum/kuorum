@@ -2,31 +2,21 @@ package kuorum.debate
 
 import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
-import kuorum.KuorumFile
 import kuorum.campaign.Event
 import kuorum.campaign.EventRegistration
-import kuorum.core.FileType
 import kuorum.core.exception.KuorumException
-import kuorum.files.FileService
 import kuorum.politician.CampaignController
 import kuorum.users.CookieUUIDService
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
-import kuorum.util.TimeZoneUtil
+import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.commands.payment.CampaignSettingsCommand
-import kuorum.web.commands.payment.debate.DebateContentCommand
 import org.bson.types.ObjectId
-import org.kuorum.rest.model.communication.CampaignRDTO
-import org.kuorum.rest.model.communication.debate.DebateRDTO
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.kuorum.rest.model.communication.debate.search.ProposalPageRSDTO
 import org.kuorum.rest.model.communication.debate.search.SearchProposalRSDTO
 import org.kuorum.rest.model.communication.debate.search.SortProposalRDTO
-import org.kuorum.rest.model.contact.ContactPageRSDTO
-import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
 import org.kuorum.rest.model.contact.filter.FilterRDTO
-import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
-import payment.CustomerService
 import payment.campaign.ProposalService
 
 import javax.servlet.http.HttpServletResponse
@@ -35,10 +25,8 @@ class DebateController extends CampaignController{
 
 
     KuorumUserService kuorumUserService
-    FileService fileService
     ProposalService proposalService
     CookieUUIDService cookieUUIDService
-    CustomerService customerService
 
     def show() {
         String viewerId = cookieUUIDService.buildUserUUID()
@@ -106,12 +94,10 @@ class DebateController extends CampaignController{
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def editContentStep(){
-        String viewerUid = cookieUUIDService.buildUserUUID()
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        DebateRSDTO debateRSDTO = debateService.find( user, Long.parseLong((String) params.debateId), viewerUid)
-        setDebateAsDraft(user, debateRSDTO)
-        return debateModelContent(new DebateContentCommand(), debateRSDTO)
-
+        Long debateId = Long.parseLong((String) params.debateId);
+        DebateRSDTO debateRSDTO = setCampaignAsDraft(user, debateId, debateService)
+        return campaignModelContent(debateId, debateRSDTO, null, debateService)
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
@@ -134,26 +120,26 @@ class DebateController extends CampaignController{
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
-    def saveContent(DebateContentCommand command) {
+    def saveContent(CampaignContentCommand command) {
+        Long debateId = params.debateId?Long.parseLong(params.debateId):null
         if (command.hasErrors()) {
             if(command.errors.getFieldError().arguments.first() == "publishOn"){
                 flash.error = message(code: "debate.scheduleError")
             }
-            render view: 'editContentStep', model: debateModelContent(command, null)
+            render view: 'editContentStep', model: campaignModelContent(debateId, null,command, debateService)
             return
         }
 
         String nextStep = params.redirectLink
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        Long debateId = params.debateId?Long.parseLong(params.debateId):null
-        Map<String, Object> resultDebate = saveAndSendDebateContent(user, command, debateId)
+        Map<String, Object> resultDebate = saveAndSendCampaignContent(user, command, debateId, debateService)
         if (resultDebate.goToPaymentProcess){
             String paymentRedirect = g.createLink(mapping:"debateEditContent", params:resultDebate.debate.encodeAsLinkProperties() )
             cookieUUIDService.setPaymentRedirect(paymentRedirect)
             redirect(mapping: "paymentStart")
         }else {
             //flash.message = resultDebate.msg.toString()
-            redirect mapping: nextStep, params: resultDebate.debate.encodeAsLinkProperties()
+            redirect mapping: nextStep, params: resultDebate.campaign.encodeAsLinkProperties()
         }
     }
 
@@ -170,40 +156,6 @@ class DebateController extends CampaignController{
         return model
     }
 
-    private def debateModelContent(DebateContentCommand command, DebateRSDTO debateRSDTO) {
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        List<ExtendedFilterRSDTO> filters = contactService.getUserFilters(user)
-        ContactPageRSDTO contactPageRSDTO = contactService.getUsers(user)
-
-        Long debateId = params.debateId?Long.parseLong(params.debateId):null
-        if(!debateRSDTO){
-            debateRSDTO = debateService.find(user, debateId)
-        }
-
-        command.title = debateRSDTO.title
-        command.body = debateRSDTO.body
-        command.videoPost = debateRSDTO.videoUrl
-
-        if(debateRSDTO.datePublished){
-            command.publishOn = debateRSDTO.datePublished
-        }
-
-        if (debateRSDTO.photoUrl) {
-            KuorumFile kuorumFile = KuorumFile.findByUrl(debateRSDTO.photoUrl)
-            command.headerPictureId = kuorumFile?.id
-        }
-        Long numberRecipients = debateRSDTO.newsletter?.filter?.amountOfContacts!=null?
-                debateRSDTO.newsletter?.filter?.amountOfContacts:
-                contactService.getUsers(user, null).total;
-        [
-                filters: filters,
-                command: command,
-                numberRecipients: numberRecipients,
-                debate: debateRSDTO,
-                status: debateRSDTO.campaignStatusRSDTO
-        ]
-    }
-
     def sendReport(Long debateId){
         KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
         debateService.sendReport(loggedUser, debateId)
@@ -213,81 +165,6 @@ class DebateController extends CampaignController{
         } else{
             flash.message = g.message(code: 'modal.exportedTrackingEvents.title')
             redirect (mapping: 'politicianDebateStatsShow', params:[debateId: debateId])
-        }
-    }
-
-    private Map<String, Object> saveAndSendDebateContent(KuorumUser user, DebateContentCommand command,
-                                                  Long debateId = null) {
-        DebateRDTO debateRDTO = convertCommandContentToDebate(command, user, debateId)
-
-        Boolean validSubscription = customerService.validSubscription(user);
-        Boolean goToPaymentProcess = !validSubscription && command.publishOn;
-
-        String msg
-        DebateRSDTO savedDebate
-        if (command.publishOn) {
-            savedDebate = debateService.save(user, debateRDTO, debateId)
-            if (command.publishOn < new Date()) {
-                msg = g.message(code: 'tools.massMailing.saved.advise', args: [
-                        savedDebate.title
-                ])
-            } else {
-                msg = g.message(code: 'tools.massMailing.schedule.advise', args: [
-                        savedDebate.title,
-                        g.formatDate(date: command.publishOn, type: "datetime", style: "SHORT")
-                ])
-            }
-        } else {
-            // IS A DRAFT
-            savedDebate = debateService.save(user, debateRDTO, debateId)
-            msg = g.message(code:'tools.massMailing.saveDraft.advise', args: [savedDebate.title])
-        }
-
-        [msg: msg, debate: savedDebate,goToPaymentProcess:goToPaymentProcess]
-    }
-
-    private DebateRDTO convertCommandContentToDebate(DebateContentCommand command, KuorumUser user, Long debateId) {
-        DebateRDTO debateRDTO = createRDTO(user, debateId, debateService)
-        debateRDTO.title = command.title
-        debateRDTO.body = command.body
-        if(command.sendType == 'SEND'){
-            debateRDTO.publishOn = Calendar.getInstance(user.getTimeZone()).time;
-        }
-        else{
-            debateRDTO.publishOn = TimeZoneUtil.convertToUserTimeZone(command.publishOn, user.timeZone)
-        }
-
-        // Multimedia URL
-        if (command.fileType == FileType.IMAGE.toString() && command.headerPictureId) {
-            // Save image
-            KuorumFile picture = KuorumFile.get(command.headerPictureId)
-            picture = fileService.convertTemporalToFinalFile(picture)
-            fileService.deleteTemporalFiles(user)
-            debateRDTO.setPhotoUrl(picture.getUrl())
-
-            // Remove video
-            debateRDTO.setVideoUrl(null)
-        } else if (command.fileType == FileType.YOUTUBE.toString() && command.videoPost) {
-            // Save video
-            KuorumFile urlYoutubeFile = fileService.createYoutubeKuorumFile(command.videoPost, user)
-            debateRDTO.setVideoUrl(urlYoutubeFile?.url)
-
-            // Remove image
-            if (command.headerPictureId) {
-                KuorumFile picture = KuorumFile.get(command.headerPictureId)
-                fileService.deleteKuorumFile(picture)
-                command.setHeaderPictureId(null)
-                debateRDTO.setPhotoUrl(null)
-            }
-        }
-        debateRDTO
-    }
-
-    private void setDebateAsDraft(KuorumUser user, DebateRSDTO debate){
-        if (debate.newsletter.status == CampaignStatusRSDTO.SCHEDULED){
-            DebateRDTO debateRDTO = debateService.map(debate)
-            debateRDTO.setPublishOn(null)
-            debateService.save(user, debateRDTO, debate.getId())
         }
     }
 }

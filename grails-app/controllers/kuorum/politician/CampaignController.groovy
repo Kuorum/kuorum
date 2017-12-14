@@ -1,10 +1,18 @@
 package kuorum.politician
 
 import grails.plugin.springsecurity.SpringSecurityService
+import groovy.time.TimeCategory
+import kuorum.KuorumFile
 import kuorum.campaign.Campaign
+import kuorum.core.FileType
+import kuorum.files.FileService
+import kuorum.util.TimeZoneUtil
+import kuorum.web.commands.payment.CampaignContentCommand
 import org.kuorum.rest.model.communication.CampaignRDTO
 import org.kuorum.rest.model.communication.debate.DebateRDTO
 import org.kuorum.rest.model.communication.event.EventRDTO
+import org.kuorum.rest.model.communication.post.PostRDTO
+import payment.CustomerService
 import payment.campaign.PostService
 import kuorum.users.KuorumUser
 import kuorum.web.commands.payment.CampaignSettingsCommand
@@ -27,6 +35,8 @@ class CampaignController {
     DebateService debateService
     ContactService contactService
     SpringSecurityService springSecurityService
+    FileService fileService
+    CustomerService customerService
 
     def findLiUserCampaigns(String userId){
         KuorumUser user = KuorumUser.get(new ObjectId(userId));
@@ -110,5 +120,139 @@ class CampaignController {
         String msg = g.message(code:'tools.massMailing.saveDraft.advise', args: [campaignSaved.title])
 
         [msg: msg, campaign: campaignSaved]
+    }
+
+    protected CampaignRSDTO setCampaignAsDraft(KuorumUser user, Long campaignId, CampaignService campaignService){
+        CampaignRSDTO campaignRSDTO = campaignService.find(user, campaignId)
+        if (campaignRSDTO && campaignRSDTO.newsletter.status == CampaignStatusRSDTO.SCHEDULED){
+            CampaignRDTO campaignRDTO = campaignService.map(campaignRSDTO)
+            campaignRDTO.setPublishOn(null)
+            campaignService.save(user, campaignRDTO, campaignId)
+        }
+        return campaignRSDTO;
+
+    }
+
+    protected def campaignModelContent(Long campaignId, CampaignRSDTO campaignRSDTO=null, CampaignContentCommand command=null, CampaignService campaignService) {
+
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        if(!campaignRSDTO){
+            campaignRSDTO = campaignService.find(user, campaignId)
+        }
+
+        if (campaignRSDTO.event != null && !campaignRSDTO.event.latitude){
+            // Debate has an event attached but is not defined the place.
+            // Redirects to edit event
+            flash.message=g.message(code: 'tools.massMailing.event.advise.empty')
+            String mapping = campaignRSDTO instanceof DebateRSDTO ? 'debateEditEvent':'postEditEvent'
+            redirect mapping: mapping, params: campaignRSDTO.encodeAsLinkProperties()
+            return
+        }
+
+        if (!command){
+            command = new CampaignContentCommand();
+            command.title = campaignRSDTO.title
+            command.body = campaignRSDTO.body
+            command.videoPost = campaignRSDTO.videoUrl
+
+            if(campaignRSDTO.datePublished){
+                command.publishOn = campaignRSDTO.datePublished
+            }
+
+            if (campaignRSDTO.photoUrl) {
+                KuorumFile kuorumFile = KuorumFile.findByUrl(campaignRSDTO.photoUrl)
+                command.headerPictureId = kuorumFile?.id
+            }
+        }
+        Long numberRecipients = campaignRSDTO.newsletter?.filter?.amountOfContacts!=null?
+                campaignRSDTO.newsletter?.filter?.amountOfContacts:
+                contactService.getUsers(user, null).total;
+        [
+                command: command,
+                numberRecipients: numberRecipients,
+                campaign: campaignRSDTO,
+                status: campaignRSDTO.campaignStatusRSDTO
+        ]
+    }
+
+    protected CampaignRDTO convertCommandContentToRDTO(CampaignContentCommand command, KuorumUser user, Long campaignId, CampaignService campaignService) {
+        CampaignRDTO campaignRDTO = createRDTO(user, campaignId, campaignService)
+        campaignRDTO.title = command.title
+        campaignRDTO.body = command.body
+        if(command.sendType == 'SEND'){
+            campaignRDTO.publishOn = Calendar.getInstance(user.getTimeZone()).time;
+        }
+        else{
+            campaignRDTO.publishOn = TimeZoneUtil.convertToUserTimeZone(command.publishOn, user.timeZone)
+        }
+
+        // Multimedia URL
+        if (command.fileType == FileType.IMAGE.toString() && command.headerPictureId) {
+            // Save image
+            KuorumFile picture = KuorumFile.get(command.headerPictureId)
+            picture = fileService.convertTemporalToFinalFile(picture)
+            fileService.deleteTemporalFiles(user)
+            campaignRDTO.setPhotoUrl(picture.getUrl())
+
+            // Remove video
+            campaignRDTO.setVideoUrl(null)
+        } else if (command.fileType == FileType.YOUTUBE.toString() && command.videoPost) {
+            // Save video
+            KuorumFile urlYoutubeFile = fileService.createYoutubeKuorumFile(command.videoPost, user)
+            campaignRDTO.setVideoUrl(urlYoutubeFile?.url)
+
+            // Remove image
+            if (command.headerPictureId) {
+                KuorumFile picture = KuorumFile.get(command.headerPictureId)
+                fileService.deleteKuorumFile(picture)
+                command.setHeaderPictureId(null)
+                campaignRDTO.setPhotoUrl(null)
+            }
+        }
+        campaignRDTO
+    }
+
+    protected Map<String, Object> saveAndSendCampaignContent(KuorumUser user, CampaignContentCommand command,Long campaignId, CampaignService campaignService) {
+        String msg
+        CampaignRDTO campaignRDTO = convertCommandContentToRDTO(command, user, campaignId, campaignService)
+
+        CampaignRSDTO savedCampaign = null
+        Boolean validSubscription = customerService.validSubscription(user);
+        Boolean goToPaymentProcess = !validSubscription && command.publishOn;
+        if(command.publishOn){
+            // Published or Scheduled
+            savedCampaign = campaignService.save(user, campaignRDTO, campaignId)
+
+            Date date = new Date()
+            Date after5minutes = new Date()
+
+            // If Scheduled in the next 5 minutes, consider published
+            use (TimeCategory){
+                after5minutes = date + 5.minutes
+            }
+
+            if(command.publishOn > after5minutes){
+                // Shceduled over 5 minutes
+                msg = g.message(code: 'tools.massMailing.schedule.advise', args: [
+                        savedCampaign.title,
+                        g.formatDate(date: command.publishOn, type: "datetime", style: "SHORT")
+                ])
+            }
+            else {
+                // Published or scheduled within 5 minutes
+                msg = g.message(code: 'tools.massMailing.saved.advise', args: [
+                        savedCampaign.title,
+                        g.formatDate(date: command.publishOn, type: "datetime", style: "SHORT")
+                ])
+            }
+        }
+        else {
+            // Draft
+            savedCampaign = campaignService.save(user, campaignRDTO, campaignId)
+            msg = g.message(code: 'tools.massMailing.saveDraft.advise', args: [savedCampaign.title])
+        }
+
+        [msg: msg, campaign: savedCampaign, goToPaymentProcess:goToPaymentProcess]
+
     }
 }

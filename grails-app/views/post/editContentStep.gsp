@@ -1,6 +1,6 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
-    <g:set var="breadCrumbName">${post.name}</g:set>
+    <g:set var="breadCrumbName">${campaign.name}</g:set>
 
     <title>${breadCrumbName}</title>
     <meta name="layout" content="paymentPlainLayout">
@@ -18,9 +18,8 @@
         <li class="active">${breadCrumbName}</li>
     </ol>
     <g:render template="/campaigns/edit/contentStep" model="[
-            attachEvent:post?.event?true:false,
+            attachEvent:campaign?.event?true:false,
             command: command,
-            post: post,
             numberRecipients:numberRecipients,
             status: status,
             mappings:[

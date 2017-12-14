@@ -28,10 +28,6 @@ import  kuorum.web.commands.payment.event.EventCommand
 class EventController extends CampaignController{
 
     KuorumUserService kuorumUserService
-    FileService fileService
-    ProposalService proposalService
-    CookieUUIDService cookieUUIDService
-    CustomerService customerService
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def create() {
@@ -76,6 +72,7 @@ class EventController extends CampaignController{
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def updateEvent(EventCommand command ){
         if (command.hasErrors()) {
+            flash.error = g.message(code:'tools.massMailing.event.location.error')
             render view: 'editEvent', model: modelEditEvent(params, command)
             return
         }

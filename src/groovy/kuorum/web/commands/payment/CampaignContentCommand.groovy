@@ -1,4 +1,4 @@
-package kuorum.web.commands.payment.post
+package kuorum.web.commands.payment
 
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.validation.Validateable
@@ -14,7 +14,7 @@ import org.grails.databinding.BindingFormat
  */
 
 @Validateable
-class PostContentCommand {
+class CampaignContentCommand {
 
     String title
     String body
@@ -27,7 +27,7 @@ class PostContentCommand {
     Date publishOn
     String sendType
 
-    public static KuorumUser currentUser(){
+    static KuorumUser currentUser(){
         Object appContext = ServletContextHolder.servletContext.getAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT)
         SpringSecurityService springSecurityService = (SpringSecurityService)appContext.springSecurityService
         KuorumUser user = springSecurityService.currentUser
@@ -50,7 +50,7 @@ class PostContentCommand {
         headerPictureId nullable: true
         videoPost nullable: true
         publishOn nullable: true, validator: { val, obj ->
-            KuorumUser kuorumUser = PostContentCommand.currentUser()
+            KuorumUser kuorumUser = CampaignContentCommand.currentUser()
             Date scheduledTimeZone = TimeZoneUtil.convertToUserTimeZone(val, kuorumUser.timeZone)
             Date userTimeZone = Calendar.getInstance(kuorumUser.getTimeZone()).getTime()
             if (val && obj.sendType == "SCHEDULED" && scheduledTimeZone < userTimeZone) {

@@ -97,6 +97,7 @@
             function KuorumGoogleMapEditEvent(){
                 var map
                 var geocoder
+                var marker
                 var mapDivContainerId="edit-event-map"
                 var geocoderButtonId='geocode-address'
                 var zoom = 6;
@@ -135,8 +136,9 @@
                     geocoder.geocode({'address': address}, function(results, status) {
 //                    console.log(results)
                         if (status ===  google.maps.GeocoderStatus.OK) {
+                            that.removeMarker();
                             map.setCenter(results[0].geometry.location);
-                            var marker = new google.maps.Marker({
+                            marker = new google.maps.Marker({
                                 map: map,
                                 position: results[0].geometry.location,
 //                            title:"Hello World!"
@@ -147,9 +149,19 @@
                             document.getElementById('latitude').value=results[0].geometry.location.lat();
                             document.getElementById('longitude').value=results[0].geometry.location.lng();
                         } else {
-                            alert('Geocode was not successful for the following reason: ' + status);
+                            display.warn("${g.message(code:'tools.massMailing.event.location.error')}")
+                            that.removeMarker();
+                            document.getElementById('zoom').value=''
+                            document.getElementById('latitude').value=''
+                            document.getElementById('longitude').value=''
                         }
                     });
+                }
+
+                this.removeMarker = function(){
+                    if (marker != undefined){
+                        marker.setMap(null)
+                    }
                 }
 
                 this.placeMarkerAndPanTo = function(latLng) {
