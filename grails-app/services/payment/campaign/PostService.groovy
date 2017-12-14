@@ -184,6 +184,7 @@ class PostService implements CampaignService<PostRSDTO, PostRDTO>{
                 postRDTO.event.zoom = postRSDTO.event.zoom
                 postRDTO.event.localName = postRSDTO.event.localName
                 postRDTO.event.address = postRSDTO.event.address
+                postRDTO.event.capacity = postRSDTO.event.capacity
             }
         }
         return postRDTO;

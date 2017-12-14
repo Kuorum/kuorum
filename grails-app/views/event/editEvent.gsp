@@ -68,6 +68,12 @@
                 </div>
             </fieldset>
             <fieldset class="form-group">
+                <label for="capacity" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.event.EventCommand.capacity.label"/>:</label>
+                <div class="col-sm-8 col-md-5">
+                    <formUtil:input command="${command}" field="capacity" type="number"/>
+                </div>
+            </fieldset>
+            <fieldset class="form-group">
                 <label for="address" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.event.EventCommand.address.label"/>:</label>
                 <div class="col-sm-8 col-md-5">
                     <formUtil:input command="${command}" field="address"/>

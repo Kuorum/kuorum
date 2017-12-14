@@ -178,6 +178,7 @@ class DebateService implements CampaignService<DebateRSDTO, DebateRDTO> {
                 debateRDTO.event.zoom = debateRSDTO.event.zoom
                 debateRDTO.event.localName = debateRSDTO.event.localName
                 debateRDTO.event.address = debateRSDTO.event.address
+                debateRDTO.event.capacity = debateRSDTO.event.capacity
             }
         }
         return debateRDTO

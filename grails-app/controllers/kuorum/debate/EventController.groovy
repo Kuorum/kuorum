@@ -105,6 +105,7 @@ class EventController extends CampaignController{
         campaignRDTO.event.longitude = eventCommand.longitude
         campaignRDTO.event.localName = eventCommand.localName
         campaignRDTO.event.zoom = eventCommand.zoom
+        campaignRDTO.event.capacity = eventCommand.capacity
     }
 
     private def modelEditEvent(def params, EventCommand command = null ){
@@ -118,6 +119,7 @@ class EventController extends CampaignController{
                 command.latitude = campaignRSDTO.event.latitude
                 command.zoom = campaignRSDTO.event.zoom
                 command.eventDate = campaignRSDTO.event.eventDate
+                command.capacity = campaignRSDTO.event.capacity
             }
         }
         [

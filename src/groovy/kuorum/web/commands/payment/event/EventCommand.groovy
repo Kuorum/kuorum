@@ -16,6 +16,7 @@ class EventCommand {
     Integer zoom;
     String localName;
     String address;
+    Integer capacity
 
     static constraints = {
         eventDate nullable: false
@@ -24,6 +25,7 @@ class EventCommand {
         zoom nullable: false
         localName nullable: false
         address nullable: false
+        capacity nullable: true
     }
 
 }
