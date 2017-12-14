@@ -699,6 +699,7 @@ class FormTagLib {
         def command = attrs.command
         def field = attrs.field
 
+        def disabled = attrs.disabled
         def prefixFieldName=attrs.prefixFieldName?:""
         def checked = ''
         def value = attrs.value?:"true"
@@ -712,8 +713,8 @@ class FormTagLib {
         def extraClass = attrs.extraClass?:""
         def error = hasErrors(bean: command, field: field,'error')
         out <<"""
-            <label class="checkbox-inline ${extraClass}">
-                <input id="${elementId}" class="${error}" type="checkbox" name='${prefixFieldName}${field}' ${checked} value='${value}' />
+            <label class="checkbox-inline ${extraClass} ${disabled?'disabled':''}">
+                <input id="${elementId}" class="${error}" type="checkbox" name='${prefixFieldName}${field}' ${checked} value='${value}' ${disabled?'disabled':''}/>
                 <span class="check-box-icon"></span>
                 <span class="label-checkbox">${label}</span>
             </label>

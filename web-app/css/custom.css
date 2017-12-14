@@ -199,6 +199,8 @@ html.loading body {
 }
 label {font-weight: normal;}
 
+.checkbox-inline {padding-left:0px;} /*Tiene un padding de bootstrap*/
+.checkbox-inline.disabled {color:#ccc;} /*Tiene un padding de bootstrap*/
 .form-horizontal#politicianMassMailingForm {min-height: 250px}
 .form-horizontal .checkbox-inline{padding-top: 0px; margin-top:-0.3em;}
 .form-horizontal .tab-pane .form-group.image{margin-left:0;}
@@ -1644,7 +1646,7 @@ ul.user-list-followers .loading.xs {width: 10px; height: 10px;}
 #contactsList > li {padding: 0 0 0 0; border-bottom: 1px solid #e5e5e5; position: relative; min-height: 90px;}
 #contactsList > li > .contact-info {margin:0 0 10px 140px;padding-top:40px;}
 #contactsList > li .user-img {display: block; width: 64px; height: 64px; border-radius: 50%; position: absolute; left: 48px; top: 40px; overflow: hidden; background-color: #e5e5e5;}
-#contactsList > li .checkbox-inline {padding: 0px; position: absolute; left: 10px; top: 35px;}
+#contactsList > li .checkbox-inline {position: absolute; left: 10px; top: 35px;}
 #contactsList > li p {margin: 0;}
 #contactsList > li .title {font-size: 17px; font-size: 1.7rem; margin: 0 0 4px 0;}
 #contactsList > li > .contact-info > .title > a,
@@ -4207,7 +4209,7 @@ h5#results {margin: 0 0 15px;}
 .config #config9 .checkbox-inline,
 #edit-project .checkbox label,
 #edit-project .checkbox-inline {font-weight: normal; font-size: 13px; font-size: 1.3rem;}
-.config #config9 .checkbox-inline {display: block;}
+.config #config9 .checkbox-inline {display: block;padding-left:20px;}
 .config #config9 .span-label {margin: 0;}
 .config #config9 .help-block {margin: 0 0 10px 0;}
 .config #config9 .checkbox-inline+.checkbox-inline {margin: 0;}

@@ -66,13 +66,7 @@ class ProfileController {
     def afterInterceptor = [action: this.&prepareMenuData]
 
     protected prepareMenuData(model) {
-        KuorumUser user = params.user
-        model.menu = [
-                activeNotifications:Notification.countByKuorumUserAndIsAlertAndIsActive(user, true, true),
-                unpublishedPosts:postService.numUnpublishedUserPosts(user),
-                favorites: postService.favoritesPosts(user).size(),
-                unreadMessages:3
-        ]
+//        KuorumUser user = params.user
     }
 
 //    @Secured("IS_AUTHENTICATED_FULLY")
