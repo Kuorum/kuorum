@@ -1504,17 +1504,16 @@ ul.list > li > ul.list-actions > li > a:active {color: #20a2ea;}
 
 /* DASHBOARD (08/2016) */
 #mails {text-align: center;}
-#mails li {list-style: none; display: block; float: left; margin: 0 17px 20px;}
+#mails li {list-style: none; display: inline-block; margin: 0 17px 20px;}
 /*#mails li:last-child {margin-right: 0;}*/
 #mails li > a {margin:auto; display: block; width: 107px; height: 91px; padding-top: 60px; font-size: 16px; font-size: 1.6rem; background-color: #fff; background-repeat: no-repeat; border: 1px solid #ff9431;}
 #mails li > a:hover, #mails li > a:focus, #mails li > a:active {text-decoration: none; background-color: #fbfbfb;}
 #mails li > #gmail {background-image: url('../images/mail-gmail.png'); background-position: center 15px;}
 #mails li > #yahoo {background-image: url('../images/mail-yahoo.png'); background-position: center 25px;}
 #mails li > #outlook {background-image: url('../images/mail-outlook.png'); background-position: center 10px;}
-#mails li > #uploadFile {padding-top: 34px;}
 
 .container-fluid.box-ppal.choose-campaign {padding:70px 0px 50px 0px; box-shadow: 0 0 2px rgba(200,200,200,0.6);}
-#mails {margin:0 auto; width:24em;}
+#mails {margin:0 auto; padding:0;}
 #mails li.fontIcon > a {padding:16px 2px;}
 #mails li.fontIcon > a > span.fa {font-size: 2em;width: 100%;margin-bottom: 10px;}
 #mails li.fontIcon > a > span.label {color:inherit; padding:0; font-weight: inherit;font-size: inherit}
@@ -4498,7 +4497,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {border-radiu
     border: 1px solid #ff9431;
     color: #ff9431;
 }
-#main > div.box-steps > ul#mails > li.arrow {color: #a8a8a8;position: relative; top: 20px;}
+#main > div.box-steps > ul#mails > li.arrow {color: #a8a8a8;position: relative; top: -14px;}
 #main > div.box-steps > ul#mails > li a:hover{color: #ff9431; border: 1px solid #ff9431;}
 
 
@@ -5114,11 +5113,9 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     section.features > div > div a.btn.btn-sign-up {font-size: 18px !important;}
     div.fade-carousel > div.content.container .btn {font-size: 22px !important;}
     .box-ppal#createNewCampaign {margin-bottom: 20px; padding-bottom: 15px;}
-    #mails{padding:0;}
     .carousel.news .carousel-control {top: 30%;}
     #mails.campaign-steps,
     #mails.newsletter-steps {  width: 100% !important; padding:0;}
-    #mails li{  float: none !important;  }
     #mails li.fontIcon > a{  margin: auto !important;  }
 
     #main > div.box-steps{background-color: #fff; color:#545454; border: solid 1px #e5e5e5; box-shadow: 0 0 2px rgba(200,200,200,0.6);}
@@ -5234,8 +5231,8 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 @media only screen and (min-width: 640px) {
     #contactsList > li {padding: 10px 0 0 0px; min-height: 175px;}
 
-    #main > div.box-steps > ul#mails.threeSteps {width: 522px}
-    #main > div.box-steps > ul#mails.twoSteps {width: 331px}
+    #main > div.box-steps > ul#mails.threeSteps {width: 570px}
+    #main > div.box-steps > ul#mails.twoSteps {width: 350px}
 
     .uploaderImageContainer.PROJECT_IMAGE .qq-upload-drop-area {height:316px;}
     .uploaderImageContainer.PROJECT_IMAGE > div {height:316px;}
