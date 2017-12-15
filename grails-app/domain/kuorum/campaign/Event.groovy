@@ -2,6 +2,7 @@ package kuorum.campaign
 
 import org.bson.types.ObjectId
 
+@Deprecated
 class Event {
 
     ObjectId id

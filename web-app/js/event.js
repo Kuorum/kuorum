@@ -43,9 +43,9 @@ var eventFunctions={
         }
     },
     confirmAssistance:function($button, callback){
-        var debateId = $button.attr("data-debateId")
+        var eventId = $button.attr("data-eventId")
         var urlConfirm = $button.attr("data-postUrl")
-        var data ={debateId:debateId}
+        var data ={eventId:eventId}
         $.ajax({
             type: "POST",
             url: urlConfirm,

@@ -1,0 +1,86 @@
+package payment.campaign.event
+
+import com.fasterxml.jackson.core.type.TypeReference
+import grails.transaction.Transactional
+import kuorum.users.KuorumUser
+import kuorum.util.rest.RestKuorumApiService
+import org.kuorum.rest.model.communication.event.EventRSDTO
+import org.kuorum.rest.model.communication.event.EventRegistrationRSDTO
+
+@Transactional
+class EventService {
+
+    RestKuorumApiService restKuorumApiService
+
+    EventRegistrationRSDTO addAssistant(String ownerAlias, Long eventId, KuorumUser assistant){
+        Map<String, String> params = [
+                userAlias: ownerAlias,
+                eventId:eventId.toString(),
+                assistantAlias:assistant.id.toString()
+        ]
+        Map<String, String> query = [:]
+        def response = restKuorumApiService.put(
+                RestKuorumApiService.ApiMethod.ACCOUNT_EVENT_ADD_ASSISTANT,
+                params,
+                query,
+                null,
+                new TypeReference<EventRegistrationRSDTO>(){}
+        )
+
+        EventRegistrationRSDTO eventRSDTO = null
+        if (response.data) {
+            eventRSDTO = response.data
+        }
+
+        eventRSDTO
+    }
+
+    EventRegistrationRSDTO findAssistant(String ownerAlias, Long eventId, KuorumUser assistant){
+        Map<String, String> params = [
+                userAlias: ownerAlias,
+                eventId:eventId.toString(),
+                assistantAlias:assistant.id.toString()
+        ]
+        Map<String, String> query = [:]
+        try {
+            def response = restKuorumApiService.get(
+                    RestKuorumApiService.ApiMethod.ACCOUNT_EVENT_ADD_ASSISTANT,
+                    params,
+                    query,
+                    new TypeReference<EventRegistrationRSDTO>(){}
+            )
+
+            EventRegistrationRSDTO eventRSDTO = null
+            if (response.data) {
+                eventRSDTO = response.data
+            }
+
+            return eventRSDTO
+        }catch (Exception e){
+            return null;
+        }
+    }
+
+    EventRSDTO findEvent(String ownerAlias, Long eventId){
+        Map<String, String> params = [
+                userAlias: ownerAlias,
+                eventId:eventId.toString()
+        ]
+        Map<String, String> query = [:]
+        def response = restKuorumApiService.get(
+                RestKuorumApiService.ApiMethod.ACCOUNT_EVENT,
+                params,
+                query,
+                null,
+                new TypeReference<EventRSDTO>(){}
+        )
+
+        EventRSDTO eventRSDTO = null
+        if (response.data) {
+            eventRSDTO = response.data
+        }
+
+        eventRSDTO
+    }
+
+}

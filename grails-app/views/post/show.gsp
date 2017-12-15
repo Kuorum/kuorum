@@ -13,6 +13,7 @@
 </content>
 
 <content tag="cColumn">
+
     <g:render template="showModules/cColumn" model="[post: post, postUser: postUser]" />
 </content>
 

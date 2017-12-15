@@ -14,6 +14,9 @@
                             <g:message code="${'tools.campaign.new'}.${campaignType}"/>
                         </option>
                     </g:each>
+                    <option value="event" name="event" id="event">
+                        <g:message code="tools.campaign.new.event"/>
+                    </option>
                 </select>
             </div>
             <div class="col-sm-2">

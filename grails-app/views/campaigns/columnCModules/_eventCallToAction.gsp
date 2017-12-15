@@ -15,7 +15,7 @@
                 type="button"
                 class="btn btn-blue btn-lg event-confirm-button event-unconfirmed ${extraUnconfirmedClass}"
                 data-userLoggedAlias="${userUtil.loggedUserAlias()}"
-                data-postUrl="${g.createLink(mapping: 'eventConfirmAssistance')}"
+                data-postUrl="${g.createLink(mapping: 'eventConfirmAssistance', params:debate.event.encodeAsLinkProperties())}"
                 data-debateId="${debate.id}"
                 data-debateAlias="${debateUser.alias}"
         >

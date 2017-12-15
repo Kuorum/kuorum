@@ -16,8 +16,10 @@ import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.kuorum.rest.model.communication.debate.search.ProposalPageRSDTO
 import org.kuorum.rest.model.communication.debate.search.SearchProposalRSDTO
 import org.kuorum.rest.model.communication.debate.search.SortProposalRDTO
+import org.kuorum.rest.model.communication.event.EventRegistrationRSDTO
 import org.kuorum.rest.model.contact.filter.FilterRDTO
 import payment.campaign.ProposalService
+import payment.campaign.event.EventService
 
 import javax.servlet.http.HttpServletResponse
 
@@ -27,6 +29,7 @@ class DebateController extends CampaignController{
     KuorumUserService kuorumUserService
     ProposalService proposalService
     CookieUUIDService cookieUUIDService
+    EventService eventService
 
     def show() {
         String viewerId = cookieUUIDService.buildUserUUID()
@@ -56,14 +59,12 @@ class DebateController extends CampaignController{
 
             def model = [debate: debate, debateUser: debateUser, proposalPage:proposalPage, pinnedUsers:pinnedUsers];
 
-            // BORRAR - SOLO PARA TOLEDO
-            if (debateUser.id.toString().equals("5a0056bfa9aa0c5bb6a69fae")){
-                model.put("eventData", Event.findByDebateId(debate.id))
-                if (springSecurityService.isLoggedIn()){
-                    KuorumUser userLogged = springSecurityService.currentUser
-                    model.put("eventRegistration", EventRegistration.findByDebateIdAndUserId(debate.id, userLogged.id))
-                }
+            if (debate.event && springSecurityService.isLoggedIn()){
+                KuorumUser userLogged = springSecurityService.currentUser
+                EventRegistrationRSDTO eventRegistration = eventService.findAssistant(debateUser.id.toString(),debate.event.id, userLogged)
+                model.put("eventRegistration", eventRegistration)
             }
+
 
             if (params.printAsWidget){
                 render view: 'widgetDebate', model: model

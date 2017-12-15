@@ -1,4 +1,12 @@
 <%@ page import="org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO" %>
+<g:set var="type" value="debate"/>
+<g:set var="faIcon" value="fa-comments-o"/>
+<g:set var="typeName" value="${g.message(code: 'tools.campaign.new.debate')}"/>
+<g:if test="${debate.event}">
+    <g:set var="type" value="event"/>
+    <g:set var="faIcon" value="fa-calendar-check-o"/>
+    <g:set var="typeName" value="${g.message(code: 'tools.campaign.new.event')}"/>
+</g:if>
 
 <li class="${debate.newsletter.status} debateItem" id="campaignPos_${idx}">
     <span class="id sr-only">${debate.id}</span>
@@ -6,12 +14,12 @@
           data-original-title="${g.message(code: "org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.${debate.campaignStatusRSDTO}")}">
         ${debate.campaignStatusRSDTO}
     </span>
-    <span class="type">debate</span>
-    <span class="fa fa-comments-o" aria-hidden="true" rel="tooltip" data-toggle="tooltip" data-placement="bottom"
-          data-original-title="${g.message(code: 'tools.campaign.new.debate')}"></span>
+    <span class="type">${type}</span>
+    <span class="fa ${faIcon}" aria-hidden="true" rel="tooltip" data-toggle="tooltip" data-placement="bottom"
+          data-original-title="${typeName}"></span>
     <h3>
         <g:link mapping="debateShow" params="${debate.encodeAsLinkProperties()}" class="title">
-            ${debate.name}<span></span>
+            ${debate.name}
         </g:link>
     </h3>
     <p class="name">
@@ -48,13 +56,8 @@
             <g:set var="modal" value="${debate.newsletter.status == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SCHEDULED ?'modalEditScheduled':''}"/>
             <g:link mapping="debateEditContent" params="${debate.encodeAsLinkProperties()}" role="button" class="campaignEdit ${modal}"><span class="fa fa-edit"></span><span class="sr-only">Edit</span></g:link>
         </li>
-        %{--<g:if test="${debate.newsletter.status != org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT}">--}%
-            <li>
-                <g:link mapping="debateRemove" params="${debate.encodeAsLinkProperties()}"  role="button" class="campaignDelete"><span class="fa fa-trash"></span> <span class="sr-only">Delete</span></g:link>
-            </li>
-        %{--</g:if>--}%
+        <li>
+            <g:link mapping="debateRemove" params="${debate.encodeAsLinkProperties()}"  role="button" class="campaignDelete"><span class="fa fa-trash"></span> <span class="sr-only">Delete</span></g:link>
+        </li>
     </ul>
-
-    %{-- This delete function is not implemented --}%
-    %{--<g:link mapping="debateRemove" params="[debateId: debate.id]"  role="button" class="campaignDelete"><span class="fa fa-trash"></span> <span class="sr-only">Delete</span></g:link>--}%
 </li>

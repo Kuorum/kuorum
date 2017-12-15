@@ -3,6 +3,7 @@ package kuorum.campaign
 import kuorum.core.model.AvailableLanguage
 import org.bson.types.ObjectId
 
+@Deprecated
 class EventRegistration {
 
     ObjectId id

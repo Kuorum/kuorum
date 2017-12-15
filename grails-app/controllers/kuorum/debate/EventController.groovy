@@ -3,31 +3,27 @@ package kuorum.debate
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.campaign.Event
 import kuorum.campaign.EventRegistration
-import kuorum.files.FileService
-import kuorum.users.CookieUUIDService
+import kuorum.politician.CampaignController
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
 import kuorum.web.commands.payment.CampaignSettingsCommand
+import kuorum.web.commands.payment.event.EventCommand
 import net.sf.json.JSON
 import org.kuorum.rest.model.communication.CampaignRDTO
 import org.kuorum.rest.model.communication.CampaignRSDTO
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.kuorum.rest.model.communication.event.EventRDTO
+import org.kuorum.rest.model.communication.event.EventRSDTO
+import org.kuorum.rest.model.communication.event.EventRegistrationRSDTO
 import org.kuorum.rest.model.communication.post.PostRSDTO
-import org.kuorum.rest.model.contact.ContactPageRSDTO
-import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
 import org.kuorum.rest.model.contact.filter.FilterRDTO
-import payment.CustomerService
 import payment.campaign.CampaignService
-import payment.campaign.DebateService
-import payment.campaign.ProposalService
-import payment.contact.ContactService
-import kuorum.politician.CampaignController
-import  kuorum.web.commands.payment.event.EventCommand
+import payment.campaign.event.EventService
 
 class EventController extends CampaignController{
 
     KuorumUserService kuorumUserService
+    EventService eventService
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def create() {
@@ -145,33 +141,13 @@ class EventController extends CampaignController{
 
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
-    def confirmAssistance(Long debateId){
-        KuorumUser user = springSecurityService.currentUser
-        Event event = Event.findByDebateId(debateId)
-        if (!event){
-            render ([success:false, error:"Debate not exists"]) as JSON
-            return;
-        }
-        EventRegistration eventRegistration = EventRegistration.findByDebateIdAndUserId(debateId, user.getId())
+    def confirmAssistance(Long eventId){
+        KuorumUser assistant = springSecurityService.currentUser
+        EventRegistrationRSDTO eventRegistration = eventService.addAssistant(params.userAlias, eventId, assistant)
         if (eventRegistration){
-            render ([success:true, error:"Already register"]) as JSON
+            render ([success:true, error:"", eventRegistration:eventRegistration]) as JSON
         }else{
-            eventRegistration = new EventRegistration()
-            eventRegistration.debateId = debateId
-            eventRegistration.postId = 0
-            eventRegistration.alias = user.alias
-            eventRegistration.dateCreated = new Date();
-            eventRegistration.userId = user.id
-            eventRegistration.name = user.fullName
-            eventRegistration.email = user.email
-            eventRegistration.language = user.language
-            if (eventRegistration.save()){
-                render ([success:true, error:""]) as JSON
-            }else{
-                render ([success:false, error:"Error saving registration"]) as JSON
-            }
-
-
+            render ([success:false, error:"Error saving registration"]) as JSON
         }
     }
 }

@@ -13,11 +13,11 @@
 </content>
 
 <content tag="cColumn">
-    <g:if test="${eventData}">
+    <g:if test="${debate.event}">
         <r:require modules="event"/>
-        <g:render template="showModules/eventCallToAction" model="[debate: debate, debateUser: debateUser,eventData:eventData,eventRegistration:eventRegistration]"/>
+        <g:render template="/campaigns/columnCModules/eventCallToAction" model="[debate: debate, debateUser: debateUser,event:debate.event,eventRegistration:eventRegistration]"/>
         <g:render template="showModules/cCallToAction" model="[debate: debate, debateUser: debateUser,proposalPage:proposalPage]"/>
-        <g:render template="showModules/eventInfo" model="[eventData:eventData]"/>
+        <g:render template="/campaigns/columnCModules/eventInfo" model="[event:debate.event]"/>
     </g:if>
     <g:else>
         <g:if test="${debate.campaignStatusRSDTO == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT}">

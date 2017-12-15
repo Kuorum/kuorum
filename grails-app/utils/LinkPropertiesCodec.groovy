@@ -9,6 +9,7 @@ import kuorum.users.KuorumUser
 import org.bson.types.ObjectId
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.kuorum.rest.model.communication.debate.ProposalRSDTO
+import org.kuorum.rest.model.communication.event.EventRSDTO
 import org.kuorum.rest.model.communication.post.PostRSDTO
 import org.kuorum.rest.model.notification.NotificationProposalCommentMentionRSDTO
 import org.kuorum.rest.model.notification.NotificationProposalCommentRSDTO
@@ -26,9 +27,8 @@ class LinkPropertiesCodec {
 
         def params = [:]
         switch (target) {
+            case EventRSDTO:
             case CauseRSDTO:
-                params = prepareParams(target);
-                break
             case PostRSDTO:
             case SolrPost:
             case DebateRSDTO:
@@ -87,6 +87,12 @@ class LinkPropertiesCodec {
                 userAlias: debate.user.alias.toLowerCase(),
                 urlTitle: getNameTitleUrl(debate),
                 debateId: debate.id
+        ]
+    }
+    private static def prepareParams(EventRSDTO event) {
+        [
+                userAlias: event.user.alias.toLowerCase(),
+                eventId: event.id
         ]
     }
     private static def prepareParams(SolrDebate debate) {

@@ -10,10 +10,10 @@
         <div class="clearfix">
             <span class="time-ago pull-left"><kuorumDate:humanDate date="${debate.datePublished}" itemprop="datePublished"/> </span>
 
-            <g:if test="${eventData && !eventRegistration}">
+            <g:if test="${debate.event && !eventRegistration}">
                 <div class="actions call-to-action-mobile call-mobile-event-confirm event-unconfirmed"
                      data-userLoggedAlias="${userUtil.loggedUserAlias()}"
-                     data-postUrl="${g.createLink(mapping: 'eventConfirmAssistance')}"
+                     data-postUrl="${g.createLink(mapping: 'eventConfirmAssistance',params:debate.event.encodeAsLinkProperties())}"
                      data-debateId="${debate.id}">
                     %{--EVENT DATA - CHAPU BORRAR --}%
                     <button type="button" class="btn btn-orange btn-lg call-message">
