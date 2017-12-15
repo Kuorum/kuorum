@@ -22,6 +22,9 @@
             <p class="event-local-name"><span class="fa fa-map-marker"></span> ${event.localName}</p>
             <p class="event-address">${event.address}</p>
         </div>
+        <div class="event-location">
+            <p class="event-local-name"><span class="fa fa-group"></span> ${event.amountAssistants}/${event.capacity}</p>
+        </div>
         <div class="map" id="map"></div>
         <script>
             function initMap() {
