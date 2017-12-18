@@ -97,7 +97,7 @@ class PostController extends CampaignController{
         Long postId = params.postId?Long.parseLong(params.postId):null
         Map<String, Object> resultPost = saveAndSendCampaignContent(user, command, postId, postService)
         if (resultPost.goToPaymentProcess){
-            String paymentRedirect = g.createLink(mapping:"postEditContent", params:resultPost.post.encodeAsLinkProperties() )
+            String paymentRedirect = g.createLink(mapping:"postEditContent", params:resultPost.campaign.encodeAsLinkProperties() )
             cookieUUIDService.setPaymentRedirect(paymentRedirect)
             redirect(mapping: "paymentStart")
         }else {

@@ -135,7 +135,7 @@ class DebateController extends CampaignController{
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         Map<String, Object> resultDebate = saveAndSendCampaignContent(user, command, debateId, debateService)
         if (resultDebate.goToPaymentProcess){
-            String paymentRedirect = g.createLink(mapping:"debateEditContent", params:resultDebate.debate.encodeAsLinkProperties() )
+            String paymentRedirect = g.createLink(mapping:"debateEditContent", params:resultDebate.campaign.encodeAsLinkProperties() )
             cookieUUIDService.setPaymentRedirect(paymentRedirect)
             redirect(mapping: "paymentStart")
         }else {
