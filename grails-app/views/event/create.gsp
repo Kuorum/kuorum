@@ -27,7 +27,16 @@
             filters: filters,
             totalContacts: totalContacts,
             anonymousFilter: anonymousFilter,
-            events:[TrackingMailStatusRSDTO.OPEN,TrackingMailStatusRSDTO.CLICK,TrackingMailStatusRSDTO.DEBATE_PROPOSAL_NEW,TrackingMailStatusRSDTO.DEBATE_PROPOSAL_COMMENT,TrackingMailStatusRSDTO.DEBATE_PROPOSAL_LIKE],
+            events:[
+                    TrackingMailStatusRSDTO.OPEN,
+                    TrackingMailStatusRSDTO.CLICK,
+                    TrackingMailStatusRSDTO.DEBATE_PROPOSAL_NEW,
+                    TrackingMailStatusRSDTO.DEBATE_PROPOSAL_COMMENT,
+                    TrackingMailStatusRSDTO.DEBATE_PROPOSAL_LIKE,
+                    TrackingMailStatusRSDTO.POST_LIKE,
+                    TrackingMailStatusRSDTO.EVENT_BOOK_TICKET,
+                    TrackingMailStatusRSDTO.EVENT_CHECK_IN,
+            ],
             mappings:[
                     step:'settings',
                     settings:'debateEdit',
