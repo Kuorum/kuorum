@@ -29,9 +29,7 @@ $(function(){
 
 var eventFunctions={
     clickConfirmAssistance:function($button){
-        console.log($button)
         var userAliasLogged = $button.attr("data-userLoggedAlias")
-        console.log(userAliasLogged )
         if (userAliasLogged == undefined || userAliasLogged==""){
             var buttonId = guid();
             $button.attr("id", buttonId)
@@ -43,6 +41,7 @@ var eventFunctions={
         }
     },
     confirmAssistance:function($button, callback){
+        pageLoadingOn();
         var eventId = $button.attr("data-eventId")
         var urlConfirm = $button.attr("data-postUrl")
         var data ={eventId:eventId}
@@ -55,11 +54,13 @@ var eventFunctions={
                 $parentBox.addClass("box-event-confirmed")
                 $(".event-unconfirmed").fadeOut("slow",function () {
                     $(".event-confirmed").removeClass("hide");
-                    $(".event-unconfirmed").remove()
+                    $(".event-unconfirmed").remove();
+                    $(".comment-box.proposal-comment-box.hide").removeClass("hide");
                 })
                 if (callback != undefined){
                     callback()
                 }
+                pageLoadingOff();
             },
             error:function(){
                 display.error("Sorry: Error registering on the event")

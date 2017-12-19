@@ -1,6 +1,6 @@
 
 <!-- ^comment-box !-->
-<div class="comment-box clearfix">
+<div class="comment-box proposal-comment-box ${debate.event && !eventRegistration?'hide':''} clearfix">
     <div class="user-box col-md-1 col-xs-12">
         <img class="img-circle" alt="${userUtil.loggedUserName()}" src="${image.loggedUserImgSrc()}">
     </div>
@@ -32,7 +32,7 @@
 
 <ul class="proposal-list">
     <g:each in="${proposalPage.data}" var="proposal">
-        <g:render template="/debate/showModules/mainContent/proposalData" model="[debate:debate, debateUser:debateUser, proposal:proposal]"/>
+        <g:render template="/debate/showModules/mainContent/proposalData" model="[debate:debate, debateUser:debateUser, proposal:proposal, eventRegistration:eventRegistration]"/>
     </g:each>
 </ul>
 <!-- propusal block !-->

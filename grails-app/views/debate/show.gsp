@@ -10,6 +10,7 @@
 
 <content tag="mainContent">
     <g:render template="showModules/mainContent" model="[debate: debate, debateUser: debateUser,proposalPage:proposalPage,eventData:eventData,eventRegistration:eventRegistration]" />
+    <g:render template="/campaigns/columnCModules/eventCallToAction" model="[debate: debate, debateUser: debateUser,event:debate.event,eventRegistration:eventRegistration]"/>
 </content>
 
 <content tag="cColumn">
