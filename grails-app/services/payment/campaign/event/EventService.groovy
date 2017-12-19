@@ -35,6 +35,32 @@ class EventService {
         eventRSDTO
     }
 
+    EventRegistrationRSDTO checkIn(Long contactId, Long eventId, KuorumUser user, String hash){
+        Map<String, String> params = [
+                userAlias: user.getId().toString(),
+                eventId:eventId.toString()
+        ]
+        Map<String, String> query = [contactId:contactId, hash:hash]
+        try {
+            def response = restKuorumApiService.put(
+                    RestKuorumApiService.ApiMethod.ACCOUNT_EVENT_CHECK_IN,
+                    params,
+                    query,
+                    null,
+                    new TypeReference<EventRegistrationRSDTO>() {}
+            )
+
+            EventRegistrationRSDTO eventRSDTO = null
+            if (response.data) {
+                eventRSDTO = response.data
+            }
+            return eventRSDTO;
+        }catch (Exception e){
+            log.error("Error checking in the contact ${contactId} on event ${eventId}")
+            return null;
+        }
+    }
+
     EventRegistrationRSDTO findAssistant(String ownerAlias, Long eventId, KuorumUser assistant){
         Map<String, String> params = [
                 userAlias: ownerAlias,

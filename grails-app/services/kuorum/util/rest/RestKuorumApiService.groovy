@@ -176,6 +176,7 @@ class RestKuorumApiService {
 
         ACCOUNT_EVENT("/communication/event/{userAlias}/{eventId}"),
         ACCOUNT_EVENT_ADD_ASSISTANT("/communication/event/{userAlias}/{eventId}/assistant/{assistantAlias}"),
+        ACCOUNT_EVENT_CHECK_IN("/communication/event/{userAlias}/{eventId}/checkIn"),
 
         USER_CONTACTS_CAMPAIGNS_ALL ("/user/{userId}/dashboard/campaigns"),
         USER_CONTACTS_POSTS_ALL ("/user/{userId}/dashboard/post"),

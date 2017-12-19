@@ -16,6 +16,7 @@ import org.kuorum.rest.model.communication.event.EventRDTO
 import org.kuorum.rest.model.communication.event.EventRSDTO
 import org.kuorum.rest.model.communication.event.EventRegistrationRSDTO
 import org.kuorum.rest.model.communication.post.PostRSDTO
+import org.kuorum.rest.model.contact.ContactRSDTO
 import org.kuorum.rest.model.contact.filter.FilterRDTO
 import payment.campaign.CampaignService
 import payment.campaign.event.EventService
@@ -141,7 +142,7 @@ class EventController extends CampaignController{
 
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
-    def confirmAssistance(Long eventId){
+    def bookTicket(Long eventId){
         KuorumUser assistant = springSecurityService.currentUser
         EventRegistrationRSDTO eventRegistration = eventService.addAssistant(params.userAlias, eventId, assistant)
         if (eventRegistration){
@@ -150,4 +151,19 @@ class EventController extends CampaignController{
             render ([success:false, error:"Error saving registration"]) as JSON
         }
     }
+
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def checkIn(Long eventId){
+        KuorumUser user = springSecurityService.currentUser
+        String hash = params.hash
+        Long contactId = Long.parseLong(params.contactId)
+        EventRegistrationRSDTO eventRegistration = eventService.checkIn(contactId, eventId, user, hash)
+        if (eventRegistration){
+            ContactRSDTO contact = contactService.getContact(user, contactId)
+            [event:eventRegistration.event, eventRegistration:eventRegistration, contact:contact]
+        }else{
+            render view: "/error/notFound"
+        }
+    }
+
 }

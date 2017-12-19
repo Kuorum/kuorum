@@ -4635,6 +4635,7 @@ div [class^='comment-box col-'] {
 .comment-box.call-to-action.box-event-confirmed .actions{padding:0; margin:0;}
 .comment-box.call-to-action.call-to-action-confirm-event + .call-to-action-add-proposal {display:none;}
 .comment-box.call-to-action.call-to-action-confirm-event.box-event-confirmed + .call-to-action-add-proposal {display:block;}
+h2.event-confirm-success{color:green;font-weight: bold; font-size: 20px;margin:0 0 5px 0;}
 
 /*** conversation-box ***/
 .conversation-box {
