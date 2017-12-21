@@ -2,15 +2,19 @@
 <h2 class="sr-only"><g:message code="tools.massMailing.list.recipients"/></h2>
 <div class="pag-list-contacts clearfix">
     <div class="actions">
-        <g:link mapping="politicianMassMailingTrackEventsReport" params="[campaignId:newsletterId]" class="btn btn-blue inverted" elementId="exportCampaignEvents" data-modalId="export-campaignEvents-modal">
+        <g:link mapping="politicianMassMailingTrackEventsReport" params="[campaignId:newsletterId]" class="btn btn-blue inverted export-modal-button" data-modalId="export-campaignEvents-modal">
             <span class="fa fa-file-excel-o"></span>
             <g:message code="tools.massMailing.list.recipients.export.csv"/>
         </g:link>
 
         <g:if test="${campaign?.event}">
-            <g:link mapping="eventAssistanceReport" params="[eventId:campaign.event.id]" class="btn btn-blue inverted" elementId="exportEventAssistantsReport" data-modalId="export-eventAssistants-modal">
+            <g:link mapping="eventAssistanceReport" params="[eventId:campaign.event.id, checkList: false]" class="btn btn-blue inverted export-modal-button" data-modalId="export-eventAssistants-modal">
                 <span class="fa fa-file-excel-o"></span>
                 <g:message code="tools.massMailing.list.event.assistants.report"/>
+            </g:link>
+            <g:link mapping="eventAssistanceReport" params="[eventId:campaign.event.id, checkList:true]" class="btn btn-blue inverted export-modal-button" data-modalId="export-eventAssistants-modal">
+                <span class="fa fa-file-pdf-o"></span>
+                <g:message code="tools.massMailing.list.event.assistants.checkList"/>
             </g:link>
         </g:if>
     </div>
