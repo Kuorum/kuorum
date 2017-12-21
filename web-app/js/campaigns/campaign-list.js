@@ -38,7 +38,7 @@ $(function(){
     }
 
     // Modals exports
-    $("#exportCampaignEvents, #exportDebateReport").on("click", function(e){
+    $("#exportCampaignEvents, #exportDebateReport,#exportEventAssistantsReport").on("click", function(e){
         pageLoadingOn();
         e.preventDefault();
         var $a = $(this)

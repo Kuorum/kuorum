@@ -1,7 +1,7 @@
 <h2 class="sr-only"><g:message code="tools.massMailing.view.stats"/></h2>
 <div class="actions">
-    <g:if test="${debate}">
-        <g:link mapping="politicianMassMailingDebateStatsReport" params="[debateId:debate.id]" class="btn btn-blue inverted" elementId="exportDebateReport" data-modalId="export-debateStats-modal">
+    <g:if test="${campaign && campaign instanceof org.kuorum.rest.model.communication.debate.DebateRSDTO}">
+        <g:link mapping="politicianMassMailingDebateStatsReport" params="[debateId:campaign.id]" class="btn btn-blue inverted" elementId="exportDebateReport" data-modalId="export-debateStats-modal">
             <span class="fa fa-file-excel-o"></span>
             <g:message code="tools.massMailing.view.stats.debate.report"/>
         </g:link>
@@ -9,19 +9,19 @@
 </div>
 <ul class="activity">
     <li class="posts">
-        <span class='recip-number'><campaignUtil:campaignsSent campaign="${campaign}"/></span>
+        <span class='recip-number'><campaignUtil:campaignsSent campaign="${newsletter}"/></span>
         <g:message code="tools.massMailing.list.recipients"/>
     </li>
     <li class="posts">
-        <campaignUtil:openRate campaign="${campaign}"/>
+        <campaignUtil:openRate campaign="${newsletter}"/>
         <g:message code="tools.massMailing.list.opens"/>
     </li>
     <li class="posts">
-        <campaignUtil:clickRate campaign="${campaign}"/>
+        <campaignUtil:clickRate campaign="${newsletter}"/>
         <g:message code="tools.massMailing.list.click"/>
     </li>
     <li class="posts">
-        <campaignUtil:unsubscribeRate campaign="${campaign}"/>
+        <campaignUtil:unsubscribeRate campaign="${newsletter}"/>
         <g:message code="tools.massMailing.list.unsubscribe"/>
     </li>
 </ul>

@@ -109,4 +109,16 @@ class EventService {
         eventRSDTO
     }
 
+    void sendReport(KuorumUser user, Long eventId) {
+        Map<String, String> params = [userAlias: user.id.toString(), eventId: eventId.toString()]
+        Map<String, String> query = [:]
+        def response = restKuorumApiService.get(
+                RestKuorumApiService.ApiMethod.ACCOUNT_EVENT_REPORT,
+                params,
+                query,
+                null
+        )
+        response
+    }
+
 }

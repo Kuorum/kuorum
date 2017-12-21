@@ -394,6 +394,7 @@ class UrlMappings {
 
         name eventBookTicket:           "/ajax/$userAlias/event/$eventId/book"(controller:"event", action: "bookTicket")
         name eventConfirmAssistance:    "/account/event/$eventId/confirm"(controller:"event", action: "checkIn")
+        name eventAssistanceReport:     "/ajax/account/event/$eventId/report"(controller:"event", action: "sendReport")
 
         name postLike:              "/ajax/likePost"(controller: "post", action: "likePost")
         name postRemove:            "/ajax/account/$userAlias/p/$urlTitle-$postId/remove" (controller: "post", action: "remove")
@@ -563,6 +564,7 @@ class UrlMappings {
         name politicianMassMailingHtml:                 "/account/mass-mailing/$campaignId/html" (controller:"newsletter", action: "showMailCampaign")
         name politicianMassMailingSaveTimeZone:         "/account/mass-mailing/saveTimeZone" (controller: "newsletter"){action = [POST:"saveTimeZone"]}
         name politicianDebateStatsShow:                 "/account/debate/$debateId" (controller:"newsletter", action:"showDebateStats")
+        name politicianPostStatsShow:                   "/account/post/$postId" (controller:"newsletter", action:"showPostStats")
         name politicianMassMailingDebateStatsReport:    "/ajax/account/debate/$debateId/report" (controller:"debate", action: "sendReport")
 
         name politicianTeamManagement:                  "/account/team-management" (controller:"politician", action: "betaTesterPage")

@@ -273,19 +273,30 @@ class NewsletterController {
             redirect (mapping:'politicianMassMailingContent', params: [campaignId: campaignId])
         }else{
             TrackingMailStatsByCampaignPageRSDTO trackingPage = massMailingService.findTrackingMails(loggedUser, campaignId)
-            render view: 'showCampaign', model: [campaign: campaignRSDTO, trackingPage:trackingPage]
+            render view: 'showCampaign', model: [newsletter: campaignRSDTO, trackingPage:trackingPage]
         }
     }
 
     def showDebateStats(Long debateId){
         KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
-        DebateRSDTO debate = debateService.find(loggedUser, debateId)
+        org.kuorum.rest.model.communication.CampaignRSDTO debate = debateService.find(loggedUser, debateId)
         Long campaignId = debate.newsletter.id
         if (debate.campaignStatusRSDTO == CampaignStatusRSDTO.DRAFT || debate.campaignStatusRSDTO == CampaignStatusRSDTO.SCHEDULED ){
             redirect (mapping:'politicianMassMailingContent', params: [campaignId: campaignId])
         }else{
             TrackingMailStatsByCampaignPageRSDTO trackingPage = massMailingService.findTrackingMails(loggedUser, campaignId)
-            render view: 'showCampaign', model: [campaign: debate.newsletter, trackingPage:trackingPage, debate:debate]
+            render view: 'showCampaign', model: [newsletter: debate.newsletter, trackingPage:trackingPage, campaign:debate]
+        }
+    }
+    def showPostStats(Long postId){
+        KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
+        org.kuorum.rest.model.communication.CampaignRSDTO post = postService.find(loggedUser, postId)
+        Long campaignId = post.newsletter.id
+        if (post.campaignStatusRSDTO == CampaignStatusRSDTO.DRAFT || post.campaignStatusRSDTO == CampaignStatusRSDTO.SCHEDULED ){
+            redirect (mapping:'politicianMassMailingContent', params: [campaignId: campaignId])
+        }else{
+            TrackingMailStatsByCampaignPageRSDTO trackingPage = massMailingService.findTrackingMails(loggedUser, campaignId)
+            render view: 'showCampaign', model: [newsletter: post.newsletter, trackingPage:trackingPage, campaign:post]
         }
     }
 

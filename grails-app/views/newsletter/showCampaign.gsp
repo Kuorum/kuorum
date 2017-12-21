@@ -27,13 +27,13 @@
         </ul>
         <div id="tabs-stats-campaign" class="tab-content">
             <div class="tab-pane active" id="stats">
-                <g:render template="/newsletter/campaignTabs/campaignStats" model="[campaign:campaign,debate:debate]"/>
+                <g:render template="/newsletter/campaignTabs/campaignStats" model="[newsletter:newsletter,campaign:campaign]"/>
             </div>
             <div class="tab-pane" id="recipients">
-                <g:render template="/newsletter/campaignTabs/campaignRecipeints" model="[trackingPage:trackingPage, campaignId:campaign.id]"/>
+                <g:render template="/newsletter/campaignTabs/campaignRecipeints" model="[trackingPage:trackingPage, newsletterId:newsletter.id]"/>
             </div>
             <div class="tab-pane" id="viewemail">
-                <g:render template="campaignTabs/campaignViewMail" model="[campaign: campaign]"/>
+                <g:render template="campaignTabs/campaignViewMail" model="[newsletter: newsletter]"/>
             </div>
         </div>
     </div>

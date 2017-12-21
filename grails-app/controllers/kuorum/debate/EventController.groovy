@@ -166,4 +166,11 @@ class EventController extends CampaignController{
         }
     }
 
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def sendReport(Long eventId) {
+        KuorumUser user = springSecurityService.currentUser
+        eventService.sendReport(user, eventId)
+        render ([success:"success"] as grails.converters.JSON)
+    }
+
 }

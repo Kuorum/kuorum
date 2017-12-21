@@ -2,13 +2,20 @@
 <h2 class="sr-only"><g:message code="tools.massMailing.list.recipients"/></h2>
 <div class="pag-list-contacts clearfix">
     <div class="actions">
-        <g:link mapping="politicianMassMailingTrackEventsReport" params="[campaignId:campaignId]" class="btn btn-blue inverted" elementId="exportCampaignEvents" data-modalId="export-campaignEvents-modal">
+        <g:link mapping="politicianMassMailingTrackEventsReport" params="[campaignId:newsletterId]" class="btn btn-blue inverted" elementId="exportCampaignEvents" data-modalId="export-campaignEvents-modal">
             <span class="fa fa-file-excel-o"></span>
             <g:message code="tools.massMailing.list.recipients.export.csv"/>
         </g:link>
+
+        <g:if test="${campaign?.event}">
+            <g:link mapping="eventAssistanceReport" params="[eventId:campaign.event.id]" class="btn btn-blue inverted" elementId="exportEventAssistantsReport" data-modalId="export-eventAssistants-modal">
+                <span class="fa fa-file-excel-o"></span>
+                <g:message code="tools.massMailing.list.event.assistants.report"/>
+            </g:link>
+        </g:if>
     </div>
     <nav:contactPagination
-            link="${g.createLink(mapping:"politicianMassMailingTrackEvents", params: [campaignId:campaignId], absolute:true)}"
+            link="${g.createLink(mapping:"politicianMassMailingTrackEvents", params: [campaignId:newsletterId], absolute:true)}"
             currentPage="${trackingPage.page}"
             sizePage="${trackingPage.size}"
             ulClasss="paginationTop"
@@ -88,7 +95,7 @@
 </table>
 <div class="pag-list-contacts clearfix">
     <nav:contactPagination
-            link="${g.createLink(mapping:"politicianMassMailingTrackEvents", params: [campaignId:campaignId], absolute:true)}"
+            link="${g.createLink(mapping:"politicianMassMailingTrackEvents", params: [campaignId:newsletterId], absolute:true)}"
             currentPage="${trackingPage.page}"
             sizePage="${trackingPage.size}"
             ulClasss="paginationBottom"
@@ -108,6 +115,23 @@
             </div>
             <div class="modal-footer">
                 <a href="#" class="btn" data-dismiss="modal" aria-label="Close"><g:message code="modal.exportedTrackingEvents.close"/></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="export-eventAssistants-modal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="exportAssistantsTitle" aria-hidden="true">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header"><h4><g:message code="modal.exportEventAssistants.title"/></h4></div>
+            <div class="modal-body">
+                <p>
+                    <g:message code="modal.exportEventAssistants.explanation"/>
+                    <g:message code="modal.exported.explanation"/>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn" data-dismiss="modal" aria-label="Close"><g:message code="modal.exportEventAssistants.close"/></a>
             </div>
         </div>
     </div>
