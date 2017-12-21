@@ -8,6 +8,7 @@ enum SolrType {
     KUORUM_USER,
     POST,
     DEBATE,
+    EVENT,
 
     @Deprecated PROJECT,
     @Deprecated ORGANIZATION,

@@ -360,6 +360,19 @@ class UrlMappings {
         name es_searcherSearchDEBATEByREGION:"/es/buscar/debate/causa/$word?"          (controller: "search", action:"search"){lang="es"; searchType="REGION";type="DEBATE"; mappingName="searcherSearchDEBATEByREGION"}
 
 
+        name searcherSearchEVENT:   "/$lang/search/event"         {controller="redirect"; action= "redirect301"; newMapping='en_searcherSearchEVENT';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+        name en_searcherSearchEVENT:"/en/search/event/$word?"     (controller: "search", action:"search"){lang="en"; type="EVENT"; mappingName="searcherSearchEVENT"}
+        name es_searcherSearchEVENT:"/es/buscar/evento/$word?"     (controller: "search", action:"search"){lang="es"; type="EVENT"; mappingName="searcherSearchEVENT"}
+
+        name searcherSearchEVENTByCAUSE:   "/$lang/search/event/cause/$word?"          {controller="redirect"; action= "redirect301"; newMapping='en_searcherSearchEVENTByCAUSE';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+        name en_searcherSearchEVENTByCAUSE:"/en/search/event/cause/$word?"             (controller: "search", action:"search"){lang="en"; searchType="CAUSE";type="EVENT"; mappingName="searcherSearchEVENTByCAUSE"}
+        name es_searcherSearchEVENTByCAUSE:"/es/buscar/evento/causa/$word?"          (controller: "search", action:"search"){lang="es"; searchType="CAUSE";type="EVENT"; mappingName="searcherSearchEVENTByCAUSE"}
+
+        name searcherSearchEVENTByREGION:   "/$lang/search/event/cause/$word?"          {controller="redirect"; action= "redirect301"; newMapping='en_searcherSearchEVENTByREGION';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+        name en_searcherSearchEVENTByREGION:"/en/search/event/cause/$word?"             (controller: "search", action:"search"){lang="en"; searchType="REGION";type="EVENT"; mappingName="searcherSearchEVENTByREGION"}
+        name es_searcherSearchEVENTByREGION:"/es/buscar/evento/causa/$word?"          (controller: "search", action:"search"){lang="es"; searchType="REGION";type="EVENT"; mappingName="searcherSearchEVENTByREGION"}
+
+
         /**********************/
         /***** LOGGED URLs ****/ //Language no matters
         /**********************/

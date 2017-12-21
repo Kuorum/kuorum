@@ -92,6 +92,19 @@
                     </label>
                 </div>
             </li>
+            <li>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="type" id="search-debates" value="${kuorum.core.model.solr.SolrType.EVENT}" ${searchParams.type == kuorum.core.model.solr.SolrType.EVENT?'checked':''}>
+                        <g:link mapping="searcherSearchEVENT" params="${params.findAll {k,v-> k!='type' && k!='offset' && v}}">
+                            <span class="fa fa-calendar-check-o"></span>
+                            <g:message code="search.filters.SolrType.EVENT"/>
+                            %{--<g:set var="hits" value="${docs.facets.type.find{it.facetName==kuorum.core.model.solr.SolrType.DEBATE.toString()}?.hits?:0}"/>--}%
+                            %{--<g:if test="${hits}">(${hits})</g:if>--}%
+                        </g:link>
+                    </label>
+                </div>
+            </li>
         </ul>
         <input type="hidden" name="word" value="${searchParams.word}" />
         <input type="hidden" name="searchType" value="${searchParams.searchType}" />

@@ -104,23 +104,8 @@ class IndexSolrService {
                 return -1;
             }
         }else{
-            log.warn("Trying to index via solr but the server is not http it is ${server.class.name}")
-            return programaticFullIndex()
+            log.error("Trying to index via solr but the server is not http it is ${server.class.name}")
         }
-    }
-
-    private Integer programaticFullIndex(){
-        clearIndex()
-        Integer numIndexed = 0;
-        log.info("BulkUpdates: $solrBulkUpdateQuantity")
-
-        CLASSNAMES_TO_INDEX.each{className ->
-            Integer numPartialIndexed = indexByClassName(className)
-            res.put(className, numPartialIndexed)
-            numIndexed += numPartialIndexed
-            System.gc()
-        }
-        return numIndexed;
     }
 
     void index(Post post){
@@ -149,101 +134,10 @@ class IndexSolrService {
         server.deleteById(id)
         server.commit()
     }
-    void delete(Project project){
-        deleteDocument(project.id.toString())
-    }
-    void delete(Post post){
-        deleteDocument(post.id.toString())
-    }
+
     void delete(KuorumUser user){
         deleteDocument(user.id.toString())
     }
-
-    @Deprecated
-    private SolrElement indexDomainObject(element){
-        SolrElement solrElement = createSolrElement(element)
-        if (solrElement){//Si es null es que no se indexa por alguna razon
-            SolrInputDocument solrInputDocument = createSolrInputDocument(solrElement)
-            server.add(solrInputDocument)
-            server.commit()
-        }
-        solrElement
-    }
-
-    private Integer indexByClassName(String className){
-        Integer numIndexed = 0
-        log.info("Indexing $className")
-        Date start = new Date()
-
-        java.util.ArrayList<SolrInputDocument> solrDocuments = new ArrayList<SolrInputDocument>(solrBulkUpdateQuantity)
-        DBCollection collectionToIndex = grailsApplication.getClassForName(className).collection
-        DBCursor cursor = collectionToIndex.find()
-        cursor.batchSize(solrBulkUpdateQuantity)
-        while (cursor.hasNext()){
-            DBObject id = cursor.next()
-            def mongoData = grailsApplication.getClassForName(className).get(id.get("_id"));
-            SolrElement solrElement = createSolrElement(mongoData )
-            if(solrElement){
-                SolrInputDocument solrInputDocument = createSolrInputDocument(solrElement)
-                solrDocuments.add(solrInputDocument)
-                if (solrDocuments.size() == solrBulkUpdateQuantity){
-                    server.add(solrDocuments)
-                    server.commit()
-                    log.info("Commited ${solrBulkUpdateQuantity} documents")
-                    numIndexed += solrDocuments.size()
-                    solrDocuments.clear()
-                    System.gc()
-                }
-            }
-        }
-        if (solrDocuments){
-            server.add(solrDocuments)
-            server.commit()
-            numIndexed += solrDocuments.size()
-        }
-        server.optimize()
-        TimeDuration td = TimeCategory.minus( new Date(), start )
-        log.info("Indexed $numIndexed '${className}'. Time indexing: ${td}" )
-        numIndexed
-    }
-
-    private SolrInputDocument createSolrInputDocument(SolrElement solrElement){
-        SolrInputDocument solrInputDocument = new SolrInputDocument()
-        solrElement.properties.each{k,v->
-            if (k!="class" && k!="highlighting")
-                solrInputDocument.addField(k,v)
-        }
-        solrInputDocument
-    }
-
-    @Deprecated
-    SolrPost createSolrElement(Post post){
-        if (!post.published){
-            log.info("No se indexa el post ${post.id} porque no está publicado")
-            return null // Skipping because is not published
-
-        }
-
-        new SolrPost(
-            id:post.id.toString(),
-            name:post.title,
-            type:SolrType.POST,
-            text:post.text,
-            dateCreated:post.dateCreated,
-            tags:[post.project.hashtag],
-            alias:post.project.hashtag,
-            owner:"${post.owner.name}",
-            ownerId: "${post.owner.id.toString()}",
-            regionName: post.project.region.name,
-//            institutionName:post.project.institution.name,
-            regionIso3166_2: post.project.region.iso3166_2,
-            urlImage: post.multimedia?.url,
-            kuorumRelevance: 0,
-            numberPeopleInterestedFor: post.numVotes,
-            regionIso3166_2Length: post.project.region.iso3166_2.length()
-        )
-    }
-
 
     SolrPost recoverPostFromSolr(SolrDocument solrDocument){
         new SolrPost(
@@ -416,9 +310,19 @@ class IndexSolrService {
     SolrElement recoverSolrElementFromSolr(SolrDocument solrDocument){
         switch (SolrType.valueOf(solrDocument.type)){
             case SolrType.KUORUM_USER:  return recoverKuorumUserFromSolr(solrDocument); break;
-//            case SolrType.PROJECT:      return recoverProjectFromSolr(solrDocument); break;
             case SolrType.POST:         return recoverPostFromSolr(solrDocument); break;
             case SolrType.DEBATE:       return recoverDebateFromSolr(solrDocument); break;
+            case SolrType.EVENT:
+                SolrElement element;
+                //CHAPU
+                if(solrDocument.id.toString().startsWith("debate")){
+                    element = recoverDebateFromSolr(solrDocument)
+                }else{
+                    element = recoverPostFromSolr(solrDocument)
+                }
+                element.setType(SolrType.EVENT);
+                return element;
+                break;
             default: throw new KuorumException("No se ha reconocido el tipo ${solrDocument.type}")
         }
     }
