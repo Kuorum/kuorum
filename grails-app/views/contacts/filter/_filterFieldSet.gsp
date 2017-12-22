@@ -113,6 +113,25 @@
                             cssLabel="sr-only"/>
                 </div>
             </div>
+            <div class="filter-operator assistant-event-operator">
+                <div class="col-sm-3">
+                    <formUtil:selectEnum
+                            field="operatorAssistantEvent"
+                            defaultEmpty="false"
+                            command="${listCommand}"
+                            prefixFieldName="${prefixField}"
+                            enumClass="${org.kuorum.rest.model.contact.filter.condition.EventAssistantConditionOperatorTypeRDTO.class}"
+                            cssLabel="sr-only"/>
+                </div>
+                <div class="col-sm-4">
+                    <formUtil:selectEvent
+                            field="value"
+                            command="${listCommand}"
+                            prefixFieldName="${prefixField}"
+                            enumClass="${org.kuorum.rest.model.contact.ContactLanguageRDTO.class}"
+                            cssLabel="sr-only"/>
+                </div>
+            </div>
         </fieldset>
     </formUtil:dynamicComplexInputs>
 

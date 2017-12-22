@@ -545,6 +545,8 @@ function FilterContacts() {
             activeOperator =".contactType-operator"
         }else if (val =="LANGUAGE"){
             activeOperator =".language-operator"
+        }else if (val =="EVENT"){
+            activeOperator =".assistant-event-operator"
         }
 
         $fieldSet.find(".filter-operator").addClass("hide");

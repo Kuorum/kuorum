@@ -8,9 +8,11 @@ import kuorum.users.KuorumUser
 import kuorum.web.constants.WebConstants
 import org.bson.types.ObjectId
 import org.codehaus.groovy.grails.validation.*
+import org.kuorum.rest.model.communication.event.EventRSDTO
 import org.kuorum.rest.model.geolocation.RegionRSDTO
 import org.kuorum.rest.model.notification.campaign.CampaignRSDTO
 import org.springframework.context.i18n.LocaleContextHolder
+import payment.campaign.event.EventService
 
 class FormTagLib {
     static defaultEncodeAs = 'raw'
@@ -19,6 +21,7 @@ class FormTagLib {
     def grailsApplication
     SpringSecurityService springSecurityService
     RegionService regionService;
+    EventService eventService
 
     static namespace = "formUtil"
 
@@ -599,6 +602,41 @@ class FormTagLib {
                 selected = (it.toString()==command."$field")
             }
             out << "<option value='${it}' ${selected?'selected':''}> ${message(code:codeMessage)}</option>"
+        }
+        out << "</select>"
+        if(error){
+            out << "<span for='${id}' class='error'>${g.fieldError(bean: command, field: id)}</span>"
+        }
+    }
+
+    def selectEvent = {attrs->
+        KuorumUser user = springSecurityService.currentUser
+        def command = attrs.command
+        def field = attrs.field
+
+        def id = attrs.id?:field
+        def prefixFieldName=attrs.prefixFieldName?:""
+        def cssClass = attrs.cssClass
+        def cssLabel=attrs.cssLabel?:""
+        def clazz = command.metaClass.properties.find{it.name == field}.type
+        Boolean defaultEmpty = attrs.defaultEmpty?Boolean.parseBoolean(attrs.defaultEmpty):false
+        Boolean isRequired = isRequired(command,field) || (attrs.required?Boolean.parseBoolean(attrs.required):false)
+        def label ="${attrs.label?:message(code: "${clazz.name}.label")}${isRequired?'*':''}"
+        def error = hasErrors(bean: command, field: field,'error')
+        out <<"""
+            <label for="${id}" class="${cssLabel}">${label}</label>
+            <select name="${prefixFieldName}${field}" class="form-control input-lg ${error}" id="${id}">
+            """
+        if (!isRequired || defaultEmpty){
+            out << "<option value=''> ${message(code:"${clazz.name}.empty")}</option>"
+        }
+        List<EventRSDTO> events = eventService.findEvents(user)
+        events.each{event ->
+            Boolean selected = (event.id==command."$field")
+            if (command."$field" instanceof String){
+                selected = (event.id.toString()==command."$field")
+            }
+            out << "<option value='${event.id}' ${selected?'selected':''}> ${event.title} </option>"
         }
         out << "</select>"
         if(error){

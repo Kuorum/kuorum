@@ -53,21 +53,20 @@ class ContactFilterOptionCommand{
         this.operatorNumber = NumberConditionOperatorTypeRDTO.EQUALS
         this.operatorBoolean = BooleanConditionOperatorTypeRDTO.TRUE
         this.operatorContactType = ContactTypeConditionOperatorTypeRDTO.FOLLOWER
+        this.operatorAssistantEvent = EventAssistantConditionOperatorTypeRDTO.BOOKED_TICKET
     }
     ContactFilterOptionCommand(ConditionRDTO conditionRDTO){
+        this()
         this.field = conditionRDTO.field
-
-        //DEFAULT
-        this.operatorText = TextConditionOperatorTypeRDTO.EQUALS;
-        this.operatorNumber = NumberConditionOperatorTypeRDTO.EQUALS;
-        this.operatorBoolean = BooleanConditionOperatorTypeRDTO.TRUE;
-        this.operatorContactType = ContactTypeConditionOperatorTypeRDTO.FOLLOWER;
+        this.operatorAssistantEvent = EventAssistantConditionOperatorTypeRDTO.BOOKED_TICKET;
         if (conditionRDTO instanceof ConditionTextRDTO || conditionRDTO instanceof ConditionLanguageRDTO) {
             this.operatorText = conditionRDTO.operator
         }else if (conditionRDTO instanceof ConditionBooleanRDTO){
             this.operatorBoolean = conditionRDTO.operator
         }else if (conditionRDTO instanceof ConditionContactTypeRDTO){
             this.operatorContactType = conditionRDTO.operator
+        }else if (conditionRDTO instanceof ConditionEventAssistantRDTO){
+            this.operatorAssistantEvent = conditionRDTO.operator
         }else{
             this.operatorNumber = conditionRDTO.operator
         }
@@ -80,6 +79,7 @@ class ContactFilterOptionCommand{
     NumberConditionOperatorTypeRDTO operatorNumber;
     BooleanConditionOperatorTypeRDTO operatorBoolean;
     ContactTypeConditionOperatorTypeRDTO operatorContactType;
+    EventAssistantConditionOperatorTypeRDTO operatorAssistantEvent;
     String value;
 
     public String getOperator(){
@@ -87,8 +87,10 @@ class ContactFilterOptionCommand{
             return operatorNumber.toString()
         }else if(ConditionFieldTypeRDTO.BLACK_LIST.equals(field)){
             return operatorBoolean.toString();
-        }else if(ConditionFieldTypeRDTO.CONTACT_TYPE.equals(field)){
+        }else if(ConditionFieldTypeRDTO.CONTACT_TYPE.equals(field)) {
             return operatorContactType.toString();
+        }else if(ConditionFieldTypeRDTO.EVENT.equals(field)){
+            return operatorAssistantEvent.toString();
         }else{
             return operatorText.toString()
         }
@@ -98,6 +100,7 @@ class ContactFilterOptionCommand{
         field nullable: false
         operatorText nullable: false
         operatorNumber nullable: false
+        operatorAssistantEvent nullable: true;
         value nullable: false
     }
 }

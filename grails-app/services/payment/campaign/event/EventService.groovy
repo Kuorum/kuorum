@@ -121,4 +121,24 @@ class EventService {
         response
     }
 
+    List<EventRSDTO> findEvents(KuorumUser user){
+        Map<String, String> params = [
+                userAlias: user.id.toString()
+        ]
+        Map<String, String> query = [:]
+        def response = restKuorumApiService.get(
+                RestKuorumApiService.ApiMethod.ACCOUNT_EVENTS,
+                params,
+                query,
+                new TypeReference<List<EventRSDTO>>(){}
+        )
+
+        List<EventRSDTO> eventRSDTOs = null
+        if (response.data) {
+            eventRSDTOs = response.data
+        }
+
+        eventRSDTOs
+    }
+
 }
