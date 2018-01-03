@@ -264,6 +264,7 @@ var formHelper = {
             format:"DD/MM/YYYY HH:mm",
             //allowInputToggle:true,
             //collapse: false,
+            allowInputToggle:true,
             stepping:15,
             showTimeZone:true
         });
