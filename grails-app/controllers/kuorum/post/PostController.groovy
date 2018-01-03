@@ -10,8 +10,10 @@ import kuorum.users.KuorumUserService
 import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.commands.payment.CampaignSettingsCommand
 import kuorum.web.commands.payment.massMailing.post.LikePostCommand
+import org.kuorum.rest.model.communication.event.EventRegistrationRSDTO
 import org.kuorum.rest.model.communication.post.PostRSDTO
 import org.kuorum.rest.model.contact.filter.FilterRDTO
+import payment.campaign.event.EventService
 
 import javax.servlet.http.HttpServletResponse
 
@@ -19,6 +21,7 @@ class PostController extends CampaignController{
 
     KuorumUserService kuorumUserService
     CookieUUIDService cookieUUIDService
+    EventService eventService
 
     def show() {
         String viewerUid = cookieUUIDService.buildUserUUID()
@@ -28,7 +31,13 @@ class PostController extends CampaignController{
             if (!postRSDTO) {
                 throw new KuorumException(message(code: "post.notFound") as String)
             }
-            return  [post: postRSDTO, postUser: postUser]
+            def model = [post: postRSDTO, postUser: postUser]
+            if (postRSDTO.event && springSecurityService.isLoggedIn()){
+                KuorumUser userLogged = springSecurityService.currentUser
+                EventRegistrationRSDTO eventRegistration = eventService.findAssistant(postUser.id.toString(),postRSDTO.event.id, userLogged)
+                model.put("eventRegistration", eventRegistration)
+            }
+            return  model
         }catch (Exception ignored){
             flash.error = message(code: "post.notFound")
             response.sendError(HttpServletResponse.SC_NOT_FOUND)

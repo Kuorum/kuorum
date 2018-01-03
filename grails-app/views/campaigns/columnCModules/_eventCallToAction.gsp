@@ -1,6 +1,6 @@
 <g:set var="extraUnconfirmedClass" value=""/>
 <g:set var="extraConfirmedClass" value="hide"/>
-<g:set var="fullCapacity" value="${event.capacity <= event.amountAssistants}"/>
+<g:set var="fullCapacity" value="${event.capacity != null && event.capacity <= event.amountAssistants}"/>
 <g:if test="${eventRegistration}">
     <g:set var="extraUnconfirmedClass" value="hide"/>
     <g:set var="extraConfirmedClass" value=""/>
@@ -18,17 +18,17 @@
     </div>
     <g:if test="${!fullCapacity}">
         <div class="actions clearfix">
-            <button
-                    type="button"
-                    class="btn btn-blue btn-lg event-confirm-button event-unconfirmed ${extraUnconfirmedClass}"
-                    data-userLoggedAlias="${userUtil.loggedUserAlias()}"
-                    data-postUrl="${g.createLink(mapping: 'eventBookTicket', params:event.encodeAsLinkProperties())}"
-            >
-                ${message(code: "event.callToAction.button")}
-            </button>
-            <div class="event-confirm-success event-confirmed ${extraConfirmedClass}">
-                <g:message code="event.callToAction.success.text"/> <span class="fa fa-check"></span>
-            </div>
+                <button
+                        type="button"
+                        class="btn btn-blue btn-lg event-confirm-button event-unconfirmed ${extraUnconfirmedClass}"
+                        data-userLoggedAlias="${userUtil.loggedUserAlias()}"
+                        data-postUrl="${g.createLink(mapping: 'eventBookTicket', params:event.encodeAsLinkProperties())}"
+                >
+                    ${message(code: "event.callToAction.button")}
+                </button>
         </div>
     </g:if>
+    <div class="event-confirm-success event-confirmed ${extraConfirmedClass}">
+        <g:message code="event.callToAction.success.text"/> <span class="fa fa-check"></span>
+    </div>
 </div>
