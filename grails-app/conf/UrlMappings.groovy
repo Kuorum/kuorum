@@ -155,7 +155,8 @@ class UrlMappings {
 
         name footerHistory:         "/$lang/our-story"      {controller="redirect"; action= "redirect301"; newMapping='en_footerHistory';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
         name en_footerHistory:      "/en/our-story"         (controller: "footer", action: "footerHistory"){lang="en"; mappingName="footerHistory"}
-        name es_footerHistory:      "/es/quiens-somos"  (controller: "footer", action: "footerHistory"){lang="es"; mappingName="footerHistory"}
+        name es_footerHistory:      "/es/quienes-somos"     (controller: "footer", action: "footerHistory"){lang="es"; mappingName="footerHistory"}
+                                    "/es/quiens-somos"      {controller="redirect"; action= "redirect301"; newMapping='es_footerHistory'}
                                     "/es/our-story"         {controller="redirect"; action= "redirect301"; newMapping='es_footerHistory'}
                                     "/en/about/our-story"   {controller="redirect"; action= "redirect301"; newMapping='en_footerHistory'}
                                     "/es/about/our-story"   {controller="redirect"; action= "redirect301"; newMapping='es_footerHistory'}
