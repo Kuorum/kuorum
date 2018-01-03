@@ -38,6 +38,7 @@
                               step:'settings',
                               settings:'debateEdit',
                               content:'debateEditContent',
+                              event:'debateEditEvent',
                               showResult: 'debateShow',
                               next: 'debateEditContent'
                       ]]"/>

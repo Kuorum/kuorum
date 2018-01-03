@@ -31,6 +31,7 @@
                       mappings:[
                               step:'settings',
                               settings:'postEditSettings',
+                              event:'postEditEvent',
                               content:'postEditContent',
                               showResult: 'postShow',
                               next: 'postEditContent'
