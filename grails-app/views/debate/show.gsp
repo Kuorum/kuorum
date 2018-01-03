@@ -10,13 +10,13 @@
 
 <content tag="mainContent">
     <g:render template="showModules/mainContent" model="[debate: debate, debateUser: debateUser,proposalPage:proposalPage,eventData:eventData,eventRegistration:eventRegistration]" />
-    <g:render template="/campaigns/columnCModules/eventCallToAction" model="[debate: debate, debateUser: debateUser,event:debate.event,eventRegistration:eventRegistration]"/>
+    <g:render template="/campaigns/columnCModules/eventCallToAction" model="[debate: debate, eventUser:debateUser,event:debate.event,eventRegistration:eventRegistration]"/>
 </content>
 
 <content tag="cColumn">
     <g:if test="${debate.event}">
         <r:require modules="event"/>
-        <g:render template="/campaigns/columnCModules/eventCallToAction" model="[debate: debate, debateUser: debateUser,event:debate.event,eventRegistration:eventRegistration]"/>
+        <g:render template="/campaigns/columnCModules/eventCallToAction" model="[debate: debate, eventUser: debateUser,event:debate.event,eventRegistration:eventRegistration]"/>
         <g:render template="showModules/cCallToAction" model="[debate: debate, debateUser: debateUser,proposalPage:proposalPage]"/>
         <g:render template="/campaigns/columnCModules/eventInfo" model="[event:debate.event]"/>
     </g:if>
