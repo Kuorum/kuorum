@@ -116,10 +116,10 @@ class LoginController {
 		KuorumUser user = KuorumUser.findByEmail(email);
 		if (registerService.isValidPassword(user, pass)){
 			springSecurityService.reauthenticate(email, pass)
-			render ([success:true, url: g.createLink(controller: 'login', action: 'authfail')] as JSON)
+			render ([success:true, url: g.createLink(mapping:'loginAuthError')] as JSON)
 		}else{
 			session[WebAttributes.AUTHENTICATION_EXCEPTION] = new Exception("Wrong pass");
-			render ([success:false, url: g.createLink(controller: 'login', action: 'authfail', params: [email:email])] as JSON)
+			render ([success:false, url: g.createLink(mapping:'loginAuthError', params: [email:email])] as JSON)
 		}
 	}
 

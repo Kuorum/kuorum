@@ -288,6 +288,8 @@ class UrlMappings {
                             "/autenticarse"     {controller="redirect"; action= "redirect301"; newMapping='es_loginAuth'}
                             "/login/auth"       {controller="redirect"; action= "redirect301"; newMapping='en_loginAuth'}
 
+        name authError:     "/login/authfail"       (controller:"login", action:"authfail")
+
         name loginFull:     "/$lang/confirmar-usuario"  {controller="redirect"; action= "redirect301"; newMapping='en_loginFull';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
         name en_loginFull:  "/en/check-user"            (controller:"login", action:"full"){lang="en"; mappingName="loginFull"}
         name es_loginFull:  "/es/confirmar-usuario"     (controller:"login", action:"full"){lang="es"; mappingName="loginFull"}
