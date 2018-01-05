@@ -61,13 +61,20 @@
         <g:render template="/debate/showModules/mainContent/debateDataLabels" model="[causes:debate.causes]"/>
         <g:render template="/debate/showModules/mainContent/debateDataSocial" model="[debate:debate, debateUser:debateUser]"/>
 
-        <g:if test="${debate.campaignStatusRSDTO == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT}">
-            <div class="comment-counter pull-right">
-                <button type="button">
-                    <span class="fa fa-lightbulb-o" aria-hidden="true"></span>
-                    <span class="number">${proposalPage.total}</span>
-                </button>
-            </div>
+        <g:if test="${debate.event}">
+            %{-- EVENT ICON --}%
+            <g:render template="/debate/showModules/mainContent/eventIcon" model="[event:debate.event, eventRegistration:eventRegistration]"/>
         </g:if>
+        <g:else>
+            %{-- DEBATE ICON --}%
+            <g:if test="${debate.campaignStatusRSDTO == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT}">
+                <div class="comment-counter pull-right">
+                    <button type="button">
+                        <span class="fa fa-lightbulb-o" aria-hidden="true"></span>
+                        <span class="number">${proposalPage.total}</span>
+                    </button>
+                </div>
+            </g:if>
+        </g:else>
     </div>
 </div> <!-- ^leader-post !-->

@@ -13,10 +13,7 @@ $(function(){
         var buttonId = $('#registro').find("form").attr("data-buttonId");
         var $buttonConfirm = $("#"+buttonId);
         $buttonConfirm.attr("data-userLoggedAlias", "logged"); //Chapu para que el if no saque de nuevo la modal
-        pageLoadingOff();
-        eventFunctions.confirmAssistance($buttonConfirm, function(jsonSuccess){
-            document.location.reload()
-        })
+        eventFunctions.confirmAssistance($buttonConfirm, noLoggedCallbacks.reloadPage)
     };
 
     $(".actions.call-to-action-mobile.call-mobile-event-confirm ").on("click",function(e){
