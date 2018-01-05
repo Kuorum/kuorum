@@ -9,7 +9,7 @@
 </head>
 
 <content tag="mainContent">
-    <g:render template="showModules/mainContent" model="[post: post, postUser: postUser]" />
+    <g:render template="showModules/mainContent" model="[post: post, postUser: postUser, eventRegistration:eventRegistration]" />
     <g:render template="/campaigns/columnCModules/eventCallToAction" model="[eventUser: postUser,event:post.event,eventRegistration:eventRegistration]"/>
 </content>
 

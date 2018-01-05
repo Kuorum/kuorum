@@ -7570,10 +7570,8 @@ body.noLogged .leader-post .header .call-to-action-mobile{
     background: transparent;
 }
 
-.leader-post > .footer .comment-counter button:hover {
-    color: #00a3ed;
-    text-decoration: none;
-}
+.leader-post > .footer .comment-counter button:hover {color: #00a3ed;text-decoration: none;}
+.leader-post > .footer .comment-counter button.disabled:hover {color: #D0D0D0;}
 
 .leader-post > .footer .comment-counter .number {
     font-size: 20px;

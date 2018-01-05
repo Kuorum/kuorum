@@ -56,6 +56,8 @@ var eventFunctions={
                     $(".event-confirmed").removeClass("hide");
                     $(".event-unconfirmed").remove();
                     $(".comment-box.proposal-comment-box.hide").removeClass("hide");
+                    $(".comment-counter .event-confirm-button").addClass("active")
+                    $(".comment-counter .event-confirm-button").addClass("disabled")
                 })
                 if (callback != undefined){
                     callback()

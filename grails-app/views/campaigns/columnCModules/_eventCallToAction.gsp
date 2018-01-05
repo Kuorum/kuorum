@@ -17,7 +17,7 @@
         </g:else>
     </div>
     <g:if test="${!fullCapacity}">
-        <div class="actions clearfix">
+        <div class="actions clearfix event-unconfirmed ${extraUnconfirmedClass}">
                 <button
                         type="button"
                         class="btn btn-blue btn-lg event-confirm-button event-unconfirmed ${extraUnconfirmedClass}"
