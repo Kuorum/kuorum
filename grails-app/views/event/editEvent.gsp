@@ -73,17 +73,15 @@
                     <formUtil:input command="${command}" field="capacity" type="number"/>
                 </div>
             </fieldset>
-            <fieldset class="form-group">
+            <fieldset class="form-group map-location">
                 <label for="address" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.event.EventCommand.address.label"/>:</label>
                 <div class="col-sm-8 col-md-5">
                     <formUtil:input command="${command}" field="address"/>
-                </div>
-                <div class="col-sm-8 col-md-1">
                     <a href="#" class="btn btn-grey" id="geocode-address">
                         <span class="fa fa-map-marker" ></span>
                     </a>
                 </div>
-                <div id="edit-event-map" class="col-md-4"></div>
+                <div id="edit-event-map" class="col-sm-offset-2 col-sm-8 col-md-offset-0 col-md-4"></div>
             </fieldset>
             <fieldset class="buttons">
                 <div class="text-right">
