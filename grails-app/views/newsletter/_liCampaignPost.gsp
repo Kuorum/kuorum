@@ -1,4 +1,12 @@
 <%@ page import="org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO" %>
+<g:set var="type" value="post"/>
+<g:set var="faIcon" value="fa-newspaper-o"/>
+<g:set var="typeName" value="${g.message(code: 'tools.campaign.new.post')}"/>
+<g:if test="${post.event}">
+    <g:set var="type" value="event"/>
+    <g:set var="faIcon" value="fa-calendar-check-o"/>
+    <g:set var="typeName" value="${g.message(code: 'tools.campaign.new.event')}"/>
+</g:if>
 
 <li class="${post.newsletter.status} postItem" id="campaignPos_${idx}">
     <span class="id sr-only">${post.id}</span>
@@ -6,9 +14,9 @@
           data-original-title="${g.message(code: "org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.${post.campaignStatusRSDTO}")}">
         ${post.newsletter.status}
     </span>
-    <span class="type">post</span>
-    <span class="fa fa-newspaper-o" aria-hidden="true" rel="tooltip" data-toggle="tooltip" data-placement="bottom"
-          data-original-title="${g.message(code: 'tools.campaign.new.post')}"></span>
+    <span class="type">${type}</span>
+    <span class="fa ${faIcon}" aria-hidden="true" rel="tooltip" data-toggle="tooltip" data-placement="bottom"
+          data-original-title="${typeName}"></span>
     <h3>
         <g:link mapping="postShow" params="${post.encodeAsLinkProperties()}" class="title">
             ${post.name}<span></span>
