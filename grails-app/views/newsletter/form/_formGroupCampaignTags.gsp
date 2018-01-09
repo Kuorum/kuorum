@@ -1,6 +1,9 @@
 <%@ page import="org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO" %>
 <fieldset class="form-group tags-campaign">
-    <label for="tagsField" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.massMailing.DebateCommand.tags.label"/>: </label>
+    <label for="tagsField" class="col-sm-2 col-md-1 control-label">
+        <span class="fa fa-info-circle" data-toggle="tooltip" data-placement="top" title="${g.message(code:'kuorum.web.commands.payment.massMailing.MassMailingCommand.eventsWithTag.label.info')}"></span>
+        <g:message code="kuorum.web.commands.payment.massMailing.DebateCommand.tags.label"/>:
+    </label>
     <div class="col-sm-8 col-md-7">
         <label class="toggle-inputs">
             <g:message code="kuorum.web.commands.payment.massMailing.MassMailingCommand.eventsWithTag.label"/>

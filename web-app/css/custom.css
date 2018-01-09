@@ -1254,6 +1254,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 #advanced-features-section {margin-bottom:0;}
 #advanced-features-section a{color:#545454;}
 #advanced-features{display:none;}
+#advanced-features .form-group label .fa-info-circle{position: absolute;right: 0;top: 13px;}
 
 .tags-campaign .bootstrap-tagsinput {width: 100%;border:1px solid #DDDDDD; box-shadow: none;}
 .tags-campaign .bootstrap-tagsinput.focus {border:1px solid #20a2ea;}
