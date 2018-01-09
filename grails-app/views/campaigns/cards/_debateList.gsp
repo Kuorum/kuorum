@@ -39,12 +39,22 @@
                             />
                         </li>
                     </g:if>
-                    <li>
-                        <g:link mapping="debateShow" params="${debate.encodeAsLinkProperties()}" fragment="openProposal" role="button">
-                            <span class="fa fa fa-lightbulb-o fa-lg"></span>
-                            <span class="number">${debate.numProposals}</span>
-                        </g:link>
-                    </li>
+                    <g:if test="${debate.event}">
+                        <li>
+                            <g:link mapping="debateShow" params="${debate.encodeAsLinkProperties()}" role="button" class="${debate.event.registered?'active':''}">
+                                <span class="fa fa fa-ticket fa-lg"></span>
+                                <span class="number">${debate.event.amountAssistants}</span>
+                            </g:link>
+                        </li>
+                    </g:if>
+                    <g:else>
+                        <li>
+                            <g:link mapping="debateShow" params="${debate.encodeAsLinkProperties()}" fragment="openProposal" role="button">
+                                <span class="fa fa fa-lightbulb-o fa-lg"></span>
+                                <span class="number">${debate.numProposals}</span>
+                            </g:link>
+                        </li>
+                    </g:else>
                 </ul>
             </div>
         </div>
