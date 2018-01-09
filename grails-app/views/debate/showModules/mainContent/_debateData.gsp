@@ -10,7 +10,7 @@
         <div class="clearfix">
             <span class="time-ago pull-left"><kuorumDate:humanDate date="${debate.datePublished}" itemprop="datePublished"/> </span>
 
-            <g:if test="${debate.event && !eventRegistration}">
+            <g:if test="${debate.event && !debate.event.registered}">
                 <div class="actions call-to-action-mobile call-mobile-event-confirm event-unconfirmed"
                      data-userLoggedAlias="${userUtil.loggedUserAlias()}"
                      data-postUrl="${g.createLink(mapping: 'eventBookTicket',params:debate.event.encodeAsLinkProperties())}"
@@ -28,7 +28,7 @@
             <div class="actions call-to-action-mobile add-proposal">
                 %{--EVENT DATA - CHAPU BORRAR --}%
                 <button type="button" class="btn btn-blue btn-lg call-message">
-                    <g:if test="${eventRegistration}">
+                    <g:if test="${debate.event.registered}">
                         <g:message code="event.callToAction.success.mobile"/>
                     </g:if>
                     <g:else>
@@ -63,7 +63,7 @@
 
         <g:if test="${debate.event}">
             %{-- EVENT ICON --}%
-            <g:render template="/debate/showModules/mainContent/eventIcon" model="[event:debate.event, eventRegistration:eventRegistration]"/>
+            <g:render template="/debate/showModules/mainContent/eventIcon" model="[event:debate.event]"/>
         </g:if>
         <g:else>
             %{-- DEBATE ICON --}%

@@ -1,7 +1,7 @@
 <g:set var="extraUnconfirmedClass" value=""/>
 <g:set var="extraConfirmedClass" value="hide"/>
 <g:set var="fullCapacity" value="${event.capacity != null && event.capacity <= event.amountAssistants}"/>
-<g:if test="${eventRegistration}">
+<g:if test="${event.registered}">
     <g:set var="extraUnconfirmedClass" value="hide"/>
     <g:set var="extraConfirmedClass" value=""/>
     <g:set var="extraCommentBoxConfirmedClass" value="box-event-confirmed"/>

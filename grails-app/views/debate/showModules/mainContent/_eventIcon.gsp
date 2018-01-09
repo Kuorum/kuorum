@@ -3,7 +3,7 @@
 <g:set var="buyTicketActive" value="${event.amountAssistants<event.capacity}"/>
 <div class="comment-counter pull-right">
     <button type="button"
-            class="${!eventRegistration & buyTicketActive?'event-confirm-button':''} ${eventRegistration?'active disabled':''} ${!buyTicketActive?'disabled':''}"
+            class="${!event.registered & buyTicketActive?'event-confirm-button':''} ${event.registered?'active disabled':''} ${!buyTicketActive?'disabled':''}"
             data-userLoggedAlias="${userUtil.loggedUserAlias()}"
             data-postUrl="${g.createLink(mapping: 'eventBookTicket', params:event.encodeAsLinkProperties())}"
 

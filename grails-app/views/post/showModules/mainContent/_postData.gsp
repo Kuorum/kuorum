@@ -27,7 +27,7 @@
         <g:render template="/post/showModules/mainContent/postDataSocial" model="[post:post, postUser:postUser]"/>
 
         <g:if test="${post.event}">
-            <g:render template="/debate/showModules/mainContent/eventIcon" model="[event:post.event, eventRegistration:eventRegistration]"/>
+            <g:render template="/debate/showModules/mainContent/eventIcon" model="[event:post.event]"/>
         </g:if>
         <g:else>
             <sec:ifLoggedIn><g:set var="isLogged" value="${true}"/></sec:ifLoggedIn>

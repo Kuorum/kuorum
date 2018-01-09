@@ -39,17 +39,15 @@
                             />
                         </li>
                     </g:if>
-                    <g:set var="logged" value="${false}"/>
-                    <sec:ifLoggedIn>
-                        <g:set var="logged" value="${true}"/>
-                    </sec:ifLoggedIn>
+                    <sec:ifLoggedIn><g:set var="isLogged" value="${true}"/></sec:ifLoggedIn>
+                    <sec:ifNotLoggedIn><g:set var="isLogged" value="${false}"/></sec:ifNotLoggedIn>
                     <li>
-                        <a class="post-like ${post.liked && logged?'active':''}"
+                        <a class="post-like ${post.liked && isLogged?'active':''}"
                         data-postId="${post.id}"
                         data-userAlias="${post.user.alias}"
                         data-urlAction="${g.createLink(mapping: "postLike")}"
                         data-loggedUser="${sec.username()}">
-                        <span class="fa ${post.liked && logged?'fa-heart':'fa-heart-o'} fa-lg"></span>
+                        <span class="fa ${post.liked && isLogged?'fa-heart':'fa-heart-o'} fa-lg"></span>
                         <span class="number">${post.likes}</span>
                         </a>
                     </li>

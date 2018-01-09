@@ -1,4 +1,4 @@
-<g:render template="/post/showModules/mainContent/postData" model="[post: post, postUser: postUser,eventRegistration:eventRegistration]" />
+<g:render template="/post/showModules/mainContent/postData" model="[post: post, postUser: postUser]" />
 
 
 <!-- MODAL AUTH PROFILE CHANGES -->

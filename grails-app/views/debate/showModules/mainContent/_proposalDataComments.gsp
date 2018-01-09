@@ -33,7 +33,7 @@
         </g:each>
     </ul>
     <!-- ^comment-box !-->
-    <div class="comment-box proposal-comment-box ${debate.event && !eventRegistration?'hide':''}">
+    <div class="comment-box proposal-comment-box ${debate.event && !debate.event.registered?'hide':''}">
         <div class="comment-proposal clearfix">
             <div class="user-box col-md-1 col-xs-12">
                 <img class="img-circle" alt="${userUtil.loggedUserName()}" src="${image.loggedUserImgSrc()}">

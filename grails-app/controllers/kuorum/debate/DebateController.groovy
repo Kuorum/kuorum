@@ -29,7 +29,6 @@ class DebateController extends CampaignController{
     KuorumUserService kuorumUserService
     ProposalService proposalService
     CookieUUIDService cookieUUIDService
-    EventService eventService
 
     def show() {
         String viewerId = cookieUUIDService.buildUserUUID()
@@ -59,13 +58,6 @@ class DebateController extends CampaignController{
 
             def model = [debate: debate, debateUser: debateUser, proposalPage:proposalPage, pinnedUsers:pinnedUsers];
 
-            if (debate.event && springSecurityService.isLoggedIn()){
-                KuorumUser userLogged = springSecurityService.currentUser
-                EventRegistrationRSDTO eventRegistration = eventService.findAssistant(debateUser.id.toString(),debate.event.id, userLogged)
-                model.put("eventRegistration", eventRegistration)
-            }
-
-
             if (params.printAsWidget){
                 render view: 'widgetDebate', model: model
             }else{
@@ -85,9 +77,8 @@ class DebateController extends CampaignController{
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def editSettingsStep(){
-        String viewerUid = cookieUUIDService.buildUserUUID()
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        DebateRSDTO debateRSDTO = debateService.find( user, Long.parseLong((String) params.debateId), viewerUid)
+        DebateRSDTO debateRSDTO = debateService.find( user, Long.parseLong((String) params.debateId))
 
         return debateModelSettings(new CampaignSettingsCommand(debatable:true), debateRSDTO)
 

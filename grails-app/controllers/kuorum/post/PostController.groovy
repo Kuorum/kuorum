@@ -21,7 +21,6 @@ class PostController extends CampaignController{
 
     KuorumUserService kuorumUserService
     CookieUUIDService cookieUUIDService
-    EventService eventService
 
     def show() {
         String viewerUid = cookieUUIDService.buildUserUUID()
@@ -32,11 +31,6 @@ class PostController extends CampaignController{
                 throw new KuorumException(message(code: "post.notFound") as String)
             }
             def model = [post: postRSDTO, postUser: postUser]
-            if (postRSDTO.event && springSecurityService.isLoggedIn()){
-                KuorumUser userLogged = springSecurityService.currentUser
-                EventRegistrationRSDTO eventRegistration = eventService.findAssistant(postUser.id.toString(),postRSDTO.event.id, userLogged)
-                model.put("eventRegistration", eventRegistration)
-            }
             return  model
         }catch (Exception ignored){
             flash.error = message(code: "post.notFound")
