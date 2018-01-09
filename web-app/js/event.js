@@ -47,7 +47,7 @@ var eventFunctions={
             url: urlConfirm,
             data: data,
             success: function(jsonData){
-                var $parentBox = $button.parents(".comment-box.call-to-action")
+                var $parentBox = $(".call-to-action-confirm-event")
                 $parentBox.addClass("box-event-confirmed")
                 $(".event-unconfirmed").fadeOut("slow",function () {
                     $(".event-confirmed").removeClass("hide");
@@ -56,6 +56,10 @@ var eventFunctions={
                     $(".comment-counter .event-confirm-button").addClass("active")
                     $(".comment-counter .event-confirm-button").addClass("disabled")
                 })
+                var $numberTickets = $(".comment-counter .event-confirm-button .number")
+                var tickets = parseInt($numberTickets.html())
+                $numberTickets.html(tickets +1)
+
                 if (callback != undefined){
                     callback()
                 }
