@@ -28,7 +28,7 @@
             <div class="actions call-to-action-mobile add-proposal">
                 %{--EVENT DATA - CHAPU BORRAR --}%
                 <button type="button" class="btn btn-blue btn-lg call-message">
-                    <g:if test="${debate.event.registered}">
+                    <g:if test="${debate?.event?.registered}">
                         <g:message code="event.callToAction.success.mobile"/>
                     </g:if>
                     <g:else>

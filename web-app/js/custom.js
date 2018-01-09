@@ -538,6 +538,7 @@ function reloadDynamicDiv($div){
 
 var noLoggedCallbacks = {
     reloadPage : function(){
+        pageLoadingOn("Reloading page");
         document.location.reload();
     }
 };

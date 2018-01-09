@@ -38,7 +38,7 @@ var eventFunctions={
         }
     },
     confirmAssistance:function($button, callback){
-        pageLoadingOn();
+        pageLoadingOn("Event - Confirm assistance");
         var eventId = $button.attr("data-eventId")
         var urlConfirm = $button.attr("data-postUrl")
         var data ={eventId:eventId}
@@ -60,16 +60,17 @@ var eventFunctions={
                 var tickets = parseInt($numberTickets.html())
                 $numberTickets.html(tickets +1)
 
+                pageLoadingOff("Event - Confirm assistance");
                 if (callback != undefined){
                     callback()
                 }
-                pageLoadingOff();
             },
             error:function(){
                 display.error("Sorry: Error registering on the event")
+                pageLoadingOff();
             },
             complete: function () {
-                pageLoadingOff();
+
             }
         });
     }

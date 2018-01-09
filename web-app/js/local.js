@@ -1,10 +1,12 @@
 var htmlLoading = '<div class="loading xs"><span class="sr-only">Cargando...</span></div>';
 
 // PAGE LOADING
-function pageLoadingOn (){
+function pageLoadingOn (trackLog){
+    if (trackLog!= undefined) console.log("LOADING ON :: "+trackLog)
     $('html').addClass('loading');
 }
-function pageLoadingOff (){
+function pageLoadingOff (trackLog){
+    if (trackLog!= undefined) console.log("LOADING OFF :: " +trackLog)
     $('html').removeClass('loading');
 }
 

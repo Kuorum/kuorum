@@ -68,7 +68,7 @@ $(document).ready(function(){
 
 
 function modalLogin($form, callback){
-    pageLoadingOn();
+    pageLoadingOn("Modal login");
     if ($form.valid()) {
         console.log("modal Login")
         $form.parents(".modal").modal("hide")
@@ -91,11 +91,11 @@ function modalLogin($form, callback){
                 }
             },
             complete: function () {
-                pageLoadingOff();
+                // pageLoadingOff();
             }
         });
     } else {
-        pageLoadingOff();
+        pageLoadingOff("Modal login");
     }
 }
 
