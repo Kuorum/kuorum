@@ -1,7 +1,7 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <g:set var="breadCrumbName">
-            <g:message code="head.logged.account.tools.massMailing.show" args="[campaign.name]"/>
+            <g:message code="head.logged.account.tools.massMailing.show" args="[campaign?campaign.name:newsletter.name]"/>
     </g:set>
 
     <title>${breadCrumbName}</title>
