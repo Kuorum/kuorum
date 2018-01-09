@@ -38,8 +38,11 @@
                 </li>
                 <li>
                     <g:link mapping="postShow" params="${solrPost.encodeAsLinkProperties()}" fragment="openProposal" role="button">
-                        <span class="fa fa fa-heart fa-lg"></span>
-                        %{--<span class="label">${debate.numProposals}</span>--}%
+                        <g:set var="postIcon" value="fa-heart"/>
+                        <g:if test="${solrPost.type == kuorum.core.model.solr.SolrType.EVENT}">
+                            <g:set var="postIcon" value="fa-ticket"/>
+                        </g:if>
+                        <span class="fa ${postIcon} fa-lg"></span>
                     </g:link>
                 </li>
             </ul>

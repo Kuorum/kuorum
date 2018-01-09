@@ -38,7 +38,11 @@
                 </li>
                 <li>
                     <g:link mapping="debateShow" params="${solrDebate.encodeAsLinkProperties()}" fragment="openProposal" role="button">
-                        <span class="fa fa fa-lightbulb-o fa-lg"></span>
+                        <g:set var="debateIcon" value="fa-lightbulb-o"/>
+                        <g:if test="${solrDebate.type == kuorum.core.model.solr.SolrType.EVENT}">
+                            <g:set var="debateIcon" value="fa-ticket"/>
+                        </g:if>
+                        <span class="fa ${debateIcon} fa-lg"></span>
                         %{--<span class="label">${debate.numProposals}</span>--}%
                     </g:link>
                 </li>
