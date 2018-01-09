@@ -104,9 +104,31 @@
                 var marker
                 var mapDivContainerId="edit-event-map"
                 var geocoderButtonId='geocode-address'
-                var zoom = 6;
+                var zoom = 1;
                 var center = {lat: 40.428054, lng: -3.7043396};
                 var that = this;
+
+                var placeSearch, autocomplete;
+                var inputAddressId="address"
+                var componentForm = {
+                    street_number: 'short_name',
+                    route: 'long_name',
+                    locality: 'long_name',
+                    administrative_area_level_1: 'short_name',
+                    country: 'long_name',
+                    postal_code: 'short_name'
+                };
+
+
+                document.getElementById(inputAddressId).addEventListener("focusout", function(e){
+                    if (document.getElementById('zoom').value==""){
+                        that.geocodeAddress(geocoder, map);
+                    }
+                });
+                document.getElementById(inputAddressId).addEventListener("input", function(e){
+                    document.getElementById('zoom').value=""
+
+                });
 
                 this.initMap = function() {
                     if (map != undefined){
@@ -114,27 +136,53 @@
                         return;
                     }
                     map = new google.maps.Map(document.getElementById(mapDivContainerId), {
-//                        zoom: zoom,
-//                        center: center,
+                        zoom: zoom,
+                        center: center,
                         mapTypeControl:false,
                         streetViewControl:false,
                         scaleControl:false
                     });
                     geocoder = new google.maps.Geocoder();
 
+                    autocomplete = new google.maps.places.Autocomplete(
+                        (document.getElementById(inputAddressId)),
+                        {types: ['geocode']});
+
+                    // When the user selects an address from the dropdown, populate the address
+                    // fields in the form.
+                    autocomplete.addListener('place_changed', that.fillInAddress);
+
                     map.addListener('zoom_changed', function() {
                         document.getElementById('zoom').value=map.getZoom();
                     });
 
-                    map.addListener('click', function(e) {
-                        that.placeMarkerAndPanTo(e.latLng);
-                    });
+//                    map.addListener('click', function(e) {
+//                        that.placeMarkerAndPanTo(e.latLng);
+//                    });
                 }
                 document.getElementById(geocoderButtonId).addEventListener('click', function(e) {
                     e.preventDefault();
                     that.geocodeAddress(geocoder, map);
                 });
+                this.fillInAddress = function() {
+                    // Get the place details from the autocomplete object.
+                    var place = autocomplete.getPlace();
 
+                    that.removeMarker();
+                    map.setCenter(place.geometry.location);
+                    marker = new google.maps.Marker({
+                        map: map,
+                        position: place.geometry.location,
+//                            title:"Hello World!"
+                    });
+
+                    map.fitBounds(place.geometry.viewport);
+
+                    document.getElementById('zoom').value=map.getZoom();
+                    document.getElementById('latitude').value=place.geometry.location.lat();
+                    document.getElementById('longitude').value=place.geometry.location.lng();
+
+                }
                 this.geocodeAddress= function () {
                     var address = document.getElementById('address').value;
                     geocoder.geocode({'address': address}, function(results, status) {
@@ -204,7 +252,7 @@
 
         </script>
         <script async defer
-                src="https://maps.googleapis.com/maps/api/js?key=${_googleConfig.jsKey}&callback=googleMapsLibraryLoaded">
+                src="https://maps.googleapis.com/maps/api/js?key=${_googleConfig.jsKey}&callback=googleMapsLibraryLoaded&libraries=places">
         </script>
     </div>
 </content>
