@@ -100,7 +100,7 @@ class ContactFilterOptionCommand{
         field nullable: false
         operatorText nullable: false
         operatorNumber nullable: false
-        operatorAssistantEvent nullable: true;
+        operatorAssistantEvent nullable: false
         value nullable: false
     }
 }
