@@ -100,7 +100,7 @@ function modalLogin($form, callback){
 }
 
 function modalForgotPassword($form){
-    pageLoadingOn();
+    pageLoadingOn("Modal forgot password");
     if ($form.valid()) {
         var url = $form.attr("action")
         var data = {
@@ -116,10 +116,10 @@ function modalForgotPassword($form){
                 $("#pass-forget-success").show();
             },
             complete: function () {
-                pageLoadingOff();
+                pageLoadingOff("Modal forgot password");
             }
         })
     } else {
-        pageLoadingOff();
+        pageLoadingOff("Modal forgot password");
     }
 };

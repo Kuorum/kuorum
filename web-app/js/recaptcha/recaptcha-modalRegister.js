@@ -31,7 +31,7 @@ function registerModalCallback(){
 }
 
 function modalRegister($form, callback){
-    pageLoadingOn();
+    pageLoadingOn("Modal register");
     if ($form.valid()) {
 
         $form.parents(".modal").modal("hide")
@@ -47,18 +47,21 @@ function modalRegister($form, callback){
                 } else {
                     // Form validation doesn't allow to take this conditional branch
                     display.error(dataLogin.error)
+                    pageLoadingOff("Modal register");
                     // $form.submit() // Goes to register page using normal flow and handling errors
                 }
+            },
+            error:function( jqXHR, textStatus, errorThrown ){
+                pageLoadingOff("Modal register");
             },
             complete: function () {
                 var dataRecaptcha = $('#register-modal-form-id').attr('data-recaptcha');
                 grecaptcha.reset(dataRecaptcha);
-                pageLoadingOff();
             }
         });
     } else {
         var dataRecaptcha = $('#register-modal-form-id').attr('data-recaptcha');
         grecaptcha.reset(dataRecaptcha);
-        pageLoadingOff();
+        pageLoadingOff("Modal register");
     }
 }
