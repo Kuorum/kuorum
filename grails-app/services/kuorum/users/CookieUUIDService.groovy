@@ -22,8 +22,12 @@ class CookieUUIDService {
                 [name:WebConstants.COOKIE_USER_UUID,
                  value:evaluatorId,
                  maxAge:Integer.MAX_VALUE ,
-                 path:"/",
+                 path:WebConstants.COOKIE_PATH,
                  domain:WebConstants.COOKIE_DOMAIN])
+    }
+
+    void removeUserUUID(){
+        cookieService.deleteCookie(WebConstants.COOKIE_USER_UUID,WebConstants.COOKIE_PATH,WebConstants.COOKIE_DOMAIN)
     }
 
     /**
@@ -51,7 +55,7 @@ class CookieUUIDService {
                 [name:WebConstants.COOKIE_PAYMENT_REDIRECT,
                  value:urlRedirect,
                  maxAge:Integer.MAX_VALUE ,
-                 path:"/",
+                 path:WebConstants.COOKIE_PATH,
                  domain:WebConstants.COOKIE_DOMAIN])
     }
 
