@@ -251,8 +251,9 @@
             }
 
         </script>
+        <g:set var="currentLang" value="${org.springframework.web.servlet.support.RequestContextUtils.getLocale(request)}" />
         <script async defer
-                src="https://maps.googleapis.com/maps/api/js?key=${_googleConfig.jsKey}&callback=googleMapsLibraryLoaded&libraries=places">
+                src="https://maps.googleapis.com/maps/api/js?key=${_googleConfig.jsKey}&callback=googleMapsLibraryLoaded&libraries=places&language=${currentLang.language}">
         </script>
     </div>
 </content>
