@@ -1,9 +1,10 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
-    <title><g:message code="post.show.title" args="[post.title]"/></title>
+    <g:set var="titleMessageCode" value="${debate?.event?'post.show.title':'event.show.title'}"/>
+    <title><g:message code="${titleMessageCode}" args="[post.title]"/></title>
     <meta name="layout" content="columnCLayout">
     <g:set var="schemaData" value="${[schema:'http://schema.org/Article', name:post.title]}" scope="request"/>
-    <g:render template="postMetaTags" model="[post: post]"/>
+    <g:render template="postMetaTags" model="[post: post, titleMessageCode:titleMessageCode]"/>
     <r:require modules="post, event"/>
 
 </head>
