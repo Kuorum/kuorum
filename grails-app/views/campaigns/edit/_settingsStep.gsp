@@ -20,12 +20,13 @@
 
         <g:render template="/newsletter/filter" model="[command: command, filters: filters,anonymousFilter: anonymousFilter, totalContacts: totalContacts, hideSendTestButton: true]"/>
 
-        <fieldset class="form-group">
+        <fieldset class="form-group fieldset-check-box">
             %{--<label for="campaignName" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.debate.CampaignSettingsCommand.campaignName.label"/>:</label>--}%
             <div class="col-md-offset-1 col-sm-8 col-md-7">
                 <formUtil:checkBox command="${command}" field="debatable" disabled="${command.debatable!=null}"/>
             </div>
         </fieldset>
+        <g:render template="/newsletter/form/formGroupCampaignCauses" model="[command:command]"/>
 
         <fieldset class="form-group" id="advanced-features-section">
             %{--<label for="advanced-feature" class="col-sm-2 col-md-1 control-label">Advanced features:</label>--}%
@@ -44,7 +45,6 @@
         </fieldset>
 
         <div id="advanced-features">
-            <g:render template="/newsletter/form/formGroupCampaignCauses" model="[command:command]"/>
             <g:render template="/newsletter/form/formGroupCampaignTags" model="[command:command, events:events]"/>
         </div>
         <fieldset class="buttons">
