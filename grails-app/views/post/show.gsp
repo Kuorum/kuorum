@@ -10,11 +10,11 @@
 
 <content tag="mainContent">
     <g:render template="showModules/mainContent" model="[post: post, postUser: postUser]" />
-    <g:render template="/campaigns/columnCModules/eventCallToAction" model="[eventUser: postUser,event:post.event]"/>
+    <g:render template="/campaigns/columnCModules/eventCallToAction" model="[eventUser: postUser,campaign:post]"/>
 </content>
 
 <content tag="cColumn">
-    <g:render template="/campaigns/columnCModules/eventCallToAction" model="[eventUser: postUser,event:post.event]"/>
+    <g:render template="/campaigns/columnCModules/eventCallToAction" model="[eventUser: postUser,campaign:post]"/>
     <g:render template="/campaigns/columnCModules/eventInfo" model="[event:post.event]"/>
     <g:render template="showModules/cColumn" model="[post: post, postUser: postUser]" />
 </content>

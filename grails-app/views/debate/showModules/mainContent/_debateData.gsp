@@ -63,7 +63,7 @@
 
         <g:if test="${debate.event}">
             %{-- EVENT ICON --}%
-            <g:render template="/debate/showModules/mainContent/eventIcon" model="[event:debate.event]"/>
+            <g:render template="/debate/showModules/mainContent/eventIcon" model="[campaign:debate]"/>
         </g:if>
         <g:else>
             %{-- DEBATE ICON --}%

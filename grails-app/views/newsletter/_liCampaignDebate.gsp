@@ -34,15 +34,15 @@
     </p>
     <ul class="list-campaign-stats">
         <li class="recipients">
-            <span class="recip-number"><campaignUtil:campaignsSent campaign="${debate.newsletter}"/></span>
+            <span class="recip-number"><newsletterUtil:campaignsSent campaign="${debate.newsletter}"/></span>
             <g:message code="tools.massMailing.list.recipients"/>
         </li>
         <li class="open">
-            <campaignUtil:openRate campaign="${debate.newsletter}"/>
+            <newsletterUtil:openRate campaign="${debate.newsletter}"/>
             <g:message code="tools.massMailing.list.opens"/>
         </li>
         <li class="click">
-            <campaignUtil:clickRate campaign="${debate.newsletter}"/>
+            <newsletterUtil:clickRate campaign="${debate.newsletter}"/>
             <g:message code="tools.massMailing.list.click"/>
         </li>
     </ul>

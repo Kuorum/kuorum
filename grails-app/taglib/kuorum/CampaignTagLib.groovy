@@ -1,48 +1,33 @@
 package kuorum
 
-import org.kuorum.rest.model.notification.campaign.CampaignRSDTO
+import org.kuorum.rest.model.communication.CampaignRSDTO
+import org.kuorum.rest.model.communication.event.EventRSDTO
 
 class CampaignTagLib {
     static defaultEncodeAs = [taglib:'raw']
     //static encodeAsForTags = [tagName: [taglib:'html'], otherTagName: [taglib:'none']]
     static namespace = "campaignUtil"
 
-    def campaignsSent = {attrs ->
-        CampaignRSDTO campaignRSDTO = attrs.campaign
-        out<< campaignRSDTO.numberRecipients?: ''
-    }
-
-    def openRate = {attrs ->
-
-        CampaignRSDTO campaignRSDTO = attrs.campaign
-        out << printPrettyStat(campaignRSDTO.numberOpens,campaignRSDTO.numberRecipients)
-    }
-
-    def clickRate = {attrs ->
-
-        CampaignRSDTO campaignRSDTO = attrs.campaign
-        out << printPrettyStat(campaignRSDTO.numberClicks,campaignRSDTO.numberRecipients)
-    }
-
-    def unsubscribeRate = {attrs ->
-
-        CampaignRSDTO campaignRSDTO = attrs.campaign
-        out << printPrettyStat(campaignRSDTO.numberUnsubscribe,campaignRSDTO.numberRecipients)
-    }
-
-    private String printPrettyStat(numberOfEvents, numberRecipients){
-        String rateValue = ""
-
-        if(numberRecipients>0) {
-            Number clickRateNum = numberOfEvents/numberRecipients*100
-            rateValue = g.formatNumber(number: clickRateNum, maxFractionDigits: 1, type: 'number', format: '\\$###.#0')
+    def ifActiveEvent = {attrs, body ->
+        CampaignRSDTO campaign = attrs.campaign
+        EventRSDTO event = campaign.event
+        // PRINTS ONLY IF THE CAMPAIGN HAS AN EVENT
+        if (event &&
+            event.eventDate >= new Date() &&
+                campaign.newsletter?.status== org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT){
+            out << body()
         }
-        else{
-            rateValue = '- '
-        }
-        return """
-                <span class="click-number stat" data-openRateNum="${numberOfEvents}" data-openRatePtg="${rateValue}%">${rateValue}%</span>
+    }
 
-        """
+    def ifInactiveEvent = {attrs, body ->
+        CampaignRSDTO campaign = attrs.campaign
+        EventRSDTO event = campaign.event
+        // PRINTS ONLY IF THE CAMPAIGN HAS AN EVENT
+        if (event &&
+                event.eventDate < new Date() &&
+                campaign.newsletter?.status!= org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT){
+            out << body()
+        }
+
     }
 }
