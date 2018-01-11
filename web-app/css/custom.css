@@ -1276,6 +1276,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 #toFilters > div:last-child {text-align: right;}
 #toFilters.showOnly > div:nth-child(2) {line-height: 36px;}
 #toFilters.showOnly > div:nth-child(3) {line-height: 36px; color: #a8a8a8;}
+#toFilters.showOnly.form-group {min-height: 0px;}
 #tabs-new-campaign .textareaContainer + div {text-align: right; position: relative;}
 .contact-filter-text {color: #a8a8a8}
 

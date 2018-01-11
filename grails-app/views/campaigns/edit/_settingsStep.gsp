@@ -1,3 +1,4 @@
+<%@ page import="org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO" %>
 <r:require modules="datepicker, postForm, debateForm" />
 
 <div class="box-steps container-fluid choose-campaign">
@@ -18,7 +19,7 @@
             </div>
         </fieldset>
 
-        <g:render template="/newsletter/filter" model="[command: command, filters: filters,anonymousFilter: anonymousFilter, totalContacts: totalContacts, hideSendTestButton: true]"/>
+        <g:render template="/newsletter/filter" model="[command: command, filters: filters,anonymousFilter: anonymousFilter, totalContacts: totalContacts, hideSendTestButton: true, showOnly:campaign?.newsletter?.status== org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT]"/>
 
         <fieldset class="form-group fieldset-check-box">
             %{--<label for="campaignName" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.debate.CampaignSettingsCommand.campaignName.label"/>:</label>--}%
