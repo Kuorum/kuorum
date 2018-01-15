@@ -85,12 +85,13 @@ class KuorumUserController {
             response.sendError(HttpServletResponse.SC_NOT_FOUND)
             return false
         }
+        String viewerUid = cookieUUIDService.buildUserUUID()
         List<KuorumUser> recommendPoliticians = kuorumUserService.suggestUsers(new Pagination(max:12),[user])
         List<CauseRSDTO> causes = causesService.findDefendedCauses(user)
         UserReputationRSDTO userReputationRSDTO = userReputationService.getReputation(user)
         List<UserNewRSDTO> userNews = userNewsService.findUserNews(user)
         List<DebateRSDTO> debates = debateService.findAllDebates(user).findAll{it.newsletter.status == CampaignStatusRSDTO.SENT}
-        List<PostRSDTO> posts = postService.findAllPosts(user).findAll{it.newsletter.status == CampaignStatusRSDTO.SENT}
+        List<PostRSDTO> posts = postService.findAllPosts(user,viewerUid).findAll{it.newsletter.status == CampaignStatusRSDTO.SENT}
         [
                 politician:user,
                 recommendPoliticians:recommendPoliticians,
