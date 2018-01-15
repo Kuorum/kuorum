@@ -23,8 +23,8 @@
                 <p class="event-address">${event.address}</p>
             </div>
             <g:if test="${event.capacity}">
-                <div class="event-location">
-                    <p class="event-local-name"><span class="fa fa-ticket"></span> ${event.amountAssistants}/${event.capacity}</p>
+                <div class="event-capacity">
+                    <p class="event-capacity-name"><span class="fa fa-ticket"></span> <span class="event-capacity-number">${event.amountAssistants}</span>/${event.capacity}</p>
                 </div>
             </g:if>
             <div class="map" id="map"></div>

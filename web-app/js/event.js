@@ -57,8 +57,9 @@ var eventFunctions={
                     $(".comment-counter .event-confirm-button").addClass("disabled")
                 })
                 var $numberTickets = $(".comment-counter .event-confirm-button .number")
-                var tickets = parseInt($numberTickets.html())
-                $numberTickets.html(tickets +1)
+                var tickets = parseInt($numberTickets.html()) +1
+                $numberTickets.html(tickets)
+                $(".event-capacity-number").html(tickets)
 
                 pageLoadingOff("Event - Confirm assistance");
                 if (callback != undefined){
