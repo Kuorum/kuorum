@@ -26,7 +26,7 @@
         <li class="active">${breadCrumbName}</li>
     </ol>
 
-    <g:render template="types/massMailing" model="[command: command, filters: filters, totalContacts: totalContacts, campaignId: campaignId, anonymousFilter: anonymousFilter]"/>
+    <g:render template="types/settingsStep" model="[command: command, filters: filters, totalContacts: totalContacts, campaignId: campaignId, anonymousFilter: anonymousFilter]"/>
 
     <g:render template="timeZoneSelectorPopUp"/>
 </content>

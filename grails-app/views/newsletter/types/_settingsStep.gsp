@@ -11,24 +11,41 @@
     <form action="#" class="form-horizontal" id="politicianMassMailingForm" method="POST" data-generalErrorMessage="${g.message(code:'kuorum.web.commands.payment.massMailing.MassMailingCommand.form.genericError')}">
         <input type="hidden" name="sendType" value="DRAFT" id="sendMassMailingType"/>
         <input type="hidden" name="redirectLink" id="redirectLink"/>
+        <input type="hidden" name="campaignId" value="${campaignId}"/>
 
         <fieldset class="form-group">
             <label for="campaignName" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.massMailing.MassMailingCommand.campaignName.label"/>:</label>
             <div class="col-sm-8 col-md-7">
                 <formUtil:input
                         command="${command}"
-                        field="campaignName"/>
+                        field="campaignName"
+                        placeHolder="${g.message(code: 'kuorum.web.commands.payment.massMailing.MassMailingCommand.campaignName.placeHolder')}"
+                />
             </div>
-
-            %{--<label for="subject" class="col-sm-2 col-md-1 control-label">Subject:</label>--}%
-            %{--<div class="col-sm-8 col-md-7">--}%
-            %{--<input type="text" class="form-control input-lg" id="subject" placeholder="It’s time to build a better country for everybody" equired aria-required="true">--}%
-            %{--</div>--}%
         </fieldset>
 
         <g:render template="/newsletter/filter" model="[command: command, filters: filters, anonymousFilter: anonymousFilter,totalContacts:totalContacts]"/>
 
+    <fieldset class="form-group" id="advanced-features-section">
+        %{--<label for="advanced-feature" class="col-sm-2 col-md-1 control-label">Advanced features:</label>--}%
+        <div class="col-sm-offset-1 col-sm-10">
+            <a href="">
+                <g:message code="tools.massMailing.advanced-features.title"/>
+                <span class="go-up stack">
+                    <span class="fa-stack fa-lg" aria-hidden="true">
+                        <span class="fa fa-circle fa-stack-1x"></span>
+                        <span class="fa fa-angle-down fa-stack-1x fa-inverse"></span>
+                    </span>
+                </span>
+            </a>
+
+        </div>
+    </fieldset>
+
+    <div id="advanced-features">
         <g:render template="/newsletter/form/formGroupCampaignTags" model="[command:command, events:[TrackingMailStatusRSDTO.OPEN,TrackingMailStatusRSDTO.CLICK]]"/>
+    </div>
+        %{--<g:render template="/newsletter/form/formGroupCampaignTags" model="[command:command, events:[TrackingMailStatusRSDTO.OPEN,TrackingMailStatusRSDTO.CLICK]]"/>--}%
         <fieldset class="form-group">
             <div class="col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-8 form-control-campaign">
                 <ul class="form-final-options">
