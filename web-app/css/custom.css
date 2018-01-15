@@ -1259,10 +1259,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .tags-campaign .bootstrap-tagsinput {width: 100%;border:1px solid #DDDDDD; box-shadow: none;}
 .tags-campaign .bootstrap-tagsinput.focus {border:1px solid #20a2ea;}
 .tags-campaign .tag-events { padding-left:2em;margin-top:0.6em;}
-.tags-campaign label.toggle-inputs {cursor:pointer;margin-top:2px;}
-.tags-campaign label.toggle-inputs:hover { text-decoration:underline;}
-.tags-campaign label.toggle-inputs .go-up.stack { color:#DDDDDD;}
-.tags-campaign label.toggle-inputs:hover .go-up.stack { color:#A8A8A8;}
+.tags-campaign label.toggle-inputs {margin-top:8px;}
 
 
 #filterContacts {border: 1px solid #20a2ea; border-radius: 2px; padding: 5px 10px; display: inline-block; margin-top: 10px; margin-right: 10px; color: #20a2ea;}
