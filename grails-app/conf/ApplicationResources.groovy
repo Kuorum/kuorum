@@ -107,6 +107,7 @@ modules = {
         resource url:'js/isotope.pkgd.min.js'
         resource url:'js/jquery.mark.min.js'
         resource url:'js/mark.min.js'
+        resource url:'js/hideShowPassword.min.js'
         resource url:'js/youtube-helper.js'
         resource url:'js/custom.js'
         resource url:'js/modal-login-form.js'
@@ -194,7 +195,6 @@ modules = {
         resource url:'js/jquery-plugin/duplicateFields.min.js'
         resource url:'js/jquery-te-1.4.0.min.js'
         resource url:'css/jquery-te-1.4.0.css'
-        resource url:'js/hideShowPassword.min.js'
         resource url:'js/customForm.js'
         resource url:'css/customForms.css'
     }

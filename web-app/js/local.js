@@ -646,6 +646,14 @@ $(document).ready(function() {
         requestCustomSender($selector);
     });
 
+
+    // mostrar/ocultar pass en formulario de password
+    $('.show-hide-pass').on('change', function () {
+        var div_parent  = $(this).closest('div');
+        var input_id    = div_parent.children('input:first').attr('id');
+
+        $('#'+input_id).hideShowPassword($(this).prop('checked'));
+    });
 });
 
 function requestCustomSender($selector) {

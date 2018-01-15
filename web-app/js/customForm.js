@@ -25,14 +25,6 @@ $(function(){
         }
     });
 
-    // mostrar/ocultar pass en formulario de password
-    $('.show-hide-pass').on('change', function () {
-        var div_parent  = $(this).closest('div');
-        var input_id    = div_parent.children('input:first').attr('id');
-
-        $('#'+input_id).hideShowPassword($(this).prop('checked'));
-    });
-
     // añade la flechita al span de los mensajes de error de los formularios
     if ( $('.error').length > 0 ) {
         $('span.error').prepend('<span class="tooltip-arrow"></span>');
