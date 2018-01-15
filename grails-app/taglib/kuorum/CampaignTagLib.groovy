@@ -23,14 +23,19 @@ class CampaignTagLib {
     def ifInactiveEvent = {attrs, body ->
         CampaignRSDTO campaign = attrs.campaign
         EventRSDTO event = campaign.event
-        // PRINTS ONLY IF THE CAMPAIGN HAS AN EVENT
-        if (event &&(
-                (event.eventDate < new Date() && campaign.newsletter?.status== CampaignStatusRSDTO.SENT)
-                ||
-                (campaign.newsletter?.status!= CampaignStatusRSDTO.SENT)
-            )){
-            out << body()
-        }
+        // Evaluates if the event is already close
+        Boolean evaluatesIfIsClose=attrs.evaluatesIfIsClose?Boolean.parseBoolean(attrs.evaluatesIfIsClose):false
+        // Evaluates if the event is not open yet
+        Boolean evaluatesIfIsNotOpen=attrs.evaluatesIfIsNotOpen?Boolean.parseBoolean(attrs.evaluatesIfIsNotOpen):false
 
+        if (campaign.event){
+            // This option has sense if the campaign has an event
+            Boolean isClosed = evaluatesIfIsClose? event.eventDate < new Date() && campaign.newsletter?.status== CampaignStatusRSDTO.SENT:false;
+            Boolean isNotOpen = evaluatesIfIsNotOpen? campaign.newsletter?.status!= CampaignStatusRSDTO.SENT:false;
+            if (isClosed || isNotOpen){
+                out << body()
+            }
+
+        }
     }
 }
