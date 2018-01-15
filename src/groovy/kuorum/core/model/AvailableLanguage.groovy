@@ -6,10 +6,10 @@ package kuorum.core.model
 public enum AvailableLanguage{
 
     es_ES(new Locale("es","ES")),
-    en_EN(new Locale("en","EN")),
-    de_DE(new Locale("de","DE")),
-    it_IT(new Locale("it","IT")),
-    lt_LT(new Locale("lt","LT"));
+    en_EN(new Locale("en","EN"));
+//    de_DE(new Locale("de","DE")),
+//    it_IT(new Locale("it","IT")),
+//    lt_LT(new Locale("lt","LT"));
 
     Locale locale
     AvailableLanguage(Locale locale){
