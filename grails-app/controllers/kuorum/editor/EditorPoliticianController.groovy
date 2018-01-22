@@ -71,7 +71,7 @@ class EditorPoliticianController {
 
     def editCauses(){
         KuorumUser politician = kuorumUserService.findEditableUser(params.userAlias)
-        List<CauseRSDTO> causes = causesService.findDefendedCauses(politician)
+        List<CauseRSDTO> causes = causesService.findSupportedCauses(politician)
         PoliticianCausesCommand command = new PoliticianCausesCommand(politician, causes.collect{it.name})
         [command:command]
     }

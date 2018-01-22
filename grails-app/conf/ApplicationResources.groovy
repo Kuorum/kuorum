@@ -136,6 +136,11 @@ modules = {
         resource url:'js/post.js'
     }
 
+    causes {
+        dependsOn("basic")
+        resource url:'js/causes.js'
+    }
+
     widget{
         dependsOn("basic", 'cookiesHelper')
         resource url:'css/customWidget.css'

@@ -66,25 +66,4 @@ class CausesTagLib {
 
 """
     }
-
-    def card = {attrs ->
-        CauseRSDTO cause = attrs.cause
-
-        UsersSupportingCauseRSDTO politiciansPage = causesService.mostRelevantDefenders(cause.name, new Pagination(max:4))
-        UsersSupportingCauseRSDTO citizensPage = causesService.mostRelevantSupporters(cause.name, new Pagination(max:4))
-
-        List<KuorumUser> politicians = politiciansPage.data.collect{KuorumUser.get(it.id)}
-        List<KuorumUser> citizens = citizensPage.data.collect{KuorumUser.get(it.id)}
-
-        out << g.render(
-                template:"/dashboard/dashboardModules/causeCard",
-                model:[
-                        cause:cause,
-                        mainPolitician:politicians?politicians.get(0):null,
-                        politcians:politicians,
-                        citizens:citizens,
-                        total:politiciansPage.total
-                ])
-
-    }
 }

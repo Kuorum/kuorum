@@ -6198,8 +6198,13 @@ only screen and (min-resolution: 192dpi) {
     line-height: 30px;
     color: #666;
 }
+
+.panel-default > .panel-footer{
+    background-color: #FFF;
+}
 #aside-ppal .panel.causes .panel-body ,
 #aside-ppal .panel.pol-leaning .panel-body  {padding-bottom: 5px;}
+#aside-ppal .panel.causes .panel-body {height: 158px; overflow: hidden;}
 
 .panel.collapsable{cursor: pointer}
 .panel.collapsable .panel-title .fa-chevron-down {float:right}
@@ -7739,13 +7744,12 @@ ul.proposal-list .comment-box > .comment-proposal > .user-box{margin-bottom: 10p
 .see-more-content button {
     background: transparent;
     border: none;
-    color: #545454 !important;
+    color: #666666;
     font-size: 17px;
 }
 
 .see-more-content button:hover {
-    background: #A5A5A5 !important;
-    color: #FFF !important;
+    color: #545454;
 }
 
 .see-more-content button.angle-down::after {

@@ -65,12 +65,12 @@ class PoliticianService {
 
     KuorumUser updatePoliticianCauses(KuorumUser politician, List<String> causes, Boolean audit=true){
 
-        List<CauseRSDTO> oldCauses = causesService.findDefendedCauses(politician);
+        List<CauseRSDTO> oldCauses = causesService.findSupportedCauses(politician);
         oldCauses.each {cause ->
-            causesService.withdrawCause(politician, cause.name)
+            causesService.unsupportCause(politician, cause.name)
         }
         causes.findAll({it?.trim()}).collect({it.decodeHashtag()}).each {cause ->
-            causesService.defendCause(politician, cause)
+            causesService.supportCause(politician, cause)
         }
         indexSolrService.index(politician)
         if(audit){

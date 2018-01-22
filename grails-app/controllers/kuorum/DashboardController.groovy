@@ -119,7 +119,7 @@ class DashboardController {
     //FAST CHAPU - Evaluating empty data
     def emptyEditableData(KuorumUser user){
 
-        List<CauseRSDTO> causes = causesService.findDefendedCauses(user);
+        List<CauseRSDTO> causes = causesService.findSupportedCauses(user);
 
         List fields = [
                 [urlMapping: 'profileEditAccountDetails',
@@ -149,14 +149,6 @@ class DashboardController {
                 fields:fields,
 
         ]
-    }
-
-    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
-    def dashboardCauses(Pagination pagination){
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        SuggestedCausesRSDTO causesSuggested = causesService.suggestCauses(user, pagination)
-        response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${causesSuggested.total < pagination.offset}")
-        render template: "/dashboard/dashboardModules/causeCardList", model:[causes:causesSuggested.data]
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])

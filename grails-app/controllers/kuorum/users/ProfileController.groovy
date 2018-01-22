@@ -129,7 +129,7 @@ class ProfileController {
 
     def editCauses(){
         KuorumUser politician = params.user
-        List<CauseRSDTO> causes = causesService.findDefendedCauses(politician)
+        List<CauseRSDTO> causes = causesService.findSupportedCauses(politician)
         PoliticianCausesCommand command = new PoliticianCausesCommand(politician, causes.collect{it.name})
         [command:command]
     }

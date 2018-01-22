@@ -60,15 +60,4 @@ class ModulesController {
         render template: "/layouts/footer/footerRegisterRelevantUsers", model: [users:users]
     }
 
-    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
-    def userCauses() {
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        List<CauseRSDTO> supportedCauses = causesService.findSupportedCauses(user)
-
-        if (supportedCauses.size()>10){
-            supportedCauses = supportedCauses[0..9]
-        }
-        render template: "/dashboard/dashboardModules/supportedCauses", model:[user:user, supportedCauses:supportedCauses]
-    }
-
 }

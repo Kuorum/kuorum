@@ -128,7 +128,6 @@ class RestKuorumApiService {
         USER_CONTACT_REPORT     ("/contacts/{userId}/report"),
 
         CAUSE_OPERATIONS        ("/cause/{causeName}"),
-        CAUSE_USERS_DEFENDING   ("/cause/{causeName}/defending"),
         CAUSE_USERS_SUPPORTING  ("/cause/{causeName}/supporting"),
         CAUSE_SUGGESTIONS       ("/cause/suggest"),
 

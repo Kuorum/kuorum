@@ -317,45 +317,6 @@ $(document).ready(function() {
     $(".delayed").each(function(){
         reloadDynamicDiv($(this))
     });
-    /*******************************
-     *********** CAUSES ************
-     *******************************/
-    // SUPPORT CAUSES SMALL
-    $("body").on("click", ".causes-tags .cause-support", function(e){
-        e.preventDefault();
-        e.stopPropagation();
-        var $parent = $(this).parents(".cause");
-        if ( $parent.hasClass("noLogged")){
-            $('#registro').modal('show');
-        }else{
-            $a = $(this).find("a");
-            clickSupportCause($a, function(){})
-        }
-    });
-    function clickSupportCause($a, actionAfterSupport){
-        hearBeat(2,  $a.find(".fa"));
-        $.get(  $a.attr('href'), function( data ) {
-            var citizenSupports = data.cause.citizenSupports;
-            var $parent = $a.parents(".cause");
-            $parent.toggleClass("active");
-            $parent.find(".cause-counter").html(citizenSupports);
-
-            relaodAllDynamicDivs();
-            actionAfterSupport()
-        });
-    }
-
-    function hearBeat(numHeartBeats, $element){
-        if (numHeartBeats <0){
-            return;
-        }
-        var back = numHeartBeats % 2 == 0;
-        $element.animate(
-            {
-                'font-size': (back) ? '14px' : '20px',
-                'opacity': (back) ? 1 : 0.5
-            }, 100, function(){hearBeat(numHeartBeats -1, $element)});
-    }
 
     /*******************************************/
     /******* USER RATES ************************/

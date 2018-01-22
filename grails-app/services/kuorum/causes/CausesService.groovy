@@ -83,6 +83,7 @@ class CausesService {
         return cause;
     }
 
+    @Deprecated
     SupportedCauseRSDTO defendCause(KuorumUser user, String causeName){
         def response = restKuorumApiService.put(
                 RestKuorumApiService.ApiMethod.USER_CAUSES_DEFEND,
@@ -97,6 +98,7 @@ class CausesService {
         return cause;
     }
 
+    @Deprecated
     SupportedCauseRSDTO withdrawCause(KuorumUser user, String causeName){
         def response = restKuorumApiService.delete(
                 RestKuorumApiService.ApiMethod.USER_CAUSES_DEFEND,
@@ -153,18 +155,6 @@ class CausesService {
         return cause
     }
 
-    UsersSupportingCauseRSDTO mostRelevantDefenders(String causeName, Pagination page = new Pagination()){
-        def response = restKuorumApiService.get(
-                RestKuorumApiService.ApiMethod.CAUSE_USERS_DEFENDING,
-                [causeName:causeName],
-                [page:page.offset/page.max, size: page.max],
-                new TypeReference<UsersSupportingCauseRSDTO>(){})
-        UsersSupportingCauseRSDTO supportingCauseRSDTO = null;
-        if (response.data){
-            supportingCauseRSDTO = response.data
-        }
-        return supportingCauseRSDTO;
-    }
     UsersSupportingCauseRSDTO mostRelevantSupporters(String causeName, Pagination page = new Pagination()){
         def response = restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.CAUSE_USERS_SUPPORTING,

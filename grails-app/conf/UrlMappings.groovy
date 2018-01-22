@@ -381,7 +381,6 @@ class UrlMappings {
         /**********************/
         name dashboard:                     "/dashboard" (controller: "dashboard", action:"dashboard")
         name dashboardSkipUploadContacts:   "/dashboard/skipContacts" (controller: "dashboard", action:"skipContacts")
-        name dashboardCausesSeeMore:        "/ajax/dashboard/causes/see-more" (controller: "dashboard", action:"dashboardCauses")
         name dashboardPoliticiansSeeMore:   "/ajax/dashboard/politicians/see-more" (controller: "dashboard", action:"dashboardPoliticians")
         name dashboardCampaignsSeeMore:     "/ajax/dashboard/campaigns/see-more" (controller: "dashboard", action:"dashboardCampaigns")
 
@@ -503,7 +502,6 @@ class UrlMappings {
         name profileMailing : "/notifications/mailing" (controller: "profile", action:"showUserEmails")
 
         name causeSupport:         "/ajax/cause/$causeName/support" (controller:"causes", action: "supportCause")
-        name causeDiscard:         "/ajax/cause/$causeName/discard" (controller:"causes", action: "discardCause")
 
         name ajaxHeadNotificationsChecked:  "/ajax/notificaiones/check"(controller:"notification", action:"notificationChecked")
         name ajaxHeadNotificationsSeeMore:  "/ajax/notificaiones/seeMore"(controller:"notification", action:"notificationSeeMore")
@@ -514,8 +512,6 @@ class UrlMappings {
         name ajaxCropImage:                 "/ajax/file/crop"(controller:"file", action:"cropImage")
         name ajaxUploadFile:                "/ajax/file/upload" (controller:'file', action:"uploadImage")
         name ajaxUploadFilePDF:             "/ajax/file/uploadPDF" (controller:'file', action:"uploadPDF")
-
-        name ajaxModuleUserCauses:          "/ajax/module/user/causes" (controller:"modules", action: "userCauses")
 
         name adminPrincipal:        "/admin"                          (controller:"admin", action: "index")
         name adminTestMail:         "/admin/mailing/test"           (controller:"mailTesting", action: "index")

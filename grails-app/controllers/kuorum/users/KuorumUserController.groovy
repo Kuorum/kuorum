@@ -87,7 +87,7 @@ class KuorumUserController {
         }
         String viewerUid = cookieUUIDService.buildUserUUID()
         List<KuorumUser> recommendPoliticians = kuorumUserService.suggestUsers(new Pagination(max:12),[user])
-        List<CauseRSDTO> causes = causesService.findDefendedCauses(user)
+        List<CauseRSDTO> causes = causesService.findSupportedCauses(user)
         UserReputationRSDTO userReputationRSDTO = userReputationService.getReputation(user)
         List<UserNewRSDTO> userNews = userNewsService.findUserNews(user)
         List<DebateRSDTO> debates = debateService.findAllDebates(user).findAll{it.newsletter.status == CampaignStatusRSDTO.SENT}
