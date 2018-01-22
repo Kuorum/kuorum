@@ -36,7 +36,7 @@ class NavigationTagLib {
             mappings = attrs.mappingNames
         }
 
-        List<String> urls = mappings.collect{mappingName ->grailsLinkGenerator.link(mapping:mappingName, params: urlParams)}
+        List<String> urls = mappings.collect{mappingName ->grailsLinkGenerator.link(mapping:mappingName, params: urlParams, absolute:false)}
 
         if (urls.contains(request.forwardURI.toString())){
             out << activeCss

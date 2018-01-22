@@ -48,7 +48,7 @@ class LanguageInjectorAOP {
     }
 
     private void addAbsoluteParameter(Map params){
-        if (!params.absolute ){
+        if (params.absolute==null ){
             params.absolute=true
         }
     }
