@@ -6202,6 +6202,9 @@ only screen and (min-resolution: 192dpi) {
 .panel-default > .panel-footer{
     background-color: #FFF;
 }
+#aside-ppal .panel.causes              .panel-heading a{color:#fff;}
+#aside-ppal .panel.causes              .panel-heading .fa-edit{display:none; float:right; margin-top:-15px;}
+#aside-ppal .panel.causes.owner-causes .panel-heading .fa-edit{display:inherit}
 #aside-ppal .panel.causes .panel-body ,
 #aside-ppal .panel.pol-leaning .panel-body  {padding-bottom: 5px;}
 #aside-ppal .panel.causes .panel-body {height: 158px; overflow: hidden;}

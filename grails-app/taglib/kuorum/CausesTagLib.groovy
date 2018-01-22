@@ -51,7 +51,7 @@ class CausesTagLib {
         out << """
                 <li class="cause link-wrapper ${causeSupportClass}" id="cause-${cause.name.encodeAsKuorumUrl()}">
                     <a href='${searchLink}' class="sr-only hidden"> Search cause ${cause.name}</a>
-                    <div class="cause-name" aria-hidden="true" tabindex="104">
+                    <div class="cause-name" aria-hidden="true">
                         <span class="fa fa-hashtag"></span>
                         <span>${cause.name}</span>
                     </div>

@@ -1,8 +1,15 @@
 <g:if test="${supportedCauses}">
     <r:require modules="causes"/>
-    <section class="panel panel-default causes">
+    <g:set var="ownerCauses" value=""/>
+    <userUtil:ifUserIsTheLoggedOne user="${user}">
+        <g:set var="ownerCauses" value="owner-causes"/>
+    </userUtil:ifUserIsTheLoggedOne>
+    <section class="panel panel-default causes ${ownerCauses}">
         <div class="panel-heading">
-            <h3 class="panel-title"><g:message code="modules.causes.topCauses.title"/> </h3>
+            <h3 class="panel-title">
+                <g:message code="modules.causes.topCauses.title"/>
+            </h3>
+            <g:link mapping="profileCauses"> <span class="fa fa-edit"></span></g:link>
         </div>
         <div class="panel-body">
             <ul class="causes-tags">
