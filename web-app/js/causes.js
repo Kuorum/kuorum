@@ -17,6 +17,10 @@ $(document).ready(function() {
     $(".panel.panel-default.causes .panel-body").css('height', 'auto');
     var heightOpen = $(".panel.panel-default.causes .panel-body").outerHeight();
     $(".panel.panel-default.causes .panel-body").css('height', heightClose);
+    if (heightClose > heightOpen){
+        $(".panel.panel-default.causes .panel-body").css('height', 'auto');
+        $(".panel.panel-default.causes .panel-footer").hide()
+    }
 
     $("body").on("click",".panel.panel-default.causes .panel-footer .open-causes button",function(e){
         e.preventDefault();
