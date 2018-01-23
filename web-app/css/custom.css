@@ -6207,7 +6207,7 @@ only screen and (min-resolution: 192dpi) {
 #aside-ppal .panel.causes.owner-causes .panel-heading .fa-edit{display:inherit}
 #aside-ppal .panel.causes .panel-body ,
 #aside-ppal .panel.pol-leaning .panel-body  {padding-bottom: 5px;}
-#aside-ppal .panel.causes .panel-body {height: 158px; overflow: hidden;}
+#aside-ppal .panel.causes .panel-body {overflow: hidden;}
 
 .panel.collapsable{cursor: pointer}
 .panel.collapsable .panel-title .fa-chevron-down {float:right}
@@ -6412,6 +6412,7 @@ fieldset.form-group.fieldset-check-box {min-height: 0px;}
     -moz-border-radius-bottomright: 5px;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
+    height: 24px;
 }
 .cause-footer .cause .cause-support {
     position: relative;

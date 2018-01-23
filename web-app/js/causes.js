@@ -13,13 +13,13 @@ $(document).ready(function() {
         }
     });
 
-    var heightClose = $(".panel.panel-default.causes .panel-body").outerHeight();
-    $(".panel.panel-default.causes .panel-body").css('height', 'auto');
     var heightOpen = $(".panel.panel-default.causes .panel-body").outerHeight();
-    $(".panel.panel-default.causes .panel-body").css('height', heightClose);
-    if (heightClose > heightOpen){
-        $(".panel.panel-default.causes .panel-body").css('height', 'auto');
+    var heightClose = 158;
+    console.log("OPEN = "+heightOpen)
+    if (heightOpen <= heightClose ){
         $(".panel.panel-default.causes .panel-footer").hide()
+    }else{
+        $(".panel.panel-default.causes .panel-body").css('height', heightClose);
     }
 
     $("body").on("click",".panel.panel-default.causes .panel-footer .open-causes button",function(e){
