@@ -264,6 +264,8 @@ var formHelper = {
         $(".counted").each(function(input){
             formHelper.counterCharacters($(this).attr("name"))
         })
+
+        prepareAutocompleteTags();
     },
 
     counterCharacters: function (idField) {
@@ -294,19 +296,73 @@ var formHelper = {
         });
     },
     prepareFormUsingGender: function(userType){
-    if (userType == "ORGANIZATION"){
-        $(".userData").hide();
-        $(".politicianData").hide();
-        $(".organizationData").show()
-    }else if (userType == "POLITICIAN"){
-        $(".userData").show();
-        $(".politicianData").show();
-        $(".organizationData").hide()
-    }else{
-        $(".userData").show();
-        $(".politicianData").hide();
-        $(".organizationData").hide()
+        if (userType == "ORGANIZATION"){
+            $(".userData").hide();
+            $(".politicianData").hide();
+            $(".organizationData").show()
+        }else if (userType == "POLITICIAN"){
+            $(".userData").show();
+            $(".politicianData").show();
+            $(".organizationData").hide()
+        }else{
+            $(".userData").show();
+            $(".politicianData").hide();
+            $(".organizationData").hide()
+        }
     }
 }
 
+
+var tagsnames
+function prepareAutocompleteTags(){
+    // input tags
+    if ($('.tagsField').length) {
+
+        $.each($('.tagsField'),function(i, input){
+            var tagsUrl = 'mock/tags.json';
+            if ($(input).attr("data-urlTags") != undefined){
+                tagsUrl=$(input).attr("data-urlTags");
+            }
+            if (tagsnames == undefined){
+                tagsnames = new Bloodhound({
+                    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+                    queryTokenizer: Bloodhound.tokenizers.whitespace,
+                    prefetch: {
+                        url: tagsUrl,
+                        cache:false, //Prevents local storage
+                        filter: function(list) {
+                            return $.map(list, function(tagsname) {
+                                return { name: tagsname }; });
+                        }
+                    }
+                });
+                tagsnames.initialize();
+            }
+
+            $(input).tagsinput({
+                allowDuplicates: false,
+                freeInput: true,
+                addOnBlur: true,
+                typeaheadjs: {
+                    minLength: 2,
+                    hint: true,
+                    highlight: true,
+                    name: 'tagsnames',
+                    displayKey: 'name',
+                    valueKey: 'name',
+                    source: tagsnames.ttAdapter()
+                }
+            });
+            $(input).siblings("#inputAddTags").on("click", function(e){
+                console.log("Click")
+            })
+        });
+
+        // Add tags when focusout
+        $(".bootstrap-tagsinput input").on('focusout', function() {
+            var elem = $(this).closest(".bootstrap-tagsinput").parent().children("input.tagsField");
+            elem.tagsinput('add', $(this).val());
+            $(this).typeahead('val', '');
+        });
+    }
 }

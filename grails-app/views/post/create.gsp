@@ -7,11 +7,6 @@
 
     <title>${breadCrumbName}</title>
     <meta name="layout" content="paymentPlainLayout">
-    <!-- Schema.org markup for Google+ -->
-    <meta itemprop="name" content="${g.message(code:"kuorum.name")}">
-    <meta itemprop="description" content="${g.message(code:"layout.head.meta.description")}">
-    <meta itemprop="image" content="${resource(dir: 'images', file:'landingSearch-rrss.png', absolute:true)}" />
-    <meta itemprop="image" content="${resource(dir: 'images', file: 'logo@2x.png')}" />
 </head>
 
 <content tag="mainContent">
@@ -25,7 +20,6 @@
             command: command,
             filters: filters,
             totalContacts: totalContacts,
-            post: post,
             anonymousFilter: anonymousFilter,
             events:[TrackingMailStatusRSDTO.OPEN,TrackingMailStatusRSDTO.CLICK,TrackingMailStatusRSDTO.POST_LIKE],
             mappings:[
@@ -33,6 +27,7 @@
                     settings:'postEditSettings',
                     content:'postEditContent',
                     showResult: 'postShow',
-                    next: 'postEditContent']]"/>
+                    next: 'postEditContent'
+            ]]"/>
     <g:render template="/newsletter/timeZoneSelectorPopUp"/>
 </content>
