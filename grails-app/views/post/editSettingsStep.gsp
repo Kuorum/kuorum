@@ -28,7 +28,11 @@
                       filters: filters,
                       totalContacts: totalContacts,
                       anonymousFilter: anonymousFilter,
-                      events:[TrackingMailStatusRSDTO.OPEN,TrackingMailStatusRSDTO.CLICK,TrackingMailStatusRSDTO.POST_LIKE],
+                      events:[
+                              TrackingMailStatusRSDTO.OPEN,
+                              TrackingMailStatusRSDTO.CLICK]
+                              + (campaign.event?[TrackingMailStatusRSDTO.EVENT_BOOK_TICKET,TrackingMailStatusRSDTO.EVENT_CHECK_IN]:[TrackingMailStatusRSDTO.POST_LIKE])
+                      ,
                       mappings:[
                               step:'settings',
                               settings:'postEditSettings',
