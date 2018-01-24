@@ -12,7 +12,7 @@
             <g:link mapping="profileCauses"> <span class="fa fa-edit"></span></g:link>
         </div>
         <div class="panel-body">
-            <ul class="causes-tags">
+            <ul class="causes-tags hide10">
                 <g:each in="${supportedCauses}" var="cause">
                     <cause:show cause="${cause}"/>
                 </g:each>

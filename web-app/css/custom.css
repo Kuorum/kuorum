@@ -6387,6 +6387,7 @@ fieldset.form-group.fieldset-check-box {min-height: 0px;}
     padding: 1px 65px 1px 0;
 }
 .causes-tags.hide4 > li + li +li +li +li {display:none;}
+.causes-tags.hide10 > li+li+li+li+li+li+li+li+li+li {display:none;}
 .causes-tags .cause:hover,
 .causes-tags .cause:active,
 .causes-tags .cause:focus{
