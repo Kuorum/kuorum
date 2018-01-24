@@ -47,6 +47,9 @@ class LandingController {
     def caseStudy004(){
         render(view: "/landing/caseStudies/caseStudy004", model:[caseStudyId:"004", suggestedCaseStudies:["002","003","001"]])
     }
+    def caseStudy005(){
+        render(view: "/landing/caseStudies/caseStudy005", model:[caseStudyId:"005", suggestedCaseStudies:["001","003","004"]])
+    }
 
     def landingGovernments(){
         if (springSecurityService.isLoggedIn()){

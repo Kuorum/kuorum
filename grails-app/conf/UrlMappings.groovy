@@ -106,6 +106,11 @@ class UrlMappings {
         name es_landingCaseStudy004:"/es/casos-de-exito/los-ciudadanos-de-kaunas-disenan-su-carril-bici"            (controller: "landing", action: "caseStudy004"){lang="es"; mappingName="landingCaseStudy004"}
                                     "/$lang/successful-stories/kaunas-citizens-design-their-cycle-lane"             {controller="redirect"; action= "redirect301"; newMapping='en_landingCaseStudy004';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
 
+        name landingCaseStudy005:   "/successful-stories/community-engagement-guide-to-figh-depopulation"                   { controller="redirect"; action= "redirect301"; newMapping='en_landingCaseStudy005'}
+        name en_landingCaseStudy005:"/en/successful-stories/community-engagement-guide-to-figh-depopulation"                (controller: "landing", action: "caseStudy005"){lang="en"; mappingName="landingCaseStudy005"}
+        name es_landingCaseStudy005:"/es/casos-de-exito/guia-de-participacion-ciudadana-para-luchar-contra-la-despoblacion"      (controller: "landing", action: "caseStudy005"){lang="es"; mappingName="landingCaseStudy005"}
+                                    "/$lang/successful-stories/community-engagement-guide-to-figh-depopulation"             {controller="redirect"; action= "redirect301"; newMapping='en_landingCaseStudy005';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+
         name home:              "/"         { controller="redirect"; action= "redirect301"; newMapping='en_home'}
         name en_home:           "/en"       (controller: "landing", action:"landingServices"){lang="en"; mappingName="home"}
         name es_home:           "/es"       (controller: "landing", action:"landingServices"){lang="es"; mappingName="home"}
