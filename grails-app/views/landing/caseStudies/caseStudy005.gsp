@@ -24,7 +24,7 @@
     %{--<p><img data-src="${resource(dir: 'images', file: 'case-study-5-img.jpg')}" alt="community-engagement-guide" title="community-engagement-guide"></p>--}%
     <p><g:message code="landingCaseStudy.${caseStudyId}.content.text.5"/></p>
     <p><g:message code="landingCaseStudy.${caseStudyId}.content.text.6"/></p>
-    %{--<g:render template="/landing/caseStudies/modules/requestCaseStudy" model="[caseStudyId:caseStudyId]"/>--}%
+    <g:render template="/landing/caseStudies/modules/requestCaseStudy" model="[caseStudyId:caseStudyId]"/>
 </content>
 
 <content tag="casesStudyGrid">
