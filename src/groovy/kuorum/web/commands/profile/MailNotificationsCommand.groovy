@@ -22,6 +22,7 @@ class MailNotificationsCommand {
     boolean debateNewOwner;
     boolean debateNewCause;
     boolean postNewCause;
+    boolean eventNewCause;
 
     static constraints = {
     }
