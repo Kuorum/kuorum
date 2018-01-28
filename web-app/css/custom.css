@@ -9050,6 +9050,35 @@ ul.notification-menu > li.see-more {
     padding: 10px;
 }
 
+/** Survey **/
+
+.survey-box {
+    font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+    margin-top: 24px;
+    box-shadow: 0 0 2px rgba(200,200,200,0.6);
+    margin-bottom:20px;
+    background-color: #FFF;
+    border: 1px solid #F0F0F0;
+    list-style: none outside none;
+    padding: 28px 20px 20px 30px;
+}
+
+.survey-box h1 {
+    font-size: 24px;
+    margin: 0;
+}
+
+.survey-box p {
+    padding-top: 18px;
+    font-size: 18px;
+    color: #A8A8A8;
+}
+
+.survey-box button {
+    width: 100%;
+    padding: 18px 0 !important;
+}
+
 /** media queries **/
 @media (max-width: 767px) {
     .navbar {
