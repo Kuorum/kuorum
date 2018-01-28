@@ -6611,6 +6611,7 @@ hr{
     color:#b77a17;
 }
 .no-margins{margin:0;}
+.no-padding-top{padding-top: 0 !important;}
 .panel-table{
     margin: 0;
 }
