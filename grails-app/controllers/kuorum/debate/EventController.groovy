@@ -1,8 +1,6 @@
 package kuorum.debate
 
 import grails.plugin.springsecurity.annotation.Secured
-import kuorum.campaign.Event
-import kuorum.campaign.EventRegistration
 import kuorum.politician.CampaignController
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
@@ -13,12 +11,11 @@ import org.kuorum.rest.model.communication.CampaignRDTO
 import org.kuorum.rest.model.communication.CampaignRSDTO
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.kuorum.rest.model.communication.event.EventRDTO
-import org.kuorum.rest.model.communication.event.EventRSDTO
 import org.kuorum.rest.model.communication.event.EventRegistrationRSDTO
 import org.kuorum.rest.model.communication.post.PostRSDTO
 import org.kuorum.rest.model.contact.ContactRSDTO
 import org.kuorum.rest.model.contact.filter.FilterRDTO
-import payment.campaign.CampaignService
+import payment.campaign.CampaignCreatorService
 import payment.campaign.event.EventService
 
 class EventController extends CampaignController{
@@ -40,7 +37,7 @@ class EventController extends CampaignController{
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         FilterRDTO anonymousFilter = recoverAnonymousFilterSettings(params, command)
 
-        CampaignService campaignService = null;
+        CampaignCreatorService campaignService = null;
         if (command.debatable){
             campaignService = debateService
         }else{
@@ -76,7 +73,7 @@ class EventController extends CampaignController{
         String nextStep = params.redirectLink
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         CampaignRSDTO campaignRSDTO = findCampaign(params)
-        CampaignService campaignService = null;
+        CampaignCreatorService campaignService = null;
         CampaignRDTO campaignRDTO = null;
         if (campaignRSDTO instanceof DebateRSDTO){
             campaignService = debateService
@@ -127,7 +124,7 @@ class EventController extends CampaignController{
 
     private CampaignRSDTO findCampaign(def params){
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        CampaignService campaignService
+        CampaignCreatorService campaignService
         Long campaignId;
         if (params.postId){
             campaignId = Long.parseLong(params.postId)

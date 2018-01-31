@@ -141,22 +141,6 @@ class DashboardService {
         numPoliticiansForUser > 0
     }
 
-    PagePostRSDTO findAllContactsPosts (KuorumUser user, String viewerUid = null, Integer page = 0){
-        Map<String, String> params = [userId: user.id.toString()]
-        Map<String, String> query = [page:page]
-        if (viewerUid){
-            query.put("viewerUid",viewerUid)
-        }
-        def response = restKuorumApiService.get(
-                RestKuorumApiService.ApiMethod.USER_CONTACTS_POSTS_ALL,
-                params,
-                query,
-                new TypeReference<PagePostRSDTO>() {}
-        );
-
-        response.data
-    }
-
     PageCampaignRSDTO findAllContactsCampaigns (KuorumUser user, String viewerUid = null, Integer page = 0){
         Map<String, String> params = [userId: user.id.toString()]
         Map<String, String> query = [page:page]
@@ -168,20 +152,6 @@ class DashboardService {
                 params,
                 query,
                 new TypeReference<PageCampaignRSDTO>() {}
-        );
-
-        response.data
-    }
-
-    PageDebateRSDTO findAllContactsDebates (KuorumUser user, Integer page = 0){
-        Map<String, String> params = [userId: user.id.toString()]
-        Map<String, String> query = [page:page]
-
-        def response = restKuorumApiService.get(
-            RestKuorumApiService.ApiMethod.USER_CONTACTS_DEBATES_ALL,
-            params,
-            query,
-            new TypeReference<PageDebateRSDTO>(){}
         );
 
         response.data

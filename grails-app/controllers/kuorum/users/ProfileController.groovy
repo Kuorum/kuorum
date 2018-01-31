@@ -10,7 +10,6 @@ import kuorum.core.model.Gender
 import kuorum.core.model.UserType
 import kuorum.files.FileService
 import kuorum.mail.KuorumMailAccountService
-import kuorum.notifications.Notification
 import kuorum.notifications.NotificationService
 import kuorum.register.RegisterService
 import kuorum.users.extendedPoliticianData.ProfessionalDetails
@@ -27,7 +26,7 @@ import org.kuorum.rest.model.notification.MailsMessageRSDTO
 import org.kuorum.rest.model.notification.campaign.config.NewsletterConfigRQDTO
 import org.kuorum.rest.model.notification.campaign.config.NewsletterConfigRSDTO
 import org.kuorum.rest.model.tag.CauseRSDTO
-import payment.campaign.MassMailingService
+import payment.campaign.NewsletterService
 
 import java.util.regex.Matcher
 import java.util.regex.Pattern
@@ -46,7 +45,7 @@ class ProfileController {
     def kuorumMailService
     KuorumMailAccountService kuorumMailAccountService
     RegisterService registerService
-    MassMailingService massMailingService
+    NewsletterService newsletterService
     CausesService causesService;
     PoliticianService politicianService
     Pattern pattern
@@ -503,7 +502,7 @@ class ProfileController {
 
     def editNewsletterConfig(){
         KuorumUser user = params.user
-        NewsletterConfigRSDTO config = massMailingService.findNewsletterConfig(user)
+        NewsletterConfigRSDTO config = newsletterService.findNewsletterConfig(user)
         Boolean isRequested = config.getEmailSenderRequested();
         String emailSender = config.getEmailSender();
         NewsletterConfigCommand command = new NewsletterConfigCommand()
@@ -523,26 +522,26 @@ class ProfileController {
             return;
         }
         KuorumUser user = params.user
-        NewsletterConfigRSDTO configRSDTO = massMailingService.findNewsletterConfig(user);
+        NewsletterConfigRSDTO configRSDTO = newsletterService.findNewsletterConfig(user);
         NewsletterConfigRQDTO config = new NewsletterConfigRQDTO()
         use(InvokerHelper) {
             config.setProperties(command.properties)
         }
         config.setEmailSenderRequested(configRSDTO.getEmailSenderRequested());
-        massMailingService.updateNewsletterConfig(user,config)
+        newsletterService.updateNewsletterConfig(user,config)
         flash.message="Success"
         redirect(mapping:'profileNewsletterConfig')
     }
 
     def requestedEmailSender(){
         KuorumUser user = params.user;
-        NewsletterConfigRSDTO config = massMailingService.findNewsletterConfig(user);
+        NewsletterConfigRSDTO config = newsletterService.findNewsletterConfig(user);
         NewsletterConfigRQDTO configRQDTO = new NewsletterConfigRQDTO();
         use(InvokerHelper) {
             configRQDTO.setProperties(config.properties);
         }
         configRQDTO.setEmailSenderRequested(true);
-        massMailingService.updateNewsletterConfig(user, configRQDTO);
+        newsletterService.updateNewsletterConfig(user, configRQDTO);
 
         kuorumMailService.sendRequestACustomDomainAdmin(user);
 

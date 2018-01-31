@@ -1,6 +1,6 @@
 package kuorum
 
-import org.kuorum.rest.model.notification.campaign.CampaignRSDTO
+import org.kuorum.rest.model.notification.campaign.NewsletterRSDTO
 
 class NewsletterTagLib {
     static defaultEncodeAs = [taglib:'raw']
@@ -8,25 +8,25 @@ class NewsletterTagLib {
     static namespace = "newsletterUtil"
 
     def campaignsSent = {attrs ->
-        CampaignRSDTO campaignRSDTO = attrs.campaign
+        NewsletterRSDTO campaignRSDTO = attrs.campaign
         out<< campaignRSDTO.numberRecipients?: ''
     }
 
     def openRate = {attrs ->
 
-        CampaignRSDTO campaignRSDTO = attrs.campaign
+        NewsletterRSDTO campaignRSDTO = attrs.campaign
         out << printPrettyStat(campaignRSDTO.numberOpens,campaignRSDTO.numberRecipients)
     }
 
     def clickRate = {attrs ->
 
-        CampaignRSDTO campaignRSDTO = attrs.campaign
+        NewsletterRSDTO campaignRSDTO = attrs.campaign
         out << printPrettyStat(campaignRSDTO.numberClicks,campaignRSDTO.numberRecipients)
     }
 
     def unsubscribeRate = {attrs ->
 
-        CampaignRSDTO campaignRSDTO = attrs.campaign
+        NewsletterRSDTO campaignRSDTO = attrs.campaign
         out << printPrettyStat(campaignRSDTO.numberUnsubscribe,campaignRSDTO.numberRecipients)
     }
 

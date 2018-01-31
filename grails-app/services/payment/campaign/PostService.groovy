@@ -12,7 +12,7 @@ import org.kuorum.rest.model.communication.post.PostRDTO
 import org.kuorum.rest.model.communication.post.PostRSDTO
 
 @Transactional
-class PostService implements CampaignService<PostRSDTO, PostRDTO>{
+class PostService implements CampaignCreatorService<PostRSDTO, PostRDTO>{
 
     def grailsApplication
     def indexSolrService

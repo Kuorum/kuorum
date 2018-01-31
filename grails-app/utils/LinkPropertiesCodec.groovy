@@ -108,7 +108,7 @@ class LinkPropertiesCodec {
         [
                 userAlias: postRSDTO.user.alias.toLowerCase(),
                 urlTitle: getNameTitleUrl(postRSDTO),
-                postId: postRSDTO.id
+                campaignId: postRSDTO.id
         ]
     }
     private static def prepareParams(SolrPost solrPost) {

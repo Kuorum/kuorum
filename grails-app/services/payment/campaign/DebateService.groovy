@@ -12,7 +12,7 @@ import org.kuorum.rest.model.communication.debate.PageDebateRSDTO
 import org.kuorum.rest.model.communication.event.EventRDTO
 
 @Transactional
-class DebateService implements CampaignService<DebateRSDTO, DebateRDTO> {
+class DebateService implements CampaignCreatorService<DebateRSDTO, DebateRDTO> {
 
     RestKuorumApiService restKuorumApiService
     IndexSolrService indexSolrService

@@ -422,8 +422,8 @@ class UrlMappings {
         name postEdit:              "/account/$userAlias/p/$urlTitle-$postId/edit-settings" (controller: "post"){action = [GET: "editSettingsStep", POST: "saveSettings"]}
         name postEditEvent:         "/account/$userAlias/p/$urlTitle-$postId/edit-event" (controller: "event"){action = [GET: "editEvent", POST: "updateEvent"]}
         name postEditContent:       "/account/$userAlias/p/$urlTitle-$postId/edit-content" (controller: "post"){action = [GET: "editContentStep", POST: "saveContent"]}
-        name postShow:              "/$userAlias/p/$urlTitle-$postId"           (controller: "post", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-                                    "/$userAlias/p/-$postId"                    (controller: "post", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+        name postShow:              "/$userAlias/$urlTitle-$campaignId"           (controller: "campaign", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+                                    "/$userAlias/-$campaignId"                    (controller: "campaign", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
         // POST LANG DEPRECATED
         name langPostShow:          "/$lang/$userAlias/p/$urlTitle-$postId"     {controller="redirect"; action= "redirect301"; newMapping='postShow';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
                                     "/en/$userAlias/p/$urlTitle-$postId"        {controller="redirect"; action= "redirect301"; newMapping='postShow';lang="en";}
