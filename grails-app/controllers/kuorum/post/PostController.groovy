@@ -19,8 +19,7 @@ class PostController extends CampaignController{
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def remove(Long campaignId) {
-        KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
-        postService.removePost(loggedUser, campaignId)
+        removeCampaign(campaignId)
         render ([msg: "Post deleted"] as JSON)
     }
 
@@ -35,8 +34,7 @@ class PostController extends CampaignController{
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def editContentStep(){
         Long campaignId = Long.parseLong(params.campaignId)
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        PostRSDTO postRSDTO = setCampaignAsDraft(user,campaignId, postService)
+        PostRSDTO postRSDTO = setCampaignAsDraft(campaignId, postService)
         return campaignModelContent(campaignId, postRSDTO, null, postService)
     }
 
@@ -46,16 +44,9 @@ class PostController extends CampaignController{
             render view: 'create', model: postModelSettings(command, null)
             return
         }
-        String nextStep = params.redirectLink
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        FilterRDTO anonymousFilter = recoverAnonymousFilterSettings(params, command)
-        Long campaignId = params.campaignId?Long.parseLong(params.campaignId):null
         command.eventAttached=false
-        Map<String, Object> result = saveCampaignSettings(user, command, campaignId, anonymousFilter, postService)
-
-        //flash.message = resultPost.msg.toString()
-
-        redirect mapping: nextStep, params: result.campaign.encodeAsLinkProperties()
+        Map<String, Object> result = saveCampaignSettings(command, params, postService)
+        redirect mapping: result.nextStep.mapping, params: result.nextStep.params
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
@@ -67,18 +58,9 @@ class PostController extends CampaignController{
             render view: 'editContentStep', model: campaignModelContent(Long.parseLong(params.campaignId), null, command, postService)
             return
         }
-        String nextStep = params.redirectLink
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         Long campaignId = params.campaignId?Long.parseLong(params.campaignId):null
-        Map<String, Object> resultPost = saveAndSendCampaignContent(user, command, campaignId, postService)
-        if (resultPost.goToPaymentProcess){
-            String paymentRedirect = g.createLink(mapping:"postEditContent", params:resultPost.campaign.encodeAsLinkProperties() )
-            cookieUUIDService.setPaymentRedirect(paymentRedirect)
-            redirect(mapping: "paymentStart")
-        }else {
-//            flash.message = resultPost.msg.toString()
-            redirect mapping: nextStep, params: resultPost.campaign.encodeAsLinkProperties()
-        }
+        Map<String, Object> result = saveAndSendCampaignContent(command, campaignId, postService)
+        redirect mapping: result.nextStep.mapping, params: result.nextStep.params
     }
 
     private def postModelSettings(CampaignSettingsCommand command, PostRSDTO postRSDTO) {

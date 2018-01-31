@@ -150,7 +150,7 @@ class PostService implements CampaignCreatorService<PostRSDTO, PostRDTO>{
         return  postRSDTO;
     }
 
-    Long removePost(KuorumUser user, Long postId) {
+    void remove(KuorumUser user, Long postId) {
         Map<String, String> params = [userAlias: user.id.toString(), postId: postId.toString()]
         Map<String, String> query = [:]
         def response = restKuorumApiService.delete(

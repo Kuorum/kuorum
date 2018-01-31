@@ -146,19 +146,27 @@ class CampaignController {
     }
 
     protected Map<String, Object> saveCampaignSettings(
-            KuorumUser user,
             CampaignSettingsCommand command,
-            Long campaignId = null,
-            FilterRDTO anonymousFilter = null,
+            def params,
             CampaignCreatorService campaignService){
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        Long campaignId = params.campaignId?Long.parseLong(params.campaignId):null
+        FilterRDTO anonymousFilter = recoverAnonymousFilterSettings(params, command)
+
         CampaignRDTO campaignRDTO = convertCommandSettingsToRDTO(command, user, anonymousFilter, campaignId, campaignService)
         CampaignRSDTO campaignSaved = campaignService.save(user, campaignRDTO, campaignId)
         String msg = g.message(code:'tools.massMailing.saveDraft.advise', args: [campaignSaved.title])
 
-        [msg: msg, campaign: campaignSaved]
+        def nextStep =[
+                mapping:params.redirectLink,
+                params:campaignSaved.encodeAsLinkProperties()
+        ]
+
+        [msg: msg, campaign: campaignSaved,nextStep:nextStep]
     }
 
-    protected CampaignRSDTO setCampaignAsDraft(KuorumUser user, Long campaignId, CampaignCreatorService campaignService){
+    protected CampaignRSDTO setCampaignAsDraft(Long campaignId, CampaignCreatorService campaignService){
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         CampaignRSDTO campaignRSDTO = campaignService.find(user, campaignId)
         if (campaignRSDTO && campaignRSDTO.newsletter.status == CampaignStatusRSDTO.SCHEDULED){
             CampaignRDTO campaignRDTO = campaignService.map(campaignRSDTO)
@@ -248,13 +256,12 @@ class CampaignController {
         campaignRDTO
     }
 
-    protected Map<String, Object> saveAndSendCampaignContent(KuorumUser user, CampaignContentCommand command, Long campaignId, CampaignCreatorService campaignService) {
+    protected Map<String, Object> saveAndSendCampaignContent(CampaignContentCommand command, Long campaignId, CampaignCreatorService campaignService) {
         String msg
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         CampaignRDTO campaignRDTO = convertCommandContentToRDTO(command, user, campaignId, campaignService)
 
         CampaignRSDTO savedCampaign = null
-        Boolean validSubscription = customerService.validSubscription(user);
-        Boolean goToPaymentProcess = !validSubscription && command.publishOn;
         if(command.publishOn){
             // Published or Scheduled
             savedCampaign = campaignService.save(user, campaignRDTO, campaignId)
@@ -288,7 +295,31 @@ class CampaignController {
             msg = g.message(code: 'tools.massMailing.saveDraft.advise', args: [savedCampaign.title])
         }
 
-        [msg: msg, campaign: savedCampaign, goToPaymentProcess:goToPaymentProcess]
+        [msg: msg, campaign: savedCampaign, nextStep:processNextStep(user, savedCampaign, command.getPublishOn()!= null)]
+    }
 
+    private def processNextStep(KuorumUser user, CampaignRSDTO campaignRSDTO, Boolean checkPaymentRedirect){
+        Boolean validSubscription = customerService.validSubscription(user);
+        Boolean goToPaymentProcess = !validSubscription && checkPaymentRedirect;
+
+        if (goToPaymentProcess){
+            String paymentRedirect = request.forwardURI.toString()
+            cookieUUIDService.setPaymentRedirect(paymentRedirect)
+            return [
+                    mapping:"paymentStart",
+                    params:[:]
+            ]
+        }else {
+            return [
+                    mapping:params.redirectLink,
+                    params:campaignRSDTO.encodeAsLinkProperties()
+            ]
+
+        }
+    }
+
+    protected void removeCampaign(Long campaignId, CampaignCreatorService campaignService){
+        KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
+        campaignService.remove(loggedUser, campaignId)
     }
 }

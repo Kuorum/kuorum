@@ -15,6 +15,14 @@ interface CampaignCreatorService<RSDTO extends CampaignRSDTO, RDTO extends Campa
      */
     RSDTO save(KuorumUser user, RDTO rdto, Long campaignId)
 
+    /**
+     * Removes the campaign
+     * @param user
+     * @param campaignId
+     * @return
+     */
+    void remove(KuorumUser user, Long campaignId)
+
     RSDTO find(KuorumUser user, Long campaignId)
     /**
      * Maps RSDTO to RDTO

@@ -137,7 +137,7 @@ class DebateService implements CampaignCreatorService<DebateRSDTO, DebateRDTO> {
         debateSaved
     }
 
-    Long removeDebate(KuorumUser user, Long debateId) {
+    void remove(KuorumUser user, Long debateId) {
         Map<String, String> params = [userAlias: user.id.toString(), debateId: debateId.toString()]
         Map<String, String> query = [:]
         def response = restKuorumApiService.delete(

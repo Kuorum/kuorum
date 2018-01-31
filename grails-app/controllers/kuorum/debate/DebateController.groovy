@@ -28,9 +28,8 @@ class DebateController extends CampaignController{
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def editContentStep(){
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         Long campaignId = Long.parseLong((String) params.campaignId);
-        DebateRSDTO debateRSDTO = setCampaignAsDraft(user, campaignId, debateService)
+        DebateRSDTO debateRSDTO = setCampaignAsDraft(campaignId, debateService)
         return campaignModelContent(campaignId, debateRSDTO, null, debateService)
     }
 
@@ -41,16 +40,11 @@ class DebateController extends CampaignController{
             return
         }
 
-        String nextStep = params.redirectLink
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        FilterRDTO anonymousFilter = recoverAnonymousFilterSettings(params, command)
-        Long campaignId = params.campaignId?Long.parseLong(params.campaignId):null
         command.eventAttached=false
-        Map<String, Object> result = saveCampaignSettings(user, command, campaignId, anonymousFilter, debateService)
+        Map<String, Object> result = saveCampaignSettings(command, params, debateService)
 
         //flash.message = resultDebate.msg.toString()
-
-        redirect mapping: nextStep, params: result.campaign.encodeAsLinkProperties()
+        redirect mapping: result.nextStep.mapping, params: result.nextStep.params
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
@@ -64,23 +58,13 @@ class DebateController extends CampaignController{
             return
         }
 
-        String nextStep = params.redirectLink
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        Map<String, Object> resultDebate = saveAndSendCampaignContent(user, command, campaignId, debateService)
-        if (resultDebate.goToPaymentProcess){
-            String paymentRedirect = g.createLink(mapping:"debateEditContent", params:resultDebate.campaign.encodeAsLinkProperties() )
-            cookieUUIDService.setPaymentRedirect(paymentRedirect)
-            redirect(mapping: "paymentStart")
-        }else {
-            //flash.message = resultDebate.msg.toString()
-            redirect mapping: nextStep, params: resultDebate.campaign.encodeAsLinkProperties()
-        }
+        Map<String, Object> result = saveAndSendCampaignContent(command, campaignId, debateService)
+        redirect mapping: result.nextStep.mapping, params: result.nextStep.params
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def remove(Long campaignId) {
-        KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
-        debateService.removeDebate(loggedUser, campaignId)
+        removeCampaign(campaignId);
         render ([msg: "Debate deleted"] as JSON)
     }
 
