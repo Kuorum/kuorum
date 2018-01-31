@@ -117,7 +117,7 @@ class LinkPropertiesCodec {
         [
                 userAlias: user.alias.toLowerCase(),
                 urlTitle: solrPost.name.encodeAsKuorumUrl(),
-                campaignId: solrPost.id.split("_")[1]
+                campaignId: solrPost.id
         ]
     }
 
