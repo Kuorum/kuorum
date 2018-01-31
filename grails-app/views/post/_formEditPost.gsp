@@ -3,7 +3,7 @@
 <h1 class="sr-only"><g:message code="admin.createPost.title"/></h1>
 <formUtil:validateForm bean="${command}" form="politicianMassMailingForm" />
 <form action="#" class="form-horizontal" id="politicianMassMailingForm" method="POST" data-generalErrorMessage="${g.message(code:'kuorum.web.commands.payment.massMailing.PostCommand.form.genericError')}">
-    <input type="hidden" name="postId" value="${post.id?:''}"/>
+    <input type="hidden" name="campaignId" value="${post.id?:''}"/>
 
     <g:if test="${post.campaignStatusRSDTO != org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT}">
         <g:render template="/newsletter/filter" model="[command: command, filters: filters,anonymousFilter: anonymousFilter, totalContacts: totalContacts, hideSendTestButton: true, showOnly: false, hide:false]"/>

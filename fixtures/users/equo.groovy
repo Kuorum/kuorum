@@ -6,11 +6,9 @@ import kuorum.core.model.gamification.GamificationAward
 import kuorum.mail.MailType
 import kuorum.notifications.Notice
 import kuorum.notifications.NoticeType
-import kuorum.users.Activity
 import kuorum.users.Gamification
 import kuorum.users.KuorumUser
 import kuorum.users.OrganizationData
-import kuorum.users.PersonData
 import kuorum.users.SocialLinks
 
 fixture {
@@ -32,15 +30,6 @@ fixture {
         provinceCode = "EU-ES-PV-SS"
         userType = UserType.ORGANIZATION
         enterpriseSector = EnterpriseSector.NGO
-    }
-
-    equoActivity(Activity){
-        numQuestions = 0
-        questions = []
-        numPurposes = 0
-        purposes = []
-        numHistories = 0
-        histories = []
     }
 
     equoSocialLinks(SocialLinks){

@@ -7,10 +7,10 @@ import org.kuorum.rest.model.communication.CampaignRDTO
 interface CampaignCreatorService<RSDTO extends CampaignRSDTO, RDTO extends CampaignRDTO> {
 
     /**
-     * Creates or updates a Campaign depending on postId
+     * Creates or updates a Campaign depending on campaignId
      * @param user
      * @param rdto
-     * @param postId
+     * @param campaignId
      * @return
      */
     RSDTO save(KuorumUser user, RDTO rdto, Long campaignId)
@@ -22,6 +22,15 @@ interface CampaignCreatorService<RSDTO extends CampaignRSDTO, RDTO extends Campa
      * @return
      */
     RDTO map(RSDTO rsdto)
+
+    /**
+     * Builds the model and the view for the campaign.
+     *
+     * It is a helper for the campaign controller
+     * @param rsdto
+     * @return
+     */
+    def buildView(RSDTO campaignRSDTO, KuorumUser campaignOwner, String viewerUid, def params)
 
 
 }

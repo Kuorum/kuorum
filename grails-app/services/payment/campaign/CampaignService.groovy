@@ -39,17 +39,17 @@ class CampaignService {
         debatesFound
     }
 
-//    @Cacheable(value="debate", key='#debateId')
-    CampaignRSDTO find(KuorumUser user, Long debateId, String viewerUid = null) {
-        find(user.getId().toString(), debateId, viewerUid);
+//    @Cacheable(value="debate", key='#campaignId')
+    CampaignRSDTO find(KuorumUser user, Long campaignId, String viewerUid = null) {
+        find(user.getId().toString(), campaignId, viewerUid);
     }
 
-//    @Cacheable(value="debate", key='#debateId')
-    CampaignRSDTO find(String userId, Long debateId, String viewerUid = null) {
-        if (!debateId){
+//    @Cacheable(value="debate", key='#campaignId')
+    CampaignRSDTO find(String userId, Long campaignId, String viewerUid = null) {
+        if (!campaignId){
             return null;
         }
-        Map<String, String> params = [userAlias: userId, campaignId: debateId.toString()]
+        Map<String, String> params = [userAlias: userId, campaignId: campaignId.toString()]
         Map<String, String> query = [:]
         if (viewerUid){
             query.put("viewerUid",viewerUid)
@@ -68,7 +68,7 @@ class CampaignService {
             }
             return campaignRSDTO;
         }catch (KuorumException e){
-            log.info("Error recovering debate $debateId : ${e.message}")
+            log.info("Error recovering debate $campaignId : ${e.message}")
             return null;
         }
     }

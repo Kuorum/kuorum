@@ -7,6 +7,7 @@ import kuorum.core.model.solr.SolrPost
 import kuorum.project.Project
 import kuorum.users.KuorumUser
 import org.bson.types.ObjectId
+import org.kuorum.rest.model.communication.CampaignRSDTO
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.kuorum.rest.model.communication.debate.ProposalRSDTO
 import org.kuorum.rest.model.communication.event.EventRSDTO
@@ -86,7 +87,7 @@ class LinkPropertiesCodec {
         [
                 userAlias: debate.user.alias.toLowerCase(),
                 urlTitle: getNameTitleUrl(debate),
-                debateId: debate.id
+                campaignId: debate.id
         ]
     }
     private static def prepareParams(EventRSDTO event) {
@@ -100,15 +101,15 @@ class LinkPropertiesCodec {
         [
                 userAlias: user.alias,
                 urlTitle: debate.name.encodeAsKuorumUrl(),
-                debateId: debate.id.split("_")[1]
+                campaignId: debate.id
         ]
     }
 
-    private static def prepareParams(PostRSDTO postRSDTO) {
+    private static def prepareParams(CampaignRSDTO campaignRSDTO) {
         [
-                userAlias: postRSDTO.user.alias.toLowerCase(),
-                urlTitle: getNameTitleUrl(postRSDTO),
-                campaignId: postRSDTO.id
+                userAlias: campaignRSDTO.user.alias.toLowerCase(),
+                urlTitle: getNameTitleUrl(campaignRSDTO),
+                campaignId: campaignRSDTO.id
         ]
     }
     private static def prepareParams(SolrPost solrPost) {
@@ -116,7 +117,7 @@ class LinkPropertiesCodec {
         [
                 userAlias: user.alias.toLowerCase(),
                 urlTitle: solrPost.name.encodeAsKuorumUrl(),
-                postId: solrPost.id.split("_")[1]
+                campaignId: solrPost.id.split("_")[1]
         ]
     }
 
@@ -124,21 +125,21 @@ class LinkPropertiesCodec {
         [
                 userAlias: proposalRSDTO.debateUser.alias.toLowerCase(),
                 urlTitle: getNameTitleUrl(proposalRSDTO),
-                debateId: proposalRSDTO.debateId
+                campaignId: proposalRSDTO.debateId
         ]
     }
     private static def prepareParams(NotificationProposalCommentRSDTO notificationProposalCommentRSDTO) {
         [
                 userAlias: notificationProposalCommentRSDTO.debateAlias.toLowerCase(),
                 urlTitle: notificationProposalCommentRSDTO.debateTitle.encodeAsKuorumUrl(),
-                debateId: notificationProposalCommentRSDTO.debateId
+                campaignId: notificationProposalCommentRSDTO.debateId
         ]
     }
     private static def prepareParams(NotificationProposalCommentMentionRSDTO notificationProposalCommentMentionRSDTO) {
         [
                 userAlias: notificationProposalCommentMentionRSDTO.debateAlias.toLowerCase(),
                 urlTitle: notificationProposalCommentMentionRSDTO.debateTitle.encodeAsKuorumUrl(),
-                debateId: notificationProposalCommentMentionRSDTO.debateId
+                campaignId: notificationProposalCommentMentionRSDTO.debateId
         ]
     }
 

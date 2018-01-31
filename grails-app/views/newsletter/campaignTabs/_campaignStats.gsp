@@ -1,7 +1,7 @@
 <h2 class="sr-only"><g:message code="tools.massMailing.view.stats"/></h2>
 <div class="actions">
     <g:if test="${campaign && campaign instanceof org.kuorum.rest.model.communication.debate.DebateRSDTO}">
-        <g:link mapping="politicianMassMailingDebateStatsReport" params="[debateId:campaign.id]" class="btn btn-blue inverted export-modal-button" data-modalId="export-debateStats-modal">
+        <g:link mapping="politicianMassMailingDebateStatsReport" params="[campaignId:campaign.id]" class="btn btn-blue inverted export-modal-button" data-modalId="export-debateStats-modal">
             <span class="fa fa-file-excel-o"></span>
             <g:message code="tools.massMailing.view.stats.debate.report"/>
         </g:link>

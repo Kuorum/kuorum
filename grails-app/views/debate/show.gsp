@@ -5,12 +5,12 @@
     <title><g:message code="${titleMessageCode}" args="[debate.title]"/></title>
     <g:set var="schemaData" value="${[schema:'http://schema.org/Article', name:debate.title]}" scope="request"/>
     <meta name="layout" content="columnCLayout">
-    <g:render template="debateMetaTags" model="[debate: debate, titleMessageCode:titleMessageCode]"/>
+    <g:render template="/debate/debateMetaTags" model="[debate: debate, titleMessageCode:titleMessageCode]"/>
     <r:require modules="debate"/>
 </head>
 
 <content tag="mainContent">
-    <g:render template="showModules/mainContent" model="[debate: debate, debateUser: debateUser,proposalPage:proposalPage,eventData:eventData]" />
+    <g:render template="/debate/showModules/mainContent" model="[debate: debate, debateUser: debateUser,proposalPage:proposalPage,eventData:eventData]" />
     <g:render template="/campaigns/columnCModules/eventCallToAction" model="[eventUser:debateUser,campaign:debate]"/>
 </content>
 
@@ -18,18 +18,18 @@
     <g:if test="${debate.event}">
         <r:require modules="event"/>
         <g:render template="/campaigns/columnCModules/eventCallToAction" model="[eventUser: debateUser,campaign:debate]"/>
-        <g:render template="showModules/cCallToAction" model="[debate: debate, debateUser: debateUser,proposalPage:proposalPage]"/>
+        <g:render template="/debate/showModules/cCallToAction" model="[debate: debate, debateUser: debateUser,proposalPage:proposalPage]"/>
         <g:render template="/campaigns/columnCModules/eventInfo" model="[event:debate.event]"/>
     </g:if>
     <g:else>
         <g:if test="${debate.campaignStatusRSDTO == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT}">
-            <g:render template="showModules/cCallToAction" model="[debate: debate, debateUser: debateUser,proposalPage:proposalPage]"/>
+            <g:render template="/debate/showModules/cCallToAction" model="[debate: debate, debateUser: debateUser,proposalPage:proposalPage]"/>
         </g:if>
     </g:else>
 
     <g:if test="${pinnedUsers}">
         <g:render template="/debate/showModules/pinnedUsers" model="[pinnedUsers:pinnedUsers, debateUser: debateUser]" />
     </g:if>
-    <g:render template="showModules/cColumn" model="[debate: debate, debateUser: debateUser, proposalPage:proposalPage, lastActivity:lastActivity]" />
+    <g:render template="/debate/showModules/cColumn" model="[debate: debate, debateUser: debateUser, proposalPage:proposalPage, lastActivity:lastActivity]" />
 </content>
 

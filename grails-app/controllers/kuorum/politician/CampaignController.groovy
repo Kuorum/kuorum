@@ -11,6 +11,7 @@ import kuorum.users.KuorumUserService
 import kuorum.util.TimeZoneUtil
 import kuorum.web.commands.payment.CampaignContentCommand
 import org.kuorum.rest.model.communication.CampaignRDTO
+import org.kuorum.rest.model.communication.CampaignTypeRSDTO
 import org.kuorum.rest.model.communication.event.EventRDTO
 import payment.CustomerService
 import payment.campaign.PostService
@@ -49,12 +50,23 @@ class CampaignController {
         String viewerUid = cookieUUIDService.buildUserUUID()
         KuorumUser user = kuorumUserService.findByAlias(params.userAlias)
         try{
-            CampaignRSDTO postRSDTO = campaignService.find(user, Long.parseLong(params.campaignId),viewerUid)
-            if (!postRSDTO) {
+            CampaignRSDTO campaignRSDTO = campaignService.find(user, Long.parseLong(params.campaignId),viewerUid)
+            if (!campaignRSDTO) {
                 throw new KuorumException(message(code: "post.notFound") as String)
             }
-            def model = [post: postRSDTO, postUser: user]
-            render view: "/post/show", model:model
+            def dataView = [view:null, model:null]
+            switch (campaignRSDTO.campaignType){
+                case CampaignTypeRSDTO.DEBATE:
+                    dataView = debateService.buildView(campaignRSDTO, user, viewerUid, params)
+                    break
+                case CampaignTypeRSDTO.POST:
+                    dataView = postService.buildView(campaignRSDTO, user, viewerUid, params)
+                    break
+                default:
+                    log.error("Campaign type not recognized: ${campaignRSDTO.campaignType}")
+                    throw new Exception("Campaign type not recognized: ${campaignRSDTO.campaignType}")
+            }
+            render view: dataView.view, model:dataView.model
         }catch (Exception ignored){
             flash.error = message(code: "post.notFound")
             response.sendError(HttpServletResponse.SC_NOT_FOUND)
@@ -127,9 +139,9 @@ class CampaignController {
             CampaignSettingsCommand command,
             KuorumUser user,
             FilterRDTO anonymousFilter,
-            Long debateId,
+            Long campaignId,
             CampaignCreatorService campaignService) {
-        CampaignRDTO campaignRDTO = createRDTO(user, debateId, campaignService)
+        CampaignRDTO campaignRDTO = createRDTO(user, campaignId, campaignService)
         mapCommandSettingsToRDTO(campaignRDTO, command, anonymousFilter)
     }
 

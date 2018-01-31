@@ -5,7 +5,6 @@ import kuorum.core.model.gamification.GamificationAward
 import kuorum.mail.MailType
 import kuorum.notifications.Notice
 import kuorum.notifications.NoticeType
-import kuorum.users.Activity
 import kuorum.users.Gamification
 import kuorum.users.KuorumUser
 import kuorum.users.PersonData
@@ -30,15 +29,6 @@ fixture {
         provinceCode = "EU-ES-PV-SS"
         userType = UserType.PERSON
         year = 1983
-    }
-
-    carmenActivity(Activity){
-        numQuestions = 0
-        questions = []
-        numPurposes = 0
-        purposes = []
-        numHistories = 0
-        histories = []
     }
 
     carmenSocialLinks(SocialLinks){

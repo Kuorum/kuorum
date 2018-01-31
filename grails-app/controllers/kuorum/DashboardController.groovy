@@ -5,6 +5,8 @@ import grails.plugin.springsecurity.annotation.Secured
 import kuorum.causes.CausesService
 import kuorum.core.model.search.Pagination
 import kuorum.dashboard.DashboardService
+import org.kuorum.rest.model.communication.CampaignRSDTO
+import payment.campaign.CampaignService
 import payment.campaign.PostService
 import kuorum.solr.SearchSolrService
 import kuorum.users.CookieUUIDService
@@ -19,6 +21,7 @@ import org.kuorum.rest.model.communication.PageCampaignRSDTO
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.kuorum.rest.model.communication.post.PostRSDTO
 import org.kuorum.rest.model.notification.campaign.NewsletterRQDTO
+import org.kuorum.rest.model.notification.campaign.NewsletterRSDTO
 import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
 import org.kuorum.rest.model.payment.KuorumPaymentPlanDTO
 import org.kuorum.rest.model.tag.CauseRSDTO
@@ -39,6 +42,7 @@ class DashboardController {
     NewsletterService newsletterService
     DebateService debateService
     PostService postService
+    CampaignService campaignService
     DashboardService dashboardService
     CookieUUIDService cookieUUIDService
     CustomerService customerService;
@@ -80,18 +84,16 @@ class DashboardController {
 
         PageCampaignRSDTO pageCampaigns = dashboardService.findAllContactsCampaigns(user, viewerUid)
 
-        List<NewsletterRQDTO> myCampaigns = newsletterService.findCampaigns(user)
-        List<DebateRSDTO> myDebates = debateService.findAllDebates(user)
-        List<PostRSDTO> myPosts = postService.findAllPosts(user)
-        List<NewsletterRQDTO> sentDebateNewsletters = myDebates*.newsletter.findAll{it.status==CampaignStatusRSDTO.SENT}
-        List<NewsletterRQDTO> sentPostNewsletters = myPosts*.newsletter.findAll{it.status==CampaignStatusRSDTO.SENT}
-        List<NewsletterRQDTO> sentMassMailCampaigns = myCampaigns.findAll{it.status==CampaignStatusRSDTO.SENT}
-        List<NewsletterRQDTO> sentCampaigns = sentMassMailCampaigns + sentDebateNewsletters + sentPostNewsletters
-        Long numberCampaigns = sentCampaigns?.size()?:0;
-        NewsletterRQDTO lastCampaign = null
+        List<NewsletterRSDTO> myNewsletters = newsletterService.findCampaigns(user)
+        List<CampaignRSDTO> myCampaigns = campaignService.findAllCampaigns(user)
+        List<NewsletterRSDTO> sentCampaigns = myCampaigns*.newsletter.findAll{it.status==CampaignStatusRSDTO.SENT}
+        List<NewsletterRSDTO> sentNewsletters = myNewsletters.findAll{it.status==CampaignStatusRSDTO.SENT}
+        List<NewsletterRSDTO> sentCommunications = sentNewsletters + sentCampaigns
+        Long numberCampaigns = sentCommunications?.size()?:0;
+        NewsletterRSDTO lastCampaign = null
         Long durationDays = 0;
-        if (sentCampaigns){
-            lastCampaign = sentCampaigns.sort {it.sentOn}.last()?:null
+        if (sentCommunications){
+            lastCampaign = sentCommunications.sort {it.sentOn}.last()?:null
             use(groovy.time.TimeCategory) {
                 def duration = new Date() - lastCampaign.sentOn
                 durationDays = duration.days

@@ -20,7 +20,6 @@ import payment.campaign.event.EventService
 
 class EventController extends CampaignController{
 
-    KuorumUserService kuorumUserService
     EventService eventService
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
@@ -124,16 +123,7 @@ class EventController extends CampaignController{
 
     private CampaignRSDTO findCampaign(def params){
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        CampaignCreatorService campaignService
-        Long campaignId;
-        if (params.postId){
-            campaignId = Long.parseLong(params.postId)
-            campaignService = postService
-        }else if (params.debateId){
-            campaignId = Long.parseLong(params.debateId)
-            campaignService = debateService
-
-        }
+        Long campaignId = Long.parseLong(params.campaignId)
         campaignService.find(user, campaignId)
     }
 

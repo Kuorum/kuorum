@@ -15,6 +15,7 @@ import kuorum.web.commands.payment.massMailing.MassMailingContentCommand
 import kuorum.web.commands.payment.massMailing.MassMailingSettingsCommand
 import kuorum.web.commands.payment.massMailing.MassMailingTemplateCommand
 import kuorum.web.commands.profile.TimeZoneCommand
+import org.kuorum.rest.model.communication.CampaignRSDTO
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.kuorum.rest.model.communication.post.PostRSDTO
 import org.kuorum.rest.model.contact.ContactPageRSDTO
@@ -26,6 +27,7 @@ import org.kuorum.rest.model.notification.campaign.NewsletterRQDTO
 import org.kuorum.rest.model.notification.campaign.NewsletterRSDTO
 import org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatsByCampaignPageRSDTO
 import org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO
+import payment.campaign.CampaignService
 import payment.campaign.DebateService
 import payment.campaign.NewsletterService
 import payment.campaign.PostService
@@ -44,6 +46,7 @@ class NewsletterController {
 
     NewsletterService newsletterService
 
+    CampaignService campaignService
     DebateService debateService
     PostService postService
 
@@ -277,26 +280,15 @@ class NewsletterController {
         }
     }
 
-    def showDebateStats(Long debateId){
+    def showCampaignStats(Long campaignId){
         KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
-        DebateRSDTO debate = debateService.find(loggedUser, debateId)
-        Long campaignId = debate.newsletter.id
-        if (debate.campaignStatusRSDTO == CampaignStatusRSDTO.DRAFT || debate.campaignStatusRSDTO == CampaignStatusRSDTO.SCHEDULED ){
+        CampaignRSDTO campaign = campaignService.find(loggedUser, campaignId)
+        Long newsletterId = campaign.newsletter.id
+        if (campaign.campaignStatusRSDTO == CampaignStatusRSDTO.DRAFT || campaign.campaignStatusRSDTO == CampaignStatusRSDTO.SCHEDULED ){
             redirect (mapping:'politicianMassMailingContent', params: [campaignId: campaignId])
         }else{
-            TrackingMailStatsByCampaignPageRSDTO trackingPage = newsletterService.findTrackingMails(loggedUser, campaignId)
-            render view: 'showCampaign', model: [newsletter: debate.newsletter, trackingPage:trackingPage, campaign:debate]
-        }
-    }
-    def showPostStats(Long postId){
-        KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
-        NewsletterRSDTO post = postService.find(loggedUser, postId)
-        Long campaignId = post.newsletter.id
-        if (post.campaignStatusRSDTO == CampaignStatusRSDTO.DRAFT || post.campaignStatusRSDTO == CampaignStatusRSDTO.SCHEDULED ){
-            redirect (mapping:'politicianMassMailingContent', params: [campaignId: campaignId])
-        }else{
-            TrackingMailStatsByCampaignPageRSDTO trackingPage = newsletterService.findTrackingMails(loggedUser, campaignId)
-            render view: 'showCampaign', model: [newsletter: post.newsletter, trackingPage:trackingPage, campaign:post]
+            TrackingMailStatsByCampaignPageRSDTO trackingPage = newsletterService.findTrackingMails(loggedUser, newsletterId)
+            render view: 'showCampaign', model: [newsletter: campaign.newsletter, trackingPage:trackingPage, campaign:campaign]
         }
     }
 

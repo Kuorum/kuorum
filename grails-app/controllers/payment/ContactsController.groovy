@@ -509,7 +509,7 @@ class ContactsController {
             return
         }
 
-        // NOT NECESSARY || HANDLE BY MANDRILLAPP WITH THE WEBHOOK -> Event unsub
+        // NOT NECESSARY || HANDLE BY MANDRILLAPP WITH THE WEBHOOK -> vent unsub
 //        boolean success = contactService.unsubscribeContactUser(user, email, digest)
 //        if (!success){
 //            flash.error="There was an error deleting your user. If the problem persists, please contact with info@kuorum.org"

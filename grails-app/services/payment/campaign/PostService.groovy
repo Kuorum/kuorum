@@ -189,4 +189,10 @@ class PostService implements CampaignCreatorService<PostRSDTO, PostRDTO>{
         }
         return postRDTO;
     }
+
+    @Override
+    def buildView(PostRSDTO campaignRSDTO, KuorumUser campaignOwner, String viewerUid, def params) {
+        def model = [post: campaignRSDTO, postUser: campaignOwner]
+        [view: "/post/show", model:model]
+    }
 }
