@@ -120,11 +120,10 @@ class KuorumUserTagLib {
         }
 
         if (withPopover) {
-            UserReputationRSDTO userReputationRSDTO = userReputationService.getReputationWithCache(user)
+//            UserReputationRSDTO userReputationRSDTO = userReputationService.getReputationWithCache(user)
             out << g.render(template: '/kuorumUser/popoverUser', model: [
                     user: user,
-                    targetBlank:targetBlank,
-                    userReputation: userReputationRSDTO
+                    targetBlank:targetBlank
             ])
         }
         if(showActions){
