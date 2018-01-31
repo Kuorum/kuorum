@@ -175,12 +175,6 @@ class SearchSolrService {
             separator = " AND "
         }
 
-        if (params.commissionType){
-            filterQuery.append(separator)
-            filterQuery.append("commissions:(${params.commissionType})")
-            separator = " AND "
-        }
-
         if (params.filteredUserIds){
             filterQuery.append(separator)
             filterQuery.append("-id:(${params.filteredUserIds.join(" ")})")

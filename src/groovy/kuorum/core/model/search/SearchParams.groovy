@@ -26,8 +26,6 @@ class SearchParams extends Pagination implements Serializable{
 
     SearchType searchType = SearchType.ALL
 
-    CommissionType commissionType
-
     List<String> regionIsoCodes;
 
     List<String> filteredUserIds;
@@ -37,7 +35,6 @@ class SearchParams extends Pagination implements Serializable{
 
     static constraints = {
         word nullable:true
-        commissionType nullable: true
         offset min: 0L
         regionIsoCodes nullable:true
         filteredUserIds nullable:true
