@@ -9115,25 +9115,25 @@ ul.notification-menu > li.see-more {
     box-shadow: none;
 }
 
-.survey-question-answer .check-icon {
+.survey-question-answer .option .check-icon, .survey-question-answer .multi-option .check-icon {
     font-size: 40px;
     margin-right: 30px;
     color: #D0D0D0;
     font-weight: 700;
 }
 
-.survey-question-answer .option > span.check-icon:hover:before {
+.survey-question-answer .option > span.check-icon:hover, .survey-question-answer .multi-option > span.check-icon:hover, .survey-question-answer .option.checked .check-icon, .survey-question-answer .multi-option.checked .check-icon {
     color: #00a3ed;
-    content: "\f058";
 }
 
-.survey-question-answer .multi-option > span.check-icon:hover:before {
-    font-size: 36.7px;
-    color: #00a3ed;
-    content: "\f14a";
+.survey-question-answer .option.checked {
+    display: block;
+}
+.survey-question-answer .multi-option.checked {
+    display: block;
 }
 
-.survey-question-answer .option {
+.survey-question-answer .option, .survey-question-answer .multi-option {
     display: flex;
     align-items: center;
 }
@@ -9164,6 +9164,10 @@ ul.notification-menu > li.see-more {
     display: flex;
     justify-content: flex-end;
     padding-bottom: 10px;
+}
+
+.survey-question-answer .progress, .progress-bar-counter {
+    display: block;
 }
 
 .survey-question .social {
