@@ -10,7 +10,7 @@ import org.bson.types.ObjectId
 import org.codehaus.groovy.grails.validation.*
 import org.kuorum.rest.model.communication.event.EventRSDTO
 import org.kuorum.rest.model.geolocation.RegionRSDTO
-import org.kuorum.rest.model.notification.campaign.CampaignRSDTO
+import org.kuorum.rest.model.notification.campaign.NewsletterRSDTO
 import org.springframework.context.i18n.LocaleContextHolder
 import payment.campaign.event.EventService
 
@@ -27,7 +27,7 @@ class FormTagLib {
 
     def uploadCampaignImages = {attrs, body->
         String field = attrs.field
-        CampaignRSDTO campaign = attrs.campaign
+        NewsletterRSDTO campaign = attrs.campaign
         def model = [
             fileGroup:FileGroup.MASS_MAIL_IMAGE,
             campaign:campaign,

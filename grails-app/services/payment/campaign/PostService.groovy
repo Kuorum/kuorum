@@ -12,7 +12,7 @@ import org.kuorum.rest.model.communication.post.PostRDTO
 import org.kuorum.rest.model.communication.post.PostRSDTO
 
 @Transactional
-class PostService implements CampaignService<PostRSDTO, PostRDTO>{
+class PostService implements CampaignCreatorService<PostRSDTO, PostRDTO>{
 
     def grailsApplication
     def indexSolrService
@@ -150,7 +150,7 @@ class PostService implements CampaignService<PostRSDTO, PostRDTO>{
         return  postRSDTO;
     }
 
-    Long removePost(KuorumUser user, Long postId) {
+    void remove(KuorumUser user, Long postId) {
         Map<String, String> params = [userAlias: user.id.toString(), postId: postId.toString()]
         Map<String, String> query = [:]
         def response = restKuorumApiService.delete(
@@ -188,5 +188,11 @@ class PostService implements CampaignService<PostRSDTO, PostRDTO>{
             }
         }
         return postRDTO;
+    }
+
+    @Override
+    def buildView(PostRSDTO campaignRSDTO, KuorumUser campaignOwner, String viewerUid, def params) {
+        def model = [post: campaignRSDTO, postUser: campaignOwner]
+        [view: "/post/show", model:model]
     }
 }

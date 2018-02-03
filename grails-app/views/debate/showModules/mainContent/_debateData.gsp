@@ -1,6 +1,6 @@
 <!-- ^leader-post !-->
 <div class="leader-post">
-    <g:render template="showModules/mainContent/debateDataMultimedia" model="[debate:debate, poweredByKuorum:poweredByKuorum]"/>
+    <g:render template="/debate/showModules/mainContent/debateDataMultimedia" model="[debate:debate, poweredByKuorum:poweredByKuorum]"/>
 
     <div class="header">
         <h1 class="title" itemprop="headline">${debate.title}</h1>

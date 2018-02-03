@@ -4,15 +4,14 @@ import grails.plugin.springsecurity.annotation.Secured
 import kuorum.causes.CausesService
 import kuorum.core.model.search.Pagination
 import kuorum.register.RegisterService
-import org.bson.types.ObjectId
-import org.kuorum.rest.model.communication.debate.DebateRSDTO
-import org.kuorum.rest.model.communication.post.PostRSDTO
+import org.kuorum.rest.model.communication.CampaignRSDTO
 import org.kuorum.rest.model.kuorumUser.news.UserNewRSDTO
 import org.kuorum.rest.model.kuorumUser.reputation.UserReputationRSDTO
 import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
 import org.kuorum.rest.model.tag.CauseRSDTO
+import payment.campaign.CampaignService
 import payment.campaign.DebateService
-import payment.campaign.MassMailingService
+import payment.campaign.NewsletterService
 import springSecurity.KuorumRegisterCommand
 
 import javax.servlet.http.HttpServletResponse
@@ -35,7 +34,8 @@ class KuorumUserController {
     UserReputationService userReputationService;
 
     DebateService debateService;
-    MassMailingService massMailingService;
+    CampaignService campaignService
+    NewsletterService newsletterService;
 
 //    def beforeInterceptor = [action: this.&checkUser, except: 'login']
     def beforeInterceptor = [action: this.&checkUser, except: ['index', 'politicians']]
@@ -67,18 +67,6 @@ class KuorumUserController {
         redirect (mapping:'userShow', params:user.encodeAsLinkProperties())
     }
 
-    @Deprecated
-    def showWithId(String id){
-        KuorumUser user = KuorumUser.get(new ObjectId(id))
-        if (!user){
-            response.sendError(HttpServletResponse.SC_NOT_FOUND)
-            return false
-        }else {
-            log.warn("Executing show user")
-            return showWithAlias(user.alias)
-        }
-    }
-
     def show(String userAlias){
         KuorumUser user = kuorumUserService.findByAlias(userAlias)
         if (!user) {
@@ -90,15 +78,16 @@ class KuorumUserController {
         List<CauseRSDTO> causes = causesService.findSupportedCauses(user)
         UserReputationRSDTO userReputationRSDTO = userReputationService.getReputation(user)
         List<UserNewRSDTO> userNews = userNewsService.findUserNews(user)
-        List<DebateRSDTO> debates = debateService.findAllDebates(user).findAll{it.newsletter.status == CampaignStatusRSDTO.SENT}
-        List<PostRSDTO> posts = postService.findAllPosts(user,viewerUid).findAll{it.newsletter.status == CampaignStatusRSDTO.SENT}
+//        List<DebateRSDTO> debates = debateService.findAllDebates(user).findAll{it.newsletter.status == CampaignStatusRSDTO.SENT}
+//        List<PostRSDTO> posts = postService.findAllPosts(user,viewerUid).findAll{it.newsletter.status == CampaignStatusRSDTO.SENT}
+        List<CampaignRSDTO> campaigns = campaignService.findAllCampaigns(user,viewerUid).findAll{it.newsletter.status == CampaignStatusRSDTO.SENT}
         [
                 politician:user,
                 recommendPoliticians:recommendPoliticians,
                 causes:causes,
                 userReputation: userReputationRSDTO,
                 userNews:userNews,
-                campaigns:debates + posts,
+                campaigns:campaigns,
         ]
     }
 

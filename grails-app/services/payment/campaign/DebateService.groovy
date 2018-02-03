@@ -6,16 +6,21 @@ import kuorum.core.exception.KuorumException
 import kuorum.solr.IndexSolrService
 import kuorum.users.KuorumUser
 import kuorum.util.rest.RestKuorumApiService
+import org.bson.types.ObjectId
 import org.kuorum.rest.model.communication.debate.DebateRDTO
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.kuorum.rest.model.communication.debate.PageDebateRSDTO
+import org.kuorum.rest.model.communication.debate.search.ProposalPageRSDTO
+import org.kuorum.rest.model.communication.debate.search.SearchProposalRSDTO
+import org.kuorum.rest.model.communication.debate.search.SortProposalRDTO
 import org.kuorum.rest.model.communication.event.EventRDTO
 
 @Transactional
-class DebateService implements CampaignService<DebateRSDTO, DebateRDTO> {
+class DebateService implements CampaignCreatorService<DebateRSDTO, DebateRDTO> {
 
     RestKuorumApiService restKuorumApiService
     IndexSolrService indexSolrService
+    ProposalService proposalService
 
     PageDebateRSDTO findAllDebates(Integer page = 0, Integer size = 10) {
         Map<String, String> params = [:]
@@ -46,12 +51,12 @@ class DebateService implements CampaignService<DebateRSDTO, DebateRDTO> {
         debatesFound
     }
 
-//    @Cacheable(value="debate", key='#debateId')
+//    @Cacheable(value="debate", key='#campaignId')
     DebateRSDTO find(KuorumUser user, Long debateId, String viewerUid = null) {
         find(user.getId().toString(), debateId, viewerUid);
     }
 
-//    @Cacheable(value="debate", key='#debateId')
+//    @Cacheable(value="debate", key='#campaignId')
     DebateRSDTO find(String userId, Long debateId, String viewerUid = null) {
         if (!debateId){
             return null;
@@ -80,7 +85,7 @@ class DebateService implements CampaignService<DebateRSDTO, DebateRDTO> {
         }
     }
 
-//    @CacheEvict(value="debate", key='#debateId')
+//    @CacheEvict(value="debate", key='#campaignId')
     DebateRSDTO save(KuorumUser user, DebateRDTO debateRDTO, Long debateId) {
         debateRDTO.body = debateRDTO.body.encodeAsRemovingScriptTags().encodeAsTargetBlank()
 
@@ -132,7 +137,7 @@ class DebateService implements CampaignService<DebateRSDTO, DebateRDTO> {
         debateSaved
     }
 
-    Long removeDebate(KuorumUser user, Long debateId) {
+    void remove(KuorumUser user, Long debateId) {
         Map<String, String> params = [userAlias: user.id.toString(), debateId: debateId.toString()]
         Map<String, String> query = [:]
         def response = restKuorumApiService.delete(
@@ -182,5 +187,33 @@ class DebateService implements CampaignService<DebateRSDTO, DebateRDTO> {
             }
         }
         return debateRDTO
+    }
+
+    @Override
+    def buildView(DebateRSDTO debate, KuorumUser debateUser, String viewerUid, def params) {
+        SearchProposalRSDTO searchProposalRSDTO = new SearchProposalRSDTO()
+        searchProposalRSDTO.sort = new SortProposalRDTO()
+        searchProposalRSDTO.sort.direction = SortProposalRDTO.Direction.DESC
+        searchProposalRSDTO.sort.field = SortProposalRDTO.Field.LIKES
+        searchProposalRSDTO.size = Integer.MAX_VALUE // Sorting and filtering will be done using JS. We expect maximum 100 proposals
+
+        ProposalPageRSDTO proposalPage = proposalService.findProposal(debate, searchProposalRSDTO,viewerUid)
+//            if (lastActivity){
+//                lastModified(debate.lastActivity)
+//            }
+        List<KuorumUser> pinnedUsers = proposalPage.data
+                .findAll{it.pinned}
+                .collect{KuorumUser.get(new ObjectId(it.user.id))}
+                .findAll{it}
+                .unique()
+                .sort{ ku1, ku2 -> ku1.avatar != null?-1:ku2.avatar!=null?1:0 }
+
+        def model = [debate: debate, debateUser: debateUser, proposalPage:proposalPage, pinnedUsers:pinnedUsers];
+
+        if (params.printAsWidget){
+            return [view: '/debate/widgetDebate', model: model]
+        }else{
+            return [view: '/debate/show', model: model]
+        }
     }
 }

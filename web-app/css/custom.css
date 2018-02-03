@@ -183,6 +183,12 @@ html.loading body {
     height: 15px;
     width: 50px;
 }
+.loading.md {
+    background: url('../images/loading@2x.gif') center center / 25px auto no-repeat transparent;
+    padding: 0;
+    height: 25px;
+    width: 25px;
+}
 
 .loadingSearch {
     color: #a8a8a8;
@@ -3639,6 +3645,7 @@ h2.underline {border-bottom: 1px solid #dadada; padding: 0 0 10px 0; margin-top:
 
 .user .popover-content {padding: 6px}
 .user .popover-content .popover-user-body{margin-top:-8px;}
+.user .popover-content .popover-user-body .loading{margin:auto;}
 .user .popover-content .popover-user-body .rating{margin-bottom:0px;
     text-align: center;}
 

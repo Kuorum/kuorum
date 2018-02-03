@@ -10,7 +10,7 @@
 		'average_15MINS':'${raw(createLink(mapping: 'widgetComparative', absolute: true, params:[interval:org.kuorum.rest.model.kuorumUser.reputation.UserReputationEvolutionRSDTO.Interval.MINUTE_15,averageWidgetType:kuorum.web.widget.AverageWidgetType.GLOBAL_AVERAGE]))}',
 		'average_5MINS':'${raw(createLink(mapping: 'widgetComparative', absolute: true, params:[interval:org.kuorum.rest.model.kuorumUser.reputation.UserReputationEvolutionRSDTO.Interval.MINUTE_5,averageWidgetType:kuorum.web.widget.AverageWidgetType.GLOBAL_AVERAGE]))}',
 		'average_1MINS':'${raw(createLink(mapping: 'widgetComparative', absolute: true, params:[interval:org.kuorum.rest.model.kuorumUser.reputation.UserReputationEvolutionRSDTO.Interval.MINUTE,averageWidgetType:kuorum.web.widget.AverageWidgetType.GLOBAL_AVERAGE]))}',
-		'debate':'${raw(createLink(mapping: 'debateShow', absolute: true, params:[userAlias:'-userAlias-',urlTitle:'debate', debateId:'-debateId-']))}'
+		'debate':'${raw(createLink(mapping: 'debateShow', absolute: true, params:[userAlias:'-userAlias-',urlTitle:'debate', campaignId:'-debateId-']))}'
 	}
 	var widget = document.getElementById('${divId}');
 	var type = widget.getAttribute("data-type")
@@ -60,7 +60,7 @@
 	console.log(url)
 
 	var debateId = widget.getAttribute("data-debateId");
-	url = url.replace("-debateId-",debateId)
+	url = url.replace("-campaignId-",debateId)
 	url = url +'&printAsWidget=true'
 
     var borderColor = "#ddd"

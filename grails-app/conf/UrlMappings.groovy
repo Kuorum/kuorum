@@ -390,20 +390,20 @@ class UrlMappings {
         name dashboardCampaignsSeeMore:     "/ajax/dashboard/campaigns/see-more" (controller: "dashboard", action:"dashboardCampaigns")
 
         name debateCreate:      "/account/debate/new" (controller: "debate"){action = [GET: "create", POST: "saveSettings"]}
-        name debateEdit:        "/account/$userAlias/d/$urlTitle-$debateId/edit-settings" (controller: "debate"){action = [GET: "editSettingsStep", POST: "saveSettings"]}
-        name debateEditEvent:   "/account/$userAlias/d/$urlTitle-$debateId/edit-event" (controller: "event"){action = [GET: "editEvent", POST: "updateEvent"]}
-        name debateEditContent: "/account/$userAlias/d/$urlTitle-$debateId/edit-content" (controller: "debate"){action = [GET: "editContentStep", POST: "saveContent"]}
+        name debateEdit:        "/account/$userAlias/d/$urlTitle-$campaignId/edit-settings" (controller: "debate"){action = [GET: "editSettingsStep", POST: "saveSettings"]}
+        name debateEditEvent:   "/account/$userAlias/d/$urlTitle-$campaignId/edit-event" (controller: "event"){action = [GET: "editEvent", POST: "updateEvent"]}
+        name debateEditContent: "/account/$userAlias/d/$urlTitle-$campaignId/edit-content" (controller: "debate"){action = [GET: "editContentStep", POST: "saveContent"]}
 
-        name debateRemove:      "/ajax/account/$userAlias/d/$urlTitle-$debateId/remove" (controller: "debate", action: "remove")
-        name debateShow:        "/$userAlias/d/$urlTitle-$debateId"         (controller: "debate", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-                                "/$userAlias/d/-$debateId"                  (controller: "debate", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+        name debateRemove:      "/ajax/account/$userAlias/d/$urlTitle-$campaignId/remove" (controller: "debate", action: "remove")
+        name debateShow:        "/$userAlias/$urlTitle-$campaignId"         (controller: "campaign", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+                                "/$userAlias/-$campaignId"                  (controller: "campaign", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
         // DEBATE LANG DEPRECATED
-        name langDebateShow:    "/$lang/$userAlias/d/$urlTitle-$debateId"   {controller="redirect"; action= "redirect301"; newMapping='debateShow';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-                                "/en/$userAlias/d/$urlTitle-$debateId"      {controller="redirect"; action= "redirect301"; newMapping='debateShow';lang="en"}
-                                "/es/$userAlias/d/$urlTitle-$debateId"      {controller="redirect"; action= "redirect301"; newMapping='debateShow';lang="es"}
-                                "/$lang/$userAlias/d/-$debateId"            {controller="redirect"; action= "redirect301"; newMapping='debateShow';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-                                "/en/$userAlias/d/-$debateId"               {controller="redirect"; action= "redirect301"; newMapping='debateShow';lang="en"}
-                                "/es/$userAlias/d/-$debateId"               {controller="redirect"; action= "redirect301"; newMapping='debateShow';lang="es"}
+        name langDebateShow:    "/$lang/$userAlias/d/$urlTitle-$campaignId"   {controller="redirect"; action= "redirect301"; newMapping='debateShow';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+                                "/en/$userAlias/d/$urlTitle-$campaignId"      {controller="redirect"; action= "redirect301"; newMapping='debateShow';lang="en"}
+                                "/es/$userAlias/d/$urlTitle-$campaignId"      {controller="redirect"; action= "redirect301"; newMapping='debateShow';lang="es"}
+                                "/$lang/$userAlias/d/-$campaignId"            {controller="redirect"; action= "redirect301"; newMapping='debateShow';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+                                "/en/$userAlias/d/-$campaignId"               {controller="redirect"; action= "redirect301"; newMapping='debateShow';lang="en"}
+                                "/es/$userAlias/d/-$campaignId"               {controller="redirect"; action= "redirect301"; newMapping='debateShow';lang="es"}
         name debateProposalNew: "/ajax/addProposal"(controller: "debateProposal", action: "addProposal")
         name debateProposalDelete:"/ajax/deleteProposal"(controller: "debateProposal", action: "deleteProposal")
         name debateProposalPin: "/ajax/pinProposal"(controller: "debateProposal", action: "pinProposal")
@@ -417,20 +417,20 @@ class UrlMappings {
         name eventAssistanceReport:     "/ajax/account/event/$eventId/report"(controller:"event", action: "sendReport")
 
         name postLike:              "/ajax/likePost"(controller: "post", action: "likePost")
-        name postRemove:            "/ajax/account/$userAlias/p/$urlTitle-$postId/remove" (controller: "post", action: "remove")
+        name postRemove:            "/ajax/account/$userAlias/p/$urlTitle-$campaignId/remove" (controller: "post", action: "remove")
         name postCreate:            "/account/post/new" (controller: "post"){action = [GET: "create", POST: "saveSettings"]}
-        name postEdit:              "/account/$userAlias/p/$urlTitle-$postId/edit-settings" (controller: "post"){action = [GET: "editSettingsStep", POST: "saveSettings"]}
-        name postEditEvent:         "/account/$userAlias/p/$urlTitle-$postId/edit-event" (controller: "event"){action = [GET: "editEvent", POST: "updateEvent"]}
-        name postEditContent:       "/account/$userAlias/p/$urlTitle-$postId/edit-content" (controller: "post"){action = [GET: "editContentStep", POST: "saveContent"]}
-        name postShow:              "/$userAlias/p/$urlTitle-$postId"           (controller: "post", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-                                    "/$userAlias/p/-$postId"                    (controller: "post", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+        name postEdit:              "/account/$userAlias/p/$urlTitle-$campaignId/edit-settings" (controller: "post"){action = [GET: "editSettingsStep", POST: "saveSettings"]}
+        name postEditEvent:         "/account/$userAlias/p/$urlTitle-$campaignId/edit-event" (controller: "event"){action = [GET: "editEvent", POST: "updateEvent"]}
+        name postEditContent:       "/account/$userAlias/p/$urlTitle-$campaignId/edit-content" (controller: "post"){action = [GET: "editContentStep", POST: "saveContent"]}
+        name postShow:              "/$userAlias/$urlTitle-$campaignId"           (controller: "campaign", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+                                    "/$userAlias/-$campaignId"                    (controller: "campaign", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
         // POST LANG DEPRECATED
-        name langPostShow:          "/$lang/$userAlias/p/$urlTitle-$postId"     {controller="redirect"; action= "redirect301"; newMapping='postShow';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-                                    "/en/$userAlias/p/$urlTitle-$postId"        {controller="redirect"; action= "redirect301"; newMapping='postShow';lang="en";}
-                                    "/es/$userAlias/p/$urlTitle-$postId"        {controller="redirect"; action= "redirect301"; newMapping='postShow';lang="es";}
-                                    "/$lang/$userAlias/p/-$postId"              {controller="redirect"; action= "redirect301"; newMapping='postShow';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-                                    "/en/$userAlias/p/-$postId"                 {controller="redirect"; action= "redirect301"; newMapping='postShow';lang="en";}
-                                    "/es/$userAlias/p/-$postId"                 {controller="redirect"; action= "redirect301"; newMapping='postShow';lang="es";}
+        name langPostShow:          "/$lang/$userAlias/p/$urlTitle-$campaignId"     {controller="redirect"; action= "redirect301"; newMapping='postShow';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+                                    "/en/$userAlias/p/$urlTitle-$campaignId"        {controller="redirect"; action= "redirect301"; newMapping='postShow';lang="en";}
+                                    "/es/$userAlias/p/$urlTitle-$campaignId"        {controller="redirect"; action= "redirect301"; newMapping='postShow';lang="es";}
+                                    "/$lang/$userAlias/p/-$campaignId"              {controller="redirect"; action= "redirect301"; newMapping='postShow';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+                                    "/en/$userAlias/p/-$campaignId"                 {controller="redirect"; action= "redirect301"; newMapping='postShow';lang="en";}
+                                    "/es/$userAlias/p/-$campaignId"                 {controller="redirect"; action= "redirect301"; newMapping='postShow';lang="es";}
 
 
         name eventCreate:           "/account/event/new" (controller: "event"){action = [GET: "create", POST: "saveSettings"]}
@@ -441,11 +441,11 @@ class UrlMappings {
         "/hashtag/$hashtag"                                                                 {controller="redirect"; action= "redirect301Project";}
         "/proyectos/$regionName/$commission/$hashtag"                                       {controller="redirect"; action= "redirect301Project";}
         "/leyes/$regionName/$commission/$hashtag"                                           {controller="redirect"; action= "redirect301Project";}
-//        "/$lang/$userAlias/$hashtag/$postBrief-$postId"                                     {controller="redirect"; action= "redirect301Project"; constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)}); lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-//        "/$userAlias/$hashtag/$postBrief-$postId"                                           {controller="redirect"; action= "redirect301Project"; constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-        "/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId"          {controller="redirect"; action= "redirect301Project";}
-        "/proyectos/$regionName/$commission/$hashtag/$urlPostTypeVieja/$postBrief-$postId"  {controller="redirect"; action= "redirect301Project";}
-        "/leyes/$regionName/$commission/$hashtag/$urlPostTypeVieja/$postBrief-$postId"      {controller="redirect"; action= "redirect301Project";}
+//        "/$lang/$userAlias/$hashtag/$postBrief-$campaignId"                                     {controller="redirect"; action= "redirect301Project"; constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)}); lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+//        "/$userAlias/$hashtag/$postBrief-$campaignId"                                           {controller="redirect"; action= "redirect301Project"; constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+        "/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$campaignId"          {controller="redirect"; action= "redirect301Project";}
+        "/proyectos/$regionName/$commission/$hashtag/$urlPostTypeVieja/$postBrief-$campaignId"  {controller="redirect"; action= "redirect301Project";}
+        "/leyes/$regionName/$commission/$hashtag/$urlPostTypeVieja/$postBrief-$campaignId"      {controller="redirect"; action= "redirect301Project";}
 
 
 
@@ -472,6 +472,7 @@ class UrlMappings {
 
         name userRate:                  "/ajax/$userAlias/rate"(controller: "rating", action:"ratePolitician")
         name userHistoricRate:          "/ajax/$userAlias/historicRate"(controller: "rating", action:"historicPoliticianRate")
+        name userLoadRate:              "/ajax/$userAlias/loadRate"(controller: "rating", action:"loadRating")
         name comparingPoliticianRate:   "/ajax/user/compareRate"(controller: "rating", action:"comparingPoliticianRateData")
 
 //        name searcherSearchSeeMore: "/ajax/search/seeMore"(controller: "search", action:"searchSeeMore")
@@ -580,9 +581,8 @@ class UrlMappings {
         name politicianMassMailingTrackEventsReport:    "/ajax/account/mass-mailing/$campaignId/trackEvents/report" (controller:"newsletter", action: "sendReport")
         name politicianMassMailingHtml:                 "/account/mass-mailing/$campaignId/html" (controller:"newsletter", action: "showMailCampaign")
         name politicianMassMailingSaveTimeZone:         "/account/mass-mailing/saveTimeZone" (controller: "newsletter"){action = [POST:"saveTimeZone"]}
-        name politicianDebateStatsShow:                 "/account/debate/$debateId" (controller:"newsletter", action:"showDebateStats")
-        name politicianPostStatsShow:                   "/account/post/$postId" (controller:"newsletter", action:"showPostStats")
-        name politicianMassMailingDebateStatsReport:    "/ajax/account/debate/$debateId/report" (controller:"debate", action: "sendReport")
+        name politicianCampaignStatsShow:               "/account/campaign/$campaignId" (controller:"newsletter", action:"showCampaignStats")
+        name politicianMassMailingDebateStatsReport:    "/ajax/account/debate/$campaignId/report" (controller:"debate", action: "sendReport")
 
         name politicianTeamManagement:                  "/account/team-management" (controller:"politician", action: "betaTesterPage")
 

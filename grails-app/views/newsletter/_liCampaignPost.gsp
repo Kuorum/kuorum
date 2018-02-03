@@ -49,7 +49,7 @@
     <ul class="list-actions">
         <g:if test="${post.campaignStatusRSDTO == CampaignStatusRSDTO.SENT}">
             <li>
-                <g:link mapping="politicianPostStatsShow" params="[postId: post.id]" role="button" class="campaignStats"><span class="fa fa-line-chart"></span> <span class="sr-only">Stats</span></g:link>
+                <g:link mapping="politicianCampaignStatsShow" params="[campaignId: post.id]" role="button" class="campaignStats"><span class="fa fa-line-chart"></span> <span class="sr-only">Stats</span></g:link>
             </li>
         </g:if>
         <li>

@@ -16,7 +16,7 @@ import org.kuorum.rest.model.notification.KuorumMailAccountDetailsRSDTO
 import org.kuorum.rest.model.notification.campaign.config.NewsletterConfigRSDTO
 import org.springframework.web.multipart.MultipartFile
 import org.springframework.web.multipart.MultipartHttpServletRequest
-import payment.campaign.MassMailingService
+import payment.campaign.NewsletterService
 
 @Secured(['ROLE_ADMIN'])
 class AdminController {
@@ -28,7 +28,7 @@ class AdminController {
     KuorumMailAccountService kuorumMailAccountService
     KuorumUserService kuorumUserService
 
-    MassMailingService massMailingService;
+    NewsletterService newsletterService;
 
     PoliticianService politicianService
 
@@ -132,7 +132,7 @@ class AdminController {
         Boolean requestState;
         KuorumUser user = kuorumUserService.findByAlias(userAlias)
         KuorumUserEmailSenderCommand command = new KuorumUserEmailSenderCommand()
-        NewsletterConfigRSDTO configRSDTO = massMailingService.findNewsletterConfig(user);
+        NewsletterConfigRSDTO configRSDTO = newsletterService.findNewsletterConfig(user);
         command.user = user;
         command.emailSender = configRSDTO.getEmailSender();
         requestState = configRSDTO.getEmailSenderRequested();
@@ -147,7 +147,7 @@ class AdminController {
         AdminConfigMailingRDTO adminRDTO = new AdminConfigMailingRDTO();
         adminRDTO.setEmailSender(command.emailSender);
 
-        massMailingService.updateNewsletterConfig(user, adminRDTO);
+        newsletterService.updateNewsletterConfig(user, adminRDTO);
 
         redirect(mapping:'editorAdminEmailSender', params:user.encodeAsLinkProperties())
     }

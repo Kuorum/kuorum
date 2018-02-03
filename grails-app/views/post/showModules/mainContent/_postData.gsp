@@ -1,6 +1,6 @@
 <!-- ^leader-post !-->
 <div class="leader-post">
-    <g:render template="showModules/mainContent/postDataMultimedia" model="[post:post]"/>
+    <g:render template="/post/showModules/mainContent/postDataMultimedia" model="[post:post]"/>
     <div class="header">
         <h1 class="title" itemprop="headline">${post.title}</h1>
         <userUtil:showUser user="${postUser}" showRole="true" itemprop="author"/>

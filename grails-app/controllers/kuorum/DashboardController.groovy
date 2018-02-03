@@ -5,6 +5,8 @@ import grails.plugin.springsecurity.annotation.Secured
 import kuorum.causes.CausesService
 import kuorum.core.model.search.Pagination
 import kuorum.dashboard.DashboardService
+import org.kuorum.rest.model.communication.CampaignRSDTO
+import payment.campaign.CampaignService
 import payment.campaign.PostService
 import kuorum.solr.SearchSolrService
 import kuorum.users.CookieUUIDService
@@ -18,14 +20,14 @@ import kuorum.web.constants.WebConstants
 import org.kuorum.rest.model.communication.PageCampaignRSDTO
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.kuorum.rest.model.communication.post.PostRSDTO
-import org.kuorum.rest.model.notification.campaign.CampaignRSDTO
+import org.kuorum.rest.model.notification.campaign.NewsletterRQDTO
+import org.kuorum.rest.model.notification.campaign.NewsletterRSDTO
 import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
 import org.kuorum.rest.model.payment.KuorumPaymentPlanDTO
 import org.kuorum.rest.model.tag.CauseRSDTO
-import org.kuorum.rest.model.tag.SuggestedCausesRSDTO
 import payment.CustomerService
 import payment.campaign.DebateService
-import payment.campaign.MassMailingService
+import payment.campaign.NewsletterService
 import payment.contact.ContactService
 
 class DashboardController {
@@ -37,9 +39,10 @@ class DashboardController {
     CausesService causesService
     SearchSolrService searchSolrService
     ContactService contactService
-    MassMailingService massMailingService
+    NewsletterService newsletterService
     DebateService debateService
     PostService postService
+    CampaignService campaignService
     DashboardService dashboardService
     CookieUUIDService cookieUUIDService
     CustomerService customerService;
@@ -81,18 +84,16 @@ class DashboardController {
 
         PageCampaignRSDTO pageCampaigns = dashboardService.findAllContactsCampaigns(user, viewerUid)
 
-        List<CampaignRSDTO> myCampaigns = massMailingService.findCampaigns(user)
-        List<DebateRSDTO> myDebates = debateService.findAllDebates(user)
-        List<PostRSDTO> myPosts = postService.findAllPosts(user)
-        List<CampaignRSDTO> sentDebateNewsletters = myDebates*.newsletter.findAll{it.status==CampaignStatusRSDTO.SENT}
-        List<CampaignRSDTO> sentPostNewsletters = myPosts*.newsletter.findAll{it.status==CampaignStatusRSDTO.SENT}
-        List<CampaignRSDTO> sentMassMailCampaigns = myCampaigns.findAll{it.status==CampaignStatusRSDTO.SENT}
-        List<CampaignRSDTO> sentCampaigns = sentMassMailCampaigns + sentDebateNewsletters + sentPostNewsletters
-        Long numberCampaigns = sentCampaigns?.size()?:0;
-        CampaignRSDTO lastCampaign = null
+        List<NewsletterRSDTO> myNewsletters = newsletterService.findCampaigns(user)
+        List<CampaignRSDTO> myCampaigns = campaignService.findAllCampaigns(user)
+        List<NewsletterRSDTO> sentCampaigns = myCampaigns*.newsletter.findAll{it.status==CampaignStatusRSDTO.SENT}
+        List<NewsletterRSDTO> sentNewsletters = myNewsletters.findAll{it.status==CampaignStatusRSDTO.SENT}
+        List<NewsletterRSDTO> sentCommunications = sentNewsletters + sentCampaigns
+        Long numberCampaigns = sentCommunications?.size()?:0;
+        NewsletterRSDTO lastCampaign = null
         Long durationDays = 0;
-        if (sentCampaigns){
-            lastCampaign = sentCampaigns.sort {it.sentOn}.last()?:null
+        if (sentCommunications){
+            lastCampaign = sentCommunications.sort {it.sentOn}.last()?:null
             use(groovy.time.TimeCategory) {
                 def duration = new Date() - lastCampaign.sentOn
                 durationDays = duration.days
@@ -157,7 +158,7 @@ class DashboardController {
         String viewerUid = cookieUUIDService.buildUserUUID()
         Integer page = pagination.offset/pagination.max;
         PageCampaignRSDTO pageCampaigns = dashboardService.findAllContactsCampaigns(user, viewerUid, page)
-        List<CampaignRSDTO> campaigns = pageCampaigns.data
+        List<NewsletterRQDTO> campaigns = pageCampaigns.data
         response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${pageCampaigns.total < (pagination.offset+pagination.max)}")
         render template: "/campaigns/cards/campaignsList", model:[campaigns:campaigns, showAuthor: true]
     }

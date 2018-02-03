@@ -3,15 +3,16 @@ package kuorum.politician
 import grails.plugin.springsecurity.SpringSecurityService
 import groovy.time.TimeCategory
 import kuorum.KuorumFile
-import kuorum.campaign.Campaign
 import kuorum.core.FileType
+import kuorum.core.exception.KuorumException
 import kuorum.files.FileService
+import kuorum.users.CookieUUIDService
+import kuorum.users.KuorumUserService
 import kuorum.util.TimeZoneUtil
 import kuorum.web.commands.payment.CampaignContentCommand
 import org.kuorum.rest.model.communication.CampaignRDTO
-import org.kuorum.rest.model.communication.debate.DebateRDTO
+import org.kuorum.rest.model.communication.CampaignTypeRSDTO
 import org.kuorum.rest.model.communication.event.EventRDTO
-import org.kuorum.rest.model.communication.post.PostRDTO
 import payment.CustomerService
 import payment.campaign.PostService
 import kuorum.users.KuorumUser
@@ -27,7 +28,10 @@ import org.kuorum.rest.model.contact.filter.FilterRDTO
 import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
 import payment.campaign.DebateService
 import payment.campaign.CampaignService
+import payment.campaign.CampaignCreatorService
 import payment.contact.ContactService
+
+import javax.servlet.http.HttpServletResponse
 
 class CampaignController {
 
@@ -37,6 +41,38 @@ class CampaignController {
     SpringSecurityService springSecurityService
     FileService fileService
     CustomerService customerService
+
+    KuorumUserService kuorumUserService
+    CookieUUIDService cookieUUIDService
+    CampaignService campaignService
+
+    def show() {
+        String viewerUid = cookieUUIDService.buildUserUUID()
+        KuorumUser user = kuorumUserService.findByAlias(params.userAlias)
+        try{
+            CampaignRSDTO campaignRSDTO = campaignService.find(user, Long.parseLong(params.campaignId),viewerUid)
+            if (!campaignRSDTO) {
+                throw new KuorumException(message(code: "post.notFound") as String)
+            }
+            def dataView = [view:null, model:null]
+            switch (campaignRSDTO.campaignType){
+                case CampaignTypeRSDTO.DEBATE:
+                    dataView = debateService.buildView(campaignRSDTO, user, viewerUid, params)
+                    break
+                case CampaignTypeRSDTO.POST:
+                    dataView = postService.buildView(campaignRSDTO, user, viewerUid, params)
+                    break
+                default:
+                    log.error("Campaign type not recognized: ${campaignRSDTO.campaignType}")
+                    throw new Exception("Campaign type not recognized: ${campaignRSDTO.campaignType}")
+            }
+            render view: dataView.view, model:dataView.model
+        }catch (Exception ignored){
+            flash.error = message(code: "post.notFound")
+            response.sendError(HttpServletResponse.SC_NOT_FOUND)
+            return false
+        }
+    }
 
     def findLiUserCampaigns(String userId){
         KuorumUser user = KuorumUser.get(new ObjectId(userId));
@@ -94,7 +130,7 @@ class CampaignController {
         rdto
     }
 
-    protected CampaignRDTO createRDTO(KuorumUser user, Long campaignId, CampaignService campaignService){
+    protected CampaignRDTO createRDTO(KuorumUser user, Long campaignId, CampaignCreatorService campaignService){
         CampaignRSDTO campaignRSDTO = campaignService.find(user, campaignId)
         return campaignService.map(campaignRSDTO)
     }
@@ -103,26 +139,34 @@ class CampaignController {
             CampaignSettingsCommand command,
             KuorumUser user,
             FilterRDTO anonymousFilter,
-            Long debateId,
-            CampaignService campaignService) {
-        CampaignRDTO campaignRDTO = createRDTO(user, debateId, campaignService)
+            Long campaignId,
+            CampaignCreatorService campaignService) {
+        CampaignRDTO campaignRDTO = createRDTO(user, campaignId, campaignService)
         mapCommandSettingsToRDTO(campaignRDTO, command, anonymousFilter)
     }
 
     protected Map<String, Object> saveCampaignSettings(
-            KuorumUser user,
             CampaignSettingsCommand command,
-            Long campaignId = null,
-            FilterRDTO anonymousFilter = null,
-            CampaignService campaignService){
+            def params,
+            CampaignCreatorService campaignService){
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        Long campaignId = params.campaignId?Long.parseLong(params.campaignId):null
+        FilterRDTO anonymousFilter = recoverAnonymousFilterSettings(params, command)
+
         CampaignRDTO campaignRDTO = convertCommandSettingsToRDTO(command, user, anonymousFilter, campaignId, campaignService)
         CampaignRSDTO campaignSaved = campaignService.save(user, campaignRDTO, campaignId)
         String msg = g.message(code:'tools.massMailing.saveDraft.advise', args: [campaignSaved.title])
 
-        [msg: msg, campaign: campaignSaved]
+        def nextStep =[
+                mapping:params.redirectLink,
+                params:campaignSaved.encodeAsLinkProperties()
+        ]
+
+        [msg: msg, campaign: campaignSaved,nextStep:nextStep]
     }
 
-    protected CampaignRSDTO setCampaignAsDraft(KuorumUser user, Long campaignId, CampaignService campaignService){
+    protected CampaignRSDTO setCampaignAsDraft(Long campaignId, CampaignCreatorService campaignService){
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         CampaignRSDTO campaignRSDTO = campaignService.find(user, campaignId)
         if (campaignRSDTO && campaignRSDTO.newsletter.status == CampaignStatusRSDTO.SCHEDULED){
             CampaignRDTO campaignRDTO = campaignService.map(campaignRSDTO)
@@ -133,7 +177,7 @@ class CampaignController {
 
     }
 
-    protected def campaignModelContent(Long campaignId, CampaignRSDTO campaignRSDTO=null, CampaignContentCommand command=null, CampaignService campaignService) {
+    protected def campaignModelContent(Long campaignId, CampaignRSDTO campaignRSDTO=null, CampaignContentCommand command=null, CampaignCreatorService campaignService) {
 
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         if(!campaignRSDTO){
@@ -175,7 +219,7 @@ class CampaignController {
         ]
     }
 
-    protected CampaignRDTO convertCommandContentToRDTO(CampaignContentCommand command, KuorumUser user, Long campaignId, CampaignService campaignService) {
+    protected CampaignRDTO convertCommandContentToRDTO(CampaignContentCommand command, KuorumUser user, Long campaignId, CampaignCreatorService campaignService) {
         CampaignRDTO campaignRDTO = createRDTO(user, campaignId, campaignService)
         campaignRDTO.title = command.title
         campaignRDTO.body = command.body
@@ -212,13 +256,12 @@ class CampaignController {
         campaignRDTO
     }
 
-    protected Map<String, Object> saveAndSendCampaignContent(KuorumUser user, CampaignContentCommand command,Long campaignId, CampaignService campaignService) {
+    protected Map<String, Object> saveAndSendCampaignContent(CampaignContentCommand command, Long campaignId, CampaignCreatorService campaignService) {
         String msg
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         CampaignRDTO campaignRDTO = convertCommandContentToRDTO(command, user, campaignId, campaignService)
 
         CampaignRSDTO savedCampaign = null
-        Boolean validSubscription = customerService.validSubscription(user);
-        Boolean goToPaymentProcess = !validSubscription && command.publishOn;
         if(command.publishOn){
             // Published or Scheduled
             savedCampaign = campaignService.save(user, campaignRDTO, campaignId)
@@ -252,7 +295,31 @@ class CampaignController {
             msg = g.message(code: 'tools.massMailing.saveDraft.advise', args: [savedCampaign.title])
         }
 
-        [msg: msg, campaign: savedCampaign, goToPaymentProcess:goToPaymentProcess]
+        [msg: msg, campaign: savedCampaign, nextStep:processNextStep(user, savedCampaign, command.getPublishOn()!= null)]
+    }
 
+    private def processNextStep(KuorumUser user, CampaignRSDTO campaignRSDTO, Boolean checkPaymentRedirect){
+        Boolean validSubscription = customerService.validSubscription(user);
+        Boolean goToPaymentProcess = !validSubscription && checkPaymentRedirect;
+
+        if (goToPaymentProcess){
+            String paymentRedirect = request.forwardURI.toString()
+            cookieUUIDService.setPaymentRedirect(paymentRedirect)
+            return [
+                    mapping:"paymentStart",
+                    params:[:]
+            ]
+        }else {
+            return [
+                    mapping:params.redirectLink,
+                    params:campaignRSDTO.encodeAsLinkProperties()
+            ]
+
+        }
+    }
+
+    protected void removeCampaign(Long campaignId, CampaignCreatorService campaignService){
+        KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
+        campaignService.remove(loggedUser, campaignId)
     }
 }

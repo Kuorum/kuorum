@@ -6,7 +6,6 @@ import grails.plugin.springsecurity.annotation.Secured
 import kuorum.KuorumFile
 import kuorum.dashboard.DashboardService
 import kuorum.files.FileService
-import payment.campaign.PostService
 import kuorum.users.CookieUUIDService
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
@@ -16,19 +15,22 @@ import kuorum.web.commands.payment.massMailing.MassMailingContentCommand
 import kuorum.web.commands.payment.massMailing.MassMailingSettingsCommand
 import kuorum.web.commands.payment.massMailing.MassMailingTemplateCommand
 import kuorum.web.commands.profile.TimeZoneCommand
+import org.kuorum.rest.model.communication.CampaignRSDTO
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.kuorum.rest.model.communication.post.PostRSDTO
 import org.kuorum.rest.model.contact.ContactPageRSDTO
 import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
 import org.kuorum.rest.model.contact.filter.FilterRDTO
-import org.kuorum.rest.model.notification.campaign.CampaignRQDTO
-import org.kuorum.rest.model.notification.campaign.CampaignRSDTO
 import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
 import org.kuorum.rest.model.notification.campaign.CampaignTemplateDTO
+import org.kuorum.rest.model.notification.campaign.NewsletterRQDTO
+import org.kuorum.rest.model.notification.campaign.NewsletterRSDTO
 import org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatsByCampaignPageRSDTO
 import org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO
+import payment.campaign.CampaignService
 import payment.campaign.DebateService
-import payment.campaign.MassMailingService
+import payment.campaign.NewsletterService
+import payment.campaign.PostService
 import payment.contact.ContactService
 
 @Secured(['IS_AUTHENTICATED_REMEMBERED'])
@@ -42,8 +44,9 @@ class NewsletterController {
 
     FileService fileService
 
-    MassMailingService massMailingService
+    NewsletterService newsletterService
 
+    CampaignService campaignService
     DebateService debateService
     PostService postService
 
@@ -61,7 +64,7 @@ class NewsletterController {
         }
 
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        List<CampaignRSDTO> campaigns = massMailingService.findCampaigns(user)
+        List<NewsletterRSDTO> campaigns = newsletterService.findCampaigns(user)
         List<DebateRSDTO> debates = debateService.findAllDebates(user)
         List<PostRSDTO> posts = postService.findAllPosts(user)
 
@@ -91,53 +94,53 @@ class NewsletterController {
         MassMailingTemplateCommand command = new MassMailingTemplateCommand()
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         Long campaignId = Long.parseLong(params.campaignId)
-        CampaignRSDTO campaignRSDTO = massMailingService.findCampaign(user, campaignId)
-        command.contentType = campaignRSDTO.template
-        [command: command, campaign: campaignRSDTO]
+        NewsletterRSDTO NewsletterRSDTO = newsletterService.findCampaign(user, campaignId)
+        command.contentType = NewsletterRSDTO.template
+        [command: command, campaign: NewsletterRSDTO]
     }
 
     def editContentStep(){
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         Long campaignId = Long.parseLong(params.campaignId)
-        CampaignRSDTO campaignRSDTO = massMailingService.findCampaign(user, campaignId)
-        if (campaignRSDTO == null){
+        NewsletterRSDTO NewsletterRSDTO = newsletterService.findCampaign(user, campaignId)
+        if (NewsletterRSDTO == null){
             flash.error="Campaign not found"
             redirect(mapping:"politicianCampaigns");
             return;
         }
-        def model = contentModel(user, new MassMailingContentCommand(), campaignRSDTO)
+        def model = contentModel(user, new MassMailingContentCommand(), NewsletterRSDTO)
         model
     }
 
-    private def contentModel(KuorumUser user, MassMailingContentCommand command, CampaignRSDTO campaignRSDTO = null){
+    private def contentModel(KuorumUser user, MassMailingContentCommand command, NewsletterRSDTO NewsletterRSDTO = null){
 
-        campaignRSDTO = campaignRSDTO?:massMailingService.findCampaign(user, command.campaignId)
+        NewsletterRSDTO = NewsletterRSDTO?:newsletterService.findCampaign(user, command.campaignId)
 
-        CampaignTemplateDTO template = campaignRSDTO.template?:CampaignTemplateDTO.NEWSLETTER
+        CampaignTemplateDTO template = NewsletterRSDTO.template?:CampaignTemplateDTO.NEWSLETTER
 
-        command.text= command.text?:campaignRSDTO.body;
-        command.subject = command.subject?:campaignRSDTO.subject;
+        command.text= command.text?:NewsletterRSDTO.body;
+        command.subject = command.subject?:NewsletterRSDTO.subject;
         command.setContentType(template)
 
         if(CampaignTemplateDTO.NEWSLETTER.equals(CampaignTemplateDTO.NEWSLETTER) && !command.headerPictureId){
-            KuorumFile kuorumFile = KuorumFile.findByUrl(campaignRSDTO.imageUrl);
+            KuorumFile kuorumFile = KuorumFile.findByUrl(NewsletterRSDTO.imageUrl);
             command.headerPictureId = kuorumFile?.id;
         }
 
-        def numberRecipients = getNumberRecipients(campaignRSDTO, user);
+        def numberRecipients = getNumberRecipients(NewsletterRSDTO, user);
         Boolean validSubscription = customerService.validSubscription(user)
 
         [
                 command: command,
                 contentType: template,
-                campaign: campaignRSDTO,
+                campaign: NewsletterRSDTO,
                 validSubscription:validSubscription,
                 numberRecipients: numberRecipients
         ]
     }
 
-    private Long getNumberRecipients(CampaignRSDTO campaignRSDTO, KuorumUser user){
-        campaignRSDTO.filter?.amountOfContacts!=null?campaignRSDTO.filter?.amountOfContacts:contactService.getUsers(user, null).total
+    private Long getNumberRecipients(NewsletterRSDTO NewsletterRSDTO, KuorumUser user){
+        NewsletterRSDTO.filter?.amountOfContacts!=null?NewsletterRSDTO.filter?.amountOfContacts:contactService.getUsers(user, null).total
     };
 
     /*** SAVE FIRST STEP ***/
@@ -160,12 +163,12 @@ class NewsletterController {
         List<ExtendedFilterRSDTO> filters = contactService.getUserFilters(user)
         ContactPageRSDTO contactPageRSDTO = contactService.getUsers(user)
         if(campaignId){
-            CampaignRSDTO campaignRSDTO = massMailingService.findCampaign(user, campaignId)
-            command.campaignName = campaignRSDTO.name
-            command.filterId = campaignRSDTO.filter?.id
-            command.tags = campaignRSDTO.triggeredTags
-            if (campaignRSDTO.filter && !filters.find{it.id == campaignRSDTO.filter.id}){
-                ExtendedFilterRSDTO anonymousFilter = contactService.getFilter(user, campaignRSDTO.filter.id)
+            NewsletterRSDTO NewsletterRSDTO = newsletterService.findCampaign(user, campaignId)
+            command.campaignName = NewsletterRSDTO.name
+            command.filterId = NewsletterRSDTO.filter?.id
+            command.tags = NewsletterRSDTO.triggeredTags
+            if (NewsletterRSDTO.filter && !filters.find{it.id == NewsletterRSDTO.filter.id}){
+                ExtendedFilterRSDTO anonymousFilter = contactService.getFilter(user, NewsletterRSDTO.filter.id)
                 filters.add(anonymousFilter)
             }
         }
@@ -173,9 +176,9 @@ class NewsletterController {
     }
 
     private def saveSettings(KuorumUser user, MassMailingSettingsCommand command, Long campaignId = null, FilterRDTO anonymousFilter = null){
-        CampaignRQDTO campaignRQDTO = mapSettingsToCampaign(command, user, anonymousFilter, campaignId)
-        campaignRQDTO.status = CampaignStatusRSDTO.DRAFT;
-        CampaignRSDTO savedCampaign = massMailingService.campaignDraft(user, campaignRQDTO, campaignId)
+        NewsletterRQDTO newsletterRQDTO = mapSettingsToCampaign(command, user, anonymousFilter, campaignId)
+        newsletterRQDTO.status = CampaignStatusRSDTO.DRAFT;
+        NewsletterRSDTO savedCampaign = newsletterService.campaignDraft(user, newsletterRQDTO, campaignId)
         String msg = g.message(code:'tools.massMailing.saveDraft.advise', args: [savedCampaign.subject])
         [msg:msg, campaign:savedCampaign]
     }
@@ -196,23 +199,23 @@ class NewsletterController {
     }
 
     private def saveAndSendTemplate(KuorumUser user, MassMailingTemplateCommand command, Long campaignId = null){
-        CampaignRQDTO campaignRQDTO = convertTemplateToCampaign(command, user, campaignId)
-        CampaignRSDTO savedCampaign = massMailingService.campaignDraft(user, campaignRQDTO, campaignId)
+        NewsletterRQDTO newsletterRQDTO = convertTemplateToCampaign(command, user, campaignId)
+        NewsletterRSDTO savedCampaign = newsletterService.campaignDraft(user, newsletterRQDTO, campaignId)
         String msg = g.message(code:'tools.massMailing.saveDraft.advise', args: [savedCampaign.name])
         [msg:msg, campaign:savedCampaign]
     }
 
-    private CampaignRQDTO convertTemplateToCampaign(MassMailingTemplateCommand command, KuorumUser user, Long campaignId){
-        CampaignRSDTO campaignRSDTO = massMailingService.findCampaign(user, campaignId)
-        CampaignRQDTO campaignRQDTO = transformRStoRQ(campaignRSDTO)
-        campaignRQDTO.setTemplate(command.contentType)
+    private NewsletterRQDTO convertTemplateToCampaign(MassMailingTemplateCommand command, KuorumUser user, Long campaignId){
+        NewsletterRSDTO NewsletterRSDTO = newsletterService.findCampaign(user, campaignId)
+        NewsletterRQDTO newsletterRQDTO = transformRStoRQ(NewsletterRSDTO)
+        newsletterRQDTO.setTemplate(command.contentType)
 
-        if (campaignRSDTO.template != command.contentType){
+        if (NewsletterRSDTO.template != command.contentType){
             // The template has been changed, so the body will be new
-            campaignRQDTO.body = "";
+            newsletterRQDTO.body = "";
         }
 
-        campaignRQDTO
+        newsletterRQDTO
     }
 
     /*** SAVE THIRD STEP ***/
@@ -239,27 +242,27 @@ class NewsletterController {
     }
 
     private def saveAndSendContent(KuorumUser user, MassMailingContentCommand command, Long campaignId = null){
-        CampaignRQDTO campaignRQDTO = mapContentCampaign(command, user, campaignId)
+        NewsletterRQDTO newsletterRQDTO = mapContentCampaign(command, user, campaignId)
         Boolean validSubscription = customerService.validSubscription(user);
         Boolean goToPaymentProcess = !validSubscription && (command.getSendType()=="SEND" || command.sendType == "SCHEDULED");
         String msg = ""
-        CampaignRSDTO savedCampaign = null;
+        NewsletterRSDTO savedCampaign = null;
         if (validSubscription && command.getSendType()=="SEND"){
-            savedCampaign = massMailingService.campaignSend(user, campaignRQDTO, campaignId)
+            savedCampaign = newsletterService.campaignSend(user, newsletterRQDTO, campaignId)
             msg = g.message(code:'tools.massMailing.send.advise', args: [savedCampaign.name])
         }else if(validSubscription && command.sendType == "SCHEDULED") {
-            savedCampaign = massMailingService.campaignSchedule(user, campaignRQDTO, command.getScheduled(), campaignId)
+            savedCampaign = newsletterService.campaignSchedule(user, newsletterRQDTO, command.getScheduled(), campaignId)
             msg = g.message(code: 'tools.massMailing.schedule.advise', args: [savedCampaign.name, g.formatDate(date: savedCampaign.sentOn, type: "datetime", style: "SHORT")])
         }else{
             // IS A DRAFT OR TEST
-            campaignRQDTO.status = CampaignStatusRSDTO.DRAFT;
-            savedCampaign = massMailingService.campaignDraft(user, campaignRQDTO, campaignId)
+            newsletterRQDTO.status = CampaignStatusRSDTO.DRAFT;
+            savedCampaign = newsletterService.campaignDraft(user, newsletterRQDTO, campaignId)
             msg = g.message(code:'tools.massMailing.saveDraft.advise', args: [savedCampaign.name])
         }
 
         if(command.sendType == "SEND_TEST"){
             msg = g.message(code:'tools.massMailing.saveDraft.adviseTest', args: [savedCampaign.name])
-            massMailingService.campaignTest(user, savedCampaign.getId())
+            newsletterService.campaignTest(user, savedCampaign.getId())
         }
         [msg:msg, campaign:savedCampaign, goToPaymentProcess:goToPaymentProcess]
     }
@@ -268,35 +271,24 @@ class NewsletterController {
 
     def showCampaign(Long campaignId){
         KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
-        CampaignRSDTO campaignRSDTO = massMailingService.findCampaign(loggedUser, campaignId)
-        if (campaignRSDTO.status == CampaignStatusRSDTO.DRAFT || campaignRSDTO.status == CampaignStatusRSDTO.SCHEDULED ){
+        NewsletterRSDTO NewsletterRSDTO = newsletterService.findCampaign(loggedUser, campaignId)
+        if (NewsletterRSDTO.status == CampaignStatusRSDTO.DRAFT || NewsletterRSDTO.status == CampaignStatusRSDTO.SCHEDULED ){
             redirect (mapping:'politicianMassMailingContent', params: [campaignId: campaignId])
         }else{
-            TrackingMailStatsByCampaignPageRSDTO trackingPage = massMailingService.findTrackingMails(loggedUser, campaignId)
-            render view: 'showCampaign', model: [newsletter: campaignRSDTO, trackingPage:trackingPage]
+            TrackingMailStatsByCampaignPageRSDTO trackingPage = newsletterService.findTrackingMails(loggedUser, campaignId)
+            render view: 'showCampaign', model: [newsletter: NewsletterRSDTO, trackingPage:trackingPage]
         }
     }
 
-    def showDebateStats(Long debateId){
+    def showCampaignStats(Long campaignId){
         KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
-        org.kuorum.rest.model.communication.CampaignRSDTO debate = debateService.find(loggedUser, debateId)
-        Long campaignId = debate.newsletter.id
-        if (debate.campaignStatusRSDTO == CampaignStatusRSDTO.DRAFT || debate.campaignStatusRSDTO == CampaignStatusRSDTO.SCHEDULED ){
+        CampaignRSDTO campaign = campaignService.find(loggedUser, campaignId)
+        Long newsletterId = campaign.newsletter.id
+        if (campaign.campaignStatusRSDTO == CampaignStatusRSDTO.DRAFT || campaign.campaignStatusRSDTO == CampaignStatusRSDTO.SCHEDULED ){
             redirect (mapping:'politicianMassMailingContent', params: [campaignId: campaignId])
         }else{
-            TrackingMailStatsByCampaignPageRSDTO trackingPage = massMailingService.findTrackingMails(loggedUser, campaignId)
-            render view: 'showCampaign', model: [newsletter: debate.newsletter, trackingPage:trackingPage, campaign:debate]
-        }
-    }
-    def showPostStats(Long postId){
-        KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
-        org.kuorum.rest.model.communication.CampaignRSDTO post = postService.find(loggedUser, postId)
-        Long campaignId = post.newsletter.id
-        if (post.campaignStatusRSDTO == CampaignStatusRSDTO.DRAFT || post.campaignStatusRSDTO == CampaignStatusRSDTO.SCHEDULED ){
-            redirect (mapping:'politicianMassMailingContent', params: [campaignId: campaignId])
-        }else{
-            TrackingMailStatsByCampaignPageRSDTO trackingPage = massMailingService.findTrackingMails(loggedUser, campaignId)
-            render view: 'showCampaign', model: [newsletter: post.newsletter, trackingPage:trackingPage, campaign:post]
+            TrackingMailStatsByCampaignPageRSDTO trackingPage = newsletterService.findTrackingMails(loggedUser, newsletterId)
+            render view: 'showCampaign', model: [newsletter: campaign.newsletter, trackingPage:trackingPage, campaign:campaign]
         }
     }
 
@@ -321,8 +313,8 @@ class NewsletterController {
 
     def showMailCampaign(Long campaignId){
         KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
-        CampaignRSDTO campaignRSDTO = massMailingService.findCampaign(loggedUser, campaignId)
-        render campaignRSDTO.htmlBody?:"Not sent"
+        NewsletterRSDTO NewsletterRSDTO = newsletterService.findCampaign(loggedUser, campaignId)
+        render NewsletterRSDTO.htmlBody?:"Not sent"
     }
 
     def showTrackingMails(Long campaignId){
@@ -335,7 +327,7 @@ class NewsletterController {
         }catch (Exception e){
             status = null;
         }
-        TrackingMailStatsByCampaignPageRSDTO trackingPage = massMailingService.findTrackingMails(loggedUser, campaignId, status, page, size)
+        TrackingMailStatsByCampaignPageRSDTO trackingPage = newsletterService.findTrackingMails(loggedUser, campaignId, status, page, size)
         render template: '/newsletter/campaignTabs/campaignRecipeints',
                 model: [
                         trackingPage:trackingPage,
@@ -346,7 +338,7 @@ class NewsletterController {
 
     def sendReport(Long campaignId){
         KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
-        massMailingService.findTrackingMailsReport(loggedUser, campaignId)
+        newsletterService.findTrackingMailsReport(loggedUser, campaignId)
         Boolean isAjax = request.xhr
         if(isAjax){
             render ([success:"success"] as JSON)
@@ -374,7 +366,7 @@ class NewsletterController {
 
     def removeCampaign(Long campaignId){
         KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
-        massMailingService.removeCampaign(loggedUser, campaignId)
+        newsletterService.removeCampaign(loggedUser, campaignId)
         render ([msg:"Campaing deleted"] as JSON)
     }
 
@@ -390,26 +382,26 @@ class NewsletterController {
         return filterRDTO
     }
 
-    private CampaignRQDTO convertCommandToCampaign(MassMailingCommand command, KuorumUser user,FilterRDTO anonymousFilter){
-        CampaignRQDTO campaignRQDTO = new CampaignRQDTO();
-        campaignRQDTO.setName(command.subject)
-        campaignRQDTO.setSubject(command.subject)
-        campaignRQDTO.setBody(command.text)
-        campaignRQDTO.setTriggerTags(command.tags)
+    private NewsletterRQDTO convertCommandToCampaign(MassMailingCommand command, KuorumUser user,FilterRDTO anonymousFilter){
+        NewsletterRQDTO newsletterRQDTO = new NewsletterRQDTO();
+        newsletterRQDTO.setName(command.subject)
+        newsletterRQDTO.setSubject(command.subject)
+        newsletterRQDTO.setBody(command.text)
+        newsletterRQDTO.setTriggerTags(command.tags)
         if (command.filterEdited){
 //            anonymousFilter.setName(g.message(code:'tools.contact.filter.anonymousName', args: anonymousFilter.getName()))
-            campaignRQDTO.setAnonymousFilter(anonymousFilter)
+            newsletterRQDTO.setAnonymousFilter(anonymousFilter)
         }else {
-            campaignRQDTO.setFilterId(command.filterId)
+            newsletterRQDTO.setFilterId(command.filterId)
         }
 
         if (command.headerPictureId){
             KuorumFile picture = KuorumFile.get(command.headerPictureId);
             picture = fileService.convertTemporalToFinalFile(picture)
             fileService.deleteTemporalFiles(user)
-            campaignRQDTO.setImageUrl(picture.getUrl())
+            newsletterRQDTO.setImageUrl(picture.getUrl())
         }
-        campaignRQDTO
+        newsletterRQDTO
     }
 
     def sendMassMailingTest(MassMailingContentCommand command, KuorumUser user){
@@ -428,95 +420,95 @@ class NewsletterController {
     }
 
     private def saveAndSendCampaign(KuorumUser user, MassMailingCommand command, Long campaignId = null, FilterRDTO anonymousFilter = null){
-        CampaignRQDTO campaignRQDTO = convertCommandToCampaign(command, user, anonymousFilter)
+        NewsletterRQDTO newsletterRQDTO = convertCommandToCampaign(command, user, anonymousFilter)
         String msg = ""
-        CampaignRSDTO savedCampaign = null;
+        NewsletterRSDTO savedCampaign = null;
         if (command.getSendType()=="SEND"){
-            savedCampaign = massMailingService.campaignSend(user, campaignRQDTO, campaignId)
+            savedCampaign = newsletterService.campaignSend(user, newsletterRQDTO, campaignId)
             msg = g.message(code:'tools.massMailing.send.advise', args: [savedCampaign.name])
         }else if(command.sendType == "SCHEDULED") {
-            savedCampaign = massMailingService.campaignSchedule(user, campaignRQDTO, command.getScheduled(), campaignId)
+            savedCampaign = newsletterService.campaignSchedule(user, newsletterRQDTO, command.getScheduled(), campaignId)
             msg = g.message(code: 'tools.massMailing.schedule.advise', args: [savedCampaign.subject, g.formatDate(date: savedCampaign.sentOn, type: "datetime", style: "SHORT")])
         }else{
             // IS A DRAFT
-            campaignRQDTO.status = CampaignStatusRSDTO.DRAFT;
-            savedCampaign = massMailingService.campaignDraft(user, campaignRQDTO, campaignId)
+            newsletterRQDTO.status = CampaignStatusRSDTO.DRAFT;
+            savedCampaign = newsletterService.campaignDraft(user, newsletterRQDTO, campaignId)
             msg = g.message(code:'tools.massMailing.saveDraft.advise', args: [savedCampaign.subject])
         }
 
         if(command.sendType == "SEND_TEST"){
             msg = g.message(code:'tools.massMailing.saveDraft.adviseTest', args: [savedCampaign.subject])
-            massMailingService.campaignTest(user, savedCampaign.getId())
+            newsletterService.campaignTest(user, savedCampaign.getId())
         }
         [msg:msg, campaign:savedCampaign]
     }
 
-    private CampaignRQDTO transformRStoRQ(KuorumUser loggedUser, Long campaignId) {
-        CampaignRSDTO campaignRSDTO = massMailingService.findCampaign(loggedUser, campaignId)
-        transformRStoRQ(campaignRSDTO)
+    private NewsletterRQDTO transformRStoRQ(KuorumUser loggedUser, Long campaignId) {
+        NewsletterRSDTO NewsletterRSDTO = newsletterService.findCampaign(loggedUser, campaignId)
+        transformRStoRQ(NewsletterRSDTO)
     }
-    private CampaignRQDTO transformRStoRQ(CampaignRSDTO rsdto){
-        CampaignRQDTO campaignRQDTO = new CampaignRQDTO();
-        campaignRQDTO.setName(rsdto.name)
-        campaignRQDTO.setSubject(rsdto.subject)
-        campaignRQDTO.setBody(rsdto.body)
-        campaignRQDTO.setTriggerTags(rsdto.triggeredTags)
-        campaignRQDTO.setFilterId(rsdto.filter?.id)
-        campaignRQDTO.setImageUrl(rsdto.imageUrl)
-        campaignRQDTO.setTemplate(rsdto.template)
-        campaignRQDTO
+    private NewsletterRQDTO transformRStoRQ(NewsletterRSDTO rsdto){
+        NewsletterRQDTO newsletterRQDTO = new NewsletterRQDTO();
+        newsletterRQDTO.setName(rsdto.name)
+        newsletterRQDTO.setSubject(rsdto.subject)
+        newsletterRQDTO.setBody(rsdto.body)
+        newsletterRQDTO.setTriggerTags(rsdto.triggeredTags)
+        newsletterRQDTO.setFilterId(rsdto.filter?.id)
+        newsletterRQDTO.setImageUrl(rsdto.imageUrl)
+        newsletterRQDTO.setTemplate(rsdto.template)
+        newsletterRQDTO
     }
 
-    private void updateScheduledCampaignToDraft(KuorumUser user, CampaignRSDTO campaignRSDTO){
-        if(campaignRSDTO.status == CampaignStatusRSDTO.SCHEDULED){
-            CampaignRQDTO campaignRQDTO = transformRStoRQ(campaignRSDTO)
-            campaignRQDTO.setSentOn(null)
-            campaignRQDTO.setStatus(CampaignStatusRSDTO.DRAFT)
-            massMailingService.campaignDraft(user, campaignRQDTO, campaignRSDTO.getId())
+    private void updateScheduledCampaignToDraft(KuorumUser user, NewsletterRSDTO NewsletterRSDTO){
+        if(NewsletterRSDTO.status == CampaignStatusRSDTO.SCHEDULED){
+            NewsletterRQDTO newsletterRQDTO = transformRStoRQ(NewsletterRSDTO)
+            newsletterRQDTO.setSentOn(null)
+            newsletterRQDTO.setStatus(CampaignStatusRSDTO.DRAFT)
+            newsletterService.campaignDraft(user, newsletterRQDTO, NewsletterRSDTO.getId())
         }
     }
 
     def exportCampaigns(){
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        massMailingService.findCampaignsCollectionReport(user);
+        newsletterService.findCampaignsCollectionReport(user);
         render ([msg:""] as JSON)
     }
 
 
-    private CampaignRQDTO mapSettingsToCampaign(MassMailingSettingsCommand command, KuorumUser user, FilterRDTO anonymousFilter, Long campaignId){
-        CampaignRQDTO campaignRQDTO = null;
+    private NewsletterRQDTO mapSettingsToCampaign(MassMailingSettingsCommand command, KuorumUser user, FilterRDTO anonymousFilter, Long campaignId){
+        NewsletterRQDTO newsletterRQDTO = null;
         if(campaignId){
-            campaignRQDTO = transformRStoRQ(user, campaignId)
+            newsletterRQDTO = transformRStoRQ(user, campaignId)
         }else{
 
-            campaignRQDTO = new CampaignRQDTO();
+            newsletterRQDTO = new NewsletterRQDTO();
         }
-        campaignRQDTO.setName(command.campaignName)
-        campaignRQDTO.setTriggerTags(command.tags)
+        newsletterRQDTO.setName(command.campaignName)
+        newsletterRQDTO.setTriggerTags(command.tags)
 
 
         if (command.filterEdited){
 //            anonymousFilter.setName(g.message(code:'tools.contact.filter.anonymousName', args: anonymousFilter.getName()))
-            campaignRQDTO.setAnonymousFilter(anonymousFilter)
-            campaignRQDTO.setFilterId(null)
+            newsletterRQDTO.setAnonymousFilter(anonymousFilter)
+            newsletterRQDTO.setFilterId(null)
         }else {
-            campaignRQDTO.setFilterId(command.filterId)
+            newsletterRQDTO.setFilterId(command.filterId)
         }
-        campaignRQDTO
+        newsletterRQDTO
     }
 
-    private CampaignRQDTO mapContentCampaign(MassMailingContentCommand command, KuorumUser user, campaignId){
-        CampaignRQDTO campaignRQDTO = transformRStoRQ(user, campaignId)
+    private NewsletterRQDTO mapContentCampaign(MassMailingContentCommand command, KuorumUser user, campaignId){
+        NewsletterRQDTO newsletterRQDTO = transformRStoRQ(user, campaignId)
 
-        campaignRQDTO.body = command.text
-        campaignRQDTO.subject = command.subject
+        newsletterRQDTO.body = command.text
+        newsletterRQDTO.subject = command.subject
 
         if (command.headerPictureId){
             KuorumFile picture = KuorumFile.get(command.headerPictureId);
             picture = fileService.convertTemporalToFinalFile(picture)
             fileService.deleteTemporalFiles(user)
-            campaignRQDTO.setImageUrl(picture.getUrl())
+            newsletterRQDTO.setImageUrl(picture.getUrl())
         }
-        campaignRQDTO
+        newsletterRQDTO
     }
 }

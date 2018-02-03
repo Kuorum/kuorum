@@ -157,4 +157,10 @@ class RatingController {
         }
     }
 
+    def loadRating(String userAlias){
+        KuorumUser user = KuorumUser.findByAlias(userAlias)
+        UserReputationRSDTO userReputationRSDTO = userReputationService.getReputationWithCache(user)
+        render template: "/kuorumUser/popoverUserRating", model: [user:user,userReputation: userReputationRSDTO]
+    }
+
 }

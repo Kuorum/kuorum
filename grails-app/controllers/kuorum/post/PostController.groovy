@@ -2,42 +2,15 @@ package kuorum.post
 
 import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
-import kuorum.core.exception.KuorumException
 import kuorum.politician.CampaignController
-import kuorum.users.CookieUUIDService
 import kuorum.users.KuorumUser
-import kuorum.users.KuorumUserService
 import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.commands.payment.CampaignSettingsCommand
 import kuorum.web.commands.payment.massMailing.post.LikePostCommand
-import org.kuorum.rest.model.communication.event.EventRegistrationRSDTO
 import org.kuorum.rest.model.communication.post.PostRSDTO
 import org.kuorum.rest.model.contact.filter.FilterRDTO
-import payment.campaign.event.EventService
-
-import javax.servlet.http.HttpServletResponse
 
 class PostController extends CampaignController{
-
-    KuorumUserService kuorumUserService
-    CookieUUIDService cookieUUIDService
-
-    def show() {
-        String viewerUid = cookieUUIDService.buildUserUUID()
-        KuorumUser postUser = kuorumUserService.findByAlias(params.userAlias)
-        try{
-            PostRSDTO postRSDTO = postService.find(postUser, Long.parseLong(params.postId),viewerUid)
-            if (!postRSDTO) {
-                throw new KuorumException(message(code: "post.notFound") as String)
-            }
-            def model = [post: postRSDTO, postUser: postUser]
-            return  model
-        }catch (Exception ignored){
-            flash.error = message(code: "post.notFound")
-            response.sendError(HttpServletResponse.SC_NOT_FOUND)
-            return false
-        }
-    }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def create() {
@@ -45,27 +18,24 @@ class PostController extends CampaignController{
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
-    def remove(Long postId) {
-        KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
-        postService.removePost(loggedUser, postId)
+    def remove(Long campaignId) {
+        removeCampaign(campaignId)
         render ([msg: "Post deleted"] as JSON)
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def editSettingsStep(){
-        String viewerUid = cookieUUIDService.buildUserUUID()
         KuorumUser postUser = KuorumUser.get(springSecurityService.principal.id)
-        PostRSDTO postRSDTO = postService.find(postUser, Long.parseLong(params.postId), viewerUid)
+        PostRSDTO postRSDTO = postService.find(postUser, Long.parseLong(params.campaignId))
         return postModelSettings(new CampaignSettingsCommand(debatable:false), postRSDTO)
 
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def editContentStep(){
-        Long postId = Long.parseLong(params.postId)
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        PostRSDTO postRSDTO = setCampaignAsDraft(user,postId, postService)
-        return campaignModelContent(postId, postRSDTO, null, postService)
+        Long campaignId = Long.parseLong(params.campaignId)
+        PostRSDTO postRSDTO = setCampaignAsDraft(campaignId, postService)
+        return campaignModelContent(campaignId, postRSDTO, null, postService)
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
@@ -74,16 +44,9 @@ class PostController extends CampaignController{
             render view: 'create', model: postModelSettings(command, null)
             return
         }
-        String nextStep = params.redirectLink
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        FilterRDTO anonymousFilter = recoverAnonymousFilterSettings(params, command)
-        Long postId = params.postId?Long.parseLong(params.postId):null
         command.eventAttached=false
-        Map<String, Object> result = saveCampaignSettings(user, command, postId, anonymousFilter, postService)
-
-        //flash.message = resultPost.msg.toString()
-
-        redirect mapping: nextStep, params: result.campaign.encodeAsLinkProperties()
+        Map<String, Object> result = saveCampaignSettings(command, params, postService)
+        redirect mapping: result.nextStep.mapping, params: result.nextStep.params
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
@@ -92,21 +55,12 @@ class PostController extends CampaignController{
             if(command.errors.getFieldError().arguments.first() == "publishOn"){
                 flash.error = message(code: "post.scheduleError")
             }
-            render view: 'editContentStep', model: campaignModelContent(Long.parseLong(params.postId), null, command, postService)
+            render view: 'editContentStep', model: campaignModelContent(Long.parseLong(params.campaignId), null, command, postService)
             return
         }
-        String nextStep = params.redirectLink
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        Long postId = params.postId?Long.parseLong(params.postId):null
-        Map<String, Object> resultPost = saveAndSendCampaignContent(user, command, postId, postService)
-        if (resultPost.goToPaymentProcess){
-            String paymentRedirect = g.createLink(mapping:"postEditContent", params:resultPost.campaign.encodeAsLinkProperties() )
-            cookieUUIDService.setPaymentRedirect(paymentRedirect)
-            redirect(mapping: "paymentStart")
-        }else {
-//            flash.message = resultPost.msg.toString()
-            redirect mapping: nextStep, params: resultPost.campaign.encodeAsLinkProperties()
-        }
+        Long campaignId = params.campaignId?Long.parseLong(params.campaignId):null
+        Map<String, Object> result = saveAndSendCampaignContent(command, campaignId, postService)
+        redirect mapping: result.nextStep.mapping, params: result.nextStep.params
     }
 
     private def postModelSettings(CampaignSettingsCommand command, PostRSDTO postRSDTO) {

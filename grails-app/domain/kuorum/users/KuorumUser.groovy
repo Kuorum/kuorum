@@ -56,7 +56,6 @@ class KuorumUser {
     List<MailType> availableMails = MailType.values()
 
     Gamification gamification = new Gamification()
-    Activity activity = new Activity()
     SocialLinks socialLinks = new SocialLinks()
     KuorumUser organization
 
