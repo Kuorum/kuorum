@@ -9127,10 +9127,10 @@ ul.notification-menu > li.see-more {
 }
 
 .survey-question-answer .option.checked {
-    display: block;
+    display: none;
 }
 .survey-question-answer .multi-option.checked {
-    display: block;
+    display: none;
 }
 
 .survey-question-answer .option, .survey-question-answer .multi-option {
@@ -9166,8 +9166,8 @@ ul.notification-menu > li.see-more {
     padding-bottom: 10px;
 }
 
-.survey-question-answer .progress, .progress-bar-counter {
-    display: block;
+.survey-question-answer .progress, .survey-question-answer .progress-bar-counter {
+    display: none;
 }
 
 .survey-question .social {
