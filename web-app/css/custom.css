@@ -9156,6 +9156,9 @@ ul.notification-menu > li.see-more {
     box-shadow: none;
     -webkit-box-shadow: none;
     background-color: #00a3ed;
+    width: 0;
+    transition: 0.8s linear;
+    transition-property: width;
 }
 
 .survey-question-answer .progress-bar-counter {

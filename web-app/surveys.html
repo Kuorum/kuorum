@@ -379,10 +379,10 @@
                                         <div class="option checked">
                                             <span class="fa fa-check-circle check-icon"></span><span>Yes, it is slightly better</span>
                                         </div>
-                                        <div class="progress-bar-counter">15</div>
+                                        <div class="progress-bar-counter" data-answer-counter="50">50</div>
                                         <div class="progress">
-                                            <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">
-                                                <span class="sr-only">70% Complete</span>
+                                                <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" data-answer-percent-selected="50" data-answer-percent="30">
+                                                <span class="sr-only">49% Complete</span>
                                             </div>
                                         </div>
                                     </div>
@@ -393,10 +393,10 @@
                                         <div class="option checked">
                                             <span class="fa fa-check-circle check-icon"></span><span>Yes, it is slightly better</span>
                                         </div>
-                                        <div class="progress-bar-counter">95</div>
+                                        <div class="progress-bar-counter">30</div>
                                         <div class="progress">
-                                            <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:20%">
-                                                <span class="sr-only">20% Complete</span>
+                                            <div class="progress-bar" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" data-answer-percent-selected="30" data-answer-percent="10">
+                                                <span class="sr-only">30% Complete</span>
                                             </div>
                                         </div>
                                     </div>
@@ -407,10 +407,10 @@
                                         <div class="option checked">
                                             <span class="fa fa-check-circle check-icon"></span><span>Yes, it is slightly better</span>
                                         </div>
-                                        <div class="progress-bar-counter">5</div>
+                                        <div class="progress-bar-counter">20</div>
                                         <div class="progress">
-                                            <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:10%">
-                                                <span class="sr-only">10% Complete</span>
+                                            <div class="progress-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" data-answer-percent-selected="20" data-answer-percent="0">
+                                                <span class="sr-only">20% Complete</span>
                                             </div>
                                         </div>
                                     </div>
@@ -899,6 +899,14 @@
                 });
             };
 
+            var _setProgressBarsPercent = function(progressBars) {
+                var arr = [].slice.call(progressBars);
+                arr.forEach(function(element) {
+                    var progressBar = element.children[0];
+                    progressBar.style.width = progressBar.getAttribute('data-answer-percent') + '%';
+                });
+            }
+
             options.forEach(function(option) {
                 option.addEventListener('click', function (event) {
                     var answer = event.currentTarget.parentElement;
@@ -906,6 +914,8 @@
                     var progressBarCounters = question.getElementsByClassName('progress-bar-counter');
                     var progressBars = question.getElementsByClassName('progress');
                     var selectedAnswer = question.querySelector('[data-answer-id="' + question.getAttribute('data-answer-selected') + '"] .option.checked');
+                    var progressBar = answer.getElementsByClassName('progress-bar')[0];
+
                     if (!!selectedAnswer === true) {    
                         _hideElement(selectedAnswer);
                         _showElement(selectedAnswer.previousElementSibling);
@@ -921,6 +931,10 @@
                     _showElement(event.currentTarget.nextElementSibling);
                     _showAllElements(progressBarCounters);
                     _showAllElements(progressBars);
+                    setTimeout(function() {
+                        _setProgressBarsPercent(progressBars);
+                        progressBar.style.width = progressBar.getAttribute('data-answer-percent-selected') + '%';
+                    }, 100);  
                 });    
             });            
         </script>
