@@ -916,11 +916,14 @@
                     var selectedAnswers = (question.getAttribute('data-answer-selected') !== "") ? JSON.parse(question.getAttribute('data-answer-selected')) : "";
                     var answerPosition = selectedAnswers.indexOf(answer.getAttribute('data-answer-id'));
                     var progressBar = element.children[0];
+                    var progressBarCounter = element.previousElementSibling;
 
                     if (answerPosition === -1) {
                         progressBar.style.width = progressBar.getAttribute('data-answer-percent') + '%';
+                        progressBarCounter.textContent = parseInt(progressBarCounter.getAttribute('data-answer-counter'));
                     } else {
                         progressBar.style.width = progressBar.getAttribute('data-answer-percent-selected') + '%';
+                        progressBarCounter.textContent = parseInt(progressBarCounter.getAttribute('data-answer-counter')) + 1;
                     }
                 });
             }
