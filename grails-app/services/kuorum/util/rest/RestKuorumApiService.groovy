@@ -177,6 +177,9 @@ class RestKuorumApiService {
         ACCOUNT_POST            ("/communication/campaign/post/{userAlias}/{postId}"),
         ACCOUNT_POST_LIKES      ("/communication/campaign/post/{userAlias}/{postId}/likes"),
 
+        ACCOUNT_SURVEYS         ("/communication/campaign/survey/{userAlias}"),
+        ACCOUNT_SURVEY          ("/communication/campaign/survey/{userAlias}/{surveyId}"),
+
         ACCOUNT_EVENTS              ("/communication/campaign/event/{userAlias}"),
         ACCOUNT_EVENT               ("/communication/campaign/event/{userAlias}/{eventId}"),
         ACCOUNT_EVENT_ADD_ASSISTANT ("/communication/campaign/event/{userAlias}/{eventId}/assistant/{assistantAlias}"),

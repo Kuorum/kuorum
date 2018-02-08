@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <g:set var="breadCrumbName">
-        <g:message code="tools.campaign.new.post"/>
+        <g:message code="tools.campaign.new.survey"/>
     </g:set>
 
     <title>${breadCrumbName}</title>
@@ -21,13 +21,14 @@
             filters: filters,
             totalContacts: totalContacts,
             anonymousFilter: anonymousFilter,
-            events:[TrackingMailStatusRSDTO.OPEN,TrackingMailStatusRSDTO.CLICK,TrackingMailStatusRSDTO.POST_LIKE],
+            events:[TrackingMailStatusRSDTO.OPEN,TrackingMailStatusRSDTO.CLICK],
             mappings:[
                     step:'settings',
-                    settings:'postEdit',
-                    content:'postEditContent',
-                    showResult: 'postShow',
-                    next: 'postEditContent'
+                    settings:'surveyEdit',
+                    questions:'surveyEditQuestions',
+                    content:'surveyEditContent',
+                    showResult: 'surveyShow',
+                    next: 'surveyEditContent'
             ]]"/>
     <g:render template="/newsletter/timeZoneSelectorPopUp"/>
 </content>

@@ -424,6 +424,14 @@ class UrlMappings {
         name postEditContent:       "/account/$userAlias/p/$urlTitle-$campaignId/edit-content" (controller: "post"){action = [GET: "editContentStep", POST: "saveContent"]}
         name postShow:              "/$userAlias/$urlTitle-$campaignId"           (controller: "campaign", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
                                     "/$userAlias/-$campaignId"                    (controller: "campaign", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+
+        name surveyRemove:          "/ajax/account/$userAlias/s/$urlTitle-$campaignId/remove" (controller: "survey", action: "remove")
+        name surveyCreate:          "/account/survey/new" (controller: "survey"){action = [GET: "create", POST: "saveSettings"]}
+        name surveyEditSettings:    "/account/$userAlias/s/$urlTitle-$campaignId/edit-settings" (controller: "survey"){action = [GET: "editSettingsStep", POST: "saveSettings"]}
+        name surveyEditContent:     "/account/$userAlias/s/$urlTitle-$campaignId/edit-content" (controller: "survey"){action = [GET: "editContentStep", POST: "saveContent"]}
+        name surveyEditQuestions:   "/account/$userAlias/s/$urlTitle-$campaignId/edit-questions" (controller: "survey"){action = [GET: "editQuestionsStep", POST: "saveQuestions"]}
+        name surveyShow:            "/$userAlias/$urlTitle-$campaignId"           (controller: "campaign", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+//                                    "/$userAlias/-$campaignId"                    (controller: "campaign", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
         // POST LANG DEPRECATED
         name langPostShow:          "/$lang/$userAlias/p/$urlTitle-$campaignId"     {controller="redirect"; action= "redirect301"; newMapping='postShow';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
                                     "/en/$userAlias/p/$urlTitle-$campaignId"        {controller="redirect"; action= "redirect301"; newMapping='postShow';lang="en";}

@@ -1512,7 +1512,7 @@ ul.list > li > ul.list-actions > li > a:active {color: #20a2ea;}
 #mails {text-align: center;}
 #mails li {list-style: none; display: inline-block; margin: 0 17px 20px;}
 /*#mails li:last-child {margin-right: 0;}*/
-#mails li > a {margin:auto; display: block; width: 107px; height: 91px; padding-top: 60px; font-size: 16px; font-size: 1.6rem; background-color: #fff; background-repeat: no-repeat; border: 1px solid #ff9431;}
+#mails li > a {margin:auto; display: block; width: 85px; height: 80px; padding-top: 60px; font-size: 16px; font-size: 1.3rem; background-color: #fff; background-repeat: no-repeat; border: 1px solid #ff9431;}
 #mails li > a:hover, #mails li > a:focus, #mails li > a:active {text-decoration: none; background-color: #fbfbfb;}
 #mails li > #gmail {background-image: url('../images/mail-gmail.png'); background-position: center 15px;}
 #mails li > #yahoo {background-image: url('../images/mail-yahoo.png'); background-position: center 25px;}
@@ -1521,7 +1521,7 @@ ul.list > li > ul.list-actions > li > a:active {color: #20a2ea;}
 .container-fluid.box-ppal.choose-campaign {padding:70px 0px 50px 0px; box-shadow: 0 0 2px rgba(200,200,200,0.6);}
 #mails {margin:0 auto; padding:0;}
 #mails li.fontIcon > a {padding:16px 2px;}
-#mails li.fontIcon > a > span.fa {font-size: 2em;width: 100%;margin-bottom: 10px;}
+#mails li.fontIcon > a > span.fa {font-size: 2em;width: 100%;}
 #mails li.fontIcon > a > span.label {color:inherit; padding:0; font-weight: inherit;font-size: inherit}
 
 .dashboard, .box-ppal.dashboard {margin-top: 20px;}

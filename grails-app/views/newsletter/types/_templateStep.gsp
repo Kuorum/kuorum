@@ -14,9 +14,10 @@
             <h4 for="contentType" class="col-sm-3 col-md-2 control-label"><g:message code="kuorum.web.commands.payment.massMailing.MassMailingCommand.contentType.label"/>:</h4>
             <div class="col-sm-6 col-md-5">
                 <formUtil:radioEnum command="${command}" field="contentType" labelCssClass="hide" deleteOptions="[
-                        org.kuorum.rest.model.notification.campaign.CampaignTemplateDTO.EVENT,
-                        org.kuorum.rest.model.notification.campaign.CampaignTemplateDTO.DEBATE,
-                        org.kuorum.rest.model.notification.campaign.CampaignTemplateDTO.POST
+                        org.kuorum.rest.model.notification.campaign.NewsletterTemplateDTO.EVENT,
+                        org.kuorum.rest.model.notification.campaign.NewsletterTemplateDTO.DEBATE,
+                        org.kuorum.rest.model.notification.campaign.NewsletterTemplateDTO.POST,
+                        org.kuorum.rest.model.notification.campaign.NewsletterTemplateDTO.SURVEY
                 ]"/>
             </div>
         </fieldset>
@@ -44,23 +45,23 @@
                 var originalValue = '${campaign.template}';
                 var newValue = $(this).val();
                 if (originalValue != newValue){
-                    $("#campaignTemplateEdited").modal("show")
+                    $("#newsletterTemplateEdited").modal("show")
                 }
             })
 
-            $("#campaignTemplateEditedButtonOk").on("click", function(e){
+            $("#newsletterTemplateEditedButtonOk").on("click", function(e){
                 e.preventDefault();
-                $("#campaignTemplateEdited").modal("hide")
+                $("#newsletterTemplateEdited").modal("hide")
             })
-            $("#campaignTemplateEditedButtonCancel").on("click", function(e){
+            $("#newsletterTemplateEditedButtonCancel").on("click", function(e){
                 e.preventDefault();
                 var originalValue = '${campaign.template}';
                 $('input[name="contentType"][value="' + originalValue + '"]').prop('checked', true);
-                $("#campaignTemplateEdited").modal("hide")
+                $("#newsletterTemplateEdited").modal("hide")
             })
         });
     </r:script>
-    <div class="modal fade in" id="campaignTemplateEdited" tabindex="-1" role="dialog" aria-labelledby="campaignTemplateEditedTitle" aria-hidden="true">
+    <div class="modal fade in" id="newsletterTemplateEdited" tabindex="-1" role="dialog" aria-labelledby="newsletterTemplateEditedTitle" aria-hidden="true">
         <div class="modal-dialog ">
             <div class="modal-content">
                 <div class="modal-header">
@@ -68,18 +69,18 @@
                         <span aria-hidden="true" class="fa fa-times-circle-o fa"></span><span class="sr-only"><g:message code="modalDefend.close"/></span>
                     </button>
                     <h4>
-                        <g:message code="tools.massMailing.campaignTemplateEdited.title"/>
+                        <g:message code="tools.massMailing.newsletterTemplateEdited.title"/>
                     </h4>
                 </div>
                 <div class="modal-body">
-                    <p><g:message code="tools.massMailing.campaignTemplateEdited.text"/> </p>
+                    <p><g:message code="tools.massMailing.newsletterTemplateEdited.text"/> </p>
                 </div>
                 <div class="modal-footer">
-                    <a href="#" class="btn btn-grey-light btn-lg" id="campaignTemplateEditedButtonCancel">
-                        <g:message code="tools.massMailing.campaignTemplateEdited.cancel"/>
+                    <a href="#" class="btn btn-grey-light btn-lg" id="newsletterTemplateEditedButtonCancel">
+                        <g:message code="tools.massMailing.newsletterTemplateEdited.cancel"/>
                     </a>
-                    <a href="#" class="btn btn-blue inverted btn-lg" id="campaignTemplateEditedButtonOk">
-                        <g:message code="tools.massMailing.campaignTemplateEdited.button"/>
+                    <a href="#" class="btn btn-blue inverted btn-lg" id="newsletterTemplateEditedButtonOk">
+                        <g:message code="tools.massMailing.newsletterTemplateEdited.button"/>
                     </a>
                 </div>
             </div>

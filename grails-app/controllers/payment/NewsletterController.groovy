@@ -16,15 +16,13 @@ import kuorum.web.commands.payment.massMailing.MassMailingSettingsCommand
 import kuorum.web.commands.payment.massMailing.MassMailingTemplateCommand
 import kuorum.web.commands.profile.TimeZoneCommand
 import org.kuorum.rest.model.communication.CampaignRSDTO
-import org.kuorum.rest.model.communication.debate.DebateRSDTO
-import org.kuorum.rest.model.communication.post.PostRSDTO
 import org.kuorum.rest.model.contact.ContactPageRSDTO
 import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
 import org.kuorum.rest.model.contact.filter.FilterRDTO
 import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
-import org.kuorum.rest.model.notification.campaign.CampaignTemplateDTO
 import org.kuorum.rest.model.notification.campaign.NewsletterRQDTO
 import org.kuorum.rest.model.notification.campaign.NewsletterRSDTO
+import org.kuorum.rest.model.notification.campaign.NewsletterTemplateDTO
 import org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatsByCampaignPageRSDTO
 import org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO
 import payment.campaign.CampaignService
@@ -64,11 +62,10 @@ class NewsletterController {
         }
 
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        List<NewsletterRSDTO> campaigns = newsletterService.findCampaigns(user)
-        List<DebateRSDTO> debates = debateService.findAllDebates(user)
-        List<PostRSDTO> posts = postService.findAllPosts(user)
+        List<NewsletterRSDTO> newsletters = newsletterService.findCampaigns(user)
+        List<CampaignRSDTO> campaigns = campaignService.findAllCampaigns(user)
 
-        [campaigns: campaigns, debates: debates, posts: posts, user: user]
+        [newsletters: newsletters, campaigns: campaigns, user:user]
     }
 
     def newCampaign(){
@@ -116,13 +113,13 @@ class NewsletterController {
 
         NewsletterRSDTO = NewsletterRSDTO?:newsletterService.findCampaign(user, command.campaignId)
 
-        CampaignTemplateDTO template = NewsletterRSDTO.template?:CampaignTemplateDTO.NEWSLETTER
+        NewsletterTemplateDTO template = NewsletterRSDTO.template?:NewsletterTemplateDTO.NEWSLETTER
 
         command.text= command.text?:NewsletterRSDTO.body;
         command.subject = command.subject?:NewsletterRSDTO.subject;
         command.setContentType(template)
 
-        if(CampaignTemplateDTO.NEWSLETTER.equals(CampaignTemplateDTO.NEWSLETTER) && !command.headerPictureId){
+        if(NewsletterTemplateDTO.NEWSLETTER.equals(NewsletterTemplateDTO.NEWSLETTER) && !command.headerPictureId){
             KuorumFile kuorumFile = KuorumFile.findByUrl(NewsletterRSDTO.imageUrl);
             command.headerPictureId = kuorumFile?.id;
         }

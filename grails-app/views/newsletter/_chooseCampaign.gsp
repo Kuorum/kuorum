@@ -44,17 +44,20 @@
             <span class="label"><g:message code="tools.campaign.new.event"/></span>
         </g:link>
     </li>
-    %{--<li class="fontIcon"><g:link mapping="debateCreate" role="button" class="mail">--}%
-    %{--<span class="fa fa-bar-chart-o"></span>--}%
-    %{--<span class="label"><g:message code="tools.campaign.new.survey"/></span></g:link>--}%
-    %{--</li>--}%
-    %{--<li class="fontIcon"><g:link mapping="debateCreate" role="button" class="mail">--}%
+    <li class="fontIcon">
+        <g:link mapping="surveyCreate" role="button" class="mail new-campaign-tip"
+                rel="tooltip"
+                data-toggle="tooltip"
+                data-placement="bottom"
+                title=""
+                data-original-title="${g.message(code:'dashboard.payment.chooseCampaign.tooltip.survey')}">
+            <span class="fa fa-bar-chart-o"></span>
+            <span class="label"><g:message code="tools.campaign.new.survey"/></span>
+        </g:link>
+    </li>
+    %{--<li class="fontIcon disabled"><g:link mapping="debateCreate" role="button" class="mail">--}%
     %{--<span class="fa fa-microphone"></span>--}%
     %{--<span class="label"><g:message code="tools.campaign.new.petition"/></span></g:link>--}%
-    %{--</li>--}%
-    %{--<li class="fontIcon"><g:link mapping="debateCreate" role="button" class="mail">--}%
-    %{--<span class="fa fa-calendar-check-o"></span>--}%
-    %{--<span class="label"><g:message code="tools.campaign.new.event"/></span></g:link>--}%
     %{--</li>--}%
 
 </ul>

@@ -1,7 +1,7 @@
 package kuorum.web.commands.payment.massMailing
 
 import grails.validation.Validateable
-import org.kuorum.rest.model.notification.campaign.CampaignTemplateDTO
+import org.kuorum.rest.model.notification.campaign.NewsletterTemplateDTO
 
 /**
  * Created by toni on 21/4/17.
@@ -9,7 +9,7 @@ import org.kuorum.rest.model.notification.campaign.CampaignTemplateDTO
 @Validateable
 class MassMailingTemplateCommand {
 
-    CampaignTemplateDTO contentType
+    NewsletterTemplateDTO contentType
 
     static constraints = {
         contentType nullable: false

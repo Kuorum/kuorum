@@ -29,6 +29,7 @@ import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
 import payment.campaign.DebateService
 import payment.campaign.CampaignService
 import payment.campaign.CampaignCreatorService
+import payment.campaign.SurveyService
 import payment.contact.ContactService
 
 import javax.servlet.http.HttpServletResponse
@@ -37,6 +38,7 @@ class CampaignController {
 
     PostService postService
     DebateService debateService
+    SurveyService surveyService
     ContactService contactService
     SpringSecurityService springSecurityService
     FileService fileService
@@ -76,9 +78,7 @@ class CampaignController {
 
     def findLiUserCampaigns(String userId){
         KuorumUser user = KuorumUser.get(new ObjectId(userId));
-        List<PostRSDTO> posts = postService.findAllPosts(user).findAll{it.newsletter.status==CampaignStatusRSDTO.SENT};
-        List<DebateRSDTO> debates = debateService.findAllDebates(user).findAll{it.newsletter.status==CampaignStatusRSDTO.SENT};
-        List<CampaignRSDTO> campaigns = posts + debates
+        List<CampaignRSDTO> campaigns = campaignService.findAllCampaigns(user).findAll{it.newsletter.status==CampaignStatusRSDTO.SENT};
         render template: '/campaigns/cards/campaignsList', model: [campaigns:campaigns, showAuthor:true]
 
     }

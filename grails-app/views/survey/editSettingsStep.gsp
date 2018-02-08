@@ -6,7 +6,7 @@
             ${campaign.name}
         </g:if>
         <g:else>
-            <g:message code="tools.campaign.new.post"/>
+            <g:message code="tools.campaign.new.survey"/>
         </g:else>
     </g:set>
 
@@ -31,14 +31,13 @@
                       events:[
                               TrackingMailStatusRSDTO.OPEN,
                               TrackingMailStatusRSDTO.CLICK]
-                              + (campaign.event?[TrackingMailStatusRSDTO.EVENT_BOOK_TICKET,TrackingMailStatusRSDTO.EVENT_CHECK_IN]:[TrackingMailStatusRSDTO.POST_LIKE])
                       ,
                       mappings:[
                               step:'settings',
-                              settings:'postEdit',
-                              event:'postEditEvent',
-                              content:'postEditContent',
-                              showResult: 'postShow',
-                              next: 'postEditContent'
+                              next:'surveyEditQuestions',
+                              settings:'surveyEditSettings',
+                              questions:'surveyEditQuestions',
+                              content:'surveyEditContent',
+                              showResult: 'surveyShow'
                       ]]"/>
 </content>
