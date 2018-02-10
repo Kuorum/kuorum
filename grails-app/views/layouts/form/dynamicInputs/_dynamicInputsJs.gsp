@@ -69,19 +69,32 @@
         <g:if test="${appendLast}">
             $insertAfter = $template.parent().children(".dynamic-fieldset").last();
         </g:if>
-            $clone.insertAfter($insertAfter);
-            $clone.toggle( "highlight" );
-
-        <g:each in="${fields}" var="field">
-        // Update the name attributes
-        if ($clone.find('[name="${field}"]').length!= 0){
-            $clone.find('[name="${field}"]').attr('name', '${parentField}[' + ${validationDataVarIndex} + '].${field}').end();
-            // Note that we also pass the validator rules for new field as the third parameter
-            var rule = ${validationDataVarName}.rules.${field};
-            rule.messages = ${validationDataVarName}.messages.${field};
-            $('#${formId}').find('[name="${parentField}[' + ${validationDataVarIndex} + '].${field}"]').rules('add', rule)
+        $clone.insertAfter($insertAfter);
+        $clone.toggle( "highlight" );
+        var prefix = '${parentField}[' + ${validationDataVarIndex} + ']';
+        $clone.attr("data-prefix",prefix)
+        if ($clone.find('input').length!= 0){
+            $clone.find('input, select').each(function(idx,input){
+                var name = $(input).attr("name")
+                $(input).attr("name", prefix+'.'+name)
+                // Note that we also pass the validator rules for new field as the third parameter
+                var rule = ${validationDataVarName}.rules[name];
+                if (rule != undefined){
+                    rule.messages = ${validationDataVarName}.messages[name];
+                    $('#${formId}').find('[name="'+prefix+'.'+name+'"]').rules('add', rule)
+                }
+            });
         }
-        </g:each>
+        %{--<g:each in="${fields}" var="field">--}%
+        %{--// Update the name attributes--}%
+        %{--if ($clone.find('[name="${field}"]').length!= 0){--}%
+            %{--$clone.find('[name="${field}"]').attr('name', prefix+'.${field}').end();--}%
+            %{--// Note that we also pass the validator rules for new field as the third parameter--}%
+            %{--var rule = ${validationDataVarName}.rules.${field};--}%
+            %{--rule.messages = ${validationDataVarName}.messages.${field};--}%
+            %{--$('#${formId}').find('[name="${parentField}[' + ${validationDataVarIndex} + '].${field}"]').rules('add', rule)--}%
+        %{--}--}%
+        %{--</g:each>--}%
         ${validationDataVarIndex}++;
         formHelper.dirtyFormControl.restart($('#${formId}'));
         formHelper.prepareForms();

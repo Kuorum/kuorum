@@ -577,7 +577,7 @@ class FormTagLib {
     def selectEnum = {attrs->
         def command = attrs.command
         def field = attrs.field
-
+        def showLabel = attrs.showLabel?Boolean.parseBoolean(attrs.showLabel):true
         def id = attrs.id?:field
         def prefixFieldName=attrs.prefixFieldName?:""
         def cssClass = attrs.cssClass
@@ -587,8 +587,11 @@ class FormTagLib {
         Boolean isRequired = isRequired(command,field) || (attrs.required?Boolean.parseBoolean(attrs.required):false)
         def label ="${attrs.label?:message(code: "${clazz.name}.label")}${isRequired?'*':''}"
         def error = hasErrors(bean: command, field: field,'error')
-        out <<"""
-            <label for="${id}" class="${cssLabel}">${label}</label>
+        if (showLabel){
+
+            out <<"""<label for="${id}" class="${cssLabel}">${label}</label>"""
+        }
+        out << """
             <select name="${prefixFieldName}${field}" class="form-control input-lg ${error}" id="${id}">
             """
         if (!isRequired || defaultEmpty){

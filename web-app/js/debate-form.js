@@ -73,19 +73,6 @@ $(function(){
         $("#campaignConfirm").modal("show");
     }
 
-    // CREATE CAMPAIGN moving on STEPS
-    var $stepButton = $('ul.campaign-steps > li > a');
-    $stepButton.on('click', stepSubmit);
-
-    var $nextButton = $('.form-final-options #next[data-redirectLink]');
-    $nextButton.on('click', stepSubmit);
-
-    var $saveDraft = $('.form-final-options #save-draft[data-redirectLink]');
-    $saveDraft.on('click', stepSubmit);
-
-    var $saveDraftDebate = $('.form-final-options #save-draft-debate[data-redirectLink]');
-    $saveDraftDebate.on('click', stepSubmit);
-
     var $sendButton = $('#campaignConfirm #saveCampaignBtn[data-redirectLink]');
     $sendButton.on('click', function(e){
         e.preventDefault();
@@ -125,24 +112,4 @@ function sendParams() {
 
 function scheduleParams() {
     $("input[name='sendType']").val("SCHEDULED");
-}
-
-function stepSubmit (e){
-    e.preventDefault();
-    var $form = $('form#politicianMassMailingForm');
-    var $inputHidden = $form.find('#redirectLink');
-    console.log($inputHidden.val());
-    if($inputHidden.val() == undefined || $inputHidden.val() == ""){
-        var redirect = $(this).attr('data-redirectLink');
-        $inputHidden.attr('value', redirect);
-    }
-    var $filter = $('select#recipients option:selected').length;
-    if($filter && filterContacts.isFilterEdited()){
-        var amountContacts = $('select#recipients option:selected').attr("data-amountContacts");
-        $("#campaignConfirmTitle > span").html(amountContacts);
-        $("#campaignWarnFilterEdited .modal-body > p > span").html(amountContacts);
-        $("#campaignWarnFilterEdited").modal("show");
-    }else{
-        $form.submit();
-    }
 }

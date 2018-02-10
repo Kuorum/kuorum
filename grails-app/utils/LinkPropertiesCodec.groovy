@@ -12,6 +12,7 @@ import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.kuorum.rest.model.communication.debate.ProposalRSDTO
 import org.kuorum.rest.model.communication.event.EventRSDTO
 import org.kuorum.rest.model.communication.post.PostRSDTO
+import org.kuorum.rest.model.communication.survey.SurveyRSDTO
 import org.kuorum.rest.model.notification.NotificationProposalCommentMentionRSDTO
 import org.kuorum.rest.model.notification.NotificationProposalCommentRSDTO
 import org.kuorum.rest.model.notification.NotificationProposalMentionRSDTO
@@ -31,6 +32,7 @@ class LinkPropertiesCodec {
             case EventRSDTO:
             case CauseRSDTO:
             case PostRSDTO:
+            case SurveyRSDTO:
             case SolrPost:
             case DebateRSDTO:
             case SolrDebate:

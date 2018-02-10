@@ -8,7 +8,7 @@
 <div class="box-ppal campaign-new">
     <h1 class="sr-only">Newsletter</h1>
     <formUtil:validateForm bean="${command}" form="politicianMassMailingForm" dirtyControl="true"/>
-    <form action="#" class="form-horizontal" id="politicianMassMailingForm" method="POST" data-generalErrorMessage="${g.message(code:'kuorum.web.commands.payment.massMailing.MassMailingCommand.form.genericError')}">
+    <form action="#" class="form-horizontal campaign-form" id="politicianMassMailingForm" method="POST" data-generalErrorMessage="${g.message(code:'kuorum.web.commands.payment.massMailing.MassMailingCommand.form.genericError')}">
         <input type="hidden" name="sendType" value="DRAFT" id="sendMassMailingType"/>
         <input type="hidden" name="redirectLink" id="redirectLink"/>
         <input type="hidden" name="campaignId" value="${campaignId}"/>

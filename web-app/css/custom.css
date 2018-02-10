@@ -62,6 +62,8 @@ body.noLogged > .container-fluid {margin-top: 35px;}
 
 .form-group {margin-bottom: 20px;}
 
+.center{text-align:center;}
+
 .add-on.input-group-addon label {margin-bottom: 0; color: #a8a8a8;}
 .add-on.input-group-addon label input {margin-right: 2px;}
 .input-group-addon {border: 1px solid #efefef; background-color: #fbfbfb; outline: 0;}
@@ -7247,11 +7249,15 @@ header .header-msg h6:hover{
 .dynamic-fieldset.profile-dynamic-fields{
     padding:10px;
 }
-.dynamic-fieldset.profile-dynamic-fields .form-group-remove{padding-top:23px;}
+.dynamic-fieldset.profile-dynamic-fields .form-group-remove{padding-top:35px;}
+.dynamic-fieldset.profile-dynamic-fields .form-group-remove.no-label{padding-top:5px;}
 .dynamic-fieldset-addbutton{margin-bottom:25px;}
 .dynamicList .list-item { display:block; width: 100%;}
 .dynamicList .list-item input{ width: 70%;}
 .dynamicList .list-item a{ width:25%;}
+
+#questionsSurveyForm .row {margin:0;}
+#questionsSurveyForm .row .question-text-container {padding-right:30px;}
 
 .config .admin-user-options{ padding-left:10px; font-size:1rem;    border-bottom: 1px solid #ccc; padding-bottom: 10px;}
 .config .admin-user-options label{ padding: 0 0 0 10px; margin:0px}

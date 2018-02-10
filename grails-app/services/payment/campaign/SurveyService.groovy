@@ -7,6 +7,8 @@ import kuorum.mail.KuorumMailService
 import kuorum.users.KuorumUser
 import kuorum.util.rest.RestKuorumApiService
 import org.kuorum.rest.model.communication.event.EventRDTO
+import org.kuorum.rest.model.communication.survey.QuestionOptionRDTO
+import org.kuorum.rest.model.communication.survey.QuestionRDTO
 import org.kuorum.rest.model.communication.survey.SurveyRDTO
 import org.kuorum.rest.model.communication.survey.SurveyRSDTO
 
@@ -129,6 +131,19 @@ class SurveyService implements CampaignCreatorService<SurveyRSDTO, SurveyRDTO>{
                 surveyRDTO.event.capacity = surveyRSDTO.event.capacity
             }
             //MAP QUESTIONS
+            surveyRDTO.questions = surveyRSDTO.questions.collect{
+                QuestionRDTO questionRDTO = new QuestionRDTO();
+                questionRDTO.id = it.id
+                questionRDTO.text = it.text
+                questionRDTO.questionType = it.questionType
+                questionRDTO.options = it.options.collect{ qo ->
+                    QuestionOptionRDTO questionOptionRDTO = new QuestionOptionRDTO()
+                    questionOptionRDTO.text = qo.text
+                    questionOptionRDTO.id = qo.id
+                    return questionOptionRDTO
+                }
+                return questionRDTO
+            }
         }
         return surveyRDTO;
     }

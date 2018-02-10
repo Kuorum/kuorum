@@ -29,7 +29,7 @@ class SurveyQuestionsCommand {
     }
 
     static constraints = {
-
+        questions maxSize: 10000;
     }
 }
 
