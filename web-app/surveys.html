@@ -367,11 +367,11 @@
                                 </div>
                             </div><!-- ^survey-progress !-->
                             <!-- ^survey-question !-->
-                            <div class="comment-box survey-question">
-                                <div class="survery-question-title">
+                            <div class="comment-box survey-question no-padding">
+                                <div class="survery-question-title padding-box">
                                     Do you think the economy has improved after the Brexit referendum?
                                 </div>
-                                <div class="survey-question-answers" data-answer-selected="">
+                                <div class="survey-question-answers padding-box-sides" data-answer-selected="">
                                     <div class="survey-question-answer" data-answer-id="1">
                                         <div class="option">
                                             <span class="fa fa-circle-thin check-icon"></span><span>Yes, it is slightly better</span>
@@ -379,10 +379,12 @@
                                         <div class="option checked">
                                             <span class="fa fa-check-circle check-icon"></span><span>Yes, it is slightly better</span>
                                         </div>
-                                        <div class="progress-bar-counter">30</div>
-                                        <div class="progress">
+                                        <div class="progress-info">
+                                            <div class="progress-bar-counter">30</div>
+                                            <div class="progress">
                                                 <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" data-answer-percent-selected="50" data-answer-percent="30">
-                                                <span class="sr-only">30% Complete</span>
+                                                    <span class="sr-only">30% Complete</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -393,10 +395,12 @@
                                         <div class="option checked">
                                             <span class="fa fa-check-circle check-icon"></span><span>Yes, it is slightly better</span>
                                         </div>
-                                        <div class="progress-bar-counter">10</div>
-                                        <div class="progress">
-                                            <div class="progress-bar" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" data-answer-percent-selected="30" data-answer-percent="10">
-                                                <span class="sr-only">10% Complete</span>
+                                        <div class="progress-info">
+                                            <div class="progress-bar-counter">10</div>
+                                            <div class="progress">
+                                                <div class="progress-bar" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" data-answer-percent-selected="30" data-answer-percent="10">
+                                                    <span class="sr-only">30% Complete</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -407,15 +411,17 @@
                                         <div class="option checked">
                                             <span class="fa fa-check-circle check-icon"></span><span>Yes, it is slightly better</span>
                                         </div>
-                                        <div class="progress-bar-counter">0</div>
-                                        <div class="progress">
-                                            <div class="progress-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" data-answer-percent-selected="20" data-answer-percent="0">
-                                                <span class="sr-only">0% Complete</span>
+                                        <div class="progress-info">
+                                            <div class="progress-bar-counter">0</div>
+                                            <div class="progress">
+                                                <div class="progress-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" data-answer-percent-selected="20" data-answer-percent="0">
+                                                    <span class="sr-only">0% Complete</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="footer">
+                                <div class="footer padding-box">
                                     <ul class="social">
                                         <li>
                                             <a href="#" target="_blank">
@@ -450,14 +456,16 @@
                                             </a>
                                         </li>
                                     </ul>
-                                    <div class="next-section">
+                                    <div class="actions next-section pull-right">
                                         <a href="#" target="_blank">I am the survey owner, skip questions</a>
-                                        <button type="button" class="btn btn-blue next"><h1>Next</h1></button>
+                                        <button type="button" class="btn btn-blue btn-lg publish publish-proposal disabled" data-clicked="false" data-userloggedalias="" data-posturl="https://kuorum.org/ajax/addProposal" data-debateid="108" data-debatealias="toledoparticipa">
+                                            Next
+                                        </button>
                                     </div>
                                 </div>
                             </div><!-- ^survey-question !-->
                             <!-- ^survey-question !-->
-                            <div class="comment-box survey-question">
+                                <div class="comment-box survey-question">
                                     <div class="survery-question-title">
                                         Do you think the economy has improved after the Brexit referendum?
                                     </div>
@@ -548,16 +556,20 @@
                                 </div><!-- ^survey-question !-->
                         </section>
 
-                        <!-- Survey !-->
-                        <aside class="col-sm-12 col-md-4" role="complementary">
-                            <div class="survey-box text-center">
-                                <h1>What is your opinion?</h1>
-                                <p>Share your opinions anonymously and see the results.</p>
-                                <button type="button" class="btn btn-blue publish"><h1>Take the survey</h1></button>
+                        <aside id="aside-ppal" class="col-sm-12 col-md-4" role="complementary">
+                            <!-- Survey !-->
+                            <div class="comment-box call-to-action call-to-action-add-proposal hidden-sm hidden-xs">
+                                <div class="comment-header">
+                                    <span class="call-title">What is your opinion?</span>
+                                    <span class="call-subTitle">Share your opinions anonymously and see the results.</span>
+                                </div>
+                            
+                                <div class="actions clearfix">
+                                    <button type="button" class="btn btn-blue btn-lg publish publish-proposal" data-userloggedalias="" data-posturl="https://kuorum.org/ajax/addProposal" data-debateid="108" data-debatealias="toledoparticipa">
+                                        Take the survey
+                                    </button>
+                                </div>
                             </div>
-                        </aside>
-
-                        <aside id="aside-ppal" class="col-sm-12 col-md-4 no-padding-top" role="complementary">
                             <ul class="leader-post-stats">
                                 <li>
                                     <span class="fa fa-eye" aria-hidden="true"></span>
@@ -880,6 +892,7 @@
 
         <script>
             var options = document.querySelectorAll('.option');
+            var optionsNextButton = document.querySelectorAll('.survey-question .next-section button');
             var multiOptions = document.querySelectorAll('.multi-option');
 
             var _showElement = function(element) {
@@ -930,75 +943,110 @@
                 });
             }
 
+            var _selectSingleAnswer = function (event) {
+                var answer = event.currentTarget.parentElement;
+                var question = answer.parentElement;
+                var progressBarCounters = question.getElementsByClassName('progress-bar-counter');
+                var progressBars = question.getElementsByClassName('progress');
+                var selectedAnswer = question.querySelector('[data-answer-id="' + question.getAttribute('data-answer-selected') + '"] .option.checked');
+                var progressBar = answer.getElementsByClassName('progress-bar')[0];
+                var progressBarCounter = answer.getElementsByClassName('progress-bar-counter')[0];
+                var nextButton = question.nextElementSibling.querySelector('.next-section button');
+                
+                if (!!selectedAnswer === true) {    // unselect current selected option
+                    _hideElement(selectedAnswer);
+                    _showElement(selectedAnswer.previousElementSibling);
+                    nextButton.classList.add('disabled');
+                    question.setAttribute('data-answer-selected', '');
+                }
+                
+                if (event.currentTarget === selectedAnswer) {   // hide progress bars and percents
+                    _hideAllElements(progressBarCounters);
+                    _hideAllElements(progressBars);
+                    return;
+                }
+                
+                nextButton.classList.remove('disabled');
+                question.setAttribute('data-answer-selected', answer.getAttribute('data-answer-id'));
+                _hideElement(event.currentTarget);
+                _showElement(event.currentTarget.nextElementSibling);
+            };
+
+            var _selectMultiAnswer = function (event) {
+                var answer = event.currentTarget.parentElement;
+                var question = answer.parentElement;
+                var progressBarCounters = question.getElementsByClassName('progress-bar-counter');
+                var progressBars = question.getElementsByClassName('progress');
+                var selectedAnswers = (question.getAttribute('data-answer-selected') !== "") ? JSON.parse(question.getAttribute('data-answer-selected')) : "";
+                var progressBar = answer.getElementsByClassName('progress-bar')[0];
+
+                if (!!selectedAnswers === true && Array.isArray(selectedAnswers)) {
+                    var answerPosition = selectedAnswers.indexOf(answer.getAttribute('data-answer-id'));
+                    if (answerPosition === -1) {
+                        selectedAnswers.push(answer.getAttribute('data-answer-id'));
+                    } else {
+                        selectedAnswers.splice(answerPosition, 1);
+                    }
+                } else {
+                    selectedAnswers = [answer.getAttribute('data-answer-id')];
+                }
+                
+                question.setAttribute('data-answer-selected',  (selectedAnswers.length > 0) ? JSON.stringify(selectedAnswers) : '');
+                _hideElement(event.currentTarget);
+                _showElement((event.currentTarget.className.split('checked').length !== 2) ? event.currentTarget.nextElementSibling : event.currentTarget.previousElementSibling);
+                
+                if (selectedAnswers.length === 0) {
+                    _hideAllElements(progressBarCounters);
+                    _hideAllElements(progressBars);
+                    return;
+                }
+
+                _showAllElements(progressBarCounters);
+                _showAllElements(progressBars);
+                setTimeout(function() {
+                    _setProgressBarsPercentMultiOptions(progressBars, question);
+                }, 100);  
+            };
+
             options.forEach(function(option) {
-                option.addEventListener('click', function (event) {
-                    var answer = event.currentTarget.parentElement;
-                    var question = answer.parentElement;
-                    var progressBarCounters = question.getElementsByClassName('progress-bar-counter');
-                    var progressBars = question.getElementsByClassName('progress');
-                    var selectedAnswer = question.querySelector('[data-answer-id="' + question.getAttribute('data-answer-selected') + '"] .option.checked');
+                option.addEventListener('click', _selectSingleAnswer);
+            });
+
+            multiOptions.forEach(function(option) {
+                option.addEventListener('click', _selectMultiAnswer);    
+            });
+
+            optionsNextButton.forEach(function(nextButton) {
+                nextButton.addEventListener('click', function(event) {
+                    var question = event.currentTarget.parentElement.parentElement.parentElement;
+                    var answers = question.getElementsByClassName('survey-question-answers')[0];
+                    var button = question.querySelector('[data-clicked]');
+                
+                    var progressBarCounters = answers.getElementsByClassName('progress-bar-counter');
+                    var progressBars = answers.getElementsByClassName('progress');
+                    var selectedAnswer = answers.getAttribute('data-answer-selected');
+
+                    var answer = answers.querySelector('[data-answer-id="' + selectedAnswer + '"]');
                     var progressBar = answer.getElementsByClassName('progress-bar')[0];
                     var progressBarCounter = answer.getElementsByClassName('progress-bar-counter')[0];
+                    
+                    if (selectedAnswer && button.getAttribute('data-clicked') === 'false') {
+                        button.setAttribute('data-clicked', 'true');
+                        options.forEach(function(option) {
+                            option.removeEventListener('click', _selectSingleAnswer);
+                        });
 
-                    if (!!selectedAnswer === true) {    // unselect current selected option
-                        _hideElement(selectedAnswer);
-                        _showElement(selectedAnswer.previousElementSibling);
-                        question.setAttribute('data-answer-selected', '');
-                    }
-                    if (event.currentTarget === selectedAnswer) {   // hide progress bars and percents
-                        _hideAllElements(progressBarCounters);
-                        _hideAllElements(progressBars);
-                        return;
-                    }
-                    question.setAttribute('data-answer-selected', answer.getAttribute('data-answer-id'));
-                    _hideElement(event.currentTarget);
-                    _showElement(event.currentTarget.nextElementSibling);
-                    _showAllElements(progressBarCounters);
-                    _showAllElements(progressBars);
-                    setTimeout(function() {
+                        _showAllElements(progressBarCounters);
+                        _showAllElements(progressBars);
                         _setProgressBarsPercent(progressBars);
-                        progressBar.style.width = progressBar.getAttribute('data-answer-percent-selected') + '%';
-                        progressBarCounter.textContent = progressBar.getAttribute('data-answer-percent-selected') + '%';
-                    }, 100);  
-                });    
-            });
-            multiOptions.forEach(function(option) {
-                option.addEventListener('click', function (event) {
-                    var answer = event.currentTarget.parentElement;
-                    var question = answer.parentElement;
-                    var progressBarCounters = question.getElementsByClassName('progress-bar-counter');
-                    var progressBars = question.getElementsByClassName('progress');
-                    var selectedAnswers = (question.getAttribute('data-answer-selected') !== "") ? JSON.parse(question.getAttribute('data-answer-selected')) : "";
-                    var progressBar = answer.getElementsByClassName('progress-bar')[0];
-
-                    if (!!selectedAnswers === true && Array.isArray(selectedAnswers)) {
-                        var answerPosition = selectedAnswers.indexOf(answer.getAttribute('data-answer-id'));
-                        if (answerPosition === -1) {
-                            selectedAnswers.push(answer.getAttribute('data-answer-id'));
-                        } else {
-                            selectedAnswers.splice(answerPosition, 1);
-                        }
-                    } else {
-                        selectedAnswers = [answer.getAttribute('data-answer-id')];
+                        
+                        setTimeout(function() {
+                            progressBar.style.width = progressBar.getAttribute('data-answer-percent-selected') + '%';
+                            progressBarCounter.textContent = progressBar.getAttribute('data-answer-percent-selected') + '%';
+                        }, 100);
                     }
-                    
-                    question.setAttribute('data-answer-selected',  (selectedAnswers.length > 0) ? JSON.stringify(selectedAnswers) : '');
-                    _hideElement(event.currentTarget);
-                    _showElement((event.currentTarget.className.split('checked').length !== 2) ? event.currentTarget.nextElementSibling : event.currentTarget.previousElementSibling);
-                    
-                    if (selectedAnswers.length === 0) {
-                        _hideAllElements(progressBarCounters);
-                        _hideAllElements(progressBars);
-                        return;
-                    }
-
-                    _showAllElements(progressBarCounters);
-                    _showAllElements(progressBars);
-                    setTimeout(function() {
-                        _setProgressBarsPercentMultiOptions(progressBars, question);
-                    }, 100);  
-                });    
-            });            
+                });
+            });        
         </script>
 
     </body>
