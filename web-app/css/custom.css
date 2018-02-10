@@ -9182,10 +9182,6 @@ ul.notification-menu > li.see-more {
     -webkit-box-shadow: none;
     background-color: #00a3ed;
     width: 0;
-    -moz-transition: none;
-    -webkit-transition: none;
-    -o-transition: color 0 ease-in;
-    transition: none;
 }
 
 .survey-question-answer .progress-bar-counter {
