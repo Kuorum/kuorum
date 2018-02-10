@@ -9165,9 +9165,9 @@ ul.notification-menu > li.see-more {
 }
 .survey-question-answer .progress-info {
     position: absolute;
-    width: 100%;
+    width: 95%;
     bottom: 0;
-    right: 0;
+    right: 20px;
     z-index: 0;
 }
 .survey-question-answer .progress {

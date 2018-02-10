@@ -358,21 +358,22 @@
                             </div> <!-- ^leader-post !-->
 
                             <!-- ^survey-progress !-->
-                            <div class="comment-box survey-progress">
-                                <div>Survey progress: <span id="survey-pos">2</span> / <span id="survey-total">20</span></div>
+                            <div class="comment-box survey-progress" data-question-pos="1">
+                                <div>Survey progress: <span id="survey-pos">1</span> / <span id="survey-total">20</span></div>
                                 <div class="progress survey-progress-bar">
                                     <div id="progress-bar" class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:20%">
                                         <span class="sr-only">70% Complete</span>
                                     </div>
                                 </div>
                             </div><!-- ^survey-progress !-->
-                            <!-- ^survey-question !-->
-                            <div class="comment-box survey-question no-padding">
+                            
+                            <!-- ^survey-question-single-answer !-->
+                            <div class="comment-box survey-question single-answer no-padding">
                                 <div class="survery-question-title padding-box">
                                     Do you think the economy has improved after the Brexit referendum?
                                 </div>
-                                <div class="survey-question-answers padding-box-sides" data-answer-selected="">
-                                    <div class="survey-question-answer" data-answer-id="1">
+                                <div class="survey-question-answers" data-answer-selected="" data-question-order="1">
+                                    <div class="survey-question-answer padding-box-sides" data-answer-id="1">
                                         <div class="option">
                                             <span class="fa fa-circle-thin check-icon"></span><span>Yes, it is slightly better</span>
                                         </div>
@@ -388,7 +389,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="survey-question-answer" data-answer-id="2">
+                                    <div class="survey-question-answer padding-box-sides" data-answer-id="2">
                                         <div class="option">
                                             <span class="fa fa-circle-thin check-icon"></span><span>Yes, it is slightly better</span>
                                         </div>
@@ -404,7 +405,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="survey-question-answer" data-answer-id="3">
+                                    <div class="survey-question-answer padding-box-sides" data-answer-id="3">
                                         <div class="option">
                                             <span class="fa fa-circle-thin check-icon"></span><span>Yes, it is slightly better</span>
                                         </div>
@@ -463,97 +464,205 @@
                                         </button>
                                     </div>
                                 </div>
-                            </div><!-- ^survey-question !-->
-                            <!-- ^survey-question !-->
-                                <div class="comment-box survey-question">
-                                    <div class="survery-question-title">
-                                        Do you think the economy has improved after the Brexit referendum?
+                            </div><!-- ^survey-question-single-answer !-->
+                            <!-- ^survey-question-single-answer !-->
+                            <div class="comment-box survey-question single-answer no-padding">
+                                <div class="survery-question-title padding-box">
+                                    Do you think the economy has improved after the Brexit referendum?
+                                </div>
+                                <div class="survey-question-answers" data-answer-selected="" data-question-order="1">
+                                    <div class="survey-question-answer padding-box-sides" data-answer-id="1">
+                                        <div class="option">
+                                            <span class="fa fa-circle-thin check-icon"></span><span>Yes, it is slightly better</span>
+                                        </div>
+                                        <div class="option checked">
+                                            <span class="fa fa-check-circle check-icon"></span><span>Yes, it is slightly better</span>
+                                        </div>
+                                        <div class="progress-info">
+                                            <div class="progress-bar-counter">30</div>
+                                            <div class="progress">
+                                                <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" data-answer-percent-selected="50" data-answer-percent="30">
+                                                    <span class="sr-only">30% Complete</span>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="survey-question-answers" data-answer-selected="">
-                                        <div class="survey-question-answer" data-answer-id="1">
-                                            <div class="multi-option">
-                                                <span class="fa fa-square-o check-icon"></span><span>Yes, it is slightly better</span>
+                                    <div class="survey-question-answer padding-box-sides" data-answer-id="2">
+                                        <div class="option">
+                                            <span class="fa fa-circle-thin check-icon"></span><span>Yes, it is slightly better</span>
+                                        </div>
+                                        <div class="option checked">
+                                            <span class="fa fa-check-circle check-icon"></span><span>Yes, it is slightly better</span>
+                                        </div>
+                                        <div class="progress-info">
+                                            <div class="progress-bar-counter">10</div>
+                                            <div class="progress">
+                                                <div class="progress-bar" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" data-answer-percent-selected="30" data-answer-percent="10">
+                                                    <span class="sr-only">30% Complete</span>
+                                                </div>
                                             </div>
-                                            <div class="multi-option checked">
-                                                <span class="fa fa-check-square check-icon"></span><span>Yes, it is slightly better</span>
+                                        </div>
+                                    </div>
+                                    <div class="survey-question-answer padding-box-sides" data-answer-id="3">
+                                        <div class="option">
+                                            <span class="fa fa-circle-thin check-icon"></span><span>Yes, it is slightly better</span>
+                                        </div>
+                                        <div class="option checked">
+                                            <span class="fa fa-check-circle check-icon"></span><span>Yes, it is slightly better</span>
+                                        </div>
+                                        <div class="progress-info">
+                                            <div class="progress-bar-counter">0</div>
+                                            <div class="progress">
+                                                <div class="progress-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" data-answer-percent-selected="20" data-answer-percent="0">
+                                                    <span class="sr-only">0% Complete</span>
+                                                </div>
                                             </div>
-                                            <div class="progress-bar-counter" data-answer-counter="50">50</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="footer padding-box">
+                                    <ul class="social">
+                                        <li>
+                                            <a href="#" target="_blank">
+                                                <span class="fa-stack" aria-hidden="true">
+                                                    <span class="fa fa-circle dark fa-stack-2x"></span>
+                                                    <span class="fa fa-twitter fa-stack-1x fa-inverse"></span>
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_blank">
+                                                <span class="fa-stack" aria-hidden="true">
+                                                    <span class="fa fa-circle dark fa-stack-2x"></span>
+                                                    <span class="fa fa-facebook fa-stack-1x fa-inverse"></span>
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_blank">
+                                                <span class="fa-stack" aria-hidden="true">
+                                                    <span class="fa fa-circle dark fa-stack-2x"></span>
+                                                    <span class="fa fa-linkedin fa-stack-1x fa-inverse"></span>
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_blank">
+                                                <span class="fa-stack" aria-hidden="true">
+                                                    <span class="fa fa-circle dark fa-stack-2x"></span>
+                                                    <span class="fa fa-google-plus fa-stack-1x fa-inverse"></span>
+                                                </span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <div class="actions next-section pull-right">
+                                        <a href="#" target="_blank">I am the survey owner, skip questions</a>
+                                        <button type="button" class="btn btn-blue btn-lg publish publish-proposal disabled" data-clicked="false" data-userloggedalias="" data-posturl="https://kuorum.org/ajax/addProposal" data-debateid="108" data-debatealias="toledoparticipa">
+                                            Next
+                                        </button>
+                                    </div>
+                                </div>
+                            </div><!-- ^survey-question-single-answer !-->
+
+                            
+                            <!-- ^survey-question-multi-answers !-->
+                            <div class="comment-box survey-question multi-answer no-padding">
+                                <div class="survery-question-title padding-box">
+                                    Do you think the economy has improved after the Brexit referendum?
+                                </div>
+                                <div class="survey-question-answers" data-answer-selected="">
+                                    <div class="survey-question-answer padding-box-sides" data-answer-id="1">
+                                        <div class="multi-option">
+                                            <span class="fa fa-square-o check-icon"></span><span>Yes, it is slightly better</span>
+                                        </div>
+                                        <div class="multi-option checked">
+                                            <span class="fa fa-check-square check-icon"></span><span>Yes, it is slightly better</span>
+                                        </div>
+                                        <div class="progress-info">
+                                            <div class="progress-bar-counter">49</div>
                                             <div class="progress">
                                                 <div class="progress-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" data-answer-percent-selected="50" data-answer-percent="49">
-                                                    <span class="sr-only">20% Complete</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="survey-question-answer" data-answer-id="2">
-                                            <div class="multi-option">
-                                                <span class="fa fa-square-o check-icon"></span><span>Yes, it is slightly better</span>
-                                            </div>
-                                            <div class="multi-option checked">
-                                                <span class="fa fa-check-square check-icon"></span><span>Yes, it is slightly better</span>
-                                            </div>
-                                            <div class="progress-bar-counter" data-answer-counter="50">50</div>
-                                            <div class="progress">
-                                                <div class="progress-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" data-answer-percent-selected="20" data-answer-percent="19">
-                                                    <span class="sr-only">20% Complete</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="survey-question-answer" data-answer-id="3">
-                                            <div class="multi-option">
-                                                <span class="fa fa-square-o check-icon"></span><span>Yes, it is slightly better</span>
-                                            </div>
-                                            <div class="multi-option checked">
-                                                <span class="fa fa-check-square check-icon"></span><span>Yes, it is slightly better</span>
-                                            </div>
-                                            <div class="progress-bar-counter" data-answer-counter="50">50</div>
-                                            <div class="progress">
-                                                <div class="progress-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" data-answer-percent-selected="30" data-answer-percent="29">
-                                                    <span class="sr-only">20% Complete</span>
+                                                    <span class="sr-only">49 votes</span>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="footer">
-                                        <ul class="social">
-                                            <li>
-                                                <a href="#" target="_blank">
-                                                    <span class="fa-stack" aria-hidden="true">
-                                                        <span class="fa fa-circle dark fa-stack-2x"></span>
-                                                        <span class="fa fa-twitter fa-stack-1x fa-inverse"></span>
-                                                    </span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#" target="_blank">
-                                                    <span class="fa-stack" aria-hidden="true">
-                                                        <span class="fa fa-circle dark fa-stack-2x"></span>
-                                                        <span class="fa fa-facebook fa-stack-1x fa-inverse"></span>
-                                                    </span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#" target="_blank">
-                                                    <span class="fa-stack" aria-hidden="true">
-                                                        <span class="fa fa-circle dark fa-stack-2x"></span>
-                                                        <span class="fa fa-linkedin fa-stack-1x fa-inverse"></span>
-                                                    </span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#" target="_blank">
-                                                    <span class="fa-stack" aria-hidden="true">
-                                                        <span class="fa fa-circle dark fa-stack-2x"></span>
-                                                        <span class="fa fa-google-plus fa-stack-1x fa-inverse"></span>
-                                                    </span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                        <div class="next-section">
-                                            <a href="#" target="_blank">I am the survey owner, skip questions</a>
-                                            <button type="button" class="btn btn-blue next"><h1>Next</h1></button>
+                                    <div class="survey-question-answer padding-box-sides" data-answer-id="2">
+                                        <div class="multi-option">
+                                            <span class="fa fa-square-o check-icon"></span><span>Yes, it is slightly better</span>
+                                        </div>
+                                        <div class="multi-option checked">
+                                            <span class="fa fa-check-square check-icon"></span><span>Yes, it is slightly better</span>
+                                        </div>
+                                        <div class="progress-info">
+                                            <div class="progress-bar-counter">49</div>
+                                            <div class="progress">
+                                                <div class="progress-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" data-answer-percent-selected="50" data-answer-percent="49">
+                                                    <span class="sr-only">49 votes</span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div><!-- ^survey-question !-->
+                                    <div class="survey-question-answer padding-box-sides" data-answer-id="3">
+                                        <div class="multi-option">
+                                            <span class="fa fa-square-o check-icon"></span><span>Yes, it is slightly better</span>
+                                        </div>
+                                        <div class="multi-option checked">
+                                            <span class="fa fa-check-square check-icon"></span><span>Yes, it is slightly better</span>
+                                        </div>
+                                        <div class="progress-info">
+                                            <div class="progress-bar-counter">49</div>
+                                            <div class="progress">
+                                                <div class="progress-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" data-answer-percent-selected="50" data-answer-percent="49">
+                                                    <span class="sr-only">49 votes</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="footer padding-box-sides">
+                                    <ul class="social">
+                                        <li>
+                                            <a href="#" target="_blank">
+                                                <span class="fa-stack" aria-hidden="true">
+                                                    <span class="fa fa-circle dark fa-stack-2x"></span>
+                                                    <span class="fa fa-twitter fa-stack-1x fa-inverse"></span>
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_blank">
+                                                <span class="fa-stack" aria-hidden="true">
+                                                    <span class="fa fa-circle dark fa-stack-2x"></span>
+                                                    <span class="fa fa-facebook fa-stack-1x fa-inverse"></span>
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_blank">
+                                                <span class="fa-stack" aria-hidden="true">
+                                                    <span class="fa fa-circle dark fa-stack-2x"></span>
+                                                    <span class="fa fa-linkedin fa-stack-1x fa-inverse"></span>
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_blank">
+                                                <span class="fa-stack" aria-hidden="true">
+                                                    <span class="fa fa-circle dark fa-stack-2x"></span>
+                                                    <span class="fa fa-google-plus fa-stack-1x fa-inverse"></span>
+                                                </span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <div class="actions next-section pull-right">
+                                        <a href="#" target="_blank">I am the survey owner, skip questions</a>
+                                        <button type="button" class="btn btn-blue btn-lg publish publish-proposal disabled" data-clicked="false" data-userloggedalias="" data-posturl="https://kuorum.org/ajax/addProposal" data-debateid="108" data-debatealias="toledoparticipa">
+                                            Next
+                                        </button>
+                                    </div>
+                                </div>
+                            </div><!-- ^survey-question-multi-answers !-->
                         </section>
 
                         <aside id="aside-ppal" class="col-sm-12 col-md-4" role="complementary">
@@ -892,7 +1001,8 @@
 
         <script>
             var options = document.querySelectorAll('.option');
-            var optionsNextButton = document.querySelectorAll('.survey-question .next-section button');
+            var optionsNextButton = document.querySelectorAll('.survey-question.single-answer .next-section button');
+            var multiOptionsNextButton = document.querySelectorAll('.survey-question.multi-answer .next-section button');
             var multiOptions = document.querySelectorAll('.multi-option');
 
             var _showElement = function(element) {
@@ -927,7 +1037,8 @@
             var _setProgressBarsPercentMultiOptions = function(progressBars, question) {
                 var arr = [].slice.call(progressBars);
                 arr.forEach(function(element) {
-                    var answer = element.parentElement;
+                    var answer = element.parentElement.parentElement;
+                    var question = answer.parentElement;
                     var selectedAnswers = (question.getAttribute('data-answer-selected') !== "") ? JSON.parse(question.getAttribute('data-answer-selected')) : "";
                     var answerPosition = selectedAnswers.indexOf(answer.getAttribute('data-answer-id'));
                     var progressBar = element.children[0];
@@ -935,14 +1046,14 @@
 
                     if (answerPosition === -1) {
                         progressBar.style.width = progressBar.getAttribute('data-answer-percent') + '%';
-                        progressBarCounter.textContent = parseInt(progressBarCounter.getAttribute('data-answer-counter'));
                     } else {
                         progressBar.style.width = progressBar.getAttribute('data-answer-percent-selected') + '%';
-                        progressBarCounter.textContent = parseInt(progressBarCounter.getAttribute('data-answer-counter')) + 1;
+                        progressBarCounter.textContent = parseInt(progressBarCounter.progressBarCounter.textContent, 10) + 1;
                     }
                 });
             }
-
+            
+            // Checkbox
             var _selectSingleAnswer = function (event) {
                 var answer = event.currentTarget.parentElement;
                 var question = answer.parentElement;
@@ -972,40 +1083,47 @@
                 _showElement(event.currentTarget.nextElementSibling);
             };
 
+            // Radio
             var _selectMultiAnswer = function (event) {
                 var answer = event.currentTarget.parentElement;
+                var answerVotes = answer.querySelector('.progress-bar-counter');
                 var question = answer.parentElement;
                 var progressBarCounters = question.getElementsByClassName('progress-bar-counter');
                 var progressBars = question.getElementsByClassName('progress');
                 var selectedAnswers = (question.getAttribute('data-answer-selected') !== "") ? JSON.parse(question.getAttribute('data-answer-selected')) : "";
                 var progressBar = answer.getElementsByClassName('progress-bar')[0];
+                var nextButton = question.nextElementSibling.querySelector('.next-section button');
+                
 
                 if (!!selectedAnswers === true && Array.isArray(selectedAnswers)) {
                     var answerPosition = selectedAnswers.indexOf(answer.getAttribute('data-answer-id'));
                     if (answerPosition === -1) {
                         selectedAnswers.push(answer.getAttribute('data-answer-id'));
+                        answerVotes.textContent = parseInt(answerVotes.textContent, 10) + 1;
+                        nextButton.classList.remove('disabled');
                     } else {
                         selectedAnswers.splice(answerPosition, 1);
+                        answerVotes.textContent = parseInt(answerVotes.textContent, 10) - 1;
                     }
                 } else {
                     selectedAnswers = [answer.getAttribute('data-answer-id')];
+                    answerVotes.textContent = parseInt(answerVotes.textContent, 10) + 1;
+                    nextButton.classList.remove('disabled');
                 }
                 
                 question.setAttribute('data-answer-selected',  (selectedAnswers.length > 0) ? JSON.stringify(selectedAnswers) : '');
                 _hideElement(event.currentTarget);
                 _showElement((event.currentTarget.className.split('checked').length !== 2) ? event.currentTarget.nextElementSibling : event.currentTarget.previousElementSibling);
-                
-                if (selectedAnswers.length === 0) {
-                    _hideAllElements(progressBarCounters);
-                    _hideAllElements(progressBars);
-                    return;
-                }
 
-                _showAllElements(progressBarCounters);
+                if (selectedAnswers.length === 0) {
+                    nextButton.classList.add('disabled');
+                }
+                
+                /*_showAllElements(progressBarCounters);
                 _showAllElements(progressBars);
                 setTimeout(function() {
                     _setProgressBarsPercentMultiOptions(progressBars, question);
-                }, 100);  
+                }, 100);  */
             };
 
             options.forEach(function(option) {
@@ -1046,7 +1164,33 @@
                         }, 100);
                     }
                 });
-            });        
+            });
+
+            multiOptionsNextButton.forEach(function(nextButton) {
+                nextButton.addEventListener('click', function(event) {
+                    var question = event.currentTarget.parentElement.parentElement.parentElement;
+                    var answers = question.getElementsByClassName('survey-question-answers')[0];
+                    var button = question.querySelector('[data-clicked]');
+                
+                    var progressBarCounters = answers.getElementsByClassName('progress-bar-counter');
+                    var progressBars = answers.getElementsByClassName('progress');
+                    var selectedAnswers = answers.getAttribute('data-answer-selected');
+
+                    selectedAnswers = JSON.parse(selectedAnswers);
+                    
+                    if (!!selectedAnswers && button.getAttribute('data-clicked') === 'false') {
+                        button.setAttribute('data-clicked', 'true');
+                        
+                        multiOptions.forEach(function(option) {
+                            option.removeEventListener('click', _selectMultiAnswer);    
+                        });
+
+                        _showAllElements(progressBarCounters);
+                        _showAllElements(progressBars);
+                        _setProgressBarsPercentMultiOptions(progressBars);
+                    }
+                });
+            });
         </script>
 
     </body>
