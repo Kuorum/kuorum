@@ -6621,6 +6621,9 @@ hr{
 }
 .no-margins{margin:0;}
 .no-padding-top{padding-top: 0 !important;}
+.no-padding {padding: 0;}
+.padding-box {padding: 25px 20px 10px 20px;}
+.padding-box-sides {padding:0 20px;}
 .panel-table{
     margin: 0;
 }
@@ -9112,8 +9115,23 @@ ul.notification-menu > li.see-more {
     background-color: #00a3ed;
 }
 
+.survey-question-answers {
+    padding-top: 20px;
+}
+
 .survey-question-answer {
     font-size: 20px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    z-index: 99;
+}
+
+.survey-question-answer:hover {
+    background-color: #EEE;
+    cursor: pointer; 
 }
 
 .survey-question-answer .progress {
@@ -9128,7 +9146,7 @@ ul.notification-menu > li.see-more {
     font-weight: 700;
 }
 
-.survey-question-answer .option > span.check-icon:hover, .survey-question-answer .multi-option > span.check-icon:hover, .survey-question-answer .option.checked .check-icon, .survey-question-answer .multi-option.checked .check-icon {
+.survey-question-answer:hover .option > span.check-icon, .survey-question-answer:hover .multi-option > span.check-icon, .survey-question-answer .option.checked .check-icon, .survey-question-answer .multi-option.checked .check-icon {
     color: #00a3ed;
 }
 
@@ -9142,15 +9160,22 @@ ul.notification-menu > li.see-more {
 .survey-question-answer .option, .survey-question-answer .multi-option {
     display: flex;
     align-items: center;
+    position: relative;
+    z-index: 1;
 }
 
 .survery-question-title {
     font-family: 'Georgia', 'Times New Roman', Times, serif;
     font-size: 20px;
     font-weight: 600;
-    margin-bottom: 50px;
 }
-
+.survey-question-answer .progress-info {
+    position: absolute;
+    width: 95%;
+    bottom: 0;
+    right: 20px;
+    z-index: 0;
+}
 .survey-question-answer .progress {
     height: auto;
     border: none;
@@ -9163,8 +9188,6 @@ ul.notification-menu > li.see-more {
     -webkit-box-shadow: none;
     background-color: #00a3ed;
     width: 0;
-    transition: 0.8s linear;
-    transition-property: width;
 }
 
 .survey-question-answer .progress-bar-counter {
@@ -9201,15 +9224,10 @@ ul.notification-menu > li.see-more {
     color: #00a3ed;
 }
 
-.survey-question > .footer .next-section button.next {
-    height: 55px;
+.survey-question > .footer .next-section button {
     margin-left: 18px;
 }
 
-.survey-question > .footer .next-section button.next h1 {
-    margin: 0;
-    font-size: 24px;
-}
 .survey-question > .footer .social li {
     font-size: 16px;
 }
