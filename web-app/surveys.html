@@ -358,11 +358,11 @@
                             </div> <!-- ^leader-post !-->
 
                             <!-- ^survey-progress !-->
-                            <div class="comment-box survey-progress" data-question-pos="1">
-                                <div>Survey progress: <span id="survey-pos">1</span> / <span id="survey-total">20</span></div>
+                            <div id="survey-progress" class="comment-box survey-progress" data-question-pos="0">
+                                <div>Survey progress: <span id="survey-pos">0</span> / <span id="survey-total">20</span></div>
                                 <div class="progress survey-progress-bar">
-                                    <div id="progress-bar" class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:20%">
-                                        <span class="sr-only">70% Complete</span>
+                                    <div id="progress-bar-survey-counter" class="progress-bar" data-amount-percent-per-step="10" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:0%">
+                                        <span class="sr-only">0% Complete</span>
                                     </div>
                                 </div>
                             </div><!-- ^survey-progress !-->
@@ -1147,6 +1147,7 @@
                     var answer = answers.querySelector('[data-answer-id="' + selectedAnswer + '"]');
                     var progressBar = answer.getElementsByClassName('progress-bar')[0];
                     var progressBarCounter = answer.getElementsByClassName('progress-bar-counter')[0];
+                    var options = [].slice.call(question.getElementsByClassName('option')); // Html collection to array
                     
                     if (selectedAnswer && button.getAttribute('data-clicked') === 'false') {
                         button.setAttribute('data-clicked', 'true');
