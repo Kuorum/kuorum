@@ -7329,6 +7329,16 @@ div [class^='user-box col-'] {
 }
 
 /*** global ***/
+.toggle-content {
+    max-height: 0;
+	overflow: hidden;
+	transition: max-height 2000ms ease-in-out;
+}
+
+.toggle-content.is-visible {
+	max-height: 999em;
+}
+
 .full-width {
     width: 100%;
 }
@@ -9062,6 +9072,11 @@ ul.notification-menu > li.see-more {
 }
 
 /** Survey **/
+
+.survey-question {
+    display: block;
+    transition: all .2s ease-out;
+}
 
 .survey-box {
     font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
