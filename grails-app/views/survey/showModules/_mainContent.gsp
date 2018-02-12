@@ -1,0 +1,4 @@
+<g:render template="/post/showModules/mainContent/postData" model="[post: post, postUser: postUser]" />
+
+
+RENDER SURVEY

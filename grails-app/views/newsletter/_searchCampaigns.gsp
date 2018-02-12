@@ -76,13 +76,8 @@
         <g:each in="${newsletters}" var="newsletter" status="i">
             <g:render template="liCampaignNewsletter" model="[newsletter:newsletter, user:user, idx:i]"/>
         </g:each>
-        <g:each in="${campaign}" var="campaign" status="i">
-            <g:if test="${campaign.campaignType == CampaignTypeRSDTO.DEBATE}">
-                <g:render template="liCampaignDebate" model="[debate: campaign, user: user, idx: debate.id]"/>
-            </g:if>
-            <g:else>
-                <g:render template="liCampaignPost" model="[post: campaign, user: user, idx: post.id]"/>
-            </g:else>
+        <g:each in="${campaigns}" var="campaign" status="i">
+            <g:render template="liCampaignGeneric" model="[campaign: campaign, user: user, idx: campaign.id]"/>
         </g:each>
     </ul>
 

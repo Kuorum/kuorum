@@ -444,19 +444,7 @@ class UrlMappings {
         name eventCreate:           "/account/event/new" (controller: "event"){action = [GET: "create", POST: "saveSettings"]}
         // REDIRECTS (OLD URLS) - DEPRECATED
 
-        name campaignShow:          "/$userAlias/$urlTitle-$campaignId"           (controller: "campaign", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-        // PROJECT
-//        "/$userAlias/$hashtag"                                                              {controller="redirect"; action= "redirect301Project"; constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-        "/hashtag/$hashtag"                                                                 {controller="redirect"; action= "redirect301Project";}
-        "/proyectos/$regionName/$commission/$hashtag"                                       {controller="redirect"; action= "redirect301Project";}
-        "/leyes/$regionName/$commission/$hashtag"                                           {controller="redirect"; action= "redirect301Project";}
-//        "/$lang/$userAlias/$hashtag/$postBrief-$campaignId"                                     {controller="redirect"; action= "redirect301Project"; constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)}); lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-//        "/$userAlias/$hashtag/$postBrief-$campaignId"                                           {controller="redirect"; action= "redirect301Project"; constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-        "/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$campaignId"          {controller="redirect"; action= "redirect301Project";}
-        "/proyectos/$regionName/$commission/$hashtag/$urlPostTypeVieja/$postBrief-$campaignId"  {controller="redirect"; action= "redirect301Project";}
-        "/leyes/$regionName/$commission/$hashtag/$urlPostTypeVieja/$postBrief-$campaignId"      {controller="redirect"; action= "redirect301Project";}
-
-
+        name campaignShow:          "/$userAlias/$urlTitle-$campaignId" (controller: "campaign", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
 
         name widgetJs:      "/widget.js"(controller: "widget", action:"kuorumWidgetjs")
         name widgetRatePolitician:     "/widget/ratePolitician" (controller: "rating", action:"widgetRatePolitician")

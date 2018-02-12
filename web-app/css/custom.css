@@ -1505,11 +1505,6 @@ ul.list > li > ul.list-actions > li > a :hover,
 ul.list > li > ul.list-actions > li > a:focus,
 ul.list > li > ul.list-actions > li > a:active {color: #20a2ea;}
 
-/*.campaignDelete, .contactDelete {right: 0;}*/
-/*.campaignStats, .contactStats,*/
-/*.campaignEdit {right: 25px;}*/
-/*.debateItem .campaignStats {right: 55px;}*/
-
 /* DASHBOARD (08/2016) */
 #mails {text-align: center;}
 #mails li {list-style: none; display: inline-block; margin: 0 17px 20px;}
@@ -5670,7 +5665,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     #campaignsList > li h3 {margin-top: 14px;}
     .campaignDelete, .contactDelete  {right: 5px;}
     .campaignStats, .contactStats, #campaignsList .campaignEdit {right: 28px;}
-    .debateItem .campaignStats {right: 58px;}
 
     .tags-campaign .tag-events {border-left: 1px solid #DDDDDD;}
 
@@ -6013,7 +6007,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     #campaignsList > li {padding-left: 65px; padding-top: 24px; padding-bottom: 15px;}
     .campaignDelete, .contactDelete {right: 5px;}
     .campaignStats, .contactStats , #campaignsList .campaignEdit {right: 30px;}
-    .debateItem .campaignStats {right: 60px;}
     #campaignsList > li > ul.list-campaign-stats {width: 36%;}
     #campaignsList > li h3, #campaignsList > li .name {padding-right: 48%;}
     #campaignsList > li h3 {margin-top: 0px}

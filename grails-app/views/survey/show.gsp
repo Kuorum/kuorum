@@ -5,18 +5,14 @@
     <meta name="layout" content="columnCLayout">
     <g:set var="schemaData" value="${[schema:'http://schema.org/Article', name:post.title]}" scope="request"/>
     <g:render template="/survey/surveyMetaTags" model="[survey: survey, titleMessageCode:titleMessageCode]"/>
-    <r:require modules="post, event"/>
 
 </head>
 
 <content tag="mainContent">
-    <g:render template="/post/showModules/mainContent" model="[post: post, postUser: postUser]" />
-    <g:render template="/campaigns/columnCModules/eventCallToAction" model="[eventUser: postUser,campaign:post]"/>
+    <g:render template="/survey/showModules/mainContent" model="[survey: survey, campaignUser: campaignUser]" />
 </content>
 
 <content tag="cColumn">
-    %{--<g:render template="/campaigns/columnCModules/eventCallToAction" model="[eventUser: postUser,campaign:post]"/>--}%
-    %{--<g:render template="/campaigns/columnCModules/eventInfo" model="[event:post.event]"/>--}%
-    %{--<g:render template="/post/showModules/cColumn" model="[post: post, postUser: postUser]" />--}%
+    <g:render template="/survey/showModules/cCallToAction" model="[survey: survey]"/>
 </content>
 

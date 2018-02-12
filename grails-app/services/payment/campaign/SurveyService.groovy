@@ -150,7 +150,7 @@ class SurveyService implements CampaignCreatorService<SurveyRSDTO, SurveyRDTO>{
 
     @Override
     def buildView(SurveyRSDTO campaignRSDTO, KuorumUser campaignOwner, String viewerUid, def params) {
-        def model = [survey: campaignRSDTO, surveyUser: campaignOwner]
+        def model = [survey: campaignRSDTO, campaignUser: campaignOwner]
         [view: "/survey/show", model:model]
     }
 }
