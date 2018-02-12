@@ -64,6 +64,8 @@ class CampaignController {
                 case CampaignTypeRSDTO.POST:
                     dataView = postService.buildView(campaignRSDTO, user, viewerUid, params)
                     break
+                case CampaignTypeRSDTO.SURVEY:
+                    dataView = surveyService.buildView(campaignRSDTO, user, viewerUid, params)
                 default:
                     log.error("Campaign type not recognized: ${campaignRSDTO.campaignType}")
                     throw new Exception("Campaign type not recognized: ${campaignRSDTO.campaignType}")

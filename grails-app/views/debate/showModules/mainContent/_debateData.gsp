@@ -1,56 +1,11 @@
 <!-- ^leader-post !-->
 <div class="leader-post">
-    <g:render template="/debate/showModules/mainContent/debateDataMultimedia" model="[debate:debate, poweredByKuorum:poweredByKuorum]"/>
-
+    <g:render template="/campaigns/showModules/campaignDataMultimedia" model="[campaign: debate, poweredByKuorum:poweredByKuorum]"/>
     <div class="header">
         <h1 class="title" itemprop="headline">${debate.title}</h1>
-
         <userUtil:showUser user="${debateUser}" showRole="true" itemprop="author"/>
-
-        <div class="clearfix">
-            <span class="time-ago pull-left"><kuorumDate:humanDate date="${debate.datePublished}" itemprop="datePublished"/> </span>
-
-            <g:if test="${debate.event && !debate.event.registered}">
-                <div class="actions call-to-action-mobile call-mobile-event-confirm event-unconfirmed"
-                     data-userLoggedAlias="${userUtil.loggedUserAlias()}"
-                     data-postUrl="${g.createLink(mapping: 'eventBookTicket',params:debate.event.encodeAsLinkProperties())}"
-                     data-debateId="${debate.id}">
-                    %{--EVENT DATA - CHAPU BORRAR --}%
-                    <button type="button" class="btn btn-orange btn-lg call-message">
-                        <g:message code="event.callToAction.button"/>
-                    </button>
-                    <span class="fa fa-caret-down arrow"></span>
-                    <button type="button" class="btn btn-orange btn-xl btn-circle call-button">
-                        <span class="fa fa-ticket fa-2x"></span>
-                    </button>
-                </div>
-            </g:if>
-            <div class="actions call-to-action-mobile add-proposal">
-                %{--EVENT DATA - CHAPU BORRAR --}%
-                <button type="button" class="btn btn-blue btn-lg call-message">
-                    <g:if test="${debate?.event?.registered}">
-                        <g:message code="event.callToAction.success.mobile"/>
-                    </g:if>
-                    <g:else>
-                        <g:message code="debate.proposals.callToAction.mobile.message"/>
-                    </g:else>
-                </button>
-                <span class="fa fa-caret-down arrow"></span>
-                <button type="button" class="btn btn-blue btn-xl btn-circle call-button">
-                    <span class="fa fa-lightbulb-o fa-2x"></span>
-                </button>
-            </div>
-
-            <userUtil:ifUserIsTheLoggedOne user="${debateUser}">
-                %{--campaignList contains the js to open modal when the debate is scheduled --}%
-                <r:require modules="campaignList"/>
-
-                <g:set var="modal" value="${debate.newsletter.status == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SCHEDULED ?'modalEditScheduled':''}"/>
-                <g:link class="edit ${modal}" mapping="debateEditContent" params="${debate.encodeAsLinkProperties()}">
-                    <span class="fa fa-pencil-square-o pull-right fa-2x" aria-hidden="true"></span>
-                </g:link>
-            </userUtil:ifUserIsTheLoggedOne>
-        </div>
+        <g:render template="/debate/showModules/mainContent/debateDataImageCallToAction" model="[debate:debate]"/>
+        <g:render template="/campaigns/showModules/campaignDataDatePublished" model="[campaign:debate, campaignUser:debateUser, editMappingName:'debateEditContent']"/>
     </div>
 
     <div class="body" itemprop="articleBody">
@@ -58,8 +13,8 @@
     </div>
 
     <div class="footer clearfix">
-        <g:render template="/debate/showModules/mainContent/debateDataLabels" model="[causes:debate.causes]"/>
-        <g:render template="/debate/showModules/mainContent/debateDataSocial" model="[debate:debate, debateUser:debateUser]"/>
+        <g:render template="/campaigns/showModules/campaignDataLabels" model="[causes:debate.causes]"/>
+        <g:render template="/campaigns/showModules/campaignDataSocial" model="[campaign:debate]"/>
 
         <g:if test="${debate.event}">
             %{-- EVENT ICON --}%
@@ -67,14 +22,7 @@
         </g:if>
         <g:else>
             %{-- DEBATE ICON --}%
-            <g:if test="${debate.campaignStatusRSDTO == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT}">
-                <div class="comment-counter pull-right">
-                    <button type="button">
-                        <span class="fa fa-lightbulb-o" aria-hidden="true"></span>
-                        <span class="number">${proposalPage.total}</span>
-                    </button>
-                </div>
-            </g:if>
+            <g:render template="/debate/showModules/mainContent/debateDataIcon" model="[debate:debate, numberProposals:proposalPage.total]"/>
         </g:else>
     </div>
 </div> <!-- ^leader-post !-->

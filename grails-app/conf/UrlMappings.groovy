@@ -444,6 +444,7 @@ class UrlMappings {
         name eventCreate:           "/account/event/new" (controller: "event"){action = [GET: "create", POST: "saveSettings"]}
         // REDIRECTS (OLD URLS) - DEPRECATED
 
+        name campaignShow:          "/$userAlias/$urlTitle-$campaignId"           (controller: "campaign", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
         // PROJECT
 //        "/$userAlias/$hashtag"                                                              {controller="redirect"; action= "redirect301Project"; constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
         "/hashtag/$hashtag"                                                                 {controller="redirect"; action= "redirect301Project";}

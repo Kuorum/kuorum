@@ -33,8 +33,8 @@ class LinkPropertiesCodec {
             case CauseRSDTO:
             case PostRSDTO:
             case SurveyRSDTO:
-            case SolrPost:
             case DebateRSDTO:
+            case SolrPost:
             case SolrDebate:
             case ProposalRSDTO:
             case NotificationProposalCommentRSDTO:
