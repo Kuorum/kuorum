@@ -4,6 +4,6 @@
 <div class="comment-counter pull-right">
     <button type="button" class="post-like ${activeButton?'active':''}">
         <span class="fa fa-pie-chart" aria-hidden="true"></span>
-        <span class="number">${post.likes}</span>
+        <span class="number">34</span>
     </button>
 </div>
