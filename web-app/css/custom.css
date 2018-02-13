@@ -9148,12 +9148,13 @@ ul.notification-menu > li.see-more {
 
 .survey-question-answer {
     font-size: 20px;
-    height: 100px;
+    /*height: 100px;*/
     display: flex;
     flex-direction: column;
     justify-content: center;
     position: relative;
     z-index: 99;
+    padding:20px 0 20px 20px;
 }
 
 .survey-question-answer:hover {
@@ -9198,8 +9199,8 @@ ul.notification-menu > li.see-more {
 }
 .survey-question-answer .progress-info {
     position: absolute;
-    width: 95%;
-    bottom: 0;
+    width: 96%;
+    bottom: -15px;
     right: 20px;
     z-index: 0;
 }

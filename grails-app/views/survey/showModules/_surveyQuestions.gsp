@@ -9,10 +9,12 @@
 </div><!-- ^survey-progress !-->
 
 <g:each in="${survey.questions}" var="question">
-    <g:if test="${question.questionType == org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.ONE_OPTION}">
-        <g:render template="/survey/showModules/questions/singleQuestion" model="[survey:survey, question:question]"/>
-    </g:if>
-    <g:else>
-        <g:render template="/survey/showModules/questions/multipleQuestion" model="[survey:survey, question: question]"/>
-    </g:else>
+    <ul class="survey-questions">
+        <g:if test="${question.questionType == org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.ONE_OPTION}">
+            <g:render template="/survey/showModules/questions/singleQuestion" model="[survey:survey, question:question]"/>
+        </g:if>
+        <g:else>
+            <g:render template="/survey/showModules/questions/multipleQuestion" model="[survey:survey, question: question]"/>
+        </g:else>
+    </ul>
 </g:each>

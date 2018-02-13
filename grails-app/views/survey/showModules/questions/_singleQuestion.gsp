@@ -1,57 +1,12 @@
 <!-- ^survey-question-single-answer !-->
-<div class="comment-box survey-question single-answer no-padding hidden" data-question-pos="4">
+<li class="comment-box survey-question single-answer no-padding" data-question-pos="4">
     <div class="survery-question-title padding-box">
         ${question.text}
     </div>
     <div class="survey-question-answers" data-answer-selected="" data-question-order="1">
-        <div class="survey-question-answer padding-box-sides" data-answer-id="1">
-            <div class="option">
-                <span class="fa fa-circle-thin check-icon"></span><span>Yes, it is slightly better</span>
-            </div>
-            <div class="option checked">
-                <span class="fa fa-check-circle check-icon"></span><span>Yes, it is slightly better</span>
-            </div>
-            <div class="progress-info">
-                <div class="progress-bar-counter">30</div>
-                <div class="progress">
-                    <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" data-answer-percent-selected="50" data-answer-percent="30">
-                        <span class="sr-only">30% Complete</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="survey-question-answer padding-box-sides" data-answer-id="2">
-            <div class="option">
-                <span class="fa fa-circle-thin check-icon"></span><span>Yes, it is slightly better</span>
-            </div>
-            <div class="option checked">
-                <span class="fa fa-check-circle check-icon"></span><span>Yes, it is slightly better</span>
-            </div>
-            <div class="progress-info">
-                <div class="progress-bar-counter">10</div>
-                <div class="progress">
-                    <div class="progress-bar" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" data-answer-percent-selected="30" data-answer-percent="10">
-                        <span class="sr-only">30% Complete</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="survey-question-answer padding-box-sides" data-answer-id="3">
-            <div class="option">
-                <span class="fa fa-circle-thin check-icon"></span><span>Yes, it is slightly better</span>
-            </div>
-            <div class="option checked">
-                <span class="fa fa-check-circle check-icon"></span><span>Yes, it is slightly better</span>
-            </div>
-            <div class="progress-info">
-                <div class="progress-bar-counter">0</div>
-                <div class="progress">
-                    <div class="progress-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" data-answer-percent-selected="20" data-answer-percent="0">
-                        <span class="sr-only">0% Complete</span>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <g:each in="${question.options}" var="option">
+            <g:render template="/survey/showModules/questions/singleQuestionOption" model="[survey:survey, question:question, option:option]"/>
+        </g:each>
     </div>
     <div class="footer padding-box">
         <ul class="social">
@@ -95,4 +50,4 @@
             </button>
         </div>
     </div>
-</div><!-- ^survey-question-single-answer !-->
+</li><!-- ^survey-question-single-answer !-->
