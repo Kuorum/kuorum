@@ -136,6 +136,11 @@ modules = {
         resource url:'js/post.js'
     }
 
+    survey{
+        dependsOn("basic")
+        resource url:'js/survey.js'
+    }
+
     causes {
         dependsOn("basic")
         resource url:'js/causes.js'
