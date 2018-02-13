@@ -1,4 +1,3 @@
 <g:render template="/survey/showModules/surveyData" model="[survey: survey, campaignUser: campaignUser]" />
 
-
-RENDER SURVEY
+<g:render template="/survey/showModules/surveyQuestions" model="[survey:survey]"/>

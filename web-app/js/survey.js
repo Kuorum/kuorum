@@ -132,11 +132,16 @@ $(function () {
         var amountPercentPerStep = parseInt(progressBarSurveyCounter.getAttribute('data-amount-percent-per-step'), 10);
         var nextQuestionPos = questionPos + 1;
         surveyProgress.setAttribute('data-question-pos', questionPos);
-        var nextQuestion = document.querySelector('[data-question-pos="' + nextQuestionPos + '"]');
-
+        var currentQuestion = document.querySelector('.survey-question[data-question-pos="' + questionPos + '"]');
+        currentQuestion.classList.add('answered');
+        var nextQuestion = $(currentQuestion).next();
+        console.log(nextQuestion)
+        console.log(!!nextQuestion)
         if (!!nextQuestion === true) {
-            nextQuestion.classList.remove('hidden');
+            // $(nextQuestion).css("display","none");
+            $(nextQuestion).slideDown("slow");
         }
+
 
         progressBarSurveyCounter.style.width = (questionPos * amountPercentPerStep) + '%';
         surveyPos.textContent = questionPos.toString();
