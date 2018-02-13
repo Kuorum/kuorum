@@ -23,16 +23,6 @@ $(function () {
         });
     };
 
-    var _setProgressBarsPercent = function(progressBars) {
-        var arr = [].slice.call(progressBars);
-        arr.forEach(function(element) {
-            var progressBar = element.children[0];
-            var progressBarCounter = element.previousElementSibling;
-            progressBarCounter.textContent = progressBar.getAttribute('data-answer-percent') + '%';
-            progressBar.style.width = progressBar.getAttribute('data-answer-percent') + '%';
-        });
-    }
-
     var _setProgressBarsPercentMultiOptions = function(progressBars, question) {
         var arr = [].slice.call(progressBars);
         arr.forEach(function(element) {
@@ -56,11 +46,7 @@ $(function () {
     var _selectSingleAnswer = function (event) {
         var answer = event.currentTarget.parentElement;
         var question = answer.parentElement;
-        var progressBarCounters = question.getElementsByClassName('progress-bar-counter');
-        var progressBars = question.getElementsByClassName('progress');
         var selectedAnswer = question.querySelector('[data-answer-id="' + question.getAttribute('data-answer-selected') + '"] .option.checked');
-        var progressBar = answer.getElementsByClassName('progress-bar')[0];
-        var progressBarCounter = answer.getElementsByClassName('progress-bar-counter')[0];
         var nextButton = question.nextElementSibling.querySelector('.next-section button');
 
         if (!!selectedAnswer === true) {    // unselect current selected option
@@ -71,8 +57,10 @@ $(function () {
         }
 
         if (event.currentTarget === selectedAnswer) {   // hide progress bars and percents
-            _hideAllElements(progressBarCounters);
-            _hideAllElements(progressBars);
+            // var progressBarCounters = question.getElementsByClassName('progress-bar-counter');
+            // var progressBars = question.getElementsByClassName('progress');
+            // _hideAllElements(progressBarCounters);
+            // _hideAllElements(progressBars);
             return;
         }
 
@@ -87,10 +75,7 @@ $(function () {
         var answer = event.currentTarget.parentElement;
         var answerVotes = answer.querySelector('.progress-bar-counter');
         var question = answer.parentElement;
-        var progressBarCounters = question.getElementsByClassName('progress-bar-counter');
-        var progressBars = question.getElementsByClassName('progress');
         var selectedAnswers = (question.getAttribute('data-answer-selected') !== "") ? JSON.parse(question.getAttribute('data-answer-selected')) : "";
-        var progressBar = answer.getElementsByClassName('progress-bar')[0];
         var nextButton = question.nextElementSibling.querySelector('.next-section button');
 
 
@@ -125,26 +110,44 @@ $(function () {
         }, 100);  */
     };
 
-    var _updateSurveyProgress = function(questionPos) {
+    var _updateSurveyProgressBar = function(){
+        // GLOBAL PROGRESS
+        var numberQuestions = $(".survey-question").length;
+        var numberQuestionsAnswered = $(".survey-question.answered").length;
         var surveyPos = document.getElementById('survey-pos');
-        var surveyProgress = document.getElementById('survey-progress');
+        var surveyTotal = document.getElementById('survey-total');
         var progressBarSurveyCounter = document.getElementById('progress-bar-survey-counter');
-        var amountPercentPerStep = parseInt(progressBarSurveyCounter.getAttribute('data-amount-percent-per-step'), 10);
-        var nextQuestionPos = questionPos + 1;
-        surveyProgress.setAttribute('data-question-pos', questionPos);
+        progressBarSurveyCounter.style.width = (numberQuestionsAnswered*100 / numberQuestions) + '%';
+        surveyPos.textContent = numberQuestionsAnswered.toString();
+        surveyTotal.textContent = numberQuestions.toString();
+    }
+
+    var _nextQuestion = function(questionPos) {
         var currentQuestion = document.querySelector('.survey-question[data-question-pos="' + questionPos + '"]');
         currentQuestion.classList.add('answered');
         var nextQuestion = $(currentQuestion).next();
-        console.log(nextQuestion)
-        console.log(!!nextQuestion)
         if (!!nextQuestion === true) {
             // $(nextQuestion).css("display","none");
             $(nextQuestion).slideDown("slow");
         }
+        _updateSurveyProgressBar();
+    };
 
-
-        progressBarSurveyCounter.style.width = (questionPos * amountPercentPerStep) + '%';
-        surveyPos.textContent = questionPos.toString();
+    var _updateQuestionOneAnswerStats=function(questionId){
+        var question = document.querySelector('[data-question-pos="' + questionId + '"]');
+        var numAnswers = parseInt(question.getAttribute("data-numAnswers"))
+        var answerOptions = question.getElementsByClassName('survey-question-answer')
+        Array.from(answerOptions).forEach(function(answerOption) {
+            var numOptionAnswers = answerOption.getAttribute("data-numAnswers")
+            var percentageOptionProgressBar = (numOptionAnswers / numAnswers * 100)
+            percentageOptionProgressBar = Math.round(percentageOptionProgressBar * 100) / 100
+            answerOption.getElementsByClassName("progress-bar-counter")[0].textContent=percentageOptionProgressBar +"%";
+            var optionProgressBar = answerOption.getElementsByClassName("progress-bar")[0]
+            optionProgressBar.style.width=percentageOptionProgressBar+"%"
+            optionProgressBar.setAttribute("aria-valuenow",percentageOptionProgressBar)
+            optionProgressBar.setAttribute("data-answer-percent",percentageOptionProgressBar)
+            optionProgressBar.setAttribute("data-answer-percent-selected",percentageOptionProgressBar)
+        })
     };
 
     options.forEach(function(option) {
@@ -166,8 +169,6 @@ $(function () {
             var selectedAnswer = answers.getAttribute('data-answer-selected');
 
             var answer = answers.querySelector('[data-answer-id="' + selectedAnswer + '"]');
-            var progressBar = answer.getElementsByClassName('progress-bar')[0];
-            var progressBarCounter = answer.getElementsByClassName('progress-bar-counter')[0];
             var options = question.querySelectorAll('.option'); // Html collection to array
 
             if (selectedAnswer && button.getAttribute('data-clicked') === 'false') {
@@ -175,18 +176,16 @@ $(function () {
                 options.forEach(function(option) {
                     option.removeEventListener('click', _selectSingleAnswer);
                 });
+                // UPDATE NUM ANSWERS
+                answer.setAttribute("data-numanswers", parseInt(answer.getAttribute("data-numanswers"))+1);
+                question.setAttribute("data-numanswers", parseInt(question.getAttribute("data-numanswers"))+1);
 
                 _showAllElements(progressBarCounters);
                 _showAllElements(progressBars);
-                _setProgressBarsPercent(progressBars);
+                _updateQuestionOneAnswerStats(parseInt(question.getAttribute('data-question-pos')));
 
-                setTimeout(function() {
-                    progressBar.style.width = progressBar.getAttribute('data-answer-percent-selected') + '%';
-                    progressBarCounter.textContent = progressBar.getAttribute('data-answer-percent-selected') + '%';
-                }, 100);
-
-                _updateSurveyProgress(parseInt(question.getAttribute('data-question-pos'), 10));
-                nextButton.classList.add('hidden');
+                _nextQuestion(parseInt(question.getAttribute('data-question-pos'), 10));
+                nextButton.parentNode.classList.add('hidden');
             }
         });
     });
@@ -213,9 +212,11 @@ $(function () {
                 _showAllElements(progressBarCounters);
                 _showAllElements(progressBars);
                 _setProgressBarsPercentMultiOptions(progressBars);
-                _updateSurveyProgress(parseInt(question.getAttribute('data-question-pos'), 10));
-                nextButton.classList.add('hidden');
+                _nextQuestion(parseInt(question.getAttribute('data-question-pos'), 10));
+                nextButton.parentNode.classList.add('hidden');
             }
         });
     });
+
+    _updateSurveyProgressBar();
 })

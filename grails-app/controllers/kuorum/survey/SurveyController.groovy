@@ -119,7 +119,7 @@ class SurveyController extends CampaignController{
     private def modelQuestionStep(SurveyRSDTO survey){
         SurveyQuestionsCommand command = new SurveyQuestionsCommand()
         command.surveyId = survey.id
-        command.questions = survey.questions.collect{map(it)}.reverse()
+        command.questions = survey.questions.collect{map(it)}
         return command
     }
 

@@ -287,9 +287,14 @@ class FormTagLib {
         out << "</div>"
 
         Integer idx = listCommands.size();
+        def operator = {i -> i -1}
+        if (appendLast){
+            idx = -1;
+            operator = {i -> i +1}
+        }
         listCommands.each{
             if (it){
-                idx --;
+                idx = operator(idx)
                 out <<"<div class='dynamic-fieldset ${cssParentContainer}' data-dynamic-list-index='${idx}' >"
                 out << body([listCommand:it, prefixField:"${field}[${idx}].", ])
                 out << removeButton

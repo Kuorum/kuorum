@@ -1,4 +1,4 @@
-<div class="survey-question-answer padding-box-sides" data-answer-id="1">
+<div class="survey-question-answer" data-answer-id="${option.id}" data-numAnswers="${option.amountAnswers}">
     <div class="option">
         <span class="fa fa-circle-thin check-icon"></span><span>${option.text}</span>
     </div>
