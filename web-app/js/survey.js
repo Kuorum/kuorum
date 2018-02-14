@@ -24,30 +24,34 @@ $(function () {
     };
 
     var _setProgressBarsPercentMultiOptions = function(progressBars, question) {
+        var numQuestionAnswers = parseInt(question.getAttribute("data-numAnswers"))
+        question.setAttribute("data-numAnswers",numQuestionAnswers+1);
         var arr = [].slice.call(progressBars);
-        arr.forEach(function(element) {
-            var answer = element.parentElement.parentElement;
-            var question = answer.parentElement;
+        arr.forEach(function(progress) {
+            var answer = progress.parentElement.parentElement;
+            var numOptionAnswers = parseInt(answer.getAttribute("data-numAnswers"))
             var selectedAnswers = (question.getAttribute('data-answer-selected') !== "") ? JSON.parse(question.getAttribute('data-answer-selected')) : "";
             var answerPosition = selectedAnswers.indexOf(answer.getAttribute('data-answer-id'));
-            var progressBar = element.children[0];
-            var progressBarCounter = element.previousElementSibling;
+            var progressBar = progress.children[0];
+            var progressBarCounter = progress.previousElementSibling;
 
-            if (answerPosition === -1) {
-                progressBar.style.width = progressBar.getAttribute('data-answer-percent') + '%';
-            } else {
-                progressBar.style.width = progressBar.getAttribute('data-answer-percent-selected') + '%';
-                progressBarCounter.textContent = parseInt(progressBarCounter.textContent, 10) + 1;
+            if (answerPosition >= 0) {
+                numOptionAnswers = numOptionAnswers +1;
+
             }
+            answer.setAttribute("data-numAnswers", numOptionAnswers);
+            progressBar.style.width = Math.round(numOptionAnswers/numQuestionAnswers*100*100)/100 + '%';
+            progressBarCounter.textContent = numOptionAnswers;
         });
     }
 
     // Checkbox
     var _selectSingleAnswer = function (event) {
         var answer = event.currentTarget.parentElement;
-        var question = answer.parentElement;
-        var selectedAnswer = question.querySelector('[data-answer-id="' + question.getAttribute('data-answer-selected') + '"] .option.checked');
-        var nextButton = question.nextElementSibling.querySelector('.next-section button');
+        var answerList = answer.parentElement;
+        var question = answer.parentElement.parentElement;
+        var selectedAnswer = answerList.querySelector('[data-answer-id="' + question.getAttribute('data-answer-selected') + '"] .option.checked');
+        var nextButton = answerList.nextElementSibling.querySelector('.next-section button');
 
         if (!!selectedAnswer === true) {    // unselect current selected option
             _hideElement(selectedAnswer);
@@ -74,9 +78,11 @@ $(function () {
     var _selectMultiAnswer = function (event) {
         var answer = event.currentTarget.parentElement;
         var answerVotes = answer.querySelector('.progress-bar-counter');
-        var question = answer.parentElement;
+        var answersList = answer.parentElement;
+        var question = answersList.parentElement;
+
         var selectedAnswers = (question.getAttribute('data-answer-selected') !== "") ? JSON.parse(question.getAttribute('data-answer-selected')) : "";
-        var nextButton = question.nextElementSibling.querySelector('.next-section button');
+        var nextButton = answersList.nextElementSibling.querySelector('.next-section button');
 
 
         if (!!selectedAnswers === true && Array.isArray(selectedAnswers)) {
@@ -133,7 +139,7 @@ $(function () {
         _updateSurveyProgressBar();
     };
 
-    var _updateQuestionOneAnswerStats=function(questionId){
+    var _setProgressBarsPercentOneOption=function(questionId){
         var question = document.querySelector('[data-question-pos="' + questionId + '"]');
         var numAnswers = parseInt(question.getAttribute("data-numAnswers"))
         var answerOptions = question.getElementsByClassName('survey-question-answer')
@@ -166,7 +172,7 @@ $(function () {
 
             var progressBarCounters = answers.getElementsByClassName('progress-bar-counter');
             var progressBars = answers.getElementsByClassName('progress');
-            var selectedAnswer = answers.getAttribute('data-answer-selected');
+            var selectedAnswer = question.getAttribute('data-answer-selected');
 
             var answer = answers.querySelector('[data-answer-id="' + selectedAnswer + '"]');
             var options = question.querySelectorAll('.option'); // Html collection to array
@@ -182,7 +188,7 @@ $(function () {
 
                 _showAllElements(progressBarCounters);
                 _showAllElements(progressBars);
-                _updateQuestionOneAnswerStats(parseInt(question.getAttribute('data-question-pos')));
+                _setProgressBarsPercentOneOption(parseInt(question.getAttribute('data-question-pos')));
 
                 _nextQuestion(parseInt(question.getAttribute('data-question-pos'), 10));
                 nextButton.parentNode.classList.add('hidden');
@@ -198,11 +204,11 @@ $(function () {
 
             var progressBarCounters = answers.getElementsByClassName('progress-bar-counter');
             var progressBars = answers.getElementsByClassName('progress');
-            var selectedAnswers = answers.getAttribute('data-answer-selected');
+            var selectedAnswers = question.getAttribute('data-answer-selected');
             var multiOptions = question.querySelectorAll('.multi-option'); // Html collection to array
 
             selectedAnswers = JSON.parse(selectedAnswers);
-
+            console.log(selectedAnswers)
             if (!!selectedAnswers && button.getAttribute('data-clicked') === 'false') {
                 button.setAttribute('data-clicked', 'true');
                 multiOptions.forEach(function(option) {
@@ -211,7 +217,7 @@ $(function () {
 
                 _showAllElements(progressBarCounters);
                 _showAllElements(progressBars);
-                _setProgressBarsPercentMultiOptions(progressBars);
+                _setProgressBarsPercentMultiOptions(progressBars,question);
                 _nextQuestion(parseInt(question.getAttribute('data-question-pos'), 10));
                 nextButton.parentNode.classList.add('hidden');
             }
