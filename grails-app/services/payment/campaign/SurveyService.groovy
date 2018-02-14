@@ -153,4 +153,16 @@ class SurveyService implements CampaignCreatorService<SurveyRSDTO, SurveyRDTO>{
         def model = [survey: campaignRSDTO, campaignUser: campaignOwner]
         [view: "/survey/show", model:model]
     }
+
+    void saveAnswer(SurveyRSDTO surveyRSDTO, KuorumUser userAnswer, Long questionId, List<Long> optionAnswersId){
+        Map<String, String> params = [userAlias: surveyRSDTO.user.id.toString(), surveyId: surveyRSDTO.id.toString(),questionId:questionId.toString()]
+        Map<String, String> query = [viewerUid:userAnswer.id.toString()]
+        def response = restKuorumApiService.put(
+                RestKuorumApiService.ApiMethod.ACCOUNT_SURVEY_ANSWER,
+                params,
+                query,
+                optionAnswersId,
+                null
+        )
+    }
 }

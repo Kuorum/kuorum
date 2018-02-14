@@ -6,6 +6,7 @@ import kuorum.politician.CampaignController
 import kuorum.users.KuorumUser
 import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.commands.payment.CampaignSettingsCommand
+import kuorum.web.commands.payment.survey.QuestionAnswerCommand
 import kuorum.web.commands.payment.survey.QuestionCommand
 import kuorum.web.commands.payment.survey.QuestionOptionCommand
 import kuorum.web.commands.payment.survey.SurveyQuestionsCommand
@@ -98,6 +99,14 @@ class SurveyController extends CampaignController{
         surveyService.save(surveyUser, rdto, survey.id)
         redirect mapping: params.redirectLink, params: survey.encodeAsLinkProperties()
 
+    }
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def saveAnswer(QuestionAnswerCommand command){
+        KuorumUser userAnswer = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUser surveyUser = KuorumUser.findByAlias(params.userAlias)
+        SurveyRSDTO survey = surveyService.find(surveyUser, command.campaignId)
+        surveyService.saveAnswer(survey, userAnswer, command.questionId, command.answersIds)
+        render ([status:"success",msg:""] as JSON)
     }
 
     private QuestionRDTO map(QuestionCommand command){

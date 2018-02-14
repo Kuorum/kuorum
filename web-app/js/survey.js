@@ -23,6 +23,35 @@ $(function () {
         });
     };
 
+    var _sendQuestionAnswers=function(questionId){
+        var question = document.querySelector('.survey-question[data-question-pos="' + questionId + '"]');
+        var url = question.parentElement.getAttribute("data-save-question-answer")
+        var answerIds = JSON.parse(question.getAttribute("data-answer-selected"))
+        console.log(questionId)
+        if (!Array.isArray(answerIds)){
+            answerIds = [answerIds]
+        }
+        var data = {
+            // surveyId:10,
+            questionId:questionId,
+            answersIds:answerIds
+        }
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: $.param(data, true),
+            success: function(data){
+                // console.log("Succes"+data)
+            },
+            dataType: 'json'
+        }).fail(function(error) {
+            // console.log(error)
+            // display.warn( "error" );
+        }).always(function() {
+
+        });
+    }
+
     var _setProgressBarsPercentMultiOptions = function(progressBars, question) {
         var numQuestionAnswers = parseInt(question.getAttribute("data-numAnswers"))
         question.setAttribute("data-numAnswers",numQuestionAnswers+1);
@@ -128,14 +157,15 @@ $(function () {
         surveyTotal.textContent = numberQuestions.toString();
     }
 
-    var _nextQuestion = function(questionPos) {
-        var currentQuestion = document.querySelector('.survey-question[data-question-pos="' + questionPos + '"]');
+    var _nextQuestion = function(questionId) {
+        var currentQuestion = document.querySelector('.survey-question[data-question-pos="' + questionId + '"]');
         currentQuestion.classList.add('answered');
         var nextQuestion = $(currentQuestion).next();
         if (!!nextQuestion === true) {
             // $(nextQuestion).css("display","none");
             $(nextQuestion).slideDown("slow");
         }
+        _sendQuestionAnswers(questionId)
         _updateSurveyProgressBar();
     };
 

@@ -8,7 +8,7 @@
     </div>
 </div><!-- ^survey-progress !-->
 
-<ul class="survey-questions">
+<ul class="survey-questions" data-save-question-answer="${g.createLink(mapping:"surveySaveAnswer", params:survey.encodeAsLinkProperties())}">
     <g:each in="${survey.questions}" var="question">
         <g:if test="${question.questionType == org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.ONE_OPTION}">
             <g:render template="/survey/showModules/questions/singleQuestion" model="[survey:survey, question:question]"/>
