@@ -13,7 +13,8 @@ $(function () {
 
     var _sendQuestionAnswers=function(questionId){
         var question = document.querySelector('.survey-question[data-question-id="' + questionId + '"]');
-        var url = question.parentElement.getAttribute("data-save-question-answer")
+        var button = question.querySelector('.actions button')
+        var url = button.getAttribute("data-postUrl")
         var answerIds = JSON.parse(question.getAttribute("data-answer-selected"))
         if (!Array.isArray(answerIds)){
             answerIds = [answerIds]
@@ -49,7 +50,6 @@ $(function () {
 
         var arr = [].slice.call(progressBars);
         arr.forEach(function(progress) {
-            console.log("Multi next")
             var answer = progress.parentElement.parentElement;
             var numOptionAnswers = parseInt(answer.getAttribute("data-numAnswers"))
             // var selectedAnswers = (question.getAttribute('data-answer-selected') !== "") ? JSON.parse(question.getAttribute('data-answer-selected')) : "";
@@ -71,7 +71,6 @@ $(function () {
         var answer = event.currentTarget.parentElement;
         var answerList = answer.parentElement;
         var question = answer.parentElement.parentElement;
-        var selectedAnswer = answerList.querySelector('[data-answer-id="' + question.getAttribute('data-answer-selected') + '"] .option.checked');
         var nextButton = answerList.nextElementSibling.querySelector('.next-section button');
 
         answerList.querySelectorAll(".survey-question-answer").forEach(function(answerListed){
@@ -174,15 +173,14 @@ $(function () {
         nextButton.addEventListener('click', function(event) {
             var question = event.currentTarget.parentElement.parentElement.parentElement;
             var answers = question.getElementsByClassName('survey-question-answers')[0];
-            var button = question.querySelector('[data-clicked]');
+            var button = question.querySelector('.actions button');
 
             var selectedAnswer = question.getAttribute('data-answer-selected');
 
             var answer = answers.querySelector('[data-answer-id="' + selectedAnswer + '"]');
             var options = question.querySelectorAll('.option'); // Html collection to array
 
-            if (selectedAnswer && button.getAttribute('data-clicked') === 'false') {
-                button.setAttribute('data-clicked', 'true');
+            if (selectedAnswer) {
                 options.forEach(function(option) {
                     option.removeEventListener('click', _selectSingleAnswer);
                 });
