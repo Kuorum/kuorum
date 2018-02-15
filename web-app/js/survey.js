@@ -169,55 +169,76 @@ $(function () {
         option.addEventListener('click', _selectMultiAnswer);
     });
 
+
+    var _nextButtonClick = specificNextButtonClick => e => {
+        var $buttonPublish = $(e.target);
+        var alias = $buttonPublish.attr("data-userLoggedAlias");
+        if (alias == "") {
+            // USER NO LOGGED
+            var buttonId = guid();
+            $buttonPublish.attr("id", buttonId);
+            $form = $buttonPublish.parents("form")
+            $form.removeClass("dirty");
+            // noLoggedRememberPasswordCallbacks.publishProposal.saveState($buttonPublish);
+            // $('#registro').find("form").attr("callback", "publishProposalNoLogged");
+            // $('#registro').find("form").attr("data-buttonId", buttonId);
+            $('#registro').modal('show');
+        } else {
+            specificNextButtonClick(e)
+        }
+    }
+
     optionsNextButton.forEach(function(nextButton) {
-        nextButton.addEventListener('click', function(event) {
-            var question = event.currentTarget.parentElement.parentElement.parentElement;
-            var answers = question.getElementsByClassName('survey-question-answers')[0];
-            var button = question.querySelector('.actions button');
-
-            var selectedAnswer = question.getAttribute('data-answer-selected');
-
-            var answer = answers.querySelector('[data-answer-id="' + selectedAnswer + '"]');
-            var options = question.querySelectorAll('.option'); // Html collection to array
-
-            if (selectedAnswer) {
-                options.forEach(function(option) {
-                    option.removeEventListener('click', _selectSingleAnswer);
-                });
-                // UPDATE NUM ANSWERS
-                answer.setAttribute("data-numanswers", parseInt(answer.getAttribute("data-numanswers"))+1);
-                question.setAttribute("data-numanswers", parseInt(question.getAttribute("data-numanswers"))+1);
-
-                _setProgressBarsPercentOneOption(parseInt(question.getAttribute('data-question-id')));
-
-                _nextQuestion(parseInt(question.getAttribute('data-question-id'), 10));
-                nextButton.parentNode.classList.add('hidden');
-            }
-        });
+        nextButton.addEventListener('click', _nextButtonClick(_singleOptionNextButtonClick));
     });
 
     multiOptionsNextButton.forEach(function(nextButton) {
-        nextButton.addEventListener('click', function(event) {
-            var question = event.currentTarget.parentElement.parentElement.parentElement;
-            var answers = question.getElementsByClassName('survey-question-answers')[0];
-            var button = question.querySelector('[data-clicked]');
-            var selectedAnswers = question.getAttribute('data-answer-selected');
-            var multiOptions = question.querySelectorAll('.multi-option'); // Html collection to array
-
-            selectedAnswers = JSON.parse(selectedAnswers);
-            if (!!selectedAnswers && button.getAttribute('data-clicked') === 'false') {
-                button.setAttribute('data-clicked', 'true');
-                multiOptions.forEach(function(option) {
-                    option.removeEventListener('click', _selectMultiAnswer);
-                });
-
-                _setProgressBarsPercentMultiOptions(question);
-                _nextQuestion(parseInt(question.getAttribute('data-question-id'), 10));
-                nextButton.parentNode.classList.add('hidden');
-            }
-        });
+        nextButton.addEventListener('click', _nextButtonClick(_multiOptionNextButtonClick));
     });
 
+    var _singleOptionNextButtonClick = function(event){
+        var question = event.currentTarget.parentElement.parentElement.parentElement;
+        var answers = question.getElementsByClassName('survey-question-answers')[0];
+        var button = question.querySelector('.actions button');
+
+        var selectedAnswer = question.getAttribute('data-answer-selected');
+
+        var answer = answers.querySelector('[data-answer-id="' + selectedAnswer + '"]');
+        var options = question.querySelectorAll('.option'); // Html collection to array
+
+        if (selectedAnswer) {
+            options.forEach(function(option) {
+                option.removeEventListener('click', _selectSingleAnswer);
+            });
+            // UPDATE NUM ANSWERS
+            answer.setAttribute("data-numanswers", parseInt(answer.getAttribute("data-numanswers"))+1);
+            question.setAttribute("data-numanswers", parseInt(question.getAttribute("data-numanswers"))+1);
+
+            _setProgressBarsPercentOneOption(parseInt(question.getAttribute('data-question-id')));
+
+            _nextQuestion(parseInt(question.getAttribute('data-question-id'), 10));
+        }
+    }
+
+    var _multiOptionNextButtonClick = function(event){
+        var question = event.currentTarget.parentElement.parentElement.parentElement;
+        var answers = question.getElementsByClassName('survey-question-answers')[0];
+        var button = question.querySelector('[data-clicked]');
+        var selectedAnswers = question.getAttribute('data-answer-selected');
+        var multiOptions = question.querySelectorAll('.multi-option'); // Html collection to array
+
+        selectedAnswers = JSON.parse(selectedAnswers);
+        if (!!selectedAnswers && button.getAttribute('data-clicked') === 'false') {
+            button.setAttribute('data-clicked', 'true');
+            multiOptions.forEach(function(option) {
+                option.removeEventListener('click', _selectMultiAnswer);
+            });
+
+            _setProgressBarsPercentMultiOptions(question);
+            _nextQuestion(parseInt(question.getAttribute('data-question-id'), 10));
+            nextButton.parentNode.classList.add('hidden');
+        }
+    }
     _updateSurveyProgressBar();
     document.querySelectorAll(".survey-question.single-answer.answered").forEach(function(question){
         var questionId = parseInt(question.getAttribute('data-question-id'))
