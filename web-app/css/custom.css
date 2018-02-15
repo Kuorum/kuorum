@@ -9078,19 +9078,24 @@ ul.notification-menu > li.see-more {
 }
 
 .survey-question {
-    display: none;
+    border:none;
+    box-shadow: none;
     flex: 0 0 auto;
     list-style-type: none;
+    max-height: 0;
+    transition: max-height 1s ease-out;
+    overflow: hidden;
+    margin-bottom: 0px;
 }
 
-.survey-question:first-child {
-    display:block;
-}
-
-/*.survey-question.answered + .survey-question,*/
+.survey-question:first-child,
+.survey-question.answered + .survey-question,
 .survey-question.answered {
-    display:block;
-    transition: all 10s ease-out;
+    margin-bottom: 20px;
+    border:1px solid #F0F0F0;;
+    box-shadow: 0 0 2px rgba(200,200,200,0.6);
+    max-height: 10000px;
+    transition: max-height 5s ease-in;
 }
 
 

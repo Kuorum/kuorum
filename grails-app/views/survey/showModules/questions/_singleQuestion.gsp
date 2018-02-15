@@ -1,5 +1,5 @@
 <!-- ^survey-question-single-answer !-->
-<li class="comment-box survey-question single-answer no-padding" data-question-pos="${question.id}" data-numAnswers="${question.amountAnswers}" >
+<li class="comment-box survey-question single-answer no-padding ${question.completed?'answered':''}" data-question-pos="${question.id}" data-numAnswers="${question.amountAnswers}" >
     <div class="survery-question-title padding-box">
         ${question.text}
     </div>

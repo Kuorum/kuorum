@@ -161,10 +161,11 @@ $(function () {
         var currentQuestion = document.querySelector('.survey-question[data-question-pos="' + questionId + '"]');
         currentQuestion.classList.add('answered');
         var nextQuestion = $(currentQuestion).next();
-        if (!!nextQuestion === true) {
-            // $(nextQuestion).css("display","none");
-            $(nextQuestion).slideDown("slow");
-        }
+        // SLIDE DOWN DONE WITH CSS
+        // if (!!nextQuestion === true) {
+        //     // $(nextQuestion).css("display","none");
+        //     $(nextQuestion).slideDown("slow");
+        // }
         _sendQuestionAnswers(questionId)
         _updateSurveyProgressBar();
     };
