@@ -36,8 +36,8 @@ $(function () {
         var answers = question.getElementsByClassName('survey-question-answers')[0];
         var progressBars = answers.getElementsByClassName('progress');
 
-        numQuestionAnswers= numQuestionAnswers+1;
         var numQuestionAnswers = parseInt(question.getAttribute("data-numAnswers"));
+        numQuestionAnswers= numQuestionAnswers+1;
         question.setAttribute("data-numAnswers",numQuestionAnswers+1);
 
         var arr = [].slice.call(progressBars);
