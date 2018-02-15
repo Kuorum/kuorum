@@ -1,4 +1,4 @@
-<div class="survey-question-answer ${option.userOption?'checked':''}" data-answer-id="${option.id}" data-numAnswers="${option.amountAnswers}">
+<div class="survey-question-answer ${option.checked?'checked':''}" data-answer-id="${option.id}" data-numAnswers="${option.amountAnswers}">
     <div class="option">
         <span class="fa fa-circle-thin check-icon"></span>
         <span class="fa fa-check-circle check-icon"></span>

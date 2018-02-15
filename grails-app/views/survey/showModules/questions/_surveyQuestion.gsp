@@ -3,7 +3,7 @@
     <g:set var="questionClass" value="multi-answer"/>
 </g:if>
 
-<li class="comment-box survey-question ${questionClass} no-padding ${question.completed?'answered':''}" data-question-id="${question.id}" data-numAnswers="${question.amountAnswers}" >
+<li class="comment-box survey-question ${questionClass} no-padding ${question.answered?'answered':''}" data-question-id="${question.id}" data-numAnswers="${question.amountAnswers}" >
     <div class="survery-question-title padding-box">
         ${question.text}
     </div>
