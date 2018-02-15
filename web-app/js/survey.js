@@ -38,7 +38,7 @@ $(function () {
 
         var numQuestionAnswers = parseInt(question.getAttribute("data-numAnswers"));
         numQuestionAnswers= numQuestionAnswers+1;
-        question.setAttribute("data-numAnswers",numQuestionAnswers+1);
+        question.setAttribute("data-numAnswers",numQuestionAnswers);
 
         var arr = [].slice.call(progressBars);
         arr.forEach(function(progress) {
