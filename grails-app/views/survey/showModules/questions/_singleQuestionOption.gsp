@@ -1,9 +1,8 @@
-<div class="survey-question-answer" data-answer-id="${option.id}" data-numAnswers="${option.amountAnswers}">
+<div class="survey-question-answer ${option.userOption?'checked':''}" data-answer-id="${option.id}" data-numAnswers="${option.amountAnswers}">
     <div class="option">
-        <span class="fa fa-circle-thin check-icon"></span><span>${option.text}</span>
-    </div>
-    <div class="option checked">
-        <span class="fa fa-check-circle check-icon"></span><span>${option.text}</span>
+        <span class="fa fa-circle-thin check-icon"></span>
+        <span class="fa fa-check-circle check-icon"></span>
+        <span>${option.text}</span>
     </div>
     <div class="progress-info">
         <div class="progress-bar-counter">30</div>

@@ -4,30 +4,10 @@ $(function () {
     var multiOptionsNextButton = document.querySelectorAll('.survey-question.multi-answer .next-section button');
     var multiOptions = document.querySelectorAll('.multi-option');
 
-    var _showElement = function(element) {
-        element.style.display = 'flex';
-    };
-    var _hideElement = function(element) {
-        element.style.display = 'none';
-    };
-    var _showAllElements = function(elements) {
-        var arr = [].slice.call(elements);
-        arr.forEach(function(element) {
-            element.style.display = 'flex';
-        });
-    };
-    var _hideAllElements = function(elements) {
-        var arr = [].slice.call(elements);
-        arr.forEach(function(element) {
-            element.style.display = 'none';
-        });
-    };
-
     var _sendQuestionAnswers=function(questionId){
-        var question = document.querySelector('.survey-question[data-question-pos="' + questionId + '"]');
+        var question = document.querySelector('.survey-question[data-question-id="' + questionId + '"]');
         var url = question.parentElement.getAttribute("data-save-question-answer")
         var answerIds = JSON.parse(question.getAttribute("data-answer-selected"))
-        console.log(questionId)
         if (!Array.isArray(answerIds)){
             answerIds = [answerIds]
         }
@@ -52,11 +32,17 @@ $(function () {
         });
     }
 
-    var _setProgressBarsPercentMultiOptions = function(progressBars, question) {
-        var numQuestionAnswers = parseInt(question.getAttribute("data-numAnswers"))
+    var _setProgressBarsPercentMultiOptions = function(question) {
+        var answers = question.getElementsByClassName('survey-question-answers')[0];
+        var progressBars = answers.getElementsByClassName('progress');
+
+        numQuestionAnswers= numQuestionAnswers+1;
+        var numQuestionAnswers = parseInt(question.getAttribute("data-numAnswers"));
         question.setAttribute("data-numAnswers",numQuestionAnswers+1);
+
         var arr = [].slice.call(progressBars);
         arr.forEach(function(progress) {
+            console.log("Multi next")
             var answer = progress.parentElement.parentElement;
             var numOptionAnswers = parseInt(answer.getAttribute("data-numAnswers"))
             var selectedAnswers = (question.getAttribute('data-answer-selected') !== "") ? JSON.parse(question.getAttribute('data-answer-selected')) : "";
@@ -66,7 +52,6 @@ $(function () {
 
             if (answerPosition >= 0) {
                 numOptionAnswers = numOptionAnswers +1;
-
             }
             answer.setAttribute("data-numAnswers", numOptionAnswers);
             progressBar.style.width = Math.round(numOptionAnswers/numQuestionAnswers*100*100)/100 + '%';
@@ -82,25 +67,13 @@ $(function () {
         var selectedAnswer = answerList.querySelector('[data-answer-id="' + question.getAttribute('data-answer-selected') + '"] .option.checked');
         var nextButton = answerList.nextElementSibling.querySelector('.next-section button');
 
-        if (!!selectedAnswer === true) {    // unselect current selected option
-            _hideElement(selectedAnswer);
-            _showElement(selectedAnswer.previousElementSibling);
-            nextButton.classList.add('disabled');
-            question.setAttribute('data-answer-selected', '');
-        }
-
-        if (event.currentTarget === selectedAnswer) {   // hide progress bars and percents
-            // var progressBarCounters = question.getElementsByClassName('progress-bar-counter');
-            // var progressBars = question.getElementsByClassName('progress');
-            // _hideAllElements(progressBarCounters);
-            // _hideAllElements(progressBars);
-            return;
-        }
+        answerList.querySelectorAll(".survey-question-answer").forEach(function(answerListed){
+            answerListed.classList.remove('checked');
+        })
 
         nextButton.classList.remove('disabled');
+        answer.classList.add('checked');
         question.setAttribute('data-answer-selected', answer.getAttribute('data-answer-id'));
-        _hideElement(event.currentTarget);
-        _showElement(event.currentTarget.nextElementSibling);
     };
 
     // Radio
@@ -131,18 +104,14 @@ $(function () {
         }
 
         question.setAttribute('data-answer-selected',  (selectedAnswers.length > 0) ? JSON.stringify(selectedAnswers) : '');
-        _hideElement(event.currentTarget);
-        _showElement((event.currentTarget.className.split('checked').length !== 2) ? event.currentTarget.nextElementSibling : event.currentTarget.previousElementSibling);
-
+        if (answer.classList.contains('checked')){
+            answer.classList.remove('checked');
+        }else{
+            answer.classList.add('checked');
+        }
         if (selectedAnswers.length === 0) {
             nextButton.classList.add('disabled');
         }
-
-        /*_showAllElements(progressBarCounters);
-        _showAllElements(progressBars);
-        setTimeout(function() {
-            _setProgressBarsPercentMultiOptions(progressBars, question);
-        }, 100);  */
     };
 
     var _updateSurveyProgressBar = function(){
@@ -158,7 +127,7 @@ $(function () {
     }
 
     var _nextQuestion = function(questionId) {
-        var currentQuestion = document.querySelector('.survey-question[data-question-pos="' + questionId + '"]');
+        var currentQuestion = document.querySelector('.survey-question[data-question-id="' + questionId + '"]');
         currentQuestion.classList.add('answered');
         var nextQuestion = $(currentQuestion).next();
         // SLIDE DOWN DONE WITH CSS
@@ -171,7 +140,7 @@ $(function () {
     };
 
     var _setProgressBarsPercentOneOption=function(questionId){
-        var question = document.querySelector('[data-question-pos="' + questionId + '"]');
+        var question = document.querySelector('[data-question-id="' + questionId + '"]');
         var numAnswers = parseInt(question.getAttribute("data-numAnswers"))
         var answerOptions = question.getElementsByClassName('survey-question-answer')
         Array.from(answerOptions).forEach(function(answerOption) {
@@ -201,8 +170,6 @@ $(function () {
             var answers = question.getElementsByClassName('survey-question-answers')[0];
             var button = question.querySelector('[data-clicked]');
 
-            var progressBarCounters = answers.getElementsByClassName('progress-bar-counter');
-            var progressBars = answers.getElementsByClassName('progress');
             var selectedAnswer = question.getAttribute('data-answer-selected');
 
             var answer = answers.querySelector('[data-answer-id="' + selectedAnswer + '"]');
@@ -217,11 +184,9 @@ $(function () {
                 answer.setAttribute("data-numanswers", parseInt(answer.getAttribute("data-numanswers"))+1);
                 question.setAttribute("data-numanswers", parseInt(question.getAttribute("data-numanswers"))+1);
 
-                _showAllElements(progressBarCounters);
-                _showAllElements(progressBars);
-                _setProgressBarsPercentOneOption(parseInt(question.getAttribute('data-question-pos')));
+                _setProgressBarsPercentOneOption(parseInt(question.getAttribute('data-question-id')));
 
-                _nextQuestion(parseInt(question.getAttribute('data-question-pos'), 10));
+                _nextQuestion(parseInt(question.getAttribute('data-question-id'), 10));
                 nextButton.parentNode.classList.add('hidden');
             }
         });
@@ -232,28 +197,29 @@ $(function () {
             var question = event.currentTarget.parentElement.parentElement.parentElement;
             var answers = question.getElementsByClassName('survey-question-answers')[0];
             var button = question.querySelector('[data-clicked]');
-
-            var progressBarCounters = answers.getElementsByClassName('progress-bar-counter');
-            var progressBars = answers.getElementsByClassName('progress');
             var selectedAnswers = question.getAttribute('data-answer-selected');
             var multiOptions = question.querySelectorAll('.multi-option'); // Html collection to array
 
             selectedAnswers = JSON.parse(selectedAnswers);
-            console.log(selectedAnswers)
             if (!!selectedAnswers && button.getAttribute('data-clicked') === 'false') {
                 button.setAttribute('data-clicked', 'true');
                 multiOptions.forEach(function(option) {
                     option.removeEventListener('click', _selectMultiAnswer);
                 });
 
-                _showAllElements(progressBarCounters);
-                _showAllElements(progressBars);
-                _setProgressBarsPercentMultiOptions(progressBars,question);
-                _nextQuestion(parseInt(question.getAttribute('data-question-pos'), 10));
+                _setProgressBarsPercentMultiOptions(question);
+                _nextQuestion(parseInt(question.getAttribute('data-question-id'), 10));
                 nextButton.parentNode.classList.add('hidden');
             }
         });
     });
 
     _updateSurveyProgressBar();
+    document.querySelectorAll(".survey-question.single-answer.answered").forEach(function(question){
+        var questionId = parseInt(question.getAttribute('data-question-id'))
+        _setProgressBarsPercentOneOption(questionId)
+    });
+    document.querySelectorAll(".survey-question.multi-answer.answered").forEach(function(question){
+        _setProgressBarsPercentMultiOptions(question)
+    });
 })
