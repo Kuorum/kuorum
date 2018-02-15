@@ -29,6 +29,9 @@
 <g:elseif test="${notification instanceof NotificationPostNewRSDTO}">
     <g:render template="/layouts/notifications/postNewNotification" model='[notification:notification]'/>
 </g:elseif>
+<g:elseif test="${notification instanceof NotificationSurveyNewRSDTO}">
+    <g:render template="/layouts/notifications/surveyNewNotification" model='[notification:notification]'/>
+</g:elseif>
 <g:elseif env="development">
     NOT DONE ${notification.class.name}
 </g:elseif>
