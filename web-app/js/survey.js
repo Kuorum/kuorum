@@ -1,4 +1,11 @@
 $(function () {
+
+    $("#survey-call-to-action").on("click", function(e){
+        e.preventDefault()
+        moveToHash($(this).attr("data-goto"))
+    })
+
+
     var options = document.querySelectorAll('.option');
     var optionsNextButton = document.querySelectorAll('.survey-question.single-answer .next-section button');
     var multiOptionsNextButton = document.querySelectorAll('.survey-question.multi-answer .next-section button');

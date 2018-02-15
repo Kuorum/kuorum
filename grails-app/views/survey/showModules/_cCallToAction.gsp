@@ -5,7 +5,7 @@
     </div>
 
     <div class="actions clearfix">
-        <button type="button" class="btn btn-blue btn-lg publish publish-proposal" data-userloggedalias="" data-posturl="https://kuorum.org/ajax/addProposal" data-debateid="108" data-debatealias="toledoparticipa">
+        <button type="button" class="btn btn-blue btn-lg" data-goto="#survey-progress" id="survey-call-to-action">
             Take the survey
         </button>
     </div>
