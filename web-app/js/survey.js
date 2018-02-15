@@ -188,14 +188,6 @@ $(function () {
         }
     }
 
-    optionsNextButton.forEach(function(nextButton) {
-        nextButton.addEventListener('click', _nextButtonClick(_singleOptionNextButtonClick));
-    });
-
-    multiOptionsNextButton.forEach(function(nextButton) {
-        nextButton.addEventListener('click', _nextButtonClick(_multiOptionNextButtonClick));
-    });
-
     var _singleOptionNextButtonClick = function(event){
         var question = event.currentTarget.parentElement.parentElement.parentElement;
         var answers = question.getElementsByClassName('survey-question-answers')[0];
@@ -228,8 +220,7 @@ $(function () {
         var multiOptions = question.querySelectorAll('.multi-option'); // Html collection to array
 
         selectedAnswers = JSON.parse(selectedAnswers);
-        if (!!selectedAnswers && button.getAttribute('data-clicked') === 'false') {
-            button.setAttribute('data-clicked', 'true');
+        if (!!selectedAnswers) {
             multiOptions.forEach(function(option) {
                 option.removeEventListener('click', _selectMultiAnswer);
             });
@@ -239,6 +230,16 @@ $(function () {
             nextButton.parentNode.classList.add('hidden');
         }
     }
+
+    optionsNextButton.forEach(function(nextButton) {
+        nextButton.addEventListener('click', _nextButtonClick(_singleOptionNextButtonClick));
+    });
+
+    multiOptionsNextButton.forEach(function(nextButton) {
+        nextButton.addEventListener('click', _nextButtonClick(_multiOptionNextButtonClick));
+    });
+
+
     _updateSurveyProgressBar();
     document.querySelectorAll(".survey-question.single-answer.answered").forEach(function(question){
         var questionId = parseInt(question.getAttribute('data-question-id'))
