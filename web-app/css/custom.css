@@ -7254,6 +7254,9 @@ header .header-msg h6:hover{
 #questionsSurveyForm .row {margin:0;}
 #questionsSurveyForm .row .question-text-container {padding-right:30px;}
 
+#questionsSurveyForm .questionOption .question .addQuestionOptionButton{display: none;}
+#questionsSurveyForm .questionOption .question:last-child .addQuestionOptionButton{display: inline-block;}
+
 .config .admin-user-options{ padding-left:10px; font-size:1rem;    border-bottom: 1px solid #ccc; padding-bottom: 10px;}
 .config .admin-user-options label{ padding: 0 0 0 10px; margin:0px}
 .config .admin-user-options > ul{margin: -10px 0 0 25px}
