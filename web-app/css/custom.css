@@ -9234,6 +9234,8 @@ ul.notification-menu > li.see-more {
 }
 
 
+.survey-question-answer .option .fa,
+.survey-question-answer .multi-option .fa{width:30px;}
 .survey-question-answer .option .fa-circle-thin,
 .survey-question-answer .multi-option .fa-square-o {display: inline-block;}
 .survey-question-answer .option .fa-check-circle,

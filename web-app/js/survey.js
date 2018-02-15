@@ -45,15 +45,15 @@ $(function () {
             console.log("Multi next")
             var answer = progress.parentElement.parentElement;
             var numOptionAnswers = parseInt(answer.getAttribute("data-numAnswers"))
-            var selectedAnswers = (question.getAttribute('data-answer-selected') !== "") ? JSON.parse(question.getAttribute('data-answer-selected')) : "";
-            var answerPosition = selectedAnswers.indexOf(answer.getAttribute('data-answer-id'));
+            // var selectedAnswers = (question.getAttribute('data-answer-selected') !== "") ? JSON.parse(question.getAttribute('data-answer-selected')) : "";
+            // var answerPosition = selectedAnswers.indexOf(answer.getAttribute('data-answer-id'));
             var progressBar = progress.children[0];
-            var progressBarCounter = progress.previousElementSibling;
+            var progressBarCounter = answer.querySelector('.progress-bar-counter');
 
-            if (answerPosition >= 0) {
-                numOptionAnswers = numOptionAnswers +1;
-            }
-            answer.setAttribute("data-numAnswers", numOptionAnswers);
+            // if (answerPosition >= 0) {
+            //     numOptionAnswers = numOptionAnswers +1;
+            // }
+            // answer.setAttribute("data-numAnswers", numOptionAnswers);
             progressBar.style.width = Math.round(numOptionAnswers/numQuestionAnswers*100*100)/100 + '%';
             progressBarCounter.textContent = numOptionAnswers;
         });
@@ -79,36 +79,35 @@ $(function () {
     // Radio
     var _selectMultiAnswer = function (event) {
         var answer = event.currentTarget.parentElement;
-        var answerVotes = answer.querySelector('.progress-bar-counter');
+        // var answerVotes = answer.querySelector('.progress-bar-counter');
         var answersList = answer.parentElement;
         var question = answersList.parentElement;
 
         var selectedAnswers = (question.getAttribute('data-answer-selected') !== "") ? JSON.parse(question.getAttribute('data-answer-selected')) : "";
         var nextButton = answersList.nextElementSibling.querySelector('.next-section button');
 
-
+        var numOptionAnswers = parseInt(answer.getAttribute("data-numAnswers"))
         if (!!selectedAnswers === true && Array.isArray(selectedAnswers)) {
             var answerPosition = selectedAnswers.indexOf(answer.getAttribute('data-answer-id'));
             if (answerPosition === -1) {
                 selectedAnswers.push(answer.getAttribute('data-answer-id'));
-                answerVotes.textContent = parseInt(answerVotes.textContent, 10) + 1;
                 nextButton.classList.remove('disabled');
+                answer.classList.add('checked');
+                numOptionAnswers = numOptionAnswers+1;
             } else {
                 selectedAnswers.splice(answerPosition, 1);
-                answerVotes.textContent = parseInt(answerVotes.textContent, 10) - 1;
+                answer.classList.remove('checked');
+                numOptionAnswers = numOptionAnswers -1;
             }
         } else {
             selectedAnswers = [answer.getAttribute('data-answer-id')];
-            answerVotes.textContent = parseInt(answerVotes.textContent, 10) + 1;
             nextButton.classList.remove('disabled');
-        }
-
-        question.setAttribute('data-answer-selected',  (selectedAnswers.length > 0) ? JSON.stringify(selectedAnswers) : '');
-        if (answer.classList.contains('checked')){
-            answer.classList.remove('checked');
-        }else{
+            numOptionAnswers = numOptionAnswers +1;
             answer.classList.add('checked');
         }
+        answer.setAttribute("data-numAnswers",numOptionAnswers)
+        question.setAttribute('data-answer-selected',  (selectedAnswers.length > 0) ? JSON.stringify(selectedAnswers) : '');
+
         if (selectedAnswers.length === 0) {
             nextButton.classList.add('disabled');
         }
