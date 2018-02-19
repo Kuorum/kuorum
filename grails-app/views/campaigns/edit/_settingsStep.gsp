@@ -48,18 +48,7 @@
         <div id="advanced-features">
             <g:render template="/newsletter/form/formGroupCampaignTags" model="[command:command, events:events]"/>
         </div>
-        <fieldset class="buttons">
-            <div class="text-right">
-                <ul class="form-final-options">
-                    <li>
-                        <a href="#" id="save-draft-debate" data-redirectLink="politicianCampaigns">
-                            <g:message code="tools.massMailing.saveDraft"/>
-                        </a>
-                    </li>
-                    <li><a href="#" class="btn btn-blue inverted" id="next" data-redirectLink="${mappings.next}"><g:message code="tools.massMailing.next"/></a></li>
-                </ul>
-            </div>
-        </fieldset>
+        <g:render template="/campaigns/edit/stepButtons" model="[mappings:mappings, status:status, command: command]"/>
     </form>
 </div>
 

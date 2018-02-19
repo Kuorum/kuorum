@@ -32,6 +32,21 @@ $(function(){
 
     var $saveDraftDebate = $('.form-final-options #save-draft-debate[data-redirectLink]');
     $saveDraftDebate.on('click', stepSubmit);
+
+    var $sendButton = $('#campaignConfirm #saveCampaignBtn[data-redirectLink]');
+    $sendButton.on('click', function(e){
+        e.preventDefault();
+        console.log("SEND")
+        var callback = $('#saveCampaignBtn').attr('data-callback');
+        var $form = $('form.campaign-form');
+        var $inputHidden = $form.find('#redirectLink');
+        var redirect = $(this).attr('data-redirectLink');
+        $inputHidden.attr('value', redirect);
+        if (callback != undefined && callback != ""){
+            window[callback]();
+        }
+        stepSubmit(e);
+    });
 })
 
 
@@ -39,7 +54,6 @@ function stepSubmit (e){
     e.preventDefault();
     var $form = $('form.campaign-form');
     var $inputHidden = $form.find('#redirectLink');
-    console.log($inputHidden.val());
     if($inputHidden.val() == undefined || $inputHidden.val() == ""){
         var redirect = $(this).attr('data-redirectLink');
         $inputHidden.attr('value', redirect);
@@ -74,4 +88,18 @@ function prepareAndOpenCampaignConfirmModal(){
     $("#campaignWarnFilterEdited .modal-body > p > span").html(amountContacts);
 
     $("#campaignConfirm").modal("show");
+}
+
+function sendParams() {
+    var date = new Date();
+    var dateString = date.getDate()
+        + "/" + ("0" + (date.getMonth() + 1)).slice(-2)
+        + "/" + date.getFullYear()
+        + " " + date.getHours() + ":" + date.getMinutes();
+    $("input[name='publishOn']").val(dateString);
+    $("input[name='sendType']").val("SEND");
+}
+
+function scheduleParams() {
+    $("input[name='sendType']").val("SCHEDULED");
 }

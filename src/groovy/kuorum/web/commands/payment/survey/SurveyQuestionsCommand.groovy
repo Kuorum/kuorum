@@ -4,6 +4,7 @@ import grails.plugin.springsecurity.SpringSecurityService
 import grails.validation.Validateable
 import kuorum.users.KuorumUser
 import kuorum.util.TimeZoneUtil
+import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.constants.WebConstants
 import org.codehaus.groovy.grails.web.context.ServletContextHolder
 import org.codehaus.groovy.grails.web.servlet.GrailsApplicationAttributes
@@ -20,6 +21,10 @@ class SurveyQuestionsCommand {
     Long surveyId
     List<QuestionCommand> questions = [];
 
+    @BindingFormat(WebConstants.WEB_FORMAT_DATE)
+    Date publishOn
+    String sendType
+
     static KuorumUser currentUser(){
         Object appContext = ServletContextHolder.servletContext.getAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT)
         SpringSecurityService springSecurityService = (SpringSecurityService)appContext.springSecurityService
@@ -29,6 +34,7 @@ class SurveyQuestionsCommand {
     }
 
     static constraints = {
+        importFrom CampaignContentCommand, include: ["publishOn", "sendType"]
         questions maxSize: 10000;
     }
 }

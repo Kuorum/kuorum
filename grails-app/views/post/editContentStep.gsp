@@ -23,6 +23,7 @@
             numberRecipients:numberRecipients,
             status: status,
             mappings:[
+                 saveAndSentButtons:true,
                  step:'content',
                  settings:'postEdit',
                  event:'postEditEvent',

@@ -32,11 +32,11 @@ $(function(){
         e.preventDefault();
         if (isValidDebateForm()) {
             $('#saveCampaignBtn').attr('data-callback', 'sendParams');
-            prepareAndOpenDebateConfirmModal();
+            prepareAndOpenCampaignConfirmModal();
         }
     });
     // Abrir modal confirmar envío debate programada
-    $('body').on('click','.form-final-options #send-debate-later', function(e) {
+    $('body').on('click','.form-final-options #send-campaign-later', function(e) {
         e.preventDefault();
         if (isValidDebateForm()) {
             $('#saveCampaignBtn').attr('data-callback', 'scheduleParams');
@@ -64,29 +64,6 @@ $(function(){
         }
     }*/
 
-
-    function prepareAndOpenDebateConfirmModal(){
-        var amountContacts = $('select#recipients option:selected').attr("data-amountContacts");
-        $("#campaignConfirmTitle > span").html(amountContacts);
-        $("#campaignWarnFilterEdited .modal-body > p > span").html(amountContacts);
-
-        $("#campaignConfirm").modal("show");
-    }
-
-    var $sendButton = $('#campaignConfirm #saveCampaignBtn[data-redirectLink]');
-    $sendButton.on('click', function(e){
-        e.preventDefault();
-        var callback = $('#saveCampaignBtn').attr('data-callback');
-        var $form = $('form#politicianMassMailingForm');
-        var $inputHidden = $form.find('#redirectLink');
-        var redirect = $(this).attr('data-redirectLink');
-        $inputHidden.attr('value', redirect);
-        if (callback != undefined && callback != ""){
-            window[callback]();
-        }
-        stepSubmit(e);
-    });
-
     // Animate view when click on add image or video
     $("a[data-toggle='tab']").on('shown.bs.tab', function () {
         var $navbarTabs = $("ul.nav-pills");
@@ -99,17 +76,3 @@ $(function(){
         });
     });
 });
-
-function sendParams() {
-    var date = new Date();
-    var dateString = date.getDate()
-        + "/" + ("0" + (date.getMonth() + 1)).slice(-2)
-        + "/" + date.getFullYear()
-        + " " + date.getHours() + ":" + date.getMinutes();
-    $("input[name='publishOn']").val(dateString);
-    $("input[name='sendType']").val("SEND");
-}
-
-function scheduleParams() {
-    $("input[name='sendType']").val("SCHEDULED");
-}

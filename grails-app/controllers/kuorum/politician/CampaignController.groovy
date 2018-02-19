@@ -21,7 +21,6 @@ import kuorum.web.commands.payment.contact.ContactFilterCommand
 import org.bson.types.ObjectId
 import org.kuorum.rest.model.communication.CampaignRSDTO
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
-import org.kuorum.rest.model.communication.post.PostRSDTO
 import org.kuorum.rest.model.contact.ContactPageRSDTO
 import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
 import org.kuorum.rest.model.contact.filter.FilterRDTO
@@ -211,9 +210,7 @@ class CampaignController {
                 command.headerPictureId = kuorumFile?.id
             }
         }
-        Long numberRecipients = campaignRSDTO.newsletter?.filter?.amountOfContacts!=null?
-                campaignRSDTO.newsletter?.filter?.amountOfContacts:
-                contactService.getUsers(user, null).total;
+        Long numberRecipients = getCampaignNumberRecipients(user, campaignRSDTO)
         [
                 command: command,
                 numberRecipients: numberRecipients,
@@ -222,16 +219,17 @@ class CampaignController {
         ]
     }
 
+    protected Long getCampaignNumberRecipients(KuorumUser user, CampaignRSDTO campaignRSDTO){
+        Long numberRecipients = campaignRSDTO?.newsletter?.filter?.amountOfContacts!=null?
+                campaignRSDTO.newsletter?.filter?.amountOfContacts:
+                contactService.getUsers(user, null).total;
+        return numberRecipients
+    }
+
     protected CampaignRDTO convertCommandContentToRDTO(CampaignContentCommand command, KuorumUser user, Long campaignId, CampaignCreatorService campaignService) {
         CampaignRDTO campaignRDTO = createRDTO(user, campaignId, campaignService)
         campaignRDTO.title = command.title
         campaignRDTO.body = command.body
-        if(command.sendType == 'SEND'){
-            campaignRDTO.publishOn = Calendar.getInstance(user.getTimeZone()).time;
-        }
-        else{
-            campaignRDTO.publishOn = TimeZoneUtil.convertToUserTimeZone(command.publishOn, user.timeZone)
-        }
 
         // Multimedia URL
         if (command.fileType == FileType.IMAGE.toString() && command.headerPictureId) {
@@ -260,12 +258,22 @@ class CampaignController {
     }
 
     protected Map<String, Object> saveAndSendCampaignContent(CampaignContentCommand command, Long campaignId, CampaignCreatorService campaignService) {
-        String msg
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         CampaignRDTO campaignRDTO = convertCommandContentToRDTO(command, user, campaignId, campaignService)
+        saveAndSendCampaign(user, campaignRDTO, campaignId, command.publishOn, command.sendType, campaignService)
+    }
 
+    protected Map<String, Object> saveAndSendCampaign(KuorumUser user, CampaignRDTO campaignRDTO, Long campaignId,Date publishOn,String sendType, CampaignCreatorService campaignService){
         CampaignRSDTO savedCampaign = null
-        if(command.publishOn){
+        String msg
+        if(sendType == 'SEND'){
+            campaignRDTO.publishOn = Calendar.getInstance(user.getTimeZone()).time;
+        }
+        else{
+            campaignRDTO.publishOn = TimeZoneUtil.convertToUserTimeZone(publishOn, user.timeZone)
+        }
+
+        if(campaignRDTO.publishOn){
             // Published or Scheduled
             savedCampaign = campaignService.save(user, campaignRDTO, campaignId)
 
@@ -277,18 +285,18 @@ class CampaignController {
                 after5minutes = date + 5.minutes
             }
 
-            if(command.publishOn > after5minutes){
+            if(campaignRDTO.publishOn > after5minutes){
                 // Shceduled over 5 minutes
                 msg = g.message(code: 'tools.massMailing.schedule.advise', args: [
                         savedCampaign.title,
-                        g.formatDate(date: command.publishOn, type: "datetime", style: "SHORT")
+                        g.formatDate(date: campaignRDTO.publishOn, type: "datetime", style: "SHORT")
                 ])
             }
             else {
                 // Published or scheduled within 5 minutes
                 msg = g.message(code: 'tools.massMailing.saved.advise', args: [
                         savedCampaign.title,
-                        g.formatDate(date: command.publishOn, type: "datetime", style: "SHORT")
+                        g.formatDate(date: campaignRDTO.publishOn, type: "datetime", style: "SHORT")
                 ])
             }
         }
@@ -298,7 +306,7 @@ class CampaignController {
             msg = g.message(code: 'tools.massMailing.saveDraft.advise', args: [savedCampaign.title])
         }
 
-        [msg: msg, campaign: savedCampaign, nextStep:processNextStep(user, savedCampaign, command.getPublishOn()!= null)]
+        [msg: msg, campaign: savedCampaign, nextStep:processNextStep(user, savedCampaign, publishOn!= null)]
     }
 
     private def processNextStep(KuorumUser user, CampaignRSDTO campaignRSDTO, Boolean checkPaymentRedirect){

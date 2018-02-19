@@ -34,7 +34,7 @@
                       ,
                       mappings:[
                               step:'settings',
-                              next:'surveyEditQuestions',
+                              next:'surveyEditContent',
                               settings:'surveyEditSettings',
                               questions:'surveyEditQuestions',
                               content:'surveyEditContent',

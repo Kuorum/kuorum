@@ -66,6 +66,7 @@ class SurveyController extends CampaignController{
             return
         }
         Long campaignId = params.campaignId?Long.parseLong(params.campaignId):null
+        command.publishOn = null;
         Map<String, Object> result = saveAndSendCampaignContent(command, campaignId, surveyService)
         redirect mapping: result.nextStep.mapping, params: result.nextStep.params
     }
@@ -79,8 +80,10 @@ class SurveyController extends CampaignController{
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def editQuestionsStep(){
         Long campaignId = Long.parseLong(params.campaignId)
+        KuorumUser surveyUser = KuorumUser.get(springSecurityService.principal.id)
         SurveyRSDTO survey = setCampaignAsDraft(campaignId, surveyService)
-        [survey:survey, command: modelQuestionStep(survey)]
+        Long numberRecipients = getCampaignNumberRecipients(surveyUser, survey)
+        [survey:survey, command: modelQuestionStep(survey), numberRecipients:numberRecipients]
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
@@ -91,12 +94,12 @@ class SurveyController extends CampaignController{
             if(command.errors.getFieldError().arguments.first() == "publishOn"){
                 flash.error = message(code: "post.scheduleError")
             }
-            render view: 'editQuestionsStep', model: [survey:survey, command: command]
+            render view: 'editQuestionsStep', model: [survey:survey, command: command, numberRecipients:getCampaignNumberRecipients(surveyUser, survey)]
             return
         }
         SurveyRDTO rdto = surveyService.map(survey)
         rdto.questions = command.questions?.findAll{it && it.text}.collect {map(it)}?:[]
-        surveyService.save(surveyUser, rdto, survey.id)
+        saveAndSendCampaign(surveyUser, rdto, survey.getId(), command.publishOn,command.sendType, surveyService)
         redirect mapping: params.redirectLink, params: survey.encodeAsLinkProperties()
 
     }
@@ -129,6 +132,9 @@ class SurveyController extends CampaignController{
         SurveyQuestionsCommand command = new SurveyQuestionsCommand()
         command.surveyId = survey.id
         command.questions = survey.questions.collect{map(it)}
+        if(survey.datePublished){
+            command.publishOn = survey.datePublished
+        }
         return command
     }
 

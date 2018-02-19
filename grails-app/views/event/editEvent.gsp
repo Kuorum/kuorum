@@ -83,18 +83,7 @@
                 </div>
                 <div id="edit-event-map" class="col-sm-offset-2 col-sm-8 col-md-offset-0 col-md-4"></div>
             </fieldset>
-            <fieldset class="buttons">
-                <div class="text-right">
-                    <ul class="form-final-options">
-                        <li>
-                            <a href="#" id="save-draft-debate" data-redirectLink="politicianCampaigns">
-                                <g:message code="tools.massMailing.saveDraft"/>
-                            </a>
-                        </li>
-                        <li><a href="#" class="btn btn-blue inverted" id="next" data-redirectLink="${mappings.next}"><g:message code="tools.massMailing.next"/></a></li>
-                    </ul>
-                </div>
-            </fieldset>
+            <g:render template="/campaigns/edit/stepButtonsNext" model="[mappings:mappings]"/>
         </form>
         <script>
 

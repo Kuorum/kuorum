@@ -9,6 +9,7 @@ $(function(){
 
     // abrir/cerrar calendario
     $('body').on('click','#openCalendar', function(e) {
+        console.log("OPEN CALENDAR")
         e.stopPropagation();
         e.preventDefault();
         if ($('#selectDate').hasClass('on')) {

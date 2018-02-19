@@ -23,9 +23,12 @@
             numberRecipients:numberRecipients,
             status: status,
             mappings:[
+                    saveAndSentButtons:false,
+                    next:'surveyEditQuestions',
                     step:'content',
                     settings:'surveyEdit',
                     questions:'surveyEditQuestions',
                     content:'surveyEditContent',
-                    showResult: 'surveyShow']]"/>
+                    showResult: 'surveyShow']
+    ]"/>
 </content>

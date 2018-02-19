@@ -25,6 +25,7 @@
             numberRecipients:numberRecipients,
             status: status,
             mappings:[
+                    saveAndSentButtons:true,
                     step:'content',
                     settings:'debateEditSettings',
                     event:'debateEditEvent',

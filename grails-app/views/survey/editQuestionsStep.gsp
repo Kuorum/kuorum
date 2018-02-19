@@ -25,6 +25,7 @@
     <div class="box-steps container-fluid choose-campaign">
         <g:set var="mappings" value="${
             [step:'questions',
+             saveAndSentButtons:true,
              next:'surveyEditContent',
              settings:'surveyEditSettings',
              questions:'surveyEditQuestions',
@@ -36,6 +37,6 @@
     <div class="box-ppal campaign-new">
         <h1 class="sr-only"><g:message code="admin.createDebate.title"/></h1>
 
-        <g:render template="/survey/questions/questionForm" model="[command:command, survey:survey,mappings:mappings]"/>
+        <g:render template="/survey/questions/questionForm" model="[command:command, survey:survey,mappings:mappings, numberRecipients:numberRecipients]"/>
     </div>
 </content>

@@ -1,6 +1,7 @@
 <formUtil:validateForm bean="${command}" form="questionsSurveyForm" dirtyControl="true"/>
 <form action="#" class="form-horizontal campaign-form" id="questionsSurveyForm" method="POST" data-generalErrorMessage="${g.message(code:'kuorum.web.commands.payment.massMailing.DebateCommand.form.genericError')}">
     <input type="hidden" name="redirectLink" id="redirectLink"/>
+    <input type="hidden" name="sendType" value="DRAFT" id="sendMassMailingType"/>
     <input type="hidden" name="surveyId" value="${command.surveyId}"/>
     <formUtil:dynamicComplexInputs
             command="${command}"
@@ -42,16 +43,5 @@
             </div>
         </div>
     </fieldset>
-    <fieldset class="buttons">
-        <div class="text-right">
-            <ul class="form-final-options">
-                <li>
-                    <a href="#" id="save-draft-debate" data-redirectLink="politicianCampaigns">
-                        <g:message code="tools.massMailing.saveDraft"/>
-                    </a>
-                </li>
-                <li><a href="#" class="btn btn-blue inverted" id="next" data-redirectLink="${mappings.next}"><g:message code="tools.massMailing.next"/></a></li>
-            </ul>
-        </div>
-    </fieldset>
+    <g:render template="/campaigns/edit/stepButtons" model="[saveAndSentButtons:saveAndSentButtons, mappings:mappings, status:status, command: command, numberRecipients:numberRecipients]"/>
 </form>
