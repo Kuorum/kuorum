@@ -20,9 +20,11 @@
     <div class="footer padding-box">
         <g:render template="/campaigns/showModules/campaignDataSocial" model="[campaign:survey]"/>
         <div class="actions next-section pull-right">
-            <a href="#" target="_blank">
-                <g:message code="survey.questions.footer.ownerNext"/>
-            </a>
+            <userUtil:ifUserIsTheLoggedOne user="${campaignUser}">
+                <a href="#" target="_blank">
+                    <g:message code="survey.questions.footer.ownerNext"/>
+                </a>
+            </userUtil:ifUserIsTheLoggedOne>
             <button
                     type="button"
                     class="btn btn-blue btn-lg disabled"

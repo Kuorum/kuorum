@@ -149,9 +149,12 @@ $(function () {
         var numAnswers = parseInt(question.getAttribute("data-numAnswers"))
         var answerOptions = question.getElementsByClassName('survey-question-answer')
         Array.from(answerOptions).forEach(function(answerOption) {
-            var numOptionAnswers = answerOption.getAttribute("data-numAnswers")
-            var percentageOptionProgressBar = (numOptionAnswers / numAnswers * 100)
-            percentageOptionProgressBar = Math.round(percentageOptionProgressBar * 100) / 100
+            var numOptionAnswers = parseInt(answerOption.getAttribute("data-numAnswers"))
+            var percentageOptionProgressBar = 0;
+            if (numAnswers > 0){
+                percentageOptionProgressBar = (numOptionAnswers / numAnswers * 100)
+                percentageOptionProgressBar = Math.round(percentageOptionProgressBar * 100) / 100
+            }
             answerOption.getElementsByClassName("progress-bar-counter")[0].textContent=percentageOptionProgressBar +"%";
             var optionProgressBar = answerOption.getElementsByClassName("progress-bar")[0]
             optionProgressBar.style.width=percentageOptionProgressBar+"%"
@@ -189,6 +192,8 @@ $(function () {
     }
 
     var _singleOptionNextButtonClick = function(event){
+        console.log("Single option")
+        event.preventDefault();
         var question = event.currentTarget.parentElement.parentElement.parentElement;
         var answers = question.getElementsByClassName('survey-question-answers')[0];
         var button = question.querySelector('.actions button');
@@ -239,6 +244,20 @@ $(function () {
         nextButton.addEventListener('click', _nextButtonClick(_multiOptionNextButtonClick));
     });
 
+    $(".survey-question.single-answer .actions a").on("click",function (e) {
+        e.preventDefault();
+        var question = e.currentTarget.parentElement.parentElement.parentElement;
+        var questionId= parseInt(question.getAttribute('data-question-id'), 10);
+        _setProgressBarsPercentOneOption(questionId);
+        _nextQuestion(questionId);
+    });
+    $(".survey-question.multi-answer .actions a").on("click", function (e) {
+        e.preventDefault();
+        var question = e.currentTarget.parentElement.parentElement.parentElement;
+        var questionId= parseInt(question.getAttribute('data-question-id'), 10);
+        _setProgressBarsPercentMultiOptions(question);
+        _nextQuestion(questionId);
+    });
 
     _updateSurveyProgressBar();
     document.querySelectorAll(".survey-question.single-answer.answered").forEach(function(question){
