@@ -45,9 +45,6 @@ $(function () {
         var progressBars = answers.getElementsByClassName('progress');
 
         var numQuestionAnswers = parseInt(question.getAttribute("data-numAnswers"));
-        numQuestionAnswers= numQuestionAnswers+1;
-        question.setAttribute("data-numAnswers",numQuestionAnswers);
-
         var arr = [].slice.call(progressBars);
         arr.forEach(function(progress) {
             var answer = progress.parentElement.parentElement;
@@ -57,12 +54,14 @@ $(function () {
             var progressBar = progress.children[0];
             var progressBarCounter = answer.querySelector('.progress-bar-counter');
 
-            // if (answerPosition >= 0) {
-            //     numOptionAnswers = numOptionAnswers +1;
-            // }
-            // answer.setAttribute("data-numAnswers", numOptionAnswers);
-            progressBar.style.width = Math.round(numOptionAnswers/numQuestionAnswers*100*100)/100 + '%';
-            progressBarCounter.textContent = numOptionAnswers;
+
+            if (numQuestionAnswers > 0 ){
+                progressBar.style.width = Math.round(numOptionAnswers/numQuestionAnswers*100*100)/100 + '%';
+                progressBarCounter.textContent = numOptionAnswers +"/"+numQuestionAnswers;
+            }else{
+                progressBar.style.width = '0%';
+                progressBarCounter.textContent = "0/0";
+            }
         });
     }
 
@@ -134,13 +133,12 @@ $(function () {
     var _nextQuestion = function(questionId) {
         var currentQuestion = document.querySelector('.survey-question[data-question-id="' + questionId + '"]');
         currentQuestion.classList.add('answered');
-        var nextQuestion = $(currentQuestion).next();
+        // var nextQuestion = $(currentQuestion).next();
         // SLIDE DOWN DONE WITH CSS
         // if (!!nextQuestion === true) {
         //     // $(nextQuestion).css("display","none");
         //     $(nextQuestion).slideDown("slow");
         // }
-        _sendQuestionAnswers(questionId)
         _updateSurveyProgressBar();
     };
 
@@ -212,8 +210,9 @@ $(function () {
             question.setAttribute("data-numanswers", parseInt(question.getAttribute("data-numanswers"))+1);
 
             _setProgressBarsPercentOneOption(parseInt(question.getAttribute('data-question-id')));
-
-            _nextQuestion(parseInt(question.getAttribute('data-question-id'), 10));
+            var questionId = parseInt(question.getAttribute('data-question-id'), 10);
+            _sendQuestionAnswers(questionId)
+            _nextQuestion(questionId);
         }
     }
 
@@ -230,9 +229,15 @@ $(function () {
                 option.removeEventListener('click', _selectMultiAnswer);
             });
 
+            // Updating num answers
+            var numQuestionAnswers = parseInt(question.getAttribute("data-numAnswers"));
+            numQuestionAnswers= numQuestionAnswers+1;
+            question.setAttribute("data-numAnswers",numQuestionAnswers);
+
             _setProgressBarsPercentMultiOptions(question);
-            _nextQuestion(parseInt(question.getAttribute('data-question-id'), 10));
-            nextButton.parentNode.classList.add('hidden');
+            var questionId = parseInt(question.getAttribute('data-question-id'), 10);
+            _sendQuestionAnswers(questionId)
+            _nextQuestion(questionId);
         }
     }
 
