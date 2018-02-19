@@ -1,6 +1,6 @@
 $(function () {
 
-    $("#survey-call-to-action").on("click", function(e){
+    $("#survey-call-to-action, .leader-post .footer .comment-counter button").on("click", function(e){
         e.preventDefault()
         moveToHash($(this).attr("data-goto"))
     })

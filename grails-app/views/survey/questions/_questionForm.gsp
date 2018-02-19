@@ -30,7 +30,9 @@
                 <g:render template="/survey/questions/questionOptionFields" model="[prefixField:prefixField, pos:i, option:option]"/>
                 <g:set var="i" value="${i+1}"/>
             </g:each>
-            <g:render template="/survey/questions/questionOptionFields" model="[prefixField:prefixField, pos:i, option:null]"/>
+            <g:if test="${!listCommand.options}">
+                <g:render template="/survey/questions/questionOptionFields" model="[prefixField:prefixField, pos:i, option:null]"/>
+            </g:if>
         </fieldset>
     </formUtil:dynamicComplexInputs>
     <fieldset class="row dynamic-fieldset-addbutton">
