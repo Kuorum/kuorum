@@ -156,6 +156,7 @@ class SurveyController extends CampaignController{
 
 
 
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def sendReport(Long campaignId){
         KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
         surveyService.sendReport(loggedUser, campaignId)
