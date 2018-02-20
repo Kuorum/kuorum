@@ -180,6 +180,7 @@ class RestKuorumApiService {
         ACCOUNT_SURVEYS         ("/communication/campaign/survey/{userAlias}"),
         ACCOUNT_SURVEY          ("/communication/campaign/survey/{userAlias}/{surveyId}"),
         ACCOUNT_SURVEY_ANSWER   ("/communication/campaign/survey/{userAlias}/{surveyId}/question/{questionId}"),
+        ACCOUNT_SURVEY_REPORT   ("/communication/campaign/survey/{userAlias}/{surveyId}/report"),
 
         ACCOUNT_EVENTS              ("/communication/campaign/event/{userAlias}"),
         ACCOUNT_EVENT               ("/communication/campaign/event/{userAlias}/{eventId}"),

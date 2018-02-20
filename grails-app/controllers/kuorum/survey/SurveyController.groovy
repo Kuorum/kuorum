@@ -154,4 +154,18 @@ class SurveyController extends CampaignController{
         return command
     }
 
+
+
+    def sendReport(Long campaignId){
+        KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
+        surveyService.sendReport(loggedUser, campaignId)
+        Boolean isAjax = request.xhr
+        if(isAjax){
+            render ([success:"success"] as JSON)
+        } else{
+            flash.message = g.message(code: 'modal.exportedTrackingEvents.title')
+            redirect (mapping: 'politicianCampaignStatsShow', params:[campaignId: campaignId])
+        }
+    }
+
 }

@@ -165,4 +165,16 @@ class SurveyService implements CampaignCreatorService<SurveyRSDTO, SurveyRDTO>{
                 null
         )
     }
+
+    void sendReport(KuorumUser user, Long surveyId){
+        Map<String, String> params = [userAlias: user.id.toString(), surveyId: surveyId.toString()]
+        Map<String, String> query = [:]
+        def response = restKuorumApiService.get(
+                RestKuorumApiService.ApiMethod.ACCOUNT_SURVEY_REPORT,
+                params,
+                query,
+                null
+        )
+        response
+    }
 }
