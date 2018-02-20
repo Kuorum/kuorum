@@ -105,6 +105,17 @@
                     </label>
                 </div>
             </li>
+            <li>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="type" id="search-surveys" value="${kuorum.core.model.solr.SolrType.SURVEY}" ${searchParams.type == kuorum.core.model.solr.SolrType.SURVEY?'checked':''}>
+                        <g:link mapping="searcherSearchSURVEY" params="${params.findAll {k,v-> k!='type' && k!='offset' && v}}">
+                            <span class="fa fa-pie-chart"></span>
+                            <g:message code="search.filters.SolrType.SURVEY"/>
+                        </g:link>
+                    </label>
+                </div>
+            </li>
         </ul>
         <input type="hidden" name="word" value="${searchParams.word}" />
         <input type="hidden" name="searchType" value="${searchParams.searchType}" />

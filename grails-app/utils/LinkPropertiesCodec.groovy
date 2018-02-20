@@ -1,9 +1,8 @@
 import grails.util.Holders
 import kuorum.Region
 import kuorum.core.model.UserType
-import kuorum.core.model.solr.SolrDebate
+import kuorum.core.model.solr.SolrCampaign
 import kuorum.core.model.solr.SolrKuorumUser
-import kuorum.core.model.solr.SolrPost
 import kuorum.project.Project
 import kuorum.users.KuorumUser
 import org.bson.types.ObjectId
@@ -15,7 +14,6 @@ import org.kuorum.rest.model.communication.post.PostRSDTO
 import org.kuorum.rest.model.communication.survey.SurveyRSDTO
 import org.kuorum.rest.model.notification.NotificationProposalCommentMentionRSDTO
 import org.kuorum.rest.model.notification.NotificationProposalCommentRSDTO
-import org.kuorum.rest.model.notification.NotificationProposalMentionRSDTO
 import org.kuorum.rest.model.tag.CauseRSDTO
 
 /**
@@ -34,8 +32,7 @@ class LinkPropertiesCodec {
             case PostRSDTO:
             case SurveyRSDTO:
             case DebateRSDTO:
-            case SolrPost:
-            case SolrDebate:
+            case SolrCampaign:
             case ProposalRSDTO:
             case NotificationProposalCommentRSDTO:
             case NotificationProposalCommentMentionRSDTO:
@@ -98,7 +95,7 @@ class LinkPropertiesCodec {
                 eventId: event.id
         ]
     }
-    private static def prepareParams(SolrDebate debate) {
+    private static def prepareParams(SolrCampaign debate) {
         KuorumUser user = KuorumUser.get(new ObjectId(debate.ownerId))
         [
                 userAlias: user.alias,
@@ -112,14 +109,6 @@ class LinkPropertiesCodec {
                 userAlias: campaignRSDTO.user.alias.toLowerCase(),
                 urlTitle: getNameTitleUrl(campaignRSDTO),
                 campaignId: campaignRSDTO.id
-        ]
-    }
-    private static def prepareParams(SolrPost solrPost) {
-        KuorumUser user = KuorumUser.get(new ObjectId(solrPost.ownerId))
-        [
-                userAlias: user.alias.toLowerCase(),
-                urlTitle: solrPost.name.encodeAsKuorumUrl(),
-                campaignId: solrPost.id
         ]
     }
 

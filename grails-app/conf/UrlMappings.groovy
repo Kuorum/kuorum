@@ -238,7 +238,6 @@ class UrlMappings {
         name registerSuccess:       "/$lang/sign-up/success"    {controller="redirect"; action= "redirect301"; newMapping='en_registerSuccess';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
         name en_registerSuccess:    "/en/sign-up/success"       (controller: "register",action:"registerSuccess"){lang="en"; mappingName="registerSuccess"}
         name es_registerSuccess:    "/es/registro/satisfactorio"(controller: "register",action:"registerSuccess"){lang="es"; mappingName="registerSuccess"}
-                                    "/registro/satisfactorio"   {controller="redirect"; action= "redirect301"; newMapping='es_registerSuccess'}
 
         name registerPassword:      "/$lang/sign-up/establece-password" {controller="redirect"; action= "redirect301"; newMapping='en_registerPassword';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
         name en_registerPassword:   "/en/sign-up/set-password"          (controller: "register", action:"selectMyPassword"){lang="en"; mappingName="registerPassword"}
@@ -253,10 +252,6 @@ class UrlMappings {
         name resetPassword:         "/$lang/sign-in/recover-password"   {controller="redirect"; action= "redirect301"; newMapping='en_resetPassword';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
         name en_resetPassword:      "/en/sign-in/recover-password"      (controller: "register"){action=[GET:"forgotPassword", POST:"forgotPasswordPost"];lang="en"; mappingName="resetPassword"}
         name es_resetPassword:      "/es/registro/password-olvidado"    (controller: "register"){action=[GET:"forgotPassword", POST:"forgotPasswordPost"];lang="es"; mappingName="resetPassword"}
-                                    "/es/sign-in/recover-password"      {controller="redirect"; action= "redirect301"; newMapping='es_resetPassword'}
-                                    "/sign-in/recover-password"         {controller="redirect"; action= "redirect301"; newMapping='en_resetPassword'}
-                                    "/registro/password-olvidado"       {controller="redirect"; action= "redirect301"; newMapping='es_resetPassword'}
-                                    "/registro/password-olvidado"       {controller="redirect"; action= "redirect301"; newMapping='es_resetPassword'}
 
         name registerVerifyAccount:         "/register/verifyRegistration"      {controller="redirect";  action= "redirect301"; newMapping='en_registerVerifyAccount';}
         name en_registerVerifyAccount:      "/en/register/verify-registration"  (controller: "register", action:"verifyRegistration"){lang="en"; mappingName="registerVerifyAccount"}
@@ -322,15 +317,6 @@ class UrlMappings {
         name searcherSearchKUORUM_USER:     "/$lang/search/users"          {controller="redirect"; action= "redirect301"; newMapping='en_searcherSearchKUORUM_USER';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
         name en_searcherSearchKUORUM_USER:  "/en/search/users/$word?"      (controller: "search", action:"search"){lang="en"; type="KUORUM_USER"; mappingName="searcherSearchKUORUM_USER"}
         name es_searcherSearchKUORUM_USER:  "/es/buscar/usuarios/$word?"   (controller: "search", action:"search"){lang="es"; type="KUORUM_USER"; mappingName="searcherSearchKUORUM_USER"}
-                                            "/kuorum/politicians"          {controller="redirect"; action= "redirect301"; newMapping='en_searcherSearchKUORUM_USER'}
-                                            "/politicians"                 {controller="redirect"; action= "redirect301"; newMapping='en_searcherSearchKUORUM_USER'}
-                                            "/politicians/$word?-$id?"     {controller="redirect"; action= "redirect301"; newMapping='en_searcherSearchKUORUM_USER'}
-                                            "/ciudadanos/$word?-$id?"      {controller="redirect"; action= "redirect301"; newMapping='es_searcherSearchKUORUM_USER'}
-                                            "/ciudadanos/"                 {controller="redirect"; action= "redirect301"; newMapping='es_searcherSearchKUORUM_USER'}
-                                            "/organizaciones/$word?-$id?"  {controller="redirect"; action= "redirect301"; newMapping='es_searcherSearchKUORUM_USER'}
-                                            "/organizaciones/"             {controller="redirect"; action= "redirect301"; newMapping='es_searcherSearchKUORUM_USER'}
-                                            "/politicos/$word?-$id?"       {controller="redirect"; action= "redirect301"; newMapping='es_searcherSearchKUORUM_USER'}
-                                            "/politicos/"                  {controller="redirect"; action= "redirect301"; newMapping='es_searcherSearchKUORUM_USER'}
 
         name searcherSearchKUORUM_USERByCAUSE:   "/$lang/search/users/cause/$word?"          {controller="redirect"; action= "redirect301"; newMapping='en_searcherSearchKUORUM_USERByCAUSE';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
         name en_searcherSearchKUORUM_USERByCAUSE:"/en/search/users/cause/$word?"             (controller: "search", action:"search"){lang="en"; searchType="CAUSE";type="KUORUM_USER"; mappingName="searcherSearchKUORUM_USERByCAUSE"}
@@ -355,17 +341,14 @@ class UrlMappings {
         name searcherSearchDEBATE:   "/$lang/search/debate"         {controller="redirect"; action= "redirect301"; newMapping='en_searcherSearchDEBATE';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
         name en_searcherSearchDEBATE:"/en/search/debate/$word?"     (controller: "search", action:"search"){lang="en"; type="DEBATE"; mappingName="searcherSearchDEBATE"}
         name es_searcherSearchDEBATE:"/es/buscar/debate/$word?"     (controller: "search", action:"search"){lang="es"; type="DEBATE"; mappingName="searcherSearchDEBATE"}
-                                     "/descubre/proyectos/"         {controller="redirect"; action= "redirect301"; newMapping='es_searcherSearchDEBATE'}
-                                     "/proyectos/$word?-$id?"       {controller="redirect"; action= "redirect301"; newMapping='es_searcherSearchDEBATE'}
-                                     "/proyectos/"                  {controller="redirect"; action= "redirect301"; newMapping='es_searcherSearchDEBATE'}
 
         name searcherSearchDEBATEByCAUSE:   "/$lang/search/debate/cause/$word?"          {controller="redirect"; action= "redirect301"; newMapping='en_searcherSearchDEBATEByCAUSE';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
         name en_searcherSearchDEBATEByCAUSE:"/en/search/debate/cause/$word?"             (controller: "search", action:"search"){lang="en"; searchType="CAUSE";type="DEBATE"; mappingName="searcherSearchDEBATEByCAUSE"}
         name es_searcherSearchDEBATEByCAUSE:"/es/buscar/debate/causa/$word?"          (controller: "search", action:"search"){lang="es"; searchType="CAUSE";type="DEBATE"; mappingName="searcherSearchDEBATEByCAUSE"}
 
-        name searcherSearchDEBATEByREGION:   "/$lang/search/debate/cause/$word?"          {controller="redirect"; action= "redirect301"; newMapping='en_searcherSearchDEBATEByREGION';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-        name en_searcherSearchDEBATEByREGION:"/en/search/debate/cause/$word?"             (controller: "search", action:"search"){lang="en"; searchType="REGION";type="DEBATE"; mappingName="searcherSearchDEBATEByREGION"}
-        name es_searcherSearchDEBATEByREGION:"/es/buscar/debate/causa/$word?"          (controller: "search", action:"search"){lang="es"; searchType="REGION";type="DEBATE"; mappingName="searcherSearchDEBATEByREGION"}
+        name searcherSearchDEBATEByREGION:   "/$lang/search/debate/from/$word?"          {controller="redirect"; action= "redirect301"; newMapping='en_searcherSearchDEBATEByREGION';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+        name en_searcherSearchDEBATEByREGION:"/en/search/debate/from/$word?"             (controller: "search", action:"search"){lang="en"; searchType="REGION";type="DEBATE"; mappingName="searcherSearchDEBATEByREGION"}
+        name es_searcherSearchDEBATEByREGION:"/es/buscar/debate/en/$word?"          (controller: "search", action:"search"){lang="es"; searchType="REGION";type="DEBATE"; mappingName="searcherSearchDEBATEByREGION"}
 
 
         name searcherSearchEVENT:   "/$lang/search/event"         {controller="redirect"; action= "redirect301"; newMapping='en_searcherSearchEVENT';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
@@ -376,9 +359,21 @@ class UrlMappings {
         name en_searcherSearchEVENTByCAUSE:"/en/search/event/cause/$word?"             (controller: "search", action:"search"){lang="en"; searchType="CAUSE";type="EVENT"; mappingName="searcherSearchEVENTByCAUSE"}
         name es_searcherSearchEVENTByCAUSE:"/es/buscar/evento/causa/$word?"          (controller: "search", action:"search"){lang="es"; searchType="CAUSE";type="EVENT"; mappingName="searcherSearchEVENTByCAUSE"}
 
-        name searcherSearchEVENTByREGION:   "/$lang/search/event/cause/$word?"          {controller="redirect"; action= "redirect301"; newMapping='en_searcherSearchEVENTByREGION';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-        name en_searcherSearchEVENTByREGION:"/en/search/event/cause/$word?"             (controller: "search", action:"search"){lang="en"; searchType="REGION";type="EVENT"; mappingName="searcherSearchEVENTByREGION"}
-        name es_searcherSearchEVENTByREGION:"/es/buscar/evento/causa/$word?"          (controller: "search", action:"search"){lang="es"; searchType="REGION";type="EVENT"; mappingName="searcherSearchEVENTByREGION"}
+        name searcherSearchEVENTByREGION:   "/$lang/search/event/from/$word?"          {controller="redirect"; action= "redirect301"; newMapping='en_searcherSearchEVENTByREGION';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+        name en_searcherSearchEVENTByREGION:"/en/search/event/from/$word?"             (controller: "search", action:"search"){lang="en"; searchType="REGION";type="EVENT"; mappingName="searcherSearchEVENTByREGION"}
+        name es_searcherSearchEVENTByREGION:"/es/buscar/evento/en/$word?"          (controller: "search", action:"search"){lang="es"; searchType="REGION";type="EVENT"; mappingName="searcherSearchEVENTByREGION"}
+
+        name searcherSearchSURVEY:   "/$lang/search/survey"         {controller="redirect"; action= "redirect301"; newMapping='en_searcherSearchEVENT';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+        name en_searcherSearchSURVEY:"/en/search/survey/$word?"     (controller: "search", action:"search"){lang="en"; type="SURVEY"; mappingName="searcherSearchSURVEY"}
+        name es_searcherSearchSURVEY:"/es/buscar/encuesta/$word?"     (controller: "search", action:"search"){lang="es"; type="SURVEY"; mappingName="searcherSearchSURVEY"}
+
+        name searcherSearchSURVEYByCAUSE:   "/$lang/search/survey/cause/$word?"          {controller="redirect"; action= "redirect301"; newMapping='en_searcherSearchSURVEYByCAUSE';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+        name en_searcherSearchSURVEYByCAUSE:"/en/search/survey/cause/$word?"             (controller: "search", action:"search"){lang="en"; searchType="CAUSE";type="SURVEY"; mappingName="searcherSearchSURVEYByCAUSE"}
+        name es_searcherSearchSURVEYByCAUSE:"/es/buscar/encuesta/causa/$word?"          (controller: "search", action:"search"){lang="es"; searchType="CAUSE";type="SURVEY"; mappingName="searcherSearchSURVEYByCAUSE"}
+
+        name searcherSearchSURVEYByREGION:   "/$lang/search/survey/from/$word?"          {controller="redirect"; action= "redirect301"; newMapping='en_searcherSearchSURVEYByREGION';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+        name en_searcherSearchSURVEYByREGION:"/en/search/survey/from/$word?"             (controller: "search", action:"search"){lang="en"; searchType="REGION";type="SURVEY"; mappingName="searcherSearchSURVEYByREGION"}
+        name es_searcherSearchSURVEYByREGION:"/es/buscar/encuesta/en/$word?"          (controller: "search", action:"search"){lang="es"; searchType="REGION";type="SURVEY"; mappingName="searcherSearchSURVEYByREGION"}
 
 
         /**********************/
@@ -397,13 +392,7 @@ class UrlMappings {
         name debateRemove:      "/ajax/account/$userAlias/d/$urlTitle-$campaignId/remove" (controller: "debate", action: "remove")
         name debateShow:        "/$userAlias/$urlTitle-$campaignId"         (controller: "campaign", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
                                 "/$userAlias/-$campaignId"                  (controller: "campaign", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-        // DEBATE LANG DEPRECATED
-        name langDebateShow:    "/$lang/$userAlias/d/$urlTitle-$campaignId"   {controller="redirect"; action= "redirect301"; newMapping='debateShow';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-                                "/en/$userAlias/d/$urlTitle-$campaignId"      {controller="redirect"; action= "redirect301"; newMapping='debateShow';lang="en"}
-                                "/es/$userAlias/d/$urlTitle-$campaignId"      {controller="redirect"; action= "redirect301"; newMapping='debateShow';lang="es"}
-                                "/$lang/$userAlias/d/-$campaignId"            {controller="redirect"; action= "redirect301"; newMapping='debateShow';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-                                "/en/$userAlias/d/-$campaignId"               {controller="redirect"; action= "redirect301"; newMapping='debateShow';lang="en"}
-                                "/es/$userAlias/d/-$campaignId"               {controller="redirect"; action= "redirect301"; newMapping='debateShow';lang="es"}
+
         name debateProposalNew: "/ajax/addProposal"(controller: "debateProposal", action: "addProposal")
         name debateProposalDelete:"/ajax/deleteProposal"(controller: "debateProposal", action: "deleteProposal")
         name debateProposalPin: "/ajax/pinProposal"(controller: "debateProposal", action: "pinProposal")
@@ -432,15 +421,6 @@ class UrlMappings {
         name surveyEditQuestions:   "/account/$userAlias/s/$urlTitle-$campaignId/edit-questions" (controller: "survey"){action = [GET: "editQuestionsStep", POST: "saveQuestions"]}
         name surveyShow:            "/$userAlias/$urlTitle-$campaignId"                          (controller: "campaign", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
         name surveySaveAnswer:      "/ajax/$userAlias/$urlTitle-$campaignId/saveAnswer"          (controller: "survey", action: "saveAnswer"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-//                                    "/$userAlias/-$campaignId"                    (controller: "campaign", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-        // POST LANG DEPRECATED
-        name langPostShow:          "/$lang/$userAlias/p/$urlTitle-$campaignId"     {controller="redirect"; action= "redirect301"; newMapping='postShow';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-                                    "/en/$userAlias/p/$urlTitle-$campaignId"        {controller="redirect"; action= "redirect301"; newMapping='postShow';lang="en";}
-                                    "/es/$userAlias/p/$urlTitle-$campaignId"        {controller="redirect"; action= "redirect301"; newMapping='postShow';lang="es";}
-                                    "/$lang/$userAlias/p/-$campaignId"              {controller="redirect"; action= "redirect301"; newMapping='postShow';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-                                    "/en/$userAlias/p/-$campaignId"                 {controller="redirect"; action= "redirect301"; newMapping='postShow';lang="en";}
-                                    "/es/$userAlias/p/-$campaignId"                 {controller="redirect"; action= "redirect301"; newMapping='postShow';lang="es";}
-
 
         name eventCreate:           "/account/event/new" (controller: "event"){action = [GET: "create", POST: "saveSettings"]}
         // REDIRECTS (OLD URLS) - DEPRECATED
@@ -570,8 +550,6 @@ class UrlMappings {
         name politicianMassMailingSettings:             "/account/mass-mailing/$campaignId/edit-settings" (controller: "newsletter"){ action=[GET:"editSettingsStep", POST: 'saveMassMailingSettings']}
         name politicianMassMailingTemplate:             "/account/mass-mailing/$campaignId/edit-template" (controller: "newsletter"){ action=[GET:"editTemplateStep", POST: 'saveMassMailingTemplate']}
         name politicianMassMailingContent:              "/account/mass-mailing/$campaignId/edit-content" (controller: "newsletter") { action=[GET:"editContentStep", POST: 'saveMassMailingContent']}
-//        name politicianMassMailingContentText:          "/account/mass-mailing/$campaignId/edit-content-text" (controller: "massMailing"){ action=[GET:"editContentStepText", POST: 'saveMassMailingContentText']}
-//        name politicianMassMailingContentTemplate:      "/account/mass-mailing/$campaignId/edit-content-template" (controller: "massMailing"){ action=[GET:"editContentStepTemplate", POST: 'saveMassMailingContent']}
         name politicianMassMailingShow:                 "/account/mass-mailing/$campaignId" (controller:"newsletter"){ action=[GET:"showCampaign", POST:'updateCampaign']}
         name politicianMassMailingSendTest:             "/account/mass-mailing/$campaignId/test" (controller:"newsletter", action: "sendMassMailingTest")
         name politicianMassMailingRemove:               "/ajax/account/mass-mailing/$campaignId/remove" (controller:"newsletter", action:"removeCampaign")
@@ -602,19 +580,6 @@ class UrlMappings {
         /***** DEPRECATED *****/
         /**********************/
 
-        // REGISTRO DE POLITICO
-        name registerSubscriptionStep1:  "/subscribe/step1" (controller: "customRegister", action:"subscriptionStep1")
-        name registerSubscriptionStep1Save:  "/subscribe/step1-save" (controller: "customRegister"){action = [GET:"subscriptionStep1", POST:"subscriptionStep1Save"]}
-        name registerSubscriptionStep3:  "/subscribe/step3" (controller: "customRegister", action:"subscriptionStep3")
-
-        // Registros parciales
-        name customRegisterCountryAndPostalCode: "/registro/countryAndPostalCode"(controller: "customRegister", action:"countryAndPostalCode")
-        name customRegisterAgeAndGender: "/registro/ageAndGender"(controller: "customRegister", action:"ageAndGender")
-        name customRegisterTelephone: "/registro/telephone"(controller: "customRegister", action:"telephone")
-
-        // Funel antiguo de compra de politico
-        name funnelSuccessfulStories:      "/la-nueva-politica"  (controller:"funnel", action:"funnelSuccessfulStories")
-
         name tourStart:           "/tour" (controller:"tour", action: "index")
         name tour_dashboard:      "/tour/dashboard" (controller:"tour", action: "tour_dashboard")
 
@@ -639,12 +604,6 @@ class UrlMappings {
         "404" (controller: "error", action: "notFound")
         "401" (controller: "error", action: "notAuthorized")
 
-
-//       "/$controller/$action?/$id?"{
-//           constraints {
-//                        // apply constraints here
-//                    }
-//                }
 
         Environment.executeForCurrentEnvironment {
             development {

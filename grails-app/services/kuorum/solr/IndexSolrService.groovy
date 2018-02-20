@@ -1,6 +1,5 @@
 package kuorum.solr
 
-import com.mongodb.*
 import grails.transaction.Transactional
 import groovy.json.JsonSlurper
 import groovy.time.TimeCategory
@@ -11,9 +10,7 @@ import kuorum.Region
 import kuorum.core.exception.KuorumException
 import kuorum.core.model.CommissionType
 import kuorum.core.model.Gender
-import kuorum.core.model.ProjectStatusType
 import kuorum.core.model.UserType
-import kuorum.core.model.gamification.GamificationAward
 import kuorum.core.model.solr.*
 import kuorum.post.Post
 import kuorum.project.Project
@@ -21,14 +18,8 @@ import kuorum.users.KuorumUser
 import org.apache.solr.client.solrj.SolrServer
 import org.apache.solr.client.solrj.impl.HttpSolrServer
 import org.apache.solr.common.SolrDocument
-import org.apache.solr.common.SolrInputDocument
 import org.bson.types.ObjectId
-import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.springframework.beans.factory.annotation.Value
-
-import javax.annotation.PreDestroy
-import java.util.concurrent.ExecutorService
-import java.util.concurrent.Executors
 
 @Transactional
 class IndexSolrService {
@@ -139,26 +130,8 @@ class IndexSolrService {
         deleteDocument(user.id.toString())
     }
 
-    SolrPost recoverPostFromSolr(SolrDocument solrDocument){
-        new SolrPost(
-                id:solrDocument.id,
-                name:solrDocument.name,
-                type:SolrType.valueOf(solrDocument.type),
-                text:solrDocument.text,
-                dateCreated:solrDocument.dateCreated,
-                alias:solrDocument.alias,
-                owner:solrDocument.owner,
-                ownerId:solrDocument.ownerId,
-                regionName:solrDocument.regionName,
-                regionIso3166_2: solrDocument.regionIso3166_2,
-                urlImage: solrDocument.urlImage,
-                kuorumRelevance: solrDocument.kuorumRelevance,
-                regionIso3166_2Length: solrDocument.regionIso3166_2Length
-        )
-    }
-
-    SolrDebate recoverDebateFromSolr(SolrDocument solrDocument){
-        new SolrDebate(
+    SolrCampaign recoverCampaignFromSolr(SolrDocument solrDocument){
+        new SolrCampaign(
                 id:solrDocument.id,
                 name:solrDocument.name,
                 type:SolrType.valueOf(solrDocument.type),
@@ -310,18 +283,11 @@ class IndexSolrService {
     SolrElement recoverSolrElementFromSolr(SolrDocument solrDocument){
         switch (SolrType.valueOf(solrDocument.type)){
             case SolrType.KUORUM_USER:  return recoverKuorumUserFromSolr(solrDocument); break;
-            case SolrType.POST:         return recoverPostFromSolr(solrDocument); break;
-            case SolrType.DEBATE:       return recoverDebateFromSolr(solrDocument); break;
+            case SolrType.POST:
+            case SolrType.DEBATE:
             case SolrType.EVENT:
-                SolrElement element;
-                //CHAPU
-                if(solrDocument.id.toString().startsWith("debate")){
-                    element = recoverDebateFromSolr(solrDocument)
-                }else{
-                    element = recoverPostFromSolr(solrDocument)
-                }
-                element.setType(SolrType.EVENT);
-                return element;
+            case SolrType.SURVEY:
+                return recoverCampaignFromSolr(solrDocument)
                 break;
             default: throw new KuorumException("No se ha reconocido el tipo ${solrDocument.type}")
         }

@@ -1,3 +1,4 @@
+<%@ page import="kuorum.core.model.solr.SolrCampaign" %>
 <g:if test="${!columnsCss}">
     <g:set var="columnsCss" value="col-sm-12 col-md-6"/>
 </g:if>
@@ -8,14 +9,9 @@
                 <g:render template="/search/searchUserElement" model="[solrUser:solrElement]"/>
             </li>
         </g:if>
-        <g:elseif test="${solrElement instanceof kuorum.core.model.solr.SolrDebate}">
+        <g:elseif test="${solrElement instanceof kuorum.core.model.solr.SolrCampaign}">
             <li class="${columnsCss} search-article">
-                <g:render template="/search/searchDebateElement" model="[solrDebate:solrElement]"/>
-            </li>
-        </g:elseif>
-        <g:elseif test="${solrElement instanceof kuorum.core.model.solr.SolrPost}">
-            <li class="${columnsCss} search-article">
-                <g:render template="/search/searchPostElement" model="[solrPost:solrElement]"/>
+                <g:render template="/search/searchCampaignElement" model="[solrCampaign:solrElement]"/>
             </li>
         </g:elseif>
         <g:else>

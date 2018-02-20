@@ -1,9 +1,9 @@
 package kuorum.core.model.solr
 
 /**
- * Mapped solr debate
+ * Mapped solr campaign
  */
-class SolrDebate extends SolrElement{
+class SolrCampaign extends SolrElement{
     String alias
     String owner
     String ownerId
