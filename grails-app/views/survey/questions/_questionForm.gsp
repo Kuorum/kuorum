@@ -23,17 +23,17 @@
                     <div class="col-md-3">
                         <formUtil:selectEnum field="questionType" command="${listCommand}" prefixFieldName="${prefixField}" showLabel="false"/>
                     </div>
-                    <div class="form-group col-md-1 form-group-remove no-label">
-                        <button type="button" class="btn btn-transparent removeButton"><i class="fa fa-trash"></i></button>
+                    <div class="form-group col-md-1 form-group-remove no-label-lg">
+                        <button type="button" class="btn btn-transparent btn-lg btn-icon removeButton"><i class="fa fa-trash"></i></button>
                     </div>
                 </div>
             </div>
         </fieldset>
 
-        <fieldset class="questionOption row">
+        <fieldset class="row">
             <div class="form-group">
                 <label for="text" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.survey.QuestionCommand.options.label"/>:</label>
-                <div class="col-sm-8 col-md-7">
+                <div class="col-sm-8 col-md-7 questionOption">
                     <g:set var="i" value="${0}"/>
                     <g:each in="${listCommand.options}" var="option">
                         <g:render template="/survey/questions/questionOptionFields" model="[prefixField:prefixField, pos:i, option:option]"/>
@@ -49,7 +49,10 @@
     <fieldset class="row dynamic-fieldset-addbutton">
         <div class="form-group">
             <div class="col-md-12 center">
-                <button type="button" class="btn btn-default addButton">Add questions<i class="fa fa-plus"></i></button>
+                <button type="button" class="btn btn-grey btn-lg addButton">
+                    <g:message code="survey.form.button.addQuestion"/>
+                    <i class="fa fa-plus"></i>
+                </button>
             </div>
         </div>
     </fieldset>

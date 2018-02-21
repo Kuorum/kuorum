@@ -156,6 +156,6 @@
             <g:link mapping="politicianContactFilterNew" data-callaBackFunction="campaignFilterSaveAs" type="submit" class="btn btn-blue inverted" elementId="saveFilterAs">Save</g:link>
             <a href="#" id="saveFilterAsBtnCancel">Cancel</a>
         </div>
-        <g:link mapping="politicianContactFilterDelete" params="[filterId:filter.id]" data-callaBackFunction="" role="button" class="btn btn-grey inverted ${filter?.id<=0 ?'disabled':''}" elementId="deleteFilter" title="${g.message(code:'tools.contact.filter.form.delete')}"><span class="fa fa-trash"></span></g:link>
+        <g:link mapping="politicianContactFilterDelete" params="[filterId:filter.id]" data-callaBackFunction="" role="button" class="btn btn-transparent ${filter?.id<=0 ?'disabled':''}" elementId="deleteFilter" title="${g.message(code:'tools.contact.filter.form.delete')}"><span class="fa fa-trash"></span></g:link>
     </fieldset>
 </div>

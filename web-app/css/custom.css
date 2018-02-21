@@ -605,6 +605,10 @@ header.transp #search-form .open-filter {background-color: rgba(219,219,219,0.4)
     margin: 0;
     padding: 14px 24px !important;
 }
+/**/
+.btn.btn-lg.btn-icon{
+    padding: 14px 14px !important;
+}
 /* Extra large button */
 .btn.btn-xl {
     font-size: 20px !important;
@@ -619,9 +623,7 @@ header.transp #search-form .open-filter {background-color: rgba(219,219,219,0.4)
 .btn.btn-grey.cancel:hover {background-color: #fff !important; color:#a8a8a8 !important; text-decoration:underline !important; font-size: 1.7rem !important;}
 .btn.btn-grey.cancel:active {background-color: #fff !important; color:#a8a8a8 !important; text-decoration:underline !important; font-size: 1.7rem !important;}
 .btn.btn-grey {background-color: #bcbcbc !important;}
-.btn.btn-grey:hover,
-.btn.btn-grey:active,
-.btn.btn-grey:focus {background-color: #797979 !important;}
+.btn.btn-grey:hover {background-color: #797979 !important;}
 
 .btn.btn-grey.inverted {border: 1px solid #bcbcbc;color:#bcbcbc !important;}
 .btn.btn-grey.inverted:hover,
@@ -1811,10 +1813,10 @@ ul.user-list-followers .loading.xs {width: 10px; height: 10px;}
 .box-ppal.list-campaigns{box-shadow: 0 0 2px rgba(200,200,200,0.6);}
 .box-ppal .box-ppal-section{padding: 0 20px}
 .box-ppal .box-ppal-section .box-ppal-section-title{margin:0 0 10px -20px; font-variant:small-caps;}
-.box-ppal-section + .box-ppal-section, .dynamic-fieldset.profile-dynamic-fields + .dynamic-fieldset.profile-dynamic-fields{border-top: 1px #e5e5e5 solid; padding-top: 20px;}
+.box-ppal-section + .box-ppal-section, .dynamic-fieldset.profile-dynamic-fields + .dynamic-fieldset.profile-dynamic-fields{padding-top: 20px;}
 .box-ppal-title {background-color: #fff;
     border-width: 0 0 1px;
-    border-color: #e5e5e5;
+    border-color: #EEE;
     border-style: solid;
     padding: 0 0 20px;
     margin-bottom: 20px;}
@@ -7246,6 +7248,7 @@ header .header-msg h6:hover{
 }
 .dynamic-fieldset.profile-dynamic-fields .form-group-remove{padding-top:35px;}
 .dynamic-fieldset.profile-dynamic-fields .form-group-remove.no-label{padding-top:5px;}
+.dynamic-fieldset.profile-dynamic-fields .form-group-remove.no-label-lg{padding-top:0px;}
 .dynamic-fieldset-addbutton{margin-bottom:25px;}
 .dynamicList .list-item { display:block; width: 100%;}
 .dynamicList .list-item input{ width: 70%;}
@@ -7256,6 +7259,14 @@ header .header-msg h6:hover{
 
 #questionsSurveyForm .questionOption .question .addQuestionOptionButton{display: none;}
 #questionsSurveyForm .questionOption .question:last-child .addQuestionOptionButton{display: inline-block;}
+#questionsSurveyForm .dynamic-fieldset-addbutton {margin-bottom:20px;}
+
+#questionsSurveyForm .profile-dynamic-fields > .row:first-child  > .form-group {
+    background-color: #D0D0D0;
+    padding-top: 20px;
+    margin-left: -25px;
+    margin-right: -25px;
+}
 
 .config .admin-user-options{ padding-left:10px; font-size:1rem;    border-bottom: 1px solid #ccc; padding-bottom: 10px;}
 .config .admin-user-options label{ padding: 0 0 0 10px; margin:0px}
