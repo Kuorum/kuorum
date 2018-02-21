@@ -15,7 +15,7 @@
         <fieldset class="row">
             <formUtil:input cssClass="hidden" field="id" command="${listCommand}" prefixFieldName="${prefixField}"/>
             <div class="form-group">
-                <label for="text" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.massMailing.DebateCommand.title.label"/>:</label>
+                <label for="text" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.survey.QuestionCommand.text.label"/>:</label>
                 <div class="col-sm-8 col-md-7">
                     <div class="col-md-8 no-padding">
                         <formUtil:input field="text" command="${listCommand}" prefixFieldName="${prefixField}"/>
@@ -32,7 +32,7 @@
 
         <fieldset class="questionOption row">
             <div class="form-group">
-                <label for="text" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.massMailing.DebateCommand.title.label"/>:</label>
+                <label for="text" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.survey.QuestionCommand.options.label"/>:</label>
                 <div class="col-sm-8 col-md-7">
                     <g:set var="i" value="${0}"/>
                     <g:each in="${listCommand.options}" var="option">
