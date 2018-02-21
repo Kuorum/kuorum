@@ -28,7 +28,24 @@ $(function() {
     })
 
     var _isValidSurveyQuestionsForm = function(){
-        return true;
+        var valid = $("#questionsSurveyForm").valid();
+        $(".questionOption input[type=text]")
+            .filter(function() {return $(this).parents('#questionsSurveyForm-template').length < 1;})
+            .each(function(idx, input){
+            if ($(input).val() == "") {
+                var errorMsg = i18n.kuorum.web.commands.payment.massMailing.DebateCommand.body.nullable;
+                if (!$(input).next().hasClass("error")){
+                    $(input).parent().append('<span for="text" class="error"><span class="tooltip-arrow"></span>'+errorMsg+'</span>');
+                    $(input).addClass("error");
+                }else{
+                    $(input).next().css("display","inline-block") // form.validate() hide this
+                }
+                valid = false;
+            } else {
+                $(input).next(".error").fadeOut("slow", function(){$(this).remove();});
+            }
+        })
+        return valid;
     }
     // Abrir modal confirmar envío campaña (SURVEY) programada
     $('body').on('click','.form-final-options #send-campaign-later', function(e) {

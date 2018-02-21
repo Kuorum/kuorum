@@ -17,13 +17,13 @@
             <div class="form-group">
                 <label for="text" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.survey.QuestionCommand.text.label"/>:</label>
                 <div class="col-sm-8 col-md-7">
-                    <div class="col-md-8 no-padding">
+                    <div class="col-sm-8 no-padding">
                         <formUtil:input field="text" command="${listCommand}" prefixFieldName="${prefixField}"/>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-sm-3">
                         <formUtil:selectEnum field="questionType" command="${listCommand}" prefixFieldName="${prefixField}" showLabel="false"/>
                     </div>
-                    <div class="form-group col-md-1 form-group-remove no-label-lg">
+                    <div class="form-group col-sm-1 form-group-remove no-label-lg">
                         <button type="button" class="btn btn-transparent btn-lg btn-icon removeButton"><i class="fa fa-trash"></i></button>
                     </div>
                 </div>
@@ -48,7 +48,7 @@
     </formUtil:dynamicComplexInputs>
     <fieldset class="row dynamic-fieldset-addbutton">
         <div class="form-group">
-            <div class="col-md-12 center">
+            <div class="col-xs-12 center">
                 <button type="button" class="btn btn-grey btn-lg addButton">
                     <g:message code="survey.form.button.addQuestion"/>
                     <i class="fa fa-plus"></i>

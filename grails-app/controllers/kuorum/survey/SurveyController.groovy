@@ -91,9 +91,7 @@ class SurveyController extends CampaignController{
         KuorumUser surveyUser = KuorumUser.get(springSecurityService.principal.id)
         SurveyRSDTO survey = surveyService.find(surveyUser, Long.parseLong(params.campaignId))
         if (command.hasErrors()) {
-            if(command.errors.getFieldError().arguments.first() == "publishOn"){
-                flash.error = message(code: "post.scheduleError")
-            }
+            flash.error = message(error: command.errors.getFieldError())
             render view: 'editQuestionsStep', model: [survey:survey, command: command, numberRecipients:getCampaignNumberRecipients(surveyUser, survey)]
             return
         }
@@ -131,7 +129,7 @@ class SurveyController extends CampaignController{
     private def modelQuestionStep(SurveyRSDTO survey){
         SurveyQuestionsCommand command = new SurveyQuestionsCommand()
         command.surveyId = survey.id
-        command.questions = survey.questions.collect{map(it)}
+        command.questions = survey.questions?.collect{map(it)}?:[new QuestionCommand()]
         if(survey.datePublished){
             command.publishOn = survey.datePublished
         }

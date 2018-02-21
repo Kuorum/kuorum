@@ -25,6 +25,20 @@ class SurveyQuestionsCommand {
     Date publishOn
     String sendType
 
+
+    static validateQuestions = {val, obj ->
+        String error = null;
+        if (obj.sendType != "DRAFT"){
+            if (val.size()<1){
+                error = "minSize.error"
+            }
+            val.each{
+                if (!error)
+                    error = it.validate()?'':'invalidOptions'
+            }
+        }
+        return error
+    }
     static KuorumUser currentUser(){
         Object appContext = ServletContextHolder.servletContext.getAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT)
         SpringSecurityService springSecurityService = (SpringSecurityService)appContext.springSecurityService
@@ -35,7 +49,7 @@ class SurveyQuestionsCommand {
 
     static constraints = {
         importFrom CampaignContentCommand, include: ["publishOn", "sendType"]
-        questions maxSize: 10000;
+        questions maxSize: 10000, validator: validateQuestions
     }
 }
 
@@ -44,11 +58,13 @@ class QuestionCommand{
     Long id
     String text
     QuestionTypeRSDTO questionType
-    List<QuestionOptionCommand> options =[]
+    List<QuestionOptionCommand> options =[new QuestionOptionCommand()]
 
     static constraints = {
+        id nullable: true
         text nullable: false
         questionType nullable: false
+        options minSize: 2
     }
 }
 
@@ -59,5 +75,6 @@ class QuestionOptionCommand{
     String text
     static constraints = {
         text nullable: false
+        id nullable: true
     }
 }
