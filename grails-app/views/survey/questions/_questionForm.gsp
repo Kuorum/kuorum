@@ -1,7 +1,7 @@
 <formUtil:validateForm bean="${command}" form="questionsSurveyForm" dirtyControl="true"/>
 <form action="#" class="form-horizontal campaign-form" id="questionsSurveyForm" method="POST" data-generalErrorMessage="${g.message(code:'kuorum.web.commands.payment.massMailing.DebateCommand.form.genericError')}">
     <input type="hidden" name="redirectLink" id="redirectLink"/>
-    <input type="hidden" name="sendType" value="DRAFT" id="sendMassMailingType"/>
+    <input type="hidden" name="sendType" value="${status}" id="sendMassMailingType"/>
     <input type="hidden" name="surveyId" value="${command.surveyId}"/>
     <formUtil:dynamicComplexInputs
             command="${command}"

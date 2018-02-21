@@ -83,7 +83,11 @@ class SurveyController extends CampaignController{
         KuorumUser surveyUser = KuorumUser.get(springSecurityService.principal.id)
         SurveyRSDTO survey = setCampaignAsDraft(campaignId, surveyService)
         Long numberRecipients = getCampaignNumberRecipients(surveyUser, survey)
-        [survey:survey, command: modelQuestionStep(survey), numberRecipients:numberRecipients]
+        [
+                survey:survey,
+                command: modelQuestionStep(survey),
+                status: survey.campaignStatusRSDTO,
+                numberRecipients:numberRecipients]
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
@@ -92,7 +96,11 @@ class SurveyController extends CampaignController{
         SurveyRSDTO survey = surveyService.find(surveyUser, Long.parseLong(params.campaignId))
         if (command.hasErrors()) {
             flash.error = message(error: command.errors.getFieldError())
-            render view: 'editQuestionsStep', model: [survey:survey, command: command, numberRecipients:getCampaignNumberRecipients(surveyUser, survey)]
+            render view: 'editQuestionsStep', model: [
+                    survey:survey,
+                    command: command,
+                    status: survey.campaignStatusRSDTO,
+                    numberRecipients:getCampaignNumberRecipients(surveyUser, survey)]
             return
         }
         SurveyRDTO rdto = surveyService.map(survey)
