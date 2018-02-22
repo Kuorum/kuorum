@@ -5,7 +5,7 @@
     </li>
     <li>
         <span class="fa fa-users" aria-hidden="true"></span>
-        <span class="info"><g:message code="debate.authorFollowers" args="[postUser.numFollowers]" /></span>
+        <span class="info"><g:message code="debate.authorFollowers" args="[postUser.followers.size()]" /></span>
     </li>
     <g:if test="${!post.event}">
         <li>
