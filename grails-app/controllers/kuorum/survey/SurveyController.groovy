@@ -106,8 +106,8 @@ class SurveyController extends CampaignController{
         }
         SurveyRDTO rdto = surveyService.map(survey)
         rdto.questions = command.questions?.findAll{it && it.text}.collect {map(it)}?:[]
-        saveAndSendCampaign(surveyUser, rdto, survey.getId(), command.publishOn,command.sendType, surveyService)
-        redirect mapping: params.redirectLink, params: survey.encodeAsLinkProperties()
+        def result = saveAndSendCampaign(surveyUser, rdto, survey.getId(), command.publishOn,command.sendType, surveyService)
+        redirect mapping: result.nextStep.mapping, params: result.nextStep.params
 
     }
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])

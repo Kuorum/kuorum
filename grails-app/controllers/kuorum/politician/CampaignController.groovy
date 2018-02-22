@@ -308,7 +308,7 @@ class CampaignController {
             msg = g.message(code: 'tools.massMailing.saveDraft.advise', args: [savedCampaign.title])
         }
 
-        [msg: msg, campaign: savedCampaign, nextStep:processNextStep(user, savedCampaign, publishOn!= null)]
+        [msg: msg, campaign: savedCampaign, nextStep:processNextStep(user, savedCampaign, campaignRDTO.publishOn!= null)]
     }
 
     private def processNextStep(KuorumUser user, CampaignRSDTO campaignRSDTO, Boolean checkPaymentRedirect){
