@@ -15,8 +15,8 @@ $(document).ready(function() {
 
     var heightOpen = $(".panel.panel-default.causes .panel-body").outerHeight();
     var heightClose = 158;
-    console.log("OPEN = "+heightOpen)
-    if (heightOpen <= heightClose ){
+    var fixView = 10;
+    if (heightOpen <= (heightClose+fixView) ){
         $(".panel.panel-default.causes .panel-footer").hide()
     }else{
         $(".panel.panel-default.causes .panel-body").css('height', heightClose);
@@ -26,7 +26,6 @@ $(document).ready(function() {
         e.preventDefault();
         var $panelBody = $(this).parents(".panel.causes").find(".panel-body");
         var currentHeight  =$panelBody.outerHeight();
-        console.log("$panelBody heigh="+currentHeight)
         var nextHeigh =0;
         if (currentHeight == heightClose){
             nextHeigh = heightOpen;
