@@ -34,7 +34,7 @@ class SurveyQuestionsCommand {
             }
             val.each{
                 if (!error)
-                    error = it.validate()?'':'invalidOptions'
+                    error = it.validate()?null:'invalidOptions'
             }
         }
         return error
@@ -60,11 +60,20 @@ class QuestionCommand{
     QuestionTypeRSDTO questionType
     List<QuestionOptionCommand> options =[new QuestionOptionCommand()]
 
+    static validateOptions = {val, obj ->
+        String error = null;
+        val.each{
+            if (!error)
+                error = it.validate()?null:'invalidOptions'
+        }
+        return error
+    }
+
     static constraints = {
         id nullable: true
-        text nullable: false
+        text nullable: false, blank: false
         questionType nullable: false
-        options minSize: 2
+        options minSize: 2, validator: validateOptions
     }
 }
 
@@ -74,7 +83,7 @@ class QuestionOptionCommand{
     Long id
     String text
     static constraints = {
-        text nullable: false
+        text nullable: false, blank: false
         id nullable: true
     }
 }
