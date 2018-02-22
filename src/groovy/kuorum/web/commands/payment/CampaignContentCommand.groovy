@@ -58,6 +58,6 @@ class CampaignContentCommand {
             }
         }
 
-        sendType nullable: false, inList:["DRAFT", "SCHEDULED", "SENT", "SEND_TEST"]
+        sendType nullable: false, inList:["DRAFT", "SCHEDULED", "SEND", "SEND_TEST"]
     }
 }

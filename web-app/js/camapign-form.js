@@ -36,7 +36,6 @@ $(function(){
     var $sendButton = $('#campaignConfirm #saveCampaignBtn[data-redirectLink]');
     $sendButton.on('click', function(e){
         e.preventDefault();
-        console.log("SEND")
         var callback = $('#saveCampaignBtn').attr('data-callback');
         var $form = $('form.campaign-form');
         var $inputHidden = $form.find('#redirectLink');
