@@ -20,7 +20,7 @@
                     <div class="col-sm-8 no-padding">
                         <formUtil:input field="text" command="${listCommand}" prefixFieldName="${prefixField}"/>
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-xs-8 col-sm-3">
                         <formUtil:selectEnum field="questionType" command="${listCommand}" prefixFieldName="${prefixField}" showLabel="false"/>
                     </div>
                     <div class="form-group col-sm-1 form-group-remove no-label-lg">

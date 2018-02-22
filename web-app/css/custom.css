@@ -5105,6 +5105,22 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     white-space: nowrap;
 }
 
+
+#questionsSurveyForm .row {margin:0;}
+#questionsSurveyForm .row .question-text-container {padding-right:30px;}
+
+#questionsSurveyForm .questionOption .question .addQuestionOptionButton{display: none;}
+#questionsSurveyForm .questionOption .question:last-child .addQuestionOptionButton{display: inline-block;}
+#questionsSurveyForm .dynamic-fieldset-addbutton {margin-bottom:20px;}
+
+#questionsSurveyForm .profile-dynamic-fields > .row:first-child  > .form-group {
+    background-color: #D0D0D0;
+    padding-top: 20px;
+    margin-left: -20px;
+    margin-right: -20px;
+}
+
+
 /* Super small devices (mobile, 480px and down) */
 @media only screen and (max-width: 480px) {
 
@@ -5207,6 +5223,10 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .promo-options table.kuorum-prices-table td{padding:5px 5px; font-size:15px;}
 
     .conversation-box-comment > .header > .user span {  max-width: 250px  }
+    #questionsSurveyForm .profile-dynamic-fields > .row:first-child  > .form-group {
+        margin-left: -25px;
+        margin-right: -25px;
+    }
 }
 
 @media only screen and (min-width: 600px) {
@@ -7253,20 +7273,6 @@ header .header-msg h6:hover{
 .dynamicList .list-item { display:block; width: 100%;}
 .dynamicList .list-item input{ width: 70%;}
 .dynamicList .list-item a{ width:25%;}
-
-#questionsSurveyForm .row {margin:0;}
-#questionsSurveyForm .row .question-text-container {padding-right:30px;}
-
-#questionsSurveyForm .questionOption .question .addQuestionOptionButton{display: none;}
-#questionsSurveyForm .questionOption .question:last-child .addQuestionOptionButton{display: inline-block;}
-#questionsSurveyForm .dynamic-fieldset-addbutton {margin-bottom:20px;}
-
-#questionsSurveyForm .profile-dynamic-fields > .row:first-child  > .form-group {
-    background-color: #D0D0D0;
-    padding-top: 20px;
-    margin-left: -25px;
-    margin-right: -25px;
-}
 
 .config .admin-user-options{ padding-left:10px; font-size:1rem;    border-bottom: 1px solid #ccc; padding-bottom: 10px;}
 .config .admin-user-options label{ padding: 0 0 0 10px; margin:0px}
