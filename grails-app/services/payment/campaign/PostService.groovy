@@ -171,6 +171,7 @@ class PostService implements CampaignCreatorService<PostRSDTO, PostRDTO>{
             postRDTO.photoUrl = postRSDTO.photoUrl
             postRDTO.videoUrl = postRSDTO.videoUrl
             postRDTO.publishOn = postRSDTO.datePublished
+            postRDTO.endDate = postRSDTO.endDate
             postRDTO.name = postRSDTO.name
             postRDTO.triggeredTags = postRSDTO.triggeredTags
             postRDTO.anonymousFilter = postRSDTO.anonymousFilter

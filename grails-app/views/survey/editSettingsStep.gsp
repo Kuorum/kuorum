@@ -24,6 +24,7 @@
               model="[
                       campaign:campaign,
                       attachEvent:campaign?.event?true:false,
+                      options:options,
                       command: command,
                       filters: filters,
                       totalContacts: totalContacts,

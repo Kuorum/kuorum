@@ -174,6 +174,7 @@ class DebateService implements CampaignCreatorService<DebateRSDTO, DebateRDTO> {
             debateRDTO.title = debateRSDTO.title
             debateRDTO.body = debateRSDTO.body
             debateRDTO.publishOn = debateRSDTO.datePublished
+            debateRDTO.endDate = debateRSDTO.endDate
             debateRDTO.causes = debateRSDTO.causes
             if (debateRSDTO.event){
                 debateRDTO.event = new EventRDTO();

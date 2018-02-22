@@ -115,6 +115,7 @@ class SurveyService implements CampaignCreatorService<SurveyRSDTO, SurveyRDTO>{
             surveyRDTO.photoUrl = surveyRSDTO.photoUrl
             surveyRDTO.videoUrl = surveyRSDTO.videoUrl
             surveyRDTO.publishOn = surveyRSDTO.datePublished
+            surveyRDTO.endDate = surveyRSDTO.endDate
             surveyRDTO.name = surveyRSDTO.name
             surveyRDTO.triggeredTags = surveyRSDTO.triggeredTags
             surveyRDTO.anonymousFilter = surveyRSDTO.anonymousFilter

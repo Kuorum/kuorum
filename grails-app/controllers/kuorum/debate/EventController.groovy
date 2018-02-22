@@ -24,7 +24,13 @@ class EventController extends CampaignController{
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def create() {
-        return modelSettings(new CampaignSettingsCommand())
+        return eventModelSettings(new CampaignSettingsCommand())
+    }
+
+    private def eventModelSettings(CampaignSettingsCommand command, DebateRSDTO debateRSDTO) {
+        def model = modelSettings(command, debateRSDTO)
+        model.options =[debatable:true, endDate:false]
+        return model
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])

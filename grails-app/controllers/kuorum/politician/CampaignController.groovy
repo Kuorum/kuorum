@@ -94,6 +94,7 @@ class CampaignController {
             command.campaignName = campaignRSDTO.name
             command.tags = campaignRSDTO.triggeredTags
             command.filterId = campaignRSDTO.newsletter?.filter?.id
+            command.endDate = campaignRSDTO.endDate
             if (campaignRSDTO.hasProperty('causes')){
                 command.causes = campaignRSDTO.causes
             }
@@ -119,6 +120,7 @@ class CampaignController {
         rdto.name = command.campaignName
         rdto.setTriggeredTags(command.tags)
         rdto.causes = command.causes
+        rdto.endDate = command.endDate
         if (command.filterEdited) {
             //anonymousFilter.setName(g.message(code:'tools.contact.filter.anonymousName', args: anonymousFilter.getName()))
             rdto.setAnonymousFilter(anonymousFilter)

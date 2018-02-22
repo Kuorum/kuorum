@@ -21,12 +21,22 @@
 
         <g:render template="/newsletter/filter" model="[command: command, filters: filters,anonymousFilter: anonymousFilter, totalContacts: totalContacts, hideSendTestButton: true, showOnly:campaign?.newsletter?.status== org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT]"/>
 
-        <fieldset class="form-group fieldset-check-box">
-            %{--<label for="campaignName" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.debate.CampaignSettingsCommand.campaignName.label"/>:</label>--}%
-            <div class="col-md-offset-1 col-sm-8 col-md-7">
-                <formUtil:checkBox command="${command}" field="debatable" disabled="${command.debatable!=null}"/>
-            </div>
-        </fieldset>
+        <g:if test="${options.debatable}">
+            <fieldset class="form-group fieldset-check-box">
+                %{--<label for="campaignName" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.debate.CampaignSettingsCommand.campaignName.label"/>:</label>--}%
+                <div class="col-md-offset-1 col-sm-8 col-md-7">
+                    <formUtil:checkBox command="${command}" field="debatable" disabled="${command.debatable!=null}"/>
+                </div>
+            </fieldset>
+        </g:if>
+        <g:if test="${options.endDate}">
+            <fieldset class="form-group">
+                <label for="endDate" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.CampaignSettingsCommand.endDate.label"/>:</label>
+                <div class="col-sm-8 col-md-7">
+                    <formUtil:date command="${command}" field="endDate" time="true"/>
+                </div>
+            </fieldset>
+        </g:if>
         <g:render template="/newsletter/form/formGroupCampaignCauses" model="[command:command]"/>
 
         <fieldset class="form-group" id="advanced-features-section">
