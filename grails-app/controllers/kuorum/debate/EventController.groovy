@@ -24,7 +24,7 @@ class EventController extends CampaignController{
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def create() {
-        return eventModelSettings(new CampaignSettingsCommand())
+        return eventModelSettings(new CampaignSettingsCommand(), null)
     }
 
     private def eventModelSettings(CampaignSettingsCommand command, DebateRSDTO debateRSDTO) {
@@ -36,7 +36,7 @@ class EventController extends CampaignController{
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def saveSettings(CampaignSettingsCommand command){
         if (command.hasErrors()) {
-            render view: 'create', model: modelSettings(command, null)
+            render view: 'create', model: eventModelSettings(command, null)
             return
         }
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)

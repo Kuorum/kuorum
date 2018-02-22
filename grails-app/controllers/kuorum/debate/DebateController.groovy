@@ -71,7 +71,7 @@ class DebateController extends CampaignController{
     private def debateModelSettings(CampaignSettingsCommand command, DebateRSDTO debateRSDTO) {
         def model = modelSettings(command, debateRSDTO)
         command.debatable=true
-        model.options =[debatable:debateRSDTO.event?true:false, endDate:false]
+        model.options =[debatable:debateRSDTO?.event?true:false, endDate:false]
         return model
     }
 
