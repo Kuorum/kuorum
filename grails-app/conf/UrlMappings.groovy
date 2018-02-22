@@ -18,8 +18,10 @@ class UrlMappings {
         /**/
         /** NEW LANDIGNS **/
         name landingServices:       "/$lang/leaders-in-engagement"  {controller="redirect"; action= "redirect301"; newMapping='en_landingServices'; constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-        name en_landingServices:    "/en/leaders-in-engagement"     (controller: "landing", action: "landingServices"){lang = "en"; mappingName="landingServices"}
-        name es_landingServices:    "/es/lideres-en-participacion"  (controller: "landing", action: "landingServices"){lang = "es"; mappingName="landingServices"}
+        name en_landingServices:    "/en"                           (controller: "landing", action: "landingServices"){lang = "en"; mappingName="landingServices"}
+        name es_landingServices:    "/es"                           (controller: "landing", action: "landingServices"){lang = "es"; mappingName="landingServices"}
+                                    "/en/leaders-in-engagement"     {controller="redirect"; action= "redirect301"; newMapping='en_landingServices'}
+                                    "/es/lideres-en-participacion"  {controller="redirect"; action= "redirect301"; newMapping='es_landingServices'}
                                     "/es/leaders-in-engagement"     {controller="redirect"; action= "redirect301"; newMapping='es_landingServices'}
                                     "/es/best-email-marketing"      {controller="redirect"; action= "redirect301"; newMapping='es_landingServices'}
                                     "/es/win-your-election"         {controller="redirect"; action= "redirect301"; newMapping='es_landingServices'}
