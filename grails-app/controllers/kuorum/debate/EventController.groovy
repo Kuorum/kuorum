@@ -39,7 +39,6 @@ class EventController extends CampaignController{
             render view: 'create', model: eventModelSettings(command, null)
             return
         }
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         FilterRDTO anonymousFilter = recoverAnonymousFilterSettings(params, command)
 
         CampaignCreatorService campaignService = null;
@@ -49,7 +48,7 @@ class EventController extends CampaignController{
             campaignService = postService
         }
         command.eventAttached=true
-        Map<String, Object> result = saveCampaignSettings(user, command, null, anonymousFilter, campaignService)
+        Map<String, Object> result = saveCampaignSettings(command, null, anonymousFilter, campaignService)
 
         //flash.message = resultPost.msg.toString()
 
