@@ -6,10 +6,8 @@ $(function () {
     })
 
 
-    var options = document.querySelectorAll('.option');
     var optionsNextButton = document.querySelectorAll('.survey-question.single-answer .next-section button');
     var multiOptionsNextButton = document.querySelectorAll('.survey-question.multi-answer .next-section button');
-    var multiOptions = document.querySelectorAll('.multi-option');
 
     var _sendQuestionAnswers=function(questionId){
         var question = document.querySelector('.survey-question[data-question-id="' + questionId + '"]');
@@ -24,6 +22,7 @@ $(function () {
             questionId:questionId,
             answersIds:answerIds
         }
+        moveToHash("#survey-progress")
         $.ajax({
             type: "POST",
             url: url,
@@ -67,7 +66,7 @@ $(function () {
 
     // Checkbox
     var _selectSingleAnswer = function (event) {
-        var answer = event.currentTarget.parentElement;
+        var answer = event.currentTarget;
         var answerList = answer.parentElement;
         var question = answer.parentElement.parentElement;
         var nextButton = answerList.nextElementSibling.querySelector('.next-section button');
@@ -83,7 +82,7 @@ $(function () {
 
     // Radio
     var _selectMultiAnswer = function (event) {
-        var answer = event.currentTarget.parentElement;
+        var answer = event.currentTarget;
         // var answerVotes = answer.querySelector('.progress-bar-counter');
         var answersList = answer.parentElement;
         var question = answersList.parentElement;
@@ -162,14 +161,28 @@ $(function () {
         })
     };
 
-    options.forEach(function(option) {
-        option.addEventListener('click', _selectSingleAnswer);
-    });
+    var _selectAnswer=function(e){
+        var answer = event.currentTarget
+        if ($(answer).find(".option").length >0){
+            _selectSingleAnswer(e)
+        }else if ($(answer).find(".multi-option").length >0){
+            _selectMultiAnswer(e)
+        }
 
-    multiOptions.forEach(function(option) {
-        option.addEventListener('click', _selectMultiAnswer);
-    });
+    }
 
+    // Add click listener on answers that aren't answered
+    $('.survey-question-answer')
+        .filter(function() {return $(this).parents('.answered').length === 0})
+        .on("click",_selectAnswer)
+
+    // options.forEach(function(option) {
+    //     option.addEventListener('click', _selectSingleAnswer);
+    // });
+    //
+    // multiOptions.forEach(function(option) {
+    //     option.addEventListener('click', _selectMultiAnswer);
+    // });
 
     var _nextButtonClick = specificNextButtonClick => e => {
         var $buttonPublish = $(e.target);
@@ -194,16 +207,14 @@ $(function () {
         event.preventDefault();
         var question = event.currentTarget.parentElement.parentElement.parentElement;
         var answers = question.getElementsByClassName('survey-question-answers')[0];
-        var button = question.querySelector('.actions button');
 
         var selectedAnswer = question.getAttribute('data-answer-selected');
 
         var answer = answers.querySelector('[data-answer-id="' + selectedAnswer + '"]');
-        var options = question.querySelectorAll('.option'); // Html collection to array
-
+        var options = question.querySelectorAll('.survey-question-answer'); // Html collection to array
         if (selectedAnswer) {
             options.forEach(function(option) {
-                option.removeEventListener('click', _selectSingleAnswer);
+                $(option).off('click',_selectAnswer);
             });
             // UPDATE NUM ANSWERS
             answer.setAttribute("data-numanswers", parseInt(answer.getAttribute("data-numanswers"))+1);
@@ -218,15 +229,13 @@ $(function () {
 
     var _multiOptionNextButtonClick = function(event){
         var question = event.currentTarget.parentElement.parentElement.parentElement;
-        var answers = question.getElementsByClassName('survey-question-answers')[0];
-        var button = question.querySelector('[data-clicked]');
+        var options = question.querySelectorAll('.survey-question-answer'); // Html collection to array
         var selectedAnswers = question.getAttribute('data-answer-selected');
-        var multiOptions = question.querySelectorAll('.multi-option'); // Html collection to array
 
         selectedAnswers = JSON.parse(selectedAnswers);
         if (!!selectedAnswers) {
-            multiOptions.forEach(function(option) {
-                option.removeEventListener('click', _selectMultiAnswer);
+            options.forEach(function(option) {
+                $(option).off('click',_selectAnswer);
             });
 
             // Updating num answers

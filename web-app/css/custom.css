@@ -9203,10 +9203,8 @@ ul.notification-menu > li.see-more {
     color: #00a3ed;
 }
 
-.survey-question.answered .survey-question-answer:hover .option > span.check-icon,
-.survey-question.answered .survey-question-answer:hover .multi-option > span.check-icon,
-.survey-question.answered .survey-question-answer .option.checked .check-icon,
-.survey-question.answered .survey-question-answer .multi-option.checked .check-icon {
+.survey-question.answered .survey-question-answer:hover:not(.checked) .option > span.check-icon,
+.survey-question.answered .survey-question-answer:hover:not(.checked) .multi-option > span.check-icon {
     color: #D0D0D0;
 }
 
