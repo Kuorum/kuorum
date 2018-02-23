@@ -46,7 +46,7 @@
         <h1 class="sr-only"><g:message code="admin.createDebate.title"/></h1>
 
         <formUtil:validateForm bean="${command}" form="politicianMassMailingForm" dirtyControl="true"/>
-        <form action="#" class="form-horizontal" id="politicianMassMailingForm" method="POST" data-generalErrorMessage="${g.message(code:'kuorum.web.commands.payment.massMailing.DebateCommand.form.genericError')}">
+        <form action="#" class="campaign-form form-horizontal" id="politicianMassMailingForm" method="POST" data-generalErrorMessage="${g.message(code:'kuorum.web.commands.payment.massMailing.DebateCommand.form.genericError')}">
             <input type="hidden" name="sendType" value="DRAFT" id="sendMassMailingType"/>
             <input type="hidden" name="redirectLink" id="redirectLink"/>
             %{--<input type="hidden" name="latitude" id="latitude" value="${g.formatNumber(number:command.latitude, type:'number', format:'$##.##########')}"/>--}%
@@ -77,13 +77,13 @@
                 <label for="address" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.event.EventCommand.address.label"/>:</label>
                 <div class="col-sm-8 col-md-5">
                     <formUtil:input command="${command}" field="address"/>
-                    <a href="#" class="btn btn-grey" id="geocode-address">
+                    <a href="#" class="btn btn-lg btn-icon btn-grey" id="geocode-address">
                         <span class="fa fa-map-marker" ></span>
                     </a>
                 </div>
                 <div id="edit-event-map" class="col-sm-offset-2 col-sm-8 col-md-offset-0 col-md-4"></div>
             </fieldset>
-            <g:render template="/campaigns/edit/stepButtonsNext" model="[mappings:mappings]"/>
+            <g:render template="/campaigns/edit/stepButtons" model="[mappings:mappings]"/>
         </form>
         <script>
 

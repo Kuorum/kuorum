@@ -39,8 +39,6 @@ class EventController extends CampaignController{
             render view: 'create', model: eventModelSettings(command, null)
             return
         }
-        FilterRDTO anonymousFilter = recoverAnonymousFilterSettings(params, command)
-
         CampaignCreatorService campaignService = null;
         if (command.debatable){
             campaignService = debateService
@@ -48,7 +46,7 @@ class EventController extends CampaignController{
             campaignService = postService
         }
         command.eventAttached=true
-        Map<String, Object> result = saveCampaignSettings(command, null, anonymousFilter, campaignService)
+        Map<String, Object> result = saveCampaignSettings(command, params, campaignService)
 
         //flash.message = resultPost.msg.toString()
 
