@@ -83,12 +83,17 @@ class SurveyController extends CampaignController{
         Long campaignId = Long.parseLong(params.campaignId)
         KuorumUser surveyUser = KuorumUser.get(springSecurityService.principal.id)
         SurveyRSDTO survey = setCampaignAsDraft(campaignId, surveyService)
-        Long numberRecipients = getCampaignNumberRecipients(surveyUser, survey)
-        [
-                survey:survey,
-                command: modelQuestionStep(survey),
-                status: survey.campaignStatusRSDTO,
-                numberRecipients:numberRecipients]
+        if (!survey.body || !survey.title){
+            flash.message=g.message(code:'survey.form.nobody.redirect')
+            redirect mapping: 'surveyEditContent', params: survey.encodeAsLinkProperties()
+        }else{
+            Long numberRecipients = getCampaignNumberRecipients(surveyUser, survey)
+            return [
+                    survey:survey,
+                    command: modelQuestionStep(survey),
+                    status: survey.campaignStatusRSDTO,
+                    numberRecipients:numberRecipients]
+        }
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
