@@ -137,6 +137,13 @@
                                     nullable:"<g:message code="kuorum.web.commands.payment.massMailing.DebateCommand.title.nullable"/>"
                                 }
                             }
+                        },
+                        survey:{
+                            QuestionOptionCommand:{
+                                text:{
+                                    nullable:"<g:message code="kuorum.web.commands.payment.survey.QuestionOptionCommand.text.nullable"/>"
+                                }
+                            }
                         }
                     }
                 }

@@ -33,7 +33,7 @@ $(function() {
             .filter(function() {return $(this).parents('#questionsSurveyForm-template').length < 1;})
             .each(function(idx, input){
             if ($(input).val() == "") {
-                var errorMsg = i18n.kuorum.web.commands.payment.massMailing.DebateCommand.body.nullable;
+                var errorMsg = i18n.kuorum.web.commands.payment.survey.QuestionOptionCommand.text.nullable;
                 if (!$(input).next().hasClass("error")){
                     $(input).parent().append('<span for="text" class="error"><span class="tooltip-arrow"></span>'+errorMsg+'</span>');
                     $(input).addClass("error");
