@@ -1520,7 +1520,8 @@ ul.list > li > ul.list-actions > li > a:active {color: #20a2ea;}
 .container-fluid.box-ppal.choose-campaign {padding:70px 0px 50px 0px; box-shadow: 0 0 2px rgba(200,200,200,0.6);}
 #mails {margin:0 auto; padding:0;}
 #mails li.fontIcon > a {padding:15px 0 0 0;}
-#mails li.fontIcon > a > span.fa {font-size: 2em;width: 100%;heigh:44px;}
+#mails li.fontIcon > a > span.fa {font-size: 2em;width: 100%;height:44px;}
+#mails.campaigns li.fontIcon > a > span.fa{height: auto;}
 #mails li.fontIcon > a > span.label {color:inherit; padding:0; font-weight: inherit;font-size: inherit}
 
 .dashboard, .box-ppal.dashboard {margin-top: 20px;}
