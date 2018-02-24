@@ -4,7 +4,7 @@
     <div class="header">
         <h1 class="title" itemprop="headline">${survey.title}</h1>
         <userUtil:showUser user="${campaignUser}" showRole="true" itemprop="author"/>
-        <g:render template="/campaigns/showModules/campaignDataDatePublished" model="[campaign:survey, campaignUser:campaignUser, editMappingName:'surveyEditContent']"/>
+        <g:render template="/campaigns/showModules/campaignDataDatePublished" model="[campaign:survey, campaignUser:campaignUser, editMappingName:'surveyEditQuestions']"/>
     </div>
 
     <div class="body" itemprop="articleBody">
