@@ -75,4 +75,10 @@ class CustomRegisterController {
         kuorumUserService.updateUser(user)
         redirect mapping:"customProcessRegisterStep3"
     }
+
+    @Secured('IS_AUTHENTICATED_REMEMBERED')
+    def step3(){
+        KuorumUser user =  KuorumUser.get(springSecurityService.principal.id)
+        [user:user, command: new PromotionalCodeCommand()]
+    }
 }
