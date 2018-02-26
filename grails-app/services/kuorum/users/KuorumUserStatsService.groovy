@@ -44,19 +44,4 @@ class KuorumUserStatsService {
     Long calculateNotConfirmedUsers() {
         KuorumUser.collection.count([enabled:true, accountLocked:true, userType:[$ne:UserType.POLITICIAN.toString()]]) // No tienen provincia fijada
     }
-
-    PoliticianActivity calculatePoliticianActivity(KuorumUser politician) {
-        if (politician.userType!=UserType.POLITICIAN){
-            log.warn("Calculando actividad politica de alguien que no es pol�tico: "+politician)
-            return new PoliticianActivity()
-        } else {
-            if (!politician.politicianActivity){
-                log.warn("Politico sin su actividad calculada previamente: "+politician)
-                politician.politicianActivity = new PoliticianActivity()
-                politician.save()
-            }
-            return politician.politicianActivity
-        }
-
-    }
 }

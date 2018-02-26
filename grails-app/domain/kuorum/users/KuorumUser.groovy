@@ -55,7 +55,6 @@ class KuorumUser {
 
     List<MailType> availableMails = MailType.values()
 
-    Gamification gamification = new Gamification()
     SocialLinks socialLinks = new SocialLinks()
     KuorumUser organization
 
@@ -74,10 +73,8 @@ class KuorumUser {
     static embedded = [
             'personalData',
             'authorities',
-            'gamification',
             'avatar',
             'activity',
-            'politicianActivity',
             'imageProfile',
             'socialLinks',
             'notice',
@@ -94,8 +91,6 @@ class KuorumUser {
      * Represents the last time that the user checked the notifications
      */
     Date lastNotificationChecked = new Date()
-
-    PoliticianActivity politicianActivity
 
     List<PoliticianRelevantEvent> relevantEvents
     ProfessionalDetails professionalDetails
@@ -144,7 +139,6 @@ class KuorumUser {
 //        institution nullable:true
         requestedPoliticianBetaTester nullable:true
         organization nullable: true
-        politicianActivity nullable:true
         relevantEvents nulable:true
         professionalDetails nullable:true
         institutionalOffice nullable:true
