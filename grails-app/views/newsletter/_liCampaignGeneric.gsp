@@ -1,14 +1,16 @@
 <%@ page import="org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO" %>
 <g:set var="type" value="post"/>
+<g:set var="urlMappingNameEditStep" value="EditContent"/>
 <g:if test="${campaign.campaignType == org.kuorum.rest.model.communication.CampaignTypeRSDTO.DEBATE}">
     <g:set var="type" value="debate"/>
 </g:if>
 <g:elseif test="${campaign.campaignType == org.kuorum.rest.model.communication.CampaignTypeRSDTO.SURVEY}">
+    <g:set var="urlMappingNameEditStep" value="EditQuestions"/>
     <g:set var="type" value="survey"/>
 </g:elseif>
 <g:set var="faIcon" value="${type=="post"?'fa-newspaper-o':type=="debate"?'fa-comments-o':'fa-bar-chart-o'}"/>
 <g:set var="typeName" value="${g.message(code: 'tools.campaign.new.'+type)}"/>
-<g:set var="campaignGenericMappings" value="[show:type+'Show', edit:type+'EditContent', remove:type+'Remove']"/>
+<g:set var="campaignGenericMappings" value="[show:type+'Show', edit:type+urlMappingNameEditStep, remove:type+'Remove']"/>
 <g:if test="${campaign.event}">
     <g:set var="type" value="event"/>
     <g:set var="faIcon" value="fa-calendar-check-o"/>
