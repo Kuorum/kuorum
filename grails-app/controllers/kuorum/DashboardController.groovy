@@ -33,7 +33,6 @@ import payment.contact.ContactService
 class DashboardController {
 
     SpringSecurityService springSecurityService
-    def projectService
     def kuorumUserService
     KuorumUserStatsService kuorumUserStatsService
     CausesService causesService

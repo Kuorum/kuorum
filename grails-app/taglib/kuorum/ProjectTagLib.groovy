@@ -13,7 +13,6 @@ class ProjectTagLib {
 
     def springSecurityService
     def postService
-    def projectService
     RegionService regionService
     KuorumUserService kuorumUserService
     static namespace = "projectUtil"

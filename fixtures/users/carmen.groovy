@@ -1,24 +1,14 @@
 import kuorum.core.model.CommissionType
 import kuorum.core.model.Gender
 import kuorum.core.model.UserType
-import kuorum.core.model.gamification.GamificationAward
 import kuorum.mail.MailType
 import kuorum.notifications.Notice
 import kuorum.notifications.NoticeType
-import kuorum.users.Gamification
 import kuorum.users.KuorumUser
 import kuorum.users.PersonData
 import kuorum.users.SocialLinks
 
 fixture {
-
-    carmenGamification(Gamification){
-        numEggs = 0
-        numPlumes =0
-        numCorns = 0
-        activeRole = GamificationAward.ROLE_DEFAULT
-        boughtAwards = [GamificationAward.ROLE_DEFAULT]
-    }
 
     carmenData(PersonData){
         country = spain
@@ -119,7 +109,6 @@ fixture {
                 MailType.NOTIFICATION_COMMENTED_POST_USERS,
                 MailType.PROJECT_CREATED_NOTIFICATION,
         ]
-        gamification = carmenGamification
         subscribers = []
         activity = carmenActivity
         socialLinks = carmenSocialLinks

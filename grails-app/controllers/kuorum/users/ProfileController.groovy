@@ -40,7 +40,6 @@ class ProfileController {
     def regionService
     KuorumUserService kuorumUserService
     def postService
-    def gamificationService
     NotificationService notificationService
     def kuorumMailService
     KuorumMailAccountService kuorumMailAccountService

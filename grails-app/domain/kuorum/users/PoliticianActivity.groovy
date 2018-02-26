@@ -1,5 +1,6 @@
 package kuorum.users
 
+@Deprecated
 class PoliticianActivity {
 
     Integer numVictories = 0

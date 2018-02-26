@@ -10,8 +10,6 @@ import org.kuorum.rest.model.kuorumUser.reputation.UserReputationRSDTO
 import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
 import org.kuorum.rest.model.tag.CauseRSDTO
 import payment.campaign.CampaignService
-import payment.campaign.DebateService
-import payment.campaign.NewsletterService
 import springSecurity.KuorumRegisterCommand
 
 import javax.servlet.http.HttpServletResponse
@@ -20,10 +18,7 @@ class KuorumUserController {
 
     def springSecurityService
     def kuorumUserService
-    def kuorumUserStatsService
-    def searchSolrService
     def postService
-    def projectService
     RegisterService registerService
     CookieUUIDService cookieUUIDService
 
@@ -33,9 +28,7 @@ class KuorumUserController {
 
     UserReputationService userReputationService;
 
-    DebateService debateService;
     CampaignService campaignService
-    NewsletterService newsletterService;
 
 //    def beforeInterceptor = [action: this.&checkUser, except: 'login']
     def beforeInterceptor = [action: this.&checkUser, except: ['index', 'politicians']]

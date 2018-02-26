@@ -2,7 +2,6 @@ package kuorum
 
 import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
-import kuorum.project.ProjectService
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
 import spock.lang.Specification
@@ -16,14 +15,14 @@ import spock.lang.Unroll
 class DashboardControllerSpec extends Specification {
 
     def setup() {
-        def kuorumUserService = mockFor(KuorumUserService)
-        kuorumUserService.demand.mostActiveUsersSince(_,_) {def user, def pagination -> []}
-
-        def projectService = mockFor(ProjectService)
-        projectService.demand.findRelevantProjectEvents(_,_){def user, def pagination -> []}
-
-        controller.kuorumUserService = kuorumUserService.createMock()
-        controller.projectService = projectService.createMock()
+//        def kuorumUserService = mockFor(KuorumUserService)
+//        kuorumUserService.demand.mostActiveUsersSince(_,_) {def user, def pagination -> []}
+//
+//        def projectService = mockFor(ProjectService)
+//        projectService.demand.findRelevantProjectEvents(_,_){def user, def pagination -> []}
+//
+//        controller.kuorumUserService = kuorumUserService.createMock()
+//        controller.projectService = projectService.createMock()
 
     }
 

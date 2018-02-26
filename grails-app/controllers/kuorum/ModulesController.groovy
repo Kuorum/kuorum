@@ -12,7 +12,6 @@ class ModulesController {
 
     def springSecurityService
     def postService
-    def projectService
     def notificationService
     def kuorumUserService
     CausesService causesService;
