@@ -34,7 +34,7 @@
                     itemprop="query-input"
                     name="word"
                     id="srch-term"
-                    value="${params.word}">
+                    value="${params.word.encodeAsRemovingHtmlTags()}">
             <div class="input-group-btn">
                 <button class="btn search" type="submit"><span class="fa fa-search"></span></button>
             </div>

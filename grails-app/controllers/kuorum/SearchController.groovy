@@ -91,6 +91,7 @@ class SearchController{
     }
 
     private SearchParams createRegionSearchParams( SearchParams searchParams, def params, String preferredCountry){
+        fixXssSearch(searchParams)
         SearchParams editedSearchParams = searchParams
 //        if (searchParams.searchType== SearchType.ALL && !params.word && !params.regionCode){
 //            // NO PARAMS -> Show politicians from country
@@ -139,6 +140,10 @@ class SearchController{
             response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${docs.numResults-searchParams.offset<=searchParams.max}")
             render template: '/search/searchElement', model:[docs:docs.elements, searchParams:searchParams, columnsCss:params.columnsCss?:'']
         }
+    }
+
+    private void fixXssSearch(SearchParams searchParams){
+        searchParams.word = searchParams.word.encodeAsRemovingHtmlTags()
     }
 
 
