@@ -1521,7 +1521,8 @@ ul.list > li > ul.list-actions > li > a:active {color: #20a2ea;}
 #mails {margin:0 auto; padding:0;}
 #mails li.fontIcon > a {padding:15px 0 0 0;}
 #mails li.fontIcon > a > span.fa {font-size: 2em;width: 100%;height:44px;}
-#mails.campaigns li.fontIcon > a > span.fa{height: auto;}
+#mails.campaigns li.fontIcon > a > span.fa,
+#mails.campaign-steps li.fontIcon > a > span.fa {height: auto;}
 #mails li.fontIcon > a > span.label {color:inherit; padding:0; font-weight: inherit;font-size: inherit}
 
 .dashboard, .box-ppal.dashboard {margin-top: 20px;}
