@@ -58,7 +58,7 @@ class QuestionCommand{
     Long id
     String text
     QuestionTypeRSDTO questionType
-    List<QuestionOptionCommand> options =[new QuestionOptionCommand()]
+    List<QuestionOptionCommand> options =[new QuestionOptionCommand(), new QuestionOptionCommand()]
 
     static validateOptions = {val, obj ->
         String error = null;
