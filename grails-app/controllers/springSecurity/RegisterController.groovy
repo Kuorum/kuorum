@@ -24,6 +24,7 @@ import kuorum.web.commands.customRegister.ContactRegister
 import kuorum.web.commands.customRegister.ForgotUserPasswordCommand
 import kuorum.web.commands.customRegister.RequestCaseStudyCommand
 import kuorum.web.commands.customRegister.RequestDemoCommand
+import kuorum.web.users.KuorumRegistrationCode
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.i18n.LocaleContextHolder
 import org.springframework.security.core.context.SecurityContextHolder
@@ -193,7 +194,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
             flash.error=message(code:'springSecurity.ResendVerificationMailCommand.email.notUserExists')
             command.errors.rejectValue('email', 'springSecurity.ResendVerificationMailCommand.email.notUserExists')
         }
-        RegistrationCode registrationCode = RegistrationCode.findByUsername(user.email)
+        KuorumRegistrationCode registrationCode = KuorumRegistrationCode.findByUsername(user.email)
         if (!registrationCode){
             flash.error=message(code:'springSecurity.ResendVerificationMailCommand.email.notUserExists')
             command.errors.rejectValue('email', 'springSecurity.ResendVerificationMailCommand.email.notToken')
@@ -225,14 +226,14 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
     def verifyRegistration() {
 
         def conf = SpringSecurityUtils.securityConfig
-        String defaultTargetUrl = conf.successHandler.defaultTargetUrl
+        String redirectUrl = conf.successHandler.defaultTargetUrl
 
         String token = params.t
 
-        RegistrationCode registrationCode = token ? RegistrationCode.findByToken(token) : null
+        KuorumRegistrationCode registrationCode = token ? KuorumRegistrationCode.findByToken(token) : null
         if (!registrationCode) {
             flash.error = message(code: 'spring.security.ui.register.badCode')
-            redirect uri: defaultTargetUrl
+            redirect uri: redirectUrl
             return
         }
 
@@ -240,12 +241,17 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
 
         if (!user) {
             flash.error = message(code: 'spring.security.ui.register.userNotFound')
-            redirect uri: defaultTargetUrl
+            redirect uri: redirectUrl
             return
         }
         notificationService.sendWelcomeRegister(user)
 //        render view:'selectMyPassword', model:[userId:user.id, command:new ResetPasswordCommand()]
-        redirect mapping:'dashboard', params: [tour:true]
+        if (registrationCode.redirectLink){
+            redirectUrl = registrationCode.redirectLink
+            redirect (uri:redirectUrl)
+        }else{
+            redirect mapping:'dashboard', params: [tour:true]
+        }
     }
 
 
@@ -434,6 +440,7 @@ class KuorumRegisterCommand{
     String name
     String password
     Boolean conditions
+    String redirectUrl
 
     public String getUsername(){ email }// RegisterController.passwordValidator uses username
     static constraints = {
@@ -454,6 +461,7 @@ class KuorumRegisterCommand{
         }
         password nullable:true
         conditions nullable: true
+        redirectUrl nullable:true
 //      validator: RegisterController.passwordValidator
     }
 }

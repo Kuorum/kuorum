@@ -538,7 +538,7 @@ header.transp #search-form .open-filter {background-color: rgba(219,219,219,0.4)
 
 
 
-.login .form-group:nth-child(n+3) {text-align:center;margin:0px;}
+.login .form-group:nth-child(n+3) {text-align:center;margin:0 0 10px;}
 .login .form-group:last-child {color: #a8a8a8; margin-bottom: 0; font-size: 14px; font-size: 1.4rem;}
 .login .form-group a {color: #545454;}
 .login .form-group p {color: #a8a8a8; margin:0;}

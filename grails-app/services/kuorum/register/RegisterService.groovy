@@ -3,7 +3,6 @@ package kuorum.register
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.authentication.dao.NullSaltSource
-import grails.plugin.springsecurity.ui.RegistrationCode
 import grails.plugin.springsecurity.ui.SpringSecurityUiService
 import kuorum.core.exception.KuorumException
 import kuorum.core.model.AvailableLanguage
@@ -11,12 +10,12 @@ import kuorum.core.model.CommissionType
 import kuorum.core.model.UserType
 import kuorum.mail.KuorumMailService
 import kuorum.notifications.NotificationService
-import kuorum.post.Post
 import kuorum.solr.IndexSolrService
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
 import kuorum.users.RoleUser
 import kuorum.web.commands.customRegister.ContactRegister
+import kuorum.web.users.KuorumRegistrationCode
 import org.codehaus.groovy.grails.web.mapping.LinkGenerator
 import org.springframework.context.i18n.LocaleContextHolder
 import org.springframework.transaction.annotation.Transactional
@@ -60,17 +59,17 @@ class RegisterService {
         Action to register the name of a new user and generate the token to the Link
      */
     @Transactional
-    RegistrationCode registerUserCode(user) {
+    KuorumRegistrationCode registerUserCode(user) {
         String usernameFieldName = SpringSecurityUtils.securityConfig.userLookup.usernamePropertyName
-        RegistrationCode.withTransaction {status->
+        KuorumRegistrationCode.withTransaction { status->
             if (!user.save()) {
                 log.error "Error registering a new user : ${user}"
                 status.setRollbackOnly()
                 return null
             }
-            RegistrationCode registrationCode = RegistrationCode.findByUsername(user."$usernameFieldName")
+            KuorumRegistrationCode registrationCode = KuorumRegistrationCode.findByUsername(user."$usernameFieldName")
             if (!registrationCode){
-                registrationCode = new RegistrationCode(username: user."$usernameFieldName")
+                registrationCode = new KuorumRegistrationCode(username: user."$usernameFieldName")
             }
             if (!registrationCode.save()) {
                 log.error "Error saving a registrationCode : ${registrationCode}"
@@ -83,7 +82,7 @@ class RegisterService {
     KuorumUser registerUser(KuorumRegisterCommand command){
         KuorumUser user = createUser(command)
 
-        sendVerificationMail(user, 'verifyRegistration')
+        sendVerificationMail(user, 'verifyRegistration', command.redirectUrl)
 
         if (!user.password){
             user.password = "${PREFIX_PASSWORD}${Math.random()}"
@@ -94,8 +93,12 @@ class RegisterService {
         user
     }
 
-    public void sendVerificationMail(KuorumUser user, String actionLink){
-        RegistrationCode registrationCode = registerUserCode(user)
+    public void sendVerificationMail(KuorumUser user, String actionLink, String redirectLink = null){
+        KuorumRegistrationCode registrationCode = registerUserCode(user)
+        if (redirectLink){
+            registrationCode.redirectLink= redirectLink
+            registrationCode.save()
+        }
         log.info("Usuario $user.name creado con el token  $registrationCode.token")
         if (registrationCode == null || registrationCode.hasErrors()) {
             throw new KuorumException("Error creando usuario")
@@ -110,24 +113,10 @@ class RegisterService {
     }
 
     @Transactional
-    KuorumUser registerUserVotingPost(KuorumRegisterCommand command, Post post, Boolean anonymousVote){
-        KuorumUser user = registerUser(command);
-        registerUserVotingPost(user, post, anonymousVote)
-    }
-
-    @Transactional
-    KuorumUser registerUserVotingPost(KuorumUser user, Post post, Boolean anonymousVote){
-        String usernameFieldName = SpringSecurityUtils.securityConfig.userLookup.usernamePropertyName
-        RegistrationCode registrationCode = RegistrationCode.findByUsername(user."$usernameFieldName")
-        registrationCode[META_DATA_REGISTER_VOTING_POST] = ["$META_DATA_REGISTER_VOTING_POST_POST":post.id, "$META_DATA_REGISTER_VOTING_POST_ANONYMOUS":anonymousVote]
-        registrationCode.save()
-        user
-    }
-    @Transactional
     KuorumUser registerUserContactingPolitician(ContactRegister command){
         KuorumUser user = registerUser(command);
         String usernameFieldName = SpringSecurityUtils.securityConfig.userLookup.usernamePropertyName
-        RegistrationCode registrationCode = RegistrationCode.findByUsername(user."$usernameFieldName")
+        KuorumRegistrationCode registrationCode = KuorumRegistrationCode.findByUsername(user."$usernameFieldName")
         registrationCode[META_DATA_REGISTER_CONCATC_POLITICIAN] = [
                 "$META_DATA_REGISTER_CONCATC_POLITICIAN_ID":command.politician.id,
                 "$META_DATA_REGISTER_CONCATC_POLITICIAN_MESSAGE":command.message,
@@ -141,7 +130,7 @@ class RegisterService {
     KuorumUser registerUserFollowingPolitician(KuorumRegisterCommand command, KuorumUser following){
         KuorumUser user = registerUser(command);
         String usernameFieldName = SpringSecurityUtils.securityConfig.userLookup.usernamePropertyName
-        RegistrationCode registrationCode = RegistrationCode.findByUsername(user."$usernameFieldName")
+        KuorumRegistrationCode registrationCode = KuorumRegistrationCode.findByUsername(user."$usernameFieldName")
         registrationCode[META_DATA_REGISTER_FOLLOW_POLITICIAN] = ["$META_DATA_REGISTER_FOLLOW_POLITICIAN_ID":following.id]
         registrationCode.save()
 
@@ -241,9 +230,9 @@ class RegisterService {
         }
     }
 
-    KuorumUser createUserByRegistrationCode (RegistrationCode registrationCode){
+    KuorumUser createUserByRegistrationCode (KuorumRegistrationCode registrationCode){
         KuorumUser user
-        RegistrationCode.withTransaction { status ->
+        KuorumRegistrationCode.withTransaction { status ->
             user = KuorumUser.findByEmail(registrationCode.username)
             if (!user) {
                 return
@@ -268,7 +257,7 @@ class RegisterService {
         springSecurityService.reauthenticate user.email
         user
     }
-    private void processMetaDataRegistration(KuorumUser user, RegistrationCode registrationCode){
+    private void processMetaDataRegistration(KuorumUser user, KuorumRegistrationCode registrationCode){
 
         if(registrationCode[META_DATA_REGISTER_CONCATC_POLITICIAN]){
             KuorumUser politician = KuorumUser.get(registrationCode[META_DATA_REGISTER_CONCATC_POLITICIAN][META_DATA_REGISTER_CONCATC_POLITICIAN_ID])
@@ -301,8 +290,8 @@ class RegisterService {
         result
     }
 
-    RegistrationCode findOrRegisterUserCode(KuorumUser user) {
-        RegistrationCode.findByUsername(user.email)?:registerUserCode(user)
+    KuorumRegistrationCode findOrRegisterUserCode(KuorumUser user) {
+        KuorumRegistrationCode.findByUsername(user.email)?:registerUserCode(user)
     }
 
     protected String generateLink(String action, linkParams) {

@@ -62,6 +62,7 @@
 </r:script>
 <r:require modules="recaptcha_modalRegister"/>
 <g:form mapping="register" action-ajax="${g.createLink(mapping: 'ajaxRegister')}" autocomplete="off" method="post" name="${formId}" class="login" role="form" novalidate="novalidate">
+    <input type="hidden" value="${request.forwardURI.replaceFirst(request.contextPath, "")}" name="redirectUrl"/>
     <div class="form-group">
         <formUtil:input
                 command="${registerCommand}"
