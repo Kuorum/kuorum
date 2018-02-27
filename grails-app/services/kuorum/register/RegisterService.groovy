@@ -54,6 +54,7 @@ class RegisterService {
     private static final String META_DATA_REGISTER_FOLLOW_POLITICIAN="followPolitician"
     private static final String META_DATA_REGISTER_FOLLOW_POLITICIAN_ID="followPoliticianId"
 
+    @Deprecated
     public static final String NOT_USER_PASSWORD = "NO_VALID_PASS"
     /*
         Action to register the name of a new user and generate the token to the Link
@@ -135,9 +136,8 @@ class RegisterService {
         registrationCode.save()
 
         //Sets default pass and alias to delete custom register process
-        user.password = "${NOT_USER_PASSWORD}_${Math.random()}"
+        user.password = "${PREFIX_PASSWORD}_${Math.random()}"
         user.alias = user.id.toString().take(15)
-        user.userType = UserType.PERSON
         user.save()
     }
 
@@ -162,7 +162,7 @@ class RegisterService {
             user
     }
 
-    KuorumUser createUser(String name, String password, String email, String alias, AvailableLanguage lang, UserType userType){
+    KuorumUser createUser(String name, String password, String email, String alias, AvailableLanguage lang){
         KuorumUser user
         KuorumUser.withNewTransaction {status->
 
@@ -175,20 +175,13 @@ class RegisterService {
                     accountLocked: false, enabled: false)
             user.relevantCommissions = CommissionType.values()
             user.authorities = [RoleUser.findByAuthority("ROLE_INCOMPLETE_USER")]
-            if (userType == UserType.POLITICIAN){
-                user.authorities << RoleUser.findByAuthority("ROLE_POLITICIAN")
-            }
-            if (userType == UserType.CANDIDATE){
-                user.authorities << RoleUser.findByAuthority("ROLE_CANDIDATE")
-            }
-            user.userType = userType
             user.save();
         }
         user;
     }
 
     String generateNotSetUserPassword(String prefix){
-        "${NOT_USER_PASSWORD}_${prefix}_${Math.random()}"
+        "${PREFIX_PASSWORD}_${prefix}_${Math.random()}"
     }
 
     boolean isPasswordSetByUser(KuorumUser user){

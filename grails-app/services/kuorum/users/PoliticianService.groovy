@@ -79,11 +79,6 @@ class PoliticianService {
         }
     }
 
-
-    Boolean isPolitician(KuorumUser user){
-        user && (user.userType ==UserType.POLITICIAN || user.userType==UserType.CANDIDATE)
-    }
-
     /**
      * Read a csv and create politicians asynchronously
      * @param executorUser
@@ -205,7 +200,6 @@ class PoliticianService {
         politician.verified = true
         politician.personalData = politician.personalData ?: new PersonData()
         politician.personalData.gender = line."gender"?Gender.valueOf(line."gender"):Gender.MALE
-        politician.personalData.userType = politician.userType
         politician.personalData.telephone = politician?.personalData?.telephone?:line."phone"?.trim()
         politician.alias = generateAlias(politician, line)
         politician.language = AvailableLanguage.fromLocaleParam(line."language"?:"en")?:AvailableLanguage.en_EN

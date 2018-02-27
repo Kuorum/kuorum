@@ -18,6 +18,6 @@
 <content tag="mainContent">
     <formUtil:validateForm bean="${command}" form="accountForm"/>
     <g:form method="POST" mapping="editorEditSocialNetwork" params="${user.encodeAsLinkProperties()}" name="accountForm" role="form" class="submitOrangeButton">
-        <g:render template="/profile/formSocialNetworks" model="[user:user, command:command,showPoliticianFields:user.userType==UserType.POLITICIAN || user.userType==UserType.CANDIDATE]"/>
+        <g:render template="/profile/formSocialNetworks" model="[user:user, command:command]"/>
     </g:form>
 </content>

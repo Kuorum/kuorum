@@ -104,16 +104,9 @@ class AdminController {
         if (command.password){
             user.password = registerService.encodePassword(user, command.password)
         }
-        if (user.authorities.collect{it.authority}.contains("ROLE_POLITICIAN")) {
-            user.userType = UserType.POLITICIAN
-            user.personalData.userType = UserType.POLITICIAN
-        }else if(user.authorities.collect{it.authority}.contains("ROLE_CANDIDATE")){
-            user.userType = UserType.CANDIDATE
-            user.personalData.userType = UserType.CANDIDATE
-        }else{
-            user.userType = UserType.PERSON
-            user.personalData.userType = UserType.PERSON
-        }
+
+        user.userType = UserType.PERSON
+
         if (command.relevance){
             kuorumUserService.updateUserRelevance(user, command.relevance)
         }

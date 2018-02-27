@@ -190,7 +190,6 @@ class KuorumUser {
         if (!personalData){
             this.personalData = new PersonalData()
         }
-        personalData.userType = userType
     }
 
 

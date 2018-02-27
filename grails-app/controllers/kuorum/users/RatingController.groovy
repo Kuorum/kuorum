@@ -27,7 +27,7 @@ class RatingController {
     }
 
     def widgetComparativePoliticianInfo = {
-        List<KuorumUser> politicians = params.userAlias.collect{kuorumUserService.findByAlias(it)}.findAll{politicianService.isPolitician(it)}
+        List<KuorumUser> politicians = params.userAlias.collect{kuorumUserService.findByAlias(it)}.findAll{it!= null}
         if (!politicians){
             response.sendError(HttpServletResponse.SC_NOT_FOUND)
             return;
@@ -38,7 +38,7 @@ class RatingController {
     }
 
     def widgetRatePolitician = {
-        List<KuorumUser> politicians = params.userAlias.collect{kuorumUserService.findByAlias(it)}.findAll{it && it.userType == UserType.POLITICIAN}
+        List<KuorumUser> politicians = params.userAlias.collect{kuorumUserService.findByAlias(it)}.findAll{it!= null}
         Map<String, UserReputationRSDTO> rates = [:]
         politicians.each{politician ->
             UserReputationRSDTO userReputationRSDTO = userReputationService.getReputation(politician)
@@ -49,10 +49,6 @@ class RatingController {
 
     def historicPoliticianRate(String userAlias){
         KuorumUser politician = kuorumUserService.findByAlias(userAlias)
-        if (!politicianService.isPolitician(politician)){
-            response.sendError(HttpServletResponse.SC_NOT_FOUND)
-            return;
-        }
         UserReputationEvolutionRSDTO.Interval interval = getIntervalFromParams(params)
         AverageWidgetType averageWidgetType = getAverageTypeFromParams(params)
         def range = getRangeDate(params)
@@ -86,11 +82,7 @@ class RatingController {
     }
 
     def comparingPoliticianRateData(){
-        List<KuorumUser> politicians = params.userAlias.collect{kuorumUserService.findByAlias(it)}.findAll{politicianService.isPolitician(it)}
-        if (!politicians){
-            response.sendError(HttpServletResponse.SC_NOT_FOUND)
-            return;
-        }
+        List<KuorumUser> politicians = params.userAlias.collect{kuorumUserService.findByAlias(it)}.findAll{it!=null}
 
         def data=  [
                 "title":"Comparing politicians",

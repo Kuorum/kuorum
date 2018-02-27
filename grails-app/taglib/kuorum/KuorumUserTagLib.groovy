@@ -285,13 +285,6 @@ class KuorumUserTagLib {
         }
     }
 
-    def isPolitician={attrs, body ->
-        KuorumUser user = attrs.user
-        if ([UserType.POLITICIAN, UserType.CANDIDATE].contains(user.userType)){
-            out << body()
-        }
-    }
-
     def userTypeIcon={attrs ->
         KuorumUser user = attrs.user
         String faIcon = ""

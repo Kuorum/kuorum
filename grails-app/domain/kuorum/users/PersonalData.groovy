@@ -22,7 +22,6 @@ class PersonalData {
     Region country
     Date birthday
     static constraints = {
-        userType nullable:false
         telephone nullable: true
         gender nullable: true
         provinceCode nullable: true

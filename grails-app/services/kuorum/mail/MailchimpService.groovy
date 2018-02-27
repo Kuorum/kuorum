@@ -111,15 +111,7 @@ class MailchimpService {
             mergeVars.LOCATION_C = user.personalData.province?.iso3166_2
             mergeVars.COUNTRY_C = user.personalData.country?.iso3166_2
         }
-        if (user.userType != UserType.ORGANIZATION){
-            mergeVars.STUDIES = user.personalData.studies
-            mergeVars.WORKINGSEC = user.personalData.workingSector
-        }
-        if (user.userType == UserType.POLITICIAN && user?.professionalDetails?.region?.iso3166_2){
-            mergeVars.LOCATION_C = user.professionalDetails.region.iso3166_2
-            mergeVars.COUNTRY_C = regionService.findCountry(user?.professionalDetails?.region)
-        }
-        mergeVars.USERTYPE = user.userType.toString()
+        mergeVars.USERTYPE = "PERSON" // TODO: Remove this flag
         mergeVars.mc_language = mailChimpLang(user.language)
         mergeVars.groupings = createGroups(user)
         mergeVars

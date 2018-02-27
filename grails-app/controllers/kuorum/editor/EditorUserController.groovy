@@ -30,7 +30,7 @@ class EditorUserController {
             return;
         }
         String pass = registerService.generateNotSetUserPassword("EDITOR")
-        KuorumUser newPolitician = registerService.createUser(command.name, pass, command.email,command.alias, command.language, UserType.POLITICIAN)
+        KuorumUser newPolitician = registerService.createUser(command.name, pass, command.email,command.alias, command.language)
         newPolitician.personalData.phonePrefix = command.phonePrefix
         newPolitician.personalData.telephone = command.phone
         if (command.homeRegion){
