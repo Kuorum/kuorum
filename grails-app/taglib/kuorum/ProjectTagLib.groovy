@@ -1,11 +1,9 @@
 package kuorum
 
 import grails.plugin.springsecurity.SpringSecurityUtils
-import kuorum.core.model.solr.SolrProject
 import kuorum.project.Project
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
-import org.bson.types.ObjectId
 
 @Deprecated
 class ProjectTagLib {
@@ -16,14 +14,6 @@ class ProjectTagLib {
     RegionService regionService
     KuorumUserService kuorumUserService
     static namespace = "projectUtil"
-
-    def projectFromSolr={attrs ->
-        SolrProject solrProject = attrs.solrProject
-        String var=attrs.var
-        Project project= Project.get(new ObjectId(attrs.solrProject.id))
-        pageScope.setVariable(var, project)
-
-    }
 
     private static final String NAME_VAR_IF_USER_CAN_VOTE_PROEYET = "elseIfUserAvailableForNormalVoting"
     def ifUserAvailableForNormalVoting = {attrs, body ->

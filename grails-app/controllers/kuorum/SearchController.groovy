@@ -57,10 +57,6 @@ class SearchController{
                     suggestions << [type:"USER", value:it.name, data:it]
                 }
 
-                solrAutocomplete.projects.each {
-                    suggestions << [type:"PROJECT", value:it.name, data:it]
-                }
-
                 [suggestions:suggestions]
 //                [
 //                    suggests : solrAutocomplete.suggests,

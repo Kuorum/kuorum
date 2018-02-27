@@ -6,6 +6,5 @@ package kuorum.core.model.solr
 class SolrAutocomplete {
     Long numResults
     ArrayList<String> suggests
-    ArrayList<SolrProject> projects
     ArrayList<SolrKuorumUser> kuorumUsers
 }

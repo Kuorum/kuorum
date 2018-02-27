@@ -112,7 +112,6 @@ class SearchSolrService {
 //        }
         def elements = prepareSolrElements(rsp)
         solrAutocomplete.kuorumUsers = elements.kuorumUsers
-        solrAutocomplete.projects = elements.projects
         solrAutocomplete.numResults =rsp.results.numFound
 
         solrAutocomplete
@@ -217,22 +216,16 @@ class SearchSolrService {
 
     private def prepareSolrElements(QueryResponse rsp){
         ArrayList<SolrKuorumUser> kuorumUsers = []
-        ArrayList<SolrProject> projects = []
         rsp.results.each{ SolrDocument solrDocument ->
             switch (SolrType.valueOf(solrDocument.type)){
                 case SolrType.KUORUM_USER:
                     kuorumUsers.add(indexSolrService.recoverKuorumUserFromSolr(solrDocument))
                     break
-                case SolrType.PROJECT:
-                    projects.add(indexSolrService.recoverProjectFromSolr(solrDocument))
-                    break
-                case SolrType.POST:
-                    break
                 default:
                     log.warn("No se ha podido recuperar el elemento de sorl ${solrDocument}")
             }
         }
-        [projects:projects, kuorumUsers:kuorumUsers]
+        [kuorumUsers:kuorumUsers]
     }
 
     SolrResults searchProjects(SearchProjects params){
