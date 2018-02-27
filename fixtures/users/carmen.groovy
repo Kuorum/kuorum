@@ -109,7 +109,6 @@ fixture {
                 MailType.NOTIFICATION_COMMENTED_POST_USERS,
                 MailType.PROJECT_CREATED_NOTIFICATION,
         ]
-        subscribers = []
         activity = carmenActivity
         socialLinks = carmenSocialLinks
         notice = carmenNotice

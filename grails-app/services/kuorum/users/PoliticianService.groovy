@@ -84,24 +84,6 @@ class PoliticianService {
         user && (user.userType ==UserType.POLITICIAN || user.userType==UserType.CANDIDATE)
     }
 
-    KuorumUser requestABetaTesterAccount(KuorumUser user){
-        if (user.userType!= UserType.POLITICIAN && user.userType!= UserType.CANDIDATE){
-            throw new KuorumException("This user is not a politician")
-        }
-        user.requestedPoliticianBetaTester = true
-        user.save()
-        notificationService.sendBetaTesterPurchaseNotification(user)
-        user
-    }
-
-    KuorumUser requestAPoliticianAccount(KuorumUser user){
-        user.userType = UserType.CANDIDATE
-        user.authorities << RoleUser.findByAuthority("ROLE_POLITICIAN")
-        user.save()
-        indexSolrService.index(user)
-        user
-    }
-
     /**
      * Read a csv and create politicians asynchronously
      * @param executorUser

@@ -1,5 +1,4 @@
 <section class="boxes edit-user">
-    <g:render template="/modules/userProfileAlerts/userEditorRequest" model="[user:user]"/>
     <h1 class="sr-only"><g:message code="dashboard.userProfile.user"/> </h1>
     %{--<a href="" class="text-right edit">Editar</a>--}%
     <div class="user" itemscope itemtype="http://schema.org/Person">

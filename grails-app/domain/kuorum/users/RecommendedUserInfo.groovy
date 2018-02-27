@@ -2,6 +2,7 @@ package kuorum.users
 
 import org.bson.types.ObjectId
 
+@Deprecated
 class RecommendedUserInfo {
 
 

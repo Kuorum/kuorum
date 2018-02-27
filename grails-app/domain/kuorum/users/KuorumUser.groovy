@@ -1,7 +1,6 @@
 package kuorum.users
 
 import com.mongodb.WriteConcern
-import grails.plugin.springsecurity.SpringSecurityService
 import kuorum.KuorumFile
 import kuorum.core.model.AvailableLanguage
 import kuorum.core.model.CommissionType
@@ -13,9 +12,6 @@ import org.bson.types.ObjectId
 
 /**
  * Represents the user in kuorum
- *
- * Is not separated with inheritance (Politician, Organization, Person) because an user can switch between them,
- * and is a nightmare handle it
  */
 class KuorumUser {
 
@@ -35,19 +31,13 @@ class KuorumUser {
     KuorumFile avatar
     KuorumFile imageProfile
 
-        PersonalData personalData = new PersonData()
+    PersonalData personalData = new PersonData()
     UserType userType = UserType.PERSON
     String timeZoneId;
-
-    @Deprecated
-    Boolean requestedPoliticianBetaTester = Boolean.FALSE
-
-    EditorRules editorRules
 
     List<CommissionType> relevantCommissions = CommissionType.values()
     List<ObjectId> following  = [] // KuorumUsersId => Is an id instead a KuorumUser because gorm updates all the following users
     List<ObjectId> followers = [] // KuorumUsersId => Is an id instead a KuorumUser because gorm updates all the following users
-    List<ObjectId> subscribers = [] // KuorumUsersId => Is an id instead a KuorumUser because gorm updates all the following users
 
     Integer numFollowers = 0
 
@@ -56,19 +46,18 @@ class KuorumUser {
     List<MailType> availableMails = MailType.values()
 
     SocialLinks socialLinks = new SocialLinks()
-    KuorumUser organization
 
     List<String> tags
 
     Notice notice
+//
+//    String brainTreeId
+//    String brainTreePaymentToken
+//    String brainTreePaymentTokenNonce
 
-    String brainTreeId
-    String brainTreePaymentToken
-    String brainTreePaymentTokenNonce
     String getFullName(){
         "${name} ${surname?:''}".trim()
     }
-//    static hasMany = [following:KuorumUser,followers:KuorumUser,subscribers:KuorumUser]
 
     static embedded = [
             'personalData',
@@ -84,7 +73,6 @@ class KuorumUser {
             'careerDetails',
             'institutionalOffice',
             'politicalOffice',
-            'editorRules'
     ]
 
     /**
@@ -103,8 +91,7 @@ class KuorumUser {
 
 
     //Spring fields
-    SpringSecurityService springSecurityService
-    KuorumUserAuditService kuorumUserAuditService
+//    SpringSecurityService springSecurityService
 
     boolean enabled = Boolean.TRUE
     boolean accountExpired = Boolean.FALSE
@@ -113,9 +100,6 @@ class KuorumUser {
     Date dateCreated
     Date lastUpdated
     Set<RoleUser> authorities
-
-    Integer activityForRecommendation = 0
-
 
     public static final transient ALIAS_REGEX = "[a-zA-Z0-9_]{1,15}"
     public static final transient ALIAS_MAX_SIZE = 15
@@ -132,22 +116,20 @@ class KuorumUser {
         userType nullable: false
         notice nullable: true
         skipUploadContacts nullable: true
-        editorRules nullable:true
         timeZoneId nullable:true
 
         //POLITICIAN VALIDATION
 //        institution nullable:true
-        requestedPoliticianBetaTester nullable:true
-        organization nullable: true
+//        requestedPoliticianBetaTester nullable:true
         relevantEvents nulable:true
         professionalDetails nullable:true
         institutionalOffice nullable:true
         politicalOffice nullable:true
         careerDetails nullable:true
         politicianExtraInfo nullable:true
-        brainTreeId nullable:true
-        brainTreePaymentToken nullable:true
-        brainTreePaymentTokenNonce nullable:true
+//        brainTreeId nullable:true
+//        brainTreePaymentToken nullable:true
+//        brainTreePaymentTokenNonce nullable:true
     }
 
     static mapping = {
@@ -155,7 +137,6 @@ class KuorumUser {
         alias index:true, indexAttributes: [unique:true, sparse:true]
 //        following cascade:"refresh"
 //        followers cascade:"refresh"
-//        subscribers cascade:"refresh"
 
 
         writeConcern WriteConcern.FSYNC_SAFE
@@ -185,7 +166,7 @@ class KuorumUser {
         return true
     }
 
-    static transients = ["springSecurityService", 'activityForRecommendation', 'kuorumUserAuditService', 'timeZone']
+    static transients = ['timeZone']
 
 //    static mapping = {
 //       password column: '`password`'

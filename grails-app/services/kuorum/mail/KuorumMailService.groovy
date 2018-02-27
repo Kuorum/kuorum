@@ -190,7 +190,6 @@ class KuorumMailService {
             <li>Name: ${userRequestingDomain.name}</li>
             <li>Alias: <a href="${generateLink("userShow", userRequestingDomain.encodeAsLinkProperties())}" target="_blank">${userRequestingDomain.alias}</a></li>
             <li>Email: ${userRequestingDomain.email}</li>
-            <li>Enterprise: ${userRequestingDomain.organization}</li>
             <li>Phone: ${userRequestingDomain.personalData?.telephone?:'--'}</li>
             <li>Lang: ${userRequestingDomain.language}</li>
         </ul>

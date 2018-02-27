@@ -1,13 +1,5 @@
 package kuorum
 
-import kuorum.core.model.search.Pagination
-import kuorum.project.Project
-import kuorum.post.Post
-import kuorum.project.ProjectVote
-import kuorum.users.KuorumUser
-import kuorum.web.commands.profile.BasicPersonalDataCommand
-import org.bson.types.ObjectId
-
 class ModulesTagLib {
     static defaultEncodeAs = 'raw'
     //static encodeAsForTags = [tagName: 'raw']
@@ -15,16 +7,8 @@ class ModulesTagLib {
     def postService
     def kuorumUserService
 
-    private static final Long NUM_RECOMMENDED_POST = 3
-
     static namespace = "modulesUtil"
 
-    def recommendedUsersList = { attrs ->
-        Integer numUsers = attrs.numUsers as Integer
-        KuorumUser user = attrs.user
-        List<KuorumUser> recommendedUsers = kuorumUserService.recommendedUsers(user, new Pagination(max: numUsers))
-        out << render(template: '/modules/users/recommendedUsersAsList', model: [users: recommendedUsers, showDeleteRecommendation: 'true'])
-    }
 
     def delayedModule = { attrs ->
 

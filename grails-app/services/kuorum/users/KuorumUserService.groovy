@@ -10,7 +10,6 @@ import kuorum.Region
 import kuorum.causes.CausesService
 import kuorum.core.exception.KuorumException
 import kuorum.core.exception.KuorumExceptionUtil
-import kuorum.core.model.UserType
 import kuorum.core.model.kuorumUser.UserParticipating
 import kuorum.core.model.search.Pagination
 import kuorum.core.model.search.SearchParams
@@ -20,7 +19,6 @@ import kuorum.core.model.solr.SolrType
 import kuorum.mail.KuorumMailAccountService
 import kuorum.post.Cluck
 import kuorum.post.Post
-import kuorum.post.PostComment
 import kuorum.project.Project
 import kuorum.solr.SearchSolrService
 import kuorum.util.rest.RestKuorumApiService
@@ -29,7 +27,6 @@ import org.codehaus.groovy.grails.commons.GrailsApplication
 import org.codehaus.groovy.grails.web.json.JSONElement
 import org.kuorum.rest.model.kuorumUser.UserDataRDTO
 import org.springframework.security.access.prepost.PreAuthorize
-import payment.CustomerService
 
 @Transactional
 class KuorumUserService {
@@ -44,7 +41,6 @@ class KuorumUserService {
     CausesService causesService
     KuorumUserAuditService kuorumUserAuditService
     RestKuorumApiService restKuorumApiService
-    CustomerService customerService
 
 
     GrailsApplication grailsApplication
@@ -293,103 +289,6 @@ class KuorumUserService {
         }
     }
 
-    /**
-     * TODO: Improve algorithm with map-reduce?
-     * Obtain the recommended users list for all users by activity criteria. The users are looped by blocks.
-     */
-    void recommendedUsersByActivity(){
-        Integer offset = 0
-        List<KuorumUser> kuorumUsers
-
-        for(offset=0; offset<100;offset+=100){
-            kuorumUsers = KuorumUser.list(offset: offset, max: 100)
-            kuorumUsers.each{ user ->
-                recommendedUsersByActivityAndUser(user)
-            }
-        }
-    }
-
-    /**
-     * TODO: Improve algorithm with map-reduce? Currently this method has a total execution time about 1 minute 30 seconds for 1 user.
-     * The recommended users for a user are calculated by the activity formula. Then, the recommended users
-     * are sort by the formula and stored in the RecommendedUserInfo collection for the user.
-     * @param user the user which calculates the recommended users
-     */
-    void recommendedUsersByActivityAndUser(KuorumUser user){
-        List<KuorumUser> otherUsers, kuorumUsersOrdered = []
-        RecommendedUserInfo recommendedUserInfo
-
-        Date start = new Date()
-        println("Starting recommendedUsersByActivityAndUser...")
-        otherUsers = KuorumUser.findAllByIdNotEqual(user.id)
-        GParsPool.withPool{
-            calculateActivityClosure.memoize()
-            otherUsers = KuorumUser.findAllByIdNotInList(user.following + user.id)
-            otherUsers.collectParallel{ it.activityForRecommendation = calculateActivityClosure(it, user) }
-            kuorumUsersOrdered = otherUsers.parallel.sort{-it.activityForRecommendation}.collection[0..<RecommendedUserInfo.constraints.recommendedUsers.maxSize]
-            recommendedUserInfo = RecommendedUserInfo.findByUser(user)
-            if(!recommendedUserInfo){
-                recommendedUserInfo = new RecommendedUserInfo(recommendedUsers: kuorumUsersOrdered*.id, user: user).save()
-            } else {
-                recommendedUserInfo.recommendedUsers = kuorumUsersOrdered*.id
-                recommendedUserInfo.save()
-            }
-        }
-        println("... End of recommendedUsersByActivityAndUser on ${new Date()} with total execution time ${TimeCategory.minus(new Date(),start)}")
-    }
-
-    /**
-     * Calculate the activity criteria for the giving two users. The formula used is:
-     *   A = Region + Organization + Politician + Total Post + Total Clucks  + D x Total of Post Comments + V x Total of victories
-     * Where:
-     *  - Region = Config value of kuorum.recommendedUser.regionValue if the users are in the same region.
-     *  - Organization = Config value of kuorum.recommendedUser.organizationValue if the user is Organization.
-     *  - Politician = Config value of kuorum.recommendedUser.politicianValue if the user is Organization.
-     *  - V = Config value of kuorum.recommendedUser.victoryValue.
-     *  - D = Config value of kuorum.recommendedUser.debateValue.
-     */
-    def calculateActivityClosure = {KuorumUser activeUser, KuorumUser compareUser ->
-        Integer formula = 0
-        if(compareUser.personalData.provinceCode && activeUser.personalData.provinceCode && compareUser.personalData.provinceCode == activeUser.personalData.provinceCode){
-            formula += grailsApplication.config.kuorum.recommendedUser.regionValue
-        }
-        if(isPaymentUser(compareUser)){
-            formula += grailsApplication.config.kuorum.recommendedUser.politicianValue
-        } else if(compareUser.userType == UserType.ORGANIZATION){
-            formula += grailsApplication.config.kuorum.recommendedUser.organizationValue
-        }
-        formula += Post.countByOwner(compareUser)
-        formula += Cluck.countByOwner(compareUser)
-        formula += grailsApplication.config.kuorum.recommendedUser.debateValue * PostComment.countByKuorumUser(compareUser)
-        formula += grailsApplication.config.kuorum.recommendedUser.victoryValue  * Post.countByOwnerAndVictory(compareUser, true)
-
-        formula
-    }
-
-
-    boolean isPaymentUser(KuorumUser user ){
-        user && (user.userType == UserType.POLITICIAN || user.userType == UserType.CANDIDATE)
-    }
-
-    private List<KuorumUser> recommendedUsersByPostVotes(UserType userType, KuorumUser user = null, Pagination pagination = new Pagination()){
-        def orderUsersByVotes = Post.collection.aggregate([
-                [$match:['ownerPersonalData.userType':userType.toString()]],
-                [$group:[_id:'$owner', numVotes:[$sum:'$numVotes']]],
-                [$match:[numVotes:[$gt:0]]],
-                [$sort:[numVotes:-1]]
-        ])
-
-        def results = orderUsersByVotes.results();
-        List<KuorumUser> users = []
-        (pagination.offset .. pagination.offset+pagination.max-1).each {
-            if (results.size()>it){
-                def aggregationData = results.get(it.toInteger())
-                users << KuorumUser.get(aggregationData._id)
-            }
-        }
-        users
-    }
-
     List<KuorumUser> recommendedUsers(Pagination pagination = new Pagination()){
         //TODO: Improve algorithm
         List<KuorumUser> res = KuorumUser.findAllByNumFollowersGreaterThanAndEnabled(-1,true,[sort:"numFollowers",order: "desc", max:pagination.max])
@@ -421,15 +320,6 @@ class KuorumUserService {
 
         bestPoliticiansSince(user, filterPoliticians, pagination);
     }
-
-    List<KuorumUser> recommendOrganizations(KuorumUser user, Pagination pagination = new Pagination()){
-        recommendedUsersByPostVotes(UserType.ORGANIZATION, user, pagination)
-    }
-
-    List<KuorumUser> recommendPersons(KuorumUser user, Pagination pagination = new Pagination()){
-        recommendedUsersByPostVotes(UserType.PERSON, user, pagination)
-    }
-
 
 
     @PreAuthorize("hasPermission(#userAlias, 'kuorum.users.KuorumUser','edit')")
