@@ -129,7 +129,6 @@ class IndexSolrService {
                 alias:solrDocument.alias,
                 owner:solrDocument.owner,
                 ownerId:solrDocument.ownerId,
-                regionName:solrDocument.regionName,
                 urlImage: solrDocument.urlImage
         )
     }
@@ -143,7 +142,6 @@ class IndexSolrService {
                 dateCreated:solrDocument.dateCreated,
                 urlImage: solrDocument.urlImage,
                 tags: solrDocument.tags,
-                regionName: solrDocument.regionName,
                 text:solrDocument.text
         )
     }

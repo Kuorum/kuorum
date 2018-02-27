@@ -7,7 +7,6 @@ class SolrElement {
     String name
     SolrType type
     Date dateCreated
-    String regionName
     List<String> tags
     String urlImage
     String text
