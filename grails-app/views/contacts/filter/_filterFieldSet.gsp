@@ -128,7 +128,6 @@
                             field="value"
                             command="${listCommand}"
                             prefixFieldName="${prefixField}"
-                            enumClass="${org.kuorum.rest.model.contact.ContactLanguageRDTO.class}"
                             cssLabel="sr-only"/>
                 </div>
             </div>
