@@ -4,6 +4,7 @@ import grails.plugin.springsecurity.annotation.Secured
 import kuorum.politician.CampaignController
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
+import kuorum.util.TimeZoneUtil
 import kuorum.web.commands.payment.CampaignSettingsCommand
 import kuorum.web.commands.payment.event.EventCommand
 import net.sf.json.JSON
@@ -83,7 +84,7 @@ class EventController extends CampaignController{
             campaignService = postService
         }
         campaignRDTO = campaignService.map(campaignRSDTO)
-        updateEventRDTO(campaignRDTO, command)
+        updateEventRDTO(campaignRDTO, command, user.timeZone)
         campaignRSDTO = campaignService.save(user,campaignRDTO,campaignRSDTO.id)
 
         //flash.message = resultPost.msg.toString()
@@ -91,12 +92,12 @@ class EventController extends CampaignController{
         redirect mapping: nextStep, params: campaignRSDTO.encodeAsLinkProperties()
     }
 
-    private def updateEventRDTO(CampaignRDTO campaignRDTO, EventCommand eventCommand) {
+    private def updateEventRDTO(CampaignRDTO campaignRDTO, EventCommand eventCommand, TimeZone timeZone) {
         if (!campaignRDTO.event){
             campaignRDTO.event = new EventRDTO()
         }
         campaignRDTO.event.address = eventCommand.address
-        campaignRDTO.event.eventDate = eventCommand.eventDate
+        campaignRDTO.event.eventDate = TimeZoneUtil.convertToUserTimeZone(eventCommand.eventDate, timeZone)
         campaignRDTO.event.latitude = eventCommand.latitude
         campaignRDTO.event.longitude = eventCommand.longitude
         campaignRDTO.event.localName = eventCommand.localName
