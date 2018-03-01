@@ -56,10 +56,12 @@ $(function () {
 
             if (numQuestionAnswers > 0 ){
                 progressBar.style.width = Math.round(numOptionAnswers/numQuestionAnswers*100*100)/100 + '%';
-                progressBarCounter.textContent = numOptionAnswers +"/"+numQuestionAnswers;
+                progressBarCounter.textContent = Math.round(numOptionAnswers/numQuestionAnswers * 100*100)/100  + '%';
+                // progressBarCounter.textContent = numOptionAnswers +"/"+numQuestionAnswers;
             }else{
                 progressBar.style.width = '0%';
-                progressBarCounter.textContent = "0/0";
+                // progressBarCounter.textContent = "0/0";
+                progressBarCounter.textContent = "0%";
             }
         });
     }
