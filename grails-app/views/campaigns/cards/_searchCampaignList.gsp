@@ -42,7 +42,7 @@
 
                     <li>
                         <g:if test="${campaign.type== org.kuorum.rest.model.search.SearchCampaignTypeRSDTO.SURVEY}">
-                            <g:link mapping="campaignShow" params="${campaign.encodeAsLinkProperties()}" fragment="survey-progress" role="button">
+                            <g:link mapping="campaignShow" params="${campaign.encodeAsLinkProperties()}" fragment="survey-progress" role="button" class="${campaign.completed?'active':''}">
                                 <span class="fa fa fa-pie-chart fa-lg"></span>
                                 <span class="number">${campaign.amountAnswers}</span>
                             </g:link>
