@@ -205,7 +205,6 @@ $(function () {
     }
 
     var _singleOptionNextButtonClick = function(event){
-        console.log("Single option")
         event.preventDefault();
         var question = event.currentTarget.parentElement.parentElement.parentElement;
         var answers = question.getElementsByClassName('survey-question-answers')[0];

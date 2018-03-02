@@ -617,7 +617,7 @@ var debateFunctions = {
         var $number = $button.siblings(".number")
         var data = {
             proposalId:proposalId,
-            debateId:debateId,
+            campaignId:debateId,
             debateAlias:debateAlias,
             commentId:commentId,
             vote:vote
