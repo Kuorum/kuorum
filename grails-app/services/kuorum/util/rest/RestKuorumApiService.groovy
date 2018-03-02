@@ -229,6 +229,7 @@ class RestKuorumApiService {
                 if(clazz != null){
                     String jsonString = IOUtils.toString(resp.getEntity().getContent(), "UTF-8");
                     ObjectMapper objectMapper = new ObjectMapper()
+                    objectMapper.setTimeZone(TimeZone.getTimeZone("UTC"))
                     objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
                     obj = objectMapper.readValue(jsonString, clazz);
                 }

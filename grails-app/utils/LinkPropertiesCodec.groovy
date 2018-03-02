@@ -14,6 +14,7 @@ import org.kuorum.rest.model.communication.post.PostRSDTO
 import org.kuorum.rest.model.communication.survey.SurveyRSDTO
 import org.kuorum.rest.model.notification.NotificationProposalCommentMentionRSDTO
 import org.kuorum.rest.model.notification.NotificationProposalCommentRSDTO
+import org.kuorum.rest.model.search.SearchKuorumElementRSDTO
 import org.kuorum.rest.model.tag.CauseRSDTO
 
 /**
@@ -36,6 +37,7 @@ class LinkPropertiesCodec {
             case ProposalRSDTO:
             case NotificationProposalCommentRSDTO:
             case NotificationProposalCommentMentionRSDTO:
+            case SearchKuorumElementRSDTO:
                 params = prepareParams(target)
                 break
             case KuorumUser:
@@ -112,6 +114,14 @@ class LinkPropertiesCodec {
         ]
     }
 
+    private static def prepareParams(SearchKuorumElementRSDTO campaignRSDTO) {
+        [
+                userAlias: campaignRSDTO.alias,
+                urlTitle: getNameTitleUrl(campaignRSDTO),
+                campaignId: campaignRSDTO.id
+        ]
+    }
+
     private static def prepareParams(ProposalRSDTO proposalRSDTO) {
         [
                 userAlias: proposalRSDTO.debateUser.alias.toLowerCase(),
@@ -160,6 +170,8 @@ class LinkPropertiesCodec {
         String urlText = ""
         if (debatePost instanceof ProposalRSDTO){
             urlText = debatePost.debateTitle
+        }else if (debatePost instanceof SearchKuorumElementRSDTO){
+            urlText = debatePost.name
         }else{
             urlText = debatePost.title;
         }

@@ -116,11 +116,11 @@ class CampaignController {
         contactService.transformCommand(filterCommand, "Custom filter for ${command.campaignName}")
     }
 
-    protected mapCommandSettingsToRDTO(CampaignRDTO rdto, CampaignSettingsCommand command, FilterRDTO anonymousFilter){
+    protected mapCommandSettingsToRDTO(KuorumUser user, CampaignRDTO rdto, CampaignSettingsCommand command, FilterRDTO anonymousFilter){
         rdto.name = command.campaignName
         rdto.setTriggeredTags(command.tags)
         rdto.causes = command.causes
-        rdto.endDate = command.endDate
+        rdto.endDate = TimeZoneUtil.convertToUserTimeZone(command.endDate, user.timeZone)
         if (command.filterEdited) {
             //anonymousFilter.setName(g.message(code:'tools.contact.filter.anonymousName', args: anonymousFilter.getName()))
             rdto.setAnonymousFilter(anonymousFilter)
@@ -146,7 +146,7 @@ class CampaignController {
             Long campaignId,
             CampaignCreatorService campaignService) {
         CampaignRDTO campaignRDTO = createRDTO(user, campaignId, campaignService)
-        mapCommandSettingsToRDTO(campaignRDTO, command, anonymousFilter)
+        mapCommandSettingsToRDTO(user, campaignRDTO, command, anonymousFilter)
     }
 
     protected Map<String, Object> saveCampaignSettings(

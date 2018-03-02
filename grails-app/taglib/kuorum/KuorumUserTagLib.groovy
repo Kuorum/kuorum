@@ -69,6 +69,10 @@ class KuorumUserTagLib {
         }else if (attrs.user instanceof BasicDataKuorumUserRSDTO){
             user = KuorumUser.get(new ObjectId(attrs.user.id))
             name = user.fullName
+        }else if (attrs.user instanceof String){
+            // ALIAS
+            user = KuorumUser.findByAlias(attrs.user)
+            name = user.fullName
         }else{
             user = attrs.user
             name = user.fullName

@@ -8,4 +8,7 @@
     <g:if test="${campaign instanceof org.kuorum.rest.model.communication.survey.SurveyRSDTO}">
         <g:render template="/campaigns/cards/surveyList" model="[survey:campaign, showAuthor: showAuthor, referred:'dashboard']" />
     </g:if>
+    <g:if test="${campaign instanceof org.kuorum.rest.model.search.SearchKuorumElementRSDTO}">
+        <g:render template="/campaigns/cards/searchCampaignList" model="[campaign:campaign, showAuthor: showAuthor, referred:'dashboard']" />
+    </g:if>
 </g:each>
