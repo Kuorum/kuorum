@@ -9312,12 +9312,16 @@ ul.notification-menu > li.see-more {
 /** Custom url **/
 .signup-custom-site {
     padding-top: 60px;
+    padding-bottom: 60px;
 }
 
 .onecol #main .custom-url-steps li::after { 
     display: block;
 }
 
+.custom-url-step--coorporative-color::after {
+    background-color: rgba(255,148,49,.5) !important;
+}
 .custom-url-step-broaden {
     margin-right: 57px !important;
     margin-left: 57px !important;
@@ -9332,6 +9336,10 @@ ul.notification-menu > li.see-more {
     display: inline-block;
     line-height: 14px;
     width: 90px;
+}
+
+.custom-url-step--coorporative-color::after {
+    color: red;
 }
 
 .custom-url-step-description--light {
