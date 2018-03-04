@@ -26,7 +26,7 @@ class SurveyController extends CampaignController{
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def remove(Long campaignId) {
-        removeCampaign(campaignId)
+        removeCampaign(campaignId, surveyService)
         render ([msg: "Survey deleted"] as JSON)
     }
 

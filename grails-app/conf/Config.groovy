@@ -1,5 +1,3 @@
-import kuorum.core.model.gamification.GamificationElement
-
 //import grails.plugin.springsecurity.SpringSecurityUtils
 
 // locations to search for config files that get merged into the main config;
@@ -293,11 +291,6 @@ kuorum {
     }
     promotion{
         mailPrice = 0.15
-    }
-    gamification{
-        voteProject=[(GamificationElement.EGG):1]
-        newPost=[(GamificationElement.PLUME):1]
-        votePost=[(GamificationElement.CORN):1]
     }
 
     post{
