@@ -9308,6 +9308,37 @@ ul.notification-menu > li.see-more {
     color: #00a3ed;
 }
 
+/** Custom url **/
+.custom-url-form {
+    background-color: rgba(0,0,0,.4);
+    padding: 15px 25px 25px 25px;
+    width: 100%;
+    max-width: 570px;
+    margin: 0 auto 30px;
+}
+
+.custom-url-form-group__url, .custom-url-form-group__input {
+    display: inline-block;
+}
+
+.custom-url-form-group__url {
+    color: white;
+    margin: 0 15px;
+}
+
+.custom-url-form-group__input {
+    width: 330px;
+}
+
+.custom-url-form-group__submit {
+    width: 190px;
+}
+
+.custom-url-form-group__remember-message {
+    color: white;
+}
+
+
 /** media queries **/
 @media (max-width: 767px) {
     .navbar {
