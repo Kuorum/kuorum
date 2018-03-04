@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html class="no-js" lang="es">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="HandheldFriendly" content="True">
     <meta name="MobileOptimized" content="320">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kuorum.org</title>
-    <meta property="og:site_name" content="Kuorum.org"/>
+    <meta property="og:site_name" content="Kuorum.org" />
     <meta name="description" content="Conectamos a políticos y electores en todo el mundo. ¡Regístrate y te avisaremos cuando un político de tu región abra un debate!">
     <meta name="Keywords" content="kuorum, democracia, digital, online, ley, votar, congreso, debate">
     <meta name="dcterms.rightsHolder" content="Kuorum.org">
@@ -82,141 +83,156 @@
 
 <body itemscope itemtype="http://schema.org/WebPage">
 
-<div class ="container-fluid">
-    <a href="#main" accesskey="S" class="sr-only first">Ir directamente al contenido</a>
-    
-    <!-- Header landing fondo blanco; no tiene la clase "transp": lo demás es todo igual menos el logo, que carga uno diferente -->
-    <header id="header" class="row landing" role="banner">
-        <nav class="navbar navbar-fixed-top" role="navigation">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle bg-primary" data-toggle="collapse" data-target="#navbar-collapse">
-                        <span class="sr-only">Abrir/cerrar navegación</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <h1>
-                        <a href="/" id="brand" class="navbar-brand null">
-                            <img src="images/logo@2x.png" alt="Kuorum.org">
-                            <span class="hidden">Kuorum.org </span>
-                        </a>
-                    </h1>
-                    <h2 class="hidden">Los decisores políticos abren sus proyectos a debate contigo. ¡Envíales tus propuestas ahora!</h2>
-                </div>
-                <div class="collapse navbar-collapse" id="navbar-collapse">
-                    <form action="" id="search-form" class="navbar-form navbar-left" role="search" method="get">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search in Kuorum.org" name="word" id="srch-term" value="">
-                            <div class="input-group-btn">
-                                <button class="btn search" type="submit">
-                                    <span class="fa fa-search"></span>
-                                    <span class="sr-only">Buscar</span>
-                                </button>
-                            </div>
-                            <input type="hidden" name="type" id="srch-type" value="POLITICIAN"/>
-</div>
-                    </form>
-                    <!-- Le quitamos las clases underline, etc a estos enlaces -->
-                    <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <a href="search.html" class="navbar-link">
-                                <span>Search</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="editors.html" class="navbar-link">
-                                <span>Editors</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="politicians.html" class="navbar-link">
-                                <span>Politicians</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="prices.html" class="navbar-link">
-                                <span>Prices</span>
-                            </a>
-                        </li>
-                        <li>
-                            <!-- hay clase "active" para este link también, por si se quiere usar: fondo negro -->
-                            <a href="signin.html" class="navbar-link btn btn-transparent">
-                                <span>Start free trial</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
+    <div class="container-fluid">
+        <a href="#main" accesskey="S" class="sr-only first">Ir directamente al contenido</a>
 
-    <!-- IMPORTANTE este div debe estar justo después del header; no poner nada entre ellos -->
-    <div class="row main">
-        <div class="container-fluid onecol">
-            <section id="main" role="main" class="homeSub">
-                <h1>Sign in to your custom site</h1>
-                <form role="form" class="custom-url-form" id="sign-in-custom-site" name="sign-in-custom-site" method="post" action="#">
-                    <div class="custom-url-form-group form-group">
-                        <label class="sr-only" for="site-name">Your URL</label>
-                        <span class="custom-url-form-group__url">https://</span><input type="url" aria-required="true" placeholder="Your URL" required="" id="site-name" class="form-control custom-url-form-group__input" name="site-name"><span class="custom-url-form-group__url">.kuorum.org</span>
+        <!-- Header landing fondo blanco; no tiene la clase "transp": lo demás es todo igual menos el logo, que carga uno diferente -->
+        <header id="header" class="row landing" role="banner">
+            <nav class="navbar navbar-fixed-top" role="navigation">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle bg-primary" data-toggle="collapse" data-target="#navbar-collapse">
+                            <span class="sr-only">Abrir/cerrar navegación</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <h1>
+                            <a href="/" id="brand" class="navbar-brand null">
+                                <img src="images/logo@2x.png" alt="Kuorum.org">
+                                <span class="hidden">Kuorum.org </span>
+                            </a>
+                        </h1>
+                        <h2 class="hidden">Los decisores políticos abren sus proyectos a debate contigo. ¡Envíales tus propuestas ahora!</h2>
                     </div>
-                    <div class="custom-url-form-group form-group">
-                        <input type="submit" value="Sign in" class="btn btn-xl custom-url-form-group__submit">
-                    </div>
-                    <div class="form-group">
-                        <p class="custom-url-form-group__remember-message">Remember you can also sign in directly from your custom site</p>
-                    </div>
-                </form>
-            </section>
-        </div>
-    </div><!-- .main -->
-    
-    
-    <footer id="footer" class="row" role="contentinfo">
-        <section class="more">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-xs-12 col-sm-8 col-md-8">
-                        <section class="links">
-                            <ul>
-                                <li><a href="#">Política de privacidad</a></li>
-                                <li><a href="#">Descripción de los servicios</a></li>
-                                <li><a href="#">Condiciones de uso</a></li>
-                            </ul>
-                        </section>
-                    </div>
-                    <div class="col-xs-12 col-sm-4 col-md-4">
-                        <ul class="licenses clearfix">
-                            <li><span class="sr-only">Licencias</span></li>
+                    <div class="collapse navbar-collapse" id="navbar-collapse">
+                        <form action="" id="search-form" class="navbar-form navbar-left" role="search" method="get">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Search in Kuorum.org" name="word" id="srch-term" value="">
+                                <div class="input-group-btn">
+                                    <button class="btn search" type="submit">
+                                        <span class="fa fa-search"></span>
+                                        <span class="sr-only">Buscar</span>
+                                    </button>
+                                </div>
+                                <input type="hidden" name="type" id="srch-type" value="POLITICIAN" />
+                            </div>
+                        </form>
+                        <!-- Le quitamos las clases underline, etc a estos enlaces -->
+                        <ul class="nav navbar-nav navbar-right">
                             <li>
-                                <a href="#" hreflang="en" target="_blank">
-                                    <span class="sr-only">Github</span>
-                                    <span class="fa fa-github fa-3x"></span>
+                                <a href="search.html" class="navbar-link">
+                                    <span>Search</span>
                                 </a>
                             </li>
                             <li>
-                                <a class="agpl" hreflang="en" href="#" target="_blank">AGPL (Affero General Public License)</a>
+                                <a href="editors.html" class="navbar-link">
+                                    <span>Editors</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="politicians.html" class="navbar-link">
+                                    <span>Politicians</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="prices.html" class="navbar-link">
+                                    <span>Prices</span>
+                                </a>
+                            </li>
+                            <li>
+                                <!-- hay clase "active" para este link también, por si se quiere usar: fondo negro -->
+                                <a href="signin.html" class="navbar-link btn btn-transparent">
+                                    <span>Start free trial</span>
+                                </a>
                             </li>
                         </ul>
                     </div>
                 </div>
-            </div><!-- /.container-fluid - da ancho máximo y centra -->
-        </section>
-    </footer>
-</div><!-- .container-fluid -->
+            </nav>
+        </header>
 
-<script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/bootstrap-progressbar.min.js"></script>
-<script src="js/jquery.timeago.js"></script>
-<script src="js/timeago/jquery.timeago.es.js"></script>
-<script src="js/jquery-te-1.4.0.min.js"></script>
-<script src="js/froogaloop2.min.js"></script>
-<script src="js/hideShowPassword.min.js"></script>
-<script src="js/local.js"></script>
-<!-- el siguiente cargar al integrar -->
-<!-- <script src="js/custom.js"></script> -->
+        <!-- IMPORTANTE este div debe estar justo después del header; no poner nada entre ellos -->
+        <div class="row main">
+            <div class="container-fluid onecol">
+                <section id="main" role="main" class="homeSub">
+                    <h1>Sign in to your custom site</h1>
+                    <form role="form" class="custom-url-form" id="sign-in-custom-site" name="sign-in-custom-site" method="post" action="#">
+                        <div class="custom-url-form-group form-group">
+                            <label class="sr-only" for="site-name">Your URL</label>
+                            <span class="custom-url-form-group__url">https://</span>
+                            <input type="url" aria-required="true" placeholder="Your URL" required="" id="site-name"
+                                class="form-control custom-url-form-group__input" name="site-name">
+                            <span class="custom-url-form-group__url">.kuorum.org</span>
+                        </div>
+                        <div class="custom-url-form-group form-group">
+                            <input type="submit" value="Sign in" class="btn btn-xl custom-url-form-group__submit">
+                        </div>
+                        <div class="form-group">
+                            <p class="custom-url-form-group__remember-message">Remember you can also sign in directly from your custom site</p>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+        <!-- .main -->
+
+
+        <footer id="footer" class="row" role="contentinfo">
+            <section class="more">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-8 col-md-8">
+                            <section class="links">
+                                <ul>
+                                    <li>
+                                        <a href="#">Política de privacidad</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Descripción de los servicios</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Condiciones de uso</a>
+                                    </li>
+                                </ul>
+                            </section>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4">
+                            <ul class="licenses clearfix">
+                                <li>
+                                    <span class="sr-only">Licencias</span>
+                                </li>
+                                <li>
+                                    <a href="#" hreflang="en" target="_blank">
+                                        <span class="sr-only">Github</span>
+                                        <span class="fa fa-github fa-3x"></span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="agpl" hreflang="en" href="#" target="_blank">AGPL (Affero General Public License)</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.container-fluid - da ancho máximo y centra -->
+            </section>
+        </footer>
+    </div>
+    <!-- .container-fluid -->
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-progressbar.min.js"></script>
+    <script src="js/jquery.timeago.js"></script>
+    <script src="js/timeago/jquery.timeago.es.js"></script>
+    <script src="js/jquery-te-1.4.0.min.js"></script>
+    <script src="js/froogaloop2.min.js"></script>
+    <script src="js/hideShowPassword.min.js"></script>
+    <script src="js/local.js"></script>
+    <!-- el siguiente cargar al integrar -->
+    <!-- <script src="js/custom.js"></script> -->
 
 </body>
+
 </html>
