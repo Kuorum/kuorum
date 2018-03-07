@@ -4,6 +4,7 @@ import kuorum.core.model.UserType
 import kuorum.core.model.solr.SolrKuorumUser
 import kuorum.users.KuorumUser
 import org.kuorum.rest.model.contact.ContactRSDTO
+import org.kuorum.rest.model.search.kuorumElement.SearchKuorumUserRSDTO
 
 class ImagesTagLib {
     static defaultEncodeAs = 'html'
@@ -23,7 +24,7 @@ class ImagesTagLib {
         if (user?.avatar){
             out << user.avatar.url
         }else{
-            out << getDefaultAvatar(user)
+            out << getDefaultAvatar()
         }
     }
     def userImgProfile={attrs ->
@@ -31,7 +32,7 @@ class ImagesTagLib {
         if (user.imageProfile){
             out << user.imageProfile.url
         }else{
-            out << getDefaultImgProfile(user)
+            out << getDefaultImgProfile()
         }
     }
 
@@ -40,7 +41,7 @@ class ImagesTagLib {
         if (user && user.urlImage){
             out << user.urlImage
         }else{
-            out << getDefaultAvatar(user)
+            out << getDefaultAvatar()
         }
     }
     def contactImgSrc={attrs ->
@@ -48,7 +49,7 @@ class ImagesTagLib {
         if (contact.urlImage){
             out << contact.urlImage
         }else{
-            out << getDefaultAvatar(contact)
+            out << getDefaultAvatar()
         }
     }
 
@@ -96,7 +97,7 @@ out << """
             KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
             out << userImgSrc(user:user)
         }else{
-            out << getDefaultAvatar(null)
+            out << getDefaultAvatar()
         }
     }
 
@@ -109,19 +110,19 @@ out << """
             userName = user.name
             out << userImgSrc(user:user)
         }else{
-            out << getDefaultAvatar(null)
+            out << getDefaultAvatar()
         }
         out <<"' class='user-img' alt='Tu foto'><span>${userName}</span>"
 
     }
 
 
-    private String getDefaultAvatar(def user){
+    private String getDefaultAvatar(){
         //User can be null
         g.resource(dir:'images', file: 'user-default.jpg')
     }
 
-    private String getDefaultImgProfile(KuorumUser user){
+    private String getDefaultImgProfile(){
         //User can be null
         def defaultImage = g.resource(dir:'images', file: 'img-userprofile.jpg')
         defaultImage
