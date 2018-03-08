@@ -1,7 +1,6 @@
 package kuorum
 
 import kuorum.core.model.UserType
-import kuorum.core.model.solr.SolrCampaign
 import kuorum.core.model.solr.SolrKuorumUser
 import kuorum.post.Post
 import kuorum.register.RegisterService
@@ -9,6 +8,7 @@ import kuorum.users.KuorumUser
 import org.bson.types.ObjectId
 import org.kuorum.rest.model.geolocation.RegionRSDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
+import org.kuorum.rest.model.search.SearchKuorumElementRSDTO
 import org.springframework.context.i18n.LocaleContextHolder
 
 class KuorumUserTagLib {
@@ -63,15 +63,19 @@ class KuorumUserTagLib {
         if (attrs.user instanceof SolrKuorumUser){
             user = KuorumUser.get(new ObjectId(attrs.user.id))
             name = user.name
-        }else if (attrs.user instanceof SolrCampaign ){
-            user = KuorumUser.get(new ObjectId(attrs.user.ownerId))
-            name = attrs.user.highlighting.owner?:user.name
         }else if (attrs.user instanceof BasicDataKuorumUserRSDTO){
             user = KuorumUser.get(new ObjectId(attrs.user.id))
             name = user.fullName
+        }else if (attrs.user instanceof BasicDataKuorumUserRSDTO){
+            user = KuorumUser.get(new ObjectId(attrs.user.id))
+            name = user.fullName
+        }else if (attrs.user instanceof SearchKuorumElementRSDTO){
+            // ALIAS
+            user = KuorumUser.findByAlias(attrs.user.alias)
+            name = user.fullName
         }else if (attrs.user instanceof String){
             // ALIAS
-            user = KuorumUser.findByAlias(attrs.user)
+            user = KuorumUser.findByAlias(attrs.user.encodeAsRemovingHtmlTags())
             name = user.fullName
         }else{
             user = attrs.user

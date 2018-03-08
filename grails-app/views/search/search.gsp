@@ -18,22 +18,9 @@
 
     %{--<ul class="${cssClassUL}" id="search-list-id">--}%
     <ul class="search-list clearfix" id="search-list-id">
-        <g:render template="searchElement" model="[docs:docs.elements]"/>
+        <g:render template="searchElement" model="[docs:docs.data]"/>
     </ul>
-
     <g:render template="searchActionsPagination" model="[searchParams:searchParams,docs:docs]"/>
-    %{--<nav:loadMoreLink--}%
-            %{--formId="search-form-loadMore"--}%
-            %{--mapping="searcherSearchSeeMore"--}%
-            %{--parentId="search-list-id"--}%
-        %{--pagination="${searchParams}"--}%
-        %{--numElements="${docs.numResults}"--}%
-    %{-->--}%
-        %{--<input type="hidden" name="word" value="${searchParams.word}" />--}%
-        %{--<input type="hidden" name="type" value="${searchParams.type}" />--}%
-        %{--<input type="hidden" name="searchType" value="${searchParams.searchType}" />--}%
-        %{--<input type="hidden" name="regionCode" value="${params.regionCode}" />--}%
-    %{--</nav:loadMoreLink>--}%
 </content>
 
 <content tag="leftMenu">
@@ -122,16 +109,16 @@
         <input type="hidden" name="regionCode" value="${params.regionCode}" />
     </g:form>
 
-    <g:set var="relevantCauses" value="${docs.facets.tags.findAll{it.hits>0}.sort{-it.hits}.take(10)}"/>
+    <g:set var="relevantCauses" value="${docs.facetCause.findAll{it.hits>0}.sort{-it.hits}.take(10)}"/>
     <g:if test="${relevantCauses}">
         <h2><g:message code="search.filters.causes.title"/></h2>
         <ul class="causes-tags">
             <g:each in="${relevantCauses}" var="tag">
                 <li class="cause link-wrapper active" id="cause-participacion">
-                    <g:link mapping="searcherSearchByCAUSE" params="${params.findAll {k,v-> k!='searchType' && k!='offset' && v} + [word:tag.facetName]}" class="sr-only hidden"> Search cause participación</g:link>
+                    <g:link mapping="searcherSearchByCAUSE" params="${params.findAll {k,v-> k!='searchType' && k!='offset' && v} + [word:tag.name]}" class="sr-only hidden"> Search cause ${tag.name}</g:link>
                     <div class="cause-name" aria-hidden="true" tabindex="104">
                         <span class="fa fa-hashtag"></span>
-                        <span>${tag.facetName} (${tag.hits})</span>
+                        <span>${tag.name} (${tag.hits})</span>
                     </div>
                 </li>
             </g:each>

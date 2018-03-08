@@ -190,6 +190,10 @@ class RestKuorumApiService {
 
         USER_CONTACTS_CAMPAIGNS_ALL ("/user/{userId}/dashboard/campaigns"),
 
+        SEARCH                  ("/search/"),
+        SEARCH_INDEX_FULL       ("/search/index/full"),
+        SEARCH_INDEX_DELTA      ("/search/index/delta"),
+
         ADMIN_MAILS_SEND("/admin/notification/mailing/send"),
         ADMIN_USER_CONFIG_SENDER("/admin/{userAlias}/config/mailing");
 

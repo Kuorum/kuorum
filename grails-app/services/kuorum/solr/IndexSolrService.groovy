@@ -119,20 +119,7 @@ class IndexSolrService {
         deleteDocument(user.id.toString())
     }
 
-    SolrCampaign recoverCampaignFromSolr(SolrDocument solrDocument){
-        new SolrCampaign(
-                id:solrDocument.id,
-                name:solrDocument.name,
-                type:SolrType.valueOf(solrDocument.type),
-                text:solrDocument.text,
-                dateCreated:solrDocument.dateCreated,
-                alias:solrDocument.alias,
-                owner:solrDocument.owner,
-                ownerId:solrDocument.ownerId,
-                urlImage: solrDocument.urlImage
-        )
-    }
-
+    @Deprecated
     SolrKuorumUser recoverKuorumUserFromSolr(SolrDocument solrDocument){
         new SolrKuorumUser(
                 id:new ObjectId(solrDocument.id),
@@ -144,20 +131,5 @@ class IndexSolrService {
                 tags: solrDocument.tags,
                 text:solrDocument.text
         )
-    }
-
-    SolrElement recoverSolrElementFromSolr(SolrDocument solrDocument){
-        switch (SolrType.valueOf(solrDocument.type)){
-            case SolrType.KUORUM_USER:
-                return recoverKuorumUserFromSolr(solrDocument);
-                break;
-            case SolrType.POST:
-            case SolrType.DEBATE:
-            case SolrType.EVENT:
-            case SolrType.SURVEY:
-                return recoverCampaignFromSolr(solrDocument)
-                break;
-            default: throw new KuorumException("No se ha reconocido el tipo ${solrDocument.type}")
-        }
     }
 }

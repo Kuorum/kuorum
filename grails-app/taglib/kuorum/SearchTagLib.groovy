@@ -8,6 +8,7 @@ class SearchTagLib {
     static namespace = "searchUtil"
     private static final Integer MAX_LENGTH_TEXT = 300
 
+    @Deprecated
     def highlightedField={attrs ->
         SolrElement element = attrs.solrElement
         String field = attrs.field

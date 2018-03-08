@@ -40,20 +40,20 @@
                         </li>
                     </g:if>
 
-                    <li>
-                        <g:if test="${campaign.type== org.kuorum.rest.model.search.SearchCampaignTypeRSDTO.SURVEY}">
+                    <li>attrs.user
+                        <g:if test="${campaign.type== org.kuorum.rest.model.search.SearchTypeRSDTO.SURVEY}">
                             <g:link mapping="campaignShow" params="${campaign.encodeAsLinkProperties()}" fragment="survey-progress" role="button" class="${campaign.completed?'active':''}">
                                 <span class="fa fa fa-pie-chart fa-lg"></span>
                                 <span class="number">${campaign.amountAnswers}</span>
                             </g:link>
                         </g:if>
-                        <g:elseif test="${campaign.type== org.kuorum.rest.model.search.SearchCampaignTypeRSDTO.DEBATE}">
+                        <g:elseif test="${campaign.type== org.kuorum.rest.model.search.SearchTypeRSDTO.DEBATE}">
                             <g:link mapping="campaignShow" params="${campaign.encodeAsLinkProperties()}" fragment="openProposal" role="button">
                                 <span class="fa fa fa-lightbulb-o fa-lg"></span>
                                 <span class="number">${campaign.numProposals}</span>
                             </g:link>
                         </g:elseif>
-                        <g:elseif test="${campaign.type== org.kuorum.rest.model.search.SearchCampaignTypeRSDTO.POST}">
+                        <g:elseif test="${campaign.type== org.kuorum.rest.model.search.SearchTypeRSDTO.POST}">
                             <a class="post-like ${campaign.liked?'active':''}"
                                data-postId="${campaign.id}"
                                data-userAlias="${campaign.alias}"
@@ -63,7 +63,7 @@
                                 <span class="number">${campaign.likes}</span>
                             </a>
                         </g:elseif>
-                        <g:elseif test="${campaign.type== org.kuorum.rest.model.search.SearchCampaignTypeRSDTO.EVENT}">
+                        <g:elseif test="${campaign.type== org.kuorum.rest.model.search.SearchTypeRSDTO.EVENT}">
                             <g:link mapping="campaignShow" params="${campaign.encodeAsLinkProperties()}" role="button" class="${campaign.registered?'active':''}">
                                 <span class="fa fa fa-ticket fa-lg"></span>
                                 <span class="number">${campaign.amountAssistants}</span>

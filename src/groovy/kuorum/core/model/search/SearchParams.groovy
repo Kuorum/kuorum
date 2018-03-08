@@ -26,8 +26,6 @@ class SearchParams extends Pagination implements Serializable{
 
     SearchType searchType = SearchType.ALL
 
-    List<String> regionIsoCodes;
-
     List<String> filteredUserIds;
 
     List<String> boostedRegions;
@@ -36,7 +34,6 @@ class SearchParams extends Pagination implements Serializable{
     static constraints = {
         word nullable:true
         offset min: 0L
-        regionIsoCodes nullable:true
         filteredUserIds nullable:true
         searchType nullable:true
         type nullable:true

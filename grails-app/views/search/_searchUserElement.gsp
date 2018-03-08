@@ -5,12 +5,12 @@
     <div class="link-wrapper">
         <g:link mapping="userShow" params="${user.encodeAsLinkProperties()}" class="hidden"></g:link>
         <div class="card-header-photo">
-            <img src="${image.userImgProfile(user:user)}" alt="${message(code:'kuorumUser.image.profile.alt', args:[user.fullName])}">
+            <img src="${image.userImgProfile(user:user)}" alt="${message(code:'kuorumUser.image.profile.alt', args:[user.name])}">
         </div>
 
         <div class="user">
             <div class='profile-pic-div'>
-                <img itemprop="image" class="user-img big" alt="${message(code:'kuorumUser.image.avatar.alt', args:[user.fullName])}" title="${message(code:'kuorumUser.image.avatar.title', args:[user.name])}" src="${image.userImgSrc(user:user)}">
+                <img itemprop="image" class="user-img big" alt="${message(code:'kuorumUser.image.avatar.alt', args:[user.name])}" title="${message(code:'kuorumUser.image.avatar.title', args:[user.name])}" src="${image.userImgSrc(user:user)}">
                 <g:if test="${user.verified}">
                     %{--<i class="fa fa-check"></i>--}%
                 </g:if>
@@ -18,7 +18,7 @@
         %{--<button type="button" class="btn btn-blue btn-lg follow allow">Seguir</button>--}%
             <userUtil:followButton user="${user}" cssSize="btn-lg"/>
             <g:link mapping="userShow" params="${user.encodeAsLinkProperties()}" class="user-name link-wrapper-clickable" itemprop="name">
-                <searchUtil:highlightedField solrElement="${solrUser}" field="name"/>
+                ${raw(solrUser.name)}
             </g:link>
             <cite><userUtil:politicianPosition user="${user}"/></cite>
             <p class="party"><userUtil:roleName user="${user}"/></p>

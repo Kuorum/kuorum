@@ -10,6 +10,7 @@ import kuorum.core.model.search.SuggestRegion
 import kuorum.core.model.solr.*
 import kuorum.users.KuorumUser
 import kuorum.web.constants.WebConstants
+import org.kuorum.rest.model.search.SearchResultsRSDTO
 import org.springframework.web.servlet.LocaleResolver
 import springSecurity.KuorumRegisterCommand
 
@@ -68,20 +69,20 @@ class SearchController{
     }
 
     def search(SearchParams searchParams) {
-        SolrResults docs = searchDocs(searchParams, params)
+        SearchResultsRSDTO docs = searchDocs(searchParams, params)
         [docs:docs, searchParams:searchParams]
     }
 
-    private SolrResults searchDocs(SearchParams searchParams, def params){
-        SolrResults docs
+    private SearchResultsRSDTO searchDocs(SearchParams searchParams, def params){
+        SearchResultsRSDTO docs
         String regionCountryCode = request.session.getAttribute(WebConstants.COUNTRY_CODE_SESSION)
         if (searchParams.hasErrors()){
             searchParams=new SearchParams(word: '')
-            docs = searchSolrService.search(searchParams)
+            docs = searchSolrService.searchAPI(searchParams)
         }else{
             searchParams.searchType = searchParams.searchType?:SearchType.ALL
             searchParams = createRegionSearchParams(searchParams, params, regionCountryCode)
-            docs = searchSolrService.search(searchParams)
+            docs = searchSolrService.searchAPI(searchParams)
         }
         return docs;
     }
@@ -125,17 +126,6 @@ class SearchController{
             editedSearchParams.word = searchParams.word
         }
         return editedSearchParams;
-    }
-
-    def searchSeeMore(SearchParams searchParams){
-        if (searchParams.hasErrors()){
-            response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "false")
-            render template: '/search/searchElement', model:[docs:[], searchParams:searchParams, columnsCss:params.columnsCss?:'']
-        }else{
-            SolrResults docs = searchDocs(searchParams, params)
-            response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${docs.numResults-searchParams.offset<=searchParams.max}")
-            render template: '/search/searchElement', model:[docs:docs.elements, searchParams:searchParams, columnsCss:params.columnsCss?:'']
-        }
     }
 
     private void fixXssSearch(SearchParams searchParams){

@@ -3,6 +3,7 @@ package kuorum.core.model.solr
  * this class storage the highlighted elements returned by solr.
  * If is called and there is no highlighted, then returns original element
  */
+@Deprecated
 public class SolrHighlighting{
     def storage = [:]
     SolrElement element

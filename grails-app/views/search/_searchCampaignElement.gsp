@@ -19,11 +19,13 @@
         <div class="card-body">
             <h1>
                 <g:link mapping="campaignShow" params="${solrCampaign.encodeAsLinkProperties()}" class="link-wrapper-clickable">
-                    <searchUtil:highlightedField solrElement="${solrCampaign}" field="name"/>
+                    <${solrCampaign.name}/>
                 </g:link>
             </h1>
             <g:if test="${!campaignMultimedia}">
-                <div class="card-text"><searchUtil:highlightedField solrElement="${solrCampaign}" field="text" maxLength="${500}"/></div>
+                <div class="card-text">
+                    <p><kuorumDate:showShortedText text="${solrCampaign.text}" numChars="500"/>
+                </div>
             </g:if>
         </div>
         <div class="card-footer">

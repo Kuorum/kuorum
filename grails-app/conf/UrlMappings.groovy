@@ -455,7 +455,6 @@ class UrlMappings {
         name userLoadRate:              "/ajax/$userAlias/loadRate"(controller: "rating", action:"loadRating")
         name comparingPoliticianRate:   "/ajax/user/compareRate"(controller: "rating", action:"comparingPoliticianRateData")
 
-//        name searcherSearchSeeMore: "/ajax/search/seeMore"(controller: "search", action:"searchSeeMore")
         name suggestSearcher:       "/ajax/search/suggestions/all"(controller: "search", action:"suggest")
         name suggestRegions:        "/ajax/search/suggestions/regions"(controller: "search", action:"suggestRegions")
         name suggestTags:           "/ajax/search/suggestions/tags"(controller: "search", action:"suggestTags")

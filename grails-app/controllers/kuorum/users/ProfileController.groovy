@@ -89,8 +89,8 @@ class ProfileController {
             return
         }
         user.language = command.language
-        user.name = command.name
-        user.surname = command.surname
+        user.name = command.name.encodeAsRemovingHtmlTags();
+        user.surname = command.surname?.encodeAsRemovingHtmlTags()?:""
         if (!user.personalData){
             user.personalData = new  PersonData();
         }

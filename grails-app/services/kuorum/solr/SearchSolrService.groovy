@@ -1,5 +1,6 @@
 package kuorum.solr
 
+import com.fasterxml.jackson.core.type.TypeReference
 import grails.transaction.Transactional
 import kuorum.core.exception.KuorumExceptionUtil
 import kuorum.core.model.CommissionType
@@ -8,6 +9,7 @@ import kuorum.core.model.search.SearchPolitician
 import kuorum.core.model.search.SearchProjects
 import kuorum.core.model.search.SearchType
 import kuorum.core.model.solr.*
+import kuorum.util.rest.RestKuorumApiService
 import org.apache.solr.client.solrj.SolrQuery
 import org.apache.solr.client.solrj.SolrRequest
 import org.apache.solr.client.solrj.SolrServer
@@ -17,76 +19,105 @@ import org.apache.solr.client.solrj.util.ClientUtils
 import org.apache.solr.common.SolrDocument
 import org.apache.solr.common.SolrDocumentList
 import org.apache.solr.common.params.CommonParams
+import org.kuorum.rest.model.contact.ContactPageRSDTO
+import org.kuorum.rest.model.search.SearchByRDTO
+import org.kuorum.rest.model.search.SearchParamsRDTO
+import org.kuorum.rest.model.search.SearchResultsRSDTO
+import org.kuorum.rest.model.search.SearchTypeRSDTO
 
 @Transactional(readOnly = true)
 class SearchSolrService {
 
     SolrServer server
     IndexSolrService indexSolrService
+    RestKuorumApiService restKuorumApiService
 
-    SolrResults search(SearchParams params) {
-
-        SolrQuery query = new SolrQuery();
-        query.setRequestHandler("/query")
-//        query.setParam(CommonParams.QT, "query");
-        query.setParam(CommonParams.START, "${params.offset}");
-        query.setParam(CommonParams.ROWS, "${params.max}");
-        query.setParam("tie", "0");
-        prepareWord(params, query)
-        prepareFilter(params, query)
-        prepareBoosted(params, query)
-        prepareScore(params, query)
-
-        query.setSort("score", SolrQuery.ORDER.desc)
-        query.addSort("relevance", SolrQuery.ORDER.desc)
-        query.addSort("kuorumRelevance", SolrQuery.ORDER.desc)
-        query.addSort("constituencyIso3166_2Length", SolrQuery.ORDER.asc)
-        query.addSort("regionIso3166_2Length", SolrQuery.ORDER.asc)
-        query.addSort("dateCreated", SolrQuery.ORDER.desc)
-
-        QueryResponse rsp = server.query( query, SolrRequest.METHOD.POST );
-        SolrDocumentList docs = rsp.getResults();
-
-        SolrResults solrResults = new SolrResults()
-        solrResults.elements = docs.collect{indexSolrService.recoverSolrElementFromSolr(it)}
-        solrResults.numResults = docs.numFound
-        solrResults.suggest = prepareSuggestions(rsp)
-        solrResults.facets = prepareFacets(rsp)
-        prepareHighlighting(solrResults,rsp)
-        solrResults
-    }
-
-    private SolrSuggest prepareSuggestions(QueryResponse rsp){
-        SolrSuggest solrSuggest = null
-        if (rsp?._spellInfo?.suggestions?.get("collation")){
-            solrSuggest = new SolrSuggest()
-            solrSuggest.suggestedQuery = rsp._spellInfo.suggestions.collation.collationQuery
-            solrSuggest.hits = rsp._spellInfo.suggestions.collation.hits
+    SearchResultsRSDTO searchAPI(SearchParams searchParams){
+        SearchParamsRDTO searchParamsRDTO = new SearchParamsRDTO();
+        searchParamsRDTO.searchBy = SearchByRDTO.valueOf(searchParams.getSearchType().toString()) // CHAPU
+        searchParamsRDTO.type = searchParams.getType()?SearchTypeRSDTO.valueOf(searchParams.getType().toString()):null // CHAPU
+        searchParamsRDTO.boostedRegions = searchParams.boostedRegions
+        searchParamsRDTO.filteredIds = searchParams.filteredUserIds
+        searchParamsRDTO.word = searchParams.word
+        Map<String, String> query = searchParamsRDTO.encodeAsQueryParams()
+        def response = restKuorumApiService.get(
+                RestKuorumApiService.ApiMethod.SEARCH,
+                [:],
+                query,
+                new TypeReference<SearchResultsRSDTO>(){})
+        SearchResultsRSDTO resultsRSDTO = new SearchResultsRSDTO();
+        if (response.data){
+            resultsRSDTO = response.data
         }
-        solrSuggest
-    }
+        resultsRSDTO
 
-    private Map<String, List<SolrFacets>> prepareFacets(QueryResponse rsp){
-        def res = [:]
-        rsp.facetFields.each{
-            res.put(it.name, it.values.collect{new SolrFacets(facetName: it.name, hits: it.count)})
-        }
-        res
-//        rsp.facetFields.collect{it._values}.flatten().collect{
-//            new SolrFacets(facetName: it.name, hits: it.count)
+    }
+//
+//    @Deprecated
+//    SolrResults search(SearchParams params) {
+//
+//        SolrQuery query = new SolrQuery();
+//        query.setRequestHandler("/query")
+//
+////        query.setParam(CommonParams.QT, "query");
+//        query.setParam(CommonParams.START, "${params.offset}");
+//        query.setParam(CommonParams.ROWS, "${params.max}");
+//        query.setParam("tie", "0");
+//        prepareWord(params, query)
+//        prepareFilter(params, query)
+//        prepareBoosted(params, query)
+//        prepareScore(params, query)
+//
+//        query.setSort("score", SolrQuery.ORDER.desc)
+//        query.addSort("relevance", SolrQuery.ORDER.desc)
+//        query.addSort("kuorumRelevance", SolrQuery.ORDER.desc)
+//        query.addSort("constituencyIso3166_2Length", SolrQuery.ORDER.asc)
+//        query.addSort("regionIso3166_2Length", SolrQuery.ORDER.asc)
+//        query.addSort("dateCreated", SolrQuery.ORDER.desc)
+//
+//        QueryResponse rsp = server.query( query, SolrRequest.METHOD.POST );
+//        SolrDocumentList docs = rsp.getResults();
+//
+//        SolrResults solrResults = new SolrResults()
+//        solrResults.elements = docs.collect{indexSolrService.recoverSolrElementFromSolr(it)}
+//        solrResults.numResults = docs.numFound
+//        solrResults.suggest = prepareSuggestions(rsp)
+//        solrResults.facets = prepareFacets(rsp)
+//        prepareHighlighting(solrResults,rsp)
+//        solrResults
+//    }
+//
+//    private SolrSuggest prepareSuggestions(QueryResponse rsp){
+//        SolrSuggest solrSuggest = null
+//        if (rsp?._spellInfo?.suggestions?.get("collation")){
+//            solrSuggest = new SolrSuggest()
+//            solrSuggest.suggestedQuery = rsp._spellInfo.suggestions.collation.collationQuery
+//            solrSuggest.hits = rsp._spellInfo.suggestions.collation.hits
 //        }
-    }
-
-    private prepareHighlighting(SolrResults solrResults, QueryResponse rsp){
-        rsp.highlighting.each{id,changes->
-            SolrElement solrElement = solrResults.elements.find{it.id == id}
-            changes.each{field, val ->
-                if (solrElement.hasProperty(field))
-                    solrElement.highlighting.storage.put(field,val[0])
-            }
-        }
-
-    }
+//        solrSuggest
+//    }
+//
+//    private Map<String, List<SolrFacets>> prepareFacets(QueryResponse rsp){
+//        def res = [:]
+//        rsp.facetFields.each{
+//            res.put(it.name, it.values.collect{new SolrFacets(facetName: it.name, hits: it.count)})
+//        }
+//        res
+////        rsp.facetFields.collect{it._values}.flatten().collect{
+////            new SolrFacets(facetName: it.name, hits: it.count)
+////        }
+//    }
+//
+//    private prepareHighlighting(SolrResults solrResults, QueryResponse rsp){
+//        rsp.highlighting.each{id,changes->
+//            SolrElement solrElement = solrResults.elements.find{it.id == id}
+//            changes.each{field, val ->
+//                if (solrElement.hasProperty(field))
+//                    solrElement.highlighting.storage.put(field,val[0])
+//            }
+//        }
+//
+//    }
 
     SolrAutocomplete suggest(SearchParams params){
 
@@ -116,33 +147,33 @@ class SearchSolrService {
 
         solrAutocomplete
     }
-
-
-    private void prepareScore(SearchParams params, SolrQuery query){
-        switch (params.searchType){
-            case SearchType.REGION:
-                query.setParam("qf","regionIso3166_2^10.0 constituencyIso3166_2^5.0")
-                break;
-            case SearchType.CAUSE:
-                query.setParam("qf","tags^10.0")
-                break;
-            case SearchType.ALL:
-                break;
-            default:
-            //DEFAULT
-                break;
-        }
-    }
-    private void prepareBoosted(SearchParams params, SolrQuery query){
-        if (params.boostedRegions){
-//            String boost = params.boostedRegions.collect{"regionIso3166_2:${it.replace('-', '')}^${Math.pow(it.length(),2)}"}.join(" ")
-//            boost = "${boost} name^1000 hashtag^800.0"
-//            query.setParam("bq", boost)
-            query.setParam("bf","ord(kuorumRelevance)^1 ord(relevance)^50 ord(regionIso3166_2Length)^100")
-        }else{
-            query.setParam("bf","ord(kuorumRelevance)^1 ord(relevance)^50")
-        }
-    }
+//
+//
+//    private void prepareScore(SearchParams params, SolrQuery query){
+//        switch (params.searchType){
+//            case SearchType.REGION:
+//                query.setParam("qf","regionIso3166_2^10.0 constituencyIso3166_2^5.0")
+//                break;
+//            case SearchType.CAUSE:
+//                query.setParam("qf","tags^10.0")
+//                break;
+//            case SearchType.ALL:
+//                break;
+//            default:
+//            //DEFAULT
+//                break;
+//        }
+//    }
+//    private void prepareBoosted(SearchParams params, SolrQuery query){
+//        if (params.boostedRegions){
+////            String boost = params.boostedRegions.collect{"regionIso3166_2:${it.replace('-', '')}^${Math.pow(it.length(),2)}"}.join(" ")
+////            boost = "${boost} name^1000 hashtag^800.0"
+////            query.setParam("bq", boost)
+//            query.setParam("bf","ord(kuorumRelevance)^1 ord(relevance)^50 ord(regionIso3166_2Length)^100")
+//        }else{
+//            query.setParam("bf","ord(kuorumRelevance)^1 ord(relevance)^50")
+//        }
+//    }
 
     private void prepareWord(SearchParams params, SolrQuery query){
         String word = params.word
@@ -167,13 +198,6 @@ class SearchSolrService {
             separator = " AND "
         }
 
-        if (params.regionIsoCodes){
-            filterQuery.append(separator)
-            String subQuery = convertToOrList(params.regionIsoCodes)
-            filterQuery.append("regionIso3166_2:(${subQuery})")
-            separator = " AND "
-        }
-
         if (params.filteredUserIds){
             filterQuery.append(separator)
             filterQuery.append("-id:(${params.filteredUserIds.join(" ")})")
@@ -183,16 +207,6 @@ class SearchSolrService {
         if (filterQuery.length()){
             query.setParam(CommonParams.FQ, filterQuery.toString())
         }
-    }
-
-    private String convertToOrList(List data){
-        def subTypeQuery = ""
-        def OR = ""
-        data.each {
-            subTypeQuery += " ${OR} $it "
-            OR = "OR"
-        }
-        return subTypeQuery
     }
 
     private ArrayList<String> prepareAutocompleteSuggestions(QueryResponse rsp){
@@ -214,6 +228,7 @@ class SearchSolrService {
 
     }
 
+    @Deprecated
     private def prepareSolrElements(QueryResponse rsp){
         ArrayList<SolrKuorumUser> kuorumUsers = []
         rsp.results.each{ SolrDocument solrDocument ->
@@ -227,47 +242,6 @@ class SearchSolrService {
         }
         [kuorumUsers:kuorumUsers]
     }
-
-    SolrResults searchProjects(SearchProjects params){
-        if (!params.validate()){
-            KuorumExceptionUtil.createExceptionFromValidatable(params, "Se necesita una region para buscar por ella")
-        }
-        SolrQuery query = new SolrQuery();
-        query.setParam(CommonParams.QT, "/select");
-        query.setParam(CommonParams.START, "${params.offset}");
-        query.setParam(CommonParams.SORT, "relevance desc, deadLine desc");
-        query.setFacet(true)
-        StringBuffer filterQuery = new StringBuffer("type:${SolrType.PROJECT}")
-        if (params.commissionType){
-            filterQuery.append(" AND ")
-            filterQuery.append("commissions:${params.commissionType}")
-        }
-
-        if (params.regionName){
-            filterQuery.append(" AND ")
-            filterQuery.append("regionName:${ClientUtils.escapeQueryChars(params.regionName)}")
-        }
-        query.setParam(CommonParams.Q, filterQuery.toString())
-
-        query.setFacet(true)
-        query.addFacetField("commissions")
-        query.addFacetField("regionName")
-        query.addFacetField("subType")
-        query.setFacetMinCount(1)
-        query.setStart(params.offset.toInteger())
-        query.setRows(params.max.toInteger())
-        QueryResponse rsp = server.query( query, SolrRequest.METHOD.POST );
-        SolrDocumentList docs = rsp.getResults();
-
-        SolrResults solrResults = new SolrResults()
-        solrResults.elements = docs.collect{indexSolrService.recoverSolrElementFromSolr(it)}
-        solrResults.numResults = docs.numFound
-        solrResults.facets = prepareFacets(rsp)
-//        solrResults.elements
-//        docs.collect{Project.get(it.id)}
-        solrResults
-    }
-
 
     public List<String> suggestTags(SearchParams params){
         if (!params.validate()){
