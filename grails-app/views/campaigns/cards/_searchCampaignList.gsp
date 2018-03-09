@@ -19,11 +19,11 @@
                 <div class="card-body">
                     <h1>
                         <g:link mapping="campaignShow" class="link-wrapper-clickable" params="${campaign.encodeAsLinkProperties()}">
-                            ${campaign.name}
+                            <searchUtil:highlightedField solrElement="${campaign}" field="name"/>
                         </g:link>
                     </h1>
                 <g:if test="${!campaignMultimedia}">
-                    <div class="card-text"><modulesUtil:shortText text="${campaign.text}"/></div>
+                    <div class="card-text"><searchUtil:highlightedField solrElement="${campaign}" field="text" maxLength="250"/></div>
                 </g:if>
             </div>
             <div class="card-footer">
@@ -31,7 +31,7 @@
                     <g:if test="${showAuthor}">
                         <li class="owner">
                             <userUtil:showUser
-                                    user="${campaign.alias}"
+                                    user="${campaign}"
                                     showName="true"
                                     showActions="false"
                                     showDeleteRecommendation="false"
@@ -40,7 +40,7 @@
                         </li>
                     </g:if>
 
-                    <li>attrs.user
+                    <li>
                         <g:if test="${campaign.type== org.kuorum.rest.model.search.SearchTypeRSDTO.SURVEY}">
                             <g:link mapping="campaignShow" params="${campaign.encodeAsLinkProperties()}" fragment="survey-progress" role="button" class="${campaign.completed?'active':''}">
                                 <span class="fa fa fa-pie-chart fa-lg"></span>

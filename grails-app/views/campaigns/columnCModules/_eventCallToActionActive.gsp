@@ -1,3 +1,4 @@
+<g:set var="event" value="${campaign?.event}"/>
 <g:if test="${event}">
     <g:set var="extraUnconfirmedClass" value=""/>
     <g:set var="extraConfirmedClass" value="hide"/>
@@ -23,7 +24,7 @@
                             type="button"
                             class="btn btn-blue btn-lg event-confirm-button event-unconfirmed ${extraUnconfirmedClass}"
                             data-userLoggedAlias="${userUtil.loggedUserAlias()}"
-                            data-postUrl="${g.createLink(mapping: 'eventBookTicket', params:event.encodeAsLinkProperties())}"
+                            data-postUrl="${g.createLink(mapping: 'eventBookTicket', params:campaign.encodeAsLinkProperties())}"
                     >
                         ${message(code: "event.callToAction.button")}
                     </button>

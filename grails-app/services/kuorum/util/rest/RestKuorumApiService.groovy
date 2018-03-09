@@ -183,10 +183,10 @@ class RestKuorumApiService {
         ACCOUNT_SURVEY_REPORT   ("/communication/campaign/survey/{userAlias}/{surveyId}/report"),
 
         ACCOUNT_EVENTS              ("/communication/campaign/event/{userAlias}"),
-        ACCOUNT_EVENT               ("/communication/campaign/event/{userAlias}/{eventId}"),
-        ACCOUNT_EVENT_ADD_ASSISTANT ("/communication/campaign/event/{userAlias}/{eventId}/assistant/{assistantAlias}"),
-        ACCOUNT_EVENT_CHECK_IN      ("/communication/campaign/event/{userAlias}/{eventId}/checkIn"),
-        ACCOUNT_EVENT_REPORT        ("/communication/campaign/event/{userAlias}/{eventId}/assistant/report"),
+        ACCOUNT_EVENT               ("/communication/campaign/event/{userAlias}/{campaignId}"),
+        ACCOUNT_EVENT_ADD_ASSISTANT ("/communication/campaign/event/{userAlias}/{campaignId}/assistant/{assistantAlias}"),
+        ACCOUNT_EVENT_CHECK_IN      ("/communication/campaign/event/{userAlias}/{campaignId}/checkIn"),
+        ACCOUNT_EVENT_REPORT        ("/communication/campaign/event/{userAlias}/{campaignId}/assistant/report"),
 
         USER_CONTACTS_CAMPAIGNS_ALL ("/user/{userId}/dashboard/campaigns"),
 

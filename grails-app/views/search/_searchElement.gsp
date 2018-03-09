@@ -19,6 +19,7 @@
             %{--<li class="col-sm-12 col-md-6 search-article">--}%
                 %{--<g:render template="/search/searchCampaignElement" model="[solrCampaign:solrElement]"/>--}%
             %{--</li>--}%
+            <r:require modules="post"/>
             <g:render template="/campaigns/cards/searchCampaignList" model="[campaign:solrElement, showAuthor: true]" />
 
         </g:elseif>

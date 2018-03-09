@@ -8,11 +8,11 @@
         </g:link>
 
         <g:if test="${campaign?.event}">
-            <g:link mapping="eventAssistanceReport" params="[eventId:campaign.event.id, checkList:true]" class="btn btn-blue inverted export-modal-button" data-modalId="export-eventAssistants-modal">
+            <g:link mapping="eventAssistanceReport" params="[campaignId:campaign.id, checkList:true]" class="btn btn-blue inverted export-modal-button" data-modalId="export-eventAssistants-modal">
                 <span class="fa fa-file-pdf-o"></span>
                 <g:message code="tools.massMailing.list.event.assistants.checkList"/>
             </g:link>
-            <g:link mapping="eventAssistanceReport" params="[eventId:campaign.event.id, checkList: false]" class="btn btn-blue inverted export-modal-button" data-modalId="export-eventAssistants-modal">
+            <g:link mapping="eventAssistanceReport" params="[campaignId:campaign.id, checkList: false]" class="btn btn-blue inverted export-modal-button" data-modalId="export-eventAssistants-modal">
                 <span class="fa fa-file-excel-o"></span>
                 <g:message code="tools.massMailing.list.event.assistants.report"/>
             </g:link>

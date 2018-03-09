@@ -1,6 +1,7 @@
 package kuorum.solr
 
 import com.fasterxml.jackson.core.type.TypeReference
+import grails.plugin.springsecurity.SpringSecurityService
 import grails.transaction.Transactional
 import kuorum.core.exception.KuorumExceptionUtil
 import kuorum.core.model.CommissionType
@@ -31,6 +32,7 @@ class SearchSolrService {
     SolrServer server
     IndexSolrService indexSolrService
     RestKuorumApiService restKuorumApiService
+    SpringSecurityService springSecurityService
 
     SearchResultsRSDTO searchAPI(SearchParams searchParams){
         SearchParamsRDTO searchParamsRDTO = new SearchParamsRDTO();
@@ -40,6 +42,9 @@ class SearchSolrService {
         searchParamsRDTO.filteredIds = searchParams.filteredUserIds
         searchParamsRDTO.word = searchParams.word
         Map<String, String> query = searchParamsRDTO.encodeAsQueryParams()
+        if (springSecurityService.loggedIn){
+            query.put("viewerUid", springSecurityService.currentUser.id)
+        }
         def response = restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.SEARCH,
                 [:],

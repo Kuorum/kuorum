@@ -72,10 +72,11 @@ class KuorumUserTagLib {
         }else if (attrs.user instanceof SearchKuorumElementRSDTO){
             // ALIAS
             user = KuorumUser.findByAlias(attrs.user.alias)
-            name = user.fullName
+            name = highlightedField(attrs.user, "owner")
+            name = name?:user.fullName
         }else if (attrs.user instanceof String){
             // ALIAS
-            user = KuorumUser.findByAlias(attrs.user.encodeAsRemovingHtmlTags())
+            user = KuorumUser.findByAlias(attrs.user)
             name = user.fullName
         }else{
             user = attrs.user
@@ -502,5 +503,23 @@ class KuorumUserTagLib {
         if (springSecurityService.isLoggedIn() && !((KuorumUser)springSecurityService.currentUser).timeZone) {
             out << body()
         }
+    }
+
+    private static final Integer MAX_LENGTH_TEXT = 300
+    private String highlightedField(SearchKuorumElementRSDTO element, String field, Integer maxLength = MAX_LENGTH_TEXT){
+
+        String res = ""
+        if (element.highlighting?."$field"){
+            res = element.highlighting."$field"
+        }else if (element."${field}"){
+            res = element."${field}"
+            if (res){
+                res = res.substring(0, Math.min(res.length(), maxLength))
+            }
+        }
+        if (res && res.length() < element."${field}".length()){
+            res += " ..."
+        }
+        return res
     }
 }

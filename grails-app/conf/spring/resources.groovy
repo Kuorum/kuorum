@@ -85,7 +85,8 @@ beans = {
    searchSolrService(SearchSolrService){
        server = solrServer
        indexSolrService = indexSolrService
-       restKuorumApiService = restKuorumApiService
+       restKuorumApiService = ref('restKuorumApiService')
+       springSecurityService = ref ('springSecurityService')
    }
 
 

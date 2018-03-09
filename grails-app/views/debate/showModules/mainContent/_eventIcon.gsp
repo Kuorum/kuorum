@@ -8,7 +8,7 @@
         <button type="button"
                 class="${!event.registered & buyTicketActive?'event-confirm-button':''} ${event.registered?'active disabled':''} ${!buyTicketActive?'disabled':''}"
                 data-userLoggedAlias="${userUtil.loggedUserAlias()}"
-                data-postUrl="${g.createLink(mapping: 'eventBookTicket', params:event.encodeAsLinkProperties())}"
+                data-postUrl="${g.createLink(mapping: 'eventBookTicket', params:campaign.encodeAsLinkProperties())}"
 
         >
             <span class="fa fa-ticket" aria-hidden="true"></span>

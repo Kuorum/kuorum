@@ -1,6 +1,7 @@
 package kuorum
 
 import kuorum.core.model.solr.SolrElement
+import org.kuorum.rest.model.search.SearchKuorumElementRSDTO
 
 class SearchTagLib {
     static defaultEncodeAs = 'raw'
@@ -8,14 +9,13 @@ class SearchTagLib {
     static namespace = "searchUtil"
     private static final Integer MAX_LENGTH_TEXT = 300
 
-    @Deprecated
     def highlightedField={attrs ->
-        SolrElement element = attrs.solrElement
+        SearchKuorumElementRSDTO element = attrs.solrElement
         String field = attrs.field
-        Integer maxLength = attrs.maxLength?:MAX_LENGTH_TEXT
+        Integer maxLength = attrs.maxLength?Integer.parseInt(attrs.maxLength):MAX_LENGTH_TEXT
 
         String res = ""
-        if (element.highlighting."$field"){
+        if (element.highlighting?."$field"){
             res = element.highlighting."$field"
         }else if (element."${field}"){
             res = element."${field}"

@@ -403,9 +403,9 @@ class UrlMappings {
         name debateProposalDeleteComment: "/ajax/proposalComment/delete"(controller: "debateProposal", action: "deleteComment")
         name debateProposalVoteComment: "/ajax/proposalComment/vote"(controller: "debateProposal", action: "voteComment")
 
-        name eventBookTicket:           "/ajax/$userAlias/event/$eventId/book"(controller:"event", action: "bookTicket")
-        name eventConfirmAssistance:    "/account/event/$eventId/confirm"(controller:"event", action: "checkIn")
-        name eventAssistanceReport:     "/ajax/account/event/$eventId/report"(controller:"event", action: "sendReport")
+        name eventBookTicket:           "/ajax/$userAlias/event/$urlTitle-$campaignId/book"(controller:"event", action: "bookTicket")
+        name eventConfirmAssistance:    "/account/event/$campaignId/confirm"(controller:"event", action: "checkIn")
+        name eventAssistanceReport:     "/ajax/account/event/$campaignId/report"(controller:"event", action: "sendReport")
 
         name postLike:              "/ajax/likePost"(controller: "post", action: "likePost")
         name postRemove:            "/ajax/account/$userAlias/p/$urlTitle-$campaignId/remove" (controller: "post", action: "remove")

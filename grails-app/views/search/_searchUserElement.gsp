@@ -18,13 +18,13 @@
         %{--<button type="button" class="btn btn-blue btn-lg follow allow">Seguir</button>--}%
             <userUtil:followButton user="${user}" cssSize="btn-lg"/>
             <g:link mapping="userShow" params="${user.encodeAsLinkProperties()}" class="user-name link-wrapper-clickable" itemprop="name">
-                ${raw(solrUser.name)}
+                <searchUtil:highlightedField solrElement="${solrUser}" field="name"/>
             </g:link>
             <cite><userUtil:politicianPosition user="${user}"/></cite>
             <p class="party"><userUtil:roleName user="${user}"/></p>
         </div>
-        %{--<p><searchUtil:highlightedField solrElement="${solrUser}" field="text" numChars="165"/> </p>--}%
-        <p><kuorumDate:showShortedText text="${user.bio}" numChars="140"/> </p>
+        <p><searchUtil:highlightedField solrElement="${solrUser}" field="text" maxLength="165"/> </p>
+        %{--<p><kuorumDate:showShortedText text="${user.bio}" numChars="140"/> </p>--}%
         <div class='card-footer'>
             <userUtil:ifIsFollower user="${user}">
                 <span class="fa fa-check-circle-o"></span>
