@@ -36,8 +36,6 @@ class LinkPropertiesCodec {
             case NotificationProposalCommentRSDTO:
             case NotificationProposalCommentMentionRSDTO:
             case SearchKuorumElementRSDTO:
-                params = prepareParams(target)
-                break
             case KuorumUser:
             case SolrKuorumUser:
                 params = prepareParams(target)

@@ -33,7 +33,7 @@
             <div class="row extra-padding">
                 <div class='col-sm-7 profile-title'>
                     <h1 itemprop="name">${politician.fullName}</h1>
-                    <cite itemprop="jobTitle"><userUtil:politicianPosition user="${politician}"/></cite>
+                    <cite itemprop="jobTitle"><userUtil:userRegionName user="${politician}"/></cite>
                     <p class='party' itemprop="affiliation"><span  itemscope itemtype="http://schema.org/Organization">${userUtil.roleName(user:politician)}</span></p>
                 </div>
                 <div class="col-sm-5">

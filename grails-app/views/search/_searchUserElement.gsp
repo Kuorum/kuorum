@@ -1,32 +1,29 @@
 <%@ page import="kuorum.users.KuorumUser; org.bson.types.ObjectId" %>
 
-<g:set var="user" value="${KuorumUser.get(new ObjectId(solrUser.id))}"/>
+%{--<g:set var="user" value="${KuorumUser.get(new ObjectId(solrUser.id))}"/>--}%
 <article itemtype="http://schema.org/Person" itemscope role="article" class="box-ppal clearfix">
     <div class="link-wrapper">
-        <g:link mapping="userShow" params="${user.encodeAsLinkProperties()}" class="hidden"></g:link>
+        <g:link mapping="userShow" params="${solrUser.encodeAsLinkProperties()}" class="hidden"></g:link>
         <div class="card-header-photo">
-            <img src="${image.userImgProfile(user:user)}" alt="${message(code:'kuorumUser.image.profile.alt', args:[user.name])}">
+            <img src="${image.userImgProfile(user:solrUser)}" alt="${message(code:'kuorumUser.image.profile.alt', args:[solrUser.name])}">
         </div>
 
         <div class="user">
             <div class='profile-pic-div'>
-                <img itemprop="image" class="user-img big" alt="${message(code:'kuorumUser.image.avatar.alt', args:[user.name])}" title="${message(code:'kuorumUser.image.avatar.title', args:[user.name])}" src="${image.userImgSrc(user:user)}">
-                <g:if test="${user.verified}">
-                    %{--<i class="fa fa-check"></i>--}%
-                </g:if>
+                <img itemprop="image" class="user-img big" alt="${message(code:'kuorumUser.image.avatar.alt', args:[solrUser.name])}" title="${message(code:'kuorumUser.image.avatar.title', args:[solrUser.name])}" src="${image.userImgSrc(user:solrUser)}">
             </div>
         %{--<button type="button" class="btn btn-blue btn-lg follow allow">Seguir</button>--}%
-            <userUtil:followButton user="${user}" cssSize="btn-lg"/>
-            <g:link mapping="userShow" params="${user.encodeAsLinkProperties()}" class="user-name link-wrapper-clickable" itemprop="name">
+            <userUtil:followButton user="${solrUser}" cssSize="btn-lg"/>
+            <g:link mapping="userShow" params="${solrUser.encodeAsLinkProperties()}" class="user-name link-wrapper-clickable" itemprop="name">
                 <searchUtil:highlightedField solrElement="${solrUser}" field="name"/>
             </g:link>
-            <cite><userUtil:politicianPosition user="${user}"/></cite>
-            <p class="party"><userUtil:roleName user="${user}"/></p>
+            <cite><userUtil:userRegionName user="${solrUser}"/></cite>
+            <p class="party"><userUtil:roleName user="${solrUser}"/></p>
         </div>
         <p><searchUtil:highlightedField solrElement="${solrUser}" field="text" maxLength="165"/> </p>
         %{--<p><kuorumDate:showShortedText text="${user.bio}" numChars="140"/> </p>--}%
         <div class='card-footer'>
-            <userUtil:ifIsFollower user="${user}">
+            <userUtil:ifIsFollower user="${solrUser}">
                 <span class="fa fa-check-circle-o"></span>
                 <g:message code="kuorumUser.popover.follower"/>
             </userUtil:ifIsFollower>

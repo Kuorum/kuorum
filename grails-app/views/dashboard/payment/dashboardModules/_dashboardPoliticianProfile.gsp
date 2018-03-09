@@ -30,7 +30,7 @@
         <g:link mapping="userShow" params="${user.encodeAsLinkProperties()}" itemprop="url">
             <h2>${user.name}</h2>
         </g:link>
-        <h3><userUtil:politicianPosition user="${user}"/></h3>
+        <h3><userUtil:userRegionName user="${user}"/></h3>
         <ul class="activity">
             <li class="followers">
                 <userUtil:counterFollowers user="${user}"/>

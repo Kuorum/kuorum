@@ -35,12 +35,7 @@ class SearchSolrService {
     SpringSecurityService springSecurityService
 
     SearchResultsRSDTO searchAPI(SearchParams searchParams){
-        SearchParamsRDTO searchParamsRDTO = new SearchParamsRDTO();
-        searchParamsRDTO.searchBy = SearchByRDTO.valueOf(searchParams.getSearchType().toString()) // CHAPU
-        searchParamsRDTO.type = searchParams.getType()?SearchTypeRSDTO.valueOf(searchParams.getType().toString()):null // CHAPU
-        searchParamsRDTO.boostedRegions = searchParams.boostedRegions
-        searchParamsRDTO.filteredIds = searchParams.filteredUserIds
-        searchParamsRDTO.word = searchParams.word
+        SearchParamsRDTO searchParamsRDTO = convertParams(searchParams)
         Map<String, String> query = searchParamsRDTO.encodeAsQueryParams()
         if (springSecurityService.loggedIn){
             query.put("viewerUid", springSecurityService.currentUser.id)
@@ -57,72 +52,18 @@ class SearchSolrService {
         resultsRSDTO
 
     }
-//
-//    @Deprecated
-//    SolrResults search(SearchParams params) {
-//
-//        SolrQuery query = new SolrQuery();
-//        query.setRequestHandler("/query")
-//
-////        query.setParam(CommonParams.QT, "query");
-//        query.setParam(CommonParams.START, "${params.offset}");
-//        query.setParam(CommonParams.ROWS, "${params.max}");
-//        query.setParam("tie", "0");
-//        prepareWord(params, query)
-//        prepareFilter(params, query)
-//        prepareBoosted(params, query)
-//        prepareScore(params, query)
-//
-//        query.setSort("score", SolrQuery.ORDER.desc)
-//        query.addSort("relevance", SolrQuery.ORDER.desc)
-//        query.addSort("kuorumRelevance", SolrQuery.ORDER.desc)
-//        query.addSort("constituencyIso3166_2Length", SolrQuery.ORDER.asc)
-//        query.addSort("regionIso3166_2Length", SolrQuery.ORDER.asc)
-//        query.addSort("dateCreated", SolrQuery.ORDER.desc)
-//
-//        QueryResponse rsp = server.query( query, SolrRequest.METHOD.POST );
-//        SolrDocumentList docs = rsp.getResults();
-//
-//        SolrResults solrResults = new SolrResults()
-//        solrResults.elements = docs.collect{indexSolrService.recoverSolrElementFromSolr(it)}
-//        solrResults.numResults = docs.numFound
-//        solrResults.suggest = prepareSuggestions(rsp)
-//        solrResults.facets = prepareFacets(rsp)
-//        prepareHighlighting(solrResults,rsp)
-//        solrResults
-//    }
-//
-//    private SolrSuggest prepareSuggestions(QueryResponse rsp){
-//        SolrSuggest solrSuggest = null
-//        if (rsp?._spellInfo?.suggestions?.get("collation")){
-//            solrSuggest = new SolrSuggest()
-//            solrSuggest.suggestedQuery = rsp._spellInfo.suggestions.collation.collationQuery
-//            solrSuggest.hits = rsp._spellInfo.suggestions.collation.hits
-//        }
-//        solrSuggest
-//    }
-//
-//    private Map<String, List<SolrFacets>> prepareFacets(QueryResponse rsp){
-//        def res = [:]
-//        rsp.facetFields.each{
-//            res.put(it.name, it.values.collect{new SolrFacets(facetName: it.name, hits: it.count)})
-//        }
-//        res
-////        rsp.facetFields.collect{it._values}.flatten().collect{
-////            new SolrFacets(facetName: it.name, hits: it.count)
-////        }
-//    }
-//
-//    private prepareHighlighting(SolrResults solrResults, QueryResponse rsp){
-//        rsp.highlighting.each{id,changes->
-//            SolrElement solrElement = solrResults.elements.find{it.id == id}
-//            changes.each{field, val ->
-//                if (solrElement.hasProperty(field))
-//                    solrElement.highlighting.storage.put(field,val[0])
-//            }
-//        }
-//
-//    }
+
+    private SearchParamsRDTO convertParams(SearchParams searchParams){
+        SearchParamsRDTO searchParamsRDTO = new SearchParamsRDTO()
+        searchParamsRDTO.searchBy = SearchByRDTO.valueOf(searchParams.getSearchType().toString()) // CHAPU
+        searchParamsRDTO.type = searchParams.getType()?SearchTypeRSDTO.valueOf(searchParams.getType().toString()):null // CHAPU
+        searchParamsRDTO.boostedRegions = searchParams.boostedRegions
+        searchParamsRDTO.filteredIds = searchParams.filteredUserIds
+        searchParamsRDTO.word = searchParams.word
+        searchParamsRDTO.page= Math.round(searchParams.offset/searchParams.max)
+        searchParamsRDTO.size= searchParams.max
+        searchParamsRDTO
+    }
 
     SolrAutocomplete suggest(SearchParams params){
 

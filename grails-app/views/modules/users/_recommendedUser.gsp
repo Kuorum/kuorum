@@ -16,7 +16,7 @@
             <g:link mapping="userShow" params="${user.encodeAsLinkProperties()}" class="user-name" itemprop="name">
                 ${user.name}
             </g:link>
-            <cite itemprop="jobTitle"><userUtil:politicianPosition user="${user}"/></cite>
+            <cite itemprop="jobTitle"><userUtil:userRegionName user="${user}"/></cite>
             <p class="party" itemprop="affiliation"><userUtil:roleName user="${user}"/></p>
             %{--<span class="user-type"><userUtil:roleName user="${user}"/> </span>--}%
         </div>
