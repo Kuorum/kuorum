@@ -258,7 +258,7 @@ class KuorumUserTagLib {
             Region regionValue = user?.personalData?.province
             regionIso = regionValue.iso3166_2
         }else if (attrs.user instanceof SearchKuorumUserRSDTO){
-            regionIso = attrs.user.isoRegion
+            regionIso = attrs.user.regionIso
         }
 
         def regionName = "";
