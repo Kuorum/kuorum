@@ -67,30 +67,13 @@ class SearchSolrService {
 
     SolrAutocomplete suggest(SearchParams params){
 
-        if (!params.validate()){
-            throw KuorumExceptionUtil.createExceptionFromValidatable(params,"Parametros de búsqueda erroneos")
-        }
-        SolrQuery query = new SolrQuery();
-//        query.setParam(CommonParams.QT, "/suggest");
-        query.setRequestHandler("/suggest");
-//        query.setParam("spellcheck.q", params.word.split(" ").last());
-        query.setParam("spellcheck.q", params.word);
-        //query.setParam(TermsParams.TERMS_FIELD, "name", "username");
-        prepareFilter(params, query)
-        query.setParam("facet.prefix",params.word)
-
-        QueryResponse rsp = server.query( query, SolrRequest.METHOD.POST );
-
-        SolrAutocomplete solrAutocomplete = new SolrAutocomplete()
-        solrAutocomplete.suggests = prepareAutocompleteSuggestions(rsp)
-//        if (params.word.split(" ").size()>1){
-//            String prevWords = params.word.split(" ")[0..params.word.split(" ").size()-2].join(" ")
-//            solrAutocomplete.suggests = solrAutocomplete.suggests.collect{prevWords +" "+it}
-//        }
-        def elements = prepareSolrElements(rsp)
-        solrAutocomplete.kuorumUsers = elements.kuorumUsers
-        solrAutocomplete.numResults =rsp.results.numFound
-
+        Map<String, String> query = [word:params.word]
+        def response = restKuorumApiService.get(
+                RestKuorumApiService.ApiMethod.SEARCH_SUGGEST,
+                [:],
+                query,
+                new TypeReference<List<String>>(){})
+        SolrAutocomplete solrAutocomplete = new SolrAutocomplete(suggests:response.data)
         solrAutocomplete
     }
 //

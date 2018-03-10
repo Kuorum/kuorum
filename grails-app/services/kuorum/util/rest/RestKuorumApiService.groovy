@@ -104,6 +104,47 @@ class RestKuorumApiService {
     }
 
 
+    private RESTClient getRestMailKuorumServices(TypeReference clazz){
+        RESTClient mailKuorumServices = new RESTClient( kuorumRestServices)
+        EncoderRegistry encoderRegistry = mailKuorumServices.getEncoder();
+        encoderRegistry.putAt(groovyx.net.http.ContentType.JSON, {it ->
+//            def builder = new groovy.json.JsonBuilder(); // Not use JacksonAnnotations
+//            builder.content = it
+//            String rawJson = builder.toString();
+
+            ObjectMapper builder = new ObjectMapper()
+//            String rawJson = builder.valueToTree(it).toString()
+            String rawJson = builder.writeValueAsString(it)
+
+            InputStreamEntity res = new InputStreamEntity(new ByteArrayInputStream(rawJson.getBytes(StandardCharsets.UTF_8)));
+            res.setContentType(groovyx.net.http.ContentType.JSON.toString())
+            return res;
+        })
+
+        ParserRegistry parserRegistry = mailKuorumServices.getParser()
+        parserRegistry.putAt(groovyx.net.http.ContentType.JSON, { HttpResponseDecorator resp ->
+            def obj = null
+            if (resp.status ==200){
+                if(clazz != null){
+                    String jsonString = IOUtils.toString(resp.getEntity().getContent(), "UTF-8");
+                    ObjectMapper objectMapper = new ObjectMapper()
+                    objectMapper.setTimeZone(TimeZone.getTimeZone("UTC"))
+                    objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+                    obj = objectMapper.readValue(jsonString, clazz);
+                }
+                return obj
+            }else{
+                throw new KuorumException("No found")
+            }
+        })
+
+        mailKuorumServices.handler.failure = { resp, data ->
+            throw new KuorumException("No found")
+        }
+        return mailKuorumServices
+
+    }
+
     public enum ApiMethod{
         USER_STATS_REPUTATION               ('/user/{userId}/stats/reputation'),
         USER_STATS_REPUTATION_EVOLUTION     ('/user/{userId}/stats/reputation/evolution'),
@@ -193,6 +234,7 @@ class RestKuorumApiService {
         SEARCH                  ("/search/"),
         SEARCH_INDEX_FULL       ("/search/index/full"),
         SEARCH_INDEX_DELTA      ("/search/index/delta"),
+        SEARCH_SUGGEST          ("/search/suggest"),
 
         ADMIN_MAILS_SEND("/admin/notification/mailing/send"),
         ADMIN_USER_CONFIG_SENDER("/admin/{userAlias}/config/mailing");
@@ -207,46 +249,5 @@ class RestKuorumApiService {
             params.each{ k, v -> builtUrl = builtUrl.replaceAll("\\{${k}}", v) }
             contextPath+builtUrl
         }
-    }
-
-    private RESTClient getRestMailKuorumServices(TypeReference clazz){
-        RESTClient mailKuorumServices = new RESTClient( kuorumRestServices)
-        EncoderRegistry encoderRegistry = mailKuorumServices.getEncoder();
-        encoderRegistry.putAt(groovyx.net.http.ContentType.JSON, {it ->
-//            def builder = new groovy.json.JsonBuilder(); // Not use JacksonAnnotations
-//            builder.content = it
-//            String rawJson = builder.toString();
-
-            ObjectMapper builder = new ObjectMapper()
-//            String rawJson = builder.valueToTree(it).toString()
-            String rawJson = builder.writeValueAsString(it)
-
-            InputStreamEntity res = new InputStreamEntity(new ByteArrayInputStream(rawJson.getBytes(StandardCharsets.UTF_8)));
-            res.setContentType(groovyx.net.http.ContentType.JSON.toString())
-            return res;
-        })
-
-        ParserRegistry parserRegistry = mailKuorumServices.getParser()
-        parserRegistry.putAt(groovyx.net.http.ContentType.JSON, { HttpResponseDecorator resp ->
-            def obj = null
-            if (resp.status ==200){
-                if(clazz != null){
-                    String jsonString = IOUtils.toString(resp.getEntity().getContent(), "UTF-8");
-                    ObjectMapper objectMapper = new ObjectMapper()
-                    objectMapper.setTimeZone(TimeZone.getTimeZone("UTC"))
-                    objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-                    obj = objectMapper.readValue(jsonString, clazz);
-                }
-                return obj
-            }else{
-                throw new KuorumException("No found")
-            }
-        })
-
-        mailKuorumServices.handler.failure = { resp, data ->
-            throw new KuorumException("No found")
-        }
-        return mailKuorumServices
-
     }
 }

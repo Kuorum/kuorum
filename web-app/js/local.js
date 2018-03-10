@@ -212,10 +212,6 @@ $(document).ready(function() {
                 format = "<img class='user-img' alt='"+suggestion.data.name+"' src='"+suggestion.data.urlAvatar+"'>"
                 format +="<span class='name'>"+suggestion.data.name+"</span>"
                 format +="<span class='user-type'>"+suggestion.data.role.i18n+"</span>"
-            }else if(suggestion.type=="PROJECT"){
-                format = "<span class='statusProject'>"+suggestion.data.status.i18n+"</span>"
-                format += suggestion.data.title
-                format += " <strong>"+suggestion.data.hashtag+"</strong>"
             }
             return format
         },
