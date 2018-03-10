@@ -1,7 +1,6 @@
 import grails.util.Holders
 import kuorum.Region
 import kuorum.core.model.UserType
-import kuorum.core.model.solr.SolrKuorumUser
 import kuorum.project.Project
 import kuorum.users.KuorumUser
 import org.kuorum.rest.model.communication.CampaignRSDTO
@@ -37,7 +36,6 @@ class LinkPropertiesCodec {
             case NotificationProposalCommentMentionRSDTO:
             case SearchKuorumElementRSDTO:
             case KuorumUser:
-            case SolrKuorumUser:
                 params = prepareParams(target)
                 break
             case UserType:
@@ -71,12 +69,6 @@ class LinkPropertiesCodec {
     private static def prepareParams(KuorumUser user){
         [
                 userAlias:user.alias.toLowerCase()
-        ]
-    }
-
-    private static def prepareParams(SolrKuorumUser user){
-        [
-                userAlias:user.name
         ]
     }
 

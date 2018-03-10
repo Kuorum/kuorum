@@ -6,19 +6,11 @@ import groovy.time.TimeCategory
 import groovy.time.TimeDuration
 import groovyx.net.http.HttpResponseDecorator
 import groovyx.net.http.RESTClient
-import kuorum.Region
-import kuorum.core.exception.KuorumException
-import kuorum.core.model.CommissionType
-import kuorum.core.model.Gender
-import kuorum.core.model.UserType
-import kuorum.core.model.solr.*
 import kuorum.post.Post
 import kuorum.project.Project
 import kuorum.users.KuorumUser
 import org.apache.solr.client.solrj.SolrServer
 import org.apache.solr.client.solrj.impl.HttpSolrServer
-import org.apache.solr.common.SolrDocument
-import org.bson.types.ObjectId
 import org.springframework.beans.factory.annotation.Value
 
 @Transactional
@@ -117,19 +109,5 @@ class IndexSolrService {
 
     void delete(KuorumUser user){
         deleteDocument(user.id.toString())
-    }
-
-    @Deprecated
-    SolrKuorumUser recoverKuorumUserFromSolr(SolrDocument solrDocument){
-        new SolrKuorumUser(
-                id:new ObjectId(solrDocument.id),
-                name:solrDocument.name,
-                alias:solrDocument.alias,
-                type:SolrType.valueOf(solrDocument.type),
-                dateCreated:solrDocument.dateCreated,
-                urlImage: solrDocument.urlImage,
-                tags: solrDocument.tags,
-                text:solrDocument.text
-        )
     }
 }

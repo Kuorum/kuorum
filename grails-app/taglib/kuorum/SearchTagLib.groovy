@@ -1,6 +1,5 @@
 package kuorum
 
-import kuorum.core.model.solr.SolrElement
 import org.kuorum.rest.model.search.SearchKuorumElementRSDTO
 
 class SearchTagLib {

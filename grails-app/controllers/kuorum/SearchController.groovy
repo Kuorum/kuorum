@@ -3,16 +3,15 @@ package kuorum
 import grails.converters.JSON
 import kuorum.core.model.AvailableLanguage
 import kuorum.core.model.CommissionType
-import kuorum.core.model.UserType
 import kuorum.core.model.search.SearchParams
 import kuorum.core.model.search.SearchType
 import kuorum.core.model.search.SuggestRegion
-import kuorum.core.model.solr.*
+import kuorum.core.model.solr.SolrAutocomplete
+import kuorum.core.model.solr.SolrType
 import kuorum.users.KuorumUser
 import kuorum.web.constants.WebConstants
 import org.kuorum.rest.model.search.SearchResultsRSDTO
 import org.springframework.web.servlet.LocaleResolver
-import springSecurity.KuorumRegisterCommand
 
 class SearchController{
 
@@ -37,26 +36,15 @@ class SearchController{
 //            log("suggest JSON marshaled created")
             it.registerObjectMarshaller( SolrType)          { SolrType solrType             -> messageEnumJson(solrType)}
             it.registerObjectMarshaller( CommissionType )   { CommissionType commissionType -> messageEnumJson(commissionType)}
-            it.registerObjectMarshaller( SolrKuorumUser )   { SolrKuorumUser solrKuorumUser ->
-                def urlImage = solrKuorumUser.urlImage
-                if (!urlImage){
-                    urlImage = g.resource(dir:'/images', file: 'user-default.jpg')
-                }
-                [
-                    name:solrKuorumUser.name,
-                    urlAvatar:urlImage,
-                    url:g.createLink(mapping: 'userShow', params:solrKuorumUser.encodeAsLinkProperties())
-                ]
-            }
             it.registerObjectMarshaller(SolrAutocomplete){SolrAutocomplete solrAutocomplete ->
                def suggestions = []
 
                 solrAutocomplete.suggests.each {
                     suggestions  << [type:"SUGGESTION", value:it, data:it]
                 }
-                solrAutocomplete.kuorumUsers.each {
-                    suggestions << [type:"USER", value:it.name, data:it]
-                }
+//                solrAutocomplete.kuorumUsers.each {
+//                    suggestions << [type:"USER", value:it.name, data:it]
+//                }
 
                 [suggestions:suggestions]
 //                [

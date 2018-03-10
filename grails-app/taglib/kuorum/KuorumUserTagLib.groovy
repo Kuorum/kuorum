@@ -1,7 +1,6 @@
 package kuorum
 
 import kuorum.core.model.UserType
-import kuorum.core.model.solr.SolrKuorumUser
 import kuorum.post.Post
 import kuorum.register.RegisterService
 import kuorum.users.KuorumUser
@@ -61,13 +60,7 @@ class KuorumUserTagLib {
         //attrs.withPopover => String expected
         Boolean withPopover = !attrs.withPopover?true:Boolean.parseBoolean(attrs.withPopover)
         String name = ""
-        if (attrs.user instanceof SolrKuorumUser){
-            user = KuorumUser.get(new ObjectId(attrs.user.id))
-            name = user.name
-        }else if (attrs.user instanceof BasicDataKuorumUserRSDTO){
-            user = KuorumUser.get(new ObjectId(attrs.user.id))
-            name = user.fullName
-        }else if (attrs.user instanceof BasicDataKuorumUserRSDTO){
+        if (attrs.user instanceof BasicDataKuorumUserRSDTO){
             user = KuorumUser.get(new ObjectId(attrs.user.id))
             name = user.fullName
         }else if (attrs.user instanceof SearchKuorumElementRSDTO){

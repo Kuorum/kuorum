@@ -4,23 +4,16 @@ import com.fasterxml.jackson.core.type.TypeReference
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.transaction.Transactional
 import kuorum.core.exception.KuorumExceptionUtil
-import kuorum.core.model.CommissionType
 import kuorum.core.model.search.SearchParams
-import kuorum.core.model.search.SearchPolitician
-import kuorum.core.model.search.SearchProjects
 import kuorum.core.model.search.SearchType
-import kuorum.core.model.solr.*
+import kuorum.core.model.solr.SolrAutocomplete
+import kuorum.core.model.solr.SolrType
 import kuorum.util.rest.RestKuorumApiService
 import org.apache.solr.client.solrj.SolrQuery
 import org.apache.solr.client.solrj.SolrRequest
 import org.apache.solr.client.solrj.SolrServer
-import org.apache.solr.client.solrj.response.Group
 import org.apache.solr.client.solrj.response.QueryResponse
-import org.apache.solr.client.solrj.util.ClientUtils
-import org.apache.solr.common.SolrDocument
-import org.apache.solr.common.SolrDocumentList
 import org.apache.solr.common.params.CommonParams
-import org.kuorum.rest.model.contact.ContactPageRSDTO
 import org.kuorum.rest.model.search.SearchByRDTO
 import org.kuorum.rest.model.search.SearchParamsRDTO
 import org.kuorum.rest.model.search.SearchResultsRSDTO
@@ -155,21 +148,6 @@ class SearchSolrService {
             []
         }
 
-    }
-
-    @Deprecated
-    private def prepareSolrElements(QueryResponse rsp){
-        ArrayList<SolrKuorumUser> kuorumUsers = []
-        rsp.results.each{ SolrDocument solrDocument ->
-            switch (SolrType.valueOf(solrDocument.type)){
-                case SolrType.KUORUM_USER:
-                    kuorumUsers.add(indexSolrService.recoverKuorumUserFromSolr(solrDocument))
-                    break
-                default:
-                    log.warn("No se ha podido recuperar el elemento de sorl ${solrDocument}")
-            }
-        }
-        [kuorumUsers:kuorumUsers]
     }
 
     public List<String> suggestTags(SearchParams params){

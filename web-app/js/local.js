@@ -208,11 +208,12 @@ $(document).ready(function() {
             var format = ""
             if (suggestion.type=="SUGGESTION" || suggestion.type=="REGION"){
                 format =  suggestion.value
-            }else if(suggestion.type=="USER"){
-                format = "<img class='user-img' alt='"+suggestion.data.name+"' src='"+suggestion.data.urlAvatar+"'>"
-                format +="<span class='name'>"+suggestion.data.name+"</span>"
-                format +="<span class='user-type'>"+suggestion.data.role.i18n+"</span>"
             }
+            // else if(suggestion.type=="USER"){
+            //     format = "<img class='user-img' alt='"+suggestion.data.name+"' src='"+suggestion.data.urlAvatar+"'>"
+            //     format +="<span class='name'>"+suggestion.data.name+"</span>"
+            //     format +="<span class='user-type'>"+suggestion.data.role.i18n+"</span>"
+            // }
             return format
         },
         searchUserText:function(userText){
