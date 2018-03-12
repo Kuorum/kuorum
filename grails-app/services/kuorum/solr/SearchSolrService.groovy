@@ -9,7 +9,6 @@ import kuorum.core.model.search.SearchType
 import kuorum.core.model.solr.SolrAutocomplete
 import kuorum.util.rest.RestKuorumApiService
 import org.apache.solr.client.solrj.SolrQuery
-import org.apache.solr.client.solrj.SolrRequest
 import org.apache.solr.client.solrj.SolrServer
 import org.apache.solr.client.solrj.response.QueryResponse
 import org.apache.solr.common.params.CommonParams
@@ -155,16 +154,12 @@ class SearchSolrService {
         if (!params.validate()){
             throw KuorumExceptionUtil.createExceptionFromValidatable(params,"Parametros de búsqueda erroneos")
         }
-        SolrQuery query = new SolrQuery();
-        query.setParam(CommonParams.QT, "/suggestTags");
-        query.setParam("spellcheck.q", params.word);
-        //query.setParam(TermsParams.TERMS_FIELD, "name", "username");
-        prepareWord(params,query)
-        prepareFilter(params, query)
-        query.setParam("facet.prefix",params.word)
-        QueryResponse rsp = server.query( query, SolrRequest.METHOD.POST );
-        List<String> suggestions = prepareAutocompleteSuggestions(rsp)
-        suggestions
+        def response = restKuorumApiService.get(
+                RestKuorumApiService.ApiMethod.SEARCH_SUGGEST_CAUSES,
+                [:],
+                [prefix:params.word],
+                new TypeReference<List<String>>(){})
+        response.data
     }
 
     /**

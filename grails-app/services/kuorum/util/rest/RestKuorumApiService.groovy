@@ -236,6 +236,7 @@ class RestKuorumApiService {
         SEARCH_INDEX_DELTA      ("/search/index/delta"),
         SEARCH_SUGGEST          ("/search/suggest"),
         SEARCH_SUGGEST_USERS    ("/search/suggest/users"),
+        SEARCH_SUGGEST_CAUSES   ("/search/suggest/causes"),
 
         ADMIN_MAILS_SEND("/admin/notification/mailing/send"),
         ADMIN_USER_CONFIG_SENDER("/admin/{userAlias}/config/mailing");
