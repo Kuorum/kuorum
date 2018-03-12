@@ -1511,19 +1511,19 @@ ul.list > li > ul.list-actions > li > a:active {color: #20a2ea;}
 #mails {text-align: center;}
 #mails li {list-style: none; display: inline-block; margin: 0 17px 20px;}
 /*#mails li:last-child {margin-right: 0;}*/
-#mails li > a {margin:auto; display: block; width: 85px; height: 80px; padding-top: 60px; font-size: 16px; font-size: 1.3rem; background-color: #fff; background-repeat: no-repeat; border: 1px solid #ff9431;}
+#mails li > a {margin:auto; display: block; width: 85px; height: 80px; padding-top: 50px; font-size: 16px; font-size: 1.3rem; background-color: #fff; background-repeat: no-repeat; border: 1px solid #ff9431;}
 #mails li > a:hover, #mails li > a:focus, #mails li > a:active {text-decoration: none; background-color: #fbfbfb;}
-#mails li > #gmail {background-image: url('../images/mail-gmail.png'); background-position: center 15px;}
+#mails li > #gmail {background-image: url('../images/mail-gmail.png'); background-position: center 15px;margin-bottom: auto}
 #mails li > #yahoo {background-image: url('../images/mail-yahoo.png'); background-position: center 25px;}
 #mails li > #outlook {background-image: url('../images/mail-outlook.png'); background-position: center 10px;}
 
 .container-fluid.box-ppal.choose-campaign {padding:70px 0px 50px 0px; box-shadow: 0 0 2px rgba(200,200,200,0.6);}
 #mails {margin:0 auto; padding:0;}
-#mails li.fontIcon > a {padding:15px 0 0 0;}
-#mails li.fontIcon > a > span.fa {font-size: 2em;width: 100%;height:44px;}
+#mails li.fontIcon > a {padding:21px 0 0 0;}
+#mails li.fontIcon > a > span.fa {font-size: 2em;width: 100%; height: auto;}
 #mails.campaigns li.fontIcon > a > span.fa,
-#mails.campaign-steps li.fontIcon > a > span.fa {height: auto;}
-#mails li.fontIcon > a > span.label {color:inherit; padding:0; font-weight: inherit;font-size: inherit}
+/*#mails.campaign-steps li.fontIcon > a > span.fa {height: auto;}*/
+#mails li.fontIcon > a > span.label {color:inherit; padding:0; font-weight: inherit; font-size: 13px}
 
 .dashboard, .box-ppal.dashboard {margin-top: 20px;}
 .dashboard > div > .box-ppal {min-height: 225px; box-shadow: 0 0 2px rgba(200,200,200,0.6);}
@@ -5142,6 +5142,16 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     div.fade-carousel > div.content.container .btn {font-size: 22px !important;}
     .box-ppal#createNewCampaign {margin-bottom: 20px; padding-bottom: 15px;}
     .carousel.news .carousel-control {top: 30%;}
+
+    .actionIcons li{
+        margin: auto;
+        width: auto;
+        padding: 15px 0 0 0;
+    }
+
+
+
+
     #mails.campaign-steps,
     #mails.newsletter-steps {  width: 100% !important; padding:0;}
     #mails li.fontIcon > a{  margin: auto !important;  }
@@ -9169,7 +9179,9 @@ ul.notification-menu > li.see-more {
 }
 
 .survey-question-answers {
-    padding-top: 20px;
+    padding: 20px 20px 0 0;
+    /*padding-top: 20px;*/
+    /*padding-right: 20px;*/
 }
 
 .survey-question-answer {
@@ -9189,6 +9201,7 @@ ul.notification-menu > li.see-more {
 .survey-question-answer .progress {
     -webkit-box-shadow: none;
     box-shadow: none;
+    /*width: 75%;*/
 }
 
 .survey-question-answer .option .check-icon, .survey-question-answer .multi-option .check-icon {
@@ -9225,7 +9238,7 @@ ul.notification-menu > li.see-more {
     font-weight: 600;
 }
 .survey-question-answer .progress-info {
-    position: absolute;
+    position: relative;
     width: 95%;
     bottom: -15px;
     right: 20px;
