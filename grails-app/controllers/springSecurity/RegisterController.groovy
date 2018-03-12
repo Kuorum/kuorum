@@ -249,9 +249,9 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         if (registrationCode.redirectLink){
             redirectUrl = registrationCode.redirectLink
 //            redirect (uri:redirectUrl)
-            redirect mapping:'dashboard', params: [tour:true]
+            redirect mapping:'customProcessRegisterStep2', params: [tour:true]
         }else{
-            redirect mapping:'dashboard', params: [tour:true]
+            redirect mapping:'customProcessRegisterStep2', params: [tour:true]
         }
     }
 
