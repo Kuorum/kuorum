@@ -1,7 +1,6 @@
 package kuorum.core.model.search
 
 import grails.validation.Validateable
-import kuorum.core.model.CommissionType
 import kuorum.core.model.solr.SolrType
 
 /**
@@ -30,6 +29,8 @@ class SearchParams extends Pagination implements Serializable{
 
     List<String> boostedRegions;
 
+    List<String> boostedAlias;
+
 
     static constraints = {
         word nullable:true
@@ -38,5 +39,6 @@ class SearchParams extends Pagination implements Serializable{
         searchType nullable:true
         type nullable:true
         boostedRegions nullable: true
+        boostedAlias nullable: true
     }
 }

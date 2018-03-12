@@ -8,7 +8,6 @@ import kuorum.core.model.search.SearchType
 import kuorum.core.model.search.SuggestRegion
 import kuorum.core.model.solr.SolrAutocomplete
 import kuorum.core.model.solr.SolrType
-import kuorum.users.KuorumUser
 import kuorum.web.constants.WebConstants
 import org.kuorum.rest.model.search.SearchResultsRSDTO
 import org.springframework.web.servlet.LocaleResolver
@@ -153,12 +152,8 @@ class SearchController{
 
     def suggestAlias(String term){
         List<String> boostedAlias = params.list('boostedAlias[]')
-        List<String> aliasFriends = []
-        if (springSecurityService.isLoggedIn()){
-            aliasFriends = ((KuorumUser)springSecurityService.currentUser).following.collect{KuorumUser.get(it)}.findAll{it}.collect{it.alias}
-        }
 //        term = term.replaceAll("[^\\x00-\\x7F]", "") // The mention plugin sends a weird character at the end
-        def suggestions = searchSolrService.suggestAlias(term, boostedAlias,aliasFriends)
+        def suggestions = searchSolrService.suggestAlias(term, boostedAlias)
         suggestions = suggestions.collect{s->[
                 alias:s.alias,
                 name:s.name,

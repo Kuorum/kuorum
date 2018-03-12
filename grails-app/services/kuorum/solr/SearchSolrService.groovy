@@ -7,7 +7,6 @@ import kuorum.core.exception.KuorumExceptionUtil
 import kuorum.core.model.search.SearchParams
 import kuorum.core.model.search.SearchType
 import kuorum.core.model.solr.SolrAutocomplete
-import kuorum.core.model.solr.SolrType
 import kuorum.util.rest.RestKuorumApiService
 import org.apache.solr.client.solrj.SolrQuery
 import org.apache.solr.client.solrj.SolrRequest
@@ -18,6 +17,7 @@ import org.kuorum.rest.model.search.SearchByRDTO
 import org.kuorum.rest.model.search.SearchParamsRDTO
 import org.kuorum.rest.model.search.SearchResultsRSDTO
 import org.kuorum.rest.model.search.SearchTypeRSDTO
+import org.kuorum.rest.model.search.kuorumElement.SearchKuorumUserRSDTO
 
 @Transactional(readOnly = true)
 class SearchSolrService {
@@ -52,6 +52,7 @@ class SearchSolrService {
         searchParamsRDTO.type = searchParams.getType()?SearchTypeRSDTO.valueOf(searchParams.getType().toString()):null // CHAPU
         searchParamsRDTO.boostedRegions = searchParams.boostedRegions
         searchParamsRDTO.filteredIds = searchParams.filteredUserIds
+        searchParamsRDTO.boostedAlias = searchParams.boostedAlias
         searchParamsRDTO.word = searchParams.word
         searchParamsRDTO.page= Math.round(searchParams.offset/searchParams.max)
         searchParamsRDTO.size= searchParams.max
@@ -172,33 +173,22 @@ class SearchSolrService {
      * @param boostedAlias
      * @return
      */
-    public def suggestAlias(String search, List<String> boostedAlias, List<String> friendsAlias){
-        SolrQuery query = new SolrQuery();
-        query.setParam(CommonParams.QT, "/query");
-        String searchEscapedSpaces = search.replace(" ", "\\ ")
-        query.setParam(CommonParams.Q, "suggestAlias:${searchEscapedSpaces}* suggestName:${searchEscapedSpaces}*");
-        query.setParam("qf", "suggestAlias^5.0 suggestName^1");
-        query.setParam("bf", "ord(relevance)^0.5");
-        query.setParam(CommonParams.ROWS, "5");
-        query.setParam(CommonParams.FL, "alias,name,urlImage");
-        query.setParam(CommonParams.FQ, "type:"+SolrType.KUORUM_USER);
-        query.setParam("defType", "edismax");
-        String boost = "";
-        if (boostedAlias){
-            boost= "suggestAlias:(${boostedAlias.join(' ')})^5";
-        }
-        if (friendsAlias){
-            boost= boost + " suggestAlias:(${friendsAlias.join(' ')})^1"
-        }
-        if (boost){
-            query.setParam("bq", boost);
-        }
+    def suggestAlias(String search, List<String> boostedAlias){
 
-        query.setParam("facet", "false");
-        query.setParam("spellcheck", "false");
-        query.setParam("hl", "false");
-        QueryResponse rsp = server.query( query, SolrRequest.METHOD.POST );
-        def suggestions = rsp.results.collect{[alias:it.alias, name:it.name, avatar:it.urlImage]}
+        SearchParamsRDTO searchParamsRDTO = new SearchParamsRDTO();
+        searchParamsRDTO.boostedAlias = boostedAlias
+        searchParamsRDTO.word = search
+        Map<String, String> query = searchParamsRDTO.encodeAsQueryParams()
+        if (springSecurityService.loggedIn){
+            query.put("viewerUid", springSecurityService.currentUser.id)
+        }
+        def response = restKuorumApiService.get(
+                RestKuorumApiService.ApiMethod.SEARCH_SUGGEST_USERS,
+                [:],
+                query,
+                new TypeReference<List<SearchKuorumUserRSDTO>>(){})
+
+        def suggestions = response.data.collect{[alias:it.alias, name:it.name, avatar:it.urlImage]}
         suggestions
     }
 }
