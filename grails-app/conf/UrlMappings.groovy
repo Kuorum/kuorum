@@ -403,9 +403,9 @@ class UrlMappings {
         name debateProposalDeleteComment: "/ajax/proposalComment/delete"(controller: "debateProposal", action: "deleteComment")
         name debateProposalVoteComment: "/ajax/proposalComment/vote"(controller: "debateProposal", action: "voteComment")
 
-        name eventBookTicket:           "/ajax/$userAlias/event/$eventId/book"(controller:"event", action: "bookTicket")
-        name eventConfirmAssistance:    "/account/event/$eventId/confirm"(controller:"event", action: "checkIn")
-        name eventAssistanceReport:     "/ajax/account/event/$eventId/report"(controller:"event", action: "sendReport")
+        name eventBookTicket:           "/ajax/$userAlias/event/$urlTitle-$campaignId/book"(controller:"event", action: "bookTicket")
+        name eventConfirmAssistance:    "/account/event/$campaignId/confirm"(controller:"event", action: "checkIn")
+        name eventAssistanceReport:     "/ajax/account/event/$campaignId/report"(controller:"event", action: "sendReport")
 
         name postLike:              "/ajax/likePost"(controller: "post", action: "likePost")
         name postRemove:            "/ajax/account/$userAlias/p/$urlTitle-$campaignId/remove" (controller: "post", action: "remove")
@@ -455,7 +455,6 @@ class UrlMappings {
         name userLoadRate:              "/ajax/$userAlias/loadRate"(controller: "rating", action:"loadRating")
         name comparingPoliticianRate:   "/ajax/user/compareRate"(controller: "rating", action:"comparingPoliticianRateData")
 
-//        name searcherSearchSeeMore: "/ajax/search/seeMore"(controller: "search", action:"searchSeeMore")
         name suggestSearcher:       "/ajax/search/suggestions/all"(controller: "search", action:"suggest")
         name suggestRegions:        "/ajax/search/suggestions/regions"(controller: "search", action:"suggestRegions")
         name suggestTags:           "/ajax/search/suggestions/tags"(controller: "search", action:"suggestTags")
@@ -553,8 +552,8 @@ class UrlMappings {
         name politicianMassMailingShow:                 "/account/mass-mailing/$campaignId" (controller:"newsletter"){ action=[GET:"showCampaign", POST:'updateCampaign']}
         name politicianMassMailingSendTest:             "/account/mass-mailing/$campaignId/test" (controller:"newsletter", action: "sendMassMailingTest")
         name politicianMassMailingRemove:               "/ajax/account/mass-mailing/$campaignId/remove" (controller:"newsletter", action:"removeCampaign")
-        name politicianMassMailingTrackEvents:          "/ajax/account/mass-mailing/$campaignId/trackEvents" (controller:"newsletter", action: "showTrackingMails")
-        name politicianMassMailingTrackEventsReport:    "/ajax/account/mass-mailing/$campaignId/trackEvents/report" (controller:"newsletter", action: "sendReport")
+        name politicianMassMailingTrackEvents:          "/ajax/account/mass-mailing/$newsletterId/trackEvents" (controller:"newsletter", action: "showTrackingMails")
+        name politicianMassMailingTrackEventsReport:    "/ajax/account/mass-mailing/$newsletterId/trackEvents/report" (controller:"newsletter", action: "sendReport")
         name politicianMassMailingHtml:                 "/account/mass-mailing/$campaignId/html" (controller:"newsletter", action: "showMailCampaign")
         name politicianMassMailingSaveTimeZone:         "/account/mass-mailing/saveTimeZone" (controller: "newsletter"){action = [POST:"saveTimeZone"]}
         name politicianCampaignStatsShow:               "/account/campaign/$campaignId" (controller:"newsletter", action:"showCampaignStats")

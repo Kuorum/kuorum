@@ -1,8 +1,6 @@
 package kuorum.core.model.search
 
 import grails.validation.Validateable
-import kuorum.core.model.CommissionType
-import kuorum.core.model.solr.SolrType
 
 /**
  * Created by iduetxe on 18/02/14.

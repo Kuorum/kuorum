@@ -112,7 +112,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         if (oAuthToken.newUser){
             try{
                 KuorumUser user = KuorumUser.findByEmail(oAuthToken.principal.username)
-                indexSolrService.index(user)
+                indexSolrService.deltaIndex()
             }catch (Exception e){
                 log.error("Error recovering and indexing new user. Reindex manually")
             }

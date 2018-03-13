@@ -46,7 +46,6 @@ class AdminController {
     }
 
     def solrIndex(){
-        [res:[:]]
     }
 
     def updateMailChimp(){
@@ -58,7 +57,7 @@ class AdminController {
 
     def fullIndex(){
         def res = indexSolrService.fullIndex()
-        render view: '/admin/solrIndex', model:[res:res]
+        render view: '/admin/solrIndex'
     }
 
     def uploadPoliticianCsv(){

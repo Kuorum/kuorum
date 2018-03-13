@@ -133,9 +133,9 @@ class EventController extends CampaignController{
 
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
-    def bookTicket(Long eventId){
+    def bookTicket(Long campaignId){
         KuorumUser assistant = springSecurityService.currentUser
-        EventRegistrationRSDTO eventRegistration = eventService.addAssistant(params.userAlias, eventId, assistant)
+        EventRegistrationRSDTO eventRegistration = eventService.addAssistant(params.userAlias, campaignId, assistant)
         if (eventRegistration){
             render ([success:true, error:"", eventRegistration:eventRegistration]) as JSON
         }else{
@@ -144,11 +144,11 @@ class EventController extends CampaignController{
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
-    def checkIn(Long eventId){
+    def checkIn(Long campaignId){
         KuorumUser user = springSecurityService.currentUser
         String hash = params.hash
         Long contactId = Long.parseLong(params.contactId)
-        EventRegistrationRSDTO eventRegistration = eventService.checkIn(contactId, eventId, user, hash)
+        EventRegistrationRSDTO eventRegistration = eventService.checkIn(contactId, campaignId, user, hash)
         if (eventRegistration){
             ContactRSDTO contact = contactService.getContact(user, contactId)
             [event:eventRegistration.event, eventRegistration:eventRegistration, contact:contact]
@@ -158,10 +158,10 @@ class EventController extends CampaignController{
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
-    def sendReport(Long eventId) {
+    def sendReport(Long campaignId) {
         KuorumUser user = springSecurityService.currentUser
         Boolean checkList = params.checkList?Boolean.parseBoolean(params.checkList):false
-        eventService.sendReport(user, eventId,checkList)
+        eventService.sendReport(user, campaignId,checkList)
         render ([success:"success"] as grails.converters.JSON)
     }
 

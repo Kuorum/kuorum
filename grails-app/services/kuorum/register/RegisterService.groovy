@@ -7,7 +7,6 @@ import grails.plugin.springsecurity.ui.SpringSecurityUiService
 import kuorum.core.exception.KuorumException
 import kuorum.core.model.AvailableLanguage
 import kuorum.core.model.CommissionType
-import kuorum.core.model.UserType
 import kuorum.mail.KuorumMailService
 import kuorum.notifications.NotificationService
 import kuorum.solr.IndexSolrService
@@ -87,7 +86,7 @@ class RegisterService {
 
         if (!user.password){
             user.password = "${PREFIX_PASSWORD}${Math.random()}"
-            indexSolrService.index(user)
+            indexSolrService.deltaIndex()
             user.save()
         }
         springSecurityService.reauthenticate user.email
@@ -243,7 +242,7 @@ class RegisterService {
             kuorumMailService.mailingListUpdateUser(user)
         }
         try{
-            indexSolrService.index(user)
+            indexSolrService.deltaIndex()
         }catch(Exception e){
             log.error("Error indexando usuario",e)
         }

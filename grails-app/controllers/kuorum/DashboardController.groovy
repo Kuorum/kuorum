@@ -17,9 +17,7 @@ import kuorum.web.commands.profile.EditProfilePicturesCommand
 import kuorum.web.commands.profile.EditUserProfileCommand
 import kuorum.web.commands.profile.SocialNetworkCommand
 import kuorum.web.constants.WebConstants
-import org.kuorum.rest.model.communication.PageCampaignRSDTO
-import org.kuorum.rest.model.communication.debate.DebateRSDTO
-import org.kuorum.rest.model.communication.post.PostRSDTO
+import org.kuorum.rest.model.search.SearchResultsRSDTO
 import org.kuorum.rest.model.notification.campaign.NewsletterRQDTO
 import org.kuorum.rest.model.notification.campaign.NewsletterRSDTO
 import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
@@ -81,7 +79,7 @@ class DashboardController {
     private def buildPaymentDashboard(KuorumUser user){
         String viewerUid = cookieUUIDService.buildUserUUID()
 
-        PageCampaignRSDTO pageCampaigns = dashboardService.findAllContactsCampaigns(user, viewerUid)
+        SearchResultsRSDTO searchResultsRSDTO = dashboardService.findAllContactsCampaigns(user, viewerUid)
 
         List<NewsletterRSDTO> myNewsletters = newsletterService.findCampaigns(user)
         List<CampaignRSDTO> myCampaigns = campaignService.findAllCampaigns(user)
@@ -109,8 +107,8 @@ class DashboardController {
 //                recommendedUsers:recommendedUsers,
                 user:user,
                 emptyEditableData:emptyEditableData(user),
-                campaigns: pageCampaigns.data,
-                totalCampaigns: pageCampaigns.total,
+                campaigns: searchResultsRSDTO.data,
+                totalCampaigns: searchResultsRSDTO.total,
                 showAuthor: true
         ]
 
@@ -156,9 +154,9 @@ class DashboardController {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         String viewerUid = cookieUUIDService.buildUserUUID()
         Integer page = pagination.offset/pagination.max;
-        PageCampaignRSDTO pageCampaigns = dashboardService.findAllContactsCampaigns(user, viewerUid, page)
-        List<NewsletterRQDTO> campaigns = pageCampaigns.data
-        response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${pageCampaigns.total < (pagination.offset+pagination.max)}")
+        SearchResultsRSDTO searchResutlsRSDTO = dashboardService.findAllContactsCampaigns(user, viewerUid, page)
+        List<NewsletterRQDTO> campaigns = searchResutlsRSDTO.data
+        response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${searchResutlsRSDTO.total < (pagination.offset+pagination.max)}")
         render template: "/campaigns/cards/campaignsList", model:[campaigns:campaigns, showAuthor: true]
     }
 

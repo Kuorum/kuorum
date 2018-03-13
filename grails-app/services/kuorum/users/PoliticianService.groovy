@@ -72,7 +72,7 @@ class PoliticianService {
         causes.findAll({it?.trim()}).collect({it.decodeHashtag()}).each {cause ->
             causesService.supportCause(politician, cause)
         }
-        indexSolrService.index(politician)
+        indexSolrService.deltaIndex()
         if(audit){
             // If politician.save() will override the ideologic field that is defined on service, but not on kuorum.
             kuorumUserAuditService.auditEditUser(politician)

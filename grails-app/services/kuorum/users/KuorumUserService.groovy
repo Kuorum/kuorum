@@ -6,15 +6,12 @@ import grails.plugin.springsecurity.SpringSecurityService
 import grails.transaction.Transactional
 import groovy.time.TimeCategory
 import groovyx.gpars.GParsPool
-import kuorum.Region
 import kuorum.causes.CausesService
 import kuorum.core.exception.KuorumException
 import kuorum.core.exception.KuorumExceptionUtil
 import kuorum.core.model.kuorumUser.UserParticipating
 import kuorum.core.model.search.Pagination
 import kuorum.core.model.search.SearchParams
-import kuorum.core.model.solr.SolrElement
-import kuorum.core.model.solr.SolrResults
 import kuorum.core.model.solr.SolrType
 import kuorum.mail.KuorumMailAccountService
 import kuorum.post.Cluck
@@ -26,6 +23,9 @@ import org.bson.types.ObjectId
 import org.codehaus.groovy.grails.commons.GrailsApplication
 import org.codehaus.groovy.grails.web.json.JSONElement
 import org.kuorum.rest.model.kuorumUser.UserDataRDTO
+import org.kuorum.rest.model.search.SearchKuorumElementRSDTO
+import org.kuorum.rest.model.search.SearchResultsRSDTO
+import org.kuorum.rest.model.search.SearchTypeRSDTO
 import org.springframework.security.access.prepost.PreAuthorize
 
 @Transactional
@@ -318,7 +318,7 @@ class KuorumUserService {
             }
         }
 
-        bestPoliticiansSince(user, filterPoliticians, pagination);
+        bestUsers(user, filterPoliticians, pagination);
     }
 
 
@@ -358,7 +358,7 @@ class KuorumUserService {
                 throw KuorumExceptionUtil.createExceptionFromValidatable(user, msg)
             }
         }
-        indexSolrService.index(user)
+        indexSolrService.deltaIndex()
         kuorumUserAuditService.auditEditUser(user)
         kuorumMailService.mailingListUpdateUser(user)
         updateKuorumUserOnRest(user);
@@ -413,7 +413,7 @@ class KuorumUserService {
                 throw KuorumExceptionUtil.createExceptionFromValidatable(user, "No se ha podido actualizar el usuario ${user.email}(${user.id})")
             }
         }
-        indexSolrService.index(user)
+        indexSolrService.deltaIndex()
         kuorumUserAuditService.auditEditUser(user)
         user
     }
@@ -508,11 +508,11 @@ class KuorumUserService {
         return recommendations;
     }
 
-    List<KuorumUser> bestPoliticiansSince(KuorumUser user, List<ObjectId> userFiltered = [], Pagination pagination = new Pagination()){
+    List<KuorumUser> bestUsers(KuorumUser user, List<ObjectId> userFiltered = [], Pagination pagination = new Pagination()){
         SearchParams searchParams = new SearchParams(pagination.getProperties().findAll{k,v->k!="class"});
         searchParams.max +=1
-        List<Region> regions;
-        String politicalParty = ""
+//        List<Region> regions;
+//        String politicalParty = ""
 //        if (isPaymentUser(user)){
 //            regions = regionService.findUserRegions(user)
 //        }else if(user){
@@ -521,26 +521,32 @@ class KuorumUserService {
 //        }else{
 ////            regions = [[iso3166_2:"EU-ES"], [iso3166_2:"EU"]]
 //        }
-        if (regions){
-            searchParams.boostedRegions = regions.collect{it.iso3166_2}
+//        if (regions){
+//            searchParams.boostedRegions = regions.collect{it.iso3166_2}
 //        searchParams.regionIsoCodes = regions.collect{it.iso3166_2}
-        }
+//        }
         searchParams.setType(SolrType.KUORUM_USER)
         searchParams.filteredUserIds = userFiltered.collect{it.toString()}
         if (user) searchParams.filteredUserIds << user.id.toString()
 
-        SolrResults results = searchSolrService.search(searchParams)
+        SearchResultsRSDTO results = searchSolrService.searchAPI(searchParams)
 
-        List<KuorumUser> politicians = results.elements.collect{SolrElement solrElement ->
-            KuorumUser politician = KuorumUser.get(solrElement.getId())
-            if (!politician){
-                log.warn("Error suggested user :: ${solrElement.name} | ${solrElement.id}" )
-            }else if (!politician.alias){
-                log.warn("Error suggested user [NO ALIAS]:: ${solrElement.name} | ${solrElement.id}" )
-                politician = null;
+        List<KuorumUser> politicians = results.data.collect{ SearchKuorumElementRSDTO searchElement ->
+            KuorumUser politician = null;
+            if (searchElement.type != SearchTypeRSDTO.KUORUM_USER){
+                log.error("Error suggesting user. It is not an user. It is a ${searchElement.type}")
+            }else{
+                politician = KuorumUser.get(searchElement.getId())
+                if (!politician){
+                    log.warn("Error suggested user :: ${searchElement.name} | ${searchElement.id}" )
+                }else if (!politician.alias){
+                    log.warn("Error suggested user [NO ALIAS]:: ${searchElement.name} | ${searchElement.id}" )
+                    politician = null;
+                }
             }
             politician
         }
+        // Filtering null
         politicians = politicians.findAll{it}
         return politicians?politicians[0..Math.min(pagination.max-1, politicians.size()-1)]:[]
     }
@@ -563,7 +569,7 @@ class KuorumUserService {
             log.error("Error salvando usuario ${user.id}. ERRORS => ${user.errors}")
             throw new KuorumException("Error desactivando un usuario")
         }                   
-        indexSolrService.delete(user);
+        indexSolrService.deltaIndex()
 
         // CALLING API TO REMOVE CONTACT
         Map<String, String> params = [userId: user.id.toString()]

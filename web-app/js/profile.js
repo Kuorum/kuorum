@@ -130,7 +130,7 @@ function SortCampaigns() {
         }
     },
     this.removeCampaignsOfUser = function(userId){
-        $("ul.search-list .card-footer .owner .user[data-userid="+userId+"]").closest("article").closest("li").remove()
+        $(".dashboard ul.search-list .card-footer .owner .user[data-userid="+userId+"]").closest("article").closest("li").remove()
         that.showInfoEmpty();
     }
 
