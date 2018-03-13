@@ -3,15 +3,14 @@ package kuorum
 import grails.converters.JSON
 import kuorum.core.model.AvailableLanguage
 import kuorum.core.model.CommissionType
-import kuorum.core.model.UserType
 import kuorum.core.model.search.SearchParams
 import kuorum.core.model.search.SearchType
 import kuorum.core.model.search.SuggestRegion
-import kuorum.core.model.solr.*
-import kuorum.users.KuorumUser
+import kuorum.core.model.solr.SolrAutocomplete
+import kuorum.core.model.solr.SolrType
 import kuorum.web.constants.WebConstants
+import org.kuorum.rest.model.search.SearchResultsRSDTO
 import org.springframework.web.servlet.LocaleResolver
-import springSecurity.KuorumRegisterCommand
 
 class SearchController{
 
@@ -36,26 +35,15 @@ class SearchController{
 //            log("suggest JSON marshaled created")
             it.registerObjectMarshaller( SolrType)          { SolrType solrType             -> messageEnumJson(solrType)}
             it.registerObjectMarshaller( CommissionType )   { CommissionType commissionType -> messageEnumJson(commissionType)}
-            it.registerObjectMarshaller( SolrKuorumUser )   { SolrKuorumUser solrKuorumUser ->
-                def urlImage = solrKuorumUser.urlImage
-                if (!urlImage){
-                    urlImage = g.resource(dir:'/images', file: 'user-default.jpg')
-                }
-                [
-                    name:solrKuorumUser.name,
-                    urlAvatar:urlImage,
-                    url:g.createLink(mapping: 'userShow', params:solrKuorumUser.encodeAsLinkProperties())
-                ]
-            }
             it.registerObjectMarshaller(SolrAutocomplete){SolrAutocomplete solrAutocomplete ->
                def suggestions = []
 
                 solrAutocomplete.suggests.each {
                     suggestions  << [type:"SUGGESTION", value:it, data:it]
                 }
-                solrAutocomplete.kuorumUsers.each {
-                    suggestions << [type:"USER", value:it.name, data:it]
-                }
+//                solrAutocomplete.kuorumUsers.each {
+//                    suggestions << [type:"USER", value:it.name, data:it]
+//                }
 
                 [suggestions:suggestions]
 //                [
@@ -68,20 +56,20 @@ class SearchController{
     }
 
     def search(SearchParams searchParams) {
-        SolrResults docs = searchDocs(searchParams, params)
+        SearchResultsRSDTO docs = searchDocs(searchParams, params)
         [docs:docs, searchParams:searchParams]
     }
 
-    private SolrResults searchDocs(SearchParams searchParams, def params){
-        SolrResults docs
+    private SearchResultsRSDTO searchDocs(SearchParams searchParams, def params){
+        SearchResultsRSDTO docs
         String regionCountryCode = request.session.getAttribute(WebConstants.COUNTRY_CODE_SESSION)
         if (searchParams.hasErrors()){
             searchParams=new SearchParams(word: '')
-            docs = searchSolrService.search(searchParams)
+            docs = searchSolrService.searchAPI(searchParams)
         }else{
             searchParams.searchType = searchParams.searchType?:SearchType.ALL
             searchParams = createRegionSearchParams(searchParams, params, regionCountryCode)
-            docs = searchSolrService.search(searchParams)
+            docs = searchSolrService.searchAPI(searchParams)
         }
         return docs;
     }
@@ -127,17 +115,6 @@ class SearchController{
         return editedSearchParams;
     }
 
-    def searchSeeMore(SearchParams searchParams){
-        if (searchParams.hasErrors()){
-            response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "false")
-            render template: '/search/searchElement', model:[docs:[], searchParams:searchParams, columnsCss:params.columnsCss?:'']
-        }else{
-            SolrResults docs = searchDocs(searchParams, params)
-            response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${docs.numResults-searchParams.offset<=searchParams.max}")
-            render template: '/search/searchElement', model:[docs:docs.elements, searchParams:searchParams, columnsCss:params.columnsCss?:'']
-        }
-    }
-
     private void fixXssSearch(SearchParams searchParams){
         searchParams.word = searchParams.word.encodeAsRemovingHtmlTags()
     }
@@ -175,12 +152,8 @@ class SearchController{
 
     def suggestAlias(String term){
         List<String> boostedAlias = params.list('boostedAlias[]')
-        List<String> aliasFriends = []
-        if (springSecurityService.isLoggedIn()){
-            aliasFriends = ((KuorumUser)springSecurityService.currentUser).following.collect{KuorumUser.get(it)}.findAll{it}.collect{it.alias}
-        }
 //        term = term.replaceAll("[^\\x00-\\x7F]", "") // The mention plugin sends a weird character at the end
-        def suggestions = searchSolrService.suggestAlias(term, boostedAlias,aliasFriends)
+        def suggestions = searchSolrService.suggestAlias(term, boostedAlias)
         suggestions = suggestions.collect{s->[
                 alias:s.alias,
                 name:s.name,

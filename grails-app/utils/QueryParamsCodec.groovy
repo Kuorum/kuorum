@@ -15,18 +15,20 @@ class QueryParamsCodec {
 
     public static Map<String, String> convertObjectToQueryParams(String path, def obj){
         Map<String, String> data = [:]
-        path = path?"$path.":""
         if (obj){
-            def filtered = ['class', 'active', 'metaClass']
-            obj.properties.findAll{!filtered.contains(it.key)}.collect{k,v ->
-                if (v && (getWrapperTypes().contains(v.class) || v instanceof Enum) ){
-                    data.put("${path}${k}", v.toString())
-                }else if (v instanceof Collection){
-                    v.eachWithIndex { it, i ->
-                        data.putAll(convertObjectToQueryParams("$path$k[$i]", it))
+            if (obj && (getWrapperTypes().contains(obj.class) || obj instanceof Enum) ){
+                data.put(path, obj.toString())
+            }else {
+                def filtered = ['class', 'active', 'metaClass']
+                path = path?"$path.":""
+                obj.properties.findAll { !filtered.contains(it.key) }.collect { k, v ->
+                    if (v instanceof Collection) {
+                        v.eachWithIndex { it, i ->
+                            data.putAll(convertObjectToQueryParams("$path$k[$i]", it))
+                        }
+                    } else {
+                        data.putAll(convertObjectToQueryParams("$path$k", v))
                     }
-                }else{
-                    data.putAll(convertObjectToQueryParams("$path$k", v))
                 }
             }
         }

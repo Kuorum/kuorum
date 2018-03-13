@@ -23,7 +23,7 @@
                     <div class="col-xs-8 col-sm-3">
                         <formUtil:selectEnum field="questionType" command="${listCommand}" prefixFieldName="${prefixField}" showLabel="false"/>
                     </div>
-                    <div class="form-group col-sm-1 form-group-remove no-label-lg">
+                    <div class="col-xs-1 form-group form-group-remove no-label-lg">
                         <button type="button" class="btn btn-transparent btn-lg btn-icon removeButton"><i class="fa fa-trash"></i></button>
                     </div>
                 </div>

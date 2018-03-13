@@ -1,9 +1,8 @@
 package kuorum
 
-import kuorum.core.model.UserType
-import kuorum.core.model.solr.SolrKuorumUser
 import kuorum.users.KuorumUser
 import org.kuorum.rest.model.contact.ContactRSDTO
+import org.kuorum.rest.model.search.kuorumElement.SearchKuorumUserRSDTO
 
 class ImagesTagLib {
     static defaultEncodeAs = 'html'
@@ -13,42 +12,43 @@ class ImagesTagLib {
     static namespace = "image"
 
     def userImgSrc={attrs ->
-        KuorumUser user = null;
-        if (attrs.user instanceof KuorumUser){
-            user = attrs.user
+        String imageUrl = "";
+        if (attrs.user instanceof KuorumUser) {
+            imageUrl = attrs.user.avatar?.url
+        }else if(attrs.user instanceof SearchKuorumUserRSDTO){
+            imageUrl = attrs.user.urlImage
         }else{
             // IS A STRING => Alias
-            user = KuorumUser.findByAlias(attrs.user)
+            KuorumUser user = KuorumUser.findByAlias(attrs.user)
+            imageUrl = user?.avatar?.url
         }
-        if (user?.avatar){
-            out << user.avatar.url
+        if (imageUrl){
+            out << imageUrl
         }else{
-            out << getDefaultAvatar(user)
+            out << getDefaultAvatar()
         }
     }
     def userImgProfile={attrs ->
-        KuorumUser user = attrs.user
-        if (user.imageProfile){
-            out << user.imageProfile.url
+        String imageURL ="";
+        if (attrs.user instanceof SearchKuorumUserRSDTO){
+            imageURL = attrs.user.urlImageProfile
         }else{
-            out << getDefaultImgProfile(user)
+            // KUORUM USER
+            imageURL = attrs.user.imageProfile?.url
+        }
+        if (imageURL){
+            out << imageURL
+        }else{
+            out << getDefaultImgProfile()
         }
     }
 
-    def solrUserImgSrc={attrs ->
-        SolrKuorumUser user = attrs.user
-        if (user && user.urlImage){
-            out << user.urlImage
-        }else{
-            out << getDefaultAvatar(user)
-        }
-    }
     def contactImgSrc={attrs ->
         ContactRSDTO contact = attrs.contact
         if (contact.urlImage){
             out << contact.urlImage
         }else{
-            out << getDefaultAvatar(contact)
+            out << getDefaultAvatar()
         }
     }
 
@@ -96,7 +96,7 @@ out << """
             KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
             out << userImgSrc(user:user)
         }else{
-            out << getDefaultAvatar(null)
+            out << getDefaultAvatar()
         }
     }
 
@@ -109,19 +109,19 @@ out << """
             userName = user.name
             out << userImgSrc(user:user)
         }else{
-            out << getDefaultAvatar(null)
+            out << getDefaultAvatar()
         }
         out <<"' class='user-img' alt='Tu foto'><span>${userName}</span>"
 
     }
 
 
-    private String getDefaultAvatar(def user){
+    private String getDefaultAvatar(){
         //User can be null
         g.resource(dir:'images', file: 'user-default.jpg')
     }
 
-    private String getDefaultImgProfile(KuorumUser user){
+    private String getDefaultImgProfile(){
         //User can be null
         def defaultImage = g.resource(dir:'images', file: 'img-userprofile.jpg')
         defaultImage

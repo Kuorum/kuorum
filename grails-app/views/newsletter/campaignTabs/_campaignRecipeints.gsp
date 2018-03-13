@@ -2,24 +2,24 @@
 <h2 class="sr-only"><g:message code="tools.massMailing.list.recipients"/></h2>
 <div class="pag-list-contacts clearfix">
     <div class="actions">
-        <g:link mapping="politicianMassMailingTrackEventsReport" params="[campaignId:newsletterId]" class="btn btn-blue inverted export-modal-button" data-modalId="export-campaignEvents-modal">
+        <g:link mapping="politicianMassMailingTrackEventsReport" params="[newsletterId:newsletterId]" class="btn btn-blue inverted export-modal-button" data-modalId="export-campaignEvents-modal">
             <span class="fa fa-file-excel-o"></span>
             <g:message code="tools.massMailing.list.recipients.export.csv"/>
         </g:link>
 
         <g:if test="${campaign?.event}">
-            <g:link mapping="eventAssistanceReport" params="[eventId:campaign.event.id, checkList:true]" class="btn btn-blue inverted export-modal-button" data-modalId="export-eventAssistants-modal">
+            <g:link mapping="eventAssistanceReport" params="[campaignId:campaign.id, checkList:true]" class="btn btn-blue inverted export-modal-button" data-modalId="export-eventAssistants-modal">
                 <span class="fa fa-file-pdf-o"></span>
                 <g:message code="tools.massMailing.list.event.assistants.checkList"/>
             </g:link>
-            <g:link mapping="eventAssistanceReport" params="[eventId:campaign.event.id, checkList: false]" class="btn btn-blue inverted export-modal-button" data-modalId="export-eventAssistants-modal">
+            <g:link mapping="eventAssistanceReport" params="[campaignId:campaign.id, checkList: false]" class="btn btn-blue inverted export-modal-button" data-modalId="export-eventAssistants-modal">
                 <span class="fa fa-file-excel-o"></span>
                 <g:message code="tools.massMailing.list.event.assistants.report"/>
             </g:link>
         </g:if>
     </div>
     <nav:contactPagination
-            link="${g.createLink(mapping:"politicianMassMailingTrackEvents", params: [campaignId:newsletterId], absolute:true)}"
+            link="${g.createLink(mapping:"politicianMassMailingTrackEvents", params: [newsletterId:newsletterId], absolute:true)}"
             currentPage="${trackingPage.page}"
             sizePage="${trackingPage.size}"
             ulClasss="paginationTop"
@@ -99,7 +99,7 @@
 </table>
 <div class="pag-list-contacts clearfix">
     <nav:contactPagination
-            link="${g.createLink(mapping:"politicianMassMailingTrackEvents", params: [campaignId:newsletterId], absolute:true)}"
+            link="${g.createLink(mapping:"politicianMassMailingTrackEvents", params: [newsletterId:newsletterId], absolute:true)}"
             currentPage="${trackingPage.page}"
             sizePage="${trackingPage.size}"
             ulClasss="paginationBottom"

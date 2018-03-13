@@ -21,7 +21,6 @@ import kuorum.core.exception.KuorumException
 import kuorum.register.IOAuthService
 import kuorum.solr.IndexSolrService
 import org.springframework.security.core.context.SecurityContextHolder
-import uk.co.desirableobjects.oauth.scribe.holder.RedirectHolder
 
 /**
  * Simple helper controller for handling OAuth authentication and integrating it
@@ -98,11 +97,11 @@ class SpringSecurityOAuthController {
     protected void authenticateAndRedirect(OAuthToken oAuthToken, redirectUrl) {
         session.removeAttribute SPRING_SECURITY_OAUTH_TOKEN
         SecurityContextHolder.context.authentication = oAuthToken
-        if (oAuthToken.newUser){
+        if (oAuthToken?.newUser){
             String uri = redirectUrl.get("uri")
             redirectUrl.put("uri", uri+"?tour=true")
             KuorumUser user = KuorumUser.findByEmail(oAuthToken.principal.username)
-            indexSolrService.index(user)
+            indexSolrService.deltaIndex()
         }
         redirect (redirectUrl)
     }

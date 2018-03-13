@@ -12,10 +12,10 @@ class EventService {
 
     RestKuorumApiService restKuorumApiService
 
-    EventRegistrationRSDTO addAssistant(String ownerAlias, Long eventId, KuorumUser assistant){
+    EventRegistrationRSDTO addAssistant(String ownerAlias, Long campaignId, KuorumUser assistant){
         Map<String, String> params = [
                 userAlias: ownerAlias,
-                eventId:eventId.toString(),
+                campaignId:campaignId.toString(),
                 assistantAlias:assistant.id.toString()
         ]
         Map<String, String> query = [:]
@@ -35,10 +35,10 @@ class EventService {
         eventRSDTO
     }
 
-    EventRegistrationRSDTO checkIn(Long contactId, Long eventId, KuorumUser user, String hash){
+    EventRegistrationRSDTO checkIn(Long contactId, Long campaignId, KuorumUser user, String hash){
         Map<String, String> params = [
                 userAlias: user.getId().toString(),
-                eventId:eventId.toString()
+                campaignId:campaignId.toString()
         ]
         Map<String, String> query = [contactId:contactId, hash:hash]
         try {
@@ -56,7 +56,7 @@ class EventService {
             }
             return eventRSDTO;
         }catch (Exception e){
-            log.error("Error checking in the contact ${contactId} on event ${eventId}")
+            log.error("Error checking in the contact ${contactId} on event ${campaignId}")
             return null;
         }
     }
@@ -87,10 +87,10 @@ class EventService {
         }
     }
 
-    EventRSDTO findEvent(String ownerAlias, Long eventId){
+    EventRSDTO findEvent(String ownerAlias, Long campaignId){
         Map<String, String> params = [
                 userAlias: ownerAlias,
-                eventId:eventId.toString()
+                campaignId:campaignId.toString()
         ]
         Map<String, String> query = [:]
         def response = restKuorumApiService.get(
@@ -109,8 +109,8 @@ class EventService {
         eventRSDTO
     }
 
-    void sendReport(KuorumUser user, Long eventId, Boolean checkList = false) {
-        Map<String, String> params = [userAlias: user.id.toString(), eventId: eventId.toString()]
+    void sendReport(KuorumUser user, Long campaignId, Boolean checkList = false) {
+        Map<String, String> params = [userAlias: user.id.toString(), campaignId: campaignId.toString()]
         Map<String, String> query = [checkList:checkList]
         def response = restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.ACCOUNT_EVENT_REPORT,

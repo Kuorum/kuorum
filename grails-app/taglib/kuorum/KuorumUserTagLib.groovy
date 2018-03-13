@@ -1,14 +1,14 @@
 package kuorum
 
 import kuorum.core.model.UserType
-import kuorum.core.model.solr.SolrCampaign
-import kuorum.core.model.solr.SolrKuorumUser
 import kuorum.post.Post
 import kuorum.register.RegisterService
 import kuorum.users.KuorumUser
 import org.bson.types.ObjectId
 import org.kuorum.rest.model.geolocation.RegionRSDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
+import org.kuorum.rest.model.search.SearchKuorumElementRSDTO
+import org.kuorum.rest.model.search.kuorumElement.SearchKuorumUserRSDTO
 import org.springframework.context.i18n.LocaleContextHolder
 
 class KuorumUserTagLib {
@@ -60,15 +60,14 @@ class KuorumUserTagLib {
         //attrs.withPopover => String expected
         Boolean withPopover = !attrs.withPopover?true:Boolean.parseBoolean(attrs.withPopover)
         String name = ""
-        if (attrs.user instanceof SolrKuorumUser){
-            user = KuorumUser.get(new ObjectId(attrs.user.id))
-            name = user.name
-        }else if (attrs.user instanceof SolrCampaign ){
-            user = KuorumUser.get(new ObjectId(attrs.user.ownerId))
-            name = attrs.user.highlighting.owner?:user.name
-        }else if (attrs.user instanceof BasicDataKuorumUserRSDTO){
+        if (attrs.user instanceof BasicDataKuorumUserRSDTO){
             user = KuorumUser.get(new ObjectId(attrs.user.id))
             name = user.fullName
+        }else if (attrs.user instanceof SearchKuorumElementRSDTO){
+            // ALIAS
+            user = KuorumUser.findByAlias(attrs.user.alias)
+            name = highlightedField(attrs.user, "owner")
+            name = name?:user.fullName
         }else if (attrs.user instanceof String){
             // ALIAS
             user = KuorumUser.findByAlias(attrs.user)
@@ -252,19 +251,22 @@ class KuorumUserTagLib {
         )
     }
 
-    // NEGRITA: if !cargo -> "User" else "Cargo"
-    // GRIS: if region -> "Region" else nothing
+    def userRegionName ={ attrs->
+        String regionIso = ""
+        if (attrs.user instanceof KuorumUser){
+            KuorumUser user = attrs.user
+            Region regionValue = user?.personalData?.province
+            regionIso = regionValue.iso3166_2
+        }else if (attrs.user instanceof SearchKuorumUserRSDTO){
+            regionIso = attrs.user.regionIso
+        }
 
-    def politicianPosition={attrs->
-        KuorumUser user = attrs.user
-
-        Region regionValue = user?.personalData?.province?:user?.professionalDetails?.region;
         def regionName = "";
-        if (regionValue){
+        if (regionIso){
             Locale locale = LocaleContextHolder.getLocale();
             try {
-                RegionRSDTO regionRSDTO = regionService.findRegionDataById(regionValue.iso3166_2, locale)
-                regionName = regionRSDTO?.name ?: regionValue.name
+                RegionRSDTO regionRSDTO = regionService.findRegionDataById(regionIso, locale)
+                regionName = regionRSDTO?.name
             }catch (Exception e){
                 regionName = "";
             }
@@ -274,8 +276,7 @@ class KuorumUserTagLib {
     }
 
     def roleName={attrs ->
-        KuorumUser user = attrs.user
-        String role = getRoleUser(user)
+        String role = getRoleUser(attrs.user)
         if (role){
             out << role
         }
@@ -287,6 +288,10 @@ class KuorumUserTagLib {
         }else{
             return null;
         }
+    }
+
+    private String getRoleUser(SearchKuorumUserRSDTO user){
+        return user?.roleName
     }
 
     def userTypeIcon={attrs ->
@@ -315,63 +320,68 @@ class KuorumUserTagLib {
     }
 
     def ifIsFollower={attrs, body ->
-        KuorumUser user = attrs.user
-        if (springSecurityService.isLoggedIn()){
-            if (user.following.contains(springSecurityService.principal.id)){
+        if (attrs.user instanceof KuorumUser){
+            if (springSecurityService.isLoggedIn()){
+                KuorumUser user = attrs.user
+                if (user.following.contains(springSecurityService.principal.id)){
+                    out << body()
+                }
+            }
+        }else if (attrs.user instanceof SearchKuorumUserRSDTO){
+            if (attrs.user.isFollower){
                 out << body()
             }
         }
     }
-    def isFollower={attrs, body ->
-        KuorumUser user
-        if (attrs.user instanceof SolrKuorumUser){
-            user = KuorumUser.get(new ObjectId(attrs.user.id))
-        }else{
-            user = attrs.user
-        }
-        if (springSecurityService.isLoggedIn()){
-            if (user.following.contains(springSecurityService.principal.id)){
-                out << """
-                <div class="pull-right">
-                    <span class="fa fa-check-circle-o"></span>
-                    <small>${message(code:'kuorumUser.popover.follower')}</small>
-                </div>
-                """
-            }
-        }
-    }
+
 
     def followButton={attrs, body ->
-        KuorumUser user = attrs.user
         String cssSize = attrs.cssSize?:''
-        def linkAjaxFollow = g.createLink(mapping: 'ajaxFollow', params: [userAlias:user.alias])
-        def linkAjaxUnFollow = g.createLink(mapping: 'ajaxUnFollow', params: [userAlias:user.alias])
+        String alias = "";
+        String name = ""
+        Boolean isFollowing = false;
+        String userId = "";
+        if (attrs.user instanceof KuorumUser){
+            KuorumUser user = attrs.user
+            alias = user.alias
+            name = user.fullName
+            isFollowing = springSecurityService.isLoggedIn() && springSecurityService.principal.id != user.id && user.followers.contains(springSecurityService.principal.id)
+            userId = attrs.user.id.toString()
+        }else if (attrs.user instanceof SearchKuorumUserRSDTO){
+            alias = attrs.user.alias
+            name = attrs.user.name
+            isFollowing = attrs.user.isFollowing
+//            isFollowing = false
+            userId = attrs.user.id
+        }else{
+            throw UnsupportedOperationException("Unkonwn user type");
+        }
+        def linkAjaxFollow = g.createLink(mapping: 'ajaxFollow', params: [userAlias:alias])
+        def linkAjaxUnFollow = g.createLink(mapping: 'ajaxUnFollow', params: [userAlias:alias])
         def prefixMessages = attrs.prefixMessages?: "kuorumUser.follow"
-        def text = "${g.message(code:"${prefixMessages}.follow", args:[user.name], codec:"raw")} "
+        def text = "${g.message(code:"${prefixMessages}.follow", args:[name], codec:"raw")} "
         def cssClass = "enabled"
         def cssExtra =  attrs.cssExtra?:''
-        if (springSecurityService.isLoggedIn() && springSecurityService.principal.id != user.id){
-            def isFollowing = user.followers.contains(springSecurityService.principal.id)
-            if (isFollowing){
-                cssClass = "disabled"
-                text = "${g.message(code:"${prefixMessages}.unfollow", args:[user.name], codec:"raw")} "
-            }
+
+        if (isFollowing){
+            cssClass = "disabled"
+            text = "${g.message(code:"${prefixMessages}.unfollow", args:[name], codec:"raw")} "
         }else if (!springSecurityService.isLoggedIn()){
             cssClass += " noLogged"
         }
 
-        if (springSecurityService.isLoggedIn() && springSecurityService.principal.id != user.id || !springSecurityService.isLoggedIn()){
+        if (springSecurityService.isLoggedIn() && springSecurityService.principal.id.toString() != userId || !springSecurityService.isLoggedIn()){
             out << """
             <button
                     type="button"
                     class="follow btn btn-blue inverted ${cssSize} allow ${cssClass} ${cssExtra}"
                     data-ajaxFollowUrl="${linkAjaxFollow}"
                     data-ajaxUnFollowUrl="${linkAjaxUnFollow}"
-                    data-message-follow_hover='${g.message(code:"${prefixMessages}.follow_hover", args:[user.name], codec:"raw")}'
-                    data-message-follow='${g.message(code:"${prefixMessages}.follow", args:[user.name], codec:"raw")}'
-                    data-message-unfollow_hover='${g.message(code:"${prefixMessages}.unfollow_hover", args:[user.name], codec:"raw")}'
-                    data-message-unfollow='${g.message(code:"${prefixMessages}.unfollow", args:[user.name], codec:"raw")}'
-                    data-userId='${user.id}'>
+                    data-message-follow_hover='${g.message(code:"${prefixMessages}.follow_hover", args:[name], codec:"raw")}'
+                    data-message-follow='${g.message(code:"${prefixMessages}.follow", args:[name], codec:"raw")}'
+                    data-message-unfollow_hover='${g.message(code:"${prefixMessages}.unfollow_hover", args:[name], codec:"raw")}'
+                    data-message-unfollow='${g.message(code:"${prefixMessages}.unfollow", args:[name], codec:"raw")}'
+                    data-userId='${userId}'>
                 ${text}
             </button> <!-- ESTADO NORMAL permite cambiar de estado al clickar  -->
             """
@@ -498,5 +508,23 @@ class KuorumUserTagLib {
         if (springSecurityService.isLoggedIn() && !((KuorumUser)springSecurityService.currentUser).timeZone) {
             out << body()
         }
+    }
+
+    private static final Integer MAX_LENGTH_TEXT = 300
+    private String highlightedField(SearchKuorumElementRSDTO element, String field, Integer maxLength = MAX_LENGTH_TEXT){
+
+        String res = ""
+        if (element.highlighting?."$field"){
+            res = element.highlighting."$field"
+        }else if (element."${field}"){
+            res = element."${field}"
+            if (res){
+                res = res.substring(0, Math.min(res.length(), maxLength))
+            }
+        }
+        if (res && res.length() < element."${field}".length()){
+            res += " ..."
+        }
+        return res
     }
 }

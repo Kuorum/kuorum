@@ -314,7 +314,7 @@ class NewsletterController {
         render NewsletterRSDTO.htmlBody?:"Not sent"
     }
 
-    def showTrackingMails(Long campaignId){
+    def showTrackingMails(Long newsletterId){
         KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
         Integer page = params.page?Integer.parseInt(params.page):0;
         Integer size = params.size?Integer.parseInt(params.size):10;
@@ -324,24 +324,24 @@ class NewsletterController {
         }catch (Exception e){
             status = null;
         }
-        TrackingMailStatsByCampaignPageRSDTO trackingPage = newsletterService.findTrackingMails(loggedUser, campaignId, status, page, size)
+        TrackingMailStatsByCampaignPageRSDTO trackingPage = newsletterService.findTrackingMails(loggedUser, newsletterId, status, page, size)
         render template: '/newsletter/campaignTabs/campaignRecipeints',
                 model: [
                         trackingPage:trackingPage,
-                        campaignId:campaignId,
+                        newsletterId:newsletterId,
                         status:status
                 ]
     }
 
-    def sendReport(Long campaignId){
+    def sendReport(Long newsletterId){
         KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
-        newsletterService.findTrackingMailsReport(loggedUser, campaignId)
+        newsletterService.findTrackingMailsReport(loggedUser, newsletterId)
         Boolean isAjax = request.xhr
         if(isAjax){
             render ([success:"success"] as JSON)
         } else{
             flash.message = g.message(code: 'modal.exportedTrackingEvents.title')
-            redirect (mapping: 'politicianMassMailingShow', params:[campaignId: campaignId])
+            redirect (mapping: 'politicianMassMailingShow', params:[campaignId: newsletterId])
         }
     }
 

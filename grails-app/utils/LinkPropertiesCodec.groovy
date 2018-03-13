@@ -1,11 +1,8 @@
 import grails.util.Holders
 import kuorum.Region
 import kuorum.core.model.UserType
-import kuorum.core.model.solr.SolrCampaign
-import kuorum.core.model.solr.SolrKuorumUser
 import kuorum.project.Project
 import kuorum.users.KuorumUser
-import org.bson.types.ObjectId
 import org.kuorum.rest.model.communication.CampaignRSDTO
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.kuorum.rest.model.communication.debate.ProposalRSDTO
@@ -15,6 +12,7 @@ import org.kuorum.rest.model.communication.survey.SurveyRSDTO
 import org.kuorum.rest.model.notification.NotificationProposalCommentMentionRSDTO
 import org.kuorum.rest.model.notification.NotificationProposalCommentRSDTO
 import org.kuorum.rest.model.search.SearchKuorumElementRSDTO
+import org.kuorum.rest.model.search.kuorumElement.SearchKuorumUserRSDTO
 import org.kuorum.rest.model.tag.CauseRSDTO
 
 /**
@@ -33,15 +31,11 @@ class LinkPropertiesCodec {
             case PostRSDTO:
             case SurveyRSDTO:
             case DebateRSDTO:
-            case SolrCampaign:
             case ProposalRSDTO:
             case NotificationProposalCommentRSDTO:
             case NotificationProposalCommentMentionRSDTO:
             case SearchKuorumElementRSDTO:
-                params = prepareParams(target)
-                break
             case KuorumUser:
-            case SolrKuorumUser:
                 params = prepareParams(target)
                 break
             case UserType:
@@ -78,12 +72,6 @@ class LinkPropertiesCodec {
         ]
     }
 
-    private static def prepareParams(SolrKuorumUser user){
-        [
-                userAlias:user.name
-        ]
-    }
-
     private static def prepareParams(DebateRSDTO debate) {
         [
                 userAlias: debate.user.alias.toLowerCase(),
@@ -97,14 +85,6 @@ class LinkPropertiesCodec {
                 eventId: event.id
         ]
     }
-    private static def prepareParams(SolrCampaign debate) {
-        KuorumUser user = KuorumUser.get(new ObjectId(debate.ownerId))
-        [
-                userAlias: user.alias,
-                urlTitle: debate.name.encodeAsKuorumUrl(),
-                campaignId: debate.id
-        ]
-    }
 
     private static def prepareParams(CampaignRSDTO campaignRSDTO) {
         [
@@ -114,6 +94,11 @@ class LinkPropertiesCodec {
         ]
     }
 
+    private static def prepareParams(SearchKuorumUserRSDTO searchKuorumUserRSDTO) {
+        [
+                userAlias: searchKuorumUserRSDTO.alias
+        ]
+    }
     private static def prepareParams(SearchKuorumElementRSDTO campaignRSDTO) {
         [
                 userAlias: campaignRSDTO.alias,

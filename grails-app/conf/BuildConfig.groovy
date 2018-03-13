@@ -93,10 +93,10 @@ grails.project.dependency.resolution = {
         compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.6.2'
 
         compile 'com.mandrillapp.wrapper.lutung:lutung:0.0.4'
-        compile 'org.apache.solr:solr-solrj:4.9.0'
-        test ('org.apache.solr:solr-core:4.9.0'){
-            excludes "org.slf4j:slf4j-log4j12"
-        }
+//        compile 'org.apache.solr:solr-solrj:4.9.0'
+//        test ('org.apache.solr:solr-core:4.9.0'){
+//            excludes "org.slf4j:slf4j-log4j12"
+//        }
 	    compile "net.sf.ehcache:ehcache-core:2.4.6" // Para eliminar :cache:1.1.1 que da un problema de dependencia al quitar hibernate
 
         compile 'com.xlson.groovycsv:groovycsv:1.0' //Para poder leer CSV

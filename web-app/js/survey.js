@@ -55,7 +55,7 @@ var surveyFunctions = {
         e.preventDefault();
         var $buttonNext = $(e.target);
         var alias = $buttonNext.attr("data-userLoggedAlias");
-        var question = event.currentTarget.parentElement.parentElement.parentElement;
+        var question = e.currentTarget.parentElement.parentElement.parentElement;
         if (alias == "") {
             // USER NO LOGGED
             var buttonId = guid();
@@ -159,7 +159,7 @@ var surveyFunctions = {
             var percentageOptionProgressBar = 0;
             if (numAnswers > 0){
                 percentageOptionProgressBar = (numOptionAnswers / numAnswers * 100)
-                percentageOptionProgressBar = Math.round(percentageOptionProgressBar * 100) / 100
+                percentageOptionProgressBar = Math.round(percentageOptionProgressBar)
             }
             answerOption.getElementsByClassName("progress-bar-counter")[0].textContent=percentageOptionProgressBar +"%";
             var optionProgressBar = answerOption.getElementsByClassName("progress-bar")[0]
@@ -171,7 +171,7 @@ var surveyFunctions = {
     },
 
     _selectAnswer:function(e){
-        var answer = event.currentTarget
+        var answer = e.currentTarget
         if ($(answer).find(".option").length >0){
             surveyFunctions._selectSingleAnswer(e)
         }else if ($(answer).find(".multi-option").length >0){
@@ -185,12 +185,10 @@ var surveyFunctions = {
         var question = answer.parentElement.parentElement;
         var nextButton = answerList.nextElementSibling.querySelector('.next-section button');
 
-        answerList.querySelectorAll(".survey-question-answer").forEach(function(answerListed){
-            answerListed.classList.remove('checked');
-        })
+        $(answerList).find(".survey-question-answer").removeClass('checked');
 
-        nextButton.classList.remove('disabled');
-        answer.classList.add('checked');
+        $(nextButton).removeClass('disabled');
+        $(answer).addClass('checked');
         question.setAttribute('data-answer-selected', answer.getAttribute('data-answer-id'));
     },
 
@@ -208,25 +206,25 @@ var surveyFunctions = {
             var answerPosition = selectedAnswers.indexOf(answer.getAttribute('data-answer-id'));
             if (answerPosition === -1) {
                 selectedAnswers.push(answer.getAttribute('data-answer-id'));
-                nextButton.classList.remove('disabled');
-                answer.classList.add('checked');
+                $(nextButton).removeClass('disabled');
+                $(answer).addClass('checked');
                 numOptionAnswers = numOptionAnswers+1;
             } else {
                 selectedAnswers.splice(answerPosition, 1);
-                answer.classList.remove('checked');
+                $(answer).removeClass('checked');
                 numOptionAnswers = numOptionAnswers -1;
             }
         } else {
             selectedAnswers = [answer.getAttribute('data-answer-id')];
-            nextButton.classList.remove('disabled');
+            $(nextButton).removeClass('disabled');
             numOptionAnswers = numOptionAnswers +1;
-            answer.classList.add('checked');
+            $(answer).addClass('checked');
         }
         answer.setAttribute("data-numAnswers",numOptionAnswers)
         question.setAttribute('data-answer-selected',  (selectedAnswers.length > 0) ? JSON.stringify(selectedAnswers) : '');
 
         if (selectedAnswers.length === 0) {
-            nextButton.classList.add('disabled');
+            $(nextButton).addClass('disabled');
         }
     },
 
@@ -246,8 +244,8 @@ var surveyFunctions = {
 
 
             if (numQuestionAnswers > 0 ){
-                progressBar.style.width = Math.round(numOptionAnswers/numQuestionAnswers*100*100)/100 + '%';
-                progressBarCounter.textContent = Math.round(numOptionAnswers/numQuestionAnswers * 100*100)/100  + '%';
+                progressBar.style.width = Math.round(numOptionAnswers/numQuestionAnswers*100)+ '%';
+                progressBarCounter.textContent = Math.round(numOptionAnswers/numQuestionAnswers * 100) + '%';
                 // progressBarCounter.textContent = numOptionAnswers +"/"+numQuestionAnswers;
             }else{
                 progressBar.style.width = '0%';
