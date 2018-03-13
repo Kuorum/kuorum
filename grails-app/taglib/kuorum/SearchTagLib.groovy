@@ -9,7 +9,7 @@ class SearchTagLib {
     private static final Integer MAX_LENGTH_TEXT = 300
 
     def highlightedField={attrs ->
-        SearchKuorumElementRSDTO element = attrs.solrElement
+        SearchKuorumElementRSDTO element = attrs.searchElement
         String field = attrs.field
         Integer maxLength = attrs.maxLength?Integer.parseInt(attrs.maxLength):MAX_LENGTH_TEXT
 

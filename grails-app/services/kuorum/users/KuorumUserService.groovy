@@ -358,7 +358,7 @@ class KuorumUserService {
                 throw KuorumExceptionUtil.createExceptionFromValidatable(user, msg)
             }
         }
-        indexSolrService.index(user)
+        indexSolrService.deltaIndex()
         kuorumUserAuditService.auditEditUser(user)
         kuorumMailService.mailingListUpdateUser(user)
         updateKuorumUserOnRest(user);
@@ -413,7 +413,7 @@ class KuorumUserService {
                 throw KuorumExceptionUtil.createExceptionFromValidatable(user, "No se ha podido actualizar el usuario ${user.email}(${user.id})")
             }
         }
-        indexSolrService.index(user)
+        indexSolrService.deltaIndex()
         kuorumUserAuditService.auditEditUser(user)
         user
     }
@@ -569,7 +569,7 @@ class KuorumUserService {
             log.error("Error salvando usuario ${user.id}. ERRORS => ${user.errors}")
             throw new KuorumException("Error desactivando un usuario")
         }                   
-        indexSolrService.delete(user);
+        indexSolrService.deltaIndex()
 
         // CALLING API TO REMOVE CONTACT
         Map<String, String> params = [userId: user.id.toString()]

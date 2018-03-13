@@ -19,11 +19,11 @@
                 <div class="card-body">
                     <h1>
                         <g:link mapping="campaignShow" class="link-wrapper-clickable" params="${campaign.encodeAsLinkProperties()}">
-                            <searchUtil:highlightedField solrElement="${campaign}" field="name"/>
+                            <searchUtil:highlightedField searchElement="${campaign}" field="name"/>
                         </g:link>
                     </h1>
                 <g:if test="${!campaignMultimedia}">
-                    <div class="card-text"><searchUtil:highlightedField solrElement="${campaign}" field="text" maxLength="250"/></div>
+                    <div class="card-text"><searchUtil:highlightedField searchElement="${campaign}" field="text" maxLength="250"/></div>
                 </g:if>
             </div>
             <div class="card-footer">

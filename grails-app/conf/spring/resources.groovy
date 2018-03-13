@@ -1,6 +1,5 @@
 import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.authentication.encoding.BCryptPasswordEncoder
-import grails.spring.BeanBuilder
 import grails.util.Environment
 import kuorum.core.security.passwordEncoders.PasswordFixingDaoAuthenticationProvider
 import kuorum.core.security.passwordEncoders.Sha256ToBCryptPasswordEncoder
@@ -9,11 +8,6 @@ import kuorum.files.AmazonFileService
 import kuorum.register.MongoUserDetailsService
 import kuorum.security.permission.KuorumPermissionEvaluator
 import kuorum.security.rememberMe.RememberMeTokenRepository
-import kuorum.solr.IndexSolrService
-import kuorum.solr.SearchSolrService
-import org.apache.solr.client.solrj.embedded.EmbeddedSolrServer
-import org.apache.solr.client.solrj.impl.HttpSolrServer
-import org.apache.solr.core.CoreContainer
 import org.springframework.security.authentication.encoding.MessageDigestPasswordEncoder
 
 // Place your Spring DSL code here
@@ -58,37 +52,23 @@ beans = {
             break
     }
 
-    def bb = new BeanBuilder()
-    bb.beans{
-        if (Boolean.parseBoolean(application.config.solr.embedded)){
-//            System.setProperty("solr.solr.home", application.config.solr.solrHome);
-            String solrDir = application.config.solr.solrHome;
-            File solrConfig = new File("$solrDir/solr.xml")
-            CoreContainer container = CoreContainer.createAndLoad(solrDir,solrConfig);
-
-//            container.load();
-//            EmbeddedSolrServer server = new EmbeddedSolrServer( container, "core name as defined in solr.xml" );
-            solrServer(EmbeddedSolrServer,container,container.allCoreNames[0])
-        }else{
-            def env = System.getenv()
-            String solrUrl = application.config.solr.solrUrl
-            solrServer(HttpSolrServer,solrUrl)
-        }
-    }
-//   def solrUrl
-   //def solrServer = new HttpSolrServer("http://localhost:9080/solr/kuorumUsers")
-
-    indexSolrService(IndexSolrService){
-        server = solrServer
-        grailsApplication = ref('grailsApplication')
-    }
-   searchSolrService(SearchSolrService){
-       server = solrServer
-       indexSolrService = indexSolrService
-       restKuorumApiService = ref('restKuorumApiService')
-       springSecurityService = ref ('springSecurityService')
-   }
-
+//    def bb = new BeanBuilder()
+//    bb.beans{
+//        if (Boolean.parseBoolean(application.config.solr.embedded)){
+////            System.setProperty("solr.solr.home", application.config.solr.solrHome);
+//            String solrDir = application.config.solr.solrHome;
+//            File solrConfig = new File("$solrDir/solr.xml")
+//            CoreContainer container = CoreContainer.createAndLoad(solrDir,solrConfig);
+//
+////            container.load();
+////            EmbeddedSolrServer server = new EmbeddedSolrServer( container, "core name as defined in solr.xml" );
+//            solrServer(EmbeddedSolrServer,container,container.allCoreNames[0])
+//        }else{
+//            def env = System.getenv()
+//            String solrUrl = application.config.solr.solrUrl
+//            solrServer(HttpSolrServer,solrUrl)
+//        }
+//    }
 
 //    xmlns task:"http://www.springframework.org/schema/task"
 //

@@ -12,7 +12,7 @@ http://jira.kuorum.org/browse/BUGS/
 * Java 1.7
 
 ### Crear una carpeta para el desarrollo
-Se va a dejar todo en una misma carpeta bien recojido y ordenado. :) A lo largo del proceso de instalación haremos
+Se va a dejar todo en una misma carpeta bien recojido y ordenado. :) A lo largo del proceso de instalaciï¿½n haremos
 referencia a este carpeta con el nombre DESARROLLO
 
     var DESARROLLO=/home/user/kuorum
@@ -28,7 +28,7 @@ referencia a este carpeta con el nombre DESARROLLO
 
 ### Descargamos mongo en $(DESARROLLO)/mongo
 * Linux (64 bits) https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-2.6.1.tgz
-* Descomprimimios el ficherode mongo y se creará una carpeta `$DESARROLLO/mongo/mongodb-linux-x86_64-2.6.1 con un subdirectorio /bin`
+* Descomprimimios el ficherode mongo y se crearï¿½ una carpeta `$DESARROLLO/mongo/mongodb-linux-x86_64-2.6.1 con un subdirectorio /bin`
 * Creamos un directorio `$DESARROLLO/mongo/logs`
 * Creamos un directorio `$DESARROLLO/mongo/data`
 * Creamos un fichero que se llama `mongo.cfg`. El contenido del fichero es:
@@ -46,8 +46,8 @@ referencia a este carpeta con el nombre DESARROLLO
 * TIP: crear un script llamado startMongo.sh que te facilite la vida para no escribir todo este churro.
 
 ### SOLR
-El solr es la BBDD documental basada en Lucene para realizar las búsquedas.
-La configuración del solar esta a parte del proyecto, y hay que descargarla a parte.
+El solr es la BBDD documental basada en Lucene para realizar las bï¿½squedas.
+La configuraciï¿½n del solar esta a parte del proyecto, y hay que descargarla a parte.
 * Creamos la carpeta `$DESAROLLO/solr`
 * Nos vamos a esa carpeta y clonamos el proyecto de Sole de Kuorm
 
@@ -63,25 +63,21 @@ Vamos a crear el proyecto desde el github.
 
     https://github.com/Kuorum/kuorum.git
 
-* Seguir los pasos de creación de un proyecto del IDEA.
+* Seguir los pasos de creaciï¿½n de un proyecto del IDEA.
     * Cuando pide seleccionar grails seleccionamos el que nos acabamos de bajar
-    * Yo seleccionaria la descarga del código en la carpeta creada anteriormente $DESARROLLO/kuorum
-### Preparar carpeta para subir imágenes en desarrollo
+    * Yo seleccionaria la descarga del cï¿½digo en la carpeta creada anteriormente $DESARROLLO/kuorum
+### Preparar carpeta para subir imï¿½genes en desarrollo
 * Crear una carpeta en `$DESARROLLO/images`
-* Esta carpeta se le indicará al entorno cual es mediante el fichero de propiedades que se explica más adelante
+* Esta carpeta se le indicarï¿½ al entorno cual es mediante el fichero de propiedades que se explica mï¿½s adelante
 
-### Configuración entorno
+### Configuraciï¿½n entorno
 * En la carpeta $DESARROLLO/Kuorum/kuorum/src/java/ hay un fichero que se llama example_config.properties.
 * Copiar y renombrar el fichero a esta misma carpeta misma carpeta pero llamandolo development_config.properties
-* Las propiedades son autoexplicativas. A continuación se indican las de configuración del entorno
+* Las propiedades son autoexplicativas. A continuaciï¿½n se indican las de configuraciï¿½n del entorno
 
 ```properties
  grails.serverURL=http://127.0.0.1:8080/kuorum
 
- solr.embedded=true
- solr.solrHome=$DESARROLLO/solr/solr/solrConfig
- solr.solrUrl=http://localhost:9080/solr/kuorum
- solr.bulkUpdateQuentity=1000
 
  oauth.providers.google.callback = http://localhost:8080/kuorum/oauth/google/callback
 
