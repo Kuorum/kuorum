@@ -21,14 +21,16 @@ class SearchSolrService {
 
     SearchResultsRSDTO searchAPI(SearchParams searchParams){
         SearchParamsRDTO searchParamsRDTO = convertParams(searchParams)
-        Map<String, String> query = searchParamsRDTO.encodeAsQueryParams()
+//        Map<String, String> query = searchParamsRDTO.encodeAsQueryParams()
+        Map<String, String> query = [:]
         if (springSecurityService.loggedIn){
             query.put("viewerUid", springSecurityService.currentUser.id)
         }
-        def response = restKuorumApiService.get(
+        def response = restKuorumApiService.put(
                 RestKuorumApiService.ApiMethod.SEARCH,
                 [:],
                 query,
+                searchParamsRDTO,
                 new TypeReference<SearchResultsRSDTO>(){})
         SearchResultsRSDTO resultsRSDTO = new SearchResultsRSDTO();
         if (response.data){
@@ -87,7 +89,8 @@ class SearchSolrService {
         SearchParamsRDTO searchParamsRDTO = new SearchParamsRDTO();
         searchParamsRDTO.boostedAlias = boostedAlias
         searchParamsRDTO.word = search
-        Map<String, String> query = searchParamsRDTO.encodeAsQueryParams()
+//        Map<String, String> query = searchParamsRDTO.encodeAsQueryParams()
+        Map<String, String> query = [:]
         if (springSecurityService.loggedIn){
             query.put("viewerUid", springSecurityService.currentUser.id)
         }
@@ -95,6 +98,7 @@ class SearchSolrService {
                 RestKuorumApiService.ApiMethod.SEARCH_SUGGEST_USERS,
                 [:],
                 query,
+                searchParamsRDTO,
                 new TypeReference<List<SearchKuorumUserRSDTO>>(){})
 
         def suggestions = response.data.collect{[alias:it.alias, name:it.name, avatar:it.urlImage]}

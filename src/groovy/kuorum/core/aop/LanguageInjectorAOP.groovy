@@ -48,8 +48,9 @@ class LanguageInjectorAOP {
     }
 
     private void addAbsoluteParameter(Map params){
-        if (params.absolute==null ){
+        if (params.absolute==null && params.dir!= "css" &&  params.dir!= "js" &&  params.dir!= "images"){
             params.absolute=true
+//            params.base = "https://local.kuorum.org"
         }
     }
 }
