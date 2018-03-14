@@ -55,7 +55,7 @@ var surveyFunctions = {
         e.preventDefault();
         var $buttonNext = $(e.target);
         var alias = $buttonNext.attr("data-userLoggedAlias");
-        var question = event.currentTarget.parentElement.parentElement.parentElement;
+        var question = e.currentTarget.parentElement.parentElement.parentElement;
         if (alias == "") {
             // USER NO LOGGED
             var buttonId = guid();
@@ -171,7 +171,7 @@ var surveyFunctions = {
     },
 
     _selectAnswer:function(e){
-        var answer = event.currentTarget
+        var answer = e.currentTarget
         if ($(answer).find(".option").length >0){
             surveyFunctions._selectSingleAnswer(e)
         }else if ($(answer).find(".multi-option").length >0){
@@ -185,12 +185,10 @@ var surveyFunctions = {
         var question = answer.parentElement.parentElement;
         var nextButton = answerList.nextElementSibling.querySelector('.next-section button');
 
-        answerList.querySelectorAll(".survey-question-answer").forEach(function(answerListed){
-            answerListed.classList.remove('checked');
-        })
+        $(answerList).find(".survey-question-answer").removeClass('checked');
 
-        nextButton.classList.remove('disabled');
-        answer.classList.add('checked');
+        $(nextButton).removeClass('disabled');
+        $(answer).addClass('checked');
         question.setAttribute('data-answer-selected', answer.getAttribute('data-answer-id'));
     },
 
@@ -208,25 +206,25 @@ var surveyFunctions = {
             var answerPosition = selectedAnswers.indexOf(answer.getAttribute('data-answer-id'));
             if (answerPosition === -1) {
                 selectedAnswers.push(answer.getAttribute('data-answer-id'));
-                nextButton.classList.remove('disabled');
-                answer.classList.add('checked');
+                $(nextButton).removeClass('disabled');
+                $(answer).addClass('checked');
                 numOptionAnswers = numOptionAnswers+1;
             } else {
                 selectedAnswers.splice(answerPosition, 1);
-                answer.classList.remove('checked');
+                $(answer).removeClass('checked');
                 numOptionAnswers = numOptionAnswers -1;
             }
         } else {
             selectedAnswers = [answer.getAttribute('data-answer-id')];
-            nextButton.classList.remove('disabled');
+            $(nextButton).removeClass('disabled');
             numOptionAnswers = numOptionAnswers +1;
-            answer.classList.add('checked');
+            $(answer).addClass('checked');
         }
         answer.setAttribute("data-numAnswers",numOptionAnswers)
         question.setAttribute('data-answer-selected',  (selectedAnswers.length > 0) ? JSON.stringify(selectedAnswers) : '');
 
         if (selectedAnswers.length === 0) {
-            nextButton.classList.add('disabled');
+            $(nextButton).addClass('disabled');
         }
     },
 
