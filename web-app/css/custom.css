@@ -5122,6 +5122,9 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     margin-right: -20px;
 }
 
+#questionsSurveyForm div.question-type{padding:0;margin-top:5px}
+#questionsSurveyForm div.question-type + div.form-group-remove{margin-top:5px}
+
 
 /* Super small devices (mobile, 480px and down) */
 @media only screen and (max-width: 480px) {
@@ -5301,6 +5304,8 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 
 /* Small devices (tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
+    #questionsSurveyForm div.question-type{padding:inherit;margin-top:0px}
+    #questionsSurveyForm div.question-type + div.form-group-remove{margin-top:0px}
     body.noLogged > .container-fluid {margin-top:40px;}
     #trustUs ul.globus li img {
         height: 40px;
