@@ -1540,7 +1540,7 @@ ul.list > li > ul.list-actions > li > a:active {color: #20a2ea;}
 .actionIcons li > #outlook {background-image: url('../images/mail-outlook.png'); background-position: center 10px;}
 
 .actionIcons {margin:0 auto; padding:0;}
-.actionIcons li.fontIcon > a {padding:21px 0 0 0;}
+.actionIcons li.fontIcon > a {padding:16px 0 0 0;}
 .actionIcons li.fontIcon > a > span.fa {font-size: 2em;width: 100%; height: auto;}
 .actionIcons li.fontIcon > a > span.fa {font-size: 2em;width: 100%; height: auto;}
 .actionIcons li.fontIcon > a > span.label {color:inherit; padding:0; font-weight: inherit; font-size: 13px}
@@ -4526,7 +4526,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {border-radiu
     border: 1px solid #ff9431;
     color: #ff9431;
 }
-#main > div.box-steps > ul.actionIcons > li.arrow {color: #a8a8a8;position: relative; top: -14px;}
+#main > div.box-steps > ul.actionIcons > li.arrow {color: #a8a8a8;position: relative; top: -8px;}
 #main > div.box-steps > ul.actionIcons > li a:hover{color: #ff9431; border: 1px solid #ff9431;}
 
 

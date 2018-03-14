@@ -2,7 +2,7 @@
 <g:if test="${attachEvent || mappings.questions}">
     <g:set var="numberStepsClass" value="threeSteps"/>
 </g:if>
-<ul id="mails" class="campaign-steps ${numberStepsClass}">
+<ul class="actionIcons" class="campaign-steps ${numberStepsClass}">
     <li class="fontIcon ${mappings.step == 'settings' ?'active':''}">
         <a href="#" data-redirectLink="${mappings.settings}">
             <span class="fa fa-gears"></span>
