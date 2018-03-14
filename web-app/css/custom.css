@@ -1525,6 +1525,27 @@ ul.list > li > ul.list-actions > li > a:active {color: #20a2ea;}
 /*#mails.campaign-steps li.fontIcon > a > span.fa {height: auto;}*/
 #mails li.fontIcon > a > span.label {color:inherit; padding:0; font-weight: inherit; font-size: 13px}
 
+
+
+
+.actionIcons {text-align: center;}
+.actionIcons li {list-style: none; display: inline-block; margin: 0 17px 20px;}
+/*#mails li:last-child {margin-right: 0;}*/
+.actionIcons li > a {margin:auto; display: block; width: 85px; height: 80px; padding-top: 50px; font-size: 16px; font-size: 1.3rem; background-color: #fff; background-repeat: no-repeat; border: 1px solid #ff9431;}
+.actionIcons li > a:hover, 
+.actionIcons li > a:focus, 
+.actionIcons li > a:active {text-decoration: none; background-color: #fbfbfb;}
+.actionIcons li > #gmail {background-image: url('../images/mail-gmail.png'); background-position: center 15px;margin-bottom: auto}
+.actionIcons li > #yahoo {background-image: url('../images/mail-yahoo.png'); background-position: center 25px;}
+.actionIcons li > #outlook {background-image: url('../images/mail-outlook.png'); background-position: center 10px;}
+
+.actionIcons {margin:0 auto; padding:0;}
+.actionIcons li.fontIcon > a {padding:21px 0 0 0;}
+.actionIcons li.fontIcon > a > span.fa {font-size: 2em;width: 100%; height: auto;}
+.actionIcons li.fontIcon > a > span.fa {font-size: 2em;width: 100%; height: auto;}
+.actionIcons li.fontIcon > a > span.label {color:inherit; padding:0; font-weight: inherit; font-size: 13px}
+
+
 .dashboard, .box-ppal.dashboard {margin-top: 20px;}
 .dashboard > div > .box-ppal {min-height: 225px; box-shadow: 0 0 2px rgba(200,200,200,0.6);}
 .dashboard .box-ppal > h2 {font-size: 20px; font-size: 2rem; color: #a8a8a8; padding-bottom: 10px; border-bottom: solid 1px #e5e5e5; margin: 0 0 20px 0;}
@@ -4492,21 +4513,21 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {border-radiu
 
 /* clases para campaign steps ======================================================================================================== */
 /* ======================================================================================================================================== */
-#main > div.box-steps > ul#mails {padding:0;}
-#main > div.box-steps > ul#mails > li a {
+#main > div.box-steps > ul.actionIcons {padding:0;}
+#main > div.box-steps > ul.actionIcons > li a {
     background-color: #fff;
     background-repeat: no-repeat;
     border: 1px solid #a8a8a8;
     color: #a8a8a8;
 }
-#main > div.box-steps > ul#mails > li.active a{
+#main > div.box-steps > ul.actionIcons > li.active a{
     background-color: #fff;
     background-repeat: no-repeat;
     border: 1px solid #ff9431;
     color: #ff9431;
 }
-#main > div.box-steps > ul#mails > li.arrow {color: #a8a8a8;position: relative; top: -14px;}
-#main > div.box-steps > ul#mails > li a:hover{color: #ff9431; border: 1px solid #ff9431;}
+#main > div.box-steps > ul.actionIcons > li.arrow {color: #a8a8a8;position: relative; top: -14px;}
+#main > div.box-steps > ul.actionIcons > li a:hover{color: #ff9431; border: 1px solid #ff9431;}
 
 
 
@@ -5143,18 +5164,10 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .box-ppal#createNewCampaign {margin-bottom: 20px; padding-bottom: 15px;}
     .carousel.news .carousel-control {top: 30%;}
 
-    .actionIcons li{
-        margin: auto;
-        width: auto;
-        padding: 15px 0 0 0;
-    }
 
-
-
-
-    #mails.campaign-steps,
-    #mails.newsletter-steps {  width: 100% !important; padding:0;}
-    #mails li.fontIcon > a{  margin: auto !important;  }
+    .actionIcons.campaign-steps,
+    .actionIcons.newsletter-steps {  width: 100% !important; padding:0;}
+    .actionIcons li.fontIcon > a{  margin: auto !important;  }
 
     #main > div.box-steps{background-color: #fff; color:#545454; border: solid 1px #e5e5e5; box-shadow: 0 0 2px rgba(200,200,200,0.6);}
     #main > div.box-steps{margin-bottom: 25px; padding: 20px 15px 0 15px;}
@@ -5273,8 +5286,8 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 @media only screen and (min-width: 640px) {
     #contactsList > li {padding: 10px 0 0 0px; min-height: 175px;}
 
-    #main > div.box-steps > ul#mails.threeSteps {width: 570px}
-    #main > div.box-steps > ul#mails.twoSteps {width: 350px}
+    #main > div.box-steps > ul.actionIcons.threeSteps {width: 570px}
+    #main > div.box-steps > ul.actionIcons.twoSteps {width: 350px}
 
     .uploaderImageContainer.PROJECT_IMAGE .qq-upload-drop-area {height:316px;}
     .uploaderImageContainer.PROJECT_IMAGE > div {height:316px;}
