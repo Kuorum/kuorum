@@ -16,7 +16,7 @@
 
 <content tag="cColumn">
     <g:render template="/campaigns/columnCModules/eventCallToAction" model="[eventUser: postUser,campaign:post]"/>
-    <g:render template="/campaigns/columnCModules/eventInfo" model="[event:post.event]"/>
+    <g:render template="/campaigns/columnCModules/eventInfo" model="[event:post.event, eventUser: postUser]"/>
     <g:render template="/post/showModules/cColumn" model="[post: post, postUser: postUser]" />
 </content>
 
