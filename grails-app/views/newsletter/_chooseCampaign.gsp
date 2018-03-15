@@ -1,7 +1,7 @@
-<ul id="mails" class="campaigns">
+<ul class="actionIcons">
     <li class="fontIcon">
         <!--<span class="fa-stack fa-lg active"-->
-        <g:link mapping="politicianMassMailingNew" role="button" class="mail new-campaign-tip"
+        <g:link mapping="politicianMassMailingNew" role="button" class="actionIcons new-campaign-tip"
                 rel="tooltip"
                 data-toggle="tooltip"
                 data-placement="bottom"
@@ -12,7 +12,7 @@
         </g:link>
     </li>
     <li class="fontIcon">
-        <g:link mapping="postCreate" role="button" class="mail new-campaign-tip"
+        <g:link mapping="postCreate" role="button" class="actionIcons new-campaign-tip"
                 rel="tooltip"
                 data-toggle="tooltip"
                 data-placement="bottom"
@@ -23,7 +23,7 @@
         </g:link>
     </li>
     <li class="fontIcon">
-        <g:link mapping="debateCreate" role="button" class="mail new-campaign-tip"
+        <g:link mapping="debateCreate" role="button" class="actionIcons new-campaign-tip"
                 rel="tooltip"
                 data-toggle="tooltip"
                 data-placement="bottom"
@@ -34,7 +34,7 @@
         </g:link>
     </li>
     <li class="fontIcon">
-        <g:link mapping="eventCreate" role="button" class="mail new-campaign-tip"
+        <g:link mapping="eventCreate" role="button" class="actionIcons new-campaign-tip"
                 rel="tooltip"
                 data-toggle="tooltip"
                 data-placement="bottom"
@@ -45,7 +45,7 @@
         </g:link>
     </li>
     <li class="fontIcon">
-        <g:link mapping="surveyCreate" role="button" class="mail new-campaign-tip"
+        <g:link mapping="surveyCreate" role="button" class="actionIcons new-campaign-tip"
                 rel="tooltip"
                 data-toggle="tooltip"
                 data-placement="bottom"
