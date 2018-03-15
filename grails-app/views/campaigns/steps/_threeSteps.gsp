@@ -1,4 +1,4 @@
-<ul id="mails" class="newsletter-steps threeSteps">
+<ul class="actionIcons" class="newsletter-steps threeSteps">
     <li class="fontIcon ${editReference == 'politicianMassMailingSettings'?'active':''}">
         <a href="#" data-redirectLink="politicianMassMailingSettings">
             <span class="fa fa-gears"></span>

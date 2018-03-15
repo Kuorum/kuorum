@@ -245,14 +245,21 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
             return
         }
         notificationService.sendWelcomeRegister(user)
-//        render view:'selectMyPassword', model:[userId:user.id, command:new ResetPasswordCommand()]
-        if (registrationCode.redirectLink){
-            redirectUrl = registrationCode.redirectLink
-//            redirect (uri:redirectUrl)
-            redirect mapping:'customProcessRegisterStep2', params: [tour:true]
+        if (registerService.isPasswordSetByUser(user)){
+            redirect mappin:'dashboard'
         }else{
             redirect mapping:'customProcessRegisterStep2', params: [tour:true]
         }
+
+        // REDIRECT USING registrationCode redirectLink
+//        render view:'selectMyPassword', model:[userId:user.id, command:new ResetPasswordCommand()]
+//        if (registrationCode.redirectLink){
+//            redirectUrl = registrationCode.redirectLink
+//            redirect (uri:redirectUrl)
+//            redirect mapping:'customProcessRegisterStep2', params: [tour:true]
+//        }else{
+//            redirect mapping:'customProcessRegisterStep2', params: [tour:true]
+//        }
     }
 
 
