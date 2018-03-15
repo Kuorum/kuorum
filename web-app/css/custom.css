@@ -1513,14 +1513,14 @@ ul.list > li > ul.list-actions > li > a:active {color: #20a2ea;}
 
 .actionIcons {text-align: center;}
 .actionIcons li {list-style: none; display: inline-block; margin: 0 17px 20px;}
-.actionIcons li > a {margin:auto; display: block; width: 85px; height: 80px; padding-top: 50px; font-size: 16px; font-size: 1.3rem; background-color: #fff; background-repeat: no-repeat; border: 1px solid #ff9431;}
+.actionIcons li > a {margin:auto; display: block; width: 85px; height: 80px; padding-top: 50px; font-size: 15px; background-color: #fff; background-repeat: no-repeat; border: 1px solid #ff9431;}
 .actionIcons li > a:hover, 
 .actionIcons li > a:focus, 
 .actionIcons li > a:active {text-decoration: none; background-color: #fbfbfb;}
 .actionIcons li > #gmail {background-image: url('../images/mail-gmail.png'); background-position: center 15px;margin-bottom: auto}
 .actionIcons li > #yahoo {background-image: url('../images/mail-yahoo.png'); background-position: center 25px;}
-.actionIcons li > #outlook {background-image: url('../images/mail-outlook.png'); background-position: center 10px;}
-.actionIcons li > #uploadCsv {background-image: url('../images/mail-csv.png'); background-position: center 10px;}
+.actionIcons li > #outlook {background-image: url('../images/mail-outlook.png'); background-position: center 15px;}
+.actionIcons li > #uploadCsv {background-image: url('../images/mail-csv.png'); background-position: center 17px;}
 .actionIcons {margin:0 auto; padding:0;}
 .actionIcons li.fontIcon > a {padding:16px 0 0 0;}
 .actionIcons li.fontIcon > a > span.fa {font-size: 2em;width: 100%; height: auto;}
