@@ -2,7 +2,7 @@
 <g:if test="${attachEvent || mappings.questions}">
     <g:set var="numberStepsClass" value="threeSteps"/>
 </g:if>
-<ul class="actionIcons" class="campaign-steps ${numberStepsClass}">
+<ul class="actionIcons campaign-steps ${numberStepsClass}">
     <li class="fontIcon ${mappings.step == 'settings' ?'active':''}">
         <a href="#" data-redirectLink="${mappings.settings}">
             <span class="fa fa-gears"></span>
@@ -13,7 +13,7 @@
         <span class="fa fa-angle-right fa-3x"></span>
     </li>
     <g:if test="${attachEvent}">
-        <li class="fontIcon ${mappings.step == 'event'?'active':''}">
+        <li class="fontIcon ${mappings.step == 'event'?'active':''} campaign-steps ${numberStepsClass}">
             <a href="#" data-redirectLink="${mappings.event}">
                 <span class="fa fa-globe"></span>
                 <span class="label"><g:message code="tools.campaign.new.steps.eventData"/></span>
@@ -23,7 +23,7 @@
             <span class="fa fa-angle-right fa-3x"></span>
         </li>
     </g:if>
-    <li class="fontIcon ${mappings.step == 'content'?'active':''}">
+    <li class="fontIcon ${mappings.step == 'content'?'active':''} campaign-steps ${numberStepsClass}">
         <a href="#" data-redirectLink="${mappings.content}">
             <span class="fa fa-file-text-o"></span>
             <span class="label"><g:message code="tools.campaign.new.steps.content"/></span>
