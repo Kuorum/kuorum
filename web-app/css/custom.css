@@ -9270,8 +9270,8 @@ ul.notification-menu > li.see-more {
 
 .survey-question .survey-question-answer .progress,
 .survey-question .survey-question-answer .progress-bar-counter {display: none;}
-.survey-question.answered .survey-question-answer .progress,
-.survey-question.answered .survey-question-answer .progress-bar-counter {display: flex;}
+.survey-question.answered .survey-question-answer .progress {display: inline-block; width: calc(100% - 125px);}
+.survey-question.answered .survey-question-answer .progress-bar-counter {float: right; width: 30px; display: inline-block; margin-top: -10px; padding: 0;}
 
 .survey-question .social {
     margin: 30px 0 10px 0;
