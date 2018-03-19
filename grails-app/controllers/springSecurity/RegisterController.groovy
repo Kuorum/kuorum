@@ -55,7 +55,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
 
         if (springSecurityService.isLoggedIn()) {
             redirect uri: config.successHandler.defaultTargetUrl
-            flash.message = message(code:'register.alreadyRegistered')
+//            flash.message = message(code:'register.alreadyRegistered')
             return
         }
         [command: new KuorumRegisterCommand(copy)]
