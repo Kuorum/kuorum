@@ -9,7 +9,6 @@ import kuorum.KuorumFile
 import kuorum.core.FileGroup
 import kuorum.core.model.AvailableLanguage
 import kuorum.core.model.Gender
-import kuorum.notifications.NotificationService
 import kuorum.users.*
 import kuorum.util.LookUpEnumUtil
 import org.scribe.model.Token
@@ -78,7 +77,6 @@ class GoogleOAuthService implements IOAuthService{
         user.accountExpired = false;
         user.accountLocked = false
         user.enabled = true;
-        user.alias = kuorumUserService.generateValidAlias(registerCommand.name)
 
 //        if (user.userType == UserType.PERSON){
             PersonData personData = new PersonData()

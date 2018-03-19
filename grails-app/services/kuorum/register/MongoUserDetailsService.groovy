@@ -3,6 +3,7 @@ package kuorum.register
 import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.userdetails.GrailsUser
 import grails.plugin.springsecurity.userdetails.GrailsUserDetailsService
+import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.users.KuorumUser
 import org.apache.log4j.Logger
 import org.springframework.security.core.GrantedAuthority
@@ -36,27 +37,24 @@ class MongoUserDetailsService  implements GrailsUserDetailsService {
         if(log.debugEnabled) {
             log.debug("Logarndose el usuario: $username")
         }
-        KuorumUser.withTransaction { status ->
-
-            if (!username) {
-                log.warn("Empty username: $username")
-                throw new UsernameNotFoundException('Empty username', username)
-            }
-
-            log.debug("KuorumUser not found using username: $username")
-            KuorumUser user = KuorumUser.findByEmail(username.toLowerCase())
-
-            if (!user) {
-                log.warn("KuorumUser not found: $username")
-                throw new UsernameNotFoundException('KuorumUser not found', username)
-            }
-
-            if(log.debugEnabled) {
-                log.debug("KuorumUser found: $username")
-            }
-
-            return createUserDetails(user)
+        if (!username) {
+            log.warn("Empty username: $username")
+            throw new UsernameNotFoundException('Empty username', username)
         }
+
+        log.debug("KuorumUser not found using username: $username")
+        KuorumUser user = KuorumUser.findByEmailAndDomain(username.toLowerCase(), CustomDomainResolver.domain)
+
+        if (!user) {
+            log.warn("KuorumUser not found: $username")
+            throw new UsernameNotFoundException('KuorumUser not found', username)
+        }
+
+        if(log.debugEnabled) {
+            log.debug("KuorumUser found: $username")
+        }
+
+        return createUserDetails(user)
     }
 
     @Override

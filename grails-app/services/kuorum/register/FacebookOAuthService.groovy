@@ -81,7 +81,6 @@ class FacebookOAuthService implements IOAuthService {
         user.accountLocked = false
         user.enabled = true
         user.password = registerCommand.password
-        user.alias = user.alias?:kuorumUserService.generateValidAlias(fbProfile.name)
         user.surname=fbProfile.lastName
         user.language = AvailableLanguage.fromLocaleParam(fbProfile?.locale?.language)
         RoleUser roleUser = RoleUser.findByAuthority('ROLE_USER')

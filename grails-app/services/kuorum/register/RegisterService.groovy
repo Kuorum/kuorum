@@ -4,6 +4,7 @@ import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.authentication.dao.NullSaltSource
 import grails.plugin.springsecurity.ui.SpringSecurityUiService
+import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.exception.KuorumException
 import kuorum.core.model.AvailableLanguage
 import kuorum.core.model.CommissionType
@@ -150,14 +151,17 @@ class RegisterService {
         if (!availableLanguage ){
             availableLanguage = AvailableLanguage.en_EN
         }
+        String alias = kuorumUserService.generateValidAlias(command.name)
         KuorumUser user
             user = new KuorumUser(
                     email: command.email.toLowerCase(),
                     name: command.name,
                     language: availableLanguage,
+                    domain: CustomDomainResolver.domain,
                     accountLocked: false, enabled: true)
             user.relevantCommissions = CommissionType.values()
             user.authorities = [RoleUser.findByAuthority("ROLE_INCOMPLETE_USER")]
+            user.alias = alias
             user
     }
 

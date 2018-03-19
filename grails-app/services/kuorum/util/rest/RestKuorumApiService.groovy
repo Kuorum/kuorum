@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import groovyx.net.http.*
+import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.exception.KuorumException
 import org.apache.commons.io.IOUtils
 import org.apache.http.entity.InputStreamEntity
@@ -20,15 +21,15 @@ class RestKuorumApiService {
     @Value('${kuorum.rest.apiPath}')
     String apiPath
 
-    @Value('${kuorum.rest.apiKey}')
-    String kuorumRestApiKey
+//    @Value('${kuorum.rest.apiKey}')
+//    String kuorumRestApiKey
 
     def delete(ApiMethod apiMethod, Map<String,String> params, Map<String,String> query) {
         RESTClient mailKuorumServices = new RESTClient(kuorumRestServices)
         String path = apiMethod.buildUrl(apiPath, params)
         def response = mailKuorumServices.delete(
                 path: path,
-                headers: ["User-Agent": "Kuorum Web", "token": kuorumRestApiKey],
+                headers: ["User-Agent": "Kuorum Web", "token": CustomDomainResolver.apiToken],
                 query: query,
                 requestContentType: ContentType.JSON
         )
@@ -41,7 +42,7 @@ class RestKuorumApiService {
         String path = apiMethod.buildUrl(apiPath,params);
         def response = mailKuorumServices.delete(
                 path: path,
-                headers: ["User-Agent": "Kuorum Web", "token":kuorumRestApiKey],
+                headers: ["User-Agent": "Kuorum Web", "token":CustomDomainResolver.apiToken],
                 query:query,
                 requestContentType : groovyx.net.http.ContentType.JSON
         )
@@ -54,7 +55,7 @@ class RestKuorumApiService {
         String path = apiMethod.buildUrl(apiPath,params);
         def response = mailKuorumServices.get(
                 path: path,
-                headers: ["User-Agent": "Kuorum Web", "token":kuorumRestApiKey],
+                headers: ["User-Agent": "Kuorum Web", "token":CustomDomainResolver.apiToken],
                 query:query,
                 requestContentType : groovyx.net.http.ContentType.JSON
         )
@@ -66,7 +67,7 @@ class RestKuorumApiService {
         String path = apiMethod.buildUrl(apiPath,params);
         def response = mailKuorumServices.patch(
                 path: path,
-                headers: ["User-Agent": "Kuorum Web", "token":kuorumRestApiKey],
+                headers: ["User-Agent": "Kuorum Web", "token":CustomDomainResolver.apiToken],
                 query:query,
                 requestContentType : groovyx.net.http.ContentType.JSON
         )
@@ -78,7 +79,7 @@ class RestKuorumApiService {
         String path = apiMethod.buildUrl(apiPath,params);
         def response = mailKuorumServices.put(
                 path: path,
-                headers: ["User-Agent": "Kuorum Web", "token":kuorumRestApiKey],
+                headers: ["User-Agent": "Kuorum Web", "token":CustomDomainResolver.apiToken],
                 query:query,
                 body: body,
                 requestContentType : groovyx.net.http.ContentType.JSON
@@ -95,7 +96,7 @@ class RestKuorumApiService {
 
         def response = mailKuorumServices.post(
                 path: path,
-                headers: ["User-Agent": "Kuorum Web", "token": kuorumRestApiKey],
+                headers: ["User-Agent": "Kuorum Web", "token": CustomDomainResolver.apiToken],
                 query: query,
                 body: body,
                 requestContentType: groovyx.net.http.ContentType.JSON
@@ -183,6 +184,8 @@ class RestKuorumApiService {
         REGION_GET      ("/geolocation/get"),
         REGION_SUGGEST  ("/geolocation/suggest"),
         REGION_FIND     ("/geolocation/find"),
+
+        DOMAIN_TOKEN    ("/domain/token"),
 
         ACCOUNT_INFO                ("/notification/mailing/{userAlias}"),
         ACCOUNT_MAILS               ("/notification/mailing/{userAlias}/emails"),
