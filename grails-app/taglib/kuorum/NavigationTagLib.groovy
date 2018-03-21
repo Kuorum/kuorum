@@ -114,7 +114,13 @@ class NavigationTagLib {
             }
 
             if (params.searchType){
-                SearchType searchType = SearchType.valueOf(params.searchType)
+                SearchType searchType = SearchType.ALL;
+                try{
+                    searchType = SearchType.valueOf(params.searchType)
+                }catch (e){
+                    // Google still asks for old filters
+                    searchType = SearchType.ALL;
+                }
                 if (!SearchType.ALL.equals(searchType)){
                     // ONLY CAUSE IS MAPPED
                     mapping = mapping+"By"+searchType
