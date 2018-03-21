@@ -35,7 +35,7 @@ class LandingController {
 
     def caseStudy001(){
         cache "landings"
-        render(view: "/landing/caseStudies/caseStudy001", model:[caseStudyId:"001", suggestedCaseStudies:["002","003","004"]])
+        render(view: "/landing/caseStudies/caseStudy001", model:[caseStudyId:"001", suggestedCaseStudies:["002","003","006"]])
     }
     def caseStudy002(){
         cache "landings"
@@ -49,6 +49,12 @@ class LandingController {
     }
     def caseStudy005(){
         render(view: "/landing/caseStudies/caseStudy005", model:[caseStudyId:"005", suggestedCaseStudies:["001","003","004"]])
+    }
+    def caseStudy006(){
+        render(view: "/landing/caseStudies/caseStudy006", model:[caseStudyId:"006", suggestedCaseStudies:["001","007","005"]])
+    }
+    def caseStudy007(){
+        render(view: "/landing/caseStudies/caseStudy007", model:[caseStudyId:"007", suggestedCaseStudies:["002","006","003"]])
     }
 
     def landingGovernments(){
