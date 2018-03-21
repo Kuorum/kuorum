@@ -118,9 +118,9 @@ class UrlMappings {
         name es_landingCaseStudy006:"/es/casos-de-exito/la-junta-de-extremadura-lanza-el-servicio-de-participacion"      (controller: "landing", action: "caseStudy006"){lang="es"; mappingName="landingCaseStudy006"}
         "/$lang/successful-stories/regional-government-encourages-citizen-participation"             {controller="redirect"; action= "redirect301"; newMapping='en_landingCaseStudy006';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
 
-        name landingCaseStudy007:   "/successful-stories/community-engagement-guide-to-figh-depopulation"                   { controller="redirect"; action= "redirect301"; newMapping='en_landingCaseStudy007'}
-        name en_landingCaseStudy007:"/en/successful-stories/community-engagement-guide-to-figh-depopulation"                (controller: "landing", action: "caseStudy007"){lang="en"; mappingName="landingCaseStudy007"}
-        name es_landingCaseStudy007:"/es/casos-de-exito/guia-de-participacion-ciudadana-para-luchar-contra-la-despoblacion"      (controller: "landing", action: "caseStudy007"){lang="es"; mappingName="landingCaseStudy007"}
+        name landingCaseStudy007:   "/successful-stories/sacyr-creates-an-increase-in-employee-training-rates"                   { controller="redirect"; action= "redirect301"; newMapping='en_landingCaseStudy007'}
+        name en_landingCaseStudy007:"/en/successful-stories/sacyr-creates-an-increase-in-employee-training-rates"                (controller: "landing", action: "caseStudy007"){lang="en"; mappingName="landingCaseStudy007"}
+        name es_landingCaseStudy007:"/es/casos-de-exito/sacyr-aumenta-las-horas-de-formacion-de-sus-empleados"      (controller: "landing", action: "caseStudy007"){lang="es"; mappingName="landingCaseStudy007"}
         "/$lang/successful-stories/community-engagement-guide-to-figh-depopulation"             {controller="redirect"; action= "redirect301"; newMapping='en_landingCaseStudy007';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
 
         name home:              "/"         { controller="redirect"; action= "redirect301"; newMapping='en_home'}
