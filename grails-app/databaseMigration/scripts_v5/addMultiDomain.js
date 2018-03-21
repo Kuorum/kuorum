@@ -15,4 +15,4 @@ dbDest.kuorumUser.dropIndex("professionalDetails.region.name")
 
 dbDest.cause.update({},{$set:{domain:"test.kuorum.org"}},{multi:true})
 dbDest.cause.dropIndex("name")
-dbDest.cause.createIndex( {name:1, domain:1}, { unique: true } )
+dbDest.cause.createIndex( {name:1, domain:1}, { unique: true, name:"domain_cause_idx" } )
