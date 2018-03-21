@@ -49,10 +49,12 @@ class LanguageInjectorAOP {
     }
 
     private void addAbsoluteParameter(Map params){
-        if (params.absolute==null && params.dir!= "css" &&  params.dir!= "js" &&  !params.dir?.startsWith("images")){
+        if (params.absolute==null){
             params.absolute=true
-            params.base = CustomDomainResolver.getBaseUrlAbsolute()
-//            params.base = "https://local.kuorum.org"
         }
+        if (params.absolute && params.dir!= "css" &&  params.dir!= "js" &&  !params.dir?.startsWith("images")){
+            params.base = CustomDomainResolver.getBaseUrlAbsolute()
+        }
+
     }
 }
