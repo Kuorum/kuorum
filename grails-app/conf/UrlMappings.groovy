@@ -600,6 +600,14 @@ class UrlMappings {
         name sitemapUsers:      "/$lang/sitemap/users/$year/$month"    (controller: "siteMap", action: "sitemapUsers")
 
 
+        // TODO: REVIEW BASIC URL -> RegisterController:sendConfirmationEmail || Reset password and others
+        "/$controller/$action?/$id?"{
+            constraints {
+                // apply constraints here
+            }
+        }
+
+
         "403" (controller: "error", action: "forbidden")
         "404" (controller: "error", action: "notFound")
         "401" (controller: "error", action: "notAuthorized")

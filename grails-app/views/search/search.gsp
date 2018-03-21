@@ -30,7 +30,7 @@
             <li>
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" name="type" id="all-types" value="" ${!searchParams.type?'checked':''}>
+                        <input type="checkbox" name="type" id="all-types" value="" ${!searchParams.type?'checked':''}/>
                         <g:link mapping="searcherSearch" params="${params.findAll {k,v-> k!='type' && k!='offset' && v}}">
                             <span class="icon-user"></span>
                             <g:message code="search.filters.SolrType.ALL"/>
