@@ -60,7 +60,7 @@ class LandingController {
         render(view: "/landing/caseStudies/caseStudy008", model:[caseStudyId:"008", suggestedCaseStudies:["007","006","003"]])
     }
     def caseStudy009(){
-        render(view: "/landing/caseStudies/caseStudy008", model:[caseStudyId:"008", suggestedCaseStudies:["008","005","003"]])
+        render(view: "/landing/caseStudies/caseStudy009", model:[caseStudyId:"009", suggestedCaseStudies:["008","005","003"]])
     }
 
     def landingGovernments(){
