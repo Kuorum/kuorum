@@ -6,6 +6,11 @@
     <g:set var="callSubtitleMsg" value="${g.message(code:'survey.callToAction.published.subtitle')}"/>
     <g:set var="callButtonMsg" value="${g.message(code:'survey.callToAction.published.button')}"/>
 </g:if>
+<g:if test="${survey.completed}">
+    <g:set var="callTitleMsg" value="${g.message(code:'survey.callToAction.answered.title')}"/>
+    <g:set var="callSubtitleMsg" value="${g.message(code:'survey.callToAction.answered.subtitle')}"/>
+    <g:set var="callButtonMsg" value="${g.message(code:'survey.callToAction.answered.button')}"/>
+</g:if>
 <g:if test="${survey.closed}">
     <g:set var="callTitleMsg" value="${g.message(code:'survey.callToAction.closed.title')}"/>
     <g:set var="callClosedTimeAgo"><kuorumDate:humanDate date="${survey.endDate}"/> </g:set>
