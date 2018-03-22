@@ -16,5 +16,5 @@
 </content>
 
 <content tag="casesStudyGrid">
-    <g:render template="/landing/caseStudies/modules/caseStudiesGrid" model="[msgPrefix:'landingCaseStudy', caseStudiesIds:['007','006','005','004','003','002','001']]"/>
+    <g:render template="/landing/caseStudies/modules/caseStudiesGrid" model="[msgPrefix:'landingCaseStudy', caseStudiesIds:['008','007','006','005','004','003','002','001']]"/>
 </content>
