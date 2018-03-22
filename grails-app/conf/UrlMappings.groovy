@@ -123,6 +123,10 @@ class UrlMappings {
         name en_landingCaseStudy008:"/en/successful-stories/a-participatory-budget-for-the-youth"                (controller: "landing", action: "caseStudy008"){lang="en"; mappingName="landingCaseStudy008"}
         name es_landingCaseStudy008:"/es/casos-de-exito/unos-presupuestos-participativos-para-los-jovenes"       (controller: "landing", action: "caseStudy008"){lang="es"; mappingName="landingCaseStudy008"}
 
+        name landingCaseStudy009:   "/successful-stories/greater-manchester-collaborates-with-citizens-to-help-end-homelessness"    { controller="redirect"; action= "redirect301"; newMapping='en_landingCaseStudy007'}
+        name en_landingCaseStudy009:"/en/successful-stories/greater-manchester-collaborates-with-citizens-to-help-end-homelessness" (controller: "landing", action: "caseStudy008"){lang="en"; mappingName="landingCaseStudy008"}
+        name es_landingCaseStudy009:"/es/casos-de-exito/el-gobierno-de-greater-manchester-regula-de-forma-colaborativa"             (controller: "landing", action: "caseStudy008"){lang="es"; mappingName="landingCaseStudy008"}
+
         name home:              "/"         { controller="redirect"; action= "redirect301"; newMapping='en_home'}
         name en_home:           "/en"       (controller: "landing", action:"landingServices"){lang="en"; mappingName="home"}
         name es_home:           "/es"       (controller: "landing", action:"landingServices"){lang="es"; mappingName="home"}
