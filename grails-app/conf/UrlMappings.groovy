@@ -119,13 +119,13 @@ class UrlMappings {
         name en_landingCaseStudy007:"/en/successful-stories/sacyr-creates-an-increase-in-employee-training-rates"                (controller: "landing", action: "caseStudy007"){lang="en"; mappingName="landingCaseStudy007"}
         name es_landingCaseStudy007:"/es/casos-de-exito/sacyr-aumenta-las-horas-de-formacion-de-sus-empleados"      (controller: "landing", action: "caseStudy007"){lang="es"; mappingName="landingCaseStudy007"}
 
-        name landingCaseStudy008:   "/successful-stories/a-participatory-budget-for-the-youth"                   { controller="redirect"; action= "redirect301"; newMapping='en_landingCaseStudy007'}
+        name landingCaseStudy008:   "/successful-stories/a-participatory-budget-for-the-youth"                   { controller="redirect"; action= "redirect301"; newMapping='en_landingCaseStudy008'}
         name en_landingCaseStudy008:"/en/successful-stories/a-participatory-budget-for-the-youth"                (controller: "landing", action: "caseStudy008"){lang="en"; mappingName="landingCaseStudy008"}
         name es_landingCaseStudy008:"/es/casos-de-exito/unos-presupuestos-participativos-para-los-jovenes"       (controller: "landing", action: "caseStudy008"){lang="es"; mappingName="landingCaseStudy008"}
 
-        name landingCaseStudy009:   "/successful-stories/greater-manchester-collaborates-with-citizens-to-help-end-homelessness"    { controller="redirect"; action= "redirect301"; newMapping='en_landingCaseStudy007'}
-        name en_landingCaseStudy009:"/en/successful-stories/greater-manchester-collaborates-with-citizens-to-help-end-homelessness" (controller: "landing", action: "caseStudy008"){lang="en"; mappingName="landingCaseStudy008"}
-        name es_landingCaseStudy009:"/es/casos-de-exito/el-gobierno-de-greater-manchester-regula-de-forma-colaborativa"             (controller: "landing", action: "caseStudy008"){lang="es"; mappingName="landingCaseStudy008"}
+        name landingCaseStudy009:   "/successful-stories/greater-manchester-collaborates-with-citizens-to-help-end-homelessness"    { controller="redirect"; action= "redirect301"; newMapping='en_landingCaseStudy009'}
+        name en_landingCaseStudy009:"/en/successful-stories/greater-manchester-collaborates-with-citizens-to-help-end-homelessness" (controller: "landing", action: "caseStudy009"){lang="en"; mappingName="landingCaseStudy009"}
+        name es_landingCaseStudy009:"/es/casos-de-exito/el-gobierno-de-greater-manchester-regula-de-forma-colaborativa"             (controller: "landing", action: "caseStudy009"){lang="es"; mappingName="landingCaseStudy009"}
 
         name home:              "/"         { controller="redirect"; action= "redirect301"; newMapping='en_home'}
         name en_home:           "/en"       (controller: "landing", action:"landingServices"){lang="en"; mappingName="home"}
