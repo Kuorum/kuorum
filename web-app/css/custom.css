@@ -7104,8 +7104,8 @@ header .header-msg h6:hover{
 }
 
 #cases-study-body img {
-    margin-bottom: 13px;
-    margin-top: 13px;
+    margin-bottom: 0px;
+    margin-top: 0px;
 }
 
 #cases-study-body .breadcrumb,
