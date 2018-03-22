@@ -45,16 +45,19 @@ class LandingController {
         render(view: "/landing/caseStudies/caseStudy003", model:[caseStudyId:"003", suggestedCaseStudies:["001","002","004"]])
     }
     def caseStudy004(){
-        render(view: "/landing/caseStudies/caseStudy004", model:[caseStudyId:"004", suggestedCaseStudies:["002","003","001"]])
+        render(view: "/landing/caseStudies/caseStudy004", model:[caseStudyId:"004", suggestedCaseStudies:["008","003","001"]])
     }
     def caseStudy005(){
-        render(view: "/landing/caseStudies/caseStudy005", model:[caseStudyId:"005", suggestedCaseStudies:["001","003","004"]])
+        render(view: "/landing/caseStudies/caseStudy005", model:[caseStudyId:"005", suggestedCaseStudies:["001","008","004"]])
     }
     def caseStudy006(){
         render(view: "/landing/caseStudies/caseStudy006", model:[caseStudyId:"006", suggestedCaseStudies:["001","007","005"]])
     }
     def caseStudy007(){
-        render(view: "/landing/caseStudies/caseStudy007", model:[caseStudyId:"007", suggestedCaseStudies:["002","006","003"]])
+        render(view: "/landing/caseStudies/caseStudy007", model:[caseStudyId:"007", suggestedCaseStudies:["008","006","003"]])
+    }
+    def caseStudy008(){
+        render(view: "/landing/caseStudies/caseStudy008", model:[caseStudyId:"008", suggestedCaseStudies:["007","006","003"]])
     }
 
     def landingGovernments(){
