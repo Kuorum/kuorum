@@ -23,7 +23,6 @@
     <p><img data-src="${resource(dir: 'images', file: 'case-study-7-img.jpg')}" alt="community-engagement-guide" title="community-engagement-guide"></p>
     <p><g:message code="landingCaseStudy.${caseStudyId}.content.text.4"/></p>
     <p><g:message code="landingCaseStudy.${caseStudyId}.content.text.5"/></p>
-    <g:render template="/landing/caseStudies/modules/requestCaseStudy" model="[caseStudyId:caseStudyId]"/>
 </content>
 
 <content tag="casesStudyGrid">
