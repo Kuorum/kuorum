@@ -35,7 +35,7 @@ class SurveyService implements CampaignCreatorService<SurveyRSDTO, SurveyRDTO>{
     }
 
     SurveyRSDTO createSurvey(KuorumUser user, SurveyRDTO surveyRDTO){
-        Map<String, String> params = [userAlias: user.id.toString()]
+        Map<String, String> params = [userId: user.id.toString()]
         Map<String, String> query = [:]
         def response = restKuorumApiService.post(
                 RestKuorumApiService.ApiMethod.ACCOUNT_SURVEYS,
@@ -57,7 +57,7 @@ class SurveyService implements CampaignCreatorService<SurveyRSDTO, SurveyRDTO>{
         if (!surveyId){
             return null;
         }
-        Map<String, String> params = [userAlias: user.id.toString(), surveyId: surveyId.toString()]
+        Map<String, String> params = [userId: user.id.toString(), surveyId: surveyId.toString()]
         Map<String, String> query = [:]
         if (viewerUid){
             query.put("viewerUid",viewerUid)
@@ -78,7 +78,7 @@ class SurveyService implements CampaignCreatorService<SurveyRSDTO, SurveyRDTO>{
     }
 
     SurveyRSDTO update(KuorumUser user, SurveyRDTO surveyRDTO, Long surveyId) {
-        Map<String, String> params = [userAlias: user.id.toString(), surveyId: surveyId.toString()]
+        Map<String, String> params = [userId: user.id.toString(), surveyId: surveyId.toString()]
         Map<String, String> query = [:]
         def response = restKuorumApiService.put(
                 RestKuorumApiService.ApiMethod.ACCOUNT_SURVEY,
@@ -96,7 +96,7 @@ class SurveyService implements CampaignCreatorService<SurveyRSDTO, SurveyRDTO>{
     }
 
     void remove(KuorumUser user, Long surveyId) {
-        Map<String, String> params = [userAlias: user.id.toString(), surveyId: surveyId.toString()]
+        Map<String, String> params = [userId: user.id.toString(), surveyId: surveyId.toString()]
         Map<String, String> query = [:]
         def response = restKuorumApiService.delete(
                 RestKuorumApiService.ApiMethod.ACCOUNT_SURVEY,
@@ -156,7 +156,7 @@ class SurveyService implements CampaignCreatorService<SurveyRSDTO, SurveyRDTO>{
     }
 
     void saveAnswer(SurveyRSDTO surveyRSDTO, KuorumUser userAnswer, Long questionId, List<Long> optionAnswersId){
-        Map<String, String> params = [userAlias: surveyRSDTO.user.id.toString(), surveyId: surveyRSDTO.id.toString(),questionId:questionId.toString()]
+        Map<String, String> params = [userId: surveyRSDTO.user.id.toString(), surveyId: surveyRSDTO.id.toString(),questionId:questionId.toString()]
         Map<String, String> query = [viewerUid:userAnswer.id.toString()]
         def response = restKuorumApiService.put(
                 RestKuorumApiService.ApiMethod.ACCOUNT_SURVEY_ANSWER,
@@ -168,7 +168,7 @@ class SurveyService implements CampaignCreatorService<SurveyRSDTO, SurveyRDTO>{
     }
 
     void sendReport(KuorumUser user, Long surveyId){
-        Map<String, String> params = [userAlias: user.id.toString(), surveyId: surveyId.toString()]
+        Map<String, String> params = [userId: user.id.toString(), surveyId: surveyId.toString()]
         Map<String, String> query = [:]
         def response = restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.ACCOUNT_SURVEY_REPORT,

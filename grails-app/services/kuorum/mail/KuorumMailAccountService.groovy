@@ -19,7 +19,7 @@ class KuorumMailAccountService {
         if (account?.active){
             def response = restKuorumApiService.get(
                     RestKuorumApiService.ApiMethod.ACCOUNT_MAILS,
-                    [userAlias:user.alias],
+                    [userId:user.id.toString()],
                     [:],
                     new TypeReference<MailsMessageRSDTO>(){}
             )

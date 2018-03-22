@@ -7,10 +7,6 @@ import kuorum.solr.IndexSolrService
 import kuorum.users.KuorumUser
 import kuorum.util.rest.RestKuorumApiService
 import org.kuorum.rest.model.communication.CampaignRSDTO
-import org.kuorum.rest.model.communication.debate.DebateRDTO
-import org.kuorum.rest.model.communication.debate.DebateRSDTO
-import org.kuorum.rest.model.communication.debate.PageDebateRSDTO
-import org.kuorum.rest.model.communication.event.EventRDTO
 
 @Transactional
 class CampaignService {
@@ -19,7 +15,7 @@ class CampaignService {
     IndexSolrService indexSolrService
 
     List<CampaignRSDTO> findAllCampaigns(KuorumUser user,String viewerUid = null) {
-        Map<String, String> params = [userAlias: user.id.toString()]
+        Map<String, String> params = [userId: user.id.toString()]
         Map<String, String> query = [:]
         if (viewerUid){
             query.put("viewerUid",viewerUid)
@@ -49,7 +45,7 @@ class CampaignService {
         if (!campaignId){
             return null;
         }
-        Map<String, String> params = [userAlias: userId, campaignId: campaignId.toString()]
+        Map<String, String> params = [userId: userId, campaignId: campaignId.toString()]
         Map<String, String> query = [:]
         if (viewerUid){
             query.put("viewerUid",viewerUid)

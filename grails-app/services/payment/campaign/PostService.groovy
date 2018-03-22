@@ -35,7 +35,7 @@ class PostService implements CampaignCreatorService<PostRSDTO, PostRDTO>{
 
     }
     List<PostRSDTO> findAllPosts(KuorumUser user, String viewerUid = null){
-        Map<String, String> params = [userAlias: user.id.toString()]
+        Map<String, String> params = [userId: user.id.toString()]
         Map<String, String> query = [:]
         if (viewerUid){
             query.put("viewerUid",viewerUid)
@@ -63,7 +63,7 @@ class PostService implements CampaignCreatorService<PostRSDTO, PostRDTO>{
     }
 
     PostRSDTO createPost(KuorumUser user, PostRDTO postRDTO){
-        Map<String, String> params = [userAlias: user.id.toString()]
+        Map<String, String> params = [userId: user.id.toString()]
         Map<String, String> query = [:]
         def response = restKuorumApiService.post(
                 RestKuorumApiService.ApiMethod.ACCOUNT_POSTS,
@@ -85,7 +85,7 @@ class PostService implements CampaignCreatorService<PostRSDTO, PostRDTO>{
         if (!postId){
             return null;
         }
-        Map<String, String> params = [userAlias: user.id.toString(), postId: postId.toString()]
+        Map<String, String> params = [userId: user.id.toString(), postId: postId.toString()]
         Map<String, String> query = [:]
         if (viewerUid){
             query.put("viewerUid",viewerUid)
@@ -106,7 +106,7 @@ class PostService implements CampaignCreatorService<PostRSDTO, PostRDTO>{
     }
 
     PostRSDTO update(KuorumUser user, PostRDTO postRDTO, Long postId) {
-        Map<String, String> params = [userAlias: user.id.toString(), postId: postId.toString()]
+        Map<String, String> params = [userId: user.id.toString(), postId: postId.toString()]
         Map<String, String> query = [:]
         def response = restKuorumApiService.put(
                 RestKuorumApiService.ApiMethod.ACCOUNT_POST,
@@ -151,7 +151,7 @@ class PostService implements CampaignCreatorService<PostRSDTO, PostRDTO>{
     }
 
     void remove(KuorumUser user, Long postId) {
-        Map<String, String> params = [userAlias: user.id.toString(), postId: postId.toString()]
+        Map<String, String> params = [userId: user.id.toString(), postId: postId.toString()]
         Map<String, String> query = [:]
         def response = restKuorumApiService.delete(
                 RestKuorumApiService.ApiMethod.ACCOUNT_POST,

@@ -37,7 +37,7 @@ class EventService {
 
     EventRegistrationRSDTO checkIn(Long contactId, Long campaignId, KuorumUser user, String hash){
         Map<String, String> params = [
-                userAlias: user.getId().toString(),
+                userId: user.getId().toString(),
                 campaignId:campaignId.toString()
         ]
         Map<String, String> query = [contactId:contactId, hash:hash]
@@ -87,9 +87,9 @@ class EventService {
         }
     }
 
-    EventRSDTO findEvent(String ownerAlias, Long campaignId){
+    EventRSDTO findEvent(KuorumUser user, Long campaignId){
         Map<String, String> params = [
-                userAlias: ownerAlias,
+                userId: user.getId().toString(),
                 campaignId:campaignId.toString()
         ]
         Map<String, String> query = [:]
@@ -110,7 +110,7 @@ class EventService {
     }
 
     void sendReport(KuorumUser user, Long campaignId, Boolean checkList = false) {
-        Map<String, String> params = [userAlias: user.id.toString(), campaignId: campaignId.toString()]
+        Map<String, String> params = [userId: user.id.toString(), campaignId: campaignId.toString()]
         Map<String, String> query = [checkList:checkList]
         def response = restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.ACCOUNT_EVENT_REPORT,
@@ -123,7 +123,7 @@ class EventService {
 
     List<EventRSDTO> findEvents(KuorumUser user){
         Map<String, String> params = [
-                userAlias: user.id.toString()
+                userId: user.id.toString()
         ]
         Map<String, String> query = [:]
         def response = restKuorumApiService.get(

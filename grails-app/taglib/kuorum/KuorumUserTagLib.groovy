@@ -30,9 +30,9 @@ class KuorumUserTagLib {
         }
     }
 
-    def loggedUserAlias = {attrs ->
+    def loggedUserId = { attrs ->
         if (springSecurityService.isLoggedIn()){
-            out << KuorumUser.get(springSecurityService.principal.id).alias
+            out << springSecurityService.principal.id.toString()
         }
     }
 

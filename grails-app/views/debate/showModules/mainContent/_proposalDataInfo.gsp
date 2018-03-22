@@ -15,7 +15,7 @@
                             data-debateId="${debate.id}"
                             data-debateAlias="${debate.user.alias}"
                             data-proposalId="${proposal.id}"
-                            data-userLogged="${userUtil.loggedUserAlias()}"
+                            data-userLogged="${userUtil.loggedUserId()}"
                             data-toggle="tooltip"
                             data-placement="bottom"
                             title=""
@@ -80,7 +80,7 @@
                         data-debateId="${debate.id}"
                         data-debateAlias="${debate.user.alias}"
                         data-proposalId="${proposal.id}"
-                        data-userLogged="${userUtil.loggedUserAlias()}"
+                        data-userLogged="${userUtil.loggedUserId()}"
                     >
                     <g:if test="${activeButton}">
                         <span class="fa fa-heart" aria-hidden="true"></span>

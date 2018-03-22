@@ -28,7 +28,7 @@ class NotificationService {
      * @return
      */
     NotificationPageRSDTO findUserNotifications(SearchNotifications searchNotifications){
-        Map<String, String> params = [userAlias: searchNotifications.user.id.toString()]
+        Map<String, String> params = [userId: searchNotifications.user.id.toString()]
         Map<String, String> query = [page:searchNotifications.offset, size:searchNotifications.max]
         def response = restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.ACCOUNT_NOTIFICATIONS,
@@ -50,7 +50,7 @@ class NotificationService {
      * @param user
      */
     void markUserNotificationsAsChecked(KuorumUser user){
-        Map<String, String> params = [userAlias: user.id.toString()]
+        Map<String, String> params = [userId: user.id.toString()]
         def response = restKuorumApiService.delete(
                 RestKuorumApiService.ApiMethod.ACCOUNT_NOTIFICATIONS,
                 params,
@@ -81,7 +81,7 @@ class NotificationService {
     }
 
     NotificationConfigRDTO getNotificationsConfig(KuorumUser user){
-        Map<String, String> params = [userAlias: user.id.toString()]
+        Map<String, String> params = [userId: user.id.toString()]
         Map<String, String> query = [:]
         def response = restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.ACCOUNT_NOTIFICATIONS_CONFIG,
@@ -99,7 +99,7 @@ class NotificationService {
     }
 
     void saveNotificationsConfig(KuorumUser user,NotificationConfigRDTO notificationConfigRDTO){
-        Map<String, String> params = [userAlias: user.id.toString()]
+        Map<String, String> params = [userId: user.id.toString()]
         Map<String, String> query = [:]
         def response = restKuorumApiService.put(
                 RestKuorumApiService.ApiMethod.ACCOUNT_NOTIFICATIONS_CONFIG,

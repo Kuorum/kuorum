@@ -5,11 +5,9 @@ import com.microtripit.mandrillapp.lutung.controller.MandrillMessagesApi
 import com.microtripit.mandrillapp.lutung.view.MandrillMessage
 import com.microtripit.mandrillapp.lutung.view.MandrillMessageStatus
 import grails.transaction.Transactional
-import kuorum.core.exception.KuorumExceptionUtil
 import kuorum.core.model.AvailableLanguage
 import kuorum.users.KuorumUser
 import kuorum.util.rest.RestKuorumApiService
-import org.kuorum.rest.model.notification.mail.sent.MailTypeRSDTO
 import org.kuorum.rest.model.notification.mail.sent.SendMailRSDTO
 import org.kuorum.rest.model.notification.mail.sent.SentUserMailRSDTO
 import org.springframework.beans.factory.annotation.Value
@@ -133,7 +131,7 @@ class MandrillAppService {
         Map params = [:]
         RestKuorumApiService.ApiMethod apiMethod = RestKuorumApiService.ApiMethod.ADMIN_MAILS_SEND
         if (user){
-            params.put("userAlias",user.alias)
+            params.put("userId",user.id.toString())
             apiMethod = RestKuorumApiService.ApiMethod.ACCOUNT_MAILS_SEND
         }
         SendMailRSDTO sendMailRSDTO = new SendMailRSDTO()

@@ -1,18 +1,12 @@
 package payment.campaign
 
 import com.fasterxml.jackson.core.type.TypeReference
-import grails.plugin.cache.CacheEvict
 import grails.transaction.Transactional
 import kuorum.users.KuorumUser
 import kuorum.util.rest.RestKuorumApiService
-import org.kuorum.rest.model.communication.debate.DebateRSDTO
-import org.kuorum.rest.model.communication.debate.ProposalCommentRDTO
-import org.kuorum.rest.model.communication.debate.ProposalCommentRSDTO
-import org.kuorum.rest.model.communication.debate.ProposalRDTO
-import org.kuorum.rest.model.communication.debate.ProposalRSDTO
+import org.kuorum.rest.model.communication.debate.*
 import org.kuorum.rest.model.communication.debate.search.ProposalPageRSDTO
 import org.kuorum.rest.model.communication.debate.search.SearchProposalRSDTO
-import org.springframework.cache.annotation.Cacheable
 
 @Transactional
 class ProposalService {
@@ -21,7 +15,7 @@ class ProposalService {
 
 //    @Cacheable(value = 'proposal', key="#debate.id")
     ProposalPageRSDTO findProposal(DebateRSDTO debate, SearchProposalRSDTO searchProposalRSDTO, String viewerUid = null){
-        Map<String, String> params = [userAlias: debate.user.alias,debateId:debate.id.toString()]
+        Map<String, String> params = [userId: debate.user.id,debateId:debate.id.toString()]
         Map<String, String> query = searchProposalRSDTO.encodeAsQueryParams()
         if (viewerUid){
             query.put("viewerUid",viewerUid)
@@ -43,7 +37,7 @@ class ProposalService {
 
 //    @CacheEvict(value = 'proposal', key="#debate.id")
     ProposalRSDTO addProposal(KuorumUser user, DebateRSDTO debate, String body) {
-        Map<String, String> params = [userAlias: debate.user.alias,debateId:debate.id.toString()]
+        Map<String, String> params = [userId: debate.user.id,debateId:debate.id.toString()]
         Map<String, String> query = [:]
         ProposalRDTO proposalRDTO = new ProposalRDTO();
         proposalRDTO.body=body
@@ -123,7 +117,7 @@ class ProposalService {
 
 //    @CacheEvict(value = 'proposal', key="#debate.id")
     ProposalRSDTO addComment(KuorumUser user, DebateRSDTO debate, Long proposalId, String body) {
-        Map<String, String> params = [userAlias: debate.user.alias,debateId:debate.id.toString(), proposalId:proposalId.toString() ]
+        Map<String, String> params = [userId: debate.user.id,debateId:debate.id.toString(), proposalId:proposalId.toString() ]
         Map<String, String> query = [:]
         ProposalCommentRDTO commentRDTO = new ProposalCommentRDTO();
         commentRDTO.body=body.encodeAsRemovingScriptTags().encodeAsTargetBlank()

@@ -34,7 +34,7 @@ class DebateService implements CampaignCreatorService<DebateRSDTO, DebateRDTO> {
         response.data
     }
     List<DebateRSDTO> findAllDebates(KuorumUser user) {
-        Map<String, String> params = [userAlias: user.id.toString()]
+        Map<String, String> params = [userId: user.id.toString()]
         Map<String, String> query = [:]
         def response = restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.ACCOUNT_DEBATES,
@@ -61,7 +61,7 @@ class DebateService implements CampaignCreatorService<DebateRSDTO, DebateRDTO> {
         if (!debateId){
             return null;
         }
-        Map<String, String> params = [userAlias: userId, debateId: debateId.toString()]
+        Map<String, String> params = [userId: userId, debateId: debateId.toString()]
         Map<String, String> query = [:]
         if (viewerUid){
             query.put("viewerUid",viewerUid)
@@ -100,7 +100,7 @@ class DebateService implements CampaignCreatorService<DebateRSDTO, DebateRDTO> {
     }
 
     DebateRSDTO createDebate(KuorumUser user, DebateRDTO debateRDTO) {
-        Map<String, String> params = [userAlias: user.id.toString()]
+        Map<String, String> params = [userId: user.id.toString()]
         Map<String, String> query = [:]
         def response = restKuorumApiService.post(
                 RestKuorumApiService.ApiMethod.ACCOUNT_DEBATES,
@@ -119,7 +119,7 @@ class DebateService implements CampaignCreatorService<DebateRSDTO, DebateRDTO> {
     }
 
     DebateRSDTO updateDebate(KuorumUser user, DebateRDTO debateRDTO, Long debateId) {
-        Map<String, String> params = [userAlias: user.id.toString(), debateId: debateId.toString()]
+        Map<String, String> params = [userId: user.id.toString(), debateId: debateId.toString()]
         Map<String, String> query = [:]
         def response = restKuorumApiService.put(
                 RestKuorumApiService.ApiMethod.ACCOUNT_DEBATE,
@@ -138,7 +138,7 @@ class DebateService implements CampaignCreatorService<DebateRSDTO, DebateRDTO> {
     }
 
     void remove(KuorumUser user, Long debateId) {
-        Map<String, String> params = [userAlias: user.id.toString(), debateId: debateId.toString()]
+        Map<String, String> params = [userId: user.id.toString(), debateId: debateId.toString()]
         Map<String, String> query = [:]
         def response = restKuorumApiService.delete(
                 RestKuorumApiService.ApiMethod.ACCOUNT_DEBATE,
@@ -150,7 +150,7 @@ class DebateService implements CampaignCreatorService<DebateRSDTO, DebateRDTO> {
     }
 
     void sendReport(KuorumUser user, Long debateId) {
-        Map<String, String> params = [userAlias: user.id.toString(), debateId: debateId.toString()]
+        Map<String, String> params = [userId: user.id.toString(), debateId: debateId.toString()]
         Map<String, String> query = [:]
         def response = restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.ACCOUNT_DEBATE_REPORT,

@@ -57,7 +57,7 @@
                 data-debateId="${debate.id}"
                 data-proposalId="${proposal.id}"
                 data-debateAlias="${debate.user.alias}"
-                data-userLogged="${userUtil.loggedUserAlias()}">
+                data-userLogged="${userUtil.loggedUserId()}">
                 <g:message code="debate.show.proposal.comments.save"/>
             </button>
         </div>

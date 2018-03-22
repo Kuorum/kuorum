@@ -63,7 +63,7 @@ class KuorumUserService {
     }
 
     private addFollowerAsContact(KuorumUser follower, KuorumUser following){
-        Map<String, String> params = [userId: following.alias]
+        Map<String, String> params = [userId: following.id.toString()]
         Map<String, String> query = [followerAlias: follower.alias]
         restKuorumApiService.put(
                 RestKuorumApiService.ApiMethod.USER_CONTACT_FOLLOWER,
@@ -75,7 +75,7 @@ class KuorumUserService {
     }
 
     private void updateKuorumUserOnRest(KuorumUser user){
-        Map<String, String> params = [userId: user.alias]
+        Map<String, String> params = [userId: user.id.toString()]
         Map<String, String> query = [:]
         UserDataRDTO userDataRDTO = new UserDataRDTO();
         userDataRDTO.setEmail(user.getEmail());
@@ -107,8 +107,8 @@ class KuorumUserService {
     }
 
     private deleteFollowerAsContact(KuorumUser follower, KuorumUser following){
-        Map<String, String> params = [userId: following.alias]
-        Map<String, String> query = [followerAlias: follower.alias]
+        Map<String, String> params = [userId: following.id.toString()]
+        Map<String, String> query = [followerAlias: follower.id.toString()]
         restKuorumApiService.delete(
                 RestKuorumApiService.ApiMethod.USER_CONTACT_FOLLOWER,
                 params,
