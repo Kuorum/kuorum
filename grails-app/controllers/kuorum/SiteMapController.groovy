@@ -177,6 +177,11 @@ class SiteMapController {
                 'landingCaseStudy002',
                 'landingCaseStudy003',
                 'landingCaseStudy004',
+                'landingCaseStudy005',
+                'landingCaseStudy006',
+                'landingCaseStudy007',
+                'landingCaseStudy008',
+                'landingCaseStudy009',
                 'login',
                 'loginAuth',
                 'register',
@@ -215,7 +220,8 @@ class SiteMapController {
                 'footerPrivacyPolicy',
                 'footerTermsUse',
                 'footerBlog',
-                'footerBlog001'
+                'footerBlog001',
+                'footerBlog002'
         ]
         render(contentType: 'application/xml', encoding: 'UTF-8') {
             mkp.yieldUnescaped '<?xml version="1.0" encoding="UTF-8"?>'

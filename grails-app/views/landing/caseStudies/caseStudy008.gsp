@@ -20,8 +20,8 @@
     <p><g:message code="landingCaseStudy.${caseStudyId}.content.text.1"/></p>
     <p><g:message code="landingCaseStudy.${caseStudyId}.content.text.2"/></p>
     <p><g:message code="landingCaseStudy.${caseStudyId}.content.text.3"/></p>
-    <p><img data-src="${resource(dir: 'images', file: 'case-study-7-img.jpg')}" alt="community-engagement-guide" title="community-engagement-guide"></p>
     <p><g:message code="landingCaseStudy.${caseStudyId}.content.text.4"/></p>
+    <p><img data-src="${resource(dir: 'images', file: 'case-study-8-img.jpg')}" alt="A participatory budget for the youth" title="A participatory budget for the youth"></p>
     <p><g:message code="landingCaseStudy.${caseStudyId}.content.text.5"/></p>
 </content>
 

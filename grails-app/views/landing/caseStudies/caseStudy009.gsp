@@ -20,9 +20,8 @@
     <p><g:message code="landingCaseStudy.${caseStudyId}.content.text.1"/></p>
     <p><g:message code="landingCaseStudy.${caseStudyId}.content.text.2"/></p>
     <p><g:message code="landingCaseStudy.${caseStudyId}.content.text.3"/></p>
-    <p><img data-src="${resource(dir: 'images', file: 'case-study-7-img.jpg')}" alt="community-engagement-guide" title="community-engagement-guide"></p>
+    <image:showYoutube youtube="https://www.youtube.com/watch?v=o0nKWes9GgA"/>
     <p><g:message code="landingCaseStudy.${caseStudyId}.content.text.4"/></p>
-    <p><g:message code="landingCaseStudy.${caseStudyId}.content.text.5"/></p>
 </content>
 
 <content tag="casesStudyGrid">

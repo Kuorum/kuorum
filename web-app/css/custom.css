@@ -7104,8 +7104,8 @@ header .header-msg h6:hover{
 }
 
 #cases-study-body img {
-    margin-bottom: 13px;
-    margin-top: 13px;
+    margin-bottom: 0px;
+    margin-top: 0px;
 }
 
 #cases-study-body .breadcrumb,
@@ -8066,8 +8066,11 @@ background-repeat: no-repeat;
 .fade-carousel .slides .slide-footer.caseStudy005 {background-image: url('../images/landing/landingCaseStudy/005/headPage.jpg');  }
 .fade-carousel .slides .slide-footer.caseStudy006 {background-image: url('../images/landing/landingCaseStudy/006/headPage.jpg');  }
 .fade-carousel .slides .slide-footer.caseStudy007 {background-image: url('../images/landing/landingCaseStudy/007/headPage.jpg');  }
+.fade-carousel .slides .slide-footer.caseStudy008 {background-image: url('../images/landing/landingCaseStudy/008/headPage.jpg');  }
+.fade-carousel .slides .slide-footer.caseStudy009 {background-image: url('../images/landing/landingCaseStudy/009/headPage.jpg');  }
 
 .fade-carousel .slides .slide-footer.footerBlog001 {background-image: url('../images/landing/footerBlog/001/headPage.jpg');  }
+.fade-carousel .slides .slide-footer.footerBlog002 {background-image: url('../images/landing/footerBlog/002/headPage.jpg');  }
 
 #carousel-landing-main .img-responsive{
     position: relative;

@@ -106,22 +106,26 @@ class UrlMappings {
         name landingCaseStudy004:   "/successful-stories/kaunas-citizens-design-their-cycle-lane"                   { controller="redirect"; action= "redirect301"; newMapping='en_landingCaseStudy004'}
         name en_landingCaseStudy004:"/en/successful-stories/kaunas-citizens-design-their-cycle-lane"                (controller: "landing", action: "caseStudy004"){lang="en"; mappingName="landingCaseStudy004"}
         name es_landingCaseStudy004:"/es/casos-de-exito/los-ciudadanos-de-kaunas-disenan-su-carril-bici"            (controller: "landing", action: "caseStudy004"){lang="es"; mappingName="landingCaseStudy004"}
-                                    "/$lang/successful-stories/kaunas-citizens-design-their-cycle-lane"             {controller="redirect"; action= "redirect301"; newMapping='en_landingCaseStudy004';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
 
         name landingCaseStudy005:   "/successful-stories/community-engagement-guide-to-figh-depopulation"                   { controller="redirect"; action= "redirect301"; newMapping='en_landingCaseStudy005'}
         name en_landingCaseStudy005:"/en/successful-stories/community-engagement-guide-to-figh-depopulation"                (controller: "landing", action: "caseStudy005"){lang="en"; mappingName="landingCaseStudy005"}
         name es_landingCaseStudy005:"/es/casos-de-exito/guia-de-participacion-ciudadana-para-luchar-contra-la-despoblacion"      (controller: "landing", action: "caseStudy005"){lang="es"; mappingName="landingCaseStudy005"}
-                                    "/$lang/successful-stories/community-engagement-guide-to-figh-depopulation"             {controller="redirect"; action= "redirect301"; newMapping='en_landingCaseStudy005';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
 
         name landingCaseStudy006:   "/successful-stories/regional-government-encourages-citizen-participation"                   { controller="redirect"; action= "redirect301"; newMapping='en_landingCaseStudy006'}
         name en_landingCaseStudy006:"/en/successful-stories/regional-government-encourages-citizen-participation"                (controller: "landing", action: "caseStudy006"){lang="en"; mappingName="landingCaseStudy006"}
         name es_landingCaseStudy006:"/es/casos-de-exito/la-junta-de-extremadura-lanza-el-servicio-de-participacion"      (controller: "landing", action: "caseStudy006"){lang="es"; mappingName="landingCaseStudy006"}
-        "/$lang/successful-stories/regional-government-encourages-citizen-participation"             {controller="redirect"; action= "redirect301"; newMapping='en_landingCaseStudy006';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
 
         name landingCaseStudy007:   "/successful-stories/sacyr-creates-an-increase-in-employee-training-rates"                   { controller="redirect"; action= "redirect301"; newMapping='en_landingCaseStudy007'}
         name en_landingCaseStudy007:"/en/successful-stories/sacyr-creates-an-increase-in-employee-training-rates"                (controller: "landing", action: "caseStudy007"){lang="en"; mappingName="landingCaseStudy007"}
         name es_landingCaseStudy007:"/es/casos-de-exito/sacyr-aumenta-las-horas-de-formacion-de-sus-empleados"      (controller: "landing", action: "caseStudy007"){lang="es"; mappingName="landingCaseStudy007"}
-        "/$lang/successful-stories/community-engagement-guide-to-figh-depopulation"             {controller="redirect"; action= "redirect301"; newMapping='en_landingCaseStudy007';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+
+        name landingCaseStudy008:   "/successful-stories/a-participatory-budget-for-the-youth"                   { controller="redirect"; action= "redirect301"; newMapping='en_landingCaseStudy008'}
+        name en_landingCaseStudy008:"/en/successful-stories/a-participatory-budget-for-the-youth"                (controller: "landing", action: "caseStudy008"){lang="en"; mappingName="landingCaseStudy008"}
+        name es_landingCaseStudy008:"/es/casos-de-exito/unos-presupuestos-participativos-para-los-jovenes"       (controller: "landing", action: "caseStudy008"){lang="es"; mappingName="landingCaseStudy008"}
+
+        name landingCaseStudy009:   "/successful-stories/greater-manchester-collaborates-with-citizens-to-help-end-homelessness"    { controller="redirect"; action= "redirect301"; newMapping='en_landingCaseStudy009'}
+        name en_landingCaseStudy009:"/en/successful-stories/greater-manchester-collaborates-with-citizens-to-help-end-homelessness" (controller: "landing", action: "caseStudy009"){lang="en"; mappingName="landingCaseStudy009"}
+        name es_landingCaseStudy009:"/es/casos-de-exito/el-gobierno-de-greater-manchester-regula-de-forma-colaborativa"             (controller: "landing", action: "caseStudy009"){lang="es"; mappingName="landingCaseStudy009"}
 
         name home:              "/"         { controller="redirect"; action= "redirect301"; newMapping='en_home'}
         name en_home:           "/en"       (controller: "landing", action:"landingServices"){lang="en"; mappingName="home"}
@@ -211,6 +215,12 @@ class UrlMappings {
         name en_footerBlog001:      "/en/blog/ii-international-conference-on-online-political-communication"    (controller: "footer", action: "footerBlog001"){lang="en"; mappingName="footerBlog001"}
         name es_footerBlog001:      "/es/blog/ii-conferencia-internacional-de-comunicacion-politica-digital"    (controller: "footer", action: "footerBlog001"){lang="es"; mappingName="footerBlog001"}
                                     "/blog/ii-international-conference-on-online-political-communication"       {controller="redirect"; action= "redirect301"; newMapping='en_footerBlog001'}
+
+        name footerBlog002:         "/$lang/blog/how-to-choose-tools-for-community-engagement" {controller="redirect"; action= "redirect301"; newMapping='en_footerBlog002';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+        name en_footerBlog002:      "/en/blog/how-to-choose-tools-for-community-engagement"    (controller: "footer", action: "footerBlog002"){lang="en"; mappingName="footerBlog002"}
+        name es_footerBlog002:      "/es/blog/como-elegir-herramientas-de-participacion-ciudadana"    (controller: "footer", action: "footerBlog002"){lang="es"; mappingName="footerBlog002"}
+
+
         /* END CUSTOM BLOG ARTICLES */
 
         name footerPrivacyPolicy:   "/$lang/legal/privacy-policy"       {controller="redirect"; action= "redirect301"; newMapping='en_footerPrivacyPolicy';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}

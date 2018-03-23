@@ -75,4 +75,5 @@ class FooterController {
 
     def footerBlog(){}
     def footerBlog001(){render (view: "/footer/blogArticles/footerBlog001", model:[blogId:'001', suggestedBlogs:[]])}
+    def footerBlog002(){render (view: "/footer/blogArticles/footerBlog002", model:[blogId:'002', suggestedBlogs:[]])}
 }

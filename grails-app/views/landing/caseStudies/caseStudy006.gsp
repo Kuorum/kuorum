@@ -24,7 +24,6 @@
     <p><g:message code="landingCaseStudy.${caseStudyId}.content.text.4"/></p>
     <p><g:message code="landingCaseStudy.${caseStudyId}.content.text.5"/></p>
     <p><g:message code="landingCaseStudy.${caseStudyId}.content.text.6"/></p>
-    <g:render template="/landing/caseStudies/modules/requestCaseStudy" model="[caseStudyId:caseStudyId]"/>
 </content>
 
 <content tag="casesStudyGrid">

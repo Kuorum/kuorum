@@ -5,7 +5,7 @@
                 <g:render template="/campaigns/edit/stepButtonsSaveAndSend" model="[mappings:mappings, status:status, command: command, numberRecipients:numberRecipients]"/>
             </g:if>
             <g:else>
-                <g:render template="/campaigns/edit/stepButtonsNext" model="[mappings:mappings]"/>
+                <g:render template="/campaigns/edit/stepButtonsNext" model="[mappings:mappings, status:status]"/>
             </g:else>
         </ul>
     </div>
