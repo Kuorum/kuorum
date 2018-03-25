@@ -210,16 +210,16 @@ class RestKuorumApiService {
         ACCOUNT_DEBATE                          ("/communication/campaign/debate/{userId}/{debateId}"),
         ACCOUNT_DEBATE_REPORT                   ("/communication/campaign/debate/{userId}/{debateId}/report"),
         ACCOUNT_DEBATE_PROPOSALS                ("/communication/campaign/debate/{userId}/{debateId}/proposal"),
-        ACCOUNT_DEBATE_PROPOSAL                 ("/communication/campaign/debate/{userAlias}/{debateId}/proposal/{proposalId}"),
-        ACCOUNT_DEBATE_PROPOSAL_LIKE            ("/communication/campaign/debate/{userAlias}/{debateId}/proposal/{proposalId}/likes"),
+        ACCOUNT_DEBATE_PROPOSAL                 ("/communication/campaign/debate/{userId}/{debateId}/proposal/{proposalId}"),
+        ACCOUNT_DEBATE_PROPOSAL_LIKE            ("/communication/campaign/debate/{userId}/{debateId}/proposal/{proposalId}/likes"),
         ACCOUNT_DEBATE_PROPOSAL_COMMENTS        ("/communication/campaign/debate/{userId}/{debateId}/proposal/{proposalId}/comment"),
-        ACCOUNT_DEBATE_PROPOSAL_COMMENT         ("/communication/campaign/debate/{userAlias}/{debateId}/proposal/{proposalId}/comment/{commentId}"),
-        ACCOUNT_DEBATE_PROPOSAL_COMMENT_VOTE    ("/communication/campaign/debate/{userAlias}/{debateId}/proposal/{proposalId}/comment/{commentId}/vote"),
+        ACCOUNT_DEBATE_PROPOSAL_COMMENT         ("/communication/campaign/debate/{userId}/{debateId}/proposal/{proposalId}/comment/{commentId}"),
+        ACCOUNT_DEBATE_PROPOSAL_COMMENT_VOTE    ("/communication/campaign/debate/{userId}/{debateId}/proposal/{proposalId}/comment/{commentId}/vote"),
 
         ACCOUNT_POSTS_ALL       ("/communication/campaign/post/"),
         ACCOUNT_POSTS           ("/communication/campaign/post/{userId}"),
         ACCOUNT_POST            ("/communication/campaign/post/{userId}/{postId}"),
-        ACCOUNT_POST_LIKES      ("/communication/campaign/post/{userAlias}/{postId}/likes"),
+        ACCOUNT_POST_LIKES      ("/communication/campaign/post/{userId}/{postId}/likes"),
 
         ACCOUNT_SURVEYS         ("/communication/campaign/survey/{userId}"),
         ACCOUNT_SURVEY          ("/communication/campaign/survey/{userId}/{surveyId}"),
@@ -228,7 +228,7 @@ class RestKuorumApiService {
 
         ACCOUNT_EVENTS              ("/communication/campaign/event/{userId}"),
         ACCOUNT_EVENT               ("/communication/campaign/event/{userId}/{campaignId}"),
-        ACCOUNT_EVENT_ADD_ASSISTANT ("/communication/campaign/event/{userAlias}/{campaignId}/assistant/{assistantAlias}"),
+        ACCOUNT_EVENT_ADD_ASSISTANT ("/communication/campaign/event/{userId}/{campaignId}/assistant/{assistantId}"),
         ACCOUNT_EVENT_CHECK_IN      ("/communication/campaign/event/{userId}/{campaignId}/checkIn"),
         ACCOUNT_EVENT_REPORT        ("/communication/campaign/event/{userId}/{campaignId}/assistant/report"),
 

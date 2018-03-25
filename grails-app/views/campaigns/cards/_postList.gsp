@@ -53,7 +53,7 @@
                         <li>
                             <a class="post-like ${post.liked && isLogged?'active':''}"
                                data-postId="${post.id}"
-                               data-userAlias="${post.user.alias}"
+                               data-postUserId="${post.user.id}"
                                data-urlAction="${g.createLink(mapping: "postLike")}"
                                data-loggedUser="${sec.username()}">
                                 <span class="fa ${post.liked && isLogged?'fa-heart':'fa-heart-o'} fa-lg"></span>

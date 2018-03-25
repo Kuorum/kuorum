@@ -36,22 +36,22 @@ class DebateProposalController {
     def deleteProposal(){
         Long proposalId = Long.parseLong(params.proposalId)
         Long campaignId = Long.parseLong(params.debateId)
-        String debateAlias = params.debateAlias
+        String debateUserId = params.debateUserId
         KuorumUser user = springSecurityService.currentUser
-        proposalService.deleteProposal(user, debateAlias, campaignId, proposalId)
+        proposalService.deleteProposal(user, debateUserId, campaignId, proposalId)
         render "true"
     }
 
     def pinProposal(PinProposalCommand command){
         KuorumUser user = springSecurityService.currentUser
 
-        ProposalRSDTO proposalRSDTO = proposalService.pinProposal(user, command.debateAlias, command.debateId, command.proposalId, command.pin)
+        ProposalRSDTO proposalRSDTO = proposalService.pinProposal(user, command.debateUserId, command.debateId, command.proposalId, command.pin)
         render "ok"
     }
 
     def likeProposal(LikeProposalCommand command){
         KuorumUser user = springSecurityService.currentUser
-        proposalService.likeProposal(user, command.debateAlias,command.debateId, command.proposalId, command.like)
+        proposalService.likeProposal(user, command.debateUserId,command.debateId, command.proposalId, command.like)
         render "Ok"
     }
 
@@ -68,20 +68,20 @@ class DebateProposalController {
         KuorumUser user = springSecurityService.currentUser
         Long proposalId = Long.parseLong(params.proposalId)
         Long campaignId = Long.parseLong(params.campaignId)
-        String debateAlias = params.debateAlias
+        String debateUserId = params.debateUserId
         Long commentId = Long.parseLong(params.commentId)
         Integer vote = Integer.parseInt(params.vote)
-        ProposalCommentRSDTO comment = proposalService.voteComment(user, campaignId,debateAlias, proposalId, commentId, vote)
+        ProposalCommentRSDTO comment = proposalService.voteComment(user, campaignId,debateUserId, proposalId, commentId, vote)
         render comment as JSON
     }
 
     def deleteComment(){
         Long proposalId = Long.parseLong(params.proposalId)
         Long campaignId = Long.parseLong(params.debateId)
-        String debateAlias = params.debateAlias
+        String debateUserId = params.debateUserId
         Long commentId = Long.parseLong(params.commentId)
         KuorumUser user = springSecurityService.currentUser
-        proposalService.deleteComment(user, campaignId,debateAlias, proposalId, commentId)
+        proposalService.deleteComment(user, campaignId,debateUserId, proposalId, commentId)
         render "true"
     }
 }

@@ -41,7 +41,8 @@ var eventFunctions={
         pageLoadingOn("Event - Confirm assistance");
         var eventId = $button.attr("data-eventId")
         var urlConfirm = $button.attr("data-postUrl")
-        var data ={eventId:eventId}
+        var eventUserId = $button.attr("data-eventUserId")
+        var data ={eventId:eventId,eventUserId:eventUserId}
         $.ajax({
             type: "POST",
             url: urlConfirm,

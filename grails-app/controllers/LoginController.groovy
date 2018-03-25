@@ -1,6 +1,6 @@
 import grails.converters.JSON
-import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.SpringSecurityUtils
+import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.register.RegisterService
 import kuorum.users.KuorumUser
 import org.springframework.security.authentication.AccountExpiredException
@@ -52,7 +52,7 @@ class LoginController {
 		}
 
 		String view = 'auth'
-		String postUrl = "${config.loginDomain}${config.apf.filterProcessesUrl}"
+		String postUrl = "${CustomDomainResolver.getBaseUrlAbsolute()}${config.apf.filterProcessesUrl}"
 		String username = params.email?:''
 		render view: view, model: [postUrl: postUrl,
 		                           rememberMeParameter: config.rememberMe.parameter,

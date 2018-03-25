@@ -40,8 +40,12 @@ class CustomDomainResolver {
     }
 
     public static String getBaseUrlAbsolute(){
-//        System.out.print("ThreadLocal [GET] ->"+Thread.currentThread().id)
-        return CONTEXT.get().get(PARAM_BASE)
+        if (CONTEXT.get()){
+            return CONTEXT.get().get(PARAM_BASE)
+        }else{
+            System.out.print("No CONTEXT")
+            return "https://kuorum.org"
+        }
     }
 
     public static String setApiToken(String token){

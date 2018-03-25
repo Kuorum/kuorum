@@ -24,6 +24,7 @@
                             type="button"
                             class="btn btn-blue btn-lg event-confirm-button event-unconfirmed ${extraUnconfirmedClass}"
                             data-userLoggedAlias="${userUtil.loggedUserId()}"
+                            data-eventUserId="${campaign.user.id}"
                             data-postUrl="${g.createLink(mapping: 'eventBookTicket', params:campaign.encodeAsLinkProperties())}"
                     >
                         ${message(code: "event.callToAction.button")}

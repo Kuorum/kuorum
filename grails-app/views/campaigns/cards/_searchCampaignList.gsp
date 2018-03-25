@@ -56,7 +56,7 @@
                         <g:elseif test="${campaign.type== org.kuorum.rest.model.search.SearchTypeRSDTO.POST}">
                             <a class="post-like ${campaign.liked?'active':''}"
                                data-postId="${campaign.id}"
-                               data-userAlias="${campaign.alias}"
+                               data-postUserId="${campaign.ownerId}"
                                data-urlAction="${g.createLink(mapping: "postLike")}"
                                data-loggedUser="${sec.username()}">
                                 <span class="fa ${campaign.liked?'fa-heart':'fa-heart-o'} fa-lg"></span>

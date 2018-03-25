@@ -415,13 +415,13 @@ class UrlMappings {
         name debateShow:        "/$userAlias/$urlTitle-$campaignId"         (controller: "campaign", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
                                 "/$userAlias/-$campaignId"                  (controller: "campaign", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
 
-        name debateProposalNew: "/ajax/addProposal"(controller: "debateProposal", action: "addProposal")
-        name debateProposalDelete:"/ajax/deleteProposal"(controller: "debateProposal", action: "deleteProposal")
-        name debateProposalPin: "/ajax/pinProposal"(controller: "debateProposal", action: "pinProposal")
-        name debateProposalLike:"/ajax/likeProposal"(controller: "debateProposal", action: "likeProposal")
-        name debateProposalComment: "/ajax/proposalComment/add"(controller: "debateProposal", action: "addComment")
-        name debateProposalDeleteComment: "/ajax/proposalComment/delete"(controller: "debateProposal", action: "deleteComment")
-        name debateProposalVoteComment: "/ajax/proposalComment/vote"(controller: "debateProposal", action: "voteComment")
+        name debateProposalNew:             "/ajax/addProposal"(controller: "debateProposal", action: "addProposal")
+        name debateProposalDelete:          "/ajax/deleteProposal"(controller: "debateProposal", action: "deleteProposal")
+        name debateProposalPin:             "/ajax/pinProposal"(controller: "debateProposal", action: "pinProposal")
+        name debateProposalLike:            "/ajax/likeProposal"(controller: "debateProposal", action: "likeProposal")
+        name debateProposalComment:         "/ajax/proposalComment/add"(controller: "debateProposal", action: "addComment")
+        name debateProposalDeleteComment:   "/ajax/proposalComment/delete"(controller: "debateProposal", action: "deleteComment")
+        name debateProposalVoteComment:     "/ajax/proposalComment/vote"(controller: "debateProposal", action: "voteComment")
 
         name eventBookTicket:           "/ajax/$userAlias/event/$urlTitle-$campaignId/book"(controller:"event", action: "bookTicket")
         name eventConfirmAssistance:    "/account/event/$campaignId/confirm"(controller:"event", action: "checkIn")

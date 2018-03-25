@@ -8,7 +8,6 @@ import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.commands.payment.CampaignSettingsCommand
 import kuorum.web.commands.payment.massMailing.post.LikePostCommand
 import org.kuorum.rest.model.communication.post.PostRSDTO
-import org.kuorum.rest.model.contact.filter.FilterRDTO
 
 class PostController extends CampaignController{
 
@@ -72,8 +71,11 @@ class PostController extends CampaignController{
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def likePost(LikePostCommand command){
+        if (command.hasErrors()){
+            render "No correct data"
+        }
         KuorumUser currentUser= springSecurityService.currentUser;
-        PostRSDTO post = postService.likePost(command.postId, currentUser, command.like, command.userAlias);
+        PostRSDTO post = postService.likePost(command.postId, currentUser, command.like, command.postUserId);
         render post as JSON;
     }
 }

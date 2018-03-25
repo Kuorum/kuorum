@@ -12,11 +12,11 @@ class EventService {
 
     RestKuorumApiService restKuorumApiService
 
-    EventRegistrationRSDTO addAssistant(String ownerAlias, Long campaignId, KuorumUser assistant){
+    EventRegistrationRSDTO addAssistant(String eventUserId, Long campaignId, KuorumUser assistant){
         Map<String, String> params = [
-                userAlias: ownerAlias,
+                userId: eventUserId,
                 campaignId:campaignId.toString(),
-                assistantAlias:assistant.id.toString()
+                assistantId:assistant.id.toString()
         ]
         Map<String, String> query = [:]
         def response = restKuorumApiService.put(
@@ -61,11 +61,11 @@ class EventService {
         }
     }
 
-    EventRegistrationRSDTO findAssistant(String ownerAlias, Long eventId, KuorumUser assistant){
+    EventRegistrationRSDTO findAssistant(String eventUserId, Long eventId, KuorumUser assistant){
         Map<String, String> params = [
-                userAlias: ownerAlias,
+                userId: eventUserId,
                 eventId:eventId.toString(),
-                assistantAlias:assistant.id.toString()
+                assistantId:assistant.id.toString()
         ]
         Map<String, String> query = [:]
         try {

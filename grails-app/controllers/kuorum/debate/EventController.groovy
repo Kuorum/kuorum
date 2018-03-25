@@ -3,7 +3,6 @@ package kuorum.debate
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.politician.CampaignController
 import kuorum.users.KuorumUser
-import kuorum.users.KuorumUserService
 import kuorum.util.TimeZoneUtil
 import kuorum.web.commands.payment.CampaignSettingsCommand
 import kuorum.web.commands.payment.event.EventCommand
@@ -15,7 +14,6 @@ import org.kuorum.rest.model.communication.event.EventRDTO
 import org.kuorum.rest.model.communication.event.EventRegistrationRSDTO
 import org.kuorum.rest.model.communication.post.PostRSDTO
 import org.kuorum.rest.model.contact.ContactRSDTO
-import org.kuorum.rest.model.contact.filter.FilterRDTO
 import payment.campaign.CampaignCreatorService
 import payment.campaign.event.EventService
 
@@ -135,7 +133,7 @@ class EventController extends CampaignController{
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def bookTicket(Long campaignId){
         KuorumUser assistant = springSecurityService.currentUser
-        EventRegistrationRSDTO eventRegistration = eventService.addAssistant(params.userAlias, campaignId, assistant)
+        EventRegistrationRSDTO eventRegistration = eventService.addAssistant(params.eventUserId, campaignId, assistant)
         if (eventRegistration){
             render ([success:true, error:"", eventRegistration:eventRegistration]) as JSON
         }else{

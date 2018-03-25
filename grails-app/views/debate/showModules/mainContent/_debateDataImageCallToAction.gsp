@@ -1,6 +1,7 @@
 <g:if test="${debate.event && !debate.event.registered}">
     <div class="actions call-to-action-mobile call-mobile-event-confirm event-unconfirmed"
          data-userLoggedAlias="${userUtil.loggedUserId()}"
+         data-eventUserId="${debate.user.id}"
          data-postUrl="${g.createLink(mapping: 'eventBookTicket',params:debate.encodeAsLinkProperties())}"
          data-debateId="${debate.id}">
         %{--EVENT DATA - CHAPU BORRAR --}%

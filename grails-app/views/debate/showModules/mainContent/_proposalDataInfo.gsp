@@ -1,4 +1,4 @@
-<div id="proposal_${proposal.id}" class="conversation-box" data-debateId="${proposal.debateId}" data-debateAlias="${proposal.debateUser.alias}">
+<div id="proposal_${proposal.id}" class="conversation-box" data-debateId="${proposal.debateId}" data-debateAlias="${proposal.debateUser.alias}" data-debateUserId="${proposal.debateUser.id}">
     <div class="header clearfix">
         <userUtil:showUser user="${proposal.user}" extraCss="pull-left"/>
         <span class="time-ago middle-point left">
@@ -13,7 +13,7 @@
                             type="button"
                             data-urlAction="${g.createLink(mapping: 'debateProposalPin')}"
                             data-debateId="${debate.id}"
-                            data-debateAlias="${debate.user.alias}"
+                            data-debateUserId="${debate.user.id}"
                             data-proposalId="${proposal.id}"
                             data-userLogged="${userUtil.loggedUserId()}"
                             data-toggle="tooltip"
@@ -78,7 +78,7 @@
                         class="proposal-like ${activeButton?'active':''}"
                         data-urlAction="${g.createLink(mapping: 'debateProposalLike')}"
                         data-debateId="${debate.id}"
-                        data-debateAlias="${debate.user.alias}"
+                        data-debateUserId="${debate.user.id}"
                         data-proposalId="${proposal.id}"
                         data-userLogged="${userUtil.loggedUserId()}"
                     >

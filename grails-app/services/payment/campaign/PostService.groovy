@@ -124,8 +124,8 @@ class PostService implements CampaignCreatorService<PostRSDTO, PostRDTO>{
         postSaved
     }
 
-    PostRSDTO likePost (Long postId, KuorumUser currentUser, Boolean like, String userAlias){
-        Map<String, String> params = [userAlias: userAlias, postId: postId.toString()]
+    PostRSDTO likePost (Long postId, KuorumUser currentUser, Boolean like, String postUserId){
+        Map<String, String> params = [userId: postUserId, postId: postId.toString()]
         Map<String, String> query = [viewerUid: currentUser.id.toString()]
         PostRSDTO postRSDTO;
         if(like){
