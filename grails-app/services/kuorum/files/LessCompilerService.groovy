@@ -10,8 +10,12 @@ class LessCompilerService implements ApplicationContextAware {
 
     AmazonFileService amazonFileService;
 
+    def grailsApplication
+
     String compileCssForDomain(String domain){
         // Instantiate the LESS compiler with some compiler options
+
+        String temporalPath = "${grailsApplication.config.kuorum.upload.serverPath}"
         LessCompiler lessCompiler = new LessCompiler(Arrays.asList("--relative-urls", "--strict-math=on"));
 
         // Compile LESS input string to CSS output string
@@ -19,7 +23,7 @@ class LessCompilerService implements ApplicationContextAware {
 
         def customDomainLess = applicationContext.getResource("less/customDomainCss.less")
 
-        File customDomainCss = new File("/tmp/${domain}.css")
+        File customDomainCss = new File("${temporalPath}/${domain}.css")
         // Or compile LESS input file to CSS output file
         lessCompiler.compile(customDomainLess.file, customDomainCss);
 

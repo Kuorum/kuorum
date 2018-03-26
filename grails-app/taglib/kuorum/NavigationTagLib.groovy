@@ -1,7 +1,6 @@
 package kuorum
 
 import com.opensymphony.module.sitemesh.RequestConstants
-import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.model.AvailableLanguage
 import kuorum.core.model.search.Pagination
 import kuorum.core.model.search.SearchType
@@ -293,14 +292,6 @@ class NavigationTagLib {
             <li>
                 <a class="page disabled" href="#">...</a>
             </li>
-        """
-    }
-
-    def customCssDomain={attrs ->
-        String domain = CustomDomainResolver.domain
-        String urlCustomDomainCss = lessCompilerService.getUrlDomainCss(domain)
-        out <<"""
-            <link rel="stylesheet" href="${urlCustomDomainCss}" type="text/css"/>
         """
     }
 }

@@ -52,7 +52,7 @@
     <meta property="twitter:account_id" content="4503599627910348" />
     <g:render template="/layouts/internationalization/otherLangsRef"/>
 
-    <nav:customCssDomain/>
+    <domain:customCss/>
 </head>
 
 <g:if test="${!schemaData?.schema}">

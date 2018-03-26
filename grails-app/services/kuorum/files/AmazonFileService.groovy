@@ -206,14 +206,6 @@ class AmazonFileService extends LocalFileService{
         return objectData
     }
 
-    private String DOMAIN_PATH = "domains"
-    private String DOMAIN_CUSTOM_CSS_FILE = "custom.css"
-    String getDomainCssUrl(String domain){
-        String keyName    = "${DOMAIN_PATH}/${domain}/${DOMAIN_CUSTOM_CSS_FILE}"
-        String bucketName = grailsApplication.config.kuorum.amazon.bucketName;
-        return "https://${bucketName}.s3.amazonaws.com/${keyName}"
-    }
-
     void uploadDomainCss(File file, String domain){
         String accessKey = grailsApplication.config.kuorum.amazon.accessKey
         String secretKey = grailsApplication.config.kuorum.amazon.secretKey
@@ -286,5 +278,25 @@ class AmazonFileService extends LocalFileService{
             s3Client.abortMultipartUpload(new AbortMultipartUploadRequest(bucketName, keyName, initResponse.getUploadId()));
             log.error("Ha habido un error subiendo el fichero a Amazon.",e);
         }
+    }
+
+
+
+    private String DOMAIN_PATH = "domains"
+    private String DOMAIN_CUSTOM_CSS_FILE = "custom.css"
+    private String DOMAIN_CUSTOM_LOGO_FILE = "logo.png"
+    String getDomainCssUrl(String domain){
+        buildAmazonDomainUrl(domain, DOMAIN_CUSTOM_CSS_FILE)
+    }
+
+
+    String getDomainLogoUrl(String domain){
+        buildAmazonDomainUrl(domain, DOMAIN_CUSTOM_LOGO_FILE)
+    }
+
+    private String buildAmazonDomainUrl(String domain, String key){
+        String keyName    = "${DOMAIN_PATH}/${domain}/${key}"
+        String bucketName = grailsApplication.config.kuorum.amazon.bucketName;
+        return "https://${bucketName}.s3.amazonaws.com/${keyName}"
     }
 }
