@@ -11,15 +11,13 @@ class BootStrap {
     LessCompilerService lessCompilerService
     def init = { servletContext ->
 
+//        javax.servlet.http.HttpServletRequest.metaClass.getSiteUrl = {
+////            return (delegate.scheme + "://" + delegate.serverName + ":" + delegate.serverPort + delegate.getContextPath())
+//            return (delegate.scheme + "://" + delegate.serverName + ":" + delegate.serverPort)
+//        }
         List<String> domains = ["local2.kuorum.org"]
         domains.each {lessCompilerService.compileCssForDomain(it)}
 
-
-
-        javax.servlet.http.HttpServletRequest.metaClass.getSiteUrl = {
-//            return (delegate.scheme + "://" + delegate.serverName + ":" + delegate.serverPort + delegate.getContextPath())
-            return (delegate.scheme + "://" + delegate.serverName + ":" + delegate.serverPort)
-        }
 
         //TODO: Think where this initialization could be called instead of bootstrap
         grailsApplication.domainClasses.each { domainClass ->
