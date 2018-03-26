@@ -8,7 +8,7 @@
               model="[
                       kuorumTitle:g.message(code:'landingOrganization.head.title'),
                       kuorumDescription:g.message(code:'landingOrganization.head.description'),
-                      kuorumImage:request.siteUrl +r.resource(dir:'images/landing', file:'organizations.jpg')
+                      kuorumImage:r.resource(dir:'images/landing', file:'organizations.jpg', absolute:true)
               ]"/>
 </head>
 

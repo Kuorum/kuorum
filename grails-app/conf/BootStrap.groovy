@@ -10,10 +10,10 @@ class BootStrap {
     def indexSolrService
     def init = { servletContext ->
 
-        javax.servlet.http.HttpServletRequest.metaClass.getSiteUrl = {
-//            return (delegate.scheme + "://" + delegate.serverName + ":" + delegate.serverPort + delegate.getContextPath())
-            return (delegate.scheme + "://" + delegate.serverName + ":" + delegate.serverPort)
-        }
+//        javax.servlet.http.HttpServletRequest.metaClass.getSiteUrl = {
+////            return (delegate.scheme + "://" + delegate.serverName + ":" + delegate.serverPort + delegate.getContextPath())
+//            return (delegate.scheme + "://" + delegate.serverName + ":" + delegate.serverPort)
+//        }
 
         //TODO: Think where this initialization could be called instead of bootstrap
         grailsApplication.domainClasses.each { domainClass ->
