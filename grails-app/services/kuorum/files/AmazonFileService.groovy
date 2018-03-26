@@ -294,6 +294,10 @@ class AmazonFileService extends LocalFileService{
         buildAmazonDomainUrl(domain, DOMAIN_CUSTOM_LOGO_FILE)
     }
 
+    String getStaticRootDomainPath(String domain){
+        buildAmazonDomainUrl(domain, "")[0..-2]
+    }
+
     private String buildAmazonDomainUrl(String domain, String key){
         String keyName    = "${DOMAIN_PATH}/${domain}/${key}"
         String bucketName = grailsApplication.config.kuorum.amazon.bucketName;
