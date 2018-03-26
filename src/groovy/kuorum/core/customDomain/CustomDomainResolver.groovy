@@ -36,7 +36,7 @@ class CustomDomainResolver {
 
     public static void clear() {
         System.out.print("ThreadLocal [CLEAR] ->"+Thread.currentThread().id)
-//        CONTEXT.remove();
+        CONTEXT.remove();
     }
 
     public static String getBaseUrlAbsolute(){

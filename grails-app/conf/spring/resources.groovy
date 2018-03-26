@@ -1,6 +1,7 @@
 import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.authentication.encoding.BCryptPasswordEncoder
 import grails.util.Environment
+import kuorum.core.customDomain.filter.CustomDomainSpringFilter
 import kuorum.core.security.passwordEncoders.PasswordFixingDaoAuthenticationProvider
 import kuorum.core.security.passwordEncoders.Sha256ToBCryptPasswordEncoder
 import kuorum.core.springSecurity.handlers.SuccessAuthenticationHandler
@@ -124,5 +125,11 @@ beans = {
     permissionEvaluator(KuorumPermissionEvaluator) {
         grailsApplication     = ref('grailsApplication')
         springSecurityService = ref('springSecurityService')
+    }
+
+
+    // DOMAIN
+    customDomainSpringFilter(CustomDomainSpringFilter){
+        restKuorumApiService = ref('restKuorumApiService')
     }
 }
