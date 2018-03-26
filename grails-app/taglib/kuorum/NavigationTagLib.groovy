@@ -1,10 +1,12 @@
 package kuorum
 
 import com.opensymphony.module.sitemesh.RequestConstants
+import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.model.AvailableLanguage
 import kuorum.core.model.search.Pagination
 import kuorum.core.model.search.SearchType
 import kuorum.core.model.solr.SolrType
+import kuorum.files.LessCompilerService
 import org.codehaus.groovy.grails.web.mapping.LinkGenerator
 import org.codehaus.groovy.grails.web.mapping.UrlCreator
 import org.codehaus.groovy.grails.web.mapping.UrlMappingInfo
@@ -22,6 +24,7 @@ class NavigationTagLib {
 
     def springSecurityService
     LinkGenerator grailsLinkGenerator
+    LessCompilerService lessCompilerService
 
     /**
      * Returns the css "ACTIVE" if the mapping is the same as the url loaded
@@ -290,6 +293,14 @@ class NavigationTagLib {
             <li>
                 <a class="page disabled" href="#">...</a>
             </li>
+        """
+    }
+
+    def customCssDomain={attrs ->
+        String domain = CustomDomainResolver.domain
+        String urlCustomDomainCss = lessCompilerService.getUrlDomainCss(domain)
+        out <<"""
+            <link rel="stylesheet" href="${urlCustomDomainCss}" type="text/css"/>
         """
     }
 }

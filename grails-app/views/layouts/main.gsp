@@ -51,6 +51,8 @@
     <r:layoutResources />
     <meta property="twitter:account_id" content="4503599627910348" />
     <g:render template="/layouts/internationalization/otherLangsRef"/>
+
+    <nav:customCssDomain/>
 </head>
 
 <g:if test="${!schemaData?.schema}">
@@ -62,6 +64,7 @@
     <g:set var="dynamicBodyCss" value="noLogged"/>
 </sec:ifNotLoggedIn>
 <body itemscope itemtype="${schemaData.schema}" class="${pageProperty(name:"page.bodyCss")} ${dynamicBodyCss}">
+${_customDomainCss}
 <meta itemprop="url" content="${nav.canonical([onlyLink:true])}"/>
 
 

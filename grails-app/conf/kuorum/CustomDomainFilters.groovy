@@ -2,11 +2,13 @@ package kuorum
 
 import com.fasterxml.jackson.core.type.TypeReference
 import kuorum.core.customDomain.CustomDomainResolver
+import kuorum.files.LessCompilerService
 import kuorum.util.rest.RestKuorumApiService
 
 class CustomDomainFilters {
 
     RestKuorumApiService restKuorumApiService;
+    LessCompilerService lessCompilerService
 
     def filters = {
         all(controller:'error', invert: true) {

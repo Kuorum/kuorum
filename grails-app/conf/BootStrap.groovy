@@ -1,14 +1,20 @@
 import com.mongodb.BasicDBObject
 import kuorum.core.annotations.MongoUpdatable
 import kuorum.core.exception.KuorumExceptionUtil
-import kuorum.users.RoleUser
+import kuorum.files.LessCompilerService
 
 class BootStrap {
 
     def grailsApplication
     def fixtureLoader
     def indexSolrService
+    LessCompilerService lessCompilerService
     def init = { servletContext ->
+
+        List<String> domains = ["local2.kuorum.org"]
+        domains.each {lessCompilerService.compileCssForDomain(it)}
+
+
 
         javax.servlet.http.HttpServletRequest.metaClass.getSiteUrl = {
 //            return (delegate.scheme + "://" + delegate.serverName + ":" + delegate.serverPort + delegate.getContextPath())
