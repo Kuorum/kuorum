@@ -15,7 +15,7 @@ class BootStrap {
 ////            return (delegate.scheme + "://" + delegate.serverName + ":" + delegate.serverPort + delegate.getContextPath())
 //            return (delegate.scheme + "://" + delegate.serverName + ":" + delegate.serverPort)
 //        }
-        List<String> domains = ["local2.kuorum.org"]
+        List<String> domains = ["local.kuorum.org", "test.kuorum.org", "enelx-test.kuorum.org"]
         domains.each {lessCompilerService.compileCssForDomain(it)}
 
 
