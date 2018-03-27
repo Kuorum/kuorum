@@ -9313,10 +9313,20 @@ ul.notification-menu > li.see-more {
 .signup-custom-site {
     padding-top: 60px;
     padding-bottom: 60px;
+    padding-left: 100px;
+    padding-right: 100px;
+}
+
+.onecol #main .custom-url-steps li {
+    font-family: 'Georgia', 'Times New Roman', Times, serif;
 }
 
 .onecol #main .custom-url-steps li::after { 
     display: block;
+}
+
+.onecol #main .stepsSign li {
+    margin: 0 33px;
 }
 
 .custom-url-step--coorporative-color::after {
@@ -9368,7 +9378,7 @@ ul.notification-menu > li.see-more {
 }
 
 .custom-url-form-group__input {
-    width: 320px;
+    max-width: 320px;
 }
 
 .custom-url-form-group__submit {
@@ -9401,6 +9411,30 @@ ul.notification-menu > li.see-more {
     margin: 0;
 }
 
+.onecol #main .signup.signup-custom-site {
+    text-align: center;
+}
+
+/* global flex classes */
+.d-flex {
+    display: flex;
+}
+
+.justify-content-center {
+    justify-content: center;
+}
+
+.justify-content-start {
+    justify-content: start;
+}
+
+.pl-15 {
+    padding-left: 15px;
+}
+
+.pr-15 {
+    padding-right: 15px;
+}
 
 /** media queries **/
 @media (max-width: 767px) {
