@@ -1,7 +1,104 @@
-//@import "testDomainVars";
+@import "testDomainVars";
 
+//Dashboard
 .btn {
   background-color: @mainColor;
+}
+.btn:hover, .btn:active, .btn:focus {
+  background-color: @btnColorHover;
+}
+
+a, a:hover, a:active, a:focus{
+  color: @mainColor;
+}
+
+.nav > li > .navbar-link:active, .navbar-link:hover, .nav > li > .navbar-link:focus {
+  color: @textMenuColor;
+}
+
+.nav .open > a, .nav .open > a:active,.nav .open > a:hover, .nav .open > a:focus{
+  color: @textMenuColor;
+}
+
+#statistics h2 {
+  color: @statisticsColor;
+}
+#search-form .input-group{
+  border:3px solid @searchBorderColor;
+}
+
+header #search-form .open-filter{
+  background-color: @searchColor;
+}
+
+#navbar-collapse .navbar-contact-phone{
+  background: @phoneColor;
+}
+
+//Log in
+
+.landing + .row.main .onecol .login{
+  background-color: @signInFrame;
+}
+.btn.btn-blue{
+  background-color: @signInButton;
+}
+.btn.btn-blue:hover, .btn.btn-blue:active, .btn.btn-blue:focus{
+  background-color: @signInButtonHover;
+}
+.input-group-addon{
+  background-color: @showPasswordCheckboxColor;
+}
+
+//Dashboard
+
+#progressLineFill{
+  border-top: @profileLineColor;
+}
+
+.actionIcons li > a {
+  color:@dashboardIconsColor;
+  border: 1px solid @dashboardBorderIconsColor;
+}
+
+#progressProfileFill{
+  background-color: @progressBarColor;
+}
+
+.nav > .underline > .navbar-link:hover, .nav > .underline > .navbar-link:focus, .nav > .underline > .navbar-link.active {
+  color: @dashboardMenuColor;
+  border-bottom: @dashboardMenuColor;
+}
+
+//Campaign
+
+#main > div.box-steps > ul.actionIcons > li a {
+  color:@campaignIconColor;
+}
+
+#main > div.box-steps > ul.actionIcons > li.arrow {
+  @campaignArrowColor;
+}
+
+#main > div.box-steps > ul.actionIcons > li.active a{
+  border: @campaignIconActiveColor;
+  color: @campaignIconActiveColor;
+}
+
+//.form-final-options .btn.btn-blue.inverted{
+//
+//}
+
+.btn.btn-blue.inverted:hover, .btn.btn-blue.inverted:active, .btn.btn-blue.inverted:focus{
+  background-color: @btnColorHover;
+
+}
+
+
+//Footer
+
+#footer .social li a, .social li a {
+  color:@footerIconsColor;
 }
 
 
