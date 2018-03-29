@@ -36,6 +36,9 @@ class CustomDomainResolver {
 
     public static void clear() {
         System.out.print("ThreadLocal [CLEAR] ->"+Thread.currentThread().id)
+        if (CONTEXT && CONTEXT.get()){
+            CONTEXT.get().clear()
+        }
         CONTEXT.remove();
     }
 

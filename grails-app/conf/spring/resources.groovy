@@ -130,6 +130,6 @@ beans = {
 
     // DOMAIN
     customDomainSpringFilter(CustomDomainSpringFilter){
-        restKuorumApiService = ref('restKuorumApiService')
+        domainService = ref('domainService')
     }
 }
