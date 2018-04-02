@@ -322,7 +322,7 @@ a, a:hover, a:active, a:focus{
 .btn.btn-blue:focus {background-color: @secondColorHover !important;}
 .btn.btn-blue.inverted {
   background-color: #fff !important;
-  border: 1px solid @secondColor ;
+  border-color: @secondColor ;
   color: @secondColor !important;
 }
 .btn.btn-blue.inverted:hover,
@@ -333,7 +333,7 @@ a, a:hover, a:active, a:focus{
 }
 .btn.btn-blue-light.inverted {
   background-color: #fff !important;
-  border: 1px solid @secondColor ;
+  border-color: @secondColor ;
   color: @secondColor !important;
 }
 .btn.btn-blue-light.inverted:hover,
@@ -355,32 +355,19 @@ a, a:hover, a:active, a:focus{
 .box-ppal.import-contacts > p a {color: @secondColor;}
 
 .bootstrap-tagsinput .tag, .addTagBtn, .addTag > ul > li a {
-  margin-right: 2px;
-  margin-bottom: 6px;
-  display: inline-block;
-  color: @secondColor;
-  background-color: rgba(32, 162, 234, 0.1);
-  border: 1px solid @secondColor;
-  font-family: Arial,Helvetica,sans-serif;
-  font-weight: 400;
-  font-size: 13px;
-  font-size: 1.3rem;
+  color: @secondColor;  background-color: rgba(32, 162, 234, 0.1);
+  border-color: @secondColor;
 }
 
 .nav-tabs.simple > li.active > a, .nav-tabs.simple > li.active > a:hover, .nav-tabs.simple > li.active > a:focus {
   color: @secondColor;
-  background-color: transparent;
-  border-top: none;
-  border-left: none;
-  border-right: none;
-  border-bottom: 6px solid @secondColor;
+  border-bottom-color: @secondColor;
 }
 .nav-tabs.simple > li > a:hover, .nav-tabs.simple > li > a:focus {
-  background-color: transparent;
   color: @secondColor;
 }
 .tags-campaign .bootstrap-tagsinput.focus {border:1px solid @secondColor;}
-#filterContacts {border: 1px solid @secondColor; border-radius: 2px; padding: 5px 10px; display: inline-block; margin-top: 10px; margin-right: 10px; color: @secondColor;}
+#filterContacts {border-color: @secondColor; color: @secondColor;}
 #filterContacts.on {background-color: @secondColor; border-color: @secondColor; color: #fff; /*cursor: default; pointer-events: none;*/}
 
 ul.list > li > ul.list-actions > li > a:active {color: @secondColor;}
@@ -400,35 +387,31 @@ ul.list > li > ul.list-actions > li > a:active {color: @secondColor;}
   border-bottom-color: @secondColor;
 }
 
-.boxes.edit-user .ico-info {position: absolute; top: 10px; right: 10px; font-size: 32px; font-size: 3.2rem; color: @secondColor; z-index: 9;}
+.boxes.edit-user .ico-info {color: @secondColor;}
 .boxes.pending h1 .badge {background-color: @secondColor;}
-.boxes.profile-user > small {display: block; float: left; width: 50%; margin: 0; padding: 0; font-size: 18px; font-size: 1.8rem; color: @secondColor;}
+.boxes.profile-user > small {color: @secondColor;}
 
 .qq-upload-button {
-  text-align: center;
   color: @secondColor;
-  text-align: center;
-  padding: 0 !important;
-  height: 31px !important;
 }
 
 .othersPost #postNav .read-later a:focus {color: @secondColor;}
-.othersPost #postNav .read-later a.disabled {color: @secondColor; cursor: pointer !important;}
+.othersPost #postNav .read-later a.disabled {color: @secondColor;}
 
-.othersPost #postNav > a {display: block; padding: 82px 18px; background-color: @secondColor; color: #fff; border-radius: 0; position: absolute; top: 0;}
+.othersPost #postNav > a {background-color: @secondColor; color: #fff;}
 
 .promo-options > div.active > form .btn {background-color: @secondColor !important;}
 
-.search-list .search-kuorum-user .box-ppal > small {display: block; float: left; width: 50%; margin: 0; padding: 10px; font-size: 18px; font-size: 1.8rem; color: @secondColor;}
+.search-list .search-kuorum-user .box-ppal > small {color: @secondColor;}
 
-.carousel.news .carousel-inner .item .carousel-caption h3 {font-size: 14px; font-size: 1.4rem; font-family: Arial, sans-serif; color: @secondColor; margin: 0; padding: 0; height: 48px; overflow: hidden;font-style: inherit; line-height: 1.1;}
+.carousel.news .carousel-inner .item .carousel-caption h3 {color: @secondColor;}
 .carousel.news .carousel-inner .item a,
 .carousel.news .carousel-inner .item a:hover,
 .carousel.news .carousel-inner .item a:focus,
-.carousel.news .carousel-control .fa-inverse {color: @secondColor; text-decoration: none;}
+.carousel.news .carousel-control .fa-inverse {color: @secondColor;}
 
-.embudo #aside-ppal h1.withArrow {color: @secondColor; font-size: 32px; font-size: 3.2rem; text-align: center; position: relative; margin-top: 0;}
-.embudo #aside-ppal > .border > p {color: @secondColor; font-size: 20px; font-size: 2rem; text-align: center; position: relative;}
+.embudo #aside-ppal h1.withArrow {color: @secondColor;}
+.embudo #aside-ppal > .border > p {color: @secondColor;}
 .embudo .like-number a {color: @secondColor;}
 
 .list-team > li > .box-ppal > .social a:active {color: @secondColor !important;}
@@ -445,30 +428,18 @@ ul.list > li > ul.list-actions > li > a:active {color: @secondColor;}
 #cases-study-body .breadcrumb,
 #cases-study-grid .breadcrumb{
   color: @secondColor;
-  padding: 4px 0;
-  text-transform: uppercase;
-  font-weight: bold;
 }
 
 .nav-pills.nav-underline > .active > a,
 .nav-pills.nav-underline > .active > a:hover,
 .nav-pills.nav-underline > li > a:focus,
 .nav-pills.nav-underline > li > a:hover {
-  text-decoration: none;
-  border-radius:0px;
-  border-bottom-width: 6px;
-  border-bottom-style: solid;
   border-bottom-color: @secondColor;
   color: @secondColor;
-  background-color: transparent;
 }
 
 .leader-post .header .call-to-action-mobile span.arrow{
   color: @secondColor;
-  position: absolute;
-  top: -9px;
-  right: 38px;
-  opacity: 0.6;
 }
 
 .section-body a,
@@ -477,19 +448,10 @@ ul.list > li > ul.list-actions > li > a:active {color: @secondColor;}
 }
 
 #featured-case-study .section-body a{
-  float: left;
-  font-size: 22px;
-  padding-top: 25px;
-  padding-bottom: 60px;
   color: @secondColor;
 }
 
 #featured-case-study .section-body span.link-arrow{
-  float: left;
-  font-size: 22px;
-  padding-top: 25px;
-  padding-bottom: 60px;
-  padding-left: 10px;
   color: @secondColor;
 }
 

@@ -52,7 +52,8 @@
     <meta property="twitter:account_id" content="4503599627910348" />
     <g:render template="/layouts/internationalization/otherLangsRef"/>
 
-    <domain:customCss/>
+    %{--<domain:customCss/>--}%
+    <link rel="stylesheet" href="http://localhost/customDomainCss.css" type="text/css"/>
 </head>
 
 <g:if test="${!schemaData?.schema}">
