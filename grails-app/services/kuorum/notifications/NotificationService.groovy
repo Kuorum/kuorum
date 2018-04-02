@@ -2,7 +2,6 @@ package kuorum.notifications
 
 import com.fasterxml.jackson.core.type.TypeReference
 import grails.transaction.Transactional
-import kuorum.OfferPurchased
 import kuorum.campaign.PollCampaignVote
 import kuorum.core.model.search.SearchNotifications
 import kuorum.post.Post
@@ -121,18 +120,7 @@ class NotificationService {
         // Does nothing
     }
 
-    void sendOfferPurchasedNotification(KuorumUser user, OfferPurchased offerPurchased){
-        kuorumMailService.sendPoliticianSubscriptionToAdmins(user,offerPurchased)
-    }
-
     void sendWelcomeRegister(KuorumUser user){
         kuorumMailService.sendWelcomeRegister(user)
-    }
-
-    void sendEditorPurchaseNotification(KuorumUser editor){
-        kuorumMailService.sendNewEditorRequestToAdmins(editor)
-    }
-    void sendBetaTesterPurchaseNotification(KuorumUser politician){
-        kuorumMailService.sendNewBetaTesterRequestToAdmins(politician)
     }
 }

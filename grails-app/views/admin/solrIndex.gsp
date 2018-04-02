@@ -20,13 +20,4 @@
     <h1>Reenviar info a MailChimp </h1>
     <p>NO USAR SALVO NECESIDAD QUE FUNDE A MAILCHIMP</p>
     <g:link controller="admin" action="updateMailChimp"> Actualizar Mailchimp </g:link>
-
-    <H1> Subir politicos usando csv </H1>
-    <p> Sube los politicos leyendolos desde el fichero csv scrapeado </p>
-    <g:form action="uploadPoliticianCsv" controller="admin" enctype="multipart/form-data" useToken="true">
-        <span class="button">
-            <input type="file" name="filecsv"/>
-            <input type="submit" value="upload"/>
-        </span>
-    </g:form>
 </content>

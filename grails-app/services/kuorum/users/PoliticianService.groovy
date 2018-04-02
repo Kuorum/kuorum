@@ -79,43 +79,6 @@ class PoliticianService {
         }
     }
 
-    /**
-     * Read a csv and create politicians asynchronously
-     * @param executorUser
-     * @param data
-     */
-    void asyncUploadPoliticianCSV(KuorumUser executorUser, InputStream data){
-        byte[] buffer = new byte[data.available()];
-        data.read(buffer)
-        File csv = File.createTempFile("temp-file-name-${new Date().time}", ".csv");
-        OutputStream outStream = new FileOutputStream(csv);
-        outStream.write(buffer);
-        outStream.close()
-        Thread.start {
-            InputStream csvStream = new FileInputStream(csv);
-            Reader reader = new InputStreamReader(csvStream)
-            def lines = com.xlson.groovycsv.CsvParser.parseCsv(reader)
-            String politiciansOk = "<h1>Politician OK</h1><UL>"
-            String politiciansWrong = "<h1>Politician Wrong</h1><UL>"
-            for(line in lines) {
-                try {
-                    KuorumUser user = createPoliticianFromCSV(line)
-                    log.info("Uploaded ${user.name}")
-                    politiciansOk += "<li> <a href='${grailsLinkGenerator.link(mapping: 'userShow', params:user.encodeAsLinkProperties(), absolute: true)}'> $user.name </a></li>"
-                }catch (Exception e){
-                    log.warn("Error parseando el politico ${line.name}", e)
-                    politiciansWrong +=  "<li>${line.name} (${line.id}): <i>${e.getMessage()}</i></li>"
-                }
-            }
-            politiciansOk += "</UL>"
-            politiciansWrong += "</UL>"
-            log.info("Enviando mail de fin de procesado de email a ${executorUser.name} (${executorUser.email})")
-            kuorumMailService.sendBatchMail(executorUser, politiciansWrong + politiciansOk, "CSV Loaded")
-            csv.delete()
-        }
-
-    }
-
     KuorumUser createPoliticianFromCSV(def line) {
 
         KuorumUser politician = findOrRecoverPolitician(line)

@@ -14,8 +14,6 @@ import kuorum.web.admin.KuorumUserRightsCommand
 import org.kuorum.rest.model.admin.AdminConfigMailingRDTO
 import org.kuorum.rest.model.notification.KuorumMailAccountDetailsRSDTO
 import org.kuorum.rest.model.notification.campaign.config.NewsletterConfigRSDTO
-import org.springframework.web.multipart.MultipartFile
-import org.springframework.web.multipart.MultipartHttpServletRequest
 import payment.campaign.NewsletterService
 
 @Secured(['ROLE_ADMIN'])
@@ -58,20 +56,6 @@ class AdminController {
     def fullIndex(){
         def res = indexSolrService.fullIndex()
         render view: '/admin/solrIndex'
-    }
-
-    def uploadPoliticianCsv(){
-        MultipartFile uploadedFile = ((MultipartHttpServletRequest) request).getFile('filecsv')
-        if (uploadedFile.empty) {
-            flash.message = 'file cannot be empty'
-            render(view: 'solrIndex')
-            return
-        }
-        KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
-        politicianService.asyncUploadPoliticianCSV(loggedUser,uploadedFile.inputStream)
-        flash.message = "CSV ${uploadedFile.originalFilename} uploaded. An email will be sent at the end of the process"
-        redirect(mapping:"adminSearcherIndex")
-//        render view: "csvPoliticiansLoaded", model: [politiciansOk:politiciansOk,politiciansWrong:politiciansWrong, fileName:uploadedFile.getOriginalFilename()]
     }
 
     def editUserRights(String userAlias){
