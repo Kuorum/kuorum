@@ -1,121 +1,517 @@
-//@import "testDomainVars";
+@import "testDomainVars";
 
-//Dashboard
+a:focus {color: @mainColor;}
+.navbar-toggle {background-color: @mainColor;}
+
+.open-filter .dropdown-menu > li > a.active {color:@mainColor;}
+
+.login .form-group:last-child p:last-child a {color:@mainColor;}
+
+.navbar-collapse.collapse.in {
+  border-bottom-color: @mainColor;
+}
+
+.nav > li > .navbar-link:focus .badge {background-color: #fff; color: @mainColor;}
+.nav > li > .navbar-link:focus .badge-small {color: @mainColor;}
+.nav > li > .navbar-link.special {background-color: @mainColor; color: #fff;}
+
+.box .dropdown-menu > li a {color: @mainColor;}
+
+.badge {background-color: @mainColor;}
+
+.badge-small {color:@mainColor;}
+
+#footer .social li a, .social li a {color: @mainColor;}
+
+#footer .social li a:focus .fa-circle, .social li a:focus .fa-circle {color: @mainColor;}
+
+.timepicker-picker .btn {
+  color: @mainColor !important;
+}
+
+.engagement li.active a {background-color: #fff0ce; color: @mainColor !important;}
+
+.engagement li.active a:hover {color: @mainColor;}
+
+.important .from {border-bottom-color: @mainColor;}
+
+.author.important .from .inside {border-bottom-color: @mainColor;}
+
+.author.important .user.actor.politic {
+  background-color: @mainColor;
+  color: #ffdb8d;
+}
+
+#aside-ppal .panel .social li a:focus .fa-inverse {color: @mainColor !important;}
+#aside-ppal .panel .social li .fa-circle {color: @mainColor !important;}
+
+.notifications-list > li .actions > li > a {color: @mainColor;}
+
+.boxes.alerts li a {color: @mainColor;}
+
+.boxes.profile-user .profile-pic abbr .fa {background-color:@mainColor}
+
+.uploadKuorumImage .modal-header {
+  background-color: @mainColor;
+  color: #fff;
+}
+
+.onecol .subscribeForm .buttons input {background-color: @mainColor; color: #fff; border-color: @mainColor;}
+.onecol a {color: @mainColor;}
+.steps li.active .badge {background-color: @mainColor;}
+
+.seeVictory .sliderItem h1 {
+  background-color: @mainColor;
+  color: #fff;
+}
+.seeVictory .sliderItem .content a {color: @mainColor;}
+
+.controls a {color: @mainColor;}
+.boxes.likes.important .progress-bar {background-color: @mainColor;}
+.important .likesContainer #m-callback-done .arrowLike {border-top-color: @mainColor;}
+
+.promo-options > div.active {background-color: @mainColor; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);}
+.saveTime li > a:last-child {color: @mainColor;}
+
+.user-rating label:before {
+  content: "★ ";
+  color: @mainColor;
+}
+
+.rating legend { color: @mainColor;}
+fieldset.rating > input:checked ~ label:before,
+fieldset.rating > input + label:hover ~ label:before,
+fieldset.rating > input + label:hover:before {
+  content: "★ ";
+  color: @mainColor;
+}
+fieldset.rating:hover > input + label:hover ~ label:before,
+fieldset.rating:hover > input + label:hover:before {
+  content: "★ ";
+  color: @mainColor;
+}
+
+.rating-info .rate-number + .rate-number:before{color: @mainColor;}
+
+.rate-number {color: @mainColor;}
+
+.panel-default .rating-over .progress-bar {background-color: @mainColor;}
+
+.info #main article a:focus {
+  color: @mainColor;
+}
+.info #main article blockquote strong {color: @mainColor;}
+
+.config .saldo .activity li {color: @mainColor; border-right-color: @mainColor;}
+
+.config .role .btn.active:focus {
+  background-color: #fff !important;
+  border-left-color: @mainColor;
+  border-right-color: @mainColor;
+  border-bottom-color: @mainColor;
+  color: @mainColor !important;
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0.125) inset;
+}
+.config .item ul li h3 span {color: @mainColor;}
+
+#main > div.box-steps > ul.actionIcons > li.active a{
+  background-color: #fff;
+  border-color: @mainColor;
+  color: @mainColor;
+}
+#main > div.box-steps > ul.actionIcons > li a:hover{color: @mainColor; border-color: @mainColor;}
+
+.sr-only.first:focus {
+  background-color: @mainColor;
+  color: #fff;
+}
+
+.bg-primary {background-color: @mainColor;} /* fondo naranja */
+.cl-primary {color: @mainColor;} /* color naranja */
+
+.conversation-box.active {  border-left-color: @mainColor;}
+.conversation-box button.pin-proposal + .tooltip.bottom .tooltip-arrow {border-bottom-color: @mainColor;}
+.conversation-box span.pin-proposal + .tooltip.bottom .tooltip-arrow {border-bottom-color: @mainColor;}
+.conversation-box button.pin-proposal + .tooltip.bottom {background-color: @mainColor;}
+.conversation-box span.pin-proposal + .tooltip.bottom {background-color: @mainColor;}
+.conversation-box button.pin-proposal + .tooltip.bottom .tooltip-inner {background-color: @mainColor; color: #fff;}
+.conversation-box span.pin-proposal + .tooltip.bottom .tooltip-inner {background-color: @mainColor;  color: #fff;}
+.conversation-box ul.icons li .pin-proposal.active {color: @mainColor;}
+.conversation-box .footer .social li.active a:hover .fa-circle {color: @mainColor;}
+.conversation-box-comments ul li.active {border-left-color: @mainColor;}
+
+.nav > li > .navbar-link:focus {color: @mainColor;}
+.nav > .underline > .navbar-link.active {color: @mainColor; border-bottom-color: @mainColor;}
+.nav .open > a:focus {color: @mainColor; border-color: #fff;}
+.nav .underline.open > a:focus {border-color: @mainColor;}
+.nav > li > .navbar-link:focus .badge {background-color: @mainColor; color: #fff;}
+.nav > li > .navbar-link.special {background-color: @mainColor;  color: #fff;}
+
+.causes-tags .cause {background: @mainColor;}
+.causes-tags .cause:hover,
+.causes-tags .cause:active,
+.causes-tags .cause:focus{
+  background-color: @mainColorHover;
+}
+
+//#footer .social li a:hover, .social li a:hover, #footer .social li a:active, .social li a:active, #footer .social li a:focus, .social li a:focus
+
+
+//.share-buttons li a i:hover,
+//.share-buttons li a i:active,
+//.share-buttons li a i:focus{color: @mainColor;}
+
+.progress-bar-warning {background-color: @mainColor;}
+#cases-study-grid .card-body h3 a:hover{color: @mainColor;}
+#cases-study-grid .other-cases .card .card-body h3 a:hover{color: @mainColor;}
+.leader-post .header .call-to-action-mobile.call-mobile-event-confirm span.arrow{color: @mainColor;}
+#module-debate-pinned-users.comment-box.call-to-action  .comment-header .call-title .fa-stack {color:@mainColor}
+
+.left-container ul a:hover{color: @mainColor;}
+
+
+
+//LandingPage
+
+
 .btn {
   background-color: @mainColor;
 }
 .btn:hover, .btn:active, .btn:focus {
-  background-color: @btnColorHover;
+  background-color: @mainColorHover !important;
+}
+
+
+.btn.inverted {
+  border-color: @mainColor ;
+  color: @mainColor;
+}
+
+.btn.inverted:focus {
+  background-color: @mainColor !important;
 }
 
 a, a:hover, a:active, a:focus{
   color: @mainColor;
 }
 
-.nav > li > .navbar-link:active, .navbar-link:hover, .nav > li > .navbar-link:focus {
-  color: @textMenuColor;
+.nav .open > a,
+.nav .open > a:active,
+.nav .open > a:hover,
+.nav .open > a:focus{
+  color: @mainColor;
 }
 
-.nav .open > a, .nav .open > a:active,.nav .open > a:hover, .nav .open > a:focus{
-  color: @textMenuColor;
+.nav > li > .navbar-link:hover,
+.nav > li > .navbar-link:focus,
+.nav > li > .navbar-link:active {
+  color: @mainColor;
 }
 
 #statistics h2 {
-  color: @statisticsColor;
-}
-#search-form .input-group{
-  border-color: @searchBorderColor;
-}
-
-header #search-form .open-filter{
-  background-color: @searchColor;
+  color: @mainColor;
 }
 
 #navbar-collapse .navbar-contact-phone{
-  background: @phoneColor;
+  background: @mainColorHover;
 }
 
 //Log in
 
-.landing + .row.main .onecol .login{
-  background-color: @signInFrame;
-}
 .btn.btn-blue{
-  background-color: @signInButton;
+  background-color: @secondColor !important;
 }
-.btn.btn-blue:hover, .btn.btn-blue:active, .btn.btn-blue:focus{
-  background-color: @signInButtonHover;
-}
-.input-group-addon{
-  background-color: @showPasswordCheckboxColor;
+.btn.btn-blue:hover,
+.btn.btn-blue:active,
+.btn.btn-blue:focus{
+  background-color: @secondColorHover !important;
 }
 
 //Dashboard
 
+.noty_text a {color: #ff9de8;}
+
 #progressLineFill{
-  border-top: @profileLineColor;
+  border-top-color: @mainColor;
 }
 
 .actionIcons li > a {
-  color:@dashboardIconsColor;
-  border-color: @dashboardBorderIconsColor;
+  color:@mainColor;
+  border-color: @mainColor;
 }
 
 .box-ppal a.new-campaign-tip + .tooltip.bottom .tooltip-arrow {
-  border-bottom-color: #4F2088;
-  //background-color: #4F2088;
+  border-bottom-color: @mainColor;
 }
 
 #progressProfileFill{
-  background-color: @progressBarColor;
+  background-color: @mainColor;
 }
 
-.nav > .underline > .navbar-link:hover, .nav > .underline > .navbar-link:focus, .nav > .underline > .navbar-link.active {
-  color: @dashboardMenuColor;
-  border-bottom: @dashboardMenuColor;
+#progressProfileFill:after {background-color: @mainColor;
+}
+
+.nav > .underline > .navbar-link:hover,
+.nav > .underline > .navbar-link:focus,
+.nav > .underline > .navbar-link.active {
+  color: @mainColor;
+  border-bottom: @mainColor;
 }
 
 //Campaign
 
-#main > div.box-steps > ul.actionIcons > li a {
-  color:@campaignIconColor;
-  border-color: @campaignIconBorderColor;
-}
-
-#main > div.box-steps > ul.actionIcons > li.arrow {
-  color: @campaignArrowColor;
-
-}
-
 #main > div.box-steps > ul.actionIcons > li.active a{
-  border-color: @campaignBorderIconActiveColor;
-  color: @campaignIconActiveColor;
+  border-color: @mainColor;
+  color: @mainColor;
 }
 
 #main > div.box-steps > ul.actionIcons > li a:hover{
-  color: @campaignIconHoverColor;
-  border-color: @campaignBorderIconActiveColor;
-
+  color: @mainColor;
+  border-color: @mainColor;
 }
 
-
-//.form-final-options .btn.btn-blue.inverted{
-//
-//}
-
-.btn.btn-blue.inverted:hover, .btn.btn-blue.inverted:active, .btn.btn-blue.inverted:focus{
-  background-color: @btnColorHover;
-
+.box-ppal span.animated-info-icon + .tooltip.bottom .tooltip-inner {
+  background-color: @mainColor;
 }
 
+.box-ppal span.animated-info-icon + .tooltip.bottom .tooltip-arrow {
+  border-bottom-color: @mainColor;
+}
+
+.box-ppal a.new-campaign-tip + .tooltip.bottom .tooltip-inner{
+  background-color: @mainColor;
+}
+
+.box-ppal a.new-campaign-tip + .tooltip.bottom .tooltip-arrow {
+  border-bottom-color: @mainColor;
+}
 
 //Footer
 
 #footer .social li a, .social li a {
-  color:@footerIconsColor;
+  color:@mainColor;
+}
+
+#footer .social li a:hover .fa-circle,
+.social li a:hover .fa-circle,
+#footer .social li a:active .fa-circle,
+.social li a:active .fa-circle,
+#footer .social li a:focus .fa-circle,
+.social li a:focus .fa-circle {
+  color:@mainColor;
 }
 
 
 .fade-carousel .slides .slide-1.landingServices { background-image: url("@{staticUrlRoot}/landingSlider/landing-1.jpg");}
 .fade-carousel .slides .slide-2.landingServices { background-image: url("@{staticUrlRoot}/landingSlider/landing-2.jpg");}
 .fade-carousel .slides .slide-3.landingServices { background-image: url("@{staticUrlRoot}/landingSlider/landing-3.jpg");}
+
+
+.onecol #main .stepsSign li {background-color: fade(@mainColor, 50%);}
+.onecol #main .stepsSign li::before {background-color: fade(@mainColor, 50%);}
+.onecol #main .stepsSign li:last-child::after {background-color: fade(@mainColor, 50%);}
+
+
+// Second Color
+
+#login-modal.login .form-group:last-child p:last-child a {color:@secondColor;}
+.btn.btn-blue {background-color: @secondColor !important;}
+
+.btn.btn-blue:hover,
+.btn.btn-blue:active,
+.btn.btn-blue:focus {background-color: @secondColorHover !important;}
+.btn.btn-blue.inverted {
+  background-color: #fff !important;
+  border: 1px solid @secondColor ;
+  color: @secondColor !important;
+}
+.btn.btn-blue.inverted:hover,
+.btn.btn-blue.inverted:active,
+.btn.btn-blue.inverted:focus {
+  background-color: @secondColor !important;
+  color: #fff !important;
+}
+.btn.btn-blue-light.inverted {
+  background-color: #fff !important;
+  border: 1px solid @secondColor ;
+  color: @secondColor !important;
+}
+.btn.btn-blue-light.inverted:hover,
+.btn.btn-blue-light.inverted:active,
+.btn.btn-blue-light.inverted:focus {
+  background-color: @secondColor !important;
+  color: #fff !important;
+}
+.btn.btn-blue-light.inverted:focus {
+  background-color: @secondColor !important;
+  color: #fff !important;
+}
+.btn.follow.disabled {
+  background-color: @secondColor !important;
+  color: #fff !important;
+}
+
+.breadcrumb a {color: @secondColor;}
+.box-ppal.import-contacts > p a {color: @secondColor;}
+
+.bootstrap-tagsinput .tag, .addTagBtn, .addTag > ul > li a {
+  margin-right: 2px;
+  margin-bottom: 6px;
+  display: inline-block;
+  color: @secondColor;
+  background-color: rgba(32, 162, 234, 0.1);
+  border: 1px solid @secondColor;
+  font-family: Arial,Helvetica,sans-serif;
+  font-weight: 400;
+  font-size: 13px;
+  font-size: 1.3rem;
+}
+
+.nav-tabs.simple > li.active > a, .nav-tabs.simple > li.active > a:hover, .nav-tabs.simple > li.active > a:focus {
+  color: @secondColor;
+  background-color: transparent;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 6px solid @secondColor;
+}
+.nav-tabs.simple > li > a:hover, .nav-tabs.simple > li > a:focus {
+  background-color: transparent;
+  color: @secondColor;
+}
+.tags-campaign .bootstrap-tagsinput.focus {border:1px solid @secondColor;}
+#filterContacts {border: 1px solid @secondColor; border-radius: 2px; padding: 5px 10px; display: inline-block; margin-top: 10px; margin-right: 10px; color: @secondColor;}
+#filterContacts.on {background-color: @secondColor; border-color: @secondColor; color: #fff; /*cursor: default; pointer-events: none;*/}
+
+ul.list > li > ul.list-actions > li > a:active {color: @secondColor;}
+
+.addTag > ul > li a {color: @secondColor;}
+.addTag > ul > li a:hover, #addTag > ul > li a:focus, #addTag > ul > li a:active {color: #fff; background-color: @secondColor;}
+
+#contactsList > li > a:hover,
+#contactsList > li > a:focus,
+#contactsList > li > a:active {color: @secondColor;}
+
+.addTagBtn {color: @secondColor !important; background-color: #fff;}
+.addTagBtn:hover, .addTagBtn:focus, .addTagBtn:active, .addTagBtn.on,
+.addTag > ul > li a:hover, .addTag > ul > li a:focus, .addTag > ul > li a:active {color: #fff !important; background-color: @secondColor !important;}
+
+.from {
+  border-bottom-color: @secondColor;
+}
+
+.boxes.edit-user .ico-info {position: absolute; top: 10px; right: 10px; font-size: 32px; font-size: 3.2rem; color: @secondColor; z-index: 9;}
+.boxes.pending h1 .badge {background-color: @secondColor;}
+.boxes.profile-user > small {display: block; float: left; width: 50%; margin: 0; padding: 0; font-size: 18px; font-size: 1.8rem; color: @secondColor;}
+
+.qq-upload-button {
+  text-align: center;
+  color: @secondColor;
+  text-align: center;
+  padding: 0 !important;
+  height: 31px !important;
+}
+
+.othersPost #postNav .read-later a:focus {color: @secondColor;}
+.othersPost #postNav .read-later a.disabled {color: @secondColor; cursor: pointer !important;}
+
+.othersPost #postNav > a {display: block; padding: 82px 18px; background-color: @secondColor; color: #fff; border-radius: 0; position: absolute; top: 0;}
+
+.promo-options > div.active > form .btn {background-color: @secondColor !important;}
+
+.search-list .search-kuorum-user .box-ppal > small {display: block; float: left; width: 50%; margin: 0; padding: 10px; font-size: 18px; font-size: 1.8rem; color: @secondColor;}
+
+.carousel.news .carousel-inner .item .carousel-caption h3 {font-size: 14px; font-size: 1.4rem; font-family: Arial, sans-serif; color: @secondColor; margin: 0; padding: 0; height: 48px; overflow: hidden;font-style: inherit; line-height: 1.1;}
+.carousel.news .carousel-inner .item a,
+.carousel.news .carousel-inner .item a:hover,
+.carousel.news .carousel-inner .item a:focus,
+.carousel.news .carousel-control .fa-inverse {color: @secondColor; text-decoration: none;}
+
+.embudo #aside-ppal h1.withArrow {color: @secondColor; font-size: 32px; font-size: 3.2rem; text-align: center; position: relative; margin-top: 0;}
+.embudo #aside-ppal > .border > p {color: @secondColor; font-size: 20px; font-size: 2rem; text-align: center; position: relative;}
+.embudo .like-number a {color: @secondColor;}
+
+.list-team > li > .box-ppal > .social a:active {color: @secondColor !important;}
+
+.bg-secondary {background-color: @secondColor;} /* fondo azul */
+.cl-secondary {color: @secondColor;} /* color azul */
+
+.conversation-box-comments button.go-up {
+  color: @secondColor;
+}
+
+
+
+#cases-study-body .breadcrumb,
+#cases-study-grid .breadcrumb{
+  color: @secondColor;
+  padding: 4px 0;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.nav-pills.nav-underline > .active > a,
+.nav-pills.nav-underline > .active > a:hover,
+.nav-pills.nav-underline > li > a:focus,
+.nav-pills.nav-underline > li > a:hover {
+  text-decoration: none;
+  border-radius:0px;
+  border-bottom-width: 6px;
+  border-bottom-style: solid;
+  border-bottom-color: @secondColor;
+  color: @secondColor;
+  background-color: transparent;
+}
+
+.leader-post .header .call-to-action-mobile span.arrow{
+  color: @secondColor;
+  position: absolute;
+  top: -9px;
+  right: 38px;
+  opacity: 0.6;
+}
+
+.section-body a,
+.section-header a{
+  color: @secondColor;
+}
+
+#featured-case-study .section-body a{
+  float: left;
+  font-size: 22px;
+  padding-top: 25px;
+  padding-bottom: 60px;
+  color: @secondColor;
+}
+
+#featured-case-study .section-body span.link-arrow{
+  float: left;
+  font-size: 22px;
+  padding-top: 25px;
+  padding-bottom: 60px;
+  padding-left: 10px;
+  color: @secondColor;
+}
+
+
+/// seconColorHover
+
+#findRepresentatives .open-filter .dropdown-menu > li > a.active{color:@secondColorHover;}
+
+.btn.btn-blue:hover,
+.btn.btn-blue:active,
+.btn.btn-blue:focus {background-color: @secondColorHover !important;}
+
+.participate a:focus {color: @secondColorHover;}
+.othersPost #postNav > a:hover {background-color: @secondColorHover;}
+
+.promo-options > div.active > form .btn:hover,
+.promo-options > div.active > form .btn:focus {background-color: @secondColorHover !important;}
+
+.carousel.news .carousel-inner .item .carousel-caption h3:hover,
+.carousel.news .carousel-inner .item .carousel-caption h3:focus {color: @secondColorHover;}
+
+
+
+
+

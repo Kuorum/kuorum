@@ -6507,6 +6507,7 @@ fieldset.form-group.fieldset-check-box {min-height: 0px;}
 /* Share buttons bar =========== */
 .share-buttons {
     background-color: #333;
+    color:#fff;
     overflow: hidden;
     padding-left: 0;
     margin-bottom: 24px;
@@ -6518,15 +6519,29 @@ fieldset.form-group.fieldset-check-box {min-height: 0px;}
     padding: 10px 0;
 }
 .share-buttons li a {
-    color: #fff;
+    width: 24px;
+    height: 24px;
+    display: block;
+    border-radius: 5px;
+    padding: 2px 6px;
+    color: #333;
+    background-color: #fff;
 }
+
+.share-buttons li a .facebook {padding-left: 8px;}
+/*.share-buttons li a .twitter {padding-left: 8px;}*/
+.share-buttons li a .google-plus {padding-left: 4px;}
+/*.share-buttons li a .reddit {padding-left: 5px;}*/
+/*.share-buttons li a .linked-in{padding-left: 8px;}*/
+
 .share-buttons li a i{
-    font-size: 24px;
+    font-size: 16px;
 }
-.share-buttons li a i:hover,
-.share-buttons li a i:active,
-.share-buttons li a i:focus{
-    color: #ff9431;
+.share-buttons li a:hover,
+.share-buttons li a:active,
+.share-buttons li a:focus{
+    color: #fff;
+    background-color: #ff9431;
 }
 .share-buttons > li:first-child {
     margin-left: 0;
@@ -6564,10 +6579,10 @@ fieldset.form-group.fieldset-check-box {min-height: 0px;}
     -webkit-box-shadow: 0px 0px 10px 1px rgba(102,102,102,1);
     -moz-box-shadow:    0px 0px 10px 1px rgba(102,102,102,1);
     box-shadow:         0px 0px 10px 1px rgba(102,102,102,1);}
-.rating-social-share-modal .share-buttons li a .fa-facebook{background:#3b5998; padding-left:12px}
+.rating-social-share-modal .share-buttons li a .fa-facebook{background:#3b5998; padding-left:14px}
 .rating-social-share-modal .share-buttons li a .fa-twitter{background:#00aced;}
 .rating-social-share-modal .share-buttons li a .fa-linkedin{background:#0077B5;}
-.rating-social-share-modal .share-buttons li a .fa-google-plus{background:#d34836;}
+.rating-social-share-modal .share-buttons li a .fa-google-plus{background:#d34836; padding: 6px}
 
 /* Contact Card =========== */
 .btn-contact{
