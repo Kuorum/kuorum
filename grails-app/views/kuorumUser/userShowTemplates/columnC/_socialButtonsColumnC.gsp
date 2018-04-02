@@ -31,7 +31,7 @@
         </a>
     </li>
     <li>
-        <a  id=".google-plus" href="https://plus.google.com/share?url=${userLink}" target="_blank" title="${g.message(code:'project.social.googlePlus')}">
+        <a href="https://plus.google.com/share?url=${userLink}" target="_blank" title="${g.message(code:'project.social.googlePlus')}">
             <span class="social-share fa fa-google-plus"></span>
         </a>
     </li>
