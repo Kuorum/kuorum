@@ -224,6 +224,14 @@ class UrlMappings {
         name en_footerBlog003:      "/en/blog/how-to-run-a-participatory-budget"                (controller: "footer", action: "footerBlog003"){lang="en"; mappingName="footerBlog003"}
         name es_footerBlog003:      "/es/blog/como-elaborar-un-presupuesto-participativo"       (controller: "footer", action: "footerBlog003"){lang="es"; mappingName="footerBlog003"}
 
+        name footerBlog004:         "/$lang/blog/the-keys-to-launching-successful-innovation-challenges"             {controller="redirect"; action= "redirect301"; newMapping='en_footerBlog004';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+        name en_footerBlog004:      "/en/blog/the-keys-to-launching-successful-innovation-challenges"                (controller: "footer", action: "footerBlog004"){lang="en"; mappingName="footerBlog004"}
+        name es_footerBlog004:      "/es/blog/las-claves-para-lanzar-retos-de-innovacion-con-exito"       (controller: "footer", action: "footerBlog004"){lang="es"; mappingName="footerBlog004"}
+
+        name footerBlog005:         "/$lang/blog/what-does-user-centric-design-mean"             {controller="redirect"; action= "redirect301"; newMapping='en_footerBlog005';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+        name en_footerBlog005:      "/en/blog/what-does-user-centric-design-mean"                (controller: "footer", action: "footerBlog005"){lang="en"; mappingName="footerBlog005"}
+        name es_footerBlog005:      "/es/blog/en-que-consiste-el-diseno-centrado-en-usuario"       (controller: "footer", action: "footerBlog005"){lang="es"; mappingName="footerBlog005"}
+
 
 
         /* END CUSTOM BLOG ARTICLES */
