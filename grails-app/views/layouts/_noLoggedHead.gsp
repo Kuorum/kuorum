@@ -49,36 +49,15 @@
         </g:link>
     </li>
 
-    <g:set var="showLogin" value="${true}"/>
-    <g:set var="showRegister" value="${true}"/>
-    <nav:ifActiveMapping mappingName="loginAuth"><g:set var="showLogin" value="${false}"/></nav:ifActiveMapping>
-    <nav:ifActiveMapping mappingName="register"><g:set var="showRegister" value="${false}"/></nav:ifActiveMapping>
-
-    <g:if test="${showLogin}">
-        <li>
-            <g:link mapping="loginAuth" class="navbar-link ${nav.activeMenuCss(mappingName: 'loginAuth')}">
-                <span><g:message code="head.noLogged.login"/></span>
-            </g:link>
-        </li>
-    </g:if>
-
-    <g:if test="${showRegister}">
-        <li>
-            <g:link mapping="register" class="navbar-link btn btn-transparent ${nav.activeMenuCss(mappingName: 'register')}">
-                <span><g:message code="login.head.register"/></span>
-            </g:link>
-        </li>
-    </g:if>
-
-    %{--<li>--}%
-        %{--<g:set var="logInMapping" value="loginAuth"/>--}%
-        %{--<g:set var="logInText" value="${g.message(code:"head.noLogged.login")}"/>--}%
-        %{--<nav:ifActiveMapping mappingName="loginAuth">--}%
-            %{--<g:set var="logInMapping" value="register"/>--}%
-            %{--<g:set var="logInText" value="${g.message(code:"login.head.register")}"/>--}%
-        %{--</nav:ifActiveMapping>--}%
-        %{--<g:link mapping="${logInMapping}" class="navbar-link btn btn-transparent">--}%
-            %{--<span>${logInText}</span>--}%
-        %{--</g:link>--}%
-    %{--</li>--}%
+    <li>
+        <g:set var="logInMapping" value="loginAuth"/>
+        <g:set var="logInText" value="${g.message(code:"head.noLogged.login")}"/>
+        <nav:ifActiveMapping mappingName="loginAuth">
+            <g:set var="logInMapping" value="register"/>
+            <g:set var="logInText" value="${g.message(code:"login.head.register")}"/>
+        </nav:ifActiveMapping>
+        <g:link mapping="${logInMapping}" class="navbar-link btn btn-transparent">
+            <span>${logInText}</span>
+        </g:link>
+    </li>
 </ul>
