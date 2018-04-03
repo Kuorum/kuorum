@@ -1,4 +1,4 @@
-@import "testDomainVars";
+//@import "testDomainVars";
 
 a:focus {color: @mainColor;}
 .navbar-toggle {background-color: @mainColor;}
@@ -11,9 +11,9 @@ a:focus {color: @mainColor;}
   border-bottom-color: @mainColor;
 }
 
-.nav > li > .navbar-link:focus .badge {background-color: #fff; color: @mainColor;}
+.nav > li > .navbar-link:focus .badge {background-color: @mainTextColor; color: @mainColor;}
 .nav > li > .navbar-link:focus .badge-small {color: @mainColor;}
-.nav > li > .navbar-link.special {background-color: @mainColor; color: #fff;}
+.nav > li > .navbar-link.special {background-color: @mainColor; color: @mainTextColor}
 
 .box .dropdown-menu > li a {color: @mainColor;}
 
@@ -28,6 +28,8 @@ a:focus {color: @mainColor;}
 .timepicker-picker .btn {
   color: @mainColor !important;
 }
+
+
 
 .engagement li.active a {background-color: #fff0ce; color: @mainColor !important;}
 
@@ -51,18 +53,21 @@ a:focus {color: @mainColor;}
 
 .boxes.profile-user .profile-pic abbr .fa {background-color:@mainColor}
 
+ul.search-list > li.info-empty .icon-empty-campaignList {color: @mainColor;}
+ul.search-list > li.info-empty .icon-empty-campaignList img{color: @mainColor;}
+
 .uploadKuorumImage .modal-header {
   background-color: @mainColor;
-  color: #fff;
+  color: @mainTextColor
 }
 
-.onecol .subscribeForm .buttons input {background-color: @mainColor; color: #fff; border-color: @mainColor;}
+.onecol .subscribeForm .buttons input {background-color: @mainColor; color: @mainTextColor; border-color: @mainColor;}
 .onecol a {color: @mainColor;}
 .steps li.active .badge {background-color: @mainColor;}
 
 .seeVictory .sliderItem h1 {
   background-color: @mainColor;
-  color: #fff;
+  color: @mainTextColor
 }
 .seeVictory .sliderItem .content a {color: @mainColor;}
 
@@ -121,9 +126,17 @@ fieldset.rating:hover > input + label:hover:before {
 }
 #main > div.box-steps > ul.actionIcons > li a:hover{color: @mainColor; border-color: @mainColor;}
 
+select option {
+  border-color: #0c0c0c;
+  background-color: #00AAE7;
+  text-decoration-color: #0c0c0c;
+  color: #0c0c0c;
+
+}
+
 .sr-only.first:focus {
   background-color: @mainColor;
-  color: #fff;
+  color: @mainTextColor
 }
 
 .bg-primary {background-color: @mainColor;} /* fondo naranja */
@@ -134,18 +147,18 @@ fieldset.rating:hover > input + label:hover:before {
 .conversation-box span.pin-proposal + .tooltip.bottom .tooltip-arrow {border-bottom-color: @mainColor;}
 .conversation-box button.pin-proposal + .tooltip.bottom {background-color: @mainColor;}
 .conversation-box span.pin-proposal + .tooltip.bottom {background-color: @mainColor;}
-.conversation-box button.pin-proposal + .tooltip.bottom .tooltip-inner {background-color: @mainColor; color: #fff;}
-.conversation-box span.pin-proposal + .tooltip.bottom .tooltip-inner {background-color: @mainColor;  color: #fff;}
+.conversation-box button.pin-proposal + .tooltip.bottom .tooltip-inner {background-color: @mainColor; color: @mainTextColor}
+.conversation-box span.pin-proposal + .tooltip.bottom .tooltip-inner {background-color: @mainColor;  color: @mainTextColor}
 .conversation-box ul.icons li .pin-proposal.active {color: @mainColor;}
 .conversation-box .footer .social li.active a:hover .fa-circle {color: @mainColor;}
 .conversation-box-comments ul li.active {border-left-color: @mainColor;}
 
 .nav > li > .navbar-link:focus {color: @mainColor;}
 .nav > .underline > .navbar-link.active {color: @mainColor; border-bottom-color: @mainColor;}
-.nav .open > a:focus {color: @mainColor; border-color: #fff;}
+.nav .open > a:focus {color: @mainColor; border-color: @mainTextColor}
 .nav .underline.open > a:focus {border-color: @mainColor;}
-.nav > li > .navbar-link:focus .badge {background-color: @mainColor; color: #fff;}
-.nav > li > .navbar-link.special {background-color: @mainColor;  color: #fff;}
+.nav > li > .navbar-link:focus .badge {background-color: @mainColor; color: @mainTextColor}
+.nav > li > .navbar-link.special {background-color: @mainColor;  color: @mainTextColor}
 
 .causes-tags .cause {background: @mainColor;}
 .causes-tags .cause:hover,
@@ -154,12 +167,12 @@ fieldset.rating:hover > input + label:hover:before {
   background-color: @mainColorHover;
 }
 
-//#footer .social li a:hover, .social li a:hover, #footer .social li a:active, .social li a:active, #footer .social li a:focus, .social li a:focus
-
-
-//.share-buttons li a i:hover,
-//.share-buttons li a i:active,
-//.share-buttons li a i:focus{color: @mainColor;}
+.share-buttons li a:hover,
+.share-buttons li a:active,
+.share-buttons li a:focus{
+  color: #fff;
+  background-color: @mainColor;
+}
 
 .progress-bar-warning {background-color: @mainColor;}
 #cases-study-grid .card-body h3 a:hover{color: @mainColor;}
@@ -169,12 +182,11 @@ fieldset.rating:hover > input + label:hover:before {
 
 .left-container ul a:hover{color: @mainColor;}
 
-
-
 //LandingPage
 
 
 .btn {
+  color: @mainTextColor !important;
   background-color: @mainColor;
 }
 .btn:hover, .btn:active, .btn:focus {
@@ -270,21 +282,21 @@ a, a:hover, a:active, a:focus{
   border-color: @mainColor;
 }
 
-.box-ppal span.animated-info-icon + .tooltip.bottom .tooltip-inner {
+.box-ppal span.animated-info-icon {
+  color: @mainColor;
+}
+
+.box-ppal span.animated-info-icon + .tooltip.bottom .tooltip-inner,
+.box-ppal a.new-campaign-tip + .tooltip.bottom .tooltip-inner {
   background-color: @mainColor;
+  color:#fff;
 }
 
-.box-ppal span.animated-info-icon + .tooltip.bottom .tooltip-arrow {
-  border-bottom-color: @mainColor;
-}
-
-.box-ppal a.new-campaign-tip + .tooltip.bottom .tooltip-inner{
-  background-color: @mainColor;
-}
-
+.box-ppal span.animated-info-icon + .tooltip.bottom .tooltip-arrow,
 .box-ppal a.new-campaign-tip + .tooltip.bottom .tooltip-arrow {
   border-bottom-color: @mainColor;
 }
+
 
 //Footer
 
@@ -329,10 +341,10 @@ a, a:hover, a:active, a:focus{
 .btn.btn-blue.inverted:active,
 .btn.btn-blue.inverted:focus {
   background-color: @secondColor !important;
-  color: #fff !important;
+  color: @mainTextColor !important;
 }
 .btn.btn-blue-light.inverted {
-  background-color: #fff !important;
+  background-color: @mainTextColor !important;
   border-color: @secondColor ;
   color: @secondColor !important;
 }
@@ -340,15 +352,15 @@ a, a:hover, a:active, a:focus{
 .btn.btn-blue-light.inverted:active,
 .btn.btn-blue-light.inverted:focus {
   background-color: @secondColor !important;
-  color: #fff !important;
+  color: @mainTextColor !important;
 }
 .btn.btn-blue-light.inverted:focus {
   background-color: @secondColor !important;
-  color: #fff !important;
+  color: @mainTextColor !important;
 }
 .btn.follow.disabled {
   background-color: @secondColor !important;
-  color: #fff !important;
+  color: @mainTextColor !important;
 }
 
 .breadcrumb a {color: @secondColor;}
@@ -372,20 +384,20 @@ a, a:hover, a:active, a:focus{
 }
 .tags-campaign .bootstrap-tagsinput.focus {border-color:@secondColor;}
 #filterContacts {border-color: @secondColor; color: @secondColor;}
-#filterContacts.on {background-color: @secondColor; border-color: @secondColor; color: #fff; /*cursor: default; pointer-events: none;*/}
+#filterContacts.on {background-color: @secondColor; border-color: @secondColor; color: @mainTextColor; /*cursor: default; pointer-events: none;*/}
 
 ul.list > li > ul.list-actions > li > a:active {color: @secondColor;}
 
 .addTag > ul > li a {color: @secondColor;}
 .addTag > ul > li a:hover,
 #addTag > ul > li a:focus,
-#addTag > ul > li a:active {color: #fff; background-color: @secondColor;}
+#addTag > ul > li a:active {color: @mainTextColor; background-color: @secondColor;}
 
 #contactsList > li > a:hover,
 #contactsList > li > a:focus,
 #contactsList > li > a:active {color: @secondColor;}
 
-.addTagBtn {color: @secondColor !important; background-color: #fff;}
+.addTagBtn {color: @secondColor !important; background-color: @mainTextColor;}
 .addTagBtn:hover,
 .addTagBtn:focus,
 .addTagBtn:active,
@@ -407,7 +419,7 @@ ul.list > li > ul.list-actions > li > a:active {color: @secondColor;}
 .othersPost #postNav .read-later a:focus {color: @secondColor;}
 .othersPost #postNav .read-later a.disabled {color: @secondColor;}
 
-.othersPost #postNav > a {background-color: @secondColor; color: #fff;}
+.othersPost #postNav > a {background-color: @secondColor; color: @mainTextColor;}
 
 .promo-options > div.active > form .btn {background-color: @secondColor !important;}
 
@@ -463,7 +475,6 @@ ul.list > li > ul.list-actions > li > a:active {color: @secondColor;}
 #featured-case-study .section-body span.link-arrow{
   color: @secondColor;
 }
-
 
 /// seconColorHover
 

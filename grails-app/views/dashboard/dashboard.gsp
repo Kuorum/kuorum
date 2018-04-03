@@ -36,7 +36,7 @@
                                 <g:message code='dashboard.payment.followingCampaignList.empty'/>
                             </span>
                             <span class="icon-empty-campaignList">
-                                <img src="${g.resource(dir: "images/icons", file: "icon-info.png")}"/>
+                                <span class="fa fa-info-circle"></span>
                             </span>
                         </p>
 
