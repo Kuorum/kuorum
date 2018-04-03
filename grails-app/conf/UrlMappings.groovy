@@ -220,6 +220,11 @@ class UrlMappings {
         name en_footerBlog002:      "/en/blog/how-to-choose-tools-for-community-engagement"    (controller: "footer", action: "footerBlog002"){lang="en"; mappingName="footerBlog002"}
         name es_footerBlog002:      "/es/blog/como-elegir-herramientas-de-participacion-ciudadana"    (controller: "footer", action: "footerBlog002"){lang="es"; mappingName="footerBlog002"}
 
+        name footerBlog003:         "/$lang/blog/how-to-run-a-participatory-budget"             {controller="redirect"; action= "redirect301"; newMapping='en_footerBlog003';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+        name en_footerBlog003:      "/en/blog/how-to-run-a-participatory-budget"                (controller: "footer", action: "footerBlog003"){lang="en"; mappingName="footerBlog003"}
+        name es_footerBlog003:      "/es/blog/como-elaborar-un-presupuesto-participativo"       (controller: "footer", action: "footerBlog003"){lang="es"; mappingName="footerBlog003"}
+
+
 
         /* END CUSTOM BLOG ARTICLES */
 
