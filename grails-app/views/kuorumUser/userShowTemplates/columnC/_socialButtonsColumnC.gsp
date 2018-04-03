@@ -14,7 +14,7 @@
     </li>
     <li>
         <g:set var="facebookLink">https://www.facebook.com/sharer/sharer.php?u=${userLink}</g:set>
-        <a href="${facebookLink}" target="_blank" title="${g.message(code:"project.social.facebook")}">
+        <a class="social-link-facebook" href="${facebookLink}" target="_blank" title="${g.message(code:"project.social.facebook")}">
             <span class="social-share fa fa-facebook"></span>
         </a>
     </li>
@@ -31,7 +31,7 @@
         </a>
     </li>
     <li>
-        <a href="https://plus.google.com/share?url=${userLink}" target="_blank" title="${g.message(code:'project.social.googlePlus')}">
+        <a class="social-link-google-plus" href="https://plus.google.com/share?url=${userLink}" target="_blank" title="${g.message(code:'project.social.googlePlus')}">
             <span class="social-share fa fa-google-plus"></span>
         </a>
     </li>
