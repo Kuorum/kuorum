@@ -20,6 +20,22 @@
     <g:render template="/landing/servicesModules/services" model="[msgPrefix:'landingServices']"/>
 </content>
 
+<content tag="customWebSite">
+    <g:render template="/landing/technologyModules/featureBulletsRight" model="[msgPrefix:'landingTechnology', msgSection: 'customWebSite', imgBackground:'features-corporations.png']"/>
+</content>
+
+<content tag="featuresCrm">
+    <g:render template="/landing/technologyModules/featureBulletsLeft" model="[msgPrefix:'landingTechnology', msgSection: 'featuresCrm', imgBackground:'features-leaders.png']"/>
+</content>
+
+<content tag="featuresUser">
+    <g:render template="/landing/technologyModules/featureBulletsRight" model="[msgPrefix:'landingTechnology', msgSection: 'featuresUser', imgBackground:'features-corporations.png']"/>
+</content>
+
+<content tag="metrics">
+    <g:render template="/landing/technologyModules/featureBulletsLeft" model="[msgPrefix:'landingTechnology', msgSection: 'metrics', imgBackground:'features-organizations.png']"/>
+</content>
+
 <content tag="caseStudy">
     <g:render template="/landing/caseStudies/modules/landingCaseStudy" model="[msgPrefix:'landingServices', caseStudyId:'006', sectionName:'landingCaseStudy']"/>
 </content>

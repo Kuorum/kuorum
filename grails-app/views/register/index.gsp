@@ -3,6 +3,7 @@
     <title><g:message code="page.title.login"/> </title>
     <meta name="layout" content="register1ColumnLayout">
     <parameter name="extraHeadCss" value="landing"/>
+    <parameter name="hideHeadSearch" value="true"/>
 </head>
 
 <content tag="title">

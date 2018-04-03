@@ -5,7 +5,7 @@
 <div class="row section-body">
     <ul class="globus">
         <li class="col-sm-4 col-md-4">
-            <img class="img-responsive" src="${r.resource(dir:'images/landing/icons', file:'icon-loupe.png')}" alt="step 1">
+            <img class="img-responsive" src="${r.resource(dir:'images/landing/icons', file:'icon-laptop.png')}" alt="step 1">
             <h2><g:message code="${msgPrefix}.howItWorks.signUp.title"/> </h2>
             <p><g:message code="${msgPrefix}.howItWorks.signUp.text"/> </p>
             <ul class="onecol bullets col-12">
@@ -27,7 +27,7 @@
             </ul>
         </li>
         <li class="col-sm-4 col-md-4">
-            <img class="img-responsive" src="${r.resource(dir:'images/landing/icons', file:'icon-laptop.png')}" alt="step 2">
+            <img class="img-responsive" src="${r.resource(dir:'images/landing/icons', file:'icon-loupe.png')}" alt="step 2">
             <h2><g:message code="${msgPrefix}.howItWorks.connect.title"/> </h2>
             <p><g:message code="${msgPrefix}.howItWorks.connect.text"/> </p>
             <ul class="onecol bullets col-12">

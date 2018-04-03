@@ -8309,52 +8309,6 @@ ul.bullets li{
     vertical-align: text-bottom;
 }
 
-/** featured-case-study **/
-#featured-case-study {
-    position: relative;
-    padding-top: 60px;
-    padding-bottom: 60px;
-    text-align: center;
-}
-
-#featured-case-study .img-full-container {
-    position: absolute;
-    top: 160px;
-    right: 0;
-    left: 56%;
-    overflow: hidden;
-    width: 63%;
-}
-
-#featured-case-study .img-full-container.pull-right {
-    position: absolute;
-    top: 160px;
-    left: 0;
-    right: 56%;
-    overflow: hidden;
-}
-
-#featured-case-study .section-body a{
-    float: left;
-    font-size: 22px;
-    padding-top: 25px;
-    padding-bottom: 60px;
-    color: #20a2ea;
-}
-
-#featured-case-study .section-body span.link-arrow{
-    float: left;
-    font-size: 22px;
-    padding-top: 25px;
-    padding-bottom: 60px;
-    padding-left: 10px;
-    color: #20a2ea;
-}
-
-#featured-case-study .section-header h3 {
-    padding-bottom: 66px;
-}
-
 /** services **/
 #services {
     padding-top: 60px;
@@ -8444,16 +8398,14 @@ ul.bullets li{
 
 /** list bullets left **/
 
-#metrics,
-#features-crm {
+.landing-overflow-image-right {
     position: relative;
     padding-top: 60px;
     text-align: center;
 }
 
-#features-user .img-full-container ,
-#features-crm .img-full-container ,
-#metrics .img-full-container {
+.landing-overflow-image-left .img-full-container ,
+.landing-overflow-image-right .img-full-container {
     position: absolute;
     top: 155px;
     right: 0;
@@ -8462,8 +8414,8 @@ ul.bullets li{
     width: 72%;
 }
 
-#features-crm .img-full-container.pull-right ,
-#metrics .img-full-container.pull-right {
+.landing-overflow-image-right .img-full-container.pull-right,
+.img-full-container.pull-right {
     position: absolute;
     top: 160px;
     left: 0;
@@ -8473,30 +8425,22 @@ ul.bullets li{
 
 /** list bullets right **/
 
-#features-user {
+.landing-overflow-image-left {
     position: relative;
     padding-top: 60px;
     padding-bottom: 60px;
     text-align: center;
 }
 
-#features-user .section-header h3,
-#features-crm .section-header h3,
-#metrics .section-header h3{
+.landing-overflow-image-left .section-header h3,
+.landing-overflow-image-right .section-header h3{
     padding-bottom: 75px;
 }
 
-#features-user .img-full-container.left{
+.landing-overflow-image-left .img-full-container.left{
     position: absolute;
     top: 155px;
     left: -32%;
-    overflow: visible;
-}
-
-#featured-case-study .img-full-container.left{
-    position: absolute;
-    top: 180px;
-    left: -15%;
     overflow: visible;
 }
 
@@ -8829,9 +8773,8 @@ ul.bullets li img {
         min-height: 670px;
     }
 
-    #features-user .section-header h3,
-    #features-crm .section-header h3,
-    #metrics .section-header h3{
+    .landing-overflow-image-left .section-header h3,
+    .landing-overflow-image-right .section-header h3{
         padding-bottom: 35px;
     }
 
@@ -8842,10 +8785,8 @@ ul.bullets li img {
 
 @media screen and (max-width: 991px) {
     section.features > div.pull-right {float:none !important;}
-    #features-user .img-full-container ,
-    #features-crm .img-full-container,
-    #metrics .img-full-container,
-    #featured-case-study .img-full-container,
+    .landing-overflow-image-left .img-full-container ,
+    .landing-overflow-image-right .img-full-container,
     .img-full-container {
         position: relative;
         top: 0;
@@ -8855,8 +8796,7 @@ ul.bullets li img {
         width: 100%;
         margin-top: 35px;
     }
-    #featured-case-study .img-full-container.left,
-    #features-user .img-full-container.left ,
+    .landing-overflow-image-left .img-full-container.left ,
     .img-full-container.left {
         position: relative;
         top: 0;
@@ -8884,10 +8824,8 @@ ul.bullets li img {
 }
 
 @media screen and (max-width: 980px) {
-    #features-user .img-full-container,
-    #features-crm .img-full-container,
-    #metrics .img-full-container,
-    #featured-case-study .img-full-container,
+    .landing-overflow-image-left .img-full-container,
+    .landing-overflow-image-right .img-full-container,
     .img-full-container {
         position: relative;
         top: 0;
@@ -8897,8 +8835,7 @@ ul.bullets li img {
         width: 100%;
         margin-top: 35px;
     }
-    #featured-case-study .img-full-container.left,
-    #features-user .img-full-container.left ,
+    .landing-overflow-image-left .img-full-container.left ,
     .img-full-container.left {
         position: relative;
         top: 0;
@@ -9015,16 +8952,13 @@ ul.bullets li img {
     .fade-carousel .slides .slide-3 {
         background-position: initial;
     }
-    #features-user .img-full-container,
-    #features-crm .img-full-container,
-    #metrics .img-full-container,
-    #featured-case-study .img-full-container,
+    .landing-overflow-image-left .img-full-container,
+    .landing-overflow-image-right .img-full-container,
     .img-full-container {
         width: 100%;
         margin: 30px auto 0;
     }
-    #featured-case-study .img-full-container.left,
-    #features-user .img-full-container.left ,
+    .landing-overflow-image-left .img-full-container.left ,
     .img-full-container.left {
         display: inline-block;
         position: initial;
