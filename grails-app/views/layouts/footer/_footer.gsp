@@ -31,9 +31,9 @@
                         <li><a href="https://plus.google.com/+KuorumOrg" target="_blank"><span class="sr-only" target="_blank">Google+</span><span class="fa-stack fa-lg"><span class="fa fa-circle fa-stack-2x"></span><span class="fa fa-google-plus fa-stack-1x"></span></span></a></li>
                     </ul>
                 </div>
-                <div class="col-xs-12 col-sm-4 col-md-4">
-                    <g:render template="/layouts/footer/licences"/>
-                </div>
+                %{--<div class="col-xs-12 col-sm-4 col-md-4">--}%
+                    %{--<g:render template="/layouts/footer/licences"/>--}%
+                %{--</div>--}%
             </div>
         </div><!-- /.container-fluid - da ancho máximo y centra -->
     </section>
