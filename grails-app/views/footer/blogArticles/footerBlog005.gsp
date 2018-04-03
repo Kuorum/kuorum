@@ -30,8 +30,10 @@
     <h1><g:message code="footerBlog.${blogId}.content.title"/> </h1>
     <p><g:message code="footerBlog.${blogId}.content.text.1"/> </p>
     <p><g:message code="footerBlog.${blogId}.content.text.2"/> </p>
-    <p><g:message code="footerBlog.${blogId}.content.text.3" args="[createLink(mapping:'register')]"/> </p>
-    <image:showYoutube youtube="https://www.youtube.com/watch?v=sitwHMFeF30"/>
+    <p><g:message code="footerBlog.${blogId}.content.text.3"/> </p>
+    <p><g:message code="footerBlog.${blogId}.content.text.4"/> </p>
+    <p><g:message code="footerBlog.${blogId}.content.text.5"/> </p>
+    <p><g:message code="footerBlog.${blogId}.content.text.6"/> </p>
 </content>
 
 <content tag="casesStudyGrid">
