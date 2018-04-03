@@ -36,6 +36,6 @@
     <p><g:message code="footerBlog.${blogId}.content.text.6"/> </p>
 </content>
 
-%{--<content tag="casesStudyGrid">--}%
-    %{--<g:render template="/landing/caseStudies/modules/otherCases" model="[otherCases:suggestedBlogs, sectionName:'footerBlog']"/>--}%
-%{--</content>--}%
+<content tag="casesStudyGrid">
+    <g:render template="/landing/caseStudies/modules/otherCases" model="[otherCases:suggestedBlogs, sectionName:'footerBlog']"/>
+</content>
