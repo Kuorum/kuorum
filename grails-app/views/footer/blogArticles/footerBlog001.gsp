@@ -34,6 +34,6 @@
     <image:showYoutube youtube="https://www.youtube.com/watch?v=sitwHMFeF30"/>
 </content>
 
-%{--<content tag="casesStudyGrid">--}%
-    %{--<g:render template="/landing/caseStudies/modules/otherCases" model="[otherCases:suggestedBlogs, sectionName:'footerBlog']"/>--}%
-%{--</content>--}%
+<content tag="casesStudyGrid">
+    <g:render template="/landing/caseStudies/modules/otherCases" model="[otherCases:suggestedBlogs, sectionName:'footerBlog']"/>
+</content>
