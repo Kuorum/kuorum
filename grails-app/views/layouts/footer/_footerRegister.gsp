@@ -15,7 +15,7 @@
 
                 </div>
                 <div class="col-xs-12 col-sm-4 col-md-4">
-                    <g:render template="/layouts/footer/licences"/>
+                    %{--<g:render template="/layouts/footer/licences"/>--}%
                 </div>
             </div>
         </div><!-- /.container-fluid - da ancho máximo y centra -->
