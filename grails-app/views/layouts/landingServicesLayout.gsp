@@ -21,28 +21,28 @@
             </section>
         </div>
     </div>
-    <div class="container-overflow-image row landing-section-dark">
+    <div class="container-overflow-image row landing-section-light">
         <div class="container">
             <section class="landing-overflow-image-left" id="customWebSite">
                 <g:pageProperty name="page.customWebSite"/>
             </section>
         </div>
     </div>
-    <div class="container-overflow-image row landing-section-light">
+    <div class="container-overflow-image row landing-section-dark">
         <div class="container">
             <section class="features landing-overflow-image-right" id="features-crm">
                 <g:pageProperty name="page.featuresCrm"/>
             </section>
         </div>
     </div>
-    <div class="container-overflow-image row landing-section-dark">
+    <div class="container-overflow-image row landing-section-light">
         <div class="container">
             <section class="landing-overflow-image-left features" id="features-user">
                 <g:pageProperty name="page.featuresUser"/>
             </section>
         </div>
     </div>
-    <div class="container-overflow-image row landing-section-light">
+    <div class="container-overflow-image row landing-section-dark">
         <div class="container">
             <section class="features landing-overflow-image-right" id="metrics">
                 <g:pageProperty name="page.metrics"/>

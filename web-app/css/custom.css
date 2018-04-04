@@ -8099,6 +8099,14 @@ div.dark {
     overflow-x: hidden;
 }
 
+.container-overflow-image .bullet-points a.link-case-study{
+    float: left;
+    font-size: 22px;
+    padding-top: 25px;
+    padding-bottom: 60px;
+    color: #20a2ea;
+}
+
 #caseStudy.container-overflow-image {
     min-height: 630px;
 }
@@ -8407,7 +8415,14 @@ ul.bullets li{
     text-align: center;
 }
 
-.landing-overflow-image-left .img-full-container ,
+.landing-overflow-image-left .img-full-container{
+    position: absolute;
+    top: 155px;
+    right: 0;
+    left: 56%;
+    overflow: hidden;
+    width: 72%;
+}
 .landing-overflow-image-right .img-full-container {
     position: absolute;
     top: 155px;
@@ -8442,12 +8457,15 @@ ul.bullets li{
 
 .landing-overflow-image-left .img-full-container.left{
     position: absolute;
-    top: 155px;
-    left: -32%;
+    top: 180px;
+    left: -15%;
     overflow: visible;
+    width: 63%;
+}
+.landing-overflow-image-left .img-full-container.left + .bullet-points {
+    float:right;
 }
 
-/** Contact us **/
 
 #contact-us {
     padding-top: 60px;
@@ -8808,6 +8826,10 @@ ul.bullets li img {
         width: 100%;
         margin-bottom: 35px;
     }
+    .landing-overflow-image-left .img-full-container.left + .bullet-points {
+        float:none;
+    }
+
     header .nav > li > .navbar-link.btn-transparent{
         padding: 6px 9px !important;
     }
