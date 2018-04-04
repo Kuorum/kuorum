@@ -8706,6 +8706,18 @@ ul.globus li{
     padding-bottom: 15px;
 }
 
+/*.actionIcons li.fontIcon > a > span.fa*/
+
+ul.globus li.fontIcon > span.fa {
+    font-size: 7em;
+    color:#4F2088;
+}
+
+ul.globus li.fontIcon > span.fas {
+    font-size: 7em;
+    color:#4F2088;
+}
+
 ul.globus li img {
     width: 175px;
     margin: 0 auto;

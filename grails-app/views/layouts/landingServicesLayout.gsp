@@ -21,25 +21,25 @@
             </section>
         </div>
     </div>
-    <div class="container-overflow-image row landing-section-light" id="caseStudy">
-        <div class="container">
-            <section class="features" id="featured-case-study">
-                <g:pageProperty name="page.caseStudy"/>
-            </section>
-        </div>
-    </div>
-    <div class="row landing-section-dark">
-        <div class="container">
-            <section id="statistics">
-                <g:pageProperty name="page.statistics"/>
-            </section>
-        </div>
-    </div>
-    <div class="landing-section-light">
-        <section id="trustUs">
-            <g:pageProperty name="page.trustUs"/>
-        </section>
-    </div>
+    %{--<div class="container-overflow-image row landing-section-light" id="caseStudy">--}%
+        %{--<div class="container">--}%
+            %{--<section class="features" id="featured-case-study">--}%
+                %{--<g:pageProperty name="page.caseStudy"/>--}%
+            %{--</section>--}%
+        %{--</div>--}%
+    %{--</div>--}%
+    %{--<div class="row landing-section-dark">--}%
+        %{--<div class="container">--}%
+            %{--<section id="statistics">--}%
+                %{--<g:pageProperty name="page.statistics"/>--}%
+            %{--</section>--}%
+        %{--</div>--}%
+    %{--</div>--}%
+    %{--<div class="landing-section-light">--}%
+        %{--<section id="trustUs">--}%
+            %{--<g:pageProperty name="page.trustUs"/>--}%
+        %{--</section>--}%
+    %{--</div>--}%
     <div class="row landing-section-dark">
         <div class="container">
             <section id="solutions">
