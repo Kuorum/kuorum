@@ -11,4 +11,14 @@ enum SolrType {
     EVENT,
     SURVEY;
 
+    static final SolrType safeParse(String rawType){
+        SolrType solrType = null;
+        try{
+            SolrType.valueOf(rawType)
+        }catch (Exception){
+            solrType = null;
+        }
+        return solrType;
+    }
+
 }
