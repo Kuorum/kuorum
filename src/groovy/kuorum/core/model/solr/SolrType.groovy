@@ -9,11 +9,16 @@ enum SolrType {
     POST,
     DEBATE,
     EVENT,
-    SURVEY,
+    SURVEY;
 
-    @Deprecated PROJECT,
-    @Deprecated ORGANIZATION,
-    @Deprecated POLITICIAN,
-    @Deprecated CANDIDATE;
+    static final SolrType safeParse(String rawType){
+        SolrType solrType = null;
+        try{
+            SolrType.valueOf(rawType)
+        }catch (Exception){
+            solrType = null;
+        }
+        return solrType;
+    }
 
 }

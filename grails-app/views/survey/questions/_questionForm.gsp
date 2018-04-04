@@ -16,11 +16,11 @@
             <formUtil:input cssClass="hidden" field="id" command="${listCommand}" prefixFieldName="${prefixField}"/>
             <div class="form-group">
                 <label for="text" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.survey.QuestionCommand.text.label"/>:</label>
-                <div class="col-sm-8 col-md-7">
-                    <div class="col-sm-8 no-padding">
+                <div class="col-xs-12 col-sm-8 col-md-7">
+                    <div class="col-xs-12 col-sm-8 no-padding">
                         <formUtil:input field="text" command="${listCommand}" prefixFieldName="${prefixField}"/>
                     </div>
-                    <div class="col-xs-8 col-sm-3">
+                    <div class="col-xs-11 col-sm-3 question-type">
                         <formUtil:selectEnum field="questionType" command="${listCommand}" prefixFieldName="${prefixField}" showLabel="false"/>
                     </div>
                     <div class="col-xs-1 form-group form-group-remove no-label-lg">

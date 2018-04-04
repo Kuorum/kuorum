@@ -55,7 +55,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
 
         if (springSecurityService.isLoggedIn()) {
             redirect uri: config.successHandler.defaultTargetUrl
-            flash.message = message(code:'register.alreadyRegistered')
+//            flash.message = message(code:'register.alreadyRegistered')
             return
         }
         [command: new KuorumRegisterCommand(copy)]
@@ -245,14 +245,21 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
             return
         }
         notificationService.sendWelcomeRegister(user)
-//        render view:'selectMyPassword', model:[userId:user.id, command:new ResetPasswordCommand()]
-        if (registrationCode.redirectLink){
-            redirectUrl = registrationCode.redirectLink
-//            redirect (uri:redirectUrl)
-            redirect mapping:'dashboard', params: [tour:true]
+        if (registerService.isPasswordSetByUser(user)){
+            redirect mappin:'dashboard'
         }else{
-            redirect mapping:'dashboard', params: [tour:true]
+            redirect mapping:'customProcessRegisterStep2', params: [tour:true]
         }
+
+        // REDIRECT USING registrationCode redirectLink
+//        render view:'selectMyPassword', model:[userId:user.id, command:new ResetPasswordCommand()]
+//        if (registrationCode.redirectLink){
+//            redirectUrl = registrationCode.redirectLink
+//            redirect (uri:redirectUrl)
+//            redirect mapping:'customProcessRegisterStep2', params: [tour:true]
+//        }else{
+//            redirect mapping:'customProcessRegisterStep2', params: [tour:true]
+//        }
     }
 
 

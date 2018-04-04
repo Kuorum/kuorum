@@ -7,20 +7,9 @@
         </a>
     </li>
 
-    %{--<li>--}%
-        %{--<g:link mapping="landingOrganizations" class="navbar-link ${nav.activeMenuCss(mappingName: 'landingOrganizations')}">--}%
-            %{--<span><g:message code="head.noLogged.organizations"/> </span>--}%
-        %{--</g:link>--}%
-    %{--</li>--}%
-
-    %{--<li>--}%
-        %{--<g:link mapping="landingCorporationsBrands" class="navbar-link ${nav.activeMenuCss(mappingName: 'landingCorporationsBrands')}">--}%
-            %{--<span><g:message code="head.noLogged.corporations"/> </span>--}%
-        %{--</g:link>--}%
-    %{--</li>--}%
     <li>
         <g:link mapping="landingServices" class="navbar-link ${nav.activeMenuCss(mappingName: 'landingServices')} ${nav.activeMenuCss(mappingName: 'home')}">
-            <span><g:message code="head.noLogged.services"/></span>
+            <span><g:message code="head.noLogged.technology"/></span>
         </g:link>
     </li>
 
@@ -49,16 +38,16 @@
     </li>
 
     <li>
-        <g:link mapping="landingTechnology" class="navbar-link ${nav.activeMenuCss(mappingName: 'landingTechnology')}">
-            <span><g:message code="head.noLogged.technology"/> </span>
+        <g:link mapping="landingCaseStudy" class="navbar-link ${nav.activeMenuCss(mappingName: 'landingCaseStudy')}">
+            <span><g:message code="layout.footer.casesStudy"/></span>
         </g:link>
     </li>
 
-    %{--<li>--}%
-        %{--<g:link mapping="landingPrices" class="navbar-link ${nav.activeMenuCss(mappingName: 'landingPrices')}">--}%
-            %{--<span><g:message code="head.noLogged.prices"/></span>--}%
-        %{--</g:link>--}%
-    %{--</li>--}%
+    <li>
+        <g:link mapping="footerBlog" class="navbar-link ${nav.activeMenuCss(mappingName: 'footerBlog')}">
+            <span><g:message code="layout.footer.blog"/></span>
+        </g:link>
+    </li>
 
     <li>
         <g:set var="logInMapping" value="loginAuth"/>

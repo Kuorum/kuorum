@@ -1,7 +1,10 @@
-
+<g:set var="draftText"><g:message code="tools.massMailing.saveDraft"/></g:set>
+<g:if test="${status == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT}">
+    <g:set var="draftText"><g:message code="tools.massMailing.save"/></g:set>
+</g:if>
 <li>
     <a href="#" id="save-draft-debate" data-redirectLink="politicianCampaigns">
-        <g:message code="tools.massMailing.saveDraft"/>
+        ${draftText}
     </a>
 </li>
 <li>

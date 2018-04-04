@@ -6,7 +6,7 @@
     <div class="col-md-6 img-full-container left">
         <img src="${r.resource(dir:'images/landing', file:imgBackground)}">
     </div>
-    <div class="col-md-6 pull-right">
+    <div class="col-md-6 bullet-points">
         <ul class="checklist">
             <li class="clearfix">
                 <div class="col-md-1 col-xs-1"><i class="fa fa-check" aria-hidden="true"></i></div>

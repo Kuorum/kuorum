@@ -7,7 +7,7 @@
               model="[
                       kuorumTitle:g.message(code:'footerBlog.'+blogId+'.head.title'),
                       kuorumDescription:g.message(code:'footerBlog.head.'+blogId+'.card.subtitle'),
-                      kuorumImage:request.siteUrl +r.resource(dir:'images/landing/footerBlog/'+blogId, file:'card.jpg')
+                      kuorumImage:r.resource(dir:'images/landing/footerBlog/'+blogId, file:'card.jpg', absolute:true)
               ]"/>
 </head>
 
@@ -34,6 +34,6 @@
     <image:showYoutube youtube="https://www.youtube.com/watch?v=sitwHMFeF30"/>
 </content>
 
-%{--<content tag="casesStudyGrid">--}%
-    %{--<g:render template="/landing/caseStudies/modules/otherCases" model="[otherCases:suggestedBlogs, sectionName:'footerBlog']"/>--}%
-%{--</content>--}%
+<content tag="casesStudyGrid">
+    <g:render template="/landing/caseStudies/modules/otherCases" model="[otherCases:suggestedBlogs, sectionName:'footerBlog']"/>
+</content>

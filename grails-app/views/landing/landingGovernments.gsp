@@ -8,7 +8,7 @@
               model="[
                       kuorumTitle:g.message(code:'landingGovernments.head.title'),
                       kuorumDescription:g.message(code:'landingGovernments.head.description'),
-                      kuorumImage:request.siteUrl +r.resource(dir:'images/landing', file:'administrations.jpg')
+                      kuorumImage:r.resource(dir:'images/landing', file:'administrations.jpg', absolute:true)
               ]"/>
 </head>
 
@@ -26,7 +26,7 @@
 </content>
 
 <content tag="caseStudy">
-    <g:render template="/landing/caseStudies/modules/landingCaseStudy" model="[msgPrefix:'landingGovernments', caseStudyId:'004', sectionName:'landingCaseStudy']"/>
+    <g:render template="/landing/caseStudies/modules/landingCaseStudy" model="[msgPrefix:'landingGovernments', caseStudyId:'001', sectionName:'landingCaseStudy']"/>
 </content>
 
 <content tag="contactUs">

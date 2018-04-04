@@ -7,7 +7,7 @@
               model="[
                       kuorumTitle:g.message(code:'landingCaseStudy.page.head.title'),
                       kuorumDescription:g.message(code:'landingCaseStudy.page.head.description'),
-                      kuorumImage:request.siteUrl +r.resource(dir:'images/landing', file:'case-studies.jpg')
+                      kuorumImage:r.resource(dir:'images/landing', file:'case-studies.jpg', absolute:true)
               ]"/>
 </head>
 
@@ -16,5 +16,5 @@
 </content>
 
 <content tag="casesStudyGrid">
-    <g:render template="/landing/caseStudies/modules/caseStudiesGrid" model="[msgPrefix:'landingCaseStudy', caseStudiesIds:['001','002','003','004','005']]"/>
+    <g:render template="/landing/caseStudies/modules/caseStudiesGrid" model="[msgPrefix:'landingCaseStudy', caseStudiesIds:['009', '008','007','006','005','004','003','002','001']]"/>
 </content>

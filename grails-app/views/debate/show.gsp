@@ -19,7 +19,7 @@
         <r:require modules="event"/>
         <g:render template="/campaigns/columnCModules/eventCallToAction" model="[eventUser: debateUser,campaign:debate]"/>
         <g:render template="/debate/showModules/cCallToAction" model="[debate: debate, debateUser: debateUser,proposalPage:proposalPage]"/>
-        <g:render template="/campaigns/columnCModules/eventInfo" model="[event:debate.event]"/>
+        <g:render template="/campaigns/columnCModules/eventInfo" model="[event:debate.event, eventUser: debateUser]"/>
     </g:if>
     <g:else>
         <g:if test="${debate.campaignStatusRSDTO == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT}">

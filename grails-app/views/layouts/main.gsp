@@ -96,7 +96,7 @@
     <nav:ifActiveMapping mappingNames="customProcessRegisterStep2, customProcessRegisterStep3, registerSubscriptionStep1, registerSubscriptionStep1Save, registerSubscriptionStep3, tour_dashboard" equals="false">
         <r:script>
             function notMailConfirmedWarn(){
-                display.warn("<userUtil:showMailConfirm /> ${pageProperty(name:'page.hiddeMailConfirmMessage')}");
+                display.warn("<userUtil:showMailConfirm /> }");
             }
             $(function(){
                 notMailConfirmedWarn();

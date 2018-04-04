@@ -2,20 +2,18 @@ package kuorum
 
 import com.mongodb.DBCursor
 import kuorum.core.model.AvailableLanguage
-import payment.campaign.PostService
 import kuorum.users.KuorumUser
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.kuorum.rest.model.communication.post.PostRSDTO
 import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
 import payment.campaign.DebateService
+import payment.campaign.PostService
 
 class SiteMapController {
 
     private static final FORMAT_DATE_SITEMAP="yyyy-MM-dd"
 
     PostService postService;
-    DebateService debateService;
-
     static searchQueries =[
             es:[
                     basicSearch:[
@@ -43,6 +41,11 @@ class SiteMapController {
                             "extremadura",
                             "Ignacio García Peredo"
                     ],
+                    eventSearch:[
+                            "",
+                            "extremadura",
+                            "Ignacio Garcia Peredo"
+                    ],
                     usersByCause:[
                             "atencionomnicanal",
                             "participacion",
@@ -62,10 +65,15 @@ class SiteMapController {
                     postSearch:[
                             ""
                     ],
+                    eventSearch:[
+                            ""
+                    ],
                     usersByCause:[
                     ]
             ]
     ]
+
+    DebateService debateService;
 
     def sitemapIndex(){
         String lang = params.lang
@@ -135,6 +143,15 @@ class SiteMapController {
 //                    "xhtml:link rel=\"alternate\" hreflang=\"en\" href=\"${g.createLink( mapping: 'searcherSearch', absolute: true, params: [lang:'en'])}\""()
                     }
                 }
+                searchQueries[lang].eventSearch.each { searchText ->
+                    url {
+                        loc(g.createLink( mapping:'searcherSearchEVENT', absolute: true, params: [word:searchText]))
+                        changefreq('daily')
+                        priority(0.5)
+//                    "xhtml:link rel=\"alternate\" hreflang=\"es\" href=\"${g.createLink( mapping: 'searcherSearch', absolute: true, params: [lang:'es'])}\""()
+//                    "xhtml:link rel=\"alternate\" hreflang=\"en\" href=\"${g.createLink( mapping: 'searcherSearch', absolute: true, params: [lang:'en'])}\""()
+                    }
+                }
                 searchQueries[lang].usersByCause.each { searchText ->
                     url {
                         loc(g.createLink( mapping:'searcherSearchKUORUM_USERByCAUSE', absolute: true, params: [word:searchText]))
@@ -160,6 +177,11 @@ class SiteMapController {
                 'landingCaseStudy002',
                 'landingCaseStudy003',
                 'landingCaseStudy004',
+                'landingCaseStudy005',
+                'landingCaseStudy006',
+                'landingCaseStudy007',
+                'landingCaseStudy008',
+                'landingCaseStudy009',
                 'login',
                 'loginAuth',
                 'register',
@@ -198,7 +220,8 @@ class SiteMapController {
                 'footerPrivacyPolicy',
                 'footerTermsUse',
                 'footerBlog',
-                'footerBlog001'
+                'footerBlog001',
+                'footerBlog002'
         ]
         render(contentType: 'application/xml', encoding: 'UTF-8') {
             mkp.yieldUnescaped '<?xml version="1.0" encoding="UTF-8"?>'

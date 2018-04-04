@@ -29,10 +29,7 @@
                       filters: filters,
                       totalContacts: totalContacts,
                       anonymousFilter: anonymousFilter,
-                      events:[
-                              TrackingMailStatusRSDTO.OPEN,
-                              TrackingMailStatusRSDTO.CLICK]
-                      ,
+                      events:[TrackingMailStatusRSDTO.OPEN,TrackingMailStatusRSDTO.CLICK,TrackingMailStatusRSDTO.SURVEY_ANSWER,TrackingMailStatusRSDTO.SURVEY_FINISHED],
                       mappings:[
                               step:'settings',
                               next:'surveyEditContent',

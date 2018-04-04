@@ -23,21 +23,21 @@
     </div>
     <div class="container-overflow-image row landing-section-light">
         <div class="container">
-            <section class="features" id="features-crm">
+            <section class="features landing-overflow-image-right" id="features-crm">
                 <g:pageProperty name="page.featuresCrm"/>
             </section>
         </div>
     </div>
     <div class="container-overflow-image row landing-section-dark">
         <div class="container">
-            <section class="features" id="features-user">
+            <section class="landing-overflow-image-left features" id="features-user">
                 <g:pageProperty name="page.featuresUser"/>
             </section>
         </div>
     </div>
     <div class="container-overflow-image row landing-section-light">
         <div class="container">
-            <section class="features" id="metrics">
+            <section class="features landing-overflow-image-right" id="metrics">
                 <g:pageProperty name="page.metrics"/>
             </section>
         </div>

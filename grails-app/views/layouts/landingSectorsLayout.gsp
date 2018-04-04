@@ -30,7 +30,7 @@
     </div>
     <div class="container-overflow-image row landing-section-light">
         <div class="container">
-            <section class="features" id="featured-case-study">
+            <section class="features landing-overflow-image-left" id="featured-case-study">
                 <g:pageProperty name="page.caseStudy"/>
             </section>
         </div>

@@ -108,13 +108,17 @@ class NavigationTagLib {
     private String prepareSpecialMappings(String mapping){
         if (mapping.startsWith("searcherSearch")){
             mapping = "searcherSearch"
-            if (params.type){
-                SolrType searchType = SolrType.valueOf(params.type)
-                mapping = "searcherSearch${searchType}"
+            SolrType solrType = SolrType.safeParse(params.type)
+            if (solrType){
+                mapping = "searcherSearch${solrType}"
             }
 
             if (params.searchType){
-                SearchType searchType = SearchType.valueOf(params.searchType)
+                SearchType searchType = SearchType.safeParse(params.searchType);
+                if (!searchType){
+                    // Google still asks for old filters
+                    searchType = SearchType.ALL;
+                }
                 if (!SearchType.ALL.equals(searchType)){
                     // ONLY CAUSE IS MAPPED
                     mapping = mapping+"By"+searchType

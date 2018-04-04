@@ -194,7 +194,12 @@ $(document).ready(function() {
         console.log("kk");
         $("#searchFilters input[type=checkbox]").prop('checked', false);
 
-        $("#searchFilters input[value="+$(this).val()+"]").prop('checked', true);
+        var filterVal = $(this).val()
+        if (filterVal == ""){
+            $("#searchFilters #all-types").prop('checked', true);
+        }else{
+            $("#searchFilters input[value="+filterVal+"]").prop('checked', true);
+        }
         reloadSearchNewFilters()
     });
 

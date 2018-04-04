@@ -6,12 +6,12 @@
     <div class="col-md-6 img-full-container left">
         <img alt="Image: ${g.message(code:"${sectionName}.${caseStudyId}.content.title")}" data-src="${r.resource(dir:"images/landing/${sectionName}/${caseStudyId}/", file:"landing.png")}">
     </div>
-    <div class="col-md-6 pull-right">
+    <div class="col-md-6 bullet-points">
         <h1><g:message code="${sectionName}.${caseStudyId}.content.title"/></h1>
         <p><g:message code="${sectionName}.${caseStudyId}.card.subtitle"/></p>
         <g:link mapping="${"${sectionName}${caseStudyId}".toString()}"  class="link-case-study">
             <g:message code="${sectionName}.page.landing.seeMore"/>
+            <span class="link-arrow hidden-xs">></span>
         </g:link>
-        <span class="link-arrow hidden-xs">></span>
     </div>
 </div>
