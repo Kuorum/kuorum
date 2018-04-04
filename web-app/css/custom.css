@@ -9310,11 +9310,8 @@ ul.notification-menu > li.see-more {
 }
 
 /** Custom url **/
-.signup-custom-site {
-    padding-top: 60px;
-    padding-bottom: 60px;
-    padding-left: 100px;
-    padding-right: 100px;
+.signin-custom-site {
+    padding: 60px 100px;
 }
 
 .onecol #main .custom-url-steps li {
