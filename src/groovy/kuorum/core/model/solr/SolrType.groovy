@@ -9,11 +9,6 @@ enum SolrType {
     POST,
     DEBATE,
     EVENT,
-    SURVEY,
-
-    @Deprecated PROJECT,
-    @Deprecated ORGANIZATION,
-    @Deprecated POLITICIAN,
-    @Deprecated CANDIDATE;
+    SURVEY;
 
 }
