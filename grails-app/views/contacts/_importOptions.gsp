@@ -4,7 +4,7 @@
     <li><oauth:connect provider="outlook" id="yahoo-connect-link" role="button" class="actionIcons" elementId="outlook"><g:message code="tools.contact.import.options.outlook"/></oauth:connect></li>
     <li class="fontIcon">
         <g:link mapping="politicianContactImportCSV" role="button" class="mail" elementId="uploadCsv">
-            <span class="fa fa-file"></span>
+            <span class="fa fa-file-text-o"></span>
             <span class="label">Upload file</span>
         </g:link>
     </li>
