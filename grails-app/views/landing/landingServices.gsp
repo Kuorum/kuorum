@@ -21,19 +21,19 @@
 </content>
 
 <content tag="customWebSite">
-    <g:render template="/landing/technologyModules/featureBulletsRight" model="[msgPrefix:'landingTechnology', msgSection: 'customWebSite', imgBackground:'features-corporations.png']"/>
+    <g:render template="/landing/technologyModules/featureBulletsRight" model="[msgPrefix:'landingTechnology', msgSection: 'customWebSite', imgBackground:'landing-webSite.png']"/>
 </content>
 
 <content tag="featuresCrm">
-    <g:render template="/landing/technologyModules/featureBulletsLeft" model="[msgPrefix:'landingTechnology', msgSection: 'featuresCrm', imgBackground:'features-leaders.png']"/>
+    <g:render template="/landing/technologyModules/featureBulletsLeft" model="[msgPrefix:'landingTechnology', msgSection: 'featuresCrm', imgBackground:'landing-contacts.png']"/>
 </content>
 
 <content tag="featuresUser">
-    <g:render template="/landing/technologyModules/featureBulletsRight" model="[msgPrefix:'landingTechnology', msgSection: 'featuresUser', imgBackground:'features-corporations.png']"/>
+    <g:render template="/landing/technologyModules/featureBulletsRight" model="[msgPrefix:'landingTechnology', msgSection: 'featuresUser', imgBackground:'landing-debates.png']"/>
 </content>
 
 <content tag="metrics">
-    <g:render template="/landing/technologyModules/featureBulletsLeft" model="[msgPrefix:'landingTechnology', msgSection: 'metrics', imgBackground:'features-organizations.png']"/>
+    <g:render template="/landing/technologyModules/featureBulletsLeft" model="[msgPrefix:'landingTechnology', msgSection: 'metrics', imgBackground:'landing-campaings.png']"/>
 </content>
 
 <content tag="caseStudy">
