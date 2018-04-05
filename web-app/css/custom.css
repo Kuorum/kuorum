@@ -8470,9 +8470,9 @@ ul.bullets li{
 .landing-overflow-image-left .img-full-container.left{
     position: absolute;
     top: 180px;
-    left: -15%;
+    left: -29%;
     overflow: visible;
-    width: 63%;
+    width: 72%;
 }
 .landing-overflow-image-left .img-full-container.left + .bullet-points {
     float:right;
