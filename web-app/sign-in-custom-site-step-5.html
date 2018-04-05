@@ -104,24 +104,44 @@
 
     <!-- IMPORTANTE este div debe estar justo después del header; no poner nada entre ellos -->
     <div class="row main">
-        <div class="container">
-            <div class="col-md-7 col-sm-7 onecol">
+        <div class="col-md-7 col-sm-7 onecol">
             <section id="main" role="main" class="homeSub">
                 <ol class="stepsSign custom-url-steps d-flex justify-content-center">
-                    <li>1<span class="custom-url-step-description">Choose your web address</span></li>
-                    <li class="active custom-url-step-broaden">2<span class="custom-url-step-description custom-url-step-description--light">Create your account</span></li>
-                    <li class="active">3<span class="custom-url-step-description custom-url-step-description--light">Payment information</span></li>
+                    <li class="custom-url-step--coorporative-color">1<span class="custom-url-step-description">Design your landing page</span></li>
+                    <li class="custom-url-step-broaden">2<span class="custom-url-step-description">Set the user rights</span></li>
                 </ol>
                 <form role="form" class="signup-custom-site" id="signup-custom-site" name="signup-custom-site" method="post" action="#">
                     <fieldset class="row">
-                        <p class="custom-url-form-group-message">Your engagement website address*</p>
-                        <span class="help-block">If you are a politician we’ll confirm your identity</span>
-                        <div class="custom-url-form-group form-group">
-                            <label class="sr-only" for="site-name">Your URL</label>
-                            <span class="custom-url-form-group__url--dark">https://</span>
-                            <input type="url" aria-required="true" placeholder="Your URL" required="" id="site-name"
-                                class="form-control custom-url-form-group__input" name="site-name">
-                            <span class="custom-url-form-group__url--dark">.kuorum.org</span>
+                        <div class="form-group col-md-6">
+                            <label for="alias">Name *</label>
+                            <input type="text" name="alias" class="form-control input-lg" id="alias" required placeholder="alias" aria-required="true">
+                            <span class="help-block">https://kuorum.org/matnso</span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="email">Email *</label>
+                            <input type="email" aria-required="true" placeholder="Email" required="" id="email" class="form-control input-lg" name="email">
+                        </div>
+                    </fieldset>
+                    <fieldset class="row">
+                        <div class="form-group col-md-6">
+                            <label for="pass-home">Password *</label>
+                            <div class="input-append input-group">
+                                <input type="password" required aria-required="true" id="pass-home" name="pass-home" class="form-control input-lg" value="" placeholder="">
+                                <span tabindex="100" class="add-on input-group-addon">
+                                    <label>
+                                        <input type="checkbox" name="show-pass-home" id="show-pass-home"> Show
+                                    </label>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="language">Language</label>
+                            <select id="language" class="form-control input-lg" name="language">
+                                <option value="Castellano">English</option>
+                                <option value="Catalán">Spanish</option>
+                                <option value="Euskera">Euskera</option>
+                                <option>...</option>
+                            </select>
                         </div>
                     </fieldset>
                     
@@ -132,7 +152,7 @@
                 
             </section>
         </div>
-            <div class="col-md-4 col-sm-5">
+        <div class="col-md-4 col-sm-5">
             <div class="custom-url-info-box">
                 <h3>Start your 14-days free trial</h3>
                 <p>
@@ -156,7 +176,6 @@
                     </li>
                 </ul>
             </div>
-        </div>
         </div>
     </div><!-- .main -->
     

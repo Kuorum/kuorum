@@ -5737,7 +5737,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
         width: 33%;
     }
     .navbar-nav>li {margin: 0;}
-    .main {min-height: calc(100vh - 171px);}
+    .main {min-height: calc(100vh - 136px);}
     .main.landing {min-height: 0;}
     header.transp .navbar {background-color: transparent;}
     header.transp + .row.main.landing {margin-top:-55px}
@@ -9379,6 +9379,10 @@ ul.notification-menu > li.see-more {
     text-align: center;
 }
 
+.signup-custom-site {
+    margin-top: 75px;
+}
+
 /* global flex classes */
 .d-flex {
     display: flex;
@@ -9405,7 +9409,8 @@ ul.notification-menu > li.see-more {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 20px 20px;
+    padding: 20px 20px;
+    height: calc(100vh - 136px);
 }
 
 .sign-in-step-4-img {
