@@ -23,7 +23,7 @@
     </div>
     <div class="container-overflow-image row landing-section-light">
         <div class="container">
-            <section class="landing-overflow-image-left" id="customWebSite">
+            <section class="features landing-overflow-image-left" id="customWebSite">
                 <g:pageProperty name="page.customWebSite"/>
             </section>
         </div>

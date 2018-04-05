@@ -367,7 +367,7 @@ a:focus {color: #ff9431;}
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-    margin-right: 10px;
+    margin-right: 20px;
     margin-top: 7px;
     font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
     font-size:13px;
@@ -8361,6 +8361,18 @@ ul.bullets li{
     padding-top:12px;
     font-size: 20px;
     line-height: 31px;
+}
+
+
+/** landing caseStudies **/
+
+#featured-case-study .section-body span.link-arrow{
+    float: left;
+    font-size: 22px;
+    padding-top: 25px;
+    padding-bottom: 60px;
+    padding-left: 10px;
+    color: #20a2ea;
 }
 
 /** landing statistics **/
