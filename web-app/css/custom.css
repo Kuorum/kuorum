@@ -942,7 +942,8 @@ span + .text-notification {padding: 0 0 0 36px; margin-top: -6px;}
 
 #footer {background-color: #666666; color: #fff;}
 #footer ul, #footer ol, section.links ul {padding: 0}
-#footer ul.dropdown-menu {width:100px; min-width:0;left: -26px;top:12px;}
+#footer ul.dropdown-menu {min-width:0;width:auto; top:12px; padding:5px 0px;}
+#footer ul.dropdown-menu a {padding:1px 10px;}
 #footer li {list-style: none;}
 #footer a {color: #a8a8a8;}
 #footer .more a:hover {color: #fff;}

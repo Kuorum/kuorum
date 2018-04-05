@@ -171,6 +171,7 @@ class NavigationTagLib {
   <a class="dropdown-toggle" type="button" id="dropdown-language-selector" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     ${g.message(code: "kuorum.core.model.AvailableLanguage.${currentLang}")}
     <span class="caret"></span>
+  </a>
   </button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-language-selector">
   """
