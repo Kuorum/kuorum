@@ -33,7 +33,7 @@
 </content>
 
 <content tag="metrics">
-    <g:render template="/landing/technologyModules/featureBulletsLeft" model="[msgPrefix:'landingTechnology', msgSection: 'metrics', imgBackground:'landing-campaings.png']"/>
+    <g:render template="/landing/technologyModules/featureBulletsLeft" model="[msgPrefix:'landingTechnology', msgSection: 'metrics', imgBackground:'landing-campaigns.png']"/>
 </content>
 
 <content tag="caseStudy">
