@@ -8013,13 +8013,13 @@ background-repeat: no-repeat;
 
 /* NEW LANDING FADES*/
 .fade-carousel .slides .slide-1.landingServices {
-    background-image: url('../images/landing/landing-1.jpg');
-}
-.fade-carousel .slides .slide-2.landingServices {
     background-image: url('../images/landing/landing-2.jpg');
 }
-.fade-carousel .slides .slide-3.landingServices {
+.fade-carousel .slides .slide-2.landingServices {
     background-image: url('../images/landing/landing-3.jpg');
+}
+.fade-carousel .slides .slide-3.landingServices {
+    background-image: url('../images/landing/landing-1.jpg');
 }
 
 .fade-carousel .slides .slide-1.landingTechnology {
