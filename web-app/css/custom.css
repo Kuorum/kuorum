@@ -9294,6 +9294,11 @@ ul.notification-menu > li.see-more {
 .custom-url-step--coorporative-color::after {
     background-color: rgba(255,148,49,.5) !important;
 }
+
+.custom-url-step--secondary-color, .custom-url-step--secondary-color::after, .custom-url-step--secondary-color::before {
+    background-color: rgba(141,190,239, 1) !important;
+}
+
 .custom-url-step-broaden {
     margin-right: 57px !important;
     margin-left: 57px !important;
@@ -9308,10 +9313,6 @@ ul.notification-menu > li.see-more {
     display: inline-block;
     line-height: 14px;
     width: 90px;
-}
-
-.custom-url-step--coorporative-color::after {
-    color: red;
 }
 
 .custom-url-step-description--light {
@@ -9357,6 +9358,11 @@ ul.notification-menu > li.see-more {
     padding: 24px 20px;
     background-color: #545454;
     color: white;
+    min-width: 375px;
+}
+
+.custom-url-info-box p {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
 .custom-url-info-box__disclaimers {
@@ -9404,7 +9410,7 @@ ul.notification-menu > li.see-more {
     padding-right: 15px;
 }
 
-/* step4 */
+/** step 4 **/
 .sign-in-step-4 {
     flex-direction: column;
     align-items: center;
@@ -9416,6 +9422,116 @@ ul.notification-menu > li.see-more {
 .sign-in-step-4-img {
     width: 150px;
     height: auto;
+}
+
+/** step 5 **/
+.sign-in-step-5__color-selected {
+    width: 35px;
+    height: 35px;
+    display: block;
+    border: 3px solid #a8a8a8;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    background-color: #ff9431;
+}
+
+.sign-in-step-5__color-selected input[type='color'] {
+    visibility:hidden;
+}
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+.macbook-pro {
+    position: relative;
+    width: 310px;
+    margin: 0 auto;
+}
+
+.macbook-pro-img {
+    height: 186px;
+}
+
+.macbook-pro-screen {
+    position: absolute;
+    top: 26px;
+    width: 201px;
+    background-color: #a8a8a8;
+    left: 54px;
+    height: 126px;
+}
+
+.macbook-pro-screen-header {
+    height: 20px;
+    background-color: white;
+    position: relative;
+}
+
+.macbook-pro-screen-header img {
+    height: 20px;
+    width: 20px;
+    position: absolute;
+    top: 0;
+    left: 0px;
+}
+
+.macbook-pro-screen-body {
+    height: 106px;
+    width: 100%;
+    position: absolute;
+    top: 20px;
+    text-align: center;
+}
+
+.macbook-pro-screen-body h1 {
+    font-size: 16px;
+    margin-bottom: 5px;
+    margin-top: 14px;
+    font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.macbook-pro-screen-body h3 {
+    font-size: 12px;
+    margin-top: 5px;
+    font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.macbook-pro-website-form {
+    width: 160px;
+    background-color: #5c5c5c;
+    height: 35px;
+    margin: 0 auto;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.macbook-pro-website-form-input {
+    height: 15px;
+    background-color: white;
+    width: 35px;
+    border-radius: 3px;
+}
+
+.macbook-pro-website-form-input--primary-color {
+    background-color: #ff943b;
 }
 
 /** media queries **/
