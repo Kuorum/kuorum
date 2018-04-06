@@ -114,8 +114,8 @@
                 <h2 itemprop="jobTitle"><g:message code="footer.menu.footerTeam.position5"/></h2>
                 <p itemprop="description"><g:message code="footer.menu.footerTeam.description5"/></p>
                 <ul class="social">
-                    <li><a href="https://twitter.comtonimartoscm" target="_blank"><span class="fa fa-twitter fa-2x"></span> <span class="sr-only">Twitter</span></a></li>
-                    <li><a href="https://www.linkedin.com/in/antonio-martos-ortega-2b91995a/" target="_blank"><span class="fa fa-linkedin fa-2x"></span> <span class="sr-only">LinkedIn</span></a></li>
+                    %{--<li><a href="https://twitter.comtonimartoscm" target="_blank"><span class="fa fa-twitter fa-2x"></span> <span class="sr-only">Twitter</span></a></li>--}%
+                    <li><a href="https://www.linkedin.com/in/escancianoguillermo/" target="_blank"><span class="fa fa-linkedin fa-2x"></span> <span class="sr-only">LinkedIn</span></a></li>
                 </ul>
             </div>
         </li>
