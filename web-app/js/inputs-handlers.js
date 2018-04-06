@@ -10,6 +10,8 @@
 
         reader.onload = function (e) {
             var screenElement = document.getElementById('macbook-pro-website-logo');
+            var inputLogo = document.getElementById('logo');
+            inputLogo.value = fileList[0].name
             screenElement.src = e.target.result;
         };
 

@@ -9538,7 +9538,7 @@ ul.notification-menu > li.see-more {
     background-color: #ff943b;
 }
 
-.croppie-input-file {
+.sign-in-step-5__secondary-btn {
     width: 100%;
     background-color: transparent;
     border: 2px solid #a8a8a8;
@@ -9546,17 +9546,23 @@ ul.notification-menu > li.see-more {
     border-radius: 5px !important;
 }
 
-.croppie-input-file:hover {
+.sign-in-step-5__secondary-btn:hover {
     background-color: transparent !important;
     border: 2px solid #2082e3;
+    color: #2082e3 !important;
 }
 
 .input-group-btn {
     position: relative;
 }
+
 .croppie-img {
     position: absolute;
     top: 0;
+}
+
+#logo {
+    margin-left: 10px;
 }
 
 /** media queries **/
