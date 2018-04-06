@@ -17,6 +17,34 @@
     }
 })(window, document);
 
+// Input file preview image
+(function (window, document) {
+    var inputElement1 = document.getElementById('sign-in-step-5__preview-image-1-input-file');
+    var inputElement2 = document.getElementById('sign-in-step-5__preview-image-2-input-file');
+    var inputElement3 = document.getElementById('sign-in-step-5__preview-image-3-input-file');
+
+    inputElement1.addEventListener("change", handleFiles, false);
+    inputElement2.addEventListener("change", handleFiles, false);
+    inputElement3.addEventListener("change", handleFiles, false);
+
+    function handleFiles() {
+        var pos = this.getAttribute('data-pos');
+        var backgroundPreview = document.getElementsByClassName('macbook-pro-screen-body')[0];
+        var fileList = this.files;
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            var previewImage = document.getElementById('preview-image-' + pos);
+            previewImage.src = e.target.result;
+            backgroundPreview.style.backgroundImage = 'url("' + e.target.result +'")';
+            backgroundPreview.style.backgroundSize = 'cover';
+        };
+
+        reader.readAsDataURL(fileList[0]);
+    }
+})(window, document);
+
+
 // Color picker
 (function (window, document) {
     var inputElement = document.getElementById("sign-in-step-5__color-picker");

@@ -9440,6 +9440,10 @@ ul.notification-menu > li.see-more {
     visibility:hidden;
 }
 
+.sign-in-step-5__submit-btn {
+    margin-top: 60px;
+}
+
 .btn-file {
     position: relative;
     overflow: hidden;
@@ -9532,6 +9536,27 @@ ul.notification-menu > li.see-more {
 
 .macbook-pro-website-form-input--primary-color {
     background-color: #ff943b;
+}
+
+.croppie-input-file {
+    width: 100%;
+    background-color: transparent;
+    border: 2px solid #a8a8a8;
+    color: #a8a8a8 !important;
+    border-radius: 5px !important;
+}
+
+.croppie-input-file:hover {
+    background-color: transparent !important;
+    border: 2px solid #2082e3;
+}
+
+.input-group-btn {
+    position: relative;
+}
+.croppie-img {
+    position: absolute;
+    top: 0;
 }
 
 /** media queries **/
