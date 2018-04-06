@@ -37,7 +37,7 @@
                 <p itemprop="description"><g:message code="footer.menu.footerTeam.description3b"/></p>
                 <ul class="social">
                     <li><a href="https://twitter.com/chemafinca" target="_blank"><span class="fa fa-twitter fa-2x"></span> <span class="sr-only">Twitter</span></a></li>
-                    <li><a href="https://es.linkedin.com/in/josemariagarciadiaz/es" target="_blank"><span class="fa fa-linkedin fa-2x"></span> <span class="sr-only">LinkedIn</span></a></li>
+                    <li><a href="https://es.linkedin.com/in/chemagarciadiaz" target="_blank"><span class="fa fa-linkedin fa-2x"></span> <span class="sr-only">LinkedIn</span></a></li>
                 </ul>
             </div>
         </li>
