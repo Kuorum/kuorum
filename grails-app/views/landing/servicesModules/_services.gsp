@@ -20,7 +20,7 @@
             <p><g:message code="${msgPrefix}.howItWorks.engage.text"/> </p>
         </li>
         <li class="fontIcon col-sm-3 col-md-3">
-            <span class="fa fa-comments-o"></span>
+            <span class="fa fa-microphone"></span>
             %{--<span class="fas fa-microphone"></span>--}%
             <h2><g:message code="${msgPrefix}.howItWorks.petition.title"/> </h2>
             <p><g:message code="${msgPrefix}.howItWorks.petition.text"/> </p>
