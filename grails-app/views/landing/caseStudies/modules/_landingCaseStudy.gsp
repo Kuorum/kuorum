@@ -11,7 +11,7 @@
         <p><g:message code="${sectionName}.${caseStudyId}.card.subtitle"/></p>
         <g:link mapping="${"${sectionName}${caseStudyId}".toString()}"  class="link-case-study">
             <g:message code="${sectionName}.page.landing.seeMore"/>
-            <span class="link-arrow hidden-xs">></span>
         </g:link>
+        <span class="link-arrow hidden-xs">></span>
     </div>
 </div>
