@@ -23,7 +23,7 @@ class LandingController {
             redirect (mapping:"dashboard")
         }
 
-        KuorumUser user = kuorumUserService.findByAlias("fbuyolo")
+        KuorumUser user = kuorumUserService.findByAlias("admin")
         if (!user) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND)
             return false
