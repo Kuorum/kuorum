@@ -9599,11 +9599,17 @@ ul.notification-menu > li.see-more {
     color: white;
 }
 
+.user-content:hover {
+    background-color: #2082e3;
+    color: white;
+}
+
 .user-content .check {
     color: white;
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 3px;
+    right: 3px;
+    font-size: 1.5em;
 }
 
 .user-content-options input:checked ~ .user-content .check {
