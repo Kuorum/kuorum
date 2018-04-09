@@ -9490,8 +9490,8 @@ ul.notification-menu > li.see-more {
 }
 
 .macbook-pro-screen-header img {
-    height: 20px;
-    width: 20px;
+    max-height: 20px;
+    width: 50px;
     position: absolute;
     top: 0;
     left: 0px;
@@ -9545,6 +9545,10 @@ ul.notification-menu > li.see-more {
     color: #a8a8a8 !important;
     border-radius: 5px !important;
 }
+.sign-in-step-5__secondary-btn-logo {
+    height: 50px;
+    padding-top: 12px !important;
+}
 
 .sign-in-step-5__secondary-btn:hover {
     background-color: transparent !important;
@@ -9563,6 +9567,52 @@ ul.notification-menu > li.see-more {
 
 #logo {
     margin-left: 10px;
+}
+
+/** Step 6 **/
+
+.user-content {
+    background-color: transparent;
+    border: 2px solid #2082e3;
+    color: #2082e3;
+    padding: 10px;
+    cursor: pointer;
+    position: relative;
+    width: 90px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.user-content-options {
+    display: inline-block;
+    margin-right: 15px;
+}
+
+.user-content-options input[type=checkbox] {
+    position: absolute;
+    opacity: 0;
+}
+
+.user-content-options input:checked ~ .user-content {
+    background-color: #2082e3;
+    color: white;
+}
+
+.user-content .check {
+    color: white;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.user-content-options input:checked ~ .user-content .check {
+    display: block;
+}
+
+.step-6-form p {
+    text-align: left;
 }
 
 /** media queries **/
