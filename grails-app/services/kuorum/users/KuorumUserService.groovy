@@ -7,6 +7,7 @@ import grails.transaction.Transactional
 import groovy.time.TimeCategory
 import groovyx.gpars.GParsPool
 import kuorum.causes.CausesService
+import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.exception.KuorumException
 import kuorum.core.exception.KuorumExceptionUtil
 import kuorum.core.model.kuorumUser.UserParticipating
@@ -300,7 +301,7 @@ class KuorumUserService {
         if (!userAlias)
             return null
         else
-            return KuorumUser.findByAlias(userAlias.toLowerCase())
+            return KuorumUser.findByAliasAndDomain(userAlias.toLowerCase(), CustomDomainResolver.domain)
     }
 
     KuorumUser findByOldAlias(String oldUserAlias){
