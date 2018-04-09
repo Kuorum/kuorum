@@ -60,7 +60,7 @@ select {padding: 6px 6px 6px 8px !important;}*/
 
 body.noLogged > .container-fluid {margin-top: 35px;}
 
-.form-group {margin-bottom: 20px; text-align: left;}
+.form-group {margin-bottom: 20px;}
 
 .center{text-align:center;}
 
@@ -9348,6 +9348,11 @@ ul.notification-menu > li.see-more {
 .custom-url-form-group {
     text-align: center;
 }
+
+.form-group-align-left {
+    text-align: left;
+}
+
 .custom-url-form-group__url, .custom-url-form-group__input {
     display: inline-block;
 }
