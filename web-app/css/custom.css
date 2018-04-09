@@ -9331,6 +9331,9 @@ ul.notification-menu > li.see-more {
     margin: 0 auto 30px;
 }
 
+.custom-url-form-group {
+    text-align: center;
+}
 .custom-url-form-group__url, .custom-url-form-group__input {
     display: inline-block;
 }
