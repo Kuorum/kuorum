@@ -71,7 +71,6 @@
         var macbookPreviewButton = document.getElementById('macbook-pro-website-form-input-3');
         this.setAttribute('value', colorHex);
         colorPreviewElement.setAttribute('value', colorHex);
-        labelElement.style.backgroundColor = colorHex;
         macbookPreviewButton.style.backgroundColor = colorHex;
     }
 })(window, document);
