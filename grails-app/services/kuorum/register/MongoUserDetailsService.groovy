@@ -5,22 +5,17 @@ import grails.plugin.springsecurity.userdetails.GrailsUser
 import grails.plugin.springsecurity.userdetails.GrailsUserDetailsService
 import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.users.KuorumUser
+import kuorum.util.rest.RestKuorumApiService
 import org.apache.log4j.Logger
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.GrantedAuthorityImpl
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 
-//import org.codehaus.groovy.grails.plugins.springsecurity.GrailsUser
-//import org.codehaus.groovy.grails.plugins.springsecurity.GrailsUserDetailsService
-//import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
-//import org.springframework.security.core.authority.GrantedAuthorityImpl
-//import org.springframework.security.core.userdetails.UserDetails
-//import org.springframework.security.core.userdetails.UsernameNotFoundException
-
-
 class MongoUserDetailsService  implements GrailsUserDetailsService {
 
+
+    RestKuorumApiService restKuorumApiService
 
     private Logger log = Logger.getLogger(getClass())
 
