@@ -1,17 +1,14 @@
 package kuorum.web.commands.profile
 
-import grails.plugin.springsecurity.authentication.dao.NullSaltSource
-import grails.plugin.springsecurity.ui.SpringSecurityUiService
 import grails.validation.Validateable
 import kuorum.Region
-import kuorum.RegionService
+import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.model.AvailableLanguage
 import kuorum.users.KuorumUser
 import kuorum.web.binder.RegionBinder
 import org.codehaus.groovy.grails.web.context.ServletContextHolder
 import org.codehaus.groovy.grails.web.servlet.GrailsApplicationAttributes
 import org.grails.databinding.BindUsing
-import org.springframework.security.authentication.dao.SaltSource
 
 /**
  * Created by iduetxe on 4/01/16.
@@ -61,7 +58,7 @@ class AccountDetailsCommand {
             }
         }
         alias nullable: false, maxSize: 15, matches: KuorumUser.ALIAS_REGEX, validator: {val, obj ->
-            if (val && obj.user && val != obj.user.alias && KuorumUser.findByAlias(val.toLowerCase())){
+            if (val && obj.user && val != obj.user.alias && KuorumUser.findByAliasAndDomain(val.toLowerCase(), CustomDomainResolver.domain)){
                 return "unique"
             }
             if (!val && obj.user && obj.user.enabled){

@@ -141,37 +141,6 @@ class KuorumUserService {
     }
 
     /**
-     * Adds premium roles to @user
-     * @param user
-     * @return
-     */
-    @Deprecated
-    KuorumUser convertAsPremium(KuorumUser user){
-        RoleUser rolePremium = RoleUser.findByAuthority("ROLE_PREMIUM")
-        addRole(user, rolePremium)
-    }
-
-    KuorumUser addRole(KuorumUser user, RoleUser role){
-        user.authorities.add(role)
-        user.lastUpdated = new Date()//Mongo is not detecting changes on list, and is not updating the user roles. Modifying a root field, object is detected as dirty and it saves the changes
-        user.save(flush: true)
-    }
-
-    /**
-     * Removes the premium roles
-     *
-     * @param user
-     * @return
-     */
-    @Deprecated
-    KuorumUser convertAsNormalUser(KuorumUser user){
-        RoleUser rolePremium = RoleUser.findByAuthority("ROLE_PREMIUM")
-        user.lastUpdated = new Date() //Mongo is not detecting changes on list, and is not updating the user roles. Modifying a root field, object is detected as dirty and it saves the changes
-        user.authorities.remove(rolePremium)
-        user.save(flush: true)
-    }
-
-    /**
      * Returns the recommended users by the giving user. The recommended user are stored in the collection
      * RecommendedUserInfo as a list of user's ids. The final user recommended are the result of the list recommendedUsers
      * minus deletedRecommendedUsers and minus the following users of the current user.

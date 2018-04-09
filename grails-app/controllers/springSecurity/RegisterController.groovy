@@ -10,6 +10,7 @@ import grails.plugin.springsecurity.ui.SpringSecurityUiService
 import grails.validation.Validateable
 import groovyx.net.http.RESTClient
 import kuorum.KuorumFile
+import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.model.AvailableLanguage
 import kuorum.files.FileService
 import kuorum.mail.MailchimpService
@@ -450,7 +451,7 @@ class KuorumRegisterCommand{
     static constraints = {
         name nullable: false, maxSize: 15
         email nullable:false, email:true, validator: { val, obj ->
-            if (val && KuorumUser.findByEmail(val.toLowerCase())) {
+            if (val && KuorumUser.findByEmailAndDomain(val.toLowerCase(), CustomDomainResolver.domain)) {
                 obj.email = val.toLowerCase()
                 return 'registerCommand.username.unique'
             }
