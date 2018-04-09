@@ -22,8 +22,8 @@ class BootStrap {
         CustomDomainResolver.setUrl(url, "")
         String token = null;
         CustomDomainResolver.setApiToken(token)
-//        List<String> domains = domainService.findAllDomains()
-//        domains.each {lessCompilerService.compileCssForDomain(it)}
+        List<String> domains = domainService.findAllDomains()
+        domains.each {lessCompilerService.compileCssForDomain(it)}
         CustomDomainResolver.clear()
 
         //TODO: Think where this initialization could be called instead of bootstrap
