@@ -1,10 +1,19 @@
 package kuorum.landings
 
 import grails.plugin.springsecurity.SpringSecurityService
+import kuorum.users.KuorumUser
+import org.kuorum.rest.model.communication.CampaignRSDTO
+import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
+import payment.campaign.CampaignService
+
+import javax.servlet.http.HttpServletResponse
+
 
 class LandingController {
 
+    def kuorumUserService
     SpringSecurityService springSecurityService
+    CampaignService campaignService
 
     def index() { }
 
@@ -13,6 +22,16 @@ class LandingController {
             flash.message = flash.message
             redirect (mapping:"dashboard")
         }
+
+        KuorumUser user = kuorumUserService.findByAlias("admin")
+        if (!user) {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND)
+            return false
+        }
+        List<CampaignRSDTO> campaigns = campaignService.findAllCampaigns(user).findAll{it.newsletter.status == CampaignStatusRSDTO.SENT}
+        [
+                campaigns:campaigns
+        ]
     }
 
     def landingTechnology(){

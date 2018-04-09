@@ -20,18 +20,8 @@
     <g:render template="/landing/servicesModules/services" model="[msgPrefix:'landingServices']"/>
 </content>
 
-%{--<content tag="caseStudy">--}%
-    %{--<g:render template="/landing/caseStudies/modules/landingCaseStudy" model="[msgPrefix:'landingServices', caseStudyId:'006', sectionName:'landingCaseStudy']"/>--}%
-%{--</content>--}%
-
-%{--<content tag="statistics">--}%
-    %{--<g:render template="/landing/servicesModules/statistics" model="[msgPrefix:'landingServices']"/>--}%
-%{--</content>--}%
-
-%{--<content tag="trustUs">--}%
-    %{--<g:render template="/landing/servicesModules/trustUs" model="[msgPrefix:'landingServices']"/>--}%
-%{--</content>--}%
-
-<content tag="solutions">
-    <g:render template="/landing/servicesModules/latestActivity" model="[msgPrefix:'landingServices']"/>
+<content tag="latestActivities">
+    <ul class="search-list latestActivities clearfix">
+        <g:render template="/campaigns/cards/campaignsList" model="[campaigns:campaigns, numColumns:3]"/>
+    </ul>
 </content>

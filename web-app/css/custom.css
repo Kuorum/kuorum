@@ -2616,7 +2616,7 @@ ul.search-list > li.info-empty .text-empty-campaignList {width: 90%;}
 ul.search-list > li.info-empty .icon-empty-campaignList {color: #ff9431; width:5%; display:none;}
 ul.search-list > li.info-empty .icon-empty-campaignList img{color: #ff9431; width: 30px; vertical-align: top; margin-left: 25px;}
 
-
+ul.search-list.latestActivities .search-article {padding:0 5px 20px 0;}
 
 /*********************** Edit Post *************************************/
 /***********************************************************************/
@@ -5995,9 +5995,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 
     #contactsList > li .email .raw-email {display:inline-flex; overflow: hidden;max-width: 12em;}
 
-    ul.search-list > li.search-article .box-ppal{
-        /*margin-right: 8px;*/
-    }
     ul.search-list > li.search-article > article.box-ppal > div.link-wrapper {height: 375px;}
     ul.search-list > li.search-article > article.box-ppal > div.link-wrapper > div.card-footer {position:absolute; bottom:0;}
     ul.search-list > li.search-article > article.box-ppal > div.link-wrapper > div.card-footer > ul > li.owner {
@@ -6012,6 +6009,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     ul.search-list > li.info-empty .icon-empty-campaignList {color: #ff9431; display:inline-block;}
     ul.search-list > li:nth-child(even) {padding-left:5px;}
     ul.search-list > li:nth-child(odd) {padding-right:5px;}
+
 
     .leader-post .header .call-to-action-mobile{  display: none;  }
     .conversation-box-comment > .header > .user span {  max-width: 450px  }
@@ -6487,6 +6485,10 @@ fieldset.form-group.fieldset-check-box {min-height: 0px;}
         margin-bottom:60px;
     }
     #solutions .row.section-body {
+        padding-bottom: 15px;
+    }
+
+    #latestActivities .row.section-body {
         padding-bottom: 15px;
     }
     .extra-padding{
@@ -8447,6 +8449,13 @@ ul.bullets li{
 /** solutions **/
 
 #solutions {
+    padding-top: 60px;
+    text-align: center;
+}
+
+/** Latest activities **/
+
+#latestActivities {
     padding-top: 60px;
     text-align: center;
 }

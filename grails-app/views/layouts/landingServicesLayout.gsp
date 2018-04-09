@@ -40,10 +40,12 @@
             %{--<g:pageProperty name="page.trustUs"/>--}%
         %{--</section>--}%
     %{--</div>--}%
+
+
     <div class="row landing-section-dark">
         <div class="container">
-            <section id="solutions">
-                <g:pageProperty name="page.solutions"/>
+            <section id="latestActivities">
+                <g:pageProperty name="page.latestActivities"/>
             </section>
         </div>
     </div>
