@@ -9315,6 +9315,10 @@ ul.notification-menu > li.see-more {
     width: 90px;
 }
 
+.active .custom-url-step-description {
+    color: rgba(0,0,0,.2);
+}
+
 .custom-url-step-description--light {
     color: rgba(0,0,0,.2);
 }
