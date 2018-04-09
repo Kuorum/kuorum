@@ -308,7 +308,7 @@ class KuorumUserService {
         if (!oldUserAlias)
             return null
         else
-            return KuorumUser.findByOldAliasA(oldUserAlias.toLowerCase())
+            return KuorumUser.findByOldAliasAndDomain(oldUserAlias.toLowerCase(),CustomDomainResolver.domain)
     }
 
     @PreAuthorize("hasPermission(#user, 'edit')")
@@ -447,35 +447,6 @@ class KuorumUserService {
             }
         }
         mostActiveUsers
-    }
-
-    List<KuorumUser> suggestUsers (Pagination pagination = new Pagination(), List<KuorumUser> specialUsersFiltered){
-
-        KuorumUser loggedUser = springSecurityService.getCurrentUser();
-        List<ObjectId> filteredUserIds = []
-        if (loggedUser){
-            filteredUserIds  = []
-            filteredUserIds.addAll(loggedUser.following?:[])
-            filteredUserIds << loggedUser.id
-            RecommendedUserInfo recommendedUserInfo = RecommendedUserInfo.findByUser(loggedUser)
-            if(recommendedUserInfo){
-                filteredUserIds.addAll(recommendedUserInfo.deletedRecommendedUsers)
-            }else{
-                log.warn("User ${loggedUser.name} (${loggedUser.id}) has not calculated recommendedUserInfo")
-            }
-        }
-        filteredUserIds << specialUsersFiltered.collect{it.id}
-
-        com.mongodb.DBCursor search = KuorumUser.collection.find([
-                '_id':['$nin':filteredUserIds],
-                'avatar':['$exists':true]
-        ],[_id:1]).sort([_id:-1]).limit(pagination.max)
-
-        List<KuorumUser> recommendations = []
-        while (search.hasNext()){
-            recommendations << KuorumUser.get(search.next().get("_id"))
-        }
-        return recommendations;
     }
 
     List<KuorumUser> bestUsers(KuorumUser user, List<ObjectId> userFiltered = [], Pagination pagination = new Pagination()){
