@@ -80,7 +80,7 @@
     <meta name="twitter:image" content="images/img-userprofile.jpg">
     <meta property="twitter:account_id" content="4503599627910348">
     <script src="js/inputs-handlers.js" async></script>
-    <script src="js/croppie/croppie.min.js" async></script>
+    <script src="js/jscolor.min.js" async></script>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
@@ -142,8 +142,8 @@
                                 <label for="sign-in-step-5__color-picker-hex-code">Color *</label>
                                 <div class="input-append input-group">
                                     <span tabindex="100" class="add-on input-group-addon">
-                                        <label class="sign-in-step-5__color-selected">
-                                            <input type="color" id="sign-in-step-5__color-picker" class="sign-in-step-5__color-selected" value="#ff9431">
+                                        <label class="">
+                                            <input id="sign-in-step-5__color-picker" class="sign-in-step-5__color-selected jscolor {closable:true,closeText:'Close', valueElement:'sign-in-step-5__color-picker-hex-code'}">
                                         </label>
                                     </span>
                                     <input type="text" required aria-required="true" id="sign-in-step-5__color-picker-hex-code" name="sign-in-step-5__color-picker-hex-code" class="form-control input-lg" value="#ff9431" placeholder="">

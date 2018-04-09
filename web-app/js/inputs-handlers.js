@@ -58,7 +58,7 @@
 
 // Color picker
 (function (window, document) {
-    var inputElement = document.getElementById("sign-in-step-5__color-picker");
+    var inputElement = document.getElementById("sign-in-step-5__color-picker-hex-code");
 
     if (inputElement) {
         var labelElement = inputElement.parentElement;
@@ -67,7 +67,7 @@
     }
 
     function handleColor(ev) {
-        var colorHex = ev.target.value;
+        var colorHex = '#' + ev.target.value;
         var macbookPreviewButton = document.getElementById('macbook-pro-website-form-input-3');
         this.setAttribute('value', colorHex);
         colorPreviewElement.setAttribute('value', colorHex);
