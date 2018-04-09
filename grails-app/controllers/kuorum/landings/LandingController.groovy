@@ -6,14 +6,13 @@ import org.kuorum.rest.model.communication.CampaignRSDTO
 import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
 import payment.campaign.CampaignService
 
-import javax.servlet.http.HttpServletResponse
-
-
 class LandingController {
 
     def kuorumUserService
     SpringSecurityService springSecurityService
     CampaignService campaignService
+
+    private static final String FAKE_LANDING_ALIAS_USER = "admin"
 
     def index() { }
 
@@ -21,14 +20,16 @@ class LandingController {
         if (springSecurityService.isLoggedIn()){
             flash.message = flash.message
             redirect (mapping:"dashboard")
+            return;
         }
 
-        KuorumUser user = kuorumUserService.findByAlias("admin")
-        if (!user) {
-            response.sendError(HttpServletResponse.SC_NOT_FOUND)
-            return false
+        KuorumUser user = kuorumUserService.findByAlias(FAKE_LANDING_ALIAS_USER)
+        List<CampaignRSDTO> campaigns = []
+        if (user) {
+            campaigns = campaignService.findAllCampaigns(user).findAll{it.newsletter.status == CampaignStatusRSDTO.SENT}
+        }else{
+            log.error("User ${FAKE_LANDING_ALIAS_USER} not exists :: Showing landing page without campaings")
         }
-        List<CampaignRSDTO> campaigns = campaignService.findAllCampaigns(user).findAll{it.newsletter.status == CampaignStatusRSDTO.SENT}
         [
                 campaigns:campaigns
         ]

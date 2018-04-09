@@ -12,14 +12,14 @@ class ErrorController {
         log.info("Page not allowed: ${((HttpServletRequest)request).getRequestURL()} by user ${springSecurityService.principal?.id}")
     }
     def notFound() {
-        log.debug("Page not found: ${((HttpServletRequest)request).getRequestURL()}")
+        log.debug("Page not found: ${((HttpServletRequest)request).getForwardURI()}")
     }
     def notAuthorized() {
         log.debug("Page not autorized: ${((HttpServletRequest)request).getRequestURL()}")
     }
 
     def kuorumExceptionHandler(){
-        KuorumException exception = request.exception.cause
+        KuorumException exception = request.exception?.cause
         log.error("KuorumException: "+exception.message)
         [errorMessage:message(code:exception.errors[0]?.code?:'error.kuorumException.description')]
     }
@@ -31,7 +31,7 @@ class ErrorController {
             return;
         }
         def email = grailsApplication.config.kuorum.contact.email
-        log.error("KuorumException: "+exception.message)
+        log.error("KuorumException: "+exception?.message?:"-no Exception attached-")
         [email:email]
     }
 }

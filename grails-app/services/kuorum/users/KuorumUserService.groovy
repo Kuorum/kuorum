@@ -308,7 +308,7 @@ class KuorumUserService {
         if (!oldUserAlias)
             return null
         else
-            return KuorumUser.findByOldAlias(oldUserAlias.toLowerCase())
+            return KuorumUser.findByOldAliasA(oldUserAlias.toLowerCase())
     }
 
     @PreAuthorize("hasPermission(#user, 'edit')")
