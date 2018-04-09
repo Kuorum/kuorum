@@ -6,7 +6,9 @@
         </g:if>
         <g:elseif test="${solrElement instanceof org.kuorum.rest.model.search.SearchKuorumElementRSDTO}">
             <r:require modules="post"/>
-            <g:render template="/campaigns/cards/searchCampaignList" model="[campaign:solrElement, showAuthor: true]" />
+            <li class="col-sm-12 col-md-6 search-article">
+                <g:render template="/campaigns/cards/searchCampaignList" model="[campaign:solrElement, showAuthor: true]" />
+            </li>
         </g:elseif>
         <g:else>
             <sec:ifAllGranted roles="ROLE_ADMIN">
