@@ -112,82 +112,80 @@
                 <section id="main" role="main" class="homeSub">
                     <ol class="stepsSign custom-url-steps d-flex justify-content-center">
                         <li class="custom-url-step--secondary-color">1<span class="custom-url-step-description">Design your landing page</span></li>
-                        <li class="custom-url-step-broaden active">2<span class="custom-url-step-description">Set the user rights</span></li>
+                        <li class="custom-url-step-broaden custom-url-step--secondary-color">2<span class="custom-url-step-description">Set the user rights</span></li>
                     </ol>
-                    <form role="form" class="signup-custom-site" id="signup-custom-site" name="signup-custom-site" method="post" action="#">
+                    <form role="form" class="signup-custom-site step-6-form" id="signup-custom-site" name="signup-custom-site" method="post" action="#">
+                        <p>Choose what kind of content will <b>your users</b> produce: </p>
                         <fieldset class="row">
-                            <div class="form-group col-md-6">
-                                <label for="slogan">Slogan *</label>
-                                <input type="text" name="slogan" class="form-control input-lg" id="slogan" placeholder="slogan" aria-required="true" required>
-                                <span class="help-block">https://kuorum.org/matnso</span>
+                            <div class="user-content-options">
+                                <label for="check-user-content-1">
+                                    <input type="checkbox" id="check-user-content-1">
+                                    <div class="user-content">
+                                        <i class="fa fa-envelope-o fa-2x"></i>
+                                        <i class="fa fa-check-circle check"></i>
+                                        <br>
+                                        <span>Newsletter</span>
+                                    </div>
+                                </label>
                             </div>
-                            <div class="form-group col-md-6">
-                                <label for="subtitle">Subtitle *</label>
-                                <input type="subtitle" name="subtitle" class="form-control input-lg" id="subtitle" placeholder="subtitle" aria-required="true" required>
+                            <div class="user-content-options">
+                                <label for="check-user-content-2">
+                                    <input type="checkbox" id="check-user-content-2">
+                                    <div class="user-content">
+                                        <i class="fa fa-newspaper-o fa-2x"></i>
+                                        <i class="fa fa-check-circle check"></i>
+                                        <br>
+                                        <span>Post</span>
+                                    </div>
+                                </label>
+                            </div>
+                            <div class="user-content-options">
+                                <label for="check-user-content-3">
+                                    <input type="checkbox" id="check-user-content-3">
+                                    <div class="user-content">
+                                        <i class="fa fa-microphone fa-2x"></i>
+                                        <i class="fa fa-check-circle check"></i>
+                                        <br>
+                                        <span>Petition</span>
+                                    </div>
+                                </label>
+                            </div>
+                            <div class="user-content-options">
+                                <label for="check-user-content-4">
+                                    <input type="checkbox" id="check-user-content-4">
+                                    <div class="user-content">
+                                        <i class="fa fa-comments-o fa-2x"></i>
+                                        <i class="fa fa-check-circle check"></i>
+                                        <br>
+                                        <span>Debate</span>
+                                    </div>
+                                </label>
+                            </div>
+                            <div class="user-content-options">
+                                <label for="check-user-content-5">
+                                    <input type="checkbox" id="check-user-content-5">
+                                    <div class="user-content">
+                                        <i class="fa fa-bar-chart-o fa-2x"></i>
+                                        <i class="fa fa-check-circle check"></i>
+                                        <br>
+                                        <span>Survey</span>
+                                    </div>
+                                </label>
+                            </div>
+                            <div class="user-content-options">
+                                <label for="check-user-content-6">
+                                    <input type="checkbox" id="check-user-content-6">
+                                    <div class="user-content">
+                                        <i class="fa fa-calendar-check-o fa-2x"></i>
+                                        <i class="fa fa-check-circle check"></i>
+                                        <br>
+                                        <span>Event</span>
+                                    </div>
+                                </label>
                             </div>
                         </fieldset>
-                        <fieldset class="row">
-                            <div class="form-group col-md-6">
-                                <label for="logo">Logo *</label>
-                                <div class="input-group">
-                                    <label class="input-group-btn">
-                                        <span class="btn btn-primary sign-in-step-5__secondary-btn sign-in-step-5__secondary-btn-logo">
-                                            Select file<input id="sign-in-step-5__input-file" type="file" style="display: none;">
-                                        </span>
-                                    </label>
-                                    <input name="logo" id="logo" type="text" class="form-control input-lg" readonly>
-                                </div>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="sign-in-step-5__color-picker-hex-code">Color *</label>
-                                <div class="input-append input-group">
-                                    <span tabindex="100" class="add-on input-group-addon">
-                                        <label class="sign-in-step-5__color-selected">
-                                            <input type="color" id="sign-in-step-5__color-picker" class="sign-in-step-5__color-selected" value="#ff9431">
-                                        </label>
-                                    </span>
-                                    <input type="text" required aria-required="true" id="sign-in-step-5__color-picker-hex-code" name="sign-in-step-5__color-picker-hex-code" class="form-control input-lg" value="#ff9431" placeholder="">
-                                </div>
-                            </div>
-                        </fieldset>
-
-                        <fieldset class="row">
-                            <div class="form-group">
-                                <div class="col-md-4 col-sm-4">
-                                    <label class="input-group-btn">
-                                        <span class="btn btn-primary sign-in-step-5__secondary-btn">
-                                            <i class="fa fa-plus-square-o fa-4x" aria-hidden="true"></i><input id="sign-in-step-5__preview-image-1-input-file" data-pos="1" type="file" style="display: none;" multiple>
-                                        </span>
-                                        <div class="croppie-img">
-                                            <img src="" id="preview-image-1">
-                                        </div>
-                                    </label>
-                                </div>
-                                <div class="col-md-4 col-sm-4">
-                                    <label class="input-group-btn">
-                                        <span class="btn btn-primary sign-in-step-5__secondary-btn">
-                                            <i class="fa fa-plus-square-o fa-4x" aria-hidden="true"></i><input id="sign-in-step-5__preview-image-2-input-file" data-pos="2" type="file" style="display: none;" multiple>
-                                        </span>
-                                        <div class="croppie-img">
-                                            <img src="" id="preview-image-2">
-                                        </div>
-                                    </label>
-                                </div>
-                                <div class="col-md-4 col-sm-4">
-                                    <label class="input-group-btn">
-                                        <span class="btn btn-primary sign-in-step-5__secondary-btn">
-                                            <i class="fa fa-plus-square-o fa-4x" aria-hidden="true"></i><input id="sign-in-step-5__preview-image-3-input-file" data-pos="3" type="file" style="display: none;" multiple>
-                                        </span>
-                                        <div class="croppie-img">
-                                            <img src="" id="preview-image-3">
-                                        </div>
-                                    </label>
-                                </div>
-                            </div>
-                        </fieldset>
-
                         <div class="form-group">
-                            <input type="submit" value="Next Step" class="btn btn-lg sign-in-step-5__submit-btn btn-blue">
+                            <input type="submit" value="Complete set up process" class="btn btn-lg sign-in-step-5__submit-btn btn-blue">
                         </div>
                     </form>
 
@@ -195,29 +193,12 @@
             </div>
             <div class="col-md-4 col-sm-12">
                 <div class="custom-url-info-box">
-                    <h3>Customise your site</h3>
+                    <h3>What can do what?</h3>
                     <p>
-                        Write a slogan and subtitle, choose a color that matches your logo and pick 3 pictures for your
-                        landing page. You can edit this later from your admin settings.
+                        As admin, you will be able to produce any kind of content. But you choose what your users can
+                         and cannot do. User generated content will sustain the growth of your community but it will
+                         also make it more difficult to manage.
                     </p>
-                    <h3>This is how it will look like</h3>
-                    <div class="macbook-pro d-flex column">
-                        <img class="macbook-pro-img" src="images/macbook-pro.png" alt="macbook pro preview">
-                        <div class="macbook-pro-screen">
-                            <div class="macbook-pro-screen-header">
-                                <img src="images/logo@2x.png" id="macbook-pro-website-logo">
-                            </div>
-                            <div class="macbook-pro-screen-body">
-                                <h1 id="macbook-pro-website-slogan">SLOGAN</h1>
-                                <h3 id="macbook-pro-website-subtitle">Subtitle</h3>
-                                <div class="macbook-pro-website-form d-flex">
-                                    <div id="macbook-pro-website-form-input-1" class="macbook-pro-website-form-input"></div>
-                                    <div id="macbook-pro-website-form-input-2" class="macbook-pro-website-form-input"></div>
-                                    <div id="macbook-pro-website-form-input-3" class="macbook-pro-website-form-input macbook-pro-website-form-input--primary-color"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

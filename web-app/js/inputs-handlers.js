@@ -2,7 +2,9 @@
 (function (window, document) {
     var inputElement = document.getElementById("sign-in-step-5__input-file");
 
-    inputElement.addEventListener("change", handleFiles, false);
+    if (inputElement) {
+        inputElement.addEventListener("change", handleFiles, false);
+    }
 
     function handleFiles() {
         var fileList = this.files;
@@ -17,6 +19,7 @@
 
         reader.readAsDataURL(fileList[0]);
     }
+
 })(window, document);
 
 // Input file preview image
@@ -25,9 +28,15 @@
     var inputElement2 = document.getElementById('sign-in-step-5__preview-image-2-input-file');
     var inputElement3 = document.getElementById('sign-in-step-5__preview-image-3-input-file');
 
-    inputElement1.addEventListener("change", handleFiles, false);
-    inputElement2.addEventListener("change", handleFiles, false);
-    inputElement3.addEventListener("change", handleFiles, false);
+    if (inputElement1) {
+        inputElement1.addEventListener("change", handleFiles, false);
+    }
+    if (inputElement2) {
+        inputElement2.addEventListener("change", handleFiles, false);
+    }
+    if (inputElement3) {
+        inputElement3.addEventListener("change", handleFiles, false);
+    }
 
     function handleFiles() {
         var pos = this.getAttribute('data-pos');
@@ -38,7 +47,7 @@
         reader.onload = function (e) {
             var previewImage = document.getElementById('preview-image-' + pos);
             previewImage.src = e.target.result;
-            backgroundPreview.style.backgroundImage = 'url("' + e.target.result +'")';
+            backgroundPreview.style.backgroundImage = 'url("' + e.target.result + '")';
             backgroundPreview.style.backgroundSize = 'cover';
         };
 
@@ -50,9 +59,12 @@
 // Color picker
 (function (window, document) {
     var inputElement = document.getElementById("sign-in-step-5__color-picker");
-    var labelElement = inputElement.parentElement;
-    var colorPreviewElement = document.getElementById("sign-in-step-5__color-picker-hex-code");
-    inputElement.addEventListener("change", handleColor, false);
+
+    if (inputElement) {
+        var labelElement = inputElement.parentElement;
+        var colorPreviewElement = document.getElementById("sign-in-step-5__color-picker-hex-code");
+        inputElement.addEventListener("change", handleColor, false);
+    }
 
     function handleColor(ev) {
         var colorHex = ev.target.value;
@@ -69,8 +81,10 @@
     var slogan = document.getElementById("slogan");
     var subtitle = document.getElementById("subtitle");
 
-    slogan.addEventListener("keydown", handleSlogan, false);
-    subtitle.addEventListener("keydown", handleSubtitle, false);
+    if (slogan && subtitle) {
+        slogan.addEventListener("keydown", handleSlogan, false);
+        subtitle.addEventListener("keydown", handleSubtitle, false);
+    }
 
     function handleSlogan(ev) {
         var sloganText = document.getElementById('macbook-pro-website-slogan');
