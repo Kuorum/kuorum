@@ -42,7 +42,7 @@
     %{--</div>--}%
 
 
-    <div class="row landing-section-dark">
+    <div class="row landing-section-light">
         <div class="container">
             <section id="latestActivities">
                 <g:pageProperty name="page.latestActivities"/>
