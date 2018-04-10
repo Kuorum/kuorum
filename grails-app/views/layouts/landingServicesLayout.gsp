@@ -41,7 +41,7 @@
         %{--</section>--}%
     %{--</div>--}%
 
-
+<g:if test="${g.pageProperty(name:'page.showLatestActivities')=="true"}">
     <div class="row landing-section-light">
         <div class="container">
             <section id="latestActivities">
@@ -49,6 +49,8 @@
             </section>
         </div>
     </div>
+</g:if>
+
     <g:render template="/layouts/footer/footer"/>
     </div><!-- .container-fluid -->
     </body>

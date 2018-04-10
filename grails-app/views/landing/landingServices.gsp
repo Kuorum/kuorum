@@ -1,8 +1,10 @@
+<%@ page import="org.springframework.util.CollectionUtils" %>
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <title><g:message code="landingServices.head.title"/></title>
     <meta name="layout" content="landingServicesLayout">
     <parameter name="extraHeadCss" value="landing"/>
+    <parameter name="showLatestActivities" value="${!org.springframework.util.CollectionUtils.isEmpty(campaigns)}"/>
     <g:render template="/dashboard/landingMetaTags"
               model="[
                       kuorumTitle:g.message(code:'landingServices.head.title'),
@@ -29,5 +31,4 @@
     </ul>
 
     <g:link mapping="register" id="register-submit" class="btn btn-orange btn-lg"> <g:message code="landingPage.register.form.submit"/></g:link>
-
 </content>
