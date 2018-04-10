@@ -6496,7 +6496,7 @@ fieldset.form-group.fieldset-check-box {min-height: 0px;}
     }
 
     #latestActivities .row.section-body {
-        padding-bottom: 15px;
+        padding-bottom: 10px;
     }
     .extra-padding{
         padding: 0 5px;
@@ -8464,7 +8464,7 @@ ul.bullets li{
 /** Latest activities **/
 
 #latestActivities {
-    padding-top: 60px;
+    padding: 40px 0 40px 0;
     text-align: center;
 }
 
