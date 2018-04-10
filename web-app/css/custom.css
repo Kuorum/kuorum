@@ -474,6 +474,8 @@ header.landing .nav > li > .navbar-link.active {font-weight: bold;color: #545454
 header.landing .nav > li > .navbar-link:hover,
 header.landing .nav > li > .navbar-link:focus {}
 
+header.landing .nav > li > .navbar-link.active.btn-transparent{background-color: transparent !important; color: #545454 !important;}
+
 header.transp .nav > li > .navbar-link:hover,
 header.transp .nav > li > .navbar-link:focus {color: #fff;}
 
