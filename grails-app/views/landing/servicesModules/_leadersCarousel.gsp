@@ -15,10 +15,42 @@
             <h1>${slogan}</h1>
             <h3 class="hidden-xs">${subtitle}</h3>
         </hgroup>
-    </br class="hidden-xs">
-        <div id="request-demo-btn" class="form-inline dark col-lg-offset-4 col-lg-4">
-            <a href="#" class="btn btn-lg btn-orange btn-sign-up btn-open-modal-request-demo"><g:message code="${msgPrefix}.requestDemo"/> </a>
-        </div>
+    <a href="#how-it-works" class="btn btn-lg btn-blue-light hidden-xs" data-effect="scroll"><g:message code="landingServices.howItWorks.title"/> </a>
+</br class="hidden-xs">
+    <sec:ifNotLoggedIn>
+        <formUtil:validateForm bean="${command}" form="sign"/>
+        <g:form mapping="register" autocomplete="off" method="post" name="sign" class="form-inline dark" role="form" novalidate="novalidate">
+            <fieldset>
+                <div class="form-group col-lg-4">
+                    <formUtil:input
+                            command="${command}"
+                            field="name"
+                            labelCssClass="sr-only"
+                            showLabel="true"
+                            showCharCounter="false"
+                            required="true"/>
+                </div>
+                <div class="form-group col-lg-4">
+                    <formUtil:input
+                            command="${command}"
+                            field="email"
+                            type="email"
+                            showLabel="true"
+                            labelCssClass="sr-only"
+                            required="true"/>
+                </div>
+                <button type="submit"
+                        id="register-submit"
+                        data-sitekey="${siteKey}"
+                        data-size="invisible"
+                        data-callback='registerCallback'
+                        class="btn btn-blue btn-lg col-lg-4 g-recaptcha"><g:message code="landingPage.register.form.submit"/>
+                </button>
+                <r:require modules="recaptcha_register"/>
+            </fieldset>
+        </g:form>
+        <p class="conditions hidden-xs"><g:message code="register.conditions" args="[g.createLink(mapping: 'footerTermsUse')]"/></p>
+    </sec:ifNotLoggedIn>
     </div>
     <div class="carousel-inner" role="listbox">
         <!-- leaders !-->

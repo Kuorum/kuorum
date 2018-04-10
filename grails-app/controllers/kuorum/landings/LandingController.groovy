@@ -8,6 +8,7 @@ import org.kuorum.rest.model.communication.CampaignRSDTO
 import org.kuorum.rest.model.domain.DomainConfigRSDTO
 import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
 import payment.campaign.CampaignService
+import springSecurity.KuorumRegisterCommand
 
 class LandingController {
 
@@ -38,7 +39,8 @@ class LandingController {
         [
                 campaigns:campaigns,
                 slogan:domainConfigRSDTO.slogan,
-                subtitle:domainConfigRSDTO.subtitle
+                subtitle:domainConfigRSDTO.subtitle,
+                command: new KuorumRegisterCommand()
         ]
     }
 

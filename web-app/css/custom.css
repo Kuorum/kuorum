@@ -7962,6 +7962,7 @@ ul.proposal-list .comment-box > .comment-proposal > .user-box{margin-bottom: 10p
 }
 
 .fade-carousel.footerBlog .content hgroup,
+.fade-carousel.landingServices .content hgroup,
 .fade-carousel.landingCaseStudy .content hgroup{
     margin-bottom: 30px;
 }
