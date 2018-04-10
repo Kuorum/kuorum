@@ -16,7 +16,7 @@
     </div>
     <div class="row landing-section-dark">
         <div class="container">
-            <section id="services">
+            <section id="how-it-works">
                 <g:pageProperty name="page.howItWorks"/>
             </section>
         </div>
