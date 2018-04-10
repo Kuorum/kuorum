@@ -19,29 +19,16 @@
     <meta name="robots" content="all">
 
 
-    <!-- For iPhone 5 and iPod touch -->
-    <link rel="apple-touch-icon" sizes="120x120" href="${resource(dir: 'images/icons', file: 'apple-touch-icon-120x120.png')}">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://test-kuorumorg.s3.amazonaws.com/domains/${_domain}/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://test-kuorumorg.s3.amazonaws.com/domains/${_domain}/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://test-kuorumorg.s3.amazonaws.com/domains/${_domain}/favicon/favicon-16x16.png">
+    <link rel="manifest" href="https://test-kuorumorg.s3.amazonaws.com/domains/${_domain}/favicon/site.webmanifest">
+    <link rel="mask-icon" href="https://test-kuorumorg.s3.amazonaws.com/domains/${_domain}/favicon/safari-pinned-tab.svg" color="#ff9431">
+    <link rel="shortcut icon" href="https://test-kuorumorg.s3.amazonaws.com/domains/${_domain}/favicon/favicon.ico">
+    <meta name="msapplication-TileColor" content="#20a2ea">
+    <meta name="msapplication-config" content="https://test-kuorumorg.s3.amazonaws.com/domains/${_domain}/favicon/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
 
-    <!-- For iPhone 4 -->
-    <link rel="apple-touch-icon" sizes="114x114" href="${resource(dir: 'images/icons', file: 'apple-touch-icon-114x114.png')}">
-
-    <!-- For the new iPad and iPad mini -->
-    <link rel="apple-touch-icon" sizes="152x152" href="${resource(dir: 'images/icons', file: 'apple-touch-icon-152x152.png')}">
-
-    <!-- For iPad 2 -->
-    <link rel="apple-touch-icon" sizes="144x144" href="${resource(dir: 'images/icons', file: 'apple-touch-icon-114x114.png')}">
-
-    <!-- For iPad 1-->
-    <link rel="apple-touch-icon" sizes="72x72" href="${resource(dir: 'images/icons', file: 'apple-touch-icon-72x72.png')}">
-
-    <!-- For iPhone 3G, iPod Touch and Android -->
-    <link rel="apple-touch-icon" href="${resource(dir: 'images/icons', file: 'apple-touch-icon-76x76.png')}">
-
-    <!-- For Nokia -->
-    <link rel="shortcut icon" href="${resource(dir: 'images/icons', file: 'apple-touch-icon-76x76.png')}">
-
-    <!-- For everything else -->
-    <link rel="shortcut icon" href="${resource(dir: 'images/icons', file: 'faviconKuorum.ico')}">
 
     <r:require modules="vimeo" />
     <g:set var="lang" value="${org.springframework.web.servlet.support.RequestContextUtils.getLocale(request).language}" />

@@ -1,5 +1,6 @@
 package kuorum
 
+import kuorum.core.customDomain.CustomDomainResolver
 import org.codehaus.groovy.grails.commons.GrailsApplication
 
 class RRSSConfigFilters {
@@ -16,6 +17,7 @@ class RRSSConfigFilters {
                     model.put("_facebookConfig",getFacebookConfig())
                     model.put("_googleConfig",getGoogleConfig())
                     model.put("_googleCaptchaKey",getGoogleCaptchaKey())
+                    model.put("_domain",CustomDomainResolver.domain)
                 }
             }
             afterView = { Exception e ->
