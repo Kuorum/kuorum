@@ -28,5 +28,6 @@
         <g:render template="/campaigns/cards/campaignsList" model="[campaigns:campaigns, numColumns:3]"/>
     </ul>
 
-    <a href="https://kuorum.org/en/innovation-challenges-for-empoyees" id="register-submit" class="btn btn-orange btn-lg"> <g:message code="landingPage.register.form.submit"/></a>
+    <g:link mapping="register" id="register-submit" class="btn btn-orange btn-lg"> <g:message code="landingPage.register.form.submit"/></g:link>
+
 </content>

@@ -21,3 +21,10 @@
         </li>
     </ul>
 </div>
+
+
+<div class="content container">
+        <div id="request-demo-btn" class="form-inline dark col-lg-offset-4 col-lg-4">
+            <a href="#" class="btn btn-lg btn-orange btn-sign-up btn-open-modal-request-demo"><g:message code="${msgPrefix}.requestDemo"/> </a>
+        </div>
+</div>
