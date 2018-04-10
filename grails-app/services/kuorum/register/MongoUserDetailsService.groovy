@@ -5,17 +5,19 @@ import grails.plugin.springsecurity.userdetails.GrailsUser
 import grails.plugin.springsecurity.userdetails.GrailsUserDetailsService
 import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.users.KuorumUser
-import kuorum.util.rest.RestKuorumApiService
+import kuorum.users.KuorumUserService
 import org.apache.log4j.Logger
+import org.kuorum.rest.model.kuorumUser.KuorumUserRSDTO
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.GrantedAuthorityImpl
+import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 
 class MongoUserDetailsService  implements GrailsUserDetailsService {
 
 
-    RestKuorumApiService restKuorumApiService
+    KuorumUserService kuorumUserService;
 
     private Logger log = Logger.getLogger(getClass())
 
@@ -71,7 +73,8 @@ class MongoUserDetailsService  implements GrailsUserDetailsService {
     Collection<GrantedAuthority> getRoles(KuorumUser user,Boolean loadRoles = Boolean.TRUE){
         def roles = NO_ROLES
         if (loadRoles) {
-            def authorities = user.authorities?.collect {new GrantedAuthorityImpl(it.authority)}
+            KuorumUserRSDTO userRSDTO = kuorumUserService.findUserRSDTO(user.id.toString())
+            def authorities = userRSDTO.roles?.collect {new SimpleGrantedAuthority(it.toString())}
             if(authorities) {
                 roles = authorities
             }

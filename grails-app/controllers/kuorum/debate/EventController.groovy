@@ -21,7 +21,7 @@ class EventController extends CampaignController{
 
     EventService eventService
 
-    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    @Secured(['ROLE_CAMPAIGN_EVENT','ROLE_ADMIN'])
     def create() {
         return eventModelSettings(new CampaignSettingsCommand(), null)
     }
@@ -32,7 +32,7 @@ class EventController extends CampaignController{
         return model
     }
 
-    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    @Secured(['ROLE_CAMPAIGN_EVENT','ROLE_ADMIN'])
     def saveSettings(CampaignSettingsCommand command){
         if (command.hasErrors()) {
             render view: 'create', model: eventModelSettings(command, null)
@@ -59,12 +59,12 @@ class EventController extends CampaignController{
         redirect mapping: nextStep, params: result.campaign.encodeAsLinkProperties()
     }
 
-    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    @Secured(['ROLE_CAMPAIGN_EVENT','ROLE_ADMIN'])
     def editEvent(){
         modelEditEvent(params)
     }
 
-    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    @Secured(['ROLE_CAMPAIGN_EVENT','ROLE_ADMIN'])
     def updateEvent(EventCommand command ){
         if (command.hasErrors()) {
             flash.error = g.message(code:'tools.massMailing.event.location.error')
@@ -155,7 +155,7 @@ class EventController extends CampaignController{
         }
     }
 
-    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    @Secured(['ROLE_CAMPAIGN_EVENT','ROLE_ADMIN'])
     def sendReport(Long campaignId) {
         KuorumUser user = springSecurityService.currentUser
         Boolean checkList = params.checkList?Boolean.parseBoolean(params.checkList):false

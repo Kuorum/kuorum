@@ -1,5 +1,6 @@
 package kuorum.users
 
+import com.fasterxml.jackson.core.type.TypeReference
 import com.mongodb.BasicDBObject
 import grails.converters.JSON
 import grails.plugin.springsecurity.SpringSecurityService
@@ -23,6 +24,7 @@ import kuorum.util.rest.RestKuorumApiService
 import org.bson.types.ObjectId
 import org.codehaus.groovy.grails.commons.GrailsApplication
 import org.codehaus.groovy.grails.web.json.JSONElement
+import org.kuorum.rest.model.kuorumUser.KuorumUserRSDTO
 import org.kuorum.rest.model.kuorumUser.UserDataRDTO
 import org.kuorum.rest.model.search.SearchKuorumElementRSDTO
 import org.kuorum.rest.model.search.SearchResultsRSDTO
@@ -520,6 +522,20 @@ class KuorumUserService {
                 params,
                 query
         )
+    }
+
+    KuorumUserRSDTO findUserRSDTO(String userId){
+// CALLING API TO REMOVE CONTACT
+        Map<String, String> params = [userId: userId]
+        Map<String, String> query = [:]
+        def apiResponse= restKuorumApiService.get(
+                RestKuorumApiService.ApiMethod.USER,
+                params,
+                query,
+                new TypeReference<KuorumUserRSDTO>(){}
+        )
+        return apiResponse.data
+
     }
 
     @Deprecated
