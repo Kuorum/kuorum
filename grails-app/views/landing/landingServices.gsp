@@ -20,7 +20,13 @@
 </content>
 
 <content tag="latestActivities">
+    <div class="section-header">
+        <h1><g:message code="landingServices.latestActivities.title"/></h1>
+        <h3 class="hidden-xs"><g:message code="landingServices.latestActivities.subtitle"/></h3>
+    </div>
     <ul class="search-list latestActivities clearfix">
         <g:render template="/campaigns/cards/campaignsList" model="[campaigns:campaigns, numColumns:3]"/>
     </ul>
+
+    <a href="https://kuorum.org/en/innovation-challenges-for-empoyees" id="register-submit" class="btn btn-orange btn-lg"> <g:message code="landingPage.register.form.submit"/></a>
 </content>
