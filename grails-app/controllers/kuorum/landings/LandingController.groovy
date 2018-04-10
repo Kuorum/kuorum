@@ -17,7 +17,7 @@ class LandingController {
     CampaignService campaignService
     DomainService domainService
 
-    private static final String FAKE_LANDING_ALIAS_USER = "guillermoec"
+    private static final String FAKE_LANDING_ALIAS_USER = "admin"
 
     def index() { }
 
