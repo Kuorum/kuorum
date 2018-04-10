@@ -44,7 +44,7 @@
                         data-sitekey="${siteKey}"
                         data-size="invisible"
                         data-callback='registerCallback'
-                        class="btn btn-blue btn-lg col-lg-4 g-recaptcha"><g:message code="landingPage.register.form.submit"/>
+                        class="btn btn-lg col-lg-4 g-recaptcha"><g:message code="landingPage.register.form.submit"/>
                 </button>
                 <r:require modules="recaptcha_register"/>
             </fieldset>
