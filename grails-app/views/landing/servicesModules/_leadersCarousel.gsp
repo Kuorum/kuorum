@@ -12,8 +12,8 @@
     <!-- Wrapper for slides -->
     <div class="content container">
         <hgroup>
-            <h1><g:message code="${msgPrefix}.carousel.slogan"/> </h1>
-            <h3 class="hidden-xs"><g:message code="${msgPrefix}.carousel.subslogan"/></h3>
+            <h1>${slogan}</h1>
+            <h3 class="hidden-xs">${subtitle}</h3>
         </hgroup>
     </br class="hidden-xs">
         <div id="request-demo-btn" class="form-inline dark col-lg-offset-4 col-lg-4">

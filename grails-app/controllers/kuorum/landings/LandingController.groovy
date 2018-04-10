@@ -1,8 +1,11 @@
 package kuorum.landings
 
 import grails.plugin.springsecurity.SpringSecurityService
+import kuorum.core.customDomain.CustomDomainResolver
+import kuorum.domain.DomainService
 import kuorum.users.KuorumUser
 import org.kuorum.rest.model.communication.CampaignRSDTO
+import org.kuorum.rest.model.domain.DomainConfigRSDTO
 import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
 import payment.campaign.CampaignService
 
@@ -11,6 +14,7 @@ class LandingController {
     def kuorumUserService
     SpringSecurityService springSecurityService
     CampaignService campaignService
+    DomainService domainService
 
     private static final String FAKE_LANDING_ALIAS_USER = "admin"
 
@@ -30,8 +34,11 @@ class LandingController {
         }else{
             log.error("User ${FAKE_LANDING_ALIAS_USER} not exists :: Showing landing page without campaings")
         }
+        DomainConfigRSDTO domainConfigRSDTO = domainService.getConfig(CustomDomainResolver.domain)
         [
-                campaigns:campaigns
+                campaigns:campaigns,
+                slogan:domainConfigRSDTO.slogan,
+                subtitle:domainConfigRSDTO.subtitle
         ]
     }
 
