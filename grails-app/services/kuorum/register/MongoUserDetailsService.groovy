@@ -75,6 +75,9 @@ class MongoUserDetailsService  implements GrailsUserDetailsService {
         if (loadRoles) {
             KuorumUserRSDTO userRSDTO = kuorumUserService.findUserRSDTO(user.id.toString())
             def authorities = userRSDTO.roles?.collect {new SimpleGrantedAuthority(it.toString())}
+            if (user.authorities.find{it.authority == "ROLE_INCOMPLETE_USER"}){
+                authorities.add(new SimpleGrantedAuthority('ROLE_INCOMPLETE_USER'));
+            }
             if(authorities) {
                 roles = authorities
             }
@@ -102,5 +105,13 @@ public class KuorumUserSession extends GrailsUser{
         this.regionName = regionName;
         this.politicianOnRegionName = politicianOnRegionName
 
+    }
+
+
+    @Override
+    public String toString() {
+        return "KuorumUserSession{" +
+                "alias='" + alias + '\'' +
+                '}';
     }
 }
