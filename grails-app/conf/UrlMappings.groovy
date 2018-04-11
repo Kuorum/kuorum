@@ -531,11 +531,11 @@ class UrlMappings {
         name ajaxUploadFile:                "/ajax/file/upload" (controller:'file', action:"uploadImage")
         name ajaxUploadFilePDF:             "/ajax/file/uploadPDF" (controller:'file', action:"uploadPDF")
 
-        name adminPrincipal:        "/admin"                          (controller:"admin", action: "index")
-        name adminTestMail:         "/admin/mailing/test"           (controller:"mailTesting", action: "index")
-        name adminSearcherIndex:    "/admin/searcher/indexar"       (controller:"admin", action: "solrIndex")
-        name adminSearcherFullIndex:"/admin/searcher/full-index"    (controller:"admin", action:"fullIndex")
-        name adminEditorsMonitoring:"/admin/editors/monitoring"    (controller:"admin", action:"editorsMonitoring")
+        name adminPrincipal:        "/sec/admin"                          (controller:"admin", action: "index")
+        name adminTestMail:         "/sec/admin/mailing/test"           (controller:"mailTesting", action: "index")
+        name adminSearcherIndex:    "/sec/admin/searcher/indexar"       (controller:"admin", action: "solrIndex")
+        name adminSearcherFullIndex:"/sec/admin/searcher/full-index"    (controller:"admin", action:"fullIndex")
+        name adminEditorsMonitoring:"/sec/admin/editors/monitoring"    (controller:"admin", action:"editorsMonitoring")
 
         name editorCreatePolitician:                        "/editor/user/politician/create-politician"             (controller:"editorUser"){action =[GET:"createPolitician", POST:"saveCreatePolitician"]}
         name editorEditUserProfile:                         "/editor/user/$userAlias/editar/profile"                (controller:"editorUser"){action =[GET:"editUser", POST:"updateUser"]}
@@ -607,7 +607,7 @@ class UrlMappings {
 
         "/googleContacts/loadContactsFromGoogle" (controller: "googleContacts", action: "loadContactsFromGoogle")
 
-        "/admin/updateMailChimp" (controller: "admin", action: "updateMailChimp")
+        "/sec/admin/updateMailChimp" (controller: "admin", action: "updateMailChimp")
 
         /**********************/
         /***** DEPRECATED *****/
@@ -617,8 +617,8 @@ class UrlMappings {
         name tour_dashboard:      "/tour/dashboard" (controller:"tour", action: "tour_dashboard")
 
         // ADMIN STATS
-        name adminStats:            "/admin/estadisticas"           (controller:"adminStats", action: "stats")
-        name adminStatsPieChart:    "/admin/estadisticas/pie-chart" (controller:"adminStats", action: "statsDataPieChart")
+        name adminStats:            "/sec/admin/estadisticas"           (controller:"adminStats", action: "stats")
+        name adminStatsPieChart:    "/sec/admin/estadisticas/pie-chart" (controller:"adminStats", action: "statsDataPieChart")
 
         /**********************/
         /*** END DEPRECATED ***/
