@@ -74,7 +74,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         }
 
         KuorumUser user = registerService.registerUser(command)
-        redirect mapping:"home"
+        redirect mapping:"customProcessRegisterStep2"
     }
 
     def verifyRegister(){
