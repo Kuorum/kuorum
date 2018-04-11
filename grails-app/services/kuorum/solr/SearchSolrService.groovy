@@ -94,7 +94,7 @@ class SearchSolrService {
         if (springSecurityService.loggedIn){
             query.put("viewerUid", springSecurityService.currentUser.id)
         }
-        def response = restKuorumApiService.get(
+        def response = restKuorumApiService.put(
                 RestKuorumApiService.ApiMethod.SEARCH_SUGGEST_USERS,
                 [:],
                 query,
