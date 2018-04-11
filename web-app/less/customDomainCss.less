@@ -20,17 +20,11 @@ a:focus {color: @mainColor;}
   color: #fff !important;
 }
 
-.nav > li > .navbar-link:hover,
-.nav > li > .navbar-link:focus,
-.nav .open > a,
-.nav .open > a:hover,
-.nav .open > a:focus {background-color: @mainColor;}
-
 .navbar-collapse.collapse.in {border-bottom-color: @mainColor;}
 .nav > li > .navbar-link:hover .badge,
 .nav > li > .navbar-link:focus .badge {background-color: @mainTextColor; color: @mainColor;}
 .nav > li > .navbar-link:hover .badge-small,
-.nav > li > .navbar-link:focus .badge-small {color: @mainColor;}
+.nav > li > .navbar-link:focus .badge-small {background-color: transparent; color: @mainColor;}
 .nav > li > .navbar-link.new-project,
 .nav > li > .navbar-link.special {background-color: @mainColor; color: @mainTextColor}
 
@@ -196,11 +190,11 @@ fieldset.rating:hover > input + label:hover:before {
 
 .left-container ul a:hover{color: @mainColor;}
 
-ul.globus li.fontIcon > span.fa {
+ul.globus li.fontIcon > a > span.fa {
   color:@mainColor;
 }
 
-ul.globus li.fontIcon > span.fas {
+ul.globus li.fontIcon > a > span.fas {
   color:@mainColor;
 }
 

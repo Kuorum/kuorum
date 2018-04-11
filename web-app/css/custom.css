@@ -8693,7 +8693,7 @@ ul.threeColumn .card-body p {
 
 #how-it-works {
     padding-top: 60px;
-    padding-bottom: 60px;
+    padding-bottom: 40px;
     text-align: center;
 }
 
@@ -8726,12 +8726,13 @@ ul.globus li{
 
 /*.actionIcons li.fontIcon > a > span.fa*/
 
-ul.globus li.fontIcon > span.fa {
-    font-size: 7em;
+ul.globus li.fontIcon > a > span.fa {
+    font-size: 6em;
+    padding-bottom: 20px;
     color:#4F2088;
 }
 
-ul.globus li.fontIcon > span.fas {
+ul.globus li.fontIcon > a > span.fas {
     font-size: 7em;
     color:#4F2088;
 }
