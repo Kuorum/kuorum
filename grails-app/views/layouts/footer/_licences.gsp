@@ -1,6 +1,6 @@
 <ul class="licenses clearfix">
     <li>
-        <span>Powered by: </span>
+        <span>Powered by </span>
         <nav:kuorumLink/>
     </li>
     %{--<li><span class="sr-only"><g:message code="layout.footer.licences"/></span></li>--}%
