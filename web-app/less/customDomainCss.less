@@ -1,35 +1,51 @@
 //@import "testDomainVars";
 
+a,
+a:hover,
+a:active,
 a:focus {color: @mainColor;}
+
 .navbar-toggle {background-color: @mainColor;}
-
 .open-filter .dropdown-menu > li > a.active {color:@mainColor;}
-
 .login .form-group:last-child p:last-child a {color:@mainColor;}
-
-.navbar-collapse.collapse.in {
-  border-bottom-color: @mainColor;
+.btn {background-color: @mainColor;}
+.btn.inverted {
+  border-color: @mainColor ;
+  color: @mainColor !important;
+}
+.btn.inverted:hover,
+.btn.inverted:active,
+.btn.inverted:focus {
+  background-color: @mainColor !important;
+  color: #fff !important;
 }
 
+.nav > li > .navbar-link:hover,
+.nav > li > .navbar-link:focus,
+.nav .open > a,
+.nav .open > a:hover,
+.nav .open > a:focus {background-color: @mainColor;}
+
+.navbar-collapse.collapse.in {border-bottom-color: @mainColor;}
+.nav > li > .navbar-link:hover .badge,
 .nav > li > .navbar-link:focus .badge {background-color: @mainTextColor; color: @mainColor;}
+.nav > li > .navbar-link:hover .badge-small,
 .nav > li > .navbar-link:focus .badge-small {color: @mainColor;}
+.nav > li > .navbar-link.new-project,
 .nav > li > .navbar-link.special {background-color: @mainColor; color: @mainTextColor}
 
 .box .dropdown-menu > li a {color: @mainColor;}
-
 .badge {background-color: @mainColor;}
-
 .badge-small {color:@mainColor;}
 
 #footer .social li a, .social li a {color: @mainColor;}
-
+#footer .social li a:hover .fa-circle,.social li a:hover .fa-circle,
+#footer .social li a:active .fa-circle,.social li a:active .fa-circle,
 #footer .social li a:focus .fa-circle, .social li a:focus .fa-circle {color: @mainColor;}
 
 .timepicker-picker .btn {
   color: @mainColor !important;
 }
-
-
 
 .engagement li.active a {background-color: #fff0ce; color: @mainColor !important;}
 
@@ -153,7 +169,6 @@ fieldset.rating:hover > input + label:hover:before {
 .conversation-box-comments ul li.active {border-left-color: @mainColor;}
 
 .nav > li > .navbar-link:focus {color: @mainColor;}
-.nav > .underline > .navbar-link.active {color: @mainColor; border-bottom-color: @mainColor;}
 .nav .open > a:focus {color: @mainColor; border-color: @mainTextColor}
 .nav .underline.open > a:focus {border-color: @mainColor;}
 .nav > li > .navbar-link:focus .badge {background-color: @mainColor; color: @mainTextColor}
@@ -200,12 +215,12 @@ ul.globus li.fontIcon > span.fas {
   background-color: @mainColorHover !important;
 }
 
-
 .btn.inverted {
   border-color: @mainColor ;
-  color: @mainColor;
+  color: @mainColor !important;
 }
-
+.btn.inverted:hover,
+.btn.inverted:active,
 .btn.inverted:focus {
   background-color: @mainColor !important;
 }
@@ -274,7 +289,7 @@ a, a:hover, a:active, a:focus{
 .nav > .underline > .navbar-link:focus,
 .nav > .underline > .navbar-link.active {
   color: @mainColor;
-  border-bottom: @mainColor;
+  border-bottom-color: @mainColor;
 }
 
 //Campaign
@@ -501,6 +516,42 @@ ul.list > li > ul.list-actions > li > a:active {color: @secondColor;}
 
 .carousel.news .carousel-inner .item .carousel-caption h3:hover,
 .carousel.news .carousel-inner .item .carousel-caption h3:focus {color: @secondColorHover;}
+
+//third color
+
+ul.search-list > li.search-article .box-ppal .card-body .card-text a{color: @secondColor;}
+ul.search-list > li.search-article .box-ppal .card-footer > ul li a:hover {color: @secondColor;}
+.comment-box .comment p a {color: @secondColor;}
+.conversation-box > .footer .social li a:hover .fa-circle {color: @secondColor;}
+.conversation-box > .body p a {color: @secondColor;}
+.conversation-box .footer .social li.active .fa-circle {color: @secondColor;}
+
+.conversation-box .footer .comment-counter button:hover,
+.conversation-box .footer .comment-counter button.active,
+.leader-post .footer .comment-counter button.active,
+.link-wrapper .card-footer a.active{
+  color: @secondColor !important;
+}
+
+.conversation-box-comments ul.social li a:active,
+.conversation-box-comments ul.social li a:hover{color: @secondColor;}
+.leader-post .header a.edit:hover {color: @secondColor;}
+.leader-post > .body p a, .conversation-box-comment .body a {color: @secondColor;}
+.leader-post > .footer .social li a:hover .fa-circle {color: @secondColor;}
+.leader-post > .footer .comment-counter button:hover {color: @secondColor;}
+.comment-box.call-to-action .comment p a {color: @secondColor;}
+.survey-progress-bar .progress-bar {background-color: @secondColor;}
+
+.survey-question-answer:hover .option > span.check-icon,
+.survey-question-answer:hover .multi-option > span.check-icon,
+.survey-question-answer.checked .option .check-icon,
+.survey-question-answer.checked .multi-option .check-icon {
+  color: @secondColor;
+}
+
+.survey-question-answer .progress > .progress-bar {background-color: @secondColor;}
+.survey-question > .footer .next-section a:hover {color: @secondColor;}
+.survey-question > .footer .social li a:hover .fa-circle.dark {color: @secondColor;}
 
 
 
