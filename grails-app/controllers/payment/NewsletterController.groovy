@@ -68,7 +68,6 @@ class NewsletterController {
         [newsletters: newsletters, campaigns: campaigns, user:user]
     }
 
-    @Secured(['ROLE_CAMPAIGN_NEWSLETTER','ROLE_ADMIN'])
     def newCampaign(){
 
     }
