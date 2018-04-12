@@ -8468,9 +8468,15 @@ ul.bullets li{
 
 /** Latest activities **/
 
-#latestActivities {
+.latestActivities {
     padding: 40px 0 40px 0;
     text-align: center;
+}
+
+.latestActivities .box-ppal h1 {
+    padding: 0 40px 0 0;
+    line-height: 1.1;
+    font-size: 2.5rem;
 }
 
 /** Trust us **/
