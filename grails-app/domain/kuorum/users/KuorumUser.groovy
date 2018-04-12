@@ -5,7 +5,6 @@ import kuorum.KuorumFile
 import kuorum.core.model.AvailableLanguage
 import kuorum.core.model.CommissionType
 import kuorum.core.model.UserType
-import kuorum.mail.MailType
 import kuorum.notifications.Notice
 import kuorum.users.extendedPoliticianData.*
 import org.bson.types.ObjectId
@@ -43,8 +42,6 @@ class KuorumUser {
     Integer numFollowers = 0
 
     List<ObjectId> favorites = [] //PostIds => Is the id instead of Post because gorm updates all
-
-    List<MailType> availableMails = MailType.values()
 
     SocialLinks socialLinks = new SocialLinks()
 

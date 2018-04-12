@@ -1,24 +1,15 @@
 package kuorum
 
 import grails.plugin.springsecurity.annotation.Secured
-import kuorum.core.model.AvailableLanguage
-import kuorum.core.model.Gender
-import kuorum.core.model.OfferType
 import kuorum.core.model.UserType
 import kuorum.dashboard.DashboardService
-import kuorum.notifications.Notice
-import kuorum.notifications.NoticeType
 import kuorum.notifications.NotificationService
 import kuorum.register.RegisterService
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
-import kuorum.users.OrganizationData
 import kuorum.users.PoliticianService
 import kuorum.web.commands.customRegister.Step2Command
-import kuorum.web.commands.customRegister.SubscriptionStep1Command
 import kuorum.web.commands.payment.contact.promotionalCode.PromotionalCodeCommand
-import kuorum.web.commands.profile.PersonalDataCommand
-import kuorum.web.commands.profile.UserRegionCommand
 import org.springframework.web.servlet.LocaleResolver
 import payment.contact.PromotionalCodeService
 
@@ -30,7 +21,6 @@ class CustomRegisterController {
     NotificationService notificationService
     LocaleResolver localeResolver
     RegisterService registerService
-    OfferService offerService
     PoliticianService politicianService
     PromotionalCodeService promotionalCodeService
 

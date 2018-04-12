@@ -66,7 +66,7 @@ class KuorumUserAuditService {
 
     private void filterNoAuditableFields(KuorumUserAudit kuorumUserAudit){
         //TODO: Make this with an anotation
-        List<String> noAuditableFields = ['following', 'followers', 'numFollowers', 'favorites', 'availableMails', 'notice', 'lastNotificationChecked']
+        List<String> noAuditableFields = ['following', 'followers', 'numFollowers', 'favorites', 'notice', 'lastNotificationChecked']
 
         noAuditableFields.each {noAuditableField ->
             kuorumUserAudit.updates = kuorumUserAudit.updates.findAll{!it.key.startsWith(noAuditableField)}

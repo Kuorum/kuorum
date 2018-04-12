@@ -54,7 +54,6 @@ class KuorumMailService {
         KuorumUser user = new KuorumUser(
                 name: name,
                 email: "${grailsApplication.config.kuorum.contact.feedback}",
-                availableMails: MailType.values(),
                 language: AvailableLanguage.es_ES
         )
     }
@@ -64,7 +63,6 @@ class KuorumMailService {
         KuorumUser user = new KuorumUser(
                 name: "${grailsApplication.config.kuorum.purchase.userName}",
                 email: "${grailsApplication.config.kuorum.purchase.email}",
-                availableMails: MailType.values(),
                 language: AvailableLanguage.es_ES
         )
     }
@@ -74,7 +72,6 @@ class KuorumMailService {
         KuorumUser user = new KuorumUser(
                 name: name,
                 email: email,
-                availableMails: MailType.values(),
                 language: language
         )
     }
