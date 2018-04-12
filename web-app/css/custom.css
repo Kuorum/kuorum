@@ -618,6 +618,10 @@ header.transp #search-form .open-filter {background-color: rgba(219,219,219,0.4)
     margin: 0;
     padding: 14px 24px !important;
 }
+
+.btn.btn-lg.bottom {
+    font-weight: bold;
+}
 /**/
 .btn.btn-lg.btn-icon{
     padding: 14px 18px !important;
@@ -8296,7 +8300,7 @@ ul.bullets li{
 }
 
 .section-body {
-    padding-bottom: 60px;
+    padding-bottom: 40px;
 }
 
 .section-body h1{
@@ -8693,7 +8697,7 @@ ul.threeColumn .card-body p {
 
 #how-it-works {
     padding-top: 60px;
-    padding-bottom: 40px;
+    /*padding-bottom: 40px;*/
     text-align: center;
 }
 
