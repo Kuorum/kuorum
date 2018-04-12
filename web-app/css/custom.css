@@ -2610,7 +2610,7 @@ ul.search-list > li {padding:0px;}
 ul.search-list > li.search-article .box-ppal .card-header-photo {height: auto;}
 ul.search-list > li.search-article .box-ppal .card-body {padding:1em;overflow: hidden;height: 325px;}
 ul.search-list > li.search-article .box-ppal .card-header-photo + .card-body {height: 125px; margin-bottom: 15px;}
-ul.search-list > li.search-article .box-ppal .card-body h1{margin:0; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif}
+ul.search-list > li.search-article .box-ppal .card-body h1{text-align:left; margin:0; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif}
 ul.search-list > li.search-article .box-ppal .card-body .card-text{margin:0;padding:1em 0 0 0;text-overflow: ellipsis;word-break: break-word;}
 ul.search-list > li.search-article .box-ppal .card-body .card-text a{color: #00a3ed;}
 ul.search-list > li.search-article .box-ppal .card-body .card-text a:hover{text-decoration: underline;}
@@ -2629,7 +2629,7 @@ ul.search-list > li.info-empty .text-empty-campaignList {width: 90%;}
 ul.search-list > li.info-empty .icon-empty-campaignList {color: #ff9431; width:5%; display:none;}
 ul.search-list > li.info-empty .icon-empty-campaignList img{color: #ff9431; width: 30px; vertical-align: top; margin-left: 25px;}
 
-ul.search-list.latestActivities .search-article {padding:0 5px 20px 0;}
+ul.search-list.latestActivities .search-article {padding:0 5px 20px 5px;}
 
 /*********************** Edit Post *************************************/
 /***********************************************************************/
@@ -8697,12 +8697,11 @@ ul.threeColumn .card-body p {
 
 #how-it-works {
     padding-top: 60px;
-    /*padding-bottom: 40px;*/
+    padding-bottom: 40px;
     text-align: center;
 }
 
 #how-it-works h1 {
-    padding-bottom: 60px;
     font-weight: bold;
 }
 
