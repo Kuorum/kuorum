@@ -618,6 +618,10 @@ header.transp #search-form .open-filter {background-color: rgba(219,219,219,0.4)
     margin: 0;
     padding: 14px 24px !important;
 }
+
+.btn.btn-lg.bottom {
+    font-weight: bold;
+}
 /**/
 .btn.btn-lg.btn-icon{
     padding: 14px 18px !important;
@@ -2606,7 +2610,7 @@ ul.search-list > li {padding:0px;}
 ul.search-list > li.search-article .box-ppal .card-header-photo {height: auto;}
 ul.search-list > li.search-article .box-ppal .card-body {padding:1em;overflow: hidden;height: 325px;}
 ul.search-list > li.search-article .box-ppal .card-header-photo + .card-body {height: 125px; margin-bottom: 15px;}
-ul.search-list > li.search-article .box-ppal .card-body h1{margin:0; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif}
+ul.search-list > li.search-article .box-ppal .card-body h1{text-align:left; margin:0; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif}
 ul.search-list > li.search-article .box-ppal .card-body .card-text{margin:0;padding:1em 0 0 0;text-overflow: ellipsis;word-break: break-word;}
 ul.search-list > li.search-article .box-ppal .card-body .card-text a{color: #00a3ed;}
 ul.search-list > li.search-article .box-ppal .card-body .card-text a:hover{text-decoration: underline;}
@@ -2625,7 +2629,7 @@ ul.search-list > li.info-empty .text-empty-campaignList {width: 90%;}
 ul.search-list > li.info-empty .icon-empty-campaignList {color: #ff9431; width:5%; display:none;}
 ul.search-list > li.info-empty .icon-empty-campaignList img{color: #ff9431; width: 30px; vertical-align: top; margin-left: 25px;}
 
-ul.search-list.latestActivities .search-article {padding:0 5px 20px 0;}
+ul.search-list.latestActivities .search-article {padding:0 12px 20px 12px;}
 
 /*********************** Edit Post *************************************/
 /***********************************************************************/
@@ -8296,7 +8300,7 @@ ul.bullets li{
 }
 
 .section-body {
-    padding-bottom: 60px;
+    padding-bottom: 40px;
 }
 
 .section-body h1{
@@ -8467,6 +8471,11 @@ ul.bullets li{
 #latestActivities {
     padding: 40px 0 40px 0;
     text-align: center;
+}
+
+#latestActivities .box-ppal h1 {
+    line-height: 1.1;
+    font-size: 2.5rem;
 }
 
 /** Trust us **/
@@ -8698,7 +8707,6 @@ ul.threeColumn .card-body p {
 }
 
 #how-it-works h1 {
-    padding-bottom: 60px;
     font-weight: bold;
 }
 
@@ -8733,7 +8741,19 @@ ul.globus li.fontIcon > a > span.fa {
 }
 
 ul.globus li.fontIcon > a > span.fas {
-    font-size: 7em;
+    font-size: 6em;
+    padding-bottom: 20px;
+    color:#4F2088;
+}
+
+ul.globus li.fontIcon > a > span.fa:hover {
+    font-size: 6em;
+    padding-bottom: 20px;
+    color:#4F2088;
+}
+
+ul.globus li.fontIcon > a > span.fas:hover {
+    font-size: 6em;
     color:#4F2088;
 }
 

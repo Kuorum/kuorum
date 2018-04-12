@@ -30,5 +30,5 @@
         <g:render template="/campaigns/cards/campaignsList" model="[campaigns:campaigns, numColumns:3]"/>
     </ul>
 
-    <g:link mapping="register" id="register-submit" class="btn btn-orange btn-lg"> <g:message code="landingPage.register.form.submit"/></g:link>
+    <g:link mapping="register" id="register-submit" class="btn btn-orange btn-lg bottom"> <g:message code="landingPage.register.form.submit"/></g:link>
 </content>
