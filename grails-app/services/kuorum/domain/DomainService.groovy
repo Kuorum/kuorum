@@ -2,6 +2,7 @@ package kuorum.domain
 
 import com.fasterxml.jackson.core.type.TypeReference
 import kuorum.core.customDomain.CustomDomainResolver
+import kuorum.files.LessCompilerService
 import kuorum.util.rest.RestKuorumApiService
 import org.kuorum.rest.model.domain.DomainRDTO
 import org.kuorum.rest.model.domain.DomainRSDTO
@@ -9,6 +10,8 @@ import org.kuorum.rest.model.domain.DomainRSDTO
 class DomainService {
 
     RestKuorumApiService restKuorumApiService;
+
+    LessCompilerService lessCompilerService
 
     String getToken(String domain){
         Map<String, String> params = [:]
@@ -63,17 +66,18 @@ class DomainService {
                     query,
                     domainRDTO,
                     new TypeReference<DomainRSDTO>(){})
-            DomainRSDTO config
+            DomainRSDTO domain
             if (apiResponse.data){
-                config = apiResponse.data
+                domain = apiResponse.data
             }
-            return config;
+            lessCompilerService.compileCssForDomain(domain)
+            return domain;
         }catch (Exception e){
             log.warn("Error updating config")
         }
     }
 
-    List<String> findAllDomains(){
+    List<DomainRSDTO> findAllDomains(){
         Map<String, String> params = [:]
         Map<String, String> query = [:]
 
@@ -82,7 +86,7 @@ class DomainService {
                     RestKuorumApiService.ApiMethod.DOMAIN,
                     params,
                     query,
-                    new TypeReference<List<String>>(){})
+                    new TypeReference<List<DomainRSDTO>>(){})
             return apiResponse.data;
         }catch (Exception e){
             log.warn("Error recovering domains")

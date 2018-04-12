@@ -1,6 +1,5 @@
 package kuorum.files
 
-import kuorum.domain.DomainService
 import org.kuorum.rest.model.domain.DomainRSDTO
 import org.lesscss.LessCompiler
 import org.lesscss.deps.org.apache.commons.io.FileUtils
@@ -13,8 +12,6 @@ class LessCompilerService implements ApplicationContextAware {
 
     AmazonFileService amazonFileService;
 
-    DomainService domainService;
-
     def grailsApplication
 
     private static final String PARAM_MAIN_COLOR="@mainColor"
@@ -24,28 +21,29 @@ class LessCompilerService implements ApplicationContextAware {
     private static final String PARAM_STATIC_ROOT_URL="@staticUrlRoot"
     private static final String PARAM_MAIN_TEXT_COLOR="@mainTextColor"
 
-    String compileCssForDomain(String domain){
+    String compileCssForDomain(DomainRSDTO domain){
         // Instantiate the LESS compiler with some compiler options
 
+        String domainName = domain.name
         String temporalPath = "${grailsApplication.config.kuorum.upload.serverPath}"
         LessCompiler lessCompiler = new LessCompiler(Arrays.asList("--relative-urls", "--strict-math=on"));
         lessCompiler.customJs
 
         File domainLessFile=buildLessFile(domain)
 
-        File customDomainCss = new File("${temporalPath}/${domain}.css")
+        File customDomainCss = new File("${temporalPath}/${domainName}.css")
         // Or compile LESS input file to CSS output file
         lessCompiler.compile(domainLessFile, customDomainCss);
 
-        amazonFileService.uploadDomainCss(customDomainCss, domain);
+        amazonFileService.uploadDomainCss(customDomainCss, domainName);
         customDomainCss.delete();
         domainLessFile.delete();
     }
 
-    private File buildLessFile(String domain){
+    private File buildLessFile(DomainRSDTO domain){
         String temporalPath = "${grailsApplication.config.kuorum.upload.serverPath}"
-        File lessMergedFile = new File("${temporalPath}/${domain}.less")
-        File lessDomainVarsFile = new File("${temporalPath}/${domain}_vars.less")
+        File lessMergedFile = new File("${temporalPath}/${domain.name}.less")
+        File lessDomainVarsFile = new File("${temporalPath}/${domain.name}_vars.less")
         lessMergedFile.deleteOnExit()
         lessDomainVarsFile.deleteOnExit()
 
@@ -96,15 +94,14 @@ class LessCompilerService implements ApplicationContextAware {
 
     }
 
-    private String buildLessParams(String domain){
+    private String buildLessParams(DomainRSDTO domainRSDTO){
         StringBuilder sb = new StringBuilder();
-        DomainRSDTO domainRSDTO = domainService.getConfig(domain);
         appendLessProperty(sb,PARAM_MAIN_COLOR,domainRSDTO.mainColor)
         appendLessProperty(sb,PARAM_MAIN_COLOR_HOVER,domainRSDTO.mainColorShadowed)
         appendLessProperty(sb,PARAM_SECOND_COLOR,domainRSDTO.secondaryColor)
         appendLessProperty(sb,PARAM_SECOND_COLOR_HOVER,domainRSDTO.secondaryColorShadowed)
         appendLessProperty(sb,PARAM_MAIN_TEXT_COLOR,"#fff")
-        appendLessProperty(sb,PARAM_STATIC_ROOT_URL,"\"${amazonFileService.getStaticRootDomainPath(domain)}\"")
+        appendLessProperty(sb,PARAM_STATIC_ROOT_URL,"\"${amazonFileService.getStaticRootDomainPath(domainRSDTO.name)}\"")
         return sb.toString();
     }
 
