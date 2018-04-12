@@ -2,6 +2,7 @@ package kuorum.core.customDomain.filter
 
 import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.domain.DomainService
+import org.kuorum.rest.model.domain.DomainConfigRSDTO
 import org.springframework.web.filter.GenericFilterBean
 
 import javax.servlet.FilterChain
@@ -23,8 +24,10 @@ class CustomDomainSpringFilter extends GenericFilterBean {
         CustomDomainResolver.setUrl(url, request.getContextPath())
 
         String token = domainService.getToken(CustomDomainResolver.domain)
+        DomainConfigRSDTO configRSDTO = domainService.getConfig(CustomDomainResolver.domain)
         //TODO IF TOKEN NULL REDIRECT TO NOT FOUND
         CustomDomainResolver.setApiToken(token)
+        CustomDomainResolver.setDomainConfigRSDTO(configRSDTO)
         filterChain.doFilter(request, response);
 
         CustomDomainResolver.clear()

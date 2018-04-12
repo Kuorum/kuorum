@@ -1,6 +1,7 @@
 package kuorum.core.customDomain
 
 import org.apache.commons.collections.map.HashedMap
+import org.kuorum.rest.model.domain.DomainConfigRSDTO
 
 class CustomDomainResolver {
     private static final ThreadLocal<Map<String, Object>> CONTEXT = new ThreadLocal<>();
@@ -9,6 +10,7 @@ class CustomDomainResolver {
     private static final String PARAM_BASE = "URL_BASE";
     private static final String PARAM_DOMAIN = "URL_DOMAIN";
     private static final String PARAM_DOMAIN_TOKEN = "DOMAIN_TOKEN";
+    private static final String PARAM_DOMAIN_CONFIG = "DOMAIN_CONFIG";
 
     public static void setUrl(URL url, String contextPath="") {
         System.out.print("ThreadLocal [START] ->"+Thread.currentThread().id)
@@ -57,5 +59,13 @@ class CustomDomainResolver {
 
     public static String getApiToken(){
         return CONTEXT.get().get(PARAM_DOMAIN_TOKEN)
+    }
+
+    public static DomainConfigRSDTO getDomainConfigRSDTO(){
+        return CONTEXT.get().get(PARAM_DOMAIN_CONFIG)
+    }
+
+    public static setDomainConfigRSDTO(DomainConfigRSDTO domainConfig){
+        return CONTEXT.get().put(PARAM_DOMAIN_CONFIG, domainConfig)
     }
 }
