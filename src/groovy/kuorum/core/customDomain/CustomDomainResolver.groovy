@@ -1,7 +1,7 @@
 package kuorum.core.customDomain
 
 import org.apache.commons.collections.map.HashedMap
-import org.kuorum.rest.model.domain.DomainConfigRSDTO
+import org.kuorum.rest.model.domain.DomainRSDTO
 
 class CustomDomainResolver {
     private static final ThreadLocal<Map<String, Object>> CONTEXT = new ThreadLocal<>();
@@ -61,11 +61,11 @@ class CustomDomainResolver {
         return CONTEXT.get().get(PARAM_DOMAIN_TOKEN)
     }
 
-    public static DomainConfigRSDTO getDomainConfigRSDTO(){
+    public static DomainRSDTO getDomainRSDTO(){
         return CONTEXT.get().get(PARAM_DOMAIN_CONFIG)
     }
 
-    public static setDomainConfigRSDTO(DomainConfigRSDTO domainConfig){
+    public static setDomainRSDTO(DomainRSDTO domainConfig){
         return CONTEXT.get().put(PARAM_DOMAIN_CONFIG, domainConfig)
     }
 }

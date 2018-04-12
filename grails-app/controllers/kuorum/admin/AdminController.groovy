@@ -1,17 +1,22 @@
 package kuorum.admin
 
 import grails.plugin.springsecurity.annotation.Secured
+import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.model.UserType
+import kuorum.domain.DomainService
 import kuorum.mail.KuorumMailAccountService
 import kuorum.mail.MailchimpService
 import kuorum.register.RegisterService
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserAudit
 import kuorum.users.KuorumUserService
-import kuorum.users.PoliticianService
 import kuorum.web.admin.KuorumUserEmailSenderCommand
 import kuorum.web.admin.KuorumUserRightsCommand
+import kuorum.web.admin.domain.DomainConfigCommand
 import org.kuorum.rest.model.admin.AdminConfigMailingRDTO
+import org.kuorum.rest.model.domain.DomainRDTO
+import org.kuorum.rest.model.domain.DomainRSDTO
+import org.kuorum.rest.model.domain.SocialRDTO
 import org.kuorum.rest.model.notification.KuorumMailAccountDetailsRSDTO
 import org.kuorum.rest.model.notification.campaign.config.NewsletterConfigRSDTO
 import payment.campaign.NewsletterService
@@ -28,7 +33,7 @@ class AdminController {
 
     NewsletterService newsletterService;
 
-    PoliticianService politicianService
+    DomainService domainService
 
     RegisterService registerService
 
@@ -41,6 +46,49 @@ class AdminController {
     def index() {
         log.info("Index admin")
         render view: '/admin/index', model:[]
+    }
+
+    def domainConfig(){
+        DomainRSDTO domainRSDTO = domainService.getConfig(CustomDomainResolver.domain)
+        DomainConfigCommand domainConfigCommand = new DomainConfigCommand();
+        domainConfigCommand.slogan = domainRSDTO.slogan
+        domainConfigCommand.subtitle = domainRSDTO.subtitle
+        domainConfigCommand.mainColor = domainRSDTO.mainColor
+        domainConfigCommand.mainColorShadowed = domainRSDTO.mainColorShadowed
+        domainConfigCommand.secondaryColor = domainRSDTO.secondaryColor
+        domainConfigCommand.secondaryColorShadowed = domainRSDTO.secondaryColorShadowed
+        domainConfigCommand.facebook = domainRSDTO.social.facebook
+        domainConfigCommand.twitter = domainRSDTO.social.twitter
+        domainConfigCommand.linkedIn = domainRSDTO.social.linkedIn
+        domainConfigCommand.googlePlus = domainRSDTO.social.googlePlus
+        domainConfigCommand.instagram = domainRSDTO.social.instagram
+        domainConfigCommand.youtube = domainRSDTO.social.youtube
+        [command:domainConfigCommand]
+
+    }
+
+    def domainConfigSave(DomainConfigCommand command){
+        if (command.hasErrors()){
+            render view:'domainConfig', model:[command:command]
+            return;
+        }
+        DomainRDTO domainRDTO = new DomainRDTO()
+        domainRDTO.subtitle = command.subtitle
+        domainRDTO.slogan = command.slogan
+        domainRDTO.mainColor = command.mainColor
+        domainRDTO.mainColorShadowed = command.mainColorShadowed
+        domainRDTO.secondaryColor = command.secondaryColor
+        domainRDTO.secondaryColorShadowed = command.secondaryColorShadowed
+        domainRDTO.social = new SocialRDTO()
+        domainRDTO.social.facebook = command.facebook
+        domainRDTO.social.twitter = command.twitter
+        domainRDTO.social.linkedIn = command.linkedIn
+        domainRDTO.social.googlePlus = command.googlePlus
+        domainRDTO.social.instagram = command.instagram
+        domainRDTO.social.youtube = command.youtube
+        domainService.updateConfig(domainRDTO)
+        flash.message ="Success"
+        redirect mapping:'adminDomainConfig'
     }
 
     def solrIndex(){

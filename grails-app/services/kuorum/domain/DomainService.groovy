@@ -1,8 +1,10 @@
 package kuorum.domain
 
 import com.fasterxml.jackson.core.type.TypeReference
+import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.util.rest.RestKuorumApiService
-import org.kuorum.rest.model.domain.DomainConfigRSDTO
+import org.kuorum.rest.model.domain.DomainRDTO
+import org.kuorum.rest.model.domain.DomainRSDTO
 
 class DomainService {
 
@@ -28,7 +30,7 @@ class DomainService {
         }
     }
 
-    DomainConfigRSDTO getConfig(String domain){
+    DomainRSDTO getConfig(String domain){
         Map<String, String> params = [:]
         Map<String, String> query = [domainName:domain]
 
@@ -37,8 +39,8 @@ class DomainService {
                     RestKuorumApiService.ApiMethod.DOMAIN_CONFIG,
                     params,
                     query,
-                    new TypeReference<DomainConfigRSDTO>(){})
-            DomainConfigRSDTO config
+                    new TypeReference<DomainRSDTO>(){})
+            DomainRSDTO config
             if (apiResponse.data){
                 config = apiResponse.data
             }
@@ -46,6 +48,28 @@ class DomainService {
         }catch (Exception e){
             log.warn("Domain not found: ${domain}")
             return null;
+        }
+    }
+
+    DomainRSDTO updateConfig(DomainRDTO domainRDTO ){
+        domainRDTO.name = CustomDomainResolver.domain
+        Map<String, String> params = [:]
+        Map<String, String> query = [:]
+
+        try{
+            def apiResponse= restKuorumApiService.put(
+                    RestKuorumApiService.ApiMethod.DOMAIN,
+                    params,
+                    query,
+                    domainRDTO,
+                    new TypeReference<DomainRSDTO>(){})
+            DomainRSDTO config
+            if (apiResponse.data){
+                config = apiResponse.data
+            }
+            return config;
+        }catch (Exception e){
+            log.warn("Error updating config")
         }
     }
 

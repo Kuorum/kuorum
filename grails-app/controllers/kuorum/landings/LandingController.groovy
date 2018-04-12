@@ -5,7 +5,7 @@ import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.domain.DomainService
 import kuorum.users.KuorumUser
 import org.kuorum.rest.model.communication.CampaignRSDTO
-import org.kuorum.rest.model.domain.DomainConfigRSDTO
+import org.kuorum.rest.model.domain.DomainRSDTO
 import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
 import payment.campaign.CampaignService
 import springSecurity.KuorumRegisterCommand
@@ -41,11 +41,11 @@ class LandingController {
         }else{
             log.error("User ${FAKE_LANDING_ALIAS_USER} not exists :: Showing landing page without campaings")
         }
-        DomainConfigRSDTO domainConfigRSDTO = domainService.getConfig(CustomDomainResolver.domain)
+        DomainRSDTO domainRSDTO = domainService.getConfig(CustomDomainResolver.domain)
         [
                 campaigns:campaigns,
-                slogan:domainConfigRSDTO.slogan,
-                subtitle:domainConfigRSDTO.subtitle,
+                slogan:domainRSDTO.slogan,
+                subtitle:domainRSDTO.subtitle,
                 command: new KuorumRegisterCommand()
         ]
     }
