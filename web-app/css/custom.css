@@ -8733,7 +8733,19 @@ ul.globus li.fontIcon > a > span.fa {
 }
 
 ul.globus li.fontIcon > a > span.fas {
-    font-size: 7em;
+    font-size: 6em;
+    padding-bottom: 20px;
+    color:#4F2088;
+}
+
+ul.globus li.fontIcon > a > span.fa:hover {
+    font-size: 6em;
+    padding-bottom: 20px;
+    color:#4F2088;
+}
+
+ul.globus li.fontIcon > a > span.fas:hover {
+    font-size: 6em;
     color:#4F2088;
 }
 
