@@ -1368,7 +1368,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .modal-body table tr th {background-color: #f7f7f7; border-bottom-width: 1px;}
 .modal-body table tfoot tr td {text-align: center; color:#ccc; }
 /*#filtersInfo .modal-body > table > tbody > tr > td {padding: 0;}*/
-#campaignConfirm .modal-body {background: url('../images/campaignModalConfirm.jpg')  center 0 no-repeat transparent; padding-top: 245px;}
+/*#campaignConfirm .modal-body {background: url('../images/campaignModalConfirm.jpg')  center 0 no-repeat transparent; padding-top: 245px;}*/
 
 #filtersInfo .modal-header, #campaignDeleteConfirm .modal-header  {border: none;}
 #filtersInfo .modal-header h4, #campaignDeleteConfirm .modal-header h4 {font-size: 22px; margin: 0 0 10px 0; font-variant: normal; font-weight: normal; text-align: center;}
