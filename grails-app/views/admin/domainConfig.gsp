@@ -6,12 +6,12 @@
 </head>
 
 <content tag="leftMenu">
-    <g:render template="/profile/leftMenu" model="[user:user, activeMapping:'profileProfessionalDetails', menu:menu]"/>
-
+    <h1><g:message code="admin.menu.domainConfig.title"/></h1>
+    <g:render template="/admin/adminMenu" model="[activeMapping:'adminDomainConfig']"/>
 </content>
 <content tag="titleContent">
-    <h1><g:message code="profile.menu.profileProfessionalDetails"/></h1>
-    <h3><g:message code="profile.menu.profileProfessionalDetails.subtitle"/></h3>
+    <h1><g:message code="admin.menu.domainConfig.title"/></h1>
+    <h3><g:message code="admin.menu.domainConfig.subtitle"/></h3>
 </content>
 <content tag="mainContent">
     <formUtil:validateForm form="domainConfigForm" bean="${command}" dirtyControl="true"/>
