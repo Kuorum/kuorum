@@ -52,7 +52,6 @@
     <g:set var="dynamicBodyCss" value="noLogged"/>
 </sec:ifNotLoggedIn>
 <body itemscope itemtype="${schemaData.schema}" class="${pageProperty(name:"page.bodyCss")} ${dynamicBodyCss}">
-${_customDomainCss}
 <meta itemprop="url" content="${nav.canonical([onlyLink:true])}"/>
 
 
