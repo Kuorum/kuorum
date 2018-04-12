@@ -2629,7 +2629,7 @@ ul.search-list > li.info-empty .text-empty-campaignList {width: 90%;}
 ul.search-list > li.info-empty .icon-empty-campaignList {color: #ff9431; width:5%; display:none;}
 ul.search-list > li.info-empty .icon-empty-campaignList img{color: #ff9431; width: 30px; vertical-align: top; margin-left: 25px;}
 
-ul.search-list.latestActivities .search-article {padding:0 5px 20px 5px;}
+ul.search-list.latestActivities .search-article {padding:0 12px 20px 12px;}
 
 /*********************** Edit Post *************************************/
 /***********************************************************************/
@@ -8468,13 +8468,12 @@ ul.bullets li{
 
 /** Latest activities **/
 
-.latestActivities {
+#latestActivities {
     padding: 40px 0 40px 0;
     text-align: center;
 }
 
-.latestActivities .box-ppal h1 {
-    padding: 0 40px 0 0;
+#latestActivities .box-ppal h1 {
     line-height: 1.1;
     font-size: 2.5rem;
 }
