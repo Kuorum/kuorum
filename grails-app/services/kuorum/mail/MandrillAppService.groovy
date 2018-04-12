@@ -75,20 +75,11 @@ class MandrillAppService {
     private List<MandrillMessage.Recipient> createRecipients(MailData mailData){
         List<MandrillMessage.Recipient> recipients = []
         mailData.userBindings.each{MailUserData mailUserData ->
-            if (!mailUserData.user.availableMails){
-                //Log for finding a bug
-                log.warn("El usuario ${mailUserData.user} tiene a null los availableMails")
-            }
-            //Check if the user has active the email
-            if (!mailData.mailType.configurable || (mailUserData.user.availableMails && mailUserData.user.availableMails.contains(mailData.mailType))){
-                MandrillMessage.Recipient recipient =new MandrillMessage.Recipient()
-                recipient.email= mailUserData.user.email
-                recipient.name = mailUserData.user.name
-                recipient.type = MandrillMessage.Recipient.Type.BCC
-                recipients << recipient
-            }else{
-                log.info("No se ha mandado el mail ${mailData.mailType} a ${mailUserData.user.email} debido a: [configurable: ${mailData.mailType.configurable}, availableMailsNull:${!mailUserData.user.availableMails}, mailDesactivadoPorUser: ${!mailUserData.user.availableMails?.contains(mailData.mailType)}]")
-            }
+            MandrillMessage.Recipient recipient =new MandrillMessage.Recipient()
+            recipient.email= mailUserData.user.email
+            recipient.name = mailUserData.user.name
+            recipient.type = MandrillMessage.Recipient.Type.BCC
+            recipients << recipient
         }
         recipients
     }

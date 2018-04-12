@@ -20,3 +20,7 @@ dbDest.cause.dropIndex("name")
 
 /// ?????????????????
 dbDest.cause.createIndex( {name:1, domain:1}, { unique: true, name:"domain_cause_idx" } )
+
+
+/// CLEANING OLD INFO
+dbDest.kuorumUser.update({},{$unset:{availableMails:''}},{multi:true})
