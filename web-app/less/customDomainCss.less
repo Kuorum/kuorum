@@ -22,7 +22,7 @@ a:focus {color: @mainColor;}
 
 .navbar-collapse.collapse.in {border-bottom-color: @mainColor;}
 .nav > li > .navbar-link:hover .badge,
-.nav > li > .navbar-link:focus .badge {background-color: @mainTextColor; color: @mainColor;}
+.nav > li > .navbar-link:focus .badge {background-color: @mainColor; color: @mainTextColor;}
 .nav > li > .navbar-link:hover .badge-small,
 .nav > li > .navbar-link:focus .badge-small {background-color: transparent; color: @mainColor;}
 .nav > li > .navbar-link.new-project,
@@ -366,6 +366,7 @@ a, a:hover, a:active, a:focus{
 .btn.btn-blue.inverted:hover,
 .btn.btn-blue.inverted:active,
 .btn.btn-blue.inverted:focus {
+  background-color: @secondColor !important;
   color: @mainTextColor !important;
 }
 .btn.btn-blue-light.inverted {
@@ -388,12 +389,12 @@ a, a:hover, a:active, a:focus{
   color: @mainTextColor !important;
 }
 
-.btn.follow.disabled:hover,
-.btn.follow.disabled:active{
-  background-color: @secondColor !important;
-  border: @secondColor;
-  opacity: 1 !important;
-}
+//.btn.follow.disabled:hover,
+//.btn.follow.disabled:active{
+//  background-color: @secondColor !important;
+//  border: @secondColor;
+//  opacity: 1 !important;
+//}
 
 .breadcrumb a {color: @secondColor;}
 .box-ppal.import-contacts > p a {color: @secondColor;}
@@ -561,6 +562,7 @@ ul.search-list > li.search-article .box-ppal .card-footer > ul li a:hover {color
 .survey-question > .footer .next-section a:hover {color: @secondColor;}
 .survey-question > .footer .social li a:hover .fa-circle.dark {color: @secondColor;}
 
+.navbar-toggle:hover {background-color: @mainColorHover;}
 
 
 
