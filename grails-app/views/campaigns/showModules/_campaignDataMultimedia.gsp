@@ -4,6 +4,9 @@
 <g:elseif test="${campaign.videoUrl}">
     <image:showYoutube youtube="${campaign.videoUrl}"/>
 </g:elseif>
+<g:else>
+    <img class="empty" src="${g.resource(dir: "images", file: "emptyCampaign.png")}" alt="${campaign.title}">
+</g:else>
 
 <g:if test="${poweredByKuorum}">
     <div class="poweredByKuorum">
