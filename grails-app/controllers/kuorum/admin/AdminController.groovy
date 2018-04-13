@@ -51,6 +51,7 @@ class AdminController {
     def domainConfig(){
         DomainRSDTO domainRSDTO = domainService.getConfig(CustomDomainResolver.domain)
         DomainConfigCommand domainConfigCommand = new DomainConfigCommand();
+        domainConfigCommand.name = domainRSDTO.name
         domainConfigCommand.slogan = domainRSDTO.slogan
         domainConfigCommand.subtitle = domainRSDTO.subtitle
         domainConfigCommand.mainColor = domainRSDTO.mainColor
@@ -73,8 +74,9 @@ class AdminController {
             return;
         }
         DomainRDTO domainRDTO = new DomainRDTO()
-        domainRDTO.subtitle = command.subtitle
+        domainRDTO.name = command.name
         domainRDTO.slogan = command.slogan
+        domainRDTO.subtitle = command.subtitle
         domainRDTO.mainColor = command.mainColor
         domainRDTO.mainColorShadowed = command.mainColorShadowed
         domainRDTO.secondaryColor = command.secondaryColor

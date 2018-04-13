@@ -5,6 +5,7 @@ import grails.validation.Validateable
 @Validateable
 class DomainConfigCommand {
 
+    String name;
     String slogan;
     String subtitle;
     String mainColor;
@@ -20,6 +21,7 @@ class DomainConfigCommand {
 
 
     static constraints = {
+        name nullable: false
         slogan nullable:false
         subtitle nullable:false
         mainColor nullable:false

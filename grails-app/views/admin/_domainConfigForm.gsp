@@ -3,12 +3,19 @@
     <h4 class="box-ppal-section-title">Colors</h4>
     <fieldset class="row">
         <div class="form-group col-md-6">
+            <formUtil:input command="${command}" field="name" showLabel="true" />
+        </div>
+    </fieldset>
+
+    <fieldset class="row">
+        <div class="form-group col-md-6">
             <formUtil:input command="${command}" field="slogan" showLabel="true" />
         </div>
         <div class="form-group col-md-6">
             <formUtil:input command="${command}" field="subtitle" showLabel="true" />
         </div>
     </fieldset>
+    <h4 class="box-ppal-section-title">Colors</h4>
     <fieldset class="row">
         <div class="form-group col-md-6">
             <formUtil:input command="${command}" field="mainColor" showLabel="true" />
