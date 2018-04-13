@@ -57,12 +57,12 @@ class AdminController {
         domainConfigCommand.mainColorShadowed = domainRSDTO.mainColorShadowed
         domainConfigCommand.secondaryColor = domainRSDTO.secondaryColor
         domainConfigCommand.secondaryColorShadowed = domainRSDTO.secondaryColorShadowed
-        domainConfigCommand.facebook = domainRSDTO.social.facebook
-        domainConfigCommand.twitter = domainRSDTO.social.twitter
-        domainConfigCommand.linkedIn = domainRSDTO.social.linkedIn
-        domainConfigCommand.googlePlus = domainRSDTO.social.googlePlus
-        domainConfigCommand.instagram = domainRSDTO.social.instagram
-        domainConfigCommand.youtube = domainRSDTO.social.youtube
+        domainConfigCommand.facebook = domainRSDTO.social?.facebook
+        domainConfigCommand.twitter = domainRSDTO.social?.twitter
+        domainConfigCommand.linkedIn = domainRSDTO.social?.linkedIn
+        domainConfigCommand.googlePlus = domainRSDTO.social?.googlePlus
+        domainConfigCommand.instagram = domainRSDTO.social?.instagram
+        domainConfigCommand.youtube = domainRSDTO.social?.youtube
         [command:domainConfigCommand]
 
     }
