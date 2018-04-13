@@ -35,7 +35,7 @@ class DomainService {
     }
 
     DomainRSDTO updateConfig(DomainRDTO domainRDTO ){
-        domainRDTO.name = CustomDomainResolver.domain
+        domainRDTO.domain = CustomDomainResolver.domain
         Map<String, String> params = [:]
         Map<String, String> query = [:]
 
@@ -53,7 +53,7 @@ class DomainService {
             lessCompilerService.compileCssForDomain(domain)
             return domain;
         }catch (Exception e){
-            log.warn("Error updating config")
+            log.warn("Error updating config. [Excp: ${e.getMessage()}")
         }
     }
 
