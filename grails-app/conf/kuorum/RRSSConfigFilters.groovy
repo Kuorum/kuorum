@@ -19,6 +19,7 @@ class RRSSConfigFilters {
                     model.put("_googleCaptchaKey",getGoogleCaptchaKey())
                     model.put("_domain",CustomDomainResolver.domain)
                     model.put("_social", CustomDomainResolver.domainRSDTO?.social?:null)
+                    model.put("_domainName", CustomDomainResolver.domainRSDTO?.name?:"")
                 }
             }
             afterView = { Exception e ->
