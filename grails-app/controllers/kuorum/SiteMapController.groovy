@@ -168,20 +168,6 @@ class SiteMapController {
     def sitemapLandings() {
         def highPriority = [
                 'landingServices',
-                'landingTechnology',
-                'landingEnterprise',
-                'landingGovernments',
-                'landingOrganization',
-                'landingCaseStudy',
-                'landingCaseStudy001',
-                'landingCaseStudy002',
-                'landingCaseStudy003',
-                'landingCaseStudy004',
-                'landingCaseStudy005',
-                'landingCaseStudy006',
-                'landingCaseStudy007',
-                'landingCaseStudy008',
-                'landingCaseStudy009',
                 'login',
                 'loginAuth',
                 'register',
@@ -218,10 +204,7 @@ class SiteMapController {
                 'footerPress',
                 'footerHistory',
                 'footerPrivacyPolicy',
-                'footerTermsUse',
-                'footerBlog',
-                'footerBlog001',
-                'footerBlog002'
+                'footerTermsUse'
         ]
         render(contentType: 'application/xml', encoding: 'UTF-8') {
             mkp.yieldUnescaped '<?xml version="1.0" encoding="UTF-8"?>'

@@ -7957,20 +7957,12 @@ ul.proposal-list .comment-box > .comment-proposal > .user-box{margin-bottom: 10p
               transform: translate3d(-50%,-50%,0);
 }
 
-.fade-carousel.footerBlog .content,
-.fade-carousel.landingCaseStudy .content {
-    top: 50%;
-}
 
 .fade-carousel .content hgroup {
     margin-bottom: 0px;
 }
 
-.fade-carousel.footerBlog .content hgroup,
 .fade-carousel.landingServices .content hgroup,
-.fade-carousel.landingCaseStudy .content hgroup{
-    margin-bottom: 30px;
-}
 
 .fade-carousel .content h1,
 .fade-carousel .content-footer h1{
@@ -8057,23 +8049,6 @@ background-repeat: no-repeat;
     background-image: url('../images/landing/landing-3.jpg');
 }
 
-.fade-carousel .slides .slide-1.landingTechnology {
-    background-image: url('../images/landing/landing-2.jpg');
-}
-.fade-carousel .slides .slide-1.landingEnterprise {
-    background-image: url('../images/landing/corporations.jpg');
-}
-.fade-carousel .slides .slide-1.landingGovernments {
-    background-image: url('../images/landing/administrations.jpg');
-}
-.fade-carousel .slides .slide-1.landingOrganization {
-    background-image: url('../images/landing/organizations.jpg');
-}
-
-.fade-carousel .slides .slide-1.footerBlog {
-    background-image: url('../images/landing/blog.jpg');
-}
-
 .fade-carousel .slides .slide-footer.footerAboutUs {
     background-image: url('../images/landing/what-is-kuorum.jpg');
 }
@@ -8092,24 +8067,6 @@ background-repeat: no-repeat;
 .fade-carousel .slides .slide-footer.footerUserGuides {
     background-image: url('../images/landing/user-guides.jpg');
 }
-.fade-carousel .slides .slide-1.landingCaseStudy {
-    background-image: url('../images/landing/case-studies.jpg');
-}
-.fade-carousel .slides .slide-footer.caseStudy001 {background-image: url('../images/landing/landingCaseStudy/001/headPage.jpg');  }
-.fade-carousel .slides .slide-footer.caseStudy002 {background-image: url('../images/landing/landingCaseStudy/002/headPage.jpg');  }
-.fade-carousel .slides .slide-footer.caseStudy003 {background-image: url('../images/landing/landingCaseStudy/003/headPage.jpg');  }
-.fade-carousel .slides .slide-footer.caseStudy004 {background-image: url('../images/landing/landingCaseStudy/004/headPage.jpg');  }
-.fade-carousel .slides .slide-footer.caseStudy005 {background-image: url('../images/landing/landingCaseStudy/005/headPage.jpg');  }
-.fade-carousel .slides .slide-footer.caseStudy006 {background-image: url('../images/landing/landingCaseStudy/006/headPage.jpg');  }
-.fade-carousel .slides .slide-footer.caseStudy007 {background-image: url('../images/landing/landingCaseStudy/007/headPage.jpg');  }
-.fade-carousel .slides .slide-footer.caseStudy008 {background-image: url('../images/landing/landingCaseStudy/008/headPage.jpg');  }
-.fade-carousel .slides .slide-footer.caseStudy009 {background-image: url('../images/landing/landingCaseStudy/009/headPage.jpg');  }
-
-.fade-carousel .slides .slide-footer.footerBlog001 {background-image: url('../images/landing/footerBlog/001/headPage.jpg');  }
-.fade-carousel .slides .slide-footer.footerBlog002 {background-image: url('../images/landing/footerBlog/002/headPage.jpg');  }
-.fade-carousel .slides .slide-footer.footerBlog003 {background-image: url('../images/landing/footerBlog/003/headPage.png');  }
-.fade-carousel .slides .slide-footer.footerBlog004 {background-image: url('../images/landing/footerBlog/004/headPage.jpg');  }
-.fade-carousel .slides .slide-footer.footerBlog005 {background-image: url('../images/landing/footerBlog/005/headPage.jpg');  }
 
 #carousel-landing-main .img-responsive{
     position: relative;
@@ -8202,15 +8159,6 @@ div.dark {
 
     #cases-study-body .section-body h1 {
         font-size: 28px;
-    }
-
-    .fade-carousel .slides .slide-1.footerBlog,
-    .fade-carousel .slides .slide-1.landingCaseStudy {
-        height: 300px;
-    }
-    .fade-carousel.footerBlog .content .btn,
-    .fade-carousel.landingCaseStudy .content .btn {
-        width: auto;
     }
 
     ul.threeColumn .card {

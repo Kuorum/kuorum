@@ -8,12 +8,6 @@
     %{--</li>--}%
 
     %{--<li>--}%
-        %{--<g:link mapping="landingOrganizations" class="navbar-link ${nav.activeMenuCss(mappingName: 'landingOrganizations')}">--}%
-            %{--<span><g:message code="head.noLogged.organizations"/> </span>--}%
-        %{--</g:link>--}%
-    %{--</li>--}%
-
-    %{--<li>--}%
         %{--<g:link mapping="landingCorporationsBrands" class="navbar-link ${nav.activeMenuCss(mappingName: 'landingCorporationsBrands')}">--}%
             %{--<span><g:message code="head.noLogged.corporations"/> </span>--}%
         %{--</g:link>--}%
@@ -26,9 +20,9 @@
 
 
     <li class="dropdown">
-        <g:link mapping="landingOrganization" class="dropdown-toggle dropdown-menu-right navbar-link" data-toggle="dropdown" role="button">
+        <a href="#" class="dropdown-toggle dropdown-menu-right navbar-link" data-toggle="dropdown" role="button">
             <span><g:message code="head.noLogged.sectors"/> <i class="fa fa-angle-down" aria-hidden="true"></i></span>
-        </g:link>
+        </a>
         <ul id="navigation-options" class="dropdown-menu dropdown-menu-right" aria-labelledby="open-user-options" role="menu">
             <li>
                 <g:link mapping="searcherSearchDEBATE" class="navbar-link ${nav.activeMenuCss(mappingName: 'searcherSearchDEBATE')}">
@@ -52,18 +46,6 @@
             </li>
         </ul>
     </li>
-
-    %{--<li>--}%
-        %{--<g:link mapping="landingTechnology" class="navbar-link ${nav.activeMenuCss(mappingName: 'landingTechnology')}">--}%
-            %{--<span><g:message code="head.noLogged.technology"/> </span>--}%
-        %{--</g:link>--}%
-    %{--</li>--}%
-
-    %{--<li>--}%
-        %{--<g:link mapping="landingPrices" class="navbar-link ${nav.activeMenuCss(mappingName: 'landingPrices')}">--}%
-            %{--<span><g:message code="head.noLogged.prices"/></span>--}%
-        %{--</g:link>--}%
-    %{--</li>--}%
 
     <li>
         <g:link mapping="loginAuth" class="navbar-link ${nav.activeMenuCss(mappingName: 'loginAuth')}">

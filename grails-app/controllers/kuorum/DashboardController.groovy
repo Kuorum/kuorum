@@ -5,9 +5,6 @@ import grails.plugin.springsecurity.annotation.Secured
 import kuorum.causes.CausesService
 import kuorum.core.model.search.Pagination
 import kuorum.dashboard.DashboardService
-import org.kuorum.rest.model.communication.CampaignRSDTO
-import payment.campaign.CampaignService
-import payment.campaign.PostService
 import kuorum.solr.SearchSolrService
 import kuorum.users.CookieUUIDService
 import kuorum.users.KuorumUser
@@ -17,15 +14,17 @@ import kuorum.web.commands.profile.EditProfilePicturesCommand
 import kuorum.web.commands.profile.EditUserProfileCommand
 import kuorum.web.commands.profile.SocialNetworkCommand
 import kuorum.web.constants.WebConstants
-import org.kuorum.rest.model.search.SearchResultsRSDTO
+import org.kuorum.rest.model.communication.CampaignRSDTO
+import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
 import org.kuorum.rest.model.notification.campaign.NewsletterRQDTO
 import org.kuorum.rest.model.notification.campaign.NewsletterRSDTO
-import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
-import org.kuorum.rest.model.payment.KuorumPaymentPlanDTO
+import org.kuorum.rest.model.search.SearchResultsRSDTO
 import org.kuorum.rest.model.tag.CauseRSDTO
 import payment.CustomerService
+import payment.campaign.CampaignService
 import payment.campaign.DebateService
 import payment.campaign.NewsletterService
+import payment.campaign.PostService
 import payment.contact.ContactService
 
 class DashboardController {
@@ -166,10 +165,5 @@ class DashboardController {
         List<KuorumUser> suggesterPoliticians=  kuorumUserService.recommendUsers(user, pagination)
         response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${suggesterPoliticians.size() < pagination.max}")
         render template: "/dashboard/listDashboardUserRecommendations", model:[politicians:suggesterPoliticians]
-    }
-
-    def landingPrices(){
-        Map<String, KuorumPaymentPlanDTO> plans = customerService.getActivePlans();
-        [plans:plans    ]
     }
 }

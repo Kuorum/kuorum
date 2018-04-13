@@ -4,11 +4,6 @@ import org.springframework.context.i18n.LocaleContextHolder
 
 class FooterController {
 
-    def aboutUs() {}
-    def vision() {}
-    def team() {}
-    def tech() {}
-    def citizens() {}
     def userGuides() {
         Locale locale = LocaleContextHolder.getLocale();
         String langGuides = "en"
@@ -24,27 +19,10 @@ class FooterController {
 
         ]
     }
-    def leaders() {}
-    def government() {}
     def widget() {}
-    def information() {
-        Locale locale = LocaleContextHolder.getLocale();
-        String langPressKit = "en"
-        if (locale.getLanguage() == "es"){
-            langPressKit = "es"
-        }
-        [
-                langPressKit:langPressKit
-        ]
-    }
+
     def privacyPolicy(){}
     def termsUse(){}
-
-    def footerAboutUs(){}
-
-    def footerContactUs(){}
-
-    def footerOurTeam(){}
 
     def footerUserGuides() {
         Locale locale = LocaleContextHolder.getLocale();
@@ -61,22 +39,4 @@ class FooterController {
 
         ]
     }
-
-    def footerHistory(){}
-
-    def footerPress(){
-        Locale locale = LocaleContextHolder.getLocale();
-        String lang = "en"
-        if (locale.getLanguage() == "es"){
-            lang = "es"
-        }
-        [lang:lang]
-    }
-
-    def footerBlog(){}
-    def footerBlog001(){render (view: "/footer/blogArticles/footerBlog001", model:[blogId:'001', suggestedBlogs:['002','003','004']])}
-    def footerBlog002(){render (view: "/footer/blogArticles/footerBlog002", model:[blogId:'002', suggestedBlogs:['003','004','005']])}
-    def footerBlog003(){render (view: "/footer/blogArticles/footerBlog003", model:[blogId:'003', suggestedBlogs:['004','005','001']])}
-    def footerBlog004(){render (view: "/footer/blogArticles/footerBlog004", model:[blogId:'004', suggestedBlogs:['005','001','002']])}
-    def footerBlog005(){render (view: "/footer/blogArticles/footerBlog005", model:[blogId:'005', suggestedBlogs:['001','002','003']])}
 }

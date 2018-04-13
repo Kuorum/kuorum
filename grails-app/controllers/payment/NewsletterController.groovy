@@ -235,13 +235,7 @@ class NewsletterController {
         String nextStep = params.redirectLink // if the user has sent a test, it was saved as draft but the url hasn't changed
         def dataSend = saveAndSendContent(loggedUser, command, command.campaignId)
 //        flash.message = dataSend.msg
-        if (dataSend.goToPaymentProcess){
-            String paymentRedirect = g.createLink(mapping:"politicianMassMailingContent", params:[campaignId: dataSend.campaign.id] )
-            cookieUUIDService.setPaymentRedirect(paymentRedirect)
-            redirect(mapping: "paymentStart")
-        }else{
-            redirect(mapping: nextStep, params: [campaignId: dataSend.campaign.id])
-        }
+        redirect(mapping: nextStep, params: [campaignId: dataSend.campaign.id])
     }
 
     private def saveAndSendContent(KuorumUser user, MassMailingContentCommand command, Long campaignId = null){

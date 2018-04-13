@@ -7,28 +7,24 @@ import kuorum.core.FileType
 import kuorum.core.exception.KuorumException
 import kuorum.files.FileService
 import kuorum.users.CookieUUIDService
+import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
 import kuorum.util.TimeZoneUtil
 import kuorum.web.commands.payment.CampaignContentCommand
-import org.kuorum.rest.model.communication.CampaignRDTO
-import org.kuorum.rest.model.communication.CampaignTypeRSDTO
-import org.kuorum.rest.model.communication.event.EventRDTO
-import payment.CustomerService
-import payment.campaign.PostService
-import kuorum.users.KuorumUser
 import kuorum.web.commands.payment.CampaignSettingsCommand
 import kuorum.web.commands.payment.contact.ContactFilterCommand
 import org.bson.types.ObjectId
+import org.kuorum.rest.model.communication.CampaignRDTO
 import org.kuorum.rest.model.communication.CampaignRSDTO
+import org.kuorum.rest.model.communication.CampaignTypeRSDTO
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
+import org.kuorum.rest.model.communication.event.EventRDTO
 import org.kuorum.rest.model.contact.ContactPageRSDTO
 import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
 import org.kuorum.rest.model.contact.filter.FilterRDTO
 import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
-import payment.campaign.DebateService
-import payment.campaign.CampaignService
-import payment.campaign.CampaignCreatorService
-import payment.campaign.SurveyService
+import payment.CustomerService
+import payment.campaign.*
 import payment.contact.ContactService
 
 import javax.servlet.http.HttpServletResponse
@@ -312,23 +308,10 @@ class CampaignController {
     }
 
     private def processNextStep(KuorumUser user, CampaignRSDTO campaignRSDTO, Boolean checkPaymentRedirect){
-        Boolean validSubscription = customerService.validSubscription(user);
-        Boolean goToPaymentProcess = !validSubscription && checkPaymentRedirect;
-
-        if (goToPaymentProcess){
-            String paymentRedirect = request.forwardURI.toString()
-            cookieUUIDService.setPaymentRedirect(paymentRedirect)
-            return [
-                    mapping:"paymentStart",
-                    params:[:]
-            ]
-        }else {
-            return [
-                    mapping:params.redirectLink,
-                    params:campaignRSDTO.encodeAsLinkProperties()
-            ]
-
-        }
+        return [
+                mapping:params.redirectLink,
+                params:campaignRSDTO.encodeAsLinkProperties()
+        ]
     }
 
     protected void removeCampaign(Long campaignId, CampaignCreatorService campaignService){
