@@ -32,7 +32,6 @@ class LandingController {
         List<CampaignRSDTO> campaigns = []
         if (user) {
             campaigns = campaignService.findAllCampaigns(user).findAll{it.newsletter.status == CampaignStatusRSDTO.SENT}
-
 //            campaigns = campaigns.subList(Math.min(campaigns.size(), 3))
             if( campaigns.size() > 3){
                 campaigns = campaigns.subList(campaigns.size()-3, campaigns.size());

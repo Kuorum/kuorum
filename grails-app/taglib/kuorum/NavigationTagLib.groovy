@@ -61,7 +61,7 @@ class NavigationTagLib {
         Locale locale = org.springframework.context.i18n.LocaleContextHolder.getLocale()
         AvailableLanguage currentLang = AvailableLanguage.fromLocale(locale)
 
-        out << """<a href="https://www.kuorum.org/${currentLang.locale.language}" hreflang="${currentLang.locale.language}" target="_blank">Kuorum</a>"""
+        out << """<a href="https://www.kuorum.org/${currentLang.locale.language}" hreflang="${currentLang.locale.language}" target="_blank">Kuorum.org</a>"""
     }
 
     /**
