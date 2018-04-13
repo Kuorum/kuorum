@@ -48,13 +48,8 @@ class CustomDomainResolver {
         if (CONTEXT.get()){
             return CONTEXT.get().get(PARAM_BASE)
         }else{
-            System.out.print("No CONTEXT")
             return "https://kuorum.org"
         }
-    }
-
-    public static String setApiToken(String token){
-        return CONTEXT.get().put(PARAM_DOMAIN_TOKEN, token)
     }
 
     public static String getApiToken(){
@@ -65,7 +60,8 @@ class CustomDomainResolver {
         return CONTEXT.get().get(PARAM_DOMAIN_CONFIG)
     }
 
-    public static setDomainRSDTO(DomainRSDTO domainConfig){
-        return CONTEXT.get().put(PARAM_DOMAIN_CONFIG, domainConfig)
+    public static void setDomainRSDTO(DomainRSDTO domainConfig){
+        CONTEXT.get().put(PARAM_DOMAIN_TOKEN, domainConfig.token)
+        CONTEXT.get().put(PARAM_DOMAIN_CONFIG, domainConfig)
     }
 }

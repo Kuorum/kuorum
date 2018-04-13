@@ -23,10 +23,8 @@ class CustomDomainSpringFilter extends GenericFilterBean {
         }
         CustomDomainResolver.setUrl(url, request.getContextPath())
 
-        String token = domainService.getToken(CustomDomainResolver.domain)
         DomainRSDTO configRSDTO = domainService.getConfig(CustomDomainResolver.domain)
-        //TODO IF TOKEN NULL REDIRECT TO NOT FOUND
-        CustomDomainResolver.setApiToken(token)
+        //TODO IF CONFIG NULL REDIRECT TO NOT FOUND
         CustomDomainResolver.setDomainRSDTO(configRSDTO)
         filterChain.doFilter(request, response);
 

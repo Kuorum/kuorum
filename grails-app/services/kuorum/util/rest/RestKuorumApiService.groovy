@@ -186,7 +186,6 @@ class RestKuorumApiService {
         REGION_FIND     ("/geolocation/find"),
 
         DOMAIN          ("/domain/"),
-        DOMAIN_TOKEN    ("/domain/token"),
         DOMAIN_CONFIG   ("/domain/config"),
 
         ACCOUNT_INFO                ("/notification/mailing/{userAlias}"),

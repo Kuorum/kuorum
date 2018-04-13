@@ -13,26 +13,6 @@ class DomainService {
 
     LessCompilerService lessCompilerService
 
-    String getToken(String domain){
-        Map<String, String> params = [:]
-        Map<String, String> query = [domainName:domain]
-        try{
-            def apiResponse= restKuorumApiService.get(
-                    RestKuorumApiService.ApiMethod.DOMAIN_TOKEN,
-                    params,
-                    query,
-                    new TypeReference<String>(){})
-            String token
-            if (apiResponse.data){
-                token = org.apache.commons.io.IOUtils.toString(apiResponse.data)
-            }
-            return token;
-        }catch (Exception e){
-            log.warn("Domain not found: ${domain}")
-            return null;
-        }
-    }
-
     DomainRSDTO getConfig(String domain){
         Map<String, String> params = [:]
         Map<String, String> query = [domainName:domain]

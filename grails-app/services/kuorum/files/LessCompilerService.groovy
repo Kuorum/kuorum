@@ -24,7 +24,7 @@ class LessCompilerService implements ApplicationContextAware {
     String compileCssForDomain(DomainRSDTO domain){
         // Instantiate the LESS compiler with some compiler options
 
-        String domainName = domain.name
+        String domainName = domain.domain
         String temporalPath = "${grailsApplication.config.kuorum.upload.serverPath}"
         LessCompiler lessCompiler = new LessCompiler(Arrays.asList("--relative-urls", "--strict-math=on"));
         lessCompiler.customJs
@@ -42,8 +42,8 @@ class LessCompilerService implements ApplicationContextAware {
 
     private File buildLessFile(DomainRSDTO domain){
         String temporalPath = "${grailsApplication.config.kuorum.upload.serverPath}"
-        File lessMergedFile = new File("${temporalPath}/${domain.name}.less")
-        File lessDomainVarsFile = new File("${temporalPath}/${domain.name}_vars.less")
+        File lessMergedFile = new File("${temporalPath}/${domain.domain}.less")
+        File lessDomainVarsFile = new File("${temporalPath}/${domain.domain}_vars.less")
         lessMergedFile.deleteOnExit()
         lessDomainVarsFile.deleteOnExit()
 
@@ -101,7 +101,7 @@ class LessCompilerService implements ApplicationContextAware {
         appendLessProperty(sb,PARAM_SECOND_COLOR,domainRSDTO.secondaryColor)
         appendLessProperty(sb,PARAM_SECOND_COLOR_HOVER,domainRSDTO.secondaryColorShadowed)
         appendLessProperty(sb,PARAM_MAIN_TEXT_COLOR,"#fff")
-        appendLessProperty(sb,PARAM_STATIC_ROOT_URL,"\"${amazonFileService.getStaticRootDomainPath(domainRSDTO.name)}\"")
+        appendLessProperty(sb,PARAM_STATIC_ROOT_URL,"\"${amazonFileService.getStaticRootDomainPath(domainRSDTO.domain)}\"")
         return sb.toString();
     }
 

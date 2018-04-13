@@ -21,8 +21,6 @@ class BootStrap {
 //        }
         URL url = new URL("https://kuorum.org/kuorum")
         CustomDomainResolver.setUrl(url, "")
-        String token = null;
-        CustomDomainResolver.setApiToken(token)
         List<DomainRSDTO> domains = domainService.findAllDomains()
         domains.each {lessCompilerService.compileCssForDomain(it)}
         CustomDomainResolver.clear()
