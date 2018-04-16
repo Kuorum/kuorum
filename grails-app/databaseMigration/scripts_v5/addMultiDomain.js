@@ -2,7 +2,7 @@ var dbDest = dbDest || connect("localhost:27017/Kuorum");
 
 
 dbDest.kuorumUser.update({enabled:true},{$set:{domain:"test.kuorum.org"}},{multi:true})
-dbDest.kuorumUser.delete({alias:{$exists:0}},{name:1, email:1, enabled:1})
+dbDest.kuorumUser.remove({alias:{$exists:0}},{name:1, email:1, enabled:1})
 
 // INDICES
 dbDest.kuorumUser.createIndex( {email:1, domain:1}, { unique: true } )
