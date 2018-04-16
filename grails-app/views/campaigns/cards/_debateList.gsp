@@ -4,15 +4,15 @@
         <g:link mapping="debateShow" params="${debate.encodeAsLinkProperties()}" class="hidden"></g:link>
         <g:if test="${debate.photoUrl || debate.videoUrl}">
             <div class="card-header-photo">
-                <g:set var="debateMultimedia" value="${false}"/>
                 <g:if test="${debate.photoUrl}">
-                    <g:set var="debateMultimedia" value="${true}"/>
                     <img src="${debate.photoUrl}" alt="${debate.title}">
                 </g:if>
                 <g:elseif test="${debate.videoUrl}">
-                    <g:set var="debateMultimedia" value="${true}"/>
                     <image:showYoutube youtube="${debate.videoUrl}"/>
                 </g:elseif>
+                <g:else>
+                    <img class="empty" src="${g.resource(dir: "images", file: "emptyCampaign.png")}" alt="${post.title}">
+                </g:else>
             </div>
         </g:if>
         <div class="card-body">

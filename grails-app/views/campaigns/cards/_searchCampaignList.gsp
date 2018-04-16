@@ -2,28 +2,33 @@
 <article role="article" class="box-ppal clearfix">
     <div class="link-wrapper" id="campaign-${campaign.id}" data-datepublished="${campaign.dateCreated.time}">
         <g:link mapping="campaignShow" params="${campaign.encodeAsLinkProperties()}" class="hidden"></g:link>
-        <g:if test="${campaign.urlImage || campaign.urlVideo}">
-            <g:set var="campaignMultimedia" value="${false}"/>
+        %{--<g:if test="${campaign.urlImage || campaign.urlVideo}">--}%
+            %{--<g:set var="campaignMultimedia" value="${false}"/>--}%
             <div class="card-header-photo">
-            <g:if test="${campaign.urlImage}">
-                <g:set var="campaignMultimedia" value="${true}"/>
-                <img src="${campaign.urlImage}" alt="${campaign.name}">
-            </g:if>
-            <g:elseif test="${campaign.urlVideo}">
-                <g:set var="campaignMultimedia" value="${true}"/>
-                <image:showYoutube youtube="${campaign.urlVideo}"/>
-            </g:elseif>
-                </div>
-        </g:if>
+                <g:if test="${campaign.urlImage}">
+                    %{--<g:set var="campaignMultimedia" value="${true}"/>--}%
+                    <img src="${campaign.urlImage}" alt="${campaign.name}">
+                </g:if>
+                <g:elseif test="${campaign.urlVideo}">
+                    %{--<g:set var="campaignMultimedia" value="${true}"/>--}%
+                    <image:showYoutube youtube="${campaign.urlVideo}"/>
+                </g:elseif>
+                <g:else>
+                    <div class="multimedia-campaign-default">
+                        <img class="empty" src="${g.resource(dir: "images", file: "emptyCampaign.png")}" alt="${campaign.name}"/>
+                    </div>
+                </g:else>
+            </div>
+        %{--</g:if>--}%
             <div class="card-body">
                 <h1>
                     <g:link mapping="campaignShow" class="link-wrapper-clickable" params="${campaign.encodeAsLinkProperties()}">
                         <searchUtil:highlightedField searchElement="${campaign}" field="name"/>
                     </g:link>
                 </h1>
-            <g:if test="${!campaignMultimedia}">
-                <div class="card-text"><searchUtil:highlightedField searchElement="${campaign}" field="text" maxLength="250"/></div>
-            </g:if>
+            %{--<g:if test="${!campaignMultimedia}">--}%
+                %{--<div class="card-text"><searchUtil:highlightedField searchElement="${campaign}" field="text" maxLength="250"/></div>--}%
+            %{--</g:if>--}%
         </div>
         <div class="card-footer">
             <ul>

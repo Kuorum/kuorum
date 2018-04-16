@@ -4,16 +4,16 @@
         <g:link mapping="surveyShow" params="${survey.encodeAsLinkProperties()}" class="hidden"></g:link>
         <g:if test="${survey.photoUrl || survey.videoUrl}">
         <div class="card-header-photo">
-            <g:set var="surveyMultimedia" value="${false}"/>
             <g:if test="${survey.photoUrl}">
-                <g:set var="surveyMultimedia" value="${true}"/>
                 <img src="${survey.photoUrl}" alt="${survey.title}">
             </g:if>
             <g:elseif test="${survey.videoUrl}">
-                <g:set var="surveyMultimedia" value="${true}"/>
                 <image:showYoutube youtube="${survey.videoUrl}"/>
             </g:elseif>
-                </div>
+            <g:else>
+                <img class="empty" src="${g.resource(dir: "images", file: "emptyCampaign.png")}" alt="${post.title}">
+            </g:else>
+        </div>
             </g:if>
             <div class="card-body">
                 <h1>
