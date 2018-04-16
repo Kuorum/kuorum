@@ -470,7 +470,7 @@ header .nav > li > .navbar-link.active {cursor: default; pointer-events: none;}
 header .nav > li > .navbar-link.special.active {margin-top: 0px;background-color: #fff; color:#ccc; margin-top: 2px;}
 
 header .nav > li > .navbar-link.active:hover,
-header .nav > li > .navbar-link.active:focus {text-decoration: none;}
+header .nav > li > .navbar-link.active:focus {color:#fff; text-decoration: none;}
 
 header .nav > li > .navbar-link:hover,
 header .nav > li > .navbar-link:focus {text-decoration: none;}
@@ -1710,8 +1710,8 @@ ul.user-list-followers .loading.xs {width: 10px; height: 10px;}
 .engagement li a:after {content: " "; display: block; width: 0; height: 0; border-top: 30px solid transparent; border-bottom: 30px solid transparent; border-left: 15px solid #f2f2f2; position: absolute; top: 50%; margin-top: -30px; left: 100%; z-index: 2;}
 .engagement li a:before {content: " "; display: block; width: 0; height: 0; border-top: 30px solid transparent; border-bottom: 30px solid transparent; border-left: 15px solid white; position: absolute; top: 50%; margin-top: -30px; margin-left: 3px; left: 100%; z-index: 1;}
 .engagement li:first-child a {padding-left: 7px;}
-.engagement li.active a {background-color: #fff0ce; color: #ff9431 !important; cursor: pointer; pointer-events: auto;}
-.engagement li.active a:after {border-left-color: #fff0ce;}
+.engagement li.active a {background-color: #a5a4a3; color: #545454 !important; cursor: pointer; pointer-events: auto;}
+.engagement li.active a:after {border-left-color: #a5a4a3;}
 .engagement li.active a:hover {color: #ff9431; text-decoration: underline;}
 
 .addTagBtn {color: #20a2ea !important; background-color: #fff;}
