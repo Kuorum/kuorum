@@ -104,8 +104,21 @@ img {
     transition: opacity 0.3s;
 }
 
-img.empty {
-    box-shadow: inset 0 0 0 1000px rgba(255,0,0, 0.5);
+.multimedia-campaign-default {
+    width: 100%;
+    vertical-align: top;
+    position: relative;
+}
+
+.multimedia-campaign-default:after {
+    content: '\A';
+    position: absolute;
+    width: 100%; height:100%;
+    top:0; left:0;
+    background:#ff9431;
+    opacity: 0.3;
+    transition: all 1s;
+    -webkit-transition: all 1s;
 }
 
 
@@ -666,7 +679,7 @@ header.transp #search-form .open-filter {background-color: rgba(219,219,219,0.4)
     border: 1px solid #20a2ea ;
     color: #20a2ea !important;
 }
-.btn.btn-blue.inverted:hover,
+/*.btn.btn-blue.inverted:hover,*/
 .btn.btn-blue.inverted:active,
 .btn.btn-blue.inverted:focus {
     background-color: #20a2ea !important;
