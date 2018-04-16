@@ -1,5 +1,7 @@
 package kuorum.core.model
 
+import org.kuorum.rest.model.kuorumUser.LanguageRSDTO
+
 /**
  * Available languages on the platform. This enum is used to model the data on de Mongo
  */
@@ -24,6 +26,16 @@ public enum AvailableLanguage{
             if (availableLanguage.locale.language ==lang){
                 res = availableLanguage
             }
+        }
+        return res;
+    }
+
+    public static AvailableLanguage fromLocaleParam(LanguageRSDTO lang){
+        AvailableLanguage res = null;
+        try{
+            res = AvailableLanguage.valueOf(lang.toString())
+        }catch (Exception e){
+            res = null;
         }
         return res;
     }

@@ -5,6 +5,9 @@
         <div class="form-group col-md-6">
             <formUtil:input command="${command}" field="name" showLabel="true" />
         </div>
+        <div class="form-group col-md-6">
+            <formUtil:selectEnum command="${command}" field="language" showLabel="true" />
+        </div>
     </fieldset>
 
     <fieldset class="row">
