@@ -8,7 +8,6 @@ import kuorum.mail.KuorumMailAccountService
 import kuorum.mail.MailchimpService
 import kuorum.register.RegisterService
 import kuorum.users.KuorumUser
-import kuorum.users.KuorumUserAudit
 import kuorum.users.KuorumUserService
 import kuorum.web.admin.KuorumUserEmailSenderCommand
 import kuorum.web.admin.KuorumUserRightsCommand
@@ -95,9 +94,11 @@ class AdminController {
         redirect mapping:'adminDomainConfig'
     }
 
+    @Secured(['ROLE_ADMIN', 'ROLE_SUPER_ADMIN'])
     def solrIndex(){
     }
 
+    @Secured(['ROLE_SUPER_ADMIN'])
     def updateMailChimp(){
         KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
         mailchimpService.updateAllUsers(loggedUser)
@@ -105,11 +106,13 @@ class AdminController {
         redirect mapping:"adminPrincipal"
     }
 
+    @Secured(['ROLE_SUPER_ADMIN'])
     def fullIndex(){
         def res = indexSolrService.fullIndex()
         render view: '/admin/solrIndex'
     }
 
+    @Secured(['ROLE_SUPER_ADMIN'])
     def editUserRights(String userAlias){
         KuorumUser user = kuorumUserService.findByAlias(userAlias)
         KuorumUserRightsCommand command = new KuorumUserRightsCommand()
@@ -122,6 +125,7 @@ class AdminController {
         [command:command]
     }
 
+    @Secured(['ROLE_SUPER_ADMIN'])
     def updateUserRights( KuorumUserRightsCommand command){
 
         if (command.hasErrors()){
@@ -152,10 +156,8 @@ class AdminController {
         redirect(mapping:'editorAdminUserRights', params:user.encodeAsLinkProperties())
     }
 
-    def editorsMonitoring(){
-        [audits: KuorumUserAudit.findAllByDateCreatedGreaterThan(new Date()-31, [sort: "id", order: "desc"])]
-    }
-
+    @Secured(['ROLE_SUPER_ADMIN'])
+    @Deprecated
     def editUserEmailSender(String userAlias){
         Boolean requestState;
         KuorumUser user = kuorumUserService.findByAlias(userAlias)
@@ -170,6 +172,8 @@ class AdminController {
         ]
     }
 
+    @Secured(['ROLE_SUPER_ADMIN'])
+    @Deprecated
     def updateUserEmailSender(KuorumUserEmailSenderCommand command){
         KuorumUser user = command.user;
         AdminConfigMailingRDTO adminRDTO = new AdminConfigMailingRDTO();
