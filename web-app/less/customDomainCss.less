@@ -21,6 +21,10 @@ a:focus {color: @mainColor;}
   color: @mainTextColor !important;
 }
 
+.btn:hover, .btn:active, .btn:focus{
+  background-color: @mainColorHover !important;
+}
+
 .nav > li > .navbar-link:hover,
 .nav > li > .navbar-link:focus,
 .nav .open > a,
@@ -55,7 +59,7 @@ a:focus {color: @mainColor;}
 
 .timepicker-picker .btn {color: @mainColor !important;}
 
-.actionIcons li > a {color: @mainTextColor; border-color: @mainColor;}
+.actionIcons li > a {color: @mainColor; border-color: @mainColor;}
 
 #progressProfileFill {background-color: @mainColor;}
 #progressLineFill {border-top-color: @mainColor;}
@@ -413,8 +417,6 @@ ul.list > li > ul.list-actions > li > a:active {color: @secondColor;}
 
 .carousel.news .carousel-inner .item .carousel-caption h3:hover,
 .carousel.news .carousel-inner .item .carousel-caption h3:focus {color: @secondColorHover;}
-
-//third color
 
 ul.search-list > li.search-article .box-ppal .card-body .card-text a{color: @secondColor;}
 ul.search-list > li.search-article .box-ppal .card-footer > ul li a:hover {color: @secondColor;}
