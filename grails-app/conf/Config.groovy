@@ -176,7 +176,7 @@ grails.plugin.springsecurity.filterChain.filterNames = ['customDomainSpringFilte
 //SWITCH USER
 grails.plugin.springsecurity.useSwitchUserFilter = true
 grails.plugin.springsecurity.controllerAnnotations.staticRules=[
-        '/j_spring_security_switch_user': ['ROLE_ADMIN', 'IS_AUTHENTICATED_FULLY']
+        '/j_spring_security_switch_user': ['ROLE_SUPER_ADMIN', 'IS_AUTHENTICATED_FULLY']
 ]
 grails.plugin.springsecurity.filterChain.chainMap = [  //LOS FILTROS SIN ESPACIOS
         '/j_spring_security_switch_user/**':'JOINED_FILTERS',
