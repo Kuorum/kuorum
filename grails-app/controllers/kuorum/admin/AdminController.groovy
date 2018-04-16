@@ -52,6 +52,7 @@ class AdminController {
         DomainRSDTO domainRSDTO = domainService.getConfig(CustomDomainResolver.domain)
         DomainConfigCommand domainConfigCommand = new DomainConfigCommand();
         domainConfigCommand.name = domainRSDTO.name
+        domainConfigCommand.language = domainRSDTO.language
         domainConfigCommand.slogan = domainRSDTO.slogan
         domainConfigCommand.subtitle = domainRSDTO.subtitle
         domainConfigCommand.mainColor = domainRSDTO.mainColor
@@ -75,6 +76,7 @@ class AdminController {
         }
         DomainRDTO domainRDTO = new DomainRDTO()
         domainRDTO.name = command.name
+        domainRDTO.language = command.language
         domainRDTO.slogan = command.slogan
         domainRDTO.subtitle = command.subtitle
         domainRDTO.mainColor = command.mainColor

@@ -1,11 +1,13 @@
 package kuorum.web.admin.domain
 
 import grails.validation.Validateable
+import org.kuorum.rest.model.kuorumUser.LanguageRSDTO
 
 @Validateable
 class DomainConfigCommand {
 
     String name;
+    LanguageRSDTO language;
     String slogan;
     String subtitle;
     String mainColor;
@@ -22,6 +24,7 @@ class DomainConfigCommand {
 
     static constraints = {
         name nullable: false
+        language nullable: false
         slogan nullable:false
         subtitle nullable:false
         mainColor nullable:false

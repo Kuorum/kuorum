@@ -7,11 +7,6 @@
         %{--</a>--}%
     %{--</li>--}%
 
-    %{--<li>--}%
-        %{--<g:link mapping="landingCorporationsBrands" class="navbar-link ${nav.activeMenuCss(mappingName: 'landingCorporationsBrands')}">--}%
-            %{--<span><g:message code="head.noLogged.corporations"/> </span>--}%
-        %{--</g:link>--}%
-    %{--</li>--}%
     <li>
         <g:link mapping="landingServices" class="navbar-link ${nav.activeMenuCss(mappingName: 'landingServices')} ${nav.activeMenuCss(mappingName: 'home')}">
             <span><g:message code="head.noLogged.services"/></span>
