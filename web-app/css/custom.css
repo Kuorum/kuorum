@@ -116,7 +116,7 @@ img {
     width: 100%; height:100%;
     top:0; left:0;
     background:#ff9431;
-    opacity: 0.3;
+    opacity: 0.15;
     transition: all 1s;
     -webkit-transition: all 1s;
 }
