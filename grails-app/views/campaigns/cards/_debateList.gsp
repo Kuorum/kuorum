@@ -2,7 +2,7 @@
 <article role="article" class="box-ppal clearfix">
     <div class="link-wrapper" id="debate-${debate.id}" data-datePublished="${debate.datePublished.time}">
         <g:link mapping="debateShow" params="${debate.encodeAsLinkProperties()}" class="hidden"></g:link>
-        <g:if test="${debate.photoUrl || debate.videoUrl}">
+        %{--<g:if test="${debate.photoUrl || debate.videoUrl}">--}%
             <div class="card-header-photo">
                 <g:if test="${debate.photoUrl}">
                     <img src="${debate.photoUrl}" alt="${debate.title}">
@@ -11,10 +11,12 @@
                     <image:showYoutube youtube="${debate.videoUrl}"/>
                 </g:elseif>
                 <g:else>
-                    <img class="empty" src="${g.resource(dir: "images", file: "emptyCampaign.png")}" alt="${post.title}">
+                    <div class="multimedia-campaign-default">
+                        <img class="empty" src="${g.resource(dir: "images", file: "emptyCampaign.png")}" alt="${debate.title}"/>
+                    </div>
                 </g:else>
             </div>
-        </g:if>
+        %{--</g:if>--}%
         <div class="card-body">
             <h1>
                 <g:link mapping="debateShow" class="link-wrapper-clickable" params="${debate.encodeAsLinkProperties()}">
