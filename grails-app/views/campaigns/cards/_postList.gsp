@@ -2,21 +2,21 @@
 <article role="article" class="box-ppal clearfix">
     <div class="link-wrapper" id="post-${post.id}" data-datepublished="${post.datePublished.time}">
         <g:link mapping="postShow" params="${post.encodeAsLinkProperties()}" class="hidden"></g:link>
-        <g:if test="${post.photoUrl || post.videoUrl}">
+        %{--<g:if test="${post.photoUrl || post.videoUrl}">--}%
         <div class="card-header-photo">
             <g:if test="${post.photoUrl}">
                 <img src="${post.photoUrl}" alt="${post.title}">
             </g:if>
             <g:elseif test="${post.videoUrl}">
-                <g:set var="postMultimedia" value="${true}"/>
                 <image:showYoutube youtube="${post.videoUrl}"/>
             </g:elseif>
             <g:else>
-                <g:get var="postMultimedia" value="${true}"/>
-                <img class="empty" src="${g.resource(dir: "images", file: "emptyCampaign.png")}" alt="${post.title}">
+                <div class="multimedia-campaign-default">
+                    <img class="empty" src="${g.resource(dir: "images", file: "emptyCampaign.png")}" alt="${post.title}"/>
+                </div>
             </g:else>
         </div>
-        </g:if>
+        %{--</g:if>--}%
             <div class="card-body">
                 <h1>
                     <g:link mapping="postShow" class="link-wrapper-clickable" params="${post.encodeAsLinkProperties()}">
