@@ -7978,10 +7978,8 @@ ul.proposal-list .comment-box > .comment-proposal > .user-box{margin-bottom: 10p
 
 
 .fade-carousel .content hgroup {
-    margin-bottom: 0px;
+    margin-bottom: 30px;
 }
-
-.fade-carousel.landingServices .content hgroup,
 
 .fade-carousel .content h1,
 .fade-carousel .content-footer h1{
@@ -8170,6 +8168,11 @@ div.dark {
 }
 
 @media (max-width: 767px) {
+
+    .fade-carousel .content hgroup {
+        margin-bottom: 0px;
+    }
+
     .fade-carousel .slides .slide-1,
     .fade-carousel .slides .slide-2,
     .fade-carousel .slides .slide-3{
