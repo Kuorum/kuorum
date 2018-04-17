@@ -15,6 +15,7 @@ import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
 import kuorum.users.RoleUser
 import kuorum.web.commands.customRegister.ContactRegister
+import kuorum.web.constants.WebConstants
 import kuorum.web.users.KuorumRegistrationCode
 import org.codehaus.groovy.grails.web.mapping.LinkGenerator
 import org.springframework.context.i18n.LocaleContextHolder
@@ -244,6 +245,7 @@ class RegisterService {
         }
         if (user) {
             kuorumMailService.mailingListUpdateUser(user)
+            followMainUser(user)
         }
         try{
             indexSolrService.deltaIndex()
@@ -265,6 +267,17 @@ class RegisterService {
             KuorumUser following = KuorumUser.get(registrationCode[META_DATA_REGISTER_FOLLOW_POLITICIAN][META_DATA_REGISTER_FOLLOW_POLITICIAN_ID])
             kuorumUserService.createFollower(user, following)
         }
+    }
+
+    private void followMainUser(KuorumUser user){
+        // TODO: This logic should be on API. First is necessary to clarify which will be the process
+        KuorumUser userAdmin = kuorumUserService.findByAlias(WebConstants.FAKE_LANDING_ALIAS_USER)
+        if (userAdmin){
+            kuorumUserService.createFollower(user, userAdmin)
+        }else{
+            log.info("No admin user defined for domain: ${CustomDomainResolver.domain}")
+        }
+
     }
 
     Map save(KuorumUser user) {
