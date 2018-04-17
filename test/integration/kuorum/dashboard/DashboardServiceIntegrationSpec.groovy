@@ -22,8 +22,8 @@ class DashboardServiceIntegrationSpec extends IntegrationSpec{
         Region.collection.getDB().dropDatabase()
         fixtureLoader.load("testBasicData")
 
-        politician = KuorumUser.findByEmail('politician@example.com')
-        userToFollow = KuorumUser.findByEmail('patxi@example.com')
+        politician = KuorumUser.findByEmailAndDomain('politician@example.com', 'test.kuorum.org')
+        userToFollow = KuorumUser.findByEmailAndDomain('patxi@example.com', 'test.kuorum.org')
         regionCodeName = politician.professionalDetails.region.iso3166_2
         salendaRegularUser = IntegrationHelper.createDefaultUser('salendaRegularUser@example.com' )
         salendaRegularUser.personalData.provinceCode = regionCodeName

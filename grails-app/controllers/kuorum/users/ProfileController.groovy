@@ -6,6 +6,7 @@ import grails.plugin.springsecurity.ui.RegistrationCode
 import grails.plugin.springsecurity.ui.ResetPasswordCommand
 import kuorum.KuorumFile
 import kuorum.causes.CausesService
+import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.model.Gender
 import kuorum.core.model.UserType
 import kuorum.files.FileService
@@ -174,7 +175,7 @@ class ProfileController {
         KuorumUser user
         // TODO to ui service
         RegistrationCode.withTransaction { status ->
-            user = KuorumUser.findByEmail(registrationCode.username)
+            user = KuorumUser.findByEmailAndDomain(registrationCode.username, CustomDomainResolver.domain)
             if (!user) {
                 flash.error = message(code: 'spring.security.ui.register.badCode')
                 redirect mapping:"home"

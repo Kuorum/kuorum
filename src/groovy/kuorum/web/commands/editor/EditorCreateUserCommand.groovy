@@ -1,6 +1,7 @@
 package kuorum.web.commands.editor
 
 import grails.validation.Validateable
+import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.users.KuorumUser
 import kuorum.web.commands.profile.AccountDetailsCommand
 
@@ -19,7 +20,7 @@ class EditorCreateUserCommand extends AccountDetailsCommand{
             }
         }
         email nullable: false, email:true, validator: {val, obj ->
-            if (val && KuorumUser.findByEmail(val)){
+            if (val && KuorumUser.findByEmailAndDomain(val,CustomDomainResolver.domain)){
                 return "unique"
             }
         }

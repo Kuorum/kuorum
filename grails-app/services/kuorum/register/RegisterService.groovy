@@ -229,7 +229,7 @@ class RegisterService {
     KuorumUser createUserByRegistrationCode (KuorumRegistrationCode registrationCode){
         KuorumUser user
         KuorumRegistrationCode.withTransaction { status ->
-            user = KuorumUser.findByEmail(registrationCode.username)
+            user = KuorumUser.findByEmailAndDomain(registrationCode.username, CustomDomainResolver.domain)
             if (!user) {
                 return
             }

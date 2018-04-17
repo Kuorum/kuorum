@@ -5,9 +5,7 @@ import grails.test.spock.IntegrationSpec
 import kuorum.helper.IntegrationHelper
 import kuorum.users.KuorumUser
 import kuorum.users.RoleUser
-import spock.lang.Ignore
 import spock.lang.Shared
-import springSecurity.KuorumRegisterCommand
 import springSecurity.RegisterController
 
 class RegisterControllerIntegrationSpec extends IntegrationSpec {
@@ -31,23 +29,6 @@ class RegisterControllerIntegrationSpec extends IntegrationSpec {
         registerController = new RegisterController()
     }
 
-    @Ignore
-    void "test register"() {
-        given:"a register object"
-        KuorumRegisterCommand kuorumRegisterCommand = new KuorumRegisterCommand(email:'alberto.baron@salenda.es', name:'Alberto baron', conditions: false)
-
-        when:"call to the correct action"
-        registerController.register(kuorumRegisterCommand)
-
-        then:"go to the correct page"
-        redirectMap
-        redirectMap.mapping
-        redirectMap.mapping == 'home'
-        KuorumUser.findByEmail(kuorumRegisterCommand.email).authorities.id.contains(RoleUser.findByAuthority("ROLE_INCOMPLETE_USER").id)
-
-        cleanup:
-        KuorumUser.findByEmail(kuorumRegisterCommand.email)?.delete(flush:true)
-    }
 
     void "test selectMyPassword with different passwords"() {
         given:"a user to assign the password and different passwords in the params"
@@ -78,7 +59,7 @@ class RegisterControllerIntegrationSpec extends IntegrationSpec {
         renderMap.model.userId == registerController.params.userId
         renderMap.model.command
         renderMap.model.command.errors
-        KuorumUser.findByEmail(user.email)
+        KuorumUser.findByEmailAndDomain(user.email, "test.kuorum.org")
         user.authorities.id.contains(RoleUser.findByAuthority("ROLE_INCOMPLETE_USER").id)
         !userInDatabase.password
 
@@ -137,13 +118,13 @@ class RegisterControllerIntegrationSpec extends IntegrationSpec {
         redirectMap
         redirectMap.uri
         redirectMap.uri == defaultTarget
-        !KuorumUser.findByEmail('alberto.baron@salenda.es')
+        !KuorumUser.findByEmailAndDomain('alberto.baron@salenda.es', 'test.kuorum.org')
     }
 
 
     void "test verifyRegistration if there is a successfully token"() {
         given:"a user"
-        KuorumUser user = IntegrationHelper.createDefaultUser("alberto.baron@salenda.es")
+        KuorumUser user = IntegrationHelper.createDefaultUser("alberto.baron@salenda.es", 'test.kuorum.org')
         user.save(flush:true)
 
         and:"a valid registration token"
@@ -161,7 +142,7 @@ class RegisterControllerIntegrationSpec extends IntegrationSpec {
         renderMap.model
         renderMap.model.userId
         !RegistrationCode.get(registrationCode.id)
-        !KuorumUser.findByEmail(user.email).accountLocked
+        !KuorumUser.findByEmailAndDomain(user.email, "test.kuorum.org").accountLocked
 
         cleanup:
         KuorumUser.get(user.id)?.delete(flush:true)
@@ -183,6 +164,6 @@ class RegisterControllerIntegrationSpec extends IntegrationSpec {
         redirectMap
         redirectMap.uri
         redirectMap.uri == "/"
-        !KuorumUser.findByEmail('alberto.baron@salenda.es')
+        !KuorumUser.findByEmailAndDomain('alberto.baron@salenda.es', 'test.kuorum.org')
     }
 }

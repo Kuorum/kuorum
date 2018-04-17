@@ -1,5 +1,6 @@
 package kuorum.web.filters
 
+import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.users.KuorumUser
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.AuthenticationException
@@ -61,7 +62,7 @@ class KuorumSecuritySwitchFilter extends GenericFilterBean  {
         KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
 
 
-        KuorumUser switchingUser = KuorumUser.findByEmail(request.getParameter("j_username"))
+        KuorumUser switchingUser = KuorumUser.findByEmailAndDomain(request.getParameter("j_username"), CustomDomainResolver.domain)
         if (isUserAllowedToSwitchToUser(loggedUser, switchingUser)){
             chain.doFilter(request, response);
         }else{
