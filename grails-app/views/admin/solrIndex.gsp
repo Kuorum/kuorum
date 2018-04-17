@@ -7,7 +7,7 @@
 
 <content tag="leftMenu">
     <h1>
-        <g:message code="admin.solrIndex.title"/>,
+        <g:message code="admin.solrIndex.title"/>
     </h1>
     <g:render template="/admin/adminMenu" model="[activeMapping:'adminSearcherIndex', menu:menu]"/>
 </content>

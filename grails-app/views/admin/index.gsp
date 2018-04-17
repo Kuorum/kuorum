@@ -7,7 +7,7 @@
 
 <content tag="leftMenu">
     <h1>
-        <g:message code="admin.adminPrincipal.title"/>,
+        <g:message code="admin.adminPrincipal.title"/>
     </h1>
     %{--<p><g:message code="profile.changeEmail.description"/></p>--}%
     <g:render template="/admin/adminMenu" model="[activeMapping:'adminPrincipal', menu:menu]"/>
