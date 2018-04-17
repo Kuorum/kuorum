@@ -2,8 +2,8 @@
 <article role="article" class="box-ppal clearfix">
     <div class="link-wrapper" id="survey-${survey.id}" data-datepublished="${survey.datePublished.time}">
         <g:link mapping="surveyShow" params="${survey.encodeAsLinkProperties()}" class="hidden"></g:link>
-        <g:if test="${survey.photoUrl || survey.videoUrl}">
-            %{--<div class="card-header-photo">--}%
+        %{--<g:if test="${survey.photoUrl || survey.videoUrl}">--}%
+            <div class="card-header-photo">
                 <g:if test="${survey.photoUrl}">
                     <img src="${survey.photoUrl}" alt="${survey.title}">
                 </g:if>
@@ -16,7 +16,7 @@
                     </div>
                 </g:else>
             </div>
-        </g:if>
+        %{--</g:if>--}%
         <div class="card-body">
             <h1>
                 <g:link mapping="surveyShow" class="link-wrapper-clickable" params="${survey.encodeAsLinkProperties()}">

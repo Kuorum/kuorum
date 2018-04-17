@@ -2,7 +2,7 @@
 <article role="article" class="box-ppal clearfix">
     <div class="link-wrapper" id="campaign-${campaign.id}" data-datepublished="${campaign.dateCreated.time}">
         <g:link mapping="campaignShow" params="${campaign.encodeAsLinkProperties()}" class="hidden"></g:link>
-        <g:if test="${campaign.urlImage || campaign.urlVideo}">
+        %{--<g:if test="${campaign.urlImage || campaign.urlVideo}">--}%
             <div class="card-header-photo">
                 <g:if test="${campaign.urlImage}">
                     <img src="${campaign.urlImage}" alt="${campaign.name}">
@@ -16,7 +16,7 @@
                     </div>
                 </g:else>
             </div>
-        </g:if>
+        %{--</g:if>--}%
             <div class="card-body">
                 <h1>
                     <g:link mapping="campaignShow" class="link-wrapper-clickable" params="${campaign.encodeAsLinkProperties()}">

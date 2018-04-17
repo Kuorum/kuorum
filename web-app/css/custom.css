@@ -1724,8 +1724,8 @@ ul.user-list-followers .loading.xs {width: 10px; height: 10px;}
 .engagement li a:after {content: " "; display: block; width: 0; height: 0; border-top: 30px solid transparent; border-bottom: 30px solid transparent; border-left: 15px solid #f2f2f2; position: absolute; top: 50%; margin-top: -30px; left: 100%; z-index: 2;}
 .engagement li a:before {content: " "; display: block; width: 0; height: 0; border-top: 30px solid transparent; border-bottom: 30px solid transparent; border-left: 15px solid white; position: absolute; top: 50%; margin-top: -30px; margin-left: 3px; left: 100%; z-index: 1;}
 .engagement li:first-child a {padding-left: 7px;}
-.engagement li.active a {background-color: #a5a4a3; color: #545454 !important; cursor: pointer; pointer-events: auto;}
-.engagement li.active a:after {border-left-color: #a5a4a3;}
+.engagement li.active a {background-color: #d4d4d4; color: #545454 !important; cursor: pointer; pointer-events: auto;}
+.engagement li.active a:after {border-left-color: #d4d4d4;}
 .engagement li.active a:hover {color: #ff9431; text-decoration: underline;}
 
 .addTagBtn {color: #20a2ea !important; background-color: #fff;}
