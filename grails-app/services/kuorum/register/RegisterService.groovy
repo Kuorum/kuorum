@@ -92,6 +92,7 @@ class RegisterService {
             user.save()
         }
         springSecurityService.reauthenticate user.email
+        followMainUser(user)
         user
     }
 
@@ -245,7 +246,6 @@ class RegisterService {
         }
         if (user) {
             kuorumMailService.mailingListUpdateUser(user)
-            followMainUser(user)
         }
         try{
             indexSolrService.deltaIndex()
