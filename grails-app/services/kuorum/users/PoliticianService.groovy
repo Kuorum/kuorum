@@ -26,7 +26,6 @@ class PoliticianService {
     NotificationService notificationService
     RegionService regionService
     KuorumUserService kuorumUserService
-    KuorumUserAuditService kuorumUserAuditService
 
     KuorumUser updatePoliticianRelevantEvents(KuorumUser politician, List<PoliticianRelevantEvent> relevantEvents){
         politician.relevantEvents = relevantEvents.findAll{it && it.validate()}
@@ -62,9 +61,5 @@ class PoliticianService {
             causesService.supportCause(politician, cause)
         }
         indexSolrService.deltaIndex()
-        if(audit){
-            // If politician.save() will override the ideologic field that is defined on service, but not on kuorum.
-            kuorumUserAuditService.auditEditUser(politician)
-        }
     }
 }

@@ -42,7 +42,6 @@ class KuorumUserService {
     SearchSolrService searchSolrService;
     KuorumMailAccountService kuorumMailAccountService;
     CausesService causesService
-    KuorumUserAuditService kuorumUserAuditService
     RestKuorumApiService restKuorumApiService
 
 
@@ -331,7 +330,6 @@ class KuorumUserService {
             }
         }
         indexSolrService.deltaIndex()
-        kuorumUserAuditService.auditEditUser(user)
         kuorumMailService.mailingListUpdateUser(user)
         updateKuorumUserOnRest(user);
 
@@ -341,7 +339,6 @@ class KuorumUserService {
 
     KuorumUser updateUserRelevance(KuorumUser user, Long relevance){
         user["relevance"] = relevance
-        kuorumUserAuditService.auditEditUser(user)
         user.save() //Not user updateUser because relevance is a little special
     }
 
@@ -364,7 +361,6 @@ class KuorumUserService {
                 return null;
             }
         }
-        kuorumUserAuditService.auditEditUser(user)
         return user;
     }
 
@@ -386,7 +382,6 @@ class KuorumUserService {
             }
         }
         indexSolrService.deltaIndex()
-        kuorumUserAuditService.auditEditUser(user)
         user
     }
 
