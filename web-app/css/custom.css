@@ -8448,6 +8448,8 @@ ul.bullets li{
     font-size: 2.5rem;
 }
 
+#latestActivities .btn{font-size: 25px !important; }
+
 /** Trust us **/
 
 #trustUs {
