@@ -573,7 +573,7 @@ header.transp #search-form .open-filter {background-color: rgba(219,219,219,0.4)
 .login .form-group:nth-child(n+3) {text-align:center;margin:0 0 10px;}
 .login .form-group:last-child {color: #a8a8a8; margin-bottom: 0; font-size: 14px; font-size: 1.4rem;}
 .login .form-group a {color: #545454;}
-.login .form-group p {color: #a8a8a8; margin:0;}
+.login .form-group p {color: #a8a8a8; margin:10px 0 0 0;}
 .login .form-group:nth-child(3) p {margin:10px 0 0 0;}
 .login .form-group:last-child p:last-child a {color:#ff9431;}
 #login-modal.login .form-group:last-child p:last-child a {color:#20a2ea;}
@@ -605,11 +605,14 @@ header.transp #search-form .open-filter {background-color: rgba(219,219,219,0.4)
     border: none;
     margin: 0;
 }
+.btn.active,
 .btn:hover,
 .btn:active,
 .btn:focus {
     background-color: #ee7612 !important;
     text-decoration: none;
+    box-shadow:none;
+    -webkit-box-shadow:none;
 }
 
 /* small button (botón pequeño) */
@@ -827,7 +830,7 @@ header.transp #search-form .open-filter {background-color: rgba(219,219,219,0.4)
 .box .dropdown-menu > li:hover a.btn,
 .box .dropdown-menu > li:active a.btn,
 .box .dropdown-menu > li:focus a.btn {text-decoration: none;}
-.btn:hover, .btn:active, .btn:focus {color: #fff;}
+.btn:hover, .btn:active, .btn:focus {box-shadow:none; -webkit-box-shadow:none; color: #fff;}
 .btn.search {
     height: 30px;
     padding: 0 10px !important;
@@ -1656,6 +1659,8 @@ ul.user-list-followers .loading.xs {width: 10px; height: 10px;}
     100% {width: 75%;}
 }
 .campaign-progress-bar-wrapper .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done::after {content: ""; position: absolute; border: 10px solid #ff9934; border-left-color: transparent; border-right-color: transparent; border-bottom-color: transparent; width: 1px; height: 1px; right: -10px; top: -10px;}
+.progress-bar {background-color: #00a3ed;}
+
 
 #followAndRegister{padding: 10px 15px 0;}
 #followAndRegister .btn{width:100%;margin-bottom:7px; padding: 9px !important;}
@@ -1724,8 +1729,8 @@ ul.user-list-followers .loading.xs {width: 10px; height: 10px;}
 .engagement li a:after {content: " "; display: block; width: 0; height: 0; border-top: 30px solid transparent; border-bottom: 30px solid transparent; border-left: 15px solid #f2f2f2; position: absolute; top: 50%; margin-top: -30px; left: 100%; z-index: 2;}
 .engagement li a:before {content: " "; display: block; width: 0; height: 0; border-top: 30px solid transparent; border-bottom: 30px solid transparent; border-left: 15px solid white; position: absolute; top: 50%; margin-top: -30px; margin-left: 3px; left: 100%; z-index: 1;}
 .engagement li:first-child a {padding-left: 7px;}
-.engagement li.active a {background-color: #d4d4d4; color: #545454 !important; cursor: pointer; pointer-events: auto;}
-.engagement li.active a:after {border-left-color: #d4d4d4;}
+.engagement li.active a {background-color: #e6e6e6; color: #919191 !important; cursor: pointer; pointer-events: auto;}
+.engagement li.active a:after {border-left-color: #e6e6e6;}
 .engagement li.active a:hover {color: #ff9431; text-decoration: underline;}
 
 .addTagBtn {color: #20a2ea !important; background-color: #fff;}
@@ -4058,6 +4063,7 @@ h5#results {margin: 0 0 15px;}
 .noty_message {padding: 10px !important;}
 .noty_text {line-height:2rem;}
 .noty_text a {color:#ff9431;}
+.noty_text a:hover{color:#ee7612;}
 
 .container-fluid.info {padding-top: 20px;}
 .info #main > header nav ul {margin: 0; padding: 0;}
@@ -4241,7 +4247,7 @@ h5#results {margin: 0 0 15px;}
     border-right: solid 1px #ff9431;
     border-bottom: solid 1px #ff9431;
     color: #ff9431 !important;
-    box-shadow: 0 0 0 rgba(0, 0, 0, 0.125) inset;
+    /*box-shadow: 0 0 0 rgba(0, 0, 0, 0.125) inset;*/
     cursor: not-allowed;
     pointer-events: none;
 }
@@ -8281,7 +8287,7 @@ ul.bullets li{
 
 .section-body p{
     font-size: 22px;
-    text-align: left;
+    text-align: center;
     line-height: 1.5;
 }
 

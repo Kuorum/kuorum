@@ -8,8 +8,8 @@
                 %{--<li><g:link mapping="footerPress"><g:message code="layout.footer.pressTitle"/></g:link></li>--}%
                 %{--<li><g:link mapping="footerUserGuides"><g:message code="layout.footer.userGuides"/></g:link></li>--}%
                 %{--<li><g:link mapping="footerContactUs"><g:message code="layout.footer.contact"/></g:link></li>--}%
-                <li><g:link mapping="footerPrivacyPolicy"><g:message code="layout.footer.privacyPolicy"/></g:link></li>
-                <li><g:link mapping="footerTermsUse"><g:message code="layout.footer.termsUse"/></g:link></li>
+                <li><g:link mapping="footerPrivacyPolicy" target="_blank"><g:message code="layout.footer.privacyPolicy"/></g:link></li>
+                <li><g:link mapping="footerTermsUse" target="_blank"><g:message code="layout.footer.termsUse"/></g:link></li>
                 %{--<sec:ifNotLoggedIn>--}%
                     %{--<li class="lang-selector"><nav:generateLangSelector /></li>--}%
                 %{--</sec:ifNotLoggedIn>--}%
