@@ -5338,7 +5338,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .main.prices .promo-options > .promo:not(:first-child) {border: 1px solid #545454;}
 }
 
-/* Small devices (tablets, 768px and down) */
 @media only screen and (max-width: 998px) {
     form#pass-forget .form-group {text-align: center;}
 }
@@ -7243,6 +7242,7 @@ header .header-msg h6:hover{
 }
 
 @media only screen and (min-width: 768px){
+    .fade-carousel .content { width: 785px}
     #cases-study-grid .card .card-body {padding:0;}
     #politician-bio.extra-padding {padding: 0 30px 20px;}
     header h6{
