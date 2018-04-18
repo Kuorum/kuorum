@@ -69,9 +69,9 @@ class RegisterService {
                 status.setRollbackOnly()
                 return null
             }
-            KuorumRegistrationCode registrationCode = KuorumRegistrationCode.findByUsername(user."$usernameFieldName")
+            KuorumRegistrationCode registrationCode = KuorumRegistrationCode.findByUsernameAndDomain(user.email, CustomDomainResolver.domain)
             if (!registrationCode){
-                registrationCode = new KuorumRegistrationCode(username: user."$usernameFieldName")
+                registrationCode = new KuorumRegistrationCode(username: user.email, domain: CustomDomainResolver.domain)
             }
             if (!registrationCode.save()) {
                 log.error "Error saving a registrationCode : ${registrationCode}"
@@ -300,7 +300,7 @@ class RegisterService {
     }
 
     KuorumRegistrationCode findOrRegisterUserCode(KuorumUser user) {
-        KuorumRegistrationCode.findByUsername(user.email)?:registerUserCode(user)
+        KuorumRegistrationCode.findByUsernameAndDomain(user.email, user.domain)?:registerUserCode(user)
     }
 
     protected String generateLink(String action, linkParams) {

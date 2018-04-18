@@ -2,6 +2,7 @@ package kuorum.users
 
 import com.mongodb.WriteConcern
 import kuorum.KuorumFile
+import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.model.AvailableLanguage
 import kuorum.core.model.CommissionType
 import kuorum.core.model.UserType
@@ -105,7 +106,14 @@ class KuorumUser {
         name nullable:false
         surname nullable:true
         email nullable: false, email: true
-        alias nullable:true, unique:true, maxSize: ALIAS_MAX_SIZE, matches: ALIAS_REGEX
+        alias nullable:true, maxSize: ALIAS_MAX_SIZE, matches: ALIAS_REGEX, validator: {val, obj ->
+            if (val && obj.user && val != obj.user.alias && KuorumUser.findByAliasAndDomain(val.toLowerCase(), CustomDomainResolver.domain)){
+                return "unique"
+            }
+            if (!val && obj.user && obj.user.enabled){
+                return "nullable"
+            }
+        }
         oldAlias nullable:true
         password nullable:true
         bio nullable:true

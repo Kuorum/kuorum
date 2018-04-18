@@ -3,6 +3,7 @@ package kuorum.web.users
 class KuorumRegistrationCode {
 
     String username
+    String domain
     String token = UUID.randomUUID().toString().replaceAll('-', '')
     Date dateCreated
 
