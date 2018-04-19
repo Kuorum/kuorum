@@ -49,13 +49,14 @@ class RestKuorumApiService {
         return response
     }
 
-    def get(ApiMethod apiMethod, Map<String,String> params, Map<String,String> query, TypeReference typeToMap) {
+    def get(ApiMethod apiMethod, Map<String,String> params, Map<String,String> query, TypeReference typeToMap, String adminApiKey = null) {
         RESTClient mailKuorumServices = getRestMailKuorumServices(typeToMap);
 
+        String apiKey = adminApiKey?:CustomDomainResolver.apiToken
         String path = apiMethod.buildUrl(apiPath,params);
         def response = mailKuorumServices.get(
                 path: path,
-                headers: ["User-Agent": "Kuorum Web", "token":CustomDomainResolver.apiToken],
+                headers: ["User-Agent": "Kuorum Web", "token":apiKey],
                 query:query,
                 requestContentType : groovyx.net.http.ContentType.JSON
         )
@@ -74,12 +75,13 @@ class RestKuorumApiService {
         return response
     }
 
-    def put(ApiMethod apiMethod, Map<String,String> params, Map<String,String> query, def body,TypeReference typeToMap) {
+    def put(ApiMethod apiMethod, Map<String,String> params, Map<String,String> query, def body,TypeReference typeToMap, String adminApiKey = null) {
         RESTClient mailKuorumServices = getRestMailKuorumServices(typeToMap);
+        String apiKey = adminApiKey?:CustomDomainResolver.apiToken
         String path = apiMethod.buildUrl(apiPath,params);
         def response = mailKuorumServices.put(
                 path: path,
-                headers: ["User-Agent": "Kuorum Web", "token":CustomDomainResolver.apiToken],
+                headers: ["User-Agent": "Kuorum Web", "token":apiKey],
                 query:query,
                 body: body,
                 requestContentType : groovyx.net.http.ContentType.JSON

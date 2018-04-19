@@ -6,12 +6,16 @@ import kuorum.files.LessCompilerService
 import kuorum.util.rest.RestKuorumApiService
 import org.kuorum.rest.model.domain.DomainRDTO
 import org.kuorum.rest.model.domain.DomainRSDTO
+import org.springframework.beans.factory.annotation.Value
 
 class DomainService {
 
     RestKuorumApiService restKuorumApiService;
 
     LessCompilerService lessCompilerService
+
+    @Value('${kuorum.rest.apiKey}')
+    String kuorumAdminRestApiKey
 
     DomainRSDTO getConfig(String domain){
         Map<String, String> params = [:]
@@ -22,7 +26,8 @@ class DomainService {
                     RestKuorumApiService.ApiMethod.DOMAIN_CONFIG,
                     params,
                     query,
-                    new TypeReference<DomainRSDTO>(){})
+                    new TypeReference<DomainRSDTO>(){},
+                    kuorumAdminRestApiKey)
             DomainRSDTO config
             if (apiResponse.data){
                 config = apiResponse.data
@@ -45,7 +50,8 @@ class DomainService {
                     params,
                     query,
                     domainRDTO,
-                    new TypeReference<DomainRSDTO>(){})
+                    new TypeReference<DomainRSDTO>(){},
+                    kuorumAdminRestApiKey)
             DomainRSDTO domain
             if (apiResponse.data){
                 domain = apiResponse.data
@@ -66,7 +72,8 @@ class DomainService {
                     RestKuorumApiService.ApiMethod.DOMAIN,
                     params,
                     query,
-                    new TypeReference<List<DomainRSDTO>>(){})
+                    new TypeReference<List<DomainRSDTO>>(){},
+                    kuorumAdminRestApiKey)
             return apiResponse.data;
         }catch (Exception e){
             log.warn("Error recovering domains")
