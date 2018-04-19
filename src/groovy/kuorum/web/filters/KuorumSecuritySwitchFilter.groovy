@@ -76,7 +76,7 @@ class KuorumSecuritySwitchFilter extends GenericFilterBean  {
 
     private boolean isUserAllowedToSwitchToUser(KuorumUser loggedUser, KuorumUser swichingUser){
         def roles = springSecurityService.getPrincipal().getAuthorities()
-        roles.find{"ROLE_ADMIN"}
+        roles.find{"ROLE_SUPER_ADMIN"}
 //        roles.find{"ROLE_ADMIN"} || roles.find{"ROLE_ADVANCED"} && user.allowedAdminUsers.find{kuorumUser.id}
     }
 

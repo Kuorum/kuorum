@@ -7,7 +7,7 @@ class UrlMappings {
 
     static excludes = ['/robots.txt']
 
-    static List<String> RESERVED_PATHS = ['j_spring_security_facebook_redirect', 'register', 'login','js','images','css', 'fonts']
+    static List<String> RESERVED_PATHS = ['j_spring_security_facebook_redirect','j_spring_security_exit_user', 'register', 'login','js','images','css', 'fonts']
 	static mappings = {
 
         /**********************/
@@ -167,6 +167,10 @@ class UrlMappings {
         name en_searcherSearchSURVEYByREGION:"/search/survey/from/$word?"      (controller: "search", action:"search"){searchType="REGION";type="SURVEY"; mappingName="searcherSearchSURVEYByREGION"}
         name es_searcherSearchSURVEYByREGION:"/buscar/encuesta/en/$word?"      (controller: "search", action:"search"){searchType="REGION";type="SURVEY"; mappingName="searcherSearchSURVEYByREGION"}
 
+        name footerUserGuides:      "/user-guides"       (controller: "footer", action: "footerUserGuides"){mappingName="footerUserGuides"}
+        name en_footerUserGuides:   "/user-guides"       (controller: "footer", action: "footerUserGuides"){mappingName="footerUserGuides"}
+        name es_footerUserGuides:   "/guias-de-usuario"  (controller: "footer", action: "footerUserGuides"){mappingName="footerUserGuides"}
+
 
         /**********************/
         /***** LOGGED URLs ****/ //Language no matters
@@ -291,7 +295,6 @@ class UrlMappings {
         name adminTestMail:         "/sec/admin/mailing/test"           (controller:"mailTesting", action: "index")
         name adminSearcherIndex:    "/sec/admin/searcher/indexar"       (controller:"admin", action: "solrIndex")
         name adminSearcherFullIndex:"/sec/admin/searcher/full-index"    (controller:"admin", action:"fullIndex")
-        name adminEditorsMonitoring:"/sec/admin/editors/monitoring"     (controller:"admin", action:"editorsMonitoring")
         name adminDomainConfig:     "/sec/admin/domain"                 (controller:"admin"){action=[GET:"domainConfig",POST:"domainConfigSave"]}
 
         name editorCreatePolitician:                        "/editor/user/politician/create-politician"             (controller:"editorUser"){action =[GET:"createPolitician", POST:"saveCreatePolitician"]}
@@ -365,10 +368,6 @@ class UrlMappings {
 
         name tourStart:           "/tour" (controller:"tour", action: "index")
         name tour_dashboard:      "/tour/dashboard" (controller:"tour", action: "tour_dashboard")
-
-        // ADMIN STATS
-        name adminStats:            "/sec/admin/estadisticas"           (controller:"adminStats", action: "stats")
-        name adminStatsPieChart:    "/sec/admin/estadisticas/pie-chart" (controller:"adminStats", action: "statsDataPieChart")
 
         /**********************/
         /*** END DEPRECATED ***/

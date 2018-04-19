@@ -4,7 +4,7 @@
     <meta name="layout" content="homeLayout">
     <!-- Schema.org markup for Google+ -->
     <meta itemprop="name" content="${g.message(code:"kuorum.name")}">
-    <meta itemprop="description" content="${g.message(code:"layout.head.meta.description")}">
+    <meta itemprop="description" content="${g.message(code:"layout.head.meta.description", args:[kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.name])}">
     <meta itemprop="image" content="${resource(dir: 'images', file: 'home1.jpg')}" />
     <meta itemprop="image" content="${resource(dir: 'images', file: 'logo@2x.png')}" />
     <parameter name="hideFooter" value="false"/>

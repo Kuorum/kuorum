@@ -10,10 +10,10 @@
     <meta name="MobileOptimized" content="320">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title><g:layoutTitle default="${g.message(code:"layout.head.title.default")}"/></title>
+    <title><g:layoutTitle default="${g.message(code:"layout.head.title.default", args:[kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.name])}"/></title>
     <g:layoutHead/>
-    <meta name="description" content="${g.message(code:"layout.head.meta.description")}">
-    <meta name="Keywords" content="${g.message(code:"layout.head.meta.keywords")}">
+    <meta name="description" content="${g.message(code:"layout.head.meta.description", args:[kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.name])}">
+    <meta name="Keywords" content="${g.message(code:"layout.head.meta.keywords", args:[kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.name])}">
     <meta name="dcterms.rightsHolder" content="Kuorum.org">
     %{--<meta name="dcterms.dateCopyrighted" content="2013">--}%
 

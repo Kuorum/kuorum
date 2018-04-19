@@ -180,6 +180,7 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules=[
 ]
 grails.plugin.springsecurity.filterChain.chainMap = [  //LOS FILTROS SIN ESPACIOS
         '/j_spring_security_switch_user/**':'JOINED_FILTERS',
+        '/j_spring_security_exit_user/**':'JOINED_FILTERS',
         '/**':         'JOINED_FILTERS,-switchFilter,-switchUserProcessingFilter'
 ]
 //FACEBOOK

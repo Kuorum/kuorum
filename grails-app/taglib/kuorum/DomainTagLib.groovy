@@ -29,7 +29,10 @@ class DomainTagLib {
         String domain = CustomDomainResolver.domain
         String logoUrl = amazonFileService.getDomainLogoUrl(domain)
         out <<"""
-        <img src="${logoUrl}" alt="${g.message(code:'head.logo.alt')}" title="${g.message(code:'head.logo.title')}">
+        <img 
+            src="${logoUrl}" 
+            alt="${g.message(code:'head.logo.alt', args:[kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.name])}" 
+            title="${g.message(code:'head.logo.title', args:[kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.name])}">
         <span class="hidden">${g.message(code:'kuorum.name')}</span>
         """
     }

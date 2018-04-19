@@ -3,7 +3,6 @@ package kuorum.mail
 import grails.transaction.Transactional
 import kuorum.campaign.PollCampaignVote
 import kuorum.core.model.AvailableLanguage
-import kuorum.core.model.ContactSectorType
 import kuorum.solr.IndexSolrService
 import kuorum.users.KuorumUser
 import org.codehaus.groovy.grails.web.mapping.LinkGenerator
@@ -109,7 +108,6 @@ class KuorumMailService {
             String surname,
             String email,
             String enterprise,
-            ContactSectorType sector,
             String phone,
             String comment,
             AvailableLanguage language){
@@ -118,7 +116,7 @@ class KuorumMailService {
         <ul>
             <li>Name: $name ${surname? "${surname} || $surname, $name" :''} </li>
             <li>Email: $email</li>
-            <li>Enterprise: $enterprise ${sector?"(${sector})":''} </li>
+            <li>Enterprise: $enterprise </li>
             <li>Phone: $phone</li>
             <li>Lang: $language</li>
             <li>Comment: <p>${comment?:''}</p></li>

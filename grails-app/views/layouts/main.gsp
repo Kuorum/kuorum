@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<%@ page import="org.springframework.web.servlet.support.RequestContextUtils; org.springframework.context.i18n.LocaleContextHolder;" contentType="text/html;charset=UTF-8" %>
+<%@ page import="kuorum.core.customDomain.CustomDomainResolver; org.springframework.web.servlet.support.RequestContextUtils; org.springframework.context.i18n.LocaleContextHolder;" contentType="text/html;charset=UTF-8" %>
 <g:set var="currentLang" value="${org.springframework.web.servlet.support.RequestContextUtils.getLocale(request)}" />
 <html class="no-js" lang="${currentLang.language}" xml:lang="${currentLang.language}" xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -11,8 +11,8 @@
     <meta name="MobileOptimized" content="320">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title><g:layoutTitle default="${g.message(code:"layout.head.title.default")}"/></title>
-    <meta name="Keywords" content="${g.message(code:"layout.head.meta.keywords")}">
+    <title><g:layoutTitle default="${g.message(code:"layout.head.title.default", args:[kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.name])}"/></title>
+    <meta name="Keywords" content="${g.message(code:"layout.head.meta.keywords", args:[kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.name])}">
     <meta name="dcterms.rightsHolder" content="Kuorum.org">
     %{--<meta name="dcterms.dateCopyrighted" content="2013">--}%
 
@@ -44,7 +44,7 @@
 </head>
 
 <g:if test="${!schemaData?.schema}">
-    <g:set var="schemaData" value="${[schema:'http://schema.org/WebSite', name:g.layoutTitle(default:g.message(code:'layout.head.title.default'))]}" scope="request"/>
+    <g:set var="schemaData" value="${[schema:'http://schema.org/WebSite', name:g.layoutTitle(default:g.message(code:'layout.head.title.default', args:[kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.name]))]}" scope="request"/>
 </g:if>
 
 <g:set var="dynamicBodyCss" value=""/>

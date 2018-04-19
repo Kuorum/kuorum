@@ -1,4 +1,4 @@
-<%@ page import="org.springframework.util.CollectionUtils" %>
+<%@ page import="kuorum.core.customDomain.CustomDomainResolver; org.springframework.util.CollectionUtils" %>
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <title><g:message code="landingServices.head.title"/></title>
@@ -8,7 +8,7 @@
     <g:render template="/dashboard/landingMetaTags"
               model="[
                       kuorumTitle:g.message(code:'landingServices.head.title'),
-                      kuorumDescription:g.message(code:'landingServices.head.description'),
+                      kuorumDescription:g.message(code:'landingServices.head.description', args:[kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.name]),
                       kuorumImage:r.resource(dir:'images', file:'landing-kuorum.jpg', absolute:true)
               ]"/>
 </head>

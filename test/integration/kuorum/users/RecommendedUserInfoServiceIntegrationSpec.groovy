@@ -36,28 +36,4 @@ class RecommendedUserInfoServiceIntegrationSpec extends Specification{
         recommendedUserInfo?.delete(flush:true)
     }
 
-
-    def "test to check if a non validate user can delete recommended user"(){
-        given:
-        KuorumUser userInSession = (IntegrationHelper.createDefaultUser("userInSession@example.es")).save(flush:true)
-
-        RecommendedUserInfo recommendedUserInfo = (new RecommendedUserInfo(user:userInSession, deletedRecommendedUsers:[])).save(flush:true)
-
-        when:
-        Map result = recommendedUserInfoService.addUserToDelete(userInSession,null)
-
-        then:
-        recommendedUserInfo.refresh()
-        recommendedUserInfo
-        !recommendedUserInfo.deletedRecommendedUsers
-
-        result
-        result.message
-        result.message == 'recommendedUserInfoService.addUserToDelete.errorValidatingDeleteUser'
-        result.error
-
-        cleanup:
-        userInSession?.delete(flush:true)
-        recommendedUserInfo?.delete(flush:true)
-    }
 }

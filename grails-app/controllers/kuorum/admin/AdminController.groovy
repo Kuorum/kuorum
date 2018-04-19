@@ -2,7 +2,6 @@ package kuorum.admin
 
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.core.customDomain.CustomDomainResolver
-import kuorum.core.model.UserType
 import kuorum.domain.DomainService
 import kuorum.mail.KuorumMailAccountService
 import kuorum.mail.MailchimpService
@@ -16,7 +15,6 @@ import org.kuorum.rest.model.admin.AdminConfigMailingRDTO
 import org.kuorum.rest.model.domain.DomainRDTO
 import org.kuorum.rest.model.domain.DomainRSDTO
 import org.kuorum.rest.model.domain.SocialRDTO
-import org.kuorum.rest.model.notification.KuorumMailAccountDetailsRSDTO
 import org.kuorum.rest.model.notification.campaign.config.NewsletterConfigRSDTO
 import payment.campaign.NewsletterService
 
@@ -118,9 +116,6 @@ class AdminController {
         KuorumUserRightsCommand command = new KuorumUserRightsCommand()
         command.user = user
         command.active = user.enabled
-        KuorumMailAccountDetailsRSDTO account = kuorumMailAccountService.getAccountDetails(user)
-        command.emailAccountActive = account?.active?:false
-        command.authorities = user.authorities
         command.relevance = kuorumUserService.getUserRelevance(user)
         [command:command]
     }
@@ -133,19 +128,7 @@ class AdminController {
             return
         }
         KuorumUser user = command.user
-        if (command.emailAccountActive){
-            kuorumMailAccountService.activateAccount(user)
-        }else{
-            kuorumMailAccountService.deleteAccount(user)
-        }
         user.enabled = command.active?:false
-        user.authorities = command.authorities
-        if (command.password){
-            user.password = registerService.encodePassword(user, command.password)
-        }
-
-        user.userType = UserType.PERSON
-
         if (command.relevance){
             kuorumUserService.updateUserRelevance(user, command.relevance)
         }

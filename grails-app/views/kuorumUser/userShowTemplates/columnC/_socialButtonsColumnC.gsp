@@ -1,3 +1,4 @@
+<%@ page import="kuorum.core.customDomain.CustomDomainResolver" %>
 <r:require modules="social"/>
 
 <g:set var="userLink"><g:createLink
@@ -22,7 +23,7 @@
         <g:set var="twitterName" value="${user?.socialLinks?.twitter?.encodeAsTwitter()?:user.name}"/>
         <g:set var="twitterShareText"><g:message
                 code="kuorumUser.social.twitter.text"
-                args="[twitterName]"
+                args="[twitterName, kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.name]"
                 encodeAs="HTML"/></g:set>
         <g:set var="twitterLink">https://twitter.com/share?url=${userLink}&text=${twitterShareText}&hashtags=${user.alias?:""}</g:set>
 
