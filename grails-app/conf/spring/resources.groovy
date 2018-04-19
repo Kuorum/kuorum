@@ -19,7 +19,9 @@ beans = {
 
     formattedDoubleConverter kuorum.web.binder.FormattedDoubleConverter
 
-   userDetailsService(MongoUserDetailsService)
+   userDetailsService(MongoUserDetailsService){
+       kuorumUserService = ref("kuorumUserService")
+   }
 
 
     localeResolver(org.springframework.web.servlet.i18n.CookieLocaleResolver){}
