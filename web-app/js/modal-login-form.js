@@ -82,12 +82,14 @@ function modalLogin($form, callback){
             url: url,
             data: data,
             success: function (dataLogin) {
+                console.log(dataLogin)
                 if (dataLogin.success) {
                     callback()
                 } else {
                     // Form validation doesn't allow to take this conditional branch
                     display.error(dataLogin.error)
-                    document.location.href = dataLogin.url
+                    pageLoadingOff("Modal login");
+                    // document.location.href = dataLogin.url
                 }
             },
             complete: function () {

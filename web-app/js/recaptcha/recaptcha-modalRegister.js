@@ -14,7 +14,6 @@ function recaptchaModal(dataRecaptcha){
 function registerModalCallback(){
     var $form = $('#signup-modal');
     var dataRecaptcha = $('#register-modal-form-id').attr('data-recaptcha');
-    console.log(dataRecaptcha)
     var $submitButton = $('#register-modal-form-id')
     if ($form.valid()){
         var callback = $form.attr("callback")

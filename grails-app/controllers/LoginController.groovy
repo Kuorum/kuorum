@@ -118,8 +118,8 @@ class LoginController {
 			springSecurityService.reauthenticate(email, pass)
 			render ([success:true, url: g.createLink(mapping:'loginAuthError')] as JSON)
 		}else{
-			session[WebAttributes.AUTHENTICATION_EXCEPTION] = new Exception("Wrong pass");
-			render ([success:false, url: g.createLink(mapping:'loginAuthError', params: [email:email])] as JSON)
+//			session[WebAttributes.AUTHENTICATION_EXCEPTION] = new Exception("Wrong pass");
+			render ([success:false, url: g.createLink(mapping:'loginAuthError', params: [email:email]),  error: g.message(code:'springSecurity.errors.login.fail')] as JSON)
 		}
 	}
 
