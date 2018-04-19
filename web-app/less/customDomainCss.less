@@ -115,8 +115,6 @@ fieldset.rating:hover > input + label:hover:before {color: @mainColor;}
 
 .panel-default .rating-over .progress-bar {background-color: @mainColor;}
 
-.noty_text a {color:@mainColor;}
-
 .info #main article a,
 .info #main article a:hover,
 .info #main article a:active,
@@ -140,11 +138,10 @@ fieldset.rating:hover > input + label:hover:before {color: @mainColor;}
 .config .item ul li h3 span {color: @mainColor;}
 
 #main > div.box-steps > ul.actionIcons > li.active a{
-    background-color: @mainTextColor;
     border-color: @mainColor;
     color: @mainColor;
 }
-#main > div.box-steps > ul.actionIcons > li a:hover{background-color: @mainTextColor; color: @mainColor; border-color: @mainColor;}
+#main > div.box-steps > ul.actionIcons > li a:hover{color: @mainColor; border-color: @mainColor;}
 
 .sr-only.first:active,
 .sr-only.first:focus {
@@ -166,6 +163,8 @@ fieldset.rating:hover > input + label:hover:before {color: @mainColor;}
 .conversation-box .footer .social li.active a:hover .fa-circle {color: @mainColor;}
 .conversation-box-comments ul li.active {border-left-color: @mainColor;}
 
+.profile-pic .fa {background-color: @secondColor;}
+
 .causes-tags .cause {background: @mainColor;}
 .causes-tags .cause:hover,
 .causes-tags .cause:active,
@@ -178,14 +177,22 @@ fieldset.rating:hover > input + label:hover:before {color: @mainColor;}
     background-color: @mainColor;
 }
 
-.progress-bar-warning {background-color: @mainColor;
-}
+.progress-bar-warning {background-color: @mainColor;}
+.progress-bar {background-color: @secondColor;}
+
+.panel-share-buttons > li > a:hover{color:@secondColorHover;}
+
 #cases-study-grid .card-body h3 a:hover{color: @mainColor;}
 #cases-study-grid .other-cases .card .card-body h3 a:hover{color: @mainColor;}
 .leader-post .header .call-to-action-mobile.call-mobile-event-confirm span.arrow{color: @mainColor;}
 #module-debate-pinned-users.comment-box.call-to-action  .comment-header .call-title .fa-stack {color:@mainColor}
 
 .left-container ul a:hover{color: @mainColor;}
+
+.campaign-progress-bar-wrapper .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done {background: @secondColor;}
+.campaign-progress-bar-wrapper .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done::after {border-color: @secondColor; border-left-color: transparent;
+  border-right-color: transparent;
+  border-bottom-color: transparent;}
 
 ul.globus li.fontIcon > a > span.fa {color:@mainColor;}
 ul.globus li.fontIcon > a > span.fas {color:@mainColor;}
@@ -249,13 +256,13 @@ ul.globus li.fontIcon > a > span.fas:hover {color:@mainColorHover;}
 
 .btn.btn-blue:hover,
 .btn.btn-blue:active,
-.btn.btn-blue:focus {background-color: @secondColorHover !important;}
+.btn.btn-blue:focus {background-color: @secondColorHover !important;  color: @mainTextColor !important;}
 .btn.btn-blue.inverted {
   background-color: @mainTextColor !important;
   border-color: @secondColor ;
-  //color: @secondColor !important;
+  color: @secondColor !important;
 }
-//.btn.btn-blue.inverted:hover,
+.btn.btn-blue.inverted:hover,
 .btn.btn-blue.inverted:focus,
 .btn.btn-blue.inverted:active{
   background-color: @secondColor !important;
@@ -281,12 +288,12 @@ ul.globus li.fontIcon > a > span.fas:hover {color:@mainColorHover;}
   color: @mainTextColor !important;
 }
 
-//.btn.follow.disabled:hover,
-//.btn.follow.disabled:active{
-//  background-color: @secondColor !important;
-//  border: @secondColor;
-//  opacity: 1 !important;
-//}
+.btn.follow.disabled:hover,
+.btn.follow.disabled:active{
+  background-color: #990000 !important;
+  border: solid 1px #990000;
+  opacity: 1 !important;
+}
 
 .breadcrumb a {color: @secondColor;}
 .box-ppal.import-contacts > p a {color: @secondColor;}
@@ -405,9 +412,9 @@ ul.list > li > ul.list-actions > li > a:active {color: @secondColor;}
 
 #findRepresentatives .open-filter .dropdown-menu > li > a.active{color:@secondColorHover;}
 
-.btn.btn-blue:hover,
-.btn.btn-blue:active,
-.btn.btn-blue:focus {background-color: @secondColorHover !important;}
+//.btn.btn-blue:hover,
+//.btn.btn-blue:active,
+//.btn.btn-blue:focus {background-color: @secondColorHover !important; color:@mainTextColor}
 
 .participate a:focus {color: @secondColorHover;}
 .othersPost #postNav > a:hover {background-color: @secondColorHover;}
