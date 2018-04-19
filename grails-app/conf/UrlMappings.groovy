@@ -130,17 +130,17 @@ class UrlMappings {
         name en_searcherSearchPOSTByREGION:"/search/post/from/$word?"           (controller: "search", action:"search"){searchType="REGION";type="POST"; mappingName="searcherSearchPOSTByREGION"}
         name es_searcherSearchPOSTByREGION:"/buscar/publicacion/en/$word?"      (controller: "search", action:"search"){searchType="REGION";type="POST"; mappingName="searcherSearchPOSTByREGION"}
 
-        name searcherSearchDEBATE:   "/search/debate"         {controller="redirect"; action= "redirect301"; newMapping='en_searcherSearchDEBATE';}
+        name searcherSearchDEBATE:   "/search/debate"            (controller: "search", action:"search"){type="DEBATE"; mappingName="searcherSearchDEBATE"}
         name en_searcherSearchDEBATE:"/search/debate/$word?"     (controller: "search", action:"search"){type="DEBATE"; mappingName="searcherSearchDEBATE"}
         name es_searcherSearchDEBATE:"/buscar/debate/$word?"     (controller: "search", action:"search"){type="DEBATE"; mappingName="searcherSearchDEBATE"}
 
-        name searcherSearchDEBATEByCAUSE:   "/search/debate/cause/$word?"          {controller="redirect"; action= "redirect301"; newMapping='en_searcherSearchDEBATEByCAUSE';}
-        name en_searcherSearchDEBATEByCAUSE:"/search/debate/cause/$word?"             (controller: "search", action:"search"){searchType="CAUSE";type="DEBATE"; mappingName="searcherSearchDEBATEByCAUSE"}
+        name searcherSearchDEBATEByCAUSE:   "/search/debate/cause/$word?"          (controller: "search", action:"search"){searchType="CAUSE";type="DEBATE"; mappingName="searcherSearchDEBATEByCAUSE"}
+        name en_searcherSearchDEBATEByCAUSE:"/search/debate/cause/$word?"          (controller: "search", action:"search"){searchType="CAUSE";type="DEBATE"; mappingName="searcherSearchDEBATEByCAUSE"}
         name es_searcherSearchDEBATEByCAUSE:"/buscar/debate/causa/$word?"          (controller: "search", action:"search"){searchType="CAUSE";type="DEBATE"; mappingName="searcherSearchDEBATEByCAUSE"}
 
-        name searcherSearchDEBATEByREGION:   "/search/debate/from/$word?"          {controller="redirect"; action= "redirect301"; newMapping='en_searcherSearchDEBATEByREGION';}
-        name en_searcherSearchDEBATEByREGION:"/search/debate/from/$word?"             (controller: "search", action:"search"){searchType="REGION";type="DEBATE"; mappingName="searcherSearchDEBATEByREGION"}
-        name es_searcherSearchDEBATEByREGION:"/buscar/debate/en/$word?"          (controller: "search", action:"search"){searchType="REGION";type="DEBATE"; mappingName="searcherSearchDEBATEByREGION"}
+        name searcherSearchDEBATEByREGION:   "/search/debate/from/$word?"           (controller: "search", action:"search"){searchType="REGION";type="DEBATE"; mappingName="searcherSearchDEBATEByREGION"}
+        name en_searcherSearchDEBATEByREGION:"/search/debate/from/$word?"           (controller: "search", action:"search"){searchType="REGION";type="DEBATE"; mappingName="searcherSearchDEBATEByREGION"}
+        name es_searcherSearchDEBATEByREGION:"/buscar/debate/en/$word?"             (controller: "search", action:"search"){searchType="REGION";type="DEBATE"; mappingName="searcherSearchDEBATEByREGION"}
 
 
         name searcherSearchEVENT:   "/search/event"             (controller: "search", action:"search"){type="EVENT"; mappingName="searcherSearchEVENT"}
@@ -294,6 +294,7 @@ class UrlMappings {
         name adminPrincipal:        "/sec/admin"                          (controller:"admin", action: "index")
         name adminTestMail:         "/sec/admin/mailing/test"           (controller:"mailTesting", action: "index")
         name adminSearcherIndex:    "/sec/admin/searcher/indexar"       (controller:"admin", action: "solrIndex")
+        name adminSearcherFullIndex:"/sec/admin/searcher/full-index"    (controller:"admin", action:"fullIndex")
         name adminSearcherFullIndex:"/sec/admin/searcher/full-index"    (controller:"admin", action:"fullIndex")
         name adminDomainConfig:     "/sec/admin/domain"                 (controller:"admin"){action=[GET:"domainConfig",POST:"domainConfigSave"]}
 
