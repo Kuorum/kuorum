@@ -514,6 +514,13 @@ header.transp .form-control::-webkit-input-placeholder{color:#fff}
 
 header.transp #search-form .open-filter {background-color: rgba(219,219,219,0.4);  }
 
+
+.fa-kuorumSearchType-NAME:before{content: "\f007";}
+.fa-kuorumSearchType-POLITICAL_PARTY:before {content: "\f024";}
+.fa-kuorumSearchType-REGION:before {content: "\f0ac";}
+.fa-kuorumSearchType-ALL:before {content: "\f0c9";}
+.fa-kuorumSearchType-CAUSE:before {content: "\f292";}
+
 .open-filter .dropdown-menu{top:32px;left:-3px;}
 .open-filter .dropdown-menu li{text-align: left !important; padding: 0.3em !important;}
 .open-filter .dropdown-menu > li:first-child{border:0px;}
