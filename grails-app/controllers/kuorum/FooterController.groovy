@@ -77,6 +77,7 @@ class FooterController {
     def footerBlog001(){render (view: "/footer/blogArticles/footerBlog001", model:[blogId:'001', suggestedBlogs:['002','003','004']])}
     def footerBlog002(){render (view: "/footer/blogArticles/footerBlog002", model:[blogId:'002', suggestedBlogs:['003','004','005']])}
     def footerBlog003(){render (view: "/footer/blogArticles/footerBlog003", model:[blogId:'003', suggestedBlogs:['002','005','001']])}
-    def footerBlog004(){render (view: "/footer/blogArticles/footerBlog004", model:[blogId:'004', suggestedBlogs:['005','002','003']])}
+    def footerBlog004(){render (view: "/footer/blogArticles/footerBlog004", model:[blogId:'004', suggestedBlogs:['006','005','003']])}
     def footerBlog005(){render (view: "/footer/blogArticles/footerBlog005", model:[blogId:'005', suggestedBlogs:['004','002','003']])}
+    def footerBlog006(){render (view: "/footer/blogArticles/footerBlog006", model:[blogId:'006', suggestedBlogs:['004','005','003']])}
 }
