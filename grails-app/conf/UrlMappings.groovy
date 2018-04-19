@@ -232,6 +232,9 @@ class UrlMappings {
         name en_footerBlog005:      "/en/blog/what-does-user-centric-design-mean"                (controller: "footer", action: "footerBlog005"){lang="en"; mappingName="footerBlog005"}
         name es_footerBlog005:      "/es/blog/en-que-consiste-el-diseno-centrado-en-usuario"       (controller: "footer", action: "footerBlog005"){lang="es"; mappingName="footerBlog005"}
 
+        name footerBlog006:         "/$lang/blog/why-is-community-engagement-important"             {controller="redirect"; action= "redirect301"; newMapping='en_footerBlog006';constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+        name en_footerBlog006:      "/en/blog/why-is-community-engagement-important"                (controller: "footer", action: "footerBlog006"){lang="en"; mappingName="footerBlog006"}
+        name es_footerBlog006:      "/es/blog/por-que-es-importante-la-participación-ciudadana"       (controller: "footer", action: "footerBlog006"){lang="es"; mappingName="footerBlog006"}
 
 
         /* END CUSTOM BLOG ARTICLES */
