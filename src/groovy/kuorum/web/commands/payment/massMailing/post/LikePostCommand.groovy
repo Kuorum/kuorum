@@ -6,12 +6,12 @@ import grails.validation.Validateable
 class LikePostCommand {
 
     Long postId;
-    String userAlias;
+    String postUserId;
     Boolean like;
 
     static constraints = {
         postId nullable: false
-        userAlias nullable: false
+        postUserId nullable: false
         like nullable: false
     }
 }

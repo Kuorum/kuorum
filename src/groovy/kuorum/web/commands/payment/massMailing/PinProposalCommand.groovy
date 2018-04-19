@@ -8,14 +8,14 @@ class PinProposalCommand {
     // Filter
     Long debateId
     Long proposalId
-    String debateAlias
+    String debateUserId
     Boolean pin
 
     static constraints = {
         debateId nullable: false
         proposalId nullable: false
         pin nullable: false
-        debateAlias nullable: true
+        debateUserId nullable: true
     }
 
 }

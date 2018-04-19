@@ -81,9 +81,9 @@ dbDest.kuorumUser.find({email:/^(?!.*@example.com$)/}).forEach(function(user){
 
 var notLoaded = dbOrigin.secUser.count({$or:[{enabled:false}, {accountLocked:true}]})
 print("######### RESUMEN IMPORT #########")
-print("Usuarios cargados a través de facebook:"+numFacebook)
-print("Usuarios fallidos a través de facebook:"+numFacebookError)
-print("Usuarios saltados porque ya se habían cargado con facebook: "+numSkipped)
+print("Usuarios cargados a travï¿½s de facebook:"+numFacebook)
+print("Usuarios fallidos a travï¿½s de facebook:"+numFacebookError)
+print("Usuarios saltados porque ya se habï¿½an cargado con facebook: "+numSkipped)
 print("Usuarios saltados por no estar activos: "+numDisabled)
 print("Usuarios saltados por estar bloqueados(No llegaron a confirmar el email): "+numLocked)
 print("Usuarios eliminados como followers/following: "+deletedFriends)
@@ -160,31 +160,6 @@ function createKuorumUserFromOldUser(user){
             "ROAD_SAFETY",
 //            "SUSTAINABLE_MOBILITY",
             "OTHERS"
-        ],
-        availableMails:[
-            "REGISTER_VERIFY_EMAIL",
-            "REGISTER_RESET_PASSWORD",
-            "REGISTER_RRSS",
-            "REGISTER_ACCOUNT_COMPLETED",
-            "NOTIFICATION_CLUCK",
-            "NOTIFICATION_FOLLOWER",
-            "NOTIFICATION_PUBLIC_MILESTONE",
-            "NOTIFICATION_DEBATE_USERS",
-            "NOTIFICATION_DEBATE_AUTHOR",
-            "NOTIFICATION_DEBATE_POLITICIAN",
-            "NOTIFICATION_DEFENDED_USERS",
-            "NOTIFICATION_DEFENDED_AUTHOR",
-            "NOTIFICATION_DEFENDED_BY_POLITICIAN",
-            "NOTIFICATION_DEFENDED_POLITICIANS",
-            "NOTIFICATION_VICTORY_USERS",
-            "NOTIFICATION_VICTORY_DEFENDER",
-            "PROMOTION_OWNER",
-            "PROMOTION_SPONSOR",
-            "PROMOTION_USERS",
-            "POST_CREATED_1",
-            "POST_CREATED_2",
-            "POST_CREATED_3",
-            "POST_CREATED_4"
         ],
         gamification: {
             numEggs: 0,

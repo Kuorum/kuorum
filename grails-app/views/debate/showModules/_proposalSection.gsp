@@ -14,7 +14,7 @@
         <button
                 type="button"
                 class="btn btn-blue btn-lg publish publish-proposal"
-                data-userLoggedAlias="${userUtil.loggedUserAlias()}"
+                data-userLoggedAlias="${userUtil.loggedUserId()}"
                 data-postUrl="${g.createLink(mapping: 'debateProposalNew')}"
                 data-debateId="${debate.id}"
                 data-debateAlias="${debateUser.alias}">

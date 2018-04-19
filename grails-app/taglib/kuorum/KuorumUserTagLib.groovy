@@ -30,9 +30,9 @@ class KuorumUserTagLib {
         }
     }
 
-    def loggedUserAlias = {attrs ->
+    def loggedUserId = { attrs ->
         if (springSecurityService.isLoggedIn()){
-            out << KuorumUser.get(springSecurityService.principal.id).alias
+            out << springSecurityService.principal.id.toString()
         }
     }
 
@@ -271,7 +271,7 @@ class KuorumUserTagLib {
                 regionName = "";
             }
         }
-        out << "${regionName}"
+        out << "${regionName?:''}"
 
     }
 
@@ -286,12 +286,12 @@ class KuorumUserTagLib {
         if (user?.professionalDetails?.position){
             return user.professionalDetails.position
         }else{
-            return null;
+            return "";
         }
     }
 
     private String getRoleUser(SearchKuorumUserRSDTO user){
-        return user?.roleName
+        return user?.roleName?:""
     }
 
     def userTypeIcon={attrs ->

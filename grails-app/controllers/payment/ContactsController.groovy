@@ -492,7 +492,7 @@ class ContactsController {
 
 
     /* UNSUBSCRIBE */
-    // USING userId instead of alias because the unsusbscribe email can't change.
+    // USING userId instead of alias because the unsubscribe email can't change.
     @Secured("permitAll")
     def unsubscribe(String userId, String email, String digest){
         KuorumUser user = KuorumUser.get(new ObjectId(userId))

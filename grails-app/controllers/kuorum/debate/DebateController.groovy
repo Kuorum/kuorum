@@ -7,7 +7,6 @@ import kuorum.users.KuorumUser
 import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.commands.payment.CampaignSettingsCommand
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
-import org.kuorum.rest.model.contact.filter.FilterRDTO
 
 class DebateController extends CampaignController{
 

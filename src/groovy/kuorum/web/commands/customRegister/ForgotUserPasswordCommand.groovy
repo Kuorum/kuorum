@@ -1,6 +1,7 @@
 package kuorum.web.commands.customRegister
 
 import grails.validation.Validateable
+import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.users.KuorumUser
 import org.grails.databinding.BindUsing
 
@@ -16,7 +17,7 @@ class ForgotUserPasswordCommand {
     @BindUsing({
         ForgotUserPasswordCommand cmd, org.grails.databinding.DataBindingSource source ->
             String rawEmail = source['email']?.toLowerCase()
-            cmd.user =  KuorumUser.findByEmail(rawEmail )
+            cmd.user =  KuorumUser.findByEmailAndDomain(rawEmail, CustomDomainResolver.domain)
             rawEmail
     })
     String email

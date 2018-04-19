@@ -7,7 +7,8 @@
     <div class="comment-counter pull-right">
         <button type="button"
                 class="${!event.registered & buyTicketActive?'event-confirm-button':''} ${event.registered?'active disabled':''} ${!buyTicketActive?'disabled':''}"
-                data-userLoggedAlias="${userUtil.loggedUserAlias()}"
+                data-userLoggedAlias="${userUtil.loggedUserId()}"
+                data-eventUserId="${campaign.user.id}"
                 data-postUrl="${g.createLink(mapping: 'eventBookTicket', params:campaign.encodeAsLinkProperties())}"
 
         >

@@ -2,13 +2,10 @@ package kuorum.security.permission
 
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.SpringSecurityUtils
-import kuorum.core.model.UserType
 import kuorum.project.Project
 import kuorum.users.KuorumUser
-import org.springframework.security.core.Authentication
 import org.springframework.security.access.PermissionEvaluator
-
-import javax.swing.Spring
+import org.springframework.security.core.Authentication
 
 /**
  * Created by iduetxe on 15/02/16.
@@ -25,8 +22,7 @@ class KuorumPermissionEvaluator implements PermissionEvaluator {
     public boolean hasPermission(Authentication authentication, KuorumUser editedUser, Object permission) {
         def loggedUser = springSecurityService.getCurrentUser();
         return  editedUser == loggedUser ||
-                SpringSecurityUtils.ifAnyGranted("ROLE_ADMIN") ||
-                SpringSecurityUtils.ifAnyGranted("ROLE_EDITOR")  && !editedUser.enabled
+                SpringSecurityUtils.ifAnyGranted("ROLE_SUPER_ADMIN")
 
     }
 

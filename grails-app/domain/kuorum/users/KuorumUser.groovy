@@ -2,10 +2,10 @@ package kuorum.users
 
 import com.mongodb.WriteConcern
 import kuorum.KuorumFile
+import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.model.AvailableLanguage
 import kuorum.core.model.CommissionType
 import kuorum.core.model.UserType
-import kuorum.mail.MailType
 import kuorum.notifications.Notice
 import kuorum.users.extendedPoliticianData.*
 import org.bson.types.ObjectId
@@ -19,6 +19,7 @@ class KuorumUser {
     String name
     String surname
     String email
+    String domain
     String alias
     List<String> oldAlias
     String bio
@@ -42,8 +43,6 @@ class KuorumUser {
     Integer numFollowers = 0
 
     List<ObjectId> favorites = [] //PostIds => Is the id instead of Post because gorm updates all
-
-    List<MailType> availableMails = MailType.values()
 
     SocialLinks socialLinks = new SocialLinks()
 
@@ -107,7 +106,14 @@ class KuorumUser {
         name nullable:false
         surname nullable:true
         email nullable: false, email: true
-        alias nullable:true, unique:true, maxSize: ALIAS_MAX_SIZE, matches: ALIAS_REGEX
+        alias nullable:true, maxSize: ALIAS_MAX_SIZE, matches: ALIAS_REGEX, validator: {val, obj ->
+            if (val && obj.user && val != obj.user.alias && KuorumUser.findByAliasAndDomain(val.toLowerCase(), CustomDomainResolver.domain)){
+                return "unique"
+            }
+            if (!val && obj.user && obj.user.enabled){
+                return "nullable"
+            }
+        }
         oldAlias nullable:true
         password nullable:true
         bio nullable:true
@@ -133,8 +139,8 @@ class KuorumUser {
     }
 
     static mapping = {
-        email index:true, indexAttributes: [unique:true]
-        alias index:true, indexAttributes: [unique:true, sparse:true]
+//        email index:true, indexAttributes: [unique:true]
+//        alias index:true, indexAttributes: [unique:true, sparse:true]
 //        following cascade:"refresh"
 //        followers cascade:"refresh"
 

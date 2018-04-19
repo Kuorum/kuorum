@@ -1078,27 +1078,6 @@ class FormTagLib {
         return [rules:rules, message:message]
     }
 
-    def telephoneWithPrefix = {attrs, body->
-        def command = attrs.command
-        def field = attrs.field
-
-        def value = command."$field"?:''
-        String codeLabel = attrs.codeLabel?:'dashboard.userProfile.incompleteDate.phonePrefix.label'
-        String selectId = attrs.selectId?:'phonePrefix'
-        String selectCssClass = attrs.selectCssClass?:'form-control input-lg'
-        List<Region> regions = Region.findAllByRegionType(RegionType.NATION)
-        out << """
-                <label for="${field}" class="sr-only">${message(code:codeLabel )}</label>
-                <select name="${field}" class="${selectCssClass}" id="${selectId}">
-                """
-        regions.each {Region region ->
-            String prefixPhone = region['prefixPhone'] //Dynamic attribute
-            String checked = prefixPhone == value?"selected='selected'":'';
-            out << "<option value='${prefixPhone}' ${checked}>${prefixPhone}</option>"
-        }
-        out << "</select>"
-    }
-
     private String buildLabel(def command, String field, String customLabel){
         def label = customLabel?:message(code: "${command.class.name}.${field}.label")
         "${label}${isRequired(command,field)?'*':''}"

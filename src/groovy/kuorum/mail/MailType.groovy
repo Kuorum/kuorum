@@ -19,8 +19,6 @@ public enum MailType {
     NOTIFICATION_OFFER_PURCHASED        (MailGroupType.REGISTER,"register-suscription",   [], ["user"], MailTypeRSDTO.REGISTER_WELCOME),
     CAMPAIGN_POLL_THANK_YOU             (MailGroupType.REGISTER,"register-modalelections",[],["recovery", "education", "democracy", "equalty", "constitution", "foreign", "politician", "politicianLink"]),
 
-    PROJECT_CREATED_NOTIFICATION        (MailGroupType.EVENT_PROJECT, "project-new", [], ["projectName", "projectOwner", "projectLink"], MailTypeRSDTO.CAMPAIGN_PROJECT_CREATED),
-
     NOTIFICATION_CLUCK                  (MailGroupType.EVENT_ME,         "me-cluck",                    [],["clucker","cluckerLink","postName", "postLink"]),
     NOTIFICATION_FOLLOWER               (MailGroupType.EVENT_ME,         "me-follower",                 [],["follower","followerLink"]),
     NOTIFICATION_PUBLIC_MILESTONE       (MailGroupType.EVENT_ME,         "me-milestone",                [],["postName", "numVotes", "postLink"]),

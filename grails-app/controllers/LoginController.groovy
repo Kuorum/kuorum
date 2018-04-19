@@ -1,6 +1,6 @@
 import grails.converters.JSON
-import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.SpringSecurityUtils
+import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.register.RegisterService
 import kuorum.users.KuorumUser
 import org.springframework.security.authentication.AccountExpiredException
@@ -105,7 +105,7 @@ class LoginController {
 	def checkEmailAndPass = {
 		String email = params.j_username
 		String pass = params.j_password
-		KuorumUser user = KuorumUser.findByEmail(email);
+		KuorumUser user = KuorumUser.findByEmailAndDomain(email, CustomDomainResolver.domain);
 		Boolean valid = registerService.isValidPassword(user, pass);
 		render valid.toString();
 	}
@@ -113,7 +113,7 @@ class LoginController {
 	def modalAuth = {
 		String email = params.j_username
 		String pass = params.j_password
-		KuorumUser user = KuorumUser.findByEmail(email);
+		KuorumUser user = KuorumUser.findByEmailAndDomain(email, CustomDomainResolver.domain);
 		if (registerService.isValidPassword(user, pass)){
 			springSecurityService.reauthenticate(email, pass)
 			render ([success:true, url: g.createLink(mapping:'loginAuthError')] as JSON)

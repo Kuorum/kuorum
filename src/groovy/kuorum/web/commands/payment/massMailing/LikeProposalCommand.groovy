@@ -6,7 +6,7 @@ import grails.validation.Validateable
 class LikeProposalCommand {
 
     Long debateId
-    String debateAlias
+    String debateUserId
     Long proposalId
     Boolean like
     static constraints = {

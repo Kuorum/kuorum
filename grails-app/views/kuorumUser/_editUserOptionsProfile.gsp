@@ -23,7 +23,7 @@
                         </g:else>
 
                     </sec:access>
-                    <sec:ifAnyGranted roles="ROLE_ADMIN">
+                    <sec:ifAnyGranted roles="ROLE_SUPER_ADMIN">
                         <g:link mapping="editorAdminUserRights" params="${user.encodeAsLinkProperties()}">
                             <span><g:message code="admin.menu.user.editRights"/></span>
                         </g:link>

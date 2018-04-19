@@ -33,13 +33,13 @@ var postFunctions = {
         }
         pageLoadingOn();
         var postId = $button.attr('data-postId');
-        var userAlias = $button.attr('data-userAlias');
+        var postUserId = $button.attr('data-postUserId');
         var url = $button.attr('data-urlAction');
 
         var like = $button.find('.fa').hasClass('fa-heart-o');
         var data = {
             postId: postId,
-            userAlias: userAlias,
+            postUserId: postUserId,
             like: like
         };
 

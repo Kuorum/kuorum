@@ -41,11 +41,6 @@
   width: 1.28571429em;
   text-align: center;
 }
-.fa-sm {
-  font-size: 0.666666em;
-  text-align: center;
-}
-
 .fa-ul {
   padding-left: 0;
   margin-left: 2.14285714em;
@@ -206,7 +201,6 @@
 .fa-star-o:before {
   content: "\f006";
 }
-.fa-kuorumSearchType-NAME:before,
 .fa-user:before {
   content: "\f007";
 }
@@ -289,7 +283,6 @@
 .fa-lock:before {
   content: "\f023";
 }
-.fa-kuorumSearchType-POLITICAL_PARTY:before,
 .fa-flag:before {
   content: "\f024";
 }
@@ -687,7 +680,6 @@
 .fa-arrow-circle-down:before {
   content: "\f0ab";
 }
-.fa-kuorumSearchType-REGION:before,
 .fa-globe:before {
   content: "\f0ac";
 }
@@ -740,7 +732,6 @@
 }
 .fa-navicon:before,
 .fa-reorder:before,
-.fa-kuorumSearchType-ALL:before,
 .fa-bars:before {
   content: "\f0c9";
 }
@@ -1558,7 +1549,6 @@
 .fa-history:before {
   content: "\f1da";
 }
-.fa-genderless:before,
 .fa-circle-thin:before {
   content: "\f1db";
 }
@@ -2084,7 +2074,6 @@
 .fa-shopping-basket:before {
   content: "\f291";
 }
-.fa-kuorumSearchType-CAUSE:before,
 .fa-hashtag:before {
   content: "\f292";
 }

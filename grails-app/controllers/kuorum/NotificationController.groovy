@@ -2,12 +2,8 @@ package kuorum
 
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.core.model.search.SearchNotifications
-import kuorum.notifications.Notification
 import kuorum.users.KuorumUser
-import org.bson.types.ObjectId
 import org.kuorum.rest.model.notification.NotificationPageRSDTO
-
-import javax.servlet.http.HttpServletResponse
 
 class NotificationController {
 

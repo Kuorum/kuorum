@@ -1,18 +1,12 @@
 package payment.campaign
 
 import com.fasterxml.jackson.core.type.TypeReference
-import grails.plugin.cache.CacheEvict
 import grails.transaction.Transactional
 import kuorum.users.KuorumUser
 import kuorum.util.rest.RestKuorumApiService
-import org.kuorum.rest.model.communication.debate.DebateRSDTO
-import org.kuorum.rest.model.communication.debate.ProposalCommentRDTO
-import org.kuorum.rest.model.communication.debate.ProposalCommentRSDTO
-import org.kuorum.rest.model.communication.debate.ProposalRDTO
-import org.kuorum.rest.model.communication.debate.ProposalRSDTO
+import org.kuorum.rest.model.communication.debate.*
 import org.kuorum.rest.model.communication.debate.search.ProposalPageRSDTO
 import org.kuorum.rest.model.communication.debate.search.SearchProposalRSDTO
-import org.springframework.cache.annotation.Cacheable
 
 @Transactional
 class ProposalService {
@@ -21,7 +15,7 @@ class ProposalService {
 
 //    @Cacheable(value = 'proposal', key="#debate.id")
     ProposalPageRSDTO findProposal(DebateRSDTO debate, SearchProposalRSDTO searchProposalRSDTO, String viewerUid = null){
-        Map<String, String> params = [userAlias: debate.user.alias,debateId:debate.id.toString()]
+        Map<String, String> params = [userId: debate.user.id,debateId:debate.id.toString()]
         Map<String, String> query = searchProposalRSDTO.encodeAsQueryParams()
         if (viewerUid){
             query.put("viewerUid",viewerUid)
@@ -43,11 +37,11 @@ class ProposalService {
 
 //    @CacheEvict(value = 'proposal', key="#debate.id")
     ProposalRSDTO addProposal(KuorumUser user, DebateRSDTO debate, String body) {
-        Map<String, String> params = [userAlias: debate.user.alias,debateId:debate.id.toString()]
+        Map<String, String> params = [userId: debate.user.id,debateId:debate.id.toString()]
         Map<String, String> query = [:]
         ProposalRDTO proposalRDTO = new ProposalRDTO();
         proposalRDTO.body=body
-        proposalRDTO.userAlias=user.alias
+        proposalRDTO.userId=user.id.toString()
         def response = restKuorumApiService.post(
                 RestKuorumApiService.ApiMethod.ACCOUNT_DEBATE_PROPOSALS,
                 params,
@@ -65,11 +59,11 @@ class ProposalService {
     }
 
 //    @CacheEvict(value = 'proposal', key="#debate.id")
-    ProposalRSDTO pinProposal(KuorumUser user, String debateAlias, Long debateId, Long proposalId, Boolean pin) {
-        Map<String, String> params = [userAlias: debateAlias,debateId:debateId.toString(), proposalId:proposalId.toString()]
+    ProposalRSDTO pinProposal(KuorumUser user, String debateUserId, Long debateId, Long proposalId, Boolean pin) {
+        Map<String, String> params = [userId: debateUserId,debateId:debateId.toString(), proposalId:proposalId.toString()]
         Map<String, String> query = [:]
         ProposalRDTO proposalRDTO = new ProposalRDTO();
-        proposalRDTO.userAlias=user.alias
+        proposalRDTO.userId=user.id.toString()
         proposalRDTO.body=""
         proposalRDTO.pinned = pin
         def response = restKuorumApiService.put(
@@ -89,9 +83,9 @@ class ProposalService {
     }
 
 //    @CacheEvict(value = 'proposal', key="#debate.id")
-    void likeProposal(KuorumUser user, String debateAlias, Long debateId, Long proposalId, Boolean like) {
-        Map<String, String> params = [userAlias: debateAlias,debateId:debateId.toString(), proposalId:proposalId.toString()]
-        Map<String, String> query = [likeUserAlias:user.alias]
+    void likeProposal(KuorumUser user, String debateUserId, Long debateId, Long proposalId, Boolean like) {
+        Map<String, String> params = [userId: debateUserId,debateId:debateId.toString(), proposalId:proposalId.toString()]
+        Map<String, String> query = [likeUserId:user.id]
         def response
         if (like) {
             response = restKuorumApiService.put(
@@ -111,9 +105,9 @@ class ProposalService {
     }
 
 //    @CacheEvict(value = 'proposal', key="#debate.id")
-    void deleteProposal(KuorumUser user, String debateAlias, Long debateId, Long proposalId){
-        Map<String, String> params = [userAlias: debateAlias,debateId:debateId.toString(), proposalId:proposalId.toString()]
-        Map<String, String> query = [userAction:user.alias]
+    void deleteProposal(KuorumUser user, String debateUserId, Long debateId, Long proposalId){
+        Map<String, String> params = [userId: debateUserId,debateId:debateId.toString(), proposalId:proposalId.toString()]
+        Map<String, String> query = [userActionId:user.id.toString()]
         restKuorumApiService.delete(
                 RestKuorumApiService.ApiMethod.ACCOUNT_DEBATE_PROPOSAL,
                 params,
@@ -123,11 +117,11 @@ class ProposalService {
 
 //    @CacheEvict(value = 'proposal', key="#debate.id")
     ProposalRSDTO addComment(KuorumUser user, DebateRSDTO debate, Long proposalId, String body) {
-        Map<String, String> params = [userAlias: debate.user.alias,debateId:debate.id.toString(), proposalId:proposalId.toString() ]
+        Map<String, String> params = [userId: debate.user.id,debateId:debate.id.toString(), proposalId:proposalId.toString() ]
         Map<String, String> query = [:]
         ProposalCommentRDTO commentRDTO = new ProposalCommentRDTO();
         commentRDTO.body=body.encodeAsRemovingScriptTags().encodeAsTargetBlank()
-        commentRDTO.userAlias=user.alias
+        commentRDTO.userId=user.id
         def response = restKuorumApiService.post(
                 RestKuorumApiService.ApiMethod.ACCOUNT_DEBATE_PROPOSAL_COMMENTS,
                 params,
@@ -145,9 +139,9 @@ class ProposalService {
     }
 
 //    @CacheEvict(value = 'proposal', key="#debate.id")
-    void deleteComment(KuorumUser user,Long debateId, String debateAlias, Long proposalId, Long commentId) {
-        Map<String, String> params = [userAlias: debateAlias,debateId:debateId.toString(), proposalId:proposalId.toString(), commentId:commentId.toString() ]
-        Map<String, String> query = [userAction:user.alias]
+    void deleteComment(KuorumUser user,Long debateId, String debateUserId, Long proposalId, Long commentId) {
+        Map<String, String> params = [userId: debateUserId,debateId:debateId.toString(), proposalId:proposalId.toString(), commentId:commentId.toString() ]
+        Map<String, String> query = [userAction:user.id.toString()]
         restKuorumApiService.delete(
                 RestKuorumApiService.ApiMethod.ACCOUNT_DEBATE_PROPOSAL_COMMENT,
                 params,
@@ -157,9 +151,9 @@ class ProposalService {
     }
 
 //    @CacheEvict(value = 'proposal', key="#debate.id")
-    ProposalCommentRSDTO voteComment(KuorumUser user,Long debateId, String debateAlias, Long proposalId, Long commentId, Integer vote) {
-        Map<String, String> params = [userAlias: debateAlias,debateId:debateId.toString(), proposalId:proposalId.toString(), commentId:commentId.toString() ]
-        Map<String, String> query = [userAction:user.alias, vote:vote.toString()]
+    ProposalCommentRSDTO voteComment(KuorumUser user,Long debateId, String debateUserId, Long proposalId, Long commentId, Integer vote) {
+        Map<String, String> params = [userId: debateUserId,debateId:debateId.toString(), proposalId:proposalId.toString(), commentId:commentId.toString() ]
+        Map<String, String> query = [userAction:user.id.toString(), vote:vote.toString()]
         def response = restKuorumApiService.put(
                 RestKuorumApiService.ApiMethod.ACCOUNT_DEBATE_PROPOSAL_COMMENT_VOTE,
                 params,

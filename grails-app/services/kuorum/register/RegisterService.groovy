@@ -4,6 +4,7 @@ import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.authentication.dao.NullSaltSource
 import grails.plugin.springsecurity.ui.SpringSecurityUiService
+import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.exception.KuorumException
 import kuorum.core.model.AvailableLanguage
 import kuorum.core.model.CommissionType
@@ -14,6 +15,7 @@ import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
 import kuorum.users.RoleUser
 import kuorum.web.commands.customRegister.ContactRegister
+import kuorum.web.constants.WebConstants
 import kuorum.web.users.KuorumRegistrationCode
 import org.codehaus.groovy.grails.web.mapping.LinkGenerator
 import org.springframework.context.i18n.LocaleContextHolder
@@ -67,9 +69,9 @@ class RegisterService {
                 status.setRollbackOnly()
                 return null
             }
-            KuorumRegistrationCode registrationCode = KuorumRegistrationCode.findByUsername(user."$usernameFieldName")
+            KuorumRegistrationCode registrationCode = KuorumRegistrationCode.findByUsernameAndDomain(user.email, CustomDomainResolver.domain)
             if (!registrationCode){
-                registrationCode = new KuorumRegistrationCode(username: user."$usernameFieldName")
+                registrationCode = new KuorumRegistrationCode(username: user.email, domain: CustomDomainResolver.domain)
             }
             if (!registrationCode.save()) {
                 log.error "Error saving a registrationCode : ${registrationCode}"
@@ -150,14 +152,17 @@ class RegisterService {
         if (!availableLanguage ){
             availableLanguage = AvailableLanguage.en_EN
         }
+        String alias = kuorumUserService.generateValidAlias(command.name)
         KuorumUser user
             user = new KuorumUser(
                     email: command.email.toLowerCase(),
                     name: command.name,
                     language: availableLanguage,
+                    domain: CustomDomainResolver.domain,
                     accountLocked: false, enabled: true)
             user.relevantCommissions = CommissionType.values()
             user.authorities = [RoleUser.findByAuthority("ROLE_INCOMPLETE_USER")]
+            user.alias = alias
             user
     }
 
@@ -225,7 +230,7 @@ class RegisterService {
     KuorumUser createUserByRegistrationCode (KuorumRegistrationCode registrationCode){
         KuorumUser user
         KuorumRegistrationCode.withTransaction { status ->
-            user = KuorumUser.findByEmail(registrationCode.username)
+            user = KuorumUser.findByEmailAndDomain(registrationCode.username, CustomDomainResolver.domain)
             if (!user) {
                 return
             }
@@ -283,7 +288,7 @@ class RegisterService {
     }
 
     KuorumRegistrationCode findOrRegisterUserCode(KuorumUser user) {
-        KuorumRegistrationCode.findByUsername(user.email)?:registerUserCode(user)
+        KuorumRegistrationCode.findByUsernameAndDomain(user.email, user.domain)?:registerUserCode(user)
     }
 
     protected String generateLink(String action, linkParams) {

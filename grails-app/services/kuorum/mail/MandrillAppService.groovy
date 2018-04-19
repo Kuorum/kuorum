@@ -5,11 +5,9 @@ import com.microtripit.mandrillapp.lutung.controller.MandrillMessagesApi
 import com.microtripit.mandrillapp.lutung.view.MandrillMessage
 import com.microtripit.mandrillapp.lutung.view.MandrillMessageStatus
 import grails.transaction.Transactional
-import kuorum.core.exception.KuorumExceptionUtil
 import kuorum.core.model.AvailableLanguage
 import kuorum.users.KuorumUser
 import kuorum.util.rest.RestKuorumApiService
-import org.kuorum.rest.model.notification.mail.sent.MailTypeRSDTO
 import org.kuorum.rest.model.notification.mail.sent.SendMailRSDTO
 import org.kuorum.rest.model.notification.mail.sent.SentUserMailRSDTO
 import org.springframework.beans.factory.annotation.Value
@@ -77,20 +75,11 @@ class MandrillAppService {
     private List<MandrillMessage.Recipient> createRecipients(MailData mailData){
         List<MandrillMessage.Recipient> recipients = []
         mailData.userBindings.each{MailUserData mailUserData ->
-            if (!mailUserData.user.availableMails){
-                //Log for finding a bug
-                log.warn("El usuario ${mailUserData.user} tiene a null los availableMails")
-            }
-            //Check if the user has active the email
-            if (!mailData.mailType.configurable || (mailUserData.user.availableMails && mailUserData.user.availableMails.contains(mailData.mailType))){
-                MandrillMessage.Recipient recipient =new MandrillMessage.Recipient()
-                recipient.email= mailUserData.user.email
-                recipient.name = mailUserData.user.name
-                recipient.type = MandrillMessage.Recipient.Type.BCC
-                recipients << recipient
-            }else{
-                log.info("No se ha mandado el mail ${mailData.mailType} a ${mailUserData.user.email} debido a: [configurable: ${mailData.mailType.configurable}, availableMailsNull:${!mailUserData.user.availableMails}, mailDesactivadoPorUser: ${!mailUserData.user.availableMails?.contains(mailData.mailType)}]")
-            }
+            MandrillMessage.Recipient recipient =new MandrillMessage.Recipient()
+            recipient.email= mailUserData.user.email
+            recipient.name = mailUserData.user.name
+            recipient.type = MandrillMessage.Recipient.Type.BCC
+            recipients << recipient
         }
         recipients
     }
@@ -133,7 +122,7 @@ class MandrillAppService {
         Map params = [:]
         RestKuorumApiService.ApiMethod apiMethod = RestKuorumApiService.ApiMethod.ADMIN_MAILS_SEND
         if (user){
-            params.put("userAlias",user.alias)
+            params.put("userId",user.id.toString())
             apiMethod = RestKuorumApiService.ApiMethod.ACCOUNT_MAILS_SEND
         }
         SendMailRSDTO sendMailRSDTO = new SendMailRSDTO()
