@@ -43,7 +43,7 @@
         </a>
     </li>
     <li>
-        <a href="http://www.linkedin.com/shareArticle?mini=true&url=${userLink}&title=${user.name}&summary=${user.bio}&source=kuorum.org" target="_blank" title="${g.message(code:'project.social.linkedin')}">
+        <a href="http://www.linkedin.com/shareArticle?mini=true&url=${userLink}&title=${user.name}&summary=${user.bio}&source=${kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.domain}" target="_blank" title="${g.message(code:'project.social.linkedin')}">
             <span class="social-share fa fa-linkedin"></span>
         </a>
     </li>

@@ -7,8 +7,8 @@
     <parameter name="showLatestActivities" value="${!org.springframework.util.CollectionUtils.isEmpty(campaigns)}"/>
     <g:render template="/dashboard/landingMetaTags"
               model="[
-                      kuorumTitle:g.message(code:'landingServices.head.title'),
-                      kuorumDescription:g.message(code:'landingServices.head.description', args:[kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.name]),
+                      kuorumTitle:slogan,
+                      kuorumDescription:subtitle,
                       kuorumImage:r.resource(dir:'images', file:'landing-kuorum.jpg', absolute:true)
               ]"/>
 </head>

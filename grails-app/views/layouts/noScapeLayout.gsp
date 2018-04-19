@@ -1,7 +1,7 @@
 <g:applyLayout name="main">
 
     <head>
-        <title><g:layoutTitle/> | Kuorum.org </title>
+        <title><g:layoutTitle/> | ${kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.name}</title>
         <g:layoutHead/>
     </head>
 

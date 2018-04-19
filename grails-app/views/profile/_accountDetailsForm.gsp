@@ -12,7 +12,7 @@
         <formUtil:input command="${command}" field="email" required="true" showLabel="true"/>
     </div>
     <div class="form-group col-md-6">
-        <formUtil:input command="${command}" field="alias" showLabel="true" showCharCounter="false" helpBlock="https://kuorum.org/${command.alias?:'alias'}"/>
+        <formUtil:input command="${command}" field="alias" showLabel="true" showCharCounter="false" helpBlock="https://${kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.domain}/${command.alias?:'alias'}"/>
     </div>
 </fieldset>
 <fieldset class="row">

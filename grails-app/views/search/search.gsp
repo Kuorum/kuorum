@@ -1,7 +1,7 @@
 <%@ page import="kuorum.core.model.solr.SolrType" %>
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
-    <title><g:message code="page.title.search" args="[searchParams.word, kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.name]"/> </title>
+    <title><g:message code="page.title.search" args="[searchParams.word?:'', kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.name]"/></title>
     <meta name="layout" content="leftMenuLayout">
     <parameter name="extraCssContainer" value="search" />
     %{--<parameter name="idLeftMenu" value="search-filters" />--}%
