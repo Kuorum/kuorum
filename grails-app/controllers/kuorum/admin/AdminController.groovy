@@ -41,8 +41,7 @@ class AdminController {
     }
 
     def index() {
-        log.info("Index admin")
-        render view: '/admin/index', model:[]
+        redirect mapping:'adminDomainConfig'
     }
 
     def domainConfig(){
