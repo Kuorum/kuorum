@@ -7,9 +7,9 @@ import grails.plugin.springsecurity.oauth.OAuthToken
 import grails.transaction.Transactional
 import kuorum.KuorumFile
 import kuorum.core.FileGroup
+import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.model.AvailableLanguage
 import kuorum.core.model.Gender
-import kuorum.notifications.NotificationService
 import kuorum.users.*
 import kuorum.util.LookUpEnumUtil
 import org.scribe.model.Token
@@ -45,7 +45,7 @@ class GoogleOAuthService implements IOAuthService{
         log.info("Creating user with google: ${googleUser.email}")
         GoogleOAuthToken oAuthToken =  new GoogleOAuthToken(accessToken, googleUser.email)
 
-        KuorumUser user = KuorumUser.findByEmail(googleUser.email)
+        KuorumUser user = KuorumUser.findByEmailAndDomain(googleUser.email, CustomDomainResolver.domain)
         Boolean newUser = false;
         if (!user){
             user = createUser(googleUser);
@@ -78,7 +78,6 @@ class GoogleOAuthService implements IOAuthService{
         user.accountExpired = false;
         user.accountLocked = false
         user.enabled = true;
-        user.alias = kuorumUserService.generateValidAlias(registerCommand.name)
 
 //        if (user.userType == UserType.PERSON){
             PersonData personData = new PersonData()

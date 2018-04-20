@@ -124,28 +124,6 @@ function createKuorumUserFromPolitician(politician){
 //            "SUSTAINABLE_MOBILITY",
             "OTHERS"
         ],
-        availableMails:[
-            "REGISTER_VERIFY_EMAIL",
-            "REGISTER_RESET_PASSWORD",
-            "REGISTER_RRSS",
-            "REGISTER_ACCOUNT_COMPLETED",
-            "NOTIFICATION_CLUCK",
-            "NOTIFICATION_FOLLOWER",
-            "NOTIFICATION_PUBLIC_MILESTONE",
-            "NOTIFICATION_DEBATE_USERS",
-            "NOTIFICATION_DEBATE_AUTHOR",
-            "NOTIFICATION_DEBATE_POLITICIAN",
-            "NOTIFICATION_DEFENDED_USERS",
-            "NOTIFICATION_DEFENDED_AUTHOR",
-            "NOTIFICATION_DEFENDED_BY_POLITICIAN",
-            "NOTIFICATION_DEFENDED_POLITICIANS",
-            "NOTIFICATION_VICTORY_USERS",
-            "NOTIFICATION_VICTORY_DEFENDER",
-            "POST_CREATED_1",
-            "POST_CREATED_2",
-            "POST_CREATED_3",
-            "POST_CREATED_4"
-        ],
         gamification: {
             numEggs: 0,
             numPlumes:0,

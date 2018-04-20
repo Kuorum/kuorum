@@ -6,6 +6,7 @@ import grails.plugin.springsecurity.oauth.OAuthToken
 import kuorum.KuorumFile
 import kuorum.core.FileGroup
 import kuorum.core.FileType
+import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.exception.KuorumException
 import kuorum.core.model.AvailableLanguage
 import kuorum.users.FacebookUser
@@ -41,7 +42,7 @@ class FacebookOAuthService implements IOAuthService {
             throw new KuorumException("Email de Facebook no proporcionado", "login.rrss.error.noEmail");
         }
 
-        KuorumUser user = KuorumUser.findByEmail(fbProfile.email)
+        KuorumUser user = KuorumUser.findByEmailAndDomain(fbProfile.email, CustomDomainResolver.domain)
         Boolean newUser = false;
         if (!user){
             user = createNewUser(fbProfile);
@@ -81,7 +82,6 @@ class FacebookOAuthService implements IOAuthService {
         user.accountLocked = false
         user.enabled = true
         user.password = registerCommand.password
-        user.alias = user.alias?:kuorumUserService.generateValidAlias(fbProfile.name)
         user.surname=fbProfile.lastName
         user.language = AvailableLanguage.fromLocaleParam(fbProfile?.locale?.language)
         RoleUser roleUser = RoleUser.findByAuthority('ROLE_USER')

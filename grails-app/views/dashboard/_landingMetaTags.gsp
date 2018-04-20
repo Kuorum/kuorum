@@ -7,7 +7,7 @@
 <meta name="title" content="${kuorumTitle}" />
 <meta name="description" content="${kuorumDescription}" />
 <meta name="image" content="${kuorumImage}" />
-<meta name="keywords" content="${g.message(code:"layout.head.meta.keywords")}" />
+<meta name="keywords" content="${g.message(code:"layout.head.meta.keywords", args:[kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.name])}" />
 <meta name="application-name" content="${kuorumName}" />
 
 <meta itemprop="name" content="${kuorumName}">

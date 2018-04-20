@@ -1,3 +1,4 @@
+<%@ page import="kuorum.core.customDomain.CustomDomainResolver" %>
 <nav:ifPageProperty pageProperty="showHeadSearch">
     <form
             itemprop="potentialAction" itemscope itemtype="http://schema.org/SearchAction"
@@ -21,7 +22,7 @@
                         <li>
                             <a href="#${searchType}" class="search-${searchType} ${searchFilterType==searchType?'active':''}">
                                 <span class="fa fa-kuorumSearchType-${searchType} fa-lg"></span>
-                                <span class="search-filter-text">${message(code:'search.head.placeHolder.'+searchType)}</span>
+                                <span class="search-filter-text">${message(code:'search.head.placeHolder.'+searchType, args:[kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.name])}</span>
                             </a>
                         </li>
                     </g:each>
@@ -30,7 +31,7 @@
             <input
                     type="text"
                     class="form-control"
-                    placeholder="${message(code:'search.head.placeHolder')}"
+                    placeholder="${message(code:'search.head.placeHolder', arg:[CustomDomainResolver.domainRSDTO.name])}"
                     itemprop="query-input"
                     name="word"
                     id="srch-term"

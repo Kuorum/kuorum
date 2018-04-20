@@ -17,6 +17,7 @@ package kuorum.users
 
 import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.oauth.OAuthToken
+import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.exception.KuorumException
 import kuorum.register.IOAuthService
 import kuorum.solr.IndexSolrService
@@ -100,7 +101,7 @@ class SpringSecurityOAuthController {
         if (oAuthToken?.newUser){
             String uri = redirectUrl.get("uri")
             redirectUrl.put("uri", uri+"?tour=true")
-            KuorumUser user = KuorumUser.findByEmail(oAuthToken.principal.username)
+            KuorumUser user = KuorumUser.findByEmailAndDomain(oAuthToken.principal.username, CustomDomainResolver.domain)
             indexSolrService.deltaIndex()
         }
         redirect (redirectUrl)

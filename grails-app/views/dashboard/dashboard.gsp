@@ -4,7 +4,6 @@
     <meta name="layout" content="paymentPlainLayout">
     <!-- Schema.org markup for Google+ -->
     <meta itemprop="name" content="${g.message(code:"kuorum.name")}">
-    <meta itemprop="description" content="${g.message(code:"layout.head.meta.description")}">
     <meta itemprop="image" content="${resource(dir: 'images', file:'landingSearch-rrss.png', absolute:true)}" />
     <meta itemprop="image" content="${resource(dir: 'images', file: 'logo@2x.png')}" />
     <r:require modules="post"/>
@@ -36,7 +35,7 @@
                                 <g:message code='dashboard.payment.followingCampaignList.empty'/>
                             </span>
                             <span class="icon-empty-campaignList">
-                                <img src="${g.resource(dir: "images/icons", file: "icon-info.png")}"/>
+                                <span class="fa fa-info-circle"></span>
                             </span>
                         </p>
 

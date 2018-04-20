@@ -114,7 +114,13 @@ grails.project.dependency.resolution = {
         compile 'org.igniterealtime.smack:smack:3.1.0'
         compile 'com.ecwid:ecwid-mailchimp:jar:2.0.0.1'
 
-        compile 'kuorumServices:kuorumRestModel:jar:1.0-SNAPSHOT'
+        compile 'kuorumServices:kuorumRestModel:jar:2.0-SNAPSHOT'
+
+        // Library for compile css using less
+        compile (group: 'org.lesscss', name: 'lesscss-maven-plugin', version: '1.7.0.1.1'){
+            exclude "slf4j-simple"
+        }
+
 
         //For burning-image plugin
 //        compile 'org.im4java:im4java:1.4.0'

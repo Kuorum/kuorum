@@ -72,6 +72,7 @@ class NewsletterController {
 
     }
 
+    @Secured(['ROLE_CAMPAIGN_NEWSLETTER','ROLE_ADMIN'])
     def createNewsletter() {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         def returnModels = modelMassMailingSettings(user, new MassMailingSettingsCommand(), null)
@@ -79,6 +80,7 @@ class NewsletterController {
         return returnModels
     }
 
+    @Secured(['ROLE_CAMPAIGN_NEWSLETTER','ROLE_ADMIN'])
     def editSettingsStep(){
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         Long campaignId = Long.parseLong(params.campaignId)
@@ -87,6 +89,7 @@ class NewsletterController {
         return returnModels
     }
 
+    @Secured(['ROLE_CAMPAIGN_NEWSLETTER','ROLE_ADMIN'])
     def editTemplateStep(){
         MassMailingTemplateCommand command = new MassMailingTemplateCommand()
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
@@ -96,6 +99,7 @@ class NewsletterController {
         [command: command, campaign: NewsletterRSDTO]
     }
 
+    @Secured(['ROLE_CAMPAIGN_NEWSLETTER','ROLE_ADMIN'])
     def editContentStep(){
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         Long campaignId = Long.parseLong(params.campaignId)
@@ -142,6 +146,7 @@ class NewsletterController {
 
     /*** SAVE FIRST STEP ***/
 
+    @Secured(['ROLE_CAMPAIGN_NEWSLETTER','ROLE_ADMIN'])
     def saveMassMailingSettings(MassMailingSettingsCommand command){
         KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
         Long campaignId = params.campaignId?Long.parseLong(params.campaignId):null // if the user has sent a test, it was saved as draft but the url hasn't changed
@@ -182,6 +187,7 @@ class NewsletterController {
 
     /*** SAVE TEMPLATE STEP ***/
 
+    @Secured(['ROLE_CAMPAIGN_NEWSLETTER','ROLE_ADMIN'])
     def saveMassMailingTemplate(MassMailingTemplateCommand command){
         KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
         if (command.hasErrors()){
@@ -229,13 +235,7 @@ class NewsletterController {
         String nextStep = params.redirectLink // if the user has sent a test, it was saved as draft but the url hasn't changed
         def dataSend = saveAndSendContent(loggedUser, command, command.campaignId)
 //        flash.message = dataSend.msg
-        if (dataSend.goToPaymentProcess){
-            String paymentRedirect = g.createLink(mapping:"politicianMassMailingContent", params:[campaignId: dataSend.campaign.id] )
-            cookieUUIDService.setPaymentRedirect(paymentRedirect)
-            redirect(mapping: "paymentStart")
-        }else{
-            redirect(mapping: nextStep, params: [campaignId: dataSend.campaign.id])
-        }
+        redirect(mapping: nextStep, params: [campaignId: dataSend.campaign.id])
     }
 
     private def saveAndSendContent(KuorumUser user, MassMailingContentCommand command, Long campaignId = null){
@@ -266,6 +266,7 @@ class NewsletterController {
 
     /** END STEPS **/
 
+    @Secured(['ROLE_CAMPAIGN_NEWSLETTER','ROLE_ADMIN'])
     def showCampaign(Long campaignId){
         KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
         NewsletterRSDTO NewsletterRSDTO = newsletterService.findCampaign(loggedUser, campaignId)
@@ -345,6 +346,7 @@ class NewsletterController {
         }
     }
 
+    @Secured(['ROLE_CAMPAIGN_NEWSLETTER','ROLE_ADMIN'])
     def updateCampaign(MassMailingSettingsCommand command){
         KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
         Long campaignId = Long.parseLong(params.campaignId)
@@ -361,6 +363,7 @@ class NewsletterController {
         redirect mapping:'politicianMassMailing'
     }
 
+    @Secured(['ROLE_CAMPAIGN_NEWSLETTER','ROLE_ADMIN'])
     def removeCampaign(Long campaignId){
         KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
         newsletterService.removeCampaign(loggedUser, campaignId)

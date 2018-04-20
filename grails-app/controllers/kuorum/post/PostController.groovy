@@ -8,22 +8,21 @@ import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.commands.payment.CampaignSettingsCommand
 import kuorum.web.commands.payment.massMailing.post.LikePostCommand
 import org.kuorum.rest.model.communication.post.PostRSDTO
-import org.kuorum.rest.model.contact.filter.FilterRDTO
 
 class PostController extends CampaignController{
 
-    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    @Secured(['ROLE_CAMPAIGN_POST','ROLE_ADMIN'])
     def create() {
         return postModelSettings(new CampaignSettingsCommand(debatable:false), null)
     }
 
-    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    @Secured(['ROLE_CAMPAIGN_POST','ROLE_CAMPAIGN_EVENT','ROLE_ADMIN'])
     def remove(Long campaignId) {
         removeCampaign(campaignId)
         render ([msg: "Post deleted"] as JSON)
     }
 
-    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    @Secured(['ROLE_CAMPAIGN_POST','ROLE_CAMPAIGN_EVENT','ROLE_ADMIN'])
     def editSettingsStep(){
         KuorumUser postUser = KuorumUser.get(springSecurityService.principal.id)
         PostRSDTO postRSDTO = postService.find(postUser, Long.parseLong(params.campaignId))
@@ -31,14 +30,14 @@ class PostController extends CampaignController{
 
     }
 
-    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    @Secured(['ROLE_CAMPAIGN_POST','ROLE_CAMPAIGN_EVENT','ROLE_ADMIN'])
     def editContentStep(){
         Long campaignId = Long.parseLong(params.campaignId)
         PostRSDTO postRSDTO = setCampaignAsDraft(campaignId, postService)
         return campaignModelContent(campaignId, postRSDTO, null, postService)
     }
 
-    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    @Secured(['ROLE_CAMPAIGN_POST','ROLE_CAMPAIGN_EVENT','ROLE_ADMIN'])
     def saveSettings(CampaignSettingsCommand command) {
         if (command.hasErrors()) {
             render view: 'create', model: postModelSettings(command, null)
@@ -49,7 +48,7 @@ class PostController extends CampaignController{
         redirect mapping: result.nextStep.mapping, params: result.nextStep.params
     }
 
-    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    @Secured(['ROLE_CAMPAIGN_POST','ROLE_CAMPAIGN_EVENT','ROLE_ADMIN'])
     def saveContent(CampaignContentCommand command) {
         if (command.hasErrors()) {
             if(command.errors.getFieldError().arguments.first() == "publishOn"){
@@ -72,8 +71,11 @@ class PostController extends CampaignController{
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def likePost(LikePostCommand command){
+        if (command.hasErrors()){
+            render "No correct data"
+        }
         KuorumUser currentUser= springSecurityService.currentUser;
-        PostRSDTO post = postService.likePost(command.postId, currentUser, command.like, command.userAlias);
+        PostRSDTO post = postService.likePost(command.postId, currentUser, command.like, command.postUserId);
         render post as JSON;
     }
 }

@@ -18,12 +18,12 @@
                 </nav:ifPageProperty>
             </div>
         </div>
-        <sec:ifNotLoggedIn>
-            <div class="navbar-contact-phone hidden-lg">
-                <g:set var="kuorumPhone" value="${g.message(code:'kuorum.telephone')}"/>
-                <span class="fa fa-phone"></span>
-                <a href="tel:${kuorumPhone}">${kuorumPhone}</a>
-            </div>
-        </sec:ifNotLoggedIn>
+        %{--<sec:ifNotLoggedIn>--}%
+            %{--<div class="navbar-contact-phone hidden-lg">--}%
+                %{--<g:set var="kuorumPhone" value="${g.message(code:'kuorum.telephone')}"/>--}%
+                %{--<span class="fa fa-phone"></span>--}%
+                %{--<a href="tel:${kuorumPhone}">${kuorumPhone}</a>--}%
+            %{--</div>--}%
+        %{--</sec:ifNotLoggedIn>--}%
     </nav>
 </header>

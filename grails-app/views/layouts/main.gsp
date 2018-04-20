@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<%@ page import="org.springframework.web.servlet.support.RequestContextUtils; org.springframework.context.i18n.LocaleContextHolder;" contentType="text/html;charset=UTF-8" %>
+<%@ page import="kuorum.core.customDomain.CustomDomainResolver; org.springframework.web.servlet.support.RequestContextUtils; org.springframework.context.i18n.LocaleContextHolder;" contentType="text/html;charset=UTF-8" %>
 <g:set var="currentLang" value="${org.springframework.web.servlet.support.RequestContextUtils.getLocale(request)}" />
 <html class="no-js" lang="${currentLang.language}" xml:lang="${currentLang.language}" xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -11,37 +11,24 @@
     <meta name="MobileOptimized" content="320">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title><g:layoutTitle default="${g.message(code:"layout.head.title.default")}"/></title>
-    <meta name="Keywords" content="${g.message(code:"layout.head.meta.keywords")}">
-    <meta name="dcterms.rightsHolder" content="Kuorum.org">
+    <title><g:layoutTitle default="${g.message(code:"layout.head.title.default", args:[kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.name])}"/></title>
+    <meta name="Keywords" content="${g.message(code:"layout.head.meta.keywords", args:[kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.name])}">
+    <meta name="dcterms.rightsHolder" content="${kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.name}g">
     %{--<meta name="dcterms.dateCopyrighted" content="2013">--}%
 
     <meta name="robots" content="all">
 
 
-    <!-- For iPhone 5 and iPod touch -->
-    <link rel="apple-touch-icon" sizes="120x120" href="${resource(dir: 'images/icons', file: 'apple-touch-icon-120x120.png')}">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://test-kuorumorg.s3.amazonaws.com/domains/${_domain}/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://test-kuorumorg.s3.amazonaws.com/domains/${_domain}/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://test-kuorumorg.s3.amazonaws.com/domains/${_domain}/favicon/favicon-16x16.png">
+    <link rel="manifest" href="https://test-kuorumorg.s3.amazonaws.com/domains/${_domain}/favicon/site.webmanifest">
+    <link rel="mask-icon" href="https://test-kuorumorg.s3.amazonaws.com/domains/${_domain}/favicon/safari-pinned-tab.svg" color="#ff9431">
+    <link rel="shortcut icon" href="https://test-kuorumorg.s3.amazonaws.com/domains/${_domain}/favicon/favicon.ico">
+    <meta name="msapplication-TileColor" content="#20a2ea">
+    <meta name="msapplication-config" content="https://test-kuorumorg.s3.amazonaws.com/domains/${_domain}/favicon/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
 
-    <!-- For iPhone 4 -->
-    <link rel="apple-touch-icon" sizes="114x114" href="${resource(dir: 'images/icons', file: 'apple-touch-icon-114x114.png')}">
-
-    <!-- For the new iPad and iPad mini -->
-    <link rel="apple-touch-icon" sizes="152x152" href="${resource(dir: 'images/icons', file: 'apple-touch-icon-152x152.png')}">
-
-    <!-- For iPad 2 -->
-    <link rel="apple-touch-icon" sizes="144x144" href="${resource(dir: 'images/icons', file: 'apple-touch-icon-114x114.png')}">
-
-    <!-- For iPad 1-->
-    <link rel="apple-touch-icon" sizes="72x72" href="${resource(dir: 'images/icons', file: 'apple-touch-icon-72x72.png')}">
-
-    <!-- For iPhone 3G, iPod Touch and Android -->
-    <link rel="apple-touch-icon" href="${resource(dir: 'images/icons', file: 'apple-touch-icon-76x76.png')}">
-
-    <!-- For Nokia -->
-    <link rel="shortcut icon" href="${resource(dir: 'images/icons', file: 'apple-touch-icon-76x76.png')}">
-
-    <!-- For everything else -->
-    <link rel="shortcut icon" href="${resource(dir: 'images/icons', file: 'faviconKuorum.ico')}">
 
     <r:require modules="vimeo" />
     <g:set var="lang" value="${org.springframework.web.servlet.support.RequestContextUtils.getLocale(request).language}" />
@@ -51,10 +38,13 @@
     <r:layoutResources />
     <meta property="twitter:account_id" content="4503599627910348" />
     <g:render template="/layouts/internationalization/otherLangsRef"/>
+
+    <domain:customCss/>
+    %{--<link rel="stylesheet" href="http://localhost/customDomainCss.css" type="text/css"/>--}%
 </head>
 
 <g:if test="${!schemaData?.schema}">
-    <g:set var="schemaData" value="${[schema:'http://schema.org/WebSite', name:g.layoutTitle(default:g.message(code:'layout.head.title.default'))]}" scope="request"/>
+    <g:set var="schemaData" value="${[schema:'http://schema.org/WebSite', name:g.layoutTitle(default:g.message(code:'layout.head.title.default', args:[kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.name]))]}" scope="request"/>
 </g:if>
 
 <g:set var="dynamicBodyCss" value=""/>
@@ -96,7 +86,7 @@
     <nav:ifActiveMapping mappingNames="customProcessRegisterStep2, customProcessRegisterStep3, registerSubscriptionStep1, registerSubscriptionStep1Save, registerSubscriptionStep3, tour_dashboard" equals="false">
         <r:script>
             function notMailConfirmedWarn(){
-                display.warn("<userUtil:showMailConfirm /> }");
+                display.warn("<userUtil:showMailConfirm />");
             }
             $(function(){
                 notMailConfirmedWarn();

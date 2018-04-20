@@ -4,71 +4,34 @@
 </div>
 <div class="row section-body">
     <ul class="globus">
-        <li class="col-sm-4 col-md-4">
-            <img class="img-responsive" src="${r.resource(dir:'images/landing/icons', file:'icon-laptop.png')}" alt="step 1">
+    <li class="fontIcon col-sm-3 col-md-3">
+        <g:link mapping="searcherSearchDEBATE">
+            <span class="fa fa-comments-o"></span>
+        </g:link>
             <h2><g:message code="${msgPrefix}.howItWorks.signUp.title"/> </h2>
             <p><g:message code="${msgPrefix}.howItWorks.signUp.text"/> </p>
-            <ul class="onecol bullets col-12">
-                <li class="col-6 col-md-offset-3 col-sm-offset-3 col-xs-offset-4">
-                    <span><g:message code="${msgPrefix}.howItWorks.signUp.bullet1.text"/></span>
-                </li>
-                <li class="col-6 col-md-offset-3 col-sm-offset-3 col-xs-offset-4">
-                    <span><g:message code="${msgPrefix}.howItWorks.signUp.bullet2.text"/></span>
-                </li>
-                <li class="col-6 col-md-offset-3 col-sm-offset-3 col-xs-offset-4">
-                    <span><g:message code="${msgPrefix}.howItWorks.signUp.bullet3.text"/></span>
-                </li>
-                <li class="col-6 col-md-offset-3 col-sm-offset-3 col-xs-offset-4">
-                    <span><g:message code="${msgPrefix}.howItWorks.signUp.bullet4.text"/></span>
-                </li>
-                <li class="col-6 col-md-offset-3 col-sm-offset-3 col-xs-offset-4">
-                    <span><g:message code="${msgPrefix}.howItWorks.signUp.bullet5.text"/></span>
-                </li>
-            </ul>
-        </li>
-        <li class="col-sm-4 col-md-4">
-            <img class="img-responsive" src="${r.resource(dir:'images/landing/icons', file:'icon-loupe.png')}" alt="step 2">
+    </li>
+        <li class="fontIcon col-sm-3 col-md-3">
+            <g:link mapping="searcherSearchSURVEY">
+                <span class="fa fa-bar-chart-o"></span>
+            </g:link>
             <h2><g:message code="${msgPrefix}.howItWorks.connect.title"/> </h2>
             <p><g:message code="${msgPrefix}.howItWorks.connect.text"/> </p>
-            <ul class="onecol bullets col-12">
-                <li class="col-6 col-md-offset-3 col-sm-offset-3 col-xs-offset-4">
-                    <span><g:message code="${msgPrefix}.howItWorks.connect.bullet1.text"/></span>
-                </li>
-                <li class="col-6 col-md-offset-3 col-sm-offset-3 col-xs-offset-4">
-                    <span><g:message code="${msgPrefix}.howItWorks.connect.bullet2.text"/></span>
-                </li>
-                <li class="col-6 col-md-offset-3 col-sm-offset-3 col-xs-offset-4">
-                    <span><g:message code="${msgPrefix}.howItWorks.connect.bullet3.text"/></span>
-                </li>
-                <li class="col-6 col-md-offset-3 col-sm-offset-3 col-xs-offset-4">
-                    <span><g:message code="${msgPrefix}.howItWorks.connect.bullet4.text"/></span>
-                </li>
-                <li class="col-6 col-md-offset-3 col-sm-offset-3 col-xs-offset-4">
-                    <span><g:message code="${msgPrefix}.howItWorks.connect.bullet5.text"/></span>
-                </li>
-            </ul>
         </li>
-        <li class="col-sm-4 col-md-4">
-            <img class="img-responsive" src="${r.resource(dir:'images/landing/icons', file:'icon-brain.png')}" alt="step 3">
+        <li class="fontIcon col-sm-3 col-md-3">
+            <g:link mapping="searcherSearchEVENT">
+                <span class="fa fa-calendar-check-o"></span>
+            </g:link>
             <h2><g:message code="${msgPrefix}.howItWorks.engage.title"/> </h2>
             <p><g:message code="${msgPrefix}.howItWorks.engage.text"/> </p>
-            <ul class="checklist bullets col-12">
-                <li class="col-6 col-md-offset-3 col-sm-offset-3 col-xs-offset-4">
-                    <span><g:message code="${msgPrefix}.howItWorks.engage.bullet1.text"/></span>
-                </li>
-                <li class="col-6 col-md-offset-3 col-sm-offset-3 col-xs-offset-4">
-                    <span><g:message code="${msgPrefix}.howItWorks.engage.bullet2.text"/></span>
-                </li>
-                <li class="col-6 col-md-offset-3 col-sm-offset-3 col-xs-offset-4">
-                    <span><g:message code="${msgPrefix}.howItWorks.engage.bullet3.text"/></span>
-                </li>
-                <li class="col-6 col-md-offset-3 col-sm-offset-3 col-xs-offset-4">
-                    <span><g:message code="${msgPrefix}.howItWorks.engage.bullet4.text"/></span>
-                </li>
-                <li class="col-6 col-md-offset-3 col-sm-offset-3 col-xs-offset-4">
-                    <span><g:message code="${msgPrefix}.howItWorks.engage.bullet5.text"/></span>
-                </li>
-            </ul>
+        </li>
+        <li class="fontIcon col-sm-3 col-md-3">
+            <g:link mapping="searcherSearchPOST">
+                <span class="fa fa-microphone"></span>
+            </g:link>
+            %{--<span class="fas fa-microphone"></span>--}%
+            <h2><g:message code="${msgPrefix}.howItWorks.petition.title"/> </h2>
+            <p><g:message code="${msgPrefix}.howItWorks.petition.text"/> </p>
         </li>
     </ul>
 </div>

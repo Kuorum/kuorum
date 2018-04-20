@@ -28,7 +28,7 @@
             <button
                     type="button"
                     class="btn btn-blue btn-lg disabled"
-                    data-userLoggedAlias="${userUtil.loggedUserAlias()}"
+                    data-userLoggedAlias="${userUtil.loggedUserId()}"
                     data-postUrl="${g.createLink(mapping:"surveySaveAnswer", params:survey.encodeAsLinkProperties())}"
                     data-campaignId="${survey.id}"
                     data-campaignAlias="${survey.user.alias}">

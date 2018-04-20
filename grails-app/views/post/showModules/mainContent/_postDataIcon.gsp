@@ -4,7 +4,7 @@
 <div class="comment-counter pull-right">
     <button type="button" class="post-like ${activeButton?'active':''}"
             data-postId="${post.id}"
-            data-userAlias="${post.user.alias}"
+            data-postUserId="${post.user.id}"
             data-urlAction="${g.createLink(mapping: "postLike")}"
             data-loggedUser="${sec.username()}"
     >

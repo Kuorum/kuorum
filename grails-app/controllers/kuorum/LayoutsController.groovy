@@ -2,12 +2,9 @@ package kuorum
 
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.causes.CausesService
-import kuorum.core.model.UserType
 import kuorum.core.model.search.SearchNotifications
-import kuorum.notifications.Notification
 import kuorum.users.KuorumUser
 import org.kuorum.rest.model.notification.NotificationPageRSDTO
-import org.kuorum.rest.model.notification.NotificationRSDTO
 
 class LayoutsController {
 

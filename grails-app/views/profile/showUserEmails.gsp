@@ -10,7 +10,7 @@
 </content>
 
 <content tag="mainContent">
-    <h1>EMAILS RECIVIDOS: ${mails.totalMails}</h1>
+    <h1>EMAILS RECIBIDOS: ${mails.totalMails}</h1>
     <ul>
         <g:each in="${mails.mails}" var="email">
             <li>

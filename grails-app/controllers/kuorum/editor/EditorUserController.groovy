@@ -2,16 +2,17 @@ package kuorum.editor
 
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.RegionService
-import kuorum.core.model.UserType
 import kuorum.files.FileService
 import kuorum.register.RegisterService
-import kuorum.users.*
+import kuorum.users.KuorumUser
+import kuorum.users.KuorumUserService
+import kuorum.users.PersonData
+import kuorum.users.ProfileController
 import kuorum.web.commands.editor.EditorAccountCommand
-import kuorum.web.commands.editor.EditorCreateUserCommand
 import kuorum.web.commands.profile.EditUserProfileCommand
 import kuorum.web.commands.profile.SocialNetworkCommand
 
-@Secured(['ROLE_EDITOR'])
+@Secured(['ROLE_SUPER_ADMIN'])
 class EditorUserController {
 
     KuorumUserService kuorumUserService
@@ -19,29 +20,6 @@ class EditorUserController {
     RegionService regionService
 
     RegisterService registerService;
-
-    def createPolitician(){
-        [command:new EditorCreateUserCommand()]
-    }
-
-    def saveCreatePolitician(EditorCreateUserCommand command){
-        if (command.hasErrors()){
-            render view: "createPolitician", model:[command:command]
-            return;
-        }
-        String pass = registerService.generateNotSetUserPassword("EDITOR")
-        KuorumUser newPolitician = registerService.createUser(command.name, pass, command.email,command.alias, command.language)
-        newPolitician.personalData.phonePrefix = command.phonePrefix
-        newPolitician.personalData.telephone = command.phone
-        if (command.homeRegion){
-            newPolitician.personalData.province = command.homeRegion
-            newPolitician.personalData.provinceCode = command.homeRegion.iso3166_2
-        }
-        newPolitician.authorities.remove(RoleUser.findByAuthority("ROLE_INCOMPLETE_USER"))
-        newPolitician = kuorumUserService.updateUser(newPolitician);
-        redirect(mapping:'userShow', params:newPolitician.encodeAsLinkProperties())
-
-    }
 
     def editUser(String userAlias){
         KuorumUser user = kuorumUserService.findEditableUser(userAlias)

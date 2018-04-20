@@ -359,11 +359,11 @@ $(function () {
             var pin = $button.hasClass("active");
             var url =$button.attr("data-urlAction");
             var debateId = $button.attr("data-debateId");
-            var debateAlias = $button.attr("data-debateAlias");
+            var debateUserId = $button.attr("data-debateUserId");
             var proposalId = $button.attr("data-proposalId");
             var data = {
                 debateId:debateId,
-                debateAlias:debateAlias,
+                debateUserId:debateUserId,
                 proposalId:proposalId,
                 pin:pin
             };
@@ -611,14 +611,14 @@ var debateFunctions = {
         var proposalDivId = $proposalDiv.attr("id")
         var proposalId = proposalDivId.substring(proposalDivId.indexOf("_")+1);
         var debateId = $proposalDiv.attr("data-debateId")
-        var debateAlias = $proposalDiv.attr("data-debateAlias")
+        var debateUserId = $proposalDiv.attr("data-debateUserId")
         var commentId = $button.attr("data-commentId")
         var url = $button.attr("data-ajaxVote")
         var $number = $button.siblings(".number")
         var data = {
             proposalId:proposalId,
             campaignId:debateId,
-            debateAlias:debateAlias,
+            debateUserId:debateUserId,
             commentId:commentId,
             vote:vote
         }
@@ -681,11 +681,11 @@ var debateFunctions = {
 
         var url = $button.attr("data-urlAction");
         var debateId = $button.attr("data-debateId");
-        var debateAlias = $button.attr("data-debateAlias");
+        var debateUserId = $button.attr("data-debateUserId");
         var proposalId = $button.attr("data-proposalId");
         var data = {
             debateId: debateId,
-            debateAlias: debateAlias,
+            debateUserId: debateUserId,
             proposalId: proposalId,
             like: like
         };
@@ -940,12 +940,12 @@ var deletes ={
         var proposalDivId = $proposalDiv.attr("id")
         var proposalId = proposalDivId.substring(proposalDivId.indexOf("_")+1);
         var debateId = $proposalDiv.attr("data-debateId")
-        var debateAlias = $proposalDiv.attr("data-debateAlias")
+        var debateUserId = $proposalDiv.attr("data-debateUserId")
         var url = $button.attr("data-ajaxDelete")
         var data = {
             proposalId:proposalId,
             debateId:debateId,
-            debateAlias:debateAlias
+            debateUserId:debateUserId
         }
         pageLoadingOn();
         $.ajax({
@@ -969,13 +969,13 @@ var deletes ={
         var proposalDivId = $proposalDiv.attr("id")
         var proposalId = proposalDivId.substring(proposalDivId.indexOf("_")+1);
         var debateId = $proposalDiv.attr("data-debateId")
-        var debateAlias = $proposalDiv.attr("data-debateAlias")
+        var debateUserId = $proposalDiv.attr("data-debateUserId")
         var commentId = $button.attr("data-commentId")
         var url = $button.attr("data-ajaxDelete")
         var data = {
             proposalId:proposalId,
             debateId:debateId,
-            debateAlias:debateAlias,
+            debateUserId:debateUserId,
             commentId:commentId
         }
 

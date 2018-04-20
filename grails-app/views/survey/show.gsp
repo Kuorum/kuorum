@@ -1,7 +1,7 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <g:set var="titleMessageCode" value="survey.show.title"/>
-    <title><g:message code="${titleMessageCode}" args="[survey.title]"/></title>
+    <title><g:message code="${titleMessageCode}" args="[survey.title, _domainName]"/></title>
     <meta name="layout" content="columnCLayout">
     <g:set var="schemaData" value="${[schema:'http://schema.org/Article', name:survey.title]}" scope="request"/>
     <g:render template="/survey/surveyMetaTags" model="[survey: survey, titleMessageCode:titleMessageCode]"/>

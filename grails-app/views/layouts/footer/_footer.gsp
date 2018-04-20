@@ -2,19 +2,12 @@
     <div class="container-fluid">
         <section class="links">
             <ul>
-                <li><g:link mapping="footerAboutKuorum"><g:message code="layout.footer.technology"/></g:link> </li>
-                <li><g:link mapping="footerHistory"><g:message code="layout.footer.aboutUs"/></g:link> </li>
-                <li><g:link mapping="footerOurTeam"><g:message code="layout.footer.ourTeam"/></g:link></li>
-                <li><g:link mapping="footerPress"><g:message code="layout.footer.pressTitle"/></g:link></li>
-                <li><g:link mapping="footerUserGuides"><g:message code="layout.footer.userGuides"/></g:link></li>
-                <li><g:link mapping="landingCaseStudy"><g:message code="layout.footer.casesStudy"/></g:link> </li>
-                <li><g:link mapping="footerBlog"><g:message code="layout.footer.blog"/></g:link> </li>
-                <li><g:link mapping="footerContactUs"><g:message code="layout.footer.contact"/></g:link></li>
-                %{--<li><g:link mapping="footerPrivacyPolicy"><g:message code="layout.footer.privacyPolicy"/></g:link></li>--}%
-                %{--<li><g:link mapping="footerTermsUse"><g:message code="layout.footer.termsUse"/></g:link></li>--}%
-                <sec:ifNotLoggedIn>
-                    <li class="lang-selector"><nav:generateLangSelector /></li>
-                </sec:ifNotLoggedIn>
+                %{--<li><g:link mapping="footerUserGuides"><g:message code="layout.footer.userGuides"/></g:link></li>--}%
+                <li><g:link mapping="footerPrivacyPolicy" target="_blank"><g:message code="layout.footer.privacyPolicy"/></g:link></li>
+                <li><g:link mapping="footerTermsUse" target="_blank"><g:message code="layout.footer.termsUse"/></g:link></li>
+                %{--<sec:ifNotLoggedIn>--}%
+                    %{--<li class="lang-selector"><nav:generateLangSelector /></li>--}%
+                %{--</sec:ifNotLoggedIn>--}%
             </ul>
         </section>
     </div><!-- /.container-fluid - da ancho máximo y centra -->
@@ -25,15 +18,16 @@
                 <div class="col-xs-12 col-sm-8 col-md-8">
                     <ul class="social">
                         <li class="hidden-xs"><g:message code="layout.footer.followUs"/></li>
-                        <li><a href="https://twitter.com/kuorumorg" target="_blank"><span class="sr-only">Twitter</span><span class="fa-stack fa-lg"><span class="fa fa-circle fa-stack-2x"></span><span class="fa fa-twitter fa-stack-1x"></span></span></a></li>
-                        <li><a href="https://www.facebook.com/kuorumorg" target="_blank"><span class="sr-only" target="_blank">Facebook</span><span class="fa-stack fa-lg"><span class="fa fa-circle fa-stack-2x"></span><span class="fa fa-facebook fa-stack-1x"></span></span></a></li>
-                        <li><a href="http://www.linkedin.com/company/kuorumorg" target="_blank"><span class="sr-only" target="_blank">LinkedIn</span><span class="fa-stack fa-lg"><span class="fa fa-circle fa-stack-2x"></span><span class="fa fa-linkedin fa-stack-1x"></span></span></a></li>
-                        <li><a href="https://plus.google.com/+KuorumOrg" target="_blank"><span class="sr-only" target="_blank">Google+</span><span class="fa-stack fa-lg"><span class="fa fa-circle fa-stack-2x"></span><span class="fa fa-google-plus fa-stack-1x"></span></span></a></li>
+                        <g:if test="${_social?.twitter}"><li><a href="${_social.twitter}" target="_blank"><span class="sr-only">Twitter</span><span class="fa-stack fa-lg"><span class="fa fa-circle fa-stack-2x"></span><span class="fa fa-twitter fa-stack-1x"></span></span></a></li></g:if>
+                        <g:if test="${_social?.facebook}"><li><a href="${_social.facebook}" target="_blank"><span class="sr-only" target="_blank">Facebook</span><span class="fa-stack fa-lg"><span class="fa fa-circle fa-stack-2x"></span><span class="fa fa-facebook fa-stack-1x"></span></span></a></li></g:if>
+                        <g:if test="${_social?.linkedIn}"><li><a href="${_social.linkedIn}" target="_blank"><span class="sr-only" target="_blank">LinkedIn</span><span class="fa-stack fa-lg"><span class="fa fa-circle fa-stack-2x"></span><span class="fa fa-linkedin fa-stack-1x"></span></span></a></li></g:if>
+                        <g:if test="${_social?.googlePlus}"><li><a href="${_social.googlePlus}" target="_blank"><span class="sr-only" target="_blank">Google+</span><span class="fa-stack fa-lg"><span class="fa fa-circle fa-stack-2x"></span><span class="fa fa-google-plus fa-stack-1x"></span></span></a></li></g:if>
+                        <g:if test="${_social?.instagram}"><li><a href="${_social.instagram}" target="_blank"><span class="sr-only" target="_blank">Instagram</span><span class="fa-stack fa-lg"><span class="fa fa-circle fa-stack-2x"></span><span class="fa fa-instagram fa-stack-1x"></span></span></a></li></g:if>
                     </ul>
                 </div>
-                %{--<div class="col-xs-12 col-sm-4 col-md-4">--}%
-                    %{--<g:render template="/layouts/footer/licences"/>--}%
-                %{--</div>--}%
+                <div class="col-xs-12 col-sm-4 col-md-4">
+                    <g:render template="/layouts/footer/licences"/>
+                </div>
             </div>
         </div><!-- /.container-fluid - da ancho máximo y centra -->
     </section>

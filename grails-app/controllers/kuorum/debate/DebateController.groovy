@@ -7,17 +7,15 @@ import kuorum.users.KuorumUser
 import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.commands.payment.CampaignSettingsCommand
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
-import org.kuorum.rest.model.contact.filter.FilterRDTO
 
 class DebateController extends CampaignController{
 
-
-    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    @Secured(['ROLE_CAMPAIGN_DEBATE','ROLE_ADMIN'])
     def create() {
         return debateModelSettings(new CampaignSettingsCommand(debatable:true), null)
     }
 
-    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    @Secured(['ROLE_CAMPAIGN_DEBATE','ROLE_CAMPAIGN_EVENT','ROLE_ADMIN'])
     def editSettingsStep(){
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         DebateRSDTO debateRSDTO = debateService.find( user, Long.parseLong((String) params.campaignId))
@@ -26,14 +24,14 @@ class DebateController extends CampaignController{
 
     }
 
-    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    @Secured(['ROLE_CAMPAIGN_DEBATE','ROLE_CAMPAIGN_EVENT','ROLE_ADMIN'])
     def editContentStep(){
         Long campaignId = Long.parseLong((String) params.campaignId);
         DebateRSDTO debateRSDTO = setCampaignAsDraft(campaignId, debateService)
         return campaignModelContent(campaignId, debateRSDTO, null, debateService)
     }
 
-    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    @Secured(['ROLE_CAMPAIGN_DEBATE','ROLE_CAMPAIGN_EVENT','ROLE_ADMIN'])
     def saveSettings(CampaignSettingsCommand command) {
         if (command.hasErrors()) {
             render view: 'create', model: debateModelSettings(command, null)
@@ -47,7 +45,7 @@ class DebateController extends CampaignController{
         redirect mapping: result.nextStep.mapping, params: result.nextStep.params
     }
 
-    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    @Secured(['ROLE_CAMPAIGN_DEBATE','ROLE_CAMPAIGN_EVENT','ROLE_ADMIN'])
     def saveContent(CampaignContentCommand command) {
         Long campaignId = params.campaignId?Long.parseLong(params.campaignId):null
         if (command.hasErrors()) {
@@ -62,7 +60,7 @@ class DebateController extends CampaignController{
         redirect mapping: result.nextStep.mapping, params: result.nextStep.params
     }
 
-    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    @Secured(['ROLE_CAMPAIGN_DEBATE','ROLE_CAMPAIGN_EVENT','ROLE_ADMIN'])
     def remove(Long campaignId) {
         removeCampaign(campaignId);
         render ([msg: "Debate deleted"] as JSON)
@@ -75,6 +73,7 @@ class DebateController extends CampaignController{
         return model
     }
 
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def sendReport(Long campaignId){
         KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
         debateService.sendReport(loggedUser, campaignId)

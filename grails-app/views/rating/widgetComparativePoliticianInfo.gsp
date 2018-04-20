@@ -81,9 +81,9 @@
     </section>
     <header>
         <h1>
-            <a href="https://kuorum.org" id="brand" class="navbar-brand">
+            <a href="https://${kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.domain}" id="brand" class="navbar-brand">
                 <img src="${resource(dir: 'images', file: 'logo@3x.png')}" alt="Kuorum.org">
-                <span class="hidden">Kuorum.org</span>
+                <span class="hidden">${kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.name}</span>
             </a>
         </h1>
     </header>

@@ -23,18 +23,6 @@
 //    TODO: Use jawr. The actual version ignore codification
     var i18n = {
         lang : '${currentLang?.language?:'en'}',
-        customRegister : {
-            step4:{
-                form:{
-                    submit:{
-                        description0:'<g:message code="customRegister.step4.form.submit.description0"/>',
-                        description1:'<g:message code="customRegister.step4.form.submit.description1"/>',
-                        description2:'<g:message code="customRegister.step4.form.submit.description2"/>',
-                        descriptionOk:'<g:message code="customRegister.step4.form.submit.descriptionOk"/>'
-                    }
-                }
-            }
-        },
         post:{
             show:{
                 boxes:{

@@ -1,7 +1,7 @@
 <g:applyLayout name="main">
 
     <head>
-        <title>Kuorum.org | <g:layoutTitle/></title>
+        <title> ${kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.name} | <g:layoutTitle/></title>
         <g:layoutHead/>
         <parameter name="bodyCss" value="landing-2"/>
     </head>
@@ -16,65 +16,41 @@
     </div>
     <div class="row landing-section-dark">
         <div class="container">
-            <section id="services">
+            <section id="how-it-works">
                 <g:pageProperty name="page.howItWorks"/>
             </section>
         </div>
     </div>
-    <div class="container-overflow-image row landing-section-light">
+    %{--<div class="container-overflow-image row landing-section-light" id="caseStudy">--}%
+        %{--<div class="container">--}%
+            %{--<section class="features" id="featured-case-study">--}%
+                %{--<g:pageProperty name="page.caseStudy"/>--}%
+            %{--</section>--}%
+        %{--</div>--}%
+    %{--</div>--}%
+    %{--<div class="row landing-section-dark">--}%
+        %{--<div class="container">--}%
+            %{--<section id="statistics">--}%
+                %{--<g:pageProperty name="page.statistics"/>--}%
+            %{--</section>--}%
+        %{--</div>--}%
+    %{--</div>--}%
+    %{--<div class="landing-section-light">--}%
+        %{--<section id="trustUs">--}%
+            %{--<g:pageProperty name="page.trustUs"/>--}%
+        %{--</section>--}%
+    %{--</div>--}%
+
+<g:if test="${g.pageProperty(name:'page.showLatestActivities')=="true"}">
+    <div class="row landing-section-light">
         <div class="container">
-            <section class="features landing-overflow-image-left" id="customWebSite">
-                <g:pageProperty name="page.customWebSite"/>
+            <section id="latestActivities">
+                <g:pageProperty name="page.latestActivities"/>
             </section>
         </div>
     </div>
-    <div class="container-overflow-image row landing-section-dark">
-        <div class="container">
-            <section class="features landing-overflow-image-right" id="features-crm">
-                <g:pageProperty name="page.featuresCrm"/>
-            </section>
-        </div>
-    </div>
-    <div class="container-overflow-image row landing-section-light">
-        <div class="container">
-            <section class="landing-overflow-image-left features" id="features-user">
-                <g:pageProperty name="page.featuresUser"/>
-            </section>
-        </div>
-    </div>
-    <div class="container-overflow-image row landing-section-dark">
-        <div class="container">
-            <section class="features landing-overflow-image-right" id="metrics">
-                <g:pageProperty name="page.metrics"/>
-            </section>
-        </div>
-    </div>
-    <div class="container-overflow-image row landing-section-light" id="caseStudy">
-        <div class="container">
-            <section class="features landing-overflow-image-left" id="featured-case-study">
-                <g:pageProperty name="page.caseStudy"/>
-            </section>
-        </div>
-    </div>
-    <div class="row landing-section-dark">
-        <div class="container">
-            <section id="statistics">
-                <g:pageProperty name="page.statistics"/>
-            </section>
-        </div>
-    </div>
-    <div class="landing-section-light">
-        <section id="trustUs">
-            <g:pageProperty name="page.trustUs"/>
-        </section>
-    </div>
-    <div class="row landing-section-dark">
-        <div class="container">
-            <section id="solutions">
-                <g:pageProperty name="page.solutions"/>
-            </section>
-        </div>
-    </div>
+</g:if>
+
     <g:render template="/layouts/footer/footer"/>
     </div><!-- .container-fluid -->
     </body>

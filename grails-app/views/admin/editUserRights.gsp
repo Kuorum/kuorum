@@ -1,7 +1,7 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <title><g:message code="admin.editUser.title" args="[command.user.name]"/> </title>
-    <meta name="layout" content="leftMenuLayout">
+    <meta name="layout" content="leftMenuConfigLayout">
     <parameter name="extraCssContainer" value="config" />
 </head>
 
@@ -23,9 +23,6 @@
                 <div class="form-group col-md-6">
                     <formUtil:checkBox command="${command}" field="active" showLabel="true"/>
                 </div>
-                <div class="form-group col-md-6">
-                    <formUtil:checkBox command="${command}" field="emailAccountActive" showLabel="true"/>
-                </div>
             </fieldset>
             <fieldset class="row">
                 <div class="form-group col-md-6">
@@ -35,16 +32,6 @@
             <fieldset class="row">
                 <div class="form-group col-md-6">
                     <formUtil:password command="${command}" field="password" showLabel="true"/>
-                </div>
-            </fieldset>
-        </div>
-        <div class="box-ppal-section">
-            <h4 class="box-ppal-section-title">
-                Rights / Role
-            </h4>
-            <fieldset class="row">
-                <div class="form-group col-md-12">
-                    <formUtil:checkBoxDomainList field="authorities" command="${command}" valueName="authority" values="${kuorum.users.RoleUser.findAll()}"/>
                 </div>
             </fieldset>
         </div>

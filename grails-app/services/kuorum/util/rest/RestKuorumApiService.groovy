@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import groovyx.net.http.*
+import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.exception.KuorumException
 import org.apache.commons.io.IOUtils
 import org.apache.http.entity.InputStreamEntity
@@ -20,15 +21,15 @@ class RestKuorumApiService {
     @Value('${kuorum.rest.apiPath}')
     String apiPath
 
-    @Value('${kuorum.rest.apiKey}')
-    String kuorumRestApiKey
+//    @Value('${kuorum.rest.apiKey}')
+//    String kuorumRestApiKey
 
     def delete(ApiMethod apiMethod, Map<String,String> params, Map<String,String> query) {
         RESTClient mailKuorumServices = new RESTClient(kuorumRestServices)
         String path = apiMethod.buildUrl(apiPath, params)
         def response = mailKuorumServices.delete(
                 path: path,
-                headers: ["User-Agent": "Kuorum Web", "token": kuorumRestApiKey],
+                headers: ["User-Agent": "Kuorum Web", "token": CustomDomainResolver.apiToken],
                 query: query,
                 requestContentType: ContentType.JSON
         )
@@ -41,20 +42,21 @@ class RestKuorumApiService {
         String path = apiMethod.buildUrl(apiPath,params);
         def response = mailKuorumServices.delete(
                 path: path,
-                headers: ["User-Agent": "Kuorum Web", "token":kuorumRestApiKey],
+                headers: ["User-Agent": "Kuorum Web", "token":CustomDomainResolver.apiToken],
                 query:query,
                 requestContentType : groovyx.net.http.ContentType.JSON
         )
         return response
     }
 
-    def get(ApiMethod apiMethod, Map<String,String> params, Map<String,String> query, TypeReference typeToMap) {
+    def get(ApiMethod apiMethod, Map<String,String> params, Map<String,String> query, TypeReference typeToMap, String adminApiKey = null) {
         RESTClient mailKuorumServices = getRestMailKuorumServices(typeToMap);
 
+        String apiKey = adminApiKey?:CustomDomainResolver.apiToken
         String path = apiMethod.buildUrl(apiPath,params);
         def response = mailKuorumServices.get(
                 path: path,
-                headers: ["User-Agent": "Kuorum Web", "token":kuorumRestApiKey],
+                headers: ["User-Agent": "Kuorum Web", "token":apiKey],
                 query:query,
                 requestContentType : groovyx.net.http.ContentType.JSON
         )
@@ -66,19 +68,20 @@ class RestKuorumApiService {
         String path = apiMethod.buildUrl(apiPath,params);
         def response = mailKuorumServices.patch(
                 path: path,
-                headers: ["User-Agent": "Kuorum Web", "token":kuorumRestApiKey],
+                headers: ["User-Agent": "Kuorum Web", "token":CustomDomainResolver.apiToken],
                 query:query,
                 requestContentType : groovyx.net.http.ContentType.JSON
         )
         return response
     }
 
-    def put(ApiMethod apiMethod, Map<String,String> params, Map<String,String> query, def body,TypeReference typeToMap) {
+    def put(ApiMethod apiMethod, Map<String,String> params, Map<String,String> query, def body,TypeReference typeToMap, String adminApiKey = null) {
         RESTClient mailKuorumServices = getRestMailKuorumServices(typeToMap);
+        String apiKey = adminApiKey?:CustomDomainResolver.apiToken
         String path = apiMethod.buildUrl(apiPath,params);
         def response = mailKuorumServices.put(
                 path: path,
-                headers: ["User-Agent": "Kuorum Web", "token":kuorumRestApiKey],
+                headers: ["User-Agent": "Kuorum Web", "token":apiKey],
                 query:query,
                 body: body,
                 requestContentType : groovyx.net.http.ContentType.JSON
@@ -95,7 +98,7 @@ class RestKuorumApiService {
 
         def response = mailKuorumServices.post(
                 path: path,
-                headers: ["User-Agent": "Kuorum Web", "token": kuorumRestApiKey],
+                headers: ["User-Agent": "Kuorum Web", "token": CustomDomainResolver.apiToken],
                 query: query,
                 body: body,
                 requestContentType: groovyx.net.http.ContentType.JSON
@@ -184,50 +187,53 @@ class RestKuorumApiService {
         REGION_SUGGEST  ("/geolocation/suggest"),
         REGION_FIND     ("/geolocation/find"),
 
+        DOMAIN          ("/domain/"),
+        DOMAIN_CONFIG   ("/domain/config"),
+
         ACCOUNT_INFO                ("/notification/mailing/{userAlias}"),
-        ACCOUNT_MAILS               ("/notification/mailing/{userAlias}/emails"),
-        ACCOUNT_MAILS_SEND          ("/notification/mailing/{userAlias}/send"),
-        ACCOUNT_NOTIFICATIONS       ("/notification/{userAlias}"),
-        ACCOUNT_NOTIFICATIONS_CONFIG("/notification/{userAlias}/config"),
+        ACCOUNT_MAILS               ("/notification/mailing/{userId}/emails"),
+        ACCOUNT_MAILS_SEND          ("/notification/mailing/{userId}/send"),
+        ACCOUNT_NOTIFICATIONS       ("/notification/{userId}"),
+        ACCOUNT_NOTIFICATIONS_CONFIG("/notification/{userId}/config"),
 
-        ACCOUNT_MASS_MAILINGS                   ("/communication/massmailing/{userAlias}"),
-        ACCOUNT_MASS_MAILING                    ("/communication/massmailing/{userAlias}/{campaignId}"),
-        ACCOUNT_MASS_MAILING_SEND               ("/communication/massmailing/{userAlias}/{campaignId}/send"),
-        ACCOUNT_MASS_MAILING_TRACKING           ("/communication/massmailing/{userAlias}/{campaignId}/trackingMails"),
-        ACCOUNT_MASS_MAILING_REPORT             ("/communication/massmailing/{userAlias}/{campaignId}/trackingMails/report"),
-        ACCOUNT_MASS_MAILING_CAMPAIGNS_REPORT   ("/communication/massmailing/{userAlias}/report"),
-        ACCOUNT_MASS_MAILING_CONFIG             ("/communication/massmailing/{userAlias}/config"),
+        ACCOUNT_MASS_MAILINGS                   ("/communication/massmailing/{userId}"),
+        ACCOUNT_MASS_MAILING                    ("/communication/massmailing/{userId}/{campaignId}"),
+        ACCOUNT_MASS_MAILING_SEND               ("/communication/massmailing/{userId}/{campaignId}/send"),
+        ACCOUNT_MASS_MAILING_TRACKING           ("/communication/massmailing/{userId}/{campaignId}/trackingMails"),
+        ACCOUNT_MASS_MAILING_REPORT             ("/communication/massmailing/{userId}/{campaignId}/trackingMails/report"),
+        ACCOUNT_MASS_MAILING_CAMPAIGNS_REPORT   ("/communication/massmailing/{userId}/report"),
+        ACCOUNT_MASS_MAILING_CONFIG             ("/communication/massmailing/{userId}/config"),
 
-        ACCOUNT_CAMPAIGNS                       ("/communication/campaign/{userAlias}"),
-        ACCOUNT_CAMPAIGN                        ("/communication/campaign/{userAlias}/{campaignId}"),
+        ACCOUNT_CAMPAIGNS                       ("/communication/campaign/{userId}"),
+        ACCOUNT_CAMPAIGN                        ("/communication/campaign/{userId}/{campaignId}"),
 
 
         ACCOUNT_DEBATES_ALL                     ("/communication/campaign/debate/"),
-        ACCOUNT_DEBATES                         ("/communication/campaign/debate/{userAlias}"),
-        ACCOUNT_DEBATE                          ("/communication/campaign/debate/{userAlias}/{debateId}"),
-        ACCOUNT_DEBATE_REPORT                   ("/communication/campaign/debate/{userAlias}/{debateId}/report"),
-        ACCOUNT_DEBATE_PROPOSALS                ("/communication/campaign/debate/{userAlias}/{debateId}/proposal"),
-        ACCOUNT_DEBATE_PROPOSAL                 ("/communication/campaign/debate/{userAlias}/{debateId}/proposal/{proposalId}"),
-        ACCOUNT_DEBATE_PROPOSAL_LIKE            ("/communication/campaign/debate/{userAlias}/{debateId}/proposal/{proposalId}/likes"),
-        ACCOUNT_DEBATE_PROPOSAL_COMMENTS        ("/communication/campaign/debate/{userAlias}/{debateId}/proposal/{proposalId}/comment"),
-        ACCOUNT_DEBATE_PROPOSAL_COMMENT         ("/communication/campaign/debate/{userAlias}/{debateId}/proposal/{proposalId}/comment/{commentId}"),
-        ACCOUNT_DEBATE_PROPOSAL_COMMENT_VOTE    ("/communication/campaign/debate/{userAlias}/{debateId}/proposal/{proposalId}/comment/{commentId}/vote"),
+        ACCOUNT_DEBATES                         ("/communication/campaign/debate/{userId}"),
+        ACCOUNT_DEBATE                          ("/communication/campaign/debate/{userId}/{debateId}"),
+        ACCOUNT_DEBATE_REPORT                   ("/communication/campaign/debate/{userId}/{debateId}/report"),
+        ACCOUNT_DEBATE_PROPOSALS                ("/communication/campaign/debate/{userId}/{debateId}/proposal"),
+        ACCOUNT_DEBATE_PROPOSAL                 ("/communication/campaign/debate/{userId}/{debateId}/proposal/{proposalId}"),
+        ACCOUNT_DEBATE_PROPOSAL_LIKE            ("/communication/campaign/debate/{userId}/{debateId}/proposal/{proposalId}/likes"),
+        ACCOUNT_DEBATE_PROPOSAL_COMMENTS        ("/communication/campaign/debate/{userId}/{debateId}/proposal/{proposalId}/comment"),
+        ACCOUNT_DEBATE_PROPOSAL_COMMENT         ("/communication/campaign/debate/{userId}/{debateId}/proposal/{proposalId}/comment/{commentId}"),
+        ACCOUNT_DEBATE_PROPOSAL_COMMENT_VOTE    ("/communication/campaign/debate/{userId}/{debateId}/proposal/{proposalId}/comment/{commentId}/vote"),
 
         ACCOUNT_POSTS_ALL       ("/communication/campaign/post/"),
-        ACCOUNT_POSTS           ("/communication/campaign/post/{userAlias}"),
-        ACCOUNT_POST            ("/communication/campaign/post/{userAlias}/{postId}"),
-        ACCOUNT_POST_LIKES      ("/communication/campaign/post/{userAlias}/{postId}/likes"),
+        ACCOUNT_POSTS           ("/communication/campaign/post/{userId}"),
+        ACCOUNT_POST            ("/communication/campaign/post/{userId}/{postId}"),
+        ACCOUNT_POST_LIKES      ("/communication/campaign/post/{userId}/{postId}/likes"),
 
-        ACCOUNT_SURVEYS         ("/communication/campaign/survey/{userAlias}"),
-        ACCOUNT_SURVEY          ("/communication/campaign/survey/{userAlias}/{surveyId}"),
-        ACCOUNT_SURVEY_ANSWER   ("/communication/campaign/survey/{userAlias}/{surveyId}/question/{questionId}"),
-        ACCOUNT_SURVEY_REPORT   ("/communication/campaign/survey/{userAlias}/{surveyId}/report"),
+        ACCOUNT_SURVEYS         ("/communication/campaign/survey/{userId}"),
+        ACCOUNT_SURVEY          ("/communication/campaign/survey/{userId}/{surveyId}"),
+        ACCOUNT_SURVEY_ANSWER   ("/communication/campaign/survey/{userId}/{surveyId}/question/{questionId}"),
+        ACCOUNT_SURVEY_REPORT   ("/communication/campaign/survey/{userId}/{surveyId}/report"),
 
-        ACCOUNT_EVENTS              ("/communication/campaign/event/{userAlias}"),
-        ACCOUNT_EVENT               ("/communication/campaign/event/{userAlias}/{campaignId}"),
-        ACCOUNT_EVENT_ADD_ASSISTANT ("/communication/campaign/event/{userAlias}/{campaignId}/assistant/{assistantAlias}"),
-        ACCOUNT_EVENT_CHECK_IN      ("/communication/campaign/event/{userAlias}/{campaignId}/checkIn"),
-        ACCOUNT_EVENT_REPORT        ("/communication/campaign/event/{userAlias}/{campaignId}/assistant/report"),
+        ACCOUNT_EVENTS              ("/communication/campaign/event/{userId}"),
+        ACCOUNT_EVENT               ("/communication/campaign/event/{userId}/{campaignId}"),
+        ACCOUNT_EVENT_ADD_ASSISTANT ("/communication/campaign/event/{userId}/{campaignId}/assistant/{assistantId}"),
+        ACCOUNT_EVENT_CHECK_IN      ("/communication/campaign/event/{userId}/{campaignId}/checkIn"),
+        ACCOUNT_EVENT_REPORT        ("/communication/campaign/event/{userId}/{campaignId}/assistant/report"),
 
         USER_CONTACTS_CAMPAIGNS_ALL ("/user/{userId}/dashboard/campaigns"),
 
@@ -239,7 +245,7 @@ class RestKuorumApiService {
         SEARCH_SUGGEST_CAUSES   ("/search/suggest/causes"),
 
         ADMIN_MAILS_SEND("/admin/notification/mailing/send"),
-        ADMIN_USER_CONFIG_SENDER("/admin/{userAlias}/config/mailing");
+        ADMIN_USER_CONFIG_SENDER("/admin/{userId}/config/mailing");
 
         String url;
         ApiMethod(String url){

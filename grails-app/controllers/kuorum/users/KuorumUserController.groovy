@@ -44,10 +44,10 @@ class KuorumUserController {
                 response.setHeader("Location", userLink);
                 return false
             }else{
-                def homeLink = g.createLink(mapping: 'home')
-                response.setStatus(HttpServletResponse.SC_MOVED_PERMANENTLY)
-                response.setHeader("Location", homeLink);
-//                response.sendError(HttpServletResponse.SC_NOT_FOUND)
+//                def homeLink = g.createLink(mapping: 'home')
+//                response.setStatus(HttpServletResponse.SC_MOVED_PERMANENTLY)
+//                response.setHeader("Location", homeLink);
+                response.sendError(HttpServletResponse.SC_NOT_FOUND)
                 return false
             }
         }
@@ -67,7 +67,7 @@ class KuorumUserController {
             return false
         }
         String viewerUid = cookieUUIDService.buildUserUUID()
-        List<KuorumUser> recommendPoliticians = kuorumUserService.suggestUsers(new Pagination(max:12),[user])
+        List<KuorumUser> recommendPoliticians =  kuorumUserService.recommendUsers(user, new Pagination([max:50]))
         List<CauseRSDTO> causes = causesService.findSupportedCauses(user)
         UserReputationRSDTO userReputationRSDTO = userReputationService.getReputation(user)
         List<UserNewRSDTO> userNews = userNewsService.findUserNews(user)

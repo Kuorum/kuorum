@@ -1,5 +1,6 @@
 package kuorum.users
 
+import com.fasterxml.jackson.core.type.TypeReference
 import com.mongodb.BasicDBObject
 import grails.converters.JSON
 import grails.plugin.springsecurity.SpringSecurityService
@@ -7,6 +8,7 @@ import grails.transaction.Transactional
 import groovy.time.TimeCategory
 import groovyx.gpars.GParsPool
 import kuorum.causes.CausesService
+import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.exception.KuorumException
 import kuorum.core.exception.KuorumExceptionUtil
 import kuorum.core.model.kuorumUser.UserParticipating
@@ -22,6 +24,7 @@ import kuorum.util.rest.RestKuorumApiService
 import org.bson.types.ObjectId
 import org.codehaus.groovy.grails.commons.GrailsApplication
 import org.codehaus.groovy.grails.web.json.JSONElement
+import org.kuorum.rest.model.kuorumUser.KuorumUserRSDTO
 import org.kuorum.rest.model.kuorumUser.UserDataRDTO
 import org.kuorum.rest.model.search.SearchKuorumElementRSDTO
 import org.kuorum.rest.model.search.SearchResultsRSDTO
@@ -39,7 +42,6 @@ class KuorumUserService {
     SearchSolrService searchSolrService;
     KuorumMailAccountService kuorumMailAccountService;
     CausesService causesService
-    KuorumUserAuditService kuorumUserAuditService
     RestKuorumApiService restKuorumApiService
 
 
@@ -63,8 +65,8 @@ class KuorumUserService {
     }
 
     private addFollowerAsContact(KuorumUser follower, KuorumUser following){
-        Map<String, String> params = [userId: following.alias]
-        Map<String, String> query = [followerAlias: follower.alias]
+        Map<String, String> params = [userId: following.id.toString()]
+        Map<String, String> query = [followerId: follower.id.toString()]
         restKuorumApiService.put(
                 RestKuorumApiService.ApiMethod.USER_CONTACT_FOLLOWER,
                 params,
@@ -75,7 +77,7 @@ class KuorumUserService {
     }
 
     private void updateKuorumUserOnRest(KuorumUser user){
-        Map<String, String> params = [userId: user.alias]
+        Map<String, String> params = [userId: user.id.toString()]
         Map<String, String> query = [:]
         UserDataRDTO userDataRDTO = new UserDataRDTO();
         userDataRDTO.setEmail(user.getEmail());
@@ -107,8 +109,8 @@ class KuorumUserService {
     }
 
     private deleteFollowerAsContact(KuorumUser follower, KuorumUser following){
-        Map<String, String> params = [userId: following.alias]
-        Map<String, String> query = [followerAlias: follower.alias]
+        Map<String, String> params = [userId: following.id.toString()]
+        Map<String, String> query = [followerId: follower.id.toString()]
         restKuorumApiService.delete(
                 RestKuorumApiService.ApiMethod.USER_CONTACT_FOLLOWER,
                 params,
@@ -138,37 +140,6 @@ class KuorumUserService {
             }
         }
         following
-    }
-
-    /**
-     * Adds premium roles to @user
-     * @param user
-     * @return
-     */
-    @Deprecated
-    KuorumUser convertAsPremium(KuorumUser user){
-        RoleUser rolePremium = RoleUser.findByAuthority("ROLE_PREMIUM")
-        addRole(user, rolePremium)
-    }
-
-    KuorumUser addRole(KuorumUser user, RoleUser role){
-        user.authorities.add(role)
-        user.lastUpdated = new Date()//Mongo is not detecting changes on list, and is not updating the user roles. Modifying a root field, object is detected as dirty and it saves the changes
-        user.save(flush: true)
-    }
-
-    /**
-     * Removes the premium roles
-     *
-     * @param user
-     * @return
-     */
-    @Deprecated
-    KuorumUser convertAsNormalUser(KuorumUser user){
-        RoleUser rolePremium = RoleUser.findByAuthority("ROLE_PREMIUM")
-        user.lastUpdated = new Date() //Mongo is not detecting changes on list, and is not updating the user roles. Modifying a root field, object is detected as dirty and it saves the changes
-        user.authorities.remove(rolePremium)
-        user.save(flush: true)
     }
 
     /**
@@ -331,14 +302,14 @@ class KuorumUserService {
         if (!userAlias)
             return null
         else
-            return KuorumUser.findByAlias(userAlias.toLowerCase())
+            return KuorumUser.findByAliasAndDomain(userAlias.toLowerCase(), CustomDomainResolver.domain)
     }
 
     KuorumUser findByOldAlias(String oldUserAlias){
         if (!oldUserAlias)
             return null
         else
-            return KuorumUser.findByOldAlias(oldUserAlias.toLowerCase())
+            return KuorumUser.findByOldAliasAndDomain(oldUserAlias.toLowerCase(),CustomDomainResolver.domain)
     }
 
     @PreAuthorize("hasPermission(#user, 'edit')")
@@ -359,7 +330,6 @@ class KuorumUserService {
             }
         }
         indexSolrService.deltaIndex()
-        kuorumUserAuditService.auditEditUser(user)
         kuorumMailService.mailingListUpdateUser(user)
         updateKuorumUserOnRest(user);
 
@@ -369,7 +339,6 @@ class KuorumUserService {
 
     KuorumUser updateUserRelevance(KuorumUser user, Long relevance){
         user["relevance"] = relevance
-        kuorumUserAuditService.auditEditUser(user)
         user.save() //Not user updateUser because relevance is a little special
     }
 
@@ -392,7 +361,6 @@ class KuorumUserService {
                 return null;
             }
         }
-        kuorumUserAuditService.auditEditUser(user)
         return user;
     }
 
@@ -414,7 +382,6 @@ class KuorumUserService {
             }
         }
         indexSolrService.deltaIndex()
-        kuorumUserAuditService.auditEditUser(user)
         user
     }
 
@@ -477,35 +444,6 @@ class KuorumUserService {
             }
         }
         mostActiveUsers
-    }
-
-    List<KuorumUser> suggestUsers (Pagination pagination = new Pagination(), List<KuorumUser> specialUsersFiltered){
-
-        KuorumUser loggedUser = springSecurityService.getCurrentUser();
-        List<ObjectId> filteredUserIds = []
-        if (loggedUser){
-            filteredUserIds  = []
-            filteredUserIds.addAll(loggedUser.following?:[])
-            filteredUserIds << loggedUser.id
-            RecommendedUserInfo recommendedUserInfo = RecommendedUserInfo.findByUser(loggedUser)
-            if(recommendedUserInfo){
-                filteredUserIds.addAll(recommendedUserInfo.deletedRecommendedUsers)
-            }else{
-                log.warn("User ${loggedUser.name} (${loggedUser.id}) has not calculated recommendedUserInfo")
-            }
-        }
-        filteredUserIds << specialUsersFiltered.collect{it.id}
-
-        com.mongodb.DBCursor search = KuorumUser.collection.find([
-                '_id':['$nin':filteredUserIds],
-                'avatar':['$exists':true]
-        ],[_id:1]).sort([_id:-1]).limit(pagination.max)
-
-        List<KuorumUser> recommendations = []
-        while (search.hasNext()){
-            recommendations << KuorumUser.get(search.next().get("_id"))
-        }
-        return recommendations;
     }
 
     List<KuorumUser> bestUsers(KuorumUser user, List<ObjectId> userFiltered = [], Pagination pagination = new Pagination()){
@@ -579,6 +517,20 @@ class KuorumUserService {
                 params,
                 query
         )
+    }
+
+    KuorumUserRSDTO findUserRSDTO(String userId){
+// CALLING API TO REMOVE CONTACT
+        Map<String, String> params = [userId: userId]
+        Map<String, String> query = [:]
+        def apiResponse= restKuorumApiService.get(
+                RestKuorumApiService.ApiMethod.USER,
+                params,
+                query,
+                new TypeReference<KuorumUserRSDTO>(){}
+        )
+        return apiResponse.data
+
     }
 
     @Deprecated

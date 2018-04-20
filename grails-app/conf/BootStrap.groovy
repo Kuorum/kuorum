@@ -1,19 +1,29 @@
 import com.mongodb.BasicDBObject
 import kuorum.core.annotations.MongoUpdatable
+import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.exception.KuorumExceptionUtil
-import kuorum.users.RoleUser
+import kuorum.domain.DomainService
+import kuorum.files.LessCompilerService
+import org.kuorum.rest.model.domain.DomainRSDTO
 
 class BootStrap {
 
     def grailsApplication
     def fixtureLoader
     def indexSolrService
+    LessCompilerService lessCompilerService
+    DomainService domainService
     def init = { servletContext ->
 
 //        javax.servlet.http.HttpServletRequest.metaClass.getSiteUrl = {
 ////            return (delegate.scheme + "://" + delegate.serverName + ":" + delegate.serverPort + delegate.getContextPath())
 //            return (delegate.scheme + "://" + delegate.serverName + ":" + delegate.serverPort)
 //        }
+        URL url = new URL("https://kuorum.org/kuorum")
+        CustomDomainResolver.setUrl(url, "")
+        List<DomainRSDTO> domains = domainService.findAllDomains()
+        domains.each {lessCompilerService.compileCssForDomain(it)}
+        CustomDomainResolver.clear()
 
         //TODO: Think where this initialization could be called instead of bootstrap
         grailsApplication.domainClasses.each { domainClass ->

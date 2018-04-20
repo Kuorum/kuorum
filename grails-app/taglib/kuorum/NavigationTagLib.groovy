@@ -5,6 +5,7 @@ import kuorum.core.model.AvailableLanguage
 import kuorum.core.model.search.Pagination
 import kuorum.core.model.search.SearchType
 import kuorum.core.model.solr.SolrType
+import kuorum.files.LessCompilerService
 import org.codehaus.groovy.grails.web.mapping.LinkGenerator
 import org.codehaus.groovy.grails.web.mapping.UrlCreator
 import org.codehaus.groovy.grails.web.mapping.UrlMappingInfo
@@ -22,6 +23,7 @@ class NavigationTagLib {
 
     def springSecurityService
     LinkGenerator grailsLinkGenerator
+    LessCompilerService lessCompilerService
 
     /**
      * Returns the css "ACTIVE" if the mapping is the same as the url loaded
@@ -53,6 +55,13 @@ class NavigationTagLib {
         if (equals && urls.contains(request.getForwardURI().toString()) || !equals && !urls.contains(request.getForwardURI().toString())){
             out << body()
         }
+    }
+
+    def kuorumLink = {attrs, body ->
+        Locale locale = org.springframework.context.i18n.LocaleContextHolder.getLocale()
+        AvailableLanguage currentLang = AvailableLanguage.fromLocale(locale)
+
+        out << """<a href="https://www.kuorum.org/${currentLang.locale.language}" hreflang="${currentLang.locale.language}" target="_blank">Kuorum.org</a>"""
     }
 
     /**

@@ -1,5 +1,6 @@
 package kuorum.core.aop
 
+import kuorum.core.customDomain.CustomDomainResolver
 import org.aspectj.lang.ProceedingJoinPoint
 import org.aspectj.lang.annotation.Around
 import org.aspectj.lang.annotation.Aspect
@@ -48,9 +49,12 @@ class LanguageInjectorAOP {
     }
 
     private void addAbsoluteParameter(Map params){
-        if (params.absolute==null && params.dir!= "css" &&  params.dir!= "js" &&  params.dir!= "images"){
+        if (params.absolute==null){
             params.absolute=true
-//            params.base = "https://local.kuorum.org"
         }
+        if (params.absolute && params.dir!= "css" &&  params.dir!= "js" &&  !params.dir?.startsWith("images")){
+            params.base = CustomDomainResolver.getBaseUrlAbsolute()
+        }
+
     }
 }

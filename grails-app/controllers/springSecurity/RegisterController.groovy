@@ -10,6 +10,7 @@ import grails.plugin.springsecurity.ui.SpringSecurityUiService
 import grails.validation.Validateable
 import groovyx.net.http.RESTClient
 import kuorum.KuorumFile
+import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.model.AvailableLanguage
 import kuorum.files.FileService
 import kuorum.mail.MailchimpService
@@ -73,11 +74,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         }
 
         KuorumUser user = registerService.registerUser(command)
-        if (params.editor){
-            //If the registrations comes from editorLandingPage
-            notificationService.sendEditorPurchaseNotification(user)
-        }
-        redirect mapping:"home"
+        redirect mapping:"customProcessRegisterStep2"
     }
 
     def verifyRegister(){
@@ -111,7 +108,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         SecurityContextHolder.context.authentication = oAuthToken
         if (oAuthToken.newUser){
             try{
-                KuorumUser user = KuorumUser.findByEmail(oAuthToken.principal.username)
+                KuorumUser user = KuorumUser.findByEmailAndDomain(oAuthToken.principal.username, CustomDomainResolver.domain)
                 indexSolrService.deltaIndex()
             }catch (Exception e){
                 log.error("Error recovering and indexing new user. Reindex manually")
@@ -143,7 +140,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
     }
 
     def checkEmail(String email){
-        KuorumUser user = KuorumUser.findByEmail(email);
+        KuorumUser user = KuorumUser.findByEmailAndDomain(email, CustomDomainResolver.domain);
         if (user){
             render Boolean.FALSE.toString();
         }else{
@@ -168,7 +165,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
             flash.message = g.message(code: 'register.contactRegister.success.userLogged', args: [contactRegister.politician.name])
             redirect (mapping:"userShow", params: contactRegister.politician.encodeAsLinkProperties())
         }else{
-            KuorumUser user = KuorumUser.findByEmail(contactRegister.email)
+            KuorumUser user = KuorumUser.findByEmailAndDomain(contactRegister.email,CustomDomainResolver.domain)
             if (user){
                 //ERROR: User should be logged in
                 flash.error = g.message(code: 'register.contactRegister.success.userNotLogged', args: [contactRegister.politician.name])
@@ -189,7 +186,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
     }
 
     def resendVerification(ResendVerificationMailCommand command){
-        KuorumUser user = KuorumUser.findByEmail(command.email.toLowerCase())
+        KuorumUser user = KuorumUser.findByEmailAndDomain(command.email.toLowerCase(),CustomDomainResolver.domain)
         if (!user){
             flash.error=message(code:'springSecurity.ResendVerificationMailCommand.email.notUserExists')
             command.errors.rejectValue('email', 'springSecurity.ResendVerificationMailCommand.email.notUserExists')
@@ -246,7 +243,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         }
         notificationService.sendWelcomeRegister(user)
         if (registerService.isPasswordSetByUser(user)){
-            redirect mappin:'dashboard'
+            redirect mapping:'dashboard'
         }else{
             redirect mapping:'customProcessRegisterStep2', params: [tour:true]
         }
@@ -336,7 +333,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         Locale locale = LocaleContextHolder.getLocale();
         AvailableLanguage language = AvailableLanguage.fromLocaleParam(locale.getLanguage());
         kuorumMailService.sendRequestADemo(command.getName(), command.getEmail(), language)
-        kuorumMailService.sendRequestADemoAdmin(command.getName(), command.surname, command.getEmail(), command.getEnterprise(), command.getSector(), command.getPhone(), command.comment, language)
+        kuorumMailService.sendRequestADemoAdmin(command.getName(), command.surname, command.getEmail(),  command.getSector(), command.getPhone(), command.comment, language)
         render g.message(code:'kuorum.web.commands.customRegister.RequestDemoCommand.success');
     }
 
@@ -376,7 +373,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
 
         String salt = saltSource instanceof NullSaltSource ? null : registrationCode.username
         RegistrationCode.withTransaction { status ->
-            KuorumUser user = KuorumUser.findByEmail(registrationCode.username)
+            KuorumUser user = KuorumUser.findByEmailAndDomain(registrationCode.username, CustomDomainResolver.domain)
             user.accountLocked = false
             user.password = springSecurityUiService.encodePassword(command.password, salt)
             user.save()
@@ -454,7 +451,7 @@ class KuorumRegisterCommand{
     static constraints = {
         name nullable: false, maxSize: 15
         email nullable:false, email:true, validator: { val, obj ->
-            if (val && KuorumUser.findByEmail(val.toLowerCase())) {
+            if (val && KuorumUser.findByEmailAndDomain(val.toLowerCase(), CustomDomainResolver.domain)) {
                 obj.email = val.toLowerCase()
                 return 'registerCommand.username.unique'
             }

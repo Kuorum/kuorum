@@ -205,4 +205,102 @@ class AmazonFileService extends LocalFileService{
 //        objectData.close();
         return objectData
     }
+
+    void uploadDomainCss(File file, String domain){
+        String accessKey = grailsApplication.config.kuorum.amazon.accessKey
+        String secretKey = grailsApplication.config.kuorum.amazon.secretKey
+        String bucketName = grailsApplication.config.kuorum.amazon.bucketName;
+        String keyName    = "${DOMAIN_PATH}/${domain}/${DOMAIN_CUSTOM_CSS_FILE}"
+
+        AWSCredentials credentials = new BasicAWSCredentials(accessKey,secretKey);
+
+        AmazonS3 s3Client = new AmazonS3Client(credentials);
+
+
+        // Create a list of UploadPartResponse objects. You get one of these for each part upload.
+        List<PartETag> partETags = new ArrayList<PartETag>();
+
+
+        long contentLength = file.length();
+        long partSize = UPLOAD_PART_SIZE;
+
+        // Step 1: Initialize.
+        InitiateMultipartUploadRequest initRequest = new InitiateMultipartUploadRequest(bucketName, keyName);
+        initRequest.putCustomRequestHeader("Cache-Control", "max-age=${3600*24*30}") // 30 days = 2592000 secs
+        initRequest.putCustomRequestHeader("Expires", "Thu, 15 Apr 2050 00:00:00 GMT")
+        ObjectMetadata metadata = new ObjectMetadata();
+//        metadata.setContentEncoding("gzip");
+        metadata.setContentType("text/css");
+        metadata.setLastModified(new Date())
+
+        initRequest.setObjectMetadata(metadata)
+
+        InitiateMultipartUploadResult initResponse = s3Client.initiateMultipartUpload(initRequest);
+
+
+
+        try {
+            // Step 2: Upload parts.
+            long filePosition = 0;
+            for (int i = 1; filePosition < contentLength; i++) {
+                // Last part can be less than 5 MB. Adjust part size.
+                partSize = Math.min(partSize, (contentLength - filePosition));
+
+                // Create request to upload a part.
+                UploadPartRequest uploadRequest = new UploadPartRequest()
+                        .withBucketName(bucketName)
+                        .withKey(keyName)
+                        .withUploadId(initResponse.getUploadId())
+                        .withPartNumber(i)
+                        .withFileOffset(filePosition)
+                        .withFile(file)
+                        .withPartSize(partSize);
+
+                // Upload part and add response to our list.
+                partETags.add(s3Client.uploadPart(uploadRequest).getPartETag());
+
+                filePosition += partSize;
+            }
+
+            // Step 3: Complete.
+            CompleteMultipartUploadRequest compRequest = new
+                    CompleteMultipartUploadRequest(
+                    bucketName,
+                    keyName,
+                    initResponse.getUploadId(),
+                    partETags);
+
+            CompleteMultipartUploadResult uploadResult = s3Client.completeMultipartUpload(compRequest);
+            String finalUrl = uploadResult.getLocation().replaceAll("%2F", "/")
+
+            log.info("Se ha subido el nuevo CSS del dominio ${domain}: ${finalUrl}")
+        } catch (Exception e) {
+            s3Client.abortMultipartUpload(new AbortMultipartUploadRequest(bucketName, keyName, initResponse.getUploadId()));
+            log.error("Ha habido un error subiendo el fichero a Amazon.",e);
+        }
+    }
+
+
+
+    private String DOMAIN_PATH = "domains"
+    private String DOMAIN_CUSTOM_CSS_FILE = "custom.css"
+    private String DOMAIN_CUSTOM_LOGO_FILE = "logo.png"
+    String getDomainCssUrl(String domain){
+        buildAmazonDomainUrl(domain, DOMAIN_CUSTOM_CSS_FILE)
+    }
+
+
+    String getDomainLogoUrl(String domain){
+        buildAmazonDomainUrl(domain, DOMAIN_CUSTOM_LOGO_FILE)
+    }
+
+    String getStaticRootDomainPath(String domain){
+        buildAmazonDomainUrl(domain, "")[0..-2]
+    }
+
+    private String buildAmazonDomainUrl(String domain, String key){
+        String keyName    = "${DOMAIN_PATH}/${domain}/${key}"
+        String bucketName = grailsApplication.config.kuorum.amazon.bucketName;
+        return "https://${bucketName}.s3.amazonaws.com/${keyName}"
+    }
 }

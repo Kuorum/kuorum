@@ -26,7 +26,7 @@
         </a>
     </li>
     <li>
-        <a href="http://www.linkedin.com/shareArticle?mini=true&url=${campaignLink}&title=${campaign.title}&summary=${campaign.body}&source=kuorum.org" target="_blank" title="${g.message(code:'project.social.linkedin')}">
+        <a href="http://www.linkedin.com/shareArticle?mini=true&url=${campaignLink}&title=${campaign.title}&summary=${campaign.body}&source=${kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.domain}" target="_blank" title="${g.message(code:'project.social.linkedin')}">
             <span class="fa-stack fa-lg" aria-hidden="true">
                 <span class="fa fa-circle dark fa-stack-2x"></span>
                 <span class="fa fa-linkedin fa-stack-1x fa-inverse"></span>

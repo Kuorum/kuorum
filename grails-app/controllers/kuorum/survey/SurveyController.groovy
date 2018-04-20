@@ -10,27 +10,22 @@ import kuorum.web.commands.payment.survey.QuestionAnswerCommand
 import kuorum.web.commands.payment.survey.QuestionCommand
 import kuorum.web.commands.payment.survey.QuestionOptionCommand
 import kuorum.web.commands.payment.survey.SurveyQuestionsCommand
-import org.kuorum.rest.model.communication.survey.QuestionOptionRDTO
-import org.kuorum.rest.model.communication.survey.QuestionOptionRSDTO
-import org.kuorum.rest.model.communication.survey.QuestionRDTO
-import org.kuorum.rest.model.communication.survey.QuestionRSDTO
-import org.kuorum.rest.model.communication.survey.SurveyRDTO
-import org.kuorum.rest.model.communication.survey.SurveyRSDTO
+import org.kuorum.rest.model.communication.survey.*
 
 class SurveyController extends CampaignController{
 
-    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    @Secured(['ROLE_CAMPAIGN_SURVEY','ROLE_ADMIN'])
     def create() {
         return surveyModelSettings(new CampaignSettingsCommand(debatable:false), null)
     }
 
-    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    @Secured(['ROLE_CAMPAIGN_SURVEY','ROLE_ADMIN'])
     def remove(Long campaignId) {
         removeCampaign(campaignId, surveyService)
         render ([msg: "Survey deleted"] as JSON)
     }
 
-    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    @Secured(['ROLE_CAMPAIGN_SURVEY','ROLE_ADMIN'])
     def editSettingsStep(){
         KuorumUser surveyUser = KuorumUser.get(springSecurityService.principal.id)
         SurveyRSDTO surveyRSDTO = surveyService.find(surveyUser, Long.parseLong(params.campaignId))
@@ -38,14 +33,14 @@ class SurveyController extends CampaignController{
 
     }
 
-    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    @Secured(['ROLE_CAMPAIGN_SURVEY','ROLE_ADMIN'])
     def editContentStep(){
         Long campaignId = Long.parseLong(params.campaignId)
         SurveyRSDTO surveyRSDTO = setCampaignAsDraft(campaignId, surveyService)
         return campaignModelContent(campaignId, surveyRSDTO, null, surveyService)
     }
 
-    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    @Secured(['ROLE_CAMPAIGN_SURVEY','ROLE_ADMIN'])
     def saveSettings(CampaignSettingsCommand command) {
         if (command.hasErrors()) {
             render view: 'create', model: surveyModelSettings(command, null)
@@ -56,7 +51,7 @@ class SurveyController extends CampaignController{
         redirect mapping: result.nextStep.mapping, params: result.nextStep.params
     }
 
-    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    @Secured(['ROLE_CAMPAIGN_SURVEY','ROLE_ADMIN'])
     def saveContent(CampaignContentCommand command) {
         if (command.hasErrors()) {
             if(command.errors.getFieldError().arguments.first() == "publishOn"){
@@ -78,7 +73,7 @@ class SurveyController extends CampaignController{
         return model
     }
 
-    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    @Secured(['ROLE_CAMPAIGN_SURVEY','ROLE_ADMIN'])
     def editQuestionsStep(){
         Long campaignId = Long.parseLong(params.campaignId)
         KuorumUser surveyUser = KuorumUser.get(springSecurityService.principal.id)
@@ -96,7 +91,7 @@ class SurveyController extends CampaignController{
         }
     }
 
-    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    @Secured(['ROLE_CAMPAIGN_SURVEY','ROLE_ADMIN'])
     def saveQuestions(SurveyQuestionsCommand command){
         KuorumUser surveyUser = KuorumUser.get(springSecurityService.principal.id)
         SurveyRSDTO survey = surveyService.find(surveyUser, Long.parseLong(params.campaignId))
@@ -168,7 +163,7 @@ class SurveyController extends CampaignController{
 
 
 
-    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    @Secured(['ROLE_CAMPAIGN_SURVEY','ROLE_ADMIN'])
     def sendReport(Long campaignId){
         KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
         surveyService.sendReport(loggedUser, campaignId)

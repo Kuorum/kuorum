@@ -4,7 +4,6 @@ import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.test.mixin.TestFor
 import kuorum.helper.IntegrationHelper
 import org.springframework.context.MessageSource
-import spock.lang.IgnoreRest
 import spock.lang.Shared
 import spock.lang.Specification
 
@@ -54,27 +53,5 @@ class RecommendedUserInfoControllerIntegrationSpec extends Specification{
         cleanup:
         userInSession?.delete(flush:true)
         userToDelete?.delete(flush:true)
-    }
-
-
-    def "test to check if a non validate user can delete recommended user"(){
-        given:
-        KuorumUser userInSession = (IntegrationHelper.createDefaultUser("userInSession@example.es")).save(flush:true)
-
-        recommendedUserInfoController.params.deletedUserId = null
-
-        when:
-        def result
-        SpringSecurityUtils.doWithAuth(userInSession.email) {
-            result = recommendedUserInfoController.deleteRecommendedUser()
-        }
-
-        then:
-        recommendedUserInfoController.response.json
-        recommendedUserInfoController.response.json.error
-        recommendedUserInfoController.response.json.message == messageSource.getMessage('recommendedUserInfoService.addUserToDelete.errorValidatingDeleteUser', null, recommendedUserInfoController.request.locale)
-
-        cleanup:
-        userInSession?.delete(flush:true)
     }
 }

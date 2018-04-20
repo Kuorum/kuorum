@@ -18,7 +18,7 @@
         <h1>
             <a href="https://kuorum.org" id="brand" class="navbar-brand" target="_blank">
                 <img src="${resource(dir: 'images', file: 'logo@3x.png')}" alt="Kuorum.org">
-                <span class="hidden">Kuorum.org</span>
+                <span class="hidden">${kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.name}</span>
             </a>
         </h1>
     </header>

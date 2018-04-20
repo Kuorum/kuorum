@@ -1,17 +1,15 @@
 package kuorum.web.interceptors
 
 import grails.plugin.springsecurity.SpringSecurityService
+import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.model.AvailableLanguage
 import kuorum.users.KuorumUser
 import kuorum.web.constants.WebConstants
 import org.codehaus.groovy.grails.web.servlet.mvc.GrailsWebRequest
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.beans.propertyeditors.LocaleEditor
-import org.springframework.context.i18n.LocaleContextHolder
 import org.springframework.web.servlet.LocaleResolver
 import org.springframework.web.servlet.i18n.CookieLocaleResolver
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor
-import org.springframework.web.servlet.support.RequestContextUtils
 
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
@@ -45,12 +43,7 @@ class CustomLocaleInterceptor extends LocaleChangeInterceptor{
             }else{
                 userLanguage = AvailableLanguage.fromLocaleParam(localeParam);
                 if (!userLanguage){
-                    Locale local = localeResolver.resolveLocale(request)
-                    if (SPANISH_LANGS.contains(local.language)){
-                        userLanguage = AvailableLanguage.es_ES
-                    }else{
-                        userLanguage = AvailableLanguage.fromLocaleParam(local.getLanguage())?:AvailableLanguage.en_EN
-                    }
+                    userLanguage = getLanguageFromDomain(request, localeResolver)
                 }
             }
         }catch(Throwable t){
@@ -62,6 +55,21 @@ class CustomLocaleInterceptor extends LocaleChangeInterceptor{
         return true;
     }
 
+    private AvailableLanguage getLanguageFromDomain(HttpServletRequest request, LocaleResolver localeResolver ){
+        return AvailableLanguage.valueOf(CustomDomainResolver.domainRSDTO.language.toString());
+    }
+
+    // GET LANGUAGE FROM REQUEST (BROWSER)
+    private AvailableLanguage getLanguageFromRequest(HttpServletRequest request, LocaleResolver localeResolver ){
+        Locale local = localeResolver.resolveLocale(request)
+        AvailableLanguage userLanguage
+        if (SPANISH_LANGS.contains(local.language)){
+            userLanguage = AvailableLanguage.es_ES
+        }else{
+            userLanguage = AvailableLanguage.fromLocaleParam(local.getLanguage())?:AvailableLanguage.en_EN
+        }
+        return userLanguage
+    }
 //    private String recoverLangFromDomain (HttpServletRequest request){
 //        String domain = request.getServerName();
 //        def domainSplitter= /([^\.]*).*\.kuorum\.org/
