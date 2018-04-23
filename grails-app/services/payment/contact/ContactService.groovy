@@ -218,7 +218,7 @@ class ContactService {
 
 
     ContactRSDTO checkContactUser(KuorumUser user, String email, String digest){
-        Map<String, String> params = [userId:user.alias]
+        Map<String, String> params = [userId:user.id.toString()]
         Map<String, String> query = [contactEmail:email, digest:digest]
         try{
             def response= restKuorumApiService.get(
@@ -238,7 +238,7 @@ class ContactService {
     }
 
     boolean unsubscribeContactUser(KuorumUser user, String email, String digest){
-        Map<String, String> params = [userId:user.alias]
+        Map<String, String> params = [userId:user.id.toString()]
         Map<String, String> query = [contactEmail:email, digest:digest]
         try{
             def response= restKuorumApiService.delete(
