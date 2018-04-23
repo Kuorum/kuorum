@@ -2804,7 +2804,8 @@ form#sign {
 .onecol #main .stepsSign li:last-child::after {content:""; display: block; width: 38px; height: 2px; background-color: rgba(255,148,49,.5); position: absolute; right: -45px; top: 18px;}
 .onecol #main .stepsSign li.active,
 .onecol #main .stepsSign li.active::before {background-color: rgba(0,0,0,.2);}
-.onecol #main .stepsSign li.active::after {content:""; display: block; width: 38px; height: 2px; background-color: rgba(0,0,0,.2); position: absolute; right: -45px; top: 18px;}
+.onecol #main .stepsSign li::after, .onecol #main .stepsSign li.active::after {content:""; display: block; width: 38px; height: 2px; background-color: rgba(0,0,0,.2); position: absolute; right: -45px; top: 18px;}
+.onecol #main .stepsSign li::after { display: none; }
 
 .onecol #main .signup {font-size: 17px; font-size: 1.7rem; text-align: left; max-width: 320px; margin: 0 auto;}
 .onecol #main .signup .input-group-addon {background-color: #f3f3f3;}
@@ -5744,7 +5745,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
         width: 33%;
     }
     .navbar-nav>li {margin: 0;}
-    .main {min-height: calc(100vh - 171px);}
+    .main {min-height: calc(100vh - 136px);}
     .main.landing {min-height: 0;}
     header.transp .navbar {background-color: transparent;}
     header.transp + .row.main.landing {margin-top:-55px}
@@ -9293,6 +9294,364 @@ ul.notification-menu > li.see-more {
 
 .survey-question > .footer .social li a:hover .fa-circle.dark {
     color: #00a3ed;
+}
+
+/** Custom url **/
+.signin-custom-site {
+    padding: 60px 100px;
+}
+
+.onecol #main .custom-url-steps li {
+    font-family: 'Georgia', 'Times New Roman', Times, serif;
+}
+
+.onecol #main .custom-url-steps li::after { 
+    display: block;
+}
+
+.onecol #main .stepsSign li {
+    margin: 0 33px;
+}
+
+.custom-url-step--coorporative-color::after {
+    background-color: rgba(255,148,49,.5) !important;
+}
+
+.custom-url-step--secondary-color, .custom-url-step--secondary-color::after, .custom-url-step--secondary-color::before {
+    background-color: rgba(141,190,239, 1) !important;
+}
+
+.custom-url-step-broaden {
+    margin-right: 57px !important;
+    margin-left: 57px !important;
+}
+
+.custom-url-step-description {
+    color: #545454;
+    position: absolute;
+    top: 40px;
+    left: -24px;
+    font-size: 14px;
+    display: inline-block;
+    line-height: 14px;
+    width: 90px;
+}
+
+.active .custom-url-step-description {
+    color: rgba(0,0,0,.2);
+}
+
+.custom-url-step-description--light {
+    color: rgba(0,0,0,.2);
+}
+
+.custom-url-form {
+    background-color: rgba(0,0,0,.4);
+    padding: 15px 25px 25px 25px;
+    width: 100%;
+    max-width: 570px;
+    margin: 0 auto 30px;
+}
+
+.custom-url-form-group {
+    text-align: center;
+}
+
+.form-group-align-left {
+    text-align: left;
+}
+
+.custom-url-form-group__url, .custom-url-form-group__input {
+    display: inline-block;
+}
+
+.custom-url-form-group__url {
+    color: white;
+    margin: 0 15px;
+}
+
+.custom-url-form-group__url--dark {
+    color: #545454;
+}
+
+.custom-url-form-group__input {
+    max-width: 320px;
+}
+
+.custom-url-form-group__submit {
+    width: 190px;
+}
+
+.custom-url-form-group__remember-message {
+    color: white;
+}
+
+.custom-url-info-box {
+    margin-top: 44px;
+    margin-bottom: 44px;
+    padding: 24px 20px;
+    background-color: #545454;
+    color: white;
+}
+
+.custom-url-info-box p {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.custom-url-info-box__disclaimers {
+    list-style-type: none;
+    padding-left: 20px;
+}
+
+.custom-url-info-box__disclaimers > li > i {
+    display: inline-block;
+    padding-right: 15px;
+    color: orange;
+    font-size: 20px;
+} 
+
+.custom-url-form-group-message {
+    margin: 0;
+}
+
+.onecol #main .signup.signup-custom-site {
+    text-align: center;
+}
+
+.signup-custom-site {
+    margin-top: 75px;
+}
+
+/* global flex classes */
+.d-flex {
+    display: flex;
+}
+
+.justify-content-center {
+    justify-content: center;
+}
+
+.justify-content-start {
+    justify-content: start;
+}
+
+.pl-15 {
+    padding-left: 15px;
+}
+
+.pr-15 {
+    padding-right: 15px;
+}
+
+/** step 4 **/
+.sign-in-step-4 {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 20px;
+    height: calc(100vh - 136px);
+}
+
+.sign-in-step-4-img {
+    width: 150px;
+    height: auto;
+}
+
+/** step 5 **/
+.sign-in-step-5__color-selected {
+    width: 35px;
+    height: 35px;
+    display: block;
+    border: 3px solid #a8a8a8;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    background-color: #ff9431;
+}
+
+.sign-in-step-5__color-selected input[type='color'] {
+    visibility:hidden;
+}
+
+.sign-in-step-5__submit-btn {
+    margin-top: 60px;
+}
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+.macbook-pro {
+    position: relative;
+    width: 310px;
+    margin: 0 auto;
+}
+
+.macbook-pro-img {
+    height: 186px;
+}
+
+.macbook-pro-screen {
+    position: absolute;
+    top: 26px;
+    width: 201px;
+    background-color: #a8a8a8;
+    left: 54px;
+    height: 126px;
+}
+
+.macbook-pro-screen-header {
+    height: 20px;
+    background-color: white;
+    position: relative;
+}
+
+.macbook-pro-screen-header img {
+    max-height: 17px;
+    width: 50px;
+    position: absolute;
+    top: 2px;
+    left: 3px;
+}
+
+.macbook-pro-screen-body {
+    height: 106px;
+    width: 100%;
+    position: absolute;
+    top: 20px;
+    text-align: center;
+}
+
+.macbook-pro-screen-body h1 {
+    font-size: 16px;
+    margin-bottom: 5px;
+    margin-top: 14px;
+    font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.macbook-pro-screen-body h3 {
+    font-size: 12px;
+    margin-top: 5px;
+    font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.macbook-pro-website-form {
+    width: 160px;
+    background-color: #5c5c5c;
+    height: 35px;
+    margin: 0 auto;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.macbook-pro-website-form-input {
+    height: 15px;
+    background-color: white;
+    width: 35px;
+    border-radius: 3px;
+}
+
+.macbook-pro-website-form-input--primary-color {
+    background-color: #ff943b;
+}
+
+.sign-in-step-5__secondary-btn {
+    width: 100%;
+    background-color: transparent;
+    border: 2px solid #a8a8a8;
+    color: #a8a8a8 !important;
+    border-radius: 5px !important;
+}
+.sign-in-step-5__secondary-btn-logo {
+    height: 50px;
+    padding-top: 12px !important;
+}
+
+.sign-in-step-5__secondary-btn:hover {
+    background-color: transparent !important;
+    border: 2px solid #2082e3;
+    color: #2082e3 !important;
+}
+
+.input-group-btn {
+    position: relative;
+}
+
+.croppie-img {
+    position: absolute;
+    top: 0;
+}
+
+#logo {
+    margin-left: 10px;
+}
+
+/** Step 6 **/
+
+.user-content {
+    background-color: transparent;
+    border: 2px solid #2082e3;
+    color: #2082e3;
+    padding: 10px;
+    cursor: pointer;
+    position: relative;
+    width: 90px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.user-content-options {
+    display: inline-block;
+    margin-right: 15px;
+}
+
+.user-content-options input[type=checkbox] {
+    position: absolute;
+    opacity: 0;
+}
+
+.user-content-options input:checked ~ .user-content {
+    background-color: #2082e3;
+    color: white;
+}
+
+.user-content:hover {
+    background-color: #2082e3;
+    color: white;
+}
+
+.user-content .check {
+    color: white;
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    font-size: 1.5em;
+}
+
+.user-content-options input:checked ~ .user-content .check {
+    display: block;
+}
+
+.step-6-form p {
+    text-align: left;
 }
 
 /** media queries **/
