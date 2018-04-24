@@ -246,8 +246,24 @@ class ContactService {
                     params,
                     query)
             return true;
-        }catch (Exception e){
+        } catch (Exception e) {
             log.warn("Someone trying to check conctact '${email}' of the user ${user.alias} that not extits")
+            return false
+        }
+    }
+
+
+    boolean unsubscribeContactUser(KuorumUser user, Long contactId, String digest){
+        Map<String, String> params = [userId:user.id.toString()]
+        Map<String, String> query = [contactId : contactId, digest:digest]
+        try{
+            def response= restKuorumApiService.delete(
+                    RestKuorumApiService.ApiMethod.USER_CONTACT_SUBSCRIBE,
+                    params,
+                    query)
+            return true;
+        } catch (Exception e) {
+            log.warn("Someone trying to check conctact '${contactId}' of the user ${user.alias} that not exist")
             return false
         }
     }

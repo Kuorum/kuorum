@@ -55,7 +55,8 @@
                 <g:else>
                     <li><a href="#" class="btn btn-blue inverted disabled"><span class="fa fa-plus"></span> Follow</a></li>
                 </g:else>
-
+                <li>
+                <g:link type="button" class="btn btn-transparent" value="Unsubscribe" controller="contacts" action="loggedUnsubscribe" params="[contactId: contact.id]">  <span class="fa fa-minus-circle"></span> </g:link>
                 <li><a href="#" class="btn btn-blue inverted disabled"><span class="fa fa-envelope-0"></span> Contact</a></li>
             </ul>
         </div>

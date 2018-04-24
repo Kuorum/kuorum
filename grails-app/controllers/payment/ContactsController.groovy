@@ -509,7 +509,7 @@ class ContactsController {
             return
         }
 
-        // NOT NECESSARY || HANDLE BY MANDRILLAPP WITH THE WEBHOOK -> vent unsub
+//         NOT NECESSARY || HANDLE BY MANDRILLAPP WITH THE WEBHOOK -> event unsub
 //        boolean success = contactService.unsubscribeContactUser(user, email, digest)
 //        if (!success){
 //            flash.error="There was an error deleting your user. If the problem persists, please contact with info@kuorum.org"
@@ -517,6 +517,20 @@ class ContactsController {
 //            return
 //        }
         [user:user, contact:contact]
+    }
+
+    def loggedUnsubscribe (String contactId){
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        ContactRSDTO contact = contactService.getContact(user, contactId.toLong())
+        boolean success = contactService.unsubscribeContactUser(user, contactId.toLong() , contact.digest)
+        if (!success){
+            flash.error="There was an error unsubscribing your user. If the problem persists, please contact with info@kuorum.org"
+            redirect mapping:'userUnsubscribe', params: [userId:userId, contactId: contactId, digest: digest]
+            return
+        }
+        else {
+            redirect(mapping:'politicianContacts')
+        }
     }
 
     def removeContactsBulkAction(BulkRemoveContactsCommand bulkRemoveCommand) {
