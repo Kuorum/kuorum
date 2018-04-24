@@ -21,7 +21,7 @@
     </li>
 
 
-    <sec:ifAnyGranted roles="ROLE_ADMIN">
+    <sec:ifAnyGranted roles="ROLE_SUPER_ADMIN">
         <li class="${activeMapping=='profileMailing'?'active':''}">
             <g:link mapping="profileMailing">EMAILS</g:link>
         </li>
