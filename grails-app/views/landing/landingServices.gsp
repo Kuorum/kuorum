@@ -9,7 +9,7 @@
               model="[
                       kuorumTitle:slogan,
                       kuorumDescription:subtitle,
-                      kuorumImage:CustomDomainResolver.baseUrlAbsolute+'/landingSlider/landing-1.jpg'
+                      kuorumImage:CustomDomainResolver.domainRSDTO.basicRootUrlStaticResources+'/landingSlider/landing-1.jpg'
               ]"/>
 </head>
 
