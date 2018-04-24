@@ -1,6 +1,6 @@
 
 <g:set var="proposalLink"><g:createLink mapping="debateShow" params="${notification.proposal.encodeAsLinkProperties()}" fragment="proposal_${notification.proposal.id}"/></g:set>
-<g:set var="actor" value="${kuorum.users.KuorumUser.findByAlias(notification.actorAlias)}"/>
+<g:set var="actor" value="${kuorum.users.KuorumUser.findByAliasAndDomain(notification.actorAlias, CustomDomainResolver.domain)}"/>
 <g:set var="actorLink"><g:createLink mapping="userShow" params="${actor.encodeAsLinkProperties()}"/></g:set>
 <g:set var="text"><g:message code="notifications.proposalPin.text" args="[actor.name,actorLink, proposalLink]"/></g:set>
 

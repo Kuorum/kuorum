@@ -1,5 +1,6 @@
 package kuorum
 
+import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.model.UserType
 import kuorum.post.Post
 import kuorum.register.RegisterService
@@ -65,12 +66,12 @@ class KuorumUserTagLib {
             name = user.fullName
         }else if (attrs.user instanceof SearchKuorumElementRSDTO){
             // ALIAS
-            user = KuorumUser.findByAlias(attrs.user.alias)
+            user = KuorumUser.findByAliasAndDomain(attrs.user.alias, CustomDomainResolver.domain)
             name = highlightedField(attrs.user, "owner")
             name = name?:user.fullName
         }else if (attrs.user instanceof String){
             // ALIAS
-            user = KuorumUser.findByAlias(attrs.user)
+            user = KuorumUser.findByAliasAndDomain(attrs.user, CustomDomainResolver.domain)
             name = user.fullName
         }else{
             user = attrs.user
