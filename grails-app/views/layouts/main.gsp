@@ -19,14 +19,14 @@
     <meta name="robots" content="all">
 
 
-    <link rel="apple-touch-icon" sizes="180x180" href="https://test-kuorumorg.s3.amazonaws.com/domains/${_domain}/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="https://test-kuorumorg.s3.amazonaws.com/domains/${_domain}/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="https://test-kuorumorg.s3.amazonaws.com/domains/${_domain}/favicon/favicon-16x16.png">
-    <link rel="manifest" href="https://test-kuorumorg.s3.amazonaws.com/domains/${_domain}/favicon/site.webmanifest">
-    <link rel="mask-icon" href="https://test-kuorumorg.s3.amazonaws.com/domains/${_domain}/favicon/safari-pinned-tab.svg" color="#ff9431">
-    <link rel="shortcut icon" href="https://test-kuorumorg.s3.amazonaws.com/domains/${_domain}/favicon/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="${_domainResourcesPath}/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="${_domainResourcesPath}/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="${_domainResourcesPath}/favicon/favicon-16x16.png">
+    <link rel="manifest" href="${_domainResourcesPath}/favicon/site.webmanifest">
+    <link rel="mask-icon" href="${_domainResourcesPath}/favicon/safari-pinned-tab.svg" color="#ff9431">
+    <link rel="shortcut icon" href="${_domainResourcesPath}/favicon/favicon.ico">
     <meta name="msapplication-TileColor" content="#20a2ea">
-    <meta name="msapplication-config" content="https://test-kuorumorg.s3.amazonaws.com/domains/${_domain}/favicon/browserconfig.xml">
+    <meta name="msapplication-config" content="${_domainResourcesPath}/favicon/browserconfig.xml">
     <meta name="theme-color" content="#ffffff">
 
 

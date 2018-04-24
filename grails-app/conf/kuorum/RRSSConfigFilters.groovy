@@ -20,6 +20,7 @@ class RRSSConfigFilters {
                     model.put("_domain",CustomDomainResolver.domain)
                     model.put("_social", CustomDomainResolver.domainRSDTO?.social?:null)
                     model.put("_domainName", CustomDomainResolver.domainRSDTO?.name?:"")
+                    model.put("_domainResourcesPath", CustomDomainResolver.domainRSDTO?.basicRootUrlStaticResources?:"")
                 }
             }
             afterView = { Exception e ->

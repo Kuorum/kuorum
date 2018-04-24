@@ -76,7 +76,7 @@ class DomainService {
                     kuorumAdminRestApiKey)
             return apiResponse.data;
         }catch (Exception e){
-            log.warn("Error recovering domains")
+            log.warn("Error recovering domains", e)
             return null;
         }
     }
