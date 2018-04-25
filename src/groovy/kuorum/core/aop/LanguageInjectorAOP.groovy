@@ -52,7 +52,7 @@ class LanguageInjectorAOP {
         if (params.absolute==null){
             params.absolute=true
         }
-        if (params.absolute && params.dir!= "css" &&  params.dir!= "js" &&  !params.dir?.startsWith("images")){
+        if (params.absolute){
             params.base = CustomDomainResolver.getBaseUrlAbsolute()
         }
 
