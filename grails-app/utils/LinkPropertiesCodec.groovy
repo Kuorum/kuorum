@@ -67,14 +67,12 @@ class LinkPropertiesCodec {
     }
 
     private static def prepareParams(KuorumUser user){
-        if(!user.alias){System.out.println("Preparing url params without alias => User: ${user}")}
         [
                 userAlias:user.alias.toLowerCase()
         ]
     }
 
     private static def prepareParams(DebateRSDTO debate) {
-        if(!debate.user.alias){System.out.println("Preparing url params without alias => DebateRSDTO: ${debate.id}")}
         [
                 userAlias: debate.user.alias.toLowerCase(),
                 urlTitle: getNameTitleUrl(debate),
@@ -82,7 +80,6 @@ class LinkPropertiesCodec {
         ]
     }
     private static def prepareParams(EventRSDTO event) {
-        if(!event.user.alias){System.out.println("Preparing url params without alias => EventRSDTO: ${event.id}")}
         [
                 userAlias: event.user.alias.toLowerCase(),
                 eventId: event.id
@@ -90,7 +87,6 @@ class LinkPropertiesCodec {
     }
 
     private static def prepareParams(CampaignRSDTO campaignRSDTO) {
-        if(!campaignRSDTO.user.alias){System.out.println("Preparing url params without alias => CampaignRSDTO: ${campaignRSDTO.id}")}
         [
                 userAlias: campaignRSDTO.user.alias.toLowerCase(),
                 urlTitle: getNameTitleUrl(campaignRSDTO),
@@ -99,13 +95,11 @@ class LinkPropertiesCodec {
     }
 
     private static def prepareParams(SearchKuorumUserRSDTO searchKuorumUserRSDTO) {
-        if(!searchKuorumUserRSDTO.alias){System.out.println("Preparing url params without alias => SearchKuorumUserRSDTO: ${searchKuorumUserRSDTO.id}")}
         [
                 userAlias: searchKuorumUserRSDTO.alias
         ]
     }
     private static def prepareParams(SearchKuorumElementRSDTO campaignRSDTO) {
-        if(!campaignRSDTO.alias){System.out.println("Preparing url params without alias => SearchKuorumElementRSDTO: ${campaignRSDTO.id}")}
         [
                 userAlias: campaignRSDTO.alias,
                 urlTitle: getNameTitleUrl(campaignRSDTO),
@@ -114,7 +108,6 @@ class LinkPropertiesCodec {
     }
 
     private static def prepareParams(ProposalRSDTO proposalRSDTO) {
-        if(!proposalRSDTO.debateUser.alias){System.out.println("Preparing url params without alias => ProposalRSDTO.debateUser: ${proposalRSDTO.id}")}
         [
                 userAlias: proposalRSDTO.debateUser.alias.toLowerCase(),
                 urlTitle: getNameTitleUrl(proposalRSDTO),
@@ -122,7 +115,6 @@ class LinkPropertiesCodec {
         ]
     }
     private static def prepareParams(NotificationProposalCommentRSDTO notificationProposalCommentRSDTO) {
-        if(!notificationProposalCommentRSDTO.debateAlias){System.out.println("Preparing url params without alias => NotificationProposalCommentRSDTO.debateUser: ${notificationProposalCommentRSDTO.debateId}")}
         [
                 userAlias: notificationProposalCommentRSDTO.debateAlias.toLowerCase(),
                 urlTitle: notificationProposalCommentRSDTO.debateTitle.encodeAsKuorumUrl(),
@@ -130,7 +122,6 @@ class LinkPropertiesCodec {
         ]
     }
     private static def prepareParams(NotificationProposalCommentMentionRSDTO notificationProposalCommentMentionRSDTO) {
-        if(!notificationProposalCommentMentionRSDTO.debateAlias){System.out.println("Preparing url params without alias => NotificationProposalCommentMentionRSDTO.debateUser: ${notificationProposalCommentMentionRSDTO.debateId}")}
         [
                 userAlias: notificationProposalCommentMentionRSDTO.debateAlias.toLowerCase(),
                 urlTitle: notificationProposalCommentMentionRSDTO.debateTitle.encodeAsKuorumUrl(),
