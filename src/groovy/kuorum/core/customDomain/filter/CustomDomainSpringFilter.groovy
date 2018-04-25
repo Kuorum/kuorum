@@ -18,8 +18,8 @@ class CustomDomainSpringFilter extends GenericFilterBean {
         URL url = new URL(request.getRequestURL().toString());
         if (url.getHost() == "127.0.0.1"){
             // Debug on idea via apache using proxy always is 127.0.0.1
-            logger.warn("Develop mode. Using local.kuorum.org")
             url = new URL("http://local.kuorum.org/kuorum")
+            logger.warn("Develop mode. Using ${url.toString()}")
         }
         CustomDomainResolver.setUrl(url, request.getContextPath())
 
