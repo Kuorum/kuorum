@@ -1,6 +1,6 @@
 <r:require modules="forms"/>
 <div class="box-ppal-section">
-    <h4 class="box-ppal-section-title">Colors</h4>
+    <h4 class="box-ppal-section-title"><g:message code="kuorum.web.admin.domain.landingSettings.label"/></h4>
     <fieldset class="row">
         <div class="form-group col-md-6">
             <formUtil:input command="${command}" field="name" showLabel="true" />
@@ -18,7 +18,7 @@
             <formUtil:input command="${command}" field="subtitle" showLabel="true" />
         </div>
     </fieldset>
-    <h4 class="box-ppal-section-title">Colors</h4>
+    <h4 class="box-ppal-section-title"><g:message code="kuorum.web.admin.domain.colors.label"/></h4>
     <fieldset class="row">
         <div class="form-group col-md-6">
             <formUtil:input command="${command}" field="mainColor" showLabel="true" />
@@ -33,7 +33,7 @@
             <formUtil:input command="${command}" field="secondaryColorShadowed" showLabel="true" />
         </div>
     </fieldset>
-    <h4 class="box-ppal-section-title">Social</h4>
+    <h4 class="box-ppal-section-title"><g:message code="kuorum.web.admin.domain.social.label"/></h4>
     <fieldset class="row">
         <div class="form-group col-md-6">
             <formUtil:socialInput command="${command}" field="facebook" cssIcon="fa-facebook"/>
