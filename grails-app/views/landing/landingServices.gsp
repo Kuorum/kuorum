@@ -1,7 +1,7 @@
 <%@ page import="kuorum.core.customDomain.CustomDomainResolver; org.springframework.util.CollectionUtils" %>
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
-    <title><g:message code="landingServices.head.title"/></title>
+    <title>${subtitle}</title>
     <meta name="layout" content="landingServicesLayout">
     <parameter name="extraHeadCss" value="landing"/>
     <parameter name="showLatestActivities" value="${!org.springframework.util.CollectionUtils.isEmpty(campaigns)}"/>
