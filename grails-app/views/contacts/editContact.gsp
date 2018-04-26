@@ -4,9 +4,6 @@
     <title><g:message code="page.title.contacts.edit" args="[contactName]"/></title>
     <meta name="layout" content="paymentPlainLayout">
     <!-- Schema.org markup for Google+ -->
-    <meta itemprop="name" content="${g.message(code:"kuorum.name")}">
-    <meta itemprop="image" content="${resource(dir: 'images', file:'landingSearch-rrss.png', absolute:true)}" />
-    <meta itemprop="image" content="${resource(dir: 'images', file: 'logo@2x.png')}" />
     <r:require modules="contacts"/>
 </head>
 

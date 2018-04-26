@@ -33,7 +33,7 @@ class DomainTagLib {
             src="${logoUrl}" 
             alt="${g.message(code:'head.logo.alt', args:[kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.name])}" 
             title="${g.message(code:'head.logo.title', args:[kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.name])}">
-        <span class="hidden">${g.message(code:'kuorum.name')}</span>
+        <span class="hidden">${kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.name}</span>
         """
     }
 }

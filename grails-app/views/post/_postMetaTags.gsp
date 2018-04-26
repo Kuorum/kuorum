@@ -31,7 +31,7 @@
 <meta name="title" content="${g.message(code:titleMessageCode, args:[post.title, _domainNames])}" />
 <meta name="description" content="${post.body?.encodeAsRemovingHtmlTags()?:''}" />
 <meta property="og:description" content="${post.body?.encodeAsRemovingHtmlTags()}" />
-<meta property="og:site_name" content="${message(code: 'kuorum.name')}" />
+<meta property="og:site_name" content="${_domainName}" />
 %{--<meta property="article:published_time" content="${formatDate(date:user.dateCreated, format:'yyyy-MM-dd')}" />--}%
 %{--<meta property="article:modified_time" content="${formatDate(date:user.dateCreated, format:'yyyy-MM-dd')}" />--}%
 %{--<meta property="article:section" content="User Section" />--}%

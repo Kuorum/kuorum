@@ -1,6 +1,6 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
-    <title><g:message code="kuorum.name"/> </title>
+    <title>Resend verification </title>
     <meta name="layout" content="register1ColumnLayout">
     <parameter name="extraHeadCss" value="landing"/>
 </head>
