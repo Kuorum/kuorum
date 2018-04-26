@@ -13,9 +13,9 @@
         <g:if test="${user.enabled}">
             <li><g:render template="/editorUser/switchUser" model="[user:user]"/></li>
         </g:if>
+        <li class="${nav.activeMenuCss(mappingName: 'editorKuorumAccountEdit', urlParams:user.encodeAsLinkProperties())}"><g:link mapping="editorKuorumAccountEdit" params="${user.encodeAsLinkProperties()}"><g:message code="admin.menu.user.editAccount" args="[user.name]"/></g:link></li>
         <li class="${nav.activeMenuCss(mappingName: 'editorAdminUserRights', urlParams:user.encodeAsLinkProperties())}"><g:link mapping="editorAdminUserRights" params="${user.encodeAsLinkProperties()}"><g:message code="admin.menu.user.editRights" args="[user.name]"/></g:link></li>
         <li class="${nav.activeMenuCss(mappingName: 'editorAdminEmailSender', urlParams:user.encodeAsLinkProperties())}"><g:link mapping="editorAdminEmailSender" params="${user.encodeAsLinkProperties()}"><g:message code="admin.menu.user.editEmailSender" args="[user.name]"/></g:link></li>
-        <li class="${nav.activeMenuCss(mappingName: 'editorKuorumAccountEdit', urlParams:user.encodeAsLinkProperties())}">                  <g:link mapping="editorKuorumAccountEdit" params="${user.encodeAsLinkProperties()}"><g:message code="admin.menu.user.editAccount" args="[user.name]"/></g:link></li>
     </sec:ifAnyGranted>
 </ul>
 %{--</div>--}%
