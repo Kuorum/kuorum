@@ -7903,7 +7903,7 @@ ul.proposal-list .comment-box > .comment-proposal > .user-box{margin-bottom: 10p
 
 .carousel.slide.fade-carousel {
     position: relative;
-    margin-top: 90px;
+    margin-top: 80px;
 }
 
 .fade-carousel .carousel-inner {
@@ -9017,10 +9017,6 @@ ul.bullets li img {
 }
 
 @media screen and (max-width: 640px) {
-    .carousel.slide.fade-carousel {
-        position: relative;
-        margin-top: 90px;
-    }
     .fade-carousel .content {
         top: 37%;
         width: 100%;
