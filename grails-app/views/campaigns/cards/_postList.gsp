@@ -1,4 +1,4 @@
-
+<r:require modules="post"/>
 <article role="article" class="box-ppal clearfix">
     <div class="link-wrapper" id="post-${post.id}" data-datepublished="${post.datePublished.time}">
         <g:link mapping="postShow" params="${post.encodeAsLinkProperties()}" class="hidden"></g:link>
