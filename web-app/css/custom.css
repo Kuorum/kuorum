@@ -1000,7 +1000,7 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 
 #footer .licenses {margin: 0 auto; width: 154px;}
 #footer .licenses li {margin: 0;}
-#footer .licenses li:last-child {margin-right: 10px;}
+/*#footer .licenses li:last-child {margin-right: 10px;}*/
 
 .social li {display: inline-block;}
 .social li {margin-right: 5px; font-size: 18.5px; font-size: 1.85rem;}
