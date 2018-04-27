@@ -50,14 +50,17 @@
     </li>
 
     <li>
-        <g:set var="logInMapping" value="loginAuth"/>
-        <g:set var="logInText" value="${g.message(code:"head.noLogged.login")}"/>
-        <nav:ifActiveMapping mappingName="loginAuth">
-            <g:set var="logInMapping" value="register"/>
-            <g:set var="logInText" value="${g.message(code:"login.head.register")}"/>
-        </nav:ifActiveMapping>
-        <g:link mapping="${logInMapping}" class="navbar-link btn btn-transparent">
-            <span>${logInText}</span>
-        </g:link>
+        <a href="#" class="navbar-link btn btn-transparent btn-open-modal-request-demo"><g:message code="landingServices.requestDemo"/> </a>
     </li>
+    %{--<li>--}%
+        %{--<g:set var="logInMapping" value="loginAuth"/>--}%
+        %{--<g:set var="logInText" value="${g.message(code:"head.noLogged.login")}"/>--}%
+        %{--<nav:ifActiveMapping mappingName="loginAuth">--}%
+            %{--<g:set var="logInMapping" value="register"/>--}%
+            %{--<g:set var="logInText" value="${g.message(code:"login.head.register")}"/>--}%
+        %{--</nav:ifActiveMapping>--}%
+        %{--<g:link mapping="${logInMapping}" class="navbar-link btn btn-transparent">--}%
+            %{--<span>${logInText}</span>--}%
+        %{--</g:link>--}%
+    %{--</li>--}%
 </ul>
