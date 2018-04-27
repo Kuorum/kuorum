@@ -46,6 +46,7 @@
             </ul>
             <ul class="btns">
                 <!-- ejemplo deshabilitado -->
+
                 <g:if test="${contactUser}">
                     <li><userUtil:followButton user="${contactUser}" /> </li>
                 </g:if>
@@ -53,8 +54,22 @@
                     <li><a href="#" class="btn btn-blue inverted disabled"><span class="fa fa-plus"></span> Follow</a></li>
                 </g:else>
                 <li>
-                <g:link type="button" class="btn btn-transparent" value="Unsubscribe" controller="contacts" action="loggedUnsubscribe" params="[contactId: contact.id]">  <span class="fa fa-minus-circle"></span> </g:link>
-                <li><a href="#" class="btn btn-blue inverted disabled"><span class="fa fa-envelope-0"></span> Contact</a></li>
+                <li>
+                    <g:link
+                            type="button"
+                            class="btn btn-blue inverted"
+                            value="Unsubscribe"
+                            controller="contacts"
+                            data-toggle="tooltip"
+                            data-placement="bottom"
+                            rel="tooltip"
+                            title=""
+                            data-original-title="${message(code:'tools.contact.edit.unsubscribe.tooltip')}"
+                            action="loggedUnsubscribe"
+                            params="[contactId: contact.id]"
+                    > <g:message code="tools.contact.edit.unsubscribe.label"/> </g:link>
+                </li>
+                %{--<li><a href="#" class="btn btn-blue inverted disabled"><span class="fa fa-envelope-0"></span> Contact</a></li>--}%
             </ul>
         </div>
         <div class="container-lists">
