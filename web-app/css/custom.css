@@ -5855,7 +5855,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     #info-sup-scroll .infoVotes > span {padding: 6px; width: 70px; height: 33px; font-size: 16px; font-size: 1.6rem;}
     #info-sup-scroll .infoVotes > li {margin-left: 15px;}
 
-    .navbar-brand {width: 170px; height: 48px; margin-top: -4px; margin-bottom: 7px;}
+    .navbar-brand {width: 170px; height: 48px; margin-bottom: 7px;}
     .btn.search {line-height: 0.7;}
     .navbar-form {width: 340px; margin: 5px 4px 4px 12%;}
 
