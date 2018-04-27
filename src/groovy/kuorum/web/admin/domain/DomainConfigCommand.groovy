@@ -21,16 +21,16 @@ class DomainConfigCommand {
     String instagram;
     String youtube;
 
-
+    private static final String HEX_PATTERN = '^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$';
     static constraints = {
         name nullable: false
         language nullable: false
         slogan nullable:false
         subtitle nullable:false
-        mainColor nullable:false
-        mainColorShadowed nullable: false
-        secondaryColor nullable: false
-        secondaryColorShadowed nullable: false
+        mainColor nullable:false, matches:HEX_PATTERN
+        mainColorShadowed nullable: false, matches:HEX_PATTERN
+        secondaryColor nullable: false, matches:HEX_PATTERN
+        secondaryColorShadowed nullable: false, matches:HEX_PATTERN
 
         facebook nullable:true
         twitter nullable:true
