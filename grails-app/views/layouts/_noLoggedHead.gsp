@@ -20,23 +20,23 @@
         </a>
         <ul id="navigation-options" class="dropdown-menu dropdown-menu-right" aria-labelledby="open-user-options" role="menu">
             <li>
-                <g:link mapping="searcherSearchDEBATE" class="navbar-link ${nav.activeMenuCss(mappingName: 'searcherSearchDEBATE')}">
-                    <span><g:message code="head.noLogged.searchDebates"/></span>
-                </g:link>
-            </li>
-            <li>
-                <g:link mapping="searcherSearchEVENT" class="navbar-link ${nav.activeMenuCss(mappingName: 'searcherSearchEVENT')}">
-                    <span><g:message code="head.noLogged.searchEvents"/></span>
-                </g:link>
-            </li>
-            <li>
                 <g:link mapping="searcherSearchPOST" class="navbar-link ${nav.activeMenuCss(mappingName: 'searcherSearchPOST')}">
                     <span><g:message code="head.noLogged.searchPost"/></span>
                 </g:link>
             </li>
             <li>
+                <g:link mapping="searcherSearchDEBATE" class="navbar-link ${nav.activeMenuCss(mappingName: 'searcherSearchDEBATE')}">
+                    <span><g:message code="head.noLogged.searchDebates"/></span>
+                </g:link>
+            </li>
+            <li>
                 <g:link mapping="searcherSearchSURVEY" class="navbar-link ${nav.activeMenuCss(mappingName: 'searcherSearchSURVEY')}">
                     <span><g:message code="head.noLogged.searchSurveys"/></span>
+                </g:link>
+            </li>
+            <li>
+                <g:link mapping="searcherSearchEVENT" class="navbar-link ${nav.activeMenuCss(mappingName: 'searcherSearchEVENT')}">
+                    <span><g:message code="head.noLogged.searchEvents"/></span>
                 </g:link>
             </li>
         </ul>
