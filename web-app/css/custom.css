@@ -7922,7 +7922,7 @@ ul.proposal-list .comment-box > .comment-proposal > .user-box{margin-bottom: 10p
 .fade-carousel .indicators .carousel-indicators {
     opacity:0.85;
     position: absolute;
-    bottom: 50px;
+    bottom: 15px;
     left: 0;
     z-index: 15;
     width: 100%;
@@ -7985,7 +7985,7 @@ ul.proposal-list .comment-box > .comment-proposal > .user-box{margin-bottom: 10p
 
 
 .fade-carousel .content hgroup {
-    margin-bottom: 30px;
+    margin-bottom: 60px;
 }
 
 .fade-carousel .content h1,
