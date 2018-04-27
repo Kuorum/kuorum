@@ -2654,7 +2654,7 @@ ul.search-list > li.info-empty .text-empty-campaignList {width: 90%;}
 ul.search-list > li.info-empty .icon-empty-campaignList {color: #ff9431; width:5%; display:none;}
 ul.search-list > li.info-empty .icon-empty-campaignList img{color: #ff9431; width: 30px; vertical-align: top; margin-left: 25px;}
 
-ul.search-list.latestActivities .search-article {padding:0 12px 20px 12px;}
+ul.search-list.latestActivities .search-article {padding:0 0 20px 0px;}
 
 /*********************** Edit Post *************************************/
 /***********************************************************************/
@@ -2808,7 +2808,8 @@ textarea.error {border-color: #BF4343;}
 .sign .login .form-group:last-child {font-size: 14px; font-size: 1.4rem;}
 
 form#sign {
-    margin-top: 30px;
+    margin: 30px auto 0;
+    max-width: 760px;
 }
 
 .sign.purchase h2 {font-size: 16px; font-size: 1.6rem;}
@@ -5351,6 +5352,8 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 
 /* Small devices (tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
+    ul.search-list.latestActivities .search-article {padding:0 12px 20px 12px;}
+    .fade-carousel .content { width: 95%}
     #questionsSurveyForm div.question-type{padding:inherit;margin-top:0px}
     #questionsSurveyForm div.question-type + div.form-group-remove{margin-top:0px}
     body.noLogged > .container-fluid {margin-top:40px;}
@@ -5360,7 +5363,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     }
     header.transp .navbar {background-color: transparent;}
     header.transp + .row.main.landing {margin-top:-55px}
-    header .navbar-form { margin: 3px 4px 4px 18px; width: 176px;}
+    header .navbar-form { margin: 3px 4px 4px 50px; width: 176px;}
     header .navbar-form .input-group>.form-control {width: 70%;}
     .nav > li > .navbar-link.user-area img {margin-top: -5px;}
     .navbar-nav>li {margin: 0 4px;}
@@ -5774,6 +5777,8 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 
 /* Medium devices (desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
+
+    .fade-carousel .content { width: 90%;}
     #carousel-landing-main #request-demo-btn {
         margin-left: 33%;
         width: 33%;
@@ -5855,7 +5860,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     #info-sup-scroll .infoVotes > span {padding: 6px; width: 70px; height: 33px; font-size: 16px; font-size: 1.6rem;}
     #info-sup-scroll .infoVotes > li {margin-left: 15px;}
 
-    .navbar-brand {width: 170px; height: 48px; margin-bottom: 7px;}
+    .navbar-brand {width: 170px; height: 48px; margin-top:-2px;}
     .btn.search {line-height: 0.7;}
     .navbar-form {width: 340px; margin: 5px 4px 4px 12%;}
 
@@ -7249,7 +7254,6 @@ header .header-msg h6:hover{
 }
 
 @media only screen and (min-width: 768px){
-    .fade-carousel .content { width: 785px}
     #cases-study-grid .card .card-body {padding:0;}
     #politician-bio.extra-padding {padding: 0 30px 20px;}
     header h6{
