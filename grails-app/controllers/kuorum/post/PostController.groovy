@@ -18,7 +18,7 @@ class PostController extends CampaignController{
 
     @Secured(['ROLE_CAMPAIGN_POST','ROLE_CAMPAIGN_EVENT','ROLE_ADMIN'])
     def remove(Long campaignId) {
-        removeCampaign(campaignId)
+        removeCampaign(campaignId, postService)
         render ([msg: "Post deleted"] as JSON)
     }
 
