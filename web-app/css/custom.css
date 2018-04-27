@@ -2807,10 +2807,7 @@ textarea.error {border-color: #BF4343;}
 .sign .login {width: 305px;}
 .sign .login .form-group:last-child {font-size: 14px; font-size: 1.4rem;}
 
-form#sign {
-    margin: 30px auto 0;
-    max-width: 760px;
-}
+form#sign {margin: 30px auto 0; max-width: 760px;}
 
 .sign.purchase h2 {font-size: 16px; font-size: 1.6rem;}
 
@@ -2820,6 +2817,7 @@ form#sign {
 .landing + .row.main .onecol #main {text-align: center;}
 .landing + .row.main .onecol #main h1 {margin-bottom: 25px;}
 .landing + .row.main .onecol .login,
+.landing + .row.main .onecol form#sign,
 .landing + .row.main .onecol .socialGo {width: 100%; max-width: 380px; margin: 0 auto 30px; }
 .landing + .row.main .onecol .login {background-color: rgba(0,0,0,.4); padding: 15px 25px 25px 25px;}
 .landing + .row.main .onecol .login p {color:#c6c6c6;}
@@ -4111,9 +4109,10 @@ h5#results {margin: 0 0 15px;}
     min-height: calc(100vh - 171px);
 }
 .onecol.error .intro {
-    background: url('../images/ico-error.png') no-repeat left bottom transparent;
+    /*background: url('../images/ico-error.png') no-repeat left bottom transparent;*/
+    background: url('../images/broken-link.png') no-repeat left bottom transparent;
     background-size: 240px auto;
-    padding: 0 0 160px 0;
+    padding: 0 0 220px 0;
     margin-bottom: 0;
     border: 0;
 }
@@ -5575,7 +5574,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .pre {margin: 5px 20px 5px 0;}
     #search-filters h1 {margin-top: 20px;}
     .onecol.error .intro {
-        background: url('../images/ico-error.png') no-repeat left bottom transparent;
         padding: 0 0 60px 350px;
         margin: 20px 0 0 0;
         border: 0;
