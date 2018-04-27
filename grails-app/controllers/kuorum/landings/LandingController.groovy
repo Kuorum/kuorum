@@ -26,7 +26,6 @@ class LandingController {
             redirect (mapping:"dashboard")
             return;
         }
-        throw new Exception("")
         KuorumUser user = kuorumUserService.findByAlias(WebConstants.FAKE_LANDING_ALIAS_USER)
         List<CampaignRSDTO> campaigns = []
         if (user) {
