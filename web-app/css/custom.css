@@ -7918,7 +7918,7 @@ ul.proposal-list .comment-box > .comment-proposal > .user-box{margin-bottom: 10p
 .fade-carousel .indicators .carousel-indicators {
     opacity:0.85;
     position: absolute;
-    bottom: 15px;
+    bottom: 35px;
     left: 0;
     z-index: 15;
     width: 100%;
