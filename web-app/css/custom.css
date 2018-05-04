@@ -5349,7 +5349,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 
 /* Small devices (tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
-    ul.search-list.latestActivities .search-article {padding:0 12px 20px 12px;}
+    ul.search-list.latestActivities .search-article {padding:0 6px 20px 6px;}
     .fade-carousel .content { width: 95%}
     #questionsSurveyForm div.question-type{padding:inherit;margin-top:0px}
     #questionsSurveyForm div.question-type + div.form-group-remove{margin-top:0px}
@@ -7893,6 +7893,15 @@ ul.proposal-list .comment-box > .comment-proposal > .user-box{margin-bottom: 10p
 }
 .landing-2 > div.container-fluid > div {
     overflow: hidden;
+}
+
+/**
+This with is only for multidomain landing because in "last activity" section, the last campaigns in some resolutions was so thin.
+That's why the with is 100% and max-with is for high resolutions.
+*/
+.landing-2 > div.container-fluid > div.row > div.container {
+    width:100%;
+    max-width: 1170px;
 }
 
     /** fade-carousel **/
