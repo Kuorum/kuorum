@@ -58,8 +58,6 @@ input[type="number"],
 input[type="email"],
 select {padding: 6px 6px 6px 8px !important;}*/
 
-body.noLogged > .container-fluid {margin-top: 35px;}
-
 .form-group {margin-bottom: 20px;}
 
 .center{text-align:center;}
@@ -5355,7 +5353,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .fade-carousel .content { width: 95%}
     #questionsSurveyForm div.question-type{padding:inherit;margin-top:0px}
     #questionsSurveyForm div.question-type + div.form-group-remove{margin-top:0px}
-    body.noLogged > .container-fluid {margin-top:40px;}
     #trustUs ul.globus li img {
         height: 40px;
         width: auto;
@@ -6218,9 +6215,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     #boxfiltersContacts ul li .btn {min-width: 0;}
     #boxfiltersContacts .dropdown-menu {min-width: 99px;}
     #campaignsList > li > span.fa {left: 24px;}
-
-    body.noLogged > .container-fluid {margin-top:20px;}
-
 }
 @media only screen and (min-width: 1280px) {
     #trustUs ul.globus li img {
