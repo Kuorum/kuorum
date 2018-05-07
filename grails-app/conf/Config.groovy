@@ -225,7 +225,8 @@ oauth {
             successUri = '/oauth/google/success'
             failureUri = '/oauth/google/failure'
             callback = "http://localhost:8080/kuorum/oauth/google/callback" // Is overwritten with properties file
-            scope = 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email'
+//            scope = 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email'
+            scope = 'https://www.googleapis.com/auth/plus.me https://www.googleapis.com/auth/plus.profiles.read https://www.googleapis.com/auth/plus.circles.read'
             jsKey = 'GOOGLE JS KEY'
         }
         outlook {
@@ -235,6 +236,7 @@ oauth {
             successUri = '/account/contacts/oauth/outlook/success'
             failureUri = '/account/contacts/oauth/outlook/success'
             callback = "http://localhost:8080/kuorum/oauth/outlook/callback"
+            contactCallback = "http://local.kuorum.org/kuorum/googleContacts/loadContactsFromGoogle"
             scope = 'openid offline_access profile https://outlook.office.com/contacts.read'
         }
         yahoo {

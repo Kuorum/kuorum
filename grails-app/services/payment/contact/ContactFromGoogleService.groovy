@@ -23,8 +23,11 @@ import com.google.gdata.client.contacts.ContactsService
 import com.google.gdata.data.contacts.ContactEntry
 import com.google.gdata.data.contacts.ContactFeed
 import grails.transaction.Transactional
+import kuorum.core.customDomain.CustomDomainResolver
+import kuorum.domain.DomainService
 import kuorum.users.KuorumUser
 import org.kuorum.rest.model.contact.ContactRDTO
+import org.kuorum.rest.model.domain.DomainRSDTO
 
 import javax.annotation.PreDestroy
 import java.util.concurrent.ExecutorService
@@ -34,6 +37,7 @@ import java.util.concurrent.Executors
 class ContactFromGoogleService {
 
     ContactService contactService
+    DomainService domainService
     def grailsApplication
 
     private static final Integer MAX_BULK_CONTACTS = 10000;
@@ -66,26 +70,31 @@ class ContactFromGoogleService {
     }
 
 
-    public String getUrlForAuthorization(String urlCallback){
-        AuthorizationCodeFlow flow = googleAuthorizationFlow(urlCallback);
+    public String getUrlForAuthorization(String state){
+        AuthorizationCodeFlow flow = googleAuthorizationFlow(grailsApplication.config.oauth.providers.google.contactCallback);
         GoogleAuthorizationCodeRequestUrl authUrl = flow.newAuthorizationUrl();
-        authUrl.setRedirectUri(urlCallback)
+        authUrl.setRedirectUri(grailsApplication.config.oauth.providers.google.contactCallback)
+        authUrl.setState(state)
+//        authUrl.setApprovalPrompt("force")
+//        authUrl.setAccessType("offline")
         return authUrl.toURL();
     }
 
 
-    public void loadContacts(KuorumUser user, String authorizationCode, String urlCallback){
+    public void loadContacts(KuorumUser user, String authorizationCode){
         log.info("Loading ${user.alias}'s gmail contacs")
-        GoogleTokenResponse tokenResponse =
-                new GoogleAuthorizationCodeTokenRequest(
-                        HTTP_TRANSPORT,
-                        JSON_FACTORY,
-                        grailsApplication.config.oauth.providers.google.key,
-                        grailsApplication.config.oauth.providers.google.secret,
-                        authorizationCode,
-                        urlCallback
-                ).execute();
-        Credential credential = createCredentialFromToken(tokenResponse, urlCallback)
+        GoogleAuthorizationCodeTokenRequest authorizationCodeTokenRequest = new GoogleAuthorizationCodeTokenRequest(
+                HTTP_TRANSPORT,
+                JSON_FACTORY,
+                grailsApplication.config.oauth.providers.google.key,
+                grailsApplication.config.oauth.providers.google.secret,
+                authorizationCode,
+                grailsApplication.config.oauth.providers.google.contactCallback
+        );
+
+//        authorizationCodeTokenRequest.setScopes(Arrays.asList('https://www.googleapis.com/auth/plus.me','https://www.googleapis.com/auth/plus.profiles.read', 'https://www.googleapis.com/auth/plus.circles.read'))
+        GoogleTokenResponse tokenResponse =authorizationCodeTokenRequest.execute();
+        Credential credential = createCredentialFromToken(tokenResponse, grailsApplication.config.oauth.providers.google.contactCallback)
         loadContactUsingGData(user, credential);
 
     }
@@ -167,7 +176,14 @@ class ContactFromGoogleService {
 //        Map circleMap = [:]
         Map circleMap = loadCirclesMappedByName(credential)
         credential = refreshCredential(credential)
+        final String url = CustomDomainResolver.getBaseUrlAbsolute()
         executor.execute{
+            // NEW THREAD HAS TO INIT THE THREAD LOCAL
+            CustomDomainResolver.setUrl(new URL(url))
+            DomainRSDTO domainRSDTO = domainService.getConfig(user.getDomain())
+            CustomDomainResolver.setDomainRSDTO(domainRSDTO)
+            // END INIT THREAD LOCAL
+
             ContactsService contactsService = new ContactsService(APPLICATION_NAME)
             contactsService.setOAuth2Credentials(credential);
             URL feedUrl = new URL(URL_LOAD_ALL_CONTACTS);

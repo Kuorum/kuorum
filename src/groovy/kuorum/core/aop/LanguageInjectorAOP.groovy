@@ -52,7 +52,7 @@ class LanguageInjectorAOP {
         if (params.absolute==null){
             params.absolute=true
         }
-        if (params.absolute){
+        if (params.absolute && !params.base){
             params.base = CustomDomainResolver.getBaseUrlAbsolute()
         }
 
