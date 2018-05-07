@@ -1,8 +1,13 @@
 package kuorum.admin
 
 import grails.plugin.springsecurity.annotation.Secured
+import groovyx.net.http.RESTClient
 import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.domain.DomainService
+import kuorum.files.AmazonFileService
+import kuorum.files.FaviconService
+import kuorum.files.FileService
+import kuorum.files.UnzipService
 import kuorum.mail.KuorumMailAccountService
 import kuorum.mail.MailchimpService
 import kuorum.register.RegisterService
@@ -11,12 +16,16 @@ import kuorum.users.KuorumUserService
 import kuorum.web.admin.KuorumUserEmailSenderCommand
 import kuorum.web.admin.KuorumUserRightsCommand
 import kuorum.web.admin.domain.DomainConfigCommand
+import org.apache.commons.io.IOUtils
 import org.kuorum.rest.model.admin.AdminConfigMailingRDTO
 import org.kuorum.rest.model.domain.DomainRDTO
 import org.kuorum.rest.model.domain.DomainRSDTO
 import org.kuorum.rest.model.domain.SocialRDTO
 import org.kuorum.rest.model.notification.campaign.config.NewsletterConfigRSDTO
 import payment.campaign.NewsletterService
+
+import java.nio.file.Files
+import java.nio.file.Path
 
 @Secured(['ROLE_ADMIN'])
 class AdminController {
@@ -33,6 +42,15 @@ class AdminController {
     DomainService domainService
 
     RegisterService registerService
+
+    FileService fileService
+
+    AmazonFileService amazonFileService;
+
+    FaviconService faviconService
+
+    UnzipService unzipService
+
 
 //    def afterInterceptor = [action: this.&prepareMenuData]
 //    protected prepareMenuData = {model, modelAndView ->
@@ -91,6 +109,92 @@ class AdminController {
         redirect mapping:'adminDomainConfig'
     }
 
+
+    def editLogo() {
+//        redirect mapping:'adminDomainConfigUploadLogo'
+//        DomainRDTO domainRDTO = new DomainRDTO()
+//        EditLogoCommand command = new EditLogoCommand(domainRDTO)
+//        EditProfilePicturesCommand command = new EditProfilePicturesCommand(user)
+//        [command: command]
+    }
+
+//    def updateLogo(EditLogoCommand command){
+//        DomainRDTO domainRDTO = new DomainRDTO()
+////        if (command.hasErrors()){
+////            render view:"editLogo", model: [command:command,domainRDTO:domainRDTO]
+////            return
+////        }
+//        prepareDomainLogo(domainRDTO,command, fileService)
+//        domainService.updateConfig(domainRDTO)
+//        flash.message=message(code:'admin.menu.domainConfig.uploadLogo.success')
+//        redirect mapping:'adminDomainConfigUploadLogo'
+//
+////        KuorumUser user = params.user
+////        if (command.hasErrors()){
+////            render view:"editPictures", model: [command:command,user:user]
+////            return
+////        }
+////        prepareUserImages(user,command, fileService)
+//        kuorumUserService.updateUser(user)
+////        flash.message=message(code:'profile.editUser.success')
+////        redirect mapping:'profilePictures'
+//
+//    }
+
+
+    def uploadLogo() {
+        def customLogo = request.getFile('logo')
+        try {
+            if (customLogo && !customLogo.empty) {
+                //Añadir carpeta temporal para manejo de archivos
+                File file = new File("/tmp/logo.png")
+                File fileZip = new File("/tmp/favicon.zip")
+                Path temp = Files.createTempDirectory("favicon");
+//                File temp = File.createTempFile("temp", Long.toString(System.nanoTime()));
+                customLogo.transferTo(file)
+                DomainRSDTO domain = domainService.getConfig(CustomDomainResolver.domain)
+                String amazonLogoUrl = amazonFileService.uploadDomainLogo(file, domain.domain)
+                String zipFileUrlRaw = faviconService.sendIcon(amazonLogoUrl)
+//                String zipFileUrlRaw = "https://realfavicongenerator.net/files/9d1c01a5d5ca89af2c6db38ebf0ec2fdb9e7dd9f/favicon_package_v0.16.zip"
+
+                try {
+                    RESTClient http = new RESTClient('https://realfavicongenerator.net/files')
+                    http.ignoreSSLIssues()
+                    def response = http.get(path:zipFileUrlRaw,
+                            headers: ["User-Agent": "Kuorum Web"],
+                            query:[:])
+                    final ByteArrayInputStream responseStream = (ByteArrayInputStream) response.data
+                    IOUtils.copy(responseStream, new FileOutputStream("/tmp/favicon.zip"));
+//                    java.nio.file.Files.copy(responseStream,fileZip.getPath(),StandardCopyOption.REPLACE_EXISTING);
+                    responseStream.close()
+//                    URL zipFileUrl = new URL(zipFileUrlRaw);
+//                    FileUtils.copyURLToFile(zipFileUrl, fileZip)
+                }catch (Exception e){
+                    log.error(e)
+
+                    //TODO: HANDLE ERROR
+                }
+//                unzipService.unzipFile("/tmp/favicon.zip","/home/guille/Escritorio/favicon")
+//                String tempFolder = temp;
+                unzipService.unzipFile(fileZip,temp)
+
+                List<File> files = Arrays.asList(temp.toFile().listFiles());
+//                List<File> files = Arrays.asList(tempFiles.listFiles());
+                for (File f : files) {
+                    amazonFileService.uploadDomainFaviconFile(f, domain.domain)
+                }
+                flash.message = message(code: 'admin.menu.domainConfig.uploadLogo.success')
+            } else {
+                flash.message = message(code: 'admin.menu.domainConfig.uploadLogo.unsuccess')
+            }
+            redirect mapping: 'adminDomainConfig'
+        }
+        catch (Exception e) {
+            log.error("Your exception message goes here", e)
+        }
+//        redirect mapping: 'adminDomainConfig'
+    }
+
     @Secured(['ROLE_ADMIN', 'ROLE_SUPER_ADMIN'])
     def solrIndex(){
     }
@@ -116,14 +220,14 @@ class AdminController {
         command.user = user
         command.active = user.enabled
         command.relevance = kuorumUserService.getUserRelevance(user)
-        [command:command]
+        [command: command]
     }
 
     @Secured(['ROLE_SUPER_ADMIN'])
-    def updateUserRights( KuorumUserRightsCommand command){
+    def updateUserRights(KuorumUserRightsCommand command) {
 
-        if (command.hasErrors()){
-            render view:"editUserRights", model:[command:command]
+        if (command.hasErrors()) {
+            render view: "editUserRights", model: [command: command]
             return
         }
         KuorumUser user = command.user
@@ -133,14 +237,14 @@ class AdminController {
         }
         user = kuorumUserService.updateUser(user);
 
-        flash.message =message(code:'admin.editUser.success', args: [user.name])
+        flash.message = message(code: 'admin.editUser.success', args: [user.name])
 
-        redirect(mapping:'editorAdminUserRights', params:user.encodeAsLinkProperties())
+        redirect(mapping: 'editorAdminUserRights', params: user.encodeAsLinkProperties())
     }
 
     @Secured(['ROLE_SUPER_ADMIN'])
     @Deprecated
-    def editUserEmailSender(String userAlias){
+    def editUserEmailSender(String userAlias) {
         Boolean requestState;
         KuorumUser user = kuorumUserService.findByAlias(userAlias)
         KuorumUserEmailSenderCommand command = new KuorumUserEmailSenderCommand()
@@ -149,21 +253,21 @@ class AdminController {
         command.emailSender = configRSDTO.getEmailSender();
         requestState = configRSDTO.getEmailSenderRequested();
         [
-                command: command,
+                command     : command,
                 requestState: requestState
         ]
     }
 
     @Secured(['ROLE_SUPER_ADMIN'])
     @Deprecated
-    def updateUserEmailSender(KuorumUserEmailSenderCommand command){
+    def updateUserEmailSender(KuorumUserEmailSenderCommand command) {
         KuorumUser user = command.user;
         AdminConfigMailingRDTO adminRDTO = new AdminConfigMailingRDTO();
         adminRDTO.setEmailSender(command.emailSender);
 
         newsletterService.updateNewsletterConfig(user, adminRDTO);
 
-        redirect(mapping:'editorAdminEmailSender', params:user.encodeAsLinkProperties())
+        redirect(mapping: 'editorAdminEmailSender', params: user.encodeAsLinkProperties())
     }
 
 }

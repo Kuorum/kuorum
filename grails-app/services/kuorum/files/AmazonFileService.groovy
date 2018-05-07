@@ -155,6 +155,95 @@ class AmazonFileService extends LocalFileService{
         }
     }
 
+    String uploadDomainLogo(File file, String domain){
+        String keyName    = "${DOMAIN_PATH}/${domain}/${DOMAIN_CUSTOM_LOGO_FILE}"
+        String urlLogo = uploadFileToAmazon(file, "image/png", keyName)
+        return urlLogo
+    }
+    String uploadDomainFaviconFile(File file, String domain){
+        String keyName    = "${DOMAIN_PATH}/${domain}/${DOMAIN_CUSTOM_FAVICON_FOLDER}/${file.name}"
+        String contentType = file.name=='favicon.ico'?"image/x-icon":"image/png"
+        String urlLogo = uploadFileToAmazon(file, contentType, keyName)
+        return urlLogo
+    }
+
+    private String uploadFileToAmazon(File file, String contentType, String key){
+        String accessKey = grailsApplication.config.kuorum.amazon.accessKey
+        String secretKey = grailsApplication.config.kuorum.amazon.secretKey
+        String bucketName = grailsApplication.config.kuorum.amazon.bucketName;
+        String keyName    = key
+
+        AWSCredentials credentials = new BasicAWSCredentials(accessKey,secretKey);
+
+        AmazonS3 s3Client = new AmazonS3Client(credentials);
+
+
+        // Create a list of UploadPartResponse objects. You get one of these for each part upload.
+        List<PartETag> partETags = new ArrayList<PartETag>();
+
+
+        long contentLength = file.length();
+        long partSize = UPLOAD_PART_SIZE;
+
+        // Step 1: Initialize.
+        InitiateMultipartUploadRequest initRequest = new InitiateMultipartUploadRequest(bucketName, keyName);
+        initRequest.putCustomRequestHeader("Cache-Control", "max-age=${3600*24*30}") // 30 days = 2592000 secs
+        initRequest.putCustomRequestHeader("Expires", "Thu, 15 Apr 2050 00:00:00 GMT")
+        ObjectMetadata metadata = new ObjectMetadata();
+//        metadata.setContentEncoding("gzip");
+//        metadata.setContentType("text/css");
+        metadata.setContentType(contentType);
+        metadata.setLastModified(new Date())
+
+        initRequest.setObjectMetadata(metadata)
+
+        InitiateMultipartUploadResult initResponse = s3Client.initiateMultipartUpload(initRequest);
+
+
+
+        try {
+            // Step 2: Upload parts.
+            long filePosition = 0;
+            for (int i = 1; filePosition < contentLength; i++) {
+                // Last part can be less than 5 MB. Adjust part size.
+                partSize = Math.min(partSize, (contentLength - filePosition));
+
+                // Create request to upload a part.
+                UploadPartRequest uploadRequest = new UploadPartRequest()
+                        .withBucketName(bucketName)
+                        .withKey(keyName)
+                        .withUploadId(initResponse.getUploadId())
+                        .withPartNumber(i)
+                        .withFileOffset(filePosition)
+                        .withFile(file)
+                        .withPartSize(partSize);
+
+                // Upload part and add response to our list.
+                partETags.add(s3Client.uploadPart(uploadRequest).getPartETag());
+
+                filePosition += partSize;
+            }
+
+            // Step 3: Complete.
+            CompleteMultipartUploadRequest compRequest = new
+                    CompleteMultipartUploadRequest(
+                    bucketName,
+                    keyName,
+                    initResponse.getUploadId(),
+                    partETags);
+
+            CompleteMultipartUploadResult uploadResult = s3Client.completeMultipartUpload(compRequest);
+            String finalUrl = uploadResult.getLocation().replaceAll("%2F", "/")
+
+            log.info("Se ha subido el nuevo Logo del dominio")
+            return finalUrl;
+        } catch (Exception e) {
+            s3Client.abortMultipartUpload(new AbortMultipartUploadRequest(bucketName, keyName, initResponse.getUploadId()));
+            log.error("Ha habido un error subiendo el fichero a Amazon.",e);
+            return null;
+        }
+    }
+
     protected KuorumFile postProcessCroppingImage(KuorumFile  kuorumFile){
         deleteAmazonFile(kuorumFile, true)
         uploadAmazonFile(kuorumFile, true)
@@ -207,77 +296,8 @@ class AmazonFileService extends LocalFileService{
     }
 
     void uploadDomainCss(File file, String domain){
-        String accessKey = grailsApplication.config.kuorum.amazon.accessKey
-        String secretKey = grailsApplication.config.kuorum.amazon.secretKey
-        String bucketName = grailsApplication.config.kuorum.amazon.bucketName;
         String keyName    = "${DOMAIN_PATH}/${domain}/${DOMAIN_CUSTOM_CSS_FILE}"
-
-        AWSCredentials credentials = new BasicAWSCredentials(accessKey,secretKey);
-
-        AmazonS3 s3Client = new AmazonS3Client(credentials);
-
-
-        // Create a list of UploadPartResponse objects. You get one of these for each part upload.
-        List<PartETag> partETags = new ArrayList<PartETag>();
-
-
-        long contentLength = file.length();
-        long partSize = UPLOAD_PART_SIZE;
-
-        // Step 1: Initialize.
-        InitiateMultipartUploadRequest initRequest = new InitiateMultipartUploadRequest(bucketName, keyName);
-        initRequest.putCustomRequestHeader("Cache-Control", "max-age=${3600*24*30}") // 30 days = 2592000 secs
-        initRequest.putCustomRequestHeader("Expires", "Thu, 15 Apr 2050 00:00:00 GMT")
-        ObjectMetadata metadata = new ObjectMetadata();
-//        metadata.setContentEncoding("gzip");
-        metadata.setContentType("text/css");
-        metadata.setLastModified(new Date())
-
-        initRequest.setObjectMetadata(metadata)
-
-        InitiateMultipartUploadResult initResponse = s3Client.initiateMultipartUpload(initRequest);
-
-
-
-        try {
-            // Step 2: Upload parts.
-            long filePosition = 0;
-            for (int i = 1; filePosition < contentLength; i++) {
-                // Last part can be less than 5 MB. Adjust part size.
-                partSize = Math.min(partSize, (contentLength - filePosition));
-
-                // Create request to upload a part.
-                UploadPartRequest uploadRequest = new UploadPartRequest()
-                        .withBucketName(bucketName)
-                        .withKey(keyName)
-                        .withUploadId(initResponse.getUploadId())
-                        .withPartNumber(i)
-                        .withFileOffset(filePosition)
-                        .withFile(file)
-                        .withPartSize(partSize);
-
-                // Upload part and add response to our list.
-                partETags.add(s3Client.uploadPart(uploadRequest).getPartETag());
-
-                filePosition += partSize;
-            }
-
-            // Step 3: Complete.
-            CompleteMultipartUploadRequest compRequest = new
-                    CompleteMultipartUploadRequest(
-                    bucketName,
-                    keyName,
-                    initResponse.getUploadId(),
-                    partETags);
-
-            CompleteMultipartUploadResult uploadResult = s3Client.completeMultipartUpload(compRequest);
-            String finalUrl = uploadResult.getLocation().replaceAll("%2F", "/")
-
-            log.info("Se ha subido el nuevo CSS del dominio ${domain}: ${finalUrl}")
-        } catch (Exception e) {
-            s3Client.abortMultipartUpload(new AbortMultipartUploadRequest(bucketName, keyName, initResponse.getUploadId()));
-            log.error("Ha habido un error subiendo el fichero a Amazon.",e);
-        }
+        uploadFileToAmazon(file, "text/css", keyName)
     }
 
 
@@ -285,6 +305,7 @@ class AmazonFileService extends LocalFileService{
     private String DOMAIN_PATH = "domains"
     private String DOMAIN_CUSTOM_CSS_FILE = "custom.css"
     private String DOMAIN_CUSTOM_LOGO_FILE = "logo.png"
+    private String DOMAIN_CUSTOM_FAVICON_FOLDER = "favicon"
     String getDomainCssUrl(String domain){
         buildAmazonDomainUrl(domain, DOMAIN_CUSTOM_CSS_FILE)
     }
