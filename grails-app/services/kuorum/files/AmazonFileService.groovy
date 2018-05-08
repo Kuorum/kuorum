@@ -236,7 +236,7 @@ class AmazonFileService extends LocalFileService{
             CompleteMultipartUploadResult uploadResult = s3Client.completeMultipartUpload(compRequest);
             String finalUrl = uploadResult.getLocation().replaceAll("%2F", "/")
 
-            log.info("Se ha subido el nuevo Logo del dominio")
+//            log.info("Se ha subido el nuevo archivo del dominio")
             return finalUrl;
         } catch (Exception e) {
             s3Client.abortMultipartUpload(new AbortMultipartUploadRequest(bucketName, keyName, initResponse.getUploadId()));
