@@ -39,12 +39,6 @@ class AdminController {
 
     FileService fileService
 
-//    AmazonFileService amazonFileService;
-//
-//    FaviconService faviconService
-//
-//    UnzipService unzipService
-
     DomainResourcesService domainResourcesService
 
 
@@ -143,7 +137,6 @@ class AdminController {
         CommonsMultipartFile customLogo = request.getFile('logo')
         try {
             if (customLogo && !customLogo.empty) {
-
                 domainResourcesService.uploadLogoFile(customLogo.getInputStream())
                 flash.message = message(code: 'admin.menu.domainConfig.uploadLogo.success')
             } else {
@@ -153,52 +146,6 @@ class AdminController {
         }catch (Exception e) {
             log.error(e)
         }
-//        try {
-//            if (customLogo && !customLogo.empty) {
-//                //Añadir carpeta temporal para manejo de archivos
-//                Path temp = Files.createTempDirectory("logoTemp");
-//                File file = new File("/${temp}/logo.png")
-//                File fileZip = new File("/${temp}/favicon.zip")
-////                Path temp = Files.createTempDirectory("favicon");
-////                File temp = File.createTempFile("temp", Long.toString(System.nanoTime()));
-//                customLogo.transferTo(file)
-//                DomainRSDTO domain = domainService.getConfig(CustomDomainResolver.domain)
-//                String amazonLogoUrl = amazonFileService.uploadDomainLogo(file, domain.domain)
-//                String zipFileUrlRaw = faviconService.sendIcon(amazonLogoUrl)
-//
-//                try {
-//                    RESTClient http = new RESTClient('https://realfavicongenerator.net/files')
-//                    http.ignoreSSLIssues()
-//                    def response = http.get(path:zipFileUrlRaw,
-//                            headers: ["User-Agent": "Kuorum Web"],
-//                            query:[:])
-//                    final ByteArrayInputStream responseStream = (ByteArrayInputStream) response.data
-//                    IOUtils.copy(responseStream, new FileOutputStream(fileZip));
-//                    responseStream.close()
-//                }catch (Exception e){
-//                    log.error(e)
-//
-//                    //TODO: HANDLE ERROR
-//                }
-////                unzipService.unzipFile("/tmp/favicon.zip","/home/guille/Escritorio/favicon")
-////                String tempFolder = temp;
-//                unzipService.unzipFile(fileZip,temp)
-//
-//                List<File> files = Arrays.asList(temp.toFile().listFiles());
-////                List<File> files = Arrays.asList(tempFiles.listFiles());
-//                for (File f : files) {
-//                    amazonFileService.uploadDomainFaviconFile(f, domain.domain)
-//                }
-//                flash.message = message(code: 'admin.menu.domainConfig.uploadLogo.success')
-//            } else {
-//                flash.message = message(code: 'admin.menu.domainConfig.uploadLogo.unsuccess')
-//            }
-//            redirect mapping: 'adminDomainConfig'
-//        }
-//        catch (Exception e) {
-//            log.error("Your exception message goes here", e)
-//        }
-//        redirect mapping: 'adminDomainConfig'
     }
 
     @Secured(['ROLE_ADMIN', 'ROLE_SUPER_ADMIN'])

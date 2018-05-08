@@ -158,6 +158,7 @@ class AmazonFileService extends LocalFileService{
     String uploadDomainLogo(File file, String domain){
         String keyName    = "${DOMAIN_PATH}/${domain}/${DOMAIN_CUSTOM_LOGO_FILE}"
         String urlLogo = uploadFileToAmazon(file, "image/png", keyName)
+        log.info("Se ha subido un nuevo Logo del dominio")
         return urlLogo
     }
 
