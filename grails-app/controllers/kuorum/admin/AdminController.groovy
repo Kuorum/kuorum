@@ -165,10 +165,7 @@ class AdminController {
                             query:[:])
                     final ByteArrayInputStream responseStream = (ByteArrayInputStream) response.data
                     IOUtils.copy(responseStream, new FileOutputStream("/tmp/favicon.zip"));
-//                    java.nio.file.Files.copy(responseStream,fileZip.getPath(),StandardCopyOption.REPLACE_EXISTING);
                     responseStream.close()
-//                    URL zipFileUrl = new URL(zipFileUrlRaw);
-//                    FileUtils.copyURLToFile(zipFileUrl, fileZip)
                 }catch (Exception e){
                     log.error(e)
 

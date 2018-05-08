@@ -160,6 +160,7 @@ class AmazonFileService extends LocalFileService{
         String urlLogo = uploadFileToAmazon(file, "image/png", keyName)
         return urlLogo
     }
+
     String uploadDomainFaviconFile(File file, String domain){
         String keyName    = "${DOMAIN_PATH}/${domain}/${DOMAIN_CUSTOM_FAVICON_FOLDER}/${file.name}"
         String contentType = file.name=='favicon.ico'?"image/x-icon":"image/png"
