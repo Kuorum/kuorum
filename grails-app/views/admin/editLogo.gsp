@@ -17,12 +17,15 @@
 
     <g:uploadForm action="uploadLogo">
         <div class="input-group">
-            <label class="input-group-btn">
-                <span class="btn btn-primary">Select file
+            <label class="input logo">
+                <form>
+                <span class="btn upload btn-primary">Select file
                     <input type="file" style="display: none;" name="logo" accept="image/*">
                 </span>
+                </form>
             </label>
             <button type="submit" class="btn btn-primary">Send <i class="fa fa-cloud-upload fa-2" aria-hidden="true"></i></button>
+            %{--<button type="submit" class="btn btn-primary" id="load" data-loading-text=<i class="'fa fa-circle-o-notch fa-spin'></i> Processing Order">Send <i class="fa fa-cloud-upload fa-2" aria-hidden="true"></i></button>--}%
         </div>
     </g:uploadForm>
 

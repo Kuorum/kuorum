@@ -59,7 +59,7 @@ class DomainResourcesService {
             temp.toAbsolutePath().deleteDir()
         }
         catch (Exception e) {
-            log.error("Your exception message goes here", e)
+            log.error("Ha fallado la subida del logo", e)
         }
     }
 }
