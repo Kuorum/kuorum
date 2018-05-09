@@ -5,7 +5,6 @@ import groovyx.net.http.RESTClient
 import org.apache.commons.io.IOUtils
 import org.kuorum.rest.model.domain.DomainRSDTO
 
-import java.nio.file.Files
 import java.nio.file.Path
 
 @Transactional
@@ -17,7 +16,13 @@ class FaviconService {
     def grailsApplication
 
     void createFavicon (String domainLogoUrl, Path temp, DomainRSDTO domain){
+        String zipFileUrl = getFaviconResourcesZipUrl(domainLogoUrl, domain)
+        File fileZip = downloadFaviconZip(zipFileUrl,temp)
+        Path tempFaviconFolder = domainResourcesService.unzipFile(fileZip, temp)
+        uploadFaviconFiles(tempFaviconFolder, domain)
+    }
 
+    private String getFaviconResourcesZipUrl(String domainLogoUrl, DomainRSDTO domain){
         RESTClient http = new RESTClient('https://realfavicongenerator.net/api')
         http.ignoreSSLIssues()
         String uri = 'https://realfavicongenerator.net/api/favicon'
@@ -27,18 +32,15 @@ class FaviconService {
                 headers: ["User-Agent": "Kuorum Web"],
                 query:[:],
                 body:  bodyParams,
-
-
                 requestContentType : groovyx.net.http.ContentType.JSON
         )
         response;
-
-
-
-
         String zipFileUrlRaw = response.data.favicon_generation_result.favicon.package_url;
+        return zipFileUrlRaw
+    }
+
+    private File downloadFaviconZip(String zipFileUrlRaw, Path temp){
         File fileZip = new File("/${temp}/favicon.zip")
-        Path tempFavicon = Files.createTempDirectory(temp, "faviconTemp");
         try {
             RESTClient httpZip = new RESTClient('https://realfavicongenerator.net/files')
             httpZip.ignoreSSLIssues()
@@ -50,17 +52,18 @@ class FaviconService {
             responseStream.close()
         } catch (Exception e) {
             log.error(e)
+            fileZip = null;
             //TODO: HANDLE ERROR
         }
+        return fileZip;
+    }
 
-        domainResourcesService.unzipFile(fileZip, tempFavicon)
-
+    private void uploadFaviconFiles(Path tempFavicon, DomainRSDTO domain){
         List<File> files = Arrays.asList(tempFavicon.toFile().listFiles());
         for (File f : files) {
             amazonFileService.uploadDomainFaviconFile(f, domain.domain)
             log.info("Se ha subido un nuevo favicon del dominio")
         }
-        temp.toAbsolutePath().deleteDir()
     }
 
     private def buildBodyParams(String domainLogoUrl, DomainRSDTO domain) {
@@ -87,7 +90,6 @@ class FaviconService {
                                                         "type": "url",
                                                         "url": domainLogoUrl
                                                 ],
-//                                        "background_color": "#ffffff"
                                         ],
                                         "assets": [
                                                 "ios6_and_prior_icons": false,
@@ -98,7 +100,7 @@ class FaviconService {
                                 ],
                                 "windows": [
                                         "picture_aspect": "white_silhouette",
-                                        "background_color": "#00aba9",
+                                        "background_color": domain.getSecondaryColor(),
                                         "assets": [
                                                 "windows_80_ie_10_tile": true,
                                                 "windows_10_ie_11_edge_tiles": [
@@ -113,22 +115,23 @@ class FaviconService {
                                         "picture_aspect": "circle",
                                         "keep_picture_in_circle": "true",
                                         "circle_inner_margin": "5",
-                                        "background_color": "#ffffff",
+                                        "background_color": domain.getSecondaryColor(),
                                         "manifest": [
-                                                "app_name": "My sample app",
-                                                "app_description": "Yet another sample application",
-                                                "developer_name": "Philippe Bernard",
-                                                "developer_url": "http://stackoverflow.com/users/499917/philippe-b"
+                                                "app_name": domain.name,
+                                                "app_description": domain.slogan,
+                                                "developer_name": "Kuorum S.L.",
+                                                "developer_url": "https://kuorum.org"
                                         ]
                                 ],
                                 "android_chrome": [
                                         "picture_aspect": "shadow",
+                                        "background_color": domain.getSecondaryColor(),
                                         "manifest": [
-                                                "name": "My sample app",
+                                                "name": domain.name,
                                                 "display": "standalone",
                                                 "orientation": "portrait",
-                                                "start_url": "/homepage.html",
-                                                "existing_manifest": "{\"name\": \"Yet another app\"}"
+                                                "start_url": "/",
+                                                "existing_manifest": ""
                                         ],
                                         "assets": [
                                                 "legacy_icon": true,
@@ -138,22 +141,22 @@ class FaviconService {
                                 ],
                                 "safari_pinned_tab": [
                                         "picture_aspect": "black_and_white",
-                                        "threshold": 60
-                                        //                                "theme_color": "#ffffff"
+                                        "threshold": 60,
+                                        "theme_color": "#ffffff"
                                 ],
                                 "coast": [
                                         "picture_aspect": "background_and_margin",
-                                        "background_color": "#ffffff",
+                                        "background_color": domain.getSecondaryColor(),
                                         "margin": "12%"
                                 ],
                                 "open_graph": [
                                         "picture_aspect": "background_and_margin",
-                                        //                                "background_color": "#ffffff",
+                                        "background_color": domain.getSecondaryColor(),
                                         "margin": "12%",
                                         "ratio": "1.91:1"
                                 ],
                                 "yandex_browser": [
-                                        //                                "background_color": "background_color",
+                                        "background_color": domain.getSecondaryColor(),
                                         "manifest": [
                                                 "show_title": true,
                                                 "version": "1.0"

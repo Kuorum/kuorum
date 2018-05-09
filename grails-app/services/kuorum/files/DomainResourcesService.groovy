@@ -17,7 +17,8 @@ class DomainResourcesService {
     AmazonFileService amazonFileService
     FaviconService faviconService
 
-    private void unzipFile(File zipFile, Path outputFolder) {
+    Path unzipFile(File zipFile, Path temp) {
+        Path outputFolder = Files.createTempDirectory(temp, "faviconTemp");
         byte[] buffer = new byte[1024];
         try{
             ZipInputStream zis =
@@ -42,6 +43,7 @@ class DomainResourcesService {
         }catch(IOException ex){
             ex.printStackTrace();
         }
+        return outputFolder;
     }
 
 
@@ -54,6 +56,7 @@ class DomainResourcesService {
             DomainRSDTO domain = domainService.getConfig(CustomDomainResolver.domain)
             String amazonLogoUrl = amazonFileService.uploadDomainLogo(logoFile, domain.domain)
             faviconService.createFavicon(amazonLogoUrl, temp, domain)
+            temp.toAbsolutePath().deleteDir()
         }
         catch (Exception e) {
             log.error("Your exception message goes here", e)

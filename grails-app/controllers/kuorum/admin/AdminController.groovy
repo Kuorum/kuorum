@@ -140,7 +140,7 @@ class AdminController {
                 domainResourcesService.uploadLogoFile(customLogo.getInputStream())
                 flash.message = message(code: 'admin.menu.domainConfig.uploadLogo.success')
             } else {
-                flash.message = message(code: 'admin.menu.domainConfig.uploadLogo.unsuccess')
+                flash.error = message(code: 'admin.menu.domainConfig.uploadLogo.unsuccess')
             }
             redirect mapping: 'adminDomainConfig'
         }catch (Exception e) {
