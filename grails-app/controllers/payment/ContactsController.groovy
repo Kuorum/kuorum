@@ -489,6 +489,11 @@ class ContactsController {
         user.save()
     }
 
+    def importError(){
+        flash.error="Error recovering contacts"
+        redirect(mapping:'politicianContactImport')
+    }
+
 
 
     /* UNSUBSCRIBE */

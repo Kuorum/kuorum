@@ -1,12 +1,17 @@
 package kuorum
 
+import grails.plugin.springsecurity.SpringSecurityService
 import org.kuorum.rest.model.contact.ContactRSDTO
+import payment.contact.ContactService
 
 class ContactTagLib {
     static defaultEncodeAs = [taglib: 'raw']
     //static encodeAsForTags = [tagName: [taglib:'html'], otherTagName: [taglib:'none']]
 
     static namespace = "contactUtil"
+
+    ContactService contactService
+    SpringSecurityService springSecurityService
 
     def engagement = {attrs ->
         ContactRSDTO contact = attrs.concat
@@ -72,5 +77,14 @@ class ContactTagLib {
         }
         out << "<span class='raw-email'>${contact.email}</span>"
 
+    }
+
+    def importSocialContact= { attrs, body ->
+        String provider = attrs.provider
+        String userId = springSecurityService.currentUser.id.toString()
+        String url = contactService.getSocialImportContactUrl(userId, provider);
+        out << "<a href='${url}' id='${provider}' provider='${provider}' role='button' class='actionIcon'>"
+        out << body()
+        out << "</a>"
     }
 }

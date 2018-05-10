@@ -170,6 +170,7 @@ class RestKuorumApiService {
         USER_CONTACT_FOLLOWER   ("/contacts/{userId}/follower"),
         USER_CONTACT_SUBSCRIBE  ("/contacts/{userId}/suscribe"),
         USER_CONTACT_REPORT     ("/contacts/{userId}/report"),
+        USER_CONTACT_SOCIAL_IMPORT("/contacts/social/{provider}/request"),
 
         CAUSE_OPERATIONS        ("/cause/{causeName}"),
         CAUSE_USERS_SUPPORTING  ("/cause/{causeName}/supporting"),

@@ -335,4 +335,17 @@ class ContactService {
                 null)
     }
 
+
+    String getSocialImportContactUrl(String userId, String provider){
+        Map<String, String> params = [provider:provider]
+        Map<String, String> query = [userId:userId]
+
+        def response= restKuorumApiService.get(
+                RestKuorumApiService.ApiMethod.USER_CONTACT_SOCIAL_IMPORT,
+                params,
+                query,
+                new TypeReference<String>(){})
+        return ((StringReader)response.data).str
+    }
+
 }
