@@ -24,19 +24,7 @@
                 </span>
                 </form>
             </label>
-            <button type="submit" class="btn btn-primary">Send <i class="fa fa-cloud-upload fa-2" aria-hidden="true"></i></button>
-            %{--<button type="submit" class="btn btn-primary" id="load" data-loading-text=<i class="'fa fa-circle-o-notch fa-spin'></i> Processing Order">Send <i class="fa fa-cloud-upload fa-2" aria-hidden="true"></i></button>--}%
+            <button type="submit" class="btn btn-primary" onclick="pageLoadingOn('submitLogo')">Send <i class="fa fa-cloud-upload fa-2" aria-hidden="true"></i></button>
         </div>
     </g:uploadForm>
-
-    %{--<form>--}%
-        %{--<span><i class="fa fa-cloud-upload fa-2" aria-hidden="true"></i></span>--}%
-        %{--<input class="btn btn-lg" type="file" name="pic" accept="image/*">--}%
-        %{--<input type="submit">--}%
-    %{--</form>--}%
-
-    %{--<formUtil:validateForm form="domainConfigForm" bean="${command}" dirtyControl="true"/>--}%
-    %{--<g:form method="POST" mapping="adminDomainConfig" name="domainConfigForm" role="form">--}%
-        %{--<g:render template="domainConfigForm" model="[command:command]"/>--}%
-    %{--</g:form>--}%
 </content>
