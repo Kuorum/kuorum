@@ -1555,7 +1555,7 @@ ul.list > li > ul.list-actions > li > a:active {color: #20a2ea;}
 .actionIcons li > a:hover, 
 .actionIcons li > a:focus, 
 .actionIcons li > a:active {text-decoration: none; background-color: #fbfbfb;}
-.actionIcons li > #gmail {background-image: url('../images/mail-gmail.png'); background-position: center 15px;margin-bottom: auto}
+.actionIcons li > #google {background-image: url('../images/mail-gmail.png'); background-position: center 15px;margin-bottom: auto}
 .actionIcons li > #yahoo {background-image: url('../images/mail-yahoo.png'); background-position: center 25px;}
 .actionIcons li > #outlook {background-image: url('../images/mail-outlook.png'); background-position: center 15px;}
 .actionIcons li > #uploadCsv {padding-top:16px;}
