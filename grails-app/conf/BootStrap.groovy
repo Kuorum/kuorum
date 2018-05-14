@@ -6,6 +6,8 @@ import kuorum.domain.DomainService
 import kuorum.files.LessCompilerService
 import org.kuorum.rest.model.domain.DomainRSDTO
 
+import java.security.KeyStore
+
 class BootStrap {
 
     def grailsApplication
@@ -24,6 +26,10 @@ class BootStrap {
         List<DomainRSDTO> domains = domainService.findAllDomains()
         domains.each {lessCompilerService.compileCssForDomain(it)}
         CustomDomainResolver.clear()
+
+        KeyStore ks = KeyStore.getInstance("JKS");
+        FileInputStream certFile = new FileInputStream("/usr/lib/jvm/java-8-oracle/jre/lib/security/cacerts");
+        ks.load(certFile, "changeit".toCharArray());
 
         //TODO: Think where this initialization could be called instead of bootstrap
         grailsApplication.domainClasses.each { domainClass ->

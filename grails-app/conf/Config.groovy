@@ -328,6 +328,9 @@ kuorum {
 //        apiPath = "/kuorumRest/api"
         apiKey = "XXXX"
     }
+    favicon{
+        key = "XXXXXXX"
+    }
 }
 
 //Added for date bindings

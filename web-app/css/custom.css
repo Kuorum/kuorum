@@ -716,6 +716,11 @@ header.transp #search-form .open-filter {background-color: rgba(219,219,219,0.4)
     color: #fff !important;
 }
 
+.btn.upload{
+    padding-right: 10px;
+    padding-bottom: 15px;
+}
+
 .btn-circle {
     width: 30px;
     height: 30px;
@@ -752,7 +757,6 @@ header.transp #search-form .open-filter {background-color: rgba(219,219,219,0.4)
 .btn.btn-transparent:hover{
     background-color: #EEE !important;
 }
-
 
 .btn.btn-green {
     background-color: #87ca47 !important;
@@ -9633,6 +9637,13 @@ ul.notification-menu > li.see-more {
 
 .input-group-btn {
     position: relative;
+}
+
+.input.logo {
+    padding-right: 10px;
+    padding-bottom: 15px;
+    position: relative;
+    border-radius: 10px;
 }
 
 .croppie-img {

@@ -3,6 +3,8 @@ package kuorum.admin
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.domain.DomainService
+import kuorum.files.DomainResourcesService
+import kuorum.files.FileService
 import kuorum.mail.KuorumMailAccountService
 import kuorum.mail.MailchimpService
 import kuorum.register.RegisterService
@@ -16,6 +18,7 @@ import org.kuorum.rest.model.domain.DomainRDTO
 import org.kuorum.rest.model.domain.DomainRSDTO
 import org.kuorum.rest.model.domain.SocialRDTO
 import org.kuorum.rest.model.notification.campaign.config.NewsletterConfigRSDTO
+import org.springframework.web.multipart.commons.CommonsMultipartFile
 import payment.campaign.NewsletterService
 
 @Secured(['ROLE_ADMIN'])
@@ -33,6 +36,11 @@ class AdminController {
     DomainService domainService
 
     RegisterService registerService
+
+    FileService fileService
+
+    DomainResourcesService domainResourcesService
+
 
 //    def afterInterceptor = [action: this.&prepareMenuData]
 //    protected prepareMenuData = {model, modelAndView ->
@@ -91,6 +99,55 @@ class AdminController {
         redirect mapping:'adminDomainConfig'
     }
 
+
+    def editLogo() {
+//        redirect mapping:'adminDomainConfigUploadLogo'
+//        DomainRDTO domainRDTO = new DomainRDTO()
+//        EditLogoCommand command = new EditLogoCommand(domainRDTO)
+//        EditProfilePicturesCommand command = new EditProfilePicturesCommand(user)
+//        [command: command]
+    }
+
+//    def updateLogo(EditLogoCommand command){
+//        DomainRDTO domainRDTO = new DomainRDTO()
+////        if (command.hasErrors()){
+////            render view:"editLogo", model: [command:command,domainRDTO:domainRDTO]
+////            return
+////        }
+//        prepareDomainLogo(domainRDTO,command, fileService)
+//        domainService.updateConfig(domainRDTO)
+//        flash.message=message(code:'admin.menu.domainConfig.uploadLogo.success')
+//        redirect mapping:'adminDomainConfigUploadLogo'
+//
+////        KuorumUser user = params.user
+////        if (command.hasErrors()){
+////            render view:"editPictures", model: [command:command,user:user]
+////            return
+////        }
+////        prepareUserImages(user,command, fileService)
+//        kuorumUserService.updateUser(user)
+////        flash.message=message(code:'profile.editUser.success')
+////        redirect mapping:'profilePictures'
+//
+//    }
+
+
+    def uploadLogo() {
+
+        CommonsMultipartFile customLogo = request.getFile('logo')
+        try {
+            if (customLogo && !customLogo.empty) {
+                domainResourcesService.uploadLogoFile(customLogo.getInputStream())
+                flash.message = message(code: 'admin.menu.domainConfig.uploadLogo.success')
+            } else {
+                flash.error = message(code: 'admin.menu.domainConfig.uploadLogo.unsuccess')
+            }
+            redirect mapping: 'adminDomainConfig'
+        }catch (Exception e) {
+            log.error(e)
+        }
+    }
+
     @Secured(['ROLE_ADMIN', 'ROLE_SUPER_ADMIN'])
     def solrIndex(){
     }
@@ -116,14 +173,14 @@ class AdminController {
         command.user = user
         command.active = user.enabled
         command.relevance = kuorumUserService.getUserRelevance(user)
-        [command:command]
+        [command: command]
     }
 
     @Secured(['ROLE_SUPER_ADMIN'])
-    def updateUserRights( KuorumUserRightsCommand command){
+    def updateUserRights(KuorumUserRightsCommand command) {
 
-        if (command.hasErrors()){
-            render view:"editUserRights", model:[command:command]
+        if (command.hasErrors()) {
+            render view: "editUserRights", model: [command: command]
             return
         }
         KuorumUser user = command.user
@@ -133,14 +190,14 @@ class AdminController {
         }
         user = kuorumUserService.updateUser(user);
 
-        flash.message =message(code:'admin.editUser.success', args: [user.name])
+        flash.message = message(code: 'admin.editUser.success', args: [user.name])
 
-        redirect(mapping:'editorAdminUserRights', params:user.encodeAsLinkProperties())
+        redirect(mapping: 'editorAdminUserRights', params: user.encodeAsLinkProperties())
     }
 
     @Secured(['ROLE_SUPER_ADMIN'])
     @Deprecated
-    def editUserEmailSender(String userAlias){
+    def editUserEmailSender(String userAlias) {
         Boolean requestState;
         KuorumUser user = kuorumUserService.findByAlias(userAlias)
         KuorumUserEmailSenderCommand command = new KuorumUserEmailSenderCommand()
@@ -149,21 +206,21 @@ class AdminController {
         command.emailSender = configRSDTO.getEmailSender();
         requestState = configRSDTO.getEmailSenderRequested();
         [
-                command: command,
+                command     : command,
                 requestState: requestState
         ]
     }
 
     @Secured(['ROLE_SUPER_ADMIN'])
     @Deprecated
-    def updateUserEmailSender(KuorumUserEmailSenderCommand command){
+    def updateUserEmailSender(KuorumUserEmailSenderCommand command) {
         KuorumUser user = command.user;
         AdminConfigMailingRDTO adminRDTO = new AdminConfigMailingRDTO();
         adminRDTO.setEmailSender(command.emailSender);
 
         newsletterService.updateNewsletterConfig(user, adminRDTO);
 
-        redirect(mapping:'editorAdminEmailSender', params:user.encodeAsLinkProperties())
+        redirect(mapping: 'editorAdminEmailSender', params: user.encodeAsLinkProperties())
     }
 
 }
