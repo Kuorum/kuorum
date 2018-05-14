@@ -27,14 +27,14 @@ class BootStrap {
         domains.each {lessCompilerService.compileCssForDomain(it)}
         CustomDomainResolver.clear()
 
-        KeyStore ks = KeyStore.getInstance("JKS");
-        FileInputStream certFile = new FileInputStream("/usr/lib/jvm/java-8-oracle/jre/lib/security/cacerts");
-        ks.load(certFile, "changeit".toCharArray());
+//        KeyStore ks = KeyStore.getInstance("JKS");
+//        FileInputStream certFile = new FileInputStream("/usr/lib/jvm/java-8-oracle/jre/lib/security/cacerts");
+//        ks.load(certFile, "changeit".toCharArray());
 
         //TODO: Think where this initialization could be called instead of bootstrap
         grailsApplication.domainClasses.each { domainClass ->
             if (MongoUpdatable in domainClass.clazz.declaredAnnotations*.annotationType()){
-                // Class has de annotation MongoUpdate
+                // Class has de annotation MongoUpºdate
                 domainClass.metaClass.mongoUpdate = {->
                     def obj = delegate
                     log.info("updating $obj")
