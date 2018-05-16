@@ -5345,6 +5345,9 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .search-list .search-kuorum-user .box-ppal .card-footer {position:relative; bottom: 0; }
 
     .main.prices .promo-options > .promo:not(:first-child) {border: 1px solid #545454;}
+
+    .edit-contact-header > div:first-child ul,
+    .edit-contact-header > div:first-child ul li {list-style: none; display: contents; margin-right: 5px;}
 }
 
 @media only screen and (max-width: 998px) {

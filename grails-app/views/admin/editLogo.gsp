@@ -17,10 +17,10 @@
 
     <g:uploadForm action="uploadLogo">
         <div class="input-group">
-            <label class="input logo">
+            <label class="input logo" accept=".png">
                 <form>
                 <span class="btn upload btn-primary">Select file
-                    <input type="file" style="display: none;" name="logo" accept="image/*">
+                    <input type="file" style="display: none;" name="logo" accept=".png">
                 </span>
                 </form>
             </label>

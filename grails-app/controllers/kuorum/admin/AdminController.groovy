@@ -13,6 +13,7 @@ import kuorum.users.KuorumUserService
 import kuorum.web.admin.KuorumUserEmailSenderCommand
 import kuorum.web.admin.KuorumUserRightsCommand
 import kuorum.web.admin.domain.DomainConfigCommand
+import kuorum.web.commands.domain.EditDomainCarouselPicturesCommand
 import org.kuorum.rest.model.admin.AdminConfigMailingRDTO
 import org.kuorum.rest.model.domain.DomainRDTO
 import org.kuorum.rest.model.domain.DomainRSDTO
@@ -48,10 +49,12 @@ class AdminController {
 
     }
 
+    @Secured(['ROLE_ADMIN'])
     def index() {
         redirect mapping:'adminDomainConfig'
     }
 
+    @Secured(['ROLE_ADMIN'])
     def domainConfig(){
         DomainRSDTO domainRSDTO = domainService.getConfig(CustomDomainResolver.domain)
         DomainConfigCommand domainConfigCommand = new DomainConfigCommand();
@@ -73,6 +76,7 @@ class AdminController {
 
     }
 
+    @Secured(['ROLE_ADMIN'])
     def domainConfigSave(DomainConfigCommand command){
         if (command.hasErrors()){
             render view:'domainConfig', model:[command:command]
@@ -99,39 +103,11 @@ class AdminController {
         redirect mapping:'adminDomainConfig'
     }
 
-
+    @Secured(['ROLE_SUPER_ADMIN'])
     def editLogo() {
-//        redirect mapping:'adminDomainConfigUploadLogo'
-//        DomainRDTO domainRDTO = new DomainRDTO()
-//        EditLogoCommand command = new EditLogoCommand(domainRDTO)
-//        EditProfilePicturesCommand command = new EditProfilePicturesCommand(user)
-//        [command: command]
     }
 
-//    def updateLogo(EditLogoCommand command){
-//        DomainRDTO domainRDTO = new DomainRDTO()
-////        if (command.hasErrors()){
-////            render view:"editLogo", model: [command:command,domainRDTO:domainRDTO]
-////            return
-////        }
-//        prepareDomainLogo(domainRDTO,command, fileService)
-//        domainService.updateConfig(domainRDTO)
-//        flash.message=message(code:'admin.menu.domainConfig.uploadLogo.success')
-//        redirect mapping:'adminDomainConfigUploadLogo'
-//
-////        KuorumUser user = params.user
-////        if (command.hasErrors()){
-////            render view:"editPictures", model: [command:command,user:user]
-////            return
-////        }
-////        prepareUserImages(user,command, fileService)
-//        kuorumUserService.updateUser(user)
-////        flash.message=message(code:'profile.editUser.success')
-////        redirect mapping:'profilePictures'
-//
-//    }
-
-
+    @Secured(['ROLE_SUPER_ADMIN'])
     def uploadLogo() {
 
         CommonsMultipartFile customLogo = request.getFile('logo')
@@ -148,7 +124,35 @@ class AdminController {
         }
     }
 
-    @Secured(['ROLE_ADMIN', 'ROLE_SUPER_ADMIN'])
+    @Secured(['ROLE_SUPER_ADMIN'])
+    def editCarousel() {
+        //        DomainRSDTO domain = domainService.getConfig(CustomDomainResolver.domain)
+        EditDomainCarouselPicturesCommand command = new EditDomainCarouselPicturesCommand()
+        [command: command]
+    }
+
+    @Secured(['ROLE_SUPER_ADMIN'])
+    def uploadCarousel(EditDomainCarouselPicturesCommand command) {
+        DomainRSDTO domain = domainService.getConfig(CustomDomainResolver.domain)
+//        fileService.uploadTemporalFile()
+//        EditProfilePicturesCommand command = new EditProfilePicturesCommand()
+//        [command: command]
+
+
+//        KuorumUser user = params.user
+//        if (command.hasErrors()){
+//            render view:"editPictures", model: [command:command,user:user]
+//            return
+//        }
+//        prepareUserImages(user,command, fileService)
+//        kuorumUserService.updateUser(user)
+//        flash.message=message(code:'profile.editUser.success')
+        redirect mapping:'adminDomainConfigUploadCarouselImages'
+
+    }
+
+
+    @Secured(['ROLE_SUPER_ADMIN'])
     def solrIndex(){
     }
 
