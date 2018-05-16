@@ -6,6 +6,7 @@ public enum FileGroup {
 
     USER_AVATAR("UsersFiles", 1024 * 1000 *1 /*1 MB */, '1', 510,510),
     USER_PROFILE("UsersFiles", 1024 * 1000 *4/*4 MB */, '728/328', 1200,541),
+    DOMAIN_SLIDE_IMAGE("DomainSlides", 1024 * 1000 * 1, '16/9', 1200,11 ),
     PROJECT_IMAGE("ProjectsFiles", 1024 * 1000 *4 /*4 MB */, '16/9', 1234,695),
     POST_IMAGE("PoliticianFiles", 1024 *1000 *4 /*4 MB */,'16/9',1234,695),
     MASS_MAIL_IMAGE("MassFiles", 1024 *1000 *4 /*4 MB */,'5/1',640, 129),

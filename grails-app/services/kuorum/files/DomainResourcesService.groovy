@@ -62,4 +62,21 @@ class DomainResourcesService {
             log.error("Ha fallado la subida del logo", e)
         }
     }
+
+    def uploadCarouselImages(InputStream customLogo) {
+
+        try {
+            Path temp = Files.createTempDirectory("logoTemp");
+            File logoFile = new File("/${temp}/logo.png")
+            logoFile << customLogo
+            DomainRSDTO domain = domainService.getConfig(CustomDomainResolver.domain)
+            String amazonLogoUrl = amazonFileService.uploadDomainLogo(logoFile, domain.domain)
+            faviconService.createFavicon(amazonLogoUrl, temp, domain)
+            temp.toAbsolutePath().deleteDir()
+        }
+        catch (Exception e) {
+            log.error("Ha fallado la subida del logo", e)
+        }
+    }
+
 }

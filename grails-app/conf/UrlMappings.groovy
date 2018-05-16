@@ -291,13 +291,15 @@ class UrlMappings {
         name ajaxUploadFile:                "/ajax/file/upload" (controller:'file', action:"uploadImage")
         name ajaxUploadFilePDF:             "/ajax/file/uploadPDF" (controller:'file', action:"uploadPDF")
 
-        name adminPrincipal:                "/sec/admin"                        (controller:"admin", action: "index")
-        name adminTestMail:                 "/sec/admin/mailing/test"           (controller:"mailTesting", action: "index")
-        name adminSearcherIndex:            "/sec/admin/searcher/indexar"       (controller:"admin", action: "solrIndex")
-        name adminSearcherFullIndex:        "/sec/admin/searcher/full-index"    (controller:"admin", action:"fullIndex")
-        name adminSearcherFullIndex:        "/sec/admin/searcher/full-index"    (controller:"admin", action:"fullIndex")
-        name adminDomainConfig:             "/sec/admin/domain"                 (controller:"admin"){action=[GET:"domainConfig",POST:"domainConfigSave"]}
-        name adminDomainConfigUploadLogo:   "/sec/admin/domain/uploadLogo"      (controller:"admin", action:"editLogo")
+        name adminPrincipal:                        "/sec/admin"                        (controller:"admin", action: "index")
+        name adminTestMail:                         "/sec/admin/mailing/test"           (controller:"mailTesting", action: "index")
+        name adminSearcherIndex:                    "/sec/admin/searcher/indexar"       (controller:"admin", action: "solrIndex")
+        name adminSearcherFullIndex:                "/sec/admin/searcher/full-index"    (controller:"admin", action:"fullIndex")
+        name adminSearcherFullIndex:                "/sec/admin/searcher/full-index"    (controller:"admin", action:"fullIndex")
+        name adminDomainConfig:                     "/sec/admin/domain"                 (controller:"admin"){action=[GET:"domainConfig",POST:"domainConfigSave"]}
+        name adminDomainConfigUploadLogo:           "/sec/admin/domain/uploadLogo"      (controller:"admin"){action=[GET:"editLogo",POST:"uploadLogo"]}
+        name adminDomainConfigUploadCarouselImages:  "/sec/admin/domain/editCarousel"    (controller:"admin"){action=[GET:"editCarousel",POST:"uploadCarousel"]}
+
 
         name editorCreatePolitician:                        "/editor/user/politician/create-politician"             (controller:"editorUser"){action =[GET:"createPolitician", POST:"saveCreatePolitician"]}
         name editorEditUserProfile:                         "/editor/user/$userAlias/editar/profile"                (controller:"editorUser"){action =[GET:"editUser", POST:"updateUser"]}
