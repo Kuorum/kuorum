@@ -1,5 +1,5 @@
 <ul class="socialGo clearfix">
-    <li><a href="#" class="btn tw"><span class="fa fa-twitter fa-lg"></span> Entrar con Twitter</a></li>
+    %{--<li><a href="#" class="btn tw"><span class="fa fa-twitter fa-lg"></span> Entrar con Twitter</a></li>--}%
     <li>
         <oauth:connect provider="facebook" id="facebook-connect-link" class="btn btn-lg fb">
             <span class="fa fa-facebook fa-lg"></span>
@@ -13,5 +13,5 @@
         </oauth:connect>
     </li>
 
-    <li><a href="#" class="btn lin"><span class="fa fa-linkedin fa-lg"></span> Entrar con LinkedIn</a></li>
+    %{--<li><a href="#" class="btn lin"><span class="fa fa-linkedin fa-lg"></span> Entrar con LinkedIn</a></li>--}%
 </ul>
