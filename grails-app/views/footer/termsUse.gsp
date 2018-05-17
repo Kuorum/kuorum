@@ -14,44 +14,44 @@
     <h4><g:message code="footer.menu.footerTermsUse.subtitle01"/></h4>
     <div class="columns1">
         <p>
-            <g:message code="footer.menu.footerTermsUse.description011"/>
+            <g:message code="footer.menu.footerTermsUse.description011" args="[legalInfo.domainName]"/>
         </p>
         <p>
-            <g:message code="footer.menu.footerTermsUse.description012"/>
+            <g:message code="footer.menu.footerTermsUse.description012" args="[legalInfo.domainOwner, legalInfo.domainName]"/>
         </p>
     </div>
 
-    <h4  class="border"><g:message code="footer.menu.footerTermsUse.subtitle02"/></h4>
+    <h4  class="border"><g:message code="footer.menu.footerTermsUse.subtitle02"  args="[legalInfo.domainName]"/></h4>
     <div class="columns1">
         <p>
-            <g:message code="footer.menu.footerTermsUse.description021"/>
+            <g:message code="footer.menu.footerTermsUse.description021" args="[legalInfo.domainName]"/>
         </p>
         <p>
-            <g:message code="footer.menu.footerTermsUse.description022"/>
+            <g:message code="footer.menu.footerTermsUse.description022" args="[legalInfo.domainName]"/>
         </p>
         <p>
-            <g:message code="footer.menu.footerTermsUse.description023"/>
+            <g:message code="footer.menu.footerTermsUse.description023" args="[legalInfo.domainName]"/>
         </p>
     </div>
 
     <h4  class="border"><g:message code="footer.menu.footerTermsUse.subtitle03"/></h4>
     <div class="columns1">
         <p>
-            <g:message code="footer.menu.footerTermsUse.description031"/>
+            <g:message code="footer.menu.footerTermsUse.description031" args="[legalInfo.domainName]"/>
         </p>
     </div>
 
-    <h4  class="border"><g:message code="footer.menu.footerTermsUse.subtitle04"/></h4>
+    <h4  class="border"><g:message code="footer.menu.footerTermsUse.subtitle04" args="[legalInfo.domainName]"/></h4>
     <div class="columns1">
         <p>
-            <g:message code="footer.menu.footerTermsUse.description041"/>
+            <g:message code="footer.menu.footerTermsUse.description041" args="[legalInfo.domainName]"/>
         </p>
     </div>
 
-    <h4  class="border"><g:message code="footer.menu.footerTermsUse.subtitle05"/></h4>
+    <h4  class="border"><g:message code="footer.menu.footerTermsUse.subtitle05" args="[legalInfo.domainName]"/></h4>
     <div class="columns1">
         <p>
-            <g:message code="footer.menu.footerTermsUse.description051"/>
+            <g:message code="footer.menu.footerTermsUse.description051" args="[legalInfo.domainOwner, legalInfo.domainName]"/>
         </p>
     </div>
 
@@ -65,7 +65,7 @@
         </li>
     </br>
         <li>
-            <g:message code="footer.menu.footerTermsUse.description0603"/>
+            <g:message code="footer.menu.footerTermsUse.description0603" args="[legalInfo.domainName]"/>
         </li>
     </br>
         <li>
@@ -105,15 +105,15 @@
         </li>
     </br>
         <li>
-            <g:message code="footer.menu.footerTermsUse.description0613"/>
+            <g:message code="footer.menu.footerTermsUse.description0613" args="[legalInfo.domainOwner]"/>
         </li>
     </br>
         <li>
-            <g:message code="footer.menu.footerTermsUse.description0614"/>
+            <g:message code="footer.menu.footerTermsUse.description0614" args="[legalInfo.domainOwner]"/>
         </li>
     </br>
         <li>
-            <g:message code="footer.menu.footerTermsUse.description0615"/>
+            <g:message code="footer.menu.footerTermsUse.description0615" args="[legalInfo.domainOwner]"/>
         </li>
     <br/>
     </div>
@@ -121,10 +121,10 @@
     <h4  class="border"><g:message code="footer.menu.footerTermsUse.subtitle07"/></h4>
     <div class="columns1">
         <p>
-            <g:message code="footer.menu.footerTermsUse.description071"/>
+            <g:message code="footer.menu.footerTermsUse.description071" args="[legalInfo.domainOwner]"/>
         </p>
         <p>
-            <g:message code="footer.menu.footerTermsUse.description072"/>
+            <g:message code="footer.menu.footerTermsUse.description072" args="[legalInfo.domainOwner]"/>
         </p>
     </div>
 
@@ -145,65 +145,65 @@
     <h4  class="border"><g:message code="footer.menu.footerTermsUse.subtitle10"/></h4>
     <div class="columns1">
         <p>
-            <g:message code="footer.menu.footerTermsUse.description101"/>
+            <g:message code="footer.menu.footerTermsUse.description101" args="[legalInfo.domainName]"/>
         </p>
     </div>
 
     <h4  class="border"><g:message code="footer.menu.footerTermsUse.subtitle11"/></h4>
     <div class="columns1">
         <p>
-            <g:message code="footer.menu.footerTermsUse.description111" args="[g.createLink(mapping:'footerPrivacyPolicy', absolute: true)]"/>
+            <g:message code="footer.menu.footerTermsUse.description111" args="[g.createLink(mapping:'footerPrivacyPolicy', absolute: true), legalInfo.domainName, legalInfo.domainOwner, legalInfo.address, legalInfo.city, legalInfo.country]"/>
         </p>
     </div>
 
     <h4  class="border"><g:message code="footer.menu.footerTermsUse.subtitle12"/></h4>
     <div class="columns1">
         <p>
-            <g:message code="footer.menu.footerTermsUse.description121"/>
+            <g:message code="footer.menu.footerTermsUse.description121" args="[legalInfo.domainOwner]"/>
         </p>
         <p>
-            <g:message code="footer.menu.footerTermsUse.description122"/>
+            <g:message code="footer.menu.footerTermsUse.description122" args="[legalInfo.domainOwner]"/>
         </p>
         <p>
-            <g:message code="footer.menu.footerTermsUse.description123"/>
+            <g:message code="footer.menu.footerTermsUse.description123" args="[legalInfo.domainOwner]"/>
         </p>
         <p>
-            <g:message code="footer.menu.footerTermsUse.description124"/>
+            <g:message code="footer.menu.footerTermsUse.description124" args="[legalInfo.domainOwner]"/>
         </p>
     </div>
 
     <h4  class="border"><g:message code="footer.menu.footerTermsUse.subtitle13"/></h4>
     <div class="columns1">
         <p>
-            <g:message code="footer.menu.footerTermsUse.description131"/>
+            <g:message code="footer.menu.footerTermsUse.description131" args="[legalInfo.domainOwner]"/>
         </p>
     </div>
 
     <h4  class="border"><g:message code="footer.menu.footerTermsUse.subtitle14"/></h4>
     <div class="columns1">
         <p>
-            <g:message code="footer.menu.footerTermsUse.description141"/>
+            <g:message code="footer.menu.footerTermsUse.description141" args="[legalInfo.country, legalInfo.city, legalInfo.domainOwner]"/>
         </p>
     </div>
 
     <h4  class="border"><g:message code="footer.menu.footerTermsUse.subtitle15"/></h4>
     <div class="columns1">
         <p>
-            <g:message code="footer.menu.footerTermsUse.description151"/>
+            <g:message code="footer.menu.footerTermsUse.description151" args="[legalInfo.domainOwner]"/>
         </p>
     </div>
 
     <h4  class="border"><g:message code="footer.menu.footerTermsUse.subtitle16"/></h4>
     <div class="columns1">
         <p>
-            <g:message code="footer.menu.footerTermsUse.description161"/>
+            <g:message code="footer.menu.footerTermsUse.description161" args="[legalInfo.domainOwner]"/>
         </p>
     </div>
 
     <h4  class="border"><g:message code="footer.menu.footerTermsUse.subtitle17"/></h4>
     <div class="columns1">
         <p>
-            <g:message code="footer.menu.footerTermsUse.description171"/>
+            <g:message code="footer.menu.footerTermsUse.description171" args="[legalInfo.domainOwner]"/>
         </p>
     </div>
 </content>

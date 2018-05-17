@@ -30,7 +30,10 @@ class FooterController {
         DomainLegalInfoRSDTO legalInfo = prepareLegalInfo()
         [legalInfo : legalInfo]
     }
-    def termsUse(){}
+    def termsUse(){
+        DomainLegalInfoRSDTO legalInfo = prepareLegalInfo()
+        [legalInfo : legalInfo]
+    }
 
     // PREPARE EMPTY PARAMS
     private DomainLegalInfoRSDTO prepareLegalInfo(){
