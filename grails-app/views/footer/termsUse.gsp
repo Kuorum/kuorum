@@ -131,14 +131,14 @@
     <h4  class="border"><g:message code="footer.menu.footerTermsUse.subtitle08"/></h4>
     <div class="columns1">
         <p>
-            <g:message code="footer.menu.footerTermsUse.description081"/>
+            <g:message code="footer.menu.footerTermsUse.description081" args="[legalInfo.domainOwner]"/>
         </p>
     </div>
 
     <h4  class="border"><g:message code="footer.menu.footerTermsUse.subtitle09"/></h4>
     <div class="columns1">
         <p>
-            <g:message code="footer.menu.footerTermsUse.description091"/>
+            <g:message code="footer.menu.footerTermsUse.description091" args="[legalInfo.domainName]"/>
         </p>
     </div>
 
