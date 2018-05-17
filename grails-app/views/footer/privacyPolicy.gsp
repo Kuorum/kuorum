@@ -32,7 +32,7 @@
             <g:message code="footer.menu.footerPrivacyPolicy.description0106"/>
         </p>
         <p>
-            <g:message code="footer.menu.footerPrivacyPolicy.description0107"/>
+            <g:message code="footer.menu.footerPrivacyPolicy.description0107" args="[legalInfo.domainName]"/>
         </p>
         <p>
             <g:message code="footer.menu.footerPrivacyPolicy.description0108"/>
