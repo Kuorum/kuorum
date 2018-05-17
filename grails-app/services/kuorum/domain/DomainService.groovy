@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference
 import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.files.LessCompilerService
 import kuorum.util.rest.RestKuorumApiService
+import org.kuorum.rest.model.domain.DomainLegalInfoRSDTO
 import org.kuorum.rest.model.domain.DomainRDTO
 import org.kuorum.rest.model.domain.DomainRSDTO
 import org.springframework.beans.factory.annotation.Value
@@ -77,6 +78,24 @@ class DomainService {
             return apiResponse.data;
         }catch (Exception e){
             log.warn("Error recovering domains", e)
+            return null;
+        }
+    }
+
+    DomainLegalInfoRSDTO getLegalInfo(String domain){
+        Map<String, String> params = [:]
+        Map<String, String> query = [domainName:domain]
+
+        try{
+            def apiResponse= restKuorumApiService.get(
+                    RestKuorumApiService.ApiMethod.DOMAIN_LEGAL,
+                    params,
+                    query,
+                    new TypeReference<DomainLegalInfoRSDTO>(){},
+                    kuorumAdminRestApiKey)
+            return apiResponse.data;
+        }catch (Exception e){
+            log.warn("Domain not found: ${domain}")
             return null;
         }
     }
