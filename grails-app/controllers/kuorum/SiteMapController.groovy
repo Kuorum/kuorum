@@ -190,12 +190,12 @@ class SiteMapController {
     }
     def sitemapFooters() {
         def footerMappings = [
-                'footerAboutKuorum',
-                'footerContactUs',
-                'footerOurTeam',
+//                'footerAboutKuorum',
+//                'footerContactUs',
+//                'footerOurTeam',
                 'footerUserGuides',
-                'footerPress',
-                'footerHistory',
+//                'footerPress',
+//                'footerHistory',
                 'footerPrivacyPolicy',
                 'footerTermsUse'
         ]
