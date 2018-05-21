@@ -59,7 +59,11 @@ class NavigationTagLib {
 
     def kuorumLink = {attrs, body ->
         Locale locale = org.springframework.context.i18n.LocaleContextHolder.getLocale()
-        AvailableLanguage currentLang = AvailableLanguage.fromLocale(locale)
+        AvailableLanguage currentLang = AvailableLanguage.en_EN
+        if (locale.language != "es"){
+            // Kuorum Sales oly have es and en
+            currentLang = AvailableLanguage.es_ES
+        }
 
         out << """<a href="https://www.kuorum.org/${currentLang.locale.language}" hreflang="${currentLang.locale.language}" target="_blank">Kuorum.org</a>"""
     }
