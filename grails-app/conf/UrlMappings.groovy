@@ -19,23 +19,28 @@ class UrlMappings {
         name landingServices:       "/"  (controller: "landing", action: "landingServices"){mappingName="landingServices"}
         name en_landingServices:    "/"  (controller: "landing", action: "landingServices"){mappingName="landingServices"}
         name es_landingServices:    "/"  (controller: "landing", action: "landingServices"){mappingName="landingServices"}
+        name de_landingServices:    "/"  (controller: "landing", action: "landingServices"){mappingName="landingServices"}
 
         name home:              "/"  (controller: "landing", action:"landingServices"){mappingName="home"}
         name en_home:           "/"  (controller: "landing", action:"landingServices"){mappingName="home"}
         name es_home:           "/"  (controller: "landing", action:"landingServices"){mappingName="home"}
+        name de_home:           "/"  (controller: "landing", action:"landingServices"){mappingName="home"}
 
         name footerPrivacyPolicy:   "/legal/privacy-policy"       (controller:"footer", action: "privacyPolicy"){mappingName="footerPrivacyPolicy"}
         name en_footerPrivacyPolicy:"/legal/privacy-policy"       (controller:"footer", action: "privacyPolicy"){mappingName="footerPrivacyPolicy"}
         name es_footerPrivacyPolicy:"/legal/politica-privacidad"  (controller:"footer", action: "privacyPolicy"){mappingName="footerPrivacyPolicy"}
+        name de_footerPrivacyPolicy:"/legal/dantensutzpolitik"  (controller:"footer", action: "privacyPolicy"){mappingName="footerPrivacyPolicy"}
 
         name footerTermsUse:        "/legal/terms-of-use"         (controller:"footer", action: "termsUse")
         name en_footerTermsUse:     "/legal/terms-of-use"         (controller:"footer", action: "termsUse")
         name es_footerTermsUse:     "/legal/condiciones-de-uso"   (controller:"footer", action: "termsUse")
+        name de_footerTermsUse:     "/legal/nutzungsbedingungen"   (controller:"footer", action: "termsUse")
 
-        name en_register:           "/sign-up"    (controller: "register"){action = [GET:"index", POST:"register"]}
-        name es_register:           "/registro"   (controller: "register"){action = [GET:"index", POST:"register"]}
-        name register:              "/sign-up"    (controller: "register"){action = [GET:"index", POST:"register"]}
-                                    
+        name register:              "/sign-up"          (controller: "register"){action = [GET:"index", POST:"register"]}
+        name en_register:           "/sign-up"          (controller: "register"){action = [GET:"index", POST:"register"]}
+        name es_register:           "/registro"         (controller: "register"){action = [GET:"index", POST:"register"]}
+        name de_register:           "/registrierung"    (controller: "register"){action = [GET:"index", POST:"register"]}
+
         name ajaxRegister:          "/ajax/sign-up"     (controller: "register", action:"ajaxRegister")
         name ajaxRegisterCheckEmail:"/ajax/sign-up/checkEmail"(controller: "register", action:"checkEmail")
         name ajaxRegisterRRSSOAuth: "/ajax/sign-up/rrssOAuth"(controller: "register", action:"registerRRSSOAuthAjax")
@@ -43,40 +48,48 @@ class UrlMappings {
         name registerSuccess:       "/sign-up/success"          (controller: "register",action:"registerSuccess"){mappingName="registerSuccess"}
         name en_registerSuccess:    "/sign-up/success"          (controller: "register",action:"registerSuccess"){mappingName="registerSuccess"}
         name es_registerSuccess:    "/registro/satisfactorio"   (controller: "register",action:"registerSuccess"){mappingName="registerSuccess"}
+        name de_registerSuccess:    "/registrierung/erfolgreich"   (controller: "register",action:"registerSuccess"){mappingName="registerSuccess"}
 
-        name registerPassword:      "/sign-up/set-password"          (controller: "register", action:"selectMyPassword"){mappingName="registerPassword"}
-        name en_registerPassword:   "/sign-up/set-password"          (controller: "register", action:"selectMyPassword"){mappingName="registerPassword"}
-        name es_registerPassword:   "/registro/establece-password"   (controller: "register", action:"selectMyPassword"){mappingName="registerPassword"}
+        name registerPassword:      "/sign-up/set-password"                (controller: "register", action:"selectMyPassword"){mappingName="registerPassword"}
+        name en_registerPassword:   "/sign-up/set-password"                (controller: "register", action:"selectMyPassword"){mappingName="registerPassword"}
+        name es_registerPassword:   "/registro/establece-password"         (controller: "register", action:"selectMyPassword"){mappingName="registerPassword"}
+        name de_registerPassword:   "/registrierung/passwort-einstellen"   (controller: "register", action:"selectMyPassword"){mappingName="registerPassword"}
 
-        name registerResendMail:    "/sign-up/no-valid"      (controller: "register"){action=[GET:"resendRegisterVerification", POST:"resendVerification"];mappingName="registerResendMail"}
-        name en_registerResendMail: "/sign-up/no-valid"      (controller: "register"){action=[GET:"resendRegisterVerification", POST:"resendVerification"];mappingName="registerResendMail"}
-        name es_registerResendMail: "/registro/no-verificado"(controller: "register"){action=[GET:"resendRegisterVerification", POST:"resendVerification"];mappingName="registerResendMail"}
+        name registerResendMail:    "/sign-up/no-valid"                 (controller: "register"){action=[GET:"resendRegisterVerification", POST:"resendVerification"];mappingName="registerResendMail"}
+        name en_registerResendMail: "/sign-up/no-valid"                 (controller: "register"){action=[GET:"resendRegisterVerification", POST:"resendVerification"];mappingName="registerResendMail"}
+        name es_registerResendMail: "/registro/no-verificado"           (controller: "register"){action=[GET:"resendRegisterVerification", POST:"resendVerification"];mappingName="registerResendMail"}
+        name de_registerResendMail: "/registrierung/nicht-bestaetigt"   (controller: "register"){action=[GET:"resendRegisterVerification", POST:"resendVerification"];mappingName="registerResendMail"}
 
         name resetPassword:         "/sign-in/recover-password"      (controller: "register"){action=[GET:"forgotPassword", POST:"forgotPasswordPost"];mappingName="resetPassword"}
         name en_resetPassword:      "/sign-in/recover-password"      (controller: "register"){action=[GET:"forgotPassword", POST:"forgotPasswordPost"];mappingName="resetPassword"}
         name es_resetPassword:      "/registro/password-olvidado"    (controller: "register"){action=[GET:"forgotPassword", POST:"forgotPasswordPost"];mappingName="resetPassword"}
+        name de_resetPassword:      "/registrierung/passwort-wiederherstellen"    (controller: "register"){action=[GET:"forgotPassword", POST:"forgotPasswordPost"];mappingName="resetPassword"}
 
         name registerVerifyAccount:         "/register/verifyRegistration"   (controller: "register", action:"verifyRegistration"){mappingName="registerVerifyAccount"}
         name en_registerVerifyAccount:      "/register/verify-registration"  (controller: "register", action:"verifyRegistration"){mappingName="registerVerifyAccount"}
         name es_registerVerifyAccount:      "/registro/verificar-cuenta"     (controller: "register", action:"verifyRegistration"){mappingName="registerVerifyAccount"}
+        name de_registerVerifyAccount:      "/registrierung/konto-bestaetigen"     (controller: "register", action:"verifyRegistration"){mappingName="registerVerifyAccount"}
 
         name validateResetPasswordAjax:"/ajax/forgot-password" (controller:"register", action: "ajaxValidationForgotPassword")
 
         name resetPasswordSent:     "/sign-up/verification-sent"     (controller: "register", action:"forgotPasswordSuccess"){mappingName="resetPasswordSent"}
         name en_resetPasswordSent:  "/sign-up/verification-sent"     (controller: "register", action:"forgotPasswordSuccess"){mappingName="resetPasswordSent"}
         name es_resetPasswordSent:  "/registro/enviada-verificacion" (controller: "register", action:"forgotPasswordSuccess"){mappingName="resetPasswordSent"}
+        name de_resetPasswordSent:  "/registrierung/bestaetigung-geschickt" (controller: "register", action:"forgotPasswordSuccess"){mappingName="resetPasswordSent"}
 
 
         name resetPasswordChange:   "/sign-up/change-pass"       (controller: "register"){action=[GET:"resetPassword", POST:"resetPassword"];mappingName="resetPasswordChange"}
         name en_resetPasswordChange:"/sign-up/change-password"   (controller: "register"){action=[GET:"resetPassword", POST:"resetPassword"];mappingName="resetPasswordChange"}
         name es_resetPasswordChange:"/registro/cambiar-password" (controller: "register"){action=[GET:"resetPassword", POST:"resetPassword"];mappingName="resetPasswordChange"}
+        name de_resetPasswordChange:"/registrierung/passwort-aendern" (controller: "register"){action=[GET:"resetPassword", POST:"resetPassword"];mappingName="resetPasswordChange"}
 
-        name ajaxRequestADemo:          "/ajax/requestADemo"(controller: "register", action: "requestADemo")
+        name ajaxRequestADemo:      "/ajax/requestADemo"(controller: "register", action: "requestADemo")
 
 
         name login:     "/log-in"    (controller:"login", action:"index"){mappingName="login"}
         name en_login:  "/log-in"    (controller:"login", action:"index"){mappingName="login"}
         name es_login:  "/entrar"    (controller:"login", action:"index"){mappingName="login"}
+        name de_login:  "/anmelden"    (controller:"login", action:"index"){mappingName="login"}
 
         name ajaxLoginCheck:"/ajax/checkLogin"  (controller:"login", action:"checkEmailAndPass")
         name ajaxLoginModal:"/ajax/login/modal-auth"  (controller:"login", action:"modalAuth")
@@ -84,12 +97,14 @@ class UrlMappings {
         name loginAuth:     "/sign-in"       (controller:"login", action:"auth"){mappingName="loginAuth"}
         name en_loginAuth:  "/sign-in"       (controller:"login", action:"auth"){mappingName="loginAuth"}
         name es_loginAuth:  "/entra"         (controller:"login", action:"auth"){mappingName="loginAuth"}
+        name de_loginAuth:  "/einloggen"         (controller:"login", action:"auth"){mappingName="loginAuth"}
 
         name authError:     "/login/authfail"       (controller:"login", action:"authfail")
 
         name loginFull:     "/check-user"            (controller:"login", action:"full"){mappingName="loginFull"}
         name en_loginFull:  "/check-user"            (controller:"login", action:"full"){mappingName="loginFull"}
         name es_loginFull:  "/confirmar-usuario"     (controller:"login", action:"full"){mappingName="loginFull"}
+        name de_loginFull:  "/benutzer-bestaetigen"     (controller:"login", action:"full"){mappingName="loginFull"}
 
         name logout:    "/logout"       (controller:"logout", action:"index")
                         "/salir"        {controller="redirect"; action= "redirect301"; newMapping='logout'}
@@ -97,79 +112,98 @@ class UrlMappings {
         name searcherSearch:        "/search"        (controller: "search", action:"search"){mappingName="searcherSearch"}
         name en_searcherSearch:     "/search/$word?" (controller: "search", action:"search"){mappingName="searcherSearch"}
         name es_searcherSearch:     "/buscar/$word?" (controller: "search", action:"search"){mappingName="searcherSearch"}
+        name de_searcherSearch:     "/suche/$word?" (controller: "search", action:"search"){mappingName="searcherSearch"}
 
         name searcherSearchByCAUSE:   "/search/cause"             (controller: "search", action:"search"){searchType="CAUSE"; mappingName="searcherSearchByCAUSE"}
         name en_searcherSearchByCAUSE:"/search/cause/$word?"      (controller: "search", action:"search"){searchType="CAUSE"; mappingName="searcherSearchByCAUSE"}
         name es_searcherSearchByCAUSE:"/buscar/causa/$word?"      (controller: "search", action:"search"){searchType="CAUSE"; mappingName="searcherSearchByCAUSE"}
+        name de_searcherSearchByCAUSE:"/suche/themen/$word?"      (controller: "search", action:"search"){searchType="CAUSE"; mappingName="searcherSearchByCAUSE"}
 
         name searcherSearchByREGION:   "/search/users/from/$word?"   (controller: "search", action:"search"){searchType="REGION"; mappingName="searcherSearchByREGION"}
         name en_searcherSearchByREGION:"/search/from/$word?"         (controller: "search", action:"search"){searchType="REGION"; mappingName="searcherSearchByREGION"}
         name es_searcherSearchByREGION:"/buscar/en/$word?"           (controller: "search", action:"search"){searchType="REGION"; mappingName="searcherSearchByREGION"}
+        name de_searcherSearchByREGION:"/suche/von/$word?"           (controller: "search", action:"search"){searchType="REGION"; mappingName="searcherSearchByREGION"}
 
         name searcherSearchKUORUM_USER:     "/search/users"             (controller: "search", action:"search"){type="KUORUM_USER"; mappingName="searcherSearchKUORUM_USER"}
         name en_searcherSearchKUORUM_USER:  "/search/users/$word?"      (controller: "search", action:"search"){type="KUORUM_USER"; mappingName="searcherSearchKUORUM_USER"}
         name es_searcherSearchKUORUM_USER:  "/buscar/usuarios/$word?"   (controller: "search", action:"search"){type="KUORUM_USER"; mappingName="searcherSearchKUORUM_USER"}
+        name de_searcherSearchKUORUM_USER:  "/suche/benutzer/$word?"   (controller: "search", action:"search"){type="KUORUM_USER"; mappingName="searcherSearchKUORUM_USER"}
 
         name searcherSearchKUORUM_USERByCAUSE:   "/search/users/cause/$word?"          (controller: "search", action:"search"){searchType="CAUSE";type="KUORUM_USER"; mappingName="searcherSearchKUORUM_USERByCAUSE"}
         name en_searcherSearchKUORUM_USERByCAUSE:"/search/users/cause/$word?"          (controller: "search", action:"search"){searchType="CAUSE";type="KUORUM_USER"; mappingName="searcherSearchKUORUM_USERByCAUSE"}
         name es_searcherSearchKUORUM_USERByCAUSE:"/buscar/usuarios/causa/$word?"       (controller: "search", action:"search"){searchType="CAUSE";type="KUORUM_USER"; mappingName="searcherSearchKUORUM_USERByCAUSE"}
+        name de_searcherSearchKUORUM_USERByCAUSE:"/suche/benutzer/themen/$word?"       (controller: "search", action:"search"){searchType="CAUSE";type="KUORUM_USER"; mappingName="searcherSearchKUORUM_USERByCAUSE"}
 
         name searcherSearchKUORUM_USERByREGION:   "/search/users/from/$word?"          (controller: "search", action:"search"){searchType="REGION";type="KUORUM_USER"; mappingName="searcherSearchKUORUM_USERByREGION"}
         name en_searcherSearchKUORUM_USERByREGION:"/search/users/from/$word?"          (controller: "search", action:"search"){searchType="REGION";type="KUORUM_USER"; mappingName="searcherSearchKUORUM_USERByREGION"}
         name es_searcherSearchKUORUM_USERByREGION:"/buscar/usuarios/en/$word?"         (controller: "search", action:"search"){searchType="REGION";type="KUORUM_USER"; mappingName="searcherSearchKUORUM_USERByREGION"}
+        name de_searcherSearchKUORUM_USERByREGION:"/suche/benutzer/von/$word?"         (controller: "search", action:"search"){searchType="REGION";type="KUORUM_USER"; mappingName="searcherSearchKUORUM_USERByREGION"}
 
         name searcherSearchPOST:   "/search/post"                   (controller: "search", action:"search"){type="POST"; mappingName="searcherSearchPOST"}
         name en_searcherSearchPOST:"/search/post/$word?"            (controller: "search", action:"search"){type="POST"; mappingName="searcherSearchPOST"}
         name es_searcherSearchPOST:"/buscar/publicacion/$word?"     (controller: "search", action:"search"){type="POST"; mappingName="searcherSearchPOST"}
+        name de_searcherSearchPOST:"/suche/beitraege/$word?"     (controller: "search", action:"search"){type="POST"; mappingName="searcherSearchPOST"}
 
         name searcherSearchPOSTByCAUSE:   "/search/post/cause/$word?"           (controller: "search", action:"search"){searchType="CAUSE";type="POST"; mappingName="searcherSearchPOSTByCAUSE"}
         name en_searcherSearchPOSTByCAUSE:"/search/post/cause/$word?"           (controller: "search", action:"search"){searchType="CAUSE";type="POST"; mappingName="searcherSearchPOSTByCAUSE"}
         name es_searcherSearchPOSTByCAUSE:"/buscar/publicacion/causa/$word?"    (controller: "search", action:"search"){searchType="CAUSE";type="POST"; mappingName="searcherSearchPOSTByCAUSE"}
+        name de_searcherSearchPOSTByCAUSE:"/suche/beitraege/themen/$word?"    (controller: "search", action:"search"){searchType="CAUSE";type="POST"; mappingName="searcherSearchPOSTByCAUSE"}
 
         name searcherSearchPOSTByREGION:   "/search/post/from/$word?"           (controller: "search", action:"search"){searchType="REGION";type="POST"; mappingName="searcherSearchPOSTByREGION"}
         name en_searcherSearchPOSTByREGION:"/search/post/from/$word?"           (controller: "search", action:"search"){searchType="REGION";type="POST"; mappingName="searcherSearchPOSTByREGION"}
         name es_searcherSearchPOSTByREGION:"/buscar/publicacion/en/$word?"      (controller: "search", action:"search"){searchType="REGION";type="POST"; mappingName="searcherSearchPOSTByREGION"}
+        name de_searcherSearchPOSTByREGION:"/suche/beitraege/von/$word?"      (controller: "search", action:"search"){searchType="REGION";type="POST"; mappingName="searcherSearchPOSTByREGION"}
 
         name searcherSearchDEBATE:   "/search/debate"            (controller: "search", action:"search"){type="DEBATE"; mappingName="searcherSearchDEBATE"}
         name en_searcherSearchDEBATE:"/search/debate/$word?"     (controller: "search", action:"search"){type="DEBATE"; mappingName="searcherSearchDEBATE"}
         name es_searcherSearchDEBATE:"/buscar/debate/$word?"     (controller: "search", action:"search"){type="DEBATE"; mappingName="searcherSearchDEBATE"}
+        name de_searcherSearchDEBATE:"/suche/debatte/$word?"     (controller: "search", action:"search"){type="DEBATE"; mappingName="searcherSearchDEBATE"}
 
         name searcherSearchDEBATEByCAUSE:   "/search/debate/cause/$word?"          (controller: "search", action:"search"){searchType="CAUSE";type="DEBATE"; mappingName="searcherSearchDEBATEByCAUSE"}
         name en_searcherSearchDEBATEByCAUSE:"/search/debate/cause/$word?"          (controller: "search", action:"search"){searchType="CAUSE";type="DEBATE"; mappingName="searcherSearchDEBATEByCAUSE"}
         name es_searcherSearchDEBATEByCAUSE:"/buscar/debate/causa/$word?"          (controller: "search", action:"search"){searchType="CAUSE";type="DEBATE"; mappingName="searcherSearchDEBATEByCAUSE"}
+        name de_searcherSearchDEBATEByCAUSE:"/suche/debatte/themen/$word?"          (controller: "search", action:"search"){searchType="CAUSE";type="DEBATE"; mappingName="searcherSearchDEBATEByCAUSE"}
 
         name searcherSearchDEBATEByREGION:   "/search/debate/from/$word?"           (controller: "search", action:"search"){searchType="REGION";type="DEBATE"; mappingName="searcherSearchDEBATEByREGION"}
         name en_searcherSearchDEBATEByREGION:"/search/debate/from/$word?"           (controller: "search", action:"search"){searchType="REGION";type="DEBATE"; mappingName="searcherSearchDEBATEByREGION"}
         name es_searcherSearchDEBATEByREGION:"/buscar/debate/en/$word?"             (controller: "search", action:"search"){searchType="REGION";type="DEBATE"; mappingName="searcherSearchDEBATEByREGION"}
+        name de_searcherSearchDEBATEByREGION:"/suche/debatte/von/$word?"             (controller: "search", action:"search"){searchType="REGION";type="DEBATE"; mappingName="searcherSearchDEBATEByREGION"}
 
 
         name searcherSearchEVENT:   "/search/event"             (controller: "search", action:"search"){type="EVENT"; mappingName="searcherSearchEVENT"}
         name en_searcherSearchEVENT:"/search/event/$word?"      (controller: "search", action:"search"){type="EVENT"; mappingName="searcherSearchEVENT"}
         name es_searcherSearchEVENT:"/buscar/evento/$word?"     (controller: "search", action:"search"){type="EVENT"; mappingName="searcherSearchEVENT"}
+        name de_searcherSearchEVENT:"/suche/ereignis/$word?"     (controller: "search", action:"search"){type="EVENT"; mappingName="searcherSearchEVENT"}
 
         name searcherSearchEVENTByCAUSE:   "/search/event/cause/$word?"          (controller: "search", action:"search"){searchType="CAUSE";type="EVENT"; mappingName="searcherSearchEVENTByCAUSE"}
         name en_searcherSearchEVENTByCAUSE:"/search/event/cause/$word?"          (controller: "search", action:"search"){searchType="CAUSE";type="EVENT"; mappingName="searcherSearchEVENTByCAUSE"}
         name es_searcherSearchEVENTByCAUSE:"/buscar/evento/causa/$word?"         (controller: "search", action:"search"){searchType="CAUSE";type="EVENT"; mappingName="searcherSearchEVENTByCAUSE"}
+        name de_searcherSearchEVENTByCAUSE:"/suche/ereignis/themen/$word?"         (controller: "search", action:"search"){searchType="CAUSE";type="EVENT"; mappingName="searcherSearchEVENTByCAUSE"}
 
         name searcherSearchEVENTByREGION:   "/search/event/from/$word?"          (controller: "search", action:"search"){searchType="REGION";type="EVENT"; mappingName="searcherSearchEVENTByREGION"}
         name en_searcherSearchEVENTByREGION:"/search/event/from/$word?"          (controller: "search", action:"search"){searchType="REGION";type="EVENT"; mappingName="searcherSearchEVENTByREGION"}
         name es_searcherSearchEVENTByREGION:"/buscar/evento/en/$word?"           (controller: "search", action:"search"){searchType="REGION";type="EVENT"; mappingName="searcherSearchEVENTByREGION"}
+        name de_searcherSearchEVENTByREGION:"/suche/ereignis/von/$word?"           (controller: "search", action:"search"){searchType="REGION";type="EVENT"; mappingName="searcherSearchEVENTByREGION"}
 
         name searcherSearchSURVEY:   "/search/survey"               (controller: "search", action:"search"){type="SURVEY"; mappingName="searcherSearchSURVEY"}
         name en_searcherSearchSURVEY:"/search/survey/$word?"        (controller: "search", action:"search"){type="SURVEY"; mappingName="searcherSearchSURVEY"}
         name es_searcherSearchSURVEY:"/buscar/encuesta/$word?"      (controller: "search", action:"search"){type="SURVEY"; mappingName="searcherSearchSURVEY"}
+        name de_searcherSearchSURVEY:"/suche/ereignis/$word?"      (controller: "search", action:"search"){type="SURVEY"; mappingName="searcherSearchSURVEY"}
 
         name searcherSearchSURVEYByCAUSE:   "/search/survey/cause/$word?"      (controller: "search", action:"search"){searchType="CAUSE";type="SURVEY"; mappingName="searcherSearchSURVEYByCAUSE"}
         name en_searcherSearchSURVEYByCAUSE:"/search/survey/cause/$word?"      (controller: "search", action:"search"){searchType="CAUSE";type="SURVEY"; mappingName="searcherSearchSURVEYByCAUSE"}
         name es_searcherSearchSURVEYByCAUSE:"/buscar/encuesta/causa/$word?"    (controller: "search", action:"search"){searchType="CAUSE";type="SURVEY"; mappingName="searcherSearchSURVEYByCAUSE"}
+        name de_searcherSearchSURVEYByCAUSE:"/suche/ereignis/themen/$word?"    (controller: "search", action:"search"){searchType="CAUSE";type="SURVEY"; mappingName="searcherSearchSURVEYByCAUSE"}
 
         name searcherSearchSURVEYByREGION:   "/search/survey/from/$word?"      (controller: "search", action:"search"){searchType="REGION";type="SURVEY"; mappingName="searcherSearchSURVEYByREGION"}
         name en_searcherSearchSURVEYByREGION:"/search/survey/from/$word?"      (controller: "search", action:"search"){searchType="REGION";type="SURVEY"; mappingName="searcherSearchSURVEYByREGION"}
         name es_searcherSearchSURVEYByREGION:"/buscar/encuesta/en/$word?"      (controller: "search", action:"search"){searchType="REGION";type="SURVEY"; mappingName="searcherSearchSURVEYByREGION"}
+        name de_searcherSearchSURVEYByREGION:"/suche/ereignis/von/$word?"      (controller: "search", action:"search"){searchType="REGION";type="SURVEY"; mappingName="searcherSearchSURVEYByREGION"}
 
-        name footerUserGuides:      "/user-guides"       (controller: "footer", action: "footerUserGuides"){mappingName="footerUserGuides"}
-        name en_footerUserGuides:   "/user-guides"       (controller: "footer", action: "footerUserGuides"){mappingName="footerUserGuides"}
-        name es_footerUserGuides:   "/guias-de-usuario"  (controller: "footer", action: "footerUserGuides"){mappingName="footerUserGuides"}
+        name footerUserGuides:      "/user-guides"          (controller: "footer", action: "footerUserGuides"){mappingName="footerUserGuides"}
+        name en_footerUserGuides:   "/user-guides"          (controller: "footer", action: "footerUserGuides"){mappingName="footerUserGuides"}
+        name es_footerUserGuides:   "/guias-de-usuario"     (controller: "footer", action: "footerUserGuides"){mappingName="footerUserGuides"}
+        name de_footerUserGuides:   "/benutzerhandbuecher"  (controller: "footer", action: "footerUserGuides"){mappingName="footerUserGuides"}
 
 
         /**********************/

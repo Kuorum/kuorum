@@ -7,7 +7,7 @@
     <li class="fontIcon">
         <g:link mapping="politicianContactImportCSV" role="button" class="mail" elementId="uploadCsv">
             <span class="fa fa-file-text-o"></span>
-            <span class="label">Upload file</span>
+            <span class="label"><g:message code="tools.contact.import.options.csv"/></span>
         </g:link>
     </li>
 
