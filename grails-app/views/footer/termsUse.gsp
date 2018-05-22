@@ -14,7 +14,7 @@
     <h4><g:message code="footer.menu.footerTermsUse.subtitle01"/></h4>
     <div class="columns1">
         <p>
-            <g:message code="footer.menu.footerTermsUse.description011" args="[legalInfo.domainName]"/>
+            <g:message code="footer.menu.footerTermsUse.description011" args="[legalInfo.domainName, g.link(mapping:'footerPrivacyPolicy')]"/>
         </p>
         <p>
             <g:message code="footer.menu.footerTermsUse.description012" args="[legalInfo.domainOwner, legalInfo.domainName]"/>
