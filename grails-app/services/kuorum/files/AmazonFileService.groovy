@@ -1,10 +1,13 @@
 package kuorum.files
 
+import com.amazonaws.AmazonServiceException
 import com.amazonaws.auth.AWSCredentials
 import com.amazonaws.auth.BasicAWSCredentials
 import com.amazonaws.services.s3.AmazonS3
 import com.amazonaws.services.s3.AmazonS3Client
 import com.amazonaws.services.s3.model.*
+
+//import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import kuorum.KuorumFile
 import kuorum.core.FileGroup
 import kuorum.core.FileType
@@ -33,12 +36,9 @@ class AmazonFileService extends LocalFileService{
 
     @Override
     List<KuorumFile> listFilesFromPath(FileGroup fileGroup, String path) {
-        String accessKey = grailsApplication.config.kuorum.amazon.accessKey
-        String secretKey = grailsApplication.config.kuorum.amazon.secretKey
-        String bucketName = grailsApplication.config.kuorum.amazon.bucketName;
 
-        AWSCredentials credentials = new BasicAWSCredentials(accessKey,secretKey);
-        AmazonS3 s3Client = new AmazonS3Client(credentials);
+        String bucketName = grailsApplication.config.kuorum.amazon.bucketName;
+        AmazonS3 s3Client = buildAmazonClient()
 
         String searchPath = fileGroup.folderPath+"/"+cleanPath(path)
         ObjectListing listing = s3Client.listObjects( bucketName, searchPath );
@@ -76,17 +76,32 @@ class AmazonFileService extends LocalFileService{
         kuorumFile
     }
 
+
+
+    protected  void copyAmazonFileFromTemporal(String sourceKey, String destinationKey){
+
+        String bucketName = grailsApplication.config.kuorum.amazon.bucketName;
+        AmazonS3 s3Client = buildAmazonClient()
+
+        try {
+            // Copy the object into a new object in the same bucket.
+            CopyObjectRequest copyObjRequest = new CopyObjectRequest(bucketName, sourceKey, bucketName, destinationKey);
+            s3Client.copyObject(copyObjRequest);
+        }
+        catch(AmazonServiceException e) {
+            // The call was transmitted successfully, but Amazon S3 couldn't process
+            // it, so it returned an error response.
+            log.error("Error copy",e)
+        }
+    }
+
     protected void uploadAmazonFile(KuorumFile kuorumFile, Boolean asTemporal){
         if (kuorumFile.fileType == FileType.IMAGE){
-            String accessKey = grailsApplication.config.kuorum.amazon.accessKey
-            String secretKey = grailsApplication.config.kuorum.amazon.secretKey
             String bucketName = grailsApplication.config.kuorum.amazon.bucketName;
             String keyName    = generateAmazonKey(kuorumFile, asTemporal)
             String filePath   = "${calculateLocalStoragePath(kuorumFile)}/${kuorumFile.fileName}";
 
-            AWSCredentials credentials = new BasicAWSCredentials(accessKey,secretKey);
-
-            AmazonS3 s3Client = new AmazonS3Client(credentials);
+            AmazonS3 s3Client = buildAmazonClient();
 
 
             // Create a list of UploadPartResponse objects. You get one of these for each part upload.
@@ -170,14 +185,10 @@ class AmazonFileService extends LocalFileService{
     }
 
     private String uploadFileToAmazon(File file, String contentType, String key){
-        String accessKey = grailsApplication.config.kuorum.amazon.accessKey
-        String secretKey = grailsApplication.config.kuorum.amazon.secretKey
         String bucketName = grailsApplication.config.kuorum.amazon.bucketName;
         String keyName    = key
 
-        AWSCredentials credentials = new BasicAWSCredentials(accessKey,secretKey);
-
-        AmazonS3 s3Client = new AmazonS3Client(credentials);
+        AmazonS3 s3Client = buildAmazonClient()
 
 
         // Create a list of UploadPartResponse objects. You get one of these for each part upload.
@@ -254,12 +265,8 @@ class AmazonFileService extends LocalFileService{
 
     protected void deleteAmazonFile(KuorumFile file, boolean temporal = false){
         if (file && file.fileType==FileType.AMAZON_IMAGE){
-            String accessKey = grailsApplication.config.kuorum.amazon.accessKey
-            String secretKey = grailsApplication.config.kuorum.amazon.secretKey
             String bucketName = grailsApplication.config.kuorum.amazon.bucketName;
-            AWSCredentials credentials = new BasicAWSCredentials(accessKey,secretKey)
-            AmazonS3 s3client = new AmazonS3Client(credentials);
-//            AmazonS3 s3client = new AmazonS3Client(new ProfileCredentialsProvider());
+            AmazonS3 s3client = buildAmazonClient()
             s3client.deleteObject(new DeleteObjectRequest(bucketName, generateAmazonKey(file, temporal)));
 //            s3client.deleteObject(new DeleteObjectRequest(bucketName, file.storagePath)); //OLD IMAGES NOT HAS storagePath
         }
@@ -286,11 +293,9 @@ class AmazonFileService extends LocalFileService{
 
     @Override
     InputStream readFile(KuorumFile kuorumFile) {
-        String accessKey = grailsApplication.config.kuorum.amazon.accessKey
-        String secretKey = grailsApplication.config.kuorum.amazon.secretKey
+
         String bucketName = grailsApplication.config.kuorum.amazon.bucketName;
-        AWSCredentials credentials = new BasicAWSCredentials(accessKey,secretKey)
-        AmazonS3 s3Client = new AmazonS3Client(credentials);
+        AmazonS3 s3Client = buildAmazonClient()
         S3Object object = s3Client.getObject( new GetObjectRequest(bucketName, kuorumFile.storagePath));
         InputStream objectData = object.getObjectContent();
 //        objectData.close();
@@ -325,5 +330,15 @@ class AmazonFileService extends LocalFileService{
         String keyName    = "${DOMAIN_PATH}/${domain}/${key}"
         String bucketName = grailsApplication.config.kuorum.amazon.bucketName;
         return "https://${bucketName}.s3.amazonaws.com/${keyName}"
+    }
+
+    private AmazonS3  buildAmazonClient() {
+        String accessKey = grailsApplication.config.kuorum.amazon.accessKey
+        String secretKey = grailsApplication.config.kuorum.amazon.secretKey
+
+        AWSCredentials credentials = new BasicAWSCredentials(accessKey,secretKey);
+
+        AmazonS3 s3Client = new AmazonS3Client(credentials);
+        return s3Client
     }
 }

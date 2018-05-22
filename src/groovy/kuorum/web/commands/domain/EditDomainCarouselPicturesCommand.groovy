@@ -14,9 +14,9 @@ class EditDomainCarouselPicturesCommand {
     String slideId3
 
     static constraints = {
-        slideId1 nullable: true
-        slideId2 nullable: true
-        slideId3 nullable: true
+        slideId1 nullable: false
+        slideId2 nullable: false
+        slideId3 nullable: false
     }
 
 }
