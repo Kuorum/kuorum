@@ -1,8 +1,10 @@
 package kuorum.admin
 
 import grails.plugin.springsecurity.annotation.Secured
+import kuorum.KuorumFile
 import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.domain.DomainService
+import kuorum.files.AmazonFileService
 import kuorum.files.DomainResourcesService
 import kuorum.files.FileService
 import kuorum.mail.KuorumMailAccountService
@@ -41,6 +43,8 @@ class AdminController {
     FileService fileService
 
     DomainResourcesService domainResourcesService
+
+    AmazonFileService amazonFileService
 
 
 //    def afterInterceptor = [action: this.&prepareMenuData]
@@ -126,28 +130,33 @@ class AdminController {
 
     @Secured(['ROLE_SUPER_ADMIN'])
     def editCarousel() {
-        //        DomainRSDTO domain = domainService.getConfig(CustomDomainResolver.domain)
+        String domain = CustomDomainResolver.domain
+        KuorumFile slide1 = domainResourcesService.getSlidePath(domain,1)
+        KuorumFile slide2 = domainResourcesService.getSlidePath(domain,2)
+        KuorumFile slide3 = domainResourcesService.getSlidePath(domain,3)
         EditDomainCarouselPicturesCommand command = new EditDomainCarouselPicturesCommand()
+        command.slideId1 = slide1?.id?.toString()?:null;
+        command.slideId2 = slide2?.id?.toString()?:null;
+        command.slideId3 = slide3?.id?.toString()?:null;
         [command: command]
     }
 
     @Secured(['ROLE_SUPER_ADMIN'])
     def uploadCarousel(EditDomainCarouselPicturesCommand command) {
-        DomainRSDTO domain = domainService.getConfig(CustomDomainResolver.domain)
-//        fileService.uploadTemporalFile()
-//        EditProfilePicturesCommand command = new EditProfilePicturesCommand()
-//        [command: command]
+        if (command.hasErrors()){
+            render view: "editCarousel", model: [command:command]
+        }
+        else {
+            String domain = CustomDomainResolver.domain
+            KuorumFile slideFile1 = KuorumFile.get(command.slideId1)
+            KuorumFile slideFile2 = KuorumFile.get(command.slideId2)
+            KuorumFile slideFile3 = KuorumFile.get(command.slideId3)
+            domainResourcesService.uploadCarouselImages(slideFile1, slideFile2, slideFile3, domain)
+            [command: command]
+            flash.message = "Sus imágenes se subieron correctamente"
+            redirect mapping: 'adminDomainConfig'
+        }
 
-
-//        KuorumUser user = params.user
-//        if (command.hasErrors()){
-//            render view:"editPictures", model: [command:command,user:user]
-//            return
-//        }
-//        prepareUserImages(user,command, fileService)
-//        kuorumUserService.updateUser(user)
-//        flash.message=message(code:'profile.editUser.success')
-        redirect mapping:'adminDomainConfigUploadCarouselImages'
 
     }
 

@@ -1,6 +1,7 @@
 package kuorum.files
 
 import grails.transaction.Transactional
+import kuorum.KuorumFile
 import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.domain.DomainService
 import org.kuorum.rest.model.domain.DomainRSDTO
@@ -17,17 +18,19 @@ class DomainResourcesService {
     AmazonFileService amazonFileService
     FaviconService faviconService
 
+    private String RAW_STORAGE_PATH = "/domains/%s/landingSlider/landingSlide%d.jpg"
+
     Path unzipFile(File zipFile, Path temp) {
         Path outputFolder = Files.createTempDirectory(temp, "faviconTemp");
         byte[] buffer = new byte[1024];
-        try{
+        try {
             ZipInputStream zis =
                     new ZipInputStream(new FileInputStream(zipFile));
             ZipEntry ze = zis.getNextEntry();
-            while(ze!=null){
+            while (ze != null) {
                 String fileName = ze.getName();
                 File newFile = new File(outputFolder.toString() + File.separator + fileName);
-                System.out.println("file unzip : "+ newFile.getAbsoluteFile());
+                System.out.println("file unzip : " + newFile.getAbsoluteFile());
                 new File(newFile.getParent()).mkdirs();
                 FileOutputStream fos = new FileOutputStream(newFile);
                 int len;
@@ -40,7 +43,7 @@ class DomainResourcesService {
 
             zis.closeEntry();
             zis.close();
-        }catch(IOException ex){
+        } catch (IOException ex) {
             ex.printStackTrace();
         }
         return outputFolder;
@@ -63,20 +66,30 @@ class DomainResourcesService {
         }
     }
 
-    def uploadCarouselImages(InputStream customLogo) {
+    def uploadCarouselImages(KuorumFile slideFile1, KuorumFile slideFile2, KuorumFile slideFile3, String domain) {
 
         try {
-            Path temp = Files.createTempDirectory("logoTemp");
-            File logoFile = new File("/${temp}/logo.png")
-            logoFile << customLogo
-            DomainRSDTO domain = domainService.getConfig(CustomDomainResolver.domain)
-            String amazonLogoUrl = amazonFileService.uploadDomainLogo(logoFile, domain.domain)
-            faviconService.createFavicon(amazonLogoUrl, temp, domain)
-            temp.toAbsolutePath().deleteDir()
+            uploadCarouselImage(slideFile1, 1, domain)
+            uploadCarouselImage(slideFile2, 2, domain)
+            uploadCarouselImage(slideFile3, 3, domain)
         }
         catch (Exception e) {
-            log.error("Ha fallado la subida del logo", e)
+            log.error("Ha fallado la subida de la imagen", e)
         }
     }
 
+    private void uploadCarouselImage(KuorumFile file, int pos, String domain) {
+        String slideFilePath = file.storagePath
+        String destinationKey = String.format(RAW_STORAGE_PATH, domain, pos)
+        amazonFileService.copyAmazonFileFromTemporal(slideFilePath, destinationKey)
+        file.storagePath = destinationKey;
+        file.save()
+
+    }
+
+    KuorumFile getSlidePath(String domain, int pos) {
+        String storagePath = String.format(RAW_STORAGE_PATH, domain, pos)
+        KuorumFile slideFile = KuorumFile.findByStoragePath(storagePath)
+        return slideFile
+    }
 }
