@@ -1619,7 +1619,7 @@ ul.user-list-followers .loading.xs {width: 10px; height: 10px;}
 #progressProfileFill:after {content:''; display: block; width: 40px; height: 2px; background-color: #ff9431; top: 0; right: -30px; position: absolute;}
 #progressProfile .user-img.big {border-radius: 53px; width: 106px; height: 106px; position: absolute; left: 7px; top: 7px; margin: 0;}
 #profileInfo > span {position: absolute; display: block; left: 140px; bottom: 0; color: #a8a8a8;}
-#profileInfo .dropdown-menu {width: 165px; margin-top: 5px;}
+#profileInfo .dropdown-menu {width: 185px; margin-top: 5px;}
 #profileInfo .dropdown-menu > li:first-child {border-bottom: none; padding: 0;}
 
 .campaign-progress-bar-wrapper {padding: 15px 15px 10px 15px;}
