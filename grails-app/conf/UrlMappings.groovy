@@ -188,17 +188,17 @@ class UrlMappings {
         name searcherSearchSURVEY:   "/search/survey"               (controller: "search", action:"search"){type="SURVEY"; mappingName="searcherSearchSURVEY"}
         name en_searcherSearchSURVEY:"/search/survey/$word?"        (controller: "search", action:"search"){type="SURVEY"; mappingName="searcherSearchSURVEY"}
         name es_searcherSearchSURVEY:"/buscar/encuesta/$word?"      (controller: "search", action:"search"){type="SURVEY"; mappingName="searcherSearchSURVEY"}
-        name de_searcherSearchSURVEY:"/suche/ereignis/$word?"      (controller: "search", action:"search"){type="SURVEY"; mappingName="searcherSearchSURVEY"}
+        name de_searcherSearchSURVEY:"/suche/umfrage/$word?"      (controller: "search", action:"search"){type="SURVEY"; mappingName="searcherSearchSURVEY"}
 
         name searcherSearchSURVEYByCAUSE:   "/search/survey/cause/$word?"      (controller: "search", action:"search"){searchType="CAUSE";type="SURVEY"; mappingName="searcherSearchSURVEYByCAUSE"}
         name en_searcherSearchSURVEYByCAUSE:"/search/survey/cause/$word?"      (controller: "search", action:"search"){searchType="CAUSE";type="SURVEY"; mappingName="searcherSearchSURVEYByCAUSE"}
         name es_searcherSearchSURVEYByCAUSE:"/buscar/encuesta/causa/$word?"    (controller: "search", action:"search"){searchType="CAUSE";type="SURVEY"; mappingName="searcherSearchSURVEYByCAUSE"}
-        name de_searcherSearchSURVEYByCAUSE:"/suche/ereignis/themen/$word?"    (controller: "search", action:"search"){searchType="CAUSE";type="SURVEY"; mappingName="searcherSearchSURVEYByCAUSE"}
+        name de_searcherSearchSURVEYByCAUSE:"/suche/umfrage/themen/$word?"    (controller: "search", action:"search"){searchType="CAUSE";type="SURVEY"; mappingName="searcherSearchSURVEYByCAUSE"}
 
         name searcherSearchSURVEYByREGION:   "/search/survey/from/$word?"      (controller: "search", action:"search"){searchType="REGION";type="SURVEY"; mappingName="searcherSearchSURVEYByREGION"}
         name en_searcherSearchSURVEYByREGION:"/search/survey/from/$word?"      (controller: "search", action:"search"){searchType="REGION";type="SURVEY"; mappingName="searcherSearchSURVEYByREGION"}
         name es_searcherSearchSURVEYByREGION:"/buscar/encuesta/en/$word?"      (controller: "search", action:"search"){searchType="REGION";type="SURVEY"; mappingName="searcherSearchSURVEYByREGION"}
-        name de_searcherSearchSURVEYByREGION:"/suche/ereignis/von/$word?"      (controller: "search", action:"search"){searchType="REGION";type="SURVEY"; mappingName="searcherSearchSURVEYByREGION"}
+        name de_searcherSearchSURVEYByREGION:"/suche/umfrage/von/$word?"      (controller: "search", action:"search"){searchType="REGION";type="SURVEY"; mappingName="searcherSearchSURVEYByREGION"}
 
         name footerUserGuides:      "/user-guides"          (controller: "footer", action: "footerUserGuides"){mappingName="footerUserGuides"}
         name en_footerUserGuides:   "/user-guides"          (controller: "footer", action: "footerUserGuides"){mappingName="footerUserGuides"}
