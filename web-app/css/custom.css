@@ -230,11 +230,13 @@ label {font-weight: normal;}
 .form-horizontal .checkbox-inline{padding-top: 0px; margin-top:-0.3em;}
 .form-horizontal .tab-pane .form-group.image{margin-left:0;}
 .form-horizontal .form-group .form-control-campaign {text-align: right;}
-.checkbox-inline input[type=checkbox] {display: none;}
+.checkbox-inline input[type=checkbox] {visibility: hidden !important;width: 0 !important;}
 
+#sign .checkbox-inline span.error,
+#signup-modal .checkbox-inline span.error{position: absolute;margin-top: -3px;margin-left: 28px;bottom:auto; left:auto}
 
 .uploadCampaignImages { margin-bottom: 20px;}
-.checkbox-inline > span.check-box-icon {
+.checkbox-inline > span.check-box-icon{
     background-color: #fafafa;
     border: 1px solid #cacece;
     /*box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05);*/
@@ -246,18 +248,24 @@ label {font-weight: normal;}
 }
 .checkbox-inline span.label-checkbox {padding-left:2em; }
 
-.checkbox-inline > span.check-box-icon:active, .checkbox-inline > input[type=checkbox]:checked + span.check-box-icon:active {
+.checkbox-inline > span.check-box-icon:active,
+.checkbox-inline > input[type=checkbox]:checked + span.check-box-icon:active
+.checkbox-inline > input[type=checkbox]:checked + span.error+ span.check-box-icon:active
+{
     box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px 1px 3px rgba(0,0,0,0.1);
 }
 
-.checkbox-inline > input[type=checkbox]:checked + span.check-box-icon {
+.checkbox-inline > input[type=checkbox]:checked + span.check-box-icon,
+.checkbox-inline > input[type=checkbox]:checked + span.error + span.check-box-icon
+{
     background-color: #e9ecee;
     border: 1px solid #adb8c0;
     /*box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05), inset 15px 10px -12px rgba(255,255,255,0.1);*/
     color: #99a1a7;
 }
 
-.checkbox-inline > input[type=checkbox]:checked + span.check-box-icon:after {
+.checkbox-inline > input[type=checkbox]:checked + span.check-box-icon:after,
+.checkbox-inline > input[type=checkbox]:checked + span.error + span.check-box-icon:after {
     content: '\2714';
     font-size: 16px;
     position: absolute;
@@ -269,13 +277,6 @@ label {font-weight: normal;}
 .span-label {display: block; margin-bottom: 5px;}
 
 #brand img{height:100%; width: auto;}
-
-
-#sign .radio-inline, #sign1 .radio-inline, #sign2 .radio-inline, #sign3 .radio-inline,
-#sign .checkbox-inline, #sign1 .checkbox-inline, #sign2 .checkbox-inline, #sign3 .checkbox-inline {position: relative; margin-bottom: 22px !important; color: #a8a8a8;}
-#sign .checkbox-inline.pull-right, #sign1 .checkbox-inline.pull-right, #sign2 .checkbox-inline.pull-right, #sign3 .checkbox-inline.pull-right {margin-bottom: 4px !important;}
-#sign .radio-inline + .radio-inline,
-#sign .checkbox-inline + .checkbox-inline {margin-left: 5px;}
 
 .btn.btn-lg.go-for-pass {margin-top: 30px !important; margin-bottom: 30px !important;}
 
@@ -2954,7 +2955,6 @@ form#sign {margin: 30px auto 0; max-width: 760px;}
 .onecol .form-group {margin-top: 20px;}
 .onecol .form-group.groupRadio {margin: 0;}
 .onecol .form-group.groupRadio + .form-group {margin-top: 0;}
-.onecol .checkbox-inline {margin: 4px 8px; font-size: 85%; line-height: 1.7;}
 .onecol form .cancel {font-size: 15px !important; font-size: 1.5rem; margin: 0 6px 0 0;}
 
 .preFooter {background-color: #efefef; text-align: center; padding: 40px 20px 80px 20px;}
@@ -3466,7 +3466,6 @@ h2.underline {border-bottom: 1px solid #dadada; padding: 0 0 10px 0; margin-top:
 .signContainer h3 {color: #fff; font-size: 14px; font-size: 1.4rem; text-align: center; margin-bottom: 0;}
 .signContainer .checkbox-inline a {color: #fff;}
 .signContainer .btns {margin-top: 10px;}
-.home #sign .checkbox-inline {margin: 4px 0 !important; font-size: 13px; font-size: 1.3rem;}
 .home .play {margin: 0; padding: 0; color: #fff; font-size: 15px; font-size: 1.5rem;text-align: center;}
 .home .play .fa {vertical-align: middle; margin-right: 10px;}
 .home .play > a {color: rgba(255, 255, 255, 0.9);}
@@ -5219,7 +5218,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .pre {margin: 75px 20px 5px 0;}
     .preFooter .user-list li .user-img {margin-right: 10px;}
 
-    #sign .checkbox-inline + .checkbox-inline {margin-left: 10px;}
     .form-group.image.fondoperfil .qq-upload-drop-area {background-size: auto auto; background-position: center 32%; padding-top: 15%;}
     .chat > li .user.author {margin-top: -32px;}
     .listComments > li .user.author {margin-top: -32px;}
@@ -8037,10 +8035,14 @@ That's why the with is 100% and max-with is for high resolutions.
     min-height: 55px;
     width: 100%;
 }
-
+.fade-carousel .content form input[type=checkbox]{
+    min-height: 0px;
+    width: 0;
+}
 .fade-carousel .content .conditions {
     color: #c7c6c6;
     font-family: 'Georgia', 'Times New Roman', Times, serif;
+    margin:10px 0 0 0;
 }
 
 .fade-carousel .content .conditions a {
@@ -8113,7 +8115,7 @@ background-repeat: no-repeat;
 
 form.dark {
     background-color: rgba(0,0,0,0.4);
-    padding: 25px;
+    padding: 25px 25px 15px;
 }
 
 div.dark {

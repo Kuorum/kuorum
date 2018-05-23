@@ -9,6 +9,7 @@
             errorClass:'error',
             errorElement:'span',
             onkeyup: false,
+            debug:true,
             onclick: false,
             rules: {
                 "name":{
@@ -33,6 +34,9 @@
                             $form.addClass("checked")
                         }
                     }
+                },
+                "conditions":{
+                    required: true
                 }
             },
             messages: {
@@ -45,6 +49,9 @@
                     required: "${g.message(code:'springSecurity.KuorumRegisterCommand.email.nullable')}",
                     remote:"${g.message(code:'springSecurity.KuorumRegisterCommand.email.registerCommand.username.unique')}",
                     email: "${g.message(code:'springSecurity.KuorumRegisterCommand.email.wrongFormat')}",
+                },
+                "conditions":{
+                    required: "${g.message(code:'springSecurity.KuorumRegisterCommand.conditions.nullable')}",
                 }
             },
             beforeSend: function () {
@@ -90,7 +97,18 @@
                 class="btn btn-orange btn-lg g-recaptcha"><g:message code="register.email.form.submit"/>
         </button>
         %{--<input type="submit" class="btn btn-lg" value="${g.message(code:'register.email.form.submit')}">--}%
-        <p><g:message code="register.conditions" args="[g.createLink(mapping: 'footerPrivacyPolicy')]" encodeAs="raw"/></p>
+        <p>
+
+            %{--<input type="checkbox" name="conditions" id="conditions"/>--}%
+            %{--<g:message code="register.conditions" args="[g.createLink(mapping: 'footerPrivacyPolicy')]" encodeAs="raw"/>--}%
+
+
+                <formUtil:checkBox
+                    command="${registerCommand}"
+                    field="conditions"
+                    label="${g.message(code:'register.conditions', args:[g.createLink(mapping: 'footerPrivacyPolicy')], encodeAs: 'raw')}"/>
+
+        </p>
     </div>
     <div class="form-group">
         <p><g:message code="login.intro.loginAfter" args="['#','change-home-login']"/></p>

@@ -38,7 +38,15 @@
                     data-recaptcha=""
                     data-callback="registerCallback"
                     class="btn btn-lg g-recaptcha">${g.message(code:'register.email.form.submit')}</button>
-            <p><g:message code="register.conditions" args="[g.createLink(mapping: 'footerPrivacyPolicy')]" encodeAs="raw"/></p>
+            <p>
+                %{--<input type="checkbox" name="conditions" id="conditions"/>--}%
+                %{--<g:message code="register.conditions" args="[g.createLink(mapping: 'footerPrivacyPolicy')]" encodeAs="raw"/>--}%
+                <formUtil:checkBox
+                        command="${command}"
+                        field="conditions"
+                        label="${g.message(code:'register.conditions', args:[g.createLink(mapping: 'footerPrivacyPolicy')], encodeAs: 'raw')}"/>
+
+            </p>
         </div>
         <div class="form-group">
             <p>

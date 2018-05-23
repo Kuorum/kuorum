@@ -45,10 +45,16 @@
                         data-callback='registerCallback'
                         class="btn btn-lg col-lg-4 g-recaptcha"><g:message code="landingPage.register.form.submit"/>
                 </button>
+                <div class="form-group col-lg-12 conditions">
+                    <formUtil:checkBox
+                            command="${command}"
+                            field="conditions"
+                            label="${g.message(code:'register.conditions', args:[g.createLink(mapping: 'footerPrivacyPolicy')], encodeAs: 'raw')}"/>
+
+                </div>
                 <r:require modules="recaptcha_register"/>
             </fieldset>
         </g:form>
-        <p class="conditions hidden-xs"><g:message code="register.conditions" args="[g.createLink(mapping: 'footerTermsUse')]"/></p>
     </sec:ifNotLoggedIn>
     </div>
     <div class="carousel-inner" role="listbox">
