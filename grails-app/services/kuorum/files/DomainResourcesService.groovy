@@ -18,7 +18,7 @@ class DomainResourcesService {
     AmazonFileService amazonFileService
     FaviconService faviconService
 
-    private String RAW_STORAGE_PATH = "/domains/%s/landingSlider/landingSlide%d.jpg"
+    private String RAW_STORAGE_PATH = "domains/%s/landingSlider/landing-%d.jpg"
 
     Path unzipFile(File zipFile, Path temp) {
         Path outputFolder = Files.createTempDirectory(temp, "faviconTemp");
@@ -79,12 +79,8 @@ class DomainResourcesService {
     }
 
     private void uploadCarouselImage(KuorumFile file, int pos, String domain) {
-        String slideFilePath = file.storagePath
         String destinationKey = String.format(RAW_STORAGE_PATH, domain, pos)
-        amazonFileService.copyAmazonFileFromTemporal(slideFilePath, destinationKey)
-        file.storagePath = destinationKey;
-        file.save()
-
+        amazonFileService.copyAmazonFileFromTemporal(file, destinationKey)
     }
 
     KuorumFile getSlidePath(String domain, int pos) {

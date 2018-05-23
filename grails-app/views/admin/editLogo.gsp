@@ -19,12 +19,12 @@
         <div class="input-group">
             <label class="input logo" accept=".png">
                 <form>
-                <span class="btn upload btn-primary">Select file
+                <span class="btn upload btn-primary"><g:message code="admin.menu.uploadLogo.selectFile"/>
                     <input type="file" style="display: none;" name="logo" accept=".png">
                 </span>
                 </form>
             </label>
-            <button type="submit" class="btn btn-primary" onclick="pageLoadingOn('submitLogo')">Send <i class="fa fa-cloud-upload fa-2" aria-hidden="true"></i></button>
+            <button type="submit" class="btn btn-primary" onclick="pageLoadingOn('submitLogo')"><g:message code="admin.menu.uploadLogo.sendFile"/> <i class="fa fa-cloud-upload fa-2" aria-hidden="true"></i></button>
         </div>
     </g:uploadForm>
 </content>

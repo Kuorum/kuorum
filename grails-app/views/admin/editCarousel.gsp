@@ -16,14 +16,14 @@
 <content tag="mainContent">
 
     <g:uploadForm mapping="adminDomainConfigUploadCarouselImages">
-        <fieldset class="form-group image fondoperfil" data-multimedia-switch="on" data-multimedia-type="IMAGE">
-            <formUtil:editImage command="${command}" field="slideId1" fileGroup="${kuorum.core.FileGroup.DOMAIN_SLIDE_IMAGE}"/>
+        <fieldset class="form-group image fondoperfil" accept=".jpg" data-multimedia-switch="on" data-multimedia-type="IMAGE">
+            <formUtil:editImage command="${command}" accept=".jpg,.jpeg" field="slideId1" fileGroup="${kuorum.core.FileGroup.DOMAIN_SLIDE_IMAGE}"/>
         </fieldset>
-        <fieldset class="form-group image fondoperfil" data-multimedia-switch="on" data-multimedia-type="IMAGE">
-            <formUtil:editImage command="${command}" field="slideId2" fileGroup="${kuorum.core.FileGroup.DOMAIN_SLIDE_IMAGE}"/>
+        <fieldset class="form-group image fondoperfil" accept=".jpg" data-multimedia-switch="on" data-multimedia-type="IMAGE">
+            <formUtil:editImage command="${command}" accept=".jpg,.jpeg" field="slideId2" fileGroup="${kuorum.core.FileGroup.DOMAIN_SLIDE_IMAGE}"/>
         </fieldset>
-        <fieldset class="form-group image fondoperfil" data-multimedia-switch="on" data-multimedia-type="IMAGE">
-            <formUtil:editImage command="${command}" field="slideId3" fileGroup="${kuorum.core.FileGroup.DOMAIN_SLIDE_IMAGE}"/>
+        <fieldset class="form-group image fondoperfil" accept=".jpg" data-multimedia-switch="on" data-multimedia-type="IMAGE">
+            <formUtil:editImage command="${command}" accept=".jpg,.jpeg" field="slideId3" fileGroup="${kuorum.core.FileGroup.DOMAIN_SLIDE_IMAGE}"/>
         </fieldset>
         <fieldset class="form-group text-center">
             <input type="submit" value="${g.message(code:'profile.emailNotifications.save')}" class="btn btn-orange btn-lg">

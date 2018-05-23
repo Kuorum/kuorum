@@ -6,9 +6,9 @@ import com.amazonaws.auth.BasicAWSCredentials
 import com.amazonaws.services.s3.AmazonS3
 import com.amazonaws.services.s3.AmazonS3Client
 import com.amazonaws.services.s3.model.*
+import kuorum.KuorumFile
 
 //import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import kuorum.KuorumFile
 import kuorum.core.FileGroup
 import kuorum.core.FileType
 import kuorum.core.exception.KuorumException
@@ -50,7 +50,7 @@ class AmazonFileService extends LocalFileService{
 
         List<KuorumFile> files = listing.objectSummaries.collect{S3ObjectSummary s3o ->
             String encodedKey = s3o.key.split("/").collect{java.net.URLEncoder.encode(it, "UTF-8")}.join("/")
-            String url = "https://${bucketName}.s3.amazonaws.com/${encodedKey}"
+            String url = buildAmazonUrl(encodedKey)
             return KuorumFile.findByUrl(url)
         }
         return files
@@ -78,20 +78,39 @@ class AmazonFileService extends LocalFileService{
 
 
 
-    protected  void copyAmazonFileFromTemporal(String sourceKey, String destinationKey){
+    protected  void copyAmazonFileFromTemporal(KuorumFile file, String destinationKey){
+        String sourceKey = file.storagePath
+        if (sourceKey != destinationKey) {
+            KuorumFile oldFile = KuorumFile.findByStoragePath(destinationKey);
+            if (oldFile){
+                oldFile.delete()
+            }
+            String bucketName = grailsApplication.config.kuorum.amazon.bucketName;
+            AmazonS3 s3Client = buildAmazonClient()
 
-        String bucketName = grailsApplication.config.kuorum.amazon.bucketName;
-        AmazonS3 s3Client = buildAmazonClient()
+            try {
+                // Copy the object into a new object in the same bucket.
+                CopyObjectRequest copyObjRequest = new CopyObjectRequest(bucketName, sourceKey, bucketName, destinationKey);
+                s3Client.copyObject(copyObjRequest);
+                String finalUrl = buildAmazonUrl(destinationKey)
+                file.temporal = false
+                file.url = finalUrl
+                file.urlThumb = finalUrl
+                file.fileType = FileType.AMAZON_IMAGE
+                file.local = false
+                file.storagePath = destinationKey
+                file.save(flush: true)
+                log.info("Copy Amazon file success")
 
-        try {
-            // Copy the object into a new object in the same bucket.
-            CopyObjectRequest copyObjRequest = new CopyObjectRequest(bucketName, sourceKey, bucketName, destinationKey);
-            s3Client.copyObject(copyObjRequest);
-        }
-        catch(AmazonServiceException e) {
-            // The call was transmitted successfully, but Amazon S3 couldn't process
-            // it, so it returned an error response.
-            log.error("Error copy",e)
+                DeleteObjectRequest deleteTemporalFileAmazonRequest = new DeleteObjectRequest(bucketName, sourceKey)
+                s3Client.deleteObject(deleteTemporalFileAmazonRequest)
+
+            }
+            catch (AmazonServiceException e) {
+                // The call was transmitted successfully, but Amazon S3 couldn't process
+                // it, so it returned an error response.
+                log.error("Error copying", e)
+            }
         }
     }
 
@@ -328,10 +347,14 @@ class AmazonFileService extends LocalFileService{
 
     private String buildAmazonDomainUrl(String domain, String key){
         String keyName    = "${DOMAIN_PATH}/${domain}/${key}"
-        String bucketName = grailsApplication.config.kuorum.amazon.bucketName;
-        return "https://${bucketName}.s3.amazonaws.com/${keyName}"
+        return buildAmazonUrl(keyName)
     }
 
+
+    private String buildAmazonUrl(String relativePath){
+        String bucketName = grailsApplication.config.kuorum.amazon.bucketName;
+        return "https://${bucketName}.s3.amazonaws.com/${relativePath}"
+    }
     private AmazonS3  buildAmazonClient() {
         String accessKey = grailsApplication.config.kuorum.amazon.accessKey
         String secretKey = grailsApplication.config.kuorum.amazon.secretKey

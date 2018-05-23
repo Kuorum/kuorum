@@ -152,7 +152,6 @@ class AdminController {
             KuorumFile slideFile2 = KuorumFile.get(command.slideId2)
             KuorumFile slideFile3 = KuorumFile.get(command.slideId3)
             domainResourcesService.uploadCarouselImages(slideFile1, slideFile2, slideFile3, domain)
-            [command: command]
             flash.message = "Sus imágenes se subieron correctamente"
             redirect mapping: 'adminDomainConfig'
         }

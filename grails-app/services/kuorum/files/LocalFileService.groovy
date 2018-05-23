@@ -86,7 +86,7 @@ class LocalFileService implements FileService{
         if (file.bytes.length <= 0){
             log.error("Ocurre algo raro con el fichero subido. Si tamanio es inferior a 0: ${file.bytes.length}")
             file.delete()
-            throw new KuorumException("No se ha podido guardar el fiechero", "error.file.empty")
+            throw new KuorumException("No se ha podido guardar el fichero", "error.file.empty")
         }else if (file.bytes.length> fileGroup.maxSize){
             log.debug("El fichero ha excedido el tamanio permitido: ${file.bytes.length}> ${fileGroup.maxSize}")
             file.delete()
