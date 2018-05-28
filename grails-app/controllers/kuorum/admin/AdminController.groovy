@@ -15,11 +15,10 @@ import kuorum.users.KuorumUserService
 import kuorum.web.admin.KuorumUserEmailSenderCommand
 import kuorum.web.admin.KuorumUserRightsCommand
 import kuorum.web.admin.domain.DomainConfigCommand
+import kuorum.web.admin.domain.EditLegalInfoCommand
 import kuorum.web.commands.domain.EditDomainCarouselPicturesCommand
 import org.kuorum.rest.model.admin.AdminConfigMailingRDTO
-import org.kuorum.rest.model.domain.DomainRDTO
-import org.kuorum.rest.model.domain.DomainRSDTO
-import org.kuorum.rest.model.domain.SocialRDTO
+import org.kuorum.rest.model.domain.*
 import org.kuorum.rest.model.notification.campaign.config.NewsletterConfigRSDTO
 import org.springframework.web.multipart.commons.CommonsMultipartFile
 import payment.campaign.NewsletterService
@@ -107,6 +106,42 @@ class AdminController {
         redirect mapping:'adminDomainConfig'
     }
 
+    @Secured(['ROLE_ADMIN'])
+    def editLegalInfo() {
+        DomainLegalInfoRSDTO domainLegalInfoRDSTO = domainService.getLegalInfo(CustomDomainResolver.domain)
+        EditLegalInfoCommand editLegalInfoCommand = new EditLegalInfoCommand();
+        editLegalInfoCommand.address = domainLegalInfoRDSTO?.address
+        editLegalInfoCommand.city = domainLegalInfoRDSTO?.city
+        editLegalInfoCommand.country = domainLegalInfoRDSTO?.country
+        editLegalInfoCommand.domainName = domainLegalInfoRDSTO?.domainName
+        editLegalInfoCommand.domainOwner = domainLegalInfoRDSTO?.domainOwner
+        editLegalInfoCommand.fileName = domainLegalInfoRDSTO?.fileName
+        editLegalInfoCommand.filePurpose = domainLegalInfoRDSTO?.filePurpose
+        editLegalInfoCommand.fileResponsibleEmail = domainLegalInfoRDSTO?.fileResponsibleEmail
+        editLegalInfoCommand.fileResponsibleName = domainLegalInfoRDSTO?.fileResponsibleName
+        [command:editLegalInfoCommand]
+    }
+
+    @Secured(['ROLE_ADMIN'])
+    def updateLegalInfo(EditLegalInfoCommand command) {
+        if (command.hasErrors()){
+            render view:'editLegalInfo', model:[command:command]
+            return;
+        }
+        DomainLegalInfoRDTO domainLegalInfoRDTO = new DomainLegalInfoRDTO()
+        domainLegalInfoRDTO.address = command.address
+        domainLegalInfoRDTO.city = command.city
+        domainLegalInfoRDTO.country = command.country
+        domainLegalInfoRDTO.domainOwner = command.domainOwner
+        domainLegalInfoRDTO.fileName = command.fileName
+        domainLegalInfoRDTO.filePurpose = command.filePurpose
+        domainLegalInfoRDTO.fileResponsibleEmail = command.fileResponsibleEmail
+        domainLegalInfoRDTO.fileResponsibleName = command.fileResponsibleName
+        domainService.updateLegalInfo(domainLegalInfoRDTO)
+        flash.message ="Success"
+        redirect mapping:'adminDomainConfigLegalInfo'
+    }
+
     @Secured(['ROLE_SUPER_ADMIN'])
     def editLogo() {
     }
@@ -155,8 +190,6 @@ class AdminController {
             flash.message = "Sus imágenes se subieron correctamente"
             redirect mapping: 'adminDomainConfig'
         }
-
-
     }
 
 
