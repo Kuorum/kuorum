@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference
 import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.files.LessCompilerService
 import kuorum.util.rest.RestKuorumApiService
+import org.kuorum.rest.model.domain.DomainLegalInfoRDTO
 import org.kuorum.rest.model.domain.DomainLegalInfoRSDTO
 import org.kuorum.rest.model.domain.DomainRDTO
 import org.kuorum.rest.model.domain.DomainRSDTO
@@ -100,4 +101,27 @@ class DomainService {
         }
     }
 
+    DomainLegalInfoRSDTO updateLegalInfo (DomainLegalInfoRDTO domainLegalInfoRDTO ) {
+
+        String domain = CustomDomainResolver.domain
+        Map<String, String> params = [:]
+        Map<String, String> query = [domainName:domain]
+
+        try {
+            def apiResponse = restKuorumApiService.put(
+                    RestKuorumApiService.ApiMethod.DOMAIN_LEGAL,
+                    params,
+                    query,
+                    domainLegalInfoRDTO,
+                    new TypeReference<DomainLegalInfoRSDTO>() {},
+                    kuorumAdminRestApiKey)
+            DomainLegalInfoRSDTO domainLegalInfoRSDTO
+            if (apiResponse.data){
+                domainLegalInfoRSDTO = apiResponse.data
+            }
+            return domainLegalInfoRSDTO;
+        } catch (Exception e) {
+            log.warn("Error updating config. [Excp: ${e.getMessage()}")
+        }
+    }
 }

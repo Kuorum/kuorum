@@ -331,8 +331,9 @@ class UrlMappings {
         name adminSearcherFullIndex:                "/sec/admin/searcher/full-index"    (controller:"admin", action:"fullIndex")
         name adminSearcherFullIndex:                "/sec/admin/searcher/full-index"    (controller:"admin", action:"fullIndex")
         name adminDomainConfig:                     "/sec/admin/domain"                 (controller:"admin"){action=[GET:"domainConfig",POST:"domainConfigSave"]}
+        name adminDomainConfigLegalInfo:            "/sec/admin/domain/editLegalInfo"   (controller:"admin"){action=[GET:"editLegalInfo",POST:"updateLegalInfo"]}
         name adminDomainConfigUploadLogo:           "/sec/admin/domain/uploadLogo"      (controller:"admin"){action=[GET:"editLogo",POST:"uploadLogo"]}
-        name adminDomainConfigUploadCarouselImages:  "/sec/admin/domain/editCarousel"    (controller:"admin"){action=[GET:"editCarousel",POST:"uploadCarousel"]}
+        name adminDomainConfigUploadCarouselImages:  "/sec/admin/domain/editCarousel"   (controller:"admin"){action=[GET:"editCarousel",POST:"uploadCarousel"]}
 
 
         name editorCreatePolitician:                        "/editor/user/politician/create-politician"             (controller:"editorUser"){action =[GET:"createPolitician", POST:"saveCreatePolitician"]}
