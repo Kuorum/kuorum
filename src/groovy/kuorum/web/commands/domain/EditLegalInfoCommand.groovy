@@ -18,7 +18,6 @@ class EditLegalInfoCommand {
             address nullable: false
             city nullable: false
             country nullable: false
-            domainName nullable:false
             domainOwner nullable:false
             fileName nullable:false
             filePurpose nullable: false
