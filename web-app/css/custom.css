@@ -8199,7 +8199,8 @@ div.dark {
 @media (max-width: 767px) {
 
     .fade-carousel .content hgroup {
-        margin-bottom: 0px;
+        margin-bottom: -20px;
+        margin-top:40px;
     }
 
     .fade-carousel .slides .slide-1,
