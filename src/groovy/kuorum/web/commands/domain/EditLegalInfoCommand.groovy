@@ -8,7 +8,6 @@ class EditLegalInfoCommand {
     String address;
     String city;
     String country;
-    String domainName;
     String domainOwner;
     String fileName;
     String filePurpose;

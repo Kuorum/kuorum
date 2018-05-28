@@ -113,7 +113,6 @@ class AdminController {
         editLegalInfoCommand.address = domainLegalInfoRDSTO?.address
         editLegalInfoCommand.city = domainLegalInfoRDSTO?.city
         editLegalInfoCommand.country = domainLegalInfoRDSTO?.country
-        editLegalInfoCommand.domainName = domainLegalInfoRDSTO?.domainName
         editLegalInfoCommand.domainOwner = domainLegalInfoRDSTO?.domainOwner
         editLegalInfoCommand.fileName = domainLegalInfoRDSTO?.fileName
         editLegalInfoCommand.filePurpose = domainLegalInfoRDSTO?.filePurpose
