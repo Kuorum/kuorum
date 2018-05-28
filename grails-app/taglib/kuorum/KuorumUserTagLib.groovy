@@ -46,16 +46,6 @@ class KuorumUserTagLib {
         }
     }
 
-    @Deprecated
-    def showUserByAlias= { attrs, body ->
-        String alias = attrs.alias
-        attrs.showRole
-        attrs.showName
-        attrs.extraCss
-        KuorumUser user = KuorumUser.findByAlias(alias.toLowerCase());
-        attrs.put("user", user)
-        out << showUser(user:user, showRole: attrs.showRole, showName:attrs.showName, extraCss: attrs.extraCss)
-    }
     def showUser={attrs, body ->
         KuorumUser user
         //attrs.withPopover => String expected
@@ -476,7 +466,7 @@ class KuorumUserTagLib {
         }else if (attrs.user instanceof BasicDataKuorumUserRSDTO){
             user = KuorumUser.get(new ObjectId(attrs.user.id))
         }else{
-            user = KuorumUser.findByAlias(attrs.user)
+            user = KuorumUser.findByAliasAndDomain(attrs.user, CustomDomainResolver.domain)
         }
         if (springSecurityService.isLoggedIn()){
             KuorumUser loggedUser = springSecurityService.currentUser;
@@ -496,7 +486,7 @@ class KuorumUserTagLib {
             }else if (attrs.user instanceof BasicDataKuorumUserRSDTO){
                 user = KuorumUser.get(new ObjectId(attrs.user.id))
             }else{
-                user = KuorumUser.findByAlias(attrs.user)
+                user = KuorumUser.findByAliasAndDomain(attrs.user,CustomDomainResolver.domain)
             }
             KuorumUser loggedUser = springSecurityService.currentUser;
             if (loggedUser.id != user.id){

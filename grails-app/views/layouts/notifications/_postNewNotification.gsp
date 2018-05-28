@@ -1,6 +1,6 @@
 
 <g:set var="postLink"><g:createLink mapping="postShow" params="${notification.post.encodeAsLinkProperties()}"/></g:set>
-<g:set var="actor" value="${kuorum.users.KuorumUser.findByAlias(notification.actorAlias)}"/>
+<g:set var="actor" value="${kuorum.users.KuorumUser.findByAliasAndDomain(notification.actorAlias,_domain)}"/>
 <g:set var="actorLink"><g:createLink mapping="userShow" params="${actor.encodeAsLinkProperties()}"/></g:set>
 <g:if test="${notification.post.event}">
         <g:set var="text"><g:message code="notifications.eventNew.text" args="[actor.name,actorLink, postLink]"/></g:set>

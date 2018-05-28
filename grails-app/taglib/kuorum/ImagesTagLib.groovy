@@ -1,5 +1,6 @@
 package kuorum
 
+import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.users.KuorumUser
 import org.kuorum.rest.model.contact.ContactRSDTO
 import org.kuorum.rest.model.search.kuorumElement.SearchKuorumUserRSDTO
@@ -19,7 +20,7 @@ class ImagesTagLib {
             imageUrl = attrs.user.urlImage
         }else{
             // IS A STRING => Alias
-            KuorumUser user = KuorumUser.findByAlias(attrs.user)
+            KuorumUser user = KuorumUser.findByAliasAndDomain(attrs.user, CustomDomainResolver.domain)
             imageUrl = user?.avatar?.url
         }
         if (imageUrl){

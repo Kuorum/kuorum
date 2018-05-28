@@ -549,11 +549,11 @@ class KuorumUserService {
             return "";
         }
         alias = alias?:new Double(Math.floor(Math.random()*Math.pow(10, KuorumUser.ALIAS_MAX_SIZE))).intValue()
-        KuorumUser user = KuorumUser.findByAlias(alias)
+        KuorumUser user = KuorumUser.findByAliasAndDomain(alias, CustomDomainResolver.domain)
         while (user){
             alias = alias.take(alias.length() -2)
             alias = "${alias}${new Double(Math.floor(Math.random()*100)).intValue()}"
-            user = KuorumUser.findByAlias(alias)
+            user = KuorumUser.findByAliasAndDomain(alias, CustomDomainResolver.domain)
         }
         return alias;
     }
