@@ -1335,7 +1335,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .new-filter-options .minus-condition, .new-filter-options .plus-condition {color: #a8a8a8; margin-bottom: 5px; display: inline-block; line-height: 35px; z-index:1}
 .new-filter-options .minus-condition:hover, .new-filter-options .minus-condition:focus, .new-filter-options .minus-condition:active,
 .new-filter-options .plus-condition:hover, .new-filter-options .plus-condition:focus, .new-filter-options .plus-condition:active {text-decoration: none; color: #333;}
-.new-filter-actions {margin-top: -60px; margin-bottom: 60px; padding-bottom: 10px; border-bottom: 1px solid #ddd; text-align: right; position: relative;}
+.new-filter-actions {margin-top: -30px; margin-bottom: 60px; padding-bottom: 10px; border-bottom: 1px solid #ddd; text-align: right; position: relative;}
 .new-filter-actions a {margin-left: 5px !important;}
 .new-filter-actions a {color: #a8a8a8;}
 .new-filter-actions a:hover,
