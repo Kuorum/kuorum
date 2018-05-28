@@ -23,9 +23,9 @@
                     ${survey.title}
                 </g:link>
             </h1>
-            <g:if test="${!surveyMultimedia}">
-                <div class="card-text"><modulesUtil:shortText text="${survey.body}"/></div>
-            </g:if>
+            %{--<g:if test="${!surveyMultimedia}">--}%
+                %{--<div class="card-text"><modulesUtil:shortText text="${survey.body}"/></div>--}%
+            %{--</g:if>--}%
         </div>
         <div class="card-footer">
             <ul>
