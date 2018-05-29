@@ -113,7 +113,7 @@ class SurveyController extends CampaignController{
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def saveAnswer(QuestionAnswerCommand command){
         KuorumUser userAnswer = KuorumUser.get(springSecurityService.principal.id)
-        KuorumUser surveyUser = KuorumUser.findByAlias(params.userAlias)
+        KuorumUser surveyUser = kuorumUserService.findByAlias(params.userAlias)
         SurveyRSDTO survey = surveyService.find(surveyUser, command.campaignId)
         surveyService.saveAnswer(survey, userAnswer, command.questionId, command.answersIds)
         render ([status:"success",msg:""] as JSON)

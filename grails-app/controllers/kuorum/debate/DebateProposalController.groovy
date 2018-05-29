@@ -4,6 +4,7 @@ import grails.converters.JSON
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.users.KuorumUser
+import kuorum.users.KuorumUserService
 import kuorum.web.commands.payment.debate.DebateProposalCommand
 import kuorum.web.commands.payment.massMailing.CommentProposalCommand
 import kuorum.web.commands.payment.massMailing.LikeProposalCommand
@@ -21,11 +22,13 @@ class DebateProposalController {
 
     ProposalService proposalService
 
+    KuorumUserService kuorumUserService
+
     DebateService debateService
 
     def addProposal(DebateProposalCommand command) {
         KuorumUser user = springSecurityService.currentUser
-        KuorumUser debateUser = KuorumUser.findByAlias(command.debateAlias)
+        KuorumUser debateUser = kuorumUserService.findByAlias(command.debateAlias)
         DebateRSDTO debate = debateService.find(debateUser, command.debateId, user.getId().toString())
         ProposalRSDTO proposalRSDTO = proposalService.addProposal(user, debate, command.body)
 
@@ -57,7 +60,7 @@ class DebateProposalController {
 
     def addComment(CommentProposalCommand command){
         KuorumUser user = springSecurityService.currentUser
-        KuorumUser debateUser = KuorumUser.findByAlias(command.debateAlias)
+        KuorumUser debateUser = kuorumUserService.findByAlias(command.debateAlias)
         DebateRSDTO debate = debateService.find(debateUser, command.debateId)
         ProposalRSDTO proposalRSDTO = proposalService.addComment(user, debate, command.proposalId, command.body)
         ProposalCommentRSDTO comment = proposalRSDTO.comments.reverseFind{it.user.id == user.id.toString()}

@@ -2,10 +2,7 @@ package kuorum.users
 
 import grails.converters.JSON
 import grails.plugin.springsecurity.SpringSecurityService
-import kuorum.core.model.UserType
 import kuorum.web.widget.AverageWidgetType
-import net.sf.ehcache.search.aggregator.Average
-import org.kuorum.rest.model.kuorumUser.reputation.ReputationSnapshotRSDTO
 import org.kuorum.rest.model.kuorumUser.reputation.UserReputationEvolutionRSDTO
 import org.kuorum.rest.model.kuorumUser.reputation.UserReputationRSDTO
 
@@ -150,7 +147,7 @@ class RatingController {
     }
 
     def loadRating(String userAlias){
-        KuorumUser user = KuorumUser.findByAlias(userAlias)
+        KuorumUser user = kuorumUserService.findByAlias(userAlias)
         UserReputationRSDTO userReputationRSDTO = userReputationService.getReputationWithCache(user)
         render template: "/kuorumUser/popoverUserRating", model: [user:user,userReputation: userReputationRSDTO]
     }

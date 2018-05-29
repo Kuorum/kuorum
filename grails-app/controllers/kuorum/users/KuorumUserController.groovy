@@ -2,6 +2,7 @@ package kuorum.users
 
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.causes.CausesService
+import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.model.search.Pagination
 import kuorum.register.RegisterService
 import org.kuorum.rest.model.communication.CampaignRSDTO
@@ -55,7 +56,7 @@ class KuorumUserController {
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def secShow(String userAlias){
-        KuorumUser user = KuorumUser.findByAlias(userAlias)
+        KuorumUser user = KuorumUser.findByAliasAndDomain(userAlias, CustomDomainResolver.domain)
         log.info("Redirecting to normal user show")
         redirect (mapping:'userShow', params:user.encodeAsLinkProperties())
     }

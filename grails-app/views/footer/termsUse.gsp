@@ -154,6 +154,9 @@
         <p>
             <g:message code="footer.menu.footerTermsUse.description111" args="[g.createLink(mapping:'footerPrivacyPolicy', absolute: true), legalInfo.domainName, legalInfo.domainOwner, legalInfo.address, legalInfo.city, legalInfo.country]"/>
         </p>
+        <p>
+            <g:message code="footer.menu.footerTermsUse.description112" args="[g.createLink(mapping:'footerPrivacyPolicy', absolute: true), legalInfo.domainName, legalInfo.domainOwner, legalInfo.address, legalInfo.city, legalInfo.country]"/>
+        </p>
     </div>
 
     <h4  class="border"><g:message code="footer.menu.footerTermsUse.subtitle12"/></h4>
