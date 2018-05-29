@@ -263,8 +263,13 @@ class ContactsController {
 
         // From session
         CSVDataSession csvDataSession = (CSVDataSession) request.getSession().getAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY)
-
-        List<String> columnOption = params.columnOption
+        List<String> columnOption
+        if (params.columnOption instanceof String){
+            //Only one column selected
+            columnOption = [params.columnOption]
+        }else{
+            columnOption = params.columnOption
+        }
 
         Integer namePos = columnOption.findIndexOf{it=="name"}
         Integer surnamePos = columnOption.findIndexOf{it=="surname"}
@@ -277,7 +282,13 @@ class ContactsController {
         Integer numOfEmptyColumns = csvDataSession.numOfEmptyColumns
         Integer notImport = ((params.notImport?:[]) as List).collect{Integer.parseInt(it)}.max()?:0
 
-        List<String> realPos = params.realPos
+        List<String> realPos
+        if (params.realPos instanceof String){
+            //Only one column selected
+            realPos = [params.realPos]
+        }else{
+            realPos = params.realPos
+        }
         surnamePos = surnamePos<0 || surnamePos > realPos.size() ? surnamePos : Integer.parseInt(realPos[surnamePos])
         languagePos = languagePos<0 || languagePos > realPos.size() ? languagePos : Integer.parseInt(realPos[languagePos])
         emailPos = emailPos<0 || emailPos > realPos.size() ? emailPos : Integer.parseInt(realPos[emailPos])
