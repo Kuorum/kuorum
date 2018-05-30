@@ -33,7 +33,7 @@ class LandingController {
 //            campaigns = campaigns.subList(Math.min(campaigns.size(), 3))
             campaigns = campaigns.sort({a, b -> b.datePublished <=> a.datePublished })
             if( campaigns.size() > 3){
-                campaigns = campaigns.subList(campaigns.size()-3, campaigns.size());
+                campaigns = campaigns.subList(0, 3);
             }
 
         }else{
