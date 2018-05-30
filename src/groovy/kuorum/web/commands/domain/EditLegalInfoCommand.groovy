@@ -15,13 +15,13 @@ class EditLegalInfoCommand {
     String fileResponsibleName;
 
         static constraints = {
-            address nullable: false
-            city nullable: false
-            country nullable: false
-            domainOwner nullable:false
-            fileName nullable:false
-            filePurpose nullable: false
-            fileResponsibleEmail nullable: false
-            fileResponsibleName nullable: false
+            address nullable: true
+            city nullable: true
+            country nullable: true
+            domainOwner nullable:true
+            fileName nullable:true
+            filePurpose nullable: true
+            fileResponsibleEmail nullable: true
+            fileResponsibleName nullable: true
     }
 }

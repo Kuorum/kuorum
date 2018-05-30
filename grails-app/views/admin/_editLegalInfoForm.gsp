@@ -21,7 +21,7 @@
             <formUtil:input command="${command}" field="fileName" showLabel="true" />
         </div>
         <div class="form-group col-md-6">
-            <formUtil:input command="${command}" field="filePurpose" showLabel="true" />
+            <formUtil:textArea command="${command}" field="filePurpose" showLabel="true" />
         </div>
     </fieldset>
     <fieldset class="row">
