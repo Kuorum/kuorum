@@ -31,8 +31,9 @@ class LandingController {
         if (user) {
             campaigns = campaignService.findAllCampaigns(user).findAll{it.newsletter.status == CampaignStatusRSDTO.SENT}
 //            campaigns = campaigns.subList(Math.min(campaigns.size(), 3))
+            campaigns = campaigns.sort({a, b -> b.datePublished <=> a.datePublished })
             if( campaigns.size() > 3){
-                campaigns = campaigns.reverse().subList(campaigns.size()-3, campaigns.size());
+                campaigns = campaigns.subList(campaigns.size()-3, campaigns.size());
             }
 
         }else{
