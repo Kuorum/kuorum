@@ -53,7 +53,6 @@ fixture {
         numFollowers = 0
         language = "en_EN"
         lastUpdated = Date.parse("dd/MM/yyyy","20/11/2013")
-        lastNotificationChecked = Date.parse("dd/MM/yyyy","20/11/2013")
         name = "carmen"
         password =  springSecurityService.encodePassword("test")
         passwordExpired = false

@@ -74,11 +74,6 @@ class KuorumUser {
             'politicalOffice',
     ]
 
-    /**
-     * Represents the last time that the user checked the notifications
-     */
-    Date lastNotificationChecked = new Date()
-
     List<PoliticianRelevantEvent> relevantEvents
     ProfessionalDetails professionalDetails
     CareerDetails careerDetails

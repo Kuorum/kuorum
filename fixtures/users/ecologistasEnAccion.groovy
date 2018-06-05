@@ -49,7 +49,6 @@ fixture {
         favorites = []
         userType = UserType.ORGANIZATION
         numFollowers = 0
-        lastNotificationChecked = Date.parse("dd/MM/yyyy","09/09/2012")
 
         accountExpired = false
         accountLocked = false
