@@ -4,7 +4,10 @@ $(function (){
         e.preventDefault();
         var callbackFunctionName = $('#registro').find("form").attr("callback");
         var callbackSuccess = noLoggedCallbacks[callbackFunctionName] || noLoggedCallbacks.reloadPage
-        var callbackError = function(){display.warn("ERROR LOGIN FACEBOOK")};
+        var callbackError = function(msg){
+            console.log("Error login: "+msg)
+            display.warn(i18n.register.errors)
+        };
 
         var apiCallback = function(response) {
             pageLoadingOn("Api login")
@@ -21,13 +24,15 @@ $(function (){
                     callbackSuccess()
                 }).error(function(jqXHR, textStatus,errorThrown){
                     callbackError()
+                    pageLoadingOn("Error Callback")
                 }).done(function(data){
                 });
             }else{
                 callbackError()
+                pageLoadingOn("Error Callback")
             }
         }
-        var socialButton = new SocialButton("facebook",apiCallback, function (msg){console.log("Error login"+msg)});
+        var socialButton = new SocialButton("facebook",apiCallback, callbackError);
         socialButton.openSocialLoginWindow()
     })
 })

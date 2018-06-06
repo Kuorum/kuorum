@@ -24,17 +24,8 @@
 //    TODO: Use jawr. The actual version ignore codification
     var i18n = {
         lang : '${currentLang?.language?:'en'}',
-        post:{
-            show:{
-                boxes:{
-                    like:{
-                        vote:{
-                            button:"<g:message code="post.show.boxes.like.vote.button"/>",
-                            buttonVoted:"<g:message code="post.show.boxes.like.vote.buttonVoted"/>"
-                        }
-                    }
-                }
-            }
+        register:{
+            errors:'<g:message code="register.errors"/>'
         },
         form:{
             warn:{
