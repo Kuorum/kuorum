@@ -192,6 +192,8 @@ class RestKuorumApiService {
         DOMAIN_CONFIG   ("/domain/config"),
         DOMAIN_LEGAL    ("/domain/legal"),
 
+        LOGIN           ("/login/token"),
+
         ACCOUNT_INFO                ("/notification/mailing/{userAlias}"),
         ACCOUNT_MAILS               ("/notification/mailing/{userId}/emails"),
         ACCOUNT_MAILS_SEND          ("/notification/mailing/{userId}/send"),

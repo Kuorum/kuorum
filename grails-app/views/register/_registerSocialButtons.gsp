@@ -15,3 +15,6 @@
 
     %{--<li><a href="#" class="btn lin"><span class="fa fa-linkedin fa-lg"></span> Entrar con LinkedIn</a></li>--}%
 </ul>
+
+%{--<script src="http://localhost:8181/kuorumRest/login/social/socialLogin.js" ></script>--}%
+<r:require module="loginApi"/>

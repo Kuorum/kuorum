@@ -167,6 +167,8 @@ class RegisterService {
             user
     }
 
+
+
     KuorumUser createUser(String name, String password, String email, String alias, AvailableLanguage lang){
         KuorumUser user
         KuorumUser.withNewTransaction {status->

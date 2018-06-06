@@ -27,6 +27,6 @@
             %{--<span class="badge pull-right" role="log" aria-labelledby="alerts" aria-live="assertive" aria-relevant="additions">${notifications.numNews?:''}</span>--}%
             %{--<span class="fa fa-caret-down fa-lg"></span>--}%
         </a>
-        <g:render template="/layouts/headUserMenuDropDown" model="[user:user, numFavorites:user.favorites.size(), numMessages:7]"/>
+        <g:render template="/layouts/headUserMenuDropDown" model="[user:user, numMessages:7]"/>
     </li>
 </ul>

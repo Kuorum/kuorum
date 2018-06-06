@@ -1,3 +1,5 @@
+import grails.util.Holders
+
 modules = {
 
     basic{
@@ -245,6 +247,12 @@ modules = {
         resource url:'js/social/facebook.js'
         resource url:'js/social/twitter.js'
         resource url:'js/social/googlePlus.js'
+    }
+
+    loginApi{
+        dependsOn 'basic'
+        resource url: "${Holders.getGrailsApplication().config.kuorum.rest.url}/kuorumRest/api/login/social/socialLogin.js", disposition: "defer"
+        resource url: "js/social/loginApi.js", disposition: "defer"
     }
 
     cookiesHelper{
