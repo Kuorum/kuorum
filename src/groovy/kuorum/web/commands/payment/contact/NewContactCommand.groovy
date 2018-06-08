@@ -10,10 +10,12 @@ class NewContactCommand {
     String name;
     String surname;
     String email;
+    Boolean conditions;
 
     static constraints = {
         name nullable: false
         surname nullable: true
         email nullable: false, email: true // Is nullable because when the contact is a followe we don't have the email
+        conditions nullable: false
     }
 }

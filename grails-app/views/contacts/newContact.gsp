@@ -27,6 +27,11 @@
                         <formUtil:input command="${command}" field="email" showLabel="true"/>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <formUtil:checkBox command="${command}" field="conditions" showLabel="true"/>
+                    </div>
+                </div>
             </fieldset>
             <fieldset>
                 <input type="submit" value="${g.message(code: 'tools.contact.new.save')}" class="btn btn-blue inverted">

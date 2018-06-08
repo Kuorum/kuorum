@@ -232,6 +232,7 @@ label {font-weight: normal;}
 .form-horizontal .form-group .form-control-campaign {text-align: right;}
 .checkbox-inline input[type=checkbox] {visibility: hidden !important;width: 0 !important;}
 
+.edit-contact .checkbox-inline span.error,
 #contact-modal .checkbox-inline span.error,
 #sign .checkbox-inline span.error,
 #signup-modal .checkbox-inline span.error{position: absolute;margin-top: -3px;margin-left: 28px;bottom:auto; left:auto}
