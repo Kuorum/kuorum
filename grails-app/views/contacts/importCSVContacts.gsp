@@ -16,6 +16,13 @@
             <label class="sr-only"><g:message code="tools.contact.import.csv.selectFile"/></label>
             <input name="fileContacts" type="file" class="filestyle" data-icon="false" data-buttonText="${message(code: 'tools.contact.import.csv.selectFile')}" data-buttonName="btn-blue inverted" data-buttonBefore="true" data-placeholder="${message(code: 'tools.contact.import.csv.selectFile.noSelection')}">
             <div class="form-group text-center">
+                <label class="checkbox-inline">
+                    <input type="checkbox" name='conditions' value='true'/>
+                    <span class="check-box-icon"></span>
+                    <span class="label-checkbox"><g:message code="tools.contact.import.csv.selectFile.conditions"/> </span>
+                </label>
+            </div>
+            <div class="form-group text-center">
                 <input type="submit" value="${message(code: 'tools.contact.import.csv.selectFile.upload')}" class="btn inverted btn-lg">
             </div>
         </g:form>

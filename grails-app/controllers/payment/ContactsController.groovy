@@ -212,6 +212,11 @@ class ContactsController {
     }
 
     def importCSVContactsUpload() {
+        if (!params.get("conditions")) {
+            flash.error = g.message(code:'tools.contact.import.csv.error.conditions')
+            redirect(mapping: 'politicianContactImportCSV')
+            return
+        }
         if (!params.get("fileContacts")) {
             flash.error = g.message(code:'tools.contact.import.csv.error.noFile')
             redirect(mapping: 'politicianContactImportCSV')

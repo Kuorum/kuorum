@@ -5691,7 +5691,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .box-ppal.import-contacts, .box-ppal.dashboard {padding: 70px 70px 50px 70px;}
     .box-ppal.import-contacts p, .box-ppal.dashboard p {margin-bottom: 45px;}
     .box-ppal.import-contacts.csv {padding-top: 50px;}
-    .box-ppal.import-contacts .bootstrap-filestyle {margin-bottom: 40px;}
+    .box-ppal.import-contacts .bootstrap-filestyle {margin-bottom: 20px;}
     .box-ppal.import-contacts-videos {padding: 50px;}
     .box-ppal.import-contacts-videos iframe {margin-bottom: 40px;}
     .box-ppal.import-contacts.csv input.btn {float: right; width: 22%; margin: 0;}
