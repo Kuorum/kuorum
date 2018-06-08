@@ -37,19 +37,20 @@
                         <div class="form-group">
                             <formUtil:input field="email" command="${command}"/>
                         </div>
+                        <div class="form-group">
+                            <formUtil:checkBox command="${command}" field="conditions" label="${g.message(code:"register.conditions",args:[g.createLink(mapping: 'footerPrivacyPolicy')],encodeAs:"raw")}"/>
+                        </div>
                     </sec:ifNotLoggedIn>
                     <sec:ifLoggedIn>
                         <input type="hidden" name="name" value="LOGGED USER"/>
                         <input type="hidden" name="email" value="notExistingMail@notMail.com"/>
+                        <input type="hidden" name="conditions" value="true"/>
                     </sec:ifLoggedIn>
 
                     <div class="form-group button">
                         <input type="submit" class="btn" value="${g.message(code:'modal.contact.send')}">
                     </div>
 
-                    <div class="form-group button">
-                        <g:message code="register.conditions" args="[g.createLink(mapping: 'footerPrivacyPolicy')]" encodeAs="raw"/>
-                    </div>
                 </g:form>
             </div>
         </div>
