@@ -60,7 +60,7 @@ class UrlMappings {
         name en_registerPassword:   "/sign-up/set-password"                (controller: "register", action:"selectMyPassword"){mappingName="registerPassword"}
         name es_registerPassword:   "/registro/establece-password"         (controller: "register", action:"selectMyPassword"){mappingName="registerPassword"}
         name de_registerPassword:   "/registrierung/passwort-einstellen"   (controller: "register", action:"selectMyPassword"){mappingName="registerPassword"}
-        name ca_registerPassword:   "/registre/establir-password"   (controller: "register", action:"selectMyPassword"){mappingName="registerPassword"}
+        name ca_registerPassword:   "/registre/estableix-password"   (controller: "register", action:"selectMyPassword"){mappingName="registerPassword"}
 
         name registerResendMail:    "/sign-up/no-valid"                 (controller: "register"){action=[GET:"resendRegisterVerification", POST:"resendVerification"];mappingName="registerResendMail"}
         name en_registerResendMail: "/sign-up/no-valid"                 (controller: "register"){action=[GET:"resendRegisterVerification", POST:"resendVerification"];mappingName="registerResendMail"}
@@ -72,13 +72,13 @@ class UrlMappings {
         name en_resetPassword:      "/sign-in/recover-password"      (controller: "register"){action=[GET:"forgotPassword", POST:"forgotPasswordPost"];mappingName="resetPassword"}
         name es_resetPassword:      "/registro/password-olvidado"    (controller: "register"){action=[GET:"forgotPassword", POST:"forgotPasswordPost"];mappingName="resetPassword"}
         name de_resetPassword:      "/registrierung/passwort-wiederherstellen"    (controller: "register"){action=[GET:"forgotPassword", POST:"forgotPasswordPost"];mappingName="resetPassword"}
-        name ca_resetPassword:      "/registre/contrasenya-oblidat"    (controller: "register"){action=[GET:"forgotPassword", POST:"forgotPasswordPost"];mappingName="resetPassword"}
+        name ca_resetPassword:      "/registre/password-oblidada"    (controller: "register"){action=[GET:"forgotPassword", POST:"forgotPasswordPost"];mappingName="resetPassword"}
 
         name registerVerifyAccount:         "/register/verifyRegistration"   (controller: "register", action:"verifyRegistration"){mappingName="registerVerifyAccount"}
         name en_registerVerifyAccount:      "/register/verify-registration"  (controller: "register", action:"verifyRegistration"){mappingName="registerVerifyAccount"}
         name es_registerVerifyAccount:      "/registro/verificar-cuenta"     (controller: "register", action:"verifyRegistration"){mappingName="registerVerifyAccount"}
         name de_registerVerifyAccount:      "/registrierung/konto-bestaetigen"     (controller: "register", action:"verifyRegistration"){mappingName="registerVerifyAccount"}
-        name ca_registerVerifyAccount:      "/registre/verificar-compte"     (controller: "register", action:"verifyRegistration"){mappingName="registerVerifyAccount"}
+        name ca_registerVerifyAccount:      "/registre/verifica-compte"     (controller: "register", action:"verifyRegistration"){mappingName="registerVerifyAccount"}
 
         name validateResetPasswordAjax:"/ajax/forgot-password" (controller:"register", action: "ajaxValidationForgotPassword")
 
@@ -93,7 +93,7 @@ class UrlMappings {
         name en_resetPasswordChange:"/sign-up/change-password"   (controller: "register"){action=[GET:"resetPassword", POST:"resetPassword"];mappingName="resetPasswordChange"}
         name es_resetPasswordChange:"/registro/cambiar-password" (controller: "register"){action=[GET:"resetPassword", POST:"resetPassword"];mappingName="resetPasswordChange"}
         name de_resetPasswordChange:"/registrierung/passwort-aendern" (controller: "register"){action=[GET:"resetPassword", POST:"resetPassword"];mappingName="resetPasswordChange"}
-        name ca_resetPasswordChange:"/registre/canviar-password" (controller: "register"){action=[GET:"resetPassword", POST:"resetPassword"];mappingName="resetPasswordChange"}
+        name ca_resetPasswordChange:"/registre/canvia-password" (controller: "register"){action=[GET:"resetPassword", POST:"resetPassword"];mappingName="resetPasswordChange"}
 
         name ajaxRequestADemo:      "/ajax/requestADemo"(controller: "register", action: "requestADemo")
 
@@ -102,7 +102,7 @@ class UrlMappings {
         name en_login:  "/log-in"    (controller:"login", action:"index"){mappingName="login"}
         name es_login:  "/entrar"    (controller:"login", action:"index"){mappingName="login"}
         name de_login:  "/anmelden"    (controller:"login", action:"index"){mappingName="login"}
-        name ca_login:  "/accedeix"    (controller:"login", action:"index"){mappingName="login"}
+        name ca_login:  "/accedir"    (controller:"login", action:"index"){mappingName="login"}
 
         name ajaxLoginCheck:"/ajax/checkLogin"  (controller:"login", action:"checkEmailAndPass")
         name ajaxLoginModal:"/ajax/login/modal-auth"  (controller:"login", action:"modalAuth")
@@ -111,7 +111,7 @@ class UrlMappings {
         name en_loginAuth:  "/sign-in"       (controller:"login", action:"auth"){mappingName="loginAuth"}
         name es_loginAuth:  "/entra"         (controller:"login", action:"auth"){mappingName="loginAuth"}
         name de_loginAuth:  "/einloggen"     (controller:"login", action:"auth"){mappingName="loginAuth"}
-        name ca_loginAuth:  "/accedir"       (controller:"login", action:"auth"){mappingName="loginAuth"}
+        name ca_loginAuth:  "/accedeix"       (controller:"login", action:"auth"){mappingName="loginAuth"}
 
         name authError:     "/login/authfail"       (controller:"login", action:"authfail")
 
@@ -119,7 +119,7 @@ class UrlMappings {
         name en_loginFull:  "/check-user"            (controller:"login", action:"full"){mappingName="loginFull"}
         name es_loginFull:  "/confirmar-usuario"     (controller:"login", action:"full"){mappingName="loginFull"}
         name de_loginFull:  "/benutzer-bestaetigen"     (controller:"login", action:"full"){mappingName="loginFull"}
-        name ca_loginFull:  "/confirmar-usuari"     (controller:"login", action:"full"){mappingName="loginFull"}
+        name ca_loginFull:  "/confirma-usuari"     (controller:"login", action:"full"){mappingName="loginFull"}
 
         name logout:    "/logout"       (controller:"logout", action:"index")
                         "/salir"        {controller="redirect"; action= "redirect301"; newMapping='logout'}
