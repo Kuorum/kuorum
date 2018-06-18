@@ -36,7 +36,6 @@
     <g:layoutHead/>
 
     <r:layoutResources />
-    <meta property="twitter:account_id" content="4503599627910348" />
     <g:render template="/layouts/internationalization/otherLangsRef"/>
 
     <domain:customCss/>
