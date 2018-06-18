@@ -97,6 +97,7 @@
 <sec:ifNotLoggedIn>
     <g:render template="/layouts/modalLogin"/>
 </sec:ifNotLoggedIn>
+<g:render template="/layouts/modalDomainValidation"/>
 
 <asset:deferredScripts/>
 <r:layoutResources />

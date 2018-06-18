@@ -68,7 +68,7 @@
         <div class="pag-list-campaigns">
             <div class="pagination">
                 <ul class="paginationTop"></ul>
-                <span class="counterList">Total of <span class="totalList"></span></span>
+                <span class="counterList"><g:message code="tools.massMailing.list.pagination.label"/> <span class="totalList"></span></span>
             </div>
         </div>
     </div>
@@ -84,7 +84,7 @@
     <div class="pag-list-campaigns clearfix">
         <div class="pagination">
             <ul class="paginationBottom"></ul>
-            <span class="counterList">Total of <span class="totalList"></span></span>
+            <span class="counterList"><g:message code="tools.massMailing.list.pagination.label"/> <span class="totalList"></span></span>
         </div>
     </div>
 

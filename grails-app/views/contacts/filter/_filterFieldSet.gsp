@@ -152,8 +152,8 @@
         <div id="saveFilterAsPopUp">
             <label class="sr-only" for="newFilterName">Write a name</label>
             <input class="form-control" type="text" name="newFilterName" id="newFilterName">
-            <g:link mapping="politicianContactFilterNew" data-callaBackFunction="campaignFilterSaveAs" type="submit" class="btn btn-blue inverted" elementId="saveFilterAs">Save</g:link>
-            <a href="#" id="saveFilterAsBtnCancel">Cancel</a>
+            <g:link mapping="politicianContactFilterNew" data-callaBackFunction="campaignFilterSaveAs" type="submit" class="btn btn-blue inverted" elementId="saveFilterAs"><g:message code="tools.contact.filter.form.save.submit"/></g:link>
+            <a href="#" id="saveFilterAsBtnCancel"><g:message code="tools.contact.filter.form.save.cancel"/></a>
         </div>
         <g:link mapping="politicianContactFilterDelete" params="[filterId:filter.id]" data-callaBackFunction="" role="button" class="btn btn-transparent ${filter?.id<=0 ?'disabled':''}" elementId="deleteFilter" title="${g.message(code:'tools.contact.filter.form.delete')}"><span class="fa fa-trash"></span></g:link>
     </fieldset>
