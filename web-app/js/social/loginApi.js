@@ -26,7 +26,7 @@ $(function (){
             });
         }else{
             callbackError()
-            pageLoadingOn("Error Callback")
+            pageLoadingOff("Error Callback")
         }
     }
 
