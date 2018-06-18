@@ -31,6 +31,7 @@ class CustomLocaleInterceptor extends LocaleChangeInterceptor{
     @Override
     boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler){
         GrailsWebRequest webRequest = GrailsWebRequest.lookup(request)
+
         def params = webRequest.params
         def localeParam = params?.get(paramName)
         AvailableLanguage userLanguage

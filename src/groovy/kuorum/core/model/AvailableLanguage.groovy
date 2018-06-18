@@ -8,6 +8,7 @@ import org.kuorum.rest.model.kuorumUser.LanguageRSDTO
 public enum AvailableLanguage{
 
     es_ES(new Locale("es","ES")),
+    ca_ES(new Locale("ca","ES")),
     de_DE(new Locale("de","DE")),
     en_EN(new Locale("en","EN"));
 

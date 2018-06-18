@@ -75,6 +75,10 @@ modules = {
         dependsOn 'application'
         resource url:'js/timeago/jquery.timeago.lt.js'
     }
+    lang_ca{
+        dependsOn 'application'
+        resource url:'js/timeago/jquery.timeago.ca.js'
+    }
 
     datepicker{
         dependsOn 'basic'
