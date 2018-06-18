@@ -32,7 +32,7 @@ class UrlMappings {
         name en_footerPrivacyPolicy:"/legal/privacy-policy"       (controller:"footer", action: "privacyPolicy"){mappingName="footerPrivacyPolicy"}
         name es_footerPrivacyPolicy:"/legal/politica-privacidad"  (controller:"footer", action: "privacyPolicy"){mappingName="footerPrivacyPolicy"}
         name de_footerPrivacyPolicy:"/legal/dantensutzpolitik"  (controller:"footer", action: "privacyPolicy"){mappingName="footerPrivacyPolicy"}
-        name ca_footerPrivacyPolicy:"/legal/politica-privacitat"  (controller:"footer", action: "privacyPolicy"){mappingName="footerPrivacyPolicy"}
+        name ca_footerPrivacyPolicy:"/legal/politica-de-privadesa"  (controller:"footer", action: "privacyPolicy"){mappingName="footerPrivacyPolicy"}
 
         name footerTermsUse:        "/legal/terms-of-use"         (controller:"footer", action: "termsUse")
         name en_footerTermsUse:     "/legal/terms-of-use"         (controller:"footer", action: "termsUse")
