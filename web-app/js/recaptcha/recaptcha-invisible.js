@@ -7,11 +7,11 @@ var onloadRecaptchaCallback = function () {
         var $recaptchaDiv = '<div id="'+ uuid +'"></div>';
 
         $(this).parent().append($recaptchaDiv);
-
         var recaptcha = grecaptcha.render(uuid, {
             'sitekey' : kuorumKeys._googleCaptchaKey,
             'size' : 'invisible',
-            'callback' : callbackName
+            'callback' : callbackName,
+            'hl':i18n.lang
         });
 
         $(this).attr('data-recaptcha', recaptcha);
