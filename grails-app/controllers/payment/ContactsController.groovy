@@ -546,7 +546,7 @@ class ContactsController {
         boolean success = contactService.unsubscribeContactUser(user, contactId.toLong() , contact.digest)
         if (!success){
             flash.error="There was an error unsubscribing your user. If the problem persists, please contact with info@kuorum.org"
-            redirect mapping:'userUnsubscribe', params: [userId:userId, contactId: contactId, digest: digest]
+            redirect mapping:'userUnsubscribe', params: [userId:user.id.toString(), contactId: contactId, digest: contact.digest]
             return
         }
         else {
