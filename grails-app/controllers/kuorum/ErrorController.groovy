@@ -9,13 +9,13 @@ class ErrorController {
     def springSecurityService
 
     def forbidden() {
-        log.info("Page not allowed: ${((HttpServletRequest)request).getRequestURL()} by user ${springSecurityService.principal?.id}")
+        log.info("Page not allowed: ${((HttpServletRequest)request).getForwardURI()} by user ${springSecurityService.principal?.id}")
     }
     def notFound() {
         log.debug("Page not found: ${((HttpServletRequest)request).getForwardURI()}")
     }
     def notAuthorized() {
-        log.debug("Page not autorized: ${((HttpServletRequest)request).getRequestURL()}")
+        log.debug("Page not autorized: ${((HttpServletRequest)request).getForwardURI()}")
     }
 
     def kuorumExceptionHandler(){
