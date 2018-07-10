@@ -450,10 +450,8 @@ $(function () {
         var eventFake = {target:$buttonPublish}
         pageLoadingOff();
         debateFunctions.publishProposal(eventFake, function(htmlProposal){
-            console.log("inside");
             var proposal = $(htmlProposal).hide().fadeIn(2000);
             var proposalDivId = proposal.find("div.conversation-box").attr("id");
-            console.log(proposalDivId);
             var href = document.location.href;
             var sharpPos = href.indexOf("#") < 0 ? href.length:href.indexOf("#");
             var newUrl = href.substring(0,sharpPos);
@@ -601,7 +599,23 @@ var debateFunctions = {
         var aliases = new Set(); $("[data-useralias]").each(function(idx){aliases.add($(this).attr("data-useralias"))})
         return aliases
     },
-    voteComment: function ($button, callback){
+    voteComment: function ($button, callback) {
+        var params ={
+            $button: $button,
+            callbakc: callback
+        }
+        var executableFunction = new userValidatedByDomain.ExcutableFunctionCallback(debateFunctions.__voteCommentValidationChecked, params)
+        var validationActive = $button.attr('data-campaignValidationActive');
+        var loggedUser = $button.attr('data-useralias'); // No needed
+        if (validationActive=="true"){
+            userValidatedByDomain.checkUserValid(loggedUser, executableFunction)
+        }else{
+            executableFunction.exec()
+        }
+    },
+    __voteCommentValidationChecked: function (params){
+        var $button = params.$button
+        var callback = params.callback
         var vote = -1;
         if ($button.find("span").hasClass("fa-angle-up")){
             vote = 1;
@@ -664,7 +678,23 @@ var debateFunctions = {
         }
     },
     likeProposal: function($button, callback){
+        var params ={
+            $button: $button,
+            callback: callback
+        }
+        var executableFunction = new userValidatedByDomain.ExcutableFunctionCallback(debateFunctions.__likeProposalValidationChecked, params)
+        var validationActive = $button.attr('data-campaignValidationActive');
+        var loggedUser = $button.attr('data-useralias'); // No needed
+        if (validationActive=="true"){
+            userValidatedByDomain.checkUserValid(loggedUser, executableFunction)
+        }else{
+            executableFunction.exec()
+        }
+    },
+    __likeProposalValidationChecked: function(params){
         // Unbind
+        var $button = params.$button
+        var callback = params.callback
         $(".proposal-list").off("click", ".proposal-like");
 
         var like = $button.find(".fa").hasClass("fa-heart-o"); // Empty heart -> Converting to LIKE = TRUE
@@ -920,15 +950,12 @@ noLoggedRememberPasswordCallbacks["publishProposalComment"]={
         var proposalId = noLoggedRememberPasswordCallbacks.helper.restoreItem(noLoggedRememberPasswordCallbacks.publishProposalComment.proposalIdKey);
         var $input = $("#proposal_"+proposalId).next("div").find(".medium-editor-element");
 
-        console.log( $input.offset())
         $('html, body').animate({
             scrollTop:  $input.offset().top -200
         }, 2000, function () {
             $input.click()
             $input.focus()
             MediumEditor.getEditorFromElement($input[0]).pasteHTML(content, { })
-            console.log("###")
-            console.log($input)
             content = ""; // It's called twice. Fast fix.
         });
     }

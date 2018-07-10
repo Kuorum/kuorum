@@ -293,7 +293,9 @@ $(document).ready(function() {
     });
 
     // Handle click on card campaigns list [List of post/debates on dashboard, searcher, userProfile]
-    $('ul.search-list').on("click",'.link-wrapper .card-footer .post-like',postFunctions.bindLikeClick);
+    if ($('ul.search-list .link-wrapper .card-footer .post-like').length > 0){
+        $('ul.search-list').on("click",'.link-wrapper .card-footer .post-like',postFunctions.bindLikeClick);
+    }
 
     // Animar porcentaje perfil político
     if ($('#profileInfo').length) {

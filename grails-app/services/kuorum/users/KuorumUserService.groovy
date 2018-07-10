@@ -542,7 +542,7 @@ class KuorumUserService {
         UserDataDomainValidationDTO userDataDomainValidationDTO = new UserDataDomainValidationDTO()
         userDataDomainValidationDTO.postalCode=postalCode
         userDataDomainValidationDTO.ndi=ndi
-        userDataDomainValidationDTO.birthDate=birthDate
+        userDataDomainValidationDTO.birthDate=kuorum.util.TimeZoneUtil.convertToUserTimeZone(birthDate, TimeZone.getTimeZone("UTC"))
         try{
             def apiResponse= restKuorumApiService.put(
                     RestKuorumApiService.ApiMethod.USER_DOMAIN_VALIDATION,
