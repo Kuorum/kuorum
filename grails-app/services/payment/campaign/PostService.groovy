@@ -123,7 +123,8 @@ class PostService implements CampaignCreatorService<PostRSDTO, PostRDTO>{
 
         postSaved
     }
-
+//
+//    @PreAuthorize("hasPermission(#postId, 'like')")
     PostRSDTO likePost (Long postId, KuorumUser currentUser, Boolean like, String postUserId){
         Map<String, String> params = [userId: postUserId, postId: postId.toString()]
         Map<String, String> query = [viewerUid: currentUser.id.toString()]

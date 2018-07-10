@@ -9,7 +9,8 @@
             tour_dashboard:'<g:createLink mapping="tour_dashboard"/>'
         },
         suggestAlias: '<g:createLink mapping="suggestAlias" absolute="true"/>',
-        ajaxLoginRRSS: '<g:createLink mapping="ajaxRegisterRRSSOAuth" absolute="true"/>'
+        ajaxLoginRRSS: '<g:createLink mapping="ajaxRegisterRRSSOAuth" absolute="true"/>',
+        profileValidByDomainChecker: '<g:createLink mapping="profileValidByDomainChecker" absolute="true"/>'
     }
     var ajaxHeadNotificationsChecked='<g:createLink mapping="ajaxHeadNotificationsChecked" absolute="true"/>'
     var ajaxHeadMessagesChecked='<g:createLink mapping="ajaxHeadMessagesChecked" absolute="true"/>'

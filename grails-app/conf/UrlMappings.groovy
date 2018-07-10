@@ -344,6 +344,9 @@ class UrlMappings {
         name customProcessRegisterStep2:         "/edit-profile/sign-up/step2"      (controller: "customRegister"){action = [GET:"step2", POST:"step2Save"]}
         name customProcessRegisterStep3:         "/edit-profile/sign-up/step3"      (controller: "customRegister", action :"step3")
 
+        name profileValidByDomainChecker:      "/ajax/edit-profile/domain-valid-cheker"  (controller: "profile", action :"domainUserValidChecker")
+        name profileValidByDomainValidate:     "/ajax/edit-profile/domain-validate"      (controller: "profile", action :"validateUser")
+
 
         name profileMailing : "/notifications/mailing" (controller: "profile", action:"showUserEmails")
 

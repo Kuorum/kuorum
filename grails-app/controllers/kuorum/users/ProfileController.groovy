@@ -547,4 +547,23 @@ class ProfileController {
 
         render([msg: ''] as JSON)
     }
+
+    @Secured(['ROLE_USER_VALIDATED'])
+    def domainUserValidChecker(){
+        render ([success:true] as JSON)
+    }
+
+    def validateUser(DomainValidationCommand domainValidationCommand){
+        KuorumUser user = params.user;
+        if (domainValidationCommand.hasErrors()){
+            render ([success: false, msg:message(error:  domainValidationCommand.getErrors().getAllErrors().get(0))] as JSON)
+            return
+        }
+        Boolean isValidated = kuorumUserService.userDomainValidation(user, domainValidationCommand.ndi, domainValidationCommand.postalCode, domainValidationCommand.birthDate)
+        if (isValidated){
+            render ([success: true, msg:"No valid ID and postal code"] as JSON)
+        }else{
+            render ([success: false, msg:g.message(code:'kuorum.web.commands.profile.DomainValidationCommand.validationError')] as JSON)
+        }
+    }
 }

@@ -31,29 +31,6 @@ class KuorumUserController {
 
     CampaignService campaignService
 
-//    def beforeInterceptor = [action: this.&checkUser, except: 'login']
-    def beforeInterceptor = [action: this.&checkUser, except: ['index', 'politicians']]
-
-    private checkUser(){
-        KuorumUser user = kuorumUserService.findByAlias(params.userAlias)
-        if (!user) {
-            //Search by old alias
-            user = kuorumUserService.findByOldAlias(params.userAlias)
-            if (user){
-                def userLink = g.createLink(mapping: 'userShow', params: user.encodeAsLinkProperties())
-                response.setStatus(HttpServletResponse.SC_MOVED_PERMANENTLY)
-                response.setHeader("Location", userLink);
-                return false
-            }else{
-//                def homeLink = g.createLink(mapping: 'home')
-//                response.setStatus(HttpServletResponse.SC_MOVED_PERMANENTLY)
-//                response.setHeader("Location", homeLink);
-                response.sendError(HttpServletResponse.SC_NOT_FOUND)
-                return false
-            }
-        }
-    }
-
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def secShow(String userAlias){
         KuorumUser user = KuorumUser.findByAliasAndDomain(userAlias, CustomDomainResolver.domain)

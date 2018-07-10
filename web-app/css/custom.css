@@ -59,6 +59,7 @@ input[type="email"],
 select {padding: 6px 6px 6px 8px !important;}*/
 
 .form-group {margin-bottom: 20px;}
+.form-group .input-group.date{width: 100%;}
 
 .center{text-align:center;}
 
@@ -3177,6 +3178,7 @@ h2.underline {border-bottom: 1px solid #dadada; padding: 0 0 10px 0; margin-top:
 .infoVotes > li.arrow {background: transparent; width: 24px; margin: 0;}
 .infoVotes > li:last-child a {color: #bcbcbc;}
 
+.modal-domain-validation .modal-dialog,
 .modal-register .modal-dialog {width: 290px; margin: 10px auto;}
 .modal-register .modal-dialog .modal-body {padding: 8px;}
 
@@ -5271,6 +5273,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .uploaderImageContainer.PROJECT_IMAGE .qq-upload-drop-area {height:228px;}
     .uploaderImageContainer.PROJECT_IMAGE > div {height:228px;}
 
+    .modal-domain-validation .modal-dialog,
     .modal-register .modal-dialog {width: 350px;}
     .modal-register.modal form{width: 310px;}
     .modal-register .modal-dialog .modal-body {padding: 0px 20px 20px 20px;}

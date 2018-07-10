@@ -87,6 +87,7 @@ modules = {
         resource url:'js/datepicker/moment-with-locales.min.js'
         resource url:'js/datepicker/bootstrap-datetimepicker.js'
         resource url:'js/datepicker/bootstrap-datepicker.es.js'
+        resource url:'js/datepicker/bootstrap-datepicker.ca.js'
         resource url:'js/datepicker/bootstrap-datepicker.de.js'
         resource url:'js/datepicker/bootstrap-datepicker.it.js'
         resource url:'js/datepicker/bootstrap-datepicker.lt.js'
@@ -117,6 +118,7 @@ modules = {
         resource url:'js/youtube-helper.js'
         resource url:'js/custom.js'
         resource url:'js/modal-login-form.js'
+        resource url:'js/modal-validation.js'
         resource url:'js/local.js'
         resource url:'js/profile.js'
     }

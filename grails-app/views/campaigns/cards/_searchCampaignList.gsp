@@ -56,6 +56,7 @@
                            data-postId="${campaign.id}"
                            data-postUserId="${campaign.ownerId}"
                            data-urlAction="${g.createLink(mapping: "postLike")}"
+                           data-campaignValidationActive="${campaign.checkValidation}"
                            data-loggedUser="${sec.username()}">
                             <span class="fa ${campaign.liked?'fa-heart':'fa-heart-o'} fa-lg"></span>
                             <span class="number">${campaign.likes}</span>

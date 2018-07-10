@@ -26,6 +26,8 @@ import org.codehaus.groovy.grails.commons.GrailsApplication
 import org.codehaus.groovy.grails.web.json.JSONElement
 import org.kuorum.rest.model.kuorumUser.KuorumUserRSDTO
 import org.kuorum.rest.model.kuorumUser.UserDataRDTO
+import org.kuorum.rest.model.kuorumUser.UserRoleRSDTO
+import org.kuorum.rest.model.kuorumUser.domainValidation.UserDataDomainValidationDTO
 import org.kuorum.rest.model.search.SearchKuorumElementRSDTO
 import org.kuorum.rest.model.search.SearchResultsRSDTO
 import org.kuorum.rest.model.search.SearchTypeRSDTO
@@ -530,6 +532,31 @@ class KuorumUserService {
                 new TypeReference<KuorumUserRSDTO>(){}
         )
         return apiResponse.data
+
+    }
+
+    boolean userDomainValidation(KuorumUser user, String ndi, String postalCode, Date birthDate){
+// CALLING API TO REMOVE CONTACT
+        Map<String, String> params = [userId: user.getId().toString()]
+        Map<String, String> query = [:]
+        UserDataDomainValidationDTO userDataDomainValidationDTO = new UserDataDomainValidationDTO()
+        userDataDomainValidationDTO.postalCode=postalCode
+        userDataDomainValidationDTO.ndi=ndi
+        userDataDomainValidationDTO.birthDate=birthDate
+        try{
+            def apiResponse= restKuorumApiService.put(
+                    RestKuorumApiService.ApiMethod.USER_DOMAIN_VALIDATION,
+                    params,
+                    query,
+                    userDataDomainValidationDTO,
+                    new TypeReference<KuorumUserRSDTO>(){}
+            )
+            springSecurityService.reauthenticate user.email
+            return springSecurityService.authentication.authorities.find{it.authority==UserRoleRSDTO.ROLE_USER_VALIDATED.toString()}
+        }catch (Exception e){
+            log.error("Exception validating user: [Excpt: ${e}]")
+            return false;
+        }
 
     }
 

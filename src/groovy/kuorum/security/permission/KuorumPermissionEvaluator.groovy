@@ -26,6 +26,13 @@ class KuorumPermissionEvaluator implements PermissionEvaluator {
                 SpringSecurityUtils.ifAnyGranted("ROLE_SUPER_ADMIN")
 
     }
+//
+//    public boolean hasPermission(Authentication authentication, PostRDTO post, Object permission) {
+//        def loggedUser = springSecurityService.getCurrentUser();
+//        return  editedUser == loggedUser ||
+//                SpringSecurityUtils.ifAnyGranted("ROLE_SUPER_ADMIN")
+//
+//    }
 
     @Override
     public boolean hasPermission(Authentication authentication, Object domainObject, Object permission) {
