@@ -73,6 +73,22 @@ var surveyFunctions = {
         }
     },
     _nextButtonClickSelector:function (question) {
+        var params ={
+            question: question
+        }
+        var executableFunction = new userValidatedByDomain.ExcutableFunctionCallback(surveyFunctions.__nextButtonClickSelectorValidationChecked, params)
+        var button = question.querySelector('.next-section button');
+        var validationActive = button.getAttribute('data-campaignValidationActive');
+        var loggedUser = button.getAttribute('data-userLoggedAlias'); // No needed
+        console.log("Check Validation"+validationActive)
+        if (validationActive=="true"){
+            userValidatedByDomain.checkUserValid(loggedUser, executableFunction)
+        }else{
+            executableFunction.exec()
+        }
+    },
+    __nextButtonClickSelectorValidationChecked:function (params) {
+        var question = params.question
         if (question.classList.contains("multi-answer")){
             surveyFunctions._multiOptionNextButtonClick(question)
         }else{
