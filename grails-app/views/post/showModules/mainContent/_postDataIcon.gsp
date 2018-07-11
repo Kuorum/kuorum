@@ -6,7 +6,7 @@
             data-postId="${post.id}"
             data-postUserId="${post.user.id}"
             data-urlAction="${g.createLink(mapping: "postLike")}"
-            data-campaignValidationActive="${post.checkValidation}"
+            data-campaignValidationActive="${post.checkValidationActive}"
             data-loggedUser="${sec.username()}"
     >
         <span class="fa ${activeButton?'fa-heart':'fa-heart-o'}" aria-hidden="true"></span>

@@ -77,7 +77,7 @@
                 <button type="button"
                         class="proposal-like ${activeButton?'active':''}"
                         data-urlAction="${g.createLink(mapping: 'debateProposalLike')}"
-                        data-campaignValidationActive="${debate.checkValidation}"
+                        data-campaignValidationActive="${debate.checkValidationActive}"
                         data-debateId="${debate.id}"
                         data-debateUserId="${debate.user.id}"
                         data-proposalId="${proposal.id}"
