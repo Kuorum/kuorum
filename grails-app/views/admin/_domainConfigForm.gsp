@@ -18,6 +18,12 @@
             <formUtil:input command="${command}" field="subtitle" showLabel="true" />
         </div>
     </fieldset>
+    <fieldset class="row">
+        <div class="form-group col-md-6">
+            <formUtil:checkBox command="${command}" field="validation" showLabel="true" />
+        </div>
+    </fieldset>
+
     <h4 class="box-ppal-section-title"><g:message code="kuorum.web.admin.domain.colors.label"/></h4>
     <fieldset class="row">
         <div class="form-group col-md-6">

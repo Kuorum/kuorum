@@ -8,6 +8,7 @@ class DomainConfigCommand {
 
     String name;
     LanguageRSDTO language;
+    Boolean validation
     String slogan;
     String subtitle;
     String mainColor;
@@ -27,6 +28,7 @@ class DomainConfigCommand {
         language nullable: false
         slogan nullable:false
         subtitle nullable:false
+        validation nullable: true
         mainColor nullable:false, matches:HEX_PATTERN
         mainColorShadowed nullable: false, matches:HEX_PATTERN
         secondaryColor nullable: false, matches:HEX_PATTERN
