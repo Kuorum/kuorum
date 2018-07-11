@@ -168,6 +168,7 @@ class PostService implements CampaignCreatorService<PostRSDTO, PostRDTO>{
         PostRDTO postRDTO = new PostRDTO()
         if(postRSDTO){
             postRDTO.title = postRSDTO.title
+            postRDTO.checkValidation = postRSDTO.checkValidation
             postRDTO.body = postRSDTO.body
             postRDTO.photoUrl = postRSDTO.photoUrl
             postRDTO.videoUrl = postRSDTO.videoUrl

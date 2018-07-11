@@ -30,6 +30,8 @@ class CampaignSettingsCommand {
     })
     Set<String> causes;
 
+    Boolean checkValidation;
+
     static constraints = {
         filterId nullable: true
         filterEdited nullable: true
@@ -39,5 +41,6 @@ class CampaignSettingsCommand {
         debatable nullable: true
         eventAttached nullable: true
         endDate nullable: true
+        checkValidation nullable: true
     }
 }

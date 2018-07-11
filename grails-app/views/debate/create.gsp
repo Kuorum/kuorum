@@ -19,6 +19,7 @@
     <g:render template="/campaigns/edit/settingsStep" model="[
             attachEvent:false,
             command: command,
+            domainValidation:domainValidation,
             filters: filters,
             totalContacts: totalContacts,
             anonymousFilter: anonymousFilter,

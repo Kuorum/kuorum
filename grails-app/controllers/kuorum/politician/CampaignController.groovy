@@ -4,6 +4,7 @@ import grails.plugin.springsecurity.SpringSecurityService
 import groovy.time.TimeCategory
 import kuorum.KuorumFile
 import kuorum.core.FileType
+import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.exception.KuorumException
 import kuorum.files.FileService
 import kuorum.users.CookieUUIDService
@@ -91,6 +92,7 @@ class CampaignController {
             command.tags = campaignRSDTO.triggeredTags
             command.filterId = campaignRSDTO.newsletter?.filter?.id
             command.endDate = campaignRSDTO.endDate
+            command.checkValidation = campaignRSDTO.checkValidation
             if (campaignRSDTO.hasProperty('causes')){
                 command.causes = campaignRSDTO.causes
             }
@@ -98,12 +100,15 @@ class CampaignController {
                 ExtendedFilterRSDTO anonymousFilter = contactService.getFilter(user, campaignRSDTO.newsletter.filter.id)
                 filters.add(anonymousFilter)
             }
+        }else{
+            command.checkValidation = CustomDomainResolver.domainRSDTO?.validation
         }
         [
                 filters: filters,
                 command: command,
                 totalContacts: contactPageRSDTO.total,
-                campaign: campaignRSDTO
+                campaign: campaignRSDTO,
+                domainValidation:CustomDomainResolver.domainRSDTO?.validation
         ]
     }
 
@@ -117,6 +122,7 @@ class CampaignController {
         rdto.setTriggeredTags(command.tags)
         rdto.causes = command.causes
         rdto.endDate = TimeZoneUtil.convertToUserTimeZone(command.endDate, user.timeZone)
+        rdto.checkValidation = command.checkValidation
         if (command.filterEdited) {
             //anonymousFilter.setName(g.message(code:'tools.contact.filter.anonymousName', args: anonymousFilter.getName()))
             rdto.setAnonymousFilter(anonymousFilter)

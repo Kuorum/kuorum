@@ -166,6 +166,7 @@ class DebateService implements CampaignCreatorService<DebateRSDTO, DebateRDTO> {
         DebateRDTO debateRDTO = new DebateRDTO()
         if(debateRSDTO) {
             debateRDTO.name = debateRSDTO.name
+            debateRDTO.checkValidation = debateRSDTO.checkValidation
             debateRDTO.triggeredTags = debateRSDTO.triggeredTags
             debateRDTO.anonymousFilter = debateRDTO.anonymousFilter
             debateRDTO.filterId = debateRSDTO.newsletter?.filter?.id

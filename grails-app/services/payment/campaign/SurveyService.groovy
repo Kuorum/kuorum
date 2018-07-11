@@ -111,6 +111,7 @@ class SurveyService implements CampaignCreatorService<SurveyRSDTO, SurveyRDTO>{
         SurveyRDTO surveyRDTO = new SurveyRDTO()
         if(surveyRSDTO){
             surveyRDTO.title = surveyRSDTO.title
+            surveyRDTO.checkValidation = surveyRSDTO.checkValidation
             surveyRDTO.body = surveyRSDTO.body
             surveyRDTO.photoUrl = surveyRSDTO.photoUrl
             surveyRDTO.videoUrl = surveyRSDTO.videoUrl

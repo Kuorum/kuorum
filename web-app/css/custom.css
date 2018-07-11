@@ -6387,6 +6387,8 @@ fieldset.buttons {min-height: 50px;    margin-top: -20px; padding-bottom: 15px;}
 fieldset.form-group {min-height: 50px;}
 fieldset.form-group.fieldset-check-box {min-height: 0px;}
 
+fieldset.form-group.fieldset-check-box .control-label +div> .checkbox-inline {margin-top:8px;}
+
 
 @media only screen and (max-width: 480px){
     .profile-header img{
