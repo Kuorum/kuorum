@@ -1,6 +1,7 @@
 package kuorum
 
 import grails.plugin.springsecurity.annotation.Secured
+import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.model.UserType
 import kuorum.dashboard.DashboardService
 import kuorum.notifications.NotificationService
@@ -10,6 +11,7 @@ import kuorum.users.KuorumUserService
 import kuorum.users.PoliticianService
 import kuorum.web.commands.customRegister.Step2Command
 import kuorum.web.commands.payment.contact.promotionalCode.PromotionalCodeCommand
+import kuorum.web.commands.profile.DomainValidationCommand
 import org.springframework.web.servlet.LocaleResolver
 import payment.contact.PromotionalCodeService
 
@@ -49,8 +51,33 @@ class CustomRegisterController {
 
         user.password = registerService.encodePassword(user, command.password)
         kuorumUserService.updateUser(user)
-        redirect mapping:"customProcessRegisterStep3"
+        if (CustomDomainResolver.domainRSDTO?.validation){
+            redirect mapping:"customProcessRegisterDomainValidation"
+        }else{
+            redirect mapping:"customProcessRegisterStep3"
+        }
     }
+
+    @Secured('IS_AUTHENTICATED_REMEMBERED')
+    def stepDomainValidation(){
+        [command: new DomainValidationCommand()]
+    }
+
+    @Secured('IS_AUTHENTICATED_REMEMBERED')
+    def stepDomainValidationSave(DomainValidationCommand command){
+        if (command.hasErrors()){
+            render view: "stepDomainValidation", model:[command:command]
+        }
+        KuorumUser user =  KuorumUser.get(springSecurityService.principal.id)
+        Boolean isValid = kuorumUserService.userDomainValidation(user, command.ndi, command.postalCode, command.birthDate)
+        if (isValid){
+            redirect mapping:"customProcessRegisterStep3"
+        }else{
+            flash.error =g.message(code:'kuorum.web.commands.profile.DomainValidationCommand.validationError')
+            render view: "stepDomainValidation", model:[command:command]
+        }
+    }
+
 
     @Secured('IS_AUTHENTICATED_REMEMBERED')
     def step3(){
