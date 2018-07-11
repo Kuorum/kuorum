@@ -63,8 +63,14 @@ var userValidatedByDomain={
                     // Success is 200 code No
                     console.log(data)
                     if (data.success){
-                        executable.exec()
-                        $("#domain-validation").modal("hide")
+                        $( "#validateDomain-modal-form-button-id").slideToggle( "slow", function() {
+                            // Animation complete.
+                            $( "#validateDomain-modal-form-button-id").siblings().show()
+                            setTimeout(function () {
+                                executable.exec()
+                                $("#domain-validation").modal("hide")
+                            }, 1000);
+                        });
                     }else{
                         display.error(data.msg)
                     }
