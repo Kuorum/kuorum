@@ -122,7 +122,10 @@ class CampaignController {
         rdto.setTriggeredTags(command.tags)
         rdto.causes = command.causes
         rdto.endDate = TimeZoneUtil.convertToUserTimeZone(command.endDate, user.timeZone)
-        rdto.checkValidation = command.checkValidation
+        if (CustomDomainResolver.domainRSDTO?.validation){
+            // If domain validation is active, then the checkValidation of the campaign is editable
+            rdto.checkValidation = command.checkValidation
+        }
         if (command.filterEdited) {
             //anonymousFilter.setName(g.message(code:'tools.contact.filter.anonymousName', args: anonymousFilter.getName()))
             rdto.setAnonymousFilter(anonymousFilter)
