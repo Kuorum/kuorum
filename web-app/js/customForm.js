@@ -244,7 +244,7 @@ var formHelper = {
         if ( $('.input-group.date').length > 0 ) {
 
             $('.input-group.date').each(function(){
-                var startView = "day";
+                var startView = "days";
                 if ($(this).attr("data-datePicker-type")=="birthDate"){
                     startView = "decades";
                 }
