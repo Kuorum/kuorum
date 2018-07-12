@@ -32,7 +32,11 @@
                                 required="true"/>
                     </div>
                     <div class="form-group">
-                        <formUtil:date command="${validateCommand}" field="birthDate" showLabel="false"/>
+                        <formUtil:date
+                                command="${validateCommand}"
+                                field="birthDate"
+                                showLabel="false"
+                                datePickerType="birthDate"/>
                     </div>
                     <div class="form-group center">
                         <button id="validateDomain-modal-form-button-id" class="btn btn-orange btn-lg">

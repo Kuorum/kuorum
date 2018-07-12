@@ -1442,7 +1442,6 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 
 .datepicker-days tbody td {cursor: pointer;}
 .datepicker th {text-align: center;}
-.datepicker span.month, .datepicker span.year {padding: 0 20px;}
 .datepicker table tr td, .datepicker table tr th {width:55px;}
 .datepicker table tr td span {width:auto;}
 .picker-switch table {width:100%;}

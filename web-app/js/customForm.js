@@ -243,12 +243,19 @@ var formHelper = {
         // datepicker calendario
         if ( $('.input-group.date').length > 0 ) {
 
-            $('.input-group.date').datepicker({
-                language: lang,
-                autoclose: true,
-                todayHighlight: true
-            });
+            $('.input-group.date').each(function(){
+                var startView = "day";
+                if ($(this).attr("data-datePicker-type")=="birthDate"){
+                    startView = "decades";
+                }
+                $(this).datepicker({
+                    language: lang,
+                    autoclose: true,
+                    todayHighlight: true,
+                    startView: startView
+                });
 
+            })
         }
 
         // Datetime piker for all input datestimes

@@ -354,6 +354,10 @@ class FormTagLib {
         String timeZoneId = ""
         String timeZoneLabel = ""
         String timeZoneChangeLink=""
+        String datePickerType = "days";
+        if (attrs.datePickerType == "birthDate"){
+            datePickerType = "birthDate"
+        }
 
         if (time){
             KuorumUser user =  KuorumUser.get(springSecurityService.principal.id)
@@ -366,7 +370,7 @@ class FormTagLib {
         }
 
         out <<"""
-            <div class="input-group ${typePicker}" data-timeZone="${timeZoneId}" data-timeZoneLabel="${timeZoneLabel}" data-timeZoneChangeLink="${timeZoneChangeLink}">
+            <div class="input-group ${typePicker}" data-timeZone="${timeZoneId}" data-timeZoneLabel="${timeZoneLabel}" data-timeZoneChangeLink="${timeZoneChangeLink}" data-datePicker-type="${datePickerType}">
                 <input type="text" name="${prefixFieldName}${field}" class="${cssClass} ${error?'error':''}" placeholder="${placeHolder}" id="${id}" aria-required="${required}" value="${value}">
                 <span class="input-group-addon"><span class="fa fa-calendar fa-lg"></span></span>
             </div>

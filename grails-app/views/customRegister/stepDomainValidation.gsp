@@ -49,6 +49,7 @@
         <fieldset class="row">
             <div class="form-group col-md-offset-3 col-md-6">
                 <formUtil:date
+                        datePickerType="birthDate"
                         command="${command}"
                         field="birthDate"
                         showLabel="true"/>
