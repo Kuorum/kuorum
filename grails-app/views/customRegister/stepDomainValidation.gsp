@@ -59,7 +59,7 @@
         <fieldset class="row">
             <div class="form-group col-md-offset-3 col-md-6 center option-buttons">
                 %{--<label><g:message code="customRegister.step2.choseUserType.label"/> </label>--}%
-                <g:link mapping="customProcessRegisterStep3" class="btn btn-grey-light"> Omit</g:link>
+                <g:link mapping="customProcessRegisterStep3" class="btn btn-light"> Omit</g:link>
                 <input type="submit"value="${g.message(code:'customRegister.step2.submit')}" class="btn btn-lg">
                 %{--<input type="submit" id="submitCitizen" value="${g.message(code:'customRegister.step2.choseUserType.citizen')}" class="btn btn-blue btn-lg">--}%
             </div>

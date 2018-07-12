@@ -676,6 +676,12 @@ header.transp #search-form .open-filter {background-color: rgba(219,219,219,0.4)
 .btn.btn-grey-light:active,
 .btn.btn-grey-light:focus {color:  #A8A8A8!important;  background-color:transparent !important; box-shadow:none;}
 
+
+.btn.btn-light {background-color: transparent !important; color:  #ff9431 !important}
+.btn.btn-light:hover,
+.btn.btn-light:active,
+.btn.btn-light:focus {background-color: transparent !important; color:#ee7612 !important; text-decoration: underline !important;}
+
 .btn.btn-blue {background-color: #20a2ea !important;}
 .btn.btn-blue:hover,
 .btn.btn-blue:active,
@@ -692,21 +698,10 @@ header.transp #search-form .open-filter {background-color: rgba(219,219,219,0.4)
     color: #fff !important;
 }
 
-.btn.btn-blue-light {background-color: rgba(255,255,255,.4) !important;}
+.btn.btn-blue-light {background-color: transparent !important; color:  #20a2ea !important}
 .btn.btn-blue-light:hover,
 .btn.btn-blue-light:active,
-.btn.btn-blue-light:focus {background-color: rgba(255,255,255,.8) !important;}
-.btn.btn-blue-light.inverted {
-    background-color: #fff !important;
-    border: 1px solid #20a2ea ;
-    color: #20a2ea !important;
-}
-.btn.btn-blue-light.inverted:hover,
-.btn.btn-blue-light.inverted:active,
-.btn.btn-blue-light.inverted:focus {
-    background-color: #20a2ea !important;
-    color: #fff !important;
-}
+.btn.btn-blue-light:focus {background-color: transparent !important; color:#2e6bab !important; text-decoration: underline !important;}
 
 .btn.inverted {
     background-color: #fff !important;
