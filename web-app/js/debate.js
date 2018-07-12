@@ -602,7 +602,7 @@ var debateFunctions = {
     voteComment: function ($button, callback) {
         var params ={
             $button: $button,
-            callbakc: callback
+            callback: callback
         }
         var executableFunction = new userValidatedByDomain.ExcutableFunctionCallback(debateFunctions.__voteCommentValidationChecked, params)
         var validationActive = $button.attr('data-campaignValidationActive');

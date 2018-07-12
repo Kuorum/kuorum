@@ -70,7 +70,6 @@ $(document).ready(function(){
 function modalLogin($form, callback){
     pageLoadingOn("Modal login");
     if ($form.valid()) {
-        console.log("modal Login")
         $form.parents(".modal").modal("hide")
         var url = $form.attr("action")
         var data = {

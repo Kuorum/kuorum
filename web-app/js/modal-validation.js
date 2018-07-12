@@ -25,10 +25,13 @@ var userValidatedByDomain={
                     $("#validateDomain-modal-form-button-id").on("click",userValidatedByDomain.handleSubmitValidationForm )
                     userValidatedByDomain.binded = true
                 }
-
                 if (($("#registro").data('bs.modal') || {}).isShown){
-                    // Modal register is open (USER JUST LOGGED), and the page needs to be reloaded
                     $("#registro").modal("hide")
+                    $('#domain-validation').on('hidden.bs.modal', function () {
+                        noLoggedCallbacks.reloadPage()
+                    })
+                }else if (!isUserLogged()){
+                    // User is logged but the page is not reloaded
                     $('#domain-validation').on('hidden.bs.modal', function () {
                         noLoggedCallbacks.reloadPage()
                     })

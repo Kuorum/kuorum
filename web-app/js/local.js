@@ -14,6 +14,10 @@ function isPageLoading(){
     return $('html').hasClass('loading');
 }
 
+function isUserLogged(){
+    return $("header #open-user-options").length > 0;
+}
+
 // inicializa los popover
 function preparePopover(){
     $.fn.extend({
