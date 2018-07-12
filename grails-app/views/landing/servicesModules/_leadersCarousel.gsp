@@ -15,7 +15,7 @@
             <h1>${slogan}</h1>
             <h3 class="hidden-xs">${subtitle}</h3>
         </hgroup>
-    <a href="#how-it-works" class="btn btn-lg btn-blue-light hidden-xs" data-effect="scroll"><g:message code="landingServices.howItWorks.title"/> </a>
+    <a href="#how-it-works" class="btn btn-lg btn-grey-transparent hidden-xs" data-effect="scroll"><g:message code="landingServices.howItWorks.title"/> </a>
     <sec:ifNotLoggedIn>
         <formUtil:validateForm bean="${command}" form="sign"/>
         <g:form mapping="register" autocomplete="off" method="post" name="sign" class="form-inline dark" role="form" novalidate="novalidate">
