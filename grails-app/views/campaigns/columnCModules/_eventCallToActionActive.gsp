@@ -8,7 +8,7 @@
         <g:set var="extraConfirmedClass" value=""/>
         <g:set var="extraCommentBoxConfirmedClass" value="box-event-confirmed"/>
     </g:if>
-    <div class="hidden-sm comment-box call-to-action call-to-action-confirm-event ${extraCommentBoxConfirmedClass}">
+    <div class="${hideSmallDevices?'hidden-sm hidden-xs':''} comment-box call-to-action call-to-action-confirm-event ${extraCommentBoxConfirmedClass}">
         <div class="comment-header event-unconfirmed ${extraUnconfirmedClass}">
             <span class="call-title">${message(code: "event.callToAction.title")}</span>
             <g:if test="${fullCapacity}">
