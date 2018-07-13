@@ -79,8 +79,8 @@ select {padding: 6px 6px 6px 8px !important;}*/
     color:#ff0000;
 }
 
-abbr.text-danger{
-    border:none;
+abbr{
+    border:none !important;
 }
 
 span[rel=tooltip] {cursor: default;}
@@ -1456,10 +1456,30 @@ table.csv .highlight_row {background-color: #f7f7f7;}
     color: firebrick;
 }
 
+
 .datepicker-days tbody td {cursor: pointer;}
-.datepicker th {text-align: center;}
-.datepicker table tr td, .datepicker table tr th {width:55px;}
-.datepicker table tr td span {width:auto;}
+/*.datepicker th {text-align: center;}*/
+.bootstrap-datetimepicker-widget .datepicker .datepicker-months table tr td span,
+.bootstrap-datetimepicker-widget .datepicker .datepicker-months table tr th span{width:45px;}
+.bootstrap-datetimepicker-widget .datepicker .datepicker-years table tr td span,
+.bootstrap-datetimepicker-widget .datepicker .datepicker-years table tr th span{width:45px;}
+.bootstrap-datetimepicker-widget .datepicker .datepicker-decades table tr th span,
+.bootstrap-datetimepicker-widget .datepicker .datepicker-decades table tr th span{width:45px;}
+
+.bootstrap-datetimepicker-widget .datepicker .datepicker-months,
+.bootstrap-datetimepicker-widget .datepicker .datepicker-years{width: 200px;}
+.bootstrap-datetimepicker-widget .datepicker .datepicker-decades {width: 280px;}
+
+.bootstrap-datetimepicker-widget .datepicker .datepicker-months >table,
+.bootstrap-datetimepicker-widget .datepicker .datepicker-years >table,
+.bootstrap-datetimepicker-widget .datepicker .datepicker-decades >table {width:100%}
+
+.bootstrap-datetimepicker-widget .datepicker .datepicker-months >table.table-condensed td,
+.bootstrap-datetimepicker-widget .datepicker .datepicker-years >table.table-condensed td,
+.bootstrap-datetimepicker-widget .datepicker .datepicker-decades >table.table-condensed td{padding-left:10px}
+
+.bootstrap-datetimepicker-widget .datepicker .datepicker-decades >table.table-condensed td span.decade{width:80px;}
+
 .picker-switch table {width:100%;}
 .picker-switch table tbody tr:first-child td{text-align: center;}
 .picker-switch table tbody tr:first-child td a{cursor: pointer;}

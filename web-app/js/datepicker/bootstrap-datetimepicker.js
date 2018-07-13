@@ -1261,6 +1261,7 @@
                 notifyEvent({
                     type: 'dp.show'
                 });
+                console.log("datepicker")
                 return picker;
             },
 

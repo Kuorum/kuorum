@@ -266,7 +266,8 @@ var formHelper = {
             //collapse: false,
             allowInputToggle:true,
             stepping:15,
-            showTimeZone:true
+            showTimeZone:true,
+            keepOpen:true
         });
 
         $(".counted").each(function(input){

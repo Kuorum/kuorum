@@ -128,8 +128,13 @@ modules = {
         resource url:'js/event.js'
     }
 
+    campaign{
+        dependsOn("basic")
+        resource url:'js/campaigns/campaign.js'
+    }
+
     debate {
-        dependsOn("basic", "forms", 'cookiesHelper', 'application', 'campaignList')
+        dependsOn("basic", "forms", 'cookiesHelper', 'application', 'campaignList','campaign')
         resource url:'js/readmore.min.js'
         resource url:'js/medium-editor/medium-editor.js'
         resource url:'css/medium-editor/medium-editor.min.css'
@@ -140,12 +145,12 @@ modules = {
     }
 
     post {
-        dependsOn("basic", "forms")
+        dependsOn("basic", "forms",'campaign')
         resource url:'js/post.js'
     }
 
     survey{
-        dependsOn("basic")
+        dependsOn("basic",'campaign')
         resource url:'js/survey.js'
     }
 
