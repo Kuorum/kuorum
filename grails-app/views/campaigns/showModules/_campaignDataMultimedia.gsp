@@ -18,7 +18,7 @@
     </g:if>
     <g:if test="${campaign.checkValidation}">
         <div class="multimedia-campaign-validationInfo">
-            Campaña con validacion <span class="fa fa-check-circle"></span>
+            <abbr title="${g.message(code:'kuorum.web.commands.payment.CampaignSettingsCommand.checkValidation.label.info')}"><span class="fa fa-check-circle"></span></abbr>
         </div>
     </g:if>
 </div>
