@@ -123,8 +123,8 @@ class CampaignController {
         rdto.causes = command.causes
         rdto.endDate = TimeZoneUtil.convertToUserTimeZone(command.endDate, user.timeZone)
         if (CustomDomainResolver.domainRSDTO?.validation){
-            // If domain validation is active, then the checkValidation of the campaign is editable
-            rdto.checkValidation = command.checkValidation
+            // Only if domain validation is active, then the checkValidation of the campaign is editable
+            rdto.checkValidation = command.checkValidation?:false;
         }
         if (command.filterEdited) {
             //anonymousFilter.setName(g.message(code:'tools.contact.filter.anonymousName', args: anonymousFilter.getName()))
