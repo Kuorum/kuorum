@@ -289,23 +289,21 @@ class KuorumUserTagLib {
         KuorumUser user = attrs.user
         String faIcon = ""
         String tooltip = "";
-        if (user.userType == UserType.PERSON){
+        if (user.isValid){
+            faIcon = "fa-check"
+            tooltip = message(code:'politician.image.icon.enabled.text');
+        }else if (user.userType == UserType.PERSON){
             faIcon = "icon-megaphone"
             tooltip = message(code:'kuorum.core.model.UserType.PERSON');
         }else if (user.userType == UserType.ORGANIZATION){
             faIcon = "fa-university"
             tooltip = message(code:'kuorum.core.model.UserType.ORGANIZATION');
-        }else if(user.userType == UserType.CANDIDATE){
-            faIcon = "icon-megaphone"
-            tooltip = message(code:'politician.image.icon.candidate.text');
-        }else{
-            if (user.enabled){
-                faIcon = "fa-check"
-                tooltip = message(code:'politician.image.icon.enabled.text');
-            }else{
-                faIcon = "fa-binoculars"
-                tooltip = message(code:'politician.image.icon.notEnabled.text');
-            }
+//        }else if(user.userType == UserType.CANDIDATE){
+//            faIcon = "icon-megaphone"
+//            tooltip = message(code:'politician.image.icon.candidate.text');
+        }else {
+            faIcon = "fa-binoculars"
+            tooltip = message(code:'politician.image.icon.notEnabled.text');
         }
         out << """<abbr title="${tooltip}"><i class="fa ${faIcon}"></i></abbr>"""
     }
