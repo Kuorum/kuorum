@@ -120,6 +120,7 @@ class KuorumUser {
         notice nullable: true
         skipUploadContacts nullable: true
         timeZoneId nullable:true
+        isValid nullable:true
 
         //POLITICIAN VALIDATION
 //        institution nullable:true
