@@ -131,6 +131,7 @@ class KuorumUser {
         politicalOffice nullable:true
         careerDetails nullable:true
         politicianExtraInfo nullable:true
+        verified nullable: true
 //        brainTreeId nullable:true
 //        brainTreePaymentToken nullable:true
 //        brainTreePaymentTokenNonce nullable:true
