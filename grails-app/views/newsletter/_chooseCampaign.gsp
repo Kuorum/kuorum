@@ -70,6 +70,20 @@
             </g:link>
         </li>
     </sec:ifAnyGranted>
+
+    <sec:ifAnyGranted roles="ROLE_ADMIN">
+        <li class="fontIcon">
+            <g:link mapping="participatoryBudgetCreate" role="button" class="actionIcons new-campaign-tip"
+                    rel="tooltip"
+                    data-toggle="tooltip"
+                    data-placement="bottom"
+                    title=""
+                    data-original-title="${g.message(code:'dashboard.payment.chooseCampaign.tooltip.participatoryBudget')}">
+                <span class="fa fa-money"></span>
+                <span class="label"><g:message code="tools.campaign.new.participatoryBudget"/></span>
+            </g:link>
+        </li>
+    </sec:ifAnyGranted>
     %{--<li class="fontIcon disabled"><g:link mapping="debateCreate" role="button" class="mail">--}%
     %{--<span class="fa fa-microphone"></span>--}%
     %{--<span class="label"><g:message code="tools.campaign.new.petition"/></span></g:link>--}%

@@ -4,7 +4,7 @@
     <title><g:message code="${titleMessageCode}" args="[survey.title, _domainName]"/></title>
     <meta name="layout" content="columnCLayout">
     <g:set var="schemaData" value="${[schema:'http://schema.org/Article', name:survey.title]}" scope="request"/>
-    <g:render template="/survey/surveyMetaTags" model="[survey: survey, titleMessageCode:titleMessageCode]"/>
+    <g:render template="/campaigns/showModules/campaignMetaTags" model="[campaign: survey, titleMessageCode:titleMessageCode]"/>
     <r:require modules="survey"/>
 </head>
 

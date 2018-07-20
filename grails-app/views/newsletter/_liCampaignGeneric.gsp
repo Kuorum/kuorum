@@ -1,14 +1,21 @@
 <%@ page import="org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO" %>
 <g:set var="type" value="post"/>
 <g:set var="urlMappingNameEditStep" value="EditContent"/>
+<g:set var="faIcon" value="fa-newspaper-o"/>
 <g:if test="${campaign.campaignType == org.kuorum.rest.model.communication.CampaignTypeRSDTO.DEBATE}">
     <g:set var="type" value="debate"/>
+    <g:set var="faIcon" value="fa-comments-o"/>
 </g:if>
 <g:elseif test="${campaign.campaignType == org.kuorum.rest.model.communication.CampaignTypeRSDTO.SURVEY}">
     <g:set var="urlMappingNameEditStep" value="EditQuestions"/>
     <g:set var="type" value="survey"/>
+    <g:set var="faIcon" value="fa-bar-chart-o"/>
 </g:elseif>
-<g:set var="faIcon" value="${type=="post"?'fa-newspaper-o':type=="debate"?'fa-comments-o':'fa-bar-chart-o'}"/>
+<g:elseif test="${campaign.campaignType == org.kuorum.rest.model.communication.CampaignTypeRSDTO.PARTICIPATORY_BUDGET}">
+    <g:set var="urlMappingNameEditStep" value="EditDistricts"/>
+    <g:set var="type" value="participatoryBudget"/>
+    <g:set var="faIcon" value="fa-money"/>
+</g:elseif>
 <g:set var="typeName" value="${g.message(code: 'tools.campaign.new.'+type)}"/>
 <g:set var="campaignGenericMappings" value="[show:type+'Show', edit:type+urlMappingNameEditStep, remove:type+'Remove']"/>
 <g:if test="${campaign.event}">

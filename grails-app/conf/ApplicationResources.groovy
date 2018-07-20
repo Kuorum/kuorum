@@ -154,6 +154,10 @@ modules = {
         resource url:'js/survey.js'
     }
 
+    participatoryBudget{
+        dependsOn("basic",'campaign')
+        resource url:'js/campaigns/participatoryBudget.js'
+    }
     causes {
         dependsOn("basic")
         resource url:'js/causes.js'
@@ -225,6 +229,11 @@ modules = {
     surveyForms{
         dependsOn("campaignForm")
         resource url: 'js/survey-form.js'
+    }
+
+    participatoryBudgetForm{
+        dependsOn("campaignForm")
+        resource url: 'js/campaigns/participatoryBudget-form.js'
     }
 
     contacts{

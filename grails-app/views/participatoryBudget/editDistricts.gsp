@@ -1,0 +1,42 @@
+<html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+<head>
+    <g:set var="breadCrumbName">${campaign.name}</g:set>
+
+    <title>${breadCrumbName}</title>
+    <meta name="layout" content="paymentPlainLayout">
+    <!-- Schema.org markup for Google+ -->
+    <r:require modules="datepicker, participatoryBudgetForm" />
+</head>
+
+<content tag="mainContent">
+    <ol class="breadcrumb">
+        <li><g:link mapping="politicianCampaigns"><g:message code="head.logged.account.tools.massMailing"/></g:link></li>
+        <li><g:link mapping="politicianCampaignsNew"><g:message code="tools.campaign.new.title"/></g:link></li>
+        <li class="active">${breadCrumbName}</li>
+    </ol>
+
+    <div class="box-steps container-fluid choose-campaign">
+        <g:set var="mappings" value="${
+            [
+                    saveAndSentButtons:true,
+                    step:'districts',
+                    settings:'participatoryBudgetEditSettings',
+                    content:'participatoryBudgetEditContent',
+                    districts:'participatoryBudgetEditDistricts',
+                    showResult: 'campaignShow',
+                    next: 'participatoryBudgetEditContent'
+            ]}"/>
+        <g:render template="/campaigns/steps/twoSteps" model="[mappings: mappings]"/>
+    </div>
+
+    <div class="box-ppal campaign-new">
+        <h1 class="sr-only"><g:message code="admin.createDebate.title"/></h1>
+
+        <g:render template="/participatoryBudget/districts/districtsForm" model="[
+                command: command,
+                campaign:campaign,
+                mappings:mappings,
+                numberRecipients:numberRecipients]"/>
+    </div>
+
+</content>

@@ -287,7 +287,14 @@ class UrlMappings {
         name surveySaveAnswer:      "/ajax/$userAlias/$urlTitle-$campaignId/saveAnswer"          (controller: "survey", action: "saveAnswer"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it)})}}
 
         name eventCreate:           "/account/event/new" (controller: "event"){action = [GET: "create", POST: "saveSettings"]}
-        // REDIRECTS (OLD URLS) - DEPRECATED
+
+        name participatoryBudgetCreate:            "/account/participatory-budget/new" (controller: "participatoryBudget"){action = [GET: "create", POST: "saveSettings"]}
+        name participatoryBudgetEditSettings:      "/account/$userAlias/pb/$urlTitle-$campaignId/edit-settings" (controller: "participatoryBudget"){action = [GET: "editSettingsStep", POST: "saveSettings"]}
+        name participatoryBudgetEditDistricts:     "/account/$userAlias/pb/$urlTitle-$campaignId/edit-districts" (controller: "participatoryBudget"){action = [GET: "editDistricts", POST: "saveDistricts"]}
+        name participatoryBudgetEditContent:       "/account/$userAlias/pb/$urlTitle-$campaignId/edit-content" (controller: "participatoryBudget"){action = [GET: "editContentStep", POST: "saveContent"]}
+        name participatoryBudgetShow:              "/$userAlias/$urlTitle-$campaignId"           (controller: "campaign", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it)})}}
+        "/$userAlias/-$campaignId"                    (controller: "campaign", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it)})}}
+
 
         name campaignShow:          "/$userAlias/$urlTitle-$campaignId" (controller: "campaign", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it)})}}
 

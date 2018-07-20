@@ -9,7 +9,7 @@
                 </label>
                 <select name="filterCampaigns" class="form-control" id="filterCampaigns">
                     <option value="all" name="all" id="all"><g:message code="tools.massMailing.list.filter.all"/> </option>
-                    <g:each in="${['newsletter', 'debate', 'post']}" var="campaignType">
+                    <g:each in="${['newsletter', 'debate', 'post', 'participatoryBudget']}" var="campaignType">
                         <option value="${campaignType}" name="${campaignType}" id="${campaignType}">
                             <g:message code="${'tools.campaign.new'}.${campaignType}"/>
                         </option>
