@@ -34,6 +34,7 @@
 
         <g:render template="/participatoryBudget/districts/districtsForm" model="[
                 command: command,
+                status:campaign.campaignStatusRSDTO,
                 campaign:campaign,
                 mappings:mappings,
                 numberRecipients:numberRecipients]"/>

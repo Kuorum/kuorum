@@ -2,9 +2,9 @@
 <g:set var="callSubtitleMsg" value="${g.message(code:'participatoryBudget.callToAction.draft.subtitle')}"/>
 <g:set var="callButtonMsg" value=""/>
 <g:if test="${participatoryBudget.published}">
-    <g:set var="callTitleMsg" value="${g.message(code:"participatoryBudget.callToAction.${participatoryBudget.status}.title")}"/>
-    <g:set var="callSubtitleMsg" value="${g.message(code:"participatoryBudget.callToAction.${participatoryBudget.status}.subtitle")}"/>
-    <g:set var="callButtonMsg" value="${g.message(code:"participatoryBudget.callToAction.${participatoryBudget.status}.button")}"/>
+    <g:set var="callTitleMsg" value="${g.message(code:"participatoryBudget.callToAction.${participatoryBudget.status}.title", args: [campaignUser.name])}"/>
+    <g:set var="callSubtitleMsg" value="${g.message(code:"participatoryBudget.callToAction.${participatoryBudget.status}.subtitle", args: [campaignUser.name])}"/>
+    <g:set var="callButtonMsg" value="${g.message(code:"participatoryBudget.callToAction.${participatoryBudget.status}.button",args: [campaignUser.name])}"/>
 </g:if>
 
 <div class="comment-box call-to-action call-to-action-add-proposal hidden-sm hidden-xs">

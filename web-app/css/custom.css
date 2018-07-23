@@ -6894,14 +6894,12 @@ hr.districts-form-margin{
 .timeline > li > .date {
     font-size: 18px;
     font-weight: bold;
-    margin-left: 3%;
-    margin-top: 2.7%;
-    float: left;
+    margin-left: 60px;
+    margin-top: 30px;
+    display: inline-block;
 }
 .timeline > li.timeline-inverted > .date {
-    float: right;
-    margin-right: 3%;
-    margin-top: 2.7%;
+    margin-left: 12%;
 }
 
 .timeline > li.timeline-inverted > .timeline-panel {
@@ -6966,6 +6964,40 @@ hr.districts-form-margin{
     border-top: 1px solid #9e9e9e;
 }
 
+.participatory-budget-status .timeline{margin-top:-50px;}
+.participatory-budget-status .timeline .timeline-badge {line-height: 30px;}
+.participatory-budget-status .timeline .timeline-panel a {cursor: pointer;}
+
+
+.timeline.zipped > li{
+    margin:0;
+}
+
+.timeline.zipped > li .timeline-title{
+    font-size: 13px;
+    margin:0;
+    text-align: right;
+}
+
+.timeline.zipped > li.timeline-inverted .timeline-title{
+    text-align: left;
+}
+.timeline.zipped > li .timeline-panel{
+    margin-top:28px;
+}
+
+.timeline.zipped > li > .timeline-panel{
+    padding:8px;
+}
+.timeline.zipped > li > .timeline-panel:before,
+.timeline.zipped > li > .timeline-panel:after{
+    top:0;
+}
+
+.timeline.zipped > li .timeline-panel > .timeline-body{display: none;}
+.timeline.zipped > li .timeline-badge:hover +.timeline-panel > .timeline-body,
+.timeline.zipped > li .timeline-panel:hover > .timeline-body {display: inline-block;}
+.timeline.zipped > li .timeline-panel > .timeline-body p {font-size: 11px; line-height: 11px;}
 
 p.email > span.emailAddress{
     padding-right: 5px;

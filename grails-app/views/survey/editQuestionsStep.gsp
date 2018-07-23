@@ -33,6 +33,11 @@
     <div class="box-ppal campaign-new">
         <h1 class="sr-only"><g:message code="admin.createDebate.title"/></h1>
 
-        <g:render template="/survey/questions/questionForm" model="[command:command, survey:survey,mappings:mappings, numberRecipients:numberRecipients]"/>
+        <g:render template="/survey/questions/questionForm" model="[
+                command:command,
+                satus:survey.campaignStatusRSDTO,
+                survey:survey,
+                mappings:mappings,
+                numberRecipients:numberRecipients]"/>
     </div>
 </content>

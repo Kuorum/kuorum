@@ -68,5 +68,10 @@
         </div>
     </fieldset>
 
-    <g:render template="/campaigns/edit/stepButtons" model="[saveAndSentButtons:true, mappings:mappings, status:status, command: command, numberRecipients:numberRecipients]"/>
+    <g:render template="/campaigns/edit/stepButtons" model="[
+            saveAndSentButtons:true,
+            mappings:mappings,
+            status:status,
+            command: command,
+            numberRecipients:numberRecipients]"/>
 </form>

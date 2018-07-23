@@ -8,6 +8,7 @@ import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.commands.payment.CampaignSettingsCommand
 import kuorum.web.commands.payment.participatoryBudget.DistrictCommand
 import kuorum.web.commands.payment.participatoryBudget.DistrictsCommand
+import kuorum.web.commands.payment.participatoryBudget.ParticipatoryBudgetChangeStatusCommand
 import org.kuorum.rest.model.communication.participatoryBudget.DistrictRDTO
 import org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetRDTO
 import org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetRSDTO
@@ -137,6 +138,21 @@ class ParticipatoryBudgetController extends CampaignController{
         command.debatable=false
         model.options =[debatable:false, endDate:false]
         return model
+    }
+
+    @Secured(['ROLE_ADMIN'])
+    def editStatus(ParticipatoryBudgetChangeStatusCommand command){
+        KuorumUser campaignUser = KuorumUser.get(springSecurityService.principal.id)
+        ParticipatoryBudgetRSDTO participatoryBudgetRSDTO = participatoryBudgetService.find(campaignUser, command.campaignId)
+        if (command.hasErrors()) {
+            flash.error = message(error: command.errors.getFieldError())
+            redirect mapping: 'campaignShow', params: participatoryBudgetRSDTO.encodeAsLinkProperties()
+            return
+        }
+        ParticipatoryBudgetRDTO rdto = participatoryBudgetService.map(participatoryBudgetRSDTO)
+        rdto.setStatus(command.getStatus())
+        participatoryBudgetService.save(campaignUser, rdto, command.getCampaignId())
+        redirect mapping: 'campaignShow', params: participatoryBudgetRSDTO.encodeAsLinkProperties()
     }
 
 }

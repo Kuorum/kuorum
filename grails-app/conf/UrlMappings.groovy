@@ -294,6 +294,7 @@ class UrlMappings {
         name participatoryBudgetEditContent:       "/account/$userAlias/pb/$urlTitle-$campaignId/edit-content" (controller: "participatoryBudget"){action = [GET: "editContentStep", POST: "saveContent"]}
         name participatoryBudgetShow:              "/$userAlias/$urlTitle-$campaignId"           (controller: "campaign", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it)})}}
         "/$userAlias/-$campaignId"                    (controller: "campaign", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it)})}}
+        name participatoryBudgetEditStatus:        "/ajax/account/$userAlias/pb/$urlTitle-$campaignId/edit-status" (controller: "participatoryBudget", action:"editStatus")
 
 
         name campaignShow:          "/$userAlias/$urlTitle-$campaignId" (controller: "campaign", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it)})}}
