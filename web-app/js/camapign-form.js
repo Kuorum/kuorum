@@ -21,7 +21,7 @@ $(function(){
     });
 
     // CREATE CAMPAIGN moving on STEPS
-    var $stepButton = $('ul.campaign-steps > li > a');
+    var $stepButton = $('.campaign-steps ul.actionIcons > li > a');
     $stepButton.on('click', campaignForm.stepSubmit);
 
     var $nextButton = $('.form-final-options #next[data-redirectLink]');

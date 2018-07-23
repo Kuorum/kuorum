@@ -1,7 +1,7 @@
 <%@ page import="org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO" %>
 <r:require modules="datepicker, postForm, debateForm" />
 
-<div class="box-steps container-fluid choose-campaign">
+<div class="box-steps container-fluid campaign-steps">
     <g:render template="/campaigns/steps/twoSteps" model="[mappings: mappings, attachEvent:attachEvent]"/>
 </div>
 

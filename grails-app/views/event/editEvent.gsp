@@ -18,7 +18,7 @@
         <li class="active">${breadCrumbName}</li>
     </ol>
 
-    <div class="box-steps container-fluid choose-campaign">
+    <div class="box-steps container-fluid campaign-steps">
         <g:set var="mappings" value="${
             [step:'event',
              next:'postEditContent',
