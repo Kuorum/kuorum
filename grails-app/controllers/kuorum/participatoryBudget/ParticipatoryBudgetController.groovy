@@ -64,6 +64,7 @@ class ParticipatoryBudgetController extends CampaignController{
         redirect mapping: result.nextStep.mapping, params: result.nextStep.params
     }
 
+    @Secured(['ROLE_ADMIN'])
     def editDistricts(){
         Long campaignId = Long.parseLong(params.campaignId)
         KuorumUser campaignUser = KuorumUser.get(springSecurityService.principal.id)
@@ -101,11 +102,10 @@ class ParticipatoryBudgetController extends CampaignController{
         ParticipatoryBudgetRSDTO participatoryBudgetRSDTO = participatoryBudgetService.find(campaignUser, command.campaignId)
         if (command.hasErrors()) {
             flash.error = message(error: command.errors.getFieldError())
-            render view: 'editQuestionsStep', model: [
-                    survey:participatoryBudgetRSDTO,
+            render view: 'editDistricts', model: [
+                    campaign:participatoryBudgetRSDTO,
                     command: command,
-                    status: participatoryBudgetRSDTO.campaignStatusRSDTO,
-                    numberRecipients:getCampaignNumberRecipients(surveyUser, participatoryBudgetRSDTO)]
+                    numberRecipients:getCampaignNumberRecipients(campaignUser, participatoryBudgetRSDTO)]
             return
         }
         ParticipatoryBudgetRDTO rdto = participatoryBudgetService.map(participatoryBudgetRSDTO)

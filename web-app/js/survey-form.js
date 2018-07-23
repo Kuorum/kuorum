@@ -47,23 +47,7 @@ $(function() {
         })
         return valid;
     }
-    // Abrir modal confirmar envío campaña (SURVEY) programada
-    $('body').on('click','.form-final-options #send-campaign-later', function(e) {
-        e.preventDefault();
-        if (_isValidSurveyQuestionsForm()) {
-            $('#saveCampaignBtn').attr('data-callback', 'scheduleParams');
-            //$("input[name='sendType']").val("SCHEDULED");
-            prepareAndOpenCampaignConfirmModal();
-        }
-    });
 
-    // Abrir modal confirmar envio de debate
-    $('body').on('click','.form-final-options #send-draft', function(e) {
-        e.preventDefault();
-        if (_isValidSurveyQuestionsForm()) {
-            $('#saveCampaignBtn').attr('data-callback', 'sendParams');
-            prepareAndOpenCampaignConfirmModal();
-        }
-    });
-
+    // OVERWRITE CUSTOM FORM VALIDATION
+    campaignForm.validateCampaignForm = _isValidSurveyQuestionsForm
 });

@@ -37,7 +37,7 @@
                     formId="districtParticipatoryBudgetForm">
                 <fieldset class="row">
                     <formUtil:input cssClass="hidden" field="districtId" command="${listCommand}" prefixFieldName="${prefixField}"/>
-                    <div class="form-group">
+                    <div class="form-group district-data">
                         %{--<div class="col-xs-12 col-sm-8 col-md-7">--}%
                         <div class="col-xs-12 col-sm-5">
                             <formUtil:input field="name" command="${listCommand}" prefixFieldName="${prefixField}" />

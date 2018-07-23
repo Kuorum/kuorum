@@ -12,7 +12,7 @@ $(function () {
         e.preventDefault();
         if (isValidCampaignForm()) {
             $sendButton.attr("data-massMailingType", "SEND")
-            prepareAndOpenCampaignConfirmModal();
+            campaignForm.prepareAndOpenCampaignConfirmModal();
         }
     });
 
@@ -107,26 +107,26 @@ $(function () {
         // if (isValidCampaignForm() && correctCampaingScheduled()){
         if (isValidCampaignForm()){
             $sendButton.attr("data-massMailingType", "SCHEDULED")
-            prepareAndOpenCampaignConfirmModal();
+            campaignForm.prepareAndOpenCampaignConfirmModal();
         }
     });
 
 
     // CREATE CAMPAIGN moving on STEPS
     var $stepButton = $('ul.newsletter-steps > li > a');
-    $stepButton.on('click', stepSubmit);
+    $stepButton.on('click', campaignForm.stepSubmit);
 
     var $nextButton = $('.form-final-options #next[data-redirectLink]');
-    $nextButton.on('click', stepSubmit);
+    $nextButton.on('click', campaignForm.stepSubmit);
 
     var $nextButton = $('.form-final-options #save-draft-campaign[data-redirectLink]');
-    $nextButton.on('click', stepSubmit);
+    $nextButton.on('click', campaignForm.stepSubmit);
 
     var $sendButton = $('#campaignConfirm #saveCampaignBtn[data-redirectLink]');
     $sendButton.on('click', function(e){
         var mailingType = $sendButton.attr("data-massMailingType")
         $("#sendMassMailingType").val(mailingType);
-        stepSubmit(e)
+        campaignForm.stepSubmit(e)
     });
 
 });

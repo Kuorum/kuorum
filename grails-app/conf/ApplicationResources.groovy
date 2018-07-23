@@ -155,7 +155,7 @@ modules = {
     }
 
     participatoryBudget{
-        dependsOn("basic",'campaign')
+        dependsOn("basic",'campaign', 'campaignList')
         resource url:'js/campaigns/participatoryBudget.js'
     }
     causes {

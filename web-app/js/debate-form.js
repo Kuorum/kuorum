@@ -27,23 +27,10 @@ $(function(){
         return valid;
     }
 
+
+    // OVERWRITE CUSTOM FORM VALIDATION
+    campaignForm.validateCampaignForm = isValidDebateForm
     // Abrir modal confirmar envio de debate
-    $('body').on('click','.form-final-options #send-draft', function(e) {
-        e.preventDefault();
-        if (isValidDebateForm()) {
-            $('#saveCampaignBtn').attr('data-callback', 'sendParams');
-            prepareAndOpenCampaignConfirmModal();
-        }
-    });
-    // Abrir modal confirmar envío debate programada
-    $('body').on('click','.form-final-options #send-campaign-later', function(e) {
-        e.preventDefault();
-        if (isValidDebateForm()) {
-            $('#saveCampaignBtn').attr('data-callback', 'scheduleParams');
-            //$("input[name='sendType']").val("SCHEDULED");
-            prepareAndOpenCampaignConfirmModal();
-        }
-    });
 
     // Guardar borrador de debate
     $('body').on('click','.form-final-options #save-draft-debate', function(e) {
