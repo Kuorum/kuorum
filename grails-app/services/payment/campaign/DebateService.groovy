@@ -13,7 +13,6 @@ import org.kuorum.rest.model.communication.debate.PageDebateRSDTO
 import org.kuorum.rest.model.communication.debate.search.ProposalPageRSDTO
 import org.kuorum.rest.model.communication.debate.search.SearchProposalRSDTO
 import org.kuorum.rest.model.communication.debate.search.SortProposalRDTO
-import org.kuorum.rest.model.communication.event.EventRDTO
 
 @Transactional
 class DebateService implements CampaignCreatorService<DebateRSDTO, DebateRDTO> {
@@ -21,6 +20,7 @@ class DebateService implements CampaignCreatorService<DebateRSDTO, DebateRDTO> {
     RestKuorumApiService restKuorumApiService
     IndexSolrService indexSolrService
     ProposalService proposalService
+    CampaignService campaignService
 
     PageDebateRSDTO findAllDebates(Integer page = 0, Integer size = 10) {
         Map<String, String> params = [:]
@@ -163,32 +163,7 @@ class DebateService implements CampaignCreatorService<DebateRSDTO, DebateRDTO> {
 
     @Override
     DebateRDTO map(DebateRSDTO debateRSDTO) {
-        DebateRDTO debateRDTO = new DebateRDTO()
-        if(debateRSDTO) {
-            debateRDTO.name = debateRSDTO.name
-            debateRDTO.checkValidation = debateRSDTO.checkValidation
-            debateRDTO.triggeredTags = debateRSDTO.triggeredTags
-            debateRDTO.anonymousFilter = debateRDTO.anonymousFilter
-            debateRDTO.filterId = debateRSDTO.newsletter?.filter?.id
-            debateRDTO.photoUrl = debateRSDTO.photoUrl
-            debateRDTO.videoUrl = debateRSDTO.videoUrl
-            debateRDTO.title = debateRSDTO.title
-            debateRDTO.body = debateRSDTO.body
-            debateRDTO.publishOn = debateRSDTO.datePublished
-            debateRDTO.endDate = debateRSDTO.endDate
-            debateRDTO.causes = debateRSDTO.causes
-            if (debateRSDTO.event){
-                debateRDTO.event = new EventRDTO();
-                debateRDTO.event.eventDate = debateRSDTO.event.eventDate
-                debateRDTO.event.latitude = debateRSDTO.event.latitude
-                debateRDTO.event.longitude = debateRSDTO.event.longitude
-                debateRDTO.event.zoom = debateRSDTO.event.zoom
-                debateRDTO.event.localName = debateRSDTO.event.localName
-                debateRDTO.event.address = debateRSDTO.event.address
-                debateRDTO.event.capacity = debateRSDTO.event.capacity
-            }
-        }
-        return debateRDTO
+        return campaignService.basicMapping(debateRSDTO, new DebateRDTO())
     }
 
     @Override

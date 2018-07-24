@@ -6,7 +6,6 @@ import kuorum.core.exception.KuorumException
 import kuorum.mail.KuorumMailService
 import kuorum.users.KuorumUser
 import kuorum.util.rest.RestKuorumApiService
-import org.kuorum.rest.model.communication.event.EventRDTO
 import org.kuorum.rest.model.communication.post.PagePostRSDTO
 import org.kuorum.rest.model.communication.post.PostRDTO
 import org.kuorum.rest.model.communication.post.PostRSDTO
@@ -20,6 +19,7 @@ class PostService implements CampaignCreatorService<PostRSDTO, PostRDTO>{
     def fileService
     KuorumMailService kuorumMailService
     RestKuorumApiService restKuorumApiService
+    CampaignService campaignService
 
     PagePostRSDTO findAllPosts(Integer page = 0, Integer size = 10){
         Map<String, String> params = [:]
@@ -165,32 +165,7 @@ class PostService implements CampaignCreatorService<PostRSDTO, PostRDTO>{
 
     @Override
     PostRDTO map(PostRSDTO postRSDTO) {
-        PostRDTO postRDTO = new PostRDTO()
-        if(postRSDTO){
-            postRDTO.title = postRSDTO.title
-            postRDTO.checkValidation = postRSDTO.checkValidation
-            postRDTO.body = postRSDTO.body
-            postRDTO.photoUrl = postRSDTO.photoUrl
-            postRDTO.videoUrl = postRSDTO.videoUrl
-            postRDTO.publishOn = postRSDTO.datePublished
-            postRDTO.endDate = postRSDTO.endDate
-            postRDTO.name = postRSDTO.name
-            postRDTO.triggeredTags = postRSDTO.triggeredTags
-            postRDTO.anonymousFilter = postRSDTO.anonymousFilter
-            postRDTO.filterId = postRSDTO.newsletter?.filter?.id
-            postRDTO.causes = postRSDTO.causes
-            if (postRSDTO.event){
-                postRDTO.event = new EventRDTO();
-                postRDTO.event.eventDate = postRSDTO.event.eventDate
-                postRDTO.event.latitude = postRSDTO.event.latitude
-                postRDTO.event.longitude = postRSDTO.event.longitude
-                postRDTO.event.zoom = postRSDTO.event.zoom
-                postRDTO.event.localName = postRSDTO.event.localName
-                postRDTO.event.address = postRSDTO.event.address
-                postRDTO.event.capacity = postRSDTO.event.capacity
-            }
-        }
-        return postRDTO;
+        return campaignService.basicMapping(postRSDTO, new PostRDTO());
     }
 
     @Override

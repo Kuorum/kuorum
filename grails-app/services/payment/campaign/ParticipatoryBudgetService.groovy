@@ -12,6 +12,7 @@ import org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudg
 @Transactional
 class ParticipatoryBudgetService implements CampaignCreatorService<ParticipatoryBudgetRSDTO, ParticipatoryBudgetRDTO> {
 
+    CampaignService campaignService
     RestKuorumApiService restKuorumApiService
     IndexSolrService indexSolrService
 
@@ -114,18 +115,7 @@ class ParticipatoryBudgetService implements CampaignCreatorService<Participatory
     ParticipatoryBudgetRDTO map(ParticipatoryBudgetRSDTO participatoryBudgetRSDTO) {
         ParticipatoryBudgetRDTO participatoryBudgetRDTO = new ParticipatoryBudgetRDTO()
         if(participatoryBudgetRSDTO) {
-            participatoryBudgetRDTO.name = participatoryBudgetRSDTO.name
-            participatoryBudgetRDTO.checkValidation = participatoryBudgetRSDTO.checkValidation
-            participatoryBudgetRDTO.triggeredTags = participatoryBudgetRSDTO.triggeredTags
-            participatoryBudgetRDTO.anonymousFilter = participatoryBudgetRDTO.anonymousFilter
-            participatoryBudgetRDTO.filterId = participatoryBudgetRSDTO.newsletter?.filter?.id
-            participatoryBudgetRDTO.photoUrl = participatoryBudgetRSDTO.photoUrl
-            participatoryBudgetRDTO.videoUrl = participatoryBudgetRSDTO.videoUrl
-            participatoryBudgetRDTO.title = participatoryBudgetRSDTO.title
-            participatoryBudgetRDTO.body = participatoryBudgetRSDTO.body
-            participatoryBudgetRDTO.publishOn = participatoryBudgetRSDTO.datePublished
-            participatoryBudgetRDTO.endDate = participatoryBudgetRSDTO.endDate
-            participatoryBudgetRDTO.causes = participatoryBudgetRSDTO.causes
+            participatoryBudgetRDTO = campaignService.basicMapping(participatoryBudgetRSDTO, participatoryBudgetRDTO)
             participatoryBudgetRDTO.deadLineVotes = participatoryBudgetRSDTO.deadLineVotes
             participatoryBudgetRDTO.deadLineTechnicalReview= participatoryBudgetRSDTO.deadLineTechnicalReview
             participatoryBudgetRDTO.deadLineProposals= participatoryBudgetRSDTO.deadLineProposals

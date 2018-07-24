@@ -6,7 +6,9 @@ import kuorum.core.exception.KuorumException
 import kuorum.solr.IndexSolrService
 import kuorum.users.KuorumUser
 import kuorum.util.rest.RestKuorumApiService
+import org.kuorum.rest.model.communication.CampaignRDTO
 import org.kuorum.rest.model.communication.CampaignRSDTO
+import org.kuorum.rest.model.communication.event.EventRDTO
 
 @Transactional
 class CampaignService {
@@ -67,5 +69,34 @@ class CampaignService {
             log.info("Error recovering debate $campaignId : ${e.message}")
             return null;
         }
+    }
+
+    CampaignRDTO basicMapping(CampaignRSDTO campaignRSDTO, CampaignRDTO rdto){
+        if(campaignRSDTO) {
+            rdto.name = campaignRSDTO.name
+            rdto.checkValidation = campaignRSDTO.checkValidation
+            rdto.triggeredTags = campaignRSDTO.triggeredTags
+            rdto.anonymousFilter = campaignRSDTO.anonymousFilter
+            rdto.filterId = campaignRSDTO.newsletter?.filter?.id
+            rdto.photoUrl = campaignRSDTO.photoUrl
+            rdto.videoUrl = campaignRSDTO.videoUrl
+            rdto.title = campaignRSDTO.title
+            rdto.body = campaignRSDTO.body
+            rdto.publishOn = campaignRSDTO.datePublished
+            rdto.endDate = campaignRSDTO.endDate
+            rdto.causes = campaignRSDTO.causes
+            if (campaignRSDTO.event){
+                rdto.event = new EventRDTO();
+                rdto.event.eventDate = campaignRSDTO.event.eventDate
+                rdto.event.latitude = campaignRSDTO.event.latitude
+                rdto.event.longitude = campaignRSDTO.event.longitude
+                rdto.event.zoom = campaignRSDTO.event.zoom
+                rdto.event.localName = campaignRSDTO.event.localName
+                rdto.event.address = campaignRSDTO.event.address
+                rdto.event.capacity = campaignRSDTO.event.capacity
+            }
+            
+        }
+        return rdto;
     }
 }

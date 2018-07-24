@@ -6,7 +6,6 @@ import kuorum.core.exception.KuorumException
 import kuorum.mail.KuorumMailService
 import kuorum.users.KuorumUser
 import kuorum.util.rest.RestKuorumApiService
-import org.kuorum.rest.model.communication.event.EventRDTO
 import org.kuorum.rest.model.communication.survey.QuestionOptionRDTO
 import org.kuorum.rest.model.communication.survey.QuestionRDTO
 import org.kuorum.rest.model.communication.survey.SurveyRDTO
@@ -21,6 +20,7 @@ class SurveyService implements CampaignCreatorService<SurveyRSDTO, SurveyRDTO>{
     def fileService
     KuorumMailService kuorumMailService
     RestKuorumApiService restKuorumApiService
+    CampaignService campaignService
 
     SurveyRSDTO save(KuorumUser user, SurveyRDTO surveyRDTO, Long surveyId){
 
@@ -110,28 +110,7 @@ class SurveyService implements CampaignCreatorService<SurveyRSDTO, SurveyRDTO>{
     SurveyRDTO map(SurveyRSDTO surveyRSDTO) {
         SurveyRDTO surveyRDTO = new SurveyRDTO()
         if(surveyRSDTO){
-            surveyRDTO.title = surveyRSDTO.title
-            surveyRDTO.checkValidation = surveyRSDTO.checkValidation
-            surveyRDTO.body = surveyRSDTO.body
-            surveyRDTO.photoUrl = surveyRSDTO.photoUrl
-            surveyRDTO.videoUrl = surveyRSDTO.videoUrl
-            surveyRDTO.publishOn = surveyRSDTO.datePublished
-            surveyRDTO.endDate = surveyRSDTO.endDate
-            surveyRDTO.name = surveyRSDTO.name
-            surveyRDTO.triggeredTags = surveyRSDTO.triggeredTags
-            surveyRDTO.anonymousFilter = surveyRSDTO.anonymousFilter
-            surveyRDTO.filterId = surveyRSDTO.newsletter?.filter?.id
-            surveyRDTO.causes = surveyRSDTO.causes
-            if (surveyRSDTO.event){
-                surveyRDTO.event = new EventRDTO();
-                surveyRDTO.event.eventDate = surveyRSDTO.event.eventDate
-                surveyRDTO.event.latitude = surveyRSDTO.event.latitude
-                surveyRDTO.event.longitude = surveyRSDTO.event.longitude
-                surveyRDTO.event.zoom = surveyRSDTO.event.zoom
-                surveyRDTO.event.localName = surveyRSDTO.event.localName
-                surveyRDTO.event.address = surveyRSDTO.event.address
-                surveyRDTO.event.capacity = surveyRSDTO.event.capacity
-            }
+            surveyRDTO = campaignService.basicMapping(surveyRSDTO,surveyRDTO)
             //MAP QUESTIONS
             surveyRDTO.questions = surveyRSDTO.questions.collect{
                 QuestionRDTO questionRDTO = new QuestionRDTO();
