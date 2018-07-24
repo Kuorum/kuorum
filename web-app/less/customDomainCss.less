@@ -186,10 +186,21 @@ fieldset.rating:hover > input + label:hover:before {color: @mainColor;}
 
 .left-container ul a:hover{color: @mainColor;}
 
-.campaign-progress-bar-wrapper .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done {background: @secondColor;}
-.campaign-progress-bar-wrapper .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done::after {border-color: @secondColor; border-left-color: transparent;
+.campaign-progress-bar .progress-bar-custom .progress-bar-custom-done {background: @secondColor;}
+.campaign-progress-bar-wrapper .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done::after {
+  border-color: @secondColor;
+  border-left-color: transparent;
   border-right-color: transparent;
-  border-bottom-color: transparent;}
+  border-bottom-color: transparent;
+}
+
+.participatory-budget-steps-wrapper .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done::after {
+  border-color: @secondColor;
+  border-left-color: transparent;
+  border-right-color: transparent;
+  border-top-color: transparent;
+}
+
 
 ul.globus li.fontIcon > a > span.fa {color:@mainColor;}
 ul.globus li.fontIcon > a > span.fas {color:@mainColor;}

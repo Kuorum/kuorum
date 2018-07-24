@@ -1,6 +1,6 @@
 $(function () {
     
-    $(".participatory-budget-status .timeline .timeline-panel a").on("click",function (e) {
+    $(".participatory-budget-status .participatory-budget-steps-info a").on("click",function (e) {
         e.preventDefault();
         var status=$(this).attr("data-status")
         var statusText=$(this).attr("data-status-text")
