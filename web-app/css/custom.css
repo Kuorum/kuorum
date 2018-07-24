@@ -1742,31 +1742,13 @@ ul.participatory-budget-steps-info li{margin-bottom:15px; line-height:10px;}
 ul.participatory-budget-steps-info li label{font-weight: bold;}
 ul.participatory-budget-steps-info li.active a {display: none}
 
-ul.participatory-budget-steps-info li + .tooltip.bottom .tooltip-inner{
-    position: relative;
-    top: -9px;
-    background-color: #FF9431;
-    color: #fff;
-    font-size: 14px;
-    opacity: 1;
-    width: 200px;
-    left:-20px;
-}
-
-ul.participatory-budget-steps-info li + .tooltip.bottom .tooltip-arrow {
-    position: relative;
-    top: -9px;
-    left: 20px;
-    border-bottom-color: #FF9431;
-    border-width: 0 10px 10px;
-    background-color: transparent;
-}
-
-
 .participatory-budget-status .comment-proposal{margin-bottom: 30px;margin-top:-20px;}
 
 .progress-bar {background-color: #00a3ed;}
 
+.participatory-budget-status .kuorum-tooltip + .tooltip.bottom{left: 70px !important;}
+.participatory-budget-status .kuorum-tooltip + .tooltip.bottom .tooltip-inner{position:relative; width:200px;}
+.participatory-budget-status .kuorum-tooltip + .tooltip.bottom .tooltip-arrow{position:relative;left: 10%;}
 
 #followAndRegister{padding: 10px 15px 0;}
 #followAndRegister .btn{width:100%;margin-bottom:7px; padding: 9px !important;}
@@ -4827,7 +4809,7 @@ h2.event-confirm-success{color:green;font-weight: bold; font-size: 20px;margin:0
 
 .conversation-box span.pin-proposal{cursor: default;}
 
-.conversation-box button.pin-proposal + .tooltip.bottom .tooltip-arrow {
+.kuorum-tooltip + .tooltip.bottom .tooltip-arrow {
     position: relative;
     border-bottom-color: #FF9431;
     top: -14px;
@@ -4837,7 +4819,7 @@ h2.event-confirm-success{color:green;font-weight: bold; font-size: 20px;margin:0
     background-color: transparent;
 }
 
-.conversation-box span.pin-proposal + .tooltip.bottom .tooltip-arrow {
+.kuorum-tooltip + .tooltip.bottom .tooltip-arrow {
     position: relative;
     border-bottom-color: #FF9431;
     top: -11px;
@@ -4878,17 +4860,17 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     left: 45%;
 }
 
-.conversation-box button.pin-proposal + .tooltip.bottom {
+.kuorum-tooltip + .tooltip.bottom {
     background-color: #FF9431;
     opacity: 1;
 }
 
-.conversation-box span.pin-proposal + .tooltip.bottom {
+.kuorum-tooltip + .tooltip.bottom {
     background-color: #FF9431;
     opacity: 1;
 }
 
-.conversation-box button.pin-proposal + .tooltip.bottom .tooltip-inner {
+.kuorum-tooltip + .tooltip.bottom .tooltip-inner {
     position: relative;
     background-color: #FF9431;
     color: white;
@@ -4897,7 +4879,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     top: -5px;
 }
 
-.conversation-box span.pin-proposal + .tooltip.bottom .tooltip-inner {
+.kuorum-tooltip + .tooltip.bottom .tooltip-inner {
     position: relative;
     background-color: #FF9431;
     color: white;
@@ -6132,7 +6114,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     #contactsList > li > .contact-info > .title > a {display:inline-block; overflow: hidden;max-width: 10em;}
     #contactsList > li > .contact-info > .title > a + a {text-decoration: none}
 
-    #contactsList > li .email .raw-email {display:inline-flex; overflow: hidden;max-width: 12em;}
+    #contactsList > li .email .raw-email {display:inline-flex; overflow: hidden;max-width: 13em; height: 20px;}
 
     ul.search-list > li.search-article > article.box-ppal > div.link-wrapper {height: 375px;}
     ul.search-list > li.search-article > article.box-ppal > div.link-wrapper > div.card-footer {position:absolute; bottom:0;}

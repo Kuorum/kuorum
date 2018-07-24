@@ -21,7 +21,7 @@
         </div>
         <ul class="participatory-budget-steps-info">
             <g:each in="${org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.values()}" var="status" status="i">
-                <li class="${status == participatoryBudget.status?'active':''}"
+                <li class=" kuorum-tooltip ${status == participatoryBudget.status?'active':''}"
                     rel="tooltip"
                     data-toggle="tooltip"
                     data-placement="bottom"
@@ -29,11 +29,12 @@
                     data-original-title="${g.message(code:"org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.${status}.description")}">
                     <label><g:message code="org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.${status}"/></label>
                     <g:set var="statusDate">--</g:set>
+                    <g:set var="statusDateMsgCode" value="participatoryBudget.status.until"/>
                     <g:if test="${status == org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.ADDING_PROPOSALS}"><g:set var="statusDate"><g:formatDate type="date" style="small" date="${participatoryBudget.deadLineProposals}"/></g:set></g:if>
                     <g:if test="${status == org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.TECHNICAL_REVIEW}"><g:set var="statusDate"><g:formatDate type="date" style="small" date="${participatoryBudget.deadLineTechnicalReview}"/></g:set></g:if>
                     <g:if test="${status == org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.BALLOT}"><g:set var="statusDate"><g:formatDate type="date" style="small" date="${participatoryBudget.deadLineVotes}"/></g:set></g:if>
-                    <g:if test="${status == org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.CLOSED}"><g:set var="statusDate"></g:set></g:if>
-                    <span>${statusDate}</span>
+                    <g:if test="${status == org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.CLOSED}"><g:set var="statusDate">-</g:set><g:set var="statusDateMsgCode" value="participatoryBudget.status.from"/></g:if>
+                    <span>(<g:message code="${statusDateMsgCode}" args="[statusDate]"/>)</span>
                     <userUtil:ifUserIsTheLoggedOne user="${campaignUser}">
                         <a data-status="${status}" data-status-text="${g.message(code:"org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.${status}")}"><span class="fa fa-hand-o-left rigth"></span></a>
                     </userUtil:ifUserIsTheLoggedOne>

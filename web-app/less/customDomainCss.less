@@ -149,13 +149,14 @@ fieldset.rating:hover > input + label:hover:before {color: @mainColor;}
 .bg-primary {background-color: @mainColor;}
 .cl-primary {color: @mainColor;}
 
+.kuorum-tooltip + .tooltip.bottom .tooltip-arrow {border-bottom-color: @mainColor;}
+.kuorum-tooltip + .tooltip.bottom .tooltip-arrow {border-bottom-color: @mainColor;}
+.kuorum-tooltip + .tooltip.bottom {background-color: @mainColor;}
+.kuorum-tooltip + .tooltip.bottom {background-color: @mainColor;}
+.kuorum-tooltip + .tooltip.bottom .tooltip-inner {background-color: @mainColor;color: white;}
+.kuorum-tooltip + .tooltip.bottom .tooltip-inner {background-color: @mainColor; color: white;}
+
 .conversation-box.active {border-left-color: @mainColor;}
-.conversation-box button.pin-proposal + .tooltip.bottom .tooltip-arrow {border-bottom-color: @mainColor;}
-.conversation-box span.pin-proposal + .tooltip.bottom .tooltip-arrow {border-bottom-color: @mainColor;}
-.conversation-box button.pin-proposal + .tooltip.bottom {background-color: @mainColor;}
-.conversation-box span.pin-proposal + .tooltip.bottom {background-color: @mainColor;}
-.conversation-box button.pin-proposal + .tooltip.bottom .tooltip-inner {background-color: @mainColor;color: white;}
-.conversation-box span.pin-proposal + .tooltip.bottom .tooltip-inner {background-color: @mainColor; color: white;}
 .conversation-box ul.icons li .pin-proposal.active {color: @mainColor;}
 .conversation-box .footer .social li.active a:hover .fa-circle {color: @mainColor;}
 .conversation-box-comments ul li.active {border-left-color: @mainColor;}
@@ -194,8 +195,10 @@ fieldset.rating:hover > input + label:hover:before {color: @mainColor;}
   border-bottom-color: transparent;
 }
 
+
+.participatory-budget-steps-wrapper .progress-bar-custom .progress-bar-custom-done {background: @mainColor;}
 .participatory-budget-steps-wrapper .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done::after {
-  border-color: @secondColor;
+  border-color: @mainColor;
   border-left-color: transparent;
   border-right-color: transparent;
   border-top-color: transparent;

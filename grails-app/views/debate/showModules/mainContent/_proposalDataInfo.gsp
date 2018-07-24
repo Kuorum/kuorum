@@ -8,7 +8,7 @@
             <userUtil:ifUserIsTheLoggedOne user="${debate.user}">
                 <li>
                     <button
-                            class="pin-proposal ${proposal.pinned?'active':''}"
+                            class="pin-proposal kuorum-tooltip ${proposal.pinned?'active':''}"
                             rel="tooltip"
                             type="button"
                             data-urlAction="${g.createLink(mapping: 'debateProposalPin')}"
@@ -30,7 +30,7 @@
             <userUtil:elseIfUserNotIsTheLoggedOne user="${debate.user}">
                 <g:if test="${proposal.pinned}">
                     <li >
-                        <span class="fa-stack fa-lg pin-proposal active"
+                        <span class="fa-stack fa-lg kuorum-tooltip pin-proposal active"
                               aria-hidden="true"
                               rel="tooltip"
                               data-toggle="tooltip"
