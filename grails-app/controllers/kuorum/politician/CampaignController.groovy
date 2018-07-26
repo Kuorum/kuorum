@@ -37,6 +37,7 @@ class CampaignController {
     SurveyService surveyService
     ContactService contactService
     ParticipatoryBudgetService participatoryBudgetService
+    DistrictProposalService districtProposalService
     SpringSecurityService springSecurityService
     FileService fileService
     CustomerService customerService
@@ -66,6 +67,9 @@ class CampaignController {
                     break;
                 case CampaignTypeRSDTO.PARTICIPATORY_BUDGET:
                     dataView = participatoryBudgetService.buildView(campaignRSDTO, user, viewerUid, params)
+                    break;
+                case CampaignTypeRSDTO.DISTRICT_PROPOSAL:
+                    dataView = districtProposalService.buildView(campaignRSDTO, user, viewerUid, params)
                     break;
                 default:
                     log.error("Campaign type not recognized: ${campaignRSDTO.campaignType}")
@@ -193,11 +197,11 @@ class CampaignController {
     protected def campaignModelContent(Long campaignId, CampaignRSDTO campaignRSDTO=null, CampaignContentCommand command=null, CampaignCreatorService campaignService) {
 
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        if(!campaignRSDTO){
+        if(!campaignRSDTO && campaignId){
             campaignRSDTO = campaignService.find(user, campaignId)
         }
 
-        if (campaignRSDTO.event != null && !campaignRSDTO.event.latitude){
+        if (campaignRSDTO?.event && !campaignRSDTO.event.latitude){
             // Debate has an event attached but is not defined the place.
             // Redirects to edit event
             flash.message=g.message(code: 'tools.massMailing.event.advise.empty')
@@ -208,17 +212,19 @@ class CampaignController {
 
         if (!command){
             command = new CampaignContentCommand();
-            command.title = campaignRSDTO.title
-            command.body = campaignRSDTO.body
-            command.videoPost = campaignRSDTO.videoUrl
+            if (campaignRSDTO){
+                command.title = campaignRSDTO.title
+                command.body = campaignRSDTO.body
+                command.videoPost = campaignRSDTO.videoUrl
 
-            if(campaignRSDTO.datePublished){
-                command.publishOn = campaignRSDTO.datePublished
-            }
+                if(campaignRSDTO.datePublished){
+                    command.publishOn = campaignRSDTO.datePublished
+                }
 
-            if (campaignRSDTO.photoUrl) {
-                KuorumFile kuorumFile = KuorumFile.findByUrl(campaignRSDTO.photoUrl)
-                command.headerPictureId = kuorumFile?.id
+                if (campaignRSDTO.photoUrl) {
+                    KuorumFile kuorumFile = KuorumFile.findByUrl(campaignRSDTO.photoUrl)
+                    command.headerPictureId = kuorumFile?.id
+                }
             }
         }
         Long numberRecipients = getCampaignNumberRecipients(user, campaignRSDTO)
@@ -226,7 +232,7 @@ class CampaignController {
                 command: command,
                 numberRecipients: numberRecipients,
                 campaign: campaignRSDTO,
-                status: campaignRSDTO.campaignStatusRSDTO
+                status: campaignRSDTO?.campaignStatusRSDTO?:CampaignStatusRSDTO.DRAFT
         ]
     }
 

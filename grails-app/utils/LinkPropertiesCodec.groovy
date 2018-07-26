@@ -7,6 +7,7 @@ import org.kuorum.rest.model.communication.CampaignRSDTO
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.kuorum.rest.model.communication.debate.ProposalRSDTO
 import org.kuorum.rest.model.communication.event.EventRSDTO
+import org.kuorum.rest.model.communication.participatoryBudget.DistrictProposalRSDTO
 import org.kuorum.rest.model.notification.NotificationProposalCommentMentionRSDTO
 import org.kuorum.rest.model.notification.NotificationProposalCommentRSDTO
 import org.kuorum.rest.model.search.SearchKuorumElementRSDTO
@@ -87,6 +88,16 @@ class LinkPropertiesCodec {
                 userAlias: campaignRSDTO.user.alias.toLowerCase(),
                 urlTitle: getNameTitleUrl(campaignRSDTO),
                 campaignId: campaignRSDTO.id
+        ]
+    }
+
+    private static def prepareParams(DistrictProposalRSDTO districtProposalRSDTO) {
+        [
+                userAlias: districtProposalRSDTO.participatoryBudget.userAlias.toLowerCase(),
+                participatoryBudgetTitle: districtProposalRSDTO.participatoryBudget.title.encodeAsKuorumUrl(),
+                participatoryBudgetId: districtProposalRSDTO.participatoryBudget.id,
+                urlTitle: getNameTitleUrl(districtProposalRSDTO),
+                campaignId: districtProposalRSDTO.id
         ]
     }
 

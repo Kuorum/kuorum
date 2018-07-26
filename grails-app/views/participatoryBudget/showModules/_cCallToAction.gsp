@@ -14,9 +14,9 @@
     </div>
     <g:if test="${participatoryBudget.published}">
         <div class="actions clearfix">
-            <button type="button" class="btn btn-blue btn-lg" data-goto="#participatoryBudget-progress" id="participatoryBudget-call-to-action">
+            <g:link mapping="districtProposalCreate" params="${participatoryBudget.encodeAsLinkProperties()}" type="button" class="btn btn-blue btn-lg">
                 ${callButtonMsg}
-            </button>
+            </g:link>
         </div>
     </g:if>
 </div>

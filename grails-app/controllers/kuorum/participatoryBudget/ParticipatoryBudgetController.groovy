@@ -20,7 +20,7 @@ class ParticipatoryBudgetController extends CampaignController{
         return participatoryBudgetModelSettings(new CampaignSettingsCommand(debatable:true), null)
     }
 
-    @Secured(['ROLE_CAMPAIGN_DEBATE','ROLE_CAMPAIGN_EVENT','ROLE_ADMIN'])
+    @Secured(['ROLE_ADMIN'])
     def editSettingsStep(){
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         ParticipatoryBudgetRSDTO participatoryBudgetRSDTO = participatoryBudgetService.find( user, Long.parseLong((String) params.campaignId))

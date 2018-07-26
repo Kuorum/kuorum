@@ -26,7 +26,7 @@
                     showResult: 'campaignShow',
                     next: 'participatoryBudgetEditContent'
             ]}"/>
-        <g:render template="/campaigns/steps/twoSteps" model="[mappings: mappings]"/>
+        <g:render template="/campaigns/steps/campaignSteps" model="[mappings: mappings]"/>
     </div>
 
     <div class="box-ppal campaign-new">

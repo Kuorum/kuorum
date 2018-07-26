@@ -234,8 +234,11 @@ class RestKuorumApiService {
         ACCOUNT_SURVEY_ANSWER   ("/communication/campaign/survey/{userId}/{surveyId}/question/{questionId}"),
         ACCOUNT_SURVEY_REPORT   ("/communication/campaign/survey/{userId}/{surveyId}/report"),
 
-        ACCOUNT_PARTICIPATORY_BUDGETS ("/communication/campaign/participatory-budget/{userId}"),
-        ACCOUNT_PARTICIPATORY_BUDGET ("/communication/campaign/participatory-budget/{userId}/{campaignId}"),
+        ACCOUNT_PARTICIPATORY_BUDGETS   ("/communication/campaign/participatory-budget/{userId}"),
+        ACCOUNT_PARTICIPATORY_BUDGET    ("/communication/campaign/participatory-budget/{userId}/{campaignId}"),
+
+        ACCOUNT_DISTRICT_PROPOSALS      ("/communication/campaign/participatory-budget/district-proposal/{userId}"),
+        ACCOUNT_DISTRICT_PROPOSAL       ("/communication/campaign/participatory-budget/district-proposal/{userId}/{campaignId}"),
 
         ACCOUNT_EVENTS              ("/communication/campaign/event/{userId}"),
         ACCOUNT_EVENT               ("/communication/campaign/event/{userId}/{campaignId}"),

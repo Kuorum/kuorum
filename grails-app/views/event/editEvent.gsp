@@ -35,7 +35,7 @@
                  content:'debateEditContent',
                  showResult: 'debateShow']}"/>
         </g:if>
-        <g:render template="/campaigns/steps/twoSteps" model="[mappings: mappings, attachEvent:true]"/>
+        <g:render template="/campaigns/steps/campaignSteps" model="[mappings: mappings, attachEvent:true]"/>
     </div>
 
     <div class="box-ppal campaign-new">

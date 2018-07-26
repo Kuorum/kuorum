@@ -27,7 +27,7 @@
              questions:'surveyEditQuestions',
              content:'surveyEditContent',
              showResult: 'surveyShow']}"/>
-        <g:render template="/campaigns/steps/twoSteps" model="[mappings: mappings]"/>
+        <g:render template="/campaigns/steps/campaignSteps" model="[mappings: mappings]"/>
     </div>
 
     <div class="box-ppal campaign-new">
