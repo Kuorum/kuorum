@@ -233,6 +233,25 @@ class UrlMappings {
         name de_searcherSearchSURVEYByREGION:"/suche/umfrage/von/$word?"      (controller: "search", action:"search"){searchType="REGION";type="SURVEY"; mappingName="searcherSearchSURVEYByREGION"}
         name ca_searcherSearchSURVEYByREGION:"/cerca/enquesta/a/$word?"      (controller: "search", action:"search"){searchType="REGION";type="SURVEY"; mappingName="searcherSearchSURVEYByREGION"}
 
+        name searcherSearchPARTICIPATORY_BUDGET:   "/search/participatory-budget"                  (controller: "search", action:"search"){type="PARTICIPATORY_BUDGET"; mappingName="searcherSearchPARTICIPATORY_BUDGET"}
+        name en_searcherSearchPARTICIPATORY_BUDGET:"/search/participatory-budget/$word?"           (controller: "search", action:"search"){type="PARTICIPATORY_BUDGET"; mappingName="searcherSearchPARTICIPATORY_BUDGET"}
+        name es_searcherSearchPARTICIPATORY_BUDGET:"/buscar/presupuesto-participativo/$word?"      (controller: "search", action:"search"){type="PARTICIPATORY_BUDGET"; mappingName="searcherSearchPARTICIPATORY_BUDGET"}
+        name de_searcherSearchPARTICIPATORY_BUDGET:"/suche/burgerhaushalt/$word?"                  (controller: "search", action:"search"){type="PARTICIPATORY_BUDGET"; mappingName="searcherSearchPARTICIPATORY_BUDGET"}
+        name ca_searcherSearchPARTICIPATORY_BUDGET:"/cerca/pressupost-participatiu/$word?" (controller: "search", action:"search"){type="PARTICIPATORY_BUDGET"; mappingName="searcherSearchPARTICIPATORY_BUDGET"}
+
+        name searcherSearchPARTICIPATORY_BUDGETByCAUSE:   "/search/participatory-budget/cause/$word?"      (controller: "search", action:"search"){searchType="CAUSE";type="PARTICIPATORY_BUDGET"; mappingName="searcherSearchPARTICIPATORY_BUDGETByCAUSE"}
+        name en_searcherSearchPARTICIPATORY_BUDGETByCAUSE:"/search/participatory-budget/cause/$word?"      (controller: "search", action:"search"){searchType="CAUSE";type="PARTICIPATORY_BUDGET"; mappingName="searcherSearchPARTICIPATORY_BUDGETByCAUSE"}
+        name es_searcherSearchPARTICIPATORY_BUDGETByCAUSE:"/buscar/presupuesto-participativo/causa/$word?"    (controller: "search", action:"search"){searchType="CAUSE";type="PARTICIPATORY_BUDGET"; mappingName="searcherSearchPARTICIPATORY_BUDGETByCAUSE"}
+        name de_searcherSearchPARTICIPATORY_BUDGETByCAUSE:"/suche/burgerhaushalt/themen/$word?"    (controller: "search", action:"search"){searchType="CAUSE";type="PARTICIPATORY_BUDGET"; mappingName="searcherSearchPARTICIPATORY_BUDGETByCAUSE"}
+        name ca_searcherSearchPARTICIPATORY_BUDGETByCAUSE:"/cerca/pressupost-participatiu/causa/$word?"    (controller: "search", action:"search"){searchType="CAUSE";type="PARTICIPATORY_BUDGET"; mappingName="searcherSearchPARTICIPATORY_BUDGETByCAUSE"}
+
+        name searcherSearchPARTICIPATORY_BUDGETByREGION:   "/search/participatory-budget/from/$word?"      (controller: "search", action:"search"){searchType="REGION";type="PARTICIPATORY_BUDGET"; mappingName="searcherSearchPARTICIPATORY_BUDGETByREGION"}
+        name en_searcherSearchPARTICIPATORY_BUDGETByREGION:"/search/participatory-budget/from/$word?"      (controller: "search", action:"search"){searchType="REGION";type="PARTICIPATORY_BUDGET"; mappingName="searcherSearchPARTICIPATORY_BUDGETByREGION"}
+        name es_searcherSearchPARTICIPATORY_BUDGETByREGION:"/buscar/presupuesto-participativo/en/$word?"      (controller: "search", action:"search"){searchType="REGION";type="PARTICIPATORY_BUDGET"; mappingName="searcherSearchPARTICIPATORY_BUDGETByREGION"}
+        name de_searcherSearchPARTICIPATORY_BUDGETByREGION:"/suche/burgerhaushalt/von/$word?"      (controller: "search", action:"search"){searchType="REGION";type="PARTICIPATORY_BUDGET"; mappingName="searcherSearchPARTICIPATORY_BUDGETByREGION"}
+        name ca_searcherSearchPARTICIPATORY_BUDGETByREGION:"/cerca/pressupost-participatiu/a/$word?"      (controller: "search", action:"search"){searchType="REGION";type="PARTICIPATORY_BUDGET"; mappingName="searcherSearchPARTICIPATORY_BUDGETByREGION"}
+
+
         name footerUserGuides:      "/user-guides"          (controller: "footer", action: "footerUserGuides"){mappingName="footerUserGuides"}
         name en_footerUserGuides:   "/user-guides"          (controller: "footer", action: "footerUserGuides"){mappingName="footerUserGuides"}
         name es_footerUserGuides:   "/guias-de-usuario"     (controller: "footer", action: "footerUserGuides"){mappingName="footerUserGuides"}

@@ -103,6 +103,17 @@
                     </label>
                 </div>
             </li>
+            <li>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="type" id="search-surveys" value="${kuorum.core.model.solr.SolrType.PARTICIPATORY_BUDGET}" ${searchParams.type == kuorum.core.model.solr.SolrType.PARTICIPATORY_BUDGET?'checked':''}>
+                        <g:link mapping="searcherSearchPARTICIPATORY_BUDGET" params="${params.findAll {k,v-> k!='type' && k!='offset' && v}}">
+                            <span class="fa fa-money"></span>
+                            <g:message code="search.filters.SolrType.PARTICIPATORY_BUDGET"/>
+                        </g:link>
+                    </label>
+                </div>
+            </li>
         </ul>
         <input type="hidden" name="word" value="${searchParams.word}" />
         <input type="hidden" name="searchType" value="${searchParams.searchType}" />
