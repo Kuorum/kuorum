@@ -22,4 +22,26 @@
             </a>
         </g:if>
     </div>
+    <div class="comment-header">
+        <span class="call-subTitle">This proposal corresponds to the budget for <g:link mapping="participatoryBudgetShow" params="${districtProposal.participatoryBudget.encodeAsLinkProperties()}" fragment="${districtProposal.district.name}">${districtProposal.district.name}</g:link></span>
+        <div class="budget">
+            <div class="campaign-progress-bar-wrapper">
+                <h4>Budget for this area: <span class="budget-price">${districtProposal.district.budget.encodeAsReducedPrice()}€</span></h4>
+                <div class="campaign-progress-bar" data-width="10">
+                    <div class="pop-up">
+                        300 gastado de 20
+                        <div class="arrow"></div>
+                    </div>
+                    <div class="progress-bar-custom">
+                        <div class="progress-bar-custom-done"></div>
+                    </div>
+                </div>
+                <div class="campaign-progress-bar-footer">
+                    <g:link mapping="participatoryBudgetShow" params="${districtProposal.participatoryBudget.encodeAsLinkProperties()}" fragment="${districtProposal.district.name}">
+                        see to the full budget
+                    </g:link>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

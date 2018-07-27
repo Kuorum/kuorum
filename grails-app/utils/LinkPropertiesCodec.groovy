@@ -7,6 +7,7 @@ import org.kuorum.rest.model.communication.CampaignRSDTO
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.kuorum.rest.model.communication.debate.ProposalRSDTO
 import org.kuorum.rest.model.communication.event.EventRSDTO
+import org.kuorum.rest.model.communication.participatoryBudget.BasicParticipatoryBudgetRSDTO
 import org.kuorum.rest.model.communication.participatoryBudget.DistrictProposalRSDTO
 import org.kuorum.rest.model.notification.NotificationProposalCommentMentionRSDTO
 import org.kuorum.rest.model.notification.NotificationProposalCommentRSDTO
@@ -29,6 +30,7 @@ class LinkPropertiesCodec {
             case CauseRSDTO:
             case CampaignRSDTO:
             case ProposalRSDTO:
+            case BasicParticipatoryBudgetRSDTO:
             case NotificationProposalCommentRSDTO:
             case NotificationProposalCommentMentionRSDTO:
             case SearchKuorumElementRSDTO:
@@ -86,6 +88,14 @@ class LinkPropertiesCodec {
     private static def prepareParams(CampaignRSDTO campaignRSDTO) {
         [
                 userAlias: campaignRSDTO.user.alias.toLowerCase(),
+                urlTitle: getNameTitleUrl(campaignRSDTO),
+                campaignId: campaignRSDTO.id
+        ]
+    }
+
+    private static def prepareParams(BasicParticipatoryBudgetRSDTO campaignRSDTO) {
+        [
+                userAlias: campaignRSDTO.userAlias.toLowerCase(),
                 urlTitle: getNameTitleUrl(campaignRSDTO),
                 campaignId: campaignRSDTO.id
         ]
@@ -157,20 +167,20 @@ class LinkPropertiesCodec {
         }
     }
 
-    private static String getNameTitleUrl(def debatePost){
+    private static String getNameTitleUrl(def campaign){
         //debatePost is a DebateRSDTO or PostRSDTO or ProposalRSDTO
         String urlText = ""
-        if (debatePost instanceof ProposalRSDTO){
-            urlText = debatePost.debateTitle
-        }else if (debatePost instanceof SearchKuorumElementRSDTO){
-            urlText = debatePost.name
+        if (campaign instanceof ProposalRSDTO){
+            urlText = campaign.debateTitle
+        }else if (campaign instanceof SearchKuorumElementRSDTO){
+            urlText = campaign.name
         }else{
-            urlText = debatePost.title;
+            urlText = campaign.title;
         }
 
         if (!urlText){
             // The post or the debate are not complete and the title is not set [Also is not published]
-            urlText = debatePost.name
+            urlText = campaign.name
         }
         return urlText.encodeAsKuorumUrl()
     }

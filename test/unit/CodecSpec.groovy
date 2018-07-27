@@ -1,3 +1,4 @@
+import kuorum.numberCodecs.ReducedPriceCodec
 import kuorum.postalCodeHandlers.YoutubeNameCodec
 import org.codehaus.groovy.grails.plugins.codecs.HTMLEncoder
 import spock.lang.Specification
@@ -142,5 +143,22 @@ class CodecSpec extends Specification {
         "<a href=\"http://hola.com\" target='_blank' rel='nofollow'>hola</a>"  | "<a href='http://hola.com' target='_blank' rel='nofollow'>hola</a>"
         "Nada"                                  | "Nada"
         "<p>Nada</p>"                           | "<p>Nada</p>"
+    }
+
+
+    @Unroll
+    void "test encoding number #orgNumber == #reducedNumber"() {
+        given:"The number"
+        when:
+        def res = ReducedPriceCodec.encode(orgNumber)
+        then:
+        res == reducedNumber
+        where:
+        orgNumber       | reducedNumber
+        100             | "100"
+        100000          | "1K"
+        1000000         | "1M"
+        2000000         | "2M"
+        2500000         | "2,5M"
     }
 }

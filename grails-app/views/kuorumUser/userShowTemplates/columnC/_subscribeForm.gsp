@@ -9,7 +9,7 @@
 
             <div class="campaign-progress-bar-wrapper">
                 %{--<h4><g:message code="register.progressBar.title" /></h4>--}%
-                <div class="campaign-progress-bar">
+                <div class="campaign-progress-bar" data-width="75">
                     <div class="pop-up">
                         <g:message code="register.progressBar.popup" args="[user.name]" />
                         <div class="arrow"></div>

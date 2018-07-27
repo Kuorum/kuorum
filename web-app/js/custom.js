@@ -435,6 +435,12 @@ $(document).ready(function() {
         })
     })
 
+    $(".campaign-progress-bar[data-width] .progress-bar-custom .progress-bar-custom-done").each(function(idx){
+        var width = $(this).parents(".campaign-progress-bar[data-width]").attr("data-width");
+        $(this).animate({width:width+'%'},"slow")
+    })
+
+
     $(window).load(function() {
         noLoggedRememberPasswordCallbacks.helper.init();
     })
