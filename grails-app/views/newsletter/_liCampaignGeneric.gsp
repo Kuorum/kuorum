@@ -16,6 +16,11 @@
     <g:set var="type" value="participatoryBudget"/>
     <g:set var="faIcon" value="fa-money"/>
 </g:elseif>
+<g:elseif test="${campaign.campaignType == org.kuorum.rest.model.communication.CampaignTypeRSDTO.DISTRICT_PROPOSAL}">
+    <g:set var="urlMappingNameEditStep" value="EditContent"/>
+    <g:set var="type" value="districtProposal"/>
+    <g:set var="faIcon" value="fa-rocket"/>
+</g:elseif>
 <g:set var="typeName" value="${g.message(code: 'tools.campaign.new.'+type)}"/>
 <g:set var="campaignGenericMappings" value="[show:type+'Show', edit:type+urlMappingNameEditStep, remove:type+'Remove']"/>
 <g:if test="${campaign.event}">

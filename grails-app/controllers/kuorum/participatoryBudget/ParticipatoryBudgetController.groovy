@@ -9,6 +9,7 @@ import kuorum.web.commands.payment.CampaignSettingsCommand
 import kuorum.web.commands.payment.participatoryBudget.DistrictCommand
 import kuorum.web.commands.payment.participatoryBudget.DistrictsCommand
 import kuorum.web.commands.payment.participatoryBudget.ParticipatoryBudgetChangeStatusCommand
+import kuorum.web.constants.WebConstants
 import org.kuorum.rest.model.communication.participatoryBudget.DistrictRDTO
 import org.kuorum.rest.model.communication.participatoryBudget.PageDistrictProposalRSDTO
 import org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetRDTO
@@ -163,7 +164,12 @@ class ParticipatoryBudgetController extends CampaignController{
         Integer page= Integer.parseInt(params.page)
         String viewerUid = cookieUUIDService.buildUserUUID()
         PageDistrictProposalRSDTO pageDistrictProposals = participatoryBudgetService.findDistrictProposalsByDistrict(kuorumUser, participatoryBudgetId, districtId, page, viewerUid)
-        render template: '/campaigns/cards/campaignsList', model: [campaigns:pageDistrictProposals.data, showAuthor:true]
+        if (pageDistrictProposals.total == 0){
+            response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${pageDistrictProposals.total > (pageDistrictProposals.page+pageDistrictProposals.size)}")
+            render template: '/participatoryBudget/showModules/mainContent/districProposalsEmpty';
+        }else{
+            render template: '/campaigns/cards/campaignsList', model: [campaigns:pageDistrictProposals.data, showAuthor:true]
+        }
     }
 
 }
