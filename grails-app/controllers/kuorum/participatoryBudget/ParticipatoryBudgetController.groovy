@@ -10,6 +10,7 @@ import kuorum.web.commands.payment.participatoryBudget.DistrictCommand
 import kuorum.web.commands.payment.participatoryBudget.DistrictsCommand
 import kuorum.web.commands.payment.participatoryBudget.ParticipatoryBudgetChangeStatusCommand
 import org.kuorum.rest.model.communication.participatoryBudget.DistrictRDTO
+import org.kuorum.rest.model.communication.participatoryBudget.PageDistrictProposalRSDTO
 import org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetRDTO
 import org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetRSDTO
 
@@ -153,6 +154,16 @@ class ParticipatoryBudgetController extends CampaignController{
         rdto.setStatus(command.getStatus())
         participatoryBudgetService.save(campaignUser, rdto, command.getCampaignId())
         redirect mapping: 'campaignShow', params: participatoryBudgetRSDTO.encodeAsLinkProperties()
+    }
+
+    def findDistrictProposals(){
+        KuorumUser kuorumUser = kuorumUserService.findByAlias(params.userAlias)
+        Long participatoryBudgetId = Long.parseLong(params.campaignId)
+        Long districtId = Long.parseLong(params.districtId)
+        Integer page= Integer.parseInt(params.page)
+        String viewerUid = cookieUUIDService.buildUserUUID()
+        PageDistrictProposalRSDTO pageDistrictProposals = participatoryBudgetService.findDistrictProposalsByDistrict(kuorumUser, participatoryBudgetId, districtId, page, viewerUid)
+        render template: '/campaigns/cards/campaignsList', model: [campaigns:pageDistrictProposals.data, showAuthor:true]
     }
 
 }

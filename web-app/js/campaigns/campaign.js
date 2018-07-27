@@ -4,7 +4,7 @@ $(function(){
 
 var campaignFunctions={
     callToActionMobile:function(){
-        if($("section#main .comment-box").length > 0){
+        if($("section#main .comment-box").length > 0 && $("section#main .leader-post .header .call-to-action-mobile").length >0){
             // Debate not published has no comment-boxes
             $(window).scroll(function () {
                 var upperLimit = $("section#main .comment-box").offset();
