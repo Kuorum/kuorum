@@ -119,4 +119,98 @@ class DistrictProposalService implements CampaignCreatorService<DistrictProposal
         def model = [districtProposal: districtProposal, campaignUser: campaignUser];
         return [view: '/districtProposal/show', model: model]
     }
+
+
+    /// END CRUD
+
+    DistrictProposalRSDTO vote(
+            KuorumUser user,
+            KuorumUser participatoryBudgetUser,
+            Long participatoryBudgetId,
+            Long districtId,
+            Long districtProposalId){
+        Map<String, String> params = [
+                userId: participatoryBudgetUser.id.toString(),
+                campaignId: participatoryBudgetId.toString(),
+                districtId: districtId.toString(),
+                proposalId: districtProposalId.toString(),
+        ]
+        Map<String, String> query = [viewerUid:user.id.toString()]
+        def response = restKuorumApiService.put(
+                RestKuorumApiService.ApiMethod.ACCOUNT_PARTICIPATORY_BUDGET_DISTRICT_PROPOSAL_VOTE,
+                params,
+                query
+        )
+
+        return response.data;
+    }
+
+    DistrictProposalRSDTO unvote(
+            KuorumUser user,
+            KuorumUser participatoryBudgetUser,
+            Long participatoryBudgetId,
+            Long districtId,
+            Long districtProposalId){
+        Map<String, String> params = [
+                userId: participatoryBudgetUser.id.toString(),
+                campaignId: participatoryBudgetId.toString(),
+                districtId: districtId.toString(),
+                proposalId: districtProposalId.toString(),
+        ]
+        Map<String, String> query = [viewerUid:user.id.toString()]
+        def response = restKuorumApiService.delete(
+                RestKuorumApiService.ApiMethod.ACCOUNT_PARTICIPATORY_BUDGET_DISTRICT_PROPOSAL_VOTE,
+                params,
+                query
+        )
+
+        return response.data;
+    }
+
+    DistrictProposalRSDTO support(
+            KuorumUser user,
+            KuorumUser participatoryBudgetUser,
+            Long participatoryBudgetId,
+            Long districtId,
+            Long districtProposalId){
+        Map<String, String> params = [
+                userId: participatoryBudgetUser.id.toString(),
+                campaignId: participatoryBudgetId.toString(),
+                districtId: districtId.toString(),
+                proposalId: districtProposalId.toString(),
+        ]
+        Map<String, String> query = [viewerUid:user.id.toString()]
+        def response = restKuorumApiService.put(
+                RestKuorumApiService.ApiMethod.ACCOUNT_PARTICIPATORY_BUDGET_DISTRICT_PROPOSAL_SUPPORT,
+                params,
+                query,
+                null,
+                new TypeReference<DistrictProposalRSDTO>(){}
+        )
+
+        return response.data;
+    }
+
+    DistrictProposalRSDTO unsupport(
+            KuorumUser user,
+            KuorumUser participatoryBudgetUser,
+            Long participatoryBudgetId,
+            Long districtId,
+            Long districtProposalId){
+        Map<String, String> params = [
+                userId: participatoryBudgetUser.id.toString(),
+                campaignId: participatoryBudgetId.toString(),
+                districtId: districtId.toString(),
+                proposalId: districtProposalId.toString(),
+        ]
+        Map<String, String> query = [viewerUid:user.id.toString()]
+        def response = restKuorumApiService.delete(
+                RestKuorumApiService.ApiMethod.ACCOUNT_PARTICIPATORY_BUDGET_DISTRICT_PROPOSAL_SUPPORT,
+                params,
+                query,
+                new TypeReference<DistrictProposalRSDTO>(){}
+        )
+
+        return response.data;
+    }
 }

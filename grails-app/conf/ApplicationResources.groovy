@@ -158,6 +158,10 @@ modules = {
         dependsOn("basic",'campaign', 'campaignList')
         resource url:'js/campaigns/participatoryBudget.js'
     }
+    districtProposal{
+        dependsOn("basic",'campaign', 'campaignList')
+        resource url:'js/campaigns/districtProposal.js'
+    }
     causes {
         dependsOn("basic")
         resource url:'js/causes.js'

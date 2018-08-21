@@ -728,6 +728,22 @@ header.transp #search-form .open-filter {background-color: rgba(219,219,219,0.4)
 .btn.btn-blue-light:active,
 .btn.btn-blue-light:focus {background-color: transparent !important; color:#2e6bab !important; text-decoration: underline !important;}
 
+
+.btn.btn-blue-status {background-color:  #fff !important; border: 1px solid #20a2ea ;color:  #20a2ea !important}
+.btn.btn-blue-status:after {content: attr(data-txt-off);}
+.btn.btn-blue-status:hover,
+.btn.btn-blue-status:active,
+.btn.btn-blue-status:focus {background-color: #20a2ea !important; color:#fff !important;}
+.btn.btn-blue-status:hover:after {content: attr(data-txt-off-hover);}
+
+.btn.btn-blue-status.on {background-color:  #20a2ea !important; border: 1px solid #20a2ea ;color:  #fff !important}
+.btn.btn-blue-status.on:after {content: attr(data-txt-on);}
+.btn.btn-blue-status.on:hover,
+.btn.btn-blue-status.on:active,
+.btn.btn-blue-status.on:focus {background-color: #990000 !important; border: solid 1px #990000;}
+.btn.btn-blue-status.on:hover:after {content: attr(data-txt-on-hover);}
+
+
 .btn.inverted {
     background-color: #fff !important;
     border: 1px solid #ff9431 ;
@@ -7915,6 +7931,10 @@ ul.leader-post-stats {box-shadow: 0 0 2px rgba(200,200,200,0.6); margin-bottom:2
     text-transform: uppercase;
     width: 100%;
     margin: 0;
+}
+
+.comment-box.call-to-action .actions hr{
+    border-top-width: 2px;
 }
 
 /*** label ***/

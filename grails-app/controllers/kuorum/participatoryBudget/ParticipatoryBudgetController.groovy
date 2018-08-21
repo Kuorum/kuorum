@@ -7,13 +7,11 @@ import kuorum.users.KuorumUser
 import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.commands.payment.CampaignSettingsCommand
 import kuorum.web.commands.payment.participatoryBudget.DistrictCommand
+import kuorum.web.commands.payment.participatoryBudget.DistrictProposalVoteCommand
 import kuorum.web.commands.payment.participatoryBudget.DistrictsCommand
 import kuorum.web.commands.payment.participatoryBudget.ParticipatoryBudgetChangeStatusCommand
 import kuorum.web.constants.WebConstants
-import org.kuorum.rest.model.communication.participatoryBudget.DistrictRDTO
-import org.kuorum.rest.model.communication.participatoryBudget.PageDistrictProposalRSDTO
-import org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetRDTO
-import org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetRSDTO
+import org.kuorum.rest.model.communication.participatoryBudget.*
 
 class ParticipatoryBudgetController extends CampaignController{
 
@@ -165,11 +163,48 @@ class ParticipatoryBudgetController extends CampaignController{
         String viewerUid = cookieUUIDService.buildUserUUID()
         PageDistrictProposalRSDTO pageDistrictProposals = participatoryBudgetService.findDistrictProposalsByDistrict(kuorumUser, participatoryBudgetId, districtId, page, viewerUid)
         if (pageDistrictProposals.total == 0){
-            response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${pageDistrictProposals.total > (pageDistrictProposals.page+pageDistrictProposals.size)}")
+            response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${pageDistrictProposals.total > (pageDistrictProposals.page*pageDistrictProposals.size)}")
             render template: '/participatoryBudget/showModules/mainContent/districProposalsEmpty';
         }else{
             render template: '/campaigns/cards/campaignsList', model: [campaigns:pageDistrictProposals.data, showAuthor:true]
         }
     }
 
+
+    /******************/
+    /***** END CRUD ***/
+    /******************/
+
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def supportDistrictProposal(DistrictProposalVoteCommand command){
+        if (command.hasErrors()){
+            render "No correct data"
+            return;
+        }
+        KuorumUser currentUser= springSecurityService.currentUser;
+        KuorumUser participatoryBudgetUser = kuorumUserService.findByAlias(command.getUserAlias());
+        DistrictProposalRSDTO districtProposalRSDTO
+        if (command.vote){
+            districtProposalRSDTO= districtProposalService.support(currentUser, participatoryBudgetUser, command.participatoryBudgetId, command.districtId, command.proposalId);
+        }else{
+            districtProposalRSDTO= districtProposalService.unsupport(currentUser, participatoryBudgetUser, command.participatoryBudgetId, command.districtId, command.proposalId);
+        }
+        render (districtProposalRSDTO as JSON)
+    }
+
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def voteDistrictProposal(DistrictProposalVoteCommand command){
+        if (command.hasErrors()){
+            render "No correct data"
+        }
+        KuorumUser currentUser= springSecurityService.currentUser;
+        KuorumUser participatoryBudgetUser = kuorumUserService.findByAlias(command.getUserAlias());
+        DistrictProposalRSDTO districtProposalRSDTO
+        if (command.vote){
+            districtProposalRSDTO = districtProposalService.vote(currentUser, participatoryBudgetUser, command.getCampaignId(), command.getDistrictId(), command.getProposalId());
+        }else{
+            districtProposalRSDTO = districtProposalService.unvote(currentUser, participatoryBudgetUser, command.getCampaignId(), command.getDistrictId(), command.getProposalId());
+        }
+        render (districtProposalRSDTO as JSON)
+    }
 }
