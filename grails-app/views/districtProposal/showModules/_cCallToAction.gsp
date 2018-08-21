@@ -25,7 +25,7 @@
 </g:if>
 <g:elseif test="${districtProposal.participatoryBudget.status == org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.TECHNICAL_REVIEW}">
     <g:set var="callTitleMsg" value="${g.message(code:"districtProposal.callToAction.${districtProposal.participatoryBudget.status}.title", args: [campaignUser.name])}"/>
-    <g:set var="callSubtitleMsg" value="${g.message(code:"districtProposal.callToAction.${districtProposal.participatoryBudget.status}.subtitle", args: [campaignUser.name])}"/>
+    <g:set var="callSubtitleMsg" value="${g.message(code:"districtProposal.callToAction.${districtProposal.participatoryBudget.status}.subtitle", args: [g.formatDate(date: districtProposal.participatoryBudget.deadLineTechnicalReview, style: 'SHORT', type: 'date')])}"/>
     <g:set var="callButtonShow" value="${false}"/>
     <g:set var="callButtonActive" value="${false}"/>
     <g:set var="callButtonActionClass" value=""/>
