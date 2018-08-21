@@ -94,7 +94,8 @@ class ParticipatoryBudgetController extends CampaignController{
                 districts: districts,
                 deadLineProposals: participatoryBudgetRSDTO.deadLineProposals,
                 deadLineTechnicalReview: participatoryBudgetRSDTO.deadLineTechnicalReview,
-                deadLineVotes: participatoryBudgetRSDTO.deadLineVotes
+                deadLineVotes: participatoryBudgetRSDTO.deadLineVotes,
+                deadLineResults: participatoryBudgetRSDTO.deadLineResults
         )
     }
 
@@ -114,6 +115,7 @@ class ParticipatoryBudgetController extends CampaignController{
         rdto.deadLineProposals = command.deadLineProposals
         rdto.deadLineTechnicalReview = command.deadLineTechnicalReview
         rdto.deadLineVotes = command.deadLineVotes
+        rdto.deadLineResults = command.deadLineResults
         def result = saveAndSendCampaign(campaignUser, rdto, participatoryBudgetRSDTO.getId(), command.publishOn,command.sendType, participatoryBudgetService)
         redirect mapping: result.nextStep.mapping, params: result.nextStep.params
     }

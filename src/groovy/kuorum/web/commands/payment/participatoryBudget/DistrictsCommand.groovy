@@ -12,6 +12,7 @@ class DistrictsCommand {
     Date deadLineProposals
     Date deadLineTechnicalReview
     Date deadLineVotes
+    Date deadLineResults
 
     List<DistrictCommand> districts = []
 
@@ -26,6 +27,7 @@ class DistrictsCommand {
         deadLineProposals nullable: false
         deadLineTechnicalReview nullable: false
         deadLineVotes nullable: false
+        deadLineResults nullable: false
     }
 
 }
