@@ -34,7 +34,7 @@
     <g:set var="callTitleMsg" value="${g.message(code:"districtProposal.callToAction.${districtProposal.participatoryBudget.status}.title", args: [campaignUser.name])}"/>
     <g:set var="callSubtitleMsg" value="${g.message(code:"districtProposal.callToAction.${districtProposal.participatoryBudget.status}.subtitle", args: [campaignUser.name])}"/>
     <g:set var="callButtonActive" value="${districtProposal.isVoted}"/>
-    <g:set var="callButtonMsgIcon" value="${callButtonActive?callButtonMsgOn:callButtonMsgOff}"></g:set>
+    <g:set var="callButtonMsgIcon"><span class="fa fa-shopping-cart"></span></g:set>
     <g:set var="callButtonShow" value="${districtProposal.published}"/>
     <g:set var="callButtonAction" value="${g.createLink(mapping:'participatoryBudgetDistrictProposalVote', params:districtProposal.encodeAsLinkProperties())}"/>
     <g:set var="callButtonActionClass" value="districtProposal-vote"/>

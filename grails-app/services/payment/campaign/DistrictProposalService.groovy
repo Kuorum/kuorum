@@ -139,7 +139,9 @@ class DistrictProposalService implements CampaignCreatorService<DistrictProposal
         def response = restKuorumApiService.put(
                 RestKuorumApiService.ApiMethod.ACCOUNT_PARTICIPATORY_BUDGET_DISTRICT_PROPOSAL_VOTE,
                 params,
-                query
+                query,
+                null,
+                new TypeReference<DistrictProposalRSDTO>(){}
         )
 
         return response.data;
@@ -161,7 +163,8 @@ class DistrictProposalService implements CampaignCreatorService<DistrictProposal
         def response = restKuorumApiService.delete(
                 RestKuorumApiService.ApiMethod.ACCOUNT_PARTICIPATORY_BUDGET_DISTRICT_PROPOSAL_VOTE,
                 params,
-                query
+                query,
+                new TypeReference<DistrictProposalRSDTO>(){}
         )
 
         return response.data;

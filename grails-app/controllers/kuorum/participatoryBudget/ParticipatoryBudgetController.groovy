@@ -201,9 +201,9 @@ class ParticipatoryBudgetController extends CampaignController{
         KuorumUser participatoryBudgetUser = kuorumUserService.findByAlias(command.getUserAlias());
         DistrictProposalRSDTO districtProposalRSDTO
         if (command.vote){
-            districtProposalRSDTO = districtProposalService.vote(currentUser, participatoryBudgetUser, command.getCampaignId(), command.getDistrictId(), command.getProposalId());
+            districtProposalRSDTO = districtProposalService.vote(currentUser, participatoryBudgetUser, command.participatoryBudgetId, command.districtId, command.proposalId);
         }else{
-            districtProposalRSDTO = districtProposalService.unvote(currentUser, participatoryBudgetUser, command.getCampaignId(), command.getDistrictId(), command.getProposalId());
+            districtProposalRSDTO = districtProposalService.unvote(currentUser, participatoryBudgetUser, command.participatoryBudgetId, command.districtId, command.proposalId);
         }
         render (districtProposalRSDTO as JSON)
     }

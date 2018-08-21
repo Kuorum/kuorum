@@ -69,8 +69,12 @@ var districtProposalHelper={
             data: data,
             success: function(districtProposalRSDTO){
                 $button.toggleClass('on')
+                $button.blur()
                 // $button.find('.fa').toggleClass("fa-heart-o fa-heart");
                 // $button.find('.number').text(postRSDTO.likes);
+                if ($button.hasClass("districtProposal-vote")){
+                    districtProposalHelper.districtProposalVoteExtraAction(districtProposalRSDTO)
+                }
                 if (callback != undefined){
                     callback();
                 }
@@ -84,6 +88,10 @@ var districtProposalHelper={
             }
         });
 
+    },
+
+    districtProposalVoteExtraAction:function (districtProposalRSDTO) {
+        console.log(districtProposalRSDTO)
     }
 
 }
