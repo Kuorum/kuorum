@@ -177,6 +177,23 @@ class ParticipatoryBudgetController extends CampaignController{
     /***** END CRUD ***/
     /******************/
 
+//    @Secured(['ROLE_ADMIN'])
+    def paginateParticipatoryBudgetProposalsJson(){
+        Integer limit = Integer.parseInt(params.limit)
+        Integer offset = Integer.parseInt(params.offset)
+        String order = params.order
+        def res = []
+        (offset..limit+offset).each{res.add([id: it,
+                               name: "Item "+it,
+                               price: "\$${it}",
+                               cause:"arch",
+                               valid:it%7==0])}
+//        response.setContentType("application/json")
+//        response.setHeader("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+        render ([ "total": 100, "rows": res] as JSON)
+    }
+
+
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def supportDistrictProposal(DistrictProposalVoteCommand command){
         if (command.hasErrors()){
@@ -209,4 +226,6 @@ class ParticipatoryBudgetController extends CampaignController{
         }
         render (districtProposalRSDTO as JSON)
     }
+
+
 }

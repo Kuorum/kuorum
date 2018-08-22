@@ -11,7 +11,7 @@
     <meta itemprop="description" content="${g.message(code:"layout.head.meta.description", args:[kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.name])}">
     <meta itemprop="image" content="${resource(dir: 'images', file:'landingSearch-rrss.png', absolute:true)}" />
     <meta itemprop="image" content="${resource(dir: 'images', file: 'logo@2x.png')}" />
-    <r:require modules="campaignList"/>
+    <r:require modules="campaignList, participatoryBudgetEditableTable"/>
 </head>
 
 <content tag="mainContent">
@@ -24,6 +24,9 @@
             <li role="presentation" class="active"><a href="#stats" data-toggle="tab"><g:message code="tools.massMailing.view.stats"/></a></li>
             <li role="presentation"><a href="#recipients" data-toggle="tab"><g:message code="tools.massMailing.list.recipients"/></a></li>
             <li role="presentation"><a href="#viewemail" data-toggle="tab"><g:message code="tools.massMailing.view.viewMail"/></a></li>
+            <g:if test="${campaign && campaign instanceof org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetRSDTO}">
+                <li role="presentation"><a href="#proposalLists" data-toggle="tab"><g:message code="tools.massMailing.view.participatoryBudget.proposalList"/></a></li>
+            </g:if>
         </ul>
         <div id="tabs-stats-campaign" class="tab-content">
             <div class="tab-pane active" id="stats">
@@ -35,6 +38,11 @@
             <div class="tab-pane" id="viewemail">
                 <g:render template="campaignTabs/campaignViewMail" model="[newsletter: newsletter]"/>
             </div>
+            <g:if test="${campaign && campaign instanceof org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetRSDTO}">
+                <div class="tab-pane" id="proposalLists">
+                    <g:render template="campaignTabs/participatoryBudgetProposalsList" model="[participatoryBudget: campaign]"/>
+                </div>
+            </g:if>
         </div>
     </div>
 </content>

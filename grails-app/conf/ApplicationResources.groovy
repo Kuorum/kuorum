@@ -158,6 +158,16 @@ modules = {
         dependsOn("basic",'campaign', 'campaignList')
         resource url:'js/campaigns/participatoryBudget.js'
     }
+
+    participatoryBudgetEditableTable{
+        dependsOn("basic")
+        resource url: 'js/bootstrap-table/bootstrap-table.css'
+        resource url: 'js/bootstrap-table/bootstrap-table.js'
+        resource url: 'js/bootstrap-table/extensions/filter-control/bootstrap-table-filter-control.css'
+        resource url: 'js/bootstrap-table/extensions/filter-control/bootstrap-table-filter-control.js'
+        resource url: 'js/bootstrap-table/participatoryBudgetListProposal.js'
+    }
+
     districtProposal{
         dependsOn("basic",'campaign', 'campaignList')
         resource url:'js/campaigns/districtProposal.js'
