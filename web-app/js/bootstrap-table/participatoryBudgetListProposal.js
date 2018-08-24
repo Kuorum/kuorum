@@ -1,13 +1,6 @@
 
-function detailFormatter(index, districtProposal) {
-    var html = [];
-    html.push('<div>')
-    html.push('<form>')
-    html.push('<label>ID</label>')
-    html.push('<input type="number" value="'+districtProposal.id+'"/>')
-    html.push('</form>')
-    html.push('</div>')
-    return html.join('');
+function detailFormatter(index, districtProposalRow) {
+    return participatoryBudgetListProposalHelper.renderProposalExtraInfo(districtProposalRow);
 }
 function districtProposalTableRowStyle(districtProposalRow, index) {
     //var classes = ['active', 'success', 'info', 'warning', 'danger'];
@@ -84,12 +77,13 @@ window.inputEventsCheckValidation={
 var participatoryBudgetListProposalHelper = {
     renderProposalExtraInfo:function (districtProposal) {
         const districtProposalTableInfo = `
-         <div class="person">
-            <h2>
-                ${districtProposal.title}
-            </h2>
-            <p class="location">${districtProposal.location}</p>
-            <p class="bio">${districtProposal.bio}</p>
+         <div class="box-ppal">
+            <div class="box-ppal-title">${districtProposal.title}</div>
+            <div class="box-ppal-section">
+                <img src="${districtProposal.imageUrl}"/>
+                ${districtProposal.body}
+            </div>            
+            
          </div>
         `;
         return districtProposalTableInfo;
