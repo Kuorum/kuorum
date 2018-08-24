@@ -1,6 +1,6 @@
 <script>
-    var filterDataValid={'true':'Valida','key2':'No valida'}
-    var filterDataImplemented={'true':'Seleccionada','key2':'No seleccionada'}
+    var filterDataValid={'true':'Valida','false':'No valida'}
+    var filterDataImplemented={'true':'Seleccionada','false':'No seleccionada'}
     var filterDataDistrict={ ${raw(participatoryBudget.districts.collect{"'${it.id}':'${it.name}'"}.join(","))} };
     var filterDataCause={ ${raw(participatoryBudget.causes.collect{"'${it}':'${it}'"}.join(","))} };
     var filterDataTechnicalReview={ ${raw(org.kuorum.rest.model.communication.participatoryBudget.TechnicalReviewStatusRDTO.values().collect{"'${it}':'${g.message(code:"org.kuorum.rest.model.communication.participatoryBudget.TechnicalReviewStatusRDTO."+it)}'"}.join(','))} };

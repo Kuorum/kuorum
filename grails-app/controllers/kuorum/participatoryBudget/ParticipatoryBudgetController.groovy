@@ -185,10 +185,12 @@ class ParticipatoryBudgetController extends CampaignController{
         Integer offset = Integer.parseInt(params.offset)
         KuorumUser kuorumUser= springSecurityService.currentUser;
         Long participatoryBudgetId = Long.parseLong(params.campaignId)
-        String order = params.order
-
-
         FilterDistrictProposalRDTO filter = new FilterDistrictProposalRDTO(page:0, size: limit)
+        if (params.filter){
+            def rawFilter = JSON.parse(params.filter)
+            rawFilter.each{k,v->populateFilter(filter, k,v)}
+        }
+        String order = params.order
         PageDistrictProposalRSDTO pageDistrictProposals = participatoryBudgetService.findDistrictProposalsByDistrict(kuorumUser, participatoryBudgetId, filter)
         def res = []
         (offset..limit+offset).each{res.add([id: it,
@@ -201,6 +203,17 @@ class ParticipatoryBudgetController extends CampaignController{
         render ([ "total": pageDistrictProposals.total, "rows": pageDistrictProposals.data] as JSON)
     }
 
+    private void populateFilter(FilterDistrictProposalRDTO filter, String rawKey, String value){
+        switch (rawKey){
+            case "district.name": filter.districtId = Long.parseLong(value); break;
+            case "id": filter.id = Long.parseLong(value); break;
+            case "approved": filter.approved = Boolean.parseBoolean(value); break;
+            case "implemented": filter.implemented = Boolean.parseBoolean(value); break;
+            case "user.name": filter.userName= value; break;
+            case "technicalReviewStatus.name": filter.technicalReviewStatus= TechnicalReviewStatusRDTO.valueOf(value); break;
+            default: filter[rawKey] = value; break;
+        }
+    }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def supportDistrictProposal(DistrictProposalVoteCommand command){
