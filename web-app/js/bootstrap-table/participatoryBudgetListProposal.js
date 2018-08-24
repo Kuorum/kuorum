@@ -9,14 +9,14 @@ function detailFormatter(index, districtProposal) {
     html.push('</div>')
     return html.join('');
 }
-function rowStyle(row, index) {
+function districtProposalTableRowStyle(districtProposalRow, index) {
     //var classes = ['active', 'success', 'info', 'warning', 'danger'];
     //if (index % 2 === 0 && index / 2 < classes.length) {
     //    return {
     //        classes: classes[index / 2]
     //    };
     //}
-    if (row.valid){
+    if (districtProposalRow.implemented){
         return {classes: 'success'};
     }
     return {};
@@ -27,10 +27,14 @@ function formatCheckValidation(value, districtProposalRow){
         var checked = value ?'checked':'';
         return '<input type="checkbox" '+checked+'>'
     }else{
-        var icon = value ? 'fa-check' : 'fa-remove'
-        return '<span class="fa ' + icon + '"></span>';
+        return formatBoolean(value)
     }
     //return text;
+}
+
+function formatBoolean(value){
+    var icon = value ? 'fa-check' : 'fa-remove'
+    return '<span class="fa ' + icon + '"></span>';
 }
 function formatPrice(value, districtProposalRow){
     if (value == null || value == undefined){
