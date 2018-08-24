@@ -127,12 +127,10 @@ class DistrictProposalService implements CampaignCreatorService<DistrictProposal
             KuorumUser user,
             KuorumUser participatoryBudgetUser,
             Long participatoryBudgetId,
-            Long districtId,
             Long districtProposalId){
         Map<String, String> params = [
                 userId: participatoryBudgetUser.id.toString(),
                 campaignId: participatoryBudgetId.toString(),
-                districtId: districtId.toString(),
                 proposalId: districtProposalId.toString(),
         ]
         Map<String, String> query = [viewerUid:user.id.toString()]
@@ -156,7 +154,6 @@ class DistrictProposalService implements CampaignCreatorService<DistrictProposal
         Map<String, String> params = [
                 userId: participatoryBudgetUser.id.toString(),
                 campaignId: participatoryBudgetId.toString(),
-                districtId: districtId.toString(),
                 proposalId: districtProposalId.toString(),
         ]
         Map<String, String> query = [viewerUid:user.id.toString()]
@@ -174,12 +171,10 @@ class DistrictProposalService implements CampaignCreatorService<DistrictProposal
             KuorumUser user,
             KuorumUser participatoryBudgetUser,
             Long participatoryBudgetId,
-            Long districtId,
             Long districtProposalId){
         Map<String, String> params = [
                 userId: participatoryBudgetUser.id.toString(),
                 campaignId: participatoryBudgetId.toString(),
-                districtId: districtId.toString(),
                 proposalId: districtProposalId.toString(),
         ]
         Map<String, String> query = [viewerUid:user.id.toString()]
@@ -198,12 +193,10 @@ class DistrictProposalService implements CampaignCreatorService<DistrictProposal
             KuorumUser user,
             KuorumUser participatoryBudgetUser,
             Long participatoryBudgetId,
-            Long districtId,
             Long districtProposalId){
         Map<String, String> params = [
                 userId: participatoryBudgetUser.id.toString(),
                 campaignId: participatoryBudgetId.toString(),
-                districtId: districtId.toString(),
                 proposalId: districtProposalId.toString(),
         ]
         Map<String, String> query = [viewerUid:user.id.toString()]

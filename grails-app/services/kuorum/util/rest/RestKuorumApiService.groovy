@@ -236,9 +236,9 @@ class RestKuorumApiService {
 
         ACCOUNT_PARTICIPATORY_BUDGETS                          ("/communication/campaign/participatory-budget/{userId}"),
         ACCOUNT_PARTICIPATORY_BUDGET                           ("/communication/campaign/participatory-budget/{userId}/{campaignId}"),
-        ACCOUNT_PARTICIPATORY_BUDGET_DISTRICT_PROPOSALS        ("/communication/campaign/participatory-budget/{userId}/{campaignId}/district/{districtId}/proposal"),
-        ACCOUNT_PARTICIPATORY_BUDGET_DISTRICT_PROPOSAL_VOTE    ("/communication/campaign/participatory-budget/{userId}/{campaignId}/district/{districtId}/proposal/{proposalId}/vote"),
-        ACCOUNT_PARTICIPATORY_BUDGET_DISTRICT_PROPOSAL_SUPPORT ("/communication/campaign/participatory-budget/{userId}/{campaignId}/district/{districtId}/proposal/{proposalId}/support"),
+        ACCOUNT_PARTICIPATORY_BUDGET_DISTRICT_PROPOSALS        ("/communication/campaign/participatory-budget/{userId}/{campaignId}/proposal"),
+        ACCOUNT_PARTICIPATORY_BUDGET_DISTRICT_PROPOSAL_VOTE    ("/communication/campaign/participatory-budget/{userId}/{campaignId}/proposal/{proposalId}/vote"),
+        ACCOUNT_PARTICIPATORY_BUDGET_DISTRICT_PROPOSAL_SUPPORT ("/communication/campaign/participatory-budget/{userId}/{campaignId}/proposal/{proposalId}/support"),
 
         ACCOUNT_DISTRICT_PROPOSALS      ("/communication/campaign/participatory-budget/district-proposal/{userId}"),
         ACCOUNT_DISTRICT_PROPOSAL       ("/communication/campaign/participatory-budget/district-proposal/{userId}/{campaignId}"),

@@ -6,6 +6,7 @@ import kuorum.core.exception.KuorumException
 import kuorum.solr.IndexSolrService
 import kuorum.users.KuorumUser
 import kuorum.util.rest.RestKuorumApiService
+import org.kuorum.rest.model.communication.participatoryBudget.FilterDistrictProposalRDTO
 import org.kuorum.rest.model.communication.participatoryBudget.PageDistrictProposalRSDTO
 import org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetRDTO
 import org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetRSDTO
@@ -128,17 +129,14 @@ class ParticipatoryBudgetService implements CampaignCreatorService<Participatory
     }
 
 
-    PageDistrictProposalRSDTO findDistrictProposalsByDistrict(KuorumUser user, Long participatoryBudgetId, Long districtId, Integer page = null, String viewerUid = null){
+    PageDistrictProposalRSDTO findDistrictProposalsByDistrict(KuorumUser user, Long participatoryBudgetId, FilterDistrictProposalRDTO filter, String viewerUid = null){
         if (!participatoryBudgetId){
             return null;
         }
-        Map<String, String> params = [userId: user.getId().toString(), campaignId: participatoryBudgetId.toString(), districtId:districtId.toString()]
-        Map<String, String> query = [:]
+        Map<String, String> params = [userId: user.getId().toString(), campaignId: participatoryBudgetId.toString()]
+        Map<String, String> query = filter.encodeAsQueryParams()
         if (viewerUid){
             query.put("viewerUid",viewerUid)
-        }
-        if (page){
-            query.put("page", page.toString())
         }
         try {
             def response = restKuorumApiService.get(

@@ -163,7 +163,8 @@ class ParticipatoryBudgetController extends CampaignController{
         Long districtId = Long.parseLong(params.districtId)
         Integer page= Integer.parseInt(params.page)
         String viewerUid = cookieUUIDService.buildUserUUID()
-        PageDistrictProposalRSDTO pageDistrictProposals = participatoryBudgetService.findDistrictProposalsByDistrict(kuorumUser, participatoryBudgetId, districtId, page, viewerUid)
+        FilterDistrictProposalRDTO filter = new FilterDistrictProposalRDTO(districtId: districtId, page:page)
+        PageDistrictProposalRSDTO pageDistrictProposals = participatoryBudgetService.findDistrictProposalsByDistrict(kuorumUser, participatoryBudgetId, filter, viewerUid)
         if (pageDistrictProposals.total == 0){
             response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${pageDistrictProposals.total > (pageDistrictProposals.page*pageDistrictProposals.size)}")
             render template: '/participatoryBudget/showModules/mainContent/districProposalsEmpty';
@@ -178,10 +179,17 @@ class ParticipatoryBudgetController extends CampaignController{
     /******************/
 
 //    @Secured(['ROLE_ADMIN'])
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def paginateParticipatoryBudgetProposalsJson(){
         Integer limit = Integer.parseInt(params.limit)
         Integer offset = Integer.parseInt(params.offset)
+        KuorumUser kuorumUser= springSecurityService.currentUser;
+        Long participatoryBudgetId = Long.parseLong(params.campaignId)
         String order = params.order
+
+
+        FilterDistrictProposalRDTO filter = new FilterDistrictProposalRDTO(page:0, size: limit)
+        PageDistrictProposalRSDTO pageDistrictProposals = participatoryBudgetService.findDistrictProposalsByDistrict(kuorumUser, participatoryBudgetId, filter)
         def res = []
         (offset..limit+offset).each{res.add([id: it,
                                name: "Item "+it,
@@ -190,7 +198,7 @@ class ParticipatoryBudgetController extends CampaignController{
                                valid:it%7==0])}
 //        response.setContentType("application/json")
 //        response.setHeader("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
-        render ([ "total": 100, "rows": res] as JSON)
+        render ([ "total": pageDistrictProposals.total, "rows": pageDistrictProposals.data] as JSON)
     }
 
 
@@ -204,9 +212,9 @@ class ParticipatoryBudgetController extends CampaignController{
         KuorumUser participatoryBudgetUser = kuorumUserService.findByAlias(command.getUserAlias());
         DistrictProposalRSDTO districtProposalRSDTO
         if (command.vote){
-            districtProposalRSDTO= districtProposalService.support(currentUser, participatoryBudgetUser, command.participatoryBudgetId, command.districtId, command.proposalId);
+            districtProposalRSDTO= districtProposalService.support(currentUser, participatoryBudgetUser, command.participatoryBudgetId, command.proposalId);
         }else{
-            districtProposalRSDTO= districtProposalService.unsupport(currentUser, participatoryBudgetUser, command.participatoryBudgetId, command.districtId, command.proposalId);
+            districtProposalRSDTO= districtProposalService.unsupport(currentUser, participatoryBudgetUser, command.participatoryBudgetId, command.proposalId);
         }
         render (districtProposalRSDTO as JSON)
     }
@@ -220,9 +228,9 @@ class ParticipatoryBudgetController extends CampaignController{
         KuorumUser participatoryBudgetUser = kuorumUserService.findByAlias(command.getUserAlias());
         DistrictProposalRSDTO districtProposalRSDTO
         if (command.vote){
-            districtProposalRSDTO = districtProposalService.vote(currentUser, participatoryBudgetUser, command.participatoryBudgetId, command.districtId, command.proposalId);
+            districtProposalRSDTO = districtProposalService.vote(currentUser, participatoryBudgetUser, command.participatoryBudgetId, command.proposalId);
         }else{
-            districtProposalRSDTO = districtProposalService.unvote(currentUser, participatoryBudgetUser, command.participatoryBudgetId, command.districtId, command.proposalId);
+            districtProposalRSDTO = districtProposalService.unvote(currentUser, participatoryBudgetUser, command.participatoryBudgetId, command.proposalId);
         }
         render (districtProposalRSDTO as JSON)
     }
