@@ -8,6 +8,7 @@ import kuorum.users.KuorumUser
 import kuorum.util.rest.RestKuorumApiService
 import org.kuorum.rest.model.communication.participatoryBudget.DistrictProposalRDTO
 import org.kuorum.rest.model.communication.participatoryBudget.DistrictProposalRSDTO
+import org.kuorum.rest.model.communication.participatoryBudget.DistrictProposalTechnicalReviewRDTO
 
 @Transactional
 class DistrictProposalService implements CampaignCreatorService<DistrictProposalRSDTO, DistrictProposalRDTO> {
@@ -204,6 +205,28 @@ class DistrictProposalService implements CampaignCreatorService<DistrictProposal
                 RestKuorumApiService.ApiMethod.ACCOUNT_PARTICIPATORY_BUDGET_DISTRICT_PROPOSAL_SUPPORT,
                 params,
                 query,
+                new TypeReference<DistrictProposalRSDTO>(){}
+        )
+
+        return response.data;
+    }
+    DistrictProposalRSDTO technicalReview(
+            KuorumUser participatoryBudgetUser,
+            Long participatoryBudgetId,
+            Long districtProposalId,
+            DistrictProposalTechnicalReviewRDTO technicalReviewRDTO
+            ){
+        Map<String, String> params = [
+                userId: participatoryBudgetUser.id.toString(),
+                campaignId: participatoryBudgetId.toString(),
+                proposalId: districtProposalId.toString(),
+        ]
+        Map<String, String> query = [:]
+        def response = restKuorumApiService.post(
+                RestKuorumApiService.ApiMethod.ACCOUNT_PARTICIPATORY_BUDGET_DISTRICT_PROPOSAL_TECHNICAL_REVIEW,
+                params,
+                query,
+                technicalReviewRDTO,
                 new TypeReference<DistrictProposalRSDTO>(){}
         )
 

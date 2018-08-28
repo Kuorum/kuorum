@@ -6,10 +6,7 @@ import kuorum.politician.CampaignController
 import kuorum.users.KuorumUser
 import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.commands.payment.CampaignSettingsCommand
-import kuorum.web.commands.payment.participatoryBudget.DistrictCommand
-import kuorum.web.commands.payment.participatoryBudget.DistrictProposalVoteCommand
-import kuorum.web.commands.payment.participatoryBudget.DistrictsCommand
-import kuorum.web.commands.payment.participatoryBudget.ParticipatoryBudgetChangeStatusCommand
+import kuorum.web.commands.payment.participatoryBudget.*
 import kuorum.web.constants.WebConstants
 import org.kuorum.rest.model.communication.participatoryBudget.*
 
@@ -186,21 +183,40 @@ class ParticipatoryBudgetController extends CampaignController{
         KuorumUser kuorumUser= springSecurityService.currentUser;
         Long participatoryBudgetId = Long.parseLong(params.campaignId)
         FilterDistrictProposalRDTO filter = new FilterDistrictProposalRDTO(page:0, size: limit)
-        if (params.filter){
-            def rawFilter = JSON.parse(params.filter)
-            rawFilter.each{k,v->populateFilter(filter, k,v)}
-        }
-        String order = params.order
+        populateFilters(filter, params.filter)
+        populateSort(filter, params.sort, params.order)
         PageDistrictProposalRSDTO pageDistrictProposals = participatoryBudgetService.findDistrictProposalsByDistrict(kuorumUser, participatoryBudgetId, filter)
-        def res = []
-        (offset..limit+offset).each{res.add([id: it,
-                               name: "Item "+it,
-                               price: "\$${it}",
-                               cause:"arch",
-                               valid:it%7==0])}
 //        response.setContentType("application/json")
 //        response.setHeader("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
         render ([ "total": pageDistrictProposals.total, "rows": pageDistrictProposals.data] as JSON)
+    }
+
+
+    private void populateSort(FilterDistrictProposalRDTO filter, String sortField, String order){
+        filter.sort = new FilterDistrictProposalRDTO.SortDistrictProposalRDTO()
+        filter.sort.field = FilterDistrictProposalRDTO.SortableFieldRDTO.ID
+        filter.sort.direction = FilterDistrictProposalRDTO.DirectionRDTO.ASC
+        if (sortField){
+            switch (sortField){
+                case "district.name": filter.sort.field = FilterDistrictProposalRDTO.SortableFieldRDTO.DISTRICT; break;
+                case "user.name": filter.sort.field = FilterDistrictProposalRDTO.SortableFieldRDTO.CRM_USER; break;
+                case "numSupports": filter.sort.field = FilterDistrictProposalRDTO.SortableFieldRDTO.SUPPORTS; break;
+                case "numVotes": filter.sort.field = FilterDistrictProposalRDTO.SortableFieldRDTO.VOTES; break;
+                default: filter.sort.field = FilterDistrictProposalRDTO.SortableFieldRDTO.valueOf(sortField.toUpperCase()); break;
+            }
+        }
+
+        if (order){
+            filter.sort.direction = FilterDistrictProposalRDTO.DirectionRDTO.valueOf(order.toUpperCase())
+        }
+
+    }
+
+    private void populateFilters(FilterDistrictProposalRDTO filter, String jsonFilter){
+        if (jsonFilter){
+            def rawFilter = JSON.parse(jsonFilter)
+            rawFilter.each{k,v->populateFilter(filter, k,v)}
+        }
     }
 
     private void populateFilter(FilterDistrictProposalRDTO filter, String rawKey, String value){
@@ -213,6 +229,18 @@ class ParticipatoryBudgetController extends CampaignController{
             case "technicalReviewStatus.name": filter.technicalReviewStatus= TechnicalReviewStatusRDTO.valueOf(value); break;
             default: filter[rawKey] = value; break;
         }
+    }
+
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def updateTechnicalReview(DistrictProposalTechnicalReviewCommand command){
+        KuorumUser campaignUser = KuorumUser.get(springSecurityService.principal.id)
+
+        DistrictProposalTechnicalReviewRDTO technicalReviewRDTO = new DistrictProposalTechnicalReviewRDTO();
+        technicalReviewRDTO.approved=command.approved;
+        technicalReviewRDTO.price=command.price;
+        technicalReviewRDTO.rejectComment=command.rejectComment;
+        DistrictProposalRSDTO districtProposalRSDTO = districtProposalService.technicalReview(campaignUser, command.participatoryBudgetId, command.districtProposalId, technicalReviewRDTO)
+        render (districtProposalRSDTO as JSON)
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])

@@ -316,7 +316,8 @@ class UrlMappings {
         name participatoryBudgetDistrictProposals: "/ajax/$userAlias/$urlTitle-$campaignId/district-$districtId/proposals" (controller: "participatoryBudget", action:"findDistrictProposals")
         name participatoryBudgetDistrictProposalSupport: "/ajax/$userAlias/$participatoryBudgetTitle-$participatoryBudgetId/$urlTitle-$campaignId/support" (controller: "participatoryBudget", action:"supportDistrictProposal")
         name participatoryBudgetDistrictProposalVote:    "/ajax/$userAlias/$participatoryBudgetTitle-$participatoryBudgetId/$urlTitle-$campaignId/vote"    (controller: "participatoryBudget", action:"voteDistrictProposal")
-        name participatoryBudgetDistrictProposalsPaginationTechincalReview: "/ajax/$userAlias/$urlTitle-$campaignId/proposals/technicalReview" (controller: "participatoryBudget", action:"paginateParticipatoryBudgetProposalsJson")
+        name participatoryBudgetDistrictProposalsPagination:      "/ajax/$userAlias/$urlTitle-$campaignId/proposals"                  (controller: "participatoryBudget", action:"paginateParticipatoryBudgetProposalsJson")
+        name participatoryBudgetDistrictProposalsTechnicalReview: "/ajax/$userAlias/$urlTitle-$campaignId/proposals/technicalReview"  (controller: "participatoryBudget", action:"updateTechnicalReview")
 
         name districtProposalCreate:            "/account/$userAlias/pb/$urlTitle-$campaignId/new-proposal"         (controller: "districtProposal"){action = [GET: "create", POST: "saveNewProposal"]}
         name districtProposalCreateContent:     "/account/$userAlias/pb/$urlTitle-$campaignId/new-proposal-content" (controller: "districtProposal"){action = [GET: "createByContent", POST: "saveNewProposalByContent"]}

@@ -12,6 +12,9 @@ function districtProposalTableRowStyle(districtProposalRow, index) {
     if (districtProposalRow.implemented){
         return {classes: 'success'};
     }
+    if (districtProposalRow.technicalReviewStatus.name=='INCORRECT'){
+        return {classes: 'danger'};
+    }
     return {};
 }
 
@@ -35,7 +38,7 @@ function formatPrice(value, districtProposalRow){
     }
     var text = value;
     if (districtProposalRow.participatoryBudget.status.name =='TECHNICAL_REVIEW' && districtProposalRow.approved){
-        text = '<input type="text" value="' + value+'"/>';
+        text = '<input type="text" class="form-control" value="' + value+'"/>';
     }
     return text==''?'--':text;
 }
@@ -46,7 +49,7 @@ function formatRejectText(value, districtProposalRow){
     }
     var text = value;
     if (districtProposalRow.participatoryBudget.status.name =='TECHNICAL_REVIEW' && !districtProposalRow.approved){
-        text = '<input type="text" value="' + value+'"/>';
+        text = '<input type="text" class="form-control" value="' + value+'"/>';
     }
     return text==''?'--':text;
 }
@@ -54,23 +57,36 @@ function formatRejectText(value, districtProposalRow){
 window.inputEventsPrice = {
     'change :input': function (e, value, row, index) {
         var newValue = $(e.target).val();
-        row.price=newValue
-        console.log(newValue)
-        $("#table").bootstrapTable('updateRow', {
-            index: index,
-            row: row
-        });
+        var updateData = {
+            approved:row.approved,
+            price:newValue,
+            rejectComment:row.rejectComment
+        }
+        participatoryBudgetListProposalHelper.updateParticipatoryBudgetRow(index, row, updateData)
+    }
+};
+
+window.inputEventsRejectComment = {
+    'change :input': function (e, value, row, index) {
+        var newValue = $(e.target).val();
+        var updateData = {
+            approved:row.approved,
+            price:row.price,
+            rejectComment:newValue
+        }
+        participatoryBudgetListProposalHelper.updateParticipatoryBudgetRow(index, row, updateData)
     }
 };
 
 window.inputEventsCheckValidation={
     'change :checkbox': function (e, value, row, index) {
         var newValue = $(e.target).prop('checked');
-        row.approved=newValue
-        $("#table").bootstrapTable('updateRow', {
-            index: index,
-            row: row
-        });
+        var updateData = {
+            approved:newValue,
+            price:row.price,
+            rejectComment:row.rejectComment
+        }
+        participatoryBudgetListProposalHelper.updateParticipatoryBudgetRow(index, row, updateData)
     }
 }
 
@@ -87,5 +103,33 @@ var participatoryBudgetListProposalHelper = {
          </div>
         `;
         return districtProposalTableInfo;
+    },
+
+    updateParticipatoryBudgetRow:function(index,row, updatableData){
+
+        var data = {
+            participatoryBudgetId:row.participatoryBudget.id,
+            districtProposalUserId:row.user.id,
+            districtProposalId:row.id,
+            approved:updatableData.approved,
+            price:updatableData.price,
+            rejectComment:updatableData.rejectComment
+        }
+        $table = $("#table")
+        var urlUpdateTechnicalReview = $table.attr("data-update-technicalReview-url")
+        pageLoadingOn();
+        $.post( urlUpdateTechnicalReview, data)
+            .done(function(districtProposalData) {
+                $table.bootstrapTable('updateRow', {
+                    index: index,
+                    row: districtProposalData
+                });
+            })
+            .fail(function(messageError) {
+                display.warn("Error");
+            })
+            .always(function() {
+                pageLoadingOff();
+            });
     }
 }

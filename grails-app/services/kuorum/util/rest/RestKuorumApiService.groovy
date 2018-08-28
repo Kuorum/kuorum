@@ -234,11 +234,12 @@ class RestKuorumApiService {
         ACCOUNT_SURVEY_ANSWER   ("/communication/campaign/survey/{userId}/{surveyId}/question/{questionId}"),
         ACCOUNT_SURVEY_REPORT   ("/communication/campaign/survey/{userId}/{surveyId}/report"),
 
-        ACCOUNT_PARTICIPATORY_BUDGETS                          ("/communication/campaign/participatory-budget/{userId}"),
-        ACCOUNT_PARTICIPATORY_BUDGET                           ("/communication/campaign/participatory-budget/{userId}/{campaignId}"),
-        ACCOUNT_PARTICIPATORY_BUDGET_DISTRICT_PROPOSALS        ("/communication/campaign/participatory-budget/{userId}/{campaignId}/proposal"),
-        ACCOUNT_PARTICIPATORY_BUDGET_DISTRICT_PROPOSAL_VOTE    ("/communication/campaign/participatory-budget/{userId}/{campaignId}/proposal/{proposalId}/vote"),
-        ACCOUNT_PARTICIPATORY_BUDGET_DISTRICT_PROPOSAL_SUPPORT ("/communication/campaign/participatory-budget/{userId}/{campaignId}/proposal/{proposalId}/support"),
+        ACCOUNT_PARTICIPATORY_BUDGETS                                   ("/communication/campaign/participatory-budget/{userId}"),
+        ACCOUNT_PARTICIPATORY_BUDGET                                    ("/communication/campaign/participatory-budget/{userId}/{campaignId}"),
+        ACCOUNT_PARTICIPATORY_BUDGET_DISTRICT_PROPOSALS                 ("/communication/campaign/participatory-budget/{userId}/{campaignId}/proposal"),
+        ACCOUNT_PARTICIPATORY_BUDGET_DISTRICT_PROPOSAL_VOTE             ("/communication/campaign/participatory-budget/{userId}/{campaignId}/proposal/{proposalId}/vote"),
+        ACCOUNT_PARTICIPATORY_BUDGET_DISTRICT_PROPOSAL_SUPPORT          ("/communication/campaign/participatory-budget/{userId}/{campaignId}/proposal/{proposalId}/support"),
+        ACCOUNT_PARTICIPATORY_BUDGET_DISTRICT_PROPOSAL_TECHNICAL_REVIEW ("/communication/campaign/participatory-budget/{userId}/{campaignId}/proposal/{proposalId}/technicalReview"),
 
         ACCOUNT_DISTRICT_PROPOSALS      ("/communication/campaign/participatory-budget/district-proposal/{userId}"),
         ACCOUNT_DISTRICT_PROPOSAL       ("/communication/campaign/participatory-budget/district-proposal/{userId}/{campaignId}"),
