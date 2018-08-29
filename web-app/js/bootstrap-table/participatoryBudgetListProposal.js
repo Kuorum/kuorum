@@ -18,6 +18,14 @@ function districtProposalTableRowStyle(districtProposalRow, index) {
     return {};
 }
 
+function formatTableParticipatoryBudgetDistrictProposalId(value, districtProposalRow){
+    return "<a href='"+districtProposalRow.url+"' target='_blank'>"+value+"</a>"
+}
+
+function formatTableParticipatoryBudgetDistrictProposalAuthor(value, districtProposalRow){
+    return "<a href='"+districtProposalRow.user.userLink+"' target='_blank'>"+value+"</a>"
+}
+
 function formatCheckValidation(value, districtProposalRow){
     if (districtProposalRow.participatoryBudget.status.name =='TECHNICAL_REVIEW'){
         var checked = value ?'checked':'';
