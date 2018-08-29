@@ -98,6 +98,10 @@ window.inputEventsCheckValidation={
     }
 }
 
+$("#participatoryBudgetProposalReviewTable").on('expand-row.bs.table', function(index, row, $detail){
+    prepareYoutubeVideosClick()
+})
+
 var participatoryBudgetListProposalHelper = {
     renderProposalExtraInfo:function (districtProposal) {
         var multimedia = ""
@@ -111,10 +115,10 @@ var participatoryBudgetListProposalHelper = {
             <div class="box-ppal-title">${districtProposal.title}</div>
             <div class="box-ppal-section">
                 <div class="row">
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         ${districtProposal.multimediaHtml}
                     </div>
-                    <div class="distict-proposal-body col-md-8">
+                    <div class="distict-proposal-body col-md-9">
                         ${districtProposal.body}
                     </div>            
 
