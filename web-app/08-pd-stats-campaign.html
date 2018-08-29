@@ -21,6 +21,8 @@
     <link rel="stylesheet" href="fonts/icomoon3/styles.css">
     <link rel="stylesheet" href="css/jquery-te-1.4.0.css">
     <link rel="stylesheet" href="css/custom.css">
+    <link rel="stylesheet" href="js/bootstrap-table/bootstrap-table.css"/>
+    <link rel="stylesheet" href="js/jquery-plugin/tagsinput/jquery.tagsinput.css"/>
 
     <!-- Estilos sólo para IE -->
     <!--[if IE]><link rel="stylesheet" href="css/style_ie.css" type="text/css" media="screen"><![endif]-->
@@ -79,6 +81,11 @@
     <meta name="twitter:image" content="images/logo@2x.png">
     <meta name="twitter:image" content="images/img-userprofile.jpg">
     <meta property="twitter:account_id" content="4503599627910348">
+    <script>
+        var kuorumUrls = {
+            searchSuggest:''
+        }
+    </script>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
@@ -200,6 +207,7 @@
                         <li role="presentation" class="active"><a href="#stats" data-toggle="tab">Stats</a></li>
                         <li role="presentation"><a href="#recipients" data-toggle="tab">Recipients</a></li>
                         <li role="presentation"><a href="#viewemail" data-toggle="tab">View email</a></li>
+                        <li role="presentation"><a href="#participatoryBudget-review" data-toggle="tab">View participatory budget</a></li>
                     </ul>
                     <div id="tabs-stats-campaign" class="tab-content">
                         <div class="tab-pane active" id="stats">
@@ -329,6 +337,38 @@
                                 iframe para cargar el html del email
                             </iframe>
                         </div>
+                        <div class="tab-pane" id="participatoryBudget-review">
+                            <table id="participatoryBudgetProposalReviewTable"
+                                   data-toolbar="#toolbar"
+                                   data-id-field="id"
+                                   data-pagination="true"
+                                   data-search="false"
+                                   data-filter-control="true"
+                                   data-detail-view="true"
+                                   data-show-columns="true"
+                                   data-row-style="districtProposalTableRowStyle"
+                                   data-detail-formatter="detailFormatter"
+                                   data-update-technicalReview-url="##"
+                            >
+                                <thead>
+                                <tr>
+                                    <th data-field="id"                         data-halign="center" data-align="center" data-sortable="true"  data-visible="true"  data-filter-control="input"  data-filter-control-placeholder="Search By ID"     >ID</th>
+                                    <th data-field="title"                      data-halign="center" data-align="center" data-sortable="true"  data-visible="true"  data-filter-control="input"  data-filter-control-placeholder="Search By Title"  >Title</th>
+                                    <th data-field="district.name"              data-halign="center" data-align="center" data-sortable="true"  data-visible="true"  data-filter-control="select" data-filter-data="var:filterDataDistrict"          >District</th>
+                                    <th data-field="district.budget"            data-halign="center" data-align="center" data-sortable="false" data-visible="false"                                                                                 >District (budget)</th>
+                                    <th data-field="causes[0]"                  data-halign="center" data-align="center" data-sortable="false" data-visible="false" data-filter-control="select" data-filter-data="var:filterDataCause"             >Cause</th>
+                                    <th data-field="user.name"                  data-halign="center" data-align="center" data-sortable="true"  data-visible="false" data-filter-control="input"  data-filter-control-placeholder="Search By author" >Author</th>
+                                    <th data-field="numSupports"                data-halign="center" data-align="center" data-sortable="true"  data-visible="true"                                                                                  >Support</th>
+                                    <th data-field="numVotes"                   data-halign="center" data-align="center" data-sortable="true"  data-visible="true"                                                                                  >Votes</th>
+                                    <th data-field="approved"                   data-halign="center" data-align="center" data-sortable="false" data-visible="true"  data-filter-control="select" data-formatter="formatCheckValidation" data-events="inputEventsCheckValidation" data-filter-data="var:filterDataApproved"             >Approved</th>
+                                    <th data-field="price"                      data-halign="center" data-align="center" data-sortable="true"  data-visible="true"                               data-formatter="formatPrice"           data-events="inputEventsPrice"                                                              >Price</th>
+                                    <th data-field="rejectComment"              data-halign="center" data-align="center" data-sortable="false" data-visible="true"  data-filter-control="input"  data-formatter="formatRejectText"      data-events="inputEventsRejectComment"  data-filter-control-placeholder="Search By comment" >Reject comment</th>
+                                    <th data-field="technicalReviewStatus.name" data-halign="center" data-align="center" data-sortable="false" data-visible="true"  data-filter-control="select" data-formatter="formatTechnicalReview"                                         data-filter-data="var:filterDataTechnicalReview"    >Technical review status</th>
+                                    <th data-field="implemented"                data-halign="center" data-align="center" data-sortable="false" data-visible="true"  data-filter-control="select" data-formatter="formatBoolean"                                                 data-filter-data="var:filterDataImplemented"        >Implemented</th>
+                                </tr>
+                                </thead>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -385,82 +425,6 @@
         </section>
     </footer>
 
-    <!-- MODAL CONTACT -->
-    <div class="modal fade in" id="filtersInfo" tabindex="-1" role="dialog" aria-labelledby="filtersRecipients" aria-hidden="true">
-        <div class="modal-dialog ">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
-                        <span aria-hidden="true" class="fa fa-times-circle-o fa"></span><span class="sr-only">Cerrar</span>
-                    </button>
-                    <h4 id="filtersRecipients">Your filter includes 10 recipients</h4>
-                </div>
-                <div class="modal-body">
-                    <table class="table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Email</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td colspan="2">
-                                    <div class="scroll-container">
-                                        <table class="table-bordered">
-                                            <tr>
-                                                <td>Mary Warren</td>
-                                                <td>m.garren@gmail.com</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Abigail Williams</td>
-                                                <td>a.williams@gmail.com</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Sarah Good</td>
-                                                <td>s.goodh@gmail.com</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Betty Paris</td>
-                                                <td>b.paris@gmail.com</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Anne Putnam</td>
-                                                <td>a.putnam@gmail.com</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Rebecca Nurse</td>
-                                                <td>r.nurse@gmail.com</td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL CONFIRM -->
-    <div class="modal fade in" id="campaignConfirm" tabindex="-1" role="dialog" aria-labelledby="campaignConfirmTitle" aria-hidden="true">
-        <div class="modal-dialog ">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
-                        <span aria-hidden="true" class="fa fa-times-circle-o fa"></span><span class="sr-only">Cerrar</span>
-                    </button>
-                    <h4 id="campaignConfirmTitle">Send this to 3,567 recipients?</h4>
-                </div>
-                <div class="modal-body">
-                    <a href="#" class="btn btn-blue inverted btn-lg" id="saveCampaignBtn">Oh, yeah!</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
 </div><!--fin container -->
 
 
@@ -479,9 +443,112 @@
 <script src="js/datepicker/moment-with-locales.min.js"></script>
 <script src="js/datepicker/bootstrap-datetimepicker.js"></script>
 <script src="js/datepicker/bootstrap-datepicker.es.js"></script>
+<script src="js/typeahead.bundle.min.js"></script>
+<script src="js/bootstrap-tagsinput.min.js"></script>
+<script src="js/jquery-plugin/tagsinput/jquery.tagsinput.js"></script>
+<script src="js/jquery.autocomplete.js"></script>
 <script src="js/local.js"></script>
+
+<script src="js/bootstrap-table/bootstrap-table.js"></script>
+<script src="js/bootstrap-table/extensions/filter-control/bootstrap-table-filter-control.js"></script>
+<script src="js/bootstrap-table/participatoryBudgetListProposal.js"></script>
 <!-- el siguiente cargar al integrar -->
 <!-- <script src="js/custom.js"></script> -->
+
+<script>
+
+    var data = []
+    $(function () {
+        var $table = $('#participatoryBudgetProposalReviewTable');
+
+        for (i = 0; i < 100; i++) {
+            var row = {
+                "anonymousFilter": {
+                    "amountOfContacts": 1,
+                    "class": "org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO",
+                    "filterConditions": [
+                        {
+                            "class": "org.kuorum.rest.model.contact.filter.condition.ConditionTextRDTO",
+                            "field": {
+                                "enumType": "org.kuorum.rest.model.contact.filter.condition.ConditionFieldTypeRDTO",
+                                "name": "EMAIL"
+                            },
+                            "operator": {
+                                "enumType": "org.kuorum.rest.model.contact.filter.condition.TextConditionOperatorTypeRDTO",
+                                "name": "STARTS_WITH"
+                            },
+                            "value": "iduetxe@h"
+                        }
+                    ],
+                    "id": 117,
+                    "name": "Solo1 ",
+                    "operator": {"enumType": "org.kuorum.rest.model.contact.filter.OperatorTypeRDTO", "name": "AND"}
+                },
+                "body":"BODY",
+                "campaignStatusRSDTO":{"enumType":"org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO","name":"SENT"},
+                "campaignType":{"enumType":"org.kuorum.rest.model.communication.CampaignTypeRSDTO","name":"DISTRICT_PROPOSAL"},
+                "causes":[],
+                "checkValidation":false,
+                "checkValidationActive":false,
+                "class":"org.kuorum.rest.model.communication.participatoryBudget.DistrictProposalRSDTO",
+                "closed":false,
+                "datePublished":"2018-07-26T11:12:58Z",
+                "district":{
+                    "allCity":true,
+                    "budget":730000,
+                    "class":"org.kuorum.rest.model.communication.participatoryBudget.DistrictRDTO",
+                    "id":4,
+                    "name":"City"
+                },
+                "endDate":null,
+                "event":null,
+                "id":217,
+                "implemented":false,
+                "lastActivity":"2018-08-21T09:54:41Z",
+                "name":"Titulo"+i,
+                "newsletter":{"body":"BODY","class":"org.kuorum.rest.model.notification.campaign.NewsletterRSDTO","filter":{"amountOfContacts":1,"class":"org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO","filterConditions":[{"class":"org.kuorum.rest.model.contact.filter.condition.ConditionTextRDTO","field":{"enumType":"org.kuorum.rest.model.contact.filter.condition.ConditionFieldTypeRDTO","name":"EMAIL"},"operator":{"enumType":"org.kuorum.rest.model.contact.filter.condition.TextConditionOperatorTypeRDTO","name":"STARTS_WITH"},"value":"iduetxe@h"}],"id":117,"name":"Solo1 ","operator":{"enumType":"org.kuorum.rest.model.contact.filter.OperatorTypeRDTO","name":"AND"}},"htmlBody":"<!DOCTYPE html>\n\n<html xmlns=\"http://www.w3.org/1999/xhtml\">\n<head>\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n<title>\n            <span>Titulo D1 -3<\u002fspan>\n        <\u002ftitle>\n\n    <style type=\"text/css\" xml:space=\"preserve\">\n\n    a {color: #606060; text-decoration: underline;}\n\n    .address a{color:#a8a8a8; text-decoration: none;}\n    .address a:hover{color:#a8a8a8;}\n    .container .customText{\n        padding: 30px;\n    }\n    .container .customText p{\n        margin: 1em 0 7px;\n    }\n\n    /* -------------------------------------------\n            PHONE\n            For clients that support media queries.\n            Nothing fancy.\n    -------------------------------------------- */\n    @media only screen and (max-width: 660px) {\n\n        /* se usan selectores de atributo para que yahoo no renderice estas declaraciones, como si fueran para todos los casos */\n\n        a[class=\"btn\"] { display:block!important; margin-bottom:8px!important; background-image:none!important; margin-right:0!important;}\n\n        div[class*=\"column\"] { width: auto!important; float:none!important;}\n\n        table.social div[class=\"column\"] {\n            width:auto!important;\n        }\n    }\n    @media only screen and (max-width: 480px){\n        .preheader, table[id=preheader]{\n            display:none !important;\n        }\n\n        .container .customText{\n            padding: 15px;\n        }\n    }\n\n    <\u002fstyle>\n<\u002fhead>\n\n<body bgcolor=\"#f2f2f2\" topmargin=\"0\" leftmargin=\"0\" marginheight=\"0\" marginwidth=\"0\" style=\"-webkit-font-smoothing: antialiased; -webkit-text-size-adjust: none; -ms-text-size-adjust: 100%; width: 100%!important; min-width: 100%!important; height: 100%; color: #606060; margin: 0; padding: 0; font-size: 12px; font-family: Arial, 'Helvetica Neue', 'Helvetica', Helvetica, sans-serif !important; font-weight: normal;background-color: #F2F2F2\">\n\n<table bgcolor=\"#f2f2f2\" width=\"100%\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"width: 100%;background-color: #F2F2F2\">\n\n    <!-- HEADER -->\n    <table bgcolor=\"#f2f2f2\" width=\"100%\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"width: 100%; border-collapse: collapse;\" id=\"preheader\" class=\"preheader\">\n        <tr>\n            <td rowspan=\"1\" colspan=\"1\"><\u002ftd>\n            <td class=\"container\" style=\"display: block!important; max-width:660px!important; margin:0 auto!important; clear:both!important;\" rowspan=\"1\" colspan=\"1\">\n                <div class=\"content\" style=\"padding:8px 8px 0 8px; max-width:660px; margin:0 auto; display:block;\">\n                    <table bgcolor=\"#f2f2f2\" width=\"100%\" style=\"width: 100%;\">\n                    <tr>\n                            <td style=\"width: 100%; vertical-align: middle;\" rowspan=\"1\" colspan=\"1\">\n                                <!-- EDITAR: TÍTULO DEL CORREO -->\n                                <h1 style=\"color:#A8A8A8; padding: 0; margin: 0 0 4px 0; line-height: 1.1; font-size: 9px; font-family: Arial, 'Helvetica Neue', 'Helvetica', Helvetica, sans-serif !important;\">\n            <span>Titulo D1 -3<\u002fspan>\n        <\u002fh1>\n                                                            <\u002ftd>\n                                                        <\u002ftr>\n                                                    <\u002ftable>\n                <\u002fdiv>\n                                                <\u002ftd>\n            <td rowspan=\"1\" colspan=\"1\"><\u002ftd>\n                                            <\u002ftr>\n    <\u002ftable><!-- /HEADER -->\n\n    <!-- BODY -->\n    <table width=\"100%\" style=\"width: 100%; padding: 0; margin: 0; border-collapse: collapse;\">\n                    <tr>\n            <td rowspan=\"1\" colspan=\"1\"><\u002ftd>\n            <td class=\"container\" bgcolor=\"#ffffff\" style=\"display: block!important; max-width:660px!important; margin:0 auto!important; padding: 20px 0; clear:both!important;text-align: center;\" rowspan=\"1\" colspan=\"1\">\n                <a href=\"https://local.kuorum.org/iduetxe/titulo-d1--3-217\" target=\"_blank\" shape=\"rect\">\n                    \n                    <img style=\"width:auto;height:85px;margin:15px;border:0px none;outline:medium none;text-decoration:none\" width=\"auto\" height=\"85\" src=\"https://test-kuorumorg.s3.amazonaws.com/domains/local.kuorum.org/logo.png\" align=\"none\" />\n                <\u002fa>\n                                                            <\u002ftd>\n            <td rowspan=\"1\" colspan=\"1\"><\u002ftd>\n                                                        <\u002ftr>\n                    <tr>\n            <td rowspan=\"1\" colspan=\"1\"><\u002ftd>\n            <td class=\"container\" bgcolor=\"#ffffff\" style=\"display: block!important; max-width:660px!important; margin:0 auto!important; clear:both!important;\" rowspan=\"1\" colspan=\"1\">\n                <div class=\"customText\" style=\"color: #606060; margin: 0; line-height: 24px; font-weight: normal; font-size: 15px; font-family: 'Georgia', 'Times New Roman', Times, serif !important;\">\n\n            <p>asdas<\u002fp> <p>...<\u002fp>\n\n            <div style=\"text-align: center; margin-bottom: 20px;\">\n                <a href=\"https://local.kuorum.org/iduetxe/titulo-d1--3-217\" target=\"_blank\" style=\"padding: 6px 14px !important;border-radius: 3px;letter-spacing: 0.4px;display: inline-block;vertical-align: middle;background-color: #FF9431;font-weight: 400;color: #fff !important;text-decoration: none;\">\n                    <span>See more<\u002fspan>\n                <\u002fa>\n            <\u002fdiv>\n\n        <\u002fdiv>\n                                                            <\u002ftd>\n            <td rowspan=\"1\" colspan=\"1\"><\u002ftd>\n                                                        <\u002ftr>\n    <\u002ftable><!-- /BODY -->\n\n    <!-- FOOTER -->\n    <table width=\"100%\" style=\"margin: 0; width: 100%; clear: both!important; border-collapse: collapse;\">\n                    <tr>\n            <td rowspan=\"1\" colspan=\"1\"><\u002ftd>\n            <td class=\"container\" bgcolor=\"#606060\" style=\"display: block!important; max-width:660px!important; margin:0 auto!important; clear:both!important;\" rowspan=\"1\" colspan=\"1\">\n                <!-- content -->\n                    <table width=\"100%\" style=\"width: 100%; border-collapse: collapse;\">\n                                <tr>\n                            <td align=\"center\" style=\"color: #a8a8a8; font-size: 10px; padding: 20px 15px; text-align: center;\" rowspan=\"1\" colspan=\"1\">\n                                <div style=\"padding: 0 25px; text-align: center;\">\n\n    <p class=\"address\" style=\"text-align:center;color:#a8a8a8;\"><\u002fp>\n    <p class=\"address\" style=\"text-align:center;color:#a8a8a8;\"><\u002fp>\n    <p class=\"address\" style=\"text-align:center;color:#a8a8a8;\"><\u002fp>\n\n    <div style=\"text-align: center; margin: 15px 0;\">\n        <p style=\"text-align:center;\">Powered by<\u002fp>\n        <a href=\"http://www.kuorum.org\" target=\"_blank\" style=\"padding: 10px;\">\n            <img style=\"width:100px;height:auto;outline:medium none;text-decoration:none;opacity:0.8;padding: 5px 15px;border: 3px solid #e3e3e3;border-radius:3px;margin-top: 5px;\" width=\"100px\" height=\"auto\" src=\"https://s3-eu-west-1.amazonaws.com/kuorumorg/static/logos/kuorum_376x98.png\" align=\"none\" alt=\"Kuorum\" />\n        <\u002fa>\n    <\u002fdiv>\n    <span>\n        <span>If you no longer wish to receive these emails click here:<\u002fspan>\n        <a href=\"*|UNSUB:#|*\" target=\"_blank\" style=\"word-wrap:break-word;color:#a8a8a8;font-weight:normal;text-decoration:underline\">unsubscribe<\u002fa>\n    <\u002fspan>\n\n<\u002fdiv>\n\n                                                            <\u002ftd>\n                                                        <\u002ftr>\n                                                    <\u002ftable>\n\n                                                <\u002ftd>\n            <td rowspan=\"1\" colspan=\"1\"><\u002ftd>\n                                            <\u002ftr>\n    <\u002ftable><!-- /FOOTER -->\n\n                                        <\u002ftable>\n\n<\u002fbody>\n<\u002fhtml>","id":415,"imageUrl":null,"name":"Titulo D1 -3","numberBounced":0,"numberClicks":0,"numberOpens":0,"numberRecipients":1,"numberSpam":0,"numberUnsubscribe":0,"sentOn":"2018-07-26T11:15:53Z","status":{"enumType":"org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO","name":"SENT"},"subject":"Titulo D1 -3","template":{"enumType":"org.kuorum.rest.model.notification.campaign.NewsletterTemplateDTO","name":"DISTRICT_PROPOSAL"},"triggeredTags":{}},
+                "numSupports":1,
+                "numVotes":0,
+                "participatoryBudget":{
+                    "class":"org.kuorum.rest.model.communication.participatoryBudget.BasicParticipatoryBudgetRSDTO",
+                    "deadLineProposals":"2018-07-25T22:00:00Z",
+                    "deadLineResults":"2018-11-29T23:00:00Z",
+                    "deadLineTechnicalReview":"2018-08-11T22:00:00Z",
+                    "deadLineVotes":"2018-10-03T22:00:00Z",
+                    "id":208,
+                    "status":{"enumType":"org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO","name":"TECHNICAL_REVIEW"},
+                    "title":"Presu 1",
+                    "userAlias":"iduetxe",
+                    "userId":"56682073e4b056abe2b37825"
+                },
+                "photoUrl":null,
+                "approved":true,
+                "price":3000,
+                "published":true,
+                "rejectComment":null,
+                "supported":false,
+                "technicalReviewStatus":{"enumType":"org.kuorum.rest.model.communication.participatoryBudget.TechnicalReviewStatusRDTO","name":"VALID"},
+                "title":"Titulo D1 -3",
+                "triggeredTags":{},
+                "user":{
+                    "alias":"iduetxe",
+                    "avatarUrl":null,
+                    "class":"org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO",
+                    "id":"56682073e4b056abe2b37825",
+                    "name":"Iñaki",
+                    "userType":{"enumType":"org.kuorum.rest.model.kuorumUser.UserTypeRSDTO","name":"PERSON"}
+                    },
+                "videoUrl":null,
+                "visits":2,
+                "voted":false
+            };
+            data.push(row)
+        }
+
+        $table.bootstrapTable({data: data});
+    });
+
+</script>
 
 </body>
 </html>

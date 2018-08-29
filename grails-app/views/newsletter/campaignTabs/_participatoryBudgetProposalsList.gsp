@@ -5,17 +5,9 @@
     var filterDataCause={ ${raw(participatoryBudget.causes.collect{"'${it}':'${it}'"}.join(","))} };
     var filterDataTechnicalReview={ ${raw(org.kuorum.rest.model.communication.participatoryBudget.TechnicalReviewStatusRDTO.values().collect{"'${it}':'${g.message(code:"org.kuorum.rest.model.communication.participatoryBudget.TechnicalReviewStatusRDTO."+it)}'"}.join(','))} };
 
-    function formatTechnicalReview(value){
-        <g:each in="${org.kuorum.rest.model.communication.participatoryBudget.TechnicalReviewStatusRDTO.values()}" var="techincalStatus">
-            if (value=='${techincalStatus}'){
-                return '${g.message(code:"org.kuorum.rest.model.communication.participatoryBudget.TechnicalReviewStatusRDTO.${techincalStatus}")}'
-            }
-        </g:each>
-        return "UNDEFINED"
-    }
 </script>
 <div id="toolbar"></div>
-<table id="table"
+<table id="participatoryBudgetProposalReviewTable"
        data-toggle="table"
        data-url="${g.createLink(mapping:'participatoryBudgetDistrictProposalsPagination', params:participatoryBudget.encodeAsLinkProperties())}"
        data-side-pagination="server"
@@ -36,14 +28,14 @@
         <th data-field="title"                      data-halign="center" data-align="center" data-sortable="true"  data-visible="true"  data-filter-control="input"  data-filter-control-placeholder="Search By Title"  ><g:message code="tools.massMailing.view.participatoryBudget.proposalList.table.title"/></th>
         <th data-field="district.name"              data-halign="center" data-align="center" data-sortable="true"  data-visible="true"  data-filter-control="select" data-filter-data="var:filterDataDistrict"          ><g:message code="tools.massMailing.view.participatoryBudget.proposalList.table.districtName"/></th>
         <th data-field="district.budget"            data-halign="center" data-align="center" data-sortable="false" data-visible="false"                                                                                 ><g:message code="tools.massMailing.view.participatoryBudget.proposalList.table.districtBudget"/></th>
-        <th data-field="causes[0]"                  data-halign="center" data-align="center" data-sortable="false" data-visible="false" data-filter-control="select" data-filter-data="var:filterDataCause"             ><g:message code="tools.massMailing.view.participatoryBudget.proposalList.table.cause"/></th>
+        <th data-field="cause"                      data-halign="center" data-align="center" data-sortable="false" data-visible="false" data-filter-control="select" data-filter-data="var:filterDataCause"             ><g:message code="tools.massMailing.view.participatoryBudget.proposalList.table.cause"/></th>
         <th data-field="user.name"                  data-halign="center" data-align="center" data-sortable="true"  data-visible="false" data-filter-control="input"  data-filter-control-placeholder="Search By author" ><g:message code="tools.massMailing.view.participatoryBudget.proposalList.table.author"/></th>
         <th data-field="numSupports"                data-halign="center" data-align="center" data-sortable="true"  data-visible="true"                                                                                  ><g:message code="tools.massMailing.view.participatoryBudget.proposalList.table.supports"/></th>
         <th data-field="numVotes"                   data-halign="center" data-align="center" data-sortable="true"  data-visible="true"                                                                                  ><g:message code="tools.massMailing.view.participatoryBudget.proposalList.table.votes"/></th>
         <th data-field="approved"                   data-halign="center" data-align="center" data-sortable="false" data-visible="true"  data-filter-control="select" data-formatter="formatCheckValidation" data-events="inputEventsCheckValidation" data-filter-data="var:filterDataApproved"             ><g:message code="tools.massMailing.view.participatoryBudget.proposalList.table.approved"/></th>
         <th data-field="price"                      data-halign="center" data-align="center" data-sortable="true"  data-visible="true"                               data-formatter="formatPrice"           data-events="inputEventsPrice"                                                              ><g:message code="tools.massMailing.view.participatoryBudget.proposalList.table.price"/></th>
         <th data-field="rejectComment"              data-halign="center" data-align="center" data-sortable="false" data-visible="true"  data-filter-control="input"  data-formatter="formatRejectText"      data-events="inputEventsRejectComment"  data-filter-control-placeholder="Search By comment" ><g:message code="tools.massMailing.view.participatoryBudget.proposalList.table.rejectComment"/></th>
-        <th data-field="technicalReviewStatus.name" data-halign="center" data-align="center" data-sortable="false" data-visible="true"  data-filter-control="select" data-formatter="formatTechnicalReview"                                         data-filter-data="var:filterDataTechnicalReview"    ><g:message code="tools.massMailing.view.participatoryBudget.proposalList.table.technicalReviewStatus"/></th>
+        <th data-field="technicalReviewStatus.i18n" data-halign="center" data-align="center" data-sortable="false" data-visible="true"  data-filter-control="select"                                                                                data-filter-data="var:filterDataTechnicalReview"    ><g:message code="tools.massMailing.view.participatoryBudget.proposalList.table.technicalReviewStatus"/></th>
         <th data-field="implemented"                data-halign="center" data-align="center" data-sortable="false" data-visible="true"  data-filter-control="select" data-formatter="formatBoolean"                                                 data-filter-data="var:filterDataImplemented"        ><g:message code="tools.massMailing.view.participatoryBudget.proposalList.table.implemented"/></th>
     </tr>
     </thead>

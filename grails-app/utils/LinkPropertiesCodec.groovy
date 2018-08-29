@@ -9,6 +9,7 @@ import org.kuorum.rest.model.communication.debate.ProposalRSDTO
 import org.kuorum.rest.model.communication.event.EventRSDTO
 import org.kuorum.rest.model.communication.participatoryBudget.BasicParticipatoryBudgetRSDTO
 import org.kuorum.rest.model.communication.participatoryBudget.DistrictProposalRSDTO
+import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 import org.kuorum.rest.model.notification.NotificationProposalCommentMentionRSDTO
 import org.kuorum.rest.model.notification.NotificationProposalCommentRSDTO
 import org.kuorum.rest.model.search.SearchKuorumElementRSDTO
@@ -35,6 +36,7 @@ class LinkPropertiesCodec {
             case NotificationProposalCommentMentionRSDTO:
             case SearchKuorumElementRSDTO:
             case KuorumUser:
+            case BasicDataKuorumUserRSDTO:
                 params = prepareParams(target)
                 break
             case UserType:
@@ -66,6 +68,12 @@ class LinkPropertiesCodec {
     }
 
     private static def prepareParams(KuorumUser user){
+        [
+                userAlias:user.alias.toLowerCase()
+        ]
+    }
+
+    private static def prepareParams(BasicDataKuorumUserRSDTO user){
         [
                 userAlias:user.alias.toLowerCase()
         ]

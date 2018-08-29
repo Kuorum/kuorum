@@ -15,8 +15,8 @@ class QueryParamsCodec {
 
     public static Map<String, String> convertObjectToQueryParams(String path, def obj){
         Map<String, String> data = [:]
-        if (obj){
-            if (obj && (getWrapperTypes().contains(obj.class) || obj instanceof Enum) ){
+        if (obj!=null){
+            if (obj!=null && (getWrapperTypes().contains(obj.class) || obj instanceof Enum) ){
                 data.put(path, obj.toString())
             }else {
                 def filtered = ['class', 'active', 'metaClass']

@@ -92,14 +92,26 @@ window.inputEventsCheckValidation={
 
 var participatoryBudgetListProposalHelper = {
     renderProposalExtraInfo:function (districtProposal) {
+        var multimedia = ""
+        if (districtProposal.photoUrl != null && districtProposal.photoUrl != undefined){
+            multimedia = "<img src='"+districtProposal.photoUrl+"'/>"
+        }else{
+            multimedia = "<img class='empty' src='images/emptyCampaign.png'/>"
+        }
         const districtProposalTableInfo = `
          <div class="box-ppal">
             <div class="box-ppal-title">${districtProposal.title}</div>
             <div class="box-ppal-section">
-                <img src="${districtProposal.imageUrl}"/>
-                ${districtProposal.body}
+                <div class="row">
+                    <div class="col-md-2">
+                        ${districtProposal.multimediaHtml}
+                    </div>
+                    <div class="distict-proposal-body col-md-8">
+                        ${districtProposal.body}
+                    </div>            
+
+                </div>
             </div>            
-            
          </div>
         `;
         return districtProposalTableInfo;
@@ -115,7 +127,7 @@ var participatoryBudgetListProposalHelper = {
             price:updatableData.price,
             rejectComment:updatableData.rejectComment
         }
-        $table = $("#table")
+        $table = $("#participatoryBudgetProposalReviewTable")
         var urlUpdateTechnicalReview = $table.attr("data-update-technicalReview-url")
         pageLoadingOn();
         $.post( urlUpdateTechnicalReview, data)

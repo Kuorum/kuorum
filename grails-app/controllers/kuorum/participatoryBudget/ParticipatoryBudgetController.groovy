@@ -9,8 +9,12 @@ import kuorum.web.commands.payment.CampaignSettingsCommand
 import kuorum.web.commands.payment.participatoryBudget.*
 import kuorum.web.constants.WebConstants
 import org.kuorum.rest.model.communication.participatoryBudget.*
+import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 
 class ParticipatoryBudgetController extends CampaignController{
+
+    // Grails renderer -> For CSV hack
+    grails.gsp.PageRenderer groovyPageRenderer
 
     @Secured(['ROLE_ADMIN'])
     def create() {
@@ -175,9 +179,60 @@ class ParticipatoryBudgetController extends CampaignController{
     /***** END CRUD ***/
     /******************/
 
+    private messageEnumJson(def type){
+        [
+                type:type.toString(),
+                i18n:g.message(code: "${type.class.name}.${type}")
+        ]
+    }
+
+    void init() {
+        JSON.createNamedConfig('infoDistrictProposalTable') {
+//            log("suggest JSON marshaled created")
+            it.registerObjectMarshaller(ParticipatoryBudgetStatusDTO)   { ParticipatoryBudgetStatusDTO status -> messageEnumJson(status)}
+            it.registerObjectMarshaller(TechnicalReviewStatusRDTO)      { TechnicalReviewStatusRDTO status -> messageEnumJson(status)}
+            it.registerObjectMarshaller(BasicDataKuorumUserRSDTO)       { BasicDataKuorumUserRSDTO basicDataKuorumUserRSDTO ->
+                [
+                    id:basicDataKuorumUserRSDTO.id,
+                    alias:basicDataKuorumUserRSDTO.alias,
+                    name:basicDataKuorumUserRSDTO.name,
+                    avatarUrl:basicDataKuorumUserRSDTO.avatarUrl,
+                    userLink:g.createLink(mapping: 'userShow', params:basicDataKuorumUserRSDTO.encodeAsLinkProperties())
+                ]
+            }
+            it.registerObjectMarshaller(DistrictProposalRSDTO){DistrictProposalRSDTO districtProposalRSDTO->
+                [
+                        id:districtProposalRSDTO.id,
+                        name:districtProposalRSDTO.name,
+                        title:districtProposalRSDTO.title,
+                        body:districtProposalRSDTO.body,
+                        photoUrl: districtProposalRSDTO.photoUrl,
+                        videoUrl: districtProposalRSDTO.videoUrl,
+                        multimediaHtml: groovyPageRenderer.render(template: '/campaigns/showModules/campaignDataMultimedia', model: [campaign:districtProposalRSDTO]),
+                        visits: districtProposalRSDTO.visits,
+                        user:districtProposalRSDTO.user,
+                        cause: districtProposalRSDTO.causes?districtProposalRSDTO.causes[0]:null,
+                        participatoryBudget:districtProposalRSDTO.participatoryBudget,
+                        district:districtProposalRSDTO.district,
+                        participatoryBudget:districtProposalRSDTO.participatoryBudget,
+                        district:districtProposalRSDTO.district,
+                        approved :districtProposalRSDTO.approved,
+                        price:districtProposalRSDTO.price,
+                        rejectComment:districtProposalRSDTO.rejectComment,
+                        implemented :districtProposalRSDTO.implemented,
+                        technicalReviewStatus:districtProposalRSDTO.technicalReviewStatus,
+                        numSupports:districtProposalRSDTO.numSupports,
+                        numVotes:districtProposalRSDTO.numVotes,
+                        url : g.createLink(mapping:'districtProposalShow', params:districtProposalRSDTO.encodeAsLinkProperties())
+                ]
+            }
+        }
+    }
+
 //    @Secured(['ROLE_ADMIN'])
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def paginateParticipatoryBudgetProposalsJson(){
+        init()
         Integer limit = Integer.parseInt(params.limit)
         Integer offset = Integer.parseInt(params.offset)
         KuorumUser kuorumUser= springSecurityService.currentUser;
@@ -188,7 +243,18 @@ class ParticipatoryBudgetController extends CampaignController{
         PageDistrictProposalRSDTO pageDistrictProposals = participatoryBudgetService.findDistrictProposalsByDistrict(kuorumUser, participatoryBudgetId, filter)
 //        response.setContentType("application/json")
 //        response.setHeader("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
-        render ([ "total": pageDistrictProposals.total, "rows": pageDistrictProposals.data] as JSON)
+//        def data = pageDistrictProposals.data.collect{
+//            def props = it.getProperties().collectEntries{ property ->
+////                [(property): it."${property}"]
+//                [(property.key): property.value]
+//            }
+//            props.put('multimediaHtml', groovyPageRenderer.render(template: '/campaigns/showModules/campaignDataMultimedia', model: [campaign:it]))
+//            return props;
+//        }
+//        pageDistrictProposals.data.each {it.metaClass.youtubeHtml = "HTML"}
+        JSON.use('infoDistrictProposalTable') {
+            render ([ "total": pageDistrictProposals.total, "rows": pageDistrictProposals.data] as JSON)
+        }
     }
 
 
