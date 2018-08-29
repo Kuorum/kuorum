@@ -1720,21 +1720,25 @@ ul.user-list-followers .loading.xs {width: 10px; height: 10px;}
 @keyframes loadProgressBar {0% {width: 0%;}100% {width: 75%;}}
 
 
-@-moz-keyframes participatory-budget-steps-loadProgressBar-step1 {0% {width: 0;} 100% {width: 11%;}}
-@-webkit-keyframes participatory-budget-steps-loadProgressBar-step1 {0% {width: 0%;}100% {width: 11%;} }
-@keyframes participatory-budget-steps-loadProgressBar-step1 {0% {width: 0%;}100% {width: 11%;}}
+@-moz-keyframes participatory-budget-steps-loadProgressBar-step1 {0% {width: 0;} 100% {width: 9%;}}
+@-webkit-keyframes participatory-budget-steps-loadProgressBar-step1 {0% {width: 0%;}100% {width: 9%;} }
+@keyframes participatory-budget-steps-loadProgressBar-step1 {0% {width: 0%;}100% {width: 9%;}}
 
-@-moz-keyframes participatory-budget-steps-loadProgressBar-step2 {0% {width: 0;} 100% {width: 35%;}}
-@-webkit-keyframes participatory-budget-steps-loadProgressBar-step2 {0% {width: 0%;}100% {width: 35%;} }
-@keyframes participatory-budget-steps-loadProgressBar-step2 {0% {width: 0%;}100% {width: 35%;}}
+@-moz-keyframes participatory-budget-steps-loadProgressBar-step2 {0% {width: 0;} 100% {width: 30%;}}
+@-webkit-keyframes participatory-budget-steps-loadProgressBar-step2 {0% {width: 0%;}100% {width: 30%;} }
+@keyframes participatory-budget-steps-loadProgressBar-step2 {0% {width: 0%;}100% {width: 30%;}}
 
-@-moz-keyframes participatory-budget-steps-loadProgressBar-step3 {0% {width: 0;} 100% {width: 61%;}}
-@-webkit-keyframes participatory-budget-steps-loadProgressBar-step3 {0% {width: 0%;}100% {width: 61%;} }
-@keyframes participatory-budget-steps-loadProgressBar-step3 {0% {width: 0%;}100% {width: 61%;}}
+@-moz-keyframes participatory-budget-steps-loadProgressBar-step3 {0% {width: 0;} 100% {width: 50%;}}
+@-webkit-keyframes participatory-budget-steps-loadProgressBar-step3 {0% {width: 0%;}100% {width: 50%;} }
+@keyframes participatory-budget-steps-loadProgressBar-step3 {0% {width: 0%;}100% {width: 50%;}}
 
-@-moz-keyframes participatory-budget-steps-loadProgressBar-step4 {0% {width: 0;} 100% {width: 88%;}}
-@-webkit-keyframes participatory-budget-steps-loadProgressBar-step4 {0% {width: 0%;}100% {width: 88%;} }
-@keyframes participatory-budget-steps-loadProgressBar-step4 {0% {width: 0%;}100% {width: 88%;}}
+@-moz-keyframes participatory-budget-steps-loadProgressBar-step4 {0% {width: 0;} 100% {width: 69%;}}
+@-webkit-keyframes participatory-budget-steps-loadProgressBar-step4 {0% {width: 0%;}100% {width: 69%;} }
+@keyframes participatory-budget-steps-loadProgressBar-step4 {0% {width: 0%;}100% {width: 69%;}}
+
+@-moz-keyframes participatory-budget-steps-loadProgressBar-step5 {0% {width: 0;} 100% {width: 90%;}}
+@-webkit-keyframes participatory-budget-steps-loadProgressBar-step5 {0% {width: 0%;}100% {width: 90%;} }
+@keyframes participatory-budget-steps-loadProgressBar-step5 {0% {width: 0%;}100% {width: 90%;}}
 
 .campaign-progress-bar-wrapper .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done::after {content: ""; position: absolute; border: 10px solid #ff9934; border-left-color: transparent; border-right-color: transparent; border-bottom-color: transparent; width: 1px; height: 1px; right: -10px; top: -10px;}
 
@@ -1747,15 +1751,16 @@ ul.user-list-followers .loading.xs {width: 10px; height: 10px;}
     -ms-transform: rotate(90deg);
     transform-origin: 0 100%;
     transform: rotate(90deg);
-    width: 130px;
+    width: 160px;
     padding:0;
 }
 .participatory-budget-steps-wrapper .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done::after{content: ""; position: absolute; border: 10px solid #ff9934; border-left-color: transparent; border-right-color: transparent; border-top-color: transparent; width: 1px; height: 1px; right: -10px; bottom: -10px;}
 .participatory-budget-steps-wrapper .campaign-progress-bar .pop-up {display:none}
-.ADDING_PROPOSALS .participatory-budget-steps-wrapper .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done{width:11%; -moz-animation-name: participatory-budget-steps-loadProgressBar-step1; -webkit-animation-name: participatory-budget-steps-loadProgressBar-step1;animation-name: participatory-budget-steps-loadProgressBar-step1;}
-.TECHNICAL_REVIEW .participatory-budget-steps-wrapper .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done{width:35%; -moz-animation-name: participatory-budget-steps-loadProgressBar-step2; -webkit-animation-name: participatory-budget-steps-loadProgressBar-step2;animation-name: participatory-budget-steps-loadProgressBar-step2;}
-.BALLOT           .participatory-budget-steps-wrapper .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done{width:61%; -moz-animation-name: participatory-budget-steps-loadProgressBar-step3; -webkit-animation-name: participatory-budget-steps-loadProgressBar-step3;animation-name: participatory-budget-steps-loadProgressBar-step3;}
-.CLOSED           .participatory-budget-steps-wrapper .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done{width:88%; -moz-animation-name: participatory-budget-steps-loadProgressBar-step4; -webkit-animation-name: participatory-budget-steps-loadProgressBar-step4;animation-name: participatory-budget-steps-loadProgressBar-step4;}
+.ADDING_PROPOSALS .participatory-budget-steps-wrapper .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done{width:9%; -moz-animation-name: participatory-budget-steps-loadProgressBar-step1; -webkit-animation-name: participatory-budget-steps-loadProgressBar-step1;animation-name: participatory-budget-steps-loadProgressBar-step1;}
+.TECHNICAL_REVIEW .participatory-budget-steps-wrapper .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done{width:30%; -moz-animation-name: participatory-budget-steps-loadProgressBar-step2; -webkit-animation-name: participatory-budget-steps-loadProgressBar-step2;animation-name: participatory-budget-steps-loadProgressBar-step2;}
+.BALLOT           .participatory-budget-steps-wrapper .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done{width:50%; -moz-animation-name: participatory-budget-steps-loadProgressBar-step3; -webkit-animation-name: participatory-budget-steps-loadProgressBar-step3;animation-name: participatory-budget-steps-loadProgressBar-step3;}
+.CLOSED           .participatory-budget-steps-wrapper .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done{width:69%; -moz-animation-name: participatory-budget-steps-loadProgressBar-step4; -webkit-animation-name: participatory-budget-steps-loadProgressBar-step4;animation-name: participatory-budget-steps-loadProgressBar-step4;}
+.RESULTS          .participatory-budget-steps-wrapper .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done{width:88%; -moz-animation-name: participatory-budget-steps-loadProgressBar-step4; -webkit-animation-name: participatory-budget-steps-loadProgressBar-step4;animation-name: participatory-budget-steps-loadProgressBar-step5;}
 
 ul.participatory-budget-steps-info {list-style: none;padding:10px 0 0 35px}
 ul.participatory-budget-steps-info li{margin-bottom:15px; line-height:10px;}
