@@ -299,6 +299,7 @@ class ParticipatoryBudgetController extends CampaignController{
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def updateTechnicalReview(DistrictProposalTechnicalReviewCommand command){
+        init()
         KuorumUser campaignUser = KuorumUser.get(springSecurityService.principal.id)
 
         DistrictProposalTechnicalReviewRDTO technicalReviewRDTO = new DistrictProposalTechnicalReviewRDTO();
@@ -306,7 +307,9 @@ class ParticipatoryBudgetController extends CampaignController{
         technicalReviewRDTO.price=command.price;
         technicalReviewRDTO.rejectComment=command.rejectComment;
         DistrictProposalRSDTO districtProposalRSDTO = districtProposalService.technicalReview(campaignUser, command.participatoryBudgetId, command.districtProposalId, technicalReviewRDTO)
-        render (districtProposalRSDTO as JSON)
+        JSON.use('infoDistrictProposalTable') {
+            render (districtProposalRSDTO as JSON)
+        }
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])

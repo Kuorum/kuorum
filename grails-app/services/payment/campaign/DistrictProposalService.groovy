@@ -150,7 +150,6 @@ class DistrictProposalService implements CampaignCreatorService<DistrictProposal
             KuorumUser user,
             KuorumUser participatoryBudgetUser,
             Long participatoryBudgetId,
-            Long districtId,
             Long districtProposalId){
         Map<String, String> params = [
                 userId: participatoryBudgetUser.id.toString(),

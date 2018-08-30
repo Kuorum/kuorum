@@ -17,12 +17,13 @@ $(function () {
 
     $("#participatoryBudget-districtProposals-list-tab a").on("click", function(e){
         var districtId = $(this).attr("data-districtId");
-        $("#participatoryBudget-districtProposals-list ul").hide()
-        var ulId = "#proposal-district-"+districtId
-        if ($(ulId+" li").length <= 0){
+        $("#participatoryBudget-districtProposals-list > div").hide()
+        var divId = "#proposal-district-"+districtId
+        var ulId = divId+" > ul"
+        if ($(ulId+ " > li").length <= 0){
             participatoryBudgetHelper.loadMoreDistrictProposals(ulId)
         }else{
-            $(ulId).show()
+            $(divId).show()
         }
 
     })
@@ -49,7 +50,7 @@ var participatoryBudgetHelper={
                 if (moreResults){
                     $(ulId).append("<li class='col-xs-12 center load-more-district-proposals'><a href='#' class='btn btn-grey-light'>Load more</a> </li>")
                 }
-                $(ulId).show()
+                $(ulId).parent().show()
             })
             .fail(function(messageError) {
                 display.warn("Error");

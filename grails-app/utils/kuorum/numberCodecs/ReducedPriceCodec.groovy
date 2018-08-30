@@ -6,7 +6,7 @@ class ReducedPriceCodec {
 
 
     private static Integer milesDivisor = Math.pow(10, 6)
-    private static Integer thousandsDivisor = Math.pow(10, 5)
+    private static Integer thousandsDivisor = Math.pow(10, 3)
 
     static encode = {Number target->
         if (target >= milesDivisor){

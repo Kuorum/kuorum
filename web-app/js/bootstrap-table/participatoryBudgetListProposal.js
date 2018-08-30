@@ -12,7 +12,7 @@ function districtProposalTableRowStyle(districtProposalRow, index) {
     if (districtProposalRow.implemented){
         return {classes: 'success'};
     }
-    if (districtProposalRow.technicalReviewStatus.name=='INCORRECT'){
+    if (districtProposalRow.technicalReviewStatus.type=='INCORRECT'){
         return {classes: 'danger'};
     }
     return {};
@@ -27,7 +27,7 @@ function formatTableParticipatoryBudgetDistrictProposalAuthor(value, districtPro
 }
 
 function formatCheckValidation(value, districtProposalRow){
-    if (districtProposalRow.participatoryBudget.status.name =='TECHNICAL_REVIEW'){
+    if (districtProposalRow.participatoryBudget.status.type =='TECHNICAL_REVIEW'){
         var checked = value ?'checked':'';
         return '<input type="checkbox" '+checked+'>'
     }else{
@@ -45,7 +45,7 @@ function formatPrice(value, districtProposalRow){
         value = '';
     }
     var text = value;
-    if (districtProposalRow.participatoryBudget.status.name =='TECHNICAL_REVIEW' && districtProposalRow.approved){
+    if (districtProposalRow.participatoryBudget.status.type =='TECHNICAL_REVIEW' && districtProposalRow.approved){
         text = '<input type="text" class="form-control" value="' + value+'"/>';
     }
     return text==''?'--':text;
@@ -56,7 +56,7 @@ function formatRejectText(value, districtProposalRow){
         value = '';
     }
     var text = value;
-    if (districtProposalRow.participatoryBudget.status.name =='TECHNICAL_REVIEW' && !districtProposalRow.approved){
+    if (districtProposalRow.participatoryBudget.status.type =='TECHNICAL_REVIEW' && !districtProposalRow.approved){
         text = '<input type="text" class="form-control" value="' + value+'"/>';
     }
     return text==''?'--':text;
