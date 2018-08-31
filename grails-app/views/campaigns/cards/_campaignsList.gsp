@@ -15,7 +15,7 @@
             <g:render template="/campaigns/cards/surveyList" model="[survey:campaign, showAuthor: showAuthor, referred:'dashboard']" />
         </g:if>
         <g:if test="${campaign instanceof org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetRSDTO}">
-            <g:render template="/campaigns/cards/districtProposal" model="[participatoryBudget:campaign, showAuthor: showAuthor, referred:'dashboard']" />
+            <g:render template="/campaigns/cards/participatoryBudget" model="[participatoryBudget:campaign, showAuthor: showAuthor, referred:'dashboard']" />
         </g:if>
         <g:if test="${campaign instanceof org.kuorum.rest.model.communication.participatoryBudget.DistrictProposalRSDTO}">
             <g:render template="/campaigns/cards/districtProposal" model="[districtProposal:campaign, showAuthor: showAuthor, referred:'dashboard']" />
