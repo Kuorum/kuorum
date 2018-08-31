@@ -16,7 +16,10 @@ $(function () {
     });
 
     $("#participatoryBudget-districtProposals-list-tab a").on("click", function(e){
-        var districtId = $(this).attr("data-districtId");
+        var $a = $(this)
+        $a.parent().parent().children().removeClass("active")
+        $a.parent().addClass("active")
+        var districtId = $a.attr("data-districtId");
         $("#participatoryBudget-districtProposals-list > div").hide()
         var divId = "#proposal-district-"+districtId
         var ulId = divId+" > ul"
