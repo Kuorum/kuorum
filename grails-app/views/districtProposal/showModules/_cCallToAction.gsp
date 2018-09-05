@@ -46,6 +46,13 @@
     <g:set var="callButtonShow" value="${false}"/>
     <g:set var="callButtonActionClass" value=""/>
 </g:elseif>
+<g:elseif test="${districtProposal.participatoryBudget.status == org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.RESULTS}">
+    <g:set var="callTitleMsg" value="${g.message(code:"districtProposal.callToAction.${districtProposal.participatoryBudget.status}.title", args: [campaignUser.name])}"/>
+    <g:set var="callSubtitleMsg" value="${g.message(code:"districtProposal.callToAction.${districtProposal.participatoryBudget.status}.subtitle", args: [campaignUser.name])}"/>
+    <g:set var="callButtonActive" value="${false}"/>
+    <g:set var="callButtonShow" value="${false}"/>
+    <g:set var="callButtonActionClass" value=""/>
+</g:elseif>
 
 
 <div class="comment-box call-to-action call-to-action-add-proposal hidden-sm hidden-xs">
@@ -81,9 +88,9 @@
         <div class="budget">
             <div class="campaign-progress-bar-wrapper">
                 <h4>Budget for this area: <span class="budget-price">${districtProposal.district.budget.encodeAsReducedPrice()} €</span></h4>
-                <div class="campaign-progress-bar" data-width="10">
+                <div class="campaign-progress-bar" data-width="${Math.round(districtProposal.district.amountUserInvested / districtProposal.district.budget * 100)}">
                     <div class="pop-up">
-                        300 gastado de 20
+                        <span class="amount-user-invested">${districtProposal.district.amountUserInvested}</span> gastado de ${districtProposal.district.budget.encodeAsReducedPrice()} €
                         <div class="arrow"></div>
                     </div>
                     <div class="progress-bar-custom">

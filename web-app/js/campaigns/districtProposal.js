@@ -29,7 +29,7 @@ var districtProposalHelper={
     },
 
     districtProposalAction : function($button, callback){
-        console.log("onClickPostLike")
+        console.log("districtProposalAction")
         if(isPageLoading()){
             return;
         }
@@ -55,7 +55,8 @@ var districtProposalHelper={
         var districtId = $button.attr("data-districtId")
         var participatoryBudgetId = $button.attr("data-participatoryBudgetId")
         var proposalId = $button.attr("data-proposalId")
-        var vote = !$button.hasClass("on")
+        var voteOn = $button.hasClass("on") || $button.hasClass("active")
+        var vote = !voteOn;
         var data = {
             districtId:districtId,
             participatoryBudgetId:participatoryBudgetId,
@@ -68,10 +69,11 @@ var districtProposalHelper={
             url: url,
             data: data,
             success: function(districtProposalRSDTO){
-                $button.toggleClass('on')
-                $button.blur()
                 // $button.find('.fa').toggleClass("fa-heart-o fa-heart");
                 // $button.find('.number').text(postRSDTO.likes);
+                if ($button.hasClass("districtProposal-support")){
+                    districtProposalHelper.districtProposalSupportExtraAction(districtProposalRSDTO)
+                }
                 if ($button.hasClass("districtProposal-vote")){
                     districtProposalHelper.districtProposalVoteExtraAction(districtProposalRSDTO)
                 }
@@ -92,6 +94,43 @@ var districtProposalHelper={
 
     districtProposalVoteExtraAction:function (districtProposalRSDTO) {
         console.log(districtProposalRSDTO)
+        $buttonColumnC = $("#aside-ppal .call-to-action .actions a")
+        if (districtProposalRSDTO.voted){
+            $(".leader-post .footer .comment-counter button").addClass("active");
+            $(".leader-post .footer .comment-counter button").find(".fa-shopping-cart").addClass("fas");
+            $(".leader-post .footer .comment-counter button").find(".fa-shopping-cart").removeClass("fal");
+            $buttonColumnC.addClass('on')
+            $buttonColumnC.blur()
+        }else{
+            $(".leader-post .footer .comment-counter button").removeClass("active");
+            $(".leader-post .footer .comment-counter button").find(".fa-shopping-cart").removeClass("fas");
+            $(".leader-post .footer .comment-counter button").find(".fa-shopping-cart").addClass("fal");
+            $buttonColumnC.removeClass('on')
+            $buttonColumnC.blur()
+        }
+        $(".leader-post .footer .comment-counter button").find(".number").html(districtProposalRSDTO.numVotes);
+        var width = Math.round(districtProposalRSDTO.district.amountUserInvested / districtProposalRSDTO.district.budget * 100 )  ;
+        $(".budget .progress-bar-custom .progress-bar-custom-done").animate({width:width+'%'},"slow")
+        $(".budget .campaign-progress-bar .pop-up .amount-user-invested").html(districtProposalRSDTO.district.amountUserInvested);
+    },
+
+    districtProposalSupportExtraAction:function (districtProposalRSDTO) {
+        // console.log(districtProposalRSDTO)
+        $buttonColumnC = $("#aside-ppal .call-to-action .actions a")
+        if (districtProposalRSDTO.supported){
+            $(".leader-post .footer .comment-counter button").addClass("active");
+            $(".leader-post .footer .comment-counter button").find(".fa-rocket").addClass("fas");
+            $(".leader-post .footer .comment-counter button").find(".fa-rocket").removeClass("fal");
+            $buttonColumnC.addClass('on')
+            $buttonColumnC.blur()
+        }else{
+            $(".leader-post .footer .comment-counter button").removeClass("active");
+            $(".leader-post .footer .comment-counter button").find(".fa-rocket").removeClass("fas");
+            $(".leader-post .footer .comment-counter button").find(".fa-rocket").addClass("fal");
+            $buttonColumnC.removeClass('on')
+            $buttonColumnC.blur()
+        }
+        $(".leader-post .footer .comment-counter button").find(".number").html(districtProposalRSDTO.numSupports);
     }
 
 }
