@@ -22,8 +22,8 @@
             .contains(districtProposal.participatoryBudget.status)}">
         <g:set var="callButtonActionClass" value="disabled"/>
     </g:if>
-    <div class="comment-counter pull-right">
-        <button type="button" class="${isActive?'active':''} ${callButtonActionClass}"
+    <div class="comment-counter pull-right" id="comment-counter-${districtProposal.id}">
+        <a type="button" class="${isActive?'active':''} ${callButtonActionClass}"
                 href="${callButtonAction}"
                 data-campaignValidationActive="${districtProposal.checkValidationActive}"
                 data-districtId="${districtProposal.district.id}"
@@ -36,6 +36,6 @@
                 data-txt-off-hover="${btnStatusTextOffHover}">
             <span class="${isActive?'fas':'fal'} ${iconClass}" aria-hidden="true"></span>
             <span class="number">${iconNumber}</span>
-        </button>
+        </a>
     </div>
 </g:if>

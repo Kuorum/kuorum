@@ -42,10 +42,7 @@
                 </g:if>
 
                 <li>
-                    <g:link mapping="districtProposalShow" params="${districtProposal.encodeAsLinkProperties()}" role="button">
-                        <span class="fal fa-rocket fa-lg"></span>
-                        <span class="number">XXXXX</span>
-                    </g:link>
+                    <g:render template="/districtProposal/showModules/districtProposalDataIcon" model="[districtProposal:districtProposal]"/>
                 </li>
             </ul>
         </div>

@@ -455,17 +455,20 @@ $(document).ready(function() {
     $('body').on('click','.link-wrapper', function(e) {
         //ÑAAAPAAAAA para que no salte el evento del link-wrapper en los popover
         var target = $(e.target);
-        var popover = target.parents(".popover");
-        if (!popover.hasClass("popover")){
-            window.location = $(this).find('a.hidden').attr('href');
+        if (!target.is("a")){
+            // If target clicked is an a => link-wrapper should'd be trigger and probably it will have a special trigger
+            var popover = target.parents(".popover");
+            if (!popover.hasClass("popover")){
+                window.location = $(this).find('a.hidden').attr('href');
+            }
         }
     });
 
     // popover-trigger dentro del kakareo no lanza el enlace del bloque clicable
-    $('.link-wrapper .popover-trigger').click(function(e) {
-        e.stopPropagation();
-        e.preventDefault();
-    });
+    // $('.link-wrapper .popover-trigger').click(function(e) {
+    //     e.stopPropagation();
+    //     e.preventDefault();
+    // });
 
     $('#search-results .popover-box .follow').on('click', function() {
         // e.preventDefault();

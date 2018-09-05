@@ -1,6 +1,7 @@
 $(function () {
     
     $("body").on("click",".districtProposal-support, .districtProposal-vote", districtProposalHelper.bindActionClick)
+    $(".districtProposal-support, .districtProposal-vote").on("click", districtProposalHelper.bindActionClick)
 
     noLoggedCallbacks['districtProposalAction']= function(){
         var buttonId = $('#registro').find("form").attr("data-buttonId");
@@ -13,8 +14,10 @@ $(function () {
 var districtProposalHelper={
     bindActionClick : function(e){
         e.preventDefault();
+        e.stopPropagation();
         event.stopPropagation();
         var $button = $(this);
+        console.log($button)
         var loggedUser = $button.attr("data-loggedUser");
         if (loggedUser == undefined || loggedUser == ""){
             // NO LOGGED
@@ -94,43 +97,48 @@ var districtProposalHelper={
 
     districtProposalVoteExtraAction:function (districtProposalRSDTO) {
         console.log(districtProposalRSDTO)
-        $buttonColumnC = $("#aside-ppal .call-to-action .actions a")
+        var $buttonColumnC = $("#aside-ppal .call-to-action .actions a")
+        var $districtProposalCounter = $("#comment-counter-"+districtProposalRSDTO.id)
         if (districtProposalRSDTO.voted){
-            $(".leader-post .footer .comment-counter button").addClass("active");
-            $(".leader-post .footer .comment-counter button").find(".fa-shopping-cart").addClass("fas");
-            $(".leader-post .footer .comment-counter button").find(".fa-shopping-cart").removeClass("fal");
+            $districtProposalCounter.find("a").addClass("active");
+            $districtProposalCounter.find(".fa-shopping-cart").addClass("fas");
+            $districtProposalCounter.find(".fa-shopping-cart").removeClass("fal");
             $buttonColumnC.addClass('on')
             $buttonColumnC.blur()
         }else{
-            $(".leader-post .footer .comment-counter button").removeClass("active");
-            $(".leader-post .footer .comment-counter button").find(".fa-shopping-cart").removeClass("fas");
-            $(".leader-post .footer .comment-counter button").find(".fa-shopping-cart").addClass("fal");
+            $districtProposalCounter.find("a").removeClass("active");
+            $districtProposalCounter.find(".fa-shopping-cart").removeClass("fas");
+            $districtProposalCounter.find(".fa-shopping-cart").addClass("fal");
             $buttonColumnC.removeClass('on')
             $buttonColumnC.blur()
         }
-        $(".leader-post .footer .comment-counter button").find(".number").html(districtProposalRSDTO.numVotes);
+        $(".leader-post .footer .comment-counter .districtProposal-vote").find(".number").html(districtProposalRSDTO.numVotes);
         var width = Math.round(districtProposalRSDTO.district.amountUserInvested / districtProposalRSDTO.district.budget * 100 )  ;
         $(".budget .progress-bar-custom .progress-bar-custom-done").animate({width:width+'%'},"slow")
+        $("#participatoryBudget-districtProposals-list #proposal-district-"+districtProposalRSDTO.district.id+" .progress-bar-custom .progress-bar-custom-done").animate({width:width+'%'},"slow")
         $(".budget .campaign-progress-bar .pop-up .amount-user-invested").html(districtProposalRSDTO.district.amountUserInvested);
+        $("#participatoryBudget-districtProposals-list #proposal-district-"+districtProposalRSDTO.district.id+" .pop-up .number").html(districtProposalRSDTO.district.amountUserInvested);
     },
 
     districtProposalSupportExtraAction:function (districtProposalRSDTO) {
         // console.log(districtProposalRSDTO)
-        $buttonColumnC = $("#aside-ppal .call-to-action .actions a")
+        var $buttonColumnC = $("#aside-ppal .call-to-action .actions a")
+        var $districtProposalCounter = $("#comment-counter-"+districtProposalRSDTO.id)
         if (districtProposalRSDTO.supported){
-            $(".leader-post .footer .comment-counter button").addClass("active");
-            $(".leader-post .footer .comment-counter button").find(".fa-rocket").addClass("fas");
-            $(".leader-post .footer .comment-counter button").find(".fa-rocket").removeClass("fal");
+            $districtProposalCounter.find("a").addClass("active");
+            $districtProposalCounter.find(".fa-rocket").addClass("fas");
+            $districtProposalCounter.find(".fa-rocket").removeClass("fal");
             $buttonColumnC.addClass('on')
             $buttonColumnC.blur()
         }else{
-            $(".leader-post .footer .comment-counter button").removeClass("active");
-            $(".leader-post .footer .comment-counter button").find(".fa-rocket").removeClass("fas");
-            $(".leader-post .footer .comment-counter button").find(".fa-rocket").addClass("fal");
+            console.log($districtProposalCounter)
+            $districtProposalCounter.find("a").removeClass("active");
+            $districtProposalCounter.find(".fa-rocket").removeClass("fas");
+            $districtProposalCounter.find(".fa-rocket").addClass("fal");
             $buttonColumnC.removeClass('on')
             $buttonColumnC.blur()
         }
-        $(".leader-post .footer .comment-counter button").find(".number").html(districtProposalRSDTO.numSupports);
+        $(".leader-post .footer .comment-counter .districtProposal-support").find(".number").html(districtProposalRSDTO.numSupports);
     }
 
 }
