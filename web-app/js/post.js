@@ -55,7 +55,7 @@ var postFunctions = {
         var postUserId = $button.attr('data-postUserId');
         var url = $button.attr('data-urlAction');
 
-        var like = $button.find('.fa').hasClass('fa-heart-o');
+        var like = $button.find('.fa-heart').hasClass('fal');
         var data = {
             postId: postId,
             postUserId: postUserId,
@@ -68,7 +68,7 @@ var postFunctions = {
             data: data,
             success: function(postRSDTO){
                 $button.toggleClass('active');
-                $button.find('.fa').toggleClass("fa-heart-o fa-heart");
+                $button.find('.fa-heart').toggleClass("fas fal");
                 $button.find('.number').text(postRSDTO.likes);
                 if (callback != undefined){
                     callback();
