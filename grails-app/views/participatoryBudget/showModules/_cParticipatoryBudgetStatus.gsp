@@ -37,7 +37,7 @@
                     <g:if test="${status == org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.RESULTS}"><g:set var="statusDate"><g:formatDate type="date" style="small" date="${participatoryBudget.deadLineResults}"/></g:set><g:set var="statusDateMsgCode" value="participatoryBudget.status.from"/></g:if>
                     <span>(<g:message code="${statusDateMsgCode}" args="[statusDate]"/>)</span>
                     <userUtil:ifUserIsTheLoggedOne user="${campaignUser}">
-                        <a data-status="${status}" data-status-text="${g.message(code:"org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.${status}")}"><span class="fal hand-point-left rigth"></span></a>
+                        <a data-status="${status}" data-status-text="${g.message(code:"org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.${status}")}"><span class="fal fa-hand-point-left rigth"></span></a>
                     </userUtil:ifUserIsTheLoggedOne>
                 </li>
             </g:each>
