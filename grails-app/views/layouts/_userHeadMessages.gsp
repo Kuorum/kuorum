@@ -1,6 +1,6 @@
 <li class="dropdown underline box">
     <a data-target="#" href="#" class="dropdown-toggle dropdown-menu-right navbar-link" id="open-user-messages" data-toggle="dropdown" role="button">
-        <span class="fa fa-envelope fa-lg"></span>
+        <span class="fal fa-envelope fa-lg"></span>
         <span class="visible-xs" id="messages">Mensajes</span>
         <span class="badge pull-right" role="log" aria-labelledby="messages" aria-live="assertive" aria-relevant="additions"></span>
     </a>

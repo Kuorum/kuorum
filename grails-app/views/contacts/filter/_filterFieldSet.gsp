@@ -28,7 +28,7 @@
         <fieldset class="form-group new-filter-options">
 
             <div class="col-sm-2 col-sm-offset-2 col-md-2 col-md-offset-1">
-                <a href="#" role="button" class="minus-condition"><span class="fa fa-minus-circle fa-lg"></span> <span class="text">Delete condition</span></a>
+                <a href="#" role="button" class="minus-condition"><span class="fal fa-minus-circle fa-lg"></span> <span class="text">Delete condition</span></a>
                 <formUtil:selectEnum
                         field="field"
                         command="${listCommand}"
@@ -137,7 +137,7 @@
     <fieldset class="form-group new-filter-options last">
         <div class="col-sm-2 col-sm-offset-2 col-md-2 col-md-offset-1">
             <a href="#" role="button" class="plus-condition addButton">
-                <span class="fa fa-plus-circle fa-lg"></span>
+                <span class="fal fa-plus-circle fa-lg"></span>
                 <span class="text"><g:message code="tools.contact.filter.form.add"/></span>
             </a>
         </div>
@@ -146,7 +146,7 @@
     <%-- miguel procedo a crear una clase para este fielfset en concreto  --%>
     <fieldset class="new-filter-actions">
         <g:link mapping="politicianContactsSearch" elementId="numberRecipients"><g:message code="tools.contact.filter.form.recipients" args="[filter.amountOfContacts==null?'-':filter.amountOfContacts]"/></g:link>
-        <g:link mapping="politicianContactFilterRefresh"    data-callaBackFunction="campaignFilterRefresh" role="button" class="btn btn-blue inverted" elementId="refreshFilter"><span class="fa fa-refresh"></span> <g:message code="tools.contact.filter.form.refresh"/></g:link>
+        <g:link mapping="politicianContactFilterRefresh"    data-callaBackFunction="campaignFilterRefresh" role="button" class="btn btn-blue inverted" elementId="refreshFilter"><span class="far fa-sync-alt"></span> <g:message code="tools.contact.filter.form.refresh"/></g:link>
         <g:link mapping="politicianContactFilterUpdate"     data-callaBackFunction="campaignFilterSave" role="button" class="btn btn-blue inverted ${filter?.id==-2?'disabled':''}" elementId="saveFilter"><g:message code="tools.contact.filter.form.save"/></g:link>
         <a href="#"        role="button" class="btn btn-blue inverted" id="saveFilterAsBtnOpenModal"><g:message code="tools.contact.filter.form.saveAs"/></a>
         <div id="saveFilterAsPopUp">
@@ -155,6 +155,6 @@
             <g:link mapping="politicianContactFilterNew" data-callaBackFunction="campaignFilterSaveAs" type="submit" class="btn btn-blue inverted" elementId="saveFilterAs"><g:message code="tools.contact.filter.form.save.submit"/></g:link>
             <a href="#" id="saveFilterAsBtnCancel"><g:message code="tools.contact.filter.form.save.cancel"/></a>
         </div>
-        <g:link mapping="politicianContactFilterDelete" params="[filterId:filter.id]" data-callaBackFunction="" role="button" class="btn btn-transparent ${filter?.id<=0 ?'disabled':''}" elementId="deleteFilter" title="${g.message(code:'tools.contact.filter.form.delete')}"><span class="fa fa-trash"></span></g:link>
+        <g:link mapping="politicianContactFilterDelete" params="[filterId:filter.id]" data-callaBackFunction="" role="button" class="btn btn-transparent ${filter?.id<=0 ?'disabled':''}" elementId="deleteFilter" title="${g.message(code:'tools.contact.filter.form.delete')}"><span class="fal fa-trash"></span></g:link>
     </fieldset>
 </div>

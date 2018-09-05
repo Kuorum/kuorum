@@ -7,9 +7,9 @@
         <button type="button" class="btn btn-orange btn-lg call-message">
             <g:message code="event.callToAction.button"/>
         </button>
-        <span class="fa fa-caret-down arrow"></span>
+        <span class="fas fa-caret-down arrow"></span>
         <button type="button" class="btn btn-orange btn-xl btn-circle call-button">
-            <span class="fa fa-ticket fa-2x"></span>
+            <span class="fal fa-ticket-alt fa-2x"></span>
         </button>
     </div>
 </g:if>

@@ -220,7 +220,7 @@ class NavigationTagLib {
                         data-offset="${pagination.max}"
                         data-callback="${callback}">
                         ${message(code:"search.list.seeMore")}
-                        <span class="fa fa-angle-down"></span>
+                        <span class="fal fa-angle-down"></span>
                     </a>
                 </div>
                 """

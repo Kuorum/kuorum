@@ -3292,7 +3292,7 @@ MediumEditor.extensions = {};
             },
             useQueryState: true,
             contentDefault: '<b>B</b>',
-            contentFA: '<i class="fa fa-bold"></i>'
+            contentFA: '<i class="fas fa-bold"></i>'
         },
         'italic': {
             name: 'italic',
@@ -3305,7 +3305,7 @@ MediumEditor.extensions = {};
             },
             useQueryState: true,
             contentDefault: '<b><i>I</i></b>',
-            contentFA: '<i class="fa fa-italic"></i>'
+            contentFA: '<i class="fal fa-italic"></i>'
         },
         'underline': {
             name: 'underline',
@@ -3318,7 +3318,7 @@ MediumEditor.extensions = {};
             },
             useQueryState: true,
             contentDefault: '<b><u>U</u></b>',
-            contentFA: '<i class="fa fa-underline"></i>'
+            contentFA: '<i class="fal fa-underline"></i>'
         },
         'strikethrough': {
             name: 'strikethrough',
@@ -3331,7 +3331,7 @@ MediumEditor.extensions = {};
             },
             useQueryState: true,
             contentDefault: '<s>A</s>',
-            contentFA: '<i class="fa fa-strikethrough"></i>'
+            contentFA: '<i class="fal fa-strikethrough"></i>'
         },
         'superscript': {
             name: 'superscript',
@@ -3342,7 +3342,7 @@ MediumEditor.extensions = {};
                https://github.com/guardian/scribe/blob/master/BROWSERINCONSISTENCIES.md#documentquerycommandstate */
             // useQueryState: true
             contentDefault: '<b>x<sup>1</sup></b>',
-            contentFA: '<i class="fa fa-superscript"></i>'
+            contentFA: '<i class="fal fa-superscript"></i>'
         },
         'subscript': {
             name: 'subscript',
@@ -3353,7 +3353,7 @@ MediumEditor.extensions = {};
                https://github.com/guardian/scribe/blob/master/BROWSERINCONSISTENCIES.md#documentquerycommandstate */
             // useQueryState: true
             contentDefault: '<b>x<sub>1</sub></b>',
-            contentFA: '<i class="fa fa-subscript"></i>'
+            contentFA: '<i class="fal fa-subscript"></i>'
         },
         'image': {
             name: 'image',
@@ -3361,7 +3361,7 @@ MediumEditor.extensions = {};
             aria: 'image',
             tagNames: ['img'],
             contentDefault: '<b>image</b>',
-            contentFA: '<i class="fa fa-picture-o"></i>'
+            contentFA: '<i class="fal fa-picture-o"></i>'
         },
         'orderedlist': {
             name: 'orderedlist',
@@ -3370,7 +3370,7 @@ MediumEditor.extensions = {};
             tagNames: ['ol'],
             useQueryState: true,
             contentDefault: '<b>1.</b>',
-            contentFA: '<i class="fa fa-list-ol"></i>'
+            contentFA: '<i class="fal fa-list-ol"></i>'
         },
         'unorderedlist': {
             name: 'unorderedlist',
@@ -3379,7 +3379,7 @@ MediumEditor.extensions = {};
             tagNames: ['ul'],
             useQueryState: true,
             contentDefault: '<b>&bull;</b>',
-            contentFA: '<i class="fa fa-list-ul"></i>'
+            contentFA: '<i class="fal fa-list-ul"></i>'
         },
         'indent': {
             name: 'indent',
@@ -3387,7 +3387,7 @@ MediumEditor.extensions = {};
             aria: 'indent',
             tagNames: [],
             contentDefault: '<b>&rarr;</b>',
-            contentFA: '<i class="fa fa-indent"></i>'
+            contentFA: '<i class="fal fa-indent"></i>'
         },
         'outdent': {
             name: 'outdent',
@@ -3395,7 +3395,7 @@ MediumEditor.extensions = {};
             aria: 'outdent',
             tagNames: [],
             contentDefault: '<b>&larr;</b>',
-            contentFA: '<i class="fa fa-outdent"></i>'
+            contentFA: '<i class="fal fa-outdent"></i>'
         },
         'justifyCenter': {
             name: 'justifyCenter',
@@ -3407,7 +3407,7 @@ MediumEditor.extensions = {};
                 value: 'center'
             },
             contentDefault: '<b>C</b>',
-            contentFA: '<i class="fa fa-align-center"></i>'
+            contentFA: '<i class="fal fa-align-center"></i>'
         },
         'justifyFull': {
             name: 'justifyFull',
@@ -3419,7 +3419,7 @@ MediumEditor.extensions = {};
                 value: 'justify'
             },
             contentDefault: '<b>J</b>',
-            contentFA: '<i class="fa fa-align-justify"></i>'
+            contentFA: '<i class="fal fa-align-justify"></i>'
         },
         'justifyLeft': {
             name: 'justifyLeft',
@@ -3431,7 +3431,7 @@ MediumEditor.extensions = {};
                 value: 'left'
             },
             contentDefault: '<b>L</b>',
-            contentFA: '<i class="fa fa-align-left"></i>'
+            contentFA: '<i class="fal fa-align-left"></i>'
         },
         'justifyRight': {
             name: 'justifyRight',
@@ -3443,7 +3443,7 @@ MediumEditor.extensions = {};
                 value: 'right'
             },
             contentDefault: '<b>R</b>',
-            contentFA: '<i class="fa fa-align-right"></i>'
+            contentFA: '<i class="fal fa-align-right"></i>'
         },
         // Known inline elements that are not removed, or not removed consistantly across browsers:
         // <span>, <label>, <br>
@@ -3452,7 +3452,7 @@ MediumEditor.extensions = {};
             aria: 'remove formatting',
             action: 'removeFormat',
             contentDefault: '<b>X</b>',
-            contentFA: '<i class="fa fa-eraser"></i>'
+            contentFA: '<i class="fal fa-eraser"></i>'
         },
 
         /***** Buttons for appending block elements (append-<element> action) *****/
@@ -3463,7 +3463,7 @@ MediumEditor.extensions = {};
             aria: 'blockquote',
             tagNames: ['blockquote'],
             contentDefault: '<b>&ldquo;</b>',
-            contentFA: '<i class="fa fa-quote-right"></i>'
+            contentFA: '<i class="fal fa-quote-right"></i>'
         },
         'pre': {
             name: 'pre',
@@ -3471,7 +3471,7 @@ MediumEditor.extensions = {};
             aria: 'preformatted text',
             tagNames: ['pre'],
             contentDefault: '<b>0101</b>',
-            contentFA: '<i class="fa fa-code fa-lg"></i>'
+            contentFA: '<i class="fal fa-code fa-lg"></i>'
         },
         'h1': {
             name: 'h1',
@@ -3479,7 +3479,7 @@ MediumEditor.extensions = {};
             aria: 'header type one',
             tagNames: ['h1'],
             contentDefault: '<b>H1</b>',
-            contentFA: '<i class="fa fa-header"><sup>1</sup>'
+            contentFA: '<i class="fal fa-header"><sup>1</sup>'
         },
         'h2': {
             name: 'h2',
@@ -3487,7 +3487,7 @@ MediumEditor.extensions = {};
             aria: 'header type two',
             tagNames: ['h2'],
             contentDefault: '<b>H2</b>',
-            contentFA: '<i class="fa fa-header"><sup>2</sup>'
+            contentFA: '<i class="fal fa-header"><sup>2</sup>'
         },
         'h3': {
             name: 'h3',
@@ -3495,7 +3495,7 @@ MediumEditor.extensions = {};
             aria: 'header type three',
             tagNames: ['h3'],
             contentDefault: '<b>H3</b>',
-            contentFA: '<i class="fa fa-header"><sup>3</sup>'
+            contentFA: '<i class="fal fa-header"><sup>3</sup>'
         },
         'h4': {
             name: 'h4',
@@ -3503,7 +3503,7 @@ MediumEditor.extensions = {};
             aria: 'header type four',
             tagNames: ['h4'],
             contentDefault: '<b>H4</b>',
-            contentFA: '<i class="fa fa-header"><sup>4</sup>'
+            contentFA: '<i class="fal fa-header"><sup>4</sup>'
         },
         'h5': {
             name: 'h5',
@@ -3511,7 +3511,7 @@ MediumEditor.extensions = {};
             aria: 'header type five',
             tagNames: ['h5'],
             contentDefault: '<b>H5</b>',
-            contentFA: '<i class="fa fa-header"><sup>5</sup>'
+            contentFA: '<i class="fal fa-header"><sup>5</sup>'
         },
         'h6': {
             name: 'h6',
@@ -3519,7 +3519,7 @@ MediumEditor.extensions = {};
             aria: 'header type six',
             tagNames: ['h6'],
             contentDefault: '<b>H6</b>',
-            contentFA: '<i class="fa fa-header"><sup>6</sup>'
+            contentFA: '<i class="fal fa-header"><sup>6</sup>'
         }
     };
 
@@ -3689,7 +3689,7 @@ MediumEditor.extensions = {};
         aria: 'link',
         tagNames: ['a'],
         contentDefault: '<b>#</b>',
-        contentFA: '<i class="fa fa-link"></i>',
+        contentFA: '<i class="fal fa-link"></i>',
 
         init: function () {
             MediumEditor.extensions.form.prototype.init.apply(this, arguments);
@@ -3740,12 +3740,12 @@ MediumEditor.extensions = {};
 
             template.push(
                 '<a href="#" class="medium-editor-toolbar-save">',
-                this.getEditorOption('buttonLabels') === 'fontawesome' ? '<i class="fa fa-check"></i>' : this.formSaveLabel,
+                this.getEditorOption('buttonLabels') === 'fontawesome' ? '<i class="far fa-check"></i>' : this.formSaveLabel,
                 '</a>'
             );
 
             template.push('<a href="#" class="medium-editor-toolbar-close">',
-                this.getEditorOption('buttonLabels') === 'fontawesome' ? '<i class="fa fa-times"></i>' : this.formCloseLabel,
+                this.getEditorOption('buttonLabels') === 'fontawesome' ? '<i class="fal fa-times"></i>' : this.formCloseLabel,
                 '</a>');
 
             // both of these options are slightly moot with the ability to
@@ -4753,7 +4753,7 @@ MediumEditor.extensions = {};
         action: 'fontName',
         aria: 'change font name',
         contentDefault: '&#xB1;', // ±
-        contentFA: '<i class="fa fa-font"></i>',
+        contentFA: '<i class="fal fa-font"></i>',
 
         fonts: ['', 'Arial', 'Verdana', 'Times New Roman'],
 
@@ -4866,7 +4866,7 @@ MediumEditor.extensions = {};
             save.setAttribute('href', '#');
             save.className = 'medium-editor-toobar-save';
             save.innerHTML = this.getEditorOption('buttonLabels') === 'fontawesome' ?
-                             '<i class="fa fa-check"></i>' :
+                             '<i class="far fa-check"></i>' :
                              '&#10003;';
             form.appendChild(save);
 
@@ -4877,7 +4877,7 @@ MediumEditor.extensions = {};
             close.setAttribute('href', '#');
             close.className = 'medium-editor-toobar-close';
             close.innerHTML = this.getEditorOption('buttonLabels') === 'fontawesome' ?
-                              '<i class="fa fa-times"></i>' :
+                              '<i class="fal fa-times"></i>' :
                               '&times;';
             form.appendChild(close);
 
@@ -4938,7 +4938,7 @@ MediumEditor.extensions = {};
         action: 'fontSize',
         aria: 'increase/decrease font size',
         contentDefault: '&#xB1;', // ±
-        contentFA: '<i class="fa fa-text-height"></i>',
+        contentFA: '<i class="fal fa-text-height"></i>',
 
         init: function () {
             MediumEditor.extensions.form.prototype.init.apply(this, arguments);
@@ -5044,7 +5044,7 @@ MediumEditor.extensions = {};
             save.setAttribute('href', '#');
             save.className = 'medium-editor-toobar-save';
             save.innerHTML = this.getEditorOption('buttonLabels') === 'fontawesome' ?
-                             '<i class="fa fa-check"></i>' :
+                             '<i class="far fa-check"></i>' :
                              '&#10003;';
             form.appendChild(save);
 
@@ -5055,7 +5055,7 @@ MediumEditor.extensions = {};
             close.setAttribute('href', '#');
             close.className = 'medium-editor-toobar-close';
             close.innerHTML = this.getEditorOption('buttonLabels') === 'fontawesome' ?
-                              '<i class="fa fa-times"></i>' :
+                              '<i class="fal fa-times"></i>' :
                               '&times;';
             form.appendChild(close);
 

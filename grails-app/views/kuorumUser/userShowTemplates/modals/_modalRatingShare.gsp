@@ -9,7 +9,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true" class="fa fa-times-circle-o fa"></span><span class="sr-only">Cerrar</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true" class="fal fa-times-circle fa"></span><span class="sr-only">Cerrar</span></button>
                 <h4 class="modal-title">${titleModal}</h4>
             </div>
             <div class="modal-body clearfix">
@@ -25,7 +25,7 @@
                         <li>
                             <g:set var="facebookLink">https://www.facebook.com/sharer/sharer.php?u=${userLink}</g:set>
                             <a href="${facebookLink}" target="_blank" title="${g.message(code:"project.social.facebook")}">
-                                <i class="social-share fa fa-facebook"></i>
+                                <i class="social-share fab fa-facebook-f"></i>
                             </a>
                         </li>
                         <li>
@@ -37,17 +37,17 @@
                             <g:set var="twitterLink">https://twitter.com/share?url=${userLink}&text=${twitterShareText}&hashtags=${user.alias?:""}</g:set>
 
                             <a href="${twitterLink}" target="_blank" title="${g.message(code: 'project.social.twitter')}">
-                                <i class="social-share fa fa-twitter"></i>
+                                <i class="social-share fab fa-twitter"></i>
                             </a>
                         </li>
                         <li>
                             <a href="https://plus.google.com/share?url=${userLink}" target="_blank" title="${g.message(code:'project.social.googlePlus')}">
-                                <i class="social-share fa fa-google-plus"></i>
+                                <i class="social-share fab fa-google-plus-g"></i>
                             </a>
                         </li>
                         <li>
                             <a href="http://www.linkedin.com/shareArticle?mini=true&url=${userLink}&title=${user.name}&summary=${user.bio}&source=kuorum.org" target="_blank" title="${g.message(code:'project.social.linkedin')}">
-                                <i class="social-share fa fa-linkedin"></i>
+                                <i class="social-share fab fa-linkedin"></i>
                             </a>
                         </li>
                     </ul>

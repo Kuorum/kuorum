@@ -7,7 +7,7 @@
     %{--<li>--}%
         %{--<a href="https://github.com/Kuorum/kuorum" hreflang="en" target="_blank">--}%
             %{--<span class="sr-only">Github</span>--}%
-            %{--<span class="fa fa-github fa-3x"></span>--}%
+            %{--<span class="fal fa-github fa-3x"></span>--}%
         %{--</a>--}%
     %{--</li>--}%
     %{--<li>--}%

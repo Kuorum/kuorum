@@ -1,7 +1,7 @@
 <sec:access expression="hasPermission('${user.id}', 'kuorum.users.KuorumUser', 'edit')">
         <!-- FLECHITA PARA ABRIR MENÚ -->
     <span class="popover-trigger open-menu" rel="popover" role="button" data-toggle="popover">
-        <span class="fa fa-chevron-circle-down"></span>
+        <span class="fal fa-chevron-circle-down"></span>
         <span class="sr-only"><g:message code="project.list.show.options"/></span>
     </span>
     <!-- POPOVER OPCIONES EDICIÓN -->

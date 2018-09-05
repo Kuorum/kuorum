@@ -41,14 +41,14 @@
                     <div class="col-sm-3">
                         <!-- para activarlo añadir clase "on" -->
                         <g:link mapping="politicianContactFilterData" role="button" elementId="filterContacts" title="${g.message(code:'tools.contact.filter.conditions.open')}">
-                            <span class="fa fa-filter fa-lg"></span>
+                            <span class="fas fa-filter fa-lg"></span>
                             <span class="sr-only">Filter contacts</span>
                         </g:link>
                         <g:link mapping="politicianContactsSearch" elementId="infoToContacts">
                             <span class="amountRecipients">${anonymousFilter?anonymousFilter.amountOfContacts:contacts.total}</span>
                             <g:message code="tools.massMailing.fields.filter.recipients"/>
-                            %{--<span class="fa fa-filter fa-lg"></span>--}%
-                            %{--<span class="fa fa-search fa-lg"></span>--}%
+                            %{--<span class="fas fa-filter fa-lg"></span>--}%
+                            %{--<span class="fal fa-search fa-lg"></span>--}%
                         </g:link>
                     </div>
                     <div class="col-sm-3 col-md-2 col-lg-3">
@@ -64,22 +64,22 @@
                         <ul>
                             <li>
                                 <g:link mapping="politicianContactImport" class="btn btn-blue inverted">
-                                    <span class="fa fa-plus"></span>
+                                    <span class="far fa-plus"></span>
                                     <g:message code="tools.contact.list.import"/>
                                 </g:link>
                             </li>
                             <li>
-                                <a href="#" role="button" id="openContactsOptions" class="btn btn-blue inverted dropdown-toggle" data-toggle="dropdown"><span class="fa fa-caret-down fa-lg"></span></a>
+                                <a href="#" role="button" id="openContactsOptions" class="btn btn-blue inverted dropdown-toggle" data-toggle="dropdown"><span class="fas fa-caret-down fa-lg"></span></a>
                                 <ul id="contactsOptions" class="dropdown-menu dropdown-menu-right" aria-labelledby="openContactsOptions" role="menu">
                                     <li>
                                         <g:link mapping="politicianContactExport" elementId="exportContacts">
-                                            <span class="fa fa-file-excel-o"></span>
+                                            <span class="fal fa-file-excel"></span>
                                             <g:message code="tools.contact.list.export.csv"/>
                                         </g:link>
                                     </li>
                                     <li>
                                         <g:link mapping="politicianContactNew" class="">
-                                            <span class="fa fa-user-plus"></span>
+                                            <span class="fal fa-user-plus"></span>
                                             <g:message code="tools.contact.list.newContact"/>
                                         </g:link>
                                     </li>

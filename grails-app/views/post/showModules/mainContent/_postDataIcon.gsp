@@ -9,7 +9,7 @@
             data-campaignValidationActive="${post.checkValidationActive}"
             data-loggedUser="${sec.username()}"
     >
-        <span class="fa ${activeButton?'fa-heart':'fa-heart-o'}" aria-hidden="true"></span>
+        <span class="${activeButton?'fal':'fas'} fa-heart" aria-hidden="true"></span>
         <span class="number">${post.likes}</span>
     </button>
 </div>

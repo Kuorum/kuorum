@@ -2,13 +2,13 @@
 <div class="actions">
     <g:if test="${campaign && campaign instanceof org.kuorum.rest.model.communication.debate.DebateRSDTO}">
         <g:link mapping="politicianMassMailingDebateStatsReport" params="[campaignId:campaign.id]" class="btn btn-blue inverted export-modal-button" data-modalId="export-debateStats-modal">
-            <span class="fa fa-file-excel-o"></span>
+            <span class="fal fa-file-excel"></span>
             <g:message code="tools.massMailing.view.stats.debate.report"/>
         </g:link>
     </g:if>
     <g:if test="${campaign && campaign instanceof org.kuorum.rest.model.communication.survey.SurveyRSDTO}">
         <g:link mapping="politicianMassMailingSurveyStatsReport" params="[campaignId:campaign.id]" class="btn btn-blue inverted export-modal-button" data-modalId="export-surveyStats-modal">
-            <span class="fa fa-file-excel-o"></span>
+            <span class="fal fa-file-excel"></span>
             <g:message code="tools.massMailing.view.stats.survey.report"/>
         </g:link>
     </g:if>

@@ -11,14 +11,14 @@
 <g:set var="btnStatusTextOff"><g:message code="districtProposal.callToAction.${districtProposal.participatoryBudget.status}.button.off"/></g:set>
 <g:set var="btnStatusTextOffHover"><g:message code="districtProposal.callToAction.${districtProposal.participatoryBudget.status}.button.off.hover"/></g:set>
 
-<g:set var="callButtonMsgOff"><span class="fa fa-rocket"></span> <g:message code="districtProposal.callToAction.${districtProposal.participatoryBudget.status}.button.off"/></g:set>
-<g:set var="callButtonMsgOffHover"><span class="fa fa-rocket"></span> <g:message code="districtProposal.callToAction.${districtProposal.participatoryBudget.status}.button.off.hover"/></g:set>
+<g:set var="callButtonMsgOff"><span class="fal fa-rocket"></span> <g:message code="districtProposal.callToAction.${districtProposal.participatoryBudget.status}.button.off"/></g:set>
+<g:set var="callButtonMsgOffHover"><span class="fal fa-rocket"></span> <g:message code="districtProposal.callToAction.${districtProposal.participatoryBudget.status}.button.off.hover"/></g:set>
 
 <g:if test="${districtProposal.participatoryBudget.status == org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.ADDING_PROPOSALS}">
     <g:set var="callTitleMsg" value="${g.message(code:"districtProposal.callToAction.${districtProposal.participatoryBudget.status}.title", args: [campaignUser.name])}"/>
     <g:set var="callSubtitleMsg" value="${g.message(code:"districtProposal.callToAction.${districtProposal.participatoryBudget.status}.subtitle", args: [campaignUser.name])}"/>
     <g:set var="callButtonActive" value="${districtProposal.isSupported}"/>
-    <g:set var="callButtonMsgIcon"><span class="fa fa-rocket"></span></g:set>
+    <g:set var="callButtonMsgIcon"><span class="fal fa-rocket"></span></g:set>
     <g:set var="callButtonShow" value="${districtProposal.published}"/>
     <g:set var="callButtonAction" value="${g.createLink(mapping:'participatoryBudgetDistrictProposalSupport', params:districtProposal.encodeAsLinkProperties())}"/>
     <g:set var="callButtonActionClass" value="districtProposal-support"/>
@@ -34,7 +34,7 @@
     <g:set var="callTitleMsg" value="${g.message(code:"districtProposal.callToAction.${districtProposal.participatoryBudget.status}.title", args: [campaignUser.name])}"/>
     <g:set var="callSubtitleMsg" value="${g.message(code:"districtProposal.callToAction.${districtProposal.participatoryBudget.status}.subtitle", args: [campaignUser.name])}"/>
     <g:set var="callButtonActive" value="${districtProposal.isVoted}"/>
-    <g:set var="callButtonMsgIcon"><span class="fa fa-shopping-cart"></span></g:set>
+    <g:set var="callButtonMsgIcon"><span class="fal fa-shopping-cart"></span></g:set>
     <g:set var="callButtonShow" value="${districtProposal.published}"/>
     <g:set var="callButtonAction" value="${g.createLink(mapping:'participatoryBudgetDistrictProposalVote', params:districtProposal.encodeAsLinkProperties())}"/>
     <g:set var="callButtonActionClass" value="districtProposal-vote"/>

@@ -4,10 +4,10 @@ modules = {
 
     basic{
         resource url: 'css/bootstrap.min.css'
-        resource url: 'fonts/font-awesome/css/font-awesome.min.css'
-        resource url: 'fonts/icomoon/styles.css'
-        resource url: 'fonts/icomoon2/styles.css'
-        resource url: 'fonts/icomoon3/styles.css'
+        resource url: 'fonts/fontawesome-pro-5.3.1-web/css/all.min.css'
+//        resource url: 'fonts/icomoon/styles.css'
+//        resource url: 'fonts/icomoon2/styles.css'
+//        resource url: 'fonts/icomoon3/styles.css'
         resource url:'js/jquery.min.js'
         resource url:'js/bootstrap.min.js'
         resource url:[dir:'css',file:'style_ie.css'], attrs:[media:'screen'], wrapper: { s -> "<!--[if IE]>$s<![endif]-->" }

@@ -16,7 +16,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
-                    <span aria-hidden="true" class="fa fa-times-circle-o fa"></span><span class="sr-only">Cerrar</span>
+                    <span aria-hidden="true" class="fal fa-times-circle fa"></span><span class="sr-only">Cerrar</span>
                 </button>
                 <h4 id="filtersRecipients"><g:message code="tools.contact.filter.quickList.title"/></h4>
             </div>
@@ -51,7 +51,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
-                    <span aria-hidden="true" class="fa fa-times-circle-o fa"></span><span class="sr-only">Cerrar</span>
+                    <span aria-hidden="true" class="fal fa-times-circle fa"></span><span class="sr-only">Cerrar</span>
                 </button>
                 <h4 id="filtersDeleteTitle"><g:message code="tools.contact.filter.delete.title"/>: '<span class="filter-name">XXX</span>'</h4>
             </div>

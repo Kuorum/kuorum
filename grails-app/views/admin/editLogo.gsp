@@ -24,7 +24,7 @@
                 </span>
                 </form>
             </label>
-            <button type="submit" class="btn btn-primary" onclick="pageLoadingOn('submitLogo')"><g:message code="admin.menu.uploadLogo.sendFile"/> <i class="fa fa-cloud-upload fa-2" aria-hidden="true"></i></button>
+            <button type="submit" class="btn btn-primary" onclick="pageLoadingOn('submitLogo')"><g:message code="admin.menu.uploadLogo.sendFile"/> <i class="fal fa-cloud-upload fa-2" aria-hidden="true"></i></button>
         </div>
     </g:uploadForm>
 </content>

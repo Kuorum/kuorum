@@ -40,7 +40,7 @@
                 <g:if test="${post.event}">
                     <li>
                         <g:link mapping="postShow" params="${post.encodeAsLinkProperties()}" role="button" class="${post.event.registered?'active':''}">
-                            <span class="fa fa fa-ticket fa-lg"></span>
+                            <span class="fal fa-ticket-alt fa-lg"></span>
                             <span class="number">${post.event.amountAssistants}</span>
                         </g:link>
                     </li>
@@ -54,7 +54,7 @@
                            data-postUserId="${post.user.id}"
                            data-urlAction="${g.createLink(mapping: "postLike")}"
                            data-loggedUser="${sec.username()}">
-                            <span class="fa ${post.liked && isLogged?'fa-heart':'fa-heart-o'} fa-lg"></span>
+                            <span class="${post.liked && isLogged?'fas':'fal'} fa-heart fa-lg"></span>
                             <span class="number">${post.likes}</span>
                         </a>
                     </li>

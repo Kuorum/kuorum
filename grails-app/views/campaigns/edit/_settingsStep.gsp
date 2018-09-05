@@ -46,8 +46,8 @@
                     <g:message code="tools.massMailing.advanced-features.title"/>
                     <span class="go-up stack">
                         <span class="fa-stack fa-lg" aria-hidden="true">
-                            <span class="fa fa-circle fa-stack-1x"></span>
-                            <span class="fa fa-angle-down fa-stack-1x fa-inverse"></span>
+                            <span class="fas fa-circle fa-stack-1x"></span>
+                            <span class="fal fa-angle-down fa-stack-1x fa-inverse"></span>
                         </span>
                     </span>
                 </a>
@@ -58,7 +58,7 @@
         <div id="advanced-features">
             <fieldset class="form-group fieldset-check-box">
                 <label for="checkValidation" class="col-sm-2 col-md-1 control-label">
-                    <span class="fa fa-info-circle" data-toggle="tooltip" data-placement="top" title="${g.message(code:'kuorum.web.commands.payment.CampaignSettingsCommand.checkValidation.label.info')}"></span>
+                    <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="${g.message(code:'kuorum.web.commands.payment.CampaignSettingsCommand.checkValidation.label.info')}"></span>
                     <g:message code="kuorum.web.commands.payment.CampaignSettingsCommand.checkValidation.label.left"/>:
                 </label>
                 <div class="col-sm-8 col-md-7">
@@ -77,7 +77,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
-                    <span aria-hidden="true" class="fa fa-times-circle-o fa"></span><span class="sr-only"><g:message code="modalDefend.close"/></span>
+                    <span aria-hidden="true" class="fal fa-times-circle fa"></span><span class="sr-only"><g:message code="modalDefend.close"/></span>
                 </button>
                 <h4>
                     <g:message code="tools.massMailing.warnFilterEdited.title"/>

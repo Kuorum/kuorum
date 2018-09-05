@@ -9,7 +9,7 @@
             <h3 class="panel-title">
                 <g:message code="modules.causes.topCauses.title"/>
             </h3>
-            <g:link mapping="profileCauses"> <span class="fa fa-edit"></span></g:link>
+            <g:link mapping="profileCauses"> <span class="fal fa-edit"></span></g:link>
         </div>
         <div class="panel-body">
             <ul class="causes-tags hide10">

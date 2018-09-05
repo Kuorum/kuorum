@@ -10,7 +10,7 @@
             <span>
                 <a href="#" role="button" id="openAddInfo" class="dropdown-toggle" data-toggle="dropdown">
                     <g:message code="dashboard.payment.profile.percentageComplete.percentage" args="[percentageComplete]"/>
-                    <span class="fa fa-caret-down fa-lg"></span>
+                    <span class="fas fa-caret-down fa-lg"></span>
                 </a>
                 <ul id="addInfo" class="dropdown-menu dropdown-menu-right" aria-labelledby="openAddInfo" role="menu">
                     <g:each in="${emptyEditableData.fields}" var="fieldToCheck">

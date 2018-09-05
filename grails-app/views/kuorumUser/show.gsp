@@ -47,7 +47,7 @@
             <div class="extra-padding text-left following">
                 %{--<g:message code="kuorumUser.show.module.followers.title" args="[politician.numFollowers]"/>--}%
                 <userUtil:ifIsFollower user="${politician}">
-                    <i class="fa fa-check-circle-o"></i><g:message code="kuorumUser.popover.follower"/>
+                    <i class="fal fa-check-circle"></i><g:message code="kuorumUser.popover.follower"/>
                 </userUtil:ifIsFollower>
             </div>
             <div class="extra-padding" id="politician-bio">

@@ -43,7 +43,7 @@
 
                 <li>
                     <g:link mapping="surveyShow" params="${survey.encodeAsLinkProperties()}" fragment="survey-progress" role="button" class="${survey.completed?'active':''}">
-                        <span class="fa fa fa-pie-chart fa-lg"></span>
+                        <span class="fal fa-chart-pie fa-lg"></span>
                         <span class="number">${survey.amountAnswers}</span>
                     </g:link>
                 </li>

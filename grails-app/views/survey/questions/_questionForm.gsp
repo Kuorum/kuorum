@@ -24,7 +24,7 @@
                         <formUtil:selectEnum field="questionType" command="${listCommand}" prefixFieldName="${prefixField}" showLabel="false"/>
                     </div>
                     <div class="col-xs-1 form-group form-group-remove no-label-lg">
-                        <button type="button" class="btn btn-transparent btn-lg btn-icon removeButton"><i class="fa fa-trash"></i></button>
+                        <button type="button" class="btn btn-transparent btn-lg btn-icon removeButton"><i class="fal fa-trash"></i></button>
                     </div>
                 </div>
             </div>
@@ -51,7 +51,7 @@
             <div class="col-xs-12 center">
                 <button type="button" class="btn btn-grey btn-lg addButton">
                     <g:message code="survey.form.button.addQuestion"/>
-                    <i class="fa fa-plus"></i>
+                    <i class="far fa-plus"></i>
                 </button>
             </div>
         </div>

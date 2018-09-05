@@ -1,6 +1,6 @@
 %{--<!-- POPOVER PARA IMÁGENES USUARIOS -->--}%
 <div class="popover">
-    %{--<button type="button" class="close" aria-hidden="true"  data-dismiss="popover"><span class="fa fa-times-circle-o fa"></span><span class="sr-only"><g:message code="kuorumUser.popover.close"/></span></button>--}%
+    %{--<button type="button" class="close" aria-hidden="true"  data-dismiss="popover"><span class="fal fa-times-circle fa"></span><span class="sr-only"><g:message code="kuorumUser.popover.close"/></span></button>--}%
     %{--<a href="#" class="hidden" rel="nofollow"><g:message code="kuorumUser.popover.showUser"/> </a>--}%
 
     <div class="popover-user">
@@ -17,7 +17,7 @@
             <userUtil:followButton user="${user}" cssSize="btn-xs"/>
             %{--<userUtil:ifIsFollower user="${user}">--}%
                 %{--<div class="pull-right">--}%
-                    %{--<span class="fa fa-check-circle-o"></span>--}%
+                    %{--<span class="fal fa-check-circle"></span>--}%
                     %{--<small><g:message code="kuorumUser.popover.follower"/></small>--}%
                 %{--</div>--}%
             %{--</userUtil:ifIsFollower>--}%

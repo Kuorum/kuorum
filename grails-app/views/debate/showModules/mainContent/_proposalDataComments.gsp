@@ -21,8 +21,8 @@
     %{--<div class="show-more-comments ${display}">--}%
         %{--<button type="button" class="go-up stack" data-anchor="conversation-box">--}%
             %{--<span class="pull-left fa-stack fa-lg" aria-hidden="true">--}%
-                %{--<span class="fa fa-circle dark fa-stack-2x"></span>--}%
-                %{--<span class="angle fa fa-angle-down fa-stack-1x fa-inverse"></span>--}%
+                %{--<span class="fas fa-circle dark fa-stack-2x"></span>--}%
+                %{--<span class="angle fal fa-angle-down fa-stack-1x fa-inverse"></span>--}%
             %{--</span>--}%
         %{--</button>--}%
     %{--</div>--}%
@@ -45,8 +45,8 @@
             %{--<div class="pull-left">--}%
                 %{--<button type="button" class="go-up stack" data-anchor="conversation-box">--}%
                     %{--<span class="pull-left fa-stack fa-lg" aria-hidden="true">--}%
-                        %{--<span class="fa fa-circle dark fa-stack-2x"></span>--}%
-                        %{--<span class="angle fa fa-angle-down fa-stack-1x fa-inverse"></span>--}%
+                        %{--<span class="fas fa-circle dark fa-stack-2x"></span>--}%
+                        %{--<span class="angle fal fa-angle-down fa-stack-1x fa-inverse"></span>--}%
                     %{--</span>--}%
                 %{--</button>--}%
             %{--</div>--}%

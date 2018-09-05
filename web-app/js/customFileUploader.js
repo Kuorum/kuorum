@@ -680,7 +680,7 @@ qq.GenericFileUploader = function(o){
         template:
             '<div class="form-group" id="'+buttonId+'">'+
                 '<span class="btn btn-file">'+
-                    '<span class="fa fa-paperclip fa-lg"></span>' +
+                    '<span class="fal fa-paperclip fa-lg"></span>' +
                     '<span id="'+textId+'">'+ o.text+'</span>'+
                 '</span>' +
                 '<div class="progress hidden" id="'+progressBarId+'">' +

@@ -74,7 +74,7 @@
                 <div class="col-sm-8 col-md-5">
                     <formUtil:input command="${command}" field="address"/>
                     <a href="#" class="btn btn-lg btn-icon btn-grey" id="geocode-address">
-                        <span class="fa fa-map-marker" ></span>
+                        <span class="fas fa-map-marker-alt" ></span>
                     </a>
                 </div>
                 <div id="edit-event-map" class="col-sm-offset-2 col-sm-8 col-md-offset-0 col-md-4"></div>

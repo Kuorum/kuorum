@@ -32,7 +32,7 @@
             </div>
         </g:if>
         <div class="event-confirm-success event-confirmed ${extraConfirmedClass}">
-            <g:message code="event.callToAction.success.text"/> <span class="fa fa-check"></span>
+            <g:message code="event.callToAction.success.text"/> <span class="far fa-check"></span>
         </div>
     </div>
 </g:if>

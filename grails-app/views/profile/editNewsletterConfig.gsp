@@ -68,7 +68,7 @@
         </fieldset>
         <fieldset class="validate">
             <div class="col-xs-12 valid ${checkVisibility}">
-                <i class="fa fa-check fa-2x"></i><span>${textInfo}</span>
+                <i class="fal fa-check fa-2x"></i><span>${textInfo}</span>
             </div>
         </fieldset>
     </div>

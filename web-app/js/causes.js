@@ -42,14 +42,13 @@ $(document).ready(function() {
 
 var causesFunctions={
     clickSupportCause:function($a, actionAfterSupport){
-        causesFunctions.hearBeat(2,  $a.find(".fa"));
+        causesFunctions.hearBeat(2,  $a.find(".fa-heart"));
         $.get(  $a.attr('href'), function( data ) {
             var citizenSupports = data.cause.citizenSupports;
             var $liCause = $a.parents(".cause");
             $liCause.toggleClass("active");
             $liCause.find(".cause-counter").html(citizenSupports);
             var $pannel = $liCause.parents(".panel.panel-default.causes")
-            console.log("Support cause"+!$liCause.hasClass("active") +" -- " + $pannel.hasClass("owner-causes"))
             if (!$liCause.hasClass("active") && $pannel.hasClass("owner-causes")){
                 $liCause.animate({width:'toggle'},350);
             }

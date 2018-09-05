@@ -1,7 +1,7 @@
 <div class="survey-question-answer ${option.checked?'checked':''}" data-answer-id="${option.id}" data-numAnswers="${option.amountAnswers}">
     <div class="multi-option">
-        <span class="fa fa-square-o check-icon"></span>
-        <span class="fa fa-check-square check-icon"></span>
+        <span class="fal fa-square check-icon"></span>
+        <span class="fas fa-check-square check-icon"></span>
         <span>${option.text}</span>
     </div>
     <div class="progress-info">

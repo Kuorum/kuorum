@@ -15,7 +15,7 @@
             <formUtil:url field="url" command="${listCommand}" prefixFieldName="${prefixField}" showLabel="true"/>
         </div>
         <div class="form-group col-md-1 form-group-remove">
-            <button type="button" class="btn btn-transparent removeButton"><i class="fa fa-trash"></i></button>
+            <button type="button" class="btn btn-transparent removeButton"><i class="fal fa-trash"></i></button>
         </div>
     </fieldset>
 </formUtil:dynamicComplexInputs>

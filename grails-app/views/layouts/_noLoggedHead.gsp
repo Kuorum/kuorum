@@ -1,11 +1,5 @@
 <!-- Le quitamos las clases underline, etc a estos enlaces -->
 <ul class="nav navbar-nav navbar-right no-logged">
-    %{--<li>--}%
-        %{--<g:set var="kuorumPhone" value="${g.message(code:'kuorum.telephone')}"/>--}%
-        %{--<a href="tel:${kuorumPhone}" class="navbar-contact-phone hidden-xs hidden-sm  hidden-md">--}%
-            %{--<span class="fa fa-phone"></span>${kuorumPhone}--}%
-        %{--</a>--}%
-    %{--</li>--}%
 
     <li>
         <g:link mapping="landingServices" class="navbar-link ${nav.activeMenuCss(mappingName: 'landingServices')} ${nav.activeMenuCss(mappingName: 'home')}">
@@ -16,7 +10,7 @@
 
     <li class="dropdown">
         <a href="#" class="dropdown-toggle dropdown-menu-right navbar-link" data-toggle="dropdown" role="button">
-            <span><g:message code="head.noLogged.sectors"/> <i class="fa fa-angle-down" aria-hidden="true"></i></span>
+            <span><g:message code="head.noLogged.sectors"/> <i class="fal fa-angle-down" aria-hidden="true"></i></span>
         </a>
         <ul id="navigation-options" class="dropdown-menu dropdown-menu-right" aria-labelledby="open-user-options" role="menu">
             <li>

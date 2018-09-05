@@ -18,7 +18,7 @@
             <h3 class="title">
                 <g:if test="${contactUser}">
                     <g:link mapping="userShow" params="${contactUser.encodeAsLinkProperties()}">${contactName}</g:link>
-                    <g:link mapping="userShow" params="${contactUser.encodeAsLinkProperties()}" target="_blank"><span class="fa fa-desktop fa-sm"></span><span class="sr-only">Profile</span></g:link>
+                    <g:link mapping="userShow" params="${contactUser.encodeAsLinkProperties()}" target="_blank"><span class="fal fa-desktop fa-sm"></span><span class="sr-only">Profile</span></g:link>
                 </g:if>
                 <g:else>
                     ${contactName}
@@ -28,20 +28,20 @@
                 <contactUtil:printContactMail contact="${contact}"/>
             </p>
             <p class="followers">
-                <span class="fa fa-users"></span><g:message code="tools.contact.list.contact.followers" args="[contact.numFollowers]"/>
+                <span class="fal fa-users"></span><g:message code="tools.contact.list.contact.followers" args="[contact.numFollowers]"/>
             </p>
             <ul class="social-links">
                 <g:if test="${contact?.social?.facebook}">
-                    <li><a href="${contact.social.facebook}" target="_blank"><span class="fa fa-facebook-square"></span><span class="sr-only">Facebook</span></a></li>
+                    <li><a href="${contact.social.facebook}" target="_blank"><span class="fab fa-facebook"></span><span class="sr-only">Facebook</span></a></li>
                 </g:if>
                 <g:if test="${contact?.social?.twitter}">
-                    <li><a href="${contact.social.twitter}" target="_blank"><span class="fa fa-twitter-square"></span><span class="sr-only">Twitter</span></a></li>
+                    <li><a href="${contact.social.twitter}" target="_blank"><span class="fab fa-twitter"></span><span class="sr-only">Twitter</span></a></li>
                 </g:if>
                 <g:if test="${contact?.social?.googlePlus}">
-                    <li><a href="${contact.social.googlePlus}" target="_blank"><span class="fa fa-google-plus-square"></span><span class="sr-only">Google+</span></a></li>
+                    <li><a href="${contact.social.googlePlus}" target="_blank"><span class="fab fa-google-plus"></span><span class="sr-only">Google+</span></a></li>
                 </g:if>
                 <g:if test="${contact?.social?.linkedIn}">
-                    <li><a href="${contact.social.linkedIn}" target="_blank"><span class="fa fa-linkedin-square"></span><span class="sr-only">Linkedin</span></a></li>
+                    <li><a href="${contact.social.linkedIn}" target="_blank"><span class="fab fa-linkedin"></span><span class="sr-only">Linkedin</span></a></li>
                 </g:if>
             </ul>
             <ul class="btns">
@@ -51,7 +51,7 @@
                     <li><userUtil:followButton user="${contactUser}" /> </li>
                 </g:if>
                 <g:else>
-                    <li><a href="#" class="btn btn-blue inverted disabled"><span class="fa fa-plus"></span> Follow</a></li>
+                    <li><a href="#" class="btn btn-blue inverted disabled"><span class="far fa-plus"></span> Follow</a></li>
                 </g:else>
                 <li>
                 <li>
@@ -69,7 +69,7 @@
                             params="[contactId: contact.id]"
                     > <g:message code="tools.contact.edit.unsubscribe.label"/> </g:link>
                 </li>
-                %{--<li><a href="#" class="btn btn-blue inverted disabled"><span class="fa fa-envelope-0"></span> Contact</a></li>--}%
+                %{--<li><a href="#" class="btn btn-blue inverted disabled"><span class="fal fa-envelope"></span> Contact</a></li>--}%
             </ul>
         </div>
         <div class="container-lists">
@@ -131,14 +131,14 @@
                         <div class="form-group col-md-4">
                             <label for="socialFb">Facebook</label>
                             <div class="input-group">
-                                <div class="input-group-addon"><span class="fa fa-facebook"></span></div>
+                                <div class="input-group-addon"><span class="fab fa-facebook fa-fw"></span></div>
                                 <input type="text" value="${contact?.social?.facebook}" class="form-control" id="socialFb" disabled>
                             </div>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="socialTw">Twitter</label>
                             <div class="input-group">
-                                <div class="input-group-addon"><span class="fa fa-twitter"></span></div>
+                                <div class="input-group-addon"><span class="fab fa-twitter fa-fw"></span></div>
                                 <input type="text" value="${contact?.social?.twitter}" class="form-control" id="socialTw" disabled>
                             </div>
                         </div>
@@ -147,14 +147,14 @@
                         <div class="form-group col-md-4">
                             <label for="socialGp">Google+</label>
                             <div class="input-group">
-                                <div class="input-group-addon"><span class="fa fa-google-plus"></span></div>
+                                <div class="input-group-addon"><span class="fab fa-google-plus-g fa-fw"></span></div>
                                 <input type="text" value="${contact?.social?.googlePlus}" class="form-control" id="socialGp" disabled>
                             </div>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="socialLk">Linkedin</label>
                             <div class="input-group">
-                                <div class="input-group-addon"><span class="fa fa-linkedin"></span></div>
+                                <div class="input-group-addon"><span class="fab fa-linkedin fa-fw"></span></div>
                                 <input type="text" value="${contact?.social?.linkedIn}" class="form-control" id="socialLk" disabled>
                             </div>
                         </div>

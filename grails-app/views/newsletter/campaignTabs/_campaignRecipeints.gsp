@@ -3,17 +3,17 @@
 <div class="pag-list-contacts clearfix">
     <div class="actions">
         <g:link mapping="politicianMassMailingTrackEventsReport" params="[newsletterId:newsletterId]" class="btn btn-blue inverted export-modal-button" data-modalId="export-campaignEvents-modal">
-            <span class="fa fa-file-excel-o"></span>
+            <span class="fal fa-file-excel"></span>
             <g:message code="tools.massMailing.list.recipients.export.csv"/>
         </g:link>
 
         <g:if test="${campaign?.event}">
             <g:link mapping="eventAssistanceReport" params="[campaignId:campaign.id, checkList:true]" class="btn btn-blue inverted export-modal-button" data-modalId="export-eventAssistants-modal">
-                <span class="fa fa-file-pdf-o"></span>
+                <span class="fal fa-file-pdf"></span>
                 <g:message code="tools.massMailing.list.event.assistants.checkList"/>
             </g:link>
             <g:link mapping="eventAssistanceReport" params="[campaignId:campaign.id, checkList: false]" class="btn btn-blue inverted export-modal-button" data-modalId="export-eventAssistants-modal">
-                <span class="fa fa-file-excel-o"></span>
+                <span class="fal fa-file-excel"></span>
                 <g:message code="tools.massMailing.list.event.assistants.report"/>
             </g:link>
         </g:if>
@@ -33,7 +33,7 @@
             <input type="hidden" name="filter-status" id="filter-status" value="${status}"/>
             <a data-target="#" href="#" id="status-filter" class="dropdown-toggle dropdown-menu-right" data-toggle="dropdown">
                 <g:message code="tools.massMailing.list.status"/>
-                <span class="fa fa-angle-down"></span>
+                <span class="fal fa-angle-down"></span>
             </a>
             <ul id="status-filter-options" class="dropdown-menu" aria-labelledby="status-filter" role="menu">
                 <li><g:message code="tools.massMailing.list.status.dropdown.title"/></li>
@@ -41,7 +41,7 @@
                     <a href="#">
                         <g:message code="tools.massMailing.list.status.dropdown.all"/>
                         <g:if test="${!status}">
-                            <span class="fa fa-check"/>
+                            <span class="far fa-check"/>
                         </g:if>
                     </a>
                 </li>
@@ -57,7 +57,7 @@
                         <a href="#${filterOptionMailStatus}">
                             <g:message code="org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO.${filterOptionMailStatus}"/>
                             <g:if test="${filterOptionMailStatus == status}">
-                                <span class="fa fa-check"/>
+                                <span class="far fa-check"/>
                             </g:if>
                         </a>
                     </li>
@@ -80,7 +80,7 @@
                 <g:link mapping="politicianContactEdit" params="[contactId:trackingMail.contact.id]">${trackingMail.contact.name}</g:link>
                 <g:link mapping="politicianContactEdit" params="[contactId:trackingMail.contact.id]" target="_blank">
 
-                    <span class="fa fa-external-link fa-sm"></span><span class="sr-only"><g:message code="tools.contact.list.contact.edit"/></span>
+                    <span class="fal fa-external-link fa-sm"></span><span class="sr-only"><g:message code="tools.contact.list.contact.edit"/></span>
                 </g:link>
             </td>
             <td><span class="only-mobile"><g:message code="tools.massMailing.list.status"/>: </span><g:message code="org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO.${trackingMail.mailStatus}"/> </td>

@@ -39,11 +39,11 @@
                         </g:link>
                     </li>
                     <li>
-                        <a href="#" role="button" id="openCampaignsOptions" class="btn btn-blue inverted dropdown-toggle" data-toggle="dropdown"><span class="fa fa-caret-down fa-lg"></span></a>
+                        <a href="#" role="button" id="openCampaignsOptions" class="btn btn-blue inverted dropdown-toggle" data-toggle="dropdown"><span class="fas fa-caret-down fa-lg"></span></a>
                         <ul id="campaignsOptions" class="dropdown-menu dropdown-menu-right" aria-labelledby="openCampaignsOptions" role="menu">
                             <li>
                                 <g:link mapping="politicianCampaignsExport" elementId="exportCampaigns">
-                                    <span class="fa fa-file-excel-o"></span>
+                                    <span class="fal fa-file-excel"></span>
                                     <g:message code="tools.campaign.list.export.csv"/>
                                 </g:link>
                             </li>
@@ -95,7 +95,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
-                        <span aria-hidden="true" class="fa fa-times-circle-o fa"></span><span class="sr-only"><g:message code="modalDefend.close"/></span>
+                        <span aria-hidden="true" class="fal fa-times-circle fa"></span><span class="sr-only"><g:message code="modalDefend.close"/></span>
                     </button>
                     <h4>
                         <g:message code="tools.massMailing.editCampaignModal.title"/>
@@ -123,7 +123,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
-                        <span aria-hidden="true" class="fa fa-times-circle-o fa"></span><span class="sr-only"><g:message code="modalDefend.close"/></span>
+                        <span aria-hidden="true" class="fal fa-times-circle fa"></span><span class="sr-only"><g:message code="modalDefend.close"/></span>
                     </button>
                     <h4 id="campaignDeleteTitle">
                         <g:message code="tools.massMailing.deleteCampaignModal.title"/>

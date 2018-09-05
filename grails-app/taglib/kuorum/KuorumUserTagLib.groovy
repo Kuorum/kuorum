@@ -293,7 +293,7 @@ class KuorumUserTagLib {
             faIcon = "fa-check"
             tooltip = message(code:'politician.image.icon.enabled.text');
         }else if (user.userType == UserType.PERSON){
-            faIcon = "icon-megaphone"
+            faIcon = "fa-megaphone"
             tooltip = message(code:'kuorum.core.model.UserType.PERSON');
         }else if (user.userType == UserType.ORGANIZATION){
             faIcon = "fa-university"
@@ -305,7 +305,7 @@ class KuorumUserTagLib {
             faIcon = "fa-binoculars"
             tooltip = message(code:'politician.image.icon.notEnabled.text');
         }
-        out << """<abbr title="${tooltip}"><i class="fa ${faIcon}"></i></abbr>"""
+        out << """<abbr title="${tooltip}"><i class="fas ${faIcon}"></i></abbr>"""
     }
 
     def ifIsFollower={attrs, body ->
@@ -426,7 +426,7 @@ class KuorumUserTagLib {
                     data-noLoggedUrl="${linkNoLoggedFollow}"
                     data-ajaxDeleteRecommendedUserUrl="${linkAjaxDeleteRecommendedUser}"
                     data-userId='${user.id}'>
-                <span class="fa fa-times-circle-o fa"></span><span class="sr-only">eliminar de la lista</span>
+                <span class="fal fa-times-circle"></span><span class="sr-only">eliminar de la lista</span>
             </button>
             """
         }

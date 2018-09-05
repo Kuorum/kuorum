@@ -6,28 +6,28 @@
     <ul class="globus">
     <li class="fontIcon col-sm-3 col-md-3">
         <g:link mapping="searcherSearchDEBATE">
-            <span class="fa fa-comments-o"></span>
+            <span class="fal fa-comments"></span>
         </g:link>
             <h2><g:message code="${msgPrefix}.howItWorks.signUp.title"/> </h2>
             <p><g:message code="${msgPrefix}.howItWorks.signUp.text"/> </p>
     </li>
         <li class="fontIcon col-sm-3 col-md-3">
             <g:link mapping="searcherSearchSURVEY">
-                <span class="fa fa-bar-chart-o"></span>
+                <span class="fal fa-chart-bar"></span>
             </g:link>
             <h2><g:message code="${msgPrefix}.howItWorks.connect.title"/> </h2>
             <p><g:message code="${msgPrefix}.howItWorks.connect.text"/> </p>
         </li>
         <li class="fontIcon col-sm-3 col-md-3">
             <g:link mapping="searcherSearchEVENT">
-                <span class="fa fa-calendar-check-o"></span>
+                <span class="fal fa-calendar-check"></span>
             </g:link>
             <h2><g:message code="${msgPrefix}.howItWorks.engage.title"/> </h2>
             <p><g:message code="${msgPrefix}.howItWorks.engage.text"/> </p>
         </li>
         <li class="fontIcon col-sm-3 col-md-3">
             <g:link mapping="searcherSearchPOST">
-                <span class="fa fa-microphone"></span>
+                <span class="fal fa-microphone"></span>
             </g:link>
             %{--<span class="fas fa-microphone"></span>--}%
             <h2><g:message code="${msgPrefix}.howItWorks.petition.title"/> </h2>

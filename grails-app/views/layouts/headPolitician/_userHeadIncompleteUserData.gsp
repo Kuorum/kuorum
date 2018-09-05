@@ -7,7 +7,7 @@
                     <g:formatNumber number="${emptyFields.percentage}" type="number" maxFractionDigits="0"/>%
                 </span>
                 <span class="badge-small">
-                    <span class="fa fa-exclamation-circle"></span>
+                    <span class="fas fa-exclamation-circle"></span>
                 </span>
             </a>
             <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="open-user-percent-profile" role="menu">

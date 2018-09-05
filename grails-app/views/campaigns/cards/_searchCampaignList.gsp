@@ -41,13 +41,13 @@
                 <li>
                     <g:if test="${campaign.type== org.kuorum.rest.model.search.SearchTypeRSDTO.SURVEY}">
                         <g:link mapping="campaignShow" params="${campaign.encodeAsLinkProperties()}" fragment="survey-progress" role="button" class="${campaign.completed?'active':''}">
-                            <span class="fa fa fa-pie-chart fa-lg"></span>
+                            <span class="fal fa-chart-pie fa-lg"></span>
                             <span class="number">${campaign.amountAnswers}</span>
                         </g:link>
                     </g:if>
                     <g:elseif test="${campaign.type== org.kuorum.rest.model.search.SearchTypeRSDTO.DEBATE}">
                         <g:link mapping="campaignShow" params="${campaign.encodeAsLinkProperties()}" fragment="openProposal" role="button">
-                            <span class="fa fa fa-lightbulb-o fa-lg"></span>
+                            <span class="fal fa-lightbulb fa-lg"></span>
                             <span class="number">${campaign.numProposals}</span>
                         </g:link>
                     </g:elseif>
@@ -58,13 +58,13 @@
                            data-urlAction="${g.createLink(mapping: "postLike")}"
                            data-campaignValidationActive="${campaign.checkValidation}"
                            data-loggedUser="${sec.username()}">
-                            <span class="fa ${campaign.liked?'fa-heart':'fa-heart-o'} fa-lg"></span>
+                            <span class="${campaign.liked?'fas':'fal'} fa-heart fa-lg"></span>
                             <span class="number">${campaign.likes}</span>
                         </a>
                     </g:elseif>
                     <g:elseif test="${campaign.type== org.kuorum.rest.model.search.SearchTypeRSDTO.EVENT}">
                         <g:link mapping="campaignShow" params="${campaign.encodeAsLinkProperties()}" role="button" class="${campaign.registered?'active':''}">
-                            <span class="fa fa fa-ticket fa-lg"></span>
+                            <span class="fal fa-ticket-alt fa-lg"></span>
                             <span class="number">${campaign.amountAssistants}</span>
                         </g:link>
                     </g:elseif>

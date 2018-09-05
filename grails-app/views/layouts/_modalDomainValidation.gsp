@@ -5,7 +5,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true" class="fa fa-times-circle-o fa"></span><span class="sr-only">Cerrar</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true" class="fal fa-times-circle fa"></span><span class="sr-only">Cerrar</span></button>
                 <h4><g:message code="kuorum.web.commands.profile.DomainValidationCommand.modal.title"/></h4>
                 <h4 class="sr-only" id="modal-domain-validation-title">Registro / Validar usuario</h4>
             </div>
@@ -44,7 +44,7 @@
                         </button>
                         <p class="text-success" style="display: none">
                             <g:message code="kuorum.web.commands.profile.DomainValidationCommand.modal.success"/>
-                            <span class="fa fa-check-circle"></span>
+                            <span class="fal fa-check-circle"></span>
                         </p>
                     </div>
 

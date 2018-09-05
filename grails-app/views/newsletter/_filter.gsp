@@ -30,7 +30,7 @@
                 </g:elseif>
             </span>
             <g:message code="tools.massMailing.fields.filter.recipients"/>
-            %{--<span class="fa fa-filter fa-lg"></span>--}%
+            %{--<span class="fas fa-filter fa-lg"></span>--}%
         </div>
         <input type="hidden" name="filterId" id="recipients" value="${(command.filterId) ? command.filterId : ((anonymousFilter?.id) ? anonymousFilter.id : 0)}" />
         <input type="hidden" name="filterEdited" value="0" />
@@ -58,17 +58,17 @@
         </div>
         <div class="col-sm-4">
             <g:link mapping="politicianContactFilterData" role="button" elementId="filterContacts" title="${g.message(code:'tools.contact.filter.conditions.open')}">
-                <span class="fa fa-filter fa-lg"></span>
+                <span class="fas fa-filter fa-lg"></span>
                 <span class="sr-only"><g:message code="tools.massMailing.fields.filter.button"/></span>
             </g:link>
             <g:link mapping="politicianContactsSearch" elementId="infoToContacts">
                 <span class="amountRecipients"></span>
                 <g:message code="tools.massMailing.fields.filter.recipients"/>
-                %{--<span class="fa fa-filter fa-lg"></span>--}%
+                %{--<span class="fas fa-filter fa-lg"></span>--}%
             </g:link>
             %{--<g:if test="${!hideSendTestButton}">--}%
                 %{--<g:link mapping="politicianMassMailingSendTest" absolute="true" class="btn ${hightLigthTestButtons?'btn-blue':'btn-grey'} pull-right" elementId="sendTest" title="${g.message(code:'tools.massMailing.sendTest')}">--}%
-                    %{--<span class="fa fa-envelope"></span>--}%
+                    %{--<span class="fal fa-envelope"></span>--}%
                 %{--</g:link>--}%
             %{--</g:if>--}%
         </div>

@@ -7,7 +7,7 @@
         ${newsletter.status}
     </span>
     <span class="type">newsletter</span>
-    <span class="fa fa-envelope-o" aria-hidden="true" rel="tooltip" data-toggle="tooltip" data-placement="bottom"
+    <span class="fal fa-envelope" aria-hidden="true" rel="tooltip" data-toggle="tooltip" data-placement="bottom"
           data-original-title="${g.message(code: 'tools.campaign.new.newsletter')}"></span>
     <h3>
         <g:set var="modal" value="${newsletter.status == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SCHEDULED ?'modalEditScheduled':''}"/>
@@ -43,16 +43,16 @@
     <ul class="list-actions">
     <g:if test="${newsletter.status==org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT}">
         <li>
-            <g:link mapping="politicianMassMailingShow" params="[campaignId:newsletter.id]" class="campaignStats"><span class="fa fa-line-chart"></span> <span class="sr-only">Stats</span></g:link>
+            <g:link mapping="politicianMassMailingShow" params="[campaignId:newsletter.id]" class="campaignStats"><span class="fal fa-chart-line"></span> <span class="sr-only">Stats</span></g:link>
         </li>
     </g:if>
     <g:else>
         <li>
-            <g:link mapping="politicianMassMailingShow" params="[campaignId:newsletter.id]" class="campaignEdit ${modal}"><span class="fa fa-edit"></span> <span class="sr-only">Edit</span></g:link>
+            <g:link mapping="politicianMassMailingShow" params="[campaignId:newsletter.id]" class="campaignEdit ${modal}"><span class="fal fa-edit"></span> <span class="sr-only">Edit</span></g:link>
         </li>
     </g:else>
         <li>
-            <g:link mapping="politicianMassMailingRemove" params="[campaignId:newsletter.id]"  role="button" class="campaignDelete"><span class="fa fa-trash"></span> <span class="sr-only">Delete</span></g:link>
+            <g:link mapping="politicianMassMailingRemove" params="[campaignId:newsletter.id]"  role="button" class="campaignDelete"><span class="fal fa-trash"></span> <span class="sr-only">Delete</span></g:link>
         </li>
     </ul>
 </li>

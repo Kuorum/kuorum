@@ -6,5 +6,5 @@
       title=""
       data-original-title="${g.message(code:'tour.dashboard.tooltip.content')}">
     %{--<img src="${g.resource(dir: "images/icons", file: "icon-info.png")}"/>--}%
-    <span class="fa fa-info-circle fa-2x"></span>
+    <span class="fas fa-info-circle fa-2x"></span>
 </span>

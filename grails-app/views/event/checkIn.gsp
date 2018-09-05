@@ -12,7 +12,7 @@
         <div>
             <span class="user-img"><img src="${image.contactImgSrc(contact:contact)}" alt="${contactName} " itemprop="image"></span>
             <h2 class="event-confirm-success">
-                <g:message code="event.callToAction.success.text"/> <span class="fa fa-check"></span>
+                <g:message code="event.callToAction.success.text"/> <span class="far fa-check"></span>
             </h2>
             <h3 class="title">
                 ${contact.name} ${contact.surname?:''}
@@ -21,7 +21,7 @@
                 <contactUtil:printContactMail contact="${contact}"/>
             </p>
             <p class="followers">
-                <span class="fa fa-users"></span><g:message code="tools.contact.list.contact.followers" args="[contact.numFollowers]"/>
+                <span class="fal fa-users"></span><g:message code="tools.contact.list.contact.followers" args="[contact.numFollowers]"/>
             </p>
         </div>
     </div>

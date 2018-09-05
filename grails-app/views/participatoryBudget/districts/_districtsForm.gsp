@@ -55,7 +55,7 @@
                             <formUtil:checkBox field="allCity" command="${listCommand}" prefixFieldName="${prefixField}"/>
                         </div>
                         <div class="col-xs-12 col-sm-1 form-group-remove no-label-lg">
-                            <button type="button" class="btn btn-transparent btn-lg btn-icon removeButton"><i class="fa fa-trash"></i></button>
+                            <button type="button" class="btn btn-transparent btn-lg btn-icon removeButton"><i class="fal fa-trash"></i></button>
                         </div>
                         %{--</div>--}%
                     </div>
@@ -66,7 +66,7 @@
                     <div class="col-md-12">
                         <button type="button" class="btn btn-lg btn-icon btn-transparent addButton">
                             <g:message code="kuorum.web.commands.payment.participatoryBudget.DistrictsCommand.addDistrict"/>
-                            <i class="fa fa-plus"></i>
+                            <i class="far fa-plus"></i>
                         </button>
                     </div>
                 </div>

@@ -26,7 +26,7 @@
                         </li>
                         <li class="dropdown underline">
                             <a data-target="#" href="/dashboard.htm" id="open-user-options" class="dropdown-toggle dropdown-menu-right navbar-link" data-toggle="dropdown" role="button">
-                                <span class="fa fa-gear fa-lg"></span>
+                                <span class="fal fa-gear fa-lg"></span>
                                 <span class="visible-xs">Opciones de usuario</span>
                             </a>
                         </li>

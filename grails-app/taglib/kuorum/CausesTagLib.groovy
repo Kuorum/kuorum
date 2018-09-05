@@ -48,13 +48,13 @@ class CausesTagLib {
                 <li class="cause link-wrapper ${causeSupportClass}" id="cause-${cause.name.encodeAsKuorumUrl()}">
                     <a href='${searchLink}' class="sr-only hidden"> Search cause ${cause.name}</a>
                     <div class="cause-name" aria-hidden="true">
-                        <span class="fa fa-hashtag"></span>
+                        <span class="fal fa-hashtag"></span>
                         <span>${cause.name}</span>
                     </div>
                     <div class="cause-support">
                         <a href='${supportCause}' role="button" tabindex="105" aria-pressed="${ariaPressed}" aria-labelledby="cause-support cause-counter">
-                            <span class="fa fa-heart"></span>
-                            <span class="fa fa-heart-o"></span>
+                            <span class="fas fa-heart"></span>
+                            <span class="fal fa-heart"></span>
                             ${showCounter}
                         </a>
                     </div>

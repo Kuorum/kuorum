@@ -24,7 +24,7 @@
         %{--<p><kuorumDate:showShortedText text="${user.bio}" numChars="140"/> </p>--}%
         <div class='card-footer'>
             <userUtil:ifIsFollower user="${solrUser}">
-                <span class="fa fa-check-circle-o"></span>
+                <span class="fal fa-check-circle"></span>
                 <g:message code="kuorumUser.popover.follower"/>
             </userUtil:ifIsFollower>
         </div>

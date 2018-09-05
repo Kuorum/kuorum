@@ -20,7 +20,7 @@
         <div class="multimedia-campaign-validationInfo">
             <div class="center-block">
                 <abbr title="${g.message(code:'kuorum.web.commands.payment.CampaignSettingsCommand.checkValidation.label.info')}">
-                    <span class="fa fa-check"></span>
+                    <span class="far fa-check"></span>
                 </abbr>
             </div>
         </div>

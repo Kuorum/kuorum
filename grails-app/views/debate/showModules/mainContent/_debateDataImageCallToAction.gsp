@@ -9,8 +9,8 @@
             <g:message code="debate.proposals.callToAction.mobile.message"/>
         </g:else>
     </button>
-    <span class="fa fa-caret-down arrow"></span>
+    <span class="fas fa-caret-down arrow"></span>
     <button type="button" class="btn btn-blue btn-xl btn-circle call-button">
-        <span class="fa fa-lightbulb-o fa-2x"></span>
+        <span class="fal fa-lightbulb fa-2x"></span>
     </button>
 </div>

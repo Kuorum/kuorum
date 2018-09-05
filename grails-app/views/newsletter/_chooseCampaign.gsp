@@ -8,7 +8,7 @@
                     data-placement="bottom"
                     title=""
                     data-original-title="${g.message(code:'dashboard.payment.chooseCampaign.tooltip.newsletter')}">
-                <span class="fa fa-envelope-o"></span>
+                <span class="fal fa-envelope"></span>
                 <span class="label"><g:message code="tools.campaign.new.newsletter"/></span>
             </g:link>
         </li>
@@ -22,7 +22,7 @@
                     data-placement="bottom"
                     title=""
                     data-original-title="${g.message(code:'dashboard.payment.chooseCampaign.tooltip.post')}">
-                <span class="fa fa-newspaper-o"></span>
+                <span class="fal fa-newspaper"></span>
                 <span class="label"><g:message code="tools.campaign.new.post"/></span>
             </g:link>
         </li>
@@ -36,7 +36,7 @@
                     data-placement="bottom"
                     title=""
                     data-original-title="${g.message(code:'dashboard.payment.chooseCampaign.tooltip.debate')}">
-                <span class="fa fa-comments-o"></span>
+                <span class="fal fa-comments"></span>
                 <span class="label"><g:message code="tools.campaign.new.debate"/></span>
             </g:link>
         </li>
@@ -50,7 +50,7 @@
                     data-placement="bottom"
                     title=""
                     data-original-title="${g.message(code:'dashboard.payment.chooseCampaign.tooltip.event')}">
-                <span class="fa fa-calendar-check-o"></span>
+                <span class="fal fa-calendar-check"></span>
                 <span class="label"><g:message code="tools.campaign.new.event"/></span>
             </g:link>
         </li>
@@ -65,7 +65,7 @@
                     data-placement="bottom"
                     title=""
                     data-original-title="${g.message(code:'dashboard.payment.chooseCampaign.tooltip.survey')}">
-                <span class="fa fa-bar-chart-o"></span>
+                <span class="fal fa-chart-bar"></span>
                 <span class="label"><g:message code="tools.campaign.new.survey"/></span>
             </g:link>
         </li>
@@ -79,13 +79,13 @@
                     data-placement="bottom"
                     title=""
                     data-original-title="${g.message(code:'dashboard.payment.chooseCampaign.tooltip.participatoryBudget')}">
-                <span class="fa fa-money"></span>
+                <span class="fal fa-money-bill-alt"></span>
                 <span class="label"><g:message code="tools.campaign.new.participatoryBudget"/></span>
             </g:link>
         </li>
     </sec:ifAnyGranted>
     %{--<li class="fontIcon disabled"><g:link mapping="debateCreate" role="button" class="mail">--}%
-    %{--<span class="fa fa-microphone"></span>--}%
+    %{--<span class="fal fa-microphone"></span>--}%
     %{--<span class="label"><g:message code="tools.campaign.new.petition"/></span></g:link>--}%
     %{--</li>--}%
 

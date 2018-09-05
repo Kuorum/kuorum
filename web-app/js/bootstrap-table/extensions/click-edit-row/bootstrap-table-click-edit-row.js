@@ -73,7 +73,7 @@
                         var div=$('<div class="editable-input col-md-12 col-sm-12 col-xs-12" style="position: relative;"/>');
                         txt.push(tarNode.find('td').eq(column.fieldIndex).text());
                         div.append($('<input type="text" class="form-control input-sm"/>'));
-                        div.append($('<span class="clear"><i class="fa fa-times-circle-o" aria-hidden="true"></i></span>'));
+                        div.append($('<span class="clear"><i class="fal fa-times-circle" aria-hidden="true"></i></span>'));
                         tarNode.find('td').eq(column.fieldIndex).text('').append(div);
                         break;
                     case 'select':

@@ -29,7 +29,7 @@
         <div class="box-ppal-section">
             <fieldset class="row validate" style="text-align: left">
                 <div class="col-xs-12 valid">
-                    <strong><span>Requested: </span></strong><i class="fa fa-${icon} fa-2x"></i>
+                    <strong><span>Requested: </span></strong><i class="fas fa-${icon} fa-2x"></i>
                 </div>
             </fieldset>
             <fieldset class="row">

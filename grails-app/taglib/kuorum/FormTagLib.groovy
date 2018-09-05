@@ -188,7 +188,7 @@ class FormTagLib {
         if (extraInfo){
             out << """
                 <span class="info-disabled">
-                    <span role="button" rel="popover" data-toggle="popover" class="popover-trigger fa fa-info-circle"></span>
+                    <span role="button" rel="popover" data-toggle="popover" class="popover-trigger fas fa-info-circle"></span>
                     <div class="popover">
                         <div class="popover-kuorum">
                             <p>${extraInfo} </p>
@@ -264,7 +264,7 @@ class FormTagLib {
         String removeButton = customRemoveButton?'':"""
             <fieldset class="row">
                 <div class="col-md-12 text-right">
-                    <button type="button" class="btn btn-transparent removeButton"><i class="fa fa-trash"></i></button>
+                    <button type="button" class="btn btn-transparent removeButton"><i class="fal fa-trash"></i></button>
                 </div>
             </fieldset>
 """
@@ -273,7 +273,7 @@ class FormTagLib {
         <fieldset class="row dynamic-fieldset-addbutton">
             <div class="form-group">
                 <div class="col-md-12">
-                    <button type="button" class="btn btn-default addButton"><i class="fa fa-plus"></i></button>
+                    <button type="button" class="btn btn-default addButton"><i class="far fa-plus"></i></button>
                 </div>
             </div>
         </fieldset>
@@ -372,7 +372,7 @@ class FormTagLib {
         out <<"""
             <div class="input-group ${typePicker}" data-timeZone="${timeZoneId}" data-timeZoneLabel="${timeZoneLabel}" data-timeZoneChangeLink="${timeZoneChangeLink}" data-datePicker-type="${datePickerType}">
                 <input type="text" name="${prefixFieldName}${field}" class="${cssClass} ${error?'error':''}" placeholder="${placeHolder}" id="${id}" aria-required="${required}" value="${value}">
-                <span class="input-group-addon"><span class="fa fa-calendar fa-lg"></span></span>
+                <span class="input-group-addon"><span class="fal fa-calendar fa-lg"></span></span>
             </div>
         """
         if(error){
@@ -550,7 +550,7 @@ class FormTagLib {
         out <<"""
             <label for="${field}">${label}</label>
             <div class="input-group">
-                <span class="input-group-addon"><span class="fa ${cssIcon} fa-fw"></span></span>
+                <span class="input-group-addon"><span class="${cssIcon} fa-fw"></span></span>
                 <input class="form-control ${error?'error':''}" value="${value}" id="${field}" name="${field}" type="text" placeholder="${placeHolder}">
             </div>
         """

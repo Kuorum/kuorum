@@ -6,7 +6,7 @@
     </li>
     <li>
         <a href="#" class="btn btn-blue inverted" role="button" id="openCalendar">
-            <span class="fa fa-clock-o"></span>
+            <span class="fal fa-clock"></span>
             <g:message code="tools.massMailing.schedule"/>
         </a>
         <div id="selectDate">
@@ -33,7 +33,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
-                    <span aria-hidden="true" class="fa fa-times-circle-o fa"></span><span class="sr-only"><g:message code="modalDefend.close"/></span>
+                    <span aria-hidden="true" class="fal fa-times-circle fa"></span><span class="sr-only"><g:message code="modalDefend.close"/></span>
                 </button>
                 <h4 id="campaignConfirmTitle">
                     <g:message code="tools.massMailing.confirmationModal.title" args="[numberRecipients]"/>
@@ -54,7 +54,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
-                    <span aria-hidden="true" class="fa fa-times-circle-o fa"></span><span class="sr-only"><g:message code="modalDefend.close"/></span>
+                    <span aria-hidden="true" class="fal fa-times-circle fa"></span><span class="sr-only"><g:message code="modalDefend.close"/></span>
                 </button>
                 <h4 id="sendTestModalTitle">
                     <g:message code="tools.massMailing.sendTestModal.title"/>

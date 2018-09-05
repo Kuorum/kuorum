@@ -16,7 +16,7 @@
     <li>
         <g:set var="facebookLink">https://www.facebook.com/sharer/sharer.php?u=${userLink}</g:set>
         <a class="social-link-facebook" href="${facebookLink}" target="_blank" title="${g.message(code:"project.social.facebook")}">
-            <span class="social-share fa fa-facebook"></span>
+            <span class="social-share fab fa-facebook-f"></span>
         </a>
     </li>
     <li>
@@ -28,23 +28,22 @@
         <g:set var="twitterLink">https://twitter.com/share?url=${userLink}&text=${twitterShareText}&hashtags=${user.alias?:""}</g:set>
 
         <a href="${twitterLink}" target="_blank" title="${g.message(code: 'project.social.twitter')}">
-            <span class="social-share fa fa-twitter"></span>
+            <span class="social-share fab fa-twitter"></span>
         </a>
     </li>
     <li>
         <a class="social-link-google-plus" href="https://plus.google.com/share?url=${userLink}" target="_blank" title="${g.message(code:'project.social.googlePlus')}">
-            <span class="social-share fa fa-google-plus"></span>
+            <span class="social-share fab fa-google-plus-g"></span>
         </a>
     </li>
-    %{--<li><a href="http://pinterest.com/pin/create/button/?url=&description=" target="_blank" title="Pin it"><i class="social-share fa fa-pinterest-square"></i></a></li>--}%
     <li>
         <a href="http://www.reddit.com/submit?url=${userLink}&title=${user.name}" target="_blank" title="${g.message(code:'project.social.reddit')}">
-            <span class="social-share fa fa-reddit"></span>
+            <span class="social-share fab fa-reddit"></span>
         </a>
     </li>
     <li>
         <a href="http://www.linkedin.com/shareArticle?mini=true&url=${userLink}&title=${user.name}&summary=${user.bio}&source=${kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.domain}" target="_blank" title="${g.message(code:'project.social.linkedin')}">
-            <span class="social-share fa fa-linkedin"></span>
+            <span class="social-share fab fa-linkedin-in"></span>
         </a>
     </li>
 </ul>

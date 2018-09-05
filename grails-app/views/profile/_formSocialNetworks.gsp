@@ -6,31 +6,31 @@
     </fieldset>
     <fieldset class="row">
         <div class="form-group col-md-6">
-            <formUtil:socialInput command="${command}" field="facebook" cssIcon="fa-facebook"/>
+            <formUtil:socialInput command="${command}" field="facebook" cssIcon="fab fa-facebook"/>
         </div>
         <div class="form-group col-md-6">
-            <formUtil:socialInput command="${command}" field="twitter" cssIcon="fa-twitter"/>
-        </div>
-    </fieldset>
-    <fieldset class="row">
-        <div class="form-group col-md-6">
-            <formUtil:socialInput command="${command}" field="googlePlus" cssIcon="fa-google-plus"/>
-        </div>
-        <div class="form-group col-md-6">
-            <formUtil:socialInput command="${command}" field="blog" cssIcon="fa-rss-square"/>
+            <formUtil:socialInput command="${command}" field="twitter" cssIcon="fab fa-twitter"/>
         </div>
     </fieldset>
     <fieldset class="row">
         <div class="form-group col-md-6">
-            <formUtil:socialInput command="${command}" field="linkedIn" cssIcon="fa-linkedin-square"/>
+            <formUtil:socialInput command="${command}" field="googlePlus" cssIcon="fab fa-google-plus"/>
         </div>
         <div class="form-group col-md-6">
-            <formUtil:socialInput command="${command}" field="instagram" cssIcon="fa-instagram"/>
+            <formUtil:socialInput command="${command}" field="blog" cssIcon="fal fa-rss-square"/>
         </div>
     </fieldset>
     <fieldset class="row">
         <div class="form-group col-md-6">
-            <formUtil:socialInput command="${command}" field="youtube" cssIcon="fa-youtube-square"/>
+            <formUtil:socialInput command="${command}" field="linkedIn" cssIcon="fab fa-linkedin-in"/>
+        </div>
+        <div class="form-group col-md-6">
+            <formUtil:socialInput command="${command}" field="instagram" cssIcon="fab fa-instagram"/>
+        </div>
+    </fieldset>
+    <fieldset class="row">
+        <div class="form-group col-md-6">
+            <formUtil:socialInput command="${command}" field="youtube" cssIcon="fab fa-youtube"/>
         </div>
         <div class="form-group col-md-6">
             %{--<formUtil:socialInput command="${command}" field="pinterest" cssIcon="fa-pinterest-square"/>--}%

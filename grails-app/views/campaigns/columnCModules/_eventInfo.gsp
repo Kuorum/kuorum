@@ -7,7 +7,7 @@
         <div class="comment-proposal clearfix">
             <div class="event-date-time">
                 <g:if test="${event.eventDate}">
-                    <p class="event-date"><span class="fa fa-clock-o"></span>
+                    <p class="event-date"><span class="fal fa-clock"></span>
                         <g:formatDate type="date" style="FULL"  date="${event.eventDate}" timeZone="${eventUser.timeZone}"/>
                     </p>
                     <p class="event-time">
@@ -19,12 +19,12 @@
                 </g:else>
             </div>
             <div class="event-location">
-                <p class="event-local-name"><span class="fa fa-map-marker"></span> ${event.localName}</p>
+                <p class="event-local-name"><span class="fal fa-map-marker-alt"></span> ${event.localName}</p>
                 <p class="event-address">${event.address}</p>
             </div>
             <g:if test="${event.capacity}">
                 <div class="event-capacity">
-                    <p class="event-capacity-name"><span class="fa fa-ticket"></span> <span class="event-capacity-number">${event.amountAssistants}</span>/${event.capacity}</p>
+                    <p class="event-capacity-name"><span class="fal fa-ticket-alt"></span> <span class="event-capacity-number">${event.amountAssistants}</span>/${event.capacity}</p>
                 </div>
             </g:if>
             <div class="map" id="map"></div>

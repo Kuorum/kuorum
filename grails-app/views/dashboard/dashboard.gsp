@@ -33,7 +33,7 @@
                                 <g:message code='dashboard.payment.followingCampaignList.empty'/>
                             </span>
                             <span class="icon-empty-campaignList">
-                                <span class="fa fa-info-circle"></span>
+                                <span class="fas fa-info-circle"></span>
                             </span>
                         </p>
 

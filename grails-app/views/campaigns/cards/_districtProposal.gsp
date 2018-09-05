@@ -43,7 +43,7 @@
 
                 <li>
                     <g:link mapping="districtProposalShow" params="${districtProposal.encodeAsLinkProperties()}" role="button">
-                        <span class="fa fa fa-rocket fa-lg"></span>
+                        <span class="fal fa-rocket fa-lg"></span>
                         <span class="number">XXXXX</span>
                     </g:link>
                 </li>

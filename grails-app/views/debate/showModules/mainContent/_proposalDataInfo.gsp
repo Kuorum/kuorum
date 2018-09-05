@@ -21,8 +21,8 @@
                             title=""
                             data-original-title="${g.message(code:'debate.show.proposal.pin.tooltip')}">
                         <span class="fa-stack fa-lg" aria-hidden="true">
-                            <span class="fa fa-circle dark fa-stack-2x"></span>
-                            <span class="fa fa-flag-o fa-stack-1x fa-inverse"></span>
+                            <span class="fas fa-circle dark fa-stack-2x"></span>
+                            <span class="fas fa-flag fa-stack-1x fa-inverse"></span>
                         </span>
                     </button>
                 </li>
@@ -37,8 +37,8 @@
                               data-placement="bottom"
                               title=""
                               data-original-title="${g.message(code:'debate.show.proposal.pinned.tooltip', args: [debateUser.name])}">
-                            <span class="fa fa-circle dark fa-stack-2x"></span>
-                            <span class="fa fa-flag-o fa-stack-1x fa-inverse"></span>
+                            <span class="fas fa-circle dark fa-stack-2x"></span>
+                            <span class="fas fa-flag fa-stack-1x fa-inverse"></span>
                         </span>
                     </li>
                 </g:if>
@@ -51,8 +51,8 @@
     <div class="actions">
         <button type="button" class="btn-see-more stack" data-anchor="conversation-box">
             <span class="pull-left fa-stack fa-lg" aria-hidden="true">
-                <span class="fa fa-circle dark fa-stack-2x"></span>
-                <span class="angle fa fa-stack-1x fa-inverse fa-angle-down"></span>
+                <span class="fas fa-circle dark fa-stack-2x"></span>
+                <span class="angle fal fa-angle-down fa-stack-1x fa-inverse"></span>
             </span>
         </button>
     </div>
@@ -68,7 +68,7 @@
                     </button>
                 </userUtil:ifUserIsTheLoggedOne>
                 <button type="button" class="comment">
-                    <span class="fa fa-comment-o" aria-hidden="true"></span>
+                    <span class="fal fa-comment" aria-hidden="true"></span>
                     <span class="number">${proposal.comments?.size()?:0}</span>
                 </button>
                 <sec:ifLoggedIn><g:set var="isLogged" value="${true}"/></sec:ifLoggedIn>
@@ -83,12 +83,7 @@
                         data-proposalId="${proposal.id}"
                         data-userLogged="${userUtil.loggedUserId()}"
                     >
-                    <g:if test="${activeButton}">
-                        <span class="fa fa-heart" aria-hidden="true"></span>
-                    </g:if>
-                    <g:else>
-                        <span class="fa fa-heart-o" aria-hidden="true"></span>
-                    </g:else>
+                    <span class="${activeButton?'fas':'fal'} fa-heart" aria-hidden="true"></span>
                     <span class="number">${proposal.likes}</span>
                 </button>
             </div>

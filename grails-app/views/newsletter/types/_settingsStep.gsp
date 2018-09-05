@@ -33,8 +33,8 @@
                 <g:message code="tools.massMailing.advanced-features.title"/>
                 <span class="go-up stack">
                     <span class="fa-stack fa-lg" aria-hidden="true">
-                        <span class="fa fa-circle fa-stack-1x"></span>
-                        <span class="fa fa-angle-down fa-stack-1x fa-inverse"></span>
+                        <span class="fas fa-circle fa-stack-1x"></span>
+                        <span class="fal fa-angle-down fa-stack-1x fa-inverse"></span>
                     </span>
                 </span>
             </a>
@@ -67,7 +67,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
-                    <span aria-hidden="true" class="fa fa-times-circle-o fa"></span><span class="sr-only"><g:message code="modalDefend.close"/></span>
+                    <span aria-hidden="true" class="fal fa-times-circle fa"></span><span class="sr-only"><g:message code="modalDefend.close"/></span>
                 </button>
                 <h4>
                     <g:message code="tools.massMailing.warnFilterEdited.title"/>

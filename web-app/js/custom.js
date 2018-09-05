@@ -173,15 +173,7 @@ $(document).ready(function() {
 		$ui.find('#filters li a').bind('focus click',function(){
 			var filtro = $(this).text();
 			$ui.find('#srch-term').attr('placeholder', filtro);
-
-			if ( $(this).hasClass('enleyes') ) {
-				$('#filterSign').html('<span class="fa fa-briefcase"></span>');
-			} else if ( $(this).hasClass('enpersonas') ) {
-				$('#filterSign').html('<span class="fa fa-user"></span>');
-			} else {
-				$('#filterSign').html('');
-			}
-
+            $('#filterSign').html('');
 		});
 
 	});

@@ -4,7 +4,7 @@
     <g:set var="activeButton" value="${survey.completed && isLogged}"/>
     <div class="comment-counter pull-right">
         <button type="button" class="${activeButton?'active':''}" data-goto="#survey-progress">
-            <span class="fa fa-pie-chart" aria-hidden="true"></span>
+            <span class="fal fa-chart-pie" aria-hidden="true"></span>
             <span class="number">${survey.amountAnswers}</span>
         </button>
     </div>

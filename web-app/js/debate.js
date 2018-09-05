@@ -501,8 +501,8 @@ $(function () {
                     speed: 500,
                     collapsedHeight: collapsedHeight,
                     heightMargin: 16,
-                    moreLink: '<div class="center-button"><a href="#" class="'+buttonCss+'">'+i18n.read.more+' <span class="fa fa-angle-down"></a></div>',
-                    lessLink: '<div class="center-button"><a href="#" class="'+buttonCss+'">'+i18n.read.less+' <span class="fa fa-angle-up"></a></div>',
+                    moreLink: '<div class="center-button"><a href="#" class="'+buttonCss+'">'+i18n.read.more+' <span class="fal fa-angle-down"></a></div>',
+                    lessLink: '<div class="center-button"><a href="#" class="'+buttonCss+'">'+i18n.read.less+' <span class="fal fa-angle-up"></a></div>',
                     embedCSS: true,
                     blockCSS: 'display: block; width: auto;',
                     startOpen: false,
@@ -676,11 +676,11 @@ var debateFunctions = {
         var callback = params.callback
         $(".proposal-list").off("click", ".proposal-like");
 
-        var like = $button.find(".fa").hasClass("fa-heart-o"); // Empty heart -> Converting to LIKE = TRUE
+        var like = $button.find(".fa-heart").hasClass("fal"); // Empty heart -> Converting to LIKE = TRUE
 
         // Prediction: toggle button
         $button.toggleClass("active");
-        $button.find(".fa").toggleClass("fa-heart-o fa-heart");
+        $button.find(".fa-heart").toggleClass("fas fal");
         var count = parseInt($button.find(".number").text());
         if (like) {
             $button.find(".number").text(count + 1)

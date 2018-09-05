@@ -8,7 +8,7 @@
             <div class='profile-pic-div'>
                 <img itemprop="image" class="user-img big" alt="${user.name}" src="${image.userImgSrc(user:user)}" itemprop="image">
                 <g:if test="${user.verified}">
-                    %{--<i class="fa fa-check"></i>--}%
+                    %{--<i class="far fa-check"></i>--}%
                 </g:if>
             </div>
             %{--<button type="button" class="btn btn-blue btn-lg follow allow">Seguir</button>--}%
@@ -23,7 +23,7 @@
         <p><kuorumDate:showShortedText text="${user.bio}" numChars="165"/> </p>
         <div class='card-footer'>
             <userUtil:ifIsFollower user="${user}">
-                <span class="fa fa-check-circle-o"></span>
+                <span class="fal fa-check-circle"></span>
                 <g:message code="kuorumUser.popover.follower"/>
             </userUtil:ifIsFollower>
         </div>

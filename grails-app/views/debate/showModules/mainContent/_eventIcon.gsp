@@ -12,7 +12,7 @@
                 data-postUrl="${g.createLink(mapping: 'eventBookTicket', params:campaign.encodeAsLinkProperties())}"
 
         >
-            <span class="fa fa-ticket" aria-hidden="true"></span>
+            <span class="fal fa-ticket-alt" aria-hidden="true"></span>
             <span class="number">${event.amountAssistants}</span>
         </button>
     </div>
