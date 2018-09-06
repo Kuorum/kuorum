@@ -7933,28 +7933,25 @@ ul.leader-post-stats {box-shadow: 0 0 2px rgba(200,200,200,0.6); margin-bottom:2
     font-size: 16px;
 }
 
-.comment-box.call-to-action .comment-header .call-title{
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 24px;
-    color: #545454;
-    font-weight: bold;
-}
-.comment-box.call-to-action .comment-header .call-title .fa-stack{
-    font-size: 17px; font-size:1.7rem;}
+.comment-box.call-to-action .comment-header .call-title{ font-family: Arial, Helvetica, sans-serif; font-size: 24px; color: #545454;font-weight: bold;}
+.comment-box.call-to-action .comment-header .call-title .fa-stack{font-size: 17px; font-size:1.7rem;}
+.comment-box.call-to-action .comment-header .call-subTitle{font-family: Arial, Helvetica, sans-serif;font-size: 18px;margin: 15px 0;color: #A8A8A8;}
+.comment-box.call-to-action .comment-header .call-subTitle a{color:#545454; font-weight: bold;}
+.comment-box.call-to-action .comment-header .call-subTitle.warn{color: #FFA8A8;}
+.comment-box.call-to-action .comment-header {display: grid;text-align: center;}
 
-.comment-box.call-to-action  .comment-header .call-subTitle{
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 18px;
-    margin: 15px 0;
-    color: #A8A8A8;
-}
-.comment-box.call-to-action  .comment-header .call-subTitle a{color:#545454; font-weight: bold;}
-.comment-box.call-to-action  .comment-header .call-subTitle.warn{color: #FFA8A8;}
+.comment-box.call-to-action .call-district-proposal-info-budget {margin-top:25px;}
+.comment-box.call-to-action .call-district-proposal-info-budget .call-title{ font-family: Arial, Helvetica, sans-serif; font-size: 24px; color: #545454;font-weight: bold;}
+.comment-box.call-to-action .call-district-proposal-info-budget .call-title-price{ font-family: Arial, Helvetica, sans-serif; font-size: 44px; color: #545454;font-weight: bold; margin-bottom: 15px; margin-top: 10px;}
+.comment-box.call-to-action .call-district-proposal-info-budget .call-title .fa-stack{font-size: 17px; font-size:1.7rem;}
+.comment-box.call-to-action .call-district-proposal-info-budget .call-subTitle{font-family: Arial, Helvetica, sans-serif;font-size: 18px;margin:0;color: #A8A8A8;}
+.comment-box.call-to-action .call-district-proposal-info-budget .call-subTitle a{color:#545454; font-weight: bold;}
+.comment-box.call-to-action .call-district-proposal-info-budget .call-subTitle.warn{color: #FFA8A8;}
+.comment-box.call-to-action .call-district-proposal-info-budget {display: grid;text-align: center;}
 
-.comment-box.call-to-action  .comment-header {
-    display: grid;
-    text-align: center;
-}
+.comment-box.call-to-action .call-district-proposal-info-budget.rejected {margin-bottom: 20px;}
+.comment-box.call-to-action .call-district-proposal-info-budget.rejected .call-title{ font-size: 15px; font-weight: bold;}
+
 
 #module-debate-pinned-users.comment-box.call-to-action  .comment-header .call-title .fa-stack {color:#FF9431}
 
