@@ -477,8 +477,6 @@ class UrlMappings {
 
         "/googleContacts/loadContactsFromGoogle" (controller: "googleContacts", action: "loadContactsFromGoogle")
 
-        "/sec/admin/updateMailChimp" (controller: "admin", action: "updateMailChimp")
-
         /**********************/
         /***** DEPRECATED *****/
         /**********************/

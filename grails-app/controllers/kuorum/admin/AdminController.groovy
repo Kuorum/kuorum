@@ -199,14 +199,6 @@ class AdminController {
     }
 
     @Secured(['ROLE_SUPER_ADMIN'])
-    def updateMailChimp(){
-        KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
-        mailchimpService.updateAllUsers(loggedUser)
-        flash.message="Se ha puesto en marcha el proceso de actualización de mail chimp. Recibirá un email cuando termine"
-        redirect mapping:"adminPrincipal"
-    }
-
-    @Secured(['ROLE_SUPER_ADMIN'])
     def fullIndex(){
         def res = indexSolrService.fullIndex()
         render view: '/admin/solrIndex'

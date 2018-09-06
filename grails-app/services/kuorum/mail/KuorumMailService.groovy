@@ -191,15 +191,6 @@ class KuorumMailService {
         mandrillAppService.sendTemplate(mailData)
     }
 
-    def mailingListUpdateUser(KuorumUser user){
-        try{
-            mailchimpService.addSubscriber(user)
-        }catch(Exception e){
-           log.error("Error actualizando usuario ${user} en MailChimp", e)
-        }
-    }
-
-
 
     protected String generateLink(String mapping, linkParams) {
         grailsLinkGenerator.link(mapping:mapping,absolute: true,  params: linkParams)

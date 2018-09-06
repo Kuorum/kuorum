@@ -246,9 +246,6 @@ class RegisterService {
             processMetaDataRegistration(user, registrationCode)
             registrationCode.delete(flush:true)
         }
-        if (user) {
-            kuorumMailService.mailingListUpdateUser(user)
-        }
         try{
             indexSolrService.deltaIndex()
         }catch(Exception e){

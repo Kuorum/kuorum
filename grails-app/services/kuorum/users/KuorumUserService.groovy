@@ -332,7 +332,6 @@ class KuorumUserService {
             }
         }
         indexSolrService.deltaIndex()
-        kuorumMailService.mailingListUpdateUser(user)
         updateKuorumUserOnRest(user);
 
 
