@@ -38,14 +38,17 @@ $(function () {
         $(this).remove(); // Removes the button. The loadMoreDistrictProposals creates new button
     })
 
+    $("#participatoryBudget-districtProposals-list-tab > li:first a").click()
 
 });
 
 var participatoryBudgetHelper={
 
     loadMoreDistrictProposals: function(ulId){
-        pageLoadingOn("Load more districts")
+        // pageLoadingOn("Load more districts")
         var urlLoadMoreDistrictProposals = $(ulId).attr("data-loadProposals")
+        $(ulId).append("<li class='loading'></li>")
+        $(ulId).parent().show()
         $.get( urlLoadMoreDistrictProposals)
             .done(function(data, staus, xhr) {
                 var moreResults = $.parseJSON(xhr.getResponseHeader('moreResults')); //Para que sea un bool)
@@ -53,13 +56,14 @@ var participatoryBudgetHelper={
                 if (moreResults){
                     $(ulId).append("<li class='col-xs-12 center load-more-district-proposals'><a href='#' class='btn btn-grey-light'>Load more</a> </li>")
                 }
-                $(ulId).parent().show()
             })
             .fail(function(messageError) {
                 display.warn("Error");
             })
             .always(function() {
-                pageLoadingOff("Load more districts");
+                // pageLoadingOff("Load more districts");
+                $(ulId).find(".loading").remove()
+                // $liLoading.remove()
             });
     }
 }
