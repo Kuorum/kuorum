@@ -163,8 +163,10 @@ class ParticipatoryBudgetController extends CampaignController{
         Long participatoryBudgetId = Long.parseLong(params.campaignId)
         Long districtId = Long.parseLong(params.districtId)
         Integer page= Integer.parseInt(params.page)
+        Double randomSeed = Double.parseDouble(params.randomSeed);
         String viewerUid = cookieUUIDService.buildUserUUID()
         FilterDistrictProposalRDTO filter = new FilterDistrictProposalRDTO(districtId: districtId, page:page)
+        filter.sort = new FilterDistrictProposalRDTO.SortDistrictProposalRDTO(randomSeed:randomSeed)
         PageDistrictProposalRSDTO pageDistrictProposals = participatoryBudgetService.findDistrictProposalsByDistrict(kuorumUser, participatoryBudgetId, filter, viewerUid)
         if (pageDistrictProposals.total == 0){
             response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${pageDistrictProposals.total > (pageDistrictProposals.page*pageDistrictProposals.size)}")

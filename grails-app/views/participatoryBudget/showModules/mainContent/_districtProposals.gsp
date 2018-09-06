@@ -31,7 +31,7 @@
                     </div>
                 </div>
             </g:if>
-            <ul class="search-list clearfix" data-page="0" data-loadProposals="${g.createLink(mapping:'participatoryBudgetDistrictProposals', params:participatoryBudget.encodeAsLinkProperties()+[districtId:district.id, page:0])}">
+            <ul class="search-list clearfix" data-page="0" data-loadProposals="${g.createLink(mapping:'participatoryBudgetDistrictProposals', params:participatoryBudget.encodeAsLinkProperties()+[districtId:district.id, page:0, randomSeed:randomSeed])}">
                 %{--<g:each in="${proposalPage.data}" var="proposal">--}%
                 %{--<g:render template="/campaigns/cards/campaignsList" model="[campaigns:campaigns]"/>--}%
                 %{--</g:each>--}%
