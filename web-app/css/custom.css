@@ -2773,6 +2773,9 @@ ul.search-list > li.search-article .box-ppal .card-footer > ul li a .number{font
 ul.search-list > li.search-article .box-ppal .card-footer > ul li a:hover {color: #00a3ed; text-decoration: none;}
 ul.search-list > li.search-article .box-ppal .card-footer > ul li .label { color:inherit; padding: 0;font-size: inherit;font-weight: inherit;}
 
+ul.search-list > li.search-article > article.box-ppal > div.link-wrapper > div.card-footer > ul > li.districtProposalPrice{position: relative;float: left; font-size: 25px; font-weight: bold;}
+ul.search-list > li.search-article > article.box-ppal > div.link-wrapper > div.card-footer > ul > li.owner {position: relative;float: left;bottom: 7px;}
+
 ul.search-list > li.info-empty  p{margin:auto; padding:40px;text-align: center;color: #a8a8a8;font-size: 2rem;}
 ul.search-list > li.info-empty .text-empty-campaignList {width: 90%;}
 ul.search-list > li.info-empty .icon-empty-campaignList {color: #ff9431; width:5%; display:none;}
@@ -6165,11 +6168,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 
     ul.search-list > li.search-article > article.box-ppal > div.link-wrapper {height: 375px;}
     ul.search-list > li.search-article > article.box-ppal > div.link-wrapper > div.card-footer {position:absolute; bottom:0;}
-    ul.search-list > li.search-article > article.box-ppal > div.link-wrapper > div.card-footer > ul > li.owner {
-        position: relative;
-        float: left;
-        bottom: 7px;
-    }
+    ul.search-list > li.search-article > article.box-ppal > div.link-wrapper > div.card-footer > ul > li.owner {bottom: 7px;}
 
     .uploaderImageContainer.PROJECT_IMAGE .qq-upload-drop-area {height:270px;}
     .uploaderImageContainer.PROJECT_IMAGE > div {height:270px;}
@@ -9098,11 +9097,7 @@ ul.bullets li img {
         padding: 6px 9px !important;
     }
 
-    ul.search-list > li.search-article > article.box-ppal > div.link-wrapper > div.card-footer > ul > li.owner {
-        position: relative;
-        float: left;
-        bottom: 9px;
-    }
+    ul.search-list > li.search-article > article.box-ppal > div.link-wrapper > div.card-footer > ul > li.owner {bottom: 9px;}
 
 
     .form-control-campaign {position: absolute; bottom: 25px; right: 15px}

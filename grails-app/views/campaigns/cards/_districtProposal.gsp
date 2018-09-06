@@ -1,3 +1,4 @@
+<%@ page import="org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO" %>
 
 <article role="article" class="box-ppal clearfix">
     <div class="link-wrapper" id="districtProposal-${districtProposal.id}" data-datepublished="${districtProposal.datePublished.time}">
@@ -29,7 +30,14 @@
         </div>
         <div class="card-footer">
             <ul>
-                <g:if test="${showAuthor}">
+                <g:if test="${[
+                        org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.BALLOT,
+                        org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.CLOSED,
+                        org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.RESULTS,
+                ].contains(districtProposal.participatoryBudget.status) && districtProposal.price}">
+                    <li class="districtProposalPrice"><g:message code="kuorum.multidomain.money" args="[districtProposal.price]"/></li>
+                </g:if>
+                <g:elseif test="${showAuthor}">
                     <li class="owner">
                         <userUtil:showUser
                                 user="${districtProposal.user}"
@@ -39,7 +47,7 @@
                                 htmlWrapper="div"
                         />
                     </li>
-                </g:if>
+                </g:elseif>
 
                 <li>
                     <g:render template="/districtProposal/showModules/districtProposalDataIcon" model="[districtProposal:districtProposal]"/>
