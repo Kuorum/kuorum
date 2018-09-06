@@ -7714,9 +7714,18 @@ button.btn-see-more {
 .nav-pills.nav-underline > li > a {
     border-radius: 0px;
     font-family: arial;
-    color: black;
+    color: #545454;
     font-size: 20px;
 }
+
+.nav-pills.nav-underline.nav-pills-lvl2 {}
+.nav-pills.nav-underline.nav-pills-lvl2 > li {margin-bottom:0px; height: auto;}
+.nav-pills.nav-underline.nav-pills-lvl2 > .active > a,
+.nav-pills.nav-underline.nav-pills-lvl2 > .active > a:hover,
+.nav-pills.nav-underline.nav-pills-lvl2 > li > a:focus,
+.nav-pills.nav-underline.nav-pills-lvl2 > li > a:hover {border-bottom-width: 0px; border-left-color: #0c0c0c; text-decoration: underline;}
+.nav-pills.nav-underline.nav-pills-lvl2 > li > a {font-size:15px; padding:0px 15px; border-left: 1px solid;}
+.nav-pills.nav-underline.nav-pills-lvl2 > li:first-child > a{border-left: 0px solid;}
 
 
 /*** Leader post section ***/

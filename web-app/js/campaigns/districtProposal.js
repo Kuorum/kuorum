@@ -112,7 +112,7 @@ var districtProposalHelper={
             $buttonColumnC.removeClass('on')
             $buttonColumnC.blur()
         }
-        $(".leader-post .footer .comment-counter .districtProposal-vote").find(".number").html(districtProposalRSDTO.numVotes);
+        $districtProposalCounter.find(".number").html(districtProposalRSDTO.numVotes);
         var width = Math.round(districtProposalRSDTO.district.amountUserInvested / districtProposalRSDTO.district.budget * 100 )  ;
         $(".budget .progress-bar-custom .progress-bar-custom-done").animate({width:width+'%'},"slow")
         $("#participatoryBudget-districtProposals-list #proposal-district-"+districtProposalRSDTO.district.id+" .progress-bar-custom .progress-bar-custom-done").animate({width:width+'%'},"slow")
@@ -138,7 +138,7 @@ var districtProposalHelper={
             $buttonColumnC.removeClass('on')
             $buttonColumnC.blur()
         }
-        $(".leader-post .footer .comment-counter .districtProposal-support").find(".number").html(districtProposalRSDTO.numSupports);
+        $districtProposalCounter.find(".number").html(districtProposalRSDTO.numSupports);
     }
 
 }

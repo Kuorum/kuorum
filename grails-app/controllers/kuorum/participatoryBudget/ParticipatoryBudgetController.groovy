@@ -163,10 +163,28 @@ class ParticipatoryBudgetController extends CampaignController{
         Long participatoryBudgetId = Long.parseLong(params.campaignId)
         Long districtId = Long.parseLong(params.districtId)
         Integer page= Integer.parseInt(params.page)
-        Double randomSeed = Double.parseDouble(params.randomSeed);
         String viewerUid = cookieUUIDService.buildUserUUID()
         FilterDistrictProposalRDTO filter = new FilterDistrictProposalRDTO(districtId: districtId, page:page)
-        filter.sort = new FilterDistrictProposalRDTO.SortDistrictProposalRDTO(randomSeed:randomSeed)
+        if (params.randomSeed){
+            Double randomSeed = Double.parseDouble(params.randomSeed);
+            filter.sort = new FilterDistrictProposalRDTO.SortDistrictProposalRDTO(randomSeed:randomSeed)
+        }else{
+            filter.sort = new FilterDistrictProposalRDTO.SortDistrictProposalRDTO(field:FilterDistrictProposalRDTO.SortableFieldRDTO.PRICE, direction: FilterDistrictProposalRDTO.DirectionRDTO.ASC )
+        }
+        ParticipatoryBudgetStatusDTO participatoryBudgetStatus = ParticipatoryBudgetStatusDTO.valueOf(params.participatoryBudgetStatus)
+        switch (participatoryBudgetStatus){
+            case ParticipatoryBudgetStatusDTO.RESULTS:
+                filter.sort = new FilterDistrictProposalRDTO.SortDistrictProposalRDTO(field:FilterDistrictProposalRDTO.SortableFieldRDTO.SUPPORTS, direction: FilterDistrictProposalRDTO.DirectionRDTO.ASC )
+                break;
+            case ParticipatoryBudgetStatusDTO.BALLOT:
+            case ParticipatoryBudgetStatusDTO.CLOSED:
+                filter.approved = true;
+                break;
+            case ParticipatoryBudgetStatusDTO.ADDING_PROPOSALS:
+            case ParticipatoryBudgetStatusDTO.TECHNICAL_REVIEW:
+            default:
+            break;
+        }
         PageDistrictProposalRSDTO pageDistrictProposals = participatoryBudgetService.findDistrictProposalsByDistrict(kuorumUser, participatoryBudgetId, filter, viewerUid)
         if (pageDistrictProposals.total == 0){
             response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${pageDistrictProposals.total > (pageDistrictProposals.page*pageDistrictProposals.size)}")

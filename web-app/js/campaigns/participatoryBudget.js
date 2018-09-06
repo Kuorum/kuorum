@@ -22,11 +22,35 @@ $(function () {
         var districtId = $a.attr("data-districtId");
         $("#participatoryBudget-districtProposals-list > div").hide()
         var divId = "#proposal-district-"+districtId
-        var ulId = divId+" > ul"
+        var ulId;
+        if ($(divId + "ul.nav-pills-lvl2 > li > a.active").length > 0){
+            var selector = $(divId + "ul.nav-pills-lvl2 > li > a.active").attr("data-listSelector")
+            ulId = divId +"> ul.search-list."+selector;
+        }else{
+            ulId = divId+" > ul.search-list.random"
+        }
         if ($(ulId+ " > li").length <= 0){
             participatoryBudgetHelper.loadMoreDistrictProposals(ulId)
         }else{
             $(divId).show()
+        }
+
+    })
+
+    $("#participatoryBudget-districtProposals-list ul.nav-pills-lvl2 > li > a").on("click", function(e){
+        e.preventDefault();
+        var $a = $(this)
+        $a.parent().parent().children().removeClass("active")
+        $a.parent().addClass("active");
+        var districtId = $a.attr("data-districtId");
+        var selector = $a.attr("data-listSelector")
+        var divId = "#proposal-district-"+districtId
+        var ulId = divId +"> ul.search-list."+selector;
+
+        $(divId +"> ul.search-list").hide()
+        $(ulId).show()
+        if ($(ulId+ " > li").length <= 0){
+            participatoryBudgetHelper.loadMoreDistrictProposals(ulId)
         }
 
     })

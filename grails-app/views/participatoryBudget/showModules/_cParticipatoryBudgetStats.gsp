@@ -20,7 +20,7 @@
         <span class="info"><g:message code="participatoryBufget.columnC.basicStats.numVotes" args="[participatoryBudget.basicStats.numVotes]" /></span>
     </li>
     <li>
-        <span class="fas fa-flag" aria-hidden="true"></span>
+        <span class="fal fa-flag" aria-hidden="true"></span>
         <span class="info"><g:message code="participatoryBufget.columnC.basicStats.numProposalsApproved" args="[participatoryBudget.basicStats.numProposalsApproved]" /></span>
     </li>
     <li>

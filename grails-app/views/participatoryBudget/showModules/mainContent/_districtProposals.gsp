@@ -30,12 +30,15 @@
                         </div>
                     </div>
                 </div>
+                <ul class="nav nav-pills nav-pills-lvl2 nav-underline ">
+                    <li class="active"><a href="#" data-listSelector="random" data-districtId="${district.id}">Random</a></li>
+                    <li><a href="#" data-listSelector="price" data-districtId="${district.id}">By price</a></li>
+                </ul>
+                %{--<a href="#">Random</a></li> | <a href="#">By price</a>--}%
+
             </g:if>
-            <ul class="search-list clearfix" data-page="0" data-loadProposals="${g.createLink(mapping:'participatoryBudgetDistrictProposals', params:participatoryBudget.encodeAsLinkProperties()+[districtId:district.id, page:0, randomSeed:randomSeed])}">
-                %{--<g:each in="${proposalPage.data}" var="proposal">--}%
-                %{--<g:render template="/campaigns/cards/campaignsList" model="[campaigns:campaigns]"/>--}%
-                %{--</g:each>--}%
-            </ul>
+            <ul class="search-list clearfix random" data-page="0" data-loadProposals="${g.createLink(mapping:'participatoryBudgetDistrictProposals', params:participatoryBudget.encodeAsLinkProperties()+[participatoryBudgetStatus:participatoryBudget.status, districtId:district.id, page:0, randomSeed:randomSeed])}"></ul>
+            <ul class="search-list clearfix price" data-page="0" data-loadProposals="${g.createLink(mapping:'participatoryBudgetDistrictProposals', params:participatoryBudget.encodeAsLinkProperties()+[participatoryBudgetStatus:participatoryBudget.status, districtId:district.id, page:0])}"></ul>
         </div>
     </g:each>
 </div>
