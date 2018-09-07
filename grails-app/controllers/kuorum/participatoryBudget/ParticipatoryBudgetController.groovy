@@ -185,6 +185,11 @@ class ParticipatoryBudgetController extends CampaignController{
             default:
             break;
         }
+
+        if (filter.sort && params.direction){
+            FilterDistrictProposalRDTO.DirectionRDTO dir = FilterDistrictProposalRDTO.DirectionRDTO.valueOf(params.direction)
+            filter.sort.direction = dir;
+        }
         PageDistrictProposalRSDTO pageDistrictProposals = participatoryBudgetService.findDistrictProposalsByDistrict(kuorumUser, participatoryBudgetId, filter, viewerUid)
         if (pageDistrictProposals.total == 0){
             response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${pageDistrictProposals.total > (pageDistrictProposals.page*pageDistrictProposals.size)}")

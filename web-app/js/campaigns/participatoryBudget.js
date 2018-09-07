@@ -46,11 +46,29 @@ $(function () {
         var selector = $a.attr("data-listSelector")
         var divId = "#proposal-district-"+districtId
         var ulId = divId +"> ul.search-list."+selector;
+        var params = {
+            direction:'ASC'
+        }
+        console.log($a)
+        if ($a.find(".fal").length>0){
+            var $spanDirection = $a.find(".fal");
+            if ($spanDirection.hasClass("fa-angle-down")){
+                $spanDirection.removeClass("fa-angle-down")
+                $spanDirection.addClass("fa-angle-up")
+                params.direction='ASC';
+                $(ulId).empty();
+            }else{
+                $spanDirection.removeClass("fa-angle-up")
+                $spanDirection.addClass("fa-angle-down")
+                params.direction='DESC';
+                $(ulId).empty();
+            }
+        }
 
         $(divId +"> ul.search-list").hide()
         $(ulId).show()
         if ($(ulId+ " > li").length <= 0){
-            participatoryBudgetHelper.loadMoreDistrictProposals(ulId)
+            participatoryBudgetHelper.loadMoreDistrictProposals(ulId, params)
         }
 
     })
@@ -68,9 +86,13 @@ $(function () {
 
 var participatoryBudgetHelper={
 
-    loadMoreDistrictProposals: function(ulId){
+    loadMoreDistrictProposals: function(ulId, params){
         // pageLoadingOn("Load more districts")
-        var urlLoadMoreDistrictProposals = $(ulId).attr("data-loadProposals")
+        var urlLoadMoreDistrictProposals = new URL($(ulId).attr("data-loadProposals"))
+        for (var key in params) {
+            urlLoadMoreDistrictProposals.searchParams.append(key, params[key])
+        }
+
         $(ulId).append("<li class='loading'></li>")
         $(ulId).parent().show()
         $.get( urlLoadMoreDistrictProposals)

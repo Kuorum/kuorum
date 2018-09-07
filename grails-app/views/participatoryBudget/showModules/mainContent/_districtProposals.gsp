@@ -32,7 +32,7 @@
                 </div>
                 <ul class="nav nav-pills nav-pills-lvl2 nav-underline ">
                     <li class="active"><a href="#" data-listSelector="random" data-districtId="${district.id}">Random</a></li>
-                    <li><a href="#" data-listSelector="price" data-districtId="${district.id}">By price</a></li>
+                    <li><a href="#" data-listSelector="price" data-districtId="${district.id}">By price <span class="fal "></span> </a></li>
                 </ul>
                 %{--<a href="#">Random</a></li> | <a href="#">By price</a>--}%
 
