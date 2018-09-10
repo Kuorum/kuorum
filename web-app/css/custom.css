@@ -1696,6 +1696,7 @@ ul.user-list-followers .loading.xs {width: 10px; height: 10px;}
 .campaign-progress-bar .pop-up .arrow::after {content: " "; position: absolute; border: 11px solid #fff; width: 1px; height: 1px; left: -11px; top: -14px; border-left-color: transparent; border-right-color: transparent; border-bottom-color: transparent;}
 .campaign-progress-bar .progress-bar-custom {background-color: #ccc; height: 12px; width: 100%; position: relative; border-radius: 10px;}
 .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done {position: relative; width: 0%; height: 100%; background: #ff9934;border-radius: 10px;}
+.campaign-progress-bar.important .progress-bar-custom .progress-bar-custom-done{background: #ff9934;}
 
 .participatory-budget-steps-wrapper .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done {
 
@@ -1742,6 +1743,7 @@ ul.user-list-followers .loading.xs {width: 10px; height: 10px;}
 @keyframes participatory-budget-steps-loadProgressBar-step5 {0% {width: 0%;}100% {width: 90%;}}
 
 .campaign-progress-bar-wrapper .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done::after {content: ""; position: absolute; border: 10px solid #ff9934; border-left-color: transparent; border-right-color: transparent; border-bottom-color: transparent; width: 1px; height: 1px; right: -10px; top: -10px;}
+.campaign-progress-bar-wrapper .campaign-progress-bar.important .progress-bar-custom .progress-bar-custom-done::after {border: 10px solid #ff9934; border-left-color: transparent; border-right-color: transparent; border-bottom-color: transparent; }
 
 .participatory-budget-steps-wrapper {padding: 15px 15px 10px 15px;
     -webkit-transform-origin: 0 100%;
