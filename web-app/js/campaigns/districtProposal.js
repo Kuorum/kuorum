@@ -1,6 +1,7 @@
 $(function () {
     
     $("body").on("click",".districtProposal-support, .districtProposal-vote", districtProposalHelper.bindActionClick)
+    $("body").on("click", ".comment-counter .disabled", function(e){e.preventDefault();})
     $(".districtProposal-support, .districtProposal-vote").on("click", districtProposalHelper.bindActionClick)
 
     noLoggedCallbacks['districtProposalAction']= function(){

@@ -174,7 +174,8 @@ class ParticipatoryBudgetController extends CampaignController{
         ParticipatoryBudgetStatusDTO participatoryBudgetStatus = ParticipatoryBudgetStatusDTO.valueOf(params.participatoryBudgetStatus)
         switch (participatoryBudgetStatus){
             case ParticipatoryBudgetStatusDTO.RESULTS:
-                filter.sort = new FilterDistrictProposalRDTO.SortDistrictProposalRDTO(field:FilterDistrictProposalRDTO.SortableFieldRDTO.SUPPORTS, direction: FilterDistrictProposalRDTO.DirectionRDTO.ASC )
+                filter.sort = new FilterDistrictProposalRDTO.SortDistrictProposalRDTO(field:FilterDistrictProposalRDTO.SortableFieldRDTO.VOTES, direction: FilterDistrictProposalRDTO.DirectionRDTO.DESC )
+                filter.approved = true;
                 break;
             case ParticipatoryBudgetStatusDTO.BALLOT:
             case ParticipatoryBudgetStatusDTO.CLOSED:

@@ -2770,8 +2770,10 @@ ul.search-list > li.search-article .box-ppal .card-footer > ul li a .far,
 ul.search-list > li.search-article .box-ppal .card-footer > ul li a .fas,
 ul.search-list > li.search-article .box-ppal .card-footer > ul li a .fal {font-size: 1.33333333em;line-height: .75em; vertical-align: -15%;}
 ul.search-list > li.search-article .box-ppal .card-footer > ul li a .number{font-size: 20px; vertical-align: top;font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;}
+ul.search-list > li.search-article .box-ppal .card-footer > ul li a.disabled:hover {color: #a8a8a8; text-decoration: none;}
 ul.search-list > li.search-article .box-ppal .card-footer > ul li a:hover {color: #00a3ed; text-decoration: none;}
 ul.search-list > li.search-article .box-ppal .card-footer > ul li .label { color:inherit; padding: 0;font-size: inherit;font-weight: inherit;}
+ul.search-list > li.search-article .box-ppal .card-footer > ul li .comment-counter.important {margin-top:-5px;color: #ff9431;}
 
 ul.search-list > li.search-article > article.box-ppal > div.link-wrapper > div.card-footer > ul > li.districtProposalPrice{position: relative;float: left; font-size: 25px; font-weight: bold;}
 ul.search-list > li.search-article > article.box-ppal > div.link-wrapper > div.card-footer > ul > li.owner {position: relative;float: left;bottom: 7px;}
@@ -7865,9 +7867,8 @@ body.noLogged .leader-post .header .call-to-action-mobile{
     color: #00a3ed;
 }
 
-.leader-post > .footer .comment-counter {
-    margin:30px 0;
-}
+.leader-post > .footer .comment-counter {margin:30px 0;}
+.leader-post > .footer .comment-counter.important {color:#ff9431}
 .leader-post > .footer .comment-counter a,
 .leader-post > .footer .comment-counter button {
     font-size: 20px;
