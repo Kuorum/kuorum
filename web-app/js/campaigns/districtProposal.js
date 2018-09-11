@@ -92,6 +92,9 @@ var districtProposalHelper={
                         var modalId = "#warn-district-budget-overflow-"+districtId;
                         $(modalId).modal()
                         prepareProgressBar();
+                    }else{
+                        var modalId = "#warn-different-district-"+districtId;
+                        $(modalId).modal()
                     }
                 }else{
                     display.error("There was an unexpected error")
