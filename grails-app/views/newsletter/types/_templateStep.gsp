@@ -13,11 +13,10 @@
         <fieldset class="form-group">
             <h4 for="contentType" class="col-sm-3 col-md-2 control-label"><g:message code="kuorum.web.commands.payment.massMailing.MassMailingCommand.contentType.label"/>:</h4>
             <div class="col-sm-6 col-md-5">
-                <formUtil:radioEnum command="${command}" field="contentType" labelCssClass="hide" deleteOptions="[
-                        org.kuorum.rest.model.notification.campaign.NewsletterTemplateDTO.EVENT,
-                        org.kuorum.rest.model.notification.campaign.NewsletterTemplateDTO.DEBATE,
-                        org.kuorum.rest.model.notification.campaign.NewsletterTemplateDTO.POST,
-                        org.kuorum.rest.model.notification.campaign.NewsletterTemplateDTO.SURVEY
+                <formUtil:radioEnum command="${command}" field="contentType" labelCssClass="hide" values="[
+                        org.kuorum.rest.model.notification.campaign.NewsletterTemplateDTO.NEWSLETTER,
+                        org.kuorum.rest.model.notification.campaign.NewsletterTemplateDTO.HTML,
+                        org.kuorum.rest.model.notification.campaign.NewsletterTemplateDTO.PLAIN_TEXT
                 ]"/>
             </div>
         </fieldset>
