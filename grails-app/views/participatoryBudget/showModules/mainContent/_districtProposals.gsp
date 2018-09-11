@@ -34,6 +34,9 @@
             </g:elseif>
             <ul class="search-list clearfix random" data-page="0" data-loadProposals="${g.createLink(mapping:'participatoryBudgetDistrictProposals', params:participatoryBudget.encodeAsLinkProperties()+[participatoryBudgetStatus:participatoryBudget.status, districtId:district.id, page:0, randomSeed:randomSeed])}"></ul>
             <ul class="search-list clearfix price" data-page="0" data-loadProposals="${g.createLink(mapping:'participatoryBudgetDistrictProposals', params:participatoryBudget.encodeAsLinkProperties()+[participatoryBudgetStatus:participatoryBudget.status, districtId:district.id, page:0])}"></ul>
+
+            <!-- District modal overflow -->
+            <g:render template="/districtProposal/showModules/mainContent/districtProposalModalErrors" model="[district:district]"/>
         </div>
     </g:each>
 </div>

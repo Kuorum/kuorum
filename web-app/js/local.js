@@ -191,6 +191,11 @@ $(document).ready(function() {
         };
     });
 
+    $(".modal").on("click", "a.close-modal", function(e){
+        e.preventDefault();
+        $(this).parents(".modal").modal('hide')
+    })
+
     // HEAD SEARCHER
     var a = $('#srch-term').autocomplete({
         paramName:"word",

@@ -128,7 +128,7 @@ class DistrictProposalService implements CampaignCreatorService<DistrictProposal
             KuorumUser user,
             KuorumUser participatoryBudgetUser,
             Long participatoryBudgetId,
-            Long districtProposalId){
+            Long districtProposalId) throws KuorumException{
         Map<String, String> params = [
                 userId: participatoryBudgetUser.id.toString(),
                 campaignId: participatoryBudgetId.toString(),

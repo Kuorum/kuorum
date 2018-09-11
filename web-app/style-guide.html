@@ -560,6 +560,37 @@
                         </span>
                     </div>
                 </div>
+
+                <div class="comment-box call-to-action">
+                    <div class="comment-header">
+                        <span class="call-title">
+                            Modals
+                        </span>
+                        <span class="call-subTitle">
+                            <a href="#" id="open-modal-link">Open Modal</a>
+
+                            <div class="modal" id="modal-example" tabindex="-1" role="dialog" aria-labelledby="modal-example-title" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true" class="fal fa-times-circle fa"></span><span class="sr-only">Cerrar</span></button>
+                                            <h4 id="modal-example-title">TITLE</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            Texto de la modal
+                                        </div>
+
+                                        <div class="modal-actions">
+                                            <a href="" role="button" class="btn btn-blue inverted btn-lg">Action positive</a>
+                                            <a href="" role="button" class="btn btn-grey-light btn-lg close-modal">Action negative - CLOSE </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+
             </aside>
         </div><!-- /.conatiner-fluid -->
     </div><!-- /.row.main -->
@@ -638,6 +669,14 @@
 <!--<script src="js/youtube-helper.js"></script>-->
 <!--<script src="js/jquery.autocomplete.js"></script>-->
 <!--<script src="js/custom.js"></script>-->
+
+<script>
+    function openModal(e){
+        e.preventDefault();
+        $("#modal-example").modal()
+    }
+    $("#open-modal-link").on("click", openModal)
+</script>
 
 </body>
 </html>

@@ -1438,6 +1438,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .modal-body table th, .modal-body table td {width: 50%; text-align: left; padding: 10px 15px;}
 .modal-body table tr th {background-color: #f7f7f7; border-bottom-width: 1px;}
 .modal-body table tfoot tr td {text-align: center; color:#ccc; }
+.modal-actions {direction: rtl; padding: 0 20px 20px; position:relative; text-align: center;}
 /*#filtersInfo .modal-body > table > tbody > tr > td {padding: 0;}*/
 /*#campaignConfirm .modal-body {background: url('../images/campaignModalConfirm.jpg')  center 0 no-repeat transparent; padding-top: 245px;}*/
 
@@ -1779,8 +1780,14 @@ ul.participatory-budget-steps-info li.active a {display: none}
 .participatory-budget-status .kuorum-tooltip + .tooltip.bottom .tooltip-arrow{position:relative;left: 10%;}
 
 #participatoryBudget-districtProposals-list-tab {margin-bottom:0px;}
-#participatoryBudget-districtProposals-list > div > div.comment-box .label{text-align: center;font-weight: bold;font-family: 'Arial';color: #545454;font-size: 15px;}
-#participatoryBudget-districtProposals-list > div > div.comment-box .campaign-progress-bar-wrapper {margin-top:-10px;}
+.warn-district-overflow > div.modal-dialog >div.modal-content > div.modal-body > div.comment-box .label,
+#participatoryBudget-districtProposals-list > div > div.comment-box .label{text-align: center;font-weight: bold;font-family: 'Arial';color: #545454;font-size: 15px;padding: .2em .6em .3em; width:25%;float:left;}
+.warn-district-overflow div.comment-box .campaign-progress-bar-wrapper,
+#participatoryBudget-districtProposals-list > div > div.comment-box .campaign-progress-bar-wrapper {margin-top:-10px; width:74%;float:left;}
+
+.warn-district-overflow > div.modal-dialog >div.modal-content > div.modal-body > div.comment-box .label{width:28%;}
+.warn-district-overflow div.comment-box .campaign-progress-bar-wrapper{width:72%;}
+
 
 #followAndRegister{padding: 10px 15px 0;}
 #followAndRegister .btn{width:100%;margin-bottom:7px; padding: 9px !important;}

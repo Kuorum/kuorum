@@ -8,6 +8,7 @@ import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.exception.KuorumException
 import org.apache.commons.io.IOUtils
 import org.apache.http.entity.InputStreamEntity
+import org.kuorum.rest.model.error.RestServiceError
 import org.springframework.beans.factory.annotation.Value
 
 import java.nio.charset.StandardCharsets
@@ -24,7 +25,7 @@ class RestKuorumApiService {
 //    @Value('${kuorum.rest.apiKey}')
 //    String kuorumRestApiKey
 
-    def delete(ApiMethod apiMethod, Map<String,String> params, Map<String,String> query) {
+    def delete(ApiMethod apiMethod, Map<String,String> params, Map<String,String> query) throws KuorumException{
         RESTClient mailKuorumServices = new RESTClient(kuorumRestServices)
         String path = apiMethod.buildUrl(apiPath, params)
         def response = mailKuorumServices.delete(
@@ -36,7 +37,7 @@ class RestKuorumApiService {
         return response
     }
 
-    def delete(ApiMethod apiMethod, Map<String,String> params, Map<String,String> query, TypeReference typeToMap) {
+    def delete(ApiMethod apiMethod, Map<String,String> params, Map<String,String> query, TypeReference typeToMap) throws KuorumException {
         RESTClient mailKuorumServices = getRestMailKuorumServices(typeToMap);
 
         String path = apiMethod.buildUrl(apiPath,params);
@@ -49,7 +50,7 @@ class RestKuorumApiService {
         return response
     }
 
-    def get(ApiMethod apiMethod, Map<String,String> params, Map<String,String> query, TypeReference typeToMap, String adminApiKey = null) {
+    def get(ApiMethod apiMethod, Map<String,String> params, Map<String,String> query, TypeReference typeToMap, String adminApiKey = null) throws KuorumException {
         RESTClient mailKuorumServices = getRestMailKuorumServices(typeToMap);
 
         String apiKey = adminApiKey?:CustomDomainResolver.apiToken
@@ -63,7 +64,7 @@ class RestKuorumApiService {
         return response
     }
 
-    def patch(ApiMethod apiMethod, Map<String,String> params, Map<String,String> query, TypeReference typeToMap) {
+    def patch(ApiMethod apiMethod, Map<String,String> params, Map<String,String> query, TypeReference typeToMap) throws KuorumException{
         RESTClient mailKuorumServices = new RESTClient( kuorumRestServices)
         String path = apiMethod.buildUrl(apiPath,params);
         def response = mailKuorumServices.patch(
@@ -75,7 +76,7 @@ class RestKuorumApiService {
         return response
     }
 
-    def put(ApiMethod apiMethod, Map<String,String> params, Map<String,String> query, def body,TypeReference typeToMap, String adminApiKey = null) {
+    def put(ApiMethod apiMethod, Map<String,String> params, Map<String,String> query, def body,TypeReference typeToMap, String adminApiKey = null) throws KuorumException {
         RESTClient mailKuorumServices = getRestMailKuorumServices(typeToMap);
         String apiKey = adminApiKey?:CustomDomainResolver.apiToken
         String path = apiMethod.buildUrl(apiPath,params);
@@ -89,7 +90,7 @@ class RestKuorumApiService {
         return response
     }
 
-    def post(ApiMethod apiMethod, Map<String,String> params, Map<String,String> query, def body,TypeReference typeToMap) {
+    def post(ApiMethod apiMethod, Map<String,String> params, Map<String,String> query, def body,TypeReference typeToMap) throws KuorumException{
 
         RESTClient mailKuorumServices = getRestMailKuorumServices(typeToMap);
 
@@ -137,7 +138,12 @@ class RestKuorumApiService {
                 }
                 return obj
             }else{
-                throw new KuorumException("No found")
+                String jsonString = IOUtils.toString(resp.getEntity().getContent(), "UTF-8");
+                ObjectMapper objectMapper = new ObjectMapper()
+                objectMapper.setTimeZone(TimeZone.getTimeZone("UTC"))
+                objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+                RestServiceError serviceError = objectMapper.readValue(jsonString, RestServiceError.class);
+                throw new KuorumException(serviceError.message, "error.api.${serviceError.code}")
             }
         })
 

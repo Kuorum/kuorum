@@ -427,10 +427,7 @@ $(document).ready(function() {
         })
     })
 
-    $(".campaign-progress-bar[data-width] .progress-bar-custom .progress-bar-custom-done").each(function(idx){
-        var width = $(this).parents(".campaign-progress-bar[data-width]").attr("data-width");
-        $(this).animate({width:width+'%'},"slow")
-    })
+
 
 
     $(window).load(function() {
@@ -441,6 +438,11 @@ $(document).ready(function() {
 // ***** End jQuey Init *********** //
 function prepareProgressBar(){
     $('.progress-bar').progressbar();
+
+    $(".campaign-progress-bar[data-width] .progress-bar-custom .progress-bar-custom-done").each(function(idx){
+        var width = $(this).parents(".campaign-progress-bar[data-width]").attr("data-width");
+        $(this).animate({width:width+'%'},"slow")
+    })
     // animo la progress-bar de boxes.likes
 //    $('.likes .progress-bar').progressbar({
 //        done: function() {

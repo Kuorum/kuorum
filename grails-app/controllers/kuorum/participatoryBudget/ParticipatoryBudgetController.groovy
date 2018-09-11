@@ -2,6 +2,7 @@ package kuorum.participatoryBudget
 
 import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
+import kuorum.core.exception.KuorumException
 import kuorum.politician.CampaignController
 import kuorum.users.KuorumUser
 import kuorum.web.commands.payment.CampaignContentCommand
@@ -10,6 +11,8 @@ import kuorum.web.commands.payment.participatoryBudget.*
 import kuorum.web.constants.WebConstants
 import org.kuorum.rest.model.communication.participatoryBudget.*
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
+
+import java.lang.reflect.UndeclaredThrowableException
 
 class ParticipatoryBudgetController extends CampaignController{
 
@@ -363,12 +366,22 @@ class ParticipatoryBudgetController extends CampaignController{
         KuorumUser currentUser= springSecurityService.currentUser;
         KuorumUser participatoryBudgetUser = kuorumUserService.findByAlias(command.getUserAlias());
         DistrictProposalRSDTO districtProposalRSDTO
-        if (command.vote){
-            districtProposalRSDTO = districtProposalService.vote(currentUser, participatoryBudgetUser, command.participatoryBudgetId, command.proposalId);
-        }else{
-            districtProposalRSDTO = districtProposalService.unvote(currentUser, participatoryBudgetUser, command.participatoryBudgetId, command.proposalId);
+        try{
+            if (command.vote){
+                districtProposalRSDTO = districtProposalService.vote(currentUser, participatoryBudgetUser, command.participatoryBudgetId, command.proposalId);
+            }else{
+                districtProposalRSDTO = districtProposalService.unvote(currentUser, participatoryBudgetUser, command.participatoryBudgetId, command.proposalId);
+            }
+            render (districtProposalRSDTO as JSON)
+        }catch (Exception e){
+            response.status = 500
+            if (e instanceof UndeclaredThrowableException ){
+                KuorumException ke = ((UndeclaredThrowableException)e).getCause().getCause()
+                render "{\"error\": \"API_ERROR\", \"code\":\"${ke.errors[0].code}\"}";
+            }else{
+                render "{\"error\": \"GENERIC_ERROR\", \"code\":\"error.api.500\"}";
+            }
         }
-        render (districtProposalRSDTO as JSON)
     }
 
 

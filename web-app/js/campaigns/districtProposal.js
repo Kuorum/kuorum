@@ -85,8 +85,17 @@ var districtProposalHelper={
                     callback();
                 }
             },
-            error: function(){
-
+            error: function(xhr, textStatus, errorThrown){
+                var errorJson = JSON.parse(xhr.responseText);
+                if (errorJson.error == "API_ERROR"){
+                    if (errorJson.code == "error.api.SERVICE_CAMPAIGN_PARTICIPATORY_BUDGET_BUDGET_OVERFLOW"){
+                        var modalId = "#warn-district-budget-overflow-"+districtId;
+                        $(modalId).modal()
+                        prepareProgressBar();
+                    }
+                }else{
+                    display.error("There was an unexpected error")
+                }
             },
             complete: function(){
                 //$button.on('click', postFunctions.bindLikeClick);
@@ -116,7 +125,9 @@ var districtProposalHelper={
         $districtProposalCounter.find(".number").html(districtProposalRSDTO.numVotes);
         var width = Math.round(districtProposalRSDTO.district.amountUserInvested / districtProposalRSDTO.district.budget * 100 )  ;
         $(".budget .progress-bar-custom .progress-bar-custom-done").animate({width:width+'%'},"slow")
+        $(".budget .campaign-progress-bar").attr("data-width",width)
         $("#participatoryBudget-districtProposals-list #proposal-district-"+districtProposalRSDTO.district.id+" .progress-bar-custom .progress-bar-custom-done").animate({width:width+'%'},"slow")
+        $("#participatoryBudget-districtProposals-list #proposal-district-"+districtProposalRSDTO.district.id+" .campaign-progress-bar").attr("data-width",width)
         $(".budget .campaign-progress-bar .pop-up .amount-user-invested").html(districtProposalRSDTO.district.amountUserInvested);
         $("#participatoryBudget-districtProposals-list #proposal-district-"+districtProposalRSDTO.district.id+" .pop-up .number").html(districtProposalRSDTO.district.amountUserInvested);
     },
