@@ -321,7 +321,7 @@ class ParticipatoryBudgetController extends CampaignController{
             case "approved": filter.approved = Boolean.parseBoolean(value); break;
             case "implemented": filter.implemented = Boolean.parseBoolean(value); break;
             case "user.name": filter.userName= value; break;
-            case "technicalReviewStatus.name": filter.technicalReviewStatus= TechnicalReviewStatusRDTO.valueOf(value); break;
+            case "technicalReviewStatus.i18n": filter.technicalReviewStatus= TechnicalReviewStatusRDTO.valueOf(value); break;
             default: filter[rawKey] = value; break;
         }
     }
