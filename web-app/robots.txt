@@ -6,7 +6,7 @@ Allow: /
 Allow: /*
 Disallow: /login/auth
 Disallow: /ajax/*
-Disallow: /admin/*
+#Disallow: /admin/*
 Disallow: /editor/*
 Disallow: /sec/*
 Disallow: /dashboard/*
