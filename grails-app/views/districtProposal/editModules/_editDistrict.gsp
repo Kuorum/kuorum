@@ -15,7 +15,7 @@
         <input type="hidden" name="redirectLink" id="redirectLink"/>
 
         <fieldset class="form-group">
-            <label for="title" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.massMailing.DebateCommand.title.label"/>:</label>
+            <label for="title" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.participatoryBudget.DistrictProposalChooseDistrictCommand.district.label"/>:</label>
             <div class="col-sm-8 col-md-7">
                 <select class="form-control input-lg" name="districtId">
                     <g:each in="${participatoryBudget.districts}" var="district">
@@ -25,9 +25,10 @@
             </div>
         </fieldset>
         <fieldset class="form-group">
-            <label for="title" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.massMailing.DebateCommand.title.label"/>:</label>
+            <label for="title" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.participatoryBudget.DistrictProposalChooseDistrictCommand.cause.label"/>:</label>
             <div class="col-sm-8 col-md-7">
                 <select class="form-control input-lg" name="cause">
+                    <option value="">---</option>
                     <g:each in="${participatoryBudget.causes}" var="cause">
                         <option value="${cause}" ${cause==command.cause?'selected':''}>${cause}</option>
                     </g:each>
