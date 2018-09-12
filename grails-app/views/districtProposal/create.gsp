@@ -22,7 +22,6 @@
         [
                 saveAndSentButtons:false,
                 step:'district',
-                settings:'districtProposalCreateSettings',
                 content:'districtProposalCreateContent',
                 district:'districtProposalCreate',
                 showResult: 'campaignShow',

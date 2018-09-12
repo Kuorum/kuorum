@@ -65,6 +65,21 @@ class DistrictProposalController extends CampaignController{
     }
 
     @Secured(['ROLE_CAMPAIGN_PARTICIPATORY_BUDGET'])
+    def createBySettings(){
+
+        Long participatoryBudgetId = params.campaignId?Long.parseLong(params.campaignId):null
+        KuorumUser kuorumUser = kuorumUserService.findByAlias(params.userAlias)
+        ParticipatoryBudgetRSDTO participatoryBudgetRSDTO = participatoryBudgetService.find(kuorumUser, participatoryBudgetId)
+        DistrictProposalChooseDistrictCommand districtCommand = (DistrictProposalChooseDistrictCommand)request.getSession().getAttribute(SESSION_KEY_DISTRICT_COMMAND)
+        if (!districtCommand){
+            flash.message = "Please choose a district"
+            redirect mapping:'districtProposalCreate', params: participatoryBudgetRSDTO.encodeAsLinkProperties()
+        }else{
+            return districtProposalModelSettings(new CampaignSettingsCommand(debatable:false), null)
+        }
+    }
+
+    @Secured(['ROLE_CAMPAIGN_PARTICIPATORY_BUDGET'])
     def saveNewProposalByContent(CampaignContentCommand command){
         Long participatoryBudgetId = params.campaignId?Long.parseLong(params.campaignId):null
         KuorumUser kuorumUser = kuorumUserService.findByAlias(params.userAlias)
@@ -78,6 +93,11 @@ class DistrictProposalController extends CampaignController{
             if(command.errors.getFieldError().arguments.first() == "publishOn"){
                 flash.error = message(code: "debate.scheduleError")
             }
+            render view: 'createByContent', model: campaignModelContent(null, null,command, districtProposalService)
+            return
+        }
+        if (!command.title){
+            command.errors.rejectValue("title", "kuorum.web.commands.payment.CampaignContentCommand.title.nullable")
             render view: 'createByContent', model: campaignModelContent(null, null,command, districtProposalService)
             return
         }
@@ -125,7 +145,7 @@ class DistrictProposalController extends CampaignController{
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         DistrictProposalRSDTO districtProposalRSDTO = districtProposalService.find( user, Long.parseLong((String) params.campaignId))
 
-        return districtProposalModelSettings(new CampaignSettingsCommand(debatable:true), districtProposalRSDTO)
+        return districtProposalModelSettings(new CampaignSettingsCommand(debatable:false), districtProposalRSDTO)
 
     }
 

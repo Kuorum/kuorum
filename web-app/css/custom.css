@@ -1631,7 +1631,8 @@ ul.list > li > ul.list-actions > li > a:active {color: #20a2ea;}
 .actionIcons li.fontIcon > a > span.fal,
 .actionIcons li.fontIcon > a > span.far {font-size: 30px;width: 100%; height: auto;}
 .actionIcons li.fontIcon > a > span.label {color:inherit; padding:0; font-weight: inherit; font-size: 11px}
-
+.actionIcons li.fontIcon.arrow {display: none}
+.actionIcons li + li.fontIcon.arrow {display: inline-block}
 
 .dashboard, .box-ppal.dashboard {margin-top: 20px;}
 .dashboard > div > .box-ppal {min-height: 225px; box-shadow: 0 0 2px rgba(200,200,200,0.6);}
