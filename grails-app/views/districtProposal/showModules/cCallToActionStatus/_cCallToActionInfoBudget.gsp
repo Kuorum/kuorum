@@ -2,7 +2,7 @@
     <g:if test="${showPrice}">
         <span class="call-title-price"><g:message code="kuorum.multidomain.money" args="[districtProposal.price.encodeAsReducedPrice()]"/></span>
     </g:if>
-    <span class="call-subTitle"><g:message code="districtProposal.callToAction.district.info.budget"/> <g:link mapping="participatoryBudgetShow" params="${districtProposal.participatoryBudget.encodeAsLinkProperties()}" fragment="${districtProposal.district.name}">${districtProposal.district.name}</g:link></span>
+    <span class="call-subTitle"><g:message code="districtProposal.callToAction.district.info.budget"/> <g:link mapping="participatoryBudgetShow" params="${districtProposal.participatoryBudget.encodeAsLinkProperties()}" fragment="${districtProposal.district.name.encodeAsKuorumUrl()}">${districtProposal.district.name}</g:link></span>
 
     <div class="budget">
         <div class="campaign-progress-bar-wrapper">

@@ -80,7 +80,9 @@ $(function () {
         $(this).remove(); // Removes the button. The loadMoreDistrictProposals creates new button
     })
 
-    $("#participatoryBudget-districtProposals-list-tab > li:first a").click()
+    $("#participatoryBudget-districtProposals-list-tab > li:first a").click();
+
+    participatoryBudgetHelper.moveAndOpenDistrict(window.location.hash);
 
 });
 
@@ -111,5 +113,12 @@ var participatoryBudgetHelper={
                 $(ulId).find(".loading").remove()
                 // $liLoading.remove()
             });
+    },
+    moveAndOpenDistrict:function(districtName){
+        var hash = normalizeHash(districtName)
+        hash = hash;
+        console.log(hash)
+        $(hash).click();
+
     }
 }

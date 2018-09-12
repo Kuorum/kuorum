@@ -691,10 +691,26 @@ function stringStartsWith (string, prefix) {
     return string.slice(0, prefix.length) == prefix;
 }
 
+function getHash(){
+
+}
+
+function normalizeHash(hash){
+    hash = hash.replace("=",""); // Facebook login adds #_=_ at the end of the URL. This makes to fail this logic
+    hash = hash.replace("%20"," ");
+    hash = hash.replace(" ","-");
+    hash = hash.toLowerCase();
+    return hash;
+}
+
 function moveToHash(hash){
     var dest = 0;
+    hash = normalizeHash(hash)
     hash = hash + "-tag";
-    hash = hash.replace("=",""); // Facebook login adds #_=_ at the end of the URL. This makes to fail this logic
+    moveSmooth(hash)
+}
+
+function moveSmooth(hash){
     if ($(hash).length){ //If the element exists
         if ($(hash).offset().top > $(document).height() - $(window).height()) {
             dest = $(document).height() - $(window).height();
