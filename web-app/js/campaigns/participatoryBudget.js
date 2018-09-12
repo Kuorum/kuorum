@@ -82,6 +82,11 @@ $(function () {
 
     $("#participatoryBudget-districtProposals-list-tab > li:first a").click();
 
+    $(".call-to-action-add-proposal").on("click", "a.btn.BALLOT, a.btn.TECHNICAL_REVIEW, a.btn.BALLOT, a.btn.CLOSED, a.btn.RESULTS", function(e){
+        e.preventDefault()
+        moveSmooth("#participatoryBudget-districtProposals-list-tab")
+    });
+
     participatoryBudgetHelper.moveAndOpenDistrict(window.location.hash);
 
 });
