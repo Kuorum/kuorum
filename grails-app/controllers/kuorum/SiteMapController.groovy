@@ -91,67 +91,27 @@ class SiteMapController {
     def sitemapSearchs(){
         AvailableLanguage language = AvailableLanguage.fromLocaleParam(CustomDomainResolver.domainRSDTO.language)
         String lang = language.locale.language
+        def relevantSearchs = ["", "admin"]
         render(contentType: 'application/xml', encoding: 'UTF-8') {
             mkp.yieldUnescaped '<?xml version="1.0" encoding="UTF-8"?>'
             urlset(xmlns: "http://www.sitemaps.org/schemas/sitemap/0.9",
                     'xmlns:xhtml': "http://www.w3.org/1999/xhtml") {
 
-                searchQueries[lang].basicSearch.each { searchText ->
+                relevantSearchs.each { searchText ->
                     url {
                         loc(g.createLink( mapping:'searcherSearch', absolute: true, params: [word:searchText]))
                         changefreq('daily')
                         priority(0.5)
+                    }
+                    kuorum.core.model.solr.SolrType.values().each{solrType ->
+                        url {
+                            loc(g.createLink( mapping:"searcherSearch${solrType}", absolute: true, params: [word:searchText]))
+                            changefreq('daily')
+                            priority(0.5)
 //                    "xhtml:link rel=\"alternate\" hreflang=\"es\" href=\"${g.createLink( mapping: 'searcherSearch', absolute: true, params: [lang:'es'])}\""()
 //                    "xhtml:link rel=\"alternate\" hreflang=\"en\" href=\"${g.createLink( mapping: 'searcherSearch', absolute: true, params: [lang:'en'])}\""()
-                    }
-                }
+                        }
 
-
-                searchQueries[lang].userSearch.each { searchText ->
-                    url {
-                        loc(g.createLink( mapping:'searcherSearchKUORUM_USER', absolute: true, params: [word:searchText]))
-                        changefreq('daily')
-                        priority(0.5)
-//                    "xhtml:link rel=\"alternate\" hreflang=\"es\" href=\"${g.createLink( mapping: 'searcherSearch', absolute: true, params: [lang:'es'])}\""()
-//                    "xhtml:link rel=\"alternate\" hreflang=\"en\" href=\"${g.createLink( mapping: 'searcherSearch', absolute: true, params: [lang:'en'])}\""()
-                    }
-                }
-
-                searchQueries[lang].debateSearch.each { searchText ->
-                    url {
-                        loc(g.createLink( mapping:'searcherSearchDEBATE', absolute: true, params: [word:searchText]))
-                        changefreq('daily')
-                        priority(0.5)
-//                    "xhtml:link rel=\"alternate\" hreflang=\"es\" href=\"${g.createLink( mapping: 'searcherSearch', absolute: true, params: [lang:'es'])}\""()
-//                    "xhtml:link rel=\"alternate\" hreflang=\"en\" href=\"${g.createLink( mapping: 'searcherSearch', absolute: true, params: [lang:'en'])}\""()
-                    }
-                }
-
-                searchQueries[lang].postSearch.each { searchText ->
-                    url {
-                        loc(g.createLink( mapping:'searcherSearchPOST', absolute: true, params: [word:searchText]))
-                        changefreq('daily')
-                        priority(0.5)
-//                    "xhtml:link rel=\"alternate\" hreflang=\"es\" href=\"${g.createLink( mapping: 'searcherSearch', absolute: true, params: [lang:'es'])}\""()
-//                    "xhtml:link rel=\"alternate\" hreflang=\"en\" href=\"${g.createLink( mapping: 'searcherSearch', absolute: true, params: [lang:'en'])}\""()
-                    }
-                }
-                searchQueries[lang].eventSearch.each { searchText ->
-                    url {
-                        loc(g.createLink( mapping:'searcherSearchEVENT', absolute: true, params: [word:searchText]))
-                        changefreq('daily')
-                        priority(0.5)
-//                    "xhtml:link rel=\"alternate\" hreflang=\"es\" href=\"${g.createLink( mapping: 'searcherSearch', absolute: true, params: [lang:'es'])}\""()
-//                    "xhtml:link rel=\"alternate\" hreflang=\"en\" href=\"${g.createLink( mapping: 'searcherSearch', absolute: true, params: [lang:'en'])}\""()
-                    }
-                }
-                searchQueries[lang].usersByCause.each { searchText ->
-                    url {
-                        loc(g.createLink( mapping:'searcherSearchKUORUM_USERByCAUSE', absolute: true, params: [word:searchText]))
-                        changefreq('daily')
-                        priority(0.5)
-//                    "xhtml:link rel=\"alternate\" hreflang=\"es\" href=\"${g.createLink( mapping: 'searcherSearch', absolute: true, params: [lang:'es'])}\""()
-//                    "xhtml:link rel=\"alternate\" hreflang=\"en\" href=\"${g.createLink( mapping: 'searcherSearch', absolute: true, params: [lang:'en'])}\""()
                     }
                 }
             }

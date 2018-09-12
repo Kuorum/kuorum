@@ -252,6 +252,25 @@ class UrlMappings {
         name ca_searcherSearchPARTICIPATORY_BUDGETByREGION:"/cerca/pressupost-participatiu/a/$word?"      (controller: "search", action:"search"){searchType="REGION";type="PARTICIPATORY_BUDGET"; mappingName="searcherSearchPARTICIPATORY_BUDGETByREGION"}
 
 
+        name searcherSearchDISTRICT_PROPOSAL:   "/search/proposal"                  (controller: "search", action:"search"){type="DISTRICT_PROPOSAL"; mappingName="searcherSearchDISTRICT_PROPOSAL"}
+        name en_searcherSearchDISTRICT_PROPOSAL:"/search/proposal/$word?"           (controller: "search", action:"search"){type="DISTRICT_PROPOSAL"; mappingName="searcherSearchDISTRICT_PROPOSAL"}
+        name es_searcherSearchDISTRICT_PROPOSAL:"/buscar/propuesta/$word?"      (controller: "search", action:"search"){type="DISTRICT_PROPOSAL"; mappingName="searcherSearchDISTRICT_PROPOSAL"}
+        name de_searcherSearchDISTRICT_PROPOSAL:"/suche/vorschlag/$word?"                  (controller: "search", action:"search"){type="DISTRICT_PROPOSAL"; mappingName="searcherSearchDISTRICT_PROPOSAL"}
+        name ca_searcherSearchDISTRICT_PROPOSAL:"/cerca/publicacio/$word?" (controller: "search", action:"search"){type="DISTRICT_PROPOSAL"; mappingName="searcherSearchDISTRICT_PROPOSAL"}
+
+        name searcherSearchDISTRICT_PROPOSALByCAUSE:   "/search/proposal/cause/$word?"      (controller: "search", action:"search"){searchType="CAUSE";type="DISTRICT_PROPOSAL"; mappingName="searcherSearchDISTRICT_PROPOSALByCAUSE"}
+        name en_searcherSearchDISTRICT_PROPOSALByCAUSE:"/search/proposal/cause/$word?"      (controller: "search", action:"search"){searchType="CAUSE";type="DISTRICT_PROPOSAL"; mappingName="searcherSearchDISTRICT_PROPOSALByCAUSE"}
+        name es_searcherSearchDISTRICT_PROPOSALByCAUSE:"/buscar/propuesta/causa/$word?"    (controller: "search", action:"search"){searchType="CAUSE";type="DISTRICT_PROPOSAL"; mappingName="searcherSearchDISTRICT_PROPOSALByCAUSE"}
+        name de_searcherSearchDISTRICT_PROPOSALByCAUSE:"/suche/vorschlag/themen/$word?"    (controller: "search", action:"search"){searchType="CAUSE";type="DISTRICT_PROPOSAL"; mappingName="searcherSearchDISTRICT_PROPOSALByCAUSE"}
+        name ca_searcherSearchDISTRICT_PROPOSALByCAUSE:"/cerca/publicacio/causa/$word?"    (controller: "search", action:"search"){searchType="CAUSE";type="DISTRICT_PROPOSAL"; mappingName="searcherSearchDISTRICT_PROPOSALByCAUSE"}
+
+        name searcherSearchDISTRICT_PROPOSALByREGION:   "/search/proposal/from/$word?"      (controller: "search", action:"search"){searchType="REGION";type="DISTRICT_PROPOSAL"; mappingName="searcherSearchDISTRICT_PROPOSALByREGION"}
+        name en_searcherSearchDISTRICT_PROPOSALByREGION:"/search/proposal/from/$word?"      (controller: "search", action:"search"){searchType="REGION";type="DISTRICT_PROPOSAL"; mappingName="searcherSearchDISTRICT_PROPOSALByREGION"}
+        name es_searcherSearchDISTRICT_PROPOSALByREGION:"/buscar/propuesta/en/$word?"      (controller: "search", action:"search"){searchType="REGION";type="DISTRICT_PROPOSAL"; mappingName="searcherSearchDISTRICT_PROPOSALByREGION"}
+        name de_searcherSearchDISTRICT_PROPOSALByREGION:"/suche/vorschlag/von/$word?"      (controller: "search", action:"search"){searchType="REGION";type="DISTRICT_PROPOSAL"; mappingName="searcherSearchDISTRICT_PROPOSALByREGION"}
+        name ca_searcherSearchDISTRICT_PROPOSALByREGION:"/cerca/publicacio/a/$word?"      (controller: "search", action:"search"){searchType="REGION";type="DISTRICT_PROPOSAL"; mappingName="searcherSearchDISTRICT_PROPOSALByREGION"}
+
+
         name footerUserGuides:      "/user-guides"          (controller: "footer", action: "footerUserGuides"){mappingName="footerUserGuides"}
         name en_footerUserGuides:   "/user-guides"          (controller: "footer", action: "footerUserGuides"){mappingName="footerUserGuides"}
         name es_footerUserGuides:   "/guias-de-usuario"     (controller: "footer", action: "footerUserGuides"){mappingName="footerUserGuides"}
