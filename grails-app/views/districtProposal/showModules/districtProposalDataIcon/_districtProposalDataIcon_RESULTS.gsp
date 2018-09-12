@@ -9,7 +9,7 @@
                    data-toggle="tooltip"
                    data-placement="bottom"
                    title=""
-                   data-original-title="${g.message(code:'debate.show.proposal.pinned.tooltip', args: [districtProposal.name])}">
+                   data-original-title="${g.message(code:'districtProposal.callToAction.RESULTS.implementedFlag.tooltip', args: [districtProposal.name])}">
                         <span class="fas fa-circle dark fa-stack-2x"></span>
                         <span class="fal fa-flag fa-stack-1x fa-inverse"></span>
                 </span>
