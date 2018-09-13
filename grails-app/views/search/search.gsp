@@ -114,6 +114,17 @@
                     </label>
                 </div>
             </li>
+            <li>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="type" id="search-surveys" value="${kuorum.core.model.solr.SolrType.DISTRICT_PROPOSAL}" ${searchParams.type == kuorum.core.model.solr.SolrType.DISTRICT_PROPOSAL?'checked':''}>
+                        <g:link mapping="searcherSearchDISTRICT_PROPOSAL" params="${params.findAll {k,v-> k!='type' && k!='offset' && v}}">
+                            <span class="fal fa-rocket fa-fw"></span>
+                            <g:message code="search.filters.SolrType.DISTRICT_PROPOSAL"/>
+                        </g:link>
+                    </label>
+                </div>
+            </li>
         </ul>
         <input type="hidden" name="word" value="${searchParams.word}" />
         <input type="hidden" name="searchType" value="${searchParams.searchType}" />
