@@ -68,6 +68,12 @@
                             <span class="number">${campaign.amountAssistants}</span>
                         </g:link>
                     </g:elseif>
+                    <g:elseif test="${campaign.type== org.kuorum.rest.model.search.SearchTypeRSDTO.PARTICIPATORY_BUDGET}">
+                        <g:link mapping="${org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.ADDING_PROPOSALS.equals(campaign.status)?'districtProposalCreate':'campaignShow'}" params="${campaign.encodeAsLinkProperties()}" role="button">
+                            <span class="fal fa-money-bill-alt fa-lg"></span>
+                            <span class="number">${campaign.basicStats.numProposals}</span>
+                        </g:link>
+                    </g:elseif>
                 </li>
             </ul>
         </div>
