@@ -108,7 +108,6 @@ var participatoryBudgetHelper={
         if (typeof randomSeed !== typeof undefined && randomSeed !== false){
             params['randomSeed']=randomSeed
         }
-        console.log(params)
         for (var key in params) {
             urlLoadMoreDistrictProposals.searchParams.append(key, params[key])
         }
