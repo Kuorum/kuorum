@@ -46,37 +46,38 @@ $(function () {
         var selector = $a.attr("data-listSelector")
         var divId = "#proposal-district-"+districtId
         var ulId = divId +"> ul.search-list."+selector;
-        var params = {
-            direction:'ASC'
-        }
-        console.log($a)
         if ($a.find(".fal").length>0){
             var $spanDirection = $a.find(".fal");
             if ($spanDirection.hasClass("fa-angle-down")){
                 $spanDirection.removeClass("fa-angle-down")
                 $spanDirection.addClass("fa-angle-up")
-                params.direction='ASC';
+                $(ulId).attr("data-direction",'ASC');
                 $(ulId).empty();
             }else{
                 $spanDirection.removeClass("fa-angle-up")
                 $spanDirection.addClass("fa-angle-down")
-                params.direction='DESC';
+                $(ulId).attr("data-direction",'DESC');
                 $(ulId).empty();
             }
+            $(ulId).attr("data-page", 0)
         }
 
         $(divId +"> ul.search-list").hide()
         $(ulId).show()
         if ($(ulId+ " > li").length <= 0){
-            participatoryBudgetHelper.loadMoreDistrictProposals(ulId, params)
+            participatoryBudgetHelper.loadMoreDistrictProposals(ulId)
         }
 
     })
 
     $("#participatoryBudget-districtProposals-list").on("click",'.load-more-district-proposals', function(e){
         e.preventDefault();
-        var ulLi = $(this).parent().attr("id")
-        participatoryBudgetHelper.loadMoreDistrictProposals(ulId)
+        var ul = $(this).parent()
+        ul.attr("id", guid())
+        var ulIdSelector = "#"+ul.attr("id")
+        var page = parseInt(ul.attr("data-page")) +1;
+        ul.attr("data-page", page)
+        participatoryBudgetHelper.loadMoreDistrictProposals(ulIdSelector)
         $(this).remove(); // Removes the button. The loadMoreDistrictProposals creates new button
     })
 
@@ -93,21 +94,38 @@ $(function () {
 
 var participatoryBudgetHelper={
 
-    loadMoreDistrictProposals: function(ulId, params){
+    loadMoreDistrictProposals: function(ulIdSelector){
         // pageLoadingOn("Load more districts")
-        var urlLoadMoreDistrictProposals = new URL($(ulId).attr("data-loadProposals"))
+        var urlLoadMoreDistrictProposals = new URL($(ulIdSelector).attr("data-loadProposals"))
+        var params = {
+            page : $(ulIdSelector).attr("data-page")
+        }
+        var direction = $(ulIdSelector).attr("data-direction")
+        if (typeof direction !== typeof undefined && direction !== false){
+            params['direction']=direction
+        }
+        var randomSeed = $(ulIdSelector).attr("data-randomSeed")
+        if (typeof randomSeed !== typeof undefined && randomSeed !== false){
+            params['randomSeed']=randomSeed
+        }
+        console.log(params)
         for (var key in params) {
             urlLoadMoreDistrictProposals.searchParams.append(key, params[key])
         }
 
-        $(ulId).append("<li class='loading'></li>")
-        $(ulId).parent().show()
+        $(ulIdSelector).append("<li class='loading'></li>")
+        $(ulIdSelector).parent().show()
         $.get( urlLoadMoreDistrictProposals)
             .done(function(data, staus, xhr) {
                 var moreResults = $.parseJSON(xhr.getResponseHeader('moreResults')); //Para que sea un bool)
-                $(ulId).append(data)
+                $(ulIdSelector).append(data)
                 if (moreResults){
-                    $(ulId).append("<li class='col-xs-12 center load-more-district-proposals'><a href='#' class='btn btn-grey-light'>Load more</a> </li>")
+                    $(ulIdSelector).append("" +
+                        "<li class='col-xs-12 center load-more-district-proposals load-more'> " +
+                        "<a href='#' class='loadMore' >"+i18n.seeMore+" " +
+                        "<span class='fal fa-angle-down'></span>"+
+                        "</a>"+
+                        "</li>")
                 }
             })
             .fail(function(messageError) {
@@ -115,14 +133,12 @@ var participatoryBudgetHelper={
             })
             .always(function() {
                 // pageLoadingOff("Load more districts");
-                $(ulId).find(".loading").remove()
+                $(ulIdSelector).find(".loading").remove()
                 // $liLoading.remove()
             });
     },
     moveAndOpenDistrict:function(districtName){
         var hash = normalizeHash(districtName)
-        hash = hash;
-        console.log(hash)
         $(hash).click();
 
     }

@@ -24,6 +24,7 @@
 <script>
 //    TODO: Use jawr. The actual version ignore codification
     var i18n = {
+        seeMore: "<g:message code="read.more"/>",
         lang : '${currentLang?.language?:'en'}',
         register:{
             errors:'<g:message code="register.errors"/>'
