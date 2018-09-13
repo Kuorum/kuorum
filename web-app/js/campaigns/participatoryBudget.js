@@ -40,34 +40,12 @@ $(function () {
     $("#participatoryBudget-districtProposals-list ul.nav-pills-lvl2 > li > a").on("click", function(e){
         e.preventDefault();
         var $a = $(this)
-        $a.parent().parent().children().removeClass("active")
-        $a.parent().addClass("active");
-        var districtId = $a.attr("data-districtId");
-        var selector = $a.attr("data-listSelector")
-        var divId = "#proposal-district-"+districtId
-        var ulId = divId +"> ul.search-list."+selector;
-        if ($a.find(".fal").length>0){
-            var $spanDirection = $a.find(".fal");
-            if ($spanDirection.hasClass("fa-angle-down")){
-                $spanDirection.removeClass("fa-angle-down")
-                $spanDirection.addClass("fa-angle-up")
-                $(ulId).attr("data-direction",'ASC');
-                $(ulId).empty();
-            }else{
-                $spanDirection.removeClass("fa-angle-up")
-                $spanDirection.addClass("fa-angle-down")
-                $(ulId).attr("data-direction",'DESC');
-                $(ulId).empty();
-            }
-            $(ulId).attr("data-page", 0)
+        var direction = $a.attr("data-direction")
+        if (typeof direction !== typeof undefined && direction !== false){
+            participatoryBudgetHelper.clickOrderTabDirection($a)
+        }else{
+            participatoryBudgetHelper.clickOrderTabRandomSeed($a)
         }
-
-        $(divId +"> ul.search-list").hide()
-        $(ulId).show()
-        if ($(ulId+ " > li").length <= 0){
-            participatoryBudgetHelper.loadMoreDistrictProposals(ulId)
-        }
-
     })
 
     $("#participatoryBudget-districtProposals-list").on("click",'.load-more-district-proposals', function(e){
@@ -136,6 +114,61 @@ var participatoryBudgetHelper={
                 // $liLoading.remove()
             });
     },
+
+    clickOrderTabDirection:function($a){
+        var districtId = $a.attr("data-districtId");
+        var selector = $a.attr("data-listSelector")
+        var divId = "#proposal-district-"+districtId
+        var ulId = divId +"> ul.search-list."+selector;
+        if ($(ulId+ " > li").length <= 0 || $a.parent().hasClass("active") && $(ulId+ " > li").length > 0){ // No clicked || Changing order
+            $a.parent().parent().children().removeClass("active") // Removes active of other tab links
+            $a.parent().addClass("active"); // Set as active the current tab
+
+            var $spanDirection = $a.find(".fal");
+            if ($spanDirection.length==0){
+                $a.append("<span class='fal'></span>")
+                $spanDirection = $a.find(".fal");
+            }
+            var direction = $a.attr("data-direction")
+            if (direction == "DESC"){
+                $spanDirection.removeClass("fa-angle-down")
+                $spanDirection.addClass("fa-angle-up")
+                $(ulId).attr("data-direction",'ASC');
+                $a.attr("data-direction",'ASC');
+            }else{
+                $spanDirection.removeClass("fa-angle-up")
+                $spanDirection.addClass("fa-angle-down")
+                $(ulId).attr("data-direction",'DESC');
+                $a.attr("data-direction",'DESC');
+            }
+            $(ulId).empty();
+            $(ulId).attr("data-page", 0)
+            $(divId +"> ul.search-list").hide()
+            $(ulId).show()
+            participatoryBudgetHelper.loadMoreDistrictProposals(ulId)
+        }else{
+            $a.parent().parent().children().removeClass("active") // Removes active of other tab links
+            $a.parent().addClass("active"); // Set as active the current tab
+            $(divId +"> ul.search-list").hide()
+            $(ulId).show()
+        }
+    },
+
+    clickOrderTabRandomSeed:function($a){
+        $a.parent().parent().children().removeClass("active") // Removes active of other tab links
+        $a.parent().addClass("active"); // Set as active the current tab
+        var districtId = $a.attr("data-districtId");
+        var selector = $a.attr("data-listSelector")
+        var divId = "#proposal-district-"+districtId
+        var ulId = divId +"> ul.search-list."+selector;
+        $(divId +"> ul.search-list").hide()
+        $(ulId).show()
+        if ($(ulId+ " > li").length <= 0){
+            participatoryBudgetHelper.loadMoreDistrictProposals(ulId)
+        }
+
+    },
+
     moveAndOpenDistrict:function(districtName){
         var hash = normalizeHash(districtName)
         $(hash).click();
