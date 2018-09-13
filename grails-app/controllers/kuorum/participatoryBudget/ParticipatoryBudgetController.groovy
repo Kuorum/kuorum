@@ -165,7 +165,7 @@ class ParticipatoryBudgetController extends CampaignController{
         KuorumUser kuorumUser = kuorumUserService.findByAlias(params.userAlias)
         Long participatoryBudgetId = Long.parseLong(params.campaignId)
         Long districtId = Long.parseLong(params.districtId)
-        Integer page= Integer.parseInt(params.page)
+        Integer page= params.page?Integer.parseInt(params.page):0
         String viewerUid = cookieUUIDService.buildUserUUID()
         FilterDistrictProposalRDTO filter = new FilterDistrictProposalRDTO(districtId: districtId, page:page)
         if (params.randomSeed){
@@ -196,9 +196,9 @@ class ParticipatoryBudgetController extends CampaignController{
         }
         PageDistrictProposalRSDTO pageDistrictProposals = participatoryBudgetService.findDistrictProposalsByDistrict(kuorumUser, participatoryBudgetId, filter, viewerUid)
         if (pageDistrictProposals.total == 0){
-            response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${pageDistrictProposals.total > (pageDistrictProposals.page*pageDistrictProposals.size)}")
             render template: '/participatoryBudget/showModules/mainContent/districProposalsEmpty';
         }else{
+            response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${pageDistrictProposals.total > ((pageDistrictProposals.page+1)*pageDistrictProposals.size)}")
             render template: '/campaigns/cards/campaignsList', model: [campaigns:pageDistrictProposals.data, showAuthor:true]
         }
     }
@@ -266,7 +266,7 @@ class ParticipatoryBudgetController extends CampaignController{
         Integer offset = Integer.parseInt(params.offset)
         KuorumUser kuorumUser= springSecurityService.currentUser;
         Long participatoryBudgetId = Long.parseLong(params.campaignId)
-        FilterDistrictProposalRDTO filter = new FilterDistrictProposalRDTO(page:0, size: limit)
+        FilterDistrictProposalRDTO filter = new FilterDistrictProposalRDTO(page:Math.floor(offset/limit).intValue(), size: limit)
         populateFilters(filter, params.filter)
         populateSort(filter, params.sort, params.order)
         PageDistrictProposalRSDTO pageDistrictProposals = participatoryBudgetService.findDistrictProposalsByDistrict(kuorumUser, participatoryBudgetId, filter)
