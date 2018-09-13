@@ -1,4 +1,4 @@
-<div class="comment-counter pull-right" id="comment-counter-${districtProposal.id}">
+<div class="comment-counter pull-right comment-counter-${districtProposal.id}">
 
     <a type="button" class="${isActive?'active':''} ${callButtonActionClass}"
        href="${callButtonAction}"

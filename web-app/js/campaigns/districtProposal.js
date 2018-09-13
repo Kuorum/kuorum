@@ -33,7 +33,6 @@ var districtProposalHelper={
     },
 
     districtProposalAction : function($button, callback){
-        console.log("districtProposalAction")
         if(isPageLoading()){
             return;
         }
@@ -111,7 +110,7 @@ var districtProposalHelper={
     districtProposalVoteExtraAction:function (districtProposalRSDTO) {
         console.log(districtProposalRSDTO)
         var $buttonColumnC = $("#aside-ppal .call-to-action .actions a")
-        var $districtProposalCounter = $("#comment-counter-"+districtProposalRSDTO.id)
+        var $districtProposalCounter = $(".comment-counter-"+districtProposalRSDTO.id)
         if (districtProposalRSDTO.voted){
             $districtProposalCounter.find("a").addClass("active");
             $districtProposalCounter.find(".fa-shopping-cart").addClass("fas");
@@ -138,7 +137,7 @@ var districtProposalHelper={
     districtProposalSupportExtraAction:function (districtProposalRSDTO) {
         // console.log(districtProposalRSDTO)
         var $buttonColumnC = $("#aside-ppal .call-to-action .actions a")
-        var $districtProposalCounter = $("#comment-counter-"+districtProposalRSDTO.id)
+        var $districtProposalCounter = $(".comment-counter-"+districtProposalRSDTO.id)
         if (districtProposalRSDTO.supported){
             $districtProposalCounter.find("a").addClass("active");
             $districtProposalCounter.find(".fa-rocket").addClass("fas");
