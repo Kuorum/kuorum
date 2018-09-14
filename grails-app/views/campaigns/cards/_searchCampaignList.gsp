@@ -1,3 +1,4 @@
+<%@ page import="org.kuorum.rest.model.search.kuorumElement.SearchDistrictProposalRSDTO" %>
 
 <article role="article" class="box-ppal clearfix">
     <div class="link-wrapper" id="campaign-${campaign.id}" data-datepublished="${campaign.dateCreated.time}">
@@ -26,7 +27,17 @@
         </div>
         <div class="card-footer">
             <ul>
-                <g:if test="${showAuthor}">
+                <g:if test="${
+                    (campaign instanceof org.kuorum.rest.model.search.kuorumElement.SearchDistrictProposalRSDTO) &&
+                            [
+                            org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.BALLOT,
+                            org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.CLOSED,
+                            org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.RESULTS,
+                ].contains(campaign.participatoryBudget.status) && campaign.price}">
+                    <li class="districtProposalPrice"><g:message code="kuorum.multidomain.money" args="[campaign.price]"/></li>
+                    <g:render template="/districtProposal/showModules/mainContent/districtProposalModalErrors" model="[district:campaign.district]"/>
+                </g:if>
+                <g:elseif test="${showAuthor}">
                     <li class="owner">
                         <userUtil:showUser
                                 user="${campaign}"
@@ -36,7 +47,7 @@
                                 htmlWrapper="div"
                         />
                     </li>
-                </g:if>
+                </g:elseif>
 
                 <li>
                     <g:if test="${campaign.type== org.kuorum.rest.model.search.SearchTypeRSDTO.SURVEY}">
@@ -73,6 +84,9 @@
                             <span class="fal fa-money-bill-alt fa-lg"></span>
                             <span class="number">${campaign.basicStats.numProposals}</span>
                         </g:link>
+                    </g:elseif>
+                    <g:elseif test="${campaign.type== org.kuorum.rest.model.search.SearchTypeRSDTO.DISTRICT_PROPOSAL}">
+                        <g:render template="/districtProposal/showModules/districtProposalDataIcon/districtProposalDataIcon_${campaign.participatoryBudget.status}" model="[districtProposal:campaign]"/>
                     </g:elseif>
                 </li>
             </ul>

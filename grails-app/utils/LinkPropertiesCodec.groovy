@@ -13,6 +13,7 @@ import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 import org.kuorum.rest.model.notification.NotificationProposalCommentMentionRSDTO
 import org.kuorum.rest.model.notification.NotificationProposalCommentRSDTO
 import org.kuorum.rest.model.search.SearchKuorumElementRSDTO
+import org.kuorum.rest.model.search.kuorumElement.SearchDistrictProposalRSDTO
 import org.kuorum.rest.model.search.kuorumElement.SearchKuorumUserRSDTO
 import org.kuorum.rest.model.tag.CauseRSDTO
 
@@ -27,18 +28,6 @@ class LinkPropertiesCodec {
 
         def params = [:]
         switch (target) {
-            case EventRSDTO:
-            case CauseRSDTO:
-            case CampaignRSDTO:
-            case ProposalRSDTO:
-            case BasicParticipatoryBudgetRSDTO:
-            case NotificationProposalCommentRSDTO:
-            case NotificationProposalCommentMentionRSDTO:
-            case SearchKuorumElementRSDTO:
-            case KuorumUser:
-            case BasicDataKuorumUserRSDTO:
-                params = prepareParams(target)
-                break
             case UserType:
                 params = [userTypeUrl: transEnumToUrl(target)]
                 break
@@ -46,7 +35,7 @@ class LinkPropertiesCodec {
                 params = [regionName:target.name.encodeAsKuorumUrl(), iso3166_2:target.iso3166_2]
                 break
             default:
-                params = [:]
+                params = prepareParams(target)
         }
         params
     }
@@ -110,6 +99,15 @@ class LinkPropertiesCodec {
     }
 
     private static def prepareParams(DistrictProposalRSDTO districtProposalRSDTO) {
+        [
+                userAlias: districtProposalRSDTO.participatoryBudget.userAlias.toLowerCase(),
+                participatoryBudgetTitle: districtProposalRSDTO.participatoryBudget.title.encodeAsKuorumUrl(),
+                participatoryBudgetId: districtProposalRSDTO.participatoryBudget.id,
+                urlTitle: getNameTitleUrl(districtProposalRSDTO),
+                campaignId: districtProposalRSDTO.id
+        ]
+    }
+    private static def prepareParams(SearchDistrictProposalRSDTO districtProposalRSDTO) {
         [
                 userAlias: districtProposalRSDTO.participatoryBudget.userAlias.toLowerCase(),
                 participatoryBudgetTitle: districtProposalRSDTO.participatoryBudget.title.encodeAsKuorumUrl(),
