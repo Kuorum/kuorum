@@ -35,7 +35,6 @@
                             org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.RESULTS,
                 ].contains(campaign.participatoryBudget.status) && campaign.price}">
                     <li class="districtProposalPrice"><g:message code="kuorum.multidomain.money" args="[campaign.price]"/></li>
-                    <g:render template="/districtProposal/showModules/mainContent/districtProposalModalErrors" model="[district:campaign.district]"/>
                 </g:if>
                 <g:elseif test="${showAuthor}">
                     <li class="owner">
@@ -92,4 +91,7 @@
             </ul>
         </div>
     </div>
+    <g:if test="${campaign instanceof org.kuorum.rest.model.search.kuorumElement.SearchDistrictProposalRSDTO}">
+        <g:render template="/districtProposal/showModules/mainContent/districtProposalModalErrors" model="[district:campaign.district]"/>
+    </g:if>
 </article>
