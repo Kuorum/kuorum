@@ -768,7 +768,7 @@ function FilterContacts() {
     };
 
     this.init = function () {
-        $("#filterData").on("change", "input,select:not(#field)", that.filterEditedEvent);
+        $("#filterData").on("change", "input,select", that.filterEditedEvent);
         $("#filterData").on("change", "select#field", that.changeFieldOperation);
         this[callBackBehaviour].init()
     };
