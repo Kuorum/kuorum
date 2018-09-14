@@ -1565,6 +1565,10 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .pagination .active a {background-color: #ddd;}
 .pagination .active a,
 .pagination .disabled a {cursor: default; pointer-events: none;}
+.bootstrap-table .fixed-table-pagination .pagination a {line-height: 17px;}
+.bootstrap-table .btn-default {background-color: #CCCCCC;}
+.bootstrap-table .btn-default:focus,
+.bootstrap-table .btn-default:hover {background-color: #545454 !important;}
 .pag-list-contacts .pagination .disabled a {border: none; width: 5px; margin-left: 1px; color:}
 .searchContainer {position: relative;}
 .searchContainer::after {font-family: 'Font Awesome 5 Pro'; content:''; position: absolute; right: 8px; top: 5px; color: #a8a8a8;}
