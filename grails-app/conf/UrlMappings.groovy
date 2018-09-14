@@ -345,6 +345,7 @@ class UrlMappings {
         name districtProposalEditDistrict:      "/account/$userAlias/pb/$participatoryBudgetTitle-$participatoryBudgetId/$urlTitle-$campaignId/edit-district" (controller: "districtProposal"){action = [GET: "editDistrict", POST: "saveDistrict"]}
         name districtProposalEditContent:       "/account/$userAlias/pb/$participatoryBudgetTitle-$participatoryBudgetId/$urlTitle-$campaignId/edit-content" (controller: "districtProposal"){action = [GET: "editContentStep", POST: "saveContent"]}
         name districtProposalShow:              "/$userAlias/$participatoryBudgetTitle-$participatoryBudgetId/$urlTitle-$campaignId"           (controller: "campaign", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it)})}}
+        name districtProposalRemove:            "/ajax/account/$userAlias/pb/$participatoryBudgetTitle-$participatoryBudgetId/$urlTitle-$campaignId/remove" (controller: "districtProposal", action: "remove")
 
 
         name campaignShow:          "/$userAlias/$urlTitle-$campaignId" (controller: "campaign", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it)})}}

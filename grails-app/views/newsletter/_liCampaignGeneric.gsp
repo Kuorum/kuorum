@@ -20,6 +20,8 @@
     <g:set var="urlMappingNameEditStep" value="EditContent"/>
     <g:set var="type" value="districtProposal"/>
     <g:set var="faIcon" value="fa-rocket"/>
+    <g:set var="hideEdit" value="${campaign.participatoryBudget.status != org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.ADDING_PROPOSALS}"/>
+    <g:set var="hideRemove" value="${!(campaign.participatoryBudget.status == org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.ADDING_PROPOSALS || campaign.newsletter.status == CampaignStatusRSDTO.DRAFT)}"/>
 </g:elseif>
 <g:set var="typeName" value="${g.message(code: 'tools.campaign.new.'+type)}"/>
 <g:set var="campaignGenericMappings" value="[show:type+'Show', edit:type+urlMappingNameEditStep, remove:type+'Remove']"/>
@@ -74,12 +76,16 @@
                 <g:link mapping="politicianCampaignStatsShow" params="[campaignId: campaign.id]" role="button" class="campaignStats"><span class="fal fa-chart-line"></span> <span class="sr-only">Stats</span></g:link>
             </li>
         </g:if>
-        <li>
-            <g:set var="modal" value="${campaign.newsletter.status == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SCHEDULED ?'modalEditScheduled':''}"/>
-            <g:link mapping="${campaignGenericMappings.edit}" params="${campaign.encodeAsLinkProperties()}" role="button" class="campaignEdit ${modal}"><span class="fal fa-edit"></span><span class="sr-only">Edit</span></g:link>
-        </li>
-        <li>
-            <g:link mapping="${campaignGenericMappings.remove}" params="${campaign.encodeAsLinkProperties()}"  role="button" class="campaignDelete"><span class="fal fa-trash"></span> <span class="sr-only">Delete</span></g:link>
-        </li>
+        <g:if test="${!hideEdit}">
+            <li>
+                <g:set var="modal" value="${campaign.newsletter.status == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SCHEDULED ?'modalEditScheduled':''}"/>
+                <g:link mapping="${campaignGenericMappings.edit}" params="${campaign.encodeAsLinkProperties()}" role="button" class="campaignEdit ${modal}"><span class="fal fa-edit"></span><span class="sr-only">Edit</span></g:link>
+            </li>
+        </g:if>
+        <g:if test="${!hideRemove}">
+            <li>
+                <g:link mapping="${campaignGenericMappings.remove}" params="${campaign.encodeAsLinkProperties()}"  role="button" class="campaignDelete"><span class="fal fa-trash"></span> <span class="sr-only">Delete</span></g:link>
+            </li>
+        </g:if>
     </ul>
 </li>
