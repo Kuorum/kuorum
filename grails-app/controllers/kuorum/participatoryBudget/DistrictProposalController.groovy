@@ -23,7 +23,7 @@ class DistrictProposalController extends CampaignController{
     /********** CREATE CAMPAIGN STORING TEMPORALLY ON SESSION ***********/
     /********************************************************************/
 
-    @Secured(['ROLE_CAMPAIGN_PARTICIPATORY_BUDGET'])
+    @Secured(['ROLE_CAMPAIGN_DISTRICT_PROPOSAL'])
     def create() {
         Long participatoryBudgetId = params.campaignId?Long.parseLong(params.campaignId):null
         KuorumUser kuorumUser = kuorumUserService.findByAlias(params.userAlias)
@@ -32,7 +32,7 @@ class DistrictProposalController extends CampaignController{
     }
 
 
-    @Secured(['ROLE_CAMPAIGN_PARTICIPATORY_BUDGET'])
+    @Secured(['ROLE_CAMPAIGN_DISTRICT_PROPOSAL'])
     def saveNewProposal(DistrictProposalChooseDistrictCommand command){
         Long participatoryBudgetId = params.campaignId?Long.parseLong(params.campaignId):null
         KuorumUser kuorumUser = kuorumUserService.findByAlias(params.userAlias)
@@ -49,7 +49,7 @@ class DistrictProposalController extends CampaignController{
 
     }
 
-    @Secured(['ROLE_CAMPAIGN_PARTICIPATORY_BUDGET'])
+    @Secured(['ROLE_CAMPAIGN_DISTRICT_PROPOSAL'])
     def createByContent(){
 
         Long participatoryBudgetId = params.campaignId?Long.parseLong(params.campaignId):null
@@ -64,7 +64,7 @@ class DistrictProposalController extends CampaignController{
         }
     }
 
-    @Secured(['ROLE_CAMPAIGN_PARTICIPATORY_BUDGET'])
+    @Secured(['ROLE_CAMPAIGN_DISTRICT_PROPOSAL'])
     def createBySettings(){
 
         Long participatoryBudgetId = params.campaignId?Long.parseLong(params.campaignId):null
@@ -79,7 +79,7 @@ class DistrictProposalController extends CampaignController{
         }
     }
 
-    @Secured(['ROLE_CAMPAIGN_PARTICIPATORY_BUDGET'])
+    @Secured(['ROLE_CAMPAIGN_DISTRICT_PROPOSAL'])
     def saveNewProposalByContent(CampaignContentCommand command){
         Long participatoryBudgetId = params.campaignId?Long.parseLong(params.campaignId):null
         KuorumUser kuorumUser = kuorumUserService.findByAlias(params.userAlias)
@@ -140,7 +140,7 @@ class DistrictProposalController extends CampaignController{
     /********** STANDARD EDITION CAMPAIGN ***********/
     /************************************************/
 
-    @Secured(['ROLE_CAMPAIGN_PARTICIPATORY_BUDGET'])
+    @Secured(['ROLE_CAMPAIGN_DISTRICT_PROPOSAL'])
     def editSettingsStep(){
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         DistrictProposalRSDTO districtProposalRSDTO = districtProposalService.find( user, Long.parseLong((String) params.campaignId))
@@ -149,7 +149,7 @@ class DistrictProposalController extends CampaignController{
 
     }
 
-    @Secured(['ROLE_CAMPAIGN_PARTICIPATORY_BUDGET'])
+    @Secured(['ROLE_CAMPAIGN_DISTRICT_PROPOSAL'])
     def editDistrict(){
         Long participatoryBudgetId = params.participatoryBudgetId?Long.parseLong(params.participatoryBudgetId):null
         KuorumUser kuorumUser = kuorumUserService.findByAlias(params.userAlias)
@@ -162,14 +162,14 @@ class DistrictProposalController extends CampaignController{
 
     }
 
-    @Secured(['ROLE_CAMPAIGN_PARTICIPATORY_BUDGET'])
+    @Secured(['ROLE_CAMPAIGN_DISTRICT_PROPOSAL'])
     def editContentStep(){
         Long campaignId = Long.parseLong((String) params.campaignId);
         DistrictProposalRSDTO districtProposalRSDTO = setCampaignAsDraft(campaignId, districtProposalService)
         return campaignModelContent(campaignId, districtProposalRSDTO, null, districtProposalService)
     }
 
-    @Secured(['ROLE_CAMPAIGN_PARTICIPATORY_BUDGET'])
+    @Secured(['ROLE_CAMPAIGN_DISTRICT_PROPOSAL'])
     def saveSettings(CampaignSettingsCommand command) {
         if (command.hasErrors()) {
             render view: 'create', model: districtProposalModelSettings(command, null)
@@ -183,7 +183,7 @@ class DistrictProposalController extends CampaignController{
         redirect mapping: result.nextStep.mapping, params: result.nextStep.params
     }
 
-    @Secured(['ROLE_CAMPAIGN_PARTICIPATORY_BUDGET'])
+    @Secured(['ROLE_CAMPAIGN_DISTRICT_PROPOSAL'])
     def saveContent(CampaignContentCommand command) {
         Long campaignId = params.campaignId?Long.parseLong(params.campaignId):null
         if (command.hasErrors()) {
@@ -198,7 +198,7 @@ class DistrictProposalController extends CampaignController{
         redirect mapping: result.nextStep.mapping, params: result.nextStep.params
     }
 
-    @Secured(['ROLE_CAMPAIGN_PARTICIPATORY_BUDGET'])
+    @Secured(['ROLE_CAMPAIGN_DISTRICT_PROPOSAL'])
     def saveDistrict(DistrictProposalChooseDistrictCommand command){
         Long participatoryBudgetId = params.participatoryBudgetId?Long.parseLong(params.participatoryBudgetId):null
         KuorumUser kuorumUser = kuorumUserService.findByAlias(params.userAlias)
@@ -220,7 +220,7 @@ class DistrictProposalController extends CampaignController{
 
     }
 
-    @Secured(['ROLE_CAMPAIGN_PARTICIPATORY_BUDGET'])
+    @Secured(['ROLE_CAMPAIGN_DISTRICT_PROPOSAL'])
     def remove(Long campaignId) {
         removeCampaign(campaignId, districtProposalService);
         render ([msg: "Debate deleted"] as JSON)
