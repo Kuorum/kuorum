@@ -37,7 +37,7 @@
                 </div>
             </fieldset>
         </g:if>
-        <g:render template="/newsletter/form/formGroupCampaignCauses" model="[command:command]"/>
+        <g:render template="/newsletter/form/formGroupCampaignCauses" model="[command:command, options:options]"/>
 
         <fieldset class="form-group" id="advanced-features-section">
             %{--<label for="advanced-feature" class="col-sm-2 col-md-1 control-label">Advanced features:</label>--}%

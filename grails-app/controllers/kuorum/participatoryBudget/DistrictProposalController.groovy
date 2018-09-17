@@ -65,21 +65,6 @@ class DistrictProposalController extends CampaignController{
     }
 
     @Secured(['ROLE_CAMPAIGN_DISTRICT_PROPOSAL'])
-    def createBySettings(){
-
-        Long participatoryBudgetId = params.campaignId?Long.parseLong(params.campaignId):null
-        KuorumUser kuorumUser = kuorumUserService.findByAlias(params.userAlias)
-        ParticipatoryBudgetRSDTO participatoryBudgetRSDTO = participatoryBudgetService.find(kuorumUser, participatoryBudgetId)
-        DistrictProposalChooseDistrictCommand districtCommand = (DistrictProposalChooseDistrictCommand)request.getSession().getAttribute(SESSION_KEY_DISTRICT_COMMAND)
-        if (!districtCommand){
-            flash.message = "Please choose a district"
-            redirect mapping:'districtProposalCreate', params: participatoryBudgetRSDTO.encodeAsLinkProperties()
-        }else{
-            return districtProposalModelSettings(new CampaignSettingsCommand(debatable:false), null)
-        }
-    }
-
-    @Secured(['ROLE_CAMPAIGN_DISTRICT_PROPOSAL'])
     def saveNewProposalByContent(CampaignContentCommand command){
         Long participatoryBudgetId = params.campaignId?Long.parseLong(params.campaignId):null
         KuorumUser kuorumUser = kuorumUserService.findByAlias(params.userAlias)
@@ -118,7 +103,7 @@ class DistrictProposalController extends CampaignController{
         DistrictProposalChooseDistrictCommand districtCommand = (DistrictProposalChooseDistrictCommand)request.getSession().getAttribute(SESSION_KEY_DISTRICT_COMMAND)
         if (!districtProposalRDTO.districtId && districtCommand){
             districtProposalRDTO.setDistrictId(districtCommand.districtId)
-            districtProposalRDTO.setCauses([districtCommand.cause])
+            districtProposalRDTO.setCauses([districtCommand.cause] as Set)
         }
         request.getSession().removeAttribute(SESSION_KEY_DISTRICT_COMMAND)
     }
@@ -229,7 +214,7 @@ class DistrictProposalController extends CampaignController{
     private def districtProposalModelSettings(CampaignSettingsCommand command, DistrictProposalRSDTO districtProposalRSDTO) {
         def model = modelSettings(command, districtProposalRSDTO)
         command.debatable=false
-        model.options =[debatable:false, endDate:false]
+        model.options =[debatable:false, endDate:false,hideCauses:true]
         return model
     }
     private def districtProposalModelEditDistrict(DistrictProposalChooseDistrictCommand command, DistrictProposalRSDTO districtProposalRSDTO, ParticipatoryBudgetRSDTO participatoryBudgetRSDTO) {
