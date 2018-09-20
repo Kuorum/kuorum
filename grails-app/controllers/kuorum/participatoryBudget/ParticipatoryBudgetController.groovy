@@ -243,8 +243,6 @@ class ParticipatoryBudgetController extends CampaignController{
                         cause: districtProposalRSDTO.causes?districtProposalRSDTO.causes[0]:null,
                         participatoryBudget:districtProposalRSDTO.participatoryBudget,
                         district:districtProposalRSDTO.district,
-                        participatoryBudget:districtProposalRSDTO.participatoryBudget,
-                        district:districtProposalRSDTO.district,
                         approved :districtProposalRSDTO.approved,
                         price:districtProposalRSDTO.price,
                         rejectComment:districtProposalRSDTO.rejectComment,
