@@ -53,6 +53,7 @@
                         </div>
                         <div class="col-xs-12 col-sm-4 form-group-checkbox-inline no-label-lg">
                             <formUtil:checkBox field="allCity" command="${listCommand}" prefixFieldName="${prefixField}"/>
+                            <span class="fal fa-info-circle" data-toggle="tooltip" data-placement="top" title="${g.message(code:'kuorum.web.commands.payment.participatoryBudget.DistrictCommand.allCity.tooltip')}"></span>
                         </div>
                         <div class="col-xs-12 col-sm-1 form-group-remove no-label-lg">
                             <button type="button" class="btn btn-transparent btn-lg btn-icon removeButton"><i class="fal fa-trash"></i></button>
