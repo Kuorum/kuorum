@@ -350,12 +350,22 @@ class ParticipatoryBudgetController extends CampaignController{
         KuorumUser currentUser= springSecurityService.currentUser;
         KuorumUser participatoryBudgetUser = kuorumUserService.findByAlias(command.getUserAlias());
         DistrictProposalRSDTO districtProposalRSDTO
-        if (command.vote){
-            districtProposalRSDTO= districtProposalService.support(currentUser, participatoryBudgetUser, command.participatoryBudgetId, command.proposalId);
-        }else{
-            districtProposalRSDTO= districtProposalService.unsupport(currentUser, participatoryBudgetUser, command.participatoryBudgetId, command.proposalId);
+        try{
+            if (command.vote){
+                districtProposalRSDTO= districtProposalService.support(currentUser, participatoryBudgetUser, command.participatoryBudgetId, command.proposalId);
+            }else{
+                districtProposalRSDTO= districtProposalService.unsupport(currentUser, participatoryBudgetUser, command.participatoryBudgetId, command.proposalId);
+            }
+            render (districtProposalRSDTO as JSON)
+        }catch (Exception e){
+            response.status = 500
+            if (e instanceof UndeclaredThrowableException ){
+                KuorumException ke = ((UndeclaredThrowableException)e).getCause().getCause()
+                render "{\"error\": \"API_ERROR\", \"code\":\"${ke.errors[0].code}\"}";
+            }else{
+                render "{\"error\": \"GENERIC_ERROR\", \"code\":\"error.api.500\"}";
+            }
         }
-        render (districtProposalRSDTO as JSON)
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
