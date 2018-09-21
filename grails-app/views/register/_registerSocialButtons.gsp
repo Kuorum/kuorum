@@ -1,5 +1,5 @@
 <ul class="socialGo clearfix">
-    %{--<li><a href="#" class="btn tw"><span class="fab fa-twitter fa-lg"></span> Entrar con Twitter</a></li>--}%
+    %{--<li><a href="#" class="btn tw"><span class="fa fa-twitter fa-lg"></span> Entrar con Twitter</a></li>--}%
     <li>
         <oauth:connect provider="facebook" id="facebook-connect-link" class="btn btn-lg fb">
             <span class="fab fa-facebook-f fa-lg"></span>
@@ -7,8 +7,8 @@
         </oauth:connect>
     </li>
     <li>
-        <oauth:connect provider="google" id="google-connect-link" class="btn btn-lg gog">
-            <span class="fab fa-google-plus-g fa-lg"></span>
+        <oauth:connect provider="google" id="google-connect-link" class="btn btn-gog btn-lg">
+            %{--<span class="google-logo"></span>--}%
             <g:message code="login.rrss.google"/>
         </oauth:connect>
     </li>
