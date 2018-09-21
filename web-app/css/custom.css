@@ -1957,7 +1957,9 @@ ul.user-list-followers .loading.xs {width: 10px; height: 10px;}
     display: inline-block;}
 .socialGo a.btn-gog:hover {background-image: url('../images/social/google/btn_google_dark_pressed_ios.svg');}
 
-
+.modal .socialGo a.btn.btn-gog{
+    padding-top: 18px !important;
+}
 
 .user {position: relative;}
 .user-type {position: absolute;top: 19px;left: 43px;font-size: 11px;color: #a8a8a8;}
