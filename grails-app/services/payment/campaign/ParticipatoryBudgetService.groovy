@@ -129,6 +129,18 @@ class ParticipatoryBudgetService implements CampaignCreatorService<Participatory
     }
 
 
+    void sendReport(KuorumUser user, Long campaignId){
+        Map<String, String> params = [userId: user.getId().toString(), campaignId: campaignId.toString()]
+        Map<String, String> query = [:]
+        def response = restKuorumApiService.get(
+                RestKuorumApiService.ApiMethod.ACCOUNT_PARTICIPATORY_BUDGET_REPORT,
+                params,
+                query,
+                null
+        )
+    }
+
+
     PageDistrictProposalRSDTO findDistrictProposalsByDistrict(KuorumUser user, Long participatoryBudgetId, FilterDistrictProposalRDTO filter, String viewerUid = null){
         if (!participatoryBudgetId){
             return null;

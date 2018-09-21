@@ -13,7 +13,7 @@
 <g:set var="visibleTechnicalReviewStatus" value="${![org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.ADDING_PROPOSALS].contains(participatoryBudget.status)?'true':'false'}"/>
 
 <div class="actions" id="toolbar-participatoryBudgetProposalReviewTable">
-    <g:link mapping="politicianMassMailingDebateStatsReport" params="[campaignId:campaign.id]" class="btn btn-blue inverted export-modal-button" data-modalId="export-debateStats-modal">
+    <g:link mapping="politicianMassMailingParticipatoryBudgetReport" params="[campaignId:campaign.id]" class="btn btn-blue inverted export-modal-button" data-modalId="export-proposalsList-modal">
         <span class="fal fa-file-excel"></span>
         <g:message code="tools.massMailing.view.participatoryBudget.report"/>
     </g:link>
@@ -53,3 +53,18 @@
     </thead>
 </table>
 
+<div id="export-proposalsList-modal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="exportDebateStatsTitle" aria-hidden="true">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header"><h4><g:message code="modal.exportedParticipatoryBudgetProposals.title"/></h4></div>
+            <div class="modal-body">
+                <p>
+                    <g:message code="modal.exportedParticipatoryBudgetProposals.explanation" args="[participatoryBudget.title]"/>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn" data-dismiss="modal" aria-label="Close"><g:message code="modal.exportedDebateStats.close"/></a>
+            </div>
+        </div>
+    </div>
+</div>

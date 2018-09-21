@@ -208,6 +208,21 @@ class ParticipatoryBudgetController extends CampaignController{
     /***** END CRUD ***/
     /******************/
 
+    @Secured(['ROLE_ADMIN','ROLE_CAMPAIGN_PARTICIPATORY_BUDGET'])
+    def sendProposalsReport() {
+        KuorumUser campaignUser = KuorumUser.get(springSecurityService.principal.id)
+        Long participatoryBudgetId = Long.parseLong(params.campaignId)
+        participatoryBudgetService.sendReport(campaignUser, participatoryBudgetId);
+        Boolean isAjax = request.xhr
+        if(isAjax){
+            render ([success:"success"] as JSON)
+        } else{
+            flash.message = g.message(code: 'modal.exportedTrackingEvents.title')
+            redirect (mapping: 'politicianCampaignStatsShow', params:[campaignId: participatoryBudgetId])
+        }
+    }
+
+
     private messageEnumJson(def type){
         [
                 type:type.toString(),

@@ -242,6 +242,7 @@ class RestKuorumApiService {
 
         ACCOUNT_PARTICIPATORY_BUDGETS                                   ("/communication/campaign/participatory-budget/{userId}"),
         ACCOUNT_PARTICIPATORY_BUDGET                                    ("/communication/campaign/participatory-budget/{userId}/{campaignId}"),
+        ACCOUNT_PARTICIPATORY_BUDGET_REPORT                             ("/communication/campaign/participatory-budget/{userId}/{campaignId}/report"),
         ACCOUNT_PARTICIPATORY_BUDGET_DISTRICT_PROPOSALS                 ("/communication/campaign/participatory-budget/{userId}/{campaignId}/proposal"),
         ACCOUNT_PARTICIPATORY_BUDGET_DISTRICT_PROPOSAL_VOTE             ("/communication/campaign/participatory-budget/{userId}/{campaignId}/proposal/{proposalId}/vote"),
         ACCOUNT_PARTICIPATORY_BUDGET_DISTRICT_PROPOSAL_SUPPORT          ("/communication/campaign/participatory-budget/{userId}/{campaignId}/proposal/{proposalId}/support"),
