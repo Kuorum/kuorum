@@ -8,6 +8,7 @@ modules = {
         resource url: 'fonts/icomoon/styles.css'
         resource url: 'fonts/icomoon2/styles.css'
         resource url: 'fonts/icomoon3/styles.css'
+        resource url:'https://fonts.googleapis.com/css?family=Roboto', attrs:[type:"css"]
         resource url:'js/jquery.min.js'
         resource url:'js/bootstrap.min.js'
         resource url:[dir:'css',file:'style_ie.css'], attrs:[media:'screen'], wrapper: { s -> "<!--[if IE]>$s<![endif]-->" }

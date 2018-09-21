@@ -7,8 +7,8 @@
         </oauth:connect>
     </li>
     <li>
-        <oauth:connect provider="google" id="google-connect-link" class="btn btn-lg gog">
-            <span class="fa fa-google-plus fa-lg"></span>
+        <oauth:connect provider="google" id="google-connect-link" class="btn btn-gog btn-lg">
+            %{--<span class="google-logo"></span>--}%
             <g:message code="login.rrss.google"/>
         </oauth:connect>
     </li>

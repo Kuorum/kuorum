@@ -1933,18 +1933,31 @@ ul.user-list-followers .loading.xs {width: 10px; height: 10px;}
 .btn.fb:hover,
 .btn.fb:active,
 .btn.fb:focus {background-color: #3b4b7c !important;}
-.btn.gog {background-color: #cb5740 !important;}
-.btn.gog:hover,
-.btn.gog:active,
-.btn.gog:focus {background-color: #b64e39 !important;}
+.btn.btn-gog {background-color: #4285F4 !important; font-family: Roboto, Arial; color:#FFFFFF}
+.btn.btn-gog:hover,
+.btn.btn-gog:active,
+.btn.btn-gog:focus {background-color: #3367d6 !important;}
 .btn.lin {background-color: #397ca6 !important;}
 .btn.lin:hover,
 .btn.lin:active,
 .btn.lin:focus {background-color: #1d5e86 !important;}
 .btn.mail {background-color: #efefef !important; color: #545454 !important;}
-.btn.mail:hover,
+.btn.mail:hover,EEEEEE
 .btn.mail:active,
 .btn.mail:focus {background-color: #a8a8a8 !important; color: #ffffff !important;}
+
+
+.socialGo a.btn.btn-gog {
+    background: url('../images/social/google/btn_google_dark_normal_ios.svg');
+    background-repeat: no-repeat;
+    background-size: 59px;
+    background-position: -3px center;
+    height: 53px;
+    padding-left: 60px !important;
+    display: inline-block;}
+.socialGo a.btn-gog:hover {background-image: url('../images/social/google/btn_google_dark_pressed_ios.svg');}
+
+
 
 .user {position: relative;}
 .user-type {position: absolute;top: 19px;left: 43px;font-size: 11px;color: #a8a8a8;}
@@ -2436,11 +2449,6 @@ video#bgvid {
 #payment div.payment-method .braintree-option__label{  position: relative;  margin-left: -50px;  }
 #payment div.payment-method .braintree-heading{  position: relative;  }
 #payment div.payment-method .braintree-toggle{  padding: 0px 0px 20px 0px;  background: transparent;}
-
-/* PARA EL QUIERO TRASTEAR MÁS DEL DASHBOARD */
-#trasteando {padding: 0 0 40px; color: #a8a8a8;}
-#trasteando a {color: #545454;}
-
 
 /* DOS BOTONES IGUALES PERO SU FUNCIONAMIENTO ES DIFERENTE A NIVEL INTERNO */
 
