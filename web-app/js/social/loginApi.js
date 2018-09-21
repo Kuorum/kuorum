@@ -35,7 +35,7 @@ $(function (){
         var socialButton = new SocialButton("facebook",apiCallback, callbackError);
         socialButton.openSocialLoginWindow()
     })
-    $(".socialGo .btn.gog").on("click", function(e){
+    $(".socialGo .btn.btn-gog").on("click", function(e){
         e.preventDefault();
         var socialButton = new SocialButton("google",apiCallback, callbackError);
         socialButton.openSocialLoginWindow()
