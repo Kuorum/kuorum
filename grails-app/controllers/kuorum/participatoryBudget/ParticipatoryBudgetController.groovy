@@ -19,7 +19,7 @@ class ParticipatoryBudgetController extends CampaignController{
     // Grails renderer -> For CSV hack
     grails.gsp.PageRenderer groovyPageRenderer
 
-    @Secured(['ROLE_ADMIN','ROLE_CAMPAIGN_PARTICIPATORY_BUDGET'])
+    @Secured(['ROLE_ADMIN'])
     def create() {
         return participatoryBudgetModelSettings(new CampaignSettingsCommand(debatable:true), null)
     }
@@ -67,6 +67,13 @@ class ParticipatoryBudgetController extends CampaignController{
 
         Map<String, Object> result = saveAndSendCampaignContent(command, campaignId, participatoryBudgetService)
         redirect mapping: result.nextStep.mapping, params: result.nextStep.params
+    }
+
+    @Secured(['ROLE_ADMIN','ROLE_CAMPAIGN_PARTICIPATORY_BUDGET'])
+    def listActiveParticipativeBudgets(){
+        ParticipatoryBudgetStatusDTO budgetStatusDTO = ParticipatoryBudgetStatusDTO.ADDING_PROPOSALS
+        List<ParticipatoryBudgetRSDTO> listParticipatoryBudgetRSDTO = participatoryBudgetService.findActiveParticipatoryBudgets(budgetStatusDTO)
+        render template: '/layouts/modalParticipatoryBudgets', model: [pbList: listParticipatoryBudgetRSDTO]
     }
 
     @Secured(['ROLE_ADMIN','ROLE_CAMPAIGN_PARTICIPATORY_BUDGET'])
@@ -256,6 +263,8 @@ class ParticipatoryBudgetController extends CampaignController{
                         visits: districtProposalRSDTO.visits,
                         user:districtProposalRSDTO.user,
                         cause: districtProposalRSDTO.causes?districtProposalRSDTO.causes[0]:null,
+                        participatoryBudget:districtProposalRSDTO.participatoryBudget,
+                        district:districtProposalRSDTO.district,
                         participatoryBudget:districtProposalRSDTO.participatoryBudget,
                         district:districtProposalRSDTO.district,
                         approved :districtProposalRSDTO.approved,
