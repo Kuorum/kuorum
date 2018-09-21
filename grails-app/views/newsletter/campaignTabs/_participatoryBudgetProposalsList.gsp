@@ -12,12 +12,17 @@
 <g:set var="visibleImplemented" value="${[org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.RESULTS, org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.CLOSED].contains(participatoryBudget.status)?'true':'false'}"/>
 <g:set var="visibleTechnicalReviewStatus" value="${![org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.ADDING_PROPOSALS].contains(participatoryBudget.status)?'true':'false'}"/>
 
-<div id="toolbar"></div>
+<div class="actions" id="toolbar-participatoryBudgetProposalReviewTable">
+    <g:link mapping="politicianMassMailingDebateStatsReport" params="[campaignId:campaign.id]" class="btn btn-blue inverted export-modal-button" data-modalId="export-debateStats-modal">
+        <span class="fal fa-file-excel"></span>
+        <g:message code="tools.massMailing.view.participatoryBudget.report"/>
+    </g:link>
+</div>
 <table id="participatoryBudgetProposalReviewTable"
        data-toggle="table"
        data-url="${g.createLink(mapping:'participatoryBudgetDistrictProposalsPagination', params:participatoryBudget.encodeAsLinkProperties())}"
        data-side-pagination="server"
-       data-toolbar="#toolbar"
+       data-toolbar="#toolbar-participatoryBudgetProposalReviewTable"
        data-show-export="true"
        data-id-field="id"
        data-pagination="true"
