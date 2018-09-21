@@ -609,6 +609,26 @@ header.transp #search-form .open-filter {background-color: rgba(219,219,219,0.4)
 
 .modal-register.modal .modal-body #pass-forget {text-align: center;}
 
+/* Modal district proposals in dashboard */
+.modal-pb.modal .modal-content {max-width: 100%; padding: 15px;}
+.modal-pb.modal .modal-card {
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    margin: 15px 0 0;
+}
+.modal-pb.modal .modal-dialog { margin-top: 80px; }
+.modal-pb.modal .modal-card .modal-thumbnail{margin: 0px -15px;}
+.modal-pb.modal .modal-card .modal-thumbnail img{width: 100%;}
+.modal-pb.modal .modal-card .modal-info{padding: 5px 5px 5px 30px;}
+.modal-pb.modal .modal-card .modal-info ul {margin-left: -40px; position: relative; bottom: 0; left: 0;}
+.modal-pb.modal .modal-card .modal-info ul li{display: inline}
+.modal-pb.modal .modal-card .modal-info ul li a{margin: 5px 0;}
+
+
+.modal-pb.modal .modal-info { min-height: 120px;}
+
+/* END Modal dristrict proposal */
 
 .container-fluid.userprofile #adminActions{left:inherit; right:20px; top: 5px; z-index: 1000;}
 .container-fluid.userprofile #adminActions a{color: #a8a8a8;}
@@ -5793,6 +5813,11 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .landing.prices .full-video p:first-of-type {margin-top: -250px;}
 
     .onecol .subscribeForm fieldset .form-group:last-child {border-left: 1px solid #545454;}
+
+    /* Modal participatory budget */
+    .modal-pb.modal .modal-dialog { width: 750px; margin: 100px auto; }
+    .modal-pb.modal .modal-card .modal-info ul {margin-left: -10px; position: absolute; bottom: 0; left: 0;}
+    .modal-pb.modal .modal-info {height: 120px;}
 
     @media not all, (-webkit-transform-3d) {
         .carousel.news .carousel-inner > .item.active,

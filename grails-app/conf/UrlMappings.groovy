@@ -1,6 +1,5 @@
 import grails.util.Environment
 import kuorum.core.exception.KuorumException
-import kuorum.core.model.AvailableLanguage
 import org.springframework.security.access.AccessDeniedException
 
 class UrlMappings {
@@ -331,6 +330,7 @@ class UrlMappings {
         name participatoryBudgetEditDistricts:     "/account/$userAlias/pb/$urlTitle-$campaignId/edit-districts" (controller: "participatoryBudget"){action = [GET: "editDistricts", POST: "saveDistricts"]}
         name participatoryBudgetEditContent:       "/account/$userAlias/pb/$urlTitle-$campaignId/edit-content" (controller: "participatoryBudget"){action = [GET: "editContentStep", POST: "saveContent"]}
         name participatoryBudgetShow:              "/$userAlias/$urlTitle-$campaignId"           (controller: "campaign", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it)})}}
+        name participatoryBudgetList:              "/ajax/account/participatory-budgets" (controller: "participatoryBudget", action:"listActiveParticipativeBudgets")
         name participatoryBudgetEditStatus:        "/ajax/account/$userAlias/pb/$urlTitle-$campaignId/edit-status" (controller: "participatoryBudget", action:"editStatus")
         name participatoryBudgetDistrictProposals: "/ajax/$userAlias/$urlTitle-$campaignId/district-$districtId/proposals" (controller: "participatoryBudget", action:"findDistrictProposals")
         name participatoryBudgetDistrictProposalSupport: "/ajax/$userAlias/$participatoryBudgetTitle-$participatoryBudgetId/$urlTitle-$campaignId/support" (controller: "participatoryBudget", action:"supportDistrictProposal")

@@ -6,10 +6,7 @@ import kuorum.core.exception.KuorumException
 import kuorum.solr.IndexSolrService
 import kuorum.users.KuorumUser
 import kuorum.util.rest.RestKuorumApiService
-import org.kuorum.rest.model.communication.participatoryBudget.FilterDistrictProposalRDTO
-import org.kuorum.rest.model.communication.participatoryBudget.PageDistrictProposalRSDTO
-import org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetRDTO
-import org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetRSDTO
+import org.kuorum.rest.model.communication.participatoryBudget.*
 
 @Transactional
 class ParticipatoryBudgetService implements CampaignCreatorService<ParticipatoryBudgetRSDTO, ParticipatoryBudgetRDTO> {
@@ -111,6 +108,29 @@ class ParticipatoryBudgetService implements CampaignCreatorService<Participatory
         )
 
         campaignId
+    }
+
+    List<ParticipatoryBudgetRSDTO> findActiveParticipatoryBudgets(ParticipatoryBudgetStatusDTO budgetStatusDTO) {
+        Map<String, String> params = [:]
+        Map<String, String> query = [status: budgetStatusDTO.toString()]
+        try {
+            def response = restKuorumApiService.get(
+                    RestKuorumApiService.ApiMethod.ACCOUNT_ACTIVE_PARTICIPATORY_BUDGETS,
+                    params,
+                    query,
+                    new TypeReference<PageParticipatoryBudgetRSDTO>() {}
+            )
+
+            PageParticipatoryBudgetRSDTO pageFound = null
+            if (response.data) {
+                pageFound = (PageParticipatoryBudgetRSDTO) response.data
+        }
+        return pageFound.getData();
+
+        }catch (KuorumException e){
+            log.info("Error recovering participatory budgets : ${e.message}")
+            return null;
+        }
     }
 
     @Override

@@ -84,6 +84,20 @@
             </g:link>
         </li>
     </sec:ifAnyGranted>
+
+    <sec:ifAnyGranted roles="ROLE_ADMIN">
+        <li class="fontIcon active-participatory-budgets">
+            <g:link mapping="participatoryBudgetList" role="button" class="actionIcons new-campaign-tip get-participatory-budgets"
+                    rel="tooltip"
+                    data-toggle="tooltip"
+                    data-placement="bottom"
+                    title=""
+                    data-original-title="${g.message(code:'dashboard.payment.chooseCampaign.tooltip.districtProposal')}">
+                <span class="fal fa-rocket"></span>
+                <span class="label"><g:message code="tools.campaign.new.districtProposal"/></span>
+            </g:link>
+        </li>
+    </sec:ifAnyGranted>
     %{--<li class="fontIcon disabled"><g:link mapping="debateCreate" role="button" class="mail">--}%
     %{--<span class="fal fa-microphone"></span>--}%
     %{--<span class="label"><g:message code="tools.campaign.new.petition"/></span></g:link>--}%

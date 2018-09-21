@@ -41,6 +41,13 @@ class ParticipatoryBudgetController extends CampaignController{
     }
 
     @Secured(['ROLE_ADMIN'])
+    def listActiveParticipativeBudgets(){
+        ParticipatoryBudgetStatusDTO budgetStatusDTO = ParticipatoryBudgetStatusDTO.ADDING_PROPOSALS
+        List<ParticipatoryBudgetRSDTO> listParticipatoryBudgetRSDTO = participatoryBudgetService.findActiveParticipatoryBudgets(budgetStatusDTO)
+        render template: '/layouts/modalParticipatoryBudgets', model: [pbList: listParticipatoryBudgetRSDTO]
+    }
+
+    @Secured(['ROLE_ADMIN'])
     def saveSettings(CampaignSettingsCommand command) {
         if (command.hasErrors()) {
             render view: 'create', model: participatoryBudgetModelSettings(command, null)
