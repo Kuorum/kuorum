@@ -24,7 +24,7 @@ class ParticipatoryBudgetController extends CampaignController{
         return participatoryBudgetModelSettings(new CampaignSettingsCommand(debatable:true), null)
     }
 
-    @Secured(['ROLE_ADMIN'])
+    @Secured(['ROLE_ADMIN','ROLE_CAMPAIGN_PARTICIPATORY_BUDGET'])
     def editSettingsStep(){
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         ParticipatoryBudgetRSDTO participatoryBudgetRSDTO = participatoryBudgetService.find( user, Long.parseLong((String) params.campaignId))
@@ -33,21 +33,14 @@ class ParticipatoryBudgetController extends CampaignController{
 
     }
 
-    @Secured(['ROLE_ADMIN'])
+    @Secured(['ROLE_ADMIN','ROLE_CAMPAIGN_PARTICIPATORY_BUDGET'])
     def editContentStep(){
         Long campaignId = Long.parseLong((String) params.campaignId);
         ParticipatoryBudgetRSDTO participatoryBudgetRSDTO = setCampaignAsDraft(campaignId, participatoryBudgetService)
         return campaignModelContent(campaignId, participatoryBudgetRSDTO, null, participatoryBudgetService)
     }
 
-    @Secured(['ROLE_ADMIN'])
-    def listActiveParticipativeBudgets(){
-        ParticipatoryBudgetStatusDTO budgetStatusDTO = ParticipatoryBudgetStatusDTO.ADDING_PROPOSALS
-        List<ParticipatoryBudgetRSDTO> listParticipatoryBudgetRSDTO = participatoryBudgetService.findActiveParticipatoryBudgets(budgetStatusDTO)
-        render template: '/layouts/modalParticipatoryBudgets', model: [pbList: listParticipatoryBudgetRSDTO]
-    }
-
-    @Secured(['ROLE_ADMIN'])
+    @Secured(['ROLE_ADMIN','ROLE_CAMPAIGN_PARTICIPATORY_BUDGET'])
     def saveSettings(CampaignSettingsCommand command) {
         if (command.hasErrors()) {
             render view: 'create', model: participatoryBudgetModelSettings(command, null)
@@ -61,7 +54,7 @@ class ParticipatoryBudgetController extends CampaignController{
         redirect mapping: result.nextStep.mapping, params: result.nextStep.params
     }
 
-    @Secured(['ROLE_ADMIN'])
+    @Secured(['ROLE_ADMIN','ROLE_CAMPAIGN_PARTICIPATORY_BUDGET'])
     def saveContent(CampaignContentCommand command) {
         Long campaignId = params.campaignId?Long.parseLong(params.campaignId):null
         if (command.hasErrors()) {
@@ -76,7 +69,7 @@ class ParticipatoryBudgetController extends CampaignController{
         redirect mapping: result.nextStep.mapping, params: result.nextStep.params
     }
 
-    @Secured(['ROLE_ADMIN'])
+    @Secured(['ROLE_ADMIN','ROLE_CAMPAIGN_PARTICIPATORY_BUDGET'])
     def editDistricts(){
         Long campaignId = Long.parseLong(params.campaignId)
         KuorumUser campaignUser = KuorumUser.get(springSecurityService.principal.id)
@@ -140,7 +133,7 @@ class ParticipatoryBudgetController extends CampaignController{
         )
     }
 
-    @Secured(['ROLE_ADMIN'])
+    @Secured(['ROLE_ADMIN','ROLE_CAMPAIGN_PARTICIPATORY_BUDGET'])
     def remove(Long campaignId) {
         removeCampaign(campaignId, participatoryBudgetService);
         render ([msg: "Debate deleted"] as JSON)
@@ -153,7 +146,7 @@ class ParticipatoryBudgetController extends CampaignController{
         return model
     }
 
-    @Secured(['ROLE_ADMIN'])
+    @Secured(['ROLE_ADMIN','ROLE_CAMPAIGN_PARTICIPATORY_BUDGET'])
     def editStatus(ParticipatoryBudgetChangeStatusCommand command){
         KuorumUser campaignUser = KuorumUser.get(springSecurityService.principal.id)
         ParticipatoryBudgetRSDTO participatoryBudgetRSDTO = participatoryBudgetService.find(campaignUser, command.campaignId)
@@ -266,7 +259,7 @@ class ParticipatoryBudgetController extends CampaignController{
     }
 
 //    @Secured(['ROLE_ADMIN'])
-    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    @Secured(['ROLE_ADMIN','ROLE_CAMPAIGN_PARTICIPATORY_BUDGET'])
     def paginateParticipatoryBudgetProposalsJson(){
         init()
         Integer limit = Integer.parseInt(params.limit)
@@ -333,7 +326,7 @@ class ParticipatoryBudgetController extends CampaignController{
         }
     }
 
-    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    @Secured(['ROLE_ADMIN','ROLE_CAMPAIGN_PARTICIPATORY_BUDGETst'])
     def updateTechnicalReview(DistrictProposalTechnicalReviewCommand command){
         init()
         KuorumUser campaignUser = KuorumUser.get(springSecurityService.principal.id)
@@ -357,12 +350,22 @@ class ParticipatoryBudgetController extends CampaignController{
         KuorumUser currentUser= springSecurityService.currentUser;
         KuorumUser participatoryBudgetUser = kuorumUserService.findByAlias(command.getUserAlias());
         DistrictProposalRSDTO districtProposalRSDTO
-        if (command.vote){
-            districtProposalRSDTO= districtProposalService.support(currentUser, participatoryBudgetUser, command.participatoryBudgetId, command.proposalId);
-        }else{
-            districtProposalRSDTO= districtProposalService.unsupport(currentUser, participatoryBudgetUser, command.participatoryBudgetId, command.proposalId);
+        try{
+            if (command.vote){
+                districtProposalRSDTO= districtProposalService.support(currentUser, participatoryBudgetUser, command.participatoryBudgetId, command.proposalId);
+            }else{
+                districtProposalRSDTO= districtProposalService.unsupport(currentUser, participatoryBudgetUser, command.participatoryBudgetId, command.proposalId);
+            }
+            render (districtProposalRSDTO as JSON)
+        }catch (Exception e){
+            response.status = 500
+            if (e instanceof UndeclaredThrowableException ){
+                KuorumException ke = ((UndeclaredThrowableException)e).getCause().getCause()
+                render "{\"error\": \"API_ERROR\", \"code\":\"${ke.errors[0].code}\"}";
+            }else{
+                render "{\"error\": \"GENERIC_ERROR\", \"code\":\"error.api.500\"}";
+            }
         }
-        render (districtProposalRSDTO as JSON)
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])

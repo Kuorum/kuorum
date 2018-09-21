@@ -1,9 +1,6 @@
 package kuorum.web.commands.profile
 
 import grails.validation.Validateable
-import kuorum.core.model.CommissionType
-import kuorum.mail.MailGroupType
-import kuorum.mail.MailType
 
 /**
  * Created by iduetxe on 13/02/14.
@@ -23,6 +20,13 @@ class MailNotificationsCommand {
     boolean debateNewCause;
     boolean postNewCause;
     boolean eventNewCause;
+    boolean participatoryBudgetNewOwner;
+    boolean participatoryBudgetNewCause;
+    boolean districtProposalNewOwner;
+    boolean districtProposalNewCause;
+    boolean districtProposalParticipatoryBudgetOwner;
+    boolean districtProposalSupport;
+    boolean districtProposalVote;
 
     static constraints = {
     }

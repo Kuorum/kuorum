@@ -71,7 +71,7 @@
         </li>
     </sec:ifAnyGranted>
 
-    <sec:ifAnyGranted roles="ROLE_ADMIN">
+    <sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_CAMPAIGN_PARTICIPATORY_BUDGET">
         <li class="fontIcon">
             <g:link mapping="participatoryBudgetCreate" role="button" class="actionIcons new-campaign-tip"
                     rel="tooltip"

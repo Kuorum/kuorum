@@ -550,6 +550,9 @@ function FilterContacts() {
         $fieldSet.find(activeOperator).removeClass("hide");
         $fieldSet.find(".filter-operator input, .filter-operator select").prop('disabled', false);
         $fieldSet.find(".filter-operator.hide input, .filter-operator.hide select").prop('disabled', true);
+
+        that.setFilterAsEdited();
+        that.updateAmountContactsSilently();
     };
 
     this.filterEditedEvent = function(e){

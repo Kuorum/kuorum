@@ -33,6 +33,7 @@ var districtProposalHelper={
     },
 
     districtProposalAction : function($button, callback){
+        $('#registro').modal('hide');
         if(isPageLoading()){
             return;
         }
@@ -95,8 +96,17 @@ var districtProposalHelper={
                         var modalId = "#warn-different-district-"+districtId;
                         $(modalId).modal()
                     }
+
+                    if (callback != undefined){
+                        $(modalId).on('hidden.bs.modal', function () {
+                            callback();
+                        })
+                    }
                 }else{
                     display.error("There was an unexpected error")
+                    if (callback != undefined){
+                        callback();
+                    }
                 }
             },
             complete: function(){

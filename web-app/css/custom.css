@@ -1585,6 +1585,10 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .pagination .active a {background-color: #ddd;}
 .pagination .active a,
 .pagination .disabled a {cursor: default; pointer-events: none;}
+.bootstrap-table .fixed-table-pagination .pagination a {line-height: 17px;}
+.bootstrap-table .btn-default {background-color: #CCCCCC;}
+.bootstrap-table .btn-default:focus,
+.bootstrap-table .btn-default:hover {background-color: #545454 !important;}
 .pag-list-contacts .pagination .disabled a {border: none; width: 5px; margin-left: 1px; color:}
 .searchContainer {position: relative;}
 .searchContainer::after {font-family: 'Font Awesome 5 Pro'; content:''; position: absolute; right: 8px; top: 5px; color: #a8a8a8;}
@@ -1644,8 +1648,6 @@ ul.list > li > ul.list-actions > li > a:active {color: #20a2ea;}
 .actionIcons li > #google {background-image: url('../images/mail-gmail.png'); background-position: center 10px;margin-bottom: auto}
 .actionIcons li > #yahoo {background-image: url('../images/mail-yahoo.png'); background-position: center 20px;}
 .actionIcons li > #outlook {background-image: url('../images/mail-outlook.png'); background-position: center 10px;}
-.actionIcons li > #uploadCsv {padding-top:16px;}
-.actionIcons li > #uploadCsv .label{font-size:15px;}
 .actionIcons {margin:0 auto; padding:0;}
 .actionIcons li.fontIcon > a {padding:6px 0 0 0;}
 .actionIcons li.fontIcon > a > span.fal,

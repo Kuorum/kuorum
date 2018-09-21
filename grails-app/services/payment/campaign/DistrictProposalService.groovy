@@ -116,7 +116,8 @@ class DistrictProposalService implements CampaignCreatorService<DistrictProposal
     }
 
     @Override
-    def buildView(DistrictProposalRSDTO districtProposal, KuorumUser campaignUser, String viewerUid, def params) {
+    def buildView(DistrictProposalRSDTO districtProposal, KuorumUser participatoryBudgetUser, String viewerUid, def params) {
+        KuorumUser campaignUser = KuorumUser.get(districtProposal.user.id)
         def model = [districtProposal: districtProposal, campaignUser: campaignUser];
         return [view: '/districtProposal/show', model: model]
     }

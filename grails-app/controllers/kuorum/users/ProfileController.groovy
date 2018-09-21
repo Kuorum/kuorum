@@ -394,6 +394,13 @@ class ProfileController {
         command.debateNewCause = notificationConfig.mailConfig.debateNewCause
         command.postNewCause = notificationConfig.mailConfig.postNewCause
         command.eventNewCause = notificationConfig.mailConfig.eventNewCause
+        command.participatoryBudgetNewOwner = notificationConfig.mailConfig.participatoryBudgetNewOwner
+        command.participatoryBudgetNewCause = notificationConfig.mailConfig.participatoryBudgetNewCause
+        command.districtProposalNewOwner = notificationConfig.mailConfig.districtProposalNewOwner
+        command.districtProposalNewCause = notificationConfig.mailConfig.districtProposalNewCause
+        command.districtProposalParticipatoryBudgetOwner = notificationConfig.mailConfig.districtProposalParticipatoryBudgetOwner
+        command.districtProposalSupport = notificationConfig.mailConfig.districtProposalSupport
+        command.districtProposalVote = notificationConfig.mailConfig.districtProposalVote
         [user:user, command: command]
     }
     def configurationEmailsSave(MailNotificationsCommand command) {
@@ -416,6 +423,13 @@ class ProfileController {
         notificationConfig.mailConfig.debateNewCause = command.debateNewCause
         notificationConfig.mailConfig.postNewCause = command.postNewCause
         notificationConfig.mailConfig.eventNewCause = command.eventNewCause
+        notificationConfig.mailConfig.participatoryBudgetNewOwner = command.participatoryBudgetNewOwner
+        notificationConfig.mailConfig.participatoryBudgetNewCause = command.participatoryBudgetNewCause
+        notificationConfig.mailConfig.districtProposalNewOwner = command.districtProposalNewOwner
+        notificationConfig.mailConfig.districtProposalNewCause = command.districtProposalNewCause
+        notificationConfig.mailConfig.districtProposalParticipatoryBudgetOwner = command.districtProposalParticipatoryBudgetOwner
+        notificationConfig.mailConfig.districtProposalSupport = command.districtProposalSupport
+        notificationConfig.mailConfig.districtProposalVote = command.districtProposalVote
         notificationService.saveNotificationsConfig(user, notificationConfig)
         flash.message = message(code:'profile.emailNotifications.success')
         redirect mapping:'profileEmailNotifications'
