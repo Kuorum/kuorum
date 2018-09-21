@@ -73,7 +73,7 @@ class ParticipatoryBudgetController extends CampaignController{
     def listActiveParticipativeBudgets(){
         ParticipatoryBudgetStatusDTO budgetStatusDTO = ParticipatoryBudgetStatusDTO.ADDING_PROPOSALS
         List<ParticipatoryBudgetRSDTO> listParticipatoryBudgetRSDTO = participatoryBudgetService.findActiveParticipatoryBudgets(budgetStatusDTO)
-        render template: '/layouts/modalParticipatoryBudgets', model: [pbList: listParticipatoryBudgetRSDTO]
+        render template: '/participatoryBudget/modalParticipatoryBudgets', model: [pbList: listParticipatoryBudgetRSDTO]
     }
 
     @Secured(['ROLE_ADMIN','ROLE_CAMPAIGN_PARTICIPATORY_BUDGET'])

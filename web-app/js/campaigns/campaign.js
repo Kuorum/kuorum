@@ -1,40 +1,6 @@
 $(function(){
     campaignFunctions.callToActionMobile();
-
-    /*****************
-     * Create list of participative budgets
-     *****************/
-    $(".get-participatory-budgets").on('click', function (e) {
-        e.preventDefault();
-        var ajaxLink = $(this).attr('href');
-        getParticipatoryBudgetList(ajaxLink);
-    });
-
-    $(".modal-pb .close").on("click", function () {
-        $('.modal-pb').hide()
-    });
-
 });
-
-function getParticipatoryBudgetList(ajaxLink) {
-    pageLoadingOn();
-    $.ajax({
-        type: "GET",
-        url: ajaxLink,
-        success: function(jsonData){
-            var $modal = $('.modal-pb');
-            var $modalContent = $('.modal-pb .modal-content .pb-list');
-            $modalContent.html(jsonData);
-            $modal.show()
-        },
-        error:function(){
-            display.error("Sorry: Error doing operation");
-        },
-        complete: function () {
-            pageLoadingOff();
-        }
-    });
-}
 
 var campaignFunctions={
     callToActionMobile:function(){

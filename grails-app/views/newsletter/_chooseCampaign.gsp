@@ -85,7 +85,7 @@
         </li>
     </sec:ifAnyGranted>
 
-    <sec:ifAnyGranted roles="ROLE_ADMIN">
+    <sec:ifAnyGranted roles="ROLE_ADMIN, ROLE_CAMPAIGN_DISTRICT_PROPOSAL">
         <li class="fontIcon active-participatory-budgets">
             <g:link mapping="participatoryBudgetList" role="button" class="actionIcons new-campaign-tip get-participatory-budgets"
                     rel="tooltip"
@@ -96,6 +96,19 @@
                 <span class="fal fa-rocket"></span>
                 <span class="label"><g:message code="tools.campaign.new.districtProposal"/></span>
             </g:link>
+
+        <!-- Modal show active participative budgets -->
+            <div class="modal modal-pb" id="listParticipatoryBudgets" tabindex="-1" role="dialog" aria-labelledby="listParticipatoryBudgets" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content container">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true" class="fal fa-times-circle fa"></span><span class="sr-only">Cerrar</span></button>
+                        <h4>
+                            <g:message code="dashboard.payment.chooseCampaign.tooltip.districtProposal.modal.title"/>
+                        </h4>
+                        <div class="pb-list"></div>
+                    </div>
+                </div>
+            </div>
         </li>
     </sec:ifAnyGranted>
     %{--<li class="fontIcon disabled"><g:link mapping="debateCreate" role="button" class="mail">--}%

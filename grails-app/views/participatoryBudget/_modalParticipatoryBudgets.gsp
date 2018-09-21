@@ -1,21 +1,21 @@
 <g:if test="${pbList}">
     <g:each in="${pbList}" var="pb">
         <div class="modal-card row">
-            <div class="modal-thumbnail col-sm-4">
+            <div class="modal-thumbnail col-sm-4 hidden-xs">
                 <g:render template="/campaigns/showModules/campaignDataMultimedia" model="[campaign: pb]"/>
             </div>
-            <div class="modal-info col-sm-8">
+            <div class="modal-info col-sm-offset-1 col-sm-7 col-xs-12">
                 <h4>${pb.title}</h4>
                 <ul class="list">
                     <li>
-                        <a href="#" class="btn btn-blue" data-redirectLink="politicianCampaigns">
+                        <g:link mapping="districtProposalCreate" params="${pb.encodeAsLinkProperties()}" class="btn btn-blue">
                             <g:message code="dashboard.payment.chooseCampaign.tooltip.districtProposal.modal.button.create"/>
-                        </a>
+                        </g:link>
                     </li>
                     <li>
-                        <a href="#" class="btn btn-blue inverted" data-redirectLink="">
+                        <g:link mapping="campaignShow" params="${pb.encodeAsLinkProperties()}" class="btn btn-blue inverted" data-redirectLink="">
                             <g:message code="dashboard.payment.chooseCampaign.tooltip.districtProposal.modal.button.goToParticipatoryBudget"/>
-                        </a>
+                        </g:link>
                     </li>
                 </ul>
             </div>

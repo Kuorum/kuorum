@@ -650,7 +650,36 @@ $(document).ready(function() {
 
         $('#'+input_id).hideShowPassword($(this).prop('checked'));
     });
+    /*****************
+     * Create list of participative budgets
+     *****************/
+    $(".get-participatory-budgets").on('click', function (e) {
+        e.preventDefault();
+        var ajaxLink = $(this).attr('href');
+        getParticipatoryBudgetList(ajaxLink);
+    });
+
 });
+
+function getParticipatoryBudgetList(ajaxLink) {
+    pageLoadingOn();
+    $.ajax({
+        type: "GET",
+        url: ajaxLink,
+        success: function(jsonData){
+            var $modal = $('.modal-pb');
+            var $modalContent = $('.modal-pb .modal-content .pb-list');
+            $modalContent.html(jsonData);
+            $modal.modal("show")
+        },
+        error:function(){
+            display.error("Sorry: Error doing operation");
+        },
+        complete: function () {
+            pageLoadingOff();
+        }
+    });
+}
 
 function prepareYoutubeVideosClick(){
     // hacer clic en player falso del video (.front)

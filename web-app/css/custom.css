@@ -620,13 +620,11 @@ header.transp #search-form .open-filter {background-color: rgba(219,219,219,0.4)
 .modal-pb.modal .modal-dialog { margin-top: 80px; }
 .modal-pb.modal .modal-card .modal-thumbnail{margin: 0px -15px;}
 .modal-pb.modal .modal-card .modal-thumbnail img{width: 100%;}
-.modal-pb.modal .modal-card .modal-info{padding: 5px 5px 5px 30px;}
-.modal-pb.modal .modal-card .modal-info ul {margin-left: -40px; position: relative; bottom: 0; left: 0;}
+.modal-pb.modal .modal-card .modal-info {padding: 10px 0px; }
+.modal-pb.modal .modal-card .modal-info ul {margin-top: 20px; padding: 0; }
 .modal-pb.modal .modal-card .modal-info ul li{display: inline}
 .modal-pb.modal .modal-card .modal-info ul li a{margin: 5px 0;}
 
-
-.modal-pb.modal .modal-info { min-height: 120px;}
 
 /* END Modal dristrict proposal */
 
@@ -1640,21 +1638,21 @@ ul.list > li > ul.list-actions > li > a:active {color: #20a2ea;}
 .container-fluid.box-ppal.choose-campaign {padding:70px 0px 50px 0px; box-shadow: 0 0 2px rgba(200,200,200,0.6);}
 
 .actionIcons {text-align: center;}
-.actionIcons li {list-style: none; display: inline-block; margin: 0 10px 20px;}
-.actionIcons li > a {margin:auto; display: block; width: 70px; height: 70px; padding-top: 41px; font-size: 11px; background-color: #fff; background-repeat: no-repeat; border: 1px solid #ff9431; overflow: hidden;}
-.actionIcons li > a:hover,
-.actionIcons li > a:focus,
-.actionIcons li > a:active {text-decoration: none; background-color: #fbfbfb;}
-.actionIcons li > #google {background-image: url('../images/mail-gmail.png'); background-position: center 10px;margin-bottom: auto}
-.actionIcons li > #yahoo {background-image: url('../images/mail-yahoo.png'); background-position: center 20px;}
-.actionIcons li > #outlook {background-image: url('../images/mail-outlook.png'); background-position: center 10px;}
+.actionIcons > li {list-style: none; display: inline-block; margin: 0 10px 20px;}
+.actionIcons > li > a {margin:auto; display: block; width: 70px; height: 70px; padding-top: 41px; font-size: 11px; background-color: #fff; background-repeat: no-repeat; border: 1px solid #ff9431; overflow: hidden;}
+.actionIcons > li > a:hover,
+.actionIcons > li > a:focus,
+.actionIcons > li > a:active {text-decoration: none; background-color: #fbfbfb;}
+.actionIcons > li > #google {background-image: url('../images/mail-gmail.png'); background-position: center 10px;margin-bottom: auto}
+.actionIcons > li > #yahoo {background-image: url('../images/mail-yahoo.png'); background-position: center 20px;}
+.actionIcons > li > #outlook {background-image: url('../images/mail-outlook.png'); background-position: center 10px;}
 .actionIcons {margin:0 auto; padding:0;}
-.actionIcons li.fontIcon > a {padding:6px 0 0 0;}
-.actionIcons li.fontIcon > a > span.fal,
-.actionIcons li.fontIcon > a > span.far {font-size: 30px;width: 100%; height: auto;}
-.actionIcons li.fontIcon > a > span.label {color:inherit; padding:0; font-weight: inherit; font-size: 11px}
-.actionIcons li.fontIcon.arrow {display: none}
-.actionIcons li + li.fontIcon.arrow {display: inline-block}
+.actionIcons > li.fontIcon > a {padding:6px 0 0 0;}
+.actionIcons > li.fontIcon > a > span.fal,
+.actionIcons > li.fontIcon > a > span.far {font-size: 30px;width: 100%; height: auto;}
+.actionIcons > li.fontIcon > a > span.label {color:inherit; padding:0; font-weight: inherit; font-size: 11px}
+.actionIcons > li.fontIcon.arrow {display: none}
+.actionIcons > li + li.fontIcon.arrow {display: inline-block}
 
 .dashboard, .box-ppal.dashboard {margin-top: 20px;}
 .dashboard > div > .box-ppal {min-height: 225px; box-shadow: 0 0 2px rgba(200,200,200,0.6);}
@@ -1662,7 +1660,7 @@ ul.list > li > ul.list-actions > li > a:active {color: #20a2ea;}
 .box-ppal#createNewCampaign {margin-bottom:20px;}
 .box-ppal#createNewCampaign p {font-size: 20px; font-size: 2rem; color: #a8a8a8; line-height: 1.4; text-align: center;margin-bottom: 30px;}
 .box-ppal#createNewCampaign p strong {font-size: 26px; font-size: 2.6rem; color: #545454; font-weight: normal;}
-.box-ppal#createNewCampaign .btn {padding: 48px 17px !important; margin: 20px 0 10px;}
+
 .box-ppal#followOthers > h2 {margin-bottom: 0;}
 .box-ppal#followOthers .user-list-followers {padding: 20px 0 0px !important;}
 .box-ppal#politicianProfile {padding-bottom:0; margin-bottom:20px;}
@@ -5365,7 +5363,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 
     .actionIcons.campaign-steps,
     .actionIcons.newsletter-steps {  width: 100% !important; padding:0;}
-    .actionIcons li.fontIcon > a{  margin: auto !important;  }
+    .actionIcons > li.fontIcon > a{  margin: auto !important;  }
 
     #payment div.promotionalCodeSet input.code {margin: 10px 0px;}
     #payment form > .payment-method{width: 100%;}
@@ -5486,10 +5484,10 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     #contactsList > li {padding: 10px 0 0 0px; min-height: 175px;}
 
     .box-steps > ul.actionIcons {margin:0 auto; padding:0;}
-    .box-steps > ul.actionIcons li {list-style: none; display: inline-block; margin: 0 10px 20px;}
+    .box-steps > ul.actionIcons > li {list-style: none; display: inline-block; margin: 0 10px 20px;}
     .box-steps > ul.actionIcons > li.fontIcon > a {width: 70px; height: 70px;padding:6px 0 0 0; border:1px solid;}
-    .box-steps > ul.actionIcons li.fontIcon > a > span.fa {font-size: 30px;width: 100%; height: auto;}
-    .box-steps > ul.actionIcons li.fontIcon > a > span.label {padding:0; font-weight: inherit; font-size: 11px}
+    .box-steps > ul.actionIcons > li.fontIcon > a > span.fa {font-size: 30px;width: 100%; height: auto;}
+    .box-steps > ul.actionIcons > li.fontIcon > a > span.label {padding:0; font-weight: inherit; font-size: 11px}
     .box-steps > ul.actionIcons > li.fontIcon.arrow {top:-20px;}
 
     .uploaderImageContainer.PROJECT_IMAGE .qq-upload-drop-area {height:316px;}
@@ -5828,8 +5826,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 
     /* Modal participatory budget */
     .modal-pb.modal .modal-dialog { width: 750px; margin: 100px auto; }
-    .modal-pb.modal .modal-card .modal-info ul {margin-left: -10px; position: absolute; bottom: 0; left: 0;}
-    .modal-pb.modal .modal-info {height: 120px;}
 
     @media not all, (-webkit-transform-3d) {
         .carousel.news .carousel-inner > .item.active,
