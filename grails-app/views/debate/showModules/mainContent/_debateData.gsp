@@ -5,7 +5,7 @@
         <h1 class="title" itemprop="headline">${debate.title}</h1>
         <userUtil:showUser user="${debateUser}" showRole="true" itemprop="author"/>
         <g:render template="/debate/showModules/mainContent/debateDataImageCallToAction" model="[debate:debate]"/>
-        <g:render template="/campaigns/showModules/campaignDataDatePublished" model="[campaign:debate, campaignUser:debateUser, editMappingName:'debateEditContent']"/>
+        <g:render template="/campaigns/showModules/campaignDataDatePublished" model="[campaign:debate, campaignUser:debateUser, editMappingName:'debateEditContent', editable:true]"/>
     </div>
 
     <div class="body" itemprop="articleBody">

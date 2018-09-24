@@ -5,7 +5,7 @@
         <h1 class="title" itemprop="headline">${participatoryBudget.title}</h1>
         <userUtil:showUser user="${campaignUser}" showRole="true" itemprop="author"/>
         %{--<g:render template="/participatoryBudget/showModules/mainContent/participatoryBudgetDataMobileCallToAction"/>--}%
-        <g:render template="/campaigns/showModules/campaignDataDatePublished" model="[campaign:participatoryBudget, campaignUser:campaignUser, editMappingName:'participatoryBudgetEditDistricts']"/>
+        <g:render template="/campaigns/showModules/campaignDataDatePublished" model="[campaign:participatoryBudget, campaignUser:campaignUser, editMappingName:'participatoryBudgetEditDistricts', editable:true]"/>
     </div>
 
     <div class="body" itemprop="articleBody">

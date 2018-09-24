@@ -5,7 +5,7 @@
         <h1 class="title" itemprop="headline">${post.title}</h1>
         <userUtil:showUser user="${postUser}" showRole="true" itemprop="author"/>
         <g:render template="/campaigns/showModules/eventCallToActionMovile" model="[campaign:post]"/>
-        <g:render template="/campaigns/showModules/campaignDataDatePublished" model="[campaign:post, campaignUser:postUser, editMappingName:'postEditContent']"/>
+        <g:render template="/campaigns/showModules/campaignDataDatePublished" model="[campaign:post, campaignUser:postUser, editMappingName:'postEditContent', editable:true]"/>
     </div>
 
     <div class="body" itemprop="articleBody">

@@ -5,7 +5,7 @@
         <h1 class="title" itemprop="headline">${survey.title}</h1>
         <userUtil:showUser user="${campaignUser}" showRole="true" itemprop="author"/>
         <g:render template="/survey/showModules/mainContent/surveyDataMobileCallToAction"/>
-        <g:render template="/campaigns/showModules/campaignDataDatePublished" model="[campaign:survey, campaignUser:campaignUser, editMappingName:'surveyEditQuestions']"/>
+        <g:render template="/campaigns/showModules/campaignDataDatePublished" model="[campaign:survey, campaignUser:campaignUser, editMappingName:'surveyEditQuestions', editable:true]"/>
     </div>
 
     <div class="body" itemprop="articleBody">
