@@ -1638,7 +1638,7 @@ ul.list > li > ul.list-actions > li > a:active {color: #20a2ea;}
 .container-fluid.box-ppal.choose-campaign {padding:70px 0px 50px 0px; box-shadow: 0 0 2px rgba(200,200,200,0.6);}
 
 .actionIcons {text-align: center;}
-.actionIcons > li {list-style: none; display: inline-block; margin: 0 10px 20px;}
+.actionIcons > li {list-style: none; display: inline-block; margin: 0 5px 20px;}
 .actionIcons > li > a {margin:auto; display: block; width: 70px; height: 70px; padding-top: 41px; font-size: 11px; background-color: #fff; background-repeat: no-repeat; border: 1px solid #ff9431; overflow: hidden;}
 .actionIcons > li > a:hover,
 .actionIcons > li > a:focus,
