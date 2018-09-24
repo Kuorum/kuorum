@@ -1950,15 +1950,17 @@ ul.user-list-followers .loading.xs {width: 10px; height: 10px;}
 .socialGo a.btn.btn-gog {
     background: url('../images/social/google/btn_google_dark_normal_ios.svg');
     background-repeat: no-repeat;
-    background-size: 59px;
+    background-size: 57px;
     background-position: -3px center;
-    height: 53px;
+    height: 51px;
     padding-left: 60px !important;
     display: inline-block;}
 .socialGo a.btn-gog:hover {background-image: url('../images/social/google/btn_google_dark_pressed_ios.svg');}
 
 .modal .socialGo a.btn.btn-gog{
     padding-top: 18px !important;
+    height: 45px;
+    background-size: 51px;
 }
 
 .user {position: relative;}
@@ -6216,7 +6218,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .embudo .arrow1 {right: -15px;}
     .home .play {margin: 60px 0 0 0; padding: 0 0 0 30px; font-size: 26px; font-size: 2.6rem;text-align: left;}
     .full-video {padding-bottom: 60px;}
-    .socialGo .btn.btn-lg {padding: 15px !important;}
     .icheckbox_line-orange,
     .iradio_line-orange,
     .config .icheckbox_line-orange,
@@ -8983,8 +8984,6 @@ ul.bullets li img {
     .form-control-campaign {position: absolute; bottom: 25px; right: 15px}
 
     .guide-card > .box-ppal {width: 100%}
-
-    .modal-register.modal .modal-body .socialGo li a {max-width: 115px; padding: 14px 10px !important;}
 }
 
 @media screen and (max-width: 980px) {
