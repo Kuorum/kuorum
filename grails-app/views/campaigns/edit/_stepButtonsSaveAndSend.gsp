@@ -13,18 +13,21 @@
             <label class="sr-only"><g:message code="tools.massMailing.schedule.label"/></label>
             <formUtil:date command="${command}" field="publishOn" cssClass="form-control" time="true"/>
             <a href="#" class="btn btn-blue inverted" id="send-campaign-later">
-                <g:message code="tools.massMailing.schedule.sendLater"/>
+                <g:message code="${numberRecipients>0?'tools.massMailing.schedule.sendLater':'tools.massMailing.schedule.publishLater'}"/>
             </a>
         </div>
     </li>
-    <li><a href="#" class="btn btn-blue inverted" id="send-draft"><g:message code="tools.massMailing.send"/></a></li>
+    <li>
+        <a href="#" class="btn btn-blue inverted" id="send-draft">
+            <g:message code="${numberRecipients>0?'tools.massMailing.send':'tools.massMailing.publish'}"/>
+        </a>
+    </li>
 </g:if>
 <g:else>
     <!-- Hidden inputs -->
     <input type="hidden" name="publishOn" value="${g.formatDate(date: command.publishOn, format: kuorum.web.constants.WebConstants.WEB_FORMAT_DATE)}"/>
     <li><button class="btn btn-blue inverted" id="save-draft" data-redirectLink="${mappings.showResult}" value="${g.message(code: "tools.massMailing.save")}" >${g.message(code: "tools.massMailing.save")}</button></li>
 </g:else>
-
 
 
 <!-- MODAL CONFIRM -->
@@ -36,7 +39,7 @@
                     <span aria-hidden="true" class="fal fa-times-circle fa"></span><span class="sr-only"><g:message code="modalDefend.close"/></span>
                 </button>
                 <h4 id="campaignConfirmTitle">
-                    <g:message code="tools.massMailing.confirmationModal.title" args="[numberRecipients]"/>
+                    <g:message code="${numberRecipients>0?'tools.massMailing.confirmationModal.title':'tools.massMailing.confirmationModal.noContacts.title'}" args="[numberRecipients]"/>
                 </h4>
             </div>
             <div class="modal-body">
