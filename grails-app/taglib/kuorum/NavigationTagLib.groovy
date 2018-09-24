@@ -73,7 +73,7 @@ class NavigationTagLib {
      */
     private  Map<AvailableLanguage, String> generateAllRelatedUrlsDependingOnLang() {
         // Init
-        def languageList = [AvailableLanguage.es_ES, AvailableLanguage.en_EN]
+        def languageList = [AvailableLanguage.es_ES, AvailableLanguage.en_EN, AvailableLanguage.ca_ES]
         def urlPath = request.forwardURI.replaceFirst(request.contextPath, "")
 
         UrlMappingInfo urlMappingInfo = urlMappingsHolder.match(urlPath)
