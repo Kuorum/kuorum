@@ -21,7 +21,7 @@ body {
     transition: all .15s ease-in-out;
 }
 h4{
-    font-variant: small-caps;
+    /*font-variant: small-caps;*/
     color: #333333;
     font-weight: bold;
     margin-top: 0;
