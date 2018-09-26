@@ -43,18 +43,17 @@
 
     <div class="modal fade in" id="changeDistrictWarn" tabindex="-1" role="dialog" aria-labelledby="changeDistrictWarnTitle" aria-hidden="true">
         <div class="modal-dialog ">
-            <div class="modal-title">Changing district</div>
+            <div class="modal-title"><g:message code="kuorum.web.commands.payment.participatoryBudget.DistrictProposalChooseDistrictCommand.districtId.modal.title"/></div>
             <div class="modal-content">
-                <div class="modal-header"><h4>Cambiar distrito</h4></div>
+                <div class="modal-header"><h4><g:message code="kuorum.web.commands.payment.participatoryBudget.DistrictProposalChooseDistrictCommand.districtId.modal.title"/></h4></div>
                 <div class="modal-body">
                     <p>
-                        Vas a cambiar el distrito, esto implica que vas a borrar todos los votos
-                        ¿Estas de acuerdo?
+                        <g:message code="kuorum.web.commands.payment.participatoryBudget.DistrictProposalChooseDistrictCommand.districtId.modal.text"/>
                     </p>
                 </div>
                 <div class="modal-footer">
-                    <a href="#" class="btn btn-grey" data-dismiss="modal" aria-label="Close" id="changeDistrictWarnRevertStatus">Ouch, no. Dejarlo como estaba</a>
-                    <a href="#" class="btn btn-blue" data-dismiss="modal" aria-label="Close">Si borrar todos los apoyos y votos</a>
+                    <a href="#" class="btn btn-grey" data-dismiss="modal" aria-label="Close" id="changeDistrictWarnRevertStatus"><g:message code="kuorum.web.commands.payment.participatoryBudget.DistrictProposalChooseDistrictCommand.districtId.modal.button.cancel"/></a>
+                    <a href="#" class="btn btn-blue" data-dismiss="modal" aria-label="Close"><g:message code="kuorum.web.commands.payment.participatoryBudget.DistrictProposalChooseDistrictCommand.districtId.modal.button.ok"/></a>
                 </div>
             </div>
         </div>
