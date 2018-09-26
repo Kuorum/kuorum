@@ -1951,7 +1951,7 @@ ul.participatory-budget-steps-info li.active a {display: none}
 #tabs-stats-campaign h3 {font-size: 20px; margin-top: 50px; font-size: 2rem; color: #a8a8a8;}
 #tabs-stats-campaign .table {border: solid 1px #dddddd; margin-bottom: 20px;}
 #tabs-stats-campaign .table thead {display: none;}
-#tabs-stats-campaign .table th, #tabs-stats-campaign .table td {color: #a8a8a8; padding: 12px; line-height: 1.2; vertical-align: middle; width: 100%; display: block; text-transform: capitalize}
+#tabs-stats-campaign .table th, #tabs-stats-campaign .table td {color: #a8a8a8; padding: 12px; line-height: 1.2; vertical-align: middle; width: 100%; display: block; }
 #tabs-stats-campaign .table td.recipient-name a {color: #a8a8a8}
 #tabs-stats-campaign .table td:nth-child(4) {height: 46px;}
 #tabs-stats-campaign .table td:nth-child(4) .only-mobile {display: block; margin-bottom: 5px;}
