@@ -22,7 +22,7 @@
                 content:'districtProposalEditContent',
                 district:'districtProposalEditDistrict',
                 showResult: 'campaignShow',
-                next: 'participatoryBudgetEditContent'
+                next: 'districtProposalEditContent'
         ]}"/>
 
     <g:render template="/districtProposal/editModules/editDistrict" model="[
