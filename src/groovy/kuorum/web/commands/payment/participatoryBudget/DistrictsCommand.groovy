@@ -9,11 +9,6 @@ import org.grails.databinding.BindingFormat
 class DistrictsCommand {
     Long campaignId
 
-    Date deadLineProposals
-    Date deadLineTechnicalReview
-    Date deadLineVotes
-    Date deadLineResults
-
     List<DistrictCommand> districts = []
 
 
@@ -24,10 +19,6 @@ class DistrictsCommand {
     static constraints = {
         importFrom CampaignContentCommand, include: ["publishOn", "sendType"]
         districts minSize: 1, maxSize: 100
-        deadLineProposals nullable: false
-        deadLineTechnicalReview nullable: false
-        deadLineVotes nullable: false
-        deadLineResults nullable: false
     }
 
 }

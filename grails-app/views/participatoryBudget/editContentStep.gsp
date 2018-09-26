@@ -24,6 +24,7 @@
                     settings:'participatoryBudgetEditSettings',
                     content:'participatoryBudgetEditContent',
                     districts:'participatoryBudgetEditDistricts',
+                    deadlines:'participatoryBudgetEditDeadlines',
                     showResult: 'campaignShow',
                     next: 'participatoryBudgetEditDistricts']]"/>
 </content>

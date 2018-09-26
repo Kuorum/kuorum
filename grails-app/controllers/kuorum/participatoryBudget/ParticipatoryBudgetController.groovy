@@ -76,6 +76,53 @@ class ParticipatoryBudgetController extends CampaignController{
         render template: '/participatoryBudget/modalParticipatoryBudgets', model: [pbList: listParticipatoryBudgetRSDTO]
     }
 
+
+    @Secured(['ROLE_ADMIN','ROLE_CAMPAIGN_PARTICIPATORY_BUDGET'])
+    def editDeadlines(){
+        Long campaignId = Long.parseLong(params.campaignId)
+        KuorumUser campaignUser = KuorumUser.get(springSecurityService.principal.id)
+        ParticipatoryBudgetRSDTO participatoryBudgetRSDTO = setCampaignAsDraft(campaignId, participatoryBudgetService)
+        if (!participatoryBudgetRSDTO.body || !participatoryBudgetRSDTO.title){
+            flash.message=g.message(code:'participatoryBudget.form.nobody.redirect')
+            redirect mapping: 'participatoryBudgetEditContent', params: participatoryBudgetRSDTO.encodeAsLinkProperties()
+        }else{
+            return [
+                    campaign:participatoryBudgetRSDTO,
+                    command: buildCommandDeadlinesStep(participatoryBudgetRSDTO)
+            ]
+        }
+    }
+
+    private ParticipatoryBudgetDeadlinesCommand buildCommandDeadlinesStep(ParticipatoryBudgetRSDTO participatoryBudgetRSDTO) {
+
+        new ParticipatoryBudgetDeadlinesCommand(
+                campaignId: participatoryBudgetRSDTO.id,
+                deadLineProposals: participatoryBudgetRSDTO.deadLineProposals,
+                deadLineTechnicalReview: participatoryBudgetRSDTO.deadLineTechnicalReview,
+                deadLineVotes: participatoryBudgetRSDTO.deadLineVotes,
+                deadLineResults: participatoryBudgetRSDTO.deadLineResults
+        )
+    }
+
+    def saveDeadlines(ParticipatoryBudgetDeadlinesCommand command){
+        KuorumUser campaignUser = KuorumUser.get(springSecurityService.principal.id)
+        ParticipatoryBudgetRSDTO participatoryBudgetRSDTO = participatoryBudgetService.find(campaignUser, command.campaignId)
+        if (command.hasErrors()) {
+            flash.error = message(error: command.errors.getFieldError())
+            render view: 'editDeadlines', model: [
+                    campaign:participatoryBudgetRSDTO,
+                    command: command]
+            return
+        }
+        ParticipatoryBudgetRDTO rdto = participatoryBudgetService.map(participatoryBudgetRSDTO)
+        rdto.deadLineProposals = command.deadLineProposals
+        rdto.deadLineTechnicalReview = command.deadLineTechnicalReview
+        rdto.deadLineVotes = command.deadLineVotes
+        rdto.deadLineResults = command.deadLineResults
+        def result = saveAndSendCampaign(campaignUser, rdto, participatoryBudgetRSDTO.getId(), null,null, participatoryBudgetService)
+        redirect mapping: result.nextStep.mapping, params: result.nextStep.params
+    }
+
     @Secured(['ROLE_ADMIN','ROLE_CAMPAIGN_PARTICIPATORY_BUDGET'])
     def editDistricts(){
         Long campaignId = Long.parseLong(params.campaignId)
@@ -84,6 +131,14 @@ class ParticipatoryBudgetController extends CampaignController{
         if (!participatoryBudgetRSDTO.body || !participatoryBudgetRSDTO.title){
             flash.message=g.message(code:'participatoryBudget.form.nobody.redirect')
             redirect mapping: 'participatoryBudgetEditContent', params: participatoryBudgetRSDTO.encodeAsLinkProperties()
+        }else if(
+            !participatoryBudgetRSDTO.deadLineTechnicalReview ||
+            !participatoryBudgetRSDTO.deadLineResults||
+            !participatoryBudgetRSDTO.deadLineProposals||
+            !participatoryBudgetRSDTO.deadLineVotes
+        ){
+            flash.message=g.message(code:'participatoryBudget.form.nobody.redirect')
+            redirect mapping: 'participatoryBudgetEditDeadlines', params: participatoryBudgetRSDTO.encodeAsLinkProperties()
         }else{
             Long numberRecipients = getCampaignNumberRecipients(campaignUser, participatoryBudgetRSDTO)
             return [
@@ -101,13 +156,7 @@ class ParticipatoryBudgetController extends CampaignController{
             districts = [new DistrictCommand()]
         }
 
-        new DistrictsCommand(
-                districts: districts,
-                deadLineProposals: participatoryBudgetRSDTO.deadLineProposals,
-                deadLineTechnicalReview: participatoryBudgetRSDTO.deadLineTechnicalReview,
-                deadLineVotes: participatoryBudgetRSDTO.deadLineVotes,
-                deadLineResults: participatoryBudgetRSDTO.deadLineResults
-        )
+        new DistrictsCommand(districts: districts)
     }
 
     def saveDistricts(DistrictsCommand command){
@@ -123,10 +172,6 @@ class ParticipatoryBudgetController extends CampaignController{
         }
         ParticipatoryBudgetRDTO rdto = participatoryBudgetService.map(participatoryBudgetRSDTO)
         rdto.districts = command.districts?.findAll{it && it.name && it.budget}.collect {mapDistrict(it)}?:[]
-        rdto.deadLineProposals = command.deadLineProposals
-        rdto.deadLineTechnicalReview = command.deadLineTechnicalReview
-        rdto.deadLineVotes = command.deadLineVotes
-        rdto.deadLineResults = command.deadLineResults
         def result = saveAndSendCampaign(campaignUser, rdto, participatoryBudgetRSDTO.getId(), command.publishOn,command.sendType, participatoryBudgetService)
         redirect mapping: result.nextStep.mapping, params: result.nextStep.params
     }
