@@ -17,6 +17,12 @@
 <content tag="mainContent">
     <ol class="breadcrumb">
         <li><g:link mapping="politicianCampaigns"><g:message code="head.logged.account.tools.massMailing"/></g:link></li>
+        <g:if test="${campaign}">
+            <li><g:link mapping="campaignShow" params="${campaign.encodeAsLinkProperties()}">${campaign.title}</g:link></li>
+        </g:if>
+        <g:else>
+            <li>${newsletter.name}</li>
+        </g:else>
         <li class="active">${breadCrumbName}</li>
     </ol>
     <div class="box-ppal campaign-stats">
