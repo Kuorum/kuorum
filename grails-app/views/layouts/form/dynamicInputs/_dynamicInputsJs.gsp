@@ -28,10 +28,10 @@
             </div>
             <div class="modal-body clearfix">
                 <p><g:message code="dynamicInput.modal.remove.row.description" args="[validationDataMaxSize]"/></p>
-                <div class="form-group btns clearfix">
-                    <a href="#" class="btn btn-default pull-right modalDeleteRow"><g:message code="dynamicInput.modal.remove.row.delete"/> </a>
-                    <a href="#" class="btn btn-transparent pull-right" data-dismiss="modal"><g:message code="dynamicInput.modal.remove.row.cancel"/></a>
-                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-default pull-right modalDeleteRow"><g:message code="dynamicInput.modal.remove.row.delete"/> </a>
+                <a href="#" class="btn btn-transparent pull-right" data-dismiss="modal"><g:message code="dynamicInput.modal.remove.row.cancel"/></a>
             </div>
         </div>
     </div>
