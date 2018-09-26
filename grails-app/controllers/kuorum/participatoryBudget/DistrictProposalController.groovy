@@ -208,7 +208,7 @@ class DistrictProposalController extends CampaignController{
     @Secured(['ROLE_CAMPAIGN_DISTRICT_PROPOSAL'])
     def remove(Long campaignId) {
         removeCampaign(campaignId, districtProposalService);
-        render ([msg: "Debate deleted"] as JSON)
+        render ([msg: "District proposal deleted"] as JSON)
     }
 
     private def districtProposalModelSettings(CampaignSettingsCommand command, DistrictProposalRSDTO districtProposalRSDTO) {

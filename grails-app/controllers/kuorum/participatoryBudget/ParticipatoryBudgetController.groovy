@@ -143,7 +143,7 @@ class ParticipatoryBudgetController extends CampaignController{
     @Secured(['ROLE_ADMIN','ROLE_CAMPAIGN_PARTICIPATORY_BUDGET'])
     def remove(Long campaignId) {
         removeCampaign(campaignId, participatoryBudgetService);
-        render ([msg: "Debate deleted"] as JSON)
+        render ([msg: "Participatory budget deleted"] as JSON)
     }
 
     private def participatoryBudgetModelSettings(CampaignSettingsCommand command, ParticipatoryBudgetRSDTO participatoryBudgetRSDTO) {

@@ -66,6 +66,19 @@ $(function(){
         }
     });
 
+    $("#districtProposalChooseDistrict select[name='districtId']").on("change", function(e){
+        var $select = $("#districtProposalChooseDistrict select[name='districtId']")
+        var orgValue = $select.attr("data-original-value");
+        if (orgValue != "" && $select.val()!=orgValue){
+            $("#changeDistrictWarn").modal("show")
+        }
+    });
+
+    $("#changeDistrictWarnRevertStatus").on("click", function(e){
+        var $select = $("#districtProposalChooseDistrict select[name='districtId']")
+        var orgValue = $select.attr("data-original-value");
+        $select.val(orgValue)
+    })
 })
 
 var campaignForm={
