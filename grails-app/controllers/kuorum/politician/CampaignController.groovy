@@ -116,6 +116,7 @@ class CampaignController {
                 command: command,
                 totalContacts: contactPageRSDTO.total,
                 campaign: campaignRSDTO,
+                status: campaignRSDTO.newsletter.status,
                 domainValidation:CustomDomainResolver.domainRSDTO?.validation
         ]
     }
