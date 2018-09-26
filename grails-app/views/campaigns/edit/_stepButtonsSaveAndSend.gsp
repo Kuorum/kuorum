@@ -1,6 +1,6 @@
 <g:if test="${status != org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT}">
     <li>
-        <a href="#" id="save-draft-debate" data-redirectLink="politicianCampaigns">
+        <a href="#" id="save-draft-debate" data-redirectLink="politicianCampaigns" class="btn btn-grey-light">
             <g:message code="tools.massMailing.saveDraft"/>
         </a>
     </li>

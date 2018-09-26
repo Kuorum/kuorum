@@ -25,7 +25,8 @@
                 content:'districtProposalCreateContent',
                 district:'districtProposalCreate',
                 showResult: 'campaignShow',
-                next: 'districtProposalCreateContent'
+                next: 'districtProposalCreateContent',
+                hideDraftButton: true
         ]}"/>
 
     <g:render template="/districtProposal/editModules/editDistrict" model="[

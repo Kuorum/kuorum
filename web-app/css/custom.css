@@ -1409,7 +1409,6 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .form-final-options {margin: 15px 0 0; padding: 0;}
 .form-final-options > li {list-style: none; display: inline-block; margin-right: 10px; position: relative;}
 .form-final-options > li:last-child {margin-right: 0;}
-.form-final-options > li a {color: #a8a8a8;}
 .form-final-options #selectDate, #saveFilterAsPopUp {display: none; background-color: #f9f9f9; position: absolute; width: 260px; top: 48px; right: -80px;border: 1px solid #dddddd; padding: 15px;z-index:1;}
 #saveFilterAsPopUp {right: -30px;}
 .form-final-options #selectDate.on, #saveFilterAsPopUp.on {display: block;}
