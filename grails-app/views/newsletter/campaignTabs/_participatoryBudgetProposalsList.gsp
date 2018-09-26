@@ -11,6 +11,7 @@
 <g:set var="visibleVotesColumn" value="${![org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.ADDING_PROPOSALS, org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.TECHNICAL_REVIEW].contains(participatoryBudget.status)?'true':'false'}"/>
 <g:set var="visibleImplemented" value="${[org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.RESULTS, org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.CLOSED].contains(participatoryBudget.status)?'true':'false'}"/>
 <g:set var="visibleTechnicalReviewStatus" value="${![org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.ADDING_PROPOSALS].contains(participatoryBudget.status)?'true':'false'}"/>
+<g:set var="currentLang" value="${org.springframework.web.servlet.support.RequestContextUtils.getLocale(request)}" />
 
 <div class="actions" id="toolbar-participatoryBudgetProposalReviewTable">
     <g:link mapping="politicianMassMailingParticipatoryBudgetReport" params="[campaignId:campaign.id]" class="btn btn-blue inverted export-modal-button" data-modalId="export-proposalsList-modal">
@@ -28,6 +29,7 @@
        data-pagination="true"
        data-search="false"
        data-filter-control="true"
+       data-locale="${currentLang}"
        data-detail-view="true"
        data-show-columns="true"
        data-row-style="districtProposalTableRowStyle"

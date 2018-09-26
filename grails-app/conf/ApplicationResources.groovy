@@ -167,6 +167,11 @@ modules = {
         resource url: 'js/bootstrap-table/extensions/filter-control/bootstrap-table-filter-control.css'
         resource url: 'js/bootstrap-table/extensions/filter-control/bootstrap-table-filter-control.js'
         resource url: 'js/bootstrap-table/participatoryBudgetListProposal.js'
+        resource url:'js/bootstrap-table/locale/bootstrap-table-en-US.js'
+        resource url:'js/bootstrap-table/locale/bootstrap-table-es-ES.js'
+        resource url:'js/bootstrap-table/locale/bootstrap-table-ca-ES.js'
+        resource url:'js/bootstrap-table/locale/bootstrap-table-de-DE.js'
+
     }
 
     districtProposal{

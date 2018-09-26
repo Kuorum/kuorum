@@ -515,7 +515,7 @@
 
     BootstrapTable.LOCALES['en-US'] = BootstrapTable.LOCALES.en = {
         formatLoadingMessage: function () {
-            return 'Loading, please wait...';
+            return '<i class="fal fa-spinner fa-spin"></i>';
         },
         formatRecordsPerPage: function (pageNumber) {
             return sprintf('%s rows per page', pageNumber);

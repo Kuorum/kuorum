@@ -1582,6 +1582,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .pagination .active a {background-color: #ddd;}
 .pagination .active a,
 .pagination .disabled a {cursor: default; pointer-events: none;}
+.bootstrap-table .fixed-table-loading {top:105px !important; font-size: 25px}
 .bootstrap-table .fixed-table-pagination .pagination a {line-height: 17px;}
 .bootstrap-table .btn-default {background-color: #CCCCCC;}
 .bootstrap-table .btn-default:focus,

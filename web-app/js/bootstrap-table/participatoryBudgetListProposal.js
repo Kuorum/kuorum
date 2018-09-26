@@ -156,4 +156,4 @@ var participatoryBudgetListProposalHelper = {
                 pageLoadingOff();
             });
     }
-}
+};
