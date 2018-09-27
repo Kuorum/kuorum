@@ -64,7 +64,7 @@ class ImagesTagLib {
         }
         String imageYoutubeNotFound = g.resource(dir:"/images", file: "youtube-broken-link.png", absolute: true)
 out << """
-    <div class="video" itemscope itemtype="http://schema.org/VideoObject">
+    <div class="video click-handler-no-processed" itemscope itemtype="http://schema.org/VideoObject">
         <meta itemprop="name" content="YouTube" />
         <meta itemprop="thumbnailUrl" content="${imageYoutubeSrc(youtube:attrs.youtube)}" />
         <a href="#" class="front">

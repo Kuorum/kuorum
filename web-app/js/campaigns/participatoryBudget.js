@@ -104,6 +104,7 @@ var participatoryBudgetHelper={
                         "</a>"+
                         "</li>")
                 }
+                prepareYoutubeVideosClick();
             })
             .fail(function(messageError) {
                 display.warn("Error");

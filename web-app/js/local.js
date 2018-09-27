@@ -683,7 +683,7 @@ function getParticipatoryBudgetList(ajaxLink) {
 
 function prepareYoutubeVideosClick(){
     // hacer clic en player falso del video (.front)
-    $('.video').find('.front').click( function(e) {
+    $('.video.click-handler-no-processed').find('.front').click( function(e) {
         e.stopPropagation();
         e.preventDefault();
         var iframe = $(this).next('.youtube');
@@ -693,6 +693,8 @@ function prepareYoutubeVideosClick(){
         var func = 'playVideo';
         iframe.get(0).contentWindow.postMessage('{"event":"command","func":"' + func + '","args":""}', '*');
     });
+    $(".video.click-handler-no-processed").removeClass("click-handler-no-processed")
+
 }
 
 function requestCustomSender($selector) {
