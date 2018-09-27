@@ -209,8 +209,25 @@ class ParticipatoryBudgetController extends CampaignController{
         }
         ParticipatoryBudgetRDTO rdto = participatoryBudgetService.map(participatoryBudgetRSDTO)
         rdto.setStatus(command.getStatus())
-        participatoryBudgetService.save(campaignUser, rdto, command.getCampaignId())
-        redirect mapping: 'campaignShow', params: participatoryBudgetRSDTO.encodeAsLinkProperties()
+        String msgError = null;
+        try{
+            participatoryBudgetService.save(campaignUser, rdto, command.getCampaignId())
+        }catch (UndeclaredThrowableException e){
+            if (e.undeclaredThrowable.cause instanceof KuorumException){
+                KuorumException ke = e.undeclaredThrowable.cause
+                msgError = message(code: ke.errors[0].code)
+            }else{
+                msgError = "Error updating participatory budget status"
+            }
+        }
+        if (request.xhr){
+            render ([success:(msgError==null), msg: msgError] as JSON)
+        }else{
+            if (msgError){
+                flash.error = msgError
+            }
+            redirect mapping: 'campaignShow', params: participatoryBudgetRSDTO.encodeAsLinkProperties()
+        }
     }
 
     def findDistrictProposals(){

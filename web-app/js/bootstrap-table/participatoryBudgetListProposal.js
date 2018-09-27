@@ -1,4 +1,39 @@
 
+$(function(){
+    $("#changeParticipatoryBudgetBtn").on("click", function(e){
+        e.preventDefault();
+        $("#changeParticipatoryBudgetStatusModal").modal("show")
+    })
+
+    $("#changeParticipatoryBudgetStatusSubmit").on("click", function(e){
+        e.preventDefault();
+        var $a = $(this)
+        var url = $a.attr("href")
+        var status = $("#changeParticipatoryBudgetStatusModalSelect").val()
+        var changeStatusData = {
+            'status' : status
+        }
+        console.log(changeStatusData)
+        pageLoadingOn();
+        $.post(url, changeStatusData)
+            .done(function(data){
+                if (data.success){
+                    participatoryBudgetListProposalHelper.refreshTable();
+                    $("#changeParticipatoryBudgetStatusModal").modal("hide")
+                }else{
+                    display.warn(data.msg)
+                }
+            })
+            .fail(function(error){
+                display.warn("There was an error changing the status");
+            })
+            .always(function() {
+                pageLoadingOff();
+            });
+    })
+});
+
+
 function detailFormatter(index, districtProposalRow) {
     return participatoryBudgetListProposalHelper.renderProposalExtraInfo(districtProposalRow);
 }
@@ -155,5 +190,10 @@ var participatoryBudgetListProposalHelper = {
             .always(function() {
                 pageLoadingOff();
             });
+    },
+
+    refreshTable: function(){
+        $table = $("#participatoryBudgetProposalReviewTable")
+        $table.bootstrapTable('refresh',{silent:true})
     }
 };

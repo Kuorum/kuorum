@@ -18,6 +18,10 @@
         <span class="fal fa-file-excel"></span>
         <g:message code="tools.massMailing.view.participatoryBudget.report"/>
     </g:link>
+
+    <a href="#" class="btn btn-blue inverted" id="changeParticipatoryBudgetBtn">
+        Cambiar estado
+    </a>
 </div>
 <table id="participatoryBudgetProposalReviewTable"
        data-toggle="table"
@@ -66,6 +70,29 @@
             </div>
             <div class="modal-footer">
                 <a href="#" class="btn" data-dismiss="modal" aria-label="Close"><g:message code="modal.exportedDebateStats.close"/></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="changeParticipatoryBudgetStatusModal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="changeParticipatoryBudgetStatusTitle" aria-hidden="true">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header"><h4><g:message code="modal.changeParticipatoryBudgetStatusModal.title"/></h4></div>
+            <div class="modal-body">
+                <p>
+                    <g:message code="modal.changeParticipatoryBudgetStatusModal.text" args="[participatoryBudget.title]"/>
+                </p>
+                <select class="form-control input-lg" id="changeParticipatoryBudgetStatusModalSelect">
+                    <g:each in="${org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.values()}" var="status">
+                        <option value="${status}" ${participatoryBudget.status==status?'selected':''}>${g.message(code:"org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO."+status)}</option>
+                    </g:each>
+                </select>
+
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-grey-light" data-dismiss="modal" aria-label="Close"><g:message code="modal.changeParticipatoryBudgetStatusModal.close"/></a>
+                <g:link mapping="participatoryBudgetEditStatus" params="${participatoryBudget.encodeAsLinkProperties()}" class="btn btn-blue" aria-label="Ok" elementId="changeParticipatoryBudgetStatusSubmit"><g:message code="modal.changeParticipatoryBudgetStatusModal.submit"/></g:link>
             </div>
         </div>
     </div>
