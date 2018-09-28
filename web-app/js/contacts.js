@@ -875,8 +875,7 @@ function FilterContacts() {
             $("input[name=page]").val(0)
         }
     };
-    this.init();
 }
 
 var filterContacts = new FilterContacts();
-
+filterContacts.init();
