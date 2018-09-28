@@ -3786,6 +3786,7 @@ h2.underline {border-bottom: 1px solid #dadada; padding: 0 0 10px 0; margin-top:
     overflow: hidden;
 }
 .search-list .search-kuorum-user .box-ppal .user {margin: -60px 15px 0px 15px;}
+.search-list .search-kuorum-user .box-ppal em {background-color: #fefea5;}
 .profile-pic-div{
     position: relative;
     display: inline-block;
