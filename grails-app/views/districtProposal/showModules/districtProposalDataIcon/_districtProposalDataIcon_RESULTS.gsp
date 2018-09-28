@@ -3,7 +3,7 @@
         <div class="comment-counter pull-right important" id="comment-counter-${districtProposal.id}">
 
                 <span
-                   class="fa-stack fa-lg kuorum-tooltip"
+                   class="fa-stack kuorum-tooltip"
                    aria-hidden="true"
                    rel="tooltip"
                    data-toggle="tooltip"
