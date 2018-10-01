@@ -10,7 +10,7 @@
     <g:set var="callSubtitleMsg" value="${g.message(code:"districtProposal.callToAction.${districtProposal.participatoryBudget.status}.subtitle", args: [campaignUser.name])}"/>
     <g:render template="/districtProposal/showModules/cCallToActionStatus/cCallToActionHeader" model="[callTitleMsg:callTitleMsg, callSubtitleMsg:callSubtitleMsg]"/>
     <hr/>
-    <g:render template="/districtProposal/showModules/cCallToActionStatus/cCallToActionInfoBudget" model="[districtProposal:districtProposal, showPrice:true]"/>
+    <g:render template="/districtProposal/showModules/cCallToActionStatus/cCallToActionInfoBudget" model="[districtProposal:districtProposal, showPrice:true, showBudgetProgressBar:false]"/>
 </g:if>
 <g:else>
     <g:render template="/districtProposal/showModules/cCallToActionStatus/cCallToActionRejected" model="[districtProposal:districtProposal, campaignUser:campaignUser]"/>

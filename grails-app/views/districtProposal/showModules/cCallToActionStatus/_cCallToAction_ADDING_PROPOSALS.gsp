@@ -27,4 +27,4 @@
         <span class="fal fa-rocket"></span>
     </a>
 </div>
-<g:render template="/districtProposal/showModules/cCallToActionStatus/cCallToActionInfoBudget" model="[districtProposal:districtProposal, showPrice:false]"/>
+<g:render template="/districtProposal/showModules/cCallToActionStatus/cCallToActionInfoBudget" model="[districtProposal:districtProposal, showPrice:false, showBudgetProgressBar:false]"/>

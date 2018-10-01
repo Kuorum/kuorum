@@ -27,7 +27,7 @@
             <span class="fal fa-shopping-cart"></span>
         </a>
     </div>
-    <g:render template="/districtProposal/showModules/cCallToActionStatus/cCallToActionInfoBudget" model="[districtProposal:districtProposal, showPrice:true]"/>
+    <g:render template="/districtProposal/showModules/cCallToActionStatus/cCallToActionInfoBudget" model="[districtProposal:districtProposal, showPrice:true, showBudgetProgressBar:true]"/>
     <!-- District modal overflow -->
     <g:render template="/districtProposal/showModules/mainContent/districtProposalModalErrors" model="[district:districtProposal.district]"/>
 </g:if>
