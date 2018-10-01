@@ -43,8 +43,8 @@
 
                 <li>
                     <g:link mapping="campaignShow" params="${participatoryBudget.encodeAsLinkProperties()}" role="button">
-                        <span class="fal fa-rocket fa-lg"></span>
-                        <span class="number">XXXXX</span>
+                        <span class="fal fa-money-bill-alt" aria-hidden="true"></span>
+                        <span class="number">${participatoryBudget.basicStats.numProposals}</span>
                     </g:link>
                 </li>
             </ul>
