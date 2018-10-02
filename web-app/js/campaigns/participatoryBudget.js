@@ -66,7 +66,17 @@ $(function () {
         moveSmooth("#participatoryBudget-districtProposals-list-tab")
     });
 
+    $(".call-to-action-add-proposal").on("click", "a.btn.ADDING_PROPOSALS", participatoryBudgetHelper.bindActionClickAddDistrictProposal);
+
     participatoryBudgetHelper.moveAndOpenDistrict(window.location.hash);
+
+
+    noLoggedCallbacks['participatoryBudgetAddDistrictProposalAction']= function(){
+        var buttonId = $('#registro').find("form").attr("data-buttonId");
+        var $button = $("#"+buttonId);
+        var link = $button.attr("href")
+        window.location = link;
+    };
 
 });
 
@@ -175,5 +185,22 @@ var participatoryBudgetHelper={
         var hash = normalizeHash(districtName)
         $(hash).click();
 
+    },
+
+    bindActionClickAddDistrictProposal : function(e){
+        var $button = $(this);
+        var loggedUser = $button.attr("data-loggedUser");
+        if (loggedUser == undefined || loggedUser == ""){
+            e.preventDefault();
+            e.stopPropagation();
+            event.stopPropagation();
+
+            // NO LOGGED
+            var buttonId = guid();
+            $button.attr("id", buttonId);
+            $('#registro').find("form").attr("callback", "participatoryBudgetAddDistrictProposalAction");
+            $('#registro').find("form").attr("data-buttonId", buttonId);
+            $('#registro').modal('show');
+        }
     }
 }

@@ -18,7 +18,6 @@ var districtProposalHelper={
         e.stopPropagation();
         event.stopPropagation();
         var $button = $(this);
-        console.log($button)
         var loggedUser = $button.attr("data-loggedUser");
         if (loggedUser == undefined || loggedUser == ""){
             // NO LOGGED
