@@ -318,18 +318,7 @@ $(document).ready(function() {
     /*******************************************/
     /******* USER RATES ************************/
     /*******************************************/
-
-    $(".popover-user .load-rating").each(function(loadDiv) {
-        var $container = $(this)
-        var userRateLink = $container.attr("data-rating-link");
-        $.ajax({
-            url: userRateLink,
-            method:'GET'
-        }).success(function (data) {
-            // Update rating
-            $container.html(data)
-        })
-    });
+    loadAjaxUserRatings()
 
     $("body").on("click", ".user-rating-form fieldset.rating input", function (e) {
         var $form = $(this).closest("form");
@@ -496,6 +485,22 @@ var display = {
     }
 };
 
+
+function loadAjaxUserRatings(){
+
+    $(".popover-user .load-rating").each(function(loadDiv) {
+        var $container = $(this)
+        var userRateLink = $container.attr("data-rating-link");
+        $.ajax({
+            url: userRateLink,
+            method:'GET'
+        }).success(function (data) {
+            // Update rating
+            $container.html(data)
+            $container.removeClass("load-rating")
+        })
+    });
+}
 
 function relaodAllDynamicDivs(){
     if ($(".reload").length){
