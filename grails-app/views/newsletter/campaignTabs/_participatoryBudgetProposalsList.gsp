@@ -20,7 +20,11 @@
     </g:link>
 
     <a href="#" class="btn btn-blue inverted" id="changeParticipatoryBudgetBtn">
-        Cambiar estado
+        <span class="fal fa-edit"></span>
+        <g:message code="org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.label"/>:
+        <span id="changeParticipatoryBudgetBtnStatusText">
+            <g:message code="org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.${participatoryBudget.status}"/>
+        </span>
     </a>
 </div>
 <table id="participatoryBudgetProposalReviewTable"

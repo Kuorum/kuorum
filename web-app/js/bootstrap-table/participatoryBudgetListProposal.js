@@ -10,16 +10,17 @@ $(function(){
         var $a = $(this)
         var url = $a.attr("href")
         var status = $("#changeParticipatoryBudgetStatusModalSelect").val()
+        var statusText = $("#changeParticipatoryBudgetStatusModalSelect option:selected").text();
         var changeStatusData = {
             'status' : status
         }
-        console.log(changeStatusData)
         pageLoadingOn();
         $.post(url, changeStatusData)
             .done(function(data){
                 if (data.success){
                     participatoryBudgetListProposalHelper.refreshTable();
                     $("#changeParticipatoryBudgetStatusModal").modal("hide")
+                    $("#changeParticipatoryBudgetBtnStatusText").html(statusText)
                 }else{
                     display.warn(data.msg)
                 }
