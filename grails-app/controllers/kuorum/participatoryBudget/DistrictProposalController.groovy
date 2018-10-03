@@ -60,7 +60,7 @@ class DistrictProposalController extends CampaignController{
             flash.message = "Please choose a district"
             redirect mapping:'districtProposalCreate', params: participatoryBudgetRSDTO.encodeAsLinkProperties()
         }else{
-            return campaignModelContent(null, null, null, districtProposalService)
+            return districtProposalModelContennt(participatoryBudgetRSDTO,null, null, null)
         }
     }
 
@@ -78,17 +78,24 @@ class DistrictProposalController extends CampaignController{
             if(command.errors.getFieldError().arguments.first() == "publishOn"){
                 flash.error = message(code: "debate.scheduleError")
             }
-            render view: 'createByContent', model: campaignModelContent(null, null,command, districtProposalService)
+            render view: 'createByContent', model: districtProposalModelContennt(participatoryBudgetRSDTO,null, null,command)
             return
         }
         if (!command.title){
             command.errors.rejectValue("title", "kuorum.web.commands.payment.CampaignContentCommand.title.nullable")
-            render view: 'createByContent', model: campaignModelContent(null, null,command, districtProposalService)
+            render view: 'createByContent', model: districtProposalModelContennt(participatoryBudgetRSDTO,null, null,command)
             return
         }
 
         Map<String, Object> result = saveAndSendCampaignContent(command, null, districtProposalService)
         redirect mapping: result.nextStep.mapping, params: result.nextStep.params
+    }
+
+    private districtProposalModelContennt(ParticipatoryBudgetRSDTO participatoryBudgetRSDTO, Long districtProposalId, DistrictProposalRSDTO districtProposalRSDTO=null, CampaignContentCommand command=null){
+        participatoryBudgetRSDTO
+        def model = campaignModelContent(districtProposalId, districtProposalRSDTO,command, districtProposalService);
+        model['participatoryBudget'] = participatoryBudgetRSDTO
+        return model;
     }
 
     protected CampaignRDTO convertCommandContentToRDTO(CampaignContentCommand command, KuorumUser user, Long campaignId, CampaignCreatorService campaignService) {
@@ -149,9 +156,13 @@ class DistrictProposalController extends CampaignController{
 
     @Secured(['ROLE_CAMPAIGN_DISTRICT_PROPOSAL'])
     def editContentStep(){
+        Long participatoryBudgetId = params.participatoryBudgetId?Long.parseLong(params.participatoryBudgetId):null
+        KuorumUser kuorumUser = kuorumUserService.findByAlias(params.userAlias)
+        ParticipatoryBudgetRSDTO participatoryBudgetRSDTO = participatoryBudgetService.find(kuorumUser, participatoryBudgetId)
+
         Long campaignId = Long.parseLong((String) params.campaignId);
         DistrictProposalRSDTO districtProposalRSDTO = setCampaignAsDraft(campaignId, districtProposalService)
-        return campaignModelContent(campaignId, districtProposalRSDTO, null, districtProposalService)
+        return districtProposalModelContennt(participatoryBudgetRSDTO,campaignId, districtProposalRSDTO, null)
     }
 
     @Secured(['ROLE_CAMPAIGN_DISTRICT_PROPOSAL'])
@@ -172,10 +183,15 @@ class DistrictProposalController extends CampaignController{
     def saveContent(CampaignContentCommand command) {
         Long campaignId = params.campaignId?Long.parseLong(params.campaignId):null
         if (command.hasErrors()) {
+            Long participatoryBudgetId = params.participatoryBudgetId?Long.parseLong(params.participatoryBudgetId):null
+            KuorumUser kuorumUser = kuorumUserService.findByAlias(params.userAlias)
+            ParticipatoryBudgetRSDTO participatoryBudgetRSDTO = participatoryBudgetService.find(kuorumUser, participatoryBudgetId)
+
+
             if(command.errors.getFieldError().arguments.first() == "publishOn"){
                 flash.error = message(code: "debate.scheduleError")
             }
-            render view: 'editContentStep', model: campaignModelContent(campaignId, null,command, districtProposalService)
+            render view: 'editContentStep', model: districtProposalModelContennt(participatoryBudgetRSDTO,campaignId, null,command)
             return
         }
 

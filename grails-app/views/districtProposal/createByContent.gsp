@@ -17,7 +17,7 @@
     <ol class="breadcrumb">
         <li><g:link mapping="politicianCampaigns"><g:message code="head.logged.account.tools.massMailing"/></g:link></li>
         <li><g:link mapping="politicianCampaignsNew"><g:message code="tools.campaign.new.title"/></g:link></li>
-        <li><g:link mapping="politicianCampaignsNew">Nombre presupuesto participativo</g:link></li>
+        <li><g:link mapping="participatoryBudgetShow" params="${participatoryBudget.encodeAsLinkProperties()}">${participatoryBudget.title}</g:link></li>
         <li class="active">${breadCrumbName}</li>
     </ol>
     <g:render template="/campaigns/edit/contentStep" model="[
