@@ -10,3 +10,15 @@
                         callButtonAction:g.createLink(mapping:'participatoryBudgetDistrictProposalVote', params:districtProposal.encodeAsLinkProperties())
                 ]" />
 </g:if>
+<g:else>
+        <g:render
+                template="/districtProposal/showModules/districtProposalDataIcon/districtProposalDataIconGeneric"
+                model="[
+                        districtProposal: districtProposal,
+                        iconClass:'fa-rocket',
+                        iconNumber:districtProposal.numSupports,
+                        isActive:districtProposal.isSupported,
+                        callButtonActionClass:'disabled',
+                        callButtonAction:g.createLink(mapping:'participatoryBudgetDistrictProposalSupport', params:districtProposal.encodeAsLinkProperties())
+                ]" />
+</g:else>

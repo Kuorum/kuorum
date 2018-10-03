@@ -2827,7 +2827,7 @@ ul.search-list > li.search-article .box-ppal .card-footer > ul li a .number{font
 ul.search-list > li.search-article .box-ppal .card-footer > ul li a.disabled:hover {color: #a8a8a8; text-decoration: none;}
 ul.search-list > li.search-article .box-ppal .card-footer > ul li a:hover {color: #00a3ed; text-decoration: none;}
 ul.search-list > li.search-article .box-ppal .card-footer > ul li .label { color:inherit; padding: 0;font-size: inherit;font-weight: inherit;}
-ul.search-list > li.search-article .box-ppal .card-footer > ul li .comment-counter.important {margin-top:-5px;color: #ff9431;}
+ul.search-list > li.search-article .box-ppal .card-footer > ul li .comment-counter.important {margin-top:-2px;color: #ff9431;}
 
 ul.search-list > li.search-article > article.box-ppal > div.link-wrapper > div.card-footer > ul > li.districtProposalPrice{position: relative;float: left; font-size: 25px; font-weight: bold;}
 ul.search-list > li.search-article > article.box-ppal > div.link-wrapper > div.card-footer > ul > li.owner {position: relative;float: left;bottom: 7px;}
@@ -5114,6 +5114,18 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 .link-wrapper .card-footer a.active{
     color: #00a3ed !important;
     text-decoration: none;
+}
+
+/*.conversation-box .footer .comment-counter button:hover,*/
+.conversation-box .footer .comment-counter button.active.disabled,
+.conversation-box .footer .comment-counter button.disabled,
+.leader-post .footer .comment-counter button.active.disabled,
+.leader-post .footer .comment-counter button.disabled,
+.leader-post .footer .comment-counter a.active.disabled,
+.leader-post .footer .comment-counter a.disabled,
+.link-wrapper .card-footer a.active.disabled,
+.link-wrapper .card-footer a.disabled{
+    color: #E4E4E4 !important;
 }
 
 .conversation-box .footer .comment-counter button.delete:hover {
@@ -7922,7 +7934,7 @@ body.noLogged .leader-post .header .call-to-action-mobile{
 }
 
 .leader-post > .footer .comment-counter {margin:30px 0;}
-.leader-post > .footer .comment-counter.important {color:#ff9431}
+.leader-post > .footer .comment-counter.important {color:#ff9431; margin-top:28px; margin-right: 10px;}
 .leader-post > .footer .comment-counter a,
 .leader-post > .footer .comment-counter button {
     font-size: 20px;

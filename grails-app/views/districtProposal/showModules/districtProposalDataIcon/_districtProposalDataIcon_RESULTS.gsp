@@ -1,9 +1,10 @@
 
+<g:render template="/districtProposal/showModules/districtProposalDataIcon/districtProposalDataIcon_CLOSED" model="[districtProposal:districtProposal]"/>
 <g:if test="${districtProposal.implemented}">
-        <div class="comment-counter pull-right important" id="comment-counter-${districtProposal.id}">
+        <div class="comment-counter pull-right important">
 
                 <span
-                   class="fa-stack kuorum-tooltip"
+                   class="fa-stack kuorum-tooltip"2em
                    aria-hidden="true"
                    rel="tooltip"
                    data-toggle="tooltip"

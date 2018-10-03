@@ -728,8 +728,8 @@ function getHash(){
 
 function normalizeHash(hash){
     hash = hash.replace("=",""); // Facebook login adds #_=_ at the end of the URL. This makes to fail this logic
-    hash = hash.replace("%20"," ");
-    hash = hash.replace(" ","-");
+    hash = decodeURIComponent(hash)
+    hash = hash.replace(/ /g,"-");
     hash = hash.toLowerCase();
     return hash;
 }
@@ -742,7 +742,7 @@ function moveToHash(hash){
 }
 
 function moveSmooth(hash){
-    if ($(hash).length){ //If the element exists
+    if ($(hash).length==1){ //If the element exists
         if ($(hash).offset().top > $(document).height() - $(window).height()) {
             dest = $(document).height() - $(window).height();
         } else {
@@ -758,6 +758,8 @@ function moveSmooth(hash){
         $('html,body').animate({
             scrollTop: dest
         }, 1000, 'swing');
+    }else{
+        console.log("No exists element with id: "+hash)
     }
 }
 
