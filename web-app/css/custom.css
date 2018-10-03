@@ -7786,6 +7786,7 @@ button.btn-see-more {
 
 .nav-pills.nav-underline.nav-pills-lvl2 {}
 .nav-pills.nav-underline.nav-pills-lvl2 > li {margin-bottom:0px; height: auto;}
+.nav-pills.nav-underline.nav-pills-lvl2 > .active.active-no-click > a {cursor: default;}
 .nav-pills.nav-underline.nav-pills-lvl2 > .active > a,
 .nav-pills.nav-underline.nav-pills-lvl2 > .active > a:hover,
 .nav-pills.nav-underline.nav-pills-lvl2 > li > a:focus,
