@@ -1802,6 +1802,7 @@ ul.user-list-followers .loading.xs {width: 10px; height: 10px;}
 ul.participatory-budget-steps-info {list-style: none;padding:10px 0 0 35px}
 ul.participatory-budget-steps-info li{margin-bottom:15px; line-height:10px;}
 ul.participatory-budget-steps-info li label{font-weight: bold;}
+ul.participatory-budget-steps-info li span{font-size: 11px;}
 ul.participatory-budget-steps-info li.active a {display: none}
 
 .participatory-budget-status .comment-proposal{margin-bottom: 30px;margin-top:-20px;}
