@@ -15,7 +15,7 @@ $(function () {
 
     });
 
-    $("#participatoryBudget-districtProposals-list-tab a").on("click", function(e){
+    $("#participatory-budget-district-proposals-list-tab-tag a").on("click", function(e){
         var $a = $(this)
         $a.parent().parent().children().removeClass("active")
         $a.parent().addClass("active")
@@ -59,11 +59,15 @@ $(function () {
         $(this).remove(); // Removes the button. The loadMoreDistrictProposals creates new button
     })
 
-    $("#participatoryBudget-districtProposals-list-tab > li:first a").click();
+    $("#participatory-budget-district-proposals-list-tab-tag > li:first a").click();
 
     $(".call-to-action-add-proposal").on("click", "a.btn.BALLOT, a.btn.TECHNICAL_REVIEW, a.btn.BALLOT, a.btn.CLOSED, a.btn.RESULTS", function(e){
         e.preventDefault()
-        moveSmooth("#participatoryBudget-districtProposals-list-tab")
+        moveSmooth("#participatory-budget-district-proposals-list-tab-tag")
+    });
+    $(".leader-post .footer .comment-counter").on("click", function(e){
+        e.preventDefault()
+        moveSmooth("#participatory-budget-district-proposals-list-tab-tag")
     });
 
     $(".call-to-action-add-proposal").on("click", "a.btn.ADDING_PROPOSALS", participatoryBudgetHelper.bindActionClickAddDistrictProposal);

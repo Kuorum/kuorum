@@ -1813,7 +1813,6 @@ ul.participatory-budget-steps-info li.active a {display: none}
 .participatory-budget-status .kuorum-tooltip + .tooltip.bottom .tooltip-inner{position:relative; width:200px;}
 .participatory-budget-status .kuorum-tooltip + .tooltip.bottom .tooltip-arrow{position:relative;left: 10%;}
 
-#participatoryBudget-districtProposals-list-tab {margin-bottom:10px;}
 .warn-district-overflow > div.modal-dialog >div.modal-content > div.modal-body > div.comment-box .label,
 #participatoryBudget-districtProposals-list > div > div.comment-box .label{text-align: center;font-weight: bold;font-family: 'Arial';color: #545454;font-size: 15px;padding: .2em .6em .3em; width:25%;float:left;}
 .warn-district-overflow div.comment-box .campaign-progress-bar-wrapper,
