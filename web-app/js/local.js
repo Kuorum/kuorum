@@ -265,6 +265,8 @@ $(document).ready(function() {
 
 $(document).ready(function() {
 
+    $('[data-toggle="tooltip"]').tooltip();
+
     // highlight search resultas with mark.js for list.js
 
     if ($('input#searchCampaign').length) {
