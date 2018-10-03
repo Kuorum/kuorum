@@ -2,7 +2,9 @@
     <span class="time-ago pull-left"><kuorumDate:humanDate date="${campaign.datePublished}" itemprop="datePublished"/> </span>
     <userUtil:ifUserIsTheLoggedOne user="${campaignUser}">
         <div class="campaign-actions pull-right">
-            <g:link mapping="politicianCampaignStatsShow" params="[campaignId: campaign.id]" role="button" class="edit"><span class="fal fa-chart-line fa-2x"></span><span class="sr-only">Stats</span></g:link>
+            <g:if test="${campaign.newsletter.status == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT}">
+                <g:link mapping="politicianCampaignStatsShow" params="[campaignId: campaign.id]" role="button" class="edit"><span class="fal fa-chart-line fa-2x"></span><span class="sr-only">Stats</span></g:link>
+            </g:if>
 
             <g:if test="${editable}">
             %{--campaignList contains the js to open modal when the debate is scheduled --}%
