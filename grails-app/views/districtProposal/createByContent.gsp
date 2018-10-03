@@ -33,4 +33,10 @@
                     district:'districtProposalEditDistrict',
                     showResult: 'districtProposalShow',
                     next: 'districtProposalShow']]"/>
+
+    <r:script >
+        $(function(){
+            formHelper.dirtyFormControl.dirty($("#politicianMassMailingForm"))
+        })
+    </r:script>
 </content>
