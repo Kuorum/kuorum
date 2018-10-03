@@ -54,7 +54,7 @@
             <r:script>
                 function campaignListCallback(){
                     sortCampaigns.orderList();
-                    youtubeHelper.replaceAllWrongYoutubeImages();
+                    prepareYoutubeVideosClick();
                 }
             </r:script>
         </div>

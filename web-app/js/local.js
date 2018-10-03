@@ -694,6 +694,7 @@ function prepareYoutubeVideosClick(){
         $(this).remove();
         var func = 'playVideo';
         iframe.get(0).contentWindow.postMessage('{"event":"command","func":"' + func + '","args":""}', '*');
+        window.dispatchEvent(new Event('resize')); // HACK => Youtube video has incorrect size, I don't know why, but resizing window sets the correct height.
     });
     $(".video.click-handler-no-processed").removeClass("click-handler-no-processed")
 
