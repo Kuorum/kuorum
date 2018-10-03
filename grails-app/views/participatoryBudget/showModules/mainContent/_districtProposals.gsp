@@ -2,7 +2,10 @@
 <g:render template="/participatoryBudget/showModules/cCallToAction" model="[participatoryBudget:participatoryBudget]"/>
 <ul class="nav nav-pills nav-underline" id="participatory-budget-district-proposals-list-tab-tag">
     <g:each in="${participatoryBudget.districts}" var="district">
-        <li><a href="#${district.name}" id="${district.name.encodeAsKuorumUrl()}" data-districtId="${district.id}">${district.name}</a></li>
+        <li><a href="#${district.name}" id="${district.name.encodeAsKuorumUrl()}" data-districtId="${district.id}">
+            <g:if test="${district.allCity}"><span class="fal fa-globe" data-toggle="tooltip" title=""></span> </g:if>
+            ${district.name}
+        </a></li>
     </g:each>
 </ul>
 
@@ -17,11 +20,17 @@
                         tooltipMsg:g.message(code:'participatoryBudget.progressBar.BALLOT.tooltip', args:[userInvestement, district.name])
                 ]"/>
                 <ul class="nav nav-pills nav-pills-lvl2 nav-underline ">
-                    <li class="active active-no-click"><a href="#" data-listSelector="random" data-districtId="${district.id}">Random</a></li>
-                    <li><a href="#" data-listSelector="price" data-direction="DESC" data-districtId="${district.id}">By price <span class="fal "></span> </a></li>
+                    <li class="active active-no-click">
+                        <a href="#" data-listSelector="random" data-districtId="${district.id}">
+                            <g:message code="participatoryBudget.show.listProposals.sort.random"/>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" data-listSelector="price" data-direction="DESC" data-districtId="${district.id}">
+                            <g:message code="participatoryBudget.show.listProposals.sort.byPrice"/><span class="fal "></span>
+                        </a>
+                    </li>
                 </ul>
-                %{--<a href="#">Random</a></li> | <a href="#">By price</a>--}%
-
             </g:if>
             <g:elseif test="${participatoryBudget.status == org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.RESULTS}">
                 <g:set var="investment" value="${g.message(code:'kuorum.multidomain.money', args: [district.investment])}" />
