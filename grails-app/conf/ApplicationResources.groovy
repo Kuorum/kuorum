@@ -120,6 +120,7 @@ modules = {
         resource url:'js/custom.js'
         resource url:'js/modal-login-form.js'
         resource url:'js/modal-validation.js'
+        resource url:'js/ieHacks.js'
         resource url:'js/local.js'
         resource url:'js/profile.js'
     }

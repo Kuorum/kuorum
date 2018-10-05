@@ -7823,11 +7823,12 @@ ul.leader-post-stats {box-shadow: 0 0 2px rgba(200,200,200,0.6); margin-bottom:2
 .comment-box.call-to-action .comment-header .call-title .fa-stack{
     font-size: 17px; font-size:1.7rem;}
 
-.comment-box.call-to-action  .comment-header .call-subTitle{
+.comment-box.call-to-action .comment-header .call-subTitle{
     font-family: Arial, Helvetica, sans-serif;
     font-size: 18px;
     margin: 15px 0;
     color: #A8A8A8;
+    display:block;
 }
 .comment-box.call-to-action  .comment-header .call-subTitle.warn{color: #FFA8A8;}
 
