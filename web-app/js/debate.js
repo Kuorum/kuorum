@@ -747,13 +747,22 @@ var debateFunctions = {
     getRelatedMediumEditor:function($buttonPublish){
         return $buttonPublish.parents(".comment-box").find(".comment.editable.medium-editor-element");
     },
+
+    getMediumText:function($mediumEditor){
+        // IE not print a <p>
+        var $p = $mediumEditor.find("p");
+        if ($p.length <=0){
+            $p = $mediumEditor
+        }
+        return $p.text()
+    },
     publishProposal: function(e, callback){
         e = e || window.event;
         callback = callback || debateFunctions.printProposal;
         var $buttonPublish = $(e.target);
         var alias = $buttonPublish.attr("data-userLoggedAlias");
         var $mediumEditor = debateFunctions.getRelatedMediumEditor($buttonPublish)
-        var content = $mediumEditor.find("p").text();
+        var content = debateFunctions.getMediumText($mediumEditor);
         var isValidContent = content?true:false;
         var errorSpan = $buttonPublish.parents(".comment-box").find("span.error");
         if(!isValidContent){
