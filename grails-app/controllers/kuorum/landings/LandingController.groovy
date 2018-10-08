@@ -44,6 +44,7 @@ class LandingController {
                 campaigns:campaigns,
                 slogan:domainRSDTO.slogan,
                 subtitle:domainRSDTO.subtitle,
+                domainDescription:domainRSDTO.domainDescription,
                 command: new KuorumRegisterCommand()
         ]
     }
