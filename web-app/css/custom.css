@@ -1599,7 +1599,8 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .bootstrap-table .btn-default {background-color: #CCCCCC;}
 .bootstrap-table .btn-default:focus,
 .bootstrap-table .btn-default:hover {background-color: #545454 !important;}
-.bootstrap-table .fixed-table-pagination .pagination-info {color: #A8A8A8;}
+.bootstrap-table .fixed-table-pagination .pagination-info,
+.bootstrap-table .fixed-table-pagination .page-list {color: #A8A8A8;}
 .pag-list-contacts .pagination .disabled a {border: none; width: 5px; margin-left: 1px; color:}
 .searchContainer {position: relative;}
 .searchContainer::after {font-family: 'Font Awesome 5 Pro'; content:''; position: absolute; right: 8px; top: 5px; color: #a8a8a8;}
