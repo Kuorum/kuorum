@@ -273,12 +273,14 @@ class FormTagLib {
         <fieldset class="row dynamic-fieldset-addbutton">
             <div class="form-group">
                 <div class="col-md-12">
-                    <button type="button" class="btn btn-default addButton"><i class="fa fa-plus"></i></button>
+                    <button type="button" class="btn btn-grey inverted addButton"><i class="fa fa-plus"></i></button>
                 </div>
             </div>
         </fieldset>
         """
-        out << addButton
+        if (!appendLast){
+            out << addButton
+        }
 
         def obj= Class.forName(listClassName, true, Thread.currentThread().getContextClassLoader()).newInstance()
         out << "<div class='hide dynamic-fieldset ${cssParentContainer}' id='${templateId}'>"
@@ -327,6 +329,10 @@ class FormTagLib {
                         appendLast:appendLast,
                         formId:formId
                 ])
+
+        if (appendLast){
+            out << addButton
+        }
 
     }
 

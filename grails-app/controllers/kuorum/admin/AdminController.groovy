@@ -17,6 +17,7 @@ import kuorum.web.admin.KuorumUserRightsCommand
 import kuorum.web.admin.domain.DomainConfigCommand
 import kuorum.web.admin.domain.DomainLandingCommand
 import kuorum.web.admin.domain.EditLegalInfoCommand
+import kuorum.web.commands.LinkCommand
 import kuorum.web.commands.domain.EditDomainCarouselPicturesCommand
 import org.kuorum.rest.model.admin.AdminConfigMailingRDTO
 import org.kuorum.rest.model.domain.*
@@ -85,7 +86,7 @@ class AdminController {
             render view:'domainConfig', model:[command:command]
             return;
         }
-        DomainRDTO domainRDTO = new DomainRDTO()
+        DomainRDTO domainRDTO = getPopulatedDomainRDTO()
         domainRDTO.name = command.name
         domainRDTO.validation = command.validation?:false
         domainRDTO.language = command.language
@@ -101,13 +102,6 @@ class AdminController {
         domainRDTO.social.instagram = command.instagram
         domainRDTO.social.youtube = command.youtube
 
-
-        DomainRSDTO domainRSDTO = domainService.getConfig(CustomDomainResolver.domain)
-        domainRDTO.slogan = domainRSDTO.slogan
-        domainRDTO.subtitle = domainRSDTO.subtitle
-        domainRDTO.domainDescription= domainRSDTO.domainDescription
-
-
         domainService.updateConfig(domainRDTO)
         flash.message ="Success"
         redirect mapping:'adminDomainConfig'
@@ -120,6 +114,7 @@ class AdminController {
         domainLandingCommand.slogan = domainRSDTO.slogan
         domainLandingCommand.subtitle = domainRSDTO.subtitle
         domainLandingCommand.domainDescription = domainRSDTO.domainDescription
+        domainLandingCommand.footerLinks = domainRSDTO.footerLinks.collect{new LinkCommand(title: it.key, url: it.value)}
         [command:domainLandingCommand]
     }
 
@@ -130,12 +125,22 @@ class AdminController {
             return;
         }
 
-        DomainRDTO domainRDTO = new DomainRDTO()
+        DomainRDTO domainRDTO = getPopulatedDomainRDTO()
         domainRDTO.slogan = command.slogan
         domainRDTO.subtitle = command.subtitle
         domainRDTO.domainDescription = command.domainDescription
+        domainRDTO.footerLinks = command.footerLinks?.findAll{it}?.collectEntries {[(it.title): it.url]}?:null
 
+
+
+        domainService.updateConfig(domainRDTO)
+        flash.message ="Success"
+        redirect mapping:'adminDomainConfigLanding'
+    }
+
+    private DomainRDTO getPopulatedDomainRDTO(){
         DomainRSDTO domainRSDTO = domainService.getConfig(CustomDomainResolver.domain)
+        DomainRDTO domainRDTO = new DomainRDTO()
         domainRDTO.name = domainRSDTO.name
         domainRDTO.validation = domainRSDTO.validation
         domainRDTO.language = domainRSDTO.language
@@ -144,10 +149,12 @@ class AdminController {
         domainRDTO.secondaryColor = domainRSDTO.secondaryColor
         domainRDTO.secondaryColorShadowed = domainRSDTO.secondaryColorShadowed
         domainRDTO.social = domainRSDTO.social
+        domainRDTO.slogan = domainRSDTO.slogan
+        domainRDTO.subtitle = domainRSDTO.subtitle
+        domainRDTO.domainDescription= domainRSDTO.domainDescription
+        domainRDTO.footerLinks = domainRSDTO.footerLinks
 
-        domainService.updateConfig(domainRDTO)
-        flash.message ="Success"
-        redirect mapping:'adminDomainConfigLanding'
+        return domainRDTO;
     }
 
     @Secured(['ROLE_ADMIN'])

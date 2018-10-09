@@ -4,6 +4,7 @@ import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.files.AmazonFileService
 import kuorum.files.LessCompilerService
 import org.codehaus.groovy.grails.web.mapping.LinkGenerator
+import org.kuorum.rest.model.domain.DomainRSDTO
 
 class DomainTagLib {
     static defaultEncodeAs = 'raw'
@@ -35,5 +36,14 @@ class DomainTagLib {
             title="${g.message(code:'head.logo.title', args:[kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.name])}">
         <span class="hidden">${kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.name}</span>
         """
+    }
+
+    def footerLis={attrs ->
+        DomainRSDTO domain = CustomDomainResolver.domainRSDTO
+        if (domain.footerLinks){
+            domain.footerLinks.each{
+                out << "<li><a href='${it.value}' target='_blank'>${it.key}</a></li>"
+            }
+        }
     }
 }
