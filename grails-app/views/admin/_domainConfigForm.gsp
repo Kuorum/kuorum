@@ -12,14 +12,6 @@
 
     <fieldset class="row">
         <div class="form-group col-md-6">
-            <formUtil:input command="${command}" field="slogan" showLabel="true" />
-        </div>
-        <div class="form-group col-md-6">
-            <formUtil:input command="${command}" field="subtitle" showLabel="true" />
-        </div>
-    </fieldset>
-    <fieldset class="row">
-        <div class="form-group col-md-6">
             <formUtil:checkBox command="${command}" field="validation" showLabel="true" />
         </div>
     </fieldset>

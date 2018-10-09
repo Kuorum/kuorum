@@ -15,6 +15,11 @@
 
 <content tag="main">
     <g:render template="/landing/servicesModules/leadersCarousel" model="[msgPrefix:'landingServices', slogan:slogan, subtitle:subtitle, command: command]"/>
+    <g:if test="${domainDescription}">
+        <div id="domain-description-landing-main">
+            ${domainDescription}
+        </div>
+    </g:if>
 </content>
 
 <content tag="howItWorks">

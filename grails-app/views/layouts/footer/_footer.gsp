@@ -2,6 +2,7 @@
     <div class="container-fluid">
         <section class="links">
             <ul>
+                <domain:footerLis/>
                 %{--<li><g:link mapping="footerUserGuides"><g:message code="layout.footer.userGuides"/></g:link></li>--}%
                 <li><g:link mapping="footerPrivacyPolicy" target="_blank"><g:message code="layout.footer.privacyPolicy"/></g:link></li>
                 <li><g:link mapping="footerTermsUse" target="_blank"><g:message code="layout.footer.termsUse"/></g:link></li>

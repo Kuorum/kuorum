@@ -32,6 +32,7 @@ class FacebookOAuthService implements IOAuthService {
     private static final PROVIDER = "Facebook"
 
     @Override
+    @Deprecated
     OAuthToken createAuthToken(Token accessToken) throws KuorumException {
         Facebook facebook = new FacebookTemplate(accessToken.token)
         User fbProfile = facebook.userOperations().userProfile

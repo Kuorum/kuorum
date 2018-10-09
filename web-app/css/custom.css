@@ -8371,6 +8371,14 @@ background-repeat: no-repeat;
     top: 90px;
 }
 
+
+#domain-description-landing-main {
+    text-align:center;
+    color:#CCCCCC;
+    background-color: #0c0c0c;
+    padding:10px 10%;
+}
+
 /** form **/
 
 form.dark {

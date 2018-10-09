@@ -27,7 +27,7 @@
         </li>
         <li class="fontIcon col-sm-3 col-md-3">
             <g:link mapping="searcherSearchPOST">
-                <span class="fal fa-microphone"></span>
+                <span class="fal fa-newspaper"></span>
             </g:link>
             %{--<span class="fas fa-microphone"></span>--}%
             <h2><g:message code="${msgPrefix}.howItWorks.petition.title"/> </h2>

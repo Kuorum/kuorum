@@ -15,7 +15,9 @@ import kuorum.users.KuorumUserService
 import kuorum.web.admin.KuorumUserEmailSenderCommand
 import kuorum.web.admin.KuorumUserRightsCommand
 import kuorum.web.admin.domain.DomainConfigCommand
+import kuorum.web.admin.domain.DomainLandingCommand
 import kuorum.web.admin.domain.EditLegalInfoCommand
+import kuorum.web.commands.LinkCommand
 import kuorum.web.commands.domain.EditDomainCarouselPicturesCommand
 import org.kuorum.rest.model.admin.AdminConfigMailingRDTO
 import org.kuorum.rest.model.domain.*
@@ -64,8 +66,6 @@ class AdminController {
         domainConfigCommand.name = domainRSDTO.name
         domainConfigCommand.validation = domainRSDTO.validation
         domainConfigCommand.language = domainRSDTO.language
-        domainConfigCommand.slogan = domainRSDTO.slogan
-        domainConfigCommand.subtitle = domainRSDTO.subtitle
         domainConfigCommand.mainColor = domainRSDTO.mainColor
         domainConfigCommand.mainColorShadowed = domainRSDTO.mainColorShadowed
         domainConfigCommand.secondaryColor = domainRSDTO.secondaryColor
@@ -86,12 +86,10 @@ class AdminController {
             render view:'domainConfig', model:[command:command]
             return;
         }
-        DomainRDTO domainRDTO = new DomainRDTO()
+        DomainRDTO domainRDTO = getPopulatedDomainRDTO()
         domainRDTO.name = command.name
         domainRDTO.validation = command.validation?:false
         domainRDTO.language = command.language
-        domainRDTO.slogan = command.slogan
-        domainRDTO.subtitle = command.subtitle
         domainRDTO.mainColor = command.mainColor
         domainRDTO.mainColorShadowed = command.mainColorShadowed
         domainRDTO.secondaryColor = command.secondaryColor
@@ -103,9 +101,60 @@ class AdminController {
         domainRDTO.social.googlePlus = command.googlePlus
         domainRDTO.social.instagram = command.instagram
         domainRDTO.social.youtube = command.youtube
+
         domainService.updateConfig(domainRDTO)
         flash.message ="Success"
         redirect mapping:'adminDomainConfig'
+    }
+
+    @Secured(['ROLE_ADMIN'])
+    def editLandingInfo(){
+        DomainRSDTO domainRSDTO = domainService.getConfig(CustomDomainResolver.domain)
+        DomainLandingCommand domainLandingCommand = new DomainLandingCommand();
+        domainLandingCommand.slogan = domainRSDTO.slogan
+        domainLandingCommand.subtitle = domainRSDTO.subtitle
+        domainLandingCommand.domainDescription = domainRSDTO.domainDescription
+        domainLandingCommand.footerLinks = domainRSDTO.footerLinks.collect{new LinkCommand(title: it.key, url: it.value)}
+        [command:domainLandingCommand]
+    }
+
+    @Secured(['ROLE_ADMIN'])
+    def editLandingInfoSave(DomainLandingCommand command){
+        if (command.hasErrors()){
+            render view:'editLandingInfo', model:[command:command]
+            return;
+        }
+
+        DomainRDTO domainRDTO = getPopulatedDomainRDTO()
+        domainRDTO.slogan = command.slogan
+        domainRDTO.subtitle = command.subtitle
+        domainRDTO.domainDescription = command.domainDescription
+        domainRDTO.footerLinks = command.footerLinks?.findAll{it}?.collectEntries {[(it.title): it.url]}?:null
+
+
+
+        domainService.updateConfig(domainRDTO)
+        flash.message ="Success"
+        redirect mapping:'adminDomainConfigLanding'
+    }
+
+    private DomainRDTO getPopulatedDomainRDTO(){
+        DomainRSDTO domainRSDTO = domainService.getConfig(CustomDomainResolver.domain)
+        DomainRDTO domainRDTO = new DomainRDTO()
+        domainRDTO.name = domainRSDTO.name
+        domainRDTO.validation = domainRSDTO.validation
+        domainRDTO.language = domainRSDTO.language
+        domainRDTO.mainColor = domainRSDTO.mainColor
+        domainRDTO.mainColorShadowed = domainRSDTO.mainColorShadowed
+        domainRDTO.secondaryColor = domainRSDTO.secondaryColor
+        domainRDTO.secondaryColorShadowed = domainRSDTO.secondaryColorShadowed
+        domainRDTO.social = domainRSDTO.social
+        domainRDTO.slogan = domainRSDTO.slogan
+        domainRDTO.subtitle = domainRSDTO.subtitle
+        domainRDTO.domainDescription= domainRSDTO.domainDescription
+        domainRDTO.footerLinks = domainRSDTO.footerLinks
+
+        return domainRDTO;
     }
 
     @Secured(['ROLE_ADMIN'])
