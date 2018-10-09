@@ -3,7 +3,7 @@
 <ul class="nav nav-pills nav-underline" id="participatory-budget-district-proposals-list-tab-tag">
     <g:each in="${participatoryBudget.districts}" var="district">
         <li><a href="#${district.name}" id="${district.name.encodeAsKuorumUrl()}" data-districtId="${district.id}">
-            <g:if test="${district.allCity}"><span class="fal fa-globe" data-toggle="tooltip" title=""></span> </g:if>
+            <g:if test="${district.allCity}"><span class="fal fa-globe" data-toggle="tooltip" title="${g.message(code:'participatoryBudget.districts.tooltip.noRestriction')}"></span> </g:if>
             ${district.name}
         </a></li>
     </g:each>
