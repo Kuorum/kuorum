@@ -5369,6 +5369,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     color:#CCCCCC;
     background-color: #545454;
     font-size: 18px;
+    font-style: italic;
     line-height: 24px;
     padding: 50px 10%;
 }
