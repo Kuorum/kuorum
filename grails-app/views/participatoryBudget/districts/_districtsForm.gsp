@@ -5,6 +5,14 @@
     <input type="hidden" name="sendType" value="${status== org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT?'SEND':'DRAFT'}" id="sendMassMailingType"/>
     <input type="hidden" name="campaignId" value="${command.campaignId}"/>
 
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-8 col-md-offset-1 col-md-7">
+            <div class="col-sm-offset-5 col-sm-5">
+                <g:message code="kuorum.web.commands.payment.participatoryBudget.DistrictCommand.budget.label"/>
+            </div>
+        </div>
+    </div>
     <fieldset class="form-group dynamic-input-list">
         <label for="districs" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.participatoryBudget.DistrictsCommand.districts"/>:</label>
         <div class="col-sm-8 col-md-7">
@@ -18,13 +26,14 @@
                     formId="districtParticipatoryBudgetForm">
                 <fieldset class="row">
                     <formUtil:input cssClass="hidden" field="districtId" command="${listCommand}" prefixFieldName="${prefixField}"/>
+
                     <div class="form-group district-data">
                         %{--<div class="col-xs-12 col-sm-8 col-md-7">--}%
                         <div class="col-xs-12 col-sm-5">
                             <formUtil:input field="name" command="${listCommand}" prefixFieldName="${prefixField}" />
                         </div>
                         <div class="col-xs-12 col-sm-2 ">
-                            <formUtil:input field="budget" command="${listCommand}" prefixFieldName="${prefixField}"/>
+                            <formUtil:input field="budget" command="${listCommand}" prefixFieldName="${prefixField}" />
                         </div>
                         <div class="col-xs-12 col-sm-4 form-group-checkbox-inline no-label-lg">
                             <formUtil:checkBox field="allCity" command="${listCommand}" prefixFieldName="${prefixField}"/>
