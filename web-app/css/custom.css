@@ -1651,7 +1651,7 @@ ul.list > li > ul.list-actions > li > a:active {color: #20a2ea;}
 
 .container-fluid.box-ppal.choose-campaign {padding:70px 0px 50px 0px; box-shadow: 0 0 2px rgba(200,200,200,0.6);}
 
-.actionIcons {text-align: center;}
+.actionIcons {text-align: center; width: 100%;}
 .actionIcons > li {list-style: none; display: inline-block; margin: 0 5px 20px;}
 .actionIcons > li > a {margin:auto; display: block; width: 70px; height: 70px; padding-top: 41px; font-size: 11px; background-color: #fff; background-repeat: no-repeat; border: 1px solid #ff9431; overflow: hidden;}
 .actionIcons > li > a:hover,
@@ -4723,11 +4723,12 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {border-radiu
 
 /* clases para campaign steps ======================================================================================================== */
 /* ======================================================================================================================================== */
+.box-steps{background-color: #fff; color:#545454; border: solid 1px #e5e5e5; box-shadow: 0 0 2px rgba(200,200,200,0.6);margin-bottom: 25px; padding: 20px 15px 20px 15px;}
 .box-steps > ul.actionIcons {padding:0;}
 .box-steps > ul.actionIcons > li{margin:0 5px;}
-.box-steps > ul.actionIcons > li.fontIcon > a {width: 30px; height: 30px;padding:0}
+.box-steps > ul.actionIcons > li.fontIcon > a {width: 40px; height: 30px;padding:0}
 .box-steps > ul.actionIcons > li.fontIcon > a > span.fa {font-size: 20px}
-.box-steps > ul.actionIcons > li.fontIcon.arrow {color: #a8a8a8;position: relative; top: -7px;}
+.box-steps > ul.actionIcons > li.fontIcon.arrow {color: #a8a8a8;position: relative;}
 .box-steps > ul.actionIcons > li a:active,
 .box-steps > ul.actionIcons > li a:hover{color: #ff9431; border: 1px solid #ff9431;}
 .box-steps > ul.actionIcons > li > a {width: 70px; height: 70px; padding-top: 41px; font-size: 11px; border: none; overflow: hidden;  color: #a8a8a8;border-color: #a8a8a8;}
@@ -5398,9 +5399,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .box-ppal#createNewCampaign {margin-bottom: 20px; padding-bottom: 15px;}
     .carousel.news .carousel-control {top: 30%;}
 
-
-    .actionIcons.campaign-steps,
-    .actionIcons.newsletter-steps {  width: 100% !important; padding:0;}
     .actionIcons > li.fontIcon > a{  margin: auto !important;  }
 
     #payment div.promotionalCodeSet input.code {margin: 10px 0px;}
@@ -5451,9 +5449,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .box-ppal.campaign-new{box-shadow: 0 0 2px rgba(200,200,200,0.6);}
     .box-ppal.campaign-stats{box-shadow: 0 0 2px rgba(200,200,200,0.6);}
     #searchContacts > div#listContacts > div.box-ppal.list-contacts {padding: 22px 22px 0;}
-
-    .box-steps{background-color: #fff; color:#545454; border: solid 1px #e5e5e5; box-shadow: 0 0 2px rgba(200,200,200,0.6);}
-    .box-steps{margin-bottom: 25px; padding: 20px 15px 0 15px;}
 
     /* DASHBOARD */
     /*#profileInfo > span {margin-top: 50px;}*/
@@ -5522,7 +5517,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     #contactsList > li {padding: 10px 0 0 0px; min-height: 175px;}
 
     .box-steps > ul.actionIcons {margin:0 auto; padding:0;}
-    .box-steps > ul.actionIcons > li {list-style: none; display: inline-block; margin: 0 10px 20px;}
+    .box-steps > ul.actionIcons > li {margin: 0 10px;}
     .box-steps > ul.actionIcons > li.fontIcon > a {width: 70px; height: 70px;padding:6px 0 0 0; border:1px solid;}
     .box-steps > ul.actionIcons > li.fontIcon > a > span.fa {font-size: 30px;width: 100%; height: auto;}
     .box-steps > ul.actionIcons > li.fontIcon > a > span.label {padding:0; font-weight: inherit; font-size: 11px}
@@ -5960,9 +5955,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .tags-campaign .tag-events {border-left: 1px solid #DDDDDD;}
 
     /* DASHBOARD (08/2016) */
-    .actionIcons {margin: 0 auto; width: 620px; text-align: center;}
-    .actionIcons.campaign-steps,
-    .actionIcons.newsletter-steps{width: 510px;}
     .nav-tabs.simple > li {margin-bottom: -1px; margin-right: 1px;}
     .alert-box {height: 54px; padding: 15px;}
     #inviteFriendsModal h4 {font-size: 26px; font-size: 2.6rem;}
@@ -8971,8 +8963,6 @@ ul.globus li{
     line-height: 31px;
     padding-bottom: 15px;
 }
-
-/*.actionIcons li.fontIcon > a > span.fa*/
 
 ul.globus li.fontIcon > a > span.fa,
 ul.globus li.fontIcon > a > span.far,
