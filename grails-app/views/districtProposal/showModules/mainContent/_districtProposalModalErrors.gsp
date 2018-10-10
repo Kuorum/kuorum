@@ -31,6 +31,7 @@
                 <h4 id="warn-different-district-title"><g:message code="participatoryBudget.district.modal.differentDistrict.title" args="[district.name]"/></h4>
             </div>
             <div class="modal-body">
+                <p><g:message code="participatoryBudget.district.modal.differentDistrict.genericText" encodeAs="raw"/></p>
                 <p><g:message code="participatoryBudget.district.modal.differentDistrict.text" args="[district.name]"/></p>
             </div>
             <div class="modal-actions">

@@ -93,7 +93,7 @@ var districtProposalHelper={
                         prepareProgressBar();
                     }else{
                         var modalId = "#warn-different-district-"+districtId;
-                        $(modalId).find(".modal-body p").html(errorJson.msg)
+                        $(modalId).find(".modal-body p+p").html(errorJson.msg)
                         $(modalId).modal()
                     }
 
