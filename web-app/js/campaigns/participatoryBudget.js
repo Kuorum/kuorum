@@ -187,7 +187,10 @@ var participatoryBudgetHelper={
 
     moveAndOpenDistrict:function(districtName){
         var hash = normalizeHash(districtName)
-        $(hash).click();
+        if ($(hash).length > 0){
+            $(hash).click();
+            window.setTimeout(function(){moveSmooth("#participatory-budget-district-proposals-list-tab-tag")}, 1000);
+        }
 
     },
 
