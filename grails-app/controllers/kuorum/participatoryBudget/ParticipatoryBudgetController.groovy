@@ -19,7 +19,7 @@ class ParticipatoryBudgetController extends CampaignController{
     // Grails renderer -> For CSV hack
     grails.gsp.PageRenderer groovyPageRenderer
 
-    @Secured(['ROLE_ADMIN'])
+    @Secured(['ROLE_ADMIN','ROLE_CAMPAIGN_PARTICIPATORY_BUDGET'])
     def create() {
         return participatoryBudgetModelSettings(new CampaignSettingsCommand(debatable:true), null)
     }
@@ -105,6 +105,7 @@ class ParticipatoryBudgetController extends CampaignController{
         )
     }
 
+    @Secured(['ROLE_ADMIN','ROLE_CAMPAIGN_PARTICIPATORY_BUDGET'])
     def saveDeadlines(ParticipatoryBudgetDeadlinesCommand command){
         KuorumUser campaignUser = KuorumUser.get(springSecurityService.principal.id)
         ParticipatoryBudgetRSDTO participatoryBudgetRSDTO = participatoryBudgetService.find(campaignUser, command.campaignId)
@@ -161,6 +162,7 @@ class ParticipatoryBudgetController extends CampaignController{
         new DistrictsCommand(districts: districts)
     }
 
+    @Secured(['ROLE_ADMIN','ROLE_CAMPAIGN_PARTICIPATORY_BUDGET'])
     def saveDistricts(DistrictsCommand command){
         KuorumUser campaignUser = KuorumUser.get(springSecurityService.principal.id)
         ParticipatoryBudgetRSDTO participatoryBudgetRSDTO = participatoryBudgetService.find(campaignUser, command.campaignId)
