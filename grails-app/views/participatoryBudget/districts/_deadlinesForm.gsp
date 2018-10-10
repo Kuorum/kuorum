@@ -5,25 +5,31 @@
     <input type="hidden" name="sendType" value="${status== org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT?'SEND':'DRAFT'}" id="sendMassMailingType"/>
     <input type="hidden" name="campaignId" value="${command.campaignId}"/>
     <fieldset class="form-group">
-        <label for="deadLineProposals" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.participatoryBudget.DistrictsCommand.deadLineProposals.label"/>:</label>
+        <label for="deadLineProposals" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.participatoryBudget.ParticipatoryBudgetDeadlinesCommand.deadLineProposals.label"/>:</label>
         <div class="col-sm-4">
             <formUtil:date command="${command}" field="deadLineProposals"/>
         </div>
     </fieldset>
     <fieldset class="form-group">
-        <label for="deadLineTechnicalReview" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.participatoryBudget.DistrictsCommand.deadLineTechnicalReview.label"/>:</label>
+        <label for="deadLineTechnicalReview" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.participatoryBudget.ParticipatoryBudgetDeadlinesCommand.deadLineTechnicalReview.label"/>:</label>
         <div class="col-sm-4">
             <formUtil:date command="${command}" field="deadLineTechnicalReview"/>
         </div>
     </fieldset>
     <fieldset class="form-group">
-        <label for="deadLineVotes" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.participatoryBudget.DistrictsCommand.deadLineVotes.label"/>:</label>
+        <label for="deadLineVotes" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.participatoryBudget.ParticipatoryBudgetDeadlinesCommand.deadLineVotes.label"/>:</label>
         <div class="col-sm-4">
             <formUtil:date command="${command}" field="deadLineVotes"/>
         </div>
     </fieldset>
     <fieldset class="form-group">
-        <label for="deadLineResults" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.participatoryBudget.DistrictsCommand.deadLineResults.label"/>:</label>
+        <label for="deadLineFinalReview" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.participatoryBudget.ParticipatoryBudgetDeadlinesCommand.deadLineFinalReview.label"/>:</label>
+        <div class="col-sm-4">
+            <formUtil:date command="${command}" field="deadLineFinalReview"/>
+        </div>
+    </fieldset>
+    <fieldset class="form-group">
+        <label for="deadLineResults" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.participatoryBudget.ParticipatoryBudgetDeadlinesCommand.deadLineResults.label"/>:</label>
         <div class="col-sm-4">
             <formUtil:date command="${command}" field="deadLineResults"/>
         </div>

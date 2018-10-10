@@ -8,6 +8,7 @@ class ParticipatoryBudgetDeadlinesCommand {
     Date deadLineProposals
     Date deadLineTechnicalReview
     Date deadLineVotes
+    Date deadLineFinalReview
     Date deadLineResults
 
     static constraints = {
@@ -15,6 +16,7 @@ class ParticipatoryBudgetDeadlinesCommand {
         deadLineProposals nullable: false
         deadLineTechnicalReview nullable: false
         deadLineVotes nullable: false
+        deadLineFinalReview nullable: false
         deadLineResults nullable: false
     }
 
