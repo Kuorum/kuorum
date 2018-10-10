@@ -143,7 +143,7 @@ class RestKuorumApiService {
                 objectMapper.setTimeZone(TimeZone.getTimeZone("UTC"))
                 objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
                 RestServiceError serviceError = objectMapper.readValue(jsonString, RestServiceError.class);
-                throw new KuorumException(serviceError.message, "error.api.${serviceError.code}")
+                throw new KuorumException(serviceError.message, "error.api.${serviceError.code}", new ArrayList(serviceError.errorData.values()))
             }
         })
 

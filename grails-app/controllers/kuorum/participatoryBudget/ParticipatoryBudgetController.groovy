@@ -447,7 +447,7 @@ class ParticipatoryBudgetController extends CampaignController{
             response.status = 500
             if (e instanceof UndeclaredThrowableException ){
                 KuorumException ke = ((UndeclaredThrowableException)e).getCause().getCause()
-                render "{\"error\": \"API_ERROR\", \"code\":\"${ke.errors[0].code}\"}";
+                render "{\"error\": \"API_ERROR\", \"code\":\"${ke.errors[0].code}\", \"msg\":\"${g.message(code:'participatoryBudget.district.modal.differentDistrict.text', args: ke.errors[0].args)}\"}";
             }else{
                 render "{\"error\": \"GENERIC_ERROR\", \"code\":\"error.api.500\"}";
             }
@@ -473,7 +473,7 @@ class ParticipatoryBudgetController extends CampaignController{
             response.status = 500
             if (e instanceof UndeclaredThrowableException ){
                 KuorumException ke = ((UndeclaredThrowableException)e).getCause().getCause()
-                render "{\"error\": \"API_ERROR\", \"code\":\"${ke.errors[0].code}\"}";
+                render "{\"error\": \"API_ERROR\", \"code\":\"${ke.errors[0].code}\", \"msg\":\"${g.message(code:'participatoryBudget.district.modal.differentDistrict.text', args: ke.errors[0].args)}\"}";
             }else{
                 render "{\"error\": \"GENERIC_ERROR\", \"code\":\"error.api.500\"}";
             }

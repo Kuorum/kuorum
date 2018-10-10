@@ -33,6 +33,12 @@ class KuorumException extends GrailsException{
         this.errors = new ArrayList<KuorumExceptionData>()
         this.errors.add(kuorumExceptionData)
     }
+    public KuorumException(String message, String code, List<Object> args){
+        super(message)
+        KuorumExceptionData kuorumExceptionData = new KuorumExceptionData(code:code, args: args as String[])
+        this.errors = new ArrayList<KuorumExceptionData>()
+        this.errors.add(kuorumExceptionData)
+    }
 
     public KuorumException(KuorumExceptionData error){
         super(error.code)
