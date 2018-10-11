@@ -1,3 +1,7 @@
+<g:if test="${!user?.bio}">
+    <meta name="robots" content="noindex">
+</g:if>
+
 %{--Page description. No longer than 155 characters.--}%
 <meta name="description" content="${g.message(code:'page.politicianProfile.description', args:[user.fullName, _domainName])}" />
 
