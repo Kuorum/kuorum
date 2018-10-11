@@ -8,7 +8,7 @@
             <div class="event-date-time">
                 <g:if test="${event.eventDate}">
                     <p class="event-date"><span class="fal fa-clock"></span>
-                        <g:formatDate type="date" style="FULL"  date="${event.eventDate}" timeZone="${eventUser.timeZone}"/>
+                        <g:formatDate formatName="default.date.format.long"  date="${event.eventDate}" timeZone="${eventUser.timeZone}"/>
                     </p>
                     <p class="event-time">
                         <g:formatDate type="time" style="SHORT"  date="${event.eventDate}" timeZone="${eventUser.timeZone}"/>
