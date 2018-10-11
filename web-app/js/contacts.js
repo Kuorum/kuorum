@@ -500,9 +500,9 @@ function FilterContacts() {
                 var $filterData = $("#filterData");
                 $filterData.addClass("hide");
                 $filterData.html(data);
-                $filterData.find("select#field").change(); /* Launch changeFieldOperation() event */
                 $filterData.find("input:disabled").val(""); /* Chapu para eliminar val porque todos los inputs usan el mismo valor del command */
                 slideDownFilterInfo();
+                $filterData.find("select#field").change(); /* Launch changeFieldOperation() event */
                 pageLoadingOff();
             })
             .fail(function(messageError) {
