@@ -69,7 +69,7 @@ class ParticipatoryBudgetController extends CampaignController{
         redirect mapping: result.nextStep.mapping, params: result.nextStep.params
     }
 
-    @Secured(['ROLE_ADMIN','ROLE_CAMPAIGN_DISTRICT_PROPOSAL'])
+    @Secured(['ROLE_ADMIN','ROLE_CAMPAIGN_DISTRICT_PROPOSAL', 'ROLE_CAMPAIGN_PARTICIPATORY_BUDGET'])
     def listActiveParticipativeBudgets(){
         ParticipatoryBudgetStatusDTO budgetStatusDTO = ParticipatoryBudgetStatusDTO.ADDING_PROPOSALS
         List<ParticipatoryBudgetRSDTO> listParticipatoryBudgetRSDTO = participatoryBudgetService.findActiveParticipatoryBudgets(budgetStatusDTO)
