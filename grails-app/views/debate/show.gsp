@@ -1,7 +1,7 @@
 <%@ page import="org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO" %>
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
-    <g:set var="titleMessageCode" value="${debate?.event?'debate.show.title':'event.show.title'}"/>
+    <g:set var="titleMessageCode" value="${debate?.event==null?'debate.show.title':'event.show.title'}"/>
     <title><g:message code="${titleMessageCode}" args="[debate.title, _domainName]"/></title>
     <g:set var="schemaData" value="${[schema:'http://schema.org/Article', name:debate.title]}" scope="request"/>
     <meta name="layout" content="columnCLayout">

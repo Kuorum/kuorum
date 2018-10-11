@@ -1,6 +1,6 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
-    <g:set var="titleMessageCode" value="${post?.event?'post.show.title':'event.show.title'}"/>
+    <g:set var="titleMessageCode" value="${post?.event==null?'post.show.title':'event.show.title'}"/>
     <title><g:message code="${titleMessageCode}" args="[post.title, _domainName]"/></title>
     <meta name="layout" content="columnCLayout">
     <g:set var="schemaData" value="${[schema:'http://schema.org/Article', name:post.title]}" scope="request"/>
