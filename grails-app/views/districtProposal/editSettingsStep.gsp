@@ -37,6 +37,6 @@
                               content:'districtProposalEditContent',
                               district:'districtProposalEditDistrict',
                               showResult: 'campaignShow',
-                              next: 'districtProposalEditContent']
+                              next: 'districtProposalEditDistrict']
               ]"/>
 </content>
