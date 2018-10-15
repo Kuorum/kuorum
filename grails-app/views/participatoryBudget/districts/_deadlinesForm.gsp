@@ -28,12 +28,6 @@
             <formUtil:date command="${command}" field="deadLineFinalReview"/>
         </div>
     </fieldset>
-    <fieldset class="form-group">
-        <label for="deadLineResults" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.participatoryBudget.ParticipatoryBudgetDeadlinesCommand.deadLineResults.label"/>:</label>
-        <div class="col-sm-4">
-            <formUtil:date command="${command}" field="deadLineResults"/>
-        </div>
-    </fieldset>
 
     <g:render template="/campaigns/edit/stepButtons" model="[
             saveAndSentButtons:false,

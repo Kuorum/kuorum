@@ -100,8 +100,7 @@ class ParticipatoryBudgetController extends CampaignController{
                 deadLineProposals: participatoryBudgetRSDTO.deadLineProposals,
                 deadLineTechnicalReview: participatoryBudgetRSDTO.deadLineTechnicalReview,
                 deadLineVotes: participatoryBudgetRSDTO.deadLineVotes,
-                deadLineFinalReview: participatoryBudgetRSDTO.deadLineFinalReview,
-                deadLineResults: participatoryBudgetRSDTO.deadLineResults
+                deadLineFinalReview: participatoryBudgetRSDTO.deadLineFinalReview
         )
     }
 
@@ -121,7 +120,6 @@ class ParticipatoryBudgetController extends CampaignController{
         rdto.deadLineTechnicalReview = command.deadLineTechnicalReview
         rdto.deadLineVotes = command.deadLineVotes
         rdto.deadLineFinalReview= command.deadLineFinalReview
-        rdto.deadLineResults = command.deadLineResults
         def result = saveAndSendCampaign(campaignUser, rdto, participatoryBudgetRSDTO.getId(), null,null, participatoryBudgetService)
         redirect mapping: result.nextStep.mapping, params: result.nextStep.params
     }
@@ -136,7 +134,6 @@ class ParticipatoryBudgetController extends CampaignController{
             redirect mapping: 'participatoryBudgetEditContent', params: participatoryBudgetRSDTO.encodeAsLinkProperties()
         }else if(
             !participatoryBudgetRSDTO.deadLineTechnicalReview ||
-            !participatoryBudgetRSDTO.deadLineResults||
             !participatoryBudgetRSDTO.deadLineProposals||
             !participatoryBudgetRSDTO.deadLineVotes
         ){

@@ -34,8 +34,9 @@
                     <g:if test="${status == org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.TECHNICAL_REVIEW}"><g:set var="statusDate"><g:formatDate  formatName="default.date.format.small" date="${participatoryBudget.deadLineTechnicalReview}"/></g:set></g:if>
                     <g:if test="${status == org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.BALLOT}"><g:set var="statusDate"><g:formatDate  formatName="default.date.format.small" date="${participatoryBudget.deadLineVotes}"/></g:set></g:if>
                     <g:if test="${status == org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.CLOSED}"><g:set var="statusDate"><g:formatDate  formatName="default.date.format.small" date="${participatoryBudget.deadLineFinalReview}"/></g:set></g:if>
-                    <g:if test="${status == org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.RESULTS}"><g:set var="statusDate"><g:formatDate  formatName="default.date.format.small" date="${participatoryBudget.deadLineResults}"/></g:set><g:set var="statusDateMsgCode" value="participatoryBudget.status.from"/></g:if>
-                    <span>(<g:message code="${statusDateMsgCode}" args="[statusDate]"/>)</span>
+                    <g:if test="${status != org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.RESULTS}">
+                        <span>(<g:message code="${statusDateMsgCode}" args="[statusDate]"/>)</span>
+                    </g:if>
                     <userUtil:ifUserIsTheLoggedOne user="${campaignUser}">
                         <a data-status="${status}" data-status-text="${g.message(code:"org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.${status}")}"><span class="fal fa-hand-point-left rigth"></span></a>
                     </userUtil:ifUserIsTheLoggedOne>

@@ -7,7 +7,7 @@
 
 <g:if test="${districtProposal.technicalReviewStatus == org.kuorum.rest.model.communication.participatoryBudget.TechnicalReviewStatusRDTO.VALID}">
     <g:set var="callTitleMsg" value="${g.message(code:"districtProposal.callToAction.${districtProposal.participatoryBudget.status}.title", args: [campaignUser.name])}"/>
-    <g:set var="dateEndTime"><g:formatDate date="${districtProposal.participatoryBudget.deadLineResults}" type="date" style="short"/></g:set>
+    <g:set var="dateEndTime"><g:formatDate date="${districtProposal.participatoryBudget.deadLineFinalReview}" type="date" style="short"/></g:set>
     <g:set var="callSubtitleMsg" value="${g.message(code:"districtProposal.callToAction.${districtProposal.participatoryBudget.status}.subtitle", args: [dateEndTime])}"/>
     <g:render template="/districtProposal/showModules/cCallToActionStatus/cCallToActionHeader" model="[callTitleMsg:callTitleMsg, callSubtitleMsg:callSubtitleMsg]"/>
     <hr/>
