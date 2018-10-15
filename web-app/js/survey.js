@@ -41,27 +41,31 @@ $(function () {
         surveyFunctions._nextQuestion(questionId);
     });
 
-    surveyFunctions._updateSurveyProgressBar();
-    // IE10 not supports foreach
-    var questionAnswerIdx
-    var singleAnswers =document.querySelectorAll(".survey-question.single-answer.answered");
-    for (questionAnswerIdx = 0; questionAnswerIdx < singleAnswers.length; questionAnswerIdx++) {
-        var question = singleAnswers[questionAnswerIdx];
-        var questionId = parseInt(question.getAttribute('data-question-id'))
-        surveyFunctions._setProgressBarsPercentOneOption(questionId)
-    };
-
-    var multipleAnswers =document.querySelectorAll(".survey-question.multi-answer.answered");
-    for (questionAnswerIdx = 0; questionAnswerIdx < singleAnswers.length; questionAnswerIdx++) {
-        var question = multipleAnswers[questionAnswerIdx];
-        surveyFunctions._setProgressBarsPercentMultiOptions(question);
-    };
+   surveyFunctions.initSurvey();
 });
 
 var surveyFunctions = {
     NO_LOGGED_CALLBACK:"addAnwerNoLogged",
     NO_LOGGED_CALLBACK_QUESTION_VAR_NAME:"data-questionId",
     relodAfeterSubmit: false,
+
+    initSurvey:function(){
+        surveyFunctions._updateSurveyProgressBar();
+        // IE10 not supports foreach
+        var questionAnswerIdx
+        var singleAnswers =document.querySelectorAll(".survey-question.single-answer.answered");
+        for (questionAnswerIdx = 0; questionAnswerIdx < singleAnswers.length; questionAnswerIdx++) {
+            var question = singleAnswers[questionAnswerIdx];
+            var questionId = parseInt(question.getAttribute('data-question-id'))
+            surveyFunctions._setProgressBarsPercentOneOption(questionId)
+        };
+
+        var multipleAnswers =document.querySelectorAll(".survey-question.multi-answer.answered");
+        for (questionAnswerIdx = 0; questionAnswerIdx < multipleAnswers.length; questionAnswerIdx++) {
+            var question = multipleAnswers[questionAnswerIdx];
+            surveyFunctions._setProgressBarsPercentMultiOptions(question);
+        };
+    },
     _nextButtonClick : function(e) {
         e.preventDefault();
         var $buttonNext = $(e.target);
