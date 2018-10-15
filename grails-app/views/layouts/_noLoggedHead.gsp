@@ -33,6 +33,11 @@
                     <span><g:message code="head.noLogged.searchEvents"/></span>
                 </g:link>
             </li>
+            <li>
+                <g:link mapping="searcherSearchPARTICIPATORY_BUDGET" class="navbar-link ${nav.activeMenuCss(mappingName: 'searcherSearchPARTICIPATORY_BUDGET')}">
+                    <span><g:message code="head.noLogged.searchParticipatoryBudgets"/></span>
+                </g:link>
+            </li>
         </ul>
     </li>
 
