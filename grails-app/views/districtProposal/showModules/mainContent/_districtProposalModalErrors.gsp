@@ -31,11 +31,11 @@
                 <h4 id="warn-different-district-title"><g:message code="participatoryBudget.district.modal.differentDistrict.title" args="[district.name]"/></h4>
             </div>
             <div class="modal-body">
-                <p><g:message code="participatoryBudget.district.modal.differentDistrict.genericText" encodeAs="raw"/></p>
                 <p><g:message code="participatoryBudget.district.modal.differentDistrict.text" args="[district.name]"/></p>
+                <p><g:message code="participatoryBudget.district.modal.differentDistrict.genericText" encodeAs="raw"/></p>
             </div>
             <div class="modal-actions">
-                <a href="" role="button" class="btn btn-blue inverted btn-lg close-modal">Lo entiendo</a>
+                <a href="" role="button" class="btn btn-blue inverted btn-lg close-modal"><g:message code="participatoryBudget.district.modal.differentDistrict.close"/></a>
             </div>
         </div>
     </div>
