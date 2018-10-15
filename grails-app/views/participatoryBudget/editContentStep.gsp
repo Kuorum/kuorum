@@ -26,5 +26,5 @@
                     districts:'participatoryBudgetEditDistricts',
                     deadlines:'participatoryBudgetEditDeadlines',
                     showResult: 'campaignShow',
-                    next: 'participatoryBudgetEditDistricts']]"/>
+                    next: 'participatoryBudgetEditDeadlines']]"/>
 </content>
