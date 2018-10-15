@@ -1668,7 +1668,6 @@ ul.list > li > ul.list-actions > li > a:active {color: #20a2ea;}
 .actionIcons > li.fontIcon.arrow {display: none}
 .actionIcons > li + li.fontIcon.arrow {display: inline-block}
 
-.dashboard, .box-ppal.dashboard {margin-top: 20px;}
 .dashboard > div > .box-ppal {min-height: 225px; box-shadow: 0 0 2px rgba(200,200,200,0.6);}
 .dashboard .box-ppal > h2 {font-size: 20px; font-size: 2rem; color: #a8a8a8; padding-bottom: 10px; border-bottom: solid 1px #e5e5e5; margin: 0 0 20px 0;}
 .box-ppal#createNewCampaign {margin-bottom:20px;}
@@ -5986,6 +5985,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 
 /* Medium devices (desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
+    .dashboard, .box-ppal.dashboard {margin-top: 20px;}
 
     .fade-carousel .content { width: 90%;}
     #carousel-landing-main #request-demo-btn {

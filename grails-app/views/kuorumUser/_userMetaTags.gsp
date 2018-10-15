@@ -1,4 +1,4 @@
-<g:if test="${!user?.bio}">
+<g:if test="${!user?.bio ||user.alias=='admin'}">
     <meta name="robots" content="noindex">
 </g:if>
 
