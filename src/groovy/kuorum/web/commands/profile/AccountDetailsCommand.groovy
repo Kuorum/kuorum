@@ -4,6 +4,7 @@ import grails.validation.Validateable
 import kuorum.Region
 import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.model.AvailableLanguage
+import kuorum.register.RegisterService
 import kuorum.users.KuorumUser
 import kuorum.web.binder.RegionBinder
 import org.codehaus.groovy.grails.web.context.ServletContextHolder
@@ -79,8 +80,13 @@ class AccountDetailsCommand {
 
     private static Boolean isPasswordValid(String inputPassword, KuorumUser user){
         Object appContext = ServletContextHolder.servletContext.getAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT)
-        org.springframework.security.authentication.encoding.PasswordEncoder passwordEncoder = (org.springframework.security.authentication.encoding.PasswordEncoder)appContext.passwordEncoder
-        passwordEncoder.isPasswordValid(user.password, inputPassword, null)
+        RegisterService registerService = ( kuorum.register.RegisterService)appContext.registerService
+        if (registerService.isPasswordSetByUser(user)){
+            org.springframework.security.authentication.encoding.PasswordEncoder passwordEncoder = (org.springframework.security.authentication.encoding.PasswordEncoder)appContext.passwordEncoder
+            return passwordEncoder.isPasswordValid(user.password, inputPassword, null)
+        }else{
+            return true;
+        }
     }
 
     public static String normalizeAlias(String alias){

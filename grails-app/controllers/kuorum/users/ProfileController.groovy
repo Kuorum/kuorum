@@ -73,7 +73,7 @@ class ProfileController {
         KuorumUser user = params.user
         AccountDetailsCommand command = new AccountDetailsCommand(user)
         command.homeRegion = regionService.findUserRegion(user)
-        [command:command]
+        [command:command, requirePassword: registerService.isPasswordSetByUser(user)]
     }
 
 //    @Secured(["IS_AUTHENTICATED_FULLY"])
