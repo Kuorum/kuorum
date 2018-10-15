@@ -1,11 +1,19 @@
 <g:set var="callTitleMsg" value="${g.message(code:'participatoryBudget.callToAction.draft.title')}"/>
 <g:set var="callSubtitleMsg" value="${g.message(code:'participatoryBudget.callToAction.draft.subtitle')}"/>
 <g:set var="callButtonMsg" value=""/>
-<g:if test="${participatoryBudget.published}">
+<g:if test="${org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SCHEDULED.equals(participatoryBudget.newsletter?.status?:null)}">
+    <g:set var="callTitleMsg" value="${g.message(code:"participatoryBudget.callToAction.SCHEDULED.title", args: [campaignUser.name])}"/>
+    <g:set var="callSubtitleMsg" value="${g.message(code:"participatoryBudget.callToAction.SCHEDULED.subtitle", args: [campaignUser.name])}"/>
+</g:if>
+<g:elseif test="${org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.PROCESSING.equals(participatoryBudget.newsletter?.status?:null)}">
+    <g:set var="callTitleMsg" value="${g.message(code:"participatoryBudget.callToAction.PROCESSING.title", args: [campaignUser.name])}"/>
+    <g:set var="callSubtitleMsg" value="${g.message(code:"participatoryBudget.callToAction.PROCESSING.subtitle", args: [campaignUser.name])}"/>
+</g:elseif>
+<g:elseif test="${participatoryBudget.published}">
     <g:set var="callTitleMsg" value="${g.message(code:"participatoryBudget.callToAction.${participatoryBudget.status}.title", args: [campaignUser.name])}"/>
     <g:set var="callSubtitleMsg" value="${g.message(code:"participatoryBudget.callToAction.${participatoryBudget.status}.subtitle", args: [campaignUser.name])}"/>
     <g:set var="callButtonMsg" value="${g.message(code:"participatoryBudget.callToAction.${participatoryBudget.status}.button",args: [campaignUser.name])}"/>
-</g:if>
+</g:elseif>
 
 <div class="comment-box call-to-action call-to-action-add-proposal hidden-sm hidden-xs">
     <div class="comment-header">
