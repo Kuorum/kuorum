@@ -7954,7 +7954,7 @@ body.noLogged .leader-post .header .call-to-action-mobile{
     border: none;
     background: transparent;
 }
-
+.comment-counter + .comment-counter {margin-right: 5px;}
 .leader-post > .footer .comment-counter a:hover,
 .leader-post > .footer .comment-counter button:hover {color: #00a3ed;text-decoration: none;}
 .leader-post > .footer .comment-counter a.disabled:hover,
