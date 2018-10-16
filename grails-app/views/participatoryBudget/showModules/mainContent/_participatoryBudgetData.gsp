@@ -15,6 +15,8 @@
     <div class="footer clearfix">
         <g:render template="/campaigns/showModules/campaignDataLabels" model="[causes:participatoryBudget.causes]"/>
         <g:render template="/campaigns/showModules/campaignDataSocial" model="[campaign:participatoryBudget]"/>
-        <g:render template="/participatoryBudget/showModules/participatoryBudgetDataIcon" model="[participatoryBudget:participatoryBudget]"/>
+        <g:if test="${participatoryBudget.published}">
+            <g:render template="/participatoryBudget/showModules/participatoryBudgetDataIcon" model="[participatoryBudget:participatoryBudget]"/>
+        </g:if>
     </div>
 </div>

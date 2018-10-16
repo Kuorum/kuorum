@@ -65,12 +65,13 @@ $(function () {
         e.preventDefault()
         moveSmooth("#participatory-budget-district-proposals-list-tab-tag")
     });
-    $(".leader-post .footer .comment-counter").on("click", function(e){
+    $(".leader-post .footer .comment-counter a:not(.ADDING_PROPOSALS)").on("click", function(e){
         e.preventDefault()
         moveSmooth("#participatory-budget-district-proposals-list-tab-tag")
     });
 
     $(".call-to-action-add-proposal").on("click", "a.btn.ADDING_PROPOSALS", participatoryBudgetHelper.bindActionClickAddDistrictProposal);
+    $("body").on("click", ".comment-counter a.ADDING_PROPOSALS", participatoryBudgetHelper.bindActionClickAddDistrictProposal);
 
     participatoryBudgetHelper.moveAndOpenDistrict(window.location.hash);
 

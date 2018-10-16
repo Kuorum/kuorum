@@ -80,10 +80,7 @@
                         </g:link>
                     </g:elseif>
                     <g:elseif test="${campaign.type== org.kuorum.rest.model.search.SearchTypeRSDTO.PARTICIPATORY_BUDGET}">
-                        <g:link mapping="campaignShow" params="${campaign.encodeAsLinkProperties()}" fragment="participatory-budget-district-proposals-list-tab" role="button">
-                            <span class="fal fa-money-bill-alt fa-lg"></span>
-                            <span class="number">${campaign.basicStats.numProposals}</span>
-                        </g:link>
+                        <g:render template="/participatoryBudget/showModules/participatoryBudgetDataIcon" model="[participatoryBudget:campaign]"/>
                     </g:elseif>
                     <g:elseif test="${campaign.type== org.kuorum.rest.model.search.SearchTypeRSDTO.DISTRICT_PROPOSAL}">
                         <g:render template="/districtProposal/showModules/districtProposalDataIcon/districtProposalDataIcon_${campaign.participatoryBudget.status}" model="[districtProposal:campaign]"/>
