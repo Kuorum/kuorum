@@ -16,7 +16,7 @@
                 ]"/>
             </div>
             <div class="modal-actions">
-                <a href="" role="button" class="btn btn-blue inverted btn-lg close-modal">Lo entiendo</a>
+                <a href="" role="button" class="btn btn-blue inverted btn-lg close-modal"><g:message code="participatoryBudget.district.modal.differentDistrict.close"/></a>
             </div>
         </div>
     </div>
