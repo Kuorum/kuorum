@@ -278,6 +278,7 @@ class NewsletterController {
         }
     }
 
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def showCampaignStats(Long campaignId){
         KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
         CampaignRSDTO campaign = campaignService.find(loggedUser, campaignId)
