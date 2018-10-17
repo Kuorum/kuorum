@@ -2838,10 +2838,12 @@ ul.search-list > li.search-article > article.box-ppal > div.link-wrapper > div.c
     width: 87%;
     text-align: left;
 }
-ul.search-list > li.search-article > article.box-ppal > div.link-wrapper > div.card-footer > ul > li.owner .user{
+ul.search-list > li.search-article > article.box-ppal > div.link-wrapper > div.card-footer > ul > li.owner .user a{
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    width:100%;
+    display: inline-block;
 }
 ul.search-list > li.info-empty  p{margin:auto; padding:40px;text-align: center;color: #a8a8a8;font-size: 2rem;}
 ul.search-list > li.info-empty .text-empty-campaignList {width: 90%;}
