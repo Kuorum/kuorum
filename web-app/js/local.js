@@ -731,6 +731,7 @@ function getHash(){
 
 function normalizeHash(hash){
     hash = hash.replace("=",""); // Facebook login adds #_=_ at the end of the URL. This makes to fail this logic
+    hash = hash.replace("'",""); // Facebook login adds #_=_ at the end of the URL. This makes to fail this logic
     hash = decodeURIComponent(hash)
     hash = removeDiacritics(hash)
     hash = hash.replace(/ /g,"-");
