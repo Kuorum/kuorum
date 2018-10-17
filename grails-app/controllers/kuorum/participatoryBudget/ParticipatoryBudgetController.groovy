@@ -411,7 +411,7 @@ class ParticipatoryBudgetController extends CampaignController{
         }
     }
 
-    @Secured(['ROLE_ADMIN','ROLE_CAMPAIGN_PARTICIPATORY_BUDGETst'])
+    @Secured(['ROLE_ADMIN','ROLE_CAMPAIGN_PARTICIPATORY_BUDGET'])
     def updateTechnicalReview(DistrictProposalTechnicalReviewCommand command){
         init()
         KuorumUser campaignUser = KuorumUser.get(springSecurityService.principal.id)

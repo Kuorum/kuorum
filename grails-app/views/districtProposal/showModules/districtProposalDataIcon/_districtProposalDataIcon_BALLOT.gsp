@@ -19,6 +19,6 @@
                         iconNumber:districtProposal.numSupports,
                         isActive:districtProposal.isSupported,
                         callButtonActionClass:'disabled',
-                        callButtonAction:g.createLink(mapping:'participatoryBudgetDistrictProposalSupport', params:districtProposal.encodeAsLinkProperties())
+                        callButtonAction:g.createLink(mapping:'districtProposalShow', params:districtProposal.encodeAsLinkProperties())
                 ]" />
 </g:else>

@@ -2845,6 +2845,9 @@ ul.search-list > li.search-article > article.box-ppal > div.link-wrapper > div.c
     width:100%;
     display: inline-block;
 }
+ul.search-list > li.search-article > article.box-ppal > div.link-wrapper > div.card-footer > ul > li.owner .user .popover.bottom>.arrow{
+    margin-left: -100px;
+}
 ul.search-list > li.info-empty  p{margin:auto; padding:40px;text-align: center;color: #a8a8a8;font-size: 2rem;}
 ul.search-list > li.info-empty .text-empty-campaignList {width: 90%;}
 ul.search-list > li.info-empty .icon-empty-campaignList {color: #ff9431; width:5%; display:none;}
