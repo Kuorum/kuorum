@@ -2831,8 +2831,18 @@ ul.search-list > li.search-article .box-ppal .card-footer > ul li .label { color
 ul.search-list > li.search-article .box-ppal .card-footer > ul li .comment-counter.important {margin-top:-2px;color: #ff9431;}
 
 ul.search-list > li.search-article > article.box-ppal > div.link-wrapper > div.card-footer > ul > li.districtProposalPrice{position: relative;float: left; font-size: 25px; font-weight: bold;}
-ul.search-list > li.search-article > article.box-ppal > div.link-wrapper > div.card-footer > ul > li.owner {position: relative;float: left;bottom: 7px;}
-
+ul.search-list > li.search-article > article.box-ppal > div.link-wrapper > div.card-footer > ul > li.owner {
+    position: relative;
+    float: left;
+    bottom: 7px;
+    width: 87%;
+    text-align: left;
+}
+ul.search-list > li.search-article > article.box-ppal > div.link-wrapper > div.card-footer > ul > li.owner .user{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 ul.search-list > li.info-empty  p{margin:auto; padding:40px;text-align: center;color: #a8a8a8;font-size: 2rem;}
 ul.search-list > li.info-empty .text-empty-campaignList {width: 90%;}
 ul.search-list > li.info-empty .icon-empty-campaignList {color: #ff9431; width:5%; display:none;}
