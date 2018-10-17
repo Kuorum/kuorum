@@ -1,8 +1,8 @@
 <script>
     var filterDataImplemented={'true':'${g.message(code:"tools.massMailing.view.participatoryBudget.proposalList.table.implemented.filter.true")}','false':'${g.message(code:"tools.massMailing.view.participatoryBudget.proposalList.table.implemented.filter.false")}'}
     var filterDataApproved={'true':'${g.message(code:"tools.massMailing.view.participatoryBudget.proposalList.table.approved.filter.true")}','false':'${g.message(code:"tools.massMailing.view.participatoryBudget.proposalList.table.approved.filter.false")}'}
-    var filterDataDistrict={ ${raw(participatoryBudget.districts.collect{"'${it.id}':'${it.name}'"}.join(","))} };
-    var filterDataCause={ ${raw(participatoryBudget.causes.collect{"'${it}':'${it}'"}.join(","))} };
+    var filterDataDistrict={ ${raw(participatoryBudget.districts.collect{"'${it.id}':'${it.name.encodeAsHTML()}'"}.join(","))} };
+    var filterDataCause={ ${raw(participatoryBudget.causes.collect{"'${it}':'${it.encodeAsHTML()}'"}.join(","))} };
     var filterDataTechnicalReview={ ${raw(org.kuorum.rest.model.communication.participatoryBudget.TechnicalReviewStatusRDTO.values().collect{"'${it}':'${g.message(code:"org.kuorum.rest.model.communication.participatoryBudget.TechnicalReviewStatusRDTO."+it)}'"}.join(','))} };
 
 </script>
