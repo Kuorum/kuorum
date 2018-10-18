@@ -26,7 +26,7 @@
             <formUtil:editImage command="${command}" accept=".jpg,.jpeg" field="slideId3" fileGroup="${kuorum.core.FileGroup.DOMAIN_SLIDE_IMAGE}"/>
         </fieldset>
         <fieldset class="form-group text-center">
-            <input type="submit" value="${g.message(code:'profile.emailNotifications.save')}" class="btn btn-orange btn-lg">
+            <input type="submit" value="${g.message(code:'default.save')}" class="btn btn-orange btn-lg">
         </fieldset>
     </g:uploadForm>
 

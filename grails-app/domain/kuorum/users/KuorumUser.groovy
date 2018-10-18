@@ -6,8 +6,8 @@ import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.model.AvailableLanguage
 import kuorum.core.model.CommissionType
 import kuorum.core.model.UserType
-import kuorum.notifications.Notice
-import kuorum.users.extendedPoliticianData.*
+import kuorum.users.extendedPoliticianData.PoliticianRelevantEvent
+import kuorum.users.extendedPoliticianData.ProfessionalDetails
 import org.bson.types.ObjectId
 
 /**
@@ -50,12 +50,6 @@ class KuorumUser {
 
     List<String> tags
 
-    Notice notice
-//
-//    String brainTreeId
-//    String brainTreePaymentToken
-//    String brainTreePaymentTokenNonce
-
     String getFullName(){
         "${name} ${surname?:''}".trim()
     }
@@ -67,23 +61,12 @@ class KuorumUser {
             'activity',
             'imageProfile',
             'socialLinks',
-            'notice',
             'relevantEvents',
-            'professionalDetails',
-            'politicianExtraInfo',
-            'careerDetails',
-            'institutionalOffice',
-            'politicalOffice',
+            'professionalDetails'
     ]
 
     List<PoliticianRelevantEvent> relevantEvents
     ProfessionalDetails professionalDetails
-    CareerDetails careerDetails
-    PoliticianExtraInfo politicianExtraInfo
-    OfficeDetails institutionalOffice
-    OfficeDetails politicalOffice
-
-
 
 
     //Spring fields
@@ -117,7 +100,6 @@ class KuorumUser {
         avatar nullable:true
         imageProfile nullable:true
         userType nullable: false
-        notice nullable: true
         skipUploadContacts nullable: true
         timeZoneId nullable:true
         isValid nullable:true
@@ -127,10 +109,6 @@ class KuorumUser {
 //        requestedPoliticianBetaTester nullable:true
         relevantEvents nulable:true
         professionalDetails nullable:true
-        institutionalOffice nullable:true
-        politicalOffice nullable:true
-        careerDetails nullable:true
-        politicianExtraInfo nullable:true
         verified nullable: true
 //        brainTreeId nullable:true
 //        brainTreePaymentToken nullable:true

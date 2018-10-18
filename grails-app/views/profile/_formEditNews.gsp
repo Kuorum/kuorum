@@ -23,6 +23,6 @@
 
 <fieldset>
     <div class="form-group text-center">
-        <button type="submit" class="btn btn-default btn-lg"><g:message code="admin.createUser.submit"/></button>
+        <button type="submit" class="btn btn-default btn-lg"><g:message code="default.save"/></button>
     </div>
 </fieldset>

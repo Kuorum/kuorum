@@ -9,9 +9,7 @@ import grails.plugin.springsecurity.ui.ResetPasswordCommand
 import grails.plugin.springsecurity.ui.SpringSecurityUiService
 import grails.validation.Validateable
 import groovyx.net.http.RESTClient
-import kuorum.KuorumFile
 import kuorum.core.customDomain.CustomDomainResolver
-import kuorum.core.model.AvailableLanguage
 import kuorum.files.FileService
 import kuorum.mail.MailchimpService
 import kuorum.notifications.NotificationService
@@ -23,11 +21,8 @@ import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
 import kuorum.web.commands.customRegister.ContactRegister
 import kuorum.web.commands.customRegister.ForgotUserPasswordCommand
-import kuorum.web.commands.customRegister.RequestCaseStudyCommand
-import kuorum.web.commands.customRegister.RequestDemoCommand
 import kuorum.web.users.KuorumRegistrationCode
 import org.springframework.beans.factory.annotation.Value
-import org.springframework.context.i18n.LocaleContextHolder
 import org.springframework.security.core.context.SecurityContextHolder
 
 class RegisterController extends grails.plugin.springsecurity.ui.RegisterController {
@@ -321,22 +316,6 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         redirect mapping:"resetPasswordSent"
     }
 
-    def requestADemo(RequestDemoCommand command){
-        if (command.hasErrors()){
-            render g.message(code:'kuorum.web.commands.customRegister.RequestDemoCommand.error');
-            return ;
-        }
-        if(!verifyRegister()){
-            render ([success:false] as JSON)
-            return
-        }
-        Locale locale = LocaleContextHolder.getLocale();
-        AvailableLanguage language = AvailableLanguage.fromLocaleParam(locale.getLanguage());
-        kuorumMailService.sendRequestADemo(command.getName(), command.getEmail(), language)
-        kuorumMailService.sendRequestADemoAdmin(command.getName(), command.surname, command.getEmail(),  command.getSector(), command.getPhone(), command.comment, language)
-        render g.message(code:'kuorum.web.commands.customRegister.RequestDemoCommand.success');
-    }
-
     def forgotPasswordSuccess = {
     }
 
@@ -384,37 +363,6 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
 
         flash.message = message(code: 'spring.security.ui.resetPassword.success')
         redirect uri: ulrCallback
-    }
-
-    def downloadCaseStudy(RequestCaseStudyCommand command){
-        if (command.hasErrors()){
-            flash.message = "Invalid mail"
-            redirect mapping:'landingPoliticians'
-            return
-        }
-        if(!verifyRegister()){
-            render ([success:false] as JSON)
-            return
-        }
-        Locale locale = LocaleContextHolder.getLocale();
-        mailchimpService.addCaseStudy(command.name, command.email, locale)
-        String preFileName = "KuorumCaseStudy"
-        String caseStudyId = params.caseStudyId
-        String ext = "pdf"
-        String langPressKit = "en"
-        if (locale.getLanguage() == "es"){
-            langPressKit = "es"
-        }
-
-        KuorumFile kuorumFile = new KuorumFile()
-        String fileName = "${preFileName}_${caseStudyId}_${langPressKit}.${ext}"
-        kuorumFile.storagePath="static/caseStudy/${fileName}"
-        InputStream fileData = fileService.readFile(kuorumFile)
-        response.setContentType("application/pdf")
-        response.setHeader("Content-disposition", "attachment; filename=\"${fileName}\"")
-        response.outputStream << fileData
-        fileData.close()
-        return
     }
 
     /**

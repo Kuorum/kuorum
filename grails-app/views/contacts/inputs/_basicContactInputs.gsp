@@ -24,6 +24,6 @@
                 enumClass="${org.kuorum.rest.model.contact.ContactLanguageRDTO.class}"/>
     </div>
     <div class="col-md-4">
-        <input type="submit" value="${g.message(code:'tools.contact.edit.save')}" class="btn btn-blue inverted">
+        <input type="submit" value="${g.message(code:'default.save')}" class="btn btn-blue inverted">
     </div>
 </div>

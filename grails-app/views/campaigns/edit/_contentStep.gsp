@@ -29,14 +29,14 @@
         <fieldset class="form-group multimedia">
             <label for="headerPictureId" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.massMailing.DebateCommand.image.label"/>:</label>
             <div class="col-sm-8 col-md-7">
-                <span class="span-label sr-only"><g:message code="admin.createProject.upload.imageOrVideo" /></span>
+                <span class="span-label sr-only"><g:message code="default.upload.title" /></span>
                 <input type="hidden" name="fileType" value="${(command.fileType == kuorum.core.FileType.YOUTUBE.toString())?'YOUTUBE':'IMAGE'}" id="fileType">
                 <ul class="nav nav-pills nav-justified">
                     <li class="${command.headerPictureId || (command.errors?.getFieldError('headerPictureId')?.codes?.contains('imageOrUrlYoutubeRequired') && command.errors?.getFieldError('videoPost')?.codes?.contains('imageOrUrlYoutubeRequired'))?'active':''}">
-                        <a href="#projectUploadImage" data-toggle="tab" data-filetype="IMAGE"><g:message code="admin.createProject.upload.image" /></a>
+                        <a href="#projectUploadImage" data-toggle="tab" data-filetype="IMAGE"><g:message code="default.upload.image" /></a>
                     </li>
                     <li class="${command.videoPost?'active':''}">
-                        <a href="#projectUploadYoutube" data-toggle="tab" data-filetype="YOUTUBE"><g:message code="admin.createProject.upload.video" /></a>
+                        <a href="#projectUploadYoutube" data-toggle="tab" data-filetype="YOUTUBE"><g:message code="default.upload.youtube" /></a>
                     </li>
                 </ul>
                 <div class="tab-content">

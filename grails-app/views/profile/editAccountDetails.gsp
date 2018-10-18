@@ -33,12 +33,12 @@
         <div class="box-ppal-section">
             <fieldset class="form-group text-center">
                 <g:if test="${requirePassword}">
-                    <a href="#" class="btn btn-orange btn-lg" id="auth"><g:message code="profile.emailNotifications.save"/></a>
+                    <a href="#" class="btn btn-orange btn-lg" id="auth"><g:message code="default.save"/></a>
                 </g:if>
                 <g:else>
-                    <button type="submit" class="btn btn-orange btn-lg" ><g:message code="profile.emailNotifications.save"/></button>
+                    <button type="submit" class="btn btn-orange btn-lg" ><g:message code="default.save"/></button>
                 </g:else>
-                %{--<input type="submit" value="${g.message(code:'profile.emailNotifications.save')}" class="btn btn-orange btn-lg">--}%
+                %{--<input type="submit" value="${g.message(code:'default.save')}" class="btn btn-orange btn-lg">--}%
             </fieldset>
         </div>
 

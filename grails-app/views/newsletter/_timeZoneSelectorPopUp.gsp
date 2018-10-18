@@ -19,7 +19,7 @@
                         </fieldset>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn" type="submit"><g:message code="modal.timeZone.send"/></button>
+                        <button class="btn" type="submit"><g:message code="default.save"/></button>
                     </div>
                 </g:form>
             </div>

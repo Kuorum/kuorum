@@ -2,10 +2,8 @@ package kuorum.notifications
 
 import com.fasterxml.jackson.core.type.TypeReference
 import grails.transaction.Transactional
-import kuorum.campaign.PollCampaignVote
 import kuorum.core.model.search.SearchNotifications
 import kuorum.post.Post
-import kuorum.post.PostComment
 import kuorum.users.KuorumUser
 import kuorum.util.rest.RestKuorumApiService
 import org.codehaus.groovy.grails.web.mapping.LinkGenerator
@@ -64,19 +62,9 @@ class NotificationService {
         notificationPage
     }
 
-    @Deprecated
-    public void sendPollCampaignNotification(PollCampaignVote pollCampaign){
-        kuorumMailService.sendPollCampaignMail(pollCampaign)
-    }
-
     public void sendPoliticianContactNotification(KuorumUser politician, KuorumUser user, String message, String cause){
         kuorumMailService.sendPoliticianContact(politician, user, message, cause)
         //kuorumMailService.sendPoliticianContactKuorumNotification(politician, user, message, cause) // MandrillApp API problems
-    }
-
-    @Deprecated
-    void sendCommentNotifications(Post post, PostComment comment){
-        // Does nothing
     }
 
     NotificationConfigRDTO getNotificationsConfig(KuorumUser user){

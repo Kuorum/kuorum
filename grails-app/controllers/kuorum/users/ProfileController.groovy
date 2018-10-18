@@ -16,8 +16,6 @@ import kuorum.register.RegisterService
 import kuorum.users.extendedPoliticianData.ProfessionalDetails
 import kuorum.web.commands.profile.*
 import kuorum.web.commands.profile.politician.PoliticianCausesCommand
-import kuorum.web.commands.profile.politician.ProfessionalDetailsCommand
-import kuorum.web.commands.profile.politician.QuickNotesCommand
 import kuorum.web.commands.profile.politician.RelevantEventsCommand
 import org.bson.types.ObjectId
 import org.codehaus.groovy.runtime.InvokerHelper
@@ -241,25 +239,6 @@ class ProfileController {
 
     }
 
-    def editCommissions () {
-        KuorumUser user = params.user
-        EditCommissionsProfileCommand command = new EditCommissionsProfileCommand()
-        command.commissions = user.relevantCommissions
-        [command: command, user:user]
-    }
-
-    def editCommissionsSave (EditCommissionsProfileCommand command) {
-        KuorumUser user = params.user
-        if (command.hasErrors()){
-            render view:"editUser", model: [command:command,user:user]
-            return
-        }
-        user.relevantCommissions = command.commissions
-        kuorumUserService.updateUser(user)
-        flash.message=message(code:'profile.editUser.success')
-        redirect mapping:'profileEditCommissions'
-    }
-
     public static void prepareUserEditProfile(KuorumUser user, EditUserProfileCommand command){
         PersonalData personalData = null;
         user.bio = command.bio
@@ -477,41 +456,6 @@ class ProfileController {
         politicianService.updatePoliticianRelevantEvents(params.user, command.politicianRelevantEvents)
         flash.message=message(code:'profile.editUser.success')
         redirect mapping:'profileNews'
-    }
-
-    def editQuickNotes(){
-        KuorumUser politician = params.user
-        QuickNotesCommand command = new QuickNotesCommand(politician)
-        [command:command]
-    }
-
-    def updateQuickNotes(QuickNotesCommand command){
-        KuorumUser user = params.user
-        if (command.hasErrors() || !user ){
-            render view:"editQuickNotes", model:[command:command]
-            return;
-        }
-        politicianService.updatePoliticianQuickNotes(user, command.politicianExtraInfo, command.institutionalOffice, command.politicalOffice)
-        flash.message=message(code:'profile.editUser.success')
-        redirect mapping:'profileQuickNotes', params: user.encodeAsLinkProperties()
-    }
-
-
-    def editProfessionalDetails(){
-        KuorumUser politician = params.user
-        ProfessionalDetailsCommand command = new ProfessionalDetailsCommand(politician)
-        [command:command]
-    }
-
-    def updateProfessionalDetails(ProfessionalDetailsCommand command){
-        KuorumUser user = params.user
-        if (command.hasErrors() || !user ){
-            render view:"/profile/editProfessionalDetails", model:[command:command]
-            return;
-        }
-        politicianService.updatePoliticianProfessionalDetails(user, command)
-        flash.message=message(code:'profile.editUser.success')
-        redirect mapping:'profileProfessionalDetails', params: user.encodeAsLinkProperties()
     }
 
     def editNewsletterConfig(){

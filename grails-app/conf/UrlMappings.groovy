@@ -94,8 +94,6 @@ class UrlMappings {
         name de_resetPasswordChange:"/registrierung/passwort-aendern" (controller: "register"){action=[GET:"resetPassword", POST:"resetPassword"];mappingName="resetPasswordChange"}
         name ca_resetPasswordChange:"/registre/canvia-password" (controller: "register"){action=[GET:"resetPassword", POST:"resetPassword"];mappingName="resetPasswordChange"}
 
-        name ajaxRequestADemo:      "/ajax/requestADemo"(controller: "register", action: "requestADemo")
-
 
         name login:     "/log-in"    (controller:"login", action:"index"){mappingName="login"}
         name en_login:  "/log-in"    (controller:"login", action:"index"){mappingName="login"}
@@ -269,14 +267,6 @@ class UrlMappings {
         name de_searcherSearchDISTRICT_PROPOSALByREGION:"/suche/vorschlag/von/$word?"      (controller: "search", action:"search"){searchType="REGION";type="DISTRICT_PROPOSAL"; mappingName="searcherSearchDISTRICT_PROPOSALByREGION"}
         name ca_searcherSearchDISTRICT_PROPOSALByREGION:"/cerca/publicacio/a/$word?"      (controller: "search", action:"search"){searchType="REGION";type="DISTRICT_PROPOSAL"; mappingName="searcherSearchDISTRICT_PROPOSALByREGION"}
 
-
-        name footerUserGuides:      "/user-guides"          (controller: "footer", action: "footerUserGuides"){mappingName="footerUserGuides"}
-        name en_footerUserGuides:   "/user-guides"          (controller: "footer", action: "footerUserGuides"){mappingName="footerUserGuides"}
-        name es_footerUserGuides:   "/guias-de-usuario"     (controller: "footer", action: "footerUserGuides"){mappingName="footerUserGuides"}
-        name de_footerUserGuides:   "/benutzerhandbuecher"  (controller: "footer", action: "footerUserGuides"){mappingName="footerUserGuides"}
-        name ca_footerUserGuides:   "/guies-d-usuari"  (controller: "footer", action: "footerUserGuides"){mappingName="footerUserGuides"}
-
-
         /**********************/
         /***** LOGGED URLs ****/ //Language no matters
         /**********************/
@@ -383,7 +373,6 @@ class UrlMappings {
 
         name profileEditAccountDetails:     "/config/account-details"                                   (controller: "profile"){action =[GET:"editAccountDetails", POST:"updateAccountDetails"]}
         name profileEditUser:               "/edit-profile"                                    (controller: "profile"){action =[GET:"editUser", POST:"editUserSave"]}
-        name profileEditCommissions:        "/edit-profile/edit-commission"                    (controller: "profile"){action =[GET:"editCommissions", POST:"editCommissionsSave"]}
         name profileChangePass:             "/edit-profile/change-password"                    (controller: "profile"){action =[GET:"changePassword", POST:"changePasswordSave"]}
         name profileSetPass:                "/edit-profile/create-password"                    (controller: "profile"){action =[GET:"setPassword", POST:"setPasswordSave"]}
         name profileChangeEmail:            "/edit-profile/change-email"                       (controller: "profile"){action =[GET:"changeEmail", POST:"changeEmailSave"]}
@@ -395,8 +384,6 @@ class UrlMappings {
         name profileDeleteAccount:          "/edit-profile/delete-account"                     (controller: "profile"){action=[GET:"deleteAccount", POST:"deleteAccountPost"]}
         name profileCauses:                 "/edit-profile/causes"                             (controller: "profile"){action=[GET:"editCauses", POST:"updateCauses"]}
         name profileNews:                   "/edit-profile/news"                               (controller: "profile"){action=[GET:"editNews", POST:"updateNews"]}
-        name profileQuickNotes:             "/edit-profile/quick-notes"                        (controller: "profile"){action=[GET:"editQuickNotes", POST:"updateQuickNotes"]}
-        name profileProfessionalDetails:    "/edit-profile/professional-details"               (controller: "profile"){action=[GET:"editProfessionalDetails", POST:"updateProfessionalDetails"]}
         name profilePictures:               "/edit-profile/pictures"                           (controller: "profile"){action=[GET:"editPictures", POST: "updatePictures"]}
         name profileNewsletterConfig:       "/config/newsletter-config"                        (controller: "profile"){action=[GET:"editNewsletterConfig", POST: "updateNewsletterConfig"]}
         name profileNewsletterConfigRequestEmailSender:     "/ajax/config/newsletter-config/requestSender"   (controller: "profile"){action=[POST: "requestedEmailSender"]}
@@ -440,7 +427,6 @@ class UrlMappings {
         name editorEditSocialNetwork:                       "/editor/user/$userAlias/editar/social-network"         (controller:"editorUser"){action =[GET:"editUserSocialNetwork", POST:"updateUserSocialNetwork"]}
         name editorEditNews:                                "/editor/user/$userAlias/editar/news"                   (controller:"editorPolitician"){action =[GET:"editNews", POST:"updateNews"]}
         name editorEditPoliticianProfessionalDetails:       "/editor/user/$userAlias/editar/professionalDetails"    (controller:"editorPolitician"){action =[GET:"editProfessionalDetails", POST:"updateProfessionalDetails"]}
-        name editorEditPoliticianQuickNotes:                "/editor/user/$userAlias/editar/quick-notes"            (controller:"editorPolitician"){action =[GET:"editQuickNotes", POST:"updateQuickNotes"]}
         name editorEditPoliticianCauses:                    "/editor/user/$userAlias/editar/causes"                 (controller:"editorPolitician"){action =[GET:"editCauses", POST:"updateCauses"]}
         name editorKuorumAccountEdit:                       "/editor/user/$userAlias/editar/account-details"        (controller:"editorUser"){action =[GET:"editAdminAccountDetails", POST:"updateAdminAccountDetails"]}
         name editorAdminUserRights:                         "/editor/user/$userAlias/editar/rights"                 (controller:"admin"){action =[GET:"editUserRights", POST:"updateUserRights"]}
