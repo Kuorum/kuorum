@@ -41,8 +41,16 @@ class DomainService {
         }
     }
 
+    DomainRSDTO updateConfig(DomainRSDTO domainRSDTO ){
+        def valid = DomainRDTO.getDeclaredFields().grep {  !it.synthetic }.collect{it.name}
+        DomainRDTO domainRDTO = new DomainRDTO(domainRSDTO.properties.findAll{valid.contains(it.key)})
+        return updateConfigSettingDomain(domainRDTO, domainRSDTO.domain)
+    }
     DomainRSDTO updateConfig(DomainRDTO domainRDTO ){
-        domainRDTO.domain = CustomDomainResolver.domain
+        return updateConfigSettingDomain(domainRDTO,CustomDomainResolver.domain)
+    }
+    private DomainRSDTO updateConfigSettingDomain(DomainRDTO domainRDTO, String domain){
+        domainRDTO.domain = domain
         Map<String, String> params = [:]
         Map<String, String> query = [:]
 
@@ -54,14 +62,15 @@ class DomainService {
                     domainRDTO,
                     new TypeReference<DomainRSDTO>(){},
                     kuorumAdminRestApiKey)
-            DomainRSDTO domain
+            DomainRSDTO domainRSDTO
             if (apiResponse.data){
-                domain = apiResponse.data
+                domainRSDTO = apiResponse.data
             }
-            lessCompilerService.compileCssForDomain(domain)
-            return domain;
+            lessCompilerService.compileCssForDomain(domainRSDTO)
+            return domainRSDTO;
         }catch (Exception e){
             log.warn("Error updating config. [Excp: ${e.getMessage()}")
+            return null;
         }
     }
 

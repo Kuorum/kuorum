@@ -140,20 +140,8 @@ class AdminController {
 
     private DomainRDTO getPopulatedDomainRDTO(){
         DomainRSDTO domainRSDTO = domainService.getConfig(CustomDomainResolver.domain)
-        DomainRDTO domainRDTO = new DomainRDTO()
-        domainRDTO.name = domainRSDTO.name
-        domainRDTO.validation = domainRSDTO.validation
-        domainRDTO.language = domainRSDTO.language
-        domainRDTO.mainColor = domainRSDTO.mainColor
-        domainRDTO.mainColorShadowed = domainRSDTO.mainColorShadowed
-        domainRDTO.secondaryColor = domainRSDTO.secondaryColor
-        domainRDTO.secondaryColorShadowed = domainRSDTO.secondaryColorShadowed
-        domainRDTO.social = domainRSDTO.social
-        domainRDTO.slogan = domainRSDTO.slogan
-        domainRDTO.subtitle = domainRSDTO.subtitle
-        domainRDTO.domainDescription= domainRSDTO.domainDescription
-        domainRDTO.footerLinks = domainRSDTO.footerLinks
-
+        def valid = DomainRDTO.getDeclaredFields().grep {  !it.synthetic }.collect{it.name}
+        DomainRDTO domainRDTO = new DomainRDTO(domainRSDTO.properties.findAll{valid.contains(it.key)})
         return domainRDTO;
     }
 

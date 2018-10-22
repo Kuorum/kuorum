@@ -24,7 +24,10 @@ class BootStrap {
         URL url = new URL("https://kuorum.org/kuorum")
         CustomDomainResolver.setUrl(url, "")
         List<DomainRSDTO> domains = domainService.findAllDomains()
-        domains.each {lessCompilerService.compileCssForDomain(it)}
+        domains.each {
+            domainService.updateConfig(it) // Used to update the version number and force browsers to download again the css and uploads the new css
+//            lessCompilerService.compileCssForDomain(it)
+        }
         CustomDomainResolver.clear()
 
 //        KeyStore ks = KeyStore.getInstance("JKS");
