@@ -320,7 +320,7 @@ class UrlMappings {
         name participatoryBudgetEditDistricts:     "/account/$userAlias/pb/$urlTitle-$campaignId/edit-districts"(controller: "participatoryBudget"){action = [GET: "editDistricts", POST: "saveDistricts"]}
         name participatoryBudgetEditDeadlines:     "/account/$userAlias/pb/$urlTitle-$campaignId/edit-deadlines"(controller: "participatoryBudget"){action = [GET: "editDeadlines", POST: "saveDeadlines"]}
         name participatoryBudgetEditContent:       "/account/$userAlias/pb/$urlTitle-$campaignId/edit-content"  (controller: "participatoryBudget"){action = [GET: "editContentStep", POST: "saveContent"]}
-        name participatoryBudgetRemove:            "/ajax/account/$userAlias/p/$urlTitle-$campaignId/remove"    (controller: "participatoryBudget", action:"remove")
+        name participatoryBudgetRemove:            "/ajax/account/$userAlias/pb/$urlTitle-$campaignId/remove"    (controller: "participatoryBudget", action:"remove")
         name participatoryBudgetShow:              "/$userAlias/$urlTitle-$campaignId"           (controller: "campaign", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it)})}}
         name participatoryBudgetList:              "/ajax/account/participatory-budgets" (controller: "participatoryBudget", action:"listActiveParticipativeBudgets")
         name participatoryBudgetEditStatus:        "/ajax/account/$userAlias/pb/$urlTitle-$campaignId/edit-status" (controller: "participatoryBudget", action:"editStatus")
