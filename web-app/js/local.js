@@ -387,14 +387,14 @@ $(document).ready(function() {
     }
 
 
-    // controla el comportamiento del módulo de la columna derecha en Propuestas
-    $(window).on("load resize",function(e){
-
-        // elimina el vídeo de la landing por debajo de 1025px
-        if (window.matchMedia && window.matchMedia('only screen and (max-width: 1024px)').matches) {
-            $('.landing .full-video').find('video').remove();
-        }
-    });
+    // // controla el comportamiento del módulo de la columna derecha en Propuestas
+    // $(window).on("load resize",function(e){
+    //
+    //     // elimina el vídeo de la landing por debajo de 1025px
+    //     if (window.matchMedia && window.matchMedia('only screen and (max-width: 1024px)').matches) {
+    //         $('.landing .full-video').find('video').remove();
+    //     }
+    // });
 
     // Switch porcentaje/numero para ratios de apertura y clicks de cada campaña
     $('span.stat').hover(
@@ -572,63 +572,6 @@ $(document).ready(function() {
         $("input[name=isDraft]").val(true);
         $(this).parents("form").submit();
     });
-
-
-    // controlando el video de Vimeo en la modal de la Home
-    // $('.play a').click( function(e) {
-    //
-    //     var iframeHome = $('#vimeoplayer')[0];
-    //     var playerHome = $f(iframeHome);
-    //
-    //     $("#videoHome").on('hidden.bs.modal', function (e) {
-    //         playerHome.api('pause');
-    //     });
-    //     $("#videoHome").on('shown.bs.modal', function (e) {
-    //         playerHome.api('play');
-    //     })
-    //
-    // });
-
-    // controlando el video de Vimeo en el Embudo1
-    // $(function () {
-    //
-    //     $('.vimeo.uno .front').click( function(e) {
-    //         e.stopPropagation();
-    //         e.preventDefault();
-    //         $(this).next('iframe').css('display', 'block');
-    //         $(this).remove();
-    //
-    //         var iframe1 = $('#vimeoplayer1')[0];
-    //         var player1 = $f(iframe1);
-    //         player1.api('play');
-    //
-    //     });
-    //
-    //     $('.vimeo.dos .front').click( function(e) {
-    //         e.stopPropagation();
-    //         e.preventDefault();
-    //         $(this).next('iframe').css('display', 'block');
-    //         $(this).remove();
-    //
-    //         var iframe2 = $('#vimeoplayer2')[0];
-    //         var player2 = $f(iframe2);
-    //         player2.api('play');
-    //
-    //     });
-    //
-    //     $('.vimeo.tres .front').click( function(e) {
-    //         e.stopPropagation();
-    //         e.preventDefault();
-    //         $(this).next('iframe').css('display', 'block');
-    //         $(this).remove();
-    //
-    //         var iframe3 = $('#vimeoplayer3')[0];
-    //         var player3 = $f(iframe3);
-    //         player3.api('play');
-    //
-    //     });
-    //
-    // });
 
     prepareYoutubeVideosClick();
 

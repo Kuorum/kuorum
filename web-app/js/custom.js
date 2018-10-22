@@ -432,14 +432,6 @@ function prepareProgressBar(){
         var width = $(this).parents(".campaign-progress-bar[data-width]").attr("data-width");
         $(this).animate({width:width+'%'},"slow")
     })
-    // animo la progress-bar de boxes.likes
-//    $('.likes .progress-bar').progressbar({
-//        done: function() {
-//            var posTooltip = $('.progress-bar').width();
-//            $('#m-callback-done').css('left', posTooltip).css('opacity', '1');
-//            $('#m-callback-done > .likesCounter').html($('.likes .progress-bar').attr("aria-valuenow"))
-//        }
-//    });
 }
 
 // funciones que llaman a las diferentes notificacones (salen en la parte superior de la pantalla)

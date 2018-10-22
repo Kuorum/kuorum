@@ -37,7 +37,6 @@ cite{
     margin-bottom: 3px;
 }
 .main {background-color: #fbfbfb;}
-.main.embudo {background-color: #fff;}
 .main.special {
     background-color: #fff;
     /*    margin-top: -90px; */
@@ -340,41 +339,7 @@ a:focus {color: #ff9431;}
 .tooltip.bottom .tooltip-arrow {border-bottom-color: #dadada;}
 .tooltip-inner {background-color: #dadada; color: #545454; font-size: 11px; font-size: 1.1rem;}
 .boxes.likes .progress {background-color: #8ac2fc; border-radius: 0; width: 70%; margin: 0 auto 35px;}
-.likesContainer {position: relative; padding-top: 84px;}
-.likesContainer #m-callback-done {
-    position: absolute;
-    text-align: center;
-    top: 0;
-    left: 1%;
-    opacity: 0;
-    line-height: 0.95;
-    background-color: #428BCA;
-    padding: 0;
-    font-size: 16px;
-    font-size: 1.6rem;
-    color: #fff;
-    width: 94px;
-    height: 74px;
-    border-radius: 4px;
-    -webkit-transition: opacity 0.5s ease 0.2s;
-    -moz-transition: opacity 0.5s ease 0.2s;
-    -o-transition: opacity 0.5s ease 0.2s;
-    transition: opacity 0.5s ease 0.2s;
-}
-.likesContainer #m-callback-done .likesCounter {font-size: 30px; font-size: 5rem; display: block;}
-.likesContainer #m-callback-done .arrowLike {
-    border-top: 8px solid #428BCA;
-    border-left: 9px solid rgb(0, 0, 0);
-    border-right: 9px solid rgb(0, 0, 0);
-    border-left: 9px solid rgba(0, 0, 0, 0);
-    border-right: 9px solid rgba(0, 0, 0, 0);
-    height: 0;
-    left: 40px;
-    position: absolute;
-    bottom: -8px;
-    width: 0;
-    z-index: 11;
-}
+
 .main > .container-fluid,
 .main > .home > .images > .container-fluid,
 #footer > .container-fluid,
@@ -392,7 +357,7 @@ a:focus {color: #ff9431;}
     }
 }
 #main.home {margin: 0 0 40px 0; padding: 0;}
-#main.home, #main.home .full-video {min-height: 495px;}
+#main.home {min-height: 495px;}
 .navbar-fixed-top {border-bottom: solid 1px #e5e5e5;}
 #header h1 {margin: 4px 0 0 5px;}
 /*.navbar-nav .user-area .user-img {width: 25px; height: 25px; margin: 0;}*/
@@ -453,12 +418,7 @@ a:focus {color: #ff9431;}
     padding: 0;
     width: 100%;
 }
-#adminActions{
-    position: absolute;
-    z-index: 1;
-    background: none;
-    left: 15px;
-}
+
 .navbar-nav .form .dropdown-menu {padding: 15px 0; height: 260px}
 .navbar-nav .form .dropdown-menu form,
 .modal-register.modal form  { width: 272px;}
@@ -575,23 +535,6 @@ header.transp #search-form .open-filter {background-color: rgba(219,219,219,0.4)
 .open-filter .dropdown-menu > li > a {color: #a8a8a8; padding: 3px 7px;}
 .open-filter .dropdown-menu > li > a.active {color:#FF9431;}
 
-#findRepresentatives .open-filter .dropdown-menu {margin:14px 0 0 2px}
-#findRepresentatives .open-filter a span +span {margin-left: 0.3em}
-#findRepresentatives .open-filter .dropdown-menu > li > a.active{color:#2e6bab;}
-
-.row.main.presskit {
-    background: url('../images/eu-parliament.jpg') center center no-repeat #000;
-    background-size: cover;
-}
-.row.main.presskit section {padding: 50px 0; text-align: center;}
-.row.main.presskit h2 {color: #fff; font-size: 20px; font-size: 2rem; font-family: Arial,Helvetica,sans-serif; margin: 0 0 20px 0; line-height: 1.2;}
-.row.main.presskit form {width: 100%; max-width: 290px; margin: 0 auto;}
-.row.main.presskit .btn.btn-lg {font-size: 21px !important; font-size: 2.1rem !important; padding: 12px 14px !important; display: block; width: 100%;}
-.row.main.presskit input[type="email"] {width: 100%; height: 48px; margin-right: 25px;}
-/* *************************** */
-
-
-
 .login .form-group:nth-child(n+3) {text-align:center;margin:0 0 10px;}
 .login .form-group:last-child {color: #a8a8a8; margin-bottom: 0; font-size: 14px; font-size: 1.4rem;}
 .login .form-group a {color: #545454;}
@@ -628,9 +571,6 @@ header.transp #search-form .open-filter {background-color: rgba(219,219,219,0.4)
 
 /* END Modal dristrict proposal */
 
-.container-fluid.userprofile #adminActions{left:inherit; right:20px; top: 5px; z-index: 1000;}
-.container-fluid.userprofile #adminActions a{color: #a8a8a8;}
-.container-fluid.userprofile #adminActions span{margin: 0 4px 2px 0;}
 .container-fluid.userprofile #main {padding-bottom:25px;}
 
 .btn {
@@ -1038,7 +978,6 @@ span + .text-notification {padding: 0 0 0 36px; margin-top: -6px;}
 .navbar-nav .visible-xs {display: inline-block !important;}
 .user-img {border-radius: 19px; width: 34px; height: 34px; margin: 1px 4px 1px 1px;}
 .boxes.alerts .user-img,
-.boxes.guays .user-img,
 .boxes.follow .user-img {display: inline-block;}
 
 #footer {background-color: #666666; color: #fff;}
@@ -2103,8 +2042,6 @@ ul.participatory-budget-steps-info li.active a {display: none}
 }
 
 .user-list-images,
-.boxes.taking-part .user-list-followers {margin: 0 0 20px 0; padding: 0; display: inline-block; line-height: 1.2;}
-.boxes.taking-part .user-list-followers {margin: 0;}
 .user-list-followers {padding: 0px 10px 0 !important;}
 .panel.panel-default .panel-body .user-list-followers {margin-bottom:0px;}
 
@@ -2121,9 +2058,6 @@ ul.participatory-budget-steps-info li.active a {display: none}
 .user-list-followers.hide2 > li + li {margin-bottom:0px;}
 
 .user-list-followers .popover{margin-top:3px;}
-
-/* lista de usuarios participando en el proyecto -> en caja .boxes del aside  */
-.boxes.taking-part .user-list-followers > li {list-style: none; display: block !important; float: left; margin: 0 3px 0 0; width: auto;}
 
 /* lista de a quién seguir al inicio del Dashboard */
 .condition .user-list-followers {margin: 0; padding: 0 !important;}
@@ -2319,7 +2253,6 @@ ul.participatory-budget-steps-info li.active a {display: none}
     font-size: 1.5rem;
     text-align: center;
 }
-.boxes.guay .user-list-images .more-users {width: 25px; height: 25px; padding: 6px 0 0 0; font-size: 10px; font-size: 1rem;}
 .user-list-images .more-users:hover,
 .user-list-images .more-users:active,
 .user-list-images .more-users:focus,
@@ -2359,9 +2292,6 @@ ul.participatory-budget-steps-info li.active a {display: none}
 .vimeo > .youtube {width: 100%; display: none;}
 
 /* vídeo de fondo de la Home  */
-.full-video {width: 100%; overflow: hidden; position: relative; margin: 0; padding: 0 0 40px 0; background-size: cover; background-color: #c9c9c9;}
-.full-video  .container-fluid {margin-top: 24px;}
-.full-video .socialGo {margin-bottom: 20px;}
 video#bgvid {
     left: 0;
     top: 0;
@@ -2375,55 +2305,12 @@ video#bgvid {
     background-size: cover;
     display: none;
 }
-#videoHome .modal-dialog {margin: 10% auto;}
-#videoHome .modal-dialog,
-#videoHome .modal-dialog .youtube {width: 320px;}
-#videoHome .modal-dialog .modal-content {background: transparent;}
-#videoHome .modal-dialog .close {opacity: 1; color: #fff; margin: 0; position: absolute; top: -30px; right: 0;}
-#videoHome .modal-dialog .modal-body {padding: 0;}
-#videoHome .modal-dialog .modal-header {border-bottom: 0; padding: 0;}
 
 /* NUEVOS ESTILOS LANDING 2016 */
 /* vídeo */
 #main.landing {padding: 0; color: #fff; min-height: 0;}
-#main.landing .full-video {padding: 0;}
-#main.landing.politicians .full-video,
-#main.landing.organizations .full-video {background-image: url('../images/background.png'); }
-#main.landing .full-video video#bgvid {
-    /*background-image: url('../images/background.png');*/
-    /*background-size: 100% auto;*/
-    width: 100%;
-    min-height: 0;
-    min-width: 0;
-}
-#main.landing .full-video h1,
-#main.landing .full-video h2 {font-family: Arial,Helvetica,sans-serif;}
-#main.landing .full-video h1 {font-size: 34px; margin-top: 70px; font-weight: bold;}
-#main.landing .full-video h2 {margin-top: 12px; margin-bottom: 25px;}
-#main.landing .full-video h2,
-.landing .full-video .btn.btn-white {font-size: 16px;}
-.full-video .btn.btn-white {border: none; background-color: rgba(255,255,255,.4) !important; color: #fff !important; margin: 0 0 34px 0; padding: 6px 42px !important;}
-.full-video .btn.btn-white:hover,
-.full-video .btn.btn-white:focus {background-color: rgba(255,255,255,.8) !important;}
-.landing .full-video .container-fluid {text-align: center; margin-top: 0;}
-.landing .full-video .container-fluid form {width: 100%; max-width: 1010px; margin: 0 auto 40px;}
-.landing .full-video .container-fluid form fieldset {background-color: rgba(0,0,0,.4); padding: 20px; margin-bottom: 8px;}
-.landing .full-video .container-fluid form fieldset + p {color: #c6c6c6;}
-.landing .full-video .container-fluid form fieldset + p a {color: #fff;}
-.landing .full-video .container-fluid .form-inline .form-group {width: 100%;}
-.landing .full-video .container-fluid form .form-control::-moz-placeholder {color:#a8a8a8; opacity:1}
-.landing .full-video .container-fluid form .form-control:-ms-input-placeholder{color:#a8a8a8}
-.landing .full-video .container-fluid form .form-control::-webkit-input-placeholder{color:#a8a8a8}
-.landing .full-video .container-fluid form input.input-lg {font-size: 14px; font-size: 1.4rem; height: 48px; width: 100%; max-width: 250px; margin: 0 auto;}
-.landing .full-video .container-fluid form .btn {font-size: 21px; font-size: 2.1rem; font-family: Arial,Helvetica,sans-serif; padding: 9px 28px !important; margin: 0;}
-
 /* search */
-#main.landing.search .full-video {padding: 0; background-image: url('https://s3-eu-west-1.amazonaws.com/kuorumorg/static/video/landingSearch.png'); background-position: center 0;}
 #main.landing.no-results h1 {background: url(../images/alert.jpg) 0 0 no-repeat transparent;}
-.landing.editors .full-video {padding: 0; background-image: url('../images/background-search2.jpg'); background-position: center 0; text-align: center; color: #fff;}
-.landing.editors .full-video h1 {font-size: 33px; font-size: 3.3rem; padding-right: 5%; line-height: 1.4; font-family: Arial,Helvetica,sans-serif; margin-bottom: 50px; margin-top: 100px;}
-.landing.editors .full-video h2 {font-size: 25px; font-size: 2.5rem; font-family: Arial,Helvetica,sans-serif; margin-bottom: 25px;}
-.landing.editors .full-video .btn.btn-white {font-size: 25px; font-size: 2.5rem;}
 
 #main.landing.search .form-inline.searchRep .form-group input {
     width: 90%; margin: 0 auto 0 3em; line-height: 48px; height: 48px;
@@ -2432,22 +2319,6 @@ video#bgvid {
 }
 #main.landing.search .form-inline.searchRep .form-group input:focus {border:1px solid #cfcfcf;}
 #main.landing.search .form-inline.searchRep .btn {width: 290px; border-top-left-radius: 0 !important; border-bottom-left-radius: 0 !important;}
-
-#findRepresentatives .open-filter{
-    position:absolute;
-    z-index:10;
-    padding:12px;
-    /*width:13em;*/
-    background-color: rgba(219,219,219,1);
-    color:#ccc;
-    text-align: left;
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-}
-#findRepresentatives .open-filter a{color:#666;}
-#findRepresentatives .open-filter a:focus,
-#findRepresentatives .open-filter a:hover{text-decoration: none}
-#findRepresentatives .open-filter .fa-caret-down{float: right; margin-top: 5px;}
 
 .main.special .no-results {text-align: center;}
 .main.special .no-results h1,
@@ -2461,8 +2332,6 @@ video#bgvid {
 .main.special.noResults,
 .main.special.noResults + .main {position: relative;}
 .main.special.noResults {padding-top: 0;}
-.landing.editors .full-video .arrow {width: 100%; height: 2px; display: block; padding-bottom:100px;
-    overflow:hidden;position: relative;}
 .main.special.noResults::after {
     content:'';
     position:absolute;
@@ -2476,70 +2345,10 @@ video#bgvid {
 
 
 /* editors y prices */
-#main.landing.mainEditors .full-video {background-image: url('../images/background-editors.jpg'); background-position: right 0;}
-#main.landing.mainCitizens .full-video {background-image: url('../images/background-editors.jpg'); background-position: right 0;}
-.landing.ipdb,
 .landing.prices {color: #fff; text-align: center;}
-.landing.ipdb .full-video {background-image: url('../images/background-ipdb.jpg'); padding-top: 50px;}
-.landing.ipdb .full-video h3,
-.landing.prices .full-video h3 {font-size: 33px; font-size: 3rem;}
-.landing.ipdb .full-video p,
-.landing.ipdb .full-video .btn-lg,
-.landing.prices .full-video p,
-.landing.prices .full-video .btn-lg {font-size: 22px !important; font-size: 2.2rem !important;}
-.landing.ipdb .full-video p,
-.landing.prices .full-video p {margin: 0 auto 40px; width: 90%; max-width: 520px; font-family: 'Georgia', 'Times New Roman', Times, serif;line-height:2.5rem;}
-.landing.prices .full-video p {max-width: 600px;}
-
 
 .main.prices {padding-top: 50px;}
-.landing.prices .full-video {background-image: url('../images/background-prices.jpg'); padding-top: 50px;}
-.landing.prices .full-video a {color: #5fa1e7; font-size: 21px; font-size: 2.1rem;}
-.landing.prices .full-video h2 {font-size: 120px; font-size: 12rem; font-family: Arial,Helvetica,sans-serif; font-weight: bold; margin: 0 auto;}
-.main.prices .promo-options {width: 100%; padding-bottom: 0; margin-bottom: 0; text-align: center;}
-.main.prices .promo-options > div {border: 1px solid #545454; background: transparent;}
-.main.prices .promo-options > div h2 {background-color: #545454; color: #fff; font-size: 27px; font-size: 2.7rem; text-align: center; margin: 0 0 20px 0; line-height: 2;}
-.main.prices .promo-options > div h3,
-.main.prices .promo-options > div ul li {font-size: 18px; font-size: 1.8rem;}
-.main.prices .promo-options > div p.price,
-.main.prices .promo-options > div p.price .amount,
-.main.prices .promo-options > div p.price .currency,
-.main.prices .promo-options > div > form {position: relative; padding-top: 65px;}
-.main.prices .promo-options > div p.price .amount {font-size: 90px; font-size: 9rem;}
-.main.prices .promo-options > div > form .btn {position: absolute; top: 0; margin: 0; font-size: 21px !important; font-size: 2.1rem !important;}
-.main.prices .promo-options > div > form .wrap-select {border-top: 1px solid #545454; border-bottom: 1px solid #545454; margin: 0 -20px; padding: 10px 20px;}
-.main.prices .promo-options > div > form .wrap-select label {font-size: 18px; font-size: 1.8rem; line-height: 2.4;}
-.main.prices .promo-options > div > form select {height: 48px;}
-.main.prices .promo-options > div ul {list-style: none; padding: 0;}
-.main.prices .promo-options > div ul li {position: relative; margin-left: 25px;}
-.main.prices .promo-options > div ul li:before {
-    content: ""; /* Font Awesome 5 Pro Unicode */
-    font-family: 'Font Awesome 5 Pro';
-    display: inline-block;
-    width: 18px;
-    left: -25px;
-    position: absolute;
-}
-/*.main.prices .promo-options > div.recomended {margin-top: -32px;}*/
-.main.prices .promo-options > div.recomended h2 {margin-top: -10px;}
-.main.prices .promo-options > div.recomended h2,
-.main.prices .promo-options > div.recomended .tag {background-color: #6e6e6e;}
-.main.prices .promo-options > div.recomended .tag {color: #fff; font-size: 14px; font-size: 1.4rem; text-transform: uppercase; font-family: Arial,Helvetica,sans-serif; text-align: center; line-height: 2.5; display: block; letter-spacing: 1px;}
-/*.main.prices .promo-options > div.recomended .tag:first-letter {font-size: 120%;}*/
-
-.main .promo-options .kuorum-prices-table span.maximum {color: #a8a8a8; font-size: 12px}
-
-.main.prices .promo-options > .promo {float: none; display: inline-block; padding-bottom: 25px; margin-bottom:0px;}
-.main.prices .promo-options > .promo h2{font-family: 'Georgia', 'Times New Roman', Times, serif; text-transform: capitalize;}
 #payment ul.checklist {font-family: 'Georgia', 'Times New Roman', Times, serif;}
-.main.prices .promo-options > .promo a.btn {font-size: 21px; padding: 14px 60px !important;}
-.main.prices .promo-options > .promo:not(:first-child) {border-left: none;}
-
-.main.prices .promo-options > .promo.recomended .discount {font-size: 17px; text-transform: uppercase;}
-
-.main.prices .promo-options-info { margin: 8px 0 30px 0; color: #6e6e6e;font-size:13px;}
-.main.prices .promo-options-info a { color: #a8a8a8;}
-
 #payment {text-align:center; font-family: Arial, Helvetica, sans-serif;-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; padding-bottom: 30px; padding-top: 50px;}
 #payment .big-margin-top {margin-top: 60px;}
 #payment > h1 {font-size: 29px; margin-bottom: 15px; padding:0;}
@@ -2610,12 +2419,6 @@ video#bgvid {
     background-color: transparent;
     color: #545454;
 }
-.boxes.guay .user-img {width: 25px; height: 25px; float: none; margin-right: 3px; margin-bottom: 0; margin-top: 0;}
-.boxes .victory .user-img {margin: 0 0 0 2px;}
-.boxes.guay .user-list-images li .popover-trigger.more-users {margin-bottom: 4px;}
-.boxes.guay .important > .user-list-images {display: block; text-align: right;}
-.boxes.taking-part > ul > li:last-child {margin: 0;}
-/*.boxes.follow .user-list-followers .user > .user-type {padding: 0 0 0 44px;}*/
 
 /* boxes columna derecha dashboard */
 #aside-ppal {padding-top: 24px;}
@@ -3390,50 +3193,13 @@ h2.underline {border-bottom: 1px solid #dadada; padding: 0 0 10px 0; margin-top:
 .leerLey span {margin: 0 0 0 4px;}
 .editPost span {margin: 0 4px 2px 0;}
 
-.participate,
-.participAll,
-.seeVictory {margin-bottom: 50px;}
-
-.participate > h1,
-.participAll > h1,
-.seeVictory > h1,
-.comments > h1,
-.participate > p,
-.participAll > p,
-.seeVictory > p,
 .comments > p {text-align: center;}
-.participate > h1,
-.participAll > h1,
-.seeVictory > h1,
 .comments > h1 {
     font-size: 28px; font-size: 2.8rem;
     text-transform: uppercase;
 }
-.participate > p,
-.participAll > p,
-.seeVictory > p,
 .comments > p {border-bottom: 1px solid #dadada; padding-bottom: 20px; margin-bottom: 40px;}
 
-.participate a {height: 116px; margin-bottom: 20px; text-decoration: none; text-align: center; display: block; font-size: 30px; font-size: 3rem; border: solid 1px #fff; padding: 8px; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px;}
-.participate a:hover,
-.participate a:active,
-.participate a:focus {color: #2e6bab; /*border: solid 1px #2e6bab;*/}
-.participate .row p {text-align: center; padding: 0 20px;}
-
-.seeVictory .counter {font-size: 200%;}
-.seeVictory .sliderItem {background-color: #FFF8ED;}
-.seeVictory .sliderItem .content {padding: 0 15px 10px 15px;}
-.seeVictory .sliderItem img.actor {float: left; margin: 0 20px 20px 0;}
-.seeVictory .sliderItem h1 {
-    background-color: #ff9431;
-    color: #fff;
-    padding: 9px;
-    font-size: 17px; font-size: 1.7rem;
-    margin: 0 0 10px;
-}
-.seeVictory .sliderItem h1 a {color: #FFDB8D;}
-.seeVictory .sliderItem .user {margin-bottom: 10px;}
-.seeVictory .sliderItem .content a {color: #ff9431;}
 
 .controls {margin: 10px 0; position: relative; height: 40px; text-align: center; line-height: 2.3;}
 .controls a {color: #ff9431;}
@@ -3469,53 +3235,7 @@ h2.underline {border-bottom: 1px solid #dadada; padding: 0 0 10px 0; margin-top:
 /* ====================================================== */
 
 .comments {margin-bottom: 20px;}
-.listComments {margin: 0; padding: 0;}
-.listComments > li {list-style: none; margin: 0 0 20px 0; border: 1px solid #e5e5e5; background-color: #fff; position: relative;}
-.listComments > li:last-child {margin-bottom: 0;}
-.listComments > li .popover-trigger {margin: 0 !important; line-height: 1.8;}
-.listComments > li time {color: #a8a8a8; display: block; text-align: right;}
-.listComments > li {padding: 24px 15px 15px 15px;}
-.listComments > li p {margin: 20px 0;}
 
-.listComments > li .actions ul {margin: 0; padding: 0;}
-.listComments > li .actions ul li {line-height: 1.2; list-style: none; display: inline-block; margin-left: 8px;}
-.listComments > li .actions ul li a {display: inline-block; text-align: center; width: 20px; height: 20px; background-color: #a8a8a8; color: #fff;}
-.listComments > li .actions ul li a:hover,
-.listComments > li .actions ul li a:active,
-.listComments > li .actions ul li a:focus {text-decoration: none; background-color: #797979;}
-.listComments > li .actions ul li a.disabled,
-.listComments > li .actions ul li a.disabled:hover,
-.listComments > li .actions ul li a.disabled:active,
-.listComments > li .actions ul li a.disabled:focus {background-color: #dadada;}
-
-#addComment {margin: 20px 0 0 0;}
-#addComment .form-group:first-child {margin-bottom: 20px;}
-#addComment label {font-size: 20px; font-size: 2rem;}
-#addComment .form-group.btns {margin: 0;}
-
-.othersPost {margin: 60px 0 70px;}
-.othersPost h1 {font-size: 20px; font-size: 2rem;}
-.othersPost #postNav {padding: 0 43px; margin: 0; position: relative; height: 184px; font-size: 13px; font-size: 1.3rem;}
-
-#main .othersPost #postNav .user > span {font-size: 13px; font-size: 1.3rem; position: absolute; left: 16px; bottom: 8px;}
-#main .othersPost #postNav .user .read-later {position: absolute; right: 16px; bottom: 8px;}
-.othersPost #postNav p {margin: 0 0 13px;}
-.othersPost #postNav .user-img {height: 25px; margin: 0 5px 0 0; width: 25px;}
-.othersPost #postNav .read-later a {color: #797979;}
-.othersPost #postNav .read-later a:hover,
-.othersPost #postNav .read-later a:active,
-.othersPost #postNav .read-later a:focus {color: #20a2ea;}
-.othersPost #postNav .read-later a.disabled {color: #20a2ea; cursor: pointer !important;}
-.othersPost #postNav .read-later .loading {width: 20px;}
-.othersPost #postNav ul.actions-kak {list-style: none;}
-.othersPost #postNav > a {display: block; padding: 82px 18px; background-color: #20a2ea; color: #fff; border-radius: 0; position: absolute; top: 0;}
-.othersPost #postNav > a:hover {background-color: #2e6bab;}
-.othersPost #postNav > a.prev {left: 0;}
-.othersPost #postNav > a.next {right: 0;}
-.othersPost #postNav .item {padding: 6px 15px; min-height: 183px;}
-.othersPost #postNav .link-wrapper:hover,
-.othersPost #postNav .link-wrapper:active,
-.othersPost #postNav .link-wrapper:focus {background-color: #efefef;}
 
 .debate {margin-bottom: 40px;}
 .chat {margin: 0; padding: 0; list-style: none;}
@@ -3541,58 +3261,7 @@ h2.underline {border-bottom: 1px solid #dadada; padding: 0 0 10px 0; margin-top:
 
 #addDebate {margin: 10px 0;}
 #addDebate textarea {padding: 20px;}
-.important .likesContainer #m-callback-done,
 .boxes.likes.important .progress-bar {background-color: #ff9431;}
-.important .likesContainer #m-callback-done .arrowLike {border-top: 8px solid #ff9431;}
-
-
-.promo-options {margin: 20px auto 50px; width: 80%; padding-bottom: 20px;}
-.promo-options h3 {}
-.promo-options > div {
-    min-height: 250px;
-    margin-bottom: 20px;
-    background-color: #efefef;
-    padding: 0;
-    /*  -webkit-transition: all .5s ease-in-out;
-      -moz-transition: all .5s ease-in-out;
-      -o-transition: all .5s ease-in-out;
-      transition: all .5s ease-in-out;*/
-}
-.promo-options > div > .mails {font-size: 25px; font-size: 2.5rem;}
-.promo-options > div > h3 {margin: 0;}
-.promo-options > div > form {width: 88%; margin: 0 auto; padding-top: 20px;}
-.promo-options > div:first-child {margin-bottom: 45px;}
-.promo-options > div:last-child > form .radio label {cursor: default;}
-
-.promo-options > div > form ul {margin: 30px 0;}
-.promo-options > div > form ul li {margin-bottom: 10px;}
-.promo-options > div > form .radio {margin: 0 0 20px 0; padding-left: 50px;}
-.promo-options > div > form .radio:only-child {margin-top: 40px;}
-.promo-options > div > form .radio label {font-size: 19px; font-size: 1.9rem; line-height: 1.2;}
-.promo-options > div > form .radio input[type="radio"] {margin-top: 30px; margin-left: -25px;}
-.promo-options > div > form .radio label > span {font-size: 35px; font-size: 3.5rem;}
-.promo-options > div > form .radio label > span > span.euro {font-size: 40px; font-size: 4rem;}
-.promo-options > div > form .btn {font-size: 25px !important; font-size: 2.5rem !important;}
-.promo-options > div > form .options-wrapper {min-height: 112px;}
-
-.promo-options > div.active {background-color: #ff9431; z-index: 9; margin-top: -20px; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);}
-.promo-options > div.active > h3 {background-color: transparent;}
-.promo-options > div.active > form {border-top: #fff solid 1px;}
-.promo-options > div.active > form .btn {background-color: #20A2ea !important;}
-.promo-options > div.active > form .btn:hover,
-.promo-options > div.active > form .btn:focus {background-color: #2e6bab !important;}
-.promo-options > div.active > form ul {margin-bottom: 60px;}
-
-.promo-options table.kuorum-prices-table{margin:auto;border:none;font-size: 1.3em;}
-.promo-options table.kuorum-prices-table tbody tr {margin:auto; border:1px solid #545454;}
-.promo-options table.kuorum-prices-table thead tr {border:none;}
-/*.promo-options table.kuorum-prices-table thead tr.recommended {}*/
-.promo-options table.kuorum-prices-table th,
-.promo-options table.kuorum-prices-table td{text-align:center; padding:5px 5px; font-size:14px; text-align:center;font-weight: normal;}
-.promo-options table.kuorum-prices-table thead tr th{font-family: 'Georgia', 'Times New Roman', Times, serif; border:1px solid #545454; background-color: #545454; color:#fff; text-transform: capitalize}
-.promo-options table.kuorum-prices-table thead tr th.recommended{background-color: #6e6e6e;border-color: #6e6e6e;}
-.promo-options table.kuorum-prices-table thead tr th.empty{background-color: transparent;border:none;}
-.promo-options table.kuorum-prices-table thead tr:first-child th {vertical-align: bottom; padding-bottom: 0;padding-top: 15px;line-height: 5px;font-size:0.7em;text-transform:uppercase;font-family: Arial, Helvetica, sans-serif}
 
 .form-promo,
 .form-promo-pay {min-height: 126px; padding: 30px 0 0 0; border-bottom: 1px solid #DADADA; border-top: 1px solid #DADADA;}
@@ -3679,23 +3348,13 @@ h2.underline {border-bottom: 1px solid #dadada; padding: 0 0 10px 0; margin-top:
 
 .homeSub .link-wrapper .popover-trigger {font-size: 12px; font-size: 1.2rem;}
 
-.homeSub.logos {text-align: center;}
-.homeSub.logos .openLogos {font-size: 25px; font-family: Arial, Helvetica, sans-serif; margin: 40px 0 0 0; color: #fff; display: inline-block; cursor: pointer;}
-.homeSub.logos .openLogos:hover,
-.homeSub.logos .openLogos:focus {text-decoration: underline;}
-.homeSub.logos ul li {height:85px;}
-
 .homeSub > .row > h1,
 .homeSub > h3 { border-bottom: 1px solid #e5e5e5; }
 .main.special.landing .homeSub h1,
-.landing.ipdb .full-video h3,
-.landing.prices .full-video h3 { border-bottom: 1px solid rgba(255,255,255,.2); }
 
 .main.special.landing .homeSub h1,
 .homeSub > .row > h1,
-.homeSub > h3,
-.landing.ipdb .full-video h3,
-.landing.prices .full-video h3 {font-size: 26px; font-size: 2.6rem; max-width: 650px; margin: 0 auto 20px; text-align: center; padding-bottom: 18px;}
+.homeSub > h3{font-size: 26px; font-size: 2.6rem; max-width: 650px; margin: 0 auto 20px; text-align: center; padding-bottom: 18px;}
 .main.special.landing .homeSub ul {padding: 0; margin: 0; list-style: none;}
 .main.special.landing .homeSub ul li {width: 100%; list-style: none; float: left; text-align: center; margin: 20px 0; height: 65px;}
 .main.special.landing .homeSub ul li img {max-width: 145px;}
@@ -3738,62 +3397,8 @@ h2.underline {border-bottom: 1px solid #dadada; padding: 0 0 10px 0; margin-top:
 .order-options .popover ul li a.active:focus {text-decoration: none;}
 
 .search-list + [data-readmore-toggle],
-.logos + [data-readmore-toggle] {
-    padding: 20px 0;
-    text-align: center;
-    font-size: 25px;
-    font-size: 2.5rem;
-    font-family: Arial, Helvetica, sans-serif;
-    cursor: pointer;
-    margin-bottom: 40px;
-}
 .search-list + [data-readmore-toggle]:hover,
 .search-list + [data-readmore-toggle]:focus,
-.logos + [data-readmore-toggle]:hover,
-.logos + [data-readmore-toggle]:focus {text-decoration: underline;}
-
-
-
-#saveTime {margin: 0;}
-.saveTime {padding: 0 0 20px;}
-.saveTime, .saveTime li {list-style: none; text-align: center; margin-bottom: 20px;}
-.saveTime li h2 {text-transform: uppercase; font-size: 2.2rem; font-family: Arial, Helvetica, sans-serif; color: #373737; padding: 0; margin-bottom: 15px;}
-.saveTime li > a img {max-width: 385px;}
-.saveTime li > a:first-child {display: block; position: relative;}
-.saveTime li > a:first-child:hover::before {
-    content: "";
-    display: block;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    background-color: rgba(255,148,49,.2);
-}
-.saveTime li > a:first-child:hover img::after,
-.saveTime li > a:first-child:focus img::after {background-color: rgba(255,148,49,.2);}
-.saveTime li p {font-size: 20px; font-size: 2rem; color: #545454; padding: 0 6px; margin-bottom: 10px;}
-.saveTime li > a:last-child {font-size: 21px; font-size: 2.1rem; color: #ff9431;}
-
-.testimonies-list {margin: 0; padding: 0; background-color: #666;}
-.testimonies-list li{list-style-type:none;}
-.testimonies-list li:nth-child(even) footer,
-.testimonies-list li:nth-child(even) .body {float: right;}
-.testimonies-list li blockquote {padding: 0; margin: 0; position: relative;}
-.testimonies-list li:first-child blockquote footer {margin-top: -25px;}
-.testimonies-list li blockquote footer,
-.testimonies-list li blockquote .body {text-align: center; color: #fff;}
-.testimonies-list li blockquote footer cite {margin-bottom: 0;}
-.testimonies-list li blockquote .body {padding: 20px;}
-.testimonies-list li blockquote .body p {font-size: 25px; font-size: 2.5rem; margin-bottom: 15px; line-height: 1.2;}
-.testimonies-list li blockquote .body p:last-child {font-size: 22px; font-size: 2.2rem; margin: 0;}
-.testimonies-list li blockquote footer::after,
-.testimonies-list li blockquote footer::before {
-    content: "";
-}
-.testimonies-list li blockquote .body p:last-child small {display: inline; color: #fff; font-size: 75%;}
 
 /* politician-card-sm */
 .search-list{margin: 0; padding: 0; list-style: none;}
@@ -4025,49 +3630,11 @@ fieldset.rating:hover > input + label:hover:before {
 .carousel.news .carousel-control.right {background-image: none; right: 18px;}
 .carousel.news .carousel-control {width: 50px; height: 50px; top: 35%;}
 
-.medios-list li {list-style-type:none;}
-.medios-list:first-child {margin-top: 50px;}
-.medios-list blockquote {font-size: 21px; font-size: 2.1rem; font-style: italic; text-align: center; margin: 0 0 40px 0; padding: 0;}
-.medios-list blockquote p:before {content: "“";}
-.medios-list blockquote p:after {content: "”";}
-.medios-list blockquote footer {margin-bottom: 20px;}
-.medios-list blockquote footer:before {content: "";}
-.medios-list blockquote footer img {width: 70%;}
-
-.homeSub.medios {text-align: center;}
-.homeSub.medios h2 {font-size: 14px; font-size: 1.4rem; margin: 60px 0 20px 0;}
-.support-list {margin: 0; padding: 0; list-style: none;}
-.support-list li {displya: inline-block; margin-right: 10px; margin-bottom: 10px;}
-.support-list li:last-child {margin-right: 0;}
-.support-list li.game img {width: 115px; height: 53px;}
-.support-list li.unltdspain img {width: 134px; height: 47px;}
-.support-list li.iebusiness img {width: 207px; height: 47px;}
-
-.embudo #aside-ppal {background-image: none; background-color: #f0f0f0; margin-bottom: 30px;}
-.embudo #aside-ppal h1.withArrow {color: #20A2ea; font-size: 32px; font-size: 3.2rem; text-align: center; position: relative; margin-top: 0;}
-.embudo #aside-ppal > .border > p {color: #20A2ea; font-size: 20px; font-size: 2rem; text-align: center; position: relative;}
-.embudo #aside-ppal p.first {padding: 0 0 0 18%; margin-bottom: 30px;}
-.embudo #aside-ppal p.second {padding: 0 20% 0 0; margin-top: 100px; margin-bottom: 70px;}
-.embudo #aside-ppal img.center-block {
-    margin-top: -20px;
-    margin-bottom: 20px;
-    border: 5px solid #fff;
-    box-shadow: 0 5px 7px rgba(0, 0, 0, .5);
-    border-radius: 100px;
-    width: 170px;
-    height: 170px;
-}
-.embudo .like-number a {color: #20A2ea;}
-
 .vimeo > .front {background: transparent;}
 .vimeo > .front > img {opacity: 1;}
 .vimeo > .front > .fa {position: absolute; top: auto; bottom: 15px; left: auto; right: 15px; margin: 0; width: auto; height: auto;}
 .vimeo > .front .text {color: #fff; position: absolute; top: 14%; left: 8%; width: 40%; font-size: 14px; font-size: 1.4rem; line-height: 1.2;}
 .vimeo > .front .who {color: #fff; position: absolute; bottom: 8%; left: 8%; width: 65%; font-size: 15px; font-size: 1.5rem; font-family: Arial, Helvetica, sans-serif; line-height: 1;}
-
-.promo-options > div > h3 {font-weight: normal; letter-spacing: 2px; background-color: #888888; display: block; padding: 30px 20px; text-align: center; font-size: 22px; font-size: 2.2rem; text-transform: uppercase; color: #fff;}
-.embudoMore {width: 295px; margin: 0 auto 70px;}
-.embudoMore .btn {font-size: 14px !important; font-size: 1.4rem !important;}
 
 .condiciones-compra {width: 80%; margin: 0 auto;}
 
@@ -4458,18 +4025,14 @@ h5#results {margin: 0 0 15px;}
 .config .item ul li {list-style: none; border-bottom: solid 1px #dadada;}
 .config .item ul li h3 span {color: #ff9431; font-size: 130%;}
 .config .item ul li p {color: #a8a8a8; font-size: 13px; font-size: 1.3rem;}
-.config #config7 p {margin: 20px 0 0 0; line-height: 1.2;}
 
 .config #config9 .checkbox label,
 .config #config9 .checkbox-inline,
-#edit-project .checkbox label,
-#edit-project .checkbox-inline {font-weight: normal; font-size: 13px; font-size: 1.3rem;}
 .config #config9 .checkbox-inline {display: block;padding-left:20px;}
 .config #config9 .span-label {margin: 0;}
 .config #config9 .help-block {margin: 0 0 10px 0;}
 .config #config9 .checkbox-inline+.checkbox-inline {margin: 0;}
 .config #config9 .checkbox,
-#edit-project .checkbox {margin-top: 15px; margin-bottom: 15px;}
 .config #config9 .interestContainer {width: 530px}
 .config #config9 .icheckbox_line-orange.hover,
 .config #config9 .iradio_line-orange.hover,
@@ -4547,34 +4110,9 @@ h5#results {margin: 0 0 15px;}
 /* edición proyecto =========== */
 /* ====================================================== */
 .box-ppal h1 {font-size: 25px; font-size: 2.5rem; margin: 0 0 35px 0; padding: 0 40px 0 0; position: relative; color: #545454;}
-#edit-project .hashtag,
-#edit-propuesta > h1 > .fa,
-#update-project .icon2-update {position: absolute; top: 0; right: 0;}
-#edit-project .hashtag {font-size: 2em; line-height: .5; }
-#update-project .icon2-update {font-size: 1.4em; line-height: .8;}
-#edit-project .input-group-addon a {color: #a8a8a8;}
-#edit-project,
-#update-project,
-#edit-project .form-control,
-#update-project .form-control,
-#edit-project input[type="text"],
-#edit-project input[type="number"],
-#edit-project input[type="email"],
-#edit-project select {color: #a8a8a8;}
-#edit-project input,
-#edit-propuesta input,
-#update-project input,
-#edit-project .title textarea,
-#edit-propuesta .title textarea,
-#update-project .title textarea {font-size: 17px; font-size: 1.7rem;}
-#update-project fieldset:last-child .form-group {margin-top: 43px;}
-#update-project textarea {height: 300px; padding: 20px;}
-#edit-project {padding:0; border:none;}
 
 .uploadPdf,
-.uploadPdf a,
-#edit-project label {font-size: 20px; font-size: 2rem; color: #a8a8a8;}
-#edit-project .interest {margin-top: 20px;}
+.uploadPdf a{font-size: 20px; font-size: 2rem; color: #a8a8a8;}
 
 .config .icheckbox_line-orange,
 .config .iradio_line-orange {margin: 0 30px 30px 0;}
@@ -4610,76 +4148,6 @@ h5#results {margin: 0 0 15px;}
     display: block;
 }
 
-h1.withArrow {margin-bottom: 30px;}
-h2.withArrow {margin-top: 100px; margin-bottom: 80px; font-size: 20px; font-size: 2rem; text-align: center; position: relative; line-height: 1.4;}
-h3.withArrow {margin-top: 60px; margin-bottom: 110px; font-size: 20px; font-size: 2rem; text-align: center; position: relative; line-height: 1.4;}
-.arrow1, .arrow2, .arrow3, .arrow4, .arrow5 {position: absolute; opacity: .4; display: block; z-index: 9;}
-.embudo .arrow1, .embudo .arrow2, .embudo .arrow3, .embudo .arrow4, .embudo .arrow5 {opacity: 1;}
-.arrow1 {
-    width: 76px;
-    height: 96px;
-    background: url('../images/arrow1.png') -15px 0 no-repeat;
-    background-size: 130% auto;
-    right: 8px;
-    top: 55px;
-    -webkit-transform: rotate(30deg);
-    -moz-transform: rotate(30deg);
-    -ms-transform: rotate(30deg);
-    -o-transform: rotate(30deg);
-    transform: rotate(30deg);
-}
-.embudo .arrow1 {
-    width: 92px;
-    height: 118px;
-    right: -15px;
-    top: 10px;
-    background-image: url('../images/arrow1-blue.png');
-    background-size: auto;
-    background-position: 0 0;
-    -webkit-transform: rotate(0deg);
-    -moz-transform: rotate(0deg);
-    -ms-transform: rotate(0deg);
-    -o-transform: rotate(0deg);
-    transform: rotate(0deg);
-}
-.arrow2 {
-    width: 50px;
-    height: 107px;
-    background: url('../images/arrow2.png') 0 0 no-repeat;
-    background-size: 100% auto;
-    right: 25px;
-    bottom: -97px;
-}
-.arrow2.propuesta {right: 90px;}
-.embudo .arrow2 {width: 85px; height: 108px; background-image: url('../images/arrow2-blue.png'); right: auto; left: -12px; bottom: -14px;}
-.arrow3 {
-    width: 65px;
-    height: 90px;
-    background: url('../images/arrow3.png') 0 0 no-repeat;
-    background-size: 64% auto;
-    left: 60px;
-    bottom: -70px;
-}
-.arrow3.propuesta {left: 45px;}
-.embudo .arrow3 {width: 70px; height: 107px; background-image: url('../images/arrow3-blue.png'); background-size: auto; left: auto; right: 78px; bottom: -90px;}
-.arrow4 {
-    width: 95px;
-    height: 100px;
-    background: url('../images/arrow4.png') 0 0 no-repeat;
-    background-size: 75% auto;
-    left: 90px;
-    bottom: -40px;
-}
-.embudo .arrow4 {width: 66px; height: 91px; background-image: url('../images/arrow4-blue.png'); background-size: auto; left: 70px; bottom: -82px;}
-.arrow5 {
-    width: 44px;
-    height: 120px;
-    background: url('../images/arrow5.png') -6px 0 no-repeat;
-    background-size: 115% auto;
-    right: 125px;
-    bottom: -125px;
-}
-.embudo .arrow5 {width: 140px; height: 154px; background-image: url('../images/arrow5-blue.png'); background-size: auto; right: 95px;}
 
 #politicianDebateForm .buttons .div {padding-bottom: 20px; float: right; width: 38%;}
 
@@ -5480,7 +4948,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 
     .form-group.image.fondoperfil .qq-upload-drop-area {background-size: auto auto; background-position: center 32%; padding-top: 15%;}
     .chat > li .user.author {margin-top: -32px;}
-    .listComments > li .user.author {margin-top: -32px;}
     .boxes.performance a.improve {width: 272px; margin: 0 auto;}
     .boxes.profile-user > .actions {width: 272px;}
     .form-home-container {width: 320px;}
@@ -5491,7 +4958,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .main.special.landing .homeSub ul li {width: 50%; height: 110px; line-height: 110px; margin-bottom: 45px;}
     .main.special.profile .homeSub { background-position: center 170px; background-size: 420px auto;}
     .landing + .row.main .onecol .login .btn.btn-lg {}
-    .main.prices .promo-options > div p.price .currency {left: 95px;}
 
     /* CAMPAIGNS */
     .header-campaign .qq-upload-drop-area {
@@ -5530,8 +4996,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .modal-register .modal-dialog {width: 350px;}
     .modal-register.modal form{width: 310px;}
     .modal-register .modal-dialog .modal-body {padding: 0px 20px 20px 20px;}
-    .promo-options table.kuorum-prices-table th,
-    .promo-options table.kuorum-prices-table td{padding:5px 5px; font-size:15px;}
 
     .conversation-box-comment > .header > .user span {  max-width: 250px  }
     #questionsSurveyForm .profile-dynamic-fields > .row:first-child  > .form-group {
@@ -5546,7 +5010,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 
 @media only screen and (min-width: 600px) {
     /* #main {min-height: 639px;}*/
-    .main.prices .promo-options > div p.price .currency {left: 155px;}
     .container-lists h4 {margin-left: 0;}
 
     /* CONTACT LIST */
@@ -5568,8 +5031,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 
     .uploaderImageContainer.PROJECT_IMAGE .qq-upload-drop-area {height:297px;}
     .uploaderImageContainer.PROJECT_IMAGE > div {height:297px;}
-    .promo-options table.kuorum-prices-table th,
-    .promo-options table.kuorum-prices-table td{padding:7px 10px; font-size:inherit;}
     .conversation-box-comment > .header > .user span {  max-width: 400px  }
 }
 
@@ -5603,8 +5064,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 
     .search-list .search-kuorum-user .box-ppal .card-footer {position:relative; bottom: 0; }
 
-    .main.prices .promo-options > .promo:not(:first-child) {border: 1px solid #545454;}
-
     .edit-contact-header > div:first-child ul,
     .edit-contact-header > div:first-child ul li {list-style: none; display: contents; margin-right: 5px;}
 }
@@ -5619,10 +5078,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .fade-carousel .content { width: 95%}
     #questionsSurveyForm div.question-type{padding:inherit;margin-top:0px}
     #questionsSurveyForm div.question-type + div.form-group-remove{margin-top:0px}
-    #trustUs ul.globus li img {
-        height: 40px;
-        width: auto;
-    }
     header.transp .navbar {background-color: transparent;}
     header.transp + .row.main.landing {margin-top:-55px}
     header .navbar-form { margin: 3px 4px 4px 50px; width: 176px;}
@@ -5711,24 +5166,13 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .config .iradio_line-orange {margin: 0 5px 5px 0;}
     h2.underline {font-size: 25px; font-size: 2.5rem;}
     .pago {background-size: 320px auto;}
-    .homeSub.medios h2 {margin-top: 100px;}
     .config > header h1 {font-size: 22px; font-size: 2.2rem;}
     .config.info > article > .box-ppal > h1 {margin: 5px 0 15px;}
 
-    .promo-options > div > form .options-wrapper {margin: 0 auto; width: 45%;}
-    .promo-options {padding-bottom: 20px;}
-
-    .embudoMore .btn {font-size: 25px !important; font-size: 2.5rem !important;}
-    .embudoMore {width: 500px;}
     .pide-cuenta ul {width: 100%;}
     .pide-cuenta > ul > li > ul {padding: 30px; min-height: 232px;}
     .vimeo > .front .who {width: 50%; font-size: 22px; font-size: 2.2rem;}
     .vimeo > .front .text {width: 40%; font-size: 35px; font-size: 3.5rem; top: 12%;}
-    .embudo #aside-ppal .border {width: 370px; margin: 0 auto;}
-    .medios-list blockquote {margin: 0;}
-    .support-list li {margin-right: 40px;}
-    #videoHome .modal-dialog,
-    #videoHome .modal-dialog .youtube {width: 600px;}
     .uploadPdf .progress-pdf .progress {width: 70%; margin: 0;}
     #aside-ppal {background-color: transparent;}
     #footer > .more .links ul {margin: 0; padding: 0; line-height: 46px; text-align: left;}
@@ -5748,7 +5192,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .home .play {font-size: 16px; font-size: 1.6rem;text-align: center;}
     .config > section .filter-order > li {display: inline; margin: 0 2% 0 0; font-size: 14px; font-size: 1.4rem; text-align: left;}
 
-    .arrow2 {right: 15px;}
     h1.withArrow {margin-bottom: 50px;}
     fieldset.multimedia ul.nav.nav-pills.nav-justified li a {padding: 5px 15px;}
     .charNum {margin: 0;}
@@ -5799,11 +5242,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .links.simple .legal li {display: inline; margin: 0 14px 0 0; border-right: solid 1px #a8a8a8; border-bottom: none; padding: 0 14px 0 0;}
     .onecol form .cancel {font-size: 16px !important; font-size: 1.6rem; margin: 0 20px 0 0;}
     .controls {width: auto;}
-    .seeVictory .sliderItem img.actor {width: 152px;}
-    .seeVictory .sliderItem h1 {font-size: 1.8rem;padding: 10px;}
-    .participate > h1, .participAll > h1, .seeVictory > h1, .comments > h1 {font-size: 48px; font-size: 4.8rem;}
-    .seeVictory .sliderItem .content a {font-size: 22px; font-size: 2.2rem;}
-    .boxes.taking-part .user-list-followers li {margin-right: 1px;}
     .boxes.edit-user > .user > a {position: relative; display: block; text-align: center;}
     .boxes.edit-user .user-img.big {float: none; margin: 0;}
     .boxes.edit-user .personal {float: left; width: 100%; text-align: center; padding: 10px 0 0 0;}
@@ -5811,7 +5249,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .notifications-list > li > .user > .popover-trigger > span {font-size: 1.6rem;}
     .notifications-list > li.user.answerLink {padding: 10px 0 20px 0;}
 
-    .participate .row p {padding: 0;}
     .stats {position: absolute; bottom: 40px; right: 0;}
     .stats a {padding: 10px 0 0 0;}
     .stats span {display: inline-block; margin: 0 8px 4px 0;}
@@ -5843,20 +5280,12 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     }
     .onecol.error .intro h1 {font-size: 172px; font-size: 17.2rem; text-align: left;}
     .preFooter .btn {display: inline-block; margin: 0 5px !important;}
-    .othersPost #postNav {height: 110px;}
-    .othersPost #postNav > a {padding: 34px 18px;}
     .form-promo h4 {font-size: 23px; font-size: 2.38rem;}
     .form-promo form .form-group {float: none;}
-    /*.promo-options > div > .link-wrapper {min-height: 270px;}*/
-    /*.promo-options > div.active  > .link-wrapper {min-height: 290px;}*/
-    .promo-options > div:first-child {margin-bottom: 30px;}
-    .promo-options > div.active {margin: 0 0 30px 0;}
     .form-promo-pay .link {line-height: 6.5;}
     .form-promo-pay p.secure {padding: 0 0 0 180px; background: url('../images/secure-payment.png') no-repeat 0 0 transparent;}
     .form-promo form .form-group {float: right; margin: 0 55px 10px 0;}
     .steps li + li {background: url('../images/steps-sep.png') no-repeat center left; padding-left: 53px;}
-    .othersPost #postNav .item {min-height: 107px;}
-    .othersPost #postNav > a {padding: 44px 18px;}
     #map {width: 475px; height: 405px;}
     /*#edit-event-map { height: 100px;}*/
     .popover.tour {width: 385px; max-width: 385px !important; padding: 15px;}
@@ -5864,8 +5293,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     #footer .licenses {margin-top: 15px; width: auto;}
     #footer > .container-fluid > .links li a,
     section.links li a {font-size: 14px; font-size: 1.4rem;}
-    .arrow4 {left: 40px; bottom: -48px;}
-    .arrow3 {left: 50px;}
     .boxes.performance a.improve {font-size: 15px !important; font-size: 1.5rem !important;}
     .boxes.info .infoVotes > li,
     .boxes.info .infoVotes > span {padding: 4px;}
@@ -5875,15 +5302,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .search-list .search-kuorum-user .box-ppal .link-wrapper {height: 375px;}
 
     /* LANDING */
-    #main.landing .full-video h1 {font-size: 47px; margin-top: 10%;}
-    .landing .full-video .container-fluid form {margin-bottom: 7%;}
-    .landing .full-video .container-fluid form#findRepresentatives {margin-bottom: 8em;}
-    .landing .full-video .container-fluid form fieldset {padding: 25px;}
-    .landing .full-video .container-fluid .form-inline .form-group {margin-right: 2.5%; width: 28%;}
-    .landing .full-video .container-fluid #findRepresentatives.form-inline .form-group {margin-right: 2.5%; width: 50%;}
-    .landing .full-video .container-fluid form input.input-lg {max-width: none;}
-    .landing .full-video .btn.btn-white {margin-bottom: 22px;}
-
     #main.landing.search .form-inline.searchRep .form-group input {width: 100%;    border-top-right-radius: 0px;
         border-bottom-right-radius: 0px;}
     #main.landing.search .form-inline.searchRep .form-group {margin-right: 0;}
@@ -5892,28 +5310,8 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .main.special.landing .homeSub h1,
     .homeSub > .row > h1,
     .homeSub > h3,
-    .landing.ipdb .full-video h3,
-    .landing.prices .full-video h3 {font-size: 34px; font-size: 3.4rem; margin-bottom: 54px;}
-    #saveTime {margin-bottom: 40px;}
-    .testimonies-list li {height: 158px; overflow: hidden;}
-    .testimonies-list li blockquote footer,
-    .testimonies-list li blockquote .body {width: 50%; float: left;}
-    .testimonies-list li blockquote .body {color: #fff; padding: 20px 10px;}
-
-    .row.main.presskit {background-position: center -190px;}
-    .row.main.presskit section {padding: 60px 0;}
-    .row.main.presskit h2 {font-size: 27px; font-size: 2.7rem; margin: 0; line-height: 1.6;}
-    .row.main.presskit input[type="email"] {width: 255px; height: 48px; margin-right: 25px;}
-    .row.main.presskit form {width: auto; max-width: none; margin-top: 25px;}
-    .row.main.presskit .btn.btn-lg {width: auto; display: inline-block;}
     .main.special.profile .homeSub { min-height: 480px; background-position: center 210px; background-size: 420px auto;}
     .landing + .row.main .onecol #main {margin-top: 20px;}
-
-    .main.prices .promo-options > div p.price .currency {left: 245px;}
-
-    .landing.prices .full-video h2 {margin: 180px auto 0; padding-right: 70%;}
-    .landing.prices .full-video p {padding-left: 25%;}
-    .landing.prices .full-video p:first-of-type {margin-top: -250px;}
 
     .onecol .subscribeForm fieldset .form-group:last-child {border-left: 1px solid #545454;}
 
@@ -6035,9 +5433,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .uploaderImageContainer.PROJECT_IMAGE .qq-upload-drop-area {height:268px;}
     .uploaderImageContainer.PROJECT_IMAGE > div {height:268px;}
 
-    .promo-options table.kuorum-prices-table th,
-    .promo-options table.kuorum-prices-table td{padding:10px 15px;}
-
     #domain-description-landing-main {font-size: 34px;line-height: 50px; padding:100px 10%;}
 }
 
@@ -6075,20 +5470,8 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .list-team > li {width: 300px; display: block; float: left; margin-right: 15px;}
     .list-team > li:nth-of-type(even) {margin-right: 0;}
     .pago {background-size: 280px auto;}
-    .promo-options {padding-bottom: 40px; margin-top: 30px;}
     .config > header h1 {font-size: 25px; font-size: 2.5rem;}
-    .promo-options > div > form .options-wrapper {width: 100%;}
     .vimeo > .front .text {font-size: 3.2rem; top: 12%; width: 40%;}
-
-    .embudo #aside-ppal {margin-bottom: 60px;}
-    .embudo .arrow4 {bottom: -82px;}
-    .embudo .arrow1 {right: -35px;}
-    .embudo .arrow5 {right: 125px;}
-    .embudo #aside-ppal p.second {margin-bottom: 60px;}
-    .embudo #aside-ppal img.center-block {margin-top: -20px; margin-bottom: 30px; width: 200px; height: 200px;}
-    .embudo #aside-ppal h1.withArrow {font-size: 37px; font-size: 3.7rem; margin: 20px 0 30px;}
-    .embudo #aside-ppal .border {width: 80%; margin: 0;}
-    .embudo #aside-ppal {background: url('../images/recorte-dwn.png'), url('../images/recorte-rgt.png'); background-color: #f0f0f0; background-repeat: repeat-x, repeat-y; background-position: left bottom, right top; padding-top: 40px;}
 
     .help-block {margin: 8px 0 0 0;}
     .icheckbox_line-orange,
@@ -6111,7 +5494,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .popover-user-header .btn.follow{-webkit-border-radius: 2px !important; -moz-border-radius: 2px !important; border-radius: 2px !important; margin: 9px 0 0 0!important; width: 80px; padding:6px 6px 5px !important;}
 
     .btn.btn-lg.go-for-pass {margin-top: 192px !important; margin-bottom: 60px !important;}
-    .arrow2 {right: 24px;}
     .sign h1 {font-size: 36px; font-size: 3.6rem; margin-top: 30px;text-align: left;}
     .sign h2 {font-size: 26px; font-size: 2.6rem; line-height: 1.4; padding: 0 30px; margin-top: 25px;text-align: left;}
     .sign .login {margin-top: 50px; margin-bottom: 50px;}
@@ -6141,7 +5523,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .activity .popover-trigger span,
     .activity > li.posts span {font-size: 30px; font-size: 3rem;}
     .boxes > h1 {font-size: 22px; font-size: 2.2rem;}
-    .participate .row p {padding: 0 20px;}
     .controls {float: right; width: 277px;}
     .popover-box {width: 30%; margin: 0 30px 20px 0;}
     .home .images {background-position: 0 -80px;}
@@ -6151,19 +5532,9 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .userprofile .boxes .btn.btn-lg {font-size: 2rem !important; padding: 18px 50px !important;}
     .pre {font-size: 25px; font-size: 2.5rem; display: inline-block;}
     .pre {margin: 0;}
-    .othersPost #postNav {height: 70px;}
     .discover .others {margin-bottom: 60px; margin-top: 20px;}
-    .promo-options > div > .link-wrapper {min-height: 295px;}
-    .promo-options > div > .link-wrapper > h2 {font-size: 20px; font-size: 2rem;}
-    .promo-options > div > .link-wrapper > p {font-size: 12px; font-size: 1.2rem;}
-    .promo-options > div > .link-wrapper > p small {font-size: 10px; font-size: 1rem;}
-    .promo-options > div.active {margin: -20px 0 0 0;}
-    .promo-options > div.active  > .link-wrapper {min-height: 330px;}
     .boxes.plan h1 .pull-right {font-size: 18px; font-size: 1.8rem;}
     .config .noti-filters > li > a {padding: 10px 20px;}
-    .othersPost #postNav .item {min-height: 89px;}
-    .othersPost #postNav > a {padding: 35px 18px;}
-    .config #config7 p {margin: 10px 0 0 0;}
     .config .saldo .activity {margin: 30px 0 0 0;}
     #map {width: 650px; height: 554px;}
     #edit-event-map {height: 260px; margin-top:-210px;}
@@ -6208,26 +5579,10 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 
     /* LANDING */
     .main.special.landing .homeSub ul li { width: 20%; height:85px; }
-    .landing .full-video .container-fluid .form-inline .form-group { width: 33%; }
 
-    /* LANGIN SEARCH CHAPU DE INA */
-    .landing .full-video .container-fluid #findRepresentatives.form-inline .form-group {margin-right: 2.5%; width: 50%;}
-    .landing .full-video .container-fluid #findRepresentatives.form-inline.searchRep .form-group input {width: 100%;margin-left: 157px;}
-    .landing .full-video .container-fluid #findRepresentatives .open-filter{width: 157px;}
-    .landing .full-video .container-fluid #findRepresentatives.form-inline.searchRep .btn{margin-left: 125px;}
-    /*  END LANDING SEARCH CHAPU DE INA */
-
-    .row.main.presskit section { padding: 120px 0; }
-    .row.main.presskit { background-position: center -240px; }
-    .row.main.presskit h2 { font-size: 2.2rem; line-height: 1.2;}
-    .row.main.presskit form { margin: 0; }
     .main.special.profile .homeSub { min-height: 520px; background-position: center 220px; background-size: 498px auto;}
     .main.special.landing .homeSub ul li.square {height: 85px;}
 
-    #main.landing .full-video h1 {font-size: 62px; font-size: 6.2rem;}
-    #main.landing .full-video h2,
-    .landing .full-video .btn.btn-white {font-size: 25px;}
-    .landing .full-video .btn.btn-white {margin-bottom: 68px;}
     .onecol #main .signup {max-width: 680px;}
     .onecol #main .signup.final {background-position: center 90px;}
     .onecol #main .signup.final h3 {margin-bottom: 280px;}
@@ -6239,15 +5594,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 
 
     .box-ppal.politician-messages .btn.btn-lg {font-size: 25px !important; font-size: 2.5rem !important; padding: 14px 25px !important;}
-
-
-    .landing.editors .full-video h1 {padding-left: 50%;}
-
-    .main.prices .promo-options > div p.price .currency {left: 25px;}
-
-    .landing.prices .full-video h2 {padding-right: 54%;}
-    .landing.prices .full-video p {padding-left: 18%;}
-    .landing.prices .full-video p {max-width: 660px;}
 
     .onecol .subscribeForm fieldset {width: calc(100% - 192px); float: left; margin-left: -15px; margin-right: -15px;}
     .onecol .subscribeForm .buttons {float: right; margin: 0;}
@@ -6328,19 +5674,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .list-team > li {width: 310px;}
     .list-updates > li {width: 314px;}
 
-    .testimonies-list li {height: 188px;}
-    .testimonies-list li blockquote .body {padding: 30px 20px;}
-    .row.main.presskit { background-position: center -240px; }
-
     video#bgvid {display: block;}
-    #main.landing .full-video h1 {margin-top: 12%;}
-    .landing .full-video .container-fluid form {margin-bottom: 3%;}
-    .landing .full-video .container-fluid form#findRepresentatives {margin-bottom: 8em;}
-    #main.landing.mainEditors .full-video,#main.landing.mainCitizens .full-video {background-position: right -22px;}
-
-    .saveTime, .saveTime li {padding: 0 26px;}
-    .saveTime li p {font-size: 18px; font-size: 1.8rem;}
-    .saveTime li h2 {font-size: 20px; font-size: 1.9rem;}
 
     /* CAMPAIGNS */
     .form-final-options {margin-top: 0px;}
@@ -6360,39 +5694,13 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .uploaderImageContainer.PROJECT_IMAGE > div {height:310px;}
 }
 
-/* especial ipad horizontal */
-@media only screen and (width: 1024px) and (height: 768px) {
-    .full-video {background-size: 1024px 645px;}
-    #main.landing .full-video {height: 575px;}
-}
-/* especial ipad vertical */
-@media only screen and (width: 768px) and (height: 1024px) {
-    .full-video {background-size: 768px auto;}
-}
-
 
 @media only screen and (min-width: 1152px) {
-    #trustUs ul.globus li img {
-        height: 38px;
-        width: auto;
-    }
     header .navbar-form {width: 290px;}
     .list-updates > li {width: 356px;}
     .list-team > li {width: 350px;}
     #main {min-height: 738px;}
-    .arrow2 {right: 35px;}
-    .arrow3 {bottom: -90px;}
-    .arrow4 {bottom: -55px; left: 120px;}
     h1.withArrow {margin-bottom: 70px;}
-
-    #main.landing.mainEditors .full-video, #main.landing.mainEditors .full-video {background-position: right -38px;}
-
-    .main.prices .promo-options > div p.price .currency {left: 35px; top: -35px;}
-    .main.prices .promo-options > div {min-height: 700px;}
-    .main.prices .promo-options > .promo {min-height: 264px;}
-
-    .landing.prices .full-video h2 {font-size: 140px; font-size: 14rem;}
-    .landing.prices .full-video p {max-width: 720px;}
 
     .box.tools.open .dropdown-menu li a {font-size: 20px; font-size: 2rem; line-height: 2.3;}
 
@@ -6415,12 +5723,8 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .box-ppal#followOthers {padding: 22px 22px 0;}
 
     .pago {background-size: 342px auto; background-position: center 25px;}
-    .embudo #aside-ppal {padding-bottom: 46px;}
     .config.info > article > .box-ppal > h1 {margin: 5px 0 25px;}
-    .embudo .arrow4 {bottom: -72px;}
-    .embudo .arrow1 {right: -15px;}
     .home .play {margin: 60px 0 0 0; padding: 0 0 0 30px; font-size: 26px; font-size: 2.6rem;text-align: left;}
-    .full-video {padding-bottom: 60px;}
     .icheckbox_line-orange,
     .iradio_line-orange,
     .config .icheckbox_line-orange,
@@ -6437,7 +5741,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     #info-sup-scroll .laley {font-size: 25px; font-size: 2.5rem;}
     .navbar-form {margin: 5px 4px 4px 22%;}
     /*.btn {margin: 6px 0 0 8px;}*/
-    .container-fluid.userprofile #adminActions{top: 15px;}
     .nav > li > a.btn {margin-top: 0 !important; margin-bottom: 11px !important; padding: 14px !important;}
     .box .badge {top: 2px;}
     .box .badge-small {top: 2px;right:0px;}
@@ -6451,32 +5754,10 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .boxes.edit-user .user-img.big {float: left; margin: 0 6px 6px 0;}
     .boxes.edit-user .personal {width: auto; text-align: left; padding: 28px 0 30px 0;}
 
-    .promo-options > div > .link-wrapper {min-height: 270px;}
-    .promo-options > div > .link-wrapper > h2 {font-size: 24px; font-size: 2.4rem;}
-    .promo-options > div > .link-wrapper > p {font-size: 15px; font-size: 1.5rem;}
-    .promo-options > div > .link-wrapper > p small {font-size: 12px; font-size: 1.2rem;}
-    .promo-options > div.active {margin: -20px 0 0 0;}
-    .promo-options > div.active  > .link-wrapper {min-height: 290px;}
     aside .back {margin: 30px 0 14px;}
     .infoVotes > li,
     .infoVotes > span {/*font-size: 18px; font-size: 1.8rem;*/ width: 78px; padding: 7px;}
-    .arrow1 {right: -20px; top: 45px;}
-    .arrow2 {right: 18px;}
-    .arrow2.propuesta {right: 80px;}
-    .arrow3 {left: 30px; bottom: -90px;}
-    .arrow3.propuesta {left: 100px;}
-    .arrow4 {left: 130px;}
     h1.withArrow {margin-bottom: 50px;}
-
-    .testimonies-list li blockquote .body {color: #fff; padding: 40px 110px 0;}
-    .testimonies-list li blockquote .body p {margin-bottom: 45px;}
-    .testimonies-list li {height: 240px;}
-    .row.main.presskit { background-position: center -300px; }
-    .row.main.presskit h2 {font-size: 2.7rem; line-height: 1.6;}
-    .row.main.presskit form {margin: 20px 0 0;}
-
-    #main.landing .full-video h1 {margin-top: 15%;}
-    .landing .full-video .container-fluid form {margin-bottom: 9.2%;}
 
     /* LIST CONTACTS (08/2016) */
     #boxfiltersContacts ul li .btn {min-width: 0;}
@@ -6486,16 +5767,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     #campaignsList > li > span.fas,
     #campaignsList > li > span.fa {left: 24px;}
 }
-@media only screen and (min-width: 1280px) {
-    #trustUs ul.globus li img {
-        height: 41px;
-        width: auto;
-    }
-    #main.landing .full-video h1 {margin-top: 17%;}
-}
-@media only screen and (min-width: 1366px) {
-    #main.landing .full-video .container-fluid form {margin-bottom: 11%;}
-}
 
 /* Retina ready images */
 @media  only screen and (-webkit-min-device-pixel-ratio: 1.5),
@@ -6503,7 +5774,6 @@ only screen and (min--moz-device-pixel-ratio: 1.5),
 only screen and (-o-min-device-pixel-ratio: 3/2),
 only screen and (min-device-pixel-ratio: 1.5),
 only screen and (min-resolution: 192dpi) {
-
     .main.special.profile .homeSub { background-image: url("../images/screens-trans@2x.png");}
 }
 
@@ -6793,12 +6063,6 @@ fieldset.form-group.fieldset-check-box .control-label +div> .checkbox-inline {ma
 }
 
 @media only screen and (max-width: 767px){
-    #trustUs ul.globus li img {
-        margin-bottom:60px;
-    }
-    #solutions .row.section-body {
-        padding-bottom: 15px;
-    }
 
     #latestActivities .row.section-body {
         padding-bottom: 10px;
@@ -8732,15 +7996,7 @@ ul.bullets li{
     margin-bottom: 20px;
 }
 
-/** solutions **/
-
-#solutions {
-    padding-top: 60px;
-    text-align: center;
-}
-
 /** Latest activities **/
-
 #latestActivities {
     padding: 40px 0 40px 0;
     text-align: center;
@@ -8752,21 +8008,6 @@ ul.bullets li{
 }
 
 #latestActivities .btn{font-size: 25px !important; }
-
-/** Trust us **/
-
-#trustUs {
-    padding-top: 60px;
-    text-align: center;
-}
-
-#trustUs ul.globus li{
-    padding: 15px 0;
-}
-
-#trustUs .section-header h3 {
-    padding-bottom: 60px;
-}
 
 /** list bullets left **/
 
