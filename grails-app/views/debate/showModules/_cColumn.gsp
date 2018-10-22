@@ -12,7 +12,7 @@
         <span class="info"><g:message code="debate.proposalsMade" args="[proposalPage.total]" /></span>
     </li>
     <li>
-        <span class="fas fa-heart" aria-hidden="true"></span>
+        <span class="fal fa-heart" aria-hidden="true"></span>
         <span class="info"><g:message code="debate.supportsCollected" args="[debate.likes]" /></span>
     </li>
     <li>

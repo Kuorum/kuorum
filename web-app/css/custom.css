@@ -5113,48 +5113,92 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     color: #FF9431;
 }
 
-.conversation-box .footer .comment-counter {
-    font-size: 25px;
-    font-family: "Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Arial,sans-serif;
+.comment-counter {
+    font-family: "Helvetica Neue", Helvetica,Arial,sans-serif;
     color: #D0D0D0;
     text-decoration: none;
     border: none;
     background: transparent;
 }
 
-.conversation-box .footer .comment-counter button {
-    font-size: 20px;
-    padding-right: 0;
+.comment-counter .comment-counter-text {display:none}
+.comment-counter .comment-counter-text {display:none}
+.comment-counter .comment-counter-text .comment-counter-text-active,
+.comment-counter .comment-counter-text .comment-counter-text-active-hover,
+.comment-counter .comment-counter-text .comment-counter-text-inactive,
+.comment-counter .comment-counter-text .comment-counter-text-inactive-hover{display:none}
+
+.comment-counter-as-button .comment-counter .comment-counter-text{display:inline-block}
+.comment-counter-as-button .comment-counter .number{display: none}
+.comment-counter-as-button .comment-counter a:not(.active) .comment-counter-text .comment-counter-text-inactive{display: inline-block}
+.comment-counter-as-button .comment-counter a:not(.active):hover .comment-counter-text .comment-counter-text-inactive{display: none}
+.comment-counter-as-button .comment-counter a:not(.active):hover .comment-counter-text .comment-counter-text-inactive-hover{display: inline-block}
+.comment-counter-as-button .comment-counter a.active .comment-counter-text .comment-counter-text-active{display: inline-block}
+.comment-counter-as-button .comment-counter a.active:hover .comment-counter-text .comment-counter-text-active{display: none}
+.comment-counter-as-button .comment-counter a.active:hover .comment-counter-text .comment-counter-text-active-hover{display: inline-block}
+
+.comment-counter-as-button .comment-counter a:focus,
+.comment-counter-as-button .comment-counter a{
+    border: 1px solid #00a3ed;
+    color:#00a3ed !important;
+    padding:10px 15px;
+}
+.comment-counter-as-button .comment-counter a:hover{
+    background-color: #00a3ed;
+    color:#FFF !important;
+}
+.comment-counter-as-button .comment-counter a.active{
+    color:#FFF !important;
+    background-color: #00a3ed;
+}
+.comment-counter-as-button .comment-counter a.active:hover{
+    background-color: #990000;
+    border-color:#990000;
+    color:#FFF !important;
 }
 
-.conversation-box .footer .comment-counter button:hover,
-.conversation-box .footer .comment-counter button.active,
-.leader-post .footer .comment-counter button.active,
-.leader-post .footer .comment-counter a.active,
-.link-wrapper .card-footer a.active{
-    color: #00a3ed !important;
+.comment-counter button,
+.comment-counter a:focus,
+.comment-counter a {
+    padding-right: 0;
+    font-family: "Helvetica Neue", Helvetica,Arial,sans-serif;
+    color: #D0D0D0;
     text-decoration: none;
+    border: none;
+    background: transparent;
 }
+
+
+.comment-counter button:hover,
+.comment-counter a:hover,
+.comment-counter button.active,
 
 /*.conversation-box .footer .comment-counter button:hover,*/
-.conversation-box .footer .comment-counter button.active.disabled,
-.conversation-box .footer .comment-counter button.disabled,
-.leader-post .footer .comment-counter button.active.disabled,
-.leader-post .footer .comment-counter button.disabled,
-.leader-post .footer .comment-counter a.active.disabled,
-.leader-post .footer .comment-counter a.disabled,
+.comment-counter button.active.disabled,
+.comment-counter button.disabled,
+.comment-counter a.active.disabled,
+.comment-counter a.disabled,
 .link-wrapper .card-footer a.active.disabled,
 .link-wrapper .card-footer a.disabled{
     color: #E4E4E4 !important;
 }
 
+.comment-counter a:hover,
+.comment-counter a.disabled:hover,
+.comment-counter button.disabled:hover {color: #D0D0D0;}
+
+
 .conversation-box .footer .comment-counter button.delete:hover {
     color: #A8A8A8;
 }
 
-.conversation-box .footer .comment-counter .number {
-    vertical-align: middle;
+.comment-counter .number {
+    /*vertical-align: middle;*/
+    font-size: 20px;
+    font-family: "Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Arial,sans-serif;
 }
+
+.conversation-box .footer .comment-counter button{font-size: 20px;}
 
 .conversation-box-comments {
     background-color: #F8F8F8;
@@ -5261,9 +5305,8 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 }
 
 .conversation-box-comment .footer {
-    font-family: "Helvetica Neue", Helvetica,Arial,sans-serif !important;;
-    /*padding-left: 40px;*/
-    font-size: 14px;
+    font-family: "Helvetica Neue", Helvetica,Arial,sans-serif !important;
+    font-size: 16px;
     color: #D0D0D0;
 }
 .conversation-box-comment .footer .footer-comment-votes{
@@ -7957,28 +8000,10 @@ body.noLogged .leader-post .header .call-to-action-mobile{
     color: #00a3ed;
 }
 
-.leader-post > .footer .comment-counter {margin:30px 0;}
+.leader-post > .footer .comment-counter {margin:30px 0; font-size: 20px;}
 .leader-post > .footer .comment-counter.important {color:#ff9431; margin-top:28px; margin-right: 10px;}
 .leader-post > .footer .comment-counter a,
-.leader-post > .footer .comment-counter button {
-    font-size: 20px;
-    padding-right: 0;
-    font-family: "Helvetica Neue", Helvetica,Arial,sans-serif;
-    color: #D0D0D0;
-    text-decoration: none;
-    border: none;
-    background: transparent;
-}
 .comment-counter + .comment-counter {margin-right: 5px;}
-.leader-post > .footer .comment-counter a:hover,
-.leader-post > .footer .comment-counter button:hover {color: #00a3ed;text-decoration: none;}
-.leader-post > .footer .comment-counter a.disabled:hover,
-.leader-post > .footer .comment-counter button.disabled:hover {color: #D0D0D0;}
-
-.leader-post > .footer .comment-counter .number {
-    font-size: 20px;
-    font-family: "Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Arial,sans-serif;
-}
 
 /*** leader-post-stats ***/
 ul.leader-post-stats {box-shadow: 0 0 2px rgba(200,200,200,0.6); margin-bottom:20px;}

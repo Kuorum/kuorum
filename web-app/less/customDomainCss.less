@@ -477,20 +477,23 @@ ul.search-list > li.search-article .box-ppal .card-footer > ul li a:hover {color
 .conversation-box > .body p a {color: @secondColor;}
 .conversation-box .footer .social li.active .fa-circle {color: @secondColor;}
 
-.conversation-box .footer .comment-counter button:hover,
-.conversation-box .footer .comment-counter button.active,
-.leader-post .footer .comment-counter button.active,
-.link-wrapper .card-footer a.active{
+.comment-counter button:hover,
+.comment-counter a:hover,
+.comment-counter button.active,
+.comment-counter a.active{
   color: @secondColor !important;
 }
+
+.comment-counter-as-button .comment-counter a{border-color: @secondColor;color:@secondColor !important;}
+.comment-counter-as-button .comment-counter a:hover{background-color: @secondColor;}
+.comment-counter-as-button .comment-counter a.active{background-color: @secondColor;}
 
 .conversation-box-comments ul.social li a:active,
 .conversation-box-comments ul.social li a:hover{color: @secondColor;}
 .leader-post .header a.edit:hover {color: @secondColor;}
 .leader-post > .body p a, .conversation-box-comment .body a {color: @secondColor;}
 .leader-post > .footer .social li a:hover .fa-circle {color: @secondColor;}
-.leader-post > .footer .comment-counter button:hover {color: @secondColor;}
-.leader-post > .footer .comment-counter.important {color: @mainColor}
+.comment-counter.important {color: @mainColor}
 ul.search-list > li.search-article .box-ppal .card-footer > ul li .comment-counter.important {color: @mainColor}
 .comment-box.call-to-action .comment p a {color: @secondColor;}
 .survey-progress-bar .progress-bar {background-color: @secondColor;}

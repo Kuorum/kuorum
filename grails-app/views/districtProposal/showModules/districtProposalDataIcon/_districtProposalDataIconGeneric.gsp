@@ -13,5 +13,11 @@
        data-txt-off-hover="${btnStatusTextOffHover}">
         <span class="${isActive?'fas':'fal'} ${iconClass}" aria-hidden="true"></span>
         <span class="number">${iconNumber}</span>
+        <span class="comment-counter-text">
+            <span class="comment-counter-text-active"><g:message code="districtProposal.callToAction.${districtProposal.participatoryBudget.status}.button.on"/></span>
+            <span class="comment-counter-text-active-hover"><g:message code="districtProposal.callToAction.${districtProposal.participatoryBudget.status}.button.on.hover"/></span>
+            <span class="comment-counter-text-inactive"><g:message code="districtProposal.callToAction.${districtProposal.participatoryBudget.status}.button.off"/></span>
+            <span class="comment-counter-text-inactive-hover"><g:message code="districtProposal.callToAction.${districtProposal.participatoryBudget.status}.button.off.hover"/></span>
+        </span>
     </a>
 </div>
