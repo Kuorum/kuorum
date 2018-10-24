@@ -1,5 +1,5 @@
 
-<g:render template="/participatoryBudget/showModules/cCallToAction" model="[participatoryBudget:participatoryBudget]"/>
+<g:render template="/participatoryBudget/showModules/cCallToAction" model="[participatoryBudget:participatoryBudget,campaignUser:campaignUser, hideXs:false]"/>
 <ul class="nav nav-pills nav-underline" id="participatory-budget-district-proposals-list-tab-tag">
     <g:each in="${participatoryBudget.districts}" var="district">
         <li><a href="#${district.name}" id="${district.name.encodeAsKuorumUrl()}" data-districtId="${district.id}">

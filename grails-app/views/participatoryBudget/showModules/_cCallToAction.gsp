@@ -15,7 +15,7 @@
     <g:set var="callButtonMsg" value="${g.message(code:"participatoryBudget.callToAction.${participatoryBudget.status}.button",args: [campaignUser.name])}"/>
 </g:elseif>
 
-<div class="comment-box call-to-action call-to-action-add-proposal hidden-sm hidden-xs">
+<div class="comment-box call-to-action call-to-action-add-proposal ${hideXs?'hidden-sm hidden-xs':''}">
     <div class="comment-header">
         <span class="call-title">${callTitleMsg}</span>
         <span class="call-subTitle">${callSubtitleMsg}</span>
