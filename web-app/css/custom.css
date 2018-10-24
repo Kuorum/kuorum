@@ -1345,15 +1345,17 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 #saveFilterAsPopUp input {margin-bottom: 10px;}
 #sendLater {/*margin-left: 10px;*/ margin-bottom: 0; min-width: 85px;}
 
-.form-final-options {margin: 15px 0 0; padding: 0;}
+.form-final-options {margin-top:15px;}
 .form-final-options > li {list-style: none; display: inline-block; margin-right: 10px; position: relative;}
 .form-final-options > li:last-child {margin-right: 0;}
 .form-final-options #selectDate, #saveFilterAsPopUp {display: none; background-color: #f9f9f9; position: absolute; width: 260px; top: 48px; right: -80px;border: 1px solid #dddddd; padding: 15px;z-index:1;}
 #saveFilterAsPopUp {right: -30px;}
 .form-final-options #selectDate.on, #saveFilterAsPopUp.on {display: block;}
 .form-final-options #selectDate span.error{margin:-5px 0 10px 0}
-.form-final-options #selectDate:after, .form-final-options #selectDate:before,
-#saveFilterAsPopUp:after, #saveFilterAsPopUp:before {
+.form-final-options #selectDate:after,
+.form-final-options #selectDate:before,
+#saveFilterAsPopUp:after,
+#saveFilterAsPopUp:before {
     bottom: 100%;
     left: 50%;
     border: solid transparent;
@@ -1477,6 +1479,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .form-final-options #selectDate .input-group {margin-bottom: 15px;}
 .form-final-options #selectDate .btn {display: block; width: 100%;}
 .form-final-options #selectDate .input-group-addon {border: none; background-color: transparent; cursor:pointer;}
+.form-final-options .btn.btn-grey-light {padding: 0 !important;}
 
 #tabs-new-campaign #toFilters > div:nth-child(2) {line-height: 36px; font-size: 16px; font-size: 1.6rem;}
 #toFilters > div:nth-child(3) .input-group .btn.search {line-height: 1.2; height: 34px; border-width: 1px; margin-left: -1px !important; z-index: 9;}
@@ -5363,8 +5366,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .header-campaign .qq-upload-drop-area {background-size: 70px auto;}
     .header-campaign #au-uploaderImageId__headerPictureId_NEW_ {height: 128px;}
     #filtersInfo .modal-dialog {width: 560px;}
-    fieldset.buttons {min-height: 40px; margin-top:0; padding-top:0}
-    .buttons > .text-right > ul.form-final-options {position: absolute; bottom: 25px; right: 25px}
     fieldset.form-group {min-height: 40px;}
     .new-filter-options > div:first-child > a > .text {display: none;}
     /*.new-filter-options > label.control-label {color: #a8a8a8}*/
@@ -5602,17 +5603,11 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .box.tools.open .dropdown-menu li a {font-size: 18px; font-size: 1.8rem; line-height: 2.6;}
 
     /* CAMPAIGNS */
-    .form-final-options {margin-top: 20px;}
-    .form-control-campaign {position: absolute; bottom: 25px; right: 15px;}
     .form-final-options > li:first-child {display: inline-block; margin-bottom: 10px;}
     .header-campaign .qq-upload-drop-area {background-size: 155px auto; background-position: center 14%;}
     #tabs-new-campaign .textareaContainer textarea {min-height: 349px;}
     #tabs-new-campaign .textareaContainer + div {text-align: left;}
-    .form-final-options .btn.btn-blue.inverted {margin: 0;}
     .header-campaign .progress {margin-top: 70px; margin-left: 14%;}
-
-    /*.form-horizontal .form-group .form-control-campaign {margin-top:-120px;text-align: left;}*/
-    /*.form-horizontal .form-group .form-control-campaign {position: absolute;  right: 30px;  bottom: 40px;}*/
 
     /* DASHBOARD */
     /*#profileInfo > span {margin-top: 0; float: right;}*/
@@ -5677,7 +5672,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     video#bgvid {display: block;}
 
     /* CAMPAIGNS */
-    .form-final-options {margin-top: 0px;}
     .form-final-options > li:first-child {display: inline-block; margin-bottom: 0;}
     #campaignsList > li > .state {left: 20px;}
     #campaignsList > li {padding-left: 65px; padding-top: 24px; padding-bottom: 15px;}
@@ -5692,6 +5686,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 
     .uploaderImageContainer.PROJECT_IMAGE .qq-upload-drop-area {height:310px;}
     .uploaderImageContainer.PROJECT_IMAGE > div {height:310px;}
+    .form-final-options {margin-top:0px;}
 }
 
 
@@ -5916,7 +5911,6 @@ p.party{
 /*}*/
 
 
-fieldset.buttons {min-height: 50px;    margin-top: -20px; padding-bottom: 15px;}
 fieldset.form-group {min-height: 50px;}
 fieldset.form-group.fieldset-check-box {min-height: 0px;}
 
@@ -8454,9 +8448,6 @@ ul.bullets li img {
     }
 
     ul.search-list > li.search-article > article.box-ppal > div.link-wrapper > div.card-footer > ul > li.owner {bottom: 9px;}
-
-
-    .form-control-campaign {position: absolute; bottom: 25px; right: 15px}
 
     .guide-card > .box-ppal {width: 100%}
 }

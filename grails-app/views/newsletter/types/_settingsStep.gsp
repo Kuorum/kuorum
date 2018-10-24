@@ -47,10 +47,10 @@
     </div>
         %{--<g:render template="/newsletter/form/formGroupCampaignTags" model="[command:command, events:[TrackingMailStatusRSDTO.OPEN,TrackingMailStatusRSDTO.CLICK]]"/>--}%
         <fieldset class="form-group">
-            <div class="col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-8 form-control-campaign">
+            <div class="col-sm-10 col-sm-offset-2 col-md-4 col-md-offset-8 form-control-campaign">
                 <ul class="form-final-options">
                     <li>
-                        <a href="#" id="save-draft-campaign" data-redirectLink="politicianCampaigns">
+                        <a href="#" id="save-draft-campaign" data-redirectLink="politicianCampaigns" class="btn btn-grey-light">
                             <g:message code="tools.massMailing.saveDraft"/>
                         </a>
                     </li>
