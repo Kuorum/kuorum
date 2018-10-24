@@ -4608,12 +4608,12 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 .comment-counter-as-button .comment-counter a.active:hover .comment-counter-text .comment-counter-text-active{display: none}
 .comment-counter-as-button .comment-counter a.active:hover .comment-counter-text .comment-counter-text-active-hover{display: inline-block}
 
-.comment-counter-as-button .comment-counter a:focus,
 .comment-counter-as-button .comment-counter a{
     border: 1px solid #00a3ed;
     color:#00a3ed !important;
     padding:10px 15px;
 }
+.comment-counter-as-button .comment-counter a:focus,
 .comment-counter-as-button .comment-counter a:hover{
     background-color: #00a3ed;
     color:#FFF !important;
