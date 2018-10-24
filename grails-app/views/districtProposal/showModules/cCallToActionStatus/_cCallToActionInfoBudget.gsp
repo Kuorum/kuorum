@@ -7,7 +7,7 @@
     <g:if test="${showBudgetProgressBar}">
         <div class="budget">
             <div class="campaign-progress-bar-wrapper">
-                <h4><g:message code="districtProposal.callToAction.district.info.progressBar"/>: <span class="budget-price">${districtProposal.district.budget.encodeAsReducedPrice()} €</span></h4>
+                <h4><g:message code="districtProposal.callToAction.district.info.progressBar"/>: <span class="budget-price"><g:message code="kuorum.multidomain.money" args="[districtProposal.district.budget.encodeAsReducedPrice()]"/> </span></h4>
                 <div class="campaign-progress-bar" data-width="${Math.round(districtProposal.district.amountUserInvested / districtProposal.district.budget * 100)}">
                     <div class="pop-up">
                         <g:set var="amountHTML"><span class="amount-user-invested">${districtProposal.district.amountUserInvested}</span></g:set>
