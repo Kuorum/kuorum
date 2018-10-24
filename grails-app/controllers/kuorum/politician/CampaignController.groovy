@@ -216,7 +216,10 @@ class CampaignController {
             if (campaignRSDTO){
                 command.title = campaignRSDTO.title
                 command.body = campaignRSDTO.body
-                command.videoPost = campaignRSDTO.videoUrl
+                if (campaignRSDTO.videoUrl){
+                    command.videoPost = campaignRSDTO.videoUrl
+                    command.fileType = FileType.YOUTUBE.toString()
+                }
 
                 if(campaignRSDTO.datePublished){
                     command.publishOn = campaignRSDTO.datePublished
@@ -225,6 +228,7 @@ class CampaignController {
                 if (campaignRSDTO.photoUrl) {
                     KuorumFile kuorumFile = KuorumFile.findByUrl(campaignRSDTO.photoUrl)
                     command.headerPictureId = kuorumFile?.id
+                    command.fileType = FileType.IMAGE.toString()
                 }
             }
         }
