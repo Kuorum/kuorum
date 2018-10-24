@@ -4629,7 +4629,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 }
 
 .comment-counter button,
-.comment-counter a:focus,
 .comment-counter a {
     padding-right: 0;
     font-family: "Helvetica Neue", Helvetica,Arial,sans-serif;
@@ -4640,6 +4639,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 }
 
 
+.comment-counter a:focus,
 .comment-counter button:hover,
 .comment-counter a:hover,
 .comment-counter button.active,
