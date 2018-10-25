@@ -53,8 +53,8 @@ class AccountDetailsCommand {
         name nullable:false, maxSize: 17
         surname nullable:true
         user nullable: false
-        password nullable: false,  validator: {val, obj ->
-            if (val && obj.user && !isPasswordValid(val, obj.user)){
+        password validator: {val, obj ->
+            if (obj.user && !isPasswordValid(val, obj.user)){
                 return "notValid"
             }
         }
@@ -83,7 +83,7 @@ class AccountDetailsCommand {
         RegisterService registerService = ( kuorum.register.RegisterService)appContext.registerService
         if (registerService.isPasswordSetByUser(user)){
             org.springframework.security.authentication.encoding.PasswordEncoder passwordEncoder = (org.springframework.security.authentication.encoding.PasswordEncoder)appContext.passwordEncoder
-            return passwordEncoder.isPasswordValid(user.password, inputPassword, null)
+            return inputPassword && passwordEncoder.isPasswordValid(user.password, inputPassword, null)
         }else{
             return true;
         }

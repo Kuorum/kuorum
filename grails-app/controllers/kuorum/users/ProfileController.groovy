@@ -76,11 +76,11 @@ class ProfileController {
 
 //    @Secured(["IS_AUTHENTICATED_FULLY"])
     def updateAccountDetails(AccountDetailsCommand command){
+        KuorumUser user = params.user
         if (command.hasErrors()){
-            render view: "editAccountDetails", model:[command:command]
+            render view: "editAccountDetails", model:[command:command, requirePassword: registerService.isPasswordSetByUser(user)]
             return;
         }
-        KuorumUser user = params.user
         user = kuorumUserService.updateAlias(user, command.alias)
         if (!user){
             flash.error = g.message(code:'kuorum.web.commands.profile.AccountDetailsCommand.logic.aliasError')

@@ -61,7 +61,13 @@
                         <fieldset class="row">
                             <div class="form-group col-md-10">
                                 <input type="text" name="autocompleteNameOff" style="display:none" data-ays-ignore="true"/>
-                                <formUtil:password command="${command}" field="password" required="true" showLabel="true"/>
+                                <g:if test="${requirePassword}">
+                                    <formUtil:password command="${command}" field="password" required="true" showLabel="true"/>
+                                </g:if>
+                                <g:else>
+                                    <!-- HACK : Command is requiring password although it is nullable-->
+                                    <input type="hidden" name="password" value="XXX"/>
+                                </g:else>
                             </div>
                         </fieldset>
 
