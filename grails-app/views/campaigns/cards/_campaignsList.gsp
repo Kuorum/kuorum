@@ -19,6 +19,8 @@
         </g:if>
         <g:if test="${campaign instanceof org.kuorum.rest.model.communication.participatoryBudget.DistrictProposalRSDTO}">
             <g:render template="/campaigns/cards/districtProposal" model="[districtProposal:campaign, showAuthor: showAuthor, referred:'dashboard']" />
+            <!-- District modal overflow -->
+            <g:render template="/districtProposal/showModules/mainContent/districtProposalModalErrors" model="[district:campaign.district]"/>
         </g:if>
         <g:if test="${campaign instanceof org.kuorum.rest.model.search.SearchKuorumElementRSDTO}">
             <g:render template="/campaigns/cards/searchCampaignList" model="[campaign:campaign, showAuthor: showAuthor, referred:'dashboard']" />

@@ -49,7 +49,7 @@
                     </li>
                 </g:elseif>
 
-                <li>
+                <li class="${campaign.type== org.kuorum.rest.model.search.SearchTypeRSDTO.DISTRICT_PROPOSAL && campaign.technicalReviewStatus == org.kuorum.rest.model.communication.participatoryBudget.TechnicalReviewStatusRDTO.VALID && campaign.participatoryBudget.status==org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.BALLOT?'comment-counter-as-button':''}">
                     <g:if test="${campaign.type== org.kuorum.rest.model.search.SearchTypeRSDTO.SURVEY}">
                         <g:link mapping="campaignShow" params="${campaign.encodeAsLinkProperties()}" fragment="survey-progress" role="button" class="${campaign.completed?'active':''}">
                             <span class="fal fa-chart-pie fa-lg"></span>

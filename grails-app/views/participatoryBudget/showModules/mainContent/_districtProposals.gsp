@@ -11,7 +11,7 @@
 
 <div id="participatoryBudget-districtProposals-list">
     <g:each in="${participatoryBudget.districts}" var="district">
-        <div style="display: none" class="${participatoryBudget.status == org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.BALLOT?'comment-counter-as-button':''}" id="proposal-district-${district.id}">
+        <div style="display: none" id="proposal-district-${district.id}">
             <g:if test="${participatoryBudget.status == org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.BALLOT}">
                 <g:set var="userInvestement" value="${g.message(code:'kuorum.multidomain.money', args: [district.amountUserInvested])}" />
                 <g:render template="/participatoryBudget/showModules/mainContent/districtInvestmentProgressBar" model="[

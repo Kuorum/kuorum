@@ -83,6 +83,7 @@ var districtProposalHelper={
                 if (callback != undefined){
                     callback();
                 }
+                $button.blur()
             },
             error: function(xhr, textStatus, errorThrown){
                 var errorJson = JSON.parse(xhr.responseText);

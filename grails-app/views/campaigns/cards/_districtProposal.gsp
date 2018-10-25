@@ -3,7 +3,6 @@
 <article role="article" class="box-ppal clearfix">
     <div class="link-wrapper" id="districtProposal-${districtProposal.id}" data-datepublished="${districtProposal.datePublished.time}">
         <g:link mapping="districtProposalShow" params="${districtProposal.encodeAsLinkProperties()}" class="hidden"></g:link>
-        %{--<g:if test="${survey.photoUrl || survey.videoUrl}">--}%
             <div class="card-header-photo">
                 <g:if test="${districtProposal.photoUrl}">
                     <img src="${districtProposal.photoUrl}" alt="${districtProposal.title}">
@@ -17,12 +16,13 @@
                     </div>
                 </g:else>
             </div>
-        %{--</g:if>--}%
         <div class="card-body">
             <h1>
-                <g:link mapping="surveyShow" class="link-wrapper-clickable" params="${districtProposal.encodeAsLinkProperties()}">
+                <g:link mapping="districtProposalShow" class="link-wrapper-clickable" params="${districtProposal.encodeAsLinkProperties()}">
                     ${districtProposal.title}
                 </g:link>
+                ${districtProposal.technicalReviewStatus}
+                ${districtProposal.participatoryBudget.status}
             </h1>
             %{--<g:if test="${!surveyMultimedia}">--}%
                 %{--<div class="card-text"><modulesUtil:shortText text="${survey.body}"/></div>--}%
@@ -49,7 +49,7 @@
                     </li>
                 </g:elseif>
 
-                <li>
+                <li class="${districtProposal.technicalReviewStatus == org.kuorum.rest.model.communication.participatoryBudget.TechnicalReviewStatusRDTO.VALID && districtProposal.participatoryBudget.status==org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.BALLOT?'comment-counter-as-button':''}">
                     <g:render template="/districtProposal/showModules/districtProposalDataIcon" model="[districtProposal:districtProposal]"/>
                 </li>
             </ul>
