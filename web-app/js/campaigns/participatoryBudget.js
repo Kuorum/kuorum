@@ -1,4 +1,9 @@
 $(function () {
+
+    $(".call-to-action-mobile.go-to-districtProposals button").on("click", function(e){
+        e.preventDefault()
+        moveToHash($(this).attr("data-goto"))
+    })
     
     $(".participatory-budget-status .participatory-budget-steps-info a").on("click",function (e) {
         e.preventDefault();
