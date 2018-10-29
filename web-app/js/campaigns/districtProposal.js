@@ -156,7 +156,6 @@ var districtProposalHelper={
             $buttonColumnC.addClass('on')
             $buttonColumnC.blur()
         }else{
-            console.log($districtProposalCounter)
             $districtProposalCounter.find("a").removeClass("active");
             $districtProposalCounter.find(".fa-rocket").removeClass("fas");
             $districtProposalCounter.find(".fa-rocket").addClass("fal");
