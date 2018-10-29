@@ -1757,12 +1757,9 @@ ul.participatory-budget-steps-info li.active a {display: none}
 .participatory-budget-status .kuorum-tooltip + .tooltip.bottom .tooltip-arrow{position:relative;left: 10%;}
 
 .warn-district-overflow > div.modal-dialog >div.modal-content > div.modal-body > div.comment-box .label,
-#participatoryBudget-districtProposals-list > div > div.comment-box .label{text-align: center;font-weight: bold;font-family: 'Arial';color: #545454;font-size: 15px;padding: .2em .6em .3em; width:25%;float:left;}
+#participatoryBudget-districtProposals-list > div > div.comment-box .label{text-align: center;font-weight: bold;font-family: 'Arial';color: #545454;font-size: 15px;}
 .warn-district-overflow div.comment-box .campaign-progress-bar-wrapper,
-#participatoryBudget-districtProposals-list > div > div.comment-box .campaign-progress-bar-wrapper {margin-top:-10px; width:74%;float:left;}
-
-.warn-district-overflow > div.modal-dialog >div.modal-content > div.modal-body > div.comment-box .label{width:28%;}
-.warn-district-overflow div.comment-box .campaign-progress-bar-wrapper{width:72%;}
+#participatoryBudget-districtProposals-list > div > div.comment-box .campaign-progress-bar-wrapper {margin-top:-10px;}
 
 
 #followAndRegister{padding: 10px 15px 0;}
