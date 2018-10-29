@@ -73,7 +73,7 @@ class CampaignController {
                     dataView = districtProposalService.buildView(campaignRSDTO, user, viewerUid, params)
                     break;
                 case CampaignTypeRSDTO.PETITION:
-                    dataView = petitionService.buildView(campaignRSDTO, user, viewerUid, params)
+                    dataView = districtProposalService.buildView(campaignRSDTO, user, viewerUid, params)
                     break;
                 default:
                     log.error("Campaign type not recognized: ${campaignRSDTO.campaignType}")

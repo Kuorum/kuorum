@@ -8,7 +8,6 @@ import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.commands.payment.CampaignSettingsCommand
 import kuorum.web.commands.payment.petition.SignPetitionCommand
 import org.kuorum.rest.model.communication.petition.PetitionRSDTO
-import org.kuorum.rest.model.communication.post.PostRSDTO
 
 class PetitionController extends CampaignController{
 
@@ -63,8 +62,8 @@ class PetitionController extends CampaignController{
         redirect mapping: result.nextStep.mapping, params: result.nextStep.params
     }
 
-    private def petitionModelSettings(CampaignSettingsCommand command, PostRSDTO postRSDTO) {
-        def model = modelSettings(command, postRSDTO)
+    private def petitionModelSettings(CampaignSettingsCommand command, PetitionRSDTO petitionRSDTO) {
+        def model = modelSettings(command, petitionRSDTO)
         command.debatable=false
         model.options =[debatable:false, endDate:false]
         return model
