@@ -118,9 +118,19 @@
             </div>
         </li>
     </sec:ifAnyGranted>
-    %{--<li class="fontIcon disabled"><g:link mapping="debateCreate" role="button" class="mail">--}%
-    %{--<span class="fal fa-microphone"></span>--}%
-    %{--<span class="label"><g:message code="tools.campaign.new.petition"/></span></g:link>--}%
-    %{--</li>--}%
+
+    <sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_PETITION">
+        <li class="fontIcon">
+            <g:link mapping="petitionCreate" role="button" class="actionIcons new-campaign-tip"
+                    rel="tooltip"
+                    data-toggle="tooltip"
+                    data-placement="bottom"
+                    title=""
+                    data-original-title="${g.message(code:'dashboard.payment.chooseCampaign.tooltip.petition')}">
+                <span class="fal fa-microphone"></span>
+                <span class="label"><g:message code="tools.campaign.new.petition"/></span>
+            </g:link>
+        </li>
+    </sec:ifAnyGranted>
 
 </ul>

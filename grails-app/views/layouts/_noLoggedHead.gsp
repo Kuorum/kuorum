@@ -38,6 +38,11 @@
                     <span><g:message code="head.noLogged.searchParticipatoryBudgets"/></span>
                 </g:link>
             </li>
+            <li>
+                <g:link mapping="searcherSearchPETITION" class="navbar-link ${nav.activeMenuCss(mappingName: 'searcherSearchPETITION')}">
+                    <span><g:message code="head.noLogged.searchPetition"/></span>
+                </g:link>
+            </li>
         </ul>
     </li>
 

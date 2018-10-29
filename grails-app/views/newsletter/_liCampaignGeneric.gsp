@@ -23,6 +23,11 @@
     <g:set var="hideEdit" value="${campaign.participatoryBudget.status != org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.ADDING_PROPOSALS}"/>
     <g:set var="hideRemove" value="${!(campaign.participatoryBudget.status == org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.ADDING_PROPOSALS || campaign.newsletter.status == CampaignStatusRSDTO.DRAFT)}"/>
 </g:elseif>
+<g:elseif test="${campaign.campaignType == org.kuorum.rest.model.communication.CampaignTypeRSDTO.PETITION}">
+    <g:set var="urlMappingNameEditStep" value="EditContent"/>
+    <g:set var="type" value="petition"/>
+    <g:set var="faIcon" value="fa-microphone"/>
+</g:elseif>
 <g:set var="typeName" value="${g.message(code: 'tools.campaign.new.'+type)}"/>
 <g:set var="campaignGenericMappings" value="[show:type+'Show', edit:type+urlMappingNameEditStep, remove:type+'Remove']"/>
 <g:if test="${campaign.event}">

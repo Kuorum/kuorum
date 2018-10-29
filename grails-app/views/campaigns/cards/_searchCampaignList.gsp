@@ -85,6 +85,9 @@
                     <g:elseif test="${campaign.type== org.kuorum.rest.model.search.SearchTypeRSDTO.DISTRICT_PROPOSAL}">
                         <g:render template="/districtProposal/showModules/districtProposalDataIcon/districtProposalDataIcon_${campaign.participatoryBudget.status}" model="[districtProposal:campaign]"/>
                     </g:elseif>
+                    <g:elseif test="${campaign.type== org.kuorum.rest.model.search.SearchTypeRSDTO.PETITION}">
+                        <g:render template="/petition/showModules/mainContent/petitionDataIcon" model="[petition:campaign]"/>
+                    </g:elseif>
                 </li>
             </ul>
         </div>

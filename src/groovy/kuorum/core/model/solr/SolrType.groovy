@@ -11,7 +11,8 @@ enum SolrType {
     EVENT,
     PARTICIPATORY_BUDGET,
     DISTRICT_PROPOSAL,
-    SURVEY;
+    SURVEY,
+    PETITION;
 
     static final SolrType safeParse(String rawType){
         SolrType solrType = null;

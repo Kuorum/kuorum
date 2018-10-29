@@ -252,6 +252,11 @@ class RestKuorumApiService {
         ACCOUNT_DISTRICT_PROPOSALS      ("/communication/campaign/participatory-budget/district-proposal/{userId}"),
         ACCOUNT_DISTRICT_PROPOSAL       ("/communication/campaign/participatory-budget/district-proposal/{userId}/{campaignId}"),
 
+        ACCOUNT_PETITIONS_ALL       ("/communication/campaign/petition/"),
+        ACCOUNT_PETITIONS           ("/communication/campaign/petition/{userId}"),
+        ACCOUNT_PETITION            ("/communication/campaign/petition/{userId}/{petitionId}"),
+        ACCOUNT_PETITION_SIGN       ("/communication/campaign/petition/{userId}/{petitionId}/sign"),
+
         ACCOUNT_EVENTS              ("/communication/campaign/event/{userId}"),
         ACCOUNT_EVENT               ("/communication/campaign/event/{userId}/{campaignId}"),
         ACCOUNT_EVENT_ADD_ASSISTANT ("/communication/campaign/event/{userId}/{campaignId}/assistant/{assistantId}"),

@@ -5,7 +5,7 @@
             </li>
         </g:if>
         <g:elseif test="${solrElement instanceof org.kuorum.rest.model.search.SearchKuorumElementRSDTO}">
-            <r:require modules="post, districtProposal"/>
+            <r:require modules="post, districtProposal, petition"/>
             <li class="col-sm-12 col-md-6 search-article">
                 <g:render template="/campaigns/cards/searchCampaignList" model="[campaign:solrElement, showAuthor: true]" />
             </li>

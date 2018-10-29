@@ -150,6 +150,10 @@ modules = {
         dependsOn("basic", "forms",'campaign')
         resource url:'js/post.js'
     }
+    petition {
+        dependsOn("basic", "forms",'campaign')
+        resource url:'js/campaigns/petitions.js'
+    }
 
     survey{
         dependsOn("basic",'campaign')

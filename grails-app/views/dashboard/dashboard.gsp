@@ -4,7 +4,7 @@
     <meta name="layout" content="paymentPlainLayout">
     <!-- Schema.org markup for Google+ -->
     <meta itemprop="name" content="${_domainName}">
-    <r:require modules="post, districtProposal"/>
+    <r:require modules="post, districtProposal, petition"/>
     <g:if test="${tour}">
         <r:require module="tour"/>
     </g:if>

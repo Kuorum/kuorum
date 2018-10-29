@@ -267,6 +267,24 @@ class UrlMappings {
         name de_searcherSearchDISTRICT_PROPOSALByREGION:"/suche/vorschlag/von/$word?"      (controller: "search", action:"search"){searchType="REGION";type="DISTRICT_PROPOSAL"; mappingName="searcherSearchDISTRICT_PROPOSALByREGION"}
         name ca_searcherSearchDISTRICT_PROPOSALByREGION:"/cerca/publicacio/a/$word?"      (controller: "search", action:"search"){searchType="REGION";type="DISTRICT_PROPOSAL"; mappingName="searcherSearchDISTRICT_PROPOSALByREGION"}
 
+        name searcherSearchPETITION:   "/search/petition"                  (controller: "search", action:"search"){type="PETITION"; mappingName="searcherSearchPETITION"}
+        name en_searcherSearchPETITION:"/search/petition/$word?"           (controller: "search", action:"search"){type="PETITION"; mappingName="searcherSearchPETITION"}
+        name es_searcherSearchPETITION:"/buscar/peticion/$word?"      (controller: "search", action:"search"){type="PETITION"; mappingName="searcherSearchPETITION"}
+        name de_searcherSearchPETITION:"/suche/petition/$word?"                  (controller: "search", action:"search"){type="PETITION"; mappingName="searcherSearchPETITION"}
+        name ca_searcherSearchPETITION:"/cerca/peticio/$word?" (controller: "search", action:"search"){type="PETITION"; mappingName="searcherSearchPETITION"}
+
+        name searcherSearchPETITIONByCAUSE:   "/search/petition/cause/$word?"      (controller: "search", action:"search"){searchType="CAUSE";type="PETITION"; mappingName="searcherSearchPETITIONByCAUSE"}
+        name en_searcherSearchPETITIONByCAUSE:"/search/petition/cause/$word?"      (controller: "search", action:"search"){searchType="CAUSE";type="PETITION"; mappingName="searcherSearchPETITIONByCAUSE"}
+        name es_searcherSearchPETITIONByCAUSE:"/buscar/peticion/causa/$word?"    (controller: "search", action:"search"){searchType="CAUSE";type="PETITION"; mappingName="searcherSearchPETITIONByCAUSE"}
+        name de_searcherSearchPETITIONByCAUSE:"/suche/petition/themen/$word?"    (controller: "search", action:"search"){searchType="CAUSE";type="PETITION"; mappingName="searcherSearchPETITIONByCAUSE"}
+        name ca_searcherSearchPETITIONByCAUSE:"/cerca/peticio/causa/$word?"    (controller: "search", action:"search"){searchType="CAUSE";type="PETITION"; mappingName="searcherSearchPETITIONByCAUSE"}
+
+        name searcherSearchPETITIONByREGION:   "/search/petition/from/$word?"      (controller: "search", action:"search"){searchType="REGION";type="PETITION"; mappingName="searcherSearchPETITIONByREGION"}
+        name en_searcherSearchPETITIONByREGION:"/search/petition/from/$word?"      (controller: "search", action:"search"){searchType="REGION";type="PETITION"; mappingName="searcherSearchPETITIONByREGION"}
+        name es_searcherSearchPETITIONByREGION:"/buscar/peticion/en/$word?"      (controller: "search", action:"search"){searchType="REGION";type="PETITION"; mappingName="searcherSearchPETITIONByREGION"}
+        name de_searcherSearchPETITIONByREGION:"/suche/petition/von/$word?"      (controller: "search", action:"search"){searchType="REGION";type="PETITION"; mappingName="searcherSearchPETITIONByREGION"}
+        name ca_searcherSearchPETITIONByREGION:"/cerca/peticio/a/$word?"      (controller: "search", action:"search"){searchType="REGION";type="PETITION"; mappingName="searcherSearchPETITIONByREGION"}
+
         /**********************/
         /***** LOGGED URLs ****/ //Language no matters
         /**********************/
@@ -337,6 +355,13 @@ class UrlMappings {
         name districtProposalEditContent:       "/account/$userAlias/pb/$participatoryBudgetTitle-$participatoryBudgetId/$urlTitle-$campaignId/edit-content" (controller: "districtProposal"){action = [GET: "editContentStep", POST: "saveContent"]}
         name districtProposalShow:              "/$userAlias/$participatoryBudgetTitle-$participatoryBudgetId/$urlTitle-$campaignId"           (controller: "campaign", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it)})}}
         name districtProposalRemove:            "/ajax/account/$userAlias/pb/$participatoryBudgetTitle-$participatoryBudgetId/$urlTitle-$campaignId/remove" (controller: "districtProposal", action: "remove")
+
+        name petitionSign:              "/ajax/$userAlias/pt/$urlTitle-$campaignId/sign"(controller: "petition", action: "signPetition")
+        name petitionRemove:            "/ajax/account/$userAlias/pt/$urlTitle-$campaignId/remove" (controller: "petition", action: "remove")
+        name petitionCreate:            "/account/petition/new" (controller: "petition"){action = [GET: "create", POST: "saveSettings"]}
+        name petitionEdit:              "/account/$userAlias/pt/$urlTitle-$campaignId/edit-settings" (controller: "petition"){action = [GET: "editSettingsStep", POST: "saveSettings"]}
+        name petitionEditContent:       "/account/$userAlias/pt/$urlTitle-$campaignId/edit-content" (controller: "petition"){action = [GET: "editContentStep", POST: "saveContent"]}
+        name petitionShow:              "/$userAlias/$urlTitle-$campaignId"           (controller: "campaign", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it)})}}
 
 
         name campaignShow:          "/$userAlias/$urlTitle-$campaignId" (controller: "campaign", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it)})}}

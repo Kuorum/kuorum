@@ -38,6 +38,7 @@ class CampaignController {
     ContactService contactService
     ParticipatoryBudgetService participatoryBudgetService
     DistrictProposalService districtProposalService
+    PetitionService petitionService
     SpringSecurityService springSecurityService
     FileService fileService
     CustomerService customerService
@@ -70,6 +71,9 @@ class CampaignController {
                     break;
                 case CampaignTypeRSDTO.DISTRICT_PROPOSAL:
                     dataView = districtProposalService.buildView(campaignRSDTO, user, viewerUid, params)
+                    break;
+                case CampaignTypeRSDTO.PETITION:
+                    dataView = petitionService.buildView(campaignRSDTO, user, viewerUid, params)
                     break;
                 default:
                     log.error("Campaign type not recognized: ${campaignRSDTO.campaignType}")
