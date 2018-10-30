@@ -27,6 +27,7 @@ class MailNotificationsCommand {
     boolean districtProposalParticipatoryBudgetOwner;
     boolean districtProposalSupport;
     boolean districtProposalVote;
+    boolean petitionSign;
 
     static constraints = {
     }

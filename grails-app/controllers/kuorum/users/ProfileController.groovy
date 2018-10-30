@@ -380,6 +380,7 @@ class ProfileController {
         command.districtProposalParticipatoryBudgetOwner = notificationConfig.mailConfig.districtProposalParticipatoryBudgetOwner
         command.districtProposalSupport = notificationConfig.mailConfig.districtProposalSupport
         command.districtProposalVote = notificationConfig.mailConfig.districtProposalVote
+        command.petitionSign = notificationConfig.mailConfig.petitionSign
         [user:user, command: command]
     }
     def configurationEmailsSave(MailNotificationsCommand command) {
@@ -409,6 +410,7 @@ class ProfileController {
         notificationConfig.mailConfig.districtProposalParticipatoryBudgetOwner = command.districtProposalParticipatoryBudgetOwner
         notificationConfig.mailConfig.districtProposalSupport = command.districtProposalSupport
         notificationConfig.mailConfig.districtProposalVote = command.districtProposalVote
+        notificationConfig.mailConfig.petitionSign = command.petitionSign
         notificationService.saveNotificationsConfig(user, notificationConfig)
         flash.message = message(code:'profile.emailNotifications.success')
         redirect mapping:'profileEmailNotifications'
