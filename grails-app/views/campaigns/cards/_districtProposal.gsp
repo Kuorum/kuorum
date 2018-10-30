@@ -21,8 +21,6 @@
                 <g:link mapping="districtProposalShow" class="link-wrapper-clickable" params="${districtProposal.encodeAsLinkProperties()}">
                     ${districtProposal.title}
                 </g:link>
-                ${districtProposal.technicalReviewStatus}
-                ${districtProposal.participatoryBudget.status}
             </h1>
             %{--<g:if test="${!surveyMultimedia}">--}%
                 %{--<div class="card-text"><modulesUtil:shortText text="${survey.body}"/></div>--}%
