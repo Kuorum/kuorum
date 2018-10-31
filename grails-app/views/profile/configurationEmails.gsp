@@ -26,6 +26,18 @@
                 <formUtil:checkBox command="${command}" field="followNew" extraClass="clearfix" />
             </div>
             <div class="form-group">
+                <span class="span-label"><g:message code="profile.emailNotifications.causes.title"/></span>
+                <p class="help-block"><g:message code="profile.emailNotifications.basic.title.helpBlock"/></p>
+                <formUtil:checkBox command="${command}" field="debateNewCause" extraClass="clearfix" />
+                <formUtil:checkBox command="${command}" field="postNewCause" extraClass="clearfix" />
+                <formUtil:checkBox command="${command}" field="eventNewCause" extraClass="clearfix" />
+            </div>
+            <div class="form-group">
+                <span class="span-label"><g:message code="profile.emailNotifications.post.title"/></span>
+                <p class="help-block"><g:message code="profile.emailNotifications.basic.title.helpBlock"/></p>
+                <formUtil:checkBox command="${command}" field="postLike" extraClass="clearfix" />
+            </div>
+            <div class="form-group">
                 <span class="span-label"><g:message code="profile.emailNotifications.debate.title"/></span>
                 <p class="help-block"><g:message code="profile.emailNotifications.basic.title.helpBlock"/></p>
                 <formUtil:checkBox command="${command}" field="debateNewOwner" extraClass="clearfix" />
@@ -37,16 +49,9 @@
                 <formUtil:checkBox command="${command}" field="mentions" extraClass="clearfix" />
             </div>
             <div class="form-group">
-                <span class="span-label"><g:message code="profile.emailNotifications.post.title"/></span>
+                <span class="span-label"><g:message code="profile.emailNotifications.petition.title"/></span>
                 <p class="help-block"><g:message code="profile.emailNotifications.basic.title.helpBlock"/></p>
-                 <formUtil:checkBox command="${command}" field="postLike" extraClass="clearfix" />
-            </div>
-            <div class="form-group">
-                <span class="span-label"><g:message code="profile.emailNotifications.causes.title"/></span>
-                <p class="help-block"><g:message code="profile.emailNotifications.basic.title.helpBlock"/></p>
-                <formUtil:checkBox command="${command}" field="debateNewCause" extraClass="clearfix" />
-                <formUtil:checkBox command="${command}" field="postNewCause" extraClass="clearfix" />
-                <formUtil:checkBox command="${command}" field="eventNewCause" extraClass="clearfix" />
+                <formUtil:checkBox command="${command}" field="petitionSign" extraClass="clearfix" />
             </div>
             <div class="form-group">
                 <span class="span-label"><g:message code="profile.emailNotifications.participatoryBudget.title"/></span>
@@ -59,11 +64,7 @@
                 <formUtil:checkBox command="${command}" field="districtProposalSupport" extraClass="clearfix" />
                 <formUtil:checkBox command="${command}" field="districtProposalVote" extraClass="clearfix" />
             </div>
-            <div class="form-group">
-                <span class="span-label"><g:message code="profile.emailNotifications.petition.title"/></span>
-                <p class="help-block"><g:message code="profile.emailNotifications.basic.title.helpBlock"/></p>
-                <formUtil:checkBox command="${command}" field="petitionSign" extraClass="clearfix" />
-            </div>
+
         </div>
         <div class="box-ppal-section">
             <fieldset class="form-group text-center">
