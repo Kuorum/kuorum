@@ -58,8 +58,6 @@ function preparePopover(){
                 if ( !($(this).hasClass('user-rating') || $(this).hasClass('rating'))) {
                     var href = $(this).attr("href");
                     var target = $(this).attr("target");
-                    console.log("TARGET = "+target)
-                    console.log(target && target == "_blank" )
                     if (target && target == "_blank" ){
                         window.open(href, '_blank');
                         e.preventDefault();
@@ -462,7 +460,7 @@ $(document).ready(function() {
     $('body').on('click','.link-wrapper', function(e) {
         //ÑAAAPAAAAA para que no salte el evento del link-wrapper en los popover
         var target = $(e.target);
-        if (!target.is("a")){
+        if (target.parent("a").length==0 || !target.is("a")){
             // If target clicked is an a => link-wrapper should'd be trigger and probably it will have a special trigger
             var popover = target.parents(".popover");
             if (!popover.hasClass("popover")){

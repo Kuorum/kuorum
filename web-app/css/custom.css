@@ -2057,7 +2057,8 @@ ul.participatory-budget-steps-info li.active a {display: none}
 .user-list-followers.hide3 > li + li + li {margin-bottom:0px;}
 .user-list-followers.hide2 > li + li {margin-bottom:0px;}
 
-.user-list-followers .popover{margin-top:3px;}
+.user-list-followers .popover{margin-top:3px;left:-80px !important}
+.owner .popover {left:-24px !important;}
 
 /* lista de a quién seguir al inicio del Dashboard */
 .condition .user-list-followers {margin: 0; padding: 0 !important;}
@@ -2638,14 +2639,14 @@ ul.search-list > li.search-article > article.box-ppal > div.link-wrapper > div.c
     position: relative;
     float: left;
     bottom: 7px;
-    width: 77%;
+    max-width: 77%;
     text-align: left;
 }
 ul.search-list > li.search-article > article.box-ppal > div.link-wrapper > div.card-footer > ul > li.owner .user a{
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    width:100%;
+    max-width:100%;
     display: inline-block;
 }
 ul.search-list > li.search-article > article.box-ppal > div.link-wrapper > div.card-footer > ul > li.owner .user .popover.bottom>.arrow{
