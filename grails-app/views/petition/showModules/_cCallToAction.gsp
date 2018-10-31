@@ -24,7 +24,7 @@
             <g:link
                     mapping="petitionSign"
                     params="${petition.encodeAsLinkProperties()}"
-                    class="petition-sign petition-sign-${petition.id} btn btn-blue-status ${petition.signed?'on':''}"
+                    class="petition-sign petition-sign-${petition.id} btn btn-blue-status btn-lg ${petition.signed?'on':''}"
                     type="button"
                     data-petitionId="${petition.id}"
                     data-petitionUserId="${petition.user.id}"

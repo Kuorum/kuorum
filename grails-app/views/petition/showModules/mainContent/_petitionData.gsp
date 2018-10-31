@@ -15,6 +15,8 @@
         <g:render template="/campaigns/showModules/campaignDataLabels" model="[causes:petition.causes]"/>
         <g:render template="/campaigns/showModules/campaignDataSocial" model="[campaign:petition]"/>
 
-        <g:render template="/petition/showModules/mainContent/petitionDataIcon" model="[petition:petition]"/>
+        <g:if test="${petition.published}">
+            <g:render template="/petition/showModules/mainContent/petitionDataIcon" model="[petition:petition]"/>
+        </g:if>
     </div>
 </div> <!-- ^leader-post !-->

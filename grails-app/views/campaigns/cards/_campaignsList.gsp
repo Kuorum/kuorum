@@ -6,19 +6,22 @@
 
     <li class="${columsSize} search-article">
         <g:if test="${campaign instanceof org.kuorum.rest.model.communication.post.PostRSDTO}">
-            <g:render template="/campaigns/cards/postList" model="[post:campaign, showAuthor: showAuthor, referred:'dashboard']"/>
+            <g:render template="/campaigns/cards/postCard" model="[post:campaign, showAuthor: showAuthor, referred:'dashboard']"/>
         </g:if>
         <g:if test="${campaign instanceof org.kuorum.rest.model.communication.debate.DebateRSDTO}">
-            <g:render template="/campaigns/cards/debateList" model="[debate:campaign, showAuthor: showAuthor, referred:'dashboard']" />
+            <g:render template="/campaigns/cards/debateCard" model="[debate:campaign, showAuthor: showAuthor, referred:'dashboard']" />
         </g:if>
         <g:if test="${campaign instanceof org.kuorum.rest.model.communication.survey.SurveyRSDTO}">
             <g:render template="/campaigns/cards/surveyList" model="[survey:campaign, showAuthor: showAuthor, referred:'dashboard']" />
         </g:if>
+        <g:if test="${campaign instanceof org.kuorum.rest.model.communication.petition.PetitionRSDTO}">
+            <g:render template="/campaigns/cards/petitionCard" model="[petition:campaign, showAuthor: showAuthor, referred:'dashboard']" />
+        </g:if>
         <g:if test="${campaign instanceof org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetRSDTO}">
-            <g:render template="/campaigns/cards/participatoryBudget" model="[participatoryBudget:campaign, showAuthor: showAuthor, referred:'dashboard']" />
+            <g:render template="/campaigns/cards/participatoryBudgetCard" model="[participatoryBudget:campaign, showAuthor: showAuthor, referred:'dashboard']" />
         </g:if>
         <g:if test="${campaign instanceof org.kuorum.rest.model.communication.participatoryBudget.DistrictProposalRSDTO}">
-            <g:render template="/campaigns/cards/districtProposal" model="[districtProposal:campaign, showAuthor: showAuthor, referred:'dashboard']" />
+            <g:render template="/campaigns/cards/districtProposalCard" model="[districtProposal:campaign, showAuthor: showAuthor, referred:'dashboard']" />
             <!-- District modal overflow -->
             <g:render template="/districtProposal/showModules/mainContent/districtProposalModalErrors" model="[district:campaign.district]"/>
         </g:if>
