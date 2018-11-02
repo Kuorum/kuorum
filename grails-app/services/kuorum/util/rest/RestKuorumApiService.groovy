@@ -215,6 +215,7 @@ class RestKuorumApiService {
         ACCOUNT_MASS_MAILING_CAMPAIGNS_REPORT   ("/communication/massmailing/{userId}/report"),
         ACCOUNT_MASS_MAILING_CONFIG             ("/communication/massmailing/{userId}/config"),
 
+        CAMPAIGNS_DOMAIN                        ("/communication/campaign/"),
         ACCOUNT_CAMPAIGNS                       ("/communication/campaign/{userId}"),
         ACCOUNT_CAMPAIGN                        ("/communication/campaign/{userId}/{campaignId}"),
 

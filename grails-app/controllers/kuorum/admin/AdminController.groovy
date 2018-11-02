@@ -4,11 +4,7 @@ import grails.plugin.springsecurity.annotation.Secured
 import kuorum.KuorumFile
 import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.domain.DomainService
-import kuorum.files.AmazonFileService
 import kuorum.files.DomainResourcesService
-import kuorum.files.FileService
-import kuorum.mail.KuorumMailAccountService
-import kuorum.mail.MailchimpService
 import kuorum.register.RegisterService
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
@@ -19,10 +15,13 @@ import kuorum.web.admin.domain.DomainLandingCommand
 import kuorum.web.admin.domain.EditLegalInfoCommand
 import kuorum.web.commands.LinkCommand
 import kuorum.web.commands.domain.EditDomainCarouselPicturesCommand
+import kuorum.web.constants.WebConstants
 import org.kuorum.rest.model.admin.AdminConfigMailingRDTO
+import org.kuorum.rest.model.communication.CampaignRSDTO
 import org.kuorum.rest.model.domain.*
 import org.kuorum.rest.model.notification.campaign.config.NewsletterConfigRSDTO
 import org.springframework.web.multipart.commons.CommonsMultipartFile
+import payment.campaign.CampaignService
 import payment.campaign.NewsletterService
 
 @Secured(['ROLE_ADMIN'])
@@ -30,9 +29,7 @@ class AdminController {
 
     def indexSolrService
     def springSecurityService
-    MailchimpService mailchimpService
 
-    KuorumMailAccountService kuorumMailAccountService
     KuorumUserService kuorumUserService
 
     NewsletterService newsletterService;
@@ -41,11 +38,9 @@ class AdminController {
 
     RegisterService registerService
 
-    FileService fileService
-
     DomainResourcesService domainResourcesService
 
-    AmazonFileService amazonFileService
+    CampaignService campaignService
 
 
 //    def afterInterceptor = [action: this.&prepareMenuData]
@@ -179,6 +174,30 @@ class AdminController {
         flash.message ="Success"
         redirect mapping:'adminDomainConfigLegalInfo'
     }
+
+
+
+    @Secured(['ROLE_ADMIN'])
+    def editDomainRelevantCampaigns() {
+        List<CampaignRSDTO> domainCampaigns = campaignService.findRelevantDomainCampaigns()
+        KuorumUser adminUser = kuorumUserService.findByAlias(WebConstants.FAKE_LANDING_ALIAS_USER)
+        List<CampaignRSDTO> adminCampaigns = campaignService.findAllCampaigns(adminUser)
+        Map domainCampaignsId = [first:null, second:null, third:null]
+        domainCampaignsId.first = domainCampaigns.size()>0 ? domainCampaigns.get(0).id:null
+        domainCampaignsId.second = domainCampaigns.size()>1 ? domainCampaigns.get(1).id:null
+        domainCampaignsId.third = domainCampaigns.size()>2 ? domainCampaigns.get(2).id:null
+        [domainCampaignsId:domainCampaignsId,adminCampaigns:adminCampaigns]
+    }
+
+    @Secured(['ROLE_ADMIN'])
+    def updateDomainRelevantCampaigns() {
+        List<Long> campaignIds = params.campaignIds.collect{try{Long.parseLong(it)}catch (e){null}}.findAll{it}
+        campaignService.updateRelevantDomainCampaigns(campaignIds)
+        flash.message="Success"
+        redirect mapping:'adminDomainConfigRelevantCampagins'
+    }
+
+
 
     @Secured(['ROLE_SUPER_ADMIN'])
     def editLogo() {

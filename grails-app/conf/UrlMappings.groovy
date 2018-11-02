@@ -444,7 +444,8 @@ class UrlMappings {
         name adminDomainConfigLanding:              "/sec/admin/domain/landing"         (controller:"admin"){action=[GET:"editLandingInfo",POST:"editLandingInfoSave"]}
         name adminDomainConfigLegalInfo:            "/sec/admin/domain/editLegalInfo"   (controller:"admin"){action=[GET:"editLegalInfo",POST:"updateLegalInfo"]}
         name adminDomainConfigUploadLogo:           "/sec/admin/domain/uploadLogo"      (controller:"admin"){action=[GET:"editLogo",POST:"uploadLogo"]}
-        name adminDomainConfigUploadCarouselImages:  "/sec/admin/domain/editCarousel"   (controller:"admin"){action=[GET:"editCarousel",POST:"uploadCarousel"]}
+        name adminDomainConfigUploadCarouselImages: "/sec/admin/domain/editCarousel"    (controller:"admin"){action=[GET:"editCarousel",POST:"uploadCarousel"]}
+        name adminDomainConfigRelevantCampagins:    "/sec/admin/domain/relevantCampaigns"(controller:"admin"){action=[GET:"editDomainRelevantCampaigns",POST:"updateDomainRelevantCampaigns"]}
 
 
         name editorCreatePolitician:                        "/editor/user/politician/create-politician"             (controller:"editorUser"){action =[GET:"createPolitician", POST:"saveCreatePolitician"]}

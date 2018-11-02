@@ -16,6 +16,47 @@ class CampaignService {
     RestKuorumApiService restKuorumApiService
     IndexSolrService indexSolrService
 
+    List<CampaignRSDTO> findRelevantDomainCampaigns(String viewerUid = null) {
+        Map<String, String> params = [:]
+        Map<String, String> query = [:]
+        if (viewerUid){
+            query.put("viewerUid",viewerUid)
+        }
+        def response = restKuorumApiService.get(
+                RestKuorumApiService.ApiMethod.CAMPAIGNS_DOMAIN,
+                params,
+                query,
+                new TypeReference<List<CampaignRSDTO>>(){}
+        )
+
+        List<CampaignRSDTO> debatesFound = null
+        if (response.data) {
+            debatesFound = (List<CampaignRSDTO>) response.data
+        }
+
+        debatesFound
+    }
+
+    void updateRelevantDomainCampaigns(List<Long> campaignIds) {
+        Map<String, String> params = [:]
+        Map<String, String> query = [:]
+        def response = restKuorumApiService.put(
+                RestKuorumApiService.ApiMethod.CAMPAIGNS_DOMAIN,
+                params,
+                query,
+                campaignIds,
+                null
+        )
+
+        List<CampaignRSDTO> debatesFound = null
+        if (response.data) {
+            debatesFound = (List<CampaignRSDTO>) response.data
+        }
+
+        debatesFound
+    }
+
+
     List<CampaignRSDTO> findAllCampaigns(KuorumUser user,String viewerUid = null) {
         Map<String, String> params = [userId: user.id.toString()]
         Map<String, String> query = [:]
