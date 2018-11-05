@@ -54,8 +54,6 @@ a:focus {color: @mainColor;}
 .box-ppal span.animated-info-icon {color: @mainColor;}
 .box-ppal span.animated-info-icon + .tooltip.bottom .tooltip-inner {background-color: @mainColor;}
 .box-ppal span.animated-info-icon + .tooltip.bottom .tooltip-arrow {border-bottom-color: @mainColor;}
-.box-ppal a.new-campaign-tip + .tooltip.bottom .tooltip-inner {background-color: @mainColor; color: @mainTextColor;}
-.box-ppal a.new-campaign-tip + .tooltip.bottom .tooltip-arrow {border-bottom-color: @mainColor;}
 
 .timepicker-picker .btn {color: @mainColor !important;}
 
@@ -240,13 +238,13 @@ ul.globus li.fontIcon > a > span.fas:hover {color:@mainColorHover;}
 //}
 
 .box-ppal span.animated-info-icon + .tooltip.bottom .tooltip-inner,
-.box-ppal a.new-campaign-tip + .tooltip.bottom .tooltip-inner {
+.actionIcons > li.fontIcon .tooltip.bottom .tooltip-inner {
   background-color: @mainColor;
   color:@mainTextColor;
 }
 
 .box-ppal span.animated-info-icon + .tooltip.bottom .tooltip-arrow,
-.box-ppal a.new-campaign-tip + .tooltip.bottom .tooltip-arrow {
+.actionIcons > li.fontIcon .tooltip.bottom .tooltip-arrow{
   border-bottom-color: @mainColor;
 }
 
