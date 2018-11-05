@@ -1,5 +1,5 @@
 <ul class="actionIcons">
-    <sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_CAMPAIGN_NEWSLETTER">
+    <sec:ifAnyGranted roles="ROLE_CAMPAIGN_NEWSLETTER">
         <li class="fontIcon">
             <!--<span class="fa-stack fa-lg active"-->
             <g:link mapping="politicianMassMailingNew" role="button" class="actionIcons new-campaign-tip"
@@ -14,7 +14,7 @@
         </li>
     </sec:ifAnyGranted>
 
-    <sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_CAMPAIGN_POST">
+    <sec:ifAnyGranted roles="ROLE_CAMPAIGN_POST">
         <li class="fontIcon">
             <g:link mapping="postCreate" role="button" class="actionIcons new-campaign-tip"
                     rel="tooltip"
@@ -28,7 +28,7 @@
         </li>
     </sec:ifAnyGranted>
 
-    <sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_CAMPAIGN_DEBATE">
+    <sec:ifAnyGranted roles="ROLE_CAMPAIGN_DEBATE">
         <li class="fontIcon">
             <g:link mapping="debateCreate" role="button" class="actionIcons new-campaign-tip"
                     rel="tooltip"
@@ -42,7 +42,7 @@
         </li>
     </sec:ifAnyGranted>
 
-    <sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_CAMPAIGN_EVENT">
+    <sec:ifAnyGranted roles="ROLE_CAMPAIGN_EVENT">
         <li class="fontIcon">
             <g:link mapping="eventCreate" role="button" class="actionIcons new-campaign-tip"
                     rel="tooltip"
@@ -57,7 +57,7 @@
     </sec:ifAnyGranted>
 
 
-    <sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_CAMPAIGN_SURVEY">
+    <sec:ifAnyGranted roles="ROLE_CAMPAIGN_SURVEY">
         <li class="fontIcon">
             <g:link mapping="surveyCreate" role="button" class="actionIcons new-campaign-tip"
                     rel="tooltip"
@@ -71,7 +71,7 @@
         </li>
     </sec:ifAnyGranted>
 
-    <sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_PETITION">
+    <sec:ifAnyGranted roles="ROLE_PETITION">
         <li class="fontIcon">
             <g:link mapping="petitionCreate" role="button" class="actionIcons new-campaign-tip"
                     rel="tooltip"
@@ -85,7 +85,7 @@
         </li>
     </sec:ifAnyGranted>
 
-    <sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_CAMPAIGN_PARTICIPATORY_BUDGET">
+    <sec:ifAnyGranted roles="ROLE_CAMPAIGN_PARTICIPATORY_BUDGET">
         <li class="fontIcon">
             <g:link mapping="participatoryBudgetCreate" role="button" class="actionIcons new-campaign-tip"
                     rel="tooltip"
@@ -99,7 +99,7 @@
         </li>
     </sec:ifAnyGranted>
 
-    <sec:ifAnyGranted roles="ROLE_ADMIN, ROLE_CAMPAIGN_DISTRICT_PROPOSAL">
+    <sec:ifAnyGranted roles="ROLE_CAMPAIGN_DISTRICT_PROPOSAL">
         <li class="fontIcon active-participatory-budgets">
             <g:link mapping="participatoryBudgetList" role="button" class="actionIcons new-campaign-tip get-participatory-budgets"
                     rel="tooltip"

@@ -11,18 +11,18 @@ import org.kuorum.rest.model.communication.post.PostRSDTO
 
 class PostController extends CampaignController{
 
-    @Secured(['ROLE_CAMPAIGN_POST','ROLE_ADMIN'])
+    @Secured(['ROLE_CAMPAIGN_POST'])
     def create() {
         return postModelSettings(new CampaignSettingsCommand(debatable:false), null)
     }
 
-    @Secured(['ROLE_CAMPAIGN_POST','ROLE_CAMPAIGN_EVENT','ROLE_ADMIN'])
+    @Secured(['ROLE_CAMPAIGN_POST','ROLE_CAMPAIGN_EVENT'])
     def remove(Long campaignId) {
         removeCampaign(campaignId, postService)
         render ([msg: "Post deleted"] as JSON)
     }
 
-    @Secured(['ROLE_CAMPAIGN_POST','ROLE_CAMPAIGN_EVENT','ROLE_ADMIN'])
+    @Secured(['ROLE_CAMPAIGN_POST','ROLE_CAMPAIGN_EVENT'])
     def editSettingsStep(){
         KuorumUser postUser = KuorumUser.get(springSecurityService.principal.id)
         PostRSDTO postRSDTO = postService.find(postUser, Long.parseLong(params.campaignId))
@@ -30,14 +30,14 @@ class PostController extends CampaignController{
 
     }
 
-    @Secured(['ROLE_CAMPAIGN_POST','ROLE_CAMPAIGN_EVENT','ROLE_ADMIN'])
+    @Secured(['ROLE_CAMPAIGN_POST','ROLE_CAMPAIGN_EVENT'])
     def editContentStep(){
         Long campaignId = Long.parseLong(params.campaignId)
         PostRSDTO postRSDTO = setCampaignAsDraft(campaignId, postService)
         return campaignModelContent(campaignId, postRSDTO, null, postService)
     }
 
-    @Secured(['ROLE_CAMPAIGN_POST','ROLE_CAMPAIGN_EVENT','ROLE_ADMIN'])
+    @Secured(['ROLE_CAMPAIGN_POST','ROLE_CAMPAIGN_EVENT'])
     def saveSettings(CampaignSettingsCommand command) {
         if (command.hasErrors()) {
             render view: 'create', model: postModelSettings(command, null)
@@ -48,7 +48,7 @@ class PostController extends CampaignController{
         redirect mapping: result.nextStep.mapping, params: result.nextStep.params
     }
 
-    @Secured(['ROLE_CAMPAIGN_POST','ROLE_CAMPAIGN_EVENT','ROLE_ADMIN'])
+    @Secured(['ROLE_CAMPAIGN_POST','ROLE_CAMPAIGN_EVENT'])
     def saveContent(CampaignContentCommand command) {
         if (command.hasErrors()) {
             if(command.errors.getFieldError().arguments.first() == "publishOn"){

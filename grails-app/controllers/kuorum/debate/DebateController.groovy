@@ -10,12 +10,12 @@ import org.kuorum.rest.model.communication.debate.DebateRSDTO
 
 class DebateController extends CampaignController{
 
-    @Secured(['ROLE_CAMPAIGN_DEBATE','ROLE_ADMIN'])
+    @Secured(['ROLE_CAMPAIGN_DEBATE'])
     def create() {
         return debateModelSettings(new CampaignSettingsCommand(debatable:true), null)
     }
 
-    @Secured(['ROLE_CAMPAIGN_DEBATE','ROLE_CAMPAIGN_EVENT','ROLE_ADMIN'])
+    @Secured(['ROLE_CAMPAIGN_DEBATE','ROLE_CAMPAIGN_EVENT'])
     def editSettingsStep(){
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         DebateRSDTO debateRSDTO = debateService.find( user, Long.parseLong((String) params.campaignId))
@@ -24,14 +24,14 @@ class DebateController extends CampaignController{
 
     }
 
-    @Secured(['ROLE_CAMPAIGN_DEBATE','ROLE_CAMPAIGN_EVENT','ROLE_ADMIN'])
+    @Secured(['ROLE_CAMPAIGN_DEBATE','ROLE_CAMPAIGN_EVENT'])
     def editContentStep(){
         Long campaignId = Long.parseLong((String) params.campaignId);
         DebateRSDTO debateRSDTO = setCampaignAsDraft(campaignId, debateService)
         return campaignModelContent(campaignId, debateRSDTO, null, debateService)
     }
 
-    @Secured(['ROLE_CAMPAIGN_DEBATE','ROLE_CAMPAIGN_EVENT','ROLE_ADMIN'])
+    @Secured(['ROLE_CAMPAIGN_DEBATE','ROLE_CAMPAIGN_EVENT'])
     def saveSettings(CampaignSettingsCommand command) {
         if (command.hasErrors()) {
             render view: 'create', model: debateModelSettings(command, null)
@@ -45,7 +45,7 @@ class DebateController extends CampaignController{
         redirect mapping: result.nextStep.mapping, params: result.nextStep.params
     }
 
-    @Secured(['ROLE_CAMPAIGN_DEBATE','ROLE_CAMPAIGN_EVENT','ROLE_ADMIN'])
+    @Secured(['ROLE_CAMPAIGN_DEBATE','ROLE_CAMPAIGN_EVENT'])
     def saveContent(CampaignContentCommand command) {
         Long campaignId = params.campaignId?Long.parseLong(params.campaignId):null
         if (command.hasErrors()) {
@@ -60,7 +60,7 @@ class DebateController extends CampaignController{
         redirect mapping: result.nextStep.mapping, params: result.nextStep.params
     }
 
-    @Secured(['ROLE_CAMPAIGN_DEBATE','ROLE_CAMPAIGN_EVENT','ROLE_ADMIN'])
+    @Secured(['ROLE_CAMPAIGN_DEBATE','ROLE_CAMPAIGN_EVENT'])
     def remove(Long campaignId) {
         removeCampaign(campaignId, debateService);
         render ([msg: "Debate deleted"] as JSON)

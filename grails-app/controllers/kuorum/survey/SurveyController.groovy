@@ -14,18 +14,18 @@ import org.kuorum.rest.model.communication.survey.*
 
 class SurveyController extends CampaignController{
 
-    @Secured(['ROLE_CAMPAIGN_SURVEY','ROLE_ADMIN'])
+    @Secured(['ROLE_CAMPAIGN_SURVEY'])
     def create() {
         return surveyModelSettings(new CampaignSettingsCommand(debatable:false), null)
     }
 
-    @Secured(['ROLE_CAMPAIGN_SURVEY','ROLE_ADMIN'])
+    @Secured(['ROLE_CAMPAIGN_SURVEY'])
     def remove(Long campaignId) {
         removeCampaign(campaignId, surveyService)
         render ([msg: "Survey deleted"] as JSON)
     }
 
-    @Secured(['ROLE_CAMPAIGN_SURVEY','ROLE_ADMIN'])
+    @Secured(['ROLE_CAMPAIGN_SURVEY'])
     def editSettingsStep(){
         KuorumUser surveyUser = KuorumUser.get(springSecurityService.principal.id)
         SurveyRSDTO surveyRSDTO = surveyService.find(surveyUser, Long.parseLong(params.campaignId))
@@ -33,14 +33,14 @@ class SurveyController extends CampaignController{
 
     }
 
-    @Secured(['ROLE_CAMPAIGN_SURVEY','ROLE_ADMIN'])
+    @Secured(['ROLE_CAMPAIGN_SURVEY'])
     def editContentStep(){
         Long campaignId = Long.parseLong(params.campaignId)
         SurveyRSDTO surveyRSDTO = setCampaignAsDraft(campaignId, surveyService)
         return campaignModelContent(campaignId, surveyRSDTO, null, surveyService)
     }
 
-    @Secured(['ROLE_CAMPAIGN_SURVEY','ROLE_ADMIN'])
+    @Secured(['ROLE_CAMPAIGN_SURVEY'])
     def saveSettings(CampaignSettingsCommand command) {
         if (command.hasErrors()) {
             render view: 'create', model: surveyModelSettings(command, null)
@@ -51,7 +51,7 @@ class SurveyController extends CampaignController{
         redirect mapping: result.nextStep.mapping, params: result.nextStep.params
     }
 
-    @Secured(['ROLE_CAMPAIGN_SURVEY','ROLE_ADMIN'])
+    @Secured(['ROLE_CAMPAIGN_SURVEY'])
     def saveContent(CampaignContentCommand command) {
         if (command.hasErrors()) {
             if(command.errors.getFieldError().arguments.first() == "publishOn"){
@@ -73,7 +73,7 @@ class SurveyController extends CampaignController{
         return model
     }
 
-    @Secured(['ROLE_CAMPAIGN_SURVEY','ROLE_ADMIN'])
+    @Secured(['ROLE_CAMPAIGN_SURVEY'])
     def editQuestionsStep(){
         Long campaignId = Long.parseLong(params.campaignId)
         KuorumUser surveyUser = KuorumUser.get(springSecurityService.principal.id)
@@ -91,7 +91,7 @@ class SurveyController extends CampaignController{
         }
     }
 
-    @Secured(['ROLE_CAMPAIGN_SURVEY','ROLE_ADMIN'])
+    @Secured(['ROLE_CAMPAIGN_SURVEY'])
     def saveQuestions(SurveyQuestionsCommand command){
         KuorumUser surveyUser = KuorumUser.get(springSecurityService.principal.id)
         SurveyRSDTO survey = surveyService.find(surveyUser, Long.parseLong(params.campaignId))
@@ -163,7 +163,7 @@ class SurveyController extends CampaignController{
 
 
 
-    @Secured(['ROLE_CAMPAIGN_SURVEY','ROLE_ADMIN'])
+    @Secured(['ROLE_CAMPAIGN_SURVEY'])
     def sendReport(Long campaignId){
         KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
         surveyService.sendReport(loggedUser, campaignId)
