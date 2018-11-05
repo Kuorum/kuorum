@@ -153,7 +153,7 @@ class SiteMapController {
 //                'footerAboutKuorum',
 //                'footerContactUs',
 //                'footerOurTeam',
-                'footerUserGuides',
+//                'footerUserGuides',
 //                'footerPress',
 //                'footerHistory',
                 'footerPrivacyPolicy',
