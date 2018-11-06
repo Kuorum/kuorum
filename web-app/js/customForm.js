@@ -154,6 +154,15 @@ $(function(){
         $("#"+realInputId).val("")
     });
 
+    /* PRETTY CHECKBOX */
+    // $(".pretty-check-box input").on("change", function(e){
+    //     if (this.checked){
+    //         $(this).attr("checked","checked")
+    //     }else{
+    //         $(this).attr("checked","")
+    //     }
+    // })
+
 
     /* CHECKBOX COMMISSIONS */
     // seleccionar todos los checkbox [COMMISIONS] => _commissions.gsp

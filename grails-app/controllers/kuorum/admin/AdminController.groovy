@@ -110,6 +110,7 @@ class AdminController {
         domainLandingCommand.subtitle = domainRSDTO.subtitle
         domainLandingCommand.domainDescription = domainRSDTO.domainDescription
         domainLandingCommand.footerLinks = domainRSDTO.footerLinks.collect{new LinkCommand(title: it.key, url: it.value)}
+        domainLandingCommand.landingVisibleRoles = domainRSDTO.landingVisibleRoles
         [command:domainLandingCommand]
     }
 
@@ -125,6 +126,8 @@ class AdminController {
         domainRDTO.subtitle = command.subtitle
         domainRDTO.domainDescription = command.domainDescription
         domainRDTO.footerLinks = command.footerLinks?.findAll{it}?.collectEntries {[(it.title): it.url]}?:null
+        domainRDTO.landingVisibleRoles = command.landingVisibleRoles
+
 
 
 

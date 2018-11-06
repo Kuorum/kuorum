@@ -9192,9 +9192,16 @@ ul.notification-menu > li.see-more {
 
 /** Step 6 **/
 
+.row.pretty-check-box-row {
+    margin-bottom: 30px;
+}
 
-.pretty-check-boxes{text-align: center}
+.pretty-check-boxes{
+    text-align: center;
+    margin-top:30px; /* In this margin will be the error text */
+}
 
+.pretty-check-boxes span.error {position:absolute; margin-top:-35px; margin-left:-35px;}
 
 .pretty-check-box {
     display: inline-block;
@@ -9223,7 +9230,8 @@ ul.notification-menu > li.see-more {
 .pretty-check-box .pretty-check-box-icon:hover {background-color: #2082e3;color: white;}
 .pretty-check-box input:checked ~ .pretty-check-box-icon .check {display: block;}
 .pretty-check-box .pretty-check-box-text {display: block;width: 100%;}
-.pretty-check-box .pretty-check-box-icon .check {color: white;position: absolute;top: 3px;right: 2px;font-size: 1.2em;}
+.pretty-check-box .pretty-check-box-icon .check {display:none; color: white;position: absolute;top: 3px;right: 2px;font-size: 1.2em;}
+.pretty-check-box input:checked ~ .pretty-check-box-icon .check {display: block;}
 
 
 .pretty-check-box .tooltip.bottom .tooltip-inner{
