@@ -5,11 +5,11 @@
     <li class="${activeMapping=='adminDomainConfigLanding'?'active':''}">
         <g:link mapping="adminDomainConfigLanding"><g:message code="admin.menu.domainConfig.editLanding"/></g:link>
     </li>
-    <li class="${activeMapping=='adminDomainConfigLegalInfo'?'active':''}">
-        <g:link mapping="adminDomainConfigLegalInfo"><g:message code="admin.menu.domainConfig.editLegalInfo"/></g:link>
-    </li>
     <li class="${activeMapping=='adminDomainConfigRelevantCampagins'?'active':''}">
         <g:link mapping="adminDomainConfigRelevantCampagins"><g:message code="admin.menu.domainConfig.relevantCampaigns.title"/></g:link>
+    </li>
+    <li class="${activeMapping=='adminDomainConfigLegalInfo'?'active':''}">
+        <g:link mapping="adminDomainConfigLegalInfo"><g:message code="admin.menu.domainConfig.editLegalInfo"/></g:link>
     </li>
 </ul>
 <sec:ifAnyGranted roles="ROLE_SUPER_ADMIN">

@@ -23,7 +23,7 @@
 </content>
 
 <content tag="howItWorks">
-    <g:render template="/landing/servicesModules/services" model="[msgPrefix:'landingServices']"/>
+    <g:render template="/landing/servicesModules/services" model="[landingVisibleRoles:landingVisibleRoles]"/>
 </content>
 
 <content tag="latestActivities">

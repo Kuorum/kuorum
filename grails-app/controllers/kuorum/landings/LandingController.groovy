@@ -34,6 +34,7 @@ class LandingController {
                 slogan:domainRSDTO.slogan,
                 subtitle:domainRSDTO.subtitle,
                 domainDescription:domainRSDTO.domainDescription,
+                landingVisibleRoles: domainRSDTO.landingVisibleRoles,
                 command: new KuorumRegisterCommand()
         ]
     }
