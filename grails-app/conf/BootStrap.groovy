@@ -1,4 +1,5 @@
 import com.mongodb.BasicDBObject
+import grails.async.Promise
 import kuorum.core.annotations.MongoUpdatable
 import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.exception.KuorumExceptionUtil
@@ -24,11 +25,19 @@ class BootStrap {
         URL url = new URL("https://kuorum.org/kuorum")
         CustomDomainResolver.setUrl(url, "")
         List<DomainRSDTO> domains = domainService.findAllDomains()
-        domains.each {
-            domainService.updateConfig(it) // Used to update the version number and force browsers to download again the css and uploads the new css
-//            lessCompilerService.compileCssForDomain(it)
+        List<Promise> asyncUpdateConfig = []
+            domains.each { domainRSDTO ->
+                asyncUpdateConfig << grails.async.Promises.task {
+                    URL urlThread = new URL("https://kuorum.org/kuorum")
+                    CustomDomainResolver.setUrl(urlThread, "")
+                    domainService.updateConfig(domainRSDTO)
+                    // Used to update the version number and force browsers to download again the css and uploads the new css
+                    // lessCompilerService.compileCssForDomain(it)
+                }
         }
+        grails.async.Promises.waitAll(asyncUpdateConfig)
         CustomDomainResolver.clear()
+
 
 //        KeyStore ks = KeyStore.getInstance("JKS");
 //        FileInputStream certFile = new FileInputStream("/usr/lib/jvm/java-8-oracle/jre/lib/security/cacerts");
