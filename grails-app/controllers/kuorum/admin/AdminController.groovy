@@ -180,7 +180,7 @@ class AdminController {
         springSecurityService.reauthenticate springSecurityService.getCurrentUser().email
 
         if (!domainGlobalAuthorities[UserRoleRSDTO.ROLE_ADMIN]){
-            flash.error = "Role admin should have at least one campaign. Setted by default."
+            flash.error = g.message(code:'kuorum.web.admin.domain.AuthorizedCampaignsCommand.error')
         }else{
             flash.message ="Success"
         }
