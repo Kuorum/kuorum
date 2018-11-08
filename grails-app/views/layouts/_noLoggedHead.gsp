@@ -13,36 +13,13 @@
             <span><g:message code="head.noLogged.sectors"/> <i class="fal fa-angle-down" aria-hidden="true"></i></span>
         </a>
         <ul id="navigation-options" class="dropdown-menu dropdown-menu-right" aria-labelledby="open-user-options" role="menu">
-            <li>
-                <g:link mapping="searcherSearchPOST" class="navbar-link ${nav.activeMenuCss(mappingName: 'searcherSearchPOST')}">
-                    <span><g:message code="head.noLogged.searchPost"/></span>
-                </g:link>
-            </li>
-            <li>
-                <g:link mapping="searcherSearchDEBATE" class="navbar-link ${nav.activeMenuCss(mappingName: 'searcherSearchDEBATE')}">
-                    <span><g:message code="head.noLogged.searchDebates"/></span>
-                </g:link>
-            </li>
-            <li>
-                <g:link mapping="searcherSearchSURVEY" class="navbar-link ${nav.activeMenuCss(mappingName: 'searcherSearchSURVEY')}">
-                    <span><g:message code="head.noLogged.searchSurveys"/></span>
-                </g:link>
-            </li>
-            <li>
-                <g:link mapping="searcherSearchEVENT" class="navbar-link ${nav.activeMenuCss(mappingName: 'searcherSearchEVENT')}">
-                    <span><g:message code="head.noLogged.searchEvents"/></span>
-                </g:link>
-            </li>
-            <li>
-                <g:link mapping="searcherSearchPARTICIPATORY_BUDGET" class="navbar-link ${nav.activeMenuCss(mappingName: 'searcherSearchPARTICIPATORY_BUDGET')}">
-                    <span><g:message code="head.noLogged.searchParticipatoryBudgets"/></span>
-                </g:link>
-            </li>
-            <li>
-                <g:link mapping="searcherSearchPETITION" class="navbar-link ${nav.activeMenuCss(mappingName: 'searcherSearchPETITION')}">
-                    <span><g:message code="head.noLogged.searchPetition"/></span>
-                </g:link>
-            </li>
+            <g:each in="${_domainActiveCampaigns}" var="activeSolrType">
+                <li>
+                    <g:link mapping="searcherSearch${activeSolrType}" class="navbar-link ${nav.activeMenuCss(mappingName: 'searcherSearch'+activeSolrType)}">
+                        <span><g:message code="search.filters.SolrType.${activeSolrType}"/></span>
+                    </g:link>
+                </li>
+            </g:each>
         </ul>
     </li>
 

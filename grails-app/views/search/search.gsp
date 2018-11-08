@@ -53,89 +53,21 @@
                     </label>
                 </div>
             </li>
-            <li>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" name="type" id="search-post" value="${kuorum.core.model.solr.SolrType.POST}" ${searchParams.type == kuorum.core.model.solr.SolrType.POST?'checked':''}>
-                        <g:link mapping="searcherSearchPOST" params="${params.findAll {k,v-> k!='type' && k!='offset' && v}}">
-                            <span class="fal fa-newspaper fa-fw"></span>
-                            <g:message code="search.filters.SolrType.POST"/>
+            <g:each in="${_domainActiveCampaigns}" var="activeSolrType">
+                <li>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="type" value="${activeSolrType}" ${searchParams.type == activeSolrType?'checked':''}>
+                            <g:link mapping="searcherSearch${activeSolrType}" params="${params.findAll {k,v-> k!='type' && k!='offset' && v}}">
+                                <span class="fal ${activeSolrType.faIcon} fa-fw"></span>
+                                <g:message code="search.filters.SolrType.${activeSolrType}"/>
                             %{--<g:set var="hits" value="${docs.facets.type.find{it.facetName==kuorum.core.model.solr.SolrType.POST.toString()}?.hits?:0}"/>--}%
                             %{--<g:if test="${hits}">(${hits})</g:if>--}%
-                        </g:link>
-                    </label>
-                </div>
-            </li>
-            <li>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" name="type" id="search-debates" value="${kuorum.core.model.solr.SolrType.DEBATE}" ${searchParams.type == kuorum.core.model.solr.SolrType.DEBATE?'checked':''}>
-                        <g:link mapping="searcherSearchDEBATE" params="${params.findAll {k,v-> k!='type' && k!='offset' && v}}">
-                            <span class="fal fa-comments fa-fw"></span>
-                            <g:message code="search.filters.SolrType.DEBATE"/>
-                            %{--<g:set var="hits" value="${docs.facets.type.find{it.facetName==kuorum.core.model.solr.SolrType.DEBATE.toString()}?.hits?:0}"/>--}%
-                            %{--<g:if test="${hits}">(${hits})</g:if>--}%
-                        </g:link>
-                    </label>
-                </div>
-            </li>
-            <li>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" name="type" id="search-surveys" value="${kuorum.core.model.solr.SolrType.SURVEY}" ${searchParams.type == kuorum.core.model.solr.SolrType.SURVEY?'checked':''}>
-                        <g:link mapping="searcherSearchSURVEY" params="${params.findAll {k,v-> k!='type' && k!='offset' && v}}">
-                            <span class="fal fa-chart-pie fa-fw"></span>
-                            <g:message code="search.filters.SolrType.SURVEY"/>
-                        </g:link>
-                    </label>
-                </div>
-            </li>
-            <li>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" name="type" id="search-debates" value="${kuorum.core.model.solr.SolrType.EVENT}" ${searchParams.type == kuorum.core.model.solr.SolrType.EVENT?'checked':''}>
-                        <g:link mapping="searcherSearchEVENT" params="${params.findAll {k,v-> k!='type' && k!='offset' && v}}">
-                            <span class="fal fa-calendar-check fa-fw"></span>
-                            <g:message code="search.filters.SolrType.EVENT"/>
-                            %{--<g:set var="hits" value="${docs.facets.type.find{it.facetName==kuorum.core.model.solr.SolrType.DEBATE.toString()}?.hits?:0}"/>--}%
-                            %{--<g:if test="${hits}">(${hits})</g:if>--}%
-                        </g:link>
-                    </label>
-                </div>
-            </li>
-            <li>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" name="type" id="search-surveys" value="${kuorum.core.model.solr.SolrType.PARTICIPATORY_BUDGET}" ${searchParams.type == kuorum.core.model.solr.SolrType.PARTICIPATORY_BUDGET?'checked':''}>
-                        <g:link mapping="searcherSearchPARTICIPATORY_BUDGET" params="${params.findAll {k,v-> k!='type' && k!='offset' && v}}">
-                            <span class="fal fa-money-bill-alt fa-fw"></span>
-                            <g:message code="search.filters.SolrType.PARTICIPATORY_BUDGET"/>
-                        </g:link>
-                    </label>
-                </div>
-            </li>
-            %{--<li>--}%
-                %{--<div class="checkbox">--}%
-                    %{--<label>--}%
-                        %{--<input type="checkbox" name="type" id="search-surveys" value="${kuorum.core.model.solr.SolrType.DISTRICT_PROPOSAL}" ${searchParams.type == kuorum.core.model.solr.SolrType.DISTRICT_PROPOSAL?'checked':''}>--}%
-                        %{--<g:link mapping="searcherSearchDISTRICT_PROPOSAL" params="${params.findAll {k,v-> k!='type' && k!='offset' && v}}">--}%
-                            %{--<span class="fal fa-rocket fa-fw"></span>--}%
-                            %{--<g:message code="search.filters.SolrType.DISTRICT_PROPOSAL"/>--}%
-                        %{--</g:link>--}%
-                    %{--</label>--}%
-                %{--</div>--}%
-            %{--</li>--}%
-            <li>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" name="type" id="search-surveys" value="${kuorum.core.model.solr.SolrType.PETITION}" ${searchParams.type == kuorum.core.model.solr.SolrType.PETITION?'checked':''}>
-                        <g:link mapping="searcherSearchPETITION" params="${params.findAll {k,v-> k!='type' && k!='offset' && v}}">
-                            <span class="fal fa-microphone fa-fw"></span>
-                            <g:message code="search.filters.SolrType.PETITION"/>
-                        </g:link>
-                    </label>
-                </div>
-            </li>
+                            </g:link>
+                        </label>
+                    </div>
+                </li>
+            </g:each>
         </ul>
         <input type="hidden" name="word" value="${searchParams.word}" />
         <input type="hidden" name="searchType" value="${searchParams.searchType}" />
