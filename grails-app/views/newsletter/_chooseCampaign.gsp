@@ -71,7 +71,7 @@
         </li>
     </sec:ifAnyGranted>
 
-    <sec:ifAnyGranted roles="ROLE_PETITION">
+    <sec:ifAnyGranted roles="ROLE_CAMPAIGN_PETITION">
         <li class="fontIcon">
             <g:link mapping="petitionCreate" role="button" class="actionIcons"
                     rel="tooltip"

@@ -8,6 +8,9 @@
     <li class="${activeMapping=='adminDomainConfigRelevantCampagins'?'active':''}">
         <g:link mapping="adminDomainConfigRelevantCampagins"><g:message code="admin.menu.domainConfig.relevantCampaigns.title"/></g:link>
     </li>
+    <li class="${activeMapping=='adminAuthorizedCampaigns'?'active':''}">
+        <g:link mapping="adminAuthorizedCampaigns"><g:message code="admin.menu.domainConfig.authorizedCampaigns.title"/></g:link>
+    </li>
     <li class="${activeMapping=='adminDomainConfigLegalInfo'?'active':''}">
         <g:link mapping="adminDomainConfigLegalInfo"><g:message code="admin.menu.domainConfig.editLegalInfo"/></g:link>
     </li>

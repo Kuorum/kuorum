@@ -4,6 +4,7 @@ modules = {
 
     basic{
         resource url: 'css/bootstrap.min.css'
+        resource url: 'js/bootstrap-slider/bootstrap-slider.css'
         resource url: 'fonts/fontawesome-pro-5.3.1-web/css/all.min.css'
 //        resource url: 'fonts/icomoon/styles.css'
 //        resource url: 'fonts/icomoon2/styles.css'
@@ -247,6 +248,7 @@ modules = {
         resource url:'js/jquery-plugin/duplicateFields.min.js'
         resource url:'js/jquery-te-1.4.0.min.js'
         resource url:'css/jquery-te-1.4.0.css'
+        resource url: 'js/bootstrap-slider/bootstrap-slider.js'
         resource url:'js/customForm.js'
         resource url:'css/customForms.css'
     }

@@ -19,6 +19,7 @@ import kuorum.web.constants.WebConstants
 import org.kuorum.rest.model.admin.AdminConfigMailingRDTO
 import org.kuorum.rest.model.communication.CampaignRSDTO
 import org.kuorum.rest.model.domain.*
+import org.kuorum.rest.model.kuorumUser.UserRoleRSDTO
 import org.kuorum.rest.model.notification.campaign.config.NewsletterConfigRSDTO
 import org.springframework.web.multipart.commons.CommonsMultipartFile
 import payment.campaign.CampaignService
@@ -127,14 +128,63 @@ class AdminController {
         domainRDTO.domainDescription = command.domainDescription
         domainRDTO.footerLinks = command.footerLinks?.findAll{it}?.collectEntries {[(it.title): it.url]}?:null
         domainRDTO.landingVisibleRoles = command.landingVisibleRoles
-
-
-
-
         domainService.updateConfig(domainRDTO)
         flash.message ="Success"
         redirect mapping:'adminDomainConfigLanding'
     }
+
+
+    private static final List campaignRoles = [ UserRoleRSDTO.ROLE_CAMPAIGN_POST,UserRoleRSDTO.ROLE_CAMPAIGN_DEBATE,UserRoleRSDTO.ROLE_CAMPAIGN_EVENT, UserRoleRSDTO.ROLE_CAMPAIGN_PETITION,UserRoleRSDTO.ROLE_CAMPAIGN_PARTICIPATORY_BUDGET]
+    private static final Map userRoles = [(UserRoleRSDTO.ROLE_ADMIN): 1,(UserRoleRSDTO.ROLE_SUPER_USER): 2,(UserRoleRSDTO.ROLE_USER): 3]
+
+    @Secured(['ROLE_ADMIN'])
+    def editAuthorizedCampaigns() {
+        DomainRSDTO domainRSDTO = domainService.getConfig(CustomDomainResolver.domain)
+        def globalAuthoritiesCommand = [:]
+        campaignRoles.each{ campaignRole ->
+            globalAuthoritiesCommand.put(campaignRole, getRangeNumberFromDomainAuthority(campaignRole, domainRSDTO.globalAuthorities) )
+        }
+        [campaignRoles:campaignRoles, userRoles:userRoles.keySet(), globalAuthoritiesCommand:globalAuthoritiesCommand]
+    }
+
+    private int getRangeNumberFromDomainAuthority(UserRoleRSDTO campaignRole, Map<UserRoleRSDTO, List<UserRoleRSDTO>>  globalAuthorities){
+        userRoles.keySet().collect{globalAuthorities.get(it)?.contains(campaignRole)?userRoles[it]:0}.max()
+    }
+
+    private List<UserRoleRSDTO> getListUserRoles(int number){
+        userRoles.inject([]) { result, k, v ->
+            if (v<= number) result << k
+            result
+        }
+    }
+
+    @Secured(['ROLE_ADMIN'])
+    def updateAuthorizedCampaigns() {
+        DomainRSDTO domainRSDTO = domainService.getConfig(CustomDomainResolver.domain)
+        domainRSDTO.globalAuthorities.get(UserRoleRSDTO.ROLE_USER)
+        Map<UserRoleRSDTO, List<UserRoleRSDTO>> domainGlobalAuthorities = userRoles.keySet().collectEntries{[it, []]}
+        campaignRoles.each{campaignRole ->
+            int val = 0;
+            try{
+                val = Integer.parseInt(params[campaignRole.toString()])
+            }catch (Exception e){
+                val = 0;
+            }
+            getListUserRoles(val).each{userRole ->
+                domainGlobalAuthorities[userRole].add(campaignRole)
+            }
+        }
+        flash.message ="Success"
+        DomainRDTO domainRDTO = getPopulatedDomainRDTO()
+        domainRDTO.globalAuthorities = domainGlobalAuthorities;
+        domainService.updateConfig(domainRDTO)
+
+        springSecurityService.reauthenticate springSecurityService.getCurrentUser().email
+
+        redirect mapping:'adminAuthorizedCampaigns'
+    }
+
+
 
     private DomainRDTO getPopulatedDomainRDTO(){
         DomainRSDTO domainRSDTO = domainService.getConfig(CustomDomainResolver.domain)

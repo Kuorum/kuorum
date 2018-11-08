@@ -3070,6 +3070,15 @@ form#sign {margin: 30px auto 0; max-width: 760px;}
 }
 
 
+.multiple-range-selector {width: 100%; display: inline-block;}
+.multiple-range-selector label {margin-bottom: 20px; width: 100%; display: inline-block;}
+.multiple-range-selector .input-range-selector {width: 100%; display: inline-block; padding: 0 20px;}
+.multiple-range-selector .input-range-selector .slider.slider-horizontal{margin-bottom: 0 !important;}
+
+.slider.slider-horizontal {width:100%; max-width: 300px;}
+.multiple-range-selector .slider.slider-horizontal .slider-tick-label-container {margin-top:-40px;}
+fieldset > .multiple-range-selector:first-child {margin-top:40px;}
+
 @media only screen and (max-width: 767px) {
 
     .icheckbox_line-orange,
@@ -4940,6 +4949,11 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 
 /* Very small devices (mobile, 480px and up) */
 @media only screen and (min-width: 480px) {
+    .multiple-range-selector + .multiple-range-selector .slider.slider-horizontal .slider-tick-label-container{display:none}
+    .multiple-range-selector label {width: 22%; text-align: right;vertical-align: center;}
+    .multiple-range-selector .input-range-selector {margin-left: 20px; width: 50%;}
+
+
     .form-group.image.fondoperfil {height:300px;}
     .form-control,
     input[type="text"],

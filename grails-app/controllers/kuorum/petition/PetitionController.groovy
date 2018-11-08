@@ -11,18 +11,18 @@ import org.kuorum.rest.model.communication.petition.PetitionRSDTO
 
 class PetitionController extends CampaignController{
 
-    @Secured(['ROLE_PETITION'])
+    @Secured(['ROLE_CAMPAIGN_PETITION'])
     def create() {
         return petitionModelSettings(new CampaignSettingsCommand(debatable:false), null)
     }
 
-    @Secured(['ROLE_PETITION', 'ROLE_ADMIN'])
+    @Secured(['ROLE_CAMPAIGN_PETITION'])
     def remove(Long campaignId) {
         removeCampaign(campaignId, petitionService)
         render ([msg: "Post deleted"] as JSON)
     }
 
-    @Secured(['ROLE_PETITION'])
+    @Secured(['ROLE_CAMPAIGN_PETITION'])
     def editSettingsStep(){
         KuorumUser petitionUser = KuorumUser.get(springSecurityService.principal.id)
         PetitionRSDTO petitionRSDTO = petitionService.find(petitionUser, Long.parseLong(params.campaignId))
@@ -30,14 +30,14 @@ class PetitionController extends CampaignController{
 
     }
 
-    @Secured(['ROLE_PETITION'])
+    @Secured(['ROLE_CAMPAIGN_PETITION'])
     def editContentStep(){
         Long campaignId = Long.parseLong(params.campaignId)
         PetitionRSDTO petitionRSDTO = setCampaignAsDraft(campaignId, petitionService)
         return campaignModelContent(campaignId, petitionRSDTO, null, petitionService)
     }
 
-    @Secured(['ROLE_PETITION'])
+    @Secured(['ROLE_CAMPAIGN_PETITION'])
     def saveSettings(CampaignSettingsCommand command) {
         if (command.hasErrors()) {
             render view: 'create', model: petitionModelSettings(command, null)
@@ -48,7 +48,7 @@ class PetitionController extends CampaignController{
         redirect mapping: result.nextStep.mapping, params: result.nextStep.params
     }
 
-    @Secured(['ROLE_PETITION'])
+    @Secured(['ROLE_CAMPAIGN_PETITION'])
     def saveContent(CampaignContentCommand command) {
         if (command.hasErrors()) {
             if(command.errors.getFieldError().arguments.first() == "publishOn"){

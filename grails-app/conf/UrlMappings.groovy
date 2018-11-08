@@ -443,6 +443,7 @@ class UrlMappings {
         name adminDomainConfig:                     "/sec/admin/domain"                 (controller:"admin"){action=[GET:"domainConfig",POST:"domainConfigSave"]}
         name adminDomainConfigLanding:              "/sec/admin/domain/landing"         (controller:"admin"){action=[GET:"editLandingInfo",POST:"editLandingInfoSave"]}
         name adminDomainConfigLegalInfo:            "/sec/admin/domain/editLegalInfo"   (controller:"admin"){action=[GET:"editLegalInfo",POST:"updateLegalInfo"]}
+        name adminAuthorizedCampaigns:              "/sec/admin/domain/authorizedCampaigns"(controller:"admin"){action=[GET:"editAuthorizedCampaigns",POST:"updateAuthorizedCampaigns"]}
         name adminDomainConfigUploadLogo:           "/sec/admin/domain/uploadLogo"      (controller:"admin"){action=[GET:"editLogo",POST:"uploadLogo"]}
         name adminDomainConfigUploadCarouselImages: "/sec/admin/domain/editCarousel"    (controller:"admin"){action=[GET:"editCarousel",POST:"uploadCarousel"]}
         name adminDomainConfigRelevantCampagins:    "/sec/admin/domain/relevantCampaigns"(controller:"admin"){action=[GET:"editDomainRelevantCampaigns",POST:"updateDomainRelevantCampaigns"]}
