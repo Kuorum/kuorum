@@ -52,7 +52,7 @@ class RRSSConfigFilters {
                     .findAll{it.startsWith("ROLE_CAMPAIGN")}
                     .collect{it.replace("ROLE_CAMPAIGN_","")}
                     .collect{SolrType.valueOf(it)}
-            return (searchableCampaigns - SolrType.DISTRICT_PROPOSAL).sort { a, b -> a.ordinal() <=> b.ordinal() };
+            return (searchableCampaigns - [SolrType.DISTRICT_PROPOSAL,SolrType.NEWSLETTER]).sort { a, b -> a.ordinal() <=> b.ordinal() };
         }else{
             return []
         }

@@ -6,6 +6,7 @@ package kuorum.core.model.solr
 enum SolrType {
 
     KUORUM_USER("fa-user"),
+    NEWSLETTER("fa-envelope"),
     POST("fa-newspaper"),
     DEBATE("fa-comments"),
     EVENT("fa-calendar-check"),
