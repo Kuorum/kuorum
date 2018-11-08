@@ -20,6 +20,9 @@ body {
     -o-transition: all .15s ease-in-out;
     transition: all .15s ease-in-out;
 }
+
+#facebook-jssdk-iframe{display: none;}
+
 h4{
     /*font-variant: small-caps;*/
     color: #333333;
