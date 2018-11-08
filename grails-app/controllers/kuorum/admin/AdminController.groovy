@@ -174,13 +174,16 @@ class AdminController {
                 domainGlobalAuthorities[userRole].add(campaignRole)
             }
         }
-        flash.message ="Success"
         DomainRDTO domainRDTO = getPopulatedDomainRDTO()
         domainRDTO.globalAuthorities = domainGlobalAuthorities;
         domainService.updateConfig(domainRDTO)
-
         springSecurityService.reauthenticate springSecurityService.getCurrentUser().email
 
+        if (!domainGlobalAuthorities[UserRoleRSDTO.ROLE_ADMIN]){
+            flash.error = "Role admin should have at least one campaign. Setted by default."
+        }else{
+            flash.message ="Success"
+        }
         redirect mapping:'adminAuthorizedCampaigns'
     }
 

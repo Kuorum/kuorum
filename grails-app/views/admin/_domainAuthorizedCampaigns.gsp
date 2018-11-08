@@ -11,7 +11,7 @@
                            data-provide="slider"
                            data-slider-ticks="[0, 1, 2, 3]"
                            data-slider-ticks-labels='["${message(code:"org.kuorum.rest.model.kuorumUser.UserRoleRSDTO.none")}","${userRoles.collect{message(code:"org.kuorum.rest.model.kuorumUser.UserRoleRSDTO."+it)}.join("\",\"")}"]'
-                           data-slider-min="1"
+                           data-slider-min="0"
                            data-slider-max="3"
                            data-slider-step="1"
                            data-slider-value="${globalAuthoritiesCommand.get(campaignRole)}"
