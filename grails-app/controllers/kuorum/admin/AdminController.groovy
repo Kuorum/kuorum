@@ -69,7 +69,6 @@ class AdminController {
         domainConfigCommand.facebook = domainRSDTO.social?.facebook
         domainConfigCommand.twitter = domainRSDTO.social?.twitter
         domainConfigCommand.linkedIn = domainRSDTO.social?.linkedIn
-        domainConfigCommand.googlePlus = domainRSDTO.social?.googlePlus
         domainConfigCommand.instagram = domainRSDTO.social?.instagram
         domainConfigCommand.youtube = domainRSDTO.social?.youtube
         [command:domainConfigCommand]
@@ -94,7 +93,6 @@ class AdminController {
         domainRDTO.social.facebook = command.facebook
         domainRDTO.social.twitter = command.twitter
         domainRDTO.social.linkedIn = command.linkedIn
-        domainRDTO.social.googlePlus = command.googlePlus
         domainRDTO.social.instagram = command.instagram
         domainRDTO.social.youtube = command.youtube
 

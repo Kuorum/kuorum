@@ -19,7 +19,6 @@ class SocialNetworkCommand {
     }
     String facebook
     String twitter
-    String googlePlus
     String linkedIn
     String youtube
     String blog
@@ -38,7 +37,6 @@ class SocialNetworkCommand {
                 }
             }
         }
-        googlePlus          nullable:true, url:true
         linkedIn            nullable:true, url:true
         youtube             nullable:true, url:true
         blog                nullable:true, url:true

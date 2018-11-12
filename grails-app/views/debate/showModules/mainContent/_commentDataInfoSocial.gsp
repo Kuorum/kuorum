@@ -33,11 +33,4 @@
             </span>
         </a>
     </li>
-    <li>
-        <a href="https://plus.google.com/share?url=${debateLink}" target="_blank" title="${g.message(code:'project.social.googlePlus')}">
-            <span class="fa-stack fa-lg" aria-hidden="true">
-                <span class="fab fa-google-plus-g fa-stack-1x"></span>
-            </span>
-        </a>
-    </li>
 </ul>

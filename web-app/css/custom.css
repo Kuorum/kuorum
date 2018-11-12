@@ -6163,19 +6163,6 @@ fieldset.form-group.fieldset-check-box .control-label +div> .checkbox-inline {ma
     color: #fff;
 }
 
-.rating-social-share-modal .share-buttons {background:none;padding:0; margin:0;}
-.rating-social-share-modal .share-buttons li {margin-left:14px;}
-.rating-social-share-modal .share-buttons li a{margin:0;}
-.rating-social-share-modal .share-buttons li a .fa{padding:9px 10px; border-radius: 50%; width: 1.7em; height:1.7em;}
-.rating-social-share-modal .share-buttons li a .fa:hover{color:#FFF;
-    -webkit-box-shadow: 0px 0px 10px 1px rgba(102,102,102,1);
-    -moz-box-shadow:    0px 0px 10px 1px rgba(102,102,102,1);
-    box-shadow:         0px 0px 10px 1px rgba(102,102,102,1);}
-.rating-social-share-modal .share-buttons li a .fa-facebook{background:#3b5998; padding-left:14px}
-.rating-social-share-modal .share-buttons li a .fa-twitter{background:#00aced;}
-.rating-social-share-modal .share-buttons li a .fa-linkedin{background:#0077B5;}
-.rating-social-share-modal .share-buttons li a .fa-google-plus{background:#d34836; padding: 6px}
-
 /* Contact Card =========== */
 .btn-contact{
     text-transform: uppercase;

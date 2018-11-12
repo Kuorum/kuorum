@@ -32,11 +32,6 @@
         </a>
     </li>
     <li>
-        <a class="social-link-google-plus" href="https://plus.google.com/share?url=${userLink}" target="_blank" title="${g.message(code:'project.social.googlePlus')}">
-            <span class="social-share fab fa-google-plus-g"></span>
-        </a>
-    </li>
-    <li>
         <a href="http://www.reddit.com/submit?url=${userLink}&title=${user.name}" target="_blank" title="${g.message(code:'project.social.reddit')}">
             <span class="social-share fab fa-reddit"></span>
         </a>

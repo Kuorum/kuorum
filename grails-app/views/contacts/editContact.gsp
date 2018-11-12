@@ -37,9 +37,6 @@
                 <g:if test="${contact?.social?.twitter}">
                     <li><a href="${contact.social.twitter}" target="_blank"><span class="fab fa-twitter"></span><span class="sr-only">Twitter</span></a></li>
                 </g:if>
-                <g:if test="${contact?.social?.googlePlus}">
-                    <li><a href="${contact.social.googlePlus}" target="_blank"><span class="fab fa-google-plus"></span><span class="sr-only">Google+</span></a></li>
-                </g:if>
                 <g:if test="${contact?.social?.linkedIn}">
                     <li><a href="${contact.social.linkedIn}" target="_blank"><span class="fab fa-linkedin"></span><span class="sr-only">Linkedin</span></a></li>
                 </g:if>
@@ -144,13 +141,6 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-md-4">
-                            <label for="socialGp">Google+</label>
-                            <div class="input-group">
-                                <div class="input-group-addon"><span class="fab fa-google-plus-g fa-fw"></span></div>
-                                <input type="text" value="${contact?.social?.googlePlus}" class="form-control" id="socialGp" disabled>
-                            </div>
-                        </div>
                         <div class="form-group col-md-4">
                             <label for="socialLk">Linkedin</label>
                             <div class="input-group">

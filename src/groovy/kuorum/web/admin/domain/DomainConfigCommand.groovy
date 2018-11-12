@@ -16,7 +16,6 @@ class DomainConfigCommand {
     String facebook;
     String twitter;
     String linkedIn;
-    String googlePlus;
     String instagram;
     String youtube;
 
@@ -33,7 +32,6 @@ class DomainConfigCommand {
         facebook nullable:true
         twitter nullable:true
         linkedIn nullable:true
-        googlePlus nullable:true
         instagram nullable:true
         youtube nullable:true
     }

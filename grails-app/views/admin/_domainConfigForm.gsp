@@ -42,16 +42,13 @@
     </fieldset>
     <fieldset class="row">
         <div class="form-group col-md-6">
-            <formUtil:socialInput command="${command}" field="googlePlus" cssIcon="fab fa-google-plus"/>
-        </div>
-        <div class="form-group col-md-6">
             <formUtil:socialInput command="${command}" field="youtube" cssIcon="fab fa-youtube-square"/>
         </div>
-    </fieldset>
-    <fieldset class="row">
         <div class="form-group col-md-6">
             <formUtil:socialInput command="${command}" field="linkedIn" cssIcon="fab fa-linkedin-in"/>
         </div>
+    </fieldset>
+    <fieldset class="row">
         <div class="form-group col-md-6">
             <formUtil:socialInput command="${command}" field="instagram" cssIcon="fab fa-instagram"/>
         </div>
