@@ -3079,7 +3079,7 @@ form#sign {margin: 30px auto 0; max-width: 760px;}
 .multiple-range-selector .input-range-selector .slider.slider-horizontal{margin-bottom: 0 !important;}
 
 .slider.slider-horizontal {width:100%; max-width: 300px;}
-.multiple-range-selector .slider.slider-horizontal .slider-tick-label-container {margin-top:-25px;}
+.multiple-range-selector .slider.slider-horizontal .slider-tick-label-container {margin-top:-30px;}
 fieldset > .multiple-range-selector:first-child {margin-top:40px;}
 
 @media only screen and (max-width: 767px) {
