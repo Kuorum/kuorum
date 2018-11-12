@@ -9231,7 +9231,7 @@ ul.notification-menu > li.see-more {
     background-color: transparent;
     border: 2px solid #2082e3;
     color: #2082e3;
-    padding: 10px 10px 5px;
+    padding: 10px 5px;
     cursor: pointer;
     position: relative;
     width: 70px;
@@ -9242,12 +9242,12 @@ ul.notification-menu > li.see-more {
     font-size: 11px;
 }
 
-.pretty-check-box label {margin:0px;}
+.pretty-check-box label {margin:0px; font-weight: normal;}
 .pretty-check-box input[type=checkbox] {position: absolute;opacity: 0;}
 .pretty-check-box input:checked ~ .pretty-check-box-icon,
 .pretty-check-box .pretty-check-box-icon:hover {background-color: #2082e3;color: white;}
 .pretty-check-box input:checked ~ .pretty-check-box-icon .check {display: block;}
-.pretty-check-box .pretty-check-box-text {display: block;width: 100%;}
+.pretty-check-box .pretty-check-box-text {display: block;width: 100%;line-height: 11px; margin-top:5px;}
 .pretty-check-box .pretty-check-box-icon .check {display:none; color: white;position: absolute;top: 3px;right: 2px;font-size: 1.2em;}
 .pretty-check-box input:checked ~ .pretty-check-box-icon .check {display: block;}
 
