@@ -368,7 +368,6 @@ class UrlMappings {
 
         name widgetJs:      "/widget.js"(controller: "widget", action:"kuorumWidgetjs")
         name widgetRatePolitician:     "/widget/ratePolitician" (controller: "rating", action:"widgetRatePolitician")
-        name widgetComparative:        "/widget/comparation"    (controller: "rating", action:"widgetComparativePoliticianInfo")
 
 
         name userShow:              "/$userAlias"           (controller: "kuorumUser", action: "show") {constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it)})}}
@@ -387,9 +386,7 @@ class UrlMappings {
         name ajaxRegisterContact:            "/ajax/contact"(controller: "register", action: "contactRegister");
 
         name userRate:                  "/ajax/$userAlias/rate"(controller: "rating", action:"ratePolitician")
-        name userHistoricRate:          "/ajax/$userAlias/historicRate"(controller: "rating", action:"historicPoliticianRate")
         name userLoadRate:              "/ajax/$userAlias/loadRate"(controller: "rating", action:"loadRating")
-        name comparingPoliticianRate:   "/ajax/user/compareRate"(controller: "rating", action:"comparingPoliticianRateData")
 
         name suggestSearcher:       "/ajax/search/suggestions/all"(controller: "search", action:"suggest")
         name suggestRegions:        "/ajax/search/suggestions/regions"(controller: "search", action:"suggestRegions")

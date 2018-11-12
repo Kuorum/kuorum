@@ -14,7 +14,7 @@
     </fieldset>
     <fieldset class="row">
         <div class="form-group col-md-6">
-            <formUtil:socialInput command="${command}" field="googlePlus" cssIcon="fab fa-google-plus"/>
+            <formUtil:socialInput command="${command}" field="youtube" cssIcon="fab fa-youtube"/>
         </div>
         <div class="form-group col-md-6">
             <formUtil:socialInput command="${command}" field="blog" cssIcon="fal fa-rss-square"/>
@@ -30,7 +30,7 @@
     </fieldset>
     <fieldset class="row">
         <div class="form-group col-md-6">
-            <formUtil:socialInput command="${command}" field="youtube" cssIcon="fab fa-youtube"/>
+            %{--<formUtil:socialInput command="${command}" field="googlePlus" cssIcon="fab fa-google-plus"/>--}%
         </div>
         <div class="form-group col-md-6">
             %{--<formUtil:socialInput command="${command}" field="pinterest" cssIcon="fa-pinterest-square"/>--}%

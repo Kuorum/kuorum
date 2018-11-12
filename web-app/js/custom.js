@@ -351,10 +351,6 @@ $(document).ready(function() {
                     $(".rate-progress-bar-" + pos).find("span").html(data.evaluationPercentages[pos] * 100 + "%");
                     $(".rate-progress-bar-" + pos).css("width", data.evaluationPercentages[pos]*100 + "%")
                 });
-                printCharts();
-
-                // Show modal
-                $("#rating-social-share-modal-" + data.userId).modal("show");
             } else {
                 // Change only the invisible one
                 $form.children(".rating").html(i18n.politician.valuation.rate.success)

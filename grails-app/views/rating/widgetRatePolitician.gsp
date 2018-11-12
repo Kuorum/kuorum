@@ -45,12 +45,6 @@
                             </fieldset>
                         </form>
                     </li>
-                    <g:render template="/kuorumUser/userShowTemplates/modals/modalRatingShare"
-                              model="[
-                                      user:politician,
-                                      titleModal:message(code:'widget.politician.valuation.rate.modal.share.title', args: [politician.name]),
-                                      paragraphModal:message(code:'widget.politician.valuation.rate.modal.share.description', args: [politician.name])
-                              ]"/>
                 </g:each>
             </ul>
             %{--<footer>--}%

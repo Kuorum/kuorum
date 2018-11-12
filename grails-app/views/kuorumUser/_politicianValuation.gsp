@@ -66,7 +66,5 @@
                 </ul>
             </div>
         </div>
-
-        <g:render template="/kuorumUser/userShowTemplates/modals/modalRatingShare" model="[user: user]"/>
     </div>
 </div>
