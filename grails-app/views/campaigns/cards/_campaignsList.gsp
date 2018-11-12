@@ -12,7 +12,7 @@
             <g:render template="/campaigns/cards/debateCard" model="[debate:campaign, showAuthor: showAuthor, referred:'dashboard']" />
         </g:if>
         <g:if test="${campaign instanceof org.kuorum.rest.model.communication.survey.SurveyRSDTO}">
-            <g:render template="/campaigns/cards/surveyList" model="[survey:campaign, showAuthor: showAuthor, referred:'dashboard']" />
+            <g:render template="/campaigns/cards/surveyCard" model="[survey:campaign, showAuthor: showAuthor, referred:'dashboard']" />
         </g:if>
         <g:if test="${campaign instanceof org.kuorum.rest.model.communication.petition.PetitionRSDTO}">
             <g:render template="/campaigns/cards/petitionCard" model="[petition:campaign, showAuthor: showAuthor, referred:'dashboard']" />
