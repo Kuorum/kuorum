@@ -16,7 +16,6 @@ class KuorumMailService {
 
     LinkGenerator grailsLinkGenerator
     MandrillAppService mandrillAppService
-    MailchimpService mailchimpService
     MessageSource messageSource
     IndexSolrService indexSolrService
     def grailsApplication

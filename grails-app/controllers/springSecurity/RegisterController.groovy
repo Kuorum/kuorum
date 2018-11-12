@@ -11,7 +11,6 @@ import grails.validation.Validateable
 import groovyx.net.http.RESTClient
 import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.files.FileService
-import kuorum.mail.MailchimpService
 import kuorum.notifications.NotificationService
 import kuorum.register.IOAuthService
 import kuorum.register.RegisterService
@@ -37,7 +36,6 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
     IndexSolrService indexSolrService
 
     FileService fileService
-    MailchimpService mailchimpService
     CookieUUIDService cookieUUIDService
 
     @Value('${recaptcha.providers.google.secretKey}')
