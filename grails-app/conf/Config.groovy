@@ -47,6 +47,10 @@ log4j = {
             'org.springframework',
             'org.hibernate',
             'net.sf.ehcache.hibernate'
+            'grails.app.taglib.org.grails.plugin.resource.ResourceTagLib'
+            'grails.app.services.org.grails.plugin.resource'
+            'grails.app.taglib.org.grails.plugin.resource'
+            'grails.app.resourceMappers.org.grails.plugin.resource'
     off     'grails.app.services.grails.plugin.cookie.CookieService'
 }
 

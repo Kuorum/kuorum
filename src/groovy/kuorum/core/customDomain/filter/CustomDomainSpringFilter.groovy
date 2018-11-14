@@ -15,10 +15,11 @@ class CustomDomainSpringFilter extends GenericFilterBean {
     DomainService domainService
 
     void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
-        URL url = new URL(request.getRequestURL().toString());
+        URL url = new URL(request.getRequestURL().toString())
+        logger.info("Requested: ${url}")
         if (url.getHost() == "127.0.0.1"){
             // Debug on idea via apache using proxy always is 127.0.0.1
-            url = new URL("http://local.kuorum.org/kuorum")
+            url = new URL("https://local.kuorum.org/kuorum")
             logger.warn("Develop mode. Using ${url.toString()}")
         }
         CustomDomainResolver.setUrl(url, request.getContextPath())
@@ -26,7 +27,7 @@ class CustomDomainSpringFilter extends GenericFilterBean {
         DomainRSDTO configRSDTO = domainService.getConfig(CustomDomainResolver.domain)
         //TODO IF CONFIG NULL REDIRECT TO NOT FOUND
         CustomDomainResolver.setDomainRSDTO(configRSDTO)
-        filterChain.doFilter(request, response);
+        filterChain.doFilter(request, response)
 
         CustomDomainResolver.clear()
     }
