@@ -22,11 +22,12 @@ class LandingController {
         if (springSecurityService.isLoggedIn()){
             flash.message = flash.message
             redirect (mapping:"dashboard")
-            return;
+            return
         }
         List<CampaignRSDTO> campaigns = campaignService.findRelevantDomainCampaigns()
         if (!campaigns) {
             log.error("User ${WebConstants.FAKE_LANDING_ALIAS_USER} not exists :: Showing landing page without campaings")
+            campaigns = []
         }
         DomainRSDTO domainRSDTO = domainService.getConfig(CustomDomainResolver.domain)
         [
