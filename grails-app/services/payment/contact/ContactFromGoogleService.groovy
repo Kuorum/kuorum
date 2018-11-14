@@ -40,28 +40,28 @@ class ContactFromGoogleService {
     DomainService domainService
     def grailsApplication
 
-    private static final Integer MAX_BULK_CONTACTS = 10000;
+    private static final Integer MAX_BULK_CONTACTS = 10000
 
     private static final String URL_LOAD_ALL_CONTACTS= "https://www.google.com/m8/feeds/contacts/default/full"
 
     /** Application name. */
-    private static final String APPLICATION_NAME = "Kuorum";
+    private static final String APPLICATION_NAME = "Kuorum"
 
     /** Directory to store user credentials for this application. */
 //    private static final java.io.File DATA_STORE_DIR = new java.io.File(System.getProperty("user.home"), ".credentials/people.googleapis.com-java-quickstart");
-    private static final java.io.File DATA_STORE_DIR = Files.createTempDir();
+    private static final java.io.File DATA_STORE_DIR = Files.createTempDir()
 
     /** Global instance of the {@link com.google.api.client.util.store.FileDataStoreFactory}. */
-    private static FileDataStoreFactory DATA_STORE_FACTORY=new FileDataStoreFactory(DATA_STORE_DIR);
-    private static final JsonFactory JSON_FACTORY =JacksonFactory.getDefaultInstance();
-    private static final HttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+    private static FileDataStoreFactory DATA_STORE_FACTORY=new FileDataStoreFactory(DATA_STORE_DIR)
+    private static final JsonFactory JSON_FACTORY =JacksonFactory.getDefaultInstance()
+    private static final HttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport()
 
     /** Global instance of the scopes required by this quickstart.
      *
      * If modifying these scopes, delete your previously saved credentials
      * at ~/.credentials/people.googleapis.com-java-quickstart
      */
-    private static final List<String> SCOPES = Arrays.asList(PeopleScopes.CONTACTS_READONLY, PlusDomainsScopes.PLUS_CIRCLES_READ);
+    private static final List<String> SCOPES = Arrays.asList(PeopleScopes.CONTACTS_READONLY, PlusDomainsScopes.PLUS_CIRCLES_READ)
 
     ExecutorService executor = Executors.newSingleThreadExecutor()
     @PreDestroy
@@ -70,18 +70,18 @@ class ContactFromGoogleService {
     }
 
 
-    public String getUrlForAuthorization(String state){
-        AuthorizationCodeFlow flow = googleAuthorizationFlow(grailsApplication.config.oauth.providers.google.contactCallback);
-        GoogleAuthorizationCodeRequestUrl authUrl = flow.newAuthorizationUrl();
+    String getUrlForAuthorization(String state){
+        AuthorizationCodeFlow flow = googleAuthorizationFlow(grailsApplication.config.oauth.providers.google.contactCallback)
+        GoogleAuthorizationCodeRequestUrl authUrl = flow.newAuthorizationUrl()
         authUrl.setRedirectUri(grailsApplication.config.oauth.providers.google.contactCallback)
         authUrl.setState(state)
 //        authUrl.setApprovalPrompt("force")
 //        authUrl.setAccessType("offline")
-        return authUrl.toURL();
+        return authUrl.toURL()
     }
 
 
-    public void loadContacts(KuorumUser user, String authorizationCode){
+    void loadContacts(KuorumUser user, String authorizationCode){
         log.info("Loading ${user.alias}'s gmail contacs")
         GoogleAuthorizationCodeTokenRequest authorizationCodeTokenRequest = new GoogleAuthorizationCodeTokenRequest(
                 HTTP_TRANSPORT,
@@ -90,12 +90,12 @@ class ContactFromGoogleService {
                 grailsApplication.config.oauth.providers.google.secret,
                 authorizationCode,
                 grailsApplication.config.oauth.providers.google.contactCallback
-        );
+        )
 
 //        authorizationCodeTokenRequest.setScopes(Arrays.asList('https://www.googleapis.com/auth/plus.me','https://www.googleapis.com/auth/plus.profiles.read', 'https://www.googleapis.com/auth/plus.circles.read'))
-        GoogleTokenResponse tokenResponse =authorizationCodeTokenRequest.execute();
+        GoogleTokenResponse tokenResponse =authorizationCodeTokenRequest.execute()
         Credential credential = createCredentialFromToken(tokenResponse, grailsApplication.config.oauth.providers.google.contactCallback)
-        loadContactUsingGData(user, credential);
+        loadContactUsingGData(user, credential)
 
     }
 
@@ -105,32 +105,32 @@ class ContactFromGoogleService {
                 .setJsonFactory(JSON_FACTORY)
                 .setTransport(new NetHttpTransport())
                 .setClientSecrets(getGoogleClientSecrets(urlCallback)).build()
-                .setFromTokenResponse(token);
+                .setFromTokenResponse(token)
     }
 
     private Map loadCirclesMappedByName(Credential credential){
 
-        Map<String, Set<String>> mapCircles = [:];
+        Map<String, Set<String>> mapCircles = [:]
         try {
             PlusDomains plusDomains = new PlusDomains.Builder(HTTP_TRANSPORT, JSON_FACTORY, credential)
                     .setApplicationName(APPLICATION_NAME)
-                    .build();
-            PlusDomains.Circles.List listCircles = plusDomains.circles().list("me");
-            listCircles.setMaxResults(5L);
-            CircleFeed circleFeed = listCircles.execute();
-            List<Circle> circles = circleFeed.getItems();
+                    .build()
+            PlusDomains.Circles.List listCircles = plusDomains.circles().list("me")
+            listCircles.setMaxResults(5L)
+            CircleFeed circleFeed = listCircles.execute()
+            List<Circle> circles = circleFeed.getItems()
 
             // Loop until no additional pages of results are available.
             while (circles != null) {
                 for (Circle circle : circles) {
-                    PlusDomains.People.ListByCircle listPeople = plusDomains.people().listByCircle(circle.getId());
+                    PlusDomains.People.ListByCircle listPeople = plusDomains.people().listByCircle(circle.getId())
                     log.info("Circle ${circle.getDisplayName()}[${circle.getPeople().getTotalItems()} contacts]")
-                    PeopleFeed peopleFeed = listPeople.execute();
+                    PeopleFeed peopleFeed = listPeople.execute()
                     while (peopleFeed != null) {
                         if (peopleFeed.getItems() != null && peopleFeed.getItems().size() > 0) {
                             for (Person person : peopleFeed.getItems()) {
                                 log.debug("${circle.getDisplayName()} :: ${person.getId()} (${person.getDisplayName()})")
-                                String mapName = person.getDisplayName();
+                                String mapName = person.getDisplayName()
                                 Set<String> userCircles = mapCircles.get(mapName)
                                 userCircles = userCircles ?: [] as Set<String>
                                 userCircles.add(circle.getDisplayName())
@@ -141,10 +141,10 @@ class ContactFromGoogleService {
                         }
                         if (peopleFeed.getNextPageToken() != null) {
                             listPeople.setPageToken(peopleFeed.getNextPageToken())
-                            peopleFeed = listPeople.execute();
+                            peopleFeed = listPeople.execute()
                         } else {
                             log.debug("No more contacts on ${circle.getDisplayName()}")
-                            peopleFeed = null;
+                            peopleFeed = null
                         }
                     }
 
@@ -154,13 +154,13 @@ class ContactFromGoogleService {
                 // results. If this is the case, break.
                 if (circleFeed.getNextPageToken() != null) {
                     // Prepare the next page of results
-                    listCircles.setPageToken(circleFeed.getNextPageToken());
+                    listCircles.setPageToken(circleFeed.getNextPageToken())
 
                     // Execute and process the next page request
-                    circleFeed = listCircles.execute();
-                    circles = circleFeed.getItems();
+                    circleFeed = listCircles.execute()
+                    circles = circleFeed.getItems()
                 } else {
-                    circles = null;
+                    circles = null
                 }
             }
         }catch (com.google.api.client.googleapis.json.GoogleJsonResponseException e){
@@ -168,7 +168,7 @@ class ContactFromGoogleService {
         }catch (Throwable t){
             log.info("The user has not circles or was a problem loading his circles. ")
         }
-        return mapCircles;
+        return mapCircles
     }
 
     private void loadContactUsingGData(KuorumUser user, Credential credential){
@@ -185,15 +185,15 @@ class ContactFromGoogleService {
             // END INIT THREAD LOCAL
 
             ContactsService contactsService = new ContactsService(APPLICATION_NAME)
-            contactsService.setOAuth2Credentials(credential);
-            URL feedUrl = new URL(URL_LOAD_ALL_CONTACTS);
-            Long numContacts = 0;
+            contactsService.setOAuth2Credentials(credential)
+            URL feedUrl = new URL(URL_LOAD_ALL_CONTACTS)
+            Long numContacts = 0
             List<ContactRDTO> contactRDTOs = []
             while (true){
-                ContactFeed resultFeed = contactsService.getFeed(feedUrl, ContactFeed.class);
-                contactRDTOs.addAll(processContactsFeed(resultFeed,circleMap));
+                ContactFeed resultFeed = contactsService.getFeed(feedUrl, ContactFeed.class)
+                contactRDTOs.addAll(processContactsFeed(resultFeed,circleMap))
                 if (contactRDTOs.size() > MAX_BULK_CONTACTS){
-                    contactService.addBulkContacts(user, contactRDTOs);
+                    contactService.addBulkContacts(user, contactRDTOs)
                     contactRDTOs.clear()
                     log.info("Imported ${numContacts} [${user.alias}]")
                 }
@@ -207,13 +207,13 @@ class ContactFromGoogleService {
                     }
                 }catch (Exception e){
                     log.info("End contacts due to exception: "+numContacts +" => Excp:"+e.getLocalizedMessage())
-                    break;
+                    break
                 }
                 if (credential.refreshToken()){
                     credential = refreshCredential(credential)
                 }
             }
-            contactService.addBulkContacts(user, contactRDTOs);
+            contactService.addBulkContacts(user, contactRDTOs)
             contactRDTOs.clear()
             log.info("Last imported ${numContacts} [${user.alias}]")
         }
@@ -228,20 +228,20 @@ class ContactFromGoogleService {
                             JSON_FACTORY,
                             refreshToken,
                             grailsApplication.config.oauth.providers.google.key,
-                            grailsApplication.config.oauth.providers.google.secret).execute();
+                            grailsApplication.config.oauth.providers.google.secret).execute()
             return createCredentialFromToken(tokenResponse, "")
         } catch (TokenResponseException e) {
             log.warn("No refreshed token due to exception: ${e.getMessage()}", e)
-            return null;
+            return null
         }
     }
 
     private List<ContactRDTO> processContactsFeed(ContactFeed resultFeed, Map<String, List<String>> circleMap){
-        List<ContactRDTO> contactRDTOs = new ArrayList<>();
+        List<ContactRDTO> contactRDTOs = new ArrayList<>()
         for (ContactEntry entry : resultFeed.getEntries()) {
             contactRDTOs.addAll(createContactRDTO(entry, circleMap))
         }
-        contactRDTOs;
+        contactRDTOs
     }
 
     // A gmail user has more than one email
@@ -250,8 +250,8 @@ class ContactFromGoogleService {
         try{
             if (contactEntry.hasEmailAddresses()){
                 contactEntry.emailAddresses.address.each {email ->
-                    ContactRDTO contactRDTO = null;
-                    def splitName = extractName(contactEntry);
+                    ContactRDTO contactRDTO = null
+                    def splitName = extractName(contactEntry)
                     contactRDTO = new ContactRDTO(name:splitName.name, surname: splitName.surname, email:email)
                     contactRDTO.tags = []
                     if (contactEntry.hasGender()){
@@ -283,20 +283,20 @@ class ContactFromGoogleService {
             log.warn("There was a problem recovering google contact [Excp: ${e.getMessage()}]")
         }
 
-        return contacts;
+        return contacts
     }
 
     private def extractName(ContactEntry contactEntry){
-        String surname = contactEntry?.name?.familyName?.value;
-        String name = contactEntry?.name?.givenName?.value;
+        String surname = contactEntry?.name?.familyName?.value
+        String name = contactEntry?.name?.givenName?.value
         if (!name){
-            def splitName = splitNameAndSurname(contactEntry?.name?.fullName?.value);
+            def splitName = splitNameAndSurname(contactEntry?.name?.fullName?.value)
             name = splitName.name
             surname = splitName.surname
         }
 
         if (!name){
-            def splitName = splitNameAndSurname(contactEntry?.title?.plainText);
+            def splitName = splitNameAndSurname(contactEntry?.title?.plainText)
             name = splitName.name
             surname = splitName.surname
         }
@@ -304,11 +304,11 @@ class ContactFromGoogleService {
     }
 
     private def splitNameAndSurname(String fullName){
-        int firstSpace = fullName?.trim()?.indexOf(" ")?:-1; // detect the first space character
-        String name = fullName?.trim();
-        String surname = null;
+        int firstSpace = fullName?.trim()?.indexOf(" ")?:-1 // detect the first space character
+        String name = fullName?.trim()
+        String surname = null
         if (firstSpace>0){
-            name = fullName.substring(0, firstSpace);  // get everything upto the first space character
+            name = fullName.substring(0, firstSpace)  // get everything upto the first space character
             surname = fullName.substring(firstSpace).trim()
         }
         [name: name, surname:surname]
@@ -323,13 +323,13 @@ class ContactFromGoogleService {
                         HTTP_TRANSPORT, JSON_FACTORY,getGoogleClientSecrets(urlCallback) , SCOPES)
                         .setDataStoreFactory(DATA_STORE_FACTORY)
                         .setAccessType("offline")
-                        .build();
-        return flow;
+                        .build()
+        return flow
     }
 
 
     private GoogleClientSecrets getGoogleClientSecrets(String urlCallBack){
-        GoogleClientSecrets.Details webDetails = new GoogleClientSecrets.Details();
+        GoogleClientSecrets.Details webDetails = new GoogleClientSecrets.Details()
         webDetails.setAuthUri("https://accounts.google.com/o/oauth2/auth")
         webDetails.setClientId(grailsApplication.config.oauth.providers.google.key)
         webDetails.setClientSecret(grailsApplication.config.oauth.providers.google.secret)
@@ -338,11 +338,7 @@ class ContactFromGoogleService {
         webDetails.set("project_id","kuorum-social-1")
         webDetails.setTokenUri("https://accounts.google.com/o/oauth2/token")
         GoogleClientSecrets clientSecrets = new GoogleClientSecrets().setWeb(webDetails)
-
-//        File file = new File ("/home/iduetxe/Descargas/client_secret_426876445725-06qsr9vdj5r10a7k9h7tlcb04oomfmub.apps.googleusercontent.com.json")
-//        GoogleClientSecrets clientSecrets =
-//                GoogleClientSecrets.load(JSON_FACTORY, new FileReader(file));
-        return clientSecrets;
+        return clientSecrets
     }
 
 }
