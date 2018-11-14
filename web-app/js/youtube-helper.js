@@ -1,6 +1,6 @@
 
 function YoutubeHelper(){
-    var googleApiKey = "AIzaSyBlkPXlyoUtZZfco4OF3o27OmL7NjCOXm0"; // TODO: This key to a properties file
+    var googleApiKey = kuorumKeys._googleJsAPIKey;
     var that = this;
     function validYoutube(videoID, onSuccess, onError){
         var url = "https://www.googleapis.com/youtube/v3/videos?part=snippet&id="+videoID+"&key="+googleApiKey;
@@ -26,9 +26,9 @@ function YoutubeHelper(){
         // console.log(response)
         // console.log(img)
         $.each(response.items, function (index, item) {
-            var priorityQuality = ['maxres', 'standard', 'high', 'medium', 'default']
+            var priorityQuality = ['maxres', 'standard', 'high', 'medium', 'default'];
             for (var idx in priorityQuality){
-                var quality = priorityQuality[idx]
+                var quality = priorityQuality[idx];
                 if (_validThumbnail(item.snippet.thumbnails, quality)){
                     var maxResUrl = item.snippet.thumbnails[quality].url;
                     img.setAttribute('src', maxResUrl);
@@ -57,8 +57,8 @@ function YoutubeHelper(){
             maxResImage(data, img);
         }, function(){
             img.setAttribute("src", imageYoutubeNotFound);
-            var a = img.parentNode
-            var videoContainer = a.parentNode
+            var a = img.parentNode;
+            var videoContainer = a.parentNode;
             videoContainer.innerHTML="";
             videoContainer.appendChild(img)
         });
@@ -87,12 +87,12 @@ function YoutubeHelper(){
                 ;
             }
         }
-    }
+    };
     this.replaceYoutubeImageType=function(completeUrl, newImageName){
         var resultUrl = completeUrl.substring(0, completeUrl.lastIndexOf('/'));
         resultUrl = resultUrl +"/" +newImageName;
         return resultUrl;
-    }
+    };
 
     this.replaceAllWrongYoutubeImages=function(){
         $.each( $("div.video img"), function( key, img ) {

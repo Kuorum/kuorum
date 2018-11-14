@@ -332,8 +332,14 @@ kuorum {
 //        apiPath = "/kuorumRest/api"
         apiKey = "XXXX"
     }
-    favicon{
-        key = "XXXXXXX"
+
+    keys{
+        google{
+            api{
+                js ="xxxxx"
+            }
+        }
+        favicon = "XXXXXXX"
     }
 }
 

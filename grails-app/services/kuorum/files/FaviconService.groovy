@@ -26,7 +26,7 @@ class FaviconService {
         RESTClient http = new RESTClient('https://realfavicongenerator.net/api')
         http.ignoreSSLIssues()
         String uri = 'https://realfavicongenerator.net/api/favicon'
-        def bodyParams = buildBodyParams(domainLogoUrl, domain);
+        def bodyParams = buildBodyParams(domainLogoUrl, domain)
         def response = http.post(
                 path:uri,
                 headers: ["User-Agent": "Kuorum Web"],
@@ -34,8 +34,8 @@ class FaviconService {
                 body:  bodyParams,
                 requestContentType : groovyx.net.http.ContentType.JSON
         )
-        response;
-        String zipFileUrlRaw = response.data.favicon_generation_result.favicon.package_url;
+        response
+        String zipFileUrlRaw = response.data.favicon_generation_result.favicon.package_url
         return zipFileUrlRaw
     }
 
@@ -48,18 +48,18 @@ class FaviconService {
                     headers: ["User-Agent": "Kuorum Web"],
                     query: [:])
             final ByteArrayInputStream responseStream = (ByteArrayInputStream) responseZip.data
-            IOUtils.copy(responseStream, new FileOutputStream(fileZip));
+            IOUtils.copy(responseStream, new FileOutputStream(fileZip))
             responseStream.close()
         } catch (Exception e) {
             log.error(e)
-            fileZip = null;
+            fileZip = null
             //TODO: HANDLE ERROR
         }
-        return fileZip;
+        return fileZip
     }
 
     private void uploadFaviconFiles(Path tempFavicon, DomainRSDTO domain){
-        List<File> files = Arrays.asList(tempFavicon.toFile().listFiles());
+        List<File> files = Arrays.asList(tempFavicon.toFile().listFiles())
         for (File f : files) {
             amazonFileService.uploadDomainFaviconFile(f, domain.domain)
             log.info("Se ha subido un nuevo favicon del dominio")
@@ -67,7 +67,7 @@ class FaviconService {
     }
 
     private def buildBodyParams(String domainLogoUrl, DomainRSDTO domain) {
-        String apiKey = grailsApplication.config.kuorum.favicon.key
+        String apiKey = grailsApplication.config.kuorum.keys.favicon
         return [
                 "favicon_generation": [
                         "api_key": apiKey,
