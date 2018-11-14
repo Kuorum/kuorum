@@ -26,7 +26,7 @@ class LoginController {
 	 */
 	def springSecurityService
 
-	RegisterService registerService;
+	RegisterService registerService
 
 	/**
 	 * Default action; redirects to 'defaultTargetUrl' if logged in, /login/auth otherwise.
@@ -105,15 +105,15 @@ class LoginController {
 	def checkEmailAndPass = {
 		String email = params.j_username
 		String pass = params.j_password
-		KuorumUser user = KuorumUser.findByEmailAndDomain(email, CustomDomainResolver.domain);
-		Boolean valid = registerService.isValidPassword(user, pass);
-		render valid.toString();
+		KuorumUser user = KuorumUser.findByEmailAndDomain(email, CustomDomainResolver.domain)
+		Boolean valid = registerService.isValidPassword(user, pass)
+		render valid.toString()
 	}
 
 	def modalAuth = {
 		String email = params.j_username
 		String pass = params.j_password
-		KuorumUser user = KuorumUser.findByEmailAndDomain(email, CustomDomainResolver.domain);
+		KuorumUser user = KuorumUser.findByEmailAndDomain(email, CustomDomainResolver.domain)
 		if (registerService.isValidPassword(user, pass)){
 			springSecurityService.reauthenticate(email, pass)
 			render ([success:true, url: g.createLink(mapping:'loginAuthError')] as JSON)
@@ -130,7 +130,12 @@ class LoginController {
 		if (springSecurityService.isLoggedIn() &&
 				authenticationTrustResolver.isRememberMe(SCH.context?.authentication)) {
 			// have cookie but the page is guarded with IS_AUTHENTICATED_FULLY
-			redirect mapping:'loginFull', params: params
+//			redirect mapping:'loginFull', params: params
+            def config = SpringSecurityUtils.securityConfig
+            render view: 'auth', params: params,
+                    model: [hasCookie: authenticationTrustResolver.isRememberMe(SCH.context?.authentication),
+                            titleMsg: g.message(code:'login.full.confirmUser.title'),
+                            postUrl: "${CustomDomainResolver.baseUrlAbsolute}${config.apf.filterProcessesUrl}"]
 		}
 	}
 

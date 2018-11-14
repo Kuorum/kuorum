@@ -46,10 +46,10 @@ log4j = {
             'org.codehaus.groovy.grails.orm.hibernate',      // hibernate integration
             'org.springframework',
             'org.hibernate',
-            'net.sf.ehcache.hibernate'
-            'grails.app.taglib.org.grails.plugin.resource.ResourceTagLib'
-            'grails.app.services.org.grails.plugin.resource'
-            'grails.app.taglib.org.grails.plugin.resource'
+            'net.sf.ehcache.hibernate',
+            'grails.app.taglib.org.grails.plugin.resource.ResourceTagLib',
+            'grails.app.services.org.grails.plugin.resource',
+            'grails.app.taglib.org.grails.plugin.resource',
             'grails.app.resourceMappers.org.grails.plugin.resource'
     off     'grails.app.services.grails.plugin.cookie.CookieService'
 }
@@ -198,9 +198,9 @@ grails.plugin.springsecurity.rememberMe.persistentToken.domainClassName='kuorum.
 grails.plugin.springsecurity.oauth.domainClass = 'kuorum.users.OAuthID'
 grails.plugin.springsecurity.successHandler.defaultTargetUrl='/dashboard'
 //grails.plugin.springsecurity.rememberMe.domain = ".kuorum.org"
-grails.plugin.springsecurity.loginDomain = "https://kuorum.org"
-grails.plugin.cookiesession.domain=".kuorum.org"
-grails.plugin.cookiesession.springsecuritycompatibility=true
+//grails.plugin.springsecurity.loginDomain = "https://kuorum.org"
+//grails.plugin.cookiesession.domain=".kuorum.org"
+//grails.plugin.cookiesession.springsecuritycompatibility=true
 
 
 cache.headers.presets = [

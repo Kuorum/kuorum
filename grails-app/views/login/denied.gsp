@@ -6,7 +6,11 @@
 
 
 <content tag="mainContent">
-    <div class='errors'><g:message code="springSecurity.denied.message" /></div>
+    <section id="main">
+        <div class="box-ppal">
+            <div class='errors'><g:message code="springSecurity.denied.message" /></div>
+        </div>
+    </section>
 </content>
 
 

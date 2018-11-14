@@ -25,7 +25,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile
 import payment.campaign.CampaignService
 import payment.campaign.NewsletterService
 
-@Secured(['ROLE_ADMIN'])
+@Secured(['IS_AUTHENTICATED_FULLY','ROLE_ADMIN'])
 class AdminController {
 
     def indexSolrService
@@ -33,7 +33,7 @@ class AdminController {
 
     KuorumUserService kuorumUserService
 
-    NewsletterService newsletterService;
+    NewsletterService newsletterService
 
     DomainService domainService
 
@@ -49,16 +49,14 @@ class AdminController {
     def afterInterceptor = { model, modelAndView ->
 
     }
-
-    @Secured(['ROLE_ADMIN'])
+    
     def index() {
         redirect mapping:'adminDomainConfig'
     }
 
-    @Secured(['ROLE_ADMIN'])
     def domainConfig(){
         DomainRSDTO domainRSDTO = domainService.getConfig(CustomDomainResolver.domain)
-        DomainConfigCommand domainConfigCommand = new DomainConfigCommand();
+        DomainConfigCommand domainConfigCommand = new DomainConfigCommand()
         domainConfigCommand.name = domainRSDTO.name
         domainConfigCommand.validation = domainRSDTO.validation
         domainConfigCommand.language = domainRSDTO.language
@@ -75,11 +73,10 @@ class AdminController {
 
     }
 
-    @Secured(['ROLE_ADMIN'])
     def domainConfigSave(DomainConfigCommand command){
         if (command.hasErrors()){
             render view:'domainConfig', model:[command:command]
-            return;
+            return
         }
         DomainRDTO domainRDTO = getPopulatedDomainRDTO()
         domainRDTO.name = command.name
@@ -101,10 +98,9 @@ class AdminController {
         redirect mapping:'adminDomainConfig'
     }
 
-    @Secured(['ROLE_ADMIN'])
     def editLandingInfo(){
         DomainRSDTO domainRSDTO = domainService.getConfig(CustomDomainResolver.domain)
-        DomainLandingCommand domainLandingCommand = new DomainLandingCommand();
+        DomainLandingCommand domainLandingCommand = new DomainLandingCommand()
         domainLandingCommand.slogan = domainRSDTO.slogan
         domainLandingCommand.subtitle = domainRSDTO.subtitle
         domainLandingCommand.domainDescription = domainRSDTO.domainDescription
@@ -113,11 +109,10 @@ class AdminController {
         [command:domainLandingCommand]
     }
 
-    @Secured(['ROLE_ADMIN'])
     def editLandingInfoSave(DomainLandingCommand command){
         if (command.hasErrors()){
             render view:'editLandingInfo', model:[command:command]
-            return;
+            return
         }
 
         DomainRDTO domainRDTO = getPopulatedDomainRDTO()
@@ -135,7 +130,6 @@ class AdminController {
     private static final List campaignRoles = [ UserRoleRSDTO.ROLE_CAMPAIGN_NEWSLETTER, UserRoleRSDTO.ROLE_CAMPAIGN_POST,UserRoleRSDTO.ROLE_CAMPAIGN_DEBATE,UserRoleRSDTO.ROLE_CAMPAIGN_EVENT, UserRoleRSDTO.ROLE_CAMPAIGN_PETITION,UserRoleRSDTO.ROLE_CAMPAIGN_PARTICIPATORY_BUDGET]
     private static final Map userRoles = [(UserRoleRSDTO.ROLE_ADMIN): 1,(UserRoleRSDTO.ROLE_SUPER_USER): 2,(UserRoleRSDTO.ROLE_USER): 3]
 
-    @Secured(['ROLE_ADMIN'])
     def editAuthorizedCampaigns() {
         DomainRSDTO domainRSDTO = domainService.getConfig(CustomDomainResolver.domain)
         def globalAuthoritiesCommand = [:]
@@ -156,24 +150,23 @@ class AdminController {
         }
     }
 
-    @Secured(['ROLE_ADMIN'])
     def updateAuthorizedCampaigns() {
         DomainRSDTO domainRSDTO = domainService.getConfig(CustomDomainResolver.domain)
         domainRSDTO.globalAuthorities.get(UserRoleRSDTO.ROLE_USER)
         Map<UserRoleRSDTO, List<UserRoleRSDTO>> domainGlobalAuthorities = userRoles.keySet().collectEntries{[it, []]}
         campaignRoles.each{campaignRole ->
-            int val = 0;
+            int val = 0
             try{
                 val = Integer.parseInt(params[campaignRole.toString()])
             }catch (Exception e){
-                val = 0;
+                val = 0
             }
             getListUserRoles(val).each{userRole ->
                 domainGlobalAuthorities[userRole].add(campaignRole)
             }
         }
         DomainRDTO domainRDTO = getPopulatedDomainRDTO()
-        domainRDTO.globalAuthorities = domainGlobalAuthorities;
+        domainRDTO.globalAuthorities = domainGlobalAuthorities
         domainService.updateConfig(domainRDTO)
         springSecurityService.reauthenticate springSecurityService.getCurrentUser().email
 
@@ -191,13 +184,12 @@ class AdminController {
         DomainRSDTO domainRSDTO = domainService.getConfig(CustomDomainResolver.domain)
         def valid = DomainRDTO.getDeclaredFields().grep {  !it.synthetic }.collect{it.name}
         DomainRDTO domainRDTO = new DomainRDTO(domainRSDTO.properties.findAll{valid.contains(it.key)})
-        return domainRDTO;
+        return domainRDTO
     }
 
-    @Secured(['ROLE_ADMIN'])
     def editLegalInfo() {
         DomainLegalInfoRSDTO domainLegalInfoRDSTO = domainService.getLegalInfo(CustomDomainResolver.domain)
-        EditLegalInfoCommand editLegalInfoCommand = new EditLegalInfoCommand();
+        EditLegalInfoCommand editLegalInfoCommand = new EditLegalInfoCommand()
         editLegalInfoCommand.address = domainLegalInfoRDSTO?.address
         editLegalInfoCommand.city = domainLegalInfoRDSTO?.city
         editLegalInfoCommand.country = domainLegalInfoRDSTO?.country
@@ -209,11 +201,10 @@ class AdminController {
         [command:editLegalInfoCommand]
     }
 
-    @Secured(['ROLE_ADMIN'])
     def updateLegalInfo(EditLegalInfoCommand command) {
         if (command.hasErrors()){
             render view:'editLegalInfo', model:[command:command]
-            return;
+            return
         }
         DomainLegalInfoRDTO domainLegalInfoRDTO = new DomainLegalInfoRDTO()
         domainLegalInfoRDTO.address = command.address
@@ -229,9 +220,6 @@ class AdminController {
         redirect mapping:'adminDomainConfigLegalInfo'
     }
 
-
-
-    @Secured(['ROLE_ADMIN'])
     def editDomainRelevantCampaigns() {
         List<CampaignRSDTO> domainCampaigns = campaignService.findRelevantDomainCampaigns()
         KuorumUser adminUser = kuorumUserService.findByAlias(WebConstants.FAKE_LANDING_ALIAS_USER)
@@ -243,7 +231,6 @@ class AdminController {
         [domainCampaignsId:domainCampaignsId,adminCampaigns:adminCampaigns]
     }
 
-    @Secured(['ROLE_ADMIN'])
     def updateDomainRelevantCampaigns() {
         List<Long> campaignIds = params.campaignIds.collect{try{Long.parseLong(it)}catch (e){null}}.findAll{it}
         campaignService.updateRelevantDomainCampaigns(campaignIds)
@@ -252,12 +239,11 @@ class AdminController {
     }
 
 
-
-    @Secured(['ROLE_SUPER_ADMIN'])
+    @Secured(['IS_AUTHENTICATED_FULLY','ROLE_SUPER_ADMIN'])
     def editLogo() {
     }
 
-    @Secured(['ROLE_SUPER_ADMIN'])
+    @Secured(['IS_AUTHENTICATED_FULLY','ROLE_SUPER_ADMIN'])
     def uploadLogo() {
 
         CommonsMultipartFile customLogo = request.getFile('logo')
@@ -274,20 +260,20 @@ class AdminController {
         }
     }
 
-    @Secured(['ROLE_SUPER_ADMIN'])
+    @Secured(['IS_AUTHENTICATED_FULLY','ROLE_SUPER_ADMIN'])
     def editCarousel() {
         String domain = CustomDomainResolver.domain
         KuorumFile slide1 = domainResourcesService.getSlidePath(domain,1)
         KuorumFile slide2 = domainResourcesService.getSlidePath(domain,2)
         KuorumFile slide3 = domainResourcesService.getSlidePath(domain,3)
         EditDomainCarouselPicturesCommand command = new EditDomainCarouselPicturesCommand()
-        command.slideId1 = slide1?.id?.toString()?:null;
-        command.slideId2 = slide2?.id?.toString()?:null;
-        command.slideId3 = slide3?.id?.toString()?:null;
+        command.slideId1 = slide1?.id?.toString()?:null
+        command.slideId2 = slide2?.id?.toString()?:null
+        command.slideId3 = slide3?.id?.toString()?:null
         [command: command]
     }
 
-    @Secured(['ROLE_SUPER_ADMIN'])
+    @Secured(['IS_AUTHENTICATED_FULLY','ROLE_SUPER_ADMIN'])
     def uploadCarousel(EditDomainCarouselPicturesCommand command) {
         if (command.hasErrors()){
             render view: "editCarousel", model: [command:command]
@@ -304,17 +290,17 @@ class AdminController {
     }
 
 
-    @Secured(['ROLE_SUPER_ADMIN'])
+    @Secured(['IS_AUTHENTICATED_FULLY','ROLE_SUPER_ADMIN'])
     def solrIndex(){
     }
 
-    @Secured(['ROLE_SUPER_ADMIN'])
+    @Secured(['IS_AUTHENTICATED_FULLY','ROLE_SUPER_ADMIN'])
     def fullIndex(){
         def res = indexSolrService.fullIndex()
         render view: '/admin/solrIndex'
     }
 
-    @Secured(['ROLE_SUPER_ADMIN'])
+    @Secured(['IS_AUTHENTICATED_FULLY','ROLE_SUPER_ADMIN'])
     def editUserRights(String userAlias){
         KuorumUser user = kuorumUserService.findByAlias(userAlias)
         KuorumUserRightsCommand command = new KuorumUserRightsCommand()
@@ -324,7 +310,7 @@ class AdminController {
         [command: command]
     }
 
-    @Secured(['ROLE_SUPER_ADMIN'])
+    @Secured(['IS_AUTHENTICATED_FULLY','ROLE_SUPER_ADMIN'])
     def updateUserRights(KuorumUserRightsCommand command) {
 
         if (command.hasErrors()) {
@@ -336,37 +322,37 @@ class AdminController {
         if (command.relevance){
             kuorumUserService.updateUserRelevance(user, command.relevance)
         }
-        user = kuorumUserService.updateUser(user);
+        user = kuorumUserService.updateUser(user)
 
         flash.message = message(code: 'admin.editUser.success', args: [user.name])
 
         redirect(mapping: 'editorAdminUserRights', params: user.encodeAsLinkProperties())
     }
 
-    @Secured(['ROLE_SUPER_ADMIN'])
+    @Secured(['IS_AUTHENTICATED_FULLY','ROLE_SUPER_ADMIN'])
     @Deprecated
     def editUserEmailSender(String userAlias) {
-        Boolean requestState;
+        Boolean requestState
         KuorumUser user = kuorumUserService.findByAlias(userAlias)
         KuorumUserEmailSenderCommand command = new KuorumUserEmailSenderCommand()
-        NewsletterConfigRSDTO configRSDTO = newsletterService.findNewsletterConfig(user);
-        command.user = user;
-        command.emailSender = configRSDTO.getEmailSender();
-        requestState = configRSDTO.getEmailSenderRequested();
+        NewsletterConfigRSDTO configRSDTO = newsletterService.findNewsletterConfig(user)
+        command.user = user
+        command.emailSender = configRSDTO.getEmailSender()
+        requestState = configRSDTO.getEmailSenderRequested()
         [
                 command     : command,
                 requestState: requestState
         ]
     }
 
-    @Secured(['ROLE_SUPER_ADMIN'])
+    @Secured(['IS_AUTHENTICATED_FULLY','ROLE_SUPER_ADMIN'])
     @Deprecated
     def updateUserEmailSender(KuorumUserEmailSenderCommand command) {
-        KuorumUser user = command.user;
-        AdminConfigMailingRDTO adminRDTO = new AdminConfigMailingRDTO();
-        adminRDTO.setEmailSender(command.emailSender);
+        KuorumUser user = command.user
+        AdminConfigMailingRDTO adminRDTO = new AdminConfigMailingRDTO()
+        adminRDTO.setEmailSender(command.emailSender)
 
-        newsletterService.updateNewsletterConfig(user, adminRDTO);
+        newsletterService.updateNewsletterConfig(user, adminRDTO)
 
         redirect(mapping: 'editorAdminEmailSender', params: user.encodeAsLinkProperties())
     }

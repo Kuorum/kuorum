@@ -6,7 +6,12 @@
 </head>
 
 <content tag="title">
-    <g:message code="register.head.login"/>
+    <g:if test="${titleMsg}">
+        ${titleMsg}
+    </g:if>
+    <g:else>
+        <g:message code="register.head.login"/>
+    </g:else>
 </content>
 <content tag="mainContent">
     <form id="login" role="form" action='${postUrl}' method='POST' class="login">

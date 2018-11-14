@@ -23,6 +23,7 @@ import kuorum.web.commands.customRegister.ForgotUserPasswordCommand
 import kuorum.web.users.KuorumRegistrationCode
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.security.core.context.SecurityContextHolder
+import org.springframework.security.web.authentication.RememberMeServices
 
 class RegisterController extends grails.plugin.springsecurity.ui.RegisterController {
 
@@ -89,16 +90,19 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
             return true
     }
 
+    RememberMeServices rememberMeServices
+
     def registerRRSSOAuthAjax(){
         params.remove("controller")
         params.remove("action")
         params.remove("language")
         String providerName = params.remove("provider")
-        IOAuthService providerService = grailsApplication.mainContext.getBean("${providerName}OAuthService");
+        IOAuthService providerService = grailsApplication.mainContext.getBean("${providerName}OAuthService")
         org.scribe.model.Token token = providerService.createTokenFromAjaxParams(params)
-        grails.plugin.springsecurity.oauth.OAuthToken oAuthToken = providerService.createAuthToken(token);
-        oAuthToken.authenticated = true;
+        grails.plugin.springsecurity.oauth.OAuthToken oAuthToken = providerService.createAuthToken(token)
+        oAuthToken.authenticated = true
         SecurityContextHolder.context.authentication = oAuthToken
+        rememberMeServices.loginSuccess(request, response, springSecurityService.authentication)
         if (oAuthToken.newUser){
             try{
                 KuorumUser user = KuorumUser.findByEmailAndDomain(oAuthToken.principal.username, CustomDomainResolver.domain)
@@ -133,11 +137,11 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
     }
 
     def checkEmail(String email){
-        KuorumUser user = KuorumUser.findByEmailAndDomain(email, CustomDomainResolver.domain);
+        KuorumUser user = KuorumUser.findByEmailAndDomain(email, CustomDomainResolver.domain)
         if (user){
-            render Boolean.FALSE.toString();
+            render Boolean.FALSE.toString()
         }else{
-            render Boolean.TRUE.toString();
+            render Boolean.TRUE.toString()
         }
     }
 
@@ -149,11 +153,11 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
             }else{
                 redirect mapping:"politicians"
             }
-            return;
+            return
         }
 
         if (springSecurityService.isLoggedIn()){
-            KuorumUser user = springSecurityService.getCurrentUser();
+            KuorumUser user = springSecurityService.getCurrentUser()
             notificationService.sendPoliticianContactNotification(contactRegister.politician, user, contactRegister.message, contactRegister.cause)
             flash.message = g.message(code: 'register.contactRegister.success.userLogged', args: [contactRegister.politician.name])
             redirect (mapping:"userShow", params: contactRegister.politician.encodeAsLinkProperties())
@@ -257,7 +261,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         KuorumUser user = KuorumUser.findById(params.userId)
         if (!user){
             redirect mapping:'home'
-            return;
+            return
         }
         def conf = SpringSecurityUtils.securityConfig
         String defaultTargetUrl = conf.successHandler.defaultTargetUrl
@@ -288,9 +292,9 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
     def ajaxValidationForgotPassword(ForgotUserPasswordCommand command) {
 
         if (command.hasErrors()) {
-            render Boolean.FALSE.toString();
+            render Boolean.FALSE.toString()
         }else{
-            render Boolean.TRUE.toString();
+            render Boolean.TRUE.toString()
         }
     }
 
@@ -328,13 +332,13 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
             return
         }
 
-        String ulrCallback = cookieUUIDService.getRememberPasswordRedirect();
+        String ulrCallback = cookieUUIDService.getRememberPasswordRedirect()
         String urlCancelResetPassword = g.createLink(mapping:"login")
         if (!ulrCallback){
             def conf = SpringSecurityUtils.securityConfig
             ulrCallback = conf.ui.register.postResetUrl ?: conf.successHandler.defaultTargetUrl
         }else{
-            urlCancelResetPassword = ulrCallback;
+            urlCancelResetPassword = ulrCallback
         }
         if (!request.post) {
             //Request change password via GET [Not form filled]
@@ -393,7 +397,7 @@ class KuorumRegisterCommand{
     Boolean conditions
     String redirectUrl
 
-    public String getUsername(){ email }// RegisterController.passwordValidator uses username
+    String getUsername(){ email }// RegisterController.passwordValidator uses username
     static constraints = {
         name nullable: false, maxSize: 15
         email nullable:false, email:true, validator: { val, obj ->
