@@ -3,6 +3,7 @@ package payment.campaign
 import com.fasterxml.jackson.core.type.TypeReference
 import grails.transaction.Transactional
 import kuorum.core.exception.KuorumException
+import kuorum.register.KuorumUserSession
 import kuorum.solr.IndexSolrService
 import kuorum.users.KuorumUser
 import kuorum.util.rest.RestKuorumApiService
@@ -51,11 +52,9 @@ class DebateService implements CampaignCreatorService<DebateRSDTO, DebateRDTO> {
         debatesFound
     }
 
-//    @Cacheable(value="debate", key='#campaignId')
-    DebateRSDTO find(KuorumUser user, Long debateId, String viewerUid = null) {
+    DebateRSDTO find(KuorumUserSession user, Long debateId, String viewerUid = null) {
         find(user.getId().toString(), debateId, viewerUid);
     }
-
 //    @Cacheable(value="debate", key='#campaignId')
     DebateRSDTO find(String userId, Long debateId, String viewerUid = null) {
         if (!debateId){
@@ -86,7 +85,7 @@ class DebateService implements CampaignCreatorService<DebateRSDTO, DebateRDTO> {
     }
 
 //    @CacheEvict(value="debate", key='#campaignId')
-    DebateRSDTO save(KuorumUser user, DebateRDTO debateRDTO, Long debateId) {
+    DebateRSDTO save(KuorumUserSession user, DebateRDTO debateRDTO, Long debateId) {
         debateRDTO.body = debateRDTO.body.encodeAsRemovingScriptTags().encodeAsTargetBlank()
 
         DebateRSDTO debate
@@ -99,7 +98,7 @@ class DebateService implements CampaignCreatorService<DebateRSDTO, DebateRDTO> {
         return debate;
     }
 
-    DebateRSDTO createDebate(KuorumUser user, DebateRDTO debateRDTO) {
+    private DebateRSDTO createDebate(KuorumUserSession user, DebateRDTO debateRDTO) {
         Map<String, String> params = [userId: user.id.toString()]
         Map<String, String> query = [:]
         def response = restKuorumApiService.post(
@@ -118,7 +117,7 @@ class DebateService implements CampaignCreatorService<DebateRSDTO, DebateRDTO> {
         debateSaved
     }
 
-    DebateRSDTO updateDebate(KuorumUser user, DebateRDTO debateRDTO, Long debateId) {
+    private DebateRSDTO updateDebate(KuorumUserSession user, DebateRDTO debateRDTO, Long debateId) {
         Map<String, String> params = [userId: user.id.toString(), debateId: debateId.toString()]
         Map<String, String> query = [:]
         def response = restKuorumApiService.put(
@@ -137,7 +136,7 @@ class DebateService implements CampaignCreatorService<DebateRSDTO, DebateRDTO> {
         debateSaved
     }
 
-    void remove(KuorumUser user, Long debateId) {
+    void remove(KuorumUserSession user, Long debateId) {
         Map<String, String> params = [userId: user.id.toString(), debateId: debateId.toString()]
         Map<String, String> query = [:]
         def response = restKuorumApiService.delete(

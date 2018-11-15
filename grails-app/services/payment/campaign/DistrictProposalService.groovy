@@ -3,6 +3,7 @@ package payment.campaign
 import com.fasterxml.jackson.core.type.TypeReference
 import grails.transaction.Transactional
 import kuorum.core.exception.KuorumException
+import kuorum.register.KuorumUserSession
 import kuorum.solr.IndexSolrService
 import kuorum.users.KuorumUser
 import kuorum.util.rest.RestKuorumApiService
@@ -17,7 +18,7 @@ class DistrictProposalService implements CampaignCreatorService<DistrictProposal
     RestKuorumApiService restKuorumApiService
     IndexSolrService indexSolrService
 
-    DistrictProposalRSDTO find(KuorumUser user, Long campaignId, String viewerUid = null) {
+    DistrictProposalRSDTO find(KuorumUserSession user, Long campaignId, String viewerUid = null) {
         find(user.getId().toString(), campaignId, viewerUid);
     }
 
@@ -46,7 +47,7 @@ class DistrictProposalService implements CampaignCreatorService<DistrictProposal
         }
     }
 
-    DistrictProposalRSDTO save(KuorumUser user, DistrictProposalRDTO districtProposalRDTO, Long campaignId) {
+    DistrictProposalRSDTO save(KuorumUserSession user, DistrictProposalRDTO districtProposalRDTO, Long campaignId) {
         districtProposalRDTO.body = districtProposalRDTO.body.encodeAsRemovingScriptTags().encodeAsTargetBlank()
 
         DistrictProposalRSDTO districtProposalRSDTO
@@ -59,7 +60,7 @@ class DistrictProposalService implements CampaignCreatorService<DistrictProposal
         return districtProposalRSDTO;
     }
 
-    DistrictProposalRSDTO createDistrictProposal(KuorumUser user, DistrictProposalRDTO districtProposalRDTO) {
+    private DistrictProposalRSDTO createDistrictProposal(KuorumUserSession user, DistrictProposalRDTO districtProposalRDTO) {
         Map<String, String> params = [userId: user.id.toString()]
         Map<String, String> query = [:]
         def response = restKuorumApiService.post(
@@ -78,7 +79,7 @@ class DistrictProposalService implements CampaignCreatorService<DistrictProposal
         campaign
     }
 
-    DistrictProposalRSDTO updateDistrictProposal(KuorumUser user, DistrictProposalRDTO districtProposalRDTO, Long campaignId) {
+    private DistrictProposalRSDTO updateDistrictProposal(KuorumUserSession user, DistrictProposalRDTO districtProposalRDTO, Long campaignId) {
         Map<String, String> params = [userId: user.id.toString(), campaignId: campaignId.toString()]
         Map<String, String> query = [:]
         def response = restKuorumApiService.put(
@@ -92,7 +93,7 @@ class DistrictProposalService implements CampaignCreatorService<DistrictProposal
         return response.data
     }
 
-    void remove(KuorumUser user, Long campaignId) {
+    void remove(KuorumUserSession user, Long campaignId) {
         Map<String, String> params = [userId: user.id.toString(), campaignId: campaignId.toString()]
         Map<String, String> query = [:]
         def response = restKuorumApiService.delete(
@@ -211,7 +212,7 @@ class DistrictProposalService implements CampaignCreatorService<DistrictProposal
         return response.data;
     }
     DistrictProposalRSDTO technicalReview(
-            KuorumUser participatoryBudgetUser,
+            KuorumUserSession participatoryBudgetUser,
             Long participatoryBudgetId,
             Long districtProposalId,
             DistrictProposalTechnicalReviewRDTO technicalReviewRDTO

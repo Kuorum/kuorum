@@ -3,6 +3,7 @@ package kuorum
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.causes.CausesService
 import kuorum.core.model.search.SearchNotifications
+import kuorum.register.KuorumUserSession
 import kuorum.users.KuorumUser
 import org.kuorum.rest.model.notification.NotificationPageRSDTO
 
@@ -17,7 +18,7 @@ class LayoutsController {
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def userHead() {
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUserSession user = springSecurityService.principal
         SearchNotifications searchNotificationsCommand = new SearchNotifications(user:user, max: MAX_HEAD_NOTIFICATIONS)
         NotificationPageRSDTO notificationsPage = notificationService.findUserNotifications(searchNotificationsCommand)
 
@@ -36,7 +37,6 @@ class LayoutsController {
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def userHeadNoLinks(){
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        [user:user]
+        [user:springSecurityService.principal]
     }
 }

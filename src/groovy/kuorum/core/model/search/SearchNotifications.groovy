@@ -1,13 +1,13 @@
 package kuorum.core.model.search
 
 import grails.validation.Validateable
-import kuorum.users.KuorumUser
+import kuorum.register.KuorumUserSession
 
 /**
  * Created by iduetxe on 21/05/14.
  */
 @Validateable
 class SearchNotifications extends Pagination{
-    KuorumUser user
+    KuorumUserSession user
     Boolean alerts
 }

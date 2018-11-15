@@ -2,6 +2,7 @@ package payment.contact
 
 import com.fasterxml.jackson.core.type.TypeReference
 import grails.transaction.Transactional
+import kuorum.register.KuorumUserSession
 import kuorum.users.KuorumUser
 import kuorum.util.rest.RestKuorumApiService
 import kuorum.web.commands.payment.contact.ContactFilterCommand
@@ -14,8 +15,16 @@ class ContactService {
 
     RestKuorumApiService restKuorumApiService
 
+    @Deprecated
     void addBulkContacts(KuorumUser user, List<ContactRDTO> contactRSDTOs){
-        Map<String, String> params = [userId:user.id.toString()]
+        addBulkContacts(user.id.toString(), contactRSDTOs)
+    }
+
+    void addBulkContacts(KuorumUserSession user, List<ContactRDTO> contactRSDTOs){
+        addBulkContacts(user.id.toString(), contactRSDTOs)
+    }
+    void addBulkContacts(String userId, List<ContactRDTO> contactRSDTOs){
+        Map<String, String> params = [userId:userId]
         Map<String, String> query = [:]
 
         def response= restKuorumApiService.put(
@@ -29,7 +38,7 @@ class ContactService {
 //        }
     }
 
-    List<String> getUserTags(KuorumUser user){
+    List<String> getUserTags(KuorumUserSession user){
         Map<String, String> params = [userId:user.id.toString()]
         Map<String, String> query = [:]
 
@@ -45,7 +54,7 @@ class ContactService {
         tags
     }
 
-    List<ExtendedFilterRSDTO> getUserFilters(KuorumUser user){
+    List<ExtendedFilterRSDTO> getUserFilters(KuorumUserSession user){
         Map<String, String> params = [userId:user.id.toString()]
         Map<String, String> query = [:]
 
@@ -72,7 +81,7 @@ class ContactService {
         return filterRDTO
     }
 
-    ExtendedFilterRSDTO createFilter(KuorumUser user, FilterRDTO filterRSDTO){
+    ExtendedFilterRSDTO createFilter(KuorumUserSession user, FilterRDTO filterRSDTO){
         Map<String, String> params = [userId:user.id.toString()]
         Map<String, String> query = [:]
 
@@ -89,7 +98,7 @@ class ContactService {
         filter
     }
 
-    ExtendedFilterRSDTO updateFilter(KuorumUser user, FilterRDTO filterRSDTO, Long filterId){
+    ExtendedFilterRSDTO updateFilter(KuorumUserSession user, FilterRDTO filterRSDTO, Long filterId){
         Map<String, String> params = [userId:user.id.toString(),filterId:filterId.toString()]
         Map<String, String> query = [:]
 
@@ -106,7 +115,7 @@ class ContactService {
         filter
     }
 
-    ExtendedFilterRSDTO getFilter(KuorumUser user, Long filterId){
+    ExtendedFilterRSDTO getFilter(KuorumUserSession user, Long filterId){
         Map<String, String> params = [userId:user.id.toString(),filterId:filterId.toString()]
         Map<String, String> query = [:]
 
@@ -122,7 +131,7 @@ class ContactService {
         filter
     }
 
-    void removeFilter(KuorumUser user, Long filterId){
+    void removeFilter(KuorumUserSession user, Long filterId){
         Map<String, String> params = [userId:user.id.toString(),filterId:filterId.toString()]
         Map<String, String> query = [:]
 
@@ -133,12 +142,12 @@ class ContactService {
 
     }
 
-    ContactPageRSDTO getUsers(KuorumUser user, FilterRDTO filterRDTO = null){
+    ContactPageRSDTO getUsers(KuorumUserSession user, FilterRDTO filterRDTO = null){
         SearchContactRSDTO searchContactRSDTO = new SearchContactRSDTO(filter:filterRDTO);
         getUsers(user, searchContactRSDTO)
     }
 
-    ContactPageRSDTO getUsers(KuorumUser user, SearchContactRSDTO searchContactRSDTO){
+    ContactPageRSDTO getUsers(KuorumUserSession user, SearchContactRSDTO searchContactRSDTO){
         Map<String, String> params = [userId:user.id.toString()]
 
 
@@ -156,7 +165,7 @@ class ContactService {
         contactPage
     }
 
-    ContactRSDTO getContact(KuorumUser user, Long contactId){
+    ContactRSDTO getContact(KuorumUserSession user, Long contactId){
         Map<String, String> params = [userId:user.id.toString(),contactId:contactId.toString()]
         Map<String, String> query = [:]
 
@@ -172,7 +181,7 @@ class ContactService {
         contactPage
     }
 
-    void removeContact(KuorumUser user, Long contactId){
+    void removeContact(KuorumUserSession user, Long contactId){
         Map<String, String> params = [userId:user.id.toString(),contactId:contactId.toString()]
         Map<String, String> query = [:]
 
@@ -182,7 +191,7 @@ class ContactService {
                 query)
     }
 
-    ContactRSDTO updateContact(KuorumUser user, ContactRDTO contactRDTO, Long contactId){
+    ContactRSDTO updateContact(KuorumUserSession user, ContactRDTO contactRDTO, Long contactId){
         Map<String, String> params = [userId:user.id.toString(),contactId:contactId.toString()]
         Map<String, String> query = [:]
 
@@ -199,7 +208,7 @@ class ContactService {
         contact
     }
 
-    ContactRSDTO addContact(KuorumUser user, ContactRDTO contactRDTO){
+    ContactRSDTO addContact(KuorumUserSession user, ContactRDTO contactRDTO){
         Map<String, String> params = [userId:user.id.toString()]
         Map<String, String> query = [:]
 
@@ -253,7 +262,7 @@ class ContactService {
     }
 
 
-    boolean unsubscribeContactUser(KuorumUser user, Long contactId, String digest){
+    boolean unsubscribeContactUser(KuorumUserSession user, Long contactId, String digest){
         Map<String, String> params = [userId:user.id.toString()]
         Map<String, String> query = [contactId : contactId, digest:digest]
         try{
@@ -286,7 +295,7 @@ class ContactService {
         }
     }
 
-    boolean bulkAddTagsContacts(KuorumUser user, BulkUpdateContactTagsRDTO bulkUpdateContactTags) {
+    boolean bulkAddTagsContacts(KuorumUserSession user, BulkUpdateContactTagsRDTO bulkUpdateContactTags) {
         Map<String, String> params = [userId: user.id.toString()]
         Map<String, String> query = [:]
 
@@ -305,7 +314,7 @@ class ContactService {
         }
     }
 
-    boolean bulkRemoveTagsContacts(KuorumUser user, BulkUpdateContactTagsRDTO bulkUpdateContactTags) {
+    boolean bulkRemoveTagsContacts(KuorumUserSession user, BulkUpdateContactTagsRDTO bulkUpdateContactTags) {
         Map<String, String> params = [userId: user.id.toString()]
         Map<String, String> query = [:]
 
@@ -324,7 +333,7 @@ class ContactService {
         }
     }
 
-    void exportContacts(KuorumUser user, SearchContactRSDTO searchContactRSDTO){
+    void exportContacts(KuorumUserSession user, SearchContactRSDTO searchContactRSDTO){
         Map<String, String> params = [userId:user.id.toString()]
         Map<String, String> query = searchContactRSDTO.encodeAsQueryParams()
 

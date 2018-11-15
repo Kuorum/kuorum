@@ -1,8 +1,9 @@
 package payment.campaign
 
+import kuorum.register.KuorumUserSession
 import kuorum.users.KuorumUser
-import org.kuorum.rest.model.communication.CampaignRSDTO
 import org.kuorum.rest.model.communication.CampaignRDTO
+import org.kuorum.rest.model.communication.CampaignRSDTO
 
 interface CampaignCreatorService<RSDTO extends CampaignRSDTO, RDTO extends CampaignRDTO> {
 
@@ -13,7 +14,7 @@ interface CampaignCreatorService<RSDTO extends CampaignRSDTO, RDTO extends Campa
      * @param campaignId
      * @return
      */
-    RSDTO save(KuorumUser user, RDTO rdto, Long campaignId)
+    RSDTO save(KuorumUserSession user, RDTO rdto, Long campaignId)
 
     /**
      * Removes the campaign
@@ -21,9 +22,10 @@ interface CampaignCreatorService<RSDTO extends CampaignRSDTO, RDTO extends Campa
      * @param campaignId
      * @return
      */
-    void remove(KuorumUser user, Long campaignId)
+    void remove(KuorumUserSession user, Long campaignId)
 
-    RSDTO find(KuorumUser user, Long campaignId)
+    RSDTO find(KuorumUserSession user, Long campaignId)
+    RSDTO find(String userId, Long campaignId)
     /**
      * Maps RSDTO to RDTO
      * @param rsdto

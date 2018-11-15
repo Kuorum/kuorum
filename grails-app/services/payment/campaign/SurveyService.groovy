@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference
 import grails.transaction.Transactional
 import kuorum.core.exception.KuorumException
 import kuorum.mail.KuorumMailService
+import kuorum.register.KuorumUserSession
 import kuorum.users.KuorumUser
 import kuorum.util.rest.RestKuorumApiService
 import org.kuorum.rest.model.communication.survey.QuestionOptionRDTO
@@ -22,7 +23,7 @@ class SurveyService implements CampaignCreatorService<SurveyRSDTO, SurveyRDTO>{
     RestKuorumApiService restKuorumApiService
     CampaignService campaignService
 
-    SurveyRSDTO save(KuorumUser user, SurveyRDTO surveyRDTO, Long surveyId){
+    SurveyRSDTO save(KuorumUserSession user, SurveyRDTO surveyRDTO, Long surveyId){
 
         SurveyRSDTO survey = null;
         if (surveyId) {
@@ -34,7 +35,7 @@ class SurveyService implements CampaignCreatorService<SurveyRSDTO, SurveyRDTO>{
         survey
     }
 
-    SurveyRSDTO createSurvey(KuorumUser user, SurveyRDTO surveyRDTO){
+    private SurveyRSDTO createSurvey(KuorumUserSession user, SurveyRDTO surveyRDTO){
         Map<String, String> params = [userId: user.id.toString()]
         Map<String, String> query = [:]
         def response = restKuorumApiService.post(
@@ -53,11 +54,15 @@ class SurveyService implements CampaignCreatorService<SurveyRSDTO, SurveyRDTO>{
         surveySaved
     }
 
-    SurveyRSDTO find(KuorumUser user, Long surveyId, String viewerUid = null){
+    SurveyRSDTO find(KuorumUserSession user, Long surveyId, String viewerUid = null){
+        find(user.id.toString(), surveyId, viewerUid)
+    }
+
+    SurveyRSDTO find(String userId, Long surveyId, String viewerUid = null){
         if (!surveyId){
             return null;
         }
-        Map<String, String> params = [userId: user.id.toString(), surveyId: surveyId.toString()]
+        Map<String, String> params = [userId: userId, surveyId: surveyId.toString()]
         Map<String, String> query = [:]
         if (viewerUid){
             query.put("viewerUid",viewerUid)
@@ -77,7 +82,7 @@ class SurveyService implements CampaignCreatorService<SurveyRSDTO, SurveyRDTO>{
         }
     }
 
-    SurveyRSDTO update(KuorumUser user, SurveyRDTO surveyRDTO, Long surveyId) {
+    private SurveyRSDTO update(KuorumUserSession user, SurveyRDTO surveyRDTO, Long surveyId) {
         Map<String, String> params = [userId: user.id.toString(), surveyId: surveyId.toString()]
         Map<String, String> query = [:]
         def response = restKuorumApiService.put(
@@ -95,7 +100,7 @@ class SurveyService implements CampaignCreatorService<SurveyRSDTO, SurveyRDTO>{
         surveySaved
     }
 
-    void remove(KuorumUser user, Long surveyId) {
+    void remove(KuorumUserSession user, Long surveyId) {
         Map<String, String> params = [userId: user.id.toString(), surveyId: surveyId.toString()]
         Map<String, String> query = [:]
         def response = restKuorumApiService.delete(
@@ -135,7 +140,7 @@ class SurveyService implements CampaignCreatorService<SurveyRSDTO, SurveyRDTO>{
         [view: "/survey/show", model:model]
     }
 
-    void saveAnswer(SurveyRSDTO surveyRSDTO, KuorumUser userAnswer, Long questionId, List<Long> optionAnswersId){
+    void saveAnswer(SurveyRSDTO surveyRSDTO, KuorumUserSession userAnswer, Long questionId, List<Long> optionAnswersId){
         Map<String, String> params = [userId: surveyRSDTO.user.id.toString(), surveyId: surveyRSDTO.id.toString(),questionId:questionId.toString()]
         Map<String, String> query = [viewerUid:userAnswer.id.toString()]
         def response = restKuorumApiService.put(

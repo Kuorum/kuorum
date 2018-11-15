@@ -23,7 +23,7 @@
         <a data-target="#" href="#" id="open-user-options" class="dropdown-toggle dropdown-menu-right navbar-link user-area" data-toggle="dropdown" role="button">
             <span itemprop="name" class="sr-only">${user.name}</span>
             <span itemprop="alias" class="sr-only">${user.alias}</span>
-            <img src="${image.userImgSrc(user:user)}" alt="${user.name}" class="user-img" itemprop="image">
+            <img src="${image.userImgSrc()}" alt="${user.name}" class="user-img" itemprop="image">
             %{--<span class="badge pull-right" role="log" aria-labelledby="alerts" aria-live="assertive" aria-relevant="additions">${notifications.numNews?:''}</span>--}%
             %{--<span class="fas fa-caret-down fa-lg"></span>--}%
         </a>

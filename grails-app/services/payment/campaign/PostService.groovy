@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference
 import grails.transaction.Transactional
 import kuorum.core.exception.KuorumException
 import kuorum.mail.KuorumMailService
+import kuorum.register.KuorumUserSession
 import kuorum.users.KuorumUser
 import kuorum.util.rest.RestKuorumApiService
 import org.kuorum.rest.model.communication.post.PagePostRSDTO
@@ -50,7 +51,7 @@ class PostService implements CampaignCreatorService<PostRSDTO, PostRDTO>{
         response.data
     }
 
-    PostRSDTO save(KuorumUser user, PostRDTO postRDTO, Long postId){
+    PostRSDTO save(KuorumUserSession user, PostRDTO postRDTO, Long postId){
 
         PostRSDTO post = null;
         if (postId) {
@@ -62,7 +63,7 @@ class PostService implements CampaignCreatorService<PostRSDTO, PostRDTO>{
         post
     }
 
-    PostRSDTO createPost(KuorumUser user, PostRDTO postRDTO){
+    private PostRSDTO createPost(KuorumUserSession user, PostRDTO postRDTO){
         Map<String, String> params = [userId: user.id.toString()]
         Map<String, String> query = [:]
         def response = restKuorumApiService.post(
@@ -81,11 +82,14 @@ class PostService implements CampaignCreatorService<PostRSDTO, PostRDTO>{
         postSaved
     }
 
-    PostRSDTO find(KuorumUser user, Long postId, String viewerUid = null){
+    PostRSDTO find(KuorumUserSession user, Long postId, String viewerUid = null){
+        find(user.id.toString(), postId, viewerUid)
+    }
+    PostRSDTO find(String userId, Long postId, String viewerUid = null){
         if (!postId){
             return null;
         }
-        Map<String, String> params = [userId: user.id.toString(), postId: postId.toString()]
+        Map<String, String> params = [userId: userId, postId: postId.toString()]
         Map<String, String> query = [:]
         if (viewerUid){
             query.put("viewerUid",viewerUid)
@@ -105,7 +109,7 @@ class PostService implements CampaignCreatorService<PostRSDTO, PostRDTO>{
         }
     }
 
-    PostRSDTO update(KuorumUser user, PostRDTO postRDTO, Long postId) {
+    private PostRSDTO update(KuorumUserSession user, PostRDTO postRDTO, Long postId) {
         Map<String, String> params = [userId: user.id.toString(), postId: postId.toString()]
         Map<String, String> query = [:]
         def response = restKuorumApiService.put(
@@ -151,7 +155,7 @@ class PostService implements CampaignCreatorService<PostRSDTO, PostRDTO>{
         return  postRSDTO;
     }
 
-    void remove(KuorumUser user, Long postId) {
+    void remove(KuorumUserSession user, Long postId) {
         Map<String, String> params = [userId: user.id.toString(), postId: postId.toString()]
         Map<String, String> query = [:]
         def response = restKuorumApiService.delete(

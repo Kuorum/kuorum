@@ -2,6 +2,7 @@ package kuorum
 
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.core.model.search.SearchNotifications
+import kuorum.register.KuorumUserSession
 import kuorum.users.KuorumUser
 import org.kuorum.rest.model.notification.NotificationPageRSDTO
 
@@ -26,7 +27,7 @@ class NotificationController {
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def notificationSeeMore(SearchNotifications searchNotificationsCommand){
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUserSession user = springSecurityService.principal
         searchNotificationsCommand.setUser(user)
         NotificationPageRSDTO notificationsPage = notificationService.findUserNotifications(searchNotificationsCommand)
         render template: "/layouts/payment/paymentHeadNotificationsLi", model: [notificationsPage:notificationsPage]

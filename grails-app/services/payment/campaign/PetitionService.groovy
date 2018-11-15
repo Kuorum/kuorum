@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference
 import grails.transaction.Transactional
 import kuorum.core.exception.KuorumException
 import kuorum.mail.KuorumMailService
+import kuorum.register.KuorumUserSession
 import kuorum.users.KuorumUser
 import kuorum.util.rest.RestKuorumApiService
 import org.kuorum.rest.model.communication.petition.PagePetitionRSDTO
@@ -50,7 +51,7 @@ class PetitionService implements CampaignCreatorService<PetitionRSDTO, PetitionR
         response.data
     }
 
-    PetitionRSDTO save(KuorumUser user, PetitionRDTO petitionRDTO, Long petitionId){
+    PetitionRSDTO save(KuorumUserSession user, PetitionRDTO petitionRDTO, Long petitionId){
 
         PetitionRSDTO petition = null;
         if (petitionId) {
@@ -62,7 +63,7 @@ class PetitionService implements CampaignCreatorService<PetitionRSDTO, PetitionR
         petition
     }
 
-    PetitionRSDTO create(KuorumUser user, PetitionRDTO petitionRDTO){
+    private PetitionRSDTO create(KuorumUserSession user, PetitionRDTO petitionRDTO){
         Map<String, String> params = [userId: user.id.toString()]
         Map<String, String> query = [:]
         def response = restKuorumApiService.post(
@@ -81,11 +82,14 @@ class PetitionService implements CampaignCreatorService<PetitionRSDTO, PetitionR
         petitionSaved
     }
 
-    PetitionRSDTO find(KuorumUser user, Long petitionId, String viewerUid = null){
+    PetitionRSDTO find(KuorumUserSession user, Long petitionId, String viewerUid = null){
+        find(user.id.toString(), petitionId, viewerUid)
+    }
+    PetitionRSDTO find(String userId, Long petitionId, String viewerUid = null){
         if (!petitionId){
             return null;
         }
-        Map<String, String> params = [userId: user.id.toString(), petitionId: petitionId.toString()]
+        Map<String, String> params = [userId: userId, petitionId: petitionId.toString()]
         Map<String, String> query = [:]
         if (viewerUid){
             query.put("viewerUid",viewerUid)
@@ -105,7 +109,7 @@ class PetitionService implements CampaignCreatorService<PetitionRSDTO, PetitionR
         }
     }
 
-    PetitionRSDTO update(KuorumUser user, PetitionRDTO petitionRDTO, Long petitionId) {
+    private PetitionRSDTO update(KuorumUserSession user, PetitionRDTO petitionRDTO, Long petitionId) {
         Map<String, String> params = [userId: user.id.toString(), petitionId: petitionId.toString()]
         Map<String, String> query = [:]
         def response = restKuorumApiService.put(
@@ -151,7 +155,7 @@ class PetitionService implements CampaignCreatorService<PetitionRSDTO, PetitionR
         return  petitionRSDTO;
     }
 
-    void remove(KuorumUser user, Long petitionId) {
+    void remove(KuorumUserSession user, Long petitionId) {
         Map<String, String> params = [userId: user.id.toString(), petitionId: petitionId.toString()]
         Map<String, String> query = [:]
         def response = restKuorumApiService.delete(

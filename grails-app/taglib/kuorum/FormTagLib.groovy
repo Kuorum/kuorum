@@ -4,6 +4,7 @@ import grails.plugin.springsecurity.SpringSecurityService
 import kuorum.core.FileGroup
 import kuorum.core.model.RegionType
 import kuorum.project.Project
+import kuorum.register.KuorumUserSession
 import kuorum.users.KuorumUser
 import kuorum.web.constants.WebConstants
 import org.bson.types.ObjectId
@@ -366,7 +367,7 @@ class FormTagLib {
         }
 
         if (time){
-            KuorumUser user =  KuorumUser.get(springSecurityService.principal.id)
+            KuorumUserSession user =  springSecurityService.principal
             typePicker = "datetime";
             TimeZone userTimeZone = user.timeZone?:TimeZone.getTimeZone("UTC")
             timeZoneId=utcOffset(userTimeZone)

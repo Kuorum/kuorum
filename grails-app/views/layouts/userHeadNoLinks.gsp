@@ -3,7 +3,7 @@
         <li>
             <span class="navbar-link user-area">
                 %{--<span class="user-name">${user.name}</span>--}%
-                <img src="${image.userImgSrc(user:user)}"alt="${user.name}" class="user-img" itemprop="image">
+                <img src="${image.userImgSrc()}" alt="${user.name}" class="user-img" itemprop="image">
             </span>
         </li>
         %{--<li>--}%

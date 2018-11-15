@@ -3,6 +3,7 @@ package kuorum.survey
 import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.politician.CampaignController
+import kuorum.register.KuorumUserSession
 import kuorum.users.KuorumUser
 import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.commands.payment.CampaignSettingsCommand
@@ -27,7 +28,7 @@ class SurveyController extends CampaignController{
 
     @Secured(['ROLE_CAMPAIGN_SURVEY'])
     def editSettingsStep(){
-        KuorumUser surveyUser = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUserSession surveyUser = springSecurityService.principal
         SurveyRSDTO surveyRSDTO = surveyService.find(surveyUser, Long.parseLong(params.campaignId))
         return surveyModelSettings(new CampaignSettingsCommand(debatable:false), surveyRSDTO)
 
@@ -93,7 +94,7 @@ class SurveyController extends CampaignController{
 
     @Secured(['ROLE_CAMPAIGN_SURVEY'])
     def saveQuestions(SurveyQuestionsCommand command){
-        KuorumUser surveyUser = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUserSession surveyUser = springSecurityService.principal
         SurveyRSDTO survey = surveyService.find(surveyUser, Long.parseLong(params.campaignId))
         if (command.hasErrors()) {
             flash.error = message(error: command.errors.getFieldError())
@@ -112,9 +113,9 @@ class SurveyController extends CampaignController{
     }
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def saveAnswer(QuestionAnswerCommand command){
-        KuorumUser userAnswer = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUserSession userAnswer = springSecurityService.principal
         KuorumUser surveyUser = kuorumUserService.findByAlias(params.userAlias)
-        SurveyRSDTO survey = surveyService.find(surveyUser, command.campaignId)
+        SurveyRSDTO survey = surveyService.find(surveyUser.id.toString(), command.campaignId)
         surveyService.saveAnswer(survey, userAnswer, command.questionId, command.answersIds)
         render ([status:"success",msg:""] as JSON)
     }

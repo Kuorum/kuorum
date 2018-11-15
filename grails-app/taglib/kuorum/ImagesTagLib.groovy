@@ -14,7 +14,10 @@ class ImagesTagLib {
 
     def userImgSrc={attrs ->
         String imageUrl = "";
-        if (attrs.user instanceof KuorumUser) {
+        if (!attrs.user){
+            // USING LOGGED USER
+            imageUrl = springSecurityService.principal.avatarUrl
+        }else if (attrs.user instanceof KuorumUser) {
             imageUrl = attrs.user.avatar?.url
         }else if(attrs.user instanceof SearchKuorumUserRSDTO){
             imageUrl = attrs.user.urlImage

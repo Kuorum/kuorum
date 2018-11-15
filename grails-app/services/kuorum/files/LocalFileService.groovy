@@ -5,6 +5,7 @@ import kuorum.KuorumFile
 import kuorum.core.FileGroup
 import kuorum.core.FileType
 import kuorum.core.exception.KuorumException
+import kuorum.register.KuorumUserSession
 import kuorum.users.KuorumUser
 import pl.burningice.plugins.image.BurningImageService
 
@@ -191,7 +192,8 @@ class LocalFileService implements FileService{
         }
         kuorumFile
     }
-    public KuorumFile createYoutubeKuorumFile(String youtubeUrl, KuorumUser user){
+    public KuorumFile createYoutubeKuorumFile(String youtubeUrl, KuorumUserSession user){
+        KuorumUser mongoUser = KuorumUser.get(user.id)
         def fileName = youtubeUrl.decodeYoutubeName()
         String urlThumb = this.recoverBestYoutubeQuality(fileName)
         KuorumFile multimedia = new KuorumFile(
@@ -206,7 +208,7 @@ class LocalFileService implements FileService{
                 fileGroup:FileGroup.YOUTUBE,
                 fileType:FileType.YOUTUBE
         )
-        multimedia.setUser(user)
+        multimedia.setUser(mongoUser)
         multimedia.save()
     }
 
@@ -249,7 +251,14 @@ class LocalFileService implements FileService{
      *
      * @param user
      */
+    @Deprecated
     void deleteTemporalFiles(KuorumUser user){
+        KuorumFile.findAllByUserIdAndTemporal(user.id, Boolean.TRUE).each {KuorumFile kuorumFile ->
+            deleteFile(kuorumFile)
+        }
+    }
+
+    void deleteTemporalFiles(KuorumUserSession user){
         KuorumFile.findAllByUserIdAndTemporal(user.id, Boolean.TRUE).each {KuorumFile kuorumFile ->
             deleteFile(kuorumFile)
         }

@@ -3,6 +3,7 @@ package kuorum.post
 import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.politician.CampaignController
+import kuorum.register.KuorumUserSession
 import kuorum.users.KuorumUser
 import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.commands.payment.CampaignSettingsCommand
@@ -24,7 +25,7 @@ class PostController extends CampaignController{
 
     @Secured(['ROLE_CAMPAIGN_POST','ROLE_CAMPAIGN_EVENT'])
     def editSettingsStep(){
-        KuorumUser postUser = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUserSession postUser = springSecurityService.principal
         PostRSDTO postRSDTO = postService.find(postUser, Long.parseLong(params.campaignId))
         return postModelSettings(new CampaignSettingsCommand(debatable:false), postRSDTO)
 

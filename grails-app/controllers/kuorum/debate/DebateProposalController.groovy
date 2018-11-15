@@ -3,6 +3,7 @@ package kuorum.debate
 import grails.converters.JSON
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
+import kuorum.register.KuorumUserSession
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
 import kuorum.web.commands.payment.debate.DebateProposalCommand
@@ -27,9 +28,9 @@ class DebateProposalController {
     DebateService debateService
 
     def addProposal(DebateProposalCommand command) {
-        KuorumUser user = springSecurityService.currentUser
+        KuorumUserSession user = springSecurityService.principal
         KuorumUser debateUser = kuorumUserService.findByAlias(command.debateAlias)
-        DebateRSDTO debate = debateService.find(debateUser, command.debateId, user.getId().toString())
+        DebateRSDTO debate = debateService.find(debateUser.id.toString(), command.debateId, user.getId().toString())
         ProposalRSDTO proposalRSDTO = proposalService.addProposal(user, debate, command.body)
 
         render template: '/debate/showModules/mainContent/proposalData', model:[debate:debate, debateUser:debateUser,proposal:proposalRSDTO]
@@ -40,35 +41,35 @@ class DebateProposalController {
         Long proposalId = Long.parseLong(params.proposalId)
         Long campaignId = Long.parseLong(params.debateId)
         String debateUserId = params.debateUserId
-        KuorumUser user = springSecurityService.currentUser
+        KuorumUserSession user = springSecurityService.principal
         proposalService.deleteProposal(user, debateUserId, campaignId, proposalId)
         render "true"
     }
 
     def pinProposal(PinProposalCommand command){
-        KuorumUser user = springSecurityService.currentUser
+        KuorumUserSession user = springSecurityService.principal
 
         ProposalRSDTO proposalRSDTO = proposalService.pinProposal(user, command.debateUserId, command.debateId, command.proposalId, command.pin)
         render "ok"
     }
 
     def likeProposal(LikeProposalCommand command){
-        KuorumUser user = springSecurityService.currentUser
+        KuorumUserSession user = springSecurityService.principal
         proposalService.likeProposal(user, command.debateUserId,command.debateId, command.proposalId, command.like)
         render "Ok"
     }
 
     def addComment(CommentProposalCommand command){
-        KuorumUser user = springSecurityService.currentUser
+        KuorumUserSession user = springSecurityService.principal
         KuorumUser debateUser = kuorumUserService.findByAlias(command.debateAlias)
-        DebateRSDTO debate = debateService.find(debateUser, command.debateId)
+        DebateRSDTO debate = debateService.find(debateUser.id.toString(), command.debateId)
         ProposalRSDTO proposalRSDTO = proposalService.addComment(user, debate, command.proposalId, command.body)
         ProposalCommentRSDTO comment = proposalRSDTO.comments.reverseFind{it.user.id == user.id.toString()}
         render template: "/debate/showModules/mainContent/proposalDataComment", model:[debate:debate, proposal:proposalRSDTO, comment:comment]
     }
 
     def voteComment(){
-        KuorumUser user = springSecurityService.currentUser
+        KuorumUserSession user = springSecurityService.principal
         Long proposalId = Long.parseLong(params.proposalId)
         Long campaignId = Long.parseLong(params.campaignId)
         String debateUserId = params.debateUserId
@@ -83,7 +84,7 @@ class DebateProposalController {
         Long campaignId = Long.parseLong(params.debateId)
         String debateUserId = params.debateUserId
         Long commentId = Long.parseLong(params.commentId)
-        KuorumUser user = springSecurityService.currentUser
+        KuorumUserSession user = springSecurityService.principal
         proposalService.deleteComment(user, campaignId,debateUserId, proposalId, commentId)
         render "true"
     }

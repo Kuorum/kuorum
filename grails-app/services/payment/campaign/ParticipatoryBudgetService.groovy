@@ -3,6 +3,7 @@ package payment.campaign
 import com.fasterxml.jackson.core.type.TypeReference
 import grails.transaction.Transactional
 import kuorum.core.exception.KuorumException
+import kuorum.register.KuorumUserSession
 import kuorum.solr.IndexSolrService
 import kuorum.users.KuorumUser
 import kuorum.util.rest.RestKuorumApiService
@@ -15,7 +16,7 @@ class ParticipatoryBudgetService implements CampaignCreatorService<Participatory
     RestKuorumApiService restKuorumApiService
     IndexSolrService indexSolrService
 
-    ParticipatoryBudgetRSDTO find(KuorumUser user, Long campaignId, String viewerUid = null) {
+    ParticipatoryBudgetRSDTO find(KuorumUserSession user, Long campaignId, String viewerUid = null) {
         find(user.getId().toString(), campaignId, viewerUid);
     }
 
@@ -47,7 +48,7 @@ class ParticipatoryBudgetService implements CampaignCreatorService<Participatory
         }
     }
 
-    ParticipatoryBudgetRSDTO save(KuorumUser user, ParticipatoryBudgetRDTO participatoryBudgetRDTO, Long debateId) {
+    ParticipatoryBudgetRSDTO save(KuorumUserSession user, ParticipatoryBudgetRDTO participatoryBudgetRDTO, Long debateId) {
         participatoryBudgetRDTO.body = participatoryBudgetRDTO.body.encodeAsRemovingScriptTags().encodeAsTargetBlank()
 
         ParticipatoryBudgetRSDTO debate
@@ -60,7 +61,7 @@ class ParticipatoryBudgetService implements CampaignCreatorService<Participatory
         return debate;
     }
 
-    ParticipatoryBudgetRSDTO createParticipatoryBudget(KuorumUser user, ParticipatoryBudgetRDTO participatoryBudgetRDTO) {
+    private ParticipatoryBudgetRSDTO createParticipatoryBudget(KuorumUserSession user, ParticipatoryBudgetRDTO participatoryBudgetRDTO) {
         Map<String, String> params = [userId: user.id.toString()]
         Map<String, String> query = [:]
         def response = restKuorumApiService.post(
@@ -79,7 +80,7 @@ class ParticipatoryBudgetService implements CampaignCreatorService<Participatory
         debateSaved
     }
 
-    ParticipatoryBudgetRSDTO updateParticipatoryBudget(KuorumUser user, ParticipatoryBudgetRDTO participatoryBudgetRDTO, Long campaignId) {
+    private ParticipatoryBudgetRSDTO updateParticipatoryBudget(KuorumUserSession user, ParticipatoryBudgetRDTO participatoryBudgetRDTO, Long campaignId) {
         Map<String, String> params = [userId: user.id.toString(), campaignId: campaignId.toString()]
         Map<String, String> query = [:]
         def response = restKuorumApiService.put(
@@ -98,7 +99,7 @@ class ParticipatoryBudgetService implements CampaignCreatorService<Participatory
         debateSaved
     }
 
-    void remove(KuorumUser user, Long campaignId) {
+    void remove(KuorumUserSession user, Long campaignId) {
         Map<String, String> params = [userId: user.id.toString(), campaignId: campaignId.toString()]
         Map<String, String> query = [:]
         def response = restKuorumApiService.delete(
@@ -149,7 +150,7 @@ class ParticipatoryBudgetService implements CampaignCreatorService<Participatory
     }
 
 
-    void sendReport(KuorumUser user, Long campaignId){
+    void sendReport(KuorumUserSession user, Long campaignId){
         Map<String, String> params = [userId: user.getId().toString(), campaignId: campaignId.toString()]
         Map<String, String> query = [:]
         def response = restKuorumApiService.get(

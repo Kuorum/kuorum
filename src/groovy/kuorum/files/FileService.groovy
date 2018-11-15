@@ -4,6 +4,7 @@ import kuorum.KuorumFile
 import kuorum.core.FileGroup
 import kuorum.core.FileType
 import kuorum.core.exception.KuorumException
+import kuorum.register.KuorumUserSession
 import kuorum.users.KuorumUser
 
 /**
@@ -23,7 +24,7 @@ public interface FileService {
     public KuorumFile convertFinalFileToTemporalFile(KuorumFile kuorumFile);
 
 
-    public KuorumFile createYoutubeKuorumFile(String youtubeUrl, KuorumUser user);
+    public KuorumFile createYoutubeKuorumFile(String youtubeUrl, KuorumUserSession user);
 
 
     public void deleteKuorumFile(KuorumFile file);
@@ -42,6 +43,8 @@ public interface FileService {
      *
      * @param user
      */
+    void deleteTemporalFiles(KuorumUserSession user);
+    @Deprecated
     void deleteTemporalFiles(KuorumUser user);
 
     /**

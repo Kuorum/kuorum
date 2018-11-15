@@ -4,6 +4,7 @@ import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.core.exception.KuorumException
 import kuorum.politician.CampaignController
+import kuorum.register.KuorumUserSession
 import kuorum.users.KuorumUser
 import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.commands.payment.CampaignSettingsCommand
@@ -26,7 +27,7 @@ class ParticipatoryBudgetController extends CampaignController{
 
     @Secured(['ROLE_CAMPAIGN_PARTICIPATORY_BUDGET'])
     def editSettingsStep(){
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUserSession user = springSecurityService.principal
         ParticipatoryBudgetRSDTO participatoryBudgetRSDTO = participatoryBudgetService.find( user, Long.parseLong((String) params.campaignId))
 
         return participatoryBudgetModelSettings(new CampaignSettingsCommand(debatable:true), participatoryBudgetRSDTO)
@@ -80,7 +81,6 @@ class ParticipatoryBudgetController extends CampaignController{
     @Secured(['ROLE_CAMPAIGN_PARTICIPATORY_BUDGET'])
     def editDeadlines(){
         Long campaignId = Long.parseLong(params.campaignId)
-        KuorumUser campaignUser = KuorumUser.get(springSecurityService.principal.id)
         ParticipatoryBudgetRSDTO participatoryBudgetRSDTO = setCampaignAsDraft(campaignId, participatoryBudgetService)
         if (!participatoryBudgetRSDTO.body || !participatoryBudgetRSDTO.title){
             flash.message=g.message(code:'participatoryBudget.form.nobody.redirect')
@@ -106,7 +106,7 @@ class ParticipatoryBudgetController extends CampaignController{
 
     @Secured(['ROLE_CAMPAIGN_PARTICIPATORY_BUDGET'])
     def saveDeadlines(ParticipatoryBudgetDeadlinesCommand command){
-        KuorumUser campaignUser = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUserSession campaignUser = springSecurityService.principal
         ParticipatoryBudgetRSDTO participatoryBudgetRSDTO = participatoryBudgetService.find(campaignUser, command.campaignId)
         if (command.hasErrors()) {
             flash.error = message(error: command.errors.getFieldError())
@@ -127,7 +127,7 @@ class ParticipatoryBudgetController extends CampaignController{
     @Secured(['ROLE_CAMPAIGN_PARTICIPATORY_BUDGET'])
     def editDistricts(){
         Long campaignId = Long.parseLong(params.campaignId)
-        KuorumUser campaignUser = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUserSession campaignUser = springSecurityService.principal
         ParticipatoryBudgetRSDTO participatoryBudgetRSDTO = setCampaignAsDraft(campaignId, participatoryBudgetService)
         if (!participatoryBudgetRSDTO.body || !participatoryBudgetRSDTO.title){
             flash.message=g.message(code:'participatoryBudget.form.nobody.redirect')
@@ -161,7 +161,7 @@ class ParticipatoryBudgetController extends CampaignController{
 
     @Secured(['ROLE_CAMPAIGN_PARTICIPATORY_BUDGET'])
     def saveDistricts(DistrictsCommand command){
-        KuorumUser campaignUser = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUserSession campaignUser = springSecurityService.principal
         ParticipatoryBudgetRSDTO participatoryBudgetRSDTO = participatoryBudgetService.find(campaignUser, command.campaignId)
         if (command.hasErrors()) {
             flash.error = message(error: command.errors.getFieldError())
@@ -201,7 +201,7 @@ class ParticipatoryBudgetController extends CampaignController{
 
     @Secured(['ROLE_CAMPAIGN_PARTICIPATORY_BUDGET'])
     def editStatus(ParticipatoryBudgetChangeStatusCommand command){
-        KuorumUser campaignUser = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUserSession campaignUser = springSecurityService.principal
         ParticipatoryBudgetRSDTO participatoryBudgetRSDTO = participatoryBudgetService.find(campaignUser, command.campaignId)
         if (command.hasErrors()) {
             flash.error = message(error: command.errors.getFieldError())
@@ -280,7 +280,7 @@ class ParticipatoryBudgetController extends CampaignController{
 
     @Secured(['ROLE_CAMPAIGN_PARTICIPATORY_BUDGET'])
     def sendProposalsReport() {
-        KuorumUser campaignUser = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUserSession campaignUser = springSecurityService.principal
         Long participatoryBudgetId = Long.parseLong(params.campaignId)
         participatoryBudgetService.sendReport(campaignUser, participatoryBudgetId);
         Boolean isAjax = request.xhr
@@ -413,7 +413,7 @@ class ParticipatoryBudgetController extends CampaignController{
     @Secured(['ROLE_CAMPAIGN_PARTICIPATORY_BUDGET'])
     def updateTechnicalReview(DistrictProposalTechnicalReviewCommand command){
         init()
-        KuorumUser campaignUser = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUserSession campaignUser = springSecurityService.principal
 
         DistrictProposalTechnicalReviewRDTO technicalReviewRDTO = new DistrictProposalTechnicalReviewRDTO();
         technicalReviewRDTO.approved=command.approved;

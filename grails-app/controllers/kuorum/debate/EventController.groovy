@@ -2,6 +2,7 @@ package kuorum.debate
 
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.politician.CampaignController
+import kuorum.register.KuorumUserSession
 import kuorum.users.KuorumUser
 import kuorum.util.TimeZoneUtil
 import kuorum.web.commands.payment.CampaignSettingsCommand
@@ -72,7 +73,7 @@ class EventController extends CampaignController{
             return
         }
         String nextStep = params.redirectLink
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUserSession user = springSecurityService.principal
         CampaignRSDTO campaignRSDTO = findCampaign(params)
         CampaignCreatorService campaignService = null;
         CampaignRDTO campaignRDTO = null;

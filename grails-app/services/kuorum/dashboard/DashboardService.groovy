@@ -2,6 +2,7 @@ package kuorum.dashboard
 
 import com.fasterxml.jackson.core.type.TypeReference
 import grails.plugin.springsecurity.SpringSecurityService
+import kuorum.register.KuorumUserSession
 import kuorum.users.KuorumUser
 import kuorum.util.rest.RestKuorumApiService
 import org.kuorum.rest.model.search.SearchResultsRSDTO
@@ -16,9 +17,10 @@ class DashboardService {
     ContactService contactService;
 
     boolean forceUploadContacts(){
-        KuorumUser user = springSecurityService.currentUser
+        KuorumUserSession user = springSecurityService.principal
+        KuorumUser loggedUser = springSecurityService.currentUser
         ContactPageRSDTO contacts = contactService.getUsers(user)
-        return contacts.total==0 && !user.skipUploadContacts
+        return contacts.total==0 && !loggedUser.skipUploadContacts
     }
 
 

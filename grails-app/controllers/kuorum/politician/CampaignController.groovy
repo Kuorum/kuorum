@@ -7,6 +7,7 @@ import kuorum.core.FileType
 import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.exception.KuorumException
 import kuorum.files.FileService
+import kuorum.register.KuorumUserSession
 import kuorum.users.CookieUUIDService
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
@@ -95,7 +96,7 @@ class CampaignController {
     }
 
     protected def modelSettings(CampaignSettingsCommand command, CampaignRSDTO campaignRSDTO = null) {
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUserSession user = springSecurityService.principal
         List<ExtendedFilterRSDTO> filters = contactService.getUserFilters(user)
         ContactPageRSDTO contactPageRSDTO = contactService.getUsers(user)
 
@@ -130,7 +131,7 @@ class CampaignController {
         contactService.transformCommand(filterCommand, "Custom filter for ${command.campaignName}")
     }
 
-    protected mapCommandSettingsToRDTO(KuorumUser user, CampaignRDTO rdto, CampaignSettingsCommand command, FilterRDTO anonymousFilter){
+    protected mapCommandSettingsToRDTO(KuorumUserSession user, CampaignRDTO rdto, CampaignSettingsCommand command, FilterRDTO anonymousFilter){
         rdto.name = command.campaignName
         rdto.setTriggeredTags(command.tags)
         rdto.causes = command.causes
@@ -152,14 +153,14 @@ class CampaignController {
         rdto
     }
 
-    protected CampaignRDTO createRDTO(KuorumUser user, Long campaignId, CampaignCreatorService campaignService){
+    protected CampaignRDTO createRDTO(KuorumUserSession user, Long campaignId, CampaignCreatorService campaignService){
         CampaignRSDTO campaignRSDTO = campaignService.find(user, campaignId)
         return campaignService.map(campaignRSDTO)
     }
 
     protected CampaignRDTO convertCommandSettingsToRDTO(
             CampaignSettingsCommand command,
-            KuorumUser user,
+            KuorumUserSession user,
             FilterRDTO anonymousFilter,
             Long campaignId,
             CampaignCreatorService campaignService) {
@@ -171,7 +172,7 @@ class CampaignController {
             CampaignSettingsCommand command,
             def params,
             CampaignCreatorService campaignService){
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUserSession user = springSecurityService.principal
         Long campaignId = params.campaignId?Long.parseLong(params.campaignId):null
         FilterRDTO anonymousFilter = recoverAnonymousFilterSettings(params, command)
 
@@ -188,7 +189,7 @@ class CampaignController {
     }
 
     protected CampaignRSDTO setCampaignAsDraft(Long campaignId, CampaignCreatorService campaignService){
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUserSession user = springSecurityService.principal
         CampaignRSDTO campaignRSDTO = campaignService.find(user, campaignId)
         if (campaignRSDTO && campaignRSDTO.newsletter.status == CampaignStatusRSDTO.SCHEDULED){
             CampaignRDTO campaignRDTO = campaignService.map(campaignRSDTO)
@@ -201,7 +202,7 @@ class CampaignController {
 
     protected def campaignModelContent(Long campaignId, CampaignRSDTO campaignRSDTO=null, CampaignContentCommand command=null, CampaignCreatorService campaignService) {
 
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUserSession user = springSecurityService.principal
         if(!campaignRSDTO && campaignId){
             campaignRSDTO = campaignService.find(user, campaignId)
         }
@@ -245,14 +246,14 @@ class CampaignController {
         ]
     }
 
-    protected Long getCampaignNumberRecipients(KuorumUser user, CampaignRSDTO campaignRSDTO){
+    protected Long getCampaignNumberRecipients(KuorumUserSession user, CampaignRSDTO campaignRSDTO){
         Long numberRecipients = campaignRSDTO?.newsletter?.filter?.amountOfContacts!=null?
                 campaignRSDTO.newsletter?.filter?.amountOfContacts:
                 contactService.getUsers(user, null).total;
         return numberRecipients
     }
 
-    protected CampaignRDTO convertCommandContentToRDTO(CampaignContentCommand command, KuorumUser user, Long campaignId, CampaignCreatorService campaignService) {
+    protected CampaignRDTO convertCommandContentToRDTO(CampaignContentCommand command, KuorumUserSession user, Long campaignId, CampaignCreatorService campaignService) {
         CampaignRDTO campaignRDTO = createRDTO(user, campaignId, campaignService)
         campaignRDTO.title = command.title
         campaignRDTO.body = command.body
@@ -284,16 +285,16 @@ class CampaignController {
     }
 
     protected Map<String, Object> saveAndSendCampaignContent(CampaignContentCommand command, Long campaignId, CampaignCreatorService campaignService) {
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUserSession user = springSecurityService.principal
         CampaignRDTO campaignRDTO = convertCommandContentToRDTO(command, user, campaignId, campaignService)
         saveAndSendCampaign(user, campaignRDTO, campaignId, command.publishOn, command.sendType, campaignService)
     }
 
-    protected Map<String, Object> saveAndSendCampaign(KuorumUser user, CampaignRDTO campaignRDTO, Long campaignId,Date publishOn,String sendType, CampaignCreatorService campaignService){
+    protected Map<String, Object> saveAndSendCampaign(KuorumUserSession user, CampaignRDTO campaignRDTO, Long campaignId,Date publishOn,String sendType, CampaignCreatorService campaignService){
         CampaignRSDTO savedCampaign = null
         String msg
         if(sendType == 'SEND'){
-            campaignRDTO.publishOn = Calendar.getInstance(user.getTimeZone()).time;
+            campaignRDTO.publishOn = Calendar.getInstance(user.timeZone).time;
         }
         else{
             campaignRDTO.publishOn = TimeZoneUtil.convertToUserTimeZone(publishOn, user.timeZone)
@@ -335,7 +336,7 @@ class CampaignController {
         [msg: msg, campaign: savedCampaign, nextStep:processNextStep(user, savedCampaign, campaignRDTO.publishOn!= null)]
     }
 
-    private def processNextStep(KuorumUser user, CampaignRSDTO campaignRSDTO, Boolean checkPaymentRedirect){
+    private def processNextStep(KuorumUserSession user, CampaignRSDTO campaignRSDTO, Boolean checkPaymentRedirect){
         return [
                 mapping:params.redirectLink,
                 params:campaignRSDTO.encodeAsLinkProperties()
@@ -343,7 +344,7 @@ class CampaignController {
     }
 
     protected void removeCampaign(Long campaignId, CampaignCreatorService campaignService){
-        KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUserSession loggedUser = springSecurityService.principal
         campaignService.remove(loggedUser, campaignId)
     }
 }

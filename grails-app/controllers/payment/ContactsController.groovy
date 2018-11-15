@@ -6,6 +6,7 @@ import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.core.exception.KuorumException
 import kuorum.dashboard.DashboardService
+import kuorum.register.KuorumUserSession
 import kuorum.users.KuorumUser
 import kuorum.web.commands.payment.contact.*
 import kuorum.web.session.CSVDataSession
@@ -43,7 +44,7 @@ class ContactsController {
             return;
         }
 
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUserSession user = springSecurityService.principal
         SearchContactRSDTO searchContactRSDTO  = new SearchContactRSDTO()
         searchContactRSDTO.sort = new SortContactsRDTO(field:ConditionFieldTypeRDTO.NAME, direction: SortContactsRDTO.Direction.ASC)
         ContactPageRSDTO contacts = contactService.getUsers(user,searchContactRSDTO)
@@ -84,7 +85,7 @@ class ContactsController {
     }
 
     def searchContacts(ContactFilterCommand filterCommand){
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUserSession user = springSecurityService.principal
         Boolean asJson = params.asJson?true:false
         SearchContactRSDTO searchContactRSDTO  = new SearchContactRSDTO()
         populateSearchContact(searchContactRSDTO, filterCommand, params)
@@ -103,7 +104,7 @@ class ContactsController {
 
     def addTagsToContact(Long contactId){
         List<String> tags = params.tags?.split(",")?.findAll{it}?:[]
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUserSession user = springSecurityService.principal
         ContactRSDTO contactRSDTO = contactService.getContact(user, contactId)
         contactRSDTO.tags = tags as Set
         contactRSDTO = contactService.updateContact(user, contactRSDTO, contactId)
@@ -111,7 +112,7 @@ class ContactsController {
     }
 
     def removeContact(Long contactId){
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUserSession user = springSecurityService.principal
         contactService.removeContact(user, contactId)
 
         SearchContactRSDTO searchContactRSDTO = new SearchContactRSDTO()
@@ -124,7 +125,7 @@ class ContactsController {
     }
 
     def editContact(Long contactId){
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUserSession user = springSecurityService.principal
         ContactRSDTO contact = contactService.getContact(user, contactId)
         ContactCommand command = new ContactCommand()
         command.name = contact.name
@@ -136,7 +137,7 @@ class ContactsController {
     }
 
     def updateContact(ContactCommand command){
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUserSession user = springSecurityService.principal
         ContactRSDTO contact = contactService.getContact(user, command.contactId)
         if (command.hasErrors() || !contact){
             KuorumUser contactUser = contact.mongoId?KuorumUser.get(new ObjectId(contact.mongoId)):null
@@ -153,7 +154,7 @@ class ContactsController {
     }
 
     def updateContactNotes(Long contactId){
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUserSession user = springSecurityService.principal
         ContactRSDTO contact = contactService.getContact(user, contactId)
         if (!contact){
             render ([err:g.message(code: 'tools.contact.edit.error')]  as JSON)
@@ -179,7 +180,7 @@ class ContactsController {
         }
         FilterRDTO filterRDTO = new FilterRDTO()
         filterRDTO.setFilterConditions([ConditionRDTO.factory(ConditionFieldTypeRDTO.EMAIL, TextConditionOperatorTypeRDTO.EQUALS.toString(), command.email)])
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUserSession user = springSecurityService.principal
         ContactPageRSDTO alreadyExistsContact = contactService.getUsers(user, filterRDTO)
         ContactRSDTO contactRSDTO
         if (alreadyExistsContact.total>0){
@@ -493,8 +494,7 @@ class ContactsController {
     }
 
     def contactTags(){
-        KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
-        List<String> tags = contactService.getUserTags(loggedUser)
+        List<String> tags = contactService.getUserTags(springSecurityService.principal)
         render tags as JSON
     }
 
@@ -541,7 +541,7 @@ class ContactsController {
     }
 
     def loggedUnsubscribe (String contactId){
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUserSession user = springSecurityService.principal
         ContactRSDTO contact = contactService.getContact(user, contactId.toLong())
         boolean success = contactService.unsubscribeContactUser(user, contactId.toLong() , contact.digest)
         if (!success){
@@ -591,7 +591,7 @@ class ContactsController {
     }
 
     def addTagsBulkAction(BulkAddTagsContactsCommand bulkAddTagsCommand) {
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUserSession user = springSecurityService.principal
 
         // Filter
         SearchContactRSDTO searchContactRSDTO = new SearchContactRSDTO()
@@ -631,7 +631,7 @@ class ContactsController {
     }
 
     def removeTagsBulkAction(BulkRemoveTagsContactsCommand bulkRemoveTagsCommand) {
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUserSession user = springSecurityService.principal
 
         // Filter
         SearchContactRSDTO searchContactRSDTO = new SearchContactRSDTO()
@@ -671,7 +671,7 @@ class ContactsController {
     }
 
     def exportContacts(ContactFilterCommand filterCommand){
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUserSession user = springSecurityService.principal
         SearchContactRSDTO searchContactRSDTO = new SearchContactRSDTO();
         populateSearchContact(searchContactRSDTO, filterCommand, params)
         contactService.exportContacts(user, searchContactRSDTO)

@@ -3,6 +3,7 @@ package kuorum.participatoryBudget
 import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.politician.CampaignController
+import kuorum.register.KuorumUserSession
 import kuorum.users.KuorumUser
 import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.commands.payment.CampaignSettingsCommand
@@ -27,7 +28,7 @@ class DistrictProposalController extends CampaignController{
     def create() {
         Long participatoryBudgetId = params.campaignId?Long.parseLong(params.campaignId):null
         KuorumUser kuorumUser = kuorumUserService.findByAlias(params.userAlias)
-        ParticipatoryBudgetRSDTO participatoryBudgetRSDTO = participatoryBudgetService.find(kuorumUser, participatoryBudgetId)
+        ParticipatoryBudgetRSDTO participatoryBudgetRSDTO = participatoryBudgetService.find(kuorumUser.id.toString(), participatoryBudgetId)
         return districtProposalModelEditDistrict(new DistrictProposalChooseDistrictCommand(), null,participatoryBudgetRSDTO)
     }
 
@@ -36,7 +37,7 @@ class DistrictProposalController extends CampaignController{
     def saveNewProposal(DistrictProposalChooseDistrictCommand command){
         Long participatoryBudgetId = params.campaignId?Long.parseLong(params.campaignId):null
         KuorumUser kuorumUser = kuorumUserService.findByAlias(params.userAlias)
-        ParticipatoryBudgetRSDTO participatoryBudgetRSDTO = participatoryBudgetService.find(kuorumUser, participatoryBudgetId)
+        ParticipatoryBudgetRSDTO participatoryBudgetRSDTO = participatoryBudgetService.find(kuorumUser.id.toString(), participatoryBudgetId)
         if (command.hasErrors()){
             render view: 'create', model: districtProposalModelEditDistrict(command, null, participatoryBudgetRSDTO)
             return
@@ -54,7 +55,7 @@ class DistrictProposalController extends CampaignController{
 
         Long participatoryBudgetId = params.campaignId?Long.parseLong(params.campaignId):null
         KuorumUser kuorumUser = kuorumUserService.findByAlias(params.userAlias)
-        ParticipatoryBudgetRSDTO participatoryBudgetRSDTO = participatoryBudgetService.find(kuorumUser, participatoryBudgetId)
+        ParticipatoryBudgetRSDTO participatoryBudgetRSDTO = participatoryBudgetService.find(kuorumUser.id.toString(), participatoryBudgetId)
         DistrictProposalChooseDistrictCommand districtCommand = (DistrictProposalChooseDistrictCommand)request.getSession().getAttribute(SESSION_KEY_DISTRICT_COMMAND)
         if (!districtCommand){
             flash.message = "Please choose a district"
@@ -68,7 +69,7 @@ class DistrictProposalController extends CampaignController{
     def saveNewProposalByContent(CampaignContentCommand command){
         Long participatoryBudgetId = params.campaignId?Long.parseLong(params.campaignId):null
         KuorumUser kuorumUser = kuorumUserService.findByAlias(params.userAlias)
-        ParticipatoryBudgetRSDTO participatoryBudgetRSDTO = participatoryBudgetService.find(kuorumUser, participatoryBudgetId)
+        ParticipatoryBudgetRSDTO participatoryBudgetRSDTO = participatoryBudgetService.find(kuorumUser.id.toString(), participatoryBudgetId)
         DistrictProposalChooseDistrictCommand districtCommand = (DistrictProposalChooseDistrictCommand)request.getSession().getAttribute(SESSION_KEY_DISTRICT_COMMAND)
         if (!districtCommand){
             flash.message = "Please choose a district"
@@ -98,7 +99,7 @@ class DistrictProposalController extends CampaignController{
         return model;
     }
 
-    protected CampaignRDTO convertCommandContentToRDTO(CampaignContentCommand command, KuorumUser user, Long campaignId, CampaignCreatorService campaignService) {
+    protected CampaignRDTO convertCommandContentToRDTO(CampaignContentCommand command, KuorumUserSession user, Long campaignId, CampaignCreatorService campaignService) {
         DistrictProposalRDTO campaignRDTO = (DistrictProposalRDTO)super.convertCommandContentToRDTO(command, user, campaignId, campaignService)
         setDistrictFromSession(campaignRDTO)
         setCampaignName(campaignRDTO, command)
@@ -134,7 +135,7 @@ class DistrictProposalController extends CampaignController{
 
     @Secured(['ROLE_CAMPAIGN_DISTRICT_PROPOSAL'])
     def editSettingsStep(){
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUserSession user = springSecurityService.principal
         DistrictProposalRSDTO districtProposalRSDTO = districtProposalService.find( user, Long.parseLong((String) params.campaignId))
 
         return districtProposalModelSettings(new CampaignSettingsCommand(debatable:false), districtProposalRSDTO)
@@ -145,9 +146,9 @@ class DistrictProposalController extends CampaignController{
     def editDistrict(){
         Long participatoryBudgetId = params.participatoryBudgetId?Long.parseLong(params.participatoryBudgetId):null
         KuorumUser kuorumUser = kuorumUserService.findByAlias(params.userAlias)
-        ParticipatoryBudgetRSDTO participatoryBudgetRSDTO = participatoryBudgetService.find(kuorumUser, participatoryBudgetId)
+        ParticipatoryBudgetRSDTO participatoryBudgetRSDTO = participatoryBudgetService.find(kuorumUser.id.toString(), participatoryBudgetId)
 
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUserSession user = springSecurityService.principal
         DistrictProposalRSDTO districtProposalRSDTO = districtProposalService.find( user, Long.parseLong((String) params.campaignId))
 
         return districtProposalModelEditDistrict(null, districtProposalRSDTO, participatoryBudgetRSDTO)
@@ -158,7 +159,7 @@ class DistrictProposalController extends CampaignController{
     def editContentStep(){
         Long participatoryBudgetId = params.participatoryBudgetId?Long.parseLong(params.participatoryBudgetId):null
         KuorumUser kuorumUser = kuorumUserService.findByAlias(params.userAlias)
-        ParticipatoryBudgetRSDTO participatoryBudgetRSDTO = participatoryBudgetService.find(kuorumUser, participatoryBudgetId)
+        ParticipatoryBudgetRSDTO participatoryBudgetRSDTO = participatoryBudgetService.find(kuorumUser.id.toString(), participatoryBudgetId)
 
         Long campaignId = Long.parseLong((String) params.campaignId);
         DistrictProposalRSDTO districtProposalRSDTO = setCampaignAsDraft(campaignId, districtProposalService)
@@ -185,7 +186,7 @@ class DistrictProposalController extends CampaignController{
         if (command.hasErrors()) {
             Long participatoryBudgetId = params.participatoryBudgetId?Long.parseLong(params.participatoryBudgetId):null
             KuorumUser kuorumUser = kuorumUserService.findByAlias(params.userAlias)
-            ParticipatoryBudgetRSDTO participatoryBudgetRSDTO = participatoryBudgetService.find(kuorumUser, participatoryBudgetId)
+            ParticipatoryBudgetRSDTO participatoryBudgetRSDTO = participatoryBudgetService.find(kuorumUser.id.toString(), participatoryBudgetId)
 
 
             if(command.errors.getFieldError().arguments.first() == "publishOn"){
@@ -203,9 +204,9 @@ class DistrictProposalController extends CampaignController{
     def saveDistrict(DistrictProposalChooseDistrictCommand command){
         Long participatoryBudgetId = params.participatoryBudgetId?Long.parseLong(params.participatoryBudgetId):null
         KuorumUser kuorumUser = kuorumUserService.findByAlias(params.userAlias)
-        ParticipatoryBudgetRSDTO participatoryBudgetRSDTO = participatoryBudgetService.find(kuorumUser, participatoryBudgetId)
+        ParticipatoryBudgetRSDTO participatoryBudgetRSDTO = participatoryBudgetService.find(kuorumUser.id.toString(), participatoryBudgetId)
 
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUserSession user = springSecurityService.principal
         DistrictProposalRSDTO districtProposalRSDTO = districtProposalService.find( user, Long.parseLong((String) params.campaignId))
 
         if (command.hasErrors()) {

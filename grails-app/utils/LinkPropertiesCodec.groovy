@@ -2,6 +2,7 @@ import grails.util.Holders
 import kuorum.Region
 import kuorum.core.model.UserType
 import kuorum.project.Project
+import kuorum.register.KuorumUserSession
 import kuorum.users.KuorumUser
 import org.kuorum.rest.model.communication.CampaignRSDTO
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
@@ -57,6 +58,11 @@ class LinkPropertiesCodec {
     }
 
     private static def prepareParams(KuorumUser user){
+        [
+                userAlias:user.alias.toLowerCase()
+        ]
+    }
+    private static def prepareParams(KuorumUserSession user){
         [
                 userAlias:user.alias.toLowerCase()
         ]

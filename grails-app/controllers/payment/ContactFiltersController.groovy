@@ -3,6 +3,7 @@ package payment
 import grails.converters.JSON
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
+import kuorum.register.KuorumUserSession
 import kuorum.users.KuorumUser
 import kuorum.web.commands.payment.contact.ContactFilterCommand
 import org.kuorum.rest.model.contact.ContactPageRSDTO
@@ -32,7 +33,7 @@ class ContactFiltersController {
             render ([status:"error", msg:g.message(code:"tools.contact.filter.form.saveAs.noName")] as JSON)
             return;
         }
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUserSession user = springSecurityService.principal
         FilterRDTO filterRDTO = filterCommand.buildFilter()
         filterRDTO.name = newFilterName
         ExtendedFilterRSDTO filterSaved = contactService.createFilter(user,filterRDTO);
@@ -57,7 +58,7 @@ class ContactFiltersController {
             render ([status:"error", msg:g.message(code:'tools.contact.filter.form.notExits')] as JSON)
             return;
         }
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUserSession user = springSecurityService.principal
         FilterRDTO filterRDTO = filterCommand.buildFilter()
         ExtendedFilterRSDTO filterSaved = contactService.updateFilter(user,filterRDTO, filterId);
 
@@ -76,7 +77,7 @@ class ContactFiltersController {
             return
         }
 
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUserSession user = springSecurityService.principal
         FilterRDTO filterRDTO = filterCommand.buildFilter()
         ContactPageRSDTO usersPage = contactService.getUsers(user, filterRDTO)
 
@@ -90,7 +91,7 @@ class ContactFiltersController {
 
 
     def getFilterData(Long filterId){
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUserSession user = springSecurityService.principal
         ExtendedFilterRSDTO filterRDTO
         if (filterId ==-2){
             filterRDTO = new ExtendedFilterRSDTO()
@@ -104,7 +105,7 @@ class ContactFiltersController {
     }
 
     def deleteFilter(Long filterId){
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUserSession user = springSecurityService.principal
         contactService.removeFilter(user, filterId)
         render "removed"
     }

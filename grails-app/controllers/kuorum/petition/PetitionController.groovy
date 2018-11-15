@@ -3,6 +3,7 @@ package kuorum.petition
 import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.politician.CampaignController
+import kuorum.register.KuorumUserSession
 import kuorum.users.KuorumUser
 import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.commands.payment.CampaignSettingsCommand
@@ -24,7 +25,7 @@ class PetitionController extends CampaignController{
 
     @Secured(['ROLE_CAMPAIGN_PETITION'])
     def editSettingsStep(){
-        KuorumUser petitionUser = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUserSession petitionUser = springSecurityService.principal
         PetitionRSDTO petitionRSDTO = petitionService.find(petitionUser, Long.parseLong(params.campaignId))
         return petitionModelSettings(new CampaignSettingsCommand(debatable:false), petitionRSDTO)
 
