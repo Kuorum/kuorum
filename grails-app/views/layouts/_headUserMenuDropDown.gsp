@@ -10,9 +10,6 @@
 
     <li class="hidden-xs"><g:link mapping="dashboard" params="[tour:true]"><g:message code="head.navigation.userMenu.tour"/></g:link></li>
 
-    %{--<sec:ifAnyGranted roles="ROLE_POLITICIAN">--}%
-        %{--<li><g:link mapping="adminPrincipal" params="[regionName:sec.loggedInUserInfo([field:'politicianOnRegionName'])]"><sec:loggedInUserInfo field="politicianOnRegionName"/></g:link></li>--}%
-    %{--</sec:ifAnyGranted>--}%
     <li><g:link mapping="logout"><g:message code="head.logged.logout"/></g:link></li>
     <sec:ifSwitched>
         <li>
