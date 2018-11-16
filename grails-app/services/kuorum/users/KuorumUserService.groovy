@@ -193,12 +193,6 @@ class KuorumUserService {
         }
     }
 
-    List<KuorumUser> recommendedUsers(Pagination pagination = new Pagination()){
-        //TODO: Improve algorithm
-        List<KuorumUser> res = KuorumUser.findAllByNumFollowersGreaterThanAndEnabled(-1,true,[sort:"numFollowers",order: "desc", max:pagination.max])
-        res as ArrayList<KuorumUser>
-    }
-
     /**
      * Recommend politicians similar to user and that the user is not following
      *
