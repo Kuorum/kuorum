@@ -5,6 +5,7 @@ import grails.plugin.springsecurity.annotation.Secured
 import kuorum.causes.CausesService
 import kuorum.core.model.search.Pagination
 import kuorum.dashboard.DashboardService
+import kuorum.register.KuorumUserSession
 import kuorum.solr.SearchSolrService
 import kuorum.users.CookieUUIDService
 import kuorum.users.KuorumUser
@@ -41,7 +42,7 @@ class DashboardController {
     CampaignService campaignService
     DashboardService dashboardService
     CookieUUIDService cookieUUIDService
-    CustomerService customerService;
+    CustomerService customerService
 
     private  static final Integer MAX_PROJECT_EVENTS = 2
 
@@ -55,7 +56,7 @@ class DashboardController {
         }
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         log.info("Dashboard ${user}")
-        Map model = buildPaymentDashboard(user);
+        Map model = buildPaymentDashboard(user)
         model.put("tour", params.tour?true:false)
         if (dashboardService.forceUploadContacts()) {
             render view: "/dashboard/payment/paymentNoContactsDashboard", model: model
@@ -70,24 +71,25 @@ class DashboardController {
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def skipContacts(){
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        user.skipUploadContacts = true;
+        user.skipUploadContacts = true
         user.save()
         redirect mapping:'dashboard'
     }
 
     private def buildPaymentDashboard(KuorumUser user){
+        KuorumUserSession userSession = springSecurityService.principal
         String viewerUid = cookieUUIDService.buildUserUUID()
 
-        SearchResultsRSDTO searchResultsRSDTO = dashboardService.findAllContactsCampaigns(user, viewerUid)
+        SearchResultsRSDTO searchResultsRSDTO = dashboardService.findAllContactsCampaigns(userSession, viewerUid)
 
-        List<NewsletterRSDTO> myNewsletters = newsletterService.findCampaigns(user)
-        List<CampaignRSDTO> myCampaigns = campaignService.findAllCampaigns(user)
+        List<NewsletterRSDTO> myNewsletters = newsletterService.findCampaigns(userSession)
+        List<CampaignRSDTO> myCampaigns = campaignService.findAllCampaigns(userSession)
         List<NewsletterRSDTO> sentCampaigns = myCampaigns*.newsletter.findAll{it.status==CampaignStatusRSDTO.SENT}
         List<NewsletterRSDTO> sentNewsletters = myNewsletters.findAll{it.status==CampaignStatusRSDTO.SENT}
         List<NewsletterRSDTO> sentCommunications = sentNewsletters + sentCampaigns
-        Long numberCampaigns = sentCommunications?.size()?:0;
+        Long numberCampaigns = sentCommunications?.size()?:0
         NewsletterRSDTO lastCampaign = null
-        Long durationDays = 0;
+        Long durationDays = 0
         if (sentCommunications){
             lastCampaign = sentCommunications.sort {it.sentOn}.last()?:null
             use(groovy.time.TimeCategory) {
@@ -116,7 +118,7 @@ class DashboardController {
     //FAST CHAPU - Evaluating empty data
     def emptyEditableData(KuorumUser user){
 
-        List<CauseRSDTO> causes = causesService.findSupportedCauses(user);
+        List<CauseRSDTO> causes = causesService.findSupportedCauses(user)
 
         List fields = [
                 [urlMapping: 'profileEditAccountDetails',
@@ -139,7 +141,7 @@ class DashboardController {
                  total: (new SocialNetworkCommand(user)).properties.size()]
         ]
         fields.each{it['completed']=it.total - it.uncompleted}
-        Integer totalFields = fields*.total.sum();
+        Integer totalFields = fields*.total.sum()
         Integer emptyFields= fields.sum{it.uncompleted}
         return [
                 percentage: (1 - emptyFields/totalFields)*100,
@@ -152,7 +154,7 @@ class DashboardController {
     def dashboardCampaigns(Pagination pagination){
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         String viewerUid = cookieUUIDService.buildUserUUID()
-        Integer page = pagination.offset/pagination.max;
+        Integer page = pagination.offset/pagination.max
         SearchResultsRSDTO searchResutlsRSDTO = dashboardService.findAllContactsCampaigns(user, viewerUid, page)
         List<NewsletterRQDTO> campaigns = searchResutlsRSDTO.data
         response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${searchResutlsRSDTO.total < (pagination.offset+pagination.max)}")

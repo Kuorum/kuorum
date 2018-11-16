@@ -2,6 +2,7 @@ package payment.campaign
 
 import com.fasterxml.jackson.core.type.TypeReference
 import grails.transaction.Transactional
+import kuorum.register.KuorumUserSession
 import kuorum.users.KuorumUser
 import kuorum.util.TimeZoneUtil
 import kuorum.util.rest.RestKuorumApiService
@@ -16,11 +17,11 @@ import org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO
 @Transactional
 class NewsletterService {
 
-    RestKuorumApiService restKuorumApiService;
+    RestKuorumApiService restKuorumApiService
 
 
     NewsletterRSDTO campaignSend(KuorumUser user, NewsletterRQDTO campaignRQDTO, Long campaignId = null){
-        campaignRQDTO.sentOn = Calendar.getInstance(user.getTimeZone()).time;
+        campaignRQDTO.sentOn = Calendar.getInstance(user.getTimeZone()).time
         sendScheduledCampaignWithoutDateModifications(user, campaignRQDTO, campaignId)
     }
 
@@ -44,7 +45,7 @@ class NewsletterService {
                 campaignRQDTO,
                 new TypeReference<NewsletterRSDTO>(){}
         )
-        NewsletterRSDTO campaignSaved=null;
+        NewsletterRSDTO campaignSaved=null
         if (response.data){
             campaignSaved = response.data
         }
@@ -64,14 +65,14 @@ class NewsletterService {
                 query,
                 new TypeReference<NewsletterRSDTO>(){}
         )
-        NewsletterRSDTO campaignSaved=null;
+        NewsletterRSDTO campaignSaved=null
         if (response.data){
             campaignSaved = (NewsletterRSDTO)response.data
         }
         campaignSaved
     }
 
-    List<NewsletterRSDTO> findCampaigns(KuorumUser user){
+    List<NewsletterRSDTO> findCampaigns(KuorumUserSession user){
         Map<String, String> params = [userId:user.id.toString()]
         Map<String, String> query = [:]
         def response= restKuorumApiService.get(
@@ -80,7 +81,7 @@ class NewsletterService {
                 query,
                 new TypeReference<List<NewsletterRSDTO>>(){}
         )
-        List<NewsletterRSDTO> campaigns=[];
+        List<NewsletterRSDTO> campaigns=[]
         if (response.data){
             campaigns = response.data
         }
@@ -106,7 +107,7 @@ class NewsletterService {
                 query,
                 new TypeReference<NewsletterRSDTO>(){}
         )
-        NewsletterRSDTO campaignSaved=null;
+        NewsletterRSDTO campaignSaved=null
         if (response.data){
             campaignSaved = (NewsletterRSDTO)response.data
         }
@@ -125,7 +126,7 @@ class NewsletterService {
                 query,
                 new TypeReference<TrackingMailStatsByCampaignPageRSDTO>(){}
         )
-        TrackingMailStatsByCampaignPageRSDTO trackingMailStatsByCampaignPageRSDTO=null;
+        TrackingMailStatsByCampaignPageRSDTO trackingMailStatsByCampaignPageRSDTO=null
         if (response.data){
             trackingMailStatsByCampaignPageRSDTO = (TrackingMailStatsByCampaignPageRSDTO)response.data
         }
@@ -161,7 +162,7 @@ class NewsletterService {
                 query,
                 new TypeReference<NewsletterConfigRSDTO>(){}
         )
-        NewsletterConfigRSDTO newsletterConfigRDTO=null;
+        NewsletterConfigRSDTO newsletterConfigRDTO=null
         if (response.data){
             newsletterConfigRDTO = (NewsletterConfigRSDTO)response.data
         }
@@ -178,7 +179,7 @@ class NewsletterService {
                 config,
                 new TypeReference<NewsletterConfigRSDTO>(){}
         )
-        NewsletterConfigRSDTO newsletterConfigRDTO=null;
+        NewsletterConfigRSDTO newsletterConfigRDTO=null
         if (response.data){
             newsletterConfigRDTO = (NewsletterConfigRSDTO)response.data
         }

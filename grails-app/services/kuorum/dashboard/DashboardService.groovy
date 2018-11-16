@@ -5,16 +5,16 @@ import grails.plugin.springsecurity.SpringSecurityService
 import kuorum.register.KuorumUserSession
 import kuorum.users.KuorumUser
 import kuorum.util.rest.RestKuorumApiService
-import org.kuorum.rest.model.search.SearchResultsRSDTO
 import org.kuorum.rest.model.contact.ContactPageRSDTO
+import org.kuorum.rest.model.search.SearchResultsRSDTO
 import payment.contact.ContactService
 
 class DashboardService {
 
     RestKuorumApiService restKuorumApiService
 
-    SpringSecurityService springSecurityService;
-    ContactService contactService;
+    SpringSecurityService springSecurityService
+    ContactService contactService
 
     boolean forceUploadContacts(){
         KuorumUserSession user = springSecurityService.principal
@@ -24,7 +24,7 @@ class DashboardService {
     }
 
 
-    SearchResultsRSDTO findAllContactsCampaigns (KuorumUser user, String viewerUid = null, Integer page = 0){
+    SearchResultsRSDTO findAllContactsCampaigns (KuorumUserSession user, String viewerUid = null, Integer page = 0){
         Map<String, String> params = [userId: user.id.toString()]
         Map<String, String> query = [page:page]
         if (viewerUid){
@@ -35,7 +35,7 @@ class DashboardService {
                 params,
                 query,
                 new TypeReference<SearchResultsRSDTO>() {}
-        );
+        )
 
         response.data
     }

@@ -3,6 +3,7 @@ package payment.campaign
 import com.fasterxml.jackson.core.type.TypeReference
 import grails.transaction.Transactional
 import kuorum.core.exception.KuorumException
+import kuorum.register.KuorumUserSession
 import kuorum.solr.IndexSolrService
 import kuorum.users.KuorumUser
 import kuorum.util.rest.RestKuorumApiService
@@ -57,8 +58,11 @@ class CampaignService {
     }
 
 
-    List<CampaignRSDTO> findAllCampaigns(KuorumUser user,String viewerUid = null) {
-        Map<String, String> params = [userId: user.id.toString()]
+    List<CampaignRSDTO> findAllCampaigns(KuorumUserSession user, String viewerUid = null) {
+        findAllCampaigns(user.id.toString(), viewerUid)
+    }
+    List<CampaignRSDTO> findAllCampaigns(String userId, String viewerUid = null) {
+        Map<String, String> params = [userId: userId]
         Map<String, String> query = [:]
         if (viewerUid){
             query.put("viewerUid",viewerUid)
@@ -80,13 +84,13 @@ class CampaignService {
 
 //    @Cacheable(value="debate", key='#campaignId')
     CampaignRSDTO find(KuorumUser user, Long campaignId, String viewerUid = null) {
-        find(user.getId().toString(), campaignId, viewerUid);
+        find(user.getId().toString(), campaignId, viewerUid)
     }
 
 //    @Cacheable(value="debate", key='#campaignId')
     CampaignRSDTO find(String userId, Long campaignId, String viewerUid = null) {
         if (!campaignId){
-            return null;
+            return null
         }
         Map<String, String> params = [userId: userId, campaignId: campaignId.toString()]
         Map<String, String> query = [:]
@@ -105,10 +109,10 @@ class CampaignService {
             if (response.data) {
                 campaignRSDTO = (CampaignRSDTO) response.data
             }
-            return campaignRSDTO;
+            return campaignRSDTO
         }catch (KuorumException e){
             log.info("Error recovering debate $campaignId : ${e.message}")
-            return null;
+            return null
         }
     }
 
@@ -127,7 +131,7 @@ class CampaignService {
             rdto.endDate = campaignRSDTO.endDate
             rdto.causes = campaignRSDTO.causes
             if (campaignRSDTO.event){
-                rdto.event = new EventRDTO();
+                rdto.event = new EventRDTO()
                 rdto.event.eventDate = campaignRSDTO.event.eventDate
                 rdto.event.latitude = campaignRSDTO.event.latitude
                 rdto.event.longitude = campaignRSDTO.event.longitude
@@ -138,6 +142,6 @@ class CampaignService {
             }
             
         }
-        return rdto;
+        return rdto
     }
 }

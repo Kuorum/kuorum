@@ -6,6 +6,7 @@ import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.model.search.Pagination
 import kuorum.register.RegisterService
 import org.kuorum.rest.model.communication.CampaignRSDTO
+import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 import org.kuorum.rest.model.kuorumUser.news.UserNewRSDTO
 import org.kuorum.rest.model.kuorumUser.reputation.UserReputationRSDTO
 import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
@@ -27,7 +28,7 @@ class KuorumUserController {
     CausesService causesService
     UserNewsService userNewsService
 
-    UserReputationService userReputationService;
+    UserReputationService userReputationService
 
     CampaignService campaignService
 
@@ -51,7 +52,7 @@ class KuorumUserController {
         List<UserNewRSDTO> userNews = userNewsService.findUserNews(user)
 //        List<DebateRSDTO> debates = debateService.findAllDebates(user).findAll{it.newsletter.status == CampaignStatusRSDTO.SENT}
 //        List<PostRSDTO> posts = postService.findAllPetition(user,viewerUid).findAll{it.newsletter.status == CampaignStatusRSDTO.SENT}
-        List<CampaignRSDTO> campaigns = campaignService.findAllCampaigns(user,viewerUid).findAll{it.newsletter.status == CampaignStatusRSDTO.SENT}
+        List<CampaignRSDTO> campaigns = campaignService.findAllCampaigns(user.id.toString(),viewerUid).findAll{it.newsletter.status == CampaignStatusRSDTO.SENT}
         [
                 politician:user,
                 recommendPoliticians:recommendPoliticians,
@@ -64,7 +65,7 @@ class KuorumUserController {
 
     def userFollowers(String userAlias){
         KuorumUser user = kuorumUserService.findByAlias(userAlias)
-        List<KuorumUser> followers = kuorumUserService.findFollowers(user, new Pagination())
+        List<BasicDataKuorumUserRSDTO> followers = kuorumUserService.findFollowers(user, new Pagination())
         if (request.xhr){
             render (template:'/kuorumUser/embebedUsersList', model:[users:followers])
         }else{
@@ -74,7 +75,7 @@ class KuorumUserController {
 
     def userFollowing(String userAlias){
         KuorumUser user = kuorumUserService.findByAlias(userAlias)
-        List<KuorumUser> following = kuorumUserService.findFollowing(user, new Pagination())
+        List<BasicDataKuorumUserRSDTO> following = kuorumUserService.findFollowing(user, new Pagination())
         if (request.xhr){
             render (template:'/kuorumUser/embebedUsersList', model:[users:following])
         }else{
@@ -87,7 +88,7 @@ class KuorumUserController {
         KuorumUser following = kuorumUserService.findByAlias(userAlias)
         if (!following){
             response.sendError(HttpServletResponse.SC_NOT_FOUND)
-            return;
+            return
         }
         KuorumUser follower = KuorumUser.get(springSecurityService.principal.id)
         kuorumUserService.createFollower(follower, following)
@@ -99,7 +100,7 @@ class KuorumUserController {
         KuorumUser following = kuorumUserService.findByAlias(userAlias)
         if (!following){
             response.sendError(HttpServletResponse.SC_NOT_FOUND)
-            return;
+            return
         }
         KuorumUser follower = KuorumUser.get(springSecurityService.principal.id)
         kuorumUserService.deleteFollower(follower, following)
@@ -111,7 +112,7 @@ class KuorumUserController {
         if (command.hasErrors()){
             flash.error=g.message(code: 'politician.subscribe.error')
             redirect mapping:"userShow", params: following.encodeAsLinkProperties()
-            return ;
+            return
         }
         KuorumUser follower = registerService.registerUserFollowingPolitician(command, following)
         redirect mapping:"userShow", params: following.encodeAsLinkProperties()

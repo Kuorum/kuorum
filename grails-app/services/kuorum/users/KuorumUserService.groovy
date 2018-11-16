@@ -1,7 +1,6 @@
 package kuorum.users
 
 import com.fasterxml.jackson.core.type.TypeReference
-import com.mongodb.BasicDBObject
 import grails.converters.JSON
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.transaction.Transactional
@@ -11,19 +10,16 @@ import kuorum.causes.CausesService
 import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.exception.KuorumException
 import kuorum.core.exception.KuorumExceptionUtil
-import kuorum.core.model.kuorumUser.UserParticipating
 import kuorum.core.model.search.Pagination
 import kuorum.core.model.search.SearchParams
 import kuorum.core.model.solr.SolrType
 import kuorum.mail.KuorumMailAccountService
-import kuorum.post.Cluck
-import kuorum.post.Post
-import kuorum.project.Project
 import kuorum.solr.SearchSolrService
 import kuorum.util.rest.RestKuorumApiService
 import org.bson.types.ObjectId
 import org.codehaus.groovy.grails.commons.GrailsApplication
 import org.codehaus.groovy.grails.web.json.JSONElement
+import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 import org.kuorum.rest.model.kuorumUser.KuorumUserRSDTO
 import org.kuorum.rest.model.kuorumUser.UserDataRDTO
 import org.kuorum.rest.model.kuorumUser.UserRoleRSDTO
@@ -41,8 +37,8 @@ class KuorumUserService {
     def kuorumMailService
     def regionService
     SpringSecurityService springSecurityService
-    SearchSolrService searchSolrService;
-    KuorumMailAccountService kuorumMailAccountService;
+    SearchSolrService searchSolrService
+    KuorumMailAccountService kuorumMailAccountService
     CausesService causesService
     RestKuorumApiService restKuorumApiService
 
@@ -56,34 +52,24 @@ class KuorumUserService {
         if (follower.following.contains(following.id)){
             log.warn("Se ha intentado seguir a un usuario que ya exisitía")
         }else{
-            KuorumUser.collection.update([_id:follower.id],['$addToSet':[following:following.id]])
-            KuorumUser.collection.update([_id:following.id],['$addToSet':[followers:follower.id]])
-            follower.refresh()
-            following.refresh()
-            following.numFollowers = following.followers.size()
-            following.save(flush: true)
-            addFollowerAsContact(follower, following)
+            Map<String, String> params = [userId: following.id.toString()]
+            Map<String, String> query = [follower: follower.id.toString()]
+            restKuorumApiService.put(
+                    RestKuorumApiService.ApiMethod.USER_FOLLOWER,
+                    params,
+                    query,
+                    null,
+                    null
+            )
         }
-    }
-
-    private addFollowerAsContact(KuorumUser follower, KuorumUser following){
-        Map<String, String> params = [userId: following.id.toString()]
-        Map<String, String> query = [followerId: follower.id.toString()]
-        restKuorumApiService.put(
-                RestKuorumApiService.ApiMethod.USER_CONTACT_FOLLOWER,
-                params,
-                query,
-                null,
-                null
-        )
     }
 
     private void updateKuorumUserOnRest(KuorumUser user){
         Map<String, String> params = [userId: user.id.toString()]
         Map<String, String> query = [:]
-        UserDataRDTO userDataRDTO = new UserDataRDTO();
-        userDataRDTO.setEmail(user.getEmail());
-        userDataRDTO.setName(user.getName());
+        UserDataRDTO userDataRDTO = new UserDataRDTO()
+        userDataRDTO.setEmail(user.getEmail())
+        userDataRDTO.setName(user.getName())
         restKuorumApiService.put(
                 RestKuorumApiService.ApiMethod.USER_DATA,
                 params,
@@ -100,98 +86,40 @@ class KuorumUserService {
         if (!follower.following.contains(following.id)){
             log.warn("Se ha intentado eliminar un follower que no existia")
         }else{
-            KuorumUser.collection.update([_id:follower.id],['$pull':[following:following.id]])
-            KuorumUser.collection.update([_id:following.id],['$pull':[followers:follower.id]])
-            follower.refresh()
-            following.refresh()
-            following.numFollowers = following.followers.size()
-            following.save(flush: true)
-            deleteFollowerAsContact(follower, following)
+            Map<String, String> params = [userId: following.id.toString()]
+            Map<String, String> query = [follower: follower.id.toString()]
+            restKuorumApiService.delete(
+                    RestKuorumApiService.ApiMethod.USER_FOLLOWER,
+                    params,
+                    query,
+                    null
+            )
         }
     }
 
-    private deleteFollowerAsContact(KuorumUser follower, KuorumUser following){
-        Map<String, String> params = [userId: following.id.toString()]
-        Map<String, String> query = [followerId: follower.id.toString()]
-        restKuorumApiService.delete(
-                RestKuorumApiService.ApiMethod.USER_CONTACT_FOLLOWER,
+    List<BasicDataKuorumUserRSDTO> findFollowers(KuorumUser user, Pagination pagination){
+
+        Map<String, String> params = [userId: user.id.toString()]
+        Map<String, String> query = [page:Math.round(pagination.offset/pagination.max)]
+        def apiResponse= restKuorumApiService.get(
+                RestKuorumApiService.ApiMethod.USER_FOLLOWER,
                 params,
-                query
+                query,
+                new TypeReference<List<BasicDataKuorumUserRSDTO>>(){}
         )
+        return apiResponse.data
     }
 
-    List<KuorumUser> findFollowers(KuorumUser user, Pagination pagination){
-        List<KuorumUser> followers =[]
-        def init = pagination.offset
-        def end = Math.min(pagination.max+pagination.offset, user.followers.size()-1)
-        if (init <= end){
-            (init .. end).each{
-                followers.add(KuorumUser.get(user.followers[(Integer)it]))
-            }
-        }
-        followers
-    }
-
-    List<KuorumUser> findFollowing(KuorumUser user, Pagination pagination){
-        List<KuorumUser> following =[]
-        def init = pagination.offset
-        def end = Math.min(pagination.max+pagination.offset, user.following.size()-1)
-        if (init <= end){
-            (init .. end).each{
-                following.add(KuorumUser.get(user.following[(Integer)it]))
-            }
-        }
-        following
-    }
-
-    /**
-     * Returns the recommended users by the giving user. The recommended user are stored in the collection
-     * RecommendedUserInfo as a list of user's ids. The final user recommended are the result of the list recommendedUsers
-     * minus deletedRecommendedUsers and minus the following users of the current user.
-     * @param user The user which obtain its recommended users
-     * @param pagination The pagination params
-     * @return
-     */
-    List<KuorumUser> recommendedUsers(KuorumUser user, Pagination pagination = new Pagination(), Boolean recalculateActivityIfEmpty = Boolean.TRUE){
-
-        if (!user){
-            return recommendedUsers(pagination)
-        }
-        List<KuorumUser> kuorumUsers = []
-        List<ObjectId> recommendedUsers
-        List<ObjectId> notValidUsers = user.following +[user.id]
-
-        RecommendedUserInfo recommendedUserInfo = RecommendedUserInfo.findByUser(user)
-        if(recommendedUserInfo){
-            notValidUsers = recommendedUserInfo.deletedRecommendedUsers + user.following +[user.id]
-            recommendedUsers = recommendedUserInfo.recommendedUsers - notValidUsers
-            Integer max = Math.min(recommendedUsers.size(),pagination.max)
-            if (max > 0){
-                kuorumUsers = recommendedUsers[pagination.offset..max-1].inject([]){ result, kuorumUser ->
-                    result << KuorumUser.get(kuorumUser)
-                    result
-                }
-            }
-        }
-
-        if (kuorumUsers.size()+1 < pagination.max){
-            Integer max = pagination.max - kuorumUsers.size()-1;
-            List<KuorumUser> mostActiveUsers = mostActiveUsersSince(new Date() -7 , new Pagination(max: max*2))
-            mostActiveUsers = mostActiveUsers - notValidUsers
-            max = Math.min(max, mostActiveUsers.size()-1)
-            if (mostActiveUsers) {
-                kuorumUsers += mostActiveUsers[0..max]
-            }
-            if (!kuorumUsers && recalculateActivityIfEmpty){
-                log.warn("No se han detectado sugerencias para el usuario ${user}")
-//                recommendedUsersByActivityAndUser(user);
-//                return recommendedUsers(user, pagination, false);
-                log.info("Se cojen los últimos usuarios que no sean ya seguidores de ${user}")
-                kuorumUsers = KuorumUser.findAllByIdNotInList(notValidUsers, [sort:"numFollowers",order: "desc", max:pagination.max])
-            }
-        }
-
-        kuorumUsers as ArrayList<KuorumUser>
+    List<BasicDataKuorumUserRSDTO> findFollowing(KuorumUser user, Pagination pagination){
+        Map<String, String> params = [userId: user.id.toString()]
+        Map<String, String> query = [page:Math.round(pagination.offset/pagination.max)]
+        def apiResponse= restKuorumApiService.get(
+                RestKuorumApiService.ApiMethod.USER_FOLLOWER_FOLLOWING,
+                params,
+                query,
+                new TypeReference<List<BasicDataKuorumUserRSDTO>>(){}
+        )
+        return apiResponse.data
     }
 
     /**
@@ -200,6 +128,7 @@ class KuorumUserService {
      * background.
      * @param token A valid access token for a user.
      */
+    @Deprecated
     void checkFacebookFriendsByUserToken(String token){
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         String loadUrl = "https://graph.facebook.com/me/friends?access_token=${URLEncoder.encode(token, 'UTF-8')}"
@@ -239,6 +168,7 @@ class KuorumUserService {
      * @param facebookFriends The collection of Faccebook friends of the user
      * @return
      */
+    @Deprecated
     List<ObjectId> recommendedUsersByFacebookFriends(KuorumUser user, List<FacebookUser> facebookUsers, facebookFriends, RecommendedUserInfo recommendedUserInfo){
         List<FacebookUser> faceBookUsersFriendsOfUser
         List<ObjectId> kuorumUsersFriendsOfUser = []
@@ -277,7 +207,7 @@ class KuorumUserService {
      */
     List<KuorumUser> recommendUsers(KuorumUser user, Pagination pagination = new Pagination()) {
 
-        KuorumUser loggedUser = springSecurityService.getCurrentUser();
+        KuorumUser loggedUser = springSecurityService.getCurrentUser()
         List<ObjectId> filterPoliticians = []
         if (loggedUser){
             filterPoliticians  = []
@@ -287,11 +217,11 @@ class KuorumUserService {
             if(recommendedUserInfo){
                 filterPoliticians.addAll(recommendedUserInfo.deletedRecommendedUsers)
             }else{
-                log.warn("User ${loggedUser.name} (${loggedUser.id}) has not calculated recommendedUserInfo")
+                log.info("User ${loggedUser.name} (${loggedUser.id}) has not calculated recommendedUserInfo")
             }
         }
 
-        bestUsers(user, filterPoliticians, pagination);
+        bestUsers(user, filterPoliticians, pagination)
     }
 
 
@@ -305,13 +235,6 @@ class KuorumUserService {
             return null
         else
             return KuorumUser.findByAliasAndDomain(userAlias.toLowerCase(), CustomDomainResolver.domain)
-    }
-
-    KuorumUser findByOldAlias(String oldUserAlias){
-        if (!oldUserAlias)
-            return null
-        else
-            return KuorumUser.findByOldAliasAndDomain(oldUserAlias.toLowerCase(),CustomDomainResolver.domain)
     }
 
     @PreAuthorize("hasPermission(#user, 'edit')")
@@ -332,7 +255,7 @@ class KuorumUserService {
             }
         }
         indexSolrService.deltaIndex()
-        updateKuorumUserOnRest(user);
+        updateKuorumUserOnRest(user)
 
 
         user
@@ -359,96 +282,20 @@ class KuorumUserService {
                 log.error("Erro updating user alias ${user.alias} -> ${newAlias}",e)
                 def res = KuorumUser.collection.update([_id:user.id],['$set':[alias:currentAlias]])
                 user.refresh()
-                return null;
+                return null
             }
         }
-        return user;
+        return user
     }
 
     KuorumUser updateEmail(KuorumUser user, String email){
-        user.email = email;
+        user.email = email
         user.save(flush:true)
-        updateKuorumUserOnRest(user);
-    }
-
-
-    KuorumUser createUser(KuorumUser user){
-
-        KuorumUser.withTransaction {
-            user.verified = user.verified?:false
-
-            if (!user.save()){
-                log.error("No se ha podido actualizar el usuario ${user.email}(${user.id})")
-                throw KuorumExceptionUtil.createExceptionFromValidatable(user, "No se ha podido actualizar el usuario ${user.email}(${user.id})")
-            }
-        }
-        indexSolrService.deltaIndex()
-        user
-    }
-
-    List<UserParticipating> listUserActivityPerProject(KuorumUser user){
-        def userActivity = Post.collection.aggregate(
-                [$match : ['$or':[[owner:user.id], [defender:user.id]]]],
-                [$group :[_id:'$project',quantity:[$sum:1]]]
-        )
-        List<UserParticipating> activity = []
-        userActivity.results().each{
-            UserParticipating userParticipating = new UserParticipating(project: Project.get(it._id), numTimes: it.quantity)
-            activity << userParticipating
-        }
-        activity
-    }
-
-    List<KuorumUser> mostActiveUsersSince(Date startDate, Pagination pagination = new Pagination()){
-        //MONGO QUERY
-        // aggregate([ {$match:{isFirstCluck:false}}, {$group:{_id:'$owner',total:{$sum:1}}}, {$match:{total:{$gt:0}}}, {$sort:{total:-1}}, {$limit:2} ])
-        Integer max = pagination.max
-        def postOwners = Cluck.collection.aggregate(
-                ['$match':[isFirstCluck:true, dateCreated:['$gt':startDate]] ],
-                ['$group':[_id:'$owner',total:['$sum':1]]],
-                ['$match':[total:['$gte':1]]],
-                ['$sort':[total:-1]],
-//                ['$skip':pagination.offset],
-                ['$limit':pagination.max]
-        )
-        List<KuorumUser> mostActiveUsers = postOwners.results().collect{
-            KuorumUser.load(it._id)
-        }
-        max = pagination.max - mostActiveUsers.size()
-        //Not enought posts this week
-        if (max > 0){
-            def postCluckers = Cluck.collection.aggregate(
-                    ['$match':[isFirstCluck:false,dateCreated:['$gt':startDate]]],
-                    ['$group':[_id:'$owner',total:['$sum':1]]],
-                    ['$match':[total:['$gte':1]]],
-                    ['$sort':[total:-1]],
-                    ['$limit':max]
-            )
-            postCluckers.results().each{
-                mostActiveUsers.add(KuorumUser.load(it._id))
-            }
-        }
-        max = pagination.max - mostActiveUsers.size()
-        //Not enought activity
-        if (max > 0){
-            log.info("No hay suficiente actividad, se usa la actividad general de cualquier usuario")
-            BasicDBObject alreadyUsers = new BasicDBObject('$nin', mostActiveUsers.collect{it.id});
-            def postCluckers = Cluck.collection.aggregate(
-                    ['$match':[owner:alreadyUsers]],
-                    ['$group':[_id:'$owner',total:['$sum':1]]],
-                    ['$match':[total:['$gte':1]]],
-                    ['$sort':[total:-1]],
-                    ['$limit':max]
-            )
-            postCluckers.results().each{
-                mostActiveUsers.add(KuorumUser.load(it._id))
-            }
-        }
-        mostActiveUsers
+        updateKuorumUserOnRest(user)
     }
 
     List<KuorumUser> bestUsers(KuorumUser user, List<ObjectId> userFiltered = [], Pagination pagination = new Pagination()){
-        SearchParams searchParams = new SearchParams(pagination.getProperties().findAll{k,v->k!="class"});
+        SearchParams searchParams = new SearchParams(pagination.getProperties().findAll{k,v->k!="class"})
         searchParams.max +=1
 //        List<Region> regions;
 //        String politicalParty = ""
@@ -471,7 +318,7 @@ class KuorumUserService {
         SearchResultsRSDTO results = searchSolrService.searchAPI(searchParams)
 
         List<KuorumUser> politicians = results.data.collect{ SearchKuorumElementRSDTO searchElement ->
-            KuorumUser politician = null;
+            KuorumUser politician = null
             if (searchElement.type != SearchTypeRSDTO.KUORUM_USER){
                 log.error("Error suggesting user. It is not an user. It is a ${searchElement.type}")
             }else{
@@ -480,7 +327,7 @@ class KuorumUserService {
                     log.warn("Error suggested user :: ${searchElement.name} | ${searchElement.id}" )
                 }else if (!politician.alias){
                     log.warn("Error suggested user [NO ALIAS]:: ${searchElement.name} | ${searchElement.id}" )
-                    politician = null;
+                    politician = null
                 }
             }
             politician
@@ -500,8 +347,8 @@ class KuorumUserService {
         user.email = email
         user.alias = fechaBaja + user.alias
         if (user.alias.size() > 15) user.alias = user.alias.substring(user.alias.size() - 15 , user.alias.size() - 1)
-        user.authorities.remove(RoleUser.findByAuthority("ROLE_USER"));
-        user.authorities.add(RoleUser.findByAuthority("ROLE_INCOMPLETE_USER"));
+        user.authorities.remove(RoleUser.findByAuthority("ROLE_USER"))
+        user.authorities.add(RoleUser.findByAuthority("ROLE_INCOMPLETE_USER"))
 
         if (!user.save(flush: true)) {
             //TODO: Gestion errores
@@ -554,7 +401,7 @@ class KuorumUserService {
             return springSecurityService.authentication.authorities.find{it.authority==UserRoleRSDTO.ROLE_USER_VALIDATED.toString()}
         }catch (Exception e){
             log.error("Exception validating user: [Excpt: ${e}]")
-            return false;
+            return false
         }
 
     }
@@ -569,10 +416,10 @@ class KuorumUserService {
     }
 
     String generateValidAlias(String name, Boolean validEmptyAlias = false){
-        String alias = name.replaceAll("[^a-zA-Z0-9]+","");
+        String alias = name.replaceAll("[^a-zA-Z0-9]+","")
         alias = alias.substring(0, Math.min(alias.length(), KuorumUser.ALIAS_MAX_SIZE)).toLowerCase()
         if (!alias && validEmptyAlias){
-            return "";
+            return ""
         }
         alias = alias?:new Double(Math.floor(Math.random()*Math.pow(10, KuorumUser.ALIAS_MAX_SIZE))).intValue()
         KuorumUser user = KuorumUser.findByAliasAndDomain(alias, CustomDomainResolver.domain)
@@ -581,6 +428,6 @@ class KuorumUserService {
             alias = "${alias}${new Double(Math.floor(Math.random()*100)).intValue()}"
             user = KuorumUser.findByAliasAndDomain(alias, CustomDomainResolver.domain)
         }
-        return alias;
+        return alias
     }
 }

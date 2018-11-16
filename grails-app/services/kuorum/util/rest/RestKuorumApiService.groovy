@@ -38,9 +38,9 @@ class RestKuorumApiService {
     }
 
     def delete(ApiMethod apiMethod, Map<String,String> params, Map<String,String> query, TypeReference typeToMap) throws KuorumException {
-        RESTClient mailKuorumServices = getRestMailKuorumServices(typeToMap);
+        RESTClient mailKuorumServices = getRestMailKuorumServices(typeToMap)
 
-        String path = apiMethod.buildUrl(apiPath,params);
+        String path = apiMethod.buildUrl(apiPath,params)
         def response = mailKuorumServices.delete(
                 path: path,
                 headers: ["User-Agent": "Kuorum Web", "token":CustomDomainResolver.apiToken],
@@ -51,10 +51,10 @@ class RestKuorumApiService {
     }
 
     def get(ApiMethod apiMethod, Map<String,String> params, Map<String,String> query, TypeReference typeToMap, String adminApiKey = null) throws KuorumException {
-        RESTClient mailKuorumServices = getRestMailKuorumServices(typeToMap);
+        RESTClient mailKuorumServices = getRestMailKuorumServices(typeToMap)
 
         String apiKey = adminApiKey?:CustomDomainResolver.apiToken
-        String path = apiMethod.buildUrl(apiPath,params);
+        String path = apiMethod.buildUrl(apiPath,params)
         def response = mailKuorumServices.get(
                 path: path,
                 headers: ["User-Agent": "Kuorum Web", "token":apiKey],
@@ -66,7 +66,7 @@ class RestKuorumApiService {
 
     def patch(ApiMethod apiMethod, Map<String,String> params, Map<String,String> query, TypeReference typeToMap) throws KuorumException{
         RESTClient mailKuorumServices = new RESTClient( kuorumRestServices)
-        String path = apiMethod.buildUrl(apiPath,params);
+        String path = apiMethod.buildUrl(apiPath,params)
         def response = mailKuorumServices.patch(
                 path: path,
                 headers: ["User-Agent": "Kuorum Web", "token":CustomDomainResolver.apiToken],
@@ -77,9 +77,9 @@ class RestKuorumApiService {
     }
 
     def put(ApiMethod apiMethod, Map<String,String> params, Map<String,String> query, def body,TypeReference typeToMap, String adminApiKey = null) throws KuorumException {
-        RESTClient mailKuorumServices = getRestMailKuorumServices(typeToMap);
+        RESTClient mailKuorumServices = getRestMailKuorumServices(typeToMap)
         String apiKey = adminApiKey?:CustomDomainResolver.apiToken
-        String path = apiMethod.buildUrl(apiPath,params);
+        String path = apiMethod.buildUrl(apiPath,params)
         def response = mailKuorumServices.put(
                 path: path,
                 headers: ["User-Agent": "Kuorum Web", "token":apiKey],
@@ -92,10 +92,10 @@ class RestKuorumApiService {
 
     def post(ApiMethod apiMethod, Map<String,String> params, Map<String,String> query, def body,TypeReference typeToMap) throws KuorumException{
 
-        RESTClient mailKuorumServices = getRestMailKuorumServices(typeToMap);
+        RESTClient mailKuorumServices = getRestMailKuorumServices(typeToMap)
 
 //        encoderRegistry
-        String path = apiMethod.buildUrl(apiPath,params);
+        String path = apiMethod.buildUrl(apiPath,params)
 
         def response = mailKuorumServices.post(
                 path: path,
@@ -110,7 +110,7 @@ class RestKuorumApiService {
 
     private RESTClient getRestMailKuorumServices(TypeReference clazz){
         RESTClient mailKuorumServices = new RESTClient( kuorumRestServices)
-        EncoderRegistry encoderRegistry = mailKuorumServices.getEncoder();
+        EncoderRegistry encoderRegistry = mailKuorumServices.getEncoder()
         encoderRegistry.putAt(groovyx.net.http.ContentType.JSON, {it ->
 //            def builder = new groovy.json.JsonBuilder(); // Not use JacksonAnnotations
 //            builder.content = it
@@ -120,9 +120,9 @@ class RestKuorumApiService {
 //            String rawJson = builder.valueToTree(it).toString()
             String rawJson = builder.writeValueAsString(it)
 
-            InputStreamEntity res = new InputStreamEntity(new ByteArrayInputStream(rawJson.getBytes(StandardCharsets.UTF_8)));
+            InputStreamEntity res = new InputStreamEntity(new ByteArrayInputStream(rawJson.getBytes(StandardCharsets.UTF_8)))
             res.setContentType(groovyx.net.http.ContentType.JSON.toString())
-            return res;
+            return res
         })
 
         ParserRegistry parserRegistry = mailKuorumServices.getParser()
@@ -130,19 +130,19 @@ class RestKuorumApiService {
             def obj = null
             if (resp.status ==200){
                 if(clazz != null){
-                    String jsonString = IOUtils.toString(resp.getEntity().getContent(), "UTF-8");
+                    String jsonString = IOUtils.toString(resp.getEntity().getContent(), "UTF-8")
                     ObjectMapper objectMapper = new ObjectMapper()
                     objectMapper.setTimeZone(TimeZone.getTimeZone("UTC"))
-                    objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-                    obj = objectMapper.readValue(jsonString, clazz);
+                    objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+                    obj = objectMapper.readValue(jsonString, clazz)
                 }
                 return obj
             }else{
-                String jsonString = IOUtils.toString(resp.getEntity().getContent(), "UTF-8");
+                String jsonString = IOUtils.toString(resp.getEntity().getContent(), "UTF-8")
                 ObjectMapper objectMapper = new ObjectMapper()
                 objectMapper.setTimeZone(TimeZone.getTimeZone("UTC"))
-                objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-                RestServiceError serviceError = objectMapper.readValue(jsonString, RestServiceError.class);
+                objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+                RestServiceError serviceError = objectMapper.readValue(jsonString, RestServiceError.class)
                 throw new KuorumException(serviceError.message, "error.api.${serviceError.code}", new ArrayList(serviceError.errorData?.values()?:[]))
             }
         })
@@ -154,7 +154,7 @@ class RestKuorumApiService {
 
     }
 
-    public enum ApiMethod{
+    enum ApiMethod{
         USER_STATS_REPUTATION               ('/user/{userId}/stats/reputation'),
         USER_STATS_REPUTATION_EVOLUTION     ('/user/{userId}/stats/reputation/evolution'),
 
@@ -174,10 +174,12 @@ class RestKuorumApiService {
         USER_CONTACT_TAGS       ('/contacts/{userId}/tags'),
         USER_CONTACT_FILTERS    ('/contacts/{userId}/filters'),
         USER_CONTACT_FILTER     ("/contacts/{userId}/filters/{filterId}"),
-        USER_CONTACT_FOLLOWER   ("/contacts/{userId}/follower"),
         USER_CONTACT_SUBSCRIBE  ("/contacts/{userId}/suscribe"),
         USER_CONTACT_REPORT     ("/contacts/{userId}/report"),
         USER_CONTACT_SOCIAL_IMPORT("/contacts/social/{provider}/request"),
+
+        USER_FOLLOWER           ("/user/{userId}/follower/"),
+        USER_FOLLOWER_FOLLOWING ("/user/{userId}/follower/following"),
 
         CAUSE_OPERATIONS        ("/cause/{causeName}"),
         CAUSE_USERS_SUPPORTING  ("/cause/{causeName}/supporting"),
@@ -274,11 +276,12 @@ class RestKuorumApiService {
         SEARCH_SUGGEST_CAUSES   ("/search/suggest/causes"),
 
         ADMIN_MAILS_SEND("/admin/notification/mailing/send"),
-        ADMIN_USER_CONFIG_SENDER("/admin/{userId}/config/mailing");
+        ADMIN_USER_CONFIG_SENDER("/admin/{userId}/config/mailing")
 
-        String url;
+        String url
+
         ApiMethod(String url){
-            this.url = url;
+            this.url = url
         }
 
         String buildUrl(String contextPath, Map<String,String> params){

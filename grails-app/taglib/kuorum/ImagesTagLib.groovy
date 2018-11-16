@@ -1,8 +1,10 @@
 package kuorum
 
 import kuorum.core.customDomain.CustomDomainResolver
+import kuorum.register.KuorumUserSession
 import kuorum.users.KuorumUser
 import org.kuorum.rest.model.contact.ContactRSDTO
+import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 import org.kuorum.rest.model.search.kuorumElement.SearchKuorumUserRSDTO
 
 class ImagesTagLib {
@@ -13,10 +15,14 @@ class ImagesTagLib {
     static namespace = "image"
 
     def userImgSrc={attrs ->
-        String imageUrl = "";
-        if (!attrs.user){
+        String imageUrl = ""
+        if (!attrs.user && springSecurityService.isLoggedIn()){
             // USING LOGGED USER
             imageUrl = springSecurityService.principal.avatarUrl
+        }else if (attrs.user instanceof KuorumUserSession) {
+            imageUrl = attrs.user.avatarUrl
+        }else if (attrs.user instanceof BasicDataKuorumUserRSDTO) {
+            imageUrl = attrs.user.avatarUrl
         }else if (attrs.user instanceof KuorumUser) {
             imageUrl = attrs.user.avatar?.url
         }else if(attrs.user instanceof SearchKuorumUserRSDTO){
@@ -33,7 +39,7 @@ class ImagesTagLib {
         }
     }
     def userImgProfile={attrs ->
-        String imageURL ="";
+        String imageURL =""
         if (attrs.user instanceof SearchKuorumUserRSDTO){
             imageURL = attrs.user.urlImageProfile
         }else{
@@ -80,7 +86,7 @@ out << """
     }
 
     def imageYoutubeSrc = {attrs ->
-        Boolean maxResolution = attrs.maxResolution?Boolean.parseBoolean(attrs.maxResolution):false;
+        Boolean maxResolution = attrs.maxResolution?Boolean.parseBoolean(attrs.maxResolution):false
         String youtubeFileName = ""
         if (attrs.youtube instanceof String){
             youtubeFileName = attrs.youtube.decodeYoutubeName()
@@ -97,8 +103,7 @@ out << """
 
     def loggedUserImgSrc={attrs ->
         if (springSecurityService.isLoggedIn()){
-            KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-            out << userImgSrc(user:user)
+            out << userImgSrc()
         }else{
             out << getDefaultAvatar()
         }
@@ -106,7 +111,7 @@ out << """
 
     def showUserImage={attrs ->
         out << "<img src='"
-        KuorumUser user = null;
+        KuorumUser user = null
         String userName = "Tu nombre"
         if (springSecurityService.isLoggedIn()){
             user = KuorumUser.get(springSecurityService.principal.id)
