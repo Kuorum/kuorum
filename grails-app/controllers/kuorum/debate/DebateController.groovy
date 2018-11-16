@@ -4,7 +4,6 @@ import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.politician.CampaignController
 import kuorum.register.KuorumUserSession
-import kuorum.users.KuorumUser
 import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.commands.payment.CampaignSettingsCommand
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
@@ -27,7 +26,7 @@ class DebateController extends CampaignController{
 
     @Secured(['ROLE_CAMPAIGN_DEBATE','ROLE_CAMPAIGN_EVENT'])
     def editContentStep(){
-        Long campaignId = Long.parseLong((String) params.campaignId);
+        Long campaignId = Long.parseLong((String) params.campaignId)
         DebateRSDTO debateRSDTO = setCampaignAsDraft(campaignId, debateService)
         return campaignModelContent(campaignId, debateRSDTO, null, debateService)
     }
@@ -63,7 +62,7 @@ class DebateController extends CampaignController{
 
     @Secured(['ROLE_CAMPAIGN_DEBATE','ROLE_CAMPAIGN_EVENT'])
     def remove(Long campaignId) {
-        removeCampaign(campaignId, debateService);
+        removeCampaign(campaignId, debateService)
         render ([msg: "Debate deleted"] as JSON)
     }
 
@@ -76,7 +75,7 @@ class DebateController extends CampaignController{
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def sendReport(Long campaignId){
-        KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUserSession loggedUser = springSecurityService.principal
         debateService.sendReport(loggedUser, campaignId)
         Boolean isAjax = request.xhr
         if(isAjax){

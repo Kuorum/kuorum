@@ -14,6 +14,7 @@ import kuorum.core.model.search.Pagination
 import kuorum.core.model.search.SearchParams
 import kuorum.core.model.solr.SolrType
 import kuorum.mail.KuorumMailAccountService
+import kuorum.register.KuorumUserSession
 import kuorum.solr.SearchSolrService
 import kuorum.util.rest.RestKuorumApiService
 import org.bson.types.ObjectId
@@ -381,7 +382,7 @@ class KuorumUserService {
 
     }
 
-    boolean userDomainValidation(KuorumUser user, String ndi, String postalCode, Date birthDate){
+    boolean userDomainValidation(KuorumUserSession user, String ndi, String postalCode, Date birthDate){
 // CALLING API TO REMOVE CONTACT
         Map<String, String> params = [userId: user.getId().toString()]
         Map<String, String> query = [:]

@@ -3,7 +3,6 @@ package kuorum
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.core.model.search.SearchNotifications
 import kuorum.register.KuorumUserSession
-import kuorum.users.KuorumUser
 import org.kuorum.rest.model.notification.NotificationPageRSDTO
 
 class NotificationController {
@@ -20,7 +19,7 @@ class NotificationController {
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def notificationChecked(){
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUserSession user = springSecurityService.principal
         notificationService.markUserNotificationsAsChecked(user)
         render "Ok"
     }

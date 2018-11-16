@@ -53,12 +53,12 @@ class DebateService implements CampaignCreatorService<DebateRSDTO, DebateRDTO> {
     }
 
     DebateRSDTO find(KuorumUserSession user, Long debateId, String viewerUid = null) {
-        find(user.getId().toString(), debateId, viewerUid);
+        find(user.getId().toString(), debateId, viewerUid)
     }
 //    @Cacheable(value="debate", key='#campaignId')
     DebateRSDTO find(String userId, Long debateId, String viewerUid = null) {
         if (!debateId){
-            return null;
+            return null
         }
         Map<String, String> params = [userId: userId, debateId: debateId.toString()]
         Map<String, String> query = [:]
@@ -77,10 +77,10 @@ class DebateService implements CampaignCreatorService<DebateRSDTO, DebateRDTO> {
             if (response.data) {
                 debateFound = (DebateRSDTO) response.data
             }
-            return debateFound;
+            return debateFound
         }catch (KuorumException e){
             log.info("Error recovering debate $debateId : ${e.message}")
-            return null;
+            return null
         }
     }
 
@@ -94,8 +94,8 @@ class DebateService implements CampaignCreatorService<DebateRSDTO, DebateRDTO> {
         } else {
             debate = createDebate(user, debateRDTO)
         }
-        indexSolrService.deltaIndex();
-        return debate;
+        indexSolrService.deltaIndex()
+        return debate
     }
 
     private DebateRSDTO createDebate(KuorumUserSession user, DebateRDTO debateRDTO) {
@@ -148,7 +148,7 @@ class DebateService implements CampaignCreatorService<DebateRSDTO, DebateRDTO> {
         debateId
     }
 
-    void sendReport(KuorumUser user, Long debateId) {
+    void sendReport(KuorumUserSession user, Long debateId) {
         Map<String, String> params = [userId: user.id.toString(), debateId: debateId.toString()]
         Map<String, String> query = [:]
         def response = restKuorumApiService.get(
@@ -184,7 +184,7 @@ class DebateService implements CampaignCreatorService<DebateRSDTO, DebateRDTO> {
                 .unique()
                 .sort{ ku1, ku2 -> ku1.avatar != null?-1:ku2.avatar!=null?1:0 }
 
-        def model = [debate: debate, debateUser: debateUser, proposalPage:proposalPage, pinnedUsers:pinnedUsers];
+        def model = [debate: debate, debateUser: debateUser, proposalPage:proposalPage, pinnedUsers:pinnedUsers]
 
         if (params.printAsWidget){
             return [view: '/debate/widgetDebate', model: model]

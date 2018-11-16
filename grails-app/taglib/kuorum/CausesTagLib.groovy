@@ -1,5 +1,6 @@
 package kuorum
 
+import kuorum.register.KuorumUserSession
 import kuorum.users.KuorumUser
 import org.kuorum.rest.model.tag.CauseRSDTO
 import org.kuorum.rest.model.tag.SupportedCauseRSDTO
@@ -19,7 +20,7 @@ class CausesTagLib {
         String causeSupportClass = ""
         String ariaPressed = "false"
         if (springSecurityService.isLoggedIn()){
-            KuorumUser userLogged = KuorumUser.get(springSecurityService.principal.id)
+            KuorumUserSession userLogged = springSecurityService.principal
             SupportedCauseRSDTO supportedCauseRSDTO = causesService.statusCause(userLogged, cause.name)
             if (supportedCauseRSDTO.supported){
                 causeSupportClass = "active"

@@ -152,7 +152,7 @@ class DashboardController {
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def dashboardCampaigns(Pagination pagination){
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUserSession user = springSecurityService.principal
         String viewerUid = cookieUUIDService.buildUserUUID()
         Integer page = pagination.offset/pagination.max
         SearchResultsRSDTO searchResutlsRSDTO = dashboardService.findAllContactsCampaigns(user, viewerUid, page)
@@ -161,11 +161,4 @@ class DashboardController {
         render template: "/campaigns/cards/campaignsList", model:[campaigns:campaigns, showAuthor: true]
     }
 
-    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
-    def dashboardPoliticians(Pagination pagination){
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        List<KuorumUser> suggesterPoliticians=  kuorumUserService.recommendUsers(user, pagination)
-        response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${suggesterPoliticians.size() < pagination.max}")
-        render template: "/dashboard/listDashboardUserRecommendations", model:[politicians:suggesterPoliticians]
-    }
 }

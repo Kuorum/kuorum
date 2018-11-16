@@ -5,6 +5,7 @@ import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.model.UserType
 import kuorum.dashboard.DashboardService
 import kuorum.notifications.NotificationService
+import kuorum.register.KuorumUserSession
 import kuorum.register.RegisterService
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
@@ -18,7 +19,7 @@ import payment.contact.PromotionalCodeService
 class CustomRegisterController {
 
     def springSecurityService
-    KuorumUserService kuorumUserService;
+    KuorumUserService kuorumUserService
     DashboardService dashboardService
     NotificationService notificationService
     LocaleResolver localeResolver
@@ -40,7 +41,7 @@ class CustomRegisterController {
         KuorumUser user =  KuorumUser.get(springSecurityService.principal.id)
         if (command.hasErrors()){
             render view: "step2", model:[command:command]
-            return;
+            return
         }
         kuorumUserService.updateAlias(user, command.alias)
 
@@ -68,7 +69,7 @@ class CustomRegisterController {
         if (command.hasErrors()){
             render view: "stepDomainValidation", model:[command:command]
         }
-        KuorumUser user =  KuorumUser.get(springSecurityService.principal.id)
+        KuorumUserSession user =  springSecurityService.principal
         Boolean isValid = kuorumUserService.userDomainValidation(user, command.ndi, command.postalCode, command.birthDate)
         if (isValid){
             redirect mapping:"customProcessRegisterStep3"

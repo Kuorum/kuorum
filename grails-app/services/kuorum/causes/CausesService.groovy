@@ -2,6 +2,7 @@ package kuorum.causes
 
 import com.fasterxml.jackson.core.type.TypeReference
 import kuorum.core.model.search.Pagination
+import kuorum.register.KuorumUserSession
 import kuorum.solr.IndexSolrService
 import kuorum.users.KuorumUser
 import kuorum.util.rest.RestKuorumApiService
@@ -13,9 +14,9 @@ import org.kuorum.rest.model.tag.UsersSupportingCauseRSDTO
 class CausesService {
 
 
-    RestKuorumApiService restKuorumApiService;
+    RestKuorumApiService restKuorumApiService
 
-    IndexSolrService indexSolrService;
+    IndexSolrService indexSolrService
 
     List<CauseRSDTO> findDefendedCauses(KuorumUser user) {
         def response = restKuorumApiService.get(
@@ -23,24 +24,31 @@ class CausesService {
                 [userId:user.id.toString()],
                 [:],
                 new TypeReference<List<CauseRSDTO>>(){})
-        List<CauseRSDTO> account = [];
+        List<CauseRSDTO> account = []
         if (response.data){
             account = (List<CauseRSDTO>)response.data
         }
-        return account;
+        return account
     }
 
+    @Deprecated
     List<CauseRSDTO> findSupportedCauses(KuorumUser user) {
+        findSupportedCauses(user.id.toString())
+    }
+    List<CauseRSDTO> findSupportedCauses(KuorumUserSession user) {
+        findSupportedCauses(user.id.toString())
+    }
+    List<CauseRSDTO> findSupportedCauses(String userId) {
         def response = restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.USER_CAUSES_SUPPORTED,
-                [userId:user.id.toString()],
+                [userId:userId ],
                 [:],
                 new TypeReference<List<CauseRSDTO>>(){})
-        List<CauseRSDTO> account = [];
+        List<CauseRSDTO> account = []
         if (response.data){
             account = (List<CauseRSDTO>)response.data
         }
-        return account;
+        return account
     }
 
     CauseRSDTO createCause(String causeName){
@@ -50,37 +58,37 @@ class CausesService {
                 [:],
                 null,
                 new TypeReference<CauseRSDTO>(){})
-        CauseRSDTO cause = null;
+        CauseRSDTO cause = null
         if (response.data){
             cause = response.data
         }
-        return cause;
+        return cause
     }
 
-    SupportedCauseRSDTO supportCause(KuorumUser user, String causeName){
+    SupportedCauseRSDTO supportCause(KuorumUserSession user, String causeName){
         def response = restKuorumApiService.put(
                 RestKuorumApiService.ApiMethod.USER_CAUSES_SUPPORT,
                 [userId:user.id.toString(), causeName:causeName],
                 [:],
                 null,
                 new TypeReference<SupportedCauseRSDTO>(){})
-        SupportedCauseRSDTO cause = null;
+        SupportedCauseRSDTO cause = null
         if (response.data){
             cause = response.data
         }
-        return cause;
+        return cause
     }
 
-    SupportedCauseRSDTO unsupportCause(KuorumUser user, String causeName){
+    SupportedCauseRSDTO unsupportCause(KuorumUserSession user, String causeName){
         def response = restKuorumApiService.delete(
                 RestKuorumApiService.ApiMethod.USER_CAUSES_SUPPORT,
                 [userId:user.id.toString(), causeName:causeName],
                 [:])
-        SupportedCauseRSDTO cause = null;
+        SupportedCauseRSDTO cause = null
         if (response.data){
             cause = new SupportedCauseRSDTO(response.data)
         }
-        return cause;
+        return cause
     }
 
     @Deprecated
@@ -91,11 +99,11 @@ class CausesService {
                 [:],
                 null,
                 new TypeReference<SupportedCauseRSDTO>(){})
-        SupportedCauseRSDTO cause = null;
+        SupportedCauseRSDTO cause = null
         if (response.data){
             cause = response.data
         }
-        return cause;
+        return cause
     }
 
     @Deprecated
@@ -104,24 +112,24 @@ class CausesService {
                 RestKuorumApiService.ApiMethod.USER_CAUSES_DEFEND,
                 [userId:user.id.toString(), causeName:causeName],
                 [:])
-        SupportedCauseRSDTO cause = null;
+        SupportedCauseRSDTO cause = null
         if (response.data){
             cause = new SupportedCauseRSDTO(response.data)
         }
-        return cause;
+        return cause
     }
 
-    SupportedCauseRSDTO statusCause(KuorumUser user, String causeName){
+    SupportedCauseRSDTO statusCause(KuorumUserSession user, String causeName){
         def response = restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.USER_CAUSES_SUPPORT,
                 [userId:user.id.toString(), causeName:causeName],
                 [:],
                 new TypeReference<SupportedCauseRSDTO>(){})
-        SupportedCauseRSDTO cause = null;
+        SupportedCauseRSDTO cause = null
         if (response.data){
             cause = response.data
         }
-        return cause;
+        return cause
     }
 
 
@@ -131,11 +139,11 @@ class CausesService {
                 [:],
                 [userId:user.id.toString(),page:Math.round(pagination.offset/pagination.max), size:pagination.max],
                 new TypeReference<SuggestedCausesRSDTO>(){})
-        SuggestedCausesRSDTO suggestions = null;
+        SuggestedCausesRSDTO suggestions = null
         if (response.data){
             suggestions = response.data
         }
-        return suggestions;
+        return suggestions
     }
 
     void discardSuggestedCause(KuorumUser user, String causeName){
@@ -145,7 +153,7 @@ class CausesService {
                 [userId:user.id.toString(), causeName:causeName])
     }
 
-    SupportedCauseRSDTO toggleSupportCause(KuorumUser user, String causeName){
+    SupportedCauseRSDTO toggleSupportCause(KuorumUserSession user, String causeName){
         SupportedCauseRSDTO cause = statusCause(user, causeName)
         if (cause.supported){
             cause = unsupportCause(user,causeName)
@@ -161,10 +169,10 @@ class CausesService {
                 [causeName:causeName],
                 [page:page.offset/page.max, size: page.max],
                 new TypeReference<UsersSupportingCauseRSDTO>(){})
-        UsersSupportingCauseRSDTO supportingCauseRSDTO = null;
+        UsersSupportingCauseRSDTO supportingCauseRSDTO = null
         if (response.data){
             supportingCauseRSDTO = response.data
         }
-        return supportingCauseRSDTO;
+        return supportingCauseRSDTO
     }
 }

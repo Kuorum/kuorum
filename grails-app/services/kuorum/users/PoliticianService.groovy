@@ -6,6 +6,7 @@ import kuorum.causes.CausesService
 import kuorum.files.FileService
 import kuorum.mail.KuorumMailService
 import kuorum.notifications.NotificationService
+import kuorum.register.KuorumUserSession
 import kuorum.solr.IndexSolrService
 import kuorum.users.extendedPoliticianData.PoliticianRelevantEvent
 import org.codehaus.groovy.grails.web.mapping.LinkGenerator
@@ -14,7 +15,7 @@ import org.kuorum.rest.model.tag.CauseRSDTO
 @Transactional
 class PoliticianService {
 
-    FileService fileService;
+    FileService fileService
     KuorumMailService kuorumMailService
     LinkGenerator grailsLinkGenerator
     IndexSolrService indexSolrService
@@ -23,19 +24,19 @@ class PoliticianService {
     RegionService regionService
     KuorumUserService kuorumUserService
 
-    KuorumUser updatePoliticianRelevantEvents(KuorumUser politician, List<PoliticianRelevantEvent> relevantEvents){
+    KuorumUser updateNews(KuorumUser politician, List<PoliticianRelevantEvent> relevantEvents){
         politician.relevantEvents = relevantEvents.findAll{it && it.validate()}
         kuorumUserService.updateUser(politician)
     }
 
-    KuorumUser updatePoliticianCauses(KuorumUser politician, List<String> causes, Boolean audit=true){
+    KuorumUser updateUserCauses(KuorumUserSession loggedUser, List<String> causes){
 
-        List<CauseRSDTO> oldCauses = causesService.findSupportedCauses(politician);
+        List<CauseRSDTO> oldCauses = causesService.findSupportedCauses(loggedUser)
         oldCauses.each {cause ->
-            causesService.unsupportCause(politician, cause.name)
+            causesService.unsupportCause(loggedUser, cause.name)
         }
         causes.findAll({it?.trim()}).collect({it.decodeHashtag()}).each {cause ->
-            causesService.supportCause(politician, cause)
+            causesService.supportCause(loggedUser, cause)
         }
         indexSolrService.deltaIndex()
     }

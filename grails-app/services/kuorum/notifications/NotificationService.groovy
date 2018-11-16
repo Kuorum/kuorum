@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference
 import grails.transaction.Transactional
 import kuorum.core.model.search.SearchNotifications
 import kuorum.post.Post
+import kuorum.register.KuorumUserSession
 import kuorum.users.KuorumUser
 import kuorum.util.rest.RestKuorumApiService
 import org.codehaus.groovy.grails.web.mapping.LinkGenerator
@@ -17,7 +18,7 @@ class NotificationService {
 
     LinkGenerator grailsLinkGenerator
 
-    RestKuorumApiService restKuorumApiService;
+    RestKuorumApiService restKuorumApiService
 
     /**
      * Returns all notifications
@@ -46,7 +47,7 @@ class NotificationService {
      * Marks all the notifications as checked by the user
      * @param user
      */
-    void markUserNotificationsAsChecked(KuorumUser user){
+    void markUserNotificationsAsChecked(KuorumUserSession user){
         Map<String, String> params = [userId: user.id.toString()]
         def response = restKuorumApiService.delete(
                 RestKuorumApiService.ApiMethod.ACCOUNT_NOTIFICATIONS,
@@ -62,7 +63,7 @@ class NotificationService {
         notificationPage
     }
 
-    public void sendPoliticianContactNotification(KuorumUser politician, KuorumUser user, String message, String cause){
+    void sendPoliticianContactNotification(KuorumUser politician, KuorumUser user, String message, String cause){
         kuorumMailService.sendPoliticianContact(politician, user, message, cause)
         //kuorumMailService.sendPoliticianContactKuorumNotification(politician, user, message, cause) // MandrillApp API problems
     }

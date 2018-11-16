@@ -83,6 +83,11 @@ class CampaignService {
     }
 
 //    @Cacheable(value="debate", key='#campaignId')
+    CampaignRSDTO find(KuorumUserSession user, Long campaignId, String viewerUid = null) {
+        find(user.getId().toString(), campaignId, viewerUid)
+    }
+
+    @Deprecated
     CampaignRSDTO find(KuorumUser user, Long campaignId, String viewerUid = null) {
         find(user.getId().toString(), campaignId, viewerUid)
     }

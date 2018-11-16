@@ -101,6 +101,10 @@ class KuorumUserSession extends GrailsUser{
     TimeZone timeZone
     String avatarUrl
 
+    String getEmail(){
+        username
+    }
+
     KuorumUserSession(String alias, String username, String password, boolean enabled, boolean accountNonExpired,
                       boolean credentialsNonExpired, boolean accountNonLocked,
                       Collection<GrantedAuthority> authorities, Object id, String name, String regionName, TimeZone timeZone, String avatarUrl) {

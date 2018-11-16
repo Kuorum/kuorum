@@ -3,6 +3,7 @@ package kuorum
 import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.model.UserType
 import kuorum.post.Post
+import kuorum.register.KuorumUserSession
 import kuorum.register.RegisterService
 import kuorum.users.KuorumUser
 import org.bson.types.ObjectId
@@ -21,28 +22,19 @@ class KuorumUserTagLib {
     def springSecurityService
     def userReputationService
     RegisterService registerService
-    RegionService regionService;
+    RegionService regionService
 
     private Integer NUM_MAX_ON_USER_LIST = 100
 
     def loggedUserName = {attrs ->
         if (springSecurityService.isLoggedIn()){
-            out << KuorumUser.get(springSecurityService.principal.id).name
+            out << springSecurityService.principal.name
         }
     }
 
     def loggedUserId = { attrs ->
         if (springSecurityService.isLoggedIn()){
             out << springSecurityService.principal.id.toString()
-        }
-    }
-
-    def showLoggedUser={attrs ->
-        attrs.showRole
-        attrs.showName
-        if (springSecurityService.isLoggedIn()){
-            KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-            out << showUser(user:user, showRole: attrs.showRole, showName:attrs.showName)
         }
     }
 
@@ -53,7 +45,7 @@ class KuorumUserTagLib {
         String name = ""
         if (attrs.user instanceof BasicDataKuorumUserRSDTO){
             user = KuorumUser.get(new ObjectId(attrs.user.id))
-            name = user.fullName
+            name = attrs.user.fullName
         }else if (attrs.user instanceof SearchKuorumElementRSDTO){
             // ALIAS
             user = KuorumUser.findByAliasAndDomain(attrs.user.alias, CustomDomainResolver.domain)
@@ -92,7 +84,7 @@ class KuorumUserTagLib {
         if (!withPopover){
             popOverSpanElements = ""
         }
-        String targetBlank = "_self";
+        String targetBlank = "_self"
         if (pageScope.widgetActive){
             targetBlank = "_blank"
         }
@@ -130,15 +122,6 @@ class KuorumUserTagLib {
         out << "</${htmlWrapper}>" //END DIV
     }
 
-    def showDebateUsers={attrs->
-        Post post = attrs.post
-        Integer visibleUsers=Integer.parseInt(attrs.visibleUsers.toString())?:1
-        List<KuorumUser> debateUsers = post.debates.kuorumUser.unique().minus(post.owner)
-        if (debateUsers){
-            out << showListUsers(users:debateUsers, visibleUsers:visibleUsers, messagesPrefix: "cluck.debateUsers")
-        }
-    }
-
     def showListUsers={attrs->
         List<KuorumUser> users = attrs.users.unique()
         String cssClass = attrs.cssClass?:'user-list-images'
@@ -164,50 +147,6 @@ class KuorumUserTagLib {
                     messages:messages
             ])
         }
-    }
-
-    def listFollowers={attrs ->
-        KuorumUser user = attrs.user
-        if (!user && springSecurityService.isLoggedIn()){
-            user = KuorumUser.get(springSecurityService.principal.id)
-        }
-        if (!user){
-            throw Exception("Si no est� logado el usuario es necesario indicar el usuario")
-        }
-        List<ObjectId> userIdsLimited = user.followers.size()>NUM_MAX_ON_USER_LIST? user.followers.take(NUM_MAX_ON_USER_LIST):user.followers
-        List<KuorumUser> users = userIdsLimited.collect{id -> KuorumUser.load(id)}
-        out << showListUsers(users:users, visibleUsers:"13", messagesPrefix: 'kuorumUser.show.follower.userList', total:user.followers.size())
-    }
-
-    def listFollowing={attrs ->
-        KuorumUser user = attrs.user
-        if (!user && springSecurityService.isLoggedIn()){
-            user = KuorumUser.get(springSecurityService.principal.id)
-        }
-        if (!user){
-            throw new Exception("Si no esta logado el usuario es necesario indicar el usuario")
-        }
-        List<ObjectId> userIdsLimited = user.following.size()>NUM_MAX_ON_USER_LIST? user.following.take(NUM_MAX_ON_USER_LIST):user.following
-        List<KuorumUser> users = userIdsLimited.collect{id -> KuorumUser.load(id)}
-        out << showListUsers(users:users, visibleUsers:"13", messagesPrefix: 'kuorumUser.show.following.userList', total:user.following.size())
-    }
-
-    def counterUserLikes={attrs->
-        Post post = attrs.post
-
-        Integer total=post.numVotes
-        String messagesPrefix="cluck.footer.likes.counter"
-        def ajaxUrl = createLink(mapping:'postVotesList', params: post.encodeAsLinkProperties())
-        out << counterUsers(total:total, messagesPrefix:messagesPrefix, ajaxUrl:ajaxUrl)
-    }
-
-    def counterUserClucks={attrs->
-        Post post = attrs.post
-
-        Integer total=post.numClucks
-        String messagesPrefix="cluck.footer.clukers.counter"
-        def ajaxUrl = createLink(mapping:'postClucksList', params: post.encodeAsLinkProperties())
-        out << counterUsers(total:total, messagesPrefix:messagesPrefix, ajaxUrl:ajaxUrl)
     }
 
     def counterFollowers={attrs->
@@ -252,14 +191,14 @@ class KuorumUserTagLib {
             regionIso = attrs.user.regionIso
         }
 
-        def regionName = "";
+        def regionName = ""
         if (regionIso){
-            Locale locale = LocaleContextHolder.getLocale();
+            Locale locale = LocaleContextHolder.getLocale()
             try {
                 RegionRSDTO regionRSDTO = regionService.findRegionDataById(regionIso, locale)
                 regionName = regionRSDTO?.name
             }catch (Exception e){
-                regionName = "";
+                regionName = ""
             }
         }
         out << "${regionName?:''}"
@@ -277,7 +216,7 @@ class KuorumUserTagLib {
         if (user?.professionalDetails?.position){
             return user.professionalDetails.position
         }else{
-            return "";
+            return ""
         }
     }
 
@@ -288,22 +227,22 @@ class KuorumUserTagLib {
     def userTypeIcon={attrs ->
         KuorumUser user = attrs.user
         String faIcon = ""
-        String tooltip = "";
+        String tooltip = ""
         if (user.isValid){
             faIcon = "fa-check"
-            tooltip = message(code:'politician.image.icon.enabled.text');
+            tooltip = message(code:'politician.image.icon.enabled.text')
         }else if (user.userType == UserType.PERSON){
             faIcon = "fa-megaphone"
-            tooltip = message(code:'kuorum.core.model.UserType.PERSON');
+            tooltip = message(code:'kuorum.core.model.UserType.PERSON')
         }else if (user.userType == UserType.ORGANIZATION){
             faIcon = "fa-university"
-            tooltip = message(code:'kuorum.core.model.UserType.ORGANIZATION');
+            tooltip = message(code:'kuorum.core.model.UserType.ORGANIZATION')
 //        }else if(user.userType == UserType.CANDIDATE){
 //            faIcon = "icon-megaphone"
 //            tooltip = message(code:'politician.image.icon.candidate.text');
         }else {
             faIcon = "fa-binoculars"
-            tooltip = message(code:'politician.image.icon.notEnabled.text');
+            tooltip = message(code:'politician.image.icon.notEnabled.text')
         }
         out << """<abbr title="${tooltip}"><i class="fas ${faIcon}"></i></abbr>"""
     }
@@ -326,10 +265,10 @@ class KuorumUserTagLib {
 
     def followButton={attrs, body ->
         String cssSize = attrs.cssSize?:''
-        String alias = "";
+        String alias = ""
         String name = ""
-        Boolean isFollowing = false;
-        String userId = "";
+        Boolean isFollowing = false
+        String userId = ""
         if (attrs.user instanceof KuorumUser){
             KuorumUser user = attrs.user
             alias = user.alias
@@ -343,7 +282,7 @@ class KuorumUserTagLib {
 //            isFollowing = false
             userId = attrs.user.id
         }else{
-            throw UnsupportedOperationException("Unkonwn user type");
+            throw UnsupportedOperationException("Unkonwn user type")
         }
         def linkAjaxFollow = g.createLink(mapping: 'ajaxFollow', params: [userAlias:alias])
         def linkAjaxUnFollow = g.createLink(mapping: 'ajaxUnFollow', params: [userAlias:alias])
@@ -409,8 +348,6 @@ class KuorumUserTagLib {
     def deleteRecommendedUserButton={attrs ->
 
         KuorumUser user = attrs.user
-        //TODO: Este código lo ha copiado y pegado Salenda. Ahora tengo que mirar para que sirve el showNoLoggedButton, que no se usa en ningun lado
-        Boolean showNoLoggedButton = attrs.showNoLoggedButton?:Boolean.FALSE
         def linkAjaxDeleteRecommendedUser = g.createLink(mapping:'ajaxDeleteRecommendedUser', params: [deletedUserId:user.id])
         def linkNoLoggedFollow = g.createLink(mapping:'secUserShow', params: user.encodeAsLinkProperties())
 
@@ -418,7 +355,7 @@ class KuorumUserTagLib {
         def text = "${g.message(code:"${prefixMessages}.follow", args:[user.name], codec:"raw")} "
 
 
-        if (springSecurityService.isLoggedIn() || !springSecurityService.isLoggedIn() && showNoLoggedButton){
+        if (springSecurityService.isLoggedIn()){
             out << """
             <button
                     type="button"
@@ -432,43 +369,20 @@ class KuorumUserTagLib {
         }
     }
 
-
-    Set<String> kaunasAlias = ['dariusrazmislev', 'rimantasmikaiti','rasasnapstiene','onabalzekiene']
-    Set<String> palermoAlias = ['antomonastra', 'toninorusso','totorlando','fabrizioferrara','ferrandelli']
-    Set<String> manheimAlias = []
-    Set<String> alcobendasAlias = ['marintegracion', 'luismi1980','mjortiz','agustin_martin', 'palomacanos']
-
-    Set<String> weceAlias = kaunasAlias + manheimAlias + alcobendasAlias + palermoAlias
-    def isWeceUser= { attrs, body ->
-        if (springSecurityService.isLoggedIn()){
-            KuorumUser user =  KuorumUser.get(springSecurityService.principal.id)
-            if (weceAlias.contains(user.alias)){
-                out << body()
-            }
-        }
-    }
-
-    def isNotWeceUser= { attrs, body ->
-        if (springSecurityService.isLoggedIn()) {
-            KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-            if (!weceAlias.contains(user.alias)) {
-                out << body()
-            }
-        }
-    }
-
     def ifUserIsTheLoggedOne={attrs, body->
-        KuorumUser user
+        ObjectId userId
         if (attrs.user instanceof KuorumUser) {
-            user = attrs.user
+            userId = attrs.user.id
         }else if (attrs.user instanceof BasicDataKuorumUserRSDTO){
-            user = KuorumUser.get(new ObjectId(attrs.user.id))
+            userId = new ObjectId(attrs.user.id)
         }else{
-            user = KuorumUser.findByAliasAndDomain(attrs.user, CustomDomainResolver.domain)
+            // ALIAS -- DEPRECATED BRANCH
+            KuorumUser user = KuorumUser.findByAliasAndDomain(attrs.user, CustomDomainResolver.domain)
+            userId = user.id.toString()
         }
         if (springSecurityService.isLoggedIn()){
-            KuorumUser loggedUser = springSecurityService.currentUser;
-            if (loggedUser.id == user.id){
+            KuorumUserSession loggedUser = springSecurityService.principal
+            if (loggedUser.id.equals(userId)){
                 out << body()
             }
         }
@@ -478,16 +392,18 @@ class KuorumUserTagLib {
             out << body()
         }else{
             // LOGGED
-            KuorumUser user
+            ObjectId userId
             if (attrs.user instanceof KuorumUser){
-                user = attrs.user
+                userId = attrs.user.id
             }else if (attrs.user instanceof BasicDataKuorumUserRSDTO){
-                user = KuorumUser.get(new ObjectId(attrs.user.id))
+                userId = new ObjectId(attrs.user.id)
             }else{
-                user = KuorumUser.findByAliasAndDomain(attrs.user,CustomDomainResolver.domain)
+                // BY ALIAS -- DEPRECATED BRANCH
+                KuorumUser user = KuorumUser.findByAliasAndDomain(attrs.user,CustomDomainResolver.domain)
+                userId = user.id
             }
-            KuorumUser loggedUser = springSecurityService.currentUser;
-            if (loggedUser.id != user.id){
+            KuorumUserSession loggedUser = springSecurityService.principal
+            if (loggedUser.id != userId){
                 out << body()
             }
         }

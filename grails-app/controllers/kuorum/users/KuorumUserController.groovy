@@ -50,8 +50,6 @@ class KuorumUserController {
         List<CauseRSDTO> causes = causesService.findSupportedCauses(user)
         UserReputationRSDTO userReputationRSDTO = userReputationService.getReputation(user)
         List<UserNewRSDTO> userNews = userNewsService.findUserNews(user)
-//        List<DebateRSDTO> debates = debateService.findAllDebates(user).findAll{it.newsletter.status == CampaignStatusRSDTO.SENT}
-//        List<PostRSDTO> posts = postService.findAllPetition(user,viewerUid).findAll{it.newsletter.status == CampaignStatusRSDTO.SENT}
         List<CampaignRSDTO> campaigns = campaignService.findAllCampaigns(user.id.toString(),viewerUid).findAll{it.newsletter.status == CampaignStatusRSDTO.SENT}
         [
                 politician:user,

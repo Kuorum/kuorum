@@ -12,6 +12,7 @@ import kuorum.core.model.UserType
 import kuorum.files.FileService
 import kuorum.mail.KuorumMailAccountService
 import kuorum.notifications.NotificationService
+import kuorum.register.KuorumUserSession
 import kuorum.register.RegisterService
 import kuorum.users.extendedPoliticianData.ProfessionalDetails
 import kuorum.web.commands.profile.*
@@ -40,11 +41,11 @@ class ProfileController {
     KuorumUserService kuorumUserService
     def postService
     NotificationService notificationService
-    def kuorumMailService
+    def kuorumMailServiceuser
     KuorumMailAccountService kuorumMailAccountService
     RegisterService registerService
     NewsletterService newsletterService
-    CausesService causesService;
+    CausesService causesService
     PoliticianService politicianService
     Pattern pattern
     Matcher matcher
@@ -79,7 +80,7 @@ class ProfileController {
         KuorumUser user = params.user
         if (command.hasErrors()){
             render view: "editAccountDetails", model:[command:command, requirePassword: registerService.isPasswordSetByUser(user)]
-            return;
+            return
         }
         user = kuorumUserService.updateAlias(user, command.alias)
         if (!user){
@@ -88,10 +89,10 @@ class ProfileController {
             return
         }
         user.language = command.language
-        user.name = command.name.encodeAsRemovingHtmlTags();
+        user.name = command.name.encodeAsRemovingHtmlTags()
         user.surname = command.surname?.encodeAsRemovingHtmlTags()?:""
         if (!user.personalData){
-            user.personalData = new  PersonData();
+            user.personalData = new  PersonData()
         }
         user.personalData.phonePrefix = command.phonePrefix
         user.personalData.telephone = command.phone
@@ -132,12 +133,12 @@ class ProfileController {
     }
 
     def updateCauses(PoliticianCausesCommand command){
-        KuorumUser user = params.user
-        if (command.hasErrors() || !user ){
+        KuorumUserSession user = springSecurityService.principal
+        if (command.hasErrors()){
             render view:"editCauses", model:[command:command]
-            return;
+            return
         }
-        politicianService.updatePoliticianCauses(user, command.causes)
+        politicianService.updateUserCauses(user, command.causes)
         flash.message=message(code:'profile.editUser.success')
         redirect mapping:'profileCauses', params: user.encodeAsLinkProperties()
     }
@@ -146,7 +147,7 @@ class ProfileController {
         def registrationCode = new RegistrationCode(username: user.email)
         registrationCode[DYNAMIC_ATTRIBUTE_NEW_EMAIL]=email
         if (!registrationCode.save()) {
-            return null;
+            return null
         }
         log.info("Solicitud de cambio de email del usuario ${user.email} con el token ${registrationCode.token}" )
         String url = generateLink('profileChangeEmailConfirm', [t: registrationCode.token])
@@ -239,8 +240,8 @@ class ProfileController {
 
     }
 
-    public static void prepareUserEditProfile(KuorumUser user, EditUserProfileCommand command){
-        PersonalData personalData = null;
+    static void prepareUserEditProfile(KuorumUser user, EditUserProfileCommand command){
+        PersonalData personalData = null
         user.bio = command.bio
         if (Gender.ORGANIZATION.equals(command.gender)){
             personalData = new OrganizationData()
@@ -272,7 +273,7 @@ class ProfileController {
         user.personalData = personalData
     }
 
-    public static  void prepareUserImages(KuorumUser user, EditProfilePicturesCommand command, FileService fileService){
+    static  void prepareUserImages(KuorumUser user, EditProfilePicturesCommand command, FileService fileService){
 
         if (command.photoId && (!user.avatar || user.avatar.id.toString() != command.photoId)){
             KuorumFile avatar = KuorumFile.get(new ObjectId(command.photoId))
@@ -296,8 +297,8 @@ class ProfileController {
     def changePassword() {
         KuorumUser user = params.user
         if (!registerService.isPasswordSetByUser(user)){
-            redirect mapping:"profileSetPass";
-            return;
+            redirect mapping:"profileSetPass"
+            return
         }
         [user:user, command: new ChangePasswordCommand()]
     }
@@ -389,7 +390,7 @@ class ProfileController {
             render view:"configurationEmails", model: [command:command,user:user]
             return
         }
-        NotificationConfigRDTO notificationConfig = new NotificationConfigRDTO();
+        NotificationConfigRDTO notificationConfig = new NotificationConfigRDTO()
         notificationConfig.setMailConfig(new NotificationMailConfigRDTO())
         notificationConfig.mailConfig.mentions = command.mentions
         notificationConfig.mailConfig.followNew = command.followNew
@@ -425,7 +426,7 @@ class ProfileController {
         KuorumUser user = params.user
         if (command.hasErrors()){
             render view:'deleteAccount', model:[user:user, command:command]
-            return;
+            return
         }
         kuorumMailService.sendFeedbackMail(user, command.explanation, command.forever)
         if (command.forever){
@@ -453,9 +454,9 @@ class ProfileController {
         KuorumUser user = params.user
         if (!command.validate() || !user ){
             render view:"/profile/editRelevantEvents", model:[command:command]
-            return;
+            return
         }
-        politicianService.updatePoliticianRelevantEvents(params.user, command.politicianRelevantEvents)
+        politicianService.updateNews(params.user, command.politicianRelevantEvents)
         flash.message=message(code:'profile.editUser.success')
         redirect mapping:'profileNews'
     }
@@ -463,8 +464,8 @@ class ProfileController {
     def editNewsletterConfig(){
         KuorumUser user = params.user
         NewsletterConfigRSDTO config = newsletterService.findNewsletterConfig(user)
-        Boolean isRequested = config.getEmailSenderRequested();
-        String emailSender = config.getEmailSender();
+        Boolean isRequested = config.getEmailSenderRequested()
+        String emailSender = config.getEmailSender()
         NewsletterConfigCommand command = new NewsletterConfigCommand()
         use(InvokerHelper) {
             command.setProperties(config.properties)
@@ -479,31 +480,31 @@ class ProfileController {
     def updateNewsletterConfig(NewsletterConfigCommand command){
         if (command.hasErrors()){
             render(view: 'editNewsletterConfig', model: [command: command])
-            return;
+            return
         }
         KuorumUser user = params.user
-        NewsletterConfigRSDTO configRSDTO = newsletterService.findNewsletterConfig(user);
+        NewsletterConfigRSDTO configRSDTO = newsletterService.findNewsletterConfig(user)
         NewsletterConfigRQDTO config = new NewsletterConfigRQDTO()
         use(InvokerHelper) {
             config.setProperties(command.properties)
         }
-        config.setEmailSenderRequested(configRSDTO.getEmailSenderRequested());
+        config.setEmailSenderRequested(configRSDTO.getEmailSenderRequested())
         newsletterService.updateNewsletterConfig(user,config)
         flash.message="Success"
         redirect(mapping:'profileNewsletterConfig')
     }
 
     def requestedEmailSender(){
-        KuorumUser user = params.user;
-        NewsletterConfigRSDTO config = newsletterService.findNewsletterConfig(user);
-        NewsletterConfigRQDTO configRQDTO = new NewsletterConfigRQDTO();
+        KuorumUser user = params.user
+        NewsletterConfigRSDTO config = newsletterService.findNewsletterConfig(user)
+        NewsletterConfigRQDTO configRQDTO = new NewsletterConfigRQDTO()
         use(InvokerHelper) {
-            configRQDTO.setProperties(config.properties);
+            configRQDTO.setProperties(config.properties)
         }
-        configRQDTO.setEmailSenderRequested(true);
-        newsletterService.updateNewsletterConfig(user, configRQDTO);
+        configRQDTO.setEmailSenderRequested(true)
+        newsletterService.updateNewsletterConfig(user, configRQDTO)
 
-        kuorumMailService.sendRequestACustomDomainAdmin(user);
+        kuorumMailService.sendRequestACustomDomainAdmin(user)
 
         render([msg: ''] as JSON)
     }
@@ -514,11 +515,11 @@ class ProfileController {
     }
 
     def validateUser(DomainValidationCommand domainValidationCommand){
-        KuorumUser user = params.user;
         if (domainValidationCommand.hasErrors()){
             render ([success: false, msg:message(error:  domainValidationCommand.getErrors().getAllErrors().get(0))] as JSON)
             return
         }
+        KuorumUserSession user = springSecurityService.principal
         Boolean isValidated = kuorumUserService.userDomainValidation(user, domainValidationCommand.ndi, domainValidationCommand.postalCode, domainValidationCommand.birthDate)
         if (isValidated){
             render ([success: true, msg:"No valid ID and postal code"] as JSON)

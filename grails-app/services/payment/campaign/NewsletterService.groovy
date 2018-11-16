@@ -20,17 +20,17 @@ class NewsletterService {
     RestKuorumApiService restKuorumApiService
 
 
-    NewsletterRSDTO campaignSend(KuorumUser user, NewsletterRQDTO campaignRQDTO, Long campaignId = null){
+    NewsletterRSDTO campaignSend(KuorumUserSession user, NewsletterRQDTO campaignRQDTO, Long campaignId = null){
         campaignRQDTO.sentOn = Calendar.getInstance(user.getTimeZone()).time
         sendScheduledCampaignWithoutDateModifications(user, campaignRQDTO, campaignId)
     }
 
-    NewsletterRSDTO campaignSchedule(KuorumUser user, NewsletterRQDTO campaignRQDTO, Date date, Long campaignId = null){
+    NewsletterRSDTO campaignSchedule(KuorumUserSession user, NewsletterRQDTO campaignRQDTO, Date date, Long campaignId = null){
         campaignRQDTO.sentOn = TimeZoneUtil.convertToUserTimeZone(date, user.timeZone)
         sendScheduledCampaignWithoutDateModifications(user, campaignRQDTO, campaignId)
     }
 
-    private NewsletterRSDTO sendScheduledCampaignWithoutDateModifications(KuorumUser user, NewsletterRQDTO campaignRQDTO, Long campaignId = null){
+    private NewsletterRSDTO sendScheduledCampaignWithoutDateModifications(KuorumUserSession user, NewsletterRQDTO campaignRQDTO, Long campaignId = null){
         Map<String, String> params = [userId:user.id.toString()]
         Map<String, String> query = [:]
         RestKuorumApiService.ApiMethod apiMethod = RestKuorumApiService.ApiMethod.ACCOUNT_MASS_MAILINGS
@@ -52,11 +52,11 @@ class NewsletterService {
         campaignSaved
     }
 
-    NewsletterRSDTO campaignDraft(KuorumUser user, NewsletterRQDTO campaignRQDTO, Long campaignId = null){
+    NewsletterRSDTO campaignDraft(KuorumUserSession user, NewsletterRQDTO campaignRQDTO, Long campaignId = null){
         sendScheduledCampaignWithoutDateModifications(user, campaignRQDTO, campaignId)
     }
 
-    NewsletterRSDTO campaignTest(KuorumUser user, Long campaignId){
+    NewsletterRSDTO campaignTest(KuorumUserSession user, Long campaignId){
         Map<String, String> params = [userId:user.id.toString(), campaignId:campaignId.toString()]
         Map<String, String> query = [test:true]
         def response= restKuorumApiService.get(
@@ -88,7 +88,7 @@ class NewsletterService {
         campaigns
     }
 
-    void removeCampaign(KuorumUser user, Long campaignId) {
+    void removeCampaign(KuorumUserSession user, Long campaignId) {
         Map<String, String> params = [userId: user.id.toString(), campaignId: campaignId.toString()]
         Map<String, String> query = [:]
         def response = restKuorumApiService.delete(
@@ -98,7 +98,7 @@ class NewsletterService {
         )
     }
 
-    NewsletterRSDTO findCampaign(KuorumUser user, Long campaignId){
+    NewsletterRSDTO findCampaign(KuorumUserSession user, Long campaignId){
         Map<String, String> params = [userId:user.id.toString(), campaignId:campaignId.toString()]
         Map<String, String> query = [test:true]
         def response= restKuorumApiService.get(
@@ -114,7 +114,7 @@ class NewsletterService {
         campaignSaved
     }
 
-    TrackingMailStatsByCampaignPageRSDTO findTrackingMails(KuorumUser user, Long campaignId, TrackingMailStatusRSDTO status = null, Integer page = 0, Integer size=10){
+    TrackingMailStatsByCampaignPageRSDTO findTrackingMails(KuorumUserSession user, Long campaignId, TrackingMailStatusRSDTO status = null, Integer page = 0, Integer size=10){
         Map<String, String> params = [userId:user.id.toString(), campaignId:campaignId.toString()]
         Map<String, String> query = [page:page.toString(), size:size.toString()]
         if (status){
@@ -132,7 +132,7 @@ class NewsletterService {
         }
         trackingMailStatsByCampaignPageRSDTO
     }
-    void findCampaignsCollectionReport(KuorumUser user){
+    void findCampaignsCollectionReport(KuorumUserSession user){
         Map<String, String> params = [userId:user.id.toString()]
         Map<String, String> query = [:]
         def response= restKuorumApiService.get(
@@ -142,7 +142,7 @@ class NewsletterService {
                 null
         )
     }
-    void findTrackingMailsReport(KuorumUser user, Long campaignId){
+    void findTrackingMailsReport(KuorumUserSession user, Long campaignId){
         Map<String, String> params = [userId:user.id.toString(), campaignId:campaignId.toString()]
         Map<String, String> query = [:]
         def response= restKuorumApiService.get(

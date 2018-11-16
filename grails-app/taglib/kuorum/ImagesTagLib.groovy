@@ -9,7 +9,7 @@ import org.kuorum.rest.model.search.kuorumElement.SearchKuorumUserRSDTO
 
 class ImagesTagLib {
     static defaultEncodeAs = 'html'
-    static encodeAsForTags = [showUserImage: 'raw', showYoutube:'raw']
+    static encodeAsForTags = [showYoutube:'raw']
     def springSecurityService
 
     static namespace = "image"
@@ -108,22 +108,6 @@ out << """
             out << getDefaultAvatar()
         }
     }
-
-    def showUserImage={attrs ->
-        out << "<img src='"
-        KuorumUser user = null
-        String userName = "Tu nombre"
-        if (springSecurityService.isLoggedIn()){
-            user = KuorumUser.get(springSecurityService.principal.id)
-            userName = user.name
-            out << userImgSrc(user:user)
-        }else{
-            out << getDefaultAvatar()
-        }
-        out <<"' class='user-img' alt='Tu foto'><span>${userName}</span>"
-
-    }
-
 
     private String getDefaultAvatar(){
         //User can be null

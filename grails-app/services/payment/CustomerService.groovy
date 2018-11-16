@@ -2,6 +2,7 @@ package payment
 
 import com.fasterxml.jackson.core.type.TypeReference
 import grails.transaction.Transactional
+import kuorum.register.KuorumUserSession
 import kuorum.users.KuorumUser
 import kuorum.util.rest.RestKuorumApiService
 import org.kuorum.rest.model.payment.KuorumPaymentPlanDTO
@@ -30,7 +31,7 @@ class CustomerService {
     boolean savePaymentMethod(KuorumUser user, String nonce){
         Map<String, String> params = [userId:user.id.toString()]
         Map<String, String> query = [:]
-        PaymentRQDTO paymentRQDTO= new PaymentRQDTO();
+        PaymentRQDTO paymentRQDTO= new PaymentRQDTO()
         paymentRQDTO.setPaymentNonce(nonce)
         try{
             def response = restKuorumApiService.put(
@@ -40,9 +41,9 @@ class CustomerService {
                     paymentRQDTO,
                     null
             )
-            return true;
+            return true
         }catch (Exception e){
-            return false;
+            return false
         }
 //        response.data
     }
@@ -50,7 +51,7 @@ class CustomerService {
     void createSubscription(KuorumUser user, SubscriptionCycleDTO subscriptionCycleDTO, String promotionCode){
         Map<String, String> params = [userId:user.id.toString()]
         Map<String, String> query = [:]
-        SubscriptionRQDTO subscriptionRQDTO= new SubscriptionRQDTO();
+        SubscriptionRQDTO subscriptionRQDTO= new SubscriptionRQDTO()
         subscriptionRQDTO.setPromotionalCode(promotionCode)
         subscriptionRQDTO.setSubscriptionCycle(subscriptionCycleDTO)
         def response = restKuorumApiService.put(
@@ -62,7 +63,7 @@ class CustomerService {
         )
     }
 
-    Boolean validSubscription(KuorumUser user){
+    Boolean validSubscription(KuorumUserSession user){
         Map<String, String> params = [userId:user.id.toString()]
         Map<String, String> query = [:]
         def response = restKuorumApiService.get(
