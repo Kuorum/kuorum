@@ -2,11 +2,11 @@ var htmlLoading = '<div class="loading xs"><span class="sr-only">Cargando...</sp
 
 // PAGE LOADING
 function pageLoadingOn (trackLog){
-    if (trackLog!= undefined) console.log("LOADING ON :: "+trackLog)
+    if (trackLog!= undefined) console.log("LOADING ON :: "+trackLog);
     $('html').addClass('loading');
 }
 function pageLoadingOff (trackLog){
-    if (trackLog!= undefined) console.log("LOADING OFF :: " +trackLog)
+    if (trackLog!= undefined) console.log("LOADING OFF :: " +trackLog);
     $('html').removeClass('loading');
 }
 
@@ -98,7 +98,7 @@ function Animate(domQuery,options){
     //var origin = this.animatedIcon.position();
     var that = this;
     var running = false;
-    var _options = options || {}
+    var _options = options || {};
 
     if (_options.stopOnHover){
         this.animatedIcon.hover(function(){
@@ -116,17 +116,17 @@ function Animate(domQuery,options){
             goOn();
             running = true;
         }
-    }
+    };
 
     this.stop = function(){
         that.animatedIcon.clearQueue();
         that.animatedIcon.stop();
         running = false;
-    }
+    };
 
     var goOn = function(){
         that.animatedIcon.animate({ "top": "-=5px"}, 500, "linear",goBack);
-    }
+    };
 
     var goBack=function(){
         that.animatedIcon.animate({ "top": "+=5px"}, 500, "linear", goOn);
@@ -192,7 +192,7 @@ $(document).ready(function() {
     $(".modal").on("click", "a.close-modal", function(e){
         e.preventDefault();
         $(this).parents(".modal").modal('hide')
-    })
+    });
 
     // HEAD SEARCHER
     var a = $('#srch-term').autocomplete({
@@ -203,16 +203,16 @@ $(document).ready(function() {
         width:330,
         noCache: true, //default is false, set to true to disable caching
         onSearchStart: function (query) {
-            $('.loadingSearch').show()
-            query.searchType = getSearchType()
+            $('.loadingSearch').show();
+            query.searchType = getSearchType();
             query.type = getFileterType()
         },
         onSearchComplete: function (query, suggestions) {
-            $('.loadingSearch').hide()
+            $('.loadingSearch').hide();
             $('#srch-regionCode').val("");
         },
         formatResult:function (suggestion, currentValue) {
-            var format = ""
+            var format = "";
             if (suggestion.type=="SUGGESTION" || suggestion.type=="REGION"){
                 format =  suggestion.value
             }
@@ -230,7 +230,7 @@ $(document).ready(function() {
             var location = kuorumUrls.search
                 +"?type="+getFileterType()
                 +"&searchType="+getSearchType()
-                +"&word="+encodeURIComponent(suggestion.value)
+                +"&word="+encodeURIComponent(suggestion.value);
             if(suggestion.type=="REGION"){
                 location +="&regionCode="+suggestion.data.iso3166_2
             }
@@ -277,7 +277,7 @@ $(document).ready(function() {
 
 
     // DISABLED NAV TABS
-    $(".nav-tabs > li.disabled > a, .nav-tabs > li.disabled").on("click", function(e){e.stopPropagation();return false;})
+    $(".nav-tabs > li.disabled > a, .nav-tabs > li.disabled").on("click", function(e){e.stopPropagation();return false;});
 
     // abrir/cerrar Save filter as
     $('body').on('click','#saveFilterAsBtnOpenModal, #saveFilterAsBtnCancel', function(e) {
@@ -460,7 +460,7 @@ $(document).ready(function() {
     $('body').on('click','.link-wrapper', function(e) {
         //ÑAAAPAAAAA para que no salte el evento del link-wrapper en los popover
         var target = $(e.target);
-        if (target.parent("a").length==0 || !target.is("a")){
+        if (target.parent("a").length==0 && !target.is("a")){
             // If target clicked is an a => link-wrapper should'd be trigger and probably it will have a special trigger
             var popover = target.parents(".popover");
             if (!popover.hasClass("popover")){
@@ -517,7 +517,7 @@ $(document).ready(function() {
         $('.nav .dropdown > a >.badge').closest('a').click(function(e) {
             e.preventDefault();
             var url = $(this).attr('href');
-            console.log(url)
+            console.log(url);
             var element = $(this);
             $.ajax(url).done(function(data){
                 element.find('.badge').delay(1000).fadeOut("slow").queue(function() {
@@ -532,14 +532,14 @@ $(document).ready(function() {
         $('#see-more-notifications').on("click",function (event) {
             event.preventDefault();
             event.stopPropagation();
-            var $link = $(this)
+            var $link = $(this);
             var offset= parseInt($link.attr("data-pagination-offset"))+1;
             var max= parseInt($link.attr("data-pagination-max"));
             var total= parseInt($link.attr("data-pagination-total"));
             var url = $link.attr("href");
             var $seeMoreContainer =  $link.parents(".see-more");
             var $ul = $seeMoreContainer.parents("ul.notification-menu");
-            console.log($ul)
+            console.log($ul);
 
             $.ajax({
                 type: 'POST',
@@ -550,7 +550,7 @@ $(document).ready(function() {
                 },
                 success: function(result) {
                     $link.attr("data-pagination-offset", offset);
-                    $(result).insertBefore($ul.find("li").last())
+                    $(result).insertBefore($ul.find("li").last());
                     if (total <= (offset+1)*max){
                         $seeMoreContainer.fadeOut("fast")
                     }
@@ -673,8 +673,8 @@ function getHash(){
 function normalizeHash(hash){
     hash = hash.replace("=",""); // Facebook login adds #_=_ at the end of the URL. This makes to fail this logic
     hash = hash.replace("'",""); // Facebook login adds #_=_ at the end of the URL. This makes to fail this logic
-    hash = decodeURIComponent(hash)
-    hash = removeDiacritics(hash)
+    hash = decodeURIComponent(hash);
+    hash = removeDiacritics(hash);
     hash = hash.replace(/ /g,"-");
     hash = hash.toLowerCase();
     return hash;
@@ -682,7 +682,7 @@ function normalizeHash(hash){
 
 function moveToHash(hash){
     var dest = 0;
-    hash = normalizeHash(hash)
+    hash = normalizeHash(hash);
     hash = hash + "-tag";
     moveSmooth(hash)
 }
