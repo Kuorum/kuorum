@@ -14,6 +14,7 @@ import kuorum.core.model.search.Pagination
 import kuorum.core.model.search.SearchParams
 import kuorum.core.model.solr.SolrType
 import kuorum.mail.KuorumMailAccountService
+import kuorum.mail.KuorumMailService
 import kuorum.register.KuorumUserSession
 import kuorum.solr.SearchSolrService
 import kuorum.util.rest.RestKuorumApiService
@@ -35,7 +36,7 @@ class KuorumUserService {
 
     def notificationService
     def indexSolrService
-    def kuorumMailService
+    KuorumMailService kuorumMailService
     def regionService
     SpringSecurityService springSecurityService
     SearchSolrService searchSolrService
