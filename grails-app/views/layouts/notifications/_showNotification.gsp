@@ -45,7 +45,10 @@
     <g:render template="/layouts/notifications/districtProposalVoteNotification" model='[notification:notification]'/>
 </g:elseif>
 <g:elseif test="${notification instanceof org.kuorum.rest.model.notification.NotificationPetitionSignRSDTO}">
-    <g:render template="/layouts/notifications/signPetitionNotification" model='[notification:notification]'/>
+    <g:render template="/layouts/notifications/petitionSignedNotification" model='[notification:notification]'/>
+</g:elseif>
+<g:elseif test="${notification instanceof org.kuorum.rest.model.notification.NotificationPetitionNewRSDTO}">
+    <g:render template="/layouts/notifications/petitionCreatedNotification" model='[notification:notification]'/>
 </g:elseif>
 <g:elseif env="development">
     NOT DONE ${notification.class.name}
