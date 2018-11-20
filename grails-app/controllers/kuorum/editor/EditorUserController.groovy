@@ -19,7 +19,7 @@ class EditorUserController {
     FileService fileService
     RegionService regionService
 
-    RegisterService registerService;
+    RegisterService registerService
 
     def editUser(String userAlias){
         KuorumUser user = kuorumUserService.findEditableUser(userAlias)
@@ -43,14 +43,14 @@ class EditorUserController {
 
     def editAdminAccountDetails(){
         KuorumUser user = kuorumUserService.findEditableUser(params.userAlias)
-        EditorAccountCommand command = new EditorAccountCommand(user);
+        EditorAccountCommand command = new EditorAccountCommand(user)
         [user:user,command:command]
     }
 
     def updateAdminAccountDetails(EditorAccountCommand command){
         KuorumUser user = kuorumUserService.findEditableUser(params.userAlias)
         if (command.hasErrors()){
-            flash.error=message(code:'admin.createUser.error')
+            flash.error=message(code:'admin.createUser.error') +": " + message(error:command.errors.getFieldError())
             render view: 'editAdminAccountDetails', model:[command:command, user:user]
             return
         }
@@ -65,7 +65,7 @@ class EditorUserController {
         updatedUser.name = command.name
         updatedUser.surname = command.surname
         if (!updatedUser.personalData){
-            updatedUser.personalData = new  PersonData();
+            updatedUser.personalData = new  PersonData()
         }
         updatedUser.personalData.phonePrefix = command.phonePrefix
         updatedUser.personalData.telephone = command.phone
@@ -73,7 +73,7 @@ class EditorUserController {
             updatedUser.personalData.province = command.homeRegion
             updatedUser.personalData.provinceCode = command.homeRegion.iso3166_2
         }
-        updatedUser = kuorumUserService.updateUser(updatedUser);
+        updatedUser = kuorumUserService.updateUser(updatedUser)
 
         flash.message =message(code:'admin.editUser.success', args: [updatedUser.name])
         redirect(mapping:'editorKuorumAccountEdit', params:updatedUser.encodeAsLinkProperties())
@@ -81,7 +81,7 @@ class EditorUserController {
 
     def editUserSocialNetwork(){
         KuorumUser user = kuorumUserService.findEditableUser(params.userAlias)
-        SocialNetworkCommand command = new SocialNetworkCommand(user);
+        SocialNetworkCommand command = new SocialNetworkCommand(user)
         [user:user,command:command]
     }
 
