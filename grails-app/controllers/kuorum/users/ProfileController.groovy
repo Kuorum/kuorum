@@ -373,7 +373,9 @@ class ProfileController {
         command.postLike = notificationConfig.mailConfig.postLike
         command.debateNewOwner = notificationConfig.mailConfig.debateNewOwner
         command.debateNewCause = notificationConfig.mailConfig.debateNewCause
+        command.postNewOwner = notificationConfig.mailConfig.postNewOwner
         command.postNewCause = notificationConfig.mailConfig.postNewCause
+        command.eventNewOwner = notificationConfig.mailConfig.eventNewOwner
         command.eventNewCause = notificationConfig.mailConfig.eventNewCause
         command.participatoryBudgetNewOwner = notificationConfig.mailConfig.participatoryBudgetNewOwner
         command.participatoryBudgetNewCause = notificationConfig.mailConfig.participatoryBudgetNewCause
@@ -383,6 +385,10 @@ class ProfileController {
         command.districtProposalSupport = notificationConfig.mailConfig.districtProposalSupport
         command.districtProposalVote = notificationConfig.mailConfig.districtProposalVote
         command.petitionSign = notificationConfig.mailConfig.petitionSign
+        command.petitionNewOwner = notificationConfig.mailConfig.petitionNewOwner
+        command.petitionNewCause = notificationConfig.mailConfig.petitionNewCause
+        command.surveyNewOwner = notificationConfig.mailConfig.surveyNewOwner
+        command.surveyNewCause = notificationConfig.mailConfig.surveyNewCause
         [user:user, command: command]
     }
     def configurationEmailsSave(MailNotificationsCommand command) {
@@ -399,12 +405,15 @@ class ProfileController {
         notificationConfig.mailConfig.proposalLike = command.proposalLike
         notificationConfig.mailConfig.proposalPinned = command.proposalPinned
         notificationConfig.mailConfig.proposalNew = command.proposalNew
-        notificationConfig.mailConfig.postLike = command.postLike
         notificationConfig.mailConfig.proposalNewOwner = command.proposalNewOwner
         notificationConfig.mailConfig.debateNewOwner = command.debateNewOwner
         notificationConfig.mailConfig.debateNewCause = command.debateNewCause
+        notificationConfig.mailConfig.postNewOwner = command.postNewOwner
         notificationConfig.mailConfig.postNewCause = command.postNewCause
+        notificationConfig.mailConfig.postLike = command.postLike
+        notificationConfig.mailConfig.eventNewOwner = command.eventNewOwner
         notificationConfig.mailConfig.eventNewCause = command.eventNewCause
+        notificationConfig.mailConfig.surveyNewOwner = command.surveyNewOwner
         notificationConfig.mailConfig.participatoryBudgetNewOwner = command.participatoryBudgetNewOwner
         notificationConfig.mailConfig.participatoryBudgetNewCause = command.participatoryBudgetNewCause
         notificationConfig.mailConfig.districtProposalNewOwner = command.districtProposalNewOwner
@@ -413,6 +422,10 @@ class ProfileController {
         notificationConfig.mailConfig.districtProposalSupport = command.districtProposalSupport
         notificationConfig.mailConfig.districtProposalVote = command.districtProposalVote
         notificationConfig.mailConfig.petitionSign = command.petitionSign
+        notificationConfig.mailConfig.petitionNewCause = command.petitionNewCause
+        notificationConfig.mailConfig.petitionNewOwner = command.petitionNewOwner
+        notificationConfig.mailConfig.surveyNewOwner = command.surveyNewOwner
+        notificationConfig.mailConfig.surveyNewCause = command.surveyNewCause
         notificationService.saveNotificationsConfig(user, notificationConfig)
         flash.message = message(code:'profile.emailNotifications.success')
         redirect mapping:'profileEmailNotifications'
