@@ -62,7 +62,7 @@ class SurveyController extends CampaignController{
             return
         }
         Long campaignId = params.campaignId?Long.parseLong(params.campaignId):null
-        command.publishOn = null;
+        command.publishOn = null
         Map<String, Object> result = saveAndSendCampaignContent(command, campaignId, surveyService)
         redirect mapping: result.nextStep.mapping, params: result.nextStep.params
     }
@@ -77,7 +77,7 @@ class SurveyController extends CampaignController{
     @Secured(['ROLE_CAMPAIGN_SURVEY'])
     def editQuestionsStep(){
         Long campaignId = Long.parseLong(params.campaignId)
-        KuorumUser surveyUser = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUserSession surveyUser = springSecurityService.principal
         SurveyRSDTO survey = setCampaignAsDraft(campaignId, surveyService)
         if (!survey.body || !survey.title){
             flash.message=g.message(code:'survey.form.nobody.redirect')
@@ -121,7 +121,7 @@ class SurveyController extends CampaignController{
     }
 
     private QuestionRDTO map(QuestionCommand command){
-        QuestionRDTO questionRDTO = new QuestionRDTO();
+        QuestionRDTO questionRDTO = new QuestionRDTO()
         questionRDTO.id = command.id
         questionRDTO.text = command.text
         questionRDTO.questionType = command.questionType
@@ -130,7 +130,7 @@ class SurveyController extends CampaignController{
     }
 
     private QuestionOptionRDTO mapQuestionOption(QuestionOptionCommand command){
-        QuestionOptionRDTO questionOptionRDTO = new QuestionOptionRDTO();
+        QuestionOptionRDTO questionOptionRDTO = new QuestionOptionRDTO()
         questionOptionRDTO.text = command.text
         questionOptionRDTO.id = command.id
         questionOptionRDTO
@@ -147,7 +147,7 @@ class SurveyController extends CampaignController{
     }
 
     private QuestionCommand map(QuestionRSDTO questionRSDTO){
-        QuestionCommand command = new QuestionCommand();
+        QuestionCommand command = new QuestionCommand()
         command.id = questionRSDTO.id
         command.questionType = questionRSDTO.questionType
         command.text = questionRSDTO.text
