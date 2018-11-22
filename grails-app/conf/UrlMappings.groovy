@@ -416,9 +416,6 @@ class UrlMappings {
         name profileValidByDomainChecker:      "/ajax/edit-profile/domain-valid-cheker"  (controller: "profile", action :"domainUserValidChecker")
         name profileValidByDomainValidate:     "/ajax/edit-profile/domain-validate"      (controller: "profile", action :"validateUser")
 
-
-        name profileMailing : "/notifications/mailing" (controller: "profile", action:"showUserEmails")
-
         name causeSupport:         "/ajax/cause/$causeName/support" (controller:"causes", action: "supportCause")
 
         name ajaxHeadNotificationsChecked:  "/ajax/notificaiones/check"(controller:"notification", action:"notificationChecked")

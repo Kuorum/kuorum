@@ -273,7 +273,6 @@ class KuorumUserService {
                 log.info("Updating alias ${user.alias} -> ${newAlias}")
                 def res = KuorumUser.collection.update([_id:user.id],['$set':[alias:newAlias], '$push':[oldAlias:currentAlias]])
                 user.refresh()
-                kuorumMailAccountService.changeAliasAccount(currentAlias, newAlias)
             }catch (Exception e){
                 log.error("Erro updating user alias ${user.alias} -> ${newAlias}",e)
                 def res = KuorumUser.collection.update([_id:user.id],['$set':[alias:currentAlias]])

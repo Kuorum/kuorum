@@ -23,7 +23,6 @@ import org.bson.types.ObjectId
 import org.codehaus.groovy.runtime.InvokerHelper
 import org.kuorum.rest.model.kuorumUser.config.NotificationConfigRDTO
 import org.kuorum.rest.model.kuorumUser.config.NotificationMailConfigRDTO
-import org.kuorum.rest.model.notification.MailsMessageRSDTO
 import org.kuorum.rest.model.notification.campaign.config.NewsletterConfigRQDTO
 import org.kuorum.rest.model.notification.campaign.config.NewsletterConfigRSDTO
 import org.kuorum.rest.model.tag.CauseRSDTO
@@ -453,10 +452,6 @@ class ProfileController {
         }
     }
 
-    def showUserEmails(){
-        MailsMessageRSDTO mails = kuorumMailAccountService.getUserMails(params.user)
-        [mails:mails]
-    }
 
     def editNews(){
         KuorumUser user = params.user
