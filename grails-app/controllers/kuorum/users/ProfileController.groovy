@@ -471,19 +471,13 @@ class ProfileController {
     }
 
     def editNewsletterConfig(){
-        KuorumUser user = params.user
+        KuorumUserSession user = springSecurityService.principal
         NewsletterConfigRSDTO config = newsletterService.findNewsletterConfig(user)
-        Boolean isRequested = config.getEmailSenderRequested()
-        String emailSender = config.getEmailSender()
         NewsletterConfigCommand command = new NewsletterConfigCommand()
         use(InvokerHelper) {
             command.setProperties(config.properties)
         }
-        [
-                command:command,
-                isRequested:isRequested,
-                emailSender:emailSender
-        ]
+        [command:command]
     }
 
     def updateNewsletterConfig(NewsletterConfigCommand command){
@@ -491,7 +485,7 @@ class ProfileController {
             render(view: 'editNewsletterConfig', model: [command: command])
             return
         }
-        KuorumUser user = params.user
+        KuorumUserSession user = springSecurityService.principal
         NewsletterConfigRSDTO configRSDTO = newsletterService.findNewsletterConfig(user)
         NewsletterConfigRQDTO config = new NewsletterConfigRQDTO()
         use(InvokerHelper) {
@@ -501,21 +495,6 @@ class ProfileController {
         newsletterService.updateNewsletterConfig(user,config)
         flash.message="Success"
         redirect(mapping:'profileNewsletterConfig')
-    }
-
-    def requestedEmailSender(){
-        KuorumUser user = params.user
-        NewsletterConfigRSDTO config = newsletterService.findNewsletterConfig(user)
-        NewsletterConfigRQDTO configRQDTO = new NewsletterConfigRQDTO()
-        use(InvokerHelper) {
-            configRQDTO.setProperties(config.properties)
-        }
-        configRQDTO.setEmailSenderRequested(true)
-        newsletterService.updateNewsletterConfig(user, configRQDTO)
-
-        kuorumMailService.sendRequestACustomDomainAdmin(user)
-
-        render([msg: ''] as JSON)
     }
 
     @Secured(['ROLE_USER_VALIDATED'])

@@ -3,10 +3,8 @@ package payment.campaign
 import com.fasterxml.jackson.core.type.TypeReference
 import grails.transaction.Transactional
 import kuorum.register.KuorumUserSession
-import kuorum.users.KuorumUser
 import kuorum.util.TimeZoneUtil
 import kuorum.util.rest.RestKuorumApiService
-import org.kuorum.rest.model.admin.AdminConfigMailingRDTO
 import org.kuorum.rest.model.notification.campaign.NewsletterRQDTO
 import org.kuorum.rest.model.notification.campaign.NewsletterRSDTO
 import org.kuorum.rest.model.notification.campaign.config.NewsletterConfigRQDTO
@@ -153,7 +151,7 @@ class NewsletterService {
         )
     }
 
-    NewsletterConfigRSDTO findNewsletterConfig(KuorumUser user){
+    NewsletterConfigRSDTO findNewsletterConfig(KuorumUserSession user){
         Map<String, String> params = [userId:user.id.toString()]
         Map<String, String> query = [:]
         def response= restKuorumApiService.get(
@@ -169,7 +167,7 @@ class NewsletterService {
         newsletterConfigRDTO
     }
 
-    NewsletterConfigRSDTO updateNewsletterConfig(KuorumUser user, NewsletterConfigRQDTO config){
+    NewsletterConfigRSDTO updateNewsletterConfig(KuorumUserSession user, NewsletterConfigRQDTO config){
         Map<String, String> params = [userId:user.id.toString()]
         Map<String, String> query = [:]
         def response= restKuorumApiService.put(
@@ -184,17 +182,5 @@ class NewsletterService {
             newsletterConfigRDTO = (NewsletterConfigRSDTO)response.data
         }
         newsletterConfigRDTO
-    }
-
-    void updateNewsletterConfig(KuorumUser user, AdminConfigMailingRDTO adminRDTO){
-        Map<String, String> params = [userId:user.id.toString()]
-        Map<String, String> query = [:]
-        def response= restKuorumApiService.put(
-                RestKuorumApiService.ApiMethod.ADMIN_USER_CONFIG_SENDER,
-                params,
-                query,
-                adminRDTO,
-                null
-        )
     }
 }

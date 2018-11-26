@@ -1,10 +1,13 @@
 package kuorum.admin
 
+import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.KuorumFile
 import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.domain.DomainService
 import kuorum.files.DomainResourcesService
+import kuorum.mail.KuorumMailService
+import kuorum.register.KuorumUserSession
 import kuorum.register.RegisterService
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
@@ -16,10 +19,12 @@ import kuorum.web.admin.domain.EditLegalInfoCommand
 import kuorum.web.commands.LinkCommand
 import kuorum.web.commands.domain.EditDomainCarouselPicturesCommand
 import kuorum.web.constants.WebConstants
+import org.codehaus.groovy.runtime.InvokerHelper
 import org.kuorum.rest.model.admin.AdminConfigMailingRDTO
 import org.kuorum.rest.model.communication.CampaignRSDTO
 import org.kuorum.rest.model.domain.*
 import org.kuorum.rest.model.kuorumUser.UserRoleRSDTO
+import org.kuorum.rest.model.notification.campaign.config.NewsletterConfigRQDTO
 import org.kuorum.rest.model.notification.campaign.config.NewsletterConfigRSDTO
 import org.springframework.web.multipart.commons.CommonsMultipartFile
 import payment.campaign.CampaignService
@@ -42,6 +47,8 @@ class AdminController {
     DomainResourcesService domainResourcesService
 
     CampaignService campaignService
+
+    KuorumMailService kuorumMailService
 
 
 //    def afterInterceptor = [action: this.&prepareMenuData]
@@ -239,6 +246,42 @@ class AdminController {
     }
 
 
+    def requestedEmailSender(){
+        DomainRSDTO domainRSDTO = CustomDomainResolver.domainRSDTO
+
+        KuorumUserSession user = springSecurityService.principal
+        NewsletterConfigRSDTO config = newsletterService.findNewsletterConfig(user)
+        Boolean isRequested = config.getEmailSenderRequested()
+        String emailSender = null
+        if (domainRSDTO.customDomainSender){
+            emailSender = "*@${domainRSDTO.domain}"
+        }
+        [
+                isRequested:isRequested,
+                emailSender:emailSender
+        ]
+    }
+    def requestedEmailSenderSend(){
+        KuorumUserSession user = springSecurityService.principal
+        NewsletterConfigRSDTO config = newsletterService.findNewsletterConfig(user)
+        NewsletterConfigRQDTO configRQDTO = new NewsletterConfigRQDTO()
+        use(InvokerHelper) {
+            configRQDTO.setProperties(config.properties)
+        }
+        configRQDTO.setEmailSenderRequested(true)
+        newsletterService.updateNewsletterConfig(user, configRQDTO)
+
+        KuorumUser kuorumUser = KuorumUser.get(user.id)
+        kuorumMailService.sendRequestACustomDomainAdmin(kuorumUser)
+        if (request.isXhr()){
+            render([msg: ''] as JSON)
+        }else{
+            flash.message="Custom domain sender requested"
+            redirect mapping:'adminRequestEmailSender'
+        }
+    }
+
+
     @Secured(['IS_AUTHENTICATED_FULLY','ROLE_SUPER_ADMIN'])
     def editLogo() {
     }
@@ -330,31 +373,24 @@ class AdminController {
     }
 
     @Secured(['IS_AUTHENTICATED_FULLY','ROLE_SUPER_ADMIN'])
-    @Deprecated
-    def editUserEmailSender(String userAlias) {
-        Boolean requestState
-        KuorumUser user = kuorumUserService.findByAlias(userAlias)
+    def editDomainEmailSender() {
+        DomainRSDTO domainRSDTO = CustomDomainResolver.domainRSDTO
         KuorumUserEmailSenderCommand command = new KuorumUserEmailSenderCommand()
-        NewsletterConfigRSDTO configRSDTO = newsletterService.findNewsletterConfig(user)
-        command.user = user
-        command.emailSender = configRSDTO.getEmailSender()
-        requestState = configRSDTO.getEmailSenderRequested()
         [
                 command     : command,
-                requestState: requestState
+                requestState: domainRSDTO.customDomainSender
         ]
     }
 
     @Secured(['IS_AUTHENTICATED_FULLY','ROLE_SUPER_ADMIN'])
-    @Deprecated
-    def updateUserEmailSender(KuorumUserEmailSenderCommand command) {
-        KuorumUser user = command.user
+    def updateDomainEmailSender(KuorumUserEmailSenderCommand command) {
         AdminConfigMailingRDTO adminRDTO = new AdminConfigMailingRDTO()
-        adminRDTO.setEmailSender(command.emailSender)
+        adminRDTO.setDomainName(CustomDomainResolver.domain)
+        adminRDTO.setMandrillAppKey(command.mandrillAppKey)
 
-        newsletterService.updateNewsletterConfig(user, adminRDTO)
+        domainService.updateNewsletterConfig(adminRDTO)
 
-        redirect(mapping: 'editorAdminEmailSender', params: user.encodeAsLinkProperties())
+        redirect(mapping: 'adminEditDomainEmailSender')
     }
 
 }

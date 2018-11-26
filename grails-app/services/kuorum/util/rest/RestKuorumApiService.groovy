@@ -197,12 +197,13 @@ class RestKuorumApiService {
         REGION_SUGGEST  ("/geolocation/suggest"),
         REGION_FIND     ("/geolocation/find"),
 
-        DOMAIN          ("/domain/"),
-        DOMAIN_CONFIG   ("/domain/config"),
-        DOMAIN_LEGAL    ("/domain/legal"),
+        DOMAIN              ("/domain/"),
+        DOMAIN_CONFIG       ("/domain/config"),
+        DOMAIN_LEGAL        ("/domain/legal"),
+        DOMAIN_MAIL_CONFIG  ("/domain/mailing"),
 
         LOGIN           ("/login/token"),
-        
+
         ACCOUNT_MAILS_SEND          ("/notification/mailing/{userId}/send"),
         ACCOUNT_NOTIFICATIONS       ("/notification/{userId}"),
         ACCOUNT_NOTIFICATIONS_CONFIG("/notification/{userId}/config"),
@@ -273,8 +274,7 @@ class RestKuorumApiService {
         SEARCH_SUGGEST_USERS    ("/search/suggest/users"),
         SEARCH_SUGGEST_CAUSES   ("/search/suggest/causes"),
 
-        ADMIN_MAILS_SEND("/admin/notification/mailing/send"),
-        ADMIN_USER_CONFIG_SENDER("/admin/{userId}/config/mailing")
+        ADMIN_MAILS_SEND("/admin/notification/mailing/send")
 
         String url
 

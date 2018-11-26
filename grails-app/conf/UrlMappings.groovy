@@ -407,7 +407,6 @@ class UrlMappings {
         name profileNews:                   "/edit-profile/news"                               (controller: "profile"){action=[GET:"editNews", POST:"updateNews"]}
         name profilePictures:               "/edit-profile/pictures"                           (controller: "profile"){action=[GET:"editPictures", POST: "updatePictures"]}
         name profileNewsletterConfig:       "/config/newsletter-config"                        (controller: "profile"){action=[GET:"editNewsletterConfig", POST: "updateNewsletterConfig"]}
-        name profileNewsletterConfigRequestEmailSender:     "/ajax/config/newsletter-config/requestSender"   (controller: "profile"){action=[POST: "requestedEmailSender"]}
 
         name customProcessRegisterStep2:            "/edit-profile/sign-up/step2"               (controller: "customRegister"){action = [GET:"step2", POST:"step2Save"]}
         name customProcessRegisterStep3:            "/edit-profile/sign-up/step3"               (controller: "customRegister", action :"step3")
@@ -440,7 +439,8 @@ class UrlMappings {
         name adminDomainConfigUploadLogo:           "/sec/admin/domain/uploadLogo"      (controller:"admin"){action=[GET:"editLogo",POST:"uploadLogo"]}
         name adminDomainConfigUploadCarouselImages: "/sec/admin/domain/editCarousel"    (controller:"admin"){action=[GET:"editCarousel",POST:"uploadCarousel"]}
         name adminDomainConfigRelevantCampagins:    "/sec/admin/domain/relevantCampaigns"(controller:"admin"){action=[GET:"editDomainRelevantCampaigns",POST:"updateDomainRelevantCampaigns"]}
-
+        name adminRequestEmailSender:               "/sec/admin/domain/requestSender"   (controller: "admin"){action=[GET:"requestedEmailSender", POST: "requestedEmailSenderSend"]}
+        name adminEditDomainEmailSender:                  "/sec/admin/domain/setSender"       (controller:"admin"){action =[GET:"editDomainEmailSender", POST:"updateDomainEmailSender"]}
 
         name editorCreatePolitician:                        "/editor/user/politician/create-politician"             (controller:"editorUser"){action =[GET:"createPolitician", POST:"saveCreatePolitician"]}
         name editorEditUserProfile:                         "/editor/user/$userAlias/editar/profile"                (controller:"editorUser"){action =[GET:"editUser", POST:"updateUser"]}
@@ -450,7 +450,6 @@ class UrlMappings {
         name editorEditPoliticianCauses:                    "/editor/user/$userAlias/editar/causes"                 (controller:"editorPolitician"){action =[GET:"editCauses", POST:"updateCauses"]}
         name editorKuorumAccountEdit:                       "/editor/user/$userAlias/editar/account-details"        (controller:"editorUser"){action =[GET:"editAdminAccountDetails", POST:"updateAdminAccountDetails"]}
         name editorAdminUserRights:                         "/editor/user/$userAlias/editar/rights"                 (controller:"admin"){action =[GET:"editUserRights", POST:"updateUserRights"]}
-        name editorAdminEmailSender:                         "/editor/user/$userAlias/editar/email-sender"                 (controller:"admin"){action =[GET:"editUserEmailSender", POST:"updateUserEmailSender"]}
 
         name ajaxDeleteRecommendedUser: "/ajax/kuorumUser/deleteRecommendedUser"(controller: 'recommendedUserInfo', action: 'deleteRecommendedUser')
 

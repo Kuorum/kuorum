@@ -1,7 +1,6 @@
 package kuorum.web.admin
 
 import grails.validation.Validateable
-import kuorum.users.KuorumUser
 
 /**
  * Created by toni on 12/7/17.
@@ -9,11 +8,10 @@ import kuorum.users.KuorumUser
 @Validateable
 class KuorumUserEmailSenderCommand {
 
-    KuorumUser user;
-    String emailSender;
+    String mandrillAppKey
 
     static constraints = {
-        emailSender nullable:true
+        mandrillAppKey nullable:true
     }
 
 }

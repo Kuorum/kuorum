@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference
 import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.files.LessCompilerService
 import kuorum.util.rest.RestKuorumApiService
+import org.kuorum.rest.model.admin.AdminConfigMailingRDTO
 import org.kuorum.rest.model.domain.DomainLegalInfoRDTO
 import org.kuorum.rest.model.domain.DomainLegalInfoRSDTO
 import org.kuorum.rest.model.domain.DomainRDTO
@@ -12,7 +13,7 @@ import org.springframework.beans.factory.annotation.Value
 
 class DomainService {
 
-    RestKuorumApiService restKuorumApiService;
+    RestKuorumApiService restKuorumApiService
 
     LessCompilerService lessCompilerService
 
@@ -34,10 +35,10 @@ class DomainService {
             if (apiResponse.data){
                 config = apiResponse.data
             }
-            return config;
+            return config
         }catch (Exception e){
             log.warn("Domain not found: ${domain}")
-            return null;
+            return null
         }
     }
 
@@ -67,10 +68,10 @@ class DomainService {
                 domainRSDTO = apiResponse.data
             }
             lessCompilerService.compileCssForDomain(domainRSDTO)
-            return domainRSDTO;
+            return domainRSDTO
         }catch (Exception e){
             log.warn("Error updating config. [Excp: ${e.getMessage()}")
-            return null;
+            return null
         }
     }
 
@@ -85,10 +86,10 @@ class DomainService {
                     query,
                     new TypeReference<List<DomainRSDTO>>(){},
                     kuorumAdminRestApiKey)
-            return apiResponse.data;
+            return apiResponse.data
         }catch (Exception e){
             log.warn("Error recovering domains", e)
-            return null;
+            return null
         }
     }
 
@@ -103,10 +104,10 @@ class DomainService {
                     query,
                     new TypeReference<DomainLegalInfoRSDTO>(){},
                     kuorumAdminRestApiKey)
-            return apiResponse.data;
+            return apiResponse.data
         }catch (Exception e){
             log.warn("Domain not found: ${domain}")
-            return null;
+            return null
         }
     }
 
@@ -128,9 +129,23 @@ class DomainService {
             if (apiResponse.data){
                 domainLegalInfoRSDTO = apiResponse.data
             }
-            return domainLegalInfoRSDTO;
+            return domainLegalInfoRSDTO
         } catch (Exception e) {
             log.warn("Error updating config. [Excp: ${e.getMessage()}")
         }
+    }
+
+
+    void updateNewsletterConfig(AdminConfigMailingRDTO adminRDTO){
+        Map<String, String> params = [:]
+        Map<String, String> query = [:]
+        def response= restKuorumApiService.put(
+                RestKuorumApiService.ApiMethod.DOMAIN_MAIL_CONFIG,
+                params,
+                query,
+                adminRDTO,
+                null,
+                kuorumAdminRestApiKey
+        )
     }
 }
