@@ -7,13 +7,13 @@ import kuorum.register.KuorumUserSession
 import kuorum.solr.IndexSolrService
 import kuorum.users.KuorumUser
 import kuorum.util.rest.RestKuorumApiService
-import org.bson.types.ObjectId
 import org.kuorum.rest.model.communication.debate.DebateRDTO
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.kuorum.rest.model.communication.debate.PageDebateRSDTO
 import org.kuorum.rest.model.communication.debate.search.ProposalPageRSDTO
 import org.kuorum.rest.model.communication.debate.search.SearchProposalRSDTO
 import org.kuorum.rest.model.communication.debate.search.SortProposalRDTO
+import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 
 @Transactional
 class DebateService implements CampaignCreatorService<DebateRSDTO, DebateRDTO> {
@@ -177,12 +177,11 @@ class DebateService implements CampaignCreatorService<DebateRSDTO, DebateRDTO> {
 //            if (lastActivity){
 //                lastModified(debate.lastActivity)
 //            }
-        List<KuorumUser> pinnedUsers = proposalPage.data
+        List<BasicDataKuorumUserRSDTO> pinnedUsers = proposalPage.data
                 .findAll{it.pinned}
-                .collect{KuorumUser.get(new ObjectId(it.user.id))}
-                .findAll{it}
+                .collect{it.user}
                 .unique()
-                .sort{ ku1, ku2 -> ku1.avatar != null?-1:ku2.avatar!=null?1:0 }
+                .sort{ u1, u2 -> u1.avatarUrl != null?-1:u2.avatarUrl!=null?1:0 }
 
         def model = [debate: debate, debateUser: debateUser, proposalPage:proposalPage, pinnedUsers:pinnedUsers]
 

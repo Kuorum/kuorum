@@ -2,7 +2,6 @@ package kuorum
 
 import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.model.UserType
-import kuorum.post.Post
 import kuorum.register.KuorumUserSession
 import kuorum.register.RegisterService
 import kuorum.users.KuorumUser
@@ -39,27 +38,42 @@ class KuorumUserTagLib {
     }
 
     def showUser={attrs, body ->
-        KuorumUser user
+        def user // KuorumUser or BasicDataKuorumUserRSDTO
         //attrs.withPopover => String expected
         Boolean withPopover = !attrs.withPopover?true:Boolean.parseBoolean(attrs.withPopover)
         String name = ""
-        if (attrs.user instanceof BasicDataKuorumUserRSDTO){
-            user = KuorumUser.get(new ObjectId(attrs.user.id))
+        String role
+        def imgSrc
+        if (attrs.user instanceof BasicDataKuorumUserRSDTO) {
+            user = attrs.user
             name = attrs.user.fullName
+            role = getRoleUser(attrs.user)
+            imgSrc = image.userImgSrc(user:attrs.user)
+        }else if (attrs.user instanceof SearchKuorumUserRSDTO){
+            role = getRoleUser(attrs.user)
+            imgSrc = image.userImgSrc(user:attrs.user)
+            user = KuorumUser.findByAliasAndDomain(attrs.user.alias, CustomDomainResolver.domain)
+            name = highlightedField(attrs.user, "owner")
+            name = name?:user.fullName
         }else if (attrs.user instanceof SearchKuorumElementRSDTO){
             user = KuorumUser.findByAliasAndDomain(attrs.user.alias, CustomDomainResolver.domain)
             name = highlightedField(attrs.user, "owner")
             name = name?:user.fullName
+            role = getRoleUser(user)
+            imgSrc = image.userImgSrc(user:user)
         }else if (attrs.user instanceof String){
             // ALIAS
             user = KuorumUser.findByAliasAndDomain(attrs.user, CustomDomainResolver.domain)
             name = user.fullName
+            role = getRoleUser(user)
+            imgSrc = image.userImgSrc(user:user)
         }else{
             user = attrs.user
             name = user.fullName
+            role = getRoleUser(user)
+            imgSrc = image.userImgSrc(user:user)
         }
 
-        String role = getRoleUser(user)
         Boolean showRole = role && (attrs.showRole?Boolean.parseBoolean(attrs.showRole):false)
         Boolean showName = attrs.showName?Boolean.parseBoolean(attrs.showName):true
         Boolean showActions = attrs.showActions?Boolean.parseBoolean(attrs.showActions):false
@@ -74,7 +88,6 @@ class KuorumUserTagLib {
 
 //        def link = g.createLink(mapping:'userShow', params:user.encodeAsLinkProperties())
         out << "<${htmlWrapper} class='user ${extraCss} ${showDeleteRecommendation?'recommendation-deletable':''}' ${itemprop} itemtype=\"http://schema.org/Person\" itemscope data-userId='${user.id}' data-userAlias='${user.alias}'>"
-        def imgSrc = image.userImgSrc(user:user)
         def userName = ""
         if (showName){
             userName = "<span itemprop='name'>${name}</span>"
@@ -122,12 +135,12 @@ class KuorumUserTagLib {
     }
 
     def showListUsers={attrs->
-        List<KuorumUser> users = attrs.users.unique()
+        List<BasicDataKuorumUserRSDTO> users = attrs.users.unique()
         String cssClass = attrs.cssClass?:'user-list-images'
         if (users){
             Integer visibleUsers=Integer.parseInt(attrs.visibleUsers.toString())?:1
-            List<KuorumUser> visibleUsersList = users.take(visibleUsers)
-            List<KuorumUser> hiddenUsersList = users.drop(visibleUsers)
+            List<BasicDataKuorumUserRSDTO> visibleUsersList = users.take(visibleUsers)
+            List<BasicDataKuorumUserRSDTO> hiddenUsersList = users.drop(visibleUsers)
             Integer total = (attrs.total?:users.size() ) - visibleUsers
             String messagePrefix = attrs.messagesPrefix
             def messages = [
@@ -223,6 +236,10 @@ class KuorumUserTagLib {
         return user?.roleName?:""
     }
 
+    private String getRoleUser(BasicDataKuorumUserRSDTO user){
+        return user?.roleName?:""
+    }
+
     def userTypeIcon={attrs ->
         KuorumUser user = attrs.user
         String faIcon = ""
@@ -274,11 +291,16 @@ class KuorumUserTagLib {
             name = user.fullName
             isFollowing = springSecurityService.isLoggedIn() && springSecurityService.principal.id != user.id && user.followers.contains(springSecurityService.principal.id)
             userId = attrs.user.id.toString()
-        }else if (attrs.user instanceof SearchKuorumUserRSDTO){
+        }else if (attrs.user instanceof SearchKuorumUserRSDTO) {
             alias = attrs.user.alias
             name = attrs.user.name
             isFollowing = attrs.user.isFollowing
 //            isFollowing = false
+            userId = attrs.user.id
+        }else if (attrs.user instanceof BasicDataKuorumUserRSDTO){
+            alias = attrs.user.alias
+            name = attrs.user.fullName
+            isFollowing = attrs.user.isFollowing
             userId = attrs.user.id
         }else{
             throw UnsupportedOperationException("Unkonwn user type")
@@ -346,7 +368,7 @@ class KuorumUserTagLib {
 
     def deleteRecommendedUserButton={attrs ->
 
-        KuorumUser user = attrs.user
+        def user = attrs.user // KuorumUser or BasicDataKuorumUser
         def linkAjaxDeleteRecommendedUser = g.createLink(mapping:'ajaxDeleteRecommendedUser', params: [deletedUserId:user.id])
         def linkNoLoggedFollow = g.createLink(mapping:'secUserShow', params: user.encodeAsLinkProperties())
 
