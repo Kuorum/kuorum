@@ -139,12 +139,6 @@ class FormTagLib {
     private static final Integer NUM_CHARS_TWITTER_URL = 22 // Twitter change all urls to t.co and its size will be 22 (before february of 2014 was 20)
     private static final Integer NUM_EXTRA_SPACE = 2 // Between text and hastag, and between hastag and shortUrl
 
-    def postTitleLimitChars = {attrs->
-        Project project = attrs.project
-        out << grailsApplication.config.kuorum.post.titleSize - project.hashtag.size() - NUM_CHARS_TWITTER_URL -NUM_EXTRA_SPACE
-
-    }
-
     def input={attrs->
         def command = attrs.command
         def field = attrs.field

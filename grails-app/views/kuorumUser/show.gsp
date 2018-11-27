@@ -79,7 +79,7 @@
     %{--<g:render template="showExtendedPoliticianTemplates/columnC/contactPolitician" model="[politician:politician]"/>--}%
     <g:render template="userShowTemplates/columnC/subscribeForm" model="[user:politician]"/>
     <g:render template="/dashboard/dashboardModules/supportedCauses" model="[user:politician, supportedCauses:causes]"/>
-    <g:render template="userShowTemplates/columnC/recommendedUsers" model="[recommendedUsers:recommendPoliticians, boxTitle:g.message(code:'modules.similarPoliticians.title')]"/>
+    <g:render template="userShowTemplates/columnC/recommendedUsers" model="[recommendedUsers:recommendedUsers, boxTitle:g.message(code:'modules.similarPoliticians.title')]"/>
     <g:render template="userShowTemplates/columnC/quickNotes" model="[politician:politician]"/>
 </content>
 
@@ -89,7 +89,7 @@
 </content>
 
 %{--<content tag="preFooterSections">--}%
-    %{--<g:render template="userShowTemplates/recommendedPoliticians" model="[politician:politician, recommendPoliticians:recommendPoliticians]"/>--}%
+    %{--<g:render template="userShowTemplates/recommendedPoliticians" model="[politician:politician, recommendedUsers:recommendedUsers]"/>--}%
 %{--</content>--}%
 
 <content tag="modals">

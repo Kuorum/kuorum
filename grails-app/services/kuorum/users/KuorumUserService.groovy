@@ -13,7 +13,6 @@ import kuorum.core.exception.KuorumExceptionUtil
 import kuorum.core.model.search.Pagination
 import kuorum.core.model.search.SearchParams
 import kuorum.core.model.solr.SolrType
-import kuorum.mail.KuorumMailAccountService
 import kuorum.mail.KuorumMailService
 import kuorum.register.KuorumUserSession
 import kuorum.solr.SearchSolrService
@@ -29,6 +28,7 @@ import org.kuorum.rest.model.kuorumUser.domainValidation.UserDataDomainValidatio
 import org.kuorum.rest.model.search.SearchKuorumElementRSDTO
 import org.kuorum.rest.model.search.SearchResultsRSDTO
 import org.kuorum.rest.model.search.SearchTypeRSDTO
+import org.kuorum.rest.model.search.kuorumElement.SearchKuorumUserRSDTO
 import org.springframework.security.access.prepost.PreAuthorize
 
 @Transactional
@@ -40,7 +40,6 @@ class KuorumUserService {
     def regionService
     SpringSecurityService springSecurityService
     SearchSolrService searchSolrService
-    KuorumMailAccountService kuorumMailAccountService
     CausesService causesService
     RestKuorumApiService restKuorumApiService
 
@@ -201,7 +200,7 @@ class KuorumUserService {
      * @param pagination
      * @return
      */
-    List<KuorumUser> recommendUsers(KuorumUser user, Pagination pagination = new Pagination()) {
+    List<SearchKuorumUserRSDTO> recommendUsers(KuorumUser user, Pagination pagination = new Pagination()) {
 
         KuorumUser loggedUser = springSecurityService.getCurrentUser()
         List<ObjectId> filterPoliticians = []
@@ -312,20 +311,18 @@ class KuorumUserService {
 
         SearchResultsRSDTO results = searchSolrService.searchAPI(searchParams)
 
-        List<KuorumUser> politicians = results.data.collect{ SearchKuorumElementRSDTO searchElement ->
-            KuorumUser politician = null
+        List<SearchKuorumUserRSDTO> politicians = results.data.collect{ SearchKuorumElementRSDTO searchElement ->
+            SearchKuorumUserRSDTO searchKuorumUser = null;
             if (searchElement.type != SearchTypeRSDTO.KUORUM_USER){
                 log.error("Error suggesting user. It is not an user. It is a ${searchElement.type}")
             }else{
-                politician = KuorumUser.get(searchElement.getId())
-                if (!politician){
-                    log.warn("Error suggested user :: ${searchElement.name} | ${searchElement.id}" )
-                }else if (!politician.alias){
+                searchKuorumUser = (SearchKuorumUserRSDTO) searchElement;
+                if (!searchElement.alias){
                     log.warn("Error suggested user [NO ALIAS]:: ${searchElement.name} | ${searchElement.id}" )
-                    politician = null
+                    searchKuorumUser= null
                 }
             }
-            politician
+            searchKuorumUser
         }
         // Filtering null
         politicians = politicians.findAll{it}

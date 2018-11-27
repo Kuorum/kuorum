@@ -95,35 +95,6 @@ class KuorumMailService {
         mandrillAppService.sendTemplate(mailData)
     }
 
-    def sendRequestADemo(String name, String email, AvailableLanguage language){
-        def bindings = [:]
-        KuorumUser user = buildMailUser(name, email, language)
-        MailUserData mailUserData = new MailUserData(user:user, bindings:bindings)
-        MailData mailData = new MailData(fromName:DEFAULT_SENDER_NAME,mailType: MailType.REGISTER_REQUEST_DEMO, userBindings: [mailUserData])
-        mandrillAppService.sendTemplate(mailData)
-    }
-    def sendRequestADemoAdmin(
-            String name,
-            String surname,
-            String email,
-            String enterprise,
-            String phone,
-            String comment,
-            AvailableLanguage language){
-        String rawMessage = """
-        <h1> Demo requested </h1>
-        <ul>
-            <li>Name: $name ${surname? "${surname} || $surname, $name" :''} </li>
-            <li>Email: $email</li>
-            <li>Enterprise: $enterprise </li>
-            <li>Phone: $phone</li>
-            <li>Lang: $language</li>
-            <li>Comment: <p>${comment?:''}</p></li>
-        </ul>
-        """
-        sendBatchMail(getFeedbackUser("DEMO"), rawMessage, "Requested a demo: ${name}");
-    }
-
     def sendRequestACustomDomainAdmin(KuorumUser userRequestingDomain){
         String rawMessage = """
         <h1> Custom domain requested </h1>
@@ -169,24 +140,6 @@ class KuorumMailService {
         ]
         mailData.userBindings = [mailUserData]
         mailData.fromName = prepareFromName(user.name)
-        mandrillAppService.sendTemplate(mailData)
-    }
-
-    def sendPollCampaignMail(PollCampaignVote pollCampaing){
-        String politicianLink = generateLink("userShow",pollCampaing.politician.encodeAsLinkProperties())
-        Map<String, String> bindings = [politician:pollCampaing.politician.name,politicianLink:politicianLink]
-        for (String value : pollCampaing.campaign.values){
-            if (pollCampaing.values.contains(value)){
-                bindings.put(value, "OK")
-            }
-        }
-        MailUserData mailUserData = new MailUserData()
-        mailUserData.user = new KuorumUser(name:"", email: pollCampaing.userEmail)
-        MailData mailData = new MailData()
-        mailData.mailType = MailType.CAMPAIGN_POLL_THANK_YOU
-        mailData.globalBindings=bindings
-        mailData.userBindings = [mailUserData]
-        mailData.fromName = DEFAULT_SENDER_NAME
         mandrillAppService.sendTemplate(mailData)
     }
 

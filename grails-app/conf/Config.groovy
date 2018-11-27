@@ -301,13 +301,6 @@ kuorum {
         mailPrice = 0.15
     }
 
-    post{
-        titleSize = 140
-        promotionPrizes = [5,15,30] //Default euros amount promoting a post
-        limitVotesToBeEditable = 10
-        limitVotesToBeDeletable = 10
-    }
-
     seo{
         maxElements = 1000 //El número de elementos que se van a mostrar en el mapa web para el scrapper
     }

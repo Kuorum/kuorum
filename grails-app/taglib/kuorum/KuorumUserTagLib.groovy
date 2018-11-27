@@ -47,7 +47,6 @@ class KuorumUserTagLib {
             user = KuorumUser.get(new ObjectId(attrs.user.id))
             name = attrs.user.fullName
         }else if (attrs.user instanceof SearchKuorumElementRSDTO){
-            // ALIAS
             user = KuorumUser.findByAliasAndDomain(attrs.user.alias, CustomDomainResolver.domain)
             name = highlightedField(attrs.user, "owner")
             name = name?:user.fullName
@@ -421,7 +420,7 @@ class KuorumUserTagLib {
         String res = ""
         if (element.highlighting?."$field"){
             res = element.highlighting."$field"
-        }else if (element."${field}"){
+        }else if (element.hasProperty(field) && element."${field}"){
             res = element."${field}"
             if (res){
                 res = res.substring(0, Math.min(res.length(), maxLength))

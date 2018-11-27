@@ -10,6 +10,7 @@ import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 import org.kuorum.rest.model.kuorumUser.news.UserNewRSDTO
 import org.kuorum.rest.model.kuorumUser.reputation.UserReputationRSDTO
 import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
+import org.kuorum.rest.model.search.kuorumElement.SearchKuorumUserRSDTO
 import org.kuorum.rest.model.tag.CauseRSDTO
 import payment.campaign.CampaignService
 import springSecurity.KuorumRegisterCommand
@@ -46,14 +47,14 @@ class KuorumUserController {
             return false
         }
         String viewerUid = cookieUUIDService.buildUserUUID()
-        List<KuorumUser> recommendPoliticians =  kuorumUserService.recommendUsers(user, new Pagination([max:50]))
+        List<SearchKuorumUserRSDTO> recommendedUsers =  kuorumUserService.recommendUsers(user, new Pagination([max:50]))
         List<CauseRSDTO> causes = causesService.findSupportedCauses(user)
         UserReputationRSDTO userReputationRSDTO = userReputationService.getReputation(user)
         List<UserNewRSDTO> userNews = userNewsService.findUserNews(user)
         List<CampaignRSDTO> campaigns = campaignService.findAllCampaigns(user.id.toString(),viewerUid).findAll{it.newsletter.status == CampaignStatusRSDTO.SENT}
         [
                 politician:user,
-                recommendPoliticians:recommendPoliticians,
+                recommendedUsers:recommendedUsers,
                 causes:causes,
                 userReputation: userReputationRSDTO,
                 userNews:userNews,

@@ -58,6 +58,10 @@ class CampaignService {
     }
 
 
+    @Deprecated
+    List<CampaignRSDTO> findAllCampaigns(KuorumUser user, String viewerUid = null) {
+        findAllCampaigns(user.id.toString(), viewerUid)
+    }
     List<CampaignRSDTO> findAllCampaigns(KuorumUserSession user, String viewerUid = null) {
         findAllCampaigns(user.id.toString(), viewerUid)
     }

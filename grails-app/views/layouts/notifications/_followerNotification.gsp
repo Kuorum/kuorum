@@ -1,7 +1,6 @@
 <%@ page import="kuorum.core.customDomain.CustomDomainResolver" %>
-<g:set var="actor" value="${kuorum.users.KuorumUser.findByAliasAndDomain(notification.actorAlias, kuorum.core.customDomain.CustomDomainResolver.domain)}"/>
-<g:set var="actorLink"><g:createLink mapping="userShow" params="${actor.encodeAsLinkProperties()}"/></g:set>
-<g:set var="text"><g:message code="notifications.followerNotification.text" args="[actor.name,actorLink]"/></g:set>
+<g:set var="actorLink"><g:createLink mapping="userShow" params="${notification.actor.encodeAsLinkProperties()}"/></g:set>
+<g:set var="text"><g:message code="notifications.followerNotification.text" args="[notification.actor.name,actorLink]"/></g:set>
 
 <g:render
         template="/layouts/notifications/notification"

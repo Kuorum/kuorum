@@ -6,10 +6,8 @@ import kuorum.causes.CausesService
 import kuorum.core.model.search.Pagination
 import kuorum.dashboard.DashboardService
 import kuorum.register.KuorumUserSession
-import kuorum.solr.SearchSolrService
 import kuorum.users.CookieUUIDService
 import kuorum.users.KuorumUser
-import kuorum.users.KuorumUserStatsService
 import kuorum.web.commands.profile.AccountDetailsCommand
 import kuorum.web.commands.profile.EditProfilePicturesCommand
 import kuorum.web.commands.profile.EditUserProfileCommand
@@ -20,10 +18,9 @@ import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
 import org.kuorum.rest.model.notification.campaign.NewsletterRQDTO
 import org.kuorum.rest.model.notification.campaign.NewsletterRSDTO
 import org.kuorum.rest.model.search.SearchResultsRSDTO
+import org.kuorum.rest.model.search.kuorumElement.SearchKuorumUserRSDTO
 import org.kuorum.rest.model.tag.CauseRSDTO
-import payment.CustomerService
 import payment.campaign.CampaignService
-import payment.campaign.DebateService
 import payment.campaign.NewsletterService
 import payment.campaign.PostService
 import payment.contact.ContactService
@@ -32,17 +29,13 @@ class DashboardController {
 
     SpringSecurityService springSecurityService
     def kuorumUserService
-    KuorumUserStatsService kuorumUserStatsService
     CausesService causesService
-    SearchSolrService searchSolrService
     ContactService contactService
     NewsletterService newsletterService
-    DebateService debateService
     PostService postService
     CampaignService campaignService
     DashboardService dashboardService
     CookieUUIDService cookieUUIDService
-    CustomerService customerService
 
     private  static final Integer MAX_PROJECT_EVENTS = 2
 
@@ -63,7 +56,7 @@ class DashboardController {
 //          }else if (!model.numberCampaigns){
 //              render view: "/dashboard/payment/paymentNoCampaignsDashboard", model: model
         }else{
-            List<KuorumUser> recommendations = kuorumUserService.recommendUsers(user, new Pagination([max:50]))
+            List<SearchKuorumUserRSDTO> recommendations = kuorumUserService.recommendUsers(user, new Pagination([max:50]))
             model.put("recommendations",recommendations)
             render view: "/dashboard/dashboard", model: model
         }

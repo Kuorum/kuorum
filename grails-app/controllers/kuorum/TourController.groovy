@@ -5,6 +5,7 @@ import kuorum.causes.CausesService
 import kuorum.core.model.search.Pagination
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
+import org.kuorum.rest.model.search.kuorumElement.SearchKuorumUserRSDTO
 import org.kuorum.rest.model.tag.SuggestedCausesRSDTO
 
 class TourController {
@@ -27,12 +28,12 @@ class TourController {
         Pagination causesPagination = new Pagination(max:6)
         SuggestedCausesRSDTO causesSuggested = causesService.suggestCauses(user, causesPagination)
         Pagination politiciansDashboardPagination = new Pagination(max:6)
-        List<KuorumUser> politicians = kuorumUserService.recommendUsers(user,politiciansDashboardPagination)
+        List<SearchKuorumUserRSDTO> politicians = kuorumUserService.recommendUsers(user,politiciansDashboardPagination)
         render view: '/dashboard/dashboard', model:[
                 loggedUser:user,
                 causesSuggested:causesSuggested,
                 causesPagination:causesPagination,
-                politicians:politicians,
+                recommendations:politicians,
                 politiciansDashboardPagination:politiciansDashboardPagination,
                 tour:true
         ]
