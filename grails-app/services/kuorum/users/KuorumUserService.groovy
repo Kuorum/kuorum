@@ -288,7 +288,7 @@ class KuorumUserService {
         updateKuorumUserOnRest(user)
     }
 
-    List<KuorumUser> bestUsers(KuorumUser user, List<ObjectId> userFiltered = [], Pagination pagination = new Pagination()){
+    List<SearchKuorumUserRSDTO> bestUsers(KuorumUser user, List<ObjectId> userFiltered = [], Pagination pagination = new Pagination()){
         SearchParams searchParams = new SearchParams(pagination.getProperties().findAll{k,v->k!="class"})
         searchParams.max +=1
 //        List<Region> regions;
@@ -312,11 +312,11 @@ class KuorumUserService {
         SearchResultsRSDTO results = searchSolrService.searchAPI(searchParams)
 
         List<SearchKuorumUserRSDTO> politicians = results.data.collect{ SearchKuorumElementRSDTO searchElement ->
-            SearchKuorumUserRSDTO searchKuorumUser = null;
+            SearchKuorumUserRSDTO searchKuorumUser = null
             if (searchElement.type != SearchTypeRSDTO.KUORUM_USER){
                 log.error("Error suggesting user. It is not an user. It is a ${searchElement.type}")
             }else{
-                searchKuorumUser = (SearchKuorumUserRSDTO) searchElement;
+                searchKuorumUser = (SearchKuorumUserRSDTO) searchElement
                 if (!searchElement.alias){
                     log.warn("Error suggested user [NO ALIAS]:: ${searchElement.name} | ${searchElement.id}" )
                     searchKuorumUser= null
