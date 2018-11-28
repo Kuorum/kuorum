@@ -105,7 +105,6 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         rememberMeServices.loginSuccess(request, response, springSecurityService.authentication)
         if (oAuthToken.newUser){
             try{
-                KuorumUser user = KuorumUser.findByEmailAndDomain(oAuthToken.principal.username, CustomDomainResolver.domain)
                 indexSolrService.deltaIndex()
             }catch (Exception e){
                 log.error("Error recovering and indexing new user. Reindex manually")

@@ -119,7 +119,6 @@ class UrlMappings {
         name ca_loginFull:  "/confirma-usuari"     (controller:"login", action:"full"){mappingName="loginFull"}
 
         name logout:    "/logout"       (controller:"logout", action:"index")
-                        "/salir"        {controller="redirect"; action= "redirect301"; newMapping='logout'}
 
         name searcherSearch:        "/search"        (controller: "search", action:"search"){mappingName="searcherSearch"}
         name en_searcherSearch:     "/search/$word?" (controller: "search", action:"search"){mappingName="searcherSearch"}
