@@ -7735,7 +7735,7 @@ div.dark {
     .fade-carousel .slides .slide-1,
     .fade-carousel .slides .slide-2,
     .fade-carousel .slides .slide-3{
-        height: 500px;
+        height: 520px;
     }
     #cases-study-body .section-body h1 {
         font-size: 28px;
@@ -7751,6 +7751,15 @@ div.dark {
     .img-full-container {
         position: static;
         margin: 0 auto;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+
+    .fade-carousel .slides .slide-1,
+    .fade-carousel .slides .slide-2,
+    .fade-carousel .slides .slide-3 {
+        height: 560px;
     }
 }
 
