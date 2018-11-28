@@ -538,11 +538,11 @@ header.transp #search-form .open-filter {background-color: rgba(219,219,219,0.4)
 .open-filter .dropdown-menu > li > a {color: #a8a8a8; padding: 3px 7px;}
 .open-filter .dropdown-menu > li > a.active {color:#FF9431;}
 
-.login .form-group:nth-child(n+3) {text-align:center;margin:0 0 10px;}
+.login .form-group {text-align:center;margin:0 0 10px;}
 .login .form-group:last-child {color: #a8a8a8; margin-bottom: 0; font-size: 14px; font-size: 1.4rem;}
 .login .form-group a {color: #545454;}
 .login .form-group p {color: #a8a8a8; margin:10px 0 0 0;}
-.login .form-group:nth-child(3) p {margin:10px 0 0 0;}
+.login .form-group:nth-child(4) p {margin:10px 0 0 0;}
 .login .form-group:last-child p:last-child a {color:#ff9431;}
 #login-modal.login .form-group:last-child p:last-child a {color:#20a2ea;}
 .login .btn.btn-lg {padding-left: 40px !important;padding-right: 40px !important;}
@@ -2815,7 +2815,7 @@ textarea.error {border-color: #BF4343;}
 .sign .login {width: 305px;}
 .sign .login .form-group:last-child {font-size: 14px; font-size: 1.4rem;}
 
-form#sign {margin: 30px auto 0; max-width: 760px;}
+form#sign {margin: 30px auto 0; max-width: 900px;}
 
 .sign.purchase h2 {font-size: 16px; font-size: 1.6rem;}
 
@@ -4918,6 +4918,125 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     padding: 50px 10%;
 }
 
+
+
+
+
+.fade-carousel .carousel-inner {
+    height: 100%;
+}
+
+.fade-carousel .indicators {
+    position: absolute;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    bottom: 0px;
+    max-width: 1100px;
+}
+
+.fade-carousel .indicators .carousel-indicators {
+    opacity:0.85;
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    z-index: 15;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+    text-align: left;
+    padding-left: 15px;
+    padding-right: 15px;
+    right: 0;
+}
+
+.fade-carousel .carousel-indicators > li {
+    margin: 0px 2px;
+    border-color: white;
+    border: 3px solid;
+    height: 16px;
+    width: 16px;
+}
+
+.fade-carousel .carousel-indicators > li.text {
+    margin: 0px 2px;
+    border: none;
+    height: auto;
+    width: auto;
+    text-indent: 0px;
+    margin-left: 25px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.fade-carousel .carousel-indicators > li.active {
+    opacity: 1;
+    background-color: white;
+}
+
+.fade-carousel .overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    background-color: #545454;
+    opacity: .4;
+}
+
+.fade-carousel .content,
+.fade-carousel .content-footer {
+    position: absolute;
+    top: 53%;
+    left: 50%;
+    z-index: 3;
+    color: #fff;
+    text-align: center;
+    -webkit-transform: translate3d(-50%,-50%,0);
+    -moz-transform: translate3d(-50%,-50%,0);
+    -ms-transform: translate3d(-50%,-50%,0);
+    -o-transform: translate3d(-50%,-50%,0);
+    transform: translate3d(-50%,-50%,0);
+}
+
+
+.fade-carousel .content hgroup {
+    margin-bottom: 60px;
+}
+
+.fade-carousel .content h1,
+.fade-carousel .content-footer h1{
+    opacity:0.85;
+    font-size: 54px;
+    line-height: 70px;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+    text-transform: uppercase;
+    font-family: 'Arial Black', 'AvenirNext-Heavy', Arial;
+}
+
+.fade-carousel .content h3 {
+    opacity:0.85;
+    font-size: 22px;
+    font-weight: bold;
+    margin: 0;
+    padding-top: 10px;
+}
+
+.fade-carousel .content .btn {font-size: 25px !important;}
+
+.fade-carousel .content form {margin: 35px 0 15px 0;}
+.fade-carousel .content form .form-group {padding: 0;padding-right: 25px;}
+.fade-carousel .content form input {min-height: 55px;width: 100%;}
+.fade-carousel .content form input[type=checkbox]{min-height: 0px;width: 0;}
+.fade-carousel .content form button.btn{width: 100%;}
+.fade-carousel .content form button.btn{width: 100%;}
+.fade-carousel .content form .form-group.submit-button{padding:0;}
+.fade-carousel .content form .form-group.conditions {color: #c7c6c6;font-family: 'Georgia', 'Times New Roman', Times, serif;margin:0;padding:0;}
+.fade-carousel .content form .form-group.conditions a {color: #ffffff;}
+
+
 /* MQ - media queries =========== */
 /* ====================================================== */
 
@@ -5027,6 +5146,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .multimedia-campaign-validationInfo{
         bottom:-20px;
     }
+    .fade-carousel .indicators .carousel-indicators {bottom:30px;}
 }
 
 @media only screen and (min-width: 600px) {
@@ -5453,6 +5573,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .uploaderImageContainer.PROJECT_IMAGE > div {height:268px;}
 
     #domain-description-landing-main {font-size: 34px;line-height: 50px; padding:100px 10%;}
+    .fade-carousel .content form .form-group.conditions {margin-top:10px;}
 }
 
 /* Medium devices (desktops, 992px and up) */
@@ -7485,140 +7606,6 @@ That's why the with is 100% and max-with is for high resolutions.
     position: relative;
     margin-top: 100px;
 }
-
-.fade-carousel .carousel-inner {
-    height: 100%;
-}
-
-.fade-carousel .indicators {
-    position: absolute;
-    margin: 0 auto;
-    left: 0;
-    right: 0;
-    bottom: 0px;
-    max-width: 1100px;
-}
-
-.fade-carousel .indicators .carousel-indicators {
-    opacity:0.85;
-    position: absolute;
-    bottom: 35px;
-    left: 0;
-    z-index: 15;
-    width: 100%;
-    margin: 0 auto;
-    padding: 0;
-    list-style: none;
-    text-align: left;
-    padding-left: 15px;
-    padding-right: 15px;
-    right: 0;
-}
-
-.fade-carousel .carousel-indicators > li {
-    margin: 0px 2px;
-    border-color: white;
-    border: 3px solid;
-    height: 16px;
-    width: 16px;
-}
-
-.fade-carousel .carousel-indicators > li.text {
-    margin: 0px 2px;
-    border: none;
-    height: auto;
-    width: auto;
-    text-indent: 0px;
-    margin-left: 25px;
-    font-size: 20px;
-    font-weight: bold;
-}
-
-.fade-carousel .carousel-indicators > li.active {
-    opacity: 1;
-    background-color: white;
-}
-
-.fade-carousel .overlay {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: 2;
-    background-color: #545454;
-    opacity: .4;
-}
-
-.fade-carousel .content,
-.fade-carousel .content-footer {
-    position: absolute;
-    top: 53%;
-    left: 50%;
-    z-index: 3;
-    color: #fff;
-    text-align: center;
-      -webkit-transform: translate3d(-50%,-50%,0);
-         -moz-transform: translate3d(-50%,-50%,0);
-          -ms-transform: translate3d(-50%,-50%,0);
-           -o-transform: translate3d(-50%,-50%,0);
-              transform: translate3d(-50%,-50%,0);
-}
-
-
-.fade-carousel .content hgroup {
-    margin-bottom: 60px;
-}
-
-.fade-carousel .content h1,
-.fade-carousel .content-footer h1{
-    opacity:0.85;
-    font-size: 54px;
-    line-height: 70px;
-    font-weight: bold;
-    margin: 0;
-    padding: 0;
-    text-transform: uppercase;
-    font-family: 'Arial Black', 'AvenirNext-Heavy', Arial;
-}
-
-.fade-carousel .content h3 {
-    opacity:0.85;
-    font-size: 22px;
-    font-weight: bold;
-    margin: 0;
-    padding-top: 10px;
-}
-
-.fade-carousel .content .btn {
-    font-size: 25px !important;
-}
-
-.fade-carousel .content form {
-    margin: 35px 0 15px 0;
-}
-
-.fade-carousel .content form .form-group {
-    padding: 0;
-    padding-right: 25px;
-}
-
-.fade-carousel .content form input {
-    min-height: 55px;
-    width: 100%;
-}
-.fade-carousel .content form input[type=checkbox]{
-    min-height: 0px;
-    width: 0;
-}
-.fade-carousel .content .conditions {
-    color: #c7c6c6;
-    font-family: 'Georgia', 'Times New Roman', Times, serif;
-    margin:10px 0 0 0;
-}
-
-.fade-carousel .content .conditions a {
-    color: #ffffff;
-}
-
 /********************************/
 /*       Slides backgrounds     */
 /********************************/
@@ -7636,16 +7623,6 @@ background-size: cover;
 background-repeat: no-repeat;
 }
 
-.fade-carousel .slides .slide-1.landingLeaders {
-    background-image: url('../images/landing/leaders-01.jpg');
-}
-.fade-carousel .slides .slide-2.landingLeaders {
-    background-image: url('../images/landing/leaders-02.jpg');
-}
-.fade-carousel .slides .slide-3.landingLeaders {
-    background-image: url('../images/landing/leaders-03.jpg');
-}
-
 /* NEW LANDING FADES*/
 .fade-carousel .slides .slide-1.landingServices {
     background-image: url('../images/landing/landing-2.jpg');
@@ -7655,25 +7632,6 @@ background-repeat: no-repeat;
 }
 .fade-carousel .slides .slide-3.landingServices {
     background-image: url('../images/landing/landing-1.jpg');
-}
-
-.fade-carousel .slides .slide-footer.footerAboutUs {
-    background-image: url('../images/landing/what-is-kuorum.jpg');
-}
-.fade-carousel .slides .slide-footer.footerHistory {
-    background-image: url('../images/landing/history.jpg');
-}
-.fade-carousel .slides .slide-footer.footerOurTeam {
-    background-image: url('../images/landing/team.jpg');
-}
-.fade-carousel .slides .slide-footer.footerContactUs {
-    background-image: url('../images/landing/contact.jpg');
-}
-.fade-carousel .slides .slide-footer.footerPress {
-    background-image: url('../images/landing/press.jpg');
-}
-.fade-carousel .slides .slide-footer.footerUserGuides {
-    background-image: url('../images/landing/user-guides.jpg');
 }
 
 #carousel-landing-main .img-responsive{
@@ -7779,7 +7737,6 @@ div.dark {
     .fade-carousel .slides .slide-3{
         height: 500px;
     }
-
     #cases-study-body .section-body h1 {
         font-size: 28px;
     }

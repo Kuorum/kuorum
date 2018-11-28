@@ -34,6 +34,16 @@
                     required="true"/>
         </div>
         <div class="form-group">
+            <formUtil:input
+                    command="${command}"
+                    field="password"
+                    type="password"
+                    id="password"
+                    cssClass="form-control input-lg"
+                    labelCssClass="sr-only"
+                    required="true"/>
+        </div>
+        <div class="form-group">
             <button id="register-submit"
                     data-recaptcha=""
                     data-callback="registerCallback"

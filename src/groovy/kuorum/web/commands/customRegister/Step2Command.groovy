@@ -3,7 +3,7 @@ package kuorum.web.commands.customRegister
 import grails.validation.Validateable
 import kuorum.Region
 import kuorum.core.model.AvailableLanguage
-import kuorum.core.model.UserType
+import kuorum.core.model.Gender
 import kuorum.users.KuorumUser
 import kuorum.web.binder.RegionBinder
 import kuorum.web.commands.profile.AccountDetailsCommand
@@ -16,8 +16,9 @@ import org.grails.databinding.BindUsing
 @Validateable
 class Step2Command {
 
-    public Step2Command(){}
-    public Step2Command(KuorumUser user, String recommendedAlias){
+    Step2Command(){}
+
+    Step2Command(KuorumUser user, String recommendedAlias){
         this.user = user
         this.alias = user.alias?:recommendedAlias
         this.language = user.language
@@ -36,18 +37,19 @@ class Step2Command {
     String alias
 //    String name
 //    String surname
-    String password;
+//    String password;
+    Gender gender
     @BindUsing({obj,  org.grails.databinding.DataBindingSource source ->
         RegionBinder.bindRegion(obj, "homeRegion", source)
     })
     Region homeRegion
-    AvailableLanguage language;
+    AvailableLanguage language
 
 //    UserType userType;
     static constraints = {
         importFrom AccountDetailsCommand, include:["alias", "language", "homeRegion", "user"]
-        password nullable:false;
-        homeRegion nullable: false;
+        gender nullable:false
+        homeRegion nullable: false
 //        userType nullable:false;
     }
 }

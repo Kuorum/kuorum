@@ -13,7 +13,6 @@ import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
 import org.kuorum.rest.model.search.kuorumElement.SearchKuorumUserRSDTO
 import org.kuorum.rest.model.tag.CauseRSDTO
 import payment.campaign.CampaignService
-import springSecurity.KuorumRegisterCommand
 
 import javax.servlet.http.HttpServletResponse
 
@@ -106,14 +105,4 @@ class KuorumUserController {
         render follower.following.size()
     }
 
-    def subscribeTo(KuorumRegisterCommand command){
-        KuorumUser following = kuorumUserService.findByAlias(params.userAlias)
-        if (command.hasErrors()){
-            flash.error=g.message(code: 'politician.subscribe.error')
-            redirect mapping:"userShow", params: following.encodeAsLinkProperties()
-            return
-        }
-        KuorumUser follower = registerService.registerUserFollowingPolitician(command, following)
-        redirect mapping:"userShow", params: following.encodeAsLinkProperties()
-    }
 }

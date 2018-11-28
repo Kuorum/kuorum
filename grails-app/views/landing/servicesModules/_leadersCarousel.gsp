@@ -20,7 +20,7 @@
         <formUtil:validateForm bean="${command}" form="sign"/>
         <g:form mapping="register" autocomplete="off" method="post" name="sign" class="form-inline dark" role="form" novalidate="novalidate">
             <fieldset>
-                <div class="form-group col-lg-4">
+                <div class="form-group col-sm-3">
                     <formUtil:input
                             command="${command}"
                             field="name"
@@ -29,7 +29,7 @@
                             showCharCounter="false"
                             required="true"/>
                 </div>
-                <div class="form-group col-lg-4">
+                <div class="form-group col-sm-3">
                     <formUtil:input
                             command="${command}"
                             field="email"
@@ -38,14 +38,27 @@
                             labelCssClass="sr-only"
                             required="true"/>
                 </div>
-                <button type="submit"
-                        id="register-submit"
-                        data-sitekey="${siteKey}"
-                        data-size="invisible"
-                        data-callback='registerCallback'
-                        class="btn btn-lg col-lg-4 g-recaptcha"><g:message code="landingPage.register.form.submit"/>
-                </button>
-                <div class="form-group col-lg-12 conditions">
+                <div class="form-group col-sm-3">
+                    <formUtil:input
+                            command="${command}"
+                            field="password"
+                            type="password"
+                            showLabel="true"
+                            labelCssClass="sr-only"
+                            required="true"/>
+                </div>
+                <div class="form-group col-sm-3 submit-button">
+                    <button type="submit"
+                            id="register-submit"
+                            data-sitekey="${siteKey}"
+                            data-size="invisible"
+                            data-callback='registerCallback'
+                            class="btn btn-lg g-recaptcha"><g:message code="landingPage.register.form.submit"/>
+                    </button>
+                </div>
+            </fieldset>
+            <fieldset>
+                <div class="form-group col-xs-12 conditions">
                     <formUtil:checkBox
                             command="${command}"
                             field="conditions"
@@ -99,7 +112,7 @@
                 'slide-0': '<g:message code="${msgPrefix}.carousel.slide1.text"/>',
                 'slide-1': '<g:message code="${msgPrefix}.carousel.slide2.text"/>',
                 'slide-2': '<g:message code="${msgPrefix}.carousel.slide3.text"/>'
-            }
+            };
             $carouselText.slideToggle('slow', function () {
                 var activeSlide = $carouselContainer.find('.carousel-indicators li.active').attr('data-slide-to');
                 $(this).text(messages['slide-' + activeSlide]);

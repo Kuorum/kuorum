@@ -414,7 +414,7 @@ class KuorumRegisterCommand{
                 }
             }
         }
-        password nullable:true
+        password nullable:false
         conditions nullable: false
         redirectUrl nullable:true
 //      validator: RegisterController.passwordValidator

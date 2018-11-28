@@ -96,7 +96,7 @@ class RegisterService {
         user
     }
 
-    public void sendVerificationMail(KuorumUser user, String actionLink, String redirectLink = null){
+    void sendVerificationMail(KuorumUser user, String actionLink, String redirectLink = null){
         KuorumRegistrationCode registrationCode = registerUserCode(user)
         if (redirectLink){
             registrationCode.redirectLink= redirectLink
@@ -117,7 +117,7 @@ class RegisterService {
 
     @Transactional
     KuorumUser registerUserContactingPolitician(ContactRegister command){
-        KuorumUser user = registerUser(command);
+        KuorumUser user = registerUser(command)
         String usernameFieldName = SpringSecurityUtils.securityConfig.userLookup.usernamePropertyName
         KuorumRegistrationCode registrationCode = KuorumRegistrationCode.findByUsername(user."$usernameFieldName")
         registrationCode[META_DATA_REGISTER_CONCATC_POLITICIAN] = [
@@ -131,7 +131,7 @@ class RegisterService {
 
     @Transactional
     KuorumUser registerUserFollowingPolitician(KuorumRegisterCommand command, KuorumUser following){
-        KuorumUser user = registerUser(command);
+        KuorumUser user = registerUser(command)
         String usernameFieldName = SpringSecurityUtils.securityConfig.userLookup.usernamePropertyName
         KuorumRegistrationCode registrationCode = KuorumRegistrationCode.findByUsername(user."$usernameFieldName")
         registrationCode[META_DATA_REGISTER_FOLLOW_POLITICIAN] = ["$META_DATA_REGISTER_FOLLOW_POLITICIAN_ID":following.id]
@@ -148,8 +148,8 @@ class RegisterService {
     */
 
     KuorumUser createUser (KuorumRegisterCommand command){
-        Locale locale = LocaleContextHolder.getLocale();
-        AvailableLanguage availableLanguage = AvailableLanguage.fromLocaleParam(locale.getLanguage());
+        Locale locale = LocaleContextHolder.getLocale()
+        AvailableLanguage availableLanguage = AvailableLanguage.fromLocaleParam(locale.getLanguage())
         if (!availableLanguage ){
             availableLanguage = AvailableLanguage.en_EN
         }
@@ -161,6 +161,7 @@ class RegisterService {
                     language: availableLanguage,
                     domain: CustomDomainResolver.domain,
                     accountLocked: false, enabled: true)
+            user.password = encodePassword(user, command.password)
             user.relevantCommissions = CommissionType.values()
             user.authorities = [RoleUser.findByAuthority("ROLE_INCOMPLETE_USER")]
             user.alias = alias
@@ -182,9 +183,9 @@ class RegisterService {
                     accountLocked: false, enabled: false)
             user.relevantCommissions = CommissionType.values()
             user.authorities = [RoleUser.findByAuthority("ROLE_INCOMPLETE_USER")]
-            user.save();
+            user.save()
         }
-        user;
+        user
     }
 
     String generateNotSetUserPassword(String prefix){
@@ -211,9 +212,9 @@ class RegisterService {
             if (notAllowed){
                 return false
             }
-            return true;
+            return true
         }else{
-            return false;
+            return false
         }
     }
 
@@ -226,7 +227,7 @@ class RegisterService {
             String salt = saltSource instanceof NullSaltSource ? null : user.name
             return springSecurityService.passwordEncoder.isPasswordValid(user.password, rawPass, salt)
         }else{
-            return false;
+            return false
         }
     }
 

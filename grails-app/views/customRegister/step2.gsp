@@ -34,12 +34,12 @@
             </div>
             <div class="form-group col-md-6">
                 <input type="text" name="autocompleteNameOff" style="display:none" data-ays-ignore="true"/>
-                <formUtil:password
+                <formUtil:selectEnum
                         command="${command}"
-                        field="password"
+                        field="gender"
                         showLabel="true"
                         cssClass="form-control input-lg"
-                        printValue="true"
+                        defaultEmpty="true"
                         required="true"/>
             </div>
         </fieldset>

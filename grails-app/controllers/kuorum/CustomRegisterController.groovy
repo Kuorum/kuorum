@@ -49,8 +49,9 @@ class CustomRegisterController {
         user.userType = UserType.PERSON
         user.personalData.province = command.homeRegion
         user.language = command.language
+        user.personalData.gender = command.gender
 
-        user.password = registerService.encodePassword(user, command.password)
+//        user.password = registerService.encodePassword(user, command.password)
         kuorumUserService.updateUser(user)
         if (CustomDomainResolver.domainRSDTO?.validation){
             redirect mapping:"customProcessRegisterDomainValidation"

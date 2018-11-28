@@ -26,14 +26,17 @@
                             email: function() {return $( "#${formId} input[name=email]" ).val();}
                         },
                         beforeSend: function () {
-                            var $form = $(this)
+                            var $form = $(this);
                             $form.removeClass("checked")
                         },
                         complete: function () {
-                            var $form = $(this)
+                            var $form = $(this);
                             $form.addClass("checked")
                         }
                     }
+                },
+                "password":{
+                    required: true,
                 },
                 "conditions":{
                     required: true
@@ -50,18 +53,21 @@
                     remote:"${g.message(code:'springSecurity.KuorumRegisterCommand.email.registerCommand.username.unique')}",
                     email: "${g.message(code:'springSecurity.KuorumRegisterCommand.email.wrongFormat')}",
                 },
+                "password":{
+                    required: "${g.message(code:'springSecurity.KuorumRegisterCommand.password.nullable')}"
+                },
                 "conditions":{
                     required: "${g.message(code:'springSecurity.KuorumRegisterCommand.conditions.nullable')}",
                 }
             },
             beforeSend: function () {
-                var $form = $(this)
-                $form.removeClass("checked")
+                var $form = $(this);
+                $form.removeClass("checked");
                 console.log("REMOVE")
             },
             complete: function () {
-                var $form = $(this)
-                $form.addClass("checked")
+                var $form = $(this);
+                $form.addClass("checked");
                 console.log("ADD")
             }
         });
@@ -79,13 +85,22 @@
                 showCharCounter="false"
                 required="true"/>
     </div>
-
     <div class="form-group">
         <formUtil:input
                 command="${registerCommand}"
                 field="email"
                 type="email"
                 id="email"
+                cssClass="form-control input-lg"
+                labelCssClass="sr-only"
+                required="true"/>
+    </div>
+    <div class="form-group">
+        <formUtil:input
+                command="${registerCommand}"
+                field="password"
+                type="password"
+                id="password"
                 cssClass="form-control input-lg"
                 labelCssClass="sr-only"
                 required="true"/>

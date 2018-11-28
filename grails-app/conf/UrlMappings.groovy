@@ -381,7 +381,6 @@ class UrlMappings {
         name bulkActionAddTagsContactsAjax:         "/ajax/contact/addTags" (controller:"contacts", action: "addTagsBulkAction")
         name bulkActionRemoveTagsContactsAjax:      "/ajax/contact/removeTags" (controller: "contacts", action: "removeTagsBulkAction")
 
-        name userFollowAndRegister:          "/$userAlias/subscribe" (controller: "kuorumUser", action: "subscribeTo")
         name ajaxRegisterContact:            "/ajax/contact"(controller: "register", action: "contactRegister")
 
         name userRate:                  "/ajax/$userAlias/rate"(controller: "rating", action:"ratePolitician")
