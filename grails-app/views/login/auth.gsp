@@ -36,8 +36,6 @@
                     <g:message  code="login.email.form.password.forgotten"/>
                 </g:link>
             </p>
-        </div>
-        <div class="form-group">
             <p>
                 <g:message code="head.noLogged.register" args="[g.createLink(mapping: 'register'),'']"/>
             </p>

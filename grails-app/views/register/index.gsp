@@ -57,8 +57,6 @@
                     data-recaptcha=""
                     data-callback="registerCallback"
                     class="btn btn-lg g-recaptcha">${g.message(code:'register.email.form.submit')}</button>
-        </div>
-        <div class="form-group">
             <p>
                 <g:message code="login.intro.loginAfter" args="[g.createLink(mapping: 'login'), '']"/>
             </p>

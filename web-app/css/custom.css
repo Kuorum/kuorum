@@ -542,7 +542,7 @@ header.transp #search-form .open-filter {background-color: rgba(219,219,219,0.4)
 .login .form-group:last-child {color: #a8a8a8; margin-bottom: 0; font-size: 14px; font-size: 1.4rem;}
 .login .form-group a {color: #545454;}
 .login .form-group p {color: #a8a8a8; margin:10px 0 0 0;}
-.login .form-group:nth-child(4) p {margin:10px 0 0 0;}
+.login .form-group p:first-child {margin-bottom: 10px;}
 .login .form-group:last-child p:last-child a {color:#ff9431;}
 #login-modal.login .form-group:last-child p:last-child a {color:#20a2ea;}
 .login .btn.btn-lg {padding-left: 40px !important;padding-right: 40px !important;}
@@ -2828,7 +2828,7 @@ form#sign {margin: 30px auto 0; max-width: 900px;}
 .landing + .row.main .onecol form#sign,
 .landing + .row.main .onecol .socialGo {width: 100%; max-width: 380px; margin: 0 auto 30px; }
 .landing + .row.main .onecol .login {background-color: rgba(0,0,0,.4); padding: 15px 25px 25px 25px;}
-.landing + .row.main .onecol .login p {color:#c6c6c6;margin-bottom: 10px;}
+.landing + .row.main .onecol .login .form-group p {color:#c6c6c6;}
 .landing + .row.main .onecol .login .form-group:last-child a {/*color:#ff9431;*/}
 .landing + .row.main .onecol .input-lg {height: 50px;}
 .landing + .row.main .onecol .btn.btn-lg {font-size: 21px !important; font-size: 2.1rem !important;}
