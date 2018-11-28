@@ -17,7 +17,6 @@ package kuorum.users
 
 import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.oauth.OAuthToken
-import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.exception.KuorumException
 import kuorum.register.IOAuthService
 import kuorum.solr.IndexSolrService
@@ -34,7 +33,7 @@ class SpringSecurityOAuthController {
     def grailsApplication
     def oauthService
     def springSecurityService
-    IndexSolrService indexSolrService;
+    IndexSolrService indexSolrService
 
     /**
      * Is called on oauth callback
@@ -56,8 +55,8 @@ class SpringSecurityOAuthController {
         org.scribe.model.Token token = session[sessionKey]
         // Create the relevant authentication token and attempt to log in
         try {
-            OAuthToken oAuthToken = createAuthToken(params.provider, token);
-            authenticateAndRedirect(oAuthToken, defaultTargetUrl);
+            OAuthToken oAuthToken = createAuthToken(params.provider, token)
+            authenticateAndRedirect(oAuthToken, defaultTargetUrl)
         } catch (KuorumException e) {
             log.warn("User couldn't log in using ${params.provider}. [Excpt: ${e.getMessage()}]")
             flash.error = g.message(code: e.errors[0].code)
@@ -77,10 +76,10 @@ class SpringSecurityOAuthController {
     }
 
     protected OAuthToken createAuthToken(providerName, org.scribe.model.Token token) {
-        IOAuthService providerService = grailsApplication.mainContext.getBean("${providerName}OAuthService");
-        OAuthToken oAuthToken = providerService.createAuthToken(token);
-        oAuthToken.authenticated = true;
-        return oAuthToken;
+        IOAuthService providerService = grailsApplication.mainContext.getBean("${providerName}OAuthService")
+        OAuthToken oAuthToken = providerService.createAuthToken(token)
+        oAuthToken.authenticated = true
+        return oAuthToken
     }
 
     protected Map getDefaultTargetUrl() {
@@ -101,7 +100,6 @@ class SpringSecurityOAuthController {
         if (oAuthToken?.newUser){
             String uri = redirectUrl.get("uri")
             redirectUrl.put("uri", uri+"?tour=true")
-            KuorumUser user = KuorumUser.findByEmailAndDomain(oAuthToken.principal.username, CustomDomainResolver.domain)
             indexSolrService.deltaIndex()
         }
         redirect (redirectUrl)
