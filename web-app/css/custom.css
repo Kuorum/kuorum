@@ -2828,7 +2828,7 @@ form#sign {margin: 30px auto 0; max-width: 900px;}
 .landing + .row.main .onecol form#sign,
 .landing + .row.main .onecol .socialGo {width: 100%; max-width: 380px; margin: 0 auto 30px; }
 .landing + .row.main .onecol .login {background-color: rgba(0,0,0,.4); padding: 15px 25px 25px 25px;}
-.landing + .row.main .onecol .login p {color:#c6c6c6;}
+.landing + .row.main .onecol .login p {color:#c6c6c6;margin-bottom: 10px;}
 .landing + .row.main .onecol .login .form-group:last-child a {/*color:#ff9431;*/}
 .landing + .row.main .onecol .input-lg {height: 50px;}
 .landing + .row.main .onecol .btn.btn-lg {font-size: 21px !important; font-size: 2.1rem !important;}

@@ -44,10 +44,6 @@
                     required="true"/>
         </div>
         <div class="form-group">
-            <button id="register-submit"
-                    data-recaptcha=""
-                    data-callback="registerCallback"
-                    class="btn btn-lg g-recaptcha">${g.message(code:'register.email.form.submit')}</button>
             <p>
                 %{--<input type="checkbox" name="conditions" id="conditions"/>--}%
                 %{--<g:message code="register.conditions" args="[g.createLink(mapping: 'footerPrivacyPolicy')]" encodeAs="raw"/>--}%
@@ -57,6 +53,10 @@
                         label="${g.message(code:'register.conditions', args:[g.createLink(mapping: 'footerPrivacyPolicy')], encodeAs: 'raw')}"/>
 
             </p>
+            <button id="register-submit"
+                    data-recaptcha=""
+                    data-callback="registerCallback"
+                    class="btn btn-lg g-recaptcha">${g.message(code:'register.email.form.submit')}</button>
         </div>
         <div class="form-group">
             <p>

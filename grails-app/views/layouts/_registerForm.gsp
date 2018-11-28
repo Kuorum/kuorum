@@ -106,24 +106,24 @@
                 required="true"/>
     </div>
     <div class="form-group">
-        <button id="register-modal-form-id"
-                data-recaptcha=""
-                data-callback="registerModalCallback"
-                class="btn btn-orange btn-lg g-recaptcha"><g:message code="register.email.form.submit"/>
-        </button>
-        %{--<input type="submit" class="btn btn-lg" value="${g.message(code:'register.email.form.submit')}">--}%
         <p>
 
             %{--<input type="checkbox" name="conditions" id="conditions"/>--}%
             %{--<g:message code="register.conditions" args="[g.createLink(mapping: 'footerPrivacyPolicy')]" encodeAs="raw"/>--}%
 
 
-                <formUtil:checkBox
+            <formUtil:checkBox
                     command="${registerCommand}"
                     field="conditions"
                     label="${g.message(code:'register.conditions', args:[g.createLink(mapping: 'footerPrivacyPolicy')], encodeAs: 'raw')}"/>
 
         </p>
+        <button id="register-modal-form-id"
+                data-recaptcha=""
+                data-callback="registerModalCallback"
+                class="btn btn-orange btn-lg g-recaptcha"><g:message code="register.email.form.submit"/>
+        </button>
+        %{--<input type="submit" class="btn btn-lg" value="${g.message(code:'register.email.form.submit')}">--}%
     </div>
     <div class="form-group">
         <p><g:message code="login.intro.loginAfter" args="['#','change-home-login']"/></p>
