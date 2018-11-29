@@ -3,7 +3,6 @@ package kuorum.core.customDomain.filter
 import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.domain.DomainService
 import org.kuorum.rest.model.domain.DomainRSDTO
-import org.springframework.http.HttpHeaders
 import org.springframework.web.filter.GenericFilterBean
 
 import javax.servlet.FilterChain
@@ -20,7 +19,7 @@ class CustomDomainSpringFilter extends GenericFilterBean {
         logger.info("Requested: ${url}")
         if (url.getHost() == "127.0.0.1"){
             // Debug on idea via apache using proxy always is 127.0.0.1
-            url = new URL("https://local.kuorum.org/kuorum")
+            url = new URL("https://local-wrong.kuorum.org/kuorum")
             logger.warn("Develop mode. Using ${url.toString()}")
         }
         CustomDomainResolver.setUrl(url, request.getContextPath())
@@ -30,8 +29,6 @@ class CustomDomainSpringFilter extends GenericFilterBean {
             int errorCode = 402
             logger.warn("Domain not found: ${request.getContextPath()}. Sending ${errorCode} code")
             response.sendError(errorCode)
-            response.setHeader HttpHeaders.LOCATION, '/error-page/402.html'
-//            redirect (uri:'/error-page/402.html')
         }else{
             CustomDomainResolver.setDomainRSDTO(configRSDTO)
             filterChain.doFilter(request, response)
