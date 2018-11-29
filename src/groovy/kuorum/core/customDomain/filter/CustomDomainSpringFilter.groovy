@@ -20,7 +20,7 @@ class CustomDomainSpringFilter extends GenericFilterBean {
         logger.info("Requested: ${url}")
         if (url.getHost() == "127.0.0.1"){
             // Debug on idea via apache using proxy always is 127.0.0.1
-            url = new URL("https://local-error.kuorum.org/kuorum")
+            url = new URL("https://local.kuorum.org/kuorum")
             logger.warn("Develop mode. Using ${url.toString()}")
         }
         CustomDomainResolver.setUrl(url, request.getContextPath())
