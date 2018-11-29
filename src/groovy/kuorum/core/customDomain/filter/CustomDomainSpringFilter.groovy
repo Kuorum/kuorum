@@ -26,6 +26,7 @@ class CustomDomainSpringFilter extends GenericFilterBean {
 
         DomainRSDTO configRSDTO = domainService.getConfig(CustomDomainResolver.domain)
         if (!configRSDTO){
+            logger.warn("Domain not found: ${request.getContextPath()}")
             response.sendError(402)
         }else{
             CustomDomainResolver.setDomainRSDTO(configRSDTO)
