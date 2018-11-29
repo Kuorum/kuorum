@@ -13,7 +13,7 @@
 
     <title><g:layoutTitle default="${g.message(code:"layout.head.title.default", args:[kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.name])}"/></title>
     <meta name="Keywords" content="${g.message(code:"layout.head.meta.keywords", args:[kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.name])}">
-    <meta name="dcterms.rightsHolder" content="${kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.name}g">
+    <meta name="dcterms.rightsHolder" content="${kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.name}">
     %{--<meta name="dcterms.dateCopyrighted" content="2013">--}%
 
     <meta name="robots" content="all">

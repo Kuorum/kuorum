@@ -1,0 +1,143 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <META NAME="ROBOTS" CONTENT="NOINDEX">
+    <title>kuorum.org</title>
+    <style type="text/css" media="screen">
+  * {
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+  }
+
+  body, html {
+    padding: 3px 3px 3px 3px;
+
+    background-color: #D8DBE2;
+
+    font-family: Verdana, sans-serif;
+    font-size: 11pt;
+    text-align: center;
+  }
+
+  div.main_page {
+    position: relative;
+    display: table;
+
+    width: 800px;
+
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0px 0px 0px 0px;
+
+    border: 2px solid #212738;
+    background-color: #FFFFFF;
+
+    text-align: center;
+  }
+
+  .btn {
+      color: #fff !important;
+      font-family: "Helvetica Neue", Helvetica,Arial,sans-serif;
+      letter-spacing: 0.4px;
+      font-size: 15px;
+      font-size: 1.5rem;
+      background-color: #ff9431;
+      padding: 6px 12px !important;
+      border-radius: 3px;
+      border: none;
+      margin: 0;
+      text-decoration: none;
+  }
+
+  .btn.active,
+  .btn:hover,
+  .btn:active,
+  .btn:focus {
+      background-color: #ee7612 !important;
+      text-decoration: none;
+      box-shadow:none;
+      -webkit-box-shadow:none;
+  }
+
+  .domain-name {
+      font-weight: bold;
+  }
+  div.page_header {
+    height: 99px;
+    width: 100%;
+    background-color: #F5F6F7;
+  }
+
+  div.page_header span {
+    margin: 15px 0px 0px 50px;
+
+    font-size: 180%;
+    font-weight: bold;
+  }
+
+  div.page_header img {
+    border: 0;
+  }
+
+  div.section {
+      margin: 3px 3px 3px 3px;
+      background-color: #FFFFFF;
+      text-align: center;
+      color: #000000;
+      font-size: 100%;
+  }
+
+  div.section_header {
+      padding: 3px 6px 3px 6px;
+      background-color: #ff9431;
+      color: #FFFFFF;
+      font-weight: bold;
+      font-size: 112%;
+      text-align: center;
+  }
+
+        div.section_body{
+            margin:20px;
+        }
+        div.section_call_to_action{
+            margin:40px;
+        }
+
+    </style>
+  </head>
+  <body>
+    <div class="main_page">
+      <div class="page_header">
+        <img src="https://s3-eu-west-1.amazonaws.com/kuorumorg/static/logos/logo%402x.png" alt="kuorum.org" class="floating_element"/>
+      </div>
+
+      <div class="section">
+
+
+        <div class="section_header">
+            <span class="domain-name">This domain</span> is not defined on kuorum.org
+        </div>
+        <div class="section_body">
+          <p>
+              You can purchase <span class="domain-name">this domain</span> on kuorum.org
+          </p>
+        </div>
+          <div class="section_call_to_action">
+              <a href="https://kuorum.org" class="btn">Request <span class="domain-name">domain</span></a>
+          </div>
+
+      </div>
+    </div>
+  <script type="application/javascript">
+      var domain = window.location.hostname;
+      var domainNamesElements = document.getElementsByClassName("domain-name");
+      Array.prototype.forEach.call(domainNamesElements, function(dne) {
+         dne.innerHTML = domain;
+      });
+  </script>
+  </body>
+</html>
+

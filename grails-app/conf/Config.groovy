@@ -183,6 +183,7 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules=[
         '/j_spring_security_switch_user': ['ROLE_SUPER_ADMIN', 'IS_AUTHENTICATED_FULLY']
 ]
 grails.plugin.springsecurity.filterChain.chainMap = [  //LOS FILTROS SIN ESPACIOS
+        '/error-page/**':'none',
         '/j_spring_security_switch_user/**':'JOINED_FILTERS',
         '/j_spring_security_exit_user/**':'JOINED_FILTERS',
         '/**':         'JOINED_FILTERS,-switchFilter,-switchUserProcessingFilter'

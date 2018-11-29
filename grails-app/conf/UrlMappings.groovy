@@ -4,7 +4,7 @@ import org.springframework.security.access.AccessDeniedException
 
 class UrlMappings {
 
-    static excludes = ['/robots.txt']
+    static excludes = ['/robots.txt', '/error-page/402.html']
 
     static List<String> RESERVED_PATHS = ['j_spring_security_facebook_redirect','j_spring_security_exit_user', 'register', 'login','js','images','css', 'fonts']
 	static mappings = {
