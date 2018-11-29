@@ -14,7 +14,7 @@ class SiteMapController {
 
     private static final FORMAT_DATE_SITEMAP="yyyy-MM-dd"
 
-    PostService postService;
+    PostService postService
     static searchQueries =[
             es:[
                     basicSearch:[
@@ -65,7 +65,7 @@ class SiteMapController {
             ]
     ]
 
-    DebateService debateService;
+    DebateService debateService
 
     def sitemapIndex(){
 //        AvailableLanguage language = AvailableLanguage.fromLocaleParam(CustomDomainResolver.domainRSDTO.language)
@@ -103,7 +103,8 @@ class SiteMapController {
                         changefreq('daily')
                         priority(0.5)
                     }
-                    kuorum.core.model.solr.SolrType.values().each{solrType ->
+                    List<kuorum.core.model.solr.SolrType> solrTypes = kuorum.core.model.solr.SolrType.values() - kuorum.core.model.solr.SolrType.NEWSLETTER
+                    solrTypes.each{solrType ->
                         url {
                             loc(g.createLink( mapping:"searcherSearch${solrType}", absolute: true, params: [word:searchText]))
                             changefreq('daily')
@@ -178,12 +179,12 @@ class SiteMapController {
 
     def sitemapUsersIndex() {
 //        AvailableLanguage language = AvailableLanguage.fromLocaleParam(CustomDomainResolver.domainRSDTO.language)
-        Calendar startDate = Calendar.getInstance();
+        Calendar startDate = Calendar.getInstance()
         startDate.clear()
         startDate.set(Calendar.YEAR, 2013) // First Kuorum User
         startDate.set(Calendar.MONTH, 1)
         startDate.set(Calendar.DAY_OF_MONTH, 1)
-        Calendar endDate = Calendar.getInstance();
+        Calendar endDate = Calendar.getInstance()
         endDate.add(Calendar.MONTH, 0)
         render(contentType: 'text/xml', encoding: 'UTF-8', ) {
             mkp.yieldUnescaped '<?xml version="1.0" encoding="UTF-8"?>'
@@ -281,11 +282,11 @@ class SiteMapController {
     }
 
     private getDateRanges(Integer year, Integer month){
-        Calendar startRange = Calendar.getInstance();
+        Calendar startRange = Calendar.getInstance()
         startRange.set(Calendar.YEAR, year)
         startRange.set(Calendar.MONTH, month)
         Calendar endRange = Calendar.getInstance()
-        endRange.setTimeInMillis(startRange.getTimeInMillis());
+        endRange.setTimeInMillis(startRange.getTimeInMillis())
         endRange.add(Calendar.MONTH, 1)
         return [
                 startRange: startRange.time,
