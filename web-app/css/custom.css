@@ -627,6 +627,13 @@ header.transp #search-form .open-filter {background-color: rgba(219,219,219,0.4)
 .btn.btn-lg.bottom {
     font-weight: bold;
 }
+
+/* large button close to an input-lg*/
+.input-group-btn .btn.btn-lg {
+    height: 46px;
+    padding-top: 12px !important;
+}
+
 /**/
 .btn.btn-lg.btn-icon{
     padding: 14px 17px !important;
@@ -2840,14 +2847,38 @@ form#sign {margin: 30px auto 0; max-width: 900px;}
 .landing + .row.main .onecol .login .form-group:last-child {color: #c6c6c6;}
 
 /* Sign in - Sign up */
-.onecol #main .stepsSign {font-size: 24px; font-size: 2.4rem; line-height: 30px; color: #fff; margin: 40px 0 30px; padding: 0;}
-.onecol #main .stepsSign li {position: relative; list-style: none; display: inline-block; width: 36px; height: 36px; line-height: 36px; border-radius: 18px; background-color: rgba(255,148,49,.5); margin: 0 27px; font-family: 'League Gothic',Arial,sans-serif; font-size: 24px; font-weight: normal;}
-.onecol #main .stepsSign li::before {content:""; display: block; width: 38px; height: 2px; background-color: rgba(255,148,49,.5); position: absolute; left: -45px; top: 18px;}
-.onecol #main .stepsSign li:last-child::after {content:""; display: block; width: 38px; height: 2px; background-color: rgba(255,148,49,.5); position: absolute; right: -45px; top: 18px;}
-.onecol #main .stepsSign li.active,
-.onecol #main .stepsSign li.active::before {background-color: rgba(0,0,0,.2);}
-.onecol #main .stepsSign li::after, .onecol #main .stepsSign li.active::after {content:""; display: block; width: 38px; height: 2px; background-color: rgba(0,0,0,.2); position: absolute; right: -45px; top: 18px;}
-.onecol #main .stepsSign li::after { display: none; }
+.stepsSign {color: #fff; margin: 40px 0 30px; padding: 0; justify-content:center; display: flex;}
+.stepsSign li {position: relative; list-style: none; display: inline-block; width: 36px; height: 36px; line-height: 36px; border-radius: 18px; background-color: rgba(0,0,0,.2); margin: 0 42px; font-family: 'Georgia', 'Times New Roman', Times, serif; font-size: 24px; font-weight: normal;text-align: center;}
+.stepsSign li::before {content:""; display: block; width: 36px; height: 2px; background-color: rgba(0,0,0,.2); position: absolute; left: -42px; top: 18px;}
+.stepsSign li::after  {content:""; display: block; width: 36px; height: 2px; background-color: rgba(0,0,0,.2); position: absolute; right: -42px; top: 18px;}
+
+.stepsSign li.active,
+.stepsSign li.active::before,
+.stepsSign li.active::after {background-color: rgba(255,148,49,.5);}
+
+.signStepDescription {
+    color: rgba(0,0,0,.2);
+    position: absolute;
+    top: 40px;
+    left: -24px;
+    font-size: 14px;
+    display: inline-block;
+    line-height: 14px;
+    width: 90px;
+}
+
+.active .signStepDescription {
+    color: #545454;
+}
+
+.signStepDescription--light {
+    color: rgba(0,0,0,.2);
+}
+
+.stepsSign.stepsSignSecondaryColor li.active,
+.stepsSign.stepsSignSecondaryColor li.active::before,
+.stepsSign.stepsSignSecondaryColor li.active::after {background-color: rgba(141,190,239, 1);}
+
 
 .onecol #main .signup {font-size: 17px; font-size: 1.7rem; text-align: left; max-width: 320px; margin: 0 auto;}
 .onecol #main .signup .input-group-addon {background-color: #f3f3f3;}
@@ -8849,94 +8880,10 @@ ul.notification-menu > li.see-more {
 }
 
 /** Custom url **/
-.signin-custom-site {
-    padding: 60px 100px;
-}
-
-.onecol #main .custom-url-steps li {
-    font-family: 'Georgia', 'Times New Roman', Times, serif;
-}
-
-.onecol #main .custom-url-steps li::after { 
-    display: block;
-}
-
-.onecol #main .stepsSign li {
-    margin: 0 33px;
-}
-
-.custom-url-step--coorporative-color::after {
-    background-color: rgba(255,148,49,.5) !important;
-}
-
-.custom-url-step--secondary-color, .custom-url-step--secondary-color::after, .custom-url-step--secondary-color::before {
-    background-color: rgba(141,190,239, 1) !important;
-}
-
-.custom-url-step-broaden {
-    margin-right: 57px !important;
-    margin-left: 57px !important;
-}
-
-.custom-url-step-description {
-    color: #545454;
-    position: absolute;
-    top: 40px;
-    left: -24px;
-    font-size: 14px;
-    display: inline-block;
-    line-height: 14px;
-    width: 90px;
-}
-
-.active .custom-url-step-description {
-    color: rgba(0,0,0,.2);
-}
-
-.custom-url-step-description--light {
-    color: rgba(0,0,0,.2);
-}
-
-.custom-url-form {
-    background-color: rgba(0,0,0,.4);
-    padding: 15px 25px 25px 25px;
-    width: 100%;
-    max-width: 570px;
-    margin: 0 auto 30px;
-}
-
-.custom-url-form-group {
-    text-align: center;
-}
-
 .form-group-align-left {
     text-align: left;
 }
 
-.custom-url-form-group__url, .custom-url-form-group__input {
-    display: inline-block;
-}
-
-.custom-url-form-group__url {
-    color: white;
-    margin: 0 15px;
-}
-
-.custom-url-form-group__url--dark {
-    color: #545454;
-}
-
-.custom-url-form-group__input {
-    max-width: 320px;
-}
-
-.custom-url-form-group__submit {
-    width: 190px;
-}
-
-.custom-url-form-group__remember-message {
-    color: white;
-}
 
 .custom-url-info-box {
     margin-top: 44px;
@@ -8950,28 +8897,12 @@ ul.notification-menu > li.see-more {
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
-.custom-url-info-box__disclaimers {
-    list-style-type: none;
-    padding-left: 20px;
+.signup-custom-site{
+    margin-top:75px;
 }
 
-.custom-url-info-box__disclaimers > li > i {
-    display: inline-block;
-    padding-right: 15px;
-    color: orange;
-    font-size: 20px;
-} 
-
-.custom-url-form-group-message {
-    margin: 0;
-}
-
-.onecol #main .signup.signup-custom-site {
-    text-align: center;
-}
-
-.signup-custom-site {
-    margin-top: 75px;
+.signup-custom-site fieldset:last-child{
+    margin-top:30px;
 }
 
 /* global flex classes */
@@ -8993,20 +8924,6 @@ ul.notification-menu > li.see-more {
 
 .pr-15 {
     padding-right: 15px;
-}
-
-/** step 4 **/
-.sign-in-step-4 {
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 20px 20px;
-    height: calc(100vh - 136px);
-}
-
-.sign-in-step-4-img {
-    width: 150px;
-    height: auto;
 }
 
 /** step 5 **/
@@ -9141,6 +9058,10 @@ ul.notification-menu > li.see-more {
     color: #2082e3 !important;
 }
 
+.input-group .input-group-addon{
+    padding: 4px 12px;
+}
+
 .input-group-btn {
     position: relative;
 }
@@ -9155,10 +9076,6 @@ ul.notification-menu > li.see-more {
 .croppie-img {
     position: absolute;
     top: 0;
-}
-
-#logo {
-    margin-left: 10px;
 }
 
 /** Step 6 **/
@@ -9223,10 +9140,6 @@ ul.notification-menu > li.see-more {
     border-bottom-color: #2082e3;
     border-width: 0 10px 10px;
     background-color: transparent;
-}
-
-.step-6-form p {
-    text-align: left;
 }
 
 /** media queries **/

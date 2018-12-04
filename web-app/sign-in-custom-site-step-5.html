@@ -108,13 +108,13 @@
     <!-- IMPORTANTE este div debe estar justo después del header; no poner nada entre ellos -->
     <div class="row main">
         <div class="container">
-            <div class="col-md-7 col-sm-12 onecol">
+            <div class="col-md-7 col-sm-12">
                 <section id="main" role="main" class="homeSub">
-                    <ol class="stepsSign custom-url-steps d-flex justify-content-center">
-                        <li class="custom-url-step--secondary-color">1<span class="custom-url-step-description">Design your landing page</span></li>
-                        <li class="custom-url-step-broaden active">2<span class="custom-url-step-description">Set the user rights</span></li>
+                    <ol class="stepsSign stepsSignSecondaryColor">
+                        <li class="active">1<span class="signStepDescription">Design your landing page</span></li>
+                        <li class="">2<span class="signStepDescription">Set the user rights</span></li>
                     </ol>
-                    <form role="form" class="signup-custom-site" id="signup-custom-site" name="signup-custom-site" method="post" action="#">
+                    <form role="form" class="signup-custom-site"  name="signup-custom-site" method="post" action="#">
                         <fieldset class="row">
                             <div class="form-group col-md-6 form-group-align-left">
                                 <label for="slogan">Slogan *</label>
@@ -131,7 +131,7 @@
                                 <label for="logo">Logo *</label>
                                 <div class="input-group">
                                     <label class="input-group-btn">
-                                        <span class="btn btn-blue inverted  sign-in-step-5__secondary-btn sign-in-step-5__secondary-btn-logo">
+                                        <span class="btn btn-blue btn-lg inverted">
                                             Select file<input id="sign-in-step-5__input-file" type="file" style="display: none;">
                                         </span>
                                     </label>
@@ -139,14 +139,14 @@
                                 </div>
                             </div>
                             <div class="form-group col-md-6 form-group-align-left">
-                                <label for="sign-in-step-5__color-picker-hex-code">Color *</label>
+                                <label for="color-picker-hex-code">Color *</label>
                                 <div class="input-append input-group">
                                     <span tabindex="100" class="add-on input-group-addon">
                                         <label class="">
-                                            <input id="sign-in-step-5__color-picker" class="sign-in-step-5__color-selected jscolor {closable:true,closeText:'Close', valueElement:'sign-in-step-5__color-picker-hex-code'}">
+                                            <input id="sign-in-step-5__color-picker" class="sign-in-step-5__color-selected jscolor {closable:true,closeText:'Close', valueElement:'color-picker-hex-code'}" disabled>
                                         </label>
                                     </span>
-                                    <input type="text" required aria-required="true" id="sign-in-step-5__color-picker-hex-code" name="sign-in-step-5__color-picker-hex-code" class="form-control input-lg" value="#ff9431" placeholder="" disabled>
+                                    <input type="text" required aria-required="true" id="color-picker-hex-code" name="color-picker-hex-code" class="form-control input-lg" value="#ff9431" placeholder="" disabled>
                                 </div>
                             </div>
                         </fieldset>
@@ -155,8 +155,8 @@
                             <div class="form-group">
                                 <div class="col-md-4 col-sm-4">
                                     <label class="input-group-btn">
-                                        <span class="btn btn-blue inverted  sign-in-step-5__secondary-btn">
-                                            <i class="fal fa-plus-square-o fa-4x" aria-hidden="true"></i><input id="sign-in-step-5__preview-image-1-input-file" data-pos="1" type="file" style="display: none;" multiple>
+                                        <span class="btn btn-blue btn-lg">
+                                            <i class="fa fa-plus-square-o fa-4x" aria-hidden="true"></i><input id="sign-in-step-5__preview-image-1-input-file" data-pos="1" type="file" style="display: none;" multiple>
                                         </span>
                                         <div class="croppie-img">
                                             <img src="" id="preview-image-1">
@@ -165,9 +165,9 @@
                                 </div>
                                 <div class="col-md-4 col-sm-4">
                                     <label class="input-group-btn">
-                                        <span class="btn btn-blue inverted  sign-in-step-5__secondary-btn">
-                                            <i class="fal fa-plus-square-o fa-4x" aria-hidden="true"></i><input id="sign-in-step-5__preview-image-2-input-file" data-pos="2" type="file" style="display: none;" multiple>
-                                        </span>
+                        <span class="btn btn-blue btn-lg">
+                            <i class="fa fa-plus-square-o fa-4x" aria-hidden="true"></i><input id="sign-in-step-5__preview-image-2-input-file" data-pos="2" type="file" style="display: none;" multiple>
+                        </span>
                                         <div class="croppie-img">
                                             <img src="" id="preview-image-2">
                                         </div>
@@ -175,9 +175,9 @@
                                 </div>
                                 <div class="col-md-4 col-sm-4">
                                     <label class="input-group-btn">
-                                        <span class="btn btn-blue inverted  sign-in-step-5__secondary-btn">
-                                            <i class="fal fa-plus-square-o fa-4x" aria-hidden="true"></i><input id="sign-in-step-5__preview-image-3-input-file" data-pos="3" type="file" style="display: none;" multiple>
-                                        </span>
+                        <span class="btn btn-blue btn-lg">
+                            <i class="fa fa-plus-square-o fa-4x" aria-hidden="true"></i><input id="sign-in-step-5__preview-image-3-input-file" data-pos="3" type="file" style="display: none;" multiple>
+                        </span>
                                         <div class="croppie-img">
                                             <img src="" id="preview-image-3">
                                         </div>
@@ -186,9 +186,11 @@
                             </div>
                         </fieldset>
 
-                        <div class="form-group">
-                            <input type="submit" value="Next Step" class="btn btn-lg sign-in-step-5__submit-btn btn-blue">
-                        </div>
+                        <fieldset>
+                            <div class="form-group center">
+                                <input type="submit" value="Next Step" class="btn btn-lg btn-blue">
+                            </div>
+                        </fieldset>
                     </form>
 
                 </section>

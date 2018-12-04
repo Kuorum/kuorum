@@ -251,6 +251,9 @@ modules = {
         resource url: 'js/bootstrap-slider/bootstrap-slider.js'
         resource url:'js/customForm.js'
         resource url:'css/customForms.css'
+
+        resource url:'js/inputs-handlers.js'
+        resource url:'js/jscolor.min.js'
     }
 
     surveyForms{

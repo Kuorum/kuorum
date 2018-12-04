@@ -252,10 +252,14 @@ ul.globus li.fontIcon > a > span.fas:hover {color:@mainColorHover;}
 .fade-carousel .slides .slide-2.landingServices { background-image: url("@{staticUrlRoot}/landingSlider/landing-2.jpg");}
 .fade-carousel .slides .slide-3.landingServices { background-image: url("@{staticUrlRoot}/landingSlider/landing-3.jpg");}
 
+.stepsSign li.active,
+.stepsSign li.active::before,
+.stepsSign li.active::after {background-color: fade(@mainColor, 50%);}
 
-.onecol #main .stepsSign li {background-color: fade(@mainColor, 50%);}
-.onecol #main .stepsSign li::before {background-color: fade(@mainColor, 50%);}
-.onecol #main .stepsSign li:last-child::after {background-color: fade(@mainColor, 50%);}
+
+.stepsSign.stepsSignSecondaryColor li.active,
+.stepsSign.stepsSignSecondaryColor li.active::before,
+.stepsSign.stepsSignSecondaryColor li.active::after {background-color: fade(@secondColor, 50%);}
 
 
 // Second Color

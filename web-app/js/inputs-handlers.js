@@ -13,7 +13,7 @@
         reader.onload = function (e) {
             var screenElement = document.getElementById('macbook-pro-website-logo');
             var inputLogo = document.getElementById('logo');
-            inputLogo.value = fileList[0].name
+            inputLogo.value = fileList[0].name;
             screenElement.src = e.target.result;
         };
 
@@ -58,20 +58,23 @@
 
 // Color picker
 (function (window, document) {
-    var inputElement = document.getElementById("sign-in-step-5__color-picker-hex-code");
+    var inputElement = document.getElementById("color-picker-hex-code");
 
     if (inputElement) {
         var labelElement = inputElement.parentElement;
-        var colorPreviewElement = document.getElementById("sign-in-step-5__color-picker-hex-code");
+        var colorPreviewElement = document.getElementById("color-picker-hex-code");
         inputElement.addEventListener("change", handleColor, false);
     }
 
     function handleColor(ev) {
         var colorHex = '#' + ev.target.value;
-        var macbookPreviewButton = document.getElementById('macbook-pro-website-form-input-3');
         this.setAttribute('value', colorHex);
         colorPreviewElement.setAttribute('value', colorHex);
-        macbookPreviewButton.style.backgroundColor = colorHex;
+
+        var macbookPreviewButton = document.getElementById('macbook-pro-website-form-input-3');
+        if (macbookPreviewButton){
+            macbookPreviewButton.style.backgroundColor = colorHex;
+        }
     }
 })(window, document);
 
