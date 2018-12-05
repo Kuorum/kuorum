@@ -22,9 +22,10 @@
 .qq-upload-button-focus {outline:1px dotted black;}
 
 .qq-upload-drop-area {
-    position:absolute;
+    position:relative;
     top:0;
-    height:165px;
+    /*height:165px;*/
+    height: auto;
     left:0;
     z-index:2;
     width: 100%;
@@ -32,7 +33,7 @@
     text-align:center;
     border: 1px solid #EFEFEF;
     background: url('../images/fileUpload.png') center 10px no-repeat transparent;
-    padding: 95px 20px 20px 20px;
+    /*padding: 95px 20px 20px 20px;*/
     display: block;
 }
 .qq-upload-drop-area span {

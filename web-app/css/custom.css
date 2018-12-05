@@ -2794,6 +2794,29 @@ textarea.error {border-color: #BF4343;}
 .radio-inline span.error,
 .checkbox-inline span.error {position: absolute; bottom: -30px; left: 0;}
 
+/* LIST ERRORS*/
+div.errors ul { list-style-type: none; padding:0;}
+div.errors ul li:before {
+    font-family: "Font Awesome 5 Pro";
+    font-weight: bold;
+    content: "\f0d8";
+    color: #F2DEDE;
+    position: absolute;
+    top: -16px;
+    font-size: 18px;
+}
+div.errors ul li {
+    background-color: #F2DEDE;
+    font-size: 12px;
+    font-size: 1.2rem;
+    margin: 8px 0 0 0;
+    padding: 4px 8px;
+    color: #BF4343;
+    border-radius: 4px;
+    position: relative;
+    display: inline-block;
+}
+
 /* modal para el crop del file upload */
 .uploadKuorumImage .modal-header {
     background-color: #ff9431;
@@ -3139,23 +3162,11 @@ fieldset > .multiple-range-selector:first-child {margin-top:40px;}
 /* estilos para el resize upload image */
 .uploaderImageContainer > div {margin: 0; position: relative;}
 .form-group.image {position: relative;width: 100%; height: auto;}
-.form-group.image.perfil {height: 220px;}
-.form-group.image.perfil .uploaderImageContainer > div {width: 284px;}
-.form-group.image.perfil .qq-upload-drop-area {padding: 28% 20px 20px 20px; height: 210px; width:210px;}
-.form-group.image.fondoperfil .qq-upload-drop-area {background-size: 100px auto; background-position: center 12%; padding-top: 7%;}
-.form-group.image.fondoperfil {height: 170px;}
 
-/* avatar en config cuadrado */
-.config .uploaderImageContainer.USER_AVATAR > div {height: 390px; max-width:390px; margin: 10px 0 0 0; position: relative;}
-.config .uploaderImageContainer.USER_PROFILE > div {height: 300px; margin: 10px 0 0 0; position: relative;}
-.uploaderImageContainer.uploaderImageContainer .POST_IMAGE> div {height: 300px; margin: 10px 0 0 0; position: relative;}
 .qq-uploader {position: relative; width: 100%;}
 .qq-upload-button {
     text-align: center;
     color: #20a2ea;
-    text-align: center;
-    padding: 0 !important;
-    height: 31px !important;
 }
 .uploadImage {width:220px; height:220px; margin-right:20px;}
 .qq-upload-button-hover {text-decoration: underline;}
@@ -3174,14 +3185,26 @@ fieldset > .multiple-range-selector:first-child {margin-top:40px;}
     border: 1px solid #EFEFEF;
     display: block;
 }
-.uploaderImageContainer.USER_PROFILE .qq-upload-drop-area {height:171px;}
-.uploaderImageContainer.USER_AVATAR .qq-upload-drop-area {height:367px;}
+
+.uploaderImageContainer .qq-upload-drop-area .button-container {width: 80%; margin: 0 auto; border-radius: 4px; padding: 0; }
+
+.uploaderImageContainer.USER_AVATAR  {height: 220px;}
+.uploaderImageContainer.USER_AVATAR .uploaderImageContainer > div {width: 284px;}
+.uploaderImageContainer.USER_AVATAR .qq-upload-drop-area {padding: 28% 20px 20px 20px; height: 210px; width:210px;}
+.uploaderImageContainer.USER_AVATAR .qq-upload-drop-area .button-container{margin-top:-100px;}
+
+.uploaderImageContainer.USER_PROFILE {height: 220px;}
+.uploaderImageContainer.USER_PROFILE .uploaderImageContainer > div {width: 284px;}
+.uploaderImageContainer.USER_PROFILE .qq-upload-drop-area {padding: 28% 20px 20px 20px; height: 366px; width:100%;}
+
 .uploaderImageContainer.POST_IMAGE .qq-upload-drop-area {height:393px;}
 .uploaderImageContainer.MASS_MAIL_IMAGE .qq-upload-drop-area {height:122px;}
 .uploaderImageContainer.MASS_MAIL_IMAGE > div {height:122px;}
 .uploaderImageContainer.PROJECT_IMAGE .qq-upload-drop-area {height:193px;}
 .uploaderImageContainer.PROJECT_IMAGE > div {height:193px;}
-.button-container {width: 80%; margin: 0 auto; border-radius: 4px; padding: 0;}
+
+.uploaderImageContainer.DOMAIN_SLIDE_IMAGE .qq-upload-drop-area .button-container {margin-top: -55px; }
+
 .qq-upload-drop-area-active {
     background-color:#FFF8ED;
     -moz-box-shadow: 0px 0px 20px #000;
@@ -8880,10 +8903,6 @@ ul.notification-menu > li.see-more {
 }
 
 /** Custom url **/
-.form-group-align-left {
-    text-align: left;
-}
-
 
 .custom-url-info-box {
     margin-top: 44px;
@@ -8905,29 +8924,8 @@ ul.notification-menu > li.see-more {
     margin-top:30px;
 }
 
-/* global flex classes */
-.d-flex {
-    display: flex;
-}
-
-.justify-content-center {
-    justify-content: center;
-}
-
-.justify-content-start {
-    justify-content: start;
-}
-
-.pl-15 {
-    padding-left: 15px;
-}
-
-.pr-15 {
-    padding-right: 15px;
-}
-
 /** step 5 **/
-.sign-in-step-5__color-selected {
+.input-color-picker {
     width: 35px;
     height: 35px;
     display: block;
@@ -8938,12 +8936,8 @@ ul.notification-menu > li.see-more {
     background-color: #ff9431;
 }
 
-.sign-in-step-5__color-selected input[type='color'] {
+.input-color-picker input[type='color'] {
     visibility:hidden;
-}
-
-.sign-in-step-5__submit-btn {
-    margin-top: 60px;
 }
 
 .btn-file {
@@ -8970,6 +8964,7 @@ ul.notification-menu > li.see-more {
     position: relative;
     width: 310px;
     margin: 0 auto;
+    display:flex;
 }
 
 .macbook-pro-img {
@@ -9027,6 +9022,7 @@ ul.notification-menu > li.see-more {
     margin: 0 auto;
     justify-content: space-around;
     align-items: center;
+    display: flex;
 }
 
 .macbook-pro-website-form-input {

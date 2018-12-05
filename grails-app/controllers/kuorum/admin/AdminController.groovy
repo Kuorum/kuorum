@@ -14,6 +14,7 @@ import kuorum.users.KuorumUserService
 import kuorum.web.admin.KuorumUserEmailSenderCommand
 import kuorum.web.admin.KuorumUserRightsCommand
 import kuorum.web.admin.domain.DomainConfigCommand
+import kuorum.web.admin.domain.DomainConfigStep1Command
 import kuorum.web.admin.domain.DomainLandingCommand
 import kuorum.web.admin.domain.EditLegalInfoCommand
 import kuorum.web.commands.LinkCommand
@@ -158,6 +159,12 @@ class AdminController {
     }
 
     def updateAuthorizedCampaigns() {
+        updateDomainUserRights()
+        redirect mapping:'adminAuthorizedCampaigns'
+    }
+
+
+    private boolean updateDomainUserRights(){
         DomainRSDTO domainRSDTO = domainService.getConfig(CustomDomainResolver.domain)
         domainRSDTO.globalAuthorities.get(UserRoleRSDTO.ROLE_USER)
         Map<UserRoleRSDTO, List<UserRoleRSDTO>> domainGlobalAuthorities = userRoles.keySet().collectEntries{[it, []]}
@@ -175,6 +182,7 @@ class AdminController {
         DomainRDTO domainRDTO = getPopulatedDomainRDTO()
         domainRDTO.globalAuthorities = domainGlobalAuthorities
         domainService.updateConfig(domainRDTO)
+        /* Reauthenticating the user reloads the new roles on his session */
         springSecurityService.reauthenticate springSecurityService.getCurrentUser().email
 
         if (!domainGlobalAuthorities[UserRoleRSDTO.ROLE_ADMIN]){
@@ -182,10 +190,7 @@ class AdminController {
         }else{
             flash.message ="Success"
         }
-        redirect mapping:'adminAuthorizedCampaigns'
     }
-
-
 
     private DomainRDTO getPopulatedDomainRDTO(){
         DomainRSDTO domainRSDTO = domainService.getConfig(CustomDomainResolver.domain)
@@ -393,4 +398,52 @@ class AdminController {
         redirect(mapping: 'adminEditDomainEmailSender')
     }
 
+
+    def designLandingPage(){
+        [command:new DomainConfigStep1Command()]
+    }
+
+    def saveDesignLandingPage(DomainConfigStep1Command command){
+        CommonsMultipartFile customLogo = request.getFile('logo')
+        if (!customLogo || customLogo.empty || command.hasErrors()) {
+            if (!customLogo || customLogo.empty ){
+                command.errors.rejectValue("logoName", "kuorum.web.admin.domain.DomainConfigStep1Command.logoName.nullable")
+            }
+//            flash.error = message(code: 'admin.menu.domainConfig.uploadLogo.unsuccess')
+            render view: "designLandingPage", model: [command:command]
+            return
+        }
+
+        try {
+            domainResourcesService.uploadLogoFile(customLogo.getInputStream())
+        }catch (Exception e) {
+            log.error(e)
+            flash.error = message(code: 'admin.menu.domainConfig.uploadLogo.unsuccess')
+            render view: "designLandingPage", model: [command:command]
+            return
+        }
+
+        String domain = CustomDomainResolver.domain
+        KuorumFile slideFile1 = KuorumFile.get(command.slideId1)
+        KuorumFile slideFile2 = KuorumFile.get(command.slideId2)
+        KuorumFile slideFile3 = KuorumFile.get(command.slideId3)
+        domainResourcesService.uploadCarouselImages(slideFile1, slideFile2, slideFile3, domain)
+
+        DomainRDTO domainRDTO = getPopulatedDomainRDTO()
+        domainRDTO.slogan = command.slogan
+        domainRDTO.subtitle = command.subtitle
+        domainService.updateConfig(domainRDTO)
+
+        redirect mapping:'adminDomainRegisterStep2'
+    }
+
+
+    def userRights(){
+        editAuthorizedCampaigns()
+    }
+
+    def saveUserRights(){
+        updateDomainUserRights()
+        redirect mapping: 'dashboard'
+    }
 }

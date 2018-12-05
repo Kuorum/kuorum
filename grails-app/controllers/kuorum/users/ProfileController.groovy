@@ -10,7 +10,6 @@ import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.model.Gender
 import kuorum.core.model.UserType
 import kuorum.files.FileService
-import kuorum.mail.KuorumMailAccountService
 import kuorum.mail.KuorumMailService
 import kuorum.notifications.NotificationService
 import kuorum.register.KuorumUserSession
@@ -42,7 +41,6 @@ class ProfileController {
     def postService
     NotificationService notificationService
     KuorumMailService kuorumMailService
-    KuorumMailAccountService kuorumMailAccountService
     RegisterService registerService
     NewsletterService newsletterService
     CausesService causesService

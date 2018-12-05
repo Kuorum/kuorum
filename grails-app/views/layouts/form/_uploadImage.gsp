@@ -153,12 +153,15 @@
     function changeImageBackground(urlImage, imageId){
         var timestampedUrlImage = urlImage +'?timestamp='+new Date().getTime();
 //        var timestampedUrlImage = urlImage;
-        console.log($("#au-uploaderImageId_"+imageId+" .qq-upload-drop-area"))
+        console.log($("#au-uploaderImageId_"+imageId+" .qq-upload-drop-area"));
         $("#au-uploaderImageId_"+imageId+" .qq-upload-drop-area").css("background-image",'url('+timestampedUrlImage+')');
-        console.log($("#au-uploaderImageId_"+imageId+" .qq-upload-drop-area").css("background-image"))
+        console.log($("#au-uploaderImageId_"+imageId+" .qq-upload-drop-area").css("background-image"));
         $("#au-uploaderImageId_" + imageId + " .qq-upload-drop-area").css("background-size", "100% auto");
         $("#au-uploaderImageId_" + imageId + " .qq-upload-drop-area").css("background-position", "0 0");
-        $("#au-uploaderImageId_"+imageId+" .button-container").css("background-color","rgba(0, 0, 0, 0.7)")
+        $("#au-uploaderImageId_" + imageId +" .button-container").css("background-color","rgba(0, 0, 0, 0.7)");
+        $image = $("#au-uploaderImageId_" + imageId +" .qq-upload-drop-area");
+        console.log($image);
+        $image.css("height", $image.width()/(${fileGroup.aspectRatio}))
     }
 
     <g:if test="${imageUrl}">

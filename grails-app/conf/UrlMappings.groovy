@@ -440,8 +440,8 @@ class UrlMappings {
         name adminRequestEmailSender:               "/sec/admin/domain/requestSender"   (controller: "admin"){action=[GET:"requestedEmailSender", POST: "requestedEmailSenderSend"]}
         name adminEditDomainEmailSender:            "/sec/admin/domain/setSender"       (controller:"admin"){action =[GET:"editDomainEmailSender", POST:"updateDomainEmailSender"]}
 
-        name adminDomainRegisterStep1:              "/sec/admin/domain/config/landing"  (controller:"domainConfig"){action =[GET:"designLandingPage", POST:"saveDesignLandingPage"]}
-        name adminDomainRegisterStep2:              "/sec/admin/domain/config/rights"   (controller:"domainConfig"){action =[GET:"userRights", POST:"saveUserRights"]}
+        name adminDomainRegisterStep1:              "/sec/admin/domain/config/landing"  (controller:"admin"){action =[GET:"designLandingPage", POST:"saveDesignLandingPage"]}
+        name adminDomainRegisterStep2:              "/sec/admin/domain/config/rights"   (controller:"admin"){action =[GET:"userRights", POST:"saveUserRights"]}
 
         name editorCreatePolitician:                        "/editor/user/politician/create-politician"             (controller:"editorUser"){action =[GET:"createPolitician", POST:"saveCreatePolitician"]}
         name editorEditUserProfile:                         "/editor/user/$userAlias/editar/profile"                (controller:"editorUser"){action =[GET:"editUser", POST:"updateUser"]}
