@@ -48,6 +48,8 @@ class UrlMappings {
         name ajaxRegister:          "/ajax/sign-up"     (controller: "register", action:"ajaxRegister")
         name ajaxRegisterCheckEmail:"/ajax/sign-up/checkEmail"(controller: "register", action:"checkEmail")
         name ajaxRegisterRRSSOAuth: "/ajax/sign-up/rrssOAuth"(controller: "register", action:"registerRRSSOAuthAjax")
+                                    // THIS URL IS USED BY kuorum.org to redirect to domain configuration the first time
+                                    "/sec/admin/domain/config/registering"(controller: "register", action:"registerRRSSOAuthAjax") {redirectAdminConfig=true}
 
         name registerSuccess:       "/sign-up/success"          (controller: "register",action:"registerSuccess"){mappingName="registerSuccess"}
         name en_registerSuccess:    "/sign-up/success"          (controller: "register",action:"registerSuccess"){mappingName="registerSuccess"}

@@ -97,6 +97,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         params.remove("action")
         params.remove("language")
         String providerName = params.remove("provider")
+        String redirectAdminConfig= params.remove("redirectAdminConfig") // This params is used from kuorum.org to redirect first time to domain configuration
         IOAuthService providerService = grailsApplication.mainContext.getBean("${providerName}OAuthService")
         org.scribe.model.Token token = providerService.createTokenFromAjaxParams(params)
         grails.plugin.springsecurity.oauth.OAuthToken oAuthToken = providerService.createAuthToken(token)
@@ -110,7 +111,11 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
                 log.error("Error recovering and indexing new user. Reindex manually")
             }
         }
-        render ([result:"success"] as JSON)
+        if (redirectAdminConfig){
+            redirect mapping: 'adminDomainRegisterStep1'
+        }else{
+            render ([result:"success"] as JSON)
+        }
     }
 
     def ajaxRegister(KuorumRegisterCommand command){
