@@ -433,7 +433,7 @@ class AdminController {
         domainRDTO.slogan = command.slogan
         domainRDTO.name = command.slogan
         domainRDTO.subtitle = command.subtitle
-        domainRDTO.mainColor = command.colorHexCode
+        domainRDTO.mainColor = command.colorHexCode.encodeAsHashtag() // ADD # if its necesary
         domainRDTO.mainColorShadowed = null
         domainRDTO.secondaryColor = null
         domainRDTO.secondaryColorShadowed = null
