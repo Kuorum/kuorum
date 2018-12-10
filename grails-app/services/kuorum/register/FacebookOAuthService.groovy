@@ -20,6 +20,7 @@ import org.springframework.social.facebook.api.User
 import org.springframework.social.facebook.api.impl.FacebookTemplate
 import springSecurity.KuorumRegisterCommand
 
+@Deprecated
 class FacebookOAuthService implements IOAuthService {
 
     def mongoUserDetailsService
@@ -39,22 +40,22 @@ class FacebookOAuthService implements IOAuthService {
 
         // No email provided
         if (fbProfile.email == null) {
-            log.error("El usuario no ha proporcionado un email en el login con Facebook" );
-            throw new KuorumException("Email de Facebook no proporcionado", "login.rrss.error.noEmail");
+            log.error("El usuario no ha proporcionado un email en el login con Facebook" )
+            throw new KuorumException("Email de Facebook no proporcionado", "login.rrss.error.noEmail")
         }
 
         KuorumUser user = KuorumUser.findByEmailAndDomain(fbProfile.email, CustomDomainResolver.domain)
-        Boolean newUser = false;
+        Boolean newUser = false
         if (!user){
-            user = createNewUser(fbProfile);
-            newUser = true;
+            user = createNewUser(fbProfile)
+            newUser = true
         }
 
         log.info("Logando suario '${user.email}' con facebook" )
         FacebookUser facebookUser = updateSavedAccessToken(accessToken, user, fbProfile)
         if (user.hasErrors() || !facebookUser || facebookUser.hasErrors()) {
             log.error("El usuario ${user} se ha logado usando faceboook y no se ha podido crear debido a estos errores: ${user.errors}" )
-            throw new KuorumException("Ha habido errores al crear el usuario", "register.errors");
+            throw new KuorumException("Ha habido errores al crear el usuario", "register.errors")
         }
 
         FacebookOAuthToken oAuthToken = new FacebookOAuthToken(accessToken, fbProfile.email)
@@ -63,7 +64,7 @@ class FacebookOAuthService implements IOAuthService {
 
         def authorities = mongoUserDetailsService.getRoles(user)
 
-        OAuthToken.metaClass.newUser = false;
+        OAuthToken.metaClass.newUser = false
         oAuthToken.metaClass = null
         oAuthToken.newUser = newUser
 
@@ -144,7 +145,7 @@ class FacebookOAuthService implements IOAuthService {
             params.put("expires_in", Integer.parseInt(params.expiresIn))
         }
         String rawResponse = params as JSON
-        org.scribe.model.Token token = new org.scribe.model.Token(params.accessToken, params.signedRequest, rawResponse);
-        return token;
+        org.scribe.model.Token token = new org.scribe.model.Token(params.accessToken, params.signedRequest, rawResponse)
+        return token
     }
 }

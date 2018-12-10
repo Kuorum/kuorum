@@ -17,6 +17,7 @@ import org.springframework.security.core.userdetails.UserDetails
 import springSecurity.KuorumRegisterCommand
 
 @Transactional
+@Deprecated
 class GoogleOAuthService implements IOAuthService{
 
     def oauthService
@@ -46,10 +47,10 @@ class GoogleOAuthService implements IOAuthService{
         GoogleOAuthToken oAuthToken =  new GoogleOAuthToken(accessToken, googleUser.email)
 
         KuorumUser user = KuorumUser.findByEmailAndDomain(googleUser.email, CustomDomainResolver.domain)
-        Boolean newUser = false;
+        Boolean newUser = false
         if (!user){
-            user = createUser(googleUser);
-            newUser = true;
+            user = createUser(googleUser)
+            newUser = true
         }
 
         OAuthID oAuthID = new OAuthID(provider:PROVIDER.toLowerCase(),accessToken:accessToken,user:user)
@@ -58,7 +59,7 @@ class GoogleOAuthService implements IOAuthService{
         UserDetails userDetails =  mongoUserDetailsService.createUserDetails(user)
         def authorities = mongoUserDetailsService.getRoles(user)
 
-        OAuthToken.metaClass.newUser = false;
+        OAuthToken.metaClass.newUser = false
         oAuthToken.metaClass = null
         oAuthToken.newUser = newUser
 
@@ -75,9 +76,9 @@ class GoogleOAuthService implements IOAuthService{
         )
         KuorumUser user = registerService.createUser(registerCommand)
         user.password = registerCommand.password
-        user.accountExpired = false;
+        user.accountExpired = false
         user.accountLocked = false
-        user.enabled = true;
+        user.enabled = true
 
 //        if (user.userType == UserType.PERSON){
             PersonData personData = new PersonData()
@@ -99,13 +100,13 @@ class GoogleOAuthService implements IOAuthService{
 
         if (!user.save()){
             log.error("El usuario ${user} se ha logado usando google y no se ha podido crear debido a estos errores: ${user.errors}" )
-            return null;
+            return null
         }
 
         createAvatar(user, googleUser)
         kuorumMailService.sendRegisterUserViaRRSS(user,PROVIDER)
         kuorumMailService.sendWelcomeRegister(user)
-        return user;
+        return user
     }
 
     private def overwriteFieldIfNotFilled(PersonalData personalData, String field,def user,def parseData){
@@ -137,7 +138,7 @@ class GoogleOAuthService implements IOAuthService{
     @Override
     Token createTokenFromAjaxParams(Map params) {
         String rawResponse = params as JSON
-        org.scribe.model.Token token = new org.scribe.model.Token(params.access_token, "", rawResponse);
-        return token;
+        org.scribe.model.Token token = new org.scribe.model.Token(params.access_token, "", rawResponse)
+        return token
     }
 }

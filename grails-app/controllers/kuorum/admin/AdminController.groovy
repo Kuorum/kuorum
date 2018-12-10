@@ -431,7 +431,12 @@ class AdminController {
 
         DomainRDTO domainRDTO = getPopulatedDomainRDTO()
         domainRDTO.slogan = command.slogan
+        domainRDTO.name = command.slogan
         domainRDTO.subtitle = command.subtitle
+        domainRDTO.mainColor = command.colorHexCode
+        domainRDTO.mainColorShadowed = null
+        domainRDTO.secondaryColor = null
+        domainRDTO.secondaryColorShadowed = null
         domainService.updateConfig(domainRDTO)
 
         redirect mapping:'adminDomainRegisterStep2'
