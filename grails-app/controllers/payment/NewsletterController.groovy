@@ -7,7 +7,6 @@ import kuorum.KuorumFile
 import kuorum.dashboard.DashboardService
 import kuorum.files.FileService
 import kuorum.register.KuorumUserSession
-import kuorum.users.CookieUUIDService
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
 import kuorum.web.commands.payment.contact.ContactFilterCommand
@@ -27,7 +26,6 @@ import org.kuorum.rest.model.notification.campaign.NewsletterTemplateDTO
 import org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatsByCampaignPageRSDTO
 import org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO
 import payment.campaign.CampaignService
-import payment.campaign.DebateService
 import payment.campaign.NewsletterService
 import payment.campaign.PostService
 import payment.contact.ContactService
@@ -46,14 +44,9 @@ class NewsletterController {
     NewsletterService newsletterService
 
     CampaignService campaignService
-    DebateService debateService
     PostService postService
 
     DashboardService dashboardService
-
-    CustomerService customerService
-
-    CookieUUIDService cookieUUIDService
 
     def index() {
 
@@ -131,13 +124,11 @@ class NewsletterController {
         }
 
         def numberRecipients = getNumberRecipients(NewsletterRSDTO, user)
-        Boolean validSubscription = customerService.validSubscription(user)
 
         [
                 command: command,
                 contentType: template,
                 campaign: NewsletterRSDTO,
-                validSubscription:validSubscription,
                 numberRecipients: numberRecipients
         ]
     }
@@ -243,14 +234,12 @@ class NewsletterController {
 
     private def saveAndSendContent(KuorumUserSession user, MassMailingContentCommand command, Long campaignId = null){
         NewsletterRQDTO newsletterRQDTO = mapContentCampaign(command, user, campaignId)
-        Boolean validSubscription = customerService.validSubscription(user)
-        Boolean goToPaymentProcess = !validSubscription && (command.getSendType()=="SEND" || command.sendType == "SCHEDULED")
         String msg = ""
         NewsletterRSDTO savedCampaign = null
-        if (validSubscription && command.getSendType()=="SEND"){
+        if (command.getSendType()=="SEND"){
             savedCampaign = newsletterService.campaignSend(user, newsletterRQDTO, campaignId)
             msg = g.message(code:'tools.massMailing.send.advise', args: [savedCampaign.name])
-        }else if(validSubscription && command.sendType == "SCHEDULED") {
+        }else if(command.sendType == "SCHEDULED") {
             savedCampaign = newsletterService.campaignSchedule(user, newsletterRQDTO, command.getScheduled(), campaignId)
             msg = g.message(code: 'tools.massMailing.schedule.advise', args: [savedCampaign.name, g.formatDate(date: savedCampaign.sentOn, type: "datetime", style: "SHORT")])
         }else{
@@ -264,7 +253,7 @@ class NewsletterController {
             msg = g.message(code:'tools.massMailing.saveDraft.adviseTest', args: [savedCampaign.name])
             newsletterService.campaignTest(user, savedCampaign.getId())
         }
-        [msg:msg, campaign:savedCampaign, goToPaymentProcess:goToPaymentProcess]
+        [msg:msg, campaign:savedCampaign]
     }
 
     /** END STEPS **/

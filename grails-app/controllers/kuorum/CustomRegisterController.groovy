@@ -11,7 +11,6 @@ import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
 import kuorum.users.PoliticianService
 import kuorum.web.commands.customRegister.Step2Command
-import kuorum.web.commands.payment.contact.promotionalCode.PromotionalCodeCommand
 import kuorum.web.commands.profile.DomainValidationCommand
 import org.springframework.web.servlet.LocaleResolver
 import payment.contact.PromotionalCodeService
@@ -84,6 +83,6 @@ class CustomRegisterController {
     @Secured('IS_AUTHENTICATED_REMEMBERED')
     def step3(){
         KuorumUser user =  KuorumUser.get(springSecurityService.principal.id)
-        [user:user, command: new PromotionalCodeCommand()]
+        [user:user]
     }
 }

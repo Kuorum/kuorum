@@ -25,7 +25,6 @@ import org.kuorum.rest.model.contact.ContactPageRSDTO
 import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
 import org.kuorum.rest.model.contact.filter.FilterRDTO
 import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
-import payment.CustomerService
 import payment.campaign.*
 import payment.contact.ContactService
 
@@ -42,7 +41,6 @@ class CampaignController {
     PetitionService petitionService
     SpringSecurityService springSecurityService
     FileService fileService
-    CustomerService customerService
 
     KuorumUserService kuorumUserService
     CookieUUIDService cookieUUIDService
@@ -66,16 +64,16 @@ class CampaignController {
                     break
                 case CampaignTypeRSDTO.SURVEY:
                     dataView = surveyService.buildView(campaignRSDTO, user, viewerUid, params)
-                    break;
+                    break
                 case CampaignTypeRSDTO.PARTICIPATORY_BUDGET:
                     dataView = participatoryBudgetService.buildView(campaignRSDTO, user, viewerUid, params)
-                    break;
+                    break
                 case CampaignTypeRSDTO.DISTRICT_PROPOSAL:
                     dataView = districtProposalService.buildView(campaignRSDTO, user, viewerUid, params)
-                    break;
+                    break
                 case CampaignTypeRSDTO.PETITION:
                     dataView = petitionService.buildView(campaignRSDTO, user, viewerUid, params)
-                    break;
+                    break
                 default:
                     log.error("Campaign type not recognized: ${campaignRSDTO.campaignType}")
                     throw new Exception("Campaign type not recognized: ${campaignRSDTO.campaignType}")
@@ -89,8 +87,8 @@ class CampaignController {
     }
 
     def findLiUserCampaigns(String userId){
-        KuorumUser user = KuorumUser.get(new ObjectId(userId));
-        List<CampaignRSDTO> campaigns = campaignService.findAllCampaigns(user).findAll{it.newsletter.status==CampaignStatusRSDTO.SENT};
+        KuorumUser user = KuorumUser.get(new ObjectId(userId))
+        List<CampaignRSDTO> campaigns = campaignService.findAllCampaigns(user).findAll{it.newsletter.status==CampaignStatusRSDTO.SENT}
         render template: '/campaigns/cards/campaignsList', model: [campaigns:campaigns, showAuthor:true]
 
     }
@@ -138,7 +136,7 @@ class CampaignController {
         rdto.endDate = TimeZoneUtil.convertToUserTimeZone(command.endDate, user.timeZone)
         if (CustomDomainResolver.domainRSDTO?.validation){
             // Only if domain validation is active, then the checkValidation of the campaign is editable
-            rdto.checkValidation = command.checkValidation?:false;
+            rdto.checkValidation = command.checkValidation?:false
         }
         if (command.filterEdited) {
             //anonymousFilter.setName(g.message(code:'tools.contact.filter.anonymousName', args: anonymousFilter.getName()))
@@ -148,7 +146,7 @@ class CampaignController {
             rdto.setFilterId(command.filterId)
         }
         if (command.eventAttached && !rdto.event){
-            rdto.event = new EventRDTO();
+            rdto.event = new EventRDTO()
         }
         rdto
     }
@@ -196,7 +194,7 @@ class CampaignController {
             campaignRDTO.setPublishOn(null)
             campaignService.save(user, campaignRDTO, campaignId)
         }
-        return campaignRSDTO;
+        return campaignRSDTO
 
     }
 
@@ -217,7 +215,7 @@ class CampaignController {
         }
 
         if (!command){
-            command = new CampaignContentCommand();
+            command = new CampaignContentCommand()
             if (campaignRSDTO){
                 command.title = campaignRSDTO.title
                 command.body = campaignRSDTO.body
@@ -249,7 +247,7 @@ class CampaignController {
     protected Long getCampaignNumberRecipients(KuorumUserSession user, CampaignRSDTO campaignRSDTO){
         Long numberRecipients = campaignRSDTO?.newsletter?.filter?.amountOfContacts!=null?
                 campaignRSDTO.newsletter?.filter?.amountOfContacts:
-                contactService.getUsers(user, null).total;
+                contactService.getUsers(user, null).total
         return numberRecipients
     }
 
@@ -294,7 +292,7 @@ class CampaignController {
         CampaignRSDTO savedCampaign = null
         String msg
         if(sendType == 'SEND'){
-            campaignRDTO.publishOn = Calendar.getInstance(user.timeZone).time;
+            campaignRDTO.publishOn = Calendar.getInstance(user.timeZone).time
         }
         else{
             campaignRDTO.publishOn = TimeZoneUtil.convertToUserTimeZone(publishOn, user.timeZone)

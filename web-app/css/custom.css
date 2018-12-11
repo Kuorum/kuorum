@@ -9036,24 +9036,6 @@ ul.notification-menu > li.see-more {
     background-color: #ff943b;
 }
 
-.sign-in-step-5__secondary-btn {
-    width: 100%;
-    background-color: transparent;
-    border: 2px solid #a8a8a8;
-    color: #a8a8a8 !important;
-    border-radius: 5px !important;
-}
-.sign-in-step-5__secondary-btn-logo {
-    height: 50px;
-    padding-top: 12px !important;
-}
-
-.sign-in-step-5__secondary-btn:hover {
-    background-color: transparent !important;
-    border: 2px solid #2082e3;
-    color: #2082e3 !important;
-}
-
 .input-group .input-group-addon{
     padding: 4px 12px;
 }
@@ -9069,10 +9051,6 @@ ul.notification-menu > li.see-more {
     border-radius: 10px;
 }
 
-.croppie-img {
-    position: absolute;
-    top: 0;
-}
 
 /** Step 6 **/
 

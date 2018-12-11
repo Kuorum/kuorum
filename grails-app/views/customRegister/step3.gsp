@@ -18,16 +18,9 @@
         <li>3</li>
     </ol>
     <div class="signup final">
-        %{--<g:form mapping="customProcessRegisterStep3" method="POST">--}%
             <h3><g:message code="customRegister.step3.congratulations"/> </h3>
-            %{--<fieldset class="row">--}%
-                %{--<div class="form-group col-md-6 col-md-offset-3 promotional-code">--}%
-                    %{--<formUtil:input command="${command}" field="promotionalCode" showLabel="true"/>--}%
-                %{--</div>--}%
-            %{--</fieldset>--}%
             <fieldset class="row">
                 <div class="form-group">
-                    %{--<input type="submit" class="btn btn-lg" value="${g.message(code:'customRegister.step3.goToDashboard')}"/>--}%
                     <g:link class="btn btn-lg" mapping="dashboard" params="[tour:true]">
                         <g:message code="customRegister.step3.goToDashboard"/>
                     </g:link>

@@ -15,7 +15,7 @@
         <li><g:link mapping="politicianCampaignsNew"><g:message code="tools.campaign.new.title"/></g:link></li>
         <li class="active">${breadCrumbName}</li>
     </ol>
-    <g:render template="types/contentStep" model="[command: command, campaign: campaign, contentType: contentType, numberRecipients:numberRecipients,validSubscription:validSubscription]"/>
+    <g:render template="types/contentStep" model="[command: command, campaign: campaign, contentType: contentType, numberRecipients:numberRecipients]"/>
 
     <g:render template="timeZoneSelectorPopUp"/>
 </content>
