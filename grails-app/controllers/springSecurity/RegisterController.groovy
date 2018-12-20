@@ -100,6 +100,11 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         String redirectAdminConfig= params.remove("redirectAdminConfig") // This params is used from kuorum.org to redirect first time to domain configuration
         IOAuthService providerService = grailsApplication.mainContext.getBean("${providerName}OAuthService")
         org.scribe.model.Token token = providerService.createTokenFromAjaxParams(params)
+        if (!token){
+            flash.message = "This code is already used or not exists"
+            redirect mapping:'home'
+            return
+        }
         grails.plugin.springsecurity.oauth.OAuthToken oAuthToken = providerService.createAuthToken(token)
         oAuthToken.authenticated = true
         SecurityContextHolder.context.authentication = oAuthToken

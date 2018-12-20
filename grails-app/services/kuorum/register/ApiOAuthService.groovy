@@ -26,7 +26,7 @@ class ApiOAuthService implements IOAuthService{
         UserDetails userDetails =  mongoUserDetailsService.createUserDetails(user)
         def authorities = mongoUserDetailsService.getRoles(user)
         OAuthToken oAuthToken = new KuorumApioAuthToken(accessToken, user.id.toString(), user.domain)
-        OAuthToken.metaClass.newUser = false;
+        OAuthToken.metaClass.newUser = false
         oAuthToken.metaClass = null
         oAuthToken.newUser = user
 
@@ -38,8 +38,12 @@ class ApiOAuthService implements IOAuthService{
     @Override
     Token createTokenFromAjaxParams(Map params) {
         String rawResponse = params as JSON
-        org.scribe.model.Token token = new org.scribe.model.Token(params.token, "", rawResponse);
-        return token;
+        String tokenString = params.token
+        if (!tokenString){
+            return null
+        }
+        org.scribe.model.Token token = new org.scribe.model.Token(tokenString, "", rawResponse)
+        return token
     }
 
     private KuorumUser getUserWithToken(String token){
@@ -56,7 +60,7 @@ class ApiOAuthService implements IOAuthService{
 }
 
 
-public class KuorumApioAuthToken extends OAuthToken{
+class KuorumApioAuthToken extends OAuthToken{
 
     public static final String PROVIDER_NAME = 'KuorumApi'
 
