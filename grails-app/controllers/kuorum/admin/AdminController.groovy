@@ -135,12 +135,13 @@ class AdminController {
     }
 
 
-    private static final List campaignRoles = [ UserRoleRSDTO.ROLE_CAMPAIGN_NEWSLETTER, UserRoleRSDTO.ROLE_CAMPAIGN_POST,UserRoleRSDTO.ROLE_CAMPAIGN_DEBATE,UserRoleRSDTO.ROLE_CAMPAIGN_EVENT, UserRoleRSDTO.ROLE_CAMPAIGN_SURVEY, UserRoleRSDTO.ROLE_CAMPAIGN_PETITION,UserRoleRSDTO.ROLE_CAMPAIGN_PARTICIPATORY_BUDGET]
+//    private static final List campaignRoles = [ UserRoleRSDTO.ROLE_CAMPAIGN_NEWSLETTER, UserRoleRSDTO.ROLE_CAMPAIGN_POST,UserRoleRSDTO.ROLE_CAMPAIGN_DEBATE,UserRoleRSDTO.ROLE_CAMPAIGN_EVENT, UserRoleRSDTO.ROLE_CAMPAIGN_SURVEY, UserRoleRSDTO.ROLE_CAMPAIGN_PETITION,UserRoleRSDTO.ROLE_CAMPAIGN_PARTICIPATORY_BUDGET]
     private static final Map userRoles = [(UserRoleRSDTO.ROLE_ADMIN): 1,(UserRoleRSDTO.ROLE_SUPER_USER): 2,(UserRoleRSDTO.ROLE_USER): 3]
 
     def editAuthorizedCampaigns() {
         DomainRSDTO domainRSDTO = domainService.getConfig(CustomDomainResolver.domain)
         def globalAuthoritiesCommand = [:]
+        List campaignRoles = domainRSDTO.campaignRolesActive
         campaignRoles.each{ campaignRole ->
             globalAuthoritiesCommand.put(campaignRole, getRangeNumberFromDomainAuthority(campaignRole, domainRSDTO.globalAuthorities) )
         }
@@ -168,6 +169,7 @@ class AdminController {
         DomainRSDTO domainRSDTO = domainService.getConfig(CustomDomainResolver.domain)
         domainRSDTO.globalAuthorities.get(UserRoleRSDTO.ROLE_USER)
         Map<UserRoleRSDTO, List<UserRoleRSDTO>> domainGlobalAuthorities = userRoles.keySet().collectEntries{[it, []]}
+        List campaignRoles = domainRSDTO.campaignRolesActive
         campaignRoles.each{campaignRole ->
             int val = 0
             try{
