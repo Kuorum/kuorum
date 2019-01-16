@@ -2643,6 +2643,7 @@ ul.search-list > li.search-article .box-ppal .card-footer > ul li a .fal {font-s
 ul.search-list > li.search-article .box-ppal .card-footer > ul li a .number{font-size: 20px; vertical-align: top;font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;}
 ul.search-list > li.search-article .box-ppal .card-footer > ul li a.disabled:hover {color: #a8a8a8; text-decoration: none;}
 ul.search-list > li.search-article .box-ppal .card-footer > ul li a:hover {color: #00a3ed; text-decoration: none;}
+ul.search-list > li.search-article .box-ppal .card-footer > ul li a.active {color: #00a3ed}
 ul.search-list > li.search-article .box-ppal .card-footer > ul li .label { color:inherit; padding: 0;font-size: inherit;font-weight: inherit;}
 ul.search-list > li.search-article .box-ppal .card-footer > ul li .comment-counter.important {margin-top:-2px;color: #ff9431;}
 
