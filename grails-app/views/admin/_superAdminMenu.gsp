@@ -11,4 +11,7 @@
     <li class="${activeMapping=='adminEditDomainEmailSender'?'active':''}">
         <g:link mapping="adminEditDomainEmailSender"><g:message code="admin.menu.domainConfig.setCustomDomain"/></g:link>
     </li>
+    <li class="${activeMapping=='adminDomainConfigPlan'?'active':''}">
+        <g:link mapping="adminDomainConfigPlan"><g:message code="admin.menu.domainConfig.adminDomainConfigPlan"/></g:link>
+    </li>
 </ul>

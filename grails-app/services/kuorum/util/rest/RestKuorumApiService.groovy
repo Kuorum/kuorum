@@ -192,7 +192,10 @@ class RestKuorumApiService {
         DOMAIN              ("/domain/"),
         DOMAIN_CONFIG       ("/domain/config"),
         DOMAIN_LEGAL        ("/domain/legal"),
+        DOMAIN_PAYMENT      ("/domain/payment"),
         DOMAIN_MAIL_CONFIG  ("/domain/mailing"),
+
+        CUSTOMER_PLANS              ("/customer/plans"),
 
         LOGIN           ("/login/token"),
 

@@ -5,10 +5,10 @@ import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.files.LessCompilerService
 import kuorum.util.rest.RestKuorumApiService
 import org.kuorum.rest.model.admin.AdminConfigMailingRDTO
-import org.kuorum.rest.model.domain.DomainLegalInfoRDTO
-import org.kuorum.rest.model.domain.DomainLegalInfoRSDTO
-import org.kuorum.rest.model.domain.DomainRDTO
-import org.kuorum.rest.model.domain.DomainRSDTO
+import org.kuorum.rest.model.domain.*
+import org.kuorum.rest.model.domain.creation.NewDomainPaymentDataRDTO
+import org.kuorum.rest.model.payment.BillingAmountUsersRangeDTO
+import org.kuorum.rest.model.payment.KuorumPaymentPlanDTO
 import org.springframework.beans.factory.annotation.Value
 
 class DomainService {
@@ -148,4 +148,58 @@ class DomainService {
                 kuorumAdminRestApiKey
         )
     }
+
+
+
+    DomainPaymentInfoRSDTO getPaymentInfo(){
+        String domain = CustomDomainResolver.domain
+        Map<String, String> params = [:]
+        Map<String, String> query = [domainName:domain]
+
+        try{
+            def apiResponse= restKuorumApiService.get(
+                    RestKuorumApiService.ApiMethod.DOMAIN_PAYMENT,
+                    params,
+                    query,
+                    new TypeReference<DomainPaymentInfoRSDTO>(){},
+                    kuorumAdminRestApiKey)
+            return apiResponse.data
+        }catch (Exception e){
+            log.warn("Domain not found: ${domain}")
+            return null
+        }
+    }
+
+    DomainPaymentInfoRSDTO updatePaymentInfo (NewDomainPaymentDataRDTO domainPaymentInfoRDTO) {
+
+        String domain = CustomDomainResolver.domain
+        Map<String, String> params = [:]
+        Map<String, String> query = [domainName:domain]
+
+        def apiResponse = restKuorumApiService.put(
+                RestKuorumApiService.ApiMethod.DOMAIN_PAYMENT,
+                params,
+                query,
+                domainPaymentInfoRDTO,
+                new TypeReference<DomainPaymentInfoRSDTO>() {},
+                kuorumAdminRestApiKey)
+        DomainPaymentInfoRSDTO domainPaymentInfo
+        if (apiResponse.data){
+            domainPaymentInfo = apiResponse.data
+        }
+        return domainPaymentInfo
+    }
+
+    List<KuorumPaymentPlanDTO> getPlans(BillingAmountUsersRangeDTO usersRangeDTO){
+        Map<String, String> params = [:]
+        Map<String, String> query = [billingAmountUsersRange:usersRangeDTO, billingType: usersRangeDTO.getBillingType()]
+        def response = restKuorumApiService.get(
+                RestKuorumApiService.ApiMethod.CUSTOMER_PLANS,
+                params,
+                query,
+                new TypeReference<List<KuorumPaymentPlanDTO>>(){}
+        )
+        response.data
+    }
+
 }

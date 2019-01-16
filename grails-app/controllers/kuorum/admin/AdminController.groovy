@@ -4,6 +4,7 @@ import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.KuorumFile
 import kuorum.core.customDomain.CustomDomainResolver
+import kuorum.core.exception.KuorumException
 import kuorum.domain.DomainService
 import kuorum.files.DomainResourcesService
 import kuorum.mail.KuorumMailService
@@ -24,12 +25,17 @@ import org.codehaus.groovy.runtime.InvokerHelper
 import org.kuorum.rest.model.admin.AdminConfigMailingRDTO
 import org.kuorum.rest.model.communication.CampaignRSDTO
 import org.kuorum.rest.model.domain.*
+import org.kuorum.rest.model.domain.creation.NewDomainPaymentDataRDTO
 import org.kuorum.rest.model.kuorumUser.UserRoleRSDTO
 import org.kuorum.rest.model.notification.campaign.config.NewsletterConfigRQDTO
 import org.kuorum.rest.model.notification.campaign.config.NewsletterConfigRSDTO
+import org.kuorum.rest.model.payment.BillingAmountUsersRangeDTO
+import org.kuorum.rest.model.payment.KuorumPaymentPlanDTO
 import org.springframework.web.multipart.commons.CommonsMultipartFile
 import payment.campaign.CampaignService
 import payment.campaign.NewsletterService
+
+import java.lang.reflect.UndeclaredThrowableException
 
 @Secured(['IS_AUTHENTICATED_FULLY','ROLE_ADMIN'])
 class AdminController {
@@ -452,5 +458,36 @@ class AdminController {
     def saveUserRights(){
         updateDomainUserRights()
         redirect mapping: 'dashboard'
+    }
+
+    def editDomainPlan(){
+        DomainPaymentInfoRSDTO domainPaymentInfo = domainService.getPaymentInfo()
+        BillingAmountUsersRangeDTO usersRange = domainPaymentInfo.billingAmountUsersRange
+        List<KuorumPaymentPlanDTO> plans = domainService.getPlans(usersRange)
+        [domainPaymentInfo:domainPaymentInfo, plans:plans]
+    }
+
+    def saveNewDomainPlan(){
+        DomainPlanRSDTO plan = DomainPlanRSDTO.valueOf(params.plan)
+        DomainPaymentInfoRSDTO domainPaymentInfo = domainService.getPaymentInfo()
+        NewDomainPaymentDataRDTO newDomainPaymentDataRDTO = new NewDomainPaymentDataRDTO()
+        newDomainPaymentDataRDTO.billingAmountUsersRange = domainPaymentInfo.billingAmountUsersRange
+        newDomainPaymentDataRDTO.billingCycle = domainPaymentInfo.billingCycle
+        newDomainPaymentDataRDTO.nonce = "NO VALID NONCE - USE DEFAULT ONE"
+        newDomainPaymentDataRDTO.promotionalCode = domainPaymentInfo.promotionalCode
+        newDomainPaymentDataRDTO.domainPlan = plan
+        try{
+            domainPaymentInfo = domainService.updatePaymentInfo(newDomainPaymentDataRDTO)
+            flash.message="Plan changed. Please review the new rigths"
+            redirect mapping:'adminAuthorizedCampaigns'
+        }catch (UndeclaredThrowableException e){
+            String msgError = "Error updating participatory budget status"
+            if (e.undeclaredThrowable.cause instanceof KuorumException){
+                KuorumException ke = e.undeclaredThrowable.cause
+                msgError = message(code: ke.errors[0].code)
+            }
+            flash.error=msgError
+            redirect mapping:'adminDomainConfigPlan'
+        }
     }
 }
