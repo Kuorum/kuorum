@@ -15,8 +15,7 @@
     <div class="panel panel-default">
         <div class='profile-header'>
             <g:render template="editUserOptionsProfile" model="[user:politician]"/>
-            <img src="${image.userImgProfile(user:politician)}" alt="${g.message(code:'page.politicianProfile.imageProfile.alt', args:[politician.fullName])}">
-
+            <image:userImgProfile user="${politician}" alt="${g.message(code:'page.politicianProfile.imageProfile.alt', args:[politician.fullName])}"/>
         </div>
         <div class="panel-body">
             <div class="row">

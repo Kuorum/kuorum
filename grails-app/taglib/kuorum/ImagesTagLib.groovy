@@ -9,7 +9,7 @@ import org.kuorum.rest.model.search.kuorumElement.SearchKuorumUserRSDTO
 
 class ImagesTagLib {
     static defaultEncodeAs = 'html'
-    static encodeAsForTags = [showYoutube:'raw']
+    static encodeAsForTags = [showYoutube:'raw', userImgProfile:'raw']
     def springSecurityService
 
     static namespace = "image"
@@ -40,6 +40,7 @@ class ImagesTagLib {
     }
     def userImgProfile={attrs ->
         String imageURL =""
+        String alt = attrs.alt
         if (attrs.user instanceof SearchKuorumUserRSDTO){
             imageURL = attrs.user.urlImageProfile
         }else{
@@ -47,9 +48,12 @@ class ImagesTagLib {
             imageURL = attrs.user.imageProfile?.url
         }
         if (imageURL){
-            out << imageURL
+            out << "<img src='${imageURL}' alt='${alt}'>"
         }else{
-            out << getDefaultImgProfile()
+            String watermark = CustomDomainResolver.domainRSDTO.name
+            out << "<div class='watermarked' data-watermark='${watermark}'>"
+            out << "<img src='${getDefaultImgProfile()}' alt='${alt}'>"
+            out << "</div>"
         }
     }
 

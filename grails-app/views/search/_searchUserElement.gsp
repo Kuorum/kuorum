@@ -5,7 +5,7 @@
     <div class="link-wrapper">
         <g:link mapping="userShow" params="${solrUser.encodeAsLinkProperties()}" class="hidden"></g:link>
         <div class="card-header-photo">
-            <img src="${image.userImgProfile(user:solrUser)}" alt="${message(code:'kuorumUser.image.profile.alt', args:[solrUser.name])}">
+            <image:userImgProfile user="${solrUser}" alt="${message(code:'kuorumUser.image.profile.alt', args:[solrUser.name])}"/>
         </div>
 
         <div class="user">
