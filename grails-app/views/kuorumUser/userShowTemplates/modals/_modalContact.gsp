@@ -1,5 +1,6 @@
+<%@ page import="kuorum.web.commands.customRegister.KuorumUserContactMessageCommand" %>
 <!-- MODAL CONTACT -->
-<g:set var="command" value="${new kuorum.web.commands.customRegister.ContactRegister() }"/>
+<g:set var="command" value="${new kuorum.web.commands.customRegister.KuorumUserContactMessageCommand() }"/>
 <div class="modal fade in" id="contact-modal" tabindex="-1" role="dialog" aria-labelledby="contactModalTitle" aria-hidden="false">
     <div class="modal-dialog ">
         <div class="modal-content">
@@ -28,24 +29,6 @@
                         <label for="message" class="control-label"><g:message code="modal.contact.message"/></label>
                         <formUtil:textArea field="message" rows="10" command="${command}" texteditor="true" />
                     </div>
-
-                    <sec:ifNotLoggedIn>
-                        <div class="form-group">
-                            <formUtil:input field="name" command="${command}" showLabel="true" showCharCounter="false"/>
-                        </div>
-
-                        <div class="form-group">
-                            <formUtil:input field="email" command="${command}"/>
-                        </div>
-                        <div class="form-group">
-                            <formUtil:checkBox command="${command}" field="conditions" label="${g.message(code:"register.conditions",args:[g.createLink(mapping: 'footerPrivacyPolicy')],encodeAs:"raw")}"/>
-                        </div>
-                    </sec:ifNotLoggedIn>
-                    <sec:ifLoggedIn>
-                        <input type="hidden" name="name" value="LOGGED USER"/>
-                        <input type="hidden" name="email" value="notExistingMail@notMail.com"/>
-                        <input type="hidden" name="conditions" value="true"/>
-                    </sec:ifLoggedIn>
 
                     <div class="form-group button">
                         <input type="submit" class="btn" value="${g.message(code:'modal.contact.send')}">

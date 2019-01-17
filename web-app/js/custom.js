@@ -42,25 +42,25 @@ $(document).ready(function() {
     function clickedButtonFollow(button){
         var buttonFollow = $(button);
         if (buttonFollow.hasClass('noLogged')){
-            var buttonFollowUUID = guid()
-            buttonFollow.attr("id",buttonFollowUUID)
-            $('#registro').find("form").attr("callback", "clickFollowAfterLogIn")
-            $('#registro').find("form").attr("buttonId", buttonFollowUUID)
+            var buttonFollowUUID = guid();
+            buttonFollow.attr("id",buttonFollowUUID);
+            $('#registro').find("form").attr("callback", "clickFollowAfterLogIn");
+            $('#registro').find("form").attr("buttonId", buttonFollowUUID);
             $('#registro').modal('show');
         }
         else if ( followActions.isAlreadyFollowing(buttonFollow) ){
             var url = followActions.getUnFollowUrl(buttonFollow);
             followActions.ajaxFollow(url, buttonFollow, function(data, status, xhr) {
                 var message = buttonFollow.attr('data-message-follow');
-                var userId = followActions.getUserId(buttonFollow)
-                removeUserCampaigns(userId)
+                var userId = followActions.getUserId(buttonFollow);
+                removeUserCampaigns(userId);
                 $("button.follow[data-userId="+userId+"]").html(message).removeClass('disabled').addClass('enabled');
             });
         } else {
             var url = followActions.getFollowUrl(buttonFollow);
             followActions.ajaxFollow(url, buttonFollow, function(data, status, xhr) {
                 var message = buttonFollow.attr('data-message-unfollow');
-                var userId = followActions.getUserId(buttonFollow)
+                var userId = followActions.getUserId(buttonFollow);
                 $("button.follow[data-userId="+userId+"]").html(message).removeClass('enabled').addClass('disabled');
                 deleteUserRecommendation(userId);
                 addUserCampaigns(userId);
@@ -103,7 +103,7 @@ $(document).ready(function() {
         //$(this).closest('li.user').fadeOut('slow', function(){
         //  $(this).remove();
         //});
-        var userId = $(this).attr("data-userid")
+        var userId = $(this).attr("data-userid");
         deleteUserRecommendation(userId)
 
     });
@@ -112,20 +112,10 @@ $(document).ready(function() {
         //$(this).closest('.boxes.follow').fadeOut('slow', function(){
         //  $(this).remove();
         //});
-        var userId = $(this).attr("data-userid")
+        var userId = $(this).attr("data-userid");
         deleteUserRecommendation(userId)
     });
 
-    function clickedButtonContact(button){
-        var buttonContact = $(button);
-        $('#contact-modal').modal('show');
-    }
-
-    $('body').on("click", ".btn.contact", function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        clickedButtonContact($(this))
-    });
 
     function clickedDeleteRecommendedUser(button, fadeElement){
         var buttonDeleteRecommendedUser= $(button);
@@ -186,7 +176,7 @@ $(document).ready(function() {
         console.log("kk");
         $("#searchFilters input[type=checkbox]").prop('checked', false);
 
-        var filterVal = $(this).val()
+        var filterVal = $(this).val();
         if (filterVal == ""){
             $("#searchFilters #all-types").prop('checked', true);
         }else{
@@ -271,7 +261,7 @@ $(document).ready(function() {
          //Para que sea un integer
         url += paramAppender + "offset=" + offset + "&" + $('#' + formId).serialize();
         var parentId = link.attr('data-parent-id');
-        var callback = link.attr('data-callback')
+        var callback = link.attr('data-callback');
         var loadingId = parentId + "-loading";
         var parent = $("#" + parentId);
         parent.append('<div class="loading" id="' + loadingId + '"><span class="sr-only">Cargando...</span></div>');
@@ -318,7 +308,7 @@ $(document).ready(function() {
     /*******************************************/
     /******* USER RATES ************************/
     /*******************************************/
-    loadAjaxUserRatings()
+    loadAjaxUserRatings();
 
     $("body").on("click", ".user-rating-form fieldset.rating input", function (e) {
         var $form = $(this).closest("form");
@@ -353,7 +343,7 @@ $(document).ready(function() {
                 });
             } else {
                 // Change only the invisible one
-                $form.children(".rating").html(i18n.politician.valuation.rate.success)
+                $form.children(".rating").html(i18n.politician.valuation.rate.success);
                 $form.parents('.popover').siblings('.popover:not(.in)').find("input[name=rating]").removeAttr("checked");
                 $form.parents('.popover').siblings('.popover:not(.in)').find("input[name=rating][value=" + newRate + "]").attr('checked', true);
                 $form.parents('.popover').siblings('.popover:not(.in)').find("input[name=rating][value=" + newRate + "]").prop("checked", true);
@@ -409,7 +399,7 @@ $(document).ready(function() {
                 'politician.rating.userVote':rate
             })
         })
-    })
+    });
 
 
 
@@ -476,14 +466,14 @@ var display = {
 function loadAjaxUserRatings(){
 
     $(".popover-user .load-rating").each(function(loadDiv) {
-        var $container = $(this)
+        var $container = $(this);
         var userRateLink = $container.attr("data-rating-link");
         $.ajax({
             url: userRateLink,
             method:'GET'
         }).success(function (data) {
             // Update rating
-            $container.html(data)
+            $container.html(data);
             $container.removeClass("load-rating")
         })
     });
@@ -519,7 +509,7 @@ var noLoggedRememberPasswordCallbacks = {
         callbackFunctionKey:'noLoggedRememberPasswordCallbackFunctionName',
         cookieNameUrlAfterRememberPassword:'urlAfterRememberPassword',
         init:function(){
-            var hash = window.location.hash
+            var hash = window.location.hash;
             if (hash == "#recoverStatus"){
                 var functionName = localStorage.getItem(noLoggedRememberPasswordCallbacks.helper.callbackFunctionKey);
                 functionName = functionName || "doNothing";
@@ -558,16 +548,16 @@ var noLoggedRememberPasswordCallbacks = {
         saveState: function(){},
         recoverState: function(){}
     }
-}
+};
 
 noLoggedCallbacks["clickFollowAfterLogIn"]=function(){
     console.log("follow after login");
 
-    var buttonFollowUUID = $('#registro').find("form").attr("buttonId")
+    var buttonFollowUUID = $('#registro').find("form").attr("buttonId");
     var $button = $("#"+buttonFollowUUID);
-    var url = followActions.getFollowUrl($button)
+    var url = followActions.getFollowUrl($button);
     followActions.ajaxFollow(url, $button, noLoggedCallbacks.reloadPage,noLoggedCallbacks.reloadPage);
-}
+};
 
 var followActions = {
     ajaxFollow: function(url, buttonFollow, doneFunction, handle403Status){
@@ -580,7 +570,7 @@ var followActions = {
                 },
                 403: function(data){
                     var message = buttonFollow.attr('data-message-follow');
-                    var userId = followActions.getUserId(buttonFollow)
+                    var userId = followActions.getUserId(buttonFollow);
                     $("button.follow[data-userId="+userId+"]").html(message).removeClass('disabled').addClass('enabled');
                     if (window.notMailConfirmedWarn != undefined){
                         // This function is only created when the page is loaded and the user has not the mailconfirmed
@@ -613,4 +603,4 @@ var followActions = {
     isAlreadyFollowing: function($button){
         return $button.hasClass('disabled')
     }
-}
+};

@@ -329,6 +329,11 @@ modules = {
         resource url:'js/tour_dash_user.js'
     }
 
+    kuorumUser{
+        dependsOn 'basic'
+        resource url:'js/kuorumUser.js'
+    }
+
 //    projectStats{
 //        dependsOn 'basic'
 //        resource url:'js/chart.min.js'

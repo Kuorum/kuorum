@@ -8,7 +8,7 @@
     <parameter name="specialMainContentCssClass" value="politician-card" />
     <g:render template="userMetaTags" model="[user:politician]"/>
     <link rel="canonical" href="${g.createLink(mapping:"userShow", params: politician.encodeAsLinkProperties()+[lang:politician.language.locale.language], absolute:true)}"/>
-    <r:require modules="post, districtProposal"/>
+    <r:require modules="post, districtProposal, kuorumUser"/>
 </head>
 
 <content tag="mainContent">

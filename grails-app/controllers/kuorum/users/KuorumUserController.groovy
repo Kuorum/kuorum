@@ -4,7 +4,9 @@ import grails.plugin.springsecurity.annotation.Secured
 import kuorum.causes.CausesService
 import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.model.search.Pagination
+import kuorum.notifications.NotificationService
 import kuorum.register.RegisterService
+import kuorum.web.commands.customRegister.KuorumUserContactMessageCommand
 import org.kuorum.rest.model.communication.CampaignRSDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 import org.kuorum.rest.model.kuorumUser.news.UserNewRSDTO
@@ -23,6 +25,8 @@ class KuorumUserController {
     def postService
     RegisterService registerService
     CookieUUIDService cookieUUIDService
+
+    NotificationService notificationService
 
 
     CausesService causesService
@@ -103,6 +107,24 @@ class KuorumUserController {
         KuorumUser follower = KuorumUser.get(springSecurityService.principal.id)
         kuorumUserService.deleteFollower(follower, following)
         render follower.following.size()
+    }
+
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def contactUser(KuorumUserContactMessageCommand contactRegister){
+        if (!contactRegister.validate()){
+            flash.error = g.message(error: contactRegister.errors.allErrors[0])
+            if (contactRegister.politician){
+                redirect mapping:"userShow", params: contactRegister.politician.encodeAsLinkProperties()
+            }else{
+                redirect mapping:"politicians"
+            }
+            return
+        }
+
+        KuorumUser user = springSecurityService.getCurrentUser()
+        notificationService.sendPoliticianContactNotification(contactRegister.politician, user, contactRegister.message, contactRegister.cause)
+        flash.message = g.message(code: 'kuorumUser.contactMessage.success', args: [contactRegister.politician.name])
+        redirect (mapping:"userShow", params: contactRegister.politician.encodeAsLinkProperties())
     }
 
 }

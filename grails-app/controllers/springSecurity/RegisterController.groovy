@@ -18,7 +18,6 @@ import kuorum.solr.IndexSolrService
 import kuorum.users.CookieUUIDService
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
-import kuorum.web.commands.customRegister.ContactRegister
 import kuorum.web.commands.customRegister.ForgotUserPasswordCommand
 import kuorum.web.users.KuorumRegistrationCode
 import org.springframework.beans.factory.annotation.Value
@@ -151,37 +150,6 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
             render Boolean.FALSE.toString()
         }else{
             render Boolean.TRUE.toString()
-        }
-    }
-
-    def contactRegister(ContactRegister contactRegister){
-        if (!contactRegister.validate()){
-            flash.error = g.message(error: contactRegister.errors.allErrors[0])
-            if (contactRegister.politician){
-                redirect mapping:"userShow", params: contactRegister.politician.encodeAsLinkProperties()
-            }else{
-                redirect mapping:"politicians"
-            }
-            return
-        }
-
-        if (springSecurityService.isLoggedIn()){
-            KuorumUser user = springSecurityService.getCurrentUser()
-            notificationService.sendPoliticianContactNotification(contactRegister.politician, user, contactRegister.message, contactRegister.cause)
-            flash.message = g.message(code: 'register.contactRegister.success.userLogged', args: [contactRegister.politician.name])
-            redirect (mapping:"userShow", params: contactRegister.politician.encodeAsLinkProperties())
-        }else{
-            KuorumUser user = KuorumUser.findByEmailAndDomain(contactRegister.email,CustomDomainResolver.domain)
-            if (user){
-                //ERROR: User should be logged in
-                flash.error = g.message(code: 'register.contactRegister.success.userNotLogged', args: [contactRegister.politician.name])
-                redirect mapping:"secUserShow", params: contactRegister.politician.encodeAsLinkProperties()
-            }else{
-                //REGISTER USER
-                user = registerService.registerUserContactingPolitician(contactRegister)
-                flash.message = g.message(code: 'register.contactRegister.success.userJustRegisted', args: [contactRegister.politician.name], encodeAs: 'raw' )
-                redirect mapping:"userShow", params: contactRegister.politician.encodeAsLinkProperties()
-            }
         }
     }
 

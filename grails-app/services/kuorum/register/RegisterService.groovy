@@ -14,7 +14,6 @@ import kuorum.solr.IndexSolrService
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
 import kuorum.users.RoleUser
-import kuorum.web.commands.customRegister.ContactRegister
 import kuorum.web.constants.WebConstants
 import kuorum.web.users.KuorumRegistrationCode
 import org.codehaus.groovy.grails.web.mapping.LinkGenerator
@@ -115,19 +114,6 @@ class RegisterService {
 
     }
 
-    @Transactional
-    KuorumUser registerUserContactingPolitician(ContactRegister command){
-        KuorumUser user = registerUser(command)
-        String usernameFieldName = SpringSecurityUtils.securityConfig.userLookup.usernamePropertyName
-        KuorumRegistrationCode registrationCode = KuorumRegistrationCode.findByUsername(user."$usernameFieldName")
-        registrationCode[META_DATA_REGISTER_CONCATC_POLITICIAN] = [
-                "$META_DATA_REGISTER_CONCATC_POLITICIAN_ID":command.politician.id,
-                "$META_DATA_REGISTER_CONCATC_POLITICIAN_MESSAGE":command.message,
-                "$META_DATA_REGISTER_CONCATC_POLITICIAN_CAUSE":command.cause
-        ]
-        registrationCode.save()
-        user
-    }
 
     @Transactional
     KuorumUser registerUserFollowingPolitician(KuorumRegisterCommand command, KuorumUser following){

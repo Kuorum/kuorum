@@ -348,11 +348,16 @@ class KuorumUserTagLib {
         def text = "${g.message(code:"${prefixMessages}", args:[user.name])} "
         def cssClass = "enabled"
         def cssExtra =  attrs.cssExtra?:''
+        String loggedUserId = ""
+        if (springSecurityService.isLoggedIn()){
+            loggedUserId = springSecurityService.principal.id
+        }
         out << """
         <button
                 type="button"
                 class="contact btn btn-blue ${cssSize} allow ${cssClass} ${cssExtra}"
-                data-userId='${user.id}'>
+                data-userId='${user.id}'
+                data-loggedUser='${loggedUserId}'>
             ${text}
         ${body()}
         </button>
