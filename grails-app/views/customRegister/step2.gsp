@@ -15,9 +15,9 @@
 
 <content tag="mainContent">
     <ol class="stepsSign">
-        <li>1</li>
-        <li>2</li>
-        <li class="active">3</li>
+        <li class="active">1</li>
+        <li class="active">2</li>
+        <li>3</li>
     </ol>
     <formUtil:validateForm bean="${command}" form="step2" autocomplete="off"/>
     <g:form mapping="customProcessRegisterStep2" name="step2" role="form" method="POST" autocomplete="off"  class="signup step2">

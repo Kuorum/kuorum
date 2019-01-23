@@ -13,9 +13,9 @@
 
 <content tag="mainContent">
     <ol class="stepsSign">
-        <li>1</li>
-        <li>2</li>
-        <li>3</li>
+        <li class="active">1</li>
+        <li class="active">2</li>
+        <li class="active">3</li>
     </ol>
     <div class="signup final">
             <h3><g:message code="customRegister.step3.congratulations"/> </h3>
