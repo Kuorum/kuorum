@@ -1,7 +1,7 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <title><g:message code="page.title.footer.privacyPolicy"/> </title>
-    <meta name="layout" content="leftMenuConfigLayout">
+    <meta name="layout" content="leftMenuLayout">
     <parameter name="extraCssContainer" value="info" />
 </head>
 

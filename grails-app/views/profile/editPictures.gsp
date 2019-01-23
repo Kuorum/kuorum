@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <title><g:message code="page.title.profile.editUser"/> </title>
-    <meta name="layout" content="leftMenuConfigLayout">
+    <meta name="layout" content="leftMenuLayout">
     <parameter name="extraCssContainer" value="edit-user" />
     <r:require module="forms"/>
 </head>
