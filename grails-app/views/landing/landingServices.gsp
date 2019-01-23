@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <title>${subtitle}</title>
-    <meta name="layout" content="landingServicesLayout">
+    <meta name="layout" content="landingLayout">
     <parameter name="extraHeadCss" value="landing"/>
     <parameter name="showLatestActivities" value="${!org.springframework.util.CollectionUtils.isEmpty(campaigns)}"/>
     <g:render template="/dashboard/landingMetaTags"
