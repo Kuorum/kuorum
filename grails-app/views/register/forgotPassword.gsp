@@ -1,7 +1,7 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <title><g:message code="page.title.register.forgotPassword" args="[kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.name]"/> </title>
-    <meta name="layout" content="register2ColumnsLayout">
+    <meta name="layout" content="centerColumn2Layout">
     <parameter name="extraHeadCss" value="landing"/>
 </head>
 

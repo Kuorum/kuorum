@@ -68,21 +68,13 @@ class KuorumUserController {
     def userFollowers(String userAlias){
         KuorumUser user = kuorumUserService.findByAlias(userAlias)
         List<BasicDataKuorumUserRSDTO> followers = kuorumUserService.findFollowers(user, new Pagination())
-        if (request.xhr){
-            render (template:'/kuorumUser/embebedUsersList', model:[users:followers])
-        }else{
-            [users:followers]
-        }
+        render (template:'/kuorumUser/embebedUsersList', model:[users:followers])
     }
 
     def userFollowing(String userAlias){
         KuorumUser user = kuorumUserService.findByAlias(userAlias)
         List<BasicDataKuorumUserRSDTO> following = kuorumUserService.findFollowing(user, new Pagination())
-        if (request.xhr){
-            render (template:'/kuorumUser/embebedUsersList', model:[users:following])
-        }else{
-            [users:following]
-        }
+        render (template:'/kuorumUser/embebedUsersList', model:[users:following])
     }
 
     @Secured(['ROLE_USER'])
