@@ -17,7 +17,7 @@
 <content tag="mainContent">
     <formUtil:validateForm form="changePassword" bean="${command}"/>
     <g:form method="POST" mapping="profileSetPass" name="changePassword" role="form" class="submitOrangeButton">
-        <input type="hidden" name="username" value="${sec.username()}"
+        <input type="hidden" name="username" value="${sec.username()}"/>
         <div class="box-ppal-section">
             <fieldset class="row">
                 <div class="form-group col-md-6">
