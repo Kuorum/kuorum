@@ -3,7 +3,7 @@
     <g:set var="breadCrumbName"><g:message code="head.logged.account.tools.massMailing.edit" args="[campaign.name]"/></g:set>
 
     <title>${breadCrumbName}</title>
-    <meta name="layout" content="paymentPlainLayout">
+    <meta name="layout" content="basicPlainLayout">
     <!-- Schema.org markup for Google+ -->
     <meta itemprop="name" content="${_domainName}">
 </head>

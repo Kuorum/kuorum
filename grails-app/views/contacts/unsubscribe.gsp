@@ -1,7 +1,7 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <title><g:message code="page.title.contacts.unsubscribe" args="[user.name]"/></title>
-    <meta name="layout" content="paymentPlainLayout">
+    <meta name="layout" content="basicPlainLayout">
     <meta name="robots" content="noindex">
 </head>
 

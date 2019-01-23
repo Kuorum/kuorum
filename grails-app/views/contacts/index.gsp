@@ -1,7 +1,7 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <title><g:message code="page.title.contacts"/></title>
-    <meta name="layout" content="paymentPlainLayout">
+    <meta name="layout" content="basicPlainLayout">
     <!-- Schema.org markup for Google+ -->
     <meta itemprop="name" content="${_domainName}">
     <meta itemprop="image" content="${resource(dir: 'images', file:'landingSearch-rrss.png', absolute:true)}" />

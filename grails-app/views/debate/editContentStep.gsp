@@ -5,7 +5,7 @@
     </g:set>
 
     <title>${breadCrumbName}</title>
-    <meta name="layout" content="paymentPlainLayout">
+    <meta name="layout" content="basicPlainLayout">
     <!-- Schema.org markup for Google+ -->
 </head>
 

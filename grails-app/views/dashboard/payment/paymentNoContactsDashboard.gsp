@@ -2,7 +2,7 @@
 <head>
     %{--<title><g:message code="page.title.contacts.import"/></title>--}%
     <title><g:message code="page.title.dashboard.crmUser.noContacts"/></title>
-    <meta name="layout" content="paymentPlainLayout">
+    <meta name="layout" content="basicPlainLayout">
 
     <g:if test="${tour}">
         <r:require module="tour"/>

@@ -6,7 +6,7 @@
     </g:set>
 
     <title>${breadCrumbName}</title>
-    <meta name="layout" content="paymentPlainLayout">
+    <meta name="layout" content="basicPlainLayout">
 </head>
 
 <content tag="mainContent">
