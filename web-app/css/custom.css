@@ -3253,15 +3253,6 @@ h2.underline {border-bottom: 1px solid #dadada; padding: 0 0 10px 0; margin-top:
 .dropdown .input-append {width: 100%;}
 /*.dropdown-menu form {width: 91%}*/
 
-.leerLey {text-align: right;}
-.leerLey a {padding: 3px 22px 3px 0; background: url('../images/pdf.png') no-repeat right center transparent;}
-.leerLey a, .leerLey a:hover, .leerLey a:active, .leerLey a:focus,
-.editPost a, .editPost a:hover, .editPost a:active, .editPost a:focus {color: #a8a8a8;}
-.leerLey a:hover span, .leerLey a:active span, .leerLey a:focus span,
-.editPost a:hover span, .editPost a:active span, .editPost a:focus span {text-decoration: none;}
-.leerLey span {margin: 0 0 0 4px;}
-.editPost span {margin: 0 4px 2px 0;}
-
 .comments > p {text-align: center;}
 .comments > h1 {
     font-size: 28px; font-size: 2.8rem;
@@ -3307,24 +3298,6 @@ h2.underline {border-bottom: 1px solid #dadada; padding: 0 0 10px 0; margin-top:
 
 
 .debate {margin-bottom: 40px;}
-.chat {margin: 0; padding: 0; list-style: none;}
-.chat > li {background-color: #f8f8f8; border-top: 1px solid #e5e5e5; border-right: 1px solid #e5e5e5; border-left: 1px solid #e5e5e5; padding: 24px 15px 15px 15px; position: relative;}
-.chat > li:last-child {border-bottom: 1px solid #e5e5e5;}
-.chat > li .user.author {margin: 0 0 20px 0;}
-.chat > li.politician .user.author {text-align: right;}
-.chat > li.politician .user.author > .popover-trigger > .user-img {float: right; margin-right: 0; margin-left: 6px;}
-.chat > li .user.author .popover-trigger {margin: 0 !important; line-height: 3;}
-.chat > li > div:first-child {margin-bottom: 15px;}
-.chat > li > p:last-child {margin-bottom: 0;}
-.chat > li .user.author + span {text-align: right;}
-.chat > li time {text-align: right; color: #a8a8a8; display: block;}
-.chat > li.politician time {text-align: left;}
-.chat .user-type {margin-top: -20px;    position: absolute;right: 0;}
-.chat > li:last-child time {text-align: right !important;}
-.chat > li:last-child .user.author {text-align: left !important;}
-.chat > li:last-child .user.author > .popover-trigger > .user-img {float: none; margin: 8px 6px 4px 0 !important;}
-.chat > li:last-child .user-type {margin-top: -22px;}
-.chat > li:last-child > form > .form-group:first-child {margin-bottom: 20px;}
 
 .debate p.no-debate {padding: 15px; background-color: #f8f8f8; border: 1px solid #e5e5e5;}
 
@@ -5141,7 +5114,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .preFooter .user-list li .user-img {margin-right: 10px;}
 
     .form-group.image.fondoperfil .qq-upload-drop-area {background-size: auto auto; background-position: center 32%; padding-top: 15%;}
-    .chat > li .user.author {margin-top: -32px;}
     .boxes.performance a.improve {width: 272px; margin: 0 auto;}
     .boxes.profile-user > .actions {width: 272px;}
     .form-home-container {width: 320px;}
