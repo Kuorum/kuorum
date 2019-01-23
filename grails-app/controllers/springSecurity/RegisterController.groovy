@@ -233,35 +233,6 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
 //        }
     }
 
-
-    def selectMyPassword (ResetPasswordCommand command){
-        KuorumUser user = KuorumUser.findById(params.userId)
-        if (!user){
-            redirect mapping:'home'
-            return
-        }
-        def conf = SpringSecurityUtils.securityConfig
-        String defaultTargetUrl = conf.successHandler.defaultTargetUrl
-        if (!command.validate()){
-            render view: 'selectMyPassword' , model:[userId:user.id, command:command]
-        }else{
-            user.password = registerService.encodePassword(user, command.password)
-
-            if(user.validate()){
-                def renderMap = registerService.save(user)
-                if(renderMap.errorMsg){
-                    flash.message = renderMap.errorMsg
-                    flash.typeMessage = 'error'
-                    redirect action: 'index'
-                }else{
-                    springSecurityService.reauthenticate user.email
-                    flash.message = message(code: 'spring.security.ui.register.passwordComplete')
-                    redirect uri: conf.ui.register.postRegisterUrl ?: defaultTargetUrl
-                }
-            }
-        }
-    }
-
     def forgotPasswordForm(){
         render template: "/layouts/recoverPassword", model:[ modalId:'registro']
     }
@@ -285,12 +256,19 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
             return
         }
 
-        def registrationCode = new RegistrationCode(username: command.user.email)
+        KuorumUser user =  KuorumUser.findByEmailAndDomain(command.email, CustomDomainResolver.domain)
+        if (!user){
+            command.errors.rejectValue("email", "kuorum.web.commands.customRegister.ForgotUserPasswordCommand.email.invalid")
+            render view: "forgotPassword", model:[command:command]
+            return
+        }
+
+        def registrationCode = new RegistrationCode(username: command.email)
         registrationCode.save(flush: true)
 
         String url = generateLinkWithMapping('resetPasswordChange', [t: registrationCode.token])
 
-        kuorumMailService.sendResetPasswordMail(command.user, url)
+        kuorumMailService.sendResetPasswordMail(user, url)
 
         redirect mapping:"resetPasswordSent"
     }

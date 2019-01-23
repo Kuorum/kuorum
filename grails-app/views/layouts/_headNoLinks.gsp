@@ -4,7 +4,7 @@
         <div class="container-fluid">
             <g:render template="/layouts/brandAndLogo" model="[disabledLogoLink:'disabled']"/>
             <!-- Collect the nav links, forms, and other content for toggling -->
-            <g:include controller="layouts" action="userHeadNoLinks"/>
+            <g:render template="/layouts/userHeadNoLinks"/>
         </div><!-- /.container-fluid -->
     </nav>
 

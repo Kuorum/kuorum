@@ -57,12 +57,6 @@ class UrlMappings {
         name de_registerSuccess:    "/registrierung/erfolgreich"   (controller: "register",action:"registerSuccess"){mappingName="registerSuccess"}
         name ca_registerSuccess:    "/registre/satisfactori"   (controller: "register",action:"registerSuccess"){mappingName="registerSuccess"}
 
-        name registerPassword:      "/sign-up/set-password"                (controller: "register", action:"selectMyPassword"){mappingName="registerPassword"}
-        name en_registerPassword:   "/sign-up/set-password"                (controller: "register", action:"selectMyPassword"){mappingName="registerPassword"}
-        name es_registerPassword:   "/registro/establece-password"         (controller: "register", action:"selectMyPassword"){mappingName="registerPassword"}
-        name de_registerPassword:   "/registrierung/passwort-einstellen"   (controller: "register", action:"selectMyPassword"){mappingName="registerPassword"}
-        name ca_registerPassword:   "/registre/estableix-password"   (controller: "register", action:"selectMyPassword"){mappingName="registerPassword"}
-
         name registerResendMail:    "/sign-up/no-valid"                 (controller: "register"){action=[GET:"resendRegisterVerification", POST:"resendVerification"];mappingName="registerResendMail"}
         name en_registerResendMail: "/sign-up/no-valid"                 (controller: "register"){action=[GET:"resendRegisterVerification", POST:"resendVerification"];mappingName="registerResendMail"}
         name es_registerResendMail: "/registro/no-verificado"           (controller: "register"){action=[GET:"resendRegisterVerification", POST:"resendVerification"];mappingName="registerResendMail"}
@@ -419,7 +413,6 @@ class UrlMappings {
 
         name ajaxHeadNotificationsChecked:  "/ajax/notificaiones/check"(controller:"notification", action:"notificationChecked")
         name ajaxHeadNotificationsSeeMore:  "/ajax/notificaiones/seeMore"(controller:"notification", action:"notificationSeeMore")
-        name ajaxHeadMessagesChecked:       "/ajax/mensajes/check"(controller:"layouts", action:"headNotificationsChecked")
         name ajaxFollow:                    "/ajax/kuorumUser/follow"(controller:"kuorumUser", action:"follow")
         name ajaxUnFollow:                  "/ajax/kuorumUser/unFollow"(controller:"kuorumUser", action:"unFollow")
         name ajaxRequestPolitician:         "/ajax/politico/solicitud-kuorum"(controller:"kuorumUser", action:"follow")
