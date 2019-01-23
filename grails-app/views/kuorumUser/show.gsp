@@ -81,15 +81,6 @@
     <g:render template="userShowTemplates/columnC/quickNotes" model="[politician:politician]"/>
 </content>
 
-
-<content tag="extraRowData">
-
-</content>
-
-%{--<content tag="preFooterSections">--}%
-    %{--<g:render template="userShowTemplates/recommendedPoliticians" model="[politician:politician, recommendedUsers:recommendedUsers]"/>--}%
-%{--</content>--}%
-
 <content tag="modals">
     <g:if test="${causes}">
         <g:render template="userShowTemplates/modals/modalContact" model="[politician:politician, causes:causes]"/>

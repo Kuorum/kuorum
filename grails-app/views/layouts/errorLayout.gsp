@@ -24,8 +24,6 @@
             </div>
         </div>
 
-        <g:if test="${!Boolean.parseBoolean(pageProperty(name:'page.hideFooter')?.toString())}">
-            <g:render template="/layouts/footer/footer"/>
-        </g:if>
+        <g:render template="/layouts/footer/footer"/>
     </body>
 </g:applyLayout>

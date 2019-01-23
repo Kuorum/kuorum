@@ -6,15 +6,6 @@
     </head>
     <body>
     <g:render template="/layouts/head"/>
-    <g:if test="${pageProperty(name:'page.subHeader')}">
-        <section id="info-sup-scroll">
-            <div class="container-fluid">
-                <div class="row">
-                    <g:pageProperty name="page.subHeader"/>
-                </div>
-            </div>
-        </section>
-    </g:if>
     <div class="row main ${pageProperty(name: 'page.specialMainRowCssClass')}">
         <div class="container-fluid ${pageProperty(name: 'page.specialContainerCssClass')}">
             <g:pageProperty name="page.intro"/>
@@ -33,21 +24,9 @@
                     </div>
                 </g:if>
             </div>
-            <g:if test="${pageProperty(name:'page.extraRowData')}">
-                <div class="row">
-                    <div class="hidden-xs col-sm-12">
-                        <g:pageProperty name="page.extraRowData"/>
-                    </div>
-                </div>
-            </g:if>
         </div><!-- /.conatiner-fluid -->
     </div><!-- /#main -->
-    <g:if test="${pageProperty(name:'page.preFooterSections')}">
-        <g:pageProperty name="page.preFooterSections"/>
-    </g:if>
-    <g:if test="${!Boolean.parseBoolean(pageProperty(name:'page.hideFooter')?.toString())}">
-        <g:render template="/layouts/footer/footer"/>
-    </g:if>
+    <g:render template="/layouts/footer/footer"/>
     <g:if test="${pageProperty(name:'page.modals')}">
         <g:pageProperty name="page.modals"/>
     </g:if>

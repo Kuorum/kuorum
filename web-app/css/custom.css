@@ -349,7 +349,6 @@ a:focus {color: #ff9431;}
 .preFooter > .container-fluid,
 #footer .more > .container-fluid,
 .navbar > .container-fluid,
-#info-sup-scroll > .container-fluid,
 .dropdown-menu.politician > .container-fluid {max-width: 1140px; margin: 0 auto;}
 .navbar > .container-fluid {padding-right: 30px; padding-left: 30px;}
 .main > .container-fluid > .row {position: relative;}
@@ -4177,29 +4176,6 @@ h5#results {margin: 0 0 15px;}
 .moreInfo dt {font-size: 18px; font-size: 1.8rem; font-weight: normal;}
 .moreInfo dd {font-size: 36px; font-size: 3.6rem; margin-bottom: 20px;}
 
-
-/*  FRANJA CON INFO QUE APARECE AL HACER SCROLL  */
-#info-sup-scroll {
-    top: 57px;
-    position: fixed;
-    left: 0;
-    width: 100%;
-    background: #fff;
-    z-index: 1040;
-    border-bottom: 1px solid #e5e5e5;
-    padding: 8px 5px;
-    display: none;
-}
-#info-sup-scroll .laley,
-
-#info-sup-scroll .follow {margin: 6px 0 0 0 !important;}
-#info-sup-scroll .user {margin-top: -5px;}
-#info-sup-scroll .activity {width: auto; height: 50px; margin: 10px 0 0 0; text-align: left;}
-#info-sup-scroll .activity > li {font-size: 15px; font-size: 1.5rem; color: #545454;}
-#info-sup-scroll .activity > li .counter {font-size: 20px; font-size: 2rem; font-weight: bold;}
-#info-sup-scroll .btn.follow {position: absolute; top: -102px; right: 10px;}
-
-
 /* edición proyecto =========== */
 /* ====================================================== */
 .box-ppal h1 {font-size: 25px; font-size: 2.5rem; margin: 0 0 35px 0; padding: 0 40px 0 0; position: relative; color: #545454;}
@@ -5377,10 +5353,8 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     /********/
 
     .box-ppal.profile .activity > li:nth-child(3) {border-right: none;}
-    #info-sup-scroll .btn.follow {position: relative; top: 5px; right: auto;}
     .box-ppal.profile .activity > li {width: 16%; margin-bottom: 0;}
     .box-ppal.profile .activity > li:nth-child(2) {border-right: 1px solid #dadada;}
-    #info-sup-scroll .activity {margin: 0 auto;}
     .config .icheckbox_line-orange,
     .config .iradio_line-orange {margin: 0 5px 5px 0;}
     h2.underline {font-size: 25px; font-size: 2.5rem;}
@@ -5417,14 +5391,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .login .btn.btn-blue.btn-lg {padding-left: 50px !important; padding-right: 50px !important;}
     #pass-forget.login .btn.btn-blue.btn-lg { width: 100%; padding-left: 0px !important; padding-right: 0px !important;}
     #pass-forget.login span.error { margin-bottom: 15px; float: left;}
-
-    #info-sup-scroll {top: 55px; padding: 10px;}
-    #info-sup-scroll  .infoVotes,
-    #info-sup-scroll .laley,
-    #info-sup-scroll .infoVotes > li,
-    #info-sup-scroll .infoVotes > span {font-size: 14px; font-size: 1.4rem; width: 62px; height: 33px; padding-top: 7px;}
-    #info-sup-scroll .infoVotes > li {margin-left: 4px;}
-    #info-sup-scroll .infoVotes > li:first-child {margin-left: 0;}
 
     .callMobile {display: none !important;}
     .btn .btn-xs {
@@ -5722,11 +5688,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .config > section .filter-order > li {margin: 0 2% 0 0; font-size: 18px; font-size: 1.8rem;}
 
     .boxes.performance a.improve {font-size: 20px; font-size: 2rem;}
-    #info-sup-scroll .laley,
     .infoVotes > li, .infoVotes > span {width: 70px; height: 33px; margin-left: 5px; font-size: 15px;  font-size: 1.5rem; padding: 6px;}
-    #info-sup-scroll .infoVotes > li,
-    #info-sup-scroll .infoVotes > span {padding: 6px; width: 70px; height: 33px; font-size: 16px; font-size: 1.6rem;}
-    #info-sup-scroll .infoVotes > li {margin-left: 15px;}
 
     .navbar-brand {width: 170px; height: 48px; margin-top:-2px;}
     .btn.search {line-height: 0.7;}
@@ -5951,7 +5913,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .sign .login {margin-top: 60px; margin-bottom: 60px;}
 
     .boxes.performance a.improve {font-size: 24px; font-size: 2.4rem;}
-    #info-sup-scroll .laley {font-size: 25px; font-size: 2.5rem;}
     .navbar-form {margin: 5px 4px 4px 22%;}
     /*.btn {margin: 6px 0 0 8px;}*/
     .nav > li > a.btn {margin-top: 0 !important; margin-bottom: 11px !important; padding: 14px !important;}

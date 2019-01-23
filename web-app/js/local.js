@@ -241,24 +241,6 @@ $(document).ready(function() {
     });
 
     // END HEAD SEARCHER
-
-
-    if ($('#header').lenght>0) {
-        var headerTop = $('#header').offset().top;
-        var headerBottom = headerTop + 300; // Sub-menu should appear after this distance from top.
-        $(window).scroll(function () {
-            var scrollTop = $(window).scrollTop(); // Current vertical scroll position from the top
-            if (scrollTop > headerBottom) { // Check to see if we have scrolled more than headerBottom
-                if (($("#info-sup-scroll").is(":visible") === false)) {
-                    $('#info-sup-scroll').fadeIn('fast');
-                }
-            } else {
-                if ($("#info-sup-scroll").is(":visible")) {
-                    $('#info-sup-scroll').fadeOut('fast');
-                }
-            }
-        });
-    }
 });
 
 $(document).ready(function() {
