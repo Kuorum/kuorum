@@ -3,6 +3,7 @@
         <title><g:layoutTitle/></title>
         <g:layoutHead/>
         <g:pageProperty name="page.metaData"/>
+        <parameter name="bodyCss" value="${pageProperty(name:"page.bodyCss")}"/>
     </head>
     <body>
     <g:render template="/layouts/head"/>

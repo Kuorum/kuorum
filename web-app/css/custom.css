@@ -362,6 +362,17 @@ a:focus {color: #ff9431;}
 #main.home {min-height: 495px;}
 .navbar-fixed-top {border-bottom: solid 1px #e5e5e5;}
 #header h1 {margin: 4px 0 0 5px;}
+
+/*.configDomainProcess hides all options/actions/links of the header and sets some colors to grey*/
+body.configDomainProcess .navbar-header{display:none;}
+body.configDomainProcess #search-form{display:none;}
+body.configDomainProcess .navbar-nav #navigation-home,
+body.configDomainProcess .navbar-nav #navigation-campaigns,
+body.configDomainProcess .navbar-nav #navigation-contacts,
+body.configDomainProcess .navbar-nav >.notifications{display:none;}
+body.configDomainProcess .navbar-nav #navigation-profile a{cursor: default; border:none;}
+body.configDomainProcess .navbar-nav #navigation-profile #user-options{display: none;}
+body.configDomainProcess footer .licenses a{color:#CCCCCC !important;}
 /*.navbar-nav .user-area .user-img {width: 25px; height: 25px; margin: 0;}*/
 .navbar-brand {
     width: 130px;
