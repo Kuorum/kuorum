@@ -2991,7 +2991,6 @@ form#sign {margin: 30px auto 0; max-width: 900px;}
 .onecol .subscribeForm .buttons input.bank {background-position: -376px 0;}
 .onecol .subscribeForm + p {text-align: center; font-size: 14px; font-size: 1.4rem; color: #a8a8a8; margin: 0;}
 .onecol .subscribeForm + p a {color: #545454; text-decoration: underline;}
-.homeSub.subscribe {font-size: 18px; font-size: 1.8rem; margin-bottom: 100px;}
 
 .container-fluid.onecol {max-width: 910px;}
 .onecol a {color: #ff9431;}
@@ -3380,30 +3379,6 @@ h2.underline {border-bottom: 1px solid #dadada; padding: 0 0 10px 0; margin-top:
 .home .play > a:hover,
 .home .play > a:focus,
 .home .play > a:active {color: rgba(32, 162, 234, 0.5);}
-.homeSub {margin: 0 0 40px 0;}
-.homeSub > .row > h3,
-.homeSub > h3 {text-align: center; padding: 0 15px 10px 15px; margin: 0 0 20px 0; font-size: 26px; font-size: 2.6rem; border-bottom: 1px solid #e5e5e5;}
-.homeSub h2 {font-size: 24px; font-size: 2.4rem; padding: 0 16%;}
-.homeSub .homeMore {width: 100%; margin: 0 auto;text-align: center;}
-.homeSub .homeMore.two .btn {width: 43%; margin-right: 2% !important;}
-.homeSub .homeMore.two .btn:last-child {margin: 0 !important;}
-
-.homeSub .link-wrapper .popover-trigger {font-size: 12px; font-size: 1.2rem;}
-
-.homeSub > .row > h1,
-.homeSub > h3 { border-bottom: 1px solid #e5e5e5; }
-.main.special.landing .homeSub h1,
-
-.main.special.landing .homeSub h1,
-.homeSub > .row > h1,
-.homeSub > h3{font-size: 26px; font-size: 2.6rem; max-width: 650px; margin: 0 auto 20px; text-align: center; padding-bottom: 18px;}
-.main.special.landing .homeSub ul {padding: 0; margin: 0; list-style: none;}
-.main.special.landing .homeSub ul li {width: 100%; list-style: none; float: left; text-align: center; margin: 20px 0; height: 65px;}
-.main.special.landing .homeSub ul li img {max-width: 145px;}
-.main.special.landing .homeSub ul li.square img {max-width: 105px;}
-.main.special.landing .homeSub ul li.square {height: 115px;}
-
-.main.special.profile .homeSub { min-height: 420px; background: url("../images/screens-trans.png") no-repeat scroll center 185px; background-size: 280px auto;}
 .main.special.profile .btn.btn-lg {
     display: block;
     font-size: 25px !important;
@@ -5117,12 +5092,9 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .boxes.performance a.improve {width: 272px; margin: 0 auto;}
     .boxes.profile-user > .actions {width: 272px;}
     .form-home-container {width: 320px;}
-    .homeSub .homeMore {width: 320px;}
     /*.user-list-followers .user > .actions {margin: -32px 0 0 !important;}*/
 
     /* LANDING */
-    .main.special.landing .homeSub ul li {width: 50%; height: 110px; line-height: 110px; margin-bottom: 45px;}
-    .main.special.profile .homeSub { background-position: center 170px; background-size: 420px auto;}
     .landing + .row.main .onecol .login .btn.btn-lg {}
 
     /* CAMPAIGNS */
@@ -5421,11 +5393,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .signContainer h2 small {font-size: 18px; font-size: 1.8rem;}
     .signContainer h3 {font-size: 15px; font-size: 1.5rem; margin-bottom: 10px;}
     #main.home,
-    .homeSub {margin-bottom: 60px;}
-    .main.prices .homeSub {margin-bottom: 0;}
-    .homeSub > .row > h1 {font-size: 31px; font-size: 3.1rem; margin: 0 auto 20px; width: 70%;}
-    .homeSub .homeMore {width: 410px;}
-    .homeSub .homeMore .btn-lg {font-size: 22px !important; font-size: 2.2rem !important;}
     .socialContact li {display: inline; margin-right: 30px; padding: 0;}
     .userprofile .boxes .btn.btn-lg {font-size: 1.4rem !important; padding: 18px !important;}
     .pre {margin: 5px 20px 5px 0;}
@@ -5464,10 +5431,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     #main.landing.search .form-inline.searchRep .form-group {margin-right: 0;}
     #main.landing.search .form-inline.searchRep .btn {margin-left: 1em;}
 
-    .main.special.landing .homeSub h1,
-    .homeSub > .row > h1,
-    .homeSub > h3,
-    .main.special.profile .homeSub { min-height: 480px; background-position: center 210px; background-size: 420px auto;}
     .landing + .row.main .onecol #main {margin-top: 20px;}
 
     .onecol .subscribeForm fieldset .form-group:last-child {border-left: 1px solid #545454;}
@@ -5636,9 +5599,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .box-ppal{padding: 22px 15px 0 15px;}
 
     .home .play {margin: 90px 0 0 0; padding: 0 0 0 30px; font-size: 22px; font-size: 2.2rem;text-align: left;}
-    .homeSub > .row > h1 {font-size: 36px; font-size: 3.6rem;}
-    .homeSub .homeMore {width: 440px; margin-bottom: 20px; margin-top: 10px;}
-    .homeSub .homeMore .btn-lg {font-size: 25px !important; font-size: 2.5rem !important;}
     /*.config .notifications-list > li > .text-notification,
     .config .notifications-list > li.user > .text-notification {padding: 0 240px 0 0;}*/
 
@@ -5731,10 +5691,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .box-ppal .notifications-list > li > .user > .actions > li > a {margin: 0 !important;}
 
     /* LANDING */
-    .main.special.landing .homeSub ul li { width: 20%; height:85px; }
-
-    .main.special.profile .homeSub { min-height: 520px; background-position: center 220px; background-size: 498px auto;}
-    .main.special.landing .homeSub ul li.square {height: 85px;}
 
     .onecol #main .signup {max-width: 680px;}
     .onecol #main .signup.final {background-position: center 90px;}
@@ -5912,15 +5868,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     #campaignsList > li > span.fal,
     #campaignsList > li > span.fas,
     #campaignsList > li > span.fa {left: 24px;}
-}
-
-/* Retina ready images */
-@media  only screen and (-webkit-min-device-pixel-ratio: 1.5),
-only screen and (min--moz-device-pixel-ratio: 1.5),
-only screen and (-o-min-device-pixel-ratio: 3/2),
-only screen and (min-device-pixel-ratio: 1.5),
-only screen and (min-resolution: 192dpi) {
-    .main.special.profile .homeSub { background-image: url("../images/screens-trans@2x.png");}
 }
 
 .resetTitle{
