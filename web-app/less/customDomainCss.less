@@ -518,3 +518,24 @@ ul.search-list > li.search-article .box-ppal .card-footer > ul li .comment-count
 .watermarked::before{background: @mainColor; color:@mainColorHover}
 
 .multimedia-campaign-validationInfo .center-block{background: @mainColor;}
+
+
+.slider-selection.tick-slider-selection {
+  background-image: -webkit-linear-gradient(top, lighten(@secondColor, 20%) 0%, @secondColor 100%);
+  background-image: -o-linear-gradient(top, lighten(@secondColor, 20%) 0%, @secondColor 100%);
+  background-image: linear-gradient(to bottom, lighten(@secondColor, 20%) 0%, @secondColor 100%);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='@secondColor', endColorstr='darken(@secondColor, 11%)', GradientType=0);
+}
+.slider-handle{
+  background-color: @secondColor;
+  background-image: -webkit-linear-gradient(top, lighten(@secondColor, 20%) 0%, @secondColor 100%);
+  background-image: -o-linear-gradient(top, lighten(@secondColor, 20%) 0%, @secondColor 100%);
+  background-image: linear-gradient(to bottom, lighten(@secondColor, 20%) 0%, @secondColor 100%);
+}
+
+.slider-tick.in-selection{
+  background-image: -webkit-linear-gradient(top, lighten(@secondColor, 20%) 0%, @secondColor 100%);
+  background-image: -o-linear-gradient(top,lighten(@secondColor, 20%) 0%, @secondColor 100%);
+  background-image: linear-gradient(to bottom, lighten(@secondColor, 20%) 0%, @secondColor 100%);
+}
