@@ -10,7 +10,6 @@ import kuorum.users.PersonData
 import kuorum.users.ProfileController
 import kuorum.web.commands.editor.EditorAccountCommand
 import kuorum.web.commands.profile.EditUserProfileCommand
-import kuorum.web.commands.profile.SocialNetworkCommand
 
 @Secured(['ROLE_SUPER_ADMIN'])
 class EditorUserController {
@@ -77,27 +76,5 @@ class EditorUserController {
 
         flash.message =message(code:'admin.editUser.success', args: [updatedUser.name])
         redirect(mapping:'editorKuorumAccountEdit', params:updatedUser.encodeAsLinkProperties())
-    }
-
-    def editUserSocialNetwork(){
-        KuorumUser user = kuorumUserService.findEditableUser(params.userAlias)
-        SocialNetworkCommand command = new SocialNetworkCommand(user)
-        [user:user,command:command]
-    }
-
-    def updateUserSocialNetwork(SocialNetworkCommand command){
-        KuorumUser user = kuorumUserService.findEditableUser(params.userAlias)
-        if (command.hasErrors()){
-            render (view:'socialNetworks', model:[user:user, command: command])
-            return
-        }
-        command.properties.each {
-            if (it.key!= "class" && user.socialLinks.hasProperty(it.key))
-                user.socialLinks."${it.key}" = it.value
-        }
-        user.socialLinks.twitter =user.socialLinks.twitter?.decodeTwitter()
-        kuorumUserService.updateUser(user)
-        flash.message = g.message(code: 'kuorum.web.commands.profile.SocialNetworkCommand.save.success')
-        redirect mapping:'editorEditSocialNetwork', params: user.encodeAsLinkProperties()
     }
 }
