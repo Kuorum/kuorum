@@ -95,9 +95,9 @@
 </sec:ifAnyGranted>
 
 <sec:ifNotLoggedIn>
-    <g:render template="/layouts/modalLogin"/>
+    <g:render template="/layouts/modals/modalLogin"/>
 </sec:ifNotLoggedIn>
-<g:render template="/layouts/modalDomainValidation"/>
+<g:render template="/layouts/modals/modalDomainValidation"/>
 
 <asset:deferredScripts/>
 <r:layoutResources />

@@ -13,7 +13,7 @@
         <li class="">2<span class="signStepDescription"><g:message code="domain.config.firstConfig.steps.step2.title"/></span></li>
     </ol>
     <formUtil:validateForm bean="${command}" form="signup-custom-site"/>
-    <g:uploadForm method="POST" mapping="adminDomainRegisterStep1" name="signup-custom-site" role="form" class="signup-custom-site">
+    <g:uploadForm method="POST" mapping="adminDomainRegisterStep1" name="signup-custom-site" role="form" class="signup-custom-site slowForm" data-slowLoading-texts='["${g.message(code:'form.submit.slowLoading.modal.text1')}","${g.message(code:'form.submit.slowLoading.modal.text2')}"]'>
         <fieldset class="row">
             <div class="form-group col-md-6">
                 <formUtil:input command="${command}" field="slogan" showLabel="true"/>
@@ -100,4 +100,56 @@
             </div>
         </div>
     </div>
+</content>
+
+<content tag="modals">
+    <div class="modal fade modal-slow-loading" id="modal-loading-signup-custom-site" tabindex="-1" role="dialog" aria-labelledby="modal-loading-signup-custom-site-title" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true" class="fal fa-times-circle fa"></span><span class="sr-only">Cerrar</span></button>
+                    <h4><g:message code="form.submit.slowLoading.modal.title"/></h4>
+                    <h4 class="sr-only" id="modal-loading-signup-custom-site-title">Slow action</h4>
+                </div>
+                <div class="modal-body">
+                    <p><g:message code="form.submit.slowLoading.modal.text"/></p>
+                    <div class="modal-loading-signup-custom-site-dynamic-text fa-3x">
+                        <span class="fa fa-spinner fa-pulse"></span>
+                        <p><g:message code="form.submit.slowLoading.modal.text1"/></p>
+                        <p><g:message code="form.submit.slowLoading.modal.text2"/></p>
+                        <p><g:message code="form.submit.slowLoading.modal.text3"/></p>
+                        <p><g:message code="form.submit.slowLoading.modal.text4"/></p>
+                        <p><g:message code="form.submit.slowLoading.modal.text5"/></p>
+                        <p><g:message code="form.submit.slowLoading.modal.text6"/></p>
+                        <p><g:message code="form.submit.slowLoading.modal.text7"/></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <r:script>
+        $(function () {
+            $("#modal-loading-signup-custom-site").on("submit", showModalLoadingSignUpCustomSite)
+        });
+        function showModalLoadingSignUpCustomSite() {
+            var $form = $("#signup-custom-site");
+            if ($form.valid()) {
+                var numTexts = $("#modal-loading-signup-custom-site .modal-body .modal-loading-signup-custom-site-dynamic-text p").length;
+                var count = 0;
+                var changeText = function () {
+                    $("#modal-loading-signup-custom-site .modal-body .modal-loading-signup-custom-site-dynamic-text p").hide();
+                    $($("#modal-loading-signup-custom-site .modal-body .modal-loading-signup-custom-site-dynamic-text p")[count % numTexts]).show();
+                    count = count + 1;
+                };
+                changeText();
+                var changeTextModal = setInterval(changeText, 30 * 1000); // EACH 30 seconds
+                $("#modal-loading-signup-custom-site").modal("show");
+                $('#modal-loading-signup-custom-site').on('hidden.bs.modal', function (e) {
+                    clearInterval(changeTextModal)
+                })
+            }
+        }
+    </r:script>
 </content>

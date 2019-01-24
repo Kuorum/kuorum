@@ -210,6 +210,10 @@ body {
 html.loading body {
     opacity: .5;
 }
+
+#modal-loading-signup-custom-site .modal-body {text-align: center; }
+.modal-loading-signup-custom-site-dynamic-text {padding:20px;}
+.modal-loading-signup-custom-site-dynamic-text p {display: inline-block;}
 /* FIN PAGE LOADING */
 
 .loading {
