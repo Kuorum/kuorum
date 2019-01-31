@@ -3,6 +3,7 @@ package kuorum
 import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.register.KuorumUserSession
 import kuorum.users.KuorumUser
+import kuorum.users.KuorumUserService
 import org.kuorum.rest.model.contact.ContactRSDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 import org.kuorum.rest.model.search.kuorumElement.SearchKuorumUserRSDTO
@@ -11,6 +12,7 @@ class ImagesTagLib {
     static defaultEncodeAs = 'html'
     static encodeAsForTags = [showYoutube:'raw', userImgProfile:'raw']
     def springSecurityService
+    KuorumUserService kuorumUserService
 
     static namespace = "image"
 
@@ -25,12 +27,13 @@ class ImagesTagLib {
             imageUrl = attrs.user.avatarUrl
         }else if (attrs.user instanceof KuorumUser) {
             imageUrl = attrs.user.avatar?.url
+            throw new Exception("Using old KuorumUser")
         }else if(attrs.user instanceof SearchKuorumUserRSDTO){
             imageUrl = attrs.user.urlImage
         }else{
             // IS A STRING => Alias
-            KuorumUser user = KuorumUser.findByAliasAndDomain(attrs.user, CustomDomainResolver.domain)
-            imageUrl = user?.avatar?.url
+            BasicDataKuorumUserRSDTO user = kuorumUserService.findBasicUserRSDTO(attrs.user)
+            imageUrl = user.avatarUrl
         }
         if (imageUrl){
             out << imageUrl
@@ -43,8 +46,11 @@ class ImagesTagLib {
         String alt = attrs.alt
         if (attrs.user instanceof SearchKuorumUserRSDTO){
             imageURL = attrs.user.urlImageProfile
+        }else if (attrs.user instanceof BasicDataKuorumUserRSDTO){
+            imageURL = attrs.user.urlImageProfile
         }else{
             // KUORUM USER
+            throw new Exception("Using old KuorumUser")
             imageURL = attrs.user.imageProfile?.url
         }
         if (imageURL){

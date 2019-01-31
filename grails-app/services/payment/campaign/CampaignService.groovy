@@ -5,11 +5,11 @@ import grails.transaction.Transactional
 import kuorum.core.exception.KuorumException
 import kuorum.register.KuorumUserSession
 import kuorum.solr.IndexSolrService
-import kuorum.users.KuorumUser
 import kuorum.util.rest.RestKuorumApiService
 import org.kuorum.rest.model.communication.CampaignRDTO
 import org.kuorum.rest.model.communication.CampaignRSDTO
 import org.kuorum.rest.model.communication.event.EventRDTO
+import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 
 @Transactional
 class CampaignService {
@@ -57,13 +57,8 @@ class CampaignService {
         debatesFound
     }
 
-
-    @Deprecated
-    List<CampaignRSDTO> findAllCampaigns(KuorumUser user, String viewerUid = null) {
-        findAllCampaigns(user.id.toString(), viewerUid)
-    }
-    List<CampaignRSDTO> findAllCampaigns(KuorumUserSession user, String viewerUid = null) {
-        findAllCampaigns(user.id.toString(), viewerUid)
+    List<CampaignRSDTO> findAllCampaigns(KuorumUserSession user) {
+        findAllCampaigns(user.id.toString(), user.id.toString())
     }
     List<CampaignRSDTO> findAllCampaigns(String userId, String viewerUid = null) {
         Map<String, String> params = [userId: userId]
@@ -91,8 +86,7 @@ class CampaignService {
         find(user.getId().toString(), campaignId, viewerUid)
     }
 
-    @Deprecated
-    CampaignRSDTO find(KuorumUser user, Long campaignId, String viewerUid = null) {
+    CampaignRSDTO find(BasicDataKuorumUserRSDTO user, Long campaignId, String viewerUid = null) {
         find(user.getId().toString(), campaignId, viewerUid)
     }
 

@@ -14,10 +14,6 @@
  * limitations under the License.
  */
 package kuorum.web.users
-
-import kuorum.users.KuorumUser
-import org.springframework.security.web.authentication.rememberme.PersistentRememberMeToken
-
 /**
  * Token for remember me stored on mongo for a clustered service
  */

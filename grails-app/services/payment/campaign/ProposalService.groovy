@@ -3,7 +3,6 @@ package payment.campaign
 import com.fasterxml.jackson.core.type.TypeReference
 import grails.transaction.Transactional
 import kuorum.register.KuorumUserSession
-import kuorum.users.KuorumUser
 import kuorum.util.rest.RestKuorumApiService
 import org.kuorum.rest.model.communication.debate.*
 import org.kuorum.rest.model.communication.debate.search.ProposalPageRSDTO
@@ -40,7 +39,7 @@ class ProposalService {
     ProposalRSDTO addProposal(KuorumUserSession user, DebateRSDTO debate, String body) {
         Map<String, String> params = [userId: debate.user.id,debateId:debate.id.toString()]
         Map<String, String> query = [:]
-        ProposalRDTO proposalRDTO = new ProposalRDTO();
+        ProposalRDTO proposalRDTO = new ProposalRDTO()
         proposalRDTO.body=body
         proposalRDTO.userId=user.id.toString()
         def response = restKuorumApiService.post(
@@ -63,7 +62,7 @@ class ProposalService {
     ProposalRSDTO pinProposal(KuorumUserSession user, String debateUserId, Long debateId, Long proposalId, Boolean pin) {
         Map<String, String> params = [userId: debateUserId,debateId:debateId.toString(), proposalId:proposalId.toString()]
         Map<String, String> query = [:]
-        ProposalRDTO proposalRDTO = new ProposalRDTO();
+        ProposalRDTO proposalRDTO = new ProposalRDTO()
         proposalRDTO.userId=user.id.toString()
         proposalRDTO.body=""
         proposalRDTO.pinned = pin
@@ -120,7 +119,7 @@ class ProposalService {
     ProposalRSDTO addComment(KuorumUserSession user, DebateRSDTO debate, Long proposalId, String body) {
         Map<String, String> params = [userId: debate.user.id,debateId:debate.id.toString(), proposalId:proposalId.toString() ]
         Map<String, String> query = [:]
-        ProposalCommentRDTO commentRDTO = new ProposalCommentRDTO();
+        ProposalCommentRDTO commentRDTO = new ProposalCommentRDTO()
         commentRDTO.body=body.encodeAsRemovingScriptTags().encodeAsTargetBlank()
         commentRDTO.userId=user.id.toString()
         def response = restKuorumApiService.post(

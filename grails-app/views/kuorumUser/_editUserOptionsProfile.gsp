@@ -1,4 +1,4 @@
-<sec:access expression="hasPermission('${user.id}', 'kuorum.users.KuorumUser', 'edit')">
+<sec:access expression="hasPermission('${user.id}', 'org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO', 'edit')">
         <!-- FLECHITA PARA ABRIR MENÚ -->
     <span class="popover-trigger open-menu" rel="popover" role="button" data-toggle="popover">
         <span class="fal fa-chevron-circle-down"></span>
@@ -9,19 +9,17 @@
         <div class="popover-more-actions edition">
             <ul>
                 <li>
-                    <sec:access expression="hasPermission('${user.id}', 'kuorum.users.KuorumUser', 'edit')">
-                        <g:if test="${sec.username() == user.email.encodeAsHTML()}">
-                            %{--The user wants to edit himself--}%
+                    <sec:access expression="hasPermission('${user.id}', 'org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO', 'edit')">
+                        <userUtil:ifUserIsTheLoggedOne user="${user}">
                             <g:link mapping="profileEditUser">
                                 <span><g:message code="project.editMenu.edit"/></span>
                             </g:link>
-                        </g:if>
-                        <g:else>
+                        </userUtil:ifUserIsTheLoggedOne>
+                        <userUtil:elseIfUserNotIsTheLoggedOne user="${user}">
                             <g:link mapping="editorKuorumAccountEdit" params="${user.encodeAsLinkProperties()}">
                                 <span><g:message code="project.editMenu.edit"/></span>
                             </g:link>
-                        </g:else>
-
+                        </userUtil:elseIfUserNotIsTheLoggedOne>
                     </sec:access>
                     <sec:ifAnyGranted roles="ROLE_SUPER_ADMIN">
                         <g:link mapping="editorAdminUserRights" params="${user.encodeAsLinkProperties()}">

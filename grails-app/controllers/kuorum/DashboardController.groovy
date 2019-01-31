@@ -8,12 +8,14 @@ import kuorum.dashboard.DashboardService
 import kuorum.register.KuorumUserSession
 import kuorum.users.CookieUUIDService
 import kuorum.users.KuorumUser
+import kuorum.users.KuorumUserService
 import kuorum.web.commands.profile.AccountDetailsCommand
 import kuorum.web.commands.profile.EditProfilePicturesCommand
 import kuorum.web.commands.profile.EditUserProfileCommand
 import kuorum.web.commands.profile.SocialNetworkCommand
 import kuorum.web.constants.WebConstants
 import org.kuorum.rest.model.communication.CampaignRSDTO
+import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
 import org.kuorum.rest.model.notification.campaign.NewsletterRQDTO
 import org.kuorum.rest.model.notification.campaign.NewsletterRSDTO
@@ -28,7 +30,7 @@ import payment.contact.ContactService
 class DashboardController {
 
     SpringSecurityService springSecurityService
-    def kuorumUserService
+    KuorumUserService kuorumUserService
     CausesService causesService
     ContactService contactService
     NewsletterService newsletterService
@@ -47,15 +49,16 @@ class DashboardController {
             redirect(mapping:"home")
             return
         }
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        log.info("Dashboard ${user}")
-        Map model = buildPaymentDashboard(user)
+        BasicDataKuorumUserRSDTO userRSDTO = kuorumUserService.findBasicUserRSDTO(springSecurityService.principal.id.toString())
+        log.info("Dashboard ${userRSDTO.alias}")
+        Map model = buildPaymentDashboard(userRSDTO)
         model.put("tour", params.tour?true:false)
         if (dashboardService.forceUploadContacts()) {
             render view: "/dashboard/payment/paymentNoContactsDashboard", model: model
 //          }else if (!model.numberCampaigns){
 //              render view: "/dashboard/payment/paymentNoCampaignsDashboard", model: model
         }else{
+            KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
             List<SearchKuorumUserRSDTO> recommendations = kuorumUserService.recommendUsers(user, new Pagination([max:50]))
             model.put("recommendations",recommendations)
             render view: "/dashboard/dashboard", model: model
@@ -69,7 +72,7 @@ class DashboardController {
         redirect mapping:'dashboard'
     }
 
-    private def buildPaymentDashboard(KuorumUser user){
+    private def buildPaymentDashboard(BasicDataKuorumUserRSDTO user){
         KuorumUserSession userSession = springSecurityService.principal
         String viewerUid = cookieUUIDService.buildUserUUID()
 
@@ -100,7 +103,7 @@ class DashboardController {
 //                contacts: contactService.getUsers(user),
 //                recommendedUsers:recommendedUsers,
                 user:user,
-                emptyEditableData:emptyEditableData(user),
+                emptyEditableData:emptyEditableData(),
                 campaigns: searchResultsRSDTO.data,
                 totalCampaigns: searchResultsRSDTO.total,
                 showAuthor: true
@@ -109,9 +112,10 @@ class DashboardController {
     }
 
     //FAST CHAPU - Evaluating empty data
-    def emptyEditableData(KuorumUser user){
-
-        List<CauseRSDTO> causes = causesService.findSupportedCauses(user)
+    def emptyEditableData(){
+        KuorumUserSession userSession = springSecurityService.principal
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        List<CauseRSDTO> causes = causesService.findSupportedCauses(userSession)
 
         List fields = [
                 [urlMapping: 'profileEditAccountDetails',

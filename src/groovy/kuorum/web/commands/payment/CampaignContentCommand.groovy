@@ -2,7 +2,7 @@ package kuorum.web.commands.payment
 
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.validation.Validateable
-import kuorum.users.KuorumUser
+import kuorum.register.KuorumUserSession
 import kuorum.util.TimeZoneUtil
 import kuorum.web.constants.WebConstants
 import org.codehaus.groovy.grails.web.context.ServletContextHolder
@@ -27,10 +27,10 @@ class CampaignContentCommand {
     Date publishOn
     String sendType
 
-    static KuorumUser currentUser(){
+    private static KuorumUserSession currentUser(){
         Object appContext = ServletContextHolder.servletContext.getAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT)
         SpringSecurityService springSecurityService = (SpringSecurityService)appContext.springSecurityService
-        KuorumUser user = springSecurityService.currentUser
+        KuorumUserSession user = springSecurityService.principal
 
         return user
     }
@@ -50,7 +50,7 @@ class CampaignContentCommand {
         headerPictureId nullable: true
         videoPost nullable: true
         publishOn nullable: true, validator: { val, obj ->
-            KuorumUser kuorumUser = CampaignContentCommand.currentUser()
+            KuorumUserSession kuorumUser = CampaignContentCommand.currentUser()
             Date scheduledTimeZone = TimeZoneUtil.convertToUserTimeZone(val, kuorumUser.timeZone)
             Date userTimeZone = Calendar.getInstance(kuorumUser.getTimeZone()).getTime()
             if (val && obj.sendType == "SCHEDULED" && scheduledTimeZone < userTimeZone) {

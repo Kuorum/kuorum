@@ -4,7 +4,6 @@ import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.politician.CampaignController
 import kuorum.register.KuorumUserSession
-import kuorum.users.KuorumUser
 import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.commands.payment.CampaignSettingsCommand
 import kuorum.web.commands.payment.massMailing.post.LikePostCommand
@@ -75,8 +74,8 @@ class PostController extends CampaignController{
         if (command.hasErrors()){
             render "No correct data"
         }
-        KuorumUser currentUser= springSecurityService.currentUser;
-        PostRSDTO post = postService.likePost(command.postId, currentUser, command.like, command.postUserId);
-        render post as JSON;
+        KuorumUserSession currentUser= springSecurityService.principal
+        PostRSDTO post = postService.likePost(command.postId, currentUser, command.like, command.postUserId)
+        render post as JSON
     }
 }

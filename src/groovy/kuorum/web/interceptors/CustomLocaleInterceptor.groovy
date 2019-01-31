@@ -3,7 +3,7 @@ package kuorum.web.interceptors
 import grails.plugin.springsecurity.SpringSecurityService
 import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.model.AvailableLanguage
-import kuorum.users.KuorumUser
+import kuorum.register.KuorumUserSession
 import kuorum.web.constants.WebConstants
 import org.codehaus.groovy.grails.web.servlet.mvc.GrailsWebRequest
 import org.springframework.beans.factory.annotation.Autowired
@@ -38,11 +38,11 @@ class CustomLocaleInterceptor extends LocaleChangeInterceptor{
         request.getServerName()
         LocaleResolver localeResolver = org.springframework.web.servlet.support.RequestContextUtils.getLocaleResolver(request)
         try{
-            if (springSecurityService.isLoggedIn() && springSecurityService?.principal?.id){
-                KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+            if (springSecurityService.isLoggedIn()){
+                KuorumUserSession user = springSecurityService.principal
                 userLanguage = user.language
             }else{
-                userLanguage = AvailableLanguage.fromLocaleParam(localeParam);
+                userLanguage = AvailableLanguage.fromLocaleParam(localeParam)
                 if (!userLanguage){
                     userLanguage = getLanguageFromDomain(request, localeResolver)
                 }
@@ -53,11 +53,11 @@ class CustomLocaleInterceptor extends LocaleChangeInterceptor{
         }
         setCountrySession(request, userLanguage.locale.language)
         localeResolver?.setLocale request, response, userLanguage.locale
-        return true;
+        return true
     }
 
     private AvailableLanguage getLanguageFromDomain(HttpServletRequest request, LocaleResolver localeResolver ){
-        return AvailableLanguage.valueOf(CustomDomainResolver.domainRSDTO.language.toString());
+        return AvailableLanguage.valueOf(CustomDomainResolver.domainRSDTO.language.toString())
     }
 
     // GET LANGUAGE FROM REQUEST (BROWSER)
@@ -79,24 +79,24 @@ class CustomLocaleInterceptor extends LocaleChangeInterceptor{
 //    }
 
     private void setCountrySession(HttpServletRequest request, String lang){
-        String countryCode = "";
+        String countryCode = ""
         //FAST CHAPU
         switch (lang){
-            case "es": countryCode="EU-ES"; break;
-            case "en": countryCode="EU-GB"; break;
-            case "it": countryCode="EU-IT"; break;
-            case "de": countryCode="EU-DE"; break;
-            case "de": countryCode="EU-LT"; break;
+            case "es": countryCode="EU-ES"; break
+            case "en": countryCode="EU-GB"; break
+            case "it": countryCode="EU-IT"; break
+            case "de": countryCode="EU-DE"; break
+            case "de": countryCode="EU-LT"; break
             default: countryCode=""
         }
         request.session.setAttribute(WebConstants.COUNTRY_CODE_SESSION, countryCode)
     }
 
-    public void setLocaleResolver(LocaleResolver localeResolver) {
+    void setLocaleResolver(LocaleResolver localeResolver) {
         this.localeResolver = (CookieLocaleResolver)localeResolver
     }
 
-    public void setParamName(String paramName) {
+    void setParamName(String paramName) {
         this.paramName = paramName
     }
 }

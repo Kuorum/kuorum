@@ -134,9 +134,9 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         }
 
         KuorumUser user = registerService.registerUser(command)
-        String automaticAlias = kuorumUserService.generateValidAlias(user.name)
-        kuorumUserService.updateAlias(user, automaticAlias)
-        kuorumUserService.updateUser(user)
+//        String automaticAlias = kuorumUserService.generateValidAlias(user.name)
+//        kuorumUserService.updateAlias(user, automaticAlias)
+//        kuorumUserService.updateUser(user)
         if (user){
             render ([success:true] as JSON)
         }else{

@@ -2,17 +2,18 @@ package payment.campaign.event
 
 import com.fasterxml.jackson.core.type.TypeReference
 import grails.transaction.Transactional
-import kuorum.users.KuorumUser
+import kuorum.register.KuorumUserSession
 import kuorum.util.rest.RestKuorumApiService
 import org.kuorum.rest.model.communication.event.EventRSDTO
 import org.kuorum.rest.model.communication.event.EventRegistrationRSDTO
+import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 
 @Transactional
 class EventService {
 
     RestKuorumApiService restKuorumApiService
 
-    EventRegistrationRSDTO addAssistant(String eventUserId, Long campaignId, KuorumUser assistant){
+    EventRegistrationRSDTO addAssistant(String eventUserId, Long campaignId, KuorumUserSession assistant){
         Map<String, String> params = [
                 userId: eventUserId,
                 campaignId:campaignId.toString(),
@@ -35,7 +36,7 @@ class EventService {
         eventRSDTO
     }
 
-    EventRegistrationRSDTO checkIn(Long contactId, Long campaignId, KuorumUser user, String hash){
+    EventRegistrationRSDTO checkIn(Long contactId, Long campaignId, KuorumUserSession user, String hash){
         Map<String, String> params = [
                 userId: user.getId().toString(),
                 campaignId:campaignId.toString()
@@ -54,18 +55,18 @@ class EventService {
             if (response.data) {
                 eventRSDTO = response.data
             }
-            return eventRSDTO;
+            return eventRSDTO
         }catch (Exception e){
             log.error("Error checking in the contact ${contactId} on event ${campaignId}")
-            return null;
+            return null
         }
     }
 
-    EventRegistrationRSDTO findAssistant(String eventUserId, Long eventId, KuorumUser assistant){
+    EventRegistrationRSDTO findAssistant(String eventUserId, Long eventId, BasicDataKuorumUserRSDTO assistant){
         Map<String, String> params = [
                 userId: eventUserId,
                 eventId:eventId.toString(),
-                assistantId:assistant.id.toString()
+                assistantId:assistant.id
         ]
         Map<String, String> query = [:]
         try {
@@ -83,13 +84,13 @@ class EventService {
 
             return eventRSDTO
         }catch (Exception e){
-            return null;
+            return null
         }
     }
 
-    EventRSDTO findEvent(KuorumUser user, Long campaignId){
+    EventRSDTO findEvent(String userId, Long campaignId){
         Map<String, String> params = [
-                userId: user.getId().toString(),
+                userId: userId,
                 campaignId:campaignId.toString()
         ]
         Map<String, String> query = [:]
@@ -109,7 +110,7 @@ class EventService {
         eventRSDTO
     }
 
-    void sendReport(KuorumUser user, Long campaignId, Boolean checkList = false) {
+    void sendReport(KuorumUserSession user, Long campaignId, Boolean checkList = false) {
         Map<String, String> params = [userId: user.id.toString(), campaignId: campaignId.toString()]
         Map<String, String> query = [checkList:checkList]
         def response = restKuorumApiService.get(
@@ -121,7 +122,7 @@ class EventService {
         response
     }
 
-    List<EventRSDTO> findEvents(KuorumUser user){
+    List<EventRSDTO> findEvents(KuorumUserSession user){
         Map<String, String> params = [
                 userId: user.id.toString()
         ]

@@ -3,9 +3,7 @@ package kuorum
 import grails.plugin.springsecurity.SpringSecurityService
 import kuorum.core.FileGroup
 import kuorum.core.model.RegionType
-import kuorum.project.Project
 import kuorum.register.KuorumUserSession
-import kuorum.users.KuorumUser
 import kuorum.web.constants.WebConstants
 import org.bson.types.ObjectId
 import org.codehaus.groovy.grails.validation.*
@@ -21,7 +19,7 @@ class FormTagLib {
 
     def grailsApplication
     SpringSecurityService springSecurityService
-    RegionService regionService;
+    RegionService regionService
     EventService eventService
 
     static namespace = "formUtil"
@@ -159,7 +157,7 @@ class FormTagLib {
         }catch (Exception e){
             // Handle exception for development log showing wich field is wrong
             log.error("Preparing input ${field} for command ${command.class}", e)
-            throw e;
+            throw e
         }
         def label = buildLabel(command, field, attrs.label)
         def placeHolder = attrs.placeHolder?:message(code: "${command.class.name}.${field}.placeHolder", default: '')
@@ -253,7 +251,7 @@ class FormTagLib {
         def customAddButton=attrs.customAddButton?Boolean.parseBoolean(attrs.customRemoveButton):false
         def appendLast=Boolean.parseBoolean(attrs.appendLast?:'false')
 
-        String templateId = "${formId}-template";
+        String templateId = "${formId}-template"
         List listCommands = command."${field}"
 
         String removeButton = customRemoveButton?'':"""
@@ -283,10 +281,10 @@ class FormTagLib {
         out << body([listCommand:obj, prefixField:""])
         out << "</div>"
 
-        Integer idx = listCommands.size();
+        Integer idx = listCommands.size()
         def operator = {i -> i -1}
         if (appendLast){
-            idx = -1;
+            idx = -1
             operator = {i -> i +1}
         }
         listCommands.each{
@@ -355,14 +353,14 @@ class FormTagLib {
         String timeZoneId = ""
         String timeZoneLabel = ""
         String timeZoneChangeLink=""
-        String datePickerType = "days";
+        String datePickerType = "days"
         if (attrs.datePickerType == "birthDate"){
             datePickerType = "birthDate"
         }
 
         if (time){
             KuorumUserSession user =  springSecurityService.principal
-            typePicker = "datetime";
+            typePicker = "datetime"
             TimeZone userTimeZone = user.timeZone?:TimeZone.getTimeZone("UTC")
             timeZoneId=utcOffset(userTimeZone)
             timeZoneLabel=timeZoneToString(userTimeZone)
@@ -418,9 +416,9 @@ class FormTagLib {
         def showLabel = attrs.showLabel?Boolean.parseBoolean(attrs.showLabel):false
         Region regionValue = command."${field}"?:null
         def value = regionValue?.iso3166_2?:''
-        def showedValue = "";
+        def showedValue = ""
         if (value){
-            Locale locale = LocaleContextHolder.getLocale();
+            Locale locale = LocaleContextHolder.getLocale()
             RegionRSDTO regionRSDTO = regionService.findRegionDataById(value, locale)
             showedValue = regionRSDTO.name
         }
@@ -433,7 +431,7 @@ class FormTagLib {
             out << "<label for='${field}'>${label}</label>"
         }
         def error = hasErrors(bean: command, field: field, 'error')
-        def cssClass ="form-control input-lg";
+        def cssClass ="form-control input-lg"
         out << "<input type='text' class='${extraCss} ${cssClass} input-region ${error?'error':''}' placeholder='${placeHolder}' name='${field}' value='${showedValue}' data-real-input-id='${fieldId}'>"
         out << "<input type='hidden' class='' name='${fieldId}' value='${value}' id=${fieldId}>"
         if(error){
@@ -623,7 +621,7 @@ class FormTagLib {
     }
 
     def selectEvent = {attrs->
-        KuorumUser user = springSecurityService.currentUser
+        KuorumUserSession user = springSecurityService.principal
         def command = attrs.command
         def field = attrs.field
 
@@ -708,7 +706,7 @@ class FormTagLib {
             <select name="${field}" class="form-control input-lg ${error}" id="${id}">
             """
         out << "<option value=''> ${message(code:"${clazz.name}.${field}.empty")}</option>"
-        Integer startYear = 1900;
+        Integer startYear = 1900
         Integer endYear = Calendar.getInstance().get(Calendar.YEAR) - 16
         (startYear..endYear).each{
             out << "<option value='${it}' ${it==command."$field"?'selected':''}> ${it}</option>"
@@ -981,7 +979,7 @@ class FormTagLib {
                 String msg = tranlateErrorCode(error.codes)
                 showErrors.append("display.error('', \"${msg}\");")
             }
-            showErrors.append("});");
+            showErrors.append("});")
             r.script( [:],showErrors.toString())
         }
     }
@@ -1016,7 +1014,7 @@ class FormTagLib {
             obj = Class.forName(className, true, Thread.currentThread().getContextClassLoader()).newInstance()
         else{
             obj =  bean
-            printGeneralErrors(obj.errors.allErrors - obj.errors.fieldErrors,obj);
+            printGeneralErrors(obj.errors.allErrors - obj.errors.fieldErrors,obj)
 //            printFieldErrors(obj.errors.fieldErrors, obj)
         }
 
@@ -1070,14 +1068,14 @@ class FormTagLib {
                     printValidation(rules, message,c,fieldName)
                     printValidationType(rules, message,c, fieldName)
                 }
-                rules.deleteCharAt(rules.length() - 1);
-                message.deleteCharAt(message.length() - 1);
+                rules.deleteCharAt(rules.length() - 1)
+                message.deleteCharAt(message.length() - 1)
                 rules.append("},")
                 message.append("},")
             }
         }
-        rules.deleteCharAt(rules.length() - 1);
-        message.deleteCharAt(message.length() - 1);
+        rules.deleteCharAt(rules.length() - 1)
+        message.deleteCharAt(message.length() - 1)
         rules.append("}")
         message.append("}")
         return [rules:rules, message:message]
@@ -1094,7 +1092,7 @@ class FormTagLib {
             NullableConstraint nullableConstraint = constraints.appliedConstraints.find{it instanceof NullableConstraint}
             return !(nullableConstraint?.nullable?:false)
         }else{
-            return false;
+            return false
         }
     }
 }

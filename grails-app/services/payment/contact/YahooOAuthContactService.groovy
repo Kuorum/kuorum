@@ -4,7 +4,7 @@ import grails.transaction.Transactional
 import groovyx.net.http.ContentType
 import groovyx.net.http.RESTClient
 import kuorum.core.exception.KuorumException
-import kuorum.users.KuorumUser
+import kuorum.register.KuorumUserSession
 import org.kuorum.rest.model.contact.ContactRDTO
 import org.scribe.model.Token
 
@@ -19,8 +19,8 @@ class YahooOAuthContactService implements IOAuthLoadContacts {
     ContactService contactService
 
     @Override
-    void loadContacts(KuorumUser user, Token accessToken) throws KuorumException {
-        log.info("Creating Yahoo OAuth Service for user ${user.email} [GUID ${accessToken.getSecret()}]");
+    void loadContacts(KuorumUserSession user, Token accessToken) throws KuorumException {
+        log.info("Creating Yahoo OAuth Service for user ${user.username} [GUID ${accessToken.getSecret()}]")
         def listContacts = getListContacts(accessToken)
         List<ContactRDTO> contacts = listContacts.collect{transformYahooContact(it)}.findAll{it}
         contactService.addBulkContacts(user,contacts)
@@ -44,17 +44,17 @@ class YahooOAuthContactService implements IOAuthLoadContacts {
             if (company){
                 tags << company
             }
-            return new ContactRDTO(email: email, name:name,surname: surname, notes:notes, tags: tags);
+            return new ContactRDTO(email: email, name:name,surname: surname, notes:notes, tags: tags)
         }catch (Exception e){
             log.info("Yahoo contact not created due to an exception [Exc: ${e.getMessage()}]",)
-            return null;
+            return null
         }
     }
 
     private def getListContacts(Token accessToken){
         String contactsEndPoint = CONTACTS_END_POINT.replaceAll("\\{guid}", accessToken.getSecret())
-        RESTClient client = new RESTClient(CONTACTS_SOCIAL_URL);
-        client.getHeaders().put("Authorization", "Bearer " + accessToken.token);
+        RESTClient client = new RESTClient(CONTACTS_SOCIAL_URL)
+        client.getHeaders().put("Authorization", "Bearer " + accessToken.token)
         Map query = [
                 start: 0,
                 count: 'max',
@@ -65,7 +65,7 @@ class YahooOAuthContactService implements IOAuthLoadContacts {
                     path: contactsEndPoint,
                     query: query,
                     requestContentType: ContentType.JSON
-            );
+            )
             return response.data.contacts.contact
 
         } catch (Exception e) {

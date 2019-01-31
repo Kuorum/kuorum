@@ -10,7 +10,7 @@
 
 <ul>
     <sec:ifAnyGranted roles="ROLE_SUPER_ADMIN">
-        <g:if test="${user.enabled}">
+        <g:if test="${user.active}">
             <li><g:render template="/editorUser/switchUser" model="[user:user]"/></li>
         </g:if>
         <li class="${nav.activeMenuCss(mappingName: 'editorKuorumAccountEdit', urlParams:user.encodeAsLinkProperties())}"><g:link mapping="editorKuorumAccountEdit" params="${user.encodeAsLinkProperties()}"><g:message code="admin.menu.user.editAccount" args="[user.name]"/></g:link></li>

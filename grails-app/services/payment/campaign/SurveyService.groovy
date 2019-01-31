@@ -5,12 +5,12 @@ import grails.transaction.Transactional
 import kuorum.core.exception.KuorumException
 import kuorum.mail.KuorumMailService
 import kuorum.register.KuorumUserSession
-import kuorum.users.KuorumUser
 import kuorum.util.rest.RestKuorumApiService
 import org.kuorum.rest.model.communication.survey.QuestionOptionRDTO
 import org.kuorum.rest.model.communication.survey.QuestionRDTO
 import org.kuorum.rest.model.communication.survey.SurveyRDTO
 import org.kuorum.rest.model.communication.survey.SurveyRSDTO
+import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 
 @Transactional
 class SurveyService implements CampaignCreatorService<SurveyRSDTO, SurveyRDTO>{
@@ -25,13 +25,13 @@ class SurveyService implements CampaignCreatorService<SurveyRSDTO, SurveyRDTO>{
 
     SurveyRSDTO save(KuorumUserSession user, SurveyRDTO surveyRDTO, Long surveyId){
 
-        SurveyRSDTO survey = null;
+        SurveyRSDTO survey = null
         if (surveyId) {
             survey= update(user, surveyRDTO, surveyId)
         } else {
             survey= createSurvey(user, surveyRDTO)
         }
-        indexSolrService.deltaIndex();
+        indexSolrService.deltaIndex()
         survey
     }
 
@@ -60,7 +60,7 @@ class SurveyService implements CampaignCreatorService<SurveyRSDTO, SurveyRDTO>{
 
     SurveyRSDTO find(String userId, Long surveyId, String viewerUid = null){
         if (!surveyId){
-            return null;
+            return null
         }
         Map<String, String> params = [userId: userId, surveyId: surveyId.toString()]
         Map<String, String> query = [:]
@@ -75,10 +75,10 @@ class SurveyService implements CampaignCreatorService<SurveyRSDTO, SurveyRDTO>{
                     new TypeReference<SurveyRSDTO>() {}
             )
 
-            return response.data ?: null;
+            return response.data ?: null
         }catch (KuorumException e){
             log.info("Survey not found [Excpt: ${e.message}")
-            return null;
+            return null
         }
     }
 
@@ -118,7 +118,7 @@ class SurveyService implements CampaignCreatorService<SurveyRSDTO, SurveyRDTO>{
             surveyRDTO = campaignService.basicMapping(surveyRSDTO,surveyRDTO)
             //MAP QUESTIONS
             surveyRDTO.questions = surveyRSDTO.questions.collect{
-                QuestionRDTO questionRDTO = new QuestionRDTO();
+                QuestionRDTO questionRDTO = new QuestionRDTO()
                 questionRDTO.id = it.id
                 questionRDTO.text = it.text
                 questionRDTO.questionType = it.questionType
@@ -131,11 +131,11 @@ class SurveyService implements CampaignCreatorService<SurveyRSDTO, SurveyRDTO>{
                 return questionRDTO
             }
         }
-        return surveyRDTO;
+        return surveyRDTO
     }
 
     @Override
-    def buildView(SurveyRSDTO campaignRSDTO, KuorumUser campaignOwner, String viewerUid, def params) {
+    def buildView(SurveyRSDTO campaignRSDTO, BasicDataKuorumUserRSDTO campaignOwner, String viewerUid, def params) {
         def model = [survey: campaignRSDTO, campaignUser: campaignOwner]
         [view: "/survey/show", model:model]
     }
@@ -152,7 +152,7 @@ class SurveyService implements CampaignCreatorService<SurveyRSDTO, SurveyRDTO>{
         )
     }
 
-    void sendReport(KuorumUser user, Long surveyId){
+    void sendReport(KuorumUserSession user, Long surveyId){
         Map<String, String> params = [userId: user.id.toString(), surveyId: surveyId.toString()]
         Map<String, String> query = [:]
         def response = restKuorumApiService.get(

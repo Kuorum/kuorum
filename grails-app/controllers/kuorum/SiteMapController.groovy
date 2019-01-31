@@ -5,9 +5,11 @@ import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.model.AvailableLanguage
 import kuorum.users.KuorumUser
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
+import org.kuorum.rest.model.communication.petition.PetitionRSDTO
 import org.kuorum.rest.model.communication.post.PostRSDTO
 import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
 import payment.campaign.DebateService
+import payment.campaign.PetitionService
 import payment.campaign.PostService
 
 class SiteMapController {
@@ -15,6 +17,8 @@ class SiteMapController {
     private static final FORMAT_DATE_SITEMAP="yyyy-MM-dd"
 
     PostService postService
+    PetitionService petitionService
+
     static searchQueries =[
             es:[
                     basicSearch:[
@@ -248,7 +252,7 @@ class SiteMapController {
 //                        "xhtml:link rel=\"alternate\" hreflang=\"en\" href=\"${g.createLink( mapping: 'debateShowLang', absolute: true, params: [userAlias:politicianData.alias,lang:'en'])}\""()
                     }
 
-                    List<PostRSDTO> posts= postService.findAllPosts(kuorumUser)
+                    List<PostRSDTO> posts= postService.findAllPosts(kuorumUser.id.toString())
                     posts.each { post ->
                         if (CampaignStatusRSDTO.SENT.equals(post?.newsletter?.status?:null)){
                             url {
@@ -262,7 +266,21 @@ class SiteMapController {
                         }
                     }
 
-                    List<DebateRSDTO> debates = debateService.findAllDebates(kuorumUser)
+                    List<PetitionRSDTO> petitions= petitionService.findAllPetitionsByUser(kuorumUser.id.toString())
+                    petitions.each { petition ->
+                        if (CampaignStatusRSDTO.SENT.equals(petition?.newsletter?.status?:null)){
+                            url {
+                                loc(g.createLink(mapping: 'petitionShow', params: petition.encodeAsLinkProperties(), absolute: true))
+                                changefreq('weekly')
+                                priority(0.3)
+                                lastmod(petition.datePublished.format(FORMAT_DATE_SITEMAP))
+//                            "xhtml:link rel=\"alternate\" hreflang=\"es\" href=\"${g.createLink( mapping: 'postShow', absolute: true, params: post.encodeAsLinkProperties()+ [lang:'es'])}\""()
+//                            "xhtml:link rel=\"alternate\" hreflang=\"en\" href=\"${g.createLink( mapping: 'postShow', absolute: true, params: post.encodeAsLinkProperties()+ [lang:'en'])}\""()
+                            }
+                        }
+                    }
+
+                    List<DebateRSDTO> debates = debateService.findAllDebates(kuorumUser.id.toString())
                     debates.each { debate ->
                         if (CampaignStatusRSDTO.SENT.equals(debate?.newsletter?.status?:null)) {
 

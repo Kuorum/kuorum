@@ -17,6 +17,7 @@ import kuorum.users.RoleUser
 import kuorum.web.constants.WebConstants
 import kuorum.web.users.KuorumRegistrationCode
 import org.codehaus.groovy.grails.web.mapping.LinkGenerator
+import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 import org.springframework.context.i18n.LocaleContextHolder
 import org.springframework.transaction.annotation.Transactional
 import payment.contact.ContactService
@@ -91,7 +92,7 @@ class RegisterService {
             user.save()
         }
         springSecurityService.reauthenticate user.email
-        followMainUser(user)
+        followMainUser(springSecurityService.principal)
         user
     }
 
@@ -255,9 +256,9 @@ class RegisterService {
         }
     }
 
-    private void followMainUser(KuorumUser user){
+    private void followMainUser(KuorumUserSession user){
         // TODO: This logic should be on API. First is necessary to clarify which will be the process
-        KuorumUser userAdmin = kuorumUserService.findByAlias(WebConstants.FAKE_LANDING_ALIAS_USER)
+        BasicDataKuorumUserRSDTO userAdmin = kuorumUserService.findBasicUserRSDTO(WebConstants.FAKE_LANDING_ALIAS_USER)
         if (userAdmin){
             kuorumUserService.createFollower(user, userAdmin)
         }else{

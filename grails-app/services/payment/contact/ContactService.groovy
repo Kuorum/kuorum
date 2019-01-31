@@ -3,23 +3,21 @@ package payment.contact
 import com.fasterxml.jackson.core.type.TypeReference
 import grails.transaction.Transactional
 import kuorum.register.KuorumUserSession
-import kuorum.users.KuorumUser
 import kuorum.util.rest.RestKuorumApiService
 import kuorum.web.commands.payment.contact.ContactFilterCommand
 import org.kuorum.rest.model.contact.*
 import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
 import org.kuorum.rest.model.contact.filter.FilterRDTO
+import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 
 @Transactional
 class ContactService {
 
     RestKuorumApiService restKuorumApiService
 
-    @Deprecated
-    void addBulkContacts(KuorumUser user, List<ContactRDTO> contactRSDTOs){
-        addBulkContacts(user.id.toString(), contactRSDTOs)
+    void addBulkContacts(BasicDataKuorumUserRSDTO user, List<ContactRDTO> contactRSDTOs){
+        addBulkContacts(user.id, contactRSDTOs)
     }
-
     void addBulkContacts(KuorumUserSession user, List<ContactRDTO> contactRSDTOs){
         addBulkContacts(user.id.toString(), contactRSDTOs)
     }
@@ -143,7 +141,7 @@ class ContactService {
     }
 
     ContactPageRSDTO getUsers(KuorumUserSession user, FilterRDTO filterRDTO = null){
-        SearchContactRSDTO searchContactRSDTO = new SearchContactRSDTO(filter:filterRDTO);
+        SearchContactRSDTO searchContactRSDTO = new SearchContactRSDTO(filter:filterRDTO)
         getUsers(user, searchContactRSDTO)
     }
 
@@ -158,7 +156,7 @@ class ContactService {
                 params,
                 query,
                 new TypeReference<ContactPageRSDTO>(){})
-        ContactPageRSDTO contactPage = new ContactPageRSDTO();
+        ContactPageRSDTO contactPage = new ContactPageRSDTO()
         if (response.data){
             contactPage = response.data
         }
@@ -226,8 +224,8 @@ class ContactService {
     }
 
 
-    ContactRSDTO checkContactUser(KuorumUser user, String email, String digest){
-        Map<String, String> params = [userId:user.id.toString()]
+    ContactRSDTO checkContactUser(BasicDataKuorumUserRSDTO user, String email, String digest){
+        Map<String, String> params = [userId:user.id]
         Map<String, String> query = [contactEmail:email, digest:digest]
         try{
             def response= restKuorumApiService.get(
@@ -246,15 +244,15 @@ class ContactService {
 
     }
 
-    boolean unsubscribeContactUser(KuorumUser user, String email, String digest){
-        Map<String, String> params = [userId:user.id.toString()]
+    boolean unsubscribeContactUser(BasicDataKuorumUserRSDTO user, String email, String digest){
+        Map<String, String> params = [userId:user.id]
         Map<String, String> query = [contactEmail:email, digest:digest]
         try{
             def response= restKuorumApiService.delete(
                     RestKuorumApiService.ApiMethod.USER_CONTACT_SUBSCRIBE,
                     params,
                     query)
-            return true;
+            return true
         } catch (Exception e) {
             log.warn("Someone trying to check conctact '${email}' of the user ${user.alias} that not extits")
             return false
@@ -270,14 +268,14 @@ class ContactService {
                     RestKuorumApiService.ApiMethod.USER_CONTACT_SUBSCRIBE,
                     params,
                     query)
-            return true;
+            return true
         } catch (Exception e) {
             log.warn("Someone trying to check conctact '${contactId}' of the user ${user.alias} that not exist")
             return false
         }
     }
 
-    boolean bulkRemoveContacts(KuorumUser user, SearchContactRSDTO searchContact) {
+    boolean bulkRemoveContacts(KuorumUserSession user, SearchContactRSDTO searchContact) {
         Map<String, String> params = [userId: user.id.toString()]
         Map<String, String> query = searchContact.encodeAsQueryParams()
 

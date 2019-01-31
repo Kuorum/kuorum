@@ -2,7 +2,7 @@ package kuorum.web.commands.payment.massMailing
 
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.validation.Validateable
-import kuorum.users.KuorumUser
+import kuorum.register.KuorumUserSession
 import kuorum.util.TimeZoneUtil
 import org.codehaus.groovy.grails.web.context.ServletContextHolder
 import org.codehaus.groovy.grails.web.servlet.GrailsApplicationAttributes
@@ -20,10 +20,10 @@ class MassMailingContentTextCommand {
     Date scheduled
     String sendType
 
-    public static KuorumUser currentUser(){
+    static KuorumUserSession currentUser(){
         Object appContext = ServletContextHolder.servletContext.getAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT)
         SpringSecurityService springSecurityService = (SpringSecurityService)appContext.springSecurityService
-        KuorumUser user = springSecurityService.currentUser
+        KuorumUserSession user = springSecurityService.principal
 
         return user
     }
@@ -43,9 +43,9 @@ class MassMailingContentTextCommand {
         }
 
         scheduled nullable: true, validator: { val, obj ->
-            KuorumUser kuorumUser = MassMailingContentTextCommand.currentUser()
-            Date scheduledTimeZone = TimeZoneUtil.convertToUserTimeZone(val, kuorumUser.timeZone)
-            Date userTimeZone = Calendar.getInstance(kuorumUser.getTimeZone()).getTime()
+            KuorumUserSession userSession = MassMailingContentTextCommand.currentUser()
+            Date scheduledTimeZone = TimeZoneUtil.convertToUserTimeZone(val, userSession.timeZone)
+            Date userTimeZone = Calendar.getInstance(userSession.getTimeZone()).getTime()
             if (val && obj.sendType== "SCHEDULED" && scheduledTimeZone < userTimeZone){
                 return "kuorum.web.commands.payment.massMailing.MassMailingCommand.scheduled.min.error"
             }

@@ -4,7 +4,6 @@ import grails.converters.JSON
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.register.KuorumUserSession
-import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
 import kuorum.web.commands.payment.debate.DebateProposalCommand
 import kuorum.web.commands.payment.massMailing.CommentProposalCommand
@@ -13,6 +12,7 @@ import kuorum.web.commands.payment.massMailing.PinProposalCommand
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.kuorum.rest.model.communication.debate.ProposalCommentRSDTO
 import org.kuorum.rest.model.communication.debate.ProposalRSDTO
+import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 import payment.campaign.DebateService
 import payment.campaign.ProposalService
 
@@ -29,7 +29,7 @@ class DebateProposalController {
 
     def addProposal(DebateProposalCommand command) {
         KuorumUserSession user = springSecurityService.principal
-        KuorumUser debateUser = kuorumUserService.findByAlias(command.debateAlias)
+        BasicDataKuorumUserRSDTO debateUser = kuorumUserService.findBasicUserRSDTO(command.debateAlias)
         DebateRSDTO debate = debateService.find(debateUser.id.toString(), command.debateId, user.getId().toString())
         ProposalRSDTO proposalRSDTO = proposalService.addProposal(user, debate, command.body)
 
@@ -61,7 +61,7 @@ class DebateProposalController {
 
     def addComment(CommentProposalCommand command){
         KuorumUserSession user = springSecurityService.principal
-        KuorumUser debateUser = kuorumUserService.findByAlias(command.debateAlias)
+        BasicDataKuorumUserRSDTO debateUser = kuorumUserService.findBasicUserRSDTO(command.debateAlias)
         DebateRSDTO debate = debateService.find(debateUser.id.toString(), command.debateId)
         ProposalRSDTO proposalRSDTO = proposalService.addComment(user, debate, command.proposalId, command.body)
         ProposalCommentRSDTO comment = proposalRSDTO.comments.reverseFind{it.user.id == user.id.toString()}

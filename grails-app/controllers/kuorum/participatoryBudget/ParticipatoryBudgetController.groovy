@@ -5,7 +5,6 @@ import grails.plugin.springsecurity.annotation.Secured
 import kuorum.core.exception.KuorumException
 import kuorum.politician.CampaignController
 import kuorum.register.KuorumUserSession
-import kuorum.users.KuorumUser
 import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.commands.payment.CampaignSettingsCommand
 import kuorum.web.commands.payment.participatoryBudget.*
@@ -36,7 +35,7 @@ class ParticipatoryBudgetController extends CampaignController{
 
     @Secured(['ROLE_CAMPAIGN_PARTICIPATORY_BUDGET'])
     def editContentStep(){
-        Long campaignId = Long.parseLong((String) params.campaignId);
+        Long campaignId = Long.parseLong((String) params.campaignId)
         ParticipatoryBudgetRSDTO participatoryBudgetRSDTO = setCampaignAsDraft(campaignId, participatoryBudgetService)
         return campaignModelContent(campaignId, participatoryBudgetRSDTO, null, participatoryBudgetService)
     }
@@ -188,7 +187,7 @@ class ParticipatoryBudgetController extends CampaignController{
 
     @Secured(['ROLE_CAMPAIGN_PARTICIPATORY_BUDGET'])
     def remove(Long campaignId) {
-        removeCampaign(campaignId, participatoryBudgetService);
+        removeCampaign(campaignId, participatoryBudgetService)
         render ([msg: "Participatory budget deleted"] as JSON)
     }
 
@@ -210,7 +209,7 @@ class ParticipatoryBudgetController extends CampaignController{
         }
         ParticipatoryBudgetRDTO rdto = participatoryBudgetService.map(participatoryBudgetRSDTO)
         rdto.setStatus(command.getStatus())
-        String msgError = null;
+        String msgError = null
         try{
             participatoryBudgetService.save(campaignUser, rdto, command.getCampaignId())
         }catch (UndeclaredThrowableException e){
@@ -232,14 +231,14 @@ class ParticipatoryBudgetController extends CampaignController{
     }
 
     def findDistrictProposals(){
-        KuorumUser kuorumUser = kuorumUserService.findByAlias(params.userAlias)
+        BasicDataKuorumUserRSDTO districtProposalUser = kuorumUserService.findBasicUserRSDTO(params.userAlias)
         Long participatoryBudgetId = Long.parseLong(params.campaignId)
         Long districtId = Long.parseLong(params.districtId)
         Integer page= params.page?Integer.parseInt(params.page):0
         String viewerUid = cookieUUIDService.buildUserUUID()
         FilterDistrictProposalRDTO filter = new FilterDistrictProposalRDTO(districtId: districtId, page:page)
         if (params.randomSeed){
-            Double randomSeed = Double.parseDouble(params.randomSeed);
+            Double randomSeed = Double.parseDouble(params.randomSeed)
             filter.sort = new FilterDistrictProposalRDTO.SortDistrictProposalRDTO(randomSeed:randomSeed)
         }else{
             filter.sort = new FilterDistrictProposalRDTO.SortDistrictProposalRDTO(field:FilterDistrictProposalRDTO.SortableFieldRDTO.PRICE, direction: FilterDistrictProposalRDTO.DirectionRDTO.ASC )
@@ -248,25 +247,25 @@ class ParticipatoryBudgetController extends CampaignController{
         switch (participatoryBudgetStatus){
             case ParticipatoryBudgetStatusDTO.RESULTS:
                 filter.sort = new FilterDistrictProposalRDTO.SortDistrictProposalRDTO(field:FilterDistrictProposalRDTO.SortableFieldRDTO.VOTES, direction: FilterDistrictProposalRDTO.DirectionRDTO.DESC )
-                filter.approved = true;
-                break;
+                filter.approved = true
+                break
             case ParticipatoryBudgetStatusDTO.BALLOT:
             case ParticipatoryBudgetStatusDTO.CLOSED:
-                filter.approved = true;
-                break;
+                filter.approved = true
+                break
             case ParticipatoryBudgetStatusDTO.ADDING_PROPOSALS:
             case ParticipatoryBudgetStatusDTO.TECHNICAL_REVIEW:
             default:
-            break;
+            break
         }
 
         if (filter.sort && params.direction){
             FilterDistrictProposalRDTO.DirectionRDTO dir = FilterDistrictProposalRDTO.DirectionRDTO.valueOf(params.direction)
-            filter.sort.direction = dir;
+            filter.sort.direction = dir
         }
-        PageDistrictProposalRSDTO pageDistrictProposals = participatoryBudgetService.findDistrictProposalsByDistrict(kuorumUser, participatoryBudgetId, filter, viewerUid)
+        PageDistrictProposalRSDTO pageDistrictProposals = participatoryBudgetService.findDistrictProposalsByDistrict(districtProposalUser, participatoryBudgetId, filter, viewerUid)
         if (pageDistrictProposals.total == 0){
-            render template: '/participatoryBudget/showModules/mainContent/districProposalsEmpty';
+            render template: '/participatoryBudget/showModules/mainContent/districProposalsEmpty'
         }else{
             response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${pageDistrictProposals.total > ((pageDistrictProposals.page+1)*pageDistrictProposals.size)}")
             render template: '/campaigns/cards/campaignsList', model: [campaigns:pageDistrictProposals.data, showAuthor:true]
@@ -282,7 +281,7 @@ class ParticipatoryBudgetController extends CampaignController{
     def sendProposalsReport() {
         KuorumUserSession campaignUser = springSecurityService.principal
         Long participatoryBudgetId = Long.parseLong(params.campaignId)
-        participatoryBudgetService.sendReport(campaignUser, participatoryBudgetId);
+        participatoryBudgetService.sendReport(campaignUser, participatoryBudgetId)
         Boolean isAjax = request.xhr
         if(isAjax){
             render ([success:"success"] as JSON)
@@ -348,12 +347,12 @@ class ParticipatoryBudgetController extends CampaignController{
         init()
         Integer limit = Integer.parseInt(params.limit)
         Integer offset = Integer.parseInt(params.offset)
-        KuorumUser kuorumUser= springSecurityService.currentUser;
+        KuorumUserSession userLogged= springSecurityService.principal
         Long participatoryBudgetId = Long.parseLong(params.campaignId)
         FilterDistrictProposalRDTO filter = new FilterDistrictProposalRDTO(page:Math.floor(offset/limit).intValue(), size: limit)
         populateFilters(filter, params.filter)
         populateSort(filter, params.sort, params.order)
-        PageDistrictProposalRSDTO pageDistrictProposals = participatoryBudgetService.findDistrictProposalsByDistrict(kuorumUser, participatoryBudgetId, filter)
+        PageDistrictProposalRSDTO pageDistrictProposals = participatoryBudgetService.findDistrictProposalsByDistrict(userLogged, participatoryBudgetId, filter)
 //        response.setContentType("application/json")
 //        response.setHeader("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 //        def data = pageDistrictProposals.data.collect{
@@ -377,11 +376,11 @@ class ParticipatoryBudgetController extends CampaignController{
         filter.sort.direction = FilterDistrictProposalRDTO.DirectionRDTO.ASC
         if (sortField){
             switch (sortField){
-                case "district.name": filter.sort.field = FilterDistrictProposalRDTO.SortableFieldRDTO.DISTRICT; break;
-                case "user.name": filter.sort.field = FilterDistrictProposalRDTO.SortableFieldRDTO.CRM_USER; break;
-                case "numSupports": filter.sort.field = FilterDistrictProposalRDTO.SortableFieldRDTO.SUPPORTS; break;
-                case "numVotes": filter.sort.field = FilterDistrictProposalRDTO.SortableFieldRDTO.VOTES; break;
-                default: filter.sort.field = FilterDistrictProposalRDTO.SortableFieldRDTO.valueOf(sortField.toUpperCase()); break;
+                case "district.name": filter.sort.field = FilterDistrictProposalRDTO.SortableFieldRDTO.DISTRICT; break
+                case "user.name": filter.sort.field = FilterDistrictProposalRDTO.SortableFieldRDTO.CRM_USER; break
+                case "numSupports": filter.sort.field = FilterDistrictProposalRDTO.SortableFieldRDTO.SUPPORTS; break
+                case "numVotes": filter.sort.field = FilterDistrictProposalRDTO.SortableFieldRDTO.VOTES; break
+                default: filter.sort.field = FilterDistrictProposalRDTO.SortableFieldRDTO.valueOf(sortField.toUpperCase()); break
             }
         }
 
@@ -400,13 +399,13 @@ class ParticipatoryBudgetController extends CampaignController{
 
     private void populateFilter(FilterDistrictProposalRDTO filter, String rawKey, String value){
         switch (rawKey){
-            case "district.name": filter.districtId = Long.parseLong(value); break;
-            case "id": filter.id = Long.parseLong(value); break;
-            case "approved": filter.approved = Boolean.parseBoolean(value); break;
-            case "implemented": filter.implemented = Boolean.parseBoolean(value); break;
-            case "user.name": filter.userName= value; break;
-            case "technicalReviewStatus.i18n": filter.technicalReviewStatus= TechnicalReviewStatusRDTO.valueOf(value); break;
-            default: filter[rawKey] = value; break;
+            case "district.name": filter.districtId = Long.parseLong(value); break
+            case "id": filter.id = Long.parseLong(value); break
+            case "approved": filter.approved = Boolean.parseBoolean(value); break
+            case "implemented": filter.implemented = Boolean.parseBoolean(value); break
+            case "user.name": filter.userName= value; break
+            case "technicalReviewStatus.i18n": filter.technicalReviewStatus= TechnicalReviewStatusRDTO.valueOf(value); break
+            default: filter[rawKey] = value; break
         }
     }
 
@@ -415,10 +414,10 @@ class ParticipatoryBudgetController extends CampaignController{
         init()
         KuorumUserSession campaignUser = springSecurityService.principal
 
-        DistrictProposalTechnicalReviewRDTO technicalReviewRDTO = new DistrictProposalTechnicalReviewRDTO();
-        technicalReviewRDTO.approved=command.approved;
-        technicalReviewRDTO.price=command.price;
-        technicalReviewRDTO.rejectComment=command.rejectComment;
+        DistrictProposalTechnicalReviewRDTO technicalReviewRDTO = new DistrictProposalTechnicalReviewRDTO()
+        technicalReviewRDTO.approved=command.approved
+        technicalReviewRDTO.price=command.price
+        technicalReviewRDTO.rejectComment=command.rejectComment
         DistrictProposalRSDTO districtProposalRSDTO = districtProposalService.technicalReview(campaignUser, command.participatoryBudgetId, command.districtProposalId, technicalReviewRDTO)
         JSON.use('infoDistrictProposalTable') {
             render (districtProposalRSDTO as JSON)
@@ -429,25 +428,25 @@ class ParticipatoryBudgetController extends CampaignController{
     def supportDistrictProposal(DistrictProposalVoteCommand command){
         if (command.hasErrors()){
             render "No correct data"
-            return;
+            return
         }
-        KuorumUser currentUser= springSecurityService.currentUser;
-        KuorumUser participatoryBudgetUser = kuorumUserService.findByAlias(command.getUserAlias());
+        KuorumUserSession currentUser= springSecurityService.principal
+        BasicDataKuorumUserRSDTO participatoryBudgetUser = kuorumUserService.findBasicUserRSDTO(command.getUserAlias())
         DistrictProposalRSDTO districtProposalRSDTO
         try{
             if (command.vote){
-                districtProposalRSDTO= districtProposalService.support(currentUser, participatoryBudgetUser, command.participatoryBudgetId, command.proposalId);
+                districtProposalRSDTO= districtProposalService.support(currentUser, participatoryBudgetUser, command.participatoryBudgetId, command.proposalId)
             }else{
-                districtProposalRSDTO= districtProposalService.unsupport(currentUser, participatoryBudgetUser, command.participatoryBudgetId, command.proposalId);
+                districtProposalRSDTO= districtProposalService.unsupport(currentUser, participatoryBudgetUser, command.participatoryBudgetId, command.proposalId)
             }
             render (districtProposalRSDTO as JSON)
         }catch (Exception e){
             response.status = 500
             if (e instanceof UndeclaredThrowableException ){
                 KuorumException ke = ((UndeclaredThrowableException)e).getCause().getCause()
-                render "{\"error\": \"API_ERROR\", \"code\":\"${ke.errors[0].code}\", \"msg\":\"${g.message(code:'participatoryBudget.district.modal.differentDistrict.text', args: ke.errors[0].args)}\"}";
+                render "{\"error\": \"API_ERROR\", \"code\":\"${ke.errors[0].code}\", \"msg\":\"${g.message(code:'participatoryBudget.district.modal.differentDistrict.text', args: ke.errors[0].args)}\"}"
             }else{
-                render "{\"error\": \"GENERIC_ERROR\", \"code\":\"error.api.500\"}";
+                render "{\"error\": \"GENERIC_ERROR\", \"code\":\"error.api.500\"}"
             }
         }
     }
@@ -457,23 +456,23 @@ class ParticipatoryBudgetController extends CampaignController{
         if (command.hasErrors()){
             render "No correct data"
         }
-        KuorumUser currentUser= springSecurityService.currentUser;
-        KuorumUser participatoryBudgetUser = kuorumUserService.findByAlias(command.getUserAlias());
+        KuorumUserSession currentUser= springSecurityService.principal
+        BasicDataKuorumUserRSDTO participatoryBudgetUser = kuorumUserService.findBasicUserRSDTO(command.getUserAlias())
         DistrictProposalRSDTO districtProposalRSDTO
         try{
             if (command.vote){
-                districtProposalRSDTO = districtProposalService.vote(currentUser, participatoryBudgetUser, command.participatoryBudgetId, command.proposalId);
+                districtProposalRSDTO = districtProposalService.vote(currentUser, participatoryBudgetUser, command.participatoryBudgetId, command.proposalId)
             }else{
-                districtProposalRSDTO = districtProposalService.unvote(currentUser, participatoryBudgetUser, command.participatoryBudgetId, command.proposalId);
+                districtProposalRSDTO = districtProposalService.unvote(currentUser, participatoryBudgetUser, command.participatoryBudgetId, command.proposalId)
             }
             render (districtProposalRSDTO as JSON)
         }catch (Exception e){
             response.status = 500
             if (e instanceof UndeclaredThrowableException ){
                 KuorumException ke = ((UndeclaredThrowableException)e).getCause().getCause()
-                render "{\"error\": \"API_ERROR\", \"code\":\"${ke.errors[0].code}\", \"msg\":\"${g.message(code:'participatoryBudget.district.modal.differentDistrict.text', args: ke.errors[0].args)}\"}";
+                render "{\"error\": \"API_ERROR\", \"code\":\"${ke.errors[0].code}\", \"msg\":\"${g.message(code:'participatoryBudget.district.modal.differentDistrict.text', args: ke.errors[0].args)}\"}"
             }else{
-                render "{\"error\": \"GENERIC_ERROR\", \"code\":\"error.api.500\"}";
+                render "{\"error\": \"GENERIC_ERROR\", \"code\":\"error.api.500\"}"
             }
         }
     }

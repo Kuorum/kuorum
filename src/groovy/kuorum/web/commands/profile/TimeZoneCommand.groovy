@@ -1,7 +1,6 @@
 package kuorum.web.commands.profile
 
 import grails.validation.Validateable
-import kuorum.users.KuorumUser
 
 /**
  * Created by iduetxe on 4/01/16.
@@ -10,10 +9,10 @@ import kuorum.users.KuorumUser
 class TimeZoneCommand {
 
     TimeZoneCommand(){}
-
-    TimeZoneCommand(KuorumUser user){
-        this.timeZoneId = user.timeZone?.getID()
-    }
+//
+//    TimeZoneCommand(KuorumUser user){
+//        this.timeZoneId = user.timeZone?.getID()
+//    }
 
     String timeZoneRedirect
     String timeZoneId

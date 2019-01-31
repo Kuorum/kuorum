@@ -25,9 +25,9 @@ import com.google.gdata.data.contacts.ContactFeed
 import grails.transaction.Transactional
 import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.domain.DomainService
-import kuorum.users.KuorumUser
 import org.kuorum.rest.model.contact.ContactRDTO
 import org.kuorum.rest.model.domain.DomainRSDTO
+import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 
 import javax.annotation.PreDestroy
 import java.util.concurrent.ExecutorService
@@ -81,7 +81,7 @@ class ContactFromGoogleService {
     }
 
 
-    void loadContacts(KuorumUser user, String authorizationCode){
+    void loadContacts(BasicDataKuorumUserRSDTO user, String authorizationCode){
         log.info("Loading ${user.alias}'s gmail contacs")
         GoogleAuthorizationCodeTokenRequest authorizationCodeTokenRequest = new GoogleAuthorizationCodeTokenRequest(
                 HTTP_TRANSPORT,
@@ -171,16 +171,17 @@ class ContactFromGoogleService {
         return mapCircles
     }
 
-    private void loadContactUsingGData(KuorumUser user, Credential credential){
+    private void loadContactUsingGData(BasicDataKuorumUserRSDTO user, Credential credential){
 
 //        Map circleMap = [:]
         Map circleMap = loadCirclesMappedByName(credential)
         credential = refreshCredential(credential)
         final String url = CustomDomainResolver.getBaseUrlAbsolute()
+        final String domain = CustomDomainResolver.domain
         executor.execute{
             // NEW THREAD HAS TO INIT THE THREAD LOCAL
             CustomDomainResolver.setUrl(new URL(url))
-            DomainRSDTO domainRSDTO = domainService.getConfig(user.getDomain())
+            DomainRSDTO domainRSDTO = domainService.getConfig(domain)
             CustomDomainResolver.setDomainRSDTO(domainRSDTO)
             // END INIT THREAD LOCAL
 

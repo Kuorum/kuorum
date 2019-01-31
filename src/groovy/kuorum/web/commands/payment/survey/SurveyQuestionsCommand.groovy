@@ -1,13 +1,8 @@
 package kuorum.web.commands.payment.survey
 
-import grails.plugin.springsecurity.SpringSecurityService
 import grails.validation.Validateable
-import kuorum.users.KuorumUser
-import kuorum.util.TimeZoneUtil
 import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.constants.WebConstants
-import org.codehaus.groovy.grails.web.context.ServletContextHolder
-import org.codehaus.groovy.grails.web.servlet.GrailsApplicationAttributes
 import org.grails.databinding.BindingFormat
 import org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO
 
@@ -19,7 +14,7 @@ import org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO
 class SurveyQuestionsCommand {
 
     Long surveyId
-    List<QuestionCommand> questions = [];
+    List<QuestionCommand> questions = []
 
     @BindingFormat(WebConstants.WEB_FORMAT_DATE)
     Date publishOn
@@ -27,7 +22,7 @@ class SurveyQuestionsCommand {
 
 
     static validateQuestions = {val, obj ->
-        String error = null;
+        String error = null
         if (obj.sendType != "DRAFT"){
             if (val.size()<1){
                 error = "minSize.error"
@@ -38,13 +33,6 @@ class SurveyQuestionsCommand {
             }
         }
         return error
-    }
-    static KuorumUser currentUser(){
-        Object appContext = ServletContextHolder.servletContext.getAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT)
-        SpringSecurityService springSecurityService = (SpringSecurityService)appContext.springSecurityService
-        KuorumUser user = springSecurityService.currentUser
-
-        return user
     }
 
     static constraints = {
@@ -61,7 +49,7 @@ class QuestionCommand{
     List<QuestionOptionCommand> options =[new QuestionOptionCommand(), new QuestionOptionCommand()]
 
     static validateOptions = {val, obj ->
-        String error = null;
+        String error = null
         val.each{
             if (!error)
                 error = it.validate()?null:'invalidOptions'

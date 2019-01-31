@@ -4,9 +4,11 @@ import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.userdetails.GrailsUser
 import grails.plugin.springsecurity.userdetails.GrailsUserDetailsService
 import kuorum.core.customDomain.CustomDomainResolver
+import kuorum.core.model.AvailableLanguage
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
 import org.apache.log4j.Logger
+import org.bson.types.ObjectId
 import org.kuorum.rest.model.kuorumUser.KuorumUserRSDTO
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.GrantedAuthorityImpl
@@ -41,6 +43,7 @@ class MongoUserDetailsService  implements GrailsUserDetailsService {
 
         log.debug("KuorumUser not found using username: $username")
         KuorumUser user = KuorumUser.findByEmailAndDomain(username.toLowerCase(), CustomDomainResolver.domain)
+        KuorumUserRSDTO userRSDTO = kuorumUserService.findUserRSDTO(user.id.toString())
 
         if (!user) {
             log.warn("KuorumUser not found: $username")
@@ -51,7 +54,7 @@ class MongoUserDetailsService  implements GrailsUserDetailsService {
             log.debug("KuorumUser found: $username")
         }
 
-        return createUserDetails(user)
+        return createUserDetails(userRSDTO)
     }
 
     @Override
@@ -59,25 +62,33 @@ class MongoUserDetailsService  implements GrailsUserDetailsService {
         return loadUserByUsername(username, true)
     }
 
-    protected KuorumUserSession createUserDetails(KuorumUser user, Collection authorities) {
-        new KuorumUserSession(user.alias,user.email, user.password, user.enabled,
-                !user.accountExpired, !user.passwordExpired,
-                !user.accountLocked, authorities, user.id,
-                user.name,
-                user?.personalData?.province?.name,
-                user?.timeZone,
-                user.avatar?.url)
+    protected KuorumUserSession createUserDetails(KuorumUserRSDTO userRSDTO, Collection authorities) {
+        KuorumUser user = KuorumUser.get(new ObjectId(userRSDTO.id))
+        new KuorumUserSession(
+                userRSDTO.alias,
+                userRSDTO.email,
+                user.password,
+                userRSDTO.active,
+                true,
+                true,
+                true,
+                authorities,
+                new ObjectId(userRSDTO.id),
+                userRSDTO.name,
+                userRSDTO.timeZone,
+                userRSDTO.avatarUrl,
+                AvailableLanguage.valueOf(userRSDTO.language.toString()))
     }
 
-    UserDetails createUserDetails(KuorumUser user, Boolean loadRoles = Boolean.TRUE){
-        def roles = getRoles(user, loadRoles)
+    UserDetails createUserDetails(KuorumUserRSDTO user, Boolean loadRoles = Boolean.TRUE){
+        Collection<GrantedAuthority> roles = getRoles(user, loadRoles)
         return createUserDetails(user, roles)
     }
 
-    Collection<GrantedAuthority> getRoles(KuorumUser user,Boolean loadRoles = Boolean.TRUE){
+    Collection<GrantedAuthority> getRoles(KuorumUserRSDTO userRSDTO,Boolean loadRoles = Boolean.TRUE){
         def roles = NO_ROLES
         if (loadRoles) {
-            KuorumUserRSDTO userRSDTO = kuorumUserService.findUserRSDTO(user.id.toString())
+            KuorumUser user = KuorumUser.get(new ObjectId(userRSDTO.id))
             def authorities = userRSDTO.roles?.collect {new SimpleGrantedAuthority(it.toString())}
             if (user.authorities.find{it.authority == "ROLE_INCOMPLETE_USER"}){
                 authorities.add(new SimpleGrantedAuthority('ROLE_INCOMPLETE_USER'))
@@ -100,6 +111,7 @@ class KuorumUserSession extends GrailsUser{
     String regionName
     TimeZone timeZone
     String avatarUrl
+    AvailableLanguage language
 
     String getEmail(){
         username
@@ -107,13 +119,13 @@ class KuorumUserSession extends GrailsUser{
 
     KuorumUserSession(String alias, String username, String password, boolean enabled, boolean accountNonExpired,
                       boolean credentialsNonExpired, boolean accountNonLocked,
-                      Collection<GrantedAuthority> authorities, Object id, String name, String regionName, TimeZone timeZone, String avatarUrl) {
+                      Collection<GrantedAuthority> authorities, Object id, String name, TimeZone timeZone, String avatarUrl, AvailableLanguage language) {
         super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities, id)
         this.name = name
         this.alias = alias
-        this.regionName = regionName
         this.timeZone = timeZone
         this.avatarUrl = avatarUrl
+        this.language = language
     }
 
 

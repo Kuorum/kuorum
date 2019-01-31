@@ -1,7 +1,6 @@
 package kuorum.web.filters
 
-import kuorum.core.customDomain.CustomDomainResolver
-import kuorum.users.KuorumUser
+import grails.plugin.springsecurity.SpringSecurityService
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.AuthenticationException
 import org.springframework.security.core.context.SecurityContextHolder
@@ -20,7 +19,7 @@ class KuorumSecuritySwitchFilter extends GenericFilterBean  {
     def authenticationManager
 //    def interchangeAuthenticationProvider
     def securityMetadataSource
-    def springSecurityService
+    SpringSecurityService springSecurityService
 
 
 //    public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) {
@@ -55,26 +54,19 @@ class KuorumSecuritySwitchFilter extends GenericFilterBean  {
 
     @Override
     void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
-        HttpServletResponse response = ((HttpServletResponse) res);
-        HttpServletRequest request = ((HttpServletRequest) req);
+        HttpServletResponse response = ((HttpServletResponse) res)
+        HttpServletRequest request = ((HttpServletRequest) req)
 
-        //Se supone que está logado. Tiene más filtros delante que hacen esto
-        KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
-
-
-        KuorumUser switchingUser = KuorumUser.findByEmailAndDomain(request.getParameter("j_username"), CustomDomainResolver.domain)
-        if (isUserAllowedToSwitchToUser(loggedUser, switchingUser)){
-            chain.doFilter(request, response);
+        if (isUserAllowedToSwitchToUser()){
+            chain.doFilter(request, response)
         }else{
-//            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "NOT ALLOWED");
-            //TODO: No poner la URL de unauthorized a pelo
-            response.sendRedirect(request.getContextPath()+"/login/denied")
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "NOT ALLOWED")
+//            TODO: No poner la URL de unauthorized a pelo
+//            response.sendRedirect(request.getContextPath()+"/login/denied")
         }
-
-        //To change body of implemented methods use File | Settings | File Templates.
     }
 
-    private boolean isUserAllowedToSwitchToUser(KuorumUser loggedUser, KuorumUser swichingUser){
+    private boolean isUserAllowedToSwitchToUser(){
         def roles = springSecurityService.getPrincipal().getAuthorities()
         roles.find{"ROLE_SUPER_ADMIN"}
 //        roles.find{"ROLE_ADMIN"} || roles.find{"ROLE_ADVANCED"} && user.allowedAdminUsers.find{kuorumUser.id}
@@ -86,7 +78,7 @@ class KuorumSecuritySwitchFilter extends GenericFilterBean  {
     }
 
     protected void onUnsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) {
-        SecurityContextHolder.clearContext();
+        SecurityContextHolder.clearContext()
 //        rememberMeServices.loginFail(request, response)
     }
 }

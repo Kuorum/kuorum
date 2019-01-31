@@ -1,9 +1,9 @@
 package payment.campaign
 
 import kuorum.register.KuorumUserSession
-import kuorum.users.KuorumUser
 import org.kuorum.rest.model.communication.CampaignRDTO
 import org.kuorum.rest.model.communication.CampaignRSDTO
+import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 
 interface CampaignCreatorService<RSDTO extends CampaignRSDTO, RDTO extends CampaignRDTO> {
 
@@ -40,7 +40,7 @@ interface CampaignCreatorService<RSDTO extends CampaignRSDTO, RDTO extends Campa
      * @param rsdto
      * @return
      */
-    def buildView(RSDTO campaignRSDTO, KuorumUser campaignOwner, String viewerUid, def params)
+    def buildView(RSDTO campaignRSDTO, BasicDataKuorumUserRSDTO campaignOwner, String viewerUid, def params)
 
 
 }

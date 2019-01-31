@@ -9,13 +9,11 @@ import kuorum.core.exception.KuorumException
 import kuorum.files.FileService
 import kuorum.register.KuorumUserSession
 import kuorum.users.CookieUUIDService
-import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
 import kuorum.util.TimeZoneUtil
 import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.commands.payment.CampaignSettingsCommand
 import kuorum.web.commands.payment.contact.ContactFilterCommand
-import org.bson.types.ObjectId
 import org.kuorum.rest.model.communication.CampaignRDTO
 import org.kuorum.rest.model.communication.CampaignRSDTO
 import org.kuorum.rest.model.communication.CampaignTypeRSDTO
@@ -24,6 +22,7 @@ import org.kuorum.rest.model.communication.event.EventRDTO
 import org.kuorum.rest.model.contact.ContactPageRSDTO
 import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
 import org.kuorum.rest.model.contact.filter.FilterRDTO
+import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
 import payment.campaign.*
 import payment.contact.ContactService
@@ -48,7 +47,7 @@ class CampaignController {
 
     def show() {
         String viewerUid = cookieUUIDService.buildUserUUID()
-        KuorumUser user = kuorumUserService.findByAlias(params.userAlias)
+        BasicDataKuorumUserRSDTO user = kuorumUserService.findBasicUserRSDTO(params.userAlias)
         try{
             CampaignRSDTO campaignRSDTO = campaignService.find(user, Long.parseLong(params.campaignId),viewerUid)
             if (!campaignRSDTO) {
@@ -87,8 +86,8 @@ class CampaignController {
     }
 
     def findLiUserCampaigns(String userId){
-        KuorumUser user = KuorumUser.get(new ObjectId(userId))
-        List<CampaignRSDTO> campaigns = campaignService.findAllCampaigns(user).findAll{it.newsletter.status==CampaignStatusRSDTO.SENT}
+//        KuorumUser user = KuorumUser.get(new ObjectId(userId))
+        List<CampaignRSDTO> campaigns = campaignService.findAllCampaigns(userId).findAll{it.newsletter.status==CampaignStatusRSDTO.SENT}
         render template: '/campaigns/cards/campaignsList', model: [campaigns:campaigns, showAuthor:true]
 
     }

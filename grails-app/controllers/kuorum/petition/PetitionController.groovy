@@ -4,7 +4,6 @@ import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.politician.CampaignController
 import kuorum.register.KuorumUserSession
-import kuorum.users.KuorumUser
 import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.commands.payment.CampaignSettingsCommand
 import kuorum.web.commands.payment.petition.SignPetitionCommand
@@ -80,10 +79,10 @@ class PetitionController extends CampaignController{
                 flash.message = msg
                 redirect mapping: 'home'
             }
-            return;
+            return
         }
-        KuorumUser currentUser= springSecurityService.currentUser;
-        PetitionRSDTO petitionRSDTO= petitionService.signPetition(command.campaignId, currentUser, command.sign, command.petitionUserId);
-        render petitionRSDTO as JSON;
+        KuorumUserSession currentUser= springSecurityService.principal
+        PetitionRSDTO petitionRSDTO= petitionService.signPetition(command.campaignId, currentUser, command.sign, command.petitionUserId)
+        render petitionRSDTO as JSON
     }
 }

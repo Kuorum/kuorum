@@ -4,7 +4,6 @@ import grails.converters.JSON
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.register.KuorumUserSession
-import kuorum.users.KuorumUser
 import kuorum.web.commands.payment.contact.ContactFilterCommand
 import org.kuorum.rest.model.contact.ContactPageRSDTO
 import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
@@ -19,24 +18,24 @@ import payment.contact.ContactService
 @Secured(['IS_AUTHENTICATED_REMEMBERED'])
 class ContactFiltersController {
 
-    ContactService contactService;
+    ContactService contactService
     SpringSecurityService springSecurityService
 
     def newFilter(ContactFilterCommand filterCommand){
         if (filterCommand.hasErrors()){
-            ObjectError error = filterCommand.errors.allErrors.first();
+            ObjectError error = filterCommand.errors.allErrors.first()
             render ([status:"error", msg:error.defaultMessage] as JSON)
             return
         }
         String newFilterName = params.newFilterName
         if (!newFilterName){
             render ([status:"error", msg:g.message(code:"tools.contact.filter.form.saveAs.noName")] as JSON)
-            return;
+            return
         }
         KuorumUserSession user = springSecurityService.principal
         FilterRDTO filterRDTO = filterCommand.buildFilter()
         filterRDTO.name = newFilterName
-        ExtendedFilterRSDTO filterSaved = contactService.createFilter(user,filterRDTO);
+        ExtendedFilterRSDTO filterSaved = contactService.createFilter(user,filterRDTO)
 
         def filterRendered = g.render( template:"/contacts/filter/filterFieldSet",model:[filter:filterSaved])
 
@@ -49,18 +48,18 @@ class ContactFiltersController {
 
     def updateFilter(ContactFilterCommand filterCommand){
         if (filterCommand.hasErrors()){
-            ObjectError error = filterCommand.errors.allErrors.first();
+            ObjectError error = filterCommand.errors.allErrors.first()
             render ([status:"error", msg:error.defaultMessage] as JSON)
             return
         }
         Long filterId = Long.parseLong(params.filterId)
         if (filterId <= 0){
             render ([status:"error", msg:g.message(code:'tools.contact.filter.form.notExits')] as JSON)
-            return;
+            return
         }
         KuorumUserSession user = springSecurityService.principal
         FilterRDTO filterRDTO = filterCommand.buildFilter()
-        ExtendedFilterRSDTO filterSaved = contactService.updateFilter(user,filterRDTO, filterId);
+        ExtendedFilterRSDTO filterSaved = contactService.updateFilter(user,filterRDTO, filterId)
 
 
         render ([
@@ -72,7 +71,7 @@ class ContactFiltersController {
 
     def refreshFilter(ContactFilterCommand filterCommand){
         if (filterCommand.hasErrors()){
-            ObjectError error = filterCommand.errors.allErrors.first();
+            ObjectError error = filterCommand.errors.allErrors.first()
             render ([status:"error", msg:error.defaultMessage] as JSON)
             return
         }

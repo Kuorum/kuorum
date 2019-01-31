@@ -2,7 +2,6 @@ package kuorum
 
 import com.fasterxml.jackson.core.type.TypeReference
 import grails.transaction.Transactional
-import kuorum.core.exception.KuorumException
 import kuorum.core.model.AvailableLanguage
 import kuorum.core.model.RegionType
 import kuorum.postalCodeHandlers.PostalCodeHandler
@@ -25,12 +24,12 @@ class RegionService {
     @Transactional(readOnly = true)
     Region findProvinceByPostalCode(Region country, String postalCode) {
         Region region = findRegionByPostalCode(country, postalCode)
-        Region province = null;
+        Region province = null
         if (region){
-            province = region.superRegion;
+            province = region.superRegion
             while (province.regionType != RegionType.COUNTY && province){
                 province = province.superRegion
-            };
+            }
 
         }else{
             String headPostalCode = getPostalCodeHandler(country).getPrefixProvincePostalCode(postalCode)
@@ -55,12 +54,12 @@ class RegionService {
     Region findMostSpecificRegionByPostalCode(Region country, String postalCode){
         Region region = null
         if (getPostalCodeHandler(country).validate(postalCode)){
-            region = findRegionByPostalCode(country, postalCode);
+            region = findRegionByPostalCode(country, postalCode)
             if (!region){
-                region = findProvinceByPostalCode(country, postalCode);
+                region = findProvinceByPostalCode(country, postalCode)
             }
         }
-        region;
+        region
     }
 
     @Transactional(readOnly = true)
@@ -76,7 +75,7 @@ class RegionService {
      * @return
      */
     Region findUserRegion(KuorumUser user){
-        Region userRegion = null;
+        Region userRegion = null
         if (user.personalData?.province){
             Region province = user.personalData.province
             Region country = findCountry(province)
@@ -91,14 +90,7 @@ class RegionService {
             //Recover most accurate info from API
             userRegion = findRegionById(userRegion.iso3166_2,user.language.locale)
         }
-        return userRegion;
-    }
-    List<Region> findUserRegions(KuorumUser user){
-        //The province is recovering on register, so it is not defined its most specific region
-        // In the future the userRegion will be recover from user
-        Region userRegion = findUserRegion(user)
-        findRegionsList(userRegion)
-
+        return userRegion
     }
 
     List<Region> findRegionsList(Region region){
@@ -114,15 +106,10 @@ class RegionService {
         regions.reverse()
     }
 
-    Boolean isRelevantRegionForUser(KuorumUser user, Region region){
-        Region userRegion = findUserRegion(user);
-        userRegion && region && userRegion.iso3166_2.startsWith(region.iso3166_2)
-    }
-
     private static final Integer COUNTRY_CODE_LENGTH = 3*2-1
     Region findCountry(Region region){
         if (region?.iso3166_2){
-            String countryCode = region.iso3166_2.subSequence(0,COUNTRY_CODE_LENGTH);
+            String countryCode = region.iso3166_2.subSequence(0,COUNTRY_CODE_LENGTH)
             return Region.findByIso3166_2(countryCode)
         }else{
             return null
@@ -133,7 +120,7 @@ class RegionService {
     private static final Integer STATE_CODE_LENGTH = 3*3-1
     Region findState(Region region){
         if (region?.iso3166_2){
-            String stateCode = region.iso3166_2.subSequence(0,STATE_CODE_LENGTH);
+            String stateCode = region.iso3166_2.subSequence(0,STATE_CODE_LENGTH)
             return Region.findByIso3166_2(stateCode)
         }else{
             return null
@@ -141,7 +128,7 @@ class RegionService {
     }
 
     @Autowired
-    List<PostalCodeHandler> postalCodeHandlersList;
+    List<PostalCodeHandler> postalCodeHandlersList
 
     private Map<PostalCodeHandlerType, PostalCodeHandler> postalCodeHandlers = [:]
 
@@ -153,24 +140,24 @@ class RegionService {
         }
     }
 
-    public PostalCodeHandler getPostalCodeHandler(Region country){
+    PostalCodeHandler getPostalCodeHandler(Region country){
         PostalCodeHandlerType postalCodeHandlerType = null
         populateHandlers()
         try{
             postalCodeHandlerType = PostalCodeHandlerType.valueOf(country["postalCodeHandlerType"])
         }catch (Exception e){
-            postalCodeHandlerType = PostalCodeHandlerType.STANDARD_FIVE_DIGITS;
+            postalCodeHandlerType = PostalCodeHandlerType.STANDARD_FIVE_DIGITS
             log.warn("No se ha reconocido el handler del codigo postal del pais ${country}. Valor detectado: ${country?country["postalCodeHandlerType"]:'null'}")
         }
         postalCodeHandlers[postalCodeHandlerType]
     }
 
-    public List<Region> findPoliticianRegions(){
+    List<Region> findPoliticianRegions(){
 //        def regexCondition = ['$regex': "^${country.iso3166_2}"]
 //        def criteria = ['iso3166_2': regexCondition,'regionType':RegionType.COUNTY.toString()]
 //        def regionIds = Region.collection.find(criteria,[_id:1])
 //        regionIds.collect{Region.get(it)}
-        Region.findAllByRegionType(RegionType.STATE);
+        Region.findAllByRegionType(RegionType.STATE)
     }
 
     /**
@@ -180,7 +167,7 @@ class RegionService {
      * @param suggestedId
      * @return
      */
-    public Region findRegionBySuggestedId(String isoCode){
+    Region findRegionBySuggestedId(String isoCode){
 
         try{
             def response = restKuorumApiService.get(
@@ -198,14 +185,14 @@ class RegionService {
 
     }
 
-    public Region findRegionById(String isoCode, Locale locale){
+    Region findRegionById(String isoCode, Locale locale){
         RegionRSDTO regionRSDTO = findRegionDataById(isoCode, locale)
-        Region region = new Region(regionRSDTO.properties);
-        region.iso3166_2=regionRSDTO.iso3166;
+        Region region = new Region(regionRSDTO.properties)
+        region.iso3166_2=regionRSDTO.iso3166
         region
     }
 
-    public RegionRSDTO findRegionDataById(String isoCode, Locale locale){
+    RegionRSDTO findRegionDataById(String isoCode, Locale locale){
 
         try{
             def response = restKuorumApiService.get(
@@ -223,7 +210,7 @@ class RegionService {
 
     }
 
-    public List<Region> suggestRegions(String prefixRegionName, AvailableLanguage language = AvailableLanguage.en_EN){
+    List<Region> suggestRegions(String prefixRegionName, AvailableLanguage language = AvailableLanguage.en_EN){
         def response = restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.REGION_SUGGEST,
                 [:],
@@ -231,14 +218,14 @@ class RegionService {
                 new TypeReference<List<RegionRSDTO>>(){}
         )
         List regions = response.data.collect{val ->
-            Region region = new Region(val.properties);
-            region.iso3166_2=val.iso3166;
+            Region region = new Region(val.properties)
+            region.iso3166_2=val.iso3166
             region
         }
-        return regions;
+        return regions
     }
 
-    public Region findMostAccurateRegion(String regionName, Region country = null, AvailableLanguage language= AvailableLanguage.en_EN){
+    Region findMostAccurateRegion(String regionName, Region country = null, AvailableLanguage language= AvailableLanguage.en_EN){
         try{
             Map params = [regionName:regionName, lang: language.getLocale().language]
             if (country){
@@ -252,7 +239,7 @@ class RegionService {
             )
             return Region.findByIso3166_2(response.data.iso3166)
         }catch (Exception kuorumException){
-            return null;
+            return null
         }
     }
 }

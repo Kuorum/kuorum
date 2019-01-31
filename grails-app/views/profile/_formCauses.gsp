@@ -1,5 +1,4 @@
 <r:require modules="forms"/>
-<input type="hidden" name="politician.id" value="${command.politician.id}"/>
 <div class="box-ppal-section">
     <fieldset class="row">
         <div class="form-group col-md-12">

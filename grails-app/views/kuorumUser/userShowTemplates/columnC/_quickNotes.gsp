@@ -1,6 +1,6 @@
 <g:if test="${
     ['officialWebSite'].find{politician?.socialLinks?."${it}"} ||
-    ['twitter', 'facebook', 'googlePlus', 'linkedIn', 'blog', 'instagram', 'youtube'].find{politician?.socialLinks?."${it}"}}">
+    ['twitter', 'facebook', 'linkedIn', 'blog', 'instagram', 'youtube'].find{politician?.socialLinks?."${it}"}}">
 
     <section class="panel panel-default">
         <div class="panel-heading">
@@ -9,7 +9,7 @@
             </h3>
         </div>
         <div class="panel-body text-center">
-            <g:if test="${['officialWebSite','institutionalWebSite'].find{politician?.socialLinks?."${it}"}}">
+            <g:if test="${['officialWebSite'].find{politician?.socialLinks?."${it}"}}">
                 <div class="table table-condensed limit-height" data-collapsedHeight="60">
                     <g:render template="/kuorumUser/userShowTemplates/columnC/rowPoliticianColumnC" model="[
                             message:g.message(code:'politician.quickNotes.data.moreInfo.webSite'),
@@ -17,7 +17,7 @@
                     ]"/>
                 </div>
             </g:if>
-            <g:if test="${['twitter', 'facebook', 'googlePlus', 'linkedIn', 'blog', 'instagram', 'youtube'].find{politician?.socialLinks?."${it}"}}">
+            <g:if test="${['twitter', 'facebook', 'linkedIn', 'blog', 'instagram', 'youtube'].find{politician?.socialLinks?."${it}"}}">
                 <div class="table table-condensed no-margins">
                     <ul class="panel-share-buttons">
 

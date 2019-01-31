@@ -15,7 +15,7 @@
                 <!-- email subscription form -->
                 <formUtil:validateForm form="contact-modal-form" bean="${command}"/>
                 <g:form mapping="ajaxRegisterContact" id="contact-modal-form" role="form" method="post" name="contact-modal-form">
-                    <input type="hidden" name="politician" value="${politician.id}"/>
+                    <input type="hidden" name="contactUserId" value="${politician.id}"/>
                     <div class="form-group">
                         <label for="cause" class="control-label"><g:message code="modal.contact.causeSelect"/></label>
                         <select class="form-control" name="cause" id="cause">

@@ -361,8 +361,6 @@ class UrlMappings {
         name campaignShow:          "/$userAlias/$urlTitle-$campaignId" (controller: "campaign", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it)})}}
 
         name widgetJs:      "/widget.js"(controller: "widget", action:"kuorumWidgetjs")
-        name widgetRatePolitician:     "/widget/ratePolitician" (controller: "rating", action:"widgetRatePolitician")
-
 
         name userShow:              "/$userAlias"           (controller: "kuorumUser", action: "show") {constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it)})}}
         name secUserShow:           "/sec/$userAlias"       (controller: "kuorumUser", action: "secShow")
@@ -439,9 +437,9 @@ class UrlMappings {
         name adminDomainRegisterStep1:              "/sec/admin/domain/config/landing"  (controller:"admin"){action =[GET:"designLandingPage", POST:"saveDesignLandingPage"]}
         name adminDomainRegisterStep2:              "/sec/admin/domain/config/rights"   (controller:"admin"){action =[GET:"userRights", POST:"saveUserRights"]}
 
-        name editorEditUserProfile:                         "/editor/user/$userAlias/editar/profile"                (controller:"editorUser"){action =[GET:"editUser", POST:"updateUser"]}
-        name editorKuorumAccountEdit:                       "/editor/user/$userAlias/editar/account-details"        (controller:"editorUser"){action =[GET:"editAdminAccountDetails", POST:"updateAdminAccountDetails"]}
-        name editorAdminUserRights:                         "/editor/user/$userAlias/editar/rights"                 (controller:"admin"){action =[GET:"editUserRights", POST:"updateUserRights"]}
+        name editorEditUserProfile:                         "/editor/user/$userAlias/edit/profile"                (controller:"editorUser"){action =[GET:"editUser", POST:"updateUser"]}
+        name editorKuorumAccountEdit:                       "/editor/user/$userAlias/edit/account-details"        (controller:"editorUser"){action =[GET:"editAdminAccountDetails", POST:"updateAdminAccountDetails"]}
+        name editorAdminUserRights:                         "/editor/user/$userAlias/edit/rights"                 (controller:"admin"){action =[GET:"editUserRights", POST:"updateUserRights"]}
 
         name ajaxDeleteRecommendedUser: "/ajax/kuorumUser/deleteRecommendedUser"(controller: 'recommendedUserInfo', action: 'deleteRecommendedUser')
 
@@ -496,17 +494,6 @@ class UrlMappings {
         "/account/contacts/oauth/$provider/failure" (controller: "contactsOAuth", action: "onFailure")
 
         "/googleContacts/loadContactsFromGoogle" (controller: "googleContacts", action: "loadContactsFromGoogle")
-
-        /**********************/
-        /***** DEPRECATED *****/
-        /**********************/
-
-        name tourStart:           "/tour" (controller:"tour", action: "index")
-        name tour_dashboard:      "/tour/dashboard" (controller:"tour", action: "tour_dashboard")
-
-        /**********************/
-        /*** END DEPRECATED ***/
-        /**********************/
 
         name sitemapIndex:  "/sitemap" (controller: "siteMap", action: "sitemapIndex")
 

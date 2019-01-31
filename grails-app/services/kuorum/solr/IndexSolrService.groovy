@@ -2,7 +2,7 @@ package kuorum.solr
 
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.transaction.Transactional
-import kuorum.users.KuorumUser
+import kuorum.register.KuorumUserSession
 import kuorum.util.rest.RestKuorumApiService
 
 @Transactional
@@ -10,16 +10,16 @@ class IndexSolrService {
 
     RestKuorumApiService restKuorumApiService
 
-    SpringSecurityService springSecurityService;
+    SpringSecurityService springSecurityService
 
     def fullIndex() {
-        KuorumUser user = springSecurityService.currentUser
+        KuorumUserSession user = springSecurityService.principal
         def response = restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.SEARCH_INDEX_FULL,
                 [:],
-                [email:user.getEmail(), userName:user.fullName],
+                [email:user.getEmail(), userName:user.name],
                 null)
-        return 0;
+        return 0
     }
 
 

@@ -1,7 +1,6 @@
 package kuorum.web.commands.profile.politician
 
 import grails.validation.Validateable
-import kuorum.users.KuorumUser
 import org.grails.databinding.BindUsing
 
 /**
@@ -9,20 +8,18 @@ import org.grails.databinding.BindUsing
  */
 @Validateable
 class PoliticianCausesCommand {
-    KuorumUser politician
     @BindUsing({obj,  org.grails.databinding.DataBindingSource source ->
         String normalizedCauses = source['causes'].replaceAll(';', ',')
         normalizedCauses.split(',').findAll({it}).collect{it.decodeHashtag().trim()}.unique { a, b -> a <=> b }
     })
     List<String> causes
     static constraints = {
-        politician nullable: false;
         causes nullable: true
     }
 
-    public PoliticianCausesCommand(){}
-    public PoliticianCausesCommand(KuorumUser politician, List<String> causes){
-        this.politician = politician
+    PoliticianCausesCommand(){}
+
+    PoliticianCausesCommand(List<String> causes){
         this.causes = causes?:[]
     }
 }

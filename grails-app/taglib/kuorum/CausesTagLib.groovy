@@ -1,7 +1,6 @@
 package kuorum
 
 import kuorum.register.KuorumUserSession
-import kuorum.users.KuorumUser
 import org.kuorum.rest.model.tag.CauseRSDTO
 import org.kuorum.rest.model.tag.SupportedCauseRSDTO
 

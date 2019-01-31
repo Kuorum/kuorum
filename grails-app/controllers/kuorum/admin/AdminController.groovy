@@ -21,11 +21,13 @@ import kuorum.web.admin.domain.EditLegalInfoCommand
 import kuorum.web.commands.LinkCommand
 import kuorum.web.commands.domain.EditDomainCarouselPicturesCommand
 import kuorum.web.constants.WebConstants
+import org.bson.types.ObjectId
 import org.codehaus.groovy.runtime.InvokerHelper
 import org.kuorum.rest.model.admin.AdminConfigMailingRDTO
 import org.kuorum.rest.model.communication.CampaignRSDTO
 import org.kuorum.rest.model.domain.*
 import org.kuorum.rest.model.domain.creation.NewDomainPaymentDataRDTO
+import org.kuorum.rest.model.kuorumUser.KuorumUserRSDTO
 import org.kuorum.rest.model.kuorumUser.UserRoleRSDTO
 import org.kuorum.rest.model.notification.campaign.config.NewsletterConfigRQDTO
 import org.kuorum.rest.model.notification.campaign.config.NewsletterConfigRSDTO
@@ -242,8 +244,7 @@ class AdminController {
 
     def editDomainRelevantCampaigns() {
         List<CampaignRSDTO> domainCampaigns = campaignService.findRelevantDomainCampaigns()
-        KuorumUser adminUser = kuorumUserService.findByAlias(WebConstants.FAKE_LANDING_ALIAS_USER)
-        List<CampaignRSDTO> adminCampaigns = campaignService.findAllCampaigns(adminUser)
+        List<CampaignRSDTO> adminCampaigns = campaignService.findAllCampaigns(WebConstants.FAKE_LANDING_ALIAS_USER)
         Map domainCampaignsId = [first:null, second:null, third:null]
         domainCampaignsId.first = domainCampaigns.size()>0 ? domainCampaigns.get(0).id:null
         domainCampaignsId.second = domainCampaigns.size()>1 ? domainCampaigns.get(1).id:null
@@ -358,12 +359,11 @@ class AdminController {
 
     @Secured(['IS_AUTHENTICATED_FULLY','ROLE_SUPER_ADMIN'])
     def editUserRights(String userAlias){
-        KuorumUser user = kuorumUserService.findByAlias(userAlias)
+        KuorumUserRSDTO user = kuorumUserService.findUserRSDTO(userAlias)
         KuorumUserRightsCommand command = new KuorumUserRightsCommand()
-        command.user = user
-        command.active = user.enabled
-        command.relevance = kuorumUserService.getUserRelevance(user)
-        [command: command]
+        command.userId = user.id
+        command.active = user.active
+        [command: command, user:user]
     }
 
     @Secured(['IS_AUTHENTICATED_FULLY','ROLE_SUPER_ADMIN'])
@@ -373,11 +373,8 @@ class AdminController {
             render view: "editUserRights", model: [command: command]
             return
         }
-        KuorumUser user = command.user
+        KuorumUser user = KuorumUser.get(new ObjectId(command.userId))
         user.enabled = command.active?:false
-        if (command.relevance){
-            kuorumUserService.updateUserRelevance(user, command.relevance)
-        }
         user = kuorumUserService.updateUser(user)
 
         flash.message = message(code: 'admin.editUser.success', args: [user.name])

@@ -5,11 +5,12 @@ import grails.transaction.Transactional
 import kuorum.core.exception.KuorumException
 import kuorum.register.KuorumUserSession
 import kuorum.solr.IndexSolrService
-import kuorum.users.KuorumUser
+import kuorum.users.KuorumUserService
 import kuorum.util.rest.RestKuorumApiService
 import org.kuorum.rest.model.communication.participatoryBudget.DistrictProposalRDTO
 import org.kuorum.rest.model.communication.participatoryBudget.DistrictProposalRSDTO
 import org.kuorum.rest.model.communication.participatoryBudget.DistrictProposalTechnicalReviewRDTO
+import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 
 @Transactional
 class DistrictProposalService implements CampaignCreatorService<DistrictProposalRSDTO, DistrictProposalRDTO> {
@@ -17,14 +18,15 @@ class DistrictProposalService implements CampaignCreatorService<DistrictProposal
     CampaignService campaignService
     RestKuorumApiService restKuorumApiService
     IndexSolrService indexSolrService
+    KuorumUserService kuorumUserService
 
     DistrictProposalRSDTO find(KuorumUserSession user, Long campaignId, String viewerUid = null) {
-        find(user.getId().toString(), campaignId, viewerUid);
+        find(user.getId().toString(), campaignId, viewerUid)
     }
 
     DistrictProposalRSDTO find(String userId, Long campaignId, String viewerUid = null) {
         if (!campaignId){
-            return null;
+            return null
         }
         Map<String, String> params = [userId: userId, campaignId: campaignId.toString()]
         Map<String, String> query = [:]
@@ -40,10 +42,10 @@ class DistrictProposalService implements CampaignCreatorService<DistrictProposal
             )
 
             DistrictProposalRSDTO campaign = response.data
-            return campaign;
+            return campaign
         }catch (KuorumException e){
             log.info("Error recovering district proposal $campaignId : ${e.message}")
-            return null;
+            return null
         }
     }
 
@@ -56,8 +58,8 @@ class DistrictProposalService implements CampaignCreatorService<DistrictProposal
         } else {
             districtProposalRSDTO = createDistrictProposal(user, districtProposalRDTO)
         }
-        indexSolrService.deltaIndex();
-        return districtProposalRSDTO;
+        indexSolrService.deltaIndex()
+        return districtProposalRSDTO
     }
 
     private DistrictProposalRSDTO createDistrictProposal(KuorumUserSession user, DistrictProposalRDTO districtProposalRDTO) {
@@ -117,9 +119,9 @@ class DistrictProposalService implements CampaignCreatorService<DistrictProposal
     }
 
     @Override
-    def buildView(DistrictProposalRSDTO districtProposal, KuorumUser participatoryBudgetUser, String viewerUid, def params) {
-        KuorumUser campaignUser = KuorumUser.get(districtProposal.user.id)
-        def model = [districtProposal: districtProposal, campaignUser: campaignUser];
+    def buildView(DistrictProposalRSDTO districtProposal, BasicDataKuorumUserRSDTO participatoryBudgetUser, String viewerUid, def params) {
+        BasicDataKuorumUserRSDTO campaignUser = kuorumUserService.findBasicUserRSDTO(districtProposal.user.id)
+        def model = [districtProposal: districtProposal, campaignUser: campaignUser]
         return [view: '/districtProposal/show', model: model]
     }
 
@@ -127,12 +129,12 @@ class DistrictProposalService implements CampaignCreatorService<DistrictProposal
     /// END CRUD
 
     DistrictProposalRSDTO vote(
-            KuorumUser user,
-            KuorumUser participatoryBudgetUser,
+            KuorumUserSession user,
+            BasicDataKuorumUserRSDTO participatoryBudgetUser,
             Long participatoryBudgetId,
             Long districtProposalId) throws KuorumException{
         Map<String, String> params = [
-                userId: participatoryBudgetUser.id.toString(),
+                userId: participatoryBudgetUser.id,
                 campaignId: participatoryBudgetId.toString(),
                 proposalId: districtProposalId.toString(),
         ]
@@ -145,16 +147,16 @@ class DistrictProposalService implements CampaignCreatorService<DistrictProposal
                 new TypeReference<DistrictProposalRSDTO>(){}
         )
 
-        return response.data;
+        return response.data
     }
 
     DistrictProposalRSDTO unvote(
-            KuorumUser user,
-            KuorumUser participatoryBudgetUser,
+            KuorumUserSession user,
+            BasicDataKuorumUserRSDTO participatoryBudgetUser,
             Long participatoryBudgetId,
             Long districtProposalId){
         Map<String, String> params = [
-                userId: participatoryBudgetUser.id.toString(),
+                userId: participatoryBudgetUser.id,
                 campaignId: participatoryBudgetId.toString(),
                 proposalId: districtProposalId.toString(),
         ]
@@ -166,12 +168,12 @@ class DistrictProposalService implements CampaignCreatorService<DistrictProposal
                 new TypeReference<DistrictProposalRSDTO>(){}
         )
 
-        return response.data;
+        return response.data
     }
 
     DistrictProposalRSDTO support(
-            KuorumUser user,
-            KuorumUser participatoryBudgetUser,
+            KuorumUserSession user,
+            BasicDataKuorumUserRSDTO participatoryBudgetUser,
             Long participatoryBudgetId,
             Long districtProposalId){
         Map<String, String> params = [
@@ -188,12 +190,12 @@ class DistrictProposalService implements CampaignCreatorService<DistrictProposal
                 new TypeReference<DistrictProposalRSDTO>(){}
         )
 
-        return response.data;
+        return response.data
     }
 
     DistrictProposalRSDTO unsupport(
-            KuorumUser user,
-            KuorumUser participatoryBudgetUser,
+            KuorumUserSession user,
+            BasicDataKuorumUserRSDTO participatoryBudgetUser,
             Long participatoryBudgetId,
             Long districtProposalId){
         Map<String, String> params = [
@@ -209,7 +211,7 @@ class DistrictProposalService implements CampaignCreatorService<DistrictProposal
                 new TypeReference<DistrictProposalRSDTO>(){}
         )
 
-        return response.data;
+        return response.data
     }
     DistrictProposalRSDTO technicalReview(
             KuorumUserSession participatoryBudgetUser,
@@ -231,6 +233,6 @@ class DistrictProposalService implements CampaignCreatorService<DistrictProposal
                 new TypeReference<DistrictProposalRSDTO>(){}
         )
 
-        return response.data;
+        return response.data
     }
 }

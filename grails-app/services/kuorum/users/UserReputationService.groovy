@@ -1,29 +1,27 @@
 package kuorum.users
 
 import com.fasterxml.jackson.core.type.TypeReference
-import grails.plugin.cookie.CookieService
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.transaction.Transactional
 import kuorum.util.rest.RestKuorumApiService
-import kuorum.web.constants.WebConstants
+import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 import org.kuorum.rest.model.kuorumUser.reputation.UserReputationEvolutionRSDTO
 import org.kuorum.rest.model.kuorumUser.reputation.UserReputationRSDTO
 import org.springframework.cache.annotation.CacheEvict
-import org.springframework.cache.annotation.CachePut
 import org.springframework.cache.annotation.Cacheable
 
 @Transactional
 class UserReputationService {
 
-    RestKuorumApiService restKuorumApiService;
+    RestKuorumApiService restKuorumApiService
     SpringSecurityService springSecurityService
     CookieUUIDService cookieUUIDService
 
-    @CacheEvict(value='reputation', key='#politician.id')
-    UserReputationRSDTO addReputation(KuorumUser politician, Integer evaluation) {
+    @CacheEvict(value='reputation', key='#user.id')
+    UserReputationRSDTO addReputation(BasicDataKuorumUserRSDTO user, Integer evaluation) {
 
-        String evaluatorId = cookieUUIDService.getUserUUID();
-        Map<String, String> params = [userId:politician.id.toString()]
+        String evaluatorId = cookieUUIDService.getUserUUID()
+        Map<String, String> params = [userId:user.id]
         Map<String, String> query = [evaluation:evaluation]
         if (evaluatorId){
             query.put("evaluatorId", evaluatorId)
@@ -39,16 +37,16 @@ class UserReputationService {
             userReputation = (UserReputationRSDTO)response.data
         }
         cookieUUIDService.setUserUUID(userReputation.evaluatorId)
-        return userReputation;
+        return userReputation
     }
 
-    @Cacheable(value='reputation', key = '#politician.id')
-    UserReputationRSDTO getReputationWithCache(KuorumUser politician) {
-        return getReputation(politician)
+    @Cacheable(value='reputation', key = '#user.id')
+    UserReputationRSDTO getReputationWithCache(BasicDataKuorumUserRSDTO user) {
+        return getReputation(user)
     }
-    UserReputationRSDTO getReputation(KuorumUser politician) {
-        String evaluatorId = cookieUUIDService.buildUserUUID();
-        Map<String, String> params = [userId:politician.id.toString()]
+    UserReputationRSDTO getReputation(BasicDataKuorumUserRSDTO user) {
+        String evaluatorId = cookieUUIDService.buildUserUUID()
+        Map<String, String> params = [userId:user.id]
         Map<String, String> query = [evaluatorId:evaluatorId]
         def response = restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.USER_STATS_REPUTATION,
@@ -59,7 +57,7 @@ class UserReputationService {
         if (response.data){
             userReputation = (UserReputationRSDTO)response.data
         }
-        return userReputation;
+        return userReputation
     }
 
     UserReputationEvolutionRSDTO getReputationEvoulution(
@@ -80,6 +78,6 @@ class UserReputationService {
         if (response.data){
             userReputationEvolution = (UserReputationEvolutionRSDTO)response.data
         }
-        return userReputationEvolution;
+        return userReputationEvolution
     }
 }

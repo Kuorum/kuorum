@@ -124,9 +124,9 @@ class ProfileController {
     }
 
     def editCauses(){
-        KuorumUser politician = params.user
+        KuorumUserSession politician = springSecurityService.principal
         List<CauseRSDTO> causes = causesService.findSupportedCauses(politician)
-        PoliticianCausesCommand command = new PoliticianCausesCommand(politician, causes.collect{it.name})
+        PoliticianCausesCommand command = new PoliticianCausesCommand(causes.collect{it.name})
         [command:command]
     }
 
@@ -453,7 +453,7 @@ class ProfileController {
 
     def editNews(){
         KuorumUser user = params.user
-        [command:new RelevantEventsCommand(politician:user, politicianRelevantEvents: user.relevantEvents?.reverse()?:[])]
+        [command:new RelevantEventsCommand(politicianRelevantEvents: user.relevantEvents?.reverse()?:[])]
     }
 
     def updateNews(RelevantEventsCommand command){

@@ -3,7 +3,6 @@ package kuorum.notifications
 import com.fasterxml.jackson.core.type.TypeReference
 import grails.transaction.Transactional
 import kuorum.core.model.search.SearchNotifications
-import kuorum.post.Post
 import kuorum.register.KuorumUserSession
 import kuorum.users.KuorumUser
 import kuorum.util.rest.RestKuorumApiService
@@ -99,14 +98,6 @@ class NotificationService {
 
         NotificationConfigRDTO notificationPage = null
 
-    }
-
-    /**
-    * A post has been supported by a politician
-    */
-    @Deprecated
-    void sendPostDefendedNotification(Post post){
-        // Does nothing
     }
 
     void sendWelcomeRegister(KuorumUser user){

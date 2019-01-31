@@ -4,7 +4,6 @@ import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.politician.CampaignController
 import kuorum.register.KuorumUserSession
-import kuorum.users.KuorumUser
 import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.commands.payment.CampaignSettingsCommand
 import kuorum.web.commands.payment.survey.QuestionAnswerCommand
@@ -12,6 +11,7 @@ import kuorum.web.commands.payment.survey.QuestionCommand
 import kuorum.web.commands.payment.survey.QuestionOptionCommand
 import kuorum.web.commands.payment.survey.SurveyQuestionsCommand
 import org.kuorum.rest.model.communication.survey.*
+import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 
 class SurveyController extends CampaignController{
 
@@ -114,8 +114,8 @@ class SurveyController extends CampaignController{
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def saveAnswer(QuestionAnswerCommand command){
         KuorumUserSession userAnswer = springSecurityService.principal
-        KuorumUser surveyUser = kuorumUserService.findByAlias(params.userAlias)
-        SurveyRSDTO survey = surveyService.find(surveyUser.id.toString(), command.campaignId)
+        BasicDataKuorumUserRSDTO surveyUser = kuorumUserService.findBasicUserRSDTO(params.userAlias)
+        SurveyRSDTO survey = surveyService.find(surveyUser.id, command.campaignId)
         surveyService.saveAnswer(survey, userAnswer, command.questionId, command.answersIds)
         render ([status:"success",msg:""] as JSON)
     }
@@ -166,7 +166,7 @@ class SurveyController extends CampaignController{
 
     @Secured(['ROLE_CAMPAIGN_SURVEY'])
     def sendReport(Long campaignId){
-        KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUserSession loggedUser = springSecurityService.principal
         surveyService.sendReport(loggedUser, campaignId)
         Boolean isAjax = request.xhr
         if(isAjax){

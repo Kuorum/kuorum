@@ -2,11 +2,8 @@ package kuorum.helper
 
 import kuorum.Region
 import kuorum.core.model.Gender
-import kuorum.core.model.PostType
 import kuorum.core.model.RegionType
 import kuorum.core.model.Studies
-import kuorum.post.Post
-import kuorum.project.Project
 import kuorum.users.KuorumUser
 import kuorum.users.PersonData
 
@@ -15,7 +12,7 @@ import kuorum.users.PersonData
  */
 class Helper {
 
-    public static final void validateConstraints(obj, field, error) {
+    static final void validateConstraints(obj, field, error) {
         def validated = obj.validate()
         if (error && error != 'OK') {
             assert !validated
@@ -26,23 +23,9 @@ class Helper {
         }
     }
 
-    public static final Post createDefaultPost(KuorumUser owner, Project project){
-        new Post(
-                owner: owner,
-                ownerPersonalData: owner.personalData,
-                title:"title",
-                text: "Text",
-                project:project,
-                numVotes: 1,
-                numClucks: 1,
-                postType: PostType.HISTORY
-        )
-    }
-
-
-    public static final KuorumUser createDefaultUser(String email){
+    static final KuorumUser createDefaultUser(String email){
         PersonData personalData = new PersonData(gender: Gender.MALE, studies: Studies.DOCTOR)
-        Region userRegion = creteDefaultRegion();
+        Region userRegion = creteDefaultRegion()
         personalData.provinceCode = userRegion.iso3166_2
         personalData.province = userRegion
         new KuorumUser(
@@ -55,7 +38,7 @@ class Helper {
     }
 
 
-    public static final Region creteDefaultRegion(){
+    static final Region creteDefaultRegion(){
         new Region(
                 name:"Europa",
                 iso3166_2:"EU",

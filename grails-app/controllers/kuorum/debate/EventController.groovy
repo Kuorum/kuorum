@@ -3,7 +3,6 @@ package kuorum.debate
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.politician.CampaignController
 import kuorum.register.KuorumUserSession
-import kuorum.users.KuorumUser
 import kuorum.util.TimeZoneUtil
 import kuorum.web.commands.payment.CampaignSettingsCommand
 import kuorum.web.commands.payment.event.EventCommand
@@ -39,7 +38,7 @@ class EventController extends CampaignController{
             render view: 'create', model: eventModelSettings(command, null)
             return
         }
-        CampaignCreatorService campaignService = null;
+        CampaignCreatorService campaignService = null
         if (command.debatable){
             campaignService = debateService
         }else{
@@ -75,8 +74,8 @@ class EventController extends CampaignController{
         String nextStep = params.redirectLink
         KuorumUserSession user = springSecurityService.principal
         CampaignRSDTO campaignRSDTO = findCampaign(params)
-        CampaignCreatorService campaignService = null;
-        CampaignRDTO campaignRDTO = null;
+        CampaignCreatorService campaignService = null
+        CampaignRDTO campaignRDTO = null
         if (campaignRSDTO instanceof DebateRSDTO){
             campaignService = debateService
         }else{
@@ -125,7 +124,7 @@ class EventController extends CampaignController{
     }
 
     private CampaignRSDTO findCampaign(def params){
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUserSession user = springSecurityService.principal
         Long campaignId = Long.parseLong(params.campaignId)
         campaignService.find(user, campaignId)
     }
@@ -133,7 +132,7 @@ class EventController extends CampaignController{
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def bookTicket(Long campaignId){
-        KuorumUser assistant = springSecurityService.currentUser
+        KuorumUserSession assistant = springSecurityService.pricipal
         EventRegistrationRSDTO eventRegistration = eventService.addAssistant(params.eventUserId, campaignId, assistant)
         if (eventRegistration){
             render ([success:true, error:"", eventRegistration:eventRegistration]) as JSON
@@ -144,7 +143,7 @@ class EventController extends CampaignController{
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def checkIn(Long campaignId){
-        KuorumUser user = springSecurityService.currentUser
+        KuorumUserSession user = springSecurityService.principal
         String hash = params.hash
         Long contactId = Long.parseLong(params.contactId)
         EventRegistrationRSDTO eventRegistration = eventService.checkIn(contactId, campaignId, user, hash)
@@ -158,7 +157,7 @@ class EventController extends CampaignController{
 
     @Secured(['ROLE_CAMPAIGN_EVENT'])
     def sendReport(Long campaignId) {
-        KuorumUser user = springSecurityService.currentUser
+        KuorumUserSession user = springSecurityService.principal
         Boolean checkList = params.checkList?Boolean.parseBoolean(params.checkList):false
         eventService.sendReport(user, campaignId,checkList)
         render ([success:"success"] as grails.converters.JSON)

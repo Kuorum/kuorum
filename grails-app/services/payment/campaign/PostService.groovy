@@ -5,11 +5,11 @@ import grails.transaction.Transactional
 import kuorum.core.exception.KuorumException
 import kuorum.mail.KuorumMailService
 import kuorum.register.KuorumUserSession
-import kuorum.users.KuorumUser
 import kuorum.util.rest.RestKuorumApiService
 import org.kuorum.rest.model.communication.post.PagePostRSDTO
 import org.kuorum.rest.model.communication.post.PostRDTO
 import org.kuorum.rest.model.communication.post.PostRSDTO
+import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 
 @Transactional
 class PostService implements CampaignCreatorService<PostRSDTO, PostRDTO>{
@@ -35,8 +35,10 @@ class PostService implements CampaignCreatorService<PostRSDTO, PostRDTO>{
         response.data
 
     }
-    List<PostRSDTO> findAllPosts(KuorumUser user, String viewerUid = null){
-        Map<String, String> params = [userId: user.id.toString()]
+
+    @Deprecated
+    List<PostRSDTO> findAllPosts(String userId, String viewerUid = null){
+        Map<String, String> params = [userId: userId]
         Map<String, String> query = [:]
         if (viewerUid){
             query.put("viewerUid",viewerUid)
@@ -53,13 +55,13 @@ class PostService implements CampaignCreatorService<PostRSDTO, PostRDTO>{
 
     PostRSDTO save(KuorumUserSession user, PostRDTO postRDTO, Long postId){
 
-        PostRSDTO post = null;
+        PostRSDTO post = null
         if (postId) {
             post= update(user, postRDTO, postId)
         } else {
             post= createPost(user, postRDTO)
         }
-        indexSolrService.deltaIndex();
+        indexSolrService.deltaIndex()
         post
     }
 
@@ -87,7 +89,7 @@ class PostService implements CampaignCreatorService<PostRSDTO, PostRDTO>{
     }
     PostRSDTO find(String userId, Long postId, String viewerUid = null){
         if (!postId){
-            return null;
+            return null
         }
         Map<String, String> params = [userId: userId, postId: postId.toString()]
         Map<String, String> query = [:]
@@ -102,10 +104,10 @@ class PostService implements CampaignCreatorService<PostRSDTO, PostRDTO>{
                     new TypeReference<PostRSDTO>() {}
             )
 
-            return response.data ?: null;
+            return response.data ?: null
         }catch (KuorumException e){
             log.info("Post not found [Excpt: ${e.message}")
-            return null;
+            return null
         }
     }
 
@@ -129,10 +131,10 @@ class PostService implements CampaignCreatorService<PostRSDTO, PostRDTO>{
     }
 //
 //    @PreAuthorize("hasPermission(#postId, 'like')")
-    PostRSDTO likePost (Long postId, KuorumUser currentUser, Boolean like, String postUserId){
+    PostRSDTO likePost (Long postId, KuorumUserSession currentUser, Boolean like, String postUserId){
         Map<String, String> params = [userId: postUserId, postId: postId.toString()]
         Map<String, String> query = [viewerUid: currentUser.id.toString()]
-        PostRSDTO postRSDTO;
+        PostRSDTO postRSDTO
         if(like){
             def response = restKuorumApiService.put(
                     RestKuorumApiService.ApiMethod.ACCOUNT_POST_LIKES,
@@ -140,7 +142,7 @@ class PostService implements CampaignCreatorService<PostRSDTO, PostRDTO>{
                     query,
                     null,
                     new TypeReference<PostRSDTO>(){}
-            );
+            )
             postRSDTO = response.data
         }
         else {
@@ -149,10 +151,10 @@ class PostService implements CampaignCreatorService<PostRSDTO, PostRDTO>{
                     params,
                     query,
                     new TypeReference<PostRSDTO>(){}
-            );
+            )
             postRSDTO = response.data
         }
-        return  postRSDTO;
+        return  postRSDTO
     }
 
     void remove(KuorumUserSession user, Long postId) {
@@ -169,11 +171,11 @@ class PostService implements CampaignCreatorService<PostRSDTO, PostRDTO>{
 
     @Override
     PostRDTO map(PostRSDTO postRSDTO) {
-        return campaignService.basicMapping(postRSDTO, new PostRDTO());
+        return campaignService.basicMapping(postRSDTO, new PostRDTO())
     }
 
     @Override
-    def buildView(PostRSDTO campaignRSDTO, KuorumUser campaignOwner, String viewerUid, def params) {
+    def buildView(PostRSDTO campaignRSDTO, BasicDataKuorumUserRSDTO campaignOwner, String viewerUid, def params) {
         def model = [post: campaignRSDTO, postUser: campaignOwner]
         [view: "/post/show", model:model]
     }

@@ -2,9 +2,9 @@ package payment
 
 import grails.plugin.springsecurity.SpringSecurityService
 import kuorum.core.exception.KuorumException
-import kuorum.users.KuorumUser
-import payment.contact.IOAuthLoadContacts
+import kuorum.register.KuorumUserSession
 import org.scribe.model.Token
+import payment.contact.IOAuthLoadContacts
 
 import javax.annotation.PreDestroy
 import java.util.concurrent.ExecutorService
@@ -53,7 +53,7 @@ class ContactsOAuthController {
 
 		// Create the relevant authentication token and attempt to log in.
 		String url = getRedirectUrl()
-		KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
+		KuorumUserSession loggedUser = springSecurityService.principal
 		try {
 			loadContacts(loggedUser, params.provider, token)
 		} catch (KuorumException e) {
@@ -73,7 +73,7 @@ class ContactsOAuthController {
 		g.createLink(mapping: "politicianContactImportSuccess", absolute: true)
 	}
 
-	protected void loadContacts(KuorumUser user, providerName, Token scribeToken) throws KuorumException {
+	protected void loadContacts(KuorumUserSession user, providerName, Token scribeToken) throws KuorumException {
 		IOAuthLoadContacts providerService = (IOAuthLoadContacts) grailsApplication.mainContext.getBean("${providerName}OAuthContactService")
 		executor.execute{
 			providerService.loadContacts(user, scribeToken)

@@ -4,8 +4,8 @@ import com.fasterxml.jackson.core.type.TypeReference
 import kuorum.core.model.search.Pagination
 import kuorum.register.KuorumUserSession
 import kuorum.solr.IndexSolrService
-import kuorum.users.KuorumUser
 import kuorum.util.rest.RestKuorumApiService
+import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 import org.kuorum.rest.model.tag.CauseRSDTO
 import org.kuorum.rest.model.tag.SuggestedCausesRSDTO
 import org.kuorum.rest.model.tag.SupportedCauseRSDTO
@@ -18,22 +18,8 @@ class CausesService {
 
     IndexSolrService indexSolrService
 
-    List<CauseRSDTO> findDefendedCauses(KuorumUser user) {
-        def response = restKuorumApiService.get(
-                RestKuorumApiService.ApiMethod.USER_CAUSES_DEFENDED,
-                [userId:user.id.toString()],
-                [:],
-                new TypeReference<List<CauseRSDTO>>(){})
-        List<CauseRSDTO> account = []
-        if (response.data){
-            account = (List<CauseRSDTO>)response.data
-        }
-        return account
-    }
-
-    @Deprecated
-    List<CauseRSDTO> findSupportedCauses(KuorumUser user) {
-        findSupportedCauses(user.id.toString())
+    List<CauseRSDTO> findSupportedCauses(BasicDataKuorumUserRSDTO user) {
+        findSupportedCauses(user.id)
     }
     List<CauseRSDTO> findSupportedCauses(KuorumUserSession user) {
         findSupportedCauses(user.id.toString())
@@ -91,34 +77,6 @@ class CausesService {
         return cause
     }
 
-    @Deprecated
-    SupportedCauseRSDTO defendCause(KuorumUser user, String causeName){
-        def response = restKuorumApiService.put(
-                RestKuorumApiService.ApiMethod.USER_CAUSES_DEFEND,
-                [userId:user.id.toString(), causeName:causeName],
-                [:],
-                null,
-                new TypeReference<SupportedCauseRSDTO>(){})
-        SupportedCauseRSDTO cause = null
-        if (response.data){
-            cause = response.data
-        }
-        return cause
-    }
-
-    @Deprecated
-    SupportedCauseRSDTO withdrawCause(KuorumUser user, String causeName){
-        def response = restKuorumApiService.delete(
-                RestKuorumApiService.ApiMethod.USER_CAUSES_DEFEND,
-                [userId:user.id.toString(), causeName:causeName],
-                [:])
-        SupportedCauseRSDTO cause = null
-        if (response.data){
-            cause = new SupportedCauseRSDTO(response.data)
-        }
-        return cause
-    }
-
     SupportedCauseRSDTO statusCause(KuorumUserSession user, String causeName){
         def response = restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.USER_CAUSES_SUPPORT,
@@ -133,7 +91,7 @@ class CausesService {
     }
 
 
-    SuggestedCausesRSDTO suggestCauses(KuorumUser user, Pagination pagination = new Pagination()){
+    SuggestedCausesRSDTO suggestCauses(KuorumUserSession user, Pagination pagination = new Pagination()){
         def response = restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.CAUSE_SUGGESTIONS,
                 [:],
@@ -146,7 +104,7 @@ class CausesService {
         return suggestions
     }
 
-    void discardSuggestedCause(KuorumUser user, String causeName){
+    void discardSuggestedCause(KuorumUserSession user, String causeName){
         def response = restKuorumApiService.delete(
                 RestKuorumApiService.ApiMethod.CAUSE_SUGGESTIONS,
                 [:],

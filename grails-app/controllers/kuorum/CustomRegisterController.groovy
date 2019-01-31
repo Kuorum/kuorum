@@ -13,7 +13,6 @@ import kuorum.users.PoliticianService
 import kuorum.web.commands.customRegister.Step2Command
 import kuorum.web.commands.profile.DomainValidationCommand
 import org.springframework.web.servlet.LocaleResolver
-import payment.contact.PromotionalCodeService
 
 class CustomRegisterController {
 
@@ -24,7 +23,6 @@ class CustomRegisterController {
     LocaleResolver localeResolver
     RegisterService registerService
     PoliticianService politicianService
-    PromotionalCodeService promotionalCodeService
 
     def afterInterceptor = {}
 
@@ -82,7 +80,6 @@ class CustomRegisterController {
 
     @Secured('IS_AUTHENTICATED_REMEMBERED')
     def step3(){
-        KuorumUser user =  KuorumUser.get(springSecurityService.principal.id)
-        [user:user]
+        [:]
     }
 }

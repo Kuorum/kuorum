@@ -46,11 +46,11 @@ class KuorumUserService {
 
     GrailsApplication grailsApplication
 
-    def createFollower(KuorumUser follower, KuorumUser following) {
-        if (follower == following){
+    def createFollower(KuorumUserSession follower, BasicDataKuorumUserRSDTO following) {
+        if (follower.id.toString() == following.id){
             throw new KuorumException("No se pude seguir a uno mismo","error.following.sameUser")
         }
-        if (follower.following.contains(following.id)){
+        if (following.isFollowing){
             log.warn("Se ha intentado seguir a un usuario que ya exisitía")
         }else{
             Map<String, String> params = [userId: following.id.toString()]
@@ -80,14 +80,14 @@ class KuorumUserService {
         )
     }
 
-    def deleteFollower(KuorumUser follower, KuorumUser following) {
-        if (follower == following){
+    def deleteFollower(KuorumUserSession follower, BasicDataKuorumUserRSDTO following) {
+        if (follower.id == following.id){
             throw new KuorumException("No se pude seguir a uno mismo","error.following.sameUser")
         }
-        if (!follower.following.contains(following.id)){
+        if (!following.isFollowing){
             log.warn("Se ha intentado eliminar un follower que no existia")
         }else{
-            Map<String, String> params = [userId: following.id.toString()]
+            Map<String, String> params = [userId: following.id]
             Map<String, String> query = [follower: follower.id.toString()]
             restKuorumApiService.delete(
                     RestKuorumApiService.ApiMethod.USER_FOLLOWER,
@@ -98,9 +98,9 @@ class KuorumUserService {
         }
     }
 
-    List<BasicDataKuorumUserRSDTO> findFollowers(KuorumUser user, Pagination pagination){
+    List<BasicDataKuorumUserRSDTO> findFollowers(String userId, Pagination pagination){
 
-        Map<String, String> params = [userId: user.id.toString()]
+        Map<String, String> params = [userId: userId]
         Map<String, String> query = [page:Math.round(pagination.offset/pagination.max)]
         def apiResponse= restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.USER_FOLLOWER,
@@ -111,8 +111,8 @@ class KuorumUserService {
         return apiResponse.data
     }
 
-    List<BasicDataKuorumUserRSDTO> findFollowing(KuorumUser user, Pagination pagination){
-        Map<String, String> params = [userId: user.id.toString()]
+    List<BasicDataKuorumUserRSDTO> findFollowing(String userId, Pagination pagination){
+        Map<String, String> params = [userId: userId]
         Map<String, String> query = [page:Math.round(pagination.offset/pagination.max)]
         def apiResponse= restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.USER_FOLLOWER_FOLLOWING,
@@ -220,11 +220,12 @@ class KuorumUserService {
     }
 
 
-    @PreAuthorize("hasPermission(#userAlias, 'kuorum.users.KuorumUser','edit')")
+    @PreAuthorize("hasPermission(#userAlias, 'org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO','edit')")
     KuorumUser findEditableUser(String userAlias){
         findByAlias(userAlias)
     }
 
+    @Deprecated
     KuorumUser findByAlias(String userAlias){
         if (!userAlias)
             return null
@@ -234,25 +235,22 @@ class KuorumUserService {
 
     @PreAuthorize("hasPermission(#user, 'edit')")
     KuorumUser updateUser(KuorumUser user){
-        KuorumUser.withNewTransaction {
-            if (user.personalData.province){
-                user.personalData.provinceCode = user.personalData.province.iso3166_2
-                user.personalData.country = regionService.findCountry(user.personalData.province)
-            }
-            if (springSecurityService.getCurrentUser().equals(user)){
-                springSecurityService.reauthenticate user.email
-            }
-            user.updateDenormalizedData()
-            if (!user.save(flush:true)){
-                def msg = "No se ha podido actualizar el usuario ${user.email}(${user.id})"
-                log.error(msg)
-                throw KuorumExceptionUtil.createExceptionFromValidatable(user, msg)
-            }
+
+        if (user.personalData.province){
+            user.personalData.provinceCode = user.personalData.province.iso3166_2
+            user.personalData.country = regionService.findCountry(user.personalData.province)
+        }
+        user.updateDenormalizedData()
+        if (!user.save(flush:true)){
+            def msg = "No se ha podido actualizar el usuario ${user.email}(${user.id})"
+            log.error(msg)
+            throw KuorumExceptionUtil.createExceptionFromValidatable(user, msg)
         }
         indexSolrService.deltaIndex()
         updateKuorumUserOnRest(user)
-
-
+        if (springSecurityService.getCurrentUser().equals(user)){
+            springSecurityService.reauthenticate user.email
+        }
         user
     }
 
@@ -359,10 +357,39 @@ class KuorumUserService {
         )
     }
 
+    BasicDataKuorumUserRSDTO findBasicUserRSDTO(KuorumUserSession loggedUser){
+        return findBasicUserRSDTO(loggedUser.id.toString())
+    }
+    BasicDataKuorumUserRSDTO findBasicUserRSDTO(String userId, Boolean nullIfNotFound = false){
+        Map<String, String> params = [userId: userId]
+        Map<String, String> query = [:]
+        if (springSecurityService.isLoggedIn()){
+            query.put("viewerUid", springSecurityService.principal.id.toString())
+        }
+        try {
+            def apiResponse= restKuorumApiService.get(
+                    RestKuorumApiService.ApiMethod.USER_DATA,
+                    params,
+                    query,
+                    new TypeReference<BasicDataKuorumUserRSDTO>(){}
+            )
+            return apiResponse.data
+        }catch (Exception e){
+            if (nullIfNotFound){
+                return null
+            }else{
+                throw e
+            }
+        }
+    }
+
     KuorumUserRSDTO findUserRSDTO(String userId){
 // CALLING API TO REMOVE CONTACT
         Map<String, String> params = [userId: userId]
         Map<String, String> query = [:]
+        if (springSecurityService.isLoggedIn()){
+            query.put("viewerUid", springSecurityService.principal.id.toString())
+        }
         def apiResponse= restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.USER,
                 params,
@@ -414,11 +441,11 @@ class KuorumUserService {
             return ""
         }
         alias = alias?:new Double(Math.floor(Math.random()*Math.pow(10, KuorumUser.ALIAS_MAX_SIZE))).intValue()
-        KuorumUser user = KuorumUser.findByAliasAndDomain(alias, CustomDomainResolver.domain)
+        BasicDataKuorumUserRSDTO user = findBasicUserRSDTO(alias, true)
         while (user){
             alias = alias.take(alias.length() -2)
             alias = "${alias}${new Double(Math.floor(Math.random()*100)).intValue()}"
-            user = KuorumUser.findByAliasAndDomain(alias, CustomDomainResolver.domain)
+            user = findBasicUserRSDTO(alias, true)
         }
         return alias
     }

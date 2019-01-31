@@ -1,10 +1,10 @@
 package payment.contact
 
 import kuorum.core.exception.KuorumException
-import kuorum.users.KuorumUser
+import kuorum.register.KuorumUserSession
 
 interface IOAuthLoadContacts {
 
-	void loadContacts(KuorumUser user, org.scribe.model.Token accessToken) throws KuorumException
+	void loadContacts(KuorumUserSession user, org.scribe.model.Token accessToken) throws KuorumException
 
 }

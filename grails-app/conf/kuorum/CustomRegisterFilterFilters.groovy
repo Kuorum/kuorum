@@ -1,6 +1,6 @@
 package kuorum
 
-import kuorum.users.KuorumUser
+import kuorum.register.KuorumUserSession
 
 class CustomRegisterFilterFilters {
 
@@ -12,8 +12,8 @@ class CustomRegisterFilterFilters {
         all(controller:'customRegister|logout|error|register|search', invert: true) {
             before = {
                 if (springSecurityService.isLoggedIn() && springSecurityService.principal?.id){
-                    KuorumUser kuorumUser = KuorumUser.get(springSecurityService.principal.id)
-                    if (STEP1_FIELDS.find{field -> !kuorumUser."$field"}){
+                    KuorumUserSession user = springSecurityService.principal
+                    if (STEP1_FIELDS.find{field -> !user."$field"}){
 //                        It is for redirect when the user has not complete profile
                         redirect(mapping: 'customProcessRegisterStep2')
 

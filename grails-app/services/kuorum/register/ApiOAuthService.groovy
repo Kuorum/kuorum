@@ -3,7 +3,7 @@ package kuorum.register
 import com.fasterxml.jackson.core.type.TypeReference
 import grails.converters.JSON
 import grails.plugin.springsecurity.oauth.OAuthToken
-import kuorum.users.KuorumUser
+import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.users.KuorumUserService
 import kuorum.util.rest.RestKuorumApiService
 import org.kuorum.rest.model.kuorumUser.KuorumUserRSDTO
@@ -21,11 +21,11 @@ class ApiOAuthService implements IOAuthService{
 //    public static final String PASSWORD_PREFIX = "*kuorumApi*"
 
     OAuthToken createAuthToken(org.scribe.model.Token accessToken) {
-        KuorumUser user = getUserWithToken(accessToken.token)
+        KuorumUserRSDTO user = getUserWithToken(accessToken.token)
 
         UserDetails userDetails =  mongoUserDetailsService.createUserDetails(user)
         def authorities = mongoUserDetailsService.getRoles(user)
-        OAuthToken oAuthToken = new KuorumApioAuthToken(accessToken, user.id.toString(), user.domain)
+        OAuthToken oAuthToken = new KuorumApioAuthToken(accessToken, user.id, CustomDomainResolver.domain)
         OAuthToken.metaClass.newUser = false
         oAuthToken.metaClass = null
         oAuthToken.newUser = user
@@ -46,7 +46,7 @@ class ApiOAuthService implements IOAuthService{
         return token
     }
 
-    private KuorumUser getUserWithToken(String token){
+    private KuorumUserRSDTO getUserWithToken(String token){
         def response = restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.LOGIN,
                 [:],
@@ -55,7 +55,7 @@ class ApiOAuthService implements IOAuthService{
         )
         KuorumUserRSDTO kuorumUserRSDTO = response.data
 
-        return kuorumUserService.findByAlias(kuorumUserRSDTO.alias)
+        return kuorumUserRSDTO
     }
 }
 

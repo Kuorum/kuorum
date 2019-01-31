@@ -8,9 +8,9 @@ import kuorum.core.exception.KuorumException
 import kuorum.dashboard.DashboardService
 import kuorum.register.KuorumUserSession
 import kuorum.users.KuorumUser
+import kuorum.users.KuorumUserService
 import kuorum.web.commands.payment.contact.*
 import kuorum.web.session.CSVDataSession
-import org.bson.types.ObjectId
 import org.kuorum.rest.model.contact.*
 import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
 import org.kuorum.rest.model.contact.filter.FilterRDTO
@@ -18,6 +18,7 @@ import org.kuorum.rest.model.contact.filter.condition.ConditionFieldTypeRDTO
 import org.kuorum.rest.model.contact.filter.condition.ConditionRDTO
 import org.kuorum.rest.model.contact.filter.condition.TextConditionOperatorTypeRDTO
 import org.kuorum.rest.model.contact.sort.SortContactsRDTO
+import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 import org.mozilla.universalchardet.UniversalDetector
 import org.springframework.web.multipart.MultipartFile
 import org.springframework.web.multipart.MultipartHttpServletRequest
@@ -28,11 +29,12 @@ class ContactsController {
 
     private static final String CONTACT_CSV_UPLOADED_SESSION_KEY="CONTACT_CSV_UPLOADED_SESSION_KEY"
     private static final String CONTACT_CSV_UPLOADED_EXTENSION = ".csv"
-    private static final Integer MAX_CONTACTS_PER_PETITION = 10000;
+    private static final Integer MAX_CONTACTS_PER_PETITION = 10000
 
     ContactService contactService
     SpringSecurityService springSecurityService
     DashboardService dashboardService
+    KuorumUserService kuorumUserService
 
     // Grails renderer -> For CSV hack
     grails.gsp.PageRenderer groovyPageRenderer
@@ -41,7 +43,7 @@ class ContactsController {
 
         if (dashboardService.forceUploadContacts()){
             render view: "/dashboard/payment/paymentNoContactsDashboard", model: [:]
-            return;
+            return
         }
 
         KuorumUserSession user = springSecurityService.principal
@@ -54,17 +56,17 @@ class ContactsController {
         }
 
 //        MassMailingCommand command = new MassMailingCommand();
-        Long filterId = null;
-        ExtendedFilterRSDTO anonymousFilter = null;
+        Long filterId = null
+        ExtendedFilterRSDTO anonymousFilter = null
         if (filterCommand.filterConditions){
-            anonymousFilter = new ExtendedFilterRSDTO();
-            anonymousFilter.id = -1;
-            anonymousFilter.filterConditions = filterCommand.buildFilter().filterConditions;
+            anonymousFilter = new ExtendedFilterRSDTO()
+            anonymousFilter.id = -1
+            anonymousFilter.filterConditions = filterCommand.buildFilter().filterConditions
             anonymousFilter.operator = filterCommand.operator
             //SearchContactRSDTO temporalContact = new SearchContactRSDTO(filter: anonymousFilter);
-            ContactPageRSDTO temporalContacts = contactService.getUsers(user, anonymousFilter);
-            anonymousFilter.amountOfContacts = temporalContacts.total;
-            anonymousFilter.name = g.message(code:'tools.contact.filter.newAnonymousName');
+            ContactPageRSDTO temporalContacts = contactService.getUsers(user, anonymousFilter)
+            anonymousFilter.amountOfContacts = temporalContacts.total
+            anonymousFilter.name = g.message(code:'tools.contact.filter.newAnonymousName')
             filterId = anonymousFilter.id
         }
 
@@ -132,7 +134,7 @@ class ContactsController {
         command.email = contact.email?:g.message(code: 'tools.contact.edit.noMailVisible')
         command.surname = contact.surname
         command.language = contact.language
-        KuorumUser contactUser = contact.mongoId?KuorumUser.get(new ObjectId(contact.mongoId)):null
+        BasicDataKuorumUserRSDTO contactUser = kuorumUserService.findBasicUserRSDTO(contact.mongoId, true)
         [command:command,contact:contact,contactUser:contactUser]
     }
 
@@ -140,7 +142,7 @@ class ContactsController {
         KuorumUserSession user = springSecurityService.principal
         ContactRSDTO contact = contactService.getContact(user, command.contactId)
         if (command.hasErrors() || !contact){
-            KuorumUser contactUser = contact.mongoId?KuorumUser.get(new ObjectId(contact.mongoId)):null
+            BasicDataKuorumUserRSDTO contactUser = kuorumUserService.findBasicUserRSDTO(contact.mongoId, true)
             render view: "/contacts/editContact", model:[command:command,contact:contact,contactUser:contactUser]
             return
         }
@@ -321,9 +323,9 @@ class ContactsController {
 
         File csv = csvDataSession.file
         log.info("Recovered temporal file ${csv.absoluteFile}")
-        ObjectId loggedUserId = springSecurityService.principal.id
+        KuorumUserSession loggedUser = springSecurityService.principal
 
-        asyncUploadContacts(loggedUserId, csv,notImport, namePos,surnamePos,languagePos, emailPos, tagsPos, tags as List)
+        asyncUploadContacts(loggedUser, csv,notImport, namePos,surnamePos,languagePos, emailPos, tagsPos, tags as List)
 
         session.removeAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY)
         log.info("Programed async uploaded contacts")
@@ -348,12 +350,11 @@ class ContactsController {
         emailPos
     }
 
-    private void asyncUploadContacts(final ObjectId loggedUserId, final File csv, final Integer notImport, final Integer namePos, final Integer surnamePos, final Integer languagePos, final Integer emailPos, final List<Integer> tagsPos, final List<String> tags){
+    private void asyncUploadContacts(KuorumUserSession loggedUser, final File csv, final Integer notImport, final Integer namePos, final Integer surnamePos, final Integer languagePos, final Integer emailPos, final List<Integer> tagsPos, final List<String> tags){
 //        Promise p = grails.async.Promises.task {
             try{
                 log.info("Importing ${csv.absoluteFile}")
                 Iterator lines = parseCsvFile(csv)
-                KuorumUser loggedUser = KuorumUser.get(loggedUserId)
                 def contacts = []
                 // Not save first columns
                 if (notImport > 0) {
@@ -501,7 +502,7 @@ class ContactsController {
     def importSuccess(){
         log.info("Skipping force upload contacts")
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        user.skipUploadContacts = true;
+        user.skipUploadContacts = true
         user.save()
     }
 
@@ -516,7 +517,7 @@ class ContactsController {
     // USING userId instead of alias because the unsubscribe email can't change.
     @Secured("permitAll")
     def unsubscribe(String userId, String email, String digest){
-        KuorumUser user = KuorumUser.get(new ObjectId(userId))
+        BasicDataKuorumUserRSDTO user = kuorumUserService.findBasicUserRSDTO(userId)
         if (user == null){
             redirect controller: 'error', action: 'notFound'
             return
@@ -555,7 +556,7 @@ class ContactsController {
     }
 
     def removeContactsBulkAction(BulkRemoveContactsCommand bulkRemoveCommand) {
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUserSession user = springSecurityService.principal
 
         // Filter
         SearchContactRSDTO searchContactRSDTO = new SearchContactRSDTO()
@@ -672,7 +673,7 @@ class ContactsController {
 
     def exportContacts(ContactFilterCommand filterCommand){
         KuorumUserSession user = springSecurityService.principal
-        SearchContactRSDTO searchContactRSDTO = new SearchContactRSDTO();
+        SearchContactRSDTO searchContactRSDTO = new SearchContactRSDTO()
         populateSearchContact(searchContactRSDTO, filterCommand, params)
         contactService.exportContacts(user, searchContactRSDTO)
         render ([success:"ok"] as JSON)

@@ -1,7 +1,6 @@
 package kuorum.web.admin
 
 import grails.validation.Validateable
-import kuorum.users.KuorumUser
 
 /**
  * For editing user special fields
@@ -9,12 +8,12 @@ import kuorum.users.KuorumUser
 @Validateable
 class KuorumUserRightsCommand {
 
-    KuorumUser user
+    String userId
     Boolean active
     Long relevance
     String password
     static constraints = {
-        user nullable: false
+        userId nullable: false
         relevance nullable: true
         password nullable:true
         active nullable: true

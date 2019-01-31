@@ -24,12 +24,12 @@ class PoliticianService {
     RegionService regionService
     KuorumUserService kuorumUserService
 
-    KuorumUser updateNews(KuorumUser politician, List<PoliticianRelevantEvent> relevantEvents){
+    void updateNews(KuorumUser politician, List<PoliticianRelevantEvent> relevantEvents){
         politician.relevantEvents = relevantEvents.findAll{it && it.validate()}
         kuorumUserService.updateUser(politician)
     }
 
-    KuorumUser updateUserCauses(KuorumUserSession loggedUser, List<String> causes){
+    void updateUserCauses(KuorumUserSession loggedUser, List<String> causes){
 
         List<CauseRSDTO> oldCauses = causesService.findSupportedCauses(loggedUser)
         oldCauses.each {cause ->

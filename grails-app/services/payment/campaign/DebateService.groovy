@@ -5,7 +5,6 @@ import grails.transaction.Transactional
 import kuorum.core.exception.KuorumException
 import kuorum.register.KuorumUserSession
 import kuorum.solr.IndexSolrService
-import kuorum.users.KuorumUser
 import kuorum.util.rest.RestKuorumApiService
 import org.kuorum.rest.model.communication.debate.DebateRDTO
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
@@ -34,8 +33,9 @@ class DebateService implements CampaignCreatorService<DebateRSDTO, DebateRDTO> {
         )
         response.data
     }
-    List<DebateRSDTO> findAllDebates(KuorumUser user) {
-        Map<String, String> params = [userId: user.id.toString()]
+
+    List<DebateRSDTO> findAllDebates(String userId) {
+        Map<String, String> params = [userId: userId]
         Map<String, String> query = [:]
         def response = restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.ACCOUNT_DEBATES,
@@ -166,7 +166,7 @@ class DebateService implements CampaignCreatorService<DebateRSDTO, DebateRDTO> {
     }
 
     @Override
-    def buildView(DebateRSDTO debate, KuorumUser debateUser, String viewerUid, def params) {
+    def buildView(DebateRSDTO debate, BasicDataKuorumUserRSDTO debateUser, String viewerUid, def params) {
         SearchProposalRSDTO searchProposalRSDTO = new SearchProposalRSDTO()
         searchProposalRSDTO.sort = new SortProposalRDTO()
         searchProposalRSDTO.sort.direction = SortProposalRDTO.Direction.DESC

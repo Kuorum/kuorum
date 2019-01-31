@@ -1,13 +1,13 @@
 package kuorum
 
-import kuorum.core.customDomain.CustomDomainResolver
-import kuorum.core.model.UserType
 import kuorum.register.KuorumUserSession
 import kuorum.register.RegisterService
 import kuorum.users.KuorumUser
+import kuorum.users.KuorumUserService
 import org.bson.types.ObjectId
 import org.kuorum.rest.model.geolocation.RegionRSDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
+import org.kuorum.rest.model.kuorumUser.UserTypeRSDTO
 import org.kuorum.rest.model.search.SearchKuorumElementRSDTO
 import org.kuorum.rest.model.search.kuorumElement.SearchKuorumUserRSDTO
 import org.springframework.context.i18n.LocaleContextHolder
@@ -22,6 +22,7 @@ class KuorumUserTagLib {
     def userReputationService
     RegisterService registerService
     RegionService regionService
+    KuorumUserService kuorumUserService
 
     private Integer NUM_MAX_ON_USER_LIST = 100
 
@@ -38,36 +39,32 @@ class KuorumUserTagLib {
     }
 
     def showUser={attrs, body ->
-        def user // KuorumUser or BasicDataKuorumUserRSDTO
+        BasicDataKuorumUserRSDTO user // KuorumUser or BasicDataKuorumUserRSDTO
         //attrs.withPopover => String expected
         Boolean withPopover = !attrs.withPopover?true:Boolean.parseBoolean(attrs.withPopover)
         String name = ""
         String role
         def imgSrc
-        if (attrs.user instanceof BasicDataKuorumUserRSDTO) {
-            user = attrs.user
-            name = attrs.user.fullName
+        if (attrs.user instanceof SearchKuorumUserRSDTO){
             role = getRoleUser(attrs.user)
             imgSrc = image.userImgSrc(user:attrs.user)
-        }else if (attrs.user instanceof SearchKuorumUserRSDTO){
-            role = getRoleUser(attrs.user)
-            imgSrc = image.userImgSrc(user:attrs.user)
-            user = KuorumUser.findByAliasAndDomain(attrs.user.alias, CustomDomainResolver.domain)
+            user = kuorumUserService.findBasicUserRSDTO(attrs.user.id)
             name = highlightedField(attrs.user, "owner")
             name = name?:user.fullName
         }else if (attrs.user instanceof SearchKuorumElementRSDTO){
-            user = KuorumUser.findByAliasAndDomain(attrs.user.alias, CustomDomainResolver.domain)
+            user = kuorumUserService.findBasicUserRSDTO(attrs.user.ownerId)
             name = highlightedField(attrs.user, "owner")
             name = name?:user.fullName
             role = getRoleUser(user)
             imgSrc = image.userImgSrc(user:user)
         }else if (attrs.user instanceof String){
             // ALIAS
-            user = KuorumUser.findByAliasAndDomain(attrs.user, CustomDomainResolver.domain)
+            user = kuorumUserService.findBasicUserRSDTO(attrs.user)
             name = user.fullName
             role = getRoleUser(user)
             imgSrc = image.userImgSrc(user:user)
         }else{
+            // BasicDataKuorumUserRSDTO
             user = attrs.user
             name = user.fullName
             role = getRoleUser(user)
@@ -162,17 +159,17 @@ class KuorumUserTagLib {
     }
 
     def counterFollowers={attrs->
-        KuorumUser user = attrs.user
+        BasicDataKuorumUserRSDTO user = attrs.user
 
-        Integer numFollowers = user.followers.size()
+        Integer numFollowers = user.numFollowers
         String messagesPrefix="dashboard.userProfile.followers"
         def ajaxUrl = createLink(mapping:'userFollowers', params: user.encodeAsLinkProperties())
         out << counterUsers(total:numFollowers, messagesPrefix:messagesPrefix, ajaxUrl:ajaxUrl)
     }
     def counterFollowing={attrs->
-        KuorumUser user = attrs.user
+        BasicDataKuorumUserRSDTO user = attrs.user
 
-        Integer numFollowing = user.following.size()
+        Integer numFollowing = user.numFollowing
         String messagesPrefix="dashboard.userProfile.following"
         def ajaxUrl = createLink(mapping:'userFollowing', params: user.encodeAsLinkProperties())
         out << counterUsers(total:numFollowing, messagesPrefix:messagesPrefix, ajaxUrl:ajaxUrl)
@@ -224,14 +221,6 @@ class KuorumUserTagLib {
         }
     }
 
-    private String getRoleUser(KuorumUser user){
-        if (user?.professionalDetails?.position){
-            return user.professionalDetails.position
-        }else{
-            return ""
-        }
-    }
-
     private String getRoleUser(SearchKuorumUserRSDTO user){
         return user?.roleName?:""
     }
@@ -241,16 +230,17 @@ class KuorumUserTagLib {
     }
 
     def userTypeIcon={attrs ->
-        KuorumUser user = attrs.user
+        BasicDataKuorumUserRSDTO user = attrs.user
         String faIcon = ""
         String tooltip = ""
-        if (user.isValid){
-            faIcon = "fa-check"
-            tooltip = message(code:'politician.image.icon.enabled.text')
-        }else if (user.userType == UserType.PERSON){
+//        if (user.isValid){ // Logic showing users with check when is validated against census
+//            faIcon = "fa-check"
+//            tooltip = message(code:'politician.image.icon.enabled.text')
+//        }else if (user.userType == UserTypeRSDTO.PERSON){
+        if (user.userType == UserTypeRSDTO.PERSON){
             faIcon = "fa-megaphone"
             tooltip = message(code:'kuorum.core.model.UserType.PERSON')
-        }else if (user.userType == UserType.ORGANIZATION){
+        }else if (user.userType == UserTypeRSDTO.ORGANIZATION){
             faIcon = "fa-university"
             tooltip = message(code:'kuorum.core.model.UserType.ORGANIZATION')
 //        }else if(user.userType == UserType.CANDIDATE){
@@ -300,7 +290,7 @@ class KuorumUserTagLib {
         }else if (attrs.user instanceof BasicDataKuorumUserRSDTO){
             alias = attrs.user.alias
             name = attrs.user.fullName
-            isFollowing = attrs.user.isFollowing
+            isFollowing = attrs.user.following
             userId = attrs.user.id
         }else{
             throw UnsupportedOperationException("Unkonwn user type")
@@ -342,7 +332,7 @@ class KuorumUserTagLib {
         if (!show) {
             return
         }
-        KuorumUser user = attrs.user
+        BasicDataKuorumUserRSDTO user = attrs.user
         String cssSize = attrs.cssSize?:''
         def prefixMessages = attrs.prefixMessages?:"kuorumUser.contact"
         def text = "${g.message(code:"${prefixMessages}", args:[user.name])} "
@@ -398,13 +388,15 @@ class KuorumUserTagLib {
     def ifUserIsTheLoggedOne={attrs, body->
         ObjectId userId
         if (attrs.user instanceof KuorumUser) {
+            throw new Exception("Using old KuorumUser")
             userId = attrs.user.id
         }else if (attrs.user instanceof BasicDataKuorumUserRSDTO){
             userId = new ObjectId(attrs.user.id)
         }else{
             // ALIAS -- DEPRECATED BRANCH
-            KuorumUser user = KuorumUser.findByAliasAndDomain(attrs.user, CustomDomainResolver.domain)
-            userId = user.id.toString()
+            throw new Exception("Using alias instead BasicDataKuorumUser")
+            BasicDataKuorumUserRSDTO user = kuorumUserService.findBasicUserRSDTO(attrs.user)
+            userId = new ObjectId(user.id)
         }
         if (springSecurityService.isLoggedIn()){
             KuorumUserSession loggedUser = springSecurityService.principal
@@ -420,12 +412,14 @@ class KuorumUserTagLib {
             // LOGGED
             ObjectId userId
             if (attrs.user instanceof KuorumUser){
+                throw new Exception("Using old KuorumUser")
                 userId = attrs.user.id
             }else if (attrs.user instanceof BasicDataKuorumUserRSDTO){
                 userId = new ObjectId(attrs.user.id)
             }else{
+                throw new Exception("Using alias instead BasicDataKuorumUser")
                 // BY ALIAS -- DEPRECATED BRANCH
-                KuorumUser user = KuorumUser.findByAliasAndDomain(attrs.user,CustomDomainResolver.domain)
+                BasicDataKuorumUserRSDTO user = kuorumUserService.findBasicUserRSDTO(attrs.user)
                 userId = user.id
             }
             KuorumUserSession loggedUser = springSecurityService.principal

@@ -1,7 +1,6 @@
 package kuorum.mail
 
 import grails.transaction.Transactional
-import kuorum.campaign.PollCampaignVote
 import kuorum.core.model.AvailableLanguage
 import kuorum.solr.IndexSolrService
 import kuorum.users.KuorumUser
@@ -43,7 +42,7 @@ class KuorumMailService {
                 user:user.name
         ]
         MailUserData mailUserData = new MailUserData(user:user)
-        MailData mailData = new MailData(fromName:DEFAULT_SENDER_NAME, mailType: MailType.NOTIFICATION_OFFER_PURCHASED, globalBindings: bindings, userBindings: [mailUserData])
+        MailData mailData = new MailData(fromName:DEFAULT_SENDER_NAME, mailType: MailType.REGISTER_WELLCOME, globalBindings: bindings, userBindings: [mailUserData])
         mandrillAppService.sendTemplate(mailData)
     }
 
@@ -106,7 +105,7 @@ class KuorumMailService {
             <li>Lang: ${userRequestingDomain.language}</li>
         </ul>
         """
-        sendBatchMail(getFeedbackUser("CUSTOM DOMAIN"), rawMessage, "Requested a custom domain: ${userRequestingDomain.name}");
+        sendBatchMail(getFeedbackUser("CUSTOM DOMAIN"), rawMessage, "Requested a custom domain: ${userRequestingDomain.name}")
     }
 
     def sendChangeEmailRequested(KuorumUser user, String newEmail){

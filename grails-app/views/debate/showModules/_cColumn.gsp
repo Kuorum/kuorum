@@ -5,7 +5,7 @@
     </li>
     <li>
         <span class="fal fa-users" aria-hidden="true"></span>
-        <span class="info"><g:message code="debate.authorFollowers" args="[debateUser.followers.size()]" /></span>
+        <span class="info"><g:message code="debate.authorFollowers" args="[debateUser.numFollowers]" /></span>
     </li>
     <li>
         <span class="fal fa-lightbulb" aria-hidden="true"></span>
