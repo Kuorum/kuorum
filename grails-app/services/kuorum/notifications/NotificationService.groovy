@@ -101,7 +101,7 @@ class NotificationService {
 
     }
 
-    void sendWelcomeRegister(KuorumUser user){
+    void sendWelcomeRegister(KuorumUserSession user){
         kuorumMailService.sendWelcomeRegister(user)
     }
 }

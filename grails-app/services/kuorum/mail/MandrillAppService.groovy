@@ -6,6 +6,7 @@ import com.microtripit.mandrillapp.lutung.view.MandrillMessage
 import com.microtripit.mandrillapp.lutung.view.MandrillMessageStatus
 import grails.transaction.Transactional
 import kuorum.core.model.AvailableLanguage
+import kuorum.register.KuorumUserSession
 import kuorum.users.KuorumUser
 import kuorum.util.rest.RestKuorumApiService
 import org.kuorum.rest.model.notification.mail.sent.SendMailRSDTO
@@ -33,12 +34,12 @@ class MandrillAppService {
         if (!mailData.mailType.mailTypeRSDTO) {
             sendViaMandrillApp(mailData, async)
         } else {
-            sendTemplateViaKuorumServices(mailData, user)
+            sendTemplateViaKuorumServices(mailData)
         }
     }
 
-    void sendTemplate(SendMailRSDTO mailData) {
-        sendTemplateViaKuorumServices(mailData)
+    void sendTemplate(SendMailRSDTO mailData, KuorumUserSession sender = null) {
+        sendTemplateViaKuorumServices(mailData, sender)
     }
     private sendViaMandrillApp(MailData mailData,Boolean async = true){
         List<MandrillMessage.Recipient> recipients = createRecipients(mailData)
@@ -51,7 +52,7 @@ class MandrillAppService {
         message.to = recipients
         message.globalMergeVars = globalMergeVars
         message.mergeVars = mergeVars
-        message.tags = [mailData.mailType.mailGroup.toString()]
+//        message.tags = [mailData.mailType.mailGroup.toString()]
         message.googleAnalyticsDomains = ["kuorum.org"]
         message.metadata = ["website":"kuorum.org"]
 
@@ -123,7 +124,7 @@ class MandrillAppService {
         }
     }
 
-    private void sendTemplateViaKuorumServices(MailData mailData){
+    private void sendTemplateViaKuorumServices(MailData mailData,KuorumUserSession sender = null){
         SendMailRSDTO sendMailRSDTO = new SendMailRSDTO()
         sendMailRSDTO.globalBindings = mailData.globalBindings
         sendMailRSDTO.mailType = mailData.mailType.mailTypeRSDTO
@@ -135,15 +136,15 @@ class MandrillAppService {
             userMailRSDTO.email =it.user.email
             return userMailRSDTO
         }
-        sendTemplateViaKuorumServices(sendMailRSDTO);
+        sendTemplateViaKuorumServices(sendMailRSDTO, sender);
     }
-    private void sendTemplateViaKuorumServices(SendMailRSDTO mailData){
+    private void sendTemplateViaKuorumServices(SendMailRSDTO mailData, KuorumUserSession sender = null){
         Map params = [:]
         RestKuorumApiService.ApiMethod apiMethod = RestKuorumApiService.ApiMethod.ADMIN_MAILS_SEND
-//        if (user){
-//            params.put("userId",user.id.toString())
-//            apiMethod = RestKuorumApiService.ApiMethod.ACCOUNT_MAILS_SEND
-//        }
+        if (sender){
+            params.put("userId",sender.id.toString())
+            apiMethod = RestKuorumApiService.ApiMethod.ACCOUNT_MAILS_SEND
+        }
         restKuorumApiService.post(
                 apiMethod,
                 params,

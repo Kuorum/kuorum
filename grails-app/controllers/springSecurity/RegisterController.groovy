@@ -215,7 +215,6 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
             redirect uri: redirectUrl
             return
         }
-        notificationService.sendWelcomeRegister(user)
         if (registerService.isPasswordSetByUser(user)){
             redirect mapping:'dashboard'
         }else{

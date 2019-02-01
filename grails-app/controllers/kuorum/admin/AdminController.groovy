@@ -266,10 +266,11 @@ class AdminController {
         KuorumUserSession user = springSecurityService.principal
         NewsletterConfigRSDTO config = newsletterService.findNewsletterConfig(user)
         Boolean isRequested = config.getEmailSenderRequested()
+        isRequested = false
         String emailSender = null
-        if (domainRSDTO.customDomainSender){
-            emailSender = "*@${domainRSDTO.domain}"
-        }
+//        if (domainRSDTO.customDomainSender){
+//            emailSender = "*@${domainRSDTO.domain}"
+//        }
         [
                 isRequested:isRequested,
                 emailSender:emailSender
@@ -285,8 +286,7 @@ class AdminController {
         configRQDTO.setEmailSenderRequested(true)
         newsletterService.updateNewsletterConfig(user, configRQDTO)
 
-        KuorumUser kuorumUser = KuorumUser.get(user.id)
-        kuorumMailService.sendRequestACustomDomainAdmin(kuorumUser)
+        kuorumMailService.sendRequestACustomDomainAdmin(user)
         if (request.isXhr()){
             render([msg: ''] as JSON)
         }else{

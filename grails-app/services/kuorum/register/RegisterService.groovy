@@ -217,6 +217,7 @@ class RegisterService {
             log.error("Error indexando usuario",e)
         }
         springSecurityService.reauthenticate user.email
+        notificationService.sendWelcomeRegister(springSecurityService.principal)
         user
     }
 

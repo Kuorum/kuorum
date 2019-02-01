@@ -17,6 +17,7 @@ class KuorumMailService {
 
     String DEFAULT_SENDER_NAME="Kuorum.org"
     String DEFAULT_VIA="via Kuorum.org"
+    String KUORUM_MAIL_NOTIFICATION="info@kuorum.org"
 
     LinkGenerator grailsLinkGenerator
     MandrillAppService mandrillAppService
@@ -24,13 +25,18 @@ class KuorumMailService {
     IndexSolrService indexSolrService
     def grailsApplication
 
-    def sendBatchMail(KuorumUser user, String rawMail, String subject){
-        MailUserData mailUserData = new MailUserData(user:user)
-        MailData mailData = new MailData(fromName:DEFAULT_SENDER_NAME , mailType: MailType.BATCH_PROCESS, globalBindings: [body: rawMail, subject:subject], userBindings: [mailUserData])
-        mandrillAppService.sendTemplate(mailData)
+    def sendBatchMail(KuorumUserSession user, String rawMail, String subject){
+        SendMailRSDTO sendMailRSDTO = new SendMailRSDTO();
+        sendMailRSDTO.setGlobalBindings([body: rawMail, subject:subject])
+        sendMailRSDTO.setMailType(MailTypeRSDTO.ADMIN_COMMUNICATION)
+        SentUserMailRSDTO destinationAdmin = new SentUserMailRSDTO()
+        destinationAdmin.setName(DEFAULT_SENDER_NAME)
+        destinationAdmin.setEmail(KUORUM_MAIL_NOTIFICATION)
+        sendMailRSDTO.setDestinations([destinationAdmin])
+        mandrillAppService.sendTemplate(sendMailRSDTO, user)
     }
 
-    def sendFeedbackMail(KuorumUser user, String feedback, boolean userDeleted = false){
+    def sendFeedbackMail(KuorumUserSession user, String feedback, boolean userDeleted = false){
         def bindings = [
                 feedbackUserLink:generateLink("userShow",user.encodeAsLinkProperties()),
                 feedbackUser:user.name,
@@ -42,13 +48,18 @@ class KuorumMailService {
         mandrillAppService.sendTemplate(mailData)
     }
 
-    def sendWelcomeRegister(KuorumUser user){
+    def sendWelcomeRegister(KuorumUserSession user){
         def bindings = [
                 user:user.name
         ]
-        MailUserData mailUserData = new MailUserData(user:user)
-        MailData mailData = new MailData(fromName:DEFAULT_SENDER_NAME, mailType: MailType.REGISTER_WELLCOME, globalBindings: bindings, userBindings: [mailUserData])
-        mandrillAppService.sendTemplate(mailData)
+        SendMailRSDTO sendMailRSDTO = new SendMailRSDTO();
+        sendMailRSDTO.setGlobalBindings(bindings)
+        sendMailRSDTO.setMailType(MailTypeRSDTO.REGISTER_WELCOME)
+        SentUserMailRSDTO destinationAdmin = new SentUserMailRSDTO()
+        destinationAdmin.setName(user.name)
+        destinationAdmin.setEmail(user.email)
+        sendMailRSDTO.setDestinations([destinationAdmin])
+        mandrillAppService.sendTemplate(sendMailRSDTO)
     }
 
     private KuorumUser getFeedbackUser(String name = "Feedback"){
@@ -92,18 +103,17 @@ class KuorumMailService {
         mandrillAppService.sendTemplate(mailData)
     }
 
-    def sendRequestACustomDomainAdmin(KuorumUser userRequestingDomain){
+    def sendRequestACustomDomainAdmin(KuorumUserSession userRequestingDomain){
         String rawMessage = """
         <h1> Custom domain requested </h1>
         <ul>
             <li>Name: ${userRequestingDomain.name}</li>
             <li>Alias: <a href="${generateLink("userShow", userRequestingDomain.encodeAsLinkProperties())}" target="_blank">${userRequestingDomain.alias}</a></li>
             <li>Email: ${userRequestingDomain.email}</li>
-            <li>Phone: ${userRequestingDomain.personalData?.telephone?:'--'}</li>
             <li>Lang: ${userRequestingDomain.language}</li>
         </ul>
         """
-        sendBatchMail(getFeedbackUser("CUSTOM DOMAIN"), rawMessage, "Requested a custom domain: ${userRequestingDomain.name}")
+        sendBatchMail(userRequestingDomain, rawMessage, "Requested a custom domain: ${userRequestingDomain.name}")
     }
 
     def sendChangeEmailRequested(KuorumUser user, String newEmail){
@@ -139,7 +149,7 @@ class KuorumMailService {
         sentUserMailRSDTO.lang=AvailableLanguage.valueOf(userContacted.language.toString()).locale.language?:"en"
         sentUserMailRSDTO.bindings=bindings
         mailDataRSDTO.destinations = [sentUserMailRSDTO]
-        mandrillAppService.sendTemplate(mailDataRSDTO)
+        mandrillAppService.sendTemplate(mailDataRSDTO,user)
     }
 
 
