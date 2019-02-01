@@ -7,7 +7,7 @@
 </head>
 
 <content tag="leftMenu">
-    <g:render template="leftMenu" model="[user:user, activeMapping:'profileSocialNetworks', menu:menu]"/>
+    <g:render template="leftMenu" model="[activeMapping:'profileSocialNetworks', menu:menu]"/>
 
 </content>
 
@@ -22,6 +22,6 @@
         <sec:ifAnyGranted roles="ROLE_POLITICIAN">
             <g:set var="showPoliticianFields" value="${true}"/>
         </sec:ifAnyGranted>
-        <g:render template="formSocialNetworks" model="[user:user, command:command,showPoliticianFields:showPoliticianFields]"/>
+        <g:render template="formSocialNetworks" model="[command:command,showPoliticianFields:showPoliticianFields]"/>
     </g:form>
 </content>

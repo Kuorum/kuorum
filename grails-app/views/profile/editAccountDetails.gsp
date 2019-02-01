@@ -6,7 +6,7 @@
 </head>
 
 <content tag="leftMenu">
-    <g:render template="leftMenuAccount" model="[user:user, activeMapping:'profileEditAccountDetails', menu:menu]"/>
+    <g:render template="leftMenuAccount" model="[activeMapping:'profileEditAccountDetails', menu:menu]"/>
     <r:require modules="forms"/>
 </content>
 

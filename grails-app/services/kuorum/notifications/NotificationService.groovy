@@ -68,7 +68,7 @@ class NotificationService {
         //kuorumMailService.sendPoliticianContactKuorumNotification(userContacted, user, message, cause) // MandrillApp API problems
     }
 
-    NotificationConfigRDTO getNotificationsConfig(KuorumUser user){
+    NotificationConfigRDTO getNotificationsConfig(KuorumUserSession user){
         Map<String, String> params = [userId: user.id.toString()]
         Map<String, String> query = [:]
         def response = restKuorumApiService.get(

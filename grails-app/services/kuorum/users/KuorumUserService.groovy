@@ -20,6 +20,7 @@ import kuorum.util.rest.RestKuorumApiService
 import org.bson.types.ObjectId
 import org.codehaus.groovy.grails.commons.GrailsApplication
 import org.codehaus.groovy.grails.web.json.JSONElement
+import org.kuorum.rest.model.domain.SocialRDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 import org.kuorum.rest.model.kuorumUser.KuorumUserRSDTO
 import org.kuorum.rest.model.kuorumUser.UserDataRDTO
@@ -65,19 +66,56 @@ class KuorumUserService {
         }
     }
 
-    private void updateKuorumUserOnRest(KuorumUser user){
-        Map<String, String> params = [userId: user.id.toString()]
-        Map<String, String> query = [:]
+    UserDataRDTO mapUserToRDTO(KuorumUserSession loggedUser){
+        KuorumUserRSDTO userRSDTO = findUserRSDTO(loggedUser)
+        return mapUserToRDTO(userRSDTO)
+    }
+    UserDataRDTO mapUserToRDTO(KuorumUserRSDTO kuorumUserRSDTO){
         UserDataRDTO userDataRDTO = new UserDataRDTO()
-        userDataRDTO.setEmail(user.getEmail())
-        userDataRDTO.setName(user.getName())
-        restKuorumApiService.put(
+        userDataRDTO.id = kuorumUserRSDTO.id
+        userDataRDTO.name = kuorumUserRSDTO.name
+        userDataRDTO.surname = kuorumUserRSDTO.surname
+        userDataRDTO.alias = kuorumUserRSDTO.alias
+        userDataRDTO.email = kuorumUserRSDTO.email
+        userDataRDTO.socialLinks = kuorumUserRSDTO.socialLinks
+        userDataRDTO.bio = kuorumUserRSDTO.bio
+        userDataRDTO.timeZoneId = kuorumUserRSDTO.timeZoneId
+        return userDataRDTO
+    }
+
+    KuorumUserRSDTO updateKuorumUser(KuorumUserSession user, UserDataRDTO userDataRDTO){
+        updateKuorumUser(user.id.toString(), userDataRDTO)
+    }
+    KuorumUserRSDTO updateKuorumUser(String userId, UserDataRDTO userDataRDTO){
+        Map<String, String> params = [userId: userId]
+        Map<String, String> query = [:]
+        def apiResponse = restKuorumApiService.put(
                 RestKuorumApiService.ApiMethod.USER_DATA,
                 params,
                 query,
                 userDataRDTO,
                 null
         )
+        return apiResponse.data
+    }
+
+    private KuorumUserRSDTO updateKuorumUserOnRest(KuorumUser user){
+        UserDataRDTO userDataRDTO = new UserDataRDTO()
+        userDataRDTO.setEmail(user.getEmail())
+        userDataRDTO.setName(user.getName())
+        userDataRDTO.setSocialLinks(mapSocial(user))
+        return updateKuorumUser(user.id.toString(), userDataRDTO)
+    }
+
+    private SocialRDTO mapSocial(KuorumUser user){
+        SocialRDTO social = new SocialRDTO()
+        if (user.socialLinks){
+            social.properties.each {
+                if (it.key!= "class" && user.socialLinks.hasProperty(it.key))
+                    social."${it.key}" = user.socialLinks."${it.key}"
+            }
+        }
+        return social
     }
 
     def deleteFollower(KuorumUserSession follower, BasicDataKuorumUserRSDTO following) {
@@ -254,14 +292,6 @@ class KuorumUserService {
         user
     }
 
-    KuorumUser updateUserRelevance(KuorumUser user, Long relevance){
-        user["relevance"] = relevance
-        user.save() //Not user updateUser because relevance is a little special
-    }
-
-    Long getUserRelevance(KuorumUser user){
-        user["relevance"]?:0
-    }
     KuorumUser updateAlias(KuorumUser user, String newAlias){
         String currentAlias = user.alias
         if (user.alias != newAlias){
@@ -381,6 +411,10 @@ class KuorumUserService {
                 throw e
             }
         }
+    }
+
+    KuorumUserRSDTO findUserRSDTO(KuorumUserSession loggedUser){
+        return findUserRSDTO(loggedUser.id.toString())
     }
 
     KuorumUserRSDTO findUserRSDTO(String userId){

@@ -3,6 +3,7 @@ package kuorum.web.commands.profile
 import grails.validation.Validateable
 import kuorum.users.KuorumUser
 import org.apache.commons.validator.routines.UrlValidator
+import org.kuorum.rest.model.kuorumUser.KuorumUserRSDTO
 
 /**
  * Created by iduetxe on 22/05/14.
@@ -10,8 +11,17 @@ import org.apache.commons.validator.routines.UrlValidator
 @Validateable
 class SocialNetworkCommand {
 
-    public SocialNetworkCommand(){}
-    public SocialNetworkCommand(KuorumUser user){
+    SocialNetworkCommand(){}
+
+    @Deprecated
+    SocialNetworkCommand(KuorumUser user){
+        this.properties.each {
+            if (it.key!= "class" && user.socialLinks.hasProperty(it.key))
+                this."$it.key" = user.socialLinks."${it.key}"
+        }
+    }
+
+    SocialNetworkCommand(KuorumUserRSDTO user){
         this.properties.each {
             if (it.key!= "class" && user.socialLinks.hasProperty(it.key))
                 this."$it.key" = user.socialLinks."${it.key}"
@@ -31,7 +41,7 @@ class SocialNetworkCommand {
         twitter             nullable:true, validator: { String twitter, command ->
             if (twitter.startsWith("http")) {
                 // URL
-                UrlValidator urlValidator = new UrlValidator("http","https");
+                UrlValidator urlValidator = new UrlValidator("http","https")
                 if (!urlValidator.isValid(twitter)){
                     return 'kuorum.web.commands.profile.SocialNetworkCommand.twitter.url.invalid'
                 }
@@ -48,9 +58,9 @@ class SocialNetworkCommand {
 
     String getTwitter(){
         if (twitter){
-            return twitter.decodeTwitter();
+            return twitter.decodeTwitter()
         }else{
-            return "";
+            return ""
         }
     }
 }

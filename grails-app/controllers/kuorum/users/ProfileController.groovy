@@ -20,6 +20,9 @@ import kuorum.web.commands.profile.politician.PoliticianCausesCommand
 import kuorum.web.commands.profile.politician.RelevantEventsCommand
 import org.bson.types.ObjectId
 import org.codehaus.groovy.runtime.InvokerHelper
+import org.kuorum.rest.model.domain.SocialRDTO
+import org.kuorum.rest.model.kuorumUser.KuorumUserRSDTO
+import org.kuorum.rest.model.kuorumUser.UserDataRDTO
 import org.kuorum.rest.model.kuorumUser.config.NotificationConfigRDTO
 import org.kuorum.rest.model.kuorumUser.config.NotificationMailConfigRDTO
 import org.kuorum.rest.model.notification.campaign.config.NewsletterConfigRQDTO
@@ -335,30 +338,33 @@ class ProfileController {
     }
 
     def socialNetworks() {
-        KuorumUser user = params.user
+        KuorumUserSession loggedUser = springSecurityService.principal
+        KuorumUserRSDTO user = kuorumUserService.findUserRSDTO(loggedUser)
         SocialNetworkCommand command = new SocialNetworkCommand(user)
-
-        [user:user, command: command]
+        [command: command]
     }
 
     def socialNetworksSave(SocialNetworkCommand command) {
-        KuorumUser user = params.user
         if (command.hasErrors()){
-            render (view:'socialNetworks', model:[user:user, command: command])
+            render (view:'socialNetworks', model:[command: command])
             return
         }
+        SocialRDTO social = new SocialRDTO()
         command.properties.each {
-            if (it.key!= "class" && user.socialLinks.hasProperty(it.key))
-                user.socialLinks."${it.key}" = it.value
+            if (it.key!= "class" && social.hasProperty(it.key))
+                social."${it.key}" = it.value
         }
-        kuorumUserService.updateUser(user)
+        KuorumUserSession loggedUser = springSecurityService.principal
+        UserDataRDTO userDataRDTO = kuorumUserService.mapUserToRDTO(loggedUser)
+        userDataRDTO.socialLinks = social
+        kuorumUserService.updateKuorumUser(loggedUser, userDataRDTO)
         flash.message = g.message(code: 'kuorum.web.commands.profile.SocialNetworkCommand.save.success')
         redirect mapping:'profileSocialNetworks'
     }
 
     def configurationEmails() {
-        KuorumUser user = params.user
-        NotificationConfigRDTO notificationConfig = notificationService.getNotificationsConfig(user)
+        KuorumUserSession loggedUser = springSecurityService.principal
+        NotificationConfigRDTO notificationConfig = notificationService.getNotificationsConfig(loggedUser)
         MailNotificationsCommand command = new MailNotificationsCommand()
         command.mentions = notificationConfig.mailConfig.mentions
         command.followNew = notificationConfig.mailConfig.followNew

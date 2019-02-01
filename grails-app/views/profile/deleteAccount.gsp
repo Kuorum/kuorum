@@ -6,7 +6,7 @@
 </head>
 
 <content tag="leftMenu">
-    <g:render template="leftMenuAccount" model="[user:user, activeMapping:'profileDeleteAccount', menu:menu]"/>
+    <g:render template="leftMenuAccount" model="[activeMapping:'profileDeleteAccount', menu:menu]"/>
 </content>
 <content tag="titleContent">
     <h1><g:message code="profile.menu.profileDeleteAccount"/></h1>
