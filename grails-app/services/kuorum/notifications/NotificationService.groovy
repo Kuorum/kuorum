@@ -7,6 +7,7 @@ import kuorum.register.KuorumUserSession
 import kuorum.users.KuorumUser
 import kuorum.util.rest.RestKuorumApiService
 import org.codehaus.groovy.grails.web.mapping.LinkGenerator
+import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 import org.kuorum.rest.model.kuorumUser.config.NotificationConfigRDTO
 import org.kuorum.rest.model.notification.NotificationPageRSDTO
 
@@ -62,9 +63,9 @@ class NotificationService {
         notificationPage
     }
 
-    void sendPoliticianContactNotification(KuorumUser politician, KuorumUser user, String message, String cause){
-        kuorumMailService.sendPoliticianContact(politician, user, message, cause)
-        //kuorumMailService.sendPoliticianContactKuorumNotification(politician, user, message, cause) // MandrillApp API problems
+    void sendPoliticianContactNotification(BasicDataKuorumUserRSDTO userContacted, KuorumUserSession user, String message, String cause){
+        kuorumMailService.sendPoliticianContact(userContacted, user, message, cause)
+        //kuorumMailService.sendPoliticianContactKuorumNotification(userContacted, user, message, cause) // MandrillApp API problems
     }
 
     NotificationConfigRDTO getNotificationsConfig(KuorumUser user){

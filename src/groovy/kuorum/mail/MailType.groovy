@@ -10,7 +10,6 @@ enum MailType {
 
     REGISTER_VERIFY_EMAIL               ("register-validation",    ["confirmationLink"],    [],                                                                     MailTypeRSDTO.REGISTER_VERIFY_EMAIL),
     REGISTER_RESET_PASSWORD             ("register-resetPassword", ["resetPasswordLink"],   [],                                                                     MailTypeRSDTO.REGISTER_RESET_PASSWORD),
-    REGISTER_RRSS                       ("register-socialNetworks",[],                      ["provider"],                                                           MailTypeRSDTO.REGISTER_SOCIAL_NETWORKS),
     REGISTER_ACCOUNT_COMPLETED          ("register-completed",     [],                      [],                                                                     MailTypeRSDTO.REGISTER_ACCOUNT_COMPLETED),
     REGISTER_CHANGE_EMAIL_VERIFY        ("register-emailChangeNew",["confirmationLink"],    [],                                                                     MailTypeRSDTO.REGISTER_CHANGE_EMAIL_VERIFY),
     REGISTER_CHANGE_EMAIL_REQUESTED     ("register-emailChangeOld",["newEmailAccount"],     [],                                                                     MailTypeRSDTO.REGISTER_CHANGE_EMAIL_REQUESTED),

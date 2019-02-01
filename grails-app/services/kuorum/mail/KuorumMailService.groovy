@@ -2,9 +2,14 @@ package kuorum.mail
 
 import grails.transaction.Transactional
 import kuorum.core.model.AvailableLanguage
+import kuorum.register.KuorumUserSession
 import kuorum.solr.IndexSolrService
 import kuorum.users.KuorumUser
 import org.codehaus.groovy.grails.web.mapping.LinkGenerator
+import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
+import org.kuorum.rest.model.notification.mail.sent.MailTypeRSDTO
+import org.kuorum.rest.model.notification.mail.sent.SendMailRSDTO
+import org.kuorum.rest.model.notification.mail.sent.SentUserMailRSDTO
 import org.springframework.context.MessageSource
 
 @Transactional
@@ -80,13 +85,6 @@ class KuorumMailService {
         mandrillAppService.sendTemplate(mailData)
     }
 
-    def sendRegisterUserViaRRSS(KuorumUser user, String provider){
-        MailUserData mailUserData = new MailUserData(user:user, bindings:[:])
-        MailData mailData = new MailData(fromName:DEFAULT_SENDER_NAME,mailType: MailType.REGISTER_RRSS, userBindings: [mailUserData])
-        mailData.globalBindings=[provider:provider]
-        mandrillAppService.sendTemplate(mailData)
-    }
-
     def sendResetPasswordMail(KuorumUser user, String resetLink){
         def bindings = [resetPasswordLink:resetLink]
         MailUserData mailUserData = new MailUserData(user:user, bindings:bindings)
@@ -124,22 +122,24 @@ class KuorumMailService {
         mandrillAppService.sendTemplate(mailData)
     }
 
-    def sendPoliticianContact(KuorumUser politician, KuorumUser user, String message, String cause){
+    def sendPoliticianContact(BasicDataKuorumUserRSDTO userContacted, KuorumUserSession user, String message, String cause){
         String contactLink = generateLink("userShow",user.encodeAsLinkProperties())
-        String politicianLink = generateLink("userShow",politician.encodeAsLinkProperties())
         def bindings = [:]
-        MailUserData mailUserData = new MailUserData(user:politician,bindings:bindings)
-        MailData mailData = new MailData()
-        mailData.mailType = MailType.NOTIFICATION_CONTACT
-        mailData.globalBindings=[
+        SendMailRSDTO mailDataRSDTO = new SendMailRSDTO();
+        mailDataRSDTO.mailType = MailTypeRSDTO.NOTIFICATION_CONTACT
+        mailDataRSDTO.globalBindings = [
                 "contactName":user.name,
                 "contactLink":contactLink,
                 "contactMessage":message,
                 "causeName":cause
         ]
-        mailData.userBindings = [mailUserData]
-        mailData.fromName = prepareFromName(user.name)
-        mandrillAppService.sendTemplate(mailData)
+        SentUserMailRSDTO sentUserMailRSDTO = new SentUserMailRSDTO()
+        sentUserMailRSDTO.name=userContacted.name
+        sentUserMailRSDTO.email=userContacted.email
+        sentUserMailRSDTO.lang=AvailableLanguage.valueOf(userContacted.language.toString()).locale.language?:"en"
+        sentUserMailRSDTO.bindings=bindings
+        mailDataRSDTO.destinations = [sentUserMailRSDTO]
+        mandrillAppService.sendTemplate(mailDataRSDTO)
     }
 
 

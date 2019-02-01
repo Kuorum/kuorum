@@ -105,20 +105,20 @@ class KuorumUserController {
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
-    def contactUser(KuorumUserContactMessageCommand contactRegister){
-        if (!contactRegister.validate()){
-            flash.error = g.message(error: contactRegister.errors.allErrors[0])
+    def contactUser(KuorumUserContactMessageCommand contactRegisterCommand){
+        if (!contactRegisterCommand.validate()){
+            flash.error = g.message(error: contactRegisterCommand.errors.allErrors[0])
             redirect mapping:"politicians"
             return
         }
-        KuorumUser userContacted = KuorumUser.get(new ObjectId(contactRegister.contactUserId))
+        BasicDataKuorumUserRSDTO userContacted = kuorumUserService.findBasicUserRSDTO(contactRegisterCommand.contactUserId, true)
         if (!userContacted){
             flash.error = "User not found"
-            redirect mapping:"userShow", params: userContacted.encodeAsLinkProperties()
+            redirect mapping:"politicians"
         }
 
-        KuorumUser user = springSecurityService.getCurrentUser()
-        notificationService.sendPoliticianContactNotification(userContacted, user, contactRegister.message, contactRegister.cause)
+        KuorumUserSession loggedUser = springSecurityService.principal
+        notificationService.sendPoliticianContactNotification(userContacted, loggedUser, contactRegisterCommand.message, contactRegisterCommand.cause)
         flash.message = g.message(code: 'kuorumUser.contactMessage.success', args: [userContacted.name])
         redirect (mapping:"userShow", params: userContacted.encodeAsLinkProperties())
     }

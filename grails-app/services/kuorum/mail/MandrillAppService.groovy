@@ -22,6 +22,7 @@ class MandrillAppService {
     String MANDRIL_APIKEY
 
     //UNTESTED - Is not possible to test if the mail has been sent. Only if not fails
+    @Deprecated
     void sendTemplate(MailData mailData, Boolean async = true, KuorumUser user = null) {
 
         if (!mailData.validate()) {
@@ -34,6 +35,10 @@ class MandrillAppService {
         } else {
             sendTemplateViaKuorumServices(mailData, user)
         }
+    }
+
+    void sendTemplate(SendMailRSDTO mailData) {
+        sendTemplateViaKuorumServices(mailData)
     }
     private sendViaMandrillApp(MailData mailData,Boolean async = true){
         List<MandrillMessage.Recipient> recipients = createRecipients(mailData)
@@ -73,7 +78,7 @@ class MandrillAppService {
     }
 
     private List<MandrillMessage.Recipient> createRecipients(MailData mailData){
-        List<MandrillMessage.Recipient> recipients = []
+        List<MandrillMessage.Recipient> recipuserients = []
         mailData.userBindings.each{MailUserData mailUserData ->
             MandrillMessage.Recipient recipient =new MandrillMessage.Recipient()
             recipient.email= mailUserData.user.email
@@ -118,13 +123,7 @@ class MandrillAppService {
         }
     }
 
-    private void sendTemplateViaKuorumServices(MailData mailData, KuorumUser user){
-        Map params = [:]
-        RestKuorumApiService.ApiMethod apiMethod = RestKuorumApiService.ApiMethod.ADMIN_MAILS_SEND
-        if (user){
-            params.put("userId",user.id.toString())
-            apiMethod = RestKuorumApiService.ApiMethod.ACCOUNT_MAILS_SEND
-        }
+    private void sendTemplateViaKuorumServices(MailData mailData){
         SendMailRSDTO sendMailRSDTO = new SendMailRSDTO()
         sendMailRSDTO.globalBindings = mailData.globalBindings
         sendMailRSDTO.mailType = mailData.mailType.mailTypeRSDTO
@@ -136,11 +135,20 @@ class MandrillAppService {
             userMailRSDTO.email =it.user.email
             return userMailRSDTO
         }
+        sendTemplateViaKuorumServices(sendMailRSDTO);
+    }
+    private void sendTemplateViaKuorumServices(SendMailRSDTO mailData){
+        Map params = [:]
+        RestKuorumApiService.ApiMethod apiMethod = RestKuorumApiService.ApiMethod.ADMIN_MAILS_SEND
+//        if (user){
+//            params.put("userId",user.id.toString())
+//            apiMethod = RestKuorumApiService.ApiMethod.ACCOUNT_MAILS_SEND
+//        }
         restKuorumApiService.post(
                 apiMethod,
                 params,
                 [:],
-                sendMailRSDTO,
+                mailData,
                 null)
     }
 

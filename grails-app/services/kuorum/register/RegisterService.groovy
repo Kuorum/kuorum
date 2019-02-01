@@ -47,14 +47,6 @@ class RegisterService {
 
     public static final PREFIX_PASSWORD = "*registerUser*"
 
-    private static final String META_DATA_REGISTER_CONCATC_POLITICIAN="contactPolitician"
-    private static final String META_DATA_REGISTER_CONCATC_POLITICIAN_ID="politicianId"
-    private static final String META_DATA_REGISTER_CONCATC_POLITICIAN_MESSAGE="politicianMessage"
-    private static final String META_DATA_REGISTER_CONCATC_POLITICIAN_CAUSE="politicianCause"
-
-    private static final String META_DATA_REGISTER_FOLLOW_POLITICIAN="followPolitician"
-    private static final String META_DATA_REGISTER_FOLLOW_POLITICIAN_ID="followPoliticianId"
-
     @Deprecated
     public static final String NOT_USER_PASSWORD = "NO_VALID_PASS"
     /*
@@ -115,20 +107,6 @@ class RegisterService {
 
     }
 
-
-    @Transactional
-    KuorumUser registerUserFollowingPolitician(KuorumRegisterCommand command, KuorumUser following){
-        KuorumUser user = registerUser(command)
-        String usernameFieldName = SpringSecurityUtils.securityConfig.userLookup.usernamePropertyName
-        KuorumRegistrationCode registrationCode = KuorumRegistrationCode.findByUsername(user."$usernameFieldName")
-        registrationCode[META_DATA_REGISTER_FOLLOW_POLITICIAN] = ["$META_DATA_REGISTER_FOLLOW_POLITICIAN_ID":following.id]
-        registrationCode.save()
-
-        //Sets default pass and alias to delete custom register process
-        user.password = "${PREFIX_PASSWORD}_${Math.random()}"
-        user.alias = user.id.toString().take(15)
-        user.save()
-    }
 
     /*
         Convert the command object to User
@@ -231,7 +209,6 @@ class RegisterService {
             user.authorities.remove(incompleteRoleUser)
             user.authorities.add(normalRoleUser)
             user.save(flush:true)
-            processMetaDataRegistration(user, registrationCode)
             registrationCode.delete(flush:true)
         }
         try{
@@ -241,19 +218,6 @@ class RegisterService {
         }
         springSecurityService.reauthenticate user.email
         user
-    }
-    private void processMetaDataRegistration(KuorumUser user, KuorumRegistrationCode registrationCode){
-
-        if(registrationCode[META_DATA_REGISTER_CONCATC_POLITICIAN]){
-            KuorumUser politician = KuorumUser.get(registrationCode[META_DATA_REGISTER_CONCATC_POLITICIAN][META_DATA_REGISTER_CONCATC_POLITICIAN_ID])
-            String message = registrationCode[META_DATA_REGISTER_CONCATC_POLITICIAN][META_DATA_REGISTER_CONCATC_POLITICIAN_MESSAGE]
-            String cause = registrationCode[META_DATA_REGISTER_CONCATC_POLITICIAN][META_DATA_REGISTER_CONCATC_POLITICIAN_CAUSE]
-            notificationService.sendPoliticianContactNotification(politician, user, message, cause)
-        }
-        if(registrationCode[META_DATA_REGISTER_FOLLOW_POLITICIAN]){
-            KuorumUser following = KuorumUser.get(registrationCode[META_DATA_REGISTER_FOLLOW_POLITICIAN][META_DATA_REGISTER_FOLLOW_POLITICIAN_ID])
-            kuorumUserService.createFollower(user, following)
-        }
     }
 
     private void followMainUser(KuorumUserSession user){
