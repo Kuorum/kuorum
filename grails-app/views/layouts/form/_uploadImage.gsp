@@ -1,11 +1,10 @@
 <r:require modules="customFileUploader" />
-
 <r:script>
-    var typeErrorText = "${g.message(code:'uploader.error.typeError')}";
-    var sizeErrorText = "${g.message(code:'uploader.error.sizeError', args:[Math.round(fileGroup.maxSize/1000/1000)])}";
-    var minSizeErrorText = "${g.message(code:'uploader.error.minSizeError', args: [Math.round(kuorum.core.FileGroup.MIN_SIZE_IMAGE/1024)])}";
-    var emptyErrorText = "${g.message(code:'uploader.error.emptyError')}";
-    var onLeaveText = "${g.message(code:'uploader.error.onLeave')}";
+    var ${fileGroup}_typeErrorText = "${g.message(code:'uploader.error.typeError')}";
+    var ${fileGroup}_sizeErrorText = "${g.message(code:'uploader.error.sizeError', args:[Math.round(fileGroup.maxSize/1000/1000)])}";
+    var ${fileGroup}_minSizeErrorText = "${g.message(code:'uploader.error.minSizeError', args: [Math.round(kuorum.core.FileGroup.MIN_SIZE_IMAGE/1024)])}";
+    var ${fileGroup}_emptyErrorText = "${g.message(code:'uploader.error.emptyError')}";
+    var ${fileGroup}_onLeaveText = "${g.message(code:'uploader.error.onLeave')}";
     var jcropApi;
     var fileId;
 </r:script>
@@ -18,11 +17,11 @@
             minSizeLimit="${kuorum.core.FileGroup.MIN_SIZE_IMAGE}"
             allowedExtensions='["\'png\'", "\'jpeg\'", "\'jpg\'", "\'JPG\'", "\'JPEG\'"]'
             messages='{
-                    typeError: typeErrorText,
-                    sizeError: sizeErrorText,
-                    minSizeError: minSizeErrorText,
-                    emptyError: emptyErrorText,
-                    onLeave: onLeaveText
+                    typeError: ${fileGroup}_typeErrorText,
+                    sizeError: ${fileGroup}_sizeErrorText,
+                    minSizeError:${fileGroup}_minSizeErrorText,
+                    emptyError: ${fileGroup}_emptyErrorText,
+                    onLeave: ${fileGroup}_onLeaveText
                 }'
             params='[fileGroup:"\"${fileGroup}\""]' >
         <uploader:onSubmit>
