@@ -317,7 +317,6 @@ class AdminController {
         }
     }
 
-    @Secured(['IS_AUTHENTICATED_FULLY','ROLE_SUPER_ADMIN'])
     def editCarousel() {
         String domain = CustomDomainResolver.domain
         KuorumFile slide1 = domainResourcesService.getSlidePath(domain,1)
@@ -330,7 +329,6 @@ class AdminController {
         [command: command]
     }
 
-    @Secured(['IS_AUTHENTICATED_FULLY','ROLE_SUPER_ADMIN'])
     def uploadCarousel(EditDomainCarouselPicturesCommand command) {
         if (command.hasErrors()){
             render view: "editCarousel", model: [command:command]
@@ -342,7 +340,7 @@ class AdminController {
             KuorumFile slideFile3 = KuorumFile.get(command.slideId3)
             domainResourcesService.uploadCarouselImages(slideFile1, slideFile2, slideFile3, domain)
             flash.message = "Sus imágenes se subieron correctamente"
-            redirect mapping: 'adminDomainConfig'
+            redirect mapping: 'adminDomainConfigUploadCarouselImages'
         }
     }
 

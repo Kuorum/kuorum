@@ -5,6 +5,9 @@
     <li class="${activeMapping=='adminDomainConfigLanding'?'active':''}">
         <g:link mapping="adminDomainConfigLanding"><g:message code="admin.menu.domainConfig.editLanding"/></g:link>
     </li>
+    <li class="${activeMapping=='adminDomainConfigUploadCarouselImages'?'active':''}">
+        <g:link mapping="adminDomainConfigUploadCarouselImages"><g:message code="admin.menu.domainConfig.uploadCarouselImages"/></g:link>
+    </li>
     <li class="${activeMapping=='adminDomainConfigRelevantCampagins'?'active':''}">
         <g:link mapping="adminDomainConfigRelevantCampagins"><g:message code="admin.menu.domainConfig.relevantCampaigns.title"/></g:link>
     </li>

@@ -1,5 +1,3 @@
-var htmlLoading = '<div class="loading xs"><span class="sr-only">Cargando...</span></div>';
-
 // PAGE LOADING
 function pageLoadingOn (trackLog){
     if (trackLog!= undefined) console.log("LOADING ON :: "+trackLog);

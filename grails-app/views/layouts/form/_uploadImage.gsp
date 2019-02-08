@@ -27,7 +27,7 @@
         <uploader:onSubmit>
             $("#${imageId}").attr("alt","Cargando");
                 originalImgPath = $("#${imageId}").attr("src");
-                $("#${imageId}").attr("src","${g.resource(dir: 'images', file: 'loading@2x.gif')}");
+                $("#${imageId}").attr("src","${g.resource(dir: 'images', file: 'loading%402x.gif')}");
 
                 $("#progresBar_${imageId}").removeClass("hidden").css("display","block")
                 var progressBar = $("#progresBar_${imageId}").children(".progress-bar")
@@ -119,7 +119,6 @@
     function cropImage(imageId){
         var selected = jcropApi.tellSelect();
         var cutButton = $(".uploadKuorumImage .modal-footer button");
-        var cutButtonHtml = cutButton.html();
         $.ajax({
             type: "POST",
             url: "${g.createLink(controller: 'file', action: 'cropImage')}",
@@ -136,15 +135,15 @@
                 }
             },
             beforeSend:function(){
-                cutButton.html(htmlLoading)
+                pageLoadingOn()
             },
             complete:function(){
-                cutButton.html(cutButtonHtml)
             }
         }).done(function( data ) {
             changeImageBackground(data.absolutePathImg, imageId);
             $("#modal_"+imageId).modal('hide');
             $("#input_" + imageId).val(data.fileId);
+            pageLoadingOff();
             formHelper.dirtyFormControl.dirty($("#input_"+imageId).parents("form"))
         });
     }
