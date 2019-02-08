@@ -29,6 +29,8 @@
     <meta name="msapplication-config" content="${_domainResourcesPath}/favicon/browserconfig.xml">
     <meta name="theme-color" content="#ffffff">
 
+    %{--This line wirtes the goole verification code. It is a meta tag with its code--}%
+    ${raw(kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.googleSiteVerification)}
 
     <r:require modules="vimeo" />
     <g:set var="lang" value="${org.springframework.web.servlet.support.RequestContextUtils.getLocale(request).language}" />
@@ -51,10 +53,7 @@
     <g:set var="dynamicBodyCss" value="noLogged"/>
 </sec:ifNotLoggedIn>
 <body itemscope itemtype="${schemaData.schema}" class="${pageProperty(name:"page.bodyCss")} ${dynamicBodyCss}">
-<meta itemprop="url" content="${nav.canonical([onlyLink:true])}"/>
-
-
-
+    <meta itemprop="url" content="${nav.canonical([onlyLink:true])}"/>
     <span class="hidden" itemprop="name">${schemaData.name}</span>
     <g:render template="/layouts/googleTagManager"/>
 

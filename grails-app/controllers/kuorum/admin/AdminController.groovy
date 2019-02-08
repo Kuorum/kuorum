@@ -404,6 +404,12 @@ class AdminController {
     }
 
 
+    @Secured(['IS_AUTHENTICATED_FULLY','ROLE_SUPER_ADMIN'])
+    def validateDomain() {
+
+    }
+
+
     def designLandingPage(){
         [command:new DomainConfigStep1Command()]
     }

@@ -14,4 +14,7 @@
     <li class="${activeMapping=='adminDomainConfigPlan'?'active':''}">
         <g:link mapping="adminDomainConfigPlan"><g:message code="admin.menu.domainConfig.adminDomainConfigPlan"/></g:link>
     </li>
+    <li class="${activeMapping=='adminDomainConfigGoogleValidation'?'active':''}">
+        <g:link mapping="adminDomainConfigGoogleValidation"><g:message code="admin.menu.domainConfig.googleValidation.title"/></g:link>
+    </li>
 </ul>
