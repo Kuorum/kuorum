@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.type.TypeReference
 import grails.transaction.Transactional
 import kuorum.core.model.search.SearchNotifications
 import kuorum.register.KuorumUserSession
-import kuorum.users.KuorumUser
 import kuorum.util.rest.RestKuorumApiService
 import org.codehaus.groovy.grails.web.mapping.LinkGenerator
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
@@ -86,7 +85,7 @@ class NotificationService {
         notificationPage
     }
 
-    void saveNotificationsConfig(KuorumUser user,NotificationConfigRDTO notificationConfigRDTO){
+    void saveNotificationsConfig(KuorumUserSession user,NotificationConfigRDTO notificationConfigRDTO){
         Map<String, String> params = [userId: user.id.toString()]
         Map<String, String> query = [:]
         def response = restKuorumApiService.put(

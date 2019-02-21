@@ -26,7 +26,7 @@ class KuorumMailService {
     def grailsApplication
 
     def sendBatchMail(KuorumUserSession user, String rawMail, String subject){
-        SendMailRSDTO sendMailRSDTO = new SendMailRSDTO();
+        SendMailRSDTO sendMailRSDTO = new SendMailRSDTO()
         sendMailRSDTO.setGlobalBindings([body: rawMail, subject:subject])
         sendMailRSDTO.setMailType(MailTypeRSDTO.ADMIN_COMMUNICATION)
         SentUserMailRSDTO destinationAdmin = new SentUserMailRSDTO()
@@ -52,7 +52,7 @@ class KuorumMailService {
         def bindings = [
                 user:user.name
         ]
-        SendMailRSDTO sendMailRSDTO = new SendMailRSDTO();
+        SendMailRSDTO sendMailRSDTO = new SendMailRSDTO()
         sendMailRSDTO.setGlobalBindings(bindings)
         sendMailRSDTO.setMailType(MailTypeRSDTO.REGISTER_WELCOME)
         SentUserMailRSDTO destinationAdmin = new SentUserMailRSDTO()
@@ -62,14 +62,6 @@ class KuorumMailService {
         mandrillAppService.sendTemplate(sendMailRSDTO)
     }
 
-    private KuorumUser getFeedbackUser(String name = "Feedback"){
-        //Chapu
-        KuorumUser user = new KuorumUser(
-                name: name,
-                email: "${grailsApplication.config.kuorum.contact.feedback}",
-                language: AvailableLanguage.es_ES
-        )
-    }
 
     private KuorumUser getPurchaseUser(){
         //Chapu
@@ -80,14 +72,6 @@ class KuorumMailService {
         )
     }
 
-    private KuorumUser buildMailUser(String name, String email, AvailableLanguage language){
-        //Chapu
-        KuorumUser user = new KuorumUser(
-                name: name,
-                email: email,
-                language: language
-        )
-    }
 
     def sendRegisterUser(KuorumUser user, String confirmationLink){
         def bindings = [confirmationLink:confirmationLink]
@@ -135,7 +119,7 @@ class KuorumMailService {
     def sendPoliticianContact(BasicDataKuorumUserRSDTO userContacted, KuorumUserSession user, String message, String cause){
         String contactLink = generateLink("userShow",user.encodeAsLinkProperties())
         def bindings = [:]
-        SendMailRSDTO mailDataRSDTO = new SendMailRSDTO();
+        SendMailRSDTO mailDataRSDTO = new SendMailRSDTO()
         mailDataRSDTO.mailType = MailTypeRSDTO.NOTIFICATION_CONTACT
         mailDataRSDTO.globalBindings = [
                 "contactName":user.name,

@@ -392,12 +392,12 @@ class ProfileController {
         command.petitionNewCause = notificationConfig.mailConfig.petitionNewCause
         command.surveyNewOwner = notificationConfig.mailConfig.surveyNewOwner
         command.surveyNewCause = notificationConfig.mailConfig.surveyNewCause
-        [user:user, command: command]
+        [command: command]
     }
     def configurationEmailsSave(MailNotificationsCommand command) {
-        KuorumUser user = params.user
+        KuorumUserSession loggedUser = springSecurityService.principal
         if (command.hasErrors()){
-            render view:"configurationEmails", model: [command:command,user:user]
+            render view:"configurationEmails", model: [command:command]
             return
         }
         NotificationConfigRDTO notificationConfig = new NotificationConfigRDTO()
@@ -429,7 +429,7 @@ class ProfileController {
         notificationConfig.mailConfig.petitionNewOwner = command.petitionNewOwner
         notificationConfig.mailConfig.surveyNewOwner = command.surveyNewOwner
         notificationConfig.mailConfig.surveyNewCause = command.surveyNewCause
-        notificationService.saveNotificationsConfig(user, notificationConfig)
+        notificationService.saveNotificationsConfig(loggedUser, notificationConfig)
         flash.message = message(code:'profile.emailNotifications.success')
         redirect mapping:'profileEmailNotifications'
     }
