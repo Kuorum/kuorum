@@ -68,6 +68,8 @@ class FaviconService {
 
     private def buildBodyParams(String domainLogoUrl, DomainRSDTO domain) {
         String apiKey = grailsApplication.config.kuorum.keys.favicon
+        String hexBackgroundColor = "#000000"
+//        String hexBackgroundColor = domain.getSecondaryColor()
         return [
                 "favicon_generation": [
                         "api_key": apiKey,
@@ -84,7 +86,7 @@ class FaviconService {
                                 "ios": [
                                         "picture_aspect": "background_and_margin",
                                         "margin": "4",
-                                        "background_color": domain.getSecondaryColor(),
+                                        "background_color": hexBackgroundColor,
                                         "startup_image": [
                                                 "master_picture": [
                                                         "type": "url",
@@ -100,7 +102,7 @@ class FaviconService {
                                 ],
                                 "windows": [
                                         "picture_aspect": "white_silhouette",
-                                        "background_color": domain.getSecondaryColor(),
+                                        "background_color": hexBackgroundColor,
                                         "assets": [
                                                 "windows_80_ie_10_tile": true,
                                                 "windows_10_ie_11_edge_tiles": [
@@ -115,7 +117,7 @@ class FaviconService {
                                         "picture_aspect": "circle",
                                         "keep_picture_in_circle": "true",
                                         "circle_inner_margin": "5",
-                                        "background_color": domain.getSecondaryColor(),
+                                        "background_color": hexBackgroundColor,
                                         "manifest": [
                                                 "app_name": domain.name,
                                                 "app_description": domain.slogan,
@@ -125,7 +127,7 @@ class FaviconService {
                                 ],
                                 "android_chrome": [
                                         "picture_aspect": "shadow",
-                                        "background_color": domain.getSecondaryColor(),
+                                        "background_color": hexBackgroundColor,
                                         "manifest": [
                                                 "name": domain.name,
                                                 "display": "standalone",
@@ -146,17 +148,17 @@ class FaviconService {
                                 ],
                                 "coast": [
                                         "picture_aspect": "background_and_margin",
-                                        "background_color": domain.getSecondaryColor(),
+                                        "background_color": hexBackgroundColor,
                                         "margin": "12%"
                                 ],
                                 "open_graph": [
                                         "picture_aspect": "background_and_margin",
-                                        "background_color": domain.getSecondaryColor(),
+                                        "background_color": hexBackgroundColor,
                                         "margin": "12%",
                                         "ratio": "1.91:1"
                                 ],
                                 "yandex_browser": [
-                                        "background_color": domain.getSecondaryColor(),
+                                        "background_color": hexBackgroundColor,
                                         "manifest": [
                                                 "show_title": true,
                                                 "version": "1.0"
