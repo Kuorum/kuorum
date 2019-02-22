@@ -20,6 +20,9 @@
     <li class="${activeMapping=='adminRequestEmailSender'?'active':''}">
         <g:link mapping="adminRequestEmailSender"><g:message code="admin.menu.domainConfig.requestCustomDomain"/></g:link>
     </li>
+    <li class="${activeMapping=='adminDomainDelete'?'active':''}">
+        <g:link mapping="adminDomainDelete"><g:message code="admin.menu.domainConfig.deleteDomain.title"/></g:link>
+    </li>
 </ul>
 <sec:ifAnyGranted roles="ROLE_SUPER_ADMIN">
     <hr/>

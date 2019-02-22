@@ -25,12 +25,13 @@ class RestKuorumApiService {
 //    @Value('${kuorum.rest.apiKey}')
 //    String kuorumRestApiKey
 
-    def delete(ApiMethod apiMethod, Map<String,String> params, Map<String,String> query) throws KuorumException{
+    def delete(ApiMethod apiMethod, Map<String,String> params, Map<String,String> query, String adminApiKey = null) throws KuorumException{
         RESTClient mailKuorumServices = new RESTClient(kuorumRestServices)
+        String apiKey = adminApiKey?:CustomDomainResolver.apiToken
         String path = apiMethod.buildUrl(apiPath, params)
         def response = mailKuorumServices.delete(
                 path: path,
-                headers: ["User-Agent": "Kuorum Web", "token": CustomDomainResolver.apiToken],
+                headers: ["User-Agent": "Kuorum Web", "token": apiKey],
                 query: query,
                 requestContentType: ContentType.JSON
         )

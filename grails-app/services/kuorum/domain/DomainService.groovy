@@ -202,4 +202,19 @@ class DomainService {
         response.data
     }
 
+    void removeDomain(String domain){
+        Map<String, String> params = [:]
+        Map<String, String> query = [domainName:domain]
+
+        try{
+            def apiResponse= restKuorumApiService.delete(
+                    RestKuorumApiService.ApiMethod.DOMAIN,
+                    params,
+                    query,
+                    kuorumAdminRestApiKey)
+        }catch (Exception e){
+            log.warn("It was not possible to delete domain : ${domain}")
+        }
+    }
+
 }

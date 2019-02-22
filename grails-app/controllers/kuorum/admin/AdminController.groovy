@@ -19,6 +19,7 @@ import kuorum.web.admin.domain.DomainConfigStep1Command
 import kuorum.web.admin.domain.DomainLandingCommand
 import kuorum.web.admin.domain.EditLegalInfoCommand
 import kuorum.web.commands.LinkCommand
+import kuorum.web.commands.domain.DeleteDomainCommand
 import kuorum.web.commands.domain.EditDomainCarouselPicturesCommand
 import kuorum.web.constants.WebConstants
 import org.bson.types.ObjectId
@@ -341,6 +342,19 @@ class AdminController {
             domainResourcesService.uploadCarouselImages(slideFile1, slideFile2, slideFile3, domain)
             flash.message = "Sus imágenes se subieron correctamente"
             redirect mapping: 'adminDomainConfigUploadCarouselImages'
+        }
+    }
+
+    def deleteDomain(){
+        [command:new DeleteDomainCommand()]
+    }
+
+    def deleteDomainConfirm(DeleteDomainCommand command){
+        if (command.hasErrors()){
+            render view: 'deleteDomain', model: [command:command]
+        }else{
+            domainService.removeDomain(command.domainName)
+            redirect mapping:'home'
         }
     }
 

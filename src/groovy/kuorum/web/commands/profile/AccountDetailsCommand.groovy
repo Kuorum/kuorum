@@ -1,9 +1,11 @@
 package kuorum.web.commands.profile
 
+import grails.plugin.springsecurity.SpringSecurityService
 import grails.validation.Validateable
 import kuorum.Region
 import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.model.AvailableLanguage
+import kuorum.register.KuorumUserSession
 import kuorum.register.RegisterService
 import kuorum.users.KuorumUser
 import kuorum.web.binder.RegionBinder
@@ -17,8 +19,9 @@ import org.grails.databinding.BindUsing
 @Validateable
 class AccountDetailsCommand {
 
-    public AccountDetailsCommand(){}
-    public AccountDetailsCommand(KuorumUser user){
+    AccountDetailsCommand(){}
+
+    AccountDetailsCommand(KuorumUser user){
         this.user = user
         this.name = user.name
         this.surname = user.surname
@@ -30,22 +33,22 @@ class AccountDetailsCommand {
         this.homeRegion = user.personalData?.province
         this.timeZoneId = user.timeZone?.getID()
     }
-    KuorumUser user;
+    KuorumUser user
     @BindUsing({obj,  org.grails.databinding.DataBindingSource source ->
         RegionBinder.bindRegion(obj, "homeRegion", source)
     })
     Region homeRegion
-    String name;
-    String surname;
+    String name
+    String surname
     @BindUsing({obj, org.grails.databinding.DataBindingSource source->
         AccountDetailsCommand.normalizeAlias(source["alias"])
     })
-    String alias;
-    String email;
-    String phonePrefix;
-    String phone;
-    AvailableLanguage language;
-    String password;
+    String alias
+    String email
+    String phonePrefix
+    String phone
+    AvailableLanguage language
+    String password
     String timeZoneId
 
     static constraints = {
@@ -54,7 +57,7 @@ class AccountDetailsCommand {
         surname nullable:true
         user nullable: false
         password validator: {val, obj ->
-            if (obj.user && !isPasswordValid(val, obj.user)){
+            if (obj.user && !isPasswordValid(val)){
                 return "notValid"
             }
         }
@@ -78,20 +81,27 @@ class AccountDetailsCommand {
         timeZoneId nullable: true
     }
 
-    private static Boolean isPasswordValid(String inputPassword, KuorumUser user){
+    static Boolean isPasswordValid(String inputPassword, KuorumUserSession user){
         Object appContext = ServletContextHolder.servletContext.getAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT)
         RegisterService registerService = ( kuorum.register.RegisterService)appContext.registerService
         if (registerService.isPasswordSetByUser(user)){
             org.springframework.security.authentication.encoding.PasswordEncoder passwordEncoder = (org.springframework.security.authentication.encoding.PasswordEncoder)appContext.passwordEncoder
             return inputPassword && passwordEncoder.isPasswordValid(user.password, inputPassword, null)
         }else{
-            return true;
+            return true
         }
     }
 
-    public static String normalizeAlias(String alias){
-        String s = java.text.Normalizer.normalize(alias, java.text.Normalizer.Form.NFD);
-        s = s.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
-        return s;
+    static Boolean isPasswordValid(String inputPassword){
+        Object appContext = ServletContextHolder.servletContext.getAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT)
+        SpringSecurityService springSecurityService = ( SpringSecurityService)appContext.springSecurityService
+        KuorumUserSession user = springSecurityService.principal
+        return isPasswordValid(inputPassword, user)
+    }
+
+    static String normalizeAlias(String alias){
+        String s = java.text.Normalizer.normalize(alias, java.text.Normalizer.Form.NFD)
+        s = s.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "")
+        return s
     }
 }

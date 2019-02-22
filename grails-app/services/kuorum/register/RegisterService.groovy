@@ -157,6 +157,10 @@ class RegisterService {
         "${PREFIX_PASSWORD}_${prefix}_${Math.random()}"
     }
 
+    boolean isPasswordSetByUser(KuorumUserSession user){
+        isPasswordSetByUser(user.password)
+    }
+    @Deprecated
     boolean isPasswordSetByUser(KuorumUser user){
         isPasswordSetByUser(user.password)
     }
