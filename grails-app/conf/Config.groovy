@@ -168,7 +168,7 @@ grails.plugin.springsecurity.fii.rejectPublicInvocations = false
 grails.plugin.springsecurity.securityConfigType = "Annotation"
 grails.plugin.springsecurity.password.algorithm = 'SHA-256'
 grails.plugin.springsecurity.password.hash.iterations = 1
-grails.plugin.springsecurity.dao.reflectionSaltSourceProperty='id'
+//grails.plugin.springsecurity.dao.reflectionSaltSourceProperty='id'
 
 grails.plugin.springsecurity.ui.encodePassword=true
 grails.plugin.springsecurity.ui.password.minLength=4
