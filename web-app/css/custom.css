@@ -698,7 +698,7 @@ header.transp #search-form .open-filter {background-color: rgba(219,219,219,0.4)
     border: 1px solid #20a2ea ;
     color: #20a2ea !important;
 }
-/*.btn.btn-blue.inverted:hover,*/
+.btn.btn-blue.inverted:hover,
 .btn.btn-blue.inverted:active,
 .btn.btn-blue.inverted:focus {
     background-color: #20a2ea !important;
