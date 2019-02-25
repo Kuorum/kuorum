@@ -56,7 +56,7 @@
         </fieldset>
 
         <div id="advanced-features">
-            <g:if test="${options.hideValidateOption}">
+            <g:if test="${!options.hideValidateOption}">
                 <fieldset class="form-group fieldset-check-box">
                     <label for="checkValidation" class="col-sm-2 col-md-1 control-label">
                         <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="${g.message(code:'kuorum.web.commands.payment.CampaignSettingsCommand.checkValidation.label.info')}"></span>
