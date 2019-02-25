@@ -231,7 +231,7 @@ class DistrictProposalController extends CampaignController{
     private def districtProposalModelSettings(CampaignSettingsCommand command, DistrictProposalRSDTO districtProposalRSDTO) {
         def model = modelSettings(command, districtProposalRSDTO)
         command.debatable=false
-        model.options =[debatable:false, endDate:false,hideCauses:true]
+        model.options =[debatable:false, endDate:false,hideCauses:true, hideValidateOption:true]
         return model
     }
     private def districtProposalModelEditDistrict(DistrictProposalChooseDistrictCommand command, DistrictProposalRSDTO districtProposalRSDTO, ParticipatoryBudgetRSDTO participatoryBudgetRSDTO) {
