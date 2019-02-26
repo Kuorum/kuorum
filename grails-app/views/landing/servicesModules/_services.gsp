@@ -63,7 +63,7 @@
                           landingVisibleRoles:landingVisibleRoles,
                           role:org.kuorum.rest.model.kuorumUser.UserRoleRSDTO.ROLE_CAMPAIGN_NEWSLETTER,
                           icon:'fa-envelope',
-                          searchMapping:'#',
+                          searchMapping:'searcherSearch',
                           title:g.message(code:'landingServices.howItWorks.newsletters.title'),
                           text:g.message(code:'landingServices.howItWorks.newsletters.text')
                   ]"/>
