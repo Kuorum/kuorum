@@ -247,9 +247,9 @@ class AdminController {
         List<CampaignRSDTO> domainCampaigns = campaignService.findRelevantDomainCampaigns()
         List<CampaignRSDTO> adminCampaigns = campaignService.findAllCampaigns(WebConstants.FAKE_LANDING_ALIAS_USER)
         Map domainCampaignsId = [first:null, second:null, third:null]
-        domainCampaignsId.first = domainCampaigns.size()>0 ? domainCampaigns.get(0).id:null
-        domainCampaignsId.second = domainCampaigns.size()>1 ? domainCampaigns.get(1).id:null
-        domainCampaignsId.third = domainCampaigns.size()>2 ? domainCampaigns.get(2).id:null
+        domainCampaignsId.first = domainCampaigns && domainCampaigns.size()>0 ? domainCampaigns.get(0).id:null
+        domainCampaignsId.second = domainCampaigns && domainCampaigns.size()>1 ? domainCampaigns.get(1).id:null
+        domainCampaignsId.third = domainCampaigns && domainCampaigns.size()>2 ? domainCampaigns.get(2).id:null
         [domainCampaignsId:domainCampaignsId,adminCampaigns:adminCampaigns]
     }
 
