@@ -1963,7 +1963,7 @@ ul.participatory-budget-steps-info li.active a {display: none}
     width: 0;
     z-index: 11;
 }
-.open-menu {color: #dbdbdb; position: absolute !important; top: 2px; right: 8px;}
+.open-menu {color: #dbdbdb; position: absolute !important; top: 2px; right: 8px; z-index: 1;}
 .box-ppal .link-wrapper:hover,
 .box-ppal .link-wrapper:active,
 .box-ppal .link-wrapper:focus {background-color: #efefef;}
