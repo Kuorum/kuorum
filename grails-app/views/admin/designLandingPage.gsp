@@ -131,7 +131,7 @@
 
     <r:script>
         $(function () {
-            $("#modal-loading-signup-custom-site").on("submit", showModalLoadingSignUpCustomSite)
+            $("#signup-custom-site").on("submit", showModalLoadingSignUpCustomSite)
         });
         function showModalLoadingSignUpCustomSite() {
             var $form = $("#signup-custom-site");
