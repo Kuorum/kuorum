@@ -475,7 +475,7 @@ class AdminController {
     }
 
     def saveUserRights(){
-        updateDomainUserRights()
+        updateDomainUserRights(true)
         redirect mapping: 'dashboard'
     }
 
