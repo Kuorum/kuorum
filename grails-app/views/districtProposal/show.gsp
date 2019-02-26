@@ -5,7 +5,7 @@
     <meta name="layout" content="columnCLayout">
     <g:set var="schemaData" value="${[schema:'http://schema.org/Article', name:districtProposal.title]}" scope="request"/>
     <g:render template="/campaigns/showModules/campaignMetaTags" model="[campaign: districtProposal, titleMessageCode:titleMessageCode]"/>
-    <r:require modules="districtProposal"/>
+    <r:require modules="districtProposal, forms"/>
 </head>
 
 <content tag="mainContent">

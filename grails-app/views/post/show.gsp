@@ -5,7 +5,7 @@
     <meta name="layout" content="columnCLayout">
     <g:set var="schemaData" value="${[schema:'http://schema.org/Article', name:post.title]}" scope="request"/>
     <g:render template="/post/postMetaTags" model="[post: post, titleMessageCode:titleMessageCode]"/>
-    <r:require modules="post, event"/>
+    <r:require modules="post, event,forms"/>
 
 </head>
 

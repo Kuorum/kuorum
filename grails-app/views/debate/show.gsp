@@ -6,7 +6,7 @@
     <g:set var="schemaData" value="${[schema:'http://schema.org/Article', name:debate.title]}" scope="request"/>
     <meta name="layout" content="columnCLayout">
     <g:render template="/debate/debateMetaTags" model="[debate: debate, titleMessageCode:titleMessageCode]"/>
-    <r:require modules="debate"/>
+    <r:require modules="debate, forms"/>
 </head>
 
 <content tag="mainContent">

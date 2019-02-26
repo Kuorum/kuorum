@@ -5,7 +5,7 @@
     <meta name="layout" content="columnCLayout">
     <g:set var="schemaData" value="${[schema:'http://schema.org/Article', name:petition.title]}" scope="request"/>
     <g:render template="/campaigns/showModules/campaignMetaTags" model="[campaign: petition, titleMessageCode:titleMessageCode]"/>
-    <r:require modules="petition"/>
+    <r:require modules="petition,forms"/>
 
 </head>
 
