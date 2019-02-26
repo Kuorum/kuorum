@@ -58,6 +58,15 @@
                           title:g.message(code:'landingServices.howItWorks.participatoryBudget.title'),
                           text:g.message(code:'landingServices.howItWorks.participatoryBudget.text')
                   ]"/>
+        <g:render template="/landing/servicesModules/serviceActiveCampaign"
+                  model="[
+                          landingVisibleRoles:landingVisibleRoles,
+                          role:org.kuorum.rest.model.kuorumUser.UserRoleRSDTO.ROLE_CAMPAIGN_NEWSLETTER,
+                          icon:'fa-envelope',
+                          searchMapping:'#',
+                          title:g.message(code:'landingServices.howItWorks.newsletters.title'),
+                          text:g.message(code:'landingServices.howItWorks.newsletters.text')
+                  ]"/>
 
     </ul>
 </div>
