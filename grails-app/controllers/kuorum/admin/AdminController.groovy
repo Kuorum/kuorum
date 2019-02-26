@@ -174,7 +174,7 @@ class AdminController {
     }
 
 
-    private boolean updateDomainUserRights(){
+    private boolean updateDomainUserRights(Boolean initLandingVisibleRoles = false){
         DomainRSDTO domainRSDTO = domainService.getConfig(CustomDomainResolver.domain)
         domainRSDTO.globalAuthorities.get(UserRoleRSDTO.ROLE_USER)
         Map<UserRoleRSDTO, List<UserRoleRSDTO>> domainGlobalAuthorities = userRoles.keySet().collectEntries{[it, []]}
@@ -192,6 +192,10 @@ class AdminController {
         }
         DomainRDTO domainRDTO = getPopulatedDomainRDTO()
         domainRDTO.globalAuthorities = domainGlobalAuthorities
+        if (initLandingVisibleRoles ){
+            // Setting as empty the api will execute the default logic
+            domainRDTO.landingVisibleRoles = []
+        }
         domainService.updateConfig(domainRDTO)
         /* Reauthenticating the user reloads the new roles on his session */
         springSecurityService.reauthenticate springSecurityService.getCurrentUser().email
