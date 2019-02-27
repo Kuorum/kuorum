@@ -25,20 +25,20 @@
         <g:render template="/landing/servicesModules/serviceActiveCampaign"
                   model="[
                           landingVisibleRoles:landingVisibleRoles,
-                          role:org.kuorum.rest.model.kuorumUser.UserRoleRSDTO.ROLE_CAMPAIGN_EVENT,
-                          icon:'fa-calendar-check',
-                          searchMapping:'searcherSearchEVENT',
-                          title:g.message(code:'landingServices.howItWorks.events.title'),
-                          text:g.message(code:'landingServices.howItWorks.events.text')
-                  ]"/>
-        <g:render template="/landing/servicesModules/serviceActiveCampaign"
-                  model="[
-                          landingVisibleRoles:landingVisibleRoles,
                           role:org.kuorum.rest.model.kuorumUser.UserRoleRSDTO.ROLE_CAMPAIGN_SURVEY,
                           icon:'fa-chart-bar',
                           searchMapping:'searcherSearchSURVEY',
                           title:g.message(code:'landingServices.howItWorks.surveys.title'),
                           text:g.message(code:'landingServices.howItWorks.surveys.text')
+                  ]"/>
+        <g:render template="/landing/servicesModules/serviceActiveCampaign"
+                  model="[
+                          landingVisibleRoles:landingVisibleRoles,
+                          role:org.kuorum.rest.model.kuorumUser.UserRoleRSDTO.ROLE_CAMPAIGN_EVENT,
+                          icon:'fa-calendar-check',
+                          searchMapping:'searcherSearchEVENT',
+                          title:g.message(code:'landingServices.howItWorks.events.title'),
+                          text:g.message(code:'landingServices.howItWorks.events.text')
                   ]"/>
         <g:render template="/landing/servicesModules/serviceActiveCampaign"
                   model="[
