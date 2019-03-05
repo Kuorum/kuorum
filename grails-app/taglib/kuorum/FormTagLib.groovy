@@ -603,7 +603,7 @@ class FormTagLib {
             <select name="${prefixFieldName}${field}" class="form-control input-lg ${error}" id="${id}">
             """
         if (!isRequired || defaultEmpty){
-            out << "<option value=''> ${message(code:"${clazz.name}.empty")}</option>"
+            out << "<option value=''> ${message(code:"${clazz.name}.empty", default: '')}</option>"
         }
         def values = attrs.values?:clazz.values()
         values.each{
