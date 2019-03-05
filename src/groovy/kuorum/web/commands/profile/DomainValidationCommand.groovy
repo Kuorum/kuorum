@@ -8,6 +8,8 @@ import grails.validation.Validateable
 @Validateable
 class DomainValidationCommand {
 
+    final Date OLDER_THAN_YEAR_16 = Calendar.instance.with { add( YEAR, -16 ) ; it }.time
+
     String ndi
     String postalCode
     Date birthDate
@@ -15,6 +17,6 @@ class DomainValidationCommand {
     static constraints = {
         ndi nullable:false
         postalCode nullable:false
-        birthDate nullable:false
+        birthDate nullable:false, max: OLDER_THAN_YEAR_16
     }
 }
