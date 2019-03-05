@@ -66,6 +66,7 @@ class CustomRegisterController {
     def stepDomainValidationSave(DomainValidationCommand command){
         if (command.hasErrors()){
             render view: "stepDomainValidation", model:[command:command]
+            return
         }
         KuorumUserSession user =  springSecurityService.principal
         Boolean isValid = kuorumUserService.userDomainValidation(user, command.ndi, command.postalCode, command.birthDate)
