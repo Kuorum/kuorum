@@ -5585,7 +5585,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 
 /* Medium devices (desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
-    ul.search-list > li.search-article .box-ppal .card-footer {height: 36px;}
     .dashboard, .box-ppal.dashboard {margin-top: 20px;}
 
     .fade-carousel .content { width: 90%;}
