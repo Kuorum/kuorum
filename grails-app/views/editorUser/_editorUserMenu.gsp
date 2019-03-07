@@ -10,9 +10,9 @@
 
 <ul>
     <sec:ifAnyGranted roles="ROLE_SUPER_ADMIN">
-        <g:if test="${user.active}">
+        %{--<g:if test="${user.active}">--}%
             <li><g:render template="/editorUser/switchUser" model="[user:user]"/></li>
-        </g:if>
+        %{--</g:if>--}%
         <li class="${nav.activeMenuCss(mappingName: 'editorKuorumAccountEdit', urlParams:user.encodeAsLinkProperties())}"><g:link mapping="editorKuorumAccountEdit" params="${user.encodeAsLinkProperties()}"><g:message code="admin.menu.user.editAccount" args="[user.name]"/></g:link></li>
         <li class="${nav.activeMenuCss(mappingName: 'editorAdminUserRights', urlParams:user.encodeAsLinkProperties())}"><g:link mapping="editorAdminUserRights" params="${user.encodeAsLinkProperties()}"><g:message code="admin.menu.user.editRights" args="[user.name]"/></g:link></li>
     </sec:ifAnyGranted>
