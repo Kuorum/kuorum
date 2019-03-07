@@ -497,7 +497,7 @@ header.landing .nav > li > .navbar-link.active.btn-transparent{background-color:
 header.transp .nav > li > .navbar-link:hover,
 header.transp .nav > li > .navbar-link:focus {color: #fff;}
 
-header + .row.main.landing {margin-top: -55px;}
+/*header + .row.main.landing {margin-top: -55px;}*/
 header.transp + .row.main.landing {margin-top:0}
 header .navbar-form {margin: 3px 0 4px; width: 100%;}
 header .form-control,
@@ -5054,13 +5054,19 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 .fade-carousel .content form .form-group.conditions a {color: #ffffff;}
 
 
+#starredCampaign-section {margin-top:5px; /*Saves a wired behaviour of the */}
+#starredCampaign{position: relative; z-index: 5;}
+#starredCampaign .starredCampaign-title{padding: 10px 0; color:#545454; font-size: 20px;font-weight: bold;}
+#starredCampaign .starredCampaign-title .fal{color:#ee7612; font-size: 40px; position:absolute;}
+#starredCampaign .starredCampaign-title .starredCampaing-title-text{ margin-left: 61px;margin-top: 10px;display: block; white-space: nowrap; overflow: hidden;text-overflow: ellipsis;}
+#starredCampaign .starredCampaign-btn{padding: 10px 0 5px; text-align: right;}
+
 /* MQ - media queries =========== */
 /* ====================================================== */
 
 
 /* Super small devices (mobile, 480px and down) */
 @media only screen and (max-width: 480px) {
-
     #cases-study-body .section-body h1 {
         font-size: 28px;
         text-align: left;
@@ -5204,6 +5210,13 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 
 /* Small devices (tablets, 768px and down) */
 @media only screen and (max-width: 767px) {
+
+    #starredCampaign .starredCampaign-title{padding: 5px 0}
+    #starredCampaign .starredCampaign-title .fal {display: none;}
+    #starredCampaign .starredCampaign-title .starredCampaing-title-text{margin-left:0px; margin-top:5px;}
+    #starredCampaign .starredCampaign-btn {padding:5px 0;}
+
+
     #footer-section{
         padding-bottom: 0;
     }
@@ -7573,18 +7586,6 @@ That's why the with is 100% and max-with is for high resolutions.
     max-width: 1170px;
 }
 
-    /** fade-carousel **/
-
-.carousel.slide.fade-carousel {
-    position: relative;
-    margin-top: 100px;
-}
-
-#starredCampaign{position: relative;margin-top: 110px; z-index: 1;}
-#starredCampaign .starredCampaign-title{padding: 10px 50px; color:#545454; font-size: 20px;font-weight: bold;}
-#starredCampaign .starredCampaign-title .fal{color:#ee7612; font-size: 40px; position:absolute;}
-#starredCampaign .starredCampaign-title .starredCampaing-title-text{ margin-left: 61px;margin-top: 10px;display: block; white-space: nowrap; overflow: hidden;text-overflow: ellipsis;}
-#starredCampaign .starredCampaign-btn{padding: 10px 20px 10px 0;}
 /********************************/
 /*       Slides backgrounds     */
 /********************************/
