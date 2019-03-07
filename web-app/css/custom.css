@@ -7579,6 +7579,20 @@ That's why the with is 100% and max-with is for high resolutions.
     position: relative;
     margin-top: 100px;
 }
+
+#starredCampaign{
+    position: relative;
+    margin-top: 110px;
+    vertical-align: center;
+}
+#starredCampaign + .carousel.slide.fade-carousel {
+    margin-top: 0px;
+}
+
+#starredCampaign .starredCampaign-title{padding: 10px 50px; color:#545454; font-size: 20px;font-weight: bold;}
+#starredCampaign .starredCampaign-title .fa{color:#ee7612; font-size: 40px; position:absolute;}
+#starredCampaign .starredCampaign-title .starredCampaing-title-text{ margin-left: 61px;margin-top: 10px;display: block; white-space: nowrap; overflow: hidden;text-overflow: ellipsis;}
+#starredCampaign .starredCampaign-btn{padding: 10px 20px 10px 0;}
 /********************************/
 /*       Slides backgrounds     */
 /********************************/

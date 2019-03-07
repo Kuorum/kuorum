@@ -25,6 +25,7 @@ class LandingController {
             return
         }
         List<CampaignRSDTO> campaigns = campaignService.findRelevantDomainCampaigns()
+        CampaignRSDTO starredCampaign = campaigns?.first()
         if (!campaigns) {
             log.error("User ${WebConstants.FAKE_LANDING_ALIAS_USER} not exists :: Showing landing page without campaings")
             campaigns = []
@@ -32,6 +33,7 @@ class LandingController {
         DomainRSDTO domainRSDTO = domainService.getConfig(CustomDomainResolver.domain)
         [
                 campaigns:campaigns,
+                starredCampaign:starredCampaign,
                 slogan:domainRSDTO.slogan,
                 subtitle:domainRSDTO.subtitle,
                 domainDescription:domainRSDTO.domainDescription,
