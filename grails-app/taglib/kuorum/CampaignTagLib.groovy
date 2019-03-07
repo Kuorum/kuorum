@@ -43,6 +43,6 @@ class CampaignTagLib {
     def showIcon  = {attrs ->
         CampaignRSDTO campaign = attrs.campaign
         SolrType solrType = SolrType.getByCampaign(campaign)
-        out << "<span class='fa ${solrType.getFaIcon()}'></span>"
+        out << "<span class='fal ${solrType.getFaIcon()}'></span>"
     }
 }
