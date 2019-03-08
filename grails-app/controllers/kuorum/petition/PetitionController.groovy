@@ -8,8 +8,11 @@ import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.commands.payment.CampaignSettingsCommand
 import kuorum.web.commands.payment.petition.SignPetitionCommand
 import org.kuorum.rest.model.communication.petition.PetitionRSDTO
+import org.kuorum.rest.model.kuorumUser.BasicUserPageRSDTO
 
 class PetitionController extends CampaignController{
+
+    grails.gsp.PageRenderer groovyPageRenderer
 
     @Secured(['ROLE_CAMPAIGN_PETITION'])
     def create() {
@@ -83,7 +86,9 @@ class PetitionController extends CampaignController{
         }
         KuorumUserSession currentUser= springSecurityService.principal
         PetitionRSDTO petitionRSDTO= petitionService.signPetition(command.campaignId, currentUser, command.sign, command.petitionUserId)
-        render petitionRSDTO as JSON
+        BasicUserPageRSDTO signs = petitionService.listSigns(petitionRSDTO.id, 0, 20)
+        def signsHtml = groovyPageRenderer.render(template: '/petition/showModules/signedUsersContent', model: [petition: petitionRSDTO, signs: signs.getData()])
+        render ([signsHtml:signsHtml, petition: petitionRSDTO] as JSON)
     }
 
 //    def getPetitionSigns(){

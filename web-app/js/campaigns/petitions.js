@@ -37,9 +37,9 @@ var petitionFunctions = {
         var params = {
             callback: callback,
             $button : $button
-        }
+        };
         var loggedUser = $button.attr('data-loggedUser');
-        var executableFunction = new userValidatedByDomain.ExcutableFunctionCallback(petitionFunctions.__executableAsyncPetitionSign, params)
+        var executableFunction = new userValidatedByDomain.ExcutableFunctionCallback(petitionFunctions.__executableAsyncPetitionSign, params);
         var validationActive = $button.attr('data-campaignValidationActive');
         if (validationActive=="true"){
             userValidatedByDomain.checkUserValid(loggedUser, executableFunction)
@@ -63,16 +63,15 @@ var petitionFunctions = {
             type: 'POST',
             url: url,
             data: data,
-            success: function(petitionRSDTO){
-                var $buttons = $(".petition-sign-"+petitionRSDTO.id)
+            success: function(petitionSign){
+                var petitionRSDTO = petitionSign.petition;
+                var $buttons = $(".petition-sign-"+petitionRSDTO.id);
                 $buttons.toggleClass('active');
                 $buttons.toggleClass('on');
                 $buttons.find('.fa-microphone').toggleClass("fas fal");
-                console.log(petitionRSDTO.signs)
-                console.log($buttons)
-                console.log($buttons.find('.number'))
                 $buttons.find('.number').text(petitionRSDTO.signs);
-                $button.blur()
+                $button.blur();
+                $("#module-petition-user-signs").html(petitionSign.signsHtml);
                 if (callback != undefined){
                     callback();
                 }
@@ -85,4 +84,4 @@ var petitionFunctions = {
             }
         });
     }
-}
+};

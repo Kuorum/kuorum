@@ -308,7 +308,8 @@ $(document).ready(function() {
     /*******************************************/
     /******* USER RATES ************************/
     /*******************************************/
-    loadAjaxUserRatings();
+    // loadAjaxUserRatings();
+
 
     $("body").on("click", ".user-rating-form fieldset.rating input", function (e) {
         var $form = $(this).closest("form");
@@ -461,23 +462,6 @@ var display = {
         $("div.row.main").animate({ marginTop: '0px'}, 500);
     }
 };
-
-
-function loadAjaxUserRatings(){
-
-    $(".popover-user .load-rating").each(function(loadDiv) {
-        var $container = $(this);
-        var userRateLink = $container.attr("data-rating-link");
-        $.ajax({
-            url: userRateLink,
-            method:'GET'
-        }).success(function (data) {
-            // Update rating
-            $container.html(data);
-            $container.removeClass("load-rating")
-        })
-    });
-}
 
 function relaodAllDynamicDivs(){
     if ($(".reload").length){

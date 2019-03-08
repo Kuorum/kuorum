@@ -48,7 +48,8 @@ function preparePopover(){
             //En el mousenter sacamos el popover
             .on("mouseenter",function(e){
                 if ($(this).siblings(".in").length ==0){
-                    $(this).popover('show')
+                    $(this).popover('show');
+                    loadAjaxUserRatings($($(this).siblings(".popover")[0]).find(".load-rating"))
                 }
             })
             //En el click ejecutamos el link normal. El framework the popover lo está bloqueando
@@ -809,4 +810,18 @@ function removeDiacritics (str) {
         str = str.replace(defaultDiacriticsRemovalMap[i].letters, defaultDiacriticsRemovalMap[i].base);
     }
     return str;
+}
+
+
+function loadAjaxUserRatings($container){
+    var userRateLink = $container.attr("data-rating-link");
+    console.log($container);
+    $.ajax({
+        url: userRateLink,
+        method:'GET'
+    }).success(function (data) {
+        // Update rating
+        $container.html(data);
+        $container.removeClass("load-rating")
+    });
 }
