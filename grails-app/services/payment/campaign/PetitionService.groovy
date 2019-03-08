@@ -10,6 +10,7 @@ import org.kuorum.rest.model.communication.petition.PagePetitionRSDTO
 import org.kuorum.rest.model.communication.petition.PetitionRDTO
 import org.kuorum.rest.model.communication.petition.PetitionRSDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
+import org.kuorum.rest.model.kuorumUser.BasicUserPageRSDTO
 
 @Transactional
 class PetitionService implements CampaignCreatorService<PetitionRSDTO, PetitionRDTO>{
@@ -128,6 +129,18 @@ class PetitionService implements CampaignCreatorService<PetitionRSDTO, PetitionR
         petitionSaved
     }
 
+    BasicUserPageRSDTO listSigns (Long petitionId, Integer page, Integer size){
+        Map<String, String> params = [petitionId: petitionId.toString()]
+        Map<String, String> query = [page: page.toString(), size:size.toString()]
+        def response = restKuorumApiService.get(
+                RestKuorumApiService.ApiMethod.ACCOUNT_PETITION_SIGN,
+                params,
+                query,
+                new TypeReference<BasicUserPageRSDTO>(){}
+        )
+        return response.data
+    }
+
     PetitionRSDTO signPetition (Long petitionId, KuorumUserSession currentUser, Boolean sign, String petitionUserId){
         Map<String, String> params = [userId: petitionUserId, petitionId: petitionId.toString()]
         Map<String, String> query = [viewerUid: currentUser.id.toString()]
@@ -173,7 +186,10 @@ class PetitionService implements CampaignCreatorService<PetitionRSDTO, PetitionR
 
     @Override
     def buildView(PetitionRSDTO campaignRSDTO, BasicDataKuorumUserRSDTO campaignOwner, String viewerUid, def params) {
-        def model = [petition: campaignRSDTO, petitionUser: campaignOwner]
+        Integer page = params.page?Integer.parseInt(params.page):0
+        Integer size = params.size?Integer.parseInt(params.size):20
+        BasicUserPageRSDTO signs = listSigns(campaignRSDTO.id, page, size)
+        def model = [petition: campaignRSDTO, petitionUser: campaignOwner, signs: signs.data]
         [view: "/petition/show", model:model]
     }
 }

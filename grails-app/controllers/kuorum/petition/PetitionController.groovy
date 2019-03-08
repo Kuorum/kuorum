@@ -85,4 +85,12 @@ class PetitionController extends CampaignController{
         PetitionRSDTO petitionRSDTO= petitionService.signPetition(command.campaignId, currentUser, command.sign, command.petitionUserId)
         render petitionRSDTO as JSON
     }
+
+//    def getPetitionSigns(){
+//        Long campaignId = Long.parseLong(params.campaignId)
+//        Integer page = params.page?Integer.parseInt(params.page):0;
+//        Integer size = params.size?Integer.parseInt(params.size):10;
+//        BasicUserPageRSDTO signs = petitionService.listSigns(campaignId, page, size)
+//        render
+//    }
 }
