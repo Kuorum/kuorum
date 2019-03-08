@@ -5217,7 +5217,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 
     #starredCampaign .starredCampaign-title{padding: 10px 0}
     #starredCampaign .starredCampaign-title .fal {display: none;}
-    #starredCampaign .starredCampaign-title .starredCampaing-title-text{margin-left:0px; margin-top:5px;}
+    #starredCampaign .starredCampaign-title .starredCampaing-title-text{margin-left:0px; margin-top:5px; font-size: 14px;}
     #starredCampaign .starredCampaign-btn {padding:10px 0;}
 
 
