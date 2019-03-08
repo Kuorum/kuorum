@@ -3,6 +3,7 @@
     <head>
         <title> ${kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.name} | <g:layoutTitle/></title>
         <g:layoutHead/>
+        <parameter name="bodyCss" value="landing"/>
     </head>
 
     <body>

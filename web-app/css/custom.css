@@ -21,6 +21,10 @@ body {
     transition: all .15s ease-in-out;
 }
 
+/*TODO: Unificar CSS : Fuentes, tamanios letra, etc. */
+body.landing > div > div {
+    font-family:"Helvetica Neue", Helvetica,Arial,sans-serif;
+}
 #facebook-jssdk-iframe{display: none;}
 
 h4{
@@ -5054,12 +5058,12 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 .fade-carousel .content form .form-group.conditions a {color: #ffffff;}
 
 
-#starredCampaign-section {margin-top:5px; /*Saves a wired behaviour of the */}
+#starredCampaign-section {margin-top:5px; /*Saves a wired behaviour of the header*/}
 #starredCampaign{position: relative; z-index: 5;}
-#starredCampaign .starredCampaign-title{padding: 10px 0; color:#545454; font-size: 20px;font-weight: bold;}
+#starredCampaign .starredCampaign-title{padding: 23px 0; color:#545454; font-size: 20px;font-weight: bold;}
 #starredCampaign .starredCampaign-title .fal{color:#ee7612; font-size: 40px; position:absolute;}
-#starredCampaign .starredCampaign-title .starredCampaing-title-text{ margin-left: 61px;margin-top: 10px;display: block; white-space: nowrap; overflow: hidden;text-overflow: ellipsis;}
-#starredCampaign .starredCampaign-btn{padding: 10px 0 5px; text-align: right;}
+#starredCampaign .starredCampaign-title .starredCampaing-title-text{ margin-left: 61px;margin-top: 10px;display: block; white-space: nowrap; overflow: hidden;text-overflow: ellipsis; font-family:"Helvetica Neue", Helvetica,Arial,sans-serif;}
+#starredCampaign .starredCampaign-btn{padding: 20px 0 15px; text-align: right;}
 
 /* MQ - media queries =========== */
 /* ====================================================== */
@@ -5211,10 +5215,10 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 /* Small devices (tablets, 768px and down) */
 @media only screen and (max-width: 767px) {
 
-    #starredCampaign .starredCampaign-title{padding: 5px 0}
+    #starredCampaign .starredCampaign-title{padding: 10px 0}
     #starredCampaign .starredCampaign-title .fal {display: none;}
     #starredCampaign .starredCampaign-title .starredCampaing-title-text{margin-left:0px; margin-top:5px;}
-    #starredCampaign .starredCampaign-btn {padding:5px 0;}
+    #starredCampaign .starredCampaign-btn {padding:10px 0;}
 
 
     #footer-section{
@@ -7556,34 +7560,6 @@ ul.proposal-list .comment-box > .comment-proposal > .user-box{margin-bottom: 10p
     content: '\f106';
     margin-left: 10px;
     font-family: 'Font Awesome 5 Pro';
-}
-
-/** new-landing **/
-.landing-2 {
-    padding: 0;
-    -webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-}
-
-.landing-2 h1 {
-    font-size: 32px;
-    line-height: 40px;
-}
-
-.landing-2 > div > div {
-    font-family:"Helvetica Neue", Helvetica,Arial,sans-serif;
-}
-.landing-2 > div.container-fluid > div {
-    overflow: hidden;
-}
-
-/**
-This with is only for multidomain landing because in "last activity" section, the last campaigns in some resolutions was so thin.
-That's why the with is 100% and max-with is for high resolutions.
-*/
-.landing-2 > div.container-fluid > div.row > div.container {
-    width:100%;
-    max-width: 1170px;
 }
 
 /********************************/

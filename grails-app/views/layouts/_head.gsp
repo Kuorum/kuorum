@@ -2,7 +2,7 @@
 <header id="header" class="row ${extraHeadCss}" role="banner">
     <nav class="navbar navbar-fixed-top" role="navigation">
         <div class="container-fluid">
-            <g:render template="/layouts/brandAndLogo" model="[whiteLogo:extraHeadCss?.contains('transp')]"/>
+            <g:render template="/layouts/brandAndLogo" />
             <div class="collapse navbar-collapse" id="navbar-collapse">
                 <g:render template="/layouts/searchHeadForm"/>
                 <nav:ifPageProperty pageProperty="showNavBar">

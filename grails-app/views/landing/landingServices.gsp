@@ -13,11 +13,11 @@
               ]"/>
 </head>
 
-%{--<g:if test="${starredCampaign}">--}%
+<g:if test="${starredCampaign}">
     <content tag="starredCampaign-section">
         <g:render template="/landing/commonModules/starredCampaign" model="[starredCampaign:starredCampaign]"/>
     </content>
-%{--</g:if>--}%
+</g:if>
 
 <content tag="main">
     <g:render template="/landing/servicesModules/leadersCarousel" model="[msgPrefix:'landingServices', slogan:slogan, subtitle:subtitle, command: command]"/>
