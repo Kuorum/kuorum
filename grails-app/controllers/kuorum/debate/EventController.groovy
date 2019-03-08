@@ -132,7 +132,7 @@ class EventController extends CampaignController{
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def bookTicket(Long campaignId){
-        KuorumUserSession assistant = springSecurityService.pricipal
+        KuorumUserSession assistant = springSecurityService.principal
         EventRegistrationRSDTO eventRegistration = eventService.addAssistant(params.eventUserId, campaignId, assistant)
         if (eventRegistration){
             render ([success:true, error:"", eventRegistration:eventRegistration]) as JSON
