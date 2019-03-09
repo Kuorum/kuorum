@@ -57,7 +57,7 @@ class NewsletterController {
 
         KuorumUserSession user = springSecurityService.principal
         List<NewsletterRSDTO> newsletters = newsletterService.findCampaigns(user)
-        List<CampaignRSDTO> campaigns = campaignService.findAllCampaigns(user)
+        List<CampaignRSDTO> campaigns = campaignService.findAllCampaigns(user, true)
 
         [newsletters: newsletters, campaigns: campaigns, user:user]
     }

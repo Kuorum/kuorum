@@ -57,15 +57,17 @@ class CampaignService {
         debatesFound
     }
 
-    List<CampaignRSDTO> findAllCampaigns(KuorumUserSession user) {
-        findAllCampaigns(user.id.toString(), user.id.toString())
+    List<CampaignRSDTO> findAllCampaigns(KuorumUserSession user, Boolean attachDrafts = false) {
+        findAllCampaigns(user.id.toString(), user.id.toString(), attachDrafts)
     }
-    List<CampaignRSDTO> findAllCampaigns(String userId, String viewerUid = null) {
+
+    List<CampaignRSDTO> findAllCampaigns(String userId, String viewerUid = null, Boolean attachDrafts = false) {
         Map<String, String> params = [userId: userId]
         Map<String, String> query = [:]
         if (viewerUid){
             query.put("viewerUid",viewerUid)
         }
+        query.put("attachDrafts",attachDrafts)
         def response = restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.ACCOUNT_CAMPAIGNS,
                 params,
