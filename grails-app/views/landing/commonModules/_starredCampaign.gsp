@@ -3,8 +3,8 @@
         <div class="starredCampaign-title col-md-10 col-xs-8">
             <campaignUtil:showIcon campaign="${starredCampaign}"/>
             <span class="starredCampaing-title-text">
-                <g:message code="landingPage.starredCampaign.whatsGoingOn"/>
-                <span class="hidden-xs">: ${starredCampaign.title}</span>
+                <span class="hidden-xs"><g:message code="landingPage.starredCampaign.whatsGoingOn"/>:</span>
+                ${starredCampaign.title}
             </span>
         </div>
         <div class="starredCampaign-btn col-md-2 col-xs-4">
