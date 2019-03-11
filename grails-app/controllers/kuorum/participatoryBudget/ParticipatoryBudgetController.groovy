@@ -155,7 +155,7 @@ class ParticipatoryBudgetController extends CampaignController{
             districts = [new DistrictCommand()]
         }
 
-        new DistrictsCommand(districts: districts)
+        new DistrictsCommand(districts: districts, maxDistrictProposalsPerUser: participatoryBudgetRSDTO.maxDistrictProposalsPerUser)
     }
 
     @Secured(['ROLE_CAMPAIGN_PARTICIPATORY_BUDGET'])
@@ -172,6 +172,7 @@ class ParticipatoryBudgetController extends CampaignController{
         }
         ParticipatoryBudgetRDTO rdto = participatoryBudgetService.map(participatoryBudgetRSDTO)
         rdto.districts = command.districts?.findAll{it && it.name && it.budget}.collect {mapDistrict(it)}?:[]
+        rdto.maxDistrictProposalsPerUser = command.maxDistrictProposalsPerUser
         def result = saveAndSendCampaign(campaignUser, rdto, participatoryBudgetRSDTO.getId(), command.publishOn,command.sendType, participatoryBudgetService)
         redirect mapping: result.nextStep.mapping, params: result.nextStep.params
     }

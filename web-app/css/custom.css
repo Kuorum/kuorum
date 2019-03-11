@@ -74,6 +74,8 @@ select {padding: 6px 6px 6px 8px !important;}*/
 .input-group-addon {border: 1px solid #efefef; background-color: #fbfbfb; outline: 0;}
 .input-group-addon a, .input-group-addon a:hover{color: #c3c3c3; }
 
+.input-lg-suffix {margin-top:10px;}
+
 /* different colour text */
 .text-brand-dark{
     color: #e3891e
@@ -1316,7 +1318,6 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 #advanced-features-section {margin-bottom:0;}
 #advanced-features-section a{color:#545454;}
 #advanced-features{display:none;}
-.form-group label .fa-info-circle{position: absolute;right: 0;top: 13px;}
 
 .tags-campaign .bootstrap-tagsinput {width: 100%;border:1px solid #DDDDDD; box-shadow: none;}
 .tags-campaign .bootstrap-tagsinput.focus {border:1px solid #20a2ea;}
@@ -5098,6 +5099,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 
 /* Very small devices (mobile, 480px and up) */
 @media only screen and (min-width: 480px) {
+
     .multiple-range-selector + .multiple-range-selector .slider.slider-horizontal .slider-tick-label-container{display:none}
     .multiple-range-selector label {width: 22%; text-align: right; margin:0; vertical-align: middle;    }
     .multiple-range-selector .input-range-selector {margin-left: 20px; width: 50%;}
@@ -5199,6 +5201,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 }
 
 @media only screen and (min-width: 640px) {
+
     #contactsList > li {padding: 10px 0 0 0px; min-height: 175px;}
 
     .box-steps > ul.actionIcons {margin:0 auto; padding:0;}
@@ -5245,6 +5248,8 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 
 /* Small devices (tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
+    .form-group label .fa-info-circle{position: absolute;right: 0;top: 13px;}
+
     ul.search-list.latestActivities .search-article {padding:0 6px 20px 6px;}
     .fade-carousel .content { width: 95%}
     #questionsSurveyForm div.question-type{padding:inherit;margin-top:0px}

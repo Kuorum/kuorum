@@ -8,6 +8,8 @@ import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.commands.payment.CampaignSettingsCommand
 import kuorum.web.commands.payment.participatoryBudget.DistrictProposalChooseDistrictCommand
 import org.kuorum.rest.model.communication.CampaignRDTO
+import org.kuorum.rest.model.communication.CampaignRSDTO
+import org.kuorum.rest.model.communication.CampaignTypeRSDTO
 import org.kuorum.rest.model.communication.participatoryBudget.DistrictProposalRDTO
 import org.kuorum.rest.model.communication.participatoryBudget.DistrictProposalRSDTO
 import org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetRSDTO
@@ -29,9 +31,30 @@ class DistrictProposalController extends CampaignController{
         Long participatoryBudgetId = params.campaignId?Long.parseLong(params.campaignId):null
         BasicDataKuorumUserRSDTO user = kuorumUserService.findBasicUserRSDTO(params.userAlias)
         ParticipatoryBudgetRSDTO participatoryBudgetRSDTO = participatoryBudgetService.find(user.id.toString(), participatoryBudgetId)
-        return districtProposalModelEditDistrict(new DistrictProposalChooseDistrictCommand(), null,participatoryBudgetRSDTO)
+        def districtProposalsCounters = countNumDistrictProposalsPerBudget(participatoryBudgetRSDTO)
+        if (districtProposalsCounters.numProposals >=participatoryBudgetRSDTO.maxDistrictProposalsPerUser){
+            render (view: 'maxDistrictProposalsPerUserAndBudget', model:[participatoryBudgetRSDTO:participatoryBudgetRSDTO, districtProposalsCounters:districtProposalsCounters])
+        }else{
+            return districtProposalModelEditDistrict(new DistrictProposalChooseDistrictCommand(), null,participatoryBudgetRSDTO)
+        }
     }
 
+
+    private def countNumDistrictProposalsPerBudget(ParticipatoryBudgetRSDTO participatoryBudgetRSDTO){
+        KuorumUserSession user = springSecurityService.principal
+        List<CampaignRSDTO> campaigns = campaignService.findAllCampaigns(user, true)
+        List<DistrictProposalRSDTO> districtProposals = campaigns
+                .findAll({it.campaignType == CampaignTypeRSDTO.DISTRICT_PROPOSAL})
+                .collect ({(DistrictProposalRSDTO) it})
+                .findAll({((DistrictProposalRSDTO)it).participatoryBudget.id == participatoryBudgetRSDTO.id})
+        return [
+                numProposals : districtProposals.size(),
+                numProposalsDraft : districtProposals.count({it.campaignStatusRSDTO != CampaignStatusRSDTO.SENT})
+        ]
+
+
+
+    }
 
     @Secured(['ROLE_CAMPAIGN_DISTRICT_PROPOSAL'])
     def saveNewProposal(DistrictProposalChooseDistrictCommand command){

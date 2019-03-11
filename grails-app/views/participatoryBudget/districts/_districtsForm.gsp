@@ -6,6 +6,20 @@
     <input type="hidden" name="campaignId" value="${command.campaignId}"/>
 
 
+    <fieldset class="form-group">
+        <label for="maxDistrictProposalsPerUser" class="col-xs-12 col-sm-2 col-md-1 control-label">
+            <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="${g.message(code:'kuorum.web.commands.payment.participatoryBudget.DistrictsCommand.maxDistrictProposalsPerUser.label.info')}"></span>
+            <g:message code="kuorum.web.commands.payment.participatoryBudget.DistrictsCommand.maxDistrictProposalsPerUser.label"/>:
+        </label>
+        <div class="col-xs-6 col-sm-6 col-md-5">
+            <formUtil:input command="${command}" field="maxDistrictProposalsPerUser" type="number"/>
+        </div>
+        <div class="col-xs-6 col-sm-4 input-lg-suffix">
+            <g:message code="kuorum.web.commands.payment.participatoryBudget.DistrictsCommand.maxDistrictProposalsPerUser.label.suffix"/>
+        </div>
+    </fieldset>
+    <hr/>
+
     <div class="form-group hidden-xs">
         <div class="col-sm-offset-2 col-sm-8 col-md-offset-1 col-md-7">
             <div class="col-sm-offset-5 col-sm-5">

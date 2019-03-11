@@ -11,6 +11,8 @@ class DistrictsCommand {
 
     List<DistrictCommand> districts = []
 
+    Integer maxDistrictProposalsPerUser
+
 
     @BindingFormat(WebConstants.WEB_FORMAT_DATE)
     Date publishOn
@@ -19,6 +21,7 @@ class DistrictsCommand {
     static constraints = {
         importFrom CampaignContentCommand, include: ["publishOn", "sendType"]
         districts minSize: 1, maxSize: 100
+        maxDistrictProposalsPerUser min: 1
     }
 
 }
