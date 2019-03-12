@@ -121,6 +121,7 @@ class RegisterService {
         Locale locale = LocaleContextHolder.getLocale()
         AvailableLanguage availableLanguage = AvailableLanguage.fromLocaleParam(locale.getLanguage())
         if (!availableLanguage ){
+            log.info("Using ENGLISH because the locale was not detected")
             availableLanguage = AvailableLanguage.en_EN
         }
         String alias = kuorumUserService.generateValidAlias(command.name)
