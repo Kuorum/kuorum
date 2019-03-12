@@ -207,7 +207,7 @@ class DomainService {
         Map<String, String> query = [domainName:domain]
 
         try{
-            def apiResponse= restKuorumApiService.delete(
+            def apiResponse= restKuorumApiService.deleteWithKey(
                     RestKuorumApiService.ApiMethod.DOMAIN,
                     params,
                     query,

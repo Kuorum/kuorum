@@ -87,7 +87,8 @@ class CampaignController {
 
     def findLiUserCampaigns(String userId){
 //        KuorumUser user = KuorumUser.get(new ObjectId(userId))
-        List<CampaignRSDTO> campaigns = campaignService.findAllCampaigns(userId).findAll{it.newsletter.status==CampaignStatusRSDTO.SENT}
+        String viwerUid = cookieUUIDService.buildUserUUID()
+        List<CampaignRSDTO> campaigns = campaignService.findAllCampaigns(userId,viwerUid).findAll{it.newsletter.status==CampaignStatusRSDTO.SENT}
         render template: '/campaigns/cards/campaignsList', model: [campaigns:campaigns, showAuthor:true]
 
     }
