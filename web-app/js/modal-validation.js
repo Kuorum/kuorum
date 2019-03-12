@@ -5,9 +5,9 @@ var userValidatedByDomain={
     executable : undefined,
     binded:false,
     checkUserValid:function(userId, executableFunctionCallback){
-        var url = kuorumUrls.profileValidByDomainChecker
+        var url = kuorumUrls.profileValidByDomainChecker;
         var data = {};
-        executable = executableFunctionCallback
+        executable = executableFunctionCallback;
         $.ajax({
             type: "POST",
             url: url,
@@ -19,14 +19,14 @@ var userValidatedByDomain={
             error:function(){
                 // User is no logged or is not validated
                 // Showing modal validation process
-                pageLoadingOff()
-                $("#domain-validation").modal("show")
+                pageLoadingOff();
+                $("#domain-validation").modal("show");
                 if(!userValidatedByDomain.binded){
-                    $("#validateDomain-modal-form-button-id").on("click",userValidatedByDomain.handleSubmitValidationForm )
+                    $("#validateDomain-modal-form-button-id").on("click",userValidatedByDomain.handleSubmitValidationForm );
                     userValidatedByDomain.binded = true
                 }
                 if (($("#registro").data('bs.modal') || {}).isShown){
-                    $("#registro").modal("hide")
+                    $("#registro").modal("hide");
                     $('#domain-validation').on('hidden.bs.modal', function () {
                         noLoggedCallbacks.reloadPage()
                     })
@@ -51,30 +51,30 @@ var userValidatedByDomain={
 
     handleSubmitValidationForm:function (e) {
         e.preventDefault();
-        var $button = $(this)
-        var $form = $button.closest("form")
-        var url = $form.attr("action")
+        var $button = $(this);
+        var $form = $button.closest("form");
+        var url = $form.attr("action");
         var data = $form.serialize();
-
-
+        var $loading = $button.siblings(".loading");
         if ($form.valid()){
+            $loading.show();
+            $button.hide();
+
             $.ajax({
                 type: "POST",
                 url: url,
                 data: data,
                 success: function (data) {
                     // Success is 200 code No
-                    console.log(data)
+                    console.log(data);
                     if (data.success){
-                        $( "#validateDomain-modal-form-button-id").slideToggle( "slow", function() {
-                            // Animation complete.
-                            $( "#validateDomain-modal-form-button-id").siblings().show()
-                            setTimeout(function () {
-                                executable.exec()
-                                $("#domain-validation").modal("hide")
-                            }, 1000);
-                        });
+                        $( "#validateDomain-modal-form-button-id").siblings(".text-success").show();
+                        setTimeout(function () {
+                            executable.exec();
+                            $("#domain-validation").modal("hide")
+                        }, 1000);
                     }else{
+                        $button.show();
                         display.error(data.msg)
                     }
                 },
@@ -83,12 +83,13 @@ var userValidatedByDomain={
                     display.error("Error validating user")
                 },
                 complete: function () {
+                    $loading.hide()
                     // pageLoadingOff();
                 }
             });
         }
     }
-}
+};
 
 
 // function test(args){

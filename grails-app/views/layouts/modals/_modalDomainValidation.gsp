@@ -42,6 +42,7 @@
                         <button id="validateDomain-modal-form-button-id" class="btn btn-orange btn-lg">
                             <g:message code="kuorum.web.commands.profile.DomainValidationCommand.modal.submit"/>
                         </button>
+                        <p class="loading" style="display: none"></p>
                         <p class="text-success" style="display: none">
                             <g:message code="kuorum.web.commands.profile.DomainValidationCommand.modal.success"/>
                             <span class="fal fa-check-circle"></span>
