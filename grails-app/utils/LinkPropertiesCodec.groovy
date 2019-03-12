@@ -1,7 +1,6 @@
 import grails.util.Holders
 import kuorum.Region
 import kuorum.core.model.UserType
-import kuorum.project.Project
 import kuorum.register.KuorumUserSession
 import kuorum.users.KuorumUser
 import org.kuorum.rest.model.communication.CampaignRSDTO
@@ -47,14 +46,6 @@ class LinkPropertiesCodec {
 
     private static def prepareParams(CauseRSDTO cause){
         [causeName:cause.getName()]
-    }
-
-    private static def prepareParams(Project project){
-        KuorumUser owner = project.owner
-        [
-                hashtag: project.hashtag.decodeHashtag(),
-                userAlias: owner.alias
-        ]
     }
 
     private static def prepareParams(KuorumUser user){
@@ -187,7 +178,7 @@ class LinkPropertiesCodec {
         }else if (campaign instanceof SearchKuorumElementRSDTO){
             urlText = campaign.name
         }else{
-            urlText = campaign.title;
+            urlText = campaign.title
         }
 
         if (!urlText){
