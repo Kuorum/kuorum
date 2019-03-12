@@ -46,6 +46,11 @@ class RegisterService {
     SpringSecurityUiService springSecurityUiService
 
     public static final PREFIX_PASSWORD = "*registerUser*"
+    //CHAPU - COPIED FROM API
+    public static final String FACEBOOK_PASSWORD_PREFIX = "*facebook*"
+    public static final String GOOGLE_PASSWORD_PREFIX = "*google*"
+
+    private static final String DEFAULT_TIME_ZONE = "Europe/Madrid"
 
     @Deprecated
     public static final String NOT_USER_PASSWORD = "NO_VALID_PASS"
@@ -130,6 +135,7 @@ class RegisterService {
             user.relevantCommissions = CommissionType.values()
             user.authorities = [RoleUser.findByAuthority("ROLE_INCOMPLETE_USER")]
             user.alias = alias
+            user.timeZoneId = DEFAULT_TIME_ZONE
             user
     }
 
@@ -168,8 +174,8 @@ class RegisterService {
         return !(!encodedPassword
                 || encodedPassword.startsWith(NOT_USER_PASSWORD)
                 || encodedPassword.startsWith(PREFIX_PASSWORD)
-                || encodedPassword.startsWith(FacebookOAuthService.PASSWORD_PREFIX)
-                || encodedPassword.startsWith(GoogleOAuthService.PASSWORD_PREFIX))
+                || encodedPassword.startsWith(FACEBOOK_PASSWORD_PREFIX)
+                || encodedPassword.startsWith(GOOGLE_PASSWORD_PREFIX))
 
     }
 
