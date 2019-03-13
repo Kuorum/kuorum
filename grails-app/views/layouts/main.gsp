@@ -55,7 +55,7 @@
 <body itemscope itemtype="${schemaData.schema}" class="${pageProperty(name:"page.bodyCss")} ${dynamicBodyCss}">
     <meta itemprop="url" content="${nav.canonical([onlyLink:true])}"/>
     <span class="hidden" itemprop="name">${schemaData.name}</span>
-    <g:render template="/layouts/googleTagManager"/>
+    %{--<g:render template="/layouts/googleTagManager"/>--}%
 
 <div class ="container-fluid">
     <a href="#main" accesskey="S" class="sr-only first"><g:message code="layout.mainContent.skipMenu"/></a>
