@@ -357,7 +357,7 @@ class KuorumUserService {
         return politicians?politicians[0..Math.min(pagination.max-1, politicians.size()-1)]:[]
     }
 
-    void deleteAccount(KuorumUser user){
+    void deleteAccount(KuorumUserSession user){
 
         Map<String, String> params = [userId: user.id.toString()]
         Map<String, String> query = [:]

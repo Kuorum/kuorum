@@ -435,20 +435,18 @@ class ProfileController {
     }
 
     def deleteAccount(){
-        KuorumUser user = params.user
-        [user:user, command: new DeleteAccountCommand()]
+        [command: new DeleteAccountCommand()]
     }
 
     def deleteAccountPost(DeleteAccountCommand command){
-        KuorumUser user = params.user
         KuorumUserSession loggedUser = springSecurityService.principal
         if (command.hasErrors()){
-            render view:'deleteAccount', model:[user:user, command:command]
+            render view:'deleteAccount', model:[command:command]
             return
         }
         kuorumMailService.sendFeedbackMail(loggedUser, command.explanation, command.forever)
         if (command.forever){
-            kuorumUserService.deleteAccount(user)
+            kuorumUserService.deleteAccount(loggedUser)
             flash.message=message(code:'profile.deleteAccount.deleteForever.success')
             redirect(mapping: 'logout')
         }else{
