@@ -2,7 +2,7 @@
     <div class="row">
         <div class="label col-xs-12 col-sm-4">
             <g:message code="participatoryBudget.progressBar.label" />
-            <g:message code="kuorum.multidomain.money" args="[district.budget.encodeAsReducedPrice()]"/>
+            <g:formatNumber number="${district.budget}" type="currency" maxFractionDigits="0" currencySymbol="${g.message(code:'kuorum.multidomain.currency')}"/>
         </div>
         <div class="campaign-progress-bar-wrapper col-xs-12 col-sm-8">
             <div class="campaign-progress-bar ${importantClass?'important':''}" data-width="${progressBarWidth}">
