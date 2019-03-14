@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Value
 class MandrillAppService {
 
 
-    RestKuorumApiService restKuorumApiService;
+    RestKuorumApiService restKuorumApiService
 
     @Value('${mail.mandrillapp.key}')
     String MANDRIL_APIKEY
@@ -28,7 +28,7 @@ class MandrillAppService {
 
         if (!mailData.validate()) {
             log.error("Faltan datos para mandar este email. Errors:  ${mailData.errors.allErrors}")
-            return;
+            return
         }
 
         if (!mailData.mailType.mailTypeRSDTO) {
@@ -56,21 +56,21 @@ class MandrillAppService {
         message.googleAnalyticsDomains = ["kuorum.org"]
         message.metadata = ["website":"kuorum.org"]
 
-        MandrillApi mandrillApi = new MandrillApi(MANDRIL_APIKEY);
+        MandrillApi mandrillApi = new MandrillApi(MANDRIL_APIKEY)
         MandrillMessagesApi messagesApi = mandrillApi.messages()
         MandrillMessageStatus[] statuses =  messagesApi.sendTemplate(mailData.mailType.nameTemplate,[:],message, async)
         statuses.each { MandrillMessageStatus status ->
             switch (status.status){
                 case "queued":
-                    log.warn("The mail was queued");
-                    break;
+                    log.warn("The mail was queued")
+                    break
                 case "sent":
-                    break;
+                    break
                 case "rejected":
                 case "invalid":
                 default:
                     log.warn("Mandrillapp not sent the email ${status.email}. Cause ${status.status}: ${status.rejectReason}")
-                    break;
+                    break
             }
         }
 
@@ -79,7 +79,7 @@ class MandrillAppService {
     }
 
     private List<MandrillMessage.Recipient> createRecipients(MailData mailData){
-        List<MandrillMessage.Recipient> recipuserients = []
+        List<MandrillMessage.Recipient> recipients = []
         mailData.userBindings.each{MailUserData mailUserData ->
             MandrillMessage.Recipient recipient =new MandrillMessage.Recipient()
             recipient.email= mailUserData.user.email
@@ -136,7 +136,7 @@ class MandrillAppService {
             userMailRSDTO.email =it.user.email
             return userMailRSDTO
         }
-        sendTemplateViaKuorumServices(sendMailRSDTO, sender);
+        sendTemplateViaKuorumServices(sendMailRSDTO, sender)
     }
     private void sendTemplateViaKuorumServices(SendMailRSDTO mailData, KuorumUserSession sender = null){
         Map params = [:]

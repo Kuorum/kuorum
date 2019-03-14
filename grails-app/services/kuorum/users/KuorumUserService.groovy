@@ -359,25 +359,6 @@ class KuorumUserService {
 
     void deleteAccount(KuorumUser user){
 
-        user.enabled = Boolean.FALSE
-        String nombreEmail = user.email.split("@")[0]
-        String domain = user.email.split("@")[1]
-        String fechaBaja = new Date().getTime().toString()
-        String email = "BORRADO_${nombreEmail}_${fechaBaja}@NO-EMAIL-${domain}"
-        user.email = email
-        user.alias = fechaBaja + user.alias
-        if (user.alias.size() > 15) user.alias = user.alias.substring(user.alias.size() - 15 , user.alias.size() - 1)
-        user.authorities.remove(RoleUser.findByAuthority("ROLE_USER"))
-        user.authorities.add(RoleUser.findByAuthority("ROLE_INCOMPLETE_USER"))
-
-        if (!user.save(flush: true)) {
-            //TODO: Gestion errores
-            log.error("Error salvando usuario ${user.id}. ERRORS => ${user.errors}")
-            throw new KuorumException("Error desactivando un usuario")
-        }                   
-        indexSolrService.deltaIndex()
-
-        // CALLING API TO REMOVE CONTACT
         Map<String, String> params = [userId: user.id.toString()]
         Map<String, String> query = [:]
         restKuorumApiService.delete(
