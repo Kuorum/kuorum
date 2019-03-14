@@ -25,6 +25,7 @@
             command: command,
             numberRecipients:numberRecipients,
             status: status,
+            customPlaceHolderBody:g.message(code: 'kuorum.web.commands.payment.CampaignContentCommand.body.placeHolder.districtProposal'),
             mappings:[
                     saveAndSentButtons:true,
                     step:'content',

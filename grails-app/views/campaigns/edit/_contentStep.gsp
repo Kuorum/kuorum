@@ -22,7 +22,7 @@
         <fieldset class="form-group">
             <label for="text" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.massMailing.MassMailingCommand.text.label"/>:</label>
             <div class="textareaContainer col-sm-8 col-md-7">
-                <formUtil:textArea command="${command}" field="body" rows="8" texteditor="texteditor"/>
+                <formUtil:textArea command="${command}" field="body" rows="8" texteditor="texteditor" placeholder="${customPlaceHolderBody}"/>
             </div>
         </fieldset>
 
