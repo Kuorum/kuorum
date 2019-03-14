@@ -57,6 +57,7 @@ class KuorumMailService {
         sendMailRSDTO.setMailType(MailTypeRSDTO.REGISTER_WELCOME)
         SentUserMailRSDTO destinationAdmin = new SentUserMailRSDTO()
         destinationAdmin.setName(user.name)
+        destinationAdmin.setLang(user.language.locale.language)
         destinationAdmin.setEmail(user.email)
         sendMailRSDTO.setDestinations([destinationAdmin])
         mandrillAppService.sendTemplate(sendMailRSDTO)
