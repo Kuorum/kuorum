@@ -145,6 +145,7 @@ class ParticipatoryBudgetService implements CampaignCreatorService<Participatory
             participatoryBudgetRDTO.deadLineFinalReview= participatoryBudgetRSDTO.deadLineFinalReview
             participatoryBudgetRDTO.status= participatoryBudgetRSDTO.status
             participatoryBudgetRDTO.districts = participatoryBudgetRSDTO.districts
+            participatoryBudgetRDTO.maxDistrictProposalsPerUser = participatoryBudgetRSDTO.maxDistrictProposalsPerUser
         }
         return participatoryBudgetRDTO
     }
