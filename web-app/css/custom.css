@@ -1446,7 +1446,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 }
 
 .email-sent .sent i.fa-check {
-    color: green;
+    color: #008000;
 }
 
 .email-sent .error i.fa-times {
@@ -2008,8 +2008,8 @@ ul.participatory-budget-steps-info li.active a {display: none}
 
 .box-ppal .box-ppal-section fieldset.validate { text-align:center; }
 .box-ppal .box-ppal-section fieldset.validate .valid { margin-bottom:20px; }
-.box-ppal .box-ppal-section fieldset.validate .valid .fa-check { color: green; }
-.box-ppal .box-ppal-section fieldset.validate .valid .fa-close { color: red; }
+.box-ppal .box-ppal-section fieldset.validate .valid .fa-check { color: #008000; }
+.box-ppal .box-ppal-section fieldset.validate .valid .fa-close { color: #FF0000; }
 
 #main.config .box-ppal.other-main-content {margin-top: 20px}
 
@@ -2404,9 +2404,9 @@ video#bgvid {
 #payment div.promotionalCodeSet input.code {width:250px; height: 48px; padding: 10px; text-align: center; -webkit-border-radius: 5px ;-moz-border-radius: 5px; border-radius: 5px;}
 #payment div.promotionalCodeSet {display: inline-block}
 #payment fieldset.validate {display: inline-flex}
-#payment fieldset.validate .valid {color: green;}
+#payment fieldset.validate .valid {color: #008000;}
 #payment div.promotionalCodeSet .focusError {border-color: #BF4343;}
-#payment div.promotionalCodeSet .focusValid {border-color: green;}
+#payment div.promotionalCodeSet .focusValid {border-color: #008000;}
 
 #payment div.payment-method .braintree-placeholder{  display: none;  }
 #payment div.payment-method .braintree-option__label{  position: relative;  margin-left: -50px;  }
@@ -4395,11 +4395,12 @@ fieldset.map-location a.btn{margin-top:-5px;margin-left:5px;}
 .comment-box.event-info .comment-proposal p.event-date{font-weight: bold;}
 .comment-box.event-info .comment-proposal p.event-time,
 .comment-box.event-info .comment-proposal p.event-address{margin-left:25px;}
-.comment-box.call-to-action .event-confirm-success{text-align: center;color:green;font-weight: bold; font-size: 20px;margin-bottom:15px;}
+.comment-box.call-to-action .event-confirm-success{text-align: center;color:#008000;font-weight: bold; font-size: 20px;margin-bottom:15px;}
 .comment-box.call-to-action.box-event-confirmed .actions{padding:0; margin:0;}
 .comment-box.call-to-action.call-to-action-confirm-event + .call-to-action-add-proposal {display:none;}
 .comment-box.call-to-action.call-to-action-confirm-event.box-event-confirmed + .call-to-action-add-proposal {display:block;}
-h2.event-confirm-success{color:green;font-weight: bold; font-size: 20px;margin:0 0 5px 0;}
+h2.event-confirm-success{color:#008000;font-weight: bold; font-size: 20px;margin:0 0 5px 0;}
+h2.event-confirm-error{color:#FF0000;font-weight: bold; font-size: 20px;margin:0 0 5px 0;}
 
 /*** conversation-box ***/
 .conversation-box {

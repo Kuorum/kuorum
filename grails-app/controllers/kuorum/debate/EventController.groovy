@@ -145,13 +145,26 @@ class EventController extends CampaignController{
     def checkIn(Long campaignId){
         KuorumUserSession user = springSecurityService.principal
         String hash = params.hash
-        Long contactId = Long.parseLong(params.contactId)
+        Long contactId
+        try{
+            contactId = Long.parseLong(params.contactId)
+        }catch (Exception e){
+            contactId = -1
+        }
         EventRegistrationRSDTO eventRegistration = eventService.checkIn(contactId, campaignId, user, hash)
+        ContactRSDTO contact = null
+        try{
+
+            contact = contactService.getContact(user, contactId)
+        }catch (Exception e){
+            // Contact not found
+            contact = new ContactRSDTO()
+            contact.name = "No valid contact"
+        }
         if (eventRegistration){
-            ContactRSDTO contact = contactService.getContact(user, contactId)
             [event:eventRegistration.event, eventRegistration:eventRegistration, contact:contact]
-        }else{
-            render view: "/error/notFound"
+        }else {
+            render view: "/event/checkInFail", model: [contact: contact]
         }
     }
 
