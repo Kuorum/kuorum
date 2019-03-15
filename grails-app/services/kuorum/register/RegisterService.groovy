@@ -141,29 +141,6 @@ class RegisterService {
     }
 
 
-
-    KuorumUser createUser(String name, String password, String email, String alias, AvailableLanguage lang){
-        KuorumUser user
-        KuorumUser.withNewTransaction {status->
-
-            user = new KuorumUser(
-                    email: email.toLowerCase(),
-                    name: name,
-                    language: lang,
-                    password: password,
-                    alias:alias,
-                    accountLocked: false, enabled: false)
-            user.relevantCommissions = CommissionType.values()
-            user.authorities = [RoleUser.findByAuthority("ROLE_INCOMPLETE_USER")]
-            user.save()
-        }
-        user
-    }
-
-    String generateNotSetUserPassword(String prefix){
-        "${PREFIX_PASSWORD}_${prefix}_${Math.random()}"
-    }
-
     boolean isPasswordSetByUser(KuorumUserSession user){
         isPasswordSetByUser(user.password)
     }
