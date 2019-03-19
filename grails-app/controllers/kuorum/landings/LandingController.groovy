@@ -25,12 +25,8 @@ class LandingController {
             return
         }
         List<CampaignRSDTO> campaigns = campaignService.findRelevantDomainCampaigns()
-        CampaignRSDTO starredCampaign = campaigns?.first()
-        if (!campaigns) {
-            log.error("User ${WebConstants.FAKE_LANDING_ALIAS_USER} not exists :: Showing landing page without campaings")
-            campaigns = []
-        }
         DomainRSDTO domainRSDTO = domainService.getConfig(CustomDomainResolver.domain)
+        CampaignRSDTO starredCampaign = findStarredCampaign(campaigns, domainRSDTO.getStarredCampaignId())
         [
                 campaigns:campaigns,
                 starredCampaign:starredCampaign,
@@ -40,5 +36,13 @@ class LandingController {
                 landingVisibleRoles: domainRSDTO.landingVisibleRoles,
                 command: new KuorumRegisterCommand()
         ]
+    }
+
+    private CampaignRSDTO findStarredCampaign(List<CampaignRSDTO> relevantCampaings, Long starredCampaign){
+        CampaignRSDTO relevantCampaign = relevantCampaings.find {it.id == starredCampaign}
+        if (relevantCampaings == null){
+            relevantCampaign = campaignService.find(WebConstants.FAKE_LANDING_ALIAS_USER, starredCampaign)
+        }
+        return relevantCampaign
     }
 }

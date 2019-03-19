@@ -1,5 +1,18 @@
 <r:require modules="forms"/>
 <div class="box-ppal-section">
+    <h4 class="box-ppal-section-title"><g:message code="kuorum.web.admin.domain.editStarredCampaign"/></h4>
+    <fieldset class="row">
+        <div class="form-group">
+            <label for="starredCampaignId" class=""><g:message code="kuorum.web.admin.domain.editStarredCampaign.label"/></label>
+            <select name="starredCampaignId" class="form-control valid">
+                <option value=""><g:message code="kuorum.web.admin.domain.editStarredCampaign.select.empty"/></option>
+                <g:each in="${adminCampaigns}" var="adminCampaign">
+                    <option value="${adminCampaign.id}" ${starredCampaignId==adminCampaign.id?'selected':''}>${adminCampaign.name}</option>
+                </g:each>
+            </select>
+        </div>
+    </fieldset>
+    <br/>
     <h4 class="box-ppal-section-title"><g:message code="kuorum.web.admin.domain.editRelevantCampaigns"/></h4>
     <fieldset class="row">
         <g:each in="${["first","second","third"]}" var="relevance">

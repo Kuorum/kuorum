@@ -251,15 +251,26 @@ class AdminController {
         List<CampaignRSDTO> domainCampaigns = campaignService.findRelevantDomainCampaigns()
         List<CampaignRSDTO> adminCampaigns = campaignService.findAllCampaigns(WebConstants.FAKE_LANDING_ALIAS_USER)
         Map domainCampaignsId = [first:null, second:null, third:null]
+        DomainRSDTO domainRSDTO = CustomDomainResolver.domainRSDTO
         domainCampaignsId.first = domainCampaigns && domainCampaigns.size()>0 ? domainCampaigns.get(0).id:null
         domainCampaignsId.second = domainCampaigns && domainCampaigns.size()>1 ? domainCampaigns.get(1).id:null
         domainCampaignsId.third = domainCampaigns && domainCampaigns.size()>2 ? domainCampaigns.get(2).id:null
-        [domainCampaignsId:domainCampaignsId,adminCampaigns:adminCampaigns]
+        [domainCampaignsId:domainCampaignsId,adminCampaigns:adminCampaigns, starredCampaignId:domainRSDTO.starredCampaignId]
     }
 
     def updateDomainRelevantCampaigns() {
         List<Long> campaignIds = params.campaignIds.collect{try{Long.parseLong(it)}catch (e){null}}.findAll{it}
         campaignService.updateRelevantDomainCampaigns(campaignIds)
+
+        Long starredCampaignId = null
+        try{starredCampaignId = Long.parseLong(params.starredCampaignId)}catch (e){}
+        DomainRSDTO domainRSDTO = CustomDomainResolver.domainRSDTO
+
+        if (starredCampaignId != domainRSDTO.starredCampaignId){
+            DomainRDTO domainRDTO = getPopulatedDomainRDTO()
+            domainRDTO.setStarredCampaignId(starredCampaignId)
+            domainService.updateConfig(domainRDTO)
+        }
         flash.message="Success"
         redirect mapping:'adminDomainConfigRelevantCampagins'
     }
