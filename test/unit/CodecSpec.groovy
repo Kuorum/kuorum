@@ -89,18 +89,25 @@ class CodecSpec extends Specification {
         resultEmpty?ytbCode =="":ytbCode == youtubeCode
         resultEmpty?ytbUrl == "":ytbUrl == "https://www.youtube.com/watch?v=$youtubeCode"
         where:
-        youtubeUrl                                      | youtubeCode   | resultEmpty
-        "https://youtu.be/5fTsCcUD8Kg"                  | "5fTsCcUD8Kg" | false
-        "http://youtu.be/5fTsCcUD8Kg"                   | "5fTsCcUD8Kg" | false
-        "http://youtu.be/5fTsC-UD8Kg"                   | "5fTsC-UD8Kg" | false
-        "http://youtube/5fTsC-UD8Kg"                    | ""            | true
-        "https://www.youtube.com/watch?v=5fTsCcUD8Kg"   | "5fTsCcUD8Kg" | false
-        "https://youtube.com/watch?v=5fTsCcUD8Kg"       | "5fTsCcUD8Kg" | false
-        "http://www.youtube.com/watch?v=5fTsCcUD8Kg"    | "5fTsCcUD8Kg" | false
-        "http://youtube.com/watch?v=5fTsCcUD8Kg"        | "5fTsCcUD8Kg" | false
-        "http://youtube.com/watch v=5fTsCcUD8Kg"        | ""            | true
-        ""                                              | ""            | true
-        "kkafuti"                                       | ""            | true
+        youtubeUrl                                                      | youtubeCode   | resultEmpty
+        "https://youtu.be/5fTsCcUD8Kg"                                  | "5fTsCcUD8Kg" | false
+        "http://youtu.be/5fTsCcUD8Kg"                                   | "5fTsCcUD8Kg" | false
+        "http://youtu.be/5fTsC-UD8Kg"                                   | "5fTsC-UD8Kg" | false
+        "http://youtu.be/5fTsC-UD8Kg?param=XX"                          | "5fTsC-UD8Kg" | false
+        "http://youtube/5fTsC-UD8Kg?param=XX"                           | ""            | true
+        "https://www.youtube.com/watch?v=5fTsCcUD8Kg"                   | "5fTsCcUD8Kg" | false
+        "https://www.youtube.com/watch?v=5fTsCcUD8Kg&param=XX"          | "5fTsCcUD8Kg" | false
+        "https://www.youtube.com/watch?param=XX&v=5fTsCcUD8Kg"          | "5fTsCcUD8Kg" | false
+        "https://youtube.com/watch?v=5fTsCcUD8Kg"                       | "5fTsCcUD8Kg" | false
+        "https://youtube.com/watch?v=5fTsCcUD8Kg?param=xx"              | "5fTsCcUD8Kg" | false
+        "http://www.youtube.com/watch?v=5fTsCcUD8Kg"                    | "5fTsCcUD8Kg" | false
+        "http://www.youtube.com/watch?v=5fTsCcUD8Kg&param=xx"           | "5fTsCcUD8Kg" | false
+        "http://youtube.com/watch?v=5fTsCcUD8Kg"                        | "5fTsCcUD8Kg" | false
+        "http://youtube.com/watch?v=5fTsCcUD8Kg&param=xx"               | "5fTsCcUD8Kg" | false
+        "https://www.youtube.com/watch?v=5fTsCcUD8Kg&feature=youtu.be"  | "5fTsCcUD8Kg" | false
+        "http://youtube.com/watch v=5fTsCcUD8Kg"                        | ""            | true
+        ""                                                              | ""            | true
+        "kkafuti"                                                       | ""            | true
     }
 
     @Unroll
@@ -156,7 +163,7 @@ class CodecSpec extends Specification {
         where:
         orgNumber       | reducedNumber
         100             | "100"
-        100000          | "1K"
+        100000          | "100K"
         1000000         | "1M"
         2000000         | "2M"
         2500000         | "2,5M"
