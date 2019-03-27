@@ -14,7 +14,7 @@ class KuorumUserContactMessageCommand {
 
     static constraints = {
         subject nullable: false
-        message nullable: false, minSize: 10
+        message nullable: false, minSize: 1
         cause nullable: true
         contactUserId nullable:false
     }
