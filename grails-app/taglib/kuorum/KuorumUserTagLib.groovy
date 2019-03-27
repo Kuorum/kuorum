@@ -1,5 +1,6 @@
 package kuorum
 
+import grails.plugin.springsecurity.SpringSecurityUtils
 import kuorum.register.KuorumUserSession
 import kuorum.register.RegisterService
 import kuorum.users.KuorumUser
@@ -329,7 +330,7 @@ class KuorumUserTagLib {
         Boolean show = attrs.show!=null?attrs.show:true
         show = show && springSecurityService.isLoggedIn()
         show = show && attrs.user.follower
-        if (!show) {
+        if (!show && !SpringSecurityUtils.ifAllGranted("ROLE_ADMIN")) {
             return
         }
         BasicDataKuorumUserRSDTO user = attrs.user
