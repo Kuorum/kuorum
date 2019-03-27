@@ -262,6 +262,8 @@ class RestKuorumApiService {
         ACCOUNT_EVENT_CHECK_IN      ("/communication/campaign/event/{userId}/{campaignId}/checkIn"),
         ACCOUNT_EVENT_REPORT        ("/communication/campaign/event/{userId}/{campaignId}/assistant/report"),
 
+        ACCOUNT_MESSAGE_SEND        ("/communication/message/{userId}"),
+
         USER_CONTACTS_CAMPAIGNS_ALL ("/user/{userId}/dashboard/campaigns"),
 
         SEARCH                  ("/search/"),

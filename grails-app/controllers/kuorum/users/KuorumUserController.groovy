@@ -7,8 +7,8 @@ import kuorum.notifications.NotificationService
 import kuorum.register.KuorumUserSession
 import kuorum.register.RegisterService
 import kuorum.web.commands.customRegister.KuorumUserContactMessageCommand
-import org.bson.types.ObjectId
 import org.kuorum.rest.model.communication.CampaignRSDTO
+import org.kuorum.rest.model.communication.message.NewMessageRDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 import org.kuorum.rest.model.kuorumUser.KuorumUserRSDTO
 import org.kuorum.rest.model.kuorumUser.news.UserNewRSDTO
@@ -29,6 +29,7 @@ class KuorumUserController {
     CookieUUIDService cookieUUIDService
 
     NotificationService notificationService
+    InternalMessageService internalMessageService
 
 
     CausesService causesService
@@ -118,7 +119,13 @@ class KuorumUserController {
         }
 
         KuorumUserSession loggedUser = springSecurityService.principal
-        notificationService.sendPoliticianContactNotification(userContacted, loggedUser, contactRegisterCommand.message, contactRegisterCommand.cause)
+
+        NewMessageRDTO newMessageRDTO = new NewMessageRDTO()
+        newMessageRDTO.setSubject(contactRegisterCommand.subject)
+        newMessageRDTO.setBody(contactRegisterCommand.message)
+        newMessageRDTO.setToUserId(contactRegisterCommand.contactUserId)
+        newMessageRDTO.setCause(contactRegisterCommand.cause)
+        internalMessageService.sendInternalMessage(loggedUser, newMessageRDTO)
         flash.message = g.message(code: 'kuorumUser.contactMessage.success', args: [userContacted.name])
         redirect (mapping:"userShow", params: userContacted.encodeAsLinkProperties())
     }

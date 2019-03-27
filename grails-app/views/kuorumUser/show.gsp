@@ -39,7 +39,7 @@
                     <g:render template="politicianValuation" model="[user:politician, userReputation:userReputation]"/>
                     <div class="follow-btn-group">
                         <userUtil:followButton user="${politician}" cssExtra="inverted"/>
-                        <userUtil:contactButton user="${politician}" cssExtra="inverted" show="${causes.size() > 0}"/>
+                        <userUtil:contactButton user="${politician}" cssExtra="inverted"/>
                     </div>
                 </div>
             </div>
@@ -82,7 +82,6 @@
 </content>
 
 <content tag="modals">
-    <g:if test="${causes}">
         <g:render template="userShowTemplates/modals/modalContact" model="[politician:politician, causes:causes]"/>
-    </g:if>
+
 </content>

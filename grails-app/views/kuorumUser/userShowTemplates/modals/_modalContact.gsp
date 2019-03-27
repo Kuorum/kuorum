@@ -17,13 +17,19 @@
                 <g:form mapping="ajaxRegisterContact" id="contact-modal-form" role="form" method="post" name="contact-modal-form">
                     <input type="hidden" name="contactUserId" value="${politician.id}"/>
                     <div class="form-group">
-                        <label for="cause" class="control-label"><g:message code="modal.contact.causeSelect"/></label>
-                        <select class="form-control" name="cause" id="cause">
-                            <g:each in="${causes}" var="cause">
-                                <option>${cause.name}</option>
-                            </g:each>
-                        </select>
+                        <formUtil:input command="${command}" field="subject" showLabel="true"/>
                     </div>
+                    <g:if test="${causes}">
+                        <div class="form-group">
+                            <label for="cause" class="control-label"><g:message code="modal.contact.causeSelect"/></label>
+                            <select class="form-control" name="cause" id="cause">
+                                <option value=""></option>
+                                <g:each in="${causes}" var="cause">
+                                    <option>${cause.name}</option>
+                                </g:each>
+                            </select>
+                        </div>
+                    </g:if>
 
                     <div class="form-group">
                         <label for="message" class="control-label"><g:message code="modal.contact.message"/></label>
