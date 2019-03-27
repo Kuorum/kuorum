@@ -7,6 +7,7 @@ import kuorum.users.KuorumUserService
 import org.bson.types.ObjectId
 import org.kuorum.rest.model.geolocation.RegionRSDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
+import org.kuorum.rest.model.kuorumUser.KuorumUserRSDTO
 import org.kuorum.rest.model.kuorumUser.UserTypeRSDTO
 import org.kuorum.rest.model.search.SearchKuorumElementRSDTO
 import org.kuorum.rest.model.search.kuorumElement.SearchKuorumUserRSDTO
@@ -254,15 +255,12 @@ class KuorumUserTagLib {
     }
 
     def ifIsFollower={attrs, body ->
-        if (attrs.user instanceof KuorumUser){
-            if (springSecurityService.isLoggedIn()){
-                KuorumUser user = attrs.user
-                if (user.following.contains(springSecurityService.principal.id)){
-                    out << body()
-                }
-            }
-        }else if (attrs.user instanceof SearchKuorumUserRSDTO){
+        if (attrs.user instanceof SearchKuorumUserRSDTO){
             if (attrs.user.isFollower){
+                out << body()
+            }
+        }else if (attrs.user instanceof KuorumUserRSDTO){
+            if (attrs.user.follower){
                 out << body()
             }
         }
@@ -329,6 +327,8 @@ class KuorumUserTagLib {
 
     def contactButton={attrs, body ->
         Boolean show = attrs.show!=null?attrs.show:true
+        show = show && springSecurityService.isLoggedIn()
+        show = show && attrs.user.follower
         if (!show) {
             return
         }
