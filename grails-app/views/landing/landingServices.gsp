@@ -4,7 +4,7 @@
     <title>${subtitle}</title>
     <meta name="layout" content="landingLayout">
     <parameter name="extraHeadCss" value="landing"/>
-    <parameter name="showLatestActivities" value="${!org.springframework.util.CollectionUtils.isEmpty(campaigns)}"/>
+    <parameter name="showLatestActivities" value="${org.apache.commons.collections.CollectionUtils.isNotEmpty(campaigns)}"/>
     <g:render template="/dashboard/landingMetaTags"
               model="[
                       kuorumTitle:slogan,
