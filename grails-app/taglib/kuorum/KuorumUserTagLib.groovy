@@ -5,6 +5,7 @@ import kuorum.register.KuorumUserSession
 import kuorum.register.RegisterService
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
+import kuorum.web.constants.WebConstants
 import org.bson.types.ObjectId
 import org.kuorum.rest.model.geolocation.RegionRSDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
@@ -308,7 +309,14 @@ class KuorumUserTagLib {
             cssClass += " noLogged"
         }
 
-        if (springSecurityService.isLoggedIn() && springSecurityService.principal.id.toString() != userId || !springSecurityService.isLoggedIn()){
+        if (alias == WebConstants.FAKE_LANDING_ALIAS_USER){
+//            cssClass = en
+            out << """
+            <button class="btn fake-follow btn-blue disabled ${cssSize} ${cssExtra}">
+                ${g.message(code:"${prefixMessages}.unfollow", args:[name], codec:"raw")}
+            </button>
+            """
+        }else if (springSecurityService.isLoggedIn() && springSecurityService.principal.id.toString() != userId || !springSecurityService.isLoggedIn()){
             out << """
             <button
                     type="button"

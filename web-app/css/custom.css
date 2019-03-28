@@ -807,6 +807,7 @@ header.transp #search-form .open-filter {background-color: rgba(219,219,219,0.4)
     text-transform: uppercase;
     font-weight: 500;
 }
+.btn.fake-follow,
 .btn.follow {
     width: 105px;
     padding: 9px 8px !important;
@@ -5645,6 +5646,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 
     /*.user-list-followers .user > .actions {float: right; margin: -35px 0 0 0 !important;}*/
     .user-list-followers .user > .actions .btn.follow{-webkit-border-radius: 2px !important; -moz-border-radius: 2px !important; border-radius: 2px !important; margin: 0 5px 0 0 !important; width: 80px;}
+    .popover-user-header .btn.fake-follow,
     .popover-user-header .btn.follow{-webkit-border-radius: 2px !important; -moz-border-radius: 2px !important; border-radius: 2px !important; margin: 9px 0 0 0!important; width: 80px; padding:6px 6px 5px !important;}
 
     .btn.btn-lg.go-for-pass {margin-top: 192px !important; margin-bottom: 60px !important;}
@@ -6025,12 +6027,7 @@ p.party{
 }
 
 .follow-btn-group {text-align: center;}
-.follow-btn-group .btn.btn-blue.inverted {
-    display: inline;
-    margin: 0 0 6px 6px;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-}
+.follow-btn-group .btn.btn-blue.inverted {margin: 0 0 6px 6px;}
 .following{
     margin-bottom: 20px;
 }
