@@ -3494,6 +3494,7 @@ h2.underline {border-bottom: 1px solid #dadada; padding: 0 0 10px 0; margin-top:
     padding-top: 4px;
     border: #fff solid 2px;
 }
+.search-list .search-kuorum-user .box-ppal .user .btn.fake-follow,
 .search-list .search-kuorum-user .box-ppal .user .btn.follow{
     margin: 70px 0 0 0 !important;
     float: right;
@@ -6027,7 +6028,7 @@ p.party{
 }
 
 .follow-btn-group {text-align: center;}
-.follow-btn-group .btn.btn-blue.inverted {margin: 0 0 6px 6px;}
+.follow-btn-group .btn.btn-blue {margin: 0 0 6px 6px;}
 .following{
     margin-bottom: 20px;
 }
@@ -6099,11 +6100,6 @@ fieldset.form-group.fieldset-check-box .control-label +div> .checkbox-inline {ma
     }
     .follow-btn-group{
         text-align: center;
-    }
-    .btn.follow.inverted{
-        margin-right: 12px;
-        margin-bottom: 6px;
-        width: 84px;
     }
     .following{
         font-size: 12px;
