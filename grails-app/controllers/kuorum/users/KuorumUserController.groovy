@@ -48,7 +48,12 @@ class KuorumUserController {
 
     def show(String userAlias){
         KuorumUser user = kuorumUserService.findByAlias(userAlias)
-        KuorumUserRSDTO userRSDTO = kuorumUserService.findUserRSDTO(userAlias)
+        KuorumUserRSDTO userRSDTO = null
+        try{
+            kuorumUserService.findUserRSDTO(userAlias)
+        }catch (Exception e){
+            userRSDTO = null
+        }
         if (!user) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND)
             return false
