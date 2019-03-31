@@ -309,7 +309,7 @@ class KuorumUserTagLib {
             cssClass += " noLogged"
         }
 
-        if (alias == WebConstants.FAKE_LANDING_ALIAS_USER && springSecurityService.isLoggedIn() && springSecurityService.principal.alias != WebConstants.FAKE_LANDING_ALIAS_USER){
+        if (alias == WebConstants.FAKE_LANDING_ALIAS_USER && springSecurityService.isLoggedIn() && springSecurityService.principal.alias != WebConstants.FAKE_LANDING_ALIAS_USER && isFollowing){
 //            cssClass = en
             out << """
             <button class="btn fake-follow btn-blue disabled ${cssSize}">
