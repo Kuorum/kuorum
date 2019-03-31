@@ -52,6 +52,7 @@ class KuorumUserController {
         try{
             kuorumUserService.findUserRSDTO(userAlias)
         }catch (Exception e){
+            log.info("User [$userAlias] not found")
             userRSDTO = null
         }
         if (!user) {
