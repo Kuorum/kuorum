@@ -68,7 +68,7 @@ class ProfileController {
 //        KuorumUser user = params.user
     }
 
-//    @Secured("IS_AUTHENTICATED_FULLY")
+    @Secured("IS_AUTHENTICATED_FULLY")
     def editAccountDetails(){
         KuorumUser user = params.user
         AccountDetailsCommand command = new AccountDetailsCommand(user)
@@ -76,7 +76,7 @@ class ProfileController {
         [command:command, requirePassword: registerService.isPasswordSetByUser(user)]
     }
 
-//    @Secured(["IS_AUTHENTICATED_FULLY"])
+    @Secured(["IS_AUTHENTICATED_FULLY"])
     def updateAccountDetails(AccountDetailsCommand command){
         KuorumUser user = params.user
         if (command.hasErrors()){
