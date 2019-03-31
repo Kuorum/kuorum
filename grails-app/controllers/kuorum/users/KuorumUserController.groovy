@@ -50,7 +50,7 @@ class KuorumUserController {
         KuorumUser user = kuorumUserService.findByAlias(userAlias)
         KuorumUserRSDTO userRSDTO = null
         try{
-            kuorumUserService.findUserRSDTO(userAlias)
+            userRSDTO = kuorumUserService.findUserRSDTO(userAlias)
         }catch (Exception e){
             log.info("User [$userAlias] not found")
             userRSDTO = null
