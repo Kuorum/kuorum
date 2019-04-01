@@ -1,11 +1,9 @@
 package kuorum.web.commands.profile
 
-import grails.plugin.springsecurity.SpringSecurityService
 import grails.validation.Validateable
 import kuorum.Region
 import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.model.AvailableLanguage
-import kuorum.register.KuorumUserSession
 import kuorum.register.RegisterService
 import kuorum.users.KuorumUser
 import kuorum.web.binder.RegionBinder
@@ -57,7 +55,7 @@ class AccountDetailsCommand {
         surname nullable:true
         user nullable: false
         password validator: {val, obj ->
-            if (obj.user && !isPasswordValid(val)){
+            if (obj.user && !isPasswordValid(obj.user, val)){
                 return "notValid"
             }
         }
@@ -81,7 +79,7 @@ class AccountDetailsCommand {
         timeZoneId nullable: true
     }
 
-    static Boolean isPasswordValid(String inputPassword, KuorumUserSession user){
+    static Boolean isPasswordValid(KuorumUser user, String inputPassword){
         Object appContext = ServletContextHolder.servletContext.getAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT)
         RegisterService registerService = ( kuorum.register.RegisterService)appContext.registerService
         if (registerService.isPasswordSetByUser(user)){
@@ -90,13 +88,6 @@ class AccountDetailsCommand {
         }else{
             return true
         }
-    }
-
-    static Boolean isPasswordValid(String inputPassword){
-        Object appContext = ServletContextHolder.servletContext.getAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT)
-        SpringSecurityService springSecurityService = ( SpringSecurityService)appContext.springSecurityService
-        KuorumUserSession user = springSecurityService.principal
-        return isPasswordValid(inputPassword, user)
     }
 
     static String normalizeAlias(String alias){

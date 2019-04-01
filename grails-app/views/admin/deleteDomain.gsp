@@ -24,9 +24,6 @@
                 <div class="form-group col-md-6">
                     <formUtil:input command="${command}" field="domainName" showLabel="true" />
                 </div>
-                <div class="form-group col-md-6">
-                    <formUtil:password command="${command}" field="password" showLabel="true" />
-                </div>
             </fieldset>
         </div>
         <div class="box-ppal-section">
