@@ -4,8 +4,6 @@
     <meta name="layout" content="basicPlainLayout">
     <!-- Schema.org markup for Google+ -->
     <meta itemprop="name" content="${_domainName}">
-    <meta itemprop="image" content="${resource(dir: 'images', file:'landingSearch-rrss.png', absolute:true)}" />
-    <meta itemprop="image" content="${resource(dir: 'images', file: 'logo@2x.png')}" />
 </head>
 
 <content tag="mainContent">

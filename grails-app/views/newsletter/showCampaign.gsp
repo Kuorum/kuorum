@@ -9,8 +9,6 @@
     <!-- Schema.org markup for Google+ -->
     <meta itemprop="name" content="${_domainName}">
     <meta itemprop="description" content="${g.message(code:"layout.head.meta.description", args:[kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.name])}">
-    <meta itemprop="image" content="${resource(dir: 'images', file:'landingSearch-rrss.png', absolute:true)}" />
-    <meta itemprop="image" content="${resource(dir: 'images', file: 'logo@2x.png')}" />
     <r:require modules="campaignList, participatoryBudgetEditableTable"/>
 </head>
 

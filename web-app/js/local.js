@@ -349,32 +349,6 @@ $(document).ready(function() {
         });
     }
 
-
-    // isotope - plugin para apilar divs de diferente altura
-    if ( $('.list-team').length > 0 ) {
-        var $container = $('.list-team');
-        $container.isotope({
-          itemSelector: '.list-team > li'
-        });
-    }
-
-    if ( $('.list-updates').length > 0 ) {
-        var $container = $('.list-updates');
-        $container.isotope({
-          itemSelector: '.list-updates > li'
-        });
-    }
-
-
-    // // controla el comportamiento del módulo de la columna derecha en Propuestas
-    // $(window).on("load resize",function(e){
-    //
-    //     // elimina el vídeo de la landing por debajo de 1025px
-    //     if (window.matchMedia && window.matchMedia('only screen and (max-width: 1024px)').matches) {
-    //         $('.landing .full-video').find('video').remove();
-    //     }
-    // });
-
     // Switch porcentaje/numero para ratios de apertura y clicks de cada campaña
     $('span.stat').hover(
         function(){
@@ -433,9 +407,6 @@ $(document).ready(function() {
         });
 
     });
-
-    // prepareArrowClucks(); lo he pasado a custom.js
-
 
     // hacer un bloque clicable y que tome que es su primer elemento la url del enlace a.hidden
     $('body').on('click','.link-wrapper', function(e) {
@@ -686,7 +657,7 @@ function moveSmooth(hash){
             scrollTop: dest
         }, 1000, 'swing');
     }else{
-        console.log("No exists element with id: "+hash)
+        // console.log("No exists element with id: "+hash)
     }
 }
 
