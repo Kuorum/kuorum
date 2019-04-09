@@ -3022,6 +3022,29 @@ form#sign {margin: 30px auto 0; max-width: 900px;}
 .multiple-range-selector .slider.slider-horizontal .slider-tick-label-container {margin-top:-30px;}
 fieldset > .multiple-range-selector:first-child {margin-top:40px;}
 
+
+.slider-selection.tick-slider-selection {
+    background-image: -webkit-linear-gradient(top, #5C5C5C 0%, #CCC 100%);
+    background-image: -o-linear-gradient(top, #5C5C5C 0%, #CCC 100%);;
+    background-image: linear-gradient(to bottom, #5C5C5C 0%, #CCC 100%);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#5C5C5C', endColorstr='darken(#5C5C5C, 11%)', GradientType=0);
+}
+.slider-handle{
+    background-color: #F5f5f5;
+    background-image: -webkit-linear-gradient(top, #5C5C5C 0%, #CCC 100%);
+    background-image: -o-linear-gradient(top, #5C5C5C 0%, #CCC 100%);
+    background-image: linear-gradient(to bottom, #5C5C5C 0%, #CCC 100%);
+}
+
+.slider-tick.in-selection{
+    background-image: -webkit-linear-gradient(top, #5C5C5C 0%, #CCC 100%);
+    background-image: -o-linear-gradient(top,#5C5C5C 0%, #CCC 100%);
+    background-image: linear-gradient(to bottom, #5C5C5C 0%, #CCC 100%);
+}
+
+
+
 /* estilos para el resize upload image */
 .uploaderImageContainer > div {margin: 0; position: relative;}
 .form-group.image {position: relative;width: 100%; height: auto;}
