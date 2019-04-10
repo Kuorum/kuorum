@@ -1,6 +1,8 @@
 package kuorum
 
+import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.register.KuorumUserSession
+import org.kuorum.rest.model.domain.DomainRSDTO
 
 class CustomRegisterFilterFilters {
 
@@ -9,13 +11,34 @@ class CustomRegisterFilterFilters {
     private static final STEP1_FIELDS=['alias']
 
     def filters = {
-        all(controller:'customRegister|logout|error|register|search', invert: true) {
+        all(controller:'customRegister|logout|error|register|search|layouts', invert: true) {
             before = {
                 if (springSecurityService.isLoggedIn() && springSecurityService.principal?.id){
                     KuorumUserSession user = springSecurityService.principal
                     if (STEP1_FIELDS.find{field -> !user."$field"}){
 //                        It is for redirect when the user has not complete profile
                         redirect(mapping: 'customProcessRegisterStep2')
+
+                        return false
+                    }
+                }
+
+            }
+            after = { Map model ->
+
+            }
+            afterView = { Exception e ->
+
+            }
+        }
+
+        configFomain(controller: 'admin|logout|error|register|layouts|file', invert:true){
+            before = {
+                if (springSecurityService.isLoggedIn() && springSecurityService.authentication.authorities.collect{it.authority}.contains("ROLE_ADMIN")){
+                    DomainRSDTO domainRSDTO = CustomDomainResolver.domainRSDTO
+                    if (domainRSDTO.version == 0){
+//                      Domain is not configured
+                        redirect(mapping: 'adminDomainRegisterStep1')
 
                         return false
                     }
