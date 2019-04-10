@@ -64,6 +64,7 @@
         var labelElement = inputElement.parentElement;
         var colorPreviewElement = document.getElementById("color-picker-hex-code");
         inputElement.addEventListener("change", handleColor, false);
+        inputElement.addEventListener("input", handleColor, false);
     }
 
     function handleColor(ev) {

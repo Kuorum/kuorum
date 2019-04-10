@@ -46,7 +46,7 @@
                             <input class="input-color-picker jscolor {closable:true,closeText:'Close', valueElement:'color-picker-hex-code'}" disabled>
                         </label>
                     </span>
-                    <input type="text" required aria-required="true" id="color-picker-hex-code" name="colorHexCode" class="form-control input-lg" value="#ff9431" placeholder="" readonly>
+                    <input type="text" required aria-required="true" id="color-picker-hex-code" name="colorHexCode" class="form-control input-lg" value="#ff9431" placeholder="">
                 </div>
             </div>
         </fieldset>
