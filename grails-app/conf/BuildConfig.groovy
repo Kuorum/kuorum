@@ -144,7 +144,7 @@ grails.project.dependency.resolution = {
 
 
         // Library for OAUTH used on the plugin (commented) :spring-security-oauth:2.1.0-RC4
-        compile group: 'org.scribe', name: 'scribe', version: '1.3.7'
+//        compile group: 'org.scribe', name: 'scribe', version: '1.3.7'
 
 
 //        test "org.gebish:geb-spock:$gebVersion"
@@ -171,8 +171,8 @@ grails.project.dependency.resolution = {
         // runtime ":database-migration:1.3.8"
 
         compile ':cookie:1.2'
-        compile ":spring-security-core:2.0-RC4"
-//        compile ':spring-security-oauth:2.1.0-RC4'
+        compile ":spring-security-core:2.0-RC5"
+        compile ':spring-security-oauth:2.1.0-RC4'
 //        compile ':spring-security-oauth-google:0.2'
 //        compile ':spring-security-oauth-facebook:0.2'
 

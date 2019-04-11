@@ -210,9 +210,18 @@ cache.headers.presets = [
         blog: [shared: true, validUntil:new Date()+1],
         search_results: [validFor: 60, shared: true]
 ]
-//oauth {
-//    debug = true
-//    providers {
+oauth {
+    debug = true
+    providers {
+        kuorumApi {
+            api = kuorum.payment.contact.kuorumApi.oauth.KuorumApiOauth2
+            key = 'KUORUM KEY'
+            secret = 'KUORUM SECRET'
+            successUri = '/oauth/api/success'
+            failureUri = '/oauth/api/failure'
+            callback = "http://localhost:8080/kuorum/oauth/api/callback" // Is overwritten with properties file
+            scope = 'SCOPES'
+        }
 //        facebook {
 //            api = kuorum.payment.contact.facebook.oauth.FacebookApiOauth2
 //            key = 'FACEBOOK KEY'
@@ -222,7 +231,7 @@ cache.headers.presets = [
 //            callback = "http://localhost:8080/kuorum/oauth/facebook/callback" // Is overwritten with properties file
 //            scope = 'email public_profile user_friends user_about_me'
 //        }
-//        // for Google OAuth 2.0
+        // for Google OAuth 2.0
 //        google {
 //            api = org.grails.plugin.springsecurity.oauth.GoogleApi20
 //            key = 'GOOGLE KEY'
@@ -254,9 +263,9 @@ cache.headers.presets = [
 //            callback = "http://local.kuorum.org:8080/kuorum/account/contacts/oauth/yahoo/success" // Is overwritten with properties file
 //            scope = 'mail-r sdct-r' // Mail y contactos
 //        }
-//        // ...
-//    }
-//}
+        // ...
+    }
+}
 
 // Added by the Restrpc plugin:
 restrpc.apiName = 'api'

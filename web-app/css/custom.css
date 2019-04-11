@@ -1397,7 +1397,6 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .modal-body table tfoot tr td {text-align: center; color:#ccc; }
 .modal-actions {direction: rtl; padding: 0 20px 20px; position:relative; text-align: center;}
 /*#filtersInfo .modal-body > table > tbody > tr > td {padding: 0;}*/
-/*#campaignConfirm .modal-body {background: url('../images/campaignModalConfirm.jpg')  center 0 no-repeat transparent; padding-top: 245px;}*/
 
 #filtersInfo .modal-header, #campaignDeleteConfirm .modal-header  {border: none;}
 #filtersInfo .modal-header h4, #campaignDeleteConfirm .modal-header h4 {font-size: 22px; margin: 0 0 10px 0; font-variant: normal; font-weight: normal; text-align: center;}
@@ -3191,34 +3190,6 @@ h2.underline {border-bottom: 1px solid #dadada; padding: 0 0 10px 0; margin-top:
 #addDebate textarea {padding: 20px;}
 .boxes.likes.important .progress-bar {background-color: #167caa;}
 
-.form-promo,
-.form-promo-pay {min-height: 126px; padding: 30px 0 0 0; border-bottom: 1px solid #DADADA; border-top: 1px solid #DADADA;}
-.form-promo h4 {font-size: 18px; font-size: 1.8rem;}
-.form-promo h4,
-.form-promo form {display: inline-block;}
-.form-promo form {position: relative;}
-.form-promo form .form-group {float: right; margin: 0 45px 10px 0;}
-.form-promo form .btn {
-    padding: 12px 50px !important;
-    margin: 0 !important;
-    position: absolute;
-    right: 15px;
-    top: 1px;
-}
-#paimentForm .form-group {width: 230px;}
-.form-promo form input {width: 80px !important; font-size: 22px; font-size: 2.2rem;}
-.form-promo-pay select.form-control {margin: 0 0 8px 0;}
-
-.form-promo-pay label {font-weight: bold;}
-.form-promo-pay .link {line-height: 1;}
-.form-promo-pay .btn.btn-lg {line-height: 1.5 !important;}
-.form-promo-pay .btn.btn-lg small {display: block;}
-.form-promo-pay p.secure {
-    line-height: 1.2;
-    margin: 20px 0;
-    padding: 45px 0 0 0;
-    background: url('../images/secure-payment.png') no-repeat -10px 0 transparent;
-}
 .boxes.plan .up-plan {
     font-size: 13px; font-size: 1.3rem;
     font-weight: bold;
@@ -4913,10 +4884,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
         text-align: left;
     }
 
-    #services ul.globus ul.bullets li {
-        margin-left: 5%;
-    }
-
     .fade-carousel .content .btn {
         width: 100%;
     }
@@ -5065,9 +5032,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     }
     #cases-study-grid .section-body {
         padding-bottom: 15px;
-    }
-    #services ul.globus ul.bullets li {
-        margin-left: 9%;
     }
 
     .box-order-options .bulk-actions {display: block; width: 100%;}
@@ -5260,11 +5224,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     }
     .onecol.error .intro h1 {font-size: 172px; font-size: 17.2rem; text-align: left;}
     .preFooter .btn {display: inline-block; margin: 0 5px !important;}
-    .form-promo h4 {font-size: 23px; font-size: 2.38rem;}
-    .form-promo form .form-group {float: none;}
-    .form-promo-pay .link {line-height: 6.5;}
-    .form-promo-pay p.secure {padding: 0 0 0 180px; background: url('../images/secure-payment.png') no-repeat 0 0 transparent;}
-    .form-promo form .form-group {float: right; margin: 0 55px 10px 0;}
     .steps li + li {background: url('../images/steps-sep.png') no-repeat center left; padding-left: 53px;}
     #map {width: 475px; height: 405px;}
     /*#edit-event-map { height: 100px;}*/
@@ -7442,18 +7401,6 @@ ul.threeColumn .card-body p {
     font-size: 18px;
 }
 
-ul.bullets {
-    list-style: none;
-    padding: 0;
-    font-size: 18px;
-    text-align: left;
-}
-
-
-ul.bullets li{
-    padding-bottom: 20px;
-}
-
 .section-header h1 {
     text-align: center;
     font-weight: bold;
@@ -7516,21 +7463,6 @@ ul.bullets li{
     text-align: center;
 }
 
-#services ul.bullets li span{
-    line-height: 31px;
-}
-
-#services .bullets{
-    font-size: 28px;
-    line-height: 45px;
-}
-
-#services .globus .bullets{
-    padding-top:12px;
-    font-size: 20px;
-    line-height: 31px;
-}
-
 
 /** landing caseStudies **/
 
@@ -7578,7 +7510,6 @@ ul.bullets li{
 
 #latestActivities .btn{font-size: 25px !important; }
 
-/** list bullets left **/
 
 .landing-overflow-image-right {
     position: relative;
@@ -7611,8 +7542,6 @@ ul.bullets li{
     right: 56%;
     overflow: hidden;
 }
-
-/** list bullets right **/
 
 .landing-overflow-image-left {
     position: relative;
@@ -7835,26 +7764,6 @@ ul.globus li img {
     margin-bottom: 15px;
 }
 
-ul.bullets li img {
-    width: 24px;
-    margin: 0 auto;
-    vertical-align: text-bottom;
-}
-
-#services ul.bullets li{
-    background: url('../images/landing/icons/icon-check.png') no-repeat left 7px;
-    background-size: 32px;
-    padding-left: 50px;
-}
-
-#services ul.globus ul.bullets li{
-    background: url('../images/landing/icons/icon-check.png') no-repeat left 3px;
-    background-size: 25px;
-    padding-left: 40px;
-    margin-left: 15%;
-}
-
-
 /** engange **/
 #engage {
     padding-top: 60px;
@@ -7957,9 +7866,6 @@ ul.bullets li img {
 /********************************/
 
 @media screen and (max-width: 1199px) {
-    #services ul.globus ul.bullets li {
-        margin-left: 15%;
-    }
 
     .container-overflow-image {
         min-height: 670px;
@@ -8095,14 +8001,6 @@ ul.bullets li img {
 
     #services h1 {
         padding-bottom: 25px;
-    }
-
-    #services .bullets{
-        padding: 0 15px;
-    }
-
-    .section-body .bullets{
-        padding: 0 15px;
     }
 
     .section-header h1 {
