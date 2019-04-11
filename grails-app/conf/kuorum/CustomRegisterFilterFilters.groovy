@@ -1,5 +1,6 @@
 package kuorum
 
+import grails.plugin.springsecurity.SpringSecurityUtils
 import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.register.KuorumUserSession
 import org.kuorum.rest.model.domain.DomainRSDTO
@@ -34,7 +35,7 @@ class CustomRegisterFilterFilters {
 
         configFomain(controller: 'admin|logout|error|register|layouts|file', invert:true){
             before = {
-                if (springSecurityService.isLoggedIn() && springSecurityService.authentication.authorities.collect{it.authority}.contains("ROLE_ADMIN")){
+                if (springSecurityService.isLoggedIn() && SpringSecurityUtils.ifAnyGranted("ROLE_ADMIN")){
                     DomainRSDTO domainRSDTO = CustomDomainResolver.domainRSDTO
                     if (domainRSDTO.version == 0){
 //                      Domain is not configured
