@@ -1,6 +1,4 @@
 <ul class="actionIcons">
-    %{--<li><g:link mapping="politicianContactImportGmail" role="button" class="actionIcons" elementId="gmail"><g:message--}%
-            %{--code="tools.contact.import.options.gmail"/></g:link></li>--}%
     <li><contactUtil:importSocialContact provider="google">Gmail</contactUtil:importSocialContact></li>
     <li><contactUtil:importSocialContact provider="yahoo">Yahoo!</contactUtil:importSocialContact></li>
     <li><contactUtil:importSocialContact provider="outlook">Outlook</contactUtil:importSocialContact></li>

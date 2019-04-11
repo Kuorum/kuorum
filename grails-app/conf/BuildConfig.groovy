@@ -74,23 +74,23 @@ grails.project.dependency.resolution = {
 //        compile 'org.springframework.social:spring-social-core:1.0.3.RELEASE'
 //        compile ('org.springframework.social:spring-social-google:1.0.0.M4')
 //        compile ('org.springframework.social:spring-social-facebook:1.0.3.RELEASE'){
-        compile ('org.springframework.social:spring-social-facebook:2.0.3.RELEASE'){
+//        compile ('org.springframework.social:spring-social-facebook:2.0.3.RELEASE'){
             //CONFLICT WITH grails json parsers
 //            excludes 'org.codehaus.jackson:jackson-mapper-asl'
 //            excludes 'com.fasterxml.jackson.core:jackson-databind'
-        }
+//        }
         // https://mvnrepository.com/artifact/com.google.api.client/google-api-client-googleapis
 //        compile group: 'com.google.api.client', name: 'google-api-client-googleapis', version: '1.4.1-beta'
 //        compile group: 'com.google.api.client', name: 'google-api-client-googleapis-auth-oauth', version: '1.2.3-alpha'
-        compile 'com.google.api-client:google-api-client:1.22.0'
+//        compile 'com.google.api-client:google-api-client:1.22.0'
 //        compile 'com.google.oauth-client:google-oauth-client-jetty:1.22.0'
-        compile 'com.google.apis:google-api-services-people:v1-rev4-1.22.0'
-        compile group: 'com.google.gdata', name: 'core', version: '1.47.1'
+//        compile 'com.google.apis:google-api-services-people:v1-rev4-1.22.0'
+//        compile group: 'com.google.gdata', name: 'core', version: '1.47.1'
 //        compile 'com.google.apis:google-api-services-plus:v1-rev461-1.22.0'
-        compile group: 'com.google.apis', name: 'google-api-services-plusDomains', version: 'v1-rev7-1.17.0-rc'
+//        compile group: 'com.google.apis', name: 'google-api-services-plusDomains', version: 'v1-rev7-1.17.0-rc'
 
         // The same version as spring-social:facebook
-        compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.6.2'
+//        compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.6.2'
 
         compile 'com.mandrillapp.wrapper.lutung:lutung:0.0.4'
 //        compile 'org.apache.solr:solr-solrj:4.9.0'
@@ -143,6 +143,9 @@ grails.project.dependency.resolution = {
 //        compile group: 'org.graylog2', name: 'gelfj', version: '1.1.13'
 
 
+        // Library for OAUTH used on the plugin (commented) :spring-security-oauth:2.1.0-RC4
+        compile group: 'org.scribe', name: 'scribe', version: '1.3.7'
+
 
 //        test "org.gebish:geb-spock:$gebVersion"
 //        test("org.seleniumhq.selenium:selenium-chrome-driver:$seleniumVersion")
@@ -169,9 +172,9 @@ grails.project.dependency.resolution = {
 
         compile ':cookie:1.2'
         compile ":spring-security-core:2.0-RC4"
-        compile ':spring-security-oauth:2.1.0-RC4'
-        compile ':spring-security-oauth-google:0.2'
-        compile ':spring-security-oauth-facebook:0.2'
+//        compile ':spring-security-oauth:2.1.0-RC4'
+//        compile ':spring-security-oauth-google:0.2'
+//        compile ':spring-security-oauth-facebook:0.2'
 
         //compile ":spring-security-acl:2.0-RC1"
         compile "org.grails.plugins:spring-security-acl:2.0.1" //Para las partes que tienen seguridad custom

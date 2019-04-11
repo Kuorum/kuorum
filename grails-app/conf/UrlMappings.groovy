@@ -452,8 +452,6 @@ class UrlMappings {
         name politicianContactImport:                   "/account/contacts/import" (controller:"contacts", action: "importContacts")
         name politicianContactImportCSV:                "/account/contacts/import/csv" (controller:"contacts"){action =[GET:"importCSVContacts", POST:"importCSVContactsUpload"]}
         name politicianContactImportCSVSave:            "/account/contacts/import/csv_save" (controller:"contacts", action: "importCSVContactsSave")
-        name politicianContactImportGmail:              "/account/contacts/import/gmail" (controller:"googleContacts", action: "index")
-        name politicianContactImportOutlook:            "/account/contacts/import/outlook" (controller:"outlookContacts", action: "index")
         name politicianContactImportSuccess:            "/account/contacts/import/success" (controller:"contacts", action: "importSuccess")
         name politicianContactImportError:              "/account/contacts/import/error" (controller:"contacts", action: "importError")
         name politicianContactTagsAjax:                 "/ajax/account/contacts/tags" (controller:"contacts", action: "contactTags")
@@ -491,11 +489,6 @@ class UrlMappings {
         name politicianMassMailingParticipatoryBudgetReport:"/ajax/account/participatoryBudget/$campaignId/report" (controller:"participatoryBudget", action: "sendProposalsReport")
 
         name politicianTeamManagement:                  "/account/team-management" (controller:"politician", action: "betaTesterPage")
-
-        "/account/contacts/oauth/$provider/success" (controller: "contactsOAuth", action: "onSuccess")
-        "/account/contacts/oauth/$provider/failure" (controller: "contactsOAuth", action: "onFailure")
-
-        "/googleContacts/loadContactsFromGoogle" (controller: "googleContacts", action: "loadContactsFromGoogle")
 
         name sitemapIndex:  "/sitemap" (controller: "siteMap", action: "sitemapIndex")
 

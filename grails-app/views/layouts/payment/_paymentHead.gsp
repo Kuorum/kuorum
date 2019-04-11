@@ -29,4 +29,10 @@
         </a>
         <g:render template="/layouts/headUserMenuDropDown" model="[user:user, numMessages:7]"/>
     </li>
+    <li class="underline" id="navigation-contacts">
+        <g:link mapping="politicianContacts" class="navbar-link">
+            <span class="">Show your landing</span>
+            <span class="fas fa-sign-out"></span>
+        </g:link>
+    </li>
 </ul>

@@ -210,53 +210,53 @@ cache.headers.presets = [
         blog: [shared: true, validUntil:new Date()+1],
         search_results: [validFor: 60, shared: true]
 ]
-oauth {
-    debug = true
-    providers {
-        facebook {
-            api = kuorum.payment.contact.facebook.oauth.FacebookApiOauth2
-            key = 'FACEBOOK KEY'
-            secret = 'FACEBOOK SECRET'
-            successUri = '/oauth/facebook/success'
-            failureUri = '/oauth/facebook/failure'
-            callback = "http://localhost:8080/kuorum/oauth/facebook/callback" // Is overwritten with properties file
-            scope = 'email public_profile user_friends user_about_me'
-        }
-        // for Google OAuth 2.0
-        google {
-            api = org.grails.plugin.springsecurity.oauth.GoogleApi20
-            key = 'GOOGLE KEY'
-            secret = 'GOOGLE SECRET'
-            successUri = '/oauth/google/success'
-            failureUri = '/oauth/google/failure'
-            callback = "http://localhost:8080/kuorum/oauth/google/callback" // Is overwritten with properties file
-//            scope = 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email'
-            scope = 'https://www.googleapis.com/auth/plus.me https://www.googleapis.com/auth/plus.profiles.read https://www.googleapis.com/auth/plus.circles.read'
-            jsKey = 'GOOGLE JS KEY'
-        }
-        outlook {
-            api = kuorum.payment.contact.outlook.oauth.OutlookApi
-            key = 'OUTLOOK KEY'
-            secret = 'OUTLOOK SECRET'
-            successUri = '/account/contacts/oauth/outlook/success'
-            failureUri = '/account/contacts/oauth/outlook/success'
-            callback = "http://localhost:8080/kuorum/oauth/outlook/callback"
-            contactCallback = "http://local.kuorum.org/kuorum/googleContacts/loadContactsFromGoogle"
-            scope = 'openid offline_access profile https://outlook.office.com/contacts.read'
-        }
-        yahoo {
-            api = kuorum.payment.contact.yahoo.oauth.YahooApi
-//            api = org.scribe.builder.api.YahooApi
-            key = 'YAHOO KEY'
-            secret = 'YAHOO SECRET'
-            successUri = '/account/contacts/oauth/yahoo/success'
-            failureUri = '/account/contacts/oauth/yahoo/success'
-            callback = "http://local.kuorum.org:8080/kuorum/account/contacts/oauth/yahoo/success" // Is overwritten with properties file
-            scope = 'mail-r sdct-r' // Mail y contactos
-        }
-        // ...
-    }
-}
+//oauth {
+//    debug = true
+//    providers {
+//        facebook {
+//            api = kuorum.payment.contact.facebook.oauth.FacebookApiOauth2
+//            key = 'FACEBOOK KEY'
+//            secret = 'FACEBOOK SECRET'
+//            successUri = '/oauth/facebook/success'
+//            failureUri = '/oauth/facebook/failure'
+//            callback = "http://localhost:8080/kuorum/oauth/facebook/callback" // Is overwritten with properties file
+//            scope = 'email public_profile user_friends user_about_me'
+//        }
+//        // for Google OAuth 2.0
+//        google {
+//            api = org.grails.plugin.springsecurity.oauth.GoogleApi20
+//            key = 'GOOGLE KEY'
+//            secret = 'GOOGLE SECRET'
+//            successUri = '/oauth/google/success'
+//            failureUri = '/oauth/google/failure'
+//            callback = "http://localhost:8080/kuorum/oauth/google/callback" // Is overwritten with properties file
+////            scope = 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email'
+//            scope = 'https://www.googleapis.com/auth/plus.me https://www.googleapis.com/auth/plus.profiles.read https://www.googleapis.com/auth/plus.circles.read'
+//            jsKey = 'GOOGLE JS KEY'
+//        }
+//        outlook {
+//            api = kuorum.payment.contact.outlook.oauth.OutlookApi
+//            key = 'OUTLOOK KEY'
+//            secret = 'OUTLOOK SECRET'
+//            successUri = '/account/contacts/oauth/outlook/success'
+//            failureUri = '/account/contacts/oauth/outlook/success'
+//            callback = "http://localhost:8080/kuorum/oauth/outlook/callback"
+//            contactCallback = "http://local.kuorum.org/kuorum/googleContacts/loadContactsFromGoogle"
+//            scope = 'openid offline_access profile https://outlook.office.com/contacts.read'
+//        }
+//        yahoo {
+//            api = kuorum.payment.contact.yahoo.oauth.YahooApi
+////            api = org.scribe.builder.api.YahooApi
+//            key = 'YAHOO KEY'
+//            secret = 'YAHOO SECRET'
+//            successUri = '/account/contacts/oauth/yahoo/success'
+//            failureUri = '/account/contacts/oauth/yahoo/success'
+//            callback = "http://local.kuorum.org:8080/kuorum/account/contacts/oauth/yahoo/success" // Is overwritten with properties file
+//            scope = 'mail-r sdct-r' // Mail y contactos
+//        }
+//        // ...
+//    }
+//}
 
 // Added by the Restrpc plugin:
 restrpc.apiName = 'api'
