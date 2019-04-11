@@ -450,8 +450,34 @@ body.configDomainProcess footer .licenses a{color:#CCCCCC !important;}
 .modal-dialog #pass-forget {display: none;}
 .modal-dialog #signup-modal {display: block;}
 
+#navigation-admin-show-landing-button{}
 
-/* NUEVOS ESTILOS LANDING 2016 */
+#navigation-admin-show-landing-button a{
+    background: #545454;
+    color: white;
+    height: 61px;
+    margin-top: -11px;
+    font-size: 30px;
+}
+
+
+#navigation-admin-show-landing-button a:hover{background-color: #167caa;}
+#navigation-admin-show-landing-button .tooltip.bottom .tooltip-inner {
+    background-color: #167caa;
+    color:white;
+    font-size: 14px;
+    font-family: "Helvetica Neue", Helvetica,Arial,sans-serif !important;
+    width: 240px;
+    padding: 10px;
+    top: -7px;
+    right: 10px;
+    left: -10px;
+    margin-left: -175px; /* KAKA PORQUE REVIENTA AL ABRIR TOOLTIP EN RESPONSIVE */
+}
+#navigation-admin-show-landing-button .tooltip.bottom .tooltip-arrow {border-bottom-color: #167caa;}
+
+
+    /* NUEVOS ESTILOS LANDING 2016 */
 /* hay dos tipos de header: transparente y fondo blanco; añadimos clase al <header> para diferenciar el transparente */
 /* EN movil el header en vez de transparente es negro porque el desplegable es negro */
 header.transp .navbar {background-color: #000; border: none; color: #fff; transition: background-color 500ms ease-out;}
@@ -1024,10 +1050,6 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 .social li {display: inline-block;}
 .social li {margin-right: 5px; font-size: 18.5px; font-size: 1.85rem;}
 .social li:last-child {margin-right: 0;}
-.agpl {display: block; margin-top: 4px; width: 100px; height: 42px; background: url('../images/logo-agpl@2x.png') 0 0 no-repeat transparent; background-size: 100% auto; text-indent: -9999em;}
-.agpl:hover,
-.agpl:active,
-.agpl:focus {background-position: 0 -48px;}
 #footer .social li a, .social li a {color: #167caa;}
 #footer .social li a:hover,.social li a:hover,
 #footer .social li a:active,.social li a:active,

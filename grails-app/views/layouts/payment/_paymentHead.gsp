@@ -29,10 +29,11 @@
         </a>
         <g:render template="/layouts/headUserMenuDropDown" model="[user:user, numMessages:7]"/>
     </li>
-    <li class="underline" id="navigation-contacts">
-        <g:link mapping="politicianContacts" class="navbar-link">
-            <span class="">Show your landing</span>
-            <span class="fas fa-sign-out"></span>
-        </g:link>
-    </li>
+
+
+    <sec:ifAnyGranted roles="ROLE_ADMIN">
+        <li class="underline" id="navigation-admin-show-landing-button">
+            <g:link mapping="logout" rel="tooltip" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="${g.message(code:'head.logged.admin.showLanding')}"><span class="fa fa-eye"></span></g:link>
+        </li>
+    </sec:ifAnyGranted>
 </ul>
