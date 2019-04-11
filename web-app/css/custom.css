@@ -382,6 +382,7 @@ body.configDomainProcess .navbar-nav #navigation-contacts,
 body.configDomainProcess .navbar-nav >.notifications{display:none;}
 body.configDomainProcess .navbar-nav #navigation-profile a{cursor: default; border:none;}
 body.configDomainProcess .navbar-nav #navigation-profile #user-options{display: none;}
+body.configDomainProcess .navbar-nav #navigation-admin-show-landing-button{display: none;}
 body.configDomainProcess footer .licenses a{color:#CCCCCC !important;}
 /*.navbar-nav .user-area .user-img {width: 25px; height: 25px; margin: 0;}*/
 .navbar-brand {
