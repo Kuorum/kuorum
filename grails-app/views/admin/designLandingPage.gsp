@@ -43,7 +43,7 @@
                 <div class="input-append input-group">
                     <span tabindex="100" class="add-on input-group-addon">
                         <label class="">
-                            <input class="input-color-picker jscolor {closable:true,closeText:'Close', valueElement:'color-picker-hex-code'}" disabled>
+                            <input class="input-color-picker jscolor {closable:true,closeText:'Close', valueElement:'color-picker-hex-code'}" readonly>
                         </label>
                     </span>
                     <input type="text" required aria-required="true" id="color-picker-hex-code" name="colorHexCode" class="form-control input-lg" value="#ff9431" placeholder="">

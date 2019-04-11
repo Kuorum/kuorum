@@ -8364,6 +8364,7 @@ ul.notification-menu > li.see-more {
     -moz-border-radius: 5px;
     border-radius: 5px;
     background-color: #167caa;
+    cursor: pointer;
 }
 
 .input-color-picker input[type='color'] {
