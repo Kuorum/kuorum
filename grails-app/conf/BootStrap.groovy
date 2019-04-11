@@ -30,7 +30,11 @@ class BootStrap {
                 asyncUpdateConfig << grails.async.Promises.task {
                     URL urlThread = new URL("https://kuorum.org/kuorum")
                     CustomDomainResolver.setUrl(urlThread, "")
-                    domainService.updateConfig(domainRSDTO)
+                    if (domainRSDTO.version != 0){
+                        domainService.updateConfig(domainRSDTO)
+                    }else{
+                        log.info("Ingoring domain cofiguration because its version is 0 and it was not configured")
+                    }
                     // Used to update the version number and force browsers to download again the css and uploads the new css
                     // lessCompilerService.compileCssForDomain(it)
                 }
