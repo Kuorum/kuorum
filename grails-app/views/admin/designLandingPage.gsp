@@ -1,6 +1,6 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
-    <title><g:message code="domain.config.firstConfig.steps.step2.title"/></title>
+    <title><g:message code="domain.config.firstConfig.steps.step1.title"/></title>
     <meta name="layout" content="columnCLayout">
     <meta name="robots" content="noindex, nofollow">
     <parameter name="bodyCss" value="configDomainProcess"/>
@@ -25,15 +25,27 @@
         <fieldset class="row">
             <div class="form-group col-md-6">
                 <label for="logo"><g:message code="kuorum.web.admin.domain.DomainConfigStep1Command.logo.label"/> *</label>
-                <div class="input-group">
-                    <label class="input-group-addon">
-                        <span class="btn btn-blue inverted">
-                            <g:message code="kuorum.web.admin.domain.DomainConfigStep1Command.logo.selectFile"/>
-                            <input id="sign-in-step-5__input-file" name="logo" type="file" style="display: none;">
-                        </span>
-                    </label>
-                    <input id="logo" type="text" class="form-control input-lg" readonly>
+
+                <div class="input-group input-group-lg">
+                    <input id="sign-in-step-5__input-file"
+                           name="logo"
+                           type="file"
+                           class="filestyle"
+                           data-icon="false"
+                           data-buttonText="${message(code: 'kuorum.web.admin.domain.DomainConfigStep1Command.logo.selectFile')}"
+                           data-buttonName="btn-blue btn-lg inverted"
+                           data-buttonBefore="true"
+                           data-placeholder="${message(code: 'tools.contact.import.csv.selectFile.noSelection')}">
                 </div>
+                %{--<div class="input-group">--}%
+                    %{--<label class="input-group-addon">--}%
+                        %{--<span class="btn btn-blue inverted">--}%
+                            %{--<g:message code="kuorum.web.admin.domain.DomainConfigStep1Command.logo.selectFile"/>--}%
+                            %{--<input id="sign-in-step-5__input-file" name="logo" type="file" style="display: none;">--}%
+                        %{--</span>--}%
+                    %{--</label>--}%
+                    %{--<input id="logo" type="text" class="form-control input-lg" readonly>--}%
+                %{--</div>--}%
                 <div class="errors">
                     <g:renderErrors bean="${command}" field="logoName"/>
                 </div>

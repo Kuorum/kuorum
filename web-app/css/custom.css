@@ -383,7 +383,7 @@ body.configDomainProcess .navbar-nav >.notifications{display:none;}
 body.configDomainProcess .navbar-nav #navigation-profile a{cursor: default; border:none;}
 body.configDomainProcess .navbar-nav #navigation-profile #user-options{display: none;}
 body.configDomainProcess .navbar-nav #navigation-admin-show-landing-button{display: none;}
-body.configDomainProcess footer .licenses a{color:#CCCCCC !important;}
+
 /*.navbar-nav .user-area .user-img {width: 25px; height: 25px; margin: 0;}*/
 .navbar-brand {
     width: 130px;
@@ -1046,6 +1046,7 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 
 #footer .licenses {margin: 0 auto; width: 154px;}
 #footer .licenses li {margin: 0;}
+#footer .licenses a {color: #CCCCCC !important;}
 /*#footer .licenses li:last-child {margin-right: 10px;}*/
 
 .social li {display: inline-block;}
@@ -1073,6 +1074,13 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 .bootstrap-filestyle.input-group .form-control {background-color: #fff; border-radius: 0; float: right; width: calc(100% - 10px); height: 35px;}
 .bootstrap-filestyle .btn {border-radius: 0 !important;}
 .bootstrap-filestyle .input-group-btn {outline: none;}
+.bootstrap-filestyle.input-group input {margin-left: 5px;}
+
+.input-group.input-group-lg .bootstrap-filestyle.input-group input {
+    height: 46px;
+    font-size: 14px;
+    border-radius: 6px;
+}
 
 .box-ppal.edit-contact, .box-ppal.edit-contact-header {box-shadow: 0 0 2px rgba(200,200,200,0.6);}
 .box-ppal.import-contacts, .box-ppal.dashboard {padding: 25px 0 10px;}

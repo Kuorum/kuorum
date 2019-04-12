@@ -2,6 +2,7 @@
 <head>
     <title> <g:message code="domain.config.firstConfig.steps.step2.title"/> </title>
     <meta name="layout" content="columnCLayout">
+    <parameter name="bodyCss" value="configDomainProcess"/>
     <r:require modules="forms"/>
 </head>
 
