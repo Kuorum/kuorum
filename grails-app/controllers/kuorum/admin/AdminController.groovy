@@ -438,7 +438,7 @@ class AdminController {
 
 
     def designLandingPage(){
-        [command:new DomainConfigStep1Command()]
+        [command:new DomainConfigStep1Command(colorHexCode: CustomDomainResolver.domainRSDTO.mainColor)]
     }
 
     def saveDesignLandingPage(DomainConfigStep1Command command){
