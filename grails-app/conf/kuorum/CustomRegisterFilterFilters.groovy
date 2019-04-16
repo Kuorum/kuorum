@@ -39,6 +39,7 @@ class CustomRegisterFilterFilters {
                     DomainRSDTO domainRSDTO = CustomDomainResolver.domainRSDTO
                     if (domainRSDTO.version == 0){
 //                      Domain is not configured
+                        log.info("Domain is not configured. Redirecting ...")
                         redirect(mapping: 'adminDomainRegisterStep1')
 
                         return false
