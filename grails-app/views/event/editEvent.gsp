@@ -84,17 +84,17 @@
         <script>
 
             function KuorumGoogleMapEditEvent(){
-                var map
-                var geocoder
-                var marker
-                var mapDivContainerId="edit-event-map"
-                var geocoderButtonId='geocode-address'
+                var map;
+                var geocoder;
+                var marker;
+                var mapDivContainerId="edit-event-map";
+                var geocoderButtonId='geocode-address';
                 var zoom = 1;
                 var center = {lat: 40.428054, lng: -3.7043396};
                 var that = this;
 
                 var placeSearch, autocomplete;
-                var inputAddressId="address"
+                var inputAddressId="address";
                 var componentForm = {
                     street_number: 'short_name',
                     route: 'long_name',
@@ -144,7 +144,7 @@
 //                    map.addListener('click', function(e) {
 //                        that.placeMarkerAndPanTo(e.latLng);
 //                    });
-                }
+                };
                 document.getElementById(geocoderButtonId).addEventListener('click', function(e) {
                     e.preventDefault();
                     that.geocodeAddress(geocoder, map);
@@ -167,7 +167,7 @@
                     document.getElementById('latitude').value=place.geometry.location.lat();
                     document.getElementById('longitude').value=place.geometry.location.lng();
 
-                }
+                };
                 this.geocodeAddress= function () {
                     var address = document.getElementById('address').value;
                     geocoder.geocode({'address': address}, function(results, status) {
@@ -186,20 +186,20 @@
                             document.getElementById('latitude').value=results[0].geometry.location.lat();
                             document.getElementById('longitude').value=results[0].geometry.location.lng();
                         } else {
-                            display.warn("${g.message(code:'tools.massMailing.event.location.error')}")
+                            display.warn("${g.message(code:'tools.massMailing.event.location.error')}");
                             that.removeMarker();
-                            document.getElementById('zoom').value=''
-                            document.getElementById('latitude').value=''
+                            document.getElementById('zoom').value='';
+                            document.getElementById('latitude').value='';
                             document.getElementById('longitude').value=''
                         }
                     });
-                }
+                };
 
                 this.removeMarker = function(){
                     if (marker != undefined){
                         marker.setMap(null)
                     }
-                }
+                };
 
                 this.placeMarkerAndPanTo = function(latLng) {
                     var marker = new google.maps.Marker({
@@ -207,14 +207,14 @@
                         map: that.map
                     });
                     that.map.panTo(latLng);
-                }
+                };
                 this.show = function(){
                     document.getElementById(mapDivContainerId).removeAttribute("style");
-                }
+                };
                 // INIT MAP
-                this.initMap()
+                this.initMap();
                 if (document.getElementById('zoom').value >0){
-                    zoom = parseInt(document.getElementById('zoom').value)
+                    zoom = parseInt(document.getElementById('zoom').value);
                     center = {
                         lat: parseFloat(document.getElementById('latitude').value),
                         lng: parseFloat(document.getElementById('longitude').value)
@@ -230,7 +230,7 @@
                 }
             }
 
-            var kuorumGoogleMapEditEvent
+            var kuorumGoogleMapEditEvent;
             function googleMapsLibraryLoaded(){
                 kuorumGoogleMapEditEvent = new KuorumGoogleMapEditEvent()
             }
@@ -238,7 +238,7 @@
         </script>
         <g:set var="currentLang" value="${org.springframework.web.servlet.support.RequestContextUtils.getLocale(request)}" />
         <script async defer
-                src="https://maps.googleapis.com/maps/api/js?key=${_googleConfig.jsKey}&callback=googleMapsLibraryLoaded&libraries=places&language=${currentLang.language}">
+                src="https://maps.googleapis.com/maps/api/js?key=${_googleJsAPIKey}&callback=googleMapsLibraryLoaded&libraries=places&language=${currentLang.language}">
         </script>
     </div>
 </content>
