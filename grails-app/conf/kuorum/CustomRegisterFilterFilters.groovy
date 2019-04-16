@@ -33,7 +33,7 @@ class CustomRegisterFilterFilters {
             }
         }
 
-        configFomain(controller: 'admin|logout|error|register|layouts|file', invert:true){
+        configFomain(controller: 'admin|logout|error|register|layouts|file|login', invert:true){
             before = {
                 if (springSecurityService.isLoggedIn() && SpringSecurityUtils.ifAnyGranted("ROLE_ADMIN")){
                     DomainRSDTO domainRSDTO = CustomDomainResolver.domainRSDTO
