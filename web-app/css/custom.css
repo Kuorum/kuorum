@@ -217,9 +217,18 @@ html.loading body {
     opacity: .5;
 }
 
+#modal-loading-signup-custom-site .modal-dialog{width: 370px }
 #modal-loading-signup-custom-site .modal-body {text-align: center; }
-.modal-loading-signup-custom-site-dynamic-text {padding:20px;}
-.modal-loading-signup-custom-site-dynamic-text p {display: inline-block;}
+#modal-loading-signup-custom-site .modal-body img{width: 140px; height: auto;}
+.modal-loading-signup-custom-site-dynamic-text {padding:0px;}
+.modal-loading-signup-custom-site-dynamic-text p {
+    display: inline-block;
+    color:#C6C6C6;
+    font-family: "Arial Bold", "Arial";
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
 /* FIN PAGE LOADING */
 
 .loading {

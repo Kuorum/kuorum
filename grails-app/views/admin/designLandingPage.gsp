@@ -125,8 +125,8 @@
                 </div>
                 <div class="modal-body">
                     <p><g:message code="form.submit.slowLoading.modal.text"/></p>
+                    <img src="${g.resource(dir:'images', file: 'logo-waiting.gif')}"/>
                     <div class="modal-loading-signup-custom-site-dynamic-text fa-3x">
-                        <span class="fa fa-spinner fa-pulse"></span>
                         <p><g:message code="form.submit.slowLoading.modal.text1"/></p>
                         <p><g:message code="form.submit.slowLoading.modal.text2"/></p>
                         <p><g:message code="form.submit.slowLoading.modal.text3"/></p>
