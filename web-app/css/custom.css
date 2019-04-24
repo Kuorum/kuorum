@@ -382,6 +382,10 @@ a:focus {color: #167caa;}
 .navbar-fixed-top {border-bottom: solid 1px #e5e5e5;}
 #header h1 {margin: 4px 0 0 5px;}
 
+/******************************/
+/* START funnel configuration */
+/******************************/
+
 /*.configDomainProcess hides all options/actions/links of the header and sets some colors to grey*/
 body.configDomainProcess .navbar-header{display:none;}
 body.configDomainProcess #search-form{display:none;}
@@ -393,7 +397,23 @@ body.configDomainProcess .navbar-nav #navigation-profile a{cursor: default; bord
 body.configDomainProcess .navbar-nav #navigation-profile #user-options{display: none;}
 body.configDomainProcess .navbar-nav #navigation-admin-show-landing-button{display: none;}
 
-/*.navbar-nav .user-area .user-img {width: 25px; height: 25px; margin: 0;}*/
+/*This color configuration will not be override on custom.domain.css => It is for configuration funnel*/
+body.configDomainProcess .btn.btn-blue{color: #fff !important;background-color: #167caa !important;border-color:#167caa !important}
+body.configDomainProcess .btn.btn-blue.active,
+body.configDomainProcess .btn.btn-blue:hover,
+body.configDomainProcess .btn.btn-blue:active,
+body.configDomainProcess .btn.btn-blue:focus {background-color: #116083 !important;}
+
+body.configDomainProcess .stepsSign.stepsSignSecondaryColor li.active,
+body.configDomainProcess .stepsSign.stepsSignSecondaryColor li.active::before,
+body.configDomainProcess .stepsSign.stepsSignSecondaryColor li.active::after{background-color: rgba(141,190,239, 1);}
+body.configDomainProcess .qq-upload-button{color: #167caa;}
+body.configDomainProcess .qq-uploader{background-color: #FFF;}
+
+/****************************/
+/* END funnel configuration */
+/****************************/
+
 .navbar-brand {
     width: 130px;
     height: 38px;
