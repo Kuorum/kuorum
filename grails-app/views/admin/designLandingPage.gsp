@@ -147,7 +147,7 @@
         });
         function showModalLoadingSignUpCustomSite() {
             var $form = $("#signup-custom-site");
-            if ($form.valid()) {
+            if (customLandingFormValidation($form)) {
                 var numTexts = $("#modal-loading-signup-custom-site .modal-body .modal-loading-signup-custom-site-dynamic-text p").length;
                 var count = 0;
                 var changeText = function () {
@@ -161,6 +161,55 @@
                 $('#modal-loading-signup-custom-site').on('hidden.bs.modal', function (e) {
                     clearInterval(changeTextModal)
                 })
+            }
+        }
+        function customLandingFormValidation($form){
+            return !!(
+                $form.valid()
+                & landigUploadedFilesValidation($form)
+            );
+        }
+
+        function landigUploadedFilesValidation($form){
+            var slidesOk = !!(
+                validateSlideImage($form, 1)
+                & validateSlideImage($form, 2)
+                & validateSlideImage($form, 3)
+                & validateLogo($form)
+            );
+        }
+        function validateSlideImage($form, slidePos){
+            var $inputSlide = $form.find("[name=slideId"+slidePos+"]");
+            $container = $inputSlide.parent().find(".uploaderImageContainer");
+            if ($inputSlide.val()==""){
+                if ($container.find(".error").length==0){
+                    var msg = [
+                        '${g.message(code:'kuorum.web.admin.domain.DomainConfigStep1Command.slideId1.nullable')}',
+                        '${g.message(code:'kuorum.web.admin.domain.DomainConfigStep1Command.slideId2.nullable')}',
+                        '${g.message(code:'kuorum.web.admin.domain.DomainConfigStep1Command.slideId3.nullable')}'
+                    ];
+                    var errorSpan = '<span for="input__slideId'+slidePos+'_NEW_" class="error"><span
+            class="tooltip-arrow"></span>'+msg[slidePos-1]+'</span>';
+                    $container.append(errorSpan)
+                }
+                return false;
+            }else{
+                $container.find(".error").remove();
+                return true;
+            }
+        }
+        function validateLogo($form){
+            var $inputLogo = $form.find("[name=logo]");
+            $errors = $inputLogo.parent().parent().find(".errors");
+            if ($inputLogo.val()==""){
+                if ($errors.find("ul").length == 0){
+                    $error = '<ul><li>${g.message(code:'kuorum.web.admin.domain.DomainConfigStep1Command.logoName.nullable')}</li></ul>';
+                    $errors.append($error);
+                }
+                return false;
+            }else{
+                $errors.children().remove();
+                return true;
             }
         }
     </r:script>
