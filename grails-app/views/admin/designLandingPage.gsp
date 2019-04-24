@@ -188,8 +188,7 @@
                         '${g.message(code:'kuorum.web.admin.domain.DomainConfigStep1Command.slideId2.nullable')}',
                         '${g.message(code:'kuorum.web.admin.domain.DomainConfigStep1Command.slideId3.nullable')}'
                     ];
-                    var errorSpan = '<span for="input__slideId'+slidePos+'_NEW_" class="error"><span
-            class="tooltip-arrow"></span>'+msg[slidePos-1]+'</span>';
+                    var errorSpan = '<span for="input__slideId'+slidePos+'_NEW_" class="error"><span class="tooltip-arrow"></span>'+msg[slidePos-1]+'</span>';
                     $container.append(errorSpan)
                 }
                 return false;
