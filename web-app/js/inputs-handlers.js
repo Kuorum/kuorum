@@ -85,8 +85,10 @@
     var subtitle = document.getElementById("subtitle");
 
     if (slogan && subtitle) {
-        slogan.addEventListener("keydown", handleSlogan, false);
-        subtitle.addEventListener("keydown", handleSubtitle, false);
+        slogan.addEventListener("keyup", handleSlogan, false);
+        slogan.addEventListener("change", handleSlogan, false);
+        subtitle.addEventListener("keyup", handleSubtitle, false);
+        subtitle.addEventListener("change", handleSubtitle, false);
     }
 
     function handleSlogan(ev) {

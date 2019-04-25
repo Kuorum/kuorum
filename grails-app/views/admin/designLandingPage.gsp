@@ -106,7 +106,7 @@
                     <div class="macbook-pro-website-form">
                         <div id="macbook-pro-website-form-input-1" class="macbook-pro-website-form-input"></div>
                         <div id="macbook-pro-website-form-input-2" class="macbook-pro-website-form-input"></div>
-                        <div id="macbook-pro-website-form-input-3" class="macbook-pro-website-form-input macbook-pro-website-form-input--primary-color"></div>
+                        <div id="macbook-pro-website-form-input-3" class="macbook-pro-website-form-input macbook-pro-website-form-input--primary-color" style="background-color: ${command.colorHexCode}"></div>
                     </div>
                 </div>
             </div>
@@ -153,7 +153,7 @@
                 var changeText = function () {
                     $("#modal-loading-signup-custom-site .modal-body .modal-loading-signup-custom-site-dynamic-text p").hide();
                     $($("#modal-loading-signup-custom-site .modal-body .modal-loading-signup-custom-site-dynamic-text p")[count % numTexts]).show();
-                    count = count + 1;
+                    count = count + 1;slogan
                 };
                 changeText();
                 var changeTextModal = setInterval(changeText, 30 * 1000); // EACH 30 seconds
@@ -161,6 +161,9 @@
                 $('#modal-loading-signup-custom-site').on('hidden.bs.modal', function (e) {
                     clearInterval(changeTextModal)
                 })
+            }else{
+                console.log("Error validating form");
+                return false;
             }
         }
         function customLandingFormValidation($form){
@@ -171,12 +174,13 @@
         }
 
         function landigUploadedFilesValidation($form){
-            var slidesOk = !!(
+            return !!(
                 validateSlideImage($form, 1)
                 & validateSlideImage($form, 2)
                 & validateSlideImage($form, 3)
                 & validateLogo($form)
             );
+
         }
         function validateSlideImage($form, slidePos){
             var $inputSlide = $form.find("[name=slideId"+slidePos+"]");
