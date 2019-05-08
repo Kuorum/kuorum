@@ -144,6 +144,18 @@ qq.setText = function(element, text){
     element.textContent = text;
 };
 
+qq.ajaxGet = function(url, callback){
+    var xhttp;
+    xhttp=new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            callback(this);
+        }
+    };
+    xhttp.open("GET", url, true);
+    xhttp.send();
+}
+
 //
 // Selecting elements
 
@@ -657,13 +669,261 @@ qq.extend(qq.FileUploader.prototype, {
 
             if (qq.hasClass(target, self._classes.cancel)){
                 qq.preventDefault(e);
+                console.log("CANCEL")
+                var item = target.parentNode;
+                self._handler.cancel(item.qqFileId);
+                qq.remove(item);
+            }
+        });
+    },
+});
+
+
+
+/**
+ * Class that creates upload widget with drag-and-drop and file list
+ * @inherits qq.FileUploaderBasic
+ */
+qq.MultipleFileUploader = function(o){
+    // call parent constructor
+    qq.FileUploaderBasic.apply(this, arguments);
+
+    // additional options
+    qq.extend(this._options, {
+        element: null,
+        // if set, will be used instead of qq-upload-list in template
+        listElement: null,
+
+        template: '<div class="qq-uploader-multiple-files">' +
+
+
+        '<div class="button-container">' +
+        '   <div class="qq-upload-button btn btn-grey inverted">'+i18n.form.image.openBrowser+'</div>' +
+        '</div>' +
+        '<ul class="qq-upload-list"></ul>' +
+        '<div class="qq-upload-drop-area"> or DRAG HERE YOUR FILES' +
+        '</div>' +
+        '</div>',
+        // template for one item in file list
+        fileTemplate: '<li>' +
+        '<div class="qq-upload-file-type"></div>' +
+        '<div class="qq-upload-file"></div>' +
+        '<div class="qq-upload-spinner"></div>' +
+        '<div class="qq-upload-size"></div>' +
+        '<div class="qq-upload-cancel">Cancel </div>' +
+        '<div class="qq-upload-failed-text"><span class="fal fa-exclamation-circle"></span></div>' +
+        '<div class="qq-upload-success"><span class="fal fa-check"></span></div>' +
+        '<div class="qq-upload-delete"> <a href="#" class="qq-upload-delete-action fal fa-trash"></a></div>' +
+        '</li>',
+
+        classes: {
+            // used to get elements from templates
+            button: 'qq-upload-button',
+            drop: 'qq-upload-drop-area',
+            dropActive: 'qq-upload-drop-area-active',
+            list: 'qq-upload-list',
+
+            file: 'qq-upload-file',
+            spinner: 'qq-upload-spinner',
+            size: 'qq-upload-size',
+            cancel: 'qq-upload-cancel',
+            deleteFile: 'qq-upload-delete-action',
+            fileType:'qq-upload-file-type',
+            fileIcons:{
+                pdf:'fal fa-file-pdf',
+                doc:'fal fa-file-doc',
+                docx:'fal fa-file-doc',
+                ppt:'fal fa-file-powerpoint',
+                pptx:'fal fa-file-powerpoint',
+                xlsx:'fal fa-file-excel',
+                xls:'fal fa-file-excel',
+                zip:'fal fa-file-archive',
+                rar:'fal fa-file-archive',
+                jpg:'fal fa-file-image',
+                jpeg:'fal fa-file-image',
+                JPG:'fal fa-file-image',
+                JPEG:'fal fa-file-image',
+                png:'fal fa-file-image',
+                PNG:'fal fa-file-image',
+                gif:'fal fa-file-image',
+                GIF:'fal fa-file-image',
+            },
+
+            // added to list item when upload completes
+            // used in css to hide progress spinner
+            success: 'qq-upload-success',
+            fail: 'qq-upload-fail'
+        }
+    });
+    // overwrite options with user supplied
+    qq.extend(this._options, o);
+
+    this._element = this._options.element;
+    this._element.innerHTML = this._options.template;
+    this._listElement = this._options.listElement || this._find(this._element, 'list');
+
+    this._classes = this._options.classes;
+
+    this._button = this._createUploadButton(this._find(this._element, 'button'));
+
+    this._bindCancelEvent();
+    this._setupDragDrop();
+    this._bindRemoveElement();
+};
+
+// inherit from Basic Uploader
+qq.extend(qq.MultipleFileUploader.prototype, qq.FileUploaderBasic.prototype);
+
+qq.extend(qq.MultipleFileUploader.prototype, {
+    /**
+     * Gets one of the elements listed in this._options.classes
+     **/
+    _find: function(parent, type){
+        var element = qq.getByClass(parent, this._options.classes[type])[0];
+        if (!element){
+            throw new Error('element not found ' + type);
+        }
+
+        return element;
+    },
+    _setupDragDrop: function(){
+        var self = this,
+            dropArea = this._find(this._element, 'drop');
+
+        var dz = new qq.UploadDropZone({
+            element: dropArea,
+            onEnter: function(e){
+                qq.addClass(dropArea, self._classes.dropActive);
+                e.stopPropagation();
+            },
+            onLeave: function(e){
+                e.stopPropagation();
+            },
+            onLeaveNotDescendants: function(e){
+                qq.removeClass(dropArea, self._classes.dropActive);
+            },
+            onDrop: function(e){
+                dropArea.style.display = 'none';
+                qq.removeClass(dropArea, self._classes.dropActive);
+                self._uploadFileList(e.dataTransfer.files);
+            }
+        });
+
+        dropArea.style.display = 'none';
+
+        qq.attach(document, 'dragenter', function(e){
+            if (!dz._isValidFileDrag(e)) return;
+
+            dropArea.style.display = 'block';
+        });
+        qq.attach(document, 'dragleave', function(e){
+            if (!dz._isValidFileDrag(e)) return;
+
+            var relatedTarget = document.elementFromPoint(e.clientX, e.clientY);
+            // only fire when leaving document out
+            if ( ! relatedTarget || relatedTarget.nodeName == "HTML"){
+                dropArea.style.display = 'none';
+            }
+        });
+    },
+    _onSubmit: function(id, fileName){
+        qq.FileUploaderBasic.prototype._onSubmit.apply(this, arguments);
+        this._addToList(id, fileName);
+    },
+    _onProgress: function(id, fileName, loaded, total){
+        qq.FileUploaderBasic.prototype._onProgress.apply(this, arguments);
+
+        var item = this._getItemByFileId(id);
+        var size = this._find(item, 'size');
+        // size.style.display = 'inline';
+
+        var text;
+        if (loaded != total){
+            text = Math.round(loaded / total * 100) + '% from ' + this._formatSize(total);
+        } else {
+            text = this._formatSize(total);
+        }
+
+        qq.setText(size, text);
+    },
+    _onComplete: function(id, fileName, result){
+        qq.FileUploaderBasic.prototype._onComplete.apply(this, arguments);
+
+        // mark completed
+        var item = this._getItemByFileId(id);
+        qq.remove(this._find(item, 'cancel'));
+        qq.remove(this._find(item, 'spinner'));
+
+        var fileExtension = fileName.split('.').pop();
+        this._find(item, 'fileType').innerHTML="<span class='"+this._classes.fileIcons[fileExtension]+"'></span>";
+        this._find(item, 'deleteFile').setAttribute("href", this._options.actionDelete+"?fileName="+fileName);
+
+
+        if (result.success){
+            qq.addClass(item, this._classes.success);
+        } else {
+            qq.addClass(item, this._classes.fail);
+        }
+    },
+    _addToList: function(id, fileName){
+        var item = qq.toElement(this._options.fileTemplate);
+        item.qqFileId = id;
+
+        var fileElement = this._find(item, 'file');
+        qq.setText(fileElement, this._formatFileName(fileName));
+        this._find(item, 'size').style.display = 'none';
+
+        this._listElement.appendChild(item);
+    },
+    _getItemByFileId: function(id){
+        var item = this._listElement.firstChild;
+
+        // there can't be txt nodes in dynamically created list
+        // and we can  use nextSibling
+        while (item){
+            if (item.qqFileId == id) return item;
+            item = item.nextSibling;
+        }
+    },
+    /**
+     * delegate click event for cancel link
+     **/
+    _bindCancelEvent: function(){
+        var self = this,
+            list = this._listElement;
+
+        qq.attach(list, 'click', function(e){
+            e = e || window.event;
+            var target = e.target || e.srcElement;
+
+            if (qq.hasClass(target, self._classes.cancel)){
+                qq.preventDefault(e);
 
                 var item = target.parentNode;
                 self._handler.cancel(item.qqFileId);
                 qq.remove(item);
             }
         });
-    }
+    },
+    _bindRemoveElement:function(){
+        var self = this,
+            list = this._listElement;
+        console.log("Bind remove on ")
+        console.log(list)
+        qq.attach(list, 'click', function(e){
+            e = e || window.event;
+            var target = e.target || e.srcElement;
+            if (qq.hasClass(target, self._classes.deleteFile)){
+                qq.preventDefault(e);
+                var url = target.getAttribute("href");
+                qq.ajaxGet(url, function(xhttp){
+                    var item = target.parentNode.parentNode; // LI ELEMENT
+                    console.log("DELETE FILE")
+                    qq.remove(item);
+                })
+            }
+        });
+    },
 });
 
 qq.GenericFileUploader = function(o){

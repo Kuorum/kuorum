@@ -3170,6 +3170,22 @@ fieldset > .multiple-range-selector:first-child {margin-top:40px;}
 .qq-upload-fail .qq-upload-failed-text {display: inline;}
 /* fin estilos resize upload image */
 
+.qq-uploader-multiple-files .qq-upload-drop-area {background: none; padding:15px; color:#DADADA;  border: 1px dotted #CCCCCC; margin-top: 10px;}
+.qq-uploader-multiple-files .button-container {margin:0; text-align: left; padding: 0;width: auto; margin-bottom: 15px;}
+.qq-uploader-multiple-files .qq-upload-list {padding: 0;margin:0; display:block; text-align:left; color:#545454}
+.qq-uploader-multiple-files .qq-upload-list a {color:#545454}
+.qq-uploader-multiple-files .qq-upload-list li{padding: 10px; width: 100%;list-style: none;font-size: 1.3em;}
+.qq-uploader-multiple-files .qq-upload-list li:hover {background-color: #dadada}
+.qq-uploader-multiple-files .qq-upload-list li div{display:inline-block; white-space: nowrap;overflow: hidden;text-overflow: ellipsis;vertical-align: bottom;}
+.qq-uploader-multiple-files .qq-upload-list li .qq-upload-file{width: calc(100% - 110px)}
+.qq-uploader-multiple-files .qq-upload-list li .qq-upload-file-type{width: 20px;}
+.qq-uploader-multiple-files .qq-upload-list li .qq-upload-size{width: 40px}
+.qq-uploader-multiple-files .qq-upload-list li .qq-upload-failed-text,
+.qq-uploader-multiple-files .qq-upload-list li .qq-upload-success{width: 20px;display:none;}
+.qq-uploader-multiple-files .qq-upload-list li .qq-upload-failed-text{color:#ff0000;}
+.qq-uploader-multiple-files .qq-upload-list li.qq-upload-success .qq-upload-success{display: inline-block;}
+.qq-uploader-multiple-files .qq-upload-list li.qq-upload-fail .qq-upload-failed-text{display:inline-block;}
+.qq-uploader-multiple-files .qq-upload-list li .qq-upload-delete{width: 20px;}
 
 
 /* ley =========== */

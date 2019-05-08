@@ -43,6 +43,26 @@ class FileController {
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def uploadCampaignFile() {
+        def fileData = getFileData(request)
+//        FileGroup fileGroup = FileGroup.PDF
+//        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+//        KuorumFile kuorumFile = fileService.uploadTemporalFile(fileData.inputStream, user, fileData.fileName, fileGroup)
+
+        render ([fileUrl: "#FILE", fileName: fileData.fileName, status:200, success:true] as JSON)
+    }
+
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def deleteCampaignFile() {
+        def fileName = params.fileName
+//        FileGroup fileGroup = FileGroup.PDF
+//        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+//        KuorumFile kuorumFile = fileService.uploadTemporalFile(fileData.inputStream, user, fileData.fileName, fileGroup)
+
+        render ([fileUrl: "#FILE", fileName: fileName, status:200, success:true] as JSON)
+    }
+
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def uploadCampaignImages() {
         def fileData = getFileData(request)
         FileGroup fileGroup = FileGroup.CUSTOM_TEMPLATE_IMAGE

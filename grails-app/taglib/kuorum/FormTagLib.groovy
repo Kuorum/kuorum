@@ -7,6 +7,7 @@ import kuorum.register.KuorumUserSession
 import kuorum.web.constants.WebConstants
 import org.bson.types.ObjectId
 import org.codehaus.groovy.grails.validation.*
+import org.kuorum.rest.model.communication.CampaignRSDTO
 import org.kuorum.rest.model.communication.event.EventRSDTO
 import org.kuorum.rest.model.geolocation.RegionRSDTO
 import org.kuorum.rest.model.notification.campaign.NewsletterRSDTO
@@ -131,6 +132,20 @@ class FormTagLib {
                 errorMessage:errorMessage
         ]
         out << g.render(template:'/layouts/form/uploadPdf', model:model)
+    }
+
+    def uploadCampaignFiles = {attrs ->
+        CampaignRSDTO campaignRSDTO = attrs.campaign
+        def model = [
+                campaignId: campaignRSDTO.id,
+                campaign: campaignRSDTO,
+                name:"fieldName",
+                fileName:"fileName",
+                label:"label",
+                placeHolder:"placeHolder",
+                errorMessage:"errorMessage"
+        ]
+        out << g.render(template:'/layouts/form/uploadMultipleFiles', model:model)
     }
 
 //    private static final Integer NUM_CHARS_SHORTEN_URL = 19 //OWLY

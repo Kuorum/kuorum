@@ -26,6 +26,13 @@
             </div>
         </fieldset>
 
+        %{--<fieldset class="form-group">--}%
+            %{--<label for="files" class="col-sm-2 col-md-1 control-label">Fucheritos:</label>--}%
+            %{--<div class="textareaContainer col-sm-8 col-md-7">--}%
+                %{--<formUtil:uploadCampaignFiles campaign="${campaign}" placeholder="PLACE HOLDER"/>--}%
+            %{--</div>--}%
+        %{--</fieldset>--}%
+
         <fieldset class="form-group multimedia">
             <label for="headerPictureId" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.massMailing.DebateCommand.image.label"/>:</label>
             <div class="col-sm-8 col-md-7">

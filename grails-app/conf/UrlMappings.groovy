@@ -417,6 +417,8 @@ class UrlMappings {
         name ajaxCropImage:                 "/ajax/file/crop"(controller:"file", action:"cropImage")
         name ajaxUploadFile:                "/ajax/file/upload" (controller:'file', action:"uploadImage")
         name ajaxUploadFilePDF:             "/ajax/file/uploadPDF" (controller:'file', action:"uploadPDF")
+        name ajaxUploadCampaignFile:             "/ajax/file/uploadCampaignFile/$userAlias/$urlTitle-$campaignId" (controller:'file', action:"uploadCampaignFile")
+        name ajaxDeleteCampaignFile:             "/ajax/file/deleteCampaignFile/$userAlias/$urlTitle-$campaignId" (controller:'file', action:"deleteCampaignFile")
 
         name adminPrincipal:                        "/sec/admin"                        (controller:"admin", action: "index")
         name adminTestMail:                         "/sec/admin/mailing/test"           (controller:"mailTesting", action: "index")
