@@ -119,7 +119,6 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true" class="fal fa-times-circle fa"></span><span class="sr-only">Cerrar</span></button>
                     <h4><g:message code="form.submit.slowLoading.modal.title"/></h4>
                     <h4 class="sr-only" id="modal-loading-signup-custom-site-title">Slow action</h4>
                 </div>
@@ -157,7 +156,7 @@
                 };
                 changeText();
                 var changeTextModal = setInterval(changeText, 30 * 1000); // EACH 30 seconds
-                $("#modal-loading-signup-custom-site").modal("show");
+                $("#modal-loading-signup-custom-site").modal({backdrop: 'static', keyboard: false});
                 $('#modal-loading-signup-custom-site').on('hidden.bs.modal', function (e) {
                     clearInterval(changeTextModal)
                 })
