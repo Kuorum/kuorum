@@ -62,7 +62,7 @@ class FaviconService {
         List<File> files = Arrays.asList(tempFavicon.toFile().listFiles())
         for (File f : files) {
             amazonFileService.uploadDomainFaviconFile(f, domain.domain)
-            log.info("Se ha subido un nuevo favicon del dominio")
+            log.info("Se ha subido un nuevo favicon del dominio : ${f.name}")
         }
     }
 
