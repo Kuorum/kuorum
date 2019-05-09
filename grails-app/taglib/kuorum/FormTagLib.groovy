@@ -136,14 +136,12 @@ class FormTagLib {
 
     def uploadCampaignFiles = {attrs ->
         CampaignRSDTO campaignRSDTO = attrs.campaign
+        String label = attrs.label
         def model = [
                 campaignId: campaignRSDTO.id,
-                campaign: campaignRSDTO,
-                name:"fieldName",
-                fileName:"fileName",
-                label:"label",
-                placeHolder:"placeHolder",
-                errorMessage:"errorMessage"
+                actionUpload: g.createLink(mapping:'ajaxUploadCampaignFile', params: campaignRSDTO.encodeAsLinkProperties()),
+                actionDelete: g.createLink(mapping:'ajaxDeleteCampaignFile', params: campaignRSDTO.encodeAsLinkProperties()),
+                label:label
         ]
         out << g.render(template:'/layouts/form/uploadMultipleFiles', model:model)
     }
