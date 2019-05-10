@@ -476,8 +476,7 @@ qq.FileUploaderBasic.prototype = {
             bytes = bytes / 1024;
             i++;
         } while (bytes > 99);
-
-        return Math.max(bytes, 0.1).toFixed(1) + ['kB', 'MB', 'GB', 'TB', 'PB', 'EB'][i];
+        return Math.max(bytes, 0.1) + ['kB', 'MB', 'GB', 'TB', 'PB', 'EB'][i];
     }
 };
 
@@ -495,6 +494,7 @@ qq.FileUploader = function(o){
         element: null,
         // if set, will be used instead of qq-upload-list in template
         listElement: null,
+        initialFiles : [],
 
         template: '<div class="qq-uploader">' +
             '<div class="qq-upload-drop-area">' +
@@ -669,7 +669,6 @@ qq.extend(qq.FileUploader.prototype, {
 
             if (qq.hasClass(target, self._classes.cancel)){
                 qq.preventDefault(e);
-                console.log("CANCEL")
                 var item = target.parentNode;
                 self._handler.cancel(item.qqFileId);
                 qq.remove(item);
@@ -768,6 +767,7 @@ qq.MultipleFileUploader = function(o){
 
     this._bindCancelEvent();
     this._setupDragDrop();
+    this._initFiles();
     this._bindRemoveElement();
 };
 
@@ -852,7 +852,7 @@ qq.extend(qq.MultipleFileUploader.prototype, {
         // mark completed
         var item = this._getItemByFileId(id);
         qq.remove(this._find(item, 'cancel'));
-        qq.remove(this._find(item, 'spinner'));
+        // qq.remove(this._find(item, 'spinner')); // Hide by css
 
         var fileExtension = fileName.split('.').pop();
         this._find(item, 'fileType').innerHTML="<span class='"+this._classes.fileIcons[fileExtension]+"'></span>";
@@ -861,6 +861,7 @@ qq.extend(qq.MultipleFileUploader.prototype, {
 
         if (result.success){
             qq.addClass(item, this._classes.success);
+            this._find(item, 'file').innerHTML = "<a href='"+result.fileUrl+"'>"+fileName+"</a>"
         } else {
             qq.addClass(item, this._classes.fail);
         }
@@ -908,22 +909,34 @@ qq.extend(qq.MultipleFileUploader.prototype, {
     _bindRemoveElement:function(){
         var self = this,
             list = this._listElement;
-        console.log("Bind remove on ")
-        console.log(list)
         qq.attach(list, 'click', function(e){
             e = e || window.event;
             var target = e.target || e.srcElement;
             if (qq.hasClass(target, self._classes.deleteFile)){
                 qq.preventDefault(e);
+                var item = target.parentNode.parentNode; // LI ELEMENT
                 var url = target.getAttribute("href");
+                qq.removeClass(item, self._options.classes.success);
+                qq.removeClass(item, self._options.classes.fail);
                 qq.ajaxGet(url, function(xhttp){
-                    var item = target.parentNode.parentNode; // LI ELEMENT
-                    console.log("DELETE FILE")
                     qq.remove(item);
                 })
             }
         });
     },
+    _initFiles:function(){
+        var self = this,
+            list = this._listElement;
+        var i;
+        for (i = 0; i < self._options.initialFiles.length; i++) {
+            fileUrl = self._options.initialFiles[i];
+            fileName = fileUrl.split("/").pop()
+            this._handler._loaded.push(-1*i); // Chapu para que el contador del id interno incremente
+            this._handler._files.push(fileName); // Chapu para que el contador del id interno incremente
+            self._addToList(i, fileName)
+            self._onComplete(i, fileName, {success:true, fileUrl: fileUrl})
+        }
+    }
 });
 
 qq.GenericFileUploader = function(o){

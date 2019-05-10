@@ -12,6 +12,7 @@ import org.kuorum.rest.model.communication.event.EventRSDTO
 import org.kuorum.rest.model.geolocation.RegionRSDTO
 import org.kuorum.rest.model.notification.campaign.NewsletterRSDTO
 import org.springframework.context.i18n.LocaleContextHolder
+import payment.campaign.CampaignService
 import payment.campaign.event.EventService
 
 class FormTagLib {
@@ -22,6 +23,7 @@ class FormTagLib {
     SpringSecurityService springSecurityService
     RegionService regionService
     EventService eventService
+    CampaignService campaignService
 
     static namespace = "formUtil"
 
@@ -136,8 +138,10 @@ class FormTagLib {
 
     def uploadCampaignFiles = {attrs ->
         CampaignRSDTO campaignRSDTO = attrs.campaign
+        List<String> alreadyUploadedFiles = campaignService.getFiles(campaignRSDTO)
         String label = attrs.label
         def model = [
+                alreadyUploadedFiles:alreadyUploadedFiles,
                 campaignId: campaignRSDTO.id,
                 actionUpload: g.createLink(mapping:'ajaxUploadCampaignFile', params: campaignRSDTO.encodeAsLinkProperties()),
                 actionDelete: g.createLink(mapping:'ajaxDeleteCampaignFile', params: campaignRSDTO.encodeAsLinkProperties()),

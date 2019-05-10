@@ -4,17 +4,22 @@ import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.core.FileGroup
 import kuorum.files.FileService
+import kuorum.files.LocalFileService
 import kuorum.users.KuorumUser
 import org.bson.types.ObjectId
 import org.springframework.web.multipart.MultipartFile
 import org.springframework.web.multipart.MultipartHttpServletRequest
+import payment.campaign.CampaignService
 
 import javax.servlet.http.HttpServletRequest
 
 class FileController {
 
     FileService fileService
+
+    LocalFileService localFileService;
     def springSecurityService
+    CampaignService campaignService
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def uploadImage() {
@@ -45,20 +50,21 @@ class FileController {
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def uploadCampaignFile() {
         def fileData = getFileData(request)
+        File file = File.createTempFile("campaignFile", "kuorum")
+        localFileService.upload(fileData.inputStream,file);
+        String fileUrl = campaignService.uploadFile(springSecurityService.principal,Long.parseLong(params.campaignId), file, fileData.fileName);
+        file.delete();
 //        FileGroup fileGroup = FileGroup.PDF
 //        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
 //        KuorumFile kuorumFile = fileService.uploadTemporalFile(fileData.inputStream, user, fileData.fileName, fileGroup)
 
-        render ([fileUrl: "#FILE", fileName: fileData.fileName, status:200, success:true] as JSON)
+        render ([fileUrl: fileUrl, fileName: fileData.fileName, status:200, success:true] as JSON)
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def deleteCampaignFile() {
         def fileName = params.fileName
-//        FileGroup fileGroup = FileGroup.PDF
-//        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-//        KuorumFile kuorumFile = fileService.uploadTemporalFile(fileData.inputStream, user, fileData.fileName, fileGroup)
-
+        campaignService.deleteFile(springSecurityService.principal, Long.parseLong(params.campaignId), fileName)
         render ([fileUrl: "#FILE", fileName: fileName, status:200, success:true] as JSON)
     }
 

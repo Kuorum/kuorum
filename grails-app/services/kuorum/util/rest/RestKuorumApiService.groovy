@@ -8,6 +8,8 @@ import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.exception.KuorumException
 import org.apache.commons.io.IOUtils
 import org.apache.http.entity.InputStreamEntity
+import org.apache.http.entity.mime.MultipartEntityBuilder
+import org.apache.http.entity.mime.content.FileBody
 import org.kuorum.rest.model.error.RestServiceError
 import org.springframework.beans.factory.annotation.Value
 
@@ -93,6 +95,29 @@ class RestKuorumApiService {
         )
         return response
     }
+
+    String putFile(ApiMethod apiMethod, Map<String,String> params, Map<String,String> query, File file, String fileName) throws KuorumException {
+        String jsonText ='''{"parameter": [{"name":"LIST","file":"file0"}, {"name":"SEARCH", "value":"Build"}, {"name":"LABEL", "value":"2015/11/20"}, {"name":"UPDATEDB", "value":"TRUE"}  ]}'''
+
+        def http = new HTTPBuilder(kuorumRestServices)
+        String path = apiMethod.buildUrl(apiPath,params)
+        http.request(Method.PUT, ContentType.TEXT) {req->
+            uri.path = path
+            headers = ["User-Agent": "Kuorum Web", "token":CustomDomainResolver.apiToken]
+
+            MultipartEntityBuilder multipartRequestEntity = new MultipartEntityBuilder()
+            multipartRequestEntity.addPart('file', new FileBody(file,org.apache.http.entity.ContentType.DEFAULT_BINARY, fileName))
+//            multipartRequestEntity.addPart('json', new StringBody(jsonText))
+
+            req.entity =  multipartRequestEntity.build()
+
+            response.success = { resp, data ->
+                // response text
+                return data.getText()
+            }
+        }
+    }
+
 
     def post(ApiMethod apiMethod, Map<String,String> params, Map<String,String> query, def body,TypeReference typeToMap) throws KuorumException{
 
@@ -216,6 +241,7 @@ class RestKuorumApiService {
         CAMPAIGNS_DOMAIN                        ("/communication/campaign/"),
         ACCOUNT_CAMPAIGNS                       ("/communication/campaign/{userId}"),
         ACCOUNT_CAMPAIGN                        ("/communication/campaign/{userId}/{campaignId}"),
+        ACCOUNT_CAMPAIGN_FILES                  ("/communication/campaign/{userId}/{campaignId}/files"),
 
 
         ACCOUNT_DEBATES_ALL                     ("/communication/campaign/debate/"),

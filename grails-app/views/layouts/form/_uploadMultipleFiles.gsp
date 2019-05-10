@@ -18,12 +18,12 @@
             multiple:true,
             element: document.getElementById('${divId}'),
             allowedExtensions: ['pdf', 'doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx', 'zip', 'rar', 'jpg', 'jpeg', 'JPG', 'JPEG', 'gif','GIF', 'PNG', 'png'],
-            sizeLimit: 0, // max size
+            sizeLimit: 20971520, // 20 M max size
             minSizeLimit: 0, // min size
             abortOnFailure: true,
             messages:{
                 typeError: '${g.message(code:'uploader.error.typeError')}',
-                sizeError: '${g.message(code:'uploader.error.sizeError')}',
+                sizeError: '${g.message(code:'uploader.error.sizeError', args : ['20'])}',
                 minSizeError: '${g.message(code:'uploader.error.minSizeError')}',
                 emptyError: '${g.message(code:'uploader.error.emptyError')}',
                 onLeave: '"${g.message(code:'uploader.error.onLeave')}"'
@@ -33,9 +33,10 @@
             },
             action: '${raw(actionUpload)}', // path to server-side upload script
             actionDelete: '${raw(actionDelete)}', // path to server-side delete file
+            initialFiles: ['${raw(alreadyUploadedFiles.join("','"))}'],
             onComplete: function(id, fileName, responseJSON){
-                var $liFile = $($("#${divId} .qq-upload-list li")[id]);
-                $liFile.find(".qq-upload-file").html("<a href='"+responseJSON.fileUrl+"'>"+fileName+"</a>")
+                // var $liFile = $($("#${divId} .qq-upload-list li")[id]);
+                // $liFile.find(".qq-upload-file").html("<a href='"+responseJSON.fileUrl+"'>"+fileName+"</a>")
             }
         });
     })

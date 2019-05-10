@@ -3184,8 +3184,10 @@ fieldset > .multiple-range-selector:first-child {margin-top:40px;}
 .qq-uploader-multiple-files .qq-upload-list li .qq-upload-success{width: 20px;display:none;}
 .qq-uploader-multiple-files .qq-upload-list li .qq-upload-failed-text{color:#ff0000;}
 .qq-uploader-multiple-files .qq-upload-list li.qq-upload-success .qq-upload-success{display: inline-block;}
+.qq-uploader-multiple-files .qq-upload-list li.qq-upload-success .qq-upload-spinner{display: none;}
 .qq-uploader-multiple-files .qq-upload-list li.qq-upload-fail .qq-upload-failed-text{display:inline-block;}
-.qq-uploader-multiple-files .qq-upload-list li .qq-upload-delete{width: 20px;}
+.qq-uploader-multiple-files .qq-upload-list li.qq-upload-fail .qq-upload-spinner{display:none;}
+.qq-uploader-multiple-files .qq-upload-list li .qq-upload-delete{width: 20px; cursor: pointer}
 
 
 /* ley =========== */

@@ -149,4 +149,40 @@ class CampaignService {
         }
         return rdto
     }
+
+    String uploadFile(KuorumUserSession user, Long campaignId, File file, String fileName){
+        Map<String, String> params = [campaignId: campaignId.toString(), userId: user.id.toString()]
+        Map<String, String> query = [:]
+        def response = restKuorumApiService.putFile(
+                RestKuorumApiService.ApiMethod.ACCOUNT_CAMPAIGN_FILES,
+                params,
+                query,
+                file,
+                fileName
+        )
+
+    }
+
+    List<String> getFiles(CampaignRSDTO campaignRSDTO){
+        Map<String, String> params = [campaignId: campaignRSDTO.getId().toString(), userId: campaignRSDTO.getUser().getAlias()]
+        Map<String, String> query = [:]
+        def response = restKuorumApiService.get(
+                RestKuorumApiService.ApiMethod.ACCOUNT_CAMPAIGN_FILES,
+                params,
+                query,
+                new TypeReference<List<String>>(){}
+        )
+        response.data
+    }
+
+    void deleteFile(KuorumUserSession user, Long campaignId, String fileName){
+        Map<String, String> params = [campaignId: campaignId.toString(), userId: user.id.toString()]
+        Map<String, String> query = [fileName:fileName]
+        def response = restKuorumApiService.delete(
+                RestKuorumApiService.ApiMethod.ACCOUNT_CAMPAIGN_FILES,
+                params,
+                query,
+                new TypeReference<String>(){}
+        )
+    }
 }

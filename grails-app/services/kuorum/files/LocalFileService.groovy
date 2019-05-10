@@ -324,7 +324,7 @@ class LocalFileService implements FileService{
         fileName?fileName.split("\\.").last():""
     }
 
-    private void upload(InputStream inputStream, File file) {
+    public void upload(InputStream inputStream, File file) {
 
         try {
             if (file.exists()){
