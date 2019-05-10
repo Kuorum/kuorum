@@ -77,11 +77,41 @@ class CampaignController {
                     log.error("Campaign type not recognized: ${campaignRSDTO.campaignType}")
                     throw new Exception("Campaign type not recognized: ${campaignRSDTO.campaignType}")
             }
+            def model = dataView.model
+            List<String> linkFiles = campaignService.getFiles(campaignRSDTO);
+            model.campaignFiles = linkFiles.collect{it ->[
+                    name:it.split("/").last(),
+                    icon: getFaIconOfExtension(it.split("\\.").last()),
+                    url:it
+            ]}
             render view: dataView.view, model:dataView.model
         }catch (Exception ignored){
             flash.error = message(code: "post.notFound")
             response.sendError(HttpServletResponse.SC_NOT_FOUND)
             return false
+        }
+    }
+
+    private String getFaIconOfExtension(String extension){
+        switch (extension){
+        case "pdf": return 'fal fa-file-pdf';
+        case "doc":
+        case "docx": return 'fal fa-file-doc';
+        case "ppt":
+        case "pptx": return 'fal fa-file-powerpoint';
+        case "xlsx":
+        case "xls": return 'fal fa-file-excel';
+        case "zip":
+        case "rar": return 'fal fa-file-archive';
+        case "jpg":
+        case "jpeg":
+        case "JPG":
+        case "JPEG":
+        case "png":
+        case "PNG":
+        case "gif":
+        case "GIF": return 'fal fa-file-image';
+        default: return "";
         }
     }
 

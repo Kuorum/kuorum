@@ -3189,6 +3189,14 @@ fieldset > .multiple-range-selector:first-child {margin-top:40px;}
 .qq-uploader-multiple-files .qq-upload-list li.qq-upload-fail .qq-upload-spinner{display:none;}
 .qq-uploader-multiple-files .qq-upload-list li .qq-upload-delete{width: 20px; cursor: pointer}
 
+.list-campaign-files {padding:0 15px;}
+.list-campaign-files li {font-size: 15px; padding: 3px 0; width:100%; white-space: nowrap;overflow: hidden;text-overflow: ellipsis;vertical-align: bottom;}
+.list-campaign-files li span{font-size: 25px; }
+.list-campaign-files li a {color:#545454;vertical-align:text-bottom;}
+.list-campaign-files li a:hover {color:#545454}
+.list-campaign-files li .fal {width: 25px;}
+
+
 
 /* ley =========== */
 /* ====================================================== */
