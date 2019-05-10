@@ -16,5 +16,6 @@
     <g:render template="/participatoryBudget/showModules/cCallToAction" model="[participatoryBudget: participatoryBudget, campaignUser: campaignUser, hideXs:true]"/>
     <g:render template="/participatoryBudget/showModules/cParticipatoryBudgetStatus" model="[participatoryBudget: participatoryBudget, campaignUser: campaignUser]"/>
     <g:render template="/participatoryBudget/showModules/cParticipatoryBudgetStats" model="[participatoryBudget: participatoryBudget, campaignUser: campaignUser]"/>
+    <g:render template="/campaigns/columnCModules/campaignFiles" model="[campaignFiles:campaignFiles]"/>
 </content>
 
