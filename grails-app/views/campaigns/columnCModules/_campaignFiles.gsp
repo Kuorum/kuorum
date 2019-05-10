@@ -2,7 +2,7 @@
     <div class="comment-box call-to-action">
         <div class="comment-header">
             %{--<span class="call-title">Ficheros asociados</span>--}%
-            <span class="call-subTitle">Descargar más info</span>
+            <span class="call-subTitle"><g:message code="campaign.show.files.title"/></span>
         </div>
         <div class="comment-proposal clearfix">
             <ul class="list-campaign-files">
