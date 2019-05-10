@@ -285,7 +285,8 @@ qq.FileUploaderBasic = function(o){
             sizeError: "{file} is too large, maximum file size is {sizeLimit}.",
             minSizeError: "{file} is too small, minimum file size is {minSizeLimit}.",
             emptyError: "{file} is empty, please select files again without it.",
-            onLeave: "The files are being uploaded, if you leave now the upload will be cancelled."
+            onLeave: "The files are being uploaded, if you leave now the upload will be cancelled.",
+            fileUrlCopiedSuccess:"File url is copied to your clipboard"
         },
         showMessage: function(message){
             displayInfo(message);
@@ -711,7 +712,7 @@ qq.MultipleFileUploader = function(o){
         '<div class="qq-upload-size"></div>' +
         '<div class="qq-upload-cancel">Cancel </div>' +
         '<div class="qq-upload-failed-text"><span class="fal fa-exclamation-circle"></span></div>' +
-        '<div class="qq-upload-success"><span class="fal fa-check"></span></div>' +
+        '<div class="qq-upload-success"><span class="fal fa-copy"></span></div>' +
         '<div class="qq-upload-delete"> <a href="#" class="qq-upload-delete-action fal fa-trash"></a></div>' +
         '</li>',
 
@@ -769,6 +770,7 @@ qq.MultipleFileUploader = function(o){
     this._setupDragDrop();
     this._initFiles();
     this._bindRemoveElement();
+    this._bindCopyUrl();
 };
 
 // inherit from Basic Uploader
@@ -921,6 +923,27 @@ qq.extend(qq.MultipleFileUploader.prototype, {
                 qq.ajaxGet(url, function(xhttp){
                     qq.remove(item);
                 })
+            }
+        });
+    },
+    _bindCopyUrl:function(){
+        var self = this,
+            list = this._listElement;
+        qq.attach(list, 'click', function(e){
+            e = e || window.event;
+            var target = e.target || e.srcElement;
+            if (qq.hasClass(target, "fa-copy")){
+                qq.preventDefault(e);
+                var item = target.parentNode.parentNode; // LI ELEMENT
+                var url = self._find(item, 'file').getElementsByTagName("a")[0].getAttribute("href");
+
+                var inputCopied = document.createElement("input");
+                item.appendChild(inputCopied);
+                inputCopied.value=url
+                inputCopied.select();
+                document.execCommand("copy");
+                inputCopied.remove();
+                self._options.showMessage(self._options.messages.fileUrlCopiedSuccess);
             }
         });
     },

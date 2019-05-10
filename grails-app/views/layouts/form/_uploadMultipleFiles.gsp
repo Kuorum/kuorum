@@ -26,18 +26,15 @@
                 sizeError: '${g.message(code:'uploader.error.sizeError', args : ['20'])}',
                 minSizeError: '${g.message(code:'uploader.error.minSizeError')}',
                 emptyError: '${g.message(code:'uploader.error.emptyError')}',
-                onLeave: '"${g.message(code:'uploader.error.onLeave')}"'
+                onLeave: '"${g.message(code:'uploader.error.onLeave')}"',
+                fileUrlCopiedSuccess: '${g.message(code:'uploader.error.copiedUrlSuccess')}'
             },
             showMessage:function(message){
-                display.error(message);
+                display.success(message);
             },
             action: '${raw(actionUpload)}', // path to server-side upload script
             actionDelete: '${raw(actionDelete)}', // path to server-side delete file
-            initialFiles: ['${raw(alreadyUploadedFiles.join("','"))}'],
-            onComplete: function(id, fileName, responseJSON){
-                // var $liFile = $($("#${divId} .qq-upload-list li")[id]);
-                // $liFile.find(".qq-upload-file").html("<a href='"+responseJSON.fileUrl+"'>"+fileName+"</a>")
-            }
+            initialFiles: ['${raw(alreadyUploadedFiles.join("','"))}']
         });
     })
 </r:script>

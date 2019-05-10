@@ -12,12 +12,4 @@
             </ul>
         </div>
     </div>
-    %{--<div class="leader-post-stats">--}%
-        %{--<h4>More info</h4>--}%
-        %{--<ul class="list-campaign-files">--}%
-            %{--<g:each in="${campaignFiles}" var="file">--}%
-                %{--<li><span class="${file.icon}"></span><a href="${file.url}">${file.name}</a></li>--}%
-            %{--</g:each>--}%
-        %{--</ul>--}%
-    %{--</div>--}%
 </g:if>
