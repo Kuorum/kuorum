@@ -34,7 +34,7 @@
             },
             action: '${raw(actionUpload)}', // path to server-side upload script
             actionDelete: '${raw(actionDelete)}', // path to server-side delete file
-            initialFiles: ['${raw(alreadyUploadedFiles.join("','"))}']
+            initialFiles: ${alreadyUploadedFiles?raw("['${alreadyUploadedFiles.join("','")}']"):'[]'}
         });
     })
 </r:script>
