@@ -543,5 +543,11 @@ class UrlMappings {
             action = "notAuthorized"
             exception = ex
         }
+
+        "Lost cookie" org.springframework.security.web.authentication.rememberme.CookieTheftException {ex ->
+            controller = "error"
+            action = "cookieLost"
+            exception = ex
+        }
     }
 }

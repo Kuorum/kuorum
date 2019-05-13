@@ -23,6 +23,12 @@ class ErrorController {
         log.error("KuorumException: "+exception.message)
         [errorMessage:message(code:exception.errors[0]?.code?:'error.kuorumException.description')]
     }
+
+    def cookieLost(){
+        KuorumException exception = request.exception?.cause
+        log.error("Cookie lost: "+exception.message)
+        render view: 'kuorumExceptionHandler', model:[errorMessage:message(code:exception.errors[0]?.code?:'error.kuorumException.description')]
+    }
     def internalError(){
         def exception = request.exception.cause
         if (request.getForwardURI() == g.createLink(mapping: "politicianContactImportCSV")){
