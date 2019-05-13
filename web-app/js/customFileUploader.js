@@ -952,8 +952,9 @@ qq.extend(qq.MultipleFileUploader.prototype, {
             list = this._listElement;
         var i;
         for (i = 0; i < self._options.initialFiles.length; i++) {
-            fileUrl = self._options.initialFiles[i];
-            fileName = fileUrl.split("/").pop()
+            self._filesInProgress++; // _onComplete decrease the number of files In progres. HACK to solve that.
+            var fileUrl = self._options.initialFiles[i];
+            var fileName = fileUrl.split("/").pop()
             this._handler._loaded.push(-1*i); // Chapu para que el contador del id interno incremente
             this._handler._files.push(fileName); // Chapu para que el contador del id interno incremente
             self._addToList(i, fileName)
