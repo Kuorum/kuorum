@@ -3176,8 +3176,8 @@ fieldset > .multiple-range-selector:first-child {margin-top:40px;}
 .qq-uploader-multiple-files .qq-upload-list a {color:#545454}
 .qq-uploader-multiple-files .qq-upload-list li{padding: 10px; width: 100%;list-style: none;font-size: 1.3em;}
 .qq-uploader-multiple-files .qq-upload-list li:hover {background-color: #dadada}
-.qq-uploader-multiple-files .qq-upload-list li div{display:inline-block; white-space: nowrap;overflow: hidden;text-overflow: ellipsis;vertical-align: bottom;}
-.qq-uploader-multiple-files .qq-upload-list li .qq-upload-file{width: calc(100% - 110px)}
+.qq-uploader-multiple-files .qq-upload-list li div{display:inline-block; white-space: nowrap;overflow: hidden;text-overflow: ellipsis;vertical-align: bottom;height: 20px;}
+.qq-uploader-multiple-files .qq-upload-list li .qq-upload-file{width: calc(100% - 110px); line-height: 18px;}
 .qq-uploader-multiple-files .qq-upload-list li .qq-upload-file-type{width: 20px;}
 .qq-uploader-multiple-files .qq-upload-list li .qq-upload-size{width: 40px}
 .qq-uploader-multiple-files .qq-upload-list li .qq-upload-failed-text,
