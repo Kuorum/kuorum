@@ -96,7 +96,7 @@ class CampaignController {
         switch (extension){
         case "pdf": return 'fal fa-file-pdf';
         case "doc":
-        case "docx": return 'fal fa-file-doc';
+        case "docx": return 'fal fa-file-word';
         case "ppt":
         case "pptx": return 'fal fa-file-powerpoint';
         case "xlsx":

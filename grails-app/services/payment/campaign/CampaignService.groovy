@@ -151,6 +151,7 @@ class CampaignService {
     }
 
     String uploadFile(KuorumUserSession user, Long campaignId, File file, String fileName){
+        fileName = java.net.URLEncoder.encode(fileName, "UTF-8")
         Map<String, String> params = [campaignId: campaignId.toString(), userId: user.id.toString()]
         Map<String, String> query = [:]
         def response = restKuorumApiService.putFile(

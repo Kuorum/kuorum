@@ -731,8 +731,8 @@ qq.MultipleFileUploader = function(o){
             fileType:'qq-upload-file-type',
             fileIcons:{
                 pdf:'fal fa-file-pdf',
-                doc:'fal fa-file-doc',
-                docx:'fal fa-file-doc',
+                doc:'fal fa-file-word',
+                docx:'fal fa-file-word',
                 ppt:'fal fa-file-powerpoint',
                 pptx:'fal fa-file-powerpoint',
                 xlsx:'fal fa-file-excel',
@@ -857,13 +857,15 @@ qq.extend(qq.MultipleFileUploader.prototype, {
         // qq.remove(this._find(item, 'spinner')); // Hide by css
 
         var fileExtension = fileName.split('.').pop();
+        console.log(fileExtension)
+        console.log(fileExtension)
         this._find(item, 'fileType').innerHTML="<span class='"+this._classes.fileIcons[fileExtension]+"'></span>";
         this._find(item, 'deleteFile').setAttribute("href", this._options.actionDelete+"?fileName="+fileName);
 
 
         if (result.success){
             qq.addClass(item, this._classes.success);
-            this._find(item, 'file').innerHTML = "<a href='"+result.fileUrl+"'>"+fileName+"</a>"
+            this._find(item, 'file').innerHTML = "<a href='"+result.fileUrl+"' target='_blank'>"+fileName+"</a>"
         } else {
             qq.addClass(item, this._classes.fail);
         }
