@@ -3164,7 +3164,7 @@ fieldset > .multiple-range-selector:first-child {margin-top:40px;}
 .qq-upload-size,
 .qq-upload-cancel,
 .qq-upload-failed-text {margin-right: 7px;}
-.qq-upload-spinner {display:inline-block; background: url('../images/loading.gif') no-repeat; width:15px; height:15px; vertical-align:text-bottom;}
+.qq-upload-spinner {display:inline-block; background: url('../images/loading.gif') center center no-repeat; width:15px; height:15px; vertical-align:text-bottom;}
 .qq-upload-size,.qq-upload-cancel {font-size: 11px;}
 .qq-upload-failed-text {display: none;}
 .qq-upload-fail .qq-upload-failed-text {display: inline;}
