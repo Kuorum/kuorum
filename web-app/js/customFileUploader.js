@@ -857,8 +857,6 @@ qq.extend(qq.MultipleFileUploader.prototype, {
         // qq.remove(this._find(item, 'spinner')); // Hide by css
 
         var fileExtension = fileName.split('.').pop();
-        console.log(fileExtension)
-        console.log(fileExtension)
         this._find(item, 'fileType').innerHTML="<span class='"+this._classes.fileIcons[fileExtension]+"'></span>";
         this._find(item, 'deleteFile').setAttribute("href", this._options.actionDelete+"?fileName="+fileName);
 
