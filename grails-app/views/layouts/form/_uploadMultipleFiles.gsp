@@ -27,7 +27,7 @@
                 minSizeError: '${g.message(code:'uploader.error.minSizeError')}',
                 emptyError: '${g.message(code:'uploader.error.emptyError')}',
                 onLeave: '"${g.message(code:'uploader.error.onLeave')}"',
-                fileUrlCopiedSuccess: '${g.message(code:'uploader.error.copiedUrlSuccess')}'
+                fileUrlCopiedSuccess: "${g.message(code:'uploader.error.copiedUrlSuccess')}"
             },
             showMessage:function(message){
                 display.success(message);
