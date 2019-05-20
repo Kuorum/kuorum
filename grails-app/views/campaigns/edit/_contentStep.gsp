@@ -26,12 +26,14 @@
             </div>
         </fieldset>
 
-        <fieldset class="form-group">
-            <label for="files" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.massMailing.MassMailingCommand.files.label"/>:</label>
-            <div class="textareaContainer col-sm-8 col-md-7">
-                <formUtil:uploadCampaignFiles campaign="${campaign}"/>
-            </div>
-        </fieldset>
+        <g:if test="${campaign}">
+            <fieldset class="form-group">
+                <label for="files" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.massMailing.MassMailingCommand.files.label"/>:</label>
+                <div class="textareaContainer col-sm-8 col-md-7">
+                    <formUtil:uploadCampaignFiles campaign="${campaign}"/>
+                </div>
+            </fieldset>
+        </g:if>
 
         <fieldset class="form-group multimedia">
             <label for="headerPictureId" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.massMailing.DebateCommand.image.label"/>:</label>
