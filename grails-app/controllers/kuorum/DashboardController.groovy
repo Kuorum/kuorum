@@ -59,7 +59,7 @@ class DashboardController {
 //              render view: "/dashboard/payment/paymentNoCampaignsDashboard", model: model
         }else{
             KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-            List<SearchKuorumUserRSDTO> recommendations = kuorumUserService.recommendUsers(user, new Pagination([max:50]))
+            List<SearchKuorumUserRSDTO> recommendations = kuorumUserService.recommendUsers(user, new Pagination([max:20]))
             model.put("recommendations",recommendations)
             render view: "/dashboard/dashboard", model: model
         }

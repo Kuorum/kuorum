@@ -138,16 +138,18 @@ class FormTagLib {
 
     def uploadCampaignFiles = {attrs ->
         CampaignRSDTO campaignRSDTO = attrs.campaign
-        List<String> alreadyUploadedFiles = campaignService.getFiles(campaignRSDTO)
-        String label = attrs.label
-        def model = [
-                alreadyUploadedFiles:alreadyUploadedFiles,
-                campaignId: campaignRSDTO.id,
-                actionUpload: g.createLink(mapping:'ajaxUploadCampaignFile', params: campaignRSDTO.encodeAsLinkProperties()),
-                actionDelete: g.createLink(mapping:'ajaxDeleteCampaignFile', params: campaignRSDTO.encodeAsLinkProperties()),
-                label:label
-        ]
-        out << g.render(template:'/layouts/form/uploadMultipleFiles', model:model)
+        if (campaignRSDTO){
+            List<String> alreadyUploadedFiles = campaignService.getFiles(campaignRSDTO)
+            String label = attrs.label
+            def model = [
+                    alreadyUploadedFiles:alreadyUploadedFiles,
+                    campaignId: campaignRSDTO.id,
+                    actionUpload: g.createLink(mapping:'ajaxUploadCampaignFile', params: campaignRSDTO.encodeAsLinkProperties()),
+                    actionDelete: g.createLink(mapping:'ajaxDeleteCampaignFile', params: campaignRSDTO.encodeAsLinkProperties()),
+                    label:label
+            ]
+            out << g.render(template:'/layouts/form/uploadMultipleFiles', model:model)
+        }
     }
 
 //    private static final Integer NUM_CHARS_SHORTEN_URL = 19 //OWLY
