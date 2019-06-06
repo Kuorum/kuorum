@@ -2104,7 +2104,7 @@ ul.participatory-budget-steps-info li.active a {display: none}
 .user.show-user-role img.user-img{float:left;}
 .user.show-user-role span{display: inline-block;width:calc(100% - 125px); overflow: hidden; text-overflow: ellipsis;white-space: nowrap}
 .user.show-user-role img.user-img + span{margin-top:1px;}
-.user.show-user-role span.user-type{position:relative;top: inherit;left: inherit;}
+.user.show-user-role span.user-type{position:relative;top: inherit;left: inherit;border:0;}
 
 .popover-user .popover-user-header .user span{
     display: inline-block;
