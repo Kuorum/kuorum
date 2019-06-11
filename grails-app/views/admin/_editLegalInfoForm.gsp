@@ -30,6 +30,11 @@
             <formUtil:textArea command="${command}" field="filePurpose" showLabel="true" />
         </div>
     </fieldset>
+    <fieldset class="row">
+        <div class="form-group col-md-12">
+            <formUtil:textArea command="${command}" field="customLegalInfo" showLabel="true" />
+        </div>
+    </fieldset>
 </div>
 <div class="box-ppal-section">
     <fieldset>

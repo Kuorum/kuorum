@@ -225,6 +225,7 @@ class AdminController {
         editLegalInfoCommand.filePurpose = domainLegalInfoRDSTO?.filePurpose
         editLegalInfoCommand.fileResponsibleEmail = domainLegalInfoRDSTO?.fileResponsibleEmail
         editLegalInfoCommand.fileResponsibleName = domainLegalInfoRDSTO?.fileResponsibleName
+        editLegalInfoCommand.customLegalInfo = domainLegalInfoRDSTO?.customLegalInfo
         [command:editLegalInfoCommand]
     }
 
@@ -242,6 +243,7 @@ class AdminController {
         domainLegalInfoRDTO.filePurpose = command.filePurpose
         domainLegalInfoRDTO.fileResponsibleEmail = command.fileResponsibleEmail
         domainLegalInfoRDTO.fileResponsibleName = command.fileResponsibleName
+        domainLegalInfoRDTO.customLegalInfo = command.customLegalInfo
         domainService.updateLegalInfo(domainLegalInfoRDTO)
         flash.message ="Success"
         redirect mapping:'adminDomainConfigLegalInfo'

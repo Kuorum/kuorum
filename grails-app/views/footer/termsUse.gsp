@@ -202,7 +202,14 @@
             <g:message code="footer.menu.footerTermsUse.description161" args="[legalInfo.domainOwner]"/>
         </p>
     </div>
-
+    <g:if test="${legalInfo.customLegalInfo}">
+        <h4  class="border"><g:message code="footer.menu.footerTermsUse.customLegalInfoTitle" args="[legalInfo.domainOwner]"/></h4>
+        <div class="columns1">
+            <p>
+                ${legalInfo.customLegalInfo}
+            </p>
+        </div>
+    </g:if>
     <h4  class="border"><g:message code="footer.menu.footerTermsUse.subtitle17"/></h4>
     <div class="columns1">
         <p>
