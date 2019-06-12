@@ -16,6 +16,31 @@ class ParticipatoryBudgetService implements CampaignCreatorService<Participatory
     RestKuorumApiService restKuorumApiService
     IndexSolrService indexSolrService
 
+    List<ParticipatoryBudgetRSDTO> findAll(KuorumUserSession user,String viewerUid = null) {
+        Map<String, String> params = [userId: user.getId().toString()]
+        Map<String, String> query = [:]
+        if (viewerUid){
+            query.put("viewerUid",viewerUid)
+        }
+        try {
+            def response = restKuorumApiService.get(
+                    RestKuorumApiService.ApiMethod.ACCOUNT_PARTICIPATORY_BUDGETS,
+                    params,
+                    query,
+                    new TypeReference<List<ParticipatoryBudgetRSDTO>>(){}
+            )
+
+            List<ParticipatoryBudgetRSDTO> participatoryBudgetRSDTOS = null
+            if (response.data) {
+                participatoryBudgetRSDTOS = (List<ParticipatoryBudgetRSDTO>) response.data
+            }
+            return participatoryBudgetRSDTOS
+        }catch (KuorumException e){
+            log.info("Error recovering debate $campaignId : ${e.message}")
+            return null
+        }
+    }
+
     ParticipatoryBudgetRSDTO find(KuorumUserSession user, Long campaignId, String viewerUid = null) {
         find(user.getId().toString(), campaignId, viewerUid)
     }

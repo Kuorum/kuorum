@@ -544,6 +544,8 @@ function FilterContacts() {
             activeOperator =".language-operator"
         }else if (val =="EVENT"){
             activeOperator =".assistant-event-operator"
+        }else if (val =="PARTICIPATORY_BUDGET"){
+            activeOperator =".participatoryBudget-operator"
         }
 
         $fieldSet.find(".filter-operator").addClass("hide");

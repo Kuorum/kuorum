@@ -84,6 +84,27 @@ class PostService implements CampaignCreatorService<PostRSDTO, PostRDTO>{
         postSaved
     }
 
+    List<PostRSDTO> findAll(KuorumUserSession user,String viewerUid = null) {
+        Map<String, String> params = [userId: user.getId().toString()]
+        Map<String, String> query = [:]
+        if (viewerUid){
+            query.put("viewerUid",viewerUid)
+        }
+        try {
+            def response = restKuorumApiService.get(
+                    RestKuorumApiService.ApiMethod.ACCOUNT_POSTS,
+                    params,
+                    query,
+                    new TypeReference<List<PostRSDTO>>() {}
+            )
+
+            return response.data ?: null
+        }catch (KuorumException e){
+            log.info("Posts of user not found [Excpt: ${e.message}")
+            return null
+        }
+    }
+
     PostRSDTO find(KuorumUserSession user, Long postId, String viewerUid = null){
         find(user.id.toString(), postId, viewerUid)
     }

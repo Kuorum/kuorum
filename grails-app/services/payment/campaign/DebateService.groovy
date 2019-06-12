@@ -52,6 +52,31 @@ class DebateService implements CampaignCreatorService<DebateRSDTO, DebateRDTO> {
         debatesFound
     }
 
+    List<DebateRSDTO> findAll(KuorumUserSession user, String viewerUid = null) {
+        Map<String, String> params = [userId: user.getId().toString()]
+        Map<String, String> query = [:]
+        if (viewerUid){
+            query.put("viewerUid",viewerUid)
+        }
+        try {
+            def response = restKuorumApiService.get(
+                    RestKuorumApiService.ApiMethod.ACCOUNT_DEBATES,
+                    params,
+                    query,
+                    new TypeReference<List<DebateRSDTO>>(){}
+            )
+
+            List<DebateRSDTO> debates = null
+            if (response.data) {
+                debates = (List<DebateRSDTO>) response.data
+            }
+            return debates
+        }catch (KuorumException e){
+            log.info("Error recovering debate $debateId : ${e.message}")
+            return null
+        }
+    }
+
     DebateRSDTO find(KuorumUserSession user, Long debateId, String viewerUid = null) {
         find(user.getId().toString(), debateId, viewerUid)
     }

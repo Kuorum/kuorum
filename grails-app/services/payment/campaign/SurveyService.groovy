@@ -54,6 +54,27 @@ class SurveyService implements CampaignCreatorService<SurveyRSDTO, SurveyRDTO>{
         surveySaved
     }
 
+    List<SurveyRSDTO> findAll(KuorumUserSession user,String viewerUid = null) {
+        Map<String, String> params = [userId: user.getId().toString()]
+        Map<String, String> query = [:]
+        if (viewerUid){
+            query.put("viewerUid",viewerUid)
+        }
+        try {
+            def response = restKuorumApiService.get(
+                    RestKuorumApiService.ApiMethod.ACCOUNT_SURVEYS,
+                    params,
+                    query,
+                    new TypeReference<List<SurveyRSDTO>>() {}
+            )
+
+            return response.data ?: null
+        }catch (KuorumException e){
+            log.info("Survey not found [Excpt: ${e.message}")
+            return null
+        }
+    }
+
     SurveyRSDTO find(KuorumUserSession user, Long surveyId, String viewerUid = null){
         find(user.id.toString(), surveyId, viewerUid)
     }

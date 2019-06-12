@@ -24,6 +24,12 @@ interface CampaignCreatorService<RSDTO extends CampaignRSDTO, RDTO extends Campa
      */
     void remove(KuorumUserSession user, Long campaignId)
 
+    /**
+     * Search all campaigns (RSDTO type) of an user
+     * @param user
+     * @return
+     */
+    List<RSDTO> findAll(KuorumUserSession user)
     RSDTO find(KuorumUserSession user, Long campaignId)
     RSDTO find(String userId, Long campaignId)
     /**

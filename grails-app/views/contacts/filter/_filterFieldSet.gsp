@@ -124,8 +124,28 @@
                             cssLabel="sr-only"/>
                 </div>
                 <div class="col-sm-4">
-                    <formUtil:selectEvent
+                    <formUtil:selectCampaign
                             field="value"
+                            campaignType="EVENT"
+                            command="${listCommand}"
+                            prefixFieldName="${prefixField}"
+                            cssLabel="sr-only"/>
+                </div>
+            </div>
+            <div class="filter-operator participatoryBudget-operator">
+                <div class="col-sm-3">
+                    <formUtil:selectEnum
+                            field="operatorAssistantEvent"
+                            defaultEmpty="false"
+                            command="${listCommand}"
+                            prefixFieldName="${prefixField}"
+                            enumClass="${org.kuorum.rest.model.contact.filter.condition.ParticipatoryBudgetConditionOperatorTypeRDTO.class}"
+                            cssLabel="sr-only"/>
+                </div>
+                <div class="col-sm-4">
+                    <formUtil:selectCampaign
+                            field="value"
+                            campaignType="PARTICIPATORY_BUDGET"
                             command="${listCommand}"
                             prefixFieldName="${prefixField}"
                             cssLabel="sr-only"/>

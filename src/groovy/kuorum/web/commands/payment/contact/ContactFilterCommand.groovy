@@ -54,6 +54,7 @@ class ContactFilterOptionCommand{
         this.operatorBoolean = BooleanConditionOperatorTypeRDTO.TRUE
         this.operatorContactType = ContactTypeConditionOperatorTypeRDTO.FOLLOWER
         this.operatorAssistantEvent = EventAssistantConditionOperatorTypeRDTO.BOOKED_TICKET
+        this.operatorParticipatoryBudget = ParticipatoryBudgetConditionOperatorTypeRDTO.CREATED_PROPOSAL
     }
     ContactFilterOptionCommand(ConditionRDTO conditionRDTO){
         this()
@@ -66,6 +67,8 @@ class ContactFilterOptionCommand{
         }else if (conditionRDTO instanceof ConditionContactTypeRDTO){
             this.operatorContactType = conditionRDTO.operator
         }else if (conditionRDTO instanceof ConditionEventAssistantRDTO){
+            this.operatorAssistantEvent = conditionRDTO.operator
+        }else if (conditionRDTO instanceof ConditionParticipatoryBudgetRDTO){
             this.operatorAssistantEvent = conditionRDTO.operator
         }else{
             this.operatorNumber = conditionRDTO.operator
@@ -80,6 +83,7 @@ class ContactFilterOptionCommand{
     BooleanConditionOperatorTypeRDTO operatorBoolean;
     ContactTypeConditionOperatorTypeRDTO operatorContactType;
     EventAssistantConditionOperatorTypeRDTO operatorAssistantEvent;
+    ParticipatoryBudgetConditionOperatorTypeRDTO operatorParticipatoryBudget;
     String value;
 
     public String getOperator(){
@@ -91,6 +95,8 @@ class ContactFilterOptionCommand{
             return operatorContactType.toString();
         }else if(ConditionFieldTypeRDTO.EVENT.equals(field)){
             return operatorAssistantEvent.toString();
+        }else if(ConditionFieldTypeRDTO.PARTICIPATORY_BUDGET.equals(field)){
+            return operatorParticipatoryBudget.toString();
         }else{
             return operatorText.toString()
         }

@@ -2,6 +2,7 @@ package kuorum
 
 import grails.plugin.springsecurity.SpringSecurityService
 import kuorum.core.FileGroup
+import kuorum.core.exception.KuorumException
 import kuorum.core.model.RegionType
 import kuorum.register.KuorumUserSession
 import kuorum.web.constants.WebConstants
@@ -9,10 +10,12 @@ import org.bson.types.ObjectId
 import org.codehaus.groovy.grails.validation.*
 import org.kuorum.rest.model.communication.CampaignRSDTO
 import org.kuorum.rest.model.communication.event.EventRSDTO
+import org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetRSDTO
 import org.kuorum.rest.model.geolocation.RegionRSDTO
 import org.kuorum.rest.model.notification.campaign.NewsletterRSDTO
 import org.springframework.context.i18n.LocaleContextHolder
 import payment.campaign.CampaignService
+import payment.campaign.ParticipatoryBudgetService
 import payment.campaign.event.EventService
 
 class FormTagLib {
@@ -23,6 +26,7 @@ class FormTagLib {
     SpringSecurityService springSecurityService
     RegionService regionService
     EventService eventService
+    ParticipatoryBudgetService participatoryBudgetService
     CampaignService campaignService
 
     static namespace = "formUtil"
@@ -639,10 +643,10 @@ class FormTagLib {
         }
     }
 
-    def selectEvent = {attrs->
-        KuorumUserSession user = springSecurityService.principal
+    def selectCampaign = { attrs->
         def command = attrs.command
         def field = attrs.field
+        def campaignType = attrs.campaignType
 
         def id = attrs.id?:field
         def prefixFieldName=attrs.prefixFieldName?:""
@@ -660,18 +664,36 @@ class FormTagLib {
         if (!isRequired || defaultEmpty){
             out << "<option value=''> ${message(code:"${clazz.name}.empty")}</option>"
         }
-        List<EventRSDTO> events = eventService.findEvents(user)
-        events.each{event ->
-            Boolean selected = (event.id==command."$field")
+        def selectValues;
+        switch (campaignType){
+            case "EVENT": selectValues = eventSelectKeyValue(); break;
+            case "PARTICIPATORY_BUDGET": selectValues = participatoryBudgetSelectKeyValue();break;
+            default: throw new KuorumException("Campaign selector ('${campaignType}') not suported")
+        }
+        selectValues.each{selectValue ->
+            Boolean selected = (selectValue.id==command."$field")
             if (command."$field" instanceof String){
-                selected = (event.id.toString()==command."$field")
+                selected = (selectValue.id.toString()==command."$field")
             }
-            out << "<option value='${event.id}' ${selected?'selected':''}> ${event.title} </option>"
+            out << "<option value='${selectValue.id}' ${selected?'selected':''}> ${selectValue.value} </option>"
         }
         out << "</select>"
         if(error){
             out << "<span for='${id}' class='error'>${g.fieldError(bean: command, field: id)}</span>"
         }
+    }
+
+    private def eventSelectKeyValue(){
+        KuorumUserSession user = springSecurityService.principal
+        List<EventRSDTO> events = eventService.findEvents(user)
+        return events.collect{[id:it.id, value:it.title]}
+    }
+
+
+    private def participatoryBudgetSelectKeyValue(){
+        KuorumUserSession user = springSecurityService.principal
+        List<ParticipatoryBudgetRSDTO> participatoryBudgets = participatoryBudgetService.findAll(user)
+        return participatoryBudgets.findAll{it.published}.collect{[id:it.id, value:it.name]}
     }
 
     def selectTimeZone = {attrs->

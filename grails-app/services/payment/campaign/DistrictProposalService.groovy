@@ -20,6 +20,28 @@ class DistrictProposalService implements CampaignCreatorService<DistrictProposal
     IndexSolrService indexSolrService
     KuorumUserService kuorumUserService
 
+    List<DistrictProposalRSDTO> findAll(KuorumUserSession user,String viewerUid = null) {
+        Map<String, String> params = [userId: user.getId().toString()]
+        Map<String, String> query = [:]
+        if (viewerUid){
+            query.put("viewerUid",viewerUid)
+        }
+        try {
+            def response = restKuorumApiService.get(
+                    RestKuorumApiService.ApiMethod.ACCOUNT_DISTRICT_PROPOSALS,
+                    params,
+                    query,
+                    new TypeReference<List<DistrictProposalRSDTO>>(){}
+            )
+
+            List<DistrictProposalRSDTO> campaigns = response.data
+            return campaigns
+        }catch (KuorumException e){
+            log.info("Error recovering district proposal $campaignId : ${e.message}")
+            return null
+        }
+    }
+
     DistrictProposalRSDTO find(KuorumUserSession user, Long campaignId, String viewerUid = null) {
         find(user.getId().toString(), campaignId, viewerUid)
     }

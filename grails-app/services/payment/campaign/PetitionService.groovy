@@ -83,6 +83,27 @@ class PetitionService implements CampaignCreatorService<PetitionRSDTO, PetitionR
         petitionSaved
     }
 
+    List<PetitionRSDTO> findAll(KuorumUserSession user,String viewerUid = null) {
+        Map<String, String> params = [userId: user.getId().toString()]
+        Map<String, String> query = [:]
+        if (viewerUid){
+            query.put("viewerUid",viewerUid)
+        }
+        try {
+            def response = restKuorumApiService.get(
+                    RestKuorumApiService.ApiMethod.ACCOUNT_PETITIONS,
+                    params,
+                    query,
+                    new TypeReference<List<PetitionRSDTO>>() {}
+            )
+
+            return response.data ?: null
+        }catch (KuorumException e){
+            log.info("Petition not found [Excpt: ${e.message}")
+            return null
+        }
+    }
+
     PetitionRSDTO find(KuorumUserSession user, Long petitionId, String viewerUid = null){
         find(user.id.toString(), petitionId, viewerUid)
     }
