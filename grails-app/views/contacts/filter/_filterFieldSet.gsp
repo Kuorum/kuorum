@@ -135,7 +135,7 @@
             <div class="filter-operator participatoryBudget-operator">
                 <div class="col-sm-3">
                     <formUtil:selectEnum
-                            field="operatorAssistantEvent"
+                            field="operatorParticipatoryBudget"
                             defaultEmpty="false"
                             command="${listCommand}"
                             prefixFieldName="${prefixField}"
