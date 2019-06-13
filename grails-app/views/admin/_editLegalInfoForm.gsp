@@ -32,7 +32,7 @@
     </fieldset>
     <fieldset class="row">
         <div class="form-group col-md-12">
-            <formUtil:textArea command="${command}" field="customLegalInfo" showLabel="true" />
+            <formUtil:textArea command="${command}" field="customLegalInfo" showLabel="true" rows="8" texteditor="texteditor"/>
         </div>
     </fieldset>
 </div>

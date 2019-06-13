@@ -163,7 +163,7 @@
         <h4  class="border"><g:message code="footer.menu.footerTermsUse.customLegalInfoTitle" args="[legalInfo.domainOwner]"/></h4>
         <div class="columns1">
             <p>
-                ${legalInfo.customLegalInfo}
+                ${raw(legalInfo.customLegalInfo)}
             </p>
         </div>
     </g:if>

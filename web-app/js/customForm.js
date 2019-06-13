@@ -65,7 +65,7 @@ $(function(){
             unlink: true,
             fsize: false,
             title: false,
-            change: function(){ var $form = $(val).parents("form");if ($form.length>0){$form.addClass("dirty")} }
+            change: function(){ var $form = $(val).parents("form");if ($form.length>0){formHelper.dirtyFormControl.dirty($form);} }
         });
     });
 
