@@ -12,6 +12,7 @@ class DistrictsCommand {
     List<DistrictCommand> districts = []
 
     Integer maxDistrictProposalsPerUser
+    Integer minVotesImplementProposals
 
 
     @BindingFormat(WebConstants.WEB_FORMAT_DATE)
@@ -22,6 +23,7 @@ class DistrictsCommand {
         importFrom CampaignContentCommand, include: ["publishOn", "sendType"]
         districts minSize: 1, maxSize: 100
         maxDistrictProposalsPerUser min: 1
+        minVotesImplementProposals min: 0
     }
 
 }

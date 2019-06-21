@@ -187,7 +187,8 @@ class FormTagLib {
         String helpBlock = attrs.helpBlock?:message(code: "${command.class.name}.${field}.helpBlock", default: '')
         String extraInfo = message(code: "${command.class.name}.${field}.extraInfo", default: '')
 
-        def value = (command."${field}"?:'').encodeAsHTML()
+        // command."${field}" == 0 is false when using elvis operator
+        def value = (command."${field}"!=null?command."${field}":'').encodeAsHTML()
         def error = hasErrors(bean: command, field: field,'error')
 
         ConstrainedProperty constraints = command.constraints.find{it.key.toString() == field}.value

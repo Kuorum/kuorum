@@ -14,8 +14,15 @@
         <div class="col-xs-3 col-sm-1 ">
             <formUtil:input command="${command}" field="maxDistrictProposalsPerUser" type="number"/>
         </div>
-        <div class="col-xs-6 col-sm-4 input-lg-suffix">
+        <div class="col-xs-6 col-sm-2 input-lg-suffix">
             <g:message code="kuorum.web.commands.payment.participatoryBudget.DistrictsCommand.maxDistrictProposalsPerUser.label.suffix"/>
+        </div>
+        <label for="minVotesImplementProposals" class="col-xs-12 col-sm-2 col-md-2 control-label">
+            <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="${g.message(code:'kuorum.web.commands.payment.participatoryBudget.DistrictsCommand.minVotesImplementProposals.label.info')}"></span>
+            <g:message code="kuorum.web.commands.payment.participatoryBudget.DistrictsCommand.minVotesImplementProposals.label"/>:
+        </label>
+        <div class="col-xs-12 col-sm-2 ">
+            <formUtil:input command="${command}" field="minVotesImplementProposals" type="number"/>
         </div>
     </fieldset>
     <hr/>
