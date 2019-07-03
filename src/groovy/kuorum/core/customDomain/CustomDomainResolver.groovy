@@ -35,9 +35,10 @@ class CustomDomainResolver {
         CONTEXT.set(cachedData)
         if (!API_TOKENS.get(domain)){
             String apiUrl = Holders.getGrailsApplication().config.kuorum.rest.url
+            String oauthPath = Holders.getGrailsApplication().config.kuorum.rest.authPath
             String clientId = Holders.getGrailsApplication().config.kuorum.rest.client_id
             String clientSecret = Holders.getGrailsApplication().config.kuorum.rest.client_secret
-            KuorumApi kuorumApi = new KuorumApi(apiUrl, clientId, domain,clientSecret)
+            KuorumApi kuorumApi = new KuorumApi(apiUrl+oauthPath, clientId, domain,clientSecret)
             API_TOKENS.put(domain, kuorumApi)
         }
     }
