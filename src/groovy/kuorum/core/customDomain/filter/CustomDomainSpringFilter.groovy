@@ -22,9 +22,13 @@ class CustomDomainSpringFilter extends GenericFilterBean {
             url = new URL("https://local.kuorum.org/kuorum")
             logger.warn("Develop mode. Using ${url.toString()}")
         }
-        CustomDomainResolver.setUrl(url, request.getContextPath())
+        DomainRSDTO configRSDTO = null;
+        try{
+            CustomDomainResolver.setUrl(url, request.getContextPath())
+            configRSDTO = domainService.getConfig(CustomDomainResolver.domain)
+        }catch (Exception e){
 
-        DomainRSDTO configRSDTO = domainService.getConfig(CustomDomainResolver.domain)
+        }
         if (!configRSDTO){
             int errorCode = 402
             logger.warn("Domain not found: ${request.getContextPath()}. Sending ${errorCode} code")

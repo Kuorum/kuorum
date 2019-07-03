@@ -1,6 +1,8 @@
 package kuorum.core.customDomain
 
+import grails.util.Holders
 import org.apache.commons.collections.map.HashedMap
+import org.kuorum.rest.client.KuorumApi
 import org.kuorum.rest.model.domain.DomainRSDTO
 
 class CustomDomainResolver {
@@ -9,8 +11,10 @@ class CustomDomainResolver {
     private static final String PARAM_URL = "URL"
     private static final String PARAM_BASE = "URL_BASE"
     private static final String PARAM_DOMAIN = "URL_DOMAIN"
-    private static final String PARAM_DOMAIN_TOKEN = "DOMAIN_TOKEN"
     private static final String PARAM_DOMAIN_CONFIG = "DOMAIN_CONFIG"
+
+    //Not destroyed each call
+    private static final Map<String, KuorumApi> API_TOKENS= new HashMap<String, KuorumApi>();
 
     static void setUrl(URL url, String contextPath="") {
 //        System.out.print("ThreadLocal [START] ->"+Thread.currentThread().id)
@@ -29,6 +33,13 @@ class CustomDomainResolver {
         cachedData.put(PARAM_BASE,base)
         cachedData.put(PARAM_DOMAIN,domain)
         CONTEXT.set(cachedData)
+        if (!API_TOKENS.get(domain)){
+            String apiUrl = Holders.getGrailsApplication().config.kuorum.rest.url
+            String clientId = Holders.getGrailsApplication().config.kuorum.rest.client_id
+            String clientSecret = Holders.getGrailsApplication().config.kuorum.rest.client_secret
+            KuorumApi kuorumApi = new KuorumApi(apiUrl, clientId, domain,clientSecret)
+            API_TOKENS.put(domain, kuorumApi)
+        }
     }
 
     static String getDomain() {
@@ -53,7 +64,13 @@ class CustomDomainResolver {
     }
 
     static String getApiToken(){
-        return CONTEXT.get().get(PARAM_DOMAIN_TOKEN)
+        String domainName = CONTEXT.get().get(PARAM_DOMAIN);
+        return API_TOKENS.get(domainName).getAuthorizationHeader();
+    }
+
+    static String getAdminApiToken(){
+        String domainName = "kuorum.org";
+        return API_TOKENS.get(domainName).getAuthorizationHeader();
     }
 
     static DomainRSDTO getDomainRSDTO(){
@@ -61,7 +78,6 @@ class CustomDomainResolver {
     }
 
     static void setDomainRSDTO(DomainRSDTO domainConfig){
-        CONTEXT.get().put(PARAM_DOMAIN_TOKEN, domainConfig.token)
         CONTEXT.get().put(PARAM_DOMAIN_CONFIG, domainConfig)
     }
 }

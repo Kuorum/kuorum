@@ -9,7 +9,6 @@ import org.kuorum.rest.model.domain.*
 import org.kuorum.rest.model.domain.creation.NewDomainPaymentDataRDTO
 import org.kuorum.rest.model.payment.BillingAmountUsersRangeDTO
 import org.kuorum.rest.model.payment.KuorumPaymentPlanDTO
-import org.springframework.beans.factory.annotation.Value
 
 class DomainService {
 
@@ -17,20 +16,16 @@ class DomainService {
 
     LessCompilerService lessCompilerService
 
-    @Value('${kuorum.rest.apiKey}')
-    String kuorumAdminRestApiKey
-
     DomainRSDTO getConfig(String domain){
-        Map<String, String> params = [:]
-        Map<String, String> query = [domainName:domain]
+        Map<String, String> params = [domainName:domain]
+        Map<String, String> query = [:]
 
         try{
             def apiResponse= restKuorumApiService.get(
                     RestKuorumApiService.ApiMethod.DOMAIN_CONFIG,
                     params,
                     query,
-                    new TypeReference<DomainRSDTO>(){},
-                    kuorumAdminRestApiKey)
+                    new TypeReference<DomainRSDTO>(){})
             DomainRSDTO config
             if (apiResponse.data){
                 config = apiResponse.data
@@ -52,7 +47,7 @@ class DomainService {
     }
     private DomainRSDTO updateConfigSettingDomain(DomainRDTO domainRDTO, String domain){
         domainRDTO.domain = domain
-        Map<String, String> params = [:]
+        Map<String, String> params = [domainName: domain]
         Map<String, String> query = [:]
 
         try{
@@ -61,8 +56,7 @@ class DomainService {
                     params,
                     query,
                     domainRDTO,
-                    new TypeReference<DomainRSDTO>(){},
-                    kuorumAdminRestApiKey)
+                    new TypeReference<DomainRSDTO>(){})
             DomainRSDTO domainRSDTO
             if (apiResponse.data){
                 domainRSDTO = apiResponse.data
@@ -81,11 +75,11 @@ class DomainService {
 
         try{
             def apiResponse= restKuorumApiService.get(
-                    RestKuorumApiService.ApiMethod.DOMAIN,
+                    RestKuorumApiService.ApiMethod.DOMAINS,
                     params,
                     query,
                     new TypeReference<List<DomainRSDTO>>(){},
-                    kuorumAdminRestApiKey)
+                    CustomDomainResolver.getAdminApiToken())
             return apiResponse.data
         }catch (Exception e){
             log.warn("Error recovering domains", e)
@@ -94,16 +88,15 @@ class DomainService {
     }
 
     DomainLegalInfoRSDTO getLegalInfo(String domain){
-        Map<String, String> params = [:]
-        Map<String, String> query = [domainName:domain]
+        Map<String, String> params = [domainName:domain]
+        Map<String, String> query = [:]
 
         try{
             def apiResponse= restKuorumApiService.get(
                     RestKuorumApiService.ApiMethod.DOMAIN_LEGAL,
                     params,
                     query,
-                    new TypeReference<DomainLegalInfoRSDTO>(){},
-                    kuorumAdminRestApiKey)
+                    new TypeReference<DomainLegalInfoRSDTO>(){})
             return apiResponse.data
         }catch (Exception e){
             log.warn("Domain not found: ${domain}")
@@ -114,8 +107,8 @@ class DomainService {
     DomainLegalInfoRSDTO updateLegalInfo (DomainLegalInfoRDTO domainLegalInfoRDTO ) {
 
         String domain = CustomDomainResolver.domain
-        Map<String, String> params = [:]
-        Map<String, String> query = [domainName:domain]
+        Map<String, String> params = [domainName:domain]
+        Map<String, String> query = [:]
 
         try {
             def apiResponse = restKuorumApiService.put(
@@ -123,8 +116,7 @@ class DomainService {
                     params,
                     query,
                     domainLegalInfoRDTO,
-                    new TypeReference<DomainLegalInfoRSDTO>() {},
-                    kuorumAdminRestApiKey)
+                    new TypeReference<DomainLegalInfoRSDTO>() {})
             DomainLegalInfoRSDTO domainLegalInfoRSDTO
             if (apiResponse.data){
                 domainLegalInfoRSDTO = apiResponse.data
@@ -137,15 +129,14 @@ class DomainService {
 
 
     void updateNewsletterConfig(AdminConfigMailingRDTO adminRDTO){
-        Map<String, String> params = [:]
+        Map<String, String> params = [domainName:adminRDTO.domainName]
         Map<String, String> query = [:]
         def response= restKuorumApiService.put(
                 RestKuorumApiService.ApiMethod.DOMAIN_MAIL_CONFIG,
                 params,
                 query,
                 adminRDTO,
-                null,
-                kuorumAdminRestApiKey
+                null
         )
     }
 
@@ -153,16 +144,15 @@ class DomainService {
 
     DomainPaymentInfoRSDTO getPaymentInfo(){
         String domain = CustomDomainResolver.domain
-        Map<String, String> params = [:]
-        Map<String, String> query = [domainName:domain]
+        Map<String, String> params = [domainName:domain]
+        Map<String, String> query = [:]
 
         try{
             def apiResponse= restKuorumApiService.get(
                     RestKuorumApiService.ApiMethod.DOMAIN_PAYMENT,
                     params,
                     query,
-                    new TypeReference<DomainPaymentInfoRSDTO>(){},
-                    kuorumAdminRestApiKey)
+                    new TypeReference<DomainPaymentInfoRSDTO>(){})
             return apiResponse.data
         }catch (Exception e){
             log.warn("Domain not found: ${domain}")
@@ -173,16 +163,15 @@ class DomainService {
     DomainPaymentInfoRSDTO updatePaymentInfo (NewDomainPaymentDataRDTO domainPaymentInfoRDTO) {
 
         String domain = CustomDomainResolver.domain
-        Map<String, String> params = [:]
-        Map<String, String> query = [domainName:domain]
+        Map<String, String> params = [domainName:domain]
+        Map<String, String> query = [:]
 
         def apiResponse = restKuorumApiService.put(
                 RestKuorumApiService.ApiMethod.DOMAIN_PAYMENT,
                 params,
                 query,
                 domainPaymentInfoRDTO,
-                new TypeReference<DomainPaymentInfoRSDTO>() {},
-                kuorumAdminRestApiKey)
+                new TypeReference<DomainPaymentInfoRSDTO>() {})
         DomainPaymentInfoRSDTO domainPaymentInfo
         if (apiResponse.data){
             domainPaymentInfo = apiResponse.data
@@ -203,17 +192,17 @@ class DomainService {
     }
 
     void removeDomain(String domain){
-        Map<String, String> params = [:]
-        Map<String, String> query = [domainName:domain]
+        Map<String, String> params = [domainName:domain]
+        Map<String, String> query = [:]
 
         try{
-            def apiResponse= restKuorumApiService.deleteWithKey(
+            def apiResponse= restKuorumApiService.delete(
                     RestKuorumApiService.ApiMethod.DOMAIN,
                     params,
-                    query,
-                    kuorumAdminRestApiKey)
+                    query)
         }catch (Exception e){
             log.warn("It was not possible to delete domain : ${domain}")
+            throw e;
         }
     }
 

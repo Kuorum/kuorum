@@ -28,7 +28,7 @@ class BootStrap {
         List<Promise> asyncUpdateConfig = []
             domains.each { domainRSDTO ->
                 asyncUpdateConfig << grails.async.Promises.task {
-                    URL urlThread = new URL("https://kuorum.org/kuorum")
+                    URL urlThread = new URL("https://${domainRSDTO.domain}/kuorum")
                     CustomDomainResolver.setUrl(urlThread, "")
                     if (domainRSDTO.version != 0){
                         domainService.updateConfig(domainRSDTO)
