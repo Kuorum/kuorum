@@ -78,20 +78,11 @@ class SearchController{
     private SearchParams createRegionSearchParams( SearchParams searchParams, def params, String preferredCountry){
         fixXssSearch(searchParams)
         SearchParams editedSearchParams = searchParams
-//        if (searchParams.searchType== SearchType.ALL && !params.word && !params.regionCode){
-//            // NO PARAMS -> Show politicians from country
-//            editedSearchParams =  editedSearchParams = new SearchParams(searchParams.properties)
-//            editedSearchParams.searchType = SearchType.REGION
-//            Region country = Region.findByIso3166_2(preferredCountry)
-//            List<Region> regions= regionService.findRegionsList(country)
-//            editedSearchParams.boostedRegions = regions.collect{it.iso3166_2}
-//            editedSearchParams.word = "";
-//        }else
         if (searchParams.searchType == SearchType.REGION || searchParams.searchType== SearchType.ALL){
             editedSearchParams = new SearchParams(searchParams.properties)
             Locale locale = localeResolver.resolveLocale(request)
             AvailableLanguage language = AvailableLanguage.fromLocaleParam(locale.language)
-            Region suggestedRegion = null;
+            RegionRSDTO suggestedRegion = null;
             if (params.regionCode && searchParams.searchType==SearchType.REGION){
                 suggestedRegion = regionService.findRegionBySuggestedId(params.regionCode)
             }
@@ -99,13 +90,12 @@ class SearchController{
                 suggestedRegion = regionService.findMostAccurateRegion(searchParams.word,null, language)
             }
 
-            List<Region> regions = []
+            List<String> regionCodes = []
             if (suggestedRegion){
-                regions = regionService.findRegionsList(suggestedRegion)
+                regionCodes = regionService.buildListOfParentsCodes(suggestedRegion)
             }
-            if (regions){
-//                editedSearchParams.regionIsoCodes = regions.collect{it.iso3166_2}
-                editedSearchParams.boostedRegions = regions.collect{it.iso3166_2}
+            if (regionCodes){
+                editedSearchParams.boostedRegions = regionCodes
                 editedSearchParams.word = "";
             }
         }

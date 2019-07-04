@@ -3,7 +3,6 @@ package kuorum
 import grails.plugin.springsecurity.SpringSecurityService
 import kuorum.core.FileGroup
 import kuorum.core.exception.KuorumException
-import kuorum.core.model.RegionType
 import kuorum.register.KuorumUserSession
 import kuorum.web.constants.WebConstants
 import org.bson.types.ObjectId
@@ -438,8 +437,8 @@ class FormTagLib {
         def fieldId = field +".id"//Same as EditUserProfileCommand.bindingRegion
         String extraCss = attrs.extraCss?:""
         def showLabel = attrs.showLabel?Boolean.parseBoolean(attrs.showLabel):false
-        Region regionValue = command."${field}"?:null
-        def value = regionValue?.iso3166_2?:''
+        RegionRSDTO regionValue = command."${field}"?:null
+        def value = regionValue?.iso3166?:''
         def showedValue = ""
         if (value){
             Locale locale = LocaleContextHolder.getLocale()
@@ -758,33 +757,6 @@ class FormTagLib {
             out << "<span for='${id}' class='error'>${g.fieldError(bean: command, field: id)}</span>"
         }
     }
-
-    def selectNation = {attrs->
-        def command = attrs.command
-        def field = attrs.field
-
-        def id = attrs.id?:field
-        def cssClass = attrs.cssClass
-
-        def clazz = command.metaClass.properties.find{it.name == field}.type
-        def label = message(code: "${clazz.name}.label")
-        def error = hasErrors(bean: command, field: field,'error')
-        out <<"""
-            <label for="${id}" class="${cssClass}">${label}</label>
-            <select name="${field}" class="form-control input-lg ${error}" id="${id}">
-            """
-        out << "<option value=''> ${message(code:"${clazz.name}.empty")}</option>"
-        List<Region> countries = Region.findAllByRegionType(RegionType.NATION)
-        countries.each{
-            String codeMessage = "${clazz.name}.${it.iso3166_2}"
-            out << "<option value='${it.id}' ${it.id==command."$field"?.id?'selected':''}> ${message(code:codeMessage, default: it.name)}</option>"
-        }
-        out << "</select>"
-        if(error){
-            out << "<span for='${id}' class='error'>${g.fieldError(bean: command, field: id)}</span>"
-        }
-    }
-
 
     def checkBox = {attrs ->
         def command = attrs.command

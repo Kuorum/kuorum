@@ -1,7 +1,6 @@
 package kuorum.web.commands.profile
 
 import grails.validation.Validateable
-import kuorum.Region
 import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.model.AvailableLanguage
 import kuorum.register.RegisterService
@@ -10,6 +9,8 @@ import kuorum.web.binder.RegionBinder
 import org.codehaus.groovy.grails.web.context.ServletContextHolder
 import org.codehaus.groovy.grails.web.servlet.GrailsApplicationAttributes
 import org.grails.databinding.BindUsing
+import org.grails.databinding.SimpleMapDataBindingSource
+import org.kuorum.rest.model.geolocation.RegionRSDTO
 
 /**
  * Created by iduetxe on 4/01/16.
@@ -28,14 +29,15 @@ class AccountDetailsCommand {
         this.phone = user.personalData?.telephone?:''
         this.phonePrefix = user.personalData?.phonePrefix?:''
         this.language = user.language
-        this.homeRegion = user.personalData?.province
+        this.homeRegion = RegionBinder.bindRegion(user, 'homeRegion', new SimpleMapDataBindingSource(['homeRegion.id':user.personalData?.province?.iso3166_2]))
         this.timeZoneId = user.timeZone?.getID()
     }
+
     KuorumUser user
     @BindUsing({obj,  org.grails.databinding.DataBindingSource source ->
         RegionBinder.bindRegion(obj, "homeRegion", source)
     })
-    Region homeRegion
+    RegionRSDTO homeRegion
     String name
     String surname
     @BindUsing({obj, org.grails.databinding.DataBindingSource source->

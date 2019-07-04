@@ -44,7 +44,7 @@ class CustomRegisterController {
 
         user.personalData = user.personalData?:new kuorum.users.PersonData()
         user.userType = UserType.PERSON
-        user.personalData.province = command.homeRegion
+        user.personalData.province = kuorum.Region.findByIso3166_2(command.homeRegion.iso3166)
         user.language = command.language
         user.personalData.gender = command.gender
 

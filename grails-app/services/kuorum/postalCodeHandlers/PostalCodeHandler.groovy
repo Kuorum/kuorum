@@ -1,7 +1,4 @@
 package kuorum.postalCodeHandlers
-
-import kuorum.Region
-
 /**
  * Created by iduetxe on 2/05/15.
  */

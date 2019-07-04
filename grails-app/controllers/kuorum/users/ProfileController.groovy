@@ -97,7 +97,7 @@ class ProfileController {
         }
         user.personalData.phonePrefix = command.phonePrefix
         user.personalData.telephone = command.phone
-        user.personalData.province = command.homeRegion
+        user.personalData.province = kuorum.Region.findByIso3166_2(command.homeRegion.iso3166)
         user.timeZone = command.timeZoneId ? TimeZone.getTimeZone(command.timeZoneId) : null
         kuorumUserService.updateUser(user)
         if (user.email != command.email){

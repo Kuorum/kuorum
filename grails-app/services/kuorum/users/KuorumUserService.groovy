@@ -319,20 +319,6 @@ class KuorumUserService {
     List<SearchKuorumUserRSDTO> bestUsers(KuorumUser user, List<ObjectId> userFiltered = [], Pagination pagination = new Pagination()){
         SearchParams searchParams = new SearchParams(pagination.getProperties().findAll{k,v->k!="class"})
         searchParams.max +=1
-//        List<Region> regions;
-//        String politicalParty = ""
-//        if (isPaymentUser(user)){
-//            regions = regionService.findUserRegions(user)
-//        }else if(user){
-//            regions = regionService.findRegionsList(user.professionalDetails?.region)
-//            politicalParty = user?.professionalDetails?.politicalParty?:''
-//        }else{
-////            regions = [[iso3166_2:"EU-ES"], [iso3166_2:"EU"]]
-//        }
-//        if (regions){
-//            searchParams.boostedRegions = regions.collect{it.iso3166_2}
-//        searchParams.regionIsoCodes = regions.collect{it.iso3166_2}
-//        }
         searchParams.setType(SolrType.KUORUM_USER)
         searchParams.filteredUserIds = userFiltered.collect{it.toString()}
         if (user) searchParams.filteredUserIds << user.id.toString()

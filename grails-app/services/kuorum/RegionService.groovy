@@ -9,6 +9,7 @@ import kuorum.postalCodeHandlers.PostalCodeHandlerType
 import kuorum.users.KuorumUser
 import kuorum.util.rest.RestKuorumApiService
 import org.kuorum.rest.model.geolocation.RegionRSDTO
+import org.kuorum.rest.model.geolocation.RegionTypeDTO
 import org.springframework.beans.factory.annotation.Autowired
 
 class RegionService {
@@ -74,36 +75,30 @@ class RegionService {
      * @param user
      * @return
      */
-    Region findUserRegion(KuorumUser user){
-        Region userRegion = null
-        if (user.personalData?.province){
-            Region province = user.personalData.province
-            Region country = findCountry(province)
-            userRegion = user.personalData.province
-//            userRegion = findMostSpecificRegionByPostalCode(country, user.personalData.postalCode)
-            if (!userRegion){
-                //Para los paises metidos sin sus codigos postales :/
-                userRegion = country
-            }
-        }
-        if(userRegion){
-            //Recover most accurate info from API
-            userRegion = findRegionById(userRegion.iso3166_2,user.language.locale)
-        }
-        return userRegion
+    RegionRSDTO findUserRegion(KuorumUser user){
+        findRegionDataById(user?.personalData?.province?.iso3166_2,user?.language?.locale)
     }
 
-    List<Region> findRegionsList(Region region){
-        List<Region> regions = []
+    List<String> buildListOfParentsCodes(RegionRSDTO region){
+        List<String> regionCodes = []
         if (region){
-            regions << region
-
-            while (region.superRegion){
-                regions << region.superRegion
-                region = region.superRegion
+            String code = region.iso3166;
+            while (code.length()>2){
+                regionCodes << code
+                code = code.substring(0, code.length() -2)
             }
         }
-        regions.reverse()
+        regionCodes.reverse()
+    }
+
+    private RegionRSDTO findParentRegion(RegionRSDTO regionRSDTO){
+        if (regionRSDTO.getIso3166().length()<=2 || regionRSDTO.regionType==RegionTypeDTO.SUPRANATIONAL){
+            return null;
+        }
+        String parentCode=regionRSDTO.getIso3166().substring(0, regionRSDTO.getIso3166().length() - 2)
+        RegionRSDTO parent=findRegionBySuggestedId(parentCode);
+        return  parent;
+
     }
 
     private static final Integer COUNTRY_CODE_LENGTH = 3*2-1
@@ -167,7 +162,7 @@ class RegionService {
      * @param suggestedId
      * @return
      */
-    Region findRegionBySuggestedId(String isoCode){
+    RegionRSDTO findRegionBySuggestedId(String isoCode){
 
         try{
             def response = restKuorumApiService.get(
@@ -177,7 +172,7 @@ class RegionService {
                     new TypeReference<RegionRSDTO>(){}
 
             )
-            return Region.findByIso3166_2(response.data.iso3166)
+            return response.data
         }catch (Exception e){
             log.error("Error recovering region '${isoCode}'",e)
             return null
@@ -220,7 +215,7 @@ class RegionService {
         return response.data
     }
 
-    Region findMostAccurateRegion(String regionName, Region country = null, AvailableLanguage language= AvailableLanguage.en_EN){
+    RegionRSDTO findMostAccurateRegion(String regionName, Region country = null, AvailableLanguage language= AvailableLanguage.en_EN){
         try{
             Map params = [regionName:regionName, lang: language.getLocale().language]
             if (country){
@@ -232,7 +227,7 @@ class RegionService {
                     params,
                     new TypeReference<RegionRSDTO>(){}
             )
-            return Region.findByIso3166_2(response.data.iso3166)
+            return response.data
         }catch (Exception kuorumException){
             return null
         }
