@@ -136,7 +136,7 @@ $(function(){
             $(this).val(suggestion.data.name);
             var realInputId = $(this).attr('data-real-input-id');
             realInputId = realInputId.replace(".", "\\.");
-            $("#"+realInputId).val(suggestion.data.iso3166_2);
+            $("#"+realInputId).val(suggestion.data.iso3166);
             $("#"+realInputId).valid()
         },
         triggerSelectOnValidInput:false,

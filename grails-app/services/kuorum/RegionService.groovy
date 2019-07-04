@@ -210,19 +210,14 @@ class RegionService {
 
     }
 
-    List<Region> suggestRegions(String prefixRegionName, AvailableLanguage language = AvailableLanguage.en_EN){
+    List<RegionRSDTO> suggestRegions(String prefixRegionName, AvailableLanguage language = AvailableLanguage.en_EN){
         def response = restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.REGION_SUGGEST,
                 [:],
                 [regionName:prefixRegionName,lang: language.getLocale().language],
                 new TypeReference<List<RegionRSDTO>>(){}
         )
-        List regions = response.data.collect{val ->
-            Region region = new Region(val.properties)
-            region.iso3166_2=val.iso3166
-            region
-        }
-        return regions
+        return response.data
     }
 
     Region findMostAccurateRegion(String regionName, Region country = null, AvailableLanguage language= AvailableLanguage.en_EN){

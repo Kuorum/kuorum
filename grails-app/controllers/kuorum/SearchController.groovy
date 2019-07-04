@@ -9,6 +9,7 @@ import kuorum.core.model.search.SuggestRegion
 import kuorum.core.model.solr.SolrAutocomplete
 import kuorum.core.model.solr.SolrType
 import kuorum.web.constants.WebConstants
+import org.kuorum.rest.model.geolocation.RegionRSDTO
 import org.kuorum.rest.model.search.SearchResultsRSDTO
 import org.springframework.web.servlet.LocaleResolver
 
@@ -139,7 +140,7 @@ class SearchController{
     def suggestRegions(SuggestRegion suggestRegion){
         Locale locale = localeResolver.resolveLocale(request)
         AvailableLanguage language = AvailableLanguage.fromLocaleParam(locale.language)
-        List<Region> regions = regionService.suggestRegions(suggestRegion.word, language)
+        List<RegionRSDTO> regions = regionService.suggestRegions(suggestRegion.word, language)
         Map suggestions =[suggestions:regions.collect{[type:"REGION", value:it.name, data:it]}]
         render suggestions as JSON
     }
