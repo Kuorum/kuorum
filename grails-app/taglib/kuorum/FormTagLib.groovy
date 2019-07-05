@@ -442,7 +442,7 @@ class FormTagLib {
         def showedValue = ""
         if (value){
             Locale locale = LocaleContextHolder.getLocale()
-            RegionRSDTO regionRSDTO = regionService.findRegionDataById(value, locale)
+            RegionRSDTO regionRSDTO = regionService.findRegionById(value, locale)
             showedValue = regionRSDTO.name
         }
 

@@ -29,7 +29,7 @@ class AccountDetailsCommand {
         this.phone = user.personalData?.telephone?:''
         this.phonePrefix = user.personalData?.phonePrefix?:''
         this.language = user.language
-        this.homeRegion = RegionBinder.bindRegion(user, 'homeRegion', new SimpleMapDataBindingSource(['homeRegion.id':user.personalData?.province?.iso3166_2]))
+        this.homeRegion = RegionBinder.bindRegion(user, 'homeRegion', new SimpleMapDataBindingSource(['homeRegion.id':user.personalData?.provinceCode]))
         this.timeZoneId = user.timeZone?.getID()
     }
 

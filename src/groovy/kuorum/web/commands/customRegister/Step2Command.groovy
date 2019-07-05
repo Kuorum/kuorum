@@ -23,7 +23,7 @@ class Step2Command {
         this.user = user
         this.alias = user.alias?:recommendedAlias
         this.language = user.language
-        this.homeRegion = RegionBinder.bindRegion(user, 'homeRegion', new SimpleMapDataBindingSource(['homeRegion.id':user.personalData?.province?.iso3166_2]))
+        this.homeRegion = RegionBinder.bindRegion(user, 'homeRegion', new SimpleMapDataBindingSource(['homeRegion.id':user.personalData?.provinceCode]))
 //        this.phonePrefix = user.personalData?.phonePrefix
 //        this.phone = user.personalData?.telephone
 //        this.name = user.name

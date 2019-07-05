@@ -1,6 +1,5 @@
 package kuorum.users
 
-import kuorum.Region
 import kuorum.core.model.Gender
 import kuorum.core.model.UserType
 
@@ -17,17 +16,14 @@ class PersonalData {
     String postalCode
     //TODO: Refactor province to location
     String provinceCode  // this code is Region.iso3166_2
-    Region province
-    @Deprecated
-    Region country
+//    Region province
     Date birthday
     static constraints = {
         telephone nullable: true
         gender nullable: true
         provinceCode nullable: true
         postalCode nullable: true
-        province nullable: true
-        country nullable: true
+//        province nullable: true
         phonePrefix nullable:true
         birthday nullable:true
     }

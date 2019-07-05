@@ -1,5 +1,4 @@
 import grails.util.Holders
-import kuorum.Region
 import kuorum.core.model.UserType
 import kuorum.register.KuorumUserSession
 import kuorum.users.KuorumUser
@@ -22,22 +21,8 @@ import org.kuorum.rest.model.tag.CauseRSDTO
  */
 class LinkPropertiesCodec {
 
-    private static final Integer NUM_CHARS_URL_POST_TITLE = 35
-
     static encode = {target->
-
-        def params = [:]
-        switch (target) {
-            case UserType:
-                params = [userTypeUrl: transEnumToUrl(target)]
-                break
-            case Region:
-                params = [regionName:target.name.encodeAsKuorumUrl(), iso3166_2:target.iso3166_2]
-                break
-            default:
-                params = prepareParams(target)
-        }
-        params
+        prepareParams(target)
     }
 
     static decode = {target->

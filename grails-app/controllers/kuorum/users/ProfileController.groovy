@@ -97,7 +97,7 @@ class ProfileController {
         }
         user.personalData.phonePrefix = command.phonePrefix
         user.personalData.telephone = command.phone
-        user.personalData.province = kuorum.Region.findByIso3166_2(command.homeRegion.iso3166)
+        user.personalData.provinceCode = command.homeRegion?.iso3166?:null
         user.timeZone = command.timeZoneId ? TimeZone.getTimeZone(command.timeZoneId) : null
         kuorumUserService.updateUser(user)
         if (user.email != command.email){
@@ -251,25 +251,19 @@ class ProfileController {
             personalData.gender = Gender.ORGANIZATION
         }else{
             personalData = new PersonData(user.personalData?.properties)
-//            if (user.userType==UserType.POLITICIAN || user.userType==user.userType.CANDIDATE){
-                if (!user.professionalDetails){
-                    user.professionalDetails = new ProfessionalDetails()
-                }
-                user.professionalDetails.position = command.position
-//                user.professionalDetails.politicalParty = command.politicalParty
-//            }else{
-                personalData.birthday = command.birthday
-                personalData.studies =  command.studies
-                personalData.workingSector =  command.workingSector
-                user.userType = UserType.PERSON
-//            }
+            if (!user.professionalDetails){
+                user.professionalDetails = new ProfessionalDetails()
+            }
+            user.professionalDetails.position = command.position
+            personalData.birthday = command.birthday
+            personalData.studies =  command.studies
+            personalData.workingSector =  command.workingSector
+            user.userType = UserType.PERSON
             personalData.gender = command.gender
         }
         if (user.personalData){
             //Datos no sobreescribibles
             personalData.provinceCode= user.personalData.provinceCode
-            personalData.province= user.personalData.province
-            personalData.country= user.personalData.country
         }
         user.personalData = personalData
     }

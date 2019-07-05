@@ -104,6 +104,7 @@ class KuorumUserService {
         userDataRDTO.setEmail(user.getEmail())
         userDataRDTO.setName(user.getName())
         userDataRDTO.setSocialLinks(mapSocial(user))
+        userDataRDTO.provinceCode = user.personalData.provinceCode
         return updateKuorumUser(user.id.toString(), userDataRDTO)
     }
 
@@ -274,10 +275,6 @@ class KuorumUserService {
     @PreAuthorize("hasPermission(#user, 'edit')")
     KuorumUser updateUser(KuorumUser user){
 
-        if (user.personalData.province){
-            user.personalData.provinceCode = user.personalData.province.iso3166_2
-            user.personalData.country = regionService.findCountry(user.personalData.province)
-        }
         user.updateDenormalizedData()
         if (!user.save(flush:true)){
             def msg = "No se ha podido actualizar el usuario ${user.email}(${user.id})"

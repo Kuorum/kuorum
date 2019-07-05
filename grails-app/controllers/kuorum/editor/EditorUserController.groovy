@@ -69,12 +69,11 @@ class EditorUserController {
         updatedUser.personalData.phonePrefix = command.phonePrefix
         updatedUser.personalData.telephone = command.phone
         if (command.homeRegion){
-            updatedUser.personalData.province = command.homeRegion
-            updatedUser.personalData.provinceCode = command.homeRegion.iso3166_2
+            updatedUser.personalData.provinceCode = command.homeRegion.iso3166
         }
         updatedUser = kuorumUserService.updateUser(updatedUser)
 
-        flash.message =message(code:'admin.editUser.success', args: [updatedUser.name])
+        flash.message =message(code:'kuorum.web.commands.editor.EditorAccountCommand.logic.updateSuccess', args: [updatedUser.name])
         redirect(mapping:'editorKuorumAccountEdit', params:updatedUser.encodeAsLinkProperties())
     }
 }

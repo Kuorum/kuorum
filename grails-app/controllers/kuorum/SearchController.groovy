@@ -87,7 +87,7 @@ class SearchController{
                 suggestedRegion = regionService.findRegionBySuggestedId(params.regionCode)
             }
             if (!suggestedRegion){
-                suggestedRegion = regionService.findMostAccurateRegion(searchParams.word,null, language)
+                suggestedRegion = regionService.findMostAccurateRegion(searchParams.word, language)
             }
 
             List<String> regionCodes = []

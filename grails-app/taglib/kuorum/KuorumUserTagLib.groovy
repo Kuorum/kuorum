@@ -195,19 +195,18 @@ class KuorumUserTagLib {
 
     def userRegionName ={ attrs->
         String regionIso = ""
-        if (attrs.user instanceof KuorumUser){
-            KuorumUser user = attrs.user
-            Region regionValue = user?.personalData?.province
-            regionIso = regionValue?.iso3166_2
-        }else if (attrs.user instanceof SearchKuorumUserRSDTO){
+        String regionName = ""
+        if (attrs.user instanceof SearchKuorumUserRSDTO){
             regionIso = attrs.user.regionIso
+        }else if (attrs.user instanceof KuorumUserRSDTO){
+            regionIso = attrs.user.regionIsoCode
+            regionName = attrs.user.regionName
         }
 
-        def regionName = ""
-        if (regionIso){
+        if (regionIso && !regionName){
             Locale locale = LocaleContextHolder.getLocale()
             try {
-                RegionRSDTO regionRSDTO = regionService.findRegionDataById(regionIso, locale)
+                RegionRSDTO regionRSDTO = regionService.findRegionById(regionIso, locale)
                 regionName = regionRSDTO?.name
             }catch (Exception e){
                 regionName = ""
