@@ -42,8 +42,6 @@ class KuorumUser {
 
     Boolean isValid = false;
 
-    Integer numFollowers = 0
-
     List<ObjectId> favorites = [] //PostIds => Is the id instead of Post because gorm updates all
 
     SocialLinks socialLinks = new SocialLinks()
@@ -169,7 +167,6 @@ class KuorumUser {
         email = email.toLowerCase()
         alias = alias?.toLowerCase()
         if (!followers) followers = []
-        numFollowers = followers.size()
         if (!personalData){
             this.personalData = new PersonalData()
         }

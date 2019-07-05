@@ -428,10 +428,6 @@ class KuorumUserService {
         user.personalData.provinceCode != null
     }
 
-    boolean isUserConfirmedMail(KuorumUser user){
-        !user.authorities.find{RoleUser role-> role.authority == "ROLE_INCOMPLETE_USER" }
-    }
-
     String generateValidAlias(String name, Boolean validEmptyAlias = false){
         String alias = name.replaceAll("[^a-zA-Z0-9]+","")
         alias = alias.substring(0, Math.min(alias.length(), KuorumUser.ALIAS_MAX_SIZE)).toLowerCase()
