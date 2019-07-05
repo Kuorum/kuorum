@@ -24,7 +24,7 @@ class SearchSolrService {
 //        Map<String, String> query = searchParamsRDTO.encodeAsQueryParams()
         Map<String, String> query = [:]
         if (springSecurityService.loggedIn){
-            query.put("viewerUid", springSecurityService.currentUser.id)
+            query.put("viewerUid", springSecurityService.principal.id.toString())
         }
         def response = restKuorumApiService.put(
                 RestKuorumApiService.ApiMethod.SEARCH,
@@ -92,7 +92,7 @@ class SearchSolrService {
 //        Map<String, String> query = searchParamsRDTO.encodeAsQueryParams()
         Map<String, String> query = [:]
         if (springSecurityService.loggedIn){
-            query.put("viewerUid", springSecurityService.currentUser.id)
+            query.put("viewerUid", springSecurityService.principal.id)
         }
         def response = restKuorumApiService.put(
                 RestKuorumApiService.ApiMethod.SEARCH_SUGGEST_USERS,

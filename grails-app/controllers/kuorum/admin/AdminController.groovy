@@ -198,7 +198,8 @@ class AdminController {
         }
         domainService.updateConfig(domainRDTO)
         /* Reauthenticating the user reloads the new roles on his session */
-        springSecurityService.reauthenticate springSecurityService.getCurrentUser().email
+        KuorumUserSession kuorumUserSession = springSecurityService.principal
+        springSecurityService.reauthenticate kuorumUserSession.email
 
         if (!domainGlobalAuthorities[UserRoleRSDTO.ROLE_ADMIN]){
             flash.error = g.message(code:'kuorum.web.admin.domain.AuthorizedCampaignsCommand.error')

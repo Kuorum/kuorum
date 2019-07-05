@@ -438,7 +438,7 @@ class KuorumUserTagLib {
     }
 
     def ifLoggedUserHasNotTimeZone = { attrs, body ->
-        if (springSecurityService.isLoggedIn() && !((KuorumUser)springSecurityService.currentUser).timeZone) {
+        if (springSecurityService.isLoggedIn() && !((KuorumUserSession)springSecurityService.principal).timeZone) {
             out << body()
         }
     }

@@ -18,7 +18,7 @@ class DashboardService {
 
     boolean forceUploadContacts(){
         KuorumUserSession user = springSecurityService.principal
-        KuorumUser loggedUser = springSecurityService.currentUser
+        KuorumUser loggedUser = KuorumUser.findById(user.id)
         ContactPageRSDTO contacts = contactService.getUsers(user)
         return contacts.total==0 && !loggedUser.skipUploadContacts
     }

@@ -240,8 +240,8 @@ class KuorumUserService {
      * @return
      */
     List<SearchKuorumUserRSDTO> recommendUsers(KuorumUser user, Pagination pagination = new Pagination()) {
-
-        KuorumUser loggedUser = springSecurityService.getCurrentUser()
+        KuorumUserSession userSession = springSecurityService.principal
+        KuorumUser loggedUser = KuorumUser.findById(userSession.id)
         List<ObjectId> filterPoliticians = []
         if (loggedUser){
             filterPoliticians  = []
@@ -283,7 +283,7 @@ class KuorumUserService {
         }
         indexSolrService.deltaIndex()
         updateKuorumUserOnRest(user)
-        if (springSecurityService.getCurrentUser().equals(user)){
+        if (springSecurityService.getPrincipal().id.toString().equals(user.id.toString())){
             springSecurityService.reauthenticate user.email
         }
         user

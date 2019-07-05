@@ -55,7 +55,7 @@ class KuorumUserController {
             log.info("User [$userAlias] not found")
             userRSDTO = null
         }
-        if (!user) {
+        if (!userRSDTO) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND)
             return false
         }

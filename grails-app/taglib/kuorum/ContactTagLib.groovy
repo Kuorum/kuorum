@@ -81,7 +81,7 @@ class ContactTagLib {
 
     def importSocialContact= { attrs, body ->
         String provider = attrs.provider
-        String userId = springSecurityService.currentUser.id.toString()
+        String userId = springSecurityService.principal.id.toString()
         String url = contactService.getSocialImportContactUrl(userId, provider);
         out << "<a href='${url}' id='${provider}' provider='${provider}' role='button' class='actionIcon'>"
         out << body()

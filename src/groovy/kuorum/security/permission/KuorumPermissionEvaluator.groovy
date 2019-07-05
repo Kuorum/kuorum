@@ -22,8 +22,8 @@ class KuorumPermissionEvaluator implements PermissionEvaluator {
 
     @Deprecated
     boolean hasPermission(Authentication authentication, KuorumUser editedUser, Object permission) {
-        def loggedUser = springSecurityService.getCurrentUser()
-        return  editedUser == loggedUser ||
+        KuorumUserSession loggedUser = springSecurityService.principal
+        return  editedUser.id.toString() == loggedUser.id.toString() ||
                 SpringSecurityUtils.ifAnyGranted("ROLE_SUPER_ADMIN")
 
     }
