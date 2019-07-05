@@ -240,10 +240,11 @@ class KuorumUserService {
      * @return
      */
     List<SearchKuorumUserRSDTO> recommendUsers(KuorumUser user, Pagination pagination = new Pagination()) {
-        KuorumUserSession userSession = springSecurityService.principal
-        KuorumUser loggedUser = KuorumUser.findById(userSession.id)
         List<ObjectId> filterPoliticians = []
-        if (loggedUser){
+        if (springSecurityService.isLoggedIn()){
+            KuorumUserSession userSession = springSecurityService.principal
+            KuorumUser loggedUser = KuorumUser.findById(userSession.id)
+
             filterPoliticians  = []
             filterPoliticians.addAll(loggedUser.following?:[])
             filterPoliticians << loggedUser.id
