@@ -896,7 +896,7 @@ header.transp #search-form .open-filter {background-color: rgba(219,219,219,0.4)
 }
 
 .grecaptcha-badge{
-    display: none;
+    display: none !important;
 }
 
 .popover .btn.btn-blue.disabled {}
