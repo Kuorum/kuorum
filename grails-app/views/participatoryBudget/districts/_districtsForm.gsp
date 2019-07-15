@@ -25,6 +25,14 @@
             <formUtil:input command="${command}" field="minVotesImplementProposals" type="number"/>
         </div>
     </fieldset>
+    <fieldset class="form-group fieldset-check-box">
+        <label for="activeSupport" class="col-xs-12 col-sm-1 col-md-1 control-label">
+            <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="${g.message(code:'kuorum.web.commands.payment.participatoryBudget.DistrictsCommand.activeSupport.label.info')}"></span>
+        </label>
+        <div class="col-xs-12 col-sm-6 ">
+            <formUtil:checkBox command="${command}" field="activeSupport" extraClass=""/>
+        </div>
+    </fieldset>
     <hr/>
 
     <div class="form-group hidden-xs">

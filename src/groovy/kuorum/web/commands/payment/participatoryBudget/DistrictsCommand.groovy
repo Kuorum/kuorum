@@ -19,11 +19,14 @@ class DistrictsCommand {
     Date publishOn
     String sendType
 
+    Boolean activeSupport
+
     static constraints = {
         importFrom CampaignContentCommand, include: ["publishOn", "sendType"]
         districts minSize: 1, maxSize: 100
         maxDistrictProposalsPerUser min: 1
         minVotesImplementProposals min: 0
+        activeSupport nullable: true
     }
 
 }
