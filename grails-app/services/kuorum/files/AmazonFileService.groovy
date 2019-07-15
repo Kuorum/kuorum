@@ -7,12 +7,13 @@ import com.amazonaws.services.s3.AmazonS3
 import com.amazonaws.services.s3.AmazonS3Client
 import com.amazonaws.services.s3.model.*
 import kuorum.KuorumFile
+import kuorum.core.FileGroup
 
 //import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import kuorum.core.FileGroup
 import kuorum.core.FileType
 import kuorum.core.exception.KuorumException
 import kuorum.users.KuorumUser
+import kuorum.util.rest.RestKuorumApiService
 
 class AmazonFileService extends LocalFileService{
 
@@ -20,6 +21,8 @@ class AmazonFileService extends LocalFileService{
 
     private static final long UPLOAD_PART_SIZE = 5242880; // Set part size to 5 MB.
 
+
+    RestKuorumApiService restKuorumApiService;
 
     public KuorumFile uploadTemporalFile(InputStream inputStream, KuorumUser kuorumUser, String fileName, FileGroup fileGroup) throws KuorumException{
         KuorumFile kuorumFile = uploadLocalTemporalFile(inputStream, kuorumUser, fileName, fileGroup, kuorumUser.alias)
@@ -60,7 +63,15 @@ class AmazonFileService extends LocalFileService{
         if (kuorumFile?.temporal){
             String localTempPath = calculateLocalStoragePath(kuorumFile)
             File org = new File("${localTempPath}/${kuorumFile.fileName}")
-            uploadAmazonFile(kuorumFile, Boolean.FALSE)
+            if (kuorumFile.fileGroup == FileGroup.USER_AVATAR) {
+                String fileUrl = uploadAvatar(kuorumFile, org)
+                kuorumFile.setUrl(fileUrl)
+            }else if(kuorumFile.fileGroup == FileGroup.USER_PROFILE){
+                String fileUrl = uploadImgProfile(kuorumFile, org)
+                kuorumFile.setUrl(fileUrl)
+            }else{
+                uploadAmazonFile(kuorumFile, Boolean.FALSE)
+            }
 
             org.delete();
             deleteParentIfEmpty(org);
@@ -76,6 +87,31 @@ class AmazonFileService extends LocalFileService{
         kuorumFile
     }
 
+
+    private String uploadAvatar(KuorumFile kuorumFile, File avatarFile){
+        String fileName = java.net.URLEncoder.encode(kuorumFile.fileName, "UTF-8")
+        Map<String, String> params = [userId: kuorumFile.user.id.toString()]
+        Map<String, String> query = [:]
+        def response = restKuorumApiService.putFile(
+                RestKuorumApiService.ApiMethod.USER_IMG_AVATAR,
+                params,
+                query,
+                avatarFile,
+                fileName
+        )
+    }
+    private String uploadImgProfile(KuorumFile kuorumFile, File avatarFile){
+        String fileName = java.net.URLEncoder.encode(kuorumFile.fileName, "UTF-8")
+        Map<String, String> params = [userId: kuorumFile.user.id.toString()]
+        Map<String, String> query = [:]
+        def response = restKuorumApiService.putFile(
+                RestKuorumApiService.ApiMethod.USER_IMG_PROFILE,
+                params,
+                query,
+                avatarFile,
+                fileName
+        )
+    }
 
 
     protected  void copyAmazonFileFromTemporal(KuorumFile file, String destinationKey){

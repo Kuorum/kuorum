@@ -281,9 +281,11 @@ class ProfileController {
         if (command.imageProfile && (!user.imageProfile  || user.imageProfile.id.toString() != command.imageProfile)){
             KuorumFile imageProfile = KuorumFile.get(new ObjectId(command.imageProfile))
             imageProfile.alt = user.name
-            imageProfile.save()
             user.imageProfile = imageProfile
+            fileService.deleteKuorumFile(user.imageProfile)
             fileService.convertTemporalToFinalFile(imageProfile)
+            imageProfile.save()
+
         }
 
         fileService.deleteTemporalFiles(user)

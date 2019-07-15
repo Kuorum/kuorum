@@ -33,12 +33,13 @@ beans = {
     }
 
     switch(Environment.current) {
-        case Environment.PRODUCTION:
-            fileService(AmazonFileService){
-                grailsApplication=ref("grailsApplication")
-                burningImageService=ref("burningImageService")
-            }
-            break
+//        case Environment.PRODUCTION:
+//            fileService(AmazonFileService){
+//                grailsApplication=ref("grailsApplication")
+//                burningImageService=ref("burningImageService")
+//                restKuorumApiService=ref("restKuorumApiService")
+//            }
+//            break
 
         default:
 //            fileService(LocalFileService) {
@@ -48,6 +49,7 @@ beans = {
             fileService(AmazonFileService){
                 grailsApplication=ref("grailsApplication")
                 burningImageService=ref("burningImageService")
+                restKuorumApiService=ref("restKuorumApiService")
             }
             break
     }

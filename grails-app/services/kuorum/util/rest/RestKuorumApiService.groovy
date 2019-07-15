@@ -186,6 +186,8 @@ class RestKuorumApiService {
 
         USER                    ('/user/{userId}/'),
         USER_NEWS               ('/user/{userId}/news/'),
+        USER_IMG_AVATAR         ('/user/{userId}/files/avatar'),
+        USER_IMG_PROFILE        ('/user/{userId}/files/profile'),
 
         USER_DATA               ('/user/{userId}/data/'),
         USER_DOMAIN_VALIDATION  ('/user/{userId}/valid'),
