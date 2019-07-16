@@ -103,8 +103,12 @@ class KuorumUserService {
         UserDataRDTO userDataRDTO = new UserDataRDTO()
         userDataRDTO.setEmail(user.getEmail())
         userDataRDTO.setName(user.getName())
+        userDataRDTO.setSurname(user.getSurname())
+        userDataRDTO.setBio(user.getBio())
         userDataRDTO.setSocialLinks(mapSocial(user))
         userDataRDTO.provinceCode = user.personalData.provinceCode
+        userDataRDTO.alias=user.alias
+        userDataRDTO.timeZoneId=user.timeZoneId
         return updateKuorumUser(user.id.toString(), userDataRDTO)
     }
 

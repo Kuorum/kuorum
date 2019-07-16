@@ -2,7 +2,6 @@ package kuorum.files
 
 import kuorum.KuorumFile
 import kuorum.core.FileGroup
-import kuorum.core.FileType
 import kuorum.core.exception.KuorumException
 import kuorum.register.KuorumUserSession
 import kuorum.users.KuorumUser
@@ -12,17 +11,10 @@ import kuorum.users.KuorumUser
  */
 public interface FileService {
 
-    public KuorumFile uploadTemporalFile(InputStream inputStream, KuorumUser kuorumUser, String fileName, FileGroup fileGroup) throws KuorumException;
-    public KuorumFile uploadTemporalFile(InputStream inputStream, KuorumUser kuorumUser, String fileName, FileGroup fileGroup, String path) throws KuorumException;
+    public KuorumFile uploadTemporalFile(InputStream inputStream, KuorumUserSession userSession, String fileName, FileGroup fileGroup) throws KuorumException;
+    public KuorumFile uploadTemporalFile(InputStream inputStream, KuorumUserSession userSession, String fileName, FileGroup fileGroup, String path) throws KuorumException;
 
     List<KuorumFile> listFilesFromPath(FileGroup fileGroup, String path)
-    /**
-     * Converts a normal file to temporal file.
-     * @param KuorumFile
-     * @return
-     */
-    public KuorumFile convertFinalFileToTemporalFile(KuorumFile kuorumFile);
-
 
     public KuorumFile createYoutubeKuorumFile(String youtubeUrl, KuorumUserSession user);
 
@@ -46,16 +38,6 @@ public interface FileService {
     void deleteTemporalFiles(KuorumUserSession user);
     @Deprecated
     void deleteTemporalFiles(KuorumUser user);
-
-    /**
-     * Creates a KuorumFile that points to an external source populated with all data
-     * @param url
-     * @return
-     */
-    public KuorumFile createExternalFile(KuorumUser owner, String url, FileGroup fileGroup, FileType fileType)
-
-
-    public InputStream readFile(KuorumFile kuorumFile)
 
     /**
      * Crops an image

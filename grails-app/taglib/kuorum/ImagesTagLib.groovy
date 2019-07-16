@@ -2,7 +2,6 @@ package kuorum
 
 import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.register.KuorumUserSession
-import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
 import org.kuorum.rest.model.contact.ContactRSDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
@@ -25,9 +24,6 @@ class ImagesTagLib {
             imageUrl = attrs.user.avatarUrl
         }else if (attrs.user instanceof BasicDataKuorumUserRSDTO) {
             imageUrl = attrs.user.avatarUrl
-        }else if (attrs.user instanceof KuorumUser) {
-            imageUrl = attrs.user.avatar?.url
-            throw new Exception("Using old KuorumUser")
         }else if(attrs.user instanceof SearchKuorumUserRSDTO){
             imageUrl = attrs.user.urlImage
         }else{

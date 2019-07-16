@@ -5,7 +5,7 @@ import grails.plugin.springsecurity.annotation.Secured
 import kuorum.core.FileGroup
 import kuorum.files.FileService
 import kuorum.files.LocalFileService
-import kuorum.users.KuorumUser
+import kuorum.register.KuorumUserSession
 import org.bson.types.ObjectId
 import org.springframework.web.multipart.MultipartFile
 import org.springframework.web.multipart.MultipartHttpServletRequest
@@ -30,7 +30,7 @@ class FileController {
             //TODO: ESTO ESTA MAL (Por defecto no es POST_IMAGE)
             fileGroup = FileGroup.POST_IMAGE
         }
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUserSession user = springSecurityService.principal
 
         KuorumFile kuorumFile = fileService.uploadTemporalFile(fileData.inputStream, user, fileData.fileName, fileGroup)
 
@@ -41,7 +41,7 @@ class FileController {
     def uploadPDF() {
         def fileData = getFileData(request)
         FileGroup fileGroup = FileGroup.PDF
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUserSession user = springSecurityService.principal
         KuorumFile kuorumFile = fileService.uploadTemporalFile(fileData.inputStream, user, fileData.fileName, fileGroup)
 
         render ([absolutePathPDF:kuorumFile.url, fileId:kuorumFile.id.toString(), status:200] as JSON)
@@ -72,7 +72,7 @@ class FileController {
     def uploadCampaignImages() {
         def fileData = getFileData(request)
         FileGroup fileGroup = FileGroup.CUSTOM_TEMPLATE_IMAGE
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUserSession user = springSecurityService.principal
         String campaignId= params.campaignId
         String path = "${user.id}/${campaignId}"
         KuorumFile kuorumFile = fileService.uploadTemporalFile(fileData.inputStream, user, fileData.fileName, fileGroup, path)
@@ -85,7 +85,7 @@ class FileController {
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def getCampaignImages() {
         String campaignId= params.campaignId
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUserSession user = springSecurityService.principal
         String path = "${user.id}/${campaignId}"
         List<KuorumFile> files = fileService.listFilesFromPath(FileGroup.CUSTOM_TEMPLATE_IMAGE, path)
 

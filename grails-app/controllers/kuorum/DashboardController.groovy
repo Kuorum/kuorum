@@ -20,7 +20,6 @@ import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
 import org.kuorum.rest.model.notification.campaign.NewsletterRQDTO
 import org.kuorum.rest.model.notification.campaign.NewsletterRSDTO
 import org.kuorum.rest.model.search.SearchResultsRSDTO
-import org.kuorum.rest.model.search.kuorumElement.SearchKuorumUserRSDTO
 import org.kuorum.rest.model.tag.CauseRSDTO
 import payment.campaign.CampaignService
 import payment.campaign.NewsletterService
@@ -58,9 +57,6 @@ class DashboardController {
 //          }else if (!model.numberCampaigns){
 //              render view: "/dashboard/payment/paymentNoCampaignsDashboard", model: model
         }else{
-            KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-            List<SearchKuorumUserRSDTO> recommendations = kuorumUserService.recommendUsers(user, new Pagination([max:20]))
-            model.put("recommendations",recommendations)
             render view: "/dashboard/dashboard", model: model
         }
     }

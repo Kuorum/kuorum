@@ -72,7 +72,7 @@ class ProfileController {
     def editAccountDetails(){
         KuorumUser user = params.user
         AccountDetailsCommand command = new AccountDetailsCommand(user)
-        command.homeRegion = regionService.findUserRegion(user)
+//        command.homeRegion = regionService.findUserRegion(user)
         [command:command, requirePassword: registerService.isPasswordSetByUser(user)]
     }
 

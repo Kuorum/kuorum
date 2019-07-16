@@ -1,8 +1,6 @@
 package kuorum.mail
 
 import grails.validation.Validateable
-import kuorum.users.KuorumUser
-import org.bson.types.ObjectId
 
 /**
  * Created by iduetxe on 10/02/14.

@@ -19,13 +19,13 @@ class LocalFileService implements FileService{
     private static final TMP_PATH = "/tmp"
     private static final MODAL_BOX_WIDTH=558
 
-    public KuorumFile uploadTemporalFile(InputStream inputStream, KuorumUser kuorumUser, String fileName, FileGroup fileGroup) throws KuorumException{
-        return uploadLocalTemporalFile(inputStream, kuorumUser, fileName, fileGroup, kuorumUser.alias)
+    public KuorumFile uploadTemporalFile(InputStream inputStream, KuorumUserSession userSession, String fileName, FileGroup fileGroup) throws KuorumException{
+        return uploadLocalTemporalFile(inputStream, userSession, fileName, fileGroup, kuorumUser.alias)
     }
 
     @Override
-    KuorumFile uploadTemporalFile(InputStream inputStream, KuorumUser kuorumUser, String fileName, FileGroup fileGroup, String path) throws KuorumException {
-        return uploadLocalTemporalFile(inputStream, kuorumUser, fileName, fileGroup, path)
+    KuorumFile uploadTemporalFile(InputStream inputStream, KuorumUserSession userSession, String fileName, FileGroup fileGroup, String path) throws KuorumException {
+        return uploadLocalTemporalFile(inputStream, userSession, fileName, fileGroup, path)
     }
 
     @Override
@@ -45,7 +45,7 @@ class LocalFileService implements FileService{
      * @return
      * @throws KuorumException
      */
-    protected KuorumFile uploadLocalTemporalFile(InputStream inputStream, KuorumUser kuorumUser, String fileName, FileGroup fileGroup, String path) throws KuorumException{
+    protected KuorumFile uploadLocalTemporalFile(InputStream inputStream, KuorumUserSession userSession, String fileName, FileGroup fileGroup, String path) throws KuorumException{
         String temporalPath = "${grailsApplication.config.kuorum.upload.serverPath}${TMP_PATH}"
         String rootUrl = "${grailsApplication.config.grails.serverURL}${grailsApplication.config.kuorum.upload.relativeUrlPath}${TMP_PATH}"
 
@@ -54,7 +54,7 @@ class LocalFileService implements FileService{
         }
 
         KuorumFile kuorumFile = new KuorumFile()
-        kuorumFile.user = kuorumUser
+        kuorumFile.userId = userSession.id
         kuorumFile.temporal = Boolean.TRUE
         kuorumFile.fileGroup = fileGroup
         kuorumFile.fileName = "TEMPORAL"
@@ -180,20 +180,8 @@ class LocalFileService implements FileService{
         }
         kuorumFile
     }
-    /**
-     * Converts a normal file to temporal file.
-     * @param KuorumFile
-     * @return
-     */
-    KuorumFile convertFinalFileToTemporalFile(KuorumFile kuorumFile){
-        if (kuorumFile){
-            kuorumFile.temporal = true;
-            kuorumFile.save();
-        }
-        kuorumFile
-    }
+
     public KuorumFile createYoutubeKuorumFile(String youtubeUrl, KuorumUserSession user){
-        KuorumUser mongoUser = KuorumUser.get(user.id)
         def fileName = youtubeUrl.decodeYoutubeName()
         String urlThumb = this.recoverBestYoutubeQuality(fileName)
         KuorumFile multimedia = new KuorumFile(
@@ -208,7 +196,7 @@ class LocalFileService implements FileService{
                 fileGroup:FileGroup.YOUTUBE,
                 fileType:FileType.YOUTUBE
         )
-        multimedia.setUser(mongoUser)
+        multimedia.userId=user.id
         multimedia.save()
     }
 
@@ -338,28 +326,5 @@ class LocalFileService implements FileService{
             throw new KuorumException("No se ha podido guardar el fiechero", "error.file.fileUploadServerError")
         }
 
-    }
-
-    @Override
-    public KuorumFile createExternalFile(KuorumUser owner, String url, FileGroup fileGroup, FileType fileType){
-        KuorumFile file = new KuorumFile()
-        String fileName = url.split("/").last()
-        file.setFileName(fileName)
-        file.setFileGroup(fileGroup)
-        file.setFileType(fileType)
-        file.setTemporal(false)
-        file.setAlt(fileName)
-        file.setLocal(false)
-        file.setUrl(url)
-        file.setUser(owner)
-        file.setOriginalName(fileName)
-        file.setUrlThumb(url)
-        file.save()
-    }
-
-    @Override
-    InputStream readFile(KuorumFile kuorumFile) {
-        //TODO: Read LOCAL FILE
-        return null
     }
 }

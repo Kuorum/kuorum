@@ -60,12 +60,12 @@ class UserReputationService {
         return userReputation
     }
 
-    UserReputationEvolutionRSDTO getReputationEvoulution(
-            KuorumUser politician,
+    UserReputationEvolutionRSDTO getReputationEvolution(
+            BasicDataKuorumUserRSDTO userRSDTO,
             UserReputationEvolutionRSDTO.Interval interval = UserReputationEvolutionRSDTO.Interval.HOUR,
             Date startDate = null,
             Date endDate = null){
-        Map<String, String> params = [userId:politician.id.toString()]
+        Map<String, String> params = [userId:userRSDTO.id]
         Map<String, String> query = [interval:interval.toString()]
         if (startDate) query.put("startDate", startDate.time)
         if (endDate) query.put("endDate", endDate.time)

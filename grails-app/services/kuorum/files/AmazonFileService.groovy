@@ -8,11 +8,11 @@ import com.amazonaws.services.s3.AmazonS3Client
 import com.amazonaws.services.s3.model.*
 import kuorum.KuorumFile
 import kuorum.core.FileGroup
-
-//import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import kuorum.core.FileType
 import kuorum.core.exception.KuorumException
-import kuorum.users.KuorumUser
+
+//import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import kuorum.register.KuorumUserSession
 import kuorum.util.rest.RestKuorumApiService
 
 class AmazonFileService extends LocalFileService{
@@ -24,15 +24,15 @@ class AmazonFileService extends LocalFileService{
 
     RestKuorumApiService restKuorumApiService;
 
-    public KuorumFile uploadTemporalFile(InputStream inputStream, KuorumUser kuorumUser, String fileName, FileGroup fileGroup) throws KuorumException{
-        KuorumFile kuorumFile = uploadLocalTemporalFile(inputStream, kuorumUser, fileName, fileGroup, kuorumUser.alias)
+    public KuorumFile uploadTemporalFile(InputStream inputStream, KuorumUserSession userSession, String fileName, FileGroup fileGroup) throws KuorumException{
+        KuorumFile kuorumFile = uploadLocalTemporalFile(inputStream, userSession, fileName, fileGroup, userSession.alias)
         uploadAmazonFile(kuorumFile, Boolean.TRUE)
         kuorumFile
     }
 
     @Override
-    KuorumFile uploadTemporalFile(InputStream inputStream, KuorumUser kuorumUser, String fileName, FileGroup fileGroup, String path) throws KuorumException {
-        KuorumFile kuorumFile = uploadLocalTemporalFile(inputStream, kuorumUser, fileName, fileGroup, path)
+    KuorumFile uploadTemporalFile(InputStream inputStream, KuorumUserSession userSession, String fileName, FileGroup fileGroup, String path) throws KuorumException {
+        KuorumFile kuorumFile = uploadLocalTemporalFile(inputStream, userSession, fileName, fileGroup, path)
         uploadAmazonFile(kuorumFile, Boolean.TRUE)
         kuorumFile
     }
@@ -344,17 +344,6 @@ class AmazonFileService extends LocalFileService{
             return "";
         }
 
-    }
-
-    @Override
-    InputStream readFile(KuorumFile kuorumFile) {
-
-        String bucketName = grailsApplication.config.kuorum.amazon.bucketName;
-        AmazonS3 s3Client = buildAmazonClient()
-        S3Object object = s3Client.getObject( new GetObjectRequest(bucketName, kuorumFile.storagePath));
-        InputStream objectData = object.getObjectContent();
-//        objectData.close();
-        return objectData
     }
 
     void uploadDomainCss(File file, String domain){

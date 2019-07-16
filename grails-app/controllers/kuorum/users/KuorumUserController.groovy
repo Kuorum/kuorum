@@ -60,14 +60,12 @@ class KuorumUserController {
             return false
         }
         String viewerUid = cookieUUIDService.buildUserUUID()
-        List<SearchKuorumUserRSDTO> recommendedUsers =  kuorumUserService.recommendUsers(user, new Pagination([max:50]))
         List<CauseRSDTO> causes = causesService.findSupportedCauses(userRSDTO)
         UserReputationRSDTO userReputationRSDTO = userReputationService.getReputation(userRSDTO)
         List<UserNewRSDTO> userNews = userNewsService.findUserNews(userRSDTO)
         List<CampaignRSDTO> campaigns = campaignService.findAllCampaigns(userRSDTO.id,viewerUid).findAll{it.newsletter.status == CampaignStatusRSDTO.SENT}
         [
                 politician:userRSDTO,
-                recommendedUsers:recommendedUsers,
                 causes:causes,
                 userReputation: userReputationRSDTO,
                 userNews:userNews,
@@ -134,6 +132,13 @@ class KuorumUserController {
         internalMessageService.sendInternalMessage(loggedUser, newMessageRDTO)
         flash.message = g.message(code: 'kuorumUser.contactMessage.success', args: [userContacted.name])
         redirect (mapping:"userShow", params: userContacted.encodeAsLinkProperties())
+    }
+
+
+    def recommendations(){
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        List<SearchKuorumUserRSDTO> recommendations = kuorumUserService.recommendUsers(user, new Pagination([max:20]))
+        render(template:"/kuorumUser/userShowTemplates/columnC/recommendedUsersListAjaxLi", model:[recommendedUsers:recommendations])
     }
 
 }

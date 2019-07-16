@@ -52,8 +52,8 @@ class KuorumUserTagLib {
             role = getRoleUser(attrs.user)
             imgSrc = image.userImgSrc(user:attrs.user)
             user = kuorumUserService.findBasicUserRSDTO(attrs.user.id)
-            name = highlightedField(attrs.user, "owner")
-            name = name?:user.fullName
+            name = highlightedField(attrs.user, "name")
+//            name = name?:user.fullName
         }else if (attrs.user instanceof SearchKuorumElementRSDTO){
             user = kuorumUserService.findBasicUserRSDTO(attrs.user.ownerId)
             name = highlightedField(attrs.user, "owner")
@@ -274,17 +274,10 @@ class KuorumUserTagLib {
         String name = ""
         Boolean isFollowing = false
         String userId = ""
-        if (attrs.user instanceof KuorumUser){
-            KuorumUser user = attrs.user
-            alias = user.alias
-            name = user.fullName
-            isFollowing = springSecurityService.isLoggedIn() && springSecurityService.principal.id != user.id && user.followers.contains(springSecurityService.principal.id)
-            userId = attrs.user.id.toString()
-        }else if (attrs.user instanceof SearchKuorumUserRSDTO) {
+        if (attrs.user instanceof SearchKuorumUserRSDTO) {
             alias = attrs.user.alias
             name = attrs.user.name
             isFollowing = attrs.user.isFollowing
-//            isFollowing = false
             userId = attrs.user.id
         }else if (attrs.user instanceof BasicDataKuorumUserRSDTO){
             alias = attrs.user.alias
@@ -395,10 +388,7 @@ class KuorumUserTagLib {
 
     def ifUserIsTheLoggedOne={attrs, body->
         ObjectId userId
-        if (attrs.user instanceof KuorumUser) {
-            throw new Exception("Using old KuorumUser")
-            userId = attrs.user.id
-        }else if (attrs.user instanceof BasicDataKuorumUserRSDTO){
+        if (attrs.user instanceof BasicDataKuorumUserRSDTO){
             userId = new ObjectId(attrs.user.id)
         }else{
             // ALIAS -- DEPRECATED BRANCH
@@ -419,10 +409,7 @@ class KuorumUserTagLib {
         }else{
             // LOGGED
             ObjectId userId
-            if (attrs.user instanceof KuorumUser){
-                throw new Exception("Using old KuorumUser")
-                userId = attrs.user.id
-            }else if (attrs.user instanceof BasicDataKuorumUserRSDTO){
+            if (attrs.user instanceof BasicDataKuorumUserRSDTO){
                 userId = new ObjectId(attrs.user.id)
             }else{
                 throw new Exception("Using alias instead BasicDataKuorumUser")

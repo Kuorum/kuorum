@@ -367,8 +367,9 @@ class UrlMappings {
 
 
         name userFollowers:     "/ajax/$userAlias/followers" (controller: "kuorumUser", action: "userFollowers")
-        name userFollowing:     "/ajax/$userAlias/following"  (controller: "kuorumUser", action: "userFollowing")
-        name userUnsubscribe:   "/unsubscribe/$userId"  (controller: "contacts"){action=[GET:"unsubscribe", POST:"unsubscribeConfirm"]}
+        name userFollowing:     "/ajax/$userAlias/following" (controller: "kuorumUser", action: "userFollowing")
+        name userUnsubscribe:   "/unsubscribe/$userId"       (controller: "contacts"){action=[GET:"unsubscribe", POST:"unsubscribeConfirm"]}
+        name userRecomendations:"/ajax/recommendations"      (controller: "kuorumUser", action: "recommendations")
 
         name bulkActionRemoveContactsAjax:          "/ajax/contact/remove" (controller:"contacts", action: "removeContactsBulkAction")
         name bulkActionAddTagsContactsAjax:         "/ajax/contact/addTags" (controller:"contacts", action: "addTagsBulkAction")

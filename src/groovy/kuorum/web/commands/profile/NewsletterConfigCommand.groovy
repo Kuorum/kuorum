@@ -1,8 +1,6 @@
 package kuorum.web.commands.profile
 
 import grails.validation.Validateable
-import kuorum.users.KuorumUser
-import org.apache.commons.validator.routines.UrlValidator
 
 /**
  * Created by iduetxe on 22/05/14.
