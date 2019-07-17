@@ -93,6 +93,7 @@ modules = {
         resource url:'js/datepicker/bootstrap-datepicker.de.js'
         resource url:'js/datepicker/bootstrap-datepicker.it.js'
         resource url:'js/datepicker/bootstrap-datepicker.lt.js'
+        resource url:'js/jquery-plugin/jquery-birthday-picker/jquery-birthday-picker.js'
     }
 
     noty{

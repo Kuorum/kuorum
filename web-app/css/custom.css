@@ -1534,6 +1534,13 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .timepicker-picker .btn {background-color: transparent !important; color: #167caa !important; margin: 0;}
 .timepicker-picker .btn:active, .timepicker-picker .btn:focus, .timepicker-picker .btn:hover {box-shadow: none; background-color: #dedede !important;}
 
+
+.birthdayPicker {}
+.birthdayPicker .birthday-select{padding: 0px 16px 0px 10px; height: 45px; cursor: pointer;    background-color: #fff; background-image: none;border: 1px solid #DDDDDD;}
+.birthdayPicker .birthDate{width: 25%;border-right: none;border-top-left-radius: 6px;border-bottom-left-radius: 6px;}
+.birthdayPicker .birthMonth{width: 40%;border-left: none;border-right: none;}
+.birthdayPicker .birthYear{width: 35%;border-left: none;border-top-right-radius: 6px;border-bottom-right-radius: 6px;}
+
 .form-final-options #selectDate .input-group {margin-bottom: 15px;}
 .form-final-options #selectDate .btn {display: block; width: 100%;}
 .form-final-options #selectDate .input-group-addon {border: none; background-color: transparent; cursor:pointer;}

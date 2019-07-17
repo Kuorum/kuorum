@@ -253,16 +253,32 @@ var formHelper = {
         if ( $('.input-group.date').length > 0 ) {
 
             $('.input-group.date').each(function(){
-                var startView = "days";
                 if ($(this).attr("data-datePicker-type")=="birthDate"){
-                    startView = "decades";
+                    var birthDay = $(this).find("input").val()
+                    var divId = guid();
+                    var inputName = $(this).find("input").attr("name")
+                    $(this).html("");
+                    $(this).attr("id", divId)
+                    $(this).birthdayPicker({
+                            maxAge: 100,
+                            minAge: 0,
+                        dateFormat: 'littleEndian',
+                        monthFormat: "long",
+                        placeholder: true,
+                        defaultDate: birthDay,
+                        sizeClass: "birthday-select",
+                        inputName:inputName,
+                        language:i18n.lang
+                    });
+                }else{
+                    var startView = "days"; // "decades"
+                    $(this).datepicker({
+                        language: lang,
+                        autoclose: true,
+                        todayHighlight: true,
+                        startView: startView
+                    });
                 }
-                $(this).datepicker({
-                    language: lang,
-                    autoclose: true,
-                    todayHighlight: true,
-                    startView: startView
-                });
 
             })
         }

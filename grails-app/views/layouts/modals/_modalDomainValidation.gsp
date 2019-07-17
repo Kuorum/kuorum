@@ -35,7 +35,7 @@
                         <formUtil:date
                                 command="${validateCommand}"
                                 field="birthDate"
-                                showLabel="false"
+                                showLabel="true"
                                 datePickerType="birthDate"/>
                     </div>
                     <div class="form-group center">
