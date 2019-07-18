@@ -34,7 +34,7 @@ class FileController {
 
         KuorumFile kuorumFile = fileService.uploadTemporalFile(fileData.inputStream, user, fileData.fileName, fileGroup)
 
-        render ([absolutePathImg:kuorumFile.url, fileId:kuorumFile.id.toString(), status:200] as JSON)
+        render ([absolutePathImg:kuorumFile.url, fileId:kuorumFile.id.toString(), status:200, aspectRatio:fileGroup.aspectRatio] as JSON)
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
@@ -105,7 +105,7 @@ class FileController {
         //TODO: Seguridad. Ahora todo el mundo puede hacer crop de cualquier foto
 
         KuorumFile cropedFile = fileService.cropImage(kuorumFile,x,y,height,width)
-        render ([absolutePathImg:cropedFile.url, fileId:cropedFile.id.toString(), status:200] as JSON)
+        render ([absolutePathImg:cropedFile.url, fileId:cropedFile.id.toString(), status:200,aspectRatio:cropedFile.fileGroup.aspectRatio] as JSON)
     }
 
     private def getFileData(HttpServletRequest request) {

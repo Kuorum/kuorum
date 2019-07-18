@@ -1355,13 +1355,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .nav-tabs > li.disabled > a:active,
 .nav-tabs > li.disabled > a:focus {color: #a8a8a8 !important;}
 
-.header-campaign .qq-upload-drop-area {
-    background: none;
-    padding: 5px 0 0;
-}
-.form-group.image.header-campaign {width: auto; height: auto; min-height: 122px;}
-.header-campaign .qq-upload-drop-area {border-color: #dedede;}
-.header-campaign .qq-upload-button {line-height: 1; padding: 0;}
+.form-group.image.header-campaign {width: auto; height: auto;}
 
 #advanced-features-section {margin-bottom:0;}
 #advanced-features-section a{color:#545454;}
@@ -3114,6 +3108,7 @@ fieldset > .multiple-range-selector:first-child {margin-top:40px;}
 /* estilos para el resize upload image */
 .uploaderImageContainer > div {margin: 0; position: relative;}
 .form-group.image {position: relative;width: 100%; height: auto;}
+.config .form-group.image {margin-bottom: 50px;}
 
 .qq-uploader {position: relative; width: 100%;}
 .qq-upload-button {
@@ -3125,7 +3120,7 @@ fieldset > .multiple-range-selector:first-child {margin-top:40px;}
 .qq-upload-button-focus {outline:1px dotted black;}
 .qq-upload-drop-area {
     background: url('../images/fileUpload.png') center 32% no-repeat transparent;
-    padding: 80px 20px 20px 20px;
+    padding: 20px 20px 20px 20px;
     position: absolute;
     top: 0;
     height: 387px;
@@ -3140,22 +3135,12 @@ fieldset > .multiple-range-selector:first-child {margin-top:40px;}
 
 .uploaderImageContainer .qq-upload-drop-area .button-container {width: 80%; margin: 0 auto; border-radius: 4px; padding: 0; }
 
-.uploaderImageContainer.USER_AVATAR  {height: 220px;}
-.uploaderImageContainer.USER_AVATAR .uploaderImageContainer > div {width: 284px;}
-.uploaderImageContainer.USER_AVATAR .qq-upload-drop-area {padding: 28% 20px 20px 20px; height: 210px; width:210px;}
-.uploaderImageContainer.USER_AVATAR .qq-upload-drop-area .button-container{margin-top:-100px;}
-
-.uploaderImageContainer.USER_PROFILE {height: 220px;}
-.uploaderImageContainer.USER_PROFILE .uploaderImageContainer > div {width: 284px;}
-.uploaderImageContainer.USER_PROFILE .qq-upload-drop-area {padding: 28% 20px 20px 20px; height: 366px; width:100%;}
-
-.uploaderImageContainer.POST_IMAGE .qq-upload-drop-area {height:393px;}
-.uploaderImageContainer.MASS_MAIL_IMAGE .qq-upload-drop-area {height:122px;}
-.uploaderImageContainer.MASS_MAIL_IMAGE > div {height:122px;}
-.uploaderImageContainer.PROJECT_IMAGE .qq-upload-drop-area {height:193px;}
-.uploaderImageContainer.PROJECT_IMAGE > div {height:193px;}
-
-.uploaderImageContainer.DOMAIN_SLIDE_IMAGE .qq-upload-drop-area .button-container {margin-top: -55px; }
+.uploaderImageContainer.USER_AVATAR  {width: 220px;}
+.uploaderImageContainer.USER_AVATAR .qq-upload-drop-area {padding-top: 30%}
+.uploaderImageContainer.USER_PROFILE .qq-upload-drop-area {padding-top: 15%}
+.uploaderImageContainer.MASS_MAIL_IMAGE .qq-upload-drop-area {padding-top: 1%;}
+.uploaderImageContainer.PROJECT_IMAGE .qq-upload-drop-area {padding-top: 20%}
+.uploaderImageContainer.DOMAIN_SLIDE_IMAGE .qq-upload-drop-area {height: 120px;}
 
 .qq-upload-drop-area-active {
     background-color:#FFF8ED;
@@ -5001,8 +4986,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .multiple-range-selector .input-range-selector {margin-left: 20px; width: 50%;}
     .multiple-range-selector .slider.slider-horizontal .slider-tick-label-container {margin-top:-40px;}
 
-
-    .form-group.image.fondoperfil {height:300px;}
     .form-control,
     input[type="text"],
     input[type="number"],
@@ -5011,7 +4994,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .pre {margin: 75px 20px 5px 0;}
     .preFooter .user-list li .user-img {margin-right: 10px;}
 
-    .form-group.image.fondoperfil .qq-upload-drop-area {background-size: auto auto; background-position: center 32%; padding-top: 15%;}
     .boxes.performance a.improve {width: 272px; margin: 0 auto;}
     .boxes.profile-user > .actions {width: 272px;}
     .form-home-container {width: 320px;}
@@ -5020,15 +5002,8 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     /* LANDING */
     .landing + .row.main .onecol .login .btn.btn-lg {}
 
-    /* CAMPAIGNS */
-    .header-campaign .qq-upload-drop-area {
-        background: url('../images/fileUpload.png') center 50% no-repeat transparent;
-        background-size: 50px auto;
-        height: 102px;
-        background-position: center 12%;
-        padding: 4% 0 0;
-    }
-
+    /*!* CAMPAIGNS *!*/
+    .uploaderImageContainer.MASS_MAIL_IMAGE .qq-upload-drop-area {padding-top: 5%;}
     #listCampaigns > div.box-ppal{box-shadow: 0 0 2px rgba(200,200,200,0.6); padding:22px 22px 0;}
     #searchContacts > div.box-ppal{box-shadow: 0 0 2px rgba(200,200,200,0.6);}
     #main > div.box-ppal.campaign-stats {box-shadow: 0 0 2px rgba(200,200,200,0.6);}
@@ -5048,10 +5023,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .carousel.news .carousel-control {top: 30%;}
 
     .leader-post h1.title {word-wrap: normal;}
-    .uploaderImageContainer.USER_PROFILE .qq-upload-drop-area {height:234px;}
-    .uploaderImageContainer.USER_PROFILE > div {height:234px;}
-    .uploaderImageContainer.PROJECT_IMAGE .qq-upload-drop-area {height:228px;}
-    .uploaderImageContainer.PROJECT_IMAGE > div {height:228px;}
 
     .modal-domain-validation .modal-dialog,
     .modal-register .modal-dialog {width: 350px;}
@@ -5091,8 +5062,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     /* STATS CAMPAIGNS */
     #tabs-stats-campaign .table td:nth-child(4) {height: 70px;}
 
-    .uploaderImageContainer.PROJECT_IMAGE .qq-upload-drop-area {height:297px;}
-    .uploaderImageContainer.PROJECT_IMAGE > div {height:297px;}
     .conversation-box-comment > .header > .user span {  max-width: 400px  }
 }
 
@@ -5107,8 +5076,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .box-steps > ul.actionIcons > li.fontIcon > a > span.label {padding:0; font-weight: inherit; font-size: 11px}
     .box-steps > ul.actionIcons > li.fontIcon.arrow {top:-20px;}
 
-    .uploaderImageContainer.PROJECT_IMAGE .qq-upload-drop-area {height:316px;}
-    .uploaderImageContainer.PROJECT_IMAGE > div {height:316px;}
 }
 
 /* Small devices (tablets, 768px and down) */
@@ -5386,8 +5353,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 
 
     /* CAMPAIGNS */
-    .header-campaign .qq-upload-drop-area {background-size: 70px auto;}
-    .header-campaign #au-uploaderImageId__headerPictureId_NEW_ {height: 128px;}
     #filtersInfo .modal-dialog {width: 560px;}
     fieldset.form-group {min-height: 40px;}
     .new-filter-options > div:first-child > a > .text {display: none;}
@@ -5451,11 +5416,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .edit-contact-header > div:first-child {padding: 10px 0 0 140px;}
     .edit-contact-header > div:first-child .user-img {width: 114px; height: 114px;}
 
-    .header-campaign .progress {position: absolute; z-index: 99; margin-top: 64px; margin-left: 21%;}
     .button-container {padding-top: 7px;}
-
-    .uploaderImageContainer.PROJECT_IMAGE .qq-upload-drop-area {height:268px;}
-    .uploaderImageContainer.PROJECT_IMAGE > div {height:268px;}
 
     #domain-description-landing-main {font-size: 34px;line-height: 50px; padding:100px 10%;}
     .fade-carousel .content form .form-group.conditions {margin-top:10px;}
@@ -5604,10 +5565,8 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 
     /* CAMPAIGNS */
     .form-final-options > li:first-child {display: inline-block; margin-bottom: 10px;}
-    .header-campaign .qq-upload-drop-area {background-size: 155px auto; background-position: center 14%;}
     #tabs-new-campaign .textareaContainer textarea {min-height: 349px;}
     #tabs-new-campaign .textareaContainer + div {text-align: left;}
-    .header-campaign .progress {margin-top: 70px; margin-left: 14%;}
 
     /* DASHBOARD */
     /*#profileInfo > span {margin-top: 0; float: right;}*/
@@ -5649,9 +5608,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     ul.search-list > li.search-article > article.box-ppal > div.link-wrapper > div.card-footer {position:absolute; bottom:0;}
     ul.search-list > li.search-article > article.box-ppal > div.link-wrapper > div.card-footer > ul > li.owner {bottom: 7px;}
 
-    .uploaderImageContainer.PROJECT_IMAGE .qq-upload-drop-area {height:270px;}
-    .uploaderImageContainer.PROJECT_IMAGE > div {height:270px;}
-
     ul.search-list > li.info-empty .icon-empty-campaignList {color: #167caa; display:inline-block;}
     ul.search-list > li:nth-child(even) {padding-left:5px;}
     ul.search-list > li:nth-child(odd) {padding-right:5px;}
@@ -5682,8 +5638,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     /* NEW / EDIT CONTACT */
     .edit-contact .tab-pane#notes .form-group:last-child {padding-top: 255px;}
 
-    .uploaderImageContainer.PROJECT_IMAGE .qq-upload-drop-area {height:310px;}
-    .uploaderImageContainer.PROJECT_IMAGE > div {height:310px;}
     .form-final-options {margin-top:0px;}
 }
 
@@ -5703,9 +5657,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     /* LIST CONTACTS (08/2016) */
     #contactsList > li > h3, #contactsList > li > p {padding-right: 72%;}
     .container-lists {width: 68%;}
-
-    .header-campaign .progress {max-width: 525px;}
-
 }
 
 /* Large devices (large desktops, 1200px and up) */

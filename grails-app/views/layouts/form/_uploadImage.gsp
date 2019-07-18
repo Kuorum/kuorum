@@ -97,6 +97,14 @@
     <g:if test="${errorMessage}">
         <span for='input_${imageId}' class='error'>${errorMessage}</span>
     </g:if>
+
+    <input type="hidden" name="${name}" id="input_${imageId}" value="${value}"/>
+    %{--<img src="" id="preview"/>--}%
+    <div class="progress hidden" id="progresBar_${imageId}">
+        <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+            0% Complete
+        </div>
+    </div>
 </div>
 <r:script>
     function showCoords(coords){
@@ -140,7 +148,8 @@
             complete:function(){
             }
         }).done(function( data ) {
-            changeImageBackground(data.absolutePathImg, imageId);
+            console.log(data);
+            changeImageBackground(data.absolutePathImg, imageId, data.aspectRatio);
             $("#modal_"+imageId).modal('hide');
             $("#input_" + imageId).val(data.fileId);
             pageLoadingOff();
@@ -148,38 +157,41 @@
         });
     }
 
-    function changeImageBackground(urlImage, imageId){
+    function changeImageBackground(urlImage, imageId, aspectRatio){
         var timestampedUrlImage = urlImage +'?timestamp='+new Date().getTime();
 //        var timestampedUrlImage = urlImage;
-        console.log($("#au-uploaderImageId_"+imageId+" .qq-upload-drop-area"));
+        if (typeof aspectRatio === 'string' || aspectRatio instanceof String){
+            aspectRatio=eval(aspectRatio)
+        }
         $("#au-uploaderImageId_"+imageId+" .qq-upload-drop-area").css("background-image",'url('+timestampedUrlImage+')');
-        console.log($("#au-uploaderImageId_"+imageId+" .qq-upload-drop-area").css("background-image"));
         $("#au-uploaderImageId_" + imageId + " .qq-upload-drop-area").css("background-size", "100% auto");
         $("#au-uploaderImageId_" + imageId + " .qq-upload-drop-area").css("background-position", "0 0");
         $("#au-uploaderImageId_" + imageId +" .button-container").css("background-color","rgba(0, 0, 0, 0.7)");
         $image = $("#au-uploaderImageId_" + imageId +" .qq-upload-drop-area");
-        console.log($image);
-        $image.css("height", $image.width()/(${fileGroup.aspectRatio}))
+        console.log("Param Aspect:"+aspectRatio);
+        console.log("width:"+$image.outerWidth());
+        console.log("height:"+($image.outerWidth()/aspectRatio));
+        console.log("---------------")
+        $image.css("height", $image.outerWidth()/aspectRatio);
     }
 
+    %{--
+    <g:if test="${!imageUrl}">
+        <g:set var="imageUrl" value="${g.resource(dir:'images', file:'fileUpload.png')}"/>
+    </g:if>
+    --}%
     <g:if test="${imageUrl}">
 
     // DEFERED SCRIPT
             $(function(){
-                console.log( $("#au-uploaderImageId_${imageId} .qq-upload-drop-area"))
-                console.log( "changeImageBackground('${raw(imageUrl)}', '${imageId}')")
-                changeImageBackground('${raw(imageUrl)}', '${imageId}')
+                console.log("${fileGroup}");
+                console.log("${fileGroup.aspectRatio}");
+                changeImageBackground('${raw(imageUrl)}', '${imageId}', ${fileGroup.aspectRatio})
             });
 
     </g:if>
 </r:script>
-<input type="hidden" name="${name}" id="input_${imageId}" value="${value}"/>
-%{--<img src="" id="preview"/>--}%
-<div class="progress hidden" id="progresBar_${imageId}">
-    <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
-        0% Complete
-    </div>
-</div>
+
 <div class="modal fade uploadKuorumImage" id="modal_${imageId}" data-backdrop="static">
     <div class="modal-dialog">
         <div class="modal-content">

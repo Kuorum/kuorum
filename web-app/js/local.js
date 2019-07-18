@@ -146,31 +146,6 @@ $(window).on('resize',function() {
         var width = $(this).width();
         $(this).css("height", width / 1.77777778);
     });
-
-    // controla el alto del cuadro de subir imagen con formato 16:9
-    $('.fondoperfil .qq-upload-drop-area').each(function() {
-        var width = $(this).width();
-        $(this).css("height", width * 328 /728);
-    });
-
-    // controla el alto del cuadro de subir imagen de header campaign
-    $('.header-campaign .qq-upload-drop-area').each(function() {
-        var width = $(this).width();
-        $(this).css("height", width / 5);
-    });
-
-    if (window.matchMedia && window.matchMedia("(min-width: 768px)").matches) {
-        $('.header-campaign').each(function() {
-            var width = $(this).width();
-            $(this).css("height", width / 8.5);
-        });
-    } else {
-        $('.header-campaign').each(function() {
-            var width = $(this).width();
-            $(this).css("height", width / 4.2);
-        });
-    }
-
 });
 
 $(document).ready(function() {
