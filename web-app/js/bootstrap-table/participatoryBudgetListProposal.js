@@ -146,22 +146,21 @@ var participatoryBudgetListProposalHelper = {
         }else{
             multimedia = "<img class='empty' src='images/emptyCampaign.png'/>"
         }
-        const districtProposalTableInfo = `
-         <div class="box-ppal">
-            <div class="box-ppal-title">${districtProposal.title}</div>
-            <div class="box-ppal-section">
-                <div class="row">
-                    <div class="col-md-3">
-                        ${districtProposal.multimediaHtml}
-                    </div>
-                    <div class="distict-proposal-body col-md-9">
-                        ${districtProposal.body}
-                    </div>            
-
-                </div>
-            </div>            
-         </div>
-        `;
+        //IE8 compatibility <- Before was const districtProposal = `data`
+        var districtProposalTableInfo = "";
+        var districtProposalTableInfo = districtProposalTableInfo + "<div class=\"box-ppal\">";
+        var districtProposalTableInfo = districtProposalTableInfo + "   <div class=\"box-ppal-title\">"+districtProposal.title+"</div>";
+        var districtProposalTableInfo = districtProposalTableInfo + "   <div class=\"box-ppal-section\">";
+        var districtProposalTableInfo = districtProposalTableInfo + "       <div class=\"row\">";
+        var districtProposalTableInfo = districtProposalTableInfo + "           <div class=\"col-md-3\">";
+        var districtProposalTableInfo = districtProposalTableInfo + "               "+ districtProposal.multimediaHtml;
+        var districtProposalTableInfo = districtProposalTableInfo + "           </div>";
+        var districtProposalTableInfo = districtProposalTableInfo + "           <div class=\"distict-proposal-body col-md-9\">";
+        var districtProposalTableInfo = districtProposalTableInfo + "               "+ districtProposal.body;
+        var districtProposalTableInfo = districtProposalTableInfo + "           </div>";
+        var districtProposalTableInfo = districtProposalTableInfo + "       </div>";
+        var districtProposalTableInfo = districtProposalTableInfo + "   </div>";
+        var districtProposalTableInfo = districtProposalTableInfo + "</div>";
         return districtProposalTableInfo;
     },
 
