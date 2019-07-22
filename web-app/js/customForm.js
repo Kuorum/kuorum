@@ -74,6 +74,13 @@ $(function(){
         var link = $(this).attr("href");
         window.open(link);
     });
+    // Paste action remove all format, and add it as plain text on jqte_editor.
+    $("body").on("paste", ".jqte_editor", function(e) {
+        e.preventDefault();
+        var text =  e.originalEvent.clipboardData.getData('text');
+        // insert copied data @ the cursor location
+        document.execCommand("insertText", false, text);
+    });
 
     if ( $('.jqte_editor').text() == "" ) {
         $('.jqte_placeholder_text').css('display', 'block');
