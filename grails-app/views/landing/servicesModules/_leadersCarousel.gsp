@@ -6,7 +6,7 @@
             <li data-target="#carousel-landing-main" data-slide-to="0" class="active"></li>
             <li data-target="#carousel-landing-main" data-slide-to="1"></li>
             <li data-target="#carousel-landing-main" data-slide-to="2"></li>
-            <li class="text"><g:message code="${msgPrefix}.carousel.slide1.text"/></li>
+            <li class="text"><span><g:message code="${msgPrefix}.carousel.slide1.text"/></span></li>
         </ol>
     </div>
     <!-- Wrapper for slides -->
@@ -115,7 +115,8 @@
             };
             $carouselText.slideToggle('slow', function () {
                 var activeSlide = $carouselContainer.find('.carousel-indicators li.active').attr('data-slide-to');
-                $(this).text(messages['slide-' + activeSlide]);
+                $text = $("<span>"+messages['slide-' + activeSlide]+"</span>")
+                $(this).html($text);
                 $(this).slideToggle();
             });
         });

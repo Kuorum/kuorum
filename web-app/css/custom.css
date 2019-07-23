@@ -4881,7 +4881,9 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     opacity: 1;
     background-color: white;
 }
-
+.fade-carousel .carousel-indicators > li.text span {
+    cursor: default;
+}
 .fade-carousel .overlay {
     position: absolute;
     width: 100%;
