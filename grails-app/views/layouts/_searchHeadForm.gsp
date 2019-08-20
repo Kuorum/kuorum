@@ -8,7 +8,7 @@
             role="search"
             method="get"
     >
-        <meta itemprop="target" content="${createLink(mapping: 'searcherSearch', absolute: true)+'?word={query}'}"/>
+        <meta itemprop="target" content="${createLink(mapping: 'searcherSearch', absolute: true)+'?word={word}'}"/>
         <div class="input-group">
 
             <g:set var="searchFilterType" value="${params.searchType?:kuorum.core.model.search.SearchType.ALL}"/>
