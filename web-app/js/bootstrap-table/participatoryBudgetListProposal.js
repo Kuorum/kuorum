@@ -178,14 +178,23 @@ var participatoryBudgetListProposalHelper = {
         var urlUpdateTechnicalReview = $table.attr("data-update-technicalReview-url")
         pageLoadingOn();
         $.post( urlUpdateTechnicalReview, data)
-            .done(function(districtProposalData) {
+            .done(function(response) {
                 $table.bootstrapTable('updateRow', {
                     index: index,
-                    row: districtProposalData
+                    row: response.districtProposalData
                 });
             })
             .fail(function(messageError) {
-                display.warn("Error");
+                if (messageError.status == 420){
+                    display.error(messageError.responseJSON.msg);
+                    $table.bootstrapTable('updateRow', {
+                        index: index,
+                        row: messageError.responseJSON.districtProposalData
+                    });
+                }else{
+                    display.error("Error updating proposal")
+                }
+
             })
             .always(function() {
                 pageLoadingOff();

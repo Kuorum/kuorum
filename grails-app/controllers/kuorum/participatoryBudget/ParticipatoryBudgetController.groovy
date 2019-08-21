@@ -426,9 +426,26 @@ class ParticipatoryBudgetController extends CampaignController{
         technicalReviewRDTO.approved=command.approved
         technicalReviewRDTO.price=command.price
         technicalReviewRDTO.rejectComment=command.rejectComment
-        DistrictProposalRSDTO districtProposalRSDTO = districtProposalService.technicalReview(campaignUser, command.participatoryBudgetId, command.districtProposalId, technicalReviewRDTO)
-        JSON.use('infoDistrictProposalTable') {
-            render (districtProposalRSDTO as JSON)
+        try{
+            DistrictProposalRSDTO districtProposalRSDTO = districtProposalService.technicalReview(campaignUser, command.participatoryBudgetId, command.districtProposalId, technicalReviewRDTO)
+            JSON.use('infoDistrictProposalTable') {
+                render ([success: true, msg: null, districtProposalData: districtProposalRSDTO] as JSON)
+            }
+        }catch (Exception e){
+            DistrictProposalRSDTO districtProposalRSDTO = districtProposalService.find(command.districtProposalUserId, command.districtProposalId)
+            Exception realCause = e?.cause?.cause?:null
+            String msg = "Error updating proposal"
+            if (realCause && realCause instanceof kuorum.core.exception.KuorumException){
+                msg = g.message(code:((kuorum.core.exception.KuorumException)realCause).errors.get(0).code)
+                districtProposalRSDTO.setPrice(command.price.intValue())
+                districtProposalRSDTO.setTechnicalReviewStatus(TechnicalReviewStatusRDTO.INCORRECT)
+                response.status = 420
+            }else{
+                response.status = 500
+            }
+            JSON.use('infoDistrictProposalTable') {
+                render ([success: false, msg: msg, districtProposalData: districtProposalRSDTO] as JSON)
+            }
         }
     }
 
