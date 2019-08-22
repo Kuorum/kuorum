@@ -216,5 +216,41 @@ var campaignListHelper={
         $("#campaignDeleteConfirm a.deleteCampaignBtn").attr("href",urlDeleteCampaign)
         $("#campaignDeleteConfirm a.deleteCampaignBtn").attr("data-campaign-id",campaignId)
         $("#campaignDeleteConfirm").modal("show");
-    }
+    },
+    // Pausar campaña
+    prepareDeleteCampaignButton: function() {
+        // Needed to add new buttons to jQuery-extended object
+        $('.campaignPause').on("click",function(e) {
+            e.preventDefault();
+            pageLoadingOn();
+            var $button = $(this)
+            var link = $button.attr("href");
+            var campaignId =  $(this).parents("ul#campaignsList > li").find('.id').text();
+            var $campaignLi = $("#campaignPos_"+campaignId)
+            var textSent = $button.attr("data-text-sent");
+            var textPaused = $button.attr("data-text-paused");
+            var pauseData= {
+                activeOn:!$campaignLi.hasClass("PAUSE")
+            };
+            $.post( link, pauseData)
+                .done(function(data) {
+                    var statusText = textSent
+                    if (data.paused){
+                        statusText = textPaused
+                    }
+                    console.log($campaignLi.find(".name > .state"))
+                    $campaignLi.find(".state").html(statusText)
+                    $campaignLi.find(".state").attr("data-original-title",statusText)
+                    $campaignLi.find(".name > .state").html(statusText)
+                    $button.find("span").toggleClass("fa-pause-circle fa-play-circle");
+                    $campaignLi.toggleClass("PAUSE SENT");
+                })
+                .fail(function(messageError) {
+                    display.warn("Error pausing campaign");
+                })
+                .always(function() {
+                    pageLoadingOff();
+                });
+        });
+    },
 }

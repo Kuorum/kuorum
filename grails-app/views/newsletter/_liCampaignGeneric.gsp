@@ -2,6 +2,7 @@
 <g:set var="type" value="post"/>
 <g:set var="urlMappingNameEditStep" value="EditContent"/>
 <g:set var="faIcon" value="fa-newspaper"/>
+<g:set var="hidePause" value="${campaign.newsletter.status == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT || campaign.newsletter.status == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.PAUSE}"/>
 <g:if test="${campaign.campaignType == org.kuorum.rest.model.communication.CampaignTypeRSDTO.DEBATE}">
     <g:set var="type" value="debate"/>
     <g:set var="faIcon" value="fa-comments"/>
@@ -21,6 +22,7 @@
     <g:set var="type" value="districtProposal"/>
     <g:set var="faIcon" value="fa-rocket"/>
     <g:set var="hideEdit" value="${campaign.participatoryBudget.status != org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.ADDING_PROPOSALS}"/>
+    <g:set var="hidePause" value="${campaign.participatoryBudget.status != org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.ADDING_PROPOSALS}"/>
     <g:set var="hideRemove" value="${!(campaign.participatoryBudget.status == org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.ADDING_PROPOSALS || campaign.newsletter.status == CampaignStatusRSDTO.DRAFT)}"/>
 </g:elseif>
 <g:elseif test="${campaign.campaignType == org.kuorum.rest.model.communication.CampaignTypeRSDTO.PETITION}">
@@ -52,13 +54,13 @@
         </g:link>
     </h3>
     <p class="name">
-        <g:message code="${CampaignStatusRSDTO.class.name}.${campaign.campaignStatusRSDTO}"/>
+        <span class="state"><g:message code="${CampaignStatusRSDTO.class.name}.${campaign.campaignStatusRSDTO}"/></span>
         <input class="timestamp" type="hidden" val="${campaign?.datePublished?.time?:'LAST'}" />  %{-- Letters are after than numbers--}%
         <g:if test="${campaign.datePublished}">
             <span class="date">
                 (<g:formatDate date="${campaign.datePublished}" type="datetime" style="LONG" timeStyle="SHORT" timeZone="${user.timeZone}"/>)
             </span>
-            - ${campaign.anonymousFilter?.name?:g.message(code:'tools.massMailing.fields.filter.to.all')}
+            :: ${campaign.anonymousFilter?.name?:g.message(code:'tools.massMailing.fields.filter.to.all')}
         </g:if>
     </p>
     <ul class="list-campaign-stats">
@@ -76,7 +78,7 @@
         </li>
     </ul>
     <ul class="list-actions">
-        <g:if test="${campaign.campaignStatusRSDTO == CampaignStatusRSDTO.SENT}">
+        <g:if test="${campaign.campaignStatusRSDTO == CampaignStatusRSDTO.SENT || campaign.campaignStatusRSDTO == CampaignStatusRSDTO.PAUSE}">
             <li>
                 <g:link mapping="politicianCampaignStatsShow" params="[campaignId: campaign.id]" role="button" class="campaignStats"><span class="fal fa-chart-line"></span> <span class="sr-only">Stats</span></g:link>
             </li>
@@ -90,6 +92,20 @@
         <g:if test="${!hideRemove}">
             <li>
                 <g:link mapping="${campaignGenericMappings.remove}" params="${campaign.encodeAsLinkProperties()}"  role="button" class="campaignDelete"><span class="fal fa-trash"></span> <span class="sr-only">Delete</span></g:link>
+            </li>
+        </g:if>
+        <g:if test="${!hidePause}">
+            <li>
+                <g:link
+                        mapping="campaignPause"
+                        params="${campaign.encodeAsLinkProperties()}"
+                        role="button"
+                        class="campaignPause"
+                        data-text-sent="${g.message(code:'org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT')}"
+                        data-text-paused="${g.message(code:'org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.PAUSE')}">
+                    <span class="fal ${campaign.newsletter.status == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT?'fa-pause-circle':'fa-play-circle'}"></span>
+                    <span class="sr-only">Pause</span>
+                </g:link>
             </li>
         </g:if>
     </ul>

@@ -186,4 +186,25 @@ class CampaignService {
                 new TypeReference<String>(){}
         )
     }
+
+    void pauseCampaign(KuorumUserSession user, Long campaignId, boolean activeOn){
+        Map<String, String> params = [campaignId: campaignId.toString(), userId: user.id.toString()]
+        Map<String, String> query = [:]
+        if (activeOn){
+            def response = restKuorumApiService.put(
+                    RestKuorumApiService.ApiMethod.ACCOUNT_CAMPAIGN_PAUSE,
+                    params,
+                    query,
+                    null,
+                    new TypeReference<CampaignRSDTO>(){}
+            )
+        }else{
+            def response = restKuorumApiService.delete(
+                    RestKuorumApiService.ApiMethod.ACCOUNT_CAMPAIGN_PAUSE,
+                    params,
+                    query,
+                    new TypeReference<CampaignRSDTO>(){}
+            )
+        }
+    }
 }

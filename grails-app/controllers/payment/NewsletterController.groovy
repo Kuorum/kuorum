@@ -504,4 +504,11 @@ class NewsletterController {
         }
         newsletterRQDTO
     }
+
+    //TODO: This action is only for campaigns not for newsletter. Refactor it and move it to campaign controller
+    def pauseCampaign(Long campaignId, boolean activeOn){
+        KuorumUserSession loggedUser = springSecurityService.principal
+        campaignService.pauseCampaign(loggedUser, campaignId, activeOn)
+        render ([success:true, msg:"Paused", paused:activeOn] as JSON)
+    }
 }
