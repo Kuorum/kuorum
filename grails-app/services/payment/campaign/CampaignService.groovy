@@ -187,10 +187,10 @@ class CampaignService {
         )
     }
 
-    void pauseCampaign(KuorumUserSession user, Long campaignId, boolean activeOn){
+    void pauseCampaign(KuorumUserSession user, Long campaignId, boolean activePause){
         Map<String, String> params = [campaignId: campaignId.toString(), userId: user.id.toString()]
         Map<String, String> query = [:]
-        if (activeOn){
+        if (activePause){
             def response = restKuorumApiService.put(
                     RestKuorumApiService.ApiMethod.ACCOUNT_CAMPAIGN_PAUSE,
                     params,

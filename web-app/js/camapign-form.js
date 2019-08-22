@@ -30,6 +30,14 @@ $(function(){
     var $saveDraft = $('.form-final-options #save-draft[data-redirectLink]');
     $saveDraft.on('click', campaignForm.stepSubmit);
 
+    var $saveDraft = $('.form-final-options #save-draft-reactivate[data-redirectLink]');
+    $saveDraft.on('click', function(e){
+        e.preventDefault();
+        var $inputSendType = $('form.campaign-form').find("input[name=sendType]");
+        $inputSendType.val("ACTIVATE")
+        campaignForm.stepSubmit(e);
+    });
+
     var $saveDraftDebate = $('.form-final-options #save-draft-debate[data-redirectLink]');
     $saveDraftDebate.on('click', campaignForm.stepSubmit);
 
@@ -87,7 +95,7 @@ var campaignForm={
         var $form = $('form.campaign-form');
         var $inputHidden = $form.find('#redirectLink');
         if($inputHidden.val() == undefined || $inputHidden.val() == ""){
-            var redirect = $(this).attr('data-redirectLink');
+            var redirect = $(e.target).attr('data-redirectLink');
             $inputHidden.attr('value', redirect);
         }
         var $filter = $('select#recipients option:selected').length;

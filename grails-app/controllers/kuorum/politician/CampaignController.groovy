@@ -318,7 +318,7 @@ class CampaignController {
         saveAndSendCampaign(user, campaignRDTO, campaignId, command.publishOn, command.sendType, campaignService)
     }
 
-    protected Map<String, Object> saveAndSendCampaign(KuorumUserSession user, CampaignRDTO campaignRDTO, Long campaignId,Date publishOn,String sendType, CampaignCreatorService campaignService){
+    protected Map<String, Object> saveAndSendCampaign(KuorumUserSession user, CampaignRDTO campaignRDTO, Long campaignId,Date publishOn,String sendType, CampaignCreatorService campaignCreatorService){
         CampaignRSDTO savedCampaign = null
         String msg
         if(sendType == 'SEND'){
@@ -330,7 +330,7 @@ class CampaignController {
 
         if(campaignRDTO.publishOn){
             // Published or Scheduled
-            savedCampaign = campaignService.save(user, campaignRDTO, campaignId)
+            savedCampaign = campaignCreatorService.save(user, campaignRDTO, campaignId)
 
             Date date = new Date()
             Date after5minutes = new Date()
@@ -357,8 +357,12 @@ class CampaignController {
         }
         else {
             // Draft
-            savedCampaign = campaignService.save(user, campaignRDTO, campaignId)
+            savedCampaign = campaignCreatorService.save(user, campaignRDTO, campaignId)
             msg = g.message(code: 'tools.massMailing.saveDraft.advise', args: [savedCampaign.title])
+        }
+
+        if (sendType == "ACTIVATE"){
+            campaignService.pauseCampaign(user, campaignId, false)
         }
 
         [msg: msg, campaign: savedCampaign, nextStep:processNextStep(user, savedCampaign, campaignRDTO.publishOn!= null)]
