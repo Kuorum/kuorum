@@ -2,7 +2,7 @@
 <g:set var="type" value="post"/>
 <g:set var="urlMappingNameEditStep" value="EditContent"/>
 <g:set var="faIcon" value="fa-newspaper"/>
-<g:set var="hidePause" value="${campaign.newsletter.status == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT || campaign.newsletter.status == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.PAUSE}"/>
+<g:set var="hidePause" value="${campaign.campaignStatusRSDTO != org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT && campaign.campaignStatusRSDTO != org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.PAUSE}"/>
 <g:if test="${campaign.campaignType == org.kuorum.rest.model.communication.CampaignTypeRSDTO.DEBATE}">
     <g:set var="type" value="debate"/>
     <g:set var="faIcon" value="fa-comments"/>
