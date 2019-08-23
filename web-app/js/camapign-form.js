@@ -92,10 +92,14 @@ $(function(){
 var campaignForm={
     stepSubmit : function (e){
         e.preventDefault();
+        var $linkElement = $(e.target);
+        if (!$linkElement.is("a")){
+            $linkElement = $linkElement.closest("a")
+        }
         var $form = $('form.campaign-form');
         var $inputHidden = $form.find('#redirectLink');
         if($inputHidden.val() == undefined || $inputHidden.val() == ""){
-            var redirect = $(e.target).attr('data-redirectLink');
+            var redirect = $linkElement.attr('data-redirectLink');
             $inputHidden.attr('value', redirect);
         }
         var $filter = $('select#recipients option:selected').length;
