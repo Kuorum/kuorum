@@ -239,6 +239,7 @@ class RestKuorumApiService {
         ACCOUNT_CAMPAIGNS                       ("/communication/campaign/{userId}"),
         ACCOUNT_CAMPAIGN                        ("/communication/campaign/{userId}/{campaignId}"),
         ACCOUNT_CAMPAIGN_FILES                  ("/communication/campaign/{userId}/{campaignId}/files"),
+        ACCOUNT_CAMPAIGN_PICTURE                ("/communication/campaign/{userId}/{campaignId}/picture"),
         ACCOUNT_CAMPAIGN_PAUSE                  ("/communication/campaign/{userId}/{campaignId}/pause"),
 
 

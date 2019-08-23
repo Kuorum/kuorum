@@ -80,8 +80,8 @@ class CampaignController {
             def model = dataView.model
             List<String> linkFiles = campaignService.getFiles(campaignRSDTO);
             model.campaignFiles = linkFiles.collect{it ->[
-                    name:it.split("/").last(),
-                    icon: getFaIconOfExtension(it.split("\\.").last()),
+                    name:it.split("/").last().split('\\?').first(),
+                    icon: getFaIconOfExtension(it.split("\\.").last().split('\\?').first()),
                     url:it
             ]}
             render view: dataView.view, model:dataView.model
@@ -290,6 +290,7 @@ class CampaignController {
         if (command.fileType == FileType.IMAGE.toString() && command.headerPictureId) {
             // Save image
             KuorumFile picture = KuorumFile.get(command.headerPictureId)
+            picture.setCampaignId(campaignId)
             picture = fileService.convertTemporalToFinalFile(picture)
             fileService.deleteTemporalFiles(user)
             campaignRDTO.setPhotoUrl(picture.getUrl())

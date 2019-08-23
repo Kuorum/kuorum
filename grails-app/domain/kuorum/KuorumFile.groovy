@@ -37,6 +37,7 @@ class KuorumFile {
     String urlThumb
     FileGroup fileGroup
     FileType fileType = FileType.IMAGE
+    Long campaignId // If not null, image associated to a campaign
 
     static constraints = {
         storagePath nullable: true
@@ -45,6 +46,7 @@ class KuorumFile {
         originalName nullable: false
         url url: true
         alt nullable:true
+        campaignId nullable:true
         local validator: {val, obj-> // If local , storagePath and fileName can not be null
             (val && obj.storagePath && obj.fileName) || (!val)
         }

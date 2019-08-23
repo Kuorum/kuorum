@@ -254,7 +254,13 @@ class LocalFileService implements FileService{
 
     //TODO: Hacer bien las herenceias que esto es una castaña
     protected void deleteAmazonFile(KuorumFile file){
-
+        switch (file.fileGroup){
+            case FileGroup.PROJECT_IMAGE:
+                break;
+            default:
+                break;
+                //TODO: OLD IMAGE LOGIC
+        }
     }
 
     protected void deleteFile(KuorumFile kuorumFile){

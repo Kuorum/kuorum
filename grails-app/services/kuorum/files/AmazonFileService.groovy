@@ -10,9 +10,9 @@ import kuorum.KuorumFile
 import kuorum.core.FileGroup
 import kuorum.core.FileType
 import kuorum.core.exception.KuorumException
+import kuorum.register.KuorumUserSession
 
 //import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import kuorum.register.KuorumUserSession
 import kuorum.util.rest.RestKuorumApiService
 
 class AmazonFileService extends LocalFileService{
@@ -69,6 +69,9 @@ class AmazonFileService extends LocalFileService{
             }else if(kuorumFile.fileGroup == FileGroup.USER_PROFILE){
                 String fileUrl = uploadImgProfile(kuorumFile, org)
                 kuorumFile.setUrl(fileUrl)
+            }else if(kuorumFile.fileGroup == FileGroup.PROJECT_IMAGE){
+                String fileUrl = uploadCampaignImage(kuorumFile, org)
+                kuorumFile.setUrl(fileUrl)
             }else{
                 uploadAmazonFile(kuorumFile, Boolean.FALSE)
             }
@@ -106,6 +109,19 @@ class AmazonFileService extends LocalFileService{
         Map<String, String> query = [:]
         def response = restKuorumApiService.putFile(
                 RestKuorumApiService.ApiMethod.USER_IMG_PROFILE,
+                params,
+                query,
+                avatarFile,
+                fileName
+        )
+    }
+
+   private String uploadCampaignImage(KuorumFile kuorumFile, File avatarFile){
+        String fileName = java.net.URLEncoder.encode(kuorumFile.fileName, "UTF-8")
+        Map<String, String> params = [campaignId: kuorumFile.campaignId.toString(), userId: kuorumFile.user.id.toString()]
+        Map<String, String> query = [:]
+        def response = restKuorumApiService.putFile(
+                RestKuorumApiService.ApiMethod.ACCOUNT_CAMPAIGN_PICTURE,
                 params,
                 query,
                 avatarFile,
