@@ -143,6 +143,7 @@ class FormTagLib {
         CampaignRSDTO campaignRSDTO = attrs.campaign
         if (campaignRSDTO){
             List<String> alreadyUploadedFiles = campaignService.getFiles(campaignRSDTO)
+            alreadyUploadedFiles = alreadyUploadedFiles.collect{it.split('\\?').first()}
             String label = attrs.label
             def model = [
                     alreadyUploadedFiles:alreadyUploadedFiles,
