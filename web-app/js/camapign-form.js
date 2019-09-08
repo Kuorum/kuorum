@@ -93,9 +93,10 @@ var campaignForm={
     stepSubmit : function (e){
         e.preventDefault();
         var $linkElement = $(e.target);
-        if (!$linkElement.is("a")){
+        if (!($linkElement.is("a") || $linkElement.is("button"))){
             $linkElement = $linkElement.closest("a")
         }
+        console.log($linkElement)
         var $form = $('form.campaign-form');
         var $inputHidden = $form.find('#redirectLink');
         if($inputHidden.val() == undefined || $inputHidden.val() == ""){
