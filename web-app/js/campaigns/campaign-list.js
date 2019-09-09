@@ -206,7 +206,7 @@ var campaignListHelper={
     // eliminar campaña
     prepareDeleteCampaignButton: function() {
         // Needed to add new buttons to jQuery-extended object
-        $('.campaignDelete').on("click",function(e) {
+        $('.list-campaigns').on("click",'.campaignDelete',function(e) {
             e.preventDefault();
             var link = $(this).attr("href");
             var itemId =  $(this).parents("ul#campaignsList > li").find('.id').text();
@@ -221,7 +221,7 @@ var campaignListHelper={
     // Pausar campaña
     preparePauseCampaignButton: function() {
         // Needed to add new buttons to jQuery-extended object
-        $('.campaignPause').on("click",function(e) {
+        $('.list-campaigns').on("click",'.campaignPause',function(e) {
             e.preventDefault();
             pageLoadingOn();
             var $button = $(this)
