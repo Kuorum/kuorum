@@ -199,6 +199,7 @@ $(function(){
     }
 
     campaignListHelper.prepareDeleteCampaignButton();
+    campaignListHelper.preparePauseCampaignButton();
 })
 
 var campaignListHelper={
@@ -218,7 +219,7 @@ var campaignListHelper={
         $("#campaignDeleteConfirm").modal("show");
     },
     // Pausar campaña
-    prepareDeleteCampaignButton: function() {
+    preparePauseCampaignButton: function() {
         // Needed to add new buttons to jQuery-extended object
         $('.campaignPause').on("click",function(e) {
             e.preventDefault();
