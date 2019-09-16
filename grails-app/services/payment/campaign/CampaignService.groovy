@@ -161,7 +161,6 @@ class CampaignService {
                 file,
                 fileName
         )
-
     }
 
     List<String> getFiles(CampaignRSDTO campaignRSDTO){

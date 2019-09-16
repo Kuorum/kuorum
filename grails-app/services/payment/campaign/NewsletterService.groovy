@@ -183,4 +183,40 @@ class NewsletterService {
         }
         newsletterConfigRDTO
     }
+
+    String uploadFile(KuorumUserSession user, Long newsletterId, File file, String fileName){
+        fileName = java.net.URLEncoder.encode(fileName, "UTF-8")
+        Map<String, String> params = [campaignId: newsletterId.toString(), userId: user.id.toString()]
+        Map<String, String> query = [:]
+        def response = restKuorumApiService.putFile(
+                RestKuorumApiService.ApiMethod.ACCOUNT_MASS_MAILING_ATTACHMENT,
+                params,
+                query,
+                file,
+                fileName
+        )
+    }
+
+    List<String> getFiles(KuorumUserSession user, NewsletterRSDTO newsletterRSDTO){
+        Map<String, String> params = [campaignId: newsletterRSDTO.getId().toString(), userId: user.alias]
+        Map<String, String> query = [:]
+        def response = restKuorumApiService.get(
+                RestKuorumApiService.ApiMethod.ACCOUNT_MASS_MAILING_ATTACHMENT,
+                params,
+                query,
+                new TypeReference<List<String>>(){}
+        )
+        response.data
+    }
+
+    void deleteFile(KuorumUserSession user, Long newsletterId, String fileName){
+        Map<String, String> params = [campaignId: newsletterId.toString(), userId: user.id.toString()]
+        Map<String, String> query = [fileName:fileName]
+        def response = restKuorumApiService.delete(
+                RestKuorumApiService.ApiMethod.ACCOUNT_MASS_MAILING_ATTACHMENT,
+                params,
+                query,
+                new TypeReference<String>(){}
+        )
+    }
 }

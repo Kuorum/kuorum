@@ -14,6 +14,7 @@ import org.kuorum.rest.model.geolocation.RegionRSDTO
 import org.kuorum.rest.model.notification.campaign.NewsletterRSDTO
 import org.springframework.context.i18n.LocaleContextHolder
 import payment.campaign.CampaignService
+import payment.campaign.NewsletterService
 import payment.campaign.ParticipatoryBudgetService
 import payment.campaign.event.EventService
 
@@ -27,6 +28,7 @@ class FormTagLib {
     EventService eventService
     ParticipatoryBudgetService participatoryBudgetService
     CampaignService campaignService
+    NewsletterService newsletterService
 
     static namespace = "formUtil"
 
@@ -141,15 +143,29 @@ class FormTagLib {
 
     def uploadCampaignFiles = {attrs ->
         CampaignRSDTO campaignRSDTO = attrs.campaign
+        NewsletterRSDTO newsletterRSDTO = attrs.newsletter
+        String label = attrs.label
         if (campaignRSDTO){
             List<String> alreadyUploadedFiles = campaignService.getFiles(campaignRSDTO)
             alreadyUploadedFiles = alreadyUploadedFiles.collect{it.split('\\?').first()}
-            String label = attrs.label
             def model = [
                     alreadyUploadedFiles:alreadyUploadedFiles,
                     campaignId: campaignRSDTO.id,
                     actionUpload: g.createLink(mapping:'ajaxUploadCampaignFile', params: campaignRSDTO.encodeAsLinkProperties()),
                     actionDelete: g.createLink(mapping:'ajaxDeleteCampaignFile', params: campaignRSDTO.encodeAsLinkProperties()),
+                    label:label
+            ]
+            out << g.render(template:'/layouts/form/uploadMultipleFiles', model:model)
+        }else if (newsletterRSDTO){
+            KuorumUserSession user =  springSecurityService.principal
+            List<String> alreadyUploadedFiles = newsletterService.getFiles(user, newsletterRSDTO)
+
+            alreadyUploadedFiles = alreadyUploadedFiles.collect{it.split('\\?').first()}
+            def model = [
+                    alreadyUploadedFiles:alreadyUploadedFiles,
+                    campaignId: newsletterRSDTO.id,
+                    actionUpload: g.createLink(mapping:'ajaxUploadMassMailingAttachFile', params: [campaignId: newsletterRSDTO.id]),
+                    actionDelete: g.createLink(mapping:'ajaxDeleteMassMailingAttachFile', params: [campaignId: newsletterRSDTO.id]),
                     label:label
             ]
             out << g.render(template:'/layouts/form/uploadMultipleFiles', model:model)

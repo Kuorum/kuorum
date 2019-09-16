@@ -10,6 +10,7 @@ import org.bson.types.ObjectId
 import org.springframework.web.multipart.MultipartFile
 import org.springframework.web.multipart.MultipartHttpServletRequest
 import payment.campaign.CampaignService
+import payment.campaign.NewsletterService
 
 import javax.servlet.http.HttpServletRequest
 
@@ -20,6 +21,7 @@ class FileController {
     LocalFileService localFileService;
     def springSecurityService
     CampaignService campaignService
+    NewsletterService newsletterService
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def uploadImage() {
@@ -94,7 +96,30 @@ class FileController {
         } as JSON)
     }
 
-        @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def uploadNewsletterAttachedFile() {
+        def fileData = getFileData(request)
+        File file = File.createTempFile("campaignFile", "kuorum")
+        localFileService.upload(fileData.inputStream,file);
+        String fileUrl = newsletterService.uploadFile(springSecurityService.principal,Long.parseLong(params.campaignId), file, fileData.fileName);
+        file.delete();
+//        FileGroup fileGroup = FileGroup.PDF
+//        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+//        KuorumFile kuorumFile = fileService.uploadTemporalFile(fileData.inputStream, user, fileData.fileName, fileGroup)
+
+        render ([fileUrl: fileUrl, fileName: fileData.fileName, status:200, success:true] as JSON)
+    }
+
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def deleteNewsletterAttachedFile() {
+        def fileName = params.fileName
+        newsletterService.deleteFile(springSecurityService.principal, Long.parseLong(params.campaignId), fileName)
+        render ([fileUrl: "#FILE", fileName: fileName, status:200, success:true] as JSON)
+    }
+
+
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def cropImage() {
         KuorumFile kuorumFile = KuorumFile.get(new ObjectId(params.fileId))
         Double x = Double.parseDouble(params.x)
