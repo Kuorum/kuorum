@@ -57,7 +57,7 @@
     padding: 9px;
     line-height: 15px;
     font-size: 16px;
-    background-color: #FFF0BD;
+    /*background-color: #FFF0BD;*/
 }
 .qq-upload-file, .qq-upload-spinner, .qq-upload-size,
 .qq-upload-cancel, .qq-upload-retry, .qq-upload-failed-text,
@@ -118,12 +118,12 @@
     color: #D60000;
 }
 .qq-upload-list li.qq-upload-success {
-    background-color: #5DA30C;
-    color: #FFFFFF;
+    /*background-color: #5DA30C;*/
+    /*color: #FFFFFF;*/
 }
 .qq-upload-list li.qq-upload-fail {
-    background-color: #D60000;
-    color: #FFFFFF;
+    background-color: rgba(255, 0, 0, 0.2);;
+    /*color: #FFFFFF;*/
 }
 .qq-progress-bar {
     display: block;

@@ -3168,6 +3168,7 @@ fieldset > .multiple-range-selector:first-child {margin-top:40px;}
 
 .qq-uploader-multiple-files .qq-upload-drop-area {background: none; padding:15px; color:#DADADA;  border: 1px dotted #CCCCCC; margin-top: 10px;}
 .qq-uploader-multiple-files .button-container {margin:0; text-align: left; padding: 0;width: auto; margin-bottom: 15px;}
+.qq-uploader-multiple-files .button-container .qq-upload-button.btn {display: inline-table;}
 .qq-uploader-multiple-files .qq-upload-list {padding: 0;margin:0; display:block; text-align:left; color:#545454}
 .qq-uploader-multiple-files .qq-upload-list a {color:#545454}
 .qq-uploader-multiple-files .qq-upload-list li{padding: 10px; width: 100%;list-style: none;font-size: 1.3em;}
@@ -3184,7 +3185,7 @@ fieldset > .multiple-range-selector:first-child {margin-top:40px;}
 .qq-uploader-multiple-files .qq-upload-list li.qq-upload-success .qq-upload-spinner{display: none;}
 .qq-uploader-multiple-files .qq-upload-list li.qq-upload-fail .qq-upload-failed-text{display:inline-block;}
 .qq-uploader-multiple-files .qq-upload-list li.qq-upload-fail .qq-upload-spinner{display:none;}
-.qq-uploader-multiple-files .qq-upload-list li .qq-upload-delete{width: 20px; cursor: pointer}
+.qq-uploader-multiple-files .qq-upload-list li .qq-upload-delete{width: 20px; cursor: pointer; font-size: inherit;}
 
 .list-campaign-files {padding:0 15px;}
 .list-campaign-files li {font-size: 15px; padding: 3px 0; width:100%; white-space: nowrap;overflow: hidden;text-overflow: ellipsis;vertical-align: bottom;}
