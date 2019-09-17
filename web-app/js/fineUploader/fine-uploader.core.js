@@ -1,6 +1,8 @@
 // Fine Uploader 5.14.2 - (c) 2013-present Widen Enterprises, Inc. MIT licensed. http://fineuploader.com
+
+// REFACTOR VAR QQ -> TO MultiImageUploader -> Acronym miu
 (function(global) {
-    var qq = function(element) {
+    var miu = function(element) {
         "use strict";
         return {
             hide: function() {
@@ -14,7 +16,7 @@
                     element.attachEvent("on" + type, fn);
                 }
                 return function() {
-                    qq(element).detach(type, fn);
+                    miu(element).detach(type, fn);
                 };
             },
             detach: function(type, fn) {
@@ -48,14 +50,14 @@
             },
             css: function(styles) {
                 if (element.style == null) {
-                    throw new qq.Error("Can't apply style to node as it is not on the HTMLElement prototype chain!");
+                    throw new miu.Error("Can't apply style to node as it is not on the HTMLElement prototype chain!");
                 }
                 if (styles.opacity != null) {
                     if (typeof element.style.opacity !== "string" && typeof element.filters !== "undefined") {
                         styles.filter = "alpha(opacity=" + Math.round(100 * styles.opacity) + ")";
                     }
                 }
-                qq.extend(element.style, styles);
+                miu.extend(element.style, styles);
                 return this;
             },
             hasClass: function(name, considerParent) {
@@ -63,7 +65,7 @@
                 return re.test(element.className) || !!(considerParent && re.test(element.parentNode.className));
             },
             addClass: function(name) {
-                if (!qq(element).hasClass(name)) {
+                if (!miu(element).hasClass(name)) {
                     element.className += " " + name;
                 }
                 return this;
@@ -81,15 +83,15 @@
                     return element.querySelectorAll("." + className);
                 }
                 candidates = element.getElementsByTagName("*");
-                qq.each(candidates, function(idx, val) {
-                    if (qq(val).hasClass(className)) {
+                miu.each(candidates, function(idx, val) {
+                    if (miu(val).hasClass(className)) {
                         result.push(val);
                     }
                 });
                 return first ? result[0] : result;
             },
             getFirstByClass: function(className) {
-                return qq(element).getByClass(className, true);
+                return miu(element).getByClass(className, true);
             },
             children: function() {
                 var children = [], child = element.firstChild;
@@ -107,7 +109,7 @@
                 return this;
             },
             clearText: function() {
-                return qq(element).setText("");
+                return miu(element).setText("");
             },
             hasAttribute: function(attrName) {
                 var attrVal;
@@ -128,10 +130,10 @@
     };
     (function() {
         "use strict";
-        qq.canvasToBlob = function(canvas, mime, quality) {
-            return qq.dataUriToBlob(canvas.toDataURL(mime, quality));
+        miu.canvasToBlob = function(canvas, mime, quality) {
+            return miu.dataUriToBlob(canvas.toDataURL(mime, quality));
         };
-        qq.dataUriToBlob = function(dataUri) {
+        miu.dataUriToBlob = function(dataUri) {
             var arrayBuffer, byteString, createBlob = function(data, mime) {
                 var BlobBuilder = window.BlobBuilder || window.WebKitBlobBuilder || window.MozBlobBuilder || window.MSBlobBuilder, blobBuilder = BlobBuilder && new BlobBuilder();
                 if (blobBuilder) {
@@ -151,12 +153,12 @@
             mimeString = dataUri.split(",")[0].split(":")[1].split(";")[0];
             arrayBuffer = new ArrayBuffer(byteString.length);
             intArray = new Uint8Array(arrayBuffer);
-            qq.each(byteString, function(idx, character) {
+            miu.each(byteString, function(idx, character) {
                 intArray[idx] = character.charCodeAt(0);
             });
             return createBlob(arrayBuffer, mimeString);
         };
-        qq.log = function(message, level) {
+        miu.log = function(message, level) {
             if (window.console) {
                 if (!level || level === "info") {
                     window.console.log(message);
@@ -169,33 +171,33 @@
                 }
             }
         };
-        qq.isObject = function(variable) {
+        miu.isObject = function(variable) {
             return variable && !variable.nodeType && Object.prototype.toString.call(variable) === "[object Object]";
         };
-        qq.isFunction = function(variable) {
+        miu.isFunction = function(variable) {
             return typeof variable === "function";
         };
-        qq.isArray = function(value) {
+        miu.isArray = function(value) {
             return Object.prototype.toString.call(value) === "[object Array]" || value && window.ArrayBuffer && value.buffer && value.buffer.constructor === ArrayBuffer;
         };
-        qq.isItemList = function(maybeItemList) {
+        miu.isItemList = function(maybeItemList) {
             return Object.prototype.toString.call(maybeItemList) === "[object DataTransferItemList]";
         };
-        qq.isNodeList = function(maybeNodeList) {
+        miu.isNodeList = function(maybeNodeList) {
             return Object.prototype.toString.call(maybeNodeList) === "[object NodeList]" || maybeNodeList.item && maybeNodeList.namedItem;
         };
-        qq.isString = function(maybeString) {
+        miu.isString = function(maybeString) {
             return Object.prototype.toString.call(maybeString) === "[object String]";
         };
-        qq.trimStr = function(string) {
+        miu.trimStr = function(string) {
             if (String.prototype.trim) {
                 return string.trim();
             }
             return string.replace(/^\s+|\s+$/g, "");
         };
-        qq.format = function(str) {
+        miu.format = function(str) {
             var args = Array.prototype.slice.call(arguments, 1), newStr = str, nextIdxToReplace = newStr.indexOf("{}");
-            qq.each(args, function(idx, val) {
+            miu.each(args, function(idx, val) {
                 var strBefore = newStr.substring(0, nextIdxToReplace), strAfter = newStr.substring(nextIdxToReplace + 2);
                 newStr = strBefore + val + strAfter;
                 nextIdxToReplace = newStr.indexOf("{}", nextIdxToReplace + val.length);
@@ -205,16 +207,16 @@
             });
             return newStr;
         };
-        qq.isFile = function(maybeFile) {
+        miu.isFile = function(maybeFile) {
             return window.File && Object.prototype.toString.call(maybeFile) === "[object File]";
         };
-        qq.isFileList = function(maybeFileList) {
+        miu.isFileList = function(maybeFileList) {
             return window.FileList && Object.prototype.toString.call(maybeFileList) === "[object FileList]";
         };
-        qq.isFileOrInput = function(maybeFileOrInput) {
-            return qq.isFile(maybeFileOrInput) || qq.isInput(maybeFileOrInput);
+        miu.isFileOrInput = function(maybeFileOrInput) {
+            return miu.isFile(maybeFileOrInput) || miu.isInput(maybeFileOrInput);
         };
-        qq.isInput = function(maybeInput, notFile) {
+        miu.isInput = function(maybeInput, notFile) {
             var evaluateType = function(type) {
                 var normalizedType = type.toLowerCase();
                 if (notFile) {
@@ -238,40 +240,40 @@
             }
             return false;
         };
-        qq.isBlob = function(maybeBlob) {
+        miu.isBlob = function(maybeBlob) {
             if (window.Blob && Object.prototype.toString.call(maybeBlob) === "[object Blob]") {
                 return true;
             }
         };
-        qq.isXhrUploadSupported = function() {
+        miu.isXhrUploadSupported = function() {
             var input = document.createElement("input");
             input.type = "file";
-            return input.multiple !== undefined && typeof File !== "undefined" && typeof FormData !== "undefined" && typeof qq.createXhrInstance().upload !== "undefined";
+            return input.multiple !== undefined && typeof File !== "undefined" && typeof FormData !== "undefined" && typeof miu.createXhrInstance().upload !== "undefined";
         };
-        qq.createXhrInstance = function() {
+        miu.createXhrInstance = function() {
             if (window.XMLHttpRequest) {
                 return new XMLHttpRequest();
             }
             try {
                 return new ActiveXObject("MSXML2.XMLHTTP.3.0");
             } catch (error) {
-                qq.log("Neither XHR or ActiveX are supported!", "error");
+                miu.log("Neither XHR or ActiveX are supported!", "error");
                 return null;
             }
         };
-        qq.isFolderDropSupported = function(dataTransfer) {
+        miu.isFolderDropSupported = function(dataTransfer) {
             return dataTransfer.items && dataTransfer.items.length > 0 && dataTransfer.items[0].webkitGetAsEntry;
         };
-        qq.isFileChunkingSupported = function() {
-            return !qq.androidStock() && qq.isXhrUploadSupported() && (File.prototype.slice !== undefined || File.prototype.webkitSlice !== undefined || File.prototype.mozSlice !== undefined);
+        miu.isFileChunkingSupported = function() {
+            return !miu.androidStock() && miu.isXhrUploadSupported() && (File.prototype.slice !== undefined || File.prototype.webkitSlice !== undefined || File.prototype.mozSlice !== undefined);
         };
-        qq.sliceBlob = function(fileOrBlob, start, end) {
+        miu.sliceBlob = function(fileOrBlob, start, end) {
             var slicer = fileOrBlob.slice || fileOrBlob.mozSlice || fileOrBlob.webkitSlice;
             return slicer.call(fileOrBlob, start, end);
         };
-        qq.arrayBufferToHex = function(buffer) {
+        miu.arrayBufferToHex = function(buffer) {
             var bytesAsHex = "", bytes = new Uint8Array(buffer);
-            qq.each(bytes, function(idx, byt) {
+            miu.each(bytes, function(idx, byt) {
                 var byteAsHexStr = byt.toString(16);
                 if (byteAsHexStr.length < 2) {
                     byteAsHexStr = "0" + byteAsHexStr;
@@ -280,31 +282,31 @@
             });
             return bytesAsHex;
         };
-        qq.readBlobToHex = function(blob, startOffset, length) {
-            var initialBlob = qq.sliceBlob(blob, startOffset, startOffset + length), fileReader = new FileReader(), promise = new qq.Promise();
+        miu.readBlobToHex = function(blob, startOffset, length) {
+            var initialBlob = miu.sliceBlob(blob, startOffset, startOffset + length), fileReader = new FileReader(), promise = new miu.Promise();
             fileReader.onload = function() {
-                promise.success(qq.arrayBufferToHex(fileReader.result));
+                promise.success(miu.arrayBufferToHex(fileReader.result));
             };
             fileReader.onerror = promise.failure;
             fileReader.readAsArrayBuffer(initialBlob);
             return promise;
         };
-        qq.extend = function(first, second, extendNested) {
-            qq.each(second, function(prop, val) {
-                if (extendNested && qq.isObject(val)) {
+        miu.extend = function(first, second, extendNested) {
+            miu.each(second, function(prop, val) {
+                if (extendNested && miu.isObject(val)) {
                     if (first[prop] === undefined) {
                         first[prop] = {};
                     }
-                    qq.extend(first[prop], val, true);
+                    miu.extend(first[prop], val, true);
                 } else {
                     first[prop] = val;
                 }
             });
             return first;
         };
-        qq.override = function(target, sourceFn) {
+        miu.override = function(target, sourceFn) {
             var super_ = {}, source = sourceFn(super_);
-            qq.each(source, function(srcPropName, srcPropVal) {
+            miu.each(source, function(srcPropName, srcPropVal) {
                 if (target[srcPropName] !== undefined) {
                     super_[srcPropName] = target[srcPropName];
                 }
@@ -312,7 +314,7 @@
             });
             return target;
         };
-        qq.indexOf = function(arr, elt, from) {
+        miu.indexOf = function(arr, elt, from) {
             if (arr.indexOf) {
                 return arr.indexOf(elt, from);
             }
@@ -328,83 +330,83 @@
             }
             return -1;
         };
-        qq.getUniqueId = function() {
+        miu.getUniqueId = function() {
             return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(c) {
                 var r = Math.random() * 16 | 0, v = c == "x" ? r : r & 3 | 8;
                 return v.toString(16);
             });
         };
-        qq.ie = function() {
+        miu.ie = function() {
             return navigator.userAgent.indexOf("MSIE") !== -1 || navigator.userAgent.indexOf("Trident") !== -1;
         };
-        qq.ie7 = function() {
+        miu.ie7 = function() {
             return navigator.userAgent.indexOf("MSIE 7") !== -1;
         };
-        qq.ie8 = function() {
+        miu.ie8 = function() {
             return navigator.userAgent.indexOf("MSIE 8") !== -1;
         };
-        qq.ie10 = function() {
+        miu.ie10 = function() {
             return navigator.userAgent.indexOf("MSIE 10") !== -1;
         };
-        qq.ie11 = function() {
-            return qq.ie() && navigator.userAgent.indexOf("rv:11") !== -1;
+        miu.ie11 = function() {
+            return miu.ie() && navigator.userAgent.indexOf("rv:11") !== -1;
         };
-        qq.edge = function() {
+        miu.edge = function() {
             return navigator.userAgent.indexOf("Edge") >= 0;
         };
-        qq.safari = function() {
+        miu.safari = function() {
             return navigator.vendor !== undefined && navigator.vendor.indexOf("Apple") !== -1;
         };
-        qq.chrome = function() {
+        miu.chrome = function() {
             return navigator.vendor !== undefined && navigator.vendor.indexOf("Google") !== -1;
         };
-        qq.opera = function() {
+        miu.opera = function() {
             return navigator.vendor !== undefined && navigator.vendor.indexOf("Opera") !== -1;
         };
-        qq.firefox = function() {
-            return !qq.edge() && !qq.ie11() && navigator.userAgent.indexOf("Mozilla") !== -1 && navigator.vendor !== undefined && navigator.vendor === "";
+        miu.firefox = function() {
+            return !miu.edge() && !miu.ie11() && navigator.userAgent.indexOf("Mozilla") !== -1 && navigator.vendor !== undefined && navigator.vendor === "";
         };
-        qq.windows = function() {
+        miu.windows = function() {
             return navigator.platform === "Win32";
         };
-        qq.android = function() {
+        miu.android = function() {
             return navigator.userAgent.toLowerCase().indexOf("android") !== -1;
         };
-        qq.androidStock = function() {
-            return qq.android() && navigator.userAgent.toLowerCase().indexOf("chrome") < 0;
+        miu.androidStock = function() {
+            return miu.android() && navigator.userAgent.toLowerCase().indexOf("chrome") < 0;
         };
-        qq.ios6 = function() {
-            return qq.ios() && navigator.userAgent.indexOf(" OS 6_") !== -1;
+        miu.ios6 = function() {
+            return miu.ios() && navigator.userAgent.indexOf(" OS 6_") !== -1;
         };
-        qq.ios7 = function() {
-            return qq.ios() && navigator.userAgent.indexOf(" OS 7_") !== -1;
+        miu.ios7 = function() {
+            return miu.ios() && navigator.userAgent.indexOf(" OS 7_") !== -1;
         };
-        qq.ios8 = function() {
-            return qq.ios() && navigator.userAgent.indexOf(" OS 8_") !== -1;
+        miu.ios8 = function() {
+            return miu.ios() && navigator.userAgent.indexOf(" OS 8_") !== -1;
         };
-        qq.ios800 = function() {
-            return qq.ios() && navigator.userAgent.indexOf(" OS 8_0 ") !== -1;
+        miu.ios800 = function() {
+            return miu.ios() && navigator.userAgent.indexOf(" OS 8_0 ") !== -1;
         };
-        qq.ios = function() {
+        miu.ios = function() {
             return navigator.userAgent.indexOf("iPad") !== -1 || navigator.userAgent.indexOf("iPod") !== -1 || navigator.userAgent.indexOf("iPhone") !== -1;
         };
-        qq.iosChrome = function() {
-            return qq.ios() && navigator.userAgent.indexOf("CriOS") !== -1;
+        miu.iosChrome = function() {
+            return miu.ios() && navigator.userAgent.indexOf("CriOS") !== -1;
         };
-        qq.iosSafari = function() {
-            return qq.ios() && !qq.iosChrome() && navigator.userAgent.indexOf("Safari") !== -1;
+        miu.iosSafari = function() {
+            return miu.ios() && !miu.iosChrome() && navigator.userAgent.indexOf("Safari") !== -1;
         };
-        qq.iosSafariWebView = function() {
-            return qq.ios() && !qq.iosChrome() && !qq.iosSafari();
+        miu.iosSafariWebView = function() {
+            return miu.ios() && !miu.iosChrome() && !miu.iosSafari();
         };
-        qq.preventDefault = function(e) {
+        miu.preventDefault = function(e) {
             if (e.preventDefault) {
                 e.preventDefault();
             } else {
                 e.returnValue = false;
             }
         };
-        qq.toElement = function() {
+        miu.toElement = function() {
             var div = document.createElement("div");
             return function(html) {
                 div.innerHTML = html;
@@ -413,7 +415,7 @@
                 return element;
             };
         }();
-        qq.each = function(iterableItem, callback) {
+        miu.each = function(iterableItem, callback) {
             var keyOrIndex, retVal;
             if (iterableItem) {
                 if (window.Storage && iterableItem.constructor === window.Storage) {
@@ -423,14 +425,14 @@
                             break;
                         }
                     }
-                } else if (qq.isArray(iterableItem) || qq.isItemList(iterableItem) || qq.isNodeList(iterableItem)) {
+                } else if (miu.isArray(iterableItem) || miu.isItemList(iterableItem) || miu.isNodeList(iterableItem)) {
                     for (keyOrIndex = 0; keyOrIndex < iterableItem.length; keyOrIndex++) {
                         retVal = callback(keyOrIndex, iterableItem[keyOrIndex]);
                         if (retVal === false) {
                             break;
                         }
                     }
-                } else if (qq.isString(iterableItem)) {
+                } else if (miu.isString(iterableItem)) {
                     for (keyOrIndex = 0; keyOrIndex < iterableItem.length; keyOrIndex++) {
                         retVal = callback(keyOrIndex, iterableItem.charAt(keyOrIndex));
                         if (retVal === false) {
@@ -449,11 +451,11 @@
                 }
             }
         };
-        qq.bind = function(oldFunc, context) {
-            if (qq.isFunction(oldFunc)) {
+        miu.bind = function(oldFunc, context) {
+            if (miu.isFunction(oldFunc)) {
                 var args = Array.prototype.slice.call(arguments, 2);
                 return function() {
-                    var newArgs = qq.extend([], args);
+                    var newArgs = miu.extend([], args);
                     if (arguments.length) {
                         newArgs = newArgs.concat(Array.prototype.slice.call(arguments));
                     }
@@ -462,23 +464,23 @@
             }
             throw new Error("first parameter must be a function!");
         };
-        qq.obj2url = function(obj, temp, prefixDone) {
+        miu.obj2url = function(obj, temp, prefixDone) {
             var uristrings = [], prefix = "&", add = function(nextObj, i) {
                 var nextTemp = temp ? /\[\]$/.test(temp) ? temp : temp + "[" + i + "]" : i;
                 if (nextTemp !== "undefined" && i !== "undefined") {
-                    uristrings.push(typeof nextObj === "object" ? qq.obj2url(nextObj, nextTemp, true) : Object.prototype.toString.call(nextObj) === "[object Function]" ? encodeURIComponent(nextTemp) + "=" + encodeURIComponent(nextObj()) : encodeURIComponent(nextTemp) + "=" + encodeURIComponent(nextObj));
+                    uristrings.push(typeof nextObj === "object" ? miu.obj2url(nextObj, nextTemp, true) : Object.prototype.toString.call(nextObj) === "[object Function]" ? encodeURIComponent(nextTemp) + "=" + encodeURIComponent(nextObj()) : encodeURIComponent(nextTemp) + "=" + encodeURIComponent(nextObj));
                 }
             };
             if (!prefixDone && temp) {
                 prefix = /\?/.test(temp) ? /\?$/.test(temp) ? "" : "&" : "?";
                 uristrings.push(temp);
-                uristrings.push(qq.obj2url(obj));
+                uristrings.push(miu.obj2url(obj));
             } else if (Object.prototype.toString.call(obj) === "[object Array]" && typeof obj !== "undefined") {
-                qq.each(obj, function(idx, val) {
+                miu.each(obj, function(idx, val) {
                     add(val, idx);
                 });
             } else if (typeof obj !== "undefined" && obj !== null && typeof obj === "object") {
-                qq.each(obj, function(prop, val) {
+                miu.each(obj, function(prop, val) {
                     add(val, prop);
                 });
             } else {
@@ -490,15 +492,15 @@
                 return uristrings.join(prefix).replace(/^&/, "").replace(/%20/g, "+");
             }
         };
-        qq.obj2FormData = function(obj, formData, arrayKeyName) {
+        miu.obj2FormData = function(obj, formData, arrayKeyName) {
             if (!formData) {
                 formData = new FormData();
             }
-            qq.each(obj, function(key, val) {
+            miu.each(obj, function(key, val) {
                 key = arrayKeyName ? arrayKeyName + "[" + key + "]" : key;
-                if (qq.isObject(val)) {
-                    qq.obj2FormData(val, formData, key);
-                } else if (qq.isFunction(val)) {
+                if (miu.isObject(val)) {
+                    miu.obj2FormData(val, formData, key);
+                } else if (miu.isFunction(val)) {
                     formData.append(key, val());
                 } else {
                     formData.append(key, val);
@@ -506,12 +508,12 @@
             });
             return formData;
         };
-        qq.obj2Inputs = function(obj, form) {
+        miu.obj2Inputs = function(obj, form) {
             var input;
             if (!form) {
                 form = document.createElement("form");
             }
-            qq.obj2FormData(obj, {
+            miu.obj2FormData(obj, {
                 append: function(key, val) {
                     input = document.createElement("input");
                     input.setAttribute("name", key);
@@ -521,30 +523,30 @@
             });
             return form;
         };
-        qq.parseJson = function(json) {
-            if (window.JSON && qq.isFunction(JSON.parse)) {
+        miu.parseJson = function(json) {
+            if (window.JSON && miu.isFunction(JSON.parse)) {
                 return JSON.parse(json);
             } else {
                 return eval("(" + json + ")");
             }
         };
-        qq.getExtension = function(filename) {
+        miu.getExtension = function(filename) {
             var extIdx = filename.lastIndexOf(".") + 1;
             if (extIdx > 0) {
                 return filename.substr(extIdx, filename.length - extIdx);
             }
         };
-        qq.getFilename = function(blobOrFileInput) {
-            if (qq.isInput(blobOrFileInput)) {
+        miu.getFilename = function(blobOrFileInput) {
+            if (miu.isInput(blobOrFileInput)) {
                 return blobOrFileInput.value.replace(/.*(\/|\\)/, "");
-            } else if (qq.isFile(blobOrFileInput)) {
+            } else if (miu.isFile(blobOrFileInput)) {
                 if (blobOrFileInput.fileName !== null && blobOrFileInput.fileName !== undefined) {
                     return blobOrFileInput.fileName;
                 }
             }
             return blobOrFileInput.name;
         };
-        qq.DisposeSupport = function() {
+        miu.DisposeSupport = function() {
             var disposers = [];
             return {
                 dispose: function() {
@@ -558,7 +560,7 @@
                 },
                 attach: function() {
                     var args = arguments;
-                    this.addDisposer(qq(args[0]).attach.apply(this, Array.prototype.slice.call(arguments, 1)));
+                    this.addDisposer(miu(args[0]).attach.apply(this, Array.prototype.slice.call(arguments, 1)));
                 },
                 addDisposer: function(disposeFunction) {
                     disposers.push(disposeFunction);
@@ -570,23 +572,23 @@
         "use strict";
         if (typeof define === "function" && define.amd) {
             define(function() {
-                return qq;
+                return miu;
             });
         } else if (typeof module !== "undefined" && module.exports) {
-            module.exports = qq;
+            module.exports = miu;
         } else {
-            global.qq = qq;
+            global.miu = miu;
         }
     })();
     (function() {
         "use strict";
-        qq.Error = function(message) {
-            this.message = "[Fine Uploader " + qq.version + "] " + message;
+        miu.Error = function(message) {
+            this.message = "[Fine Uploader " + miu.version + "] " + message;
         };
-        qq.Error.prototype = new Error();
+        miu.Error.prototype = new Error();
     })();
-    qq.version = "5.14.2";
-    qq.supportedFeatures = function() {
+    miu.version = "5.14.2";
+    miu.supportedFeatures = function() {
         "use strict";
         var supportsUploading, supportsUploadingBlobs, supportsFileDrop, supportsAjaxFileUploading, supportsFolderDrop, supportsChunking, supportsResume, supportsUploadViaPaste, supportsUploadCors, supportsDeleteFileXdr, supportsDeleteFileCorsXhr, supportsDeleteFileCors, supportsFolderSelection, supportsImagePreviews, supportsUploadProgress;
         function testSupportsFileInputElement() {
@@ -594,7 +596,7 @@
             try {
                 tempInput = document.createElement("input");
                 tempInput.type = "file";
-                qq(tempInput).hide();
+                miu(tempInput).hide();
                 if (tempInput.disabled) {
                     supported = false;
                 }
@@ -604,14 +606,14 @@
             return supported;
         }
         function isChrome21OrHigher() {
-            return (qq.chrome() || qq.opera()) && navigator.userAgent.match(/Chrome\/[2][1-9]|Chrome\/[3-9][0-9]/) !== undefined;
+            return (miu.chrome() || miu.opera()) && navigator.userAgent.match(/Chrome\/[2][1-9]|Chrome\/[3-9][0-9]/) !== undefined;
         }
         function isChrome14OrHigher() {
-            return (qq.chrome() || qq.opera()) && navigator.userAgent.match(/Chrome\/[1][4-9]|Chrome\/[2-9][0-9]/) !== undefined;
+            return (miu.chrome() || miu.opera()) && navigator.userAgent.match(/Chrome\/[1][4-9]|Chrome\/[2-9][0-9]/) !== undefined;
         }
         function isCrossOriginXhrSupported() {
             if (window.XMLHttpRequest) {
-                var xhr = qq.createXhrInstance();
+                var xhr = miu.createXhrInstance();
                 return xhr.withCredentials !== undefined;
             }
             return false;
@@ -630,21 +632,21 @@
         }
         function isLocalStorageSupported() {
             try {
-                return !!window.localStorage && qq.isFunction(window.localStorage.setItem);
+                return !!window.localStorage && miu.isFunction(window.localStorage.setItem);
             } catch (error) {
                 return false;
             }
         }
         function isDragAndDropSupported() {
             var span = document.createElement("span");
-            return ("draggable" in span || "ondragstart" in span && "ondrop" in span) && !qq.android() && !qq.ios();
+            return ("draggable" in span || "ondragstart" in span && "ondrop" in span) && !miu.android() && !miu.ios();
         }
         supportsUploading = testSupportsFileInputElement();
-        supportsAjaxFileUploading = supportsUploading && qq.isXhrUploadSupported();
-        supportsUploadingBlobs = supportsAjaxFileUploading && !qq.androidStock();
+        supportsAjaxFileUploading = supportsUploading && miu.isXhrUploadSupported();
+        supportsUploadingBlobs = supportsAjaxFileUploading && !miu.androidStock();
         supportsFileDrop = supportsAjaxFileUploading && isDragAndDropSupported();
         supportsFolderDrop = supportsFileDrop && isChrome21OrHigher();
-        supportsChunking = supportsAjaxFileUploading && qq.isFileChunkingSupported();
+        supportsChunking = supportsAjaxFileUploading && miu.isFileChunkingSupported();
         supportsResume = supportsAjaxFileUploading && supportsChunking && isLocalStorageSupported();
         supportsUploadViaPaste = supportsAjaxFileUploading && isChrome14OrHigher();
         supportsUploadCors = supportsUploading && (window.postMessage !== undefined || supportsAjaxFileUploading);
@@ -655,7 +657,7 @@
         supportsImagePreviews = supportsAjaxFileUploading && window.FileReader !== undefined;
         supportsUploadProgress = function() {
             if (supportsAjaxFileUploading) {
-                return !qq.androidStock() && !qq.iosChrome();
+                return !miu.androidStock() && !miu.iosChrome();
             }
             return false;
         }();
@@ -678,8 +680,8 @@
             progressBar: supportsUploadProgress,
             resume: supportsResume,
             scaling: supportsImagePreviews && supportsUploadingBlobs,
-            tiffPreviews: qq.safari(),
-            unlimitedScaledImageSize: !qq.ios(),
+            tiffPreviews: miu.safari(),
+            unlimitedScaledImageSize: !miu.ios(),
             uploading: supportsUploading,
             uploadCors: supportsUploadCors,
             uploadCustomHeaders: supportsAjaxFileUploading,
@@ -687,14 +689,14 @@
             uploadViaPaste: supportsUploadViaPaste
         };
     }();
-    qq.isGenericPromise = function(maybePromise) {
+    miu.isGenericPromise = function(maybePromise) {
         "use strict";
-        return !!(maybePromise && maybePromise.then && qq.isFunction(maybePromise.then));
+        return !!(maybePromise && maybePromise.then && miu.isFunction(maybePromise.then));
     };
-    qq.Promise = function() {
+    miu.Promise = function() {
         "use strict";
         var successArgs, failureArgs, successCallbacks = [], failureCallbacks = [], doneCallbacks = [], state = 0;
-        qq.extend(this, {
+        miu.extend(this, {
             then: function(onSuccess, onFailure) {
                 if (state === 0) {
                     if (onSuccess) {
@@ -722,12 +724,12 @@
                 state = 1;
                 successArgs = arguments;
                 if (successCallbacks.length) {
-                    qq.each(successCallbacks, function(idx, callback) {
+                    miu.each(successCallbacks, function(idx, callback) {
                         callback.apply(null, successArgs);
                     });
                 }
                 if (doneCallbacks.length) {
-                    qq.each(doneCallbacks, function(idx, callback) {
+                    miu.each(doneCallbacks, function(idx, callback) {
                         callback.apply(null, successArgs);
                     });
                 }
@@ -737,12 +739,12 @@
                 state = -1;
                 failureArgs = arguments;
                 if (failureCallbacks.length) {
-                    qq.each(failureCallbacks, function(idx, callback) {
+                    miu.each(failureCallbacks, function(idx, callback) {
                         callback.apply(null, failureArgs);
                     });
                 }
                 if (doneCallbacks.length) {
-                    qq.each(doneCallbacks, function(idx, callback) {
+                    miu.each(doneCallbacks, function(idx, callback) {
                         callback.apply(null, failureArgs);
                     });
                 }
@@ -750,37 +752,37 @@
             }
         });
     };
-    qq.BlobProxy = function(referenceBlob, onCreate) {
+    miu.BlobProxy = function(referenceBlob, onCreate) {
         "use strict";
-        qq.extend(this, {
+        miu.extend(this, {
             referenceBlob: referenceBlob,
             create: function() {
                 return onCreate(referenceBlob);
             }
         });
     };
-    qq.UploadButton = function(o) {
+    miu.UploadButton = function(o) {
         "use strict";
-        var self = this, disposeSupport = new qq.DisposeSupport(), options = {
+        var self = this, disposeSupport = new miu.DisposeSupport(), options = {
             acceptFiles: null,
             element: null,
-            focusClass: "qq-upload-button-focus",
+            focusClass: "miu-upload-button-focus",
             folders: false,
-            hoverClass: "qq-upload-button-hover",
+            hoverClass: "miu-upload-button-hover",
             ios8BrowserCrashWorkaround: false,
             multiple: false,
-            name: "qqfile",
+            name: "miufile",
             onChange: function(input) {},
             title: null
         }, input, buttonId;
-        qq.extend(options, o);
-        buttonId = qq.getUniqueId();
+        miu.extend(options, o);
+        buttonId = miu.getUniqueId();
         function createInput() {
             var input = document.createElement("input");
-            input.setAttribute(qq.UploadButton.BUTTON_ID_ATTR_NAME, buttonId);
+            input.setAttribute(miu.UploadButton.BUTTON_ID_ATTR_NAME, buttonId);
             input.setAttribute("title", options.title);
             self.setMultiple(options.multiple, input);
-            if (options.folders && qq.supportedFeatures.folderSelection) {
+            if (options.folders && miu.supportedFeatures.folderSelection) {
                 input.setAttribute("webkitdirectory", "");
             }
             if (options.acceptFiles) {
@@ -788,18 +790,18 @@
             }
             input.setAttribute("type", "file");
             input.setAttribute("name", options.name);
-            qq(input).css({
+            miu(input).css({
                 position: "absolute",
                 right: 0,
                 top: 0,
                 fontFamily: "Arial",
-                fontSize: qq.ie() && !qq.ie8() ? "3500px" : "118px",
+                fontSize: miu.ie() && !miu.ie8() ? "3500px" : "118px",
                 margin: 0,
                 padding: 0,
                 cursor: "pointer",
                 opacity: 0
             });
-            !qq.ie7() && qq(input).css({
+            !miu.ie7() && miu(input).css({
                 height: "100%"
             });
             options.element.appendChild(input);
@@ -807,25 +809,25 @@
                 options.onChange(input);
             });
             disposeSupport.attach(input, "mouseover", function() {
-                qq(options.element).addClass(options.hoverClass);
+                miu(options.element).addClass(options.hoverClass);
             });
             disposeSupport.attach(input, "mouseout", function() {
-                qq(options.element).removeClass(options.hoverClass);
+                miu(options.element).removeClass(options.hoverClass);
             });
             disposeSupport.attach(input, "focus", function() {
-                qq(options.element).addClass(options.focusClass);
+                miu(options.element).addClass(options.focusClass);
             });
             disposeSupport.attach(input, "blur", function() {
-                qq(options.element).removeClass(options.focusClass);
+                miu(options.element).removeClass(options.focusClass);
             });
             return input;
         }
-        qq(options.element).css({
+        miu(options.element).css({
             position: "relative",
             overflow: "hidden",
             direction: "ltr"
         });
-        qq.extend(this, {
+        miu.extend(this, {
             getInput: function() {
                 return input;
             },
@@ -834,7 +836,7 @@
             },
             setMultiple: function(isMultiple, optInput) {
                 var input = optInput || this.getInput();
-                if (options.ios8BrowserCrashWorkaround && qq.ios8() && (qq.iosChrome() || qq.iosSafariWebView())) {
+                if (options.ios8BrowserCrashWorkaround && miu.ios8() && (miu.iosChrome() || miu.iosSafariWebView())) {
                     input.setAttribute("multiple", "");
                 } else {
                     if (isMultiple) {
@@ -851,23 +853,23 @@
             },
             reset: function() {
                 if (input.parentNode) {
-                    qq(input).remove();
+                    miu(input).remove();
                 }
-                qq(options.element).removeClass(options.focusClass);
+                miu(options.element).removeClass(options.focusClass);
                 input = null;
                 input = createInput();
             }
         });
         input = createInput();
     };
-    qq.UploadButton.BUTTON_ID_ATTR_NAME = "qq-button-id";
-    qq.UploadData = function(uploaderProxy) {
+    miu.UploadButton.BUTTON_ID_ATTR_NAME = "miu-button-id";
+    miu.UploadData = function(uploaderProxy) {
         "use strict";
         var data = [], byUuid = {}, byStatus = {}, byProxyGroupId = {}, byBatchId = {};
         function getDataByIds(idOrIds) {
-            if (qq.isArray(idOrIds)) {
+            if (miu.isArray(idOrIds)) {
                 var entries = [];
-                qq.each(idOrIds, function(idx, id) {
+                miu.each(idOrIds, function(idx, id) {
                     entries.push(data[id]);
                 });
                 return entries;
@@ -875,9 +877,9 @@
             return data[idOrIds];
         }
         function getDataByUuids(uuids) {
-            if (qq.isArray(uuids)) {
+            if (miu.isArray(uuids)) {
                 var entries = [];
-                qq.each(uuids, function(idx, uuid) {
+                miu.each(uuids, function(idx, uuid) {
                     entries.push(data[byUuid[uuid]]);
                 });
                 return entries;
@@ -886,19 +888,19 @@
         }
         function getDataByStatus(status) {
             var statusResults = [], statuses = [].concat(status);
-            qq.each(statuses, function(index, statusEnum) {
+            miu.each(statuses, function(index, statusEnum) {
                 var statusResultIndexes = byStatus[statusEnum];
                 if (statusResultIndexes !== undefined) {
-                    qq.each(statusResultIndexes, function(i, dataIndex) {
+                    miu.each(statusResultIndexes, function(i, dataIndex) {
                         statusResults.push(data[dataIndex]);
                     });
                 }
             });
             return statusResults;
         }
-        qq.extend(this, {
+        miu.extend(this, {
             addFile: function(spec) {
-                var status = spec.status || qq.status.SUBMITTING, id = data.push({
+                var status = spec.status || miu.status.SUBMITTING, id = data.push({
                     name: spec.name,
                     originalName: spec.name,
                     uuid: spec.uuid,
@@ -930,7 +932,7 @@
                 return id;
             },
             retrieve: function(optionalFilter) {
-                if (qq.isObject(optionalFilter) && data.length) {
+                if (miu.isObject(optionalFilter) && data.length) {
                     if (optionalFilter.id !== undefined) {
                         return getDataByIds(optionalFilter.id);
                     } else if (optionalFilter.uuid !== undefined) {
@@ -939,7 +941,7 @@
                         return getDataByStatus(optionalFilter.status);
                     }
                 } else {
-                    return qq.extend([], data, true);
+                    return miu.extend([], data, true);
                 }
             },
             reset: function() {
@@ -949,7 +951,7 @@
                 byBatchId = {};
             },
             setStatus: function(id, newStatus) {
-                var oldStatus = data[id].status, byStatusOldStatusIndex = qq.indexOf(byStatus[oldStatus], id);
+                var oldStatus = data[id].status, byStatusOldStatusIndex = miu.indexOf(byStatus[oldStatus], id);
                 byStatus[oldStatus].splice(byStatusOldStatusIndex, 1);
                 data[id].status = newStatus;
                 if (byStatus[newStatus] === undefined) {
@@ -986,7 +988,7 @@
             }
         });
     };
-    qq.status = {
+    miu.status = {
         SUBMITTING: "submitting",
         SUBMITTED: "submitted",
         REJECTED: "rejected",
@@ -1003,48 +1005,48 @@
     };
     (function() {
         "use strict";
-        qq.basePublicApi = {
+        miu.basePublicApi = {
             addBlobs: function(blobDataOrArray, params, endpoint) {
                 this.addFiles(blobDataOrArray, params, endpoint);
             },
             addInitialFiles: function(cannedFileList) {
                 var self = this;
-                qq.each(cannedFileList, function(index, cannedFile) {
+                miu.each(cannedFileList, function(index, cannedFile) {
                     self._addCannedFile(cannedFile);
                 });
             },
             addFiles: function(data, params, endpoint) {
                 this._maybeHandleIos8SafariWorkaround();
-                var batchId = this._storedIds.length === 0 ? qq.getUniqueId() : this._currentBatchId, processBlob = qq.bind(function(blob) {
+                var batchId = this._storedIds.length === 0 ? miu.getUniqueId() : this._currentBatchId, processBlob = miu.bind(function(blob) {
                     this._handleNewFile({
                         blob: blob,
                         name: this._options.blobs.defaultName
                     }, batchId, verifiedFiles);
-                }, this), processBlobData = qq.bind(function(blobData) {
+                }, this), processBlobData = miu.bind(function(blobData) {
                     this._handleNewFile(blobData, batchId, verifiedFiles);
-                }, this), processCanvas = qq.bind(function(canvas) {
-                    var blob = qq.canvasToBlob(canvas);
+                }, this), processCanvas = miu.bind(function(canvas) {
+                    var blob = miu.canvasToBlob(canvas);
                     this._handleNewFile({
                         blob: blob,
                         name: this._options.blobs.defaultName + ".png"
                     }, batchId, verifiedFiles);
-                }, this), processCanvasData = qq.bind(function(canvasData) {
-                    var normalizedQuality = canvasData.quality && canvasData.quality / 100, blob = qq.canvasToBlob(canvasData.canvas, canvasData.type, normalizedQuality);
+                }, this), processCanvasData = miu.bind(function(canvasData) {
+                    var normalizedQuality = canvasData.quality && canvasData.quality / 100, blob = miu.canvasToBlob(canvasData.canvas, canvasData.type, normalizedQuality);
                     this._handleNewFile({
                         blob: blob,
                         name: canvasData.name
                     }, batchId, verifiedFiles);
-                }, this), processFileOrInput = qq.bind(function(fileOrInput) {
-                    if (qq.isInput(fileOrInput) && qq.supportedFeatures.ajaxUploading) {
+                }, this), processFileOrInput = miu.bind(function(fileOrInput) {
+                    if (miu.isInput(fileOrInput) && miu.supportedFeatures.ajaxUploading) {
                         var files = Array.prototype.slice.call(fileOrInput.files), self = this;
-                        qq.each(files, function(idx, file) {
+                        miu.each(files, function(idx, file) {
                             self._handleNewFile(file, batchId, verifiedFiles);
                         });
                     } else {
                         this._handleNewFile(fileOrInput, batchId, verifiedFiles);
                     }
                 }, this), normalizeData = function() {
-                    if (qq.isFileList(data)) {
+                    if (miu.isFileList(data)) {
                         data = Array.prototype.slice.call(data);
                     }
                     data = [].concat(data);
@@ -1052,12 +1054,12 @@
                 this._currentBatchId = batchId;
                 if (data) {
                     normalizeData();
-                    qq.each(data, function(idx, fileContainer) {
-                        if (qq.isFileOrInput(fileContainer)) {
+                    miu.each(data, function(idx, fileContainer) {
+                        if (miu.isFileOrInput(fileContainer)) {
                             processFileOrInput(fileContainer);
-                        } else if (qq.isBlob(fileContainer)) {
+                        } else if (miu.isBlob(fileContainer)) {
                             processBlob(fileContainer);
-                        } else if (qq.isObject(fileContainer)) {
+                        } else if (miu.isObject(fileContainer)) {
                             if (fileContainer.blob && fileContainer.name) {
                                 processBlobData(fileContainer);
                             } else if (fileContainer.canvas && fileContainer.name) {
@@ -1078,8 +1080,8 @@
             },
             cancelAll: function() {
                 var storedIdsCopy = [], self = this;
-                qq.extend(storedIdsCopy, this._storedIds);
-                qq.each(storedIdsCopy, function(idx, storedFileId) {
+                miu.extend(storedIdsCopy, this._storedIds);
+                miu.each(storedIdsCopy, function(idx, storedFileId) {
                     self.cancel(storedFileId);
                 });
                 this._handler.cancelAll();
@@ -1091,15 +1093,15 @@
                 var uploadData = this._uploadData.retrieve({
                     id: id
                 });
-                if (!qq.supportedFeatures.pause || !this._options.chunking.enabled) {
+                if (!miu.supportedFeatures.pause || !this._options.chunking.enabled) {
                     return false;
                 }
-                if (uploadData.status === qq.status.PAUSED) {
-                    this.log(qq.format("Paused file ID {} ({}) will be continued.  Not paused.", id, this.getName(id)));
+                if (uploadData.status === miu.status.PAUSED) {
+                    this.log(miu.format("Paused file ID {} ({}) will be continued.  Not paused.", id, this.getName(id)));
                     this._uploadFile(id);
                     return true;
                 } else {
-                    this.log(qq.format("Ignoring continue for file ID {} ({}).  Not paused.", id, this.getName(id)), "error");
+                    this.log(miu.format("Ignoring continue for file ID {} ({}).  Not paused.", id, this.getName(id)), "error");
                 }
                 return false;
             },
@@ -1110,7 +1112,7 @@
                 return this._handler.isValid(fileOrBlobId);
             },
             drawThumbnail: function(fileId, imgOrCanvas, maxSize, fromServer, customResizeFunction) {
-                var promiseToReturn = new qq.Promise(), fileOrUrl, options;
+                var promiseToReturn = new miu.Promise(), fileOrUrl, options;
                 if (this._imageGenerator) {
                     fileOrUrl = this._thumbnailUrls[fileId];
                     options = {
@@ -1118,7 +1120,7 @@
                         maxSize: maxSize > 0 ? maxSize : null,
                         scale: maxSize > 0
                     };
-                    if (!fromServer && qq.supportedFeatures.imagePreviews) {
+                    if (!fromServer && miu.supportedFeatures.imagePreviews) {
                         fileOrUrl = this.getFile(fileId);
                     }
                     if (fileOrUrl == null) {
@@ -1155,7 +1157,7 @@
             },
             getInProgress: function() {
                 return this._uploadData.retrieve({
-                    status: [ qq.status.UPLOADING, qq.status.UPLOAD_RETRYING, qq.status.QUEUED ]
+                    status: [ miu.status.UPLOADING, miu.status.UPLOAD_RETRYING, miu.status.QUEUED ]
                 }).length;
             },
             getName: function(id) {
@@ -1202,27 +1204,27 @@
             },
             log: function(str, level) {
                 if (this._options.debug && (!level || level === "info")) {
-                    qq.log("[Fine Uploader " + qq.version + "] " + str);
+                    miu.log("[Fine Uploader " + miu.version + "] " + str);
                 } else if (level && level !== "info") {
-                    qq.log("[Fine Uploader " + qq.version + "] " + str, level);
+                    miu.log("[Fine Uploader " + miu.version + "] " + str, level);
                 }
             },
             pauseUpload: function(id) {
                 var uploadData = this._uploadData.retrieve({
                     id: id
                 });
-                if (!qq.supportedFeatures.pause || !this._options.chunking.enabled) {
+                if (!miu.supportedFeatures.pause || !this._options.chunking.enabled) {
                     return false;
                 }
-                if (qq.indexOf([ qq.status.UPLOADING, qq.status.UPLOAD_RETRYING ], uploadData.status) >= 0) {
+                if (miu.indexOf([ miu.status.UPLOADING, miu.status.UPLOAD_RETRYING ], uploadData.status) >= 0) {
                     if (this._handler.pause(id)) {
-                        this._uploadData.setStatus(id, qq.status.PAUSED);
+                        this._uploadData.setStatus(id, miu.status.PAUSED);
                         return true;
                     } else {
-                        this.log(qq.format("Unable to pause file ID {} ({}).", id, this.getName(id)), "error");
+                        this.log(miu.format("Unable to pause file ID {} ({}).", id, this.getName(id)), "error");
                     }
                 } else {
-                    this.log(qq.format("Ignoring pause for file ID {} ({}).  Not in progress.", id, this.getName(id)), "error");
+                    this.log(miu.format("Ignoring pause for file ID {} ({}).  Not in progress.", id, this.getName(id)), "error");
                 }
                 return false;
             },
@@ -1237,7 +1239,7 @@
                 this._retryTimeouts = [];
                 this._preventRetries = [];
                 this._thumbnailUrls = [];
-                qq.each(this._buttons, function(idx, button) {
+                miu.each(this._buttons, function(idx, button) {
                     button.reset();
                 });
                 this._paramsStore.reset();
@@ -1257,9 +1259,9 @@
             },
             scaleImage: function(id, specs) {
                 var self = this;
-                return qq.Scaler.prototype.scaleImage(id, specs, {
-                    log: qq.bind(self.log, self),
-                    getFile: qq.bind(self.getFile, self),
+                return miu.Scaler.prototype.scaleImage(id, specs, {
+                    log: miu.bind(self.log, self),
+                    getFile: miu.bind(self.getFile, self),
                     uploadData: self._uploadData
                 });
             },
@@ -1298,21 +1300,21 @@
                     id: id
                 });
                 if (!fileRecord) {
-                    throw new qq.Error(id + " is not a valid file ID.");
+                    throw new miu.Error(id + " is not a valid file ID.");
                 }
                 switch (newStatus) {
-                  case qq.status.DELETED:
+                  case miu.status.DELETED:
                     this._onDeleteComplete(id, null, false);
                     break;
 
-                  case qq.status.DELETE_FAILED:
+                  case miu.status.DELETE_FAILED:
                     this._onDeleteComplete(id, null, true);
                     break;
 
                   default:
                     var errorMessage = "Method setStatus called on '" + name + "' not implemented yet for " + newStatus;
                     this.log(errorMessage);
-                    throw new qq.Error(errorMessage);
+                    throw new miu.Error(errorMessage);
                 }
             },
             uploadStoredFiles: function() {
@@ -1323,14 +1325,14 @@
                 }
             }
         };
-        qq.basePrivateApi = {
+        miu.basePrivateApi = {
             _addCannedFile: function(sessionData) {
                 var self = this;
                 return this._uploadData.addFile({
                     uuid: sessionData.uuid,
                     name: sessionData.name,
                     size: sessionData.size,
-                    status: qq.status.UPLOAD_SUCCESSFUL,
+                    status: miu.status.UPLOAD_SUCCESSFUL,
                     onBeforeStatusChange: function(id) {
                         sessionData.deleteFileEndpoint && self.setDeleteFileEndpoint(sessionData.deleteFileEndpoint, id);
                         sessionData.deleteFileParams && self.setDeleteFileParams(sessionData.deleteFileParams, id);
@@ -1343,8 +1345,8 @@
                 });
             },
             _annotateWithButtonId: function(file, associatedInput) {
-                if (qq.isFile(file)) {
-                    file.qqButtonId = this._getButtonId(associatedInput);
+                if (miu.isFile(file)) {
+                    file.miuButtonId = this._getButtonId(associatedInput);
                 }
             },
             _batchError: function(message) {
@@ -1352,7 +1354,7 @@
             },
             _createDeleteHandler: function() {
                 var self = this;
-                return new qq.DeleteFileAjaxRequester({
+                return new miu.DeleteFileAjaxRequester({
                     method: this._options.deleteFile.method.toUpperCase(),
                     maxConnections: this._options.maxConnections,
                     uuidParamName: this._options.request.uuidName,
@@ -1360,7 +1362,7 @@
                     paramsStore: this._deleteFileParamsStore,
                     endpointStore: this._deleteFileEndpointStore,
                     cors: this._options.cors,
-                    log: qq.bind(self.log, self),
+                    log: miu.bind(self.log, self),
                     onDelete: function(id) {
                         self._onDelete(id);
                         self._options.callbacks.onDelete(id);
@@ -1373,15 +1375,15 @@
             },
             _createPasteHandler: function() {
                 var self = this;
-                return new qq.PasteSupport({
+                return new miu.PasteSupport({
                     targetElement: this._options.paste.targetElement,
                     callbacks: {
-                        log: qq.bind(self.log, self),
+                        log: miu.bind(self.log, self),
                         pasteReceived: function(blob) {
                             self._handleCheckedCallback({
                                 name: "onPasteReceived",
-                                callback: qq.bind(self._options.callbacks.onPasteReceived, self, blob),
-                                onSuccess: qq.bind(self._handlePasteSuccess, self, blob),
+                                callback: miu.bind(self._options.callbacks.onPasteReceived, self, blob),
+                                onSuccess: miu.bind(self._handlePasteSuccess, self, blob),
                                 identifier: "pasted image"
                             });
                         }
@@ -1390,21 +1392,21 @@
             },
             _createStore: function(initialValue, _readOnlyValues_) {
                 var store = {}, catchall = initialValue, perIdReadOnlyValues = {}, readOnlyValues = _readOnlyValues_, copy = function(orig) {
-                    if (qq.isObject(orig)) {
-                        return qq.extend({}, orig);
+                    if (miu.isObject(orig)) {
+                        return miu.extend({}, orig);
                     }
                     return orig;
                 }, getReadOnlyValues = function() {
-                    if (qq.isFunction(readOnlyValues)) {
+                    if (miu.isFunction(readOnlyValues)) {
                         return readOnlyValues();
                     }
                     return readOnlyValues;
                 }, includeReadOnlyValues = function(id, existing) {
-                    if (readOnlyValues && qq.isObject(existing)) {
-                        qq.extend(existing, getReadOnlyValues());
+                    if (readOnlyValues && miu.isObject(existing)) {
+                        miu.extend(existing, getReadOnlyValues());
                     }
                     if (perIdReadOnlyValues[id]) {
-                        qq.extend(existing, perIdReadOnlyValues[id]);
+                        miu.extend(existing, perIdReadOnlyValues[id]);
                     }
                 };
                 return {
@@ -1427,17 +1429,17 @@
                         return copy(values);
                     },
                     addReadOnly: function(id, values) {
-                        if (qq.isObject(store)) {
+                        if (miu.isObject(store)) {
                             if (id === null) {
-                                if (qq.isFunction(values)) {
+                                if (miu.isFunction(values)) {
                                     readOnlyValues = values;
                                 } else {
                                     readOnlyValues = readOnlyValues || {};
-                                    qq.extend(readOnlyValues, values);
+                                    miu.extend(readOnlyValues, values);
                                 }
                             } else {
                                 perIdReadOnlyValues[id] = perIdReadOnlyValues[id] || {};
-                                qq.extend(perIdReadOnlyValues[id], values);
+                                miu.extend(perIdReadOnlyValues[id], values);
                             }
                         }
                     },
@@ -1453,7 +1455,7 @@
             },
             _createUploadDataTracker: function() {
                 var self = this;
-                return new qq.UploadData({
+                return new miu.UploadData({
                     getName: function(id) {
                         return self.getName(id);
                     },
@@ -1478,8 +1480,8 @@
             _createUploadButton: function(spec) {
                 var self = this, acceptFiles = spec.accept || this._options.validation.acceptFiles, allowedExtensions = spec.allowedExtensions || this._options.validation.allowedExtensions, button;
                 function allowMultiple() {
-                    if (qq.supportedFeatures.ajaxUploading) {
-                        if (self._options.workarounds.iosEmptyVideos && qq.ios() && !qq.ios6() && self._isAllowedExtension(allowedExtensions, ".mov")) {
+                    if (miu.supportedFeatures.ajaxUploading) {
+                        if (self._options.workarounds.iosEmptyVideos && miu.ios() && !miu.ios6() && self._isAllowedExtension(allowedExtensions, ".mov")) {
                             return false;
                         }
                         if (spec.multiple === undefined) {
@@ -1489,7 +1491,7 @@
                     }
                     return false;
                 }
-                button = new qq.UploadButton({
+                button = new miu.UploadButton({
                     acceptFiles: acceptFiles,
                     element: spec.element,
                     focusClass: this._options.classes.buttonFocus,
@@ -1519,7 +1521,7 @@
                     chunking: this._options.chunking,
                     resume: this._options.resume,
                     blobs: this._options.blobs,
-                    log: qq.bind(self.log, self),
+                    log: miu.bind(self.log, self),
                     preventRetryParam: this._options.retry.preventRetryResponseProperty,
                     onProgress: function(id, name, loaded, total) {
                         if (loaded < 0 || total < 0) {
@@ -1544,11 +1546,11 @@
                         var status = self.getUploads({
                             id: id
                         }).status, retVal;
-                        if (status === qq.status.UPLOAD_SUCCESSFUL || status === qq.status.UPLOAD_FAILED) {
+                        if (status === miu.status.UPLOAD_SUCCESSFUL || status === miu.status.UPLOAD_FAILED) {
                             return;
                         }
                         retVal = self._onComplete(id, name, result, xhr);
-                        if (retVal instanceof qq.Promise) {
+                        if (retVal instanceof miu.Promise) {
                             retVal.done(function() {
                                 self._options.callbacks.onComplete(id, name, result, xhr);
                             });
@@ -1557,10 +1559,10 @@
                         }
                     },
                     onCancel: function(id, name, cancelFinalizationEffort) {
-                        var promise = new qq.Promise();
+                        var promise = new miu.Promise();
                         self._handleCheckedCallback({
                             name: "onCancel",
-                            callback: qq.bind(self._options.callbacks.onCancel, self, id, name),
+                            callback: miu.bind(self._options.callbacks.onCancel, self, id, name),
                             onFailure: promise.failure,
                             onSuccess: function() {
                                 cancelFinalizationEffort.then(function() {
@@ -1572,7 +1574,7 @@
                         });
                         return promise;
                     },
-                    onUploadPrep: qq.bind(this._onUploadPrep, this),
+                    onUploadPrep: miu.bind(this._onUploadPrep, this),
                     onUpload: function(id, name) {
                         self._onUpload(id, name);
                         self._options.callbacks.onUpload(id, name);
@@ -1594,10 +1596,10 @@
                         self.log("Server requested UUID change from '" + self.getUuid(id) + "' to '" + newUuid + "'");
                         self.setUuid(id, newUuid);
                     },
-                    getName: qq.bind(self.getName, self),
-                    getUuid: qq.bind(self.getUuid, self),
-                    getSize: qq.bind(self.getSize, self),
-                    setSize: qq.bind(self._setSize, self),
+                    getName: miu.bind(self.getName, self),
+                    getUuid: miu.bind(self.getUuid, self),
+                    getSize: miu.bind(self.getSize, self),
+                    setSize: miu.bind(self._setSize, self),
                     getDataByUuid: function(uuid) {
                         return self.getUploads({
                             uuid: uuid
@@ -1607,25 +1609,25 @@
                         var status = self.getUploads({
                             id: id
                         }).status;
-                        return status === qq.status.QUEUED || status === qq.status.SUBMITTED || status === qq.status.UPLOAD_RETRYING || status === qq.status.PAUSED;
+                        return status === miu.status.QUEUED || status === miu.status.SUBMITTED || status === miu.status.UPLOAD_RETRYING || status === miu.status.PAUSED;
                     },
                     getIdsInProxyGroup: self._uploadData.getIdsInProxyGroup,
                     getIdsInBatch: self._uploadData.getIdsInBatch
                 };
-                qq.each(this._options.request, function(prop, val) {
+                miu.each(this._options.request, function(prop, val) {
                     options[prop] = val;
                 });
                 options.customHeaders = this._customHeadersStore;
                 if (additionalOptions) {
-                    qq.each(additionalOptions, function(key, val) {
+                    miu.each(additionalOptions, function(key, val) {
                         options[key] = val;
                     });
                 }
-                return new qq.UploadHandlerController(options, namespace);
+                return new miu.UploadHandlerController(options, namespace);
             },
             _fileOrBlobRejected: function(id) {
                 this._netUploadedOrQueued--;
-                this._uploadData.setStatus(id, qq.status.REJECTED);
+                this._uploadData.setStatus(id, miu.status.REJECTED);
             },
             _formatSize: function(bytes) {
                 if (bytes === 0) {
@@ -1641,15 +1643,15 @@
             _generateExtraButtonSpecs: function() {
                 var self = this;
                 this._extraButtonSpecs = {};
-                qq.each(this._options.extraButtons, function(idx, extraButtonOptionEntry) {
-                    var multiple = extraButtonOptionEntry.multiple, validation = qq.extend({}, self._options.validation, true), extraButtonSpec = qq.extend({}, extraButtonOptionEntry);
+                miu.each(this._options.extraButtons, function(idx, extraButtonOptionEntry) {
+                    var multiple = extraButtonOptionEntry.multiple, validation = miu.extend({}, self._options.validation, true), extraButtonSpec = miu.extend({}, extraButtonOptionEntry);
                     if (multiple === undefined) {
                         multiple = self._options.multiple;
                     }
                     if (extraButtonSpec.validation) {
-                        qq.extend(validation, extraButtonOptionEntry.validation, true);
+                        miu.extend(validation, extraButtonOptionEntry.validation, true);
                     }
-                    qq.extend(extraButtonSpec, {
+                    miu.extend(extraButtonSpec, {
                         multiple: multiple,
                         validation: validation
                     }, true);
@@ -1666,30 +1668,30 @@
             },
             _getButtonId: function(buttonOrFileInputOrFile) {
                 var inputs, fileInput, fileBlobOrInput = buttonOrFileInputOrFile;
-                if (fileBlobOrInput instanceof qq.BlobProxy) {
+                if (fileBlobOrInput instanceof miu.BlobProxy) {
                     fileBlobOrInput = fileBlobOrInput.referenceBlob;
                 }
-                if (fileBlobOrInput && !qq.isBlob(fileBlobOrInput)) {
-                    if (qq.isFile(fileBlobOrInput)) {
-                        return fileBlobOrInput.qqButtonId;
+                if (fileBlobOrInput && !miu.isBlob(fileBlobOrInput)) {
+                    if (miu.isFile(fileBlobOrInput)) {
+                        return fileBlobOrInput.miuButtonId;
                     } else if (fileBlobOrInput.tagName.toLowerCase() === "input" && fileBlobOrInput.type.toLowerCase() === "file") {
-                        return fileBlobOrInput.getAttribute(qq.UploadButton.BUTTON_ID_ATTR_NAME);
+                        return fileBlobOrInput.getAttribute(miu.UploadButton.BUTTON_ID_ATTR_NAME);
                     }
                     inputs = fileBlobOrInput.getElementsByTagName("input");
-                    qq.each(inputs, function(idx, input) {
+                    miu.each(inputs, function(idx, input) {
                         if (input.getAttribute("type") === "file") {
                             fileInput = input;
                             return false;
                         }
                     });
                     if (fileInput) {
-                        return fileInput.getAttribute(qq.UploadButton.BUTTON_ID_ATTR_NAME);
+                        return fileInput.getAttribute(miu.UploadButton.BUTTON_ID_ATTR_NAME);
                     }
                 }
             },
             _getNotFinished: function() {
                 return this._uploadData.retrieve({
-                    status: [ qq.status.UPLOADING, qq.status.UPLOAD_RETRYING, qq.status.QUEUED, qq.status.SUBMITTING, qq.status.SUBMITTED, qq.status.PAUSED ]
+                    status: [ miu.status.UPLOADING, miu.status.UPLOAD_RETRYING, miu.status.QUEUED, miu.status.SUBMITTING, miu.status.SUBMITTED, miu.status.PAUSED ]
                 }).length;
             },
             _getValidationBase: function(buttonId) {
@@ -1697,9 +1699,9 @@
                 return extraButtonSpec ? extraButtonSpec.validation : this._options.validation;
             },
             _getValidationDescriptor: function(fileWrapper) {
-                if (fileWrapper.file instanceof qq.BlobProxy) {
+                if (fileWrapper.file instanceof miu.BlobProxy) {
                     return {
-                        name: qq.getFilename(fileWrapper.file.referenceBlob),
+                        name: miu.getFilename(fileWrapper.file.referenceBlob),
                         size: fileWrapper.file.referenceBlob.size
                     };
                 }
@@ -1714,13 +1716,13 @@
             },
             _getValidationDescriptors: function(fileWrappers) {
                 var self = this, fileDescriptors = [];
-                qq.each(fileWrappers, function(idx, fileWrapper) {
+                miu.each(fileWrappers, function(idx, fileWrapper) {
                     fileDescriptors.push(self._getValidationDescriptor(fileWrapper));
                 });
                 return fileDescriptors;
             },
             _handleCameraAccess: function() {
-                if (this._options.camera.ios && qq.ios()) {
+                if (this._options.camera.ios && miu.ios()) {
                     var acceptIosCamera = "image/*;capture=camera", button = this._options.camera.button, buttonId = button ? this._getButtonId(button) : this._defaultButtonId, optionRoot = this._options;
                     if (buttonId && buttonId !== this._defaultButtonId) {
                         optionRoot = this._extraButtonSpecs[buttonId];
@@ -1731,7 +1733,7 @@
                     } else {
                         optionRoot.validation.acceptFiles += "," + acceptIosCamera;
                     }
-                    qq.each(this._buttons, function(idx, button) {
+                    miu.each(this._buttons, function(idx, button) {
                         if (button.getButtonId() === buttonId) {
                             button.setMultiple(optionRoot.multiple);
                             button.setAcceptFiles(optionRoot.acceptFiles);
@@ -1742,7 +1744,7 @@
             },
             _handleCheckedCallback: function(details) {
                 var self = this, callbackRetVal = details.callback();
-                if (qq.isGenericPromise(callbackRetVal)) {
+                if (miu.isGenericPromise(callbackRetVal)) {
                     this.log(details.name + " - waiting for " + details.name + " promise to be fulfilled for " + details.identifier);
                     return callbackRetVal.then(function(successParam) {
                         self.log(details.name + " promise success for " + details.identifier);
@@ -1769,8 +1771,8 @@
                 return callbackRetVal;
             },
             _handleNewFile: function(file, batchId, newFileWrapperList) {
-                var self = this, uuid = qq.getUniqueId(), size = -1, name = qq.getFilename(file), actualFile = file.blob || file, handler = this._customNewFileHandler ? this._customNewFileHandler : qq.bind(self._handleNewFileGeneric, self);
-                if (!qq.isInput(actualFile) && actualFile.size >= 0) {
+                var self = this, uuid = miu.getUniqueId(), size = -1, name = miu.getFilename(file), actualFile = file.blob || file, handler = this._customNewFileHandler ? this._customNewFileHandler : miu.bind(self._handleNewFileGeneric, self);
+                if (!miu.isInput(actualFile) && actualFile.size >= 0) {
                     size = actualFile.size;
                 }
                 handler(actualFile, name, uuid, size, newFileWrapperList, batchId, this._options.request.uuidName, {
@@ -1812,18 +1814,18 @@
             _handleDeleteSuccess: function(id) {
                 if (this.getUploads({
                     id: id
-                }).status !== qq.status.DELETED) {
+                }).status !== miu.status.DELETED) {
                     var name = this.getName(id);
                     this._netUploadedOrQueued--;
                     this._netUploaded--;
                     this._handler.expunge(id);
-                    this._uploadData.setStatus(id, qq.status.DELETED);
+                    this._uploadData.setStatus(id, miu.status.DELETED);
                     this.log("Delete request for '" + name + "' has succeeded.");
                 }
             },
             _handleDeleteFailed: function(id, xhrOrXdr) {
                 var name = this.getName(id);
-                this._uploadData.setStatus(id, qq.status.DELETE_FAILED);
+                this._uploadData.setStatus(id, miu.status.DELETE_FAILED);
                 this.log("Delete request for '" + name + "' has failed.", "error");
                 if (!xhrOrXdr || xhrOrXdr.withCredentials === undefined) {
                     this._options.callbacks.onError(id, name, "Delete request failed", xhrOrXdr);
@@ -1843,7 +1845,7 @@
                 this._extraButtonSpecs[button.getButtonId()] = spec;
             },
             _initFormSupportAndParams: function() {
-                this._formSupport = qq.FormSupport && new qq.FormSupport(this._options.form, qq.bind(this.uploadStoredFiles, this), qq.bind(this.log, this));
+                this._formSupport = miu.FormSupport && new miu.FormSupport(this._options.form, miu.bind(this.uploadStoredFiles, this), miu.bind(this.log, this));
                 if (this._formSupport && this._formSupport.attachedToForm) {
                     this._paramsStore = this._createStore(this._options.request.params, this._formSupport.getFormInputsAsObject);
                     this._options.autoUpload = this._formSupport.newAutoUpload;
@@ -1855,14 +1857,14 @@
                 }
             },
             _isDeletePossible: function() {
-                if (!qq.DeleteFileAjaxRequester || !this._options.deleteFile.enabled) {
+                if (!miu.DeleteFileAjaxRequester || !this._options.deleteFile.enabled) {
                     return false;
                 }
                 if (this._options.cors.expected) {
-                    if (qq.supportedFeatures.deleteFileCorsXhr) {
+                    if (miu.supportedFeatures.deleteFileCorsXhr) {
                         return true;
                     }
-                    if (qq.supportedFeatures.deleteFileCorsXdr && this._options.cors.allowXdr) {
+                    if (miu.supportedFeatures.deleteFileCorsXdr && this._options.cors.allowXdr) {
                         return true;
                     }
                     return false;
@@ -1874,8 +1876,8 @@
                 if (!allowed.length) {
                     return true;
                 }
-                qq.each(allowed, function(idx, allowedExt) {
-                    if (qq.isString(allowedExt)) {
+                miu.each(allowed, function(idx, allowedExt) {
+                    if (miu.isString(allowedExt)) {
                         var extRegex = new RegExp("\\." + allowedExt + "$", "i");
                         if (fileName.match(extRegex) != null) {
                             valid = true;
@@ -1890,8 +1892,8 @@
                 function r(name, replacement) {
                     message = message.replace(name, replacement);
                 }
-                qq.each(validationBase.allowedExtensions, function(idx, allowedExtension) {
-                    if (qq.isString(allowedExtension)) {
+                miu.each(validationBase.allowedExtensions, function(idx, allowedExtension) {
+                    if (miu.isString(allowedExtension)) {
                         allowedExtensions.push(allowedExtension);
                     }
                 });
@@ -1902,7 +1904,7 @@
                 r("{minSizeLimit}", this._formatSize(validationBase.minSizeLimit));
                 placeholderMatch = message.match(/(\{\w+\})/g);
                 if (placeholderMatch !== null) {
-                    qq.each(placeholderMatch, function(idx, placeholder) {
+                    miu.each(placeholderMatch, function(idx, placeholder) {
                         r(placeholder, names[idx]);
                     });
                 }
@@ -1912,7 +1914,7 @@
             _manualRetry: function(id, callback) {
                 if (this._onBeforeManualRetry(id)) {
                     this._netUploadedOrQueued++;
-                    this._uploadData.setStatus(id, qq.status.UPLOAD_RETRYING);
+                    this._uploadData.setStatus(id, miu.status.UPLOAD_RETRYING);
                     if (callback) {
                         callback(id);
                     } else {
@@ -1923,9 +1925,9 @@
             },
             _maybeAllComplete: function(id, status) {
                 var self = this, notFinished = this._getNotFinished();
-                if (status === qq.status.UPLOAD_SUCCESSFUL) {
+                if (status === miu.status.UPLOAD_SUCCESSFUL) {
                     this._succeededSinceLastAllComplete.push(id);
-                } else if (status === qq.status.UPLOAD_FAILED) {
+                } else if (status === miu.status.UPLOAD_FAILED) {
                     this._failedSinceLastAllComplete.push(id);
                 }
                 if (notFinished === 0 && (this._succeededSinceLastAllComplete.length || this._failedSinceLastAllComplete.length)) {
@@ -1936,11 +1938,11 @@
             },
             _maybeHandleIos8SafariWorkaround: function() {
                 var self = this;
-                if (this._options.workarounds.ios8SafariUploads && qq.ios800() && qq.iosSafari()) {
+                if (this._options.workarounds.ios8SafariUploads && miu.ios800() && miu.iosSafari()) {
                     setTimeout(function() {
                         window.alert(self._options.messages.unsupportedBrowserIos8Safari);
                     }, 0);
-                    throw new qq.Error(this._options.messages.unsupportedBrowserIos8Safari);
+                    throw new miu.Error(this._options.messages.unsupportedBrowserIos8Safari);
                 }
             },
             _maybeParseAndSendUploadError: function(id, name, response, xhr) {
@@ -1961,9 +1963,9 @@
                             var validationDescriptor = self._getValidationDescriptor(items[index]), buttonId = self._getButtonId(items[index].file), button = self._getButton(buttonId);
                             self._handleCheckedCallback({
                                 name: "onValidate",
-                                callback: qq.bind(self._options.callbacks.onValidate, self, validationDescriptor, button),
-                                onSuccess: qq.bind(self._onValidateCallbackSuccess, self, items, index, params, endpoint),
-                                onFailure: qq.bind(self._onValidateCallbackFailure, self, items, index, params, endpoint),
+                                callback: miu.bind(self._options.callbacks.onValidate, self, validationDescriptor, button),
+                                onSuccess: miu.bind(self._onValidateCallbackSuccess, self, items, index, params, endpoint),
+                                onFailure: miu.bind(self._onValidateCallbackFailure, self, items, index, params, endpoint),
                                 identifier: "Item '" + validationDescriptor.name + "', size: " + validationDescriptor.size
                             });
                         }, 0);
@@ -1976,7 +1978,7 @@
             },
             _onAllComplete: function(successful, failed) {
                 this._totalProgress && this._totalProgress.onAllComplete(successful, failed, this._preventRetries);
-                this._options.callbacks.onAllComplete(qq.extend([], successful), qq.extend([], failed));
+                this._options.callbacks.onAllComplete(miu.extend([], successful), miu.extend([], failed));
                 this._succeededSinceLastAllComplete = [];
                 this._failedSinceLastAllComplete = [];
             },
@@ -1988,7 +1990,7 @@
                     self._maybeParseAndSendUploadError.apply(self, arguments);
                     self._options.callbacks.onAutoRetry(id, name, self._autoRetries[id]);
                     self._onBeforeAutoRetry(id, name);
-                    self._uploadData.setStatus(id, qq.status.UPLOAD_RETRYING);
+                    self._uploadData.setStatus(id, miu.status.UPLOAD_RETRYING);
                     self._retryTimeouts[id] = setTimeout(function() {
                         self.log("Starting retry for " + name + "...");
                         if (callback) {
@@ -2027,16 +2029,16 @@
             _onCancel: function(id, name) {
                 this._netUploadedOrQueued--;
                 clearTimeout(this._retryTimeouts[id]);
-                var storedItemIndex = qq.indexOf(this._storedIds, id);
+                var storedItemIndex = miu.indexOf(this._storedIds, id);
                 if (!this._options.autoUpload && storedItemIndex >= 0) {
                     this._storedIds.splice(storedItemIndex, 1);
                 }
-                this._uploadData.setStatus(id, qq.status.CANCELED);
+                this._uploadData.setStatus(id, miu.status.CANCELED);
             },
             _onComplete: function(id, name, result, xhr) {
                 if (!result.success) {
                     this._netUploadedOrQueued--;
-                    this._uploadData.setStatus(id, qq.status.UPLOAD_FAILED);
+                    this._uploadData.setStatus(id, miu.status.UPLOAD_FAILED);
                     if (result[this._options.retry.preventRetryResponseProperty] === true) {
                         this._preventRetries[id] = true;
                     }
@@ -2045,13 +2047,13 @@
                         this._thumbnailUrls[id] = result.thumbnailUrl;
                     }
                     this._netUploaded++;
-                    this._uploadData.setStatus(id, qq.status.UPLOAD_SUCCESSFUL);
+                    this._uploadData.setStatus(id, miu.status.UPLOAD_SUCCESSFUL);
                 }
                 this._maybeParseAndSendUploadError(id, name, result, xhr);
                 return result.success ? true : false;
             },
             _onDelete: function(id) {
-                this._uploadData.setStatus(id, qq.status.DELETING);
+                this._uploadData.setStatus(id, miu.status.DELETING);
             },
             _onDeleteComplete: function(id, xhrOrXdr, isError) {
                 var name = this.getName(id);
@@ -2063,7 +2065,7 @@
             },
             _onInputChange: function(input) {
                 var fileIndex;
-                if (qq.supportedFeatures.ajaxUploading) {
+                if (miu.supportedFeatures.ajaxUploading) {
                     for (fileIndex = 0; fileIndex < input.files.length; fileIndex++) {
                         this._annotateWithButtonId(input.files[fileIndex], input);
                     }
@@ -2071,7 +2073,7 @@
                 } else if (input.value.length > 0) {
                     this.addFiles(input);
                 }
-                qq.each(this._buttons, function(idx, button) {
+                miu.each(this._buttons, function(idx, button) {
                     button.reset();
                 });
             },
@@ -2081,7 +2083,7 @@
             _onSubmit: function(id, name) {},
             _onSubmitCallbackSuccess: function(id, name) {
                 this._onSubmit.apply(this, arguments);
-                this._uploadData.setStatus(id, qq.status.SUBMITTED);
+                this._uploadData.setStatus(id, miu.status.SUBMITTED);
                 this._onSubmitted.apply(this, arguments);
                 if (this._options.autoUpload) {
                     this._options.callbacks.onSubmitted.apply(this, arguments);
@@ -2094,13 +2096,13 @@
             _onSubmitDelete: function(id, onSuccessCallback, additionalMandatedParams) {
                 var uuid = this.getUuid(id), adjustedOnSuccessCallback;
                 if (onSuccessCallback) {
-                    adjustedOnSuccessCallback = qq.bind(onSuccessCallback, this, id, uuid, additionalMandatedParams);
+                    adjustedOnSuccessCallback = miu.bind(onSuccessCallback, this, id, uuid, additionalMandatedParams);
                 }
                 if (this._isDeletePossible()) {
                     this._handleCheckedCallback({
                         name: "onSubmitDelete",
-                        callback: qq.bind(this._options.callbacks.onSubmitDelete, this, id),
-                        onSuccess: adjustedOnSuccessCallback || qq.bind(this._deleteHandler.sendDelete, this, id, uuid, additionalMandatedParams),
+                        callback: miu.bind(this._options.callbacks.onSubmitDelete, this, id),
+                        onSuccess: adjustedOnSuccessCallback || miu.bind(this._deleteHandler.sendDelete, this, id, uuid, additionalMandatedParams),
                         identifier: id
                     });
                     return true;
@@ -2115,17 +2117,17 @@
             },
             _onUploadPrep: function(id) {},
             _onUpload: function(id, name) {
-                this._uploadData.setStatus(id, qq.status.UPLOADING);
+                this._uploadData.setStatus(id, miu.status.UPLOADING);
             },
             _onUploadChunk: function(id, chunkData) {},
             _onUploadStatusChange: function(id, oldStatus, newStatus) {
-                if (newStatus === qq.status.PAUSED) {
+                if (newStatus === miu.status.PAUSED) {
                     clearTimeout(this._retryTimeouts[id]);
                 }
             },
             _onValidateBatchCallbackFailure: function(fileWrappers) {
                 var self = this;
-                qq.each(fileWrappers, function(idx, fileWrapper) {
+                miu.each(fileWrappers, function(idx, fileWrapper) {
                     self._fileOrBlobRejected(fileWrapper.id);
                 });
             },
@@ -2135,9 +2137,9 @@
                     if (items.length > 0) {
                         this._handleCheckedCallback({
                             name: "onValidate",
-                            callback: qq.bind(this._options.callbacks.onValidate, this, validationDescriptors[0], button),
-                            onSuccess: qq.bind(this._onValidateCallbackSuccess, this, items, 0, params, endpoint),
-                            onFailure: qq.bind(this._onValidateCallbackFailure, this, items, 0, params, endpoint),
+                            callback: miu.bind(this._options.callbacks.onValidate, this, validationDescriptors[0], button),
+                            onSuccess: miu.bind(this._onValidateCallbackSuccess, this, items, 0, params, endpoint),
+                            onFailure: miu.bind(this._onValidateCallbackFailure, this, items, 0, params, endpoint),
                             identifier: "Item '" + items[0].file.name + "', size: " + items[0].file.size
                         });
                     } else {
@@ -2171,9 +2173,9 @@
                 var validationDescriptors = this._getValidationDescriptors(items), buttonId = this._getButtonId(items[0].file), button = this._getButton(buttonId);
                 this._handleCheckedCallback({
                     name: "onValidateBatch",
-                    callback: qq.bind(this._options.callbacks.onValidateBatch, this, validationDescriptors, button),
-                    onSuccess: qq.bind(this._onValidateBatchCallbackSuccess, this, validationDescriptors, items, params, endpoint, button),
-                    onFailure: qq.bind(this._onValidateBatchCallbackFailure, this, items),
+                    callback: miu.bind(this._options.callbacks.onValidateBatch, this, validationDescriptors, button),
+                    onSuccess: miu.bind(this._onValidateBatchCallbackSuccess, this, validationDescriptors, items, params, endpoint, button),
+                    onFailure: miu.bind(this._onValidateBatchCallbackFailure, this, items),
                     identifier: "batch validation"
                 });
             },
@@ -2189,14 +2191,14 @@
             },
             _refreshSessionData: function() {
                 var self = this, options = this._options.session;
-                if (qq.Session && this._options.session.endpoint != null) {
+                if (miu.Session && this._options.session.endpoint != null) {
                     if (!this._session) {
-                        qq.extend(options, {
+                        miu.extend(options, {
                             cors: this._options.cors
                         });
-                        options.log = qq.bind(this.log, this);
-                        options.addFileRecord = qq.bind(this._addCannedFile, this);
-                        this._session = new qq.Session(options);
+                        options.log = miu.bind(this.log, this);
+                        options.addFileRecord = miu.bind(this._addCannedFile, this);
+                        this._session = new miu.Session(options);
                     }
                     setTimeout(function() {
                         self._session.refresh().then(function(response, xhrOrXdr) {
@@ -2217,7 +2219,7 @@
                 var uploadData = this._uploadData.retrieve({
                     id: id
                 });
-                if (!this._preventRetries[id] && this._options.retry.enableAuto && uploadData.status !== qq.status.PAUSED) {
+                if (!this._preventRetries[id] && this._options.retry.enableAuto && uploadData.status !== miu.status.PAUSED) {
                     if (this._autoRetries[id] === undefined) {
                         this._autoRetries[id] = 0;
                     }
@@ -2233,8 +2235,8 @@
             },
             _trackButton: function(id) {
                 var buttonId;
-                if (qq.supportedFeatures.ajaxUploading) {
-                    buttonId = this._handler.getFile(id).qqButtonId;
+                if (miu.supportedFeatures.ajaxUploading) {
+                    buttonId = this._handler.getFile(id).miuButtonId;
                 } else {
                     buttonId = this._getButtonId(this._handler.getInput(id));
                 }
@@ -2244,7 +2246,7 @@
             },
             _updateFormSupportAndParams: function(formElementOrId) {
                 this._options.form.element = formElementOrId;
-                this._formSupport = qq.FormSupport && new qq.FormSupport(this._options.form, qq.bind(this.uploadStoredFiles, this), qq.bind(this.log, this));
+                this._formSupport = miu.FormSupport && new miu.FormSupport(this._options.form, miu.bind(this.uploadStoredFiles, this), miu.bind(this.log, this));
                 if (this._formSupport && this._formSupport.attachedToForm) {
                     this._paramsStore.addReadOnly(null, this._formSupport.getFormInputsAsObject);
                     this._options.autoUpload = this._formSupport.newAutoUpload;
@@ -2263,15 +2265,15 @@
                 }
                 this._handleCheckedCallback({
                     name: "onSubmit",
-                    callback: qq.bind(this._options.callbacks.onSubmit, this, id, name),
-                    onSuccess: qq.bind(this._onSubmitCallbackSuccess, this, id, name),
-                    onFailure: qq.bind(this._fileOrBlobRejected, this, id, name),
+                    callback: miu.bind(this._options.callbacks.onSubmit, this, id, name),
+                    onSuccess: miu.bind(this._onSubmitCallbackSuccess, this, id, name),
+                    onFailure: miu.bind(this._fileOrBlobRejected, this, id, name),
                     identifier: id
                 });
             },
             _uploadFile: function(id) {
                 if (!this._handler.upload(id)) {
-                    this._uploadData.setStatus(id, qq.status.QUEUED);
+                    this._uploadData.setStatus(id, miu.status.QUEUED);
                 }
             },
             _uploadStoredFiles: function() {
@@ -2281,10 +2283,10 @@
                     this._uploadFile(idToUpload);
                 }
                 stillSubmitting = this.getUploads({
-                    status: qq.status.SUBMITTING
+                    status: miu.status.SUBMITTING
                 }).length;
                 if (stillSubmitting) {
-                    qq.log("Still waiting for " + stillSubmitting + " files to clear submit queue. Will re-parse stored IDs array shortly.");
+                    miu.log("Still waiting for " + stillSubmitting + " files to clear submit queue. Will re-parse stored IDs array shortly.");
                     setTimeout(function() {
                         self._uploadStoredFiles();
                     }, 1e3);
@@ -2292,15 +2294,15 @@
             },
             _validateFileOrBlobData: function(fileWrapper, validationDescriptor) {
                 var self = this, file = function() {
-                    if (fileWrapper.file instanceof qq.BlobProxy) {
+                    if (fileWrapper.file instanceof miu.BlobProxy) {
                         return fileWrapper.file.referenceBlob;
                     }
                     return fileWrapper.file;
-                }(), name = validationDescriptor.name, size = validationDescriptor.size, buttonId = this._getButtonId(fileWrapper.file), validationBase = this._getValidationBase(buttonId), validityChecker = new qq.Promise();
+                }(), name = validationDescriptor.name, size = validationDescriptor.size, buttonId = this._getButtonId(fileWrapper.file), validationBase = this._getValidationBase(buttonId), validityChecker = new miu.Promise();
                 validityChecker.then(function() {}, function() {
                     self._fileOrBlobRejected(fileWrapper.id, name);
                 });
-                if (qq.isFileOrInput(file) && !this._isAllowedExtension(validationBase.allowedExtensions, name)) {
+                if (miu.isFileOrInput(file) && !this._isAllowedExtension(validationBase.allowedExtensions, name)) {
                     this._itemError("typeError", name, file);
                     return validityChecker.failure();
                 }
@@ -2316,8 +2318,8 @@
                     this._itemError("minSizeError", name, file);
                     return validityChecker.failure();
                 }
-                if (qq.ImageValidation && qq.supportedFeatures.imagePreviews && qq.isFile(file)) {
-                    new qq.ImageValidation(file, qq.bind(self.log, self)).validate(validationBase.image).then(validityChecker.success, function(errorCode) {
+                if (miu.ImageValidation && miu.supportedFeatures.imagePreviews && miu.isFile(file)) {
+                    new miu.ImageValidation(file, miu.bind(self.log, self)).validate(validationBase.image).then(validityChecker.success, function(errorCode) {
                         self._itemError(errorCode + "ImageError", name, file);
                         validityChecker.failure();
                     });
@@ -2353,7 +2355,7 @@
     })();
     (function() {
         "use strict";
-        qq.FineUploaderBasic = function(o) {
+        miu.FineUploaderBasic = function(o) {
             var self = this;
             this._options = {
                 debug: false,
@@ -2365,14 +2367,14 @@
                 request: {
                     customHeaders: {},
                     endpoint: "/server/upload",
-                    filenameParam: "qqfilename",
+                    filenameParam: "miufilename",
                     forceMultipart: true,
-                    inputName: "qqfile",
+                    inputName: "miufile",
                     method: "POST",
                     params: {},
                     paramsInBody: true,
-                    totalFileSizeName: "qqtotalfilesize",
-                    uuidName: "qquuid"
+                    totalFileSizeName: "miutotalfilesize",
+                    uuidName: "miuuuid"
                 },
                 validation: {
                     allowedExtensions: [],
@@ -2435,8 +2437,8 @@
                     preventRetryResponseProperty: "preventRetry"
                 },
                 classes: {
-                    buttonHover: "qq-upload-button-hover",
-                    buttonFocus: "qq-upload-button-focus"
+                    buttonHover: "miu-upload-button-hover",
+                    buttonFocus: "miu-upload-button-focus"
                 },
                 chunking: {
                     enabled: false,
@@ -2445,11 +2447,11 @@
                     },
                     mandatory: false,
                     paramNames: {
-                        partIndex: "qqpartindex",
-                        partByteOffset: "qqpartbyteoffset",
-                        chunkSize: "qqchunksize",
-                        totalFileSize: "qqtotalfilesize",
-                        totalParts: "qqtotalparts"
+                        partIndex: "miupartindex",
+                        partByteOffset: "miupartbyteoffset",
+                        chunkSize: "miuchunksize",
+                        totalFileSize: "miutotalfilesize",
+                        totalParts: "miutotalparts"
                     },
                     partSize: 2e6,
                     success: {
@@ -2460,7 +2462,7 @@
                     enabled: false,
                     recordsExpireIn: 7,
                     paramNames: {
-                        resuming: "qqresume"
+                        resuming: "miuresume"
                     }
                 },
                 formatFileName: function(fileOrBlobName) {
@@ -2502,7 +2504,7 @@
                     refreshOnReset: true
                 },
                 form: {
-                    element: "qq-form",
+                    element: "miu-form",
                     autoUpload: false,
                     interceptSubmit: true
                 },
@@ -2522,12 +2524,12 @@
                     ios8BrowserCrash: false
                 }
             };
-            qq.extend(this._options, o, true);
+            miu.extend(this._options, o, true);
             this._buttons = [];
             this._extraButtonSpecs = {};
             this._buttonIdsForFileIds = [];
             this._wrapCallbacks();
-            this._disposeSupport = new qq.DisposeSupport();
+            this._disposeSupport = new miu.DisposeSupport();
             this._storedIds = [];
             this._autoRetries = [];
             this._retryTimeouts = [];
@@ -2543,7 +2545,7 @@
             this._endpointStore = this._createStore(this._options.request.endpoint);
             this._deleteFileEndpointStore = this._createStore(this._options.deleteFile.endpoint);
             this._handler = this._createUploadHandler();
-            this._deleteHandler = qq.DeleteFileAjaxRequester && this._createDeleteHandler();
+            this._deleteHandler = miu.DeleteFileAjaxRequester && this._createDeleteHandler();
             if (this._options.button) {
                 this._defaultButtonId = this._createUploadButton({
                     element: this._options.button,
@@ -2553,23 +2555,23 @@
             this._generateExtraButtonSpecs();
             this._handleCameraAccess();
             if (this._options.paste.targetElement) {
-                if (qq.PasteSupport) {
+                if (miu.PasteSupport) {
                     this._pasteHandler = this._createPasteHandler();
                 } else {
                     this.log("Paste support module not found", "error");
                 }
             }
             this._preventLeaveInProgress();
-            this._imageGenerator = qq.ImageGenerator && new qq.ImageGenerator(qq.bind(this.log, this));
+            this._imageGenerator = miu.ImageGenerator && new miu.ImageGenerator(miu.bind(this.log, this));
             this._refreshSessionData();
             this._succeededSinceLastAllComplete = [];
             this._failedSinceLastAllComplete = [];
-            this._scaler = qq.Scaler && new qq.Scaler(this._options.scaling, qq.bind(this.log, this)) || {};
+            this._scaler = miu.Scaler && new miu.Scaler(this._options.scaling, miu.bind(this.log, this)) || {};
             if (this._scaler.enabled) {
-                this._customNewFileHandler = qq.bind(this._scaler.handleNewFile, this._scaler);
+                this._customNewFileHandler = miu.bind(this._scaler.handleNewFile, this._scaler);
             }
-            if (qq.TotalProgress && qq.supportedFeatures.progressBar) {
-                this._totalProgress = new qq.TotalProgress(qq.bind(this._onTotalProgress, this), function(id) {
+            if (miu.TotalProgress && miu.supportedFeatures.progressBar) {
+                this._totalProgress = new miu.TotalProgress(miu.bind(this._onTotalProgress, this), function(id) {
                     var entry = self._uploadData.retrieve({
                         id: id
                     });
@@ -2578,10 +2580,10 @@
             }
             this._currentItemLimit = this._options.validation.itemLimit;
         };
-        qq.FineUploaderBasic.prototype = qq.basePublicApi;
-        qq.extend(qq.FineUploaderBasic.prototype, qq.basePrivateApi);
+        miu.FineUploaderBasic.prototype = miu.basePublicApi;
+        miu.extend(miu.FineUploaderBasic.prototype, miu.basePrivateApi);
     })();
-    qq.AjaxRequester = function(o) {
+    miu.AjaxRequester = function(o) {
         "use strict";
         var log, shouldParamsBeInQueryString, queue = [], requestData = {}, options = {
             acceptHeader: null,
@@ -2610,18 +2612,18 @@
             onComplete: function(id, xhrOrXdr, isError) {},
             onProgress: null
         };
-        qq.extend(options, o);
+        miu.extend(options, o);
         log = options.log;
-        if (qq.indexOf(options.validMethods, options.method) < 0) {
+        if (miu.indexOf(options.validMethods, options.method) < 0) {
             throw new Error("'" + options.method + "' is not a supported method for this type of request!");
         }
         function isSimpleMethod() {
-            return qq.indexOf([ "GET", "POST", "HEAD" ], options.method) >= 0;
+            return miu.indexOf([ "GET", "POST", "HEAD" ], options.method) >= 0;
         }
         function containsNonSimpleHeaders(headers) {
             var containsNonSimple = false;
-            qq.each(containsNonSimple, function(idx, header) {
-                if (qq.indexOf([ "Accept", "Accept-Language", "Content-Language", "Content-Type" ], header) < 0) {
+            miu.each(containsNonSimple, function(idx, header) {
+                if (miu.indexOf([ "Accept", "Accept-Language", "Content-Language", "Content-Type" ], header) < 0) {
                     containsNonSimple = true;
                     return false;
                 }
@@ -2634,7 +2636,7 @@
         function getCorsAjaxTransport() {
             var xhrOrXdr;
             if (window.XMLHttpRequest || window.ActiveXObject) {
-                xhrOrXdr = qq.createXhrInstance();
+                xhrOrXdr = miu.createXhrInstance();
                 if (xhrOrXdr.withCredentials === undefined) {
                     xhrOrXdr = new XDomainRequest();
                     xhrOrXdr.onload = function() {};
@@ -2654,7 +2656,7 @@
                     if (options.cors.expected) {
                         xhrOrXdr = getCorsAjaxTransport();
                     } else {
-                        xhrOrXdr = qq.createXhrInstance();
+                        xhrOrXdr = miu.createXhrInstance();
                     }
                 }
                 requestData[id].xhr = xhrOrXdr;
@@ -2662,7 +2664,7 @@
             return xhrOrXdr;
         }
         function dequeue(id) {
-            var i = qq.indexOf(queue, id), max = options.maxConnections, nextId;
+            var i = miu.indexOf(queue, id), max = options.maxConnections, nextId;
             delete requestData[id];
             queue.splice(i, 1);
             if (queue.length >= max && i < max) {
@@ -2687,13 +2689,13 @@
                 params = options.paramsStore.get(id);
             }
             if (onDemandParams) {
-                qq.each(onDemandParams, function(name, val) {
+                miu.each(onDemandParams, function(name, val) {
                     params = params || {};
                     params[name] = val;
                 });
             }
             if (mandatedParams) {
-                qq.each(mandatedParams, function(name, val) {
+                miu.each(mandatedParams, function(name, val) {
                     params = params || {};
                     params[name] = val;
                 });
@@ -2722,7 +2724,7 @@
             } else if (shouldParamsBeInQueryString || !params) {
                 xhr.send();
             } else if (params && options.contentType && options.contentType.toLowerCase().indexOf("application/x-www-form-urlencoded") >= 0) {
-                xhr.send(qq.obj2url(params, ""));
+                xhr.send(miu.obj2url(params, ""));
             } else if (params && options.contentType && options.contentType.toLowerCase().indexOf("application/json") >= 0) {
                 xhr.send(JSON.stringify(params));
             } else {
@@ -2736,10 +2738,10 @@
                 endpoint += "/" + addToPath;
             }
             if (shouldParamsBeInQueryString && params) {
-                endpoint = qq.obj2url(params, endpoint);
+                endpoint = miu.obj2url(params, endpoint);
             }
             if (additionalQueryParams) {
-                endpoint = qq.obj2url(additionalQueryParams, endpoint);
+                endpoint = miu.obj2url(additionalQueryParams, endpoint);
             }
             return endpoint;
         }
@@ -2783,15 +2785,15 @@
                 if (options.contentType && (method === "POST" || method === "PUT")) {
                     xhr.setRequestHeader("Content-Type", options.contentType);
                 }
-                qq.extend(allHeaders, qq.isFunction(customHeaders) ? customHeaders(id) : customHeaders);
-                qq.extend(allHeaders, onDemandHeaders);
-                qq.each(allHeaders, function(name, val) {
+                miu.extend(allHeaders, miu.isFunction(customHeaders) ? customHeaders(id) : customHeaders);
+                miu.extend(allHeaders, onDemandHeaders);
+                miu.each(allHeaders, function(name, val) {
                     xhr.setRequestHeader(name, val);
                 });
             }
         }
         function isResponseSuccessful(responseCode) {
-            return qq.indexOf(options.successfulResponseCodes[options.method], responseCode) >= 0;
+            return miu.indexOf(options.successfulResponseCodes[options.method], responseCode) >= 0;
         }
         function prepareToSend(id, optXhr, addToPath, additionalParams, additionalQueryParams, additionalHeaders, payload) {
             requestData[id] = {
@@ -2807,7 +2809,7 @@
             }
         }
         shouldParamsBeInQueryString = options.method === "GET" || options.method === "DELETE";
-        qq.extend(this, {
+        miu.extend(this, {
             initTransport: function(id) {
                 var path, params, headers, payload, cacheBuster, additionalQueryParams;
                 return {
@@ -2836,8 +2838,8 @@
                         return this;
                     },
                     send: function(optXhr) {
-                        if (cacheBuster && qq.indexOf([ "GET", "DELETE" ], options.method) >= 0) {
-                            params.qqtimestamp = new Date().getTime();
+                        if (cacheBuster && miu.indexOf([ "GET", "DELETE" ], options.method) >= 0) {
+                            params.miutimestamp = new Date().getTime();
                         }
                         return prepareToSend(id, optXhr, path, params, additionalQueryParams, headers, payload);
                     }
@@ -2848,16 +2850,16 @@
             }
         });
     };
-    qq.UploadHandler = function(spec) {
+    miu.UploadHandler = function(spec) {
         "use strict";
         var proxy = spec.proxy, fileState = {}, onCancel = proxy.onCancel, getName = proxy.getName;
-        qq.extend(this, {
+        miu.extend(this, {
             add: function(id, fileItem) {
                 fileState[id] = fileItem;
                 fileState[id].temp = {};
             },
             cancel: function(id) {
-                var self = this, cancelFinalizationEffort = new qq.Promise(), onCancelRetVal = onCancel(id, getName(id), cancelFinalizationEffort);
+                var self = this, cancelFinalizationEffort = new miu.Promise(), onCancelRetVal = onCancel(id, getName(id), cancelFinalizationEffort);
                 onCancelRetVal.then(function() {
                     if (self.isValid(id)) {
                         fileState[id].canceled = true;
@@ -2889,7 +2891,7 @@
             }
         });
     };
-    qq.UploadHandlerController = function(o, namespace) {
+    miu.UploadHandlerController = function(o, namespace) {
         "use strict";
         var controller = this, chunkingPossible = false, concurrentChunkingPossible = false, chunking, preventRetryResponse, log, handler, options = {
             paramsStore: {},
@@ -2952,7 +2954,7 @@
                 if (responseToReport.reset) {
                     chunked.reset(id);
                 } else {
-                    inProgressIdx = qq.indexOf(handler._getFileState(id).chunking.inProgress, chunkIdx);
+                    inProgressIdx = miu.indexOf(handler._getFileState(id).chunking.inProgress, chunkIdx);
                     if (inProgressIdx >= 0) {
                         handler._getFileState(id).chunking.inProgress.splice(inProgressIdx, 1);
                         handler._getFileState(id).chunking.remaining.unshift(chunkIdx);
@@ -2961,9 +2963,9 @@
                 if (!handler._getFileState(id).temp.ignoreFailure) {
                     if (concurrentChunkingPossible) {
                         handler._getFileState(id).temp.ignoreFailure = true;
-                        log(qq.format("Going to attempt to abort these chunks: {}. These are currently in-progress: {}.", JSON.stringify(Object.keys(handler._getXhrs(id))), JSON.stringify(handler._getFileState(id).chunking.inProgress)));
-                        qq.each(handler._getXhrs(id), function(ckid, ckXhr) {
-                            log(qq.format("Attempting to abort file {}.{}. XHR readyState {}. ", id, ckid, ckXhr.readyState));
+                        log(miu.format("Going to attempt to abort these chunks: {}. These are currently in-progress: {}.", JSON.stringify(Object.keys(handler._getXhrs(id))), JSON.stringify(handler._getFileState(id).chunking.inProgress)));
+                        miu.each(handler._getXhrs(id), function(ckid, ckXhr) {
+                            log(miu.format("Attempting to abort file {}.{}. XHR readyState {}. ", id, ckid, ckXhr.readyState));
                             ckXhr.abort();
                             ckXhr._cancelled = true;
                         });
@@ -3005,7 +3007,7 @@
                 if (chunkIdx == null && inProgressChunks.length === 0) {
                     chunked.finalize(id);
                 } else {
-                    log(qq.format("Sending chunked upload request for item {}.{}, bytes {}-{} of {}.", id, chunkIdx, chunkData.start + 1, chunkData.end, size));
+                    log(miu.format("Sending chunked upload request for item {}.{}, bytes {}-{} of {}.", id, chunkIdx, chunkData.start + 1, chunkData.end, size));
                     options.onUploadChunk(id, name, handler._getChunkDataForCallback(chunkData));
                     inProgressChunks.push(chunkIdx);
                     handler._getFileState(id).chunking.inProgress = inProgressChunks;
@@ -3016,14 +3018,14 @@
                         chunked.sendNext(id);
                     }
                     if (chunkData.blob.size === 0) {
-                        log(qq.format("Chunk {} for file {} will not be uploaded, zero sized chunk.", chunkIdx, id), "error");
+                        log(miu.format("Chunk {} for file {} will not be uploaded, zero sized chunk.", chunkIdx, id), "error");
                         chunked.handleFailure(chunkIdx, id, "File is no longer available", null);
                     } else {
                         handler.uploadChunk(id, chunkIdx, resuming).then(function success(response, xhr) {
                             log("Chunked upload request succeeded for " + id + ", chunk " + chunkIdx);
                             handler.clearCachedChunk(id, chunkIdx);
-                            var inProgressChunks = handler._getFileState(id).chunking.inProgress || [], responseToReport = upload.normalizeResponse(response, true), inProgressChunkIdx = qq.indexOf(inProgressChunks, chunkIdx);
-                            log(qq.format("Chunk {} for file {} uploaded successfully.", chunkIdx, id));
+                            var inProgressChunks = handler._getFileState(id).chunking.inProgress || [], responseToReport = upload.normalizeResponse(response, true), inProgressChunkIdx = miu.indexOf(inProgressChunks, chunkIdx);
+                            log(miu.format("Chunk {} for file {} uploaded successfully.", chunkIdx, id));
                             chunked.done(id, chunkIdx, responseToReport, xhr);
                             if (inProgressChunkIdx >= 0) {
                                 inProgressChunks.splice(inProgressChunkIdx, 1);
@@ -3034,7 +3036,7 @@
                             } else if (chunked.hasMoreParts(id)) {
                                 chunked.sendNext(id);
                             } else {
-                                log(qq.format("File ID {} has no more chunks to send and these chunk indexes are still marked as in-progress: {}", id, JSON.stringify(inProgressChunks)));
+                                log(miu.format("File ID {} has no more chunks to send and these chunk indexes are still marked as in-progress: {}", id, JSON.stringify(inProgressChunks)));
                             }
                         }, function failure(response, xhr) {
                             chunked.handleFailure(chunkIdx, id, response, xhr);
@@ -3050,16 +3052,16 @@
             _waiting: [],
             available: function() {
                 var max = options.maxConnections, openChunkEntriesCount = 0, openChunksCount = 0;
-                qq.each(connectionManager._openChunks, function(fileId, openChunkIndexes) {
+                miu.each(connectionManager._openChunks, function(fileId, openChunkIndexes) {
                     openChunkEntriesCount++;
                     openChunksCount += openChunkIndexes.length;
                 });
                 return max - (connectionManager._open.length - openChunkEntriesCount + openChunksCount);
             },
             free: function(id, dontAllowNext) {
-                var allowNext = !dontAllowNext, waitingIndex = qq.indexOf(connectionManager._waiting, id), connectionsIndex = qq.indexOf(connectionManager._open, id), nextId;
+                var allowNext = !dontAllowNext, waitingIndex = miu.indexOf(connectionManager._waiting, id), connectionsIndex = miu.indexOf(connectionManager._open, id), nextId;
                 delete connectionManager._openChunks[id];
-                if (upload.getProxyOrBlob(id) instanceof qq.BlobProxy) {
+                if (upload.getProxyOrBlob(id) instanceof miu.BlobProxy) {
                     log("Generated blob upload has ended for " + id + ", disposing generated blob.");
                     delete handler._getFileState(id).file;
                 }
@@ -3076,12 +3078,12 @@
             },
             getWaitingOrConnected: function() {
                 var waitingOrConnected = [];
-                qq.each(connectionManager._openChunks, function(fileId, chunks) {
+                miu.each(connectionManager._openChunks, function(fileId, chunks) {
                     if (chunks && chunks.length) {
                         waitingOrConnected.push(parseInt(fileId));
                     }
                 });
-                qq.each(connectionManager._open, function(idx, fileId) {
+                miu.each(connectionManager._open, function(idx, fileId) {
                     if (!connectionManager._openChunks[fileId]) {
                         waitingOrConnected.push(parseInt(fileId));
                     }
@@ -3090,7 +3092,7 @@
                 return waitingOrConnected;
             },
             isUsingConnection: function(id) {
-                return qq.indexOf(connectionManager._open, id) >= 0;
+                return miu.indexOf(connectionManager._open, id) >= 0;
             },
             open: function(id, chunkIdx) {
                 if (chunkIdx == null) {
@@ -3151,7 +3153,7 @@
                 return handler.getProxy && handler.getProxy(id) || handler.getFile && handler.getFile(id);
             },
             initHandler: function() {
-                var handlerType = namespace ? qq[namespace] : qq.traditional, handlerModuleSubtype = qq.supportedFeatures.ajaxUploading ? "Xhr" : "Form";
+                var handlerType = namespace ? miu[namespace] : miu.traditional, handlerModuleSubtype = miu.supportedFeatures.ajaxUploading ? "Xhr" : "Form";
                 handler = new handlerType[handlerModuleSubtype + "UploadHandler"](options, {
                     getDataByUuid: options.getDataByUuid,
                     getName: options.getName,
@@ -3170,7 +3172,7 @@
                 return options.isQueued(id);
             },
             maybeDefer: function(id, blob) {
-                if (blob && !handler.getFile(id) && blob instanceof qq.BlobProxy) {
+                if (blob && !handler.getFile(id) && blob instanceof miu.BlobProxy) {
                     options.onUploadPrep(id);
                     log("Attempting to generate a blob on-demand for " + id);
                     blob.create().then(function(generatedBlob) {
@@ -3184,8 +3186,8 @@
                         if (errorMessage) {
                             errorResponse.error = errorMessage;
                         }
-                        log(qq.format("Failed to generate blob for ID {}.  Error message: {}.", id, errorMessage), "error");
-                        options.onComplete(id, options.getName(id), qq.extend(errorResponse, preventRetryResponse), null);
+                        log(miu.format("Failed to generate blob for ID {}.  Error message: {}.", id, errorMessage), "error");
+                        options.onComplete(id, options.getName(id), miu.extend(errorResponse, preventRetryResponse), null);
                         upload.maybeSendDeferredFiles(id);
                         connectionManager.free(id);
                     });
@@ -3198,7 +3200,7 @@
                 var idsInGroup = options.getIdsInProxyGroup(id), uploadedThisId = false;
                 if (idsInGroup && idsInGroup.length) {
                     log("Maybe ready to upload proxy group file " + id);
-                    qq.each(idsInGroup, function(idx, idInGroup) {
+                    miu.each(idsInGroup, function(idx, idInGroup) {
                         if (upload.isDeferredEligibleForUpload(idInGroup) && !!handler.getFile(idInGroup)) {
                             uploadedThisId = idInGroup === id;
                             upload.now(idInGroup);
@@ -3219,9 +3221,9 @@
             },
             normalizeResponse: function(originalResponse, successful) {
                 var response = originalResponse;
-                if (!qq.isObject(originalResponse)) {
+                if (!miu.isObject(originalResponse)) {
                     response = {};
-                    if (qq.isString(originalResponse) && !successful) {
+                    if (miu.isString(originalResponse) && !successful) {
                         response.error = originalResponse;
                     }
                 }
@@ -3231,7 +3233,7 @@
             now: function(id) {
                 var name = options.getName(id);
                 if (!controller.isValid(id)) {
-                    throw new qq.Error(id + " is not a valid file ID to upload!");
+                    throw new miu.Error(id + " is not a valid file ID to upload!");
                 }
                 options.onUpload(id, name);
                 if (chunkingPossible && handler._shouldChunkThisFile(id)) {
@@ -3250,7 +3252,7 @@
                 }
             }
         };
-        qq.extend(this, {
+        miu.extend(this, {
             add: function(id, file) {
                 handler.add.apply(this, arguments);
             },
@@ -3272,7 +3274,7 @@
             },
             cancel: function(id) {
                 var cancelRetVal = handler.cancel(id);
-                if (qq.isGenericPromise(cancelRetVal)) {
+                if (miu.isGenericPromise(cancelRetVal)) {
                     cancelRetVal.then(function() {
                         upload.cancel(id);
                     });
@@ -3340,9 +3342,9 @@
                 return !!handler.isResumable && handler.isResumable(id);
             }
         });
-        qq.extend(options, o);
+        miu.extend(options, o);
         log = options.log;
-        chunkingPossible = options.chunking.enabled && qq.supportedFeatures.chunking;
+        chunkingPossible = options.chunking.enabled && miu.supportedFeatures.chunking;
         concurrentChunkingPossible = chunkingPossible && options.chunking.concurrent.enabled;
         preventRetryResponse = function() {
             var response = {};
@@ -3351,19 +3353,19 @@
         }();
         upload.initHandler();
     };
-    qq.WindowReceiveMessage = function(o) {
+    miu.WindowReceiveMessage = function(o) {
         "use strict";
         var options = {
             log: function(message, level) {}
         }, callbackWrapperDetachers = {};
-        qq.extend(options, o);
-        qq.extend(this, {
+        miu.extend(options, o);
+        miu.extend(this, {
             receiveMessage: function(id, callback) {
                 var onMessageCallbackWrapper = function(event) {
                     callback(event.data);
                 };
                 if (window.postMessage) {
-                    callbackWrapperDetachers[id] = qq(window).attach("message", onMessageCallbackWrapper);
+                    callbackWrapperDetachers[id] = miu(window).attach("message", onMessageCallbackWrapper);
                 } else {
                     log("iframe message passing not supported in this browser!", "error");
                 }
@@ -3378,9 +3380,9 @@
             }
         });
     };
-    qq.FormUploadHandler = function(spec) {
+    miu.FormUploadHandler = function(spec) {
         "use strict";
-        var options = spec.options, handler = this, proxy = spec.proxy, formHandlerInstanceId = qq.getUniqueId(), onloadCallbacks = {}, detachLoadEvents = {}, postMessageCallbackTimers = {}, isCors = options.isCors, inputName = options.inputName, getUuid = proxy.getUuid, log = proxy.log, corsMessageReceiver = new qq.WindowReceiveMessage({
+        var options = spec.options, handler = this, proxy = spec.proxy, formHandlerInstanceId = miu.getUniqueId(), onloadCallbacks = {}, detachLoadEvents = {}, postMessageCallbackTimers = {}, isCors = options.isCors, inputName = options.inputName, getUuid = proxy.getUuid, log = proxy.log, corsMessageReceiver = new miu.WindowReceiveMessage({
             log: log
         });
         function expungeFile(id) {
@@ -3393,14 +3395,14 @@
             var iframe = document.getElementById(handler._getIframeName(id));
             if (iframe) {
                 iframe.setAttribute("src", "javascript:false;");
-                qq(iframe).remove();
+                miu(iframe).remove();
             }
         }
         function getFileIdForIframeName(iframeName) {
             return iframeName.split("_")[0];
         }
         function initIframeForUpload(name) {
-            var iframe = qq.toElement("<iframe src='javascript:false;' name='" + name + "' />");
+            var iframe = miu.toElement("<iframe src='javascript:false;' name='" + name + "' />");
             iframe.setAttribute("id", name);
             iframe.style.display = "none";
             document.body.appendChild(iframe);
@@ -3409,7 +3411,7 @@
         function registerPostMessageCallback(iframe, callback) {
             var iframeName = iframe.id, fileId = getFileIdForIframeName(iframeName), uuid = getUuid(fileId);
             onloadCallbacks[uuid] = callback;
-            detachLoadEvents[fileId] = qq(iframe).attach("load", function() {
+            detachLoadEvents[fileId] = miu(iframe).attach("load", function() {
                 if (handler.getInput(fileId)) {
                     log("Received iframe load event for CORS upload request (iframe name " + iframeName + ")");
                     postMessageCallbackTimers[iframeName] = setTimeout(function() {
@@ -3438,8 +3440,8 @@
                 }
             });
         }
-        qq.extend(this, new qq.UploadHandler(spec));
-        qq.override(this, function(super_) {
+        miu.extend(this, new miu.UploadHandler(spec));
+        miu.override(this, function(super_) {
             return {
                 add: function(id, fileInput) {
                     super_.add(id, {
@@ -3447,7 +3449,7 @@
                     });
                     fileInput.setAttribute("name", inputName);
                     if (fileInput.parentNode) {
-                        qq(fileInput).remove();
+                        miu(fileInput).remove();
                     }
                 },
                 expunge: function(id) {
@@ -3459,7 +3461,7 @@
                 }
             };
         });
-        qq.extend(this, {
+        miu.extend(this, {
             getInput: function(id) {
                 return handler._getFileState(id).input;
             },
@@ -3468,7 +3470,7 @@
                 if (isCors) {
                     registerPostMessageCallback(iframe, callback);
                 } else {
-                    detachLoadEvents[iframe.id] = qq(iframe).attach("load", function() {
+                    detachLoadEvents[iframe.id] = miu(iframe).attach("load", function() {
                         log("Received response for " + iframe.id);
                         if (!iframe.parentNode) {
                             return;
@@ -3501,11 +3503,11 @@
                 return fileId + "_" + formHandlerInstanceId;
             },
             _initFormForUpload: function(spec) {
-                var method = spec.method, endpoint = spec.endpoint, params = spec.params, paramsInBody = spec.paramsInBody, targetName = spec.targetName, form = qq.toElement("<form method='" + method + "' enctype='multipart/form-data'></form>"), url = endpoint;
+                var method = spec.method, endpoint = spec.endpoint, params = spec.params, paramsInBody = spec.paramsInBody, targetName = spec.targetName, form = miu.toElement("<form method='" + method + "' enctype='multipart/form-data'></form>"), url = endpoint;
                 if (paramsInBody) {
-                    qq.obj2Inputs(params, form);
+                    miu.obj2Inputs(params, form);
                 } else {
-                    url = qq.obj2url(params, endpoint);
+                    url = miu.obj2url(params, endpoint);
                 }
                 form.setAttribute("action", url);
                 form.setAttribute("target", targetName);
@@ -3516,7 +3518,7 @@
             _parseJsonResponse: function(innerHtmlOrMessage) {
                 var response = {};
                 try {
-                    response = qq.parseJson(innerHtmlOrMessage);
+                    response = miu.parseJson(innerHtmlOrMessage);
                 } catch (error) {
                     log("Error when attempting to parse iframe upload response (" + error.message + ")", "error");
                 }
@@ -3524,11 +3526,11 @@
             }
         });
     };
-    qq.XhrUploadHandler = function(spec) {
+    miu.XhrUploadHandler = function(spec) {
         "use strict";
-        var handler = this, namespace = spec.options.namespace, proxy = spec.proxy, chunking = spec.options.chunking, resume = spec.options.resume, chunkFiles = chunking && spec.options.chunking.enabled && qq.supportedFeatures.chunking, resumeEnabled = resume && spec.options.resume.enabled && chunkFiles && qq.supportedFeatures.resume, getName = proxy.getName, getSize = proxy.getSize, getUuid = proxy.getUuid, getEndpoint = proxy.getEndpoint, getDataByUuid = proxy.getDataByUuid, onUuidChanged = proxy.onUuidChanged, onProgress = proxy.onProgress, log = proxy.log;
+        var handler = this, namespace = spec.options.namespace, proxy = spec.proxy, chunking = spec.options.chunking, resume = spec.options.resume, chunkFiles = chunking && spec.options.chunking.enabled && miu.supportedFeatures.chunking, resumeEnabled = resume && spec.options.resume.enabled && chunkFiles && miu.supportedFeatures.resume, getName = proxy.getName, getSize = proxy.getSize, getUuid = proxy.getUuid, getEndpoint = proxy.getEndpoint, getDataByUuid = proxy.getDataByUuid, onUuidChanged = proxy.onUuidChanged, onProgress = proxy.onProgress, log = proxy.log;
         function abort(id) {
-            qq.each(handler._getXhrs(id), function(xhrId, xhr) {
+            miu.each(handler._getXhrs(id), function(xhrId, xhr) {
                 var ajaxRequester = handler._getAjaxRequester(id, xhrId);
                 xhr.onreadystatechange = null;
                 xhr.upload.onprogress = null;
@@ -3536,15 +3538,15 @@
                 ajaxRequester && ajaxRequester.canceled && ajaxRequester.canceled(id);
             });
         }
-        qq.extend(this, new qq.UploadHandler(spec));
-        qq.override(this, function(super_) {
+        miu.extend(this, new miu.UploadHandler(spec));
+        miu.override(this, function(super_) {
             return {
                 add: function(id, blobOrProxy) {
-                    if (qq.isFile(blobOrProxy) || qq.isBlob(blobOrProxy)) {
+                    if (miu.isFile(blobOrProxy) || miu.isBlob(blobOrProxy)) {
                         super_.add(id, {
                             file: blobOrProxy
                         });
-                    } else if (blobOrProxy instanceof qq.BlobProxy) {
+                    } else if (blobOrProxy instanceof miu.BlobProxy) {
                         super_.add(id, {
                             proxy: blobOrProxy
                         });
@@ -3562,7 +3564,7 @@
                 }
             };
         });
-        qq.extend(this, {
+        miu.extend(this, {
             clearCachedChunk: function(id, chunkIdx) {
                 delete handler._getFileState(id).temp.cachedChunks[chunkIdx];
             },
@@ -3578,9 +3580,9 @@
             finalizeChunks: function(id, responseParser) {
                 var lastChunkIdx = handler._getTotalChunks(id) - 1, xhr = handler._getXhr(id, lastChunkIdx);
                 if (responseParser) {
-                    return new qq.Promise().success(responseParser(xhr), xhr);
+                    return new miu.Promise().success(responseParser(xhr), xhr);
                 }
-                return new qq.Promise().success({}, xhr);
+                return new miu.Promise().success({}, xhr);
             },
             getFile: function(id) {
                 return handler.isValid(id) && handler._getFileState(id).file;
@@ -3611,9 +3613,9 @@
             moveInProgressToRemaining: function(id, optInProgress, optRemaining) {
                 var inProgress = optInProgress || handler._getFileState(id).chunking.inProgress, remaining = optRemaining || handler._getFileState(id).chunking.remaining;
                 if (inProgress) {
-                    log(qq.format("Moving these chunks from in-progress {}, to remaining.", JSON.stringify(inProgress)));
+                    log(miu.format("Moving these chunks from in-progress {}, to remaining.", JSON.stringify(inProgress)));
                     inProgress.reverse();
-                    qq.each(inProgress, function(idx, chunkIdx) {
+                    miu.each(inProgress, function(idx, chunkIdx) {
                         remaining.unshift(chunkIdx);
                     });
                     inProgress.length = 0;
@@ -3621,7 +3623,7 @@
             },
             pause: function(id) {
                 if (handler.isValid(id)) {
-                    log(qq.format("Aborting XHR upload for {} '{}' due to pause instruction.", id, getName(id)));
+                    log(miu.format("Aborting XHR upload for {} '{}' due to pause instruction.", id, getName(id)));
                     handler._getFileState(id).paused = true;
                     abort(id);
                     return true;
@@ -3653,22 +3655,22 @@
             },
             _clearXhrs: function(id) {
                 var tempState = handler._getFileState(id).temp;
-                qq.each(tempState.ajaxRequesters, function(chunkId) {
+                miu.each(tempState.ajaxRequesters, function(chunkId) {
                     delete tempState.ajaxRequesters[chunkId];
                 });
-                qq.each(tempState.xhrs, function(chunkId) {
+                miu.each(tempState.xhrs, function(chunkId) {
                     delete tempState.xhrs[chunkId];
                 });
             },
             _createXhr: function(id, optChunkIdx) {
-                return handler._registerXhr(id, optChunkIdx, qq.createXhrInstance());
+                return handler._registerXhr(id, optChunkIdx, miu.createXhrInstance());
             },
             _getAjaxRequester: function(id, optChunkIdx) {
                 var chunkIdx = optChunkIdx == null ? -1 : optChunkIdx;
                 return handler._getFileState(id).temp.ajaxRequesters[chunkIdx];
             },
             _getChunkData: function(id, chunkIndex) {
-                var chunkSize = chunking.partSize, fileSize = getSize(id), fileOrBlob = handler.getFile(id), startBytes = chunkSize * chunkIndex, endBytes = startBytes + chunkSize >= fileSize ? fileSize : startBytes + chunkSize, totalChunks = handler._getTotalChunks(id), cachedChunks = this._getFileState(id).temp.cachedChunks, blob = cachedChunks[chunkIndex] || qq.sliceBlob(fileOrBlob, startBytes, endBytes);
+                var chunkSize = chunking.partSize, fileSize = getSize(id), fileOrBlob = handler.getFile(id), startBytes = chunkSize * chunkIndex, endBytes = startBytes + chunkSize >= fileSize ? fileSize : startBytes + chunkSize, totalChunks = handler._getTotalChunks(id), cachedChunks = this._getFileState(id).temp.cachedChunks, blob = cachedChunks[chunkIndex] || miu.sliceBlob(fileOrBlob, startBytes, endBytes);
                 cachedChunks[chunkIndex] = blob;
                 return {
                     part: chunkIndex,
@@ -3689,7 +3691,7 @@
             },
             _getLocalStorageId: function(id) {
                 var formatVersion = "5.0", name = getName(id), size = getSize(id), chunkSize = chunking.partSize, endpoint = getEndpoint(id);
-                return qq.format("qq{}resume{}-{}-{}-{}-{}", namespace, formatVersion, name, size, chunkSize, endpoint);
+                return miu.format("miu{}resume{}-{}-{}-{}-{}", namespace, formatVersion, name, size, chunkSize, endpoint);
             },
             _getMimeType: function(id) {
                 return handler.getFile(id).type;
@@ -3712,8 +3714,8 @@
             },
             _iterateResumeRecords: function(callback) {
                 if (resumeEnabled) {
-                    qq.each(localStorage, function(key, item) {
-                        if (key.indexOf(qq.format("qq{}resume", namespace)) === 0) {
+                    miu.each(localStorage, function(key, item) {
+                        if (key.indexOf(miu.format("miu{}resume", namespace)) === 0) {
                             var uploadData = JSON.parse(item);
                             callback(key, uploadData);
                         }
@@ -3752,7 +3754,7 @@
                         if (getDataByUuid(persistedData.uuid)) {
                             handler._markNotResumable(id);
                         } else {
-                            log(qq.format("Identified file with ID {} and name of {} as resumable.", id, getName(id)));
+                            log(miu.format("Identified file with ID {} and name of {} as resumable.", id, getName(id)));
                             onUuidChanged(id, persistedData.uuid);
                             state.key = persistedData.key;
                             state.chunking = persistedData.chunking;
@@ -3779,7 +3781,7 @@
                     try {
                         localStorage.setItem(localStorageId, JSON.stringify(persistedData));
                     } catch (error) {
-                        log(qq.format("Unable to save resume data for '{}' due to error: '{}'.", id, error.toString()), "warn");
+                        log(miu.format("Unable to save resume data for '{}' due to error: '{}'.", id, error.toString()), "warn");
                     }
                 }
             },
@@ -3796,7 +3798,7 @@
                     chunked: function(loaded, total) {
                         var chunkProgress = handler._getFileState(id).temp.chunkProgress, totalSuccessfullyLoadedForFile = handler._getFileState(id).loaded, loadedForRequest = loaded, totalForRequest = total, totalFileSize = getSize(id), estActualChunkLoaded = loadedForRequest - (totalForRequest - chunkSize), totalLoadedForFile = totalSuccessfullyLoadedForFile;
                         chunkProgress[chunkIdx] = estActualChunkLoaded;
-                        qq.each(chunkProgress, function(chunkIdx, chunkLoaded) {
+                        miu.each(chunkProgress, function(chunkIdx, chunkLoaded) {
                             totalLoadedForFile += chunkLoaded;
                         });
                         onProgress(id, name, totalLoadedForFile, totalFileSize);
@@ -3839,11 +3841,11 @@
             }
         });
     };
-    qq.DeleteFileAjaxRequester = function(o) {
+    miu.DeleteFileAjaxRequester = function(o) {
         "use strict";
         var requester, options = {
             method: "DELETE",
-            uuidParamName: "qquuid",
+            uuidParamName: "miuuuid",
             endpointStore: {},
             maxConnections: 3,
             customHeaders: function(id) {
@@ -3858,7 +3860,7 @@
             onDelete: function(id) {},
             onDeleteComplete: function(id, xhrOrXdr, isError) {}
         };
-        qq.extend(options, o);
+        miu.extend(options, o);
         function getMandatedParams() {
             if (options.method.toUpperCase() === "POST") {
                 return {
@@ -3867,7 +3869,7 @@
             }
             return {};
         }
-        requester = qq.extend(this, new qq.AjaxRequester({
+        requester = miu.extend(this, new miu.AjaxRequester({
             acceptHeader: "application/json",
             validMethods: [ "POST", "DELETE" ],
             method: options.method,
@@ -3883,7 +3885,7 @@
             onComplete: options.onDeleteComplete,
             cors: options.cors
         }));
-        qq.extend(this, {
+        miu.extend(this, {
             sendDelete: function(id, uuid, additionalMandatedParams) {
                 var additionalOptions = additionalMandatedParams || {};
                 options.log("Submitting delete file request for " + id);
@@ -3928,7 +3930,7 @@
             return ratio === 0 ? 1 : ratio;
         }
         function renderImageToDataURL(img, blob, options, doSquash) {
-            var canvas = document.createElement("canvas"), mime = options.mime || "image/jpeg", promise = new qq.Promise();
+            var canvas = document.createElement("canvas"), mime = options.mime || "image/jpeg", promise = new miu.Promise();
             renderImageToCanvas(img, blob, canvas, options, doSquash).then(function() {
                 promise.success(canvas.toDataURL(mime, options.quality || .8));
             });
@@ -3936,8 +3938,8 @@
         }
         function maybeCalculateDownsampledDimensions(spec) {
             var maxPixels = 5241e3;
-            if (!qq.ios()) {
-                throw new qq.Error("Downsampled dimensions can only be reliably calculated for iOS!");
+            if (!miu.ios()) {
+                throw new miu.Error("Downsampled dimensions can only be reliably calculated for iOS!");
             }
             if (spec.origHeight * spec.origWidth > maxPixels) {
                 return {
@@ -3947,7 +3949,7 @@
             }
         }
         function renderImageToCanvas(img, blob, canvas, options, doSquash) {
-            var iw = img.naturalWidth, ih = img.naturalHeight, width = options.width, height = options.height, ctx = canvas.getContext("2d"), promise = new qq.Promise(), modifiedDimensions;
+            var iw = img.naturalWidth, ih = img.naturalHeight, width = options.width, height = options.height, ctx = canvas.getContext("2d"), promise = new miu.Promise(), modifiedDimensions;
             ctx.save();
             if (options.resize) {
                 return renderImageToCanvasWithCustomResizer({
@@ -3962,19 +3964,19 @@
                     targetWidth: width
                 });
             }
-            if (!qq.supportedFeatures.unlimitedScaledImageSize) {
+            if (!miu.supportedFeatures.unlimitedScaledImageSize) {
                 modifiedDimensions = maybeCalculateDownsampledDimensions({
                     origWidth: width,
                     origHeight: height
                 });
                 if (modifiedDimensions) {
-                    qq.log(qq.format("Had to reduce dimensions due to device limitations from {}w / {}h to {}w / {}h", width, height, modifiedDimensions.newWidth, modifiedDimensions.newHeight), "warn");
+                    miu.log(miu.format("Had to reduce dimensions due to device limitations from {}w / {}h to {}w / {}h", width, height, modifiedDimensions.newWidth, modifiedDimensions.newHeight), "warn");
                     width = modifiedDimensions.newWidth;
                     height = modifiedDimensions.newHeight;
                 }
             }
             transformCoordinate(canvas, width, height, options.orientation);
-            if (qq.ios()) {
+            if (miu.ios()) {
                 (function() {
                     if (detectSubsampling(img)) {
                         iw /= 2;
@@ -4002,12 +4004,12 @@
             } else {
                 ctx.drawImage(img, 0, 0, width, height);
             }
-            canvas.qqImageRendered && canvas.qqImageRendered();
+            canvas.miuImageRendered && canvas.miuImageRendered();
             promise.success();
             return promise;
         }
         function renderImageToCanvasWithCustomResizer(resizeInfo) {
-            var blob = resizeInfo.blob, image = resizeInfo.image, imageHeight = resizeInfo.imageHeight, imageWidth = resizeInfo.imageWidth, orientation = resizeInfo.orientation, promise = new qq.Promise(), resize = resizeInfo.resize, sourceCanvas = document.createElement("canvas"), sourceCanvasContext = sourceCanvas.getContext("2d"), targetCanvas = resizeInfo.canvas, targetHeight = resizeInfo.targetHeight, targetWidth = resizeInfo.targetWidth;
+            var blob = resizeInfo.blob, image = resizeInfo.image, imageHeight = resizeInfo.imageHeight, imageWidth = resizeInfo.imageWidth, orientation = resizeInfo.orientation, promise = new miu.Promise(), resize = resizeInfo.resize, sourceCanvas = document.createElement("canvas"), sourceCanvasContext = sourceCanvas.getContext("2d"), targetCanvas = resizeInfo.canvas, targetHeight = resizeInfo.targetHeight, targetWidth = resizeInfo.targetWidth;
             transformCoordinate(sourceCanvas, imageWidth, imageHeight, orientation);
             targetCanvas.height = targetHeight;
             targetCanvas.width = targetWidth;
@@ -4020,7 +4022,7 @@
                 targetCanvas: targetCanvas,
                 width: targetWidth
             }).then(function success() {
-                targetCanvas.qqImageRendered && targetCanvas.qqImageRendered();
+                targetCanvas.miuImageRendered && targetCanvas.miuImageRendered();
                 promise.success();
             }, promise.failure);
             return promise;
@@ -4139,7 +4141,7 @@
             opt = {
                 width: width,
                 height: height
-            }, qq.each(options, function(optionsKey, optionsValue) {
+            }, miu.each(options, function(optionsKey, optionsValue) {
                 opt[optionsKey] = optionsValue;
             });
             if (tagName === "img") {
@@ -4157,9 +4159,9 @@
                 this.onrender(target);
             }
         };
-        qq.MegaPixImage = MegaPixImage;
+        miu.MegaPixImage = MegaPixImage;
     })();
-    qq.ImageGenerator = function(log) {
+    miu.ImageGenerator = function(log) {
         "use strict";
         function isImg(el) {
             return el.tagName.toLowerCase() === "img";
@@ -4175,7 +4177,7 @@
             return canvas.getContext && canvas.getContext("2d");
         }
         function determineMimeOfFileName(nameWithPath) {
-            var pathSegments = nameWithPath.split("/"), name = pathSegments[pathSegments.length - 1].split("?")[0], extension = qq.getExtension(name);
+            var pathSegments = nameWithPath.split("/"), name = pathSegments[pathSegments.length - 1].split("?")[0], extension = miu.getExtension(name);
             extension = extension && extension.toLowerCase();
             switch (extension) {
               case "jpeg":
@@ -4208,7 +4210,7 @@
             if (targetHostname.toLowerCase() !== window.location.hostname.toLowerCase()) {
                 return true;
             }
-            if (targetPort !== window.location.port && !qq.ie()) {
+            if (targetPort !== window.location.port && !miu.ie()) {
                 return true;
             }
             return false;
@@ -4227,7 +4229,7 @@
             };
         }
         function registerCanvasDrawImageListener(canvas, promise) {
-            canvas.qqImageRendered = function() {
+            canvas.miuImageRendered = function() {
                 promise.success(canvas);
             };
         }
@@ -4239,12 +4241,12 @@
                 registerCanvasDrawImageListener(imgOrCanvas, promise);
             } else {
                 promise.failure(imgOrCanvas);
-                log(qq.format("Element container of type {} is not supported!", imgOrCanvas.tagName), "error");
+                log(miu.format("Element container of type {} is not supported!", imgOrCanvas.tagName), "error");
             }
             return registered;
         }
         function draw(fileOrBlob, container, options) {
-            var drawPreview = new qq.Promise(), identifier = new qq.Identify(fileOrBlob, log), maxSize = options.maxSize, orient = options.orient == null ? true : options.orient, megapixErrorHandler = function() {
+            var drawPreview = new miu.Promise(), identifier = new miu.Identify(fileOrBlob, log), maxSize = options.maxSize, orient = options.orient == null ? true : options.orient, megapixErrorHandler = function() {
                 container.onerror = null;
                 container.onload = null;
                 log("Could not render preview, file may be too large!", "error");
@@ -4253,9 +4255,9 @@
             identifier.isPreviewable().then(function(mime) {
                 var dummyExif = {
                     parse: function() {
-                        return new qq.Promise().success();
+                        return new miu.Promise().success();
                     }
-                }, exif = orient ? new qq.Exif(fileOrBlob, log) : dummyExif, mpImg = new qq.MegaPixImage(fileOrBlob, megapixErrorHandler);
+                }, exif = orient ? new miu.Exif(fileOrBlob, log) : dummyExif, mpImg = new miu.MegaPixImage(fileOrBlob, megapixErrorHandler);
                 if (registerThumbnailRenderedListener(container, drawPreview)) {
                     exif.parse().then(function(exif) {
                         var orientation = exif && exif.Orientation;
@@ -4267,7 +4269,7 @@
                             resize: options.customResizeFunction
                         });
                     }, function(failureMsg) {
-                        log(qq.format("EXIF data could not be parsed ({}).  Assuming orientation = 1.", failureMsg));
+                        log(miu.format("EXIF data could not be parsed ({}).  Assuming orientation = 1.", failureMsg));
                         mpImg.render(container, {
                             maxWidth: maxSize,
                             maxHeight: maxSize,
@@ -4283,7 +4285,7 @@
             return drawPreview;
         }
         function drawOnCanvasOrImgFromUrl(url, canvasOrImg, draw, maxSize, customResizeFunction) {
-            var tempImg = new Image(), tempImgRender = new qq.Promise();
+            var tempImg = new Image(), tempImgRender = new miu.Promise();
             registerThumbnailRenderedListener(tempImg, tempImgRender);
             if (isCrossOrigin(url)) {
                 tempImg.crossOrigin = "anonymous";
@@ -4291,7 +4293,7 @@
             tempImg.src = url;
             tempImgRender.then(function rendered() {
                 registerThumbnailRenderedListener(canvasOrImg, draw);
-                var mpImg = new qq.MegaPixImage(tempImg);
+                var mpImg = new miu.MegaPixImage(tempImg);
                 mpImg.render(canvasOrImg, {
                     maxWidth: maxSize,
                     maxHeight: maxSize,
@@ -4302,14 +4304,14 @@
         }
         function drawOnImgFromUrlWithCssScaling(url, img, draw, maxSize) {
             registerThumbnailRenderedListener(img, draw);
-            qq(img).css({
+            miu(img).css({
                 maxWidth: maxSize + "px",
                 maxHeight: maxSize + "px"
             });
             img.src = url;
         }
         function drawFromUrl(url, container, options) {
-            var draw = new qq.Promise(), scale = options.scale, maxSize = scale ? options.maxSize : null;
+            var draw = new miu.Promise(), scale = options.scale, maxSize = scale ? options.maxSize : null;
             if (scale && isImg(container)) {
                 if (isCanvasSupported()) {
                     if (isCrossOrigin(url) && !isImgCorsSupported()) {
@@ -4327,9 +4329,9 @@
             }
             return draw;
         }
-        qq.extend(this, {
+        miu.extend(this, {
             generate: function(fileBlobOrUrl, container, options) {
-                if (qq.isString(fileBlobOrUrl)) {
+                if (miu.isString(fileBlobOrUrl)) {
                     log("Attempting to update thumbnail based on server response.");
                     return drawFromUrl(fileBlobOrUrl, container, options || {});
                 } else {
@@ -4344,7 +4346,7 @@
         this._testing.isCrossOrigin = isCrossOrigin;
         this._testing.determineMimeOfFileName = determineMimeOfFileName;
     };
-    qq.Exif = function(fileOrBlob, log) {
+    miu.Exif = function(fileOrBlob, log) {
         "use strict";
         var TAG_IDS = [ 274 ], TAG_INFO = {
             274: {
@@ -4365,9 +4367,9 @@
             var theOffset = offset, thePromise = promise;
             if (theOffset === undefined) {
                 theOffset = 2;
-                thePromise = new qq.Promise();
+                thePromise = new miu.Promise();
             }
-            qq.readBlobToHex(fileOrBlob, theOffset, 4).then(function(hex) {
+            miu.readBlobToHex(fileOrBlob, theOffset, 4).then(function(hex) {
                 var match = /^ffe([0-9])/.exec(hex), segmentLength;
                 if (match) {
                     if (match[1] !== "1") {
@@ -4383,8 +4385,8 @@
             return thePromise;
         }
         function getApp1Offset() {
-            var promise = new qq.Promise();
-            qq.readBlobToHex(fileOrBlob, 0, 6).then(function(hex) {
+            var promise = new miu.Promise();
+            miu.readBlobToHex(fileOrBlob, 0, 6).then(function(hex) {
                 if (hex.indexOf("ffd8") !== 0) {
                     promise.failure("Not a valid JPEG!");
                 } else {
@@ -4398,15 +4400,15 @@
             return promise;
         }
         function isLittleEndian(app1Start) {
-            var promise = new qq.Promise();
-            qq.readBlobToHex(fileOrBlob, app1Start + 10, 2).then(function(hex) {
+            var promise = new miu.Promise();
+            miu.readBlobToHex(fileOrBlob, app1Start + 10, 2).then(function(hex) {
                 promise.success(hex === "4949");
             });
             return promise;
         }
         function getDirEntryCount(app1Start, littleEndian) {
-            var promise = new qq.Promise();
-            qq.readBlobToHex(fileOrBlob, app1Start + 18, 2).then(function(hex) {
+            var promise = new miu.Promise();
+            miu.readBlobToHex(fileOrBlob, app1Start + 18, 2).then(function(hex) {
                 if (littleEndian) {
                     return promise.success(parseLittleEndian(hex));
                 } else {
@@ -4417,7 +4419,7 @@
         }
         function getIfd(app1Start, dirEntries) {
             var offset = app1Start + 20, bytes = dirEntries * 12;
-            return qq.readBlobToHex(fileOrBlob, offset, bytes);
+            return miu.readBlobToHex(fileOrBlob, offset, bytes);
         }
         function getDirEntries(ifdHex) {
             var entries = [], offset = 0;
@@ -4428,8 +4430,8 @@
             return entries;
         }
         function getTagValues(littleEndian, dirEntries) {
-            var TAG_VAL_OFFSET = 16, tagsToFind = qq.extend([], TAG_IDS), vals = {};
-            qq.each(dirEntries, function(idx, entry) {
+            var TAG_VAL_OFFSET = 16, tagsToFind = miu.extend([], TAG_IDS), vals = {};
+            miu.each(dirEntries, function(idx, entry) {
                 var idHex = entry.slice(0, 4), id = littleEndian ? parseLittleEndian(idHex) : parseInt(idHex, 16), tagsToFindIdx = tagsToFind.indexOf(id), tagValHex, tagName, tagValLength;
                 if (tagsToFindIdx >= 0) {
                     tagName = TAG_INFO[id].name;
@@ -4444,18 +4446,18 @@
             });
             return vals;
         }
-        qq.extend(this, {
+        miu.extend(this, {
             parse: function() {
-                var parser = new qq.Promise(), onParseFailure = function(message) {
-                    log(qq.format("EXIF header parse failed: '{}' ", message));
+                var parser = new miu.Promise(), onParseFailure = function(message) {
+                    log(miu.format("EXIF header parse failed: '{}' ", message));
                     parser.failure(message);
                 };
                 getApp1Offset().then(function(app1Offset) {
-                    log(qq.format("Moving forward with EXIF header parsing for '{}'", fileOrBlob.name === undefined ? "blob" : fileOrBlob.name));
+                    log(miu.format("Moving forward with EXIF header parsing for '{}'", fileOrBlob.name === undefined ? "blob" : fileOrBlob.name));
                     isLittleEndian(app1Offset).then(function(littleEndian) {
-                        log(qq.format("EXIF Byte order is {} endian", littleEndian ? "little" : "big"));
+                        log(miu.format("EXIF Byte order is {} endian", littleEndian ? "little" : "big"));
                         getDirEntryCount(app1Offset, littleEndian).then(function(dirEntryCount) {
-                            log(qq.format("Found {} APP1 directory entries", dirEntryCount));
+                            log(miu.format("Found {} APP1 directory entries", dirEntryCount));
                             getIfd(app1Offset, dirEntryCount).then(function(ifdHex) {
                                 var dirEntries = getDirEntries(ifdHex), tagValues = getTagValues(littleEndian, dirEntries);
                                 log("Successfully parsed some EXIF tags");
@@ -4470,11 +4472,11 @@
         this._testing = {};
         this._testing.parseLittleEndian = parseLittleEndian;
     };
-    qq.Identify = function(fileOrBlob, log) {
+    miu.Identify = function(fileOrBlob, log) {
         "use strict";
         function isIdentifiable(magicBytes, questionableBytes) {
             var identifiable = false, magicBytesEntries = [].concat(magicBytes);
-            qq.each(magicBytesEntries, function(idx, magicBytesArrayEntry) {
+            miu.each(magicBytesEntries, function(idx, magicBytesArrayEntry) {
                 if (questionableBytes.indexOf(magicBytesArrayEntry) === 0) {
                     identifiable = true;
                     return false;
@@ -4482,24 +4484,24 @@
             });
             return identifiable;
         }
-        qq.extend(this, {
+        miu.extend(this, {
             isPreviewable: function() {
-                var self = this, identifier = new qq.Promise(), previewable = false, name = fileOrBlob.name === undefined ? "blob" : fileOrBlob.name;
-                log(qq.format("Attempting to determine if {} can be rendered in this browser", name));
+                var self = this, identifier = new miu.Promise(), previewable = false, name = fileOrBlob.name === undefined ? "blob" : fileOrBlob.name;
+                log(miu.format("Attempting to determine if {} can be rendered in this browser", name));
                 log("First pass: check type attribute of blob object.");
                 if (this.isPreviewableSync()) {
                     log("Second pass: check for magic bytes in file header.");
-                    qq.readBlobToHex(fileOrBlob, 0, 4).then(function(hex) {
-                        qq.each(self.PREVIEWABLE_MIME_TYPES, function(mime, bytes) {
+                    miu.readBlobToHex(fileOrBlob, 0, 4).then(function(hex) {
+                        miu.each(self.PREVIEWABLE_MIME_TYPES, function(mime, bytes) {
                             if (isIdentifiable(bytes, hex)) {
-                                if (mime !== "image/tiff" || qq.supportedFeatures.tiffPreviews) {
+                                if (mime !== "image/tiff" || miu.supportedFeatures.tiffPreviews) {
                                     previewable = true;
                                     identifier.success(mime);
                                 }
                                 return false;
                             }
                         });
-                        log(qq.format("'{}' is {} able to be rendered in this browser", name, previewable ? "" : "NOT"));
+                        log(miu.format("'{}' is {} able to be rendered in this browser", name, previewable ? "" : "NOT"));
                         if (!previewable) {
                             identifier.failure();
                         }
@@ -4513,10 +4515,10 @@
                 return identifier;
             },
             isPreviewableSync: function() {
-                var fileMime = fileOrBlob.type, isRecognizedImage = qq.indexOf(Object.keys(this.PREVIEWABLE_MIME_TYPES), fileMime) >= 0, previewable = false, name = fileOrBlob.name === undefined ? "blob" : fileOrBlob.name;
+                var fileMime = fileOrBlob.type, isRecognizedImage = miu.indexOf(Object.keys(this.PREVIEWABLE_MIME_TYPES), fileMime) >= 0, previewable = false, name = fileOrBlob.name === undefined ? "blob" : fileOrBlob.name;
                 if (isRecognizedImage) {
                     if (fileMime === "image/tiff") {
-                        previewable = qq.supportedFeatures.tiffPreviews;
+                        previewable = miu.supportedFeatures.tiffPreviews;
                     } else {
                         previewable = true;
                     }
@@ -4526,18 +4528,18 @@
             }
         });
     };
-    qq.Identify.prototype.PREVIEWABLE_MIME_TYPES = {
+    miu.Identify.prototype.PREVIEWABLE_MIME_TYPES = {
         "image/jpeg": "ffd8ff",
         "image/gif": "474946",
         "image/png": "89504e",
         "image/bmp": "424d",
         "image/tiff": [ "49492a00", "4d4d002a" ]
     };
-    qq.ImageValidation = function(blob, log) {
+    miu.ImageValidation = function(blob, log) {
         "use strict";
         function hasNonZeroLimits(limits) {
             var atLeastOne = false;
-            qq.each(limits, function(limit, value) {
+            miu.each(limits, function(limit, value) {
                 if (value > 0) {
                     atLeastOne = true;
                     return false;
@@ -4546,8 +4548,8 @@
             return atLeastOne;
         }
         function getWidthHeight() {
-            var sizeDetermination = new qq.Promise();
-            new qq.Identify(blob, log).isPreviewable().then(function() {
+            var sizeDetermination = new miu.Promise();
+            new miu.Identify(blob, log).isPreviewable().then(function() {
                 var image = new Image(), url = window.URL && window.URL.createObjectURL ? window.URL : window.webkitURL && window.webkitURL.createObjectURL ? window.webkitURL : null;
                 if (url) {
                     image.onerror = function() {
@@ -4570,7 +4572,7 @@
         }
         function getFailingLimit(limits, dimensions) {
             var failingLimit;
-            qq.each(limits, function(limitName, limitValue) {
+            miu.each(limits, function(limitName, limitValue) {
                 if (limitValue > 0) {
                     var limitMatcher = /(max|min)(Width|Height)/.exec(limitName), dimensionPropName = limitMatcher[2].charAt(0).toLowerCase() + limitMatcher[2].slice(1), actualValue = dimensions[dimensionPropName];
                     switch (limitMatcher[1]) {
@@ -4593,7 +4595,7 @@
             return failingLimit;
         }
         this.validate = function(limits) {
-            var validationEffort = new qq.Promise();
+            var validationEffort = new miu.Promise();
             log("Attempting to validate image.");
             if (hasNonZeroLimits(limits)) {
                 getWidthHeight().then(function(dimensions) {
@@ -4610,7 +4612,7 @@
             return validationEffort;
         };
     };
-    qq.Session = function(spec) {
+    miu.Session = function(spec) {
         "use strict";
         var options = {
             endpoint: null,
@@ -4620,9 +4622,9 @@
             addFileRecord: function(sessionData) {},
             log: function(message, level) {}
         };
-        qq.extend(options, spec, true);
+        miu.extend(options, spec, true);
         function isJsonResponseValid(response) {
-            if (qq.isArray(response)) {
+            if (miu.isArray(response)) {
                 return true;
             }
             options.log("Session response is not an array.", "error");
@@ -4631,13 +4633,13 @@
             var someItemsIgnored = false;
             success = success && isJsonResponseValid(fileItems);
             if (success) {
-                qq.each(fileItems, function(idx, fileItem) {
+                miu.each(fileItems, function(idx, fileItem) {
                     if (fileItem.uuid == null) {
                         someItemsIgnored = true;
-                        options.log(qq.format("Session response item {} did not include a valid UUID - ignoring.", idx), "error");
+                        options.log(miu.format("Session response item {} did not include a valid UUID - ignoring.", idx), "error");
                     } else if (fileItem.name == null) {
                         someItemsIgnored = true;
-                        options.log(qq.format("Session response item {} did not include a valid name - ignoring.", idx), "error");
+                        options.log(miu.format("Session response item {} did not include a valid name - ignoring.", idx), "error");
                     } else {
                         try {
                             options.addFileRecord(fileItem);
@@ -4653,16 +4655,16 @@
             promise[success && !someItemsIgnored ? "success" : "failure"](fileItems, xhrOrXdr);
         }
         this.refresh = function() {
-            var refreshEffort = new qq.Promise(), refreshCompleteCallback = function(response, success, xhrOrXdr) {
+            var refreshEffort = new miu.Promise(), refreshCompleteCallback = function(response, success, xhrOrXdr) {
                 handleFileItems(response, success, xhrOrXdr, refreshEffort);
-            }, requesterOptions = qq.extend({}, options), requester = new qq.SessionAjaxRequester(qq.extend(requesterOptions, {
+            }, requesterOptions = miu.extend({}, options), requester = new miu.SessionAjaxRequester(miu.extend(requesterOptions, {
                 onComplete: refreshCompleteCallback
             }));
             requester.queryServer();
             return refreshEffort;
         };
     };
-    qq.SessionAjaxRequester = function(spec) {
+    miu.SessionAjaxRequester = function(spec) {
         "use strict";
         var requester, options = {
             endpoint: null,
@@ -4675,12 +4677,12 @@
             onComplete: function(response, success, xhrOrXdr) {},
             log: function(str, level) {}
         };
-        qq.extend(options, spec);
+        miu.extend(options, spec);
         function onComplete(id, xhrOrXdr, isError) {
             var response = null;
             if (xhrOrXdr.responseText != null) {
                 try {
-                    response = qq.parseJson(xhrOrXdr.responseText);
+                    response = miu.parseJson(xhrOrXdr.responseText);
                 } catch (err) {
                     options.log("Problem parsing session response: " + err.message, "error");
                     isError = true;
@@ -4688,7 +4690,7 @@
             }
             options.onComplete(response, !isError, xhrOrXdr);
         }
-        requester = qq.extend(this, new qq.AjaxRequester({
+        requester = miu.extend(this, new miu.AjaxRequester({
             acceptHeader: "application/json",
             validMethods: [ "GET" ],
             method: "GET",
@@ -4702,36 +4704,36 @@
             onComplete: onComplete,
             cors: options.cors
         }));
-        qq.extend(this, {
+        miu.extend(this, {
             queryServer: function() {
-                var params = qq.extend({}, options.params);
+                var params = miu.extend({}, options.params);
                 options.log("Session query request.");
                 requester.initTransport("sessionRefresh").withParams(params).withCacheBuster().send();
             }
         });
     };
-    qq.Scaler = function(spec, log) {
+    miu.Scaler = function(spec, log) {
         "use strict";
         var self = this, customResizeFunction = spec.customResizer, includeOriginal = spec.sendOriginal, orient = spec.orient, defaultType = spec.defaultType, defaultQuality = spec.defaultQuality / 100, failedToScaleText = spec.failureText, includeExif = spec.includeExif, sizes = this._getSortedSizes(spec.sizes);
-        qq.extend(this, {
-            enabled: qq.supportedFeatures.scaling && sizes.length > 0,
+        miu.extend(this, {
+            enabled: miu.supportedFeatures.scaling && sizes.length > 0,
             getFileRecords: function(originalFileUuid, originalFileName, originalBlobOrBlobData) {
-                var self = this, records = [], originalBlob = originalBlobOrBlobData.blob ? originalBlobOrBlobData.blob : originalBlobOrBlobData, identifier = new qq.Identify(originalBlob, log);
+                var self = this, records = [], originalBlob = originalBlobOrBlobData.blob ? originalBlobOrBlobData.blob : originalBlobOrBlobData, identifier = new miu.Identify(originalBlob, log);
                 if (identifier.isPreviewableSync()) {
-                    qq.each(sizes, function(idx, sizeRecord) {
+                    miu.each(sizes, function(idx, sizeRecord) {
                         var outputType = self._determineOutputType({
                             defaultType: defaultType,
                             requestedType: sizeRecord.type,
                             refType: originalBlob.type
                         });
                         records.push({
-                            uuid: qq.getUniqueId(),
+                            uuid: miu.getUniqueId(),
                             name: self._getName(originalFileName, {
                                 name: sizeRecord.name,
                                 type: outputType,
                                 refType: originalBlob.type
                             }),
-                            blob: new qq.BlobProxy(originalBlob, qq.bind(self._generateScaledImage, self, {
+                            blob: new miu.BlobProxy(originalBlob, miu.bind(self._generateScaledImage, self, {
                                 customResizeFunction: customResizeFunction,
                                 maxSize: sizeRecord.maxSize,
                                 orient: orient,
@@ -4760,10 +4762,10 @@
                 return records;
             },
             handleNewFile: function(file, name, uuid, size, fileList, batchId, uuidParamName, api) {
-                var self = this, buttonId = file.qqButtonId || file.blob && file.blob.qqButtonId, scaledIds = [], originalId = null, addFileToHandler = api.addFileToHandler, uploadData = api.uploadData, paramsStore = api.paramsStore, proxyGroupId = qq.getUniqueId();
-                qq.each(self.getFileRecords(uuid, name, file), function(idx, record) {
+                var self = this, buttonId = file.miuButtonId || file.blob && file.blob.miuButtonId, scaledIds = [], originalId = null, addFileToHandler = api.addFileToHandler, uploadData = api.uploadData, paramsStore = api.paramsStore, proxyGroupId = miu.getUniqueId();
+                miu.each(self.getFileRecords(uuid, name, file), function(idx, record) {
                     var blobSize = record.size, id;
-                    if (record.blob instanceof qq.BlobProxy) {
+                    if (record.blob instanceof miu.BlobProxy) {
                         blobSize = -1;
                     }
                     id = uploadData.addFile({
@@ -4773,7 +4775,7 @@
                         batchId: batchId,
                         proxyGroupId: proxyGroupId
                     });
-                    if (record.blob instanceof qq.BlobProxy) {
+                    if (record.blob instanceof miu.BlobProxy) {
                         scaledIds.push(id);
                     } else {
                         originalId = id;
@@ -4785,16 +4787,16 @@
                             file: record.blob
                         });
                     } else {
-                        uploadData.setStatus(id, qq.status.REJECTED);
+                        uploadData.setStatus(id, miu.status.REJECTED);
                     }
                 });
                 if (originalId !== null) {
-                    qq.each(scaledIds, function(idx, scaledId) {
+                    miu.each(scaledIds, function(idx, scaledId) {
                         var params = {
-                            qqparentuuid: uploadData.retrieve({
+                            miuparentuuid: uploadData.retrieve({
                                 id: originalId
                             }).uuid,
-                            qqparentsize: uploadData.retrieve({
+                            miuparentsize: uploadData.retrieve({
                                 id: originalId
                             }).size
                         };
@@ -4817,13 +4819,13 @@
             }
         });
     };
-    qq.extend(qq.Scaler.prototype, {
+    miu.extend(miu.Scaler.prototype, {
         scaleImage: function(id, specs, api) {
             "use strict";
-            if (!qq.supportedFeatures.scaling) {
-                throw new qq.Error("Scaling is not supported in this browser!");
+            if (!miu.supportedFeatures.scaling) {
+                throw new miu.Error("Scaling is not supported in this browser!");
             }
-            var scalingEffort = new qq.Promise(), log = api.log, file = api.getFile(id), uploadData = api.uploadData.retrieve({
+            var scalingEffort = new miu.Promise(), log = api.log, file = api.getFile(id), uploadData = api.uploadData.retrieve({
                 id: id
             }), name = uploadData && uploadData.name, uuid = uploadData && uploadData.uuid, scalingOptions = {
                 customResizer: specs.customResizer,
@@ -4836,14 +4838,14 @@
                     name: "",
                     maxSize: specs.maxSize
                 } ]
-            }, scaler = new qq.Scaler(scalingOptions, log);
-            if (!qq.Scaler || !qq.supportedFeatures.imagePreviews || !file) {
+            }, scaler = new miu.Scaler(scalingOptions, log);
+            if (!miu.Scaler || !miu.supportedFeatures.imagePreviews || !file) {
                 scalingEffort.failure();
                 log("Could not generate requested scaled image for " + id + ".  " + "Scaling is either not possible in this browser, or the file could not be located.", "error");
             } else {
-                qq.bind(function() {
+                miu.bind(function() {
                     var record = scaler.getFileRecords(uuid, name, file)[0];
-                    if (record && record.blob instanceof qq.BlobProxy) {
+                    if (record && record.blob instanceof miu.BlobProxy) {
                         record.blob.create().then(scalingEffort.success, scalingEffort.failure);
                     } else {
                         log(id + " is not a scalable image!", "error");
@@ -4865,9 +4867,9 @@
             if (!requestedType) {
                 return defaultType;
             }
-            if (qq.indexOf(Object.keys(qq.Identify.prototype.PREVIEWABLE_MIME_TYPES), requestedType) >= 0) {
+            if (miu.indexOf(Object.keys(miu.Identify.prototype.PREVIEWABLE_MIME_TYPES), requestedType) >= 0) {
                 if (requestedType === "image/tiff") {
-                    return qq.supportedFeatures.tiffPreviews ? requestedType : defaultType;
+                    return miu.supportedFeatures.tiffPreviews ? requestedType : defaultType;
                 }
                 return requestedType;
             }
@@ -4875,7 +4877,7 @@
         },
         _getName: function(originalName, scaledVersionProperties) {
             "use strict";
-            var startOfExt = originalName.lastIndexOf("."), versionType = scaledVersionProperties.type || "image/png", referenceType = scaledVersionProperties.refType, scaledName = "", scaledExt = qq.getExtension(originalName), nameAppendage = "";
+            var startOfExt = originalName.lastIndexOf("."), versionType = scaledVersionProperties.type || "image/png", referenceType = scaledVersionProperties.refType, scaledName = "", scaledExt = miu.getExtension(originalName), nameAppendage = "";
             if (scaledVersionProperties.name && scaledVersionProperties.name.trim().length) {
                 nameAppendage = " (" + scaledVersionProperties.name + ")";
             }
@@ -4892,7 +4894,7 @@
         },
         _getSortedSizes: function(sizes) {
             "use strict";
-            sizes = qq.extend([], sizes);
+            sizes = miu.extend([], sizes);
             return sizes.sort(function(a, b) {
                 if (a.maxSize > b.maxSize) {
                     return 1;
@@ -4905,7 +4907,7 @@
         },
         _generateScaledImage: function(spec, sourceFile) {
             "use strict";
-            var self = this, customResizeFunction = spec.customResizeFunction, log = spec.log, maxSize = spec.maxSize, orient = spec.orient, type = spec.type, quality = spec.quality, failedText = spec.failedText, includeExif = spec.includeExif && sourceFile.type === "image/jpeg" && type === "image/jpeg", scalingEffort = new qq.Promise(), imageGenerator = new qq.ImageGenerator(log), canvas = document.createElement("canvas");
+            var self = this, customResizeFunction = spec.customResizeFunction, log = spec.log, maxSize = spec.maxSize, orient = spec.orient, type = spec.type, quality = spec.quality, failedText = spec.failedText, includeExif = spec.includeExif && sourceFile.type === "image/jpeg" && type === "image/jpeg", scalingEffort = new miu.Promise(), imageGenerator = new miu.ImageGenerator(log), canvas = document.createElement("canvas");
             log("Attempting to generate scaled version for " + sourceFile.name);
             imageGenerator.generate(sourceFile, canvas, {
                 maxSize: maxSize,
@@ -4914,7 +4916,7 @@
             }).then(function() {
                 var scaledImageDataUri = canvas.toDataURL(type, quality), signalSuccess = function() {
                     log("Success generating scaled version for " + sourceFile.name);
-                    var blob = qq.dataUriToBlob(scaledImageDataUri);
+                    var blob = miu.dataUriToBlob(scaledImageDataUri);
                     scalingEffort.success(blob);
                 };
                 if (includeExif) {
@@ -4936,10 +4938,10 @@
         },
         _insertExifHeader: function(originalImage, scaledImageDataUri, log) {
             "use strict";
-            var reader = new FileReader(), insertionEffort = new qq.Promise(), originalImageDataUri = "";
+            var reader = new FileReader(), insertionEffort = new miu.Promise(), originalImageDataUri = "";
             reader.onload = function() {
                 originalImageDataUri = reader.result;
-                insertionEffort.success(qq.ExifRestorer.restore(originalImageDataUri, scaledImageDataUri));
+                insertionEffort.success(miu.ExifRestorer.restore(originalImageDataUri, scaledImageDataUri));
             };
             reader.onerror = function() {
                 log("Problem reading " + originalImage.name + " during attempt to transfer EXIF data to scaled version.", "error");
@@ -4959,7 +4961,7 @@
             mimeString = dataUri.split(",")[0].split(":")[1].split(";")[0];
             arrayBuffer = new ArrayBuffer(byteString.length);
             intArray = new Uint8Array(arrayBuffer);
-            qq.each(byteString, function(idx, character) {
+            miu.each(byteString, function(idx, character) {
                 intArray[idx] = character.charCodeAt(0);
             });
             return this._createBlob(arrayBuffer, mimeString);
@@ -4977,7 +4979,7 @@
             }
         }
     });
-    qq.ExifRestorer = function() {
+    miu.ExifRestorer = function() {
         var ExifRestorer = {};
         ExifRestorer.KEY_STR = "ABCDEFGHIJKLMNOP" + "QRSTUVWXYZabcdef" + "ghijklmnopqrstuv" + "wxyz0123456789+/" + "=";
         ExifRestorer.encode64 = function(input) {
@@ -5079,7 +5081,7 @@
         };
         return ExifRestorer;
     }();
-    qq.TotalProgress = function(callback, getSize) {
+    miu.TotalProgress = function(callback, getSize) {
         "use strict";
         var perFileProgress = {}, totalLoaded = 0, totalSize = 0, lastLoadedSent = -1, lastTotalSent = -1, callbackProxy = function(loaded, total) {
             if (loaded !== lastLoadedSent || total !== lastTotalSent) {
@@ -5089,8 +5091,8 @@
             lastTotalSent = total;
         }, noRetryableFiles = function(failed, retryable) {
             var none = true;
-            qq.each(failed, function(idx, failedId) {
-                if (qq.indexOf(retryable, failedId) >= 0) {
+            miu.each(failed, function(idx, failedId) {
+                if (miu.indexOf(retryable, failedId) >= 0) {
                     none = false;
                     return false;
                 }
@@ -5128,12 +5130,12 @@
             }
             callbackProxy(totalLoaded, totalSize);
         };
-        qq.extend(this, {
+        miu.extend(this, {
             onAllComplete: onAllComplete,
             onStatusChange: function(id, oldStatus, newStatus) {
-                if (newStatus === qq.status.CANCELED || newStatus === qq.status.REJECTED) {
+                if (newStatus === miu.status.CANCELED || newStatus === miu.status.REJECTED) {
                     onCancel(id);
-                } else if (newStatus === qq.status.SUBMITTING) {
+                } else if (newStatus === miu.status.SUBMITTING) {
                     onNew(id);
                 }
             },
@@ -5154,7 +5156,7 @@
             }
         });
     };
-    qq.PasteSupport = function(o) {
+    miu.PasteSupport = function(o) {
         "use strict";
         var options, detachPasteHandler;
         options = {
@@ -5168,10 +5170,10 @@
             return item.type && item.type.indexOf("image/") === 0;
         }
         function registerPasteHandler() {
-            detachPasteHandler = qq(options.targetElement).attach("paste", function(event) {
+            detachPasteHandler = miu(options.targetElement).attach("paste", function(event) {
                 var clipboardData = event.clipboardData;
                 if (clipboardData) {
-                    qq.each(clipboardData.items, function(idx, item) {
+                    miu.each(clipboardData.items, function(idx, item) {
                         if (isImage(item)) {
                             var blob = item.getAsFile();
                             options.callbacks.pasteReceived(blob);
@@ -5185,18 +5187,18 @@
                 detachPasteHandler();
             }
         }
-        qq.extend(options, o);
+        miu.extend(options, o);
         registerPasteHandler();
-        qq.extend(this, {
+        miu.extend(this, {
             reset: function() {
                 unregisterPasteHandler();
             }
         });
     };
-    qq.FormSupport = function(options, startUpload, log) {
+    miu.FormSupport = function(options, startUpload, log) {
         "use strict";
         var self = this, interceptSubmit = options.interceptSubmit, formEl = options.element, autoUpload = options.autoUpload;
-        qq.extend(this, {
+        miu.extend(this, {
             newEndpoint: null,
             newAutoUpload: autoUpload,
             attachedToForm: false,
@@ -5222,7 +5224,7 @@
         }
         function maybeUploadOnSubmit(formEl) {
             var nativeSubmit = formEl.submit;
-            qq(formEl).attach("submit", function(event) {
+            miu(formEl).attach("submit", function(event) {
                 event = event || window.event;
                 if (event.preventDefault) {
                     event.preventDefault();
@@ -5237,7 +5239,7 @@
         }
         function determineFormEl(formEl) {
             if (formEl) {
-                if (qq.isString(formEl)) {
+                if (miu.isString(formEl)) {
                     formEl = document.getElementById(formEl);
                 }
                 if (formEl) {
@@ -5251,14 +5253,14 @@
         formEl = determineFormEl(formEl);
         this.attachedToForm = !!formEl;
     };
-    qq.extend(qq.FormSupport.prototype, {
+    miu.extend(miu.FormSupport.prototype, {
         _form2Obj: function(form) {
             "use strict";
             var obj = {}, notIrrelevantType = function(type) {
                 var irrelevantTypes = [ "button", "image", "reset", "submit" ];
-                return qq.indexOf(irrelevantTypes, type.toLowerCase()) < 0;
+                return miu.indexOf(irrelevantTypes, type.toLowerCase()) < 0;
             }, radioOrCheckbox = function(type) {
-                return qq.indexOf([ "checkbox", "radio" ], type.toLowerCase()) >= 0;
+                return miu.indexOf([ "checkbox", "radio" ], type.toLowerCase()) >= 0;
             }, ignoreValue = function(el) {
                 if (radioOrCheckbox(el.type) && !el.checked) {
                     return true;
@@ -5266,7 +5268,7 @@
                 return el.disabled && el.type.toLowerCase() !== "hidden";
             }, selectValue = function(select) {
                 var value = null;
-                qq.each(qq(select).children(), function(idx, child) {
+                miu.each(miu(select).children(), function(idx, child) {
                     if (child.tagName.toLowerCase() === "option" && child.selected) {
                         value = child.value;
                         return false;
@@ -5274,8 +5276,8 @@
                 });
                 return value;
             };
-            qq.each(form.elements, function(idx, el) {
-                if ((qq.isInput(el, true) || el.tagName.toLowerCase() === "textarea") && notIrrelevantType(el.type) && !ignoreValue(el)) {
+            miu.each(form.elements, function(idx, el) {
+                if ((miu.isInput(el, true) || el.tagName.toLowerCase() === "textarea") && notIrrelevantType(el.type) && !ignoreValue(el)) {
                     obj[el.name] = el.value;
                 } else if (el.tagName.toLowerCase() === "select" && !ignoreValue(el)) {
                     var value = selectValue(el);
@@ -5287,8 +5289,8 @@
             return obj;
         }
     });
-    qq.traditional = qq.traditional || {};
-    qq.traditional.FormUploadHandler = function(options, proxy) {
+    miu.traditional = miu.traditional || {};
+    miu.traditional.FormUploadHandler = function(options, proxy) {
         "use strict";
         var handler = this, getName = proxy.getName, getUuid = proxy.getUuid, log = proxy.log;
         function getIframeContentJson(id, iframe) {
@@ -5323,7 +5325,7 @@
             });
         }
         this.uploadFile = function(id) {
-            var input = handler.getInput(id), iframe = handler._createIframe(id), promise = new qq.Promise(), form;
+            var input = handler.getInput(id), iframe = handler._createIframe(id), promise = new miu.Promise(), form;
             form = createForm(id, iframe);
             form.appendChild(input);
             handler._attachLoadEvent(iframe, function(responseFromMessage) {
@@ -5331,7 +5333,7 @@
                 var response = responseFromMessage ? responseFromMessage : getIframeContentJson(id, iframe);
                 handler._detachLoadEvent(id);
                 if (!options.cors.expected) {
-                    qq(iframe).remove();
+                    miu(iframe).remove();
                 }
                 if (response.success) {
                     promise.success(response);
@@ -5341,10 +5343,10 @@
             });
             log("Sending upload request for " + id);
             form.submit();
-            qq(form).remove();
+            miu(form).remove();
             return promise;
         };
-        qq.extend(this, new qq.FormUploadHandler({
+        miu.extend(this, new miu.FormUploadHandler({
             options: {
                 isCors: options.cors.expected,
                 inputName: options.inputName
@@ -5357,8 +5359,8 @@
             }
         }));
     };
-    qq.traditional = qq.traditional || {};
-    qq.traditional.XhrUploadHandler = function(spec, proxy) {
+    miu.traditional = miu.traditional || {};
+    miu.traditional.XhrUploadHandler = function(spec, proxy) {
         "use strict";
         var handler = this, getName = proxy.getName, getSize = proxy.getSize, getUuid = proxy.getUuid, log = proxy.log, multipart = spec.forceMultipart || spec.paramsInBody, addChunkingSpecificParams = function(id, params, chunkData) {
             var size = getSize(id), name = getName(id);
@@ -5370,12 +5372,12 @@
             if (multipart) {
                 params[spec.filenameParam] = name;
             }
-        }, allChunksDoneRequester = new qq.traditional.AllChunksDoneAjaxRequester({
+        }, allChunksDoneRequester = new miu.traditional.AllChunksDoneAjaxRequester({
             cors: spec.cors,
             endpoint: spec.chunking.success.endpoint,
             log: log
         }), createReadyStateChangedHandler = function(id, xhr) {
-            var promise = new qq.Promise();
+            var promise = new miu.Promise();
             xhr.onreadystatechange = function() {
                 if (xhr.readyState === 4) {
                     var result = onUploadOrChunkComplete(id, xhr);
@@ -5395,7 +5397,7 @@
             params[spec.chunking.paramNames.totalParts] = handler._getTotalChunks(id);
             return params;
         }, isErrorUploadResponse = function(xhr, response) {
-            return qq.indexOf([ 200, 201, 202, 203, 204 ], xhr.status) < 0 || !response.success || response.reset;
+            return miu.indexOf([ 200, 201, 202, 203, 204 ], xhr.status) < 0 || !response.success || response.reset;
         }, onUploadOrChunkComplete = function(id, xhr) {
             var response;
             log("xhr - server response received for " + id);
@@ -5408,14 +5410,14 @@
         }, parseResponse = function(upload, xhr) {
             var response = {};
             try {
-                log(qq.format("Received response status {} with body: {}", xhr.status, xhr.responseText));
-                response = qq.parseJson(xhr.responseText);
+                log(miu.format("Received response status {} with body: {}", xhr.status, xhr.responseText));
+                response = miu.parseJson(xhr.responseText);
             } catch (error) {
                 upload && log("Error when attempting to parse xhr response text (" + error.message + ")", "error");
             }
             return response;
         }, sendChunksCompleteRequest = function(id) {
-            var promise = new qq.Promise();
+            var promise = new miu.Promise();
             allChunksDoneRequester.complete(id, handler._createXhr(id), getChunksCompleteParams(id), spec.customHeaders.get(id)).then(function(xhr) {
                 promise.success(parseResponse(false, xhr), xhr);
             }, function(xhr) {
@@ -5433,7 +5435,7 @@
                 if (!multipart) {
                     params[spec.inputName] = name;
                 }
-                endpoint = qq.obj2url(params, endpoint);
+                endpoint = miu.obj2url(params, endpoint);
             }
             xhr.open(method, endpoint, true);
             if (spec.cors.expected && spec.cors.sendCredentials) {
@@ -5441,7 +5443,7 @@
             }
             if (multipart) {
                 if (spec.paramsInBody) {
-                    qq.obj2FormData(params, formData);
+                    miu.obj2FormData(params, formData);
                 }
                 formData.append(spec.inputName, fileOrBlob);
                 return formData;
@@ -5456,11 +5458,11 @@
                 xhr.setRequestHeader("Content-Type", "application/octet-stream");
                 xhr.setRequestHeader("X-Mime-Type", fileOrBlob.type);
             }
-            qq.each(extraHeaders, function(name, val) {
+            miu.each(extraHeaders, function(name, val) {
                 xhr.setRequestHeader(name, val);
             });
         };
-        qq.extend(this, {
+        miu.extend(this, {
             uploadChunk: function(id, chunkIdx, resuming) {
                 var chunkData = handler._getChunkData(id, chunkIdx), xhr = handler._createXhr(id, chunkIdx), size = getSize(id), promise, toSend, params;
                 promise = createReadyStateChangedHandler(id, xhr);
@@ -5487,27 +5489,27 @@
                 return promise;
             }
         });
-        qq.extend(this, new qq.XhrUploadHandler({
-            options: qq.extend({
+        miu.extend(this, new miu.XhrUploadHandler({
+            options: miu.extend({
                 namespace: "traditional"
             }, spec),
-            proxy: qq.extend({
+            proxy: miu.extend({
                 getEndpoint: spec.endpointStore.get
             }, proxy)
         }));
-        qq.override(this, function(super_) {
+        miu.override(this, function(super_) {
             return {
                 finalizeChunks: function(id) {
                     if (spec.chunking.success.endpoint) {
                         return sendChunksCompleteRequest(id);
                     } else {
-                        return super_.finalizeChunks(id, qq.bind(parseResponse, this, true));
+                        return super_.finalizeChunks(id, miu.bind(parseResponse, this, true));
                     }
                 }
             };
         });
     };
-    qq.traditional.AllChunksDoneAjaxRequester = function(o) {
+    miu.traditional.AllChunksDoneAjaxRequester = function(o) {
         "use strict";
         var requester, method = "POST", options = {
             cors: {
@@ -5522,8 +5524,8 @@
                 return options.endpoint;
             }
         };
-        qq.extend(options, o);
-        requester = qq.extend(this, new qq.AjaxRequester({
+        miu.extend(options, o);
+        requester = miu.extend(this, new miu.AjaxRequester({
             acceptHeader: "application/json",
             validMethods: [ method ],
             method: method,
@@ -5541,9 +5543,9 @@
                 }
             }
         }));
-        qq.extend(this, {
+        miu.extend(this, {
             complete: function(id, xhr, params, headers) {
-                var promise = new qq.Promise();
+                var promise = new miu.Promise();
                 options.log("Submitting All Chunks Done request for " + id);
                 promises[id] = promise;
                 requester.initTransport(id).withParams(params).withHeaders(headers).send(xhr);

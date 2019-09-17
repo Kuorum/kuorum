@@ -5,7 +5,7 @@
 
 /* Buttons
 ------------------------------------------ */
-.qq-gallery .qq-btn
+.miu-gallery .miu-btn
 {
     float: right;
     border: none;
@@ -16,7 +16,7 @@
 
 /* Upload Button
 ------------------------------------------ */
-.qq-gallery .qq-upload-button {
+.miu-gallery .miu-upload-button {
     display: inline;
     width: 105px;
     padding: 7px 10px;
@@ -31,17 +31,17 @@
     0 1px 0 rgba(0, 0, 0, 0.36),
     0 -2px 12px rgba(0, 0, 0, 0.08) inset
 }
-.qq-gallery .qq-upload-button-hover {
+.miu-gallery .miu-upload-button-hover {
     background: #33B6CC;
 }
-.qq-gallery .qq-upload-button-focus {
+.miu-gallery .miu-upload-button-focus {
     outline: 1px dotted #000000;
 }
 
 
 /* Drop Zone
 ------------------------------------------ */
-.qq-gallery.qq-uploader {
+.miu-gallery.miu-uploader {
     position: relative;
     min-height: 200px;
     max-height: 490px;
@@ -52,7 +52,7 @@
     background-color: #FAFAFA;
     padding: 20px;
 }
-.qq-gallery.qq-uploader:before {
+.miu-gallery.miu-uploader:before {
     content: attr(qq-drop-area-text) " ";
     position: absolute;
     font-size: 200%;
@@ -63,7 +63,7 @@
     opacity: 0.25;
     filter: alpha(opacity=25);
 }
-.qq-gallery .qq-upload-drop-area, .qq-upload-extra-drop-area {
+.miu-gallery .miu-upload-drop-area, .miu-upload-extra-drop-area {
     position: absolute;
     top: 0;
     left: 0;
@@ -75,7 +75,7 @@
     border-radius: 4px;
     text-align: center;
 }
-.qq-gallery .qq-upload-drop-area span {
+.miu-gallery .miu-upload-drop-area span {
     display: block;
     position: absolute;
     top: 50%;
@@ -83,7 +83,7 @@
     margin-top: -8px;
     font-size: 16px;
 }
-.qq-gallery .qq-upload-extra-drop-area {
+.miu-gallery .miu-upload-extra-drop-area {
     position: relative;
     margin-top: 50px;
     font-size: 16px;
@@ -91,11 +91,11 @@
     height: 20px;
     min-height: 40px;
 }
-.qq-gallery .qq-upload-drop-area-active {
+.miu-gallery .miu-upload-drop-area-active {
     background: #FDFDFD;
     border-radius: 4px;
 }
-.qq-gallery .qq-upload-list {
+.miu-gallery .miu-upload-list {
     margin: 0;
     padding: 10px 0 0;
     list-style: none;
@@ -108,7 +108,7 @@
 
 /* Uploaded Elements
 ------------------------------------------ */
-.qq-gallery .qq-upload-list li {
+.miu-gallery .miu-upload-list li {
     display: inline-block;
     position: relative;
     max-width: 120px;
@@ -126,30 +126,30 @@
     height: 186px;
 }
 
-.qq-gallery .qq-upload-spinner,
-.qq-gallery .qq-upload-size,
-.qq-gallery .qq-upload-retry,
-.qq-gallery .qq-upload-failed-text,
-.qq-gallery .qq-upload-delete,
-.qq-gallery .qq-upload-pause,
-.qq-gallery .qq-upload-continue {
+.miu-gallery .miu-upload-spinner,
+.miu-gallery .miu-upload-size,
+.miu-gallery .miu-upload-retry,
+.miu-gallery .miu-upload-failed-text,
+.miu-gallery .miu-upload-delete,
+.miu-gallery .miu-upload-pause,
+.miu-gallery .miu-upload-continue {
     display: inline;
 }
-.qq-gallery .qq-upload-retry:hover,
-.qq-gallery .qq-upload-delete:hover,
-.qq-gallery .qq-upload-pause:hover,
-.qq-gallery .qq-upload-continue:hover {
+.miu-gallery .miu-upload-retry:hover,
+.miu-gallery .miu-upload-delete:hover,
+.miu-gallery .miu-upload-pause:hover,
+.miu-gallery .miu-upload-continue:hover {
     background-color: transparent;
 }
-.qq-gallery .qq-upload-delete,
-.qq-gallery .qq-upload-pause,
-.qq-gallery .qq-upload-continue,
-.qq-gallery .qq-upload-cancel {
+.miu-gallery .miu-upload-delete,
+.miu-gallery .miu-upload-pause,
+.miu-gallery .miu-upload-continue,
+.miu-gallery .miu-upload-cancel {
     cursor: pointer;
 }
-.qq-gallery .qq-upload-delete,
-.qq-gallery .qq-upload-pause,
-.qq-gallery .qq-upload-continue {
+.miu-gallery .miu-upload-delete,
+.miu-gallery .miu-upload-pause,
+.miu-gallery .miu-upload-continue {
     border:none;
     background: none;
     color: #00A0BA;
@@ -157,7 +157,7 @@
     padding: 0;
 }
 /* to ensure consistent size of tiles - only display status text before auto-retry or after failure */
-.qq-gallery .qq-upload-status-text {
+.miu-gallery .miu-upload-status-text {
     color: #333333;
     font-size: 12px;
     padding-left: 3px;
@@ -166,20 +166,20 @@
     display: none;
     width: 108px;
 }
-.qq-gallery .qq-upload-fail .qq-upload-status-text {
+.miu-gallery .miu-upload-fail .miu-upload-status-text {
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow-x: hidden;
     display: block;
 }
-.qq-gallery .qq-upload-retrying .qq-upload-status-text {
+.miu-gallery .miu-upload-retrying .miu-upload-status-text {
     display: inline-block;
 }
-.qq-gallery .qq-upload-retrying .qq-progress-bar-container {
+.miu-gallery .miu-upload-retrying .miu-progress-bar-container {
     display: none;
 }
 
-.qq-gallery .qq-upload-cancel {
+.miu-gallery .miu-upload-cancel {
     background-color: #525252;
     color: #F7F7F7;
     font-weight: bold;
@@ -195,10 +195,10 @@
     margin: 0;
     line-height: 17px;
 }
-.qq-gallery .qq-upload-cancel:hover {
+.miu-gallery .miu-upload-cancel:hover {
     background-color: #525252;
 }
-.qq-gallery .qq-upload-retry {
+.miu-gallery .miu-upload-retry {
     cursor: pointer;
     position: absolute;
     top: 30px;
@@ -215,11 +215,11 @@
     background-color: #EBF6E0;
     z-index: 1;
 }
-.qq-gallery .qq-upload-retry:hover {
+.miu-gallery .miu-upload-retry:hover {
     background-color: #f7ffec;
 }
 
-.qq-gallery .qq-file-info {
+.miu-gallery .miu-file-info {
     padding: 10px 6px 4px;
     margin-top: -3px;
     border-radius: 0 0 2px 2px;
@@ -227,11 +227,11 @@
     overflow: hidden;
 }
 
-.qq-gallery .qq-file-info .qq-file-name {
+.miu-gallery .miu-file-info .miu-file-name {
     position: relative;
 }
 
-.qq-gallery .qq-upload-file {
+.miu-gallery .miu-upload-file {
     display: block;
     margin-right: 0;
     margin-bottom: 3px;
@@ -242,7 +242,7 @@
     white-space: nowrap;
     overflow-x: hidden;
 }
-.qq-gallery .qq-upload-spinner {
+.miu-gallery .miu-upload-spinner {
     display: inline-block;
     background: url("loading.gif");
     position: absolute;
@@ -253,42 +253,42 @@
     height: 15px;
     vertical-align: text-bottom;
 }
-.qq-gallery .qq-drop-processing {
+.miu-gallery .miu-drop-processing {
     display: block;
 }
-.qq-gallery .qq-drop-processing-spinner {
+.miu-gallery .miu-drop-processing-spinner {
     display: inline-block;
     background: url("processing.gif");
     width: 24px;
     height: 24px;
     vertical-align: text-bottom;
 }
-.qq-gallery .qq-upload-failed-text {
+.miu-gallery .miu-upload-failed-text {
     display: none;
     font-style: italic;
     font-weight: bold;
 }
-.qq-gallery .qq-upload-failed-icon {
+.miu-gallery .miu-upload-failed-icon {
     display:none;
     width:15px;
     height:15px;
     vertical-align:text-bottom;
 }
-.qq-gallery .qq-upload-fail .qq-upload-failed-text {
+.miu-gallery .miu-upload-fail .miu-upload-failed-text {
     display: inline;
 }
-.qq-gallery .qq-upload-retrying .qq-upload-failed-text {
+.miu-gallery .miu-upload-retrying .miu-upload-failed-text {
     display: inline;
 }
-.qq-gallery .qq-upload-list li.qq-upload-success {
+.miu-gallery .miu-upload-list li.miu-upload-success {
     background-color: #F2F7ED;
 }
-.qq-gallery .qq-upload-list li.qq-upload-fail {
+.miu-gallery .miu-upload-list li.miu-upload-fail {
     background-color: #F5EDED;
     box-shadow: 0 0 1px 0 red;
     border: 0;
 }
-.qq-gallery .qq-progress-bar {
+.miu-gallery .miu-progress-bar {
     display: block;
     background: #00abc7;
     width: 0%;
@@ -297,19 +297,19 @@
     margin-bottom: 3px;
 }
 
-.qq-gallery .qq-total-progress-bar {
+.miu-gallery .miu-total-progress-bar {
     height: 25px;
     border-radius: 9px;
 }
 
-.qq-gallery .qq-total-progress-bar-container {
+.miu-gallery .miu-total-progress-bar-container {
     margin-left: 9px;
     display: inline;
     float: right;
     width: 500px;
 }
 
-.qq-gallery .qq-upload-size {
+.miu-gallery .miu-upload-size {
     float: left;
     font-size: 11px;
     color: #929292;
@@ -318,7 +318,7 @@
     display: inline-block;
 }
 
-.qq-gallery INPUT.qq-edit-filename {
+.miu-gallery INPUT.miu-edit-filename {
     position: absolute;
     opacity: 0;
     filter: alpha(opacity=0);
@@ -326,12 +326,12 @@
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
 }
 
-.qq-gallery .qq-upload-file.qq-editable {
+.miu-gallery .miu-upload-file.miu-editable {
     cursor: pointer;
     margin-right: 20px;
 }
 
-.qq-gallery .qq-edit-filename-icon.qq-editable {
+.miu-gallery .miu-edit-filename-icon.miu-editable {
     display: inline-block;
     cursor: pointer;
     position: absolute;
@@ -339,7 +339,7 @@
     top: 0;
 }
 
-.qq-gallery INPUT.qq-edit-filename.qq-editing {
+.miu-gallery INPUT.miu-edit-filename.miu-editing {
     position: static;
     height: 28px;
     width: 90px;
@@ -355,21 +355,21 @@
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
 }
 
-.qq-gallery .qq-edit-filename-icon {
+.miu-gallery .miu-edit-filename-icon {
     display: none;
     background: url("edit.gif");
     width: 15px;
     height: 15px;
     vertical-align: text-bottom;
 }
-.qq-gallery .qq-delete-icon {
+.miu-gallery .miu-delete-icon {
     background: url("trash.gif");
     width: 15px;
     height: 15px;
     vertical-align: sub;
     display: inline-block;
 }
-.qq-gallery .qq-retry-icon {
+.miu-gallery .miu-retry-icon {
     background: url("retry.gif");
     width: 15px;
     height: 15px;
@@ -377,14 +377,14 @@
     display: inline-block;
     float: none;
 }
-.qq-gallery .qq-continue-icon {
+.miu-gallery .miu-continue-icon {
     background: url("continue.gif");
     width: 15px;
     height: 15px;
     vertical-align: sub;
     display: inline-block;
 }
-.qq-gallery .qq-pause-icon {
+.miu-gallery .miu-pause-icon {
     background: url("pause.gif");
     width: 15px;
     height: 15px;
@@ -392,19 +392,19 @@
     display: inline-block;
 }
 
-.qq-gallery .qq-hide {
+.miu-gallery .miu-hide {
     display: none;
 }
 
 
 /* Thumbnail
 ------------------------------------------ */
-.qq-gallery .qq-in-progress .qq-thumbnail-wrapper {
+.miu-gallery .miu-in-progress .miu-thumbnail-wrapper {
     /* makes the spinner on top of the thumbnail more visible */
     opacity: 0.5;
     filter: alpha(opacity=50);
 }
-.qq-gallery .qq-thumbnail-wrapper {
+.miu-gallery .miu-thumbnail-wrapper {
     overflow: hidden;
     position: relative;
 
@@ -412,7 +412,7 @@
     height: 120px;
     width: 120px;
 }
-.qq-gallery .qq-thumbnail-selector {
+.miu-gallery .miu-thumbnail-selector {
     border-radius: 2px 2px 0 0;
     bottom: 0;
 
@@ -425,7 +425,7 @@
 }
 
 /* hack to ensure we don't try to center preview in IE8, since -ms-filter doesn't mimic translateY as expected in all cases */
-:root *> .qq-gallery .qq-thumbnail-selector {
+:root *> .miu-gallery .miu-thumbnail-selector {
     /* vertically center preview image on tile */
     position: relative;
     top: 50%;
@@ -436,36 +436,36 @@
 }
 
 /* <dialog> element styles */
-.qq-gallery.qq-uploader DIALOG {
+.miu-gallery.miu-uploader DIALOG {
     display: none;
 }
 
-.qq-gallery.qq-uploader DIALOG[open] {
+.miu-gallery.miu-uploader DIALOG[open] {
     display: block;
 }
 
-.qq-gallery.qq-uploader DIALOG {
+.miu-gallery.miu-uploader DIALOG {
     display: none;
 }
 
-.qq-gallery.qq-uploader DIALOG[open] {
+.miu-gallery.miu-uploader DIALOG[open] {
     display: block;
 }
 
-.qq-gallery.qq-uploader DIALOG .qq-dialog-buttons {
+.miu-gallery.miu-uploader DIALOG .miu-dialog-buttons {
     text-align: center;
     padding-top: 10px;
 }
 
-.qq-gallery.qq-uploader DIALOG .qq-dialog-buttons BUTTON {
+.miu-gallery.miu-uploader DIALOG .miu-dialog-buttons BUTTON {
     margin-left: 5px;
     margin-right: 5px;
 }
 
-.qq-gallery.qq-uploader DIALOG .qq-dialog-message-selector {
+.miu-gallery.miu-uploader DIALOG .miu-dialog-message-selector {
     padding-bottom: 10px;
 }
 
-.qq-gallery .qq-uploader DIALOG::backdrop {
+.miu-gallery .miu-uploader DIALOG::backdrop {
     background-color: rgba(0, 0, 0, 0.7);
 }

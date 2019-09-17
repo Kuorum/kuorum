@@ -72,7 +72,7 @@ class FileController {
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def uploadCampaignImages() {
-        def fileData = getFileData(request)
+        def fileData = getFileData(request, 'miufile')
         FileGroup fileGroup = FileGroup.CUSTOM_TEMPLATE_IMAGE
         KuorumUserSession user = springSecurityService.principal
         String campaignId= params.campaignId
@@ -134,8 +134,11 @@ class FileController {
     }
 
     private def getFileData(HttpServletRequest request) {
+        getFileData(request, 'qqfile')
+    }
+    private def getFileData(HttpServletRequest request, paramFileName) {
         if (request instanceof MultipartHttpServletRequest) {
-            MultipartFile uploadedFile = ((MultipartHttpServletRequest) request).getFile('qqfile')
+            MultipartFile uploadedFile = ((MultipartHttpServletRequest) request).getFile(paramFileName)
 
             return [inputStream:uploadedFile.inputStream, fileName:uploadedFile.originalFilename]
         }

@@ -272,7 +272,7 @@ modules = {
         resource url:'js/contacts.js'
     }
 
-    findUploader{
+    htmlMultiImageUploader{
         dependsOn("basic")
         resource url : 'js/fineUploader/fine-uploader.core.js'
 //        resource url : 'js/fineUploader/fine-uploader.js'

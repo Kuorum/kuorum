@@ -1,5 +1,5 @@
 %{--<r:require modules="customFileUploader" />--}%
-<r:require modules="findUploader" />
+<r:require modules="htmlMultiImageUploader" />
 
 
 
@@ -35,80 +35,80 @@
     </div>
 </div>
 
-<script type="text/template" id="qq-template-gallery">
-<div class="qq-uploader-selector qq-uploader qq-gallery" qq-drop-area-text="Drop files here">
-    <div class="qq-total-progress-bar-container-selector qq-total-progress-bar-container">
-        <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-total-progress-bar-selector qq-progress-bar qq-total-progress-bar"></div>
+<script type="text/template" id="miu-template-gallery">
+<div class="miu-uploader-selector miu-uploader miu-gallery" miu-drop-area-text="Drop files here">
+    <div class="miu-total-progress-bar-container-selector miu-total-progress-bar-container">
+        <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="miu-total-progress-bar-selector miu-progress-bar miu-total-progress-bar"></div>
     </div>
-    <div class="qq-upload-drop-area-selector qq-upload-drop-area" qq-hide-dropzone>
-        <span class="qq-upload-drop-area-text-selector"></span>
+    <div class="miu-upload-drop-area-selector miu-upload-drop-area" miu-hide-dropzone>
+        <span class="miu-upload-drop-area-text-selector"></span>
     </div>
-    <div class="qq-upload-button-selector btn btn-blue">
+    <div class="miu-upload-button-selector btn btn-blue">
         <div><g:message code="uploader.multiImage.replaceImages.upload"/> </div>
     </div>
-    <div class="qq-images-uploaded-arrow"> <span class="fal fa-angle-right fa-3x"></span> </div>
+    <div class="miu-images-uploaded-arrow"> <span class="fal fa-angle-right fa-3x"></span> </div>
     <a class="images-uploaded-action btn btn-blue"><g:message code="uploader.multiImage.replaceImages.actionButton"/> </a>
-    <span class="qq-drop-processing-selector qq-drop-processing">
+    <span class="miu-drop-processing-selector miu-drop-processing">
         <span>Processing dropped files...</span>
-        <span class="qq-drop-processing-spinner-selector qq-drop-processing-spinner"></span>
+        <span class="miu-drop-processing-spinner-selector miu-drop-processing-spinner"></span>
     </span>
-    <ul class="qq-upload-list-selector qq-upload-list" role="region" aria-live="polite" aria-relevant="additions removals">
+    <ul class="miu-upload-list-selector miu-upload-list" role="region" aria-live="polite" aria-relevant="additions removals">
         <li>
-            <span role="status" class="qq-upload-status-text-selector qq-upload-status-text"></span>
-            <div class="qq-progress-bar-container-selector qq-progress-bar-container">
-                <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-progress-bar-selector qq-progress-bar"></div>
+            <span role="status" class="miu-upload-status-text-selector miu-upload-status-text"></span>
+            <div class="miu-progress-bar-container-selector miu-progress-bar-container">
+                <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="miu-progress-bar-selector miu-progress-bar"></div>
             </div>
-            <span class="qq-upload-spinner-selector qq-upload-spinner"></span>
-            <div class="qq-thumbnail-wrapper">
-                <img class="qq-thumbnail-selector" qq-max-size="120" qq-server-scale>
+            <span class="miu-upload-spinner-selector miu-upload-spinner"></span>
+            <div class="miu-thumbnail-wrapper">
+                <img class="miu-thumbnail-selector" miu-max-size="120" miu-server-scale>
             </div>
-            <button type="button" class="qq-upload-cancel-selector qq-upload-cancel">X</button>
-            <button type="button" class="qq-upload-retry-selector qq-upload-retry">
-                <span class="qq-btn qq-retry-icon" aria-label="Retry"></span>
+            <button type="button" class="miu-upload-cancel-selector miu-upload-cancel">X</button>
+            <button type="button" class="miu-upload-retry-selector miu-upload-retry">
+                <span class="miu-btn miu-retry-icon" aria-label="Retry"></span>
                 Retry
             </button>
 
-            <div class="qq-file-info">
-                <div class="qq-file-name">
-                    <span class="qq-upload-file-selector qq-upload-file"></span>
-                    <span class="qq-edit-filename-icon-selector qq-btn qq-edit-filename-icon" aria-label="Edit filename"></span>
+            <div class="miu-file-info">
+                <div class="miu-file-name">
+                    <span class="miu-upload-file-selector miu-upload-file"></span>
+                    <span class="miu-edit-filename-icon-selector miu-btn miu-edit-filename-icon" aria-label="Edit filename"></span>
                 </div>
-                <input class="qq-edit-filename-selector qq-edit-filename" tabindex="0" type="text">
-                <span class="qq-upload-size-selector qq-upload-size"></span>
-                <button type="button" class="qq-btn qq-upload-delete-selector qq-upload-delete">
-                    <span class="qq-btn qq-delete-icon" aria-label="Delete"></span>
+                <input class="miu-edit-filename-selector miu-edit-filename" tabindex="0" type="text">
+                <span class="miu-upload-size-selector miu-upload-size"></span>
+                <button type="button" class="miu-btn miu-upload-delete-selector miu-upload-delete">
+                    <span class="miu-btn miu-delete-icon" aria-label="Delete"></span>
                 </button>
-                <button type="button" class="qq-btn qq-upload-pause-selector qq-upload-pause">
-                    <span class="qq-btn qq-pause-icon" aria-label="Pause"></span>
+                <button type="button" class="miu-btn miu-upload-pause-selector miu-upload-pause">
+                    <span class="miu-btn miu-pause-icon" aria-label="Pause"></span>
                 </button>
-                <button type="button" class="qq-btn qq-upload-continue-selector qq-upload-continue">
-                    <span class="qq-btn qq-continue-icon" aria-label="Continue"></span>
+                <button type="button" class="miu-btn miu-upload-continue-selector miu-upload-continue">
+                    <span class="miu-btn miu-continue-icon" aria-label="Continue"></span>
                 </button>
             </div>
         </li>
     </ul>
 
-    <dialog class="qq-alert-dialog-selector">
-        <div class="qq-dialog-message-selector"></div>
-        <div class="qq-dialog-buttons">
-            <button type="button" class="qq-cancel-button-selector">Close</button>
+    <dialog class="miu-alert-dialog-selector">
+        <div class="miu-dialog-message-selector"></div>
+        <div class="miu-dialog-buttons">
+            <button type="button" class="miu-cancel-button-selector">Close</button>
         </div>
     </dialog>
 
-    <dialog class="qq-confirm-dialog-selector">
-        <div class="qq-dialog-message-selector"></div>
-        <div class="qq-dialog-buttons">
-            <button type="button" class="qq-cancel-button-selector">No</button>
-            <button type="button" class="qq-ok-button-selector">Yes</button>
+    <dialog class="miu-confirm-dialog-selector">
+        <div class="miu-dialog-message-selector"></div>
+        <div class="miu-dialog-buttons">
+            <button type="button" class="miu-cancel-button-selector">No</button>
+            <button type="button" class="miu-ok-button-selector">Yes</button>
         </div>
     </dialog>
 
-    <dialog class="qq-prompt-dialog-selector">
-        <div class="qq-dialog-message-selector"></div>
+    <dialog class="miu-prompt-dialog-selector">
+        <div class="miu-dialog-message-selector"></div>
         <input type="text">
-        <div class="qq-dialog-buttons">
-            <button type="button" class="qq-cancel-button-selector">Cancel</button>
-            <button type="button" class="qq-ok-button-selector">Ok</button>
+        <div class="miu-dialog-buttons">
+            <button type="button" class="miu-cancel-button-selector">Cancel</button>
+            <button type="button" class="miu-ok-button-selector">Ok</button>
         </div>
     </dialog>
 </div>
@@ -118,9 +118,9 @@
 <r:script>
     var imagesCampaign${campaign.id} = {}
     $(function(){
-        var galleryUploader = new qq.FineUploader({
+        var galleryUploader = new miu.FineUploader({
             element: document.getElementById("fine-uploader-gallery"),
-            template: 'qq-template-gallery',
+            template: 'miu-template-gallery',
             cors:{
                 allowXdr:true,
                 expected:true,
