@@ -1466,11 +1466,6 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 #bulk-action-add-tags-modal .bootstrap-tagsinput {display: block;}
 #bulk-action-remove-tags-modal .bootstrap-tagsinput {display: block;}
 
-#request-demo-modal.modal form .form-group label {color:#545454;}
-#request-demo-modal.modal form .form-group.button {text-align: center;}
-#request-demo-modal.modal form .form-group.button input{margin-top:15px;}
-#request-demo-modal-form {padding:15px;}
-
 .sendor,
 .email-sent .sent,
 .email-sent .error,
@@ -2361,16 +2356,12 @@ ul.participatory-budget-steps-info li.active a {display: none}
 /*.author.important .user.actor.politic a {color: #FFDB8D !important;}*/
 
 /* vídeo */
-.video, .vimeo {position: relative; z-index: 99;}
-.video > .front > .fas,
-.vimeo > .front > .fas {margin: auto; position: absolute; top: 0; left: 0; bottom: 0; right: 0; color: #fff; z-index: 998; width: 52px; height: 52px;}
+.video{position: relative; z-index: 99;}
+.video > .front > .fas {margin: auto; position: absolute; top: 0; left: 0; bottom: 0; right: 0; color: #fff; z-index: 998; width: 52px; height: 52px;}
 
-.video > .front,
-.vimeo > .front {display: block; background-color: #000; position: relative; width: 100%; overflow: hidden;}
-.video > .front > img,
-.vimeo > .front > img {opacity: 0.6;}
-.video > .youtube,
-.vimeo > .youtube {width: 100%; display: none;}
+.video > .front {display: block; background-color: #000; position: relative; width: 100%; overflow: hidden;}
+.video > .front > img {opacity: 0.6;}
+.video > .youtube {width: 100%; display: none;}
 
 /* vídeo de fondo de la Home  */
 video#bgvid {
@@ -2423,46 +2414,6 @@ video#bgvid {
     border-right:50vw solid transparent;
     border-top:70px solid #fff;
 }
-
-
-/* editors y prices */
-.landing.prices {color: #fff; text-align: center;}
-
-.main.prices {padding-top: 50px;}
-#payment ul.checklist {font-family: 'Georgia', 'Times New Roman', Times, serif;}
-#payment {text-align:center; font-family: Arial, Helvetica, sans-serif;-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; padding-bottom: 30px; padding-top: 50px;}
-#payment .big-margin-top {margin-top: 60px;}
-#payment > h1 {font-size: 29px; margin-bottom: 15px; padding:0;}
-#payment > p {font-size: 20px; color: #a8a8a8;}
-#payment > p strong{color: #545454;}
-#payment > div.price-info {font-size: 20px; color: #a8a8a8;}
-#payment > div.price-info span.line-through {text-decoration: line-through}
-#payment > div.price-info span.bold {color: #545454; font-weight: bold}
-#payment > div.price-info span.highlight {font-size: 26px; color: #545454; font-weight: bold}
-#payment ul.checklist {list-style: none; padding: 0; font-size: 18px; text-align: left; margin: 0 auto; display: inline-block;}
-
-#payment ul.checklist li > div {display:inline-block;}
-#payment ul.checklist li > p > i {margin-right: 10px;}
-#payment ul.checklist li > div:not(:first-child) {padding-left: 10px;}
-
-#payment form {font-family: 'Georgia', 'Times New Roman', Times, serif;}
-#payment form > p.note {padding-top: 15px; color: #a8a8a8; font-size: 14px;}
-#payment form > .payment-method {font-family: Arial, Helvetica, sans-serif; font-size: 16px; color: black; width: 60%; margin: auto;}
-#payment form > button[type='submit'] {font-size: 21px;padding: 14px 65px !important;width: 255px;height: 55px;}
-#payment form > p.note >  a {color: #545454;}
-#payment div.promotionalCodeSet input.code {width:250px; height: 48px; padding: 10px; text-align: center; -webkit-border-radius: 5px ;-moz-border-radius: 5px; border-radius: 5px;}
-#payment div.promotionalCodeSet {display: inline-block}
-#payment fieldset.validate {display: inline-flex}
-#payment fieldset.validate .valid {color: #008000;}
-#payment div.promotionalCodeSet .focusError {border-color: #BF4343;}
-#payment div.promotionalCodeSet .focusValid {border-color: #008000;}
-
-#payment div.payment-method .braintree-placeholder{  display: none;  }
-#payment div.payment-method .braintree-option__label{  position: relative;  margin-left: -50px;  }
-#payment div.payment-method .braintree-heading{  position: relative;  }
-#payment div.payment-method .braintree-toggle{  padding: 0px 0px 20px 0px;  background: transparent;}
-
-/* DOS BOTONES IGUALES PERO SU FUNCIONAMIENTO ES DIFERENTE A NIVEL INTERNO */
 
 /* este es para la carga real */
 #load-more {
@@ -3611,12 +3562,6 @@ fieldset.rating:hover > input + label:hover:before {
 .carousel.news .carousel-control.left {background-image: none; left: 15px;}
 .carousel.news .carousel-control.right {background-image: none; right: 18px;}
 .carousel.news .carousel-control {width: 50px; height: 50px; top: 35%;}
-
-.vimeo > .front {background: transparent;}
-.vimeo > .front > img {opacity: 1;}
-.vimeo > .front > .fa {position: absolute; top: auto; bottom: 15px; left: auto; right: 15px; margin: 0; width: auto; height: auto;}
-.vimeo > .front .text {color: #fff; position: absolute; top: 14%; left: 8%; width: 40%; font-size: 14px; font-size: 1.4rem; line-height: 1.2;}
-.vimeo > .front .who {color: #fff; position: absolute; bottom: 8%; left: 8%; width: 65%; font-size: 15px; font-size: 1.5rem; font-family: Arial, Helvetica, sans-serif; line-height: 1;}
 
 .condiciones-compra {width: 80%; margin: 0 auto;}
 
@@ -4964,11 +4909,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 
 /* Super small devices (mobile, 480px and down) */
 @media only screen and (max-width: 480px) {
-    #cases-study-body .section-body h1 {
-        font-size: 28px;
-        text-align: left;
-    }
-
     .fade-carousel .content .btn {
         width: 100%;
     }
@@ -4978,9 +4918,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .carousel.news .carousel-control {top: 30%;}
 
     .actionIcons > li.fontIcon > a{  margin: auto !important;  }
-
-    #payment div.promotionalCodeSet input.code {margin: 10px 0px;}
-    #payment form > .payment-method{width: 100%;}
 
     .modal-register.modal .modal-body #pass-forget {text-align: center;}
 }
@@ -5097,9 +5034,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     #footer-section{
         padding-bottom: 0;
     }
-    #cases-study-grid .section-body {
-        padding-bottom: 15px;
-    }
 
     .box-order-options .bulk-actions {display: block; width: 100%;}
 
@@ -5195,8 +5129,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 
     .pide-cuenta ul {width: 100%;}
     .pide-cuenta > ul > li > ul {padding: 30px; min-height: 232px;}
-    .vimeo > .front .who {width: 50%; font-size: 22px; font-size: 2.2rem;}
-    .vimeo > .front .text {width: 40%; font-size: 35px; font-size: 3.5rem; top: 12%;}
     .uploadPdf .progress-pdf .progress {width: 70%; margin: 0;}
     #aside-ppal {background-color: transparent;}
     #footer > .more .links ul {margin: 0; padding: 0; line-height: 46px; text-align: left;}
@@ -5434,10 +5366,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .dashboard, .box-ppal.dashboard {margin-top: 20px;}
 
     .fade-carousel .content { width: 90%;}
-    #carousel-landing-main #request-demo-btn {
-        margin-left: 33%;
-        width: 33%;
-    }
     .navbar-nav>li {margin: 0;}
     .main {min-height: calc(100vh - 136px);}
     .main.landing {min-height: 0;}
@@ -5458,7 +5386,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .search-list .search-kuorum-user .box-ppal > .pull-right {float: none; position: absolute; bottom: 0; right: 0;}
 
     .config > header h1 {font-size: 25px; font-size: 2.5rem;}
-    .vimeo > .front .text {font-size: 3.2rem; top: 12%; width: 40%;}
 
     .help-block {margin: 8px 0 0 0;}
     .box-ppal{padding: 22px 15px 0 15px;}
@@ -6474,11 +6401,6 @@ p.followers > span.fa:first-child{
 }
 
 
-/* Other Profiles =========== */
-#suggested-politicians{
-    background-color: #f5f5f5;
-    padding: 40px 0 20px;
-}
 /*extendedPolitician - who to follow*/
 .extendedPolitician .boxes.follow h3 {
     background-color: #666;
@@ -6493,26 +6415,9 @@ p.followers > span.fa:first-child{
 }
 
 /* Módulo evaluación político =========== */
-.polValChart {
-    width: 100%;
-    height: 300px;
-}
-.highcharts-title {font-family: 'Georgia', Times, serif;}
-
 
 #politician-bio .center-button {text-align:center; margin-top: 12px;}
-#suggested-politicians .container-fluid .center-button {text-align:center;}
 
-/* PSOE modal =========== */
-header h6{
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-    font-size: 12px;
-    background-color: #990000;
-    margin: -6px 0 6px 0;
-    color: white;
-    height: 36px;
-    line-height: 36px;
-}
 header .header-msg:hover{
     text-decoration: none;
 }
@@ -6537,116 +6442,7 @@ header .header-msg h6:hover{
 #enterTimeZone .modal-footer {margin:0px}
 
 
-
-/** Cases Study Grid section **/
-
-#cases-study-grid {
-    padding-top: 60px;
-    padding-bottom: 0;
-}
-
-#cases-study-grid .card-body h3 a{
-    color: #545454;
-    text-decoration: none;
-}
-
-#cases-study-grid .card-body h3 a:hover{
-    color: #167caa;
-    text-decoration: none;
-}
-
-#cases-study-body .video {
-    margin-bottom: 30px;
-    margin-top: 30px;
-}
-
-#cases-study-body img {
-    margin-bottom: 0px;
-    margin-top: 0px;
-}
-
-#cases-study-body .breadcrumb,
-#cases-study-grid .breadcrumb{
-    color: #ec931f;
-    padding: 4px 0;
-    text-transform: uppercase;
-    font-weight: bold;
-}
-
-#cases-study-grid #request-demo-btn{
-    text-align: center;
-}
-
-#cases-study-grid #request-demo-btn .btn{
-    font-size: 22px !important;
-}
-#cases-study-grid .card .card-body {padding:0 15px;}
-#cases-study-grid .card-body p{
-    font-size: 18px;
-    text-align: left;
-}
-
-#cases-study-grid .other-cases .card .card-body h3 a  {
-    color: #545454;
-    text-decoration:none;
-}
-#cases-study-grid .other-cases .card .card-body h3 a:hover{
-    color: #167caa;
-    text-decoration:none;
-}
-
-#cases-study-grid .breadcrumb{
-    position: relative;
-    top: -40px;
-}
-
-
-/** Cases Study Grid section **/
-
-#cases-study-body {
-    padding-top: 20px;
-}
-#cases-study-body > .content{
-    line-height: 2.5em;
-}
-
-#cases-study-body .content .article{
-    padding-bottom: 40px;
-}
-
-#cases-study-body .section-body h1{
-    font-size: 40px;
-    font-family: 'Arial Black', 'AvenirNext-Heavy', Arial;
-    text-align: center;
-    margin: 40px 0;
-    line-height: 50px;
-}
-
-#cases-study-body .request-case-study{
-    text-align: center;
-    margin-top:60px;
-    margin-bottom: 30px;
-}
-
-#cases-study-body .request-case-study .form-group{
-    padding: 0;
-    padding: 0 10px;
-}
-
-#cases-study-body .request-case-study input{
-    min-height: 55px;
-    width: 100%;
-}
-#cases-study-body .request-case-study .btn{
-    font-size: 25px !important;
-}
-
-#cases-study-body .card-body p + p{
-    margin-top:5px;
-}
-
 @media only screen and (min-width: 768px){
-    #cases-study-grid .card .card-body {padding:0;}
     #politician-bio.extra-padding {padding: 0 30px 20px;}
     header h6{
         font-size: 16px;
@@ -7378,9 +7174,6 @@ div.dark {
     .fade-carousel .slides .slide-3{
         height: 520px;
     }
-    #cases-study-body .section-body h1 {
-        font-size: 28px;
-    }
 
     ul.threeColumn .card {
         margin-bottom: 25px;
@@ -7515,39 +7308,6 @@ ul.threeColumn .card-body p {
 }
 
 
-/** landing caseStudies **/
-
-#featured-case-study .section-body span.link-arrow{
-    float: left;
-    font-size: 22px;
-    padding-top: 25px;
-    padding-bottom: 60px;
-    padding-left: 10px;
-    color: #ec931f;
-}
-
-/** landing statistics **/
-#statistics {
-    padding-top: 60px;
-    text-align: center;
-}
-
-#statistics h2 {
-    color: #ff943b;
-    font-size: 72px;
-    padding-bottom: 20px;
-    font-weight: bold;
-}
-
-#statistics .section-body p {
-    text-align: center;
-}
-
-#statistics .section-body li img {
-    width: 80px;
-    margin-bottom: 20px;
-}
-
 /** Latest activities **/
 #latestActivities {
     padding: 40px 0 40px 0;
@@ -7618,41 +7378,10 @@ ul.threeColumn .card-body p {
 }
 
 
-#contact-us {
-    padding-top: 60px;
-    text-align: center;
-}
-
-#contact-us #contact-us-form-id {
-    font-weight:bold;
-    text-transform: uppercase;
-}
-
-#contact-us .form-group textarea{
-    height: 160px;
-}
-
-#request-demo-form .form-group textarea{
-    height: 160px;
-}
-
-#contact-us .section-header p{
-    font-size: 22px;
-    padding: 20px 5px;
-    text-align: center;
-    line-height: 31px;
-}
-
 
 ul.threeColumn .card-body p {
     text-align: center;
     font-size: 18px;
-}
-
-#contact-us .section-body .form-group label {
-    float: left;
-    margin-left: 5px;
-    font-size: 16px;
 }
 
 /** Footer sections **/
@@ -7691,10 +7420,6 @@ ul.threeColumn .card-body p {
     .landing-footer {
         display: grid;
     }
-    #featured-case-study .section-header h3 {
-        padding-bottom: 15px;
-    }
-
 }
 
 

@@ -64,7 +64,7 @@ class DomainService {
             lessCompilerService.compileCssForDomain(domainRSDTO)
             return domainRSDTO
         }catch (Exception e){
-            log.warn("Error updating config. [Excp: ${e.getMessage()}]")
+            log.warn("Error updating config. [Excp: ${e.getMessage()}]", e)
             return null
         }
     }

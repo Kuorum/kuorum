@@ -4,15 +4,6 @@
 // valuation chart
 $(function () {
     printComparative();
-
-
-    //The click before adding event click. If not 2 charts will be displayed the first time
-    $("#real-time ul.nav li a")[0].click();
-    $("#real-time .nav a").on("click", function(e){
-        var tabId = $(this).attr("href")
-        var graphDiv = $(tabId +" .polValChart").attr("id")
-        printChart("#"+graphDiv)
-    });
 });
 
 

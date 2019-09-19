@@ -30,7 +30,9 @@ class BootStrap {
                 asyncUpdateConfig << grails.async.Promises.task {
                     URL urlThread = new URL("https://${domainRSDTO.domain}/kuorum")
                     CustomDomainResolver.setUrl(urlThread, "")
-                    if (domainRSDTO.version != 0){
+                    if (domainRSDTO.domain == "kuorum.org"){
+                        log.debug("Ingoring domain configuration of kuorum.org")
+                    }else if (domainRSDTO.version != 0){
                         domainService.updateConfig(domainRSDTO)
                     }else{
                         log.info("Ingoring domain cofiguration because its version is 0 and it was not configured")

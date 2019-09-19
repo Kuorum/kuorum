@@ -26,25 +26,27 @@ class LessCompilerService implements ApplicationContextAware {
         // Instantiate the LESS compiler with some compiler options
 
         String domainName = domain.domain
-        String temporalPath = "${grailsApplication.config.kuorum.upload.serverPath}"
+        File workingFolder = new File("${grailsApplication.config.kuorum.upload.serverPath}"+"/buildKuorum/"+domainName);
+        workingFolder.mkdirs()
         LessCompiler lessCompiler = new LessCompiler(Arrays.asList("--relative-urls", "--strict-math=on"));
-        lessCompiler.customJs
+//        lessCompiler.customJs
 
-        File domainLessFile=buildLessFile(domain)
+        File domainLessFile=buildLessFile(domain, workingFolder)
 
-        File customDomainCss = new File("${temporalPath}/${domainName}.css")
+        File customDomainCss = new File("${workingFolder}/${domainName}.css")
+        buildModulesFolder(workingFolder)
         // Or compile LESS input file to CSS output file
         lessCompiler.compile(domainLessFile, customDomainCss);
 
         amazonFileService.uploadDomainCss(customDomainCss, domainName);
         customDomainCss.delete();
         domainLessFile.delete();
+        FileUtils.deleteDirectory(workingFolder);
     }
 
-    private File buildLessFile(DomainRSDTO domain){
-        String temporalPath = "${grailsApplication.config.kuorum.upload.serverPath}"
-        File lessMergedFile = new File("${temporalPath}/${domain.domain}.less")
-        File lessDomainVarsFile = new File("${temporalPath}/${domain.domain}_vars.less")
+    private File buildLessFile(DomainRSDTO domain, File workingFolder){
+        File lessMergedFile = new File("${workingFolder.toString()}/${domain.domain}.less")
+        File lessDomainVarsFile = new File("${workingFolder.toString()}/${domain.domain}_vars.less")
         lessMergedFile.deleteOnExit()
         lessDomainVarsFile.deleteOnExit()
 
@@ -55,6 +57,14 @@ class LessCompilerService implements ApplicationContextAware {
         lessDomainVarsFile.delete();
         return lessMergedFile;
 
+    }
+
+    private File buildModulesFolder(File workingFolder){
+        File tmp = new File(workingFolder.toString()+"/modules")
+        File parent = new File(applicationContext.getResource("less/customDomainCss.less").file.parent+"/modules")
+        tmp.mkdirs()
+        org.apache.commons.io.FileUtils.copyDirectory(parent, tmp)
+        return tmp
     }
 
     private void mergeFiles(List<File> files, File mergedFile) {

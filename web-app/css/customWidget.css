@@ -65,7 +65,6 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     top: 0px;
 }
 #results-widget-content #real-time .politician-chart.text-center a{font-variant:normal;font-weight:normal;}
-#results-widget-content #real-time .polValChart{ width: 100%; height: 200px;margin-left: 10px;}
 #results-widget-content #real-time .politician-info.text-center h4{font-variant:normal;font-weight:normal;font-size:16px;line-height: 0.5;}
 #results-widget-content #real-time .politician-info.text-center h5{color:#a8a8a8;font-weight:bold;font-size:12px;}
 #results-widget-content #real-time .politician-info.text-center h6{font-weight:bold;}

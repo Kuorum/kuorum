@@ -32,7 +32,6 @@
     %{--This line wirtes the goole verification code. It is a meta tag with its code--}%
     ${raw(kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.googleSiteVerification)}
 
-    <r:require modules="vimeo" />
     <g:set var="lang" value="${org.springframework.web.servlet.support.RequestContextUtils.getLocale(request).language}" />
     <r:require modules="lang_${lang}, kuorumCookies, application" />
     <sec:ifNotLoggedIn>

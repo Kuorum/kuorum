@@ -8,22 +8,8 @@ a:focus {color: @mainColor;}
 .navbar-toggle {background-color: @mainColor; color: @mainTextColor;}
 .open-filter .dropdown-menu > li > a.active {color:@mainColor;}
 .login .form-group:last-child p:last-child a {color:@mainColor;}
-.btn {color: @mainTextColor !important; background-color: @mainColor; }
-.btn.inverted {
-  background-color: @mainTextColor !important;
-  border-color: @mainColor ;
-  color: @mainColor !important;
-}
-.btn.inverted:hover,
-.btn.inverted:active,
-.btn.inverted:focus {
-  background-color: @mainColor !important;
-  color: @mainTextColor !important;
-}
 
-.btn:hover, .btn:active, .btn:focus{
-  background-color: @mainColorHover !important;
-}
+@import (once,less) url('modules/_buttons.less');
 
 .nav > li > .navbar-link:hover,
 .nav > li > .navbar-link:focus,
@@ -36,18 +22,18 @@ a:focus {color: @mainColor;}
 .nav > li > .navbar-link:hover .badge-small,
 .nav > li > .navbar-link:focus .badge-small {background-color: transparent; color: @mainColor;}
 
+#navbar-collapse .navbar-contact-phone{background: @mainColorHover;}
+.nav > li > .navbar-link:hover,
+.nav > li > .navbar-link:focus,
+.nav > li > .navbar-link:active {background-color:@mainColor; color: @mainTextColor;}
+
+
 .box .dropdown-menu > li a {color: @mainColor;}
 .badge {background-color: @mainColor;}
 .badge-small {color:@mainColor;}
 
-#footer .social li a, .social li a {color: @mainColor;}
-#footer .social li a:hover .fa-circle,
-.social li a:hover .fa-circle,
-#footer .social li a:active .fa-circle,
-.social li a:active .fa-circle,
-#footer .social li a:focus .fa-circle, 
-.social li a:focus .fa-circle {color: @mainColor;}
-#footer .more a {color: @mainColor;}
+
+@import (once,less) url('modules/_footer.less');
 
 .box-ppal span.animated-info-icon {color: @mainColor;}
 .box-ppal span.animated-info-icon + .tooltip.bottom .tooltip-inner {background-color: @mainColor;}
@@ -170,8 +156,6 @@ fieldset.rating:hover > input + label:hover:before {color: @mainColor;}
 .panel-share-buttons > li > a {color:@secondColor;}
 .panel-share-buttons > li > a:hover{color:@secondColorHover;}
 
-#cases-study-grid .card-body h3 a:hover{color: @mainColor;}
-#cases-study-grid .other-cases .card .card-body h3 a:hover{color: @mainColor;}
 .leader-post .header .call-to-action-mobile.call-mobile-event-confirm span.arrow{color: @mainColor;}
 #module-debate-pinned-users.comment-box.call-to-action  .comment-header .call-title .fa-stack {color:@mainColor}
 
@@ -207,33 +191,6 @@ ul.globus li.fontIcon > a > span.fal:hover,
 ul.globus li.fontIcon > a > span.far:hover,
 ul.globus li.fontIcon > a > span.fas:hover {color:@mainColorHover;}
 
-#statistics h2 {color: @mainColor;}
-#navbar-collapse .navbar-contact-phone{background: @mainColorHover;}
-
-//.nav > li > .navbar-link:hover,
-//.nav > li > .navbar-link:focus,
-//.nav .open > a,
-//.nav .open > a:hover,
-//.nav .open > a:focus {background-color: @mainColor; color: @mainTextColor;}
-//
-//.nav .underline.open > a:focus {border-color: @mainColor;}
-//.nav > li > .navbar-link:focus .badge {background-color: @mainTextColor; color: @mainColor}
-
-
-
-.nav > li > .navbar-link:hover,
-.nav > li > .navbar-link:focus,
-.nav > li > .navbar-link:active {
-  background-color:@mainColor; color: @mainTextColor;
-}
-
-//.nav > .underline > .navbar-link:hover,
-//.nav > .underline > .navbar-link:focus,
-//.nav > .underline > .navbar-link.active {
-//  //background-color:@mainColor;
-//  color: @mainColor;
-//  border-bottom-color: @mainColor;
-//}
 
 .box-ppal span.animated-info-icon + .tooltip.bottom .tooltip-inner,
 .actionIcons > li.fontIcon .tooltip.bottom .tooltip-inner {
@@ -260,77 +217,7 @@ ul.globus li.fontIcon > a > span.fas:hover {color:@mainColorHover;}
 .stepsSign.stepsSignSecondaryColor li.active::after {background-color: fade(@secondColor, 50%);}
 
 
-// Second Color
-
 #login-modal.login .form-group:last-child p:last-child a {color:@secondColor;}
-.btn.btn-blue {background-color: @secondColor !important;}
-
-.btn.btn-blue:hover,
-.btn.btn-blue:active,
-.btn.btn-blue:focus {background-color: @secondColorHover !important;  color: @mainTextColor !important;}
-.btn.btn-blue.inverted {
-  background-color: @mainTextColor !important;
-  border-color: @secondColor ;
-  color: @secondColor !important;
-}
-.btn.btn-blue.inverted:hover,
-.btn.btn-blue.inverted:focus,
-.btn.btn-blue.inverted:active{
-  background-color: @secondColor !important;
-  color: @mainTextColor !important;
-}
-
-.btn.btn-blue-status {background-color:  #fff !important; border: 1px solid @secondColor ;color:  @secondColor !important}
-.btn.btn-blue-status:hover,
-.btn.btn-blue-status:active,
-.btn.btn-blue-status:focus {background-color: @secondColor !important; color:#fff !important;}
-
-.btn.btn-blue-status.on {background-color:  @secondColor !important; border: 1px solid @secondColor ;color:  #fff !important}
-.btn.btn-blue-status.on:hover,
-.btn.btn-blue-status.on:active,
-.btn.btn-blue-status.on:focus {background-color: @warnColor !important; border: solid 1px @warnColor;}
-
-
-
-.btn.btn-light {color:  @mainColor !important}
-.btn.btn-light:hover,
-.btn.btn-light:active,
-.btn.btn-light:focus {color:@mainColorHover !important;}
-
-
-
-.btn.btn-blue-light {color:  @secondColor !important}
-.btn.btn-blue-light:hover,
-.btn.btn-blue-light:active,
-.btn.btn-blue-light:focus {color:@secondColorHover !important;}
-
-
-.btn.btn-blue-light.inverted {
-  background-color: @mainTextColor !important;
-  border-color: @secondColor ;
-  color: @secondColor !important;
-}
-.btn.btn-blue-light.inverted:hover,
-.btn.btn-blue-light.inverted:active,
-.btn.btn-blue-light.inverted:focus {
-  background-color: @secondColor !important;
-  color: @mainTextColor !important;
-}
-.btn.btn-blue-light.inverted:focus {
-  background-color: @secondColor !important;
-  color: @mainTextColor !important;
-}
-.btn.follow.disabled {
-  background-color: @secondColor !important;
-  color: @mainTextColor !important;
-}
-
-.btn.follow.disabled:hover,
-.btn.follow.disabled:active{
-  background-color: #990000 !important;
-  border: solid 1px #990000;
-  opacity: 1 !important;
-}
 
 .breadcrumb a {color: @secondColor;}
 .box-ppal.import-contacts > p a {color: @secondColor;}
@@ -411,13 +298,6 @@ ul.list > li > ul.list-actions > li > a:active {color: @secondColor;}
   color: @secondColor;
 }
 
-
-
-#cases-study-body .breadcrumb,
-#cases-study-grid .breadcrumb{
-  color: @secondColor;
-}
-
 .nav-pills.nav-underline > .active > a,
 .nav-pills.nav-underline > .active > a:hover,
 .nav-pills.nav-underline > li > a:focus,
@@ -432,14 +312,6 @@ ul.list > li > ul.list-actions > li > a:active {color: @secondColor;}
 
 .section-body a,
 .section-header a{
-  color: @secondColor;
-}
-
-#featured-case-study .section-body a{
-  color: @secondColor;
-}
-
-#featured-case-study .section-body span.link-arrow{
   color: @secondColor;
 }
 
@@ -525,27 +397,6 @@ ul.search-list > li.search-article .box-ppal .card-footer > ul li .comment-count
 .watermarked::before{background: @mainColor; color:@mainColorHover}
 
 .multimedia-campaign-validationInfo .center-block{background: @mainColor;}
-
-// COLOR SLIDER SELECTION IS NOT CONFIGURABLE
-//.slider-selection.tick-slider-selection {
-//  background-image: -webkit-linear-gradient(top, lighten(@secondColor, 20%) 0%, @secondColor 100%);
-//  background-image: -o-linear-gradient(top, lighten(@secondColor, 20%) 0%, @secondColor 100%);
-//  background-image: linear-gradient(to bottom, lighten(@secondColor, 20%) 0%, @secondColor 100%);
-//  background-repeat: repeat-x;
-//  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='@secondColor', endColorstr='darken(@secondColor, 11%)', GradientType=0);
-//}
-//.slider-handle{
-//  background-color: @secondColor;
-//  background-image: -webkit-linear-gradient(top, lighten(@secondColor, 20%) 0%, @secondColor 100%);
-//  background-image: -o-linear-gradient(top, lighten(@secondColor, 20%) 0%, @secondColor 100%);
-//  background-image: linear-gradient(to bottom, lighten(@secondColor, 20%) 0%, @secondColor 100%);
-//}
-//
-//.slider-tick.in-selection{
-//  background-image: -webkit-linear-gradient(top, lighten(@secondColor, 20%) 0%, @secondColor 100%);
-//  background-image: -o-linear-gradient(top,lighten(@secondColor, 20%) 0%, @secondColor 100%);
-//  background-image: linear-gradient(to bottom, lighten(@secondColor, 20%) 0%, @secondColor 100%);
-//}
 
 #starredCampaign .starredCampaign-title .fal{color:@mainColor}
 

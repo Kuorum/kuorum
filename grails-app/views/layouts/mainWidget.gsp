@@ -68,7 +68,7 @@
     <link rel="shortcut icon" href="${resource(dir: 'images/icons', file: 'faviconKuorum.ico')}">
 
     <g:set var="lang" value="${org.springframework.web.servlet.support.RequestContextUtils.getLocale(request).language}" />
-    <r:require modules="lang_${lang}, vimeo, widget" />
+    <r:require modules="lang_${lang}, widget" />
     <g:layoutHead/>
     <g:javascript library="application"/>
     <r:layoutResources />

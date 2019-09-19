@@ -33,16 +33,6 @@ modules = {
         resource url: 'js/recaptcha/recaptcha-caseStudyRequest.js'
     }
 
-    recaptcha_contactUs{
-        dependsOn 'recaptcha'
-        resource url: 'js/recaptcha/recaptcha-contactUs.js'
-    }
-
-    recaptcha_modalRequest{
-        dependsOn 'recaptcha'
-        resource url: 'js/recaptcha/recaptcha-modalRequest.js'
-    }
-
     recaptcha_register{
         dependsOn 'recaptcha'
         resource url: 'js/recaptcha/recaptcha-register.js'
@@ -213,11 +203,6 @@ modules = {
         resource url: 'js/camapign-form.js'
     }
 
-    contactUsForm{
-        dependsOn("basic","forms")
-        resource url: 'js/contact-us-form.js'
-    }
-
     debateForm {
         dependsOn("campaignForm")
         resource url:'js/debate-form.js'
@@ -282,9 +267,9 @@ modules = {
         resource url : 'js/fineUploader/fine-uploader-kuorum.css'
     }
 
-    vimeo {
-        resource url:'js/froogaloop2.min.js'
-    }
+//    vimeo {
+//        resource url:'js/froogaloop2.min.js'
+//    }
 
     customFileUploader{
         dependsOn 'application'
@@ -314,13 +299,6 @@ modules = {
     kuorumCookies{
         dependsOn 'cookiesHelper'
         resource url:'js/cookies.js'
-    }
-
-    comparativeChart{
-        dependsOn 'basic'
-        resource url:'js/highstock.js'
-        resource url:'js/charts-kuorum.js'
-        resource url:'js/local_comparationChart.js'
     }
 
     tour{
