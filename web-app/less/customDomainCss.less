@@ -1,5 +1,15 @@
 //@import "testDomainVars";
 
+// ************ //
+//  CONSTANTS
+// ************ //
+
+@desktop:   ~"only screen and (min-width: 992px)";
+@tablet:    ~"only screen and (min-width: 768px)";
+
+// ************ //
+
+
 a,
 a:hover,
 a:active,
@@ -10,44 +20,24 @@ a:focus {color: @mainColor;}
 .login .form-group:last-child p:last-child a {color:@mainColor;}
 
 @import (once,less) url('modules/_buttons.less');
-
-.nav > li > .navbar-link:hover,
-.nav > li > .navbar-link:focus,
-.nav .open > a,
-.nav .open > a:hover,
-.nav .open > a:focus {background-color: @mainColor; color: @mainTextColor;}
-.navbar-collapse.collapse.in {border-bottom-color: @mainColor;}
-.nav > li > .navbar-link:hover .badge,
-.nav > li > .navbar-link:focus .badge {background-color: @mainTextColor; color: @mainColor;}
-.nav > li > .navbar-link:hover .badge-small,
-.nav > li > .navbar-link:focus .badge-small {background-color: transparent; color: @mainColor;}
-
-#navbar-collapse .navbar-contact-phone{background: @mainColorHover;}
-.nav > li > .navbar-link:hover,
-.nav > li > .navbar-link:focus,
-.nav > li > .navbar-link:active {background-color:@mainColor; color: @mainTextColor;}
+@import (once,less) url('modules/_campaigns.less');
+@import (once,less) url('modules/_contacts.less');
+@import (once,less) url('modules/_form.less');
+@import (once,less) url('modules/_header.less');
+@import (once,less) url('modules/_landing.less');
+@import (once,less) url('modules/_login.less');
+@import (once,less) url('modules/_search.less');
+@import (once,less) url('modules/_user.less');
+@import (once,less) url('modules/_footer.less');
 
 
 .box .dropdown-menu > li a {color: @mainColor;}
-.badge {background-color: @mainColor;}
-.badge-small {color:@mainColor;}
-
-
-@import (once,less) url('modules/_footer.less');
 
 .box-ppal span.animated-info-icon {color: @mainColor;}
 .box-ppal span.animated-info-icon + .tooltip.bottom .tooltip-inner {background-color: @mainColor;}
 .box-ppal span.animated-info-icon + .tooltip.bottom .tooltip-arrow {border-bottom-color: @mainColor;}
 
-.timepicker-picker .btn {color: @mainColor !important;}
-
 .actionIcons li > a {color: @mainColor; border-color: @mainColor;}
-
-#progressProfileFill {background-color: @mainColor;}
-#progressLineFill {border-top-color: @mainColor;}
-#progressProfileFill:after {background-color: @mainColor;}
-
-.engagement li.active a:hover {color: @mainColor;}
 
 .important .from {border-bottom-color: @mainColor;}
 .author.important .from .inside {border-bottom-color: @mainColor;}
@@ -59,36 +49,18 @@ a:focus {color: @mainColor;}
 
 .notifications-list > li .actions > li > a {color: @mainColor;}
 
-.boxes.alerts li a {color: @mainColor;}
-
-.boxes.profile-user .profile-pic abbr .fa {background-color:@mainColor}
-
-ul.search-list > li.info-empty .icon-empty-campaignList {color: @mainColor;}
-ul.search-list > li.info-empty .icon-empty-campaignList img{color: @mainColor;}
-
-.uploadKuorumImage .modal-header {background-color: @mainColor;color: @mainTextColor;}
-
-.onecol .subscribeForm .buttons input {background-color: @mainColor; color: @mainTextColor; border-color: @mainColor;}
 .onecol a {color: @mainColor;}
 .steps li.active .badge {background-color: @mainColor;}
 
 .controls a {color: @mainColor;}
 
+.boxes.alerts li a {color: @mainColor;}
+.boxes.profile-user .profile-pic abbr .fa {background-color:@mainColor}
 .boxes.likes.important .progress-bar {background-color: @mainColor;}
+.boxes.edit-user .ico-info {color: @secondColor;}
+.boxes.pending h1 .badge {background-color: @secondColor;}
+.boxes.profile-user > small {color: @secondColor;}
 
-.user-rating label:before {color: @mainColor;}
-.rating legend {color: @mainColor;}
-
-fieldset.rating > input:checked ~ label:before,
-fieldset.rating > input + label:hover ~ label:before,
-fieldset.rating > input + label:hover:before {color: @mainColor;}
-fieldset.rating:hover > input + label:hover ~ label:before,
-fieldset.rating:hover > input + label:hover:before {color: @mainColor;}
-
-.rating-info .rate-number + .rate-number:before{color: @mainColor;}
-.rate-number {color: @mainColor;}
-
-.panel-default .rating-over .progress-bar {background-color: @mainColor;}
 
 .info #main article a,
 .info #main article a:hover,
@@ -112,9 +84,6 @@ fieldset.rating:hover > input + label:hover:before {color: @mainColor;}
 
 .config .item ul li h3 span {color: @mainColor;}
 
-.box-steps > ul.actionIcons > li.active a,
-.box-steps > ul.actionIcons > li a:hover{color: @mainColor; border-color: @mainColor;}
-
 .sr-only.first:active,
 .sr-only.first:focus {
     background-color: @mainColor;
@@ -123,283 +92,20 @@ fieldset.rating:hover > input + label:hover:before {color: @mainColor;}
 
 .bg-primary {background-color: @mainColor;}
 .cl-primary {color: @mainColor;}
-
-.kuorum-tooltip + .tooltip.bottom .tooltip-arrow {border-bottom-color: @mainColor;}
-.kuorum-tooltip + .tooltip.bottom .tooltip-arrow {border-bottom-color: @mainColor;}
-.kuorum-tooltip + .tooltip.bottom {background-color: @mainColor;}
-.kuorum-tooltip + .tooltip.bottom {background-color: @mainColor;}
-.kuorum-tooltip + .tooltip.bottom .tooltip-inner {background-color: @mainColor;color: white;}
-.kuorum-tooltip + .tooltip.bottom .tooltip-inner {background-color: @mainColor; color: white;}
-
-.conversation-box.active {border-left-color: @mainColor;}
-.conversation-box ul.icons li .pin-proposal.active {color: @mainColor;}
-.conversation-box .footer .social li.active a:hover .fa-circle {color: @mainColor;}
-.conversation-box-comments ul li.active {border-left-color: @mainColor;}
-
-.profile-pic .fa {background-color: @secondColor;}
-
-.causes-tags .cause {background: @mainColor;}
-.causes-tags .cause:hover,
-.causes-tags .cause:active,
-.causes-tags .cause:focus{background-color: @mainColorHover;}
-
-.share-buttons li a:hover,
-.share-buttons li a:active,
-.share-buttons li a:focus{
-    color: @mainTextColor;
-    background-color: @mainColor;
-}
+.bg-secondary {background-color: @secondColor;} /* fondo azul */
+.cl-secondary {color: @secondColor;} /* color azul */
 
 .progress-bar-warning {background-color: @mainColor;}
 .progress-bar {background-color: @secondColor;}
 
-.panel-share-buttons > li > a {color:@secondColor;}
-.panel-share-buttons > li > a:hover{color:@secondColorHover;}
-
-.leader-post .header .call-to-action-mobile.call-mobile-event-confirm span.arrow{color: @mainColor;}
-#module-debate-pinned-users.comment-box.call-to-action  .comment-header .call-title .fa-stack {color:@mainColor}
-
 .left-container ul a:hover{color: @mainColor;}
 
-.campaign-progress-bar .progress-bar-custom .progress-bar-custom-done {background: @secondColor;}
-.campaign-progress-bar-wrapper .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done::after {
-  border-color: @secondColor;
-  border-left-color: transparent;
-  border-right-color: transparent;
-  border-bottom-color: transparent;
-}
-
-.campaign-progress-bar.important .progress-bar-custom .progress-bar-custom-done {background: @mainColor;}
-.campaign-progress-bar-wrapper .campaign-progress-bar.important .progress-bar-custom .progress-bar-custom-done::after {
-  border-color: @mainColor;
-  border-left-color: transparent;
-  border-right-color: transparent;
-  border-bottom-color: transparent;
-}
-
-
-.participatory-budget-steps-wrapper .progress-bar-custom .progress-bar-custom-done {background: @mainColor;}
-.participatory-budget-steps-wrapper .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done::after {border-color: @mainColor;}
-
-
-ul.globus li.fontIcon > a > span.fa,
-ul.globus li.fontIcon > a > span.fal,
-ul.globus li.fontIcon > a > span.far,
-ul.globus li.fontIcon > a > span.fas {color:@mainColor;}
-ul.globus li.fontIcon > a > span.fa:hover,
-ul.globus li.fontIcon > a > span.fal:hover,
-ul.globus li.fontIcon > a > span.far:hover,
-ul.globus li.fontIcon > a > span.fas:hover {color:@mainColorHover;}
-
-
-.box-ppal span.animated-info-icon + .tooltip.bottom .tooltip-inner,
-.actionIcons > li.fontIcon .tooltip.bottom .tooltip-inner {
-  background-color: @mainColor;
-  color:@mainTextColor;
-}
-
-.box-ppal span.animated-info-icon + .tooltip.bottom .tooltip-arrow,
-.actionIcons > li.fontIcon .tooltip.bottom .tooltip-arrow{
-  border-bottom-color: @mainColor;
-}
-
-.fade-carousel .slides .slide-1.landingServices { background-image: url("@{staticUrlRoot}/landingSlider/landing-1.jpg");}
-.fade-carousel .slides .slide-2.landingServices { background-image: url("@{staticUrlRoot}/landingSlider/landing-2.jpg");}
-.fade-carousel .slides .slide-3.landingServices { background-image: url("@{staticUrlRoot}/landingSlider/landing-3.jpg");}
-
-.stepsSign li.active,
-.stepsSign li.active::before,
-.stepsSign li.active::after {background-color: fade(@mainColor, 50%);}
-
-
-.stepsSign.stepsSignSecondaryColor li.active,
-.stepsSign.stepsSignSecondaryColor li.active::before,
-.stepsSign.stepsSignSecondaryColor li.active::after {background-color: fade(@secondColor, 50%);}
-
-
-#login-modal.login .form-group:last-child p:last-child a {color:@secondColor;}
-
 .breadcrumb a {color: @secondColor;}
-.box-ppal.import-contacts > p a {color: @secondColor;}
 
-.bootstrap-tagsinput .tag,
-.addTagBtn, .addTag > ul > li a {
-  color: @secondColor;
-  background-color: fade(@secondColor, 10%);
-  border-color: @secondColor;
-}
-
-.nav-tabs.simple > li.active > a,
-.nav-tabs.simple > li.active > a:hover,
-.nav-tabs.simple > li.active > a:focus {
-  color: @secondColor;
-  border-bottom-color: @secondColor;
-}
-.nav-tabs.simple > li > a:hover,
-.nav-tabs.simple > li > a:focus {
-  color: @secondColor;
-}
-.tags-campaign .bootstrap-tagsinput.focus {border-color:@secondColor;}
-#filterContacts {border-color: @secondColor; color: @secondColor;}
-#filterContacts.on {background-color: @secondColor; border-color: @secondColor; color: @mainTextColor; /*cursor: default; pointer-events: none;*/}
-
-.qq-uploader-multiple-files .qq-upload-list li .qq-upload-delete a:hover,
-.qq-uploader-multiple-files .qq-upload-list li .qq-upload-delete a:focus,
-.qq-uploader-multiple-files .qq-upload-list li .qq-upload-delete a:active,
-.qq-uploader-multiple-files .qq-upload-list li.qq-upload-success .qq-upload-success:hover,
-.qq-uploader-multiple-files .qq-upload-list li.qq-upload-success .qq-upload-success:focus,
-.qq-uploader-multiple-files .qq-upload-list li.qq-upload-success .qq-upload-success:active,
 ul.list > li > ul.list-actions > li > a:hover,
 ul.list > li > ul.list-actions > li > a:focus,
 ul.list > li > ul.list-actions > li > a:active {color: @secondColor;}
 
-.addTag > ul > li a {color: @secondColor;}
-.addTag > ul > li a:hover,
-#addTag > ul > li a:focus,
-#addTag > ul > li a:active {color: @mainTextColor; background-color: @secondColor;}
-
-#contactsList > li > a:hover,
-#contactsList > li > a:focus,
-#contactsList > li > a:active {color: @secondColor;}
-
-.addTagBtn {color: @secondColor !important; background-color: @mainTextColor;}
-.addTagBtn:hover,
-.addTagBtn:focus,
-.addTagBtn:active,
-.addTagBtn.on,
-.addTag > ul > li a:hover, .addTag > ul > li a:focus, .addTag > ul > li a:active {color: @mainTextColor !important; background-color: @secondColor !important;}
-
 .from {
   border-bottom-color: @secondColor;
 }
-
-.boxes.edit-user .ico-info {color: @secondColor;}
-.boxes.pending h1 .badge {background-color: @secondColor;}
-.boxes.profile-user > small {color: @secondColor;}
-
-.qq-upload-button {
-  color: @secondColor;
-}
-
-.search-list .search-kuorum-user .box-ppal > small {color: @secondColor;}
-
-.carousel.news .carousel-inner .item .carousel-caption h3 {color: @secondColor;}
-.carousel.news .carousel-inner .item a,
-.carousel.news .carousel-inner .item a:hover,
-.carousel.news .carousel-inner .item a:focus,
-.carousel.news .carousel-control .fa-inverse {color: @secondColor;}
-
-.list-team > li > .box-ppal > .social a:active {color: @secondColor !important;}
-
-.bg-secondary {background-color: @secondColor;} /* fondo azul */
-.cl-secondary {color: @secondColor;} /* color azul */
-
-.conversation-box-comments button.go-up {
-  color: @secondColor;
-}
-
-.nav-pills.nav-underline > .active > a,
-.nav-pills.nav-underline > .active > a:hover,
-.nav-pills.nav-underline > li > a:focus,
-.nav-pills.nav-underline > li > a:hover {
-  border-bottom-color: @secondColor;
-  color: @secondColor;
-}
-
-.leader-post .header .call-to-action-mobile span.arrow{
-  color: @secondColor;
-}
-
-.section-body a,
-.section-header a{
-  color: @secondColor;
-}
-
-.participate a:focus {color: @secondColorHover;}
-
-.carousel.news .carousel-inner .item .carousel-caption h3:hover,
-.carousel.news .carousel-inner .item .carousel-caption h3:focus {color: @secondColorHover;}
-
-ul.search-list > li.search-article .box-ppal .card-body .card-text a{color: @secondColor;}
-ul.search-list > li.search-article .box-ppal .card-footer > ul li a:hover {color: @secondColor;}
-ul.search-list > li.search-article .box-ppal .card-footer > ul li a.active {color: @secondColor;}
-.comment-box .comment p a {color: @secondColor;}
-.conversation-box > .footer .social li a:hover .fa-circle {color: @secondColor;}
-.conversation-box > .body p a {color: @secondColor;}
-.conversation-box .footer .social li.active .fa-circle {color: @secondColor;}
-
-.comment-counter button:hover,
-.comment-counter button:focus,
-.comment-counter a:hover,
-.comment-counter a:focus,
-.comment-counter button.active,
-.comment-counter a.active{
-  color: @secondColor !important;
-}
-
-.comment-counter-as-button .comment-counter a{border-color: @secondColor;color:@secondColor !important;}
-.comment-counter-as-button .comment-counter a:focus,
-.comment-counter-as-button .comment-counter a:hover,
-.comment-counter-as-button .comment-counter a.active{background-color: @secondColor;}
-
-.conversation-box-comments ul.social li a:active,
-.conversation-box-comments ul.social li a:hover{color: @secondColor;}
-.leader-post .header a.edit:hover {color: @secondColor;}
-.leader-post > .body p a, .conversation-box-comment .body a {color: @secondColor;}
-.leader-post > .footer .social li a:hover .fa-circle {color: @secondColor;}
-.comment-counter.important {color: @mainColor}
-ul.search-list > li.search-article .box-ppal .card-footer > ul li .comment-counter.important {color: @mainColor}
-.comment-box.call-to-action .comment p a {color: @secondColor;}
-.survey-progress-bar .progress-bar {background-color: @secondColor;}
-
-.survey-question-answer:hover .option > span.check-icon,
-.survey-question-answer:hover .multi-option > span.check-icon,
-.survey-question-answer.checked .option .check-icon,
-.survey-question-answer.checked .multi-option .check-icon {
-  color: @secondColor;
-}
-
-.survey-question-answer .progress > .progress-bar {background-color: @secondColor;}
-.survey-question > .footer .next-section a:hover {color: @secondColor;}
-.survey-question > .footer .social li a:hover .fa-circle.dark {color: @secondColor;}
-
-.navbar-toggle:hover {background-color: @mainColorHover;}
-
-@media only screen and (min-width: 768px) {
-  .nav > li > .navbar-link:hover,
-  .nav > li > .navbar-link:focus {background-color: transparent; color: @mainColor;}
-  .nav > .underline > .navbar-link:hover,
-  .nav > .underline > .navbar-link:focus,
-  .nav > .underline > .navbar-link.active {
-    color: @mainColor;
-    border-bottom-color: @mainColor;
-  }
-  .nav .open > a,
-  .nav .open > a:hover,
-  .nav .open > a:focus {background-color: transparent; color: @mainColor; border-color: @mainTextColor;}
-
-  .nav .underline.open > a,
-  .nav .underline.open > a:hover,
-  .nav .underline.open > a:focus {border-color: @mainColor;}
-  .nav > li > .navbar-link:hover .badge,
-  .nav > li > .navbar-link:focus .badge {background-color: @mainColor; color: @mainTextColor;}
-  .nav > li > .navbar-link.new-project{
-    background-color: @mainColor;
-    color: @mainTextColor;
-  }
-}
-
-@media only screen and (min-width: 992px) {
-  ul.search-list > li.info-empty .icon-empty-campaignList {color: @mainColor; display:inline-block;}
-}
-
-.multimedia-campaign-default:after {background: @mainColor;}
-.watermarked::before{background: @mainColor; color:@mainColorHover}
-
-.multimedia-campaign-validationInfo .center-block{background: @mainColor;}
-
-#starredCampaign .starredCampaign-title .fal{color:@mainColor}
-
-#navigation-admin-show-landing-button a:hover{background-color: @mainColor;}
-#navigation-admin-show-landing-button .tooltip.bottom .tooltip-inner{background-color: @mainColor;}
-#navigation-admin-show-landing-button .tooltip.bottom .tooltip-arrow {border-bottom-color: @mainColor;}

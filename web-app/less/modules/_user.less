@@ -1,0 +1,41 @@
+
+#progressProfileFill {background-color: @mainColor;}
+#progressProfileFill:after {background-color: @mainColor;}
+#progressLineFill {border-top-color: @mainColor;}
+
+
+.share-buttons li a:hover,
+.share-buttons li a:active,
+.share-buttons li a:focus{
+  color: @mainTextColor;
+  background-color: @mainColor;
+}
+
+.user-rating label:before {color: @mainColor;}
+.rating legend {color: @mainColor;}
+
+fieldset.rating > input:checked ~ label:before,
+fieldset.rating > input + label:hover ~ label:before,
+fieldset.rating > input + label:hover:before {color: @mainColor;}
+fieldset.rating:hover > input + label:hover ~ label:before,
+fieldset.rating:hover > input + label:hover:before {color: @mainColor;}
+
+.rating-info .rate-number + .rate-number:before{color: @mainColor;}
+.rate-number {color: @mainColor;}
+
+.panel-default .rating-over .progress-bar {background-color: @mainColor;}
+
+.profile-pic .fa {background-color: @secondColor;}
+
+.panel-share-buttons > li > a {color:@secondColor;}
+.panel-share-buttons > li > a:hover{color:@secondColorHover;}
+
+.carousel.news .carousel-inner .item .carousel-caption h3 {color: @secondColor;}
+.carousel.news .carousel-inner .item a,
+.carousel.news .carousel-inner .item a:hover,
+.carousel.news .carousel-inner .item a:focus,
+.carousel.news .carousel-control .fa-inverse {color: @secondColor;}
+
+.carousel.news .carousel-inner .item .carousel-caption h3:hover,
+.carousel.news .carousel-inner .item .carousel-caption h3:focus {color: @secondColorHover;}
+

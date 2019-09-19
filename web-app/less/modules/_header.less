@@ -1,0 +1,52 @@
+
+
+
+.nav > li > .navbar-link:hover,
+.nav > li > .navbar-link:focus,
+.nav .open > a,
+.nav .open > a:hover,
+.nav .open > a:focus {background-color: @mainColor; color: @mainTextColor;}
+.navbar-collapse.collapse.in {border-bottom-color: @mainColor;}
+.nav > li > .navbar-link:hover .badge,
+.nav > li > .navbar-link:focus .badge {background-color: @mainTextColor; color: @mainColor;}
+.nav > li > .navbar-link:hover .badge-small,
+.nav > li > .navbar-link:focus .badge-small {background-color: transparent; color: @mainColor;}
+
+.nav > li > .navbar-link:hover,
+.nav > li > .navbar-link:focus,
+.nav > li > .navbar-link:active {background-color:@mainColor; color: @mainTextColor;}
+
+
+.navbar-toggle:hover {background-color: @mainColorHover;}
+
+.badge {background-color: @mainColor;}
+.badge-small {color:@mainColor;}
+
+@media @tablet {
+  .nav > li > .navbar-link:hover,
+  .nav > li > .navbar-link:focus {background-color: transparent; color: @mainColor;}
+  .nav > .underline > .navbar-link:hover,
+  .nav > .underline > .navbar-link:focus,
+  .nav > .underline > .navbar-link.active {
+    color: @mainColor;
+    border-bottom-color: @mainColor;
+  }
+  .nav .open > a,
+  .nav .open > a:hover,
+  .nav .open > a:focus {background-color: transparent; color: @mainColor; border-color: @mainTextColor;}
+
+  .nav .underline.open > a,
+  .nav .underline.open > a:hover,
+  .nav .underline.open > a:focus {border-color: @mainColor;}
+  .nav > li > .navbar-link:hover .badge,
+  .nav > li > .navbar-link:focus .badge {background-color: @mainColor; color: @mainTextColor;}
+  .nav > li > .navbar-link.new-project{
+    background-color: @mainColor;
+    color: @mainTextColor;
+  }
+}
+
+
+#navigation-admin-show-landing-button a:hover{background-color: @mainColor;}
+#navigation-admin-show-landing-button .tooltip.bottom .tooltip-inner{background-color: @mainColor;}
+#navigation-admin-show-landing-button .tooltip.bottom .tooltip-arrow {border-bottom-color: @mainColor;}
