@@ -1,5 +1,6 @@
 package kuorum.files
 
+import kuorum.web.admin.domain.KuorumWebFont
 import org.kuorum.rest.model.domain.DomainRSDTO
 import org.lesscss.LessCompiler
 import org.lesscss.deps.org.apache.commons.io.FileUtils
@@ -21,6 +22,7 @@ class LessCompilerService implements ApplicationContextAware {
     private static final String PARAM_STATIC_ROOT_URL="@staticUrlRoot"
     private static final String PARAM_MAIN_TEXT_COLOR="@mainTextColor"
     private static final String PARAM_MAIN_WARN_COLOR="@warnColor"
+    private static final String PARAM_TITLE_FONT ="@fontTitle"
 
     String compileCssForDomain(DomainRSDTO domain){
         // Instantiate the LESS compiler with some compiler options
@@ -114,6 +116,7 @@ class LessCompilerService implements ApplicationContextAware {
         appendLessProperty(sb,PARAM_MAIN_TEXT_COLOR,"#fff")
         appendLessProperty(sb,PARAM_MAIN_WARN_COLOR,"#990000")
         appendLessProperty(sb,PARAM_STATIC_ROOT_URL,"\"${amazonFileService.getStaticRootDomainPath(domainRSDTO.domain)}\"")
+        appendLessProperty(sb,PARAM_TITLE_FONT,KuorumWebFont.build(domainRSDTO.titleFontName).fontName)
         return sb.toString();
     }
 

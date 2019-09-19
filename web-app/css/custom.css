@@ -422,40 +422,6 @@ body.configDomainProcess .qq-uploader{background-color: #FFF;}
     margin-top: 1px;
 }
 
-#navbar-collapse .navbar-contact-phone{
-    background: #cccccc;
-    color: #545454;
-    padding:2px 10px 0;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    margin-right: 20px;
-    margin-top: 7px;
-    font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
-    font-size:13px;
-}
-
-#navbar-collapse .navbar-contact-phone span.fa{
-    margin-right: 5px;
-}
-
-.navbar-fixed-top > .navbar-contact-phone{
-    background: #e5e5e5;
-    color: #000;
-    text-align: right;
-    padding-right: 12px;
-    font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
-}
-
-.navbar-fixed-top > .navbar-contact-phone a{
-    color: #000;
-}
-
-.navbar-fixed-top > .navbar-contact-phone .fa{
-    font-size: 10px;
-    margin-right: 5px;
-}
-
 .navbar {
     font-size: 14px;
     font-size: 1.4rem;
@@ -2139,6 +2105,7 @@ ul.participatory-budget-steps-info li.active a {display: none}
     font-size: 2rem;
     line-height: 1;
     text-transform: uppercase;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 .popover.tour .popover-navigation > .btn,
 .popover.tour .popover-navigation > .btn:hover,
@@ -2479,22 +2446,6 @@ video#bgvid {
 .box-ppal.profile .activity > li:nth-child(3) {border-right: none;}
 .box-ppal.profile .activity > li .popover-trigger .counter {color: #545454;}
 .box-ppal.profile .activity > li .counter {color: #a8a8a8; font-size: 30px; font-size: 3rem; font-weight: bold;}
-
-.notifications-list {padding: 0; margin: 0;}
-.notifications-list li {list-style: none;}
-.notifications-list > li {margin: 0; border-bottom: solid 1px #dadada; padding: 15px 0; position: relative;}
-.notifications-list > li:last-child {border: none;}
-.notifications-list > li > .user > .popover-trigger {line-height: 1.2 !important; margin: 0 !important;}
-.notifications-list > li > .user > .popover-trigger > .user-img {margin: 0 6px 32px 10px; display: inline-block; float: left;}
-.notifications-list > li > .user > .popover-trigger > span {font-size: 17px; font-size: 1.7rem;}
-.notifications-list > li .text-notification {font-size: 13px; font-size: 1.3rem; display: inline;}
-.notifications-list > li .text-notification a,
-.notifications-list > li .text-notification strong {color: #545454 !important;}
-.notifications-list > li .text-notification strong {text-transform: uppercase; font-size: 16px; font-size: 1.6rem;}
-.notifications-list > li .actions {margin: 8px 0 4px 13px; text-align: right;}
-.notifications-list > li .actions > li > a {font-size: 12px; font-size: 1.2rem; margin: 0 4px 0 0 !important; color: #167caa;}
-.notifications-list > li .actions > li {display: inline-block;}
-.notifications-list > li .actions .time {color: #a8a8a8;}
 
 ul.search-list{margin: 0;padding: 0;list-style: none;}
 ul.search-list .search-article .box-ppal {padding: 0; margin: 0 0 20px 0;height: auto; box-shadow: 0 0 2px rgba(200,200,200,0.6);}
@@ -3718,11 +3669,6 @@ h5#results {margin: 0 0 15px;}
 .config form .form-group .prefix {margin-right: 10px; width: 80px;}
 .config form .form-group .phone {width: 192px;}
 
-.config .saldo {background-color: #fefaf3; padding: 10px 0; color: #a8a8a8;}
-.config .saldo h2 {margin-top: 0; color: #545454;}
-.config .saldo .activity li {color: #167caa; border-right: 1px solid #167caa; font-size: 15px; font-size: 1.5rem;}
-.config .saldo .activity li:last-child {border-right: 0;}
-.config .saldo .activity li span {font-size: 30px; font-size: 3rem;}
 .config .role h2,
 .config .skill h2,
 .config .item h2 {border-top: 1px solid #DADADA; padding-top: 20px;}
@@ -4155,15 +4101,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 .kuorum-tooltip + .tooltip.bottom {
     background-color: #167caa;
     opacity: 1;
-}
-
-.kuorum-tooltip + .tooltip.bottom .tooltip-inner {
-    position: relative;
-    background-color: #167caa;
-    color: white;
-    font-size: 14px;
-    font-family: "Helvetica Neue", Helvetica,Arial,sans-serif !important;
-    top: -5px;
 }
 
 .kuorum-tooltip + .tooltip.bottom .tooltip-inner {
@@ -5015,9 +4952,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .onecol form .cancel {font-size: 16px !important; font-size: 1.6rem; margin: 0 20px 0 0;}
     .controls {width: auto;}
 
-    .notifications-list > li > .user > .popover-trigger > span {font-size: 1.6rem;}
-    .notifications-list > li.user.answerLink {padding: 10px 0 20px 0;}
-
     .stats {position: absolute; bottom: 40px; right: 0;}
     .stats a {padding: 10px 0 0 0;}
     .stats span {display: inline-block; margin: 0 8px 4px 0;}
@@ -5047,7 +4981,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     #map {width: 475px; height: 405px;}
     /*#edit-event-map { height: 100px;}*/
     .popover.tour {width: 385px; max-width: 385px !important; padding: 15px;}
-    .popover.tour .popover-title {font-size: 2rem; line-height: 1; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;}
+    .popover.tour .popover-title {font-size: 2rem; line-height: 1; }
     #footer .licenses {margin-top: 15px; width: auto;}
     #footer > .container-fluid > .links li a,
     section.links li a {font-size: 14px; font-size: 1.4rem;}
@@ -5208,8 +5142,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .box-ppal{padding: 22px 15px 0 15px;}
 
     .home .play {margin: 90px 0 0 0; padding: 0 0 0 30px; font-size: 22px; font-size: 2.2rem;text-align: left;}
-    /*.config .notifications-list > li > .text-notification,
-    .config .notifications-list > li.user > .text-notification {padding: 0 240px 0 0;}*/
 
     .config > article > .box-ppal, .config > section > .box-ppal {padding: 22px 20px 0 20px; margin-bottom: 60px;}
 
@@ -5281,13 +5213,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
         column-count: 4;
         column-gap: 20px;
     }
-    .box-ppal .notifications-list .actions {position: absolute; top: 10px; right: 0; margin: 0; padding: 0;}
-    .notifications-list > li > .user > .actions > li {display: block;}
-    .notifications-list .text-notification {padding-right: 34%;}
-
-    .box-ppal .notifications-list > li > .user > .popover-trigger > .user-img {margin: 0 6px 6px 10px;}
-    .box-ppal .notifications-list > li > .user > .actions > li > a {margin: 0 !important;}
-
     /* LANDING */
 
     .onecol #main .signup {max-width: 680px;}
@@ -5421,8 +5346,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .nav > li > a.btn {margin-top: 0 !important; margin-bottom: 11px !important; padding: 14px !important;}
     .box .badge {top: 2px;}
     .box .badge-small {top: 2px;right:0px;}
-    .notifications-list > li > .user > .popover-trigger > img {margin: 0 6px 32px 10px;}
-    .notifications-list > li > .user {padding: 0 15px 0 0;}
 
     aside .back {margin: 30px 0 14px;}
     .infoVotes > li,
@@ -7194,11 +7117,6 @@ ul.threeColumn .card-body p {
     ul.leader-post-stats {
         margin-bottom: 35px;
     }
-
-    .landing-footer .left-container {
-        width: 100%;
-        float: none;
-    }
     .landing-footer .section-header h3 {
         float: none;
     }
@@ -7237,37 +7155,6 @@ ul.threeColumn .card-body p {
 
 .section-body.footer {
     padding-bottom: 0px !important;
-}
-
-.landing-footer .left-container {
-    padding: 24px 30px 30px;
-}
-
-.left-container {
-    padding: 30px;
-    float: left;
-}
-
-.left-container ul{
-    list-style: none;
-    padding: 0;
-}
-
-.left-container ul a{
-    font-size: 22px;
-    line-height: 40px;
-    color: inherit;
-    text-decoration: none;
-}
-
-.left-container ul a:hover{
-    text-decoration: none;
-    color: #167caa;
-}
-
-.left-container ul a.active{
-    font-weight: bold;
-    line-height: 41px;
 }
 /** how-it-works **/
 

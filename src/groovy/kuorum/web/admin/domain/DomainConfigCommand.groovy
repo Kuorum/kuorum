@@ -13,6 +13,7 @@ class DomainConfigCommand {
     String mainColorShadowed;
     String secondaryColor;
     String secondaryColorShadowed;
+    KuorumWebFont titleWebFont;
     String facebook;
     String twitter;
     String linkedIn;
@@ -28,6 +29,7 @@ class DomainConfigCommand {
         mainColorShadowed nullable: false, matches:HEX_PATTERN
         secondaryColor nullable: false, matches:HEX_PATTERN
         secondaryColorShadowed nullable: false, matches:HEX_PATTERN
+        titleWebFont nullable: false
 
         facebook nullable:true
         twitter nullable:true

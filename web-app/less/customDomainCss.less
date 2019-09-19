@@ -7,6 +7,14 @@
 @desktop:   ~"only screen and (min-width: 992px)";
 @tablet:    ~"only screen and (min-width: 768px)";
 
+
+@import (once,css) url('https://fonts.googleapis.com/css?family=Ubuntu&display=swap');
+
+//@fontTitle: 'Ubuntu';
+//@fontTitle: 'Georgia', 'Times New Roman', Times, serif;
+@fontText: "Helvetica Neue", Helvetica,Arial,sans-serif;
+
+
 // ************ //
 
 
@@ -16,8 +24,6 @@ a:active,
 a:focus {color: @mainColor;}
 
 .navbar-toggle {background-color: @mainColor; color: @mainTextColor;}
-.open-filter .dropdown-menu > li > a.active {color:@mainColor;}
-.login .form-group:last-child p:last-child a {color:@mainColor;}
 
 @import (once,less) url('modules/_buttons.less');
 @import (once,less) url('modules/_campaigns.less');
@@ -30,6 +36,72 @@ a:focus {color: @mainColor;}
 @import (once,less) url('modules/_user.less');
 @import (once,less) url('modules/_footer.less');
 
+.survery-question-title,
+.notification-menu > li.title,
+.comment-box.call-to-action .comment,
+.leader-post > .body,
+.medium-editor-placeholder:after,
+.panel-default > .panel-heading .panel-title,
+.fade-carousel .content form .form-group.conditions,
+.conversation-box .body p,
+.stepsSign li,
+header .nav > li > .navbar-link.btn-transparent,
+body{font-family: @fontTitle;}
+
+
+.fade-carousel .content h1,
+.fade-carousel .content-footer h1{font-family: @fontText}
+
+.macbook-pro-screen-body h3,
+.macbook-pro-screen-body h1,
+.custom-url-info-box p,
+.survey-question > .footer .next-section a,
+.survey-question-answer .progress-bar-counter,
+.survey-progress,
+.survey-box,
+#footer-section .section-header h1,
+.label-leader-post,
+.comment-box.call-to-action .call-district-proposal-info-budget .call-subTitle,
+.comment-box.call-to-action .call-district-proposal-info-budget .call-title-price,
+.comment-box.call-to-action .call-district-proposal-info-budget .call-title,
+.comment-box.call-to-action .comment-header .call-subTitle,
+.comment-box.call-to-action .comment-header .call-title,
+.leader-post h1.title,
+.nav-pills.nav-underline > li > a,
+.panel-table .thead .th,
+.panel-default .table-condensed .thead,
+.panel-default .table-condensed .th,
+.share-buttons .tooltip-inner,
+.causes-tags,
+.unsubscribe h1,
+.popover.tour .popover-title,
+#starredCampaign .starredCampaign-title .starredCampaing-title-text,
+.fade-carousel .content-footer h1,
+.conversation-box-comments .comment-box button.go-up,
+.conversation-box-comments .comment-box .editable-comment,
+.conversation-box-comment .footer,
+.conversation-box-comment .body,
+.conversation-box-comments button.go-up,
+.comment-counter .number,
+.comment-counter button,
+.comment-counter a,
+.comment-counter,
+.conversation-box .footer .comment-counter .delete,
+.kuorum-tooltip + .tooltip.bottom .tooltip-inner
+.comment-box .comment,
+.carousel.news .carousel-inner .item .carousel-caption h3,
+.order-options .popover ul li a,
+.order-options,
+ul.search-list > li.search-article .box-ppal .card-footer > ul li a .number,
+ul.search-list > li.search-article .box-ppal .card-body h1,
+.load-more,
+#participatoryBudget-districtProposals-list > div > div.comment-box .label,
+.bootstrap-tagsinput .tag, .addTagBtn, .addTag > ul > li a,
+.box-ppal span.animated-info-icon + .tooltip.bottom .tooltip-inner,
+.btn,
+#navigation-admin-show-landing-button .tooltip.bottom .tooltip-inner,
+.modal-loading-signup-custom-site-dynamic-text p,
+body.landing > div > div {font-family: @fontText}
 
 .box .dropdown-menu > li a {color: @mainColor;}
 
@@ -47,8 +119,6 @@ a:focus {color: @mainColor;}
 #aside-ppal .panel .social li a:focus .fa-inverse {color: @mainColor !important;}
 #aside-ppal .panel .social li .fa-circle {color: @mainColor !important;}
 
-.notifications-list > li .actions > li > a {color: @mainColor;}
-
 .onecol a {color: @mainColor;}
 .steps li.active .badge {background-color: @mainColor;}
 
@@ -60,8 +130,6 @@ a:focus {color: @mainColor;}
 .info #main article a:focus {color: @mainColor;}
 
 .info #main article blockquote strong {color: @mainColor;}
-
-.config .saldo .activity li {color: @mainColor; border-right-color: @mainColor;}
 
 .config .role .btn.active,
 .config .role .btn.active:hover,
@@ -89,8 +157,6 @@ a:focus {color: @mainColor;}
 
 .progress-bar-warning {background-color: @mainColor;}
 .progress-bar {background-color: @secondColor;}
-
-.left-container ul a:hover{color: @mainColor;}
 
 .breadcrumb a {color: @secondColor;}
 
