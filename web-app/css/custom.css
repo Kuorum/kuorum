@@ -360,7 +360,6 @@ a:focus {color: #167caa;}
 .tooltip.right .tooltip-arrow {border-right-color: #dadada;}
 .tooltip.bottom .tooltip-arrow {border-bottom-color: #dadada;}
 .tooltip-inner {background-color: #dadada; color: #545454; font-size: 11px; font-size: 1.1rem;}
-.boxes.likes .progress {background-color: #8ac2fc; border-radius: 0; width: 70%; margin: 0 auto 35px;}
 
 .main > .container-fluid,
 .main > .home > .images > .container-fluid,
@@ -900,10 +899,6 @@ header.transp #search-form .open-filter {background-color: rgba(219,219,219,0.4)
 }
 
 .popover .btn.btn-blue.disabled {}
-.boxes .btn {margin-bottom: 20px !important;}
-.boxes .cancel {margin: 0 !important; float: right;}
-.boxes .btn + .cancel {float: left;}
-.boxes.btns {padding-top: 35px;}
 .btns {margin: 0; padding: 0;}
 .btns li {list-style: none; float: left; margin: 0 40px 10px 0; line-height: 3.5;}
 .btns li:last-child {margin: 0;}
@@ -1051,8 +1046,6 @@ span + .text-notification {padding: 0 0 0 36px; margin-top: -6px;}
 .badge-small {background-color: transparent; color:#167caa;}
 .navbar-nav .visible-xs {display: inline-block !important;}
 .user-img {border-radius: 19px; width: 34px; height: 34px; margin: 1px 4px 1px 1px;}
-.boxes.alerts .user-img,
-.boxes.follow .user-img {display: inline-block;}
 
 #footer {background-color: #666666; color: #fff;}
 #footer ul, #footer ol, section.links ul {padding: 0}
@@ -1992,29 +1985,7 @@ ul.participatory-budget-steps-info li.active a {display: none}
 #tabs-stats-campaign #participatoryBudgetProposalReviewTable.table tr.detail-view > td {padding:10px;}
 #tabs-stats-campaign #participatoryBudgetProposalReviewTable.table tr.detail-view > td .box-ppal{margin:0;padding-bottom: 10px;}
 #tabs-stats-campaign #participatoryBudgetProposalReviewTable.table > tbody > tr > td > a {color:inherit; font-weight: bold;}
-.from {
-    width: 0;
-    height: 0;
-    display: block;
-    border-bottom: 10px solid #ec931f;
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    left: 10px;
-    top: -10px;
-    z-index: 10;
-    position: absolute;
-}
-.from .inside {
-    border-bottom: 8px solid #fcfcfc;
-    border-left: 9px solid transparent;
-    border-right: 9px solid transparent;
-    position: absolute;
-    left: -9px;
-    top: 2px; /* lo posicionamos desplazado */
-    height: 0;
-    width: 0;
-    z-index: 11;
-}
+
 .open-menu {color: #dbdbdb; position: absolute !important; top: 2px; right: 8px; z-index: 1;}
 .box-ppal .link-wrapper:hover,
 .box-ppal .link-wrapper:active,
@@ -2336,10 +2307,6 @@ ul.participatory-budget-steps-info li.active a {display: none}
 .user-list-followers .more-users:active,
 .user-list-followers .more-users:focus {background-color: #a8a8a8; color: #fff;}
 
-/* kakareos destacados */
-.important .from {border-bottom: 10px solid #167caa;}
-.important .from .inside {border-bottom: 8px solid #fff8ed;}
-.author.important .from .inside {border-bottom: 8px solid #167caa;}
 
 /* kakareo de autor important (político) */
 .author.important .user.actor.politic {
@@ -2441,17 +2408,6 @@ video#bgvid {
 /***************************************************************************/
 /***************************************************************************/
 
-
-/* ajustes kakareos en el sidebar */
-.boxes .author.important .user.actor.politic .popover-trigger .user-img {float: right; margin-top: 0; margin-bottom: 0;}
-.boxes .author.important .user.actor.politic {
-    height: 35px;
-    line-height: 24px;
-    padding: 6px 0 0;
-    background-color: transparent;
-    color: #545454;
-}
-
 /* boxes columna derecha dashboard */
 #aside-ppal {padding-top: 24px;}
 @media only screen and (max-width: 767px) {
@@ -2474,51 +2430,9 @@ video#bgvid {
 #aside-ppal .box-ppal-title h3 .fa-stack{font-size: 1px;font-size: 1.4rem;}
 #aside-ppal .box-ppal-section{padding:0px;}
 
-.boxes {
-    background-color: #fff;
-    border: 1px solid #e5e5e5;
-    margin: 0 0 20px;
-    padding: 0;
-    position: relative;
-}
-.boxes.profile-user {padding: 10px; /*min-height: 496px;*/}
-.boxes .edit {font-size: 12px; font-size: 1.2rem; display: inline-block; color: #A8A8A8; position: absolute; top: 10px; right: 10px;}
-.boxes.edit-user {padding: 10px;}
-.boxes.edit-user .name {font-size: 21px; font-size: 2.1rem; padding-bottom: 8px; display: block; line-height: 1;}
-.boxes.info {background: transparent; border: none; margin: 0 0 40px 0;}
-.boxes.edit-user .user-type {display: inline-block; color: #a8a8a8;}
-.boxes.edit-user .ico-info {position: absolute; top: 10px; right: 10px; font-size: 32px; font-size: 3.2rem; color: #ec931f; z-index: 9;}
-
-.boxes.edit-user .ico-info .fa.shadow {
-  position: relative;
-  left: .025em;
-  top: .025em;
-  color: #333;
-}
-.boxes.edit-user .ico-info .fa.border{
-    left: .01em;
-    top: .01em;
-    position: absolute;
-    z-index: 1;
-    color: #fff;
-}
-.boxes.edit-user .ico-info .fa.front {
-  position: absolute;
-  z-index: 2;
-}
-
-
-.boxes.edit-user .ico-info .popover {font-size: 16px; font-size: 1.6rem; color: #bac2cc;}
-.boxes.edit-user .ico-info .popover {left: -230px !important; top: 30px !important;}
-.boxes.edit-user .ico-info .popover.bottom >.arrow {left: auto !important; right: 8px;}
-
-.boxes.edit-user .activity {margin: 0;}
-.boxes.edit-user .activity .following {margin: 0;}
 .panel .info-text {font-size: 12px; font-size: 1.2rem; color: #bac2cc; text-align: right;}
 
 
-
-/*.boxes.follow .user-type {display: block; margin-left: 4px;}*/
 .personal .user-type {padding: 0; font-size: 20px; font-size: 2rem; margin-bottom: 12px; position: relative; left: auto; bottom: auto;}
 .user-list-followers  .user > .actions {/*float: right; margin: -14px 0 0 !important; width: 108px;*/ position: absolute; top: 5px; right: 0;}
 .user-list-followers  .user > .actions .btn.follow {
@@ -2530,22 +2444,12 @@ video#bgvid {
     width: 80px;
 }
 .user-list-followers .user > .actions .close {margin: 1px 0 0 5px                                                                                                                                                   ;}
-/*.boxes .user-img,
-.condition .user-list-followers .user-img {float: left;}*/
-/*.boxes .user-img.big {margin: 0 6px 6px 0;}*/
-.boxes.info .user-img {float: none;}
-.boxes .popover .user-img {float: none;}
-.boxes .personal {padding: 20px 0;}
 .user-img.big {
     border-radius: 60px;
     width: 90px;
     height: 90px;
     margin-top: 10px;
 }
-.boxes > ul,
-.boxes .actions {margin: 0;}
-.boxes > ul > li,
-.boxes .actions li {list-style: none; display: inline-block;}
 
 .activity {padding: 0; text-align: center;}
 .activity > li {
@@ -2576,28 +2480,6 @@ video#bgvid {
 .box-ppal.profile .activity > li .popover-trigger .counter {color: #545454;}
 .box-ppal.profile .activity > li .counter {color: #a8a8a8; font-size: 30px; font-size: 3rem; font-weight: bold;}
 
-.boxes > h1 {font-size: 22px; font-size: 2.2rem; color: #545454; margin: 0; padding: 10px; border-bottom: 1px solid #dadada;}
-.boxes > h2 {font-size: 19px; font-size: 1.9rem; color: #545454;}
-.boxes.alerts h1,
-.boxes.pending h1 {font-size: 15px; font-size: 1.5rem;}
-.boxes h1 .bigger {font-size: 150%;}
-.boxes h1 .badge {
-    font-size: 60%;
-    padding: 3px 4px 2px;
-    position: absolute;
-    right: 0;
-    top: -4px;
-}
-.boxes.pending h1 .badge {background-color: #ec931f;}
-.boxes h1 .badgeContainer {
-    display: block;
-    float: left;
-    line-height: 1.7;
-    margin: 0 5px 0 0;
-    padding: 0 6px 0 0;
-    position: relative;
-}
-
 .notifications-list {padding: 0; margin: 0;}
 .notifications-list li {list-style: none;}
 .notifications-list > li {margin: 0; border-bottom: solid 1px #dadada; padding: 15px 0; position: relative;}
@@ -2613,31 +2495,6 @@ video#bgvid {
 .notifications-list > li .actions > li > a {font-size: 12px; font-size: 1.2rem; margin: 0 4px 0 0 !important; color: #167caa;}
 .notifications-list > li .actions > li {display: inline-block;}
 .notifications-list > li .actions .time {color: #a8a8a8;}
-
-.boxes.alerts .notifications-list > li {padding: 20px 0 0 0; width: 100%;}
-.boxes.alerts .notifications-list > li > .user {padding: 0 10px 0 0;}
-.boxes.alerts .notifications-list > li > .user > .actions {text-align: left;}
-.boxes.alerts .notifications-list > li:last-child {display: block; padding: 10px 0; margin: 0; border: none;}
-
-.boxes.alerts ul li .name {font-weight: bold;}
-.boxes.alerts li a {color: #167caa;}
-.boxes.alerts .notifications-list > li:last-child a {color: #a8a8a8;}
-.boxes .form-group {margin-bottom: 8px;}
-
-.boxes.profile-user > p {/*height: 130px; */overflow: hidden;}
-.boxes.profile-user .user-img.big {margin: 20px auto 0; width: 120px; height: 120px; float: none; display: block;}
-.boxes.profile-user h1 {text-align: center; margin: 15px 0 5px; padding: 0; border: none;}
-.boxes.profile-user h1 a,
-.boxes.profile-user h1 span {font-size: 30px; font-size: 3rem; color: #545454;}
-.boxes.profile-user .user-type {display: block; text-align: center; padding: 0; margin: 0 0 28px 0;}
-.boxes.profile-user > .actions {margin: 0 auto; display: block; text-align: center;}
-.boxes.profile-user > .actions .btn {margin-left: 0 !important; margin-top: 0 !important; width: 48%;}
-.boxes.profile-user > .actions .btn.follow {margin-right: 2% !important;}
-.boxes.profile-user > small {display: block; float: left; width: 50%; margin: 0; padding: 0; font-size: 18px; font-size: 1.8rem; color: #ec931f;}
-.boxes.profile-user > .pull-right {width: 40%; margin: 0; padding: 0; font-size: 20px; font-size: 2rem; text-align: right;}
-.boxes.profile-user > small .fa {opacity: .5;}
-.boxes.profile-user .profile-pic abbr .fa {background-color:#167caa}
-
 
 ul.search-list{margin: 0;padding: 0;list-style: none;}
 ul.search-list .search-article .box-ppal {padding: 0; margin: 0 0 20px 0;height: auto; box-shadow: 0 0 2px rgba(200,200,200,0.6);}
@@ -2694,7 +2551,6 @@ ul.search-list.latestActivities .search-article {padding:0 0 20px 0px;}
 /*********************** Edit Post *************************************/
 /***********************************************************************/
 .edit-post form,
-.edit-post .boxes,
 .edit-post > h1 + p {color: #a8a8a8;}
 .edit-post > h1 {
     font-size: 48px;
@@ -3005,9 +2861,6 @@ form#sign {margin: 30px auto 0; max-width: 900px;}
 .steps li .badge {background-color: #dadada; border-radius: 20px; width: 40px; height: 40px; font-size: 24px; font-size: 2.4rem; padding: 8px 4px 0 4px; font-weight: normal;}
 .steps li.active .badge {background-color: #167caa;}
 
-.onecol .boxes {background-color: #fcffd5; padding: 30px 40px; }
-.onecol .boxes h2 {text-transform: none; font-weight: bold; font-size: 16px; font-size: 1.6rem; margin-bottom: 30px;}
-
 .interestContainer,
 .usersContainer {
     width: 100%;
@@ -3219,21 +3072,6 @@ h2.underline {border-bottom: 1px solid #dadada; padding: 0 0 10px 0; margin-top:
 .debate {margin-bottom: 40px;}
 
 .debate p.no-debate {padding: 15px; background-color: #f8f8f8; border: 1px solid #e5e5e5;}
-
-#addDebate {margin: 10px 0;}
-#addDebate textarea {padding: 20px;}
-.boxes.likes.important .progress-bar {background-color: #167caa;}
-
-.boxes.plan .up-plan {
-    font-size: 13px; font-size: 1.3rem;
-    font-weight: bold;
-    padding: 10px 0;
-    color: #545454;
-    text-align: center;
-    display: block;
-    border-top: 1px solid #DADADA;
-}
-.boxes.plan h1 .pull-right {font-size: 14px; font-size: 1.4rem;}
 
 .popover-box .infoActivity li:last-child {margin: 0;}
 
@@ -3619,13 +3457,6 @@ fieldset.rating:hover > input + label:hover:before {
 .socialContact li a:active,
 .socialContact li a:focus {color: #a8a8a8;}
 .socialContact li span {color: #545454; margin-right: 4px;}
-
-.boxes.follow h1 span,
-.boxes.laws h1 span {font-size: 18px; font-size: 1.8rem; margin-bottom: 4px; color: #545454;}
-.boxes.follow h1 small span {font-size: 14px; font-size: 1.4rem;}
-.boxes.laws > ul > li {display: block; padding: 10px 0; border-bottom: 1px solid #DADADA;}
-.boxes.laws > ul > li:last-child {border: 0;}
-.boxes.laws > ul > li > .counter {display: inline-block; float: right;}
 
 .noprofile h1,
 .noprofile h2 {font-size: 24px; font-size: 2.4rem; margin-bottom: 20px;}
@@ -4038,11 +3869,6 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li a:first-child {border-radi
 fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {border-radius: 0px 4px 4px 0px;}
 
 .strong {font-weight: bold}
-
-/* boxes columna derecha actialización Proyecto */
-.boxes.performance p {margin: 20px;}
-.boxes.performance a.improve {margin: 0 auto 24px !important; display: block;}
-
 
 /* Descubre */
 .config.discover header .box-ppal > ul {margin-bottom: 15px;}
@@ -4938,8 +4764,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .pre {margin: 75px 20px 5px 0;}
     .preFooter .user-list li .user-img {margin-right: 10px;}
 
-    .boxes.performance a.improve {width: 272px; margin: 0 auto;}
-    .boxes.profile-user > .actions {width: 272px;}
     .form-home-container {width: 320px;}
     /*.user-list-followers .user > .actions {margin: -32px 0 0 !important;}*/
 
@@ -5190,9 +5014,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .links.simple .legal li {display: inline; margin: 0 14px 0 0; border-right: solid 1px #a8a8a8; border-bottom: none; padding: 0 14px 0 0;}
     .onecol form .cancel {font-size: 16px !important; font-size: 1.6rem; margin: 0 20px 0 0;}
     .controls {width: auto;}
-    .boxes.edit-user > .user > a {position: relative; display: block; text-align: center;}
-    .boxes.edit-user .user-img.big {float: none; margin: 0;}
-    .boxes.edit-user .personal {float: left; width: 100%; text-align: center; padding: 10px 0 0 0;}
 
     .notifications-list > li > .user > .popover-trigger > span {font-size: 1.6rem;}
     .notifications-list > li.user.answerLink {padding: 10px 0 20px 0;}
@@ -5213,7 +5034,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .signContainer h3 {font-size: 15px; font-size: 1.5rem; margin-bottom: 10px;}
     #main.home,
     .socialContact li {display: inline; margin-right: 30px; padding: 0;}
-    .userprofile .boxes .btn.btn-lg {font-size: 1.4rem !important; padding: 18px !important;}
     .pre {margin: 5px 20px 5px 0;}
     #search-filters h1 {margin-top: 20px;}
     .onecol.error .intro {
@@ -5231,9 +5051,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     #footer .licenses {margin-top: 15px; width: auto;}
     #footer > .container-fluid > .links li a,
     section.links li a {font-size: 14px; font-size: 1.4rem;}
-    .boxes.performance a.improve {font-size: 15px !important; font-size: 1.5rem !important;}
-    .boxes.info .infoVotes > li,
-    .boxes.info .infoVotes > span {padding: 4px;}
     .condition .user-list-followers  > li {width: 48%; float: left;}
     .condition .user-list-followers  > li:nth-child(2n) {float: right;}
 
@@ -5411,8 +5228,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .sign.home .social-home-container .btn.btn-lg {padding: 14px 20px !important;}
 
     .config > section .filter-order > li {margin: 0 2% 0 0; font-size: 18px; font-size: 1.8rem;}
-
-    .boxes.performance a.improve {font-size: 20px; font-size: 2rem;}
     .infoVotes > li, .infoVotes > span {width: 70px; height: 33px; margin-left: 5px; font-size: 15px;  font-size: 1.5rem; padding: 6px;}
 
     .navbar-brand {width: 170px; height: 48px; margin-top:-2px;}
@@ -5428,18 +5243,15 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .activity > li {font-size: 15px; font-size: 1.5rem;}
     .activity .popover-trigger span,
     .activity > li.posts span {font-size: 30px; font-size: 3rem;}
-    .boxes > h1 {font-size: 22px; font-size: 2.2rem;}
     .controls {float: right; width: 277px;}
     .popover-box {width: 30%; margin: 0 30px 20px 0;}
     .home .images {background-position: 0 -80px;}
     .signContainer {padding: 20px 30px 40px;}
     .signContainer h3 {font-size: 17px; font-size: 1.7rem;}
     .signContainer h2 small {font-size: 20px; font-size: 2rem;}
-    .userprofile .boxes .btn.btn-lg {font-size: 2rem !important; padding: 18px 50px !important;}
     .pre {font-size: 25px; font-size: 2.5rem; display: inline-block;}
     .pre {margin: 0;}
     .discover .others {margin-bottom: 60px; margin-top: 20px;}
-    .boxes.plan h1 .pull-right {font-size: 18px; font-size: 1.8rem;}
     .config .noti-filters > li > a {padding: 10px 20px;}
     .config .saldo .activity {margin: 30px 0 0 0;}
     #map {width: 650px; height: 554px;}
@@ -5471,10 +5283,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     }
     .box-ppal .notifications-list .actions {position: absolute; top: 10px; right: 0; margin: 0; padding: 0;}
     .notifications-list > li > .user > .actions > li {display: block;}
-    .boxes.alerts .notifications-list > li > .user > .actions > li {display: inline-block;}
-
     .notifications-list .text-notification {padding-right: 34%;}
-    .boxes.alerts .notifications-list > li > .user > .text-notification {padding-right: 0;}
 
     .box-ppal .notifications-list > li > .user > .popover-trigger > .user-img {margin: 0 6px 6px 10px;}
     .box-ppal .notifications-list > li > .user > .actions > li > a {margin: 0 !important;}
@@ -5600,7 +5409,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 
     .config.info > article > .box-ppal > h1 {margin: 5px 0 25px;}
     .home .play {margin: 60px 0 0 0; padding: 0 0 0 30px; font-size: 26px; font-size: 2.6rem;text-align: left;}
-    /*.boxes.follow .user-list-followers .user > .actions {float: right; margin: -30px 0 0 !important;}*/
     .condition .user-list-followers  > li {width: 47%; float: left;}
     .sign .login .btn + .cancel {margin-left: 34px;}
     #main {min-height: 650px;}
@@ -5608,21 +5416,13 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .sign h2 {font-size: 30px; font-size: 3rem; margin-top: 30px;text-align: left;}
     .sign .login {margin-top: 60px; margin-bottom: 60px;}
 
-    .boxes.performance a.improve {font-size: 24px; font-size: 2.4rem;}
     .navbar-form {margin: 5px 4px 4px 22%;}
     /*.btn {margin: 6px 0 0 8px;}*/
     .nav > li > a.btn {margin-top: 0 !important; margin-bottom: 11px !important; padding: 14px !important;}
     .box .badge {top: 2px;}
     .box .badge-small {top: 2px;right:0px;}
-    .boxes > h1 {padding: 15px 10px;}
-    .boxes.edit-user {padding: 20px;}
-    .boxes.edit-user .name {font-size: 20px; font-size: 2rem; padding-bottom: 4px;}
     .notifications-list > li > .user > .popover-trigger > img {margin: 0 6px 32px 10px;}
     .notifications-list > li > .user {padding: 0 15px 0 0;}
-
-    .boxes.edit-user .user > a {text-align: left;}
-    .boxes.edit-user .user-img.big {float: left; margin: 0 6px 6px 0;}
-    .boxes.edit-user .personal {width: auto; text-align: left; padding: 28px 0 30px 0;}
 
     aside .back {margin: 30px 0 14px;}
     .infoVotes > li,
@@ -6398,20 +6198,6 @@ p.followers > span.fa:first-child{
         margin-top: 4.3%;
 
     }
-}
-
-
-/*extendedPolitician - who to follow*/
-.extendedPolitician .boxes.follow h3 {
-    background-color: #666;
-    color: #fff;
-    border-radius: 0;
-    border: none;
-    font-size: 18px;
-    padding: 10px 15px;
-    margin:0;
-}
-.extendedPolitician .boxes.follow {box-shadow: 0 0 2px rgba(200,200,200,0.6);
 }
 
 /* Módulo evaluación político =========== */
