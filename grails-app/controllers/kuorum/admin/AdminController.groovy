@@ -14,7 +14,10 @@ import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
 import kuorum.web.admin.KuorumUserEmailSenderCommand
 import kuorum.web.admin.KuorumUserRightsCommand
-import kuorum.web.admin.domain.*
+import kuorum.web.admin.domain.DomainConfigCommand
+import kuorum.web.admin.domain.DomainConfigStep1Command
+import kuorum.web.admin.domain.DomainLandingCommand
+import kuorum.web.admin.domain.KuorumWebFont
 import kuorum.web.commands.LinkCommand
 import kuorum.web.commands.domain.DeleteDomainCommand
 import kuorum.web.commands.domain.EditDomainCarouselPicturesCommand
@@ -83,7 +86,7 @@ class AdminController {
         domainConfigCommand.linkedIn = domainRSDTO.social?.linkedIn
         domainConfigCommand.instagram = domainRSDTO.social?.instagram
         domainConfigCommand.youtube = domainRSDTO.social?.youtube
-        domainConfigCommand.titleWebFont = KuorumWebFont.build(domainRSDTO.titleFontName)
+        domainConfigCommand.titleWebFont = KuorumWebFont.build(domainRSDTO.webFontCombinationName)
         [command:domainConfigCommand]
 
     }
@@ -101,7 +104,7 @@ class AdminController {
         domainRDTO.mainColorShadowed = command.mainColorShadowed
         domainRDTO.secondaryColor = command.secondaryColor
         domainRDTO.secondaryColorShadowed = command.secondaryColorShadowed
-        domainRDTO.titleFontName = command.titleWebFont.fontName
+        domainRDTO.webFontCombinationName = command.titleWebFont.name()
         domainRDTO.social = new SocialRDTO()
         domainRDTO.social.facebook = command.facebook
         domainRDTO.social.twitter = command.twitter

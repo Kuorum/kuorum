@@ -899,7 +899,7 @@ header.transp #search-form .open-filter {background-color: rgba(219,219,219,0.4)
 .btn.search .fa-search {padding-bottom: 3px;}
 .navbar-form .input-group > .form-control {
     padding: 6px 6px 6px 10px;
-    font-family: 'Font Awesome 5 Pro', Georgia, serif;
+    font-family: Georgia, serif;
     -webkit-appearance: none;
 }
 #search-form .input-group {
