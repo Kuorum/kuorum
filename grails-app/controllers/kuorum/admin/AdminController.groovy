@@ -14,10 +14,7 @@ import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
 import kuorum.web.admin.KuorumUserEmailSenderCommand
 import kuorum.web.admin.KuorumUserRightsCommand
-import kuorum.web.admin.domain.DomainConfigCommand
-import kuorum.web.admin.domain.DomainConfigStep1Command
-import kuorum.web.admin.domain.DomainLandingCommand
-import kuorum.web.admin.domain.KuorumWebFont
+import kuorum.web.admin.domain.*
 import kuorum.web.commands.LinkCommand
 import kuorum.web.commands.domain.DeleteDomainCommand
 import kuorum.web.commands.domain.EditDomainCarouselPicturesCommand
