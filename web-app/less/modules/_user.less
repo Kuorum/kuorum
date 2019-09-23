@@ -24,17 +24,17 @@ fieldset.rating:hover > input + label:hover:before {color: @mainColor;}
 .rate-number {color: @mainColor;}
 
 .panel-default .rating-over .progress-bar {background-color: @mainColor;}
-.panel-default > .panel-heading .panel-title {font-family: @fontText;}
+.panel-default > .panel-heading .panel-title {@text();}
 
 .panel-default .table-condensed .thead,
-.panel-default .table-condensed .th {font-family: @fontTitle}
+.panel-default .table-condensed .th {@title();}
 
 .profile-pic .fa {background-color: @secondColor;}
 
 .panel-share-buttons > li > a {color:@secondColor;}
 .panel-share-buttons > li > a:hover{color:@secondColorHover;}
 
-.carousel.news .carousel-inner .item .carousel-caption h3 {color: @secondColor;font-family: @fontTitle}
+.carousel.news .carousel-inner .item .carousel-caption h3 {color: @secondColor;@title();}
 .carousel.news .carousel-inner .item .carousel-caption h3:hover,
 .carousel.news .carousel-inner .item .carousel-caption h3:focus {color: @secondColorHover;}
 

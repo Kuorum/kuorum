@@ -617,6 +617,7 @@ header.transp #search-form .open-filter {background-color: rgba(219,219,219,0.4)
 .btn {
     color: #fff !important;
     font-family: "Helvetica Neue", Helvetica,Arial,sans-serif;
+    font-weight: inherit;
     letter-spacing: 0.4px;
     font-size: 15px;
     font-size: 1.5rem;
