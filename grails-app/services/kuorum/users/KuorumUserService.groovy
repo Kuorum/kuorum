@@ -244,23 +244,23 @@ class KuorumUserService {
      * @return
      */
     List<SearchKuorumUserRSDTO> recommendUsers(KuorumUser user, Pagination pagination = new Pagination()) {
-        List<ObjectId> filterPoliticians = []
+        List<ObjectId> filterUsers = []
         if (springSecurityService.isLoggedIn()){
             KuorumUserSession userSession = springSecurityService.principal
             KuorumUser loggedUser = KuorumUser.findById(userSession.id)
 
-            filterPoliticians  = []
-            filterPoliticians.addAll(loggedUser.following?:[])
-            filterPoliticians << loggedUser.id
+            filterUsers  = []
+            filterUsers.addAll(loggedUser.following?:[])
+            filterUsers << loggedUser.id
             RecommendedUserInfo recommendedUserInfo = RecommendedUserInfo.findByUser(loggedUser)
             if(recommendedUserInfo){
-                filterPoliticians.addAll(recommendedUserInfo.deletedRecommendedUsers)
+                filterUsers.addAll(recommendedUserInfo.deletedRecommendedUsers)
             }else{
                 log.info("User ${loggedUser.name} (${loggedUser.id}) has not calculated recommendedUserInfo")
             }
         }
-
-        bestUsers(user, filterPoliticians, pagination)
+        if (user) filterUsers << user.id
+        bestUsers(filterUsers, pagination)
     }
 
 
@@ -318,12 +318,11 @@ class KuorumUserService {
         updateKuorumUserOnRest(user)
     }
 
-    List<SearchKuorumUserRSDTO> bestUsers(KuorumUser user, List<ObjectId> userFiltered = [], Pagination pagination = new Pagination()){
+    List<SearchKuorumUserRSDTO> bestUsers(List<ObjectId> userFiltered = [], Pagination pagination = new Pagination()){
         SearchParams searchParams = new SearchParams(pagination.getProperties().findAll{k,v->k!="class"})
         searchParams.max +=1
         searchParams.setType(SolrType.KUORUM_USER)
         searchParams.filteredUserIds = userFiltered.collect{it.toString()}
-        if (user) searchParams.filteredUserIds << user.id.toString()
 
         SearchResultsRSDTO results = searchSolrService.searchAPI(searchParams)
 

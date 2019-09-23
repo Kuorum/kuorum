@@ -136,7 +136,7 @@ class KuorumUserController {
 
 
     def recommendations(){
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUser user = params.userId?KuorumUser.get(params.userId):null;
         List<SearchKuorumUserRSDTO> recommendations = kuorumUserService.recommendUsers(user, new Pagination([max:20]))
         render(template:"/kuorumUser/userShowTemplates/columnC/recommendedUsersListAjaxLi", model:[recommendedUsers:recommendations])
     }
