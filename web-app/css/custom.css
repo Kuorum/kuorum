@@ -899,7 +899,6 @@ header.transp #search-form .open-filter {background-color: rgba(219,219,219,0.4)
 .btn.search .fa-search {padding-bottom: 3px;}
 .navbar-form .input-group > .form-control {
     padding: 6px 6px 6px 10px;
-    font-family: Georgia, serif;
     -webkit-appearance: none;
 }
 #search-form .input-group {
@@ -946,7 +945,10 @@ header.transp #search-form .open-filter {background-color: rgba(219,219,219,0.4)
     -o-transition: background-color .3s ease;
     transition: background-color .3s ease;
 }
+
+
 header.transp .navbar-collapse.collapse.in {background-color: #000;}
+
 .nav > li > .navbar-link:hover .badge,
 .nav > li > .navbar-link:focus .badge {background-color: #fff; color: #167caa;}
 .nav > li > .navbar-link:hover .badge-small,
@@ -955,7 +957,6 @@ header.transp .navbar-collapse.collapse.in {background-color: #000;}
 .nav > li.tools  .dropdown-menu.politician {box-shadow: none;}
 
 .navbar-form .dropdown-menu {
-    font-family: 'Font Awesome 5 Pro', Georgia, serif;
     font-size: 14px;
     font-size:  1.4rem;
     margin: 0;
@@ -980,6 +981,8 @@ header.transp .navbar-collapse.collapse.in {background-color: #000;}
 .dropdown-menu > li > a {color: #a8a8a8; padding: 3px 14px;}
 .dropdown-menu > li > a:hover,
 .dropdown-menu > li > a:focus {background-color: #efefef; color: #a8a8a8;}
+
+#header {font-family: Georgia, serif;}
 #header .dropdown-menu > li:first-child,
 .box .dropdown-menu > li {padding: 6px 14px; margin: 0; border-bottom: solid 1px #d9d9d9;}
 #header .dropdown-menu > li:first-child {font-weight: bold;}

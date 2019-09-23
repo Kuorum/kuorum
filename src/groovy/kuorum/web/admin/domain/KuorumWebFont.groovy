@@ -2,12 +2,12 @@ package kuorum.web.admin.domain
 
 enum KuorumWebFont {
 
-    ARIAL_HELVETICA("Arial", "\"Helvetica Neue\", Helvetica,Arial,sans-serif"),
+    HELVETICA_ARIAL("\"Helvetica Neue\", Helvetica,Arial,sans-serif","Arial" ),
     ARIAL_ARIAL("Arial", "Arial"),
-    GEORGIA_HELVETICA("Georgia","\"Helvetica Neue\", Helvetica,Arial,sans-serif"),
-    UBUNTU_HELVETICA("Ubuntu","\"Helvetica Neue\", Helvetica,Arial,sans-serif"),
-    MERRIWHEADER_OPENSANS("'Merriweather', serif", "'Open Sans', sans-serif"),
-    LATO_MERRIWHEADER("'Lato', sans-serif", "'Merriweather', serif");
+    HELVETICA_GEORGIA("\"Helvetica Neue\", Helvetica,Arial,sans-serif", "Georgia"),
+    UBUNTU_HELVETICA("Ubuntu, Helvetica","\"Helvetica Neue\", Helvetica, sans-serif"),
+    OPENSANS_MERRIWHEADER("'Open Sans', sans-serif","'Merriweather', serif"),
+    MERRIWHEADER_LATO("'Merriweather', serif","'Lato', sans-serif");
 
     String titleFontName;
     String textFontName;
@@ -20,7 +20,7 @@ enum KuorumWebFont {
     static KuorumWebFont build(String fontCombinationName){
         KuorumWebFont res = KuorumWebFont.values().find{it.name()==fontCombinationName}
         if (!res)
-            res = KuorumWebFont.GEORGIA_HELVETICA;
+            res = KuorumWebFont.HELVETICA_GEORGIA;
         return res;
     }
 }
