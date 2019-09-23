@@ -500,7 +500,7 @@ header.transp .nav > li > .navbar-link.btn-transparent {
 
 header .nav > li > .navbar-link.btn-transparent:hover,
 header .nav > li > .navbar-link.btn-transparent:focus,
-header .nav > li > .navbar-link.btn-transparent.active {background-color: #545454 !important; color: #fff !important; font-weight: normal;}
+header .nav > li > .navbar-link.btn-transparent.active {background-color: #545454 !important; color: #fff !important;}
 
 header.transp .nav > li > .navbar-link.btn-transparent:hover,
 header.transp .nav > li > .navbar-link.btn-transparent:focus {background-color: #fff !important; color: #545454 !important;}
@@ -4112,7 +4112,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     background-color: #167caa;
     color: white;
     font-size: 14px;
-    font-family: "Helvetica Neue", Helvetica,Arial,sans-serif !important;
+    font-family: "Helvetica Neue", Helvetica,Arial,sans-serif;
     top: -5px;
 }
 
@@ -6688,8 +6688,8 @@ ul.leader-post-stats {box-shadow: 0 0 2px rgba(200,200,200,0.6); margin-bottom:2
     font-style: normal;
     font-weight: normal;
     text-decoration: inherit;
-    font-size: 14px;
-    padding-right: 5px;
+    font-size: 12px;
+    padding-right: 0px;
 }
 
 ul.proposal-list {margin:0; padding:0;}
