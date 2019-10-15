@@ -403,7 +403,6 @@ class KuorumUserService {
     }
 
     boolean userDomainValidation(KuorumUserSession user, String ndi, String postalCode, Date birthDate){
-// CALLING API TO REMOVE CONTACT
         Map<String, String> params = [userId: user.getId().toString()]
         Map<String, String> query = [:]
         UserDataDomainValidationDTO userDataDomainValidationDTO = new UserDataDomainValidationDTO()
