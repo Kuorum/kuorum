@@ -509,7 +509,7 @@ class ProfileController {
         KuorumUserSession user = springSecurityService.principal
         Boolean isValidated = kuorumUserService.userDomainValidation(user, domainValidationCommand.ndi, domainValidationCommand.postalCode, domainValidationCommand.birthDate)
         if (isValidated){
-            render ([success: true, msg:"No valid ID and postal code"] as JSON)
+            render ([success: true, msg:"Success validation"] as JSON)
         }else{
             render ([success: false, msg:g.message(code:'kuorum.web.commands.profile.DomainValidationCommand.validationError')] as JSON)
         }
