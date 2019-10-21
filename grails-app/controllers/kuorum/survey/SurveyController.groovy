@@ -11,6 +11,9 @@ import kuorum.web.commands.payment.survey.QuestionCommand
 import kuorum.web.commands.payment.survey.QuestionOptionCommand
 import kuorum.web.commands.payment.survey.SurveyQuestionsCommand
 import org.kuorum.rest.model.communication.survey.*
+import org.kuorum.rest.model.communication.survey.answer.QuestionAnswerOptionRDTO
+import org.kuorum.rest.model.communication.survey.answer.QuestionAnswerRDTO
+import org.kuorum.rest.model.communication.survey.answer.QuestionAnswerTextRDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 
 class SurveyController extends CampaignController{
@@ -99,7 +102,7 @@ class SurveyController extends CampaignController{
         if (command.hasErrors()) {
             flash.error = message(error: command.errors.getFieldError())
             render view: 'editQuestionsStep', model: [
-                    survey:survey,
+                    surveyANSWER_PREDEFINED:survey,
                     command: command,
                     status: survey.campaignStatusRSDTO,
                     numberRecipients:getCampaignNumberRecipients(surveyUser, survey)]
@@ -113,10 +116,22 @@ class SurveyController extends CampaignController{
     }
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def saveAnswer(QuestionAnswerCommand command){
+        command.answers = JSON.parse(params.answersJson).collect{
+            new kuorum.web.commands.payment.survey.QuestionAnswerDataCommand(
+                    answerId:it.answerId instanceof Number?it.answerId: Long.parseLong(it.answerId),
+                    text:it.text)
+        };
+        command.validate();
         KuorumUserSession userAnswer = springSecurityService.principal
         BasicDataKuorumUserRSDTO surveyUser = kuorumUserService.findBasicUserRSDTO(params.userAlias)
         SurveyRSDTO survey = surveyService.find(surveyUser.id, command.campaignId)
-        surveyService.saveAnswer(survey, userAnswer, command.questionId, command.answersIds)
+        List<QuestionAnswerRDTO> answers = command.answers
+                .collect{
+                    it.text?
+                            new QuestionAnswerTextRDTO([optionId:it.answerId,text:it.text]):
+                            new QuestionAnswerOptionRDTO([optionId:it.answerId])
+        }
+        surveyService.saveAnswer(survey, userAnswer, command.questionId, answers)
         render ([status:"success",msg:""] as JSON)
     }
 
@@ -133,6 +148,7 @@ class SurveyController extends CampaignController{
         QuestionOptionRDTO questionOptionRDTO = new QuestionOptionRDTO()
         questionOptionRDTO.text = command.text
         questionOptionRDTO.id = command.id
+        questionOptionRDTO.questionOptionType = command.questionOptionType
         questionOptionRDTO
     }
 
@@ -159,6 +175,7 @@ class SurveyController extends CampaignController{
         QuestionOptionCommand command = new QuestionOptionCommand()
         command.id = option.id
         command.text = option.text
+        command.questionOptionType = option.questionOptionType
         return command
     }
 

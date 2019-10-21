@@ -4,6 +4,7 @@ import grails.validation.Validateable
 import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.constants.WebConstants
 import org.grails.databinding.BindingFormat
+import org.kuorum.rest.model.communication.survey.QuestionOptionTypeRDTO
 import org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO
 
 /**
@@ -29,7 +30,7 @@ class SurveyQuestionsCommand {
             }
             val.each{
                 if (!error)
-                    error = it.validate()?null:'invalidOptions'
+                    error = it.validate()?null:'invalidQuestions'
             }
         }
         return error
@@ -46,7 +47,7 @@ class QuestionCommand{
     Long id
     String text
     QuestionTypeRSDTO questionType
-    List<QuestionOptionCommand> options =[new QuestionOptionCommand(), new QuestionOptionCommand()]
+    List<QuestionOptionCommand> options =[new QuestionOptionCommand()]
 
     static validateOptions = {val, obj ->
         String error = null
@@ -61,7 +62,7 @@ class QuestionCommand{
         id nullable: true
         text nullable: false, blank: false
         questionType nullable: false
-        options minSize: 2, validator: validateOptions
+        options minSize: 1, validator: validateOptions
     }
 }
 
@@ -70,8 +71,10 @@ class QuestionCommand{
 class QuestionOptionCommand{
     Long id
     String text
+    QuestionOptionTypeRDTO questionOptionType = QuestionOptionTypeRDTO.ANSWER_PREDEFINED
     static constraints = {
         text nullable: false, blank: false
         id nullable: true
+        questionOptionType nullable: false
     }
 }

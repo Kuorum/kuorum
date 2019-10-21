@@ -129,8 +129,10 @@ var surveyFunctions = {
             answer.setAttribute("data-numanswers", parseInt(answer.getAttribute("data-numanswers"))+1);
             question.setAttribute("data-numanswers", parseInt(question.getAttribute("data-numanswers"))+1);
 
-            surveyFunctions._setProgressBarsPercentOneOption(parseInt(question.getAttribute('data-question-id')));
             var questionId = parseInt(question.getAttribute('data-question-id'), 10);
+            // surveyFunctions._setProgressBarsPercentOneOption(parseInt(question.getAttribute('data-question-id')));
+            surveyFunctions._setProgressBarsPercentOneOption(questionId);
+            surveyFunctions._transformExtraDataNoEditable(questionId)
             surveyFunctions._sendQuestionAnswers(questionId)
             surveyFunctions._nextQuestion(questionId);
         }
@@ -156,6 +158,7 @@ var surveyFunctions = {
 
             surveyFunctions._setProgressBarsPercentMultiOptions(question);
             var questionId = parseInt(question.getAttribute('data-question-id'), 10);
+            surveyFunctions._transformExtraDataNoEditable(questionId)
             surveyFunctions._sendQuestionAnswers(questionId)
             surveyFunctions._nextQuestion(questionId);
         }
@@ -205,6 +208,31 @@ var surveyFunctions = {
             optionProgressBar.setAttribute("data-answer-percent",percentageOptionProgressBar)
             optionProgressBar.setAttribute("data-answer-percent-selected",percentageOptionProgressBar)
         }
+    },
+
+    _transformExtraDataNoEditable(questionId){
+        var question = document.querySelector('[data-question-id="' + questionId + '"]');
+        var answerOptions = Array.from(question.getElementsByClassName('survey-question-answer'))
+        var answerOptionIdx; // IE10 not supports forEach
+        for (answerOptionIdx = 0; answerOptionIdx < answerOptions.length; answerOptionIdx++) {
+            var answerOption = answerOptions[answerOptionIdx];
+            var $answerOption = $(answerOption)
+            if ($answerOption.find(".option-extra-content").length >0){
+                var $textarea = $answerOption.find("textarea")
+                var text = $textarea.val();
+                $textarea.remove();
+                $answerOption.find(".text-answer").html(text)
+                surveyFunctions._addExtraInfoAnswer($answerOption, text)
+            }
+        }
+    },
+
+    _addExtraInfoAnswer($answerOption, text){
+        $answerOption.attr("data-question-extra-content",text)
+    },
+
+    _getExtraInfoAnswer($answerOption){
+        return $answerOption.attr("data-question-extra-content")
     },
 
     _selectAnswer:function(e){
@@ -303,16 +331,19 @@ var surveyFunctions = {
         if (!Array.isArray(answerIds)){
             answerIds = [answerIds]
         }
+
+        var answers = surveyFunctions._recoverExtraDataForEachAnswer(answerIds);
+
         var data = {
             // surveyId:10,
             questionId:questionId,
-            answersIds:answerIds
+            answersJson:JSON.stringify(answers)
         }
         moveToHash("#survey-progress")
         $.ajax({
             type: "POST",
             url: url,
-            data: $.param(data, true),
+            data: $.param(data),
             success: function(data){
                 // console.log("Succes"+data)
                 if (surveyFunctions.relodAfeterSubmit){
@@ -327,6 +358,27 @@ var surveyFunctions = {
         }).always(function() {
 
         });
+    },
+
+    _recoverExtraDataForEachAnswer(answerIds){
+        // Recover extra data of each option chosen
+        var answers = [];
+        var answerIdsIdx;
+        for (answerIdsIdx = 0; answerIdsIdx < answerIds.length; answerIdsIdx++) {
+            var answerId = answerIds[answerIdsIdx];
+            var text = "";
+            var answerOptionSelector = "div[data-answer-id="+answerId+"]";
+            var extraDataSelector = answerOptionSelector+" .option-extra-content"
+            if ($(extraDataSelector).length > 0){
+                text = surveyFunctions._getExtraInfoAnswer($(answerOptionSelector))
+            }
+            var answer = {
+                answerId: answerId,
+                text: text
+            }
+            answers.push(answer)
+        }
+        return answers;
     }
 }
 

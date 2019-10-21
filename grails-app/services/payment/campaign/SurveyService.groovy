@@ -10,6 +10,7 @@ import org.kuorum.rest.model.communication.survey.QuestionOptionRDTO
 import org.kuorum.rest.model.communication.survey.QuestionRDTO
 import org.kuorum.rest.model.communication.survey.SurveyRDTO
 import org.kuorum.rest.model.communication.survey.SurveyRSDTO
+import org.kuorum.rest.model.communication.survey.answer.QuestionAnswerRDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 
 @Transactional
@@ -161,14 +162,14 @@ class SurveyService implements CampaignCreatorService<SurveyRSDTO, SurveyRDTO>{
         [view: "/survey/show", model:model]
     }
 
-    void saveAnswer(SurveyRSDTO surveyRSDTO, KuorumUserSession userAnswer, Long questionId, List<Long> optionAnswersId){
+    void saveAnswer(SurveyRSDTO surveyRSDTO, KuorumUserSession userAnswer, Long questionId, List<QuestionAnswerRDTO> answers){
         Map<String, String> params = [userId: surveyRSDTO.user.id.toString(), surveyId: surveyRSDTO.id.toString(),questionId:questionId.toString()]
         Map<String, String> query = [viewerUid:userAnswer.id.toString()]
         def response = restKuorumApiService.put(
                 RestKuorumApiService.ApiMethod.ACCOUNT_SURVEY_ANSWER,
                 params,
                 query,
-                optionAnswersId,
+                answers,
                 null
         )
     }

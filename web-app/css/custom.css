@@ -7658,6 +7658,36 @@ ul.notification-menu > li.see-more {
     align-items: center;
     position: relative;
     z-index: 1;
+    flex-wrap: wrap;
+}
+
+.survey-question-answer .option label,
+.survey-question-answer .multi-option label{
+}
+
+.survey-question-answer .option .option-extra-content,
+.survey-question-answer .multi-option .option-extra-content {
+    width: calc(100% - 60px);
+    margin-left: 60px;
+}
+
+.survey-question-answer .option .option-extra-content textarea,
+.survey-question-answer .multi-option .option-extra-content textarea{
+    width: 100%;
+    border-radius: 5px;
+    border-color:#ccc;
+}
+
+
+.survey-question-answer .option .option-extra-content span.text-answer,
+.survey-question-answer .multi-option .option-extra-content span.text-answer{
+    font-style: italic;
+    color:#ccc;
+}
+
+li.survey-question.answered .survey-question-answer .option .option-extra-content textarea,
+li.survey-question.answered .survey-question-answer .multi-option .option-extra-content textarea{
+    display: none;
 }
 
 .survery-question-title {
