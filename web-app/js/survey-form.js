@@ -28,6 +28,7 @@ $(function() {
     })
 
 
+    // HIDE OPTIONS OF TEXT QUESTIONS
     var _hideOptions = function($selectQuestionType){
         var $fieldsetOptions = $selectQuestionType.closest("fieldset.row").siblings();
         var newVal = $selectQuestionType.val();
@@ -42,11 +43,13 @@ $(function() {
         _hideOptions($(this))
     });
 
+    // HIDE OPTIONS OF TEXT QUESTIONS on init page
     var questionTypeSelectors = $("#questionsSurveyForm .question-type select");
     var questionTypeSelectorsIdx;
     for (questionTypeSelectorsIdx = 0; questionTypeSelectorsIdx< questionTypeSelectors.length; questionTypeSelectorsIdx++){
         _hideOptions($(questionTypeSelectors[questionTypeSelectorsIdx]));
     }
+    // END HIDE OPTION OF TEXT QUESTIONS
 
     var _isValidSurveyQuestionsForm = function(){
         var valid = $("#questionsSurveyForm").valid();
