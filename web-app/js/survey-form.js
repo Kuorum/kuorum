@@ -28,15 +28,25 @@ $(function() {
     })
 
 
-    $("#questionsSurveyForm").on("change",".question-type select", function(e){
-        var $fieldsetOptions = $(this).closest("fieldset.row").siblings();
-        var newVal = $(this).val();
+    var _hideOptions = function($selectQuestionType){
+        var $fieldsetOptions = $selectQuestionType.closest("fieldset.row").siblings();
+        var newVal = $selectQuestionType.val();
         if (newVal == "TEXT_OPTION"){
             $fieldsetOptions.slideUp()
         }else{
             $fieldsetOptions.slideDown()
         }
+    }
+
+    $("#questionsSurveyForm").on("change",".question-type select", function(e){
+        _hideOptions($(this))
     });
+
+    var questionTypeSelectors = $("#questionsSurveyForm .question-type select");
+    var questionTypeSelectorsIdx;
+    for (questionTypeSelectorsIdx = 0; questionTypeSelectorsIdx< questionTypeSelectors.length; questionTypeSelectorsIdx++){
+        _hideOptions($(questionTypeSelectors[questionTypeSelectorsIdx]));
+    }
 
     var _isValidSurveyQuestionsForm = function(){
         var valid = $("#questionsSurveyForm").valid();
