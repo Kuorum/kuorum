@@ -30,16 +30,20 @@ $(function(){
     var $saveDraft = $('.form-final-options #save-draft[data-redirectLink]');
     $saveDraft.on('click', campaignForm.stepSubmit);
 
-    var $saveDraft = $('.form-final-options #save-draft-reactivate[data-redirectLink]');
-    $saveDraft.on('click', function(e){
+    var $updateCampaignReactivate = $('.form-final-options #update-campaign-reactivate[data-redirectLink]');
+    $updateCampaignReactivate.on('click', function(e){
         e.preventDefault();
         var $inputSendType = $('form.campaign-form').find("input[name=sendType]");
         $inputSendType.val("ACTIVATE")
-        campaignForm.stepSubmit(e);
+        campaignForm.updateCampaign(e);
     });
 
     var $saveDraftDebate = $('.form-final-options #save-draft-debate[data-redirectLink]');
     $saveDraftDebate.on('click', campaignForm.stepSubmit);
+
+    var $updateCampaign = $('.form-final-options #update-campaign[data-redirectLink]');
+    $updateCampaign.on('click', campaignForm.updateCampaign);
+
 
     var $sendButton = $('#campaignConfirm #saveCampaignBtn[data-redirectLink]');
     $sendButton.on('click', function(e){
@@ -92,17 +96,8 @@ $(function(){
 var campaignForm={
     stepSubmit : function (e){
         e.preventDefault();
-        var $linkElement = $(e.target);
-        if (!($linkElement.is("a") || $linkElement.is("button"))){
-            $linkElement = $linkElement.closest("a")
-        }
-        console.log($linkElement)
+        campaignForm._prepareRedirectLink(e);
         var $form = $('form.campaign-form');
-        var $inputHidden = $form.find('#redirectLink');
-        if($inputHidden.val() == undefined || $inputHidden.val() == ""){
-            var redirect = $linkElement.attr('data-redirectLink');
-            $inputHidden.attr('value', redirect);
-        }
         var $filter = $('select#recipients option:selected').length;
         if($filter && filterContacts.isFilterEdited()){
             var amountContacts = $('select#recipients option:selected').attr("data-amountContacts");
@@ -110,7 +105,29 @@ var campaignForm={
             $("#campaignWarnFilterEdited .modal-body > p > span").html(amountContacts);
             $("#campaignWarnFilterEdited").modal("show");
         }else{
+            console.log("Submit")
             $form.submit();
+        }
+    },
+
+    updateCampaign: function(e){
+        e.preventDefault();
+        var $form = $('form.campaign-form');
+        campaignForm._prepareRedirectLink(e);
+        if (campaignForm.validateCampaignForm()) {
+            $form.submit();
+        }
+    },
+    _prepareRedirectLink: function(e){
+        var $linkElement = $(e.target);
+        if (!($linkElement.is("a") || $linkElement.is("button"))){
+            $linkElement = $linkElement.closest("a")
+        }
+        var $form = $('form.campaign-form');
+        var $inputHidden = $form.find('#redirectLink');
+        if($inputHidden.val() == undefined || $inputHidden.val() == ""){
+            var redirect = $linkElement.attr('data-redirectLink');
+            $inputHidden.attr('value', redirect);
         }
     },
     prepareAndOpenCampaignConfirmModal: function (){
@@ -136,6 +153,7 @@ var campaignForm={
     },
     validateCampaignForm:function(){
         // EACH CAMPAIGN SHOULD OVERWRITE THIS VALIDATION METHOD
+        console.log("Validation campaign is not overwritten")
         return true;
     }
 }

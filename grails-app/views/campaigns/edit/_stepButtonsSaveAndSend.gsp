@@ -1,12 +1,12 @@
 <g:if test="${status == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT}">
     <!-- Hidden inputs -->
     <input type="hidden" name="publishOn" value="${g.formatDate(date: command.publishOn, format: kuorum.web.constants.WebConstants.WEB_FORMAT_DATE)}"/>
-    <li><button class="btn btn-blue inverted" id="save-draft" data-redirectLink="${mappings.showResult}" value="${g.message(code: "tools.massMailing.save")}" >${g.message(code: "tools.massMailing.save")}</button></li>
+    <li><button class="btn btn-blue inverted" id="update-campaign" data-redirectLink="${mappings.showResult}" value="${g.message(code: "tools.massMailing.save")}" >${g.message(code: "tools.massMailing.save")}</button></li>
 </g:if>
 <g:elseif test="${status == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.PAUSE}">
     <input type="hidden" name="publishOn" value="${g.formatDate(date: command.publishOn, format: kuorum.web.constants.WebConstants.WEB_FORMAT_DATE)}"/>
-    <li><button class="btn btn-grey inverted" id="save-draft-reactivate" data-redirectLink="${mappings.showResult}" value="${g.message(code: "tools.massMailing.save")}" >${g.message(code: "tools.massMailing.saveAndActivate")}</button></li>
-    <li><button class="btn btn-blue inverted" id="save-draft" data-redirectLink="${mappings.showResult}" value="${g.message(code: "tools.massMailing.save")}" >${g.message(code: "tools.massMailing.save")}</button></li>
+    <li><button class="btn btn-grey inverted" id="update-campaign-reactivate" data-redirectLink="${mappings.showResult}" value="${g.message(code: "tools.massMailing.save")}" >${g.message(code: "tools.massMailing.saveAndActivate")}</button></li>
+    <li><button class="btn btn-blue inverted" id="update-campaign" data-redirectLink="${mappings.showResult}" value="${g.message(code: "tools.massMailing.save")}" >${g.message(code: "tools.massMailing.save")}</button></li>
 </g:elseif>
 <g:else>
     <li>

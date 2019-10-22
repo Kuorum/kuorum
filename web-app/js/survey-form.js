@@ -27,10 +27,22 @@ $(function() {
         $template.remove()
     })
 
+
+    $("#questionsSurveyForm").on("change",".question-type select", function(e){
+        var $fieldsetOptions = $(this).closest("fieldset.row").siblings();
+        var newVal = $(this).val();
+        if (newVal == "TEXT_OPTION"){
+            $fieldsetOptions.slideUp()
+        }else{
+            $fieldsetOptions.slideDown()
+        }
+    });
+
     var _isValidSurveyQuestionsForm = function(){
         var valid = $("#questionsSurveyForm").valid();
         $(".questionOption input[type=text]")
             .filter(function() {return $(this).parents('#questionsSurveyForm-template').length < 1;})
+            .filter(function() {console.log($(this).parents('.form-group').parent().siblings());return $(this).parents('.form-group').parent().siblings().find(".question-type select").val() != "TEXT_OPTION";})
             .each(function(idx, input){
             if ($(input).val() == "") {
                 var errorMsg = i18n.kuorum.web.commands.payment.survey.QuestionOptionCommand.text.nullable;

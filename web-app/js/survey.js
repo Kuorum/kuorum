@@ -5,9 +5,9 @@ $(function () {
         moveToHash($(this).attr("data-goto"))
     })
 
-
-    var optionsNextButton = document.querySelectorAll('.survey-question.single-answer .next-section button');
+    var singleOptionNextButton = document.querySelectorAll('.survey-question.single-answer .next-section button');
     var multiOptionsNextButton = document.querySelectorAll('.survey-question.multi-answer .next-section button');
+    var textOptionsNextButton = document.querySelectorAll('.survey-question.text-answer .next-section button');
 
     // Add click listener on answers that aren't answered
     $('.survey-question-answer')
@@ -15,15 +15,20 @@ $(function () {
         .on("click",surveyFunctions._selectAnswer)
 
     var nextButtonIdx;
-    for (nextButtonIdx = 0; nextButtonIdx < optionsNextButton.length; nextButtonIdx++) {
+    for (nextButtonIdx = 0; nextButtonIdx < singleOptionNextButton.length; nextButtonIdx++) {
         // Fore each not works on IE10
-        var nextButton = optionsNextButton[nextButtonIdx]
+        var nextButton = singleOptionNextButton[nextButtonIdx]
         nextButton.addEventListener('click', surveyFunctions._nextButtonClick);
     }
     for (nextButtonIdx = 0; nextButtonIdx < multiOptionsNextButton.length; nextButtonIdx++) {
         // Fore each not works on IE10
         var nextButton = multiOptionsNextButton[nextButtonIdx]
         nextButton.addEventListener('click', surveyFunctions._nextButtonClick);
+    }
+    for (nextButtonIdx = 0; nextButtonIdx < textOptionsNextButton.length; nextButtonIdx++) {
+        // Fore each not works on IE10
+        var nextButton = textOptionsNextButton[nextButtonIdx]
+        nextButton.addEventListener('click', surveyFunctions._nextButtonClickWithValidation);
     }
 
     $(".survey-question.single-answer .actions a").on("click",function (e) {
@@ -85,6 +90,19 @@ var surveyFunctions = {
             $('#registro').modal('show');
         } else {
             surveyFunctions._nextButtonClickSelector(question)
+        }
+    },
+    _nextButtonClickWithValidation : function (e){
+        var $buttonNext = $(e.target);
+
+        var $textarea= $buttonNext.parents(".survey-question.text-answer").find(".survey-question-answers .option-extra-content textarea");
+        var textAreaEmpty = !$.trim($textarea.val());
+        if (textAreaEmpty){
+            $textarea.addClass("error");
+        }else{
+
+            $textarea.removeClass("error");
+            surveyFunctions._nextButtonClick(e);
         }
     },
     _nextButtonClickSelector:function (question) {
@@ -237,7 +255,9 @@ var surveyFunctions = {
 
     _selectAnswer:function(e){
         var answer = e.currentTarget
-        if ($(answer).find(".option").length >0){
+        if ($(answer).find(".single-option").length >0){
+            surveyFunctions._selectSingleAnswer(e)
+        }else if ($(answer).find(".text-option").length >0){
             surveyFunctions._selectSingleAnswer(e)
         }else if ($(answer).find(".multi-option").length >0){
             surveyFunctions._selectMultiAnswer(e)

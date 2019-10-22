@@ -102,7 +102,7 @@ class SurveyController extends CampaignController{
         if (command.hasErrors()) {
             flash.error = message(error: command.errors.getFieldError())
             render view: 'editQuestionsStep', model: [
-                    surveyANSWER_PREDEFINED:survey,
+                    survey:survey,
                     command: command,
                     status: survey.campaignStatusRSDTO,
                     numberRecipients:getCampaignNumberRecipients(surveyUser, survey)]

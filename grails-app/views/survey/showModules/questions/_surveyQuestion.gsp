@@ -2,6 +2,9 @@
 <g:if test="${question.questionType == org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.MULTIPLE_OPTION}">
     <g:set var="questionClass" value="multi-answer"/>
 </g:if>
+<g:if test="${question.questionType == org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.TEXT_OPTION}">
+    <g:set var="questionClass" value="text-answer"/>
+</g:if>
 
 <li class="comment-box survey-question ${questionClass} no-padding ${survey.closed || question.answered?'answered':''}" data-question-id="${question.id}" data-numAnswers="${question.amountAnswers}" >
     <div class="survery-question-title padding-box">
@@ -12,6 +15,9 @@
             <g:if test="${question.questionType == org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.ONE_OPTION}">
                 <g:render template="/survey/showModules/questions/singleQuestionOption" model="[survey:survey, question:question, option:option]"/>
             </g:if>
+            <g:elseif test="${question.questionType == org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.TEXT_OPTION}">
+                <g:render template="/survey/showModules/questions/textQuestionOption" model="[survey:survey, question:question, option:option]"/>
+            </g:elseif>
             <g:else>
                 <g:render template="/survey/showModules/questions/multipleQuestionOption" model="[survey:survey, question:question, option:option]"/>
             </g:else>

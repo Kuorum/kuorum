@@ -47,13 +47,15 @@ class QuestionCommand{
     Long id
     String text
     QuestionTypeRSDTO questionType
-    List<QuestionOptionCommand> options =[new QuestionOptionCommand()]
+    List<QuestionOptionCommand> options =[new QuestionOptionCommand(),new QuestionOptionCommand()]
 
     static validateOptions = {val, obj ->
         String error = null
-        val.each{
-            if (!error)
-                error = it.validate()?null:'invalidOptions'
+        if (obj.questionType != QuestionTypeRSDTO.TEXT_OPTION){
+            val.each{
+                if (!error)
+                    error = it.validate()?null:'invalidOptions'
+            }
         }
         return error
     }
@@ -62,7 +64,7 @@ class QuestionCommand{
         id nullable: true
         text nullable: false, blank: false
         questionType nullable: false
-        options minSize: 1, validator: validateOptions
+        options minSize: 2, validator: validateOptions
     }
 }
 
