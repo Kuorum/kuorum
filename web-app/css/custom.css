@@ -7681,6 +7681,12 @@ ul.notification-menu > li.see-more {
     border-radius: 5px;
     border-color:#ccc;
 }
+
+.survey-question-answer:not(.checked) .single-option .option-extra-content textarea,
+.survey-question-answer:not(.checked) .multi-option .option-extra-content textarea {
+    display: none;
+}
+
 .survey-question-answer .text-option .option-extra-content textarea.error,
 .survey-question-answer .single-option .option-extra-content textarea.error,
 .survey-question-answer .multi-option .option-extra-content textarea.error{

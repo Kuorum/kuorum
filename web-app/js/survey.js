@@ -28,17 +28,30 @@ $(function () {
     for (nextButtonIdx = 0; nextButtonIdx < textOptionsNextButton.length; nextButtonIdx++) {
         // Fore each not works on IE10
         var nextButton = textOptionsNextButton[nextButtonIdx]
-        nextButton.addEventListener('click', surveyFunctions._nextButtonClickWithValidation);
+        nextButton.addEventListener('click', surveyFunctions._nextButtonClick);
     }
 
-    $(".survey-question.single-answer .actions a").on("click",function (e) {
+    $(".multi-answer .survey-question-answer .option-extra-content textarea").on("click", function (e) {
+        // Blocking uncheck multi-answer when click on text area
+        e.stopPropagation();
+        e.preventDefault();
+    })
+
+    $(".survey-question.single-answer .next-section a").on("click",function (e) {
         e.preventDefault();
         var question = e.currentTarget.parentElement.parentElement.parentElement;
         var questionId= parseInt(question.getAttribute('data-question-id'), 10);
         surveyFunctions._setProgressBarsPercentOneOption(questionId);
         surveyFunctions._nextQuestion(questionId);
     });
-    $(".survey-question.multi-answer .actions a").on("click", function (e) {
+    $(".survey-question.text-answer .next-section a").on("click",function (e) {
+        e.preventDefault();
+        var question = e.currentTarget.parentElement.parentElement.parentElement;
+        var questionId= parseInt(question.getAttribute('data-question-id'), 10);
+        surveyFunctions._setProgressBarsPercentOneOption(questionId);
+        surveyFunctions._nextQuestion(questionId);
+    });
+    $(".survey-question.multi-answer .next-section a").on("click", function (e) {
         e.preventDefault();
         var question = e.currentTarget.parentElement.parentElement.parentElement;
         var questionId= parseInt(question.getAttribute('data-question-id'), 10);
@@ -76,40 +89,29 @@ var surveyFunctions = {
         var $buttonNext = $(e.target);
         var alias = $buttonNext.attr("data-userLoggedAlias");
         var question = e.currentTarget.parentElement.parentElement.parentElement;
-        if (alias == "") {
-            // USER NO LOGGED
-            var buttonId = guid();
-            $buttonNext.attr("id", buttonId);
-            $form = $buttonNext.parents("form")
-            $form.removeClass("dirty");
-            var questionId = question.getAttribute("data-question-id")
-            // $form.attr(surveyFunctions.NO_LOGGED_CALLBACK_QUESTION_VAR_NAME, questionId)
-            // noLoggedRememberPasswordCallbacks.publishProposal.saveState($buttonPublish);
-            $('#registro').find("form").attr("callback", surveyFunctions.NO_LOGGED_CALLBACK);
-            $('#registro').find("form").attr(surveyFunctions.NO_LOGGED_CALLBACK_QUESTION_VAR_NAME, questionId);
-            $('#registro').modal('show');
-        } else {
-            surveyFunctions._nextButtonClickSelector(question)
-        }
-    },
-    _nextButtonClickWithValidation : function (e){
-        var $buttonNext = $(e.target);
-
-        var $textarea= $buttonNext.parents(".survey-question.text-answer").find(".survey-question-answers .option-extra-content textarea");
-        var textAreaEmpty = !$.trim($textarea.val());
-        if (textAreaEmpty){
-            $textarea.addClass("error");
-        }else{
-
-            $textarea.removeClass("error");
-            surveyFunctions._nextButtonClick(e);
+        if (surveyFunctions._checkValidAnswers(question)){
+            if (alias == "") {
+                // USER NO LOGGED
+                var buttonId = guid();
+                $buttonNext.attr("id", buttonId);
+                $form = $buttonNext.parents("form")
+                $form.removeClass("dirty");
+                var questionId = question.getAttribute("data-question-id")
+                // $form.attr(surveyFunctions.NO_LOGGED_CALLBACK_QUESTION_VAR_NAME, questionId)
+                // noLoggedRememberPasswordCallbacks.publishProposal.saveState($buttonPublish);
+                $('#registro').find("form").attr("callback", surveyFunctions.NO_LOGGED_CALLBACK);
+                $('#registro').find("form").attr(surveyFunctions.NO_LOGGED_CALLBACK_QUESTION_VAR_NAME, questionId);
+                $('#registro').modal('show');
+            } else {
+                surveyFunctions._nextButtonClickSelector(question)
+            }
         }
     },
     _nextButtonClickSelector:function (question) {
         var params ={
             question: question
         }
-        var executableFunction = new userValidatedByDomain.ExcutableFunctionCallback(surveyFunctions.__nextButtonClickSelectorValidationChecked, params)
+        var executableFunction = new userValidatedByDomain.ExcutableFunctionCallback(surveyFunctions._nextButtonClickSelectorValidationChecked, params)
         var button = question.querySelector('.next-section button');
         var validationActive = button.getAttribute('data-campaignValidationActive');
         var loggedUser = button.getAttribute('data-userLoggedAlias'); // No needed
@@ -120,13 +122,30 @@ var surveyFunctions = {
             executableFunction.exec()
         }
     },
-    __nextButtonClickSelectorValidationChecked:function (params) {
+    _nextButtonClickSelectorValidationChecked:function (params) {
         var question = params.question
-        if (question.classList.contains("multi-answer")){
-            surveyFunctions._multiOptionNextButtonClick(question)
-        }else{
-            surveyFunctions._singleOptionNextButtonClick(question)
+        if (surveyFunctions._checkValidAnswers(question)){
+            if (question.classList.contains("multi-answer")){
+                surveyFunctions._multiOptionNextButtonClick(question)
+            }else {
+                surveyFunctions._singleOptionNextButtonClick(question)
+            }
         }
+    },
+    _checkValidAnswers: function(question){
+        var textAreaAnswers = question.querySelectorAll(".survey-question-answer.checked .option-extra-content textarea");
+        var answersValid = true;
+        var answerIdx; // IE10 not supports forEach
+        for (answerIdx = 0; answerIdx < textAreaAnswers.length; answerIdx++) {
+            var textArea = textAreaAnswers[answerIdx];
+            if (textArea.value === ""){
+                textArea.classList.add("error")
+                answersValid = false;
+            }else{
+                textArea.classList.remove("error")
+            }
+        }
+        return answersValid;
     },
     _singleOptionNextButtonClick : function(question){
         // event.preventDefault();
@@ -272,8 +291,8 @@ var surveyFunctions = {
 
         $(answerList).find(".survey-question-answer").removeClass('checked');
 
-        $(nextButton).removeClass('disabled');
         $(answer).addClass('checked');
+        $(nextButton).removeClass('disabled');
         question.setAttribute('data-answer-selected', answer.getAttribute('data-answer-id'));
     },
 
