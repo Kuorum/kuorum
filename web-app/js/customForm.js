@@ -303,7 +303,11 @@ var formHelper = {
         });
 
         $(".counted").each(function(input){
-            formHelper.counterCharacters($(this).attr("name"))
+            var id = $(this).attr("id")
+            if (id === undefined){
+                id = $(this).attr("name");
+            }
+            formHelper.counterCharacters(id)
         })
 
         prepareAutocompleteTags();
@@ -313,8 +317,8 @@ var formHelper = {
         // idField puede ser ID o name
         var idFieldEscaped = idField.replace('[','\\[').replace(']','\\]').replace('\.','\\.');
         var input = $("[name='"+idFieldEscaped+"']");
-        if (input == undefined){
-            var input = $("[id='"+idFieldEscaped+"']");
+        if (input == undefined || input.length==0){
+            var input = $("#"+idFieldEscaped+"");
         }
         var totalCharsText = input.parents(".form-group").find("div[id*='charInit']").find("span").text();
         var totalChars      = parseInt(totalCharsText);
@@ -326,7 +330,6 @@ var formHelper = {
         countTextBox.keyup(function() {
 
             var thisChars = this.value.replace(/{.*}/g, '').length;
-
             if (thisChars > totalChars)
             {
                 var CharsToDel = (thisChars-totalChars);

@@ -3,18 +3,13 @@
         %{--<span class="far fa-circle check-icon"></span>--}%
         %{--<span class="fas fa-check-circle check-icon"></span>--}%
         %{--<label>${option.text}</label>--}%
-        %{--<g:if test="${option.questionOptionType == org.kuorum.rest.model.communication.survey.QuestionOptionTypeRDTO.ANSWER_TEXT}">--}%
-            <div class="option-extra-content">
-                <textarea>${option.answer?.text?:''}</textarea>
-                <span class="text-answer">${option.answer?.text?:''}</span>
-            </div>
-        %{--</g:if>--}%
+        <g:render template="/survey/showModules/questions/formQuestionExtraContent" model="[option:option]"/>
     </div>
-    <div class="progress-info" style="display: none">
+    <div class="progress-info">
         <div class="progress-bar-counter">${option.amountAnswers}</div>
         <div class="progress">
-            <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" data-answer-percent-selected="50" data-answer-percent="30">
-                <span class="sr-only">30% Complete</span>
+            <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" data-answer-percent-selected="100" data-answer-percent="100">
+                <span class="sr-only">100% Complete</span>
             </div>
         </div>
     </div>

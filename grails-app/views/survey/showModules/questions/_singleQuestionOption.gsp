@@ -3,12 +3,7 @@
         <span class="far fa-circle check-icon"></span>
         <span class="fas fa-check-circle check-icon"></span>
         <label>${option.text}</label>
-        <g:if test="${option.questionOptionType == org.kuorum.rest.model.communication.survey.QuestionOptionTypeRDTO.ANSWER_TEXT}">
-            <div class="option-extra-content">
-                <textarea>${option.answer?.text?:''}</textarea>
-                <span class="text-answer">${option.answer?.text?:''}</span>
-            </div>
-        </g:if>
+        <g:render template="/survey/showModules/questions/formQuestionExtraContent" model="[option:option]"/>
     </div>
     <div class="progress-info">
         <div class="progress-bar-counter">${option.amountAnswers}</div>

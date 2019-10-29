@@ -48,14 +48,14 @@ $(function () {
         e.preventDefault();
         var question = e.currentTarget.parentElement.parentElement.parentElement;
         var questionId= parseInt(question.getAttribute('data-question-id'), 10);
-        surveyFunctions._setProgressBarsPercentOneOption(questionId);
+        surveyFunctions._setProgressBarsPercentText(questionId);
         surveyFunctions._nextQuestion(questionId);
     });
     $(".survey-question.multi-answer .next-section a").on("click", function (e) {
         e.preventDefault();
         var question = e.currentTarget.parentElement.parentElement.parentElement;
         var questionId= parseInt(question.getAttribute('data-question-id'), 10);
-        surveyFunctions._setProgressBarsPercentMultiOptions(question);
+        surveyFunctions._setProgressBarsPercent(questionId);
         surveyFunctions._nextQuestion(questionId);
     });
 
@@ -71,17 +71,11 @@ var surveyFunctions = {
         surveyFunctions._updateSurveyProgressBar();
         // IE10 not supports foreach
         var questionAnswerIdx
-        var singleAnswers =document.querySelectorAll(".survey-question.single-answer.answered");
+        var singleAnswers =document.querySelectorAll(".survey-question.answered");
         for (questionAnswerIdx = 0; questionAnswerIdx < singleAnswers.length; questionAnswerIdx++) {
             var question = singleAnswers[questionAnswerIdx];
             var questionId = parseInt(question.getAttribute('data-question-id'))
-            surveyFunctions._setProgressBarsPercentOneOption(questionId)
-        };
-
-        var multipleAnswers =document.querySelectorAll(".survey-question.multi-answer.answered");
-        for (questionAnswerIdx = 0; questionAnswerIdx < multipleAnswers.length; questionAnswerIdx++) {
-            var question = multipleAnswers[questionAnswerIdx];
-            surveyFunctions._setProgressBarsPercentMultiOptions(question);
+            surveyFunctions._setProgressBarsPercent(questionId)
         };
     },
     _nextButtonClick : function(e) {
@@ -115,7 +109,6 @@ var surveyFunctions = {
         var button = question.querySelector('.next-section button');
         var validationActive = button.getAttribute('data-campaignValidationActive');
         var loggedUser = button.getAttribute('data-userLoggedAlias'); // No needed
-        console.log("Check Validation"+validationActive)
         if (validationActive=="true"){
             userValidatedByDomain.checkUserValid(loggedUser, executableFunction)
         }else{
@@ -168,7 +161,7 @@ var surveyFunctions = {
 
             var questionId = parseInt(question.getAttribute('data-question-id'), 10);
             // surveyFunctions._setProgressBarsPercentOneOption(parseInt(question.getAttribute('data-question-id')));
-            surveyFunctions._setProgressBarsPercentOneOption(questionId);
+            surveyFunctions._setProgressBarsPercent(questionId);
             surveyFunctions._transformExtraDataNoEditable(questionId)
             surveyFunctions._sendQuestionAnswers(questionId)
             surveyFunctions._nextQuestion(questionId);
@@ -245,6 +238,22 @@ var surveyFunctions = {
             optionProgressBar.setAttribute("data-answer-percent",percentageOptionProgressBar)
             optionProgressBar.setAttribute("data-answer-percent-selected",percentageOptionProgressBar)
         }
+    },
+
+    _setProgressBarsPercentText:function(questionId) {
+        var question = document.querySelector('[data-question-id="' + questionId + '"]');
+        var numAnswers = parseInt(question.getAttribute("data-numAnswers"))
+        var answerOptions = Array.from(question.getElementsByClassName('survey-question-answer'))
+        // There is only one option on text questions
+        var answerOption = answerOptions[0];
+        answerOption.getElementsByClassName("progress-bar-counter")[0].textContent=numAnswers;
+        var optionProgressBar = answerOption.getElementsByClassName("progress-bar")[0]
+        var percentageOptionProgressBar=100;
+        optionProgressBar.style.width=percentageOptionProgressBar+"%"
+        optionProgressBar.setAttribute("aria-valuenow",percentageOptionProgressBar)
+        optionProgressBar.setAttribute("data-answer-percent",percentageOptionProgressBar)
+        optionProgressBar.setAttribute("data-answer-percent-selected",percentageOptionProgressBar)
+
     },
 
     _transformExtraDataNoEditable(questionId){
@@ -329,6 +338,17 @@ var surveyFunctions = {
 
         if (selectedAnswers.length === 0) {
             $(nextButton).addClass('disabled');
+        }
+    },
+
+    _setProgressBarsPercent: function(questionId){
+        var question = document.querySelector('[data-question-id="' + questionId + '"]');
+        if (question.classList.contains("multi-answer")){
+            surveyFunctions._setProgressBarsPercentMultiOptions(question)
+        }else if(question.classList.contains("text-answer")) {
+            surveyFunctions._setProgressBarsPercentText(questionId)
+        }else{
+            surveyFunctions._setProgressBarsPercentOneOption(questionId)
         }
     },
 

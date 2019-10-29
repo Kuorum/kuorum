@@ -900,7 +900,7 @@ class FormTagLib {
         def id = attrs.id?:field
         def prefixFieldName=attrs.prefixFieldName?:""
         def value = command."$field"?:''
-        def placeHolder = attrs.placeholder?:message(code: "${command.class.name}.${field}.placeHolder")
+        def placeHolder = attrs.placeholder==null?message(code: "${command.class.name}.${field}.placeHolder"):attrs.placeholder
         def error = hasErrors(bean: command, field: field,'error')
         ConstrainedProperty constraints = command.constraints.find{it.key.toString() == field}.value
         MaxSizeConstraint maxSizeConstraint = constraints.appliedConstraints.find{it instanceof MaxSizeConstraint}

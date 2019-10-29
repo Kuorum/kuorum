@@ -25,7 +25,7 @@ class QuestionAnswerDataCommand{
 
     static constraints = {
         answerId nullable: false
-        text nullable: true
+        text nullable: true, maxSize: 500;
     }
 }
 
