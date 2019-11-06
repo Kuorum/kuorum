@@ -1,7 +1,20 @@
 
+function onYouTubeIframeAPIReady(){
+    console.log("API YOUTUBE LOADED");
+}
+
 function YoutubeHelper(){
     var googleApiKey = kuorumKeys._googleJsAPIKey;
     var that = this;
+
+    // LOAD IFRAME YOUTUBE API
+    // https://developers.google.com/youtube/iframe_api_reference
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+
     function validYoutube(videoID, onSuccess, onError){
         var url = "https://www.googleapis.com/youtube/v3/videos?part=snippet&id="+videoID+"&key="+googleApiKey;
         $.ajax({
@@ -98,6 +111,27 @@ function YoutubeHelper(){
         $.each( $("div.video img"), function( key, img ) {
             youtubeHelper.checkValidYoutube(img)
         });
+    }
+
+    this.playVideo=function(youtubeDiv){
+        console.log(youtubeDiv.id )
+        if (youtubeDiv.id == undefined || youtubeDiv.id == ''){
+            youtubeDiv.id = guid();
+        }
+        var youtubeVideoId = youtubeDiv.getAttribute("data-youtubeId")
+        player = new YT.Player(youtubeDiv.id, {
+            videoId: youtubeVideoId,
+            playerVars: { 'autoplay': 1, 'controls': 1, 'modestbranding':1, 'rel':0},
+            events: {
+                'onReady': function onPlayerReady(event) {
+                    event.target.setVolume(100);
+                    event.target.playVideo();
+                },
+                'onStateChange': function(){}
+            }
+        });
+        // console.log(player)
+        // player.playVideo();
     }
 }
 

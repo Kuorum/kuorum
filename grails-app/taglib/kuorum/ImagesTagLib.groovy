@@ -86,7 +86,7 @@ out << """
             <span class="fas fa-play-circle fa-4x"></span>
             <img itemprop='image' src="${imageYoutubeSrc(youtube:attrs.youtube)}" data-youtubeId="${youtubeFileName}" data-urlYoutubeNotFound="${imageYoutubeNotFound}">
         </a>
-        <iframe class="youtube" src="https://www.youtube.com/embed/${youtubeFileName}?fs=1&rel=0&showinfo=0&autoplay=0&enablejsapi=1&showsearch=0" frameborder="0" allowfullscreen></iframe>
+        <div id="youtube-${youtubeFileName}" class="youtube" data-youtubeId="${youtubeFileName}"/>
     </div>
 """
     }
