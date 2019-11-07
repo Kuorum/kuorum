@@ -3,8 +3,10 @@ package kuorum
 import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.register.KuorumUserSession
 import kuorum.users.KuorumUserService
+import org.kuorum.rest.model.communication.CampaignRSDTO
 import org.kuorum.rest.model.contact.ContactRSDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
+import org.kuorum.rest.model.search.SearchKuorumElementRSDTO
 import org.kuorum.rest.model.search.kuorumElement.SearchKuorumUserRSDTO
 
 class ImagesTagLib {
@@ -77,16 +79,31 @@ class ImagesTagLib {
             KuorumFile youtube = attrs.youtube
             youtubeFileName = youtube.fileName
         }
+
+        String uploadDate = "";
+        String description = "";
+        if (attrs.campaign && attrs.campaign instanceof CampaignRSDTO){
+            CampaignRSDTO campaignRSDTO = attrs.campaign
+            uploadDate = campaignRSDTO.datePublished?.format( "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'" )?:"";
+            description = campaignRSDTO.title
+        }
+        if (attrs.campaign && attrs.campaign instanceof SearchKuorumElementRSDTO){
+            SearchKuorumElementRSDTO campaignRSDTO = attrs.campaign
+            uploadDate = campaignRSDTO.dateCreated?.format( "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'" )?:"";
+            description = campaignRSDTO.name
+        }
         String imageYoutubeNotFound = g.resource(dir:"/images", file: "youtube-broken-link.png", absolute: true)
 out << """
     <div class="video click-handler-no-processed" itemscope itemtype="http://schema.org/VideoObject">
         <meta itemprop="name" content="YouTube" />
         <meta itemprop="thumbnailUrl" content="${imageYoutubeSrc(youtube:attrs.youtube)}" />
+        <meta itemprop="uploadDate" content="${uploadDate}" />
+        <meta itemprop="description" content="${description}" />
         <a href="#" class="front">
             <span class="fas fa-play-circle fa-4x"></span>
             <img itemprop='image' src="${imageYoutubeSrc(youtube:attrs.youtube)}" data-youtubeId="${youtubeFileName}" data-urlYoutubeNotFound="${imageYoutubeNotFound}">
         </a>
-        <div id="youtube-${youtubeFileName}" class="youtube" data-youtubeId="${youtubeFileName}"/>
+        <div id="youtube-${youtubeFileName}" class="youtube" data-youtubeId="${youtubeFileName}"></div>
     </div>
 """
     }
