@@ -11,10 +11,9 @@ import kuorum.core.FileGroup
 import kuorum.core.FileType
 import kuorum.core.exception.KuorumException
 import kuorum.register.KuorumUserSession
-
-//import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import kuorum.util.rest.RestKuorumApiService
 
+//import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 class AmazonFileService extends LocalFileService{
 
     private static final String BUCKET_TMP_FOLDER= "tmp"
@@ -72,6 +71,9 @@ class AmazonFileService extends LocalFileService{
             }else if(kuorumFile.fileGroup == FileGroup.PROJECT_IMAGE){
                 String fileUrl = uploadCampaignImage(kuorumFile, org)
                 kuorumFile.setUrl(fileUrl)
+            }else if(kuorumFile.fileGroup == FileGroup.MASS_MAIL_IMAGE){
+                String fileUrl = uploadNewsletterImage(kuorumFile, org)
+                kuorumFile.setUrl(fileUrl)
             }else{
                 uploadAmazonFile(kuorumFile, Boolean.FALSE)
             }
@@ -122,6 +124,19 @@ class AmazonFileService extends LocalFileService{
         Map<String, String> query = [:]
         def response = restKuorumApiService.putFile(
                 RestKuorumApiService.ApiMethod.ACCOUNT_CAMPAIGN_PICTURE,
+                params,
+                query,
+                avatarFile,
+                fileName
+        )
+    }
+
+    private String uploadNewsletterImage(KuorumFile kuorumFile, File avatarFile){
+        String fileName = java.net.URLEncoder.encode(kuorumFile.fileName, "UTF-8")
+        Map<String, String> params = [campaignId: kuorumFile.campaignId.toString(), userId: kuorumFile.user.id.toString()]
+        Map<String, String> query = [:]
+        def response = restKuorumApiService.putFile(
+                RestKuorumApiService.ApiMethod.ACCOUNT_MASS_MAILING_PICTURE,
                 params,
                 query,
                 avatarFile,

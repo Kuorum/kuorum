@@ -498,6 +498,7 @@ class NewsletterController {
 
         if (command.headerPictureId){
             KuorumFile picture = KuorumFile.get(command.headerPictureId)
+            picture.setCampaignId(campaignId)
             picture = fileService.convertTemporalToFinalFile(picture)
             fileService.deleteTemporalFiles(user)
             newsletterRQDTO.setImageUrl(picture.getUrl())
