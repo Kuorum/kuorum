@@ -3,7 +3,7 @@
         <img itemprop="image" src="${campaign.photoUrl}" alt="${campaign.title}">
     </g:if>
     <g:elseif test="${campaign.videoUrl}">
-        <image:showYoutube youtube="${campaign.videoUrl}"/>
+        <image:showYoutube youtube="${campaign.videoUrl}" campaign="${campaign}"/>
     </g:elseif>
     <g:else>
         <div class="multimedia-campaign-default">

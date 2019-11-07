@@ -114,7 +114,6 @@ function YoutubeHelper(){
     }
 
     this.playVideo=function(youtubeDiv){
-        console.log(youtubeDiv.id )
         if (youtubeDiv.id == undefined || youtubeDiv.id == ''){
             youtubeDiv.id = guid();
         }

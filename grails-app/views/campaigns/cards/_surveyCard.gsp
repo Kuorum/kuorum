@@ -8,7 +8,7 @@
                     <img src="${survey.photoUrl}" alt="${survey.title}">
                 </g:if>
                 <g:elseif test="${survey.videoUrl}">
-                    <image:showYoutube youtube="${survey.videoUrl}"/>
+                    <image:showYoutube youtube="${survey.videoUrl}" campaign="${survey}"/>
                 </g:elseif>
                 <g:else>
                     <div class="multimedia-campaign-default">
