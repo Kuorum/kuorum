@@ -109,6 +109,28 @@ class CodecSpec extends Specification {
         ""                                                              | ""            | true
         "kkafuti"                                                       | ""            | true
     }
+    @Unroll
+    void "Test youtubeName decoder [youtubeUrl: #youtubeUrl]"(){
+        given:"The possible youtube id"
+        when:
+        String ytbRes = YoutubeNameCodec.encode(youtubeUrl)
+        then:
+        ytbRes==youtubeUrlExpected
+        where:
+        youtubeUrl                                                      | youtubeUrlExpected
+        "https://youtu.be/5fTsCcUD8Kg"                                  | "https://www.youtube.com/watch?v=5fTsCcUD8Kg"
+        "https://www.youtube.com/watch?v=5fTsCcUD8Kg"                   | "https://www.youtube.com/watch?v=5fTsCcUD8Kg"
+        "https://www.youtube.com/watch?v=5fTsCcUD8Kg&param=XX"          | "https://www.youtube.com/watch?v=5fTsCcUD8Kg"
+        "https://www.youtube.com/watch?param=XX&v=5fTsCcUD8Kg"          | "https://www.youtube.com/watch?v=5fTsCcUD8Kg"
+        "https://youtube.com/watch?v=5fTsCcUD8Kg"                       | "https://www.youtube.com/watch?v=5fTsCcUD8Kg"
+        "https://youtube.com/watch?v=5fTsCcUD8Kg?param=xx"              | "https://www.youtube.com/watch?v=5fTsCcUD8Kg"
+        "http://www.youtube.com/watch?v=5fTsCcUD8Kg"                    | "https://www.youtube.com/watch?v=5fTsCcUD8Kg"
+        "http://www.youtube.com/watch?v=5fTsCcUD8Kg&param=xx"           | "https://www.youtube.com/watch?v=5fTsCcUD8Kg"
+        "http://youtube.com/watch?v=5fTsCcUD8Kg"                        | "https://www.youtube.com/watch?v=5fTsCcUD8Kg"
+        "http://youtube.com/watch?v=5fTsCcUD8Kg&param=xx"               | "https://www.youtube.com/watch?v=5fTsCcUD8Kg"
+        "https://www.youtube.com/watch?v=5fTsCcUD8Kg&feature=youtu.be"  | "https://www.youtube.com/watch?v=5fTsCcUD8Kg"
+        "5fTsCcUD8Kg"                                                   | "https://www.youtube.com/watch?v=5fTsCcUD8Kg"
+    }
 
     @Unroll
     void "Test twitter encoder [twitterString: #twitterString]"(){

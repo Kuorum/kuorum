@@ -299,8 +299,8 @@ class CampaignController {
             campaignRDTO.setVideoUrl(null)
         } else if (command.fileType == FileType.YOUTUBE.toString() && command.videoPost) {
             // Save video
-            KuorumFile urlYoutubeFile = fileService.createYoutubeKuorumFile(command.videoPost, user)
-            campaignRDTO.setVideoUrl(urlYoutubeFile?.url)
+            String youtubeUrl = command.encodeAsYoutubeName();
+            campaignRDTO.setVideoUrl(youtubeUrl )
 
             // Remove image
             if (command.headerPictureId) {

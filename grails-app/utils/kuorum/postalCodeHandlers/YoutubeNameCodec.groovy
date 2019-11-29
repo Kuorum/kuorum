@@ -12,8 +12,11 @@ class YoutubeNameCodec {
     private static final YOUTUBE_URL_PREFIX = "https://www.youtube.com/watch?v="
 
     static encode = {String target->
-        if (target){
-            return "$YOUTUBE_URL_PREFIX$target"
+        String youtubeId = this.decode(target);
+        youtubeId = youtubeId == ""?target:youtubeId
+
+        if (youtubeId){
+            return "$YOUTUBE_URL_PREFIX$youtubeId"
         }
         return ""
     }

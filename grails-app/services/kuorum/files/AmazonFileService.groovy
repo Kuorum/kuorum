@@ -60,7 +60,8 @@ class AmazonFileService extends LocalFileService{
 
     KuorumFile convertTemporalToFinalFile(KuorumFile kuorumFile){
         if (kuorumFile?.temporal){
-            String localTempPath = calculateLocalStoragePath(kuorumFile)
+            File tempDir = File.createTempDir("kuorum_",kuorumFile.userId.toString())
+            String localTempPath =tempDir.toString();
             File org = new File("${localTempPath}/${kuorumFile.fileName}")
             if (kuorumFile.fileGroup == FileGroup.USER_AVATAR) {
                 String fileUrl = uploadAvatar(kuorumFile, org)
@@ -79,6 +80,7 @@ class AmazonFileService extends LocalFileService{
             }
 
             org.delete();
+            tempDir.delete();
             deleteParentIfEmpty(org);
             deleteAmazonFile(kuorumFile, true)
 
