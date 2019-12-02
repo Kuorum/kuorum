@@ -7789,6 +7789,9 @@ li.survey-question.answered .survey-question-answer .option-extra-content textar
 .survey-question > .footer .next-section a:hover {
     color: #ec931f;
 }
+.survey-question > .footer .next-section a.skip-survey{
+    margin-right: 15px;
+}
 
 .survey-question > .footer .next-section button {margin-left: 18px;}
 .survey-question.answered > .footer .next-section {display:none;}

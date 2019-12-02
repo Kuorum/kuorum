@@ -37,26 +37,37 @@ $(function () {
         e.preventDefault();
     })
 
-    $(".survey-question.single-answer .next-section a").on("click",function (e) {
+    $(".survey-question.single-answer .next-section a.skip-question").on("click",function (e) {
         e.preventDefault();
         var question = e.currentTarget.parentElement.parentElement.parentElement;
         var questionId= parseInt(question.getAttribute('data-question-id'), 10);
         surveyFunctions._setProgressBarsPercentOneOption(questionId);
         surveyFunctions._nextQuestion(questionId);
     });
-    $(".survey-question.text-answer .next-section a").on("click",function (e) {
+    $(".survey-question.text-answer .next-section a.skip-question").on("click",function (e) {
         e.preventDefault();
         var question = e.currentTarget.parentElement.parentElement.parentElement;
         var questionId= parseInt(question.getAttribute('data-question-id'), 10);
         surveyFunctions._setProgressBarsPercentText(questionId);
         surveyFunctions._nextQuestion(questionId);
     });
-    $(".survey-question.multi-answer .next-section a").on("click", function (e) {
+    $(".survey-question.multi-answer .next-section a.skip-question").on("click", function (e) {
         e.preventDefault();
         var question = e.currentTarget.parentElement.parentElement.parentElement;
         var questionId= parseInt(question.getAttribute('data-question-id'), 10);
         surveyFunctions._setProgressBarsPercent(questionId);
         surveyFunctions._nextQuestion(questionId);
+    });
+
+    $(".survey-question .next-section a.skip-survey").on("click", function (e) {
+        e.preventDefault();
+        var survey = e.currentTarget.parentElement.parentElement.parentElement.parentElement;
+        for (questionIdx = 0; questionIdx < survey.children.length; questionIdx++) {
+            var question = survey.children[questionIdx];
+            var questionId = parseInt(question.getAttribute('data-question-id'));
+            surveyFunctions._setProgressBarsPercent(questionId);
+            surveyFunctions._nextQuestion(questionId);
+        };
     });
 
    surveyFunctions.initSurvey();

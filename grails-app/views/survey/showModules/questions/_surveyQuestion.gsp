@@ -27,7 +27,10 @@
         <g:render template="/campaigns/showModules/campaignDataSocial" model="[campaign:survey]"/>
         <div class="actions next-section pull-right">
             <userUtil:ifUserIsTheLoggedOne user="${campaignUser}">
-                <a href="#" target="_blank">
+                <a href="#" target="_blank" class="skip-survey">
+                    <g:message code="survey.questions.footer.ownerSurveyNext"/>
+                </a>
+                <a href="#" target="_blank" class="skip-question">
                     <g:message code="survey.questions.footer.ownerNext"/>
                 </a>
             </userUtil:ifUserIsTheLoggedOne>
