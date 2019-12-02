@@ -87,7 +87,8 @@ class AmazonFileService extends LocalFileService{
             kuorumFile.temporal = Boolean.FALSE
             kuorumFile.fileType = FileType.AMAZON_IMAGE
             kuorumFile.local = Boolean.FALSE
-            kuorumFile.save(flush: true)
+//            kuorumFile.save(flush: true)
+            kuorumFile.save()
             log.info("Se ha subido la imagen a Amazon. URL del exterior: ${kuorumFile.url}")
 
         }
