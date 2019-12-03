@@ -324,6 +324,24 @@ label {font-weight: normal;}
 
 .btn.btn-lg.go-for-pass {margin-top: 30px !important; margin-bottom: 30px !important;}
 
+textarea{
+    border: 1px solid #DDDDDD;
+    /*border-color:#ccc;*/
+    font-family: "Helvetica Neue", Helvetica,Arial,sans-serif;
+    font-weight: normal;
+    font-size: 13px;
+    font-size: 1.3rem;
+    line-height: 1.58;
+    border-radius: 5px;
+    height: auto;
+    padding:15px;
+    width: 100%;
+}
+
+textarea:focus{
+    box-shadow: 0px 0px 5px 0px rgba(32,162,234,1);
+}
+
 p { margin: 0 0 20px 0;}
 .help-block {color: #a8a8a8; font-size: 13px; font-size: 1.3rem; font-style: italic;line-height: 1.3em;}
 .mb20 {margin-bottom: 20px !important;}
@@ -7686,8 +7704,7 @@ ul.notification-menu > li.see-more {
 .survey-question-answer .single-option .option-extra-content textarea,
 .survey-question-answer .multi-option .option-extra-content textarea{
     width: 100%;
-    border-radius: 5px;
-    border-color:#ccc;
+    font-size: 17px;
 }
 
 .survey-question-answer:not(.checked) .multi-option .option-extra-content .charNum,
@@ -7701,6 +7718,7 @@ ul.notification-menu > li.see-more {
 .survey-question-answer .single-option .option-extra-content textarea.error,
 .survey-question-answer .multi-option .option-extra-content textarea.error{
     border-color:#BF4343;
+    box-shadow: 0px 0px 5px 0px rgba(191,67,67,1);
 }
 
 .survey-question-answer .text-option .option-extra-content span.text-answer,

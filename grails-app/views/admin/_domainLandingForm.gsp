@@ -12,7 +12,7 @@
         </div>
     </fieldset>
     <fieldset class="row">
-        <div class="form-group col-md-6">
+        <div class="form-group col-md-12">
             <formUtil:textArea command="${command}" field="domainDescription" showLabel="true" />
         </div>
     </fieldset>

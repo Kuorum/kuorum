@@ -895,7 +895,7 @@ class FormTagLib {
     def textArea = {attrs ->
         def command = attrs.command
         def field = attrs.field
-        def rows = attrs.rows?:5
+        def rows = attrs.rows?:3
 
         def id = attrs.id?:field
         def prefixFieldName=attrs.prefixFieldName?:""
@@ -912,7 +912,7 @@ class FormTagLib {
             out << "<label for='${prefixFieldName}${field}'>${label}</label>"
         }
         out << """
-            <textarea name='${prefixFieldName}${field}' class="form-control ${maxSize?"counted":""} ${texteditor} ${error}" rows="${rows}" id="${prefixFieldName}${id}" placeholder="${placeHolder}">${value}</textarea>
+            <textarea name='${prefixFieldName}${field}' class="${maxSize?"counted":""} ${texteditor} ${error}" rows="${rows}" id="${prefixFieldName}${id}" placeholder="${placeHolder}">${value}</textarea>
         """
         if (error){
             out << "<span for='${prefixFieldName}${id}' class='error'>${g.fieldError(bean: command, field: field)}</span>"
