@@ -150,6 +150,7 @@ var surveyFunctions = {
                 textArea.parentNode.insertBefore(errorNode, textArea.nextSibling);
                 answersValid = false;
             }else{
+                textArea.parentNode.removeChild(textArea.nextSibling)
                 textArea.classList.remove("error")
             }
         }
