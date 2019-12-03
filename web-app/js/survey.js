@@ -143,7 +143,11 @@ var surveyFunctions = {
         for (answerIdx = 0; answerIdx < textAreaAnswers.length; answerIdx++) {
             var textArea = textAreaAnswers[answerIdx];
             if (textArea.value === ""){
-                textArea.classList.add("error")
+                textArea.classList.add("error");
+                var errorNode = document.createElement("span");
+                errorNode.classList = "error";
+                errorNode.innerHTML = i18n.kuorum.web.commands.payment.survey.QuestionOptionCommand.text.nullable
+                textArea.parentNode.insertBefore(errorNode, textArea.nextSibling);
                 answersValid = false;
             }else{
                 textArea.classList.remove("error")

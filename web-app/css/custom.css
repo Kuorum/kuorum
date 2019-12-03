@@ -7722,6 +7722,9 @@ ul.notification-menu > li.see-more {
     box-shadow: 0px 0px 5px 0px rgba(191,67,67,1);
 }
 
+.survey-question-answer .option-extra-content textarea + span.error {display:none;float: left;margin-left: 0px;}
+.survey-question-answer .option-extra-content textarea.error + span.error {display:inherit}
+
 .survey-question-answer .text-option .option-extra-content span.text-answer,
 .survey-question-answer .single-option .option-extra-content span.text-answer,
 .survey-question-answer .multi-option .option-extra-content span.text-answer{
