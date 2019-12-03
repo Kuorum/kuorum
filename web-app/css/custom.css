@@ -1225,7 +1225,9 @@ table.csv .highlight_row {background-color: #f7f7f7;}
   border: none;
   box-shadow: none;
 }
-.bootstrap-tagsinput .tag, .addTagBtn, .addTag > ul > li a {
+.bootstrap-tagsinput .tag,
+.addTagBtn,
+.addTag > ul > li a {
   margin-right: 2px;
   margin-bottom: 6px;
   display: inline-block;
@@ -1236,6 +1238,11 @@ table.csv .highlight_row {background-color: #f7f7f7;}
   font-weight: 400;
   font-size: 13px;
   font-size: 1.3rem;
+}
+
+.bootstrap-tagsinput .tag,
+.addTag > ul > li a {
+    background-color: #FFFFFF;
 }
 .bootstrap-tagsinput .tag [data-role="remove"] {
   margin-left: 8px;
