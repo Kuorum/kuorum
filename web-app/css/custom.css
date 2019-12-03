@@ -1943,8 +1943,8 @@ ul.participatory-budget-steps-info li.active a {display: none}
 .tab-pane .activity {border: solid 1px #dadada; padding: 0; margin-top: 30px;}
 .tab-pane .activity > li {border-bottom: solid 1px #dadada; padding: 12px 0; width: 100%;}
 .tab-pane .activity > li:last-child {border-right: none;}
-.tab-pane .activity > li.posts {font-size: 20px; font-size: 2rem;}
-.tab-pane .activity > li.posts span {font-size: 48px; font-size: 4.8rem; line-height: 1; margin-bottom: 10px;}
+.tab-pane .activity > li.posts {font-size: 15px; font-size: 1.5rem;}
+.tab-pane .activity > li.posts span {font-size: 28px; font-size: 2.8rem; line-height: 1; margin-bottom: 10px;}
 .tab-pane .activity.des-engagement {margin-top: 20px; margin-bottom: 31px;}
 .tab-pane .activity.des-engagement > li {width: 100%; display: block; float: left;}
 .tab-pane .activity.des-engagement > li.posts span {font-size: 30px; font-size: 3rem;}
