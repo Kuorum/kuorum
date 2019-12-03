@@ -299,7 +299,7 @@ class CampaignController {
             campaignRDTO.setVideoUrl(null)
         } else if (command.fileType == FileType.YOUTUBE.toString() && command.videoPost) {
             // Save video
-            String youtubeUrl = command.encodeAsYoutubeName();
+            String youtubeUrl = command.videoPost.encodeAsYoutubeName();
             campaignRDTO.setVideoUrl(youtubeUrl )
 
             // Remove image
