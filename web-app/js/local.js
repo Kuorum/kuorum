@@ -558,9 +558,8 @@ function prepareYoutubeVideosClick(){
         e.preventDefault();
         var iframe = $(this).next('.youtube');
         iframe.css('display', 'block');
-//        iframe[0].src += "&autoplay=1";
+        youtubeHelper.playVideo(iframe[0]); // $(this).remove should be after play because it takes the height from the link
         $(this).remove();
-        youtubeHelper.playVideo(iframe[0])
     });
     $(".video.click-handler-no-processed").removeClass("click-handler-no-processed")
 

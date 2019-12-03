@@ -118,8 +118,10 @@ function YoutubeHelper(){
             youtubeDiv.id = guid();
         }
         var youtubeVideoId = youtubeDiv.getAttribute("data-youtubeId")
+        var height = $(youtubeDiv).parent().find("a.front").height();
         player = new YT.Player(youtubeDiv.id, {
             videoId: youtubeVideoId,
+            height: height,
             playerVars: { 'autoplay': 1, 'controls': 1, 'modestbranding':1, 'rel':0},
             events: {
                 'onReady': function onPlayerReady(event) {
