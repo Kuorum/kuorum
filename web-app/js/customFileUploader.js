@@ -852,27 +852,9 @@ qq.extend(qq.MultipleFileUploader.prototype, {
         qq.FileUploaderBasic.prototype._onComplete.apply(this, arguments);
 
         // mark completed
-        console.log("UPLOADED: "+fileName);
-        var previousFileId; filesIdx = 0;
-        while (previousFileId == undefined && this._files != undefined && this._files.length >0 && filesIdx > this._files.lengh){
-            var fileAlreadyUploaded = this._files[filesIdx];
-            console.log("File on lis: "+fileAlreadyUploaded);
-            if (fileAlreadyUploaded == file.name){
-                previousFileId = filesIdx;
-            }
-            filesIdx = filesIdx +1;
-        }
-        if (previousFileId != undefined){
-            // Remove previous item
-            var itemPrevious = this._getItemByFileId(previousFileId);
-            qq.remove(itemPrevious);
-
-        }
         var item = this._getItemByFileId(id);
         qq.remove(this._find(item, 'cancel'));
         // qq.remove(this._find(item, 'spinner')); // Hide by css
-
-        //qq.remove(this._find(this._listElement, 'success'));
 
         var fileExtension = fileName.split('.').pop();
         this._find(item, 'fileType').innerHTML="<span class='"+this._classes.fileIcons[fileExtension]+"'></span>";
