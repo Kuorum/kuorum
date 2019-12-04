@@ -869,8 +869,17 @@ qq.extend(qq.MultipleFileUploader.prototype, {
         }
     },
     _addToList: function(id, fileName){
+        // Removing from the list the previous file with the same name because it will be overwritten on the server
+        var previousItem = this._getItemByFileName(fileName);
+        if (previousItem != undefined){
+            // Found uploaded file with the same name. Removing it from the list
+            qq.remove(previousItem);
+        }
+
         var item = qq.toElement(this._options.fileTemplate);
         item.qqFileId = id;
+        item.qqFileName = fileName;
+        item.setAttribute("data-fileName",fileName)
 
         var fileElement = this._find(item, 'file');
         qq.setText(fileElement, this._formatFileName(fileName));
@@ -885,6 +894,16 @@ qq.extend(qq.MultipleFileUploader.prototype, {
         // and we can  use nextSibling
         while (item){
             if (item.qqFileId == id) return item;
+            item = item.nextSibling;
+        }
+    },
+    _getItemByFileName: function(fileName){
+        var item = this._listElement.firstChild;
+
+        // there can't be txt nodes in dynamically created list
+        // and we can  use nextSibling
+        while (item){
+            if (item.qqFileName == fileName) return item;
             item = item.nextSibling;
         }
     },
