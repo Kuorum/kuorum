@@ -2,6 +2,7 @@ package kuorum.survey
 
 import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
+import kuorum.core.exception.KuorumException
 import kuorum.politician.CampaignController
 import kuorum.register.KuorumUserSession
 import kuorum.web.commands.payment.CampaignContentCommand
@@ -131,7 +132,15 @@ class SurveyController extends CampaignController{
                             new QuestionAnswerTextRDTO([optionId:it.answerId,text:it.text]):
                             new QuestionAnswerOptionRDTO([optionId:it.answerId])
         }
-        surveyService.saveAnswer(survey, userAnswer, command.questionId, answers)
+        try{
+            surveyService.saveAnswer(survey, userAnswer, command.questionId, answers)
+        }catch(Exception e){
+            if (e.cause.cause instanceof KuorumException &&  e.cause.cause.errors[0].code=="error.api.SERVICE_CAMPAIGN_NOT_EDITABLE"){
+                log.info("This questions is already answered. ")
+            }else{
+                throw e;
+            }
+        }
         render ([status:"success",msg:""] as JSON)
     }
 
