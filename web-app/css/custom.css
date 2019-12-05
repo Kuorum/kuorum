@@ -7574,6 +7574,7 @@ ul.notification-menu > li.see-more {
     transition: max-height 1s ease-out;
     overflow: hidden;
     margin-bottom: 0px;
+    padding-top:20px;
 }
 
 .survey-question:first-child,
@@ -7748,7 +7749,12 @@ li.survey-question.answered .survey-question-answer .option-extra-content textar
     font-family: 'Georgia', 'Times New Roman', Times, serif;
     font-size: 20px;
     font-weight: 600;
+    display: inline-block;
+    width: 89%;
 }
+.survery-question-number{display: inline-block; text-align: center; width: 10%;}
+.survery-question-number .survey-quiestion-number-idx{font-size: 1em;}
+.survery-question-number .survey-quiestion-number-total{font-size: 1.5em;}
 .survey-question-answer .progress-info {
     position: relative;
     width: 95%;

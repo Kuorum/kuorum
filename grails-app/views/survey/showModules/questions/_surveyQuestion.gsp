@@ -7,7 +7,12 @@
 </g:if>
 
 <li class="comment-box survey-question ${questionClass} no-padding ${survey.closed || question.answered?'answered':''}" data-question-id="${question.id}" data-numAnswers="${question.amountAnswers}" >
-    <div class="survery-question-title padding-box">
+
+    <div class="survery-question-number">
+        <span class="survey-quiestion-number-idx">${questionNumber}</span>
+        <span class="survey-quiestion-number-total hidden-xs">/${questionsTotal}</span>
+    </div>
+    <div class="survery-question-title">
         ${question.text}
     </div>
     <div class="survey-question-answers" data-answer-selected="">
