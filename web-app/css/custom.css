@@ -7752,9 +7752,9 @@ li.survey-question.answered .survey-question-answer .option-extra-content textar
     display: inline-block;
     width: 89%;
 }
-.survery-question-number{display: inline-block; text-align: center; width: 10%;}
-.survery-question-number .survey-quiestion-number-idx{font-size: 1em;}
-.survery-question-number .survey-quiestion-number-total{font-size: 1.5em;}
+.survery-question-number{display: inline-block; text-align: center; width: 10%; float: left;}
+.survery-question-number .survey-quiestion-number-idx{font-size: 1.5em;}
+.survery-question-number .survey-quiestion-number-total{font-size: 1em;}
 .survey-question-answer .progress-info {
     position: relative;
     width: 95%;
