@@ -38,6 +38,23 @@ var eventFunctions={
         }
     },
     confirmAssistance:function($button, callback){
+        var params ={
+            $button: $button,
+            callback: callback
+        }
+        var executableFunction = new userValidatedByDomain.ExcutableFunctionCallback(eventFunctions.__confirmAssistanceUserChecked, params)
+        var validationActive = $button.attr('data-campaignValidationActive');
+        var loggedUser = $button.attr('data-useralias'); // No needed
+        if (validationActive=="true"){
+            console.log("VALIDATION ACTIVE")
+            userValidatedByDomain.checkUserValid(loggedUser, executableFunction)
+        }else{
+            executableFunction.exec()
+        }
+    },
+    __confirmAssistanceUserChecked:function(params){
+        var $button = params.$button
+        var callback = params.callback
         pageLoadingOn("Event - Confirm assistance");
         var eventId = $button.attr("data-eventId")
         var urlConfirm = $button.attr("data-postUrl")
