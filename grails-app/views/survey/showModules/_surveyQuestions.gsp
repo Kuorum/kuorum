@@ -13,5 +13,10 @@
         <g:each in="${survey.questions}" var="question" status="i">
             <g:render template="/survey/showModules/questions/surveyQuestion" model="[survey:survey, question:question, questionNumber:i+1, questionsTotal:survey.questions.size]"/>
         </g:each>
+        <li class="comment-box survey-end">
+            <div>
+                <g:message code="survey.show.progress.end"/>
+            </div>
+        </li>
     </ul>
 </g:if>

@@ -7846,6 +7846,10 @@ li.survey-question.answered .survey-question-answer .option-extra-content textar
     color: #ec931f;
 }
 
+.survey-end{display:none;padding: 25px;}
+.survey-question.answered + .survey-end{display:inherit;}
+.survey-end div{width: 100%; text-align: center}
+
 /** Custom url **/
 
 .custom-url-info-box {
