@@ -132,6 +132,7 @@ class ContactsController {
         ContactCommand command = new ContactCommand()
         command.name = contact.name
         command.email = contact.email?:g.message(code: 'tools.contact.edit.noMailVisible')
+        command.phone = contact.phone
         command.surname = contact.surname
         command.language = contact.language
         BasicDataKuorumUserRSDTO contactUser = kuorumUserService.findBasicUserRSDTO(contact.mongoId, true)
@@ -148,6 +149,7 @@ class ContactsController {
         }
         contact.name = command.name
         contact.email = command.email
+        contact.phone = command.phone
         contact.surname = command.surname
         contact.language = command.language
         ContactRSDTO contactUpdated = contactService.updateContact(user, contact, contact.getId())

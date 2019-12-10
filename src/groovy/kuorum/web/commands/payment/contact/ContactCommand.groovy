@@ -13,6 +13,7 @@ class ContactCommand {
     String name;
     String surname;
     String email;
+    String phone;
     @BindUsing({obj, org.grails.databinding.DataBindingSource source->
         ContactLanguageRDTO.getContactLanguage(source["language"])
     })

@@ -10,6 +10,9 @@
     <div class="form-group col-md-4">
         <formUtil:input command="${command}" field="email" showLabel="true" disabled="${contact.mongoId}"/>
     </div>
+    <div class="form-group col-md-4">
+        <formUtil:input command="${command}" field="phone" showLabel="true"/>
+    </div>
 </div>
 <div class="row">
     <div class="form-group col-md-4">
