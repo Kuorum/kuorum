@@ -14,8 +14,9 @@
             <g:render template="/survey/showModules/questions/surveyQuestion" model="[survey:survey, question:question, questionNumber:i+1, questionsTotal:survey.questions.size]"/>
         </g:each>
         <li class="comment-box survey-end">
-            <div>
-                <g:message code="survey.show.progress.end"/>
+            <div class="survey-end-container">
+                <span><g:message code="survey.show.progress.end"/></span>
+                <span class="fa fa-laugh-beam"></span>
             </div>
         </li>
     </ul>

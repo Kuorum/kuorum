@@ -7848,7 +7848,9 @@ li.survey-question.answered .survey-question-answer .option-extra-content textar
 
 .survey-end{display:none;padding: 25px;}
 .survey-question.answered + .survey-end{display:inherit;}
-.survey-end div{width: 100%; text-align: center}
+.survey-end div.survey-end-container{width: 100%; text-align: center}
+.survey-end div.survey-end-container span{height: 100%; vertical-align: middle; display: inline-block}
+.survey-end div.survey-end-container span.fa{color: #ec931f;    font-size: 22px;    margin-left: 5px;}
 
 /** Custom url **/
 
