@@ -60,9 +60,12 @@ class AmazonFileService extends LocalFileService{
 
     KuorumFile convertTemporalToFinalFile(KuorumFile kuorumFile){
         if (kuorumFile?.temporal){
-            File tempDir = File.createTempDir("kuorum_",kuorumFile.userId.toString())
-            String localTempPath =tempDir.toString();
+            String localTempPath = calculateLocalStoragePath(kuorumFile)
             File org = new File("${localTempPath}/${kuorumFile.fileName}")
+            if (!org.exists()){
+                log.info("File not exits. This request comes from other server. Downloading it from Amazon")
+                org = downloadAmazonFileToLocal(kuorumFile);
+            }
             if (kuorumFile.fileGroup == FileGroup.USER_AVATAR) {
                 String fileUrl = uploadAvatar(kuorumFile, org)
                 kuorumFile.setUrl(fileUrl)
@@ -80,7 +83,6 @@ class AmazonFileService extends LocalFileService{
             }
 
             org.delete();
-            tempDir.delete();
             deleteParentIfEmpty(org);
             deleteAmazonFile(kuorumFile, true)
 
@@ -95,6 +97,30 @@ class AmazonFileService extends LocalFileService{
         kuorumFile
     }
 
+    private File downloadAmazonFileToLocal(KuorumFile file){
+        log.info("Downloading ${file.relativePath} from Amazon")
+        File localFile = File.createTempFile("Kuorum_","amazon");
+        String sourceKey = file.storagePath
+        String bucketName = grailsApplication.config.kuorum.amazon.bucketName;
+        AmazonS3 s3Client = buildAmazonClient()
+
+        try {
+            // Copy the object into a new object in the same bucket.
+            GetObjectRequest getObjectRequest = new GetObjectRequest(bucketName, sourceKey);
+            S3Object s3Object = s3Client.getObject(getObjectRequest);
+            java.nio.file.Files.copy(
+                    s3Object.getObjectContent(),
+                    localFile.toPath(),
+                    java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+
+        }
+        catch (AmazonServiceException e) {
+            // The call was transmitted successfully, but Amazon S3 couldn't process
+            // it, so it returned an error response.
+            log.error("Error downloading", e)
+        }
+        return localFile;
+    }
 
     private String uploadAvatar(KuorumFile kuorumFile, File avatarFile){
         String fileName = java.net.URLEncoder.encode(kuorumFile.fileName, "UTF-8")
