@@ -3,7 +3,7 @@
     <a href="#" role="button" class="tag label label-info addTagBtn"><span class="fal fa-tag"></span><g:message code="tools.contact.list.contact.editTags"/></a>
     <ul data-genericTagLink="${g.createLink(mapping: "politicianContacts", params: ['filterConditions[0].field':'TAG','filterConditions[0].operatorText':'EQUALS', 'filterConditions[0].value':'REPLACED_TAG'])}">
         <g:each in="${contact.tags}" var="tag">
-            <li><a href="${g.createLink(mapping: "politicianContacts", params: ['filterConditions[0].field':'TAG','filterConditions[0].operatorText':'EQUALS', 'filterConditions[0].value':tag])}" class="tag label label-info">${tag}</a></li>
+            <li><a href="${g.createLink(mapping: "politicianContacts", params: ['filterConditions[0].field':'TAG','filterConditions[0].operatorText':'EQUALS', 'filterConditions[0].value':URLEncoder.encode(tag, "UTF-8")])}" class="tag label label-info">${tag}</a></li>
         </g:each>
     </ul>
     <label for="tagsField_${contact.id}" class="sr-only"><g:message code="tools.contact.list.contact.saveTags"/> </label>
