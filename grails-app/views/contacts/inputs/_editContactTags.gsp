@@ -7,6 +7,6 @@
         </g:each>
     </ul>
     <label for="tagsField_${contact.id}" class="sr-only"><g:message code="tools.contact.list.contact.saveTags"/> </label>
-    <input id="tagsField_${contact.id}" name="tags" class="tagsField" type="text" data-urlTags="${g.createLink(mapping:'politicianContactTagsAjax')}" value="${contact.tags.join(",")}">
+    <input id="tagsField_${contact.id}" name="tags" class="tagsField" type="text" data-urlTags="${g.createLink(mapping:'politicianContactTagsAjax')}" value="${contact.tags.collect{URLEncoder.encode(it, "UTF-8")}.join(",")}">
     <input type="submit" value="Save tags" class="btn btn-blue inverted" id="inputAddTags">
 </form>
