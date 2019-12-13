@@ -434,15 +434,33 @@ class FormTagLib {
     def tags = { attrs ->
         def command = attrs.command
         def field = attrs.field
+        Boolean editable = attrs.editable !=null?
+                attrs.editable instanceof Boolean?
+                        attrs.editable : Boolean.parseBoolean(attrs.editable)
+                :true;
         List<String> tags = command[field]?:[]
         String prefixFieldName =attrs.prefixFieldName?:""
 //        List<String> tags =[]
 
-        out << """
-            <label for="${prefixFieldName}.${field}" class="sr-only">${g.message(code: 'tools.contact.list.contact.saveTags')}</label>
+        out << "<label for='${prefixFieldName}.${field}' class='sr-only'>${g.message(code: 'tools.contact.list.contact.saveTags')}</label> "
+        if (editable){
+            out << """
             <input id="${prefixFieldName}.${field}" name="${prefixFieldName}.${field}" class="tagsField" type="text" data-urlTags="${g.createLink(mapping:'politicianContactTagsAjax')}" value="${tags.join(",")}">
             <span class="hint">${g.message(code: 'admin.createDebate.hint.setNewTag')}</span>
             """
+        }else if (tags){
+            out << """
+            <div class="bootstrap-tagsinput disabled">
+                ${tags.collect{"<span class='tag label label-info'> $it </span>"}.join(" ")}            
+            </div>
+            <span class="hint">${g.message(code: 'admin.createDebate.hint.noTriggerTags')}</span>
+            """
+        }else{
+            out << """
+            <input id="${prefixFieldName}.${field}" name="${prefixFieldName}.${field}" type="text" class="form-control input-lg" value="${tags.join(",")}" disabled>            
+            <span class="hint">${g.message(code: 'admin.createDebate.hint.noTriggerTags')}</span>
+            """
+        }
     }
 
 

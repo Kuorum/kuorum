@@ -67,7 +67,7 @@
                     </div>
                 </fieldset>
             </g:if>
-            <g:render template="/newsletter/form/formGroupCampaignTags" model="[command:command, events:events]"/>
+            <g:render template="/newsletter/form/formGroupCampaignTags" model="[command:command, events:events, editable:campaign== null || !campaign.published]"/>
         </div>
         <g:render template="/campaigns/edit/stepButtons" model="[mappings:mappings, status:status, command: command]"/>
     </form>

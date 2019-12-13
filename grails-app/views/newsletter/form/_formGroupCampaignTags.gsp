@@ -15,7 +15,13 @@
                         <g:message code="kuorum.web.commands.payment.massMailing.MassMailingCommand.eventsWithTag.${event}"/>
                     </span>
                     <span class="tag-event-input">
-                        <formUtil:tags command="${command.tags}" field="${event}" prefixFieldName="tags" label="${g.message(code:'kuorum.web.commands.payment.massMailing.MassMailingCommand.eventsWithTag.'+event )}"/>
+                        <formUtil:tags
+                                command="${command.tags}"
+                                field="${event}"
+                                prefixFieldName="tags"
+                                label="${g.message(code:'kuorum.web.commands.payment.massMailing.MassMailingCommand.eventsWithTag.'+event )}"
+                                editable="${editable}"
+                        />
                     </span>
                 </div>
             </g:each>
