@@ -8,7 +8,7 @@ $(function() {
         var $container = $button.parents(".questionOption")
         var questionsId = parseInt($container.find(".question:last input").attr("name").split("]")[1].slice(-1))+1;
         $clone = $template.clone()
-        $clone.find("input").each(function(idx, input){
+        $clone.find("input, select").each(function(idx, input){
             $(input).val("")
             var name = $(input).attr("name")
             var nameParts = name.split("]")
