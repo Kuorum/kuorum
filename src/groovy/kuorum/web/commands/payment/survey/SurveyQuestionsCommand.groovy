@@ -29,7 +29,7 @@ class SurveyQuestionsCommand {
                 error = "minSize.error"
             }
             val.each{
-                if (!error)
+                if (!error && it)
                     error = it.validate()?null:'invalidQuestions'
             }
         }
@@ -53,7 +53,7 @@ class QuestionCommand{
         String error = null
         if (obj.questionType != QuestionTypeRSDTO.TEXT_OPTION){
             val.each{
-                if (!error)
+                if (!error && it)
                     error = it.validate()?null:'invalidOptions'
             }
         }

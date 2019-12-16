@@ -100,6 +100,16 @@ class SurveyController extends CampaignController{
     def saveQuestions(SurveyQuestionsCommand command){
         KuorumUserSession surveyUser = springSecurityService.principal
         SurveyRSDTO survey = surveyService.find(surveyUser, Long.parseLong(params.campaignId))
+
+        // Clean questions deleted
+        command.questions = command.questions.findAll{it}
+        for (QuestionCommand questionCommand : command.questions ){
+            if (questionCommand.questionType  != QuestionTypeRSDTO.TEXT_OPTION){
+                // Clean all removed empty options (Text options has no answers)
+                questionCommand.options = questionCommand.options.findAll{it && it.text != null}
+            }
+        }
+        command.validate()
         if (command.hasErrors()) {
             flash.error = message(error: command.errors.getFieldError())
             render view: 'editQuestionsStep', model: [
