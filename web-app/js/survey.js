@@ -160,11 +160,6 @@ var surveyFunctions = {
         var answer = answers.querySelector('[data-answer-id="' + selectedAnswer + '"]');
         var options = question.querySelectorAll('.survey-question-answer'); // Html collection to array
         if (selectedAnswer) {
-            var optionIdx; // IE10 not supports forEach
-            for (optionIdx = 0; optionIdx < options.length; optionIdx++) {
-                var option = options[optionIdx];
-                $(option).off('click',surveyFunctions._selectAnswer);
-            }
             // UPDATE NUM ANSWERS
             answer.setAttribute("data-numanswers", parseInt(answer.getAttribute("data-numanswers"))+1);
             question.setAttribute("data-numanswers", parseInt(question.getAttribute("data-numanswers"))+1);
@@ -185,11 +180,6 @@ var surveyFunctions = {
         var answer = answers.querySelector('[data-answer-id="' + selectedAnswer + '"]');
         var options = question.querySelectorAll('.survey-question-answer'); // Html collection to array
         if (selectedAnswer) {
-            var optionIdx; // IE10 not supports forEach
-            for (optionIdx = 0; optionIdx < options.length; optionIdx++) {
-                var option = options[optionIdx];
-                $(option).off('click',surveyFunctions._selectAnswer);
-            }
             // UPDATE NUM ANSWERS
             answer.setAttribute("data-numanswers", parseInt(answer.getAttribute("data-numanswers"))+1);
             question.setAttribute("data-numanswers", parseInt(question.getAttribute("data-numanswers"))+1);
@@ -210,12 +200,6 @@ var surveyFunctions = {
 
         selectedAnswers = JSON.parse(selectedAnswers);
         if (!!selectedAnswers) {
-            var optionIdx; // IE10 not supports forEach
-            for (optionIdx = 0; optionIdx < options.length; optionIdx++) {
-                var option = options[optionIdx];
-                $(option).off('click',surveyFunctions._selectAnswer);
-            };
-
             // Updating num answers
             var numQuestionAnswers = parseInt(question.getAttribute("data-numAnswers"));
             numQuestionAnswers= numQuestionAnswers+1;
@@ -230,15 +214,20 @@ var surveyFunctions = {
     },
 
     _nextQuestion : function(questionId) {
-        var currentQuestion = document.querySelector('.survey-question[data-question-id="' + questionId + '"]');
-        currentQuestion.classList.add('answered');
-        // var nextQuestion = $(currentQuestion).next();
-        // SLIDE DOWN DONE WITH CSS
-        // if (!!nextQuestion === true) {
-        //     // $(nextQuestion).css("display","none");
-        //     $(nextQuestion).slideDown("slow");
-        // }
+        var question = document.querySelector('.survey-question[data-question-id="' + questionId + '"]');
+        question.classList.add('answered');
+        surveyFunctions._switchOffOptionClickEventsOfQuestion(questionId);
         surveyFunctions._updateSurveyProgressBar();
+    },
+
+    _switchOffOptionClickEventsOfQuestion(questionId){
+        var question = document.querySelector('.survey-question[data-question-id="' + questionId + '"]');
+        var options = question.querySelectorAll('.survey-question-answer');
+        var optionIdx; // IE10 not supports forEach
+        for (optionIdx = 0; optionIdx < options.length; optionIdx++) {
+            var option = options[optionIdx];
+            $(option).off('click',surveyFunctions._selectAnswer);
+        };
     },
 
     _updateSurveyProgressBar : function(){
