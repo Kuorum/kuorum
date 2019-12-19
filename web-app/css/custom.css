@@ -7585,7 +7585,6 @@ ul.notification-menu > li.see-more {
     transition: max-height 1s ease-out;
     overflow: hidden;
     margin-bottom: 0px;
-    padding-top:20px;
 }
 
 .survey-question:first-child,
@@ -7646,8 +7645,16 @@ ul.notification-menu > li.see-more {
     background-color: #ec931f;
 }
 
+.survey-question-header {
+    margin-top:20px;
+}
+
 .survey-question-answers {
     padding-top: 20px;
+}
+
+.survey-question.text-answer.answered .text-option{
+    margin-bottom:10px;
 }
 
 .survey-question.rating-answer .survey-question-answers {text-align: center; margin-top:35px;}
@@ -7892,7 +7899,7 @@ li.survey-question.answered .survey-question-answer .option-extra-content textar
 
 .survey-end{display:none;padding: 25px;}
 .survey-question.answered + .survey-end{display:inherit;}
-.survey-end div.survey-end-container{width: 100%; text-align: center}
+.survey-end div.survey-end-container{width: 100%; text-align: center; font-size: 20px;}
 .survey-end div.survey-end-container span{height: 100%; vertical-align: middle; display: inline-block}
 .survey-end div.survey-end-container span.fa{color: #ec931f;    font-size: 22px;    margin-left: 5px;}
 
