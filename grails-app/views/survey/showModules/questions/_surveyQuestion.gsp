@@ -5,21 +5,35 @@
 <g:if test="${question.questionType == org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.TEXT_OPTION}">
     <g:set var="questionClass" value="text-answer"/>
 </g:if>
+<g:if test="${question.questionType == org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.RATING_OPTION}">
+    <g:set var="questionClass" value="rating-answer"/>
+</g:if>
 
 <li class="comment-box survey-question ${questionClass} no-padding ${survey.closed || question.answered?'answered':''}" data-question-id="${question.id}" data-numAnswers="${question.amountAnswers}" >
 
-    <div class="survery-question-number">
-        <span class="survey-quiestion-number-idx">${questionNumber}</span>
-        <span class="survey-quiestion-number-total hidden-xs">/${questionsTotal}</span>
-    </div>
-    <div class="survery-question-title">
-        ${question.text}
+    <div class="survey-question-header">
+        <div class="survery-question-number">
+            <span class="survey-quiestion-number-idx">${questionNumber}</span>
+            <span class="survey-quiestion-number-total hidden-xs">/${questionsTotal}</span>
+        </div>
+        <div class="survey-question-title">
+            ${question.text}
+        </div>
+        <div class="survey-question-progress-info">
+            <div class="survey-question-rating-average">
+                <label><g:message code="survey.questions.header.score"/></label>
+                <div class="survey-question-rating-average-data">---</div>
+            </div>
+        </div>
     </div>
     <div class="survey-question-answers" data-answer-selected="">
         <g:each in="${question.options}" var="option">
             <g:if test="${question.questionType == org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.ONE_OPTION}">
                 <g:render template="/survey/showModules/questions/singleQuestionOption" model="[survey:survey, question:question, option:option]"/>
             </g:if>
+            <g:elseif test="${question.questionType == org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.RATING_OPTION}">
+                <g:render template="/survey/showModules/questions/ratingQuestionOption" model="[survey:survey, question:question, option:option]"/>
+            </g:elseif>
             <g:elseif test="${question.questionType == org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.TEXT_OPTION}">
                 <g:render template="/survey/showModules/questions/textQuestionOption" model="[survey:survey, question:question, option:option]"/>
             </g:elseif>

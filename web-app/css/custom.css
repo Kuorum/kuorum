@@ -7650,6 +7650,20 @@ ul.notification-menu > li.see-more {
     padding-top: 20px;
 }
 
+.survey-question.rating-answer .survey-question-answers {text-align: center; margin-top:35px;}
+.survey-question.answered .survey-question-answers .survey-question-rating-option:hover,
+.survey-question-answers .survey-question-rating-option{display: inline-block; padding:20px 20px 10px ; border: 1px  solid #EC931F; margin-right: -4px; background-color: rgba(236,147,31, 0.2)}
+.survey-question-answers .survey-question-rating-option:first-child{border-top-left-radius: 5px; border-bottom-left-radius: 5px;}
+.survey-question-answers .survey-question-rating-option:last-child{border-top-right-radius: 5px; border-bottom-right-radius: 5px;}
+.survey-question-answers .survey-question-rating-option .rating-option input[type=radio]{position:absolute; left: -9999px;clip: rect(0,0,0,0);}
+
+.survey-question-answers .survey-question-rating-option label{color:#EC931F;cursor: inherit;}
+
+.survey-question-answers .survey-question-rating-option:hover{background-color: rgba(236,147,31, 0.5)}
+.survey-question.answered .survey-question-answers .survey-question-answer.survey-question-rating-option.checked:hover,
+.survey-question-answers .survey-question-rating-option.checked {background-color: rgba(181,113,24, 0.5)}
+.survey-question-answers .survey-question-rating-option.checked label{color:#B57118;}
+
 .survey-question-answer {
     font-size: 20px;
     /*height: 100px;*/
@@ -7698,6 +7712,10 @@ ul.notification-menu > li.see-more {
     position: relative;
     z-index: 1;
     flex-wrap: wrap;
+}
+
+.survey-question-answer .rating-option{
+
 }
 
 .survey-question-answer .text-option label,
@@ -7756,7 +7774,7 @@ li.survey-question.answered .survey-question-answer .option-extra-content textar
     display: none;
 }
 
-.survery-question-title {
+.survey-question-title {
     font-family: 'Georgia', 'Times New Roman', Times, serif;
     font-size: 20px;
     font-weight: 600;
@@ -7773,6 +7791,18 @@ li.survey-question.answered .survey-question-answer .option-extra-content textar
     right: 20px;
     z-index: 0;
 }
+
+
+.survey-question.rating-answer.answered .survey-question-answers .survey-question-answer .progress-info{display: none;}
+.survey-question.rating-answer.answered .survey-question-title{width: 65%;}
+.survey-question .survey-question-progress-info{display: none;}
+.survey-question.rating-answer.answered .survey-question-progress-info{display: inline-block;width: 15%;position: absolute;right: 35px;}
+.survey-question.rating-answer.answered .survey-question-progress-info .survey-question-rating-average{color: #EC931F;font-size: 16px;text-align: center;border: 1px solid #EC931F;background-color: rgba(236,147,31, 0.2);border-radius: 5px;padding:5px;}
+.survey-question.rating-answer.answered .survey-question-progress-info .survey-question-rating-average label{font-size: 10px;margin:0;}
+.survey-question.rating-answer.answered .survey-question-progress-info .survey-question-rating-average .survey-question-rating-average-data{margin-top:-10px;}
+
+
+
 .survey-question-answer .progress {
     height: auto;
     border: none;
@@ -7816,6 +7846,9 @@ li.survey-question.answered .survey-question-answer .option-extra-content textar
 .survey-question .survey-question-answer .progress-bar-counter {display: none;}
 .survey-question.answered .survey-question-answer .progress {display: inline-block; width: calc(100% - 125px);}
 .survey-question.answered .survey-question-answer .progress-bar-counter {float: right; width: 30px; display: inline-block; margin-top: -10px; padding: 0;}
+
+.question-progress-info{display: none;}
+.survey-question.rating-answer.answered .survey-question-answer .question-progress-info {display: block;position: absolute;}
 
 .survey-question .social {
     margin: 30px 0 10px 0;
@@ -7862,6 +7895,14 @@ li.survey-question.answered .survey-question-answer .option-extra-content textar
 .survey-end div.survey-end-container{width: 100%; text-align: center}
 .survey-end div.survey-end-container span{height: 100%; vertical-align: middle; display: inline-block}
 .survey-end div.survey-end-container span.fa{color: #ec931f;    font-size: 22px;    margin-left: 5px;}
+
+
+/* Super small devices (mobile, 480px and down) */
+@media only screen and (max-width: 480px) {
+    .survey-question-answers .survey-question-rating-option{padding:10px;}
+}
+
+
 
 /** Custom url **/
 

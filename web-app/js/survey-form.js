@@ -32,7 +32,7 @@ $(function() {
     var _hideOptions = function($selectQuestionType){
         var $fieldsetOptions = $selectQuestionType.closest("fieldset.row").siblings();
         var newVal = $selectQuestionType.val();
-        if (newVal == "TEXT_OPTION"){
+        if (newVal == "TEXT_OPTION" || newVal == "RATING_OPTION"){
             $fieldsetOptions.slideUp()
         }else{
             $fieldsetOptions.slideDown()
