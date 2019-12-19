@@ -17,7 +17,13 @@ $(function() {
             var name = nameParts[0]+"]"+optionPart+"]"+nameParts[2]
             $(input).attr("name", name)
         })
-        // $template.after($clone)
+        // Cloning select value -> By Defualt .clone() not clones the input values.
+        var $originalSelects = $template.find('select');
+        $clone.find('select').each(function(index, item) {
+            //set new select to value of old select
+            $(item).val( $originalSelects.eq(index).val() );
+
+        });
         $clone.appendTo($container)
     })
     $("#questionsSurveyForm").on("click",".removeQuestionButton",function (e) {
