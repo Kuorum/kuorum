@@ -33,7 +33,10 @@ var userValidatedByDomain={
                 }else if (!isUserLogged()){
                     // User is logged but the page is not reloaded
                     $('#domain-validation').on('hidden.bs.modal', function () {
-                        noLoggedCallbacks.reloadPage()
+                        display.error(i18n.kuorum.web.commands.profile.DomainValidationCommand.validationError);
+                        // Delay reload to show the error message
+                        setTimeout(function(){noLoggedCallbacks.reloadPage() }, 1000); //1 sec
+
                     })
                 }
             },
