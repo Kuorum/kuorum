@@ -7746,6 +7746,8 @@ ul.notification-menu > li.see-more {
     left: 11px;
     color:#D0D0D0;
     cursor: pointer;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-weight: bold;
 }
 
 .survey-question-answer .text-option .option-extra-content,
