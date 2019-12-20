@@ -1,7 +1,7 @@
 <div class="survey-question-answer survey-question-rating-option ${option.answer!=null?'checked':''}" data-answer-id="${option.id}" data-numAnswers="${option.amountAnswers}">
     <div class="rating-option">
-        %{--<span class="far fa-star"></span>--}%
-        %{--<span class="fas fa-check-circle check-icon"></span>--}%
+        <span class="fal fa-square check-icon"></span>
+        <span class="fas fa-square check-icon"></span>
         <input type="radio" name="rating" value="${option.id}">
         <label>${option.text}</label>
         %{--<g:render template="/survey/showModules/questions/formQuestionExtraContent" model="[option:option]"/>--}%

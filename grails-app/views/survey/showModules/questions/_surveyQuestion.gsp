@@ -19,12 +19,6 @@
         <div class="survey-question-title">
             ${question.text}
         </div>
-        <div class="survey-question-progress-info">
-            <div class="survey-question-rating-average">
-                <label><g:message code="survey.questions.header.score"/></label>
-                <div class="survey-question-rating-average-data">---</div>
-            </div>
-        </div>
     </div>
     <div class="survey-question-answers" data-answer-selected="">
         <g:each in="${question.options}" var="option">
@@ -41,6 +35,17 @@
                 <g:render template="/survey/showModules/questions/multipleQuestionOption" model="[survey:survey, question:question, option:option]"/>
             </g:else>
         </g:each>
+    </div>
+
+    <div class="survey-question-progress-info">
+        <div class="progress-info">
+            <div class="progress-bar-counter">10</div>
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" data-answer-percent-selected="50" data-answer-percent="30">
+                    <span class="sr-only">30% Complete</span>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="footer padding-box">
         <g:render template="/campaigns/showModules/campaignDataSocial" model="[campaign:survey]"/>

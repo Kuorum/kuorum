@@ -7657,19 +7657,11 @@ ul.notification-menu > li.see-more {
     margin-bottom:10px;
 }
 
-.survey-question.rating-answer .survey-question-answers {text-align: center; margin-top:35px;}
+.survey-question.rating-answer .survey-question-answers {text-align: center;}
 .survey-question.answered .survey-question-answers .survey-question-rating-option:hover,
-.survey-question-answers .survey-question-rating-option{display: inline-block; padding:20px 20px 10px ; border: 1px  solid #EC931F; margin-right: -4px; background-color: rgba(236,147,31, 0.2)}
-.survey-question-answers .survey-question-rating-option:first-child{border-top-left-radius: 5px; border-bottom-left-radius: 5px;}
-.survey-question-answers .survey-question-rating-option:last-child{border-top-right-radius: 5px; border-bottom-right-radius: 5px;}
+.survey-question-answers .survey-question-rating-option{display: inline-block; margin:10px; padding:0;}
 .survey-question-answers .survey-question-rating-option .rating-option input[type=radio]{position:absolute; left: -9999px;clip: rect(0,0,0,0);}
 
-.survey-question-answers .survey-question-rating-option label{color:#EC931F;cursor: inherit;}
-
-.survey-question-answers .survey-question-rating-option:hover{background-color: rgba(236,147,31, 0.5)}
-.survey-question.answered .survey-question-answers .survey-question-answer.survey-question-rating-option.checked:hover,
-.survey-question-answers .survey-question-rating-option.checked {background-color: rgba(181,113,24, 0.5)}
-.survey-question-answers .survey-question-rating-option.checked label{color:#B57118;}
 
 .survey-question-answer {
     font-size: 20px;
@@ -7683,6 +7675,9 @@ ul.notification-menu > li.see-more {
 }
 
 .survey-question-answer:hover {background-color: #EEE;cursor: pointer;}
+.survey-question-answer.survey-question-rating-option:hover {background-color: transparent;}
+
+.survey-question.answered .survey-question-answers:hover {cursor: default;}
 .survey-question.answered .survey-question-answer:hover {background-color: transparent;cursor: default;}
 
 .survey-question-answer .progress {
@@ -7691,6 +7686,7 @@ ul.notification-menu > li.see-more {
 }
 
 .survey-question-answer .single-option .check-icon,
+.survey-question-answer .rating-option .check-icon,
 .survey-question-answer .multi-option .check-icon {
     font-size: 40px;
     margin-right: 30px;
@@ -7698,17 +7694,28 @@ ul.notification-menu > li.see-more {
 }
 
 .survey-question-answer:hover .single-option > span.check-icon,
+.survey-question-answer:hover .rating-option > span.check-icon,
+.survey-question-answer:hover .rating-option label,
 .survey-question-answer:hover .multi-option > span.check-icon,
 .survey-question-answer.checked .single-option .check-icon,
+.survey-question-answer.checked .rating-option .check-icon,
 .survey-question-answer.checked .multi-option .check-icon {
     color: #ec931f;
 }
 
+.survey-question-answer.checked:hover .rating-option label{
+    color:#FFF;
+}
+
 .survey-question.answered .survey-question-answer:hover:not(.checked) .single-option > span.check-icon,
+.survey-question.answered .survey-question-answer:hover:not(.checked) .rating-option > span.check-icon,
+.survey-question.answered .survey-question-answer:hover:not(.checked) .rating-option > label,
 .survey-question.answered .survey-question-answer:hover:not(.checked) .multi-option > span.check-icon {
     color: #D0D0D0;
 }
-
+.survey-question.answered .survey-question-answer:hover .rating-option > label{
+    cursor: default;
+}
 
 .survey-question-answer .text-option,
 .survey-question-answer .single-option,
@@ -7722,7 +7729,7 @@ ul.notification-menu > li.see-more {
 }
 
 .survey-question-answer .rating-option{
-
+    width: 40px;
 }
 
 .survey-question-answer .text-option label,
@@ -7731,6 +7738,14 @@ ul.notification-menu > li.see-more {
     width: 80%;
     line-height: 30px;
     margin-top:5px;
+}
+
+.survey-question-answer .rating-option label{
+    position: absolute;
+    top: 8px;
+    left: 11px;
+    color:#D0D0D0;
+    cursor: pointer;
 }
 
 .survey-question-answer .text-option .option-extra-content,
@@ -7801,13 +7816,8 @@ li.survey-question.answered .survey-question-answer .option-extra-content textar
 
 
 .survey-question.rating-answer.answered .survey-question-answers .survey-question-answer .progress-info{display: none;}
-.survey-question.rating-answer.answered .survey-question-title{width: 65%;}
 .survey-question .survey-question-progress-info{display: none;}
-.survey-question.rating-answer.answered .survey-question-progress-info{display: inline-block;width: 15%;position: absolute;right: 35px;}
-.survey-question.rating-answer.answered .survey-question-progress-info .survey-question-rating-average{color: #EC931F;font-size: 16px;text-align: center;border: 1px solid #EC931F;background-color: rgba(236,147,31, 0.2);border-radius: 5px;padding:5px;}
-.survey-question.rating-answer.answered .survey-question-progress-info .survey-question-rating-average label{font-size: 10px;margin:0;}
-.survey-question.rating-answer.answered .survey-question-progress-info .survey-question-rating-average .survey-question-rating-average-data{margin-top:-10px;}
-
+.survey-question.rating-answer.answered .survey-question-progress-info{display: block; padding: 0 20px;}
 
 
 .survey-question-answer .progress {
@@ -7833,21 +7843,30 @@ li.survey-question.answered .survey-question-answer .option-extra-content textar
 }
 
 
+.survey-question-answer .rating-option .fas,
+.survey-question-answer .rating-option .fal,
+.survey-question-answer .rating-option .far,
 .survey-question-answer .single-option .fas,
 .survey-question-answer .single-option .fal,
 .survey-question-answer .single-option .far,
 .survey-question-answer .multi-option .fal,
 .survey-question-answer .multi-option .far,
 .survey-question-answer .multi-option .fas{width:30px;}
+.survey-question-answer .rating-option .far.fa-square,
 .survey-question-answer .single-option .far.fa-circle,
 .survey-question-answer .multi-option .fal.fa-square {display: inline-block;}
+.survey-question-answer .rating-option .fas.fa-square,
 .survey-question-answer .single-option .fas.fa-check-circle,
 .survey-question-answer .multi-option .fas.fa-check-square{display: none;}
 
+.survey-question-answer.checked .rating-option .fal.fa-square,
 .survey-question-answer.checked .single-option .far.fa-circle,
 .survey-question-answer.checked .multi-option .fal.fa-square{display: none;}
 .survey-question-answer.checked .single-option .fas.fa-check-circle,
+.survey-question-answer.checked .rating-option .fas.fa-square,
 .survey-question-answer.checked .multi-option .fas.fa-check-square{display: inline-block;}
+
+.survey-question-answer.checked .rating-option label {color:#FFF;}
 
 .survey-question .survey-question-answer .progress,
 .survey-question .survey-question-answer .progress-bar-counter {display: none;}
@@ -7906,7 +7925,7 @@ li.survey-question.answered .survey-question-answer .option-extra-content textar
 
 /* Super small devices (mobile, 480px and down) */
 @media only screen and (max-width: 480px) {
-    .survey-question-answers .survey-question-rating-option{padding:10px;}
+    .survey-question-answers .survey-question-rating-option{margin:5px;}
 }
 
 

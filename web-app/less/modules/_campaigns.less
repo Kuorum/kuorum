@@ -106,7 +106,10 @@
 
 .survey-question-answer:hover .single-option > span.check-icon,
 .survey-question-answer:hover .multi-option > span.check-icon,
+.survey-question-answer:hover .rating-option > span.check-icon,
+.survey-question-answer:hover .rating-option label,
 .survey-question-answer.checked .single-option .check-icon,
+.survey-question-answer.checked .rating-option .check-icon,
 .survey-question-answer.checked .multi-option .check-icon {
   color: @secondColor;
 }
@@ -124,19 +127,6 @@
 
 
 .survey-end div.survey-end-container span.fa{color: @secondColor;}
-
-
-
-.survey-question.answered .survey-question-answers .survey-question-answer.survey-question-rating-option:hover,
-.survey-question-answers .survey-question-rating-option{border: 1px  solid @secondColor; background-color: fade(@secondColor, 20%)};
-.survey-question-answers .survey-question-rating-option label{color:@secondColor;}
-
-
-.survey-question-answers .survey-question-rating-option:hover{background-color: fade(@secondColor, 50%)}
-.survey-question.answered .survey-question-answers .survey-question-answer.survey-question-rating-option.checked:hover,
-.survey-question-answers .survey-question-rating-option.checked {background-color: fade(@secondColorHover, 50%)}
-.survey-question-answers .survey-question-rating-option.checked label{color:@secondColorHover;}
-.survey-question.rating-answer.answered .survey-question-progress-info .survey-question-rating-average{color: @secondColor;border: 1px solid @secondColor;background-color: fade(@secondColor, 20%);}
 
 
 .multimedia-campaign-default:after {background: @mainColor;}
