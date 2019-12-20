@@ -7806,7 +7806,7 @@ li.survey-question.answered .survey-question-answer .option-extra-content textar
 .survery-question-number{display: inline-block; text-align: center; width: 10%; float: left;}
 .survery-question-number .survey-quiestion-number-idx{font-size: 1.5em;}
 .survery-question-number .survey-quiestion-number-total{font-size: 1em;}
-.survey-question-answer .progress-info {
+.survey-question .progress-info {
     position: relative;
     width: 95%;
     bottom: -15px;
@@ -7817,16 +7817,16 @@ li.survey-question.answered .survey-question-answer .option-extra-content textar
 
 .survey-question.rating-answer.answered .survey-question-answers .survey-question-answer .progress-info{display: none;}
 .survey-question .survey-question-progress-info{display: none;}
-.survey-question.rating-answer.answered .survey-question-progress-info{display: block; padding: 0 20px;}
+.survey-question.rating-answer.answered .survey-question-progress-info{display: block;}
 
 
-.survey-question-answer .progress {
+.survey-question .progress {
     height: auto;
     border: none;
     margin-left: 65px;
 }
 
-.survey-question-answer .progress > .progress-bar {
+.survey-question .progress > .progress-bar {
     height: 5px;
     box-shadow: none;
     -webkit-box-shadow: none;
@@ -7834,7 +7834,7 @@ li.survey-question.answered .survey-question-answer .option-extra-content textar
     width: 0;
 }
 
-.survey-question-answer .progress-bar-counter {
+.survey-question .progress-bar-counter {
     font-size: 20px;
     font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
     display: flex;
@@ -7870,8 +7870,9 @@ li.survey-question.answered .survey-question-answer .option-extra-content textar
 
 .survey-question .survey-question-answer .progress,
 .survey-question .survey-question-answer .progress-bar-counter {display: none;}
-.survey-question.answered .survey-question-answer .progress {display: inline-block; width: calc(100% - 125px);}
-.survey-question.answered .survey-question-answer .progress-bar-counter {float: right; width: 30px; display: inline-block; margin-top: -10px; padding: 0;}
+.survey-question.answered .progress {display: inline-block; width: calc(100% - 125px);}
+.survey-question.answered .progress-bar-counter {float: right; width: 50px; display: inline-block; margin-top: -10px; margin-right: -20px; padding: 0;}
+.survey-question.answered .progress-bar-counter .progress-bar-counter-total {font-size: 15px;}
 
 .question-progress-info{display: none;}
 .survey-question.rating-answer.answered .survey-question-answer .question-progress-info {display: block;position: absolute;}
