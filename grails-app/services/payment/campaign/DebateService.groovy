@@ -209,11 +209,6 @@ class DebateService implements CampaignCreatorService<DebateRSDTO, DebateRDTO> {
                 .sort{ u1, u2 -> u1.avatarUrl != null?-1:u2.avatarUrl!=null?1:0 }
 
         def model = [debate: debate, debateUser: debateUser, proposalPage:proposalPage, pinnedUsers:pinnedUsers]
-
-        if (params.printAsWidget){
-            return [view: '/debate/widgetDebate', model: model]
-        }else{
-            return [view: '/debate/show', model: model]
-        }
+        return [view: '/debate/show', model: model]
     }
 }

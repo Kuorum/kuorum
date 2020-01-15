@@ -1,5 +1,5 @@
 (function () {
-	var widget = document.getElementById('debate-widget');
+	var widget = document.getElementById('valuations-widget');
 	var ancho = "300px";
 	var alto  = "300px";
 

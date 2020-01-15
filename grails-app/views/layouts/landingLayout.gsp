@@ -8,15 +8,13 @@
 
     <body>
         <g:render template="/layouts/head" model="[extraHeadCss:g.pageProperty(name:'page.extraHeadCss')]"/>
-        %{--<g:if test="${g.pageProperty(name:'starredCampaign-section')}">--}%
-            <div class="row landing-section-dark">
-                <div class="container">
-                    <section id="starredCampaign-section" class="clearfix">
-                        <g:pageProperty name="page.starredCampaign-section"/>
-                    </section>
-                </div>
+        <div class="row landing-section-dark">
+            <div class="container">
+                <section id="starredCampaign-section" class="clearfix">
+                    <g:pageProperty name="page.starredCampaign-section"/>
+                </section>
             </div>
-        %{--</g:if>--}%
+        </div>
         <div class="row main landing">
             <section id="main" role="main" class="landing clearfix">
                 <g:pageProperty name="page.main"/>

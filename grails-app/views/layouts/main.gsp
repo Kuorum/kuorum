@@ -34,6 +34,7 @@
 
     <g:set var="lang" value="${org.springframework.web.servlet.support.RequestContextUtils.getLocale(request).language}" />
     <r:require modules="lang_${lang}, kuorumCookies, application" />
+    <r:require modules="widget, widgetResizer" />
     <sec:ifNotLoggedIn>
         <r:require modules="loginApi" />
     </sec:ifNotLoggedIn>

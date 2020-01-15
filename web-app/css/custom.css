@@ -13,7 +13,7 @@ body {
     font-size: 14px;
     font-size: 1.4rem;
     line-height: 24px;
-    padding-top: 45px;
+    padding-top: 60px;
     background-color: #fff;
     -webkit-transition: all .15s ease-in-out;
     -moz-transition: all .15s ease-in-out;
@@ -2111,7 +2111,7 @@ ul.participatory-budget-steps-info li.active a {display: none}
 .user-list-followers.hide2 > li + li {margin-bottom:0px;}
 
 .user-list-followers .popover{margin-top:3px;left:-80px !important}
-.owner .popover {left:-24px !important;}
+.owner .popover {margin-left:30px;}
 
 /* lista de a quién seguir al inicio del Dashboard */
 .condition .user-list-followers {margin: 0; padding: 0 !important;}
@@ -4700,7 +4700,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 .fade-carousel .content form .form-group.conditions a {color: #ffffff;}
 
 
-#starredCampaign-section {margin-top:5px; /*Saves a wired behaviour of the header*/}
 #starredCampaign{position: relative; z-index: 5;}
 #starredCampaign .starredCampaign-title{padding: 23px 0; color:#545454; font-size: 20px;font-weight: bold;}
 #starredCampaign .starredCampaign-title .fal{color:#116083; font-size: 40px; position:absolute;}
@@ -6373,9 +6372,9 @@ div [class^='user-box col-'] {
     margin-top: 20px;
 }
 
-.container-fluid {
-    margin-top: 10px;
-}
+/*.container-fluid {*/
+    /*margin-top: 10px;*/
+/*}*/
 
 .grey {
     color: #A8A8A8;
@@ -6529,10 +6528,6 @@ button.btn-see-more {
     z-index: 1000;
     top: 115px;
     right: 20px;
-}
-
-.widget .leader-post .header .call-to-action-mobile{
-    top:60px;
 }
 
 body.noLogged .leader-post .header .call-to-action-mobile{
