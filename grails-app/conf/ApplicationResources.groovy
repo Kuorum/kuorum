@@ -244,6 +244,7 @@ modules = {
 
     surveyForms{
         dependsOn("campaignForm")
+        resource url: 'js/sortable/touch-dnd.js'
         resource url: 'js/survey-form.js'
     }
 

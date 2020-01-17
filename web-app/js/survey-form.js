@@ -81,4 +81,45 @@ $(function() {
 
     // OVERWRITE CUSTOM FORM VALIDATION
     campaignForm.validateCampaignForm = _isValidSurveyQuestionsForm
+
+    // --
+    $('.dynamic-fieldset:not(.hide) .questionOption').sortable({
+
+        // default options
+        accept: '*',
+        activeClass: 'sorting-questionOptions',
+        cancel: 'input, textarea, button, select, option',
+        connectWith: false,
+        disabled: false,
+        forcePlaceholderSize: false,
+        handle: false,
+        initialized: false,
+        items: 'fieldset',
+        placeholder: 'sortable-placeholder',
+        placeholderTag: null,
+        Handler: null,
+        receiveHandler: null
+    }).on('sortable:update', function(e, ui){
+        // do somethong
+        var $item = $(ui.item);
+        var $itemContainer = $item.parent();
+        $itemContainer.find("fieldset.question").each(function(idx, element){
+            var questionOptionPos = idx;
+            var re = /(\w+)\[(\d+)\]\.(\w+)\[(\d+)\](.*)/;
+            $(element).find("input, select").each(function(idx, input){
+                var $input = $(input);
+                var inputName = $input.attr("name")
+                var updatedInputName = inputName.replace(re, '$1[$2].$3['+questionOptionPos+']$5');
+                // console.log("Updating name: "+inputName +" to -> "+updatedInputName);
+                $input.attr("name", updatedInputName);
+            })
+
+        });
+    });
+    function prepareSortableInputs(){
+
+
+    }
+
+    prepareSortableInputs();
 });

@@ -4555,8 +4555,15 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 #questionsSurveyForm .row {margin:0;}
 #questionsSurveyForm .row .question-text-container {padding-right:30px;}
 
-#questionsSurveyForm .questionOption .question .addQuestionOptionButton{display: none;}
+#questionsSurveyForm .questionOption .question {cursor: move;}
+#questionsSurveyForm .questionOption .question:before { content: "\f0c9";font-family: "Font Awesome 5 Pro";position: absolute;left: 8%;margin-top: 10px;}
+#questionsSurveyForm .questionOption .question.sortable-dragging {}
+#questionsSurveyForm .questionOption .sortable-placeholder {}
+#questionsSurveyForm .questionOption .sortable-placeholder:before {font-family: "Font Awesome 5 Pro"; content: "\f356"; font-weight: bold; margin-left: 8%;}
 #questionsSurveyForm .questionOption .question:last-child .addQuestionOptionButton{display: inline-block;}
+#questionsSurveyForm .questionOption.sorting-questionOptions .question:last-child .addQuestionOptionButton,
+#questionsSurveyForm .questionOption .question .addQuestionOptionButton{display: none;}
+
 #questionsSurveyForm .dynamic-fieldset-addbutton {margin-bottom:20px;}
 
 #questionsSurveyForm .profile-dynamic-fields > .row:first-child  > .form-group {
