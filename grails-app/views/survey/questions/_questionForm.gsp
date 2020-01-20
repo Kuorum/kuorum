@@ -7,12 +7,12 @@
             command="${command}"
             field="questions"
             listClassName="kuorum.web.commands.payment.survey.QuestionCommand"
-            cssParentContainer="profile-dynamic-fields"
+            cssParentContainer="quesiton-dynamic-fields"
             customRemoveButton="true"
             customAddButton="true"
             appendLast="true"
             formId="questionsSurveyForm">
-        <fieldset class="row">
+        <fieldset class="row question-data">
             <formUtil:input cssClass="hidden" field="id" command="${listCommand}" prefixFieldName="${prefixField}"/>
             <div class="form-group">
                 <label for="text" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.survey.QuestionCommand.text.label"/>:</label>
@@ -30,7 +30,7 @@
             </div>
         </fieldset>
 
-        <fieldset class="row">
+        <fieldset class="row question-options">
             <div class="form-group">
                 <label for="text" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.survey.QuestionCommand.options.label"/>:</label>
                 <div class="col-sm-8 col-md-7 questionOption">
@@ -42,6 +42,16 @@
                     <g:if test="${!listCommand.options}">
                         <g:render template="/survey/questions/questionOptionFields" model="[prefixField:prefixField, pos:i, option:null]"/>
                     </g:if>
+                </div>
+                <div class="col-sm-8 col-md-7 questionOptionActions">
+                    <fieldset class="row">
+                        <div class="col-xs-offset-1 col-xs-11">
+                            <button type="button" class="btn btn-lg btn-icon btn-transparent addQuestionOptionButton">
+                                <g:message code="survey.form.button.addOption"/>
+                                <i class="far fa-plus"></i>
+                            </button>
+                        </div>
+                    </fieldset>
                 </div>
             </div>
         </fieldset>

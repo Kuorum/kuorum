@@ -4,8 +4,9 @@ $(function() {
     $("#questionsSurveyForm").on("click",".addQuestionOptionButton",function (e) {
         e.preventDefault();
         var $button = $(this);
-        var $template = $button.parents(".row.question")
-        var $container = $button.parents(".questionOption")
+        var $container_btn = $button.parents(".questionOptionActions")
+        var $container = $container_btn.siblings(".questionOption")
+        var $template = $container.find("fieldset.question:first-child")
         var questionsId = parseInt($container.find(".question:last input").attr("name").split("]")[1].slice(-1))+1;
         $clone = $template.clone()
         $clone.find("input, select").each(function(idx, input){
@@ -79,9 +80,6 @@ $(function() {
         return valid;
     }
 
-    // OVERWRITE CUSTOM FORM VALIDATION
-    campaignForm.validateCampaignForm = _isValidSurveyQuestionsForm
-
     // --
     $('.dynamic-fieldset:not(.hide) .questionOption').sortable({
 
@@ -92,13 +90,10 @@ $(function() {
         connectWith: false,
         disabled: false,
         forcePlaceholderSize: false,
-        handle: false,
         initialized: false,
         items: 'fieldset',
         placeholder: 'sortable-placeholder',
         placeholderTag: null,
-        Handler: null,
-        receiveHandler: null
     }).on('sortable:update', function(e, ui){
         // do somethong
         var $item = $(ui.item);
@@ -115,11 +110,57 @@ $(function() {
             })
 
         });
+    }).on('sortable:start', function(e, ui){
+        // do somethong
+        console.log("Start")
+        console.log(ui.item)
+        $(ui.item).addClass("item-sorting")
+    }).on('sortable:stop', function(e, ui){
+        // do somethong
+        console.log("Stop")
+        console.log(ui.item)
+        $(ui.item).removeClass("item-sorting")
+
     });
+
+    // OVERWRITE CUSTOM FORM VALIDATION
+    campaignForm.validateCampaignForm = _isValidSurveyQuestionsForm
     function prepareSortableInputs(){
 
+        $('#questionsSurveyForm').sortable({
 
+            // default options
+            accept: '*',
+            activeClass: 'sorting-questions',
+            cancel: 'input, textarea, button, select, option',
+            connectWith: false,
+            disabled: false,
+            forcePlaceholderSize: false,
+            handle: false,
+            initialized: false,
+            items: '.quesiton-dynamic-fields:not(.hide)',
+            placeholder: 'sortable-placeholder',
+            placeholderTag: null,
+            Handler: null,
+            receiveHandler: null
+        }).on('sortable:update', function(e, ui){
+
+            var $item = $(ui.item);
+            var $form = $item.parent();
+            $form.find(".quesiton-dynamic-fields:not(.hide)").each(function(idx, questionContainer){
+                var questionPos = idx;
+                var re = /(\w+)\[(\d+)\](.*)/;
+                $(questionContainer).find("input, select").each(function(idx, input){
+                    var $input = $(input);
+                    var inputName = $input.attr("name")
+                    var updatedInputName = inputName.replace(re, '$1['+questionPos+']$3');
+                    // console.log("Updating name: "+inputName +" to -> "+updatedInputName);
+                    $input.attr("name", updatedInputName);
+                })
+            })
+        });
     }
+
 
     prepareSortableInputs();
 });
