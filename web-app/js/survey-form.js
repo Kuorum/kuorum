@@ -26,7 +26,27 @@ $(function() {
 
         });
         $clone.appendTo($container)
-    })
+        prepareSortableQuestionOptions();
+    });
+
+    $("#questionsSurveyForm").on("click",".reorderQuestionsButton, .endReorderQuestionsButton",function (e) {
+        e.preventDefault();
+        var $form = $("#questionsSurveyForm")
+        var $button = $(this)
+        var cssClass="sort-questions"
+        if ($form.hasClass(cssClass)){
+            // $(document).find(".quesiton-dynamic-fields:not('.hide') .question-options").slideDown()
+            $form.removeClass(cssClass)
+            $('#questionsSurveyForm').sortable({ disabled: true })
+            $button.siblings(".addButton").removeClass("disabled")
+        }else{
+            // $(document).find(".quesiton-dynamic-fields:not('.hide') .question-options").slideUp()
+            $form.addClass(cssClass)
+            $('#questionsSurveyForm').sortable({ disabled: false })
+            $button.siblings(".addButton").addClass("disabled")
+        }
+    });
+
     $("#questionsSurveyForm").on("click",".removeQuestionButton",function (e) {
         e.preventDefault();
         var $button = $(this);
@@ -34,29 +54,11 @@ $(function() {
         $template.remove()
     })
 
-
-    // HIDE OPTIONS OF TEXT QUESTIONS
-    var _hideOptions = function($selectQuestionType){
-        var $fieldsetOptions = $selectQuestionType.closest("fieldset.row").siblings();
-        var newVal = $selectQuestionType.val();
-        if (newVal == "TEXT_OPTION" || newVal == "RATING_OPTION"){
-            $fieldsetOptions.slideUp()
-        }else{
-            $fieldsetOptions.slideDown()
-        }
-    }
-
     $("#questionsSurveyForm").on("change",".question-type select", function(e){
-        _hideOptions($(this))
+        SurveyFormHelper._hideOptions($(this))
     });
 
-    // HIDE OPTIONS OF TEXT QUESTIONS on init page
-    var questionTypeSelectors = $("#questionsSurveyForm .question-type select");
-    var questionTypeSelectorsIdx;
-    for (questionTypeSelectorsIdx = 0; questionTypeSelectorsIdx< questionTypeSelectors.length; questionTypeSelectorsIdx++){
-        _hideOptions($(questionTypeSelectors[questionTypeSelectorsIdx]));
-    }
-    // END HIDE OPTION OF TEXT QUESTIONS
+    SurveyFormHelper.initQuestionOptions();
 
     var _isValidSurveyQuestionsForm = function(){
         var valid = $("#questionsSurveyForm").valid();
@@ -80,52 +82,57 @@ $(function() {
         return valid;
     }
 
-    // --
-    $('.dynamic-fieldset:not(.hide) .questionOption').sortable({
-
-        // default options
-        accept: '*',
-        activeClass: 'sorting-questionOptions',
-        cancel: 'input, textarea, button, select, option',
-        connectWith: false,
-        disabled: false,
-        forcePlaceholderSize: false,
-        initialized: false,
-        items: 'fieldset',
-        placeholder: 'sortable-placeholder',
-        placeholderTag: null,
-    }).on('sortable:update', function(e, ui){
-        // do somethong
-        var $item = $(ui.item);
-        var $itemContainer = $item.parent();
-        $itemContainer.find("fieldset.question").each(function(idx, element){
-            var questionOptionPos = idx;
-            var re = /(\w+)\[(\d+)\]\.(\w+)\[(\d+)\](.*)/;
-            $(element).find("input, select").each(function(idx, input){
-                var $input = $(input);
-                var inputName = $input.attr("name")
-                var updatedInputName = inputName.replace(re, '$1[$2].$3['+questionOptionPos+']$5');
-                // console.log("Updating name: "+inputName +" to -> "+updatedInputName);
-                $input.attr("name", updatedInputName);
-            })
-
-        });
-    }).on('sortable:start', function(e, ui){
-        // do somethong
-        console.log("Start")
-        console.log(ui.item)
-        $(ui.item).addClass("item-sorting")
-    }).on('sortable:stop', function(e, ui){
-        // do somethong
-        console.log("Stop")
-        console.log(ui.item)
-        $(ui.item).removeClass("item-sorting")
-
-    });
-
     // OVERWRITE CUSTOM FORM VALIDATION
     campaignForm.validateCampaignForm = _isValidSurveyQuestionsForm
-    function prepareSortableInputs(){
+
+
+
+    SurveyFormHelper.prepareSortableQuestions();
+    SurveyFormHelper.prepareSortableQuestionOptions();
+});
+
+var SurveyFormHelper ={
+
+    prepareSortableQuestionOptions: function(){
+        $('.dynamic-fieldset:not(.hide) .questionOption').sortable({
+
+            // default options
+            accept: '*',
+            activeClass: 'sorting-questionOptions',
+            cancel: 'input, textarea, button, select, option',
+            connectWith: false,
+            disabled: false,
+            forcePlaceholderSize: false,
+            initialized: false,
+            items: 'fieldset',
+            placeholder: 'sortable-placeholder',
+            placeholderTag: null,
+        }).on('sortable:update', function(e, ui){
+            // do somethong
+            var $item = $(ui.item);
+            var $itemContainer = $item.parent();
+            $itemContainer.find("fieldset.question").each(function(idx, element){
+                var questionOptionPos = idx;
+                var re = /(\w+)\[(\d+)\]\.(\w+)\[(\d+)\](.*)/;
+                $(element).find("input, select").each(function(idx, input){
+                    var $input = $(input);
+                    var inputName = $input.attr("name")
+                    var updatedInputName = inputName.replace(re, '$1[$2].$3['+questionOptionPos+']$5');
+                    // console.log("Updating name: "+inputName +" to -> "+updatedInputName);
+                    $input.attr("name", updatedInputName);
+                })
+
+            });
+        }).on('sortable:start', function(e, ui){
+            // do somethong
+            $(ui.item).addClass("item-sorting")
+        }).on('sortable:stop', function(e, ui){
+            // do somethong
+            $(ui.item).removeClass("item-sorting")
+
+        });
+    },
+    prepareSortableQuestions: function(){
 
         $('#questionsSurveyForm').sortable({
 
@@ -134,7 +141,7 @@ $(function() {
             activeClass: 'sorting-questions',
             cancel: 'input, textarea, button, select, option',
             connectWith: false,
-            disabled: false,
+            disabled: true,
             forcePlaceholderSize: false,
             handle: false,
             initialized: false,
@@ -158,9 +165,33 @@ $(function() {
                     $input.attr("name", updatedInputName);
                 })
             })
+        }).on('sortable:start', function(e, ui){
+            console.log($(ui.item).parents("form").find(".quesiton-dynamic-fields:not('.hide') .question-options"))
+            // $(ui.item).parents("form").find(".quesiton-dynamic-fields:not('.hide') .question-options").slideUp();
+        }).on('sortable:stop', function(e, ui){
+            // do somethong
+            // $(ui.item).parents("form").find(".quesiton-dynamic-fields:not('.hide') .question-options").slideDown();
+
         });
+    },
+
+    // HIDE OPTIONS OF TEXT QUESTIONS
+    _hideOptions: function($selectQuestionType){
+        var $fieldsetOptions = $selectQuestionType.closest("fieldset.row").siblings();
+        var newVal = $selectQuestionType.val();
+        if (newVal == "TEXT_OPTION" || newVal == "RATING_OPTION"){
+            $fieldsetOptions.slideUp()
+        }else{
+            $fieldsetOptions.slideDown()
+        }
+    },
+    initQuestionOptions:function(){
+        // HIDE OPTIONS OF TEXT QUESTIONS on init page
+        var questionTypeSelectors = $("#questionsSurveyForm .question-type select");
+        var questionTypeSelectorsIdx;
+        for (questionTypeSelectorsIdx = 0; questionTypeSelectorsIdx< questionTypeSelectors.length; questionTypeSelectorsIdx++){
+            SurveyFormHelper._hideOptions($(questionTypeSelectors[questionTypeSelectorsIdx]));
+        }
+        // END HIDE OPTION OF TEXT QUESTIONS
     }
-
-
-    prepareSortableInputs();
-});
+}

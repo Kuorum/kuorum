@@ -59,9 +59,17 @@
     <fieldset class="row dynamic-fieldset-addbutton">
         <div class="form-group">
             <div class="col-xs-12 center">
-                <button type="button" class="btn btn-grey btn-lg addButton">
+                <button type="button" class="btn btn-lg btn-grey addButton">
                     <g:message code="survey.form.button.addQuestion"/>
                     <i class="far fa-plus"></i>
+                </button>
+                <button type="button" class="btn btn-lg btn-transparent reorderQuestionsButton">
+                    <g:message code="survey.form.button.reorderQuestions.start"/>
+                    <i class="far fa-sort-alt"></i>
+                </button>
+                <button type="button" class="btn btn-lg btn-blue inverted endReorderQuestionsButton">
+                    <g:message code="survey.form.button.reorderQuestions.end"/>
+                    <i class="far fa-sort-alt"></i>
                 </button>
             </div>
         </div>
