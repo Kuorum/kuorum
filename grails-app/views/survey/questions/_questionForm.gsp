@@ -1,5 +1,9 @@
 <formUtil:validateForm bean="${command}" form="questionsSurveyForm" dirtyControl="true"/>
-<form action="#" class="form-horizontal campaign-form" id="questionsSurveyForm" method="POST" data-generalErrorMessage="${g.message(code:'kuorum.web.commands.payment.massMailing.DebateCommand.form.genericError')}">
+<form action="#"
+      class="form-horizontal campaign-form ${status== org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT?'campaign-published':''}"
+      id="questionsSurveyForm"
+      method="POST"
+      data-generalErrorMessage="${g.message(code:'kuorum.web.commands.payment.massMailing.DebateCommand.form.genericError')}">
     <input type="hidden" name="redirectLink" id="redirectLink"/>
     <input type="hidden" name="sendType" value="${status== org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT?'SEND':'DRAFT'}" id="sendMassMailingType"/>
     <input type="hidden" name="surveyId" value="${command.surveyId}"/>
@@ -23,7 +27,7 @@
                     <div class="col-xs-11 col-sm-3 question-type">
                         <formUtil:selectEnum field="questionType" command="${listCommand}" prefixFieldName="${prefixField}" showLabel="false"/>
                     </div>
-                    <div class="col-xs-1 form-group form-group-remove no-label-lg">
+                    <div class="col-xs-1 no-label-lg">
                         <button type="button" class="btn btn-transparent btn-lg btn-icon removeButton"><i class="fal fa-trash"></i></button>
                     </div>
                 </div>

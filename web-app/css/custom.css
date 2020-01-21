@@ -4575,7 +4575,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 
 #questionsSurveyForm fieldset.question-data {
     background-color: #D0D0D0;
-    padding:20px 20px 0 20px;
+    padding:20px;
     margin-left: -10px; /* box-ppal tiene padding (10px)y es para que el sombreado llegue hasta el final */
     margin-right: -10px;
     margin-bottom: 15px;
@@ -4606,6 +4606,8 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 
 #questionsSurveyForm div.question-type{padding:0;margin-top:5px}
 #questionsSurveyForm div.question-type + div.form-group-remove{margin-top:5px}
+#questionsSurveyForm.campaign-published .removeQuestionButton,
+#questionsSurveyForm.campaign-published .removeButton{display: none;}
 
 #domain-description-landing-main {
     text-align:center;
