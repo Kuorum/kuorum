@@ -6,9 +6,10 @@
                 <div class="item ${!i?"active":""}" role="option">
                     <div class="col-xs-12 col-sm-4">
                         <a href="${userNew.url}" target="_blank">
-                            <div class="img-container" style="background-image: url(${userNew.image});">
+                            <g:set var="newsImage" value="${userNew.image?userNew.image:'https://kuorumorg.s3-eu-west-1.amazonaws.com/static/defaultImages/userNews-default.jpg'}"/>
+                            <div class="img-container ${userNew.image?'':'imagen-shadowed-main-color-domain'}" style="background-image: url(${newsImage});">
                                 <g:if test="${userNew.logoSource}">
-                                    <img src="${userNew.logoSource}" alt="Europapress" class="logo">
+                                    <img src="${userNew.logoSource}" alt="${userNew.title}" class="logo">
                                 </g:if>
                             </div>
                             <div class="carousel-caption">

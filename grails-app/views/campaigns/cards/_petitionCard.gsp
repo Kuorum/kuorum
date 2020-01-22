@@ -11,7 +11,7 @@
                     <image:showYoutube youtube="${petition.videoUrl}" campaign="${petition}"/>
                 </g:elseif>
                 <g:else>
-                    <div class="multimedia-campaign-default">
+                    <div class="imagen-shadowed-main-color-domain">
                         <img class="empty" src="${g.resource(dir: "images", file: "emptyCampaign.png")}" alt="${petition.title}"/>
                     </div>
                 </g:else>

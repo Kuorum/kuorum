@@ -113,13 +113,13 @@ img {
 .multimedia-campaign{
     position:relative;
 }
-.multimedia-campaign-default {
+.imagen-shadowed-main-color-domain {
     width: 100%;
     vertical-align: top;
     position: relative;
 }
 
-.multimedia-campaign-default:after {
+.imagen-shadowed-main-color-domain:after {
     content: '\A';
     position: absolute;
     width: 100%; height:100%;

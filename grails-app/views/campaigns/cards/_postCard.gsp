@@ -11,7 +11,7 @@
                 <image:showYoutube youtube="${post.videoUrl}" campaign="${post}"/>
             </g:elseif>
             <g:else>
-                <div class="multimedia-campaign-default">
+                <div class="imagen-shadowed-main-color-domain">
                     <img class="empty" src="${g.resource(dir: "images", file: "emptyCampaign.png")}" alt="${post.title}"/>
                 </div>
             </g:else>
