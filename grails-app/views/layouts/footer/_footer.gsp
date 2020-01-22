@@ -23,6 +23,7 @@
                             <g:if test="${_social?.facebook}"><li><a href="${_social.facebook}" target="_blank"><span class="sr-only" target="_blank">Facebook</span><span class="fa-stack fa-lg"><span class="fas fa-circle fa-stack-2x"></span><span class="fab fa-facebook-f fa-stack-1x"></span></span></a></li></g:if>
                             <g:if test="${_social?.linkedIn}"><li><a href="${_social.linkedIn}" target="_blank"><span class="sr-only" target="_blank">LinkedIn</span><span class="fa-stack fa-lg"><span class="fas fa-circle fa-stack-2x"></span><span class="fab fa-linkedin-in fa-stack-1x"></span></span></a></li></g:if>
                             <g:if test="${_social?.instagram}"><li><a href="${_social.instagram}" target="_blank"><span class="sr-only" target="_blank">Instagram</span><span class="fa-stack fa-lg"><span class="fas fa-circle fa-stack-2x"></span><span class="fab fa-instagram fa-stack-1x"></span></span></a></li></g:if>
+                            <g:if test="${_social?.youtube}"><li><a href="${_social.youtube}" target="_blank"><span class="sr-only" target="_blank">Youtube</span><span class="fa-stack fa-lg"><span class="fas fa-circle fa-stack-2x"></span><span class="fab fa-youtube fa-stack-1x"></span></span></a></li></g:if>
                         </ul>
                     </g:if>
                 </div>
