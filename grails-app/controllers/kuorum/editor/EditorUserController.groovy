@@ -6,7 +6,7 @@ import kuorum.files.FileService
 import kuorum.register.RegisterService
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
-import kuorum.users.PersonData
+import kuorum.users.PersonalData
 import kuorum.users.ProfileController
 import kuorum.web.commands.editor.EditorAccountCommand
 import kuorum.web.commands.profile.EditUserProfileCommand
@@ -64,7 +64,7 @@ class EditorUserController {
         updatedUser.name = command.name
         updatedUser.surname = command.surname
         if (!updatedUser.personalData){
-            updatedUser.personalData = new  PersonData()
+            updatedUser.personalData = new  PersonalData()
         }
         updatedUser.personalData.phonePrefix = command.phonePrefix
         updatedUser.personalData.telephone = command.phone

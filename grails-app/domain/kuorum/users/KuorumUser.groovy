@@ -32,7 +32,7 @@ class KuorumUser {
     KuorumFile avatar
     KuorumFile imageProfile
 
-    PersonalData personalData = new PersonData()
+    PersonalData personalData = new PersonalData()
     UserType userType = UserType.PERSON
     String timeZoneId;
 

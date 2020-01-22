@@ -133,7 +133,6 @@ function createKuorumUserFromOldUser(user){
             "regionCode" : null,
             "provinceCode":null,
             "province":null,
-            "studies":null,
             "workingSector":null
 //            "version" : NumberLong(0)
         },

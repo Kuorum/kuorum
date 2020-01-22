@@ -7,7 +7,6 @@ dbDest.kuorumUser.find({userType:'POLITICIAN'}).forEach(function(politician) {
         dbDest.kuorumUser.update({_id:politician._id},{
             $set:{
                 'careerDetails.university':politician.politicianExtraInfo.university,
-                'careerDetails.studies':politician.politicianExtraInfo.studies,
                 'careerDetails.school':politician.politicianExtraInfo.school
             },
             $unset:{

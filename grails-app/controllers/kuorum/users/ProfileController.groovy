@@ -93,7 +93,7 @@ class ProfileController {
         user.name = command.name.encodeAsRemovingHtmlTags()
         user.surname = command.surname?.encodeAsRemovingHtmlTags()?:""
         if (!user.personalData){
-            user.personalData = new  PersonData()
+            user.personalData = new  PersonalData()
         }
         user.personalData.phonePrefix = command.phonePrefix
         user.personalData.telephone = command.phone
@@ -245,19 +245,15 @@ class ProfileController {
         PersonalData personalData = null
         user.bio = command.bio
         if (Gender.ORGANIZATION.equals(command.gender)){
-            personalData = new OrganizationData()
-            personalData.enterpriseSector = command.enterpriseSector
+            personalData = new PersonalData()
             user.userType = UserType.ORGANIZATION
             personalData.gender = Gender.ORGANIZATION
         }else{
-            personalData = new PersonData(user.personalData?.properties)
+            personalData = new PersonalData(user.personalData?.properties)
             if (!user.professionalDetails){
                 user.professionalDetails = new ProfessionalDetails()
             }
-            user.professionalDetails.position = command.position
             personalData.birthday = command.birthday
-            personalData.studies =  command.studies
-            personalData.workingSector =  command.workingSector
             user.userType = UserType.PERSON
             personalData.gender = command.gender
         }

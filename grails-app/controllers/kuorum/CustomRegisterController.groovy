@@ -42,7 +42,7 @@ class CustomRegisterController {
         }
         kuorumUserService.updateAlias(user, command.alias)
 
-        user.personalData = user.personalData?:new kuorum.users.PersonData()
+        user.personalData = user.personalData?:new kuorum.users.PersonalData()
         user.userType = UserType.PERSON
         user.personalData.provinceCode = command.homeRegion.iso3166
         user.language = command.language

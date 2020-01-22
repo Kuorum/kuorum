@@ -1,9 +1,6 @@
 package kuorum.web.commands.profile
 
 import grails.validation.Validateable
-import kuorum.core.model.Gender
-import kuorum.core.model.Studies
-import kuorum.core.model.WorkingSector
 import springSecurity.RegisterController
 
 /**

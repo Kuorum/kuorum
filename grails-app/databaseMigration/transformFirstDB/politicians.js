@@ -95,9 +95,7 @@ function createKuorumUserFromPolitician(politician){
             "gender" : "MALE",
             "postalCode" : region.postalCode,
             "provinceCode":region.iso3166_2,
-            "province":region,
-            "studies":null,
-            "workingSector":null
+            "province":region
 //            "version" : NumberLong(0)
         },
         "relevantCommissions" : [

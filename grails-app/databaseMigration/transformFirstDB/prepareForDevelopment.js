@@ -13,9 +13,7 @@ db.kuorumUser.update(
         "personalData.postalCode":28220,
         "personalData.provinceCode":madrid.iso3166_2,
         "personalData.province":madrid._id,
-        "personalData.birthday":new Date(),
-        "personalData.studies":"NONE",
-        "personalData.workingSector":"OTHERS"
+        "personalData.birthday":new Date()
     }},
     {"upsert":false, "multi":true}) //test
 
