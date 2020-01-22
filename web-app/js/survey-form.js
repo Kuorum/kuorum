@@ -38,12 +38,12 @@ $(function() {
             // $(document).find(".quesiton-dynamic-fields:not('.hide') .question-options").slideDown()
             $form.removeClass(cssClass)
             $('#questionsSurveyForm').sortable({ disabled: true })
-            $button.siblings(".addButton").removeClass("disabled")
+            $button.siblings(".addButton").removeClass("hide")
         }else{
             // $(document).find(".quesiton-dynamic-fields:not('.hide') .question-options").slideUp()
             $form.addClass(cssClass)
             $('#questionsSurveyForm').sortable({ disabled: false })
-            $button.siblings(".addButton").addClass("disabled")
+            $button.siblings(".addButton").addClass("hide")
         }
     });
 

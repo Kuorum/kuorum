@@ -4608,6 +4608,9 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 #questionsSurveyForm div.question-type + div.form-group-remove{margin-top:5px}
 #questionsSurveyForm.campaign-published .removeQuestionButton,
 #questionsSurveyForm.campaign-published .removeButton{display: none;}
+#questionsSurveyForm .question-type .question-type-noEditable{display: none;}
+#questionsSurveyForm.campaign-published .question-type select{display: none;}
+#questionsSurveyForm.campaign-published .question-type .question-type-noEditable{display: inline-block; margin:10px 0;}
 
 #domain-description-landing-main {
     text-align:center;

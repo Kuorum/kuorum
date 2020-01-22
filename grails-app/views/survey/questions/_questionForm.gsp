@@ -24,12 +24,21 @@
                     <div class="col-xs-12 col-sm-8 no-padding">
                         <formUtil:input field="text" command="${listCommand}" prefixFieldName="${prefixField}"/>
                     </div>
-                    <div class="col-xs-11 col-sm-3 question-type">
-                        <formUtil:selectEnum field="questionType" command="${listCommand}" prefixFieldName="${prefixField}" showLabel="false"/>
-                    </div>
-                    <div class="col-xs-1 no-label-lg">
-                        <button type="button" class="btn btn-transparent btn-lg btn-icon removeButton"><i class="fal fa-trash"></i></button>
-                    </div>
+                    <g:if test="${status== org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT}">
+                        <div class="col-xs-11 col-sm-4 question-type">
+                            <span class="question-type-noEditable">${message(code:"org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.${listCommand.questionType}")}</span>
+                            <formUtil:selectEnum field="questionType" command="${listCommand}" prefixFieldName="${prefixField}" showLabel="false"/>
+                        </div>
+                    </g:if>
+                    <g:else>
+                        <div class="col-xs-11 col-sm-3 question-type">
+                            <span class="question-type-noEditable">${message(code:"org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.${listCommand.questionType}")}</span>
+                            <formUtil:selectEnum field="questionType" command="${listCommand}" prefixFieldName="${prefixField}" showLabel="false"/>
+                        </div>
+                        <div class="col-xs-1 no-label-lg">
+                            <button type="button" class="btn btn-transparent btn-lg btn-icon removeButton"><i class="fal fa-trash"></i></button>
+                        </div>
+                    </g:else>
                 </div>
             </div>
         </fieldset>
@@ -67,11 +76,11 @@
                     <g:message code="survey.form.button.addQuestion"/>
                     <i class="far fa-plus"></i>
                 </button>
-                <button type="button" class="btn btn-lg btn-transparent reorderQuestionsButton">
+                <button type="button" class="btn btn-lg btn-grey inverted reorderQuestionsButton">
                     <g:message code="survey.form.button.reorderQuestions.start"/>
                     <i class="far fa-sort-alt"></i>
                 </button>
-                <button type="button" class="btn btn-lg btn-blue inverted endReorderQuestionsButton">
+                <button type="button" class="btn btn-lg btn-blue endReorderQuestionsButton">
                     <g:message code="survey.form.button.reorderQuestions.end"/>
                     <i class="far fa-sort-alt"></i>
                 </button>
