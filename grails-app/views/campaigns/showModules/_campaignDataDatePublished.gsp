@@ -17,4 +17,19 @@
             </g:if>
         </div>
     </userUtil:ifUserIsTheLoggedOne>
+    <userUtil:elseIfUserNotIsTheLoggedOne user="${campaignUser}">
+        <g:if test="${campaign.editable}">
+            <div class="campaign-actions pull-right">
+                <g:if test="${editable}">
+                %{--campaignList contains the js to open modal when the debate is scheduled --}%
+                    <r:require modules="campaignList"/>
+                    <g:set var="modal" value="${campaign.newsletter.status == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SCHEDULED ?'modalEditScheduled':''}"/>
+                    <g:link class="edit ${modal}" mapping="${editMappingName}" params="${campaign.encodeAsLinkProperties()}">
+                        <span class="fal fa-pen-square fa-2x" aria-hidden="true"></span>
+                        <span class="sr-only">Edit</span>
+                    </g:link>
+                </g:if>
+            </div>
+        </g:if>
+    </userUtil:elseIfUserNotIsTheLoggedOne>
 </div>
