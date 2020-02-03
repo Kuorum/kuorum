@@ -112,35 +112,6 @@ $(function(){
             //The search campaign form has not a submit action. All the search is done with javascript
             return false;
         });
-        //contador para el select (antes del plugin)
-        var counterList = $('#campaignsList > li').length;
-        $('.totalList').text(counterList);
-        var sent = $('li.SENT').length;
-        var scheduled = $('li.SCHEDULED').length;
-        var draft = $('li.DRAFT').length;
-        var newsletter = $('li.newsletterItem').length;
-        var debate = $('li.debateItem').length;
-        var post = $('li.postItem').length;
-
-        //select filtro campañas según tipo
-        $('#filterCampaigns').on('change', function () {
-            if ($('#filterCampaigns option:selected').is('#all')) {
-                $('.totalList').text(counterList);
-                $('#infoFilterCampaigns').removeClass().find('.filtered').text('');
-            }
-            if ($('#filterCampaigns option:selected').is('#newsletter')) {
-                $('.totalList').text(newsletter);
-                $('#infoFilterCampaigns').removeClass().find('.filtered').text('');
-            }
-            if ($('#filterCampaigns option:selected').is('#debate')) {
-                $('.totalList').text(debate);
-                $('#infoFilterCampaigns').removeClass().find('.filtered').text('');
-            }
-            if ($('#filterCampaigns option:selected').is('#post')) {
-                $('.totalList').text(post);
-                $('#infoFilterCampaigns').removeClass().find('.filtered').text('');
-            }
-        });
 
         // clase active botones ordenar listado
         $('body').on('click','.sort', function(e) {
@@ -188,6 +159,7 @@ $(function(){
                     }
                 });
             }
+            $('.totalList').text(campaignList.matchingItems.length);
         });
         $("#campaignsOrderOptions").on("click", "a", function(e){
             e.preventDefault();

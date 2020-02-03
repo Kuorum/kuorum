@@ -1,6 +1,6 @@
 <%@ page import="org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO" %>
 
-<li class="${newsletter.status} newsletterItem" id="campaignPos_${idx}">
+<li class="${newsletter.status}" id="campaignPos_${idx}">
     <span class="id sr-only">${newsletter.id}</span>
     <span class="state" aria-hidden="true" rel="tooltip" data-toggle="tooltip" data-placement="bottom"
           data-original-title="${g.message(code: "org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.${newsletter.status}")}">
