@@ -156,9 +156,6 @@ grails.project.dependency.resolution = {
 //            exclude "xml-apis"
 //        }
 
-        //NECESARIO PARA DESPLEGAR EN TOMCAT 9
-        compile "jakarta.xml.bind:jakarta.xml.bind-api:2.3.2"
-        compile "org.glassfish.jaxb:jaxb-runtime:2.3.2"
     }
 
     plugins {
