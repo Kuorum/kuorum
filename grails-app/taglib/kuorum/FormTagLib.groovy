@@ -231,7 +231,7 @@ class FormTagLib {
             """
         }
         out <<"""
-            <input type="${type}" name="${prefixFieldName}${field}" class="${cssClass} ${extraClass} ${error?'error':''}" id="${id}" ${required} ${maxlength} placeholder="${placeHolder}" value="${value}" ${disabled}>
+            <input type="${type}" name="${prefixFieldName}${field}" class="${cssClass} ${extraClass} ${error?'error':''}" id="${id}" ${required} ${maxlength} placeholder="${placeHolder}" value="${value}" ${disabled} />
         """
         if(error){
             out << "<span for='${id}' class='error'>${g.fieldError(bean: command, field: field)}</span>"
