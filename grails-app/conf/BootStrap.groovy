@@ -6,6 +6,7 @@ import kuorum.core.exception.KuorumExceptionUtil
 import kuorum.domain.DomainService
 import kuorum.files.LessCompilerService
 import org.kuorum.rest.model.domain.DomainRSDTO
+import org.slf4j.MDC
 
 import java.security.KeyStore
 
@@ -33,7 +34,9 @@ class BootStrap {
                     if (domainRSDTO.domain == "kuorum.org"){
                         log.debug("Ingoring domain configuration of kuorum.org")
                     }else if (domainRSDTO.version != 0){
+                        MDC.put("domain", domainRSDTO.name)
                         domainService.updateConfig(domainRSDTO)
+                        MDC.clear()
                     }else{
                         log.info("Ingoring domain cofiguration because its version is 0 and it was not configured")
                     }

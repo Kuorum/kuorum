@@ -142,7 +142,7 @@ grails.project.dependency.resolution = {
         // Email validator need new TLDs (i.e: .city)
         compile group: 'commons-validator', name: 'commons-validator', version: '1.5.1'
 
-//        compile group: 'org.graylog2', name: 'gelfj', version: '1.1.13'
+        runtime group: 'org.graylog2', name: 'gelfj', version: '1.1.13'
 
 
         // Library for OAUTH used on the plugin (commented) :spring-security-oauth:2.1.0-RC4
