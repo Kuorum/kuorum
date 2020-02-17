@@ -36,8 +36,8 @@ log4j = {
                 extractStacktrace: true,
                 includeLocation: true,
                 addExtendedInformation: true,
-                facility:"TOMCAT_WEB",
-                additionalFields:"{'X-OVH-TOKEN':'56b1b7a7-0f5d-44cb-aeba-262701f9e460', 'component':'TOMCAT_WEB', 'environment':'${grails.util.Environment.current.name}'}"
+                facility:"TOMCAT",
+                additionalFields:"{'X-OVH-TOKEN':'56b1b7a7-0f5d-44cb-aeba-262701f9e460', 'component':'WEB', 'environment':'${grails.util.Environment.current.name}'}"
         )
     }
     root{
