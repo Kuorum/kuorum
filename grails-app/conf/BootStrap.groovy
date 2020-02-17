@@ -34,7 +34,7 @@ class BootStrap {
                     if (domainRSDTO.domain == "kuorum.org"){
                         log.debug("Ingoring domain configuration of kuorum.org")
                     }else if (domainRSDTO.version != 0){
-                        MDC.put("domain", domainRSDTO.name)
+                        MDC.put("domain", domainRSDTO.domain)
                         domainService.updateConfig(domainRSDTO)
                         MDC.clear()
                     }else{
