@@ -52,13 +52,7 @@ class DashboardController {
         log.info("Dashboard ${userRSDTO.alias}")
         Map model = buildPaymentDashboard(userRSDTO)
         model.put("tour", params.tour?true:false)
-        if (dashboardService.forceUploadContacts()) {
-            render view: "/dashboard/payment/paymentNoContactsDashboard", model: model
-//          }else if (!model.numberCampaigns){
-//              render view: "/dashboard/payment/paymentNoCampaignsDashboard", model: model
-        }else{
-            render view: "/dashboard/dashboard", model: model
-        }
+        render view: "/dashboard/dashboard", model: model
     }
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def skipContacts(){
