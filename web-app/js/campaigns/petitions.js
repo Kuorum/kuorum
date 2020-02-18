@@ -9,6 +9,11 @@ $(function () {
         pageLoadingOff();
         petitionFunctions.onClickSignPetition($button, noLoggedCallbacks.reloadPage);
     };
+
+    $(".petition-sign-call-to-action").on("click", function(e){
+        e.preventDefault();
+        likeButton.click();
+    })
 });
 
 
@@ -75,6 +80,7 @@ var petitionFunctions = {
                 if (callback != undefined){
                     callback();
                 }
+                $(".petition-sign-call-to-action").fadeOut();
             },
             error: function(){
 
