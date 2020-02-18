@@ -58,7 +58,7 @@ $(function() {
         SurveyFormHelper._hideOptions($(this))
     });
 
-    SurveyFormHelper.initQuestionOptions();
+    SurveyFormHelper.initForm();
 
     var _isValidSurveyQuestionsForm = function(){
         var valid = $("#questionsSurveyForm").valid();
@@ -193,5 +193,10 @@ var SurveyFormHelper ={
             SurveyFormHelper._hideOptions($(questionTypeSelectors[questionTypeSelectorsIdx]));
         }
         // END HIDE OPTION OF TEXT QUESTIONS
+    },
+
+    initForm:function(){
+        SurveyFormHelper.initQuestionOptions();
+        $("form.campaign-published .dynamic-fieldset-addbutton button.addButton").fadeOut();
     }
 }
