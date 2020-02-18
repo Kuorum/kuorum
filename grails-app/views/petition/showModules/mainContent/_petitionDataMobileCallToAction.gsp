@@ -1,4 +1,4 @@
-<div class="actions call-to-action-mobile petition-sign-call-to-action">
+<div class="actions call-to-action-mobile petition-sign-call-to-action ${petition.signed?'hidden':''}">
     %{--EVENT DATA - CHAPU BORRAR --}%
     <button type="button" class="btn btn-blue btn-lg call-message">
         <g:message code="petition.callToAction.SENT.title"/>

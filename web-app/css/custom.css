@@ -2095,10 +2095,10 @@ ul.participatory-budget-steps-info li.active a {display: none}
 }
 
 .user-list-images,
-.user-list-followers {padding: 0px 10px 0 !important;}
+.user-list-followers {padding: 0px 5px 0 !important;}
 .panel.panel-default .panel-body .user-list-followers {margin-bottom:0px;}
 
-.user-list-images li {list-style: none; display: inline-block !important; margin: 0 7px; width: auto;}
+.user-list-images li {list-style: none; display: inline-block !important; margin: 0 4px; width: auto;}
 .user-list-images li:last-child {margin-right: 0;}
 .user-list-followers > li {list-style: none; margin: 0 0 20px; width: 100%; position: relative; height: 38px;}
 .user-list-followers > li:last-child {margin: 0;}

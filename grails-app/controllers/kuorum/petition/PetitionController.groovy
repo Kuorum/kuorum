@@ -86,7 +86,7 @@ class PetitionController extends CampaignController{
         }
         KuorumUserSession currentUser= springSecurityService.principal
         PetitionRSDTO petitionRSDTO= petitionService.signPetition(command.campaignId, currentUser, command.sign, command.petitionUserId)
-        BasicUserPageRSDTO signs = petitionService.listSigns(petitionRSDTO.id, 0, 20)
+        BasicUserPageRSDTO signs = petitionService.listSigns(petitionRSDTO.id, 0, 12)
         def signsHtml = groovyPageRenderer.render(template: '/petition/showModules/signedUsersContent', model: [petition: petitionRSDTO, signs: signs.getData()])
         render ([signsHtml:signsHtml, petition: petitionRSDTO] as JSON)
     }

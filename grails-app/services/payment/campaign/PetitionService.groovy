@@ -208,7 +208,7 @@ class PetitionService implements CampaignCreatorService<PetitionRSDTO, PetitionR
     @Override
     def buildView(PetitionRSDTO campaignRSDTO, BasicDataKuorumUserRSDTO campaignOwner, String viewerUid, def params) {
         Integer page = params.page?Integer.parseInt(params.page):0
-        Integer size = params.size?Integer.parseInt(params.size):20
+        Integer size = params.size?Integer.parseInt(params.size):12
         BasicUserPageRSDTO signs = listSigns(campaignRSDTO.id, page, size)
         def model = [petition: campaignRSDTO, petitionUser: campaignOwner, signs: signs.data]
         [view: "/petition/show", model:model]
