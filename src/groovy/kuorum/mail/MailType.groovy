@@ -16,7 +16,7 @@ enum MailType {
     REGISTER_REQUEST_DEMO               ("no-mandrillapp",         [],                      [],                                                                     MailTypeRSDTO.REGISTER_REQUEST_DEMO),
     REGISTER_WELLCOME                   ("register-suscription",   [],                      ["user"],                                                               MailTypeRSDTO.REGISTER_WELCOME),
     NOTIFICATION_CONTACT                ("politician-contact",     [],                      ["contact", "contactLink","contactMessage","causeName"],                MailTypeRSDTO.NOTIFICATION_CONTACT),
-    FEEDBACK                            ("admin-deletedUser",      [],                      ["feedbackText", "feedbackUser", "feedbackUserLink", "userDeleted"]),
+    FEEDBACK                            ("admin-deletedUser",      [],                      ["feedbackText", "feedbackUser", "feedbackUserLink", "userDeleted", "domain"]),
     BATCH_PROCESS                       ("admin-batchProcess",     [],                      ["body", "subject"],                                                    MailTypeRSDTO.ADMIN_COMMUNICATION)
 
 

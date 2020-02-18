@@ -1,6 +1,7 @@
 package kuorum.mail
 
 import grails.transaction.Transactional
+import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.model.AvailableLanguage
 import kuorum.register.KuorumUserSession
 import kuorum.solr.IndexSolrService
@@ -41,7 +42,8 @@ class KuorumMailService {
                 feedbackUserLink:generateLink("userShow",user.encodeAsLinkProperties()),
                 feedbackUser:user.name,
                 feedbackText:feedback,
-                userDeleted:userDeleted
+                userDeleted:userDeleted,
+                domain:CustomDomainResolver.domain
         ]
         MailUserData mailUserData = new MailUserData(user:getPurchaseUser())
         MailData mailData = new MailData(fromName:user.name, mailType: MailType.FEEDBACK, globalBindings: bindings, userBindings: [mailUserData])
