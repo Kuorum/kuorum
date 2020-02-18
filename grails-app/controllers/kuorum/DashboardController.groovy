@@ -3,6 +3,7 @@ package kuorum
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.causes.CausesService
+import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.model.search.Pagination
 import kuorum.dashboard.DashboardService
 import kuorum.register.KuorumUserSession
@@ -59,7 +60,7 @@ class DashboardController {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         user.skipUploadContacts = true
         user.save()
-        redirect mapping:'dashboard'
+        redirect url:"https://${CustomDomainResolver.domain}${params.redirect}"
     }
 
     private def buildPaymentDashboard(BasicDataKuorumUserRSDTO user){
