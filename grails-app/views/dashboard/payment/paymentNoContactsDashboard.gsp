@@ -13,7 +13,7 @@
     <div class="container-fluid box-ppal choose-campaign">
 
 
-        <p><g:message code="dashboard.payment.noContacts.sendTestCampaign" args="[g.createLink(mapping: 'politicianMassMailingNew', params: [testFilter:true])]"/>:</p>
+        <p><g:message code="dashboard.payment.noContacts.sendTestCampaign"/>:</p>
         <g:render template="/contacts/importOptions"/>
 
         <div class="contacts-tooltip icons pull-right">
