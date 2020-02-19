@@ -34,7 +34,17 @@
             },
             action: '${raw(actionUpload)}', // path to server-side upload script
             actionDelete: '${raw(actionDelete)}', // path to server-side delete file
-            initialFiles: ${alreadyUploadedFiles?raw("['${alreadyUploadedFiles.join("','")}']"):'[]'}
+            initialFiles: ${alreadyUploadedFiles?raw("['${alreadyUploadedFiles.join("','")}']"):'[]'},
+            fileTemplate: '<li>' +
+                '<div class="qq-upload-file-type"></div>' +
+                '<div class="qq-upload-file"></div>' +
+                '<div class="qq-upload-spinner"></div>' +
+                '<div class="qq-upload-size"></div>' +
+                '<div class="qq-upload-cancel">Cancel </div>' +
+                '<div class="qq-upload-failed-text"><abbr title="${g.message(code:'uploader.error.serviceError')}"><span class="fal fa-exclamation-circle"></span></abbr></div>' +
+                '<div class="qq-upload-success"><span class="fal fa-copy"></span></div>' +
+                '<div class="qq-upload-delete"> <a href="#" class="qq-upload-delete-action fal fa-trash"></a></div>' +
+                '</li>',
         });
     })
 </r:script>
