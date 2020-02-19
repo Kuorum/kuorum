@@ -65,7 +65,8 @@ $(function() {
         var valid = $("#questionsSurveyForm").valid();
         $(".questionOption input[type=text]")
             .filter(function() {return $(this).parents('#questionsSurveyForm-template').length < 1;})
-            .filter(function() {return $(this).parents('.form-group').parent().siblings().find(".question-type select").val() != "TEXT_OPTION";})
+            // .filter(function() {return $(this).parents('.form-group').parent().siblings().find(".question-type select").val() != "TEXT_OPTION";})
+            // .filter(function() {return $(this).parents('.form-group').parent().siblings().find(".question-type select").val() != "RATING_OPTION";})
             .each(function(idx, input){
             if ($(input).val() == "") {
                 var errorMsg = i18n.kuorum.web.commands.payment.survey.QuestionOptionCommand.text.nullable;
@@ -183,7 +184,10 @@ var SurveyFormHelper ={
         var $fieldsetOptions = $selectQuestionType.closest("fieldset.row").siblings();
         var newVal = $selectQuestionType.val();
         if (newVal == "TEXT_OPTION" || newVal == "RATING_OPTION"){
-            $fieldsetOptions.slideUp()
+            $fieldsetOptions.slideUp( "slow", function(){
+                // CHAPU RELLENA INPUTS despues de ocultar
+                $fieldsetOptions.find("input[type=text]").each(function(idx){if ($(this).val()==""){$(this).val(idx)}});
+            })
         }else{
             $fieldsetOptions.slideDown()
         }
