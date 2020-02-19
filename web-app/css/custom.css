@@ -1044,7 +1044,7 @@ span + .text-notification {padding: 0 0 0 36px; margin-top: -6px;}
 #footer a {color: #a8a8a8;}
 #footer .more a {color: #fff;}
 #footer .more {background-color: #373737; padding: 10px 0 15px; margin: 0;}
-#footer .more .licenses li {display: inline-block; float: right;}
+#footer .more .licenses li {display: inline-block;}
 #footer .social {text-align: center;}
 #footer .social li:first-child  {font-size: 15px; font-size: 1.5rem;}
 
@@ -1055,9 +1055,10 @@ section.links > ul > li + li:before {content: "| ";}
 section.links li:last-child {margin-right: 0;}
 section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding: 0;}
 
-#footer .licenses {margin: 0 auto; width: 154px;}
+#footer .licenses {margin: 0 auto; text-align: center;}
 #footer .licenses li {margin: 0;}
 #footer .licenses a {color: #CCCCCC !important;}
+#footer .licenses #ens-logo {width:50px; margin-right: 10px;}
 /*#footer .licenses li:last-child {margin-right: 10px;}*/
 
 .social li {display: inline-block;}
@@ -4975,6 +4976,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .uploadPdf .progress-pdf .progress {width: 70%; margin: 0;}
     #aside-ppal {background-color: transparent;}
     #footer > .more .links ul {margin: 0; padding: 0; line-height: 46px; text-align: left;}
+    #footer .licenses #ens-logo {width:50px; margin-top:-20px;margin-right: 10px;}
     .sign h1 {font-size: 30px; font-size: 3rem; margin-top: 30px;text-align: center;}
     .sign h2 {font-size: 22px; font-size: 2.2rem; line-height: 1.4; padding: 0;text-align: center;}
     .sign h3 {font-size: 17px; font-size: 1.7rem; text-align: center;}
