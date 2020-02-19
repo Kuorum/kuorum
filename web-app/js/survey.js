@@ -215,6 +215,10 @@ var surveyFunctions = {
 
     _nextQuestion : function(questionId) {
         var question = document.querySelector('.survey-question[data-question-id="' + questionId + '"]');
+        if (question == undefined){
+            console.log("Question with id ["+questionId+"]no defined");
+            return;
+        }
         question.classList.add('answered');
         surveyFunctions._switchOffOptionClickEventsOfQuestion(questionId);
         surveyFunctions._updateSurveyProgressBar();
@@ -406,6 +410,10 @@ var surveyFunctions = {
 
     _setProgressBarsPercent: function(questionId){
         var question = document.querySelector('[data-question-id="' + questionId + '"]');
+        if (question == undefined){
+            console.log("Question with id ["+questionId+"]no defined")
+            return;
+        }
         if (question.classList.contains("multi-answer")){
             surveyFunctions._setProgressBarsPercentMultiOptions(question)
         }else if(question.classList.contains("rating-answer")) {

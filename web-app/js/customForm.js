@@ -243,8 +243,8 @@ var formHelper = {
             $form.trigger('rescan.areYouSure'); //From plugin areYouSure
         },
         dirty:function($form){
+            // $form.trigger('checkform.areYouSure');
             $form.addClass("dirty")
-            $form.trigger('checkform.areYouSure');
             $form.find('[type="submit"]').removeAttr('disabled');
         }
     },
@@ -311,6 +311,9 @@ var formHelper = {
         })
 
         prepareAutocompleteTags();
+        if (typeof(SurveyFormHelper) == "object" && typeof(SurveyFormHelper.prepareSortableQuestionOptions) === "function"){
+            SurveyFormHelper.prepareSortableQuestionOptions()
+        }
     },
 
     counterCharacters: function (idField) {

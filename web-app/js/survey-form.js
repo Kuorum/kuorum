@@ -9,6 +9,7 @@ $(function() {
         var $template = $container.find("fieldset.question:first-child")
         var questionsId = parseInt($container.find(".question:last input").attr("name").split("]")[1].slice(-1))+1;
         $clone = $template.clone()
+        $clone.addClass("new-question-option")
         $clone.find("input, select").each(function(idx, input){
             $(input).val("")
             var name = $(input).attr("name")
@@ -26,7 +27,7 @@ $(function() {
 
         });
         $clone.appendTo($container)
-        prepareSortableQuestionOptions();
+        SurveyFormHelper.prepareSortableQuestionOptions();
     });
 
     $("#questionsSurveyForm").on("click",".reorderQuestionsButton, .endReorderQuestionsButton",function (e) {
@@ -111,6 +112,7 @@ var SurveyFormHelper ={
             // do somethong
             var $item = $(ui.item);
             var $itemContainer = $item.parent();
+            var $form = $item.parents("form");
             $itemContainer.find("fieldset.question").each(function(idx, element){
                 var questionOptionPos = idx;
                 var re = /(\w+)\[(\d+)\]\.(\w+)\[(\d+)\](.*)/;
@@ -121,7 +123,7 @@ var SurveyFormHelper ={
                     // console.log("Updating name: "+inputName +" to -> "+updatedInputName);
                     $input.attr("name", updatedInputName);
                 })
-
+                formHelper.dirtyFormControl.dirty($form)
             });
         }).on('sortable:start', function(e, ui){
             // do somethong
@@ -165,6 +167,7 @@ var SurveyFormHelper ={
                     $input.attr("name", updatedInputName);
                 })
             })
+            formHelper.dirtyFormControl.dirty($form);
         }).on('sortable:start', function(e, ui){
             console.log($(ui.item).parents("form").find(".quesiton-dynamic-fields:not('.hide') .question-options"))
             // $(ui.item).parents("form").find(".quesiton-dynamic-fields:not('.hide') .question-options").slideUp();
@@ -197,6 +200,6 @@ var SurveyFormHelper ={
 
     initForm:function(){
         SurveyFormHelper.initQuestionOptions();
-        $("form.campaign-published .dynamic-fieldset-addbutton button.addButton").fadeOut();
+        // $("form.campaign-published .dynamic-fieldset-addbutton button.addButton").fadeOut();
     }
 }

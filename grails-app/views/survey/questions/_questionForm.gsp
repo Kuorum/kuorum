@@ -24,21 +24,13 @@
                     <div class="col-xs-12 col-sm-8 no-padding">
                         <formUtil:input field="text" command="${listCommand}" prefixFieldName="${prefixField}"/>
                     </div>
-                    <g:if test="${status== org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT}">
-                        <div class="col-xs-11 col-sm-4 question-type">
-                            <span class="question-type-noEditable">${message(code:"org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.${listCommand.questionType}")}</span>
-                            <formUtil:selectEnum field="questionType" command="${listCommand}" prefixFieldName="${prefixField}" showLabel="false"/>
-                        </div>
-                    </g:if>
-                    <g:else>
-                        <div class="col-xs-11 col-sm-3 question-type">
-                            <span class="question-type-noEditable">${message(code:"org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.${listCommand.questionType}")}</span>
-                            <formUtil:selectEnum field="questionType" command="${listCommand}" prefixFieldName="${prefixField}" showLabel="false"/>
-                        </div>
-                        <div class="col-xs-1 no-label-lg">
-                            <button type="button" class="btn btn-transparent btn-lg btn-icon removeButton"><i class="fal fa-trash"></i></button>
-                        </div>
-                    </g:else>
+                    <div class="col-xs-11 col-sm-3 question-type">
+                        <span class="question-type-noEditable">${message(code:"org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.${listCommand.questionType}")}</span>
+                        <formUtil:selectEnum field="questionType" command="${listCommand}" prefixFieldName="${prefixField}" showLabel="false"/>
+                    </div>
+                    <div class="col-xs-1 no-label-lg">
+                        <button type="button" class="btn btn-transparent btn-lg btn-icon removeButton"><i class="fal fa-trash"></i></button>
+                    </div>
                 </div>
             </div>
         </fieldset>

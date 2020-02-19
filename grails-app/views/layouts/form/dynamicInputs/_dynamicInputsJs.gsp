@@ -62,6 +62,7 @@
         var $clone = $template
                         .clone()
                         .removeClass("hide")
+                        .addClass("dynamic-input-new-line")
                         .removeAttr('id')
                         .attr('data-dynamic-list-index', ${validationDataVarIndex})
                         .css("display","none"); // For the higlight

@@ -4604,15 +4604,18 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     transition-property: all;
     transition-duration: .5s;
     transition-timing-function: cubic-bezier(0, 1, 0.5, 1);}
+
+#questionsSurveyForm fieldset.question-options .questionOption .question:first-child > div .removeQuestionButton {display: none}
 #questionsSurveyForm.sort-questions fieldset.question-options{max-height: 0;}
 
 #questionsSurveyForm div.question-type{padding:0;margin-top:5px}
 #questionsSurveyForm div.question-type + div.form-group-remove{margin-top:5px}
-#questionsSurveyForm.campaign-published .removeQuestionButton,
-#questionsSurveyForm.campaign-published .removeButton{display: none;}
+#questionsSurveyForm.campaign-published div.quesiton-dynamic-fields:not(.dynamic-input-new-line) .removeQuestionButton,
+#questionsSurveyForm.campaign-published div.quesiton-dynamic-fields:not(.dynamic-input-new-line) .removeButton{display: none;}
+#questionsSurveyForm.campaign-published div.quesiton-dynamic-fields:not(.dynamic-input-new-line) .question.new-question-option .removeQuestionButton{display: inline-block}
 #questionsSurveyForm .question-type .question-type-noEditable{display: none;}
-#questionsSurveyForm.campaign-published .question-type select{display: none;}
-#questionsSurveyForm.campaign-published .question-type .question-type-noEditable{display: inline-block; margin:10px 0;}
+#questionsSurveyForm.campaign-published div.quesiton-dynamic-fields:not(.dynamic-input-new-line) .question-type select{display: none;}
+#questionsSurveyForm.campaign-published div.quesiton-dynamic-fields:not(.dynamic-input-new-line) .question-type .question-type-noEditable{display: inline-block; margin:10px 0;}
 
 #domain-description-landing-main {
     text-align:center;
