@@ -1058,7 +1058,7 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 #footer .licenses {margin: 0 auto; text-align: center;}
 #footer .licenses li {margin: 0;}
 #footer .licenses a {color: #CCCCCC !important;}
-#footer .licenses #ens-logo {width:50px; margin-right: 10px;}
+#footer .licenses #ens-logo {width:35px; margin-right: 10px;}
 /*#footer .licenses li:last-child {margin-right: 10px;}*/
 
 .social li {display: inline-block;}
@@ -4976,7 +4976,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .uploadPdf .progress-pdf .progress {width: 70%; margin: 0;}
     #aside-ppal {background-color: transparent;}
     #footer > .more .links ul {margin: 0; padding: 0; line-height: 46px; text-align: left;}
-    #footer .licenses #ens-logo {width:50px; margin-top:-20px;margin-right: 10px;}
     .sign h1 {font-size: 30px; font-size: 3rem; margin-top: 30px;text-align: center;}
     .sign h2 {font-size: 22px; font-size: 2.2rem; line-height: 1.4; padding: 0;text-align: center;}
     .sign h3 {font-size: 17px; font-size: 1.7rem; text-align: center;}
@@ -5066,7 +5065,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     /*#edit-event-map { height: 100px;}*/
     .popover.tour {width: 385px; max-width: 385px !important; padding: 15px;}
     .popover.tour .popover-title {font-size: 2rem; line-height: 1; }
-    #footer .licenses {margin-top: 15px; width: auto;}
+    #footer .licenses {width: auto;}
     #footer > .container-fluid > .links li a,
     section.links li a {font-size: 14px; font-size: 1.4rem;}
     .condition .user-list-followers  > li {width: 48%; float: left;}
