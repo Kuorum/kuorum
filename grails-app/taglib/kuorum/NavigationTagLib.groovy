@@ -68,6 +68,14 @@ class NavigationTagLib {
         out << """<a href="https://kuorum.org/${currentLang.locale.language}" hreflang="${currentLang.locale.language}" target="_blank">Kuorum.org</a>"""
     }
 
+
+    def externalLangLink={attrs, body->
+        Locale locale = org.springframework.context.i18n.LocaleContextHolder.getLocale()
+        String defaultLink = attrs.defaultLink
+        String i18nLink = attrs[locale.language]?:defaultLink
+        out << body([i18nLink:i18nLink,i18nLang:locale.language])
+    }
+
     /**
      * Language utils to display hreflangs and language selector
      */
