@@ -1,17 +1,17 @@
 package kuorum.web.commands.payment.participatoryBudget
 
 import grails.validation.Validateable
+import kuorum.web.commands.payment.CampaignContentCommand
 
 @Validateable
-class DistrictProposalChooseDistrictCommand {
-    String name
+class NewDistrictProposalWithDistrictCommand extends CampaignContentCommand{
     Long districtId
     String cause
 
     static constraints = {
-        name nullable: false
+        importFrom CampaignContentCommand
         districtId nullable: false
-        cause nullable:true
+        cause nullable: false
     }
 
 }

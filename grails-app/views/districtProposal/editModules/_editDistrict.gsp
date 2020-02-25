@@ -14,8 +14,19 @@
         <input type="hidden" name="sendType" value="DRAFT" id="sendMassMailingType"/>
         <input type="hidden" name="redirectLink" id="redirectLink"/>
 
+        <g:if test="${!campaign}">
+            <fieldset class="form-group">
+                <label for="name" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.massMailing.DebateCommand.title.label"/>:</label>
+                <div class="col-sm-8 col-md-7">
+                    <formUtil:input command="${command}" field="name"/>
+                </div>
+            </fieldset>
+        </g:if>
+        <g:else>
+            <input type="hidden" name="name" value="${campaign.title}" />
+        </g:else>
         <fieldset class="form-group">
-            <label for="title" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.participatoryBudget.DistrictProposalChooseDistrictCommand.district.label"/>:</label>
+            <label for="districtId" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.participatoryBudget.DistrictProposalChooseDistrictCommand.district.label"/>:</label>
             <div class="col-sm-8 col-md-7">
                 <select class="form-control input-lg" name="districtId" data-original-value="${command.districtId}">
                     <option value="">----</option>
@@ -26,7 +37,7 @@
             </div>
         </fieldset>
         <fieldset class="form-group">
-            <label for="title" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.participatoryBudget.DistrictProposalChooseDistrictCommand.cause.label"/>:</label>
+            <label for="cause" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.participatoryBudget.DistrictProposalChooseDistrictCommand.cause.label"/>:</label>
             <div class="col-sm-8 col-md-7">
                 <select class="form-control input-lg" name="cause">
                     <option value="">---</option>

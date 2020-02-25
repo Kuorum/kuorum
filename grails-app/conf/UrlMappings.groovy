@@ -343,7 +343,6 @@ class UrlMappings {
         name participatoryBudgetDistrictProposalsTechnicalReview: "/ajax/$userAlias/$urlTitle-$campaignId/proposals/technicalReview"  (controller: "participatoryBudget", action:"updateTechnicalReview")
 
         name districtProposalCreate:            "/account/$userAlias/pb/$urlTitle-$campaignId/new-proposal"         (controller: "districtProposal"){action = [GET: "create", POST: "saveNewProposal"]}
-        name districtProposalCreateContent:     "/account/$userAlias/pb/$urlTitle-$campaignId/new-proposal-content" (controller: "districtProposal"){action = [GET: "createByContent", POST: "saveNewProposalByContent"]}
         name districtProposalEditSettings:      "/account/$userAlias/pb/$participatoryBudgetTitle-$participatoryBudgetId/$urlTitle-$campaignId/edit-settings" (controller: "districtProposal"){action = [GET: "editSettingsStep", POST: "saveSettings"]}
         name districtProposalEditDistrict:      "/account/$userAlias/pb/$participatoryBudgetTitle-$participatoryBudgetId/$urlTitle-$campaignId/edit-district" (controller: "districtProposal"){action = [GET: "editDistrict", POST: "saveDistrict"]}
         name districtProposalEditContent:       "/account/$userAlias/pb/$participatoryBudgetTitle-$participatoryBudgetId/$urlTitle-$campaignId/edit-content" (controller: "districtProposal"){action = [GET: "editContentStep", POST: "saveContent"]}

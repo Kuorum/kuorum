@@ -22,16 +22,15 @@
         [
                 saveAndSentButtons:false,
                 step:'district',
-                content:'districtProposalCreateContent',
+                content:'districtProposalEditContent',
                 district:'districtProposalCreate',
                 showResult: 'campaignShow',
-                next: 'districtProposalCreateContent',
+                next: 'districtProposalEditContent',
                 hideDraftButton: true
         ]}"/>
 
     <g:render template="/districtProposal/editModules/editDistrict" model="[
             command: command,
-            campaign:campaign,
             participatoryBudget:participatoryBudget,
             numberRecipients:numberRecipients,
             mappings:mappings
