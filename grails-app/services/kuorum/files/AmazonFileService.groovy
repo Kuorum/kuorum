@@ -14,16 +14,16 @@ import kuorum.register.KuorumUserSession
 import kuorum.util.rest.RestKuorumApiService
 
 //import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-class AmazonFileService extends LocalFileService{
+class AmazonFileService extends LocalFileService {
 
-    private static final String BUCKET_TMP_FOLDER= "tmp"
+    private static final String BUCKET_TMP_FOLDER = "tmp"
 
     private static final long UPLOAD_PART_SIZE = 5242880; // Set part size to 5 MB.
 
 
     RestKuorumApiService restKuorumApiService;
 
-    public KuorumFile uploadTemporalFile(InputStream inputStream, KuorumUserSession userSession, String fileName, FileGroup fileGroup) throws KuorumException{
+    public KuorumFile uploadTemporalFile(InputStream inputStream, KuorumUserSession userSession, String fileName, FileGroup fileGroup) throws KuorumException {
         KuorumFile kuorumFile = uploadLocalTemporalFile(inputStream, userSession, fileName, fileGroup, userSession.alias)
         uploadAmazonFile(kuorumFile, Boolean.TRUE)
         kuorumFile
@@ -42,43 +42,43 @@ class AmazonFileService extends LocalFileService{
         String bucketName = grailsApplication.config.kuorum.amazon.bucketName;
         AmazonS3 s3Client = buildAmazonClient()
 
-        String searchPath = fileGroup.folderPath+"/"+cleanPath(path)
-        ObjectListing listing = s3Client.listObjects( bucketName, searchPath );
+        String searchPath = fileGroup.folderPath + "/" + cleanPath(path)
+        ObjectListing listing = s3Client.listObjects(bucketName, searchPath);
         List<S3ObjectSummary> summaries = listing.getObjectSummaries();
         while (listing.isTruncated()) {
-            listing = s3Client.listNextBatchOfObjects (listing);
-            summaries.addAll (listing.getObjectSummaries());
+            listing = s3Client.listNextBatchOfObjects(listing);
+            summaries.addAll(listing.getObjectSummaries());
         }
 
-        List<KuorumFile> files = listing.objectSummaries.collect{S3ObjectSummary s3o ->
-            String encodedKey = s3o.key.split("/").collect{java.net.URLEncoder.encode(it, "UTF-8")}.join("/")
+        List<KuorumFile> files = listing.objectSummaries.collect { S3ObjectSummary s3o ->
+            String encodedKey = s3o.key.split("/").collect { java.net.URLEncoder.encode(it, "UTF-8") }.join("/")
             String url = buildAmazonUrl(encodedKey)
             return KuorumFile.findByUrl(url)
         }
         return files
     }
 
-    KuorumFile convertTemporalToFinalFile(KuorumFile kuorumFile){
-        if (kuorumFile?.temporal){
+    KuorumFile convertTemporalToFinalFile(KuorumFile kuorumFile) {
+        if (kuorumFile?.temporal) {
             String localTempPath = calculateLocalStoragePath(kuorumFile)
             File org = new File("${localTempPath}/${kuorumFile.fileName}")
-            if (!org.exists()){
+            if (!org.exists()) {
                 log.info("File not exits. This request comes from other server. Downloading it from Amazon")
                 org = downloadAmazonFileToLocal(kuorumFile);
             }
             if (kuorumFile.fileGroup == FileGroup.USER_AVATAR) {
                 String fileUrl = uploadAvatar(kuorumFile, org)
                 kuorumFile.setUrl(fileUrl)
-            }else if(kuorumFile.fileGroup == FileGroup.USER_PROFILE){
+            } else if (kuorumFile.fileGroup == FileGroup.USER_PROFILE) {
                 String fileUrl = uploadImgProfile(kuorumFile, org)
                 kuorumFile.setUrl(fileUrl)
-            }else if(kuorumFile.fileGroup == FileGroup.PROJECT_IMAGE){
+            } else if (kuorumFile.fileGroup == FileGroup.PROJECT_IMAGE) {
                 String fileUrl = uploadCampaignImage(kuorumFile, org)
                 kuorumFile.setUrl(fileUrl)
-            }else if(kuorumFile.fileGroup == FileGroup.MASS_MAIL_IMAGE){
+            } else if (kuorumFile.fileGroup == FileGroup.MASS_MAIL_IMAGE) {
                 String fileUrl = uploadNewsletterImage(kuorumFile, org)
                 kuorumFile.setUrl(fileUrl)
-            }else{
+            } else {
                 uploadAmazonFile(kuorumFile, Boolean.FALSE)
             }
 
@@ -97,9 +97,9 @@ class AmazonFileService extends LocalFileService{
         kuorumFile
     }
 
-    private File downloadAmazonFileToLocal(KuorumFile file){
+    private File downloadAmazonFileToLocal(KuorumFile file) {
         log.info("Downloading ${file.relativePath} from Amazon")
-        File localFile = File.createTempFile("Kuorum_","amazon");
+        File localFile = File.createTempFile("Kuorum_", "amazon");
         String sourceKey = file.storagePath
         String bucketName = grailsApplication.config.kuorum.amazon.bucketName;
         AmazonS3 s3Client = buildAmazonClient()
@@ -122,7 +122,7 @@ class AmazonFileService extends LocalFileService{
         return localFile;
     }
 
-    private String uploadAvatar(KuorumFile kuorumFile, File avatarFile){
+    private String uploadAvatar(KuorumFile kuorumFile, File avatarFile) {
         String fileName = java.net.URLEncoder.encode(kuorumFile.fileName, "UTF-8")
         Map<String, String> params = [userId: kuorumFile.user.id.toString()]
         Map<String, String> query = [:]
@@ -134,7 +134,8 @@ class AmazonFileService extends LocalFileService{
                 fileName
         )
     }
-    private String uploadImgProfile(KuorumFile kuorumFile, File avatarFile){
+
+    private String uploadImgProfile(KuorumFile kuorumFile, File avatarFile) {
         String fileName = java.net.URLEncoder.encode(kuorumFile.fileName, "UTF-8")
         Map<String, String> params = [userId: kuorumFile.user.id.toString()]
         Map<String, String> query = [:]
@@ -147,7 +148,7 @@ class AmazonFileService extends LocalFileService{
         )
     }
 
-   private String uploadCampaignImage(KuorumFile kuorumFile, File avatarFile){
+    private String uploadCampaignImage(KuorumFile kuorumFile, File avatarFile) {
         String fileName = java.net.URLEncoder.encode(kuorumFile.fileName, "UTF-8")
         Map<String, String> params = [campaignId: kuorumFile.campaignId.toString(), userId: kuorumFile.user.id.toString()]
         Map<String, String> query = [:]
@@ -160,7 +161,7 @@ class AmazonFileService extends LocalFileService{
         )
     }
 
-    private String uploadNewsletterImage(KuorumFile kuorumFile, File avatarFile){
+    private String uploadNewsletterImage(KuorumFile kuorumFile, File avatarFile) {
         String fileName = java.net.URLEncoder.encode(kuorumFile.fileName, "UTF-8")
         Map<String, String> params = [campaignId: kuorumFile.campaignId.toString(), userId: kuorumFile.user.id.toString()]
         Map<String, String> query = [:]
@@ -174,11 +175,11 @@ class AmazonFileService extends LocalFileService{
     }
 
 
-    protected  void copyAmazonFileFromTemporal(KuorumFile file, String destinationKey){
+    protected void copyAmazonFileFromTemporal(KuorumFile file, String destinationKey) {
         String sourceKey = file.storagePath
         if (sourceKey != destinationKey) {
             KuorumFile oldFile = KuorumFile.findByStoragePath(destinationKey);
-            if (oldFile){
+            if (oldFile) {
                 oldFile.delete()
             }
             String bucketName = grailsApplication.config.kuorum.amazon.bucketName;
@@ -210,11 +211,11 @@ class AmazonFileService extends LocalFileService{
         }
     }
 
-    protected void uploadAmazonFile(KuorumFile kuorumFile, Boolean asTemporal){
-        if (kuorumFile.fileType == FileType.IMAGE){
+    protected void uploadAmazonFile(KuorumFile kuorumFile, Boolean asTemporal) {
+        if (kuorumFile.fileType == FileType.IMAGE) {
             String bucketName = grailsApplication.config.kuorum.amazon.bucketName;
-            String keyName    = generateAmazonKey(kuorumFile, asTemporal)
-            String filePath   = "${calculateLocalStoragePath(kuorumFile)}/${kuorumFile.fileName}";
+            String keyName = generateAmazonKey(kuorumFile, asTemporal)
+            String filePath = "${calculateLocalStoragePath(kuorumFile)}/${kuorumFile.fileName}";
 
             AmazonS3 s3Client = buildAmazonClient();
 
@@ -229,7 +230,7 @@ class AmazonFileService extends LocalFileService{
 
             // Step 1: Initialize.
             InitiateMultipartUploadRequest initRequest = new InitiateMultipartUploadRequest(bucketName, keyName);
-            initRequest.putCustomRequestHeader("Cache-Control", "max-age=${3600*24*30}") // 30 days = 2592000 secs
+            initRequest.putCustomRequestHeader("Cache-Control", "max-age=${3600 * 24 * 30}") // 30 days = 2592000 secs
             initRequest.putCustomRequestHeader("Expires", "Thu, 15 Apr 2050 00:00:00 GMT")
 
             InitiateMultipartUploadResult initResponse = s3Client.initiateMultipartUpload(initRequest);
@@ -260,8 +261,7 @@ class AmazonFileService extends LocalFileService{
                 }
 
                 // Step 3: Complete.
-                CompleteMultipartUploadRequest compRequest = new
-                CompleteMultipartUploadRequest(
+                CompleteMultipartUploadRequest compRequest = new CompleteMultipartUploadRequest(
                         bucketName,
                         keyName,
                         initResponse.getUploadId(),
@@ -271,37 +271,37 @@ class AmazonFileService extends LocalFileService{
                 String finalUrl = uploadResult.getLocation().replaceAll("%2F", "/")
 
                 kuorumFile.temporal = asTemporal
-                kuorumFile.url =finalUrl
+                kuorumFile.url = finalUrl
                 kuorumFile.urlThumb = finalUrl
-                kuorumFile.fileType = asTemporal?FileType.IMAGE:FileType.AMAZON_IMAGE
+                kuorumFile.fileType = asTemporal ? FileType.IMAGE : FileType.AMAZON_IMAGE
                 kuorumFile.local = !asTemporal;
                 kuorumFile.storagePath = keyName
                 kuorumFile.save(flush: true)
                 log.info("Se ha subido la imagen a Amazon. URL del exterior: ${kuorumFile.url}")
             } catch (Exception e) {
                 s3Client.abortMultipartUpload(new AbortMultipartUploadRequest(bucketName, keyName, initResponse.getUploadId()));
-                log.error("Ha habido un error subiendo el fichero a Amazon.",e);
+                log.error("Ha habido un error subiendo el fichero a Amazon.", e);
             }
         }
     }
 
-    String uploadDomainLogo(File file, String domain){
-        String keyName    = "${DOMAIN_PATH}/${domain}/${DOMAIN_CUSTOM_LOGO_FILE}"
+    String uploadDomainLogo(File file, String domain) {
+        String keyName = "${DOMAIN_PATH}/${domain}/${DOMAIN_CUSTOM_LOGO_FILE}"
         String urlLogo = uploadFileToAmazon(file, "image/png", keyName)
         log.info("Se ha subido un nuevo Logo del dominio")
         return urlLogo
     }
 
-    String uploadDomainFaviconFile(File file, String domain){
-        String keyName    = "${DOMAIN_PATH}/${domain}/${DOMAIN_CUSTOM_FAVICON_FOLDER}/${file.name}"
-        String contentType = file.name=='favicon.ico'?"image/x-icon":"image/png"
+    String uploadDomainFaviconFile(File file, String domain) {
+        String keyName = "${DOMAIN_PATH}/${domain}/${DOMAIN_CUSTOM_FAVICON_FOLDER}/${file.name}"
+        String contentType = file.name == 'favicon.ico' ? "image/x-icon" : "image/png"
         String urlLogo = uploadFileToAmazon(file, contentType, keyName)
         return urlLogo
     }
 
-    private String uploadFileToAmazon(File file, String contentType, String key){
+    private String uploadFileToAmazon(File file, String contentType, String key) {
         String bucketName = grailsApplication.config.kuorum.amazon.bucketName;
-        String keyName    = key
+        String keyName = key
 
         AmazonS3 s3Client = buildAmazonClient()
 
@@ -315,7 +315,7 @@ class AmazonFileService extends LocalFileService{
 
         // Step 1: Initialize.
         InitiateMultipartUploadRequest initRequest = new InitiateMultipartUploadRequest(bucketName, keyName);
-        initRequest.putCustomRequestHeader("Cache-Control", "max-age=${3600*24*30}") // 30 days = 2592000 secs
+        initRequest.putCustomRequestHeader("Cache-Control", "max-age=${3600 * 24 * 30}") // 30 days = 2592000 secs
         initRequest.putCustomRequestHeader("Expires", "Thu, 15 Apr 2050 00:00:00 GMT")
         ObjectMetadata metadata = new ObjectMetadata();
 //        metadata.setContentEncoding("gzip");
@@ -353,8 +353,7 @@ class AmazonFileService extends LocalFileService{
             }
 
             // Step 3: Complete.
-            CompleteMultipartUploadRequest compRequest = new
-                    CompleteMultipartUploadRequest(
+            CompleteMultipartUploadRequest compRequest = new CompleteMultipartUploadRequest(
                     bucketName,
                     keyName,
                     initResponse.getUploadId(),
@@ -367,19 +366,19 @@ class AmazonFileService extends LocalFileService{
             return finalUrl;
         } catch (Exception e) {
             s3Client.abortMultipartUpload(new AbortMultipartUploadRequest(bucketName, keyName, initResponse.getUploadId()));
-            log.error("Ha habido un error subiendo el fichero a Amazon.",e);
+            log.error("Ha habido un error subiendo el fichero a Amazon.", e);
             return null;
         }
     }
 
-    protected KuorumFile postProcessCroppingImage(KuorumFile  kuorumFile){
+    protected KuorumFile postProcessCroppingImage(KuorumFile kuorumFile) {
         deleteAmazonFile(kuorumFile, true)
         uploadAmazonFile(kuorumFile, true)
         return kuorumFile
     }
 
-    protected void deleteAmazonFile(KuorumFile file, boolean temporal = false){
-        if (file && file.fileType==FileType.AMAZON_IMAGE){
+    protected void deleteAmazonFile(KuorumFile file, boolean temporal = false) {
+        if (file && file.fileType == FileType.AMAZON_IMAGE) {
             String bucketName = grailsApplication.config.kuorum.amazon.bucketName;
             AmazonS3 s3client = buildAmazonClient()
             s3client.deleteObject(new DeleteObjectRequest(bucketName, generateAmazonKey(file, temporal)));
@@ -387,64 +386,65 @@ class AmazonFileService extends LocalFileService{
         }
     }
 
-    private String generateAmazonKey(KuorumFile file, boolean temporal = false){
-        if (file.relativePath && file.relativePath.size()>1){ // relativePath !="/"
-            return "${temporal?BUCKET_TMP_FOLDER:file.fileGroup.folderPath}/${cleanPath(file.relativePath)}/${file.fileName}"
-        }else{
-            return "${temporal?BUCKET_TMP_FOLDER:file.fileGroup.folderPath}/${file.fileName}"
+    private String generateAmazonKey(KuorumFile file, boolean temporal = false) {
+        if (file.relativePath && file.relativePath.size() > 1) { // relativePath !="/"
+            return "${temporal ? BUCKET_TMP_FOLDER : file.fileGroup.folderPath}/${cleanPath(file.relativePath)}/${file.fileName}"
+        } else {
+            return "${temporal ? BUCKET_TMP_FOLDER : file.fileGroup.folderPath}/${file.fileName}"
         }
     }
 
-    private String cleanPath(String path){
-        if (path && path.startsWith("/")){
+    private String cleanPath(String path) {
+        if (path && path.startsWith("/")) {
             return path.substring(1)
-        }else if (path){
+        } else if (path) {
             return path
-        }else{
+        } else {
             return "";
         }
 
     }
 
-    void uploadDomainCss(File file, String domain){
-        String keyName    = "${DOMAIN_PATH}/${domain}/${DOMAIN_CUSTOM_CSS_FILE}"
+    void uploadDomainCss(File file, String domain) {
+        String keyName = "${DOMAIN_PATH}/${domain}/${DOMAIN_CUSTOM_CSS_FILE}"
         uploadFileToAmazon(file, "text/css", keyName)
     }
-
 
 
     private String DOMAIN_PATH = "domains"
     private String DOMAIN_CUSTOM_CSS_FILE = "custom.css"
     private String DOMAIN_CUSTOM_LOGO_FILE = "logo.png"
     private String DOMAIN_CUSTOM_FAVICON_FOLDER = "favicon"
-    String getDomainCssUrl(String domain){
+
+    String getDomainCssUrl(String domain) {
         buildAmazonDomainUrl(domain, DOMAIN_CUSTOM_CSS_FILE)
     }
 
 
-    String getDomainLogoUrl(String domain){
+    String getDomainLogoUrl(String domain) {
         buildAmazonDomainUrl(domain, DOMAIN_CUSTOM_LOGO_FILE)
     }
 
-    String getStaticRootDomainPath(String domain){
+    String getStaticRootDomainPath(String domain) {
         buildAmazonDomainUrl(domain, "")[0..-2]
     }
 
-    private String buildAmazonDomainUrl(String domain, String key){
-        String keyName    = "${DOMAIN_PATH}/${domain}/${key}"
+    private String buildAmazonDomainUrl(String domain, String key) {
+        String keyName = "${DOMAIN_PATH}/${domain}/${key}"
         return buildAmazonUrl(keyName)
     }
 
 
-    private String buildAmazonUrl(String relativePath){
+    private String buildAmazonUrl(String relativePath) {
         String bucketName = grailsApplication.config.kuorum.amazon.bucketName;
         return "https://${bucketName}.s3.amazonaws.com/${relativePath}"
     }
-    private AmazonS3  buildAmazonClient() {
+
+    private AmazonS3 buildAmazonClient() {
         String accessKey = grailsApplication.config.kuorum.amazon.accessKey
         String secretKey = grailsApplication.config.kuorum.amazon.secretKey
 
-        AWSCredentials credentials = new BasicAWSCredentials(accessKey,secretKey);
+        AWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
 
         AmazonS3 s3Client = new AmazonS3Client(credentials);
         return s3Client
