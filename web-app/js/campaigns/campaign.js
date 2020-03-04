@@ -10,7 +10,6 @@ var campaignFunctions={
                 // var upperLimit = $("section#main .comment-box").offset();
                 var campaignMainInfo = $("section#main .leader-post");
                 var upperLimit = campaignMainInfo.offset().top + campaignMainInfo.height()
-                console.log(upperLimit)
                 var buttonPosition = $("section#main .leader-post .header .call-to-action-mobile").offset();
                 if (buttonPosition.top > upperLimit) {
                     if ($(".call-to-action-mobile").is(":visible")) {
