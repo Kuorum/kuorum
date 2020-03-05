@@ -4,6 +4,10 @@ var userValidatedByDomain={
 
     executable : undefined,
     binded:false,
+    validated: false,
+    modalNotifications: undefined,
+    modal: undefined,
+    loading:undefined,
     checkUserValid:function(userId, executableFunctionCallback){
         var url = kuorumUrls.profileValidByDomainChecker;
         var data = {};
@@ -21,7 +25,10 @@ var userValidatedByDomain={
                         $("#validateDomain-modal-form-button-id").on("click",userValidatedByDomain.handleSubmitValidationForm );
                         $("#validatePhoneDomain-modal-form-button-id").on("click",userValidatedByDomain.sendSMSForPhoneValidation );
                         $("#validatePhoneCodeDomain-modal-form-button-id").on("click",userValidatedByDomain.handleSubmitValidationPhone );
+                        $("#validatePhoneCodeDomain-modal-form-button-back").on("click",userValidatedByDomain.showPhoneValidationStep1 );
                         userValidatedByDomain.binded = true
+                        userValidatedByDomain.modal = $("#domain-validation")
+                        userValidatedByDomain.modalNotifications = $("#domain-validation .modal-domain-validation-notifications")
                     }
 
                     // SHOW DOMAIN VALIDATION MODAL
@@ -36,12 +43,15 @@ var userValidatedByDomain={
                     }else if (!isUserLogged()){
                         // User is logged but the page is not reloaded
                         $('#domain-validation').on('hidden.bs.modal', function () {
-                            console.log("DISPLAY ERROR")
-                            // display.error(i18n.kuorum.web.commands.profile.DomainValidationCommand.validationError);
-                            // Delay reload to show the error message
+                            if (!userValidatedByDomain.validated){
+                                // Delay reload to show the error message
+                                display.error(i18n.kuorum.web.commands.profile.DomainValidationCommand.validationError);
+                            }
                             setTimeout(function(){noLoggedCallbacks.reloadPage() }, 1000); //1 sec
                         })
                     }
+                }else{
+                    userValidatedByDomain.validated = true
                 }
             },
             error:function(){
@@ -64,15 +74,27 @@ var userValidatedByDomain={
         $("#domain-validation .modal-domain-validation-census").show()
         $("#domain-validation .modal-domain-validation-phone").hide()
     },
+    showPhoneValidationStep1:function(e){
+        if (e != undefined){e.preventDefault();}
+        $("#domain-validation .modal-domain-validation-phone .modal-domain-validation-phone-step1").show();
+        $("#domain-validation .modal-domain-validation-phone .modal-domain-validation-phone-step2").hide();
+        userValidatedByDomain.hideModalLoading();
+        userValidatedByDomain.hideErrorModal();
+    },
+    showPhoneValidationStep2:function(e){
+        if (e != undefined){e.preventDefault();}
+        $("#domain-validation .modal-domain-validation-phone .modal-domain-validation-phone-step1").hide();
+        $("#domain-validation .modal-domain-validation-phone .modal-domain-validation-phone-step2").show();
+        userValidatedByDomain.hideModalLoading();
+        userValidatedByDomain.hideErrorModal();
+    },
 
     sendSMSForPhoneValidation:function(e){
         e.preventDefault();
         var $button = $(this);
         var $form = $button.closest("form");
-        var $loading = $button.siblings(".loading");
         if ($form.valid()) {
-            $loading.show();
-            $button.hide();
+            userValidatedByDomain.showModalLoading();
             var url = kuorumUrls.profileValidPhoneByDomainSendSms;
             var data = {phoneNumber: $("#phoneNumber").val()};
             $.ajax({
@@ -81,14 +103,13 @@ var userValidatedByDomain={
                 data: data,
                 success: function (dataSms) {
                     $("#phoneHash").val(dataSms.hash)
-                    $("#domain-validation .modal-domain-validation-phone .modal-domain-validation-phone-step1").hide()
-                    $("#domain-validation .modal-domain-validation-phone .modal-domain-validation-phone-step2").show()
+                    userValidatedByDomain.showPhoneValidationStep2();
                 },
                 error: function (dataError) {
                     display.error("There was an error sending a sms validation to your phone number")
                 },
                 complete: function () {
-                    // pageLoadingOff();
+                    // userValidatedByDomain.hideModalLoading()
                 }
             });
         }
@@ -99,9 +120,7 @@ var userValidatedByDomain={
         var $button = $(this);
         var $form = $button.closest("form");
         if ($form.valid()) {
-            var $loading = $button.siblings(".loading");
-            $loading.show();
-            $button.hide();
+            userValidatedByDomain.showModalLoading();
             var url = kuorumUrls.profileValidPhoneByDomainValidate;
             var data = {
                 phoneHash: $("#phoneHash").val(),
@@ -112,13 +131,13 @@ var userValidatedByDomain={
                 url: url,
                 data: data,
                 success: function (dataSmsValidation) {
-                    userValidatedByDomain.nextValidationStep(dataSmsValidation, $button);
+                    userValidatedByDomain.nextValidationStep(dataSmsValidation);
                 },
                 error: function (dataError) {
                     display.error("Error validating the sms")
                 },
                 complete: function () {
-                    // pageLoadingOff();
+                    userValidatedByDomain.hideModalLoading()
                 }
             });
         }
@@ -136,47 +155,68 @@ var userValidatedByDomain={
         var $form = $button.closest("form");
         var url = $form.attr("action");
         var data = $form.serialize();
-        var $loading = $button.siblings(".loading");
         if ($form.valid()){
-            $loading.show();
-            $button.hide();
+            userValidatedByDomain.showModalLoading();
 
             $.ajax({
                 type: "POST",
                 url: url,
                 data: data,
                 success: function (data) {
-                    userValidatedByDomain.nextValidationStep(data, $button);
+                    userValidatedByDomain.nextValidationStep(data);
                 },
                 error:function(){
                     // Wrong user validation
                     display.error("Error validating user")
                 },
                 complete: function () {
-                    $loading.hide()
+                    userValidatedByDomain.hideModalLoading()
                     // pageLoadingOff();
                 }
             });
         }
     },
 
-    nextValidationStep: function(callbackData, $button){
+    showModalLoading:function(){
+        userValidatedByDomain.modalNotifications.show();
+        userValidatedByDomain.modalNotifications.find(".loading").show();
+        userValidatedByDomain.modal.find(".modal-login-action-buttons").hide();
+    },
+    hideModalLoading:function(){
+        if (!userValidatedByDomain.modalNotifications.find(".text-danger").is(":visible")){
+            userValidatedByDomain.modalNotifications.hide();
+        }
+        userValidatedByDomain.modalNotifications.find(".loading").hide();
+        userValidatedByDomain.modal.find(".modal-login-action-buttons").show();
+    },
+    showErrorModal:function(msg){
+        userValidatedByDomain.hideModalLoading();
+        userValidatedByDomain.modalNotifications.show();
+        userValidatedByDomain.modalNotifications.find(".text-danger .text-error-data").html(msg);
+        userValidatedByDomain.modalNotifications.find(".text-danger").show();
+        userValidatedByDomain.modal.find(".modal-login-action-buttons").show();
+    },
+
+    hideErrorModal:function(){
+        userValidatedByDomain.modalNotifications.hide();
+        userValidatedByDomain.modalNotifications.find(".text-danger").hide();
+        userValidatedByDomain.modal.find(".modal-login-action-buttons").show();
+    },
+
+    nextValidationStep: function(callbackData){
         // Success is 200 code No
         console.log(callbackData);
         if (callbackData.validated) {
+            userValidatedByDomain.hideErrorModal();
             executable.exec();
-            $("#validateDomain-modal-form-button-id").siblings(".text-success").show();
+            userValidatedByDomain.validated = true;
+            $("#validateDomain-modal-form-button-id").find(".text-success").show();
             setTimeout(function () {
                 $("#domain-validation").modal("hide")
             }, 1000);
         }else if (!callbackData.success){ // ERRORS ON AJAX CALL
             // RESTORE STATUS
-            if ($button != undefined){
-                $button.show();
-                var $loading = $button.siblings(".loading");
-                $loading.hide();
-            }
-            display.error(callbackData.msg)
+            userValidatedByDomain.showErrorModal(callbackData.msg)
         }
 
         if (!callbackData.pendingValidations.censusValidation){

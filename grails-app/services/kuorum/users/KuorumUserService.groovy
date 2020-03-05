@@ -443,7 +443,7 @@ class KuorumUserService {
             return false
         }
     }
-    String userPhoneDomainValidation(KuorumUserSession user, String hash, String code){
+    boolean userPhoneDomainValidation(KuorumUserSession user, String hash, String code){
         Map<String, String> params = [userId: user.getId().toString()]
         Map<String, String> query = [:]
         UserPhoneValidationDTO userPhoneValidationDTO = new UserPhoneValidationDTO(code:code, hash:hash)
@@ -458,7 +458,7 @@ class KuorumUserService {
             springSecurityService.reauthenticate user.email
             return springSecurityService.authentication.authorities.find{it.authority==UserRoleRSDTO.ROLE_USER_VALIDATED.toString()}
         }catch (Exception e){
-            log.error("Exception validating user: [Excpt: ${e}]")
+            log.error("Exception validating user: [Excpt: ${e?.cause?.cause?.getMessage()}]")
             return false
         }
     }
