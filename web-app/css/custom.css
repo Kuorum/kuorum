@@ -3012,12 +3012,21 @@ h2.underline {border-bottom: 1px solid #dadada; padding: 0 0 10px 0; margin-top:
 .modal-register .modal-dialog {width: 290px; margin: 10px auto;}
 .modal-register .modal-dialog .modal-body {padding: 8px;}
 
-.modal-domain-validation .modal-domain-validation-notifications{display:none; min-height: auto; margin:20px 0 0;}
+.modal-domain-validation ul.modal-domain-validation-step-tabs {padding:0;margin:0;}
+.modal-domain-validation ul.modal-domain-validation-step-tabs li{list-style: none; display: inline-block; padding:5px 20px; border-top-left-radius: 10px 5px; border-top-right-radius: 10px 5px;}
+.modal-domain-validation ul.modal-domain-validation-step-tabs li.active{background: #eee}
+.modal-domain-validation ul.modal-domain-validation-step-tabs li.inactive{display: none;}
+.modal-domain-validation .modal-domain-validation-notifications,
+.modal-domain-validation .modal-body form{background: #eee;padding:10px;}
+.modal-domain-validation .modal-domain-validation-notifications{display:none; min-height: auto;}
 .modal-domain-validation .modal-domain-validation-notifications p{margin:0; padding: 0;}
 .modal-domain-validation .modal-domain-validation-census{}
 .modal-domain-validation .modal-domain-validation-phone{display:none;}
 .modal-domain-validation .modal-domain-validation-phone .modal-domain-validation-phone-step1{}
 .modal-domain-validation .modal-domain-validation-phone .modal-domain-validation-phone-step2{display:none;}
+.modal-domain-validation .form-group-phone select {width: 30%; background: #fff;margin-right: 5px;}
+.modal-domain-validation .form-group-phone input {width: 65%;}
+.modal-domain-validation .btn.btn-grey-light {color:#ccc;}
 
 .modal .input-group-addon,
 .dropdown .input-group-addon {width: 95px;}

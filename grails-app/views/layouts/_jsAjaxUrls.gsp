@@ -133,7 +133,7 @@
                     },
                     profile:{
                         DomainValidationCommand:{
-                            validationError :"<g:message code="kuorum.web.commands.profile.DomainValidationCommand.validationError"/>"
+                            closeWithoutValidation :"<g:message code="kuorum.web.commands.profile.DomainValidationCommand.closeWithoutValidation"/>"
                         }
                     }
                 }

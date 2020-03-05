@@ -1,22 +1,27 @@
 <%@ page import="kuorum.web.commands.profile.DomainUserPhoneCodeValidationCommand" %>
 <g:set var="validatePhoneCommand" value="${new kuorum.web.commands.profile.DomainUserPhoneValidationCommand()}"/>
 <g:set var="validatePhoneCodeCommand" value="${new kuorum.web.commands.profile.DomainUserPhoneCodeValidationCommand()}"/>
+<g:render template="/layouts/modals/modalDomainValidation_tabs"/>
 <div class="modal-domain-validation-phone-step1">
     <formUtil:validateForm bean="${validatePhoneCommand}" form="modal-form-validate-phone-user-domain"/>
     <g:form mapping="profileValidByDomainValidate" method="POST" name="modal-form-validate-phone-user-domain">
         <div class="form-group">
-            <div class="form-group">
+            <div class="form-group form-group-phone">
+                <select class="form-control input-lg  col-xs-4">
+                    <option value="+34">+34</option>
+                </select>
                 <formUtil:input
                         command="${validatePhoneCommand}"
                         field="phoneNumber"
-                        showLabel="true"
+                        showLabel="false"
+                        placeHolder=""
                         cssClass="form-control input-lg"
                         required="true"/>
             </div>
         </div>
 
 
-        <fieldset class="form-group center modal-login-action-buttons">
+        <fieldset class="center modal-login-action-buttons">
             <button id="validatePhoneDomain-modal-form-button-id" class="btn btn-orange">
                 <g:message code="kuorum.web.commands.profile.DomainUserPhoneValidationCommand.modal.submit"/>
             </button>

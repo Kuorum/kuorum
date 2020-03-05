@@ -1,5 +1,6 @@
 <g:set var="validateCommand" value="${new kuorum.web.commands.profile.DomainValidationCommand()}"/>
 <formUtil:validateForm bean="${validateCommand}" form="modal-form-validate-user-domain"/>
+<g:render template="/layouts/modals/modalDomainValidation_tabs"/>
 <g:form mapping="profileValidByDomainValidate" method="POST" name="modal-form-validate-user-domain">
     <div class="form-group">
         <formUtil:input
@@ -26,7 +27,7 @@
                 showLabel="true"
                 datePickerType="birthDate"/>
     </div>
-    <fieldset class="form-group center modal-login-action-buttons">
+    <fieldset class="center modal-login-action-buttons">
         <button id="validateDomain-modal-form-button-id" class="btn btn-orange btn-lg">
             <g:message code="kuorum.web.commands.profile.DomainValidationCommand.modal.submit"/>
         </button>

@@ -8,6 +8,42 @@ var userValidatedByDomain={
     modalNotifications: undefined,
     modal: undefined,
     loading:undefined,
+
+    initVariables:function(){
+        if(!userValidatedByDomain.binded){
+            $("#validateDomain-modal-form-button-id").on("click",userValidatedByDomain.handleSubmitValidationForm );
+            $("#validatePhoneDomain-modal-form-button-id").on("click",userValidatedByDomain.sendSMSForPhoneValidation );
+            $("#validatePhoneCodeDomain-modal-form-button-id").on("click",userValidatedByDomain.handleSubmitValidationPhone );
+            $("#validatePhoneCodeDomain-modal-form-button-back").on("click",userValidatedByDomain.showPhoneValidationStep1 );
+            userValidatedByDomain.binded = true
+            userValidatedByDomain.modal = $("#domain-validation")
+            userValidatedByDomain.modalNotifications = $("#domain-validation .modal-domain-validation-notifications")
+        }
+    },
+
+    openAndPrepareValidationModal:function(){
+        // Open validation modal
+        $("#domain-validation").modal("show");
+
+        // CLOSE LOGIN MODAL IF IT IS OPEN
+        if (($("#registro").data('bs.modal') || {}).isShown){
+            $("#registro").modal("hide");
+            $('#domain-validation').on('hidden.bs.modal', function () {
+                noLoggedCallbacks.reloadPage()
+            })
+        }
+
+        if (!isUserLogged()){
+            // User is logged but the page is not reloaded
+            $('#domain-validation').on('hidden.bs.modal', function () {
+                if (!userValidatedByDomain.validated){
+                    // Delay reload to show the error message
+                    display.error(i18n.kuorum.web.commands.profile.DomainValidationCommand.closeWithoutValidation);
+                }
+                setTimeout(function(){noLoggedCallbacks.reloadPage() }, 1000); //1 sec
+            })
+        }
+    },
     checkUserValid:function(userId, executableFunctionCallback){
         var url = kuorumUrls.profileValidByDomainChecker;
         var data = {};
@@ -18,38 +54,10 @@ var userValidatedByDomain={
             data: data,
             success: function (dataLogin) {
                 console.log(dataLogin)
+                userValidatedByDomain.initVariables();
                 userValidatedByDomain.nextValidationStep(dataLogin);
                 if (!dataLogin.validated){
-                    // INIT BUTTONS
-                    if(!userValidatedByDomain.binded){
-                        $("#validateDomain-modal-form-button-id").on("click",userValidatedByDomain.handleSubmitValidationForm );
-                        $("#validatePhoneDomain-modal-form-button-id").on("click",userValidatedByDomain.sendSMSForPhoneValidation );
-                        $("#validatePhoneCodeDomain-modal-form-button-id").on("click",userValidatedByDomain.handleSubmitValidationPhone );
-                        $("#validatePhoneCodeDomain-modal-form-button-back").on("click",userValidatedByDomain.showPhoneValidationStep1 );
-                        userValidatedByDomain.binded = true
-                        userValidatedByDomain.modal = $("#domain-validation")
-                        userValidatedByDomain.modalNotifications = $("#domain-validation .modal-domain-validation-notifications")
-                    }
-
-                    // SHOW DOMAIN VALIDATION MODAL
-                    $("#domain-validation").modal("show");
-
-                    // CLOSE LOGIN MODAL IF IT IS OPEN
-                    if (($("#registro").data('bs.modal') || {}).isShown){
-                        $("#registro").modal("hide");
-                        $('#domain-validation').on('hidden.bs.modal', function () {
-                            noLoggedCallbacks.reloadPage()
-                       })
-                    }else if (!isUserLogged()){
-                        // User is logged but the page is not reloaded
-                        $('#domain-validation').on('hidden.bs.modal', function () {
-                            if (!userValidatedByDomain.validated){
-                                // Delay reload to show the error message
-                                display.error(i18n.kuorum.web.commands.profile.DomainValidationCommand.validationError);
-                            }
-                            setTimeout(function(){noLoggedCallbacks.reloadPage() }, 1000); //1 sec
-                        })
-                    }
+                    userValidatedByDomain.openAndPrepareValidationModal();
                 }else{
                     userValidatedByDomain.validated = true
                 }
@@ -65,14 +73,18 @@ var userValidatedByDomain={
             }
         });
     },
-
-    showPhoneValidation:function(){
-        $("#domain-validation .modal-domain-validation-census").hide()
-        $("#domain-validation .modal-domain-validation-phone").show()
-    },
     showCensusValidation:function(){
         $("#domain-validation .modal-domain-validation-census").show()
         $("#domain-validation .modal-domain-validation-phone").hide()
+        $("#domain-validation .modal-domain-validation-step-tabs li").removeClass("active");
+        $("#domain-validation .modal-domain-validation-step-tabs li:first-child").addClass("active");
+    },
+
+    showPhoneValidation:function(){
+        $("#domain-validation .modal-domain-validation-census").hide();
+        $("#domain-validation .modal-domain-validation-phone").show();
+        $("#domain-validation .modal-domain-validation-step-tabs li").removeClass("active");
+        $("#domain-validation .modal-domain-validation-step-tabs li:last-child").addClass("active");
     },
     showPhoneValidationStep1:function(e){
         if (e != undefined){e.preventDefault();}

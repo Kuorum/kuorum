@@ -14,15 +14,15 @@
                 <div class="modal-domain-validation-phone">
                     <g:render template="/layouts/modals/modalDomainValidation_PhoneForm"/>
                 </div>
-                <fieldset class="form-group center modal-domain-validation-notifications">
+                <fieldset class="center modal-domain-validation-notifications">
                     <p class="loading" style="display: none"></p>
                     <p class="text-success" style="display: none">
                         <g:message code="kuorum.web.commands.profile.DomainValidationCommand.modal.success"/>
                         <span class="fal fa-check-circle"></span>
                     </p>
                     <p class="text-danger" style="display: none">
-                        <span class="text-error-data">error</span>
                         <span class="fal fa-exclamation-circle"></span>
+                        <span class="text-error-data">error</span>
                     </p>
                 </fieldset>
             </div>
