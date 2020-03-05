@@ -73,6 +73,7 @@ class AdminController {
         DomainConfigCommand domainConfigCommand = new DomainConfigCommand()
         domainConfigCommand.name = domainRSDTO.name
         domainConfigCommand.validation = domainRSDTO.validation
+        domainConfigCommand.validationPhone = domainRSDTO.validationPhone
         domainConfigCommand.language = domainRSDTO.language
         domainConfigCommand.mainColor = domainRSDTO.mainColor
         domainConfigCommand.mainColorShadowed = domainRSDTO.mainColorShadowed
@@ -96,6 +97,7 @@ class AdminController {
         DomainRDTO domainRDTO = getPopulatedDomainRDTO()
         domainRDTO.name = command.name
         domainRDTO.validation = command.validation?:false
+        domainRDTO.validationPhone = command.validationPhone?:false
         domainRDTO.language = command.language
         domainRDTO.mainColor = command.mainColor
         domainRDTO.mainColorShadowed = command.mainColorShadowed

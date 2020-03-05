@@ -9,6 +9,7 @@ class DomainConfigCommand {
     String name;
     LanguageRSDTO language;
     Boolean validation
+    Boolean validationPhone
     String mainColor;
     String mainColorShadowed;
     String secondaryColor;
@@ -25,6 +26,7 @@ class DomainConfigCommand {
         name nullable: false
         language nullable: false
         validation nullable: true
+        validationPhone nullable: true
         mainColor nullable:false, matches:HEX_PATTERN
         mainColorShadowed nullable: false, matches:HEX_PATTERN
         secondaryColor nullable: false, matches:HEX_PATTERN

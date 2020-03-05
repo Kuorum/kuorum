@@ -14,6 +14,9 @@
         <div class="form-group col-md-6">
             <formUtil:checkBox command="${command}" field="validation" showLabel="true" />
         </div>
+        <div class="form-group col-md-6">
+            <formUtil:checkBox command="${command}" field="validationPhone" showLabel="true" />
+        </div>
     </fieldset>
 
     <h4 class="box-ppal-section-title"><g:message code="kuorum.web.admin.domain.colors.label"/></h4>
