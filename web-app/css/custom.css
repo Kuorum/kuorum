@@ -3012,6 +3012,11 @@ h2.underline {border-bottom: 1px solid #dadada; padding: 0 0 10px 0; margin-top:
 .modal-register .modal-dialog {width: 290px; margin: 10px auto;}
 .modal-register .modal-dialog .modal-body {padding: 8px;}
 
+.modal-domain-validation .modal-domain-validation-census{}
+.modal-domain-validation .modal-domain-validation-phone{display:none;}
+.modal-domain-validation .modal-domain-validation-phone .modal-domain-validation-phone-step1{}
+.modal-domain-validation .modal-domain-validation-phone .modal-domain-validation-phone-step2{display:none;}
+
 .modal .input-group-addon,
 .dropdown .input-group-addon {width: 95px;}
 .modal .input-append,

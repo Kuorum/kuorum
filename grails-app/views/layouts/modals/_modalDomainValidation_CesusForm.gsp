@@ -1,0 +1,40 @@
+<g:set var="validateCommand" value="${new kuorum.web.commands.profile.DomainValidationCommand()}"/>
+<formUtil:validateForm bean="${validateCommand}" form="modal-form-validate-user-domain"/>
+<g:form mapping="profileValidByDomainValidate" method="POST" name="modal-form-validate-user-domain">
+    <div class="form-group">
+        <formUtil:input
+                command="${validateCommand}"
+                field="ndi"
+                cssClass="form-control input-lg"
+                showLabel="false"
+                showCharCounter="false"
+                required="true"/>
+    </div>
+
+    <div class="form-group">
+        <formUtil:input
+                command="${validateCommand}"
+                field="postalCode"
+                showLabel="false"
+                cssClass="form-control input-lg"
+                required="true"/>
+    </div>
+    <div class="form-group">
+        <formUtil:date
+                command="${validateCommand}"
+                field="birthDate"
+                showLabel="true"
+                datePickerType="birthDate"/>
+    </div>
+    <div class="form-group center">
+        <button id="validateDomain-modal-form-button-id" class="btn btn-orange btn-lg">
+            <g:message code="kuorum.web.commands.profile.DomainValidationCommand.modal.submit"/>
+        </button>
+        <p class="loading" style="display: none"></p>
+        <p class="text-success" style="display: none">
+            <g:message code="kuorum.web.commands.profile.DomainValidationCommand.modal.success"/>
+            <span class="fal fa-check-circle"></span>
+        </p>
+    </div>
+
+</g:form>

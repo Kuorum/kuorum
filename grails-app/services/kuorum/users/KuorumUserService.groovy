@@ -26,6 +26,7 @@ import org.kuorum.rest.model.kuorumUser.KuorumUserRSDTO
 import org.kuorum.rest.model.kuorumUser.UserDataRDTO
 import org.kuorum.rest.model.kuorumUser.UserRoleRSDTO
 import org.kuorum.rest.model.kuorumUser.domainValidation.UserDataDomainValidationDTO
+import org.kuorum.rest.model.kuorumUser.domainValidation.UserPhoneValidationDTO
 import org.kuorum.rest.model.search.SearchKuorumElementRSDTO
 import org.kuorum.rest.model.search.SearchResultsRSDTO
 import org.kuorum.rest.model.search.SearchTypeRSDTO
@@ -423,7 +424,43 @@ class KuorumUserService {
             log.error("Exception validating user: [Excpt: ${e}]")
             return false
         }
+    }
 
+    String sendSMSWithValidationCode(KuorumUserSession user, String phoneNumber){
+        Map<String, String> params = [userId: user.getId().toString()]
+        Map<String, String> query = [phoneNumber:phoneNumber]
+        try{
+            def apiResponse= restKuorumApiService.post(
+                    RestKuorumApiService.ApiMethod.USER_PHONE_DOMAIN_VALIDATION,
+                    params,
+                    query,
+                    null,
+                    new TypeReference<String>(){}
+            )
+            return apiResponse.responseData.str
+        }catch (Exception e){
+            log.error("Exception validating user: [Excpt: ${e}]")
+            return false
+        }
+    }
+    String userPhoneDomainValidation(KuorumUserSession user, String hash, String code){
+        Map<String, String> params = [userId: user.getId().toString()]
+        Map<String, String> query = [:]
+        UserPhoneValidationDTO userPhoneValidationDTO = new UserPhoneValidationDTO(code:code, hash:hash)
+        try{
+            def apiResponse= restKuorumApiService.put(
+                    RestKuorumApiService.ApiMethod.USER_PHONE_DOMAIN_VALIDATION,
+                    params,
+                    query,
+                    userPhoneValidationDTO,
+                    new TypeReference<KuorumUserRSDTO>(){}
+            )
+            springSecurityService.reauthenticate user.email
+            return springSecurityService.authentication.authorities.find{it.authority==UserRoleRSDTO.ROLE_USER_VALIDATED.toString()}
+        }catch (Exception e){
+            log.error("Exception validating user: [Excpt: ${e}]")
+            return false
+        }
     }
 
     @Deprecated
