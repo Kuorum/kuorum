@@ -7,9 +7,14 @@
     <g:form mapping="profileValidByDomainValidate" method="POST" name="modal-form-validate-phone-user-domain">
         <div class="form-group">
             <div class="form-group form-group-phone">
-                <select class="form-control input-lg  col-xs-4">
-                    <option value="+34">+34</option>
-                </select>
+                <formUtil:selectPhonePrefix
+                        command="${validatePhoneCommand}"
+                        field="phoneNumberPrefix"
+                        showLabel="false"
+                        placeHolder=""
+                        cssClass="form-control input-lg"
+                        required="true"
+                        />
                 <formUtil:input
                         command="${validatePhoneCommand}"
                         field="phoneNumber"

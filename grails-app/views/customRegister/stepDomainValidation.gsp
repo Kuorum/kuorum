@@ -15,9 +15,9 @@
 
 <content tag="mainContent">
     <ol class="stepsSign">
-        <li class="active">1</li>
-        <li class="active">2</li>
-        <li class="active">3</li>
+        <li class=""></li>
+        <li class=""></li>
+        <li class="active"></li>
     </ol>
     <formUtil:validateForm bean="${command}" form="stepDomainValidation" autocomplete="off"/>
     <g:form mapping="customProcessRegisterDomainValidation" name="stepDomainValidation" role="form" method="POST" autocomplete="off"  class="signup stepDomainValidation">

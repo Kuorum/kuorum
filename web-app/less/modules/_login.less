@@ -1,12 +1,10 @@
 
 .stepsSign li{@text();}
 
-.stepsSign li.active,
-.stepsSign li.active::before,
-.stepsSign li.active::after {background-color: fade(@mainColor, 50%);}
+.stepsSign li::before{background-color: fade(@mainColor, 50%);}
+.stepsSign li.active::before{background-color: @mainColor}
 
 
-.stepsSign.stepsSignSecondaryColor li.active,
 .stepsSign.stepsSignSecondaryColor li.active::before,
 .stepsSign.stepsSignSecondaryColor li.active::after {background-color: fade(@secondColor, 50%);}
 

@@ -77,19 +77,20 @@ var userValidatedByDomain={
         $("#domain-validation .modal-domain-validation-census").show()
         $("#domain-validation .modal-domain-validation-phone").hide()
         $("#domain-validation .modal-domain-validation-step-tabs li").removeClass("active");
-        $("#domain-validation .modal-domain-validation-step-tabs li:first-child").addClass("active");
+        $("#domain-validation .modal-domain-validation-step-tabs li.modal-domain-validation-step-tabs-census").addClass("active");
     },
 
     showPhoneValidation:function(){
         $("#domain-validation .modal-domain-validation-census").hide();
         $("#domain-validation .modal-domain-validation-phone").show();
-        $("#domain-validation .modal-domain-validation-step-tabs li").removeClass("active");
-        $("#domain-validation .modal-domain-validation-step-tabs li:last-child").addClass("active");
+        userValidatedByDomain.showPhoneValidationStep1();
     },
     showPhoneValidationStep1:function(e){
         if (e != undefined){e.preventDefault();}
         $("#domain-validation .modal-domain-validation-phone .modal-domain-validation-phone-step1").show();
         $("#domain-validation .modal-domain-validation-phone .modal-domain-validation-phone-step2").hide();
+        $("#domain-validation .modal-domain-validation-step-tabs li").removeClass("active");
+        $("#domain-validation .modal-domain-validation-step-tabs li.modal-domain-validation-step-tabs-phoneNumber").addClass("active");
         userValidatedByDomain.hideModalLoading();
         userValidatedByDomain.hideErrorModal();
     },
@@ -97,6 +98,8 @@ var userValidatedByDomain={
         if (e != undefined){e.preventDefault();}
         $("#domain-validation .modal-domain-validation-phone .modal-domain-validation-phone-step1").hide();
         $("#domain-validation .modal-domain-validation-phone .modal-domain-validation-phone-step2").show();
+        $("#domain-validation .modal-domain-validation-step-tabs li").removeClass("active");
+        $("#domain-validation .modal-domain-validation-step-tabs li.modal-domain-validation-step-tabs-phoneCode").addClass("active");
         userValidatedByDomain.hideModalLoading();
         userValidatedByDomain.hideErrorModal();
     },
@@ -229,12 +232,12 @@ var userValidatedByDomain={
         }else if (!callbackData.success){ // ERRORS ON AJAX CALL
             // RESTORE STATUS
             userValidatedByDomain.showErrorModal(callbackData.msg)
-        }
-
-        if (!callbackData.pendingValidations.censusValidation){
-            userValidatedByDomain.showCensusValidation();
-        }else if (!callbackData.pendingValidations.phoneValidation){
-            userValidatedByDomain.showPhoneValidation();
+        }else{
+            if (!callbackData.pendingValidations.censusValidation){
+                userValidatedByDomain.showCensusValidation();
+            }else if (!callbackData.pendingValidations.phoneValidation){
+                userValidatedByDomain.showPhoneValidation();
+            }
         }
     }
 };

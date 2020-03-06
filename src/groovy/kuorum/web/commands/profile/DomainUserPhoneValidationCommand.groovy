@@ -8,9 +8,11 @@ import grails.validation.Validateable
 @Validateable
 class DomainUserPhoneValidationCommand {
 
+    String phoneNumberPrefix
     String phoneNumber
 
     static constraints = {
+        phoneNumberPrefix nullable:false
         phoneNumber nullable:false
     }
 }
