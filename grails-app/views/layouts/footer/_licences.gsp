@@ -10,7 +10,7 @@
             <a href="${i18nLink}" hreflang="${i18nLang}" target="_blank">
                 <img
                         src="https://kuorumorg.s3-eu-west-1.amazonaws.com/static/logos/ENS-distintivo_certificacion_BASICA.png"
-                        title="Esquema Nacional de Seguridad (ENS)"/>
+                        title="${g.message(code:'footer.ens.tooltip')}"/>
             </a>
         </nav:externalLangLink>
     </li>
