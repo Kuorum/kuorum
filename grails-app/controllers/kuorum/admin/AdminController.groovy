@@ -1,6 +1,7 @@
 package kuorum.admin
 
 import grails.converters.JSON
+import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.KuorumFile
 import kuorum.core.customDomain.CustomDomainResolver
@@ -96,8 +97,10 @@ class AdminController {
         }
         DomainRDTO domainRDTO = getPopulatedDomainRDTO()
         domainRDTO.name = command.name
-        domainRDTO.validation = command.validation?:false
-        domainRDTO.validationPhone = command.validationPhone?:false
+        if (SpringSecurityUtils.ifAllGranted("ROLE_SUPER_ADMIN")){
+            domainRDTO.validation = command.validation?:false
+            domainRDTO.validationPhone = command.validationPhone?:false
+        }
         domainRDTO.language = command.language
         domainRDTO.mainColor = command.mainColor
         domainRDTO.mainColorShadowed = command.mainColorShadowed
@@ -408,7 +411,7 @@ class AdminController {
         user.enabled = command.active?:false
         user = kuorumUserService.updateUser(user)
 
-        flash.message = message(code: 'admin.editUser.success', args: [user.name])
+        flash.message = "${user.name} updated"
 
         redirect(mapping: 'editorAdminUserRights', params: user.encodeAsLinkProperties())
     }

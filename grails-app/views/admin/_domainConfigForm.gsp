@@ -12,10 +12,10 @@
 
     <fieldset class="row">
         <div class="form-group col-md-6">
-            <formUtil:checkBox command="${command}" field="validation" showLabel="true" />
+            <formUtil:checkBox command="${command}" field="validation" showLabel="true" disabled="${!grails.plugin.springsecurity.SpringSecurityUtils.ifAllGranted("ROLE_SUPER_ADMIN")}"/>
         </div>
         <div class="form-group col-md-6">
-            <formUtil:checkBox command="${command}" field="validationPhone" showLabel="true" />
+            <formUtil:checkBox command="${command}" field="validationPhone" showLabel="true" disabled="${!grails.plugin.springsecurity.SpringSecurityUtils.ifAllGranted("ROLE_SUPER_ADMIN")}"/>
         </div>
     </fieldset>
 
