@@ -17,48 +17,25 @@
     <ol class="stepsSign">
         <li class=""><div class="step-label"><g:message code="customRegister.step2.title"/></div></li>
         <li class=""><div class="step-label"><g:message code="customRegister.step3.title"/></div></li>
-        <g:if test="${_domainValidations.census}"><li class="active"><div class="step-label"><g:message code="kuorum.web.commands.profile.DomainValidationCommand.title"/></div></li></g:if>
+        <g:if test="${_domainValidations.census}"><li class=""><div class="step-label"><g:message code="kuorum.web.commands.profile.DomainValidationCommand.title"/></div></li></g:if>
         <g:if test="${_domainValidations.phone}"><li class=""><div class="step-label"><g:message code="kuorum.web.commands.profile.DomainUserPhoneValidationCommand.title"/></div></li></g:if>
-        <g:if test="${_domainValidations.phone}"><li class=""><div class="step-label"><g:message code="kuorum.web.commands.profile.DomainUserPhoneCodeValidationCommand.title"/></div></li></g:if>
+        <g:if test="${_domainValidations.phone}"><li class="active"><div class="step-label"><g:message code="kuorum.web.commands.profile.DomainUserPhoneCodeValidationCommand.title"/></div></li></g:if>
         <li class=""><div class="step-label"><g:message code="customRegister.step4.title"/></div></li>
     </ol>
     <formUtil:validateForm bean="${command}" form="stepDomainValidation" autocomplete="off"/>
-    <g:form mapping="customProcessRegisterDomainValidation" name="stepDomainValidation" role="form" method="POST" autocomplete="off"  class="signup stepDomainValidation">
+    <g:form mapping="customProcessRegisterPoneValidationCode" name="stepDomainValidation" role="form" method="POST" autocomplete="off"  class="signup stepDomainValidation">
+        <input type="hidden" name="phoneHash" id="phoneHash" required="" value="${command.phoneHash}">
         <fieldset class="row">
             <div class="form-group col-md-offset-3  col-md-6">
                 <formUtil:input
                         command="${command}"
-                        field="ndi"
-                        cssClass="form-control input-lg"
+                        field="phoneCode"
                         showLabel="true"
-                        showCharCounter="false"
+                        cssClass="form-control input-lg"
                         required="true"/>
             </div>
         </fieldset>
 
-        <fieldset class="row">
-            <div class="form-group col-md-offset-3 col-md-6">
-                <input type="text" name="autocompleteNameOff" style="display:none" data-ays-ignore="true"/>
-                <formUtil:input
-                        command="${command}"
-                        field="postalCode"
-                        showLabel="true"
-                        cssClass="form-control input-lg"
-                        printValue="true"
-                        required="true"/>
-            </div>
-        </fieldset>
-
-        <fieldset class="row">
-            <div class="form-group col-md-offset-3 col-md-6">
-                <formUtil:date
-                        datePickerType="birthDate"
-                        command="${command}"
-                        field="birthDate"
-                        showLabel="true"/>
-            </div>
-
-        </fieldset>
 
         <fieldset class="row">
             <div class="form-group col-md-offset-3 col-md-6 center option-buttons">

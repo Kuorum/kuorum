@@ -21,6 +21,7 @@
                         showLabel="false"
                         placeHolder=""
                         cssClass="form-control input-lg"
+                        type="number"
                         required="true"/>
             </div>
         </div>

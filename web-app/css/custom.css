@@ -54,6 +54,7 @@ cite{
 
 .form-group-short {margin-bottom:10px;}
 .form-group-xshort {margin-bottom:0px;}
+
 .form-control,
 input[type="text"],
 input[type="number"],
@@ -66,6 +67,9 @@ select {padding: 6px 6px 6px 8px !important;}*/
 
 .form-group {margin-bottom: 20px;}
 .form-group .input-group.date{width: 100%;}
+.form-group-phone select {width: 30%; background: #fff;margin-right: 5px; float:left}
+.form-group-phone input {width: calc(70% - 5px);}
+
 
 .center{text-align:center;}
 
@@ -3065,8 +3069,6 @@ h2.underline {border-bottom: 1px solid #dadada; padding: 0 0 10px 0; margin-top:
 .modal-domain-validation .modal-domain-validation-phone{display:none;}
 .modal-domain-validation .modal-domain-validation-phone .modal-domain-validation-phone-step1{}
 .modal-domain-validation .modal-domain-validation-phone .modal-domain-validation-phone-step2{display:none;}
-.modal-domain-validation .form-group-phone select {width: 30%; background: #fff;margin-right: 5px; float:left}
-.modal-domain-validation .form-group-phone input {width: calc(70% - 5px);}
 .modal-domain-validation .loading {background: none;font-size: 30px;    height: auto;}
 
 .modal .input-group-addon,

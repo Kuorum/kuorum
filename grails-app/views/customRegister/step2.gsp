@@ -14,10 +14,13 @@
 </content>
 
 <content tag="mainContent">
-    <ol class="stepsSign no-label">
-        <li class=""></li>
-        <li class="active"></li>
-        <li class=""></li>
+    <ol class="stepsSign">
+        <li class=""><div class="step-label"><g:message code="customRegister.step2.title"/></div></li>
+        <li class="active"><div class="step-label"><g:message code="customRegister.step3.title"/></div></li>
+        <g:if test="${_domainValidations.census}"><li class=""><div class="step-label"><g:message code="kuorum.web.commands.profile.DomainValidationCommand.title"/></div></li></g:if>
+        <g:if test="${_domainValidations.phone}"><li class=""><div class="step-label"><g:message code="kuorum.web.commands.profile.DomainUserPhoneValidationCommand.title"/></div></li></g:if>
+        <g:if test="${_domainValidations.phone}"><li class=""><div class="step-label"><g:message code="kuorum.web.commands.profile.DomainUserPhoneCodeValidationCommand.title"/></div></li></g:if>
+        <li class=""><div class="step-label"><g:message code="customRegister.step4.title"/></div></li>
     </ol>
     <formUtil:validateForm bean="${command}" form="step2" autocomplete="off"/>
     <g:form mapping="customProcessRegisterStep2" name="step2" role="form" method="POST" autocomplete="off"  class="signup step2">

@@ -9,10 +9,14 @@ import grails.validation.Validateable
 class DomainUserPhoneValidationCommand {
 
     String phoneNumberPrefix
-    String phoneNumber
+    Long phoneNumber
 
     static constraints = {
         phoneNumberPrefix nullable:false
         phoneNumber nullable:false
+    }
+
+    public String getCompletePhoneNumber(){
+        return "${phoneNumberPrefix}${phoneNumber}"
     }
 }

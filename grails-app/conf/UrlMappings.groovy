@@ -401,9 +401,11 @@ class UrlMappings {
         name profilePictures:               "/edit-profile/pictures"                           (controller: "profile"){action=[GET:"editPictures", POST: "updatePictures"]}
         name profileNewsletterConfig:       "/config/newsletter-config"                        (controller: "profile"){action=[GET:"editNewsletterConfig", POST: "updateNewsletterConfig"]}
 
-        name customProcessRegisterStep2:            "/edit-profile/sign-up/step2"               (controller: "customRegister"){action = [GET:"step2", POST:"step2Save"]}
-        name customProcessRegisterStep3:            "/edit-profile/sign-up/step3"               (controller: "customRegister", action :"step3")
-        name customProcessRegisterDomainValidation: "/edit-profile/sign-up/domain-validation"   (controller: "customRegister"){action = [GET:"stepDomainValidation", POST:"stepDomainValidationSave"]}
+        name customProcessRegisterStep2:                "/edit-profile/sign-up/step2"               (controller: "customRegister"){action = [GET:"step2", POST:"step2Save"]}
+        name customProcessRegisterStep3:                "/edit-profile/sign-up/step3"               (controller: "customRegister", action :"step3")
+        name customProcessRegisterDomainValidation:     "/edit-profile/sign-up/domain-validation"   (controller: "customRegister"){action = [GET:"stepDomainValidation", POST:"stepDomainValidationSave"]}
+        name customProcessRegisterPoneValidationNumber: "/edit-profile/sign-up/phone-validation-number"   (controller: "customRegister"){action = [GET:"stepDomainValidationPhoneNumber"]}
+        name customProcessRegisterPoneValidationCode:   "/edit-profile/sign-up/phone-validation-code"   (controller: "customRegister"){action = [GET:"stepDomainValidationPhoneCode", POST:"stepDomainValidationPhoneCodeSave"]}
 
         name profileValidByDomainChecker:      "/ajax/edit-profile/domain-valid-cheker"  (controller: "profile", action :"domainUserValidChecker")
         name profileValidByDomainValidate:     "/ajax/edit-profile/domain-validate"      (controller: "profile", action :"validateUser")

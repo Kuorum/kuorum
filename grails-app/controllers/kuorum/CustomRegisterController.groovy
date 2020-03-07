@@ -11,6 +11,8 @@ import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
 import kuorum.users.PoliticianService
 import kuorum.web.commands.customRegister.Step2Command
+import kuorum.web.commands.profile.DomainUserPhoneCodeValidationCommand
+import kuorum.web.commands.profile.DomainUserPhoneValidationCommand
 import kuorum.web.commands.profile.DomainValidationCommand
 import org.springframework.web.servlet.LocaleResolver
 
@@ -70,13 +72,52 @@ class CustomRegisterController {
         }
         KuorumUserSession user =  springSecurityService.principal
         Boolean isValid = kuorumUserService.userDomainValidation(user, command.ndi, command.postalCode, command.birthDate)
-        if (isValid){
-            redirect mapping:"customProcessRegisterStep3"
+        if (user.censusValid){
+            if (user.phoneValid){
+                redirect mapping:"customProcessRegisterStep3"
+            }else{
+                redirect mapping:"customProcessRegisterPoneValidationNumber"
+            }
         }else{
             flash.error =g.message(code:'kuorum.web.commands.profile.DomainValidationCommand.validationError')
             render view: "stepDomainValidation", model:[command:command]
         }
     }
+
+
+    @Secured('IS_AUTHENTICATED_REMEMBERED')
+    def stepDomainValidationPhoneNumber(){
+        [command: new DomainUserPhoneValidationCommand()]
+    }
+
+    @Secured('IS_AUTHENTICATED_REMEMBERED')
+    def stepDomainValidationPhoneCode(DomainUserPhoneValidationCommand command){
+        if (command.hasErrors()){
+            render view: "stepDomainValidationPhoneNumber", model:[command:command]
+            return
+        }
+        KuorumUserSession userSession =  springSecurityService.principal
+        String hash = kuorumUserService.sendSMSWithValidationCode(userSession, command.completePhoneNumber)
+        [command:new DomainUserPhoneCodeValidationCommand(phoneHash: hash)]
+    }
+
+    @Secured('IS_AUTHENTICATED_REMEMBERED')
+    def stepDomainValidationPhoneCodeSave(DomainUserPhoneCodeValidationCommand command){
+        if (command.hasErrors()){
+            render view: "stepDomainValidationPhoneCode", model:[command:command]
+            return
+        }
+        KuorumUserSession userSession = springSecurityService.principal
+        Boolean isValid = kuorumUserService.userPhoneDomainValidation(userSession, command.phoneHash, command.phoneCode)
+
+        if (userSession.phoneValid){
+            redirect mapping:"customProcessRegisterStep3"
+        }else{
+            command.errors.rejectValue("phoneCode","kuorum.web.commands.profile.DomainUserPhoneCodeValidationCommand.phoneCode.validationError");
+            render view: "stepDomainValidationPhoneCode", model:[command:command]
+        }
+    }
+
 
 
     @Secured('IS_AUTHENTICATED_REMEMBERED')

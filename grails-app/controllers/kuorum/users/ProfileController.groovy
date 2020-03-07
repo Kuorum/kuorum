@@ -532,7 +532,7 @@ class ProfileController {
     def validateUserPhoneSendSMS(DomainUserPhoneValidationCommand domainUserPhoneValidationCommand){
         KuorumUserSession userSession = springSecurityService.principal
         try{
-            String hash = kuorumUserService.sendSMSWithValidationCode(userSession, domainUserPhoneValidationCommand.phoneNumber)
+            String hash = kuorumUserService.sendSMSWithValidationCode(userSession, domainUserPhoneValidationCommand.completePhoneNumber)
             render ([validated: false, success:true, hash:hash] as JSON)
         }catch(Exception e){
             Exception realCause = e?.cause?.cause?:null
@@ -551,7 +551,7 @@ class ProfileController {
         render ([
                 success: userSession.phoneValid,
                 validated: isValidated,
-                msg:userSession.phoneValid?"Success validation":g.message(code:'kuorum.web.commands.profile.DomainUserPhoneCodeValidationCommand.validationError'),
+                msg:userSession.phoneValid?"Success validation":g.message(code:'kuorum.web.commands.profile.DomainUserPhoneCodeValidationCommand.phoneCode.validationError'),
                 pendingValidations:[
                         censusValidation:userSession.censusValid,
                         phoneValidation:userSession.phoneValid
