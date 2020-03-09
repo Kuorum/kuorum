@@ -3741,7 +3741,7 @@ h5#results {margin: 0 0 15px;}
 .config .span-label {font-weight: bold;}
 .config .groupRadio label {font-weight: normal;}
 .config .groupRadio label.radio-inline {padding-top:10px;}
-.config .form-group {margin: 0 0 20px 0;}
+/*.config .form-group {margin: 0 0 20px 0;}*/
 .config .form-group.postal,
 .config .form-group.nacimiento {width: 200px;}
 .config .form-group.address input {margin: 10px 0 0 0}

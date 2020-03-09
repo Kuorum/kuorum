@@ -10,6 +10,7 @@ class DomainConfigCommand {
     LanguageRSDTO language;
     Boolean validation
     Boolean validationPhone
+    String smsDomainName;
     String mainColor;
     String mainColorShadowed;
     String secondaryColor;
@@ -32,7 +33,7 @@ class DomainConfigCommand {
         secondaryColor nullable: false, matches:HEX_PATTERN
         secondaryColorShadowed nullable: false, matches:HEX_PATTERN
         titleWebFont nullable: false
-
+        smsDomainName nullable: true, matches: '[a-zA-Z0-9]*[a-zA-Z]+[a-zA-Z0-9]*', maxSize: 11
         facebook nullable:true
         twitter nullable:true
         linkedIn nullable:true
