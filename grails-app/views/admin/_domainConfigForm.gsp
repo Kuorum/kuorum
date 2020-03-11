@@ -59,6 +59,9 @@
         <div class="form-group col-md-6">
             <formUtil:checkBox command="${command}" field="validation" showLabel="true" disabled="${!grails.plugin.springsecurity.SpringSecurityUtils.ifAllGranted("ROLE_SUPER_ADMIN")}"/>
         </div>
+        <div class="form-group col-md-6">
+            <formUtil:checkBox command="${command}" field="validationCode" showLabel="true" disabled="${!grails.plugin.springsecurity.SpringSecurityUtils.ifAllGranted("ROLE_SUPER_ADMIN")}"/>
+        </div>
     </fieldset>
     <fieldset class="row">
         <div class="form-group col-md-6">

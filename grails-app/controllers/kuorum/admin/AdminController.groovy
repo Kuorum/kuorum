@@ -75,6 +75,7 @@ class AdminController {
         domainConfigCommand.name = domainRSDTO.name
         domainConfigCommand.validation = domainRSDTO.validation
         domainConfigCommand.validationPhone = domainRSDTO.validationPhone
+        domainConfigCommand.validationCode = domainRSDTO.validationCode
         domainConfigCommand.smsDomainName = domainRSDTO.smsDomainName
         domainConfigCommand.language = domainRSDTO.language
         domainConfigCommand.mainColor = domainRSDTO.mainColor
@@ -100,6 +101,7 @@ class AdminController {
         domainRDTO.name = command.name
         if (SpringSecurityUtils.ifAllGranted("ROLE_SUPER_ADMIN")){
             domainRDTO.validation = command.validation?:false
+            domainRDTO.validationCode = command.validationCode?:false
             domainRDTO.validationPhone = command.validationPhone?:false
             domainRDTO.smsDomainName = command.smsDomainName?:''
         }

@@ -79,7 +79,8 @@ class MongoUserDetailsService  implements GrailsUserDetailsService {
                 userRSDTO.avatarUrl,
                 AvailableLanguage.valueOf(userRSDTO.language.toString()),
                 userRSDTO.censusValid,
-                userRSDTO.phoneValid
+                userRSDTO.phoneValid,
+                userRSDTO.codeValid
         )
     }
 
@@ -117,6 +118,7 @@ class KuorumUserSession extends GrailsUser{
     AvailableLanguage language
     Boolean censusValid
     Boolean phoneValid
+    Boolean codeValid
 
     String getEmail(){
         username
@@ -124,7 +126,7 @@ class KuorumUserSession extends GrailsUser{
 
     KuorumUserSession(String alias, String username, String password, boolean enabled, boolean accountNonExpired,
                       boolean credentialsNonExpired, boolean accountNonLocked,
-                      Collection<GrantedAuthority> authorities, Object id, String name, TimeZone timeZone, String avatarUrl, AvailableLanguage language, Boolean censusValid, Boolean phoneValid) {
+                      Collection<GrantedAuthority> authorities, Object id, String name, TimeZone timeZone, String avatarUrl, AvailableLanguage language, Boolean censusValid, Boolean phoneValid, Boolean codeValid) {
         super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities, id)
         this.name = name
         this.alias = alias
@@ -133,6 +135,7 @@ class KuorumUserSession extends GrailsUser{
         this.language = language
         this.censusValid = censusValid
         this.phoneValid = phoneValid
+        this.codeValid = codeValid
     }
 
 
