@@ -18,30 +18,21 @@
         <li class=""><div class="step-label"><g:message code="customRegister.step2.title"/></div></li>
         <li class=""><div class="step-label"><g:message code="customRegister.step3.title"/></div></li>
         <g:if test="${_domainValidations.census}"><li class=""><div class="step-label"><g:message code="kuorum.web.commands.profile.DomainValidationCommand.title"/></div></li></g:if>
-        <g:if test="${_domainValidations.customCode}"><li class=""><div class="step-label"><g:message code="kuorum.web.commands.profile.DomainUserCustomCodeValidationCommand.title"/></div></li></g:if>
-        <g:if test="${_domainValidations.phone}"><li class="active"><div class="step-label"><g:message code="kuorum.web.commands.profile.DomainUserPhoneValidationCommand.title"/></div></li></g:if>
+        <g:if test="${_domainValidations.customCode}"><li class="active"><div class="step-label"><g:message code="kuorum.web.commands.profile.DomainUserCustomCodeValidationCommand.title"/></div></li></g:if>
+        <g:if test="${_domainValidations.phone}"><li class=""><div class="step-label"><g:message code="kuorum.web.commands.profile.DomainUserPhoneValidationCommand.title"/></div></li></g:if>
         <g:if test="${_domainValidations.phone}"><li class=""><div class="step-label"><g:message code="kuorum.web.commands.profile.DomainUserPhoneCodeValidationCommand.title"/></div></li></g:if>
         <li class=""><div class="step-label"><g:message code="customRegister.step4.title"/></div></li>
     </ol>
-    <formUtil:validateForm bean="${command}" form="stepDomainValidationPhoneNumber" autocomplete="off"/>
-    <g:form mapping="customProcessRegisterPoneValidationCode" name="stepDomainValidationPhoneNumber" role="form" method="GET" autocomplete="off"  class="signup stepDomainValidationPhoneNumber">
+    <formUtil:validateForm bean="${command}" form="stepDomainValidation" autocomplete="off"/>
+    <g:form mapping="customProcessRegisterCustomCodeValidation" name="stepDomainValidation" role="form" method="POST" autocomplete="off"  class="signup stepDomainValidation">
         <fieldset class="row">
-            <div class="form-group form-group-phone col-md-offset-3  col-md-6">
-                <formUtil:selectPhonePrefix
-                        command="${command}"
-                        field="phoneNumberPrefix"
-                        showLabel="false"
-                        placeHolder=""
-                        cssClass="form-control input-lg"
-                        required="true"
-                />
+            <div class="form-group col-md-offset-3  col-md-6">
                 <formUtil:input
                         command="${command}"
-                        field="phoneNumber"
-                        showLabel="false"
-                        placeHolder=""
+                        field="customCode"
                         cssClass="form-control input-lg"
-                        type="number"
+                        showLabel="true"
+                        showCharCounter="false"
                         required="true"/>
             </div>
         </fieldset>

@@ -262,6 +262,12 @@ var formHelper = {
             $('.input-group.date').each(function(){
                 if ($(this).attr("data-datePicker-type")=="birthDate"){
                     var birthDay = $(this).find("input").val()
+                    if (birthDay != ""){
+                        var day = birthDay.split("/")[0];
+                        var month = birthDay.split("/")[1];
+                        var year = birthDay.split("/")[2];
+                        birthDay = new Date(year, month -1, day);
+                    }
                     var divId = guid();
                     var inputName = $(this).find("input").attr("name")
                     $(this).html("");

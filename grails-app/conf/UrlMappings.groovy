@@ -406,6 +406,7 @@ class UrlMappings {
         name customProcessRegisterDomainValidation:     "/edit-profile/sign-up/domain-validation"   (controller: "customRegister"){action = [GET:"stepDomainValidation", POST:"stepDomainValidationSave"]}
         name customProcessRegisterPoneValidationNumber: "/edit-profile/sign-up/phone-validation-number"   (controller: "customRegister"){action = [GET:"stepDomainValidationPhoneNumber"]}
         name customProcessRegisterPoneValidationCode:   "/edit-profile/sign-up/phone-validation-code"   (controller: "customRegister"){action = [GET:"stepDomainValidationPhoneCode", POST:"stepDomainValidationPhoneCodeSave"]}
+        name customProcessRegisterCustomCodeValidation: "/edit-profile/sign-up/customCode-validation"   (controller: "customRegister"){action = [GET:"stepDomainValidationCustomCode", POST:"stepDomainValidationCustomCodeSave"]}
 
         name profileDomainValidationChecker:            "/ajax/edit-profile/domain-valid-cheker"            (controller: "profile", action :"domainUserValidChecker")
         name profileDomainValidationByCensusValidate:   "/ajax/edit-profile/domain-validate"                (controller: "profile", action :"validateUser")
