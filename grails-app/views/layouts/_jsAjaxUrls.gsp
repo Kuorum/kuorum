@@ -10,10 +10,7 @@
         },
         suggestAlias: '<g:createLink mapping="suggestAlias" absolute="true"/>',
         ajaxLoginRRSS: '<g:createLink mapping="ajaxRegisterRRSSOAuth" absolute="true"/>',
-        profileValidByDomainChecker: '<g:createLink mapping="profileValidByDomainChecker" absolute="true"/>',
-        profileValidPhoneByDomainChecker: '<g:createLink mapping="profileValidPhoneByDomainChecker" absolute="true"/>',
-        profileValidPhoneByDomainSendSms: '<g:createLink mapping="profileValidPhoneByDomainSendSms" absolute="true"/>',
-        profileValidPhoneByDomainValidate: '<g:createLink mapping="profileValidPhoneByDomainValidate" absolute="true"/>'
+        profileDomainValidationChecker: '<g:createLink mapping="profileDomainValidationChecker" absolute="true"/>'
     };
     var ajaxHeadNotificationsChecked='<g:createLink mapping="ajaxHeadNotificationsChecked" absolute="true"/>';
 

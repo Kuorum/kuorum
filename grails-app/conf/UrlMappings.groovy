@@ -407,11 +407,11 @@ class UrlMappings {
         name customProcessRegisterPoneValidationNumber: "/edit-profile/sign-up/phone-validation-number"   (controller: "customRegister"){action = [GET:"stepDomainValidationPhoneNumber"]}
         name customProcessRegisterPoneValidationCode:   "/edit-profile/sign-up/phone-validation-code"   (controller: "customRegister"){action = [GET:"stepDomainValidationPhoneCode", POST:"stepDomainValidationPhoneCodeSave"]}
 
-        name profileValidByDomainChecker:      "/ajax/edit-profile/domain-valid-cheker"  (controller: "profile", action :"domainUserValidChecker")
-        name profileValidByDomainValidate:     "/ajax/edit-profile/domain-validate"      (controller: "profile", action :"validateUser")
-        name profileValidPhoneByDomainChecker:      "/ajax/edit-profile/domain-valid-phone-cheker"      (controller: "profile", action :"domainUserPhoneValidChecker")
-        name profileValidPhoneByDomainSendSms:      "/ajax/edit-profile/domain-valid-phone-sendSms"      (controller: "profile", action :"validateUserPhoneSendSMS")
-        name profileValidPhoneByDomainValidate:     "/ajax/edit-profile/domain-valid-phone-validate"    (controller: "profile", action :"validateUserPhone")
+        name profileDomainValidationChecker:            "/ajax/edit-profile/domain-valid-cheker"            (controller: "profile", action :"domainUserValidChecker")
+        name profileDomainValidationByCensusValidate:   "/ajax/edit-profile/domain-validate"                (controller: "profile", action :"validateUser")
+        name profileDomainValidationByPhoneSendSms:     "/ajax/edit-profile/domain-valid-phone-sendSms"     (controller: "profile", action :"validateUserPhoneSendSMS")
+        name profileDomainValidationByPhoneValidate:    "/ajax/edit-profile/domain-valid-phone-validate"    (controller: "profile", action :"validateUserPhone")
+        name profileDomainValidationByCodeValidate:     "/ajax/edit-profile/domain-valid-code-validate"    (controller: "profile", action :"validateUserCustomCode")
 
         name causeSupport:         "/ajax/cause/$causeName/support" (controller:"causes", action: "supportCause")
 

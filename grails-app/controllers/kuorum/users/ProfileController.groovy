@@ -501,11 +501,7 @@ class ProfileController {
         }else{
             KuorumUserSession sessionUser = springSecurityService.principal
             render ([validated:false, success:true,
-                     pendingValidations:[
-                             censusValidation: sessionUser.censusValid,
-                             phoneValidation: sessionUser.phoneValid
-
-                     ]
+                     pendingValidations:getPendingValidations()
             ] as JSON)
         }
     }
@@ -522,11 +518,8 @@ class ProfileController {
                 success: userSession.censusValid,
                 validated:isValidated,
                 msg:userSession.censusValid?"Success validation":g.message(code:'kuorum.web.commands.profile.DomainValidationCommand.validationError'),
-                pendingValidations:[
-                        censusValidation: userSession.censusValid,
-                        phoneValidation:userSession.phoneValid
-
-                ]] as JSON)
+                pendingValidations:getPendingValidations()
+        ] as JSON)
     }
 
     def validateUserPhoneSendSMS(DomainUserPhoneValidationCommand domainUserPhoneValidationCommand){
@@ -552,10 +545,33 @@ class ProfileController {
                 success: userSession.phoneValid,
                 validated: isValidated,
                 msg:userSession.phoneValid?"Success validation":g.message(code:'kuorum.web.commands.profile.DomainUserPhoneCodeValidationCommand.phoneCode.validationError'),
-                pendingValidations:[
-                        censusValidation:userSession.censusValid,
-                        phoneValidation:userSession.phoneValid
+                pendingValidations:getPendingValidations()
+        ] as JSON)
+    }
 
-                ]] as JSON)
+    def validateUserCustomCode(DomainUserCustomCodeValidationCommand domainUserCustomCodeValidationCommand){
+        if (domainUserCustomCodeValidationCommand.hasErrors()){
+            render ([validated: false, success: false, msg:message(error:  domainUserCustomCodeValidationCommand.getErrors().getAllErrors().get(0))] as JSON)
+            return
+        }
+        KuorumUserSession userSession = (KuorumUserSession)springSecurityService.principal
+        Boolean isValidated = kuorumUserService.userCodeDomainValidation(userSession, domainUserCustomCodeValidationCommand.customCode)
+        userSession = springSecurityService.principal // Refresh user info
+        render ([
+                success: userSession.codeValid,
+                validated: isValidated,
+                msg:userSession.codeValid?"Success validation":g.message(code:'kuorum.web.commands.profile.DomainUserCustomCodeValidationCommand.customCode.validationError'),
+                pendingValidations:getPendingValidations()
+        ] as JSON)
+    }
+
+    private def getPendingValidations(){
+        KuorumUserSession userSession = (KuorumUserSession)springSecurityService.principal
+        return [
+                censusValidation:userSession.censusValid,
+                phoneValidation:userSession.phoneValid,
+                codeValidation: userSession.codeValid
+
+        ]
     }
 }

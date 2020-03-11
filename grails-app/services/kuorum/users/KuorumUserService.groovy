@@ -25,6 +25,7 @@ import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 import org.kuorum.rest.model.kuorumUser.KuorumUserRSDTO
 import org.kuorum.rest.model.kuorumUser.UserDataRDTO
 import org.kuorum.rest.model.kuorumUser.UserRoleRSDTO
+import org.kuorum.rest.model.kuorumUser.domainValidation.UserCodeValidationDTO
 import org.kuorum.rest.model.kuorumUser.domainValidation.UserDataDomainValidationDTO
 import org.kuorum.rest.model.kuorumUser.domainValidation.UserPhoneValidationDTO
 import org.kuorum.rest.model.search.SearchKuorumElementRSDTO
@@ -453,6 +454,25 @@ class KuorumUserService {
                     params,
                     query,
                     userPhoneValidationDTO,
+                    new TypeReference<KuorumUserRSDTO>(){}
+            )
+            springSecurityService.reauthenticate user.email
+            return springSecurityService.authentication.authorities.find{it.authority==UserRoleRSDTO.ROLE_USER_VALIDATED.toString()}
+        }catch (Exception e){
+            log.error("Exception validating user: [Excpt: ${e?.cause?.cause?.getMessage()}]")
+            return false
+        }
+    }
+    boolean userCodeDomainValidation(KuorumUserSession user, String code){
+        Map<String, String> params = [userId: user.getId().toString()]
+        Map<String, String> query = [:]
+        UserCodeValidationDTO userCodeValidationDTO = new UserCodeValidationDTO(code:code)
+        try{
+            def apiResponse= restKuorumApiService.put(
+                    RestKuorumApiService.ApiMethod.USER_CODE_DOMAIN_VALIDATION,
+                    params,
+                    query,
+                    userCodeValidationDTO,
                     new TypeReference<KuorumUserRSDTO>(){}
             )
             springSecurityService.reauthenticate user.email

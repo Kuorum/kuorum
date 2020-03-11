@@ -1,7 +1,7 @@
 <g:set var="validateCommand" value="${new kuorum.web.commands.profile.DomainValidationCommand()}"/>
 <formUtil:validateForm bean="${validateCommand}" form="modal-form-validate-user-domain"/>
 <g:render template="/layouts/modals/modalDomainValidation_tabs"/>
-<g:form mapping="profileValidByDomainValidate" method="POST" name="modal-form-validate-user-domain">
+<g:form mapping="profileDomainValidationByCensusValidate" method="POST" name="modal-form-validate-user-domain">
     <div class="form-group">
         <formUtil:input
                 command="${validateCommand}"

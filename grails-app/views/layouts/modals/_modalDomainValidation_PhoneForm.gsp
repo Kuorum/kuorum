@@ -4,7 +4,7 @@
 <g:render template="/layouts/modals/modalDomainValidation_tabs"/>
 <div class="modal-domain-validation-phone-step1">
     <formUtil:validateForm bean="${validatePhoneCommand}" form="modal-form-validate-phone-user-domain"/>
-    <g:form mapping="profileValidByDomainValidate" method="POST" name="modal-form-validate-phone-user-domain">
+    <g:form mapping="profileDomainValidationByPhoneSendSms" method="POST" name="modal-form-validate-phone-user-domain">
         <div class="form-group">
             <div class="form-group form-group-phone">
                 <formUtil:selectPhonePrefix
@@ -37,7 +37,7 @@
 
 <div class="modal-domain-validation-phone-step2">
     <formUtil:validateForm bean="${validatePhoneCodeCommand}" form="modal-form-validate-phone-code-user-domain"/>
-    <g:form mapping="profileValidByDomainValidate" method="POST" name="modal-form-validate-phone-code-user-domain">
+    <g:form mapping="profileDomainValidationByPhoneValidate" method="POST" name="modal-form-validate-phone-code-user-domain">
         <input type="hidden" name="phoneHash" id="phoneHash" required="" value="">
         <div class="form-group">
             <formUtil:input

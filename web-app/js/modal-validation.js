@@ -15,6 +15,7 @@ var userValidatedByDomain={
             $("#validatePhoneDomain-modal-form-button-id").on("click",userValidatedByDomain.sendSMSForPhoneValidation );
             $("#validatePhoneCodeDomain-modal-form-button-id").on("click",userValidatedByDomain.handleSubmitValidationPhone );
             $("#validatePhoneCodeDomain-modal-form-button-back").on("click",userValidatedByDomain.showPhoneValidationStep1 );
+            $("#validateCustomCodeDomain-modal-form-button-id").on("click",userValidatedByDomain.handleSubmitValidationCustomCode );
             userValidatedByDomain.binded = true
             userValidatedByDomain.modal = $("#domain-validation")
             userValidatedByDomain.modalNotifications = $("#domain-validation .modal-domain-validation-notifications")
@@ -45,7 +46,7 @@ var userValidatedByDomain={
         }
     },
     checkUserValid:function(userId, executableFunctionCallback){
-        var url = kuorumUrls.profileValidByDomainChecker;
+        var url = kuorumUrls.profileDomainValidationChecker;
         var data = {};
         executable = executableFunctionCallback;
         $.ajax({
@@ -74,14 +75,21 @@ var userValidatedByDomain={
         });
     },
     showCensusValidation:function(){
+        $("#domain-validation .modal-domain-validation").hide()
         $("#domain-validation .modal-domain-validation-census").show()
-        $("#domain-validation .modal-domain-validation-phone").hide()
         $("#domain-validation .modal-domain-validation-step-tabs li").removeClass("active");
         $("#domain-validation .modal-domain-validation-step-tabs li.modal-domain-validation-step-tabs-census").addClass("active");
     },
 
+    showCodeValidation:function(){
+        $("#domain-validation .modal-domain-validation").hide()
+        $("#domain-validation .modal-domain-validation-customCode").show();
+        $("#domain-validation .modal-domain-validation-step-tabs li").removeClass("active");
+        $("#domain-validation .modal-domain-validation-step-tabs li.modal-domain-validation-step-tabs-customCode").addClass("active");
+        userValidatedByDomain.hideErrorModal();
+    },
     showPhoneValidation:function(){
-        $("#domain-validation .modal-domain-validation-census").hide();
+        $("#domain-validation .modal-domain-validation").hide()
         $("#domain-validation .modal-domain-validation-phone").show();
         userValidatedByDomain.showPhoneValidationStep1();
     },
@@ -110,8 +118,11 @@ var userValidatedByDomain={
         var $form = $button.closest("form");
         if ($form.valid()) {
             userValidatedByDomain.showModalLoading();
-            var url = kuorumUrls.profileValidPhoneByDomainSendSms;
-            var data = {phoneNumber: $("#phoneNumber").val()};
+            var url = $form.attr("action");
+            var data = {
+                phoneNumberPrefix: $("#phoneNumberPrefix").val(),
+                phoneNumber: $("#phoneNumber").val()
+            };
             $.ajax({
                 type: "POST",
                 url: url,
@@ -136,10 +147,36 @@ var userValidatedByDomain={
         var $form = $button.closest("form");
         if ($form.valid()) {
             userValidatedByDomain.showModalLoading();
-            var url = kuorumUrls.profileValidPhoneByDomainValidate;
+            var url = $form.attr("action");
             var data = {
                 phoneHash: $("#phoneHash").val(),
                 phoneCode: $("#phoneCode").val()
+            };
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: data,
+                success: function (dataSmsValidation) {
+                    userValidatedByDomain.nextValidationStep(dataSmsValidation);
+                },
+                error: function (dataError) {
+                    display.error("Error validating the sms")
+                },
+                complete: function () {
+                    userValidatedByDomain.hideModalLoading()
+                }
+            });
+        }
+    },
+    handleSubmitValidationCustomCode:function(e){
+        e.preventDefault();
+        var $button = $(this);
+        var $form = $button.closest("form");
+        if ($form.valid()) {
+            userValidatedByDomain.showModalLoading();
+            var url = $form.attr("action")
+            var data = {
+                customCode: $("#customCode").val()
             };
             $.ajax({
                 type: "POST",
@@ -235,6 +272,8 @@ var userValidatedByDomain={
         }else{
             if (!callbackData.pendingValidations.censusValidation){
                 userValidatedByDomain.showCensusValidation();
+            }else if (!callbackData.pendingValidations.codeValidation){
+                userValidatedByDomain.showCodeValidation();
             }else if (!callbackData.pendingValidations.phoneValidation){
                 userValidatedByDomain.showPhoneValidation();
             }

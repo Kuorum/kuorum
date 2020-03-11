@@ -25,7 +25,11 @@ class RRSSConfigFilters {
                     model.put("_domainName", CustomDomainResolver.domainRSDTO?.name?:"")
                     model.put("_domainResourcesPath", CustomDomainResolver.domainRSDTO?.basicRootUrlStaticResources?:"")
                     model.put("_domainActiveCampaigns", getActiveCampaigns())
-                    model.put("_domainValidations",[census:CustomDomainResolver.domainRSDTO.validation, phone:CustomDomainResolver.domainRSDTO.validationPhone])
+                    model.put("_domainValidations",[
+                            census:CustomDomainResolver.domainRSDTO.validation,
+                            phone:CustomDomainResolver.domainRSDTO.validationPhone,
+                            customCode:CustomDomainResolver.domainRSDTO.validationCode
+                    ])
                 }
             }
             afterView = { Exception e ->

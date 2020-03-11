@@ -192,6 +192,7 @@ class RestKuorumApiService {
         USER_DATA               ('/user/{userId}/data/'),
         USER_DOMAIN_VALIDATION  ('/user/{userId}/valid'),
         USER_PHONE_DOMAIN_VALIDATION  ('/user/{userId}/valid/phone'),
+        USER_CODE_DOMAIN_VALIDATION  ('/user/{userId}/valid/code'),
 
         USER_CONTACTS           ('/contacts/{userId}'),
         USER_CONTACT            ('/contacts/{userId}/{contactId}'),

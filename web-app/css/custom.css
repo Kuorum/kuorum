@@ -3058,7 +3058,7 @@ h2.underline {border-bottom: 1px solid #dadada; padding: 0 0 10px 0; margin-top:
 .modal-register .modal-dialog .modal-body {padding: 8px;}
 
 .modal-domain-validation ol.modal-domain-validation-step-tabs {margin-bottom: 20px;}
-.modal-domain-validation ol.modal-domain-validation-step-tabs.stepsSign li{font-size: 14px; line-height: 21px;}
+.modal-domain-validation ol.modal-domain-validation-step-tabs.stepsSign li{font-size: 12px; line-height: 21px;}
 .modal-domain-validation ol.modal-domain-validation-step-tabs.stepsSign li:before{width: 24px;height: 24px; font-size: 13px;}
 .modal-domain-validation ol.modal-domain-validation-step-tabs.stepsSign li:after{width: calc(100% - 24px);margin-left: calc(50% + 12px);margin-top: -40px;}
 .modal-domain-validation ol.modal-domain-validation-step-tabs.stepsSign li > div.step-label{margin-top: 5px;}
@@ -3066,7 +3066,7 @@ h2.underline {border-bottom: 1px solid #dadada; padding: 0 0 10px 0; margin-top:
 .modal-domain-validation .modal-domain-validation-notifications{display:none; min-height: auto; margin-top:15px;}
 .modal-domain-validation .modal-domain-validation-notifications p{margin:0; padding: 0;}
 .modal-domain-validation .modal-domain-validation-census{}
-.modal-domain-validation .modal-domain-validation-phone{display:none;}
+.modal-domain-validation .modal-domain-validation {display:none;}
 .modal-domain-validation .modal-domain-validation-phone .modal-domain-validation-phone-step1{}
 .modal-domain-validation .modal-domain-validation-phone .modal-domain-validation-phone-step2{display:none;}
 .modal-domain-validation .loading {background: none;font-size: 30px;    height: auto;}

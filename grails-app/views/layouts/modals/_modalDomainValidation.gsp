@@ -8,11 +8,14 @@
                 <h4 class="sr-only" id="modal-domain-validation-title">Registro / Validar usuario</h4>
             </div>
             <div class="modal-body">
-                <div class="modal-domain-validation-census">
+                <div class="modal-domain-validation modal-domain-validation-census">
                     <g:render template="/layouts/modals/modalDomainValidation_CesusForm"/>
                 </div>
-                <div class="modal-domain-validation-phone">
+                <div class="modal-domain-validation modal-domain-validation-phone">
                     <g:render template="/layouts/modals/modalDomainValidation_PhoneForm"/>
+                </div>
+                <div class="modal-domain-validation modal-domain-validation-customCode">
+                    <g:render template="/layouts/modals/modalDomainValidation_CustomCodeForm"/>
                 </div>
                 <fieldset class="center modal-domain-validation-notifications">
                     <p class="loading" style="display: none"><span class="fas fa-spinner fa-spin"></span> </p>
