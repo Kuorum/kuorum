@@ -128,8 +128,12 @@ var userValidatedByDomain={
                 url: url,
                 data: data,
                 success: function (dataSms) {
-                    $("#phoneHash").val(dataSms.hash)
-                    userValidatedByDomain.showPhoneValidationStep2();
+                    if (dataSms.success){
+                        $("#phoneHash").val(dataSms.hash)
+                        userValidatedByDomain.showPhoneValidationStep2();
+                    }else{
+                        userValidatedByDomain.showErrorModal(dataSms.msg)
+                    }
                 },
                 error: function (dataError) {
                     display.error("There was an error sending a sms validation to your phone number")

@@ -527,9 +527,10 @@ class ProfileController {
         try{
             String hash = kuorumUserService.sendSMSWithValidationCode(userSession, domainUserPhoneValidationCommand.completePhoneNumber)
             render ([validated: false, success:true, hash:hash] as JSON)
+        }catch(KuorumException e){
+            render ([validated: false, success:false, hash:null, msg:g.message(code:'kuorum.web.commands.profile.DomainUserPhoneValidationCommand.phoneNumber.repeatedNumber')] as JSON)
         }catch(Exception e){
-            Exception realCause = e?.cause?.cause?:null
-            render ([validated: false, success:false, hash:null, msg:realCause?.getMessage()] as JSON)
+            render ([validated: false, success:false, hash:null, msg:'Internal error. Try again or contact with info@kuorum.org'] as JSON)
         }
     }
 

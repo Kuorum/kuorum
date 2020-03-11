@@ -34,6 +34,8 @@ import org.kuorum.rest.model.search.SearchTypeRSDTO
 import org.kuorum.rest.model.search.kuorumElement.SearchKuorumUserRSDTO
 import org.springframework.security.access.prepost.PreAuthorize
 
+import java.lang.reflect.UndeclaredThrowableException
+
 @Transactional
 class KuorumUserService {
 
@@ -440,8 +442,13 @@ class KuorumUserService {
             )
             return apiResponse.responseData.str
         }catch (Exception e){
-            log.error("Exception validating user: [Excpt: ${e}]")
-            return false
+            log.error("Exception validating user: [Excpt: ${e.getMessage()}]")
+            if (e instanceof UndeclaredThrowableException ) {
+                KuorumException ke = ((UndeclaredThrowableException) e).getCause().getCause()
+                throw ke;
+            }else{
+                throw e;
+            }
         }
     }
     boolean userPhoneDomainValidation(KuorumUserSession user, String hash, String code){
