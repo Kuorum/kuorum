@@ -75,7 +75,7 @@ class CampaignService {
                 new TypeReference<List<CampaignRSDTO>>(){}
         )
 
-        List<CampaignRSDTO> debatesFound = null
+        List<CampaignRSDTO> debatesFound = []
         if (response.data) {
             debatesFound = (List<CampaignRSDTO>) response.data
         }
