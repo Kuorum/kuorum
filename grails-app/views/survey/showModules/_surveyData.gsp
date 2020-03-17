@@ -1,5 +1,5 @@
 <!-- ^leader-post !-->
-<div class="leader-post">
+<div class="leader-post ${survey.hideResults?'campaign-hide-results':''}">
     <g:render template="/campaigns/showModules/campaignDataMultimedia" model="[campaign: survey]"/>
     <div class="header">
         <h1 class="title" itemprop="headline">${survey.title}</h1>

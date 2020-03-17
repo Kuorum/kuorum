@@ -7922,6 +7922,7 @@ li.survey-question.answered .survey-question-answer .option-extra-content textar
     z-index: 0;
 }
 
+.survey-questions.campaign-hide-results .survey-question .progress-info {display: none; }
 
 .survey-question.rating-answer.answered .survey-question-answers .survey-question-answer .progress-info{display: none;}
 .survey-question .survey-question-progress-info{display: none;}
