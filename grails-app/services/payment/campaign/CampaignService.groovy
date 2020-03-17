@@ -134,6 +134,7 @@ class CampaignService {
             rdto.body = campaignRSDTO.body
             rdto.publishOn = campaignRSDTO.datePublished
             rdto.endDate = campaignRSDTO.endDate
+            rdto.hideResults = campaignRSDTO.hideResults
             rdto.causes = campaignRSDTO.causes
             if (campaignRSDTO.event){
                 rdto.event = new EventRDTO()

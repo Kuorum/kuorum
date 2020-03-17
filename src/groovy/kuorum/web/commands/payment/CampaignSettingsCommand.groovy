@@ -31,6 +31,7 @@ class CampaignSettingsCommand {
     Set<String> causes;
 
     Boolean checkValidation;
+    Boolean hideResults;
 
     static constraints = {
         filterId nullable: true
@@ -42,5 +43,6 @@ class CampaignSettingsCommand {
         eventAttached nullable: true
         endDate nullable: true
         checkValidation nullable: true
+        hideResults nullable: true;
     }
 }

@@ -134,6 +134,7 @@ class CampaignController {
             command.filterId = campaignRSDTO.newsletter?.filter?.id
             command.endDate = campaignRSDTO.endDate
             command.checkValidation = campaignRSDTO.checkValidation
+            command.hideResults = campaignRSDTO.hideResults
             if (campaignRSDTO.hasProperty('causes')){
                 command.causes = campaignRSDTO.causes
             }
@@ -168,6 +169,7 @@ class CampaignController {
             // Only if domain validation is active, then the checkValidation of the campaign is editable
             rdto.checkValidation = command.checkValidation?:false
         }
+        rdto.hideResults = command.hideResults==null?false:command.hideResults
         if (command.filterEdited) {
             //anonymousFilter.setName(g.message(code:'tools.contact.filter.anonymousName', args: anonymousFilter.getName()))
             rdto.setAnonymousFilter(anonymousFilter)
