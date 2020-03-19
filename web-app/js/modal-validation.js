@@ -24,7 +24,10 @@ var userValidatedByDomain={
 
     openAndPrepareValidationModal:function(){
         // Open validation modal
-        $("#domain-validation").modal("show");
+        $("#domain-validation").modal({
+            backdrop: 'static',
+            keyboard: false
+        });
 
         // CLOSE LOGIN MODAL IF IT IS OPEN
         if (($("#registro").data('bs.modal') || {}).isShown){
