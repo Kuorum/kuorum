@@ -4956,7 +4956,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 
 /* Small devices (tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
-    .form-group label .fa-info-circle{position: absolute;right: 0;top: 13px;}
+    .form-group label .fa-info-circle{position: absolute;right: -11px;top: 13px;}
 
     ul.search-list.latestActivities .search-article {padding:0 6px 20px 6px;}
     .fade-carousel .content { width: 95%}
