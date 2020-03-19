@@ -154,10 +154,10 @@ class CustomRegisterController {
     }
 
     private String calcNextStepMappingName(){
-        KuorumUserSession userSession = springSecurityService.principal
-        if (!userSession.censusValid) return "customProcessRegisterDomainValidation"
-        if (!userSession.codeValid) return "customProcessRegisterCustomCodeValidation"
-        if (!userSession.phoneValid) return "customProcessRegisterPoneValidationNumber"
+//        KuorumUserSession userSession = springSecurityService.principal
+//        if (!userSession.censusValid) return "customProcessRegisterDomainValidation"
+//        if (!userSession.codeValid) return "customProcessRegisterCustomCodeValidation"
+//        if (!userSession.phoneValid) return "customProcessRegisterPoneValidationNumber"
         return "customProcessRegisterStep3";
     }
 }
