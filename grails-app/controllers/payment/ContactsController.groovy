@@ -41,11 +41,6 @@ class ContactsController {
 
     def index(ContactFilterCommand filterCommand){
 
-        if (dashboardService.forceUploadContacts()){
-            render view: "/dashboard/payment/paymentNoContactsDashboard", model: [:]
-            return
-        }
-
         KuorumUserSession user = springSecurityService.principal
         SearchContactRSDTO searchContactRSDTO  = new SearchContactRSDTO()
         searchContactRSDTO.sort = new SortContactsRDTO(field:ConditionFieldTypeRDTO.NAME, direction: SortContactsRDTO.Direction.ASC)
@@ -503,9 +498,6 @@ class ContactsController {
 
     def importSuccess(){
         log.info("Skipping force upload contacts")
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        user.skipUploadContacts = true
-        user.save()
     }
 
     def importError(){

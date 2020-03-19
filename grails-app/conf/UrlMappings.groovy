@@ -284,7 +284,6 @@ class UrlMappings {
         /***** LOGGED URLs ****/ //Language no matters
         /**********************/
         name dashboard:                     "/dashboard" (controller: "dashboard", action:"dashboard")
-        name dashboardSkipUploadContacts:   "/dashboard/skipContacts" (controller: "dashboard", action:"skipContacts")
         name dashboardCampaignsSeeMore:     "/ajax/dashboard/campaigns/see-more" (controller: "dashboard", action:"dashboardCampaigns")
 
         name debateCreate:      "/account/debate/new" (controller: "debate"){action = [GET: "create", POST: "saveSettings"]}

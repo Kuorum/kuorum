@@ -55,13 +55,6 @@ class DashboardController {
         model.put("tour", params.tour?true:false)
         render view: "/dashboard/dashboard", model: model
     }
-    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
-    def skipContacts(){
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        user.skipUploadContacts = true
-        user.save()
-        redirect url:"https://${CustomDomainResolver.domain}${params.redirect}"
-    }
 
     private def buildPaymentDashboard(BasicDataKuorumUserRSDTO user){
         KuorumUserSession userSession = springSecurityService.principal

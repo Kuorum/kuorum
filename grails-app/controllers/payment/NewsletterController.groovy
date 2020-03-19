@@ -49,16 +49,9 @@ class NewsletterController {
     DashboardService dashboardService
 
     def index() {
-
-        if (dashboardService.forceUploadContacts()){
-            render view: "/dashboard/payment/paymentNoContactsDashboard", model: [:]
-            return
-        }
-
         KuorumUserSession user = springSecurityService.principal
         List<NewsletterRSDTO> newsletters = newsletterService.findCampaigns(user)
         List<CampaignRSDTO> campaigns = campaignService.findAllCampaigns(user, true)
-
         [newsletters: newsletters, campaigns: campaigns, user:user]
     }
 

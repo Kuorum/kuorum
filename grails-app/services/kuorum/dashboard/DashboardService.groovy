@@ -16,14 +16,6 @@ class DashboardService {
     SpringSecurityService springSecurityService
     ContactService contactService
 
-    boolean forceUploadContacts(){
-        KuorumUserSession user = springSecurityService.principal
-        KuorumUser loggedUser = KuorumUser.findById(user.id)
-        ContactPageRSDTO contacts = contactService.getUsers(user)
-        return contacts.total==0 && !loggedUser.skipUploadContacts
-    }
-
-
     SearchResultsRSDTO findAllContactsCampaigns (KuorumUserSession user, String viewerUid = null, Integer page = 0){
         Map<String, String> params = [userId: user.id.toString()]
         Map<String, String> query = [page:page]
