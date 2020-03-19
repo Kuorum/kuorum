@@ -23,7 +23,7 @@
             <g:each in="${[
                     [role:org.kuorum.rest.model.kuorumUser.UserRoleRSDTO.ROLE_CAMPAIGN_POST, label:'post', icon:'fa-newspaper'],
                     [role:org.kuorum.rest.model.kuorumUser.UserRoleRSDTO.ROLE_CAMPAIGN_DEBATE, label:'debate', icon:'fa-comments'],
-                    [role:org.kuorum.rest.model.kuorumUser.UserRoleRSDTO.ROLE_CAMPAIGN_EVENT, label:'event', icon:'fa-calendar-check'],
+                    [role:org.kuorum.rest.model.kuorumUser.UserRoleRSDTO.ROLE_CAMPAIGN_EVENT, label:'event', icon:'fa-calendar-star'],
                     [role:org.kuorum.rest.model.kuorumUser.UserRoleRSDTO.ROLE_CAMPAIGN_SURVEY, label:'survey', icon:'fa-chart-bar'],
                     [role:org.kuorum.rest.model.kuorumUser.UserRoleRSDTO.ROLE_CAMPAIGN_PETITION, label:'petition', icon:'fa-microphone'],
                     [role:org.kuorum.rest.model.kuorumUser.UserRoleRSDTO.ROLE_CAMPAIGN_PARTICIPATORY_BUDGET, label:'participatoryBudget', icon:'fa-money-bill-alt']

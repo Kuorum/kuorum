@@ -34,7 +34,7 @@
 <g:set var="campaignGenericMappings" value="[show:type+'Show', edit:type+urlMappingNameEditStep, remove:type+'Remove']"/>
 <g:if test="${campaign.event}">
     <g:set var="type" value="event"/>
-    <g:set var="faIcon" value="fa-calendar-check"/>
+    <g:set var="faIcon" value="fa-calendar-star"/>
     <g:set var="typeName" value="${g.message(code: 'tools.campaign.new.event')}"/>
 </g:if>
 

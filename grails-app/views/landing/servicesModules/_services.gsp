@@ -35,7 +35,7 @@
                   model="[
                           landingVisibleRoles:landingVisibleRoles,
                           role:org.kuorum.rest.model.kuorumUser.UserRoleRSDTO.ROLE_CAMPAIGN_EVENT,
-                          icon:'fa-calendar-check',
+                          icon:'fa-calendar-star',
                           searchMapping:'searcherSearchEVENT',
                           title:g.message(code:'landingServices.howItWorks.events.title'),
                           text:g.message(code:'landingServices.howItWorks.events.text')

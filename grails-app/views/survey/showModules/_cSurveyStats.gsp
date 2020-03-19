@@ -11,4 +11,16 @@
         <span class="fal fa-chart-pie" aria-hidden="true"></span>
         <span class="info"><g:message code="survey.cColumn.stats.tookSuervey" args="[survey.amountAnswers]" /></span>
     </li>
+    <g:if test="${survey.startDate}">
+        <li>
+            <span class="fal fa-calendar-check" aria-hidden="true"></span>
+            <span class="info"><g:message code="kuorum.web.commands.payment.SurveyQuestionsCommand.startDate.label"/>: <g:formatDate type="date" style="SHORT" date="${survey.startDate}"/></span>
+        </li>
+    </g:if>
+    <g:if test="${survey.endDate}">
+        <li>
+            <span class="fal fa-calendar-times" aria-hidden="true"></span>
+            <span class="info"><g:message code="kuorum.web.commands.payment.SurveyQuestionsCommand.endDate.label"/>: <g:formatDate type="date" style="SHORT" date="${survey.endDate}"/></span>
+        </li>
+    </g:if>
 </ul>

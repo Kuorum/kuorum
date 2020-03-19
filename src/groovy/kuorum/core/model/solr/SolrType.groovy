@@ -13,7 +13,7 @@ enum SolrType {
     NEWSLETTER("fa-envelope", null),
     POST("fa-newspaper", CampaignTypeRSDTO.POST),
     DEBATE("fa-comments", CampaignTypeRSDTO.DEBATE),
-    EVENT("fa-calendar-check", null),
+    EVENT("fa-calendar-star", null),
     SURVEY("fa-chart-pie", CampaignTypeRSDTO.SURVEY),
     PETITION("fa-microphone", CampaignTypeRSDTO.PETITION),
     PARTICIPATORY_BUDGET("fa-money-bill-alt", CampaignTypeRSDTO.PARTICIPATORY_BUDGET),

@@ -50,7 +50,7 @@
                     data-placement="bottom"
                     title=""
                     data-original-title="${g.message(code:'dashboard.payment.chooseCampaign.tooltip.event')}">
-                <span class="fal fa-calendar-check"></span>
+                <span class="fal fa-calendar-star"></span>
                 <span class="label"><g:message code="tools.campaign.new.event"/></span>
             </g:link>
         </li>
