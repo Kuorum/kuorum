@@ -29,14 +29,6 @@
                 </div>
             </fieldset>
         </g:if>
-        <g:if test="${options.endDate}">
-            <fieldset class="form-group">
-                <label for="endDate" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.CampaignSettingsCommand.endDate.label"/>:</label>
-                <div class="col-sm-8 col-md-7">
-                    <formUtil:date command="${command}" field="endDate" time="true"/>
-                </div>
-            </fieldset>
-        </g:if>
         <g:render template="/newsletter/form/formGroupCampaignCauses" model="[command:command, options:options]"/>
 
         <fieldset class="form-group" id="advanced-features-section">

@@ -16,9 +16,6 @@ class CampaignSettingsCommand {
     Boolean debatable
     Boolean eventAttached
 
-    @BindingFormat(WebConstants.WEB_FORMAT_DATE)
-    Date endDate
-
     String campaignName
 
     @BindUsing({ obj, source ->return MassMailingCommand.bindTags(source)})
@@ -41,7 +38,6 @@ class CampaignSettingsCommand {
         causes nullable: true
         debatable nullable: true
         eventAttached nullable: true
-        endDate nullable: true
         checkValidation nullable: true
         hideResults nullable: true;
     }

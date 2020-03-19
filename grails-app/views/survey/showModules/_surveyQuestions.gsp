@@ -9,7 +9,7 @@
         </div>
     </div><!-- ^survey-progress !-->
 
-    <ul class="survey-questions ${survey.hideResults?'campaign-hide-results':''} ${survey.closed?'survey-closed':''}">
+    <ul id="survey-questions-tag" class="survey-questions">
         <g:each in="${survey.questions}" var="question" status="i">
             <g:render template="/survey/showModules/questions/surveyQuestion" model="[survey:survey, question:question, questionNumber:i+1, questionsTotal:survey.questions.size]"/>
         </g:each>

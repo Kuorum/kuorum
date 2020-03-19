@@ -13,9 +13,17 @@
 </g:if>
 <g:if test="${survey.closed}">
     <g:set var="callTitleMsg" value="${g.message(code:'survey.callToAction.closed.title')}"/>
-    <g:set var="callClosedTimeAgo"><kuorumDate:humanDate date="${survey.endDate}"/></g:set>
-    <g:set var="callSubtitleMsg" value="${g.message(code:'survey.callToAction.closed.subtitle', args: [callClosedTimeAgo], encodeAs: "raw")}"/>
-    <g:set var="callButtonMsg" value="${g.message(code:'survey.callToAction.closed.button')}"/>
+    <g:if test="${survey.endDate.before(new Date())}">
+        <g:set var="callClosedTimeAgo"><kuorumDate:humanDate date="${survey.endDate}"/></g:set>
+        <g:set var="callSubtitleMsg" value="${g.message(code:"survey.callToAction.closed.subtitle.after", args: [callClosedTimeAgo], encodeAs: "raw")}"/>
+        <g:set var="callButtonMsg" value="${g.message(code:"survey.callToAction.closed.button.after")}"/>
+    </g:if>
+    <g:else>
+        <g:set var="callClosedTimeAgo"><kuorumDate:humanDate date="${survey.startDate}"/></g:set>
+        <g:set var="callSubtitleMsg" value="${g.message(code:"survey.callToAction.closed.subtitle.before", args: [callClosedTimeAgo], encodeAs: "raw")}"/>
+        <g:set var="callButtonMsg" value="${g.message(code:"survey.callToAction.closed.button.before")}"/>
+    </g:else>
+
 </g:if>
 
 <div class="comment-box call-to-action call-to-action-add-proposal hidden-sm hidden-xs">
@@ -25,7 +33,7 @@
     </div>
     <g:if test="${survey.published}">
         <div class="actions clearfix">
-            <button type="button" class="btn btn-blue btn-lg" data-goto="#survey-progress" id="survey-call-to-action">
+            <button type="button" class="btn btn-blue btn-lg" data-goto="#survey-questions" id="survey-call-to-action">
                 ${callButtonMsg}
             </button>
         </div>

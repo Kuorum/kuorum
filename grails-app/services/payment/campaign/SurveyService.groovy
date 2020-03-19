@@ -138,6 +138,8 @@ class SurveyService implements CampaignCreatorService<SurveyRSDTO, SurveyRDTO>{
         SurveyRDTO surveyRDTO = new SurveyRDTO()
         if(surveyRSDTO){
             surveyRDTO = campaignService.basicMapping(surveyRSDTO,surveyRDTO)
+            surveyRDTO.setStartDate(surveyRSDTO.getStartDate())
+            surveyRDTO.setEndDate(surveyRSDTO.getEndDate())
             //MAP QUESTIONS
             surveyRDTO.questions = surveyRSDTO.questions.collect{
                 QuestionRDTO questionRDTO = new QuestionRDTO()

@@ -7,6 +7,22 @@
     <input type="hidden" name="redirectLink" id="redirectLink"/>
     <input type="hidden" name="sendType" value="${status== org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT?'SEND':'DRAFT'}" id="sendMassMailingType"/>
     <input type="hidden" name="surveyId" value="${command.surveyId}"/>
+    <fieldset class="form-group">
+        <label for="startDate" class="col-sm-2 col-md-2 control-label"><g:message code="kuorum.web.commands.payment.SurveyQuestionsCommand.startDate.label"/>:</label>
+        <div class="col-sm-8 col-md-4">
+            <formUtil:date command="${command}" field="startDate" time="true"/>
+        </div>
+    </fieldset>
+    <fieldset class="form-group">
+        <label for="endDate" class="col-sm-2 col-md-2 control-label"><g:message code="kuorum.web.commands.payment.SurveyQuestionsCommand.endDate.label"/>:</label>
+        <div class="col-sm-8 col-md-4">
+            <formUtil:date command="${command}" field="endDate" time="true"/>
+        </div>
+    </fieldset>
+
+    <h2 class="col-sm-offset-1">
+        <g:message code="tools.campaign.new.steps.questions"/>
+    </h2>
     <formUtil:dynamicComplexInputs
             command="${command}"
             field="questions"

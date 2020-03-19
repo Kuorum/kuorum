@@ -15,6 +15,13 @@ import org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO
 class SurveyQuestionsCommand {
 
     Long surveyId
+
+    @BindingFormat(WebConstants.WEB_FORMAT_DATE)
+    Date endDate
+
+    @BindingFormat(WebConstants.WEB_FORMAT_DATE)
+    Date startDate
+
     List<QuestionCommand> questions = []
 
     @BindingFormat(WebConstants.WEB_FORMAT_DATE)

@@ -65,7 +65,7 @@ class PostController extends CampaignController{
     private def postModelSettings(CampaignSettingsCommand command, PostRSDTO postRSDTO) {
         def model = modelSettings(command, postRSDTO)
         command.debatable=false
-        model.options =[debatable:postRSDTO?.event?true:false, endDate:false]
+        model.options =[debatable:postRSDTO?.event?true:false]
         return model
     }
 

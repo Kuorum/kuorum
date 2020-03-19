@@ -202,7 +202,7 @@ class ParticipatoryBudgetController extends CampaignController{
     private def participatoryBudgetModelSettings(CampaignSettingsCommand command, ParticipatoryBudgetRSDTO participatoryBudgetRSDTO) {
         def model = modelSettings(command, participatoryBudgetRSDTO)
         command.debatable=false
-        model.options =[debatable:false, endDate:false]
+        model.options =[debatable:false]
         return model
     }
 

@@ -132,7 +132,6 @@ class CampaignController {
             command.campaignName = campaignRSDTO.name
             command.tags = campaignRSDTO.triggeredTags
             command.filterId = campaignRSDTO.newsletter?.filter?.id
-            command.endDate = campaignRSDTO.endDate
             command.checkValidation = campaignRSDTO.checkValidation
             command.hideResults = campaignRSDTO.hideResults
             if (campaignRSDTO.hasProperty('causes')){
@@ -164,7 +163,6 @@ class CampaignController {
         rdto.name = command.campaignName
         rdto.setTriggeredTags(command.tags)
         rdto.causes = command.causes
-        rdto.endDate = TimeZoneUtil.convertToUserTimeZone(command.endDate, user.timeZone)
         if (CustomDomainResolver.domainRSDTO?.validation){
             // Only if domain validation is active, then the checkValidation of the campaign is editable
             rdto.checkValidation = command.checkValidation?:false
