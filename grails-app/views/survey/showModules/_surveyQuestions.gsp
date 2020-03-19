@@ -1,5 +1,9 @@
 <g:if test="${survey.published}">
     <!-- ^survey-progress !-->
+    <div class="comment-box survey-hide-answers-warn">
+        <div><g:message code="survey.show.hideResults.warn"/></div>
+    </div><!-- ^survey-progress !-->
+    <!-- ^survey-progress !-->
     <div id="survey-progress-tag" class="comment-box survey-progress" data-question-pos="0">
         <div><g:message code="survey.show.progress"/>: <span id="survey-pos">0</span> / <span id="survey-total">${survey.questions.size()}</span></div>
         <div class="progress survey-progress-bar">
