@@ -92,9 +92,13 @@ var userValidatedByDomain={
         userValidatedByDomain.hideErrorModal();
     },
     showPhoneValidation:function(){
-        $("#domain-validation .modal-domain-validation").hide()
+        $("#domain-validation .modal-domain-validation").hide();
         $("#domain-validation .modal-domain-validation-phone").show();
-        userValidatedByDomain.showPhoneValidationStep1();
+        if ($("phoneHash").val()=="" || $("phoneHash").val() == undefined){
+            userValidatedByDomain.showPhoneValidationStep1();
+        }else{
+            userValidatedByDomain.showPhoneValidationStep2();
+        }
     },
     showPhoneValidationStep1:function(e){
         if (e != undefined){e.preventDefault();}
@@ -111,6 +115,7 @@ var userValidatedByDomain={
         $("#domain-validation .modal-domain-validation-phone .modal-domain-validation-phone-step2").show();
         $("#domain-validation .modal-domain-validation-step-tabs li").removeClass("active");
         $("#domain-validation .modal-domain-validation-step-tabs li.modal-domain-validation-step-tabs-phoneCode").addClass("active");
+        $("#phoneCode").val("");
         userValidatedByDomain.hideModalLoading();
         userValidatedByDomain.hideErrorModal();
     },
