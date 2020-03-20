@@ -8290,3 +8290,13 @@ li.survey-question.answered .survey-question-answer .option-extra-content textar
         top: 60px;
     }
 }
+
+/* Join this query with the previous*/
+/* Very small devices (mobile, 480px and up) */
+@media only screen and (min-width: 480px) {
+
+    .survey-question-header {
+        padding-right:30px;
+    }
+
+}
