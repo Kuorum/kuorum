@@ -73,7 +73,7 @@ class AdminController {
         DomainRSDTO domainRSDTO = domainService.getConfig(CustomDomainResolver.domain)
         DomainConfigCommand domainConfigCommand = new DomainConfigCommand()
         domainConfigCommand.name = domainRSDTO.name
-        domainConfigCommand.validation = domainRSDTO.validation
+        domainConfigCommand.validationCensus = domainRSDTO.validationCensus
         domainConfigCommand.validationPhone = domainRSDTO.validationPhone
         domainConfigCommand.validationCode = domainRSDTO.validationCode
         domainConfigCommand.smsDomainName = domainRSDTO.smsDomainName
@@ -100,7 +100,7 @@ class AdminController {
         DomainRDTO domainRDTO = getPopulatedDomainRDTO()
         domainRDTO.name = command.name
         if (SpringSecurityUtils.ifAllGranted("ROLE_SUPER_ADMIN")){
-            domainRDTO.validation = command.validation?:false
+            domainRDTO.validationCensus = command.validationCensus?:false
             domainRDTO.validationCode = command.validationCode?:false
             domainRDTO.validationPhone = command.validationPhone?:false
             domainRDTO.smsDomainName = command.smsDomainName?:''

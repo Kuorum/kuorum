@@ -26,7 +26,7 @@ class RRSSConfigFilters {
                     model.put("_domainResourcesPath", CustomDomainResolver.domainRSDTO?.basicRootUrlStaticResources?:"")
                     model.put("_domainActiveCampaigns", getActiveCampaigns())
                     model.put("_domainValidations",[
-                            census:CustomDomainResolver.domainRSDTO.validation,
+                            census:CustomDomainResolver.domainRSDTO.validationCensus,
                             phone:CustomDomainResolver.domainRSDTO.validationPhone,
                             customCode:CustomDomainResolver.domainRSDTO.validationCode
                     ])

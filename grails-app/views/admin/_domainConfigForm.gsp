@@ -57,7 +57,7 @@
     <h4 class="box-ppal-section-title"><g:message code="kuorum.web.admin.domain.validation.label"/></h4>
     <fieldset class="row">
         <div class="form-group col-md-6">
-            <formUtil:checkBox command="${command}" field="validation" showLabel="true" disabled="${!grails.plugin.springsecurity.SpringSecurityUtils.ifAllGranted("ROLE_SUPER_ADMIN")}"/>
+            <formUtil:checkBox command="${command}" field="validationCensus" showLabel="true" disabled="${!grails.plugin.springsecurity.SpringSecurityUtils.ifAllGranted("ROLE_SUPER_ADMIN")}"/>
         </div>
         <div class="form-group col-md-6">
             <formUtil:checkBox command="${command}" field="validationCode" showLabel="true" disabled="${!grails.plugin.springsecurity.SpringSecurityUtils.ifAllGranted("ROLE_SUPER_ADMIN")}"/>

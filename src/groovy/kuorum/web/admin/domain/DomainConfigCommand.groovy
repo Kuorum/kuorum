@@ -8,7 +8,7 @@ class DomainConfigCommand {
 
     String name;
     LanguageRSDTO language;
-    Boolean validation
+    Boolean validationCensus
     Boolean validationPhone
     Boolean validationCode
     String smsDomainName;
@@ -27,7 +27,7 @@ class DomainConfigCommand {
     static constraints = {
         name nullable: false
         language nullable: false
-        validation nullable: true
+        validationCensus nullable: true
         validationPhone nullable: true
         validationCode nullable: true
         mainColor nullable:false, matches:HEX_PATTERN
