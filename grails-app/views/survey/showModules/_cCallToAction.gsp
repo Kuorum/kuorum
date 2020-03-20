@@ -23,7 +23,6 @@
         <g:set var="callSubtitleMsg" value="${g.message(code:"survey.callToAction.closed.subtitle.before", args: [callClosedTimeAgo], encodeAs: "raw")}"/>
         <g:set var="callButtonMsg" value="${g.message(code:"survey.callToAction.closed.button.before")}"/>
     </g:else>
-
 </g:if>
 
 <div class="comment-box call-to-action call-to-action-add-proposal hidden-sm hidden-xs">
