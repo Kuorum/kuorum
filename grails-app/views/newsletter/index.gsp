@@ -19,15 +19,7 @@
     </g:if>
     <g:else>
         <div class="container-fluid box-ppal choose-campaign">
-
-
-            <p><g:message code="dashboard.payment.noCampaigns" /></p>
-            %{--<p>--}%
-                %{--<g:link mapping="politicianCampaignsNew" class="btn inverted btn-lg">--}%
-                    %{--<g:message code="tools.massMailing.list.newCampaign"/>--}%
-                %{--</g:link>--}%
-            %{--</p>--}%
-            <g:render template="chooseCampaign"/>
+            <g:render template="/newsletter/chooseCampaign" model="[chooseCampaignTitle:g.message(code:'dashboard.payment.noCampaigns')]"/>
         </div>
     </g:else>
 

@@ -1106,8 +1106,7 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 .box-ppal.import-contacts > p,
 .box-ppal.dashboard > p,
 .box-ppal.choose-campaign > p {color: #a8a8a8; text-align: center; font-size: 17px; font-size: 1.7rem; max-width: 800px; margin: 0 auto 20px; padding: 0 1em;}
-.box-ppal.choose-campaign div.skip-contacts {position:absolute; bottom:25px; text-align: center;width: 100%;}
-.box-ppal.choose-campaign div.skip-contacts a{cursor: pointer;}
+.box-ppal.choose-campaign .choose-campaign-empty {}
 .box-ppal.import-contacts > p a {color: #ec931f;}
 .box-ppal.import-contacts form {margin-bottom: 30px;}
 .box-ppal.import-contacts-videos {padding: 25px 25px 0 25px; box-shadow: 0 0 2px rgba(200,200,200,0.6);}
