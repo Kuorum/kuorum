@@ -7763,7 +7763,7 @@ ul.notification-menu > li.see-more {
     margin-bottom:10px;
 }
 
-.survey-hide-answers-warn {padding-top: 25px; padding-bottom: 25px; text-align: center; display: none;}
+.survey-hide-answers-warn {padding-top: 25px; padding-bottom: 25px; text-align: center; display: none; font-size: 20px;}
 .campaign-hide-results .survey-hide-answers-warn {display: block;}
 
 .survey-question.rating-answer .survey-question-answers {text-align: center;}
