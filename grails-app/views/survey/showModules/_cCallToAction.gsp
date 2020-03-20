@@ -13,7 +13,7 @@
 </g:if>
 <g:if test="${survey.closed}">
     <g:set var="callTitleMsg" value="${g.message(code:'survey.callToAction.closed.title')}"/>
-    <g:if test="${survey.endDate.before(new Date())}">
+    <g:if test="${survey.endDate?.before(new Date())}">
         <g:set var="callClosedTimeAgo"><kuorumDate:humanDate date="${survey.endDate}"/></g:set>
         <g:set var="callSubtitleMsg" value="${g.message(code:"survey.callToAction.closed.subtitle.after", args: [callClosedTimeAgo], encodeAs: "raw")}"/>
         <g:set var="callButtonMsg" value="${g.message(code:"survey.callToAction.closed.button.after")}"/>

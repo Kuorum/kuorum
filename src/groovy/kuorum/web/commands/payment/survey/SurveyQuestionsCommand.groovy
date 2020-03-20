@@ -46,6 +46,8 @@ class SurveyQuestionsCommand {
     static constraints = {
         importFrom CampaignContentCommand, include: ["publishOn", "sendType"]
         questions maxSize: 10000, validator: validateQuestions
+        endDate nullable: true
+        startDate nullable: true
     }
 }
 
