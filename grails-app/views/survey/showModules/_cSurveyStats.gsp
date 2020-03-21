@@ -25,13 +25,13 @@
     </g:if>
     <g:if test="${survey.hideResults}">
         <li>
-            <span class="fal fa-eye-slash" aria-hidden="true"></span>
+            <span class="fal fa-poll" aria-hidden="true"></span>
             <span class="info"><g:message code="survey.cColumn.stats.results.hidden"/></span>
         </li>
     </g:if>
     <g:else>
         <li>
-            <span class="fal fa-eye" aria-hidden="true"></span>
+            <span class="fal fa-poll" aria-hidden="true"></span>
             <span class="info"><g:message code="survey.cColumn.stats.results.visible"/></span>
         </li>
     </g:else>
