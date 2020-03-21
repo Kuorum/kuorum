@@ -38,7 +38,7 @@
         <h3 class="hidden-xs"><g:message code="landingServices.latestActivities.subtitle"/></h3>
     </div>
     <ul class="search-list latestActivities clearfix">
-        <g:render template="/campaigns/cards/campaignsList" model="[campaigns:campaigns, numColumns:3]"/>
+        <g:render template="/campaigns/cards/campaignsList" model="[campaigns:campaigns, center:true]"/>
     </ul>
 
     <g:link mapping="register" id="register-submit" class="btn btn-orange btn-lg"> <g:message code="landingPage.register.form.submit"/></g:link>

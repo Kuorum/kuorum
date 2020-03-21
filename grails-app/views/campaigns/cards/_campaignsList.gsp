@@ -1,7 +1,18 @@
-<g:each in="${campaigns}" var="campaign">
+<g:each in="${campaigns}" var="campaign" status="i">
     <g:set var="columsSize" value="col-sm-12 col-md-6"/>
-    <g:if test="${numColumns && numColumns==3}">
-        <g:set var="columsSize" value="col-xs-12 col-sm-4"/>
+    <g:if test="${center}">
+        <g:if test="${campaigns.size()==3 && i==0 }">
+            <g:set var="columsSize" value="col-xs-12 col-sm-4 S3"/>
+        </g:if>
+        <g:elseif test="${campaigns.size() == 2 && i==0 }">
+            <g:set var="columsSize" value="col-xs-12 col-sm-offset-2 col-sm-4 S2"/>
+        </g:elseif>
+        <g:elseif test="${campaigns.size() == 1 && i==0 }">
+            <g:set var="columsSize" value="col-xs-12 col-sm-offset-4 col-sm-4 S1" />
+        </g:elseif>
+        <g:else>
+            <g:set var="columsSize" value="col-xs-12 col-sm-4 ELSE"/>
+        </g:else>
     </g:if>
 
     <li class="${columsSize} search-article">
