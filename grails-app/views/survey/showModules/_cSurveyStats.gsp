@@ -23,4 +23,16 @@
             <span class="info"><g:message code="kuorum.web.commands.payment.SurveyQuestionsCommand.endDate.label"/>: <g:formatDate type="datetime" style="SHORT" date="${survey.endDate}"/></span>
         </li>
     </g:if>
+    <g:if test="${survey.hideResults}">
+        <li>
+            <span class="fal fa-eye-slash" aria-hidden="true"></span>
+            <span class="info"><g:message code="survey.cColumn.stats.results.hidden"/></span>
+        </li>
+    </g:if>
+    <g:else>
+        <li>
+            <span class="fal fa-eye" aria-hidden="true"></span>
+            <span class="info"><g:message code="survey.cColumn.stats.results.visible"/></span>
+        </li>
+    </g:else>
 </ul>
