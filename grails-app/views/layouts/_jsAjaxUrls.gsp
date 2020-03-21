@@ -64,11 +64,11 @@
             },
             step3:{
                 title:"<g:message code="tour.dashboard.step3.title"/>",
-                content:"<g:message code="tour.dashboard.step3.content"/>"
+                content:"<g:message code="tour.dashboard.step3.content" args="[_domainName]"/>"
             },
             step4:{
                 title:"<g:message code="tour.dashboard.step4.title"/>",
-                content:"<g:message code="tour.dashboard.step4.content"/>"
+                content:"<g:message code="tour.dashboard.step4.content" args="[_domainName]"/>"
             }
         },
         tools:{
