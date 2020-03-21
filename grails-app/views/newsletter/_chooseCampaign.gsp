@@ -142,6 +142,6 @@
 
 <sec:ifNotGranted roles="${campaignRoles}">
     <p class="choose-campaign-empty">
-        <g:message code="dashboard.payment.chooseCampaign.noActiveCampaigns" args="[_domainName, g.createLink(mapping:'dashboard')]"/>
+        <g:message code="dashboard.payment.chooseCampaign.noActiveCampaigns" args="[_domainName, g.createLink(mapping:'dashboard')]" encodeAs="raw"/>
     </p>
 </sec:ifNotGranted>
