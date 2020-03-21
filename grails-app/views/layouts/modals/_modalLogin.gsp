@@ -2,7 +2,7 @@
 <%@ page import="kuorum.web.commands.customRegister.ForgotUserPasswordCommand" %>
 
 <!-- Modal registro/login -->
-<div class="modal fade modal-register" id="registro" tabindex="-1" role="dialog" aria-labelledby="registroLoginUsuario" aria-hidden="true">
+<div class="modal fade modal-register" id="registro" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="registroLoginUsuario" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
