@@ -50,11 +50,13 @@
             </div>
             <div class="extra-padding" id="politician-bio">
                 <g:render template="/kuorumUser/userShowTemplates/userNews" model="[user:politician, userNews:userNews]"/>
-                <h4><g:message code="politician.bio"/></h4>
-                <div class="limit-height" data-collapsedHeight="100"  itemprop="description">
-                    <div class="clearfix">${politician.bio}</div>
-                </div>
+                <g:if test="${politician.bio}">
+                    <h4><g:message code="politician.bio"/></h4>
+                    <div class="limit-height" data-collapsedHeight="100"  itemprop="description">
+                        <div class="clearfix">${politician.bio}</div>
+                    </div>
                 %{--<p class="limit-height" data-collapsedHeight="50"  itemprop="description">${politician.bio}</p>--}%
+                </g:if>
             </div><!--/.extra-padding -->
         </div><!--/.panel-body-->
     </div><!--/.panel panel-default -->
