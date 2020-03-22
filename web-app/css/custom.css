@@ -7829,7 +7829,6 @@ ul.notification-menu > li.see-more {
 .survey-question-answer .text-option,
 .survey-question-answer .single-option,
 .survey-question-answer .multi-option {
-    margin-right: 20px;
     display: flex;
     /*align-items: center;*/
     position: relative;
@@ -7844,7 +7843,7 @@ ul.notification-menu > li.see-more {
 .survey-question-answer .text-option label,
 .survey-question-answer .single-option label,
 .survey-question-answer .multi-option label{
-    width: 80%;
+    width: 75%;
     line-height: 30px;
     margin-top:5px;
 }
