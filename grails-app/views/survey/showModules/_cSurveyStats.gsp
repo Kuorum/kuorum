@@ -14,13 +14,13 @@
     <g:if test="${survey.startDate}">
         <li>
             <span class="fal fa-calendar-check" aria-hidden="true"></span>
-            <span class="info"><g:message code="kuorum.web.commands.payment.SurveyQuestionsCommand.startDate.label"/>: <g:formatDate type="datetime" style="SHORT" date="${survey.startDate}"/></span>
+            <span class="info"><g:message code="kuorum.web.commands.payment.SurveyQuestionsCommand.startDate.label"/>: <g:formatDate type="datetime" style="SHORT" date="${survey.startDate}" timeZone="${campaignUser.timeZone}"/></span>
         </li>
     </g:if>
     <g:if test="${survey.endDate}">
         <li>
             <span class="fal fa-calendar-times" aria-hidden="true"></span>
-            <span class="info"><g:message code="kuorum.web.commands.payment.SurveyQuestionsCommand.endDate.label"/>: <g:formatDate type="datetime" style="SHORT" date="${survey.endDate}"/></span>
+            <span class="info"><g:message code="kuorum.web.commands.payment.SurveyQuestionsCommand.endDate.label"/>: <g:formatDate type="datetime" style="SHORT" date="${survey.endDate}" timeZone="${campaignUser.timeZone}"/></span>
         </li>
     </g:if>
     <g:if test="${survey.hideResults}">
