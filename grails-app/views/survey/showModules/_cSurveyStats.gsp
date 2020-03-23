@@ -1,3 +1,4 @@
+<g:set var="displayTimeZone" value="${sec.loggedInUserInfo(field: 'timeZone')?((sun.util.calendar.ZoneInfo)sun.util.calendar.ZoneInfo.getTimeZone(sec.loggedInUserInfo(field: 'timeZone.ID').toString())):campaignUser.timeZone}"/>
 <ul class="leader-post-stats">
     <li>
         <span class="fal fa-eye" aria-hidden="true"></span>
@@ -14,13 +15,19 @@
     <g:if test="${survey.startDate}">
         <li>
             <span class="fal fa-calendar-check" aria-hidden="true"></span>
-            <span class="info"><g:message code="kuorum.web.commands.payment.SurveyQuestionsCommand.startDate.label"/>: <g:formatDate type="datetime" style="SHORT" date="${survey.startDate}" timeZone="${campaignUser.timeZone}"/></span>
+            <span class="info"><g:message code="kuorum.web.commands.payment.SurveyQuestionsCommand.startDate.label"/>:
+                <g:formatDate format="dd/MM/yyyy HH:mm" date="${survey.startDate}" timeZone="${displayTimeZone}"/>
+                <kuorumDate:printTimeZoneName date="${survey.startDate}" zoneInfo="${displayTimeZone}"/>
+            </span>
         </li>
     </g:if>
     <g:if test="${survey.endDate}">
         <li>
             <span class="fal fa-calendar-times" aria-hidden="true"></span>
-            <span class="info"><g:message code="kuorum.web.commands.payment.SurveyQuestionsCommand.endDate.label"/>: <g:formatDate type="datetime" style="SHORT" date="${survey.endDate}" timeZone="${campaignUser.timeZone}"/></span>
+            <span class="info"><g:message code="kuorum.web.commands.payment.SurveyQuestionsCommand.endDate.label"/>:
+                <g:formatDate format="dd/MM/yyyy HH:mm"  date="${survey.endDate}" timeZone="${displayTimeZone}"/>
+                <kuorumDate:printTimeZoneName date="${survey.endDate}" zoneInfo="${displayTimeZone}"/>
+            </span>
         </li>
     </g:if>
     <g:if test="${survey.hideResults}">

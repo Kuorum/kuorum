@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat
 
 class DateHelperTagLib {
     static defaultEncodeAs = 'html'
-    static encodeAsForTags = [humanDate: 'raw']
+    static encodeAsForTags = [humanDate: 'raw', printTimeZoneName:'raw']
 
     static namespace = "kuorumDate"
 
@@ -61,5 +61,13 @@ class DateHelperTagLib {
                 out << "..."
             }
         }
+    }
+    def printTimeZoneName = {attrs ->
+        sun.util.calendar.ZoneInfo zoneInfo = attrs.zoneInfo
+        Date date = attrs.date
+        Long offsetHours = zoneInfo.rawOffset / 1000 / 3600
+        String symbol = offsetHours >=0?"+":"";
+        String timeZoneName = g.formatDate(format:"z",date:date, timeZone:zoneInfo);
+        out << "<sup data-toggle='tooltip' data-placement='bottom' data-original-title='UTC ${symbol}${offsetHours} h'>${timeZoneName}</sup>";
     }
 }

@@ -1,3 +1,4 @@
+<g:set var="displayTimeZone" value="${sec.loggedInUserInfo(field: 'timeZone')?((sun.util.calendar.ZoneInfo)sun.util.calendar.ZoneInfo.getTimeZone(sec.loggedInUserInfo(field: 'timeZone.ID').toString())):eventUser.timeZone}"/>
 <g:if test="${event}">
     <div class="comment-box call-to-action event-info hidden-sm">
         <div class="comment-header">
@@ -11,7 +12,8 @@
                         <g:formatDate formatName="default.date.format.long"  date="${event.eventDate}" timeZone="${eventUser.timeZone}"/>
                     </p>
                     <p class="event-time">
-                        <g:formatDate type="time" style="SHORT"  date="${event.eventDate}" timeZone="${eventUser.timeZone}"/>
+                        <g:formatDate type="time" style="SHORT"  date="${event.eventDate}" timeZone="${displayTimeZone}"/>
+                        <kuorumDate:printTimeZoneName date="${survey.endDate}" zoneInfo="${displayTimeZone}"/>
                     </p>
                 </g:if>
                 <g:else>
