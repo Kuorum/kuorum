@@ -468,12 +468,11 @@ body.configDomainProcess .qq-uploader{background-color: #FFF;}
 .modal-dialog #pass-forget {display: none;}
 .modal-dialog #signup-modal {display: block;}
 
-#navigation-admin-show-landing-button{}
+#navigation-admin-show-landing-button{ margin-top:10px;}
 
 #navigation-admin-show-landing-button a{
     background: #545454;
     color: white;
-    height: 61px;
     margin-top: -11px;
     font-size: 30px;
 }
@@ -4955,6 +4954,8 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 
 /* Small devices (tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
+    #navigation-admin-show-landing-button {margin-top:0px;}
+    #navigation-admin-show-landing-button a{ height: 61px;}
     .form-group label .fa-info-circle{position: absolute;right: -11px;top: 13px;}
 
     ul.search-list.latestActivities .search-article {padding:0 6px 20px 6px;}
