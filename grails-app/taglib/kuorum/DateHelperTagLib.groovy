@@ -68,6 +68,6 @@ class DateHelperTagLib {
         Long offsetHours = zoneInfo.rawOffset / 1000 / 3600
         String symbol = offsetHours >=0?"+":"";
         String timeZoneName = g.formatDate(format:"z",date:date, timeZone:zoneInfo);
-        out << "<sup data-toggle='tooltip' data-placement='bottom' data-original-title='UTC ${symbol}${offsetHours} h'>${timeZoneName}</sup>";
+        out << "<span data-toggle='tooltip' data-placement='bottom' data-original-title='UTC ${symbol}${offsetHours} h'>${timeZoneName}</span>";
     }
 }
