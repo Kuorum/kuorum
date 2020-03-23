@@ -7829,6 +7829,7 @@ ul.notification-menu > li.see-more {
 .survey-question-answer .text-option,
 .survey-question-answer .single-option,
 .survey-question-answer .multi-option {
+    margin-right: 20px;
     display: flex;
     /*align-items: center;*/
     position: relative;
