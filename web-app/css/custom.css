@@ -3558,18 +3558,20 @@ fieldset.rating:hover > input + label:hover:before {
 
 /* página resultados buscador =========== */
 /* ====================================================== */
-.config.search > header form ul {list-style: none;}
-.config.search > header ul > li {padding: 15px;}
-.config.search > header ul > li +li {padding-left: 35px;}
-.config.search > header form .checkbox {padding: 0; margin: 0; position: relative;}
-.config.search > header form .checkbox input {position: absolute; left: 0; top: 0; float: none; margin: -2px 0 0 0; cursor:pointer}
-.config.search > header form .checkbox input[type=checkbox]:after {
+ul.search-options {list-style: none;}
+ul.search-options > li,
+.config > header ul.search-options > li {padding: 15px; margin: 0; border-bottom: 1px solid #dadada;font-size: 1.9rem;}
+ul.search-options > li +li,
+.config > header ul.search-options > li +li {padding-left: 35px;}
+ul.search-options a {padding: 0; margin: 0;}
+ul.search-options a:before {
     display: inline-block;
     content: "\2713";
     color: #fff;
     width: 20px;
     height: 20px;
-    margin: -2px 8px 0 0;
+    line-height: 20px;
+    margin: 0 8px 0 0;
     padding: 0 0 0 2px;
     font-size: 15px;
     font-weight: bold;
@@ -3578,7 +3580,7 @@ fieldset.rating:hover > input + label:hover:before {
     border-radius: 3px;
     transition: all .5s ease;
 }
-.config.search > header form .checkbox input[type=checkbox]:checked:after {
+ul.search-options a.search-option-active:before {
     background: #dedede;
     content: "\2713";
     color: #545454;

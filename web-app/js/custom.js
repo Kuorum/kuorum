@@ -168,36 +168,6 @@ $(document).ready(function() {
 
 	});
 
-    //search filters
-	$('#searchFilters input:checked').css('display','block');
-	$('#searchFilters input:checked').closest('label').css('color','#545454');
-
-    $('#searchFilters input[type=checkbox]').change(function(){
-        console.log("kk");
-        $("#searchFilters input[type=checkbox]").prop('checked', false);
-
-        var filterVal = $(this).val();
-        if (filterVal == ""){
-            $("#searchFilters #all-types").prop('checked', true);
-        }else{
-            $("#searchFilters input[value="+filterVal+"]").prop('checked', true);
-        }
-        reloadSearchNewFilters()
-    });
-
-    function reloadSearchNewFilters(){
-        var form = $("#searchFilters");
-        form.submit();
-//        var elementToUpdate=$("#"+form.attr('data-updateElementId'))
-//        $.ajax( {
-//            url:form.attr("action"),
-//            data:form.serialize()
-//        }).done(function(data, status, xhr) {
-//            $(elementToUpdate).html(data)
-//        })
-
-    }
-
     $('.ajax.popover-trigger.more-users').on('shown.bs.popover', function () {
         var that = $(this);
         var content = $(this).next().children(".popover-content");
