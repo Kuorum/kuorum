@@ -224,7 +224,7 @@ var surveyFunctions = {
         surveyFunctions._updateSurveyProgressBar();
     },
 
-    _switchOffOptionClickEventsOfQuestion(questionId){
+    _switchOffOptionClickEventsOfQuestion : function(questionId){
         var question = document.querySelector('.survey-question[data-question-id="' + questionId + '"]');
         var options = question.querySelectorAll('.survey-question-answer');
         var optionIdx; // IE10 not supports forEach
@@ -321,7 +321,7 @@ var surveyFunctions = {
         optionProgressBarCounter.innerHTML = rating.toFixed(1) +"<span class='progress-bar-counter-total'> / "+ numQuestions+"</span>";
     },
 
-    _transformExtraDataNoEditable(questionId){
+    _transformExtraDataNoEditable: function(questionId){
         var question = document.querySelector('[data-question-id="' + questionId + '"]');
         var answerOptions = Array.from(question.getElementsByClassName('survey-question-answer'))
         var answerOptionIdx; // IE10 not supports forEach
@@ -338,11 +338,11 @@ var surveyFunctions = {
         }
     },
 
-    _addExtraInfoAnswer($answerOption, text){
+    _addExtraInfoAnswer: function ($answerOption, text){
         $answerOption.attr("data-question-extra-content",text)
     },
 
-    _getExtraInfoAnswer($answerOption){
+    _getExtraInfoAnswer: function ($answerOption){
         return $answerOption.attr("data-question-extra-content")
     },
 
@@ -492,7 +492,7 @@ var surveyFunctions = {
         });
     },
 
-    _recoverExtraDataForEachAnswer(answerIds){
+    _recoverExtraDataForEachAnswer: function (answerIds){
         // Recover extra data of each option chosen
         var answers = [];
         var answerIdsIdx;
