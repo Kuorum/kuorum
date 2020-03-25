@@ -13,7 +13,7 @@
                     </p>
                     <p class="event-time">
                         <g:formatDate type="time" style="SHORT"  date="${event.eventDate}" timeZone="${displayTimeZone}"/>
-                        <kuorumDate:printTimeZoneName date="${survey.endDate}" zoneInfo="${displayTimeZone}"/>
+                        <kuorumDate:printTimeZoneName date="${event.eventDate}" zoneInfo="${displayTimeZone}"/>
                     </p>
                 </g:if>
                 <g:else>
