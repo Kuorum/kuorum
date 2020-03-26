@@ -3560,11 +3560,14 @@ fieldset.rating:hover > input + label:hover:before {
 /* ====================================================== */
 ul.search-options {list-style: none;}
 ul.search-options > li,
-.config > header ul.search-options > li {padding: 15px; margin: 0; border-bottom: 1px solid #dadada;font-size: 1.9rem;}
-ul.search-options > li +li,
-.config > header ul.search-options > li +li {padding-left: 35px;}
-ul.search-options a {padding: 0; margin: 0;}
-ul.search-options a:before {
+.config > header ul.search-options > li {padding: 0; margin: 0; border-bottom: 1px solid #dadada;font-size: 17px;}
+ul.search-options > li label {font-weight: normal; padding: 0; width: 100%; margin:0;}
+ul.search-options > li label a {padding: 12px 0 12px 25px; margin: 0; display: block; cursor: pointer;}
+ul.search-options > li label a{color:inherit;}
+ul.search-options > li label a:hover,
+ul.search-options > li label a:focus{text-decoration: none; background: #EFEFEF}
+ul.search-options > li +li label a{padding-left:35px}
+ul.search-options > li label a:before {
     display: inline-block;
     content: "\2713";
     color: #fff;
@@ -3585,10 +3588,6 @@ ul.search-options a.search-option-active:before {
     content: "\2713";
     color: #545454;
 }
-.config.search label {font-weight: normal; position: relative; padding: 0 0 0 30px;}
-.config.search label a{color:inherit;}
-.config.search label a:hover,
-.config.search label a:focus{text-decoration: none;}
 
 .config.search > header ul.causes-tags {padding: 10px;}
 .config.search > header ul.causes-tags > li.cause{ padding:1px; font-size:12px;}
