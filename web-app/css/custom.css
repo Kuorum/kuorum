@@ -4830,6 +4830,9 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .actionIcons > li.fontIcon > a{  margin: auto !important;  }
 
     .modal-register.modal .modal-body #pass-forget {text-align: center;}
+
+    .comment-box .actions {width: 100%; text-align: center;}
+    .survey-question .social {width: 100%; text-align: center;}
 }
 
 /* Very small devices (mobile, 480px and up) */
@@ -8000,7 +8003,7 @@ li.survey-question.answered .survey-question-answer .option-extra-content textar
 }
 
 .survey-question > .footer {
-    display: flex;
+    /*display: flex;*/
     align-items: center;
     justify-content: space-between;
 }
