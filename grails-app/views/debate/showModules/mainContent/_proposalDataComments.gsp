@@ -33,6 +33,7 @@
         </g:each>
     </ul>
     <!-- ^comment-box !-->
+<g:if test="${!debate.hideResults}">
     <div class="comment-box proposal-comment-box ${debate.event && !debate.event.registered?'hide':''}">
         <div class="comment-proposal clearfix">
             <div class="user-box col-md-1 col-xs-12">
@@ -62,4 +63,5 @@
             </button>
         </div>
     </div><!-- ^comment-box !-->
+</g:if>
 </div>
