@@ -21,6 +21,6 @@ class DomainLandingCommand {
         subtitle nullable:false
         domainDescription nullable:true
         footerLinks minSize: 0, maxSize: 10
-        landingVisibleRoles nullable: false, minSize: 1, maxSize: 4
+        landingVisibleRoles nullable: true, maxSize: 4
     }
 }

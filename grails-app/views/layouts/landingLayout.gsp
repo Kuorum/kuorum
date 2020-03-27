@@ -20,13 +20,15 @@
                 <g:pageProperty name="page.main"/>
             </section>
         </div>
-        <div class="row landing-section-dark">
-            <div class="container">
-                <section id="how-it-works">
-                    <g:pageProperty name="page.howItWorks"/>
-                </section>
+        <g:if test="${g.pageProperty(name:'page.showHowItWorks')=="true"}">
+            <div class="row landing-section-dark">
+                <div class="container">
+                    <section id="how-it-works">
+                        <g:pageProperty name="page.howItWorks"/>
+                    </section>
+                </div>
             </div>
-        </div>
+        </g:if>
 
         <g:if test="${g.pageProperty(name:'page.showLatestActivities')=="true"}">
             <div class="row landing-section-light">

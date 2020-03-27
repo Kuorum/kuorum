@@ -5,6 +5,7 @@
     <meta name="layout" content="landingLayout">
     <parameter name="extraHeadCss" value="landing"/>
     <parameter name="showLatestActivities" value="${org.apache.commons.collections.CollectionUtils.isNotEmpty(campaigns)}"/>
+    <parameter name="showHowItWorks" value="${org.apache.commons.collections.CollectionUtils.isNotEmpty(landingVisibleRoles)}"/>
     <g:render template="/dashboard/landingMetaTags"
               model="[
                       kuorumTitle:slogan,
@@ -29,7 +30,9 @@
 </content>
 
 <content tag="howItWorks">
-    <g:render template="/landing/servicesModules/services" model="[landingVisibleRoles:landingVisibleRoles]"/>
+    <g:if test="${landingVisibleRoles}">
+        <g:render template="/landing/servicesModules/services" model="[landingVisibleRoles:landingVisibleRoles]"/>
+    </g:if>
 </content>
 
 <content tag="latestActivities">
