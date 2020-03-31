@@ -20,6 +20,15 @@ $(function(){
         $("#causes_tag").css("width","100%")
     });
 
+    $("#newsletterCommunication, #groupValidation").on("change", function(e){
+        var activeFilter = $("#newsletterCommunication:checked, #groupValidation:checked").length >0
+        if (activeFilter){
+            $("#filter-contact-selector").slideDown();
+        }else{
+            $("#filter-contact-selector").slideUp();
+        }
+    })
+
     // CREATE CAMPAIGN moving on STEPS
     var $stepButton = $('.campaign-steps ul.actionIcons > li > a');
     $stepButton.on('click', campaignForm.stepSubmit);
