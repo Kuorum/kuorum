@@ -411,7 +411,7 @@ var display = {
                 easing: 'swing',
                 speed: 500 // opening & closing animation speed
             },
-            timeout: 1000000,
+            timeout: 10000,
             template: '<div class="noty_message" role="alert"><span class="noty_text"></span><div class="noty_close"></div></div>',
             type: type,
             text: htmlText

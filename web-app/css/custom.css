@@ -3645,6 +3645,8 @@ h5#results {margin: 0 0 15px;}
     color:#FFFFFF;
 }
 
+.noty_type_cookie .noty_text a {color:#ffffff; font-weight: bold;}
+
 .container-fluid.info {padding-top: 20px;}
 .info #main > header nav ul {margin: 0; padding: 0;}
 .info #main > header nav ul li {list-style: none;}
