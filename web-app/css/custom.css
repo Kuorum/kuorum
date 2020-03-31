@@ -8005,28 +8005,28 @@ li.survey-question.answered .survey-question-answer .option-extra-content textar
 .survey-question.rating-answer.answered .survey-question-answer .question-progress-info {display: block;position: absolute;}
 
 .survey-question .social {
-    margin: 30px 0 10px 0;
+    margin: 5px 0 10px 0;
     padding: 0;
     color: #D0D0D0;
 }
 
 .survey-question > .footer {
-    /*display: flex;*/
+    display: inline-block;
     align-items: center;
     justify-content: space-between;
+    width:100%;
 }
-
+.survey-question > .footer .actions {margin:0;}
 .survey-question > .footer .next-section a {
     font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
     color: #D0D0D0;
     text-decoration: underline;
+    display: inline-block;
+    margin: 5px 15px;
 }
 
 .survey-question > .footer .next-section a:hover {
     color: #ec931f;
-}
-.survey-question > .footer .next-section a.skip-survey{
-    margin-right: 15px;
 }
 
 .survey-question > .footer .next-section button {margin-left: 18px;}
