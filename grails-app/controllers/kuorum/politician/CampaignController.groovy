@@ -133,6 +133,7 @@ class CampaignController {
             command.tags = campaignRSDTO.triggeredTags
             command.filterId = campaignRSDTO.newsletter?.filter?.id
             command.checkValidation = campaignRSDTO.checkValidation
+            command.groupValidation = campaignRSDTO.groupValidation
             command.hideResults = campaignRSDTO.hideResults
             if (campaignRSDTO.hasProperty('causes')){
                 command.causes = campaignRSDTO.causes
@@ -168,6 +169,7 @@ class CampaignController {
             rdto.checkValidation = command.checkValidation?:false
         }
         rdto.hideResults = command.hideResults==null?false:command.hideResults
+        rdto.groupValidation = command.groupValidation==null?false:command.groupValidation
         if (command.filterEdited) {
             //anonymousFilter.setName(g.message(code:'tools.contact.filter.anonymousName', args: anonymousFilter.getName()))
             rdto.setAnonymousFilter(anonymousFilter)
@@ -275,10 +277,14 @@ class CampaignController {
     }
 
     protected Long getCampaignNumberRecipients(KuorumUserSession user, CampaignRSDTO campaignRSDTO){
-        Long numberRecipients = campaignRSDTO?.newsletter?.filter?.amountOfContacts!=null?
-                campaignRSDTO.newsletter?.filter?.amountOfContacts:
-                contactService.getUsers(user, null).total
-        return numberRecipients
+        if (campaignRSDTO.newsletterCommunication){
+            Long numberRecipients = campaignRSDTO?.newsletter?.filter?.amountOfContacts!=null?
+                    campaignRSDTO.newsletter?.filter?.amountOfContacts:
+                    contactService.getUsers(user, null).total
+            return numberRecipients
+        }else{
+            return 0L;
+        }
     }
 
     protected CampaignRDTO convertCommandContentToRDTO(CampaignContentCommand command, KuorumUserSession user, Long campaignId, CampaignCreatorService campaignService) {
@@ -380,4 +386,17 @@ class CampaignController {
         KuorumUserSession loggedUser = springSecurityService.principal
         campaignService.remove(loggedUser, campaignId)
     }
+
+    def checkGroupCampaignValidation(String userAlias, Long campaignId){
+        String userId = null;
+        if (springSecurityService.isLoggedIn()){
+            userId = springSecurityService.principal.id.toString();
+        }
+        Boolean belongsToCampaignGroup = campaignService.userBelongToCampaignGroup(userAlias, campaignId, userId )
+
+        render(contentType: "application/json") {
+            [success : true, belongsToCampaignGroup : belongsToCampaignGroup]
+        }
+    }
+
 }

@@ -38,14 +38,9 @@ var postFunctions = {
             callback: callback,
             $button : $button
         }
-        var loggedUser = $button.attr('data-loggedUser');
         var executableFunction = new userValidatedByDomain.ExcutableFunctionCallback(postFunctions.__executableAsyncPostLike, params)
-        var validationActive = $button.attr('data-campaignValidationActive');
-        if (validationActive=="true"){
-            userValidatedByDomain.checkUserValid(loggedUser, executableFunction)
-        }else{
-            executableFunction.exec()
-        }
+        userValidatedByDomain.executeClickButtonHandlingValidations($button, executableFunction);
+
     },
     __executableAsyncPostLike:function (params) {
         var callback = params.callback;

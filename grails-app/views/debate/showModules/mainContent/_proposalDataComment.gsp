@@ -18,10 +18,20 @@
 
             <div class="footer-comment-votes ${comment.userVote>0?'vote-up':comment.userVote<0?'vote-down':''}">
 
-                <button type="button" class="angle vote-up" data-ajaxVote='${g.createLink(mapping: 'debateProposalVoteComment')}' data-commentId="${comment.id}" data-userAlias="${sec.username()}" data-campaignValidationActive="${debate.checkValidationActive}">
+                <button type="button" class="angle vote-up"
+                        data-ajaxVote='${g.createLink(mapping: 'debateProposalVoteComment')}'
+                        data-commentId="${comment.id}"
+                        data-userAlias="${sec.username()}"
+                        data-campaignValidationActive="${debate.checkValidationActive}"
+                        data-campaignGroupValidationActive="${debate.groupValidation?g.createLink(mapping: "campaignCheckGroupValidation", params: debate.encodeAsLinkProperties()):''}">
                     <span class="fal fa-angle-up" aria-hidden="true"></span>
                 </button>
-                <button type="button" class="angle vote-down" data-ajaxVote='${g.createLink(mapping: 'debateProposalVoteComment')}' data-commentId="${comment.id}" data-userAlias="${sec.username()}" data-campaignValidationActive="${debate.checkValidationActive}">
+                <button type="button" class="angle vote-down"
+                        data-ajaxVote='${g.createLink(mapping: 'debateProposalVoteComment')}'
+                        data-commentId="${comment.id}"
+                        data-userAlias="${sec.username()}"
+                        data-campaignGroupValidationActive="${debate.groupValidation?g.createLink(mapping: "campaignCheckGroupValidation", params: debate.encodeAsLinkProperties()):''}"
+                        data-campaignValidationActive="${debate.checkValidationActive}">
                     <span class="fal fa-angle-down" aria-hidden="true"></span>
                 </button>
 

@@ -4960,7 +4960,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 @media only screen and (min-width: 768px) {
     #navigation-admin-show-landing-button {margin-top:0px;}
     #navigation-admin-show-landing-button a{ height: 61px;}
-    .form-group label .fa-info-circle{position: absolute;right: -11px;top: 13px;}
+    .form-group label .fa-info-circle{position: absolute;right: -11px;top: 13px; z-index:2;}
 
     ul.search-list.latestActivities .search-article {padding:0 6px 20px 6px;}
     .fade-carousel .content { width: 95%}

@@ -357,6 +357,7 @@ class UrlMappings {
 
 
         name campaignShow:          "/$userAlias/$urlTitle-$campaignId" (controller: "campaign", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it)})}}
+        name campaignCheckGroupValidation:"/ajax/$userAlias/$urlTitle-$campaignId/group/check" (controller: "campaign", action: "checkGroupCampaignValidation")
         name campaignPause:         "/ajax/account/$userAlias/$urlTitle-$campaignId/pause" (controller: "newsletter", action: "pauseCampaign")
 
         name widgetJs:      "/widget.js"(controller: "widget", action:"kuorumWidgetjs")

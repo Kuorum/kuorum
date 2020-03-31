@@ -8,6 +8,7 @@
        data-petitionId="${petition.id}"
        data-petitionUserId="${(petition instanceof org.kuorum.rest.model.search.kuorumElement.SearchPetitionRSDTO)?petition.ownerId:petition.user.id}"
        data-campaignValidationActive="${petition.checkValidationActive}"
+%{--       data-campaignGroupValidationActive="${petition.groupValidation?g.createLink(mapping: "campaignCheckGroupValidation", params: petition.encodeAsLinkProperties()):''}"--}%
        data-loggedUser="${sec.username()}"
     >
         <span class="${activeButton?'fas':'fal'} fa-microphone" aria-hidden="true"></span>

@@ -17,6 +17,9 @@
                 <div class="modal-domain-validation modal-domain-validation-customCode">
                     <g:render template="/layouts/modals/modalDomainValidation_CustomCodeForm"/>
                 </div>
+                <div class="modal-domain-validation modal-domain-validation-groupCampaign">
+                    <g:render template="/layouts/modals/modalDomainValidation_groupCampaignValidation"/>
+                </div>
                 <fieldset class="center modal-domain-validation-notifications">
                     <p class="loading" style="display: none"><span class="fas fa-spinner fa-spin"></span> </p>
                     <p class="text-success" style="display: none">

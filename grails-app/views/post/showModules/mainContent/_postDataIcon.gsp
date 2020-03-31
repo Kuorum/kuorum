@@ -7,6 +7,7 @@
             data-postUserId="${post.user.id}"
             data-urlAction="${g.createLink(mapping: "postLike")}"
             data-campaignValidationActive="${post.checkValidationActive}"
+            data-campaignGroupValidationActive="${post.groupValidation?g.createLink(mapping: "campaignCheckGroupValidation", params: post.encodeAsLinkProperties()):''}"
             data-loggedUser="${sec.username()}"
     >
         <span class="${activeButton?'fas':'fal'} fa-heart" aria-hidden="true"></span>

@@ -14,6 +14,7 @@
                 href="${callButtonAction}"
                 type="button"
                 class="btn btn-blue-status btn-lg ${callButtonActive?'on':''} districtProposal-vote"
+                data-campaignGroupValidationActive="${districtProposal.groupValidation?g.createLink(mapping: "campaignCheckGroupValidation", params: districtProposal.encodeAsLinkProperties()):''}"
                 data-campaignValidationActive="${districtProposal.checkValidationActive}"
                 data-districtId="${districtProposal.district.id}"
                 data-participatoryBudgetId="${districtProposal.participatoryBudget.id}"

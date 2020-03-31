@@ -584,13 +584,7 @@ var debateFunctions = {
             callback: callback
         }
         var executableFunction = new userValidatedByDomain.ExcutableFunctionCallback(debateFunctions.__voteCommentValidationChecked, params)
-        var validationActive = $button.attr('data-campaignValidationActive');
-        var loggedUser = $button.attr('data-useralias'); // No needed
-        if (validationActive=="true"){
-            userValidatedByDomain.checkUserValid(loggedUser, executableFunction)
-        }else{
-            executableFunction.exec()
-        }
+        userValidatedByDomain.executeClickButtonHandlingValidations($button, executableFunction);
     },
     __voteCommentValidationChecked: function (params){
         var $button = params.$button
@@ -662,13 +656,7 @@ var debateFunctions = {
             callback: callback
         }
         var executableFunction = new userValidatedByDomain.ExcutableFunctionCallback(debateFunctions.__likeProposalValidationChecked, params)
-        var validationActive = $button.attr('data-campaignValidationActive');
-        var loggedUser = $button.attr('data-useralias'); // No needed
-        if (validationActive=="true"){
-            userValidatedByDomain.checkUserValid(loggedUser, executableFunction)
-        }else{
-            executableFunction.exec()
-        }
+        userValidatedByDomain.executeClickButtonHandlingValidations($button, executableFunction);
     },
     __likeProposalValidationChecked: function(params){
         // Unbind

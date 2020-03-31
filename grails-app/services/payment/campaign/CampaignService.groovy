@@ -134,6 +134,7 @@ class CampaignService {
             rdto.body = campaignRSDTO.body
             rdto.publishOn = campaignRSDTO.datePublished
             rdto.hideResults = campaignRSDTO.hideResults
+            rdto.groupValidation = campaignRSDTO.groupValidation
             rdto.causes = campaignRSDTO.causes
             if (campaignRSDTO.event){
                 rdto.event = new EventRDTO()
@@ -204,6 +205,31 @@ class CampaignService {
                     query,
                     new TypeReference<CampaignRSDTO>(){}
             )
+        }
+    }
+
+    boolean userBelongToCampaignGroup(String userId, Long campaignId, String viewerUid = nul){
+        if (!campaignId){
+            return null
+        }
+        Map<String, String> params = [userId: userId, campaignId: campaignId.toString()]
+        Map<String, String> query = [:]
+        if (viewerUid){
+            query.put("viewerUid",viewerUid)
+        }
+        try {
+            def response = restKuorumApiService.get(
+                    RestKuorumApiService.ApiMethod.ACCOUNT_CAMPAIGN_GROUPS,
+                    params,
+                    query,
+                    new TypeReference<Boolean>(){}
+            )
+
+            Boolean userBelongsToGroup = response.data
+            return userBelongsToGroup
+        }catch (Exception e){
+            log.error("Error checking if user belongs to group", e)
+            return false
         }
     }
 }

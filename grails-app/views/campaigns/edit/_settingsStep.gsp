@@ -68,6 +68,22 @@
                     <formUtil:checkBox command="${command}" field="hideResults"/>
                 </div>
             </fieldset>
+            <fieldset class="form-group fieldset-check-box">
+                <label for="newsletterCommunication" class="col-sm-2 col-md-1 control-label">
+                    <g:message code="kuorum.web.commands.payment.CampaignSettingsCommand.newsletterCommunication.label.left"/>:
+                </label>
+                <div class="col-sm-8 col-md-7">
+                    <formUtil:checkBox command="${command}" field="newsletterCommunication"/>
+                </div>
+            </fieldset>
+            <fieldset class="form-group fieldset-check-box">
+                <label for="groupValidation" class="col-sm-2 col-md-1 control-label">
+                    <g:message code="kuorum.web.commands.payment.CampaignSettingsCommand.groupValidation.label.left"/>:
+                </label>
+                <div class="col-sm-8 col-md-7">
+                    <formUtil:checkBox command="${command}" field="groupValidation"/>
+                </div>
+            </fieldset>
             <g:render template="/newsletter/form/formGroupCampaignTags" model="[command:command, events:events, editable:campaign== null || !campaign.published]"/>
         </div>
         <g:render template="/campaigns/edit/stepButtons" model="[mappings:mappings, status:status, command: command]"/>

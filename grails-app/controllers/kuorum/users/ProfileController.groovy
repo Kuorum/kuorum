@@ -495,14 +495,10 @@ class ProfileController {
     }
 
     def domainUserValidChecker(){
-
         if (SpringSecurityUtils.ifAnyGranted('ROLE_USER_VALIDATED')){
-            render ([validated:true, success:true, pendingValidations:[]] as JSON)
+            render ([validated:true,  success:true, pendingValidations:getPendingValidations()] as JSON)
         }else{
-            KuorumUserSession sessionUser = springSecurityService.principal
-            render ([validated:false, success:true,
-                     pendingValidations:getPendingValidations()
-            ] as JSON)
+            render ([validated:false, success:true, pendingValidations:getPendingValidations()] as JSON)
         }
     }
 

@@ -43,14 +43,7 @@ var eventFunctions={
             callback: callback
         }
         var executableFunction = new userValidatedByDomain.ExcutableFunctionCallback(eventFunctions.__confirmAssistanceUserChecked, params)
-        var validationActive = $button.attr('data-campaignValidationActive');
-        var loggedUser = $button.attr('data-useralias'); // No needed
-        if (validationActive=="true"){
-            console.log("VALIDATION ACTIVE")
-            userValidatedByDomain.checkUserValid(loggedUser, executableFunction)
-        }else{
-            executableFunction.exec()
-        }
+        userValidatedByDomain.executeClickButtonHandlingValidations($button, executableFunction);
     },
     __confirmAssistanceUserChecked:function(params){
         var $button = params.$button

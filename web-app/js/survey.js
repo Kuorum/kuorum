@@ -110,13 +110,9 @@ var surveyFunctions = {
         }
         var executableFunction = new userValidatedByDomain.ExcutableFunctionCallback(surveyFunctions._nextButtonClickSelectorValidationChecked, params)
         var button = question.querySelector('.next-section button');
-        var validationActive = button.getAttribute('data-campaignValidationActive');
-        var loggedUser = button.getAttribute('data-userLoggedAlias'); // No needed
-        if (validationActive=="true"){
-            userValidatedByDomain.checkUserValid(loggedUser, executableFunction)
-        }else{
-            executableFunction.exec()
-        }
+        var $button = $(button);
+        userValidatedByDomain.executeClickButtonHandlingValidations($button, executableFunction);
+
     },
     _nextButtonClickSelectorValidationChecked:function (params) {
         var question = params.question

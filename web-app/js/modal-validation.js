@@ -8,6 +8,7 @@ var userValidatedByDomain={
     modalNotifications: undefined,
     modal: undefined,
     loading:undefined,
+    dataValidation: undefined,
 
     initVariables:function(){
         if(!userValidatedByDomain.binded){
@@ -16,6 +17,10 @@ var userValidatedByDomain={
             $("#validatePhoneCodeDomain-modal-form-button-id").on("click",userValidatedByDomain.handleSubmitValidationPhone );
             $("#validatePhoneCodeDomain-modal-form-button-back").on("click",userValidatedByDomain.showPhoneValidationStep1 );
             $("#validateCustomCodeDomain-modal-form-button-id").on("click",userValidatedByDomain.handleSubmitValidationCustomCode );
+            $("#groupValidationCampaign-modal-button-id").on("click",function(e){
+                e.preventDefault();
+                $("#domain-validation").modal("hide");
+            });
             userValidatedByDomain.binded = true
             userValidatedByDomain.modal = $("#domain-validation")
             userValidatedByDomain.modalNotifications = $("#domain-validation .modal-domain-validation-notifications")
@@ -48,22 +53,77 @@ var userValidatedByDomain={
             })
         }
     },
-    checkUserValid:function(userId, executableFunctionCallback){
+
+    executeClickButtonHandlingValidations:function($button, executableFunctionCallback){
+        userValidatedByDomain.dataValidation ={
+            loggedUser : $button.attr('data-useralias'), // No needed
+            validationActive : $button.attr('data-campaignValidationActive'),
+            groupValidation : $button.attr('data-campaignGroupValidationActive'),
+            campaignId : $button.attr('data-campaignId')
+        }
+        if (userValidatedByDomain.dataValidation.validationActive=="true"){
+            userValidatedByDomain.checkUserValid(executableFunctionCallback)
+        }else{
+            userValidatedByDomain.checkGroupValidation(executableFunctionCallback)
+        }
+    },
+
+    checkUserValid:function(executableFunctionCallback){
         var url = kuorumUrls.profileDomainValidationChecker;
-        var data = {};
+        var data = userValidatedByDomain.dataValidation;
         executable = executableFunctionCallback;
         $.ajax({
             type: "POST",
             url: url,
             data: data,
             success: function (dataLogin) {
-                console.log(dataLogin)
                 userValidatedByDomain.initVariables();
                 userValidatedByDomain.nextValidationStep(dataLogin);
                 if (!dataLogin.validated){
                     userValidatedByDomain.openAndPrepareValidationModal();
                 }else{
                     userValidatedByDomain.validated = true
+                }
+            },
+            error:function(){
+                // User is no logged or is not validated
+                // Showing modal validation process
+                // pageLoadingOff();
+                display.error("Error checking validation")
+            },
+            complete: function () {
+                pageLoadingOff();
+            }
+        });
+    },
+    checkGroupValidation:function(executableFunctionCallback, closeCallbackModal){
+        console.log("Check Group Validation")
+        if (userValidatedByDomain.dataValidation.groupValidation != undefined && userValidatedByDomain.dataValidation.groupValidation != ''){
+            console.log("No group")
+            userValidatedByDomain._ajaxRemoteCheckGroupValidation(executableFunctionCallback)
+        }else{
+            executableFunctionCallback.exec()
+            closeCallbackModal()
+        }
+    },
+    _ajaxRemoteCheckGroupValidation:function(executableFunctionCallback){
+        var url =userValidatedByDomain.dataValidation.groupValidation;
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: userValidatedByDomain.dataValidation,
+            success: function (dataCheckGroupValidation) {
+                console.log(dataCheckGroupValidation)
+                // var jsonValidation = JSON.parse(dataCheckGroupValidation);
+                console.log(dataCheckGroupValidation.belongsToCampaignGroup)
+                if (dataCheckGroupValidation.belongsToCampaignGroup){
+                    console.log("Validation Group :: Ok");
+                    executableFunctionCallback.exec()
+                }else{
+                    console.log("Validation Group :: No group");
+                    userValidatedByDomain.initVariables();
+                    userValidatedByDomain.openAndPrepareValidationModal();
+                    userValidatedByDomain.showWarnGroupValidation();
                 }
             },
             error:function(){
@@ -118,6 +178,12 @@ var userValidatedByDomain={
         $("#phoneCode").val("");
         userValidatedByDomain.hideModalLoading();
         userValidatedByDomain.hideErrorModal();
+    },
+
+    showWarnGroupValidation:function(){
+        $("#domain-validation .modal-domain-validation").hide();
+        userValidatedByDomain.hideErrorModal();
+        $("#domain-validation .modal-domain-validation-groupCampaign").show();
     },
 
     sendSMSForPhoneValidation:function(e){
@@ -269,24 +335,30 @@ var userValidatedByDomain={
 
     nextValidationStep: function(callbackData){
         // Success is 200 code No
-        console.log(callbackData);
+        console.log("Next step");
         if (callbackData.validated) {
+            console.log("Validated")
             userValidatedByDomain.hideErrorModal();
-            executable.exec();
             userValidatedByDomain.validated = true;
             $("#validateDomain-modal-form-button-id").find(".text-success").show();
-            setTimeout(function () {
-                $("#domain-validation").modal("hide")
-            }, 1000);
+            userValidatedByDomain.checkGroupValidation(executable, function(){
+                setTimeout(function () {
+                    $("#domain-validation").modal("hide")
+                }, 1000);
+            });
         }else if (!callbackData.success){ // ERRORS ON AJAX CALL
             // RESTORE STATUS
+            console.log("Error")
             userValidatedByDomain.showErrorModal(callbackData.msg)
         }else{
             if (!callbackData.pendingValidations.censusValidation){
+                console.log("Show Census validation")
                 userValidatedByDomain.showCensusValidation();
             }else if (!callbackData.pendingValidations.codeValidation){
+                console.log("Show Code validation")
                 userValidatedByDomain.showCodeValidation();
             }else if (!callbackData.pendingValidations.phoneValidation){
+                console.log("Show Phone validation")
                 userValidatedByDomain.showPhoneValidation();
             }
         }

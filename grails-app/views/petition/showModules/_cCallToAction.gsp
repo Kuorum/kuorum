@@ -29,6 +29,7 @@
                     data-petitionId="${petition.id}"
                     data-petitionUserId="${petition.user.id}"
                     data-campaignValidationActive="${petition.checkValidationActive}"
+                    data-campaignGroupValidationActive="${petition.groupValidation?g.createLink(mapping: "campaignCheckGroupValidation", params: petition.encodeAsLinkProperties()):''}"
                     data-loggedUser="${sec.username()}"
                     data-txt-on="${g.message(code:"petition.callToAction.SENT.button.on",args: [petition.title])}"
                     data-txt-on-hover="${g.message(code:"petition.callToAction.SENT.button.on.hover",args: [petition.title])}"

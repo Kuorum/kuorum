@@ -25,6 +25,7 @@
                             class="btn btn-blue btn-lg event-confirm-button event-unconfirmed ${extraUnconfirmedClass}"
                             data-userLoggedAlias="${userUtil.loggedUserId()}"
                             data-campaignValidationActive="${campaign.checkValidationActive}"
+                            data-campaignGroupValidationActive="${campaign.groupValidation?g.createLink(mapping: "campaignCheckGroupValidation", params: campaign.encodeAsLinkProperties()):''}"
                             data-eventUserId="${campaign.user.id}"
                             data-postUrl="${g.createLink(mapping: 'eventBookTicket', params:campaign.encodeAsLinkProperties())}"
                     >
