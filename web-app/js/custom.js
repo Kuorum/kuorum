@@ -396,7 +396,7 @@ var display = {
     success:function(text){this._notyGeneric(text, "success", "top")},
     info:function(text){this._notyGeneric(text, "information", "top")},
     warn:function(text){this._notyGeneric(text, "warning", "top")},
-    cookie:function(text){this._notyGeneric(text, "warning", "bottomRight")},
+    cookie:function(text){this._notyGeneric(text, "cookie", "cookieLayout")},
     blockAdvise:function(text, eventClick){this._slideDown(text, eventClick)},
     hideAdvise:function(){this._slideUp()},
 
@@ -411,7 +411,7 @@ var display = {
                 easing: 'swing',
                 speed: 500 // opening & closing animation speed
             },
-            timeout: 10000,
+            timeout: 1000000,
             template: '<div class="noty_message" role="alert"><span class="noty_text"></span><div class="noty_close"></div></div>',
             type: type,
             text: htmlText

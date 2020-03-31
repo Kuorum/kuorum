@@ -19,6 +19,9 @@
 						case 'bottom':
 							$(selector).css({borderRadius: '0px 0px 0px 0px'});
 							$(selector).first().css({borderRadius: '5px 5px 0px 0px'}); break;
+						case 'cookieLayout':
+							$(selector).css({borderRadius: '0px'});
+							$(selector).first().css({borderRadius: '0px'}); break;
 						default: break;
 					}
 				}
@@ -110,6 +113,12 @@
 					});
 					this.$message.css({fontSize: '13px', textAlign: 'left'});
 				break;
+				case 'cookieLayout':
+					this.$bar.css({
+						border: '0px',
+					});
+					this.$message.css({fontSize: '13px', textAlign: 'left'});
+					break;
 				case 'bottom':
 					this.$bar.css({
 						borderRadius: '5px 5px 0px 0px',
@@ -126,7 +135,6 @@
 					});
 				break;
 			}
-
 			switch (this.options.type) {
 				case 'alert': case 'notification':
 					this.$bar.css({backgroundColor: '#ffc990', borderColor: '#ff9421', color: '#444'}); break;
@@ -143,6 +151,9 @@
 				case 'success':
 					this.$bar.css({backgroundColor: 'lightgreen', borderColor: '#50C24E', color: 'darkgreen'});
 					this.$buttons.css({borderTop: '1px solid #50C24E'});break;
+				case 'cookie':
+					this.$bar.css({backgroundColor: 'none'});
+					break;
 				default:
 					this.$bar.css({backgroundColor: '#FFF', borderColor: '#CCC', color: '#444'}); break;
 			}
