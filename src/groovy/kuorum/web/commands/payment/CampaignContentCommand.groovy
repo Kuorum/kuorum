@@ -36,7 +36,7 @@ class CampaignContentCommand {
     }
 
     static constraints = {
-        title nullable: true, validator: { val, obj ->
+        title nullable: true, maxSize: 255, validator: { val, obj ->
             if (obj.publishOn && !val){
                 return "kuorum.web.commands.payment.massMailing.DebateCommand.title.nullable"
             }
