@@ -51,4 +51,8 @@ public enum AvailableLanguage{
         }
         return res;
     }
+
+    public boolean isSpanishLang(){
+        return this.locale.getCountry() == "ES"
+    }
 }
