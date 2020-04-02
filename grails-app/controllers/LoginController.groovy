@@ -74,12 +74,6 @@ class LoginController {
                 ]
     }
 
-    def loginForm = {
-//        def config = SpringSecurityUtils.securityConfig
-//        String postUrl = "${config.loginDomain}${config.apf.filterProcessesUrl}"
-        render template: "/layouts/loginForm", model:[ modalId:'registro']
-    }
-
     def homeLogin = {
         def config = SpringSecurityUtils.securityConfig
 

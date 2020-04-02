@@ -233,10 +233,6 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
 //        }
     }
 
-    def forgotPasswordForm(){
-        render template: "/layouts/recoverPassword", model:[ modalId:'registro']
-    }
-
     def ajaxValidationForgotPassword(ForgotUserPasswordCommand command) {
 
         if (command.hasErrors()) {
