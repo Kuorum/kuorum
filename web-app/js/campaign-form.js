@@ -20,14 +20,17 @@ $(function(){
         $("#causes_tag").css("width","100%")
     });
 
-    $("#newsletterCommunication, #groupValidation").on("change", function(e){
+    $("#newsletterCommunication, #groupValidation").on("change", toggleFilterContactSelectorVisibility)
+
+    function toggleFilterContactSelectorVisibility(){
         var activeFilter = $("#newsletterCommunication:checked, #groupValidation:checked").length >0
         if (activeFilter){
             $("#filter-contact-selector").slideDown();
         }else{
             $("#filter-contact-selector").slideUp();
         }
-    })
+    }
+    toggleFilterContactSelectorVisibility();
 
     // CREATE CAMPAIGN moving on STEPS
     var $stepButton = $('.campaign-steps ul.actionIcons > li > a');

@@ -200,7 +200,7 @@ modules = {
 
     campaignForm{
         dependsOn("basic", "forms")
-        resource url: 'js/camapign-form.js'
+        resource url: 'js/campaign-form.js'
     }
 
     debateForm {
