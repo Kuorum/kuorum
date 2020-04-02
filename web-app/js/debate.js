@@ -786,8 +786,8 @@ var debateFunctions = {
                 url: url,
                 data: data,
                 success: function (htmlProposal) {
-                    callback(htmlProposal);
                     $mediumEditor.html("");
+                    callback(htmlProposal);
                     if (typeof(dataLayer) != "undefined"){
                         dataLayer.push({
                             'event': 'debate-proposal-published',
