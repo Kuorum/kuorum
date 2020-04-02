@@ -4842,7 +4842,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .modal-register.modal .modal-body #pass-forget {text-align: center;}
 
     .comment-box .actions {width: 100%; text-align: center;}
-    .survey-question .social {width: 100%; text-align: center;}
 }
 
 /* Very small devices (mobile, 480px and up) */
@@ -8007,9 +8006,10 @@ li.survey-question.answered .survey-question-answer .option-extra-content textar
 .survey-question.rating-answer.answered .survey-question-answer .question-progress-info {display: block;position: absolute;}
 
 .survey-question .social {
-    margin: 5px 0 10px 0;
+    margin: 10px;
     padding: 0;
     color: #D0D0D0;
+    float:left;
 }
 
 .survey-question > .footer {
@@ -8031,11 +8031,12 @@ li.survey-question.answered .survey-question-answer .option-extra-content textar
     color: #ec931f;
 }
 
-.survey-question > .footer .next-section button {margin-left: 18px;}
+.survey-question > .footer .next-section button {margin: 0 10px;}
 .survey-question.answered > .footer .next-section {display:none;}
 
 .survey-question > .footer .social li {
     font-size: 12px;
+    margin:0 2px;
 }
 
 .survey-question > .footer .social li a .fa-circle.dark {
@@ -8057,6 +8058,9 @@ li.survey-question.answered .survey-question-answer .option-extra-content textar
 /* Super small devices (mobile, 480px and down) */
 @media only screen and (max-width: 480px) {
     .survey-question-answers .survey-question-rating-option{margin:5px;}
+    .survey-question .social {width: auto; text-align: center; float:unset;}
+    .survey-question .actions a.skip-question{margin-bottom: 20px;}
+    .survey-question > .footer {padding-bottom: 20px;}
 }
 
 
