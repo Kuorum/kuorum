@@ -135,6 +135,7 @@ class CampaignController {
             command.checkValidation = campaignRSDTO.checkValidation
             command.groupValidation = campaignRSDTO.groupValidation
             command.hideResults = campaignRSDTO.hideResults
+            command.newsletterCommunication = campaignRSDTO.newsletterCommunication
             if (campaignRSDTO.hasProperty('causes')){
                 command.causes = campaignRSDTO.causes
             }
@@ -170,6 +171,7 @@ class CampaignController {
         }
         rdto.hideResults = command.hideResults==null?false:command.hideResults
         rdto.groupValidation = command.groupValidation==null?false:command.groupValidation
+        rdto.newsletterCommunication = command.newsletterCommunication==null?false:command.newsletterCommunication
         if (command.filterEdited) {
             //anonymousFilter.setName(g.message(code:'tools.contact.filter.anonymousName', args: anonymousFilter.getName()))
             rdto.setAnonymousFilter(anonymousFilter)

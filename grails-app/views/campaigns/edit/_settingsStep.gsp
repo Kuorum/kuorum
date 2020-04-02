@@ -82,7 +82,8 @@
                     <g:message code="kuorum.web.commands.payment.CampaignSettingsCommand.newsletterCommunication.label.left"/>:
                 </label>
                 <div class="col-sm-8 col-md-7">
-                    <formUtil:checkBox command="${command}" field="newsletterCommunication"/>
+                    <formUtil:checkBox command="${command}" field="newsletterCommunication" disabled="${campaign != null && campaign.published}"/>
+%{--                    <formUtil:checkBox command="${command}" field="newsletterCommunication"/>--}%
                 </div>
             </fieldset>
             <fieldset class="form-group fieldset-check-box">

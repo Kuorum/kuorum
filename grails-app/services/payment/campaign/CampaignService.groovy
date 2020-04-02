@@ -135,6 +135,7 @@ class CampaignService {
             rdto.publishOn = campaignRSDTO.datePublished
             rdto.hideResults = campaignRSDTO.hideResults
             rdto.groupValidation = campaignRSDTO.groupValidation
+            rdto.newsletterCommunication = campaignRSDTO.newsletterCommunication
             rdto.causes = campaignRSDTO.causes
             if (campaignRSDTO.event){
                 rdto.event = new EventRDTO()
