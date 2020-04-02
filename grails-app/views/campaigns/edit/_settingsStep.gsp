@@ -63,7 +63,7 @@
                         <g:message code="kuorum.web.commands.payment.CampaignSettingsCommand.hideResults.label.left"/>:
                     </label>
                     <div class="col-sm-8 col-md-7">
-                        <formUtil:checkBox command="${command}" field="hideResults" label="kuorum.web.commands.payment.CampaignSettingsCommand.hideResults.label"/>
+                        <formUtil:checkBox command="${command}" field="hideResults" label="${g.message(code:'kuorum.web.commands.payment.CampaignSettingsCommand.hideResults.label')}" />
                     </div>
                 </fieldset>
             </g:if>
