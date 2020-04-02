@@ -63,12 +63,10 @@
             beforeSend: function () {
                 var $form = $(this);
                 $form.removeClass("checked");
-                console.log("REMOVE")
             },
             complete: function () {
                 var $form = $(this);
                 $form.addClass("checked");
-                console.log("ADD")
             }
         });
     });
