@@ -4622,6 +4622,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     white-space: nowrap;
 }
 
+#questionsSurveyForm > fieldset:nth-of-type(2){margin-bottom: 4em;}
 
 #questionsSurveyForm .row {margin:0;}
 #questionsSurveyForm .row .question-text-container {padding-right:30px;}

@@ -20,9 +20,6 @@
         </div>
     </fieldset>
 
-    <h2 class="col-sm-offset-1">
-        <g:message code="tools.campaign.new.steps.questions"/>
-    </h2>
     <formUtil:dynamicComplexInputs
             command="${command}"
             field="questions"
