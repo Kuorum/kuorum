@@ -100,11 +100,18 @@ grails.resources.adhoc.includes = ['/fonts/**', '/images/**', '/css/**', '/js/**
 grails.resources.resourceLocatorEnabled=true
 grails.resources.uriToUrlCacheTimeout = 30000
 //grails.resources.mappers.baseurl.enabled=false
-//grails.resources.mappers.baseurl.default = "http://local-static.kuorum.org/kuorum/static/"
 grails.resources.mappers.multidomain.enabled = false
 grails.resources.mappers.multidomain.protocol = "https://"
 grails.resources.mappers.multidomain.suffixDomain = "static-kuorum.org/kuorum/static"
 grails.resources.mappers.multidomain.numberDomains = 5
+
+grails.resources.mappers.amazoncdn.enabled = true
+grails.resources.mappers.amazoncdn.host = "d14an5jhi0lb92.cloudfront.net"
+grails.resources.mappers.amazoncdn.accessKey = "XXX"
+grails.resources.mappers.amazoncdn.secretKey = "XXXXXXXXXXX"
+grails.resources.mappers.amazoncdn.bucket = "static.kuorum.org"
+grails.resources.mappers.amazoncdn.path = "/local/development"
+grails.resources.mappers.baseurl.default = "${grails.resources.mappers.amazoncdn.host}${grails.resources.mappers.amazoncdn.path}"
 
 grails.gorm.default.constraints = {
 //    '*'(nullable: true)
