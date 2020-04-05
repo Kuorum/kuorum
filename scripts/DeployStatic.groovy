@@ -170,9 +170,27 @@ def unzipFile(File file, File temporalDir) {
     }
 }
 
+File findFile(String fileName, File rootDir){
+    try {
+        boolean recursive = true;
+        Collection files = FileUtils.listFiles(rootDir, null, recursive);
+
+        for (Iterator iterator = files.iterator(); iterator.hasNext();) {
+            File file = (File) iterator.next();
+            if (file.getName().equals(fileName))
+                return file;
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+
 target(deployStatic: "The description of the script goes here!") {
     depends(packageApp)
-    def war = new File("./target/ROOT.war")
+    File rootDir = new File(".");
+    String fileWarName = "ROOT.war"
+    System.out.println("Searching ${fileWarName} in ${rootDir.absolutePath}")
+    def war = findFile(fileWarName, rootDir);
     File temporalDir = File.createTempDir("kuorum","war");
     unzipFile(war, temporalDir)
 
