@@ -172,8 +172,7 @@ def unzipFile(File file, File temporalDir) {
 
 target(deployStatic: "The description of the script goes here!") {
     depends(packageApp)
-    System.out.println(" #############${config?.grails?.resources?.mappers?.amazoncdn?.accessKey}")
-    def war = new File("./target/kuorum-4.0.1.war")
+    def war = new File("./target/root.war")
     File temporalDir = File.createTempDir("kuorum","war");
     unzipFile(war, temporalDir)
 
