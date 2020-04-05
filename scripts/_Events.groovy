@@ -2,6 +2,8 @@ import grails.util.Environment
 
 includeTargets << grailsScript("_GrailsInit")
 includeTargets << grailsScript('_GrailsPackage')
+includeTargets << grailsScript('_GrailsWar')
+includeTargets << grailsScript('_GrailsEvents')
 
 
 eventConfigureTomcat = {tomcat ->
@@ -19,4 +21,15 @@ eventConfigureTomcat = {tomcat ->
         }
 
     }
+}
+
+eventPackagingEnd = {  ->
+    System.out.println("############# Packagin end")
+}
+
+eventCreateWarStart = { warName, File stagingDir ->
+    System.out.println("############# War start")
+}
+eventCreateWarEnd = {warName, File stagingDir ->
+    System.out.println("############# War end : ${config.grails.serverURL}")
 }

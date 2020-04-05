@@ -29,19 +29,16 @@ class AmazonCdnResourceMapper {
             }catch(Exception e){
                 log.error("Error deploying resource on AMAZON : ${resource.linkOverride}", e)
             }
-//            Integer numberDomains = Integer.parseInt(config.numberDomains);
-//            Integer serverNumber = (numberResources % numberDomains)+1
-//            resource.linkOverride = "${config.protocol}${serverNumber}-${config.suffixDomain}${resource.linkUrl}".toString();
             log.info("Generating URL =>${resource.linkOverride}")
-//            numberResources++
         }
     }
 
     // CODE COPIED FROM AMAZON FILE SERVICE
     private String uploadFileToAmazon(File file, String contentType, String key, def config) {
-        String bucketName = config.bucket;
         String keyName = key.replace("//","/").replaceAll(/^\//,"")
+        return keyName;
 
+        String bucketName = config.bucket;
         AmazonS3 s3Client = buildAmazonClient(config.accessKey, config.secretKey)
 
 
