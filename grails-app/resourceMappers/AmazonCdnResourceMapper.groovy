@@ -1,12 +1,4 @@
-import kuorum.files.AmazonFileService
-import org.grails.plugin.resource.mapper.MapperPhase
-
 class AmazonCdnResourceMapper {
-
-    private static final long UPLOAD_PART_SIZE = 5242880; // Set part size to 5 MB.
-    def phase = MapperPhase.DISTRIBUTION
-
-    AmazonFileService amazonFileService
 
     def map(resource, config) {
         if (config?.enabled){
