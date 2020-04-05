@@ -172,7 +172,7 @@ def unzipFile(File file, File temporalDir) {
 
 target(deployStatic: "The description of the script goes here!") {
     depends(packageApp)
-    def war = new File("./target/root.war")
+    def war = new File("./target/ROOT.war")
     File temporalDir = File.createTempDir("kuorum","war");
     unzipFile(war, temporalDir)
 
