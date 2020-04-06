@@ -17,13 +17,13 @@ class AmazonCdnResourceMapper {
         if (config?.enabled){
             String keyName = "${config.path}${resource.actualUrl}".replace("//","/").replaceAll(/^\//,"")
             try{
-                File file;
-                if (resource.originalResource != null){
-                    file = ((org.springframework.core.io.UrlResource) resource.originalResource).file;
-                }else{
-                    file = new File("${resource.workDir}${resource.actualUrl}");
-                };
-                if (file.absolutePath.contains("bundle")){
+                if (resource.actualUrl.contains("bundle")){
+                    File file;
+                    if (resource.originalResource != null){
+                        file = ((org.springframework.core.io.UrlResource) resource.originalResource).file;
+                    }else{
+                        file = new File("${resource.workDir}${resource.actualUrl}");
+                    };
                     String path = uploadFileToAmazon(file, resource.contentType, keyName, config);
                     resource.linkOverride = "https://${config.host}/${path}".toString();
                 }else{
