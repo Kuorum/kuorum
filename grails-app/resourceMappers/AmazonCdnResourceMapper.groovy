@@ -27,7 +27,7 @@ class AmazonCdnResourceMapper {
                     String path = uploadFileToAmazon(file, resource.contentType, keyName, config);
                     resource.linkOverride = "https://${config.host}/${path}".toString();
                 }else{
-                    log.warn("File ${keyname} was uploaded on deploy process")
+                    log.warn("File ${keyName} was uploaded on deploy process")
                     resource.linkOverride = "https://${config.host}/${keyName}".toString();
                 }
             }catch(Exception e){
@@ -36,7 +36,7 @@ class AmazonCdnResourceMapper {
 //            Integer numberDomains = Integer.parseInt(config.numberDomains);
 //            Integer serverNumber = (numberResources % numberDomains)+1
 //            resource.linkOverride = "${config.protocol}${serverNumber}-${config.suffixDomain}${resource.linkUrl}".toString();
-            log.info("Generating URL =>${resource.linkOverride}")
+            log.info("Generating ${keyName} URL =>${resource.linkOverride}")
 //            numberResources++
         }
     }
