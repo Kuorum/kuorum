@@ -710,7 +710,7 @@ qq.MultipleFileUploader = function(o){
         '<div class="qq-upload-file"></div>' +
         '<div class="qq-upload-spinner"></div>' +
         '<div class="qq-upload-size"></div>' +
-        '<div class="qq-upload-cancel">Cancel </div>' +
+        '<div class="can"><span class="fal fa-ban"></span></div>' +
         '<div class="qq-upload-failed-text"><span class="fal fa-exclamation-circle"></span></div>' +
         '<div class="qq-upload-success"><span class="fal fa-copy"></span></div>' +
         '<div class="qq-upload-delete"> <a href="#" class="qq-upload-delete-action fal fa-trash"></a></div>' +
