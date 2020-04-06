@@ -106,7 +106,7 @@ grails.resources.mappers.multidomain.suffixDomain = "static-kuorum.org/kuorum/st
 grails.resources.mappers.multidomain.numberDomains = 5
 
 grails.resources.mappers.amazoncdn.enabled = true
-grails.resources.mappers.amazoncdn.host = "d14an5jhi0lb92.cloudfront.net"
+grails.resources.mappers.amazoncdn.host = "static.kuorum.org"
 grails.resources.mappers.amazoncdn.accessKey = "XXX"
 grails.resources.mappers.amazoncdn.secretKey = "XXXXXXXXXXX"
 grails.resources.mappers.amazoncdn.bucket = "static.kuorum.org"
