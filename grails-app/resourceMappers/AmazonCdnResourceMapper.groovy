@@ -27,7 +27,7 @@ class AmazonCdnResourceMapper {
                 String path = uploadFileToAmazon(file, resource.contentType, keyName, config);
                 resource.linkOverride = "https://${config.host}/${path}".toString();
             }catch(Exception e){
-                log.error("Error deploying resource on AMAZON : ${resource.linkOverride}", e)
+                log.error("Error deploying resource on AMAZON : ${resource.linkOverride} :: ${e.getMessage()}")
             }
 //            Integer numberDomains = Integer.parseInt(config.numberDomains);
 //            Integer serverNumber = (numberResources % numberDomains)+1
@@ -142,6 +142,15 @@ class AmazonCdnResourceMapper {
         String bucketName = grailsApplication.config.kuorum.amazon.bucketName;
         return "https://${bucketName}.s3.amazonaws.com/${relativePath}"
     }
+
+//    public checkIfSOurcesFileExists( def config){
+//        AmazonS3 s3Client = buildAmazonClient(config.accessKey, config.secretKey)
+//        var listResponse = s3Client.ListObjectsV2(new ListObjectsV2Request
+//                {
+//                    BucketName = config.bucket,
+//                    Prefix = "folder1/folder2"
+//                });
+//    }
 
     private AmazonS3 buildAmazonClient(accessKey, secretKey) {
 
