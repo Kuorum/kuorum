@@ -3,7 +3,6 @@ import com.amazonaws.auth.BasicAWSCredentials
 import com.amazonaws.services.s3.AmazonS3
 import com.amazonaws.services.s3.AmazonS3Client
 import com.amazonaws.services.s3.model.*
-import kuorum.files.AmazonFileService
 import org.grails.plugin.resource.mapper.MapperPhase
 
 class AmazonCdnResourceMapper {
@@ -12,7 +11,13 @@ class AmazonCdnResourceMapper {
     def phase = MapperPhase.DISTRIBUTION
 
     def map(resource, config) {
-        if (config?.enabled){
+        Boolean cdnActive =
+                config?.enabled == null ? false:
+                config.enabled instanceof Boolean? config.enabled :
+                config.enabled instanceof String? Boolean.parseBoolean(config?.enabled) :
+                false
+
+        if (cdnActive){
             String keyName = "${config.path}${resource.actualUrl}".replace("//","/").replaceAll(/^\//,"")
             try{
                 if (resource.actualUrl.contains("bundle")){
