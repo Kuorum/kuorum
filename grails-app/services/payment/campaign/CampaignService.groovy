@@ -133,7 +133,7 @@ class CampaignService {
             rdto.title = campaignRSDTO.title
             rdto.body = campaignRSDTO.body
             rdto.publishOn = campaignRSDTO.datePublished
-            rdto.hideResults = campaignRSDTO.hideResults
+            rdto.hideResultsFlag = campaignRSDTO.hideResultsFlag
             rdto.groupValidation = campaignRSDTO.groupValidation
             rdto.newsletterCommunication = campaignRSDTO.newsletterCommunication
             rdto.causes = campaignRSDTO.causes

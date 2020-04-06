@@ -134,7 +134,7 @@ class CampaignController {
             command.filterId = campaignRSDTO.newsletter?.filter?.id
             command.checkValidation = campaignRSDTO.checkValidation
             command.groupValidation = campaignRSDTO.groupValidation
-            command.hideResults = campaignRSDTO.hideResults
+            command.hideResultsFlag = campaignRSDTO.hideResultsFlag
             command.newsletterCommunication = campaignRSDTO.newsletterCommunication
             if (campaignRSDTO.hasProperty('causes')){
                 command.causes = campaignRSDTO.causes
@@ -169,7 +169,7 @@ class CampaignController {
             // Only if domain validation is active, then the checkValidation of the campaign is editable
             rdto.checkValidation = command.checkValidation?:false
         }
-        rdto.hideResults = command.hideResults==null?false:command.hideResults
+        rdto.hideResultsFlag = command.hideResultsFlag==null?false:command.hideResultsFlag
         rdto.groupValidation = command.groupValidation==null?false:command.groupValidation
         rdto.newsletterCommunication = command.newsletterCommunication==null?false:command.newsletterCommunication
         if (command.filterEdited) {

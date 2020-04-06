@@ -26,7 +26,7 @@ class CampaignSettingsCommand {
     Set<String> causes;
 
     Boolean checkValidation;
-    Boolean hideResults;
+    Boolean hideResultsFlag;
     Boolean groupValidation = false;
     Boolean newsletterCommunication = false;
 
@@ -39,7 +39,7 @@ class CampaignSettingsCommand {
         debatable nullable: true
         eventAttached nullable: true
         checkValidation nullable: true
-        hideResults nullable: true;
+        hideResultsFlag nullable: true;
         groupValidation nullable: true;
         newsletterCommunication nullable: true;
     }
