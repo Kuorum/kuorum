@@ -18,18 +18,19 @@
         %{--</div>--}%
     </fieldset>
     <fieldset class="form-group">
+        <label for="text" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.massMailing.MassMailingCommand.text.label"/>:</label>
+        <div class="textareaContainer col-sm-8 col-md-7">
+            <formUtil:textArea command="${command}" field="text" rows="8" placeholder="${message(code: 'kuorum.web.commands.payment.massMailing.MassMailingCommand.text.placeHolder')}"/>
+        </div>
+    </fieldset>
+
+    <fieldset class="form-group">
         <label for="files" class="col-sm-2 col-md-1 control-label">
             <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="${g.message(code:'kuorum.web.commands.payment.massMailing.MassMailingCommand.files.label.info')}"></span>
             <g:message code="kuorum.web.commands.payment.massMailing.MassMailingCommand.files.label"/>:
         </label>
         <div class="textareaContainer col-sm-8 col-md-7">
             <formUtil:uploadCampaignFiles newsletter="${campaign}"/>
-        </div>
-    </fieldset>
-    <fieldset class="form-group">
-        <label for="text" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.massMailing.MassMailingCommand.text.label"/>:</label>
-        <div class="textareaContainer col-sm-8 col-md-7">
-            <formUtil:textArea command="${command}" field="text" rows="8" placeholder="${message(code: 'kuorum.web.commands.payment.massMailing.MassMailingCommand.text.placeHolder')}"/>
         </div>
     </fieldset>
 
