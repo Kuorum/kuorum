@@ -2235,6 +2235,7 @@ ul.participatory-budget-steps-info li.active a {display: none}
 .popover-user-list ul li:hover,
 .popover-user-list ul li:active,
 .popover-user-list ul li:focus {background-color: #efefef !important;}
+.popover-user-list ul li a span {white-space: nowrap;text-overflow: ellipsis;width: calc(100% - 48px);display: inline-block;overflow: hidden;line-height: 10px; margin-left: 5px;}
 .popover-user-list > p {margin: 0px 0 4px 0;font-size: 16px;color:#a8a8a8;}
 .popover-user-list li.link {border-top: solid 1px #a8a8a8; margin: 10px 0 0 0; padding: 6px 4px;}
 .popover-user-list li.link:hover,
