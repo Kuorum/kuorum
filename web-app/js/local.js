@@ -257,10 +257,7 @@ $(document).ready(function() {
         }
     });
 
-    // Handle click on card campaigns list [List of post/debates on dashboard, searcher, userProfile]
-    if ($('ul.search-list .link-wrapper .card-footer .post-like').length > 0){
-        $('ul.search-list').on("click",'.link-wrapper .card-footer .post-like',postFunctions.bindLikeClick);
-    }
+    prepareCampaignClickEvents();
 
     // Animar porcentaje perfil político
     if ($('#profileInfo').length) {
@@ -563,6 +560,13 @@ function prepareYoutubeVideosClick(){
     });
     $(".video.click-handler-no-processed").removeClass("click-handler-no-processed")
 
+}
+
+function prepareCampaignClickEvents(){
+    // Handle click on card campaigns list [List of post/debates on dashboard, searcher, userProfile]
+    if ($('ul.search-list .link-wrapper .card-footer .post-like').length > 0){
+        $('ul.search-list').on("click",'.link-wrapper .card-footer .post-like',postFunctions.bindLikeClick);
+    }
 }
 
 function requestCustomSender($selector) {

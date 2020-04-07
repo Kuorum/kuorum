@@ -14,7 +14,9 @@
     <div class="row dashboard">
         <div class="col-md-8">
             <sec:ifAnyGranted roles="ROLE_ADMIN">
-                <g:render template="/dashboard/payment/dashboardModules/campaignNewCampaign" model="[lastCampaign:lastCampaign, durationDays:durationDays]"/>
+                <div class="box-ppal" id="createNewCampaign">
+                    <g:render template="/newsletter/chooseCampaign" model="[chooseCampaignTitle:g.message(code:'dashboard.payment.newCampaign.title')]"/>
+                </div>
             </sec:ifAnyGranted>
             %{--<g:if test="${debates && posts}">--}%
             %{--<ul id="campaign-sorter" class="nav nav-pills nav-underline hidden-xs">--}%
@@ -24,22 +26,21 @@
                 %{--</ul>--}%
             %{--</g:if>--}%
 
-            <ul class="search-list clearfix" data-addCampaignsByUserUrl="${g.createLink(mapping:'politicianCampaignsLists' )}" id="campaign-list-id" >
-                <li class="info-empty hidden">
-                    <div class="box-ppal">
-                        <p>
-                            <span class="text-empty-campaignList">
-                                <g:message code='dashboard.payment.followingCampaignList.empty'/>
-                            </span>
-                            <span class="icon-empty-campaignList">
-                                <span class="fas fa-info-circle"></span>
-                            </span>
-                        </p>
+            <div class="info-campaigns-empty hidden">
+                <div class="box-ppal">
+                    <p>
+                        <span class="text-empty-campaignList">
+                            <g:message code='dashboard.payment.followingCampaignList.empty'/>
+                        </span>
+                        <span class="icon-empty-campaignList">
+                            <span class="fas fa-info-circle"></span>
+                        </span>
+                    </p>
 
-                    </div>
-                </li>
-            %{--This LI is for make a pair of lis that don't disturb the css:nth(odd)--}%
-                <li class="info-empty hidden"></li>
+                </div>
+            </div>
+
+            <ul class="search-list clearfix delayed" data-addCampaignsByUserUrl="${g.createLink(mapping:'politicianCampaignsLists' )}" data-link="${g.createLink(mapping:'dashboardCampaignsSeeMore' )}" data-callback="campaignListCallback" id="campaign-list-id" >
                 <g:render template="/campaigns/cards/campaignsList" model="[campaigns:campaigns, showAuthor: showAuthor]" />
             </ul>
             <!-- ver más -->
@@ -49,6 +50,7 @@
                     parentId="campaign-list-id"
                     callback="campaignListCallback"
                     pagination="${[max:10]}"
+                    cssClass="hidden"
                     numElements="${totalCampaigns}"/>
             <r:script>
                 function campaignListCallback(){

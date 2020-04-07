@@ -3,7 +3,6 @@ package kuorum
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.causes.CausesService
-import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.model.search.Pagination
 import kuorum.dashboard.DashboardService
 import kuorum.register.KuorumUserSession
@@ -15,11 +14,9 @@ import kuorum.web.commands.profile.EditProfilePicturesCommand
 import kuorum.web.commands.profile.EditUserProfileCommand
 import kuorum.web.commands.profile.SocialNetworkCommand
 import kuorum.web.constants.WebConstants
-import org.kuorum.rest.model.communication.CampaignRSDTO
+import org.kuorum.rest.model.communication.CampaignPageRSDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
-import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
 import org.kuorum.rest.model.notification.campaign.NewsletterRQDTO
-import org.kuorum.rest.model.notification.campaign.NewsletterRSDTO
 import org.kuorum.rest.model.search.SearchResultsRSDTO
 import org.kuorum.rest.model.tag.CauseRSDTO
 import payment.campaign.CampaignService
@@ -50,7 +47,7 @@ class DashboardController {
             return
         }
         BasicDataKuorumUserRSDTO userRSDTO = kuorumUserService.findBasicUserRSDTO(springSecurityService.principal.id.toString())
-        log.info("Dashboard ${userRSDTO.alias}")
+        log.info("Dashboard ${userRSDTO.alias} : Start")
         Map model = buildPaymentDashboard(userRSDTO)
         model.put("tour", params.tour?true:false)
         render view: "/dashboard/dashboard", model: model
@@ -60,36 +57,19 @@ class DashboardController {
         KuorumUserSession userSession = springSecurityService.principal
         String viewerUid = cookieUUIDService.buildUserUUID()
 
-        SearchResultsRSDTO searchResultsRSDTO = dashboardService.findAllContactsCampaigns(userSession, viewerUid)
-
-        List<NewsletterRSDTO> myNewsletters = newsletterService.findCampaigns(userSession)
-        List<CampaignRSDTO> myCampaigns = campaignService.findAllCampaigns(userSession)
-        List<NewsletterRSDTO> sentCampaigns = myCampaigns*.newsletter.findAll{it.status==CampaignStatusRSDTO.SENT}
-        List<NewsletterRSDTO> sentNewsletters = myNewsletters.findAll{it.status==CampaignStatusRSDTO.SENT}
-        List<NewsletterRSDTO> sentCommunications = sentNewsletters + sentCampaigns
-        Long numberCampaigns = sentCommunications?.size()?:0
-        NewsletterRSDTO lastCampaign = null
-        Long durationDays = 0
-        if (sentCommunications){
-            lastCampaign = sentCommunications.sort {it.sentOn}.last()?:null
-            use(groovy.time.TimeCategory) {
-                def duration = new Date() - lastCampaign.sentOn
-                durationDays = duration.days
-            }
-        }
+        CampaignPageRSDTO myCampaigns = campaignService.findAllCampaigns(userSession, false, 0, 1)
+//        SearchResultsRSDTO searchResultsRSDTO = dashboardService.findAllContactsCampaigns(userSession, viewerUid)
 
 //        List<KuorumUser> recommendedUsers = kuorumUserService.recommendPoliticians(user, new Pagination(max:16))
 
         [
-                lastCampaign:lastCampaign,
-                numberCampaigns:numberCampaigns,
-                durationDays:durationDays,
+                numberCampaigns:myCampaigns.total,
 //                contacts: contactService.getUsers(user),
 //                recommendedUsers:recommendedUsers,
                 user:user,
                 emptyEditableData:emptyEditableData(),
-                campaigns: searchResultsRSDTO.data,
-                totalCampaigns: searchResultsRSDTO.total,
+                campaigns: [],
+                totalCampaigns: 100,
                 showAuthor: true
         ]
 
@@ -139,6 +119,7 @@ class DashboardController {
         SearchResultsRSDTO searchResutlsRSDTO = dashboardService.findAllContactsCampaigns(user, viewerUid, page)
         List<NewsletterRQDTO> campaigns = searchResutlsRSDTO.data
         response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${searchResutlsRSDTO.total < (pagination.offset+pagination.max)}")
+//        render template: "/campaigns/cards/campaignsList", model:[campaigns:[], showAuthor: true]
         render template: "/campaigns/cards/campaignsList", model:[campaigns:campaigns, showAuthor: true]
     }
 

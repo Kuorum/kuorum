@@ -15,7 +15,10 @@ import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
 import kuorum.web.admin.KuorumUserEmailSenderCommand
 import kuorum.web.admin.KuorumUserRightsCommand
-import kuorum.web.admin.domain.*
+import kuorum.web.admin.domain.DomainConfigCommand
+import kuorum.web.admin.domain.DomainConfigStep1Command
+import kuorum.web.admin.domain.DomainLandingCommand
+import kuorum.web.admin.domain.KuorumWebFont
 import kuorum.web.commands.LinkCommand
 import kuorum.web.commands.domain.DeleteDomainCommand
 import kuorum.web.commands.domain.EditDomainCarouselPicturesCommand
@@ -23,6 +26,7 @@ import kuorum.web.constants.WebConstants
 import org.bson.types.ObjectId
 import org.codehaus.groovy.runtime.InvokerHelper
 import org.kuorum.rest.model.admin.AdminConfigMailingRDTO
+import org.kuorum.rest.model.communication.CampaignPageRSDTO
 import org.kuorum.rest.model.communication.CampaignRSDTO
 import org.kuorum.rest.model.domain.*
 import org.kuorum.rest.model.domain.creation.NewDomainPaymentDataRDTO
@@ -260,13 +264,14 @@ class AdminController {
 
     def editDomainRelevantCampaigns() {
         List<CampaignRSDTO> domainCampaigns = campaignService.findRelevantDomainCampaigns()
-        List<CampaignRSDTO> adminCampaigns = campaignService.findAllCampaigns(WebConstants.FAKE_LANDING_ALIAS_USER)
+        // TODO: BAD TRICK -> Recover all campaigns without pagination
+        CampaignPageRSDTO adminCampaigns = campaignService.findAllCampaigns(WebConstants.FAKE_LANDING_ALIAS_USER, null, false, 0, 1000)
         Map domainCampaignsId = [first:null, second:null, third:null]
         DomainRSDTO domainRSDTO = CustomDomainResolver.domainRSDTO
         domainCampaignsId.first = domainCampaigns && domainCampaigns.size()>0 ? domainCampaigns.get(0).id:null
         domainCampaignsId.second = domainCampaigns && domainCampaigns.size()>1 ? domainCampaigns.get(1).id:null
         domainCampaignsId.third = domainCampaigns && domainCampaigns.size()>2 ? domainCampaigns.get(2).id:null
-        [domainCampaignsId:domainCampaignsId,adminCampaigns:adminCampaigns, starredCampaignId:domainRSDTO.starredCampaignId]
+        [domainCampaignsId:domainCampaignsId,adminCampaigns:adminCampaigns.getData(), starredCampaignId:domainRSDTO.starredCampaignId]
     }
 
     def updateDomainRelevantCampaigns() {

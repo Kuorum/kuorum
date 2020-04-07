@@ -103,7 +103,9 @@ var userValidatedByDomain={
             userValidatedByDomain._ajaxRemoteCheckGroupValidation(executableFunctionCallback)
         }else{
             executableFunctionCallback.exec()
-            closeCallbackModal()
+            if (closeCallbackModal != undefined){
+                closeCallbackModal()
+            }
         }
     },
     _ajaxRemoteCheckGroupValidation:function(executableFunctionCallback){

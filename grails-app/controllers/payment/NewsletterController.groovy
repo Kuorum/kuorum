@@ -15,6 +15,7 @@ import kuorum.web.commands.payment.massMailing.MassMailingContentCommand
 import kuorum.web.commands.payment.massMailing.MassMailingSettingsCommand
 import kuorum.web.commands.payment.massMailing.MassMailingTemplateCommand
 import kuorum.web.commands.profile.TimeZoneCommand
+import org.kuorum.rest.model.communication.CampaignPageRSDTO
 import org.kuorum.rest.model.communication.CampaignRSDTO
 import org.kuorum.rest.model.contact.ContactPageRSDTO
 import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
@@ -51,8 +52,9 @@ class NewsletterController {
     def index() {
         KuorumUserSession user = springSecurityService.principal
         List<NewsletterRSDTO> newsletters = newsletterService.findCampaigns(user)
-        List<CampaignRSDTO> campaigns = campaignService.findAllCampaigns(user, true)
-        [newsletters: newsletters, campaigns: campaigns, user:user]
+        // TODO: Bad trick -> Recover all campaigns without pagination
+        CampaignPageRSDTO campaigns = campaignService.findAllCampaigns(user, true, 0, 1000); // BAD TRICK
+        [newsletters: newsletters, campaigns: campaigns.getData(), user:user]
     }
 
     def newCampaign(){

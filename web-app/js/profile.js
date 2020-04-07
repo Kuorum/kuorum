@@ -135,10 +135,12 @@ function SortCampaigns() {
     }
 
     this.showInfoEmpty = function(){
-        if (campaignList.find("li:not(.info-empty)").length<=0){
-            campaignList.find("li.info-empty").removeClass("hidden")
+        if (campaignList.find("li").length<=0){
+            campaignList.siblings(".load-more").addClass("hidden");
+            $("div.info-campaigns-empty").removeClass("hidden")
         }else{
-            campaignList.find("li.info-empty").addClass("hidden")
+            campaignList.siblings(".load-more").removeClass("hidden");
+            $("div.info-campaigns-empty").addClass("hidden")
         }
     }
 
@@ -171,7 +173,7 @@ var suggestFollowersAnimated;
 $(function () {
 
     sortCampaigns = new SortCampaigns();
-    sortCampaigns.orderList();
+    // sortCampaigns.orderList();
 
     $('ul#campaign-sorter li a').on('click', function(e){
         var option = $(this).attr('href').substr(1);
@@ -181,11 +183,11 @@ $(function () {
 
     suggestFollowersAnimated = new Animate("#followOthers")
 
-    $(".info-empty").mouseenter(function(e){
+    $(".info-campaigns-empty").mouseenter(function(e){
         suggestFollowersAnimated.start();
     })
 
-    $(".info-empty").mouseleave(function(e){
+    $(".info-campaigns-empty").mouseleave(function(e){
         suggestFollowersAnimated.stop();
     })
 

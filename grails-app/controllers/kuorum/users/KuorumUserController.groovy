@@ -7,13 +7,11 @@ import kuorum.notifications.NotificationService
 import kuorum.register.KuorumUserSession
 import kuorum.register.RegisterService
 import kuorum.web.commands.customRegister.KuorumUserContactMessageCommand
-import org.kuorum.rest.model.communication.CampaignRSDTO
 import org.kuorum.rest.model.communication.message.NewMessageRDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 import org.kuorum.rest.model.kuorumUser.KuorumUserRSDTO
 import org.kuorum.rest.model.kuorumUser.news.UserNewRSDTO
 import org.kuorum.rest.model.kuorumUser.reputation.UserReputationRSDTO
-import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
 import org.kuorum.rest.model.search.kuorumElement.SearchKuorumUserRSDTO
 import org.kuorum.rest.model.tag.CauseRSDTO
 import payment.campaign.CampaignService
@@ -59,17 +57,14 @@ class KuorumUserController {
             response.sendError(HttpServletResponse.SC_NOT_FOUND)
             return false
         }
-        String viewerUid = cookieUUIDService.buildUserUUID()
         List<CauseRSDTO> causes = causesService.findSupportedCauses(userRSDTO)
         UserReputationRSDTO userReputationRSDTO = userReputationService.getReputation(userRSDTO)
         List<UserNewRSDTO> userNews = userNewsService.findUserNews(userRSDTO)
-        List<CampaignRSDTO> campaigns = campaignService.findAllCampaigns(userRSDTO.id,viewerUid).findAll{it.newsletter.status == CampaignStatusRSDTO.SENT}
         [
                 politician:userRSDTO,
                 causes:causes,
                 userReputation: userReputationRSDTO,
-                userNews:userNews,
-                campaigns:campaigns,
+                userNews:userNews
         ]
     }
 

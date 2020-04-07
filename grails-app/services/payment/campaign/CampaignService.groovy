@@ -6,6 +6,7 @@ import kuorum.core.exception.KuorumException
 import kuorum.register.KuorumUserSession
 import kuorum.solr.IndexSolrService
 import kuorum.util.rest.RestKuorumApiService
+import org.kuorum.rest.model.communication.CampaignPageRSDTO
 import org.kuorum.rest.model.communication.CampaignRDTO
 import org.kuorum.rest.model.communication.CampaignRSDTO
 import org.kuorum.rest.model.communication.event.EventRDTO
@@ -57,30 +58,24 @@ class CampaignService {
         debatesFound
     }
 
-    List<CampaignRSDTO> findAllCampaigns(KuorumUserSession user, Boolean attachDrafts = false) {
-        findAllCampaigns(user.id.toString(), user.id.toString(), attachDrafts)
+    CampaignPageRSDTO findAllCampaigns(KuorumUserSession user, Boolean attachDrafts = false, Integer page = 0, Integer size = 10) {
+        findAllCampaigns(user.id.toString(), user.id.toString(), attachDrafts,page, size)
     }
 
-    List<CampaignRSDTO> findAllCampaigns(String userId, String viewerUid = null, Boolean attachDrafts = false) {
+    CampaignPageRSDTO findAllCampaigns(String userId, String viewerUid = null, Boolean attachDrafts = false, Integer page = 0, Integer size = 10) {
         Map<String, String> params = [userId: userId]
-        Map<String, String> query = [:]
+        Map<String, String> query = [page:page,size:size,attachDrafts:attachDrafts]
         if (viewerUid){
             query.put("viewerUid",viewerUid)
         }
-        query.put("attachDrafts",attachDrafts)
         def response = restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.ACCOUNT_CAMPAIGNS,
                 params,
                 query,
-                new TypeReference<List<CampaignRSDTO>>(){}
+                new TypeReference<CampaignPageRSDTO>(){}
         )
 
-        List<CampaignRSDTO> debatesFound = []
-        if (response.data) {
-            debatesFound = (List<CampaignRSDTO>) response.data
-        }
-
-        debatesFound
+        response.data
     }
 
 //    @Cacheable(value="debate", key='#campaignId')

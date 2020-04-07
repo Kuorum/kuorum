@@ -8,8 +8,8 @@ import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.commands.payment.CampaignSettingsCommand
 import kuorum.web.commands.payment.participatoryBudget.DistrictProposalChooseDistrictCommand
 import kuorum.web.commands.payment.participatoryBudget.NewDistrictProposalWithDistrictCommand
+import org.kuorum.rest.model.communication.CampaignPageRSDTO
 import org.kuorum.rest.model.communication.CampaignRDTO
-import org.kuorum.rest.model.communication.CampaignRSDTO
 import org.kuorum.rest.model.communication.CampaignTypeRSDTO
 import org.kuorum.rest.model.communication.participatoryBudget.DistrictProposalRDTO
 import org.kuorum.rest.model.communication.participatoryBudget.DistrictProposalRSDTO
@@ -36,8 +36,9 @@ class DistrictProposalController extends CampaignController{
 
     private def countNumDistrictProposalsPerBudget(ParticipatoryBudgetRSDTO participatoryBudgetRSDTO){
         KuorumUserSession user = springSecurityService.principal
-        List<CampaignRSDTO> campaigns = campaignService.findAllCampaigns(user, true)
-        List<DistrictProposalRSDTO> districtProposals = campaigns
+        // TODO: Bad trick -> Recover all campaigns without pagination
+        CampaignPageRSDTO campaigns = campaignService.findAllCampaigns(user, true, 0, 1000)
+        List<DistrictProposalRSDTO> districtProposals = campaigns.getData()
                 .findAll({it.campaignType == CampaignTypeRSDTO.DISTRICT_PROPOSAL})
                 .collect ({(DistrictProposalRSDTO) it})
                 .findAll({((DistrictProposalRSDTO)it).participatoryBudget.id == participatoryBudgetRSDTO.id})

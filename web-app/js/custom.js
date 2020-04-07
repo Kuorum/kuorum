@@ -220,6 +220,7 @@ $(document).ready(function() {
 
         e.preventDefault();
         var link = $(that);
+        link.parent().addClass("loading");
         var url = link.attr('href');
         var formId = link.attr('data-form-id');
         var paramAppender = "?";
@@ -261,6 +262,7 @@ $(document).ready(function() {
             .always(function(data) {
                 $("#" + loadingId).remove();
                 $("time.timeago").timeago();
+                link.parent().removeClass("loading");
             });
     }
     youtubeHelper.replaceNonExistImage();
@@ -443,11 +445,15 @@ function relaodAllDynamicDivs(){
 
 function reloadDynamicDiv($div){
     var link = $div.attr("data-link");
+    var callback = $div.attr('data-callback');
     var loadingHtml = '<div class="loading xs"><span class="sr-only">Cargando...</span></div>';
     $div.html(loadingHtml);
     $.get( link)
         .done(function(data) {
             $div.html(data)
+            if (callback != undefined && callback != ""){
+                window[callback]();
+            }
         });
 }
 

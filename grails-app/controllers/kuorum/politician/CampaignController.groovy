@@ -14,6 +14,7 @@ import kuorum.util.TimeZoneUtil
 import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.commands.payment.CampaignSettingsCommand
 import kuorum.web.commands.payment.contact.ContactFilterCommand
+import org.kuorum.rest.model.communication.CampaignPageRSDTO
 import org.kuorum.rest.model.communication.CampaignRDTO
 import org.kuorum.rest.model.communication.CampaignRSDTO
 import org.kuorum.rest.model.communication.CampaignTypeRSDTO
@@ -118,8 +119,10 @@ class CampaignController {
     def findLiUserCampaigns(String userId){
 //        KuorumUser user = KuorumUser.get(new ObjectId(userId))
         String viwerUid = cookieUUIDService.buildUserUUID()
-        List<CampaignRSDTO> campaigns = campaignService.findAllCampaigns(userId,viwerUid).findAll{it.newsletter.status==CampaignStatusRSDTO.SENT}
-        render template: '/campaigns/cards/campaignsList', model: [campaigns:campaigns, showAuthor:true]
+        //TODO: Bad trick -> Recovering all campaigns
+        CampaignPageRSDTO campaigns = campaignService.findAllCampaigns(userId,viwerUid, false, 0,1000)
+        List<CampaignRSDTO> userCampaigns = campaigns.data
+        render template: '/campaigns/cards/campaignsList', model: [campaigns:userCampaigns, showAuthor:true]
 
     }
 
