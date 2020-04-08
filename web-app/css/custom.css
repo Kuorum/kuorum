@@ -5636,6 +5636,12 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     padding-top: 9px;
     text-align: center;
 }
+
+.modal-user-picture .modal-content{
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+}
 /*.profile-title{*/
     /*margin-left: -25px;*/
 /*}*/

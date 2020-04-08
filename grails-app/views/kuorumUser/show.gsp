@@ -27,6 +27,7 @@
                              itemprop="image">
                             <userUtil:userTypeIcon user="${politician}"/>
                     </div>
+                    <g:render template="/kuorumUser/modalUserImage" model="[user:politician]"/>
                 </div>
             </div><!--/.row -->
             <div class="row extra-padding">

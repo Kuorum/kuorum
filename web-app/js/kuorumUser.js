@@ -9,6 +9,12 @@ $(function(){
     //     pageLoadingOff();
     //     petitionFunctions.onClickSignPetition($button, noLoggedCallbacks.reloadPage);
     // };
+    $(".profile-pic").on("click", function(e){
+        $(this).siblings(".modal-user-picture").modal("show");
+    })
+    $(".modal-user-picture").on("click", function (e) {
+        $(".modal-user-picture").modal("hide");
+    });
 });
 
 var kuorumUserFunction = {
