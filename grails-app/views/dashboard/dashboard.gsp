@@ -4,7 +4,7 @@
     <meta name="layout" content="basicPlainLayout">
     <!-- Schema.org markup for Google+ -->
     <meta itemprop="name" content="${_domainName}">
-    <r:require modules="post, districtProposal, petition"/>
+    <r:require modules="campaignsTargetsListResourcesRequired"/>
     <g:if test="${tour}">
         <r:require module="tour"/>
     </g:if>

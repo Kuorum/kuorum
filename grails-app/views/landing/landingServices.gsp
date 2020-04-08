@@ -41,6 +41,7 @@
         <h3 class="hidden-xs"><g:message code="landingServices.latestActivities.subtitle"/></h3>
     </div>
     <ul class="search-list latestActivities clearfix">
+        <r:require modules="campaignsTargetsListResourcesRequired"/>
         <g:render template="/campaigns/cards/campaignsList" model="[campaigns:campaigns, center:true]"/>
     </ul>
 

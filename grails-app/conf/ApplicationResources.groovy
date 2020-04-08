@@ -175,6 +175,11 @@ modules = {
         dependsOn("basic",'campaign', 'campaignList')
         resource url:'js/campaigns/districtProposal.js'
     }
+
+    // This module groups all js required of list of campaign targets. (i.e: Like post has its custom logic that can be executed on the list)
+    campaignsTargetsListResourcesRequired{
+        dependsOn("post", "districtProposal", "petition")
+    }
     causes {
         dependsOn("basic")
         resource url:'js/causes.js'

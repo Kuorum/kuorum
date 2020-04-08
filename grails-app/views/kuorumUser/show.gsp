@@ -70,6 +70,7 @@
     </ul>
     </g:if>
 
+    <r:require modules="campaignsTargetsListResourcesRequired"/>
     <ul class="search-list clearfix delayed" data-link="${g.createLink(mapping:'politicianCampaignsLists', params:[userId:politician.id.toString()])}" data-callback="campaignUserListCallback">
 %{--        <g:render template="/campaigns/cards/campaignsList" model="[campaigns:campaigns]"/>--}%
     </ul>
