@@ -8076,7 +8076,7 @@ li.survey-question.answered .survey-question-answer .option-extra-content textar
 /* Super small devices (mobile, 480px and down) */
 @media only screen and (max-width: 480px) {
     .survey-question-answers .survey-question-rating-option{margin:5px;}
-    .survey-question .social {width: auto; text-align: center; float:unset;}
+    .survey-question .social {width: auto; text-align: center; float:unset !important;}
     .survey-question .actions a.skip-question{margin-bottom: 20px;}
     .survey-question > .footer {padding-bottom: 20px;}
 }

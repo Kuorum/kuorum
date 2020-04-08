@@ -5,7 +5,7 @@
         params="${campaign.encodeAsLinkProperties()}"
         absolute="true"/></g:set>
 
-<ul class="social">
+<ul class="social pull-left">
     <li>
         <g:set var="twitterShareText">${campaign.title}</g:set>
         <g:set var="twitterLink">https://twitter.com/share?url=${campaignLink}&text=${twitterShareText}</g:set>
