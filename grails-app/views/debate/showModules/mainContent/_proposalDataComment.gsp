@@ -10,7 +10,7 @@
     </div>
     <div class="footer clearfix">
         <div class="pull-right">
-            <userUtil:ifUserIsTheLoggedOne user="${comment.user}">
+            <userUtil:ifUserIsTheLoggedOne user="[comment.user, debate.user]">
                 <button type="button" class="delete" data-ajaxDelete='${g.createLink(mapping: 'debateProposalDeleteComment')}' data-commentId="${comment.id}">
                     <span class="middle-point right"><g:message code="post.show.comments.delete"/></span>
                 </button>

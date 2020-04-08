@@ -387,18 +387,15 @@ class KuorumUserTagLib {
     }
 
     def ifUserIsTheLoggedOne={attrs, body->
-        ObjectId userId
+        List<ObjectId> userIds = []
         if (attrs.user instanceof BasicDataKuorumUserRSDTO){
-            userId = new ObjectId(attrs.user.id)
-        }else{
-            // ALIAS -- DEPRECATED BRANCH
-            throw new Exception("Using alias instead BasicDataKuorumUser")
-            BasicDataKuorumUserRSDTO user = kuorumUserService.findBasicUserRSDTO(attrs.user)
-            userId = new ObjectId(user.id)
+            userIds = [new ObjectId(attrs.user.id)]
+        }else if (attrs.user instanceof List){
+            userIds = attrs.user.collect{BasicDataKuorumUserRSDTO userRSDTO -> userRSDTO.id}
         }
         if (springSecurityService.isLoggedIn()){
             KuorumUserSession loggedUser = springSecurityService.principal
-            if (loggedUser.id.equals(userId)){
+            if (userIds.contains(loggedUser.id.toString())){
                 out << body()
             }
         }

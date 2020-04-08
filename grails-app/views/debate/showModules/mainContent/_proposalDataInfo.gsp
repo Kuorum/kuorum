@@ -62,7 +62,7 @@
             <g:render template="/debate/showModules/mainContent/proposalDataInfoSocial" model="[debate:debate, proposal:proposal]"/>
 
             <div class="comment-counter pull-right">
-                <userUtil:ifUserIsTheLoggedOne user="${proposal.user}">
+                <userUtil:ifUserIsTheLoggedOne user="[proposal.user, debate.user]">
                     <button type="button" class="delete" data-ajaxDelete='${g.createLink(mapping: 'debateProposalDelete')}'>
                         <span class="middle-point right"><g:message code="post.show.comments.delete"/></span>
                     </button>
