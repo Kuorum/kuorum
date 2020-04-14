@@ -208,6 +208,17 @@ class NewsletterService {
         )
         response.data
     }
+    List<String> getReports(KuorumUserSession user, NewsletterRSDTO newsletterRSDTO){
+        Map<String, String> params = [campaignId: newsletterRSDTO.getId().toString(), userId: user.alias]
+        Map<String, String> query = [:]
+        def response = restKuorumApiService.get(
+                RestKuorumApiService.ApiMethod.ACCOUNT_MASS_MAILING_REPORTS,
+                params,
+                query,
+                new TypeReference<List<String>>(){}
+        )
+        response.data
+    }
 
     void deleteFile(KuorumUserSession user, Long newsletterId, String fileName){
         Map<String, String> params = [campaignId: newsletterId.toString(), userId: user.id.toString()]

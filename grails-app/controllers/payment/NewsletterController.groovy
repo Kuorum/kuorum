@@ -256,12 +256,13 @@ class NewsletterController {
     @Secured(['ROLE_CAMPAIGN_NEWSLETTER'])
     def showCampaign(Long campaignId){
         KuorumUserSession loggedUser = springSecurityService.principal
-        NewsletterRSDTO NewsletterRSDTO = newsletterService.findCampaign(loggedUser, campaignId)
-        if (NewsletterRSDTO.status == CampaignStatusRSDTO.DRAFT || NewsletterRSDTO.status == CampaignStatusRSDTO.SCHEDULED ){
+        NewsletterRSDTO newsletterRSDTO = newsletterService.findCampaign(loggedUser, campaignId)
+        if (newsletterRSDTO.status == CampaignStatusRSDTO.DRAFT || newsletterRSDTO.status == CampaignStatusRSDTO.SCHEDULED ){
             redirect (mapping:'politicianMassMailingContent', params: [campaignId: campaignId])
         }else{
             TrackingMailStatsByCampaignPageRSDTO trackingPage = newsletterService.findTrackingMails(loggedUser, campaignId)
-            render view: 'showCampaign', model: [newsletter: NewsletterRSDTO, trackingPage:trackingPage]
+            List<String> reportsList = newsletterService.getReports(loggedUser, newsletterRSDTO)
+            render view: 'showCampaign', model: [newsletter: newsletterRSDTO, trackingPage:trackingPage, reportsList:reportsList.collect{it ->it.encodeAsS3File()}]
         }
     }
 
@@ -274,7 +275,8 @@ class NewsletterController {
             redirect (mapping:'politicianMassMailingContent', params: [campaignId: campaignId])
         }else{
             TrackingMailStatsByCampaignPageRSDTO trackingPage = newsletterService.findTrackingMails(loggedUser, newsletterId)
-            render view: 'showCampaign', model: [newsletter: campaign.newsletter, trackingPage:trackingPage, campaign:campaign]
+            List<String> reportsList = campaignService.getReports(campaign)
+            render view: 'showCampaign', model: [newsletter: campaign.newsletter, trackingPage:trackingPage, campaign:campaign,reportsList:reportsList.collect{it ->it.encodeAsS3File()}]
         }
     }
 
