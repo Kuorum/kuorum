@@ -5157,7 +5157,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     /*#edit-event-map { height: 100px;}*/
     .popover.tour {width: 385px; max-width: 385px !important; padding: 15px;}
     .popover.tour .popover-title {font-size: 2rem; line-height: 1; }
-    #footer .licenses {width: auto;}
+    #footer .licenses {width: auto; text-align: right;}
     #footer > .container-fluid > .links li a,
     section.links li a {font-size: 14px; font-size: 1.4rem;}
     .condition .user-list-followers  > li {width: 48%; float: left;}
