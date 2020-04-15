@@ -67,10 +67,12 @@
                         <span class="middle-point right"><g:message code="post.show.comments.delete"/></span>
                     </button>
                 </userUtil:ifUserIsTheLoggedOne>
-                <button type="button" class="comment">
-                    <span class="fal fa-comment" aria-hidden="true"></span>
-                    <span class="number">${proposal.comments?.size()?:0}</span>
-                </button>
+                <g:if test="${!debate.hideResults}">
+                    <button type="button" class="comment">
+                        <span class="fal fa-comment" aria-hidden="true"></span>
+                        <span class="number">${proposal.comments?.size()?:0}</span>
+                    </button>
+                </g:if>
                 <sec:ifLoggedIn><g:set var="isLogged" value="${true}"/></sec:ifLoggedIn>
                 <sec:ifNotLoggedIn><g:set var="isLogged" value="${false}"/></sec:ifNotLoggedIn>
                 <g:set var="activeButton" value="${proposal.liked && isLogged}"/>
