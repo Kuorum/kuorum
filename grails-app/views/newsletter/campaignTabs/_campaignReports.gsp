@@ -19,9 +19,22 @@
             <span class="fas fa-info-circle fa-2x"></span>
         </span>
      </div>
-    <ul class="list-campaign-files">
+    <table class="table download-reports">
+        <thead>
+        <tr>
+            <th>Type</th>
+            <th>File Name </th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
         <g:each in="${reportsList}" var="report">
-            <li><a href="${report.url}" target="_blank"><span class="${report.icon}"></span>${report.name}</a></li>
+            <tr>
+                <td><span class="${report.icon}"></span></td>
+                <td>${report.name}</td>
+                <td><a href="${report.url}" target="_blank"><span class="fa fa-download"></span> </a></td>
+            </tr>
         </g:each>
-    </ul>
+        </tbody>
+    </table>
 </div>

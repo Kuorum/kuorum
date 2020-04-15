@@ -1996,6 +1996,10 @@ ul.participatory-budget-steps-info li.active a {display: none}
 #tabs-stats-campaign #participatoryBudgetProposalReviewTable.table tr.detail-view > td .box-ppal{margin:0;padding-bottom: 10px;}
 #tabs-stats-campaign #participatoryBudgetProposalReviewTable.table > tbody > tr > td > a {color:inherit; font-weight: bold;}
 
+#reportsLists table.download-reports {width:auto; margin:auto}
+#reportsLists table.download-reports td:nth-child(3) {width:3em;}
+#reportsLists table.download-reports thead th {width:auto;}
+
 .open-menu {color: #dbdbdb; position: absolute !important; top: 2px; right: 8px; z-index: 1;}
 .box-ppal .link-wrapper:hover,
 .box-ppal .link-wrapper:active,
