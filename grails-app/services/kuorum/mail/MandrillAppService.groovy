@@ -24,7 +24,7 @@ class MandrillAppService {
 
     //UNTESTED - Is not possible to test if the mail has been sent. Only if not fails
     @Deprecated
-    void sendTemplate(MailData mailData, Boolean async = true, KuorumUser user = null) {
+    void sendTemplate(MailData mailData, Boolean async = true) {
 
         if (!mailData.validate()) {
             log.error("Faltan datos para mandar este email. Errors:  ${mailData.errors.allErrors}")

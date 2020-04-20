@@ -16,6 +16,7 @@ import kuorum.mail.KuorumMailService
 import kuorum.notifications.NotificationService
 import kuorum.register.KuorumUserSession
 import kuorum.register.RegisterService
+import kuorum.users.extendedPoliticianData.PoliticianRelevantEvent
 import kuorum.users.extendedPoliticianData.ProfessionalDetails
 import kuorum.web.commands.profile.*
 import kuorum.web.commands.profile.politician.PoliticianCausesCommand
@@ -27,6 +28,7 @@ import org.kuorum.rest.model.kuorumUser.KuorumUserRSDTO
 import org.kuorum.rest.model.kuorumUser.UserDataRDTO
 import org.kuorum.rest.model.kuorumUser.config.NotificationConfigRDTO
 import org.kuorum.rest.model.kuorumUser.config.NotificationMailConfigRDTO
+import org.kuorum.rest.model.kuorumUser.news.UserNewRSDTO
 import org.kuorum.rest.model.notification.campaign.config.NewsletterConfigRQDTO
 import org.kuorum.rest.model.notification.campaign.config.NewsletterConfigRSDTO
 import org.kuorum.rest.model.tag.CauseRSDTO
@@ -45,6 +47,7 @@ class ProfileController {
     KuorumUserService kuorumUserService
     def postService
     NotificationService notificationService
+    UserNewsService userNewsService
     KuorumMailService kuorumMailService
     RegisterService registerService
     NewsletterService newsletterService

@@ -62,6 +62,7 @@ class KuorumUser {
             'professionalDetails'
     ]
 
+    @Deprecated
     List<PoliticianRelevantEvent> relevantEvents
     ProfessionalDetails professionalDetails
 
