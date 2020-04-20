@@ -5619,6 +5619,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     border: solid 5px #fff;
     margin-top: -14%;
     background-color: #fff;
+    cursor: pointer;
 }
 .unsubscribe {text-align: center;}
 .unsubscribe h1 {text-transform: uppercase; padding: 0; font-family: Arial}
@@ -5641,11 +5642,9 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     text-align: center;
 }
 
-.modal-user-picture .modal-content{
-    background: transparent;
-    border: 0;
-    box-shadow: none;
-}
+.modal-user-picture .modal-header{border: 0}
+.modal-user-picture .modal-header button.close{color: #FFF;}
+.modal-user-picture .modal-content{background: transparent;border: 0;box-shadow: none;}
 /*.profile-title{*/
     /*margin-left: -25px;*/
 /*}*/

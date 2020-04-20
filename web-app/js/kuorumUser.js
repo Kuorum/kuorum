@@ -9,8 +9,8 @@ $(function(){
     //     pageLoadingOff();
     //     petitionFunctions.onClickSignPetition($button, noLoggedCallbacks.reloadPage);
     // };
-    $(".profile-pic").on("click", function(e){
-        $(this).siblings(".modal-user-picture").modal("show");
+    $(".profile-pic .img-circle").on("click", function(e){
+        $(this).parents(".profile-pic").siblings(".modal-user-picture").modal("show");
     })
     $(".modal-user-picture").on("click", function (e) {
         $(".modal-user-picture").modal("hide");
