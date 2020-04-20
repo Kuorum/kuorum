@@ -387,9 +387,9 @@ class KuorumUserTagLib {
     }
 
     def ifUserIsTheLoggedOne={attrs, body->
-        List<ObjectId> userIds = []
+        List<String> userIds = []
         if (attrs.user instanceof BasicDataKuorumUserRSDTO){
-            userIds = [new ObjectId(attrs.user.id)]
+            userIds = [attrs.user.id]
         }else if (attrs.user instanceof List){
             userIds = attrs.user.collect{BasicDataKuorumUserRSDTO userRSDTO -> userRSDTO.id}
         }
