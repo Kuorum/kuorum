@@ -48,7 +48,7 @@
         <g:each in="${_domainActiveCampaigns}" var="activeSolrType">
             <li>
                 <label>
-                    <g:link mapping="searcherSearch${activeSolrType}" params="${params.findAll {k,v-> k!='type' && k!='offset' && v}}" class="${searchParams.type == activeSolrType?'search-option-active':''}">
+                    <g:link mapping="${'searcherSearch'+activeSolrType.toString()}" params="${params.findAll {k,v-> k!='type' && k!='offset' && v}}" class="${searchParams.type == activeSolrType?'search-option-active':''}">
                         <span class="fal ${activeSolrType.faIcon} fa-fw"></span>
                         <g:message code="search.filters.SolrType.${activeSolrType}"/>
                     %{--<g:set var="hits" value="${docs.facets.type.find{it.facetName==kuorum.core.model.solr.SolrType.POST.toString()}?.hits?:0}"/>--}%
