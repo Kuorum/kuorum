@@ -316,7 +316,7 @@ class RestKuorumApiService {
         String buildUrl(String contextPath, Map<String,String> params){
             String builtUrl = url
             params.each{ k, v -> builtUrl = builtUrl.replaceAll("\\{${k}}", v) }
-            contextPath+builtUrl
+            (contextPath+builtUrl).toString()
         }
     }
 }
