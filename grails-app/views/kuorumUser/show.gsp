@@ -36,7 +36,7 @@
                     <cite itemprop="jobTitle"><userUtil:userRegionName user="${politician}"/></cite>
                     <p class='party' itemprop="affiliation"><span  itemscope itemtype="http://schema.org/Organization">${userUtil.roleName(user:politician)}</span></p>
                 </div>
-                <div class="col-sm-5">
+                <div class="col-sm-5 profile-actions">
                     <g:render template="politicianValuation" model="[user:politician, userReputation:userReputation]"/>
                     <div class="follow-btn-group">
                         <userUtil:followButton user="${politician}" cssExtra="inverted"/>

@@ -870,13 +870,6 @@ header.transp #search-form .open-filter {background-color: rgba(219,219,219,0.4)
     border: solid 1px #990000;
     opacity: 1 !important;
 }
-.btn.contact {
-    width: 105px;
-}
-.btn.contact i{
-    margin-right: 6px;
-    font-weight: bold;
-}
 
 .btn.btn-sign-up {
     font-size: 25px !important;
@@ -5656,6 +5649,19 @@ p.party{
     margin-top: 0;
     margin-bottom: 6px;
     font-size: 30px;
+}
+
+.profile-actions .follow-btn-group button{
+    /*width:auto;*/ /* With width fixed -> If "Contact" in other language is longer, the buttons on moviles has diferent sizes */
+    min-width: 110px;
+}
+
+.btn.contact {
+
+}
+.btn.contact i{
+    margin-right: 6px;
+    font-weight: bold;
 }
 
 .follow-btn-group {text-align: center;}
