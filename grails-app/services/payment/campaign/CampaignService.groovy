@@ -161,7 +161,7 @@ class CampaignService {
     }
 
     List<String> getFiles(CampaignRSDTO campaignRSDTO){
-        Map<String, String> params = [campaignId: campaignRSDTO.getId().toString(), userId: campaignRSDTO.getUser().getAlias()]
+        Map<String, String> params = [campaignId: campaignRSDTO.getId().toString(), userId: campaignRSDTO.getUser().getId()]
         Map<String, String> query = [:]
         def response = restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.ACCOUNT_CAMPAIGN_FILES,
