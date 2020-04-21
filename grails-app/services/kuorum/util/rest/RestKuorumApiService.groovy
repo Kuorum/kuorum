@@ -161,6 +161,11 @@ class RestKuorumApiService {
                 }
                 return obj
             }else{
+                try{
+                    log.warn(resp.getContext().getAttribute("http.request").getAt("original").toString());
+                }catch(Throwable t){
+                    log.warn("Error recovering original URL called to api to print it in logs")
+                }
                 String jsonString = IOUtils.toString(resp.getEntity().getContent(), "UTF-8")
                 ObjectMapper objectMapper = new ObjectMapper()
                 objectMapper.setTimeZone(TimeZone.getTimeZone("UTC"))
