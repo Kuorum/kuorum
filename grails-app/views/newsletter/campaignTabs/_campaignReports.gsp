@@ -1,24 +1,47 @@
 <%@ page import="org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO" %>
 <h2 class="sr-only"><g:message code="tools.massMailing.view.report"/></h2>
 <div class="pag-list-contacts clearfix">
-    <div class="actions">
 
+    <div class="actions">
+        <g:if test="${newsletter}">
+            <g:link mapping="politicianMassMailingTrackEventsReport" params="[newsletterId:newsletter.id]" class="btn btn-blue inverted export-modal-button" data-modalId="export-campaignEvents-modal">
+                <span class="fal fa-file-excel"></span>
+                <g:message code="tools.massMailing.list.recipients.export.csv"/>
+            </g:link>
+        </g:if>
+        <g:if test="${campaign && campaign instanceof org.kuorum.rest.model.communication.debate.DebateRSDTO}">
+            <g:link mapping="politicianMassMailingDebateStatsReport" params="[campaignId:campaign.id]" class="btn btn-blue inverted export-modal-button" data-modalId="export-debateStats-modal">
+                <span class="fal fa-file-excel"></span>
+                <g:message code="tools.massMailing.view.stats.debate.report"/>
+            </g:link>
+        </g:if>
+        <g:if test="${campaign && campaign instanceof org.kuorum.rest.model.communication.survey.SurveyRSDTO}">
+            <g:link mapping="politicianMassMailingSurveyStatsReport" params="[campaignId:campaign.id]" class="btn btn-blue inverted export-modal-button" data-modalId="export-surveyStats-modal">
+                <span class="fal fa-file-excel"></span>
+                <g:message code="tools.massMailing.view.stats.survey.report"/>
+            </g:link>
+        </g:if>
+
+        <g:if test="${campaign?.event}">
+            <g:link mapping="eventAssistanceReport" params="[campaignId:campaign.id, checkList:true]" class="btn btn-blue inverted export-modal-button" data-modalId="export-eventAssistants-modal">
+                <span class="fal fa-file-pdf"></span>
+                <g:message code="tools.massMailing.list.event.assistants.checkList"/>
+            </g:link>
+            <g:link mapping="eventAssistanceReport" params="[campaignId:campaign.id, checkList: false]" class="btn btn-blue inverted export-modal-button" data-modalId="export-eventAssistants-modal">
+                <span class="fal fa-file-excel"></span>
+                <g:message code="tools.massMailing.list.event.assistants.report"/>
+            </g:link>
+        </g:if>
+        <g:if test="${campaign && campaign instanceof org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetRSDTO}">
+            <g:link mapping="politicianMassMailingParticipatoryBudgetReport" params="[campaignId:campaign.id]" class="btn btn-blue inverted export-modal-button" data-modalId="export-proposalsList-modal">
+                <span class="fal fa-file-excel"></span>
+                <g:message code="tools.massMailing.view.participatoryBudget.report"/>
+            </g:link>
+        </g:if>
     </div>
 
 </div>
 <div>
-     <div class="contacts-tooltip icons pull-right">
-        <span class="fa-stack fa-lg animated-info-icon active"
-              aria-hidden="true"
-              rel="tooltip"
-              data-toggle="tooltip"
-              data-placement="bottom"
-              title=""
-              data-original-title="${g.message(code:'tools.massMailing.view.report.info')}">
-            %{--<img src="${g.resource(dir: "images/icons", file: "icon-info.png")}"/>--}%
-            <span class="fas fa-info-circle fa-2x"></span>
-        </span>
-     </div>
     <table class="table download-reports">
         <thead>
         <tr>

@@ -6,17 +6,6 @@
             <span class="fal fa-file-excel"></span>
             <g:message code="tools.massMailing.list.recipients.export.csv"/>
         </g:link>
-
-        <g:if test="${campaign?.event}">
-            <g:link mapping="eventAssistanceReport" params="[campaignId:campaign.id, checkList:true]" class="btn btn-blue inverted export-modal-button" data-modalId="export-eventAssistants-modal">
-                <span class="fal fa-file-pdf"></span>
-                <g:message code="tools.massMailing.list.event.assistants.checkList"/>
-            </g:link>
-            <g:link mapping="eventAssistanceReport" params="[campaignId:campaign.id, checkList: false]" class="btn btn-blue inverted export-modal-button" data-modalId="export-eventAssistants-modal">
-                <span class="fal fa-file-excel"></span>
-                <g:message code="tools.massMailing.list.event.assistants.report"/>
-            </g:link>
-        </g:if>
     </div>
     <nav:contactPagination
             link="${g.createLink(mapping:"politicianMassMailingTrackEvents", params: [newsletterId:newsletterId], absolute:true)}"
@@ -104,39 +93,4 @@
             sizePage="${trackingPage.size}"
             ulClasss="paginationBottom"
             total="${trackingPage.total}"/>
-</div>
-
-
-<div id="export-campaignEvents-modal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="exportTagsTitle" aria-hidden="true">
-    <div class="modal-dialog ">
-        <div class="modal-content">
-            <div class="modal-header"><h4><g:message code="modal.exportedTrackingEvents.title"/></h4></div>
-            <div class="modal-body">
-                <p>
-                    <g:message code="modal.exportedTrackingEvents.explanation"/>
-                    <g:message code="modal.exported.explanation"/>
-                </p>
-            </div>
-            <div class="modal-footer">
-                <a href="#" class="btn" data-dismiss="modal" aria-label="Close"><g:message code="modal.exportedTrackingEvents.close"/></a>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div id="export-eventAssistants-modal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="exportAssistantsTitle" aria-hidden="true">
-    <div class="modal-dialog ">
-        <div class="modal-content">
-            <div class="modal-header"><h4><g:message code="modal.exportEventAssistants.title"/></h4></div>
-            <div class="modal-body">
-                <p>
-                    <g:message code="modal.exportEventAssistants.explanation"/>
-                    <g:message code="modal.exported.explanation"/>
-                </p>
-            </div>
-            <div class="modal-footer">
-                <a href="#" class="btn" data-dismiss="modal" aria-label="Close"><g:message code="modal.exportEventAssistants.close"/></a>
-            </div>
-        </div>
-    </div>
 </div>

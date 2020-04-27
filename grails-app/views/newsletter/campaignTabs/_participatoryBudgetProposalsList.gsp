@@ -63,22 +63,6 @@
     </thead>
 </table>
 
-<div id="export-proposalsList-modal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="exportDebateStatsTitle" aria-hidden="true">
-    <div class="modal-dialog ">
-        <div class="modal-content">
-            <div class="modal-header"><h4><g:message code="modal.exportedParticipatoryBudgetProposals.title"/></h4></div>
-            <div class="modal-body">
-                <p>
-                    <g:message code="modal.exportedParticipatoryBudgetProposals.explanation" args="[participatoryBudget.title]"/>
-                </p>
-            </div>
-            <div class="modal-footer">
-                <a href="#" class="btn" data-dismiss="modal" aria-label="Close"><g:message code="modal.exportedDebateStats.close"/></a>
-            </div>
-        </div>
-    </div>
-</div>
-
 <div id="changeParticipatoryBudgetStatusModal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="changeParticipatoryBudgetStatusTitle" aria-hidden="true">
     <div class="modal-dialog ">
         <div class="modal-content">
