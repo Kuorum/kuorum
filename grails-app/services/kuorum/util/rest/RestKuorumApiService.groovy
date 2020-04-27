@@ -112,6 +112,23 @@ class RestKuorumApiService {
         }
     }
 
+    void getFile(ApiMethod apiMethod, Map<String,String> params, Map<String,String> query, OutputStream outputStream){
+        def http = new HTTPBuilder(kuorumRestServices)
+        String path = apiMethod.buildUrl(apiPath,params)
+        http.request(Method.GET, ContentType.BINARY) {req->
+            uri.path = path
+            headers = ["User-Agent": "Kuorum Web", "Authorization":CustomDomainResolver.apiToken]
+
+            response.success = { resp, data ->
+                // response text
+                org.apache.commons.io.IOUtils.copy(data, outputStream);
+//                return data;
+            }
+        }
+    }
+
+
+
 
     def post(ApiMethod apiMethod, Map<String,String> params, Map<String,String> query, def body,TypeReference typeToMap) throws KuorumException{
 
@@ -250,6 +267,7 @@ class RestKuorumApiService {
         ACCOUNT_CAMPAIGN                        ("/communication/campaign/{userId}/{campaignId}"),
         ACCOUNT_CAMPAIGN_FILES                  ("/communication/campaign/{userId}/{campaignId}/files"),
         ACCOUNT_CAMPAIGN_REPORTS                ("/communication/campaign/{userId}/{campaignId}/reports"),
+        ACCOUNT_CAMPAIGN_REPORT_FILE            ("/communication/campaign/{userId}/{campaignId}/reports/{fileName}"),
         ACCOUNT_CAMPAIGN_PICTURE                ("/communication/campaign/{userId}/{campaignId}/picture"),
         ACCOUNT_CAMPAIGN_PAUSE                  ("/communication/campaign/{userId}/{campaignId}/pause"),
         ACCOUNT_CAMPAIGN_GROUPS                 ("/communication/campaign/{userId}/{campaignId}/groups/{filterId}"),

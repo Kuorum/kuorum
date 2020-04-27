@@ -184,6 +184,17 @@ class CampaignService {
         response.data
     }
 
+    void getReport(KuorumUserSession user, Long campaignId, String fileName, OutputStream outputStream){
+        Map<String, String> params = [campaignId: campaignId.toString(), userId: user.getId().toString(), fileName: fileName]
+        Map<String, String> query = [:]
+        def response = restKuorumApiService.getFile(
+                RestKuorumApiService.ApiMethod.ACCOUNT_CAMPAIGN_REPORT_FILE,
+                params,
+                query,
+                outputStream
+        )
+    }
+
     void deleteFile(KuorumUserSession user, Long campaignId, String fileName){
         Map<String, String> params = [campaignId: campaignId.toString(), userId: user.id.toString()]
         Map<String, String> query = [fileName:fileName]

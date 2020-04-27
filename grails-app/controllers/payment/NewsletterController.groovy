@@ -276,6 +276,11 @@ class NewsletterController {
         }else{
             TrackingMailStatsByCampaignPageRSDTO trackingPage = newsletterService.findTrackingMails(loggedUser, newsletterId)
             List<String> reportsList = campaignService.getReports(campaign)
+                    .collect{
+                        g.createLink(
+                                mapping: 'politicianCampaignStatsReport',
+                                params: [campaignId:campaign.getId().toString(), fileName:it.split("/").last().split("\\?").first()])
+                    }
             render view: 'showCampaign', model: [newsletter: campaign.newsletter, trackingPage:trackingPage, campaign:campaign,reportsList:reportsList.collect{it ->it.encodeAsS3File()}]
         }
     }
@@ -508,5 +513,15 @@ class NewsletterController {
         KuorumUserSession loggedUser = springSecurityService.principal
         campaignService.pauseCampaign(loggedUser, campaignId, activeOn)
         render ([success:true, msg:"Paused", paused:activeOn] as JSON)
+    }
+
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def downloadReport(Long campaignId, String fileName){
+        KuorumUserSession loggedUser = springSecurityService.principal
+        InputStream inputStream = campaignService.getReport(loggedUser, campaignId, fileName,response.outputStream)
+        response.setContentType("application/octet-stream")
+        response.setHeader("Content-disposition", "filename=${fileName}")
+        response.outputStream.flush()
+        return
     }
 }
