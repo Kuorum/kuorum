@@ -3,11 +3,12 @@ $(function() {
 
     $("#questionsSurveyForm").on("click",".addQuestionOptionButton",function (e) {
         e.preventDefault();
+        console.log("ADD NEW OPTION")
         var $button = $(this);
         var $container_btn = $button.parents(".questionOptionActions")
         var $container = $container_btn.siblings(".questionOption")
         var $template = $container.find("fieldset.question:first-child")
-        var questionsId = parseInt($container.find(".question:last input").attr("name").split("]")[1].slice(-1))+1;
+        var questionsId = parseInt($container.find(".question:last input").attr("name").split("]")[1].split("[")[1])+1;
         $clone = $template.clone()
         $clone.addClass("new-question-option")
         $clone.find("input, select").each(function(idx, input){
