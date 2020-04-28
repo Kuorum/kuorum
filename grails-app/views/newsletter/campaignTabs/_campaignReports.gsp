@@ -39,19 +39,21 @@
             </g:link>
         </g:if>
     </div>
-
-    <div class="pull-right">
-        <g:link mapping="politicianCampaignStatsShow" params="[campaignId:campaign.id]" class="btn btn-grey-light"><span class="fal fa-sync"></span> </g:link>
-    </div>
 </div>
-<div id="report-files-list">
-    <ul class="files-list">
-        <g:each in="${reportsList}" var="report">
-           <li>
-               <span class="file-icon ${report.icon}"></span>
-               <a href="${report.url}"class="file-name">${report.name}</a>
-               <a class="file-action" href="${report.delete}"><span class="fal fa-trash"></span></a>
-           </li>
-        </g:each>
-    </ul>
+<div id="report-files">
+    <div class="report-files-list-actions">
+        <g:set var="link" value="#"/>
+        <g:if test="${campaign}">
+            <g:set var="link" value="${g.createLink(mapping: 'politicianCampaignRefreshReport', params:[campaignId:campaign.id])}"/>
+        </g:if>
+        <g:else>
+            <g:set var="link" value="${g.createLink(mapping: 'politicianNewsletterRefreshReport', params:[newsletterId:newsletter.id])}"/>
+        </g:else>
+        <a href="${link}" class="btn btn-grey inverted files-list-btn-refresh">
+            <span class="fal fa-sync"></span> <g:message code="tools.massMailing.view.reports.reload"/>
+        </a>
+    </div>
+    <div id="report-files-list">
+        <g:render template="/newsletter/campaignTabs/campaignReportsList" model="[reportsList:reportsList]"/>
+    </div>
 </div>

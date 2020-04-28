@@ -114,7 +114,7 @@
             </div>
 
             <!-- MODAL EVENT ASSISTANS -->
-            <g:if test="${campaign.event}">
+            <g:if test="${campaign && campaign.event}">
                 <div id="export-eventAssistants-modal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="exportAssistantsTitle" aria-hidden="true">
                     <div class="modal-dialog ">
                         <div class="modal-content">
@@ -141,7 +141,7 @@
                             <div class="modal-header"><h4><g:message code="modal.exportedParticipatoryBudgetProposals.title"/></h4></div>
                             <div class="modal-body">
                                 <p>
-                                    <g:message code="modal.exportedParticipatoryBudgetProposals.explanation" args="[participatoryBudget.title]"/>
+                                    <g:message code="modal.exportedParticipatoryBudgetProposals.explanation" args="[campaign.title]"/>
                                 </p>
                             </div>
                             <div class="modal-footer">

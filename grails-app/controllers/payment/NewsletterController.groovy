@@ -261,8 +261,8 @@ class NewsletterController {
             redirect (mapping:'politicianMassMailingContent', params: [campaignId: campaignId])
         }else{
             TrackingMailStatsByCampaignPageRSDTO trackingPage = newsletterService.findTrackingMails(loggedUser, campaignId)
-            List<String> reportsList = newsletterService.getReports(loggedUser, newsletterRSDTO)
-            render view: 'showCampaign', model: [newsletter: newsletterRSDTO, trackingPage:trackingPage, reportsList:reportsList.collect{it ->it.encodeAsS3File()}]
+            List<String> reportsList = printableNewsletterReportList(loggedUser, newsletterRSDTO.getId())
+            render view: 'showCampaign', model: [newsletter: newsletterRSDTO, trackingPage:trackingPage, reportsList:reportsList]
         }
     }
 
@@ -275,7 +275,7 @@ class NewsletterController {
             redirect (mapping:'politicianMassMailingContent', params: [campaignId: campaignId])
         }else{
             TrackingMailStatsByCampaignPageRSDTO trackingPage = newsletterService.findTrackingMails(loggedUser, newsletterId)
-            def reportsList = printableReportList(campaign)
+            def reportsList = printableCampaignReportList(loggedUser, campaign.getId())
             render view: 'showCampaign',
                     model: [
                             newsletter: campaign.newsletter,
@@ -285,12 +285,21 @@ class NewsletterController {
         }
     }
 
-    private def printableReportList(CampaignRSDTO campaign){
-        return campaignService.getReports(campaign)
+    private def printableCampaignReportList(KuorumUserSession loggedUser, Long campaignId){
+        return campaignService.getReports(loggedUser,campaignId)
                 .collect{
                     g.createLink(
                             mapping: 'politicianCampaignDownloadReport',
-                            params: [campaignId:campaign.getId(), fileName:it.split("/").last().split("\\?").first()])
+                            params: [campaignId:campaignId, fileName:it.split("/").last().split("\\?").first()])
+                }.collect{it ->it.encodeAsS3File()}
+    }
+    //TODO: JOIN BOTH PRINTABLE REPORTS LISTS
+    private def printableNewsletterReportList( KuorumUserSession loggedUser, Long newsletterId){
+        return newsletterService.getReports(loggedUser, newsletterId)
+                .collect{
+                    g.createLink(
+                            mapping: 'politicianNewsletterDownloadReport',
+                            params: [newsletterId:newsletterId, fileName:it.split("/").last().split("\\?").first()])
                 }.collect{it ->it.encodeAsS3File()}
     }
 
@@ -525,6 +534,13 @@ class NewsletterController {
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def refreshReports(Long campaignId){
+        KuorumUserSession loggedUser = springSecurityService.principal
+        def reportsList = printableCampaignReportList(loggedUser, campaignId)
+        render template: '/newsletter/campaignTabs/campaignReportsList', model: [ reportsList:reportsList]
+    }
+
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def downloadReport(Long campaignId, String fileName){
         KuorumUserSession loggedUser = springSecurityService.principal
         campaignService.getReport(loggedUser, campaignId, fileName,response.outputStream)
@@ -537,7 +553,31 @@ class NewsletterController {
     def deleteReport(Long campaignId, String fileName){
         KuorumUserSession loggedUser = springSecurityService.principal
         campaignService.deleteReport(loggedUser, campaignId, fileName);
+        def reportsList = printableCampaignReportList(loggedUser, campaignId)
+        render template: '/newsletter/campaignTabs/campaignReportsList', model: [ reportsList:reportsList]
+    }
 
-        redirect(mapping:'politicianCampaignStatsShow', params:[campaignId:campaignId] );
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def downloadReportNewsletter(Long newsletterId, String fileName){
+        KuorumUserSession loggedUser = springSecurityService.principal
+        newsletterService.getReport(loggedUser, newsletterId, fileName,response.outputStream)
+        response.setContentType("application/octet-stream")
+        response.setHeader("Content-disposition", "filename=${fileName}")
+        response.outputStream.flush()
+        return
+    }
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def deleteReportNewsletter(Long newsletterId, String fileName){
+        KuorumUserSession loggedUser = springSecurityService.principal
+        newsletterService.deleteReport(loggedUser, newsletterId, fileName);
+        def reportsList = printableNewsletterReportList(loggedUser, newsletterId)
+        render template: '/newsletter/campaignTabs/campaignReportsList', model: [ reportsList:reportsList]
+    }
+
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def refreshReportsNewsletter(Long newsletterId){
+        KuorumUserSession loggedUser = springSecurityService.principal
+        def reportsList = printableNewsletterReportList(loggedUser, newsletterId)
+        render template: '/newsletter/campaignTabs/campaignReportsList', model: [ reportsList:reportsList]
     }
 }

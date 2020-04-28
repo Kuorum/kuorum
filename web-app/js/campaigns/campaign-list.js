@@ -20,6 +20,23 @@ $(function(){
 
     });
 
+    $("#report-files").on("click",".files-list-btn-refresh, .file-action", function(e){
+        pageLoadingOn();
+        e.preventDefault();
+        var link = $(this).attr("href");
+        var postData = {}
+        $.post( link, postData)
+            .done(function(data) {
+                $("#report-files-list").html(data)
+            })
+            .fail(function(messageError) {
+                display.warn("Error");
+            })
+            .always(function() {
+                pageLoadingOff();
+            });
+    });
+
     function loadTrackingCampaignEvents(link, page){
         pageLoadingOn();
 

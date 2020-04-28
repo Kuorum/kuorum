@@ -1684,7 +1684,10 @@ ul.list > li > ul.list-actions > li > a:active {color: #ec931f;}
     background-color: transparent;
 }
 
-ul.files-list{list-style: none; padding:0; margin:0; font-size: 1.3em;}
+#report-files-list  h3.noReports{margin-top:30px;}
+a.files-list-btn-refresh {width:100%; text-align: left; padding:10px;}
+a.files-list-btn-refresh span.fal{margin-right: 10px;}
+ul.files-list{list-style: none; padding:0; margin:15px 0 0 0; font-size: 1.3em;}
 ul.files-list li{width: 100%; padding:5px 10px;}
 ul.files-list li:hover{background: #dadada;}
 ul.files-list li .file-icon{ vertical-align: middle;display:inline-block; color:#545454; width:20px;   }

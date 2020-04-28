@@ -260,6 +260,7 @@ class RestKuorumApiService {
         ACCOUNT_MASS_MAILING_CONFIG             ("/communication/massmailing/{userId}/config"),
         ACCOUNT_MASS_MAILING_ATTACHMENT         ("/communication/massmailing/{userId}/{campaignId}/files"),
         ACCOUNT_MASS_MAILING_REPORTS            ("/communication/massmailing/{userId}/{campaignId}/reports"),
+        ACCOUNT_MASS_MAILING_REPORT_FILE        ("/communication/massmailing/{userId}/{campaignId}/reports/{fileName}"),
         ACCOUNT_MASS_MAILING_PICTURE            ("/communication/massmailing/{userId}/{campaignId}/picture"),
 
         CAMPAIGNS_DOMAIN                        ("/communication/campaign/"),

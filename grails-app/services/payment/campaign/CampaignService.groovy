@@ -172,8 +172,8 @@ class CampaignService {
         response.data
     }
 
-    List<String> getReports(CampaignRSDTO campaignRSDTO){
-        Map<String, String> params = [campaignId: campaignRSDTO.getId().toString(), userId: campaignRSDTO.getUser().getId()]
+    List<String> getReports(KuorumUserSession loggedUser, Long campaignId){
+        Map<String, String> params = [campaignId: campaignId.toString(), userId: loggedUser.getId().toString()]
         Map<String, String> query = [:]
         def response = restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.ACCOUNT_CAMPAIGN_REPORTS,

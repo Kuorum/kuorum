@@ -208,8 +208,8 @@ class NewsletterService {
         )
         response.data
     }
-    List<String> getReports(KuorumUserSession user, NewsletterRSDTO newsletterRSDTO){
-        Map<String, String> params = [campaignId: newsletterRSDTO.getId().toString(), userId: user.alias]
+    List<String> getReports(KuorumUserSession user, Long newsletterId){
+        Map<String, String> params = [campaignId: newsletterId.toString(), userId:  user.alias]
         Map<String, String> query = [:]
         def response = restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.ACCOUNT_MASS_MAILING_REPORTS,
@@ -218,6 +218,28 @@ class NewsletterService {
                 new TypeReference<List<String>>(){}
         )
         response.data
+    }
+
+
+    void getReport(KuorumUserSession user, Long campaignId, String fileName, OutputStream outputStream){
+        Map<String, String> params = [campaignId: campaignId.toString(), userId: user.getId().toString(), fileName: fileName]
+        Map<String, String> query = [:]
+        def response = restKuorumApiService.getFile(
+                RestKuorumApiService.ApiMethod.ACCOUNT_MASS_MAILING_REPORT_FILE,
+                params,
+                query,
+                outputStream
+        )
+    }
+    void deleteReport(KuorumUserSession user, Long campaignId, String fileName){
+        Map<String, String> params = [campaignId: campaignId.toString(), userId: user.getId().toString(), fileName: fileName]
+        Map<String, String> query = [:]
+        def response = restKuorumApiService.delete(
+                RestKuorumApiService.ApiMethod.ACCOUNT_MASS_MAILING_REPORT_FILE,
+                params,
+                query,
+                new TypeReference<String>(){}
+        )
     }
 
     void deleteFile(KuorumUserSession user, Long newsletterId, String fileName){
