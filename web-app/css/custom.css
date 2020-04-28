@@ -4194,8 +4194,6 @@ p.email > span.fa + .tooltip.bottom .tooltip-inner{
 }
 
 p.email > span.emailAddress + .tooltip.bottom .tooltip-arrow{
-    position: relative;
-    top: -10px;
     left: 47%;
 }
 
@@ -4212,9 +4210,7 @@ ul#campaignsList > li > span + .tooltip.bottom .tooltip-inner {
 }
 
 p.email > span.follower + .tooltip.bottom .tooltip-arrow{
-    position: relative;
-    top: -10px;
-    left: 45%;
+    left: 42%;
 }
 
 .kuorum-tooltip + .tooltip.bottom {
