@@ -493,7 +493,8 @@ class UrlMappings {
         name politicianMassMailingHtml:                 "/account/mass-mailing/$campaignId/html" (controller:"newsletter", action: "showMailCampaign")
         name politicianMassMailingSaveTimeZone:         "/account/mass-mailing/saveTimeZone" (controller: "newsletter"){action = [POST:"saveTimeZone"]}
         name politicianCampaignStatsShow:               "/account/campaign/$campaignId" (controller:"newsletter", action:"showCampaignStats")
-        name politicianCampaignStatsReport:             "/account/campaign/$campaignId/report/$fileName" (controller:"newsletter", action:"downloadReport")
+        name politicianCampaignDownloadReport:          "/account/campaign/$campaignId/report/$fileName" (controller:"newsletter", action:"downloadReport")
+        name politicianCampaignDeleteReport:            "/account/campaign/$campaignId/report/$fileName/delete" (controller:"newsletter", action:"deleteReport")
         name politicianMassMailingDebateStatsReport:    "/ajax/account/debate/$campaignId/report" (controller:"debate", action: "sendReport")
         name politicianMassMailingSurveyStatsReport:    "/ajax/account/survey/$campaignId/report" (controller:"survey", action: "sendReport")
         name politicianMassMailingParticipatoryBudgetReport:"/ajax/account/participatoryBudget/$campaignId/report" (controller:"participatoryBudget", action: "sendProposalsReport")

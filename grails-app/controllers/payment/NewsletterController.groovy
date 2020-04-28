@@ -275,14 +275,23 @@ class NewsletterController {
             redirect (mapping:'politicianMassMailingContent', params: [campaignId: campaignId])
         }else{
             TrackingMailStatsByCampaignPageRSDTO trackingPage = newsletterService.findTrackingMails(loggedUser, newsletterId)
-            List<String> reportsList = campaignService.getReports(campaign)
-                    .collect{
-                        g.createLink(
-                                mapping: 'politicianCampaignStatsReport',
-                                params: [campaignId:campaign.getId().toString(), fileName:it.split("/").last().split("\\?").first()])
-                    }
-            render view: 'showCampaign', model: [newsletter: campaign.newsletter, trackingPage:trackingPage, campaign:campaign,reportsList:reportsList.collect{it ->it.encodeAsS3File()}]
+            def reportsList = printableReportList(campaign)
+            render view: 'showCampaign',
+                    model: [
+                            newsletter: campaign.newsletter,
+                            trackingPage:trackingPage,
+                            campaign:campaign,
+                            reportsList:reportsList]
         }
+    }
+
+    private def printableReportList(CampaignRSDTO campaign){
+        return campaignService.getReports(campaign)
+                .collect{
+                    g.createLink(
+                            mapping: 'politicianCampaignDownloadReport',
+                            params: [campaignId:campaign.getId(), fileName:it.split("/").last().split("\\?").first()])
+                }.collect{it ->it.encodeAsS3File()}
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
@@ -518,10 +527,17 @@ class NewsletterController {
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def downloadReport(Long campaignId, String fileName){
         KuorumUserSession loggedUser = springSecurityService.principal
-        InputStream inputStream = campaignService.getReport(loggedUser, campaignId, fileName,response.outputStream)
+        campaignService.getReport(loggedUser, campaignId, fileName,response.outputStream)
         response.setContentType("application/octet-stream")
         response.setHeader("Content-disposition", "filename=${fileName}")
         response.outputStream.flush()
         return
+    }
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def deleteReport(Long campaignId, String fileName){
+        KuorumUserSession loggedUser = springSecurityService.principal
+        campaignService.deleteReport(loggedUser, campaignId, fileName);
+
+        redirect(mapping:'politicianCampaignStatsShow', params:[campaignId:campaignId] );
     }
 }

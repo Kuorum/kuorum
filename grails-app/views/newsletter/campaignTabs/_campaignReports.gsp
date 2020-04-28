@@ -40,24 +40,18 @@
         </g:if>
     </div>
 
+    <div class="pull-right">
+        <g:link mapping="politicianCampaignStatsShow" params="[campaignId:campaign.id]" class="btn btn-grey-light"><span class="fal fa-sync"></span> </g:link>
+    </div>
 </div>
-<div>
-    <table class="table download-reports">
-        <thead>
-        <tr>
-            <th>Type</th>
-            <th>File Name </th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
+<div id="report-files-list">
+    <ul class="files-list">
         <g:each in="${reportsList}" var="report">
-            <tr>
-                <td><span class="${report.icon}"></span></td>
-                <td>${report.name}</td>
-                <td><a href="${report.url}" target="_blank"><span class="fa fa-download"></span> </a></td>
-            </tr>
+           <li>
+               <span class="file-icon ${report.icon}"></span>
+               <a href="${report.url}"class="file-name">${report.name}</a>
+               <a class="file-action" href="${report.delete}"><span class="fal fa-trash"></span></a>
+           </li>
         </g:each>
-        </tbody>
-    </table>
+    </ul>
 </div>

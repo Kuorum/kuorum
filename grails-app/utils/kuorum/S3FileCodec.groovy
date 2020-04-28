@@ -8,6 +8,7 @@ class S3FileCodec {
         [
                 name:url.split("/").last().split('\\?').first(),
                 icon: getFaIconOfExtension(url.split("\\.").last().split('\\?').first()),
+                delete:url+"/delete", // Is the mapping
                 url:url
         ]
     }
