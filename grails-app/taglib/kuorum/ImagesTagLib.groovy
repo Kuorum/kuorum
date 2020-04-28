@@ -134,7 +134,7 @@ out << """
 
     private String getDefaultAvatar(){
         //User can be null
-        g.resource(dir:'images', file: 'user-default.jpg')
+        g.resource(dir:'images', file: 'user-default.svg')
     }
 
     private String getDefaultImgProfile(){

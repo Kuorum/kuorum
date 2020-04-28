@@ -148,7 +148,7 @@ class SearchController{
         suggestions = suggestions.collect{s->[
                 alias:s.alias,
                 name:s.name,
-                avatar:s.avatar?:g.resource(dir:'images', file: 'user-default.jpg'),
+                avatar:s.avatar?:g.resource(dir:'images', file: 'user-default.svg'),
                 link:g.createLink(mapping: 'userShow', params: [userAlias:s.alias], absolute:true)
         ]}
         render ([suggestions:suggestions] as JSON)
