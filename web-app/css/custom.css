@@ -1685,7 +1685,10 @@ ul.list > li > ul.list-actions > li > a:active {color: #ec931f;}
 }
 
 #report-files-list  h3.noReports{margin-top:30px;}
-a.files-list-btn-refresh {width:100%; text-align: left; padding:10px;}
+.report-files-list-actions{width:100%; padding:10px; border: 1px solid #cdcdcd;}
+a.files-list-btn-refresh {padding:10px; color:#CDCDCD}
+a.files-list-btn-refresh:focus,
+a.files-list-btn-refresh:hover {text-decoration: underline; color:#CDCDCD;}
 a.files-list-btn-refresh span.fal{margin-right: 10px;}
 ul.files-list{list-style: none; padding:0; margin:15px 0 0 0; font-size: 1.3em;}
 ul.files-list li{width: 100%; padding:5px 10px;}

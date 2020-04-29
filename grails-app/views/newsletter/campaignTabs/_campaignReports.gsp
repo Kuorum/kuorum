@@ -49,8 +49,8 @@
         <g:else>
             <g:set var="link" value="${g.createLink(mapping: 'politicianNewsletterRefreshReport', params:[newsletterId:newsletter.id])}"/>
         </g:else>
-        <a href="${link}" class="btn btn-grey inverted files-list-btn-refresh">
-            <span class="fal fa-sync"></span> <g:message code="tools.massMailing.view.reports.reload"/>
+        <a href="${link}" class="files-list-btn-refresh">
+            <span class="fal fa-sync"></span><g:message code="tools.massMailing.view.reports.reload"/>
         </a>
     </div>
     <div id="report-files-list">
