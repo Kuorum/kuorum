@@ -53,9 +53,8 @@ class LanguageInjectorAOP {
             params.absolute=true
         }
         if (params.absolute){
-
-            System.out.println("Seting as base URL ->"+ CustomDomainResolver.getBaseUrlAbsolute())
             params.base = CustomDomainResolver.getBaseUrlAbsolute()
+            params.base = "https://kk.com"
         }
 
     }
