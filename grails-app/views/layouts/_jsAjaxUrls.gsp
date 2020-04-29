@@ -5,9 +5,6 @@
         searchSuggest:'<g:createLink mapping="suggestSearcher" absolute="true"/>',
         search:'<g:createLink mapping="searcherSearch" absolute="true"/>',
         suggestRegion:'<g:createLink mapping="suggestRegions" absolute="true"/>',
-        tour:{
-            tour_dashboard:'<g:createLink mapping="tour_dashboard"/>'
-        },
         suggestAlias: '<g:createLink mapping="suggestAlias" absolute="true"/>',
         ajaxLoginRRSS: '<g:createLink mapping="ajaxRegisterRRSSOAuth" absolute="true"/>',
         profileDomainValidationChecker: '<g:createLink mapping="profileDomainValidationChecker" absolute="true"/>'
