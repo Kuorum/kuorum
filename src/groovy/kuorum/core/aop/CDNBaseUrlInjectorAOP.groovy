@@ -5,12 +5,11 @@ import org.aspectj.lang.ProceedingJoinPoint
 import org.aspectj.lang.annotation.Around
 import org.aspectj.lang.annotation.Aspect
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.core.annotation.Order
 
 @Aspect
+@Order(1)
 class CDNBaseUrlInjectorAOP {
-
-    private static def VALID_URL_MAPPING = /^landing.*|^register.*|^home$|^footer.*|^reset.*|^login.*|^blog.*|^searcher.*|^lang.*/
-
 
     @Value('${grails.resources.mappers.baseurl.default}')
     String cdnBaseUrl

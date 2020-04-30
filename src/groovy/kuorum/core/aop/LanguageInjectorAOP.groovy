@@ -4,8 +4,10 @@ import kuorum.core.customDomain.CustomDomainResolver
 import org.aspectj.lang.ProceedingJoinPoint
 import org.aspectj.lang.annotation.Around
 import org.aspectj.lang.annotation.Aspect
+import org.springframework.core.annotation.Order
 
 @Aspect
+@Order(0)
 class LanguageInjectorAOP {
 
     private static def VALID_URL_MAPPING = /^landing.*|^register.*|^home$|^footer.*|^reset.*|^login.*|^blog.*|^searcher.*|^lang.*/
@@ -54,7 +56,6 @@ class LanguageInjectorAOP {
         }
         if (params.absolute){
             params.base = CustomDomainResolver.getBaseUrlAbsolute()
-            params.base = "https://kk.com"
         }
 
     }

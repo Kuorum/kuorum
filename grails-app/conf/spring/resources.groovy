@@ -11,13 +11,13 @@ import kuorum.security.rememberMe.RememberMeTokenRepository
 // Place your Spring DSL code here
 beans = {
     xmlns aop:"http://www.springframework.org/schema/aop"
-    aspectBean(kuorum.core.aop.LanguageInjectorAOP)
+    languajeAspectBean(kuorum.core.aop.LanguageInjectorAOP)
 
     Boolean cdnActive =
             application.config.grails.resources.mappers.amazoncdn.enabled instanceof Boolean? application.config.grails.resources.mappers.amazoncdn.enabled :
             application.config.grails.resources.mappers.amazoncdn.enabled instanceof String? Boolean.parseBoolean(application.config.grails.resources.mappers.amazoncdn.enabled) :false
     if (cdnActive){
-        aspectBean(kuorum.core.aop.CDNBaseUrlInjectorAOP)
+        cdnAspectBean(kuorum.core.aop.CDNBaseUrlInjectorAOP)
     }
 
     aop.config("proxy-target-class":true) {
