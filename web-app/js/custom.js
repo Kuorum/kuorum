@@ -216,11 +216,12 @@ $(document).ready(function() {
     $("a.loadMore").on("click", function (e) {
         loadMore(e, this)
     });
-    function loadMore(e, that) {
 
+    function loadMore(e, that) {
         e.preventDefault();
         var link = $(that);
-        link.parent().addClass("loading");
+        var parentLink = link.parent();
+        parentLink.addClass("loading");
         var url = link.attr('href');
         var formId = link.attr('data-form-id');
         var paramAppender = "?";
@@ -262,9 +263,11 @@ $(document).ready(function() {
             .always(function(data) {
                 $("#" + loadingId).remove();
                 $("time.timeago").timeago();
-                link.parent().removeClass("loading");
+                parentLink.removeClass("loading");
             });
     }
+
+    $(".load-more.run-first-loading a.loadMore").click();
     youtubeHelper.replaceNonExistImage();
     // HANDLE WRONG YOUTUBE VIDEOS
     youtubeHelper.replaceAllWrongYoutubeImages();

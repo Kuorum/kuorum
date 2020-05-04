@@ -217,15 +217,17 @@ class NavigationTagLib {
         String cssClass = attrs.cssClass?:''
         String dataFormId = formId?"data-form-id='${formId}'":''
         String callback = attrs.callback?:''
+        Boolean delayed = attrs.delayed!=null?Boolean.parseBoolean(attrs.delayed):false
+        Integer offset = delayed?0:pagination.max
 
         def link = createLink(mapping: mapping, params:mappingParams)
         if (numElements>=pagination.max){
             out <<"""
-                <div class="load-more ${cssClass}">
+                <div class="load-more ${cssClass} ${delayed?'run-first-loading':''}">
                     <a href="${link}"
                         class="loadMore"
                         data-parent-id="${parentId}" ${dataFormId}
-                        data-offset="${pagination.max}"
+                        data-offset="${offset}"
                         data-callback="${callback}">
                         ${message(code:"search.list.seeMore")}
                         <span class="fal fa-angle-down"></span>
@@ -251,19 +253,6 @@ class NavigationTagLib {
         if (!value || Boolean.parseBoolean(value)){
             out << body()
         }
-    }
-
-    def delayedSection ={attrs ->
-        String divId = attrs.divId
-        String reloadableClass=attrs.reload?"reload":""
-        String urlLink = g.createLink(mapping: attrs.mapping, params: attrs.params)
-
-        out <<
-                """
-            <div id='${divId}' class='delayed ${reloadableClass}' data-link='${urlLink}'>
-            </div>
-            """
-
     }
 
     protected getPage() {

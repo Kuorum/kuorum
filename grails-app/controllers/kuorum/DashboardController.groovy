@@ -55,17 +55,9 @@ class DashboardController {
 
     private def buildPaymentDashboard(BasicDataKuorumUserRSDTO user){
         KuorumUserSession userSession = springSecurityService.principal
-        String viewerUid = cookieUUIDService.buildUserUUID()
-
         CampaignPageRSDTO myCampaigns = campaignService.findAllCampaigns(userSession, false, 0, 1)
-//        SearchResultsRSDTO searchResultsRSDTO = dashboardService.findAllContactsCampaigns(userSession, viewerUid)
-
-//        List<KuorumUser> recommendedUsers = kuorumUserService.recommendPoliticians(user, new Pagination(max:16))
-
         [
                 numberCampaigns:myCampaigns.total,
-//                contacts: contactService.getUsers(user),
-//                recommendedUsers:recommendedUsers,
                 user:user,
                 emptyEditableData:emptyEditableData(),
                 campaigns: [],

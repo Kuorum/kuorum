@@ -40,7 +40,7 @@
                 </div>
             </div>
 
-            <ul class="search-list clearfix delayed" data-addCampaignsByUserUrl="${g.createLink(mapping:'politicianCampaignsLists' )}" data-link="${g.createLink(mapping:'dashboardCampaignsSeeMore' )}" data-callback="campaignListCallback" id="campaign-list-id" >
+            <ul class="search-list clearfix" data-addCampaignsByUserUrl="${g.createLink(mapping:'dashboardCampaignsSeeMore' )}" data-callback="campaignListCallback" id="campaign-list-id" >
                 <g:render template="/campaigns/cards/campaignsList" model="[campaigns:campaigns, showAuthor: showAuthor]" />
             </ul>
             <!-- ver más -->
@@ -51,6 +51,7 @@
                     callback="campaignListCallback"
                     pagination="${[max:10]}"
                     cssClass="hidden"
+                    delayed="true"
                     numElements="${totalCampaigns}"/>
             <r:script>
                 function campaignListCallback(){
