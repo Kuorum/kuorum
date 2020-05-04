@@ -26,9 +26,10 @@
 
 <!-- Open Graph data -->
 <meta property="og:title" content="${g.message(code:titleMessageCode, args:[debate.title, _domainName])}" />
-<meta property="og:type" content="article" />
+<meta property="og:type" content="website" />
 <meta property="og:url" content="${g.createLink(mapping:'debateShow', params:debate.encodeAsLinkProperties(), absolute:true)}" />
-<meta property="og:image" content="${debateImage}" />
+<meta property="og:image" itemprop="image" content="${debateImage}" />
+<meta property="og:image:secure_url" itemprop="image" content="${debateImage}" />
 <meta name="title" content="${g.message(code:titleMessageCode, args:[debate.title, _domainName])}" />
 <meta name="description" content="${debate.body?.encodeAsRemovingHtmlTags()?:''}" />
 <meta property="og:description" content="${debate.body?.encodeAsRemovingHtmlTags()}" />
