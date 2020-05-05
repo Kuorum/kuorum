@@ -1995,7 +1995,7 @@ ul.participatory-budget-steps-info li.active a {display: none}
 #tabs-stats-campaign .table td:nth-child(4) {height: 46px;}
 #tabs-stats-campaign .table td:nth-child(4) .only-mobile {display: block; margin-bottom: 5px;}
 #tabs-stats-campaign .pag-list-contacts .actions{float:left;}
-#tabs-stats-campaign .pag-list-contacts .actions a{width: auto;line-height: inherit;}
+#tabs-stats-campaign .pag-list-contacts .actions a{width: auto;line-height: inherit; margin-bottom:5px;}
 #campaignStatsContainer {height: 355px;}
 #campaignEmailContainer {width: 100%; height: 700px; border: 1px solid #dddddd; margin-bottom: 10px;}
 
