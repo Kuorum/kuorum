@@ -290,10 +290,11 @@ class RestKuorumApiService {
         ACCOUNT_POST            ("/communication/campaign/post/{userId}/{postId}"),
         ACCOUNT_POST_LIKES      ("/communication/campaign/post/{userId}/{postId}/likes"),
 
-        ACCOUNT_SURVEYS         ("/communication/campaign/survey/{userId}"),
-        ACCOUNT_SURVEY          ("/communication/campaign/survey/{userId}/{surveyId}"),
-        ACCOUNT_SURVEY_ANSWER   ("/communication/campaign/survey/{userId}/{surveyId}/question/{questionId}"),
-        ACCOUNT_SURVEY_REPORT   ("/communication/campaign/survey/{userId}/{surveyId}/report"),
+        ACCOUNT_SURVEYS               ("/communication/campaign/survey/{userId}"),
+        ACCOUNT_SURVEY                ("/communication/campaign/survey/{userId}/{surveyId}"),
+        ACCOUNT_SURVEY_ANSWER         ("/communication/campaign/survey/{userId}/{surveyId}/question/{questionId}"),
+        ACCOUNT_SURVEY_REPORT_STATS   ("/communication/campaign/survey/{userId}/{surveyId}/report/stats"),
+        ACCOUNT_SURVEY_REPORT_RAW     ("/communication/campaign/survey/{userId}/{surveyId}/report/rawData"),
 
         ACCOUNT_ACTIVE_PARTICIPATORY_BUDGETS                            ("/communication/campaign/participatory-budget/"),
         ACCOUNT_PARTICIPATORY_BUDGETS                                   ("/communication/campaign/participatory-budget/{userId}"),

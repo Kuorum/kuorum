@@ -1,4 +1,4 @@
-<%@ page import="org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO" %>
+<%@ page import="kuorum.web.commands.payment.survey.SurveyReportType; org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO" %>
 <h2 class="sr-only"><g:message code="tools.massMailing.view.report"/></h2>
 <div class="pag-list-contacts clearfix">
 
@@ -16,9 +16,13 @@
             </g:link>
         </g:if>
         <g:if test="${campaign && campaign instanceof org.kuorum.rest.model.communication.survey.SurveyRSDTO}">
-            <g:link mapping="politicianMassMailingSurveyStatsReport" params="[campaignId:campaign.id]" class="btn btn-blue inverted export-modal-button" data-modalId="export-surveyStats-modal">
+            <g:link mapping="politicianMassMailingSurveyReport" params="[campaignId:campaign.id, surveyReportType:kuorum.web.commands.payment.survey.SurveyReportType.SURVEY_STATS ]" class="btn btn-blue inverted export-modal-button" data-modalId="export-surveyStats-modal">
                 <span class="fal fa-file-excel"></span>
                 <g:message code="tools.massMailing.view.stats.survey.report"/>
+            </g:link>
+            <g:link mapping="politicianMassMailingSurveyReport" params="[campaignId:campaign.id, surveyReportType:kuorum.web.commands.payment.survey.SurveyReportType.SURVEY_RAW_DATA ]" class="btn btn-blue inverted export-modal-button" data-modalId="export-surveyStats-modal">
+                <span class="fal fa-file-excel"></span>
+                <g:message code="tools.massMailing.view.stats.survey.report.rawData"/>
             </g:link>
         </g:if>
 

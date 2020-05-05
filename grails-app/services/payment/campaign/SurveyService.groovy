@@ -6,6 +6,7 @@ import kuorum.core.exception.KuorumException
 import kuorum.mail.KuorumMailService
 import kuorum.register.KuorumUserSession
 import kuorum.util.rest.RestKuorumApiService
+import kuorum.web.commands.payment.survey.SurveyReportType
 import org.kuorum.rest.model.communication.survey.QuestionOptionRDTO
 import org.kuorum.rest.model.communication.survey.QuestionRDTO
 import org.kuorum.rest.model.communication.survey.SurveyRDTO
@@ -177,11 +178,15 @@ class SurveyService implements CampaignCreatorService<SurveyRSDTO, SurveyRDTO>{
         )
     }
 
-    void sendReport(KuorumUserSession user, Long surveyId){
+    void sendReport(KuorumUserSession user, Long surveyId, SurveyReportType surveyReportType){
         Map<String, String> params = [userId: user.id.toString(), surveyId: surveyId.toString()]
         Map<String, String> query = [:]
+        RestKuorumApiService.ApiMethod apiMethod = RestKuorumApiService.ApiMethod.ACCOUNT_SURVEY_REPORT_STATS;
+        if (SurveyReportType.SURVEY_RAW_DATA.equals(surveyReportType)){
+            apiMethod = RestKuorumApiService.ApiMethod.ACCOUNT_SURVEY_REPORT_RAW;
+        }
         def response = restKuorumApiService.get(
-                RestKuorumApiService.ApiMethod.ACCOUNT_SURVEY_REPORT,
+                apiMethod,
                 params,
                 query,
                 null

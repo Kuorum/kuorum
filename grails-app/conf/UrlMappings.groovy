@@ -500,7 +500,7 @@ class UrlMappings {
         name politicianNewsletterDeleteReport:          "/account/mass-mailing/$newsletterId/report/$fileName/delete" (controller:"newsletter", action:"deleteReportNewsletter")
         name politicianNewsletterRefreshReport:         "/ajax/account/mass-mailing/$newsletterId/report" (controller:"newsletter", action:"refreshReportsNewsletter")
         name politicianMassMailingDebateStatsReport:    "/ajax/account/debate/$campaignId/report" (controller:"debate", action: "sendReport")
-        name politicianMassMailingSurveyStatsReport:    "/ajax/account/survey/$campaignId/report" (controller:"survey", action: "sendReport")
+        name politicianMassMailingSurveyReport:         "/ajax/account/survey/$campaignId/report/$surveyReportType" (controller:"survey", action: "sendReport")
         name politicianMassMailingParticipatoryBudgetReport:"/ajax/account/participatoryBudget/$campaignId/report" (controller:"participatoryBudget", action: "sendProposalsReport")
         name ajaxUploadMassMailingAttachFile:           "/ajax/file/uploadMassMailingFile/$campaignId" (controller:'file', action:"uploadNewsletterAttachedFile")
         name ajaxDeleteMassMailingAttachFile:           "/ajax/file/deleteMassMailingFile/$campaignId" (controller:'file', action:"deleteNewsletterAttachedFile")

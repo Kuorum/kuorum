@@ -8,10 +8,7 @@ import kuorum.register.KuorumUserSession
 import kuorum.util.TimeZoneUtil
 import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.commands.payment.CampaignSettingsCommand
-import kuorum.web.commands.payment.survey.QuestionAnswerCommand
-import kuorum.web.commands.payment.survey.QuestionCommand
-import kuorum.web.commands.payment.survey.QuestionOptionCommand
-import kuorum.web.commands.payment.survey.SurveyQuestionsCommand
+import kuorum.web.commands.payment.survey.*
 import org.kuorum.rest.model.communication.survey.*
 import org.kuorum.rest.model.communication.survey.answer.QuestionAnswerOptionRDTO
 import org.kuorum.rest.model.communication.survey.answer.QuestionAnswerRDTO
@@ -206,9 +203,9 @@ class SurveyController extends CampaignController{
 
 
     @Secured(['ROLE_CAMPAIGN_SURVEY'])
-    def sendReport(Long campaignId){
+    def sendReport(SurveyReportCommand command){
         KuorumUserSession loggedUser = springSecurityService.principal
-        surveyService.sendReport(loggedUser, campaignId)
+        surveyService.sendReport(loggedUser, command.campaignId,command.surveyReportType)
         Boolean isAjax = request.xhr
         if(isAjax){
             render ([success:"success"] as JSON)
