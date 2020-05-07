@@ -1,4 +1,3 @@
-<g:set var="displayTimeZone" value="${sec.loggedInUserInfo(field: 'timeZone')?((sun.util.calendar.ZoneInfo)sun.util.calendar.ZoneInfo.getTimeZone(sec.loggedInUserInfo(field: 'timeZone.ID').toString())):campaignUser.timeZone}"/>
 <ul class="leader-post-stats">
     <li>
         <span class="fal fa-eye" aria-hidden="true"></span>

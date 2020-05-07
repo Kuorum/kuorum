@@ -68,7 +68,7 @@ class PetitionController extends CampaignController{
     private def petitionModelSettings(CampaignSettingsCommand command, PetitionRSDTO petitionRSDTO) {
         def model = modelSettings(command, petitionRSDTO)
         command.debatable=false
-        model.options =[debatable:false]
+        model.options =[debatable:false, showCampaignDateLimits:true]
         return model
     }
 

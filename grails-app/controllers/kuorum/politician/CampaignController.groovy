@@ -81,6 +81,12 @@ class CampaignController {
             def model = dataView.model
             List<String> linkFiles = campaignService.getFiles(campaignRSDTO);
             model.campaignFiles = linkFiles.collect{it ->it.encodeAsS3File()}
+            if(springSecurityService.isLoggedIn()){
+                KuorumUserSession userLogged = springSecurityService.principal
+                model.displayTimeZone=userLogged.timeZone
+            }else{
+                model.displayTimeZone=campaignRSDTO.user.timeZone
+            }
             render view: dataView.view, model:dataView.model
         }catch (Exception ignored){
             flash.error = message(code: "post.notFound")
@@ -112,6 +118,8 @@ class CampaignController {
             command.groupValidation = campaignRSDTO.groupValidation
             command.hideResultsFlag = campaignRSDTO.hideResultsFlag
             command.newsletterCommunication = campaignRSDTO.newsletterCommunication
+            command.endDate = campaignRSDTO.endDate
+            command.startDate = campaignRSDTO.startDate
             if (campaignRSDTO.hasProperty('causes')){
                 command.causes = campaignRSDTO.causes
             }
@@ -148,6 +156,8 @@ class CampaignController {
         rdto.hideResultsFlag = command.hideResultsFlag==null?false:command.hideResultsFlag
         rdto.groupValidation = command.groupValidation==null?false:command.groupValidation
         rdto.newsletterCommunication = command.newsletterCommunication==null?false:command.newsletterCommunication
+        rdto.startDate = TimeZoneUtil.convertToUserTimeZone(command.startDate, user.timeZone)
+        rdto.endDate = TimeZoneUtil.convertToUserTimeZone(command.endDate, user.timeZone)
         if (command.filterEdited) {
             //anonymousFilter.setName(g.message(code:'tools.contact.filter.anonymousName', args: anonymousFilter.getName()))
             rdto.setAnonymousFilter(anonymousFilter)

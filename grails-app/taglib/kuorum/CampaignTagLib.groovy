@@ -16,7 +16,7 @@ class CampaignTagLib {
         // PRINTS ONLY IF THE CAMPAIGN HAS AN EVENT
         if (event &&
             event.eventDate >= new Date() &&
-                campaign.newsletter?.status== org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT){
+                campaign.newsletter?.status== org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT && !campaign.closed){
             out << body()
         }
     }
@@ -24,17 +24,29 @@ class CampaignTagLib {
     def ifInactiveEvent = {attrs, body ->
         CampaignRSDTO campaign = attrs.campaign
         EventRSDTO event = campaign.event
-        // Evaluates if the event is already close
-        Boolean evaluatesIfIsClose=attrs.evaluatesIfIsClose?Boolean.parseBoolean(attrs.evaluatesIfIsClose):false
-        // Evaluates if the event is not open yet
-        Boolean evaluatesIfIsNotOpen=attrs.evaluatesIfIsNotOpen?Boolean.parseBoolean(attrs.evaluatesIfIsNotOpen):false
-
         if (campaign.event){
             // This option has sense if the campaign has an event
-            Boolean isClosed = evaluatesIfIsClose? event.eventDate < new Date() && campaign.newsletter?.status== CampaignStatusRSDTO.SENT:false
-            Boolean isNotOpen = evaluatesIfIsNotOpen? campaign.newsletter?.status!= CampaignStatusRSDTO.SENT:false
-            if (isClosed || isNotOpen){
-                out << body()
+            Boolean isClosed = event.eventDate < new Date() && campaign.newsletter?.status== CampaignStatusRSDTO.SENT
+            Boolean isNotOpen = campaign.newsletter?.status!= CampaignStatusRSDTO.SENT
+            String closedMsg="";
+
+            if (isClosed){
+                closedMsg = g.message(code:'event.callToAction.subTitle.close', args: [campaign.user.name])
+            }else if(campaign.closed){
+                String callClosedTimeAgo;
+                if (campaign.endDate?.before(new Date())) {
+                    callClosedTimeAgo = kuorumDate.humanDate(date: campaign.endDate)
+                    closedMsg = g.message(code:'event.callToAction.subTitle.campaign.close.after', args: [callClosedTimeAgo])
+                }else {
+                    callClosedTimeAgo = kuorumDate.humanDate(date: campaign.startDate)
+                    closedMsg = g.message(code:'event.callToAction.subTitle.campaign.close.before', args: [callClosedTimeAgo])
+                }
+            }else if(isNotOpen){
+                closedMsg = g.message(code:'event.callToAction.subTitle.noOpen', args: [campaign.user.name])
+            }
+
+            if (isClosed || isNotOpen || campaign.closed){
+                out << body(closedMsg:closedMsg)
             }
 
         }

@@ -72,7 +72,7 @@ class SurveyController extends CampaignController{
     private def surveyModelSettings(CampaignSettingsCommand command, SurveyRSDTO surveyRSDTO) {
         def model = modelSettings(command, surveyRSDTO)
         command.debatable=false
-        model.options =[debatable:false, hiddeVotesFlag:true]
+        model.options =[debatable:false, hiddeVotesFlag:true, showCampaignDateLimits:true]
         return model
     }
 

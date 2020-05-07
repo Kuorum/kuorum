@@ -132,6 +132,8 @@ class CampaignService {
             rdto.groupValidation = campaignRSDTO.groupValidation
             rdto.newsletterCommunication = campaignRSDTO.newsletterCommunication
             rdto.causes = campaignRSDTO.causes
+            rdto.startDate = campaignRSDTO.startDate
+            rdto.endDate = campaignRSDTO.endDate
             if (campaignRSDTO.event){
                 rdto.event = new EventRDTO()
                 rdto.event.eventDate = campaignRSDTO.event.eventDate

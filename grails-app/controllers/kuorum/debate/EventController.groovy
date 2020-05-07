@@ -28,7 +28,7 @@ class EventController extends CampaignController{
 
     private def eventModelSettings(CampaignSettingsCommand command, DebateRSDTO debateRSDTO) {
         def model = modelSettings(command, debateRSDTO)
-        model.options =[debatable:true]
+        model.options =[debatable:true,showCampaignDateLimits:true]
         return model
     }
 

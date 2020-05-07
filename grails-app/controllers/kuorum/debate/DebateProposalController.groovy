@@ -3,6 +3,7 @@ package kuorum.debate
 import grails.converters.JSON
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
+import kuorum.core.exception.KuorumException
 import kuorum.register.KuorumUserSession
 import kuorum.users.KuorumUserService
 import kuorum.web.commands.payment.debate.DebateProposalCommand

@@ -1,3 +1,4 @@
+
 <sec:ifLoggedIn><g:set var="isSigned" value="${true}"/></sec:ifLoggedIn>
 <sec:ifNotLoggedIn><g:set var="isSigned" value="${false}"/></sec:ifNotLoggedIn>
 <g:set var="activeButton" value="${petition.signed && isSigned}"/>

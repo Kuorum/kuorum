@@ -1,4 +1,3 @@
-<g:set var="displayTimeZone" value="${sec.loggedInUserInfo(field: 'timeZone')?((sun.util.calendar.ZoneInfo)sun.util.calendar.ZoneInfo.getTimeZone(sec.loggedInUserInfo(field: 'timeZone.ID').toString())):eventUser.timeZone}"/>
 <g:if test="${event}">
     <div class="comment-box call-to-action event-info hidden-sm">
         <div class="comment-header">

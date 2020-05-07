@@ -27,4 +27,22 @@
         <span class="fal fa-clock" aria-hidden="true"></span>
         <span class="info"><g:message code="debate.lastActivity"/> <kuorumDate:humanDate date="${debate.lastActivity}"/> </span>
     </li>
+    <g:if test="${debate.startDate}">
+        <li>
+            <span class="fal fa-calendar-check" aria-hidden="true"></span>
+            <span class="info"><g:message code="kuorum.web.commands.payment.SurveyQuestionsCommand.startDate.label"/>:
+            <g:formatDate format="dd/MM/yyyy HH:mm" date="${debate.startDate}" timeZone="${displayTimeZone}"/>
+            <kuorumDate:printTimeZoneName date="${debate.startDate}" zoneInfo="${displayTimeZone}"/>
+            </span>
+        </li>
+    </g:if>
+    <g:if test="${debate.endDate}">
+        <li>
+            <span class="fal fa-calendar-times" aria-hidden="true"></span>
+            <span class="info"><g:message code="kuorum.web.commands.payment.SurveyQuestionsCommand.endDate.label"/>:
+            <g:formatDate format="dd/MM/yyyy HH:mm"  date="${debate.endDate}" timeZone="${displayTimeZone}"/>
+            <kuorumDate:printTimeZoneName date="${debate.endDate}" zoneInfo="${displayTimeZone}"/>
+            </span>
+        </li>
+    </g:if>
 </ul>

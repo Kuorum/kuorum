@@ -19,7 +19,7 @@
         <r:require modules="event"/>
         <g:render template="/campaigns/columnCModules/eventCallToAction" model="[eventUser: debateUser,campaign:debate, hideSmallDevices:false]"/>
         <g:render template="/debate/showModules/cCallToAction" model="[debate: debate, debateUser: debateUser,proposalPage:proposalPage]"/>
-        <g:render template="/campaigns/columnCModules/eventInfo" model="[event:debate.event, eventUser: debateUser]"/>
+        <g:render template="/campaigns/columnCModules/eventInfo" model="[event:debate.event, eventUser: debateUser,displayTimeZone:displayTimeZone]"/>
     </g:if>
     <g:else>
         <g:if test="${debate.campaignStatusRSDTO == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT}">
@@ -31,6 +31,6 @@
         <g:render template="/debate/showModules/pinnedUsers" model="[pinnedUsers:pinnedUsers, debateUser: debateUser]" />
     </g:if>
     <g:render template="/campaigns/columnCModules/campaignFiles" model="[campaignFiles:campaignFiles]"/>
-    <g:render template="/debate/showModules/cColumn" model="[debate: debate, debateUser: debateUser, proposalPage:proposalPage, lastActivity:lastActivity]" />
+    <g:render template="/debate/showModules/cColumn" model="[debate: debate, debateUser: debateUser, proposalPage:proposalPage, lastActivity:lastActivity,displayTimeZone:displayTimeZone]" />
 </content>
 

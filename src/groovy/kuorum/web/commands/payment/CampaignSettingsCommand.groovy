@@ -2,7 +2,9 @@ package kuorum.web.commands.payment
 
 import grails.validation.Validateable
 import kuorum.web.commands.payment.massMailing.MassMailingCommand
+import kuorum.web.constants.WebConstants
 import org.grails.databinding.BindUsing
+import org.grails.databinding.BindingFormat
 import org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO
 
 @Validateable
@@ -30,6 +32,12 @@ class CampaignSettingsCommand {
     Boolean groupValidation = false;
     Boolean newsletterCommunication = false;
 
+    @BindingFormat(WebConstants.WEB_FORMAT_DATE)
+    Date endDate
+
+    @BindingFormat(WebConstants.WEB_FORMAT_DATE)
+    Date startDate
+
     static constraints = {
         filterId nullable: true
         filterEdited nullable: true
@@ -42,5 +50,7 @@ class CampaignSettingsCommand {
         hideResultsFlag nullable: true;
         groupValidation nullable: true;
         newsletterCommunication nullable: true;
+        endDate nullable: true
+        startDate nullable: true
     }
 }

@@ -77,8 +77,12 @@ $(function () {
         }
     });
 
-    //Calculo de altura de las cajas de comentarios de debate
+    $("#debate-call-to-action, .leader-post .footer .comment-counter button, .call-to-action-mobile.go-to-survey button").on("click", function(e){
+        e.preventDefault()
+        moveToHash($(this).attr("data-goto"))
+    })
 
+    //Calculo de altura de las cajas de comentarios de debate
     function calcHeightProposalComments(){
         var parragraphMarginBottom = 20; //px
         var lineHeight= 33; //px
@@ -802,6 +806,9 @@ var debateFunctions = {
                     $buttonPublish.on("click",debateFunctions.publishProposal)
                     pageLoadingOff();
                 },
+                error: function(){
+                    display.error("Error adding proposal. Reload page an try again")
+                },
                 dataType: "html"
             });
         }
@@ -863,6 +870,9 @@ var debateFunctions = {
                 dataType: "html",
                 complete: function(){
                     pageLoadingOff();
+                },
+                error: function(){
+                    display.error("Error adding comment. Reload page an try again")
                 }
             });
         }

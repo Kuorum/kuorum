@@ -20,6 +20,22 @@ $(function(){
         $("#causes_tag").css("width","100%")
     });
 
+    function toogleCampaignDateRangeDependingOnDebatableFlag(){
+        var $input = $("#debatable");
+        if ($input.length <=0) {
+            // #debatable checkbox doesn't exist
+            $("#campaign-date-range").show()
+        }else if ($input.is(':checked')){
+            $("#campaign-date-range").show()
+        }else{
+            $("#campaign-date-range").hide()
+        }
+
+    }
+
+    $("#debatable").on("change",toogleCampaignDateRangeDependingOnDebatableFlag)
+    toogleCampaignDateRangeDependingOnDebatableFlag();
+
     $("#newsletterCommunication, #groupValidation").on("change", toggleFilterContactSelectorVisibility)
 
     function toggleFilterContactSelectorVisibility(){
