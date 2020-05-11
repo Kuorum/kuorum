@@ -411,8 +411,11 @@ $(function () {
 
     $(".proposal-list").on("click",".conversation-box-comment .footer button.angle",function(e) {
         var $button = $(this)
-        var userAliasLogged = $button.attr("data-userAlias")
-        if (userAliasLogged == undefined || userAliasLogged==""){
+        var userAliasLogged = $button.attr("data-userAlias");
+        var $ulProposals=$button.parents(".proposal-list")
+        if ($ulProposals.hasClass("campaign-closed")){
+            display.warn(i18n.debate.proposal.action.campaignClosed)
+        }else if (userAliasLogged == undefined || userAliasLogged==""){
             var buttonId = guid();
             $button.attr("id", buttonId)
             $('#registro').find("form").attr("callback", "voteCommentNoLogged")
@@ -643,7 +646,10 @@ var debateFunctions = {
     onClickProposalLike: function(e) {
         var $button = $(this);
         var userLogged = $button.attr("data-userLogged");
-        if (userLogged == undefined || userLogged == "" ) {
+        var $ulProposals=$button.parents(".proposal-list")
+        if ($ulProposals.hasClass("campaign-closed")){
+            display.warn(i18n.debate.proposal.action.campaignClosed)
+        }else if (userLogged == undefined || userLogged == "" ) {
             // USER NOT LOGGED
             var buttonId = guid();
             $button.attr("id", buttonId)

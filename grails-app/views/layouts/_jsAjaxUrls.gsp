@@ -132,6 +132,13 @@
                     }
                 }
             }
+        },
+        debate:{
+            proposal:{
+                action:{
+                    campaignClosed:"<g:message code="debate.proposal.action.campaignClosed"/>"
+                }
+            }
         }
     }
 

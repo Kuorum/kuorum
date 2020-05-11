@@ -32,11 +32,15 @@
     <li><a href="#pinned"><g:message code="debate.proposals.nav.pinned"/></a></li>
 </ul>
 
-<ul class="proposal-list" id="proposal-list-tag">
-    <g:each in="${proposalPage.data}" var="proposal">
-        <g:render template="/debate/showModules/mainContent/proposalData" model="[debate:debate, debateUser:debateUser, proposal:proposal]"/>
-    </g:each>
-</ul>
+%{--No spaces on ul.proposal-list because :empty not works if it has spaces--}%
+<ul class="proposal-list ${debate.closed?'campaign-closed':''}" id="proposal-list-tag"><g:each in="${proposalPage.data}" var="proposal"><g:render template="/debate/showModules/mainContent/proposalData" model="[debate:debate, debateUser:debateUser, proposal:proposal]"/></g:each></ul>
+<div class="empty-proposal-list comment-box call-to-action">
+    <div class="comment-header">
+        <span class="call-title"><g:message code="debate.proposal.noProposals.title"/></span>
+        <span class="call-subTitle"><g:message code="debate.proposal.noProposals.subtitle"/></span>
+    </div>
+</div>
+
 <!-- propusal block !-->
 
 %{-- SEE MORE HIDDEN

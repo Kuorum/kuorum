@@ -16,7 +16,7 @@ class CampaignTagLib {
         // PRINTS ONLY IF THE CAMPAIGN HAS AN EVENT
         if (event &&
             event.eventDate >= new Date() &&
-                campaign.newsletter?.status== org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT && !campaign.closed){
+                campaign.newsletter?.status== org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT){
             out << body()
         }
     }
@@ -32,20 +32,11 @@ class CampaignTagLib {
 
             if (isClosed){
                 closedMsg = g.message(code:'event.callToAction.subTitle.close', args: [campaign.user.name])
-            }else if(campaign.closed){
-                String callClosedTimeAgo;
-                if (campaign.endDate?.before(new Date())) {
-                    callClosedTimeAgo = kuorumDate.humanDate(date: campaign.endDate)
-                    closedMsg = g.message(code:'event.callToAction.subTitle.campaign.close.after', args: [callClosedTimeAgo])
-                }else {
-                    callClosedTimeAgo = kuorumDate.humanDate(date: campaign.startDate)
-                    closedMsg = g.message(code:'event.callToAction.subTitle.campaign.close.before', args: [callClosedTimeAgo])
-                }
             }else if(isNotOpen){
                 closedMsg = g.message(code:'event.callToAction.subTitle.noOpen', args: [campaign.user.name])
             }
 
-            if (isClosed || isNotOpen || campaign.closed){
+            if (isClosed || isNotOpen ){
                 out << body(closedMsg:closedMsg)
             }
 

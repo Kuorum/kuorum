@@ -6890,6 +6890,8 @@ ul.proposal-list ul.conversation-box-comments-list li {list-style-type: none; bo
 .comment-box > .user-box,
 ul.proposal-list .comment-box > .comment-proposal > .user-box{margin-bottom: 10px;}
 
+.empty-proposal-list {display:none}
+ul.proposal-list:empty + .empty-proposal-list{display: block;}
 
 /*** vote-user ***/
 .vote-user {

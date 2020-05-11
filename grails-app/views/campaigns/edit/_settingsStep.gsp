@@ -18,14 +18,6 @@
                 <formUtil:input command="${command}" field="campaignName"/>
             </div>
         </fieldset>
-        <g:if test="${options.debatable}">
-            <fieldset class="form-group fieldset-check-box">
-                %{--<label for="campaignName" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.debate.CampaignSettingsCommand.campaignName.label"/>:</label>--}%
-                <div class="col-md-offset-1 col-sm-8 col-md-7">
-                    <formUtil:checkBox command="${command}" field="debatable" disabled="${command.debatable!=null}"/>
-                </div>
-            </fieldset>
-        </g:if>
         <g:render template="/newsletter/form/formGroupCampaignCauses" model="[command:command, options:options]"/>
 
         <fieldset class="form-group" id="advanced-features-section">
@@ -45,6 +37,14 @@
         </fieldset>
 
         <div id="advanced-features">
+            <g:if test="${options.debatable}">
+                <fieldset class="form-group fieldset-check-box">
+                    %{--<label for="campaignName" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.debate.CampaignSettingsCommand.campaignName.label"/>:</label>--}%
+                    <div class="col-md-offset-1 col-sm-8 col-md-7">
+                        <formUtil:checkBox command="${command}" field="debatable" disabled="${command.debatable!=null}"/>
+                    </div>
+                </fieldset>
+            </g:if>
             <g:if test="${options.showCampaignDateLimits}">
                 <fieldset class="form-group" id="campaign-date-range">
                     <label for="startDate" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.SurveyQuestionsCommand.startDate.label"/>:</label>
