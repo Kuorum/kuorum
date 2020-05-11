@@ -222,12 +222,24 @@ $(function(){
     jQuery.validator.addMethod("greaterThan",
         function(value, element, params) {
 
-            if (!/Invalid|NaN/.test(new Date(value))) {
-                return new Date(value) > new Date($(params).val());
+            var parseDate = function(input){
+                let kuorumDateWebRegex = /(\d*)\/(\d*)\/(\d*) (\d*):(\d*)/;
+                var parts = input.match(kuorumDateWebRegex)
+                if(parts.length == 6){
+                    var date = new Date(parts[3], parts[2], parts[1], parts[4], parts[5])
+                    return date.getTime()
+                }else{
+                    return value;
+                }
+            }
+            var minor = parseDate(value)
+            var mayor = parseDate($(params).val());
+
+            if (!/Invalid|NaN/.test(minor)) {
+                return minor > mayor;
             }
 
-            return isNaN(value) && isNaN($(params).val())
-                || (Number(value) > Number($(params).val()));
+            return isNaN(minor) && isNaN(mayor) || (Number(minor) > Number(mayor));
         },'Must be greater than {0}.');
 })
 
