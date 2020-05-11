@@ -16,12 +16,6 @@ class SurveyQuestionsCommand {
 
     Long surveyId
 
-    @BindingFormat(WebConstants.WEB_FORMAT_DATE)
-    Date endDate
-
-    @BindingFormat(WebConstants.WEB_FORMAT_DATE)
-    Date startDate
-
     List<QuestionCommand> questions = []
 
     @BindingFormat(WebConstants.WEB_FORMAT_DATE)
@@ -46,8 +40,6 @@ class SurveyQuestionsCommand {
     static constraints = {
         importFrom CampaignContentCommand, include: ["publishOn", "sendType"]
         questions maxSize: 10000, validator: validateQuestions
-        endDate nullable: true
-        startDate nullable: true
     }
 }
 

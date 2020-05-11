@@ -30,7 +30,7 @@
     <g:if test="${debate.startDate}">
         <li>
             <span class="fal fa-calendar-check" aria-hidden="true"></span>
-            <span class="info"><g:message code="kuorum.web.commands.payment.SurveyQuestionsCommand.startDate.label"/>:
+            <span class="info"><g:message code="kuorum.web.commands.payment.CampaignSettingsCommand.startDate.label"/>:
             <g:formatDate format="dd/MM/yyyy HH:mm" date="${debate.startDate}" timeZone="${displayTimeZone}"/>
             <kuorumDate:printTimeZoneName date="${debate.startDate}" zoneInfo="${displayTimeZone}"/>
             </span>
@@ -39,7 +39,7 @@
     <g:if test="${debate.endDate}">
         <li>
             <span class="fal fa-calendar-times" aria-hidden="true"></span>
-            <span class="info"><g:message code="kuorum.web.commands.payment.SurveyQuestionsCommand.endDate.label"/>:
+            <span class="info"><g:message code="kuorum.web.commands.payment.CampaignSettingsCommand.endDate.label"/>:
             <g:formatDate format="dd/MM/yyyy HH:mm"  date="${debate.endDate}" timeZone="${displayTimeZone}"/>
             <kuorumDate:printTimeZoneName date="${debate.endDate}" zoneInfo="${displayTimeZone}"/>
             </span>

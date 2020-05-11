@@ -14,7 +14,7 @@
     <g:if test="${survey.startDate}">
         <li>
             <span class="fal fa-calendar-check" aria-hidden="true"></span>
-            <span class="info"><g:message code="kuorum.web.commands.payment.SurveyQuestionsCommand.startDate.label"/>:
+            <span class="info"><g:message code="kuorum.web.commands.payment.CampaignSettingsCommand.startDate.label"/>:
                 <g:formatDate format="dd/MM/yyyy HH:mm" date="${survey.startDate}" timeZone="${displayTimeZone}"/>
                 <kuorumDate:printTimeZoneName date="${survey.startDate}" zoneInfo="${displayTimeZone}"/>
             </span>
@@ -23,7 +23,7 @@
     <g:if test="${survey.endDate}">
         <li>
             <span class="fal fa-calendar-times" aria-hidden="true"></span>
-            <span class="info"><g:message code="kuorum.web.commands.payment.SurveyQuestionsCommand.endDate.label"/>:
+            <span class="info"><g:message code="kuorum.web.commands.payment.CampaignSettingsCommand.endDate.label"/>:
                 <g:formatDate format="dd/MM/yyyy HH:mm"  date="${survey.endDate}" timeZone="${displayTimeZone}"/>
                 <kuorumDate:printTimeZoneName date="${survey.endDate}" zoneInfo="${displayTimeZone}"/>
             </span>

@@ -47,17 +47,17 @@
             </g:if>
             <g:if test="${options.showCampaignDateLimits}">
                 <fieldset class="form-group" id="campaign-date-range">
-                    <label for="startDate" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.SurveyQuestionsCommand.startDate.label"/>:</label>
+                    <label for="startDate" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.CampaignSettingsCommand.startDate.label"/>:</label>
                     <div class="col-sm-8 col-md-4">
                         <formUtil:date command="${command}" field="startDate" time="true"/>
                     </div>
-                    <label for="endDate" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.SurveyQuestionsCommand.endDate.label"/>:</label>
+                    <label for="endDate" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.CampaignSettingsCommand.endDate.label"/>:</label>
                     <div class="col-sm-8 col-md-4">
                         <formUtil:date command="${command}" field="endDate" time="true"/>
                     </div>
                     <r:script>
                         $(function(){
-                            $("#endDate").rules('add', { greaterThan: "#startDate" , messages:{greaterThan:"${g.message(code:'kuorum.web.commands.payment.SurveyQuestionsCommand.endDate.greaterThan')}"} });
+                            $("#endDate").rules('add', { greaterThan: "#startDate" , messages:{greaterThan:"${g.message(code:'kuorum.web.commands.payment.CampaignSettingsCommand.endDate.greaterThan')}"} });
                         });
                     </r:script>
                 </fieldset>

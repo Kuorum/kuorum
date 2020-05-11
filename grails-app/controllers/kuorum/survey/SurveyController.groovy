@@ -118,8 +118,6 @@ class SurveyController extends CampaignController{
             return
         }
         SurveyRDTO rdto = surveyService.map(survey)
-        rdto.endDate = TimeZoneUtil.convertToUserTimeZone(command.endDate, surveyUser.timeZone)
-        rdto.startDate = TimeZoneUtil.convertToUserTimeZone(command.startDate, surveyUser.timeZone)
         rdto.questions = command.questions?.findAll{it && it.text}.collect {map(it)}?:[]
         def result = saveAndSendCampaign(surveyUser, rdto, survey.getId(), command.publishOn,command.sendType, surveyService)
         redirect mapping: result.nextStep.mapping, params: result.nextStep.params
@@ -174,8 +172,6 @@ class SurveyController extends CampaignController{
     private def modelQuestionStep(SurveyRSDTO survey){
         SurveyQuestionsCommand command = new SurveyQuestionsCommand()
         command.surveyId = survey.id
-        command.endDate = survey.endDate
-        command.startDate = survey.startDate
         command.questions = survey.questions?.collect{map(it)}?:[new QuestionCommand()]
         if(survey.datePublished){
             command.publishOn = survey.datePublished
