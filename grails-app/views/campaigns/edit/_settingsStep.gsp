@@ -67,6 +67,12 @@
                     <div class="col-sm-8 col-md-4">
                         <formUtil:date command="${command}" field="endDate" time="true"/>
                     </div>
+                    <r:script>
+                        $(function(){
+                            console.log("Start date rule")
+                            $("#endDate").rules('add', { greaterThan: "#startDate" , messages:{greaterThan:"${g.message(code:'kuorum.web.commands.payment.SurveyQuestionsCommand.endDate.greaterThan')}"} });
+                        });
+                    </r:script>
                 </fieldset>
             </g:if>
 
