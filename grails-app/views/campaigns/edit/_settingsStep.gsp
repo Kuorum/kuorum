@@ -45,18 +45,6 @@
         </fieldset>
 
         <div id="advanced-features">
-            <g:if test="${!options.hideValidateOption}">
-                <fieldset class="form-group fieldset-check-box">
-                    <label for="checkValidation" class="col-sm-2 col-md-1 control-label">
-                        <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="${g.message(code:'kuorum.web.commands.payment.CampaignSettingsCommand.checkValidation.label.info')}"></span>
-                        <g:message code="kuorum.web.commands.payment.CampaignSettingsCommand.checkValidation.label.left"/>:
-                    </label>
-                    <div class="col-sm-8 col-md-7">
-                        <formUtil:checkBox command="${command}" field="checkValidation" disabled="${!domainValidation}"/>
-                    </div>
-                </fieldset>
-            </g:if>
-
             <g:if test="${options.showCampaignDateLimits}">
                 <fieldset class="form-group" id="campaign-date-range">
                     <label for="startDate" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.SurveyQuestionsCommand.startDate.label"/>:</label>
@@ -69,10 +57,20 @@
                     </div>
                     <r:script>
                         $(function(){
-                            console.log("Start date rule")
                             $("#endDate").rules('add', { greaterThan: "#startDate" , messages:{greaterThan:"${g.message(code:'kuorum.web.commands.payment.SurveyQuestionsCommand.endDate.greaterThan')}"} });
                         });
                     </r:script>
+                </fieldset>
+            </g:if>
+            <g:if test="${!options.hideValidateOption}">
+                <fieldset class="form-group fieldset-check-box">
+                    <label for="checkValidation" class="col-sm-2 col-md-1 control-label">
+                        <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="${g.message(code:'kuorum.web.commands.payment.CampaignSettingsCommand.checkValidation.label.info')}"></span>
+                        <g:message code="kuorum.web.commands.payment.CampaignSettingsCommand.checkValidation.label.left"/>:
+                    </label>
+                    <div class="col-sm-8 col-md-7">
+                        <formUtil:checkBox command="${command}" field="checkValidation" disabled="${!domainValidation}"/>
+                    </div>
                 </fieldset>
             </g:if>
 
