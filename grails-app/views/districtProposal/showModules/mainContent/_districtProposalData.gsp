@@ -5,7 +5,7 @@
         <h1 class="title" itemprop="headline">${districtProposal.title}</h1>
         <userUtil:showUser user="${campaignUser}" showRole="true" itemprop="author"/>
         %{--<g:render template="/participatoryBudget/showModules/mainContent/participatoryBudgetDataMobileCallToAction"/>--}%
-        <g:render template="/campaigns/showModules/campaignDataDatePublished" model="[campaign:districtProposal, campaignUser:campaignUser, editMappingName:'districtProposalEditContent', editable:districtProposal.participatoryBudget.status==org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.ADDING_PROPOSALS]"/>
+        <g:render template="/campaigns/showModules/campaignDataDatePublished" model="[campaign:districtProposal, campaignUser:campaignUser, editMappingName:'districtProposalEditContent']"/>
     </div>
 
     <div class="body" itemprop="articleBody">
