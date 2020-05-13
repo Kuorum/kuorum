@@ -71,6 +71,10 @@ class RegionService {
     RegionRSDTO findRegionById(String isoCode, Locale locale){
 
         try{
+            if (isoCode == 'No-Va-li-d'){
+                // This iso code is an invalid code and no needs a search.
+                return null;
+            }
             def response = restKuorumApiService.get(
                     RestKuorumApiService.ApiMethod.REGION_GET,
                     [:],
