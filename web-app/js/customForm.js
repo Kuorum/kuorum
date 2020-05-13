@@ -223,6 +223,9 @@ $(function(){
         function(value, element, params) {
 
             var parseDate = function(input){
+                if (input == undefined || input.length<=0){
+                    return NaN;
+                }
                 let kuorumDateWebRegex = /(\d*)\/(\d*)\/(\d*) (\d*):(\d*)/;
                 var parts = input.match(kuorumDateWebRegex)
                 if(parts.length == 6){
@@ -232,14 +235,10 @@ $(function(){
                     return value;
                 }
             }
-            var minor = parseDate(value)
-            var mayor = parseDate($(params).val());
+            var mayor = parseDate(value)
+            var minor = parseDate($(params).val());
 
-            if (!/Invalid|NaN/.test(minor)) {
-                return minor > mayor;
-            }
-
-            return isNaN(minor) && isNaN(mayor) || (Number(minor) > Number(mayor));
+            return isNaN(minor) || isNaN(mayor) || (Number(minor) < Number(mayor));
         },'Must be greater than {0}.');
 })
 
