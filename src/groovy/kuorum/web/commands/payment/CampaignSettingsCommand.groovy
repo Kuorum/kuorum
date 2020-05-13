@@ -29,6 +29,7 @@ class CampaignSettingsCommand {
 
     Boolean checkValidation;
     Boolean hideResultsFlag;
+    Boolean anonymous;
     Boolean groupValidation = false;
     Boolean newsletterCommunication = false;
 
@@ -49,6 +50,7 @@ class CampaignSettingsCommand {
         checkValidation nullable: true
         hideResultsFlag nullable: true;
         groupValidation nullable: true;
+        anonymous nullable: true;
         newsletterCommunication nullable: true;
         endDate nullable: true
         startDate nullable: true

@@ -41,4 +41,19 @@
             <span class="info"><g:message code="survey.cColumn.stats.results.visible"/></span>
         </li>
     </g:else>
+    <g:if test="${survey.anonymous}">
+        <li>
+            <span class="fal fa-person-booth" aria-hidden="true"></span>
+            <span class="info"><g:message code="survey.cColumn.stats.results.anonymous.true"/></span>
+        </li>
+    </g:if>
+    <g:else>
+        <li>
+            <span class="fa-stack">
+                <span class="fal fa-person-booth fa-stack-1x"></span>
+                <span class="fal fa-slash fa-stack-2x"></span>
+            </span>
+            <span class="info"><g:message code="survey.cColumn.stats.results.anonymous.false"/></span>
+        </li>
+    </g:else>
 </ul>

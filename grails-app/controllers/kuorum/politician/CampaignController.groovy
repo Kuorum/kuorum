@@ -20,6 +20,7 @@ import org.kuorum.rest.model.communication.CampaignRSDTO
 import org.kuorum.rest.model.communication.CampaignTypeRSDTO
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.kuorum.rest.model.communication.event.EventRDTO
+import org.kuorum.rest.model.communication.survey.SurveyRDTO
 import org.kuorum.rest.model.contact.ContactPageRSDTO
 import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
 import org.kuorum.rest.model.contact.filter.FilterRDTO
@@ -167,6 +168,10 @@ class CampaignController {
         }
         if (command.eventAttached && !rdto.event){
             rdto.event = new EventRDTO()
+        }
+        if (rdto instanceof SurveyRDTO && grails.plugin.springsecurity.SpringSecurityUtils.ifAllGranted("ROLE_SUPER_ADMIN")){
+            //Custom logic of survey. May be this logic shouldn't be here
+            rdto.anonymous = command.anonymous == null?false:command.anonymous;
         }
         rdto
     }

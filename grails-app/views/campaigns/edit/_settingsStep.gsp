@@ -73,6 +73,17 @@
                     </div>
                 </fieldset>
             </g:if>
+            <g:if test="${options.anonymousFlag}">
+                <fieldset class="form-group fieldset-check-box">
+                    <label for="anonymous" class="col-sm-2 col-md-1 control-label">
+                        <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="${g.message(code:'kuorum.web.commands.payment.CampaignSettingsCommand.anonymous.label.info')}"></span>
+                        <g:message code="kuorum.web.commands.payment.CampaignSettingsCommand.anonymous.label.left"/>:
+                    </label>
+                    <div class="col-sm-8 col-md-7">
+                        <formUtil:checkBox command="${command}" field="anonymous" disabled="${!grails.plugin.springsecurity.SpringSecurityUtils.ifAllGranted("ROLE_SUPER_ADMIN")}"/>
+                    </div>
+                </fieldset>
+            </g:if>
 
             <g:if test="${options.hiddeVotesFlag}">
                 <fieldset class="form-group fieldset-check-box">

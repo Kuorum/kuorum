@@ -6775,12 +6775,17 @@ ul.leader-post-stats {box-shadow: 0 0 2px rgba(200,200,200,0.6); margin-bottom:2
 .leader-post-stats li .fas,
 .leader-post-stats li .fal,
 .leader-post-stats li .far,
+.leader-post-stats li .fa-stack,
 .leader-post-stats li .fa {
     font-size: 20px;
     margin-right: 10px;
     text-align: center;
     width: 1em;
+    height: 1em;
 }
+
+.leader-post-stats li .fa-stack >  .fa-stack-1x{margin: -12px 0 0 0;}
+.leader-post-stats li .fa-stack >  .fa-stack-2x{font-size: 25px;    position: absolute; top: -5px;left: -3px;}
 
 .leader-post-stats li .info {
     vertical-align: text-bottom;
