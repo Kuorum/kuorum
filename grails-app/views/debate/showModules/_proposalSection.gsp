@@ -1,7 +1,7 @@
 
 <g:if test="${!debate.closed}">
     <!-- ^comment-box !-->
-    <div class="comment-box proposal-comment-box ${debate.event && !debate.event.registered?'hide':''} clearfix">
+    <div class="comment-box proposal-comment-box clearfix">
         <div class="user-box col-md-1 col-xs-12">
             <img class="img-circle" alt="${userUtil.loggedUserName()}" src="${image.loggedUserImgSrc()}">
         </div>
