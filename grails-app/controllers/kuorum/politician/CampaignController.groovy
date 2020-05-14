@@ -148,6 +148,9 @@ class CampaignController {
 
     protected mapCommandSettingsToRDTO(KuorumUserSession user, CampaignRDTO rdto, CampaignSettingsCommand command, FilterRDTO anonymousFilter){
         rdto.name = command.campaignName
+        if (!rdto.title){
+            rdto.title = command.campaignName;
+        }
         rdto.setTriggeredTags(command.tags)
         rdto.causes = command.causes
         if (CustomDomainResolver.domainRSDTO?.validation){

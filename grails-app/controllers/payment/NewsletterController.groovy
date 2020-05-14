@@ -497,6 +497,9 @@ class NewsletterController {
             newsletterRQDTO = new NewsletterRQDTO()
         }
         newsletterRQDTO.setName(command.campaignName)
+        if (!newsletterRQDTO.getSubject()){
+            newsletterRQDTO.setSubject(command.campaignName)
+        }
         newsletterRQDTO.setTriggerTags(command.tags)
 
 
