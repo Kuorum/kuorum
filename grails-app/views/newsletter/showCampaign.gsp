@@ -28,7 +28,9 @@
             <li role="presentation" class="${campaign instanceof org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetRSDTO?'':'active'}"><a href="#reportsLists" data-toggle="tab"><g:message code="tools.massMailing.view.report"/></a></li>
             <li role="presentation"><a href="#stats" data-toggle="tab"><g:message code="tools.massMailing.view.stats"/></a></li>
             <li role="presentation"><a href="#recipients" data-toggle="tab"><g:message code="tools.massMailing.list.recipients"/></a></li>
-            <li role="presentation"><a href="#viewemail" data-toggle="tab"><g:message code="tools.massMailing.view.viewMail"/></a></li>
+            <g:if test="${newsletter.htmlBody}">
+                <li role="presentation"><a href="#viewemail" data-toggle="tab"><g:message code="tools.massMailing.view.viewMail"/></a></li>
+            </g:if>
             <g:if test="${campaign && campaign instanceof org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetRSDTO}">
                 <li role="presentation" class="active"><a href="#proposalLists" data-toggle="tab"><g:message code="tools.massMailing.view.participatoryBudget.proposalList"/></a></li>
             </g:if>
@@ -43,9 +45,11 @@
             <div class="tab-pane" id="recipients">
                 <g:render template="/newsletter/campaignTabs/campaignRecipeints" model="[trackingPage:trackingPage, newsletterId:newsletter.id]"/>
             </div>
-            <div class="tab-pane" id="viewemail">
-                <g:render template="/newsletter/campaignTabs/campaignViewMail" model="[newsletter: newsletter]"/>
-            </div>
+            <g:if test="${newsletter.htmlBody}">
+                <div class="tab-pane" id="viewemail">
+                    <g:render template="/newsletter/campaignTabs/campaignViewMail" model="[newsletter: newsletter]"/>
+                </div>
+            </g:if>
             <g:if test="${campaign && campaign instanceof org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetRSDTO}">
                 <div class="tab-pane active" id="proposalLists">
                     <g:render template="/newsletter/campaignTabs/participatoryBudgetProposalsList" model="[participatoryBudget: campaign]"/>

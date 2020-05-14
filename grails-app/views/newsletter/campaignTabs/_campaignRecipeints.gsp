@@ -1,12 +1,12 @@
 <%@ page import="org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO" %>
 <h2 class="sr-only"><g:message code="tools.massMailing.list.recipients"/></h2>
 <div class="pag-list-contacts clearfix">
-    <div class="actions">
-        <g:link mapping="politicianMassMailingTrackEventsReport" params="[newsletterId:newsletterId]" class="btn btn-blue inverted export-modal-button" data-modalId="export-campaignEvents-modal">
-            <span class="fal fa-file-excel"></span>
-            <g:message code="tools.massMailing.list.recipients.export.csv"/>
-        </g:link>
-    </div>
+%{--    <div class="actions">--}%
+%{--        <g:link mapping="politicianMassMailingTrackEventsReport" params="[newsletterId:newsletterId]" class="btn btn-blue inverted export-modal-button" data-modalId="export-campaignEvents-modal">--}%
+%{--            <span class="fal fa-file-excel"></span>--}%
+%{--            <g:message code="tools.massMailing.list.recipients.export.csv"/>--}%
+%{--        </g:link>--}%
+%{--    </div>--}%
     <nav:contactPagination
             link="${g.createLink(mapping:"politicianMassMailingTrackEvents", params: [newsletterId:newsletterId], absolute:true)}"
             currentPage="${trackingPage.page}"
