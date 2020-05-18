@@ -67,7 +67,7 @@ class MongoUserDetailsService  implements GrailsUserDetailsService {
         new KuorumUserSession(
                 userRSDTO.alias,
                 userRSDTO.email,
-                user.password,
+                "user.password",
                 userRSDTO.active,
                 true,
                 true,
