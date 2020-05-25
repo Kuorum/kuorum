@@ -22,11 +22,6 @@ class KuorumUserController {
 
     def springSecurityService
     KuorumUserService kuorumUserService
-    def postService
-    RegisterService registerService
-    CookieUUIDService cookieUUIDService
-
-    NotificationService notificationService
     InternalMessageService internalMessageService
 
 
@@ -34,8 +29,6 @@ class KuorumUserController {
     UserNewsService userNewsService
 
     UserReputationService userReputationService
-
-    CampaignService campaignService
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def secShow(String userAlias){
