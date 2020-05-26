@@ -280,6 +280,8 @@ class ContactsController {
         Integer surnamePos = columnOption.findIndexOf{it=="surname"}
         Integer emailPos = columnOption.findIndexOf{it=="email"}
         Integer languagePos = columnOption.findIndexOf{it=="language"}
+        Integer phonePos = columnOption.findIndexOf{it=="phone"}
+        Integer externalIdPos = columnOption.findIndexOf{it=="externalId"}
         List<Number> tagsPos = columnOption.findIndexValues{it=="tag"}
         def tags = params.tags?.split(",")?:[]
 
@@ -298,6 +300,8 @@ class ContactsController {
         languagePos = languagePos<0 || languagePos > realPos.size() ? languagePos : Integer.parseInt(realPos[languagePos])
         emailPos = emailPos<0 || emailPos > realPos.size() ? emailPos : Integer.parseInt(realPos[emailPos])
         namePos = namePos<0 || namePos > realPos.size() ? namePos : Integer.parseInt(realPos[namePos])
+        phonePos = phonePos<0 || phonePos > realPos.size() ? phonePos : Integer.parseInt(realPos[phonePos])
+        externalIdPos = externalIdPos<0 || externalIdPos > realPos.size() ? externalIdPos : Integer.parseInt(realPos[externalIdPos])
         tagsPos = tagsPos?.collect{Integer.parseInt(realPos[it.intValue()])}?:[]
 
         if ((namePos == -1 && (numOfTotalColumns - numOfEmptyColumns) != 1) || emailPos == -1) {
@@ -321,8 +325,16 @@ class ContactsController {
         File csv = csvDataSession.file
         log.info("Recovered temporal file ${csv.absoluteFile}")
         KuorumUserSession loggedUser = springSecurityService.principal
-
-        asyncUploadContacts(loggedUser, csv,notImport, namePos,surnamePos,languagePos, emailPos, tagsPos, tags as List)
+        def positions = [
+                namePos:namePos,
+                surnamePos:surnamePos,
+                languagePos:languagePos,
+                emailPos:emailPos,
+                phonePos:phonePos,
+                externalIdPos:externalIdPos,
+                tagsPos:tagsPos
+        ]
+        asyncUploadContacts(loggedUser, csv,notImport, positions, tags as List)
 
         session.removeAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY)
         log.info("Programed async uploaded contacts")
@@ -347,7 +359,7 @@ class ContactsController {
         emailPos
     }
 
-    private void asyncUploadContacts(KuorumUserSession loggedUser, final File csv, final Integer notImport, final Integer namePos, final Integer surnamePos, final Integer languagePos, final Integer emailPos, final List<Integer> tagsPos, final List<String> tags){
+    private void asyncUploadContacts(KuorumUserSession loggedUser, final File csv, final Integer notImport, final def positions,  final List<String> tags){
 //        Promise p = grails.async.Promises.task {
             try{
                 log.info("Importing ${csv.absoluteFile}")
@@ -367,17 +379,26 @@ class ContactsController {
                     }
 
                     ContactRDTO contact = new ContactRDTO()
-                    if (namePos >= 0) {
-                        contact.setName(line[namePos] as String)
+                    contact.setEmail(line[positions.emailPos] as String)
+                    if (positions.namePos >= 0) {
+                        contact.setName(line[positions.namePos] as String)
                     }
-                    if (surnamePos >= 0) {
-                        contact.setSurname(line[surnamePos] as String)
+                    if (positions.surnamePos >= 0) {
+                        contact.setSurname(line[positions.surnamePos] as String)
                     }
-                    if (languagePos >= 0) {
-                        contact.setLanguage(ContactLanguageRDTO.getContactLanguage(line[languagePos] as String))
+                    if (positions.languagePos >= 0) {
+                        contact.setLanguage(ContactLanguageRDTO.getContactLanguage(line[positions.languagePos] as String))
                     }
-                    contact.setEmail(line[emailPos] as String)
-                    def tagsSecuredTransformed = tagsPos.collect{
+                    if (positions.phonePos >= 0) {
+                        contact.setPhone(line[positions.phonePos] as String)
+                    }
+                    if (positions.phonePos >= 0) {
+                        contact.setPhone(line[positions.phonePos] as String)
+                    }
+                    if (positions.externalIdPos >= 0) {
+                        contact.setExternalId(line[positions.externalIdPos] as String)
+                    }
+                    def tagsSecuredTransformed = positions.tagsPos.collect{
                         try {
                             line[it.intValue()]
                         } catch (Exception ignored) {

@@ -21,6 +21,8 @@
                         <option value="email" ${i == emailPos?'selected':''}><g:message code="tools.contact.import.table.columnOption.email"/> </option>
                         <option value="surname" ${i == surnamePos?'selected':''}><g:message code="tools.contact.import.table.columnOption.surname"/> </option>
                         <option value="language" ${i == languagePos?'selected':''}><g:message code="tools.contact.import.table.columnOption.language"/> </option>
+                        <option value="externalId" ${i == externalIdPos?'selected':''}><g:message code="tools.contact.import.table.columnOption.externalId"/> </option>
+                        <option value="phone" ${i == phonePos?'selected':''}><g:message code="tools.contact.import.table.columnOption.phone"/> </option>
                         <option value="tag"><g:message code="tools.contact.import.table.columnOption.tag"/> </option>
                     </select>
                     <input type="hidden" name="realPos" value="${i}"/>
