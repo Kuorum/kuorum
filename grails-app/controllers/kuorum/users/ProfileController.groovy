@@ -24,10 +24,12 @@ import kuorum.web.commands.profile.politician.RelevantEventsCommand
 import org.bson.types.ObjectId
 import org.codehaus.groovy.runtime.InvokerHelper
 import org.kuorum.rest.model.domain.SocialRDTO
+import org.kuorum.rest.model.kuorumUser.KuorumUserExtraDataRSDTO
 import org.kuorum.rest.model.kuorumUser.KuorumUserRSDTO
 import org.kuorum.rest.model.kuorumUser.UserDataRDTO
 import org.kuorum.rest.model.kuorumUser.config.NotificationConfigRDTO
 import org.kuorum.rest.model.kuorumUser.config.NotificationMailConfigRDTO
+import org.kuorum.rest.model.kuorumUser.domainValidation.UserPhoneValidationRDTO
 import org.kuorum.rest.model.kuorumUser.news.UserNewRSDTO
 import org.kuorum.rest.model.notification.campaign.config.NewsletterConfigRQDTO
 import org.kuorum.rest.model.notification.campaign.config.NewsletterConfigRSDTO
@@ -524,12 +526,12 @@ class ProfileController {
     def validateUserPhoneSendSMS(DomainUserPhoneValidationCommand domainUserPhoneValidationCommand){
         KuorumUserSession userSession = springSecurityService.principal
         try{
-            String hash = kuorumUserService.sendSMSWithValidationCode(userSession, domainUserPhoneValidationCommand.completePhoneNumber)
-            render ([validated: false, success:true, hash:hash] as JSON)
+            UserPhoneValidationRDTO userPhoneValidationRDTO = kuorumUserService.sendSMSWithValidationCode(userSession, domainUserPhoneValidationCommand.completePhoneNumber)
+            render ([validated: false, success:true, hash:userPhoneValidationRDTO.getHash(), completePhoneNumber: userPhoneValidationRDTO.getPhoneNumber()] as JSON)
         }catch(KuorumException e){
-            render ([validated: false, success:false, hash:null, msg:g.message(code:'kuorum.web.commands.profile.DomainUserPhoneValidationCommand.phoneNumber.repeatedNumber')] as JSON)
+            render ([validated: false, success:false, hash:null, completePhoneNumber: null, msg:g.message(code:'kuorum.web.commands.profile.DomainUserPhoneValidationCommand.phoneNumber.repeatedNumber')] as JSON)
         }catch(Exception e){
-            render ([validated: false, success:false, hash:null, msg:'Internal error. Try again or contact with info@kuorum.org'] as JSON)
+            render ([validated: false, success:false, hash:null, completePhoneNumber: null, msg:'Internal error. Try again or contact with info@kuorum.org'] as JSON)
         }
     }
 
@@ -539,7 +541,7 @@ class ProfileController {
             return
         }
         KuorumUserSession userSession = springSecurityService.principal
-        Boolean isValidated = kuorumUserService.userPhoneDomainValidation(userSession, domainUserPhoneValidationCommand.phoneHash, domainUserPhoneValidationCommand.phoneCode)
+        Boolean isValidated = kuorumUserService.userPhoneDomainValidation(userSession, domainUserPhoneValidationCommand.completePhoneNumber, domainUserPhoneValidationCommand.phoneHash, domainUserPhoneValidationCommand.phoneCode)
         userSession = springSecurityService.principal // Refresh user info
         render ([
                 success: userSession.phoneValid,
@@ -555,22 +557,41 @@ class ProfileController {
             return
         }
         KuorumUserSession userSession = (KuorumUserSession)springSecurityService.principal
-        Boolean isValidated = kuorumUserService.userCodeDomainValidation(userSession, domainUserCustomCodeValidationCommand.customCode)
+        Boolean isValidated;
+        String msg
+        try{
+            isValidated = kuorumUserService.userCodeDomainValidation(userSession, domainUserCustomCodeValidationCommand.customCode)
+            msg = "Success validation"
+        }catch(KuorumException e){
+            isValidated = false;
+            msg = g.message(code:e.errors[0].code, args:[userSession.email.replaceFirst(/([^@]{3}).*@(..).*/,"\$1***@\$2***")])
+            log.info("Error validating user: ${msg}")
+        }catch(Exception e){
+            isValidated = false;
+            msg = "Internal error: ${e.getMessage()}"
+        }
         userSession = springSecurityService.principal // Refresh user info
         render ([
                 success: userSession.codeValid,
                 validated: isValidated,
-                msg:userSession.codeValid?"Success validation":g.message(code:'kuorum.web.commands.profile.DomainUserCustomCodeValidationCommand.customCode.validationError'),
+                msg:msg,
                 pendingValidations:getPendingValidations()
         ] as JSON)
     }
 
     private def getPendingValidations(){
         KuorumUserSession userSession = (KuorumUserSession)springSecurityService.principal
+        String phone = null;
+        Boolean predefinedPhone = false;
+        if (!userSession.phoneValid){
+            KuorumUserExtraDataRSDTO extraDataRSDTO = kuorumUserService.findUserExtendedDataRSDTO(userSession)
+            phone = extraDataRSDTO.phoneNumber?.replaceFirst(/^.*(\d{4})$/,"******\$1");
+            predefinedPhone = extraDataRSDTO.phoneNumber?true:false;
+        }
         return [
-                censusValidation:userSession.censusValid,
-                phoneValidation:userSession.phoneValid,
-                codeValidation: userSession.codeValid
+                censusValidation:[success:  userSession.censusValid, data:[:]],
+                phoneValidation:[success:  userSession.phoneValid, data:[phone:phone, predefinedPhone:predefinedPhone]],
+                codeValidation: [success:  userSession.codeValid, data:[:]]
 
         ]
     }

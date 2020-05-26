@@ -207,6 +207,7 @@ class RestKuorumApiService {
         USER_CAUSES_SUPPORT     ('/user/{userId}/causes/support/{causeName}'),
 
         USER                    ('/user/{userId}/'),
+        USER_EXTRA_DATA         ('/user/{userId}/extraData'),
         USER_NEWS               ('/user/{userId}/news/'),
         USER_IMG_AVATAR         ('/user/{userId}/files/avatar'),
         USER_IMG_PROFILE        ('/user/{userId}/files/profile'),

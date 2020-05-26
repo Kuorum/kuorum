@@ -59,7 +59,8 @@ var userValidatedByDomain={
             loggedUser : $button.attr('data-useralias'), // No needed
             validationActive : $button.attr('data-campaignValidationActive'),
             groupValidation : $button.attr('data-campaignGroupValidationActive'),
-            campaignId : $button.attr('data-campaignId')
+            campaignId : $button.attr('data-campaignId'),
+            predefinedPhone : false,
         }
         if (userValidatedByDomain.dataValidation.validationActive=="true"){
             userValidatedByDomain.checkUserValid(executableFunctionCallback)
@@ -164,6 +165,10 @@ var userValidatedByDomain={
     },
     showPhoneValidationStep1:function(e){
         if (e != undefined){e.preventDefault();}
+        if (userValidatedByDomain.dataValidation.predefinedPhone){
+            $("#domain-validation .modal-domain-validation-phone .modal-domain-validation-phone-step1 .modal-domain-validation-phone-step1-predefinedPhone").show();
+            $("#domain-validation .modal-domain-validation-phone .modal-domain-validation-phone-step1 .modal-domain-validation-phone-step1-inputPhone").hide();
+        }
         $("#domain-validation .modal-domain-validation-phone .modal-domain-validation-phone-step1").show();
         $("#domain-validation .modal-domain-validation-phone .modal-domain-validation-phone-step2").hide();
         $("#domain-validation .modal-domain-validation-step-tabs li").removeClass("active");
@@ -204,8 +209,10 @@ var userValidatedByDomain={
                 url: url,
                 data: data,
                 success: function (dataSms) {
+                    console.log(dataSms)
                     if (dataSms.success){
                         $("#phoneHash").val(dataSms.hash)
+                        $("#completePhoneNumber").val(dataSms.completePhoneNumber)
                         userValidatedByDomain.showPhoneValidationStep2();
                     }else{
                         userValidatedByDomain.showErrorModal(dataSms.msg)
@@ -229,6 +236,7 @@ var userValidatedByDomain={
             userValidatedByDomain.showModalLoading();
             var url = $form.attr("action");
             var data = {
+                completePhoneNumber: $("#completePhoneNumber").val(),
                 phoneHash: $("#phoneHash").val(),
                 phoneCode: $("#phoneCode").val()
             };
@@ -353,14 +361,17 @@ var userValidatedByDomain={
             console.log("Error")
             userValidatedByDomain.showErrorModal(callbackData.msg)
         }else{
-            if (!callbackData.pendingValidations.censusValidation){
+            if (!callbackData.pendingValidations.censusValidation.success){
                 console.log("Show Census validation")
                 userValidatedByDomain.showCensusValidation();
-            }else if (!callbackData.pendingValidations.codeValidation){
+            }else if (!callbackData.pendingValidations.codeValidation.success){
                 console.log("Show Code validation")
                 userValidatedByDomain.showCodeValidation();
-            }else if (!callbackData.pendingValidations.phoneValidation){
-                console.log("Show Phone validation")
+            }else if (!callbackData.pendingValidations.phoneValidation.success){
+                if (callbackData.pendingValidations.phoneValidation.data.predefinedPhone){
+                    userValidatedByDomain.dataValidation.predefinedPhone=true;
+                    $(".modal-domain-validation-phone-step1-predefinedPhone-phone").html(callbackData.pendingValidations.phoneValidation.data.phone)
+                }
                 userValidatedByDomain.showPhoneValidation();
             }
         }

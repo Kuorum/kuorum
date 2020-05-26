@@ -3084,6 +3084,9 @@ h2.underline {border-bottom: 1px solid #dadada; padding: 0 0 10px 0; margin-top:
 .modal-domain-validation .modal-domain-validation-census{}
 .modal-domain-validation .modal-domain-validation {display:none;}
 .modal-domain-validation .modal-domain-validation-phone .modal-domain-validation-phone-step1{}
+.modal-domain-validation .modal-domain-validation-phone .modal-domain-validation-phone-step1 .modal-domain-validation-phone-step1-predefinedPhone{ display: none}
+.modal-domain-validation .modal-domain-validation-phone .modal-domain-validation-phone-step1 .modal-domain-validation-phone-step1-predefinedPhone .modal-domain-validation-phone-step1-predefinedPhone-text{}
+.modal-domain-validation .modal-domain-validation-phone .modal-domain-validation-phone-step1 .modal-domain-validation-phone-step1-predefinedPhone .modal-domain-validation-phone-step1-predefinedPhone-phone{font-weight: bold;}
 .modal-domain-validation .modal-domain-validation-phone .modal-domain-validation-phone-step2{display:none;}
 .modal-domain-validation .loading {background: none;font-size: 30px;    height: auto;}
 

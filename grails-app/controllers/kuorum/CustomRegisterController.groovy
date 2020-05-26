@@ -92,12 +92,22 @@ class CustomRegisterController {
             return
         }
         KuorumUserSession user =  springSecurityService.principal
-        kuorumUserService.userCodeDomainValidation(user, command.customCode)
+        try{
+            isValidated = kuorumUserService.userCodeDomainValidation(userSession, domainUserCustomCodeValidationCommand.customCode)
+            msg = "Success validation"
+        }catch(KuorumException e){
+            isValidated = false;
+            msg = g.message(code:e.errors[0].code, args:[userSession.email.replaceFirst(/([^@]{3}).*@(..).*/,"\$1***@\$2***")])
+            log.info("Error validating user: ${msg}")
+        }catch(Exception e){
+            isValidated = false;
+            msg = "Internal error: ${e.getMessage()}"
+        }
         user =  springSecurityService.principal
         if (user.codeValid){
             redirect mapping:calcNextStepMappingName()
         }else{
-            command.errors.rejectValue('customCode','kuorum.web.commands.profile.DomainUserCustomCodeValidationCommand.customCode.validationError')
+            command.errors.rejectValue('customCode',msg)
             render view: "stepDomainValidationCustomCode", model:[command:command]
         }
     }
@@ -136,7 +146,7 @@ class CustomRegisterController {
             return
         }
         KuorumUserSession userSession = springSecurityService.principal
-        Boolean isValid = kuorumUserService.userPhoneDomainValidation(userSession, command.phoneHash, command.phoneCode)
+        Boolean isValid = kuorumUserService.userPhoneDomainValidation(userSession, command.phoneNumber, command.phoneHash, command.phoneCode)
         userSession =  springSecurityService.principal
         if (userSession.phoneValid){
             redirect mapping:calcNextStepMappingName()

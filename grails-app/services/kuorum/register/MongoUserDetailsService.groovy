@@ -9,6 +9,7 @@ import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
 import org.apache.log4j.Logger
 import org.bson.types.ObjectId
+import org.kuorum.rest.model.kuorumUser.KuorumUserExtraDataRSDTO
 import org.kuorum.rest.model.kuorumUser.KuorumUserRSDTO
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.GrantedAuthorityImpl
@@ -67,7 +68,7 @@ class MongoUserDetailsService  implements GrailsUserDetailsService {
         new KuorumUserSession(
                 userRSDTO.alias,
                 userRSDTO.email,
-                "user.password",
+                user.password,
                 userRSDTO.active,
                 true,
                 true,

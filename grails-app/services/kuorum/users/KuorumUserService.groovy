@@ -22,12 +22,14 @@ import org.codehaus.groovy.grails.commons.GrailsApplication
 import org.codehaus.groovy.grails.web.json.JSONElement
 import org.kuorum.rest.model.domain.SocialRDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
+import org.kuorum.rest.model.kuorumUser.KuorumUserExtraDataRSDTO
 import org.kuorum.rest.model.kuorumUser.KuorumUserRSDTO
 import org.kuorum.rest.model.kuorumUser.UserDataRDTO
 import org.kuorum.rest.model.kuorumUser.UserRoleRSDTO
 import org.kuorum.rest.model.kuorumUser.domainValidation.UserCodeValidationDTO
 import org.kuorum.rest.model.kuorumUser.domainValidation.UserDataDomainValidationDTO
 import org.kuorum.rest.model.kuorumUser.domainValidation.UserPhoneValidationDTO
+import org.kuorum.rest.model.kuorumUser.domainValidation.UserPhoneValidationRDTO
 import org.kuorum.rest.model.search.SearchKuorumElementRSDTO
 import org.kuorum.rest.model.search.SearchResultsRSDTO
 import org.kuorum.rest.model.search.SearchTypeRSDTO
@@ -406,6 +408,26 @@ class KuorumUserService {
 
     }
 
+    KuorumUserExtraDataRSDTO findUserExtendedDataRSDTO(KuorumUserSession userSession){
+        return findUserExtendedDataRSDTO(userSession.id.toString())
+    }
+    KuorumUserExtraDataRSDTO findUserExtendedDataRSDTO(String userId){
+// CALLING API TO REMOVE CONTACT
+        Map<String, String> params = [userId: userId]
+        Map<String, String> query = [:]
+        if (springSecurityService.isLoggedIn()){
+            query.put("viewerUid", springSecurityService.principal.id.toString())
+        }
+        def apiResponse= restKuorumApiService.get(
+                RestKuorumApiService.ApiMethod.USER_EXTRA_DATA,
+                params,
+                query,
+                new TypeReference<KuorumUserExtraDataRSDTO>(){}
+        )
+        return apiResponse.data
+
+    }
+
     boolean userDomainValidation(KuorumUserSession user, String ndi, String postalCode, Date birthDate){
         Map<String, String> params = [userId: user.getId().toString()]
         Map<String, String> query = [:]
@@ -429,7 +451,7 @@ class KuorumUserService {
         }
     }
 
-    String sendSMSWithValidationCode(KuorumUserSession user, String phoneNumber){
+    UserPhoneValidationRDTO sendSMSWithValidationCode(KuorumUserSession user, String phoneNumber){
         Map<String, String> params = [userId: user.getId().toString()]
         Map<String, String> query = [phoneNumber:phoneNumber]
         try{
@@ -438,9 +460,9 @@ class KuorumUserService {
                     params,
                     query,
                     null,
-                    new TypeReference<String>(){}
+                    new TypeReference<UserPhoneValidationRDTO>(){}
             )
-            return apiResponse.responseData.str
+            return apiResponse.data
         }catch (Exception e){
             log.error("Exception validating user: [Excpt: ${e.getMessage()}]")
             if (e instanceof UndeclaredThrowableException ) {
@@ -451,10 +473,10 @@ class KuorumUserService {
             }
         }
     }
-    boolean userPhoneDomainValidation(KuorumUserSession user, String hash, String code){
+    boolean userPhoneDomainValidation(KuorumUserSession user, String phoneNumber, String hash, String code){
         Map<String, String> params = [userId: user.getId().toString()]
         Map<String, String> query = [:]
-        UserPhoneValidationDTO userPhoneValidationDTO = new UserPhoneValidationDTO(code:code, hash:hash)
+        UserPhoneValidationDTO userPhoneValidationDTO = new UserPhoneValidationDTO(phoneNumber: phoneNumber, code:code, hash:hash)
         try{
             def apiResponse= restKuorumApiService.put(
                     RestKuorumApiService.ApiMethod.USER_PHONE_DOMAIN_VALIDATION,
@@ -485,8 +507,13 @@ class KuorumUserService {
             springSecurityService.reauthenticate user.email
             return springSecurityService.authentication.authorities.find{it.authority==UserRoleRSDTO.ROLE_USER_VALIDATED.toString()}
         }catch (Exception e){
-            log.error("Exception validating user: [Excpt: ${e?.cause?.cause?.getMessage()}]")
-            return false
+            if (e?.cause?.cause instanceof KuorumException){
+                log.info("Exception validating user: [Excpt: ${e?.cause?.cause?.getMessage()}]")
+                throw e.cause.cause
+            }else{
+                log.error("Exception validating user: [Excpt: ${e.getMessage()}]")
+                throw e;
+            }
         }
     }
 
