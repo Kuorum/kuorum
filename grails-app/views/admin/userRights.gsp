@@ -8,8 +8,8 @@
 
 <content tag="mainContent">
     <ol class="stepsSign stepsSignSecondaryColor">
-        <li class="active">1<span class="signStepDescription"><g:message code="domain.config.firstConfig.steps.step1.title"/></span></li>
-        <li class="active">2<span class="signStepDescription"><g:message code="domain.config.firstConfig.steps.step2.title"/></span></li>
+        <li class=""><div class="step-label"><g:message code="domain.config.firstConfig.steps.step1.title"/></div></li>
+        <li class="active"><div class="step-label"><g:message code="domain.config.firstConfig.steps.step2.title"/></div></li>
     </ol>
     <form role="form" class="signup-custom-site"  name="signup-custom-site" method="post" action="#">
         <p><g:message code="domain.config.firstConfig.steps.step2.intro"/> </p>

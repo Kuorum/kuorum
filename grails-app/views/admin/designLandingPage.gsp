@@ -8,10 +8,12 @@
 </head>
 
 <content tag="mainContent">
+
     <ol class="stepsSign stepsSignSecondaryColor">
-        <li class="active">1<span class="signStepDescription"><g:message code="domain.config.firstConfig.steps.step1.title"/></span></li>
-        <li class="">2<span class="signStepDescription"><g:message code="domain.config.firstConfig.steps.step2.title"/></span></li>
+        <li class="active"><div class="step-label"><g:message code="domain.config.firstConfig.steps.step1.title"/></div></li>
+        <li class=""><div class="step-label"><g:message code="domain.config.firstConfig.steps.step2.title"/></div></li>
     </ol>
+
     <formUtil:validateForm bean="${command}" form="signup-custom-site"/>
     <g:uploadForm method="POST" mapping="adminDomainRegisterStep1" name="signup-custom-site" role="form" class="signup-custom-site slowForm" data-slowLoading-texts='["${g.message(code:'form.submit.slowLoading.modal.text1')}","${g.message(code:'form.submit.slowLoading.modal.text2')}"]'>
         <fieldset class="row">

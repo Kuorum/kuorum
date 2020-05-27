@@ -426,9 +426,6 @@ body.configDomainProcess .btn.btn-blue:hover,
 body.configDomainProcess .btn.btn-blue:active,
 body.configDomainProcess .btn.btn-blue:focus {background-color: #116083 !important;}
 
-body.configDomainProcess .stepsSign.stepsSignSecondaryColor li.active,
-body.configDomainProcess .stepsSign.stepsSignSecondaryColor li.active::before,
-body.configDomainProcess .stepsSign.stepsSignSecondaryColor li.active::after{background-color: rgba(141,190,239, 1);}
 body.configDomainProcess .qq-upload-button{color: #167caa;}
 body.configDomainProcess .qq-uploader{background-color: #FFF;}
 
@@ -2774,7 +2771,7 @@ form#sign {margin: 30px auto 0; max-width: 900px;}
 
 .stepsSign li::before {content: counter(a);
     counter-increment: a;
-    background: rgba(255,148,49,.5);;
+    background: rgba(255,148,49,.5);
     width: 24px;
     height: 24px;
     border-radius: 22px;
@@ -2805,29 +2802,8 @@ form#sign {margin: 30px auto 0; max-width: 900px;}
 .stepsSign.no-label li > div.step-label{display: none;}
 .stepsSign.no-label li::after {margin-top: -25px;}
 
-
-.signStepDescription {
-    color: rgba(0,0,0,.2);
-    position: absolute;
-    top: 40px;
-    left: -24px;
-    font-size: 14px;
-    display: inline-block;
-    line-height: 14px;
-    width: 90px;
-}
-
-.active .signStepDescription {
-    color: #545454;
-}
-
-.signStepDescription--light {
-    color: rgba(0,0,0,.2);
-}
-
-.stepsSign.stepsSignSecondaryColor li.active,
-.stepsSign.stepsSignSecondaryColor li.active::before,
-.stepsSign.stepsSignSecondaryColor li.active::after {background-color: rgba(141,190,239, 1);}
+.stepsSign.stepsSignSecondaryColor li::before{background-color: rgba(141,190,239, .5);}
+.stepsSign.stepsSignSecondaryColor li.active::before{background-color: rgba(141,190,239, 1);}
 
 
 .onecol #main .signup {font-size: 17px; font-size: 1.7rem; text-align: left; max-width: 320px; margin: 20px auto 0;}
