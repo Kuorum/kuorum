@@ -267,7 +267,9 @@ $(document).ready(function() {
             });
     }
 
-    $(".load-more.run-first-loading a.loadMore").click();
+    $(function(){
+        $(".load-more.run-first-loading a.loadMore").click();
+    })
     youtubeHelper.replaceNonExistImage();
     // HANDLE WRONG YOUTUBE VIDEOS
     youtubeHelper.replaceAllWrongYoutubeImages();
