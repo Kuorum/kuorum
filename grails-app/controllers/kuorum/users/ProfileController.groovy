@@ -564,7 +564,8 @@ class ProfileController {
             msg = "Success validation"
         }catch(KuorumException e){
             isValidated = false;
-            msg = g.message(code:e.errors[0].code, args:[userSession.email.replaceFirst(/([^@]{3}).*@(..).*/,"\$1***@\$2***")])
+//            msg = g.message(code:e.errors[0].code, args:[userSession.email.replaceFirst(/([^@]{3}).*@(..).*/,"\$1***@\$2***")])
+            msg = g.message(code:"kuorum.web.commands.profile.DomainUserCustomCodeValidationCommand.customCode.validationError", args:[userSession.email.replaceFirst(/([^@]{3}).*@(..).*/,"\$1***@\$2***")])
             log.info("Error validating user: ${msg}")
         }catch(Exception e){
             isValidated = false;
