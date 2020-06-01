@@ -5,10 +5,10 @@ package kuorum.core
 public enum FileGroup {
 
     USER_AVATAR("UsersFiles", 1024 * 1000 *1 /*1 MB */, '1', 500,500),
-    USER_PROFILE("UsersFiles", 1024 * 1000 *4/*4 MB */, '20/9', 800,360),
-    DOMAIN_SLIDE_IMAGE("DomainSlides", 1024 * 1000 * 5 /* 5 MB */, '16/9', 800,450 ),
-    PROJECT_IMAGE("ProjectsFiles", 1024 * 1000 *4 /*4 MB */, '16/9', 800,450),
-    POST_IMAGE("PoliticianFiles", 1024 *1000 *4 /*4 MB */,'16/9',800,450),
+    USER_PROFILE("UsersFiles", 1024 * 1000 *4/*4 MB */, '20/9', 1600,720),
+    DOMAIN_SLIDE_IMAGE("DomainSlides", 1024 * 1000 * 5 /* 5 MB */, '16/9', 1600,900 ),
+    PROJECT_IMAGE("ProjectsFiles", 1024 * 1000 *4 /*4 MB */, '16/9', 1600,900),
+    POST_IMAGE("PoliticianFiles", 1024 *1000 *4 /*4 MB */,'16/9',1600,900),
     MASS_MAIL_IMAGE("MassFiles", 1024 *1000 *4 /*4 MB */,'5/1',640, 128),
     CUSTOM_TEMPLATE_IMAGE("CustomTemplate", 1024 *1000 *3 /*3 MB */,'',0,0),
     PDF("PDFFiles", 1024 * 1000 *10 /*10 MB */,'',0,0),

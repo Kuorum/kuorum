@@ -116,6 +116,10 @@ class LocalFileService implements FileService{
 //            it.crop(x,y,h,w)
 //            it.crop(x,y,w-0.00000000001,h-0.00000000001) // HEIGHT COMES WITH AN ERROR. Reducing the size 0.00000000001, the proportion is more or less the same and fix the problem
             it.crop(x,y,w-2,h-2);
+            if (kuorumFile.fileGroup.maxSize && it.loadedImage.asByteArray.size() > kuorumFile.fileGroup.maxSize){
+                log.info("Scaling image because it is big => [${it.loadedImage.asByteArray.size()/1024}] KB. Max file allowed ${kuorumFile.fileGroup.maxSize / 1024} KB")
+                it.scaleAccurate(kuorumFile.fileGroup.imageWidth, kuorumFile.fileGroup.imageHeight)
+            }
 //            if (kuorumFile.fileGroup.imageWidth >0 && kuorumFile.fileGroup.imageWidth < it.loadedImage.size.getWidth() ){
 //                it.scaleAccurate(kuorumFile.fileGroup.imageWidth, kuorumFile.fileGroup.imageHeight)
 //            }
