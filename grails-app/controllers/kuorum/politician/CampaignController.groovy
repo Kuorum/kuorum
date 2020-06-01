@@ -175,6 +175,7 @@ class CampaignController {
         if (rdto instanceof SurveyRDTO && grails.plugin.springsecurity.SpringSecurityUtils.ifAllGranted("ROLE_SUPER_ADMIN")){
             //Custom logic of survey. May be this logic shouldn't be here
             rdto.anonymous = command.anonymous == null?false:command.anonymous;
+            rdto.signVotes = command.signVotes == null?false:command.signVotes;
         }
         rdto
     }

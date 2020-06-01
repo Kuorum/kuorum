@@ -140,6 +140,7 @@ class SurveyService implements CampaignCreatorService<SurveyRSDTO, SurveyRDTO>{
         if(surveyRSDTO){
             surveyRDTO = campaignService.basicMapping(surveyRSDTO,surveyRDTO)
             surveyRDTO.setAnonymous(surveyRSDTO.anonymous)
+            surveyRDTO.setSignVotes(surveyRSDTO.signVotes)
             //MAP QUESTIONS
             surveyRDTO.questions = surveyRSDTO.questions.collect{
                 QuestionRDTO questionRDTO = new QuestionRDTO()
