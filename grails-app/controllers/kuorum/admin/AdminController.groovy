@@ -74,10 +74,6 @@ class AdminController {
         DomainRSDTO domainRSDTO = domainService.getConfig(CustomDomainResolver.domain)
         DomainConfigCommand domainConfigCommand = new DomainConfigCommand()
         domainConfigCommand.name = domainRSDTO.name
-        domainConfigCommand.validationCensus = domainRSDTO.validationCensus
-        domainConfigCommand.validationPhone = domainRSDTO.validationPhone
-        domainConfigCommand.validationCode = domainRSDTO.validationCode
-        domainConfigCommand.smsDomainName = domainRSDTO.smsDomainName
         domainConfigCommand.language = domainRSDTO.language
         domainConfigCommand.mainColor = domainRSDTO.mainColor
         domainConfigCommand.mainColorShadowed = domainRSDTO.mainColorShadowed
@@ -100,12 +96,6 @@ class AdminController {
         }
         DomainRDTO domainRDTO = getPopulatedDomainRDTO()
         domainRDTO.name = command.name
-        if (SpringSecurityUtils.ifAllGranted("ROLE_SUPER_ADMIN")){
-            domainRDTO.validationCensus = command.validationCensus?:false
-            domainRDTO.validationCode = command.validationCode?:false
-            domainRDTO.validationPhone = command.validationPhone?:false
-            domainRDTO.smsDomainName = command.smsDomainName?:''
-        }
         domainRDTO.language = command.language
         domainRDTO.mainColor = command.mainColor
         domainRDTO.mainColorShadowed = command.mainColorShadowed
@@ -124,6 +114,32 @@ class AdminController {
         redirect mapping:'adminDomainConfig'
     }
 
+    def domainValidation(){
+        DomainRSDTO domainRSDTO = domainService.getConfig(CustomDomainResolver.domain)
+        DomainValidationCommand domainValidationCommand = new DomainValidationCommand()
+        domainValidationCommand.validationCensus = domainRSDTO.validationCensus
+        domainValidationCommand.validationPhone = domainRSDTO.validationPhone
+        domainValidationCommand.validationCode = domainRSDTO.validationCode
+        domainValidationCommand.smsDomainName = domainRSDTO.smsDomainName
+        [command:domainValidationCommand]
+    }
+
+    def domainValidationSave(DomainValidationCommand command){
+        if (command.hasErrors()){
+            render view:'domainValidation', model:[command:command]
+            return
+        }
+        DomainRDTO domainRDTO = getPopulatedDomainRDTO()
+        if (SpringSecurityUtils.ifAllGranted("ROLE_SUPER_ADMIN")){
+            domainRDTO.validationCensus = command.validationCensus?:false
+            domainRDTO.validationCode = command.validationCode?:false
+            domainRDTO.validationPhone = command.validationPhone?:false
+            domainRDTO.smsDomainName = command.smsDomainName?:''
+        }
+        domainService.updateConfig(domainRDTO)
+        flash.message ="Success"
+        redirect mapping:'adminDomainValidation'
+    }
     def editLandingInfo(){
         DomainRSDTO domainRSDTO = domainService.getConfig(CustomDomainResolver.domain)
         DomainLandingCommand domainLandingCommand = new DomainLandingCommand()

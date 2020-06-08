@@ -441,6 +441,7 @@ class UrlMappings {
         name adminDomainConfigRelevantCampagins:    "/sec/admin/domain/relevantCampaigns"(controller:"admin"){action=[GET:"editDomainRelevantCampaigns",POST:"updateDomainRelevantCampaigns"]}
         name adminDomainConfigPlan:                 "/sec/admin/domain/update-plan"     (controller:"admin"){action=[GET:"editDomainPlan",POST:"saveNewDomainPlan"]}
         name adminDomainConfigGoogleValidation:     "/sec/admin/domain/google-validation" (controller:"admin", action:"validateDomain")
+        name adminDomainValidation:                 "/sec/admin/domain/validation"      (controller:"admin"){action=[GET:"domainValidation",POST:"domainValidationSave"]}
         name adminRequestEmailSender:               "/sec/admin/domain/requestSender"   (controller: "admin"){action=[GET:"requestedEmailSender", POST: "requestedEmailSenderSend"]}
         name adminEditDomainEmailSender:            "/sec/admin/domain/setSender"       (controller:"admin"){action =[GET:"editDomainEmailSender", POST:"updateDomainEmailSender"]}
         name adminDomainDelete:                     "/sec/admin/domain/delete"          (controller:"admin"){action =[GET:"deleteDomain", POST:"deleteDomainConfirm"]}

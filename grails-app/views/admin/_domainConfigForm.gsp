@@ -54,23 +54,6 @@
             <formUtil:socialInput command="${command}" field="instagram" cssIcon="fab fa-instagram"/>
         </div>
     </fieldset>
-    <h4 class="box-ppal-section-title"><g:message code="kuorum.web.admin.domain.validation.label"/></h4>
-    <fieldset class="row">
-        <div class="form-group col-md-6">
-            <formUtil:checkBox command="${command}" field="validationCensus" showLabel="true" disabled="${!grails.plugin.springsecurity.SpringSecurityUtils.ifAllGranted("ROLE_SUPER_ADMIN")}"/>
-        </div>
-        <div class="form-group col-md-6">
-            <formUtil:checkBox command="${command}" field="validationCode" showLabel="true" disabled="${!grails.plugin.springsecurity.SpringSecurityUtils.ifAllGranted("ROLE_SUPER_ADMIN")}"/>
-        </div>
-    </fieldset>
-    <fieldset class="row">
-        <div class="form-group col-md-6">
-            <formUtil:checkBox command="${command}" field="validationPhone" showLabel="true" disabled="${!grails.plugin.springsecurity.SpringSecurityUtils.ifAllGranted("ROLE_SUPER_ADMIN")}"/>
-        </div>
-        <div class="form-group col-md-6">
-            <formUtil:input command="${command}" field="smsDomainName" showLabel="true" disabled="${!grails.plugin.springsecurity.SpringSecurityUtils.ifAllGranted("ROLE_SUPER_ADMIN")}"/>
-        </div>
-    </fieldset>
 </div>
 <div class="box-ppal-section">
     <fieldset>

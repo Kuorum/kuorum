@@ -2,6 +2,9 @@
     <li class="${activeMapping=='adminDomainConfig'?'active':''}">
         <g:link mapping="adminDomainConfig"><g:message code="admin.menu.domainConfig.link"/></g:link>
     </li>
+    <li class="${activeMapping=='adminDomainValidation'?'active':''}">
+        <g:link mapping="adminDomainValidation"><g:message code="admin.menu.domainValidation.link"/></g:link>
+    </li>
     <li class="${activeMapping=='adminDomainConfigLanding'?'active':''}">
         <g:link mapping="adminDomainConfigLanding"><g:message code="admin.menu.domainConfig.editLanding"/></g:link>
     </li>
