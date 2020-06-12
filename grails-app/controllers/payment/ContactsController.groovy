@@ -127,6 +127,7 @@ class ContactsController {
         ContactCommand command = new ContactCommand()
         command.name = contact.name
         command.email = contact.email?:g.message(code: 'tools.contact.edit.noMailVisible')
+        command.externalId = contact.externalId
         command.phonePrefix = contact.phonePrefix
         command.phone = contact.phone
         command.surname = contact.surname
@@ -148,6 +149,7 @@ class ContactsController {
         contact.phonePrefix = command.phonePrefix
         contact.phone = command.phone
         contact.surname = command.surname
+        contact.externalId = command.externalId
         contact.language = command.language
         ContactRSDTO contactUpdated = contactService.updateContact(user, contact, contact.getId())
         flash.message=g.message(code: 'tools.contact.edit.success', args: [contact.name])
@@ -282,7 +284,9 @@ class ContactsController {
         Integer surnamePos = columnOption.findIndexOf{it=="surname"}
         Integer emailPos = columnOption.findIndexOf{it=="email"}
         Integer languagePos = columnOption.findIndexOf{it=="language"}
+        Integer phonePrefixPos = columnOption.findIndexOf{it=="phonePrefix"}
         Integer phonePos = columnOption.findIndexOf{it=="phone"}
+        Integer personalCodePos = columnOption.findIndexOf{it=="personalCode"}
         Integer externalIdPos = columnOption.findIndexOf{it=="externalId"}
         List<Number> tagsPos = columnOption.findIndexValues{it=="tag"}
         def tags = params.tags?.split(",")?:[]
@@ -302,8 +306,10 @@ class ContactsController {
         languagePos = languagePos<0 || languagePos > realPos.size() ? languagePos : Integer.parseInt(realPos[languagePos])
         emailPos = emailPos<0 || emailPos > realPos.size() ? emailPos : Integer.parseInt(realPos[emailPos])
         namePos = namePos<0 || namePos > realPos.size() ? namePos : Integer.parseInt(realPos[namePos])
+        phonePrefixPos = phonePrefixPos<0 || phonePrefixPos > realPos.size() ? phonePrefixPos : Integer.parseInt(realPos[phonePrefixPos])
         phonePos = phonePos<0 || phonePos > realPos.size() ? phonePos : Integer.parseInt(realPos[phonePos])
         externalIdPos = externalIdPos<0 || externalIdPos > realPos.size() ? externalIdPos : Integer.parseInt(realPos[externalIdPos])
+        personalCodePos = personalCodePos<0 || personalCodePos > realPos.size() ? personalCodePos : Integer.parseInt(realPos[personalCodePos])
         tagsPos = tagsPos?.collect{Integer.parseInt(realPos[it.intValue()])}?:[]
 
         if ((namePos == -1 && (numOfTotalColumns - numOfEmptyColumns) != 1) || emailPos == -1) {
@@ -333,7 +339,9 @@ class ContactsController {
                 languagePos:languagePos,
                 emailPos:emailPos,
                 phonePos:phonePos,
+                phonePrefixPos:phonePrefixPos,
                 externalIdPos:externalIdPos,
+                personalCodePos:personalCodePos,
                 tagsPos:tagsPos
         ]
         asyncUploadContacts(loggedUser, csv,notImport, positions, tags as List)
@@ -391,14 +399,17 @@ class ContactsController {
                     if (positions.languagePos >= 0) {
                         contact.setLanguage(ContactLanguageRDTO.getContactLanguage(line[positions.languagePos] as String))
                     }
-                    if (positions.phonePos >= 0) {
-                        contact.setPhone(line[positions.phonePos] as String)
+                    if (positions.phonePrefixPos >= 0) {
+                        contact.setPhonePrefix(line[positions.phonePrefixPos] as String)
                     }
                     if (positions.phonePos >= 0) {
                         contact.setPhone(line[positions.phonePos] as String)
                     }
                     if (positions.externalIdPos >= 0) {
                         contact.setExternalId(line[positions.externalIdPos] as String)
+                    }
+                    if (positions.personalCodePos >= 0) {
+                        contact.setPersonalCode(line[positions.personalCodePos] as String)
                     }
                     def tagsSecuredTransformed = positions.tagsPos.collect{
                         try {

@@ -12,6 +12,7 @@ class ContactCommand {
     Long contactId;
     String name;
     String surname;
+    String externalId;
     String email;
     String phonePrefix;
     String phone;
@@ -24,6 +25,7 @@ class ContactCommand {
         contactId nullable: false
         name nullable: false
         surname nullable: true
+        externalId nullable: true
         language nullable: true
         phonePrefix nullable: true
         phone nullable: true

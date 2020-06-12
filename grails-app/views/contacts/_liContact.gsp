@@ -16,9 +16,17 @@
             </g:link>
         </h3>
         <p class="email"><contactUtil:printContactMail contact="${contact}"/></p>
-        <p class="followers">
-            <span class="fal fa-users"></span><g:message code="tools.contact.list.contact.followers" args="[contact.numFollowers]"/>
-        </p>
+        <g:if test="${contact.externalId}">
+            <p class="externalId">
+                <span class="fal fa-id-card"></span> ${contact.externalId}
+            </p>
+        </g:if>
+        <g:else>
+            <p class="followers">
+                <span class="fal fa-users"></span><g:message code="tools.contact.list.contact.followers" args="[contact.numFollowers]"/>
+            </p>
+        </g:else>
+
     </div>
     <div class="container-lists">
         <g:render template="/contacts/inputs/editContactTags" model="[contact:contact]"/>
