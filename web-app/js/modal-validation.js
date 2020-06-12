@@ -212,7 +212,8 @@ var userValidatedByDomain={
                     console.log(dataSms)
                     if (dataSms.success){
                         $("#phoneHash").val(dataSms.hash)
-                        $("#completePhoneNumber").val(dataSms.completePhoneNumber)
+                        $("#validationPhoneNumber").val(dataSms.validationPhoneNumber)
+                        $("#validationPhoneNumberPrefix").val(dataSms.validationPhoneNumberPrefix)
                         userValidatedByDomain.showPhoneValidationStep2();
                     }else{
                         userValidatedByDomain.showErrorModal(dataSms.msg)
@@ -236,7 +237,8 @@ var userValidatedByDomain={
             userValidatedByDomain.showModalLoading();
             var url = $form.attr("action");
             var data = {
-                completePhoneNumber: $("#completePhoneNumber").val(),
+                validationPhoneNumber: $("#validationPhoneNumber").val(),
+                validationPhoneNumberPrefix: $("#validationPhoneNumberPrefix").val(),
                 phoneHash: $("#phoneHash").val(),
                 phoneCode: $("#phoneCode").val()
             };

@@ -10,8 +10,9 @@
     <div class="form-group col-md-4">
         <formUtil:input command="${command}" field="email" showLabel="true" disabled="${contact.mongoId}"/>
     </div>
-    <div class="form-group col-md-4">
-        <formUtil:input command="${command}" field="phone" showLabel="true"/>
+    <div class="form-group form-group-phone col-md-4">
+        <formUtil:selectPhonePrefix command="${command}" field="phonePrefix" showLabel="true" label="${g.message(code:'kuorum.web.commands.payment.contact.ContactCommand.phone.label')}"/>
+        <formUtil:input command="${command}" field="phone" showLabel="true" type="number"/>
     </div>
 </div>
 <div class="row">

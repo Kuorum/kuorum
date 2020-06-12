@@ -126,7 +126,7 @@ class CustomRegisterController {
         }
         KuorumUserSession userSession =  springSecurityService.principal
         try{
-            String hash = kuorumUserService.sendSMSWithValidationCode(userSession, command.completePhoneNumber)
+            String hash = kuorumUserService.sendSMSWithValidationCode(userSession, command.phoneNumber.toString(), command.phoneNumberPrefix)
             [command:new DomainUserPhoneCodeValidationCommand(phoneHash: hash)]
         }catch(KuorumException e){
             command.errors.rejectValue("phoneNumber", 'kuorum.web.commands.profile.DomainUserPhoneValidationCommand.phoneNumber.repeatedNumber')
@@ -146,7 +146,7 @@ class CustomRegisterController {
             return
         }
         KuorumUserSession userSession = springSecurityService.principal
-        Boolean isValid = kuorumUserService.userPhoneDomainValidation(userSession, command.phoneNumber, command.phoneHash, command.phoneCode)
+        Boolean isValid = kuorumUserService.userPhoneDomainValidation(userSession, command.validationPhoneNumberPrefix, command.validationPhoneNumber, command.phoneHash, command.phoneCode)
         userSession =  springSecurityService.principal
         if (userSession.phoneValid){
             redirect mapping:calcNextStepMappingName()

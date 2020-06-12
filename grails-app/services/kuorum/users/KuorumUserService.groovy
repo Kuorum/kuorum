@@ -451,9 +451,9 @@ class KuorumUserService {
         }
     }
 
-    UserPhoneValidationRDTO sendSMSWithValidationCode(KuorumUserSession user, String phoneNumber){
+    UserPhoneValidationRDTO sendSMSWithValidationCode(KuorumUserSession user, String phoneNumber, String phoneNumberPrefix){
         Map<String, String> params = [userId: user.getId().toString()]
-        Map<String, String> query = [phoneNumber:phoneNumber]
+        Map<String, String> query = [phoneNumber:phoneNumber,phoneNumberPrefix:phoneNumberPrefix]
         try{
             def apiResponse= restKuorumApiService.post(
                     RestKuorumApiService.ApiMethod.USER_PHONE_DOMAIN_VALIDATION,
@@ -473,10 +473,15 @@ class KuorumUserService {
             }
         }
     }
-    boolean userPhoneDomainValidation(KuorumUserSession user, String phoneNumber, String hash, String code){
+    boolean userPhoneDomainValidation(KuorumUserSession user, String phoneNumberPrefix, String phoneNumber, String hash, String code){
         Map<String, String> params = [userId: user.getId().toString()]
         Map<String, String> query = [:]
-        UserPhoneValidationDTO userPhoneValidationDTO = new UserPhoneValidationDTO(phoneNumber: phoneNumber, code:code, hash:hash)
+        UserPhoneValidationDTO userPhoneValidationDTO = new UserPhoneValidationDTO(
+                phoneNumberPrefix:phoneNumberPrefix,
+                phoneNumber: phoneNumber,
+                code:code,
+                hash:hash
+        )
         try{
             def apiResponse= restKuorumApiService.put(
                     RestKuorumApiService.ApiMethod.USER_PHONE_DOMAIN_VALIDATION,

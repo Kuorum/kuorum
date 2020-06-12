@@ -526,12 +526,12 @@ class ProfileController {
     def validateUserPhoneSendSMS(DomainUserPhoneValidationCommand domainUserPhoneValidationCommand){
         KuorumUserSession userSession = springSecurityService.principal
         try{
-            UserPhoneValidationRDTO userPhoneValidationRDTO = kuorumUserService.sendSMSWithValidationCode(userSession, domainUserPhoneValidationCommand.completePhoneNumber)
-            render ([validated: false, success:true, hash:userPhoneValidationRDTO.getHash(), completePhoneNumber: userPhoneValidationRDTO.getPhoneNumber()] as JSON)
+            UserPhoneValidationRDTO userPhoneValidationRDTO = kuorumUserService.sendSMSWithValidationCode(userSession, domainUserPhoneValidationCommand.phoneNumber.toString(), domainUserPhoneValidationCommand.phoneNumberPrefix)
+            render ([validated: false, success:true, hash:userPhoneValidationRDTO.getHash(), validationPhoneNumberPrefix: userPhoneValidationRDTO.getPhoneNumberPrefix(),validationPhoneNumber: userPhoneValidationRDTO.getPhoneNumber()] as JSON)
         }catch(KuorumException e){
-            render ([validated: false, success:false, hash:null, completePhoneNumber: null, msg:g.message(code:'kuorum.web.commands.profile.DomainUserPhoneValidationCommand.phoneNumber.repeatedNumber')] as JSON)
+            render ([validated: false, success:false, hash:null, validationPhoneNumberPrefix: null, validationPhoneNumber: null, msg:g.message(code:'kuorum.web.commands.profile.DomainUserPhoneValidationCommand.phoneNumber.repeatedNumber')] as JSON)
         }catch(Exception e){
-            render ([validated: false, success:false, hash:null, completePhoneNumber: null, msg:'Internal error. Try again or contact with info@kuorum.org'] as JSON)
+            render ([validated: false, success:false, hash:null, validationPhoneNumberPrefix: null, validationPhoneNumber: null, msg:'Internal error. Try again or contact with info@kuorum.org'] as JSON)
         }
     }
 
@@ -541,7 +541,7 @@ class ProfileController {
             return
         }
         KuorumUserSession userSession = springSecurityService.principal
-        Boolean isValidated = kuorumUserService.userPhoneDomainValidation(userSession, domainUserPhoneValidationCommand.completePhoneNumber, domainUserPhoneValidationCommand.phoneHash, domainUserPhoneValidationCommand.phoneCode)
+        Boolean isValidated = kuorumUserService.userPhoneDomainValidation(userSession, domainUserPhoneValidationCommand.validationPhoneNumberPrefix, domainUserPhoneValidationCommand.validationPhoneNumber, domainUserPhoneValidationCommand.phoneHash, domainUserPhoneValidationCommand.phoneCode)
         userSession = springSecurityService.principal // Refresh user info
         render ([
                 success: userSession.phoneValid,

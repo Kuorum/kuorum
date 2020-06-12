@@ -67,7 +67,9 @@ select {padding: 6px 6px 6px 8px !important;}*/
 
 .form-group {margin-bottom: 20px;}
 .form-group .input-group.date{width: 100%;}
+.form-group-phone label {width: 100%;}
 .form-group-phone select {width: 30%; background: #fff;margin-right: 5px; float:left}
+.form-group-phone label + select + label{display: none;}
 .form-group-phone input {width: calc(70% - 5px);}
 
 

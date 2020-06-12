@@ -127,6 +127,7 @@ class ContactsController {
         ContactCommand command = new ContactCommand()
         command.name = contact.name
         command.email = contact.email?:g.message(code: 'tools.contact.edit.noMailVisible')
+        command.phonePrefix = contact.phonePrefix
         command.phone = contact.phone
         command.surname = contact.surname
         command.language = contact.language
@@ -144,6 +145,7 @@ class ContactsController {
         }
         contact.name = command.name
         contact.email = command.email
+        contact.phonePrefix = command.phonePrefix
         contact.phone = command.phone
         contact.surname = command.surname
         contact.language = command.language

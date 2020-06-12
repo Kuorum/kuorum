@@ -15,8 +15,4 @@ class DomainUserPhoneValidationCommand {
         phoneNumberPrefix nullable:false
         phoneNumber nullable:false
     }
-
-    public String getCompletePhoneNumber(){
-        return "${phoneNumberPrefix}${phoneNumber}"
-    }
 }

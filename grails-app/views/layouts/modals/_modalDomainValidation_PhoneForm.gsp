@@ -45,7 +45,8 @@
     <formUtil:validateForm bean="${validatePhoneCodeCommand}" form="modal-form-validate-phone-code-user-domain"/>
     <g:form mapping="profileDomainValidationByPhoneValidate" method="POST" name="modal-form-validate-phone-code-user-domain">
         <input type="hidden" name="phoneHash" id="phoneHash" required="" value="">
-        <input type="hidden" name="completePhoneNumber" id="completePhoneNumber" required="" value="">
+        <input type="hidden" name="validationPhoneNumber" id="validationPhoneNumber" required="" value="">
+        <input type="hidden" name="validationPhoneNumberPrefix" id="validationPhoneNumberPrefix" required="" value="">
         <div class="form-group">
             <formUtil:input
                     command="${validatePhoneCodeCommand}"

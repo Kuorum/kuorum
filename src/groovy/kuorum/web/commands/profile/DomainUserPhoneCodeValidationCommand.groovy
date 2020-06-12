@@ -8,12 +8,14 @@ import grails.validation.Validateable
 @Validateable
 class DomainUserPhoneCodeValidationCommand {
 
-    String completePhoneNumber
+    String validationPhoneNumberPrefix
+    String validationPhoneNumber
     String phoneHash
     String phoneCode
 
     static constraints = {
-        completePhoneNumber nullable:false
+        validationPhoneNumberPrefix nullable:false
+        validationPhoneNumber nullable:false
         phoneHash nullable:false
         phoneCode nullable:false
     }

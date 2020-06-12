@@ -668,11 +668,12 @@ class FormTagLib {
         values.each{
             String normalizedNumber = it.replace('+','00')
             String codeMessage = "${command.class.name}.${field}.$normalizedNumber";
-            Boolean selected = (it==command."$field")
+            String codeNormalized = it.replace("+","00");
+            Boolean selected = (codeNormalized==command."$field")
             if (command."$field" instanceof String){
-                selected = (it.toString()==command."$field")
+                selected = (codeNormalized==command."$field")
             }
-            out << "<option value='${it.replace("+","00")}' ${selected?'selected':''}> ${message(code:codeMessage, default:it)}</option>"
+            out << "<option value='${codeNormalized}' ${selected?'selected':''}> ${message(code:codeMessage, default:it)}</option>"
         }
         out << "</select>"
         if(error){
