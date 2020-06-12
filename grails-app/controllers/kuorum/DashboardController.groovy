@@ -49,7 +49,7 @@ class DashboardController {
         BasicDataKuorumUserRSDTO userRSDTO = kuorumUserService.findBasicUserRSDTO(springSecurityService.principal.id.toString())
         log.info("Dashboard ${userRSDTO.alias} : Start")
         Map model = buildPaymentDashboard(userRSDTO)
-        model.put("tour", params.tour?true:false)
+        model.put("tour", params.tour?Boolean.parseBoolean(params.tour):false)
         render view: "/dashboard/dashboard", model: model
     }
 
