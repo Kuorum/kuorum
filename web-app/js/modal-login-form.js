@@ -24,16 +24,6 @@ $(document).ready(function(){
         $('form#pass-forget').show();
     });
 
-    // al hacer clic en el botón "Regístrate" de la Home cambio el orden de aparición
-    // natural de los formularios
-    $('body').on('click','.open-sign-form', function() {
-        $('form#login-modal').fadeOut('fast');
-        $('form#sign-modal').fadeIn('fast');
-    });
-    $('body').on('click','.homeMore.two .btn-blue', function(e) {
-        $('form#login-modal').fadeIn('fast');
-        $('form#sign-modal').fadeOut('fast');
-    });
 
     // Restore normal appearance on modal
     $('#registro').on('show.bs.modal', function(){
@@ -41,7 +31,9 @@ $(document).ready(function(){
         $('form#pass-forget').hide();
         $("#pass-forget-success").hide();
 
-        $('form#signup-modal').show();
+        // $('form#signup-modal').show();
+        $('form#login-modal').show();
+
         $('.socialGo').show();
     });
 
