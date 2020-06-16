@@ -9,12 +9,14 @@ class DomainValidationCommand {
     Boolean validationCensus
     Boolean validationPhone
     Boolean validationCode
-    String smsDomainName;
+    String smsDomainName
+    String defaultPhonePrefix
 
     static constraints = {
         validationCensus nullable: true
         validationPhone nullable: true
         validationCode nullable: true
         smsDomainName nullable: true, matches: '[a-zA-Z0-9]*[a-zA-Z]+[a-zA-Z0-9]*', maxSize: 11
+        defaultPhonePrefix nullable: true
     }
 }

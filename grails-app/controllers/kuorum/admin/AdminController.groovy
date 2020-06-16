@@ -121,6 +121,7 @@ class AdminController {
         domainValidationCommand.validationPhone = domainRSDTO.validationPhone
         domainValidationCommand.validationCode = domainRSDTO.validationCode
         domainValidationCommand.smsDomainName = domainRSDTO.smsDomainName
+        domainValidationCommand.defaultPhonePrefix =domainRSDTO.defaultPhonePrefix
         [command:domainValidationCommand]
     }
 
@@ -135,6 +136,7 @@ class AdminController {
             domainRDTO.validationCode = command.validationCode?:false
             domainRDTO.validationPhone = command.validationPhone?:false
             domainRDTO.smsDomainName = command.smsDomainName?:''
+            domainRDTO.defaultPhonePrefix = command.defaultPhonePrefix
         }
         domainService.updateConfig(domainRDTO)
         flash.message ="Success"

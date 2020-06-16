@@ -643,6 +643,7 @@ class FormTagLib {
     def selectPhonePrefix = {attrs->
         def command = attrs.command
         def field = attrs.field
+        def disabled = attrs.disabled
         def showLabel = attrs.showLabel?Boolean.parseBoolean(attrs.showLabel):true
         def id = attrs.id?:field
         def prefixFieldName=attrs.prefixFieldName?:""
@@ -658,7 +659,7 @@ class FormTagLib {
             out <<"""<label for="${id}" class="${cssLabel}">${label}</label>"""
         }
         out << """
-            <select name="${prefixFieldName}${field}" class="form-control input-lg ${error}" id="${id}">
+            <select name="${prefixFieldName}${field}" class="form-control input-lg ${error}" id="${id}" ${disabled}>
             """
         if (!isRequired || defaultEmpty){
             out << "<option value=''> ${message(code:"${command.class.name}.${field}.empty", default: '')}</option>"
