@@ -30,7 +30,12 @@
                 command="${command}"
                 enumClass="${org.kuorum.rest.model.contact.ContactLanguageRDTO.class}"/>
     </div>
-    <div class="col-md-4">
+</div>
+<div class="row">
+    <div class="form-group col-md-4">
+        <formUtil:input command="${command}" field="surveyVoteWeight" showLabel="true" type="number"/>
+    </div>
+    <div class="col-md-offset-4 col-md-4">
         <input type="submit" value="${g.message(code:'default.save')}" class="btn btn-blue inverted">
     </div>
 </div>

@@ -132,6 +132,7 @@ class ContactsController {
         command.phone = contact.phone
         command.surname = contact.surname
         command.language = contact.language
+        command.surveyVoteWeight = contact.surveyVoteWeight
         BasicDataKuorumUserRSDTO contactUser = kuorumUserService.findBasicUserRSDTO(contact.mongoId, true)
         [command:command,contact:contact,contactUser:contactUser]
     }
@@ -151,6 +152,7 @@ class ContactsController {
         contact.surname = command.surname
         contact.externalId = command.externalId
         contact.language = command.language
+        contact.surveyVoteWeight = command.surveyVoteWeight
         ContactRSDTO contactUpdated = contactService.updateContact(user, contact, contact.getId())
         flash.message=g.message(code: 'tools.contact.edit.success', args: [contact.name])
         redirect(mapping:"politicianContactEdit", params: [contactId: contactUpdated.getId()])

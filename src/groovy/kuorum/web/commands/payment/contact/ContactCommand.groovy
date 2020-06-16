@@ -2,6 +2,7 @@ package kuorum.web.commands.payment.contact
 
 import grails.validation.Validateable
 import org.grails.databinding.BindUsing
+import org.grails.databinding.BindingFormat
 import org.kuorum.rest.model.contact.ContactLanguageRDTO
 
 /**
@@ -16,6 +17,9 @@ class ContactCommand {
     String email;
     String phonePrefix;
     String phone;
+
+    @BindingFormat(".")
+    Double surveyVoteWeight;
     @BindUsing({obj, org.grails.databinding.DataBindingSource source->
         ContactLanguageRDTO.getContactLanguage(source["language"])
     })
@@ -30,5 +34,7 @@ class ContactCommand {
         phonePrefix nullable: true
         phone nullable: true
         email nullable: true, email: true // Is nullable because when the contact is a follower we don't have the email
+        surveyVoteWeight nullable: false, min: new Double(0), scale: 2
+
     }
 }
