@@ -31,8 +31,8 @@ $(document).ready(function(){
         $('form#pass-forget').hide();
         $("#pass-forget-success").hide();
 
-        // $('form#signup-modal').show();
-        $('form#login-modal').show();
+        $('form#signup-modal').show();
+        // $('form#login-modal').show();
 
         $('.socialGo').show();
     });
