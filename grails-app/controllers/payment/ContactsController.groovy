@@ -9,6 +9,7 @@ import kuorum.dashboard.DashboardService
 import kuorum.register.KuorumUserSession
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
+import kuorum.web.binder.FormattedDoubleConverter
 import kuorum.web.commands.payment.contact.*
 import kuorum.web.session.CSVDataSession
 import org.kuorum.rest.model.contact.*
@@ -290,6 +291,7 @@ class ContactsController {
         Integer phonePos = columnOption.findIndexOf{it=="phone"}
         Integer personalCodePos = columnOption.findIndexOf{it=="personalCode"}
         Integer externalIdPos = columnOption.findIndexOf{it=="externalId"}
+        Integer surveyVoteWeightPos = columnOption.findIndexOf{it=="surveyVoteWeight"}
         List<Number> tagsPos = columnOption.findIndexValues{it=="tag"}
         def tags = params.tags?.split(",")?:[]
 
@@ -312,6 +314,7 @@ class ContactsController {
         phonePos = phonePos<0 || phonePos > realPos.size() ? phonePos : Integer.parseInt(realPos[phonePos])
         externalIdPos = externalIdPos<0 || externalIdPos > realPos.size() ? externalIdPos : Integer.parseInt(realPos[externalIdPos])
         personalCodePos = personalCodePos<0 || personalCodePos > realPos.size() ? personalCodePos : Integer.parseInt(realPos[personalCodePos])
+        surveyVoteWeightPos = surveyVoteWeightPos<0 || surveyVoteWeightPos > realPos.size() ? surveyVoteWeightPos : Integer.parseInt(realPos[surveyVoteWeightPos])
         tagsPos = tagsPos?.collect{Integer.parseInt(realPos[it.intValue()])}?:[]
 
         if ((namePos == -1 && (numOfTotalColumns - numOfEmptyColumns) != 1) || emailPos == -1) {
@@ -343,6 +346,7 @@ class ContactsController {
                 phonePos:phonePos,
                 phonePrefixPos:phonePrefixPos,
                 externalIdPos:externalIdPos,
+                surveyVoteWeightPos:surveyVoteWeightPos,
                 personalCodePos:personalCodePos,
                 tagsPos:tagsPos
         ]
@@ -412,6 +416,15 @@ class ContactsController {
                     }
                     if (positions.personalCodePos >= 0) {
                         contact.setPersonalCode(line[positions.personalCodePos] as String)
+                    }
+                    if (positions.surveyVoteWeightPos >= 0) {
+                        FormattedDoubleConverter formattedDoubleConverter = new FormattedDoubleConverter()
+                        try{
+                            contact.setSurveyVoteWeight(formattedDoubleConverter.convert(line[positions.surveyVoteWeightPos] as String, "."))
+                        }catch(Exception e){
+                            log.info("Invalid weight [${line[positions.surveyVoteWeightPos]}]. Using default")
+                            contact.setSurveyVoteWeight(new Double(1))
+                        }
                     }
                     def tagsSecuredTransformed = positions.tagsPos.collect{
                         try {

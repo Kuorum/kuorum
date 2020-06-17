@@ -25,6 +25,7 @@
                         <option value="personalCode" ${i == personalCodePos?'selected':''}><g:message code="tools.contact.import.table.columnOption.personalCode"/> </option>
                         <option value="phonePrefix" ${i == phonePrefixPos?'selected':''}><g:message code="tools.contact.import.table.columnOption.phonePrefix"/> </option>
                         <option value="phone" ${i == phonePos?'selected':''}><g:message code="tools.contact.import.table.columnOption.phone"/> </option>
+                        <option value="surveyVoteWeight" ${i == surveyVoteWeightPos?'selected':''}><g:message code="tools.contact.import.table.columnOption.surveyVoteWeight"/> </option>
                         <option value="tag"><g:message code="tools.contact.import.table.columnOption.tag"/> </option>
                     </select>
                     <input type="hidden" name="realPos" value="${i}"/>
