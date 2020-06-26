@@ -433,6 +433,7 @@ class AdminController {
         }
         KuorumUser user = KuorumUser.get(new ObjectId(command.userId))
         user.enabled = command.active?:false
+        user.password = springSecurityService.encodePassword(command.password)
         user = kuorumUserService.updateUser(user)
 
         flash.message = "${user.name} updated"
