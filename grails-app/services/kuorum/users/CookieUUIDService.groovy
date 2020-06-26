@@ -1,8 +1,9 @@
-package kuorum.users
+    package kuorum.users
 
 import grails.plugin.cookie.CookieService
 import grails.plugin.springsecurity.SpringSecurityService
-import kuorum.web.constants.WebConstants
+    import kuorum.core.customDomain.CustomDomainResolver
+    import kuorum.web.constants.WebConstants
 
 class CookieUUIDService {
 
@@ -45,18 +46,22 @@ class CookieUUIDService {
         return userUUID;
     }
 
-    String getPaymentRedirect(){
-        String urlRedirect = cookieService.getCookie(WebConstants.COOKIE_PAYMENT_REDIRECT)
+    String getDomainCookie(String cookieName){
+        String urlRedirect = cookieService.getCookie(cookieName)
         return urlRedirect ;
     }
 
-    void setPaymentRedirect(String urlRedirect){
+    void setDomainCookie(String cookieName, String value){
         cookieService.setCookie(
-                [name:WebConstants.COOKIE_PAYMENT_REDIRECT,
-                 value:urlRedirect,
+                [name:cookieName,
+                 value:value,
                  maxAge:Integer.MAX_VALUE ,
                  path:WebConstants.COOKIE_PATH,
-                 domain:WebConstants.COOKIE_DOMAIN])
+                 domain: CustomDomainResolver.domain])
+    }
+
+    void deleteDomainCookie(String cookieName){
+        cookieService.deleteCookie(cookieName, WebConstants.COOKIE_PATH, CustomDomainResolver.domain)
     }
 
     String getRememberPasswordRedirect(){

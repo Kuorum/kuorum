@@ -9,7 +9,7 @@ class LogsContextFilters {
     def springSecurityService
 
     def filters = {
-        all(controller:'*', action:'*') {
+        logFilter(controller:'*', action:'*') {
             before = {
                 MDC.put("domain", CustomDomainResolver.domain)
                 if (springSecurityService.isLoggedIn() && springSecurityService.principal?.id){

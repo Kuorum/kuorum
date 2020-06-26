@@ -10,9 +10,9 @@ class RRSSConfigFilters {
     GrailsApplication grailsApplication
 
     def filters = {
-        all(controller: '*', action: '*') {
+        rrssFilter(controller: '*', action: '*') {
             before = {
-
+//                log.debug("rrssConfig")
             }
             after = { Map model ->
                 if (model!= null){

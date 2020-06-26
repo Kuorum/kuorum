@@ -12,7 +12,7 @@ class CustomRegisterFilterFilters {
     private static final STEP1_FIELDS=['alias']
 
     def filters = {
-        all(controller:'customRegister|logout|error|register|search|layouts', invert: true) {
+        customRegisterFilter(controller:'customRegister|logout|error|register|search|layouts', invert: true) {
             before = {
                 if (springSecurityService.isLoggedIn() && springSecurityService.principal?.id){
                     KuorumUserSession user = springSecurityService.principal
