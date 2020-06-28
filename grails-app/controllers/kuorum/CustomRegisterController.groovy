@@ -50,9 +50,10 @@ class CustomRegisterController {
         String censusLogin = params['censusLogin'];
         ContactRSDTO contact = censusService.getContactByCensusCode(censusLogin)
         if (contact == null){
-            flash.message=g.message(code:'kuorum.web.commands.profile.directCensusLogin.wrongCode')
+//            flash.message=g.message(code:'kuorum.web.commands.profile.directCensusLogin.wrongCode')
             censusService.deleteCensusCode(censusLogin)
-            redirect uri:calcNextStepMappingName()
+//            redirect uri:calcNextStepMappingName()
+            render view: '/customRegister/step0RegisterWithCensusCode_ERROR' , model:[redirectUrl:calcNextStepMappingName()]
         }else{
             log.info("Receviced a valid censusLogin [${censusLogin}] -> Contact: ${contact.email}")
             BasicDataKuorumUserRSDTO userFromContact;
