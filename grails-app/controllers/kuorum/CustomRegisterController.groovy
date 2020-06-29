@@ -200,7 +200,7 @@ class CustomRegisterController {
         }
         KuorumUserSession userSession =  springSecurityService.principal
         KuorumUserExtraDataRSDTO extraDataRSDTO = kuorumUserService.findUserExtendedDataRSDTO(userSession)
-        String phone = extraDataRSDTO.phoneNumber?.replaceFirst(/^.*(\d{4})$/,"******\$1");
+        String phone = extraDataRSDTO.phoneNumber?.encodeAsHiddenPhone()
         Boolean predefinedPhone = extraDataRSDTO.phoneNumber?true:false;
         return [predefinedPhone:predefinedPhone, phone:phone, command: command]
     }

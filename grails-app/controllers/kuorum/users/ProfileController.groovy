@@ -586,7 +586,7 @@ class ProfileController {
         Boolean predefinedPhone = false;
         if (!userSession.phoneValid){
             KuorumUserExtraDataRSDTO extraDataRSDTO = kuorumUserService.findUserExtendedDataRSDTO(userSession)
-            phone = extraDataRSDTO.phoneNumber?.replaceFirst(/^.*(\d{4})$/,"******\$1");
+            phone = extraDataRSDTO.phoneNumber?.encodeAsHiddenPhone()
             predefinedPhone = extraDataRSDTO.phoneNumber?true:false;
         }
         return [

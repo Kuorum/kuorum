@@ -1,3 +1,4 @@
+import kuorum.numberCodecs.HiddenPhoneCodec
 import kuorum.numberCodecs.ReducedPriceCodec
 import kuorum.postalCodeHandlers.YoutubeNameCodec
 import org.codehaus.groovy.grails.plugins.codecs.HTMLEncoder
@@ -189,5 +190,21 @@ class CodecSpec extends Specification {
         1000000         | "1M"
         2000000         | "2M"
         2500000         | "2,5M"
+    }
+
+
+    @Unroll
+    void "Test hidden phone number #orgNumber -> #hiddenNumber"() {
+        given:"The phone number"
+        when:
+        def res = HiddenPhoneCodec.encode(orgNumber)
+        then:
+        res == hiddenNumber
+        where:
+        orgNumber       | hiddenNumber
+        "600123456"     | "******3456"
+        "56"            | "****"
+        ""              | ""
+        null            | ""
     }
 }
