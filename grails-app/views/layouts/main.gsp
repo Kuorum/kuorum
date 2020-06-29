@@ -87,9 +87,7 @@
     <nav:ifActiveMapping mappingNames="customProcessRegisterStep2, customProcessRegisterStep3, registerSubscriptionStep1, registerSubscriptionStep1Save, registerSubscriptionStep3, customProcessRegisterDomainValidation,customProcessRegisterPoneValidationNumber,customProcessRegisterPoneValidationCode, customProcessRegisterCustomCodeValidation" equals="false">
         <r:script>
             function notMailConfirmedWarn(){
-                // Warn showing that the email is not confirmed commented for the AECC vote (29/05/2020)
-                // Reactive the warn on 01/07/2020
-                // display.warn("<userUtil:showMailConfirm />");
+                display.warn("<userUtil:showMailConfirm />");
             }
             $(function(){
                 notMailConfirmedWarn();
