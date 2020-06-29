@@ -15,11 +15,15 @@
         <div class="form-group col-md-6">
             <formUtil:checkBox command="${command}" field="validationPhone" showLabel="true" disabled="${!grails.plugin.springsecurity.SpringSecurityUtils.ifAllGranted("ROLE_SUPER_ADMIN")}"/>
         </div>
+
+    </fieldset>
+    <fieldset class="row">
+        <div class="form-group col-md-6">
+            <formUtil:selectPhonePrefix command="${command}" field="defaultPhonePrefix" showLabel="true" disabled="${!grails.plugin.springsecurity.SpringSecurityUtils.ifAllGranted("ROLE_SUPER_ADMIN")}"/>
+        </div>
+
         <div class="form-group col-md-6">
             <formUtil:input command="${command}" field="smsDomainName" showLabel="true" disabled="${!grails.plugin.springsecurity.SpringSecurityUtils.ifAllGranted("ROLE_SUPER_ADMIN")}"/>
-        </div>
-        <div class="form-group col-md-offset-6 col-md-6">
-            <formUtil:selectPhonePrefix command="${command}" field="defaultPhonePrefix" showLabel="true" disabled="${!grails.plugin.springsecurity.SpringSecurityUtils.ifAllGranted("ROLE_SUPER_ADMIN")}"/>
         </div>
     </fieldset>
 </div>
