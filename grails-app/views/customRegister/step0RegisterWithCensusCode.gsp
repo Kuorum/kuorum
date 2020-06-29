@@ -31,6 +31,15 @@
         <fieldset class="row">
             <div class="form-group col-xs-12 center">
                 <p><g:message code="kuorum.web.commands.profile.directCensusLogin.intro" args="[contact.name]"/></p>
+                <p> Antes de continuar revise los datos que va a validar</p>
+                <table class="autologin-contact-data">
+                    <tr><td>Nombre:</td><td>${contact.name}</td></tr>
+                    <tr><td>Apellido:</td><td>${contact.surname}</td></tr>
+                    <g:if test="${contact.phone}">
+                        <tr><td>Teléfono:</td><td>${contact.phonePrefix}-${contact.phone}</td></tr>
+                    </g:if>
+                    <tr><td>email:</td><td>${contact.email}</td></tr>
+                </table>
             </div>
         </fieldset>
         <fieldset class="row">

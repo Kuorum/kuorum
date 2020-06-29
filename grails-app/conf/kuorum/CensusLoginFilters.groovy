@@ -23,7 +23,7 @@ class CensusLoginFilters {
     def filters = {
         censusLoginFilter(controller:'campaign', action:'show') {
             before = {
-                if (!springSecurityService.isLoggedIn()){
+//                if (!springSecurityService.isLoggedIn()){
                     if (params['censusLogin']){
                         String censusLogin = params['censusLogin'];
                         String redirectUrl = "https://"+ CustomDomainResolver.domain + request.forwardURI;
@@ -31,7 +31,7 @@ class CensusLoginFilters {
                         redirect(mapping: 'customRegisterCensus', params: [censusLogin:censusLogin])
                         return false;
                     }
-                }
+//                }
             }
             after = { Map model ->
 
