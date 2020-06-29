@@ -106,7 +106,7 @@ class CustomRegisterController {
 
 //        user.password = registerService.encodePassword(user, command.password)
         kuorumUserService.updateUser(user)
-        redirect uri:calcNextStepMappingName()
+        redirect mapping:'customProcessRegisterStep3';
     }
 
     @Secured('IS_AUTHENTICATED_REMEMBERED')

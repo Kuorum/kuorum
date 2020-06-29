@@ -28,14 +28,14 @@
             <g:if test="${predefinedPhone}">
                 <input type="hidden" value="000" name="phoneNumber"/>
                 <input type="hidden" value="0034" name="phoneNumberPrefix"/>
-                <p>
+                <p class="center">
                     <g:message code="kuorum.web.commands.profile.DomainUserPhoneValidationCommand.modal.predefinedPhone"/>:
                     <span class="modal-domain-validation-phone-step1-predefinedPhone-phone">${phone}</span>
                 </p>
 
             </g:if>
             <g:else>
-                <div class="form-group form-group-phone col-md-offset-3  col-md-6">
+                <div class="form-group form-group-phone col-md-offset-3 col-md-6">
                     <formUtil:selectPhonePrefix
                             command="${command}"
                             field="phoneNumberPrefix"

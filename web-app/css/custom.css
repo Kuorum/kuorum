@@ -2825,7 +2825,7 @@ form#sign {margin: 30px auto 0; max-width: 900px;}
 
 .onecol #main .signup.step2 .option-buttons label{width: 100%;}
 .onecol #main .signup.step2 .option-buttons .btn.btn-lg{margin-right: 24px; margin-bottom:10px; margin-top: 15px;}
-.onecol #main .signup table.autologin-contact-data{list-style: none; text-align: left;}
+.onecol #main .signup table.autologin-contact-data{width: 100%;}
 .onecol #main .signup table.autologin-contact-data td:first-child{ padding-right: 10px;width: 50%; text-align: right}
 .onecol #main .signup table.autologin-contact-data td:last-child{font-weight: bold; text-align: left}
 
