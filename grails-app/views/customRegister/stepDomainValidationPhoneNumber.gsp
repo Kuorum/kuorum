@@ -6,6 +6,7 @@
     <parameter name="showHeadSearch" value="false"/>
     <parameter name="showNavBar" value="false"/>
     <parameter name="extraHeadCss" value="landing"/>
+    <parameter name="disableLogoLink" value="true"/>
     <r:require modules="forms"/>
 </head>
 

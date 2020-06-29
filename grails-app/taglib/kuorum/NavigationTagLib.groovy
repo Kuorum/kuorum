@@ -249,8 +249,9 @@ class NavigationTagLib {
 
     def ifPageProperty={attrs, body ->
         String pageProperty = "page." + attrs.pageProperty
-        String value = getPage().getProperty(pageProperty)
-        if (!value || Boolean.parseBoolean(value)){
+        Boolean nullValue = attrs.nullValue?Boolean.parseBoolean(attrs.nullValue):true
+        String propertyValue = getPage().getProperty(pageProperty)
+        if ((propertyValue== null && nullValue) || Boolean.parseBoolean(propertyValue)){
             out << body()
         }
     }

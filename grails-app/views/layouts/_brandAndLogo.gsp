@@ -6,7 +6,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
     </button>
-    <g:link mapping="home" class="navbar-brand ${disabledLogoLink}" elementId="brand">
+    <g:link mapping="home" class="navbar-brand ${disableLogoLinkClass?:''}" elementId="brand">
         <domain:brandAndLogo/>
     </g:link>
     <h2 class="hidden"><g:message code="head.logo.hiddenDescription"/></h2>
