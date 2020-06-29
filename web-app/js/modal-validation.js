@@ -38,7 +38,7 @@ var userValidatedByDomain={
         if (($("#registro").data('bs.modal') || {}).isShown){
             $("#registro").modal("hide");
             $('#domain-validation').on('hidden.bs.modal', function () {
-                noLoggedCallbacks.reloadPage()
+                noLoggedCallbacks.reloadPage("Validation :: Close login modal :: Close validation modal",500)
             })
         }
 
@@ -49,7 +49,7 @@ var userValidatedByDomain={
                     // Delay reload to show the error message
                     display.error(i18n.kuorum.web.commands.profile.DomainValidationCommand.closeWithoutValidation);
                 }
-                setTimeout(function(){noLoggedCallbacks.reloadPage() }, 1000); //1 sec
+                noLoggedCallbacks.reloadPage("Validation :: User logged :: Close validation modal",1000); //1 sec
             })
         }
     },

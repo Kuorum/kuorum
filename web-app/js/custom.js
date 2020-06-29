@@ -463,9 +463,14 @@ function reloadDynamicDiv($div){
 }
 
 var noLoggedCallbacks = {
-    reloadPage : function(){
-        pageLoadingOn("Reloading page");
-        document.location.reload();
+    reloadPage : function(path = "NO_PATH", delayInMils=undefined){
+        if (delayInMils !=undefined){
+            pageLoadingOn(path+" :: Reloading page with delay of "+delayInMils);
+            setTimeout(function(){document.location.reload() }, delayInMils);
+        }else{
+            pageLoadingOn(path+" :: Reloading page now");
+            document.location.reload();
+        }
     }
 };
 

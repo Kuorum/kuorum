@@ -453,11 +453,11 @@ var surveyFunctions = {
 
     _sendQuestionAnswers:function(questionId){
         var question = document.querySelector('.survey-question[data-question-id="' + questionId + '"]');
-        var button = question.querySelector('.actions button')
-        var url = button.getAttribute("data-postUrl")
-        var answerIds = JSON.parse(question.getAttribute("data-answer-selected"))
+        var button = question.querySelector('.actions button');
+        var url = button.getAttribute("data-postUrl");
+        var answerIds = JSON.parse(question.getAttribute("data-answer-selected"));
         if (!Array.isArray(answerIds)){
-            answerIds = [answerIds]
+            answerIds = [answerIds];
         }
 
         var answers = surveyFunctions._recoverExtraDataForEachAnswer(answerIds);
@@ -476,7 +476,7 @@ var surveyFunctions = {
                 // console.log("Succes"+data)
                 if (surveyFunctions.relodAfeterSubmit){
                     // Chapu para recargar la pagina sin pasar el callback desde mordor
-                    noLoggedCallbacks.reloadPage();
+                    noLoggedCallbacks.reloadPage("Survey :: _sendQuestionAnswers");
                 }
             },
             dataType: 'json'
