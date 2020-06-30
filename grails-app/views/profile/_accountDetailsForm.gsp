@@ -29,7 +29,7 @@
         <formUtil:regionInput command="${command}" field="homeRegion" showLabel="true"/>
     </div>
     <div class="form-group col-md-2">
-        <formUtil:input command="${command}" field="phonePrefix" showLabel="true"/>
+        <formUtil:selectPhonePrefix command="${command}" field="phonePrefix" showLabel="true"/>
     </div>
     <div class="form-group col-md-4">
         <formUtil:input command="${command}" field="phone" showLabel="true" type="number"/>

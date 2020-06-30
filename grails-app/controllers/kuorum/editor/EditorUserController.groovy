@@ -10,6 +10,7 @@ import kuorum.users.PersonalData
 import kuorum.users.ProfileController
 import kuorum.web.commands.editor.EditorAccountCommand
 import kuorum.web.commands.profile.EditUserProfileCommand
+import org.kuorum.rest.model.kuorumUser.KuorumUserExtraDataRSDTO
 
 @Secured(['ROLE_SUPER_ADMIN'])
 class EditorUserController {
@@ -42,7 +43,10 @@ class EditorUserController {
 
     def editAdminAccountDetails(){
         KuorumUser user = kuorumUserService.findEditableUser(params.userAlias)
+        KuorumUserExtraDataRSDTO userExtraDataRSDTO = kuorumUserService.findUserExtendedDataRSDTO(user.getId().toString())
         EditorAccountCommand command = new EditorAccountCommand(user)
+        command.setPhone(userExtraDataRSDTO.getPhoneNumber())
+        command.setPhonePrefix(userExtraDataRSDTO.getPhoneNumberPrefix())
         [user:user,command:command]
     }
 

@@ -115,6 +115,9 @@ class KuorumUserService {
         userDataRDTO.provinceCode = user.personalData.provinceCode
         userDataRDTO.alias=user.alias
         userDataRDTO.timeZoneId=user.timeZoneId
+        userDataRDTO.phoneNumber = user.getPersonalData().getTelephone()
+        userDataRDTO.phoneNumberPrefix = user.getPersonalData().getPhonePrefix()
+        userDataRDTO.language = org.kuorum.rest.model.kuorumUser.LanguageRSDTO.valueOf(user.language.toString())
         return updateKuorumUser(user.id.toString(), userDataRDTO)
     }
 
