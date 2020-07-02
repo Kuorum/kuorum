@@ -56,10 +56,9 @@ class CustomRegisterController {
             render view: '/customRegister/step0RegisterWithCensusCode_ERROR' , model:[redirectUrl:calcNextStepMappingName()]
         }else{
             log.info("Receviced a valid censusLogin [${censusLogin}] -> Contact: ${contact.email}")
-            BasicDataKuorumUserRSDTO userFromContact;
             if (contact.getMongoId()){
-                userFromContact = kuorumUserService.findBasicUserRSDTO(contact.getMongoId(), true)
-                censusService.deleteCensusCode(censusLogin)
+                // If user already exists, instead of create it will be validated
+                KuorumUserRSDTO userFromContact = censusService.createUserByCensusCode(censusLogin);
                 springSecurityService.reauthenticate userFromContact.getEmail()
                 redirect uri:calcNextStepMappingName()
             }else{
