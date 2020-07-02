@@ -31,7 +31,7 @@
         <input type="hidden" name="password" value="XXXX"/>
         <fieldset class="row">
             <div class="form-group col-xs-12 center">
-                <p><g:message code="kuorum.web.commands.profile.directCensusLogin.intro" args="[contact.name]"/></p>
+                <p><g:message code="kuorum.web.commands.profile.directCensusLogin.intro" args="[contact.name]" encodeAs="raw"/></p>
                 <table class="autologin-contact-data">
                     <tr><td><g:message code="kuorum.web.commands.payment.contact.ContactCommand.name.label"/>:</td><td>${contact.name}</td></tr>
                     <g:if test="${contact.surname}">
