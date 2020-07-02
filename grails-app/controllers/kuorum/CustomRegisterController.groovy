@@ -2,6 +2,7 @@ package kuorum
 
 import grails.converters.JSON
 import grails.plugin.cookie.CookieService
+import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.exception.KuorumException
@@ -25,13 +26,16 @@ import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 import org.kuorum.rest.model.kuorumUser.KuorumUserExtraDataRSDTO
 import org.kuorum.rest.model.kuorumUser.KuorumUserRSDTO
 import org.kuorum.rest.model.kuorumUser.domainValidation.UserPhoneValidationRDTO
+import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.servlet.LocaleResolver
 import payment.contact.CensusService
 import springSecurity.KuorumRegisterCommand
 
+import javax.servlet.http.HttpSession
+
 class CustomRegisterController {
 
-    def springSecurityService
+    SpringSecurityService springSecurityService
     KuorumUserService kuorumUserService
     CookieUUIDService cookieUUIDService
     CensusService censusService;
@@ -56,7 +60,10 @@ class CustomRegisterController {
             render view: '/customRegister/step0RegisterWithCensusCode_ERROR' , model:[redirectUrl:calcNextStepMappingName()]
         }else{
             log.info("Receviced a valid censusLogin [${censusLogin}] -> Contact: ${contact.email}")
-            if (contact.getMongoId()){
+            if (springSecurityService.isLoggedIn()){
+                flash.message="You are already logged"
+                redirect uri:calcNextStepMappingName()
+            }else if (contact.getMongoId()){
                 // If user already exists, instead of create it will be validated
                 KuorumUserRSDTO userFromContact = censusService.createUserByCensusCode(censusLogin);
                 springSecurityService.reauthenticate userFromContact.getEmail()
