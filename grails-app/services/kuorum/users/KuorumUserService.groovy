@@ -545,4 +545,15 @@ class KuorumUserService {
         }
         return alias
     }
+
+    void invalidateUser(BasicDataKuorumUserRSDTO user){
+
+        Map<String, String> params = [userId: user.id.toString()]
+        Map<String, String> query = [:]
+        restKuorumApiService.delete(
+                RestKuorumApiService.ApiMethod.USER_DOMAIN_VALIDATION,
+                params,
+                query
+        )
+    }
 }

@@ -35,5 +35,13 @@
                 <input type="submit" value="${g.message(code:'default.save')}" class="btn btn-orange btn-lg">
             </fieldset>
         </div>
+        <h1>Eliminar validacion</h1>
+        <div class="box-ppal-section">
+            <fieldset class="row">
+                <div class="form-group text-center">
+                    <g:link mapping="editorAdminUserInvalidate" params="${user.encodeAsLinkProperties()}" class="btn btn-orange btn-lg"> Eliminar validacion</g:link>
+                </div>
+            </fieldset>
+        </div>
     </g:form>
 </content>

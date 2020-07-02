@@ -10,6 +10,7 @@ import kuorum.users.PersonalData
 import kuorum.users.ProfileController
 import kuorum.web.commands.editor.EditorAccountCommand
 import kuorum.web.commands.profile.EditUserProfileCommand
+import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 import org.kuorum.rest.model.kuorumUser.KuorumUserExtraDataRSDTO
 
 @Secured(['ROLE_SUPER_ADMIN'])
@@ -79,5 +80,17 @@ class EditorUserController {
 
         flash.message =message(code:'kuorum.web.commands.editor.EditorAccountCommand.logic.updateSuccess', args: [updatedUser.name])
         redirect(mapping:'editorKuorumAccountEdit', params:updatedUser.encodeAsLinkProperties())
+    }
+
+
+    def invalidateUser(){
+        BasicDataKuorumUserRSDTO user = kuorumUserService.findBasicUserRSDTO(params.userAlias, true)
+        if (user){
+            kuorumUserService.invalidateUser(user)
+            flash.message="User invalidated"
+        }else{
+            flash.error="User not found"
+        }
+        redirect(mapping:'editorAdminUserRights', params:user.encodeAsLinkProperties())
     }
 }
