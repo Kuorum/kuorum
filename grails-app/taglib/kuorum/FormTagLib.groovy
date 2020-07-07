@@ -659,7 +659,7 @@ class FormTagLib {
             out <<"""<label for="${id}" class="${cssLabel}">${label}</label>"""
         }
         out << """
-            <select name="${prefixFieldName}${field}" class="form-control input-lg ${error}" id="${id}" ${disabled}>
+            <select name="${prefixFieldName}${field}" class="form-control input-lg ${error}" id="${id}" ${disabled?'disabled':''}>
             """
         if (!isRequired || defaultEmpty){
             out << "<option value=''> ${message(code:"${command.class.name}.${field}.empty", default: '')}</option>"

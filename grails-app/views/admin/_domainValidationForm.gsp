@@ -22,7 +22,7 @@
         <div class="form-group col-md-6">
             <formUtil:input command="${command}" field="smsDomainName" showLabel="true" disabled="${!grails.plugin.springsecurity.SpringSecurityUtils.ifAllGranted("ROLE_SUPER_ADMIN")}"/>
         </div>
-        <div class="form-group col-md-3">
+        <div class="form-group col-md-6">
             <formUtil:selectPhonePrefix command="${command}" field="defaultPhonePrefix" showLabel="true" disabled="${!grails.plugin.springsecurity.SpringSecurityUtils.ifAllGranted("ROLE_SUPER_ADMIN")}"/>
         </div>
     </fieldset>
