@@ -148,10 +148,11 @@ class ContactsController {
         }
         contact.name = command.name
         contact.email = command.email
-        contact.phonePrefix = command.phonePrefix
-        contact.phone = command.phone
-        contact.surname = command.surname
-        contact.externalId = command.externalId
+        // If the fields are null will not be updated on API.
+        contact.phonePrefix = command.phonePrefix==null?"":command.phonePrefix
+        contact.phone = command.phone==null?"":command.phone
+        contact.surname = command.surname==null?"":command.surname
+        contact.externalId = command.externalId==null?"":command.externalId
         contact.language = command.language
         contact.surveyVoteWeight = command.surveyVoteWeight
         ContactRSDTO contactUpdated = contactService.updateContact(user, contact, contact.getId())
