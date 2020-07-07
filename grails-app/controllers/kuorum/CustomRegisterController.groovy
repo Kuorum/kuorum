@@ -1,20 +1,14 @@
 package kuorum
 
-import grails.converters.JSON
-import grails.plugin.cookie.CookieService
+
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
-import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.exception.KuorumException
 import kuorum.core.model.UserType
-import kuorum.dashboard.DashboardService
-import kuorum.notifications.NotificationService
 import kuorum.register.KuorumUserSession
-import kuorum.register.RegisterService
 import kuorum.users.CookieUUIDService
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
-import kuorum.users.PoliticianService
 import kuorum.web.commands.customRegister.Step2Command
 import kuorum.web.commands.profile.DomainUserCustomCodeValidationCommand
 import kuorum.web.commands.profile.DomainUserPhoneCodeValidationCommand
@@ -22,16 +16,11 @@ import kuorum.web.commands.profile.DomainUserPhoneValidationCommand
 import kuorum.web.commands.profile.DomainValidationCommand
 import kuorum.web.constants.WebConstants
 import org.kuorum.rest.model.contact.ContactRSDTO
-import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 import org.kuorum.rest.model.kuorumUser.KuorumUserExtraDataRSDTO
 import org.kuorum.rest.model.kuorumUser.KuorumUserRSDTO
 import org.kuorum.rest.model.kuorumUser.domainValidation.UserPhoneValidationRDTO
-import org.springframework.security.core.context.SecurityContextHolder
-import org.springframework.web.servlet.LocaleResolver
 import payment.contact.CensusService
 import springSecurity.KuorumRegisterCommand
-
-import javax.servlet.http.HttpSession
 
 class CustomRegisterController {
 
@@ -62,6 +51,7 @@ class CustomRegisterController {
             log.info("Receviced a valid censusLogin [${censusLogin}] -> Contact: ${contact.email}")
             if (springSecurityService.isLoggedIn()){
                 flash.message="You are already logged"
+//                censusService.deleteCensusCode(censusLogin)
                 redirect uri:calcNextStepMappingName()
             }else if (contact.getMongoId()){
                 // If user already exists, instead of create it will be validated
