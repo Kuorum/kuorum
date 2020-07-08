@@ -46,6 +46,7 @@ class CustomRegisterController {
 //            flash.message=g.message(code:'kuorum.web.commands.profile.directCensusLogin.wrongCode')
             censusService.deleteCensusCode(censusLogin)
 //            redirect uri:calcNextStepMappingName()
+            log.info("Receviced an invalid censusLogin [${censusLogin}]")
             render view: '/customRegister/step0RegisterWithCensusCode_ERROR' , model:[redirectUrl:calcNextStepMappingName()]
         }else{
             log.info("Receviced a valid censusLogin [${censusLogin}] -> Contact: ${contact.email}")
