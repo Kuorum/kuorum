@@ -40,7 +40,12 @@
         <tr>
             <th scope="row">
                 <g:message code="tools.contact.import.table.row" args="[exampleLinesShowed]"/>
-                <span class="notImport"><input type="checkbox" value="${exampleLinesShowed+1}" name="notImport"> <g:message code="tools.contact.import.table.row.notImport"/></span>
+                <span class="notImport">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" value="${exampleLinesShowed+1}" name="notImport">
+                        <span class="check-box-icon"></span>
+                        <span class="label-checkbox"><g:message code="tools.contact.import.table.row.notImport"/></span>
+                    </label>
             </th>
             <td>${line.values[emailPos]}</td>
             <g:each in="${line.values}" var="columnValue" status="i">

@@ -65,7 +65,12 @@ function formatTableParticipatoryBudgetDistrictProposalAuthor(value, districtPro
 function formatCheckValidation(value, districtProposalRow){
     if (districtProposalRow.participatoryBudget.status.type =='TECHNICAL_REVIEW'){
         var checked = value ?'checked':'';
-        return '<input type="checkbox" '+checked+'>'
+        // return '<input type="checkbox" '+checked+'>'
+        return '<label class="checkbox-inline">' +
+                    '<input type="checkbox" '+checked+'>' +
+                    '<span class="check-box-icon"></span>' +
+                    '<span class="label-checkbox"></span>' +
+                '</label>';
     }else{
         return formatBoolean(value)
     }

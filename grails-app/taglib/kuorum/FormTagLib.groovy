@@ -616,30 +616,6 @@ class FormTagLib {
         }
     }
 
-    def selectMultipleCommissions={attrs->
-        def command = attrs.command
-        def field = attrs.field
-
-        def id = attrs.id?:field
-        def label = message(code: "${command.class.name}.${field}.label")
-        def subLabel = message(code: "${command.class.name}.${field}.subLabel")
-        def helpBlock = message(code: "${command.class.name}.${field}.helpBlock")
-        def checkedCommissions = command."${field}"
-        def errorMessage =''
-        if (hasErrors(bean: command, field: field,'error')){
-            errorMessage = g.fieldError(bean: command, field: id)
-        }
-        def model = [
-                field:field,
-                label:label,
-                errorMessage:errorMessage,
-                checkedCommissions:checkedCommissions,
-                subLabel:subLabel,
-                helpBlock:helpBlock
-        ]
-        out << render(template:'/layouts/form/commissions', model:model)
-    }
-
     def selectPhonePrefix = {attrs->
         def command = attrs.command
         def field = attrs.field
@@ -1117,9 +1093,7 @@ class FormTagLib {
                 errorPlacement: function(error, element) {
                     if(element.attr('id') == 'deadline'){
                         error.appendTo(element.parent("div").parent("div"));
-                    }else if(stringStartsWith(element.attr('id'), 'pretty-check-')){
-                        error.appendTo(element.parents(".interestContainer"));
-                    }else{
+                    }else {
                         error.insertAfter(element);
                     }
                 },

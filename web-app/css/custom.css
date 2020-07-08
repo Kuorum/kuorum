@@ -1123,6 +1123,8 @@ table.csv > tbody > tr.highlight_row + tr > th .notImport {display: inline-block
 table.csv .highlight_row {background-color: #f7f7f7;}
 
 .box-ppal.import-contacts.csv label {font-size: 17px; font-size: 1.7rem; display: block;}
+.box-ppal.import-contacts.csv .notImport {margin-left:25px;}
+.box-ppal.import-contacts.csv .notImport label .label-checkbox {font-size: 12px;}
 .box-ppal.import-contacts.csv .bootstrap-tagsinput {width: calc(100% - 23%);}
 .box-ppal.import-contacts.csv input.btn {margin-top: 5px;}
 .box-ppal.import-contacts.csv input.tagsField {width:100%;}
@@ -2893,7 +2895,6 @@ form#sign {margin: 30px auto 0; max-width: 900px;}
 .steps li .badge {background-color: #dadada; border-radius: 20px; width: 40px; height: 40px; font-size: 24px; font-size: 2.4rem; padding: 8px 4px 0 4px; font-weight: normal;}
 .steps li.active .badge {background-color: #167caa;}
 
-.interestContainer,
 .usersContainer {
     width: 100%;
     padding: 0;
@@ -3843,8 +3844,7 @@ h5#results {margin: 0 0 15px;}
 .config #config9 .span-label {margin: 0;}
 .config #config9 .help-block {margin: 0 0 10px 0;}
 .config #config9 .checkbox-inline+.checkbox-inline {margin: 0;}
-.config #config9 .checkbox,
-.config #config9 .interestContainer {width: 530px}
+.config #config9 .checkbox {width: 530px}
 .config .list-post.pending > li > .text-notification {color: #545454; display: inline;}
 .config .list-post.pending > li .law {padding: 0; font-size: 24px; font-size: 2.4rem; line-height: 1.2;}
 .config #config11 p {color: #a8a8a8;}

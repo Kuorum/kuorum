@@ -170,55 +170,6 @@ $(function(){
     //     }
     // })
 
-
-    /* CHECKBOX COMMISSIONS */
-    // seleccionar todos los checkbox [COMMISIONS] => _commissions.gsp
-    // $(function () {
-    //     var checkAll = $('#selectAll');
-    //     var checkboxes = $('input.check');
-    //
-    //     $('input.check').each(function(){
-    //         var self = $(this),
-    //             label = self.next(),
-    //             label_text = label.html();
-    //         label.remove();
-    //         self.iCheck({
-    //             checkboxClass: 'icheckbox_line-orange',
-    //             radioClass: 'iradio_line-orange',
-    //             inheritID: true,
-    //             aria: true,
-    //             insert:  label_text
-    //         });
-    //     });
-    //
-    //     $('#selectAll').change(function() {
-    //         if($(this).is(':checked')) {
-    //             checkboxes.iCheck('check');
-    //             $('#others').prop('checked', true);
-    //         } else {
-    //             checkboxes.iCheck('uncheck');
-    //             $('#others').prop('checked', false);
-    //         }
-    //     });
-    //
-    //     checkAll.on('ifChecked ifUnchecked', function(event) {
-    //         if (event.type == 'ifChecked') {
-    //             checkboxes.iCheck('check');
-    //         } else {
-    //             checkboxes.iCheck('uncheck');
-    //         }
-    //     });
-    //
-    //     checkboxes.on('ifChanged', function(event){
-    //         if(checkboxes.filter(':checked').length == checkboxes.length) {
-    //             checkAll.prop('checked', 'checked');
-    //         } else {
-    //             checkAll.removeProp('checked');
-    //         }
-    //         checkAll.iCheck('update');
-    //     });
-    // });
-
     jQuery.validator.addMethod("greaterThan",
         function(value, element, params) {
 
