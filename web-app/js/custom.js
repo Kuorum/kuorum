@@ -463,7 +463,8 @@ function reloadDynamicDiv($div){
 }
 
 var noLoggedCallbacks = {
-    reloadPage : function(path = "NO_PATH", delayInMils=undefined){
+    reloadPage : function(path , delayInMils){
+        path = path || "NO_PATH";
         if (delayInMils !=undefined){
             pageLoadingOn(path+" :: Reloading page with delay of "+delayInMils);
             setTimeout(function(){document.location.reload() }, delayInMils);
