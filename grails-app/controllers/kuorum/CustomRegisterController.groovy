@@ -43,11 +43,12 @@ class CustomRegisterController {
         String censusLogin = params['censusLogin'];
         ContactRSDTO contact = censusService.getContactByCensusCode(censusLogin)
         if (contact == null){
-//            flash.message=g.message(code:'kuorum.web.commands.profile.directCensusLogin.wrongCode')
             censusService.deleteCensusCode(censusLogin)
-//            redirect uri:calcNextStepMappingName()
             log.info("Receviced an invalid censusLogin [${censusLogin}]")
-            render view: '/customRegister/step0RegisterWithCensusCode_ERROR' , model:[redirectUrl:calcNextStepMappingName()]
+            // Sending to campaign when the code is invalid.
+            String censusRedirect = cookieUUIDService.getDomainCookie(WebConstants.COOKIE_URL_CALLBACK_CENSUS_LOGIN)
+            cookieUUIDService.deleteDomainCookie(WebConstants.COOKIE_URL_CALLBACK_CENSUS_LOGIN)
+            render view: '/customRegister/step0RegisterWithCensusCode_ERROR' , model:[redirectUrl:censusRedirect]
         }else{
             log.info("Receviced a valid censusLogin [${censusLogin}] -> Contact: ${contact.email}")
             if (springSecurityService.isLoggedIn()){
