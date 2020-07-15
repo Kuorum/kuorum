@@ -39,13 +39,15 @@
                 <span class="sr-only"><g:message code="tools.contact.list.contact.edit"/></span>
             </g:link>
         </li>
+        <g:set var="removeIcon" value="fa-eraser"/>
         <g:if test="${contact.email}" var="hasEmail">
-            <li>
-                <g:link mapping="politicianContactRemoveAjax" params="[contactId:contact.id]" role="button" class="contactDelete">
-                    <span class="fal fa-trash"></span>
-                    <span class="sr-only"><g:message code="tools.contact.list.contact.delete"/></span>
-                </g:link>
-            </li>
+            <g:set var="removeIcon" value="fa-trash"/>
         </g:if>
+        <li>
+            <g:link mapping="politicianContactRemoveAjax" params="[contactId:contact.id]" role="button" class="contactDelete">
+                <span class="fal ${removeIcon}"></span>
+                <span class="sr-only"><g:message code="tools.contact.list.contact.delete"/></span>
+            </g:link>
+        </li>
     </ul>
 </li>
