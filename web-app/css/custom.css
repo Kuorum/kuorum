@@ -4187,6 +4187,8 @@ p.email > span.emailAddress + .tooltip.bottom .tooltip-arrow{
     left: 47%;
 }
 
+p.email abbr{text-decoration: none;}
+
 ul#campaignsList > li > span + .tooltip.bottom .tooltip-arrow{
     position: relative;
     top: -10px;

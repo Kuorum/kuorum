@@ -599,7 +599,8 @@ class ContactsController {
             return
         }
         else {
-            redirect(mapping:'politicianContacts')
+            flash.success = g.message(code:'tools.contact.unsubscribe.title', args: [contact.getName()])
+            redirect(mapping:'politicianContactEdit', params:[contactId: contact.getId()])
         }
     }
 

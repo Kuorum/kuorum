@@ -62,7 +62,7 @@
                             rel="tooltip"
                             title=""
                             data-original-title="${message(code:'tools.contact.edit.unsubscribe.tooltip')}"
-                            action="loggedUnsubscribe"
+                            mapping="politicianContactUnsubscribe"
                             params="[contactId: contact.id]"
                     > <g:message code="tools.contact.edit.unsubscribe.label"/> </g:link>
                 </li>

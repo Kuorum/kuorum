@@ -62,9 +62,15 @@ class ContactTagLib {
                     "      title=\"\"\n" +
                     "      data-original-title=\"${g.message(code: 'org.kuorum.rest.model.contact.followerTooltip.text')}\"></span>"
 
-        if (contact.blackList){
+        if (contact.blackList) {
             out << """
-                    <abbr title="${g.message(code:'tools.contact.edit.email.blackList')}" class='text-danger'>
+                    <abbr title="${g.message(code: 'tools.contact.edit.email.blackList')}" class='text-danger'>
+                        <span class="fal fa-exclamation-circle"></span>
+                    </abbr>
+                    """
+        }else if (!contact.getSubscribed()){
+            out << """
+                    <abbr title="${g.message(code: 'tools.massMailing.list.unsubscribe')}" class='text-danger'>
                         <span class="fal fa-exclamation-circle"></span>
                     </abbr>
                     """
@@ -75,7 +81,9 @@ class ContactTagLib {
         }else{
             out << follower
         }
-        out << "<span class='raw-email'>${contact.email}</span>"
+        if (contact.email){
+            out << "<span class='raw-email'>${contact.email}</span>"
+        }
 
     }
 

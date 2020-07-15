@@ -91,6 +91,8 @@ class ContactFilterOptionCommand{
             return operatorNumber.toString()
         }else if(ConditionFieldTypeRDTO.BLACK_LIST.equals(field)){
             return operatorBoolean.toString();
+        }else if(ConditionFieldTypeRDTO.SUBSCRIBED.equals(field)){
+            return operatorBoolean.toString();
         }else if(ConditionFieldTypeRDTO.CONTACT_TYPE.equals(field)) {
             return operatorContactType.toString();
         }else if(ConditionFieldTypeRDTO.EVENT.equals(field)){
