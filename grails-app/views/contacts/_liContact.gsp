@@ -40,7 +40,7 @@
             </g:link>
         </li>
         <g:set var="removeIcon" value="fa-eraser"/>
-        <g:if test="${contact.email}" var="hasEmail">
+        <g:if test="${!contact.isFollower}" var="hasEmail">
             <g:set var="removeIcon" value="fa-trash"/>
         </g:if>
         <li>

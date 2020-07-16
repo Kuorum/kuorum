@@ -11,7 +11,7 @@
 </div>
 <div class="row">
     <div class="form-group col-md-4">
-        <formUtil:input command="${command}" field="email" showLabel="true" disabled="${contact.mongoId}"/>
+        <formUtil:input command="${command}" field="email" showLabel="true" disabled="${!contact.email}"/>
     </div>
     <div class="form-group form-group-phone col-md-4">
         <formUtil:selectPhonePrefix command="${command}" field="phonePrefix" showLabel="true" label="${g.message(code:'kuorum.web.commands.payment.contact.ContactCommand.phone.label')}"/>
