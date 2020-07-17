@@ -1,11 +1,11 @@
 package kuorum
 
-
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.core.exception.KuorumException
 import kuorum.core.model.UserType
 import kuorum.register.KuorumUserSession
+import kuorum.register.RegisterService
 import kuorum.users.CookieUUIDService
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
@@ -28,6 +28,7 @@ class CustomRegisterController {
     KuorumUserService kuorumUserService
     CookieUUIDService cookieUUIDService
     CensusService censusService;
+    RegisterService registerService
 
     def afterInterceptor = {}
 
@@ -51,9 +52,10 @@ class CustomRegisterController {
             render view: '/customRegister/step0RegisterWithCensusCode_ERROR' , model:[redirectUrl:censusRedirect]
         }else{
             log.info("Receviced a valid censusLogin [${censusLogin}] -> Contact: ${contact.email}")
+            logoutIfContactDifferentAsLoggedUser(contact)
             if (springSecurityService.isLoggedIn()){
-                flash.message="You are already logged"
-//                censusService.deleteCensusCode(censusLogin)
+//                flash.message="You are already logged"
+                censusService.deleteCensusCode(censusLogin)
                 redirect uri:calcNextStepMappingName()
             }else if (contact.getMongoId()){
                 // If user already exists, instead of create it will be validated
@@ -66,6 +68,16 @@ class CustomRegisterController {
                         contact: contact,
                         censusLogin:censusLogin,
                         command:new KuorumRegisterCommand()]
+            }
+        }
+    }
+
+    private void logoutIfContactDifferentAsLoggedUser(ContactRSDTO contact){
+        if (springSecurityService.isLoggedIn()){
+            KuorumUserSession userSession = springSecurityService.principal
+            if (userSession.email != contact.email){
+                log.info("Logging out user (${userSession.email}) because it is using a censusLogin of different contact (${contact.email}")
+                registerService.logout(request, response)
             }
         }
     }

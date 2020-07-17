@@ -16,12 +16,20 @@ import kuorum.users.KuorumUserService
 import kuorum.users.RoleUser
 import kuorum.web.constants.WebConstants
 import kuorum.web.users.KuorumRegistrationCode
+import kuorum.web.users.PersistentLoginToken
 import org.codehaus.groovy.grails.web.mapping.LinkGenerator
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 import org.springframework.context.i18n.LocaleContextHolder
+import org.springframework.security.core.Authentication
+import org.springframework.security.core.context.SecurityContextHolder
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler
 import org.springframework.transaction.annotation.Transactional
 import payment.contact.ContactService
 import springSecurity.KuorumRegisterCommand
+
+import javax.servlet.http.HttpServletRequest
+import javax.servlet.http.HttpServletResponse
+import javax.servlet.http.HttpSession
 
 class RegisterService {
 
@@ -247,5 +255,25 @@ class RegisterService {
         grailsLinkGenerator.link(absolute: true,
                 controller: 'register', action: action,
                 params: linkParams)
+    }
+
+    void logout(HttpServletRequest request, HttpServletResponse response){
+        if (springSecurityService.isLoggedIn()){
+            KuorumUserSession userSession = springSecurityService.principal
+            List<PersistentLoginToken> rememberMeTokens = PersistentLoginToken.findAllByUsername(userSession.username)
+            if (rememberMeTokens){
+                rememberMeTokens.each {it.delete()}
+            }
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            if (auth != null){
+                new SecurityContextLogoutHandler().logout(request, response, auth);
+            }
+            SecurityContextHolder.getContext().setAuthentication(null);
+            HttpSession session = request.getSession();
+            session.invalidate();
+            SecurityContextHolder.clearContext();
+            //CREATING A NEW EMPTY SESSION
+            request.getSession(true)
+        }
     }
 }
