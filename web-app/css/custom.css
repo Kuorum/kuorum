@@ -1110,6 +1110,9 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 .box-ppal.import-contacts table.csv th {font-weight: normal; background-color: #f7f7f7;}
 .box-ppal.import-contacts table.csv select {height: 49px;}
 .box-ppal.import-contacts table.csv td {max-width: 13em; overflow: hidden; text-overflow: ellipsis;}
+.box-ppal.import-contacts table.csv tr th:first-child span{height: 20px; vertical-align: middle;}
+.box-ppal.import-contacts table.csv tr th:first-child span.csv-row-number {width: 40px;display: inline-block;}
+.box-ppal.import-contacts table.csv tr th:first-child .checkbox-inline {margin-top: -10px;}
 
 .box-ppal.import-contacts.csv h1 {font-size: 19px; font-size: 1.9rem; margin-bottom: 10px;}
 .box-ppal.import-contacts.csv p {padding: 0; text-align: left; margin: 0 0 30px 0; max-width: none; font-size: 17px; font-size: 1.7rem; color: #a8a8a8;}
@@ -2003,9 +2006,13 @@ ul.participatory-budget-steps-info li.active a {display: none}
 #tabs-stats-campaign #participatoryBudgetProposalReviewTable.table tr.detail-view > td {padding:10px;}
 #tabs-stats-campaign #participatoryBudgetProposalReviewTable.table tr.detail-view > td .box-ppal{margin:0;padding-bottom: 10px;}
 #tabs-stats-campaign #participatoryBudgetProposalReviewTable.table > tbody > tr > td > a {color:inherit; font-weight: bold;}
+
+#importContacts-02 table.csv .checkbox-inline,
 #tabs-stats-campaign #participatoryBudgetProposalReviewTable.table .checkbox-inline {margin-left:25px;}
-#tabs-stats-campaign #participatoryBudgetProposalReviewTable.table .checkbox-inline > span.check-box-icon {position:relative; padding: 5px 6px;padding: 5px 6px;width: 30px; height: 30px;}
-#tabs-stats-campaign #participatoryBudgetProposalReviewTable.table .checkbox-inline > span.check-box-icon:after {position:relative; top:inherit; left:inherit;}
+#importContacts-02 table.csv .checkbox-inline > span.check-box-icon,
+#tabs-stats-campaign #participatoryBudgetProposalReviewTable.table .checkbox-inline > span.check-box-icon {position:relative; padding: 5px 6px;padding: 5px 6px;width: 30px; height: 30px;line-height: 16px;}
+#importContacts-02 table.csv .checkbox-inline > span.check-box-icon:after,
+#tabs-stats-campaign #participatoryBudgetProposalReviewTable.table .checkbox-inline > span.check-box-icon:after {top: 7px;left: 8px;}
 
 .open-menu {color: #dbdbdb; position: absolute !important; top: 2px; right: 8px; z-index: 1;}
 .box-ppal .link-wrapper:hover,

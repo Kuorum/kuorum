@@ -39,7 +39,9 @@
     <g:while test="${line}">
         <tr>
             <th scope="row">
-                <g:message code="tools.contact.import.table.row" args="[exampleLinesShowed]"/>
+                <span class="csv-row-number">
+                    <g:message code="tools.contact.import.table.row" args="[exampleLinesShowed]"/>
+                </span>
                 <span class="notImport">
                     <label class="checkbox-inline">
                         <input type="checkbox" value="${exampleLinesShowed+1}" name="notImport">
