@@ -56,13 +56,14 @@ class CensusService {
     }
 
     void deleteCensusCode(String censusCode){
-        Map<String, String> params = [censusCode:censusCode]
-        Map<String, String> query = [:]
-
-        restKuorumApiService.delete(
-                RestKuorumApiService.ApiMethod.CENSUS_LOGIN,
-                params,
-                query,
-                new TypeReference<String>(){})
+        if (censusCode){
+            Map<String, String> params = [censusCode:censusCode]
+            Map<String, String> query = [:]
+            restKuorumApiService.delete(
+                    RestKuorumApiService.ApiMethod.CENSUS_LOGIN,
+                    params,
+                    query,
+                    new TypeReference<String>(){})
+        }
     }
 }
