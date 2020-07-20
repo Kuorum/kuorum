@@ -2003,6 +2003,9 @@ ul.participatory-budget-steps-info li.active a {display: none}
 #tabs-stats-campaign #participatoryBudgetProposalReviewTable.table tr.detail-view > td {padding:10px;}
 #tabs-stats-campaign #participatoryBudgetProposalReviewTable.table tr.detail-view > td .box-ppal{margin:0;padding-bottom: 10px;}
 #tabs-stats-campaign #participatoryBudgetProposalReviewTable.table > tbody > tr > td > a {color:inherit; font-weight: bold;}
+#tabs-stats-campaign #participatoryBudgetProposalReviewTable.table .checkbox-inline {margin-left:25px;}
+#tabs-stats-campaign #participatoryBudgetProposalReviewTable.table .checkbox-inline > span.check-box-icon {position:relative; padding: 5px 6px;padding: 5px 6px;width: 30px; height: 30px;}
+#tabs-stats-campaign #participatoryBudgetProposalReviewTable.table .checkbox-inline > span.check-box-icon:after {position:relative; top:inherit; left:inherit;}
 
 .open-menu {color: #dbdbdb; position: absolute !important; top: 2px; right: 8px; z-index: 1;}
 .box-ppal .link-wrapper:hover,
