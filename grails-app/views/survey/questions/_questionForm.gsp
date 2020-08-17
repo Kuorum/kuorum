@@ -22,16 +22,27 @@
             <div class="form-group">
                 <label for="text" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.survey.QuestionCommand.text.label"/>:</label>
                 <div class="col-xs-12 col-sm-8 col-md-7">
-                    <div class="col-xs-12 col-sm-8 no-padding">
-                        <formUtil:input field="text" command="${listCommand}" prefixFieldName="${prefixField}"/>
+                    <div class="form-group">
+                        <div class="col-xs-12 col-sm-8 no-padding">
+                            <formUtil:input field="text" command="${listCommand}" prefixFieldName="${prefixField}"/>
+                        </div>
+                        <div class="col-xs-10 col-sm-3 question-type">
+                            <span class="question-type-noEditable">${message(code:"org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.${listCommand.questionType}")}</span>
+                            <formUtil:selectEnum field="questionType" command="${listCommand}" prefixFieldName="${prefixField}" showLabel="false"/>
+                        </div>
+                        <div class="col-xs-1 col-sm-1 no-label-lg">
+                            <button type="button" class="btn btn-transparent btn-lg btn-icon removeButton"><i class="fal fa-trash"></i></button>
+                        </div>
                     </div>
-                    <div class="col-xs-11 col-sm-3 question-type">
-                        <span class="question-type-noEditable">${message(code:"org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.${listCommand.questionType}")}</span>
-                        <formUtil:selectEnum field="questionType" command="${listCommand}" prefixFieldName="${prefixField}" showLabel="false"/>
+                    <div class="form-group question-data-extra">
+                        <div class="col-xs-4 no-padding">
+                            <formUtil:input field="maxAnswers" command="${listCommand}" prefixFieldName="${prefixField}" showLabel="true"/>
+                        </div>
+                        <div class="col-xs-8 checkbox">
+                            <formUtil:checkBox field="forceMaxAnswers" command="${listCommand}" prefixFieldName="${prefixField}" showLabel="false"/>
+                        </div>
                     </div>
-                    <div class="col-xs-1 no-label-lg">
-                        <button type="button" class="btn btn-transparent btn-lg btn-icon removeButton"><i class="fal fa-trash"></i></button>
-                    </div>
+
                 </div>
             </div>
         </fieldset>

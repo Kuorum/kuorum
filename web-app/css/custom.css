@@ -4670,6 +4670,8 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 #questionsSurveyForm.sort-questions > .sortable-placeholder:before {font-family: "Font Awesome 5 Pro"; content: "\f356"; font-weight: bold; margin-left: 1%; mergin-top:5px;}
 #questionsSurveyForm.sort-questions .quesiton-dynamic-fields > fieldset.question-data{cursor:move;}
 #questionsSurveyForm.sort-questions .quesiton-dynamic-fields > fieldset.question-data:before {content: "\f0c9";font-family: "Font Awesome 5 Pro";position: absolute;    margin-top: 8px;margin-left: -8px;}
+#questionsSurveyForm .quesiton-dynamic-fields > fieldset.question-data .form-group .form-group{margin-bottom:0}
+#questionsSurveyForm .quesiton-dynamic-fields > fieldset.question-data .form-group .form-group.question-data-extra{margin-top:10px}
 
 #questionsSurveyForm .endReorderQuestionsButton {display: none;}
 #questionsSurveyForm.sort-questions .endReorderQuestionsButton {display: inline-block;}
@@ -4984,7 +4986,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 
     ul.search-list.latestActivities .search-article {padding:0 6px 20px 6px;}
     .fade-carousel .content { width: 95%}
-    #questionsSurveyForm div.question-type{padding:inherit;margin-top:0px}
+    #questionsSurveyForm div.question-type{padding: 0 15px;margin-top:0px}
     #questionsSurveyForm div.question-type + div.form-group-remove{margin-top:0px}
     header.transp .navbar {background-color: transparent;}
     header.transp + .row.main.landing {margin-top:-55px}

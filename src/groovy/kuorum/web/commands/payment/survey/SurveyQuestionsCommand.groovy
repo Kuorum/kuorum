@@ -48,6 +48,8 @@ class QuestionCommand{
     Long id
     String text
     QuestionTypeRSDTO questionType
+    Integer maxAnswers = 1;
+    Boolean forceMaxAnswers=true;
     List<QuestionOptionCommand> options =[new QuestionOptionCommand(),new QuestionOptionCommand()]
 
     static validateOptions = {val, obj ->
@@ -66,6 +68,8 @@ class QuestionCommand{
         text nullable: false, blank: false
         questionType nullable: false
         options minSize: 2, validator: validateOptions
+        maxAnswers min:0
+        forceMaxAnswers nullable:true;
     }
 }
 

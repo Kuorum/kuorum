@@ -162,6 +162,8 @@ class SurveyController extends CampaignController{
         questionRDTO.id = command.id
         questionRDTO.text = command.text
         questionRDTO.questionType = command.questionType
+        questionRDTO.forceMaxAnswers = command.forceMaxAnswers==null?false:command.forceMaxAnswers;
+        questionRDTO.maxAnswers = command.maxAnswers
         questionRDTO.options = command.options?.findAll{it && it.text}.collect{mapQuestionOption(it)}?:[]
         questionRDTO
     }
@@ -189,6 +191,8 @@ class SurveyController extends CampaignController{
         command.id = questionRSDTO.id
         command.questionType = questionRSDTO.questionType
         command.text = questionRSDTO.text
+        command.maxAnswers = questionRSDTO.maxAnswers
+        command.forceMaxAnswers = questionRSDTO.forceMaxAnswers
         command.options = questionRSDTO.options.collect{map(it)}
         return command
     }
