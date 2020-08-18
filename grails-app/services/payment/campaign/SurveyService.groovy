@@ -148,7 +148,7 @@ class SurveyService implements CampaignCreatorService<SurveyRSDTO, SurveyRDTO>{
                 questionRDTO.text = it.text
                 questionRDTO.questionType = it.questionType
                 questionRDTO.maxAnswers = it.maxAnswers
-                questionRDTO.forceMaxAnswers = it.forceMaxAnswers==null?false:it.forceMaxAnswers
+                questionRDTO.minAnswers = it.minAnswers
                 questionRDTO.options = it.options.collect{ qo ->
                     QuestionOptionRDTO questionOptionRDTO = new QuestionOptionRDTO()
                     questionOptionRDTO.text = qo.text

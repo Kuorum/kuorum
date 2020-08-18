@@ -34,12 +34,15 @@
                             <button type="button" class="btn btn-transparent btn-lg btn-icon removeButton"><i class="fal fa-trash"></i></button>
                         </div>
                     </div>
-                    <div class="form-group question-data-extra">
-                        <div class="col-xs-4 no-padding">
-                            <formUtil:input field="maxAnswers" command="${listCommand}" prefixFieldName="${prefixField}" showLabel="true"/>
+                    <div class="form-group question-data-extra-multi">
+                        <div class="col-xs-4 no-padding question-data-extra-multi-limit-type">
+                            <formUtil:selectEnum field="questionLimitAnswersType" command="${listCommand}" prefixFieldName="${prefixField}" showLabel="true"/>
                         </div>
-                        <div class="col-xs-8 checkbox">
-                            <formUtil:checkBox field="forceMaxAnswers" command="${listCommand}" prefixFieldName="${prefixField}" showLabel="false"/>
+                        <div class="col-xs-4 question-data-exta-multi-limit-min">
+                            <formUtil:input field="minAnswers" command="${listCommand}" prefixFieldName="${prefixField}" showLabel="true"/>
+                        </div>
+                        <div class="col-xs-4 question-data-exta-multi-limit-max">
+                            <formUtil:input field="maxAnswers" command="${listCommand}" prefixFieldName="${prefixField}" showLabel="true"/>
                         </div>
                     </div>
 

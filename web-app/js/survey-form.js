@@ -58,6 +58,12 @@ $(function() {
 
     $("#questionsSurveyForm").on("change",".question-type select", function(e){
         SurveyFormHelper._hideOptions($(this))
+        SurveyFormHelper.toggleQuestionExtraData($(this))
+    });
+
+    $("#questionsSurveyForm").on("change",".question-data-extra-multi .question-data-extra-multi-limit-type select", function(e){
+        var $extraDataParent = $(this).parents(".question-data-extra-multi")
+        SurveyFormHelper.prepareQuestionExtraDataMulti($extraDataParent)
     });
 
     SurveyFormHelper.initForm();
@@ -199,8 +205,37 @@ var SurveyFormHelper ={
         var questionTypeSelectorsIdx;
         for (questionTypeSelectorsIdx = 0; questionTypeSelectorsIdx< questionTypeSelectors.length; questionTypeSelectorsIdx++){
             SurveyFormHelper._hideOptions($(questionTypeSelectors[questionTypeSelectorsIdx]));
+            SurveyFormHelper.toggleQuestionExtraData($(questionTypeSelectors[questionTypeSelectorsIdx]));
         }
         // END HIDE OPTION OF TEXT QUESTIONS
+    },
+
+    toggleQuestionExtraData:function($selectQuestionType){
+        var questionType = $selectQuestionType.val();
+        var $extraDataMulti = $selectQuestionType.parents("fieldset.question-data").find(".question-data-extra-multi")
+        if (questionType == "MULTIPLE_OPTION"){
+            SurveyFormHelper.prepareQuestionExtraDataMulti($extraDataMulti);
+            $extraDataMulti.show();
+        }else{
+            $extraDataMulti.hide();
+        }
+    },
+
+    prepareQuestionExtraDataMulti:function($extraDataMulti){
+        var questionLimitTypeVal= $extraDataMulti.find("#questionLimitAnswersType").val()
+        if (questionLimitTypeVal == "MIN"){
+            $extraDataMulti.find(".question-data-exta-multi-limit-min").show();
+            $extraDataMulti.find(".question-data-exta-multi-limit-max").hide();
+        }else if(questionLimitTypeVal == "MAX"){
+            $extraDataMulti.find(".question-data-exta-multi-limit-min").hide();
+            $extraDataMulti.find(".question-data-exta-multi-limit-max").show();
+        }else if(questionLimitTypeVal == "RANGE"){
+            $extraDataMulti.find(".question-data-exta-multi-limit-min").show();
+            $extraDataMulti.find(".question-data-exta-multi-limit-max").show();
+        }else if(questionLimitTypeVal == "FORCE"){
+            $extraDataMulti.find(".question-data-exta-multi-limit-min").hide();
+            $extraDataMulti.find(".question-data-exta-multi-limit-max").show();
+        }
     },
 
     initForm:function(){

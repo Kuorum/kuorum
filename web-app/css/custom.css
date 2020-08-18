@@ -4671,6 +4671,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 #questionsSurveyForm.sort-questions .quesiton-dynamic-fields > fieldset.question-data{cursor:move;}
 #questionsSurveyForm.sort-questions .quesiton-dynamic-fields > fieldset.question-data:before {content: "\f0c9";font-family: "Font Awesome 5 Pro";position: absolute;    margin-top: 8px;margin-left: -8px;}
 #questionsSurveyForm .quesiton-dynamic-fields > fieldset.question-data .form-group .form-group{margin-bottom:0}
+#questionsSurveyForm .quesiton-dynamic-fields > fieldset.question-data .form-group .form-group +.form-group{margin-top:15px}
 #questionsSurveyForm .quesiton-dynamic-fields > fieldset.question-data .form-group .form-group.question-data-extra{margin-top:10px}
 
 #questionsSurveyForm .endReorderQuestionsButton {display: none;}

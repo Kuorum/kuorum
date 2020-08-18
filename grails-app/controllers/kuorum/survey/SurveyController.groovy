@@ -5,7 +5,6 @@ import grails.plugin.springsecurity.annotation.Secured
 import kuorum.core.exception.KuorumException
 import kuorum.politician.CampaignController
 import kuorum.register.KuorumUserSession
-import kuorum.util.TimeZoneUtil
 import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.commands.payment.CampaignSettingsCommand
 import kuorum.web.commands.payment.survey.*
@@ -123,7 +122,7 @@ class SurveyController extends CampaignController{
             return
         }
         SurveyRDTO rdto = surveyService.map(survey)
-        rdto.questions = command.questions?.findAll{it && it.text}.collect {map(it)}?:[]
+        rdto.questions = command.questions?.findAll{it && it.text}.collect {mapQuestion(it)}?:[]
         def result = saveAndSendCampaign(surveyUser, rdto, survey.getId(), command.publishOn,command.sendType, surveyService)
         redirect mapping: result.nextStep.mapping, params: result.nextStep.params
 
@@ -157,13 +156,24 @@ class SurveyController extends CampaignController{
         render ([status:"success",msg:""] as JSON)
     }
 
-    private QuestionRDTO map(QuestionCommand command){
+    private QuestionRDTO mapQuestion(QuestionCommand command){
         QuestionRDTO questionRDTO = new QuestionRDTO()
         questionRDTO.id = command.id
         questionRDTO.text = command.text
         questionRDTO.questionType = command.questionType
-        questionRDTO.forceMaxAnswers = command.forceMaxAnswers==null?false:command.forceMaxAnswers;
-        questionRDTO.maxAnswers = command.maxAnswers
+        if (command.questionLimitAnswersType == QuestionLimitAnswersType.RANGE){
+            questionRDTO.minAnswers = command.minAnswers;
+            questionRDTO.maxAnswers = command.maxAnswers
+        }else if (command.questionLimitAnswersType == QuestionLimitAnswersType.FORCE){
+            questionRDTO.minAnswers = command.maxAnswers;
+            questionRDTO.maxAnswers = command.maxAnswers
+        }else if (command.questionLimitAnswersType == QuestionLimitAnswersType.MAX){
+            questionRDTO.minAnswers = 1
+            questionRDTO.maxAnswers = command.maxAnswers
+        }else if (command.questionLimitAnswersType == QuestionLimitAnswersType.MIN){
+            questionRDTO.minAnswers = command.minAnswers
+            questionRDTO.maxAnswers = 0
+        }
         questionRDTO.options = command.options?.findAll{it && it.text}.collect{mapQuestionOption(it)}?:[]
         questionRDTO
     }
@@ -179,25 +189,34 @@ class SurveyController extends CampaignController{
     private def modelQuestionStep(SurveyRSDTO survey){
         SurveyQuestionsCommand command = new SurveyQuestionsCommand()
         command.surveyId = survey.id
-        command.questions = survey.questions?.collect{map(it)}?:[new QuestionCommand()]
+        command.questions = survey.questions?.collect{mapQuestion(it)}?:[new QuestionCommand()]
         if(survey.datePublished){
             command.publishOn = survey.datePublished
         }
         return command
     }
 
-    private QuestionCommand map(QuestionRSDTO questionRSDTO){
+    private QuestionCommand mapQuestion(QuestionRSDTO questionRSDTO){
         QuestionCommand command = new QuestionCommand()
         command.id = questionRSDTO.id
         command.questionType = questionRSDTO.questionType
         command.text = questionRSDTO.text
         command.maxAnswers = questionRSDTO.maxAnswers
-        command.forceMaxAnswers = questionRSDTO.forceMaxAnswers
-        command.options = questionRSDTO.options.collect{map(it)}
+        command.minAnswers = questionRSDTO.minAnswers
+        if (questionRSDTO.maxAnswers == questionRSDTO.minAnswers){
+            command.questionLimitAnswersType = QuestionLimitAnswersType.FORCE
+        }else if (questionRSDTO.minAnswers != 1 && questionRSDTO.maxAnswers != 0 ){
+            command.questionLimitAnswersType = QuestionLimitAnswersType.RANGE
+        }else if (questionRSDTO.minAnswers == 1 && questionRSDTO.maxAnswers != 0 ){
+            command.questionLimitAnswersType = QuestionLimitAnswersType.MAX
+        }else{
+            command.questionLimitAnswersType = QuestionLimitAnswersType.MIN
+        }
+        command.options = questionRSDTO.options.collect{mapQuestionOption(it)}
         return command
     }
 
-    private QuestionOptionCommand map(QuestionOptionRSDTO option){
+    private QuestionOptionCommand mapQuestionOption(QuestionOptionRSDTO option){
         QuestionOptionCommand command = new QuestionOptionCommand()
         command.id = option.id
         command.text = option.text

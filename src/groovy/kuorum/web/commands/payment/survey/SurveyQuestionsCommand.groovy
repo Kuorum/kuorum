@@ -48,9 +48,10 @@ class QuestionCommand{
     Long id
     String text
     QuestionTypeRSDTO questionType
-    Integer maxAnswers = 1;
-    Boolean forceMaxAnswers=true;
+    QuestionLimitAnswersType questionLimitAnswersType
     List<QuestionOptionCommand> options =[new QuestionOptionCommand(),new QuestionOptionCommand()]
+    Integer maxAnswers = 1;
+    Integer minAnswers = 1;
 
     static validateOptions = {val, obj ->
         String error = null
@@ -63,16 +64,40 @@ class QuestionCommand{
         return error
     }
 
+    static validateMaxAnswer = {val, obj ->
+        Integer numOptions = obj.options.size()
+        List<QuestionLimitAnswersType> checkMaxValidation = [QuestionLimitAnswersType.RANGE, QuestionLimitAnswersType.FORCE, QuestionLimitAnswersType.MAX]
+        if (checkMaxValidation.contains(obj.questionLimitAnswersType) && val > numOptions){
+            return "invalidMax"
+        }
+        return null
+    }
+    static validateMinAnswer = {val, obj ->
+        Integer numOptions = obj.options.size()
+        List<QuestionLimitAnswersType> checkMaxValidation = [QuestionLimitAnswersType.RANGE, QuestionLimitAnswersType.MIN]
+        if (checkMaxValidation.contains(obj.questionLimitAnswersType) && val > numOptions ){
+            return "invalidMin"
+        }
+        if (checkMaxValidation.contains(obj.questionLimitAnswersType) && val > obj.maxAnswers ){
+            return "invalidMinGTMax"
+        }
+        return null
+    }
+
     static constraints = {
         id nullable: true
         text nullable: false, blank: false
         questionType nullable: false
         options minSize: 2, validator: validateOptions
-        maxAnswers min:0
-        forceMaxAnswers nullable:true;
+        maxAnswers min:0, validator: validateMaxAnswer
+        minAnswers min:1, validator: validateMinAnswer
+        questionLimitAnswersType nullable: false
     }
 }
 
+enum QuestionLimitAnswersType{
+    MIN,MAX,RANGE,FORCE
+}
 
 @Validateable
 class QuestionOptionCommand{
