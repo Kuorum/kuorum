@@ -373,16 +373,18 @@ var surveyFunctions = {
         // var answerVotes = answer.querySelector('.progress-bar-counter');
         var answersList = answer.parentElement;
         var question = answersList.parentElement;
-        console.log(question);
         var minAnswers = parseInt(question.getAttribute('data-minAnswers'));
-        var maxAnswers = parseInt(question.getAttribute('data-maxAnswers'));
+        var maxAnswers = parseInt(question.getAttribute('data-maxAnswers')); // 0 means no limit
         var selectedAnswers = (question.getAttribute('data-answer-selected') !== "") ? JSON.parse(question.getAttribute('data-answer-selected')) : "";
         var nextButton = question.querySelector('.footer .next-section button');
-
         var numOptionAnswers = parseInt(answer.getAttribute("data-numAnswers"))
+
         if (!!selectedAnswers === true && Array.isArray(selectedAnswers)) {
             var answerPosition = selectedAnswers.indexOf(answer.getAttribute('data-answer-id'));
-            if (answerPosition === -1) {
+            if (answerPosition === -1 && maxAnswers>0 && selectedAnswers.length >= maxAnswers ) {
+                console.log("Skip add new answer because the limit is reached")
+                return;
+            }else if (answerPosition === -1) {
                 selectedAnswers.push(answer.getAttribute('data-answer-id'));
                 $(answer).addClass('checked');
                 numOptionAnswers = numOptionAnswers+1;
@@ -398,7 +400,12 @@ var surveyFunctions = {
         }
         answer.setAttribute("data-numAnswers",numOptionAnswers)
         question.setAttribute('data-answer-selected',  (selectedAnswers.length > 0) ? JSON.stringify(selectedAnswers) : '');
-        if (selectedAnswers.length === 0 || selectedAnswers.length < minAnswers || selectedAnswers.length > maxAnswers){
+        if (selectedAnswers.length == maxAnswers){
+            $(question).find(".survey-question-answer:not(.checked)").addClass("disabled")
+        }else{
+            $(question).find(".survey-question-answer:not(.checked)").removeClass("disabled")
+        }
+        if (selectedAnswers.length === 0 || selectedAnswers.length < minAnswers || selectedAnswers.length > maxAnswers && maxAnswers >0){
             $(nextButton).addClass('disabled');
         }else{
             $(nextButton).removeClass('disabled');

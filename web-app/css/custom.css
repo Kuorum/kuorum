@@ -8038,6 +8038,12 @@ li.survey-question.answered .survey-question-answer .option-extra-content textar
 
 .survey-question-answer.checked .rating-option label {color:#FFF;}
 
+.survey-question-answer.disabled:hover .multi-option > span.check-icon,
+.survey-question-answer.disabled:hover,
+.survey-question-answer.disabled {color:#CCC; background: none;}
+.survey-question-answer.disabled .multi-option {color:#CCC;}
+
+
 .survey-question .survey-question-answer .progress,
 .survey-question .survey-question-answer .progress-bar-counter {display: none;}
 .survey-question.answered .progress {display: inline-block; width: calc(100% - 125px);}

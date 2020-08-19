@@ -79,7 +79,7 @@ class QuestionCommand{
         if (checkMaxValidation.contains(obj.questionLimitAnswersType) && val > numOptions ){
             return "invalidMin"
         }
-        if (checkMaxValidation.contains(obj.questionLimitAnswersType) && val > obj.maxAnswers ){
+        if (QuestionLimitAnswersType.RANGE == obj.questionLimitAnswersType && val > obj.maxAnswers ){
             return "invalidMinGTMax"
         }
         return null
