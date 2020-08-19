@@ -373,7 +373,9 @@ var surveyFunctions = {
         // var answerVotes = answer.querySelector('.progress-bar-counter');
         var answersList = answer.parentElement;
         var question = answersList.parentElement;
-
+        console.log(question);
+        var minAnswers = parseInt(question.getAttribute('data-minAnswers'));
+        var maxAnswers = parseInt(question.getAttribute('data-maxAnswers'));
         var selectedAnswers = (question.getAttribute('data-answer-selected') !== "") ? JSON.parse(question.getAttribute('data-answer-selected')) : "";
         var nextButton = question.querySelector('.footer .next-section button');
 
@@ -382,7 +384,6 @@ var surveyFunctions = {
             var answerPosition = selectedAnswers.indexOf(answer.getAttribute('data-answer-id'));
             if (answerPosition === -1) {
                 selectedAnswers.push(answer.getAttribute('data-answer-id'));
-                $(nextButton).removeClass('disabled');
                 $(answer).addClass('checked');
                 numOptionAnswers = numOptionAnswers+1;
             } else {
@@ -392,15 +393,15 @@ var surveyFunctions = {
             }
         } else {
             selectedAnswers = [answer.getAttribute('data-answer-id')];
-            $(nextButton).removeClass('disabled');
             numOptionAnswers = numOptionAnswers +1;
             $(answer).addClass('checked');
         }
         answer.setAttribute("data-numAnswers",numOptionAnswers)
         question.setAttribute('data-answer-selected',  (selectedAnswers.length > 0) ? JSON.stringify(selectedAnswers) : '');
-
-        if (selectedAnswers.length === 0) {
+        if (selectedAnswers.length === 0 || selectedAnswers.length < minAnswers || selectedAnswers.length > maxAnswers){
             $(nextButton).addClass('disabled');
+        }else{
+            $(nextButton).removeClass('disabled');
         }
     },
 

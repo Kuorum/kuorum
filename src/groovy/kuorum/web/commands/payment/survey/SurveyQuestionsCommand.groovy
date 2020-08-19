@@ -5,6 +5,7 @@ import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.constants.WebConstants
 import org.grails.databinding.BindingFormat
 import org.kuorum.rest.model.communication.survey.QuestionOptionTypeRDTO
+import org.kuorum.rest.model.communication.survey.QuestionRSDTO
 import org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO
 
 /**
@@ -97,6 +98,18 @@ class QuestionCommand{
 
 enum QuestionLimitAnswersType{
     MIN,MAX,RANGE,FORCE
+
+    public static QuestionLimitAnswersType inferType(QuestionRSDTO questionRSDTO){
+        if (questionRSDTO.maxAnswers == questionRSDTO.minAnswers){
+            return QuestionLimitAnswersType.FORCE
+        }else if (questionRSDTO.minAnswers != 1 && questionRSDTO.maxAnswers != 0 ){
+            return QuestionLimitAnswersType.RANGE
+        }else if (questionRSDTO.minAnswers == 1 && questionRSDTO.maxAnswers != 0 ){
+            return QuestionLimitAnswersType.MAX
+        }else{
+            return QuestionLimitAnswersType.MIN
+        }
+    }
 }
 
 @Validateable

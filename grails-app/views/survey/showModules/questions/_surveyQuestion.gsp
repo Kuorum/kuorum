@@ -9,7 +9,7 @@
     <g:set var="questionClass" value="rating-answer"/>
 </g:if>
 
-<li class="comment-box survey-question ${questionClass} no-padding ${survey.closed || question.answered?'answered':''}" data-question-id="${question.id}" data-numAnswers="${question.amountAnswers}" >
+<li class="comment-box survey-question ${questionClass} no-padding ${survey.closed || question.answered?'answered':''}" data-question-id="${question.id}" data-numAnswers="${question.amountAnswers}" data-minAnswers="${question.minAnswers}" data-maxAnswers="${question.maxAnswers}" >
 
     <div class="survey-question-header">
         <div class="survery-question-number">
@@ -19,6 +19,7 @@
         <div class="survey-question-title">
             ${question.text}
         </div>
+        <g:render template="/survey/showModules/questions/surveyQuestionHeaderExtraInfo" model="[survey:survey, question:question]"/>
     </div>
     <div class="survey-question-answers" data-answer-selected="">
         <g:each in="${question.options}" var="option">

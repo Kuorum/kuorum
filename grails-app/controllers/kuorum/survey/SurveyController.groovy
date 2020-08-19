@@ -203,15 +203,7 @@ class SurveyController extends CampaignController{
         command.text = questionRSDTO.text
         command.maxAnswers = questionRSDTO.maxAnswers
         command.minAnswers = questionRSDTO.minAnswers
-        if (questionRSDTO.maxAnswers == questionRSDTO.minAnswers){
-            command.questionLimitAnswersType = QuestionLimitAnswersType.FORCE
-        }else if (questionRSDTO.minAnswers != 1 && questionRSDTO.maxAnswers != 0 ){
-            command.questionLimitAnswersType = QuestionLimitAnswersType.RANGE
-        }else if (questionRSDTO.minAnswers == 1 && questionRSDTO.maxAnswers != 0 ){
-            command.questionLimitAnswersType = QuestionLimitAnswersType.MAX
-        }else{
-            command.questionLimitAnswersType = QuestionLimitAnswersType.MIN
-        }
+        command.questionLimitAnswersType = QuestionLimitAnswersType.inferType(questionRSDTO)
         command.options = questionRSDTO.options.collect{mapQuestionOption(it)}
         return command
     }
