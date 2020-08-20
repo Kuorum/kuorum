@@ -1,3 +1,4 @@
+<%@ page import="kuorum.web.commands.payment.survey.QuestionOptionCommand" %>
 <formUtil:validateForm bean="${command}" form="questionsSurveyForm" dirtyControl="true"/>
 <form action="#"
       class="form-horizontal campaign-form ${status== org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT || status== org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.PAUSE?'campaign-published':''}"
@@ -60,7 +61,7 @@
                         <g:set var="i" value="${i+1}"/>
                     </g:each>
                     <g:if test="${!listCommand.options}">
-                        <g:render template="/survey/questions/questionOptionFields" model="[prefixField:prefixField, pos:i, option:null]"/>
+                        <g:render template="/survey/questions/questionOptionFields" model="[prefixField:prefixField, pos:i, option:new kuorum.web.commands.payment.survey.QuestionOptionCommand()]"/>
                     </g:if>
                 </div>
                 <div class="col-sm-8 col-md-7 questionOptionActions">

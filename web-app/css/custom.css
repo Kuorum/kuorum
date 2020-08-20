@@ -7969,7 +7969,7 @@ li.survey-question.answered .survey-question-answer .option-extra-content textar
     width: 89%;
 }
 
-.survey-question-extra-info {padding-left:10%; color:#167caa;}
+.survey-question-extra-info {padding-left:10%; color:#167caa; padding-top:5px;}
 .survery-question-number{display: inline-block; text-align: center; width: 10%; float: left;}
 .survery-question-number .survey-quiestion-number-idx{font-size: 1.5em;}
 .survery-question-number .survey-quiestion-number-total{font-size: 1em;}
