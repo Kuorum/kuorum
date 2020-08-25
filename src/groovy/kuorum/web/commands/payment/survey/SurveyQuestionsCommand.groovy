@@ -117,9 +117,15 @@ class QuestionOptionCommand{
     Long id
     String text
     QuestionOptionTypeRDTO questionOptionType = QuestionOptionTypeRDTO.ANSWER_PREDEFINED
+
+    // Null means no redirect
+    // 0 means endSurvey
+    // >0 question means id of the next question
+    Long nextQuestionId
     static constraints = {
         text nullable: false, blank: false
         id nullable: true
         questionOptionType nullable: false
+        nextQuestionId nullable: true
     }
 }

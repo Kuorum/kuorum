@@ -18,7 +18,7 @@
         <input type="hidden" name="forever" value=""/>
         <p><g:message code="profile.deleteAccount.requestExplanation"/></p>
         <div class="form-group textarea">
-            <formUtil:textArea command="${command}" field="explanation" id="why" cssLabel="sr-only" rows="3"/>
+            <formUtil:textArea command="${command}" field="explanation" id="why" labelCssClass="sr-only" rows="3"/>
             %{--<label for="why" class="sr-only"><g:message code="profile.deleteAccount.why"/></label>--}%
             %{--<textarea id="why" class="form-control" rows="3"></textarea>--}%
         </div>

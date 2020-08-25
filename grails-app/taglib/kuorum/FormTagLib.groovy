@@ -10,6 +10,7 @@ import org.codehaus.groovy.grails.validation.*
 import org.kuorum.rest.model.communication.CampaignRSDTO
 import org.kuorum.rest.model.communication.event.EventRSDTO
 import org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetRSDTO
+import org.kuorum.rest.model.communication.survey.SurveyRSDTO
 import org.kuorum.rest.model.geolocation.RegionRSDTO
 import org.kuorum.rest.model.notification.campaign.NewsletterRSDTO
 import org.springframework.context.i18n.LocaleContextHolder
@@ -624,7 +625,7 @@ class FormTagLib {
         def id = attrs.id?:field
         def prefixFieldName=attrs.prefixFieldName?:""
         def cssClass = attrs.cssClass
-        def cssLabel=attrs.cssLabel?:""
+        def labelCssClass=attrs.labelCssClass?:""
         def clazz = attrs.enumClass?:command.metaClass.properties.find{it.name == field}.type
         Boolean defaultEmpty = attrs.defaultEmpty?Boolean.parseBoolean(attrs.defaultEmpty):false
         Boolean isRequired = isRequired(command,field) || (attrs.required?Boolean.parseBoolean(attrs.required):false)
@@ -632,7 +633,7 @@ class FormTagLib {
         def placeHolder = attrs.placeHolder?:message(code: "${command.class.name}.${field}.placeHolder", default: '')
         def error = hasErrors(bean: command, field: field,'error')
         if (showLabel){
-            out <<"""<label for="${id}" class="${cssLabel}">${label}</label>"""
+            out <<"""<label for="${id}" class="${labelCssClass}">${label}</label>"""
         }
         out << """
             <select name="${prefixFieldName}${field}" class="form-control input-lg ${error}" id="${id}" ${disabled?'disabled':''}>
@@ -665,7 +666,7 @@ class FormTagLib {
         def id = attrs.id?:field
         def prefixFieldName=attrs.prefixFieldName?:""
         def cssClass = attrs.cssClass
-        def cssLabel=attrs.cssLabel?:""
+        def labelCssClass=attrs.labelCssClass?:""
         def clazz = attrs.enumClass?:command.metaClass.properties.find{it.name == field}.type
         Boolean defaultEmpty = attrs.defaultEmpty?Boolean.parseBoolean(attrs.defaultEmpty):false
         Boolean isRequired = isRequired(command,field) || (attrs.required?Boolean.parseBoolean(attrs.required):false)
@@ -673,7 +674,7 @@ class FormTagLib {
         def error = hasErrors(bean: command, field: field,'error')
         if (showLabel){
 
-            out <<"""<label for="${id}" class="${cssLabel}">${label}</label>"""
+            out <<"""<label for="${id}" class="${labelCssClass}">${label}</label>"""
         }
         out << """
             <select name="${prefixFieldName}${field}" class="form-control input-lg ${error}" id="${id}">
@@ -696,6 +697,49 @@ class FormTagLib {
         }
     }
 
+    def selectQuestion = { attrs, body ->
+        SurveyRSDTO survey = attrs.survey
+        def questionSelect =  survey.questions.inject([:]) {map, q -> map <<[(q.id):q.text]}
+        attrs.values = [:]
+        attrs.values[0] = g.message(code:'kuorum.web.commands.payment.survey.QuestionOptionCommand.nextQuestionId.endSurvey')
+        attrs.values << questionSelect
+        out << selectMap(attrs, body)
+    }
+    def selectMap = {attrs->
+        def command = attrs.command
+        def field = attrs.field
+        def showLabel = attrs.showLabel?Boolean.parseBoolean(attrs.showLabel):true
+        def id = attrs.id?:field
+        def prefixFieldName=attrs.prefixFieldName?:""
+        def cssClass = attrs.cssClass
+        def labelCssClass=attrs.labelCssClass?:""
+        Boolean defaultEmpty = attrs.defaultEmpty?Boolean.parseBoolean(attrs.defaultEmpty):false
+        Boolean isRequired = isRequired(command,field) || (attrs.required?Boolean.parseBoolean(attrs.required):false)
+        def label = buildLabel(command, field, attrs.label)
+        def error = hasErrors(bean: command, field: field,'error')
+        if (showLabel){
+            out <<"""<label for="${id}" class="${labelCssClass}">${label}</label>"""
+        }
+        out << """
+            <select name="${prefixFieldName}${field}" class="form-control input-lg ${error}" id="${id}">
+            """
+        if (!isRequired || defaultEmpty){
+            out << "<option value=''> ${message(code:"${command.class.name}.${field}.empty", default: '')}</option>"
+        }
+        def valuesMap = attrs.values
+        valuesMap.each{ key, val ->
+            Boolean selected = (key==command."$field")
+            if (command."$field" instanceof String){
+                selected = (key.toString()==command."$field")
+            }
+            out << "<option value='${key}' ${selected?'selected':''}> ${val}</option>"
+        }
+        out << "</select>"
+        if(error){
+            out << "<span for='${id}' class='error'>${g.fieldError(bean: command, field: id)}</span>"
+        }
+    }
+
     def selectCampaign = { attrs->
         def command = attrs.command
         def field = attrs.field
@@ -704,14 +748,14 @@ class FormTagLib {
         def id = attrs.id?:field
         def prefixFieldName=attrs.prefixFieldName?:""
         def cssClass = attrs.cssClass
-        def cssLabel=attrs.cssLabel?:""
+        def labelCssClass=attrs.labelCssClass?:""
         def clazz = command.metaClass.properties.find{it.name == field}.type
         Boolean defaultEmpty = attrs.defaultEmpty?Boolean.parseBoolean(attrs.defaultEmpty):false
         Boolean isRequired = isRequired(command,field) || (attrs.required?Boolean.parseBoolean(attrs.required):false)
         def label ="${attrs.label?:message(code: "${clazz.name}.label")}${isRequired?'*':''}"
         def error = hasErrors(bean: command, field: field,'error')
         out <<"""
-            <label for="${id}" class="${cssLabel}">${label}</label>
+            <label for="${id}" class="${labelCssClass}">${label}</label>
             <select name="${prefixFieldName}${field}" class="form-control input-lg ${error}" id="${id}">
             """
         if (!isRequired || defaultEmpty){
@@ -756,12 +800,12 @@ class FormTagLib {
         def id = attrs.id?:field
         def prefixFieldName=attrs.prefixFieldName?:""
         def cssClass = attrs.cssClass
-        def cssLabel=attrs.cssLabel?:""
+        def labelCssClass=attrs.labelCssClass?:""
         Boolean isRequired = isRequired(command,field)
         def label ="${message(code: "${command.class.name}.${field}.label")}${isRequired?'*':''}"
         def error = hasErrors(bean: command, field: field,'error')
         out <<"""
-            <label for="${id}" class="${cssLabel}">${label}</label>
+            <label for="${id}" class="${labelCssClass}">${label}</label>
             <select name="${prefixFieldName}${field}" class="form-control input-lg ${error}" id="${id}">
             """
 //        if (!isRequired){

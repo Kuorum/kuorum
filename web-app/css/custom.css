@@ -4673,6 +4673,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 #questionsSurveyForm .quesiton-dynamic-fields > fieldset.question-data .form-group .form-group{margin-bottom:0}
 #questionsSurveyForm .quesiton-dynamic-fields > fieldset.question-data .form-group .form-group +.form-group{margin-top:15px}
 #questionsSurveyForm .quesiton-dynamic-fields > fieldset.question-data .form-group .form-group.question-data-extra{margin-top:10px}
+#questionsSurveyForm .quesiton-dynamic-fields:not(.ONE_OPTION) > fieldset.question-options .question-logic {display:none;}
 
 #questionsSurveyForm .endReorderQuestionsButton {display: none;}
 #questionsSurveyForm.sort-questions .endReorderQuestionsButton {display: inline-block;}

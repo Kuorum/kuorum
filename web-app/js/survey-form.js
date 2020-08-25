@@ -59,6 +59,7 @@ $(function() {
     $("#questionsSurveyForm").on("change",".question-type select", function(e){
         SurveyFormHelper._hideOptions($(this))
         SurveyFormHelper.toggleQuestionExtraData($(this))
+        SurveyFormHelper._addClassTypeToQuestion($(this))
     });
 
     $("#questionsSurveyForm").on("change",".question-data-extra-multi .question-data-extra-multi-limit-type select", function(e){
@@ -206,8 +207,21 @@ var SurveyFormHelper ={
         for (questionTypeSelectorsIdx = 0; questionTypeSelectorsIdx< questionTypeSelectors.length; questionTypeSelectorsIdx++){
             SurveyFormHelper._hideOptions($(questionTypeSelectors[questionTypeSelectorsIdx]));
             SurveyFormHelper.toggleQuestionExtraData($(questionTypeSelectors[questionTypeSelectorsIdx]));
+            SurveyFormHelper._addClassTypeToQuestion($(questionTypeSelectors[questionTypeSelectorsIdx]));
         }
         // END HIDE OPTION OF TEXT QUESTIONS
+    },
+
+    _addClassTypeToQuestion:function($selectQuestionType){
+        var questionType = $selectQuestionType.val();
+        var $questionContainer = $selectQuestionType.parents(".quesiton-dynamic-fields");
+        console.log("Changing class question container")
+        console.log($questionContainer)
+        $questionContainer.removeClass("ONE_OPTION");
+        $questionContainer.removeClass("MULTIPLE_OPTION");
+        $questionContainer.removeClass("TEXT_OPTION");
+        $questionContainer.removeClass("RATING_OPTION");
+        $questionContainer.addClass(questionType);
     },
 
     toggleQuestionExtraData:function($selectQuestionType){

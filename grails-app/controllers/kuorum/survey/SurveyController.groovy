@@ -183,6 +183,8 @@ class SurveyController extends CampaignController{
         questionOptionRDTO.text = command.text
         questionOptionRDTO.id = command.id
         questionOptionRDTO.questionOptionType = command.questionOptionType
+        questionOptionRDTO.nextQuestionId = command.nextQuestionId>0?command.nextQuestionId:null
+        questionOptionRDTO.exitSurvey = command.nextQuestionId==0?true:false
         questionOptionRDTO
     }
 
@@ -213,6 +215,7 @@ class SurveyController extends CampaignController{
         command.id = option.id
         command.text = option.text
         command.questionOptionType = option.questionOptionType
+        command.nextQuestionId = option.exitSurvey?0:option.nextQuestionId
         return command
     }
 

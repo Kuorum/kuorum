@@ -154,6 +154,9 @@ class SurveyService implements CampaignCreatorService<SurveyRSDTO, SurveyRDTO>{
                     questionOptionRDTO.text = qo.text
                     questionOptionRDTO.id = qo.id
                     questionOptionRDTO.questionOptionType = qo.questionOptionType
+                    questionOptionRDTO.nextQuestionId = qo.nextQuestionId
+                    questionOptionRDTO.exitSurvey = qo.exitSurvey
+
                     return questionOptionRDTO
                 }
                 return questionRDTO

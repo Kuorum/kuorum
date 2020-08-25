@@ -53,15 +53,26 @@
 
         <fieldset class="row question-options">
             <div class="form-group">
-                <label for="text" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.survey.QuestionCommand.options.label"/>:</label>
-                <div class="col-sm-8 col-md-7 questionOption">
+                <label for="text" class="col-sm-2 control-label"><g:message code="kuorum.web.commands.payment.survey.QuestionCommand.options.label"/>:</label>
+                <label for="text" class="col-sm-10 hidden-xs center">
+                    <div class="col-xs-offset-1 col-xs-11 col-sm-offset-1 col-sm-4">
+                        Texto
+                    </div>
+                    <div class="col-xs-offset-1 col-xs-11 col-sm-offset-0 col-sm-3">
+                        Tipo
+                    </div>
+                    <div class="col-xs-offset-1 col-xs-11 col-sm-offset-0 col-sm-3 question-logic">
+                        Redirección
+                    </div>
+                </label>
+                <div class="col-xs-12 col-sm-10 questionOption">
                     <g:set var="i" value="${0}"/>
                     <g:each in="${listCommand.options}" var="option">
-                        <g:render template="/survey/questions/questionOptionFields" model="[prefixField:prefixField, pos:i, option:option]"/>
+                        <g:render template="/survey/questions/questionOptionFields" model="[survey:survey,prefixField:prefixField, pos:i, option:option]"/>
                         <g:set var="i" value="${i+1}"/>
                     </g:each>
                     <g:if test="${!listCommand.options}">
-                        <g:render template="/survey/questions/questionOptionFields" model="[prefixField:prefixField, pos:i, option:new kuorum.web.commands.payment.survey.QuestionOptionCommand()]"/>
+                        <g:render template="/survey/questions/questionOptionFields" model="[survey:survey,prefixField:prefixField, pos:i, option:new kuorum.web.commands.payment.survey.QuestionOptionCommand()]"/>
                     </g:if>
                 </div>
                 <div class="col-sm-8 col-md-7 questionOptionActions">

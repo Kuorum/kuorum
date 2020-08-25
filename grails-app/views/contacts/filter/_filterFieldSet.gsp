@@ -11,7 +11,7 @@
             <formUtil:selectEnum
                     field="operator"
                     command="${commandFilter}"
-                    cssLabel="hide"/>
+                    labelCssClass="hide"/>
         </div>
         <div class="col-sm-5 contact-filter-text">
             <g:message code="tools.contact.filter.form.followingConditions"/>:
@@ -34,7 +34,7 @@
                         command="${listCommand}"
                         prefixFieldName="${prefixField}"
                         values="${org.kuorum.rest.model.contact.filter.condition.ConditionFieldTypeRDTO.values() - org.kuorum.rest.model.contact.filter.condition.ConditionFieldTypeRDTO.ID}"
-                        cssLabel="sr-only"/>
+                        labelCssClass="sr-only"/>
             </div>
             <div class="filter-operator text-operator">
                 <div class="col-sm-3">
@@ -43,7 +43,7 @@
                             command="${listCommand}"
                             prefixFieldName="${prefixField}"
                             enumClass="${org.kuorum.rest.model.contact.filter.condition.TextConditionOperatorTypeRDTO.class}"
-                            cssLabel="sr-only"/>
+                            labelCssClass="sr-only"/>
                 </div>
                 <div class="col-sm-4">
                     <formUtil:input
@@ -61,7 +61,7 @@
                         command="${listCommand}"
                         prefixFieldName="${prefixField}"
                         enumClass="${org.kuorum.rest.model.contact.filter.condition.NumberConditionOperatorTypeRDTO.class}"
-                        cssLabel="sr-only"/>
+                        labelCssClass="sr-only"/>
                 </div>
                 <div class="col-sm-4">
                     <formUtil:selectEnum
@@ -69,7 +69,7 @@
                             command="${listCommand}"
                             prefixFieldName="${prefixField}"
                             enumClass="${org.kuorum.rest.model.contact.ContactStatusRSDTO.class}"
-                            cssLabel="sr-only"/>
+                            labelCssClass="sr-only"/>
                 </div>
             </div>
             <div class="filter-operator boolean-operator hide">
@@ -79,7 +79,7 @@
                             command="${listCommand}"
                             prefixFieldName="${prefixField}"
                             enumClass="${org.kuorum.rest.model.contact.filter.condition.BooleanConditionOperatorTypeRDTO.class}"
-                            cssLabel="sr-only"/>
+                            labelCssClass="sr-only"/>
                 </div>
                 <div class="col-sm-4">
                     <input type="text" class="hidden" value="NO_VALID" name="${prefixField}value"/>
@@ -92,7 +92,7 @@
                             command="${listCommand}"
                             prefixFieldName="${prefixField}"
                             enumClass="${org.kuorum.rest.model.contact.filter.condition.ContactTypeConditionOperatorTypeRDTO.class}"
-                            cssLabel="sr-only"/>
+                            labelCssClass="sr-only"/>
                 </div>
                 <div class="col-sm-4">
                     <input type="text" class="hidden" value="NO_VALID" name="${prefixField}value"/>
@@ -110,7 +110,7 @@
                             command="${listCommand}"
                             prefixFieldName="${prefixField}"
                             enumClass="${org.kuorum.rest.model.contact.ContactLanguageRDTO.class}"
-                            cssLabel="sr-only"/>
+                            labelCssClass="sr-only"/>
                 </div>
             </div>
             <div class="filter-operator assistant-event-operator">
@@ -121,7 +121,7 @@
                             command="${listCommand}"
                             prefixFieldName="${prefixField}"
                             enumClass="${org.kuorum.rest.model.contact.filter.condition.EventAssistantConditionOperatorTypeRDTO.class}"
-                            cssLabel="sr-only"/>
+                            labelCssClass="sr-only"/>
                 </div>
                 <div class="col-sm-4">
                     <formUtil:selectCampaign
@@ -129,7 +129,7 @@
                             campaignType="EVENT"
                             command="${listCommand}"
                             prefixFieldName="${prefixField}"
-                            cssLabel="sr-only"/>
+                            labelCssClass="sr-only"/>
                 </div>
             </div>
             <div class="filter-operator participatoryBudget-operator">
@@ -140,7 +140,7 @@
                             command="${listCommand}"
                             prefixFieldName="${prefixField}"
                             enumClass="${org.kuorum.rest.model.contact.filter.condition.ParticipatoryBudgetConditionOperatorTypeRDTO.class}"
-                            cssLabel="sr-only"/>
+                            labelCssClass="sr-only"/>
                 </div>
                 <div class="col-sm-4">
                     <formUtil:selectCampaign
@@ -148,7 +148,7 @@
                             campaignType="PARTICIPATORY_BUDGET"
                             command="${listCommand}"
                             prefixFieldName="${prefixField}"
-                            cssLabel="sr-only"/>
+                            labelCssClass="sr-only"/>
                 </div>
             </div>
         </fieldset>

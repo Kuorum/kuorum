@@ -14,7 +14,7 @@
                         </p>
                         <fieldset class="time-zone">
                             <div class="row form-group">
-                                <formUtil:selectTimeZone command="${timeZoneCommand}" field="timeZoneId" required="true" cssLabel="hide" cssClass="col-xs-12 col-sm-4"/>
+                                <formUtil:selectTimeZone command="${timeZoneCommand}" field="timeZoneId" required="true" labelCssClass="hide" cssClass="col-xs-12 col-sm-4"/>
                             </div>
                         </fieldset>
                     </div>
