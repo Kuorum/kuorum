@@ -9,12 +9,18 @@
     <g:set var="questionClass" value="rating-answer"/>
 </g:if>
 
-<li class="comment-box survey-question ${questionClass} no-padding ${survey.closed || question.answered?'answered':''}" data-question-id="${question.id}" data-numAnswers="${question.amountAnswers}" data-minAnswers="${question.minAnswers}" data-maxAnswers="${question.maxAnswers}" >
+<li
+        class="comment-box survey-question ${questionClass} no-padding ${survey.closed || question.answered?'answered':''}"
+        data-question-id="${question.id}"
+        data-numAnswers="${question.amountAnswers}"
+        data-minAnswers="${question.minAnswers}"
+        data-maxAnswers="${question.maxAnswers}" >
 
     <div class="survey-question-header">
         <div class="survery-question-number">
             <span class="survey-quiestion-number-idx">${questionNumber}</span>
-            <span class="survey-quiestion-number-total hidden-xs">/${questionsTotal}</span>
+%{--            <span class="survey-quiestion-number-total hidden-xs">/${questionsTotal}</span>--}%
+            <span class="survey-quiestion-number-total hidden-xs">.</span>
         </div>
         <div class="survey-question-title">
             ${question.text}

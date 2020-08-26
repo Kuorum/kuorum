@@ -7748,7 +7748,8 @@ ul.notification-menu > li.see-more {
 }
 
 .survey-question:first-child,
-.survey-question.answered + .survey-question,
+/*.survey-question.answered + .survey-question,*/
+.survey-question.active-question,
 .survey-question.answered {
     margin-bottom: 20px;
     border:1px solid #F0F0F0;;
@@ -7793,6 +7794,11 @@ ul.notification-menu > li.see-more {
     padding-bottom: 22px;
     display: flex;
     justify-content: space-between;
+}
+
+.survey-progress .survey-progress-numerical-info{
+    text-align: center;
+    width: 50%;
 }
 
 .survey-progress-bar {
@@ -8097,8 +8103,8 @@ li.survey-question.answered .survey-question-answer .option-extra-content textar
 }
 
 .survey-end{display:none;padding: 25px;}
-.survey-questions .survey-question.answered + .survey-end{display:inherit;}
-.survey-closed .survey-questions .survey-question.answered + .survey-end{display:none;}
+.survey-questions .survey-question + .survey-end.active-question{display:inherit;}
+.survey-closed .survey-questions .survey-question + .survey-end{display:none;}
 .survey-end div.survey-end-container{width: 100%; text-align: center; font-size: 20px;}
 .survey-end div.survey-end-container span{height: 100%; vertical-align: middle; display: inline-block}
 .survey-end div.survey-end-container span.fa{color: #ec931f;    font-size: 22px;    margin-left: 5px;}
