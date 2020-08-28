@@ -34,8 +34,35 @@ class SurveyQuestionsCommand {
                 if (!error && it)
                     error = it.validate()?null:'invalidQuestions'
             }
+            checkOptionFlow(obj)
         }
         return error
+    }
+
+    private static void checkOptionFlow(SurveyQuestionsCommand surveyQuestionsCommand){
+        List<Long> nextQuestionsIds = surveyQuestionsCommand.questions.collect{it.id}
+        List<Long> previousQuestionIds = []
+        surveyQuestionsCommand.questions
+                .findAll() {it.questionType == QuestionTypeRSDTO.ONE_OPTION}
+                .each {q ->
+                    // Current question is an invalid reference
+                    if (q.id){
+                        nextQuestionsIds.remove(q.id);
+                        previousQuestionIds.add(q.id);
+                    }
+                    // Search for options with invalid reference
+                    q.options
+                            .findAll{qo -> qo.nextQuestionId != null && qo.nextQuestionId!=0}
+                            .each { qo ->
+                                if (previousQuestionIds.contains(qo.nextQuestionId)){
+                                    qo.errors.rejectValue("nextQuestionId","referencePreviousQuestion")
+                                    qo.errors.reject("invalidFlow","Invalid question flow")
+                                }else if (!nextQuestionsIds.contains(qo.nextQuestionId)){
+                                    qo.errors.rejectValue("nextQuestionId","invalidReference")
+                                    qo.errors.reject("invalidFlow","Invalid question flow")
+                                }
+                            }
+                }
     }
 
     static constraints = {

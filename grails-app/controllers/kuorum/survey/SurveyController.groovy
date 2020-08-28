@@ -127,6 +127,7 @@ class SurveyController extends CampaignController{
         redirect mapping: result.nextStep.mapping, params: result.nextStep.params
 
     }
+
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def saveAnswer(QuestionAnswerCommand command){
         command.answers = JSON.parse(params.answersJson).collect{
