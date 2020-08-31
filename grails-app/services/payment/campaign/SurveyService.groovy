@@ -175,6 +175,10 @@ class SurveyService implements CampaignCreatorService<SurveyRSDTO, SurveyRDTO>{
     }
 
     private Long getActiveQuestion(SurveyRSDTO surveyRSDTO){
+        if (!surveyRSDTO.questions){
+            //No questions defined (DRAFT SURVEY)
+            return 0L
+        }
         List<QuestionRSDTO> answeredQuestion = surveyRSDTO.questions.findAll{it.answered}
         if (answeredQuestion.size()==0){
             return surveyRSDTO.questions.first().id
