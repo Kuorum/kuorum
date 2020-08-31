@@ -11,7 +11,7 @@
     <g:render template="/campaigns/showModules/campingModalEditScheduled"/>
 
     <div id="survey-questions-tag">
-            <g:render template="/survey/showModules/surveyQuestions" model="[survey:survey,campaignUser:campaignUser]"/>
+            <g:render template="/survey/showModules/surveyQuestions" model="[survey:survey,campaignUser:campaignUser, activeQuestionId:activeQuestionId]"/>
     </div>
 
 </div>

@@ -9,7 +9,7 @@
 </head>
 
 <content tag="mainContent">
-    <g:render template="/survey/showModules/mainContent" model="[survey: survey, campaignUser: campaignUser]" />
+    <g:render template="/survey/showModules/mainContent" model="[survey: survey, campaignUser: campaignUser, activeQuestionId:activeQuestionId]" />
 </content>
 
 <content tag="cColumn">

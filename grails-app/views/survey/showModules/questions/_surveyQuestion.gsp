@@ -10,7 +10,7 @@
 </g:if>
 
 <li
-        class="comment-box survey-question ${questionClass} no-padding ${survey.closed || question.answered?'answered':''}"
+        class="comment-box survey-question ${questionClass} no-padding ${survey.closed || question.answered?'answered':''} ${activeQuestionId==question.id?'active-question':''}"
         data-question-id="${question.id}"
         data-numAnswers="${question.amountAnswers}"
         data-minAnswers="${question.minAnswers}"

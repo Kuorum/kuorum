@@ -24,12 +24,12 @@
     <ul class="survey-questions">
         <g:set var="numQuestion" value="${0}"/>
         <g:each in="${survey.questions}" var="question" status="i">
-            <g:if test="${question.answered || i==0 }">
+            <g:if test="${question.answered || i==0 || activeQuestionId == question.id}">
                 <g:set var="numQuestion" value="${numQuestion+1}"/>
             </g:if>
-            <g:render template="/survey/showModules/questions/surveyQuestion" model="[survey:survey, question:question, numQuestion:numQuestion, questionsTotal:survey.questions.size]"/>
+            <g:render template="/survey/showModules/questions/surveyQuestion" model="[survey:survey, question:question, numQuestion:numQuestion, questionsTotal:survey.questions.size, activeQuestionId:activeQuestionId]"/>
         </g:each>
-        <li class="comment-box survey-end">
+        <li class="comment-box survey-end ${activeQuestionId == 0?'active-question':''}">
             <div class="survey-end-container">
                 <span><g:message code="survey.show.progress.end"/></span>
                 <span class="fa fa-laugh-beam"></span>

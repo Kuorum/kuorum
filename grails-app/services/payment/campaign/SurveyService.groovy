@@ -8,7 +8,9 @@ import kuorum.register.KuorumUserSession
 import kuorum.util.rest.RestKuorumApiService
 import kuorum.web.commands.payment.survey.SurveyReportType
 import org.kuorum.rest.model.communication.survey.QuestionOptionRDTO
+import org.kuorum.rest.model.communication.survey.QuestionOptionRSDTO
 import org.kuorum.rest.model.communication.survey.QuestionRDTO
+import org.kuorum.rest.model.communication.survey.QuestionRSDTO
 import org.kuorum.rest.model.communication.survey.SurveyRDTO
 import org.kuorum.rest.model.communication.survey.SurveyRSDTO
 import org.kuorum.rest.model.communication.survey.answer.QuestionAnswerRDTO
@@ -167,8 +169,40 @@ class SurveyService implements CampaignCreatorService<SurveyRSDTO, SurveyRDTO>{
 
     @Override
     def buildView(SurveyRSDTO campaignRSDTO, BasicDataKuorumUserRSDTO campaignOwner, String viewerUid, def params) {
-        def model = [survey: campaignRSDTO, campaignUser: campaignOwner]
+        Long activeQuestionId = getActiveQuestion(campaignRSDTO)
+        def model = [survey: campaignRSDTO, campaignUser: campaignOwner, activeQuestionId:activeQuestionId]
         [view: "/survey/show", model:model]
+    }
+
+    private Long getActiveQuestion(SurveyRSDTO surveyRSDTO){
+        List<QuestionRSDTO> answeredQuestion = surveyRSDTO.questions.findAll{it.answered}
+        if (answeredQuestion.size()==0){
+            return surveyRSDTO.questions.first().id
+        }
+        QuestionRSDTO lastQuestionAnswered = answeredQuestion.last();
+        QuestionOptionRSDTO optionAnswered = lastQuestionAnswered.options.find{it.answer}
+        if (optionAnswered && optionAnswered.nextQuestionId){
+            return optionAnswered.nextQuestionId
+        }
+        if (optionAnswered && optionAnswered.exitSurvey){
+            return 0L;
+        }
+
+        ListIterator<QuestionRSDTO> qit = surveyRSDTO.questions.listIterator();
+        QuestionRSDTO nextQuestion = null
+        while (nextQuestion == null && qit.hasNext()) {
+            QuestionRSDTO q = qit.next();
+            if (q.id == lastQuestionAnswered.id){
+                nextQuestion = qit.next();
+            }
+        }
+        if (nextQuestion == null){
+            return 0L;
+        }else{
+            return nextQuestion.getId();
+        }
+
+
     }
 
     void saveAnswer(SurveyRSDTO surveyRSDTO, KuorumUserSession userAnswer, Long questionId, List<QuestionAnswerRDTO> answers){
