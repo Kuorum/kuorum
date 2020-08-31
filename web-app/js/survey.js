@@ -239,6 +239,8 @@ var surveyFunctions = {
         }
         $nextQuestion.addClass("active-question")
         $nextQuestion.prevAll(":not(."+surveyFunctions.ANSWERED_CLASS+")").addClass(surveyFunctions.SKIPPED_CLASS)
+        var nextQuestionCounter = $nextQuestion.prevAll(".survey-question."+surveyFunctions.ANSWERED_CLASS).length +1;
+        $nextQuestion.find(".survery-question-number .survey-quiestion-number-idx").html(nextQuestionCounter)
         $(currentQuestion).removeClass("active-question")
         surveyFunctions._updateSurveyProgressBar();
     },

@@ -75,7 +75,7 @@
                         <g:render template="/survey/questions/questionOptionFields" model="[survey:survey,prefixField:prefixField, pos:i, option:new kuorum.web.commands.payment.survey.QuestionOptionCommand()]"/>
                     </g:if>
                 </div>
-                <div class="col-sm-8 col-md-7 questionOptionActions">
+                <div class="col-xs-12 col-sm-offset-2 col-sm-10 questionOptionActions">
                     <fieldset class="row">
                         <div class="col-xs-offset-1 col-xs-11">
                             <button type="button" class="btn btn-lg btn-icon btn-transparent addQuestionOptionButton">

@@ -18,7 +18,7 @@
 
     <div class="survey-question-header">
         <div class="survery-question-number">
-            <span class="survey-quiestion-number-idx">${questionNumber}</span>
+            <span class="survey-quiestion-number-idx">${numQuestion}</span>
 %{--            <span class="survey-quiestion-number-total hidden-xs">/${questionsTotal}</span>--}%
             <span class="survey-quiestion-number-total hidden-xs">.</span>
         </div>

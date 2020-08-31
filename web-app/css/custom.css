@@ -4648,7 +4648,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 /*#questionsSurveyForm .questionOption.sorting-questionOptions .question:last-child .addQuestionOptionButton,*/
 #questionsSurveyForm .questionOption .question .addQuestionOptionButton{display: none;}
 
-#questionsSurveyForm .dynamic-fieldset-addbutton {margin-bottom:20px;}
+#questionsSurveyForm .dynamic-fieldset-addbutton .btn {margin-bottom:5px;}
 
 #questionsSurveyForm .quesiton-dynamic-fields .form-group {
     margin-left: 0px;
@@ -4974,6 +4974,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 
     .edit-contact-header > div:first-child ul,
     .edit-contact-header > div:first-child ul li {list-style: none; display: contents; margin-right: 5px;}
+    .removeQuestionButton .visible-xs {display:inline-block!important;padding-right: 5px;}
 }
 
 @media only screen and (max-width: 998px) {
@@ -7979,7 +7980,7 @@ li.survey-question.answered .survey-question-answer .option-extra-content textar
 .survey-question-extra-info {padding-left:10%; color:#167caa; padding-top:5px;}
 .survery-question-number{display: inline-block; text-align: center; width: 10%; float: left;}
 .survery-question-number .survey-quiestion-number-idx{font-size: 1.5em;}
-.survery-question-number .survey-quiestion-number-total{font-size: 1em;}
+.survery-question-number .survey-quiestion-number-total{font-size: 1.5em;}
 .survey-question .progress-info {
     position: relative;
     width: 95%;

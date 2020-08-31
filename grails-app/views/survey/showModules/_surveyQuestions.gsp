@@ -22,8 +22,12 @@
     </div><!-- ^survey-progress !-->
 
     <ul class="survey-questions">
+        <g:set var="numQuestion" value="${0}"/>
         <g:each in="${survey.questions}" var="question" status="i">
-            <g:render template="/survey/showModules/questions/surveyQuestion" model="[survey:survey, question:question, questionNumber:i+1, questionsTotal:survey.questions.size]"/>
+            <g:if test="${question.answered || i==0 }">
+                <g:set var="numQuestion" value="${numQuestion+1}"/>
+            </g:if>
+            <g:render template="/survey/showModules/questions/surveyQuestion" model="[survey:survey, question:question, numQuestion:numQuestion, questionsTotal:survey.questions.size]"/>
         </g:each>
         <li class="comment-box survey-end">
             <div class="survey-end-container">
