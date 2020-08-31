@@ -56,13 +56,13 @@
                 <label for="text" class="col-sm-2 control-label"><g:message code="kuorum.web.commands.payment.survey.QuestionCommand.options.label"/>:</label>
                 <label for="text" class="col-sm-10 hidden-xs center">
                     <div class="col-xs-offset-1 col-xs-11 col-sm-offset-1 col-sm-4">
-                        Texto
+                        <g:message code="kuorum.web.commands.payment.survey.QuestionOptionCommand.text.label"/>
                     </div>
                     <div class="col-xs-offset-1 col-xs-11 col-sm-offset-0 col-sm-3">
-                        Tipo
+                        <g:message code="org.kuorum.rest.model.communication.survey.QuestionOptionTypeRDTO.label"/>
                     </div>
                     <div class="col-xs-offset-1 col-xs-11 col-sm-offset-0 col-sm-3 question-logic">
-                        Redirección
+                        <g:message code="kuorum.web.commands.payment.survey.QuestionOptionCommand.nextQuestionId.label"/>
                     </div>
                 </label>
                 <div class="col-xs-12 col-sm-10 questionOption">
