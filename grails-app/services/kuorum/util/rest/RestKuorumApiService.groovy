@@ -220,6 +220,7 @@ class RestKuorumApiService {
         USER_CONTACTS           ('/contacts/{userId}'),
         USER_CONTACT            ('/contacts/{userId}/{contactId}'),
         USER_CONTACT_TAGS       ('/contacts/{userId}/tags'),
+        USER_CONTACT_FILES      ("/contacts/{userId}/{contactId}/files"),
         USER_CONTACT_FILTERS    ('/contacts/{userId}/filters'),
         USER_CONTACT_FILTER     ("/contacts/{userId}/filters/{filterId}"),
         USER_CONTACT_SUBSCRIBE  ("/contacts/{userId}/suscribe"),

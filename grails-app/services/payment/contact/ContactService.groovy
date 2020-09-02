@@ -5,6 +5,7 @@ import grails.transaction.Transactional
 import kuorum.register.KuorumUserSession
 import kuorum.util.rest.RestKuorumApiService
 import kuorum.web.commands.payment.contact.ContactFilterCommand
+import org.kuorum.rest.model.communication.CampaignRSDTO
 import org.kuorum.rest.model.contact.*
 import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
 import org.kuorum.rest.model.contact.filter.FilterRDTO
@@ -353,6 +354,44 @@ class ContactService {
                 query,
                 new TypeReference<String>(){})
         return ((StringReader)response.data).str
+    }
+
+
+    String uploadFile(KuorumUserSession user, Long contactId, File file, String fileName){
+        fileName = java.net.URLEncoder.encode(fileName, "UTF-8")
+        Map<String, String> params = [contactId: contactId.toString(), userId: user.id.toString()]
+        Map<String, String> query = [:]
+        def response = restKuorumApiService.putFile(
+                RestKuorumApiService.ApiMethod.USER_CONTACT_FILES,
+                params,
+                query,
+                file,
+                fileName
+        )
+    }
+
+
+    void deleteFile(KuorumUserSession user, Long contactId, String fileName){
+        Map<String, String> params = [contactId: contactId.toString(), userId: user.id.toString()]
+        Map<String, String> query = [fileName:fileName]
+        def response = restKuorumApiService.delete(
+                RestKuorumApiService.ApiMethod.USER_CONTACT_FILES,
+                params,
+                query,
+                new TypeReference<String>(){}
+        )
+    }
+
+    List<String> getFiles( KuorumUserSession userSession, ContactRSDTO contactRSDTO){
+        Map<String, String> params = [contactId: contactRSDTO.getId().toString(), userId: userSession.id.toString()]
+        Map<String, String> query = [:]
+        def response = restKuorumApiService.get(
+                RestKuorumApiService.ApiMethod.USER_CONTACT_FILES,
+                params,
+                query,
+                new TypeReference<List<String>>(){}
+        )
+        response.data
     }
 
 }

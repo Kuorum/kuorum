@@ -11,6 +11,7 @@ import org.kuorum.rest.model.communication.CampaignRSDTO
 import org.kuorum.rest.model.communication.event.EventRSDTO
 import org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetRSDTO
 import org.kuorum.rest.model.communication.survey.SurveyRSDTO
+import org.kuorum.rest.model.contact.ContactRSDTO
 import org.kuorum.rest.model.geolocation.RegionRSDTO
 import org.kuorum.rest.model.notification.campaign.NewsletterRSDTO
 import org.springframework.context.i18n.LocaleContextHolder
@@ -18,6 +19,7 @@ import payment.campaign.CampaignService
 import payment.campaign.NewsletterService
 import payment.campaign.ParticipatoryBudgetService
 import payment.campaign.event.EventService
+import payment.contact.ContactService
 
 class FormTagLib {
     static defaultEncodeAs = 'raw'
@@ -30,6 +32,7 @@ class FormTagLib {
     ParticipatoryBudgetService participatoryBudgetService
     CampaignService campaignService
     NewsletterService newsletterService
+    ContactService contactService
 
     static namespace = "formUtil"
 
@@ -151,7 +154,7 @@ class FormTagLib {
             alreadyUploadedFiles = alreadyUploadedFiles.collect{it.split('\\?').first()}
             def model = [
                     alreadyUploadedFiles:alreadyUploadedFiles,
-                    campaignId: campaignRSDTO.id,
+                    elementId: campaignRSDTO.id,
                     actionUpload: g.createLink(mapping:'ajaxUploadCampaignFile', params: campaignRSDTO.encodeAsLinkProperties()),
                     actionDelete: g.createLink(mapping:'ajaxDeleteCampaignFile', params: campaignRSDTO.encodeAsLinkProperties()),
                     label:label
@@ -164,13 +167,29 @@ class FormTagLib {
             alreadyUploadedFiles = alreadyUploadedFiles.collect{it.split('\\?').first()}
             def model = [
                     alreadyUploadedFiles:alreadyUploadedFiles,
-                    campaignId: newsletterRSDTO.id,
+                    elementId: newsletterRSDTO.id,
                     actionUpload: g.createLink(mapping:'ajaxUploadMassMailingAttachFile', params: [campaignId: newsletterRSDTO.id]),
                     actionDelete: g.createLink(mapping:'ajaxDeleteMassMailingAttachFile', params: [campaignId: newsletterRSDTO.id]),
                     label:label
             ]
             out << g.render(template:'/layouts/form/uploadMultipleFiles', model:model)
         }
+    }
+
+    def uploadContactFiles = {attrs ->
+        ContactRSDTO contact = attrs.contact
+        String label = attrs.label
+        KuorumUserSession userSession= springSecurityService.principal
+        List<String> alreadyUploadedFiles = contactService.getFiles(userSession,contact)
+        alreadyUploadedFiles = alreadyUploadedFiles.collect{it.split('\\?').first()}
+        def model = [
+                alreadyUploadedFiles:alreadyUploadedFiles,
+                elementId: contact.id,
+                actionUpload: g.createLink(mapping:'ajaxUploadContactFile', params: [contactId: contact.id, userAlias:userSession.id.toString()]),
+                actionDelete: g.createLink(mapping:'ajaxDeleteContactFile', params: [contactId: contact.id, userAlias:userSession.id.toString()]),
+                label:label
+        ]
+        out << g.render(template:'/layouts/form/uploadMultipleFiles', model:model)
     }
 
 //    private static final Integer NUM_CHARS_SHORTEN_URL = 19 //OWLY

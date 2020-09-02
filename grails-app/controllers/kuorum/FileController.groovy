@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile
 import org.springframework.web.multipart.MultipartHttpServletRequest
 import payment.campaign.CampaignService
 import payment.campaign.NewsletterService
+import payment.contact.ContactService
 
 import javax.servlet.http.HttpServletRequest
 
@@ -22,6 +23,7 @@ class FileController {
     def springSecurityService
     CampaignService campaignService
     NewsletterService newsletterService
+    ContactService contactService
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def uploadImage() {
@@ -67,6 +69,29 @@ class FileController {
     def deleteCampaignFile() {
         def fileName = params.fileName
         campaignService.deleteFile(springSecurityService.principal, Long.parseLong(params.campaignId), fileName)
+        render ([fileUrl: "#FILE", fileName: fileName, status:200, success:true] as JSON)
+    }
+
+
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def uploadContactFile() {
+        def fileData = getFileData(request)
+        File file = File.createTempFile("contactFile", "kuorum")
+        localFileService.upload(fileData.inputStream,file);
+        String fileUrl = contactService.uploadFile(springSecurityService.principal,Long.parseLong(params.contactId), file, fileData.fileName);
+        file.delete();
+//        FileGroup fileGroup = FileGroup.PDF
+//        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+//        KuorumFile kuorumFile = fileService.uploadTemporalFile(fileData.inputStream, user, fileData.fileName, fileGroup)
+
+        render ([fileUrl: fileUrl, fileName: fileData.fileName, status:200, success:true] as JSON)
+    }
+
+
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def deleteContactFile() {
+        def fileName = params.fileName
+        contactService.deleteFile(springSecurityService.principal, Long.parseLong(params.contactId), fileName)
         render ([fileUrl: "#FILE", fileName: fileName, status:200, success:true] as JSON)
     }
 

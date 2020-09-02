@@ -1,5 +1,5 @@
 <r:require modules="customFileUploader" />
-<g:set var="divId" value="multiple-file-uploader-${campaignId}"/>
+<g:set var="divId" value="multiple-file-uploader-${elementId}"/>
 <g:if test="${label}">
     <label>${label}</label>
 </g:if>
