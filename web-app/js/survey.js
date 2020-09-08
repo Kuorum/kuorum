@@ -222,7 +222,8 @@ var surveyFunctions = {
         }
     },
 
-    _nextQuestion : function(currentQuestionId, nextQuestionId = undefined) {
+    _nextQuestion : function(currentQuestionId, nextQuestionId ) {
+        nextQuestionId = nextQuestionId || undefined;
         var currentQuestion = document.querySelector('.survey-question[data-question-id="' + currentQuestionId + '"]');
         if (currentQuestion == undefined){
             console.log("Question with id ["+currentQuestionId+"]no defined");
