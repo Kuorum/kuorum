@@ -80,7 +80,7 @@
             <li role="presentation"><a href="#activity" data-toggle="tab"><g:message code="tools.contact.edit.tabs.activity"/></a></li>
             <li role="presentation"><a href="#socialNetwork" data-toggle="tab"><g:message code="tools.contact.edit.tabs.socialNetworks"/></a></li>
             <li role="presentation"><a href="#notes" data-toggle="tab"><g:message code="tools.contact.edit.tabs.notes"/></a></li>
-            <li role="presentation"><a href="#files" data-toggle="tab"><g:message code="tools.contact.edit.tabs.files"/></a></li>
+%{--            <li role="presentation"><a href="#files" data-toggle="tab"><g:message code="tools.contact.edit.tabs.files"/></a></li>--}%
         </ul>
         <div id="tabs-edit-contact" class="tab-content">
             <div class="tab-pane active" id="details">
@@ -171,12 +171,12 @@
                     </div>
                 </g:form>
             </div>
-            <div class="tab-pane" id="files">
-                <h4 class="sr-only"><g:message code="tools.contact.edit.tabs.files"/></h4>
-                <div class="textareaContainer col-sm-8 col-md-7">
-                    <formUtil:uploadContactFiles contact="${contact}"/>
-                </div>
-            </div>
+%{--            <div class="tab-pane" id="files">--}%
+%{--                <h4 class="sr-only"><g:message code="tools.contact.edit.tabs.files"/></h4>--}%
+%{--                <div class="textareaContainer col-sm-8 col-md-7">--}%
+%{--                    <formUtil:uploadContactFiles contact="${contact}"/>--}%
+%{--                </div>--}%
+%{--            </div>--}%
         </div>
     </div>
 </content>
