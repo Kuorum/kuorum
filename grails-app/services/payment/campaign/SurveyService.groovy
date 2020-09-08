@@ -196,7 +196,7 @@ class SurveyService implements CampaignCreatorService<SurveyRSDTO, SurveyRDTO>{
         QuestionRSDTO nextQuestion = null
         while (nextQuestion == null && qit.hasNext()) {
             QuestionRSDTO q = qit.next();
-            if (q.id == lastQuestionAnswered.id){
+            if (q.id == lastQuestionAnswered.id && qit.hasNext()){
                 nextQuestion = qit.next();
             }
         }
