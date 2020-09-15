@@ -103,6 +103,19 @@ $(function() {
 
 var SurveyFormHelper ={
 
+    questionTypeConfig:{
+        'ONE_OPTION':           {cssClass:'ONE_OPTION',             showOptions: true},
+        'MULTIPLE_OPTION':      {cssClass:'MULTIPLE_OPTION',        showOptions: true},
+        'TEXT_OPTION':          {cssClass:'TEXT_OPTION',            showOptions: false},
+        'RATING_OPTION':        {cssClass:'RATING_OPTION',          showOptions: false},
+        'CONTACT_UPLOAD_FILES': {cssClass:'CONTACT_UPLOAD_FILES',   showOptions: false},
+        'CONTACT_GENDER':       {cssClass:'CONTACT_GENDER',         showOptions: false},
+        'CONTACT_PHONE':        {cssClass:'CONTACT_PHONE',          showOptions: false},
+        'CONTACT_EXTERNAL_ID':  {cssClass:'CONTACT_EXTERNAL_ID',    showOptions: false},
+        'CONTACT_WEIGHT':       {cssClass:'CONTACT_WEIGHT',         showOptions: false},
+        'CONTACT_BIRTHDATE':    {cssClass:'CONTACT_BIRTHDATE',      showOptions: false}
+    },
+
     prepareSortableQuestionOptions: function(){
         $('.dynamic-fieldset:not(.hide) .questionOption').sortable({
 
@@ -191,13 +204,14 @@ var SurveyFormHelper ={
     _hideOptions: function($selectQuestionType){
         var $fieldsetOptions = $selectQuestionType.closest("fieldset.row").siblings();
         var newVal = $selectQuestionType.val();
-        if (newVal == "TEXT_OPTION" || newVal == "RATING_OPTION"){
+        var configType = SurveyFormHelper.questionTypeConfig[newVal]
+        if (configType.showOptions){
+            $fieldsetOptions.slideDown()
+        }else{
             $fieldsetOptions.slideUp( "slow", function(){
                 // CHAPU RELLENA INPUTS despues de ocultar
                 $fieldsetOptions.find("input[type=text]").each(function(idx){if ($(this).val()==""){$(this).val(idx)}});
             })
-        }else{
-            $fieldsetOptions.slideDown()
         }
     },
     initQuestionOptions:function(){
@@ -216,12 +230,12 @@ var SurveyFormHelper ={
         var questionType = $selectQuestionType.val();
         var $questionContainer = $selectQuestionType.parents(".quesiton-dynamic-fields");
         console.log("Changing class question container")
-        console.log($questionContainer)
-        $questionContainer.removeClass("ONE_OPTION");
-        $questionContainer.removeClass("MULTIPLE_OPTION");
-        $questionContainer.removeClass("TEXT_OPTION");
-        $questionContainer.removeClass("RATING_OPTION");
-        $questionContainer.addClass(questionType);
+        // console.log($questionContainer)
+        Object.keys(SurveyFormHelper.questionTypeConfig).forEach(function (typeId) {
+            console.log(typeId+":"+SurveyFormHelper.questionTypeConfig[typeId].cssClass);
+            $questionContainer.removeClass(SurveyFormHelper.questionTypeConfig[typeId].cssClass);
+        });
+        $questionContainer.addClass(SurveyFormHelper.questionTypeConfig[questionType].cssClass);
     },
 
     toggleQuestionExtraData:function($selectQuestionType){

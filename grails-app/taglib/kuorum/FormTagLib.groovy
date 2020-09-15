@@ -203,7 +203,6 @@ class FormTagLib {
         def prefixFieldName=attrs.prefixFieldName?:""
         def disabled=attrs.disabled?"disabled":""
         def id = "${prefixFieldName}${attrs.id?:field}"
-        def type = attrs.type?:'text'
         def required = attrs.required?'required':''
         def cssClass = attrs.cssClass?:'form-control input-lg'
         def extraClass = attrs.extraClass?:''
@@ -211,8 +210,22 @@ class FormTagLib {
         def showLabel = attrs.showLabel?Boolean.parseBoolean(attrs.showLabel):false
         def showCharCounter = attrs.showCharCounter?Boolean.parseBoolean(attrs.showCharCounter):true
         def clazz
+        def type
+        def numberStep
         try{
-            clazz = command.metaClass.properties.find{it.name == field}.type
+            if (attrs.type){
+                type = attrs.type
+            }else{
+                clazz = command.metaClass.properties.find{it.name == field}.type
+                if (Number.class.isAssignableFrom(clazz)){
+                    type = "number"
+                    if (Double.class.isAssignableFrom(clazz)){
+                        numberStep = "0.1"
+                    }
+                }else{
+                    type = "text"
+                }
+            }
         }catch (Exception e){
             // Handle exception for development log showing wich field is wrong
             log.error("Preparing input ${field} for command ${command.class}", e)
@@ -251,7 +264,7 @@ class FormTagLib {
             """
         }
         out <<"""
-            <input type="${type}" name="${prefixFieldName}${field}" class="${cssClass} ${extraClass} ${error?'error':''}" id="${id}" ${required} ${maxlength} placeholder="${placeHolder}" value="${value}" ${disabled} />
+            <input type="${type}" ${numberStep?"step='${numberStep}'":''} name="${prefixFieldName}${field}" class="${cssClass} ${extraClass} ${error?'error':''}" id="${id}" ${required} ${maxlength} placeholder="${placeHolder}" value="${value}" ${disabled} />
         """
         if(error){
             out << "<span for='${id}' class='error'>${g.fieldError(bean: command, field: field)}</span>"

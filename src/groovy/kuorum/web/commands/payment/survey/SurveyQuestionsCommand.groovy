@@ -83,7 +83,7 @@ class QuestionCommand{
 
     static validateOptions = {val, obj ->
         String error = null
-        if (obj.questionType != QuestionTypeRSDTO.TEXT_OPTION){
+        if ([QuestionTypeRSDTO.ONE_OPTION, QuestionTypeRSDTO.MULTIPLE_OPTION].contains(obj.questionType) ){
             val.each{
                 if (!error && it)
                     error = it.validate()?null:'invalidOptions'

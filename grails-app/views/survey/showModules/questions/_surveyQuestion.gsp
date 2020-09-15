@@ -14,7 +14,9 @@
         data-question-id="${question.id}"
         data-numAnswers="${question.amountAnswers}"
         data-minAnswers="${question.minAnswers}"
-        data-maxAnswers="${question.maxAnswers}" >
+        data-maxAnswers="${question.maxAnswers}"
+        data-questionType="${question.questionType}"
+>
 
     <div class="survey-question-header">
         <div class="survery-question-number">
@@ -35,11 +37,14 @@
             <g:elseif test="${question.questionType == org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.RATING_OPTION}">
                 <g:render template="/survey/showModules/questions/ratingQuestionOption" model="[survey:survey, question:question, option:option]"/>
             </g:elseif>
-            <g:elseif test="${question.questionType == org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.TEXT_OPTION}">
-                <g:render template="/survey/showModules/questions/textQuestionOption" model="[survey:survey, question:question, option:option]"/>
+            <g:elseif test="${question.questionType == org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.MULTIPLE_OPTION}">
+                <g:render template="/survey/showModules/questions/multipleQuestionOption" model="[survey:survey, question:question, option:option]"/>
+            </g:elseif>
+            <g:elseif test="${question.questionType == org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.CONTACT_GENDER}">
+                <g:render template="/survey/showModules/questions/genderQuestionOption" model="[survey:survey, question:question, option:option]"/>
             </g:elseif>
             <g:else>
-                <g:render template="/survey/showModules/questions/multipleQuestionOption" model="[survey:survey, question:question, option:option]"/>
+                <g:render template="/survey/showModules/questions/singleInputQuestionOption" model="[survey:survey, question:question, option:option]"/>
             </g:else>
         </g:each>
     </div>

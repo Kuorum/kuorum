@@ -7,7 +7,7 @@
     <div class="single-option">
         <span class="far fa-circle check-icon"></span>
         <span class="fas fa-check-circle check-icon"></span>
-        <label>${option.text}</label>
+        <label><g:message code="org.kuorum.rest.model.contact.GenderRDTO.${option.text}"/></label>
         <g:render template="/survey/showModules/questions/formQuestionExtraContent" model="[option:option]"/>
     </div>
     <div class="progress-info">

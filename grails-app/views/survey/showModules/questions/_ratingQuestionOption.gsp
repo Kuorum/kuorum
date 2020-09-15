@@ -1,4 +1,7 @@
-<div class="survey-question-answer survey-question-rating-option ${option.answer!=null?'checked':''}" data-answer-id="${option.id}" data-numAnswers="${option.amountAnswers}">
+<div class="survey-question-answer survey-question-rating-option ${option.answer!=null?'checked':''}"
+     data-answer-id="${option.id}"
+     data-questionOptionType="${option.questionOptionType}"
+     data-numAnswers="${option.amountAnswers}">
     <div class="rating-option">
         <span class="fal fa-square check-icon"></span>
         <span class="fas fa-square check-icon"></span>

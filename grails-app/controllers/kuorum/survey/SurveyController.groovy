@@ -8,13 +8,23 @@ import kuorum.register.KuorumUserSession
 import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.commands.payment.CampaignSettingsCommand
 import kuorum.web.commands.payment.survey.*
+import kuorum.web.constants.WebConstants
 import org.kuorum.rest.model.communication.survey.*
-import org.kuorum.rest.model.communication.survey.answer.QuestionAnswerOptionRDTO
-import org.kuorum.rest.model.communication.survey.answer.QuestionAnswerRDTO
-import org.kuorum.rest.model.communication.survey.answer.QuestionAnswerTextRDTO
+import org.kuorum.rest.model.communication.survey.answer.*
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 
 class SurveyController extends CampaignController{
+
+    private List<QuestionTypeRSDTO> questionTypesWithPredefinedAnswers = [
+            QuestionTypeRSDTO.CONTACT_BIRTHDATE,
+            QuestionTypeRSDTO.CONTACT_EXTERNAL_ID,
+            QuestionTypeRSDTO.CONTACT_GENDER,
+            QuestionTypeRSDTO.CONTACT_GENDER,
+            QuestionTypeRSDTO.CONTACT_PHONE,
+            QuestionTypeRSDTO.CONTACT_WEIGHT,
+            QuestionTypeRSDTO.RATING_OPTION,
+            QuestionTypeRSDTO.CONTACT_UPLOAD_FILES,
+            QuestionTypeRSDTO.TEXT_OPTION]
 
     @Secured(['ROLE_CAMPAIGN_SURVEY'])
     def create() {
@@ -106,8 +116,8 @@ class SurveyController extends CampaignController{
         // Clean questions deleted
         command.questions = command.questions.findAll{it}
         for (QuestionCommand questionCommand : command.questions ){
-            if (questionCommand.questionType  != QuestionTypeRSDTO.TEXT_OPTION){
-                // Clean all removed empty options (Text options has no answers)
+            if (!questionTypesWithPredefinedAnswers.contains(questionCommand.questionType)){
+                // Clean all removed empty options (Questions with predefined answers has no answers)
                 questionCommand.options = questionCommand.options.findAll{it && it.text != null}
             }
         }
@@ -132,19 +142,18 @@ class SurveyController extends CampaignController{
     def saveAnswer(QuestionAnswerCommand command){
         command.answers = JSON.parse(params.answersJson).collect{
             new kuorum.web.commands.payment.survey.QuestionAnswerDataCommand(
+                    questionOptionType: QuestionOptionTypeRDTO.valueOf(it.questionOptionType),
                     answerId:it.answerId instanceof Number?it.answerId: Long.parseLong(it.answerId),
-                    text:it.text)
+                    number:it.data.number == null || it.data.number instanceof Number?it.data.number: Double.parseDouble(it.data.number),
+                    date:it.data.date == null || it.data.date instanceof Date?it.data.date: Date.parse(WebConstants.WEB_FORMAT_DATE_SHORT,it.data.date),
+                    text:it.data.text,
+                    text2:it.data.text2,)
         };
         command.validate();
         KuorumUserSession userAnswer = springSecurityService.principal
         BasicDataKuorumUserRSDTO surveyUser = kuorumUserService.findBasicUserRSDTO(params.userAlias)
         SurveyRSDTO survey = surveyService.find(surveyUser.id, command.campaignId)
-        List<QuestionAnswerRDTO> answers = command.answers
-                .collect{
-                    it.text?
-                            new QuestionAnswerTextRDTO([optionId:it.answerId,text:it.text]):
-                            new QuestionAnswerOptionRDTO([optionId:it.answerId])
-        }
+        List<QuestionAnswerRDTO> answers = command.answers.collect{convertToRDTO(it)}
         try{
             surveyService.saveAnswer(survey, userAnswer, command.questionId, answers)
         }catch(Exception e){
@@ -155,6 +164,27 @@ class SurveyController extends CampaignController{
             }
         }
         render ([status:"success",msg:""] as JSON)
+    }
+
+    QuestionAnswerRDTO convertToRDTO(QuestionAnswerDataCommand qac){
+        switch (qac.questionOptionType){
+            case QuestionOptionTypeRDTO.ANSWER_TEXT:
+                return new QuestionAnswerTextRDTO([optionId:qac.answerId, text:qac.text])
+            case QuestionOptionTypeRDTO.ANSWER_SMALL_TEXT:
+                return new QuestionAnswerSmallTextRDTO([optionId:qac.answerId, text:qac.text])
+            case QuestionOptionTypeRDTO.ANSWER_PREDEFINED:
+                return new QuestionAnswerPredefinedRDTO([optionId:qac.answerId])
+            case QuestionOptionTypeRDTO.ANSWER_DATE:
+                return new QuestionAnswerDateRDTO([optionId:qac.answerId, date:qac.date])
+            case QuestionOptionTypeRDTO.ANSWER_PHONE:
+                return new QuestionAnswerPhoneRDTO([optionId:qac.answerId, phone:qac.text, prefixPhone:qac.text2])
+            case QuestionOptionTypeRDTO.ANSWER_NUMBER:
+                return new QuestionAnswerNumberRDTO([optionId:qac.answerId, number:qac.number])
+            case QuestionOptionTypeRDTO.ANSWER_FILES:
+                return null;
+            default:
+                return null;
+        }
     }
 
     private QuestionRDTO mapQuestion(QuestionCommand command){

@@ -72,6 +72,8 @@ var surveyFunctions = {
     ANSWERED_CLASS:"answered",
     relodAfeterSubmit: false,
 
+    QUESTION_OPTION_ATTR_TYPE:"data-questionoptiontype",
+
     initSurvey:function(){
         // IE10 not supports foreach
         var questionAnswerIdx
@@ -87,6 +89,13 @@ var surveyFunctions = {
             }
         };
         surveyFunctions._updateSurveyProgressBar();
+        // Block bubbling click on inputs when has text
+        $(".survey-question-answer input, .survey-question-answer textara, .survey-question-answer select").on("click", function (e) {
+            if ($(this).parents(".multi-answer").length!=0){
+                console.log("Stop bubbling because there are text on the input. Only on multi answers because them can be unselected. ")
+                e.stopPropagation();
+            }
+        });
     },
     _nextButtonClick : function(e) {
         e.preventDefault();
@@ -134,25 +143,88 @@ var surveyFunctions = {
         }
     },
     _checkValidAnswers: function(question){
-        var textAreaAnswers = question.querySelectorAll(".survey-question-answer.checked .option-extra-content textarea");
+        var questionOptionsSelected = question.querySelectorAll(".survey-question-answer.checked");
         var answersValid = true;
-        var answerIdx; // IE10 not supports forEach
-        for (answerIdx = 0; answerIdx < textAreaAnswers.length; answerIdx++) {
-            var textArea = textAreaAnswers[answerIdx];
-            if (textArea.value === ""){
-                textArea.classList.add("error");
-                var errorNode = document.createElement("span");
-                errorNode.classList = "error";
-                errorNode.innerHTML = i18n.kuorum.web.commands.payment.survey.QuestionOptionCommand.text.nullable
-                textArea.parentNode.insertBefore(errorNode, textArea.nextSibling);
-                answersValid = false;
-            }else{
-                textArea.parentNode.removeChild(textArea.nextSibling)
-                textArea.classList.remove("error")
-            }
+
+        var questionOPtionsSelectedIdx; // IE10 not supports forEach
+        for (questionOPtionsSelectedIdx = 0; questionOPtionsSelectedIdx < questionOptionsSelected.length; questionOPtionsSelectedIdx++) {
+            var questionOption = questionOptionsSelected[questionOPtionsSelectedIdx];
+            var questionOptionType = questionOption.getAttribute(surveyFunctions.QUESTION_OPTION_ATTR_TYPE)
+            answersValid = surveyFunctions._checkValidAnswerType[questionOptionType](questionOption) && answersValid;
         }
         return answersValid;
     },
+
+    _checkValidAnswerType:{
+        ANSWER_PREDEFINED: function(questionAnswerOption){return true;},
+        ANSWER_TEXT: function(questionAnswerOption){
+            var textAreaNodes = questionAnswerOption.querySelectorAll(".option-extra-content textarea");
+            var textArea = textAreaNodes[0];
+            var validationData = surveyFunctions._checkValidAnswerType._checkInputData(textArea);
+            surveyFunctions._checkValidAnswerType._handlePrintingError(validationData);
+            return validationData.valid;
+        },
+        ANSWER_SMALL_TEXT: function(questionAnswerOption){
+            var textAreaNodes = questionAnswerOption.querySelectorAll(".option-extra-content input");
+            var textArea = textAreaNodes[0];
+            var validationData = surveyFunctions._checkValidAnswerType._checkInputData(textArea);
+            surveyFunctions._checkValidAnswerType._handlePrintingError(validationData);
+            return validationData.valid;
+        },
+        ANSWER_DATE: function(questionAnswerOption){
+            var textDateInputNodes = questionAnswerOption.querySelectorAll(".option-extra-content input");
+            var textDateInput = textDateInputNodes[0];
+            var validationData = surveyFunctions._checkValidAnswerType._checkInputData(textDateInput);
+            surveyFunctions._checkValidAnswerType._handlePrintingError(validationData);
+            return validationData.valid;
+        },
+        ANSWER_PHONE: function(questionAnswerOption){
+            var phoneInputNodes = questionAnswerOption.querySelectorAll(".option-extra-content input");
+            var phoneInput = phoneInputNodes[0];
+            var phoneValidationData = surveyFunctions._checkValidAnswerType._checkInputData(phoneInput);
+            // var prefixInputNodes = questionAnswerOption.querySelectorAll(".option-extra-content select");
+            // var prefixInput = prefixInputNodes[0];
+            // var prefixPhoneValidationData = surveyFunctions._checkValidAnswerType._handlePrintingError(phoneValidationData);
+            // return phoneValidationData.valid && prefixPhoneValidationData.valid;
+            return phoneValidationData.valid;
+        },
+        ANSWER_NUMBER: function(questionAnswerOption){
+            var textNumberInputNodes = questionAnswerOption.querySelectorAll(".option-extra-content input");
+            var textNumberInput = textNumberInputNodes[0];
+            var numberValidationData = surveyFunctions._checkValidAnswerType._checkInputData(textNumberInput);
+            surveyFunctions._checkValidAnswerType._handlePrintingError(numberValidationData);
+            return numberValidationData.valid
+        },
+        _checkInputData:function(inputNode){
+            if (inputNode.value === ""){
+                return {
+                    valid: false,
+                    msg:i18n.kuorum.web.commands.payment.survey.QuestionOptionCommand.text.nullable,
+                    input: inputNode
+                };
+            }else{
+                return {
+                    valid: true,
+                    msg:"",
+                    input: inputNode
+                };
+            }
+        },
+        _handlePrintingError: function(validationData){
+            if (validationData.valid) {
+                $(validationData.input).siblings(".error").remove();
+                validationData.input.classList.remove("error")
+                return true;
+            }else{
+                validationData.input.classList.add("error");
+                var errorNode = document.createElement("span");
+                errorNode.classList = "error";
+                errorNode.innerHTML = validationData.msg
+                validationData.input.parentNode.insertBefore(errorNode, validationData.input.nextSibling);
+            }
+        }
+    },
+
     _singleOptionNextButtonClick : function(question){
         // event.preventDefault();
         // var question = event.currentTarget.parentElement.parentElement.parentElement;
@@ -176,8 +248,6 @@ var surveyFunctions = {
 
     _getNextQuestionId : function(question){
         var answer = $(question).find(".survey-question-answer.checked")[0];
-        console.log($(question).find(".survey-question-answer.checked"))
-        console.log(answer)
         var nextQuestionId = parseInt(answer.getAttribute('data-nextQuestionId'), 10);
         return nextQuestionId;
     },
@@ -352,22 +422,52 @@ var surveyFunctions = {
         for (answerOptionIdx = 0; answerOptionIdx < answerOptions.length; answerOptionIdx++) {
             var answerOption = answerOptions[answerOptionIdx];
             var $answerOption = $(answerOption)
+            var answerOptionType = $answerOption.attr(surveyFunctions.QUESTION_OPTION_ATTR_TYPE);
             if ($answerOption.find(".option-extra-content").length >0){
-                var $textarea = $answerOption.find("textarea")
-                var text = $textarea.val();
-                $textarea.remove();
+                var data = {}
+                var text
+                if (answerOptionType == "ANSWER_TEXT"){
+                    var $textArea = $answerOption.find("textarea")
+                    data = {text:$textArea.val()}
+                    text = data.text;
+                    $textArea.remove();
+                }else if (answerOptionType == "ANSWER_SMALL_TEXT"){
+                    var $input = $answerOption.find("input")
+                    data = {text:$input.val()}
+                    text = data.text
+                    $input.remove();
+                }else if (answerOptionType == "ANSWER_NUMBER"){
+                    var $input = $answerOption.find("input")
+                    data = {number:$input.val()}
+                    text = data.number
+                    $input.remove();
+                }else if (answerOptionType == "ANSWER_DATE"){
+                    var $input = $answerOption.find("input")
+                    data = {date:$input.val()}
+                    text = data.date
+                    $input.parents(".input-group.date").remove();
+                }else if (answerOptionType == "ANSWER_PHONE"){
+                    var $input = $answerOption.find("input[name=text]")
+                    var $prefix = $answerOption.find("select[name=text2]")
+                    data = {text:$input.val(), text2:$prefix.val()}
+                    text = data.text2+data.text
+                    $input.remove();
+                    $prefix.remove();
+                }else if (answerOptionType == "ANSWER_FILES"){
+                   //TODO
+                }
                 $answerOption.find(".text-answer").html(text)
-                surveyFunctions._addExtraInfoAnswer($answerOption, text)
+                surveyFunctions._addExtraInfoAnswer($answerOption, data)
             }
         }
     },
 
-    _addExtraInfoAnswer: function ($answerOption, text){
-        $answerOption.attr("data-question-extra-content",text)
+    _addExtraInfoAnswer: function ($answerOption, data){
+        $answerOption.attr("data-question-extra-content",JSON.stringify(data))
     },
 
     _getExtraInfoAnswer: function ($answerOption){
-        return $answerOption.attr("data-question-extra-content")
+        return JSON.parse($answerOption.attr("data-question-extra-content"));
     },
 
     _selectAnswer:function(e){
@@ -428,7 +528,7 @@ var surveyFunctions = {
         }
         answer.setAttribute("data-numAnswers",numOptionAnswers)
         question.setAttribute('data-answer-selected',  (selectedAnswers.length > 0) ? JSON.stringify(selectedAnswers) : '');
-        if (selectedAnswers.length == maxAnswers){
+        if (maxAnswers != 0 && selectedAnswers.length == maxAnswers){
             $(question).find(".survey-question-answer:not(.checked)").addClass("disabled")
         }else{
             $(question).find(".survey-question-answer:not(.checked)").removeClass("disabled")
@@ -492,6 +592,8 @@ var surveyFunctions = {
         var button = question.querySelector('.actions button');
         var url = button.getAttribute("data-postUrl");
         var answerIds = JSON.parse(question.getAttribute("data-answer-selected"));
+        var questionType = question.getAttribute("data-questionType");
+        console.log("Question type : "+questionType)
         if (!Array.isArray(answerIds)){
             answerIds = [answerIds];
         }
@@ -501,6 +603,7 @@ var surveyFunctions = {
         var data = {
             // surveyId:10,
             questionId:questionId,
+            questionType:questionType,
             answersJson:JSON.stringify(answers)
         }
         moveToHash("#survey-progress")
@@ -530,15 +633,19 @@ var surveyFunctions = {
         var answerIdsIdx;
         for (answerIdsIdx = 0; answerIdsIdx < answerIds.length; answerIdsIdx++) {
             var answerId = answerIds[answerIdsIdx];
-            var text = "";
+            var data = {};
             var answerOptionSelector = "div[data-answer-id="+answerId+"]";
+            var questionOptionType = $(answerOptionSelector).attr("data-questionOptionType")
             var extraDataSelector = answerOptionSelector+" .option-extra-content"
+            console.log("Extra data:"+$(extraDataSelector).length);
             if ($(extraDataSelector).length > 0){
-                text = surveyFunctions._getExtraInfoAnswer($(answerOptionSelector))
+                data = surveyFunctions._getExtraInfoAnswer($(answerOptionSelector))
             }
+            console.log("Question option type: "+questionOptionType)
             var answer = {
+                questionOptionType:questionOptionType,
                 answerId: answerId,
-                text: text
+                data: data
             }
             answers.push(answer)
         }

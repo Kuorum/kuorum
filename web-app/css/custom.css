@@ -7940,10 +7940,8 @@ ul.notification-menu > li.see-more {
     font-size: 17px;
 }
 
-.survey-question-answer:not(.checked) .multi-option .option-extra-content .charNum,
-.survey-question-answer:not(.checked) .single-option .option-extra-content .charNum,
-.survey-question-answer:not(.checked) .single-option .option-extra-content textarea,
-.survey-question-answer:not(.checked) .multi-option .option-extra-content textarea {
+.survey-question-answer:not(.checked) .single-option .option-extra-content,
+.survey-question-answer:not(.checked) .multi-option .option-extra-content  {
     display: none;
 }
 
@@ -7965,6 +7963,9 @@ ul.notification-menu > li.see-more {
 }
 
 li.survey-question.answered .survey-question-answer .option-extra-content .charNum,
+li.survey-question.answered .survey-question-answer .option-extra-content input,
+li.survey-question.answered .survey-question-answer .option-extra-content select,
+li.survey-question.answered .survey-question-answer .option-extra-content .input-group.date,
 li.survey-question.answered .survey-question-answer .option-extra-content textarea{
     display: none;
 }
