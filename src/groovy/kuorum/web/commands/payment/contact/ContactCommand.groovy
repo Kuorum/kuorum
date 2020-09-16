@@ -4,6 +4,7 @@ import grails.validation.Validateable
 import org.grails.databinding.BindUsing
 import org.grails.databinding.BindingFormat
 import org.kuorum.rest.model.contact.ContactLanguageRDTO
+import org.kuorum.rest.model.contact.GenderRDTO
 
 /**
  * Created by iduetxe on 1/09/16.
@@ -17,6 +18,8 @@ class ContactCommand {
     String email;
     String phonePrefix;
     String phone;
+    Date birthDate;
+    GenderRDTO gender;
 
     @BindingFormat(".")
     Double surveyVoteWeight;
@@ -35,6 +38,8 @@ class ContactCommand {
         phone nullable: true
         email nullable: true, email: true // Is nullable because when the contact is a follower we don't have the email
         surveyVoteWeight nullable: false, min: new Double(0), scale: 2
+        birthDate nullable: true
+        gender nullable: true
 
     }
 }

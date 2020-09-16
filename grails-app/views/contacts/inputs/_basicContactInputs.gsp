@@ -20,8 +20,10 @@
 </div>
 <div class="row">
     <div class="form-group col-md-4">
-        <label for="city">City</label>
-        <input type="text" name="city" class="form-control input-lg" id="city" required placeholder="--" aria-required="true" disabled>
+        <formUtil:date command="${command}" field="birthDate" showLabel="true"/>
+    </div>
+    <div class="form-group col-md-4">
+        <formUtil:selectEnum command="${command}" field="gender" showLabel="true"/>
     </div>
     <div class="form-group col-md-4">
         <formUtil:selectEnum

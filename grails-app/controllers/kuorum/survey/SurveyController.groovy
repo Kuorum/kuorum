@@ -23,7 +23,7 @@ class SurveyController extends CampaignController{
             QuestionTypeRSDTO.CONTACT_PHONE,
             QuestionTypeRSDTO.CONTACT_WEIGHT,
             QuestionTypeRSDTO.RATING_OPTION,
-            QuestionTypeRSDTO.CONTACT_UPLOAD_FILES,
+//            QuestionTypeRSDTO.CONTACT_UPLOAD_FILES,
             QuestionTypeRSDTO.TEXT_OPTION]
 
     @Secured(['ROLE_CAMPAIGN_SURVEY'])
