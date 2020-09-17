@@ -11,7 +11,7 @@
             <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="${g.message(code:'kuorum.web.commands.payment.participatoryBudget.DistrictsCommand.maxDistrictProposalsPerUser.label.info')}"></span>
             <g:message code="kuorum.web.commands.payment.participatoryBudget.DistrictsCommand.maxDistrictProposalsPerUser.label"/>:
         </label>
-        <div class="col-xs-3 col-sm-1 ">
+        <div class="col-xs-3 col-sm-2 ">
             <formUtil:input command="${command}" field="maxDistrictProposalsPerUser" type="number"/>
         </div>
         <div class="col-xs-6 col-sm-2 input-lg-suffix">
