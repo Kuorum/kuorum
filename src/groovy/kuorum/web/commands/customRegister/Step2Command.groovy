@@ -50,7 +50,7 @@ class Step2Command {
     static constraints = {
         importFrom AccountDetailsCommand, include:["alias", "language", "homeRegion", "user"]
         gender nullable:false
-        homeRegion nullable: false
+        homeRegion nullable: true
 //        userType nullable:false;
     }
 }
