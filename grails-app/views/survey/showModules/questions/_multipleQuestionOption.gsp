@@ -1,4 +1,4 @@
-<div class="survey-question-answer ${option.answer!=null?'checked':''}"
+<div class="survey-question-answer ${option.answer!=null?'checked':''} ${option.questionOptionType}"
      data-answer-id="${option.id}"
      data-numAnswers="${option.amountAnswers}"
      data-questionOptionType="${option.questionOptionType}">

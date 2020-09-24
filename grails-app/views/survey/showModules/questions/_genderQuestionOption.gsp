@@ -1,5 +1,5 @@
 <div
-        class="survey-question-answer ${option.answer!=null?'checked':''}"
+        class="survey-question-answer ${option.answer!=null?'checked':''} ${option.questionOptionType}"
         data-nextQuestionId="${option.exitSurvey?0:option.nextQuestionId?:''}"
         data-answer-id="${option.id}"
         data-questionOptionType="${option.questionOptionType}"

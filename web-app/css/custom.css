@@ -7927,6 +7927,11 @@ ul.notification-menu > li.see-more {
     width: calc(100% - 50px);
     margin-left: 50px;
 }
+.survey-question-answer .text-option .option-extra-content .input-group.date,
+.survey-question-answer .single-option .option-extra-content .input-group.date,
+.survey-question-answer .multi-option .option-extra-content .input-group.date{
+    max-width: 17em;
+}
 .survey-question-answer .text-option .form-group.option-extra-content,
 .survey-question-answer .single-option .form-group.option-extra-content,
 .survey-question-answer .multi-option .form-group.option-extra-content {
@@ -7936,8 +7941,13 @@ ul.notification-menu > li.see-more {
 .survey-question-answer .text-option    .form-group.form-group-phone.option-extra-content,
 .survey-question-answer .single-option  .form-group.form-group-phone.option-extra-content,
 .survey-question-answer .multi-option   .form-group.form-group-phone.option-extra-content {
+    max-width: 14em;
+}
+.survey-question-answer.ANSWER_SMALL_TEXT .form-group.option-extra-content,
+.survey-question-answer.ANSWER_NUMBER .form-group.option-extra-content{
     max-width: 20em;
 }
+
 
 .survey-question-answer .text-option .option-extra-content textarea,
 .survey-question-answer .single-option .option-extra-content textarea,
