@@ -68,9 +68,9 @@ select {padding: 6px 6px 6px 8px !important;}*/
 .form-group {margin-bottom: 20px;}
 .form-group .input-group.date{width: 100%;}
 .form-group-phone label {width: 100%;}
-.form-group-phone select {width: 30%; background: #fff;margin-right: 5px; float:left}
+.form-group-phone select {width: 7em; background: #fff;margin-right: 5px; float:left}
 .form-group-phone label + select + label{display: none;}
-.form-group-phone input {width: calc(70% - 5px);}
+.form-group-phone input {width: calc(100% - 7em - 5px);}
 
 
 .center{text-align:center;}
@@ -1526,9 +1526,10 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 
 .birthdayPicker {}
 .birthdayPicker .birthday-select{padding: 0px 16px 0px 10px; height: 45px; cursor: pointer;    background-color: #fff; background-image: none;border: 1px solid #DDDDDD;}
-.birthdayPicker .birthDate{width: 25%;border-right: none;border-top-left-radius: 6px;border-bottom-left-radius: 6px;}
-.birthdayPicker .birthMonth{width: 40%;border-left: none;border-right: none;}
-.birthdayPicker .birthYear{width: 35%;border-left: none;border-top-right-radius: 6px;border-bottom-right-radius: 6px;}
+.birthdayPicker .birthDate{width: 25%; max-width:10em; text-align-last:center;/*Only Chrome*/ border-right: none;border-top-left-radius: 6px;border-bottom-left-radius: 6px;}
+.birthdayPicker .birthMonth{width: 40%; max-width:20em; text-align-last:center;/*Only Chrome*/ border-left: none;border-right: none;}
+.birthdayPicker .birthYear{width: 35%; max-width:10em; text-align-last:center;/*Only Chrome*/ border-left: none;border-top-right-radius: 6px;border-bottom-right-radius: 6px;}
+.birthdayPicker span.error{max-width: calc(40em + 30px)}
 
 .form-final-options #selectDate .input-group {margin-bottom: 15px;}
 .form-final-options #selectDate .btn {display: block; width: 100%;}
@@ -7842,7 +7843,7 @@ ul.notification-menu > li.see-more {
     justify-content: center;
     position: relative;
     z-index: 99;
-    padding:20px 0 20px 20px;
+    padding:20px 30px;
 }
 
 .survey-question-answer:hover {background-color: #EEE;cursor: pointer;}
@@ -7891,7 +7892,6 @@ ul.notification-menu > li.see-more {
 .survey-question-answer .text-option,
 .survey-question-answer .single-option,
 .survey-question-answer .multi-option {
-    margin-right: 20px;
     display: flex;
     /*align-items: center;*/
     position: relative;
@@ -7924,13 +7924,19 @@ ul.notification-menu > li.see-more {
 .survey-question-answer .text-option .option-extra-content,
 .survey-question-answer .single-option .option-extra-content,
 .survey-question-answer .multi-option .option-extra-content {
-    width: calc(100% - 60px);
-    margin-left: 60px;
+    width: calc(100% - 50px);
+    margin-left: 50px;
 }
 .survey-question-answer .text-option .form-group.option-extra-content,
 .survey-question-answer .single-option .form-group.option-extra-content,
 .survey-question-answer .multi-option .form-group.option-extra-content {
     margin-bottom: inherit;
+}
+
+.survey-question-answer .text-option    .form-group.form-group-phone.option-extra-content,
+.survey-question-answer .single-option  .form-group.form-group-phone.option-extra-content,
+.survey-question-answer .multi-option   .form-group.form-group-phone.option-extra-content {
+    max-width: 20em;
 }
 
 .survey-question-answer .text-option .option-extra-content textarea,
@@ -7951,6 +7957,8 @@ ul.notification-menu > li.see-more {
     border-color:#BF4343;
     box-shadow: 0px 0px 5px 0px rgba(191,67,67,1);
 }
+
+.survey-question-answer .option-extra-content span.error{display:block;    margin-left:0px;}
 
 .survey-question-answer .option-extra-content textarea + span.error {display:none;float: left;margin-left: 0px;}
 .survey-question-answer .option-extra-content textarea.error + span.error {display:inherit}
@@ -8118,6 +8126,13 @@ li.survey-question.answered .survey-question-answer .option-extra-content textar
     .survey-question .social {width: auto; text-align: center; float:unset !important;}
     .survey-question .actions a.skip-question{margin-bottom: 20px;}
     .survey-question > .footer {padding-bottom: 20px;}
+
+    .survey-question-answer .text-option .option-extra-content,
+    .survey-question-answer .single-option .option-extra-content,
+    .survey-question-answer .multi-option .option-extra-content {
+        width: 100%;
+        margin-left:0px;
+    }
 }
 
 

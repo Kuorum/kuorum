@@ -16,6 +16,7 @@
                 id="${option.id}_number"
                 command="${new kuorum.web.commands.payment.survey.QuestionAnswerDataCommand()}"
                 placeholder=""
+                numberStep="1"
                 field="number"/>
         <span class="text-answer">${option.answer?.number?:''}</span>
     </div>
@@ -23,6 +24,7 @@
 <g:if test="${option.questionOptionType == org.kuorum.rest.model.communication.survey.QuestionOptionTypeRDTO.ANSWER_DATE}">
     <div class="form-group option-extra-content">
         <formUtil:date
+                datePickerType="birthDate"
                 showLabel="false"
                 id="${option.id}_date"
                 command="${new kuorum.web.commands.payment.survey.QuestionAnswerDataCommand()}"
@@ -38,6 +40,7 @@
                 id="${option.id}_text"
                 command="${new kuorum.web.commands.payment.survey.QuestionAnswerDataCommand()}"
                 placeholder=""
+                showCharCounter="false"
                 field="text"/>
         <span class="text-answer">${option.answer?.text?:''}</span>
     </div>
@@ -57,6 +60,7 @@
                 command="${new kuorum.web.commands.payment.survey.QuestionAnswerDataCommand()}"
                 placeholder=""
                 type="number"
+                showCharCounter="false"
                 field="text"/>
 
         <span class="text-answer">${option.answer?.prefixPhone?:''}${option.answer?.phone?:''}</span>

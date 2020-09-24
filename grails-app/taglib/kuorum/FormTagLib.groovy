@@ -219,7 +219,9 @@ class FormTagLib {
                 clazz = command.metaClass.properties.find{it.name == field}.type
                 if (Number.class.isAssignableFrom(clazz)){
                     type = "number"
-                    if (Double.class.isAssignableFrom(clazz)){
+                    if (attrs.numberStep){
+                        numberStep = attrs.numberStep
+                    }else if (Double.class.isAssignableFrom(clazz)){
                         numberStep = "0.1"
                     }
                 }else{

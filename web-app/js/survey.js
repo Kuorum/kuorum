@@ -216,6 +216,7 @@ var surveyFunctions = {
                 validationData.input.classList.remove("error")
                 return true;
             }else{
+                $(validationData.input).siblings(".error").remove();
                 validationData.input.classList.add("error");
                 var errorNode = document.createElement("span");
                 errorNode.classList = "error";
