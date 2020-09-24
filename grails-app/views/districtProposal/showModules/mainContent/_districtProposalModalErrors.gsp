@@ -40,3 +40,20 @@
         </div>
     </div>
 </div>
+<!-- Modal warn when the district budget is overflow -->
+<div class="modal warn-district-action-unauthorized" id="warn-district-action-unauthorized-${district.id}" tabindex="-1" role="dialog" aria-labelledby="warn-district-action-unauthorized-title" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true" class="fal fa-times-circle fa"></span><span class="sr-only">Cerrar</span></button>
+                <h4 id="warn-district-action-unauthorized-title"><g:message code="participatoryBudget.district.modal.unauthorized.title" args="[district.name]"/></h4>
+            </div>
+            <div class="modal-body">
+                <p><g:message code="participatoryBudget.district.modal.unauthorized.genericText"/></p>
+            </div>
+            <div class="modal-actions">
+                <a href="" role="button" class="btn btn-blue inverted btn-lg close-modal"><g:message code="participatoryBudget.district.modal.unauthorized.close"/></a>
+            </div>
+        </div>
+    </div>
+</div>

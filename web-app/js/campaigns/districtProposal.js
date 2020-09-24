@@ -86,6 +86,10 @@ var districtProposalHelper={
                         var modalId = "#warn-district-budget-overflow-"+districtId;
                         $(modalId).modal()
                         prepareProgressBar();
+                    }else if (errorJson.code == "error.api.SERVICE_UNAUTHORIZED"){
+                        var modalId = "#warn-district-action-unauthorized-"+districtId;
+                        // $(modalId).find(".modal-body p:first-child").html(errorJson.msg)
+                        $(modalId).modal()
                     }else{
                         var modalId = "#warn-different-district-"+districtId;
                         $(modalId).find(".modal-body p:first-child").html(errorJson.msg)
