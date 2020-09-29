@@ -235,10 +235,6 @@ class KuorumUserTagLib {
         BasicDataKuorumUserRSDTO user = attrs.user
         String faIcon = ""
         String tooltip = ""
-//        if (user.isValid){ // Logic showing users with check when is validated against census
-//            faIcon = "fa-check"
-//            tooltip = message(code:'politician.image.icon.enabled.text')
-//        }else if (user.userType == UserTypeRSDTO.PERSON){
         if (user.userType == UserTypeRSDTO.PERSON){
             faIcon = "fa-megaphone"
             tooltip = message(code:'kuorum.core.model.UserType.PERSON')

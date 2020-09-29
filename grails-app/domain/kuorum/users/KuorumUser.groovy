@@ -99,7 +99,6 @@ class KuorumUser {
         imageProfile nullable:true
         userType nullable: false
         timeZoneId nullable:true
-        isValid nullable:true
 
         //POLITICIAN VALIDATION
 //        institution nullable:true
