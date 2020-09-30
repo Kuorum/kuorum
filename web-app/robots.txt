@@ -13,4 +13,5 @@ Disallow: /dashboard/*
 Disallow: /account/*
 Disallow: /edit-profile/*
 Disallow: /config/*
+Disallow: /oauth/*
 
