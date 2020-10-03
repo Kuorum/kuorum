@@ -20,6 +20,7 @@
                 class="btn btn-blue-status btn-lg ${callButtonActive?'on':''} districtProposal-support"
                 data-campaignValidationActive="${districtProposal.checkValidationActive}"
                 data-campaignGroupValidationActive="${districtProposal.groupValidation?g.createLink(mapping: "campaignCheckGroupValidation", params: districtProposal.encodeAsLinkProperties()):''}"
+                data-campaignId="${districtProposal.id}"
                 data-districtId="${districtProposal.district.id}"
                 data-participatoryBudgetId="${districtProposal.participatoryBudget.id}"
                 data-proposalId="${districtProposal.id}"

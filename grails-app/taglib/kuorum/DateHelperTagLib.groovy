@@ -11,6 +11,7 @@ class DateHelperTagLib {
 
     def humanDate={attrs ->
         Date date = attrs.date
+        String idTag = attrs.id?"id='${attrs.id}'":""
         if (!date) {
             out << "---"
         } else {
@@ -21,7 +22,7 @@ class DateHelperTagLib {
             df.setTimeZone(tz)
             String dateAsISO = df.format(date)
 
-            out << "<time class='timeago ${cssClass}' ${itemprop} datetime='${dateAsISO}'>${dateAsISO}</time>"
+            out << "<time class='timeago ${cssClass}' ${itemprop} datetime='${dateAsISO}' ${idTag}>${dateAsISO}</time>"
         }
     }
 

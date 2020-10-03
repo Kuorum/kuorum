@@ -6,7 +6,7 @@
             ${campaign.name}
         </g:if>
         <g:else>
-            <g:message code="tools.campaign.new.post"/>
+            <g:message code="tools.campaign.new.POST"/>
         </g:else>
     </g:set>
 

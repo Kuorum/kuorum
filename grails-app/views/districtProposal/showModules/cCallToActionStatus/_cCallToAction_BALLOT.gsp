@@ -17,6 +17,7 @@
                 data-campaignGroupValidationActive="${districtProposal.groupValidation?g.createLink(mapping: "campaignCheckGroupValidation", params: districtProposal.encodeAsLinkProperties()):''}"
                 data-campaignValidationActive="${districtProposal.checkValidationActive}"
                 data-districtId="${districtProposal.district.id}"
+                data-campaignId="${districtProposal.id}"
                 data-participatoryBudgetId="${districtProposal.participatoryBudget.id}"
                 data-proposalId="${districtProposal.id}"
                 data-loggedUser="${sec.username()}"

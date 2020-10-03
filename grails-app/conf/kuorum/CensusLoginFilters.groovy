@@ -28,7 +28,7 @@ class CensusLoginFilters {
                         String censusLogin = params['censusLogin'];
                         String redirectUrl = "https://"+ CustomDomainResolver.domain + request.forwardURI;
                         cookieUUIDService.setDomainCookie(WebConstants.COOKIE_URL_CALLBACK_CENSUS_LOGIN, redirectUrl)
-                        redirect(mapping: 'customRegisterCensus', params: [censusLogin:censusLogin])
+                        redirect(mapping: 'campaignValidationLinkCheck', params: [censusLogin:censusLogin])
                         return false;
                     }
 //                }

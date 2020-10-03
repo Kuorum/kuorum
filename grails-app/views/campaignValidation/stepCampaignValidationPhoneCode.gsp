@@ -18,29 +18,32 @@
     <ol class="stepsSign">
         <li class=""><div class="step-label"><g:message code="kuorum.web.commands.profile.directCensusLogin.title"/></div></li>
         <g:if test="${_domainValidations.census}"><li class=""><div class="step-label"><g:message code="kuorum.web.commands.profile.DomainValidationCommand.title"/></div></li></g:if>
-        <g:if test="${_domainValidations.customCode}"><li class="active"><div class="step-label"><g:message code="kuorum.web.commands.profile.DomainUserCustomCodeValidationCommand.title"/></div></li></g:if>
+        <g:if test="${_domainValidations.customCode}"><li class=""><div class="step-label"><g:message code="kuorum.web.commands.profile.DomainUserCustomCodeValidationCommand.title"/></div></li></g:if>
         <g:if test="${_domainValidations.phone}"><li class=""><div class="step-label"><g:message code="kuorum.web.commands.profile.DomainUserPhoneValidationCommand.title"/></div></li></g:if>
-        <g:if test="${_domainValidations.phone}"><li class=""><div class="step-label"><g:message code="kuorum.web.commands.profile.DomainUserPhoneCodeValidationCommand.title"/></div></li></g:if>
+        <g:if test="${_domainValidations.phone}"><li class="active"><div class="step-label"><g:message code="kuorum.web.commands.profile.DomainUserPhoneCodeValidationCommand.title"/></div></li></g:if>
         <li class=""><div class="step-label"><g:message code="customRegister.step4.title"/></div></li>
     </ol>
     <formUtil:validateForm bean="${command}" form="stepDomainValidation" autocomplete="off"/>
-    <g:form mapping="customProcessRegisterCustomCodeValidation" name="stepDomainValidation" role="form" method="POST" autocomplete="off"  class="signup stepDomainValidation">
+    <g:form mapping="campaignValidationPhoneNumberCode" params="${campaign.encodeAsLinkProperties()}" name="stepDomainValidation" role="form" method="POST" autocomplete="off"  class="signup stepDomainValidation">
+        <input type="hidden" name="phoneHash" id="stepPhone_phoneHash" required="" value="${command.phoneHash}">
+        <input type="hidden" name="validationPhoneNumberPrefix" id="stepPhone_validationPhoneNumberPrefix" required="" value="${command.validationPhoneNumberPrefix}">
+        <input type="hidden" name="validationPhoneNumber" id="stepPhone_validationPhoneNumber" required="" value="${command.validationPhoneNumber}">
         <fieldset class="row">
             <div class="form-group col-md-offset-3  col-md-6">
                 <formUtil:input
                         command="${command}"
-                        field="customCode"
-                        cssClass="form-control input-lg"
+                        field="phoneCode"
                         showLabel="true"
-                        showCharCounter="false"
+                        cssClass="form-control input-lg"
                         required="true"/>
             </div>
         </fieldset>
 
+
         <fieldset class="row">
             <div class="form-group col-md-offset-3 col-md-6 center option-buttons">
                 %{--<label><g:message code="customRegister.step2.choseUserType.label"/> </label>--}%
-%{--                <g:link mapping="customProcessRegisterStep3" class="btn btn-light"><g:message code="customRegister.step4.validation.omit"/></g:link>--}%
+                <g:link mapping="campaignValidationPhoneNumber" params="${campaign.encodeAsLinkProperties()}" class="btn btn-light"><g:message code="kuorum.web.commands.profile.DomainUserPhoneCodeValidationCommand.modal.back"/></g:link>
                 <input type="submit"value="${g.message(code:'customRegister.step2.submit')}" class="btn btn-lg">
                 %{--<input type="submit" id="submitCitizen" value="${g.message(code:'customRegister.step2.choseUserType.citizen')}" class="btn btn-blue btn-lg">--}%
             </div>

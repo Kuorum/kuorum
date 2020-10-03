@@ -24,7 +24,7 @@
         <li class=""><div class="step-label"><g:message code="customRegister.step4.title"/></div></li>
     </ol>
     <formUtil:validateForm bean="${command}" form="stepDomainValidation" autocomplete="off"/>
-    <g:form mapping="customProcessRegisterDomainValidation" name="stepDomainValidation" role="form" method="POST" autocomplete="off"  class="signup stepDomainValidation">
+    <g:form mapping="campaignValidationCensus" params="${campaign.encodeAsLinkProperties()}" name="stepDomainValidation" role="form" method="POST" autocomplete="off"  class="signup stepDomainValidation">
         <fieldset class="row">
             <div class="form-group col-md-offset-3  col-md-6">
                 <formUtil:input
@@ -64,7 +64,7 @@
         <fieldset class="row">
             <div class="form-group col-md-offset-3 col-md-6 center option-buttons">
                 %{--<label><g:message code="customRegister.step2.choseUserType.label"/> </label>--}%
-                <g:link mapping="customProcessRegisterStep3" class="btn btn-light"><g:message code="customRegister.step4.validation.omit"/></g:link>
+%{--                <g:link mapping="customProcessRegisterStep3" class="btn btn-light"><g:message code="customRegister.step4.validation.omit"/></g:link>--}%
                 <input type="submit"value="${g.message(code:'customRegister.step2.submit')}" class="btn btn-lg">
                 %{--<input type="submit" id="submitCitizen" value="${g.message(code:'customRegister.step2.choseUserType.citizen')}" class="btn btn-blue btn-lg">--}%
             </div>

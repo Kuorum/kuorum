@@ -24,7 +24,7 @@
         <li class="active"><div class="step-label"><g:message code="customRegister.step4.title"/></div></li>
     </ol>
 %{--    <formUtil:validateForm bean="${command}" form="step0" autocomplete="off"/>--}%
-    <g:form mapping="customRegisterCensus" name="step0" role="form" method="POST" autocomplete="off"  class="signup step0">
+    <g:form mapping="campaignValidationLinkCheck" name="step0" role="form" method="POST" autocomplete="off"  class="signup step0">
 
         <fieldset class="row">
             <div class="form-group col-xs-12 center">

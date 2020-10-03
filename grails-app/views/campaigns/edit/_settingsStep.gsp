@@ -64,12 +64,12 @@
             </g:if>
             <g:if test="${!options.hideValidateOption}">
                 <fieldset class="form-group fieldset-check-box">
-                    <label for="checkValidation" class="col-sm-2 col-md-1 control-label">
-                        <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="${g.message(code:'kuorum.web.commands.payment.CampaignSettingsCommand.checkValidation.label.info')}"></span>
-                        <g:message code="kuorum.web.commands.payment.CampaignSettingsCommand.checkValidation.label.left"/>:
+                    <label for="validationType" class="col-sm-2 col-md-1 control-label">
+                        <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="${g.message(code:'kuorum.web.commands.payment.CampaignSettingsCommand.validationType.label.info')}"></span>
+                        <g:message code="kuorum.web.commands.payment.CampaignSettingsCommand.validationType.label.left"/>:
                     </label>
                     <div class="col-sm-8 col-md-7">
-                        <formUtil:checkBox command="${command}" field="checkValidation" disabled="${!domainValidation}"/>
+                        <formUtil:selectEnum command="${command}" field="validationType" disabled="${!domainValidation}"/>
                     </div>
                 </fieldset>
             </g:if>

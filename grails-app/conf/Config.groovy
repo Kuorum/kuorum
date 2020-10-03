@@ -29,21 +29,22 @@ grails.serverURL = "http://local.kuorum.org:8080/kuorum"
 log4j = {
     appenders {
         appender new org.apache.log4j.ConsoleAppender(name:'stdout', layout:pattern(conversionPattern: '%d{yyyy MM dd HH:mm:ss,SSS} [%c] # %-5p %m  %n' ))
-        appender new GelfOVHAppender(
-                name: 'gelfAppender',
-                graylogHost: 'tcp:gra3.logs.ovh.com',
-                graylogPort: 2202,
-                extractStacktrace: true,
-                includeLocation: true,
-                addExtendedInformation: true,
-                facility:"TOMCAT",
-                additionalFields:"{'X-OVH-TOKEN':'56b1b7a7-0f5d-44cb-aeba-262701f9e460', 'component':'WEB', 'environment':'${grails.util.Environment.current.name}'}"
-        )
+//        appender new GelfOVHAppender(
+//                name: 'gelfAppender',
+//                graylogHost: 'tcp:gra3.logs.ovh.com',
+//                graylogPort: 2202,
+//                extractStacktrace: true,
+//                includeLocation: true,
+//                addExtendedInformation: true,
+//                facility:"TOMCAT",
+//                additionalFields:"{'X-OVH-TOKEN':'56b1b7a7-0f5d-44cb-aeba-262701f9e460', 'component':'WEB', 'environment':'${grails.util.Environment.current.name}'}"
+//        )
     }
     root{
-        info 'stdout', 'gelfAppender'
+        info 'stdout'
+//        info 'stdout', 'gelfAppender'
     }
-    info gelfAppender: 'grails.app','org.kuorum', 'kuorum'
+//    info gelfAppender: 'grails.app','org.kuorum', 'kuorum'
     info stdout: 'grails.app','org.kuorum', 'kuorum'
     info    'grails.app','org.kuorum', 'kuorum'
 

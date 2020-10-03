@@ -5,6 +5,7 @@ import kuorum.web.commands.payment.massMailing.MassMailingCommand
 import kuorum.web.constants.WebConstants
 import org.grails.databinding.BindUsing
 import org.grails.databinding.BindingFormat
+import org.kuorum.rest.model.communication.CampaignValidationTypeRDTO
 import org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO
 
 @Validateable
@@ -27,7 +28,7 @@ class CampaignSettingsCommand {
     })
     Set<String> causes;
 
-    Boolean checkValidation;
+    CampaignValidationTypeRDTO validationType;
     Boolean hideResultsFlag;
     Boolean anonymous;
     Boolean signVotes;
@@ -48,7 +49,7 @@ class CampaignSettingsCommand {
         causes nullable: true
         debatable nullable: true
         eventAttached nullable: true
-        checkValidation nullable: true
+        validationType nullable: false
         hideResultsFlag nullable: true;
         groupValidation nullable: true;
         anonymous nullable: true;

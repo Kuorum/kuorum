@@ -200,7 +200,9 @@ var userValidatedByDomain={
         if ($form.valid()) {
             userValidatedByDomain.showModalLoading();
             var url = $form.attr("action");
+            console.log("CampaignID: "+userValidatedByDomain.dataValidation.campaignId);
             var data = {
+                campaignId:userValidatedByDomain.dataValidation.campaignId,
                 phoneNumberPrefix: $("#phoneNumberPrefix").val(),
                 phoneNumber: $("#phoneNumber").val()
             };
@@ -237,6 +239,7 @@ var userValidatedByDomain={
             userValidatedByDomain.showModalLoading();
             var url = $form.attr("action");
             var data = {
+                campaignId:userValidatedByDomain.dataValidation.campaignId,
                 validationPhoneNumber: $("#validationPhoneNumber").val(),
                 validationPhoneNumberPrefix: $("#validationPhoneNumberPrefix").val(),
                 phoneHash: $("#phoneHash").val(),
@@ -266,6 +269,7 @@ var userValidatedByDomain={
             userValidatedByDomain.showModalLoading();
             var url = $form.attr("action")
             var data = {
+                campaignId:userValidatedByDomain.dataValidation.campaignId,
                 customCode: $("#customCode").val()
             };
             $.ajax({
@@ -296,7 +300,7 @@ var userValidatedByDomain={
         var $button = $(this);
         var $form = $button.closest("form");
         var url = $form.attr("action");
-        var data = $form.serialize();
+        var data = $form.serialize()+"&campaignId="+userValidatedByDomain.dataValidation.campaignId;
         if ($form.valid()){
             userValidatedByDomain.showModalLoading();
 

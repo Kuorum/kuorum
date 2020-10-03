@@ -6,7 +6,7 @@
             ${campaign.name}
         </g:if>
         <g:else>
-            <g:message code="tools.campaign.new.participatoryBudget"/>
+            <g:message code="tools.campaign.new.PARTICIPATORY_BUDGET"/>
         </g:else>
     </g:set>
 

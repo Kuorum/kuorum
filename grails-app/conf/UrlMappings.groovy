@@ -401,13 +401,14 @@ class UrlMappings {
         name profilePictures:               "/edit-profile/pictures"                           (controller: "profile"){action=[GET:"editPictures", POST: "updatePictures"]}
         name profileNewsletterConfig:       "/config/newsletter-config"                        (controller: "profile"){action=[GET:"editNewsletterConfig", POST: "updateNewsletterConfig"]}
 
-        name customRegisterCensus:                      "/sign-up/census" (controller: "customRegister"){action = [GET:"step0RegisterWithCensusCode", POST:"step0RegisterWithCensusCodeSave"]}
-        name customProcessRegisterStep2:                "/edit-profile/sign-up/step2"               (controller: "customRegister"){action = [GET:"step2", POST:"step2Save"]}
-        name customProcessRegisterStep3:                "/edit-profile/sign-up/step3"               (controller: "customRegister", action :"step3")
-        name customProcessRegisterDomainValidation:     "/edit-profile/sign-up/domain-validation"   (controller: "customRegister"){action = [GET:"stepDomainValidation", POST:"stepDomainValidationSave"]}
-        name customProcessRegisterPoneValidationNumber: "/edit-profile/sign-up/phone-validation-number"   (controller: "customRegister"){action = [GET:"stepDomainValidationPhoneNumber"]}
-        name customProcessRegisterPoneValidationCode:   "/edit-profile/sign-up/phone-validation-code"   (controller: "customRegister"){action = [GET:"stepDomainValidationPhoneCode", POST:"stepDomainValidationPhoneCodeSave"]}
-        name customProcessRegisterCustomCodeValidation: "/edit-profile/sign-up/customCode-validation"   (controller: "customRegister"){action = [GET:"stepDomainValidationCustomCode", POST:"stepDomainValidationCustomCodeSave"]}
+        name customProcessRegisterStep2:          "/edit-profile/sign-up/step2"              (controller: "customRegister"){action = [GET:"step2", POST:"step2Save"]}
+        name customProcessRegisterStep3:          "/edit-profile/sign-up/step3"              (controller: "customRegister", action :"step3")
+
+        name campaignValidationLinkCheck:         "/sign-up/census"                          (controller: "campaignValidation"){action = [GET:"step0RegisterWithCensusCode", POST:"step0RegisterWithCensusCodeSave"]}
+        name campaignValidationCensus:            "/$userAlias/$urlTitle-$campaignId/validation/census"       (controller: "campaignValidation"){action = [GET:"stepCampaignValidationCensus", POST:"stepCampaignValidationCensusSave"]}
+        name campaignValidationCode:              "/$userAlias/$urlTitle-$campaignId/validation/customCode"   (controller: "campaignValidation"){action = [GET:"stepCampaignValidationCustomCode", POST:"stepCampaignValidationCustomCodeSave"]}
+        name campaignValidationPhoneNumber:       "/$userAlias/$urlTitle-$campaignId/validation/phone/number" (controller: "campaignValidation"){action = [GET:"stepCampaignValidationPhoneNumber"]}
+        name campaignValidationPhoneNumberCode:   "/$userAlias/$urlTitle-$campaignId/validation/phone/code"   (controller: "campaignValidation"){action = [GET:"stepCampaignValidationPhoneCode", POST:"stepCampaignValidationPhoneCodeSave"]}
 
         name profileDomainValidationChecker:            "/ajax/edit-profile/domain-valid-cheker"            (controller: "profile", action :"domainUserValidChecker")
         name profileDomainValidationByCensusValidate:   "/ajax/edit-profile/domain-validate"                (controller: "profile", action :"validateUser")

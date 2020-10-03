@@ -119,7 +119,7 @@ class CampaignService {
     CampaignRDTO basicMapping(CampaignRSDTO campaignRSDTO, CampaignRDTO rdto){
         if(campaignRSDTO) {
             rdto.name = campaignRSDTO.name
-            rdto.checkValidation = campaignRSDTO.checkValidation
+            rdto.validationType = campaignRSDTO.validationType
             rdto.triggeredTags = campaignRSDTO.triggeredTags
             rdto.anonymousFilter = campaignRSDTO.anonymousFilter
             rdto.filterId = campaignRSDTO.newsletter?.filter?.id

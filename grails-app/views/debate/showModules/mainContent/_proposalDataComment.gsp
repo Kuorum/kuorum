@@ -23,7 +23,8 @@
                         data-commentId="${comment.id}"
                         data-userAlias="${sec.username()}"
                         data-campaignValidationActive="${debate.checkValidationActive}"
-                        data-campaignGroupValidationActive="${debate.groupValidation?g.createLink(mapping: "campaignCheckGroupValidation", params: debate.encodeAsLinkProperties()):''}">
+                        data-campaignGroupValidationActive="${debate.groupValidation?g.createLink(mapping: "campaignCheckGroupValidation", params: debate.encodeAsLinkProperties()):''}"
+                        data-campaignId="${debate.id}">
                     <span class="fal fa-angle-up" aria-hidden="true"></span>
                 </button>
                 <button type="button" class="angle vote-down"
@@ -31,7 +32,8 @@
                         data-commentId="${comment.id}"
                         data-userAlias="${sec.username()}"
                         data-campaignGroupValidationActive="${debate.groupValidation?g.createLink(mapping: "campaignCheckGroupValidation", params: debate.encodeAsLinkProperties()):''}"
-                        data-campaignValidationActive="${debate.checkValidationActive}">
+                        data-campaignValidationActive="${debate.checkValidationActive}"
+                        data-campaignId="${debate.id}">
                     <span class="fal fa-angle-down" aria-hidden="true"></span>
                 </button>
 

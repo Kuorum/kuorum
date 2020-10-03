@@ -24,7 +24,7 @@
         <li class=""><div class="step-label"><g:message code="customRegister.step4.title"/></div></li>
     </ol>
     <formUtil:validateForm bean="${command}" form="step0" autocomplete="off"/>
-    <g:form mapping="customRegisterCensus" name="step0" role="form" method="POST" autocomplete="off"  class="signup step0">
+    <g:form mapping="campaignValidationLinkCheck" name="step0" role="form" method="POST" autocomplete="off"  class="signup step0">
         <input type="hidden" name="censusLogin" value="${censusLogin}"/>
         <input type="hidden" name="email" value="${contact.email}"/>
         <input type="hidden" name="name" value="${contact.name}"/>
@@ -32,19 +32,7 @@
         <fieldset class="row">
             <div class="form-group col-xs-12 center">
                 <p><g:message code="kuorum.web.commands.profile.directCensusLogin.intro" args="[contact.name]" encodeAs="raw"/></p>
-                <table class="autologin-contact-data">
-                    <tr><td><g:message code="kuorum.web.commands.payment.contact.ContactCommand.name.label"/>:</td><td>${contact.name}</td></tr>
-                    <g:if test="${contact.surname}">
-                        <tr><td><g:message code="kuorum.web.commands.payment.contact.ContactCommand.surname.label"/>:</td><td>${contact.surname}</td></tr>
-                    </g:if>
-                    <g:if test="${contact.phone}">
-                        <tr><td><g:message code="kuorum.web.commands.profile.DomainUserPhoneValidationCommand.phoneNumber.placeholder"/>:</td><td>${contact.phone.encodeAsHiddenPhone()}</td></tr>
-                    </g:if>
-                    <tr><td>email:</td><td>${contact.email}</td></tr>
-                    <g:if test="${contact.surveyVoteWeight != 1}">
-                        <tr><td><g:message code="kuorum.web.commands.payment.contact.ContactCommand.surveyVoteWeight.label"/>:</td><td>${contact.surveyVoteWeight}</td></tr>
-                    </g:if>
-                </table>
+                <g:render template="step0RegisterWithCensusCode_CodeData" model="[contact:contact, campaign:campaign]"/>
             </div>
         </fieldset>
         <fieldset class="row">

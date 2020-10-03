@@ -2,13 +2,8 @@ package payment.contact
 
 import com.fasterxml.jackson.core.type.TypeReference
 import grails.transaction.Transactional
-import kuorum.register.KuorumUserSession
 import kuorum.util.rest.RestKuorumApiService
-import kuorum.web.commands.payment.contact.ContactFilterCommand
-import org.kuorum.rest.model.contact.*
-import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
-import org.kuorum.rest.model.contact.filter.FilterRDTO
-import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
+import org.kuorum.rest.model.CensusLoginRDTO
 import org.kuorum.rest.model.kuorumUser.KuorumUserRSDTO
 
 @Transactional
@@ -16,7 +11,7 @@ class CensusService {
 
     RestKuorumApiService restKuorumApiService
 
-    ContactRSDTO getContactByCensusCode(String censusCode){
+    CensusLoginRDTO getContactByCensusCode(String censusCode){
         Map<String, String> params = [censusCode:censusCode]
         Map<String, String> query = [:]
 
@@ -25,12 +20,12 @@ class CensusService {
                     RestKuorumApiService.ApiMethod.CENSUS_LOGIN,
                     params,
                     query,
-                    new TypeReference<ContactRSDTO>(){})
-            ContactRSDTO contactRSDTO =null
+                    new TypeReference<CensusLoginRDTO>(){})
+            CensusLoginRDTO censusLoginRDTO =null
             if (response.data){
-                contactRSDTO = response.data
+                censusLoginRDTO = response.data
             }
-            contactRSDTO
+            censusLoginRDTO
         }catch(Exception e){
             log.info("Searching contact with census code ${censusCode} not found")
             return null;

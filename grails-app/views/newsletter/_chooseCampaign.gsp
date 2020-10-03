@@ -28,7 +28,7 @@
                         title=""
                         data-original-title="${g.message(code:'dashboard.payment.chooseCampaign.tooltip.post')}">
                     <span class="fal fa-newspaper"></span>
-                    <span class="label"><g:message code="tools.campaign.new.post"/></span>
+                    <span class="label"><g:message code="tools.campaign.new.POST"/></span>
                 </g:link>
             </li>
         </sec:ifAnyGranted>
@@ -42,7 +42,7 @@
                         title=""
                         data-original-title="${g.message(code:'dashboard.payment.chooseCampaign.tooltip.debate')}">
                     <span class="fal fa-comments"></span>
-                    <span class="label"><g:message code="tools.campaign.new.debate"/></span>
+                    <span class="label"><g:message code="tools.campaign.new.DEBATE"/></span>
                 </g:link>
             </li>
         </sec:ifAnyGranted>
@@ -56,7 +56,7 @@
                         title=""
                         data-original-title="${g.message(code:'dashboard.payment.chooseCampaign.tooltip.event')}">
                     <span class="fal fa-calendar-star"></span>
-                    <span class="label"><g:message code="tools.campaign.new.event"/></span>
+                    <span class="label"><g:message code="tools.campaign.new.EVENT"/></span>
                 </g:link>
             </li>
         </sec:ifAnyGranted>
@@ -71,7 +71,7 @@
                         title=""
                         data-original-title="${g.message(code:'dashboard.payment.chooseCampaign.tooltip.survey')}">
                     <span class="fal fa-chart-bar"></span>
-                    <span class="label"><g:message code="tools.campaign.new.survey"/></span>
+                    <span class="label"><g:message code="tools.campaign.new.SURVEY"/></span>
                 </g:link>
             </li>
         </sec:ifAnyGranted>
@@ -85,7 +85,7 @@
                         title=""
                         data-original-title="${g.message(code:'dashboard.payment.chooseCampaign.tooltip.petition')}">
                     <span class="fal fa-microphone"></span>
-                    <span class="label"><g:message code="tools.campaign.new.petition"/></span>
+                    <span class="label"><g:message code="tools.campaign.new.PETITION"/></span>
                 </g:link>
             </li>
         </sec:ifAnyGranted>
@@ -99,7 +99,7 @@
                         title=""
                         data-original-title="${g.message(code:'dashboard.payment.chooseCampaign.tooltip.participatoryBudget')}">
                     <span class="fal fa-money-bill-alt"></span>
-                    <span class="label"><g:message code="tools.campaign.new.participatoryBudget"/></span>
+                    <span class="label"><g:message code="tools.campaign.new.PARTICIPATORY_BUDGET"/></span>
                 </g:link>
             </li>
         </sec:ifAnyGranted>
@@ -113,7 +113,7 @@
                         title=""
                         data-original-title="${g.message(code:'dashboard.payment.chooseCampaign.tooltip.districtProposal')}">
                     <span class="fal fa-rocket"></span>
-                    <span class="label"><g:message code="tools.campaign.new.districtProposal"/></span>
+                    <span class="label"><g:message code="tools.campaign.new.DISTRICT_PROPOSAL"/></span>
                 </g:link>
 
             <!-- Modal show active participative budgets -->

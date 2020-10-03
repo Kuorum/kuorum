@@ -82,6 +82,7 @@
                         data-campaignValidationActive="${debate.checkValidationActive}"
                         data-campaignGroupValidationActive="${debate.groupValidation?g.createLink(mapping: "campaignCheckGroupValidation", params: debate.encodeAsLinkProperties()):''}"
                         data-debateId="${debate.id}"
+                        data-campaignId="${debate.id}"
                         data-debateUserId="${debate.user.id}"
                         data-proposalId="${proposal.id}"
                         data-userLogged="${userUtil.loggedUserId()}"

@@ -6,7 +6,7 @@
             ${campaign.name}
         </g:if>
         <g:else>
-            <g:message code="tools.campaign.new.districtProposal"/>
+            <g:message code="tools.campaign.new.DISTRICT_PROPOSAL"/>
         </g:else>
     </g:set>
 

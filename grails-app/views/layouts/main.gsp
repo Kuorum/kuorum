@@ -84,7 +84,7 @@
     </r:script>
 </g:if>
 <sec:ifAnyGranted roles="ROLE_INCOMPLETE_USER">
-    <nav:ifActiveMapping mappingNames="customProcessRegisterStep2, customProcessRegisterStep3, registerSubscriptionStep1, registerSubscriptionStep1Save, registerSubscriptionStep3, customProcessRegisterDomainValidation,customProcessRegisterPoneValidationNumber,customProcessRegisterPoneValidationCode, customProcessRegisterCustomCodeValidation" equals="false">
+    <nav:ifActiveMapping mappingNames="customProcessRegisterStep2, customProcessRegisterStep3, registerSubscriptionStep1, registerSubscriptionStep1Save, registerSubscriptionStep3" equals="false">
         <r:script>
             function notMailConfirmedWarn(){
                 display.warn("<userUtil:showMailConfirm />");

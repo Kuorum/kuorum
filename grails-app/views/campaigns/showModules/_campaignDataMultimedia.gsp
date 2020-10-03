@@ -16,10 +16,10 @@
             <g:link mapping="debateShow" params="${campaign.encodeAsLinkProperties()}" target="_blank">Powered by Kuorum</g:link>
         </div>
     </g:if>
-    <g:if test="${campaign.checkValidation}">
+    <g:if test="${!campaign.validationType.equals(org.kuorum.rest.model.communication.CampaignValidationTypeRDTO.NONE)}">
         <div class="multimedia-campaign-validationInfo">
             <div class="center-block">
-                <abbr title="${g.message(code:'kuorum.web.commands.payment.CampaignSettingsCommand.checkValidation.label.info')}">
+                <abbr title="${g.message(code:'kuorum.web.commands.payment.CampaignSettingsCommand.validationType.label.info')}">
                     <span class="far fa-check"></span>
                 </abbr>
             </div>

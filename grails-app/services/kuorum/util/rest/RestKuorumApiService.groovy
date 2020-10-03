@@ -212,10 +212,11 @@ class RestKuorumApiService {
         USER_IMG_AVATAR         ('/user/{userId}/files/avatar'),
         USER_IMG_PROFILE        ('/user/{userId}/files/profile'),
 
-        USER_DATA               ('/user/{userId}/data/'),
-        USER_DOMAIN_VALIDATION  ('/user/{userId}/valid'),
-        USER_PHONE_DOMAIN_VALIDATION  ('/user/{userId}/valid/phone'),
-        USER_CODE_DOMAIN_VALIDATION  ('/user/{userId}/valid/code'),
+        USER_DATA                   ('/user/{userId}/data/'),
+        USER_VALIDATION_STATUS      ('/user/{userId}/validation/{campaignId}'),
+        USER_VALIDATION_CENSUS      ('/user/{userId}/validation/{campaignId}/census'),
+        USER_VALIDATION_PHONE       ('/user/{userId}/validation/{campaignId}/phone'),
+        USER_VALIDATION_CODE        ('/user/{userId}/validation/{campaignId}/code'),
 
         USER_CONTACTS           ('/contacts/{userId}'),
         USER_CONTACT            ('/contacts/{userId}/{contactId}'),

@@ -35,7 +35,7 @@
 <g:if test="${campaign.event}">
     <g:set var="type" value="event"/>
     <g:set var="faIcon" value="fa-calendar-star"/>
-    <g:set var="typeName" value="${g.message(code: 'tools.campaign.new.event')}"/>
+    <g:set var="typeName" value="${g.message(code: 'tools.campaign.new.EVENT')}"/>
 </g:if>
 
 

@@ -18,6 +18,7 @@ import org.kuorum.rest.model.communication.CampaignPageRSDTO
 import org.kuorum.rest.model.communication.CampaignRDTO
 import org.kuorum.rest.model.communication.CampaignRSDTO
 import org.kuorum.rest.model.communication.CampaignTypeRSDTO
+import org.kuorum.rest.model.communication.CampaignValidationTypeRDTO
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.kuorum.rest.model.communication.event.EventRDTO
 import org.kuorum.rest.model.communication.survey.SurveyRDTO
@@ -115,7 +116,7 @@ class CampaignController {
             command.campaignName = campaignRSDTO.name
             command.tags = campaignRSDTO.triggeredTags
             command.filterId = campaignRSDTO.newsletter?.filter?.id
-            command.checkValidation = campaignRSDTO.checkValidation
+            command.validationType = campaignRSDTO.validationType
             command.groupValidation = campaignRSDTO.groupValidation
             command.hideResultsFlag = campaignRSDTO.hideResultsFlag
             command.newsletterCommunication = campaignRSDTO.newsletterCommunication
@@ -129,7 +130,7 @@ class CampaignController {
                 filters.add(anonymousFilter)
             }
         }else{
-            command.checkValidation = CustomDomainResolver.domainRSDTO?.validation
+            command.validationType = CustomDomainResolver.domainRSDTO?.validation? CampaignValidationTypeRDTO.DOMAIN: CampaignValidationTypeRDTO.NONE
         }
         [
                 filters: filters,
@@ -154,8 +155,10 @@ class CampaignController {
         rdto.setTriggeredTags(command.tags)
         rdto.causes = command.causes
         if (CustomDomainResolver.domainRSDTO?.validation){
-            // Only if domain validation is active, then the checkValidation of the campaign is editable
-            rdto.checkValidation = command.checkValidation?:false
+            // Only if domain validation is active, then the validationType of the campaign is editable
+            rdto.validationType = command.validationType
+        }else{
+            rdto.validationType =  CampaignValidationTypeRDTO.NONE
         }
         rdto.hideResultsFlag = command.hideResultsFlag==null?false:command.hideResultsFlag
         rdto.groupValidation = command.groupValidation==null?false:command.groupValidation

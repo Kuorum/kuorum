@@ -67,8 +67,9 @@
                            data-postId="${campaign.id}"
                            data-postUserId="${campaign.ownerId}"
                            data-urlAction="${g.createLink(mapping: "postLike")}"
-                           data-campaignValidationActive="${campaign.checkValidation}"
+                           data-campaignValidationActive="${campaign.checkValidationActive}"
                            data-campaignGroupValidationActive="${campaign.groupValidation?g.createLink(mapping: "campaignCheckGroupValidation", params: campaign.encodeAsLinkProperties()):''}"
+                           data-campaignId="${campaign.id}"
                            data-loggedUser="${sec.username()}">
                             <span class="${campaign.liked?'fas':'fal'} fa-heart fa-lg"></span>
                             <span class="number">${campaign.likes}</span>

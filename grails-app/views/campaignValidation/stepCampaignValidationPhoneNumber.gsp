@@ -24,7 +24,7 @@
         <li class=""><div class="step-label"><g:message code="customRegister.step4.title"/></div></li>
     </ol>
     <formUtil:validateForm bean="${command}" form="stepDomainValidationPhoneNumber" autocomplete="off"/>
-    <g:form mapping="customProcessRegisterPoneValidationCode" name="stepDomainValidationPhoneNumber" role="form" method="GET" autocomplete="off"  class="signup stepDomainValidationPhoneNumber">
+    <g:form mapping="campaignValidationPhoneNumberCode" params="${campaign.encodeAsLinkProperties()}" name="stepDomainValidationPhoneNumber" role="form" method="GET" autocomplete="off"  class="signup stepDomainValidationPhoneNumber">
         <fieldset class="row">
             <g:if test="${predefinedPhone}">
                 <input type="hidden" value="000" name="phoneNumber"/>

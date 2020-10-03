@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <g:set var="breadCrumbName">
-        <g:message code="tools.campaign.new.survey"/>
+        <g:message code="tools.campaign.new.SURVEY"/>
     </g:set>
 
     <title>${breadCrumbName}</title>

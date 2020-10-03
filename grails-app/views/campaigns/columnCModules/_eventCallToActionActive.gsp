@@ -27,6 +27,7 @@
                             data-campaignValidationActive="${campaign.checkValidationActive}"
                             data-campaignGroupValidationActive="${campaign.groupValidation?g.createLink(mapping: "campaignCheckGroupValidation", params: campaign.encodeAsLinkProperties()):''}"
                             data-eventUserId="${campaign.user.id}"
+                            data-campaignId="${campaign.id}"
                             data-postUrl="${g.createLink(mapping: 'eventBookTicket', params:campaign.encodeAsLinkProperties())}"
                     >
                         ${message(code: "event.callToAction.button")}
