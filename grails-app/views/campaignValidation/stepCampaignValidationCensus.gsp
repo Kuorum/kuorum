@@ -1,7 +1,7 @@
 <%@ page import="kuorum.core.model.UserType" %>
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
-    <title><g:message code="page.title.login" args="[kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.name]"/> </title>
+    <title><g:message code="customRegister.stepDomainValidation.title"/> </title>
     <meta name="layout" content="centerColumn1Layout">
     <parameter name="showHeadSearch" value="false"/>
     <parameter name="showNavBar" value="false"/>
