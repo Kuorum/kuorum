@@ -52,6 +52,8 @@ class CampaignValidationController {
                 render view: '/campaignValidation/step0RegisterWithCensusCode_NOT_ACTIVE' , model:[redirectUrl:null, contact: contact, campaign:campaign]
             } else if (springSecurityService.isLoggedIn()){
 //                flash.message="You are already logged"
+                log.info("Receviced a valid censusLogin [${censusLogin}] -> User is the same as the censusLogin.");
+                KuorumUserRSDTO userFromContact = censusService.createUserByCensusCode(censusLogin); // THis method creates the user if not exists and then validates it.
                 censusService.deleteCensusCode(censusLogin)
                 redirect uri:calcNextStepMappingName(campaign)
             }else if (contact.getMongoId()){
