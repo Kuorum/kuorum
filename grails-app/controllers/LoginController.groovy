@@ -181,7 +181,12 @@ class LoginController {
 	 * The Ajax success redirect url.
 	 */
 	def ajaxSuccess = {
-		render([success: true, username: springSecurityService.authentication.name] as JSON)
+		if (springSecurityService.isAjax(request)) {
+			render([success: true, username: springSecurityService.authentication.name] as JSON)
+		}
+		else {
+			redirect mapping:'home'
+		}
 	}
 
 	/**
