@@ -110,7 +110,7 @@ var surveyFunctions = {
             }
         }
     },
-    _openRegisterModal(question){
+    _openRegisterModal: function(question){
         // USER NO LOGGED
         var buttonId = guid();
         var $buttonNext = $(question).find("button[data-campaignId]");
