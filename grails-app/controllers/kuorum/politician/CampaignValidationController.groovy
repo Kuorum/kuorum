@@ -137,7 +137,7 @@ class CampaignValidationController {
             return
         }
         KuorumUserSession userSession =  springSecurityService.principal
-        UserValidationRSDTO userValidationRSDTO = kuorumUserService.userCodeDomainValidation(userSession, campaignId, domainUserCustomCodeValidationCommand.customCode)
+        UserValidationRSDTO userValidationRSDTO = kuorumUserService.userCodeDomainValidation(userSession, campaign.getId(), command.customCode)
         String msg;
         if (userValidationRSDTO.codeStatus.isGranted()){
             msg = "Success validation"
@@ -149,7 +149,7 @@ class CampaignValidationController {
         if (userValidationRSDTO.codeStatus.isGranted()){
             redirect uri:calcNextStepMappingName(campaign,userValidationRSDTO)
         }else{
-            command.errors.rejectValue('customCode',msg)
+            command.errors.rejectValue('customCode',"validationError", msg)
             render view: "stepCampaignValidationCustomCode", model:[command:command, campaign:campaign]
         }
     }
