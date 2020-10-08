@@ -48,11 +48,11 @@
             <g:if test="${options.showCampaignDateLimits}">
                 <fieldset class="form-group" id="campaign-date-range">
                     <label for="startDate" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.CampaignSettingsCommand.startDate.label"/>:</label>
-                    <div class="col-sm-8 col-md-4">
+                    <div class="col-sm-4 col-md-4">
                         <formUtil:date command="${command}" field="startDate" time="true"/>
                     </div>
-                    <label for="endDate" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.CampaignSettingsCommand.endDate.label"/>:</label>
-                    <div class="col-sm-8 col-md-4">
+                    <label for="endDate" class="col-sm-1 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.CampaignSettingsCommand.endDate.label"/>:</label>
+                    <div class="col-sm-4 col-md-4">
                         <formUtil:date command="${command}" field="endDate" time="true"/>
                     </div>
                     <r:script>
@@ -68,8 +68,8 @@
                         <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="${g.message(code:'kuorum.web.commands.payment.CampaignSettingsCommand.validationType.label.info')}"></span>
                         <g:message code="kuorum.web.commands.payment.CampaignSettingsCommand.validationType.label.left"/>:
                     </label>
-                    <div class="col-sm-8 col-md-7">
-                        <formUtil:selectEnum command="${command}" field="validationType" disabled="${!domainValidation}"/>
+                    <div class="col-sm-4 col-md-4">
+                        <formUtil:selectEnum command="${command}" field="validationType" disabled="${!domainValidation}" showLabel="false"/>
                     </div>
                 </fieldset>
             </g:if>
