@@ -90,7 +90,7 @@ var userValidatedByDomain={
                 // User is no logged or is not validated
                 // Showing modal validation process
                 // pageLoadingOff();
-                display.error("Error checking validation")
+                display.error(i18n.kuorum.session.validation.error)
             },
             complete: function () {
                 pageLoadingOff();
@@ -133,7 +133,7 @@ var userValidatedByDomain={
                 // User is no logged or is not validated
                 // Showing modal validation process
                 // pageLoadingOff();
-                display.error("Error checking validation")
+                display.error("Error group validation")
             },
             complete: function () {
                 pageLoadingOff();

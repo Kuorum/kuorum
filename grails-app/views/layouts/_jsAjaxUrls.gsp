@@ -131,6 +131,11 @@
                         }
                     }
                 }
+            },
+            session:{
+                validation:{
+                    error : "<g:message code="kuorum.session.validation.error"/>"
+                }
             }
         },
         debate:{
