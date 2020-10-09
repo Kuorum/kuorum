@@ -12,7 +12,7 @@
                         data-toggle="tooltip"
                         data-placement="bottom"
                         title=""
-                        data-original-title="${g.message(code:'dashboard.payment.chooseCampaign.tooltip.newsletter')}">
+                        data-original-title="${g.message(code:'dashboard.payment.chooseCampaign.tooltip.NEWSLETTER')}">
                     <span class="fal fa-envelope"></span>
                     <span class="label"><g:message code="tools.campaign.new.newsletter"/></span>
                 </g:link>
@@ -26,7 +26,7 @@
                         data-toggle="tooltip"
                         data-placement="bottom"
                         title=""
-                        data-original-title="${g.message(code:'dashboard.payment.chooseCampaign.tooltip.post')}">
+                        data-original-title="${g.message(code:'dashboard.payment.chooseCampaign.tooltip.POST')}">
                     <span class="fal fa-newspaper"></span>
                     <span class="label"><g:message code="tools.campaign.new.POST"/></span>
                 </g:link>
@@ -40,7 +40,7 @@
                         data-toggle="tooltip"
                         data-placement="bottom"
                         title=""
-                        data-original-title="${g.message(code:'dashboard.payment.chooseCampaign.tooltip.debate')}">
+                        data-original-title="${g.message(code:'dashboard.payment.chooseCampaign.tooltip.DEBATE')}">
                     <span class="fal fa-comments"></span>
                     <span class="label"><g:message code="tools.campaign.new.DEBATE"/></span>
                 </g:link>
@@ -54,7 +54,7 @@
                         data-toggle="tooltip"
                         data-placement="bottom"
                         title=""
-                        data-original-title="${g.message(code:'dashboard.payment.chooseCampaign.tooltip.event')}">
+                        data-original-title="${g.message(code:'dashboard.payment.chooseCampaign.tooltip.EVENT')}">
                     <span class="fal fa-calendar-star"></span>
                     <span class="label"><g:message code="tools.campaign.new.EVENT"/></span>
                 </g:link>
@@ -69,7 +69,7 @@
                         data-toggle="tooltip"
                         data-placement="bottom"
                         title=""
-                        data-original-title="${g.message(code:'dashboard.payment.chooseCampaign.tooltip.survey')}">
+                        data-original-title="${g.message(code:'dashboard.payment.chooseCampaign.tooltip.SURVEY')}">
                     <span class="fal fa-chart-bar"></span>
                     <span class="label"><g:message code="tools.campaign.new.SURVEY"/></span>
                 </g:link>
@@ -83,7 +83,7 @@
                         data-toggle="tooltip"
                         data-placement="bottom"
                         title=""
-                        data-original-title="${g.message(code:'dashboard.payment.chooseCampaign.tooltip.petition')}">
+                        data-original-title="${g.message(code:'dashboard.payment.chooseCampaign.tooltip.PETITION')}">
                     <span class="fal fa-microphone"></span>
                     <span class="label"><g:message code="tools.campaign.new.PETITION"/></span>
                 </g:link>
@@ -97,7 +97,7 @@
                         data-toggle="tooltip"
                         data-placement="bottom"
                         title=""
-                        data-original-title="${g.message(code:'dashboard.payment.chooseCampaign.tooltip.participatoryBudget')}">
+                        data-original-title="${g.message(code:'dashboard.payment.chooseCampaign.tooltip.PARTICIPATORY_BUDGET')}">
                     <span class="fal fa-money-bill-alt"></span>
                     <span class="label"><g:message code="tools.campaign.new.PARTICIPATORY_BUDGET"/></span>
                 </g:link>
@@ -111,7 +111,7 @@
                         data-toggle="tooltip"
                         data-placement="bottom"
                         title=""
-                        data-original-title="${g.message(code:'dashboard.payment.chooseCampaign.tooltip.districtProposal')}">
+                        data-original-title="${g.message(code:'dashboard.payment.chooseCampaign.tooltip.DISTRICT_PROPOSAL')}">
                     <span class="fal fa-rocket"></span>
                     <span class="label"><g:message code="tools.campaign.new.DISTRICT_PROPOSAL"/></span>
                 </g:link>
