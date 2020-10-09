@@ -159,6 +159,17 @@ class SurveyController extends CampaignController{
         }catch(Exception e){
             if (e.cause.cause instanceof KuorumException &&  e.cause.cause.errors[0].code=="error.api.SERVICE_CAMPAIGN_NOT_EDITABLE"){
                 log.info("This questions is already answered. ")
+//                render(contentType: "text/json") { response ERROR: [code: 403, msg: "Access Denied."] }
+            }else if (e.cause.cause instanceof KuorumException &&  e.cause.cause.errors[0].code=="error.api.SERVICE_UNAUTHORIZED"){
+                log.info("The user is not authorized. Probably admin changed campaign validation and user didn't reload. ")
+                response.status = 403
+                render([status:"403",msg:g.message(code:'kuorum.web.commands.payment.survey.QuestionAnswerCommand.failValidation')] as JSON)
+                return;
+            }else if (e.cause.cause instanceof KuorumException &&  e.cause.cause.errors[0].code=="error.api.SERVICE_CAMPAIGN_CLOSED"){
+                log.info("The survey is closed. The user is not allowed to add new answers")
+                response.status = 405
+                render([status:"405",msg:g.message(code:'kuorum.web.commands.payment.survey.QuestionAnswerCommand.surveyClosed')] as JSON)
+                return;
             }else{
                 throw e;
             }

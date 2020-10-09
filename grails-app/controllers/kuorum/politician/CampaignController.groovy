@@ -1,6 +1,7 @@
 package kuorum.politician
 
 import grails.plugin.springsecurity.SpringSecurityService
+import grails.plugin.springsecurity.annotation.Secured
 import groovy.time.TimeCategory
 import kuorum.KuorumFile
 import kuorum.core.FileType
@@ -387,6 +388,7 @@ class CampaignController {
         campaignService.remove(loggedUser, campaignId)
     }
 
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def checkGroupCampaignValidation(String userAlias, Long campaignId){
         String userId = null;
         if (springSecurityService.isLoggedIn()){

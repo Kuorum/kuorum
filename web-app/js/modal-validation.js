@@ -89,7 +89,7 @@ var userValidatedByDomain={
             error:function(){
                 // User is no logged or is not validated
                 // Showing modal validation process
-                // pageLoadingOff();
+                pageLoadingOff();
                 display.error(i18n.kuorum.session.validation.error)
             },
             complete: function () {
@@ -225,6 +225,7 @@ var userValidatedByDomain={
                     display.error("There was an error sending a sms validation to your phone number")
                 },
                 complete: function () {
+                    pageLoadingOff();
                     // userValidatedByDomain.hideModalLoading()
                 }
             });
