@@ -139,7 +139,7 @@ var surveyFunctions = {
         if (surveyFunctions._checkValidAnswers(question)){
             if (question.classList.contains("multi-answer")){
                 surveyFunctions._multiOptionNextButtonClick(question)
-            }if (question.classList.contains("rating-answer")){
+            }else if (question.classList.contains("rating-answer")){
                 surveyFunctions._ratingOptionNextButtonClick(question)
             }else {
                 surveyFunctions._singleOptionNextButtonClick(question)
