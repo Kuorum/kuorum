@@ -2842,6 +2842,12 @@ form#sign {margin: 30px auto 0; max-width: 900px;}
 .onecol #main .signup table.autologin-contact-data td:first-child{ padding-right: 10px;width: 50%; text-align: right}
 .onecol #main .signup table.autologin-contact-data td:last-child{font-weight: bold; text-align: left}
 
+
+.onecol #main .signup.stepDomainValidation.count-down{}
+.onecol #main .signup.stepDomainValidation.count-down .count-down-info{}
+.onecol #main .signup.stepDomainValidation.count-down .count-down-timer{font-size:12vmin;margin: 8vw 0 10vw;font-weight: bold;}
+.onecol #main .signup.stepDomainValidation.count-down .count-down-footer{}
+
 /* Subscribe */
 .landing + .row.main .onecol #main.subscribe {min-height: 0; margin-bottom: 40px;}
 .onecol .subscribe > p {font-size: 25px; font-size: 2.5rem; margin-top: 45px;}
@@ -3082,6 +3088,8 @@ h2.underline {border-bottom: 1px solid #dadada; padding: 0 0 10px 0; margin-top:
 .modal-domain-validation .modal-domain-validation-phone .modal-domain-validation-phone-step1 .modal-domain-validation-phone-step1-predefinedPhone .modal-domain-validation-phone-step1-predefinedPhone-phone{font-weight: bold;}
 .modal-domain-validation .modal-domain-validation-phone .modal-domain-validation-phone-step2{display:none;}
 .modal-domain-validation .loading {background: none;font-size: 30px;    height: auto;}
+
+
 
 .modal .input-group-addon,
 .dropdown .input-group-addon {width: 95px;}
@@ -5394,6 +5402,9 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .onecol #main .signup {max-width: 680px;}
     .onecol #main .signup.final {background-position: center 90px;}
     .onecol #main .signup.final h3 {margin-bottom: 280px;}
+
+    .onecol #main .signup.count-down{max-width: 100%;}
+    .onecol #main .signup.stepDomainValidation.count-down .count-down-timer{margin: 1em 0 1.5em;}
     .main.special.noResults {padding-top: 40px;}
     .main.special .no-results h1,
     .box-ppal.politician-messages h1.alert {padding-left: 150px; padding-right: 50px; background-size: 120px auto; margin-bottom: 40px; font-size: 36px;}

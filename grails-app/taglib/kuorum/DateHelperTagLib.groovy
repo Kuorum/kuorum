@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat
 
 class DateHelperTagLib {
     static defaultEncodeAs = 'html'
-    static encodeAsForTags = [humanDate: 'raw', printTimeZoneName:'raw']
+    static encodeAsForTags = [humanDate: 'raw', printTimeZoneName:'raw', printCountDown:'raw']
 
     static namespace = "kuorumDate"
 
@@ -70,5 +70,28 @@ class DateHelperTagLib {
         String symbol = offsetHours >=0?"+":"";
         String timeZoneName = g.formatDate(format:"z",date:date, timeZone:zoneInfo);
         out << "<span data-toggle='tooltip' data-placement='bottom' data-original-title='UTC ${symbol}${offsetHours} h'>${timeZoneName}</span>";
+    }
+
+    def printCountDown = {attrs ->
+        Date date = attrs.date
+        String idTag = attrs.id?"id='${attrs.id}'":""
+        if (!date) {
+            out << "---"
+        } else {
+            String itemprop = attrs.itemprop?"itemprop='${attrs.itemprop}'":''
+            String cssClass = attrs.cssClass?:""
+            TimeZone tz = TimeZone.getTimeZone("UTC")
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'")
+            df.setTimeZone(tz)
+            String dateAsISO = df.format(date)
+            Long diff = date.getTime() - new Date().getTime()
+            long diffSeconds = Math.floor(diff / 1000) % 60;
+            long diffMinutes = Math.floor(diff / (60 * 1000)) % 60;
+            long diffHours = Math.floor(diff / (60 * 60 * 1000)) % 24;
+            long diffDays = Math.floor(diff / (24 * 60 * 60 * 1000));
+
+
+            out << "<div class='count-down-timer ${cssClass}' datetime='${dateAsISO}' ${idTag}>${diffDays * 24+diffHours}:${diffMinutes}:${diffSeconds}</div>"
+        }
     }
 }
