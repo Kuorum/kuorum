@@ -655,12 +655,12 @@ var surveyFunctions = {
             dataType: 'json'
         }).fail(function(xhr, status, error) {
             console.log(error);
-            if (status==401){
+            if (xhr.status==401){
                 surveyFunctions._openRegisterModal(question)
-            }else if (status=403){
+            }else if (xhr.status=403){
                 display.warn(xhr.responseJSON.msg)
                 noLoggedCallbacks.reloadPage("Survey :: _sendQuestionAnswers :: Survey validation changed");
-            }else if (status=405){
+            }else if (xhr.status=405){
                 display.warn(xhr.responseJSON.msg)
                 noLoggedCallbacks.reloadPage("Survey :: _sendQuestionAnswers :: Survey closed");
             }else{
