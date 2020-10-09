@@ -62,10 +62,15 @@
         <url-pattern>*.gsp</url-pattern>
     </servlet-mapping>
 
+
+    <!-- ==================== Default Session Configuration ================= -->
+    <!-- You can set the default session timeout (in minutes) for all newly   -->
+    <!-- created sessions by modifying the value below.                       -->
+    <!-- 8h -> 60 * 8 = 480 mins-->
     <session-config>
-        <!-- 30 minutes -->
-        <session-timeout>30</session-timeout>
+        <session-timeout>480</session-timeout>
     </session-config>
+
 
     <welcome-file-list>
         <!--
