@@ -98,9 +98,7 @@ var userValidatedByDomain={
         });
     },
     checkGroupValidation:function(executableFunctionCallback, closeCallbackModal){
-        console.log("Check Group Validation")
         if (userValidatedByDomain.dataValidation.groupValidation != undefined && userValidatedByDomain.dataValidation.groupValidation != ''){
-            console.log("No group")
             userValidatedByDomain._ajaxRemoteCheckGroupValidation(executableFunctionCallback)
         }else{
             executableFunctionCallback.exec()
@@ -116,9 +114,9 @@ var userValidatedByDomain={
             url: url,
             data: userValidatedByDomain.dataValidation,
             success: function (dataCheckGroupValidation) {
-                console.log(dataCheckGroupValidation)
+                // console.log(dataCheckGroupValidation)
                 // var jsonValidation = JSON.parse(dataCheckGroupValidation);
-                console.log(dataCheckGroupValidation.belongsToCampaignGroup)
+                // console.log(dataCheckGroupValidation.belongsToCampaignGroup)
                 if (dataCheckGroupValidation.belongsToCampaignGroup){
                     console.log("Validation Group :: Ok");
                     executableFunctionCallback.exec()
@@ -352,29 +350,31 @@ var userValidatedByDomain={
 
     nextValidationStep: function(callbackData){
         // Success is 200 code No
-        console.log("Next step");
+        console.log("Next step :: init");
         if (callbackData.validated) {
-            console.log("Validated")
+            console.log("Next step :: Validated")
             userValidatedByDomain.hideErrorModal();
             userValidatedByDomain.validated = true;
             $("#validateDomain-modal-form-button-id").find(".text-success").show();
             userValidatedByDomain.checkGroupValidation(executable, function(){
                 setTimeout(function () {
+                    console.log("Closing modal")
                     $("#domain-validation").modal("hide")
                 }, 1000);
             });
         }else if (!callbackData.success){ // ERRORS ON AJAX CALL
             // RESTORE STATUS
-            console.log("Error")
+            console.log("Next step :: Not validation success");
             userValidatedByDomain.showErrorModal(callbackData.msg)
         }else{
             if (!callbackData.pendingValidations.censusValidation.success){
-                console.log("Show Census validation")
+                console.log("Next step :: Show Census validation")
                 userValidatedByDomain.showCensusValidation();
             }else if (!callbackData.pendingValidations.codeValidation.success){
-                console.log("Show Code validation")
+                console.log("Next step :: Show Code validation")
                 userValidatedByDomain.showCodeValidation();
             }else if (!callbackData.pendingValidations.phoneValidation.success){
+                console.log("Next step :: Show phone validation");
                 if (callbackData.pendingValidations.phoneValidation.data.predefinedPhone){
                     userValidatedByDomain.dataValidation.predefinedPhone=true;
                     $(".modal-domain-validation-phone-step1-predefinedPhone-phone").html(callbackData.pendingValidations.phoneValidation.data.phone)
