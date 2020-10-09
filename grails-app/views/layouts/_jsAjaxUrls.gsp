@@ -134,7 +134,8 @@
             },
             session:{
                 validation:{
-                    error : "<g:message code="kuorum.session.validation.error"/>"
+                    error : "<g:message code="kuorum.session.validation.error"/>",
+                    groupError : "<g:message code="kuorum.session.validation.groupError"/>",
                 }
             }
         },

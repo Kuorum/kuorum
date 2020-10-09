@@ -131,7 +131,7 @@ var userValidatedByDomain={
                 // User is no logged or is not validated
                 // Showing modal validation process
                 // pageLoadingOff();
-                display.error("Error group validation")
+                display.error(i18n.kuorum.session.validation.groupError)
             },
             complete: function () {
                 pageLoadingOff();
