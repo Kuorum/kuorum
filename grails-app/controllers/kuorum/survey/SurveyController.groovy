@@ -256,6 +256,7 @@ class SurveyController extends CampaignController{
         command.text = questionRSDTO.text
         command.maxAnswers = questionRSDTO.maxAnswers
         command.minAnswers = questionRSDTO.minAnswers
+        command.points = questionRSDTO.points
         command.questionLimitAnswersType = QuestionLimitAnswersType.inferType(questionRSDTO)
         command.options = questionRSDTO.options.collect{mapQuestionOption(it)}
         return command
