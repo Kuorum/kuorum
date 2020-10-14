@@ -203,6 +203,7 @@ class SurveyController extends CampaignController{
         questionRDTO.id = command.id
         questionRDTO.text = command.text
         questionRDTO.questionType = command.questionType
+        questionRDTO.points = command.points?:0D;
         if (command.questionLimitAnswersType == QuestionLimitAnswersType.RANGE){
             questionRDTO.minAnswers = command.minAnswers;
             questionRDTO.maxAnswers = command.maxAnswers

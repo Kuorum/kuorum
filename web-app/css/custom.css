@@ -4701,7 +4701,8 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 #questionsSurveyForm fieldset.question-options .questionOption .question:first-child > div .removeQuestionButton {display: none}
 #questionsSurveyForm.sort-questions fieldset.question-options{max-height: 0;}
 
-#questionsSurveyForm div.question-type{padding:0;margin-top:5px}
+#questionsSurveyForm div.question-type{padding:0;margin-top:5px; text-align: center}
+#questionsSurveyForm div.question-type-info{padding:10px;}
 #questionsSurveyForm div.question-type + div.form-group-remove{margin-top:5px}
 #questionsSurveyForm.campaign-published div.quesiton-dynamic-fields:not(.dynamic-input-new-line) .removeQuestionButton,
 #questionsSurveyForm.campaign-published div.quesiton-dynamic-fields:not(.dynamic-input-new-line) .removeButton{display: none;}

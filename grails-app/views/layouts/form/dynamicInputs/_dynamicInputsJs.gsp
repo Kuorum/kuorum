@@ -99,6 +99,7 @@
         ${validationDataVarIndex}++;
         formHelper.dirtyFormControl.restart($('#${formId}'));
         formHelper.prepareForms();
+
     }
 
     function removeLine_${formId}($row){
@@ -121,11 +122,13 @@
         // Add button click handler
             .on('click', '.addButton', function(e) {
                 e.preventDefault();
+                var $button = $(this);
                 var numElementsOnList = $('#${formId} div.dynamic-fieldset').length -1;
                 if (numElementsOnList >=  ${validationDataMaxSize}){
                     $("#dynamicInputOverflow_${formId}").modal("show")
                 }else{
                     addLine_${formId}()
+                    $button.trigger("kuorum.dynamicInput.add",["${formId}"])
                 }
             })
 

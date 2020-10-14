@@ -80,6 +80,7 @@ class QuestionCommand{
     List<QuestionOptionCommand> options =[new QuestionOptionCommand(),new QuestionOptionCommand()]
     Integer maxAnswers = 1;
     Integer minAnswers = 1;
+    Double points;
 
     static validateOptions = {val, obj ->
         String error = null
@@ -119,6 +120,7 @@ class QuestionCommand{
         options minSize: 2, validator: validateOptions
         maxAnswers min:0, validator: validateMaxAnswer
         minAnswers min:1, validator: validateMinAnswer
+        points min:0D, nullable: true
         questionLimitAnswersType nullable: false
     }
 }

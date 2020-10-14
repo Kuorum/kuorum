@@ -145,6 +145,32 @@
                     campaignClosed:"<g:message code="debate.proposal.action.campaignClosed"/>"
                 }
             }
+        },
+        org:{
+            kuorum:{
+                rest:{
+                    model:{
+                        communication:{
+                            survey:{
+                                QuestionTypeRSDTO:{
+                                    MULTIPLE_OPTION_WEIGHTED:   {info: "${g.message(code:'org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.MULTIPLE_OPTION_WEIGHTED.info')}"},
+                                    MULTIPLE_OPTION_POINTS:     {info: "${g.message(code:'org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.MULTIPLE_OPTION_POINTS.info')}"},
+                                    MULTIPLE_OPTION:            {info: "${g.message(code:'org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.MULTIPLE_OPTION.info')}"},
+                                    ONE_OPTION:                 {info: "${g.message(code:'org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.ONE_OPTION.info')}"},
+                                    TEXT_OPTION:                {info: "${g.message(code:'org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.TEXT_OPTION.info')}"},
+                                    RATING_OPTION:              {info: "${g.message(code:'org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.RATING_OPTION.info')}"},
+                                    CONTACT_GENDER:             {info: "${g.message(code:'org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.CONTACT_GENDER.info')}"},
+                                    CONTACT_PHONE:              {info: "${g.message(code:'org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.CONTACT_PHONE.info')}"},
+                                    CONTACT_WEIGHT:             {info: "${g.message(code:'org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.CONTACT_WEIGHT.info')}"},
+                                    CONTACT_EXTERNAL_ID:        {info: "${g.message(code:'org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.CONTACT_EXTERNAL_ID.info')}"},
+                                    CONTACT_BIRTHDATE:          {info: "${g.message(code:'org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.CONTACT_BIRTHDATE.info')}"},
+                                    CONTACT_UPLOAD_FILES:       {info: "${g.message(code:'org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.CONTACT_UPLOAD_FILES.info')}"},
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 

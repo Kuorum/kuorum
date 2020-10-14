@@ -219,8 +219,7 @@ $(document).ready(function() {
 
 $(document).ready(function() {
 
-    $('[data-toggle="tooltip"]').tooltip();
-
+    prepareTooltips();
     // highlight search resultas with mark.js for list.js
 
     if ($('input#searchCampaign').length) {
@@ -567,6 +566,10 @@ function prepareCampaignClickEvents(){
     if ($('ul.search-list .link-wrapper .card-footer .post-like').length > 0){
         $('ul.search-list').on("click",'.link-wrapper .card-footer .post-like',postFunctions.bindLikeClick);
     }
+}
+
+function prepareTooltips(){
+    $('[data-toggle="tooltip"]').tooltip();
 }
 
 function requestCustomSender($selector) {

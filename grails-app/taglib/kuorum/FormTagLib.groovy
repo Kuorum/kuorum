@@ -256,12 +256,7 @@ class FormTagLib {
         if (extraInfo){
             out << """
                 <span class="info-disabled">
-                    <span role="button" rel="popover" data-toggle="popover" class="popover-trigger fas fa-info-circle"></span>
-                    <div class="popover">
-                        <div class="popover-kuorum">
-                            <p>${extraInfo} </p>
-                        </div>
-                    </div>
+                    <span role="button" rel="popover" class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="${extraInfo}"></span>
                 </span>
             """
         }

@@ -57,14 +57,12 @@ $(function() {
     })
 
     $("#questionsSurveyForm").on("change",".question-type select", function(e){
-        SurveyFormHelper._hideOptions($(this))
-        SurveyFormHelper.toggleQuestionExtraData($(this))
-        SurveyFormHelper._addClassTypeToQuestion($(this))
+        SurveyFormHelper.prepareQuestionType($(this))
     });
 
-    $("#questionsSurveyForm").on("change",".question-data-extra-multi .question-data-extra-multi-limit-type select", function(e){
-        var $extraDataParent = $(this).parents(".question-data-extra-multi")
-        SurveyFormHelper.prepareQuestionExtraDataMulti($extraDataParent)
+    $("#questionsSurveyForm").on("change",".question-data-extra .question-data-extra-multi-limit-type select", function(e){
+        var $extraDataParent = $(this).parents(".question-data-extra")
+        SurveyFormHelper.prepareQuestionExtraDataMultiLimit($extraDataParent)
     });
 
     SurveyFormHelper.initForm();
@@ -103,17 +101,30 @@ $(function() {
 
 var SurveyFormHelper ={
 
+    _questionTypeConfigHelper: {
+        forceOptionToNumber: function($questionOptionRow){
+            var select = $questionOptionRow.find("select");
+            select.val("ANSWER_NUMBER");
+            select.attr("disabled", "disabled");
+        },
+        reset:function($questionOptionRow){
+            var select = $questionOptionRow.find("select");
+            select.removeAttr("disabled", "disabled");
+        }
+    },
     questionTypeConfig:{
-        'ONE_OPTION':           {cssClass:'ONE_OPTION',             showOptions: true},
-        'MULTIPLE_OPTION':      {cssClass:'MULTIPLE_OPTION',        showOptions: true},
-        'TEXT_OPTION':          {cssClass:'TEXT_OPTION',            showOptions: false},
-        'RATING_OPTION':        {cssClass:'RATING_OPTION',          showOptions: false},
-        'CONTACT_UPLOAD_FILES': {cssClass:'CONTACT_UPLOAD_FILES',   showOptions: false},
-        'CONTACT_GENDER':       {cssClass:'CONTACT_GENDER',         showOptions: false},
-        'CONTACT_PHONE':        {cssClass:'CONTACT_PHONE',          showOptions: false},
-        'CONTACT_EXTERNAL_ID':  {cssClass:'CONTACT_EXTERNAL_ID',    showOptions: false},
-        'CONTACT_WEIGHT':       {cssClass:'CONTACT_WEIGHT',         showOptions: false},
-        'CONTACT_BIRTHDATE':    {cssClass:'CONTACT_BIRTHDATE',      showOptions: false}
+        'ONE_OPTION':               {cssClass:'ONE_OPTION',             showOptions: true,  extraDataVisibleClasses: []},
+        'MULTIPLE_OPTION':          {cssClass:'MULTIPLE_OPTION',        showOptions: true,  extraDataVisibleClasses: ["question-data-extra-multi-limit"]},
+        'MULTIPLE_OPTION_WEIGHTED': {cssClass:'MULTIPLE_OPTION',        showOptions: true,  extraDataVisibleClasses: ["question-data-extra-multi-limit"],                                       prepareOption:'forceOptionToNumber'},
+        'MULTIPLE_OPTION_POINTS':   {cssClass:'MULTIPLE_OPTION',        showOptions: true,  extraDataVisibleClasses: ["question-data-extra-multi-limit", "question-data-extra-multi-points"],   prepareOption:'forceOptionToNumber'},
+        'TEXT_OPTION':              {cssClass:'TEXT_OPTION',            showOptions: false, extraDataVisibleClasses: []},
+        'RATING_OPTION':            {cssClass:'RATING_OPTION',          showOptions: false, extraDataVisibleClasses: []},
+        'CONTACT_UPLOAD_FILES':     {cssClass:'CONTACT_UPLOAD_FILES',   showOptions: false, extraDataVisibleClasses: []},
+        'CONTACT_GENDER':           {cssClass:'CONTACT_GENDER',         showOptions: false, extraDataVisibleClasses: []},
+        'CONTACT_PHONE':            {cssClass:'CONTACT_PHONE',          showOptions: false, extraDataVisibleClasses: []},
+        'CONTACT_EXTERNAL_ID':      {cssClass:'CONTACT_EXTERNAL_ID',    showOptions: false, extraDataVisibleClasses: []},
+        'CONTACT_WEIGHT':           {cssClass:'CONTACT_WEIGHT',         showOptions: false, extraDataVisibleClasses: []},
+        'CONTACT_BIRTHDATE':        {cssClass:'CONTACT_BIRTHDATE',      showOptions: false, extraDataVisibleClasses: []}
     },
 
     prepareSortableQuestionOptions: function(){
@@ -219,9 +230,7 @@ var SurveyFormHelper ={
         var questionTypeSelectors = $("#questionsSurveyForm .question-type select");
         var questionTypeSelectorsIdx;
         for (questionTypeSelectorsIdx = 0; questionTypeSelectorsIdx< questionTypeSelectors.length; questionTypeSelectorsIdx++){
-            SurveyFormHelper._hideOptions($(questionTypeSelectors[questionTypeSelectorsIdx]));
-            SurveyFormHelper.toggleQuestionExtraData($(questionTypeSelectors[questionTypeSelectorsIdx]));
-            SurveyFormHelper._addClassTypeToQuestion($(questionTypeSelectors[questionTypeSelectorsIdx]));
+            SurveyFormHelper.prepareQuestionType($(questionTypeSelectors[questionTypeSelectorsIdx]));
         }
         // END HIDE OPTION OF TEXT QUESTIONS
     },
@@ -229,27 +238,65 @@ var SurveyFormHelper ={
     _addClassTypeToQuestion:function($selectQuestionType){
         var questionType = $selectQuestionType.val();
         var $questionContainer = $selectQuestionType.parents(".quesiton-dynamic-fields");
-        console.log("Changing class question container")
         // console.log($questionContainer)
         Object.keys(SurveyFormHelper.questionTypeConfig).forEach(function (typeId) {
-            console.log(typeId+":"+SurveyFormHelper.questionTypeConfig[typeId].cssClass);
             $questionContainer.removeClass(SurveyFormHelper.questionTypeConfig[typeId].cssClass);
         });
         $questionContainer.addClass(SurveyFormHelper.questionTypeConfig[questionType].cssClass);
     },
 
-    toggleQuestionExtraData:function($selectQuestionType){
+    prepareQuestionType:function($selectQuestionType){
+        SurveyFormHelper._hideOptions($selectQuestionType);
+        SurveyFormHelper._toggleQuestionExtraData($selectQuestionType);
+        SurveyFormHelper._addClassTypeToQuestion($selectQuestionType);
+        SurveyFormHelper._prepareQuestionOptionsDependingOnType($selectQuestionType);
+        SurveyFormHelper._prepareQuestionTypeInfo($selectQuestionType);
+    },
+    _prepareQuestionOptionsDependingOnType:function($selectQuestionType){
         var questionType = $selectQuestionType.val();
-        var $extraDataMulti = $selectQuestionType.parents("fieldset.question-data").find(".question-data-extra-multi")
-        if (questionType == "MULTIPLE_OPTION"){
-            SurveyFormHelper.prepareQuestionExtraDataMulti($extraDataMulti);
+        var questionTypeConf = SurveyFormHelper.questionTypeConfig[questionType];
+        var $questionOptionsContainer = $selectQuestionType.parents("fieldset.question-data").siblings(".question-options")
+        console.log($questionOptionsContainer)
+        $questionOptionsContainer.find("fieldset.row.question").each(function(i, questionOption){
+            if (questionTypeConf.prepareOption != undefined){
+                SurveyFormHelper._questionTypeConfigHelper[questionTypeConf.prepareOption]($(questionOption));
+            }else{
+                SurveyFormHelper._questionTypeConfigHelper.reset($(questionOption))
+            }
+        })
+    },
+    _prepareQuestionTypeInfo:function($selectQuestionType){
+        var questionType = $selectQuestionType.val();
+        var $questionTypeInfoContainer = $selectQuestionType.parents(".question-type").siblings(".question-type-info");
+        var msg = i18n.org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO[questionType].info;
+        $questionTypeInfoContainer.children("span").attr("data-original-title", msg)
+
+    },
+    _toggleQuestionExtraData:function($selectQuestionType){
+        var questionType = $selectQuestionType.val();
+        var $extraDataMulti = $selectQuestionType.parents("fieldset.question-data").find(".question-data-extra")
+        var questionTypeConf = SurveyFormHelper.questionTypeConfig[questionType];
+        if (questionTypeConf.extraDataVisibleClasses.length>0){
+            SurveyFormHelper.prepareQuestionExtraData($extraDataMulti, questionTypeConf);
             $extraDataMulti.show();
         }else{
             $extraDataMulti.hide();
         }
     },
 
-    prepareQuestionExtraDataMulti:function($extraDataMulti){
+    prepareQuestionExtraData:function($extraDataMulti, questionTypeConf){
+        if (questionTypeConf != undefined){
+            // Defined question type -> Changing visibility of associated inputs
+            $extraDataMulti.children("div").hide();
+            for (var i = 0; i < questionTypeConf.extraDataVisibleClasses.length; i++) {
+                var visibleClass = questionTypeConf.extraDataVisibleClasses[i];
+                console.log(visibleClass);
+                $extraDataMulti.children("div."+visibleClass).show();
+            }
+        }
+        SurveyFormHelper.prepareQuestionExtraDataMultiLimit($extraDataMulti);
+    },
+    prepareQuestionExtraDataMultiLimit:function($extraDataMulti){
         var questionLimitTypeVal= $extraDataMulti.find("#questionLimitAnswersType").val()
         if (questionLimitTypeVal == "MIN"){
             $extraDataMulti.find(".question-data-exta-multi-limit-min").show();
@@ -268,6 +315,8 @@ var SurveyFormHelper ={
 
     initForm:function(){
         SurveyFormHelper.initQuestionOptions();
-        // $("form.campaign-published .dynamic-fieldset-addbutton button.addButton").fadeOut();
+        $("form .dynamic-fieldset-addbutton button.addButton").on("kuorum.dynamicInput.add",function( event, formId ){
+            prepareTooltips();
+        });
     }
 }
