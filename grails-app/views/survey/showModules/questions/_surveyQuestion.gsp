@@ -1,5 +1,8 @@
 <g:set var="questionClass" value="single-answer"/>
-<g:if test="${question.questionType == org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.MULTIPLE_OPTION}">
+<g:set var="questionTypeMultiples" value="${[org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.MULTIPLE_OPTION,
+                                             org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.MULTIPLE_OPTION_WEIGHTED,
+                                             org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.MULTIPLE_OPTION_POINTS]}"/>
+<g:if test="${questionTypeMultiples.contains(question.questionType)}">
     <g:set var="questionClass" value="multi-answer"/>
 </g:if>
 <g:if test="${question.questionType == org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.TEXT_OPTION}">
@@ -15,6 +18,7 @@
         data-numAnswers="${question.amountAnswers}"
         data-minAnswers="${question.minAnswers}"
         data-maxAnswers="${question.maxAnswers}"
+        data-points="${question.points}"
         data-questionType="${question.questionType}"
 >
 
@@ -27,7 +31,7 @@
         <div class="survey-question-title">
             ${question.text}
         </div>
-        <g:render template="/survey/showModules/questions/surveyQuestionHeaderExtraInfo" model="[survey:survey, question:question]"/>
+        <g:render template="/survey/showModules/questions/surveyQuestionHeaderExtraInfo" model="[survey:survey, question:question, questionTypeMultiples:questionTypeMultiples]"/>
     </div>
     <div class="survey-question-answers" data-answer-selected="">
         <g:each in="${question.options}" var="option">
@@ -37,7 +41,7 @@
             <g:elseif test="${question.questionType == org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.RATING_OPTION}">
                 <g:render template="/survey/showModules/questions/ratingQuestionOption" model="[survey:survey, question:question, option:option]"/>
             </g:elseif>
-            <g:elseif test="${question.questionType == org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.MULTIPLE_OPTION}">
+            <g:elseif test="${questionTypeMultiples.contains(question.questionType)}">
                 <g:render template="/survey/showModules/questions/multipleQuestionOption" model="[survey:survey, question:question, option:option]"/>
             </g:elseif>
             <g:elseif test="${question.questionType == org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.CONTACT_GENDER}">

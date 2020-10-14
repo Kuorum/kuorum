@@ -92,7 +92,7 @@ var surveyFunctions = {
         // Block bubbling click on inputs when has text
         $(".survey-question-answer input, .survey-question-answer textara, .survey-question-answer select").on("click", function (e) {
             if ($(this).parents(".multi-answer").length!=0){
-                console.log("Stop bubbling because there are text on the input. Only on multi answers because them can be unselected. ")
+                console.log("Stop bubbling because there are text on the input. Only on multi answers because they can be unselected. ")
                 e.stopPropagation();
             }
         });
@@ -148,15 +148,69 @@ var surveyFunctions = {
     },
     _checkValidAnswers: function(question){
         var questionOptionsSelected = question.querySelectorAll(".survey-question-answer.checked");
+        var questionType = question.getAttribute("data-questionType");
         var answersValid = true;
 
-        var questionOPtionsSelectedIdx; // IE10 not supports forEach
-        for (questionOPtionsSelectedIdx = 0; questionOPtionsSelectedIdx < questionOptionsSelected.length; questionOPtionsSelectedIdx++) {
-            var questionOption = questionOptionsSelected[questionOPtionsSelectedIdx];
+        var questionOptionsSelectedIdx; // IE10 not supports forEach
+        for (questionOptionsSelectedIdx = 0; questionOptionsSelectedIdx < questionOptionsSelected.length; questionOptionsSelectedIdx++) {
+            var questionOption = questionOptionsSelected[questionOptionsSelectedIdx];
             var questionOptionType = questionOption.getAttribute(surveyFunctions.QUESTION_OPTION_ATTR_TYPE)
             answersValid = surveyFunctions._checkValidAnswerType[questionOptionType](questionOption) && answersValid;
         }
+        answersValid = answersValid && surveyFunctions._checkValidQuestion[questionType](question);
+        console.log("Answer valid:"+answersValid);
         return answersValid;
+    },
+
+    _checkValidQuestion:{
+        ONE_OPTION: function(question){return true;},
+        MULTIPLE_OPTION : function(question){return true;},
+        MULTIPLE_OPTION_WEIGHTED: function(question){
+            var questionPoints = parseFloat(question.getAttribute("data-points"));
+            var questionValidationData ={
+                valid:false,
+                msg: "No valid sum",
+                question: question
+            }
+            var questionOptionsSelected = question.querySelectorAll(".survey-question-answer.checked");
+            var answersValid = true;
+
+            var questionOptionsSelectedIdx; // IE10 not supports forEach
+            var summedPoints = 0;
+            for (questionOptionsSelectedIdx = 0; questionOptionsSelectedIdx < questionOptionsSelected.length; questionOptionsSelectedIdx++) {
+                var questionOption = questionOptionsSelected[questionOptionsSelectedIdx];
+                var textNumberInputNodes = questionOption.querySelectorAll(".option-extra-content input");
+                var textNumberInput = textNumberInputNodes[0];
+                var rawData = textNumberInput.value
+                var floatNumber = parseFloat(rawData);
+                summedPoints = summedPoints + floatNumber;
+            }
+            if (summedPoints != questionPoints){
+                questionValidationData.valid = false;
+                questionValidationData.msg = "No coinciden las sumas"
+            }else{
+                questionValidationData.valid = true;
+                questionValidationData.msg = ""
+            }
+            this._handlePrintingQuestionError(questionValidationData);
+            return questionValidationData.valid;
+            },
+        MULTIPLE_OPTION_POINTS: function(question){return this.MULTIPLE_OPTION_WEIGHTED(question)},
+        TEXT_OPTION: function(question){return true;},
+        RATING_OPTION: function(question){return true;},
+//      CONTACT_FILES: function(question {return true;},
+        CONTACT_GENDER: function(question){return true;},
+        CONTACT_PHONE: function(question){return true;},
+        CONTACT_EXTERNAL_ID: function(question){return true;},
+        CONTACT_WEIGHT: function(question){return true;},
+        CONTACT_BIRTHDATE: function(question){return true;},
+        _handlePrintingQuestionError: function(questionValidationData){
+            if (questionValidationData.valid){
+                $(questionValidationData.question).find(".survey-question-extra-info-points").removeClass("error");
+            }else{
+                $(questionValidationData.question).find(".survey-question-extra-info-points").addClass("error");
+            }
+        },
     },
 
     _checkValidAnswerType:{

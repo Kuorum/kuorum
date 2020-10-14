@@ -170,8 +170,16 @@ class SurveyController extends CampaignController{
                 response.status = 405
                 render([status:"405",msg:g.message(code:'kuorum.web.commands.payment.survey.QuestionAnswerCommand.surveyClosed')] as JSON)
                 return;
+            }else if (e.cause.cause instanceof KuorumException &&  e.cause.cause.errors[0].code=="error.api.SERVICE_SURVEY_WRONG_QUESTIONS"){
+                String errorMsg = e.cause.cause.message;
+                log.info("Error saving the answer. API responds error: ${errorMsg}")
+                response.status = 405
+                render([status:"405",msg:errorMsg] as JSON)
+                return;
             }else{
-                throw e;
+                log.info("Error saving the answer")
+                response.status = 500
+                render([status:"500",msg:g.message(code:'kuorum.web.commands.payment.survey.QuestionAnswerCommand.genericError')] as JSON)
             }
         }
         render ([status:"success",msg:""] as JSON)

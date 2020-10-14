@@ -8009,6 +8009,9 @@ li.survey-question.answered .survey-question-answer .option-extra-content textar
 }
 
 .survey-question-extra-info {padding-left:10%; color:#167caa; padding-top:5px;}
+.survey-question-extra-info .survey-question-extra-info-points{}
+.survey-question-extra-info .survey-question-extra-info-points.error{background-color: #F2DEDE; margin: 8px 0 0 0; padding: 4px 8px; color: #BF4343; border-radius: 4px;}
+.survey-question-extra-info .survey-question-extra-info-points.error .strong{font-size: 20px}
 .survery-question-number{display: inline-block; text-align: center; width: 10%; float: left;}
 .survery-question-number .survey-quiestion-number-idx{font-size: 1.5em;}
 .survery-question-number .survey-quiestion-number-total{font-size: 1.5em;}
