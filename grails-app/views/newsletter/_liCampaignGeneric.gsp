@@ -1,39 +1,39 @@
 <%@ page import="org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO" %>
-<g:set var="type" value="post"/>
-<g:set var="urlMappingNameEditStep" value="EditContent"/>
+<g:set var="type" value="${campaign.campaignType}"/>
+<g:set var="urlMappingNameEditStep" value="${campaign.campaignType.toString().toLowerCase()}EditContent"/>
+<g:set var="urlMappingNameShow" value="${campaign.campaignType.toString().toLowerCase()}Show"/>
+<g:set var="urlMappingNameRemove" value="${campaign.campaignType.toString().toLowerCase()}Remove"/>
 <g:set var="faIcon" value="fa-newspaper"/>
 <g:set var="hidePause" value="${campaign.campaignStatusRSDTO != org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT && campaign.campaignStatusRSDTO != org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.PAUSE}"/>
 <g:if test="${campaign.campaignType == org.kuorum.rest.model.communication.CampaignTypeRSDTO.DEBATE}">
-    <g:set var="type" value="debate"/>
     <g:set var="faIcon" value="fa-comments"/>
 </g:if>
 <g:elseif test="${campaign.campaignType == org.kuorum.rest.model.communication.CampaignTypeRSDTO.SURVEY}">
-    <g:set var="urlMappingNameEditStep" value="EditQuestions"/>
-    <g:set var="type" value="survey"/>
+    <g:set var="urlMappingNameEditStep" value="surveyEditQuestions"/>
     <g:set var="faIcon" value="fa-chart-bar"/>
 </g:elseif>
 <g:elseif test="${campaign.campaignType == org.kuorum.rest.model.communication.CampaignTypeRSDTO.PARTICIPATORY_BUDGET}">
-    <g:set var="urlMappingNameEditStep" value="EditDistricts"/>
-    <g:set var="type" value="participatoryBudget"/>
+    <g:set var="urlMappingNameEditStep" value="participatoryBudgetEditContent"/>
+    <g:set var="urlMappingNameShow" value="participatoryBudgetShow"/>
+    <g:set var="urlMappingNameRemove" value="participatoryBudgetRemove"/>
     <g:set var="faIcon" value="fa-money-bill-alt"/>
 </g:elseif>
 <g:elseif test="${campaign.campaignType == org.kuorum.rest.model.communication.CampaignTypeRSDTO.DISTRICT_PROPOSAL}">
-    <g:set var="urlMappingNameEditStep" value="EditContent"/>
-    <g:set var="type" value="districtProposal"/>
+    <g:set var="urlMappingNameEditStep" value="districtProposalEditContent"/>
+    <g:set var="urlMappingNameShow"     value="districtProposalShow"/>
+    <g:set var="urlMappingNameRemove"   value="districtProposalRemove"/>
     <g:set var="faIcon" value="fa-rocket"/>
     <g:set var="hideEdit" value="${campaign.participatoryBudget.status != org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.ADDING_PROPOSALS}"/>
     <g:set var="hidePause" value="${campaign.participatoryBudget.status != org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.ADDING_PROPOSALS}"/>
     <g:set var="hideRemove" value="${!(campaign.participatoryBudget.status == org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.ADDING_PROPOSALS || campaign.newsletter.status == CampaignStatusRSDTO.DRAFT)}"/>
 </g:elseif>
 <g:elseif test="${campaign.campaignType == org.kuorum.rest.model.communication.CampaignTypeRSDTO.PETITION}">
-    <g:set var="urlMappingNameEditStep" value="EditContent"/>
-    <g:set var="type" value="petition"/>
     <g:set var="faIcon" value="fa-microphone"/>
 </g:elseif>
 <g:set var="typeName" value="${g.message(code: 'tools.campaign.new.'+type)}"/>
-<g:set var="campaignGenericMappings" value="[show:type+'Show', edit:type+urlMappingNameEditStep, remove:type+'Remove']"/>
+<g:set var="campaignGenericMappings" value="[show:urlMappingNameShow, edit:urlMappingNameEditStep, remove:urlMappingNameRemove]"/>
 <g:if test="${campaign.event}">
-    <g:set var="type" value="event"/>
+    <g:set var="type" value="EVENT"/>
     <g:set var="faIcon" value="fa-calendar-star"/>
     <g:set var="typeName" value="${g.message(code: 'tools.campaign.new.EVENT')}"/>
 </g:if>
