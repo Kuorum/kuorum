@@ -226,7 +226,7 @@ class CampaignValidationController {
             else if (!validationRSDTO.codeStatus.granted) return g.createLink(mapping: "campaignValidationCode",params: campaignRSDTO.encodeAsLinkProperties());
             else if (!validationRSDTO.phoneStatus.granted) return g.createLink(mapping: "campaignValidationPhoneNumber", params: campaignRSDTO.encodeAsLinkProperties())
             else if (campaignRSDTO){
-                return g.createLink(mapping: "campaignShow", params: campaignRSDTO.encodeAsLinkProperties(), fragment: "survey-question-tag")
+                return g.createLink(mapping: "campaignShow", params: campaignRSDTO.encodeAsLinkProperties(), fragment: "survey-questions")
             }else {
                 return getCensusRedirect(true);
             }
