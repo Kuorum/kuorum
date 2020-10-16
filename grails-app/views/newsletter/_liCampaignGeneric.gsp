@@ -1,8 +1,8 @@
 <%@ page import="org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO" %>
 <g:set var="type" value="${campaign.campaignType}"/>
-<g:set var="urlMappingNameEditStep" value="${campaign.campaignType.toString().toLowerCase()}EditContent"/>
-<g:set var="urlMappingNameShow" value="${campaign.campaignType.toString().toLowerCase()}Show"/>
-<g:set var="urlMappingNameRemove" value="${campaign.campaignType.toString().toLowerCase()}Remove"/>
+<g:set var="urlMappingNameEditStep" value="${campaign.campaignType.toString().toLowerCase()+'EditContent'}"/>
+<g:set var="urlMappingNameShow" value="${campaign.campaignType.toString().toLowerCase()+'Show'}"/>
+<g:set var="urlMappingNameRemove" value="${campaign.campaignType.toString().toLowerCase()+'Remove'}"/>
 <g:set var="faIcon" value="fa-newspaper"/>
 <g:set var="hidePause" value="${campaign.campaignStatusRSDTO != org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT && campaign.campaignStatusRSDTO != org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.PAUSE}"/>
 <g:if test="${campaign.campaignType == org.kuorum.rest.model.communication.CampaignTypeRSDTO.DEBATE}">
