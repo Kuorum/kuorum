@@ -40,18 +40,18 @@
                     </div>
                     <div class="form-group question-data-extra">
                         <div class="col-xs-12 no-padding question-data-extra-multi-limit">
-                            <div class="col-xs-4 no-padding question-data-extra-multi-limit-type">
+                            <div class="col-xs-4 col-md-2 no-padding question-data-extra-multi-limit-type">
                                 <formUtil:selectEnum field="questionLimitAnswersType" command="${listCommand}" prefixFieldName="${prefixField}" showLabel="true"/>
                             </div>
-                            <div class="col-xs-4 question-data-exta-multi-limit-min">
+                            <div class="col-xs-4 col-md-3 question-data-exta-multi-limit-min">
                                 <formUtil:input field="minAnswers" command="${listCommand}" prefixFieldName="${prefixField}" showLabel="true"/>
                             </div>
-                            <div class="col-xs-4 question-data-exta-multi-limit-max">
+                            <div class="col-xs-4 col-md-3 question-data-exta-multi-limit-max">
                                 <formUtil:input field="maxAnswers" command="${listCommand}" prefixFieldName="${prefixField}" showLabel="true"/>
                             </div>
                         </div>
                         <div class="col-xs-12 no-padding question-data-extra-multi-points">
-                            <div class="col-xs-4 no-padding">
+                            <div class="col-xs-4 col-md-2 no-padding">
                                 <formUtil:input field="points" command="${listCommand}" prefixFieldName="${prefixField}" showLabel="true"/>
                             </div>
                         </div>
