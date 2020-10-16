@@ -155,7 +155,7 @@ var surveyFunctions = {
         for (questionOptionsSelectedIdx = 0; questionOptionsSelectedIdx < questionOptionsSelected.length; questionOptionsSelectedIdx++) {
             var questionOption = questionOptionsSelected[questionOptionsSelectedIdx];
             var questionOptionType = questionOption.getAttribute(surveyFunctions.QUESTION_OPTION_ATTR_TYPE)
-            answersValid = surveyFunctions._checkValidAnswerType[questionOptionType](questionOption) && answersValid;
+            answersValid = surveyFunctions._checkValidAnswerType[questionOptionType](questionOption,questionType) && answersValid;
         }
         answersValid = answersValid && surveyFunctions._checkValidQuestion[questionType](question);
         console.log("Answer valid:"+answersValid);
@@ -214,29 +214,38 @@ var surveyFunctions = {
     },
 
     _checkValidAnswerType:{
-        ANSWER_PREDEFINED: function(questionAnswerOption){return true;},
-        ANSWER_TEXT: function(questionAnswerOption){
+        ANSWER_PREDEFINED: function(questionAnswerOption,questionType){return true;},
+        ANSWER_TEXT: function(questionAnswerOption,questionType){
             var textAreaNodes = questionAnswerOption.querySelectorAll(".option-extra-content textarea");
             var textArea = textAreaNodes[0];
             var validationData = surveyFunctions._checkValidAnswerType._checkInputData(textArea);
+            if (validationData.valid){
+                validationData = surveyFunctions._checkValidAnswerType._checkValidInputAnswerByQuestionType[questionType](textArea);
+            }
             surveyFunctions._checkValidAnswerType._handlePrintingError(validationData);
             return validationData.valid;
         },
-        ANSWER_SMALL_TEXT: function(questionAnswerOption){
-            var textAreaNodes = questionAnswerOption.querySelectorAll(".option-extra-content input");
-            var textArea = textAreaNodes[0];
-            var validationData = surveyFunctions._checkValidAnswerType._checkInputData(textArea);
+        ANSWER_SMALL_TEXT: function(questionAnswerOption,questionType){
+            var inputTextNodes = questionAnswerOption.querySelectorAll(".option-extra-content input");
+            var inputTextNode = inputTextNodes[0];
+            var validationData = surveyFunctions._checkValidAnswerType._checkInputData(inputTextNode);
+            if (validationData.valid){
+                validationData = surveyFunctions._checkValidAnswerType._checkValidInputAnswerByQuestionType[questionType](inputTextNode);
+            }
             surveyFunctions._checkValidAnswerType._handlePrintingError(validationData);
             return validationData.valid;
         },
-        ANSWER_DATE: function(questionAnswerOption){
+        ANSWER_DATE: function(questionAnswerOption,questionType){
             var textDateInputNodes = questionAnswerOption.querySelectorAll(".option-extra-content input");
             var textDateInput = textDateInputNodes[0];
             var validationData = surveyFunctions._checkValidAnswerType._checkInputData(textDateInput);
+            if (validationData.valid){
+                validationData = surveyFunctions._checkValidAnswerType._checkValidInputAnswerByQuestionType[questionType](textDateInput);
+            }
             surveyFunctions._checkValidAnswerType._handlePrintingError(validationData);
             return validationData.valid;
         },
-        ANSWER_PHONE: function(questionAnswerOption){
+        ANSWER_PHONE: function(questionAnswerOption,questionType){
             var phoneInputNodes = questionAnswerOption.querySelectorAll(".option-extra-content input");
             var phoneInput = phoneInputNodes[0];
             var phoneValidationData = surveyFunctions._checkValidAnswerType._checkInputData(phoneInput);
@@ -244,14 +253,21 @@ var surveyFunctions = {
             // var prefixInput = prefixInputNodes[0];
             // var prefixPhoneValidationData = surveyFunctions._checkValidAnswerType._handlePrintingError(phoneValidationData);
             // return phoneValidationData.valid && prefixPhoneValidationData.valid;
+            if (phoneValidationData.valid){
+                phoneValidationData = surveyFunctions._checkValidAnswerType._checkValidInputAnswerByQuestionType[questionType](phoneInput);
+            }
+            surveyFunctions._checkValidAnswerType._handlePrintingError(phoneValidationData);
             return phoneValidationData.valid;
         },
-        ANSWER_NUMBER: function(questionAnswerOption){
+        ANSWER_NUMBER: function(questionAnswerOption,questionType){
             var textNumberInputNodes = questionAnswerOption.querySelectorAll(".option-extra-content input");
             var textNumberInput = textNumberInputNodes[0];
-            var numberValidationData = surveyFunctions._checkValidAnswerType._checkInputData(textNumberInput);
-            surveyFunctions._checkValidAnswerType._handlePrintingError(numberValidationData);
-            return numberValidationData.valid
+            var validationData = surveyFunctions._checkValidAnswerType._checkInputData(textNumberInput);
+            if (validationData.valid){
+                validationData = surveyFunctions._checkValidAnswerType._checkValidInputAnswerByQuestionType[questionType](textNumberInput);
+            }
+            surveyFunctions._checkValidAnswerType._handlePrintingError(validationData);
+            return validationData.valid
         },
         _checkInputData:function(inputNode){
             if (inputNode.value === ""){
@@ -281,7 +297,36 @@ var surveyFunctions = {
                 errorNode.innerHTML = validationData.msg
                 validationData.input.parentNode.insertBefore(errorNode, validationData.input.nextSibling);
             }
-        }
+        },
+        _checkValidInputAnswerByQuestionType:{
+            ONE_OPTION: function(inputNode){return surveyFunctions._checkValidAnswerType._checkValidInputAnswerByQuestionType.defaultValidation(inputNode);},
+            MULTIPLE_OPTION : function(inputNode){return surveyFunctions._checkValidAnswerType._checkValidInputAnswerByQuestionType.defaultValidation(inputNode);},
+            MULTIPLE_OPTION_WEIGHTED: function(inputNode){
+                var valid = parseFloat(inputNode.value)>0;
+                return {
+                    valid: valid,
+                    msg:i18n.kuorum.web.commands.payment.survey.QuestionOptionCommand.number.negative,
+                    input: inputNode
+                };
+            },
+            MULTIPLE_OPTION_POINTS: function(inputNode){return surveyFunctions._checkValidAnswerType._checkValidInputAnswerByQuestionType.MULTIPLE_OPTION_WEIGHTED(inputNode)},
+            TEXT_OPTION:            function(inputNode){return surveyFunctions._checkValidAnswerType._checkValidInputAnswerByQuestionType.defaultValidation(inputNode);},
+            RATING_OPTION:          function(inputNode){return surveyFunctions._checkValidAnswerType._checkValidInputAnswerByQuestionType.defaultValidation(inputNode);},
+    //      CONTACT_FILES:          function(inputNode){return surveyFunctions._checkValidAnswerType._checkValidInputAnswerByQuestionType.defaultValidation(inputNode);},
+            CONTACT_GENDER:         function(inputNode){return surveyFunctions._checkValidAnswerType._checkValidInputAnswerByQuestionType.defaultValidation(inputNode);},
+            CONTACT_PHONE:          function(inputNode){return surveyFunctions._checkValidAnswerType._checkValidInputAnswerByQuestionType.defaultValidation(inputNode);},
+            CONTACT_EXTERNAL_ID:    function(inputNode){return surveyFunctions._checkValidAnswerType._checkValidInputAnswerByQuestionType.defaultValidation(inputNode);},
+            CONTACT_WEIGHT:         function(inputNode){return surveyFunctions._checkValidAnswerType._checkValidInputAnswerByQuestionType.defaultValidation(inputNode);},
+            CONTACT_BIRTHDATE:      function(inputNode){return surveyFunctions._checkValidAnswerType._checkValidInputAnswerByQuestionType.defaultValidation(inputNode);},
+            defaultValidation:      function(inputNode){
+                return {
+                    valid: true,
+                    msg:"",
+                    input: inputNode
+                };
+            }
+        },
+
     },
 
     _singleOptionNextButtonClick : function(question){

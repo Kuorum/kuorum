@@ -121,6 +121,9 @@
                             QuestionOptionCommand:{
                                 text:{
                                     nullable:"<g:message code="kuorum.web.commands.payment.survey.QuestionOptionCommand.text.nullable"/>"
+                                },
+                                number:{
+                                    negative:"<g:message code="kuorum.web.commands.payment.survey.QuestionOptionCommand.number.negative"/>"
                                 }
                             }
                         }

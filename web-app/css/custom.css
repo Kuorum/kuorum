@@ -7955,10 +7955,8 @@ ul.notification-menu > li.see-more {
 .survey-question-answer .multi-option   .form-group.form-group-phone.option-extra-content {
     max-width: 14em;
 }
-.survey-question-answer.ANSWER_SMALL_TEXT .form-group.option-extra-content,
-.survey-question-answer.ANSWER_NUMBER .form-group.option-extra-content{
-    max-width: 20em;
-}
+.survey-question-answer.ANSWER_SMALL_TEXT .form-group.option-extra-content{max-width: 20em;}
+.survey-question-answer.ANSWER_NUMBER .form-group.option-extra-content{max-width: 10em;}
 
 
 .survey-question-answer .text-option .option-extra-content textarea,
