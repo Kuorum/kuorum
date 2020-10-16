@@ -80,6 +80,7 @@ class QuestionCommand{
     List<QuestionOptionCommand> options =[new QuestionOptionCommand(),new QuestionOptionCommand()]
     Integer maxAnswers = 1;
     Integer minAnswers = 1;
+    @BindingFormat(".")
     Double points;
 
     static validateOptions = {val, obj ->
