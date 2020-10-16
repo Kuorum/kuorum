@@ -209,6 +209,8 @@ var surveyFunctions = {
                 $(questionValidationData.question).find(".survey-question-extra-info-points").removeClass("error");
             }else{
                 $(questionValidationData.question).find(".survey-question-extra-info-points").addClass("error");
+                var questionDOMId = questionValidationData.question.getAttribute("id")
+                moveSmooth("#"+questionDOMId)
             }
         },
     },
