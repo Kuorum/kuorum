@@ -39,8 +39,6 @@ class KuorumUser {
     List<ObjectId> following  = [] // KuorumUsersId => Is an id instead a KuorumUser because gorm updates all the following users
     List<ObjectId> followers = [] // KuorumUsersId => Is an id instead a KuorumUser because gorm updates all the following users
 
-    Boolean isValid = false;
-
     List<ObjectId> favorites = [] //PostIds => Is the id instead of Post because gorm updates all
 
     SocialLinks socialLinks = new SocialLinks()
