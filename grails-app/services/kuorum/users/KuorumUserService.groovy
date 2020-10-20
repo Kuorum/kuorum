@@ -559,7 +559,7 @@ class KuorumUserService {
         Map<String, String> params = [userId: user.id.toString(), campaignId:"FAKE_ID"] // DELETES ALL VALIDATIONS
         Map<String, String> query = [:]
         restKuorumApiService.delete(
-                RestKuorumApiService.ApiMethod.USER_VALIDATION_CENSUS,
+                RestKuorumApiService.ApiMethod.USER_VALIDATION_STATUS,
                 params,
                 query
         )
