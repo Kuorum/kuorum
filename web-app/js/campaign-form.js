@@ -125,10 +125,12 @@ $(function(){
             $("#attachCertificate").removeAttr("disabled", "disabled")
             $("#attachCertificate").parent().removeClass("disabled")
             $("#attachCertificate").prop('checked', true);
+            $("#attachCertifcate-container").slideDown()
         }else{
             $("#attachCertificate").attr("disabled", "disabled")
             $("#attachCertificate").parent().addClass("disabled")
             $("#attachCertificate").prop('checked', false);
+            $("#attachCertifcate-container").slideUp()
         }
     });
 })

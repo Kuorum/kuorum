@@ -92,7 +92,9 @@
                         <div class="col-sm-4">
                             <formUtil:checkBox command="${command}" field="signVotes" disabled="${!grails.plugin.springsecurity.SpringSecurityUtils.ifAllGranted("ROLE_SUPER_ADMIN")}"/>
                         </div>
-                        <label for="attachCertificate" class="col-sm-1 control-label">
+                    </fieldset>
+                    <fieldset class="form-group fieldset-check-box" id="attachCertifcate-container" style="display: ${command.signVotes?'block':'none'}">
+                        <label for="attachCertificate" class="col-sm-2 col-md-1 control-label">
                             <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="${g.message(code:'kuorum.web.commands.payment.CampaignSettingsCommand.attachCertificate.label.info')}"></span>
                             <g:message code="kuorum.web.commands.payment.CampaignSettingsCommand.attachCertificate.label.left"/>:
                         </label>
