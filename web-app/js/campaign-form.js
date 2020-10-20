@@ -119,6 +119,18 @@ $(function(){
         var orgValue = $select.attr("data-original-value");
         $select.val(orgValue)
     })
+
+    $("#signVotes").on("click",function(e){
+        if ($(this).is(':checked')){
+            $("#attachCertificate").removeAttr("disabled", "disabled")
+            $("#attachCertificate").parent().removeClass("disabled")
+            $("#attachCertificate").prop('checked', true);
+        }else{
+            $("#attachCertificate").attr("disabled", "disabled")
+            $("#attachCertificate").parent().addClass("disabled")
+            $("#attachCertificate").prop('checked', false);
+        }
+    });
 })
 
 var campaignForm={

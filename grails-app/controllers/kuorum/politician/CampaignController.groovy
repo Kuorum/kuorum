@@ -180,6 +180,7 @@ class CampaignController {
             //Custom logic of survey. May be this logic shouldn't be here
             rdto.anonymous = command.anonymous == null?false:command.anonymous;
             rdto.signVotes = command.signVotes == null?false:command.signVotes;
+            rdto.attachCertificate = command.attachCertificate == null?false:command.attachCertificate;
         }
         rdto
     }

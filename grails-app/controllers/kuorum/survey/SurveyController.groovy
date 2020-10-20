@@ -85,6 +85,7 @@ class SurveyController extends CampaignController{
         if (surveyRSDTO){
             command.anonymous = surveyRSDTO.getAnonymous()
             command.signVotes = surveyRSDTO.getSignVotes()
+            command.attachCertificate = surveyRSDTO.getAttachCertificate()
         }
         model.options =[debatable:false, hiddeVotesFlag:true, showCampaignDateLimits:true, showSurveyCustomFields:true]
         return model
