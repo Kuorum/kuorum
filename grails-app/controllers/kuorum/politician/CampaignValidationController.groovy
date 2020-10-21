@@ -178,11 +178,11 @@ class CampaignValidationController {
             campaign: campaign]
         }catch(KuorumException e){
             command.errors.rejectValue("phoneNumber", 'kuorum.web.commands.profile.DomainUserPhoneValidationCommand.phoneNumber.repeatedNumber')
-            render view: "stepCampaignValidationPhoneNumber", model:[command:command]
+            render view: "stepCampaignValidationPhoneNumber", model:modelInputPhoneValidationStep(command, campaign)
             return
         }catch(Exception e){
             flash.message="Internal error. Try again or contact with info@kuorum.org"
-            render view: "stepCampaignValidationPhoneNumber", model:[command:command]
+            render view: "stepCampaignValidationPhoneNumber", model:modelInputPhoneValidationStep(command, campaign)
             return
         }
     }
@@ -202,7 +202,7 @@ class CampaignValidationController {
     def stepCampaignValidationPhoneCodeSave(DomainUserPhoneCodeValidationCommand command){
         CampaignRSDTO campaign = getCampaignRSDTO(params)
         if (command.hasErrors()){
-            render view: "stepCampaignValidationPhoneCode", model:[command:command]
+            render view: "stepCampaignValidationPhoneCode", model:[command:command, campaign: campaign]
             return
         }
         KuorumUserSession userSession = springSecurityService.principal
