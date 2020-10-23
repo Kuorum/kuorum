@@ -46,7 +46,7 @@ class CampaignValidationController {
             CampaignRSDTO campaign = censusLoginData.getCampaign();
             ContactRSDTO contact = censusLoginData.getContact();
             logoutIfContactDifferentAsLoggedUser(contact, censusLogin);
-            log.info("[censusLogion: ${censusLogin}] : Receviced a valid censusLogin> Contact: ${contact.email}")
+            log.info("[censusLogion: ${censusLogin}] : Receviced a valid censusLogin -> Contact: ${contact.email}")
             if (campaign.closed){
                 log.info("[censusLogion: ${censusLogin}] : Receviced a valid censusLogin -> Campaign is closed.");
                 render view: '/campaignValidation/step0RegisterWithCensusCode_NOT_ACTIVE' , model:[redirectUrl:null, contact: contact, campaign:campaign]
