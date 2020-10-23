@@ -28,7 +28,7 @@ grails.serverURL = "http://local.kuorum.org:8080/kuorum"
 
 log4j = {
     appenders {
-        appender new org.apache.log4j.ConsoleAppender(name:'stdout', layout:pattern(conversionPattern: '%d{yyyy MM dd HH:mm:ss,SSS} [%c] # %-5p %m  %n' ))
+        appender new org.apache.log4j.ConsoleAppender(name:'stdout', layout:pattern(conversionPattern: '%d{yyyy MM dd HH:mm:ss,SSS} [%-5p][%c{1}][%X{userEmail}::%X{domain}] # %m  %n' ))
 //        appender new GelfOVHAppender(
 //                name: 'gelfAppender',
 //                graylogHost: 'tcp:gra3.logs.ovh.com',
@@ -196,7 +196,7 @@ grails.plugin.springsecurity.ui.password.maxLength=64
 //grails.plugin.springsecurity.ui.password.validationRegex="^.*(?=.*\\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&]).*$"
 grails.plugin.springsecurity.ui.password.validationRegex='^.*$'
 
-grails.plugin.springsecurity.filterChain.filterNames = ['customDomainSpringFilter','securityContextPersistenceFilter','logoutFilter','authenticationProcessingFilter','rememberMeAuthenticationFilter','anonymousAuthenticationFilter','exceptionTranslationFilter','filterInvocationInterceptor','logoutFilter','authenticationProcessingFilter','switchFilter','switchUserProcessingFilter']
+grails.plugin.springsecurity.filterChain.filterNames = ['customDomainSpringFilter','securityContextPersistenceFilter','logoutFilter','authenticationProcessingFilter','rememberMeAuthenticationFilter','anonymousAuthenticationFilter','exceptionTranslationFilter','filterInvocationInterceptor','logoutFilter','authenticationProcessingFilter','switchFilter','switchUserProcessingFilter','kuorumLogSpringFilter']
 //SWITCH USER
 grails.plugin.springsecurity.useSwitchUserFilter = true
 grails.plugin.springsecurity.controllerAnnotations.staticRules=[

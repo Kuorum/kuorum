@@ -16,11 +16,10 @@ class CustomDomainSpringFilter extends GenericFilterBean {
 
     void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
         URL url = new URL(request.getRequestURL().toString())
-        logger.info("Requested: ${url}")
         if (url.getHost() == "127.0.0.1"){
             // Debug on idea via apache using proxy always is 127.0.0.1
             url = new URL("https://local.kuorum.org/kuorums")
-            logger.warn("Develop mode. Using ${url.toString()}")
+            logger.info("Develop mode. Using ${url.toString()}")
         }
         DomainRSDTO configRSDTO = null;
         try{

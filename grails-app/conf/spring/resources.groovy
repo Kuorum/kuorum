@@ -2,6 +2,7 @@ import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.authentication.encoding.BCryptPasswordEncoder
 import grails.util.Environment
 import kuorum.core.customDomain.filter.CustomDomainSpringFilter
+import kuorum.core.customDomain.filter.KuorumLogSpringFilter
 import kuorum.core.springSecurity.handlers.SuccessAuthenticationHandler
 import kuorum.files.AmazonFileService
 import kuorum.register.MongoUserDetailsService
@@ -92,5 +93,9 @@ beans = {
     // DOMAIN
     customDomainSpringFilter(CustomDomainSpringFilter){
         domainService = ref('domainService')
+    }
+    // MDC LOGS
+    kuorumLogSpringFilter(KuorumLogSpringFilter){
+        springSecurityService = ref ('springSecurityService')
     }
 }
