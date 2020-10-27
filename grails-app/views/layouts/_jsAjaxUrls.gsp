@@ -24,7 +24,10 @@
         seeMore: "<g:message code="read.more"/>",
         lang : '${currentLang?.language?:'en'}',
         register:{
-            errors:'<g:message code="register.errors"/>'
+            errors:'<g:message code="register.errors"/>',
+            head:{
+                login:'<g:message code="register.head.login"/>'
+            }
         },
         form:{
             warn:{
@@ -149,6 +152,7 @@
                 }
             }
         },
+        survey:{questions:{header:{extrainfo:{multi:{points:{noLoggedError:"<g:message code="survey.questions.header.extrainfo.multi.points.noLoggedError"/>"}}}}}},
         org:{
             kuorum:{
                 rest:{

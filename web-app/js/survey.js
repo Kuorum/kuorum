@@ -171,6 +171,13 @@ var surveyFunctions = {
                 msg: "No valid sum",
                 question: question
             }
+            if (questionPoints <= 0){
+                // USER NO LOGGED // CHAPU
+                questionValidationData.msg = i18n.survey.questions.header.extrainfo.multi.points.noLoggedError+" <a href='#modal' onclick=\"$('#registro').modal('show');\">"+i18n.register.head.login+"</a>"
+                $(questionValidationData.question).find(".survey-question-extra-info-points").html(questionValidationData.msg)
+                this._handlePrintingQuestionError(questionValidationData);
+                return questionValidationData.valid;
+            }
             var questionOptionsSelected = question.querySelectorAll(".survey-question-answer.checked");
             var answersValid = true;
 
