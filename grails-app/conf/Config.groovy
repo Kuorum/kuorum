@@ -28,7 +28,7 @@ grails.serverURL = "http://local.kuorum.org:8080/kuorum"
 
 log4j = {
     appenders {
-        appender new org.apache.log4j.ConsoleAppender(name:'stdout', layout:pattern(conversionPattern: '%d{yyyy MM dd HH:mm:ss,SSS} [%-5p][%c{1}][%X{userEmail}::%X{domain}] # %m  %n' ))
+        appender new org.apache.log4j.ConsoleAppender(name:'stdout', layout:pattern(conversionPattern: '%d{yyyy MM dd HH:mm:ss,SSS} [%-5p][%X{userEmail}::%X{domain}][%c{1}] # %m  %n' ))
 //        appender new GelfOVHAppender(
 //                name: 'gelfAppender',
 //                graylogHost: 'tcp:gra3.logs.ovh.com',

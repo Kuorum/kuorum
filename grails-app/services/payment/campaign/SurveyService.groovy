@@ -211,7 +211,7 @@ class SurveyService implements CampaignCreatorService<SurveyRSDTO, SurveyRDTO>{
 
     }
 
-    void saveAnswer(SurveyRSDTO surveyRSDTO, KuorumUserSession userAnswer, Long questionId, List<QuestionAnswerRDTO> answers){
+    QuestionRSDTO saveAnswer(SurveyRSDTO surveyRSDTO, KuorumUserSession userAnswer, Long questionId, List<QuestionAnswerRDTO> answers){
         Map<String, String> params = [userId: surveyRSDTO.user.id.toString(), surveyId: surveyRSDTO.id.toString(),questionId:questionId.toString()]
         Map<String, String> query = [viewerUid:userAnswer.id.toString()]
         def response = restKuorumApiService.put(
@@ -219,8 +219,9 @@ class SurveyService implements CampaignCreatorService<SurveyRSDTO, SurveyRDTO>{
                 params,
                 query,
                 answers,
-                null
+                new TypeReference<QuestionRSDTO>() {}
         )
+        return response.data
     }
 
     void sendReport(KuorumUserSession user, Long surveyId, SurveyReportType surveyReportType){

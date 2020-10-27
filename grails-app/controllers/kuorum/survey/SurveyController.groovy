@@ -155,11 +155,13 @@ class SurveyController extends CampaignController{
         BasicDataKuorumUserRSDTO surveyUser = kuorumUserService.findBasicUserRSDTO(params.userAlias)
         SurveyRSDTO survey = surveyService.find(surveyUser.id, command.campaignId)
         List<QuestionAnswerRDTO> answers = command.answers.collect{convertToRDTO(it)}
+        QuestionRSDTO questionRSDTO
         try{
-            surveyService.saveAnswer(survey, userAnswer, command.questionId, answers)
+            questionRSDTO = surveyService.saveAnswer(survey, userAnswer, command.questionId, answers)
         }catch(Exception e){
             if (e.cause.cause instanceof KuorumException &&  e.cause.cause.errors[0].code=="error.api.SERVICE_CAMPAIGN_NOT_EDITABLE"){
                 log.info("This questions is already answered. ")
+                questionRSDTO = null
 //                render(contentType: "text/json") { response ERROR: [code: 403, msg: "Access Denied."] }
             }else if (e.cause.cause instanceof KuorumException &&  e.cause.cause.errors[0].code=="error.api.SERVICE_UNAUTHORIZED"){
                 log.info("The user is not authorized. Probably admin changed campaign validation and user didn't reload. ")
@@ -181,9 +183,10 @@ class SurveyController extends CampaignController{
                 log.info("Error saving the answer")
                 response.status = 500
                 render([status:"500",msg:g.message(code:'kuorum.web.commands.payment.survey.QuestionAnswerCommand.genericError')] as JSON)
+                return ;
             }
         }
-        render ([status:"success",msg:""] as JSON)
+        render ([status:"success",msg:"", question: questionRSDTO] as JSON)
     }
 
     QuestionAnswerRDTO convertToRDTO(QuestionAnswerDataCommand qac){

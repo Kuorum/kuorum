@@ -158,7 +158,6 @@ var surveyFunctions = {
             answersValid = surveyFunctions._checkValidAnswerType[questionOptionType](questionOption,questionType) && answersValid;
         }
         answersValid = answersValid && surveyFunctions._checkValidQuestion[questionType](question);
-        console.log("Answer valid:"+answersValid);
         return answersValid;
     },
 
@@ -345,7 +344,7 @@ var surveyFunctions = {
             var questionId = parseInt(question.getAttribute('data-question-id'), 10);
             var nextQuestionId = surveyFunctions._getNextQuestionId(question);
             
-            var successFunction = function(){
+            var successFunction = function(questionRSDTO){
                 surveyFunctions._transformExtraDataNoEditable(questionId, true)
                 surveyFunctions._nextQuestion(questionId,nextQuestionId);
                 // surveyFunctions._setProgressBarsPercentOneOption(parseInt(question.getAttribute('data-question-id')));
@@ -378,7 +377,7 @@ var surveyFunctions = {
 
             var questionId = parseInt(question.getAttribute('data-question-id'), 10);
 
-            var successFunction = function(){
+            var successFunction = function(questionRSDTO){
                 // surveyFunctions._setProgressBarsPercentOneOption(parseInt(question.getAttribute('data-question-id')));
                 surveyFunctions._transformExtraDataNoEditable(questionId, true)
                 surveyFunctions._setProgressBarsPercent(questionId);
@@ -406,10 +405,10 @@ var surveyFunctions = {
 
             var questionId = parseInt(question.getAttribute('data-question-id'), 10);
 
-            var successFunction = function(){
+            var successFunction = function(questionRSDTO){
                 surveyFunctions._transformExtraDataNoEditable(questionId, true)
                 surveyFunctions._nextQuestion(questionId);
-                surveyFunctions._setProgressBarsPercentMultiOptions(question);
+                surveyFunctions._setProgressBarsPercentOneOption(questionId);
             }
             var failFunction = function(){
                 display.warn("ERROR SAVING ANSWER");
@@ -469,17 +468,11 @@ var surveyFunctions = {
 
     _setProgressBarsPercentOneOption:function(questionId){
         var question = document.querySelector('[data-question-id="' + questionId + '"]');
-        var numAnswers = parseInt(question.getAttribute("data-numAnswers"))
         var answerOptions = Array.from(question.getElementsByClassName('survey-question-answer'))
         var answerOptionIdx; // IE10 not supports forEach
         for (answerOptionIdx = 0; answerOptionIdx < answerOptions.length; answerOptionIdx++) {
             var answerOption = answerOptions[answerOptionIdx];
-            var numOptionAnswers = parseInt(answerOption.getAttribute("data-numAnswers"))
-            var percentageOptionProgressBar = 0;
-            if (numAnswers > 0){
-                percentageOptionProgressBar = (numOptionAnswers / numAnswers * 100)
-                percentageOptionProgressBar = Math.round(percentageOptionProgressBar)
-            }
+            var percentageOptionProgressBar = Math.round(parseFloat(answerOption.getAttribute("data-optionStats-percentage"))*100);
             answerOption.getElementsByClassName("progress-bar-counter")[0].textContent=percentageOptionProgressBar +"%";
             var optionProgressBar = answerOption.getElementsByClassName("progress-bar")[0]
             optionProgressBar.style.width=percentageOptionProgressBar+"%"
@@ -487,21 +480,6 @@ var surveyFunctions = {
             optionProgressBar.setAttribute("data-answer-percent",percentageOptionProgressBar)
             optionProgressBar.setAttribute("data-answer-percent-selected",percentageOptionProgressBar)
         }
-    },
-
-    _setProgressBarsPercentText:function(questionId) {
-        var question = document.querySelector('[data-question-id="' + questionId + '"]');
-        var numAnswers = parseInt(question.getAttribute("data-numAnswers"))
-        var answerOptions = Array.from(question.getElementsByClassName('survey-question-answer'))
-        // There is only one option on text questions
-        var answerOption = answerOptions[0];
-        answerOption.getElementsByClassName("progress-bar-counter")[0].textContent=numAnswers;
-        var optionProgressBar = answerOption.getElementsByClassName("progress-bar")[0]
-        var percentageOptionProgressBar=100;
-        optionProgressBar.style.width=percentageOptionProgressBar+"%"
-        optionProgressBar.setAttribute("aria-valuenow",percentageOptionProgressBar)
-        optionProgressBar.setAttribute("data-answer-percent",percentageOptionProgressBar)
-        optionProgressBar.setAttribute("data-answer-percent-selected",percentageOptionProgressBar)
     },
 
     _setProgressBarsPercentRatio:function(questionId) {
@@ -509,37 +487,35 @@ var surveyFunctions = {
         var numAnswers = parseInt(question.getAttribute("data-numAnswers"))
         var answerOptions = Array.from(question.getElementsByClassName('survey-question-answer'))
         var answerOptionIdx; // IE10 not supports forEach
-        var totalScore = 0;
-        var totalScoreBase = 0;
+        // var totalScore = 0;
+        // var totalScoreBase = 0;
+        var rating = 0;
         for (answerOptionIdx = 0; answerOptionIdx < answerOptions.length; answerOptionIdx++) {
             var answerOption = answerOptions[answerOptionIdx];
-            var numOptionAnswers = parseInt(answerOption.getAttribute("data-numAnswers"))
-            var percentageOptionProgressBar = 0;
-            if (numAnswers > 0){
-                percentageOptionProgressBar = (numOptionAnswers / numAnswers * 100)
-                percentageOptionProgressBar = Math.round(percentageOptionProgressBar)
-            }
-            answerOption.getElementsByClassName("progress-bar-counter")[0].textContent=percentageOptionProgressBar +"%";
+            var numOptionAnswers = parseInt(answerOption.getAttribute("data-optionStats-votes"))
+            var percentageOption = parseFloat(answerOption.getAttribute("data-optionStats-percentage"));
+            var percentageOptionProgressBar = Math.round(percentageOption*100);
+            answerOption.getElementsByClassName("progress-bar-counter")[0].textContent=(percentageOptionProgressBar +"%");
             var optionProgressBar = answerOption.getElementsByClassName("progress-bar")[0]
             optionProgressBar.style.width=percentageOptionProgressBar+"%"
             optionProgressBar.setAttribute("aria-valuenow",percentageOptionProgressBar)
             optionProgressBar.setAttribute("data-answer-percent",percentageOptionProgressBar)
             optionProgressBar.setAttribute("data-answer-percent-selected",percentageOptionProgressBar)
-
-            totalScore += (answerOptionIdx+1) * numOptionAnswers;
-            totalScoreBase += (answerOptionIdx) * numOptionAnswers;
+            var optionValue = answerOptionIdx+1;
+            // totalScore += (answerOptionIdx+1) * numOptionAnswers;
+            // totalScoreBase += (answerOptionIdx) * numOptionAnswers;
+            rating += (optionValue * percentageOption)
         }
-        var rating = totalScore / numAnswers;
-        var ratingPercentage = totalScoreBase / numAnswers;
+        // var rating = totalScore / numAnswers;
+        var numOptions = answerOptions.length;
+        var ratingPercentage = (rating-1)/(numOptions-1); // BASE OF PERCENTAGE is -1
         var optionProgressBar = question.querySelector(".survey-question-progress-info .progress-bar")
-        var numQuestions = answerOptions.length;
-        var globalRatingPercent = ratingPercentage * 100 / (numQuestions -1); // -1 because idx goes from 0 to 4
-        optionProgressBar.style.width=globalRatingPercent+"%";
+        optionProgressBar.style.width=(ratingPercentage*100)+"%";
         optionProgressBar.setAttribute("aria-valuenow",rating.toFixed(1))
         optionProgressBar.setAttribute("data-answer-percent",rating.toFixed(1))
         optionProgressBar.setAttribute("data-answer-percent-selected",rating.toFixed(1))
         var optionProgressBarCounter = question.querySelector(".survey-question-progress-info .progress-bar-counter");
-        optionProgressBarCounter.innerHTML = rating.toFixed(1) +"<span class='progress-bar-counter-total'> / "+ numQuestions+"</span>";
+        optionProgressBarCounter.innerHTML = rating.toFixed(1) +"<span class='progress-bar-counter-total'> / "+ numOptions+"</span>";
     },
 
     _transformExtraDataNoEditable: function(questionId, switchToNoEditable){
@@ -638,7 +614,7 @@ var surveyFunctions = {
         var maxAnswers = parseInt(question.getAttribute('data-maxAnswers')); // 0 means no limit
         var selectedAnswers = (question.getAttribute('data-answer-selected') !== "") ? JSON.parse(question.getAttribute('data-answer-selected')) : "";
         var nextButton = question.querySelector('.footer .next-section button');
-        var numOptionAnswers = parseInt(answer.getAttribute("data-numAnswers"))
+        var numOptionAnswers = parseInt(answer.getAttribute("data-optionStats-votes"))
 
         if (!!selectedAnswers === true && Array.isArray(selectedAnswers)) {
             var answerPosition = selectedAnswers.indexOf(answer.getAttribute('data-answer-id'));
@@ -659,7 +635,7 @@ var surveyFunctions = {
             numOptionAnswers = numOptionAnswers +1;
             $(answer).addClass('checked');
         }
-        answer.setAttribute("data-numAnswers",numOptionAnswers)
+        answer.setAttribute("data-optionStats-votes",numOptionAnswers)
         question.setAttribute('data-answer-selected',  (selectedAnswers.length > 0) ? JSON.stringify(selectedAnswers) : '');
         if (maxAnswers != 0 && selectedAnswers.length == maxAnswers){
             $(question).find(".survey-question-answer:not(.checked)").addClass("disabled")
@@ -679,44 +655,11 @@ var surveyFunctions = {
             console.log("Question with id ["+questionId+"]no defined")
             return;
         }
-        if (question.classList.contains("multi-answer")){
-            surveyFunctions._setProgressBarsPercentMultiOptions(question)
-        }else if(question.classList.contains("rating-answer")) {
+
+        if(question.classList.contains("rating-answer")) {
             surveyFunctions._setProgressBarsPercentRatio(questionId)
-        }else if(question.classList.contains("text-answer")) {
-            surveyFunctions._setProgressBarsPercentText(questionId)
         }else{
             surveyFunctions._setProgressBarsPercentOneOption(questionId)
-        }
-    },
-
-    _setProgressBarsPercentMultiOptions : function(question) {
-        var answers = question.getElementsByClassName('survey-question-answers')[0];
-        var progressBars = answers.getElementsByClassName('progress');
-
-        var numQuestionAnswers = parseInt(question.getAttribute("data-numAnswers"));
-        var arr = [].slice.call(progressBars);
-
-        var progressBarIdx; // IE10 not supports forEach
-        for (progressBarIdx = 0; progressBarIdx < arr.length; progressBarIdx++) {
-            var progress = arr[progressBarIdx];
-            var answer = progress.parentElement.parentElement;
-            var numOptionAnswers = parseInt(answer.getAttribute("data-numAnswers"))
-            // var selectedAnswers = (question.getAttribute('data-answer-selected') !== "") ? JSON.parse(question.getAttribute('data-answer-selected')) : "";
-            // var answerPosition = selectedAnswers.indexOf(answer.getAttribute('data-answer-id'));
-            var progressBar = progress.children[0];
-            var progressBarCounter = answer.querySelector('.progress-bar-counter');
-
-
-            if (numQuestionAnswers > 0 ){
-                progressBar.style.width = Math.round(numOptionAnswers/numQuestionAnswers*100)+ '%';
-                progressBarCounter.textContent = Math.round(numOptionAnswers/numQuestionAnswers * 100) + '%';
-                // progressBarCounter.textContent = numOptionAnswers +"/"+numQuestionAnswers;
-            }else{
-                progressBar.style.width = '0%';
-                // progressBarCounter.textContent = "0/0";
-                progressBarCounter.textContent = "0%";
-            }
         }
     },
 
@@ -726,7 +669,6 @@ var surveyFunctions = {
         var url = button.getAttribute("data-postUrl");
         var answerIds = JSON.parse(question.getAttribute("data-answer-selected"));
         var questionType = question.getAttribute("data-questionType");
-        console.log("Question type : "+questionType)
         if (!Array.isArray(answerIds)){
             answerIds = [answerIds];
         }
@@ -746,8 +688,8 @@ var surveyFunctions = {
             url: url,
             data: $.param(data),
             success: function(data){
-                // console.log("Succes"+data)
-                successFunction();
+                surveyFunctions._updateOptionMetaDataFromQuestionRSDTOJson(data.question)
+                successFunction(data.question);
                 if (surveyFunctions.relodAfeterSubmit){
                     // Chapu para recargar la pagina sin pasar el callback desde mordor
                     noLoggedCallbacks.reloadPage("Survey :: _sendQuestionAnswers");
@@ -772,6 +714,18 @@ var surveyFunctions = {
         });
     },
 
+    _updateOptionMetaDataFromQuestionRSDTOJson(questionRSDTO){
+        var optionsIdx;
+        var options = questionRSDTO.options
+        for (optionsIdx = 0; optionsIdx < options.length; optionsIdx++) {
+            var optionRSDTO = options[optionsIdx];
+            $option = $("#question-option-" +optionRSDTO.id );
+            $option.attr("data-optionStats-total",optionRSDTO.optionStats.total)
+            $option.attr("data-optionStats-votes",optionRSDTO.optionStats.optionVotes)
+            $option.attr("data-optionStats-percentage",optionRSDTO.optionStats.percentage)
+        }
+    },
+
     _recoverExtraDataForEachAnswer: function (answerIds){
         // Recover extra data of each option chosen
         var answers = [];
@@ -782,11 +736,9 @@ var surveyFunctions = {
             var answerOptionSelector = "div[data-answer-id="+answerId+"]";
             var questionOptionType = $(answerOptionSelector).attr("data-questionOptionType")
             var extraDataSelector = answerOptionSelector+" .option-extra-content"
-            console.log("Extra data:"+$(extraDataSelector).length);
             if ($(extraDataSelector).length > 0){
                 data = surveyFunctions._getExtraInfoAnswer($(answerOptionSelector))
             }
-            console.log("Question option type: "+questionOptionType)
             var answer = {
                 questionOptionType:questionOptionType,
                 answerId: answerId,
