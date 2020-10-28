@@ -52,6 +52,7 @@ class ContactFilterOptionCommand{
         this.operatorText = TextConditionOperatorTypeRDTO.EQUALS
         this.operatorNumber = NumberConditionOperatorTypeRDTO.EQUALS
         this.operatorBoolean = BooleanConditionOperatorTypeRDTO.TRUE
+        this.operatorExists = ExistsConditionOperatorTypeRDTO.EMPTY
         this.operatorContactType = ContactTypeConditionOperatorTypeRDTO.FOLLOWER
         this.operatorAssistantEvent = EventAssistantConditionOperatorTypeRDTO.BOOKED_TICKET
         this.operatorParticipatoryBudget = ParticipatoryBudgetConditionOperatorTypeRDTO.CREATED_PROPOSAL
@@ -64,6 +65,8 @@ class ContactFilterOptionCommand{
             this.operatorText = conditionRDTO.operator
         }else if (conditionRDTO instanceof ConditionBooleanRDTO){
             this.operatorBoolean = conditionRDTO.operator
+        }else if (conditionRDTO instanceof ConditionExistsRDTO){
+            this.operatorExists = conditionRDTO.operator
         }else if (conditionRDTO instanceof ConditionContactTypeRDTO){
             this.operatorContactType = conditionRDTO.operator
         }else if (conditionRDTO instanceof ConditionEventAssistantRDTO){
@@ -81,6 +84,7 @@ class ContactFilterOptionCommand{
     TextConditionOperatorTypeRDTO operatorText;
     NumberConditionOperatorTypeRDTO operatorNumber;
     BooleanConditionOperatorTypeRDTO operatorBoolean;
+    ExistsConditionOperatorTypeRDTO operatorExists;
     ContactTypeConditionOperatorTypeRDTO operatorContactType;
     EventAssistantConditionOperatorTypeRDTO operatorAssistantEvent;
     ParticipatoryBudgetConditionOperatorTypeRDTO operatorParticipatoryBudget;
@@ -95,6 +99,8 @@ class ContactFilterOptionCommand{
             return operatorBoolean.toString();
         }else if(ConditionFieldTypeRDTO.CONTACT_TYPE.equals(field)) {
             return operatorContactType.toString();
+        }else if(ConditionFieldTypeRDTO.PERSONAL_CODE.equals(field)) {
+            return operatorExists.toString();
         }else if(ConditionFieldTypeRDTO.EVENT.equals(field)){
             return operatorAssistantEvent.toString();
         }else if(ConditionFieldTypeRDTO.PARTICIPATORY_BUDGET.equals(field)){

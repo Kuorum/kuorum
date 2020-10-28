@@ -536,8 +536,10 @@ function FilterContacts() {
         var activeOperator = ".text-operator";
         if (val == "STATUS"){
             activeOperator = ".status-operator";
-        }else if (val =="BLACK_LIST" || val == 'SUBSCRIBED'){
+        }else if (val =="BLACK_LIST" || val == 'SUBSCRIBED') {
             activeOperator = ".boolean-operator"
+        }else if (val =="PERSONAL_CODE"){
+            activeOperator = ".exists-operator"
         }else if (val =="CONTACT_TYPE"){
             activeOperator =".contactType-operator"
         }else if (val =="LANGUAGE"){

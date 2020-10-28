@@ -85,6 +85,19 @@
                     <input type="text" class="hidden" value="NO_VALID" name="${prefixField}value"/>
                 </div>
             </div>
+            <div class="filter-operator exists-operator hide">
+                <div class="col-sm-3">
+                    <formUtil:selectEnum
+                            field="operatorExists"
+                            command="${listCommand}"
+                            prefixFieldName="${prefixField}"
+                            enumClass="${org.kuorum.rest.model.contact.filter.condition.ExistsConditionOperatorTypeRDTO.class}"
+                            labelCssClass="sr-only"/>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="hidden" value="NO_VALID" name="${prefixField}value"/>
+                </div>
+            </div>
             <div class="filter-operator contactType-operator hide">
                 <div class="col-sm-3">
                     <formUtil:selectEnum
