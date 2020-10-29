@@ -162,6 +162,42 @@
         </div>
     </div>
 
+    <div id="bulk-action-generate-personal-code" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="generatePersonalCodeTitle" aria-hidden="true">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <g:form method="POST" mapping="bulkActionGeneratePersonalCodeAjax" role="form" class="submitOrangeButton" autocomplete="off" data-type="3">
+                    <div class="modal-header"><h4><g:message code="tools.contact.bulkActions.generatePersonalCode"/></h4></div>
+                    <div class="modal-body">
+                        <p>
+                            <g:message code="modal.bulkAction.generatePersonalCode.explain" args="[contacts.total]"/>
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn" type="submit"><g:message code="modal.bulkAction.generatePersonalCode.submit"/></button>
+                    </div>
+                </g:form>
+            </div>
+        </div>
+    </div>
+
+    <div id="bulk-action-remove-personal-code" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="removePersonalCodeTitle" aria-hidden="true">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <g:form method="POST" mapping="bulkActionRemovePersonalCodeAjax" role="form" class="submitOrangeButton" autocomplete="off" data-type="3">
+                    <div class="modal-header"><h4><g:message code="tools.contact.bulkActions.removePersonalCode"/></h4></div>
+                    <div class="modal-body">
+                        <p>
+                            <g:message code="modal.bulkAction.removePersonalCode.explain" args="[contacts.total]"/>
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn" type="submit"><g:message code="modal.bulkAction.removePersonalCode.submit"/></button>
+                    </div>
+                </g:form>
+            </div>
+        </div>
+    </div>
+
     <div id="export-contacts-modal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="exportTagsTitle" aria-hidden="true">
         <div class="modal-dialog ">
             <div class="modal-content">

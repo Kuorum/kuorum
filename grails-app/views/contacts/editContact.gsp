@@ -66,7 +66,19 @@
                             params="[contactId: contact.id]"
                     > <g:message code="tools.contact.edit.unsubscribe.label"/> </g:link>
                 </li>
-                %{--<li><a href="#" class="btn btn-blue inverted disabled"><span class="fal fa-envelope"></span> Contact</a></li>--}%
+                <li>
+                    <g:if test="${contact.personalCode}">
+                        <g:link mapping="politicianContactPersonalCodeRemove" params="[contactId: contact.getId()]" class="btn btn-grey inverted">
+                            <span class="fas fa-user-secret" data-toggle="tooltip" data-placement="top" title="${contact.personalCode}"></span>
+                            <g:message code="tools.contact.edit.personalCode.remove.label"/>
+                        </g:link></li>
+                    </g:if>
+                    <g:else>
+                        <g:link mapping="politicianContactPersonalCodeGenerate" params="[contactId: contact.getId()]" class="btn btn-blue inverted">
+                            <span class="fas fa-user-secret"></span>
+                            <g:message code="tools.contact.edit.personalCode.generate.label"/>
+                        </g:link></li>
+                    </g:else>
             </ul>
         </div>
         <div class="container-lists">

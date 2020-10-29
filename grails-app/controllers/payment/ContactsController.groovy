@@ -177,6 +177,20 @@ class ContactsController {
 
     }
 
+    def generatePersonalCode(Long contactId){
+        KuorumUserSession user = springSecurityService.principal
+        ContactRSDTO contactUpdated = contactService.generatePersonalCode(user, contactId)
+        flash.message = g.message(code: 'tools.contact.edit.success', args: [contactUpdated.name])
+        redirect(mapping:"politicianContactEdit", params:[contactId: contactId])
+    }
+
+    def removePersonalCode(Long contactId){
+        KuorumUserSession user = springSecurityService.principal
+        ContactRSDTO contactUpdated = contactService.removePersonalCode(user, contactId)
+        flash.message = g.message(code: 'tools.contact.edit.success', args: [contactUpdated.name])
+        redirect(mapping:"politicianContactEdit", params:[contactId: contactId])
+    }
+
     def newContact() {
         [command:new NewContactCommand()]
     }
@@ -608,23 +622,12 @@ class ContactsController {
         }
     }
 
-    def removeContactsBulkAction(BulkRemoveContactsCommand bulkRemoveCommand) {
+    def removeContactsBulkAction(BulkRemoveContactsCommand command) {
         KuorumUserSession user = springSecurityService.principal
 
         // Filter
-        SearchContactRSDTO searchContactRSDTO = new SearchContactRSDTO()
-        Long filterId = Long.parseLong(params.filterId?:'0')
-        FilterRDTO filterRDTO = bulkRemoveCommand.buildFilter()
-
-        if (filterId < 0 || filterRDTO.filterConditions) {
-            searchContactRSDTO.filter = filterRDTO
-        } else if (filterId == 0l) {
-            // NO FILTER -> ALL CONTACTS
-        } else {
-            searchContactRSDTO.filterId = filterId
-        }
-
-        if (bulkRemoveCommand.validate()) {
+        SearchContactRSDTO searchContactRSDTO =buildSearchContactFromCommand(command);
+        if (command.validate()) {
             if (contactService.bulkRemoveContacts(user, searchContactRSDTO)) {
                 return render ([
                     status: 'ok',
@@ -644,26 +647,15 @@ class ContactsController {
         }
     }
 
-    def addTagsBulkAction(BulkAddTagsContactsCommand bulkAddTagsCommand) {
+    def addTagsBulkAction(BulkAddTagsContactsCommand command) {
         KuorumUserSession user = springSecurityService.principal
 
         // Filter
-        SearchContactRSDTO searchContactRSDTO = new SearchContactRSDTO()
-        Long filterId = Long.parseLong(params.filterId?:'0')
-        FilterRDTO filterRDTO = bulkAddTagsCommand.buildFilter()
-
-        if (filterId < 0 || filterRDTO.filterConditions) {
-            searchContactRSDTO.filter = filterRDTO
-        } else if (filterId == 0l) {
-            // NO FILTER -> ALL CONTACTS
-        } else {
-            searchContactRSDTO.filterId = filterId
-        }
-
-        if (bulkAddTagsCommand.validate()) {
+        SearchContactRSDTO searchContactRSDTO =buildSearchContactFromCommand(command);
+        if (command.validate()) {
             BulkUpdateContactTagsRDTO bulkUpdateContactTagsRDTO = new BulkUpdateContactTagsRDTO()
             bulkUpdateContactTagsRDTO.setSearchContacts(searchContactRSDTO)
-            bulkUpdateContactTagsRDTO.setAddTagNames(bulkAddTagsCommand.tags)
+            bulkUpdateContactTagsRDTO.setAddTagNames(command.tags)
 
             if (contactService.bulkAddTagsContacts(user, bulkUpdateContactTagsRDTO)) {
                 return render ([
@@ -684,26 +676,16 @@ class ContactsController {
         }
     }
 
-    def removeTagsBulkAction(BulkRemoveTagsContactsCommand bulkRemoveTagsCommand) {
+    def removeTagsBulkAction(BulkRemoveTagsContactsCommand command) {
         KuorumUserSession user = springSecurityService.principal
 
         // Filter
-        SearchContactRSDTO searchContactRSDTO = new SearchContactRSDTO()
-        Long filterId = Long.parseLong(params.filterId?:'0')
-        FilterRDTO filterRDTO = bulkRemoveTagsCommand.buildFilter()
+        SearchContactRSDTO searchContactRSDTO =buildSearchContactFromCommand(command);
 
-        if (filterId < 0 || filterRDTO.filterConditions) {
-            searchContactRSDTO.filter = filterRDTO
-        } else if (filterId == 0l) {
-            // NO FILTER -> ALL CONTACTS
-        } else {
-            searchContactRSDTO.filterId = filterId
-        }
-
-        if (bulkRemoveTagsCommand.validate()) {
+        if (command.validate()) {
             BulkUpdateContactTagsRDTO bulkUpdateContactTagsRDTO = new BulkUpdateContactTagsRDTO()
             bulkUpdateContactTagsRDTO.setSearchContacts(searchContactRSDTO)
-            bulkUpdateContactTagsRDTO.setRemoveTagNames(bulkRemoveTagsCommand.tags)
+            bulkUpdateContactTagsRDTO.setRemoveTagNames(command.tags)
 
             if (contactService.bulkRemoveTagsContacts(user, bulkUpdateContactTagsRDTO)) {
                 return render ([
@@ -722,6 +704,73 @@ class ContactsController {
                     msg: g.message(code: "modal.bulkAction.removeTags.error.validating")
             ] as JSON)
         }
+    }
+
+    def generatePersonalCodeBulkAction(BulkGeneratePersonalCodeContactsCommand command) {
+        KuorumUserSession user = springSecurityService.principal
+
+        // Filter
+        SearchContactRSDTO searchContactRSDTO =buildSearchContactFromCommand(command);
+
+        if (command.validate()) {
+            if (contactService.bulkGeneratePersonalCodeContacts(user, searchContactRSDTO)) {
+                return render ([
+                        status: 'ok',
+                        msg: g.message(code: "modal.bulkAction.generatePersonalCode.processing")
+                ] as JSON)
+            } else {
+                return render ([
+                        status: 'error',
+                        msg: g.message(code: "modal.bulkAction.generatePersonalCode.error.generating")
+                ] as JSON)
+            }
+        } else {
+            return render ([
+                    status: 'error',
+                    msg: g.message(code: "modal.bulkAction.deleteAll.error.validating")
+            ] as JSON)
+        }
+    }
+
+    def removePersonalCodeBulkAction(BulkDeletePersonalCodeContactsCommand command) {
+        KuorumUserSession user = springSecurityService.principal
+
+        // Filter
+        SearchContactRSDTO searchContactRSDTO =buildSearchContactFromCommand(command);
+        if (command.validate()) {
+            if (contactService.bulkRermovePersonalCodeContacts(user, searchContactRSDTO)) {
+                return render ([
+                        status: 'ok',
+                        msg: g.message(code: "modal.bulkAction.removePersonalCode.processing")
+                ] as JSON)
+            } else {
+                return render ([
+                        status: 'error',
+                        msg: g.message(code: "modal.bulkAction.removePersonalCode.error.removing")
+                ] as JSON)
+            }
+        } else {
+            return render ([
+                    status: 'error',
+                    msg: g.message(code: "modal.bulkAction.deleteAll.error.validating")
+            ] as JSON)
+        }
+    }
+
+    private SearchContactRSDTO buildSearchContactFromCommand(ContactFilterCommand command){
+        // Filter
+        SearchContactRSDTO searchContactRSDTO = new SearchContactRSDTO()
+        Long filterId = Long.parseLong(params.filterId?:'0')
+        FilterRDTO filterRDTO = command.buildFilter()
+
+        if (filterId < 0 || filterRDTO.filterConditions) {
+            searchContactRSDTO.filter = filterRDTO
+        } else if (filterId == 0l) {
+            // NO FILTER -> ALL CONTACTS
+        } else {
+            searchContactRSDTO.filterId = filterId
+        }
+        return searchContactRSDTO;
     }
 
     def exportContacts(ContactFilterCommand filterCommand){

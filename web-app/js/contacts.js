@@ -206,12 +206,22 @@ $(function () {
                 // "Remove tags" popup
                 $('#bulk-action-remove-tags-modal').modal('show');
                 break;
+            case 4:
+                // Generate personal code popup
+                $('#bulk-action-generate-personal-code').modal('show');
+                break;
+            case 5:
+                // Remove personal code popup
+                $('#bulk-action-remove-personal-code').modal('show');
+                break;
         }
     });
 
     // Bulk actions -- Submit modal form
     $('#bulk-action-delete-all-modal form, ' +
         '#bulk-action-add-tags-modal form, ' +
+        '#bulk-action-generate-personal-code form, ' +
+        '#bulk-action-remove-personal-code form, ' +
         '#bulk-action-remove-tags-modal form').submit(function (e) {
         e.preventDefault();
 
@@ -263,6 +273,8 @@ $(function () {
                         $('#bulk-action-delete-all-modal').modal('hide');
                         $('#bulk-action-add-tags-modal').modal('hide');
                         $('#bulk-action-remove-tags-modal').modal('hide');
+                        $('#bulk-action-generate-personal-code').modal('hide');
+                        $('#bulk-action-remove-personal-code').modal('hide');
                     }, 1000);
                 } else {
                     display.warn(data.msg);

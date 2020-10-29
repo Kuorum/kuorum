@@ -42,7 +42,7 @@ class ContactService {
         Map<String, String> query = [:]
 
         def response= restKuorumApiService.get(
-                RestKuorumApiService.ApiMethod.USER_CONTACT_TAGS,
+                RestKuorumApiService.ApiMethod.USER_CONTACTS_TAGS,
                 params,
                 query,
                 new TypeReference<List<String>>(){})
@@ -300,7 +300,7 @@ class ContactService {
 
         try {
             restKuorumApiService.put(
-                RestKuorumApiService.ApiMethod.USER_CONTACT_TAGS,
+                RestKuorumApiService.ApiMethod.USER_CONTACTS_TAGS,
                 params,
                 query,
                 bulkUpdateContactTags,
@@ -319,7 +319,7 @@ class ContactService {
 
         try {
             restKuorumApiService.put(
-                    RestKuorumApiService.ApiMethod.USER_CONTACT_TAGS,
+                    RestKuorumApiService.ApiMethod.USER_CONTACTS_TAGS,
                     params,
                     query,
                     bulkUpdateContactTags,
@@ -330,6 +330,75 @@ class ContactService {
         } catch (Exception ignored) {
             return false
         }
+    }
+
+    boolean bulkGeneratePersonalCodeContacts(KuorumUserSession user, SearchContactRSDTO searchContact) {
+        Map<String, String> params = [userId: user.id.toString()]
+        Map<String, String> query = searchContact.encodeAsQueryParams()
+
+        try {
+            restKuorumApiService.put(
+                    RestKuorumApiService.ApiMethod.USER_CONTACTS_PERSONAL_CODE,
+                    params,
+                    query,
+                    null,
+                    null
+            )
+
+            return true
+        } catch (Exception e) {
+            log.warn(e.getMessage())
+            return false
+        }
+    }
+    boolean bulkRermovePersonalCodeContacts(KuorumUserSession user, SearchContactRSDTO searchContact) {
+        Map<String, String> params = [userId: user.id.toString()]
+        Map<String, String> query = searchContact.encodeAsQueryParams()
+
+        try {
+            restKuorumApiService.delete(
+                    RestKuorumApiService.ApiMethod.USER_CONTACTS_PERSONAL_CODE,
+                    params,
+                    query
+            )
+
+            return true
+        } catch (Exception e) {
+            log.warn(e.getMessage())
+            return false
+        }
+    }
+
+    ContactRSDTO generatePersonalCode(KuorumUserSession user, Long contactId){
+        Map<String, String> params = [contactId: contactId.toString(), userId: user.id.toString()]
+        Map<String, String> query = [:]
+
+        def response= restKuorumApiService.put(
+                RestKuorumApiService.ApiMethod.USER_CONTACT_PERSONAL_CODE,
+                params,
+                query,
+                null,
+                new TypeReference<ContactRSDTO>(){})
+        ContactRSDTO contact =null
+        if (response.data){
+            contact = response.data
+        }
+        contact
+    }
+    ContactRSDTO removePersonalCode(KuorumUserSession user, Long contactId){
+        Map<String, String> params = [contactId: contactId.toString(), userId: user.id.toString()]
+        Map<String, String> query = [:]
+
+        def response= restKuorumApiService.delete(
+                RestKuorumApiService.ApiMethod.USER_CONTACT_PERSONAL_CODE,
+                params,
+                query,
+                new TypeReference<ContactRSDTO>(){})
+        ContactRSDTO contact =null
+        if (response.data){
+            contact = response.data
+        }
+        contact
     }
 
     void exportContacts(KuorumUserSession user, SearchContactRSDTO searchContactRSDTO){

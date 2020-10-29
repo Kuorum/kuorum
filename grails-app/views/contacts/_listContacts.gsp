@@ -29,6 +29,8 @@
             <option value="1"><g:message code="tools.contact.bulkActions.deleteAll"/></option>
             <option value="2"><g:message code="tools.contact.bulkActions.addTags"/></option>
             <option value="3"><g:message code="tools.contact.bulkActions.removeTags"/></option>
+            <option value="4"><g:message code="tools.contact.bulkActions.generatePersonalCode"/></option>
+            <option value="5"><g:message code="tools.contact.bulkActions.removePersonalCode"/></option>
         </select>
         <div class="pag-list-contacts">
             <nav:contactPagination

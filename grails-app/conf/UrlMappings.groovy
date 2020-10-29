@@ -210,6 +210,8 @@ class UrlMappings {
         name bulkActionRemoveContactsAjax:          "/ajax/contact/remove" (controller:"contacts", action: "removeContactsBulkAction")
         name bulkActionAddTagsContactsAjax:         "/ajax/contact/addTags" (controller:"contacts", action: "addTagsBulkAction")
         name bulkActionRemoveTagsContactsAjax:      "/ajax/contact/removeTags" (controller: "contacts", action: "removeTagsBulkAction")
+        name bulkActionGeneratePersonalCodeAjax:      "/ajax/contact/genertePersonalTag" (controller: "contacts", action: "generatePersonalCodeBulkAction")
+        name bulkActionRemovePersonalCodeAjax:      "/ajax/contact/removePersonalTag" (controller: "contacts", action: "removePersonalCodeBulkAction")
 
         name ajaxRegisterContact:            "/ajax/kuorum-user/contact"(controller: "kuorumUser", action: "contactUser")
 
@@ -314,6 +316,8 @@ class UrlMappings {
         name politicianContactFilterData:               "/ajax/account/contacts/filters/data" (controller:"contactFilters", action: "getFilterData")
         name politicianContactFilterDelete:             "/ajax/account/contacts/filters/delete" (controller:"contactFilters", action: "deleteFilter")
         name politicianContactEdit:                     "/account/contacts/$contactId/edit" (controller:"contacts"){action=[GET:"editContact", POST:"updateContact"]}
+        name politicianContactPersonalCodeGenerate:     "/account/contacts/$contactId/edit/personalCode/generate" (controller:"contacts", action:"generatePersonalCode")
+        name politicianContactPersonalCodeRemove:       "/account/contacts/$contactId/edit/personalCode/remove" (controller:"contacts", action:"removePersonalCode")
         name politicianContactEditUpdateNote:           "/ajax/account/contacts/$contactId/edit/updateNote" (controller:"contacts",action:"updateContactNotes")
         name politicianContactNew:                      "/account/contacts/new" (controller:"contacts"){action =[GET:"newContact", POST:"saveContact"]}
         name politicianContactUnsubscribe:              "/account/contacts/$contactId/unsubscribe" (controller:"contacts", action: "loggedUnsubscribe")
