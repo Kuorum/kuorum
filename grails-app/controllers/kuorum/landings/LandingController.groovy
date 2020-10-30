@@ -38,9 +38,13 @@ class LandingController {
         ]
     }
 
-    private CampaignRSDTO findStarredCampaign(List<CampaignRSDTO> relevantCampaings, Long starredCampaign){
-        CampaignRSDTO relevantCampaign = relevantCampaings.find {it.id == starredCampaign}
-        if (relevantCampaings == null){
+    private CampaignRSDTO findStarredCampaign(List<CampaignRSDTO> relevantCampaigns, Long starredCampaign){
+
+        CampaignRSDTO relevantCampaign = null;
+        if (relevantCampaigns){
+            relevantCampaign = relevantCampaigns.find {it.id == starredCampaign}
+        }
+        if (relevantCampaign == null){
             relevantCampaign = campaignService.find(WebConstants.FAKE_LANDING_ALIAS_USER, starredCampaign)
         }
         return relevantCampaign
