@@ -73,6 +73,14 @@ select {padding: 6px 6px 6px 8px !important;}*/
 .form-group-phone input {width: calc(100% - 7em - 5px);}
 
 
+.form-group-inputButton label {width: 100%;}
+.form-group-inputButton input {width: calc(100% - 60px - 5px); float:left}
+.edit-contact .tab-pane form .form-group-inputButton .btn, /* Overwriting .edit-contact .tab-pane form .btn */
+.form-group-inputButton .btn {width: 60px; min-width: auto; margin: 0 0 0 5px; padding:11px 11px !important;}
+
+.form-group-inputButton .btn.btn-grey.inverted.delete:hover,
+.form-group-inputButton .btn.delete:hover {background-color: #BF4343 !important;}
+
 .center{text-align:center;}
 
 .add-on.input-group-addon label {margin-bottom: 0; color: #a8a8a8;}

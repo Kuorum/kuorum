@@ -17,6 +17,9 @@
         <formUtil:selectPhonePrefix command="${command}" field="phonePrefix" showLabel="true" label="${g.message(code:'kuorum.web.commands.payment.contact.ContactCommand.phone.label')}"/>
         <formUtil:input command="${command}" field="phone" showLabel="true" type="number"/>
     </div>
+    <div class="form-group form-group-inputButton col-md-4">
+        <g:render template="/contacts/inputs/basicContactInput_personalCode" model="[contact:contact]"/>
+    </div>
 </div>
 <div class="row">
     <div class="form-group col-md-4">
