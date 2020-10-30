@@ -1206,6 +1206,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
     cursor: not-allowed !important;
 }
 .edit-contact-header .bootstrap-tagsinput {padding-bottom: 1px; min-height: 0; padding-top: 1px; max-width:300px;}
+.edit-contact-header .addTag .fa-key {color:#a8a8a8;}
 #contactsList .bootstrap-tagsinput .tag, .edit-contact-header .bootstrap-tagsinput .tag{margin-bottom: 1px;}
 #contactsList .bootstrap-tagsinput {width:300px;} /*This width is for fix the postion of the save button [It's a ñapa]*/
 #contactsList .engagement-container {margin-top:9px;}
