@@ -94,7 +94,7 @@ var participatoryBudgetHelper={
 
     loadMoreDistrictProposals: function(ulIdSelector){
         // pageLoadingOn("Load more districts")
-        var urlLoadMoreDistrictProposals = new URL($(ulIdSelector).attr("data-loadProposals"));
+        var urlLoadMoreDistrictProposals = $(ulIdSelector).attr("data-loadProposals");
         var params = {
             page : $(ulIdSelector).attr("data-page")
         };
@@ -106,9 +106,12 @@ var participatoryBudgetHelper={
         if (typeof randomSeed !== typeof undefined && randomSeed !== false){
             params['randomSeed']=randomSeed
         }
-        for (var key in params) {
-            urlLoadMoreDistrictProposals.searchParams.append(key, params[key])
+        var appender = "&"
+        if (urlLoadMoreDistrictProposals.indexOf("?")<0){
+            appender = "?";
         }
+        urlLoadMoreDistrictProposals = urlLoadMoreDistrictProposals + appender +$.param(params)
+
 
         $(ulIdSelector).append("<li class='loading'></li>");
         $(ulIdSelector).parent().show();
