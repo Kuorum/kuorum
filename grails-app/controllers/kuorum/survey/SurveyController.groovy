@@ -23,7 +23,7 @@ class SurveyController extends CampaignController{
             QuestionTypeRSDTO.CONTACT_PHONE,
             QuestionTypeRSDTO.CONTACT_WEIGHT,
             QuestionTypeRSDTO.RATING_OPTION,
-//            QuestionTypeRSDTO.CONTACT_UPLOAD_FILES,
+            QuestionTypeRSDTO.CONTACT_UPLOAD_FILES,
             QuestionTypeRSDTO.TEXT_OPTION]
 
     @Secured(['ROLE_CAMPAIGN_SURVEY'])
@@ -204,7 +204,7 @@ class SurveyController extends CampaignController{
             case QuestionOptionTypeRDTO.ANSWER_NUMBER:
                 return new QuestionAnswerNumberRDTO([optionId:qac.answerId, number:qac.number])
             case QuestionOptionTypeRDTO.ANSWER_FILES:
-                return null;
+                return new QuestionAnswerFilesRDTO([optionId:qac.answerId])
             default:
                 return null;
         }

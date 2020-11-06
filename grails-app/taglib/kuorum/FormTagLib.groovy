@@ -10,7 +10,11 @@ import org.codehaus.groovy.grails.validation.*
 import org.kuorum.rest.model.communication.CampaignRSDTO
 import org.kuorum.rest.model.communication.event.EventRSDTO
 import org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetRSDTO
+import org.kuorum.rest.model.communication.survey.QuestionOptionRSDTO
+import org.kuorum.rest.model.communication.survey.QuestionOptionTypeRDTO
+import org.kuorum.rest.model.communication.survey.QuestionRSDTO
 import org.kuorum.rest.model.communication.survey.SurveyRSDTO
+import org.kuorum.rest.model.communication.survey.answer.QuestionAnswerFilesRDTO
 import org.kuorum.rest.model.contact.ContactRSDTO
 import org.kuorum.rest.model.geolocation.RegionRSDTO
 import org.kuorum.rest.model.notification.campaign.NewsletterRSDTO
@@ -168,6 +172,7 @@ class FormTagLib {
             def model = [
                     alreadyUploadedFiles:alreadyUploadedFiles,
                     elementId: newsletterRSDTO.id,
+                    disabled: false,
                     actionUpload: g.createLink(mapping:'ajaxUploadMassMailingAttachFile', params: [campaignId: newsletterRSDTO.id]),
                     actionDelete: g.createLink(mapping:'ajaxDeleteMassMailingAttachFile', params: [campaignId: newsletterRSDTO.id]),
                     label:label
@@ -185,8 +190,40 @@ class FormTagLib {
         def model = [
                 alreadyUploadedFiles:alreadyUploadedFiles,
                 elementId: contact.id,
+                disabled: false,
                 actionUpload: g.createLink(mapping:'ajaxUploadContactFile', params: [contactId: contact.id, userAlias:userSession.id.toString()]),
                 actionDelete: g.createLink(mapping:'ajaxDeleteContactFile', params: [contactId: contact.id, userAlias:userSession.id.toString()]),
+                label:label
+        ]
+        out << g.render(template:'/layouts/form/uploadMultipleFiles', model:model)
+    }
+    def uploadQuestionOptionFiles = {attrs ->
+        SurveyRSDTO survey = attrs.survey
+        QuestionRSDTO question = attrs.question
+        QuestionOptionRSDTO questionOption= attrs.questionOption
+        String label = attrs.label
+        KuorumUserSession userSession= springSecurityService.principal
+        if (questionOption.questionOptionType != QuestionOptionTypeRDTO.ANSWER_FILES){
+            throw new Exception("This option is not an ANSWER_FILES option")
+        }
+        List<String> alreadyUploadedFiles = []
+        if (questionOption.answer){
+            if (questionOption.answer instanceof QuestionAnswerFilesRDTO){
+                alreadyUploadedFiles = ((QuestionAnswerFilesRDTO)questionOption.answer).getFiles();
+            }else{
+                throw new Exception("The answer is not the correct type -> QuestionAnswerFilesRDTO")
+            }
+        }
+        if (!alreadyUploadedFiles){
+//            alreadyUploadedFiles = contactService.getFiles(userSession,contact)
+        }
+        alreadyUploadedFiles = alreadyUploadedFiles.collect{it.split('\\?').first()}
+        def model = [
+                alreadyUploadedFiles:alreadyUploadedFiles,
+                elementId: "questionOption_${questionOption.id}",
+                disabled: question.answered,
+                actionUpload: g.createLink(mapping:'ajaxUploadQuestionOptionFile', params: [userAlias:survey.user.alias, surveyId: survey.id, questionId: question.id, questionOptionId:questionOption.id]),
+                actionDelete: g.createLink(mapping:'ajaxDeleteQuestionOptionFile', params: [userAlias:survey.user.alias, surveyId: survey.id, questionId: question.id, questionOptionId:questionOption.id]),
                 label:label
         ]
         out << g.render(template:'/layouts/form/uploadMultipleFiles', model:model)

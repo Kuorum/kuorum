@@ -48,6 +48,9 @@
             <g:elseif test="${question.questionType == org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.CONTACT_GENDER}">
                 <g:render template="/survey/showModules/questions/genderQuestionOption" model="[survey:survey, question:question, option:option]"/>
             </g:elseif>
+            <g:elseif test="${question.questionType == org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.CONTACT_UPLOAD_FILES}">
+                <g:render template="/survey/showModules/questions/fileQuestionOption" model="[survey:survey, question:question, option:option]"/>
+            </g:elseif>
             <g:else>
                 <g:render template="/survey/showModules/questions/singleInputQuestionOption" model="[survey:survey, question:question, option:option]"/>
             </g:else>

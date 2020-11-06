@@ -239,4 +239,30 @@ class SurveyService implements CampaignCreatorService<SurveyRSDTO, SurveyRDTO>{
         )
         response
     }
+
+    String uploadQuestionOptionFile(KuorumUserSession user, String aliasUserSurvey, Long surveyId, Long questionId, Long questionOptionId, File file, String fileName){
+        fileName = java.net.URLEncoder.encode(fileName, "UTF-8")
+        Map<String, String> params = [userId: aliasUserSurvey, surveyId: surveyId.toString(), questionId: questionId.toString(), questionOptionId:questionOptionId.toString()]
+        Map<String, String> query = [viewerUid:user.getId().toString()]
+        def response = restKuorumApiService.putFile(
+                RestKuorumApiService.ApiMethod.ACCOUNT_SURVEY_ANSWER_FILE,
+                params,
+                query,
+                file,
+                fileName
+        )
+    }
+
+
+    void deleteQuestionOptionFile(KuorumUserSession user, String aliasUserSurvey, Long surveyId, Long questionId, Long questionOptionId, String fileName){
+        fileName = java.net.URLEncoder.encode(fileName, "UTF-8")
+        Map<String, String> params = [userId: aliasUserSurvey, surveyId: surveyId.toString(), questionId: questionId.toString(), questionOptionId:questionOptionId.toString()]
+        Map<String, String> query = [viewerUid:user.getId().toString(), fileName:fileName]
+        def response = restKuorumApiService.delete(
+                RestKuorumApiService.ApiMethod.ACCOUNT_SURVEY_ANSWER_FILE,
+                params,
+                query,
+                new TypeReference<String>(){}
+        )
+    }
 }

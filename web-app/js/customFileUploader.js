@@ -771,6 +771,9 @@ qq.MultipleFileUploader = function(o){
     this._initFiles();
     this._bindRemoveElement();
     this._bindCopyUrl();
+    if (this._options.disabled){
+        this.disable();
+    }
 };
 
 // inherit from Basic Uploader
@@ -788,6 +791,15 @@ qq.extend(qq.MultipleFileUploader.prototype, {
 
         return element;
     },
+
+    disable:function(){
+        qq.addClass(this._element.childNodes[0], "disabled");
+        this._element.childNodes[0].addEventListener("click", function(e){
+            e.preventDefault();
+            e.stopPropagation();
+        });
+    },
+
     _setupDragDrop: function(){
         var self = this,
             dropArea = this._find(this._element, 'drop');

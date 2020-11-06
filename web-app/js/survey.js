@@ -204,7 +204,7 @@ var surveyFunctions = {
         MULTIPLE_OPTION_POINTS: function(question){return this.MULTIPLE_OPTION_WEIGHTED(question)},
         TEXT_OPTION: function(question){return true;},
         RATING_OPTION: function(question){return true;},
-//      CONTACT_FILES: function(question {return true;},
+        CONTACT_UPLOAD_FILES: function(question) {return true;},
         CONTACT_GENDER: function(question){return true;},
         CONTACT_PHONE: function(question){return true;},
         CONTACT_EXTERNAL_ID: function(question){return true;},
@@ -277,6 +277,22 @@ var surveyFunctions = {
             surveyFunctions._checkValidAnswerType._handlePrintingError(validationData);
             return validationData.valid
         },
+        ANSWER_FILES: function(questionAnswerOption,questionType){
+            var textFileListNodes = questionAnswerOption.querySelectorAll("li.qq-upload-success");
+            var validationData = {
+                valid: textFileListNodes.length > 0,
+                msg:"UPLOAD AT LEAST ONE FILE",
+                input: textFileListNodes[0]
+            }
+            if (validationData.valid){
+                validationData = surveyFunctions._checkValidAnswerType._checkValidInputAnswerByQuestionType[questionType](textFileListNodes[0]);
+            }
+            if (!validationData.valid){
+                $(questionAnswerOption).find(".survey-question-option-extra-info").addClass("error");
+            }
+            // surveyFunctions._checkValidAnswerType._handlePrintingError(validationData);
+            return validationData.valid
+        },
         _checkInputData:function(inputNode){
             if (inputNode.value === ""){
                 return {
@@ -320,7 +336,7 @@ var surveyFunctions = {
             MULTIPLE_OPTION_POINTS: function(inputNode){return surveyFunctions._checkValidAnswerType._checkValidInputAnswerByQuestionType.MULTIPLE_OPTION_WEIGHTED(inputNode)},
             TEXT_OPTION:            function(inputNode){return surveyFunctions._checkValidAnswerType._checkValidInputAnswerByQuestionType.defaultValidation(inputNode);},
             RATING_OPTION:          function(inputNode){return surveyFunctions._checkValidAnswerType._checkValidInputAnswerByQuestionType.defaultValidation(inputNode);},
-    //      CONTACT_FILES:          function(inputNode){return surveyFunctions._checkValidAnswerType._checkValidInputAnswerByQuestionType.defaultValidation(inputNode);},
+            CONTACT_UPLOAD_FILES:   function(inputNode){return surveyFunctions._checkValidAnswerType._checkValidInputAnswerByQuestionType.defaultValidation(inputNode);},
             CONTACT_GENDER:         function(inputNode){return surveyFunctions._checkValidAnswerType._checkValidInputAnswerByQuestionType.defaultValidation(inputNode);},
             CONTACT_PHONE:          function(inputNode){return surveyFunctions._checkValidAnswerType._checkValidInputAnswerByQuestionType.defaultValidation(inputNode);},
             CONTACT_EXTERNAL_ID:    function(inputNode){return surveyFunctions._checkValidAnswerType._checkValidInputAnswerByQuestionType.defaultValidation(inputNode);},
@@ -565,7 +581,9 @@ var surveyFunctions = {
                     elementsToRemove.push($input);
                     elementsToRemove.push($prefix);
                 }else if (answerOptionType == "ANSWER_FILES"){
-                   //TODO
+                    var uploaderContainerId = $answerOption.find(".qq-uploader-multiple-files").parent().attr("id")
+                    multipleFileUploaders[uploaderContainerId].disable();
+                    $answerOption.find(".survey-question-option-extra-info").removeClass("error");
                 }
                 if (switchToNoEditable){
                     $answerOption.find(".text-answer").html(text)
@@ -590,7 +608,7 @@ var surveyFunctions = {
         var answer = e.currentTarget
         if ($(answer).find(".single-option").length >0){
             surveyFunctions._selectSingleAnswer(e)
-        }else if ($(answer).find(".text-option").length >0){
+        }else if ($(answer).find(".only-predefined-option").length >0){
             surveyFunctions._selectSingleAnswer(e)
         }else if ($(answer).find(".multi-option").length >0){
             surveyFunctions._selectMultiAnswer(e)

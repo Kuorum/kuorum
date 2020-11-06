@@ -97,6 +97,7 @@ class RestKuorumApiService {
         String path = apiMethod.buildUrl(apiPath,params)
         http.request(Method.PUT, ContentType.TEXT) {req->
             uri.path = path
+            uri.query = query
             headers = ["User-Agent": "Kuorum Web", "Authorization":CustomDomainResolver.apiToken]
 
             MultipartEntityBuilder multipartRequestEntity = new MultipartEntityBuilder()
@@ -300,6 +301,7 @@ class RestKuorumApiService {
         ACCOUNT_SURVEYS               ("/communication/campaign/survey/{userId}"),
         ACCOUNT_SURVEY                ("/communication/campaign/survey/{userId}/{surveyId}"),
         ACCOUNT_SURVEY_ANSWER         ("/communication/campaign/survey/{userId}/{surveyId}/question/{questionId}"),
+        ACCOUNT_SURVEY_ANSWER_FILE    ("/communication/campaign/survey/{userId}/{surveyId}/question/{questionId}/{questionOptionId}/file"),
         ACCOUNT_SURVEY_REPORT_STATS   ("/communication/campaign/survey/{userId}/{surveyId}/report/stats"),
         ACCOUNT_SURVEY_REPORT_RAW     ("/communication/campaign/survey/{userId}/{surveyId}/report/rawData"),
 

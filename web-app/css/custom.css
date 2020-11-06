@@ -3052,6 +3052,17 @@ fieldset > .multiple-range-selector:first-child {margin-top:40px;}
 /* Cancel is not working. Not shown*/
 .qq-uploader-multiple-files .qq-upload-list li .qq-upload-cancel{display: none;}
 
+.qq-uploader-multiple-files.disabled .button-container {display: none;}
+.qq-uploader-multiple-files.disabled .qq-upload-list li.qq-upload-success .qq-upload-success,
+.qq-uploader-multiple-files.disabled .qq-upload-list li > div {display: none;}
+.qq-uploader-multiple-files.disabled .qq-upload-list li > div.qq-upload-file-type {display: inline-block;}
+.qq-uploader-multiple-files.disabled .qq-upload-list li > div.qq-upload-file {display: inline-block;}
+.qq-uploader-multiple-files.disabled .qq-upload-list li {background-color: transparent;}
+.qq-uploader-multiple-files.disabled .qq-upload-list li a{cursor: default;}
+.qq-uploader-multiple-files.disabled .qq-upload-list li a:focus,
+.qq-uploader-multiple-files.disabled .qq-upload-list li a:hover{text-decoration: none;}
+.qq-uploader-multiple-files.disabled .qq-upload-drop-area {display: none!important;}
+
 .list-campaign-files {padding:0 15px;}
 .list-campaign-files li {font-size: 15px; padding: 3px 0; width:100%; white-space: nowrap;overflow: hidden;text-overflow: ellipsis;vertical-align: bottom;}
 .list-campaign-files li a {color:#545454;}
@@ -7841,7 +7852,7 @@ ul.notification-menu > li.see-more {
     padding-top: 20px;
 }
 
-.survey-question.text-answer.answered .text-option{
+.survey-question.text-answer.answered .only-predefined-option{
     margin-bottom:10px;
 }
 
@@ -7868,7 +7879,9 @@ ul.notification-menu > li.see-more {
 
 .survey-question-answer:hover {background-color: #EEE;cursor: pointer;}
 .survey-question-answer.survey-question-rating-option:hover {background-color: transparent;}
+.survey-question-answer .qq-uploader-multiple-files .qq-upload-list li {font-size:1em;}
 
+.survey-question-answer.survey-question-file-option{padding-top:0px;}
 .survey-question.answered .survey-question-answers:hover {cursor: default;}
 .survey-question.answered .survey-question-answer:hover {background-color: transparent;cursor: default;}
 
@@ -7909,7 +7922,7 @@ ul.notification-menu > li.see-more {
     cursor: default;
 }
 
-.survey-question-answer .text-option,
+.survey-question-answer .only-predefined-option,
 .survey-question-answer .single-option,
 .survey-question-answer .multi-option {
     display: flex;
@@ -7923,7 +7936,7 @@ ul.notification-menu > li.see-more {
     width: 40px;
 }
 
-.survey-question-answer .text-option label,
+.survey-question-answer .only-predefined-option label,
 .survey-question-answer .single-option label,
 .survey-question-answer .multi-option label{
     width: 75%;
@@ -7941,24 +7954,24 @@ ul.notification-menu > li.see-more {
     font-weight: bold;
 }
 
-.survey-question-answer .text-option .option-extra-content,
+.survey-question-answer .only-predefined-option .option-extra-content,
 .survey-question-answer .single-option .option-extra-content,
 .survey-question-answer .multi-option .option-extra-content {
     width: calc(100% - 50px);
     margin-left: 50px;
 }
-.survey-question-answer .text-option .option-extra-content .input-group.date,
+.survey-question-answer .only-predefined-option .option-extra-content .input-group.date,
 .survey-question-answer .single-option .option-extra-content .input-group.date,
 .survey-question-answer .multi-option .option-extra-content .input-group.date{
     max-width: 17em;
 }
-.survey-question-answer .text-option .form-group.option-extra-content,
+.survey-question-answer .only-predefined-option .form-group.option-extra-content,
 .survey-question-answer .single-option .form-group.option-extra-content,
 .survey-question-answer .multi-option .form-group.option-extra-content {
     margin-bottom: inherit;
 }
 
-.survey-question-answer .text-option    .form-group.form-group-phone.option-extra-content,
+.survey-question-answer .only-predefined-option    .form-group.form-group-phone.option-extra-content,
 .survey-question-answer .single-option  .form-group.form-group-phone.option-extra-content,
 .survey-question-answer .multi-option   .form-group.form-group-phone.option-extra-content {
     max-width: 14em;
@@ -7967,7 +7980,7 @@ ul.notification-menu > li.see-more {
 .survey-question-answer.ANSWER_NUMBER .form-group.option-extra-content{max-width: 10em;}
 
 
-.survey-question-answer .text-option .option-extra-content textarea,
+.survey-question-answer .only-predefined-option .option-extra-content textarea,
 .survey-question-answer .single-option .option-extra-content textarea,
 .survey-question-answer .multi-option .option-extra-content textarea{
     width: 100%;
@@ -7979,19 +7992,19 @@ ul.notification-menu > li.see-more {
     display: none;
 }
 
-.survey-question-answer .text-option .option-extra-content textarea.error,
+.survey-question-answer .only-predefined-option .option-extra-content textarea.error,
 .survey-question-answer .single-option .option-extra-content textarea.error,
 .survey-question-answer .multi-option .option-extra-content textarea.error{
     border-color:#BF4343;
     box-shadow: 0px 0px 5px 0px rgba(191,67,67,1);
 }
 
-.survey-question-answer .option-extra-content span.error{display:block;    margin-left:0px;}
+.survey-question-answer .option-extra-content span.error{display:block; margin-left:0px;}
 
 .survey-question-answer .option-extra-content textarea + span.error {display:none;float: left;margin-left: 0px;}
 .survey-question-answer .option-extra-content textarea.error + span.error {display:inherit}
 
-.survey-question-answer .text-option .option-extra-content span.text-answer,
+.survey-question-answer .only-predefined-option .option-extra-content span.text-answer,
 .survey-question-answer .single-option .option-extra-content span.text-answer,
 .survey-question-answer .multi-option .option-extra-content span.text-answer{
     font-style: italic;
@@ -8018,6 +8031,10 @@ li.survey-question.answered .survey-question-answer .option-extra-content textar
 .survey-question-extra-info .survey-question-extra-info-points{}
 .survey-question-extra-info .survey-question-extra-info-points.error{background-color: #F2DEDE; margin: 8px 0 0 0; padding: 4px 8px; color: #BF4343; border-radius: 4px;}
 .survey-question-extra-info .survey-question-extra-info-points.error .strong{font-size: 20px}
+
+.survey-question-option-extra-info {color:#167caa; margin-bottom: 10px;font-size: 14px;}
+.survey-question-option-extra-info.error{background-color: #F2DEDE; padding: 4px 8px; color: #BF4343; border-radius: 4px;}
+
 .survery-question-number{display: inline-block; text-align: center; width: 10%; float: left;}
 .survery-question-number .survey-quiestion-number-idx{font-size: 1.5em;}
 .survery-question-number .survey-quiestion-number-total{font-size: 1.5em;}
@@ -8158,7 +8175,7 @@ li.survey-question.answered .survey-question-answer .option-extra-content textar
     .survey-question .actions a.skip-question{margin-bottom: 20px;}
     .survey-question > .footer {padding-bottom: 20px;}
 
-    .survey-question-answer .text-option .option-extra-content,
+    .survey-question-answer .only-predefined-option .option-extra-content,
     .survey-question-answer .single-option .option-extra-content,
     .survey-question-answer .multi-option .option-extra-content {
         width: 100%;

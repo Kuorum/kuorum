@@ -11,11 +11,14 @@
 </div>
 
 <r:script>
+    if (multipleFileUploaders == undefined){
+        var multipleFileUploaders = {};
+    }
+
     $(function(){
-
-
-        var multipleFileUploader = new qq.MultipleFileUploader({
+        multipleFileUploaders['${divId}'] = new qq.MultipleFileUploader({
             multiple:true,
+            disabled:${disabled?'true':'false'},
             element: document.getElementById('${divId}'),
             allowedExtensions: ['pdf', 'doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx', 'zip', 'rar', 'jpg', 'jpeg', 'JPG', 'JPEG', 'gif','GIF', 'PNG', 'png'],
             sizeLimit: 20971520, // 20 M max size

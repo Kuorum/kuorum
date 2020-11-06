@@ -45,6 +45,14 @@
         <span class="text-answer">${option.answer?.text?:''}</span>
     </div>
 </g:if>
+<g:if test="${option.questionOptionType == org.kuorum.rest.model.communication.survey.QuestionOptionTypeRDTO.ANSWER_FILES}">
+    <div class="form-group option-extra-content">
+        <div class="survey-question-option-extra-info">
+            Añade al menos un fichero
+        </div>
+        <formUtil:uploadQuestionOptionFiles survey="${survey}" question="${question}" questionOption="${option}"/>
+    </div>
+</g:if>
 <g:if test="${option.questionOptionType == org.kuorum.rest.model.communication.survey.QuestionOptionTypeRDTO.ANSWER_PHONE}">
     <div class="form-group form-group-phone option-extra-content">
         <formUtil:selectPhonePrefix

@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile
 import org.springframework.web.multipart.MultipartHttpServletRequest
 import payment.campaign.CampaignService
 import payment.campaign.NewsletterService
+import payment.campaign.SurveyService
 import payment.contact.ContactService
 
 import javax.servlet.http.HttpServletRequest
@@ -24,6 +25,7 @@ class FileController {
     CampaignService campaignService
     NewsletterService newsletterService
     ContactService contactService
+    SurveyService surveyService
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def uploadImage() {
@@ -92,6 +94,46 @@ class FileController {
     def deleteContactFile() {
         def fileName = params.fileName
         contactService.deleteFile(springSecurityService.principal, Long.parseLong(params.contactId), fileName)
+        render ([fileUrl: "#FILE", fileName: fileName, status:200, success:true] as JSON)
+    }
+
+
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def uploadQuestionOptionFile() {
+        def fileData = getFileData(request)
+        File file = File.createTempFile("contactFile", "kuorum")
+        localFileService.upload(fileData.inputStream,file);
+        String fileUrl
+        try {
+            fileUrl = surveyService.uploadQuestionOptionFile(
+                    springSecurityService.principal,
+                    params.userAlias,
+                    Long.parseLong(params.surveyId),
+                    Long.parseLong(params.questionId),
+                    Long.parseLong(params.questionOptionId),
+                    file,
+                    fileData.fileName);
+        }finally{
+            file.delete();
+        }
+//        FileGroup fileGroup = FileGroup.PDF
+//        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+//        KuorumFile kuorumFile = fileService.uploadTemporalFile(fileData.inputStream, user, fileData.fileName, fileGroup)
+
+        render ([fileUrl: fileUrl, fileName: fileData.fileName, status:200, success:true] as JSON)
+    }
+
+
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def deleteQuestionOptionFile() {
+        def fileName = params.fileName
+        surveyService.deleteQuestionOptionFile(
+                springSecurityService.principal,
+                params.userAlias,
+                Long.parseLong(params.surveyId),
+                Long.parseLong(params.questionId),
+                Long.parseLong(params.questionOptionId),
+                fileName);
         render ([fileUrl: "#FILE", fileName: fileName, status:200, success:true] as JSON)
     }
 
