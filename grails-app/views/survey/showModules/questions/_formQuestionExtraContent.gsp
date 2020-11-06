@@ -47,10 +47,18 @@
 </g:if>
 <g:if test="${option.questionOptionType == org.kuorum.rest.model.communication.survey.QuestionOptionTypeRDTO.ANSWER_FILES}">
     <div class="form-group option-extra-content">
-        <div class="survey-question-option-extra-info">
-            Añade al menos un fichero
-        </div>
-        <formUtil:uploadQuestionOptionFiles survey="${survey}" question="${question}" questionOption="${option}"/>
+        <sec:ifLoggedIn>
+            <div class="survey-question-option-extra-info">
+                <g:message code="survey.questions.option.ANSWER_FILES.extrainfo"/>
+            </div>
+            <formUtil:uploadQuestionOptionFiles survey="${survey}" question="${question}" questionOption="${option}"/>
+        </sec:ifLoggedIn>
+        <sec:ifNotLoggedIn>
+            <div class="survey-question-option-extra-info">
+                <g:message code="survey.questions.option.ANSWER_FILES.noLogged"/>
+                <g:link mapping="login"><g:message code="register.head.login"/></g:link>
+            </div>
+        </sec:ifNotLoggedIn>
     </div>
 </g:if>
 <g:if test="${option.questionOptionType == org.kuorum.rest.model.communication.survey.QuestionOptionTypeRDTO.ANSWER_PHONE}">
