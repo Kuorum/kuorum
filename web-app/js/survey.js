@@ -96,6 +96,9 @@ var surveyFunctions = {
                 e.stopPropagation();
             }
         });
+
+        // CONTACT FILES -> Option is selected by default
+        $(".survey-question[data-questiontype='CONTACT_UPLOAD_FILES'] .survey-question-answer.ANSWER_FILES").click()
     },
     _nextButtonClick : function(e) {
         e.preventDefault();

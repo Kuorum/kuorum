@@ -7878,6 +7878,7 @@ ul.notification-menu > li.see-more {
 }
 
 .survey-question-answer:hover {background-color: #EEE;cursor: pointer;}
+.survey-question-answer.ANSWER_FILES:hover {background-color: transparent;}
 .survey-question-answer.survey-question-rating-option:hover {background-color: transparent;}
 .survey-question-answer .qq-uploader-multiple-files .qq-upload-list li {font-size:1em;}
 
@@ -8006,7 +8007,9 @@ ul.notification-menu > li.see-more {
 
 .survey-question-answer .only-predefined-option .option-extra-content span.text-answer,
 .survey-question-answer .single-option .option-extra-content span.text-answer,
-.survey-question-answer .multi-option .option-extra-content span.text-answer{
+.survey-question-answer .multi-option .option-extra-content span.text-answer,
+.survey-question.answered .survey-question-answer .option-extra-content .qq-upload-list,
+.survey-question.answered .survey-question-answer .option-extra-content .qq-upload-list a{
     font-style: italic;
     color:#ccc;
 }
