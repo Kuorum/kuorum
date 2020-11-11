@@ -74,10 +74,14 @@
                 '<div class="qq-upload-delete"> <a href="#" class="qq-upload-delete-action fal fa-trash"></a></div>' +
                 '</li>',
             removeConfirmModal: function(fileName, msgConfirm, deleteActionCallback){
-                $("#multi-uploader-remove-file-modal-${divId}").find(".modal-body p").html(msgConfirm);
-                removeCallbackAction = deleteActionCallback;
-                $("#multi-uploader-remove-file-modal-${divId}").modal("show");
-                console.log("REMOVE CLICKED")
+                <g:if test="${confirmRemoveFile}">
+                    $("#multi-uploader-remove-file-modal-${divId}").find(".modal-body p").html(msgConfirm);
+                    removeCallbackAction = deleteActionCallback;
+                    $("#multi-uploader-remove-file-modal-${divId}").modal("show");
+                </g:if>
+                <g:else>
+                    deleteActionCallback();
+                </g:else>
             }
         });
 

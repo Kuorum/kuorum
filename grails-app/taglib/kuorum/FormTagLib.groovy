@@ -159,6 +159,7 @@ class FormTagLib {
             def model = [
                     alreadyUploadedFiles:alreadyUploadedFiles,
                     elementId: campaignRSDTO.id,
+                    confirmRemoveFile: true,
                     actionUpload: g.createLink(mapping:'ajaxUploadCampaignFile', params: campaignRSDTO.encodeAsLinkProperties()),
                     actionDelete: g.createLink(mapping:'ajaxDeleteCampaignFile', params: campaignRSDTO.encodeAsLinkProperties()),
                     label:label
@@ -173,6 +174,7 @@ class FormTagLib {
                     alreadyUploadedFiles:alreadyUploadedFiles,
                     elementId: newsletterRSDTO.id,
                     disabled: false,
+                    confirmRemoveFile: true,
                     actionUpload: g.createLink(mapping:'ajaxUploadMassMailingAttachFile', params: [campaignId: newsletterRSDTO.id]),
                     actionDelete: g.createLink(mapping:'ajaxDeleteMassMailingAttachFile', params: [campaignId: newsletterRSDTO.id]),
                     label:label
@@ -191,6 +193,7 @@ class FormTagLib {
                 alreadyUploadedFiles:alreadyUploadedFiles,
                 elementId: contact.id,
                 disabled: false,
+                confirmRemoveFile: true,
                 actionUpload: g.createLink(mapping:'ajaxUploadContactFile', params: [contactId: contact.id, userAlias:userSession.id.toString()]),
                 actionDelete: g.createLink(mapping:'ajaxDeleteContactFile', params: [contactId: contact.id, userAlias:userSession.id.toString()]),
                 label:label
@@ -222,6 +225,7 @@ class FormTagLib {
                 alreadyUploadedFiles:alreadyUploadedFiles,
                 elementId: "questionOption_${questionOption.id}",
                 disabled: question.answered,
+                confirmRemoveFile: false,
                 actionUpload: g.createLink(mapping:'ajaxUploadQuestionOptionFile', params: [userAlias:survey.user.alias, surveyId: survey.id, questionId: question.id, questionOptionId:questionOption.id]),
                 actionDelete: g.createLink(mapping:'ajaxDeleteQuestionOptionFile', params: [userAlias:survey.user.alias, surveyId: survey.id, questionId: question.id, questionOptionId:questionOption.id]),
                 label:label
