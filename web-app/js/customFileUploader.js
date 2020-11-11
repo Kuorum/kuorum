@@ -286,10 +286,20 @@ qq.FileUploaderBasic = function(o){
             minSizeError: "{file} is too small, minimum file size is {minSizeLimit}.",
             emptyError: "{file} is empty, please select files again without it.",
             onLeave: "The files are being uploaded, if you leave now the upload will be cancelled.",
+            confirmRemoveMessage: "Do you want to remove {file}?",
             fileUrlCopiedSuccess:"File url is copied to your clipboard"
         },
         showMessage: function(message){
             displayInfo(message);
+        },
+        removeConfirmModal: function(fileName, msgConfirm, deleteActionCallback){
+            var r = confirm(msgConfirm);
+            if (r == true) {
+                deleteActionCallback();
+            } else {
+                console.log("Not remove "+fileName)
+            }
+
         }
     };
     qq.extend(this._options, o);
@@ -947,12 +957,19 @@ qq.extend(qq.MultipleFileUploader.prototype, {
             var target = e.target || e.srcElement;
             if (qq.hasClass(target, self._classes.deleteFile)){
                 qq.preventDefault(e);
-                var item = target.parentNode.parentNode; // LI ELEMENT
                 var url = target.getAttribute("href");
-                qq.removeClass(item, self._options.classes.success);
-                qq.removeClass(item, self._options.classes.fail);
-                qq.ajaxGet(url, function(xhttp){
-                    qq.remove(item);
+                var fileName = url.split("=").slice(-1).pop();
+                var confirmMessage = "Do you want to remove "+fileName+"?";
+                if (self._options.messages.confirmRemoveMessage != undefined){
+                    confirmMessage = self._options.messages.confirmRemoveMessage.replace('{file}', fileName);
+                }
+                self._options.removeConfirmModal(fileName, confirmMessage,function(){
+                    var item = target.parentNode.parentNode; // LI ELEMENT
+                    qq.removeClass(item, self._options.classes.success);
+                    qq.removeClass(item, self._options.classes.fail);
+                    qq.ajaxGet(url, function(xhttp){
+                        qq.remove(item);
+                    })
                 })
             }
         });

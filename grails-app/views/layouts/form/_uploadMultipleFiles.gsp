@@ -10,7 +10,31 @@
     </noscript>
 </div>
 
+<!-- MODAL REMOVE FILE -->
+<div class="modal fade in modal-remove-file" id="multi-uploader-remove-file-modal-${divId}" tabindex="-1" role="dialog" aria-labelledby="multi-uploader-remove-file-modal-title" aria-hidden="true">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                    <span aria-hidden="true" class="fal fa-times-circle fa"></span><span class="sr-only"><g:message code="modalDefend.close"/></span>
+                </button>
+                <h4>
+                    <g:message code="uploader.multiFile.removeFile.modal.title"/>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <p>Remove file - replaced</p>
+            </div>
+            <div class="modal-actions">
+                <a href="" role="button" class="btn btn-blue inverted btn-lg confirm-button"><g:message code="uploader.multiFile.removeFile.modal.confirm"/></a>
+                <a href="" role="button" class="btn btn-grey-light btn-lg close-modal"><g:message code="uploader.multiFile.removeFile.modal.cancel"/></a>
+            </div>
+        </div>
+    </div>
+</div>
+
 <r:script>
+    var removeCallbackAction = function(){console.log("Remove action is not defined");};
     if (multipleFileUploaders == undefined){
         var multipleFileUploaders = {};
     }
@@ -30,7 +54,8 @@
                 minSizeError: '${g.message(code:'uploader.error.minSizeError')}',
                 emptyError: '${g.message(code:'uploader.error.emptyError')}',
                 onLeave: '"${g.message(code:'uploader.error.onLeave')}"',
-                fileUrlCopiedSuccess: "${g.message(code:'uploader.error.copiedUrlSuccess')}"
+                fileUrlCopiedSuccess: "${g.message(code:'uploader.error.copiedUrlSuccess')}",
+                confirmRemoveMessage: "${g.message(code:'uploader.multiFile.removeFile.modal.body')}"
             },
             showMessage:function(message){
                 display.success(message);
@@ -48,6 +73,18 @@
                 '<div class="qq-upload-success"><span class="fal fa-copy"></span></div>' +
                 '<div class="qq-upload-delete"> <a href="#" class="qq-upload-delete-action fal fa-trash"></a></div>' +
                 '</li>',
+            removeConfirmModal: function(fileName, msgConfirm, deleteActionCallback){
+                $("#multi-uploader-remove-file-modal-${divId}").find(".modal-body p").html(msgConfirm);
+                removeCallbackAction = deleteActionCallback;
+                $("#multi-uploader-remove-file-modal-${divId}").modal("show");
+                console.log("REMOVE CLICKED")
+            }
         });
+
+         $("#multi-uploader-remove-file-modal-${divId}").find(".confirm-button").on("click", function(e) {
+            e.preventDefault();
+            removeCallbackAction();
+            $("#multi-uploader-remove-file-modal-${divId}").modal("hide");
+         })
     })
 </r:script>
