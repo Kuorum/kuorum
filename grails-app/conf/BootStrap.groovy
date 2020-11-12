@@ -18,6 +18,7 @@ class BootStrap {
     LessCompilerService lessCompilerService
     DomainService domainService
     def init = { servletContext ->
+//        System.setProperty("https.protocols","TLSv1.2")
 
 //        javax.servlet.http.HttpServletRequest.metaClass.getSiteUrl = {
 ////            return (delegate.scheme + "://" + delegate.serverName + ":" + delegate.serverPort + delegate.getContextPath())

@@ -21,7 +21,7 @@
         </div>
     </div><!-- ^survey-progress !-->
 
-    <ul class="survey-questions">
+    <ul class="survey-questions ${survey.voteType == org.kuorum.rest.model.communication.survey.SurveyVoteTypeDTO.SECRET?'survey-vote-secret':''}">
         <g:set var="numQuestion" value="${0}"/>
         <g:each in="${survey.questions}" var="question" status="i">
             <g:if test="${question.answered || i==0 || activeQuestionId == question.id}">

@@ -7792,6 +7792,7 @@ ul.notification-menu > li.see-more {
     transition: max-height 5s ease-in;
 }
 
+.survey-questions.survey-vote-secret .survey-question.answered{opacity:0.2}
 
 
 .survey-box {

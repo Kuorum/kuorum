@@ -386,7 +386,11 @@ var surveyFunctions = {
 
     _getNextQuestionId : function(question){
         var answer = $(question).find(".survey-question-answer.checked")[0];
-        var nextQuestionId = parseInt(answer.getAttribute('data-nextQuestionId'), 10);
+        var nextQuestionIdAttributeName = 'data-nextQuestionId';
+        var nextQuestionId = NaN;
+        if (answer!= undefined && answer.hasAttribute(nextQuestionIdAttributeName)){
+            nextQuestionId = parseInt(answer.getAttribute('data-nextQuestionId'), 10);
+        }
         return nextQuestionId;
     },
     _ratingOptionNextButtonClick : function(question){
@@ -465,6 +469,16 @@ var surveyFunctions = {
         $nextQuestion.find(".survery-question-number .survey-quiestion-number-idx").html(nextQuestionCounter)
         $(currentQuestion).removeClass("active-question")
         surveyFunctions._updateSurveyProgressBar();
+        if (currentQuestion.parentElement.classList.contains("survey-vote-secret")){
+            surveyFunctions._clearAnswer(currentQuestion);
+        }
+    },
+
+    _clearAnswer: function(question){
+        $(question).find(".survey-question-answer.checked .option-extra-content").remove();
+        $(question).find(".survey-question-answer.checked").removeClass("checked");
+        $(question).attr("data-answer-selected","")
+        $(question).find(".survey-question-answer").attr("data-question-extra-content","")
     },
 
     _switchOffOptionClickEventsOfQuestion : function(questionId){
