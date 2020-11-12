@@ -6,6 +6,7 @@ import kuorum.web.constants.WebConstants
 import org.grails.databinding.BindUsing
 import org.grails.databinding.BindingFormat
 import org.kuorum.rest.model.communication.CampaignValidationTypeRDTO
+import org.kuorum.rest.model.communication.survey.SurveyVoteTypeDTO
 import org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO
 
 @Validateable
@@ -30,9 +31,8 @@ class CampaignSettingsCommand {
 
     CampaignValidationTypeRDTO validationType;
     Boolean hideResultsFlag;
-    Boolean anonymous;
+    SurveyVoteTypeDTO voteType;
     Boolean signVotes;
-    Boolean attachCertificate;
     Boolean groupValidation = false;
     Boolean newsletterCommunication = false;
 
@@ -53,9 +53,8 @@ class CampaignSettingsCommand {
         validationType nullable: false
         hideResultsFlag nullable: true;
         groupValidation nullable: true;
-        anonymous nullable: true;
+        voteType nullable: false;
         signVotes nullable: true;
-        attachCertificate nullable: true;
         newsletterCommunication nullable: true;
         endDate nullable: true
         startDate nullable: true

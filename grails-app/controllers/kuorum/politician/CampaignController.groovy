@@ -23,6 +23,7 @@ import org.kuorum.rest.model.communication.CampaignValidationTypeRDTO
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.kuorum.rest.model.communication.event.EventRDTO
 import org.kuorum.rest.model.communication.survey.SurveyRDTO
+import org.kuorum.rest.model.communication.survey.SurveyVoteTypeDTO
 import org.kuorum.rest.model.contact.ContactPageRSDTO
 import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
 import org.kuorum.rest.model.contact.filter.FilterRDTO
@@ -178,9 +179,8 @@ class CampaignController {
         }
         if (rdto instanceof SurveyRDTO && grails.plugin.springsecurity.SpringSecurityUtils.ifAllGranted("ROLE_SUPER_ADMIN")){
             //Custom logic of survey. May be this logic shouldn't be here
-            rdto.anonymous = command.anonymous == null?false:command.anonymous;
+            rdto.voteType = command.voteType == null? SurveyVoteTypeDTO.MANIFEST:command.voteType;
             rdto.signVotes = command.signVotes == null?false:command.signVotes;
-            rdto.attachCertificate = command.attachCertificate == null?false:command.attachCertificate;
         }
         rdto
     }

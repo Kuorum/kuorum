@@ -41,7 +41,7 @@
             <span class="info"><g:message code="survey.cColumn.stats.results.visible"/></span>
         </li>
     </g:else>
-    <g:if test="${survey.anonymous}">
+    <g:if test="${survey.voteType != org.kuorum.rest.model.communication.survey.SurveyVoteTypeDTO.MANIFEST}">
         <li>
             <span class="fal fa-person-booth" aria-hidden="true"></span>
             <span class="info"><g:message code="survey.cColumn.stats.results.anonymous.true"/></span>
