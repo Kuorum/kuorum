@@ -735,6 +735,7 @@ class FormTagLib {
         def showLabel = attrs.showLabel?Boolean.parseBoolean(attrs.showLabel):true
         def id = attrs.id?:field
         def prefixFieldName=attrs.prefixFieldName?:""
+        def disabled = attrs.disabled
         def cssClass = attrs.cssClass
         def labelCssClass=attrs.labelCssClass?:""
         def clazz = attrs.enumClass?:command.metaClass.properties.find{it.name == field}.type
@@ -747,7 +748,7 @@ class FormTagLib {
             out <<"""<label for="${id}" class="${labelCssClass}">${label}</label>"""
         }
         out << """
-            <select name="${prefixFieldName}${field}" class="form-control input-lg ${error}" id="${id}">
+            <select name="${prefixFieldName}${field}" class="form-control input-lg ${error}" id="${id}" ${disabled?'disabled':''}>
             """
         if (!isRequired || defaultEmpty){
             out << "<option value=''> ${message(code:"${clazz.name}.empty", default: '')}</option>"

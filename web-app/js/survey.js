@@ -756,7 +756,7 @@ var surveyFunctions = {
         });
     },
 
-    _updateOptionMetaDataFromQuestionRSDTOJson(questionRSDTO){
+    _updateOptionMetaDataFromQuestionRSDTOJson: function(questionRSDTO){
         var optionsIdx;
         var options = questionRSDTO.options
         for (optionsIdx = 0; optionsIdx < options.length; optionsIdx++) {

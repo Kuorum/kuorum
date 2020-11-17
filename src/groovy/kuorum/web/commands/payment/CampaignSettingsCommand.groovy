@@ -31,7 +31,7 @@ class CampaignSettingsCommand {
 
     CampaignValidationTypeRDTO validationType;
     Boolean hideResultsFlag;
-    SurveyVoteTypeDTO voteType;
+    SurveyVoteTypeDTO voteType = SurveyVoteTypeDTO.ANONYMOUS;
     Boolean signVotes;
     Boolean groupValidation = false;
     Boolean newsletterCommunication = false;
