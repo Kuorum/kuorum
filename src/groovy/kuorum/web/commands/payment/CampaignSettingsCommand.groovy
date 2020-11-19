@@ -50,7 +50,7 @@ class CampaignSettingsCommand {
         causes nullable: true
         debatable nullable: true
         eventAttached nullable: true
-        validationType nullable: false
+        validationType nullable: true
         hideResultsFlag nullable: true;
         groupValidation nullable: true;
         voteType nullable: false;
