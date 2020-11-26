@@ -9,13 +9,13 @@
                 <g:message code="tools.massMailing.list.recipients.export.csv"/>
             </g:link>
         </g:if>
-        <g:if test="${campaign && campaign instanceof org.kuorum.rest.model.communication.debate.DebateRSDTO}">
+        <g:if test="${campaign && campaign.exportableData && campaign instanceof org.kuorum.rest.model.communication.debate.DebateRSDTO}">
             <g:link mapping="politicianMassMailingDebateStatsReport" params="[campaignId:campaign.id]" class="btn btn-blue inverted export-modal-button" data-modalId="export-debateStats-modal">
                 <span class="fal fa-file-excel"></span>
                 <g:message code="tools.massMailing.view.stats.debate.report"/>
             </g:link>
         </g:if>
-        <g:if test="${campaign && campaign instanceof org.kuorum.rest.model.communication.survey.SurveyRSDTO}">
+        <g:if test="${campaign && campaign.exportableData &&  campaign instanceof org.kuorum.rest.model.communication.survey.SurveyRSDTO}">
             <g:link mapping="politicianMassMailingSurveyReport" params="[campaignId:campaign.id, surveyReportType:kuorum.web.commands.payment.survey.SurveyReportType.SURVEY_STATS ]" class="btn btn-blue inverted export-modal-button" data-modalId="export-surveyStats-modal">
                 <span class="fal fa-file-excel"></span>
                 <g:message code="tools.massMailing.view.stats.survey.report"/>
@@ -26,7 +26,7 @@
             </g:link>
         </g:if>
 
-        <g:if test="${campaign?.event}">
+        <g:if test="${campaign.exportableData && campaign?.event}">
             <g:link mapping="eventAssistanceReport" params="[campaignId:campaign.id, checkList:true]" class="btn btn-blue inverted export-modal-button" data-modalId="export-eventAssistants-modal">
                 <span class="fal fa-file-pdf"></span>
                 <g:message code="tools.massMailing.list.event.assistants.checkList"/>
@@ -36,7 +36,7 @@
                 <g:message code="tools.massMailing.list.event.assistants.report"/>
             </g:link>
         </g:if>
-        <g:if test="${campaign && campaign instanceof org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetRSDTO}">
+        <g:if test="${campaign && campaign.exportableData && campaign instanceof org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetRSDTO}">
             <g:link mapping="politicianMassMailingParticipatoryBudgetReport" params="[campaignId:campaign.id]" class="btn btn-blue inverted export-modal-button" data-modalId="export-proposalsList-modal">
                 <span class="fal fa-file-excel"></span>
                 <g:message code="tools.massMailing.view.participatoryBudget.report"/>
