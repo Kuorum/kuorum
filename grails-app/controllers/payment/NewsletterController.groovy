@@ -269,7 +269,7 @@ class NewsletterController {
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def showCampaignStats(Long campaignId){
         KuorumUserSession loggedUser = springSecurityService.principal
-        CampaignRSDTO campaign = campaignService.find(loggedUser, campaignId)
+        CampaignRSDTO campaign = campaignService.find(loggedUser, campaignId, loggedUser.getId().toString())
         Long newsletterId = campaign.newsletter.id
         if (campaign.campaignStatusRSDTO == CampaignStatusRSDTO.DRAFT || campaign.campaignStatusRSDTO == CampaignStatusRSDTO.SCHEDULED ){
             redirect (mapping:'politicianMassMailingContent', params: [campaignId: campaignId])
