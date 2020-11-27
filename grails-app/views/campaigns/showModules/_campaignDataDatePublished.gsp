@@ -1,11 +1,8 @@
 <div class="clearfix">
     <span class="time-ago pull-left"><kuorumDate:humanDate date="${campaign.datePublished}" itemprop="datePublished"/> </span>
         <div class="campaign-actions pull-right">
-            <g:if test="${campaign.exportableData}">
-                <g:link mapping="politicianCampaignStatsShow" params="[campaignId: campaign.id]" role="button" class="edit"><span class="fal fa-chart-line fa-2x"></span><span class="sr-only">Stats</span></g:link>
-            </g:if>
-
             <g:if test="${campaign.editable}">
+                <g:link mapping="politicianCampaignStatsShow" params="[campaignId: campaign.id]" role="button" class="edit"><span class="fal fa-chart-line fa-2x"></span><span class="sr-only">Stats</span></g:link>
             %{--campaignList contains the js to open modal when the debate is scheduled --}%
                 <r:require modules="campaignList"/>
                 <g:set var="modal" value="${campaign.newsletter.status == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SCHEDULED ?'modalEditScheduled':''}"/>
