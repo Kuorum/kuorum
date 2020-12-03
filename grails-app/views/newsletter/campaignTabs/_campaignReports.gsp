@@ -26,7 +26,7 @@
             </g:link>
         </g:if>
 
-        <g:if test="${campaign.exportableData && campaign?.event}">
+        <g:if test="${campaign && campaign?.event && campaign.exportableData}">
             <g:link mapping="eventAssistanceReport" params="[campaignId:campaign.id, checkList:true]" class="btn btn-blue inverted export-modal-button" data-modalId="export-eventAssistants-modal">
                 <span class="fal fa-file-pdf"></span>
                 <g:message code="tools.massMailing.list.event.assistants.checkList"/>
