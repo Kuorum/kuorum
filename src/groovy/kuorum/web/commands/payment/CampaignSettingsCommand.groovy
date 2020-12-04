@@ -29,7 +29,7 @@ class CampaignSettingsCommand {
     })
     Set<String> causes;
 
-    CampaignValidationTypeRDTO validationType;
+    CampaignValidationTypeRDTO validationType = CampaignValidationTypeRDTO.NONE;
     Boolean hideResultsFlag;
     SurveyVoteTypeDTO voteType = SurveyVoteTypeDTO.ANONYMOUS;
     Boolean signVotes;
@@ -50,7 +50,7 @@ class CampaignSettingsCommand {
         causes nullable: true
         debatable nullable: true
         eventAttached nullable: true
-        validationType nullable: true
+        validationType nullable: false
         hideResultsFlag nullable: true;
         groupValidation nullable: true;
         voteType nullable: false;
