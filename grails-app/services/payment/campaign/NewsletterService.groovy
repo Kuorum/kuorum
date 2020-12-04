@@ -70,6 +70,23 @@ class NewsletterService {
         campaignSaved
     }
 
+    NewsletterRSDTO copyNewsletter(KuorumUserSession user, Long campaignId){
+        Map<String, String> params = [userId:user.id.toString(), campaignId:campaignId.toString()]
+        Map<String, String> query = [:]
+        def response= restKuorumApiService.post(
+                RestKuorumApiService.ApiMethod.ACCOUNT_MASS_MAILING_COPY,
+                params,
+                query,
+                null,
+                new TypeReference<NewsletterRSDTO>(){}
+        )
+        NewsletterRSDTO campaignSaved=null
+        if (response.data){
+            campaignSaved = (NewsletterRSDTO)response.data
+        }
+        campaignSaved
+    }
+
     List<NewsletterRSDTO> findCampaigns(KuorumUserSession user){
         Map<String, String> params = [userId:user.id.toString()]
         Map<String, String> query = [:]

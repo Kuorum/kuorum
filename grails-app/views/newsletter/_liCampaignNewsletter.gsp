@@ -41,6 +41,9 @@
         </li>
     </ul>
     <ul class="list-actions">
+        <li>
+            <g:link mapping="politicianMassMailingCopy" params="[campaignId:newsletter.id]" class="campaignStats"><span class="fal fa-copy"></span> <span class="sr-only">Stats</span></g:link>
+        </li>
     <g:if test="${newsletter.status==org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT}">
         <li>
             <g:link mapping="politicianMassMailingShow" params="[campaignId:newsletter.id]" class="campaignStats"><span class="fal fa-chart-line"></span> <span class="sr-only">Stats</span></g:link>
