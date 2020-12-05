@@ -257,7 +257,8 @@ class NewsletterController {
     def copyCampaign(Long campaignId){
         KuorumUserSession loggedUser = springSecurityService.principal
         NewsletterRSDTO newsletterCopy = newsletterService.copyNewsletter(loggedUser, campaignId)
-        redirect (mapping:'politicianMassMailingContent', params: [campaignId: newsletterCopy.getId()])
+        redirect (mapping:'politicianCampaigns')
+//        redirect (mapping:'politicianMassMailingContent', params: [campaignId: newsletterCopy.getId()])
 //        redirect (mapping:'politicianMassMailingSettings', params: [campaignId: newsletterCopy.getId()])
     }
 
