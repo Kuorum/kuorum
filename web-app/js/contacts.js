@@ -342,6 +342,28 @@ $(function () {
         }
     });
 
+    $(".contact-activity-history").on("click","a.resend-email", function(e){
+        e.preventDefault();
+        var $link = $(this);
+        var $icon = $link.find("span.fa-angle-double-right")
+        var url = $link.attr("href");
+        $icon.removeClass("fa-angle-double-right fa-check-circle fa-exclamation-circle error")
+        $icon.addClass("fa-spinner fa-spin")
+        $.post(url)
+            .done(function(data) {
+                $icon.removeClass("fa-spinner fa-spin")
+                $icon.addClass("fa-check-circle")
+            })
+            .fail(function(messageError) {
+                $icon.addClass("fa-exclamation-circle error")
+            })
+            .always(function() {
+                pageLoadingOff();
+            });
+        //Not submit
+        return false;
+    })
+
     $("body").on('submit', 'form.addTag', function(e){
         e.preventDefault();
         pageLoadingOn();

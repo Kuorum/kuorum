@@ -222,6 +222,7 @@ class RestKuorumApiService {
         USER_CONTACTS               ('/contacts/{userId}'),
         USER_CONTACT                ('/contacts/{userId}/{contactId}'),
         USER_CONTACT_PERSONAL_CODE  ('/contacts/{userId}/{contactId}/personalCode'),
+        USER_CONTACT_ACTIVITY       ('/contacts/{userId}/{contactId}/activity'),
         USER_CONTACTS_TAGS          ('/contacts/{userId}/tags'),
         USER_CONTACTS_PERSONAL_CODE ('/contacts/{userId}/personalCodes'),
         USER_CONTACT_FILES          ("/contacts/{userId}/{contactId}/files"),

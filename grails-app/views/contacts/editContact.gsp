@@ -107,24 +107,10 @@
                         <g:message code="tools.contact.edit.tabs.activity.clickRate" args="[contactUtil.clickRate(contact:contact)]"/>
                     </li>
                 </ul>
-                <ul class="activity des-engagement clearfix">
-                    <li class="posts">
-                        <span><g:message code="org.kuorum.rest.model.contact.ContactStatusRSDTO.INACTIVE"/> </span>
-                        <ul><li><g:message code="tools.contact.edit.tabs.activity.info.openRate.smaller" args="[10]"/></li></ul>
-                    </li>
-                    <li class="posts">
-                        <span><g:message code="org.kuorum.rest.model.contact.ContactStatusRSDTO.READER"/></span>
-                        <ul><li><g:message code="tools.contact.edit.tabs.activity.info.openRate.bigger" args="[10]"/></li><li> <g:message code="tools.contact.edit.tabs.activity.info.clickRate.smaller" args="[3]"/> </li></ul>
-                    </li>
-                    <li class="posts">
-                        <span><g:message code="org.kuorum.rest.model.contact.ContactStatusRSDTO.SUPPORTER"/></span>
-                        <ul><li><g:message code="tools.contact.edit.tabs.activity.info.openRate.bigger" args="[10]"/></li><li><g:message code="tools.contact.edit.tabs.activity.info.clickRate.bigger" args="[3]"/></li></ul>
-                    </li>
-                    <li class="posts">
-                        <span><g:message code="org.kuorum.rest.model.contact.ContactStatusRSDTO.BROADCASTER"/></span>
-                        <ul><li><g:message code="tools.contact.edit.tabs.activity.info.openRate.bigger" args="[70]"/></li></ul>
-                    </li>
-                </ul>
+                <div class="contact-activity-history">
+                    <h1><g:message code="tools.contact.edit.tabs.activity"/></h1>
+                    <modulesUtil:delayedModule mapping="politicianContactActivity" params="${[contactId: contact.id]}" elementId="contact-activity-history-list-id"/>
+                </div>
             </div>
             <div class="tab-pane" id="socialNetwork">
                 <h4 class="sr-only"><g:message code="tools.contact.edit.tabs.socialNetworks"/></h4>

@@ -7,7 +7,6 @@ import grails.plugin.springsecurity.annotation.Secured
 import kuorum.core.exception.KuorumException
 import kuorum.dashboard.DashboardService
 import kuorum.register.KuorumUserSession
-import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
 import kuorum.web.binder.FormattedDoubleConverter
 import kuorum.web.commands.payment.contact.*
@@ -227,6 +226,13 @@ class ContactsController {
                 render view: 'newContact', model:[command:command]
             }
         }
+    }
+
+
+    def contactActivity(Long contactId){
+        KuorumUserSession user = springSecurityService.principal
+        ContactActivityPageRSDTO activites = contactService.findContactActivity(user, contactId, 0, 10);
+        render template: "/contacts/contactActivity", model: [activites:activites]
     }
 
     def importContacts() {

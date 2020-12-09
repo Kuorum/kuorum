@@ -1979,11 +1979,6 @@ ul.participatory-budget-steps-info li.active a {display: none}
 .tab-pane .activity > li:last-child {border-right: none;}
 .tab-pane .activity > li.posts {font-size: 15px; font-size: 1.5rem;}
 .tab-pane .activity > li.posts span {font-size: 28px; font-size: 2.8rem; line-height: 1; margin-bottom: 10px;}
-.tab-pane .activity.des-engagement {margin-top: 20px; margin-bottom: 31px;}
-.tab-pane .activity.des-engagement > li {width: 100%; display: block; float: left;}
-.tab-pane .activity.des-engagement > li.posts span {font-size: 30px; font-size: 3rem;}
-.tab-pane .activity.des-engagement > li.posts ul {padding: 0; margin: 0; height: 55px;}
-.tab-pane .activity.des-engagement > li.posts li {list-style: none; display: block;}
 
 /* Hide Surveys and posts */
 [role="presentation"] [href="#petition"], [role="presentation"] [href="#survey"] {
@@ -2001,16 +1996,18 @@ ul.participatory-budget-steps-info li.active a {display: none}
 
 /* STATS CAMPAIGNS */
 #tabs-stats-campaign h3 {font-size: 20px; margin-top: 50px; font-size: 2rem; color: #a8a8a8;}
-#tabs-stats-campaign .table {border: solid 1px #dddddd; margin-bottom: 20px;}
-#tabs-stats-campaign .table thead {display: none;}
-#tabs-stats-campaign .table th, #tabs-stats-campaign .table td {color: #a8a8a8; padding: 12px; line-height: 1.2; vertical-align: middle; width: 100%; display: block; }
-#tabs-stats-campaign .table td.recipient-name a {color: #a8a8a8}
-#tabs-stats-campaign .table td:nth-child(4) {height: 46px;}
-#tabs-stats-campaign .table td:nth-child(4) .only-mobile {display: block; margin-bottom: 5px;}
+.table.list-tracking {border: solid 1px #dddddd; margin-bottom: 20px;}
+.table.list-tracking thead {display: none;}
+.table.list-tracking th, .table.list-tracking td {color: #a8a8a8; padding: 12px; line-height: 1.2; vertical-align: middle; width: 100%; display: block; }
+.table.list-tracking td.recipient-name a {color: #a8a8a8}
+.table.list-tracking td:nth-child(4) {height: 46px;}
+.table.list-tracking td:nth-child(4) .only-mobile {display: block; margin-bottom: 5px;}
 #tabs-stats-campaign .pag-list-contacts .actions{float:left;}
 #tabs-stats-campaign .pag-list-contacts .actions a{width: auto;line-height: inherit; margin-bottom:5px;}
 #campaignStatsContainer {height: 355px;}
 #campaignEmailContainer {width: 100%; height: 700px; border: 1px solid #dddddd; margin-bottom: 10px;}
+
+.box-ppal .contact-activity-history h1 { border-bottom: 1px solid #ccc;text-align: center;padding: 12px; margin-top:40px;}
 
 #tabs-stats-campaign #participatoryBudgetProposalReviewTable.table tr.detail-view > td {padding:10px;}
 #tabs-stats-campaign #participatoryBudgetProposalReviewTable.table tr.detail-view > td .box-ppal{margin:0;padding-bottom: 10px;}
@@ -4969,10 +4966,9 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     /* NEW / EDIT CONTACT */
     .edit-contact form fieldset {width: 100%;}
     .tab-pane .activity > li {width: 24%; border-right: solid 1px #dadada; border-bottom: none;}
-    .tab-pane .activity.des-engagement > li {width: 25%;}
 
     /* STATS CAMPAIGNS */
-    #tabs-stats-campaign .table td:nth-child(4) {height: 70px;}
+    .table.list-tracking td:nth-child(4) {height: 70px;}
 
     .conversation-box-comment > .header > .user span {  max-width: 400px  }
 }
@@ -5465,15 +5461,15 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     #contactsList > li .user-img { top: 10px}
 
     /* STATS CAMPAIGNS */
-    #tabs-stats-campaign .table thead {display: table-header-group;}
-    #tabs-stats-campaign .table thead th {background-color: #f7f7f7; font-weight: normal;}
-    #tabs-stats-campaign .table td:nth-child(4) {height: auto;}
-    #tabs-stats-campaign .table th, #tabs-stats-campaign .table td {color: #a8a8a8; padding: 10px 0px 10px 10px; line-height: 1.2; vertical-align: middle; display: table-cell; width: auto;}
-    #tabs-stats-campaign .table th + th, #tabs-stats-campaign .table td + td{padding: 10px 0;}
-    #tabs-stats-campaign .table th, #tabs-stats-campaign .table td.tracking-engagement .engagement {width: 32em;}
-    #tabs-stats-campaign .table th:nth-child(2), #tabs-stats-campaign .table th:nth-child(3), #tabs-stats-campaign .table th:nth-child(4), #tabs-stats-campaign .table th:nth-child(5),#tabs-stats-campaign .table th:nth-child(6),
-    #tabs-stats-campaign .table td:nth-child(2), #tabs-stats-campaign .table td:nth-child(3), #tabs-stats-campaign .table td:nth-child(4), #tabs-stats-campaign .table td:nth-child(5),#tabs-stats-campaign .table td:nth-child(6) {text-align: center;}
-    #tabs-stats-campaign .table .only-mobile {display: none !important;}
+    .table.list-tracking thead {display: table-header-group;}
+    .table.list-tracking thead th {background-color: #f7f7f7; font-weight: normal;}
+    .table.list-tracking td:nth-child(4) {height: auto;}
+    .table.list-tracking th, .table.list-tracking td {color: #a8a8a8; padding: 10px 0px 10px 10px; line-height: 1.2; vertical-align: middle; display: table-cell; width: auto;}
+    .table.list-tracking th + th, .table.list-tracking td + td{padding: 10px 0;}
+    .table.list-tracking th, .table.list-tracking td.tracking-engagement .engagement {width: 32em;}
+    .table.list-tracking th:nth-child(2), .table.list-tracking th:nth-child(3), .table.list-tracking th:nth-child(4), .table.list-tracking th:nth-child(5),.table.list-tracking th:nth-child(6),
+    .table.list-tracking td:nth-child(2), .table.list-tracking td:nth-child(3), .table.list-tracking td:nth-child(4), .table.list-tracking td:nth-child(5),.table.list-tracking td:nth-child(6) {text-align: center;}
+    .table.list-tracking .only-mobile {display: none !important;}
 
     #contactsList > li > .contact-info > .title > a {display:inline-block; overflow: hidden;max-width: 10em;}
     #contactsList > li > .contact-info > .title > a + a {text-decoration: none}

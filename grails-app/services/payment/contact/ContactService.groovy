@@ -242,7 +242,21 @@ class ContactService {
         }catch (Exception e){
             log.warn("Someone trying to check conctact '${email}' of the user ${user.alias} that not extits")
         }
+    }
 
+    ContactActivityPageRSDTO findContactActivity(KuorumUserSession user, Long contactId, Integer page = 0, Integer size = 10){
+        Map<String, String> params = [userId:user.id.toString(), contactId: contactId.toString()]
+        Map<String, String> query = [page:page, size:size]
+        try{
+            def response= restKuorumApiService.get(
+                    RestKuorumApiService.ApiMethod.USER_CONTACT_ACTIVITY,
+                    params,
+                    query,
+                    new TypeReference<ContactActivityPageRSDTO>(){})
+            return response.data
+        }catch (Exception e){
+            log.warn("Someone trying to check conctact '${contactId}' of the user ${user.alias} that not extits")
+        }
     }
 
     boolean unsubscribeContactUser(BasicDataKuorumUserRSDTO user, String email, String digest){
