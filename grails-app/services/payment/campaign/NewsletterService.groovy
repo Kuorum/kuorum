@@ -147,6 +147,20 @@ class NewsletterService {
         }
         trackingMailStatsByCampaignPageRSDTO
     }
+
+    void resendEmail(KuorumUserSession user, Long campaignId, Long trackingEmailId){
+        Map<String, String> params = [userId:user.id.toString(), campaignId:campaignId.toString(), trackingEmailId:trackingEmailId.toString()]
+        Map<String, String> query = [:]
+        def response= restKuorumApiService.put(
+                RestKuorumApiService.ApiMethod.ACCOUNT_MASS_MAILING_TRACKING_RESEND,
+                params,
+                query,
+                null,
+                null
+        )
+    }
+
+
     void findCampaignsCollectionReport(KuorumUserSession user){
         Map<String, String> params = [userId:user.id.toString()]
         Map<String, String> query = [:]

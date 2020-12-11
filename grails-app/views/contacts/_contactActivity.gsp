@@ -1,7 +1,7 @@
 <%@ page import="org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO" %>
 <g:each in="${activites.data}" var="activity">
     <div class="contact-activity">
-        <h2>${activity.campaignName}</h2>
+        <h3>${activity.campaignName}</h3>
         <table class="table list-tracking">
             <thead>
                 <tr>
@@ -18,7 +18,7 @@
                     <td><g:formatDate formatName="default.date.format" date="${event.timestamp}"/> </td>
                     <td><kuorumDate:humanDate date="${event.timestamp}"/></td>
                     <td>
-                        <g:if test="${event.status == org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO.SENT}">
+                        <g:if test="${event.status == org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO.SENT && activity.trackingId}">
                             <g:link mapping="politicianMassMailingTrackEventsResend" params="[newsletterId:activity.newsletterId,tackingMailId:activity.trackingId]" class="btn btn-blue inverted resend-email">
                                 <g:message code="tools.massMailing.actions.resend"/>
                                 <span class="fal fa-angle-double-right"></span>

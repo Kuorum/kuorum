@@ -265,6 +265,7 @@ class RestKuorumApiService {
         ACCOUNT_MASS_MAILING_SEND               ("/communication/massmailing/{userId}/{campaignId}/send"),
         ACCOUNT_MASS_MAILING_COPY               ("/communication/massmailing/{userId}/{campaignId}/copy"),
         ACCOUNT_MASS_MAILING_TRACKING           ("/communication/massmailing/{userId}/{campaignId}/trackingMails"),
+        ACCOUNT_MASS_MAILING_TRACKING_RESEND    ("/communication/massmailing/{userId}/{campaignId}/trackingMails/resend/{trackingEmailId}"),
         ACCOUNT_MASS_MAILING_REPORT             ("/communication/massmailing/{userId}/{campaignId}/trackingMails/report"),
         ACCOUNT_MASS_MAILING_CAMPAIGNS_REPORT   ("/communication/massmailing/{userId}/report"),
         ACCOUNT_MASS_MAILING_CONFIG             ("/communication/massmailing/{userId}/config"),

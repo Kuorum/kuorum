@@ -355,6 +355,7 @@ $(function () {
                 $icon.addClass("fa-check-circle")
             })
             .fail(function(messageError) {
+                $icon.removeClass("fa-spinner fa-spin")
                 $icon.addClass("fa-exclamation-circle error")
             })
             .always(function() {

@@ -263,7 +263,9 @@ class NewsletterController {
     }
 
     @Secured(['ROLE_CAMPAIGN_NEWSLETTER'])
-    def resendEmail(Long newsletterId, Long trackingMailId) {
+    def resendEmail(Long newsletterId, Long tackingMailId) {
+        KuorumUserSession loggedUser = springSecurityService.principal
+        newsletterService.resendEmail(loggedUser, newsletterId, tackingMailId)
         render "OK"
     }
 

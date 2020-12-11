@@ -96,19 +96,18 @@
             </div>
             <div class="tab-pane" id="activity">
                 <h4 class="sr-only"><g:message code="tools.contact.edit.tabs.activity"/></h4>
-                <ul class="activity">
-                    <li class="posts">
-                        <g:message code="tools.contact.edit.tabs.activity.campaignSent" args="[contact.stats.numMails]"/>
-                    </li>
-                    <li class="posts">
-                        <g:message code="tools.contact.edit.tabs.activity.openRate" args="[contactUtil.openRate(contact:contact)]"/>
-                    </li>
-                    <li class="posts">
-                        <g:message code="tools.contact.edit.tabs.activity.clickRate" args="[contactUtil.clickRate(contact:contact)]"/>
-                    </li>
-                </ul>
+%{--                <ul class="activity">--}%
+%{--                    <li class="posts">--}%
+%{--                        <g:message code="tools.contact.edit.tabs.activity.campaignSent" args="[contact.stats.numMails]"/>--}%
+%{--                    </li>--}%
+%{--                    <li class="posts">--}%
+%{--                        <g:message code="tools.contact.edit.tabs.activity.openRate" args="[contactUtil.openRate(contact:contact)]"/>--}%
+%{--                    </li>--}%
+%{--                    <li class="posts">--}%
+%{--                        <g:message code="tools.contact.edit.tabs.activity.clickRate" args="[contactUtil.clickRate(contact:contact)]"/>--}%
+%{--                    </li>--}%
+%{--                </ul>--}%
                 <div class="contact-activity-history">
-                    <h1><g:message code="tools.contact.edit.tabs.activity"/></h1>
                     <modulesUtil:delayedModule mapping="politicianContactActivity" params="${[contactId: contact.id]}" elementId="contact-activity-history-list-id"/>
                 </div>
             </div>
