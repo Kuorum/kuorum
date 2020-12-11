@@ -342,10 +342,26 @@ $(function () {
         }
     });
 
-    $(".contact-activity-history").on("click","a.resend-email", function(e){
+    $(".contact-activity-history").on("click","a.resend-email", function(e) {
         e.preventDefault();
-        var $link = $(this);
-        var $icon = $link.find("span.fa-angle-double-right")
+        var $link = $(this)
+        var linkId = guid();
+        $link.attr("id", linkId);
+        $("#activity-resend-confirm").modal("show");
+        $("#activity-resend-confirm").find(".modal-footer button").attr("data-linkId", linkId);
+    });
+
+    $(".contact-activity-history").on("click","#activity-resend-confirm .modal-footer button", function(e){
+        e.preventDefault();
+        console.log("CLICK ON BUTTON")
+        var $button = $(this);
+        var linkId = $button.attr("data-linkId");
+        var $link = $("#"+linkId);
+        resend($link, $button);
+    });
+
+    function resend($link, $button){
+        var $icon = $button.find("span.fa-angle-double-right")
         var url = $link.attr("href");
         $icon.removeClass("fa-angle-double-right fa-check-circle fa-exclamation-circle error")
         $icon.addClass("fa-spinner fa-spin")
@@ -363,7 +379,7 @@ $(function () {
             });
         //Not submit
         return false;
-    })
+    };
 
     $("body").on('submit', 'form.addTag', function(e){
         e.preventDefault();
