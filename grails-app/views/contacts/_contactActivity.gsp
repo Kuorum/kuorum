@@ -1,7 +1,7 @@
-<%@ page import="org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO" %>
+<%@ page import="kuorum.core.model.solr.SolrType; org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO" %>
 <g:each in="${activites.data}" var="activity">
     <div class="contact-activity">
-        <h3>${activity.campaignName}</h3>
+        <h3><campaignUtil:showIcon campaignType="${activity.campaignType}" defaultType="${kuorum.core.model.solr.SolrType.NEWSLETTER}"/> ${activity.campaignName}</h3>
         <table class="table list-tracking">
             <thead>
                 <tr>

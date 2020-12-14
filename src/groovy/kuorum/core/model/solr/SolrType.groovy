@@ -46,6 +46,16 @@ enum SolrType {
         if (campaignRSDTO.getEvent()){
             return EVENT
         }
-        return SolrType.values().find {it.campaignType == campaignRSDTO.campaignType}
+        return getByCampaignType(campaignRSDTO.campaignType)
+    }
+
+    static final SolrType getByCampaignType(CampaignTypeRSDTO campaignType){
+//        if (campaignType..getEvent()){
+//            return EVENT
+//        }
+        if (campaignType == null){
+            return null;
+        }
+        return SolrType.values().find {it.toString() == campaignType.toString()}
     }
 }

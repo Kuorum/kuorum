@@ -2,6 +2,7 @@ package kuorum
 
 import kuorum.core.model.solr.SolrType
 import org.kuorum.rest.model.communication.CampaignRSDTO
+import org.kuorum.rest.model.communication.CampaignTypeRSDTO
 import org.kuorum.rest.model.communication.event.EventRSDTO
 import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
 
@@ -45,8 +46,18 @@ class CampaignTagLib {
 
     def showIcon  = {attrs ->
         CampaignRSDTO campaign = attrs.campaign
+        SolrType solrType
+        SolrType defaultValue = attrs.defaultType?:SolrType.KUORUM_USER
+        if (campaign != null){
+            solrType = SolrType.getByCampaign(campaign)
+        }else{
+            CampaignTypeRSDTO campaignType = attrs.campaignType
+            solrType = SolrType.getByCampaignType(campaignType)
+        }
+        if (solrType == null){
+            solrType = defaultValue
+        }
         String css= attrs.css
-        SolrType solrType = SolrType.getByCampaign(campaign)
         out << "<span class='fal ${solrType.getFaIcon()} $css'></span>"
     }
 }
