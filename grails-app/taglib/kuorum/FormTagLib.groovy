@@ -8,6 +8,7 @@ import kuorum.web.constants.WebConstants
 import org.bson.types.ObjectId
 import org.codehaus.groovy.grails.validation.*
 import org.kuorum.rest.model.communication.CampaignRSDTO
+import org.kuorum.rest.model.communication.CampaignTypeRSDTO
 import org.kuorum.rest.model.communication.event.EventRSDTO
 import org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetRSDTO
 import org.kuorum.rest.model.communication.survey.QuestionOptionRSDTO
@@ -151,36 +152,34 @@ class FormTagLib {
 
     def uploadCampaignFiles = {attrs ->
         CampaignRSDTO campaignRSDTO = attrs.campaign
-        NewsletterRSDTO newsletterRSDTO = attrs.newsletter
         String label = attrs.label
-        if (campaignRSDTO){
-            List<String> alreadyUploadedFiles = campaignService.getFiles(campaignRSDTO)
-            alreadyUploadedFiles = alreadyUploadedFiles.collect{it.split('\\?').first()}
-            def model = [
-                    alreadyUploadedFiles:alreadyUploadedFiles,
-                    elementId: campaignRSDTO.id,
-                    confirmRemoveFile: true,
-                    actionUpload: g.createLink(mapping:'ajaxUploadCampaignFile', params: campaignRSDTO.encodeAsLinkProperties()),
-                    actionDelete: g.createLink(mapping:'ajaxDeleteCampaignFile', params: campaignRSDTO.encodeAsLinkProperties()),
-                    label:label
-            ]
-            out << g.render(template:'/layouts/form/uploadMultipleFiles', model:model)
-        }else if (newsletterRSDTO){
-            KuorumUserSession user =  springSecurityService.principal
-            List<String> alreadyUploadedFiles = newsletterService.getFiles(user, newsletterRSDTO)
+        def actionUpload
+        def actionDelete
+        List<String> alreadyUploadedFiles
+        if (campaignRSDTO.campaignType != CampaignTypeRSDTO.BULLETIN){
+            alreadyUploadedFiles = campaignService.getFiles(campaignRSDTO)
+            actionUpload = g.createLink(mapping:'ajaxUploadCampaignFile', params: campaignRSDTO.encodeAsLinkProperties())
+            actionDelete = g.createLink(mapping:'ajaxDeleteCampaignFile', params: campaignRSDTO.encodeAsLinkProperties())
 
+        }else{
+            KuorumUserSession user =  springSecurityService.principal
+            alreadyUploadedFiles = newsletterService.getFiles(user, campaignRSDTO)
             alreadyUploadedFiles = alreadyUploadedFiles.collect{it.split('\\?').first()}
-            def model = [
-                    alreadyUploadedFiles:alreadyUploadedFiles,
-                    elementId: newsletterRSDTO.id,
-                    disabled: false,
-                    confirmRemoveFile: true,
-                    actionUpload: g.createLink(mapping:'ajaxUploadMassMailingAttachFile', params: [campaignId: newsletterRSDTO.id]),
-                    actionDelete: g.createLink(mapping:'ajaxDeleteMassMailingAttachFile', params: [campaignId: newsletterRSDTO.id]),
-                    label:label
-            ]
-            out << g.render(template:'/layouts/form/uploadMultipleFiles', model:model)
+            actionUpload = g.createLink(mapping:'ajaxUploadMassMailingAttachFile', params: [campaignId: campaignRSDTO.id])
+            actionDelete = g.createLink(mapping:'ajaxDeleteMassMailingAttachFile', params: [campaignId: campaignRSDTO.id])
         }
+        alreadyUploadedFiles = alreadyUploadedFiles.collect{it.split('\\?').first()}
+        def model = [
+                alreadyUploadedFiles:alreadyUploadedFiles,
+                elementId: campaignRSDTO.id,
+                disabled: false,
+                confirmRemoveFile: true,
+                actionUpload: actionUpload,
+                actionDelete: actionDelete,
+                label:label
+        ]
+        out << g.render(template:'/layouts/form/uploadMultipleFiles', model:model)
+
     }
 
     def uploadContactFiles = {attrs ->

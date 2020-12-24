@@ -1,7 +1,8 @@
 <%@ page import="org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO" %>
 
+<g:set var="newsletter" value="${bulletin.newsletter}"/>
 <li class="${newsletter.status}" id="campaignPos_${idx}">
-    <span class="id sr-only">${newsletter.id}</span>
+    <span class="id sr-only">${bulletin.id}</span>
     <span class="state" aria-hidden="true" rel="tooltip" data-toggle="tooltip" data-placement="bottom"
           data-original-title="${g.message(code: "org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.${newsletter.status}")}">
         ${newsletter.status}
@@ -11,7 +12,7 @@
           data-original-title="${g.message(code: 'tools.campaign.new.newsletter')}"></span>
     <h3>
         <g:set var="modal" value="${newsletter.status == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SCHEDULED ?'modalEditScheduled':''}"/>
-        <g:link mapping='politicianMassMailingShow' params="[campaignId:newsletter.id]" class="title ${modal}" absolute="true">
+        <g:link mapping='politicianMassMailingShow' params="[campaignId:bulletin.id]" class="title ${modal}" absolute="true">
             ${newsletter.name}<span></span>
         </g:link>
     </h3>
@@ -42,20 +43,20 @@
     </ul>
     <ul class="list-actions">
         <li>
-            <g:link mapping="politicianMassMailingCopy" params="[campaignId:newsletter.id]" class="campaignStats"><span class="fal fa-copy"></span> <span class="sr-only">Stats</span></g:link>
+            <g:link mapping="politicianMassMailingCopy" params="[campaignId:bulletin.id]" class="campaignStats"><span class="fal fa-copy"></span> <span class="sr-only">Stats</span></g:link>
         </li>
     <g:if test="${newsletter.status==org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT}">
         <li>
-            <g:link mapping="politicianMassMailingShow" params="[campaignId:newsletter.id]" class="campaignStats"><span class="fal fa-chart-line"></span> <span class="sr-only">Stats</span></g:link>
+            <g:link mapping="politicianMassMailingShow" params="[campaignId:bulletin.id]" class="campaignStats"><span class="fal fa-chart-line"></span> <span class="sr-only">Stats</span></g:link>
         </li>
     </g:if>
     <g:else>
         <li>
-            <g:link mapping="politicianMassMailingShow" params="[campaignId:newsletter.id]" class="campaignEdit ${modal}"><span class="fal fa-edit"></span> <span class="sr-only">Edit</span></g:link>
+            <g:link mapping="politicianMassMailingShow" params="[campaignId:bulletin.id]" class="campaignEdit ${modal}"><span class="fal fa-edit"></span> <span class="sr-only">Edit</span></g:link>
         </li>
     </g:else>
         <li>
-            <g:link mapping="politicianMassMailingRemove" params="[campaignId:newsletter.id]"  role="button" class="campaignDelete"><span class="fal fa-trash"></span> <span class="sr-only">Delete</span></g:link>
+            <g:link mapping="politicianMassMailingRemove" params="[campaignId:bulletin.id]"  role="button" class="campaignDelete"><span class="fal fa-trash"></span> <span class="sr-only">Delete</span></g:link>
         </li>
     </ul>
 </li>

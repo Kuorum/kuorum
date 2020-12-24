@@ -37,7 +37,7 @@
             <g:message code="kuorum.web.commands.payment.massMailing.MassMailingCommand.files.label"/>:
         </label>
         <div class="textareaContainer col-sm-8 col-md-7">
-            <formUtil:uploadCampaignFiles newsletter="${campaign}"/>
+            <formUtil:uploadCampaignFiles campaign="${campaign}"/>
         </div>
     </fieldset>
 

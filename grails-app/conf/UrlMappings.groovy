@@ -351,7 +351,7 @@ class UrlMappings {
         name politicianCampaignRefreshReport:           "/ajax/account/campaign/$campaignId/report" (controller:"newsletter", action:"refreshReports")
         name politicianNewsletterDownloadReport:        "/account/mass-mailing/$newsletterId/report/$fileName" (controller:"newsletter", action:"downloadReportNewsletter")
         name politicianNewsletterDeleteReport:          "/account/mass-mailing/$newsletterId/report/$fileName/delete" (controller:"newsletter", action:"deleteReportNewsletter")
-        name politicianNewsletterRefreshReport:         "/ajax/account/mass-mailing/$newsletterId/report" (controller:"newsletter", action:"refreshReportsNewsletter")
+        name politicianNewsletterRefreshReport:         "/ajax/account/mass-mailing/$campaignId/report" (controller:"newsletter", action:"refreshReportsNewsletter")
         name politicianMassMailingDebateStatsReport:    "/ajax/account/debate/$campaignId/report" (controller:"debate", action: "sendReport")
         name politicianMassMailingSurveyReport:         "/ajax/account/survey/$campaignId/report/$surveyReportType" (controller:"survey", action: "sendReport")
         name politicianMassMailingParticipatoryBudgetReport:"/ajax/account/participatoryBudget/$campaignId/report" (controller:"participatoryBudget", action: "sendProposalsReport")

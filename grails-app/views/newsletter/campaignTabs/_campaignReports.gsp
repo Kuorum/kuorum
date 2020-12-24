@@ -47,11 +47,11 @@
 <div id="report-files">
     <div class="report-files-list-actions">
         <g:set var="link" value="#"/>
-        <g:if test="${campaign}">
-            <g:set var="link" value="${g.createLink(mapping: 'politicianCampaignRefreshReport', params:[campaignId:campaign.id])}"/>
+        <g:if test="${newsletter}">
+            <g:set var="link" value="${g.createLink(mapping: 'politicianNewsletterRefreshReport', params:[campaignId:campaign.id])}"/>
         </g:if>
         <g:else>
-            <g:set var="link" value="${g.createLink(mapping: 'politicianNewsletterRefreshReport', params:[newsletterId:newsletter.id])}"/>
+            <g:set var="link" value="${g.createLink(mapping: 'politicianCampaignRefreshReport', params:[campaignId:campaign.id])}"/>
         </g:else>
         <a href="${link}" class="files-list-btn-refresh">
             <span class="fal fa-sync"></span><g:message code="tools.massMailing.view.reports.reload"/>

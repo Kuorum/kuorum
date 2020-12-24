@@ -32,7 +32,7 @@ class DomainService {
             }
             return config
         }catch (Exception e){
-            log.warn("Domain not found: ${domain}")
+            log.warn("Domain not found: ${domain}: Excp: ${e.getMessage()}")
             return null
         }
     }

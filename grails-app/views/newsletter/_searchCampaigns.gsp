@@ -70,8 +70,8 @@
         </div>
     </div>
     <ul id="campaignsList" class="list">
-        <g:each in="${newsletters}" var="newsletter" status="i">
-            <g:render template="liCampaignNewsletter" model="[newsletter:newsletter, user:user, idx:i]"/>
+        <g:each in="${newsletters}" var="bulletin" status="i">
+            <g:render template="liCampaignNewsletter" model="[bulletin:bulletin, user:user, idx:bulletin.id]"/>
         </g:each>
         <g:each in="${campaigns}" var="campaign" status="i">
             <g:render template="liCampaignGeneric" model="[campaign: campaign, user: user, idx: campaign.id]"/>

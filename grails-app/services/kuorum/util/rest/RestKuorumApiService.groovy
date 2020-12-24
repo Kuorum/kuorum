@@ -262,7 +262,7 @@ class RestKuorumApiService {
 
         ACCOUNT_MASS_MAILINGS                   ("/communication/massmailing/{userId}"),
         ACCOUNT_MASS_MAILING                    ("/communication/massmailing/{userId}/{campaignId}"),
-        ACCOUNT_MASS_MAILING_SEND               ("/communication/massmailing/{userId}/{campaignId}/send"),
+        ACCOUNT_MASS_MAILING_SEND               ("/communication/massmailing/{userId}/{newsletterId}/send"),
         ACCOUNT_MASS_MAILING_COPY               ("/communication/massmailing/{userId}/{campaignId}/copy"),
         ACCOUNT_MASS_MAILING_TRACKING           ("/communication/massmailing/{userId}/{campaignId}/trackingMails"),
         ACCOUNT_MASS_MAILING_TRACKING_RESEND    ("/communication/massmailing/{userId}/{campaignId}/trackingMails/resend/{trackingEmailId}"),
@@ -300,6 +300,11 @@ class RestKuorumApiService {
         ACCOUNT_POSTS           ("/communication/campaign/post/{userId}"),
         ACCOUNT_POST            ("/communication/campaign/post/{userId}/{postId}"),
         ACCOUNT_POST_LIKES      ("/communication/campaign/post/{userId}/{postId}/likes"),
+
+        ACCOUNT_BULLETINS_ALL       ("/communication/campaign/bulletin"),
+        ACCOUNT_BULLETINS           ("/communication/campaign/bulletin/{userId}"),
+        ACCOUNT_BULLETIN            ("/communication/campaign/bulletin/{userId}/{campaignId}"),
+        ACCOUNT_BULLETIN_COPY       ("/communication/campaign/bulletin/{userId}/{campaignId}/copy"),
 
         ACCOUNT_SURVEYS               ("/communication/campaign/survey/{userId}"),
         ACCOUNT_SURVEY                ("/communication/campaign/survey/{userId}/{surveyId}"),

@@ -41,7 +41,7 @@
     <r:script>
         $(function(){
             $("input[name=contentType]").on("change",function(e){
-                var originalValue = '${campaign.template}';
+                var originalValue = '${campaign.newsletter.template}';
                 var newValue = $(this).val();
                 if (originalValue != newValue){
                     $("#newsletterTemplateEdited").modal("show")
@@ -54,7 +54,7 @@
             })
             $("#newsletterTemplateEditedButtonCancel").on("click", function(e){
                 e.preventDefault();
-                var originalValue = '${campaign.template}';
+                var originalValue = '${campaign.newsletter.template}';
                 $('input[name="contentType"][value="' + originalValue + '"]').prop('checked', true);
                 $("#newsletterTemplateEdited").modal("hide")
             })

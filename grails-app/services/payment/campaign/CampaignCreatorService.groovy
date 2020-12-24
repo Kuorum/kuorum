@@ -32,6 +32,16 @@ interface CampaignCreatorService<RSDTO extends CampaignRSDTO, RDTO extends Campa
     List<RSDTO> findAll(KuorumUserSession user)
     RSDTO find(KuorumUserSession user, Long campaignId)
     RSDTO find(String userId, Long campaignId)
+
+
+    /**
+     * Creates a new campaign using data from CAMPAIGN campaignId
+     * @param userId
+     * @param campaignId
+     * @return
+     */
+    RSDTO copy(KuorumUserSession user, Long campaignId)
+    RSDTO copy(String userId, Long campaignId)
     /**
      * Maps RSDTO to RDTO
      * @param rsdto

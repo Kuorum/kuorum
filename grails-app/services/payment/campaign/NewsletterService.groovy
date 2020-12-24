@@ -5,6 +5,8 @@ import grails.transaction.Transactional
 import kuorum.register.KuorumUserSession
 import kuorum.util.TimeZoneUtil
 import kuorum.util.rest.RestKuorumApiService
+import org.kuorum.rest.model.communication.bulletin.BulletinRDTO
+import org.kuorum.rest.model.communication.bulletin.BulletinRSDTO
 import org.kuorum.rest.model.notification.campaign.NewsletterRQDTO
 import org.kuorum.rest.model.notification.campaign.NewsletterRSDTO
 import org.kuorum.rest.model.notification.campaign.config.NewsletterConfigRQDTO
@@ -17,45 +19,71 @@ class NewsletterService {
 
     RestKuorumApiService restKuorumApiService
 
+    BulletinService bulletinService;
 
-    NewsletterRSDTO campaignSend(KuorumUserSession user, NewsletterRQDTO campaignRQDTO, Long campaignId = null){
+
+    BulletinRSDTO campaignSend(KuorumUserSession user, NewsletterRQDTO campaignRQDTO, Long campaignId = null){
         campaignRQDTO.sentOn = Calendar.getInstance(user.getTimeZone()).time
         sendScheduledCampaignWithoutDateModifications(user, campaignRQDTO, campaignId)
     }
 
-    NewsletterRSDTO campaignSchedule(KuorumUserSession user, NewsletterRQDTO campaignRQDTO, Date date, Long campaignId = null){
+    BulletinRSDTO campaignSchedule(KuorumUserSession user, NewsletterRQDTO campaignRQDTO, Date date, Long campaignId = null){
         campaignRQDTO.sentOn = TimeZoneUtil.convertToUserTimeZone(date, user.timeZone)
         sendScheduledCampaignWithoutDateModifications(user, campaignRQDTO, campaignId)
     }
 
-    private NewsletterRSDTO sendScheduledCampaignWithoutDateModifications(KuorumUserSession user, NewsletterRQDTO campaignRQDTO, Long campaignId = null){
-        Map<String, String> params = [userId:user.id.toString()]
-        Map<String, String> query = [:]
-        RestKuorumApiService.ApiMethod apiMethod = RestKuorumApiService.ApiMethod.ACCOUNT_MASS_MAILINGS
-        if (campaignId){
-            apiMethod = RestKuorumApiService.ApiMethod.ACCOUNT_MASS_MAILING
-            params.put("campaignId",campaignId.toString())
+    private BulletinRSDTO sendScheduledCampaignWithoutDateModifications(KuorumUserSession user, NewsletterRQDTO newsletterRQDTO, Long campaignId = null){
+        if (campaignId && campaignId > 0){
+            //UPDATE
+            return updateNewsletter(user, newsletterRQDTO, campaignId)
+        }else{
+            //CREATE
+            return createNewsletter(user, newsletterRQDTO)
         }
+
+    }
+
+    private BulletinRSDTO updateNewsletter(KuorumUserSession user, NewsletterRQDTO newsletterRQDTO, Long campaignId){
+        Map<String, String> params = [userId:user.id.toString(), "campaignId":campaignId.toString()]
+        Map<String, String> query = [:]
+        RestKuorumApiService.ApiMethod apiMethod = RestKuorumApiService.ApiMethod.ACCOUNT_MASS_MAILING
         def response= restKuorumApiService.post(
                 apiMethod,
                 params,
                 query,
-                campaignRQDTO,
-                new TypeReference<NewsletterRSDTO>(){}
+                newsletterRQDTO,
+                new TypeReference<BulletinRSDTO>(){}
         )
-        NewsletterRSDTO campaignSaved=null
+        BulletinRSDTO campaignSaved=null
+        if (response.data){
+            campaignSaved = response.data
+        }
+        campaignSaved
+    }
+    private BulletinRSDTO createNewsletter(KuorumUserSession user, NewsletterRQDTO newsletterRQDTO){
+        Map<String, String> params = [userId:user.id.toString()]
+        Map<String, String> query = [:]
+        RestKuorumApiService.ApiMethod apiMethod = RestKuorumApiService.ApiMethod.ACCOUNT_MASS_MAILINGS
+        def response= restKuorumApiService.post(
+                apiMethod,
+                params,
+                query,
+                newsletterRQDTO,
+                new TypeReference<BulletinRSDTO>(){}
+        )
+        BulletinRSDTO campaignSaved=null
         if (response.data){
             campaignSaved = response.data
         }
         campaignSaved
     }
 
-    NewsletterRSDTO campaignDraft(KuorumUserSession user, NewsletterRQDTO campaignRQDTO, Long campaignId = null){
+    BulletinRSDTO campaignDraft(KuorumUserSession user, NewsletterRQDTO campaignRQDTO, Long campaignId = null){
         sendScheduledCampaignWithoutDateModifications(user, campaignRQDTO, campaignId)
     }
 
-    NewsletterRSDTO campaignTest(KuorumUserSession user, Long campaignId){
-        Map<String, String> params = [userId:user.id.toString(), campaignId:campaignId.toString()]
+    NewsletterRSDTO campaignTest(KuorumUserSession user, Long newsletterId){
+        Map<String, String> params = [userId:user.id.toString(), newsletterId:newsletterId.toString()]
         Map<String, String> query = [test:true]
         def response= restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.ACCOUNT_MASS_MAILING_SEND,
@@ -70,67 +98,63 @@ class NewsletterService {
         campaignSaved
     }
 
+    /**
+     * User bulletinService.copy
+     * @param user
+     * @param campaignId
+     * @return
+     */
+    @Deprecated
     NewsletterRSDTO copyNewsletter(KuorumUserSession user, Long campaignId){
-        Map<String, String> params = [userId:user.id.toString(), campaignId:campaignId.toString()]
-        Map<String, String> query = [:]
-        def response= restKuorumApiService.post(
-                RestKuorumApiService.ApiMethod.ACCOUNT_MASS_MAILING_COPY,
-                params,
-                query,
-                null,
-                new TypeReference<NewsletterRSDTO>(){}
-        )
-        NewsletterRSDTO campaignSaved=null
-        if (response.data){
-            campaignSaved = (NewsletterRSDTO)response.data
-        }
-        campaignSaved
+        BulletinRSDTO bulletinRSDTO = bulletinService.copy(user, campaignId);
+        return bulletinRSDTO.newsletter
     }
 
-    List<NewsletterRSDTO> findCampaigns(KuorumUserSession user){
-        Map<String, String> params = [userId:user.id.toString()]
-        Map<String, String> query = [:]
-        def response= restKuorumApiService.get(
-                RestKuorumApiService.ApiMethod.ACCOUNT_MASS_MAILINGS,
-                params,
-                query,
-                new TypeReference<List<NewsletterRSDTO>>(){}
-        )
-        List<NewsletterRSDTO> campaigns=[]
-        if (response.data){
-            campaigns = response.data
-        }
-        campaigns
-    }
+//    List<NewsletterRSDTO> findCampaigns(KuorumUserSession user){
+//        Map<String, String> params = [userId:user.id.toString()]
+//        Map<String, String> query = [:]
+//        def response= restKuorumApiService.get(
+//                RestKuorumApiService.ApiMethod.ACCOUNT_MASS_MAILINGS,
+//                params,
+//                query,
+//                new TypeReference<List<NewsletterRSDTO>>(){}
+//        )
+//        List<NewsletterRSDTO> campaigns=[]
+//        if (response.data){
+//            campaigns = response.data
+//        }
+//        campaigns
+//    }
 
+    /**
+     * Call bulletin service
+     * @param user
+     * @param campaignId
+     */
+    @Deprecated
     void removeCampaign(KuorumUserSession user, Long campaignId) {
-        Map<String, String> params = [userId: user.id.toString(), campaignId: campaignId.toString()]
-        Map<String, String> query = [:]
-        def response = restKuorumApiService.delete(
-                RestKuorumApiService.ApiMethod.ACCOUNT_MASS_MAILING,
-                params,
-                query
-        )
+        bulletinService.remove(user, campaignId);
     }
 
+    /**
+     * User bulletinService.find()
+     * @param user
+     * @param campaignId
+     * @return
+     */
+    @Deprecated
     NewsletterRSDTO findCampaign(KuorumUserSession user, Long campaignId){
-        Map<String, String> params = [userId:user.id.toString(), campaignId:campaignId.toString()]
-        Map<String, String> query = [test:true]
-        def response= restKuorumApiService.get(
-                RestKuorumApiService.ApiMethod.ACCOUNT_MASS_MAILING,
-                params,
-                query,
-                new TypeReference<NewsletterRSDTO>(){}
-        )
-        NewsletterRSDTO campaignSaved=null
-        if (response.data){
-            campaignSaved = (NewsletterRSDTO)response.data
+        BulletinRSDTO bulletinRSDTO = bulletinService.find(user, campaignId);
+        NewsletterRSDTO newsletterRSDTO=null
+
+        if (bulletinRSDTO != null){
+            newsletterRSDTO = bulletinRSDTO.newsletter
         }
-        campaignSaved
+        newsletterRSDTO
     }
 
-    TrackingMailStatsByCampaignPageRSDTO findTrackingMails(KuorumUserSession user, Long campaignId, TrackingMailStatusRSDTO status = null, Integer page = 0, Integer size=10){
-        Map<String, String> params = [userId:user.id.toString(), campaignId:campaignId.toString()]
+    TrackingMailStatsByCampaignPageRSDTO findTrackingMails(KuorumUserSession user, Long newsletterId, TrackingMailStatusRSDTO status = null, Integer page = 0, Integer size=10){
+        Map<String, String> params = [userId:user.id.toString(), campaignId:newsletterId.toString()]
         Map<String, String> query = [page:page.toString(), size:size.toString()]
         if (status){
             query.put("status", status)
@@ -215,9 +239,9 @@ class NewsletterService {
         newsletterConfigRDTO
     }
 
-    String uploadFile(KuorumUserSession user, Long newsletterId, File file, String fileName){
+    String uploadFile(KuorumUserSession user, Long campaignId, File file, String fileName){
         fileName = java.net.URLEncoder.encode(fileName, "UTF-8")
-        Map<String, String> params = [campaignId: newsletterId.toString(), userId: user.id.toString()]
+        Map<String, String> params = [campaignId: campaignId.toString(), userId: user.id.toString()]
         Map<String, String> query = [:]
         def response = restKuorumApiService.putFile(
                 RestKuorumApiService.ApiMethod.ACCOUNT_MASS_MAILING_ATTACHMENT,
@@ -228,8 +252,8 @@ class NewsletterService {
         )
     }
 
-    List<String> getFiles(KuorumUserSession user, NewsletterRSDTO newsletterRSDTO){
-        Map<String, String> params = [campaignId: newsletterRSDTO.getId().toString(), userId: user.alias]
+    List<String> getFiles(KuorumUserSession user, BulletinRSDTO bulletinRSDTO){
+        Map<String, String> params = [campaignId: bulletinRSDTO.getId().toString(), userId: user.alias]
         Map<String, String> query = [:]
         def response = restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.ACCOUNT_MASS_MAILING_ATTACHMENT,
@@ -239,8 +263,8 @@ class NewsletterService {
         )
         response.data
     }
-    List<String> getReports(KuorumUserSession user, Long newsletterId){
-        Map<String, String> params = [campaignId: newsletterId.toString(), userId:  user.alias]
+    List<String> getReports(KuorumUserSession user, Long campaignId){
+        Map<String, String> params = [campaignId: campaignId.toString(), userId:  user.alias]
         Map<String, String> query = [:]
         def response = restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.ACCOUNT_MASS_MAILING_REPORTS,
