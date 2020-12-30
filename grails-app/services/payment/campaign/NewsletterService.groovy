@@ -195,7 +195,7 @@ class NewsletterService {
                 null
         )
     }
-    void findTrackingMailsReport(KuorumUserSession user, Long campaignId){
+    void generateTrackingMailsReport(KuorumUserSession user, Long campaignId){
         Map<String, String> params = [userId:user.id.toString(), campaignId:campaignId.toString()]
         Map<String, String> query = [:]
         def response= restKuorumApiService.get(

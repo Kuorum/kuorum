@@ -59,7 +59,7 @@ class NewsletterController {
 //        List<NewsletterRSDTO> newsletters = newsletterService.findCampaigns(user)
         // TODO: Bad trick -> Recover all campaigns without pagination
         CampaignPageRSDTO campaignsPage = campaignService.findAllCampaigns(user, true, 0, 100); // BAD TRICK
-        List<NewsletterRSDTO> newsletters = campaignsPage.getData().findAll({c -> c.campaignType == CampaignTypeRSDTO.BULLETIN});
+        List<CampaignRSDTO> newsletters = campaignsPage.getData().findAll({c -> c.campaignType == CampaignTypeRSDTO.BULLETIN});
         List<CampaignRSDTO> campaigns = campaignsPage.getData().findAll({c -> c.campaignType != CampaignTypeRSDTO.BULLETIN})
         [newsletters: newsletters, campaigns: campaigns, user:user]
     }
@@ -105,7 +105,7 @@ class NewsletterController {
             redirect(mapping:"politicianCampaigns")
             return
         }
-        updateScheduledCampaignToDraft(user, bulletinRSDTO.getNewsletter())
+        updateScheduledCampaignToDraft(user, bulletinRSDTO)
         def model = contentModel(user, new MassMailingContentCommand(), bulletinRSDTO)
         model
     }
@@ -163,7 +163,7 @@ class NewsletterController {
         if(campaignId){
             BulletinRSDTO bulletinRSDTO = bulletinService.find(user, campaignId);
             NewsletterRSDTO newsletterRSDTO = bulletinRSDTO.newsletter
-            updateScheduledCampaignToDraft(user, newsletterRSDTO)
+            updateScheduledCampaignToDraft(user, bulletinRSDTO)
             command.campaignName = newsletterRSDTO.name
             command.filterId = newsletterRSDTO.filter?.id
             command.tags = newsletterRSDTO.triggeredTags
@@ -324,7 +324,7 @@ class NewsletterController {
                 .collect{
                     g.createLink(
                             mapping: 'politicianNewsletterDownloadReport',
-                            params: [newsletterId:newsletterId, fileName:it.split("/").last().split("\\?").first()])
+                            params: [campaignId:campaignId, fileName:it.split("/").last().split("\\?").first()])
                 }.collect{it ->it.encodeAsS3File()}
     }
 
@@ -349,7 +349,8 @@ class NewsletterController {
 
     def showMailCampaign(Long campaignId){
         KuorumUserSession loggedUser = springSecurityService.principal
-        NewsletterRSDTO NewsletterRSDTO = newsletterService.findCampaign(loggedUser, campaignId)
+        BulletinRSDTO bulletinRSDTO = bulletinService.find(loggedUser, campaignId);
+        NewsletterRSDTO NewsletterRSDTO = bulletinRSDTO.newsletter
         render NewsletterRSDTO.htmlBody?:"Not sent"
     }
 
@@ -372,15 +373,15 @@ class NewsletterController {
                 ]
     }
 
-    def sendReport(Long newsletterId){
+    def sendReport(Long campaignId){
         KuorumUserSession loggedUser = springSecurityService.principal
-        newsletterService.findTrackingMailsReport(loggedUser, newsletterId)
+        newsletterService.generateTrackingMailsReport(loggedUser, campaignId)
         Boolean isAjax = request.xhr
         if(isAjax){
             render ([success:"success"] as JSON)
         } else{
             flash.message = g.message(code: 'modal.exportedTrackingEvents.title')
-            redirect (mapping: 'politicianMassMailingShow', params:[campaignId: newsletterId])
+            redirect (mapping: 'politicianMassMailingShow', params:[campaignId: campaignId])
         }
     }
 
@@ -497,12 +498,13 @@ class NewsletterController {
         newsletterRQDTO
     }
 
-    private void updateScheduledCampaignToDraft(KuorumUserSession user, NewsletterRSDTO newsletterRSDTO){
+    private void updateScheduledCampaignToDraft(KuorumUserSession user, CampaignRSDTO campaignRSDTO){
+        NewsletterRSDTO newsletterRSDTO = campaignRSDTO.newsletter
         if(newsletterRSDTO.status == CampaignStatusRSDTO.SCHEDULED){
             NewsletterRQDTO newsletterRQDTO = transformRStoRQ(newsletterRSDTO)
             newsletterRQDTO.setSentOn(null)
             newsletterRQDTO.setStatus(CampaignStatusRSDTO.DRAFT)
-            newsletterService.campaignDraft(user, newsletterRQDTO, newsletterRSDTO.getId())
+            newsletterService.campaignDraft(user, newsletterRQDTO, campaignRSDTO.getId())
         }
     }
 
@@ -585,9 +587,9 @@ class NewsletterController {
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
-    def downloadReportNewsletter(Long newsletterId, String fileName){
+    def downloadReportNewsletter(Long campaignId, String fileName){
         KuorumUserSession loggedUser = springSecurityService.principal
-        newsletterService.getReport(loggedUser, newsletterId, fileName,response.outputStream)
+        newsletterService.getReport(loggedUser, campaignId, fileName,response.outputStream)
         response.setContentType("application/octet-stream")
         response.setHeader("Content-disposition", "filename=${fileName}")
         response.outputStream.flush()

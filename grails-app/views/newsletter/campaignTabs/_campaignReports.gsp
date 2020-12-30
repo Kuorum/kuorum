@@ -4,7 +4,7 @@
 
     <div class="actions">
         <g:if test="${newsletter}">
-            <g:link mapping="politicianMassMailingTrackEventsReport" params="[newsletterId:newsletter.id]" class="btn btn-blue inverted export-modal-button" data-modalId="export-campaignEvents-modal">
+            <g:link mapping="politicianMassMailingTrackEventsReport" params="[campaignId:campaign.id]" class="btn btn-blue inverted export-modal-button" data-modalId="export-campaignEvents-modal">
                 <span class="fal fa-file-excel"></span>
                 <g:message code="tools.massMailing.list.recipients.export.csv"/>
             </g:link>

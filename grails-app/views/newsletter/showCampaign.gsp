@@ -47,7 +47,7 @@
             </div>
             <g:if test="${newsletter.htmlBody}">
                 <div class="tab-pane" id="viewemail">
-                    <g:render template="/newsletter/campaignTabs/campaignViewMail" model="[newsletter: newsletter]"/>
+                    <g:render template="/newsletter/campaignTabs/campaignViewMail" model="[campaign: campaign]"/>
                 </div>
             </g:if>
             <g:if test="${campaign && campaign instanceof org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetRSDTO}">
