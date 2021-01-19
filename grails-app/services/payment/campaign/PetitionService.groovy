@@ -213,4 +213,16 @@ class PetitionService implements CampaignCreatorService<PetitionRSDTO, PetitionR
         def model = [petition: campaignRSDTO, petitionUser: campaignOwner, signs: signs.data]
         [view: "/petition/show", model:model]
     }
+
+    @Override
+    PetitionRSDTO copy(KuorumUserSession user, Long campaignId) {
+        //TODO: KPV-1606
+        return null
+    }
+
+    @Override
+    PetitionRSDTO copy(String userId, Long campaignId) {
+        //TODO: KPV-1606
+        return null
+    }
 }

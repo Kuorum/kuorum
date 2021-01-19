@@ -200,4 +200,16 @@ class PostService implements CampaignCreatorService<PostRSDTO, PostRDTO>{
         def model = [post: campaignRSDTO, postUser: campaignOwner]
         [view: "/post/show", model:model]
     }
+
+    @Override
+    PostRSDTO copy(KuorumUserSession user, Long campaignId) {
+        //TODO: KPV-1606
+        return null
+    }
+
+    @Override
+    PostRSDTO copy(String userId, Long campaignId) {
+        //TODO: KPV-1606
+        return null
+    }
 }

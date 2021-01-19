@@ -257,4 +257,16 @@ class DistrictProposalService implements CampaignCreatorService<DistrictProposal
 
         return response.data
     }
+
+    @Override
+    DistrictProposalRSDTO copy(KuorumUserSession user, Long campaignId) {
+        //TODO: KPV-1606
+        return null
+    }
+
+    @Override
+    DistrictProposalRSDTO copy(String userId, Long campaignId) {
+        //TODO: KPV-1606
+        return null
+    }
 }

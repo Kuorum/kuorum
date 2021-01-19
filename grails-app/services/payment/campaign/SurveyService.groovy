@@ -264,4 +264,16 @@ class SurveyService implements CampaignCreatorService<SurveyRSDTO, SurveyRDTO>{
                 new TypeReference<String>(){}
         )
     }
+
+    @Override
+    SurveyRSDTO copy(KuorumUserSession user, Long campaignId) {
+        //TODO: KPV-1606
+        return null
+    }
+
+    @Override
+    SurveyRSDTO copy(String userId, Long campaignId) {
+        //TODO: KPV-1606
+        return null
+    }
 }

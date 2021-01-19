@@ -211,4 +211,16 @@ class DebateService implements CampaignCreatorService<DebateRSDTO, DebateRDTO> {
         def model = [debate: debate, debateUser: debateUser, proposalPage:proposalPage, pinnedUsers:pinnedUsers]
         return [view: '/debate/show', model: model]
     }
+
+    @Override
+    DebateRSDTO copy(KuorumUserSession user, Long campaignId) {
+        //TODO: KPV-1606
+        return null
+    }
+
+    @Override
+    DebateRSDTO copy(String userId, Long campaignId) {
+        //TODO: KPV-1606
+        return null
+    }
 }

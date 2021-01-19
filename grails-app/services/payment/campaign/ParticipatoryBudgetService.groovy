@@ -228,4 +228,16 @@ class ParticipatoryBudgetService implements CampaignCreatorService<Participatory
         def model = [participatoryBudget: participatoryBudget, campaignUser: campaignUser, randomSeed:randomSeed]
         return [view: '/participatoryBudget/show', model: model]
     }
+
+    @Override
+    ParticipatoryBudgetRSDTO copy(KuorumUserSession user, Long campaignId) {
+        //TODO: KPV-1606
+        return null
+    }
+
+    @Override
+    ParticipatoryBudgetRSDTO copy(String userId, Long campaignId) {
+        //TODO: KPV-1606
+        return null
+    }
 }
