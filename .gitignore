@@ -13,6 +13,7 @@
 /kuorum-grailsPlugins.iml
 /.sonar
 /.slcache
+/.gradle
 
 # Config files
 /src/java/development_config.properties
