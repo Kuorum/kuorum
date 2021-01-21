@@ -7,10 +7,12 @@ class SurveyReportCommand {
 
     Long campaignId;
     SurveyReportType surveyReportType;
+    Boolean pdfFormat = Boolean.FALSE
 
     static constraints = {
         campaignId nullable: false
         surveyReportType nullable: false
+        pdfFormat nullable: true
     }
 }
 

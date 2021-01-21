@@ -20,6 +20,10 @@
                 <span class="fal fa-file-excel"></span>
                 <g:message code="tools.massMailing.view.stats.survey.report"/>
             </g:link>
+            <g:link mapping="politicianMassMailingSurveyReport" params="[campaignId:campaign.id, surveyReportType:kuorum.web.commands.payment.survey.SurveyReportType.SURVEY_STATS, pdfFormat:true]" class="btn btn-blue inverted export-modal-button" data-modalId="export-surveyStats-modal">
+                <span class="fal fa-file-pdf"></span>
+                <g:message code="tools.massMailing.view.stats.survey.report.certificate"/>
+            </g:link>
             <g:link mapping="politicianMassMailingSurveyReport" params="[campaignId:campaign.id, surveyReportType:kuorum.web.commands.payment.survey.SurveyReportType.SURVEY_RAW_DATA ]" class="btn btn-blue inverted export-modal-button" data-modalId="export-surveyStats-modal">
                 <span class="fal fa-file-excel"></span>
                 <g:message code="tools.massMailing.view.stats.survey.report.rawData"/>
