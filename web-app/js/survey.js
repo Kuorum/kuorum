@@ -82,11 +82,8 @@ var surveyFunctions = {
             var question = singleAnswers[questionAnswerIdx];
             var questionId = parseInt(question.getAttribute('data-question-id'))
             surveyFunctions._setProgressBarsPercent(questionId)
-            if (questionAnswerIdx == singleAnswers.length-1){
-                // LAST QUESTION ANSWERED
-                var nextQuestionId = surveyFunctions._getNextQuestionId(question);
-                surveyFunctions._nextQuestion(questionId,nextQuestionId);
-            }
+            var nextQuestionId = surveyFunctions._getNextQuestionId(question);
+            surveyFunctions._nextQuestion(questionId,nextQuestionId);
         };
         surveyFunctions._updateSurveyProgressBar();
         // Block bubbling click on inputs when has text
