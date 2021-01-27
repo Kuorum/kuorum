@@ -278,7 +278,7 @@ class SurveyController extends CampaignController{
     @Secured(['ROLE_CAMPAIGN_SURVEY'])
     def sendReport(SurveyReportCommand command){
         KuorumUserSession loggedUser = springSecurityService.principal
-        surveyService.sendReport(loggedUser, command.campaignId,command.surveyReportType)
+        surveyService.sendReport(loggedUser, command.campaignId,command.surveyReportType, command.pdfFormat)
         Boolean isAjax = request.xhr
         if(isAjax){
             render ([success:"success"] as JSON)

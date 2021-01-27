@@ -223,9 +223,9 @@ class SurveyService implements CampaignCreatorService<SurveyRSDTO, SurveyRDTO>{
         return response.data
     }
 
-    void sendReport(KuorumUserSession user, Long surveyId, SurveyReportType surveyReportType){
+    void sendReport(KuorumUserSession user, Long surveyId, SurveyReportType surveyReportType, Boolean pdfFormat = false){
         Map<String, String> params = [userId: user.id.toString(), surveyId: surveyId.toString()]
-        Map<String, String> query = [:]
+        Map<String, String> query = [pdfFormat:pdfFormat]
         RestKuorumApiService.ApiMethod apiMethod = RestKuorumApiService.ApiMethod.ACCOUNT_SURVEY_REPORT_STATS;
         if (SurveyReportType.SURVEY_RAW_DATA.equals(surveyReportType)){
             apiMethod = RestKuorumApiService.ApiMethod.ACCOUNT_SURVEY_REPORT_RAW;
