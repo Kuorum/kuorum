@@ -24,29 +24,7 @@ class BootStrap {
 ////            return (delegate.scheme + "://" + delegate.serverName + ":" + delegate.serverPort + delegate.getContextPath())
 //            return (delegate.scheme + "://" + delegate.serverName + ":" + delegate.serverPort)
 //        }
-        URL url = new URL("https://kuorum.org/kuorum")
-        CustomDomainResolver.setUrl(url, "")
-        List<DomainRSDTO> domains = domainService.findAllDomains()
-        List<Promise> asyncUpdateConfig = []
-            domains.each { domainRSDTO ->
-                asyncUpdateConfig << grails.async.Promises.task {
-                    URL urlThread = new URL("https://${domainRSDTO.domain}/kuorum")
-                    CustomDomainResolver.setUrl(urlThread, "")
-                    if (domainRSDTO.domain == "kuorum.org"){
-                        log.debug("Ingoring domain configuration of kuorum.org")
-                    }else if (domainRSDTO.version != 0){
-                        MDC.put("domain", domainRSDTO.domain)
-                        domainService.updateConfig(domainRSDTO)
-                        MDC.clear()
-                    }else{
-                        log.info("Ingoring domain cofiguration because its version is 0 and it was not configured")
-                    }
-                    // Used to update the version number and force browsers to download again the css and uploads the new css
-                    // lessCompilerService.compileCssForDomain(it)
-                }
-        }
-        grails.async.Promises.waitAll(asyncUpdateConfig)
-        CustomDomainResolver.clear()
+
 
 
 //        KeyStore ks = KeyStore.getInstance("JKS");
