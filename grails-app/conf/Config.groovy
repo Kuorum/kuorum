@@ -204,6 +204,8 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules=[
 ]
 grails.plugin.springsecurity.filterChain.chainMap = [  //LOS FILTROS SIN ESPACIOS
         '/error-page/**':'none',
+        '/ping':'pingSpringFilter',
+        '/ping/**':'pingSpringFilter',
         '/j_spring_security_switch_user/**':'JOINED_FILTERS',
         '/j_spring_security_exit_user/**':'JOINED_FILTERS',
         '/**':         'JOINED_FILTERS,-switchFilter,-switchUserProcessingFilter'
@@ -222,6 +224,27 @@ grails.plugin.springsecurity.rememberMe.persistentToken.domainClassName='kuorum.
 //grails.plugin.springsecurity.loginDomain = "https://kuorum.org"
 //grails.plugin.cookiesession.domain=".kuorum.org"
 //grails.plugin.cookiesession.springsecuritycompatibility=true
+
+
+// CONFIG FOR SESSION IN MEMCACHE
+grails.plugin.standalone.tomcat.memcached.enabled = true
+grails.plugin.standalone.tomcat.memcached.enableStatistics = true
+grails.plugin.standalone.tomcat.memcached.sessionBackupAsync = false
+grails.plugin.standalone.tomcat.memcached.sticky = false
+//grails.plugin.standalone.tomcat.memcached.memcachedProtocol = "binary"
+grails.plugin.standalone.tomcat.memcached.sessionBackupTimeout = 100
+grails.plugin.standalone.tomcat.memcached.operationTimeout = 1000
+//grails.plugin.standalone.tomcat.memcached.backupThreadCount = 10
+//grails.plugin.standalone.tomcat.memcached.copyCollectionsForSerialization = false
+//grails.plugin.standalone.tomcat.memcached.username = user
+//grails.plugin.standalone.tomcat.memcached.password = pass
+//grails.plugin.standalone.tomcat.memcached.failoverNodes = pass
+//grails.plugin.standalone.tomcat.memcached.lockingMode = false
+//grails.plugin.standalone.tomcat.memcached.requestUriIgnorePattern = ????
+//grails.plugin.standalone.tomcat.memcached.sessionAttributeFilter = ????
+//grails.plugin.standalone.tomcat.memcached.transcoderFactoryClass = ????
+//grails.plugin.standalone.tomcat.memcached.customConverter = ????
+grails.plugin.standalone.tomcat.memcached.memcachedNodes = "127.0.0.1:11211"
 
 
 cache.headers.presets = [

@@ -1,15 +1,15 @@
-dataSource {
-    pooled = true
-    driverClassName = "org.h2.Driver"
-    username = "sa"
-    password = ""
-}
-hibernate {
-    cache.use_second_level_cache = true
-    cache.use_query_cache = false
-    cache.region.factory_class = 'net.sf.ehcache.hibernate.EhCacheRegionFactory' // Hibernate 3
+//dataSource {
+//    pooled = true
+//    driverClassName = "org.h2.Driver"
+//    username = "sa"
+//    password = ""
+//}
+//hibernate {
+//    cache.use_second_level_cache = true
+//    cache.use_query_cache = false
+//    cache.region.factory_class = 'net.sf.ehcache.hibernate.EhCacheRegionFactory' // Hibernate 3
 //    cache.region.factory_class = 'org.hibernate.cache.ehcache.EhCacheRegionFactory' // Hibernate 4
-}
+//}
 
 // environment specific settings
 def env = System.getenv()
@@ -19,8 +19,28 @@ environments {
         logSql = true
         grails{
             mongo {
-//                replicaSet = [ "localhost:27017"]
-                replicaSet = [ "192.168.0.150:27017"]
+                replicaSet = [ "localhost:27017"]
+//                replicaSet = [ "localhost:8000"]
+//                replicaSet = [ "192.168.0.150:27017"]
+//                replicaSet = [ "10.100.0.53:27017"]
+                username = ""
+                password = ""
+                databaseName = "Kuorum"
+    //                options {
+    //                    w = 1
+    //                    wtimeout = 0
+    //                    fsync = true
+    //                }
+            }
+        }
+    }
+    aws {
+        logSql = true
+        grails{
+            mongo {
+                replicaSet = [ "mongo.kuorum.local:27017"]
+//                replicaSet = [ "localhost:8000"]
+//                replicaSet = [ "192.168.0.150:27017"]
 //                replicaSet = [ "10.100.0.53:27017"]
                 username = ""
                 password = ""
