@@ -132,7 +132,6 @@ class CampaignController {
                 filters.add(anonymousFilter)
             }
         }else{
-            //command.validationType = CustomDomainResolver.domainRSDTO?.validation? CampaignValidationTypeRDTO.DOMAIN: CampaignValidationTypeRDTO.NONE
             command.validationType = CampaignValidationTypeRDTO.NONE
         }
         [
