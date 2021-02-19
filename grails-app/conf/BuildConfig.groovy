@@ -41,24 +41,22 @@ grails.project.dependency.resolution = {
     repositories {
         inherits true // Whether to inherit repository definitions from plugins
 
-
-//        mavenRepo "https://repo.maven.apache.org/maven2"
-
         grailsPlugins()
         grailsHome()
         mavenLocal()
         grailsCentral()
         mavenCentral()
 
-        // SSL HANDSHAKE IS NOT WORKING WITH JAVA7 -> For downlaod dependencies use JAVA8
-        
         //Repository for kuorum.springSecurity
-        mavenRepo "http://repo.grails.org/grails/plugins"
         mavenRepo "http://repo.spring.io/milestone/"
         mavenRepo "https://repository.jboss.org/maven2/"
-        mavenRepo "https://files.couchbase.com/maven2/" // Repository for tomcatCacheSession
+        // *****************  HTTPS protocol has been deleted due to fix connection issues
+        // More info on https://github.com/grails-plugins/grails-spring-security-ui/issues/50
+//      mavenRepo "http://repo.grails.org/grails/core"
+        mavenRepo "http://repo.grails.org/grails/plugins"
 
         //Repository for google spring social template
+//          mavenRepo "http://repo.grails.org/grails/repo"
 //        mavenRepo "http://gabiaxel.github.io/maven/"
 
 
@@ -149,16 +147,20 @@ grails.project.dependency.resolution = {
 
         runtime group: 'org.graylog2', name: 'gelfj', version: '1.1.13'
 
-        // https://mvnrepository.com/artifact/org.grails.plugins/standalone-tomcat-memcached
-//        compile group: 'org.grails.plugins', name: 'standalone-tomcat-memcached', version: '0.1'
 
         // https://mvnrepository.com/artifact/de.javakaffee.msm/memcached-session-manager
 //        compile group: 'de.javakaffee.msm', name: 'memcached-session-manager', version: '2.3.2'
 
 
-        compile group: 'de.javakaffee.msm', name: 'memcached-session-manager', version: '1.6.4'
-        compile group: 'spy', name: 'spymemcached', version: '2.8.12'
-        compile group: 'couchbase', name: 'couchbase-client', version: '1.1.6'
+//        compile group: 'de.javakaffee.msm', name:'memcached-session-manager-tc7', version:'1.6.4', {
+//            excludes 'CouchbaseMock', 'annotations', 'hibernate-annotations', 'hibernate-core', 'hsqldb',
+//                    'httpclient', 'javassist', 'jettison', 'jmemcached-core', 'jsr305', 'memcached-session-manager',
+//                    'mockito-core', 'netty', 'slf4j-simple', 'testng', 'tomcat-catalina', 'tomcat-catalina-ha',
+//                    'tomcat-coyote', 'tomcat-servlet-api'
+//        }
+//        compile group: 'de.javakaffee.msm', name: 'memcached-session-manager', version: '1.6.4'
+//        compile group: 'spy', name: 'spymemcached', version: '2.8.12'
+//        compile group: 'couchbase', name: 'couchbase-client', version: '1.1.6'
 
 
 
@@ -231,7 +233,7 @@ grails.project.dependency.resolution = {
 //        test ":codenarc:0.20"
 
 //        compile ":quartz:1.0.2"
-        runtime ":standalone-tomcat-memcached:0.1"
+        //runtime ":standalone-tomcat-memcached:0.1"
 //        https://repo.grails.org/grails/plugins/org/grails/plugins/standalone-tomcat-memcached/0.1/standalone-tomcat-memcached-0.1.zip
     }
 }
