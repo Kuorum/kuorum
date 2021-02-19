@@ -30,7 +30,7 @@ class CampaignSettingsCommand {
     Set<String> causes;
 
     CampaignValidationTypeRDTO validationType = CampaignValidationTypeRDTO.NONE;
-    HideSurveyResultEnum hideResultsFlag;
+    CampaignVisibility hideResultsFlag = CampaignVisbility.NON_VISIBLE;
     SurveyVoteTypeDTO voteType = SurveyVoteTypeDTO.ANONYMOUS;
     Boolean signVotes;
     Boolean groupValidation = false;

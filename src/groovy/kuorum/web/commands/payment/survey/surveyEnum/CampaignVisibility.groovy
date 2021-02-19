@@ -1,5 +1,5 @@
 package kuorum.web.commands.payment.survey.surveyEnum
 
-enum HideSurveyResultEnum {
+enum CampaignVisibility {
     VISIBLE, RESTRICTED, NON_VISIBLE
 }
