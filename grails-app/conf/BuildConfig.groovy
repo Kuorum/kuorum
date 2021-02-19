@@ -50,8 +50,13 @@ grails.project.dependency.resolution = {
         //Repository for kuorum.springSecurity
         mavenRepo "http://repo.spring.io/milestone/"
         mavenRepo "https://repository.jboss.org/maven2/"
+        // *****************  HTTPS protocol has been deleted due to fix connection issues
+        // More info on https://github.com/grails-plugins/grails-spring-security-ui/issues/50
+//      mavenRepo "http://repo.grails.org/grails/core"
+        mavenRepo "http://repo.grails.org/grails/plugins"
 
         //Repository for google spring social template
+//          mavenRepo "http://repo.grails.org/grails/repo"
 //        mavenRepo "http://gabiaxel.github.io/maven/"
 
 
