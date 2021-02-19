@@ -31,6 +31,7 @@ import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
 import payment.campaign.*
 import payment.contact.ContactService
+import kuorum.web.commands.payment.survey.CampaignVisibility
 
 import javax.servlet.http.HttpServletResponse
 
@@ -162,7 +163,7 @@ class CampaignController {
         }else{
             rdto.validationType =  CampaignValidationTypeRDTO.NONE
         }
-        rdto.hideResultsFlag = command.hideResultsFlag==null?false:command.hideResultsFlag
+        rdto.hideResultsFlag = command.hideResultsFlag==null?CampaignVisibility.NON_VISIBLE:command.hideResultsFlag
         rdto.groupValidation = command.groupValidation==null?false:command.groupValidation
         rdto.newsletterCommunication = command.newsletterCommunication==null?false:command.newsletterCommunication
         rdto.startDate = TimeZoneUtil.convertToUserTimeZone(command.startDate, user.timeZone)
