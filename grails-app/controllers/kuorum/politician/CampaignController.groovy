@@ -15,13 +15,10 @@ import kuorum.util.TimeZoneUtil
 import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.commands.payment.CampaignSettingsCommand
 import kuorum.web.commands.payment.contact.ContactFilterCommand
-import org.kuorum.rest.model.communication.CampaignPageRSDTO
-import org.kuorum.rest.model.communication.CampaignRDTO
-import org.kuorum.rest.model.communication.CampaignRSDTO
-import org.kuorum.rest.model.communication.CampaignTypeRSDTO
-import org.kuorum.rest.model.communication.CampaignValidationTypeRDTO
+import org.kuorum.rest.model.communication.*
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.kuorum.rest.model.communication.event.EventRDTO
+import org.kuorum.rest.model.communication.survey.CampaignVisibilityRSDTO
 import org.kuorum.rest.model.communication.survey.SurveyRDTO
 import org.kuorum.rest.model.communication.survey.SurveyVoteTypeDTO
 import org.kuorum.rest.model.contact.ContactPageRSDTO
@@ -120,7 +117,7 @@ class CampaignController {
             command.filterId = campaignRSDTO.newsletter?.filter?.id
             command.validationType = campaignRSDTO.validationType
             command.groupValidation = campaignRSDTO.groupValidation
-            command.hideResultsFlag = campaignRSDTO.hideResultsFlag
+            command.campaignVisibility = campaignRSDTO.campaignVisibility
             command.newsletterCommunication = campaignRSDTO.newsletterCommunication
             command.endDate = campaignRSDTO.endDate
             command.startDate = campaignRSDTO.startDate
@@ -132,7 +129,7 @@ class CampaignController {
                 filters.add(anonymousFilter)
             }
         }else{
-            command.validationType = CustomDomainResolver.domainRSDTO?.validation? CampaignValidationTypeRDTO.DOMAIN: CampaignValidationTypeRDTO.NONE
+            command.validationType = CampaignValidationTypeRDTO.NONE
         }
         [
                 filters: filters,
@@ -162,7 +159,7 @@ class CampaignController {
         }else{
             rdto.validationType =  CampaignValidationTypeRDTO.NONE
         }
-        rdto.hideResultsFlag = command.hideResultsFlag==null?false:command.hideResultsFlag
+        rdto.campaignVisibility = command.campaignVisibility==null? CampaignVisibilityRSDTO.NON_VISIBLE:command.campaignVisibility
         rdto.groupValidation = command.groupValidation==null?false:command.groupValidation
         rdto.newsletterCommunication = command.newsletterCommunication==null?false:command.newsletterCommunication
         rdto.startDate = TimeZoneUtil.convertToUserTimeZone(command.startDate, user.timeZone)
