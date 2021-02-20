@@ -29,7 +29,7 @@
             </span>
         </li>
     </g:if>
-    <g:if test="${survey.hideResultsFlag}">
+    <g:if test="${survey.hideResults}">
         <li>
             <span class="fal fa-poll" aria-hidden="true"></span>
             <span class="info"><g:message code="survey.cColumn.stats.results.hidden"/></span>
