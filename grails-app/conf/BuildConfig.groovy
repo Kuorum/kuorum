@@ -103,7 +103,7 @@ grails.project.dependency.resolution = {
 	    compile "net.sf.ehcache:ehcache-core:2.4.6" // Para eliminar :cache:1.1.1 que da un problema de dependencia al quitar hibernate
 
         compile 'com.xlson.groovycsv:groovycsv:1.0' //Para poder leer CSV
-        compile ('com.amazonaws:aws-java-sdk:1.10.20'){ //Amazon S3
+        compile ('com.amazonaws:aws-java-sdk:1.11.960'){ //Amazon S3
             excludes "org.apache.httpcomponents:httpclient"
             excludes "joda-time:joda-time"
         }

@@ -1,5 +1,7 @@
 import com.amazonaws.auth.AWSCredentials
+import com.amazonaws.auth.AWSCredentialsProvider
 import com.amazonaws.auth.BasicAWSCredentials
+import com.amazonaws.auth.DefaultAWSCredentialsProviderChain
 import com.amazonaws.services.s3.AmazonS3
 import com.amazonaws.services.s3.AmazonS3Client
 import com.amazonaws.services.s3.model.AbortMultipartUploadRequest
@@ -109,7 +111,9 @@ public class AmazonStaticUploader{
 
     private AmazonS3 buildAmazonClient() {
 
-        AWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
+//        AWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
+
+        AWSCredentialsProvider credentials = new DefaultAWSCredentialsProviderChain();
 
         AmazonS3 s3Client = new AmazonS3Client(credentials);
         return s3Client

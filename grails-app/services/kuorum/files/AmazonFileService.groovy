@@ -2,7 +2,11 @@ package kuorum.files
 
 import com.amazonaws.AmazonServiceException
 import com.amazonaws.auth.AWSCredentials
+import com.amazonaws.auth.AWSCredentialsProvider
 import com.amazonaws.auth.BasicAWSCredentials
+import com.amazonaws.auth.DefaultAWSCredentialsProviderChain
+import com.amazonaws.client.builder.AwsClientBuilder
+import com.amazonaws.regions.Regions
 import com.amazonaws.services.s3.AmazonS3
 import com.amazonaws.services.s3.AmazonS3Client
 import com.amazonaws.services.s3.model.*
@@ -268,7 +272,8 @@ class AmazonFileService extends LocalFileService {
                         partETags);
 
                 CompleteMultipartUploadResult uploadResult = s3Client.completeMultipartUpload(compRequest);
-                String finalUrl = uploadResult.getLocation().replaceAll("%2F", "/")
+//                String finalUrl = uploadResult.getLocation().replaceAll("%2F", "/")
+                String finalUrl = buildAmazonUrl(uploadResult.getKey())
 
                 kuorumFile.temporal = asTemporal
                 kuorumFile.url = finalUrl
@@ -436,17 +441,19 @@ class AmazonFileService extends LocalFileService {
 
 
     private String buildAmazonUrl(String relativePath) {
-        String bucketName = grailsApplication.config.kuorum.amazon.bucketName;
-        return "https://${bucketName}.s3.amazonaws.com/${relativePath}"
+        String cdnHost = grailsApplication.config.grails.resources.mappers.amazoncdn.host;
+        return "${cdnHost}/${relativePath}"
     }
 
     private AmazonS3 buildAmazonClient() {
-        String accessKey = grailsApplication.config.kuorum.amazon.accessKey
-        String secretKey = grailsApplication.config.kuorum.amazon.secretKey
+        // Login with credentials
+//        String accessKey = grailsApplication.config.kuorum.amazon.accessKey
+//        String secretKey = grailsApplication.config.kuorum.amazon.secretKey
+//        AWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
 
-        AWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
-
+        AWSCredentialsProvider credentials = new DefaultAWSCredentialsProviderChain();
         AmazonS3 s3Client = new AmazonS3Client(credentials);
+        s3Client.withRegion(Regions.EU_CENTRAL_1)
         return s3Client
     }
 }
