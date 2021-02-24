@@ -15,6 +15,18 @@
 /.slcache
 /.gradle
 
+#This files have appeared changed after configuring out the intellij ultimate version
+#Some of them might not be needed to add them to .gitignore
+.gitattributes
+build.gradle
+gradle/
+gradlew
+gradlew.bat
+kuorum.ipr
+production/
+settings.gradle
+
+
 # Config files
 /src/java/development_config.properties
 /src/java/test_config.properties
@@ -50,3 +62,9 @@ covertura.ser
 
 #Images testing kuorum
 /images
+
+# Ignore Gradle project-specific cache directory
+.gradle
+
+# Ignore Gradle build output directory
+build

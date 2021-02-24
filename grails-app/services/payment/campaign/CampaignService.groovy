@@ -62,9 +62,9 @@ class CampaignService {
         findAllCampaigns(user.id.toString(), user.id.toString(), attachDrafts,page, size)
     }
 
-    CampaignPageRSDTO findAllCampaigns(String userId, String viewerUid = null, Boolean attachDrafts = false, Integer page = 0, Integer size = 10) {
+    CampaignPageRSDTO findAllCampaigns(String userId, String viewerUid = null, Boolean attachDrafts = false, Integer page = 0, Integer size = 10, Boolean onlyPublications=true) {
         Map<String, String> params = [userId: userId]
-        Map<String, String> query = [page:page,size:size,attachDrafts:attachDrafts]
+        Map<String, String> query = [page:page,size:size,attachDrafts:attachDrafts, onlyPublications:onlyPublications]
         if (viewerUid){
             query.put("viewerUid",viewerUid)
         }
