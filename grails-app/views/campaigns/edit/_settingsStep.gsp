@@ -75,7 +75,7 @@
             </g:if>
             <g:if test="${options.showSurveyCustomFields}">
                 <div class="campaign-super-admin">
-                    <fieldset class="form-group fieldset-check-box">
+                    <fieldset class="form-group">
                         <label for="voteType" class="col-sm-2 col-md-1 control-label">
 %{--                            <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="${g.message(code:'kuorum.web.commands.payment.CampaignSettingsCommand.voteTYpe.label.info')}"></span>--}%
                             <g:message code="kuorum.web.commands.payment.CampaignSettingsCommand.voteType.label.left"/>:
@@ -97,12 +97,12 @@
             </g:if>
 
             <g:if test="${options.hiddeVotesFlag}">
-                <fieldset class="form-group fieldset-check-box">
+                <fieldset class="form-group">
                     <label for="campaignVisibility" class="col-sm-2 col-md-1 control-label">
                         <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="${g.message(code:'kuorum.web.commands.payment.CampaignSettingsCommand.campaignVisibility.label.info')}"></span>
                         <g:message code="kuorum.web.commands.payment.CampaignSettingsCommand.campaignVisibility.label.left"/>:
                     </label>
-                    <div class="col-sm-8 col-md-7">
+                    <div class="col-sm-4 col-md-4">
 %{--                        <formUtil:checkBox command="${command}" field="campaignVisibility" label="${g.message(code:'kuorum.web.commands.payment.CampaignSettingsCommand.campaignVisibility.label')}" />--}%
                         <formUtil:selectEnum command="${command}" field="campaignVisibility" disabled="${!domainValidation}" showLabel="false"/>
                     </div>
