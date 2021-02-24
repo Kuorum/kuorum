@@ -31,7 +31,7 @@ class CampaignSettingsCommand {
     Set<String> causes;
 
     CampaignValidationTypeRDTO validationType = CampaignValidationTypeRDTO.NONE;
-    CampaignVisibilityRSDTO campaignVisibility = CampaignVisibilityRSDTO.NON_VISIBLE;
+    CampaignVisibilityRSDTO campaignVisibility = CampaignVisibilityRSDTO.VISIBLE;
     SurveyVoteTypeDTO voteType = SurveyVoteTypeDTO.ANONYMOUS;
     Boolean signVotes;
     Boolean groupValidation = false;
