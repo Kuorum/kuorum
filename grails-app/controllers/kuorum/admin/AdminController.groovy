@@ -280,7 +280,7 @@ class AdminController {
     def editDomainRelevantCampaigns() {
         List<CampaignRSDTO> domainCampaigns = campaignService.findRelevantDomainCampaigns()
         // TODO: BAD TRICK -> Recover all campaigns without pagination
-        CampaignPageRSDTO adminCampaigns = campaignService.findAllCampaigns(WebConstants.FAKE_LANDING_ALIAS_USER, null, false, 0, 1000)
+        CampaignPageRSDTO adminCampaigns = campaignService.findAllCampaigns(WebConstants.FAKE_LANDING_ALIAS_USER, null, false, 0, 1000, true)
         Map domainCampaignsId = [first:null, second:null, third:null]
         DomainRSDTO domainRSDTO = CustomDomainResolver.domainRSDTO
         domainCampaignsId.first = domainCampaigns && domainCampaigns.size()>0 ? domainCampaigns.get(0).id:null
