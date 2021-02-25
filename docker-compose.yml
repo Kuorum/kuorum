@@ -3,22 +3,13 @@ services:
   front:
     build: .
     container_name: kuorum-front
-    environment
-      - API_DOMAIN=local.kuorum.org
-      - DATABASE_HOST=di15305-001.dbaas.ovh.net
-      - DATABASE_PORT=35762
-      - DATABASE_NAME=kuorum-test
-      - DATABASE_USER=kuorum-api
-      - DATABASE_PASSWORD=APIlecturaESCRITURA83
-      - DATABASE_TYPE=mysql
-      - MEMCACHE_URL=cache
-      - MEMCACHE_PORT=11211
+    environment:
+      - API_DOMAIN=test-api.kuorum.org
       - MONGO_HOST=192.168.0.150
-      - SOLR_HOST=192.168.0.161
-      - SOLR_PORT=8983
-      - API_DOMAIN=local-api.kuorum.org
+      - MONGO_PORT=27017
       - BUCKET_NAME=test-kuorumorg
       - UPLOADED_RESOURCES_DOMAIN=static-test.kuorum.org
+      - STATICS_VERSION_PATH=/local/inaki
     ports:
       - 8080:8080
 

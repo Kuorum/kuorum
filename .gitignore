@@ -35,6 +35,9 @@ settings.gradle
 /src/java/salenda_config.properties
 /src/java/aws_config.properties
 
+/src/java/Config_aws.groovy
+/src/java/Config_development.groovy
+
 covertura.ser
 
 # logs

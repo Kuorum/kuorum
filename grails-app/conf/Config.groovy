@@ -14,8 +14,8 @@ import org.graylog2.GelfSender
 //                             "file:${userHome}/.grails/${appName}-config.groovy"]
 
 grails.config.locations = [
-        "classpath:${grails.util.Environment.current.name}_config.properties"
-//        "classpath:Config_${grails.util.Environment.current.name}.groovy"
+//        "classpath:${grails.util.Environment.current.name}_config.properties"
+        "classpath:Config_${grails.util.Environment.current.name}.groovy"
 //        "file:/home/iduetxe/kuorum/kuorum/grails-app/conf/${grails.util.Environment.current.name}_milestones.groovy"
 //        Environment.current.name
 //        "classpath:development_config.properties"

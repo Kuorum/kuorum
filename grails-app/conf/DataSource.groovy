@@ -21,7 +21,7 @@ environments {
             mongo {
 //                replicaSet = [ "localhost:27017"]
 //                replicaSet = [ "localhost:8000"]
-                replicaSet = [ "192.168.0.150:27017"]
+                replicaSet = [ "1.2.3.4:27017"]
                 username = ""
                 password = ""
                 databaseName = "Kuorum"
