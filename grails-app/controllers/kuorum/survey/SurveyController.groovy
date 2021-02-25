@@ -85,7 +85,7 @@ class SurveyController extends CampaignController{
             command.voteType = surveyRSDTO.getVoteType()
             command.signVotes = surveyRSDTO.getSignVotes()
         }
-        model.options =[debatable:false, hiddeVotesFlag:true, showCampaignDateLimits:true, showSurveyCustomFields:true]
+        model.options =[debatable:false, showCampaignDateLimits:true, showSurveyCustomFields:true]
         return model
     }
 
