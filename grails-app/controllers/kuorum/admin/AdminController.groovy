@@ -555,6 +555,8 @@ class AdminController {
 
     @Secured(['IS_AUTHENTICATED_FULLY','ROLE_SUPER_ADMIN'])
     void updateDomainCss(){
-        domainService.updateAllDomainCss()
+        domainService.updateAllDomainCss(false)
+        flash.message="Executing asynchronously"
+        redirect mapping:'adminRecerateCss'
     }
 }

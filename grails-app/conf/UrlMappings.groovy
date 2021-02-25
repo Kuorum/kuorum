@@ -277,6 +277,7 @@ class UrlMappings {
         name adminSearcherIndex:                    "/sec/admin/searcher/indexar"       (controller:"admin", action: "solrIndex")
         name adminSearcherFullIndex:                "/sec/admin/searcher/full-index"    (controller:"admin", action:"fullIndex")
         name adminSearcherFullIndex:                "/sec/admin/searcher/full-index"    (controller:"admin", action:"fullIndex")
+        name adminRecerateCss:                      "/sec/admin/css/recreate"           (controller:"admin", action:"updateDomainCss")
         name adminDomainConfig:                     "/sec/admin/domain"                 (controller:"admin"){action=[GET:"domainConfig",POST:"domainConfigSave"]}
         name adminDomainConfigLanding:              "/sec/admin/domain/landing"         (controller:"admin"){action=[GET:"editLandingInfo",POST:"editLandingInfoSave"]}
         name adminDomainConfigLegalInfo:            "/sec/admin/domain/editLegalInfo"   (controller:"admin"){action=[GET:"editLegalInfo",POST:"updateLegalInfo"]}
