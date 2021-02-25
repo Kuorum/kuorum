@@ -208,7 +208,7 @@ class DomainService {
         }
     }
 
-    void updateAllDomainCss(){
+    void updateAllDomainCss(Boolean waitUntilFinish = false){
         URL url = new URL("https://kuorum.org/kuorum")
         CustomDomainResolver.setUrl(url, "")
         List<DomainRSDTO> domains = domainService.findAllDomains()
@@ -230,7 +230,9 @@ class DomainService {
                 // lessCompilerService.compileCssForDomain(it)
             }
         }
-//        grails.async.Promises.waitAll(asyncUpdateConfig)
+        if (waitUntilFinish){
+            grails.async.Promises.waitAll(asyncUpdateConfig)
+        }
         CustomDomainResolver.clear()
     }
 
