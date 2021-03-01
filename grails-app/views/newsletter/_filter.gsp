@@ -17,17 +17,18 @@
         </div>
         <div class="col-sm-4">
             <span class="amountRecipients">
-                <g:each in="${filters}" var="filter">
-                    <g:if test="${command.filterId == filter.id}">
-                        ${filter.amountOfContacts}
-                    </g:if>
-                </g:each>
-                <g:if test="${anonymousFilter && command.filterId == anonymousFilter?.id}">
-                    ${anonymousFilter.amountOfContacts}
-                </g:if>
-                <g:elseif test="${command.filterId == null}">
-                    ${totalContacts?:0}
-                </g:elseif>
+                -100
+%{--                <g:each in="${filters}" var="filter">--}%
+%{--                    <g:if test="${command.filterId == filter.id}">--}%
+%{--                        ${filter.amountOfContacts}--}%
+%{--                    </g:if>--}%
+%{--                </g:each>--}%
+%{--                <g:if test="${anonymousFilter && command.filterId == anonymousFilter?.id}">--}%
+%{--                    ${anonymousFilter.amountOfContacts}--}%
+%{--                </g:if>--}%
+%{--                <g:elseif test="${command.filterId == null}">--}%
+%{--                    ${totalContacts?:0}--}%
+%{--                </g:elseif>--}%
             </span>
             <g:message code="tools.massMailing.fields.filter.recipients"/>
             %{--<span class="fas fa-filter fa-lg"></span>--}%
@@ -48,10 +49,10 @@
                     <option value="0" data-amountContacts="${totalContacts?:0}"><g:message code="tools.massMailing.fields.filter.to.all"/></option>
                 %{--</g:if>--}%
                 <g:each in="${filters}" var="filter">
-                    <option value="${filter.id}" ${command.filterId == filter.id?'selected':''} data-amountContacts="${filter.amountOfContacts}">${filter.name}</option>
+                    <option value="${filter.id}" ${command.filterId == filter.id?'selected':''}>${filter.name}</option>
                 </g:each>
                 <g:if test="${anonymousFilter}">
-                    <option value="${anonymousFilter.id}" ${command.filterId == anonymousFilter.id?'selected':''} data-amountContacts="${anonymousFilter.amountOfContacts}" data-anononymus="true">${anonymousFilter.name}</option>
+                    <option value="${anonymousFilter.id}" ${command.filterId == anonymousFilter.id?'selected':''} data-anononymus="true">${anonymousFilter.name}</option>
                 </g:if>
                 <option value="-2" data-amountContacts="-"><g:message code="tools.massMailing.fields.filter.to.createNew"/></option>
             </select>

@@ -24,6 +24,7 @@ import org.kuorum.rest.model.communication.survey.SurveyVoteTypeDTO
 import org.kuorum.rest.model.contact.ContactPageRSDTO
 import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
 import org.kuorum.rest.model.contact.filter.FilterRDTO
+import org.kuorum.rest.model.contact.filter.FilterRSDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
 import payment.campaign.*
@@ -108,7 +109,7 @@ class CampaignController {
 
     protected def modelSettings(CampaignSettingsCommand command, CampaignRSDTO campaignRSDTO = null) {
         KuorumUserSession user = springSecurityService.principal
-        List<ExtendedFilterRSDTO> filters = contactService.getUserFilters(user)
+        List<FilterRSDTO> filters = contactService.getUserFilters(user)
         ContactPageRSDTO contactPageRSDTO = contactService.getUsers(user)
 
         if(campaignRSDTO){
@@ -125,7 +126,7 @@ class CampaignController {
                 command.causes = campaignRSDTO.causes
             }
             if(campaignRSDTO.newsletter.filter && !filters.find{it.id==campaignRSDTO.newsletter.filter.id}){
-                ExtendedFilterRSDTO anonymousFilter = contactService.getFilter(user, campaignRSDTO.newsletter.filter.id)
+                FilterRSDTO anonymousFilter = contactService.getFilter(user, campaignRSDTO.newsletter.filter.id)
                 filters.add(anonymousFilter)
             }
         }else{

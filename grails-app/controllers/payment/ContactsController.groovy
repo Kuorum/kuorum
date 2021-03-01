@@ -14,6 +14,7 @@ import kuorum.web.session.CSVDataSession
 import org.kuorum.rest.model.contact.*
 import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
 import org.kuorum.rest.model.contact.filter.FilterRDTO
+import org.kuorum.rest.model.contact.filter.FilterRSDTO
 import org.kuorum.rest.model.contact.filter.condition.ConditionFieldTypeRDTO
 import org.kuorum.rest.model.contact.filter.condition.ConditionRDTO
 import org.kuorum.rest.model.contact.filter.condition.TextConditionOperatorTypeRDTO
@@ -65,7 +66,7 @@ class ContactsController {
             filterId = anonymousFilter.id
         }
 
-        List<ExtendedFilterRSDTO> filters = contactService.getUserFilters(user)
+        List<FilterRSDTO> filters = contactService.getUserFilters(user)
 
         [
                 contacts:contacts,

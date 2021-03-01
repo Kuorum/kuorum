@@ -9,6 +9,7 @@ import org.kuorum.rest.model.communication.CampaignRSDTO
 import org.kuorum.rest.model.contact.*
 import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
 import org.kuorum.rest.model.contact.filter.FilterRDTO
+import org.kuorum.rest.model.contact.filter.FilterRSDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 
 @Transactional
@@ -53,7 +54,7 @@ class ContactService {
         tags
     }
 
-    List<ExtendedFilterRSDTO> getUserFilters(KuorumUserSession user){
+    List<FilterRSDTO> getUserFilters(KuorumUserSession user){
         Map<String, String> params = [userId:user.id.toString()]
         Map<String, String> query = [:]
 
@@ -61,8 +62,8 @@ class ContactService {
                 RestKuorumApiService.ApiMethod.USER_CONTACT_FILTERS,
                 params,
                 query,
-                new TypeReference<List<ExtendedFilterRSDTO>>(){})
-        List<ExtendedFilterRSDTO> filters = []
+                new TypeReference<List<FilterRSDTO>>(){})
+        List<FilterRSDTO> filters = []
         if (response.data){
             filters = response.data
         }
