@@ -100,8 +100,8 @@ class CampaignController {
 //        KuorumUser user = KuorumUser.get(new ObjectId(userId))
         String viwerUid = cookieUUIDService.buildUserUUID()
         //TODO: Bad trick -> Recovering all campaigns
-        CampaignPageRSDTO campaigns = campaignService.findAllCampaigns(userId,viwerUid, false, 0,10)
-        List<CampaignRSDTO> userCampaigns = campaigns.data
+        CampaignLightPageRSDTO campaigns = campaignService.findAllCampaigns(userId,viwerUid, false, 0,10)
+        List<CampaignLightRSDTO> userCampaigns = campaigns.data
         render template: '/campaigns/cards/campaignsList', model: [campaigns:userCampaigns, showAuthor:true]
 
     }
