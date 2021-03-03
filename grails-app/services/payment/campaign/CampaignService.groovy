@@ -6,6 +6,7 @@ import kuorum.core.exception.KuorumException
 import kuorum.register.KuorumUserSession
 import kuorum.solr.IndexSolrService
 import kuorum.util.rest.RestKuorumApiService
+import org.kuorum.rest.model.communication.CampaignLightPageRSDTO
 import org.kuorum.rest.model.communication.CampaignPageRSDTO
 import org.kuorum.rest.model.communication.CampaignRDTO
 import org.kuorum.rest.model.communication.CampaignRSDTO
@@ -58,11 +59,11 @@ class CampaignService {
         debatesFound
     }
 
-    CampaignPageRSDTO findAllCampaigns(KuorumUserSession user, Boolean attachDrafts = false, Integer page = 0, Integer size = 10) {
+    CampaignLightPageRSDTO findAllCampaigns(KuorumUserSession user, Boolean attachDrafts = false, Integer page = 0, Integer size = 10) {
         findAllCampaigns(user.id.toString(), user.id.toString(), attachDrafts,page, size)
     }
 
-    CampaignPageRSDTO findAllCampaigns(String userId, String viewerUid = null, Boolean attachDrafts = false, Integer page = 0, Integer size = 10, Boolean onlyPublications=false) {
+    CampaignLightPageRSDTO findAllCampaigns(String userId, String viewerUid = null, Boolean attachDrafts = false, Integer page = 0, Integer size = 10, Boolean onlyPublications=false) {
         Map<String, String> params = [userId: userId]
         Map<String, String> query = [page:page,size:size,attachDrafts:attachDrafts, onlyPublications:onlyPublications]
         if (viewerUid){
@@ -72,7 +73,7 @@ class CampaignService {
                 RestKuorumApiService.ApiMethod.ACCOUNT_CAMPAIGNS,
                 params,
                 query,
-                new TypeReference<CampaignPageRSDTO>(){}
+                new TypeReference<CampaignLightPageRSDTO>(){}
         )
 
         response.data

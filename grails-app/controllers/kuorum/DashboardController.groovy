@@ -14,6 +14,7 @@ import kuorum.web.commands.profile.EditProfilePicturesCommand
 import kuorum.web.commands.profile.EditUserProfileCommand
 import kuorum.web.commands.profile.SocialNetworkCommand
 import kuorum.web.constants.WebConstants
+import org.kuorum.rest.model.communication.CampaignLightPageRSDTO
 import org.kuorum.rest.model.communication.CampaignPageRSDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 import org.kuorum.rest.model.notification.campaign.NewsletterRQDTO
@@ -55,7 +56,7 @@ class DashboardController {
 
     private def buildPaymentDashboard(BasicDataKuorumUserRSDTO user){
         KuorumUserSession userSession = springSecurityService.principal
-        CampaignPageRSDTO myCampaigns = campaignService.findAllCampaigns(userSession, false, 0, 1)
+        CampaignLightPageRSDTO myCampaigns = campaignService.findAllCampaigns(userSession, false, 0, 1)
         [
                 numberCampaigns:myCampaigns.total,
                 user:user,
