@@ -17,18 +17,12 @@
         </div>
         <div class="col-sm-4">
             <span class="amountRecipients">
-                -100
-%{--                <g:each in="${filters}" var="filter">--}%
-%{--                    <g:if test="${command.filterId == filter.id}">--}%
-%{--                        ${filter.amountOfContacts}--}%
-%{--                    </g:if>--}%
-%{--                </g:each>--}%
-%{--                <g:if test="${anonymousFilter && command.filterId == anonymousFilter?.id}">--}%
-%{--                    ${anonymousFilter.amountOfContacts}--}%
-%{--                </g:if>--}%
-%{--                <g:elseif test="${command.filterId == null}">--}%
-%{--                    ${totalContacts?:0}--}%
-%{--                </g:elseif>--}%
+                <g:if test="${currentFilter && command.filterId == currentFilter?.id}">
+                    ${currentFilter.amountOfContacts}
+                </g:if>
+                <g:elseif test="${command.filterId == null}">
+                    ${totalContacts?:0}
+                </g:elseif>
             </span>
             <g:message code="tools.massMailing.fields.filter.recipients"/>
             %{--<span class="fas fa-filter fa-lg"></span>--}%
@@ -45,9 +39,7 @@
         <label for="to" class="col-sm-2 col-md-1 control-label"><g:message code="tools.massMailing.fields.filter.to"/> :</label>
         <div class="col-sm-4 col-md-3">
             <select name="filterId" class="form-control input-lg" id="recipients">
-                %{--<g:if test="${totalContacts}">--}%
-                    <option value="0" data-amountContacts="${totalContacts?:0}"><g:message code="tools.massMailing.fields.filter.to.all"/></option>
-                %{--</g:if>--}%
+                <option value="0" data-amountContacts="${totalContacts?:0}"><g:message code="tools.massMailing.fields.filter.to.all"/></option>
                 <g:each in="${filters}" var="filter">
                     <option value="${filter.id}" ${command.filterId == filter.id?'selected':''}>${filter.name}</option>
                 </g:each>

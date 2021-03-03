@@ -111,6 +111,7 @@ class CampaignController {
         KuorumUserSession user = springSecurityService.principal
         List<FilterRSDTO> filters = contactService.getUserFilters(user)
         ContactPageRSDTO contactPageRSDTO = contactService.getUsers(user)
+        ExtendedFilterRSDTO currentFilter = campaignRSDTO.newsletter.filter;
 
         if(campaignRSDTO){
             command.campaignName = campaignRSDTO.name
@@ -125,9 +126,9 @@ class CampaignController {
             if (campaignRSDTO.hasProperty('causes')){
                 command.causes = campaignRSDTO.causes
             }
-            if(campaignRSDTO.newsletter.filter && !filters.find{it.id==campaignRSDTO.newsletter.filter.id}){
-                FilterRSDTO anonymousFilter = contactService.getFilter(user, campaignRSDTO.newsletter.filter.id)
-                filters.add(anonymousFilter)
+            if(currentFilter && !filters.find{it.id==currentFilter.id}){
+//              If current filter is not in the user'f filters, then it is a anonymous filter. Adding it to the list of filter to be displayed
+                filters.add(currentFilter)
             }
         }else{
             command.validationType = CampaignValidationTypeRDTO.NONE

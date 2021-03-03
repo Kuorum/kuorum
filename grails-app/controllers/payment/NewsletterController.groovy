@@ -161,8 +161,9 @@ class NewsletterController {
     private def modelMassMailingSettings(KuorumUserSession user, MassMailingSettingsCommand command, Long campaignId){
         List<FilterRSDTO> filters = contactService.getUserFilters(user)
         ContactPageRSDTO contactPageRSDTO = contactService.getUsers(user)
+        BulletinRSDTO bulletinRSDTO = null;
         if(campaignId){
-            BulletinRSDTO bulletinRSDTO = bulletinService.find(user, campaignId);
+            bulletinRSDTO = bulletinService.find(user, campaignId);
             NewsletterRSDTO newsletterRSDTO = bulletinRSDTO.newsletter
             updateScheduledCampaignToDraft(user, bulletinRSDTO)
             command.campaignName = newsletterRSDTO.name
@@ -173,7 +174,7 @@ class NewsletterController {
                 filters.add(anonymousFilter)
             }
         }
-        [filters:filters, command:command, totalContacts:contactPageRSDTO.total]
+        [filters:filters, command:command, totalContacts:contactPageRSDTO.total, campaign:bulletinRSDTO]
     }
 
     private def saveSettings(KuorumUserSession user, MassMailingSettingsCommand command, Long campaignId = null, FilterRDTO anonymousFilter = null){
