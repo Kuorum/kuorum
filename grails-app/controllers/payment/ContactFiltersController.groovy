@@ -90,6 +90,10 @@ class ContactFiltersController {
 
 
     def getFilterData(Long filterId){
+        if (filterId == null){
+            render "Null filter ID";
+            return;
+        }
         KuorumUserSession user = springSecurityService.principal
         ExtendedFilterRSDTO filterRDTO
         if (filterId ==-2){
@@ -100,7 +104,11 @@ class ContactFiltersController {
         }else{
             filterRDTO = contactService.getFilter(user, filterId)
         }
-        render template: '/contacts/filter/filterFieldSet', model:[filter:filterRDTO]
+        if (params.render && params.render=='JSON'){
+            render filterRDTO as JSON
+        }else{
+            render template: '/contacts/filter/filterFieldSet', model:[filter:filterRDTO]
+        }
     }
 
     def deleteFilter(Long filterId){

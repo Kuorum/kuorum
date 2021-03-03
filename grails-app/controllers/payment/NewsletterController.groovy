@@ -22,6 +22,7 @@ import org.kuorum.rest.model.communication.bulletin.BulletinRSDTO
 import org.kuorum.rest.model.contact.ContactPageRSDTO
 import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
 import org.kuorum.rest.model.contact.filter.FilterRDTO
+import org.kuorum.rest.model.contact.filter.FilterRSDTO
 import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
 import org.kuorum.rest.model.notification.campaign.NewsletterRQDTO
 import org.kuorum.rest.model.notification.campaign.NewsletterRSDTO
@@ -158,10 +159,11 @@ class NewsletterController {
     }
 
     private def modelMassMailingSettings(KuorumUserSession user, MassMailingSettingsCommand command, Long campaignId){
-        List<ExtendedFilterRSDTO> filters = contactService.getUserFilters(user)
+        List<FilterRSDTO> filters = contactService.getUserFilters(user)
         ContactPageRSDTO contactPageRSDTO = contactService.getUsers(user)
+        BulletinRSDTO bulletinRSDTO = null;
         if(campaignId){
-            BulletinRSDTO bulletinRSDTO = bulletinService.find(user, campaignId);
+            bulletinRSDTO = bulletinService.find(user, campaignId);
             NewsletterRSDTO newsletterRSDTO = bulletinRSDTO.newsletter
             updateScheduledCampaignToDraft(user, bulletinRSDTO)
             command.campaignName = newsletterRSDTO.name
@@ -172,7 +174,7 @@ class NewsletterController {
                 filters.add(anonymousFilter)
             }
         }
-        [filters:filters, command:command, totalContacts:contactPageRSDTO.total]
+        [filters:filters, command:command, totalContacts:contactPageRSDTO.total, campaign:bulletinRSDTO]
     }
 
     private def saveSettings(KuorumUserSession user, MassMailingSettingsCommand command, Long campaignId = null, FilterRDTO anonymousFilter = null){

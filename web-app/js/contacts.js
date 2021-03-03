@@ -118,10 +118,11 @@ $(function () {
     $('body').on('click','#deleteFilter', function(e) {
         e.preventDefault();
         var filterName = filterContacts.getFilterName();
-        var filterAmount = filterContacts.getFilterSelectedAmountOfContacts();
-        $("#filtersDelete span.filter-name").html(filterName);
-        $("#filtersDelete span.filter-ammount").html(filterAmount);
-        $("#filtersDelete").modal("show")
+        filterContacts.getFilterSelectedAmountOfContacts($('select#recipients option:selected'), function(amountOfContacts){
+            $("#filtersDelete span.filter-name").html(filterName);
+            $("#filtersDelete span.filter-ammount").html(amountOfContacts);
+            $("#filtersDelete").modal("show")
+        });
     });
 
     $('body').on('click','#deleteFilterButton', function(e) {
@@ -186,7 +187,9 @@ $(function () {
 
         if (isAllContactsSelected) {
             // Update text
-            numSelectedContactsElement.text(filterContacts.getFilterSelectedAmountOfContacts());
+            filterContacts.getFilterSelectedAmountOfContacts($('select#recipients option:selected'), function(amountOfContacts){
+                numSelectedContactsElement.text(amountOfContacts);
+            });
         } else {
             // Update text
             numSelectedContactsElement.text(contactsSelected.length);
@@ -665,8 +668,21 @@ function FilterContacts() {
         return $("#recipients option[value='"+temporalFilterId+"']").attr("data-orginal-filter-id")
     };
 
-    this.getFilterSelectedAmountOfContacts= function(){
-        return $('select#recipients option:selected').attr("data-amountContacts");
+    this.getFilterSelectedAmountOfContacts= function($option, callback){
+        var amountOfContacts = $option.attr("data-amountContacts");
+        var filterId = $option.attr("value");
+        if (typeof amountOfContacts !== typeof undefined && amountOfContacts !== false) {
+            callback(amountOfContacts)
+        }else if (filterId != undefined) {
+            $.get(kuorumUrls.politicianContactFilterData, { filterId: filterId, render:'JSON'}, function(filterData){
+                var ajaxAmountOfContacts = -1;
+                ajaxAmountOfContacts = filterData.amountOfContacts;
+                $option.attr("data-amountContacts", ajaxAmountOfContacts);
+                callback(ajaxAmountOfContacts)
+            }, 'json')
+        }else{
+            // console.log("Loading filter without ID")
+        }
     };
 
     this.getTotalContacts = function(){
@@ -680,10 +696,10 @@ function FilterContacts() {
             //New filter
             that.loadFilter();
         }
-        var amountContacts = that.getFilterSelectedAmountOfContacts();
-        that.updateAmountContacts(amountContacts)
-        that[callBackBehaviour].changeSelectRecipients();
-
+        that.getFilterSelectedAmountOfContacts($('select#recipients option:selected'), function(amountOfContacts){
+            that.updateAmountContacts(amountOfContacts)
+            that[callBackBehaviour].changeSelectRecipients();
+        });
     };
 
     this.changeFilterValue=function(filterId){
@@ -769,12 +785,13 @@ function FilterContacts() {
             }
         },
         changeSelectRecipients:function(){
-            var amountContacts = that.getFilterSelectedAmountOfContacts();
-            if (amountContacts<=0) {
-                that.newsletterCallBacks.disableSendButtons();
-            }else{
-                that.newsletterCallBacks.enableSendButtons();
-            }
+            var amountContacts = that.getFilterSelectedAmountOfContacts($('select#recipients option:selected'), function(amountOfContacts) {
+                if (amountContacts <= 0) {
+                    that.newsletterCallBacks.disableSendButtons();
+                } else {
+                    that.newsletterCallBacks.enableSendButtons();
+                }
+            })
         },
         disableSendButtons:function(){
             $("#openCalendar").addClass("disabled");
