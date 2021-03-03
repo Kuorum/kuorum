@@ -2,6 +2,7 @@ import grails.util.Holders
 import kuorum.core.model.UserType
 import kuorum.register.KuorumUserSession
 import kuorum.users.KuorumUser
+import org.kuorum.rest.model.communication.CampaignLightRSDTO
 import org.kuorum.rest.model.communication.CampaignRSDTO
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.kuorum.rest.model.communication.debate.ProposalRSDTO
@@ -65,6 +66,14 @@ class LinkPropertiesCodec {
     }
 
     private static def prepareParams(CampaignRSDTO campaignRSDTO) {
+        [
+                userAlias: campaignRSDTO.user.alias.toLowerCase(),
+                urlTitle: getNameTitleUrl(campaignRSDTO),
+                campaignId: campaignRSDTO.id
+        ]
+    }
+
+    private static def prepareParams(CampaignLightRSDTO campaignRSDTO) {
         [
                 userAlias: campaignRSDTO.user.alias.toLowerCase(),
                 urlTitle: getNameTitleUrl(campaignRSDTO),
