@@ -8,6 +8,7 @@ import kuorum.web.constants.WebConstants
 import org.codehaus.groovy.grails.web.context.ServletContextHolder
 import org.codehaus.groovy.grails.web.servlet.GrailsApplicationAttributes
 import org.grails.databinding.BindingFormat
+import org.kuorum.rest.model.communication.survey.CampaignVisibilityRSDTO
 
 /**
  * Created by toni on 26/4/17.
@@ -22,6 +23,8 @@ class CampaignContentCommand {
     String fileType
     String headerPictureId
     String videoPost
+
+    CampaignVisibilityRSDTO campaignVisibility
 
     @BindingFormat(WebConstants.WEB_FORMAT_DATE)
     Date publishOn

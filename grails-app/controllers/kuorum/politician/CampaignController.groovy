@@ -290,6 +290,7 @@ class CampaignController {
         CampaignRDTO campaignRDTO = createRDTO(user, campaignId, campaignService)
         campaignRDTO.title = command.title
         campaignRDTO.body = command.body
+        campaignRDTO.campaignVisibility = command.campaignVisibility?:CampaignVisibilityRSDTO.NON_VISIBLE
 
         // Multimedia URL
         if (command.fileType == FileType.IMAGE.toString() && command.headerPictureId) {

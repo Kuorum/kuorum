@@ -6,10 +6,7 @@ import kuorum.core.exception.KuorumException
 import kuorum.register.KuorumUserSession
 import kuorum.solr.IndexSolrService
 import kuorum.util.rest.RestKuorumApiService
-import org.kuorum.rest.model.communication.CampaignLightPageRSDTO
-import org.kuorum.rest.model.communication.CampaignPageRSDTO
-import org.kuorum.rest.model.communication.CampaignRDTO
-import org.kuorum.rest.model.communication.CampaignRSDTO
+import org.kuorum.rest.model.communication.*
 import org.kuorum.rest.model.communication.event.EventRDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 
@@ -22,14 +19,14 @@ class CampaignService {
     List<CampaignRSDTO> findRelevantDomainCampaigns(String viewerUid = null) {
         Map<String, String> params = [:]
         Map<String, String> query = [:]
-        if (viewerUid){
-            query.put("viewerUid",viewerUid)
+        if (viewerUid) {
+            query.put("viewerUid", viewerUid)
         }
         def response = restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.CAMPAIGNS_DOMAIN,
                 params,
                 query,
-                new TypeReference<List<CampaignRSDTO>>(){}
+                new TypeReference<List<CampaignRSDTO>>() {}
         )
 
         List<CampaignRSDTO> debatesFound = null
@@ -59,21 +56,54 @@ class CampaignService {
         debatesFound
     }
 
-    CampaignLightPageRSDTO findAllCampaigns(KuorumUserSession user, Boolean attachDrafts = false, Integer page = 0, Integer size = 10) {
-        findAllCampaigns(user.id.toString(), user.id.toString(), attachDrafts,page, size)
+    CampaignLightPageRSDTO findAllCampaigns(KuorumUserSession user, Boolean attachDrafts = false, Integer page = 0,
+                                            Integer size = 10, Boolean onlyPublications = false, String quickSearch = null,
+                                            CampaignTypeRSDTO campaignTypeRSDTO = null, Long participatoryBudgetId = null) {
+        findAllCampaigns(user.id.toString(), user.id.toString(), buildSearchCampaignRDTO(attachDrafts, page, size, onlyPublications, quickSearch, campaignTypeRSDTO, participatoryBudgetId))
     }
 
-    CampaignLightPageRSDTO findAllCampaigns(String userId, String viewerUid = null, Boolean attachDrafts = false, Integer page = 0, Integer size = 10, Boolean onlyPublications=false) {
+    SearchCampaignRDTO buildSearchCampaignRDTO(Boolean attachDrafts = false, Integer page = 0, Integer size = 10,
+                                               Boolean onlyPublications, String quickSearch, CampaignTypeRSDTO campaignTypeRSDTO, Long participatoryBudgetId) {
+        new SearchCampaignRDTO(
+                page : page,
+        size : size,
+        attachNotPublished : attachDrafts,
+        onlyPublications : onlyPublications,
+        campaignType: campaignTypeRSDTO,
+        quickSearch: quickSearch,
+        participatoryBudgetId: participatoryBudgetId
+        )
+    }
+
+    //Use the new object SearchCampaignRDTO
+    @Deprecated
+    CampaignLightPageRSDTO findAllCampaigns(String userId, String viewerUid = null, Boolean attachDrafts = false, Integer page = 0, Integer size = 10, Boolean onlyPublications = false, CampaignTypeRSDTO campaignTypeRSDTO = null) {
         Map<String, String> params = [userId: userId]
-        Map<String, String> query = [page:page,size:size,attachDrafts:attachDrafts, onlyPublications:onlyPublications]
-        if (viewerUid){
-            query.put("viewerUid",viewerUid)
+        Map<String, String> query = [page: page, size: size, attachDrafts: attachDrafts, onlyPublications: onlyPublications, campaignTypeRSDTO: campaignTypeRSDTO]
+        if (viewerUid) {
+            query.put("viewerUid", viewerUid)
         }
         def response = restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.ACCOUNT_CAMPAIGNS,
                 params,
                 query,
-                new TypeReference<CampaignLightPageRSDTO>(){}
+                new TypeReference<CampaignLightPageRSDTO>() {}
+        )
+
+        response.data
+    }
+
+    CampaignLightPageRSDTO findAllCampaigns(String userId, String viewerUid = null, SearchCampaignRDTO searchCampaignRSDTO) {
+        Map<String, String> params = [userId: userId]
+        Map<String, String> query = [searchCampaignRSDTO: searchCampaignRSDTO]
+        if (viewerUid) {
+            query.put("viewerUid", viewerUid)
+        }
+        def response = restKuorumApiService.get(
+                RestKuorumApiService.ApiMethod.ACCOUNT_CAMPAIGNS,
+                params,
+                query,
+                new TypeReference<CampaignLightPageRSDTO>() {}
         )
 
         response.data
@@ -90,20 +120,20 @@ class CampaignService {
 
 //    @Cacheable(value="debate", key='#campaignId')
     CampaignRSDTO find(String userId, Long campaignId, String viewerUid = null) {
-        if (!campaignId){
+        if (!campaignId) {
             return null
         }
         Map<String, String> params = [userId: userId, campaignId: campaignId.toString()]
         Map<String, String> query = [:]
-        if (viewerUid){
-            query.put("viewerUid",viewerUid)
+        if (viewerUid) {
+            query.put("viewerUid", viewerUid)
         }
         try {
             def response = restKuorumApiService.get(
                     RestKuorumApiService.ApiMethod.ACCOUNT_CAMPAIGN,
                     params,
                     query,
-                    new TypeReference<CampaignRSDTO>(){}
+                    new TypeReference<CampaignRSDTO>() {}
             )
 
             CampaignRSDTO campaignRSDTO = null
@@ -111,14 +141,14 @@ class CampaignService {
                 campaignRSDTO = (CampaignRSDTO) response.data
             }
             return campaignRSDTO
-        }catch (KuorumException e){
+        } catch (KuorumException e) {
             log.info("Error recovering debate $campaignId : ${e.message}")
             return null
         }
     }
 
-    CampaignRDTO basicMapping(CampaignRSDTO campaignRSDTO, CampaignRDTO rdto){
-        if(campaignRSDTO) {
+    CampaignRDTO basicMapping(CampaignRSDTO campaignRSDTO, CampaignRDTO rdto) {
+        if (campaignRSDTO) {
             rdto.name = campaignRSDTO.name
             rdto.validationType = campaignRSDTO.validationType
             rdto.triggeredTags = campaignRSDTO.triggeredTags
@@ -135,7 +165,7 @@ class CampaignService {
             rdto.causes = campaignRSDTO.causes
             rdto.startDate = campaignRSDTO.startDate
             rdto.endDate = campaignRSDTO.endDate
-            if (campaignRSDTO.event){
+            if (campaignRSDTO.event) {
                 rdto.event = new EventRDTO()
                 rdto.event.eventDate = campaignRSDTO.event.eventDate
                 rdto.event.latitude = campaignRSDTO.event.latitude
@@ -145,12 +175,12 @@ class CampaignService {
                 rdto.event.address = campaignRSDTO.event.address
                 rdto.event.capacity = campaignRSDTO.event.capacity
             }
-            
+
         }
         return rdto
     }
 
-    String uploadFile(KuorumUserSession user, Long campaignId, File file, String fileName){
+    String uploadFile(KuorumUserSession user, Long campaignId, File file, String fileName) {
         fileName = java.net.URLEncoder.encode(fileName, "UTF-8")
         Map<String, String> params = [campaignId: campaignId.toString(), userId: user.id.toString()]
         Map<String, String> query = [:]
@@ -163,31 +193,31 @@ class CampaignService {
         )
     }
 
-    List<String> getFiles(CampaignRSDTO campaignRSDTO){
+    List<String> getFiles(CampaignRSDTO campaignRSDTO) {
         Map<String, String> params = [campaignId: campaignRSDTO.getId().toString(), userId: campaignRSDTO.getUser().getId()]
         Map<String, String> query = [:]
         def response = restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.ACCOUNT_CAMPAIGN_FILES,
                 params,
                 query,
-                new TypeReference<List<String>>(){}
+                new TypeReference<List<String>>() {}
         )
         response.data
     }
 
-    List<String> getReports(KuorumUserSession loggedUser, Long campaignId){
+    List<String> getReports(KuorumUserSession loggedUser, Long campaignId) {
         Map<String, String> params = [campaignId: campaignId.toString(), userId: loggedUser.getId().toString()]
         Map<String, String> query = [:]
         def response = restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.ACCOUNT_CAMPAIGN_REPORTS,
                 params,
                 query,
-                new TypeReference<List<String>>(){}
+                new TypeReference<List<String>>() {}
         )
         response.data
     }
 
-    void getReport(KuorumUserSession user, Long campaignId, String fileName, OutputStream outputStream){
+    void getReport(KuorumUserSession user, Long campaignId, String fileName, OutputStream outputStream) {
         Map<String, String> params = [campaignId: campaignId.toString(), userId: user.getId().toString(), fileName: fileName]
         Map<String, String> query = [:]
         def response = restKuorumApiService.getFile(
@@ -197,71 +227,73 @@ class CampaignService {
                 outputStream
         )
     }
-    void deleteReport(KuorumUserSession user, Long campaignId, String fileName){
+
+    void deleteReport(KuorumUserSession user, Long campaignId, String fileName) {
         Map<String, String> params = [campaignId: campaignId.toString(), userId: user.getId().toString(), fileName: fileName]
         Map<String, String> query = [:]
         def response = restKuorumApiService.delete(
                 RestKuorumApiService.ApiMethod.ACCOUNT_CAMPAIGN_REPORT_FILE,
                 params,
                 query,
-                new TypeReference<String>(){}
+                new TypeReference<String>() {}
         )
     }
 
-    void deleteFile(KuorumUserSession user, Long campaignId, String fileName){
+    void deleteFile(KuorumUserSession user, Long campaignId, String fileName) {
         Map<String, String> params = [campaignId: campaignId.toString(), userId: user.id.toString()]
-        Map<String, String> query = [fileName:fileName]
+        Map<String, String> query = [fileName: fileName]
         def response = restKuorumApiService.delete(
                 RestKuorumApiService.ApiMethod.ACCOUNT_CAMPAIGN_FILES,
                 params,
                 query,
-                new TypeReference<String>(){}
+                new TypeReference<String>() {}
         )
     }
 
-    void pauseCampaign(KuorumUserSession user, Long campaignId, boolean activePause){
+    void pauseCampaign(KuorumUserSession user, Long campaignId, boolean activePause) {
         Map<String, String> params = [campaignId: campaignId.toString(), userId: user.id.toString()]
         Map<String, String> query = [:]
-        if (activePause){
+        if (activePause) {
             def response = restKuorumApiService.put(
                     RestKuorumApiService.ApiMethod.ACCOUNT_CAMPAIGN_PAUSE,
                     params,
                     query,
                     null,
-                    new TypeReference<CampaignRSDTO>(){}
+                    new TypeReference<CampaignRSDTO>() {}
             )
-        }else{
+        } else {
             def response = restKuorumApiService.delete(
                     RestKuorumApiService.ApiMethod.ACCOUNT_CAMPAIGN_PAUSE,
                     params,
                     query,
-                    new TypeReference<CampaignRSDTO>(){}
+                    new TypeReference<CampaignRSDTO>() {}
             )
         }
     }
 
-    boolean userBelongToCampaignGroup(String userId, Long campaignId, String viewerUid = nul){
-        if (!campaignId){
+    boolean userBelongToCampaignGroup(String userId, Long campaignId, String viewerUid = nul) {
+        if (!campaignId) {
             return null
         }
         Map<String, String> params = [userId: userId, campaignId: campaignId.toString()]
         Map<String, String> query = [:]
-        if (viewerUid){
-            query.put("viewerUid",viewerUid)
+        if (viewerUid) {
+            query.put("viewerUid", viewerUid)
         }
         try {
             def response = restKuorumApiService.get(
                     RestKuorumApiService.ApiMethod.ACCOUNT_CAMPAIGN_GROUPS,
                     params,
                     query,
-                    new TypeReference<Boolean>(){}
+                    new TypeReference<Boolean>() {}
             )
 
             Boolean userBelongsToGroup = response.data
             return userBelongsToGroup
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error("Error checking if user belongs to group", e)
             return false
         }
     }
+
 }
