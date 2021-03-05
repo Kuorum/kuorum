@@ -15,6 +15,7 @@ import org.kuorum.rest.model.communication.CampaignTypeRSDTO
 import org.kuorum.rest.model.communication.participatoryBudget.DistrictProposalRDTO
 import org.kuorum.rest.model.communication.participatoryBudget.DistrictProposalRSDTO
 import org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetRSDTO
+import org.kuorum.rest.model.communication.search.SearchCampaignRDTO
 import org.kuorum.rest.model.communication.survey.CampaignVisibilityRSDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
@@ -39,7 +40,15 @@ class DistrictProposalController extends CampaignController {
     private def countNumDistrictProposalsPerBudget(ParticipatoryBudgetRSDTO participatoryBudgetRSDTO, participatoryBudgetId) {
         KuorumUserSession user = springSecurityService.principal
         // TODO: Bad trick -> Recover all campaigns without pagination
-        CampaignLightPageRSDTO campaigns = campaignService.findAllCampaigns(user, true, 0, 1000, false, null, CampaignTypeRSDTO.DISTRICT_PROPOSAL , participatoryBudgetId)
+        SearchCampaignRDTO searchCampaignRDTO = new SearchCampaignRDTO(
+                page:0,
+                size: 1,
+                attachNotPublished: true,
+                onlyPublications: false,
+                campaignType: CampaignTypeRSDTO.DISTRICT_PROPOSAL,
+                participatoryBudgetId: participatoryBudgetId
+        )
+        CampaignLightPageRSDTO campaigns = campaignService.findAllCampaigns( user,searchCampaignRDTO)
         def districtProposals = campaigns.getData()
                 .findAll({ it.campaignType == CampaignTypeRSDTO.DISTRICT_PROPOSAL })
                 .collect({  it })

@@ -8,6 +8,7 @@ import kuorum.solr.IndexSolrService
 import kuorum.util.rest.RestKuorumApiService
 import org.kuorum.rest.model.communication.*
 import org.kuorum.rest.model.communication.event.EventRDTO
+import org.kuorum.rest.model.communication.search.SearchCampaignRDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 
 @Transactional
@@ -56,12 +57,6 @@ class CampaignService {
         debatesFound
     }
 
-    CampaignLightPageRSDTO findAllCampaigns(KuorumUserSession user, Boolean attachDrafts = false, Integer page = 0,
-                                            Integer size = 10, Boolean onlyPublications = false, String quickSearch = null,
-                                            CampaignTypeRSDTO campaignTypeRSDTO = null, Long participatoryBudgetId = null) {
-        findAllCampaigns(user.id.toString(), user.id.toString(), buildSearchCampaignRDTO(attachDrafts, page, size, onlyPublications, quickSearch, campaignTypeRSDTO, participatoryBudgetId))
-    }
-
     SearchCampaignRDTO buildSearchCampaignRDTO(Boolean attachDrafts = false, Integer page = 0, Integer size = 10,
                                                Boolean onlyPublications, String quickSearch, CampaignTypeRSDTO campaignTypeRSDTO, Long participatoryBudgetId) {
         new SearchCampaignRDTO(
@@ -75,30 +70,12 @@ class CampaignService {
         )
     }
 
-    //Use the new object SearchCampaignRDTO
-    @Deprecated
-    CampaignLightPageRSDTO findAllCampaigns(String userId, String viewerUid = null, Boolean attachDrafts = false, Integer page = 0, Integer size = 10, Boolean onlyPublications = false, CampaignTypeRSDTO campaignTypeRSDTO = null) {
-        Map<String, String> params = [userId: userId]
-        Map<String, String> query = [page: page, size: size, attachDrafts: attachDrafts, onlyPublications: onlyPublications, campaignTypeRSDTO: campaignTypeRSDTO]
-        if (viewerUid) {
-            query.put("viewerUid", viewerUid)
-        }
-        def response = restKuorumApiService.get(
-                RestKuorumApiService.ApiMethod.ACCOUNT_CAMPAIGNS,
-                params,
-                query,
-                new TypeReference<CampaignLightPageRSDTO>() {}
-        )
-
-        response.data
+    CampaignLightPageRSDTO findAllCampaigns(KuorumUserSession user, SearchCampaignRDTO searchCampaignRSDTO) {
+        return findAllCampaigns(user.id.toString(), searchCampaignRSDTO)
     }
-
-    CampaignLightPageRSDTO findAllCampaigns(String userId, String viewerUid = null, SearchCampaignRDTO searchCampaignRSDTO) {
+    CampaignLightPageRSDTO findAllCampaigns(String userId, SearchCampaignRDTO searchCampaignRSDTO) {
         Map<String, String> params = [userId: userId]
-        Map<String, String> query = [searchCampaignRSDTO: searchCampaignRSDTO]
-        if (viewerUid) {
-            query.put("viewerUid", viewerUid)
-        }
+        Map<String, String> query = searchCampaignRSDTO.encodeAsQueryParams()
         def response = restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.ACCOUNT_CAMPAIGNS,
                 params,

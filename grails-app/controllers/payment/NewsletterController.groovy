@@ -20,6 +20,7 @@ import org.kuorum.rest.model.communication.CampaignLightRSDTO
 import org.kuorum.rest.model.communication.CampaignRSDTO
 import org.kuorum.rest.model.communication.CampaignTypeRSDTO
 import org.kuorum.rest.model.communication.bulletin.BulletinRSDTO
+import org.kuorum.rest.model.communication.search.SearchCampaignRDTO
 import org.kuorum.rest.model.contact.ContactPageRSDTO
 import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
 import org.kuorum.rest.model.contact.filter.FilterRDTO
@@ -59,7 +60,12 @@ class NewsletterController {
         KuorumUserSession user = springSecurityService.principal
 //        List<NewsletterRSDTO> newsletters = newsletterService.findCampaigns(user)
         // TODO: Bad trick -> Recover all campaigns without pagination
-        CampaignLightPageRSDTO campaignsPage = campaignService.findAllCampaigns(user, true, 0, 100); // BAD TRICK
+        SearchCampaignRDTO searchCampaignRDTO = new SearchCampaignRDTO(
+                page:0,
+                size: 100,
+                attachNotPublished: true
+        )
+        CampaignLightPageRSDTO campaignsPage = campaignService.findAllCampaigns(user, searchCampaignRDTO); // BAD TRICK
         List<CampaignLightRSDTO> newsletters = campaignsPage.getData().findAll({ c -> c.campaignType == CampaignTypeRSDTO.BULLETIN });
         List<CampaignLightRSDTO> campaigns = campaignsPage.getData().findAll({ c -> c.campaignType != CampaignTypeRSDTO.BULLETIN })
         [newsletters: newsletters, campaigns: campaigns, user: user]

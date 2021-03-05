@@ -25,6 +25,7 @@ import org.codehaus.groovy.runtime.InvokerHelper
 import org.kuorum.rest.model.admin.AdminConfigMailingRDTO
 import org.kuorum.rest.model.communication.CampaignLightPageRSDTO
 import org.kuorum.rest.model.communication.CampaignRSDTO
+import org.kuorum.rest.model.communication.search.SearchCampaignRDTO
 import org.kuorum.rest.model.domain.*
 import org.kuorum.rest.model.domain.creation.NewDomainPaymentDataRDTO
 import org.kuorum.rest.model.kuorumUser.KuorumUserRSDTO
@@ -281,7 +282,13 @@ class AdminController {
     def editDomainRelevantCampaigns() {
         List<CampaignRSDTO> domainCampaigns = campaignService.findRelevantDomainCampaigns()
         // TODO: BAD TRICK -> Recover all campaigns without pagination
-        CampaignLightPageRSDTO adminCampaigns = campaignService.findAllCampaigns(WebConstants.FAKE_LANDING_ALIAS_USER, null, false, 0, 1000, true)
+        SearchCampaignRDTO searchCampaignRDTO = new SearchCampaignRDTO(
+                page:0,
+                size: 1000,
+                attachNotPublished: false,
+                onlyPublications: true
+        )
+        CampaignLightPageRSDTO adminCampaigns = campaignService.findAllCampaigns(WebConstants.FAKE_LANDING_ALIAS_USER, searchCampaignRDTO)
         Map domainCampaignsId = [first: null, second: null, third: null]
         DomainRSDTO domainRSDTO = CustomDomainResolver.domainRSDTO
         domainCampaignsId.first = domainCampaigns && domainCampaigns.size() > 0 ? domainCampaigns.get(0).id : null
