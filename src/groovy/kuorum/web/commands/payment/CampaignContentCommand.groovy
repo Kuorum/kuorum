@@ -24,7 +24,7 @@ class CampaignContentCommand {
     String headerPictureId
     String videoPost
 
-    CampaignVisibilityRSDTO campaignVisibility
+    CampaignVisibilityRSDTO campaignVisibility = CampaignVisibilityRSDTO.VISIBLE
 
     @BindingFormat(WebConstants.WEB_FORMAT_DATE)
     Date publishOn
