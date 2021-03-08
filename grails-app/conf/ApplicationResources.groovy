@@ -19,7 +19,7 @@ modules = {
         resource url:[dir:'js',file:'respond.min.js'], wrapper: { s -> "<!--[if (lt IE 9) & (!IEMobile)]>$s<![endif]-->" }
         resource url:[dir:'js',file:'selectivizr.js'], wrapper: { s -> "<!--[if (lt IE 9) & (!IEMobile)]>$s<![endif]-->" }
         // Fin soporte HTML5
-//        resource url:'js/modernizr.js'
+        resource url:'js/basic.js'
         resource url:'css/custom.css'
     }
 
@@ -204,7 +204,7 @@ modules = {
     }
 
     campaignForm{
-        dependsOn("basic", "forms")
+        dependsOn("basic", "forms", "contacts")
         resource url: 'js/campaign-form.js'
     }
 

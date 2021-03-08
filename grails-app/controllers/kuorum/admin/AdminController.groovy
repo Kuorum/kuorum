@@ -23,8 +23,9 @@ import kuorum.web.constants.WebConstants
 import org.bson.types.ObjectId
 import org.codehaus.groovy.runtime.InvokerHelper
 import org.kuorum.rest.model.admin.AdminConfigMailingRDTO
-import org.kuorum.rest.model.communication.CampaignPageRSDTO
+import org.kuorum.rest.model.communication.CampaignLightPageRSDTO
 import org.kuorum.rest.model.communication.CampaignRSDTO
+import org.kuorum.rest.model.communication.search.SearchCampaignRDTO
 import org.kuorum.rest.model.domain.*
 import org.kuorum.rest.model.domain.creation.NewDomainPaymentDataRDTO
 import org.kuorum.rest.model.kuorumUser.KuorumUserRSDTO
@@ -39,7 +40,7 @@ import payment.campaign.NewsletterService
 
 import java.lang.reflect.UndeclaredThrowableException
 
-@Secured(['IS_AUTHENTICATED_FULLY','ROLE_ADMIN'])
+@Secured(['IS_AUTHENTICATED_FULLY', 'ROLE_ADMIN'])
 class AdminController {
 
     def indexSolrService
@@ -65,12 +66,12 @@ class AdminController {
     def afterInterceptor = { model, modelAndView ->
 
     }
-    
+
     def index() {
-        redirect mapping:'adminDomainConfig'
+        redirect mapping: 'adminDomainConfig'
     }
 
-    def domainConfig(){
+    def domainConfig() {
         DomainRSDTO domainRSDTO = domainService.getConfig(CustomDomainResolver.domain)
         DomainConfigCommand domainConfigCommand = new DomainConfigCommand()
         domainConfigCommand.name = domainRSDTO.name
@@ -85,13 +86,13 @@ class AdminController {
         domainConfigCommand.instagram = domainRSDTO.social?.instagram
         domainConfigCommand.youtube = domainRSDTO.social?.youtube
         domainConfigCommand.titleWebFont = KuorumWebFont.build(domainRSDTO.webFontCombinationName)
-        [command:domainConfigCommand]
+        [command: domainConfigCommand]
 
     }
 
-    def domainConfigSave(DomainConfigCommand command){
-        if (command.hasErrors()){
-            render view:'domainConfig', model:[command:command]
+    def domainConfigSave(DomainConfigCommand command) {
+        if (command.hasErrors()) {
+            render view: 'domainConfig', model: [command: command]
             return
         }
         DomainRDTO domainRDTO = getPopulatedDomainRDTO()
@@ -110,52 +111,53 @@ class AdminController {
         domainRDTO.social.youtube = command.youtube
 
         domainService.updateConfig(domainRDTO)
-        flash.message ="Success"
-        redirect mapping:'adminDomainConfig'
+        flash.message = "Success"
+        redirect mapping: 'adminDomainConfig'
     }
 
-    def domainValidation(){
+    def domainValidation() {
         DomainRSDTO domainRSDTO = domainService.getConfig(CustomDomainResolver.domain)
         DomainValidationCommand domainValidationCommand = new DomainValidationCommand()
         domainValidationCommand.validationCensus = domainRSDTO.validationCensus
         domainValidationCommand.validationPhone = domainRSDTO.validationPhone
         domainValidationCommand.validationCode = domainRSDTO.validationCode
         domainValidationCommand.smsDomainName = domainRSDTO.smsDomainName
-        domainValidationCommand.defaultPhonePrefix =domainRSDTO.defaultPhonePrefix
-        [command:domainValidationCommand]
+        domainValidationCommand.defaultPhonePrefix = domainRSDTO.defaultPhonePrefix
+        [command: domainValidationCommand]
     }
 
-    def domainValidationSave(DomainValidationCommand command){
-        if (command.hasErrors()){
-            render view:'domainValidation', model:[command:command]
+    def domainValidationSave(DomainValidationCommand command) {
+        if (command.hasErrors()) {
+            render view: 'domainValidation', model: [command: command]
             return
         }
         DomainRDTO domainRDTO = getPopulatedDomainRDTO()
-        if (SpringSecurityUtils.ifAllGranted("ROLE_SUPER_ADMIN")){
-            domainRDTO.validationCensus = command.validationCensus?:false
-            domainRDTO.validationCode = command.validationCode?:false
-            domainRDTO.validationPhone = command.validationPhone?:false
-            domainRDTO.smsDomainName = command.smsDomainName?:''
+        if (SpringSecurityUtils.ifAllGranted("ROLE_SUPER_ADMIN")) {
+            domainRDTO.validationCensus = command.validationCensus ?: false
+            domainRDTO.validationCode = command.validationCode ?: false
+            domainRDTO.validationPhone = command.validationPhone ?: false
+            domainRDTO.smsDomainName = command.smsDomainName ?: ''
             domainRDTO.defaultPhonePrefix = command.defaultPhonePrefix
         }
         domainService.updateConfig(domainRDTO)
-        flash.message ="Success"
-        redirect mapping:'adminDomainValidation'
+        flash.message = "Success"
+        redirect mapping: 'adminDomainValidation'
     }
-    def editLandingInfo(){
+
+    def editLandingInfo() {
         DomainRSDTO domainRSDTO = domainService.getConfig(CustomDomainResolver.domain)
         DomainLandingCommand domainLandingCommand = new DomainLandingCommand()
         domainLandingCommand.slogan = domainRSDTO.slogan
         domainLandingCommand.subtitle = domainRSDTO.subtitle
         domainLandingCommand.domainDescription = domainRSDTO.domainDescription
-        domainLandingCommand.footerLinks = domainRSDTO.footerLinks.collect{new LinkCommand(title: it.key, url: it.value)}
+        domainLandingCommand.footerLinks = domainRSDTO.footerLinks.collect { new LinkCommand(title: it.key, url: it.value) }
         domainLandingCommand.landingVisibleRoles = domainRSDTO.landingVisibleRoles
-        [command:domainLandingCommand]
+        [command: domainLandingCommand]
     }
 
-    def editLandingInfoSave(DomainLandingCommand command){
-        if (command.hasErrors()){
-            render view:'editLandingInfo', model:[command:command]
+    def editLandingInfoSave(DomainLandingCommand command) {
+        if (command.hasErrors()) {
+            render view: 'editLandingInfo', model: [command: command]
             return
         }
 
@@ -163,63 +165,63 @@ class AdminController {
         domainRDTO.slogan = command.slogan
         domainRDTO.subtitle = command.subtitle
         domainRDTO.domainDescription = command.domainDescription
-        domainRDTO.footerLinks = command.footerLinks?.findAll{it}?.collectEntries {[(it.title): it.url]}?:null
+        domainRDTO.footerLinks = command.footerLinks?.findAll { it }?.collectEntries { [(it.title): it.url] } ?: null
         domainRDTO.landingVisibleRoles = command.landingVisibleRoles
         domainService.updateConfig(domainRDTO)
-        flash.message ="Success"
-        redirect mapping:'adminDomainConfigLanding'
+        flash.message = "Success"
+        redirect mapping: 'adminDomainConfigLanding'
     }
 
 
 //    private static final List campaignRoles = [ UserRoleRSDTO.ROLE_CAMPAIGN_NEWSLETTER, UserRoleRSDTO.ROLE_CAMPAIGN_POST,UserRoleRSDTO.ROLE_CAMPAIGN_DEBATE,UserRoleRSDTO.ROLE_CAMPAIGN_EVENT, UserRoleRSDTO.ROLE_CAMPAIGN_SURVEY, UserRoleRSDTO.ROLE_CAMPAIGN_PETITION,UserRoleRSDTO.ROLE_CAMPAIGN_PARTICIPATORY_BUDGET]
-    private static final Map userRoles = [(UserRoleRSDTO.ROLE_ADMIN): 1,(UserRoleRSDTO.ROLE_SUPER_USER): 2,(UserRoleRSDTO.ROLE_USER): 3]
+    private static final Map userRoles = [(UserRoleRSDTO.ROLE_ADMIN): 1, (UserRoleRSDTO.ROLE_SUPER_USER): 2, (UserRoleRSDTO.ROLE_USER): 3]
 
     def editAuthorizedCampaigns() {
         DomainRSDTO domainRSDTO = domainService.getConfig(CustomDomainResolver.domain)
         def globalAuthoritiesCommand = [:]
         List campaignRoles = domainRSDTO.campaignRolesActive
-        campaignRoles.each{ campaignRole ->
-            globalAuthoritiesCommand.put(campaignRole, getRangeNumberFromDomainAuthority(campaignRole, domainRSDTO.globalAuthorities) )
+        campaignRoles.each { campaignRole ->
+            globalAuthoritiesCommand.put(campaignRole, getRangeNumberFromDomainAuthority(campaignRole, domainRSDTO.globalAuthorities))
         }
-        [campaignRoles:campaignRoles, userRoles:userRoles.keySet(), globalAuthoritiesCommand:globalAuthoritiesCommand]
+        [campaignRoles: campaignRoles, userRoles: userRoles.keySet(), globalAuthoritiesCommand: globalAuthoritiesCommand]
     }
 
-    private int getRangeNumberFromDomainAuthority(UserRoleRSDTO campaignRole, Map<UserRoleRSDTO, List<UserRoleRSDTO>>  globalAuthorities){
-        userRoles.keySet().collect{globalAuthorities.get(it)?.contains(campaignRole)?userRoles[it]:0}.max()
+    private int getRangeNumberFromDomainAuthority(UserRoleRSDTO campaignRole, Map<UserRoleRSDTO, List<UserRoleRSDTO>> globalAuthorities) {
+        userRoles.keySet().collect { globalAuthorities.get(it)?.contains(campaignRole) ? userRoles[it] : 0 }.max()
     }
 
-    private List<UserRoleRSDTO> getListUserRoles(int number){
+    private List<UserRoleRSDTO> getListUserRoles(int number) {
         userRoles.inject([]) { result, k, v ->
-            if (v<= number) result << k
+            if (v <= number) result << k
             result
         }
     }
 
     def updateAuthorizedCampaigns() {
         updateDomainUserRights()
-        redirect mapping:'adminAuthorizedCampaigns'
+        redirect mapping: 'adminAuthorizedCampaigns'
     }
 
 
-    private boolean updateDomainUserRights(Boolean initLandingVisibleRoles = false){
+    private boolean updateDomainUserRights(Boolean initLandingVisibleRoles = false) {
         DomainRSDTO domainRSDTO = domainService.getConfig(CustomDomainResolver.domain)
         domainRSDTO.globalAuthorities.get(UserRoleRSDTO.ROLE_USER)
-        Map<UserRoleRSDTO, List<UserRoleRSDTO>> domainGlobalAuthorities = userRoles.keySet().collectEntries{[it, []]}
+        Map<UserRoleRSDTO, List<UserRoleRSDTO>> domainGlobalAuthorities = userRoles.keySet().collectEntries { [it, []] }
         List campaignRoles = domainRSDTO.campaignRolesActive
-        campaignRoles.each{campaignRole ->
+        campaignRoles.each { campaignRole ->
             int val = 0
-            try{
+            try {
                 val = Integer.parseInt(params[campaignRole.toString()])
-            }catch (Exception e){
+            } catch (Exception e) {
                 val = 0
             }
-            getListUserRoles(val).each{userRole ->
+            getListUserRoles(val).each { userRole ->
                 domainGlobalAuthorities[userRole].add(campaignRole)
             }
         }
         DomainRDTO domainRDTO = getPopulatedDomainRDTO()
         domainRDTO.globalAuthorities = domainGlobalAuthorities
-        if (initLandingVisibleRoles ){
+        if (initLandingVisibleRoles) {
             // Setting as empty the api will execute the default logic
             domainRDTO.landingVisibleRoles = []
         }
@@ -228,17 +230,17 @@ class AdminController {
         KuorumUserSession kuorumUserSession = springSecurityService.principal
         springSecurityService.reauthenticate kuorumUserSession.email
 
-        if (!domainGlobalAuthorities[UserRoleRSDTO.ROLE_ADMIN]){
-            flash.error = g.message(code:'kuorum.web.admin.domain.AuthorizedCampaignsCommand.error')
-        }else{
-            flash.message ="Success"
+        if (!domainGlobalAuthorities[UserRoleRSDTO.ROLE_ADMIN]) {
+            flash.error = g.message(code: 'kuorum.web.admin.domain.AuthorizedCampaignsCommand.error')
+        } else {
+            flash.message = "Success"
         }
     }
 
-    private DomainRDTO getPopulatedDomainRDTO(){
+    private DomainRDTO getPopulatedDomainRDTO() {
         DomainRSDTO domainRSDTO = domainService.getConfig(CustomDomainResolver.domain)
-        def valid = DomainRDTO.getDeclaredFields().grep {  !it.synthetic }.collect{it.name}
-        DomainRDTO domainRDTO = new DomainRDTO(domainRSDTO.properties.findAll{valid.contains(it.key)})
+        def valid = DomainRDTO.getDeclaredFields().grep { !it.synthetic }.collect { it.name }
+        DomainRDTO domainRDTO = new DomainRDTO(domainRSDTO.properties.findAll { valid.contains(it.key) })
         return domainRDTO
     }
 
@@ -254,12 +256,12 @@ class AdminController {
         editLegalInfoCommand.fileResponsibleEmail = domainLegalInfoRDSTO?.fileResponsibleEmail
         editLegalInfoCommand.fileResponsibleName = domainLegalInfoRDSTO?.fileResponsibleName
         editLegalInfoCommand.customLegalInfo = domainLegalInfoRDSTO?.customLegalInfo
-        [command:editLegalInfoCommand]
+        [command: editLegalInfoCommand]
     }
 
     def updateLegalInfo(EditLegalInfoCommand command) {
-        if (command.hasErrors()){
-            render view:'editLegalInfo', model:[command:command]
+        if (command.hasErrors()) {
+            render view: 'editLegalInfo', model: [command: command]
             return
         }
         DomainLegalInfoRDTO domainLegalInfoRDTO = new DomainLegalInfoRDTO()
@@ -273,41 +275,50 @@ class AdminController {
         domainLegalInfoRDTO.fileResponsibleName = command.fileResponsibleName
         domainLegalInfoRDTO.customLegalInfo = command.customLegalInfo
         domainService.updateLegalInfo(domainLegalInfoRDTO)
-        flash.message ="Success"
-        redirect mapping:'adminDomainConfigLegalInfo'
+        flash.message = "Success"
+        redirect mapping: 'adminDomainConfigLegalInfo'
     }
 
     def editDomainRelevantCampaigns() {
         List<CampaignRSDTO> domainCampaigns = campaignService.findRelevantDomainCampaigns()
         // TODO: BAD TRICK -> Recover all campaigns without pagination
-        CampaignPageRSDTO adminCampaigns = campaignService.findAllCampaigns(WebConstants.FAKE_LANDING_ALIAS_USER, null, false, 0, 1000, true)
-        Map domainCampaignsId = [first:null, second:null, third:null]
+        SearchCampaignRDTO searchCampaignRDTO = new SearchCampaignRDTO(
+                page:0,
+                size: 1000,
+                attachNotPublished: false,
+                onlyPublications: true
+        )
+        CampaignLightPageRSDTO adminCampaigns = campaignService.findAllCampaigns(WebConstants.FAKE_LANDING_ALIAS_USER, searchCampaignRDTO)
+        Map domainCampaignsId = [first: null, second: null, third: null]
         DomainRSDTO domainRSDTO = CustomDomainResolver.domainRSDTO
-        domainCampaignsId.first = domainCampaigns && domainCampaigns.size()>0 ? domainCampaigns.get(0).id:null
-        domainCampaignsId.second = domainCampaigns && domainCampaigns.size()>1 ? domainCampaigns.get(1).id:null
-        domainCampaignsId.third = domainCampaigns && domainCampaigns.size()>2 ? domainCampaigns.get(2).id:null
-        [domainCampaignsId:domainCampaignsId,adminCampaigns:adminCampaigns.getData(), starredCampaignId:domainRSDTO.starredCampaignId]
+        domainCampaignsId.first = domainCampaigns && domainCampaigns.size() > 0 ? domainCampaigns.get(0).id : null
+        domainCampaignsId.second = domainCampaigns && domainCampaigns.size() > 1 ? domainCampaigns.get(1).id : null
+        domainCampaignsId.third = domainCampaigns && domainCampaigns.size() > 2 ? domainCampaigns.get(2).id : null
+        [domainCampaignsId: domainCampaignsId, adminCampaigns: adminCampaigns.getData(), starredCampaignId: domainRSDTO.starredCampaignId]
     }
 
     def updateDomainRelevantCampaigns() {
-        List<Long> campaignIds = params.campaignIds.collect{try{Long.parseLong(it)}catch (e){null}}.findAll{it}
+        List<Long> campaignIds = params.campaignIds.collect { try { Long.parseLong(it) } catch (e) { null } }.findAll { it }
         campaignService.updateRelevantDomainCampaigns(campaignIds)
 
         Long starredCampaignId = null
-        try{starredCampaignId = Long.parseLong(params.starredCampaignId)}catch (e){}
+        try {
+            starredCampaignId = Long.parseLong(params.starredCampaignId)
+        } catch (e) {
+        }
         DomainRSDTO domainRSDTO = CustomDomainResolver.domainRSDTO
 
-        if (starredCampaignId != domainRSDTO.starredCampaignId){
+        if (starredCampaignId != domainRSDTO.starredCampaignId) {
             DomainRDTO domainRDTO = getPopulatedDomainRDTO()
             domainRDTO.setStarredCampaignId(starredCampaignId)
             domainService.updateConfig(domainRDTO)
         }
-        flash.message="Success"
-        redirect mapping:'adminDomainConfigRelevantCampagins'
+        flash.message = "Success"
+        redirect mapping: 'adminDomainConfigRelevantCampagins'
     }
 
 
-    def requestedEmailSender(){
+    def requestedEmailSender() {
         DomainRSDTO domainRSDTO = CustomDomainResolver.domainRSDTO
 
         KuorumUserSession user = springSecurityService.principal
@@ -319,11 +330,12 @@ class AdminController {
 //            emailSender = "*@${domainRSDTO.domain}"
 //        }
         [
-                isRequested:isRequested,
-                emailSender:emailSender
+                isRequested: isRequested,
+                emailSender: emailSender
         ]
     }
-    def requestedEmailSenderSend(){
+
+    def requestedEmailSenderSend() {
         KuorumUserSession user = springSecurityService.principal
         NewsletterConfigRSDTO config = newsletterService.findNewsletterConfig(user)
         NewsletterConfigRQDTO configRQDTO = new NewsletterConfigRQDTO()
@@ -334,20 +346,20 @@ class AdminController {
         newsletterService.updateNewsletterConfig(user, configRQDTO)
 
         kuorumMailService.sendRequestACustomDomainAdmin(user)
-        if (request.isXhr()){
+        if (request.isXhr()) {
             render([msg: ''] as JSON)
-        }else{
-            flash.message="Custom domain sender requested"
-            redirect mapping:'adminRequestEmailSender'
+        } else {
+            flash.message = "Custom domain sender requested"
+            redirect mapping: 'adminRequestEmailSender'
         }
     }
 
 
-    @Secured(['IS_AUTHENTICATED_FULLY','ROLE_SUPER_ADMIN'])
+    @Secured(['IS_AUTHENTICATED_FULLY', 'ROLE_SUPER_ADMIN'])
     def editLogo() {
     }
 
-    @Secured(['IS_AUTHENTICATED_FULLY','ROLE_SUPER_ADMIN'])
+    @Secured(['IS_AUTHENTICATED_FULLY', 'ROLE_SUPER_ADMIN'])
     def uploadLogo() {
 
         CommonsMultipartFile customLogo = request.getFile('logo')
@@ -359,28 +371,27 @@ class AdminController {
                 flash.error = message(code: 'admin.menu.domainConfig.uploadLogo.unsuccess')
             }
             redirect mapping: 'adminDomainConfig'
-        }catch (Exception e) {
+        } catch (Exception e) {
             log.error(e)
         }
     }
 
     def editCarousel() {
         String domain = CustomDomainResolver.domain
-        KuorumFile slide1 = domainResourcesService.getSlidePath(domain,1)
-        KuorumFile slide2 = domainResourcesService.getSlidePath(domain,2)
-        KuorumFile slide3 = domainResourcesService.getSlidePath(domain,3)
+        KuorumFile slide1 = domainResourcesService.getSlidePath(domain, 1)
+        KuorumFile slide2 = domainResourcesService.getSlidePath(domain, 2)
+        KuorumFile slide3 = domainResourcesService.getSlidePath(domain, 3)
         EditDomainCarouselPicturesCommand command = new EditDomainCarouselPicturesCommand()
-        command.slideId1 = slide1?.id?.toString()?:null
-        command.slideId2 = slide2?.id?.toString()?:null
-        command.slideId3 = slide3?.id?.toString()?:null
+        command.slideId1 = slide1?.id?.toString() ?: null
+        command.slideId2 = slide2?.id?.toString() ?: null
+        command.slideId3 = slide3?.id?.toString() ?: null
         [command: command]
     }
 
     def uploadCarousel(EditDomainCarouselPicturesCommand command) {
-        if (command.hasErrors()){
-            render view: "editCarousel", model: [command:command]
-        }
-        else {
+        if (command.hasErrors()) {
+            render view: "editCarousel", model: [command: command]
+        } else {
             String domain = CustomDomainResolver.domain
             KuorumFile slideFile1 = KuorumFile.get(command.slideId1)
             KuorumFile slideFile2 = KuorumFile.get(command.slideId2)
@@ -391,40 +402,40 @@ class AdminController {
         }
     }
 
-    def deleteDomain(){
-        [command:new DeleteDomainCommand()]
+    def deleteDomain() {
+        [command: new DeleteDomainCommand()]
     }
 
-    def deleteDomainConfirm(DeleteDomainCommand command){
-        if (command.hasErrors()){
-            render view: 'deleteDomain', model: [command:command]
-        }else{
+    def deleteDomainConfirm(DeleteDomainCommand command) {
+        if (command.hasErrors()) {
+            render view: 'deleteDomain', model: [command: command]
+        } else {
             domainService.removeDomain(command.domainName)
-            redirect mapping:'home'
+            redirect mapping: 'home'
         }
     }
 
 
-    @Secured(['IS_AUTHENTICATED_FULLY','ROLE_SUPER_ADMIN'])
-    def solrIndex(){
+    @Secured(['IS_AUTHENTICATED_FULLY', 'ROLE_SUPER_ADMIN'])
+    def solrIndex() {
     }
 
-    @Secured(['IS_AUTHENTICATED_FULLY','ROLE_SUPER_ADMIN'])
-    def fullIndex(){
+    @Secured(['IS_AUTHENTICATED_FULLY', 'ROLE_SUPER_ADMIN'])
+    def fullIndex() {
         def res = indexSolrService.fullIndex()
         render view: '/admin/solrIndex'
     }
 
-    @Secured(['IS_AUTHENTICATED_FULLY','ROLE_SUPER_ADMIN'])
-    def editUserRights(String userAlias){
+    @Secured(['IS_AUTHENTICATED_FULLY', 'ROLE_SUPER_ADMIN'])
+    def editUserRights(String userAlias) {
         KuorumUserRSDTO user = kuorumUserService.findUserRSDTO(userAlias)
         KuorumUserRightsCommand command = new KuorumUserRightsCommand()
         command.userId = user.id
         command.active = user.active
-        [command: command, user:user]
+        [command: command, user: user]
     }
 
-    @Secured(['IS_AUTHENTICATED_FULLY','ROLE_SUPER_ADMIN'])
+    @Secured(['IS_AUTHENTICATED_FULLY', 'ROLE_SUPER_ADMIN'])
     def updateUserRights(KuorumUserRightsCommand command) {
 
         if (command.hasErrors()) {
@@ -432,7 +443,7 @@ class AdminController {
             return
         }
         KuorumUser user = KuorumUser.get(new ObjectId(command.userId))
-        user.enabled = command.active?:false
+        user.enabled = command.active ?: false
         user.password = springSecurityService.encodePassword(command.password)
         user = kuorumUserService.updateUser(user)
 
@@ -441,7 +452,7 @@ class AdminController {
         redirect(mapping: 'editorAdminUserRights', params: user.encodeAsLinkProperties())
     }
 
-    @Secured(['IS_AUTHENTICATED_FULLY','ROLE_SUPER_ADMIN'])
+    @Secured(['IS_AUTHENTICATED_FULLY', 'ROLE_SUPER_ADMIN'])
     def editDomainEmailSender() {
         DomainRSDTO domainRSDTO = CustomDomainResolver.domainRSDTO
         KuorumUserEmailSenderCommand command = new KuorumUserEmailSenderCommand()
@@ -451,7 +462,7 @@ class AdminController {
         ]
     }
 
-    @Secured(['IS_AUTHENTICATED_FULLY','ROLE_SUPER_ADMIN'])
+    @Secured(['IS_AUTHENTICATED_FULLY', 'ROLE_SUPER_ADMIN'])
     def updateDomainEmailSender(KuorumUserEmailSenderCommand command) {
         AdminConfigMailingRDTO adminRDTO = new AdminConfigMailingRDTO()
         adminRDTO.setDomainName(CustomDomainResolver.domain)
@@ -463,33 +474,33 @@ class AdminController {
     }
 
 
-    @Secured(['IS_AUTHENTICATED_FULLY','ROLE_SUPER_ADMIN'])
+    @Secured(['IS_AUTHENTICATED_FULLY', 'ROLE_SUPER_ADMIN'])
     def validateDomain() {
 
     }
 
 
-    def designLandingPage(){
-        [command:new DomainConfigStep1Command(colorHexCode: CustomDomainResolver.domainRSDTO.mainColor)]
+    def designLandingPage() {
+        [command: new DomainConfigStep1Command(colorHexCode: CustomDomainResolver.domainRSDTO.mainColor)]
     }
 
-    def saveDesignLandingPage(DomainConfigStep1Command command){
+    def saveDesignLandingPage(DomainConfigStep1Command command) {
         CommonsMultipartFile customLogo = request.getFile('logo')
         if (!customLogo || customLogo.empty || command.hasErrors()) {
-            if (!customLogo || customLogo.empty ){
+            if (!customLogo || customLogo.empty) {
                 command.errors.rejectValue("logoName", "kuorum.web.admin.domain.DomainConfigStep1Command.logoName.nullable")
             }
 //            flash.error = message(code: 'admin.menu.domainConfig.uploadLogo.unsuccess')
-            render view: "designLandingPage", model: [command:command]
+            render view: "designLandingPage", model: [command: command]
             return
         }
 
         try {
             domainResourcesService.uploadLogoFile(customLogo.getInputStream())
-        }catch (Exception e) {
+        } catch (Exception e) {
             log.error(e)
             flash.error = message(code: 'admin.menu.domainConfig.uploadLogo.unsuccess')
-            render view: "designLandingPage", model: [command:command]
+            render view: "designLandingPage", model: [command: command]
             return
         }
 
@@ -509,27 +520,27 @@ class AdminController {
         domainRDTO.secondaryColorShadowed = null
         domainService.updateConfig(domainRDTO)
 
-        redirect mapping:'adminDomainRegisterStep2'
+        redirect mapping: 'adminDomainRegisterStep2'
     }
 
 
-    def userRights(){
+    def userRights() {
         editAuthorizedCampaigns()
     }
 
-    def saveUserRights(){
+    def saveUserRights() {
         updateDomainUserRights(true)
         redirect mapping: 'dashboard'
     }
 
-    def editDomainPlan(){
+    def editDomainPlan() {
         DomainPaymentInfoRSDTO domainPaymentInfo = domainService.getPaymentInfo()
         BillingAmountUsersRangeDTO usersRange = domainPaymentInfo.billingAmountUsersRange
         List<KuorumPaymentPlanDTO> plans = domainService.getPlans(usersRange)
-        [domainPaymentInfo:domainPaymentInfo, plans:plans]
+        [domainPaymentInfo: domainPaymentInfo, plans: plans]
     }
 
-    def saveNewDomainPlan(){
+    def saveNewDomainPlan() {
         DomainPlanRSDTO plan = DomainPlanRSDTO.valueOf(params.plan)
         DomainPaymentInfoRSDTO domainPaymentInfo = domainService.getPaymentInfo()
         NewDomainPaymentDataRDTO newDomainPaymentDataRDTO = new NewDomainPaymentDataRDTO()
@@ -538,18 +549,18 @@ class AdminController {
         newDomainPaymentDataRDTO.nonce = "NO VALID NONCE - USE DEFAULT ONE"
         newDomainPaymentDataRDTO.promotionalCode = domainPaymentInfo.promotionalCode
         newDomainPaymentDataRDTO.domainPlan = plan
-        try{
+        try {
             domainPaymentInfo = domainService.updatePaymentInfo(newDomainPaymentDataRDTO)
-            flash.message="Plan changed. Please review the new rigths"
-            redirect mapping:'adminAuthorizedCampaigns'
-        }catch (UndeclaredThrowableException e){
+            flash.message = "Plan changed. Please review the new rigths"
+            redirect mapping: 'adminAuthorizedCampaigns'
+        } catch (UndeclaredThrowableException e) {
             String msgError = "Error updating participatory budget status"
-            if (e.undeclaredThrowable.cause instanceof KuorumException){
+            if (e.undeclaredThrowable.cause instanceof KuorumException) {
                 KuorumException ke = e.undeclaredThrowable.cause
                 msgError = message(code: ke.errors[0].code)
             }
-            flash.error=msgError
-            redirect mapping:'adminDomainConfigPlan'
+            flash.error = msgError
+            redirect mapping: 'adminDomainConfigPlan'
         }
     }
 
