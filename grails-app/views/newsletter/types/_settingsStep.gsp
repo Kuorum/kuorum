@@ -24,7 +24,7 @@
             </div>
         </fieldset>
 
-        <g:render template="/newsletter/filter" model="[command: command, filters: filters, anonymousFilter: anonymousFilter,totalContacts:totalContacts]"/>
+        <g:render template="/newsletter/filter" model="[command: command, filters: filters, currentFilter: campaign?.newsletter?.filter,totalContacts:totalContacts]"/>
 
     <fieldset class="form-group" id="advanced-features-section">
         %{--<label for="advanced-feature" class="col-sm-2 col-md-1 control-label">Advanced features:</label>--}%

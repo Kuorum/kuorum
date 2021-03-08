@@ -128,10 +128,12 @@ var campaignForm={
         var $form = $('form.campaign-form');
         var $filter = $('select#recipients option:selected').length;
         if($filter && filterContacts.isFilterEdited()){
-            var amountContacts = $('select#recipients option:selected').attr("data-amountContacts");
-            $("#campaignConfirmTitle > span").html(amountContacts);
-            $("#campaignWarnFilterEdited .modal-body > p > span").html(amountContacts);
-            $("#campaignWarnFilterEdited").modal("show");
+            var $option = $('select#recipients option:selected');
+            filterContacts.getFilterSelectedAmountOfContacts($option, function(amountContacts){
+                $("#campaignConfirmTitle > span").html(amountContacts);
+                $("#campaignWarnFilterEdited .modal-body > p > span").html(amountContacts);
+                $("#campaignWarnFilterEdited").modal("show");
+            } );
         }else{
             console.log("Submit")
             $form.submit();
@@ -159,11 +161,12 @@ var campaignForm={
         }
     },
     prepareAndOpenCampaignConfirmModal: function (){
-        var amountContacts = $('select#recipients option:selected').attr("data-amountContacts");
-        $("#campaignConfirmTitle > span").html(amountContacts);
-        $("#campaignWarnFilterEdited .modal-body > p > span").html(amountContacts);
-
-        $("#campaignConfirm").modal("show");
+        var $option = $('select#recipients option:selected');
+        filterContacts.getFilterSelectedAmountOfContacts($option, function(amountContacts){
+            $("#campaignConfirmTitle > span").html(amountContacts);
+            $("#campaignWarnFilterEdited .modal-body > p > span").html(amountContacts);
+            $("#campaignConfirm").modal("show");
+        } );
     },
 
     sendParams: function () {
