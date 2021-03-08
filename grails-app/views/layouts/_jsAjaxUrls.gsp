@@ -7,7 +7,8 @@
         suggestRegion:'<g:createLink mapping="suggestRegions" absolute="true"/>',
         suggestAlias: '<g:createLink mapping="suggestAlias" absolute="true"/>',
         ajaxLoginRRSS: '<g:createLink mapping="ajaxRegisterRRSSOAuth" absolute="true"/>',
-        profileDomainValidationChecker: '<g:createLink mapping="profileDomainValidationChecker" absolute="true"/>'
+        profileDomainValidationChecker: '<g:createLink mapping="profileDomainValidationChecker" absolute="true"/>',
+        politicianContactFilterData: '<g:createLink mapping="politicianContactFilterData" absolute="true"/>'
     };
     var ajaxHeadNotificationsChecked='<g:createLink mapping="ajaxHeadNotificationsChecked" absolute="true"/>';
 

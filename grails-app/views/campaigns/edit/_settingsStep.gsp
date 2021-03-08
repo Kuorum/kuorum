@@ -132,7 +132,7 @@
                 </div>
             </fieldset>
             <div id="filter-contact-selector" style="display: none">
-                <g:render template="/newsletter/filter" model="[command: command, filters: filters,anonymousFilter: anonymousFilter, totalContacts: totalContacts, hideSendTestButton: true, showOnly:campaign?.newsletter?.status== org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT]"/>
+                <g:render template="/newsletter/filter" model="[command: command, filters: filters,currentFilter: campaign?.newsletter?.filter, totalContacts: totalContacts, hideSendTestButton: true, showOnly:campaign?.newsletter?.status== org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT]"/>
             </div>
             <g:render template="/newsletter/form/formGroupCampaignTags" model="[command:command, events:events, editable:campaign== null || !campaign.published]"/>
         </div>
