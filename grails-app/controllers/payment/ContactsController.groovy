@@ -23,6 +23,7 @@ import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 import org.mozilla.universalchardet.UniversalDetector
 import org.springframework.web.multipart.MultipartFile
 import org.springframework.web.multipart.MultipartHttpServletRequest
+import org.kuorum.rest.model.search.DirectionDTO
 import payment.contact.ContactService
 
 @Secured(['IS_AUTHENTICATED_REMEMBERED'])
@@ -43,9 +44,9 @@ class ContactsController {
     def index(ContactFilterCommand filterCommand) {
 
         KuorumUserSession user = springSecurityService.principal
-        SearchContactRSDTO searchContactRSDTO = new SearchContactRSDTO()
-        searchContactRSDTO.sort = new SortContactsRDTO(field: ConditionFieldTypeRDTO.NAME, direction: SortContactsRDTO.Direction.ASC)
-        ContactPageRSDTO contacts = contactService.getUsers(user, searchContactRSDTO)
+        SearchContactRSDTO searchContactRSDTO  = new SearchContactRSDTO()
+        searchContactRSDTO.sort = new SortContactsRDTO(field:ConditionFieldTypeRDTO.NAME, direction: DirectionDTO.ASC)
+        ContactPageRSDTO contacts = contactService.getUsers(user,searchContactRSDTO)
         if (contacts.total <= 0) {
             redirect mapping: "politicianContactImport"
             return
@@ -114,8 +115,8 @@ class ContactsController {
         contactService.removeContact(user, contactId)
 
         SearchContactRSDTO searchContactRSDTO = new SearchContactRSDTO()
-        searchContactRSDTO.sort = new SortContactsRDTO(field: ConditionFieldTypeRDTO.NAME, direction: SortContactsRDTO.Direction.ASC)
-        ContactPageRSDTO contacts = contactService.getUsers(user, searchContactRSDTO)
+        searchContactRSDTO.sort = new SortContactsRDTO(field:ConditionFieldTypeRDTO.NAME, direction: DirectionDTO.ASC)
+        ContactPageRSDTO contacts = contactService.getUsers(user,searchContactRSDTO)
 
         Map result = [contacts: contacts.getTotal()]
 
@@ -795,8 +796,8 @@ class ContactsController {
         searchContactRSDTO.page = Long.parseLong(params.page ?: "0")
         searchContactRSDTO.size = params.size ? Long.parseLong(params.size) : searchContactRSDTO.size
         searchContactRSDTO.sort = new SortContactsRDTO(
-                field: params.sort?.field ? ConditionFieldTypeRDTO.valueOf(params.sort.field) : ConditionFieldTypeRDTO.NAME,
-                direction: params.sort?.direction ? SortContactsRDTO.Direction.valueOf(params.sort.direction) : SortContactsRDTO.Direction.ASC
+                field: params.sort?.field?ConditionFieldTypeRDTO.valueOf(params.sort.field):ConditionFieldTypeRDTO.NAME,
+                direction: params.sort?.direction?DirectionDTO.valueOf(params.sort.direction):DirectionDTO.ASC
         )
         Long filterId = Long.parseLong(params.filterId ?: '0')
         FilterRDTO filterRDTO = filterCommand.buildFilter()

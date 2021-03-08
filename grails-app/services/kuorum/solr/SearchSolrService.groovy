@@ -21,6 +21,10 @@ class SearchSolrService {
 
     SearchResultsRSDTO searchAPI(SearchParams searchParams){
         SearchParamsRDTO searchParamsRDTO = convertParams(searchParams)
+        return searchAPI(searchParamsRDTO);
+    }
+    SearchResultsRSDTO searchAPI(SearchParamsRDTO searchParamsRDTO){
+
 //        Map<String, String> query = searchParamsRDTO.encodeAsQueryParams()
         Map<String, String> query = [:]
         if (springSecurityService.loggedIn){
@@ -43,7 +47,7 @@ class SearchSolrService {
     private SearchParamsRDTO convertParams(SearchParams searchParams){
         SearchParamsRDTO searchParamsRDTO = new SearchParamsRDTO()
         searchParamsRDTO.searchBy = SearchByRDTO.valueOf(searchParams.getSearchType().toString()) // CHAPU
-        searchParamsRDTO.type = searchParams.getType()?SearchTypeRSDTO.valueOf(searchParams.getType().toString()):null // CHAPU
+        searchParamsRDTO.addType(searchParams.getType()?SearchTypeRSDTO.valueOf(searchParams.getType().toString()):null) // CHAPU
         searchParamsRDTO.boostedRegions = searchParams.boostedRegions
         searchParamsRDTO.filteredIds = searchParams.filteredUserIds
         searchParamsRDTO.boostedAlias = searchParams.boostedAlias

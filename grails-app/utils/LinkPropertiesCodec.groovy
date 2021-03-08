@@ -2,6 +2,7 @@ import grails.util.Holders
 import kuorum.core.model.UserType
 import kuorum.register.KuorumUserSession
 import kuorum.users.KuorumUser
+import org.kuorum.rest.model.communication.CampaignLightRSDTO
 import org.kuorum.rest.model.communication.CampaignRSDTO
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.kuorum.rest.model.communication.debate.ProposalRSDTO
@@ -70,6 +71,25 @@ class LinkPropertiesCodec {
                 urlTitle: getNameTitleUrl(campaignRSDTO),
                 campaignId: campaignRSDTO.id
         ]
+    }
+
+    private static def prepareParams(CampaignLightRSDTO campaignRSDTO) {
+        if (campaignRSDTO.participatoryBudget){
+            // IT IS A DISTRICT PROPOSAL
+            return  [
+                    userAlias: campaignRSDTO.participatoryBudget.userAlias.toLowerCase(),
+                    participatoryBudgetTitle: campaignRSDTO.participatoryBudget.title.encodeAsKuorumUrl(),
+                    participatoryBudgetId: campaignRSDTO.participatoryBudget.id,
+                    urlTitle: getNameTitleUrl(campaignRSDTO),
+                    campaignId: campaignRSDTO.id
+            ]
+        }else{
+            return [
+                    userAlias: campaignRSDTO.user.alias.toLowerCase(),
+                    urlTitle: getNameTitleUrl(campaignRSDTO),
+                    campaignId: campaignRSDTO.id
+            ]
+        }
     }
 
     private static def prepareParams(BasicParticipatoryBudgetRSDTO campaignRSDTO) {
