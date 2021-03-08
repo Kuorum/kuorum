@@ -9,6 +9,7 @@ import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.exception.KuorumException
 import kuorum.files.FileService
 import kuorum.register.KuorumUserSession
+import kuorum.solr.SearchSolrService
 import kuorum.users.CookieUUIDService
 import kuorum.users.KuorumUserService
 import kuorum.util.TimeZoneUtil
@@ -18,6 +19,7 @@ import kuorum.web.commands.payment.contact.ContactFilterCommand
 import org.kuorum.rest.model.communication.*
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.kuorum.rest.model.communication.event.EventRDTO
+import org.kuorum.rest.model.communication.search.SearchCampaignRDTO
 import org.kuorum.rest.model.communication.survey.CampaignVisibilityRSDTO
 import org.kuorum.rest.model.communication.survey.SurveyRDTO
 import org.kuorum.rest.model.communication.survey.SurveyVoteTypeDTO
@@ -27,6 +29,11 @@ import org.kuorum.rest.model.contact.filter.FilterRDTO
 import org.kuorum.rest.model.contact.filter.FilterRSDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
+import org.kuorum.rest.model.search.SearchByRDTO
+import org.kuorum.rest.model.search.SearchKuorumElementRSDTO
+import org.kuorum.rest.model.search.SearchParamsRDTO
+import org.kuorum.rest.model.search.SearchResultsRSDTO
+import org.kuorum.rest.model.search.SearchTypeRSDTO
 import payment.campaign.*
 import payment.contact.ContactService
 
@@ -47,6 +54,7 @@ class CampaignController {
     KuorumUserService kuorumUserService
     CookieUUIDService cookieUUIDService
     CampaignService campaignService
+    SearchSolrService searchSolrService
 
     def show() {
         String viewerUid = cookieUUIDService.buildUserUUID()
@@ -98,11 +106,19 @@ class CampaignController {
     }
 
     def findLiUserCampaigns(String userId){
-//        KuorumUser user = KuorumUser.get(new ObjectId(userId))
         String viwerUid = cookieUUIDService.buildUserUUID()
-        //TODO: Bad trick -> Recovering all campaigns
-        CampaignPageRSDTO campaigns = campaignService.findAllCampaigns(userId,viwerUid, false, 0,10)
-        List<CampaignRSDTO> userCampaigns = campaigns.data
+        BasicDataKuorumUserRSDTO user = kuorumUserService.findBasicUserRSDTO(userId)
+
+        List<SearchTypeRSDTO> campaignTypes = new ArrayList<SearchTypeRSDTO>(Arrays.asList(SearchTypeRSDTO.values()));
+        campaignTypes.remove(SearchTypeRSDTO.KUORUM_USER);
+
+        SearchParamsRDTO searchParamsRDTO = new SearchParamsRDTO(
+                page : 0,
+                size : 10,
+                ownerAlias : [user.alias],
+                types: campaignTypes);
+        SearchResultsRSDTO campaigns = searchSolrService.searchAPI(searchParamsRDTO)
+        List<SearchKuorumElementRSDTO> userCampaigns = campaigns.data
         render template: '/campaigns/cards/campaignsList', model: [campaigns:userCampaigns, showAuthor:true]
 
     }
@@ -292,6 +308,7 @@ class CampaignController {
         CampaignRDTO campaignRDTO = createRDTO(user, campaignId, campaignService)
         campaignRDTO.title = command.title
         campaignRDTO.body = command.body
+        campaignRDTO.campaignVisibility = command.campaignVisibility?:CampaignVisibilityRSDTO.NON_VISIBLE
 
         // Multimedia URL
         if (command.fileType == FileType.IMAGE.toString() && command.headerPictureId) {
