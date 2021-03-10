@@ -166,7 +166,7 @@ class ContactsController {
         } catch (Exception e) {
             flash.error = g.message(code: 'tools.contact.edit.phonenumber.error')
         }
-        redirect(mapping: "politicianContactEdit", params: [contactId: contactUpdated.getId()])
+        redirect(mapping: "politicianContactEdit", params: [contactId: contact.getId()])
     }
 
     def updateContactNotes(Long contactId) {
