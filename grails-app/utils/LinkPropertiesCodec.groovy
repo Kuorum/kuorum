@@ -74,11 +74,22 @@ class LinkPropertiesCodec {
     }
 
     private static def prepareParams(CampaignLightRSDTO campaignRSDTO) {
-        [
-                userAlias: campaignRSDTO.user.alias.toLowerCase(),
-                urlTitle: getNameTitleUrl(campaignRSDTO),
-                campaignId: campaignRSDTO.id
-        ]
+        if (campaignRSDTO.participatoryBudget){
+            // IT IS A DISTRICT PROPOSAL
+            return  [
+                    userAlias: campaignRSDTO.participatoryBudget.userAlias.toLowerCase(),
+                    participatoryBudgetTitle: campaignRSDTO.participatoryBudget.title.encodeAsKuorumUrl(),
+                    participatoryBudgetId: campaignRSDTO.participatoryBudget.id,
+                    urlTitle: getNameTitleUrl(campaignRSDTO),
+                    campaignId: campaignRSDTO.id
+            ]
+        }else{
+            return [
+                    userAlias: campaignRSDTO.user.alias.toLowerCase(),
+                    urlTitle: getNameTitleUrl(campaignRSDTO),
+                    campaignId: campaignRSDTO.id
+            ]
+        }
     }
 
     private static def prepareParams(BasicParticipatoryBudgetRSDTO campaignRSDTO) {
