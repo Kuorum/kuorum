@@ -670,6 +670,8 @@ function FilterContacts() {
 
     this.getFilterSelectedAmountOfContacts= function($option, callback){
         var amountOfContacts = $option.attr("data-amountContacts");
+        console.log($option)
+        console.log(amountOfContacts)
         var filterId = $option.attr("value");
         if (typeof amountOfContacts !== typeof undefined && amountOfContacts !== false) {
             callback(amountOfContacts)
