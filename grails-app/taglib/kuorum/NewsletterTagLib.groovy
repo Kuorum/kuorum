@@ -33,7 +33,6 @@ class NewsletterTagLib {
             numberRecipients= newsletter.numberRecipients
             numberOpens= newsletter.numberOpens
         }
-        NewsletterRSDTO campaignRSDTO = attrs.campaign
         out << printPrettyStat(numberOpens,numberRecipients)
     }
 
