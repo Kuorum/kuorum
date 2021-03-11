@@ -8,99 +8,103 @@ import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.commands.payment.CampaignSettingsCommand
 import kuorum.web.commands.payment.participatoryBudget.DistrictProposalChooseDistrictCommand
 import kuorum.web.commands.payment.participatoryBudget.NewDistrictProposalWithDistrictCommand
-import org.kuorum.rest.model.communication.CampaignPageRSDTO
+import org.kuorum.rest.model.communication.CampaignLightPageRSDTO
 import org.kuorum.rest.model.communication.CampaignRDTO
 import org.kuorum.rest.model.communication.CampaignTypeRSDTO
 import org.kuorum.rest.model.communication.participatoryBudget.DistrictProposalRDTO
 import org.kuorum.rest.model.communication.participatoryBudget.DistrictProposalRSDTO
 import org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetRSDTO
+import org.kuorum.rest.model.communication.search.SearchCampaignRDTO
+import org.kuorum.rest.model.communication.survey.CampaignVisibilityRSDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
 import payment.campaign.CampaignCreatorService
 
-class DistrictProposalController extends CampaignController{
+class DistrictProposalController extends CampaignController {
 
     @Secured(['ROLE_CAMPAIGN_DISTRICT_PROPOSAL'])
     def create() {
-        Long participatoryBudgetId = params.campaignId?Long.parseLong(params.campaignId):null
+        Long participatoryBudgetId = params.campaignId ? Long.parseLong(params.campaignId) : null
         BasicDataKuorumUserRSDTO user = kuorumUserService.findBasicUserRSDTO(params.userAlias)
         ParticipatoryBudgetRSDTO participatoryBudgetRSDTO = participatoryBudgetService.find(user.id.toString(), participatoryBudgetId)
-        def districtProposalsCounters = countNumDistrictProposalsPerBudget(participatoryBudgetRSDTO)
-        if (districtProposalsCounters.numProposals >=participatoryBudgetRSDTO.maxDistrictProposalsPerUser){
-            render (view: 'maxDistrictProposalsPerUserAndBudget', model:[participatoryBudgetRSDTO:participatoryBudgetRSDTO, districtProposalsCounters:districtProposalsCounters])
-        }else{
-            return districtProposalModelEditDistrict(new DistrictProposalChooseDistrictCommand(), null,participatoryBudgetRSDTO)
+        def districtProposalsCounters = countNumDistrictProposalsPerBudget(participatoryBudgetRSDTO, participatoryBudgetId)
+        if (districtProposalsCounters.numProposals >= participatoryBudgetRSDTO.maxDistrictProposalsPerUser) {
+            render(view: 'maxDistrictProposalsPerUserAndBudget', model: [participatoryBudgetRSDTO: participatoryBudgetRSDTO, districtProposalsCounters: districtProposalsCounters])
+        } else {
+            return districtProposalModelEditDistrict(new DistrictProposalChooseDistrictCommand(), null, participatoryBudgetRSDTO)
         }
     }
 
 
-    private def countNumDistrictProposalsPerBudget(ParticipatoryBudgetRSDTO participatoryBudgetRSDTO){
+    private def countNumDistrictProposalsPerBudget(ParticipatoryBudgetRSDTO participatoryBudgetRSDTO, participatoryBudgetId) {
         KuorumUserSession user = springSecurityService.principal
-        // TODO: Bad trick -> Recover all campaigns without pagination
-        CampaignPageRSDTO campaigns = campaignService.findAllCampaigns(user, true, 0, 1000)
-        List<DistrictProposalRSDTO> districtProposals = campaigns.getData()
-                .findAll({it.campaignType == CampaignTypeRSDTO.DISTRICT_PROPOSAL})
-                .collect ({(DistrictProposalRSDTO) it})
-                .findAll({((DistrictProposalRSDTO)it).participatoryBudget.id == participatoryBudgetRSDTO.id})
+        SearchCampaignRDTO searchCampaignRDTO = new SearchCampaignRDTO(
+                page:0,
+                size: 1,
+                attachNotPublished: true,
+                onlyPublications: false,
+                campaignType: CampaignTypeRSDTO.DISTRICT_PROPOSAL,
+                participatoryBudgetId: participatoryBudgetId
+        )
+        CampaignLightPageRSDTO campaigns = campaignService.findAllCampaigns( user,searchCampaignRDTO)
         return [
-                numProposals : districtProposals.size(),
-                numProposalsDraft : districtProposals.count({it.campaignStatusRSDTO != CampaignStatusRSDTO.SENT})
+                numProposals     : campaigns.getTotal(),
+                numProposalsDraft: campaigns.getTotal()
         ]
-
-
-
     }
 
     @Secured(['ROLE_CAMPAIGN_DISTRICT_PROPOSAL'])
-    def saveNewProposal(DistrictProposalChooseDistrictCommand command){
-        Long participatoryBudgetId = params.campaignId?Long.parseLong(params.campaignId):null
+    def saveNewProposal(DistrictProposalChooseDistrictCommand command) {
+        Long participatoryBudgetId = params.campaignId ? Long.parseLong(params.campaignId) : null
         BasicDataKuorumUserRSDTO user = kuorumUserService.findBasicUserRSDTO(params.userAlias)
         ParticipatoryBudgetRSDTO participatoryBudgetRSDTO = participatoryBudgetService.find(user.id.toString(), participatoryBudgetId)
-        if (command.hasErrors()){
+        if (command.hasErrors()) {
             render view: 'create', model: districtProposalModelEditDistrict(command, null, participatoryBudgetRSDTO)
             return
         }
 
         NewDistrictProposalWithDistrictCommand contentCommand = new NewDistrictProposalWithDistrictCommand(title: command.name);
-        contentCommand.title=command.name
+        contentCommand.title = command.name
         contentCommand.districtId = command.districtId
         contentCommand.cause = command.cause
+        contentCommand.campaignVisibility = CampaignVisibilityRSDTO.VISIBLE
         Map<String, Object> result = saveAndSendCampaignContent(contentCommand, null, districtProposalService)
         def nextStep = updateDistrictByCommand(command, result.campaign);
         redirect mapping: nextStep.mapping, params: nextStep.params
     }
 
-    private districtProposalModelContennt(ParticipatoryBudgetRSDTO participatoryBudgetRSDTO, Long districtProposalId, DistrictProposalRSDTO districtProposalRSDTO=null, CampaignContentCommand command=null){
+    private districtProposalModelContennt(ParticipatoryBudgetRSDTO participatoryBudgetRSDTO, Long districtProposalId, DistrictProposalRSDTO districtProposalRSDTO = null, CampaignContentCommand command = null) {
         participatoryBudgetRSDTO
-        def model = campaignModelContent(districtProposalId, districtProposalRSDTO,command, districtProposalService)
+        def model = campaignModelContent(districtProposalId, districtProposalRSDTO, command, districtProposalService)
         model['participatoryBudget'] = participatoryBudgetRSDTO
         return model
     }
 
     protected CampaignRDTO convertCommandContentToRDTO(CampaignContentCommand command, KuorumUserSession user, Long campaignId, CampaignCreatorService campaignService) {
-        DistrictProposalRDTO campaignRDTO = (DistrictProposalRDTO)super.convertCommandContentToRDTO(command, user, campaignId, campaignService)
+        command.campaignVisibility = CampaignVisibilityRSDTO.VISIBLE
+        DistrictProposalRDTO campaignRDTO = (DistrictProposalRDTO) super.convertCommandContentToRDTO(command, user, campaignId, campaignService)
         setCampaignName(campaignRDTO, command)
         setParticipatoryBudget(campaignRDTO)
-        if (command instanceof NewDistrictProposalWithDistrictCommand){
+        if (command instanceof NewDistrictProposalWithDistrictCommand) {
             setDistrict(campaignRDTO, command)
         }
         return campaignRDTO
     }
 
-    private void setCampaignName(DistrictProposalRDTO districtProposalRDTO, CampaignContentCommand command){
-        if (districtProposalRDTO.name == null){
+    private void setCampaignName(DistrictProposalRDTO districtProposalRDTO, CampaignContentCommand command) {
+        if (districtProposalRDTO.name == null) {
             districtProposalRDTO.name = command.title
         }
     }
 
-    private void setDistrict(DistrictProposalRDTO districtProposalRDTO, NewDistrictProposalWithDistrictCommand newDistrictProposalWithDistrictCommand){
-        districtProposalRDTO.districtId=newDistrictProposalWithDistrictCommand.districtId
-        districtProposalRDTO.causes=[newDistrictProposalWithDistrictCommand.cause]
+    private void setDistrict(DistrictProposalRDTO districtProposalRDTO, NewDistrictProposalWithDistrictCommand newDistrictProposalWithDistrictCommand) {
+        districtProposalRDTO.districtId = newDistrictProposalWithDistrictCommand.districtId
+        districtProposalRDTO.causes = [newDistrictProposalWithDistrictCommand.cause]
     }
 
-    private void setParticipatoryBudget(DistrictProposalRDTO districtProposalRDTO){
-        if (!districtProposalRDTO.participatoryBudgetId){
-            Long participatoryBudgetId = params.campaignId?Long.parseLong(params.campaignId):null
+    private void setParticipatoryBudget(DistrictProposalRDTO districtProposalRDTO) {
+        if (!districtProposalRDTO.participatoryBudgetId) {
+            Long participatoryBudgetId = params.campaignId ? Long.parseLong(params.campaignId) : null
             districtProposalRDTO.participatoryBudgetId = participatoryBudgetId
         }
     }
@@ -110,36 +114,36 @@ class DistrictProposalController extends CampaignController{
     /************************************************/
 
     @Secured(['ROLE_CAMPAIGN_DISTRICT_PROPOSAL'])
-    def editSettingsStep(){
+    def editSettingsStep() {
         KuorumUserSession user = springSecurityService.principal
-        DistrictProposalRSDTO districtProposalRSDTO = districtProposalService.find( user, Long.parseLong((String) params.campaignId))
+        DistrictProposalRSDTO districtProposalRSDTO = districtProposalService.find(user, Long.parseLong((String) params.campaignId))
 
-        return districtProposalModelSettings(new CampaignSettingsCommand(debatable:false), districtProposalRSDTO)
+        return districtProposalModelSettings(new CampaignSettingsCommand(debatable: false), districtProposalRSDTO)
 
     }
 
     @Secured(['ROLE_CAMPAIGN_DISTRICT_PROPOSAL'])
-    def editDistrict(){
-        Long participatoryBudgetId = params.participatoryBudgetId?Long.parseLong(params.participatoryBudgetId):null
+    def editDistrict() {
+        Long participatoryBudgetId = params.participatoryBudgetId ? Long.parseLong(params.participatoryBudgetId) : null
         BasicDataKuorumUserRSDTO participatoryBudgetUser = kuorumUserService.findBasicUserRSDTO(params.userAlias)
         ParticipatoryBudgetRSDTO participatoryBudgetRSDTO = participatoryBudgetService.find(participatoryBudgetUser.id.toString(), participatoryBudgetId)
 
         KuorumUserSession user = springSecurityService.principal
-        DistrictProposalRSDTO districtProposalRSDTO = districtProposalService.find( user, Long.parseLong((String) params.campaignId))
+        DistrictProposalRSDTO districtProposalRSDTO = districtProposalService.find(user, Long.parseLong((String) params.campaignId))
 
         return districtProposalModelEditDistrict(null, districtProposalRSDTO, participatoryBudgetRSDTO)
 
     }
 
     @Secured(['ROLE_CAMPAIGN_DISTRICT_PROPOSAL'])
-    def editContentStep(){
-        Long participatoryBudgetId = params.participatoryBudgetId?Long.parseLong(params.participatoryBudgetId):null
+    def editContentStep() {
+        Long participatoryBudgetId = params.participatoryBudgetId ? Long.parseLong(params.participatoryBudgetId) : null
         BasicDataKuorumUserRSDTO participatoryBudgetUser = kuorumUserService.findBasicUserRSDTO(params.userAlias)
         ParticipatoryBudgetRSDTO participatoryBudgetRSDTO = participatoryBudgetService.find(participatoryBudgetUser.id.toString(), participatoryBudgetId)
 
         Long campaignId = Long.parseLong((String) params.campaignId)
         DistrictProposalRSDTO districtProposalRSDTO = setCampaignAsDraft(campaignId, districtProposalService)
-        return districtProposalModelContennt(participatoryBudgetRSDTO,campaignId, districtProposalRSDTO, null)
+        return districtProposalModelContennt(participatoryBudgetRSDTO, campaignId, districtProposalRSDTO, null)
     }
 
     @Secured(['ROLE_CAMPAIGN_DISTRICT_PROPOSAL'])
@@ -149,7 +153,7 @@ class DistrictProposalController extends CampaignController{
             return
         }
 
-        command.eventAttached=false
+        command.eventAttached = false
         Map<String, Object> result = saveCampaignSettings(command, params, districtProposalService)
 
         //flash.message = resultDebate.msg.toString()
@@ -158,17 +162,17 @@ class DistrictProposalController extends CampaignController{
 
     @Secured(['ROLE_CAMPAIGN_DISTRICT_PROPOSAL'])
     def saveContent(CampaignContentCommand command) {
-        Long campaignId = params.campaignId?Long.parseLong(params.campaignId):null
+        Long campaignId = params.campaignId ? Long.parseLong(params.campaignId) : null
         if (command.hasErrors()) {
-            Long participatoryBudgetId = params.participatoryBudgetId?Long.parseLong(params.participatoryBudgetId):null
+            Long participatoryBudgetId = params.participatoryBudgetId ? Long.parseLong(params.participatoryBudgetId) : null
             BasicDataKuorumUserRSDTO participatoryBudgetUser = kuorumUserService.findBasicUserRSDTO(params.userAlias)
             ParticipatoryBudgetRSDTO participatoryBudgetRSDTO = participatoryBudgetService.find(participatoryBudgetUser.id.toString(), participatoryBudgetId)
 
 
-            if(command.errors.getFieldError().arguments.first() == "publishOn"){
+            if (command.errors.getFieldError().arguments.first() == "publishOn") {
                 flash.error = message(code: "debate.scheduleError")
             }
-            render view: 'editContentStep', model: districtProposalModelContennt(participatoryBudgetRSDTO,campaignId, null,command)
+            render view: 'editContentStep', model: districtProposalModelContennt(participatoryBudgetRSDTO, campaignId, null, command)
             return
         }
 
@@ -177,17 +181,17 @@ class DistrictProposalController extends CampaignController{
     }
 
     @Secured(['ROLE_CAMPAIGN_DISTRICT_PROPOSAL'])
-    def saveDistrict(DistrictProposalChooseDistrictCommand command){
+    def saveDistrict(DistrictProposalChooseDistrictCommand command) {
         KuorumUserSession user = springSecurityService.principal
-        DistrictProposalRSDTO districtProposalRSDTO = districtProposalService.find( user, Long.parseLong((String) params.campaignId))
+        DistrictProposalRSDTO districtProposalRSDTO = districtProposalService.find(user, Long.parseLong((String) params.campaignId))
 
         def nextStep = updateDistrictByCommand(command, districtProposalRSDTO);
         redirect mapping: nextStep.mapping, params: nextStep.params
     }
 
-    private def updateDistrictByCommand(DistrictProposalChooseDistrictCommand command,DistrictProposalRSDTO districtProposalRSDTO){
+    private def updateDistrictByCommand(DistrictProposalChooseDistrictCommand command, DistrictProposalRSDTO districtProposalRSDTO) {
         KuorumUserSession user = springSecurityService.principal
-        Long participatoryBudgetId = params.participatoryBudgetId?Long.parseLong(params.participatoryBudgetId):null
+        Long participatoryBudgetId = params.participatoryBudgetId ? Long.parseLong(params.participatoryBudgetId) : null
         BasicDataKuorumUserRSDTO participatoryBudgetUser = kuorumUserService.findBasicUserRSDTO(params.userAlias)
         ParticipatoryBudgetRSDTO participatoryBudgetRSDTO = participatoryBudgetService.find(participatoryBudgetUser.id.toString(), participatoryBudgetId)
         if (command.hasErrors()) {
@@ -206,28 +210,31 @@ class DistrictProposalController extends CampaignController{
     @Secured(['ROLE_CAMPAIGN_DISTRICT_PROPOSAL'])
     def remove(Long campaignId) {
         removeCampaign(campaignId, districtProposalService)
-        render ([msg: "District proposal deleted"] as JSON)
+        render([msg: "District proposal deleted"] as JSON)
     }
 
     private def districtProposalModelSettings(CampaignSettingsCommand command, DistrictProposalRSDTO districtProposalRSDTO) {
         def model = modelSettings(command, districtProposalRSDTO)
-        command.debatable=false
-        model.options =[debatable:false, hideCauses:true, hideValidateOption:true]
+        command.debatable = false
+        model.options = [debatable: false, hideCauses: true, hideValidateOption: true]
         return model
     }
+
     private def districtProposalModelEditDistrict(DistrictProposalChooseDistrictCommand command, DistrictProposalRSDTO districtProposalRSDTO, ParticipatoryBudgetRSDTO participatoryBudgetRSDTO) {
-        if (!command && districtProposalRSDTO){
+        if (!command && districtProposalRSDTO) {
             command = new DistrictProposalChooseDistrictCommand()
             command.districtId = districtProposalRSDTO.district.id
-            command.cause = districtProposalRSDTO.causes?districtProposalRSDTO.causes[0]:""
+            command.cause = districtProposalRSDTO.causes ? districtProposalRSDTO.causes[0] : ""
         }
         def model = [
-                campaign:districtProposalRSDTO,
+                campaign           : districtProposalRSDTO,
                 participatoryBudget: participatoryBudgetRSDTO,
-                status:districtProposalRSDTO?.campaignStatusRSDTO?:CampaignStatusRSDTO.DRAFT,
-                command:command
+                status             : districtProposalRSDTO?.campaignStatusRSDTO ?: CampaignStatusRSDTO.DRAFT,
+                command            : command
         ]
-        model.options =[debatable:false]
+        model.options = [debatable: false]
         return model
     }
+
+
 }
