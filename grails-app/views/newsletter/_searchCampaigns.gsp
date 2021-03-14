@@ -1,3 +1,4 @@
+<%@ page import="org.kuorum.rest.model.communication.CampaignTypeRSDTO" %>
 <!-- FILTRO Y BUSCADOR DE CAMPAÑAS -->
 <r:require modules="campaignList"/>
 <div class="box-ppal filterbox">
@@ -18,7 +19,7 @@
             </div>
             <div class="col-sm-2">
                 <span id="infoFilterCampaigns">
-                    <span class="totalList">${campaigns.size()+newsletters.size()}</span>
+                    <span class="totalList">${campaigns.size()}</span>
                     <g:message code="tools.massMailing.list.filter.counterText"/>
                     <span class="filtered"></span>
                 </span>
@@ -70,11 +71,13 @@
         </div>
     </div>
     <ul id="campaignsList" class="list">
-        <g:each in="${newsletters}" var="bulletin" status="i">
-            <g:render template="liCampaignNewsletter" model="[bulletin:bulletin, user:user, idx:bulletin.id]"/>
-        </g:each>
         <g:each in="${campaigns}" var="campaign" status="i">
-            <g:render template="liCampaignGeneric" model="[campaign: campaign, user: user, idx: campaign.id]"/>
+            <g:if test="${campaign.getCampaignType().equals(org.kuorum.rest.model.communication.CampaignTypeRSDTO.BULLETIN)}">
+                <g:render template="liCampaignNewsletter" model="[bulletin:campaign, user:user, idx:campaign.id]"/>
+            </g:if>
+            <g:else>
+                <g:render template="liCampaignGeneric" model="[campaign: campaign, user: user, idx: campaign.id]"/>
+            </g:else>
         </g:each>
     </ul>
 
