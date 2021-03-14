@@ -43,7 +43,7 @@ class CampaignValidationController {
             String censusRedirect = getCensusRedirect(true)
             render view: '/campaignValidation/step0RegisterWithCensusCode_ERROR' , model:[redirectUrl:censusRedirect]
         }else{
-            CampaignRSDTO campaign = censusLoginData.getCampaign();
+            CampaignLightRSDTO campaign = censusLoginData.getCampaign();
             ContactRSDTO contact = censusLoginData.getContact();
             logoutIfContactDifferentAsLoggedUser(contact, censusLogin);
             log.info("[censusLogion: ${censusLogin}] : Receviced a valid censusLogin -> Contact: ${contact.email}")
@@ -225,7 +225,7 @@ class CampaignValidationController {
     }
 
 
-    private String calcNextStepMappingName(CampaignRSDTO campaignRSDTO, UserValidationRSDTO validationRSDTO=null) {
+    private String calcNextStepMappingName(BasicCampaignInfoRSDTO campaignRSDTO, UserValidationRSDTO validationRSDTO=null) {
         if (springSecurityService.isLoggedIn()) {
             KuorumUserSession userSession = springSecurityService.principal
             if (!validationRSDTO) {
