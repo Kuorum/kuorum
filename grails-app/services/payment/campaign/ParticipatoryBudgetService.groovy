@@ -6,6 +6,8 @@ import kuorum.core.exception.KuorumException
 import kuorum.register.KuorumUserSession
 import kuorum.solr.IndexSolrService
 import kuorum.util.rest.RestKuorumApiService
+import org.kuorum.rest.model.communication.CampaignLightPageRSDTO
+import org.kuorum.rest.model.communication.CampaignLightRSDTO
 import org.kuorum.rest.model.communication.participatoryBudget.*
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 
@@ -136,7 +138,7 @@ class ParticipatoryBudgetService implements CampaignCreatorService<Participatory
         campaignId
     }
 
-    List<ParticipatoryBudgetRSDTO> findActiveParticipatoryBudgets(ParticipatoryBudgetStatusDTO budgetStatusDTO) {
+    List<CampaignLightRSDTO> findActiveParticipatoryBudgets(ParticipatoryBudgetStatusDTO budgetStatusDTO) {
         Map<String, String> params = [:]
         Map<String, String> query = [status: budgetStatusDTO.toString()]
         try {
@@ -144,12 +146,12 @@ class ParticipatoryBudgetService implements CampaignCreatorService<Participatory
                     RestKuorumApiService.ApiMethod.ACCOUNT_ACTIVE_PARTICIPATORY_BUDGETS,
                     params,
                     query,
-                    new TypeReference<PageParticipatoryBudgetRSDTO>() {}
+                    new TypeReference<CampaignLightPageRSDTO>() {}
             )
 
-            PageParticipatoryBudgetRSDTO pageFound = null
+            CampaignLightPageRSDTO pageFound = null
             if (response.data) {
-                pageFound = (PageParticipatoryBudgetRSDTO) response.data
+                pageFound = (CampaignLightPageRSDTO) response.data
         }
         return pageFound.getData()
 
