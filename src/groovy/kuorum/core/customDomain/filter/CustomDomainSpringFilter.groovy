@@ -26,7 +26,7 @@ class CustomDomainSpringFilter extends GenericFilterBean {
             CustomDomainResolver.setUrl(url, request.getContextPath())
             configRSDTO = domainService.getConfig(CustomDomainResolver.domain)
         }catch (Exception e){
-            logger.info("Domain ${url.getHost()} not found due to an exception ${e.getStackTrace()}")
+            logger.info("Domain ${url.getHost()} not found due to an exception", e)
         }
         if (!configRSDTO){
             int errorCode = 402
