@@ -453,8 +453,10 @@ class AmazonFileService extends LocalFileService {
         // Login with credentials
         String accessKey = grailsApplication.config.kuorum?.amazon?.accessKey
         String secretKey = grailsApplication.config.kuorum?.amazon?.secretKey
+        String bucketRegion = grailsApplication.config.kuorum.amazon.bucketRegion;
         AWSCredentialsProvider credentialsProvider = null;
         if (accessKey && !accessKey.equals("NO_ACCESS_KEY")){
+            log.warn("Using credentials from the properties file [$accessKey]. You should use the instance credentials")
             AWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
             credentialsProvider = new AWSStaticCredentialsProvider(credentials);
         }else{
@@ -464,19 +466,10 @@ class AmazonFileService extends LocalFileService {
         AmazonS3ClientBuilder clientBuilder = AmazonS3ClientBuilder
                 .standard()
                 .withCredentials(credentialsProvider)
-                .withRegion(getRegionName());
+                .withRegion(bucketRegion);
 
 
         AmazonS3 s3Client = clientBuilder.build();
         return s3Client
-    }
-
-    private String getRegionName() {
-        com.amazonaws.regions.Region region = Regions.getCurrentRegion();
-        if (region == null) {
-            log.warn("Running on a machine without defined region. Using ${AWS_REGION.getName()}");
-            region = com.amazonaws.regions.Region.getRegion(Regions.EU_WEST_1);
-        }
-        return region.getName();
     }
 }

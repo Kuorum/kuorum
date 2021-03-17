@@ -367,9 +367,10 @@ kuorum {
     }
 
     amazon{
-        accessKey = "XXXXX"
-        secretKey = "XXXXX"
+        accessKey = "NO_ACCESS_KEY"
+        secretKey = "NO_SECRET_KEY"
         bucketName = "kuorum.org"
+        bucketRegion = "eu-west-1"
     }
     rest{
         url = "http://api.test.kuorum.org"

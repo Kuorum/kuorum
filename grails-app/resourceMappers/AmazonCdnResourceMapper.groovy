@@ -45,7 +45,7 @@ class AmazonCdnResourceMapper {
         String bucketName = config.bucket;
         String keyName = key.replace("//","/").replaceAll(/^\//,"")
 
-        AmazonS3 s3Client = buildAmazonClient(config.accessKey, config.secretKey)
+        AmazonS3 s3Client = buildAmazonClient(config.accessKey, config.secretKey, config.bucketRegion)
 
 
         // Create a list of UploadPartResponse objects. You get one of these for each part upload.
@@ -155,11 +155,12 @@ class AmazonCdnResourceMapper {
 //                });
 //    }
 
-    private AmazonS3 buildAmazonClient(accessKey, secretKey) {
+    private AmazonS3 buildAmazonClient(accessKey, secretKey, bucketRegion) {
 
         AWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
 
         AmazonS3 s3Client = new AmazonS3Client(credentials);
+        s3Client.withRegion(bucketRegion)
         return s3Client
     }
 
