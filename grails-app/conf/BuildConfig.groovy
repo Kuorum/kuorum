@@ -108,9 +108,9 @@ grails.project.dependency.resolution = {
             excludes "joda-time:joda-time"
         }
         compile 'joda-time:joda-time:2.9.1' // Actualizacion de libreria para amazon
-        compile 'org.apache.httpcomponents:httpclient:4.5.2' //Actualizacion librer�a para Amazon
-        compile 'org.apache.httpcomponents:httpcore:4.4.4' //Actualizacion librer�a para Amazon
-        compile 'org.apache.httpcomponents:httpmime:4.5.2'
+        compile 'org.apache.httpcomponents:httpclient:4.5.13' //Actualizacion librer�a para Amazon
+        compile 'org.apache.httpcomponents:httpcore:4.4.14' //Actualizacion librer�a para Amazon
+        compile 'org.apache.httpcomponents:httpmime:4.5.13'
 
         compile ('org.codehaus.groovy:groovy-xmlrpc:jar:0.7'){
             excludes "jivesoftware:smack"
