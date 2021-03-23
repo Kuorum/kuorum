@@ -38,7 +38,7 @@ ${imageQuestion}
     <div class="survey-question-answers" data-answer-selected="">
         <g:each in="${question.options}" var="option">
             <g:if test="${question.questionType == org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.ONE_OPTION}">
-                <g:render template="/survey/showModules/questions/singleQuestionOption" model="[survey:survey, question:question, option:option]"/>
+                <g:render template="/survey/showModules/questions/singleQuestionOption" model="[survey:survey, question:question, option:option, imageQuestion: imageQuestion]"/>
             </g:if>
             <g:elseif test="${question.questionType == org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.RATING_OPTION}">
                 <g:render template="/survey/showModules/questions/ratingQuestionOption" model="[survey:survey, question:question, option:option]"/>
