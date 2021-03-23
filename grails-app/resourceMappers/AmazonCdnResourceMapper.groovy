@@ -1,7 +1,11 @@
 import com.amazonaws.auth.AWSCredentials
+import com.amazonaws.auth.AWSCredentialsProvider
+import com.amazonaws.auth.AWSStaticCredentialsProvider
 import com.amazonaws.auth.BasicAWSCredentials
+import com.amazonaws.auth.DefaultAWSCredentialsProviderChain
 import com.amazonaws.services.s3.AmazonS3
 import com.amazonaws.services.s3.AmazonS3Client
+import com.amazonaws.services.s3.AmazonS3ClientBuilder
 import com.amazonaws.services.s3.model.*
 import org.grails.plugin.resource.mapper.MapperPhase
 
@@ -157,10 +161,22 @@ class AmazonCdnResourceMapper {
 
     private AmazonS3 buildAmazonClient(accessKey, secretKey, bucketRegion) {
 
-        AWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
+        AWSCredentialsProvider credentialsProvider = null;
+        if (accessKey && !accessKey.equals("NO_ACCESS_KEY")){
+            log.warn("Using credentials from the properties file [$accessKey]. You should use the instance credentials")
+            AWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
+            credentialsProvider = new AWSStaticCredentialsProvider(credentials);
+        }else{
+            credentialsProvider = new DefaultAWSCredentialsProviderChain();
+        }
 
-        AmazonS3 s3Client = new AmazonS3Client(credentials);
-        s3Client.withRegion(bucketRegion)
+        AmazonS3ClientBuilder clientBuilder = AmazonS3ClientBuilder
+                .standard()
+                .withCredentials(credentialsProvider)
+                .withRegion(bucketRegion);
+
+
+        AmazonS3 s3Client = clientBuilder.build();
         return s3Client
     }
 

@@ -3,6 +3,8 @@ services:
   front:
     build: .
     container_name: kuorum-front
+#    env_file:
+#      - ./docker/env/ovh.env
     environment:
       - API_DOMAIN=test-api.kuorum.org
       - MONGO_HOST=192.168.0.150
