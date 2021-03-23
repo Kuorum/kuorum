@@ -11,7 +11,8 @@
 <g:if test="${question.questionType == org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.RATING_OPTION}">
     <g:set var="questionClass" value="rating-answer"/>
 </g:if>
-
+<g:set var="imageQuestion" value="${question.options.find{it.urlImage}?"true":"false"}"/>
+${imageQuestion}
 <li
         class="comment-box survey-question ${questionClass} no-padding ${survey.closed || question.answered?'answered':''} ${activeQuestionId==question.id?'active-question':''}"
         id="question-${question.id}"

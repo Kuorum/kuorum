@@ -128,7 +128,6 @@ img {
     position:relative;
 }
 .imagen-shadowed-main-color-domain {
-    width: 100%;
     vertical-align: top;
     position: relative;
 }
@@ -314,7 +313,8 @@ label {font-weight: normal;}
 }
 
 .checkbox-inline > input[type=checkbox]:checked + span.check-box-icon,
-.checkbox-inline > input[type=checkbox]:checked + span.error + span.check-box-icon
+.checkbox-inline > input[type=checkbox]:
++ span.error + span.check-box-icon
 {
     background-color: #e9ecee;
     border: 1px solid #adb8c0;
@@ -7894,18 +7894,23 @@ ul.notification-menu > li.see-more {
 .survey-question-answer .rating-option .check-icon,
 .survey-question-answer .multi-option .check-icon {
     font-size: 40px;
-    margin-right: 30px;
+    margin-right: 15px;
     color: #D0D0D0;
 }
 
-.survey-question-answer:hover .single-option > span.check-icon,
+.survey-question-answer:hover .single-option span.check-icon,
+.survey-question-answer:hover .single-option .image-icon,
 .survey-question-answer:hover .rating-option > span.check-icon,
 .survey-question-answer:hover .rating-option label,
-.survey-question-answer:hover .multi-option > span.check-icon,
+.survey-question-answer:hover .multi-option span.check-icon,
+.survey-question-answer:hover .multi-option .image-icon,
 .survey-question-answer.checked .single-option .check-icon,
+.survey-question-answer.checked .single-option .image-icon,
 .survey-question-answer.checked .rating-option .check-icon,
-.survey-question-answer.checked .multi-option .check-icon {
+.survey-question-answer.checked .multi-option .check-icon,
+.survey-question-answer.checked .multi-option .image-icon {
     color: #ec931f;
+    border-color:#ec931f;
 }
 
 .survey-question-answer.checked:hover .rating-option label{
@@ -7935,11 +7940,13 @@ ul.notification-menu > li.see-more {
 .survey-question-answer .rating-option{
     width: 40px;
 }
-
+.survey-question-answer .question-option-icon{
+    margin-right: 20px;
+}
 .survey-question-answer .only-predefined-option label,
 .survey-question-answer .single-option label,
 .survey-question-answer .multi-option label{
-    width: 75%;
+    /*width: 75%;*/
     line-height: 30px;
     margin-top:5px;
 }
@@ -8430,6 +8437,7 @@ li.survey-question.answered .survey-question-answer .option-extra-content textar
     #campaignsList > li > span.fa {
         top: 60px;
     }
+
 }
 
 /* Join this query with the previous*/
@@ -8440,4 +8448,19 @@ li.survey-question.answered .survey-question-answer .option-extra-content textar
         padding-right:30px;
     }
 
+}
+
+.iconquestions{
+    position: absolute;
+    z-index: 1;
+    right: 5px;
+    bottom: 4%;
+    padding: 0px;
+}
+
+
+.divphoto{
+    border: 10px solid #ddd;
+    border-radius: 10px;
+    padding: 0px;
 }
