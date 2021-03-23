@@ -8,6 +8,13 @@
      data-optionStats-percentage="${option.optionStats.percentage}">
     <div class="single-option">
         <div class="${imageQuestion?'question-option-icon': 'question-option-image'}">
+            <g:if test="${imageQuestion && option.imageUrl}">
+                <img src="${option.imageUrl?:''}"
+            </g:if>
+            <g:elseif test="${imageQuestion && !option.imageUrl}">
+                <img class="empty" src="${g.resource(dir: "images", file: "emtySquared.png")}" alt="${campaign.title}"/>
+            </g:elseif>
+
             <span class="far fa-circle check-icon"></span>
             <span class="fas fa-check-circle check-icon"></span>
         </div>
