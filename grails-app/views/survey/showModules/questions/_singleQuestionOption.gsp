@@ -11,7 +11,7 @@
             <span class="far fa-circle check-icon"></span>
             <span class="fas fa-check-circle check-icon"></span>
             <if test="${isQuestionWithImages}">
-                <img src="${option.imageUrl?:g.resource(dir: "images", file: "emptySquared.png")}"/>
+                <img src="${option.urlImage?:g.resource(dir: "images", file: "emptySquared.png")}"/>
             </if>
         </div>
         <label>${option.text}</label>

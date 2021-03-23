@@ -6,8 +6,13 @@
      data-optionStats-percentage="${option.optionStats.percentage}"
      data-questionOptionType="${option.questionOptionType}">
     <div class="multi-option">
-        <span class="fal fa-square check-icon"></span>
-        <span class="fas fa-check-square check-icon"></span>
+        <div class="${isQuestionWithImages?'question-option-image': 'question-option-icon'} ${isQuestionWithImages && !option.imageUrl?'imagen-shadowed-main-color-domain':''}">
+            <span class="fal fa-square check-icon"></span>
+            <span class="fas fa-check-square check-icon"></span>
+            <if test="${isQuestionWithImages}">
+                <img src="${option.urlImage?:g.resource(dir: "images", file: "emptySquared.png")}"/>
+            </if>
+        </div>
         <label>${option.text}</label>
         <g:render template="/survey/showModules/questions/formQuestionExtraContent" model="[option:option]"/>
     </div>

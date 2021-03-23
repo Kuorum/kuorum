@@ -11,8 +11,8 @@
 <g:if test="${question.questionType == org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.RATING_OPTION}">
     <g:set var="questionClass" value="rating-answer"/>
 </g:if>
-<g:set var="imageQuestion" value="${question.options.find{it.urlImage}?true:false}"/>
-${imageQuestion}
+<g:set var="isQuestionWithImages" value="${question.options.find{it.urlImage}?true:false}"/>
+${isQuestionWithImages}
 <li
         class="comment-box survey-question ${questionClass} no-padding ${survey.closed || question.answered?'answered':''} ${activeQuestionId==question.id?'active-question':''}"
         id="question-${question.id}"
@@ -38,13 +38,13 @@ ${imageQuestion}
     <div class="survey-question-answers" data-answer-selected="">
         <g:each in="${question.options}" var="option">
             <g:if test="${question.questionType == org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.ONE_OPTION}">
-                <g:render template="/survey/showModules/questions/singleQuestionOption" model="[survey:survey, question:question, option:option, imageQuestion: imageQuestion]"/>
+                <g:render template="/survey/showModules/questions/singleQuestionOption" model="[survey:survey, question:question, option:option, isQuestionWithImages: isQuestionWithImages]"/>
             </g:if>
             <g:elseif test="${question.questionType == org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.RATING_OPTION}">
                 <g:render template="/survey/showModules/questions/ratingQuestionOption" model="[survey:survey, question:question, option:option]"/>
             </g:elseif>
             <g:elseif test="${questionTypeMultiples.contains(question.questionType)}">
-                <g:render template="/survey/showModules/questions/multipleQuestionOption" model="[survey:survey, question:question, option:option]"/>
+                <g:render template="/survey/showModules/questions/multipleQuestionOption" model="[survey:survey, question:question, option:option, isQuestionWithImages: isQuestionWithImages]"/>
             </g:elseif>
             <g:elseif test="${question.questionType == org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.CONTACT_GENDER}">
                 <g:render template="/survey/showModules/questions/genderQuestionOption" model="[survey:survey, question:question, option:option]"/>
