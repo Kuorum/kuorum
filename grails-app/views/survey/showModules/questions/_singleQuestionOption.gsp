@@ -7,12 +7,12 @@
      data-optionStats-votes="${option.optionStats.optionVotes}"
      data-optionStats-percentage="${option.optionStats.percentage}">
     <div class="single-option">
-        <div class="${imageQuestion?'question-option-icon': 'question-option-image'}">
+        <div class="${isQuestionWithImages?'question-option-image': 'question-option-icon'} ${imageQuestion && !option.imageUrl?'imagen-shadowed-main-color-domain':''}">
             <g:if test="${imageQuestion && option.imageUrl}">
-                <img src="${option.imageUrl?:''}"
+                <img src="${option.imageUrl}"
             </g:if>
             <g:elseif test="${imageQuestion && !option.imageUrl}">
-                <img class="empty" src="${g.resource(dir: "images", file: "emtySquared.png")}" alt="${campaign.title}"/>
+                <img class="empty" src="${g.resource(dir: "images", file: "emptySquared.png")}" alt="${campaign.title}"/>
             </g:elseif>
 
             <span class="far fa-circle check-icon"></span>
