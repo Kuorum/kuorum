@@ -7883,7 +7883,9 @@ ul.notification-menu > li.see-more {
 
 .survey-question-answer.survey-question-file-option{padding-top:0px;}
 .survey-question.answered .survey-question-answers:hover {cursor: default;}
-.survey-question.answered .survey-question-answer:hover {background-color: transparent;cursor: default;}
+.survey-question.answered .survey-question-answer:hover {background-color: transparent;cursor: default;border-color: #D0D0D0;}
+.survey-question.answered .survey-question-answer:hover:not(.checked) .question-option-image {border-color: #D0D0D0;}
+.survey-question.answered .survey-question-answer:hover:not(.checked) .check-icon {color: #D0D0D0;}
 
 .survey-question-answer .progress {
     -webkit-box-shadow: none;
@@ -7940,7 +7942,7 @@ ul.notification-menu > li.see-more {
     width: 40px;
 }
 .survey-question-answer .question-option-icon{
-    margin-right: 20px;
+    margin-right: 10px;
 }
 .survey-question-answer .only-predefined-option label,
 .survey-question-answer .single-option label,
@@ -7948,6 +7950,14 @@ ul.notification-menu > li.see-more {
     line-height: 30px;
     margin-top:5px;
 }
+
+
+.survey-question-answer .question-option-image{
+    border: 10px solid #D0D0D0;
+    border-radius: 10px;
+    padding: 0px;
+}
+
 .survey-question-answer .question-option-image .fal,
 .survey-question-answer .question-option-image .far,
 .survey-question-answer .question-option-image .fas{
@@ -7955,12 +7965,6 @@ ul.notification-menu > li.see-more {
     z-index: 1;
     right: 5px;
     bottom: 4%;
-    padding: 0px;
-}
-
-.survey-question-answer .question-option-image{
-    border: 10px solid #ddd;
-    border-radius: 10px;
     padding: 0px;
 }
 
@@ -7979,6 +7983,7 @@ ul.notification-menu > li.see-more {
 .survey-question-answer .multi-option .option-extra-content {
     width: calc(100% - 50px);
     margin-left: 50px;
+    margin-top:10px;
 }
 .survey-question-answer .only-predefined-option .option-extra-content .input-group.date,
 .survey-question-answer .single-option .option-extra-content .input-group.date,

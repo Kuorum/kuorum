@@ -7,14 +7,13 @@
      data-optionStats-votes="${option.optionStats.optionVotes}"
      data-optionStats-percentage="${option.optionStats.percentage}">
     <div class="single-option">
-        <div class="${isQuestionWithImages?'question-option-image': 'question-option-icon'} ${isQuestionWithImages && !option.imageUrl?'imagen-shadowed-main-color-domain':''}">
-            <span class="far fa-circle check-icon"></span>
-            <span class="fas fa-check-circle check-icon"></span>
-            <if test="${isQuestionWithImages}">
-                <img src="${option.urlImage?:g.resource(dir: "images", file: "emptySquared.png")}"/>
-            </if>
-        </div>
-        <label>${option.text}</label>
+        <g:render template="/survey/showModules/questions/optionIcon"
+                  model="[
+                          option: option,
+                          isQuestionWithImages:isQuestionWithImages,
+                          faClassEmpty:'far fa-circle',
+                          faClassChecked:'fas fa-check-circle']"/>
+        <label class="${isQuestionWithImages?'col-xs-12 col-sm-7': 'col-xs-10'}">${option.text}</label>
         <g:render template="/survey/showModules/questions/formQuestionExtraContent" model="[option:option]"/>
     </div>
     <div class="progress-info">
