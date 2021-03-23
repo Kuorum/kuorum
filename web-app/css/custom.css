@@ -7899,16 +7899,16 @@ ul.notification-menu > li.see-more {
 }
 
 .survey-question-answer:hover .single-option span.check-icon,
-.survey-question-answer:hover .single-option .image-icon,
+.survey-question-answer:hover .single-option .question-option-image,
 .survey-question-answer:hover .rating-option > span.check-icon,
 .survey-question-answer:hover .rating-option label,
 .survey-question-answer:hover .multi-option span.check-icon,
-.survey-question-answer:hover .multi-option .image-icon,
+.survey-question-answer:hover .multi-option .question-option-image,
 .survey-question-answer.checked .single-option .check-icon,
-.survey-question-answer.checked .single-option .image-icon,
+.survey-question-answer.checked .single-option .question-option-image,
 .survey-question-answer.checked .rating-option .check-icon,
 .survey-question-answer.checked .multi-option .check-icon,
-.survey-question-answer.checked .multi-option .image-icon {
+.survey-question-answer.checked .multi-option .question-option-image {
     color: #ec931f;
     border-color:#ec931f;
 }
@@ -7931,7 +7931,6 @@ ul.notification-menu > li.see-more {
 .survey-question-answer .single-option,
 .survey-question-answer .multi-option {
     display: flex;
-    /*align-items: center;*/
     position: relative;
     z-index: 1;
     flex-wrap: wrap;
@@ -7946,9 +7945,23 @@ ul.notification-menu > li.see-more {
 .survey-question-answer .only-predefined-option label,
 .survey-question-answer .single-option label,
 .survey-question-answer .multi-option label{
-    /*width: 75%;*/
     line-height: 30px;
     margin-top:5px;
+}
+.survey-question-answer .question-option-image .fal,
+.survey-question-answer .question-option-image .far,
+.survey-question-answer .question-option-image .fas{
+    position: absolute;
+    z-index: 1;
+    right: 5px;
+    bottom: 4%;
+    padding: 0px;
+}
+
+.survey-question-answer .question-option-image{
+    border: 10px solid #ddd;
+    border-radius: 10px;
+    padding: 0px;
 }
 
 .survey-question-answer .rating-option label{
@@ -8450,17 +8463,3 @@ li.survey-question.answered .survey-question-answer .option-extra-content textar
 
 }
 
-.iconquestions{
-    position: absolute;
-    z-index: 1;
-    right: 5px;
-    bottom: 4%;
-    padding: 0px;
-}
-
-
-.divphoto{
-    border: 10px solid #ddd;
-    border-radius: 10px;
-    padding: 0px;
-}
