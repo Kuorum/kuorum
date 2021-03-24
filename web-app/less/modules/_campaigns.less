@@ -107,14 +107,19 @@
 .survey-question-extra-info,
 .survey-question-option-extra-info{color:@secondColor;}
 
-.survey-question-answer:hover .single-option > span.check-icon,
-.survey-question-answer:hover .multi-option > span.check-icon,
+.survey-question-answer:hover .single-option span.check-icon,
+.survey-question-answer:hover .single-option .question-option-image,
 .survey-question-answer:hover .rating-option > span.check-icon,
 .survey-question-answer:hover .rating-option label,
+.survey-question-answer:hover .multi-option span.check-icon,
+.survey-question-answer:hover .multi-option .question-option-image,
 .survey-question-answer.checked .single-option .check-icon,
+.survey-question-answer.checked .single-option .question-option-image,
 .survey-question-answer.checked .rating-option .check-icon,
-.survey-question-answer.checked .multi-option .check-icon {
+.survey-question-answer.checked .multi-option .check-icon,
+.survey-question-answer.checked .multi-option .question-option-image {
   color: @secondColor;
+  border-color: @secondColor;
 }
 
 
