@@ -145,11 +145,6 @@ class AmazonCdnResourceMapper {
         return contentType;
     }
 
-    private String buildAmazonUrl(String relativePath) {
-        String bucketName = grailsApplication.config.kuorum.amazon.bucketName;
-        return "https://${bucketName}.s3.amazonaws.com/${relativePath}"
-    }
-
 //    public checkIfSOurcesFileExists( def config){
 //        AmazonS3 s3Client = buildAmazonClient(config.accessKey, config.secretKey)
 //        var listResponse = s3Client.ListObjectsV2(new ListObjectsV2Request
