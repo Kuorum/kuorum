@@ -161,12 +161,10 @@ var campaignForm={
         }
     },
     prepareAndOpenCampaignConfirmModal: function (){
-        var $option = $('select#recipients option:selected');
-        filterContacts.getFilterSelectedAmountOfContacts($option, function(amountContacts){
-            $("#campaignConfirmTitle > span").html(amountContacts);
-            $("#campaignWarnFilterEdited .modal-body > p > span").html(amountContacts);
+            // $("#campaignConfirmTitle > span").html(amountContacts);
+            // $("#campaignWarnFilterEdited .modal-body > p > span").html(amountContacts);
             $("#campaignConfirm").modal("show");
-        } );
+        // } );
     },
 
     sendParams: function () {
