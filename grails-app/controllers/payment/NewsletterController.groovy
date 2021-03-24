@@ -58,17 +58,15 @@ class NewsletterController {
 
     def index() {
         KuorumUserSession user = springSecurityService.principal
-//        List<NewsletterRSDTO> newsletters = newsletterService.findCampaigns(user)
         // TODO: Bad trick -> Recover all campaigns without pagination
         SearchCampaignRDTO searchCampaignRDTO = new SearchCampaignRDTO(
                 page:0,
                 size: 100,
-                attachNotPublished: true
+                attachNotPublished: true,
+                onlyPublications: false
         )
         CampaignLightPageRSDTO campaignsPage = campaignService.findAllCampaigns(user, searchCampaignRDTO); // BAD TRICK
-        List<CampaignLightRSDTO> newsletters = campaignsPage.getData().findAll({ c -> c.campaignType == CampaignTypeRSDTO.BULLETIN });
-        List<CampaignLightRSDTO> campaigns = campaignsPage.getData().findAll({ c -> c.campaignType != CampaignTypeRSDTO.BULLETIN })
-        [newsletters: newsletters, campaigns: campaigns, user: user]
+        [campaigns: campaignsPage.getData(), user: user]
     }
 
     def newCampaign() {

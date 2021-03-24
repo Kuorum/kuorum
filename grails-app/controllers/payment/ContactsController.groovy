@@ -164,9 +164,9 @@ class ContactsController {
             ContactRSDTO contactUpdated = contactService.updateContact(user, contact, contact.getId())
             flash.message = g.message(code: 'tools.contact.edit.success', args: [contact.name])
         } catch (Exception e) {
-            flash.error = g.message(code: 'tools.contact.edit.phonenumber.error')
+            flash.error = g.message(code: 'tools.contact.edit.error')
         }
-        redirect(mapping: "politicianContactEdit", params: [contactId: contactUpdated.getId()])
+        redirect(mapping: "politicianContactEdit", params: [contactId: contact.getId()])
     }
 
     def updateContactNotes(Long contactId) {
