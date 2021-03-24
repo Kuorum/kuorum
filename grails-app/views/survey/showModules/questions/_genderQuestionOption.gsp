@@ -8,8 +8,12 @@
         data-optionStats-votes="${option.optionStats.optionVotes}"
         data-optionStats-percentage="${option.optionStats.percentage}">
     <div class="single-option">
-        <span class="far fa-circle check-icon"></span>
-        <span class="fas fa-check-circle check-icon"></span>
+        <g:render template="/survey/showModules/questions/optionIcon"
+                  model="[
+                          option: option,
+                          isQuestionWithImages:isQuestionWithImages,
+                          faClassEmpty:'far fa-circle',
+                          faClassChecked:'fas fa-check-circle']"/>
         <label><g:message code="org.kuorum.rest.model.contact.GenderRDTO.${option.text}"/></label>
         <g:render template="/survey/showModules/questions/formQuestionExtraContent" model="[option:option]"/>
     </div>
