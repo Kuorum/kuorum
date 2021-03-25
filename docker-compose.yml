@@ -3,15 +3,16 @@ services:
   front:
     build: .
     container_name: kuorum-front
-#    env_file:
-#      - ./docker/env/ovh.env
+    env_file:
+      - ./docker/env/ovh.env
+    args:
+      VERSION: INAKI_DEV
     environment:
       - API_DOMAIN=test-api.kuorum.org
-      - MONGO_HOST=192.168.0.150
+      - MONGO_HOST=localhost
       - MONGO_PORT=27017
-      - BUCKET_NAME=test-kuorumorg
+      - BUCKET_NAME=static-kuorum-567923379073
       - UPLOADED_RESOURCES_DOMAIN=static-test.kuorum.org
-      - STATICS_VERSION_PATH=/local/inaki
     ports:
       - 8080:8080
 
