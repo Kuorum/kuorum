@@ -379,7 +379,8 @@ button:focus {
 body.on {padding-top: 120px;}
 
 select.input-lg {padding: 0px 16px 0px 10px;height:45px;}
-.input-lg {padding: 10px 12px;}
+.input-lg {padding: 10px 12px;
+margin-top: 15px;}
 .modal-content {border-radius: 3px;}
 .modal-title {font-weight: bold;}
 .modal-footer {margin:0;border: 0;padding-top: 0;}
