@@ -360,7 +360,10 @@ $(function () {
         var $button = $(this);
         var linkId = $button.attr("data-linkId");
         var $link = $("#"+linkId);
-        resend($link, $button);
+        var resendStatus = resend($link, $button);
+        if(resendStatus) {
+            $("#activity-resend-confirm").modal("hide");
+        }
     });
 
     function resend($link, $button){
@@ -372,6 +375,7 @@ $(function () {
             .done(function(data) {
                 $icon.removeClass("fa-spinner fa-spin")
                 $icon.addClass("fa-check-circle")
+                return true;
             })
             .fail(function(messageError) {
                 $icon.removeClass("fa-spinner fa-spin")
