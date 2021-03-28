@@ -1,19 +1,11 @@
-import com.amazonaws.auth.AWSCredentials
 import com.amazonaws.auth.AWSCredentialsProvider
-import com.amazonaws.auth.BasicAWSCredentials
 import com.amazonaws.auth.DefaultAWSCredentialsProviderChain
+import com.amazonaws.regions.Regions
 import com.amazonaws.services.s3.AmazonS3
 import com.amazonaws.services.s3.AmazonS3Client
-import com.amazonaws.services.s3.model.AbortMultipartUploadRequest
-import com.amazonaws.services.s3.model.CompleteMultipartUploadRequest
-import com.amazonaws.services.s3.model.CompleteMultipartUploadResult
-import com.amazonaws.services.s3.model.InitiateMultipartUploadRequest
-import com.amazonaws.services.s3.model.InitiateMultipartUploadResult
-import com.amazonaws.services.s3.model.ObjectMetadata
-import com.amazonaws.services.s3.model.PartETag
-import com.amazonaws.services.s3.model.UploadPartRequest
-
+import com.amazonaws.services.s3.model.*
 import org.apache.commons.io.FileUtils
+
 import java.nio.file.Files
 import java.nio.file.Paths
 
@@ -28,13 +20,14 @@ public class AmazonStaticUploader{
 //    String host
     String accessKey
     String secretKey
-    String bucket
+    String bucket = "static-kuorum-824311007164"  //System.getenv("PUBLIC_BUCKET_NAME") // TODO: From environment
+    String regionName = "eu-west-1" //System.getenv("BUCKET_REGION") // TODO: FROM Environment
 //    String path
     private static final long UPLOAD_PART_SIZE = 5242880
 
     // CODE COPIED FROM AMAZON FILE SERVICE
     String uploadFileToAmazon(File file, String key) {
-
+        System.out.println("Uploading ${key} to ${bucket} on region ${regionName}")
         String keyName = key.replace("//","/").replaceAll(/^\//,"")
 
         AmazonS3 s3Client = buildAmazonClient()
@@ -116,6 +109,7 @@ public class AmazonStaticUploader{
         AWSCredentialsProvider credentials = new DefaultAWSCredentialsProviderChain();
 
         AmazonS3 s3Client = new AmazonS3Client(credentials);
+        s3Client.setRegion(com.amazonaws.regions.Region.getRegion(Regions.fromName(regionName)))
         return s3Client
     }
 
@@ -193,7 +187,12 @@ target(deployStatic: "The description of the script goes here!") {
     depends(packageApp)
     File rootDir = new File(".");
     String fileWarName = "ROOT.war"
-    System.out.println("Searching ${fileWarName} in ${rootDir.absolutePath}")
+    String BUCKET_NAME = System.getProperty("PUBLIC_BUCKET_NAME")
+    String BUCKET_REGION = System.getProperty("BUCKET_REGION")
+    String VERSION_PATH = System.getProperty("STATICS_VERSION_PATH")
+    String versionPath = "/web/${VERSION_PATH}"
+    System.out.println("${System.getProperty("grails.env")} :: Searching ${fileWarName} in ${rootDir.absolutePath}")
+    System.getProperties().list(System.out)
     def war = findFile(fileWarName, rootDir);
     File temporalDir = File.createTempDir("kuorum","war");
     unzipFile(war, temporalDir)
@@ -206,17 +205,20 @@ target(deployStatic: "The description of the script goes here!") {
     ]
 
     AmazonStaticUploader amazonStaticUploader = new AmazonStaticUploader(
-            accessKey : config.grails.resources.mappers.amazoncdn.accessKey,
-            secretKey : config.grails.resources.mappers.amazoncdn.secretKey,
-            bucket : config.grails.resources.mappers.amazoncdn.bucket,
-
+//            accessKey : config.grails.resources.mappers.amazoncdn.accessKey,
+//            secretKey : config.grails.resources.mappers.amazoncdn.secretKey,
+//            bucket : config.grails.resources.mappers.amazoncdn.bucket,
+//            regionName : config.grails.resources.mappers.amazoncdn.bucketRegion
+            bucket : BUCKET_NAME,
+            regionName : BUCKET_REGION
     )
+    String cdnPath = System.getenv("BUCKET_REGION")
 
     dirs.values().each{resourcesDir ->
         resourcesDir.eachFileRecurse (groovy.io.FileType.FILES) { file ->
-            String key ="${config.grails.resources.mappers.amazoncdn.path}/${file.absolutePath.replaceAll("${temporalDir.path}","")}";
+            String key ="${versionPath}/${file.absolutePath.replaceAll("${temporalDir.path}","")}";
             key = amazonStaticUploader.uploadFileToAmazon(file, key);
-            System.out.println("Uplaoded ${key} to bucket ${config.grails.resources.mappers.amazoncdn.bucket}")
+            System.out.println("Uplaoded ${key} to bucket ${BUCKET_NAME}")
         }
     }
 //    cleanupFolder(temporalDir)
