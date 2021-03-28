@@ -192,7 +192,7 @@ target(deployStatic: "The description of the script goes here!") {
     String VERSION_PATH = System.getProperty("STATICS_VERSION_PATH")
     String versionPath = "/web/${VERSION_PATH}"
     System.out.println("${System.getProperty("grails.env")} :: Searching ${fileWarName} in ${rootDir.absolutePath}")
-    System.getProperties().list(System.out)
+//    System.getProperties().list(System.out)
     def war = findFile(fileWarName, rootDir);
     File temporalDir = File.createTempDir("kuorum","war");
     unzipFile(war, temporalDir)
