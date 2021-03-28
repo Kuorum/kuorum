@@ -379,8 +379,7 @@ button:focus {
 body.on {padding-top: 120px;}
 
 select.input-lg {padding: 0px 16px 0px 10px;height:45px;}
-.input-lg {padding: 10px 12px;
-margin-top: 15px;}
+.input-lg {padding: 10px 12px;}
 .modal-content {border-radius: 3px;}
 .modal-title {font-weight: bold;}
 .modal-footer {margin:0;border: 0;padding-top: 0;}
@@ -7984,7 +7983,7 @@ ul.notification-menu > li.see-more {
 .survey-question-answer .multi-option .option-extra-content {
     width: calc(100% - 50px);
     margin-left: 50px;
-    margin-top:10px;
+    margin-top:15px;
 }
 .survey-question-answer .only-predefined-option .option-extra-content .input-group.date,
 .survey-question-answer .single-option .option-extra-content .input-group.date,
