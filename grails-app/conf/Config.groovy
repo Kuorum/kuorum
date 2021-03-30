@@ -14,8 +14,8 @@ import org.graylog2.GelfSender
 //                             "file:${userHome}/.grails/${appName}-config.groovy"]
 
 grails.config.locations = [
-        "classpath:${grails.util.Environment.current.name}_config.properties"
-//        "classpath:Config_${grails.util.Environment.current.name}.groovy"
+//        "classpath:${grails.util.Environment.current.name}_config.properties"
+        "classpath:Config_${grails.util.Environment.current.name}.groovy"
 //        "file:/home/iduetxe/kuorum/kuorum/grails-app/conf/${grails.util.Environment.current.name}_milestones.groovy"
 //        Environment.current.name
 //        "classpath:development_config.properties"
@@ -108,8 +108,8 @@ grails.resources.mappers.multidomain.numberDomains = 5
 
 grails.resources.mappers.amazoncdn.enabled = true
 grails.resources.mappers.amazoncdn.host = "https://static.kuorum.org"
-grails.resources.mappers.amazoncdn.accessKey = "XXX"
-grails.resources.mappers.amazoncdn.secretKey = "XXXXXXXXXXX"
+grails.resources.mappers.amazoncdn.accessKey = "NO_ACCESS_KEY"
+grails.resources.mappers.amazoncdn.secretKey = "NO_SECRET_KEY"
 grails.resources.mappers.amazoncdn.bucket = "static.kuorum.org"
 grails.resources.mappers.amazoncdn.path = "/local/development"
 grails.resources.mappers.baseurl.default = "${grails.resources.mappers.amazoncdn.host}${grails.resources.mappers.amazoncdn.path}"
@@ -204,6 +204,8 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules=[
 ]
 grails.plugin.springsecurity.filterChain.chainMap = [  //LOS FILTROS SIN ESPACIOS
         '/error-page/**':'none',
+        '/ping':'pingSpringFilter',
+        '/ping/**':'pingSpringFilter',
         '/j_spring_security_switch_user/**':'JOINED_FILTERS',
         '/j_spring_security_exit_user/**':'JOINED_FILTERS',
         '/**':         'JOINED_FILTERS,-switchFilter,-switchUserProcessingFilter'
@@ -215,6 +217,8 @@ grails.plugin.springsecurity.rememberMe.key='kuorumRememberMe'
 grails.plugin.springsecurity.rememberMe.cookieName='kuorumSecurity_rememberMe'
 grails.plugin.springsecurity.rememberMe.persistent=true
 grails.plugin.springsecurity.rememberMe.persistentToken.domainClassName='kuorum.web.users.PersistentLoginToken'
+//grails.plugin.springsecurity.rememberMe.useSecureCookie=true
+
 // Added by the Spring Security OAuth plugin:
 //grails.plugin.springsecurity.oauth.domainClass = 'kuorum.users.OAuthID'
 //grails.plugin.springsecurity.successHandler.defaultTargetUrl='/dashboard'
@@ -222,6 +226,37 @@ grails.plugin.springsecurity.rememberMe.persistentToken.domainClassName='kuorum.
 //grails.plugin.springsecurity.loginDomain = "https://kuorum.org"
 //grails.plugin.cookiesession.domain=".kuorum.org"
 //grails.plugin.cookiesession.springsecuritycompatibility=true
+
+// Next 10 lines are for force grails to use always SSL
+//grails.plugin.springsecurity.secureChannel.useHeaderCheckChannelSecurity = true
+//grails.plugin.springsecurity.portMapper.httpPort = 80
+//grails.plugin.springsecurity.portMapper.httpsPort = 443
+//grails.plugin.springsecurity.secureChannel.secureHeaderName = 'X-Forwarded-Proto'
+//grails.plugin.springsecurity.secureChannel.secureHeaderValue = 'http'
+//grails.plugin.springsecurity.secureChannel.insecureHeaderName = 'X-Forwarded-Proto'
+//grails.plugin.springsecurity.secureChannel.insecureHeaderValue = 'https'
+//grails.plugin.springsecurity.auth.forceHttps = true
+
+
+// CONFIG FOR SESSION IN MEMCACHE
+grails.plugin.standalone.tomcat.memcached.enabled = true
+grails.plugin.standalone.tomcat.memcached.enableStatistics = true
+grails.plugin.standalone.tomcat.memcached.sessionBackupAsync = false
+grails.plugin.standalone.tomcat.memcached.sticky = false
+//grails.plugin.standalone.tomcat.memcached.memcachedProtocol = "binary"
+grails.plugin.standalone.tomcat.memcached.sessionBackupTimeout = 100
+grails.plugin.standalone.tomcat.memcached.operationTimeout = 1000
+//grails.plugin.standalone.tomcat.memcached.backupThreadCount = 10
+//grails.plugin.standalone.tomcat.memcached.copyCollectionsForSerialization = false
+//grails.plugin.standalone.tomcat.memcached.username = user
+//grails.plugin.standalone.tomcat.memcached.password = pass
+//grails.plugin.standalone.tomcat.memcached.failoverNodes = pass
+//grails.plugin.standalone.tomcat.memcached.lockingMode = false
+//grails.plugin.standalone.tomcat.memcached.requestUriIgnorePattern = ????
+//grails.plugin.standalone.tomcat.memcached.sessionAttributeFilter = ????
+//grails.plugin.standalone.tomcat.memcached.transcoderFactoryClass = ????
+//grails.plugin.standalone.tomcat.memcached.customConverter = ????
+grails.plugin.standalone.tomcat.memcached.memcachedNodes = "127.0.0.1:11211"
 
 
 cache.headers.presets = [
@@ -344,9 +379,10 @@ kuorum {
     }
 
     amazon{
-        accessKey = "XXXXX"
-        secretKey = "XXXXX"
+        accessKey = "NO_ACCESS_KEY"
+        secretKey = "NO_SECRET_KEY"
         bucketName = "kuorum.org"
+        bucketRegion = "eu-west-1"
     }
     rest{
         url = "http://api.test.kuorum.org"

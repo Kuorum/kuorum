@@ -14,4 +14,7 @@
     <li class="${activeMapping=='adminDomainConfigGoogleValidation'?'active':''}">
         <g:link mapping="adminDomainConfigGoogleValidation"><g:message code="admin.menu.domainConfig.googleValidation.title"/></g:link>
     </li>
+    <li class="${activeMapping=='adminRecerateAllCss'?'active':''}">
+        <g:link mapping="adminRecerateAllCss"><g:message code="admin.menu.domainConfig.adminRecerateAllCss.title"/></g:link>
+    </li>
 </ul>
