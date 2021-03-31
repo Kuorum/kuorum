@@ -369,11 +369,11 @@ $(function () {
         $icon.removeClass("fa-angle-double-right fa-check-circle fa-exclamation-circle error")
         $icon.addClass("fa-spinner fa-spin")
         $.post(url)
-            .done(function(data) {
+            .done(setTimeOut(function(data) {
                 $icon.removeClass("fa-spinner fa-spin")
                 $icon.addClass("fa-check-circle")
                 $("#activity-resend-confirm").modal("hide");
-            })
+            }),1000)
             .fail(function(messageError) {
                 $icon.removeClass("fa-spinner fa-spin")
                 $icon.addClass("fa-exclamation-circle error")
