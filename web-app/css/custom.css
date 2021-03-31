@@ -7953,7 +7953,7 @@ ul.notification-menu > li.see-more {
 
 
 .survey-question-answer .question-option-image{
-    border: 10px solid #D0D0D0;
+    border: 6px solid #D0D0D0;
     border-radius: 10px;
     padding: 0px;
 }
@@ -7964,7 +7964,7 @@ ul.notification-menu > li.see-more {
     position: absolute;
     z-index: 1;
     right: 5px;
-    bottom: 4%;
+    bottom: 10px;
     padding: 0px;
 }
 
