@@ -103,14 +103,14 @@ grails.project.dependency.resolution = {
 	    compile "net.sf.ehcache:ehcache-core:2.4.6" // Para eliminar :cache:1.1.1 que da un problema de dependencia al quitar hibernate
 
         compile 'com.xlson.groovycsv:groovycsv:1.0' //Para poder leer CSV
-        compile ('com.amazonaws:aws-java-sdk:1.10.20'){ //Amazon S3
+        compile ('com.amazonaws:aws-java-sdk:1.11.960'){ //Amazon S3
             excludes "org.apache.httpcomponents:httpclient"
             excludes "joda-time:joda-time"
         }
         compile 'joda-time:joda-time:2.9.1' // Actualizacion de libreria para amazon
-        compile 'org.apache.httpcomponents:httpclient:4.5.2' //Actualizacion librer�a para Amazon
-        compile 'org.apache.httpcomponents:httpcore:4.4.4' //Actualizacion librer�a para Amazon
-        compile 'org.apache.httpcomponents:httpmime:4.5.2'
+        compile 'org.apache.httpcomponents:httpclient:4.5.13' //Actualizacion librer�a para Amazon
+        compile 'org.apache.httpcomponents:httpcore:4.4.14' //Actualizacion librer�a para Amazon
+        compile 'org.apache.httpcomponents:httpmime:4.5.13'
 
         compile ('org.codehaus.groovy:groovy-xmlrpc:jar:0.7'){
             excludes "jivesoftware:smack"
@@ -118,8 +118,8 @@ grails.project.dependency.resolution = {
         compile 'org.igniterealtime.smack:smack:3.1.0'
         compile 'com.ecwid:ecwid-mailchimp:jar:2.0.0.1'
 
-        compile 'kuorumServices:kuorumRestModel:jar:5.4-SNAPSHOT'
-        compile 'kuorumServices:kuorumRestClient:jar:5.4-SNAPSHOT'
+        compile 'kuorumServices:kuorumRestModel:jar:6.0-SNAPSHOT'
+        compile 'kuorumServices:kuorumRestClient:jar:6.0-SNAPSHOT'
 
         // Library for compile css using less
         compile (group: 'org.lesscss', name: 'lesscss-maven-plugin', version: '1.7.0.1.1'){
@@ -134,7 +134,7 @@ grails.project.dependency.resolution = {
         compile 'org.grails:grails-datastore-gorm:3.1.0.RELEASE'
         compile 'org.grails:grails-datastore-core:3.1.0.RELEASE'
         test 'org.grails:grails-datastore-simple:3.1.0.RELEASE'
-       compile 'org.codehaus.groovy.modules.http-builder:http-builder:0.7.1'
+        compile 'org.codehaus.groovy.modules.http-builder:http-builder:0.7.1'
 
         // Library for detect the charset of the uploaded file
         compile group: 'com.googlecode.juniversalchardet', name: 'juniversalchardet', version: '1.0.3'
@@ -146,6 +146,24 @@ grails.project.dependency.resolution = {
         compile group: 'commons-validator', name: 'commons-validator', version: '1.5.1'
 
         runtime group: 'org.graylog2', name: 'gelfj', version: '1.1.13'
+
+
+        // https://mvnrepository.com/artifact/de.javakaffee.msm/memcached-session-manager
+//        compile group: 'de.javakaffee.msm', name: 'memcached-session-manager', version: '2.3.2'
+
+
+//        compile group: 'de.javakaffee.msm', name:'memcached-session-manager-tc7', version:'1.6.4', {
+//            excludes 'CouchbaseMock', 'annotations', 'hibernate-annotations', 'hibernate-core', 'hsqldb',
+//                    'httpclient', 'javassist', 'jettison', 'jmemcached-core', 'jsr305', 'memcached-session-manager',
+//                    'mockito-core', 'netty', 'slf4j-simple', 'testng', 'tomcat-catalina', 'tomcat-catalina-ha',
+//                    'tomcat-coyote', 'tomcat-servlet-api'
+//        }
+//        compile group: 'de.javakaffee.msm', name: 'memcached-session-manager', version: '1.6.4'
+//        compile group: 'spy', name: 'spymemcached', version: '2.8.12'
+//        compile group: 'couchbase', name: 'couchbase-client', version: '1.1.6'
+
+
+
 
 
         // Library for OAUTH used on the plugin (commented) :spring-security-oauth:2.1.0-RC4
@@ -215,6 +233,8 @@ grails.project.dependency.resolution = {
 //        test ":codenarc:0.20"
 
 //        compile ":quartz:1.0.2"
+        //runtime ":standalone-tomcat-memcached:0.1"
+//        https://repo.grails.org/grails/plugins/org/grails/plugins/standalone-tomcat-memcached/0.1/standalone-tomcat-memcached-0.1.zip
     }
 }
 

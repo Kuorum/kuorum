@@ -7983,7 +7983,7 @@ ul.notification-menu > li.see-more {
 .survey-question-answer .multi-option .option-extra-content {
     width: calc(100% - 50px);
     margin-left: 50px;
-    margin-top:10px;
+    margin-top:15px;
 }
 .survey-question-answer .only-predefined-option .option-extra-content .input-group.date,
 .survey-question-answer .single-option .option-extra-content .input-group.date,

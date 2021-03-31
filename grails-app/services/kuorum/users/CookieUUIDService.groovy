@@ -24,11 +24,11 @@ class CookieUUIDService {
                  value:evaluatorId,
                  maxAge:Integer.MAX_VALUE ,
                  path:WebConstants.COOKIE_PATH,
-                 domain:WebConstants.COOKIE_DOMAIN])
+                 domain:CustomDomainResolver.domain])
     }
 
     void removeUserUUID(){
-        cookieService.deleteCookie(WebConstants.COOKIE_USER_UUID,WebConstants.COOKIE_PATH,WebConstants.COOKIE_DOMAIN)
+        cookieService.deleteCookie(WebConstants.COOKIE_USER_UUID,WebConstants.COOKIE_PATH,CustomDomainResolver.domain)
     }
 
     /**

@@ -1,3 +1,4 @@
+import kuorum.NormalizedCodec
 import kuorum.numberCodecs.HiddenPhoneCodec
 import kuorum.numberCodecs.ReducedPriceCodec
 import kuorum.postalCodeHandlers.YoutubeNameCodec
@@ -206,5 +207,23 @@ class CodecSpec extends Specification {
         "56"            | "****"
         ""              | ""
         null            | ""
+    }
+
+    @Unroll
+    void "Test normalizing string #orgString -> #normalizedString"() {
+        given:"The phone number"
+        when:
+        def res = NormalizedCodec.encode(orgString)
+        then:
+        res == normalizedString
+        where:
+        orgString           | normalizedString
+        "Hola"              | "hola"
+        "  Hola  "          | "hola"
+        "  Hola.jpg  "      | "hola.jpg"
+        "  Hola qué tal"    | "hola_que_tal"
+        "Hola qué tal.png"  | "hola_que_tal.png"
+        ""                  | ""
+        "    "              | ""
     }
 }

@@ -93,7 +93,7 @@ class CampaignController {
             model.campaignFiles = linkFiles.collect{it ->it.encodeAsS3File()}
             if(springSecurityService.isLoggedIn()){
                 KuorumUserSession userLogged = springSecurityService.principal
-                model.displayTimeZone=userLogged.timeZone
+                model.displayTimeZone=userLogged.timeZone?:campaignRSDTO.user.timeZone
             }else{
                 model.displayTimeZone=campaignRSDTO.user.timeZone
             }
