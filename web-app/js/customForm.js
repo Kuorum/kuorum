@@ -274,7 +274,7 @@ var formHelper = {
             //allowInputToggle:true,
             //collapse: false,
             allowInputToggle:true,
-            stepping:15,
+            stepping:1,
             showTimeZone:true,
             keepOpen:true
         });
