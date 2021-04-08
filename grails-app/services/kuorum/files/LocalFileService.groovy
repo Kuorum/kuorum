@@ -67,7 +67,7 @@ class LocalFileService implements FileService{
         kuorumFile.save()//The ID is necessary
 
         def fileLocation = generatePath(kuorumFile)
-        kuorumFile.fileName = "${kuorumFile.originalName}".toLowerCase()
+        kuorumFile.fileName = "${kuorumFile.originalName}".encodeAsNormalized()
         kuorumFile.storagePath = "$temporalPath/$fileLocation"
         kuorumFile.url ="$rootUrl/$fileLocation/$kuorumFile.fileName"
         kuorumFile.urlThumb = kuorumFile.url

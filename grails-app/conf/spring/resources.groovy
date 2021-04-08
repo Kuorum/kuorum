@@ -3,6 +3,7 @@ import grails.plugin.springsecurity.authentication.encoding.BCryptPasswordEncode
 import grails.util.Environment
 import kuorum.core.customDomain.filter.CustomDomainSpringFilter
 import kuorum.core.customDomain.filter.KuorumLogSpringFilter
+import kuorum.core.customDomain.filter.PingSpringFilter
 import kuorum.core.springSecurity.handlers.SuccessAuthenticationHandler
 import kuorum.files.AmazonFileService
 import kuorum.register.MongoUserDetailsService
@@ -89,6 +90,10 @@ beans = {
         springSecurityService = ref('springSecurityService')
     }
 
+    //Ping
+    pingSpringFilter(PingSpringFilter){
+
+    }
 
     // DOMAIN
     customDomainSpringFilter(CustomDomainSpringFilter){

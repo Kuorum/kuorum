@@ -246,6 +246,7 @@ class FormTagLib {
         def required = attrs.required?'required':''
         def cssClass = attrs.cssClass?:'form-control input-lg'
         def extraClass = attrs.extraClass?:''
+        def readonly = attrs.readonly?'readonly':''
         def labelCssClass = attrs.labelCssClass?:''
         def showLabel = attrs.showLabel?Boolean.parseBoolean(attrs.showLabel):false
         def showCharCounter = attrs.showCharCounter?Boolean.parseBoolean(attrs.showCharCounter):true
@@ -301,7 +302,7 @@ class FormTagLib {
             """
         }
         out <<"""
-            <input type="${type}" ${numberStep?"step='${numberStep}'":''} name="${prefixFieldName}${field}" class="${cssClass} ${extraClass} ${error?'error':''}" id="${id}" ${required} ${maxlength} placeholder="${placeHolder}" value="${value}" ${disabled} />
+            <input type="${type}" ${numberStep?"step='${numberStep}'":''} name="${prefixFieldName}${field}" class="${cssClass} ${extraClass} ${error?'error':''}" id="${id}" ${required} ${maxlength} placeholder="${placeHolder}" value="${value}" ${disabled} ${readonly} />
         """
         if(error){
             out << "<span for='${id}' class='error'>${g.fieldError(bean: command, field: field)}</span>"
