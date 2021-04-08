@@ -767,7 +767,7 @@
                         <div class="survey-question-answers" data-answer-selected="">
 
 
-                            <div id="question-option-5878" class="survey-question-answer  ANSWER_PREDEFINED" data-nextquestionid="" data-answer-id="5878" data-questionoptiontype="ANSWER_PREDEFINED" data-optionstats-total="" data-optionstats-votes="0.0" data-optionstats-percentage="0.0">
+                            <div id="question-option-5879" class="survey-question-answer  ANSWER_PREDEFINED" data-nextquestionid="" data-answer-id="5878" data-questionoptiontype="ANSWER_PREDEFINED" data-optionstats-total="" data-optionstats-votes="0.0" data-optionstats-percentage="0.0">
                                 <div class="single-option">
                                     <div class="question-option-image  col-xs-12 col-sm-4 imagen-shadowed-main-color-domain">
                                         <span class=" fal fa-circle check-icon"></span>
@@ -805,7 +805,7 @@
                                 </div>
                             </div>
 
-                            <div id="question-option-5899" class="survey-question-answer  ANSWER_PREDEFINED" data-nextquestionid="" data-answer-id="5879" data-questionoptiontype="ANSWER_PREDEFINED" data-optionstats-total="" data-optionstats-votes="0.0" data-optionstats-percentage="0.0">
+                            <div id="question-option-5790" class="survey-question-answer  ANSWER_PREDEFINED" data-nextquestionid="" data-answer-id="5879" data-questionoptiontype="ANSWER_PREDEFINED" data-optionstats-total="" data-optionstats-votes="0.0" data-optionstats-percentage="0.0">
                                 <div class="single-option">
                                     <div class="col-xs-1 question-option-icon">
                                         <span class="  far fa-circle check-icon "></span>
@@ -1683,7 +1683,353 @@
                             </div>
                         </div>
                     </li> //FIN TEXTO LIBRE
+                    <div class="box-ppal campaign-new">
+                        <h1 class="sr-only">Debate</h1>
 
+                        <form action="#" class="form-horizontal campaign-form" id="politicianMassMailingForm" method="POST" data-generalerrormessage="Hay algunos errores en el formulario" novalidate="novalidate">
+                            <input type="hidden" name="sendType" value="DRAFT" id="sendMassMailingType">
+                            <input type="hidden" name="redirectLink" id="redirectLink">
+
+                            <fieldset class="form-group">
+                                <label for="campaignName" class="col-sm-2 col-md-1 control-label">Nombre:</label>
+                                <div class="col-sm-8 col-md-7">
+
+                                    <input type="text" name="campaignName" class="form-control input-lg  " id="campaignName" placeholder="Sólo tú verás el nombre de tu campaña" value="">
+
+                                </div>
+                            </fieldset>
+
+
+                            <fieldset class="form-group tags-campaign">
+                                <label for="causes" class="col-sm-2 col-md-1 control-label">
+                                    <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="" data-original-title="Todos los usuarios que tengan estas causas serán notificados sobre tu campaña"></span>
+                                    Causas:
+                                </label>
+                                <div class="col-sm-8 col-md-7">
+
+                                    <input type="text" name="causes" class="form-control input-lg " id="causes" placeholder="" value="" data-tagsinput-init="true" style="display: none;"><div id="causes_tagsinput" class="tagsinput" style="width: 100%; min-height: inherit; height: inherit;"><div id="causes_addTag"><input id="causes_tag" value="" data-default="" autocomplete="off" style="color: rgb(102, 102, 102); width: 100%;"></div><div class="tags_clear"></div></div>
+
+                                </div>
+                            </fieldset>
+
+
+                            <fieldset class="form-group" id="advanced-features-section">
+
+                                <div class="col-sm-offset-1 col-sm-10">
+                                    <a href="">
+                                        Funcionalidades avanzadas
+                                        <span class="go-up stack">
+                        <span class="fa-stack fa-lg fa-rotate-180" aria-hidden="true">
+                            <span class="fas fa-circle fa-stack-1x"></span>
+                            <span class="fal fa-angle-down fa-stack-1x fa-inverse"></span>
+                        </span>
+                    </span>
+                                    </a>
+
+                                </div>
+                            </fieldset>
+
+                            <div id="advanced-features" style="display: block;">
+
+
+                                <fieldset class="form-group" id="campaign-date-range">
+                                    <label for="startDate" class="col-sm-2 col-md-1 control-label">Inicio:</label>
+                                    <div class="col-sm-4 col-md-4">
+
+                                        <div class="input-group datetime" data-timezone="UTC  +1" data-timezonelabel="Europe/Madrid" data-timezonechangelink="https://test.kuorum.org/config/account-details" data-datepicker-type="days">
+                                            <input type="text" name="startDate" class="form-control input-lg " placeholder="" id="startDate" aria-required="" value="">
+                                            <span class="input-group-addon"><span class="fal fa-calendar fa-lg"></span></span>
+                                        </div>
+
+                                    </div>
+                                    <label for="endDate" class="col-sm-1 col-md-1 control-label">Fin:</label>
+                                    <div class="col-sm-4 col-md-4">
+
+                                        <div class="input-group datetime" data-timezone="UTC  +1" data-timezonelabel="Europe/Madrid" data-timezonechangelink="https://test.kuorum.org/config/account-details" data-datepicker-type="days">
+                                            <input type="text" name="endDate" class="form-control input-lg " placeholder="" id="endDate" aria-required="" value="">
+                                            <span class="input-group-addon"><span class="fal fa-calendar fa-lg"></span></span>
+                                        </div>
+
+                                    </div>
+
+                                </fieldset>
+
+
+                                <fieldset class="form-group fieldset-check-box">
+                                    <label for="voteType" class="col-sm-2 col-md-1 control-label">
+
+                                        Voto:
+                                    </label>
+                                    <div class="col-sm-4 col-md-4">
+
+                                        <select name="voteType" class="form-control input-lg " id="voteType">
+                                            <option value="MANIFEST"> Manifiesto</option><option value="ANONYMOUS" selected=""> Anónimo</option><option value="SECRET"> Secreto</option></select>
+                                    </div>
+                                    <label for="campaignVisibility" class="col-sm-2 col-md-1 control-label">
+                                        <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="" data-original-title="Los resultados no serán visibles"></span>
+                                        Resultados:
+                                    </label>
+                                    <div class="col-sm-4 col-md-4">
+
+
+                                        <select name="campaignVisibility" class="form-control input-lg " id="campaignVisibility">
+                                            <option value="VISIBLE" selected=""> Visible</option><option value="RESTRICTED"> Visible por mi</option><option value="NON_VISIBLE"> Ocultos</option></select>
+                                    </div>
+
+
+
+
+
+                                </fieldset>
+
+
+
+                                <div class="campaign-super-admin">
+                                    <fieldset class="form-group">
+                                        <label for="validationType" class="col-sm-2 col-md-1 control-label">
+                                            <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="" data-original-title="Elige cómo quieres validar la identidad de los participantes"></span>
+                                            Validación:
+                                        </label>
+                                        <div class="col-sm-4 col-md-4">
+
+                                            <select name="validationType" class="form-control input-lg " id="validationType">
+                                                <option value="NONE" selected=""> Sin validación</option><option value="DOMAIN"> Validación por plataforma</option><option value="CAMPAIGN"> Validación por campaña</option></select>
+                                        </div>
+
+                                    </fieldset>
+                                    <fieldset class="form-group fieldset-check-box">
+                                        <label for="signVotes" class="col-sm-2 col-md-1 control-label">
+                                            <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="" data-original-title="Los votos se firman digitalmente con validez legal. Si queires cambiar esta opción habla con tu proveedor."></span>
+                                            Firmados:
+                                        </label>
+                                        <div class="col-sm-4">
+
+                                            <label class="checkbox-inline  ">
+                                                <input id="signVotes" class="" type="checkbox" name="signVotes" value="true">
+                                                <span class="check-box-icon"></span>
+                                                <span class="label-checkbox">Votos firmados digitalmente</span>
+                                            </label>
+
+                                        </div>
+                                    </fieldset>
+                                </div>
+
+
+                                <fieldset class="form-group fieldset-check-box">
+                                    <label for="newsletterCommunication" class="col-sm-2 col-md-1 control-label">
+                                        Notificación:
+                                    </label>
+                                    <div class="col-sm-8 col-md-7">
+
+                                        <label class="checkbox-inline  ">
+                                            <input id="newsletterCommunication" class="" type="checkbox" name="newsletterCommunication" value="true">
+                                            <span class="check-box-icon"></span>
+                                            <span class="label-checkbox">Todos los contactos que coincidan con el filtro recibirán una notificación</span>
+                                        </label>
+
+
+                                    </div>
+                                </fieldset>
+                                <fieldset class="form-group fieldset-check-box">
+                                    <label for="groupValidation" class="col-sm-2 col-md-1 control-label">
+                                        Grupo:
+                                    </label>
+                                    <div class="col-sm-8 col-md-7">
+
+                                        <label class="checkbox-inline  ">
+                                            <input id="groupValidation" class="" type="checkbox" name="groupValidation" value="true">
+                                            <span class="check-box-icon"></span>
+                                            <span class="label-checkbox">Solo los usuarios que coincidan con el filtro podrán votar en tu campaña.</span>
+                                        </label>
+
+                                    </div>
+                                </fieldset>
+                                <div id="filter-contact-selector" style="display: none;">
+
+                                    <fieldset class="form-group" id="toFilters">
+                                        <label for="to" class="col-sm-2 col-md-1 control-label">Para :</label>
+                                        <div class="col-sm-4 col-md-3">
+                                            <select name="filterId" class="form-control input-lg" id="recipients">
+                                                <option value="0" data-amountcontacts="5">-- TODOS LOS CONTACTOS --</option>
+
+                                                <option value="391">prueba</option>
+
+                                                <option value="392">filtro javier</option>
+
+
+                                                <option value="-2" data-amountcontacts="-">Crear nuevo filtro</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <a href="https://test.kuorum.org/ajax/account/contacts/filters/data" id="filterContacts" role="button" title="Mostrar condiciones del filtro">
+                                                <span class="fas fa-filter fa-lg"></span>
+                                                <span class="sr-only">Filtrar contactos</span>
+                                            </a>
+                                            <a href="https://test.kuorum.org/ajax/account/contacts" id="infoToContacts">
+                                                <span class="amountRecipients">5</span>
+                                                destinatarios
+
+                                            </a>
+                                        </div>
+                                    </fieldset>
+
+                                    <div id="newFilterContainer">
+
+
+
+
+
+
+                                        <div id="filterData"></div>
+
+                                        <!-- MODAL CONTACT -->
+                                        <div class="modal fade in" id="filtersInfo" tabindex="-1" role="dialog" aria-labelledby="filtersRecipients" aria-hidden="true">
+                                            <div class="modal-dialog ">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                                                            <span aria-hidden="true" class="fal fa-times-circle fa"></span><span class="sr-only">Cerrar</span>
+                                                        </button>
+                                                        <h4 id="filtersRecipients">Tu filtro incluye a 10 contactos</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="scroll-container">
+                                                            <table class="table-bordered">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th>Nombre </th>
+                                                                    <th>Email</th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+
+                                                                </tbody>
+                                                                <tfoot>
+                                                                <tr>
+                                                                    <td colspan="2">No se mostrarán más de 100 contactos </td>
+                                                                </tr>
+                                                                </tfoot>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <!-- MODAL CONTACT -->
+                                        <div class="modal fade in" id="filtersDelete" tabindex="-1" role="dialog" aria-labelledby="filtersDeleteTitle" aria-hidden="true">
+                                            <div class="modal-dialog ">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                                                            <span aria-hidden="true" class="fal fa-times-circle fa"></span><span class="sr-only">Cerrar</span>
+                                                        </button>
+                                                        <h4 id="filtersDeleteTitle">Borrar filtro: '<span class="filter-name">XXX</span>'</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="clearfix">
+                                                            ¿Estas seguro que quieres borrar el filtro '<span class="filter-name">XXX</span>' con <span class="filter-ammount">37</span> contactos?
+                                                        </div>
+                                                        <div class="clearfix">
+                                                            <a href="https://test.kuorum.org/ajax/account/contacts/filters/delete" id="deleteFilterButton" class="btn btn-blue inverted">BORRAR</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <fieldset class="form-group tags-campaign">
+                                    <label for="tagsField" class="col-sm-2 col-md-1 control-label">
+                                        <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="" data-original-title="Los usuarios que hagan una acción sobre tu campaña serán automáticamente tagueados"></span>
+                                        Tags:
+                                    </label>
+                                    <div class="col-sm-8 col-md-7">
+                                        <label class="toggle-inputs">
+                                            Añade estos tag a las personas que
+                                        </label>
+                                        <div class="tag-events">
+
+                                            <div class="tag-event">
+                    <span class="tag-event-label">
+                        Abran el email
+                    </span>
+                                                <span class="tag-event-input">
+                        <label for="tags.OPEN" class="sr-only">Guardar tags</label>
+            <div class="bootstrap-tagsinput"><span class="twitter-typeahead" style="position: relative; display: inline-block;"><input type="text" class="tt-hint" readonly="" autocomplete="off" spellcheck="false" tabindex="-1" dir="ltr" style="position: absolute; top: 0px; left: 0px; border-color: transparent; box-shadow: none; opacity: 1; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0);"><input type="text" placeholder="" class="tt-input" autocomplete="off" spellcheck="false" dir="auto" style="position: relative; vertical-align: top; background-color: transparent;"><pre aria-hidden="true" style="position: absolute; visibility: hidden; white-space: pre; font-family: &quot;Helvetica Neue&quot;, Helvetica, sans-serif; font-size: 12px; font-style: normal; font-variant: normal; font-weight: 400; word-spacing: 0px; letter-spacing: 0px; text-indent: 0px; text-rendering: auto; text-transform: none;"></pre><div class="tt-menu" style="position: absolute; top: 100%; left: 0px; z-index: 100; display: none;"><div class="tt-dataset tt-dataset-tagsnames"></div></div></span></div><input id="tags.OPEN" name="tags.OPEN" class="tagsField" type="text" data-urltags="https://test.kuorum.org/ajax/account/contacts/tags" value="" style="display: none;">
+            <span class="hint">Presiona ENTER o introduce una coma después de cada tag</span>
+
+                    </span>
+                                            </div>
+
+                                            <div class="tag-event">
+                    <span class="tag-event-label">
+                        Hagan click en el email
+                    </span>
+                                                <span class="tag-event-input">
+                        <label for="tags.CLICK" class="sr-only">Guardar tags</label>
+            <div class="bootstrap-tagsinput"><span class="twitter-typeahead" style="position: relative; display: inline-block;"><input type="text" class="tt-hint" readonly="" autocomplete="off" spellcheck="false" tabindex="-1" dir="ltr" style="position: absolute; top: 0px; left: 0px; border-color: transparent; box-shadow: none; opacity: 1; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0);"><input type="text" placeholder="" class="tt-input" autocomplete="off" spellcheck="false" dir="auto" style="position: relative; vertical-align: top; background-color: transparent;"><pre aria-hidden="true" style="position: absolute; visibility: hidden; white-space: pre; font-family: &quot;Helvetica Neue&quot;, Helvetica, sans-serif; font-size: 12px; font-style: normal; font-variant: normal; font-weight: 400; word-spacing: 0px; letter-spacing: 0px; text-indent: 0px; text-rendering: auto; text-transform: none;"></pre><div class="tt-menu" style="position: absolute; top: 100%; left: 0px; z-index: 100; display: none;"><div class="tt-dataset tt-dataset-tagsnames"></div></div></span></div><input id="tags.CLICK" name="tags.CLICK" class="tagsField" type="text" data-urltags="https://test.kuorum.org/ajax/account/contacts/tags" value="" style="display: none;">
+            <span class="hint">Presiona ENTER o introduce una coma después de cada tag</span>
+
+                    </span>
+                                            </div>
+
+                                            <div class="tag-event">
+                    <span class="tag-event-label">
+                        Reponde a una pregunta
+                    </span>
+                                                <span class="tag-event-input">
+                        <label for="tags.SURVEY_ANSWER" class="sr-only">Guardar tags</label>
+            <div class="bootstrap-tagsinput"><span class="twitter-typeahead" style="position: relative; display: inline-block;"><input type="text" class="tt-hint" readonly="" autocomplete="off" spellcheck="false" tabindex="-1" dir="ltr" style="position: absolute; top: 0px; left: 0px; border-color: transparent; box-shadow: none; opacity: 1; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0);"><input type="text" placeholder="" class="tt-input" autocomplete="off" spellcheck="false" dir="auto" style="position: relative; vertical-align: top; background-color: transparent;"><pre aria-hidden="true" style="position: absolute; visibility: hidden; white-space: pre; font-family: &quot;Helvetica Neue&quot;, Helvetica, sans-serif; font-size: 12px; font-style: normal; font-variant: normal; font-weight: 400; word-spacing: 0px; letter-spacing: 0px; text-indent: 0px; text-rendering: auto; text-transform: none;"></pre><div class="tt-menu" style="position: absolute; top: 100%; left: 0px; z-index: 100; display: none;"><div class="tt-dataset tt-dataset-tagsnames"></div></div></span></div><input id="tags.SURVEY_ANSWER" name="tags.SURVEY_ANSWER" class="tagsField" type="text" data-urltags="https://test.kuorum.org/ajax/account/contacts/tags" value="" style="display: none;">
+            <span class="hint">Presiona ENTER o introduce una coma después de cada tag</span>
+
+                    </span>
+                                            </div>
+
+                                            <div class="tag-event">
+                    <span class="tag-event-label">
+                        Termine el cuestionario
+                    </span>
+                                                <span class="tag-event-input">
+                        <label for="tags.SURVEY_FINISHED" class="sr-only">Guardar tags</label>
+            <div class="bootstrap-tagsinput"><span class="twitter-typeahead" style="position: relative; display: inline-block;"><input type="text" class="tt-hint" readonly="" autocomplete="off" spellcheck="false" tabindex="-1" dir="ltr" style="position: absolute; top: 0px; left: 0px; border-color: transparent; box-shadow: none; opacity: 1; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0);"><input type="text" placeholder="" class="tt-input" autocomplete="off" spellcheck="false" dir="auto" style="position: relative; vertical-align: top; background-color: transparent;"><pre aria-hidden="true" style="position: absolute; visibility: hidden; white-space: pre; font-family: &quot;Helvetica Neue&quot;, Helvetica, sans-serif; font-size: 12px; font-style: normal; font-variant: normal; font-weight: 400; word-spacing: 0px; letter-spacing: 0px; text-indent: 0px; text-rendering: auto; text-transform: none;"></pre><div class="tt-menu" style="position: absolute; top: 100%; left: 0px; z-index: 100; display: none;"><div class="tt-dataset tt-dataset-tagsnames"></div></div></span></div><input id="tags.SURVEY_FINISHED" name="tags.SURVEY_FINISHED" class="tagsField" type="text" data-urltags="https://test.kuorum.org/ajax/account/contacts/tags" value="" style="display: none;">
+            <span class="hint">Presiona ENTER o introduce una coma después de cada tag</span>
+
+                    </span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <fieldset class="buttons">
+                                <div class="text-right">
+                                    <ul class="form-final-options">
+
+
+
+
+                                        <li>
+                                            <a href="#" id="save-draft-debate" data-redirectlink="politicianCampaigns" class="btn btn-grey-light">
+                                                Guardar borrador
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#" class="btn btn-blue inverted" id="next" data-redirectlink="surveyEditContent">
+                                                Siguiente
+                                            </a>
+                                        </li>
+
+
+                                    </ul>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
 
 
 
