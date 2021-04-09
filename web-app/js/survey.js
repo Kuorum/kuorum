@@ -164,7 +164,8 @@ var surveyFunctions = {
     _checkValidQuestion:{
         ONE_OPTION: function(question){return true;},
         MULTIPLE_OPTION : function(question){return true;},
-        MULTIPLE_OPTION_WEIGHTED: function(question){
+        MULTIPLE_OPTION_WEIGHTED : function(question){return true;},
+        ONE_OPTION_WEIGHTED: function(question){
             var questionPoints = parseFloat(question.getAttribute("data-points"));
             var questionValidationData ={
                 valid:false,
@@ -201,7 +202,7 @@ var surveyFunctions = {
             this._handlePrintingQuestionError(questionValidationData);
             return questionValidationData.valid;
             },
-        MULTIPLE_OPTION_POINTS: function(question){return this.MULTIPLE_OPTION_WEIGHTED(question)},
+        MULTIPLE_OPTION_POINTS: function(question){return this.ONE_OPTION_WEIGHTED(question)},
         TEXT_OPTION: function(question){return true;},
         RATING_OPTION: function(question){return true;},
         CONTACT_UPLOAD_FILES: function(question) {return true;},
@@ -325,7 +326,8 @@ var surveyFunctions = {
         _checkValidInputAnswerByQuestionType:{
             ONE_OPTION: function(inputNode){return surveyFunctions._checkValidAnswerType._checkValidInputAnswerByQuestionType.defaultValidation(inputNode);},
             MULTIPLE_OPTION : function(inputNode){return surveyFunctions._checkValidAnswerType._checkValidInputAnswerByQuestionType.defaultValidation(inputNode);},
-            MULTIPLE_OPTION_WEIGHTED: function(inputNode){
+            MULTIPLE_OPTION_WEIGHTED : function(inputNode){return surveyFunctions._checkValidAnswerType._checkValidInputAnswerByQuestionType.defaultValidation(inputNode);},
+            ONE_OPTION_WEIGHTED: function(inputNode){
                 var valid = parseFloat(inputNode.value)>0;
                 return {
                     valid: valid,
@@ -333,7 +335,7 @@ var surveyFunctions = {
                     input: inputNode
                 };
             },
-            MULTIPLE_OPTION_POINTS: function(inputNode){return surveyFunctions._checkValidAnswerType._checkValidInputAnswerByQuestionType.MULTIPLE_OPTION_WEIGHTED(inputNode)},
+            MULTIPLE_OPTION_POINTS: function(inputNode){return surveyFunctions._checkValidAnswerType._checkValidInputAnswerByQuestionType.ONE_OPTION_WEIGHTED(inputNode)},
             TEXT_OPTION:            function(inputNode){return surveyFunctions._checkValidAnswerType._checkValidInputAnswerByQuestionType.defaultValidation(inputNode);},
             RATING_OPTION:          function(inputNode){return surveyFunctions._checkValidAnswerType._checkValidInputAnswerByQuestionType.defaultValidation(inputNode);},
             CONTACT_UPLOAD_FILES:   function(inputNode){return surveyFunctions._checkValidAnswerType._checkValidInputAnswerByQuestionType.defaultValidation(inputNode);},
