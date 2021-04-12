@@ -66,7 +66,6 @@
                 <fieldset class="form-group fieldset-check-box">
 
                     <label for="voteType" class="col-sm-2 col-md-1 control-label">
-                        %{--                            <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="${g.message(code:'kuorum.web.commands.payment.CampaignSettingsCommand.voteTYpe.label.info')}"></span>--}%
                         <g:message code="kuorum.web.commands.payment.CampaignSettingsCommand.voteType.label.left"/>:
                     </label>
                     <div class="col-sm-4 col-md-4">
@@ -77,7 +76,6 @@
                         <g:message code="kuorum.web.commands.payment.CampaignSettingsCommand.campaignVisibility.label.left"/>:
                     </label>
                     <div class="col-sm-4 col-md-4">
-                        %{--                        <formUtil:checkBox command="${command}" field="campaignVisibility" label="${g.message(code:'kuorum.web.commands.payment.CampaignSettingsCommand.campaignVisibility.label')}" />--}%
                         <formUtil:selectEnum command="${command}" field="campaignVisibility" disabled="${!domainValidation}" showLabel="false"/>
                     </div>
                 </fieldset>
@@ -92,12 +90,6 @@
                         <div class="col-sm-4 col-md-4">
                             <formUtil:selectEnum command="${command}" field="validationType" disabled="${!domainValidation}" showLabel="false"/>
                         </div>
-
-
-
-
-
-
                     </fieldset>
                     <fieldset class="form-group fieldset-check-box">
                         <label for="signVotes" class="col-sm-2 col-md-1 control-label">
@@ -116,7 +108,6 @@
                         <g:message code="kuorum.web.commands.payment.CampaignSettingsCommand.hideComments.label.left"/>:
                     </label>
                     <div class="col-sm-8 col-md-7">
-%{--                        <formUtil:checkBox command="${command}" field="campaignVisibility" label="${g.message(code:'kuorum.web.commands.payment.CampaignSettingsCommand.hideComments.label')}"/>--}%
                         <formUtil:selectEnum command="${command}" field="campaignVisibility" disabled="${!domainValidation}" showLabel="false"/>
                     </div>
                 </fieldset>
@@ -127,7 +118,6 @@
                 </label>
                 <div class="col-sm-8 col-md-7">
                     <formUtil:checkBox command="${command}" field="newsletterCommunication" disabled="${campaign != null && campaign.published}"/>
-%{--                    <formUtil:checkBox command="${command}" field="newsletterCommunication"/>--}%
                 </div>
             </fieldset>
             <fieldset class="form-group fieldset-check-box">
