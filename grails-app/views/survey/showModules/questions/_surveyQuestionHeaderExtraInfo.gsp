@@ -7,7 +7,7 @@
             <div class="survey-question-extra-info-points"><g:message code="survey.questions.header.extrainfo.multi.points" args="[question.points]"/> </div>
         </g:if>
         <g:if test="${[org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.MULTIPLE_OPTION_WEIGHTED].contains(question.questionType)}">
-            <div class="survey-question-extra-info-points"><g:message code="survey.questions.header.extrainfo.multi.points.weigth" args="[question.maxAnswers*question.points, 1, question.points ]"/> </div>
+            <div class="survey-question-extra-info-points"><g:message code="survey.questions.header.extrainfo.multi.points.weigth" args="[question.maxAnswers*question.points, question.minAnswers*question.points, 1, question.points ]"/> </div>
         </g:if>
     </div>
 </g:if>
