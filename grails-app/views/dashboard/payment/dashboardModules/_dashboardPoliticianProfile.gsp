@@ -16,7 +16,7 @@
                     <g:each in="${emptyEditableData.fields}" var="fieldToCheck">
                         <g:if test="${fieldToCheck.uncompleted}">
                             <li>
-                                <g:link mapping="${fieldToCheck.urlMapping}" itemprop="url">
+                                <g:link mapping="${fieldToCheck.urlMappi0ng}" itemprop="url">
                                     <span class="text"><g:message code="profile.menu.${fieldToCheck.urlMapping}"/></span>
                                     <span class="counter">${fieldToCheck.completed}/${fieldToCheck.total}</span>
                                 </g:link>

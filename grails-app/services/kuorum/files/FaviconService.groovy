@@ -16,7 +16,11 @@ class FaviconService {
     def grailsApplication
 
     void createFavicon (String domainLogoUrl, Path temp, DomainRSDTO domain){
-        String zipFileUrl = getFaviconResourcesZipUrl(domainLogoUrl, domain)
+        try {
+            String zipFileUrl = getFaviconResourcesZipUrl(domainLogoUrl, domain)
+        }catch(Exception e){
+
+        }
         File fileZip = downloadFaviconZip(zipFileUrl,temp)
         Path tempFaviconFolder = domainResourcesService.unzipFile(fileZip, temp)
         uploadFaviconFiles(tempFaviconFolder, domain)
@@ -26,6 +30,7 @@ class FaviconService {
         RESTClient http = new RESTClient('https://realfavicongenerator.net/api')
         http.ignoreSSLIssues()
         String uri = 'https://realfavicongenerator.net/api/favicon'
+        String path
         def bodyParams = buildBodyParams(domainLogoUrl, domain)
         def response = http.post(
                 path:uri,

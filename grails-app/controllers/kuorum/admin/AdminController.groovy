@@ -365,8 +365,12 @@ class AdminController {
         CommonsMultipartFile customLogo = request.getFile('logo')
         try {
             if (customLogo && !customLogo.empty) {
-                domainResourcesService.uploadLogoFile(customLogo.getInputStream())
-                flash.message = message(code: 'admin.menu.domainConfig.uploadLogo.success')
+                try {
+                    domainResourcesService.uploadLogoFile(customLogo.getInputStream())
+                    flash.message = message(code: 'admin.menu.domainConfig.uploadLogo.success')
+                }catch(Exception e){
+                    flash.error = message(code: 'admin.menu.domainConfig.uploadLogo.favicon.unsuccess')
+                }
             } else {
                 flash.error = message(code: 'admin.menu.domainConfig.uploadLogo.unsuccess')
             }
