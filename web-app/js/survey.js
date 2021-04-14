@@ -719,10 +719,21 @@ var surveyFunctions = {
         // MULTIPLE_OPTION_WEIGHTED -> Has no limit. The unique limit is the max points that the voter can distribute.
         var maxAnswersReached = false;
 
+        maxAnswersReached = function (operator){
+            // Instead of a var, this logic should be reevaluated. That's why is not using a var.
+            var overflowMax
+            switch(operator) {
+                case ">=": overflowMax = selectedAnswers.length >= maxAnswers ; break;
+                case ">": overflowMax = selectedAnswers.length > maxAnswers ; break;
+                case "==":
+                default:overflowMax = selectedAnswers.length == maxAnswers ; break;
+            }
+            return maxAnswers>0 && (overflowMax && questionType != "MULTIPLE_OPTION_WEIGHTED");
+        }
+        console.log("MULTI")
         if (!!selectedAnswers === true && Array.isArray(selectedAnswers)) {
-            maxAnswersReached = maxAnswers>0 && (selectedAnswers.length >= maxAnswers && questionType != "MULTIPLE_OPTION_WEIGHTED");
             var answerPosition = selectedAnswers.indexOf(answer.getAttribute('data-answer-id'));
-            if (answerPosition === -1 && maxAnswersReached ) {
+            if (answerPosition === -1 && maxAnswersReached(">=") ) {
                 console.log("Skip add new answer because the limit is reached")
                 return;
             }else if (answerPosition === -1) {
@@ -741,12 +752,12 @@ var surveyFunctions = {
         }
         answer.setAttribute("data-optionStats-votes",numOptionAnswers)
         question.setAttribute('data-answer-selected',  (selectedAnswers.length > 0) ? JSON.stringify(selectedAnswers) : '');
-        if (maxAnswersReached){
+        if (maxAnswersReached("==")){
             $(question).find(".survey-question-answer:not(.checked)").addClass("disabled")
         }else{
             $(question).find(".survey-question-answer:not(.checked)").removeClass("disabled")
         }
-        if (selectedAnswers.length === 0 || selectedAnswers.length < minAnswers || maxAnswersReached){
+        if (selectedAnswers.length === 0 || selectedAnswers.length < minAnswers || maxAnswersReached(">")){
             $(nextButton).addClass('disabled');
         }else{
             $(nextButton).removeClass('disabled');
