@@ -312,6 +312,7 @@ class RestKuorumApiService {
         ACCOUNT_SURVEY_ANSWER_FILE    ("/communication/campaign/survey/{userId}/{surveyId}/question/{questionId}/{questionOptionId}/file"),
         ACCOUNT_SURVEY_REPORT_STATS   ("/communication/campaign/survey/{userId}/{surveyId}/report/stats"),
         ACCOUNT_SURVEY_REPORT_RAW     ("/communication/campaign/survey/{userId}/{surveyId}/report/rawData"),
+        ACCOUNT_SURVEY_COPY           ("/communication/campaign/survey/{userId}/{campaignId}/copy"),
 
         ACCOUNT_ACTIVE_PARTICIPATORY_BUDGETS                            ("/communication/campaign/participatory-budget/"),
         ACCOUNT_PARTICIPATORY_BUDGETS                                   ("/communication/campaign/participatory-budget/{userId}"),

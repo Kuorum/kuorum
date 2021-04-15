@@ -3,6 +3,7 @@
 <g:set var="urlMappingNameEditStep" value="${campaign.campaignType.toString().toLowerCase()+'EditContent'}"/>
 <g:set var="urlMappingNameShow" value="${campaign.campaignType.toString().toLowerCase()+'Show'}"/>
 <g:set var="urlMappingNameRemove" value="${campaign.campaignType.toString().toLowerCase()+'Remove'}"/>
+<g:set var="urlMappingNameCopy" value="${campaign.campaignType.toString().toLowerCase()+'Copy'}"/>
 <g:set var="faIcon" value="fa-newspaper"/>
 <g:set var="hidePause" value="${campaign.campaignStatusRSDTO != org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT && campaign.campaignStatusRSDTO != org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.PAUSE}"/>
 <g:if test="${campaign.campaignType == org.kuorum.rest.model.communication.CampaignTypeRSDTO.DEBATE}">
@@ -31,7 +32,7 @@
     <g:set var="faIcon" value="fa-microphone"/>
 </g:elseif>
 <g:set var="typeName" value="${g.message(code: 'tools.campaign.new.'+type)}"/>
-<g:set var="campaignGenericMappings" value="[show:urlMappingNameShow, edit:urlMappingNameEditStep, remove:urlMappingNameRemove]"/>
+<g:set var="campaignGenericMappings" value="[show:urlMappingNameShow, edit:urlMappingNameEditStep, remove:urlMappingNameRemove, copy:urlMappingNameCopy]"/>
 <g:if test="${campaign.event}">
     <g:set var="type" value="EVENT"/>
     <g:set var="faIcon" value="fa-calendar-star"/>
@@ -78,6 +79,9 @@
         </li>
     </ul>
     <ul class="list-actions">
+        <li>
+            <g:link mapping="${campaignGenericMappings.copy}" params="[campaignId:campaign.id]" class="campaignStats"><span class="fal fa-copy"></span> <span class="sr-only">Stats</span></g:link>
+        </li>
         <g:if test="${campaign.campaignStatusRSDTO == CampaignStatusRSDTO.SENT || campaign.campaignStatusRSDTO == CampaignStatusRSDTO.PAUSE}">
             <li>
                 <g:link mapping="politicianCampaignStatsShow" params="[campaignId: campaign.id]" role="button" class="campaignStats"><span class="fal fa-chart-line"></span> <span class="sr-only">Stats</span></g:link>

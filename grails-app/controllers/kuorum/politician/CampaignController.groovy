@@ -16,10 +16,12 @@ import kuorum.util.TimeZoneUtil
 import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.commands.payment.CampaignSettingsCommand
 import kuorum.web.commands.payment.contact.ContactFilterCommand
-import org.kuorum.rest.model.communication.*
+import org.kuorum.rest.model.communication.CampaignRDTO
+import org.kuorum.rest.model.communication.CampaignRSDTO
+import org.kuorum.rest.model.communication.CampaignTypeRSDTO
+import org.kuorum.rest.model.communication.CampaignValidationTypeRDTO
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.kuorum.rest.model.communication.event.EventRDTO
-import org.kuorum.rest.model.communication.search.SearchCampaignRDTO
 import org.kuorum.rest.model.communication.survey.CampaignVisibilityRSDTO
 import org.kuorum.rest.model.communication.survey.SurveyRDTO
 import org.kuorum.rest.model.communication.survey.SurveyVoteTypeDTO
@@ -29,7 +31,6 @@ import org.kuorum.rest.model.contact.filter.FilterRDTO
 import org.kuorum.rest.model.contact.filter.FilterRSDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
-import org.kuorum.rest.model.search.SearchByRDTO
 import org.kuorum.rest.model.search.SearchKuorumElementRSDTO
 import org.kuorum.rest.model.search.SearchParamsRDTO
 import org.kuorum.rest.model.search.SearchResultsRSDTO
@@ -391,6 +392,10 @@ class CampaignController {
         }
 
         [msg: msg, campaign: savedCampaign, nextStep:processNextStep(user, savedCampaign, campaignRDTO.publishOn!= null)]
+    }
+    
+    def copyCampaign (Long campaignId){
+        return null
     }
 
     private def processNextStep(KuorumUserSession user, CampaignRSDTO campaignRSDTO, Boolean checkPaymentRedirect){
