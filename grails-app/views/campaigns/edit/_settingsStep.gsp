@@ -76,7 +76,7 @@
                         <g:message code="kuorum.web.commands.payment.CampaignSettingsCommand.campaignVisibility.label.left"/>:
                     </label>
                     <div class="col-sm-4 col-md-4">
-                        <formUtil:selectEnum command="${command}" field="campaignVisibility" disabled="${!domainValidation}" showLabel="false"/>
+                        <formUtil:selectEnum command="${command}" field="campaignVisibility" showLabel="false"/>
                     </div>
                 </fieldset>
             </g:if>
