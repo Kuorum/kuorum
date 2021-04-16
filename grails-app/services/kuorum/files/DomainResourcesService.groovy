@@ -62,8 +62,8 @@ class DomainResourcesService {
             temp.toAbsolutePath().deleteDir()
         }
         catch (Exception e) {
-            throw e
             log.error("Ha fallado la subida del logo", e)
+            throw e
         }
     }
 
