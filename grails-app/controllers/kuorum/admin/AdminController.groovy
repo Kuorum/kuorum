@@ -283,7 +283,7 @@ class AdminController {
         List<CampaignRSDTO> domainCampaigns = campaignService.findRelevantDomainCampaigns()
         // TODO: BAD TRICK -> Recover all campaigns without pagination
         SearchCampaignRDTO searchCampaignRDTO = new SearchCampaignRDTO(
-                page:0,
+                page: 0,
                 size: 1000,
                 attachNotPublished: false,
                 onlyPublications: true
@@ -363,21 +363,17 @@ class AdminController {
     def uploadLogo() {
 
         CommonsMultipartFile customLogo = request.getFile('logo')
-        try {
-            if (customLogo && !customLogo.empty) {
-                try {
-                    domainResourcesService.uploadLogoFile(customLogo.getInputStream())
-                    flash.message = message(code: 'admin.menu.domainConfig.uploadLogo.success')
-                }catch(Exception e){
-                    flash.error = message(code: 'admin.menu.domainConfig.uploadLogo.favicon.unsuccess')
-                }
-            } else {
-                flash.error = message(code: 'admin.menu.domainConfig.uploadLogo.unsuccess')
+        if (customLogo && !customLogo.empty) {
+            try {
+                domainResourcesService.uploadLogoFile(customLogo.getInputStream())
+                flash.message = message(code: 'admin.menu.domainConfig.uploadLogo.success')
+            } catch (Exception e) {
+                flash.error = message(code: 'admin.menu.domainConfig.uploadLogo.favicon.unsuccess')
             }
-            redirect mapping: 'adminDomainConfig'
-        } catch (Exception e) {
-            log.error(e)
+        } else {
+            flash.error = message(code: 'admin.menu.domainConfig.uploadLogo.unsuccess')
         }
+        redirect mapping: 'adminDomainConfig'
     }
 
     def editCarousel() {
@@ -568,15 +564,15 @@ class AdminController {
         }
     }
 
-    @Secured(['IS_AUTHENTICATED_FULLY','ROLE_SUPER_ADMIN'])
-    void updateDomainCss(){
+    @Secured(['IS_AUTHENTICATED_FULLY', 'ROLE_SUPER_ADMIN'])
+    void updateDomainCss() {
 
     }
 
-    @Secured(['IS_AUTHENTICATED_FULLY','ROLE_SUPER_ADMIN'])
-    void updateDomainCssPost(){
+    @Secured(['IS_AUTHENTICATED_FULLY', 'ROLE_SUPER_ADMIN'])
+    void updateDomainCssPost() {
         domainService.updateAllDomainCss(false)
-        flash.message="Executing asynchronously"
-        redirect mapping:'adminRecerateCss'
+        flash.message = "Executing asynchronously"
+        redirect mapping: 'adminRecerateCss'
     }
 }

@@ -64,8 +64,8 @@ class DomainResourcesService {
             domainService.updateConfig(domain)
         }
         catch (Exception e) {
-            throw e
             log.error("Ha fallado la subida del logo", e)
+            throw e
         }
     }
 
