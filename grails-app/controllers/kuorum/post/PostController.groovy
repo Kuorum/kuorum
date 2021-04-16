@@ -78,4 +78,8 @@ class PostController extends CampaignController{
         PostRSDTO post = postService.likePost(command.postId, currentUser, command.like, command.postUserId)
         render post as JSON
     }
+
+    def copy(Long campaignId) {
+        return super.copyCampaign(campaignId, surveyService)
+    }
 }

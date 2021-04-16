@@ -1,18 +1,12 @@
 package payment.campaign
 
-import com.ecwid.mailchimp.method.v1_3.campaign.CampaignType
+
 import com.fasterxml.jackson.core.type.TypeReference
-import grails.transaction.Transactional
 import kuorum.core.exception.KuorumException
-import kuorum.mail.KuorumMailService
 import kuorum.register.KuorumUserSession
 import kuorum.util.rest.RestKuorumApiService
-import kuorum.web.commands.payment.survey.SurveyReportType
 import org.kuorum.rest.model.communication.CampaignRDTO
 import org.kuorum.rest.model.communication.CampaignRSDTO
-import org.kuorum.rest.model.communication.survey.*
-import org.kuorum.rest.model.communication.survey.answer.QuestionAnswerRDTO
-import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 
 abstract class AbstractCampaignCreatorService<RSDTO extends CampaignRSDTO, RDTO extends CampaignRDTO> implements CampaignCreatorService<RSDTO, RDTO> {
 
@@ -46,7 +40,7 @@ abstract class AbstractCampaignCreatorService<RSDTO extends CampaignRSDTO, RDTO 
             throw new KuorumException("No ha sido posible copiar la campaña", "campaign.copy.error")
         }
 
-        response.data ?: null;
+        response.data ?: null
     }
 
     protected abstract TypeReference<RSDTO> getRsdtoType();

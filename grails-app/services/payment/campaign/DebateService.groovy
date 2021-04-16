@@ -15,9 +15,8 @@ import org.kuorum.rest.model.communication.debate.search.SortProposalRDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 
 @Transactional
-class DebateService implements CampaignCreatorService<DebateRSDTO, DebateRDTO> {
+class DebateService extends AbstractCampaignCreatorService<DebateRSDTO, DebateRDTO> implements CampaignCreatorService<DebateRSDTO, DebateRDTO> {
 
-    RestKuorumApiService restKuorumApiService
     IndexSolrService indexSolrService
     ProposalService proposalService
     CampaignService campaignService
@@ -213,14 +212,12 @@ class DebateService implements CampaignCreatorService<DebateRSDTO, DebateRDTO> {
     }
 
     @Override
-    DebateRSDTO copy(KuorumUserSession user, Long campaignId) {
-        //TODO: KPV-1606
-        return null
+    protected TypeReference<DebateRSDTO> getRsdtoType() {
+        return new TypeReference<DebateRSDTO>() {}
     }
 
     @Override
-    DebateRSDTO copy(String userId, Long campaignId) {
-        //TODO: KPV-1606
-        return null
+    protected RestKuorumApiService.ApiMethod getCopyApiMethod() {
+        return RestKuorumApiService.ApiMethod.ACCOUNT_DEBATE_COPY
     }
 }

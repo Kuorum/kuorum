@@ -295,11 +295,13 @@ class RestKuorumApiService {
         ACCOUNT_DEBATE_PROPOSAL_COMMENTS        ("/communication/campaign/debate/{userId}/{debateId}/proposal/{proposalId}/comment"),
         ACCOUNT_DEBATE_PROPOSAL_COMMENT         ("/communication/campaign/debate/{userId}/{debateId}/proposal/{proposalId}/comment/{commentId}"),
         ACCOUNT_DEBATE_PROPOSAL_COMMENT_VOTE    ("/communication/campaign/debate/{userId}/{debateId}/proposal/{proposalId}/comment/{commentId}/vote"),
+        ACCOUNT_DEBATE_COPY                     ("/communication/campaign/debate/{userId}/{campaignId}/copy"),
 
         ACCOUNT_POSTS_ALL       ("/communication/campaign/post/"),
         ACCOUNT_POSTS           ("/communication/campaign/post/{userId}"),
         ACCOUNT_POST            ("/communication/campaign/post/{userId}/{postId}"),
         ACCOUNT_POST_LIKES      ("/communication/campaign/post/{userId}/{postId}/likes"),
+        ACCOUNT_POST_COPY       ("/communication/campaign/post/{userId}/{campaignId}/copy"),
 
         ACCOUNT_BULLETINS_ALL       ("/communication/campaign/bulletin"),
         ACCOUNT_BULLETINS           ("/communication/campaign/bulletin/{userId}"),
@@ -322,6 +324,7 @@ class RestKuorumApiService {
         ACCOUNT_PARTICIPATORY_BUDGET_DISTRICT_PROPOSAL_VOTE             ("/communication/campaign/participatory-budget/{userId}/{campaignId}/proposal/{proposalId}/vote"),
         ACCOUNT_PARTICIPATORY_BUDGET_DISTRICT_PROPOSAL_SUPPORT          ("/communication/campaign/participatory-budget/{userId}/{campaignId}/proposal/{proposalId}/support"),
         ACCOUNT_PARTICIPATORY_BUDGET_DISTRICT_PROPOSAL_TECHNICAL_REVIEW ("/communication/campaign/participatory-budget/{userId}/{campaignId}/proposal/{proposalId}/technicalReview"),
+        ACCOUNT_PARTICIPATORY_BUDGET_COPY                               ("/communication/campaign/participatory-budget/{userId}/{campaignId}/copy"),
 
         ACCOUNT_DISTRICT_PROPOSALS      ("/communication/campaign/participatory-budget/district-proposal/{userId}"),
         ACCOUNT_DISTRICT_PROPOSAL       ("/communication/campaign/participatory-budget/district-proposal/{userId}/{campaignId}"),
@@ -330,6 +333,8 @@ class RestKuorumApiService {
         ACCOUNT_PETITIONS           ("/communication/campaign/petition/{userId}"),
         ACCOUNT_PETITION            ("/communication/campaign/petition/{userId}/{petitionId}"),
         ACCOUNT_PETITION_SIGN       ("/communication/campaign/petition/{userId}/{petitionId}/sign"),
+        ACCOUNT_PETITION_COPY       ("/communication/campaign/petition/{userId}/{campaignId}/copy"),
+
 
         ACCOUNT_EVENTS              ("/communication/campaign/event/{userId}"),
         ACCOUNT_EVENT               ("/communication/campaign/event/{userId}/{campaignId}"),

@@ -85,4 +85,8 @@ class DebateController extends CampaignController{
             redirect (mapping: 'politicianCampaignStatsShow', params:[campaignId: campaignId])
         }
     }
+
+    def copy(Long campaignId) {
+        return super.copyCampaign(campaignId, debateService)
+    }
 }

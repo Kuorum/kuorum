@@ -1,6 +1,6 @@
 package kuorum.politician
 
-import com.ecwid.mailchimp.method.v1_3.campaign.CampaignType
+
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 import groovy.time.TimeCategory
@@ -25,7 +25,6 @@ import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.kuorum.rest.model.communication.event.EventRDTO
 import org.kuorum.rest.model.communication.survey.CampaignVisibilityRSDTO
 import org.kuorum.rest.model.communication.survey.SurveyRDTO
-import org.kuorum.rest.model.communication.survey.SurveyRSDTO
 import org.kuorum.rest.model.communication.survey.SurveyVoteTypeDTO
 import org.kuorum.rest.model.contact.ContactPageRSDTO
 import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO

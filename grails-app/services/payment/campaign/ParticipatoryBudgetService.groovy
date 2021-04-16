@@ -12,10 +12,9 @@ import org.kuorum.rest.model.communication.participatoryBudget.*
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 
 @Transactional
-class ParticipatoryBudgetService implements CampaignCreatorService<ParticipatoryBudgetRSDTO, ParticipatoryBudgetRDTO> {
+class ParticipatoryBudgetService extends AbstractCampaignCreatorService<ParticipatoryBudgetRSDTO, ParticipatoryBudgetRDTO> implements CampaignCreatorService<ParticipatoryBudgetRSDTO, ParticipatoryBudgetRDTO> {
 
     CampaignService campaignService
-    RestKuorumApiService restKuorumApiService
     IndexSolrService indexSolrService
 
     List<ParticipatoryBudgetRSDTO> findAll(KuorumUserSession user,String viewerUid = null) {
@@ -232,14 +231,12 @@ class ParticipatoryBudgetService implements CampaignCreatorService<Participatory
     }
 
     @Override
-    ParticipatoryBudgetRSDTO copy(KuorumUserSession user, Long campaignId) {
-        //TODO: KPV-1606
-        return null
+    protected TypeReference<ParticipatoryBudgetRSDTO> getRsdtoType() {
+        return new TypeReference<ParticipatoryBudgetRSDTO>() {}
     }
 
     @Override
-    ParticipatoryBudgetRSDTO copy(String userId, Long campaignId) {
-        //TODO: KPV-1606
-        return null
+    protected RestKuorumApiService.ApiMethod getCopyApiMethod() {
+        return RestKuorumApiService.ApiMethod.ACCOUNT_PARTICIPATORY_BUDGET_COPY;
     }
 }

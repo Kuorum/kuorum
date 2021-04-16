@@ -12,14 +12,13 @@ import org.kuorum.rest.model.communication.post.PostRSDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 
 @Transactional
-class PostService implements CampaignCreatorService<PostRSDTO, PostRDTO>{
+class PostService extends AbstractCampaignCreatorService<PostRSDTO, PostRDTO> implements CampaignCreatorService<PostRSDTO, PostRDTO>{
 
     def grailsApplication
     def indexSolrService
     def notificationService
     def fileService
     KuorumMailService kuorumMailService
-    RestKuorumApiService restKuorumApiService
     CampaignService campaignService
 
     PagePostRSDTO findAllPosts(Integer page = 0, Integer size = 10){
@@ -202,14 +201,12 @@ class PostService implements CampaignCreatorService<PostRSDTO, PostRDTO>{
     }
 
     @Override
-    PostRSDTO copy(KuorumUserSession user, Long campaignId) {
-        //TODO: KPV-1606
-        return null
+    protected TypeReference<PostRSDTO> getRsdtoType() {
+        return new TypeReference<PostRSDTO>() {}
     }
 
     @Override
-    PostRSDTO copy(String userId, Long campaignId) {
-        //TODO: KPV-1606
-        return null
+    protected RestKuorumApiService.ApiMethod getCopyApiMethod() {
+        return RestKuorumApiService.ApiMethod.ACCOUNT_POST_COPY
     }
 }

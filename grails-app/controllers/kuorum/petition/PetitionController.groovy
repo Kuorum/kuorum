@@ -91,11 +91,7 @@ class PetitionController extends CampaignController{
         render ([signsHtml:signsHtml, petition: petitionRSDTO] as JSON)
     }
 
-//    def getPetitionSigns(){
-//        Long campaignId = Long.parseLong(params.campaignId)
-//        Integer page = params.page?Integer.parseInt(params.page):0;
-//        Integer size = params.size?Integer.parseInt(params.size):10;
-//        BasicUserPageRSDTO signs = petitionService.listSigns(campaignId, page, size)
-//        render
-//    }
+    def copy(Long campaignId) {
+        return super.copyCampaign(campaignId, petitionService)
+    }
 }

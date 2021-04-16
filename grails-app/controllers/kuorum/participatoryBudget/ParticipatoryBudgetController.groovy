@@ -504,16 +504,8 @@ class ParticipatoryBudgetController extends CampaignController{
         }
     }
 
-    @Override
-    def copyCampaign(Long campaignId) {
-        KuorumUserSession loggedUser = springSecurityService.principal
-        try {
-            ParticipatoryBudgetRSDTO participatoryBudgetRSDTO = surveyService.copy(loggedUser, campaignId)
-        } catch (KuorumException exception) {
-            flash.error = message(code: exception.errors.first().code)
-        } finally {
-            redirect(mapping: 'politicianCampaigns')
-        }
+    def copy(Long campaignId) {
+        return super.copyCampaign(campaignId, participatoryBudgetService)
     }
 
 }
