@@ -60,6 +60,8 @@ class DomainResourcesService {
             String amazonLogoUrl = amazonFileService.uploadDomainLogo(logoFile, domain.domain)
             faviconService.createFavicon(amazonLogoUrl, temp, domain)
             temp.toAbsolutePath().deleteDir()
+            // Updating the config, updates the version. That allows to recover the new favicon and the new logo
+            domainService.updateConfig(domain)
         }
         catch (Exception e) {
             throw e

@@ -49,4 +49,19 @@ class DomainTagLib {
             }
         }
     }
+
+    def favicon={
+        Long version = CustomDomainResolver.domainRSDTO?.version?:0
+        out << """
+        <link rel="apple-touch-icon" sizes="180x180" href="${_domainResourcesPath}/favicon/apple-touch-icon.png?v=${version}">
+        <link rel="icon" type="image/png" sizes="32x32" href="${_domainResourcesPath}/favicon/favicon-32x32.png?v=${version}">
+        <link rel="icon" type="image/png" sizes="16x16" href="${_domainResourcesPath}/favicon/favicon-16x16.png?v=${version}">
+        <link rel="manifest" href="${_domainResourcesPath}/favicon/site.webmanifest?v=${version}">
+        <link rel="mask-icon" href="${_domainResourcesPath}/favicon/safari-pinned-tab.svg?v=${version}" color="#ff9431">
+        <link rel="shortcut icon" href="${_domainResourcesPath}/favicon/favicon.ico?v=${version}">
+        <meta name="msapplication-TileColor" content="#20a2ea">
+        <meta name="msapplication-config" content="${_domainResourcesPath}/favicon/browserconfig.xml?v=${version}">
+        <meta name="theme-color" content="#ffffff">
+        """
+    }
 }
