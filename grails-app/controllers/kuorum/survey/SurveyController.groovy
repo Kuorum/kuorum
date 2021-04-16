@@ -1,5 +1,6 @@
 package kuorum.survey
 
+import com.ecwid.mailchimp.method.v1_3.campaign.CampaignType
 import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.core.exception.KuorumException
@@ -80,9 +81,14 @@ class SurveyController extends CampaignController {
 
     @Override
     def copyCampaign(Long campaignId) {
+        return super.copyCampaign(campaignId)
+    }
+
+    @Override
+    def copy(Long campaignId, CampaignType type) {
         KuorumUserSession loggedUser = springSecurityService.principal
         try {
-            SurveyRSDTO surveyRSDTO = surveyService.copy(loggedUser, campaignId)
+            SurveyRSDTO surveyRSDTO = surveyService.copy(loggedUser, campaignId, type)
         } catch (KuorumException exception) {
             flash.error = message(code: exception.errors.first().code)
         } finally {

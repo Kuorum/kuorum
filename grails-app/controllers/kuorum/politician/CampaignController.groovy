@@ -1,5 +1,6 @@
 package kuorum.politician
 
+import com.ecwid.mailchimp.method.v1_3.campaign.CampaignType
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 import groovy.time.TimeCategory
@@ -394,6 +395,10 @@ class CampaignController {
         [msg: msg, campaign: savedCampaign, nextStep:processNextStep(user, savedCampaign, campaignRDTO.publishOn!= null)]
     }
     
+    def copy (Long campaignId, CampaignType type){
+        return null
+    }
+
     def copyCampaign (Long campaignId){
         return null
     }
@@ -422,5 +427,7 @@ class CampaignController {
             [success : true, belongsToCampaignGroup : belongsToCampaignGroup]
         }
     }
+
+
 
 }

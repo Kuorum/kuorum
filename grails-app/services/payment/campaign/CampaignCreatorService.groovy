@@ -1,6 +1,8 @@
 package payment.campaign
 
+import com.ecwid.mailchimp.method.v1_3.campaign.CampaignType
 import kuorum.register.KuorumUserSession
+import kuorum.util.rest.RestKuorumApiService
 import org.kuorum.rest.model.communication.CampaignRDTO
 import org.kuorum.rest.model.communication.CampaignRSDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
@@ -40,8 +42,15 @@ interface CampaignCreatorService<RSDTO extends CampaignRSDTO, RDTO extends Campa
      * @param campaignId
      * @return
      */
-    RSDTO copy(KuorumUserSession user, Long campaignId)
-    RSDTO copy(String userId, Long campaignId)
+    RSDTO copy(KuorumUserSession user, Long campaignId, CampaignType type)
+    RSDTO copy(String userId, Long campaignId, CampaignType type)
+    Map<String, RestKuorumApiService.ApiMethod> campaignApiMethod = [SURVEY: RestKuorumApiService.ApiMethod.ACCOUNT_SURVEY_COPY]
+//                                             DEBATE,
+//                                             POST,
+//                                             PARTICIPATORY_BUDGET,
+//                                             DISTRICT_PROPOSAL,
+//                                             PETITION,
+//                                             BULLETIN]
     /**
      * Maps RSDTO to RDTO
      * @param rsdto

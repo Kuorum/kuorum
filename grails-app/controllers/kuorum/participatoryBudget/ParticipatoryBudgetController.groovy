@@ -11,6 +11,7 @@ import kuorum.web.commands.payment.participatoryBudget.*
 import kuorum.web.constants.WebConstants
 import org.kuorum.rest.model.communication.CampaignLightRSDTO
 import org.kuorum.rest.model.communication.participatoryBudget.*
+import org.kuorum.rest.model.communication.survey.SurveyRSDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 
 import java.lang.reflect.UndeclaredThrowableException
@@ -503,5 +504,16 @@ class ParticipatoryBudgetController extends CampaignController{
         }
     }
 
+    @Override
+    def copyCampaign(Long campaignId) {
+        KuorumUserSession loggedUser = springSecurityService.principal
+        try {
+            ParticipatoryBudgetRSDTO participatoryBudgetRSDTO = surveyService.copy(loggedUser, campaignId)
+        } catch (KuorumException exception) {
+            flash.error = message(code: exception.errors.first().code)
+        } finally {
+            redirect(mapping: 'politicianCampaigns')
+        }
+    }
 
 }

@@ -80,7 +80,7 @@
     </ul>
     <ul class="list-actions">
         <li>
-            <g:link mapping="${campaignGenericMappings.copy}" params="[campaignId:campaign.id]" class="campaignStats"><span class="fal fa-copy"></span> <span class="sr-only">Stats</span></g:link>
+            <g:link mapping="${campaignGenericMappings.copy}" params="[campaignId:campaign.id, campaignType:campaign.campaignType]" class="campaignStats"><span class="fal fa-copy"></span> <span class="sr-only">Stats</span></g:link>
         </li>
         <g:if test="${campaign.campaignStatusRSDTO == CampaignStatusRSDTO.SENT || campaign.campaignStatusRSDTO == CampaignStatusRSDTO.PAUSE}">
             <li>

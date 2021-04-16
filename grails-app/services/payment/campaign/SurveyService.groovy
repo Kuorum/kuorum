@@ -1,5 +1,6 @@
 package payment.campaign
 
+import com.ecwid.mailchimp.method.v1_3.campaign.CampaignType
 import com.fasterxml.jackson.core.type.TypeReference
 import grails.transaction.Transactional
 import kuorum.core.exception.KuorumException
@@ -262,21 +263,21 @@ class SurveyService implements CampaignCreatorService<SurveyRSDTO, SurveyRDTO> {
     }
 
     @Override
-    SurveyRSDTO copy(KuorumUserSession user, Long campaignId) {
+    SurveyRSDTO copy(KuorumUserSession user, Long campaignId, CampaignType type) {
         if (!user) {
             return null
         }
-        return copy(user.getId().toString(), campaignId)
+        return copy(user.getId().toString(), campaignId, type)
     }
 
     @Override
-    SurveyRSDTO copy(String userId, Long campaignId) throws KuorumException {
+    SurveyRSDTO copy(String userId, Long campaignId, CampaignType type) throws KuorumException {
         Map<String, String> params = [userId: "90090", campaignId: campaignId.toString()]
         Map<String, String> query = [:]
         def response
         try {
             response = restKuorumApiService.post(
-                    RestKuorumApiService.ApiMethod.ACCOUNT_SURVEY_COPY,
+                    campaignApiMethod[type.toString()],
                     params,
                     query,
                     null,
