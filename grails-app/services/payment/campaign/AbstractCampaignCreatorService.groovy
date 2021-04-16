@@ -14,7 +14,7 @@ import org.kuorum.rest.model.communication.survey.*
 import org.kuorum.rest.model.communication.survey.answer.QuestionAnswerRDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 
-abstract class AbstractCampaignCreatorService<RSDTO extends CampaignRSDTO, RDTO extends CampaignRDTO> implements CampaignCreatorService<SurveyRSDTO, SurveyRDTO> {
+abstract class AbstractCampaignCreatorService<RSDTO extends CampaignRSDTO, RDTO extends CampaignRDTO> implements CampaignCreatorService<RSDTO, RDTO> {
 
     RestKuorumApiService restKuorumApiService
 
@@ -29,7 +29,7 @@ abstract class AbstractCampaignCreatorService<RSDTO extends CampaignRSDTO, RDTO 
 
     @Override
     RSDTO copy(String userId, Long campaignId) throws KuorumException {
-        Map<String, String> params = [userId: "90090", campaignId: campaignId.toString()]
+        Map<String, String> params = [userId: userId, campaignId: campaignId.toString()]
         Map<String, String> query = [:]
         RestKuorumApiService.ApiMethod apiMethod =  getCopyApiMethod();
         def response

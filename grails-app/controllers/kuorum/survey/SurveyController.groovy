@@ -80,7 +80,7 @@ class SurveyController extends CampaignController {
     }
 
     @Override
-    def copyCampaign(Long campaignId) {
+    def copy(Long campaignId) {
         return super.copyCampaign(campaignId, surveyService)
     }
 

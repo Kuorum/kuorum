@@ -20,7 +20,6 @@ class SurveyService extends AbstractCampaignCreatorService<SurveyRSDTO, SurveyRD
     def notificationService
     def fileService
     KuorumMailService kuorumMailService
-    RestKuorumApiService restKuorumApiService
     CampaignService campaignService
 
     SurveyRSDTO save(KuorumUserSession user, SurveyRDTO surveyRDTO, Long surveyId) {

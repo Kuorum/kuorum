@@ -396,7 +396,7 @@ class CampaignController {
         [msg: msg, campaign: savedCampaign, nextStep:processNextStep(user, savedCampaign, campaignRDTO.publishOn!= null)]
     }
 
-    def copyCampaign (Long campaignId, CampaignCreatorService campaignService){
+    protected def copyCampaign (Long campaignId, CampaignCreatorService campaignService){
         KuorumUserSession loggedUser = springSecurityService.principal
         try {
             CampaignRSDTO campaignRSDTO = campaignService.copy(loggedUser, campaignId)

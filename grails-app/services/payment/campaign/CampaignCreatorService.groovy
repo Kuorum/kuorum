@@ -42,8 +42,8 @@ interface CampaignCreatorService<RSDTO extends CampaignRSDTO, RDTO extends Campa
      * @param campaignId
      * @return
      */
-    RSDTO copy(KuorumUserSession user, Long campaignId, CampaignType type)
-    RSDTO copy(String userId, Long campaignId, CampaignType type)
+    RSDTO copy(KuorumUserSession user, Long campaignId)
+    RSDTO copy(String userId, Long campaignId)
 
     /**
      * Maps RSDTO to RDTO
