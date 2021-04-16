@@ -50,7 +50,8 @@ class DomainTagLib {
         }
     }
 
-    def favicon={
+    def favicon={attrs ->
+        String domainResourcesPath = attrs.domainResourcesPath
         Long version = CustomDomainResolver.domainRSDTO?.version?:0
         out << """
         <link rel="apple-touch-icon" sizes="180x180" href="${_domainResourcesPath}/favicon/apple-touch-icon.png?v=${version}">

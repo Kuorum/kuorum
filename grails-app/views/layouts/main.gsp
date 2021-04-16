@@ -17,7 +17,7 @@
     %{--<meta name="dcterms.dateCopyrighted" content="2013">--}%
 
     <meta name="robots" content="all">
-    <domain:favicon/>
+    <domain:favicon domainResourcesPath="${_domainResourcesPath}"/>
 
     %{--This line wirtes the goole verification code. It is a meta tag with its code--}%
     ${raw(kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.googleSiteVerification)}
