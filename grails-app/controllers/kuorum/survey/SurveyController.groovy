@@ -81,20 +81,9 @@ class SurveyController extends CampaignController {
 
     @Override
     def copyCampaign(Long campaignId) {
-        return super.copyCampaign(campaignId)
+        return super.copyCampaign(campaignId, surveyService)
     }
 
-    @Override
-    def copy(Long campaignId, CampaignType type) {
-        KuorumUserSession loggedUser = springSecurityService.principal
-        try {
-            SurveyRSDTO surveyRSDTO = surveyService.copy(loggedUser, campaignId, type)
-        } catch (KuorumException exception) {
-            flash.error = message(code: exception.errors.first().code)
-        } finally {
-            redirect(mapping: 'politicianCampaigns')
-        }
-    }
 
     private def surveyModelSettings(CampaignSettingsCommand command, SurveyRSDTO surveyRSDTO) {
         def model = modelSettings(command, surveyRSDTO)

@@ -1,10 +1,9 @@
 package payment.campaign
 
-import com.ecwid.mailchimp.method.v1_3.campaign.CampaignType
+
 import com.fasterxml.jackson.core.type.TypeReference
 import grails.transaction.Transactional
 import kuorum.core.exception.KuorumException
-import kuorum.core.exception.KuorumExceptionData
 import kuorum.mail.KuorumMailService
 import kuorum.register.KuorumUserSession
 import kuorum.util.rest.RestKuorumApiService
@@ -14,7 +13,7 @@ import org.kuorum.rest.model.communication.survey.answer.QuestionAnswerRDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 
 @Transactional
-class SurveyService implements CampaignCreatorService<SurveyRSDTO, SurveyRDTO> {
+class SurveyService extends AbstractCampaignCreatorService<SurveyRSDTO, SurveyRDTO> implements CampaignCreatorService<SurveyRSDTO, SurveyRDTO> {
 
     def grailsApplication
     def indexSolrService
@@ -263,32 +262,12 @@ class SurveyService implements CampaignCreatorService<SurveyRSDTO, SurveyRDTO> {
     }
 
     @Override
-    SurveyRSDTO copy(KuorumUserSession user, Long campaignId, CampaignType type) {
-        if (!user) {
-            return null
-        }
-        return copy(user.getId().toString(), campaignId, type)
+    protected TypeReference<SurveyRSDTO> getRsdtoType() {
+        return new TypeReference<SurveyRSDTO>() {}
     }
 
     @Override
-    SurveyRSDTO copy(String userId, Long campaignId, CampaignType type) throws KuorumException {
-        Map<String, String> params = [userId: "90090", campaignId: campaignId.toString()]
-        Map<String, String> query = [:]
-        def response
-        try {
-            response = restKuorumApiService.post(
-                    campaignApiMethod[type.toString()],
-                    params,
-                    query,
-                    null,
-                    new TypeReference<SurveyRSDTO>() {}
-            )
-        } catch (Exception ex) {
-            log.error("""Error copying campaign: -> ${ex.message}""")
-            throw new KuorumException("No ha sido posible copiar la campaña", "campaign.copy.error")
-        }
-
-        response.data ?: null;
+    protected RestKuorumApiService.ApiMethod getCopyApiMethod() {
+        return RestKuorumApiService.ApiMethod.ACCOUNT_SURVEY_COPY;
     }
-
 }

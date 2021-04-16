@@ -25,6 +25,7 @@ import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.kuorum.rest.model.communication.event.EventRDTO
 import org.kuorum.rest.model.communication.survey.CampaignVisibilityRSDTO
 import org.kuorum.rest.model.communication.survey.SurveyRDTO
+import org.kuorum.rest.model.communication.survey.SurveyRSDTO
 import org.kuorum.rest.model.communication.survey.SurveyVoteTypeDTO
 import org.kuorum.rest.model.contact.ContactPageRSDTO
 import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
@@ -394,13 +395,16 @@ class CampaignController {
 
         [msg: msg, campaign: savedCampaign, nextStep:processNextStep(user, savedCampaign, campaignRDTO.publishOn!= null)]
     }
-    
-    def copy (Long campaignId, CampaignType type){
-        return null
-    }
 
-    def copyCampaign (Long campaignId){
-        return null
+    def copyCampaign (Long campaignId, CampaignCreatorService campaignService){
+        KuorumUserSession loggedUser = springSecurityService.principal
+        try {
+            CampaignRSDTO campaignRSDTO = campaignService.copy(loggedUser, campaignId)
+        } catch (KuorumException exception) {
+            flash.error = message(code: exception.errors.first().code)
+        } finally {
+            redirect(mapping: 'politicianCampaigns')
+        }
     }
 
     private def processNextStep(KuorumUserSession user, CampaignRSDTO campaignRSDTO, Boolean checkPaymentRedirect){

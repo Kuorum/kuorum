@@ -44,13 +44,7 @@ interface CampaignCreatorService<RSDTO extends CampaignRSDTO, RDTO extends Campa
      */
     RSDTO copy(KuorumUserSession user, Long campaignId, CampaignType type)
     RSDTO copy(String userId, Long campaignId, CampaignType type)
-    Map<String, RestKuorumApiService.ApiMethod> campaignApiMethod = [SURVEY: RestKuorumApiService.ApiMethod.ACCOUNT_SURVEY_COPY]
-//                                             DEBATE,
-//                                             POST,
-//                                             PARTICIPATORY_BUDGET,
-//                                             DISTRICT_PROPOSAL,
-//                                             PETITION,
-//                                             BULLETIN]
+
     /**
      * Maps RSDTO to RDTO
      * @param rsdto
