@@ -7958,6 +7958,11 @@ ul.notification-menu > li.see-more {
     padding: 0px;
 }
 
+.survey-question-answer .question-option-image.imagen-shadowed-main-color-domain:after,
+.survey-question-answer .question-option-image img{
+    border-radius: 5px;
+}
+
 .survey-question-answer .question-option-image .fal,
 .survey-question-answer .question-option-image .far,
 .survey-question-answer .question-option-image .fas{
