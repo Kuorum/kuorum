@@ -372,7 +372,8 @@ class AmazonFileService extends LocalFileService {
             String finalUrl = uploadResult.getLocation().replaceAll("%2F", "/")
 
 //            log.info("Se ha subido el nuevo archivo del dominio")
-            return finalUrl;
+            return buildAmazonUrl(keyName)
+//            return finalUrl;
         } catch (Exception e) {
             s3Client.abortMultipartUpload(new AbortMultipartUploadRequest(bucketName, keyName, initResponse.getUploadId()));
             log.error("Ha habido un error subiendo el fichero a Amazon.", e);
@@ -446,7 +447,8 @@ class AmazonFileService extends LocalFileService {
 
     private String buildAmazonUrl(String relativePath) {
         String cdnHost = grailsApplication.config.grails.resources.mappers.amazoncdn.host;
-        return "${cdnHost}/${relativePath}"
+        Date date= new Date();
+        return "${cdnHost}/${relativePath}?timestamp=${date.time}"
     }
 
     private AmazonS3 buildAmazonClient() {
