@@ -25,7 +25,7 @@ abstract class AbstractCampaignCreatorService<RSDTO extends CampaignRSDTO, RDTO 
     RSDTO copy(String userId, Long campaignId) throws KuorumException {
         Map<String, String> params = [userId: userId, campaignId: campaignId.toString()]
         Map<String, String> query = [:]
-        RestKuorumApiService.ApiMethod apiMethod =  getCopyApiMethod();
+        RestKuorumApiService.ApiMethod apiMethod = getCopyApiMethod();
         def response
         try {
             response = restKuorumApiService.post(

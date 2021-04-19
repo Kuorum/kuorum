@@ -1,10 +1,8 @@
 package payment.campaign
 
-
 import com.fasterxml.jackson.core.type.TypeReference
 import grails.transaction.Transactional
 import kuorum.core.exception.KuorumException
-import kuorum.mail.KuorumMailService
 import kuorum.register.KuorumUserSession
 import kuorum.util.rest.RestKuorumApiService
 import kuorum.web.commands.payment.survey.SurveyReportType
@@ -15,11 +13,7 @@ import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 @Transactional
 class SurveyService extends AbstractCampaignCreatorService<SurveyRSDTO, SurveyRDTO> implements CampaignCreatorService<SurveyRSDTO, SurveyRDTO> {
 
-    def grailsApplication
     def indexSolrService
-    def notificationService
-    def fileService
-    KuorumMailService kuorumMailService
     CampaignService campaignService
 
     SurveyRSDTO save(KuorumUserSession user, SurveyRDTO surveyRDTO, Long surveyId) {

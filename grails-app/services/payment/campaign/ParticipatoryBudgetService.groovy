@@ -17,18 +17,18 @@ class ParticipatoryBudgetService extends AbstractCampaignCreatorService<Particip
     CampaignService campaignService
     IndexSolrService indexSolrService
 
-    List<ParticipatoryBudgetRSDTO> findAll(KuorumUserSession user,String viewerUid = null) {
+    List<ParticipatoryBudgetRSDTO> findAll(KuorumUserSession user, String viewerUid = null) {
         Map<String, String> params = [userId: user.getId().toString()]
         Map<String, String> query = [:]
-        if (viewerUid){
-            query.put("viewerUid",viewerUid)
+        if (viewerUid) {
+            query.put("viewerUid", viewerUid)
         }
         try {
             def response = restKuorumApiService.get(
                     RestKuorumApiService.ApiMethod.ACCOUNT_PARTICIPATORY_BUDGETS,
                     params,
                     query,
-                    new TypeReference<List<ParticipatoryBudgetRSDTO>>(){}
+                    new TypeReference<List<ParticipatoryBudgetRSDTO>>() {}
             )
 
             List<ParticipatoryBudgetRSDTO> participatoryBudgetRSDTOS = null
@@ -36,7 +36,7 @@ class ParticipatoryBudgetService extends AbstractCampaignCreatorService<Particip
                 participatoryBudgetRSDTOS = (List<ParticipatoryBudgetRSDTO>) response.data
             }
             return participatoryBudgetRSDTOS
-        }catch (KuorumException e){
+        } catch (KuorumException e) {
             log.info("Error recovering debate $campaignId : ${e.message}")
             return null
         }
@@ -47,20 +47,20 @@ class ParticipatoryBudgetService extends AbstractCampaignCreatorService<Particip
     }
 
     ParticipatoryBudgetRSDTO find(String userId, Long campaignId, String viewerUid = null) {
-        if (!campaignId){
+        if (!campaignId) {
             return null
         }
         Map<String, String> params = [userId: userId, campaignId: campaignId.toString()]
         Map<String, String> query = [:]
-        if (viewerUid){
-            query.put("viewerUid",viewerUid)
+        if (viewerUid) {
+            query.put("viewerUid", viewerUid)
         }
         try {
             def response = restKuorumApiService.get(
                     RestKuorumApiService.ApiMethod.ACCOUNT_PARTICIPATORY_BUDGET,
                     params,
                     query,
-                    new TypeReference<ParticipatoryBudgetRSDTO>(){}
+                    new TypeReference<ParticipatoryBudgetRSDTO>() {}
             )
 
             ParticipatoryBudgetRSDTO debateFound = null
@@ -68,7 +68,7 @@ class ParticipatoryBudgetService extends AbstractCampaignCreatorService<Particip
                 debateFound = (ParticipatoryBudgetRSDTO) response.data
             }
             return debateFound
-        }catch (KuorumException e){
+        } catch (KuorumException e) {
             log.info("Error recovering debate $campaignId : ${e.message}")
             return null
         }
@@ -95,7 +95,7 @@ class ParticipatoryBudgetService extends AbstractCampaignCreatorService<Particip
                 params,
                 query,
                 participatoryBudgetRDTO,
-                new TypeReference<ParticipatoryBudgetRSDTO>(){}
+                new TypeReference<ParticipatoryBudgetRSDTO>() {}
         )
 
         ParticipatoryBudgetRSDTO debateSaved = null
@@ -114,7 +114,7 @@ class ParticipatoryBudgetService extends AbstractCampaignCreatorService<Particip
                 params,
                 query,
                 participatoryBudgetRDTO,
-                new TypeReference<ParticipatoryBudgetRSDTO>(){}
+                new TypeReference<ParticipatoryBudgetRSDTO>() {}
         )
 
         ParticipatoryBudgetRSDTO debateSaved = null
@@ -151,10 +151,10 @@ class ParticipatoryBudgetService extends AbstractCampaignCreatorService<Particip
             CampaignLightPageRSDTO pageFound = null
             if (response.data) {
                 pageFound = (CampaignLightPageRSDTO) response.data
-        }
-        return pageFound.getData()
+            }
+            return pageFound.getData()
 
-        }catch (KuorumException e){
+        } catch (KuorumException e) {
             log.info("Error recovering participatory budgets : ${e.message}")
             return null
         }
@@ -163,13 +163,13 @@ class ParticipatoryBudgetService extends AbstractCampaignCreatorService<Particip
     @Override
     ParticipatoryBudgetRDTO map(ParticipatoryBudgetRSDTO participatoryBudgetRSDTO) {
         ParticipatoryBudgetRDTO participatoryBudgetRDTO = new ParticipatoryBudgetRDTO()
-        if(participatoryBudgetRSDTO) {
+        if (participatoryBudgetRSDTO) {
             participatoryBudgetRDTO = campaignService.basicMapping(participatoryBudgetRSDTO, participatoryBudgetRDTO)
             participatoryBudgetRDTO.deadLineVotes = participatoryBudgetRSDTO.deadLineVotes
-            participatoryBudgetRDTO.deadLineTechnicalReview= participatoryBudgetRSDTO.deadLineTechnicalReview
-            participatoryBudgetRDTO.deadLineProposals= participatoryBudgetRSDTO.deadLineProposals
-            participatoryBudgetRDTO.deadLineFinalReview= participatoryBudgetRSDTO.deadLineFinalReview
-            participatoryBudgetRDTO.status= participatoryBudgetRSDTO.status
+            participatoryBudgetRDTO.deadLineTechnicalReview = participatoryBudgetRSDTO.deadLineTechnicalReview
+            participatoryBudgetRDTO.deadLineProposals = participatoryBudgetRSDTO.deadLineProposals
+            participatoryBudgetRDTO.deadLineFinalReview = participatoryBudgetRSDTO.deadLineFinalReview
+            participatoryBudgetRDTO.status = participatoryBudgetRSDTO.status
             participatoryBudgetRDTO.districts = participatoryBudgetRSDTO.districts
             participatoryBudgetRDTO.maxDistrictProposalsPerUser = participatoryBudgetRSDTO.maxDistrictProposalsPerUser
             participatoryBudgetRDTO.minVotesImplementProposals = participatoryBudgetRSDTO.minVotesImplementProposals
@@ -179,7 +179,7 @@ class ParticipatoryBudgetService extends AbstractCampaignCreatorService<Particip
     }
 
 
-    void sendReport(KuorumUserSession user, Long campaignId){
+    void sendReport(KuorumUserSession user, Long campaignId) {
         Map<String, String> params = [userId: user.getId().toString(), campaignId: campaignId.toString()]
         Map<String, String> query = [:]
         def response = restKuorumApiService.get(
@@ -191,31 +191,33 @@ class ParticipatoryBudgetService extends AbstractCampaignCreatorService<Particip
     }
 
 
-    PageDistrictProposalRSDTO findDistrictProposalsByDistrict(KuorumUserSession user, Long participatoryBudgetId, FilterDistrictProposalRDTO filter, String viewerUid = null){
+    PageDistrictProposalRSDTO findDistrictProposalsByDistrict(KuorumUserSession user, Long participatoryBudgetId, FilterDistrictProposalRDTO filter, String viewerUid = null) {
         return findDistrictProposalsByDistrict(user.id.toString(), participatoryBudgetId, filter, viewerUid)
     }
-    PageDistrictProposalRSDTO findDistrictProposalsByDistrict(BasicDataKuorumUserRSDTO user, Long participatoryBudgetId, FilterDistrictProposalRDTO filter, String viewerUid = null){
+
+    PageDistrictProposalRSDTO findDistrictProposalsByDistrict(BasicDataKuorumUserRSDTO user, Long participatoryBudgetId, FilterDistrictProposalRDTO filter, String viewerUid = null) {
         return findDistrictProposalsByDistrict(user.id, participatoryBudgetId, filter, viewerUid)
     }
-    PageDistrictProposalRSDTO findDistrictProposalsByDistrict(String userId, Long participatoryBudgetId, FilterDistrictProposalRDTO filter, String viewerUid = null){
-        if (!participatoryBudgetId){
+
+    PageDistrictProposalRSDTO findDistrictProposalsByDistrict(String userId, Long participatoryBudgetId, FilterDistrictProposalRDTO filter, String viewerUid = null) {
+        if (!participatoryBudgetId) {
             return null
         }
         Map<String, String> params = [userId: userId, campaignId: participatoryBudgetId.toString()]
         Map<String, String> query = filter.encodeAsQueryParams()
-        if (viewerUid){
-            query.put("viewerUid",viewerUid)
+        if (viewerUid) {
+            query.put("viewerUid", viewerUid)
         }
         try {
             def response = restKuorumApiService.get(
                     RestKuorumApiService.ApiMethod.ACCOUNT_PARTICIPATORY_BUDGET_DISTRICT_PROPOSALS,
                     params,
                     query,
-                    new TypeReference<PageDistrictProposalRSDTO>(){}
+                    new TypeReference<PageDistrictProposalRSDTO>() {}
             )
 
             return response.data
-        }catch (KuorumException e){
+        } catch (KuorumException e) {
             log.info("Error recovering district proposals [districtId: ${filter.districtId} ]: ${e.message}")
             return null
         }
@@ -226,7 +228,7 @@ class ParticipatoryBudgetService extends AbstractCampaignCreatorService<Particip
         Random seed = new Random()
         Double randomSeed = seed.nextDouble()
 
-        def model = [participatoryBudget: participatoryBudget, campaignUser: campaignUser, randomSeed:randomSeed]
+        def model = [participatoryBudget: participatoryBudget, campaignUser: campaignUser, randomSeed: randomSeed]
         return [view: '/participatoryBudget/show', model: model]
     }
 
