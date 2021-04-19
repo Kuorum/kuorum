@@ -80,6 +80,6 @@ class PostController extends CampaignController{
     }
 
     def copy(Long campaignId) {
-        return super.copyCampaign(campaignId, surveyService)
+        return super.copyCampaign(campaignId, postService)
     }
 }

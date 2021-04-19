@@ -37,7 +37,7 @@ abstract class AbstractCampaignCreatorService<RSDTO extends CampaignRSDTO, RDTO 
             )
         } catch (Exception ex) {
             log.error("""Error copying campaign: -> ${ex.message}""")
-            throw new KuorumException("No ha sido posible copiar la campaña", "campaign.copy.error")
+            throw new KuorumException("Campaign copy error", "campaign.copy.error")
         }
 
         response.data ?: null

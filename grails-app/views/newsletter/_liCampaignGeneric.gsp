@@ -79,9 +79,11 @@
         </li>
     </ul>
     <ul class="list-actions">
-        <li>
-            <g:link mapping="${campaignGenericMappings.copy}" params="[campaignId:campaign.id]" class="campaignStats"><span class="fal fa-copy"></span> <span class="sr-only">Stats</span></g:link>
-        </li>
+        <g:if test="${campaign.getCampaignType() != org.kuorum.rest.model.communication.CampaignTypeRSDTO.DISTRICT_PROPOSAL}" >
+            <li>
+                <g:link mapping="${campaignGenericMappings.copy}" params="[campaignId:campaign.id]" class="campaignStats"><span class="fal fa-copy"></span> <span class="sr-only">Stats</span></g:link>
+            </li>
+        </g:if>
         <g:if test="${campaign.campaignStatusRSDTO == CampaignStatusRSDTO.SENT || campaign.campaignStatusRSDTO == CampaignStatusRSDTO.PAUSE}">
             <li>
                 <g:link mapping="politicianCampaignStatsShow" params="[campaignId: campaign.id]" role="button" class="campaignStats"><span class="fal fa-chart-line"></span> <span class="sr-only">Stats</span></g:link>
