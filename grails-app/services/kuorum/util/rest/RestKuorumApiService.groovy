@@ -3,6 +3,7 @@ package kuorum.util.rest
 import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
+import grails.util.Environment
 import groovyx.net.http.*
 import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.exception.KuorumException
@@ -151,6 +152,10 @@ class RestKuorumApiService {
 
     private RESTClient getRestMailKuorumServices(TypeReference clazz){
         RESTClient mailKuorumServices = new RESTClient( kuorumRestServices)
+        if (grails.util.Environment.current == Environment.DEVELOPMENT) {
+            // Local environment use autosigned cert
+            mailKuorumServices.ignoreSSLIssues();
+        }
         EncoderRegistry encoderRegistry = mailKuorumServices.getEncoder()
         encoderRegistry.putAt(groovyx.net.http.ContentType.JSON, {it ->
 //            def builder = new groovy.json.JsonBuilder(); // Not use JacksonAnnotations
