@@ -7956,6 +7956,7 @@ ul.notification-menu > li.see-more {
     border: 6px solid #D0D0D0;
     border-radius: 10px;
     padding: 0px;
+    height: 100%;
 }
 
 .survey-question-answer .question-option-image.imagen-shadowed-main-color-domain:after,
