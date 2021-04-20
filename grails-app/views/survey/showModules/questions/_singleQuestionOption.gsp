@@ -7,9 +7,13 @@
      data-optionStats-votes="${option.optionStats.optionVotes}"
      data-optionStats-percentage="${option.optionStats.percentage}">
     <div class="single-option">
-        <span class="far fa-circle check-icon"></span>
-        <span class="fas fa-check-circle check-icon"></span>
-        <label>${option.text}</label>
+        <g:render template="/survey/showModules/questions/optionIcon"
+                  model="[
+                          option: option,
+                          isQuestionWithImages:isQuestionWithImages,
+                          faClassEmpty:'far fa-circle',
+                          faClassChecked:'fas fa-check-circle']"/>
+        <label class="${isQuestionWithImages?'col-xs-12 col-sm-9': 'col-xs-10'}">${option.text}</label>
         <g:render template="/survey/showModules/questions/formQuestionExtraContent" model="[option:option]"/>
     </div>
     <div class="progress-info">

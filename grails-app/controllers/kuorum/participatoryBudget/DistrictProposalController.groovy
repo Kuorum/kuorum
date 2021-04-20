@@ -31,7 +31,12 @@ class DistrictProposalController extends CampaignController {
         if (districtProposalsCounters.numProposals >= participatoryBudgetRSDTO.maxDistrictProposalsPerUser) {
             render(view: 'maxDistrictProposalsPerUserAndBudget', model: [participatoryBudgetRSDTO: participatoryBudgetRSDTO, districtProposalsCounters: districtProposalsCounters])
         } else {
-            return districtProposalModelEditDistrict(new DistrictProposalChooseDistrictCommand(), null, participatoryBudgetRSDTO)
+            DistrictProposalChooseDistrictCommand command = new DistrictProposalChooseDistrictCommand()
+            if (participatoryBudgetRSDTO.districts && participatoryBudgetRSDTO.districts.size()==1){
+                // If there is only one district, the district is preselected to the unique district.
+                command.setDistrictId(participatoryBudgetRSDTO.districts.get(0).getId())
+            }
+            return districtProposalModelEditDistrict(command, null, participatoryBudgetRSDTO)
         }
     }
 

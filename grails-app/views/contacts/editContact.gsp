@@ -25,16 +25,14 @@
                 </g:else>
             </h3>
             <p class="email">
+                <g:if test="${contact.personalCode}">
+                    <span class="fal fa-key" data-toggle="tooltip" data-placement="top" title="${g.message(code:'tools.contact.edit.personalCode.labelActive')}"></span>
+                </g:if>
                 <contactUtil:printContactMail contact="${contact}"/>
             </p>
             <p class="followers">
                 <span class="fal fa-users"></span><g:message code="tools.contact.list.contact.followers" args="[contact.numFollowers]"/>
             </p>
-            <g:if test="${contact.personalCode}">
-                <p class="followers">
-                    <span class="fal fa-key" data-toggle="tooltip" data-placement="top" title="${g.message(code:'tools.contact.edit.personalCode.labelActive')}"></span>
-                </p>
-            </g:if>
             <ul class="social-links">
                 <g:if test="${contact?.social?.facebook}">
                     <li><a href="${contact.social.facebook}" target="_blank"><span class="fab fa-facebook"></span><span class="sr-only">Facebook</span></a></li>

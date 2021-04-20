@@ -28,8 +28,9 @@ class CustomDomainResolver {
         cachedData.put(PARAM_URL,URL)
         String domain = url.getHost()
         String port = url.getPort()==80 || url.getPort() <=0 ?'':":${url.getPort()}"
-        String protocol = url.getProtocol()
-        String base = "${protocol}://${domain}${port}${contextPath}"
+//        String protocol = url.getProtocol()
+//        String base = "${protocol}://${domain}${port}${contextPath}"
+        String base = "https://${domain}${port}${contextPath}" // AWS Sent http protocol instead https
         cachedData.put(PARAM_BASE,base)
         cachedData.put(PARAM_DOMAIN,domain)
         CONTEXT.set(cachedData)

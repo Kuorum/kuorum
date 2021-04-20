@@ -28,7 +28,7 @@ class LessCompilerService implements ApplicationContextAware {
 
     String compileCssForDomain(DomainRSDTO domain){
         // Instantiate the LESS compiler with some compiler options
-
+        log.info("Updaring CSS of domain: ${domain.name} [${domain.domain}]")
         String domainName = domain.domain
         File workingFolder = new File("${grailsApplication.config.kuorum.upload.serverPath}"+"/buildKuorum/"+domainName);
         workingFolder.mkdirs()

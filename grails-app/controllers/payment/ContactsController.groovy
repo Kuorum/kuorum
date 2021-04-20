@@ -212,25 +212,23 @@ class ContactsController {
         filterRDTO.setFilterConditions([ConditionRDTO.factory(ConditionFieldTypeRDTO.EMAIL, TextConditionOperatorTypeRDTO.EQUALS.toString(), command.email)])
         KuorumUserSession user = springSecurityService.principal
         ContactPageRSDTO alreadyExistsContact = contactService.getUsers(user, filterRDTO)
-        ContactRSDTO contactRSDTO
-        if (alreadyExistsContact.total > 0) {
-            flash.message = g.message(code: 'tools.contact.new.alreadyExists')
-            contactRSDTO = alreadyExistsContact.data.first()
+
+        ContactRDTO contactRDTO = new ContactRDTO()
+        contactRDTO.name = command.name
+        contactRDTO.surname = command.surname
+        contactRDTO.email = command.email
+        ContactRSDTO contactRSDTO = contactService.addContact(user, contactRDTO)
+        String displayerName = "${contactRSDTO.name} ${contactRSDTO.surname}"
+        if (contactRSDTO) {
+            if (alreadyExistsContact.total > 0) {
+                flash.message = g.message(code: 'tools.contact.new.alreadyExists')
+            }else{
+                flash.message = g.message(code: 'tools.contact.new.success', args: [displayerName])
+            }
             redirect(mapping: "politicianContactEdit", params: [contactId: contactRSDTO.id])
         } else {
-            ContactRDTO contactRDTO = new ContactRDTO()
-            contactRDTO.name = command.name
-            contactRDTO.surname = command.surname
-            contactRDTO.email = command.email
-            contactRSDTO = contactService.addContact(user, contactRDTO)
-            String displayerName = "${contactRSDTO.name} ${contactRSDTO.surname}"
-            if (contactRSDTO) {
-                flash.message = g.message(code: 'tools.contact.new.success', args: [displayerName])
-                redirect(mapping: "politicianContactEdit", params: [contactId: contactRSDTO.id])
-            } else {
-                flash.error = g.message(code: 'tools.contact.new.error', args: [displayerName])
-                render view: 'newContact', model: [command: command]
-            }
+            flash.error = g.message(code: 'tools.contact.new.error', args: [displayerName])
+            render view: 'newContact', model: [command: command]
         }
     }
 
