@@ -7973,7 +7973,11 @@ ul.notification-menu > li.see-more {
     bottom: 10px;
     padding: 0px;
 }
-
+.survey-question-answer .question-option-image + label{
+    line-height: 22px;
+    margin-top: 5px;
+    font-size: 12px;
+}
 .survey-question-answer .rating-option label{
     position: absolute;
     top: 8px;
