@@ -8135,7 +8135,7 @@ li.survey-question.answered .survey-question-answer .option-extra-content textar
 
 .survey-question-answer.checked .rating-option label {color:#FFF;}
 
-.survey-question-answer.disabled:hover .multi-option > span.check-icon,
+.survey-question-answer.disabled:hover .multi-option span.check-icon,
 .survey-question-answer.disabled:hover,
 .survey-question-answer.disabled {color:#CCC; background: none;}
 .survey-question-answer.disabled .multi-option {color:#CCC;}
