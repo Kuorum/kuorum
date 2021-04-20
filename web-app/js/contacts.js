@@ -372,7 +372,7 @@ $(function () {
             .done(function(data) {
                 $icon.removeClass("fa-spinner fa-spin")
                 $icon.addClass("fa-check-circle")
-                setTimeout($("#activity-resend-confirm").modal("hide"), 1000);
+                setTimeout(function(){$("#activity-resend-confirm").modal("hide")}, 1000);
             })
             .fail(function(messageError) {
                 $icon.removeClass("fa-spinner fa-spin")
