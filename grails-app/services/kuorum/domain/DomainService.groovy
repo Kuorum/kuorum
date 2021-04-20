@@ -1,6 +1,7 @@
 package kuorum.domain
 
 import com.fasterxml.jackson.core.type.TypeReference
+import grails.async.Promise
 import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.files.LessCompilerService
 import kuorum.util.rest.RestKuorumApiService
@@ -9,6 +10,7 @@ import org.kuorum.rest.model.domain.*
 import org.kuorum.rest.model.domain.creation.NewDomainPaymentDataRDTO
 import org.kuorum.rest.model.payment.BillingAmountUsersRangeDTO
 import org.kuorum.rest.model.payment.KuorumPaymentPlanDTO
+import org.slf4j.MDC
 
 class DomainService {
 
@@ -204,6 +206,34 @@ class DomainService {
             log.warn("It was not possible to delete domain : ${domain}")
             throw e;
         }
+    }
+
+    void updateAllDomainCss(Boolean waitUntilFinish = false){
+        URL url = new URL("https://kuorum.org/kuorum")
+        CustomDomainResolver.setUrl(url, "")
+        List<DomainRSDTO> domains = domainService.findAllDomains()
+        List<Promise> asyncUpdateConfig = []
+        domains.each { domainRSDTO ->
+            asyncUpdateConfig << grails.async.Promises.task {
+                URL urlThread = new URL("https://${domainRSDTO.domain}/kuorum")
+                CustomDomainResolver.setUrl(urlThread, "")
+                if (domainRSDTO.domain == "kuorum.org"){
+                    log.debug("Ingoring domain configuration of kuorum.org")
+                }else if (domainRSDTO.version != 0){
+                    MDC.put("domain", domainRSDTO.domain)
+                    updateConfig(domainRSDTO)
+                    MDC.clear()
+                }else{
+                    log.info("Ingoring domain cofiguration because its version is 0 and it was not configured")
+                }
+                // Used to update the version number and force browsers to download again the css and uploads the new css
+                // lessCompilerService.compileCssForDomain(it)
+            }
+        }
+        if (waitUntilFinish){
+            grails.async.Promises.waitAll(asyncUpdateConfig)
+        }
+        CustomDomainResolver.clear()
     }
 
 }

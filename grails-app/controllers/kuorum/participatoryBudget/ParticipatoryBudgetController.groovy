@@ -9,6 +9,7 @@ import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.commands.payment.CampaignSettingsCommand
 import kuorum.web.commands.payment.participatoryBudget.*
 import kuorum.web.constants.WebConstants
+import org.kuorum.rest.model.communication.CampaignLightRSDTO
 import org.kuorum.rest.model.communication.participatoryBudget.*
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 
@@ -72,7 +73,7 @@ class ParticipatoryBudgetController extends CampaignController{
     @Secured(['ROLE_CAMPAIGN_DISTRICT_PROPOSAL', 'ROLE_CAMPAIGN_PARTICIPATORY_BUDGET'])
     def listActiveParticipativeBudgets(){
         ParticipatoryBudgetStatusDTO budgetStatusDTO = ParticipatoryBudgetStatusDTO.ADDING_PROPOSALS
-        List<ParticipatoryBudgetRSDTO> listParticipatoryBudgetRSDTO = participatoryBudgetService.findActiveParticipatoryBudgets(budgetStatusDTO)
+        List<CampaignLightRSDTO> listParticipatoryBudgetRSDTO = participatoryBudgetService.findActiveParticipatoryBudgets(budgetStatusDTO)
         render template: '/participatoryBudget/modalParticipatoryBudgets', model: [pbList: listParticipatoryBudgetRSDTO]
     }
 

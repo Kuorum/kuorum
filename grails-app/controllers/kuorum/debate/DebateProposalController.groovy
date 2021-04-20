@@ -65,7 +65,7 @@ class DebateProposalController {
         BasicDataKuorumUserRSDTO debateUser = kuorumUserService.findBasicUserRSDTO(command.debateAlias)
         DebateRSDTO debate = debateService.find(debateUser.id.toString(), command.debateId)
         ProposalRSDTO proposalRSDTO = proposalService.addComment(user, debate, command.proposalId, command.body)
-        ProposalCommentRSDTO comment = proposalRSDTO.comments.reverseFind{it.user.id == user.id.toString()}
+        ProposalCommentRSDTO comment = proposalRSDTO.comments.reverse().find{it.user.id == user.id.toString()}
         render template: "/debate/showModules/mainContent/proposalDataComment", model:[debate:debate, proposal:proposalRSDTO, comment:comment]
     }
 

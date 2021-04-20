@@ -6,9 +6,13 @@
      data-optionStats-percentage="${option.optionStats.percentage}"
      data-questionOptionType="${option.questionOptionType}">
     <div class="multi-option">
-        <span class="fal fa-square check-icon"></span>
-        <span class="fas fa-check-square check-icon"></span>
-        <label>${option.text}</label>
+        <g:render template="/survey/showModules/questions/optionIcon"
+                  model="[
+                          option: option,
+                          isQuestionWithImages:isQuestionWithImages,
+                          faClassEmpty:'fal fa-square',
+                          faClassChecked:'fas fa-check-square']"/>
+        <label class="${isQuestionWithImages?'col-xs-12 col-sm-9': 'col-xs-10'}">${option.text}</label>
         <g:render template="/survey/showModules/questions/formQuestionExtraContent" model="[option:option]"/>
     </div>
     <div class="progress-info">

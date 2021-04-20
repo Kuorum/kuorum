@@ -2,9 +2,15 @@ package kuorum.files
 
 import com.amazonaws.AmazonServiceException
 import com.amazonaws.auth.AWSCredentials
+import com.amazonaws.auth.AWSCredentialsProvider
+import com.amazonaws.auth.AWSStaticCredentialsProvider
 import com.amazonaws.auth.BasicAWSCredentials
+import com.amazonaws.auth.DefaultAWSCredentialsProviderChain
+import com.amazonaws.client.builder.AwsClientBuilder
+import com.amazonaws.regions.Regions
 import com.amazonaws.services.s3.AmazonS3
 import com.amazonaws.services.s3.AmazonS3Client
+import com.amazonaws.services.s3.AmazonS3ClientBuilder
 import com.amazonaws.services.s3.model.*
 import kuorum.KuorumFile
 import kuorum.core.FileGroup
@@ -19,6 +25,8 @@ class AmazonFileService extends LocalFileService {
     private static final String BUCKET_TMP_FOLDER = "tmp"
 
     private static final long UPLOAD_PART_SIZE = 5242880; // Set part size to 5 MB.
+
+    private Regions AWS_REGION = Regions.EU_WEST_1;
 
 
     RestKuorumApiService restKuorumApiService;
@@ -268,7 +276,8 @@ class AmazonFileService extends LocalFileService {
                         partETags);
 
                 CompleteMultipartUploadResult uploadResult = s3Client.completeMultipartUpload(compRequest);
-                String finalUrl = uploadResult.getLocation().replaceAll("%2F", "/")
+//                String finalUrl = uploadResult.getLocation().replaceAll("%2F", "/")
+                String finalUrl = buildAmazonUrl(uploadResult.getKey())
 
                 kuorumFile.temporal = asTemporal
                 kuorumFile.url = finalUrl
@@ -363,7 +372,8 @@ class AmazonFileService extends LocalFileService {
             String finalUrl = uploadResult.getLocation().replaceAll("%2F", "/")
 
 //            log.info("Se ha subido el nuevo archivo del dominio")
-            return finalUrl;
+            return buildAmazonUrl(keyName)
+//            return finalUrl;
         } catch (Exception e) {
             s3Client.abortMultipartUpload(new AbortMultipartUploadRequest(bucketName, keyName, initResponse.getUploadId()));
             log.error("Ha habido un error subiendo el fichero a Amazon.", e);
@@ -436,17 +446,32 @@ class AmazonFileService extends LocalFileService {
 
 
     private String buildAmazonUrl(String relativePath) {
-        String bucketName = grailsApplication.config.kuorum.amazon.bucketName;
-        return "https://${bucketName}.s3.amazonaws.com/${relativePath}"
+        String cdnHost = grailsApplication.config.grails.resources.mappers.amazoncdn.host;
+        Date date= new Date();
+        return "${cdnHost}/${relativePath}?timestamp=${date.time}"
     }
 
     private AmazonS3 buildAmazonClient() {
-        String accessKey = grailsApplication.config.kuorum.amazon.accessKey
-        String secretKey = grailsApplication.config.kuorum.amazon.secretKey
+        // Login with credentials
+        String accessKey = grailsApplication.config.kuorum?.amazon?.accessKey
+        String secretKey = grailsApplication.config.kuorum?.amazon?.secretKey
+        String bucketRegion = grailsApplication.config.kuorum.amazon.bucketRegion;
+        AWSCredentialsProvider credentialsProvider = null;
+        if (accessKey && !accessKey.equals("NO_ACCESS_KEY")){
+            log.warn("Using credentials from the properties file [$accessKey]. You should use the instance credentials")
+            AWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
+            credentialsProvider = new AWSStaticCredentialsProvider(credentials);
+        }else{
+            credentialsProvider = new DefaultAWSCredentialsProviderChain();
+        }
 
-        AWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
+        AmazonS3ClientBuilder clientBuilder = AmazonS3ClientBuilder
+                .standard()
+                .withCredentials(credentialsProvider)
+                .withRegion(bucketRegion);
 
-        AmazonS3 s3Client = new AmazonS3Client(credentials);
+
+        AmazonS3 s3Client = clientBuilder.build();
         return s3Client
     }
 }
