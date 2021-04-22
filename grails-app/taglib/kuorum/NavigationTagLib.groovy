@@ -31,18 +31,29 @@ class NavigationTagLib {
     def activeMenuCss = { attrs ->
         String activeCss =  attrs.activeCss?:"active"
         def urlParams = attrs.urlParams?:[]
-        List<String> mappings = []
-        if (attrs.mappingName){
-            mappings << attrs.mappingName
+        String controller = attrs.controller
+        Boolean active = false;
+        if (controller){
+            try{
+                String controllerName = request.servletPath.split("/")[2];
+                active = controllerName == controller
+            }catch(Exception e){
+                log.info("Error parsing calculationg current controller/action: Except: ${e.getMessage()}")
+            }
         }else{
-            mappings = attrs.mappingNames
+            List<String> mappings = []
+            if (attrs.mappingName){
+                mappings << attrs.mappingName
+            }else{
+                mappings = attrs.mappingNames
+            }
+            List<String> urls = mappings.collect{mappingName ->grailsLinkGenerator.link(mapping:mappingName, params: urlParams, absolute:false)}
+            active = urls.contains(request.forwardURI.toString());
         }
-
-        List<String> urls = mappings.collect{mappingName ->grailsLinkGenerator.link(mapping:mappingName, params: urlParams, absolute:false)}
-
-        if (urls.contains(request.forwardURI.toString())){
+        if (active){
             out << activeCss
         }
+
     }
 
     def ifActiveMapping = {attrs, body ->

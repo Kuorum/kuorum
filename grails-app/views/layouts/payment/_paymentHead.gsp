@@ -1,19 +1,19 @@
 
 <ul class="nav navbar-nav navbar-right">
     <li class="underline" id="navigation-home">
-        <g:link mapping="dashboard" class="navbar-link ${nav.activeMenuCss(mappingName:'dashboard')}">
+        <g:link mapping="dashboard" class="navbar-link ${nav.activeMenuCss(controller:'dashboard')}">
             <span class="fas fa-home fa-lg"></span>
             <span class=""><g:message code="default.home.label"/> </span>
         </g:link>
     </li>
     <li class="underline" id="navigation-campaigns">
-        <g:link mapping="politicianCampaigns" class="navbar-link ${nav.activeMenuCss(mappingName:'politicianCampaigns')}">
+        <g:link mapping="politicianCampaigns" class="navbar-link ${nav.activeMenuCss(controller:'newsletter')}">
             <span class="fas fa-paper-plane fa-lg"></span>
             <span class=""><g:message code="head.logged.account.tools.massMailing"/> </span>
         </g:link>
     </li>
     <li class="underline" id="navigation-contacts">
-        <g:link mapping="politicianContacts" class="navbar-link ${nav.activeMenuCss(mappingName:'politicianContacts')}">
+        <g:link mapping="politicianContacts" class="navbar-link ${nav.activeMenuCss(controller: 'contacts')}">
             <span class="fas fa-address-card fa-lg"></span>
             <span class=""><g:message code="tools.contact.title"/> </span>
         </g:link>
