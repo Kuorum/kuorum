@@ -8,6 +8,7 @@ import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.exception.KuorumException
 import kuorum.domain.DomainService
 import kuorum.files.DomainResourcesService
+import kuorum.files.LessCompilerService
 import kuorum.mail.KuorumMailService
 import kuorum.register.KuorumUserSession
 import kuorum.register.RegisterService
@@ -60,6 +61,7 @@ class AdminController {
 
     KuorumMailService kuorumMailService
 
+    LessCompilerService lessCompilerService
 
 //    def afterInterceptor = [action: this.&prepareMenuData]
 //    protected prepareMenuData = {model, modelAndView ->
@@ -397,6 +399,8 @@ class AdminController {
             KuorumFile slideFile2 = KuorumFile.get(command.slideId2)
             KuorumFile slideFile3 = KuorumFile.get(command.slideId3)
             domainResourcesService.uploadCarouselImages(slideFile1, slideFile2, slideFile3, domain)
+            DomainRSDTO domainRSDTO = CustomDomainResolver.domainRSDTO
+            lessCompilerService.compileCssForDomain(domainRSDTO)
             flash.message = "Sus imágenes se subieron correctamente"
             redirect mapping: 'adminDomainConfigUploadCarouselImages'
         }

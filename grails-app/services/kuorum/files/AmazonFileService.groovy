@@ -183,7 +183,7 @@ class AmazonFileService extends LocalFileService {
     }
 
 
-    protected void copyAmazonFileFromTemporal(KuorumFile file, String destinationKey) {
+    protected void copyAmazonFileFromTemporal(KuorumFile file, String destinationKey, Boolean attachTimestamp = false) {
         String sourceKey = file.storagePath
         if (sourceKey != destinationKey) {
             KuorumFile oldFile = KuorumFile.findByStoragePath(destinationKey);
@@ -197,7 +197,7 @@ class AmazonFileService extends LocalFileService {
                 // Copy the object into a new object in the same bucket.
                 CopyObjectRequest copyObjRequest = new CopyObjectRequest(bucketName, sourceKey, bucketName, destinationKey);
                 s3Client.copyObject(copyObjRequest);
-                String finalUrl = buildAmazonUrl(destinationKey)
+                String finalUrl = buildAmazonUrl(destinationKey, attachTimestamp)
                 file.temporal = false
                 file.url = finalUrl
                 file.urlThumb = finalUrl
@@ -296,7 +296,7 @@ class AmazonFileService extends LocalFileService {
 
     String uploadDomainLogo(File file, String domain) {
         String keyName = "${DOMAIN_PATH}/${domain}/${DOMAIN_CUSTOM_LOGO_FILE}"
-        String urlLogo = uploadFileToAmazon(file, "image/png", keyName)
+        String urlLogo = uploadFileToAmazon(file, "image/png", keyName, true)
         log.info("Se ha subido un nuevo Logo del dominio")
         return urlLogo
     }
@@ -308,7 +308,7 @@ class AmazonFileService extends LocalFileService {
         return urlLogo
     }
 
-    private String uploadFileToAmazon(File file, String contentType, String key) {
+    private String uploadFileToAmazon(File file, String contentType, String key, Boolean attachTimestamp = false) {
         String bucketName = grailsApplication.config.kuorum.amazon.bucketName;
         String keyName = key
 
@@ -372,7 +372,7 @@ class AmazonFileService extends LocalFileService {
             String finalUrl = uploadResult.getLocation().replaceAll("%2F", "/")
 
 //            log.info("Se ha subido el nuevo archivo del dominio")
-            return buildAmazonUrl(keyName)
+            return buildAmazonUrl(keyName, attachTimestamp)
 //            return finalUrl;
         } catch (Exception e) {
             s3Client.abortMultipartUpload(new AbortMultipartUploadRequest(bucketName, keyName, initResponse.getUploadId()));
@@ -445,10 +445,14 @@ class AmazonFileService extends LocalFileService {
     }
 
 
-    private String buildAmazonUrl(String relativePath) {
+    private String buildAmazonUrl(String relativePath, Boolean attachTimestamp = false) {
         String cdnHost = grailsApplication.config.grails.resources.mappers.amazoncdn.host;
-        Date date= new Date();
-        return "${cdnHost}/${relativePath}?timestamp=${date.time}"
+        if (attachTimestamp){
+            Date date= new Date();
+            return "${cdnHost}/${relativePath}?timestamp=${date.time}"
+        }else{
+            return "${cdnHost}/${relativePath}"
+        }
     }
 
     private AmazonS3 buildAmazonClient() {
