@@ -7874,6 +7874,7 @@ ul.notification-menu > li.see-more {
     position: relative;
     z-index: 99;
     padding:20px 30px;
+    height: 100%;
 }
 
 .survey-question-answer:hover {background-color: #EEE;cursor: pointer;}
@@ -7936,6 +7937,7 @@ ul.notification-menu > li.see-more {
     position: relative;
     z-index: 1;
     flex-wrap: wrap;
+    height: 100%;
 }
 
 .survey-question-answer .rating-option{
@@ -7957,6 +7959,11 @@ ul.notification-menu > li.see-more {
     border-radius: 10px;
     padding: 0px;
     height: 100%;
+}
+
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    /*IE 11 no responsive, supports browser detection tag*/
+    .survey-question-answer .question-option-image{height: 150px}
 }
 
 .survey-question-answer .question-option-image.imagen-shadowed-main-color-domain:after,
