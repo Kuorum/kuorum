@@ -32,11 +32,13 @@ class NavigationTagLib {
         String activeCss =  attrs.activeCss?:"active"
         def urlParams = attrs.urlParams?:[]
         String controller = attrs.controller
+        String action = attrs.action
         Boolean active = false;
         if (controller){
             try{
                 String controllerName = request.servletPath.split("/")[2];
-                active = controllerName == controller
+                String actionName = request.servletPath.split("/")[3].split("\\.")[0]
+                active = controllerName == controller && (!action || action==actionName)
             }catch(Exception e){
                 log.info("Error parsing calculationg current controller/action: Except: ${e.getMessage()}")
             }

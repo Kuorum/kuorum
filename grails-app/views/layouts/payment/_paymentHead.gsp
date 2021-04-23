@@ -7,13 +7,13 @@
         </g:link>
     </li>
     <li class="underline" id="navigation-campaigns">
-        <g:link mapping="politicianCampaigns" class="navbar-link ${nav.activeMenuCss(controller:'newsletter')}">
+        <g:link mapping="politicianCampaigns" class="navbar-link ${nav.activeMenuCss(controller:'newsletter', action:'index')}">
             <span class="fas fa-paper-plane fa-lg"></span>
             <span class=""><g:message code="head.logged.account.tools.massMailing"/> </span>
         </g:link>
     </li>
     <li class="underline" id="navigation-contacts">
-        <g:link mapping="politicianContacts" class="navbar-link ${nav.activeMenuCss(controller: 'contacts')}">
+        <g:link mapping="politicianContacts" class="navbar-link ${nav.activeMenuCss(controller: 'contacts', action:'index')}">
             <span class="fas fa-address-card fa-lg"></span>
             <span class=""><g:message code="tools.contact.title"/> </span>
         </g:link>
