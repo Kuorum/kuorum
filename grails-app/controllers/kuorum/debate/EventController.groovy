@@ -17,7 +17,7 @@ import org.kuorum.rest.model.contact.ContactRSDTO
 import payment.campaign.CampaignCreatorService
 import payment.campaign.event.EventService
 
-class EventController extends CampaignController{
+class EventController extends CampaignController {
 
     EventService eventService
 
@@ -28,46 +28,46 @@ class EventController extends CampaignController{
 
     private def eventModelSettings(CampaignSettingsCommand command, DebateRSDTO debateRSDTO) {
         def model = modelSettings(command, debateRSDTO)
-        model.options =[debatable:true,showCampaignDateLimits:true]
+        model.options = [debatable: true, showCampaignDateLimits: true]
         return model
     }
 
     @Secured(['ROLE_CAMPAIGN_EVENT'])
-    def saveSettings(CampaignSettingsCommand command){
+    def saveSettings(CampaignSettingsCommand command) {
         if (command.hasErrors()) {
             render view: 'create', model: eventModelSettings(command, null)
             return
         }
         CampaignCreatorService campaignService = null
-        if (command.debatable){
+        if (command.debatable) {
             campaignService = debateService
-        }else{
+        } else {
             campaignService = postService
         }
-        command.eventAttached=true
+        command.eventAttached = true
         Map<String, Object> result = saveCampaignSettings(command, params, campaignService)
 
         //flash.message = resultPost.msg.toString()
 
         // Al crear por primera vez un evento, no tiene sentido saltarse el paso de definir el evento.
         String nextStep = ''
-        if (result.campaign instanceof DebateRSDTO){
+        if (result.campaign instanceof DebateRSDTO) {
             nextStep = 'debateEditEvent'
-        }else if (result.campaign instanceof PostRSDTO){
+        } else if (result.campaign instanceof PostRSDTO) {
             nextStep = 'postEditEvent'
         }
         redirect mapping: nextStep, params: result.campaign.encodeAsLinkProperties()
     }
 
     @Secured(['ROLE_CAMPAIGN_EVENT'])
-    def editEvent(){
+    def editEvent() {
         modelEditEvent(params)
     }
 
     @Secured(['ROLE_CAMPAIGN_EVENT'])
-    def updateEvent(EventCommand command ){
+    def updateEvent(EventCommand command) {
         if (command.hasErrors()) {
-            flash.error = g.message(code:'tools.massMailing.event.location.error')
+            flash.error = g.message(code: 'tools.massMailing.event.location.error')
             render view: 'editEvent', model: modelEditEvent(params, command)
             return
         }
@@ -76,14 +76,14 @@ class EventController extends CampaignController{
         CampaignRSDTO campaignRSDTO = findCampaign(params)
         CampaignCreatorService campaignService = null
         CampaignRDTO campaignRDTO = null
-        if (campaignRSDTO instanceof DebateRSDTO){
+        if (campaignRSDTO instanceof DebateRSDTO) {
             campaignService = debateService
-        }else{
+        } else {
             campaignService = postService
         }
         campaignRDTO = campaignService.map(campaignRSDTO)
         updateEventRDTO(campaignRDTO, command, user.timeZone)
-        campaignRSDTO = campaignService.save(user,campaignRDTO,campaignRSDTO.id)
+        campaignRSDTO = campaignService.save(user, campaignRDTO, campaignRSDTO.id)
 
         //flash.message = resultPost.msg.toString()
 
@@ -91,7 +91,7 @@ class EventController extends CampaignController{
     }
 
     private def updateEventRDTO(CampaignRDTO campaignRDTO, EventCommand eventCommand, TimeZone timeZone) {
-        if (!campaignRDTO.event){
+        if (!campaignRDTO.event) {
             campaignRDTO.event = new EventRDTO()
         }
         campaignRDTO.event.address = eventCommand.address
@@ -103,11 +103,11 @@ class EventController extends CampaignController{
         campaignRDTO.event.capacity = eventCommand.capacity
     }
 
-    private def modelEditEvent(def params, EventCommand command = null ){
+    private def modelEditEvent(def params, EventCommand command = null) {
         CampaignRSDTO campaignRSDTO = findCampaign(params)
-        if (!command){
+        if (!command) {
             command = new EventCommand()
-            if (campaignRSDTO.event){
+            if (campaignRSDTO.event) {
                 command.address = campaignRSDTO.event.address
                 command.localName = campaignRSDTO.event.localName
                 command.longitude = campaignRSDTO.event.longitude
@@ -118,12 +118,12 @@ class EventController extends CampaignController{
             }
         }
         [
-                campaign:campaignRSDTO,
-                command:command
+                campaign: campaignRSDTO,
+                command : command
         ]
     }
 
-    private CampaignRSDTO findCampaign(def params){
+    private CampaignRSDTO findCampaign(def params) {
         KuorumUserSession user = springSecurityService.principal
         Long campaignId = Long.parseLong(params.campaignId)
         campaignService.find(user, campaignId)
@@ -131,39 +131,39 @@ class EventController extends CampaignController{
 
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
-    def bookTicket(Long campaignId){
+    def bookTicket(Long campaignId) {
         KuorumUserSession assistant = springSecurityService.principal
         EventRegistrationRSDTO eventRegistration = eventService.addAssistant(params.eventUserId, campaignId, assistant)
-        if (eventRegistration){
-            render ([success:true, error:"", eventRegistration:eventRegistration]) as JSON
-        }else{
-            render ([success:false, error:"Error saving registration"]) as JSON
+        if (eventRegistration) {
+            render([success: true, error: "", eventRegistration: eventRegistration]) as JSON
+        } else {
+            render([success: false, error: "Error saving registration"]) as JSON
         }
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
-    def checkIn(Long campaignId){
+    def checkIn(Long campaignId) {
         KuorumUserSession user = springSecurityService.principal
         String hash = params.hash
         Long contactId
-        try{
+        try {
             contactId = Long.parseLong(params.contactId)
-        }catch (Exception e){
+        } catch (Exception e) {
             contactId = -1
         }
         EventRegistrationRSDTO eventRegistration = eventService.checkIn(contactId, campaignId, user, hash)
         ContactRSDTO contact = null
-        try{
+        try {
 
             contact = contactService.getContact(user, contactId)
-        }catch (Exception e){
+        } catch (Exception e) {
             // Contact not found
             contact = new ContactRSDTO()
             contact.name = "No valid contact"
         }
-        if (eventRegistration){
-            [event:eventRegistration.event, eventRegistration:eventRegistration, contact:contact]
-        }else {
+        if (eventRegistration) {
+            [event: eventRegistration.event, eventRegistration: eventRegistration, contact: contact]
+        } else {
             render view: "/event/checkInFail", model: [contact: contact]
         }
     }
@@ -171,9 +171,9 @@ class EventController extends CampaignController{
     @Secured(['ROLE_CAMPAIGN_EVENT'])
     def sendReport(Long campaignId) {
         KuorumUserSession user = springSecurityService.principal
-        Boolean checkList = params.checkList?Boolean.parseBoolean(params.checkList):false
-        eventService.sendReport(user, campaignId,checkList)
-        render ([success:"success"] as grails.converters.JSON)
+        Boolean checkList = params.checkList ? Boolean.parseBoolean(params.checkList) : false
+        eventService.sendReport(user, campaignId, checkList)
+        render([success: "success"] as grails.converters.JSON)
     }
 
 }
