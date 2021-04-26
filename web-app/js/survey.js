@@ -164,7 +164,66 @@ var surveyFunctions = {
     _checkValidQuestion:{
         ONE_OPTION: function(question){return true;},
         MULTIPLE_OPTION : function(question){return true;},
-        MULTIPLE_OPTION_WEIGHTED: function(question){
+        MULTIPLE_OPTION_WEIGHTED : function(question){
+            console.log("MULTIPLE_OPTION_WEIGHTED")
+            var questionPoints = parseFloat(question.getAttribute("data-points"));
+            var maxAnswers = parseFloat(question.getAttribute("data-maxanswers"));
+            var minAnswers = parseFloat(question.getAttribute("data-minanswers"));
+            var limitMaxPoints = questionPoints * maxAnswers;
+            var limitMinPoints = questionPoints * minAnswers;
+            var questionValidationData ={
+                valid:false,
+                msg: "No valid sum",
+                question: question
+            }
+            if (questionPoints <= 0){
+                // USER NO LOGGED // CHAPU
+                questionValidationData.msg = i18n.survey.questions.header.extrainfo.multi.points.noLoggedError+" <a href='#modal' onclick=\"$('#registro').modal('show');\">"+i18n.register.head.login+"</a>"
+                $(questionValidationData.question).find(".survey-question-extra-info-points").html(questionValidationData.msg)
+                this._handlePrintingQuestionError(questionValidationData);
+                return questionValidationData.valid;
+            }
+            var questionOptionsSelected = question.querySelectorAll(".survey-question-answer.checked");
+            var answersValid = true;
+
+            var questionOptionsSelectedIdx; // IE10 not supports forEach
+            var summedPoints = 0;
+            var validInputsMax = true;
+            for (questionOptionsSelectedIdx = 0; questionOptionsSelectedIdx < questionOptionsSelected.length; questionOptionsSelectedIdx++) {
+                var questionOption = questionOptionsSelected[questionOptionsSelectedIdx];
+                var textNumberInputNodes = questionOption.querySelectorAll(".option-extra-content input");
+                var textNumberInput = textNumberInputNodes[0];
+                var rawData = textNumberInput.value
+                var floatNumber = parseFloat(rawData);
+                summedPoints = summedPoints + floatNumber;
+                if (floatNumber > questionPoints){
+                    validInputsMax = false;
+                    var rawMsg = i18n.kuorum.web.commands.payment.survey.QuestionOptionCommand.text.overflow;
+                    var validData = {
+                        valid: false,
+                        msg:rawMsg.replace(new RegExp("\\{0\\}", 'g'), questionPoints),
+                        input: textNumberInput
+                    };
+                    surveyFunctions._checkValidAnswerType._handlePrintingError(validData);
+                }
+            }
+            if (!validInputsMax){
+                questionValidationData.valid = false;
+                questionValidationData.msg = "Overflow of points in one option"
+            }else if (limitMaxPoints < summedPoints) {
+                questionValidationData.valid = false;
+                questionValidationData.msg = "Overflow of points"
+            }else if (limitMinPoints > summedPoints){
+                questionValidationData.valid = false;
+                questionValidationData.msg = "it do not reach the minimum votes"
+            }else{
+                questionValidationData.valid = true;
+                questionValidationData.msg = ""
+            }
+            this._handlePrintingQuestionError(questionValidationData);
+            return questionValidationData.valid;
+        },
+        ONE_OPTION_WEIGHTED: function(question){
             var questionPoints = parseFloat(question.getAttribute("data-points"));
             var questionValidationData ={
                 valid:false,
@@ -201,7 +260,7 @@ var surveyFunctions = {
             this._handlePrintingQuestionError(questionValidationData);
             return questionValidationData.valid;
             },
-        MULTIPLE_OPTION_POINTS: function(question){return this.MULTIPLE_OPTION_WEIGHTED(question)},
+        MULTIPLE_OPTION_POINTS: function(question){return this.ONE_OPTION_WEIGHTED(question)},
         TEXT_OPTION: function(question){return true;},
         RATING_OPTION: function(question){return true;},
         CONTACT_UPLOAD_FILES: function(question) {return true;},
@@ -325,7 +384,8 @@ var surveyFunctions = {
         _checkValidInputAnswerByQuestionType:{
             ONE_OPTION: function(inputNode){return surveyFunctions._checkValidAnswerType._checkValidInputAnswerByQuestionType.defaultValidation(inputNode);},
             MULTIPLE_OPTION : function(inputNode){return surveyFunctions._checkValidAnswerType._checkValidInputAnswerByQuestionType.defaultValidation(inputNode);},
-            MULTIPLE_OPTION_WEIGHTED: function(inputNode){
+            MULTIPLE_OPTION_WEIGHTED : function(inputNode){return surveyFunctions._checkValidAnswerType._checkValidInputAnswerByQuestionType.ONE_OPTION_WEIGHTED(inputNode);},
+            ONE_OPTION_WEIGHTED: function(inputNode){
                 var valid = parseFloat(inputNode.value)>0;
                 return {
                     valid: valid,
@@ -333,7 +393,7 @@ var surveyFunctions = {
                     input: inputNode
                 };
             },
-            MULTIPLE_OPTION_POINTS: function(inputNode){return surveyFunctions._checkValidAnswerType._checkValidInputAnswerByQuestionType.MULTIPLE_OPTION_WEIGHTED(inputNode)},
+            MULTIPLE_OPTION_POINTS: function(inputNode){return surveyFunctions._checkValidAnswerType._checkValidInputAnswerByQuestionType.ONE_OPTION_WEIGHTED(inputNode)},
             TEXT_OPTION:            function(inputNode){return surveyFunctions._checkValidAnswerType._checkValidInputAnswerByQuestionType.defaultValidation(inputNode);},
             RATING_OPTION:          function(inputNode){return surveyFunctions._checkValidAnswerType._checkValidInputAnswerByQuestionType.defaultValidation(inputNode);},
             CONTACT_UPLOAD_FILES:   function(inputNode){return surveyFunctions._checkValidAnswerType._checkValidInputAnswerByQuestionType.defaultValidation(inputNode);},
@@ -649,15 +709,31 @@ var surveyFunctions = {
         // var answerVotes = answer.querySelector('.progress-bar-counter');
         var answersList = answer.parentElement;
         var question = answersList.parentElement;
+        var questionType = question.getAttribute('data-questiontype');
         var minAnswers = parseInt(question.getAttribute('data-minAnswers'));
         var maxAnswers = parseInt(question.getAttribute('data-maxAnswers')); // 0 means no limit
         var selectedAnswers = (question.getAttribute('data-answer-selected') !== "") ? JSON.parse(question.getAttribute('data-answer-selected')) : "";
         var nextButton = question.querySelector('.footer .next-section button');
         var numOptionAnswers = parseInt(answer.getAttribute("data-optionStats-votes"))
 
+        // MULTIPLE_OPTION_WEIGHTED -> Has no limit. The unique limit is the max points that the voter can distribute.
+        var maxAnswersReached = false;
+
+        maxAnswersReached = function (operator){
+            // Instead of a var, this logic should be reevaluated. That's why is not using a var.
+            var overflowMax
+            switch(operator) {
+                case ">=": overflowMax = selectedAnswers.length >= maxAnswers ; break;
+                case ">": overflowMax = selectedAnswers.length > maxAnswers ; break;
+                case "==":
+                default:overflowMax = selectedAnswers.length == maxAnswers ; break;
+            }
+            return maxAnswers>0 && (overflowMax && questionType != "MULTIPLE_OPTION_WEIGHTED");
+        }
+        console.log("MULTI")
         if (!!selectedAnswers === true && Array.isArray(selectedAnswers)) {
             var answerPosition = selectedAnswers.indexOf(answer.getAttribute('data-answer-id'));
-            if (answerPosition === -1 && maxAnswers>0 && selectedAnswers.length >= maxAnswers ) {
+            if (answerPosition === -1 && maxAnswersReached(">=") ) {
                 console.log("Skip add new answer because the limit is reached")
                 return;
             }else if (answerPosition === -1) {
@@ -676,12 +752,12 @@ var surveyFunctions = {
         }
         answer.setAttribute("data-optionStats-votes",numOptionAnswers)
         question.setAttribute('data-answer-selected',  (selectedAnswers.length > 0) ? JSON.stringify(selectedAnswers) : '');
-        if (maxAnswers != 0 && selectedAnswers.length == maxAnswers){
+        if (maxAnswersReached("==")){
             $(question).find(".survey-question-answer:not(.checked)").addClass("disabled")
         }else{
             $(question).find(".survey-question-answer:not(.checked)").removeClass("disabled")
         }
-        if (selectedAnswers.length === 0 || selectedAnswers.length < minAnswers || selectedAnswers.length > maxAnswers && maxAnswers >0){
+        if (selectedAnswers.length === 0 || selectedAnswers.length < minAnswers || maxAnswersReached(">")){
             $(nextButton).addClass('disabled');
         }else{
             $(nextButton).removeClass('disabled');
