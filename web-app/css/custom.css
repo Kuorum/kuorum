@@ -7874,6 +7874,7 @@ ul.notification-menu > li.see-more {
     position: relative;
     z-index: 99;
     padding:20px 30px;
+    height: 100%;
 }
 
 .survey-question-answer:hover {background-color: #EEE;cursor: pointer;}
@@ -7936,6 +7937,7 @@ ul.notification-menu > li.see-more {
     position: relative;
     z-index: 1;
     flex-wrap: wrap;
+    height: 100%;
 }
 
 .survey-question-answer .rating-option{
@@ -7956,6 +7958,12 @@ ul.notification-menu > li.see-more {
     border: 6px solid #D0D0D0;
     border-radius: 10px;
     padding: 0px;
+    height: 100%;
+}
+
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    /*IE 11 no responsive, supports browser detection tag*/
+    .survey-question-answer .question-option-image{height: 150px}
 }
 
 .survey-question-answer .question-option-image.imagen-shadowed-main-color-domain:after,
@@ -7972,7 +7980,11 @@ ul.notification-menu > li.see-more {
     bottom: 10px;
     padding: 0px;
 }
-
+.survey-question-answer .question-option-image + label{
+    line-height: 22px;
+    margin-top: 5px;
+    font-size: 12px;
+}
 .survey-question-answer .rating-option label{
     position: absolute;
     top: 8px;
@@ -8135,7 +8147,7 @@ li.survey-question.answered .survey-question-answer .option-extra-content textar
 
 .survey-question-answer.checked .rating-option label {color:#FFF;}
 
-.survey-question-answer.disabled:hover .multi-option > span.check-icon,
+.survey-question-answer.disabled:hover .multi-option span.check-icon,
 .survey-question-answer.disabled:hover,
 .survey-question-answer.disabled {color:#CCC; background: none;}
 .survey-question-answer.disabled .multi-option {color:#CCC;}

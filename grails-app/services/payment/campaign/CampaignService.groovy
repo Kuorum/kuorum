@@ -94,7 +94,7 @@ class CampaignService {
     }
 
     CampaignRSDTO find(BasicDataKuorumUserRSDTO user, Long campaignId, String viewerUid = null) {
-        find(user.getId().toString(), campaignId, viewerUid)
+        find(user.getAlias(), campaignId, viewerUid)
     }
 
 //    @Cacheable(value="debate", key='#campaignId')

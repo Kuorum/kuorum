@@ -1,20 +1,25 @@
 version: "3.9"  # optional since v1.27.0
 services:
   front:
-    build: .
+    build:
+      context: .
+      args:
+        VERSION: development
     container_name: kuorum-front
     env_file:
-      - ./docker/env/ovh.env
-    args:
-      VERSION: INAKI_DEV
+      - ./docker/env/local.env
     environment:
-      - API_DOMAIN=test-api.kuorum.org
-      - MONGO_HOST=localhost
+      - API_DOMAIN=kuorum-api:8443
+      - MONGO_HOST=mongo
       - MONGO_PORT=27017
       - BUCKET_NAME=static-kuorum-567923379073
-      - UPLOADED_RESOURCES_DOMAIN=static-test.kuorum.org
+      - UPLOADED_RESOURCES_DOMAIN=webcontent.dev.kuorum.org
     ports:
       - 8080:8080
+networks:
+  default:
+    external:
+      name: kuorumservices_default
 
 
 

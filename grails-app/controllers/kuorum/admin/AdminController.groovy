@@ -8,6 +8,7 @@ import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.exception.KuorumException
 import kuorum.domain.DomainService
 import kuorum.files.DomainResourcesService
+import kuorum.files.LessCompilerService
 import kuorum.mail.KuorumMailService
 import kuorum.register.KuorumUserSession
 import kuorum.register.RegisterService
@@ -60,6 +61,7 @@ class AdminController {
 
     KuorumMailService kuorumMailService
 
+    LessCompilerService lessCompilerService
 
 //    def afterInterceptor = [action: this.&prepareMenuData]
 //    protected prepareMenuData = {model, modelAndView ->
@@ -283,7 +285,7 @@ class AdminController {
         List<CampaignRSDTO> domainCampaigns = campaignService.findRelevantDomainCampaigns()
         // TODO: BAD TRICK -> Recover all campaigns without pagination
         SearchCampaignRDTO searchCampaignRDTO = new SearchCampaignRDTO(
-                page:0,
+                page: 0,
                 size: 1000,
                 attachNotPublished: false,
                 onlyPublications: true
@@ -363,17 +365,17 @@ class AdminController {
     def uploadLogo() {
 
         CommonsMultipartFile customLogo = request.getFile('logo')
-        try {
-            if (customLogo && !customLogo.empty) {
+        if (customLogo && !customLogo.empty) {
+            try {
                 domainResourcesService.uploadLogoFile(customLogo.getInputStream())
                 flash.message = message(code: 'admin.menu.domainConfig.uploadLogo.success')
-            } else {
-                flash.error = message(code: 'admin.menu.domainConfig.uploadLogo.unsuccess')
+            } catch (Exception e) {
+                flash.error = message(code: 'admin.menu.domainConfig.uploadLogo.favicon.unsuccess')
             }
-            redirect mapping: 'adminDomainConfig'
-        } catch (Exception e) {
-            log.error(e)
+        } else {
+            flash.error = message(code: 'admin.menu.domainConfig.uploadLogo.unsuccess')
         }
+        redirect mapping: 'adminDomainConfig'
     }
 
     def editCarousel() {
@@ -397,6 +399,8 @@ class AdminController {
             KuorumFile slideFile2 = KuorumFile.get(command.slideId2)
             KuorumFile slideFile3 = KuorumFile.get(command.slideId3)
             domainResourcesService.uploadCarouselImages(slideFile1, slideFile2, slideFile3, domain)
+            DomainRSDTO domainRSDTO = CustomDomainResolver.domainRSDTO
+            lessCompilerService.compileCssForDomain(domainRSDTO)
             flash.message = "Sus imágenes se subieron correctamente"
             redirect mapping: 'adminDomainConfigUploadCarouselImages'
         }
@@ -564,15 +568,15 @@ class AdminController {
         }
     }
 
-    @Secured(['IS_AUTHENTICATED_FULLY','ROLE_SUPER_ADMIN'])
-    void updateDomainCss(){
+    @Secured(['IS_AUTHENTICATED_FULLY', 'ROLE_SUPER_ADMIN'])
+    void updateDomainCss() {
 
     }
 
-    @Secured(['IS_AUTHENTICATED_FULLY','ROLE_SUPER_ADMIN'])
-    void updateDomainCssPost(){
+    @Secured(['IS_AUTHENTICATED_FULLY', 'ROLE_SUPER_ADMIN'])
+    void updateDomainCssPost() {
         domainService.updateAllDomainCss(false)
-        flash.message="Executing asynchronously"
-        redirect mapping:'adminRecerateCss'
+        flash.message = "Executing asynchronously"
+        redirect mapping: 'adminRecerateCss'
     }
 }
