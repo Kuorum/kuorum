@@ -1994,6 +1994,8 @@ ul.participatory-budget-steps-info li.active a {display: none}
 .edit-contact .tab-pane#notes .form-group:last-child {padding-top: 20px;}
 .edit-contact .tab-pane#notes .btn {position: absolute; right: 15px; bottom: 0; margin: 0;}
 .edit-contact .tab-pane#notes textarea {height: 226px;}
+.edit-contact .tab-pane#extraInfo {}
+.edit-contact .tab-pane#extraInfo fieldset.row {margin-left:0; margin-right: 0;}
 
 /* STATS CAMPAIGNS */
 #tabs-stats-campaign h3 {font-size: 20px; margin-top: 50px; font-size: 2rem; color: #a8a8a8;}
@@ -4929,7 +4931,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     /* NEW / EDIT CONTACT */
     .edit-contact form {position: relative;}
     .edit-contact form fieldset {width: 30%; min-width: 260px; float:left;}
-    .edit-contact form fieldset:last-child {width: 100%; min-width: 0; text-align: right; margin: 0;  bottom: 13px; right: 0;}
 
     .carousel.news .carousel-control {top: 30%;}
 
