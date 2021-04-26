@@ -830,14 +830,16 @@ var surveyFunctions = {
     },
 
     _updateOptionMetaDataFromQuestionRSDTOJson: function(questionRSDTO){
-        var optionsIdx;
-        var options = questionRSDTO.options
-        for (optionsIdx = 0; optionsIdx < options.length; optionsIdx++) {
-            var optionRSDTO = options[optionsIdx];
-            $option = $("#question-option-" +optionRSDTO.id );
-            $option.attr("data-optionStats-total",optionRSDTO.optionStats.total)
-            $option.attr("data-optionStats-votes",optionRSDTO.optionStats.optionVotes)
-            $option.attr("data-optionStats-percentage",optionRSDTO.optionStats.percentage)
+        if (questionRSDTO != undefined){
+            var optionsIdx;
+            var options = questionRSDTO.options
+            for (optionsIdx = 0; optionsIdx < options.length; optionsIdx++) {
+                var optionRSDTO = options[optionsIdx];
+                $option = $("#question-option-" +optionRSDTO.id );
+                $option.attr("data-optionStats-total",optionRSDTO.optionStats.total)
+                $option.attr("data-optionStats-votes",optionRSDTO.optionStats.optionVotes)
+                $option.attr("data-optionStats-percentage",optionRSDTO.optionStats.percentage)
+            }
         }
     },
 
