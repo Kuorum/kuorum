@@ -130,7 +130,10 @@ enum QuestionLimitAnswersType{
     MIN,MAX,RANGE,FORCE
 
     public static QuestionLimitAnswersType inferType(QuestionRSDTO questionRSDTO){
-        if (questionRSDTO.maxAnswers == questionRSDTO.minAnswers){
+        if (questionRSDTO.questionType == QuestionTypeRSDTO.MULTIPLE_OPTION_WEIGHTED){
+            // Multiple option weight has no limit. The limit is the max calculated with his ponderation.
+            return QuestionLimitAnswersType.MIN;
+        }else if (questionRSDTO.maxAnswers == questionRSDTO.minAnswers){
             return QuestionLimitAnswersType.FORCE
         }else if (questionRSDTO.minAnswers != 1 && questionRSDTO.maxAnswers != 0 ){
             return QuestionLimitAnswersType.RANGE

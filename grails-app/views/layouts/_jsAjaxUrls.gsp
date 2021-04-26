@@ -124,7 +124,8 @@
                         survey:{
                             QuestionOptionCommand:{
                                 text:{
-                                    nullable:"<g:message code="kuorum.web.commands.payment.survey.QuestionOptionCommand.text.nullable"/>"
+                                    nullable:"<g:message code="kuorum.web.commands.payment.survey.QuestionOptionCommand.text.nullable"/>",
+                                    overflow:"<g:message code="kuorum.web.commands.payment.survey.QuestionOptionCommand.text.overflow"/>"
                                 },
                                 number:{
                                     negative:"<g:message code="kuorum.web.commands.payment.survey.QuestionOptionCommand.number.negative"/>"
@@ -165,6 +166,7 @@
                                     MULTIPLE_OPTION_POINTS:     {info: "${g.message(code:'org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.MULTIPLE_OPTION_POINTS.info')}"},
                                     MULTIPLE_OPTION:            {info: "${g.message(code:'org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.MULTIPLE_OPTION.info')}"},
                                     ONE_OPTION:                 {info: "${g.message(code:'org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.ONE_OPTION.info')}"},
+                                    ONE_OPTION_WEIGHTED:        {info: "${g.message(code:'org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.ONE_OPTION_WEIGHTED.info')}"},
                                     TEXT_OPTION:                {info: "${g.message(code:'org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.TEXT_OPTION.info')}"},
                                     RATING_OPTION:              {info: "${g.message(code:'org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.RATING_OPTION.info')}"},
                                     CONTACT_GENDER:             {info: "${g.message(code:'org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.CONTACT_GENDER.info')}"},
