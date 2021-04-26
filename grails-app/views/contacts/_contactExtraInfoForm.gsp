@@ -9,10 +9,10 @@
         formId="extraInfoContact">
     <fieldset class="row">
         <div class="form-group col-md-5">
-            <formUtil:input field="key" command="${listCommand}" prefixFieldName="${prefixField}" showLabel="true"/>
+            <formUtil:input field="key" command="${listCommand}" prefixFieldName="${prefixField}" showLabel="false"/>
         </div>
         <div class="form-group col-md-5">
-            <formUtil:input field="value" command="${listCommand}" prefixFieldName="${prefixField}" showLabel="true"/>
+            <formUtil:input field="value" command="${listCommand}" prefixFieldName="${prefixField}" showLabel="false"/>
         </div>
         <div class="col-md-2 text-right">
             <button type="button" class="btn btn-transparent removeButton"><i class="fal fa-trash"></i></button>
