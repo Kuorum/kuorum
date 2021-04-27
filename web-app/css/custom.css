@@ -7965,6 +7965,7 @@ ul.notification-menu > li.see-more {
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
     /*IE 11 no responsive, supports browser detection tag*/
     .survey-question-answer .question-option-image{height: 150px}
+    .survey-question-answer .question-option-image img{width: 100%; height: 100%;}
 }
 
 .survey-question-answer .question-option-image.imagen-shadowed-main-color-domain:after,
