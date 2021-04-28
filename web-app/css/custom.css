@@ -1657,7 +1657,7 @@ ul.list > li > ul.list-actions > li > a:hover,
 ul.list > li > ul.list-actions > li > a:focus,
 ul.list > li > ul.list-actions > li > a:active {color: #ec931f;}
 
-#campaignsList ul.list > li > ul.list-actions {width:10%;}
+ul.list#campaignsList > li > ul.list-actions {width:10%;}
 
 /* DASHBOARD (08/2016) */
 
