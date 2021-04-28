@@ -30,10 +30,11 @@ class DomainTagLib {
         String domain = CustomDomainResolver.domain
         String logoUrl = amazonFileService.getDomainLogoUrl(domain)
         String emptyLogo= g.resource(dir: "images", file: "logo@2x.png", absolute: true)
+        Long version = CustomDomainResolver.domainRSDTO?.version?:0
         out <<"""
         <img 
             id="domain-logo"
-            src="${logoUrl}" 
+            src="${logoUrl}?v=${version}" 
             onerror="this.onerror=null;this.src='$emptyLogo';"
             alt="${g.message(code:'head.logo.alt', args:[kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.name])}" 
             title="${g.message(code:'head.logo.title', args:[kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.name])}">

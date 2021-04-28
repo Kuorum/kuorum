@@ -1,15 +1,9 @@
 package kuorum.files
 
 import com.amazonaws.AmazonServiceException
-import com.amazonaws.auth.AWSCredentials
-import com.amazonaws.auth.AWSCredentialsProvider
-import com.amazonaws.auth.AWSStaticCredentialsProvider
-import com.amazonaws.auth.BasicAWSCredentials
-import com.amazonaws.auth.DefaultAWSCredentialsProviderChain
-import com.amazonaws.client.builder.AwsClientBuilder
+import com.amazonaws.auth.*
 import com.amazonaws.regions.Regions
 import com.amazonaws.services.s3.AmazonS3
-import com.amazonaws.services.s3.AmazonS3Client
 import com.amazonaws.services.s3.AmazonS3ClientBuilder
 import com.amazonaws.services.s3.model.*
 import kuorum.KuorumFile
@@ -297,7 +291,7 @@ class AmazonFileService extends LocalFileService {
     String uploadDomainLogo(File file, String domain) {
         String keyName = "${DOMAIN_PATH}/${domain}/${DOMAIN_CUSTOM_LOGO_FILE}"
         String urlLogo = uploadFileToAmazon(file, "image/png", keyName, true)
-        log.info("Se ha subido un nuevo Logo del dominio")
+        log.info("Se ha subido un nuevo al dominio ${domain} => ${urlLogo}")
         return urlLogo
     }
 
