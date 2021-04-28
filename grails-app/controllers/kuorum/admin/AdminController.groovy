@@ -522,7 +522,8 @@ class AdminController {
         domainRDTO.mainColorShadowed = null
         domainRDTO.secondaryColor = null
         domainRDTO.secondaryColorShadowed = null
-        domainService.updateConfig(domainRDTO)
+        DomainRSDTO domainRSDTO = domainService.updateConfig(domainRDTO)
+        lessCompilerService.compileCssForDomain(domainRSDTO)
 
         redirect mapping: 'adminDomainRegisterStep2'
     }
