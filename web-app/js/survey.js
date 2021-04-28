@@ -168,6 +168,10 @@ var surveyFunctions = {
             console.log("MULTIPLE_OPTION_WEIGHTED")
             var questionPoints = parseFloat(question.getAttribute("data-points"));
             var maxAnswers = parseFloat(question.getAttribute("data-maxanswers"));
+            if (maxAnswers == 0){
+                // The question has no limit choosing answers. So the max is the number of the available options.
+                maxAnswers = $(question).find(".survey-question-answer").length;
+            }
             var minAnswers = parseFloat(question.getAttribute("data-minanswers"));
             var limitMaxPoints = questionPoints * maxAnswers;
             var limitMinPoints = questionPoints * minAnswers;
