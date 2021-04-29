@@ -53,11 +53,11 @@ class KuorumUserTagLib {
             imgSrc = image.userImgSrc(user:attrs.user)
             user = kuorumUserService.findBasicUserRSDTO(attrs.user.id)
             name = highlightedField(attrs.user, "name")
-//            name = name?:user.fullName
+            name = user.fullName?:name
         }else if (attrs.user instanceof SearchKuorumElementRSDTO){
             user = kuorumUserService.findBasicUserRSDTO(attrs.user.ownerId)
             name = highlightedField(attrs.user, "owner")
-            name = name?:user.fullName
+            name = user.fullName?:name
             role = getRoleUser(user)
             imgSrc = image.userImgSrc(user:user)
         }else if (attrs.user instanceof String){

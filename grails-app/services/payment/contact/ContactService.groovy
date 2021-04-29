@@ -478,4 +478,27 @@ class ContactService {
         response.data
     }
 
+    Map<String, String> getExtraInfo(KuorumUserSession userSession, Long contactId){
+        Map<String, String> params = [contactId: contactId.toString(), userId: userSession.id.toString()]
+        Map<String, String> query = [:]
+        def response = restKuorumApiService.get(
+                RestKuorumApiService.ApiMethod.USER_CONTACT_EXTRA_INFO,
+                params,
+                query,
+                new TypeReference<Map<String, String>>(){}
+        )
+        response.data
+    }
+    void putExtraInfo(KuorumUserSession userSession, Long contactId, Map<String,String> extraInfo){
+        Map<String, String> params = [contactId: contactId.toString(), userId: userSession.id.toString()]
+        Map<String, String> query = [:]
+        def response = restKuorumApiService.put(
+                RestKuorumApiService.ApiMethod.USER_CONTACT_EXTRA_INFO,
+                params,
+                query,
+                extraInfo,
+                null
+        )
+    }
+
 }

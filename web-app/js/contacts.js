@@ -172,6 +172,27 @@ $(function () {
         return false;
     });
 
+    $("#tabs-edit-contact #extraInfo #extraInfoContact").on("submit",function(e){
+        e.preventDefault();
+        var postData = $(this).serialize();
+        var link = $(this).attr("action")
+        $.post( link, postData)
+            .done(function(data) {
+                if (data.err != undefined){
+                    display.warn(data.err)
+                }else{
+                    display.success(data.msg)
+                }
+            })
+            .fail(function(messageError) {
+                display.warn("Error");
+            })
+            .always(function() {
+                pageLoadingOff();
+            });
+        return false;
+    });
+
 
     // Bulk actions -- Open modal
     $("#listContacts").on("change", "#contactsOrderOptions .bulk-actions", function(e) {

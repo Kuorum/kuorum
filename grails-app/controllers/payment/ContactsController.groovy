@@ -138,7 +138,9 @@ class ContactsController {
         command.gender = contact.gender
         command.surveyVoteWeight = contact.surveyVoteWeight
         BasicDataKuorumUserRSDTO contactUser = kuorumUserService.findBasicUserRSDTO(contact.mongoId, true)
-        [command: command, contact: contact, contactUser: contactUser]
+        Map<String, String> extraInfo = contactService.getExtraInfo(user, contact.id);
+        ContactExtraInfoCommand extraInfoCommand = new ContactExtraInfoCommand(extraInfo);
+        [command: command, contact: contact, contactUser: contactUser, extraInfoCommand:extraInfoCommand]
     }
 
     def updateContact(ContactCommand command) {
@@ -179,7 +181,18 @@ class ContactsController {
         contact.notes = params.notes
         ContactRSDTO contactUpdated = contactService.updateContact(user, contact, contact.getId())
         render([msg: g.message(code: 'tools.contact.edit.success', args: [contactUpdated.name])] as JSON)
+    }
 
+    def updateContactExtraInfo(Long contactId, ContactExtraInfoCommand extraInfoCommand ) {
+        KuorumUserSession user = springSecurityService.principal
+        ContactRSDTO contact = contactService.getContact(user, contactId)
+        if (!contact) {
+            render([err: g.message(code: 'tools.contact.edit.error')] as JSON)
+            return
+        }
+        Map<String, String> extraInfo = extraInfoCommand.extraInfo.collectEntries{[it.key, it.value]}
+        contactService.putExtraInfo(user, contact.getId(), extraInfo)
+        render([msg: g.message(code: 'tools.contact.edit.success', args: [contact.name])] as JSON)
     }
 
     def generatePersonalCode(Long contactId) {
