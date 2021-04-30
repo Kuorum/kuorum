@@ -357,9 +357,9 @@ class NewsletterController {
 
     def showMailCampaign(Long campaignId) {
         KuorumUserSession loggedUser = springSecurityService.principal
-        BulletinRSDTO bulletinRSDTO = bulletinService.find(loggedUser, campaignId);
-        NewsletterRSDTO NewsletterRSDTO = bulletinRSDTO.newsletter
-        render NewsletterRSDTO.htmlBody ?: "Not sent"
+        CampaignRSDTO bulletinRSDTO = campaignService.find(loggedUser, campaignId);
+        NewsletterRSDTO newsletterRSDTO = bulletinRSDTO.newsletter
+        render newsletterRSDTO.htmlBody ?: "Not sent"
     }
 
     def showTrackingMails(Long newsletterId) {
