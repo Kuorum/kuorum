@@ -57,11 +57,11 @@ class DomainResourcesService {
             File logoFile = new File("/${temp}/logo.png")
             logoFile << customLogo
             DomainRSDTO domain = domainService.getConfig(CustomDomainResolver.domain)
-            String amazonLogoUrl = amazonFileService.uploadDomainLogo(logoFile, domain.domain)
-            faviconService.createFavicon(amazonLogoUrl, temp, domain)
-            temp.toAbsolutePath().deleteDir()
+            String amazonLogoUrl = amazonFileService.uploadDomainLogo(logoFile, CustomDomainResolver.domain)
             // Updating the config, updates the version. That allows to recover the new favicon and the new logo
-            domainService.updateConfig(domain)
+            DomainRSDTO domainRSDTO = domainService.updateConfig(domain)
+            faviconService.createFavicon("${amazonLogoUrl}?v=${domainRSDTO.version}", temp, domain)
+            temp.toAbsolutePath().deleteDir()
         }
         catch (Exception e) {
             log.error("Ha fallado la subida del logo", e)

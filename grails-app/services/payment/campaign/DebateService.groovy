@@ -15,21 +15,20 @@ import org.kuorum.rest.model.communication.debate.search.SortProposalRDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 
 @Transactional
-class DebateService implements CampaignCreatorService<DebateRSDTO, DebateRDTO> {
+class DebateService extends AbstractCampaignCreatorService<DebateRSDTO, DebateRDTO> implements CampaignCreatorService<DebateRSDTO, DebateRDTO> {
 
-    RestKuorumApiService restKuorumApiService
     IndexSolrService indexSolrService
     ProposalService proposalService
     CampaignService campaignService
 
     PageDebateRSDTO findAllDebates(Integer page = 0, Integer size = 10) {
         Map<String, String> params = [:]
-        Map<String, String> query = [page:page, size:size]
+        Map<String, String> query = [page: page, size: size]
         def response = restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.ACCOUNT_DEBATES_ALL,
                 params,
                 query,
-                new TypeReference<PageDebateRSDTO>(){}
+                new TypeReference<PageDebateRSDTO>() {}
         )
         response.data
     }
@@ -41,7 +40,7 @@ class DebateService implements CampaignCreatorService<DebateRSDTO, DebateRDTO> {
                 RestKuorumApiService.ApiMethod.ACCOUNT_DEBATES,
                 params,
                 query,
-                new TypeReference<List<DebateRSDTO>>(){}
+                new TypeReference<List<DebateRSDTO>>() {}
         )
 
         List<DebateRSDTO> debatesFound = null
@@ -55,15 +54,15 @@ class DebateService implements CampaignCreatorService<DebateRSDTO, DebateRDTO> {
     List<DebateRSDTO> findAll(KuorumUserSession user, String viewerUid = null) {
         Map<String, String> params = [userId: user.getId().toString()]
         Map<String, String> query = [:]
-        if (viewerUid){
-            query.put("viewerUid",viewerUid)
+        if (viewerUid) {
+            query.put("viewerUid", viewerUid)
         }
         try {
             def response = restKuorumApiService.get(
                     RestKuorumApiService.ApiMethod.ACCOUNT_DEBATES,
                     params,
                     query,
-                    new TypeReference<List<DebateRSDTO>>(){}
+                    new TypeReference<List<DebateRSDTO>>() {}
             )
 
             List<DebateRSDTO> debates = null
@@ -71,7 +70,7 @@ class DebateService implements CampaignCreatorService<DebateRSDTO, DebateRDTO> {
                 debates = (List<DebateRSDTO>) response.data
             }
             return debates
-        }catch (KuorumException e){
+        } catch (KuorumException e) {
             log.info("Error recovering debate $debateId : ${e.message}")
             return null
         }
@@ -82,20 +81,20 @@ class DebateService implements CampaignCreatorService<DebateRSDTO, DebateRDTO> {
     }
 //    @Cacheable(value="debate", key='#campaignId')
     DebateRSDTO find(String userId, Long debateId, String viewerUid = null) {
-        if (!debateId){
+        if (!debateId) {
             return null
         }
         Map<String, String> params = [userId: userId, debateId: debateId.toString()]
         Map<String, String> query = [:]
-        if (viewerUid){
-            query.put("viewerUid",viewerUid)
+        if (viewerUid) {
+            query.put("viewerUid", viewerUid)
         }
         try {
             def response = restKuorumApiService.get(
                     RestKuorumApiService.ApiMethod.ACCOUNT_DEBATE,
                     params,
                     query,
-                    new TypeReference<DebateRSDTO>(){}
+                    new TypeReference<DebateRSDTO>() {}
             )
 
             DebateRSDTO debateFound = null
@@ -103,7 +102,7 @@ class DebateService implements CampaignCreatorService<DebateRSDTO, DebateRDTO> {
                 debateFound = (DebateRSDTO) response.data
             }
             return debateFound
-        }catch (KuorumException e){
+        } catch (KuorumException e) {
             log.info("Error recovering debate $debateId : ${e.message}")
             return null
         }
@@ -131,7 +130,7 @@ class DebateService implements CampaignCreatorService<DebateRSDTO, DebateRDTO> {
                 params,
                 query,
                 debateRDTO,
-                new TypeReference<DebateRSDTO>(){}
+                new TypeReference<DebateRSDTO>() {}
         )
 
         DebateRSDTO debateSaved = null
@@ -150,7 +149,7 @@ class DebateService implements CampaignCreatorService<DebateRSDTO, DebateRDTO> {
                 params,
                 query,
                 debateRDTO,
-                new TypeReference<DebateRSDTO>(){}
+                new TypeReference<DebateRSDTO>() {}
         )
 
         DebateRSDTO debateSaved = null
@@ -196,31 +195,30 @@ class DebateService implements CampaignCreatorService<DebateRSDTO, DebateRDTO> {
         searchProposalRSDTO.sort = new SortProposalRDTO()
         searchProposalRSDTO.sort.direction = SortProposalRDTO.Direction.DESC
         searchProposalRSDTO.sort.field = SortProposalRDTO.Field.LIKES
-        searchProposalRSDTO.size = Integer.MAX_VALUE // Sorting and filtering will be done using JS. We expect maximum 100 proposals
+        searchProposalRSDTO.size = Integer.MAX_VALUE
+        // Sorting and filtering will be done using JS. We expect maximum 100 proposals
 
-        ProposalPageRSDTO proposalPage = proposalService.findProposal(debate, searchProposalRSDTO,viewerUid)
+        ProposalPageRSDTO proposalPage = proposalService.findProposal(debate, searchProposalRSDTO, viewerUid)
 //            if (lastActivity){
 //                lastModified(debate.lastActivity)
 //            }
         List<BasicDataKuorumUserRSDTO> pinnedUsers = proposalPage.data
-                .findAll{it.pinned}
-                .collect{it.user}
+                .findAll { it.pinned }
+                .collect { it.user }
                 .unique()
-                .sort{ u1, u2 -> u1.avatarUrl != null?-1:u2.avatarUrl!=null?1:0 }
+                .sort { u1, u2 -> u1.avatarUrl != null ? -1 : u2.avatarUrl != null ? 1 : 0 }
 
-        def model = [debate: debate, debateUser: debateUser, proposalPage:proposalPage, pinnedUsers:pinnedUsers]
+        def model = [debate: debate, debateUser: debateUser, proposalPage: proposalPage, pinnedUsers: pinnedUsers]
         return [view: '/debate/show', model: model]
     }
 
     @Override
-    DebateRSDTO copy(KuorumUserSession user, Long campaignId) {
-        //TODO: KPV-1606
-        return null
+    protected TypeReference<DebateRSDTO> getRsdtoType() {
+        return new TypeReference<DebateRSDTO>() {}
     }
 
     @Override
-    DebateRSDTO copy(String userId, Long campaignId) {
-        //TODO: KPV-1606
-        return null
+    protected RestKuorumApiService.ApiMethod getCopyApiMethod() {
+        return RestKuorumApiService.ApiMethod.ACCOUNT_DEBATE_COPY
     }
 }

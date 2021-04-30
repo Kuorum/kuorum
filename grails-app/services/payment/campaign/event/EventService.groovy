@@ -13,11 +13,11 @@ class EventService {
 
     RestKuorumApiService restKuorumApiService
 
-    EventRegistrationRSDTO addAssistant(String eventUserId, Long campaignId, KuorumUserSession assistant){
+    EventRegistrationRSDTO addAssistant(String eventUserId, Long campaignId, KuorumUserSession assistant) {
         Map<String, String> params = [
-                userId: eventUserId,
-                campaignId:campaignId.toString(),
-                assistantId:assistant.id.toString()
+                userId     : eventUserId,
+                campaignId : campaignId.toString(),
+                assistantId: assistant.id.toString()
         ]
         Map<String, String> query = [:]
         def response = restKuorumApiService.put(
@@ -25,7 +25,7 @@ class EventService {
                 params,
                 query,
                 null,
-                new TypeReference<EventRegistrationRSDTO>(){}
+                new TypeReference<EventRegistrationRSDTO>() {}
         )
 
         EventRegistrationRSDTO eventRSDTO = null
@@ -36,12 +36,12 @@ class EventService {
         eventRSDTO
     }
 
-    EventRegistrationRSDTO checkIn(Long contactId, Long campaignId, KuorumUserSession user, String hash){
+    EventRegistrationRSDTO checkIn(Long contactId, Long campaignId, KuorumUserSession user, String hash) {
         Map<String, String> params = [
-                userId: user.getId().toString(),
-                campaignId:campaignId.toString()
+                userId    : user.getId().toString(),
+                campaignId: campaignId.toString()
         ]
-        Map<String, String> query = [contactId:contactId, hash:hash]
+        Map<String, String> query = [contactId: contactId, hash: hash]
         try {
             def response = restKuorumApiService.put(
                     RestKuorumApiService.ApiMethod.ACCOUNT_EVENT_CHECK_IN,
@@ -56,17 +56,17 @@ class EventService {
                 eventRSDTO = response.data
             }
             return eventRSDTO
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error("Error checking in the contact ${contactId} on event ${campaignId}")
             return null
         }
     }
 
-    EventRegistrationRSDTO findAssistant(String eventUserId, Long eventId, BasicDataKuorumUserRSDTO assistant){
+    EventRegistrationRSDTO findAssistant(String eventUserId, Long eventId, BasicDataKuorumUserRSDTO assistant) {
         Map<String, String> params = [
-                userId: eventUserId,
-                eventId:eventId.toString(),
-                assistantId:assistant.id
+                userId     : eventUserId,
+                eventId    : eventId.toString(),
+                assistantId: assistant.id
         ]
         Map<String, String> query = [:]
         try {
@@ -74,7 +74,7 @@ class EventService {
                     RestKuorumApiService.ApiMethod.ACCOUNT_EVENT_ADD_ASSISTANT,
                     params,
                     query,
-                    new TypeReference<EventRegistrationRSDTO>(){}
+                    new TypeReference<EventRegistrationRSDTO>() {}
             )
 
             EventRegistrationRSDTO eventRSDTO = null
@@ -83,15 +83,15 @@ class EventService {
             }
 
             return eventRSDTO
-        }catch (Exception e){
+        } catch (Exception e) {
             return null
         }
     }
 
-    EventRSDTO findEvent(String userId, Long campaignId){
+    EventRSDTO findEvent(String userId, Long campaignId) {
         Map<String, String> params = [
-                userId: userId,
-                campaignId:campaignId.toString()
+                userId    : userId,
+                campaignId: campaignId.toString()
         ]
         Map<String, String> query = [:]
         def response = restKuorumApiService.get(
@@ -99,7 +99,7 @@ class EventService {
                 params,
                 query,
                 null,
-                new TypeReference<EventRSDTO>(){}
+                new TypeReference<EventRSDTO>() {}
         )
 
         EventRSDTO eventRSDTO = null
@@ -112,7 +112,7 @@ class EventService {
 
     void sendReport(KuorumUserSession user, Long campaignId, Boolean checkList = false) {
         Map<String, String> params = [userId: user.id.toString(), campaignId: campaignId.toString()]
-        Map<String, String> query = [checkList:checkList]
+        Map<String, String> query = [checkList: checkList]
         def response = restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.ACCOUNT_EVENT_REPORT,
                 params,
@@ -122,7 +122,7 @@ class EventService {
         response
     }
 
-    List<EventRSDTO> findEvents(KuorumUserSession user){
+    List<EventRSDTO> findEvents(KuorumUserSession user) {
         Map<String, String> params = [
                 userId: user.id.toString()
         ]
@@ -131,7 +131,7 @@ class EventService {
                 RestKuorumApiService.ApiMethod.ACCOUNT_EVENTS,
                 params,
                 query,
-                new TypeReference<List<EventRSDTO>>(){}
+                new TypeReference<List<EventRSDTO>>() {}
         )
 
         List<EventRSDTO> eventRSDTOs = null

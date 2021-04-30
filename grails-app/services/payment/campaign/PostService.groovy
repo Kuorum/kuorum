@@ -12,24 +12,23 @@ import org.kuorum.rest.model.communication.post.PostRSDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 
 @Transactional
-class PostService implements CampaignCreatorService<PostRSDTO, PostRDTO>{
+class PostService extends AbstractCampaignCreatorService<PostRSDTO, PostRDTO> implements CampaignCreatorService<PostRSDTO, PostRDTO> {
 
     def grailsApplication
     def indexSolrService
     def notificationService
     def fileService
     KuorumMailService kuorumMailService
-    RestKuorumApiService restKuorumApiService
     CampaignService campaignService
 
-    PagePostRSDTO findAllPosts(Integer page = 0, Integer size = 10){
+    PagePostRSDTO findAllPosts(Integer page = 0, Integer size = 10) {
         Map<String, String> params = [:]
-        Map<String, String> query = [page:page.toString(), size:size.toString()]
+        Map<String, String> query = [page: page.toString(), size: size.toString()]
         def response = restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.ACCOUNT_POSTS_ALL,
                 params,
                 query,
-                new TypeReference<PagePostRSDTO>(){}
+                new TypeReference<PagePostRSDTO>() {}
         )
 
         response.data
@@ -37,35 +36,35 @@ class PostService implements CampaignCreatorService<PostRSDTO, PostRDTO>{
     }
 
     @Deprecated
-    List<PostRSDTO> findAllPosts(String userId, String viewerUid = null){
+    List<PostRSDTO> findAllPosts(String userId, String viewerUid = null) {
         Map<String, String> params = [userId: userId]
         Map<String, String> query = [:]
-        if (viewerUid){
-            query.put("viewerUid",viewerUid)
+        if (viewerUid) {
+            query.put("viewerUid", viewerUid)
         }
         def response = restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.ACCOUNT_POSTS,
                 params,
                 query,
-                new TypeReference<List<PostRSDTO>>(){}
+                new TypeReference<List<PostRSDTO>>() {}
         )
 
         response.data
     }
 
-    PostRSDTO save(KuorumUserSession user, PostRDTO postRDTO, Long postId){
+    PostRSDTO save(KuorumUserSession user, PostRDTO postRDTO, Long postId) {
 
         PostRSDTO post = null
         if (postId) {
-            post= update(user, postRDTO, postId)
+            post = update(user, postRDTO, postId)
         } else {
-            post= createPost(user, postRDTO)
+            post = createPost(user, postRDTO)
         }
         indexSolrService.deltaIndex()
         post
     }
 
-    private PostRSDTO createPost(KuorumUserSession user, PostRDTO postRDTO){
+    private PostRSDTO createPost(KuorumUserSession user, PostRDTO postRDTO) {
         Map<String, String> params = [userId: user.id.toString()]
         Map<String, String> query = [:]
         def response = restKuorumApiService.post(
@@ -73,7 +72,7 @@ class PostService implements CampaignCreatorService<PostRSDTO, PostRDTO>{
                 params,
                 query,
                 postRDTO,
-                new TypeReference<PostRSDTO>(){}
+                new TypeReference<PostRSDTO>() {}
         )
 
         PostRSDTO postSaved = null
@@ -84,11 +83,11 @@ class PostService implements CampaignCreatorService<PostRSDTO, PostRDTO>{
         postSaved
     }
 
-    List<PostRSDTO> findAll(KuorumUserSession user,String viewerUid = null) {
+    List<PostRSDTO> findAll(KuorumUserSession user, String viewerUid = null) {
         Map<String, String> params = [userId: user.getId().toString()]
         Map<String, String> query = [:]
-        if (viewerUid){
-            query.put("viewerUid",viewerUid)
+        if (viewerUid) {
+            query.put("viewerUid", viewerUid)
         }
         try {
             def response = restKuorumApiService.get(
@@ -99,23 +98,24 @@ class PostService implements CampaignCreatorService<PostRSDTO, PostRDTO>{
             )
 
             return response.data ?: null
-        }catch (KuorumException e){
+        } catch (KuorumException e) {
             log.info("Posts of user not found [Excpt: ${e.message}")
             return null
         }
     }
 
-    PostRSDTO find(KuorumUserSession user, Long postId, String viewerUid = null){
+    PostRSDTO find(KuorumUserSession user, Long postId, String viewerUid = null) {
         find(user.id.toString(), postId, viewerUid)
     }
-    PostRSDTO find(String userId, Long postId, String viewerUid = null){
-        if (!postId){
+
+    PostRSDTO find(String userId, Long postId, String viewerUid = null) {
+        if (!postId) {
             return null
         }
         Map<String, String> params = [userId: userId, postId: postId.toString()]
         Map<String, String> query = [:]
-        if (viewerUid){
-            query.put("viewerUid",viewerUid)
+        if (viewerUid) {
+            query.put("viewerUid", viewerUid)
         }
         try {
             def response = restKuorumApiService.get(
@@ -126,7 +126,7 @@ class PostService implements CampaignCreatorService<PostRSDTO, PostRDTO>{
             )
 
             return response.data ?: null
-        }catch (KuorumException e){
+        } catch (KuorumException e) {
             log.info("Post not found [Excpt: ${e.message}")
             return null
         }
@@ -140,7 +140,7 @@ class PostService implements CampaignCreatorService<PostRSDTO, PostRDTO>{
                 params,
                 query,
                 postRDTO,
-                new TypeReference<PostRSDTO>(){}
+                new TypeReference<PostRSDTO>() {}
         )
 
         PostRSDTO postSaved = null
@@ -152,30 +152,29 @@ class PostService implements CampaignCreatorService<PostRSDTO, PostRDTO>{
     }
 //
 //    @PreAuthorize("hasPermission(#postId, 'like')")
-    PostRSDTO likePost (Long postId, KuorumUserSession currentUser, Boolean like, String postUserId){
+    PostRSDTO likePost(Long postId, KuorumUserSession currentUser, Boolean like, String postUserId) {
         Map<String, String> params = [userId: postUserId, postId: postId.toString()]
         Map<String, String> query = [viewerUid: currentUser.id.toString()]
         PostRSDTO postRSDTO
-        if(like){
+        if (like) {
             def response = restKuorumApiService.put(
                     RestKuorumApiService.ApiMethod.ACCOUNT_POST_LIKES,
                     params,
                     query,
                     null,
-                    new TypeReference<PostRSDTO>(){}
+                    new TypeReference<PostRSDTO>() {}
             )
             postRSDTO = response.data
-        }
-        else {
+        } else {
             def response = restKuorumApiService.delete(
                     RestKuorumApiService.ApiMethod.ACCOUNT_POST_LIKES,
                     params,
                     query,
-                    new TypeReference<PostRSDTO>(){}
+                    new TypeReference<PostRSDTO>() {}
             )
             postRSDTO = response.data
         }
-        return  postRSDTO
+        return postRSDTO
     }
 
     void remove(KuorumUserSession user, Long postId) {
@@ -198,18 +197,16 @@ class PostService implements CampaignCreatorService<PostRSDTO, PostRDTO>{
     @Override
     def buildView(PostRSDTO campaignRSDTO, BasicDataKuorumUserRSDTO campaignOwner, String viewerUid, def params) {
         def model = [post: campaignRSDTO, postUser: campaignOwner]
-        [view: "/post/show", model:model]
+        [view: "/post/show", model: model]
     }
 
     @Override
-    PostRSDTO copy(KuorumUserSession user, Long campaignId) {
-        //TODO: KPV-1606
-        return null
+    protected TypeReference<PostRSDTO> getRsdtoType() {
+        return new TypeReference<PostRSDTO>() {}
     }
 
     @Override
-    PostRSDTO copy(String userId, Long campaignId) {
-        //TODO: KPV-1606
-        return null
+    protected RestKuorumApiService.ApiMethod getCopyApiMethod() {
+        return RestKuorumApiService.ApiMethod.ACCOUNT_POST_COPY
     }
 }

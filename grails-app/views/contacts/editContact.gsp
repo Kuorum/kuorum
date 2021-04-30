@@ -82,6 +82,7 @@
             <li role="presentation"><a href="#activity" data-toggle="tab"><g:message code="tools.contact.edit.tabs.activity"/></a></li>
             <li role="presentation"><a href="#socialNetwork" data-toggle="tab"><g:message code="tools.contact.edit.tabs.socialNetworks"/></a></li>
             <li role="presentation"><a href="#notes" data-toggle="tab"><g:message code="tools.contact.edit.tabs.notes"/></a></li>
+            <li role="presentation"><a href="#extraInfo" data-toggle="tab"><g:message code="tools.contact.edit.tabs.extraInfo"/></a></li>
             <li role="presentation"><a href="#files" data-toggle="tab"><g:message code="tools.contact.edit.tabs.files"/></a></li>
         </ul>
         <div id="tabs-edit-contact" class="tab-content">
@@ -152,6 +153,18 @@
                             <label for="notesContact"><g:message code="tools.contact.edit.tabs.notes"/></label>
                             <textarea id="notesContact" class="form-control" name="notes">${contact.notes}</textarea>
                         </div>
+                        <div class="form-group col-md-2 col-md-offset-2">
+                            <input type="submit" value="${g.message(code:'default.save')}" class="btn btn-blue inverted">
+                        </div>
+                    </div>
+                </g:form>
+            </div>
+            <div class="tab-pane" id="extraInfo">
+                <h4 class="sr-only"><g:message code="tools.contact.edit.tabs.extraInfo"/></h4>
+                <formUtil:validateForm form="extraInfoContact" bean="${extraInfoCommand}" dirtyControl="true"/>
+                <g:form mapping="politicianContactEditUpdateExtraInfo" params="[contactId:contact.id]" name="extraInfoContact">
+                    <div class="row">
+                        <g:render template="/contacts/contactExtraInfoForm" model="[extraInfoCommand: extraInfoCommand]"/>
                         <div class="form-group col-md-2 col-md-offset-2">
                             <input type="submit" value="${g.message(code:'default.save')}" class="btn btn-blue inverted">
                         </div>
