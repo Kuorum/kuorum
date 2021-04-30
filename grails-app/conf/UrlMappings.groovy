@@ -130,6 +130,7 @@ class UrlMappings {
         name debateRemove:      "/ajax/account/$userAlias/d/$urlTitle-$campaignId/remove" (controller: "debate", action: "remove")
         name debateShow:        "/$userAlias/$urlTitle-$campaignId"         (controller: "campaign", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it)})}}
                                 "/$userAlias/-$campaignId"                  (controller: "campaign", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it)})}}
+        name debateCopy:        "/account/debate/$campaignId/copy"          (controller:"debate", action:"copy")
 
         name debateProposalNew:             "/ajax/addProposal"(controller: "debateProposal", action: "addProposal")
         name debateProposalDelete:          "/ajax/deleteProposal"(controller: "debateProposal", action: "deleteProposal")
@@ -150,6 +151,7 @@ class UrlMappings {
         name postEditEvent:         "/account/$userAlias/p/$urlTitle-$campaignId/edit-event" (controller: "event"){action = [GET: "editEvent", POST: "updateEvent"]}
         name postEditContent:       "/account/$userAlias/p/$urlTitle-$campaignId/edit-content" (controller: "post"){action = [GET: "editContentStep", POST: "saveContent"]}
         name postShow:              "/$userAlias/$urlTitle-$campaignId"           (controller: "campaign", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it)})}}
+        name postCopy:            "/account/post/$campaignId/copy"          (controller:"post", action:"copy")
 
 
         name surveyRemove:          "/ajax/account/$userAlias/s/$urlTitle-$campaignId/remove" (controller: "survey", action: "remove")
@@ -159,6 +161,7 @@ class UrlMappings {
         name surveyEditQuestions:   "/account/$userAlias/s/$urlTitle-$campaignId/edit-questions" (controller: "survey"){action = [GET: "editQuestionsStep", POST: "saveQuestions"]}
         name surveyShow:            "/$userAlias/$urlTitle-$campaignId"                          (controller: "campaign", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it)})}}
         name surveySaveAnswer:      "/ajax/$userAlias/$urlTitle-$campaignId/saveAnswer"          (controller: "survey", action: "saveAnswer"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it)})}}
+        name surveyCopy:            "/account/survey/$campaignId/copy" (controller:"survey", action:"copy")
 
         name eventCreate:           "/account/event/new" (controller: "event"){action = [GET: "create", POST: "saveSettings"]}
 
@@ -176,6 +179,7 @@ class UrlMappings {
         name participatoryBudgetDistrictProposalVote:    "/ajax/$userAlias/$participatoryBudgetTitle-$participatoryBudgetId/$urlTitle-$campaignId/vote"    (controller: "participatoryBudget", action:"voteDistrictProposal")
         name participatoryBudgetDistrictProposalsPagination:      "/ajax/$userAlias/$urlTitle-$campaignId/proposals"                  (controller: "participatoryBudget", action:"paginateParticipatoryBudgetProposalsJson")
         name participatoryBudgetDistrictProposalsTechnicalReview: "/ajax/$userAlias/$urlTitle-$campaignId/proposals/technicalReview"  (controller: "participatoryBudget", action:"updateTechnicalReview")
+        name participatory_budgetCopy:            "/account/pb/$campaignId/copy" (controller:"participatoryBudget", action:"copy")
 
         name districtProposalCreate:            "/account/$userAlias/pb/$urlTitle-$campaignId/new-proposal"         (controller: "districtProposal"){action = [GET: "create", POST: "saveNewProposal"]}
         name districtProposalEditSettings:      "/account/$userAlias/pb/$participatoryBudgetTitle-$participatoryBudgetId/$urlTitle-$campaignId/edit-settings" (controller: "districtProposal"){action = [GET: "editSettingsStep", POST: "saveSettings"]}
@@ -190,6 +194,7 @@ class UrlMappings {
         name petitionEdit:              "/account/$userAlias/pt/$urlTitle-$campaignId/edit-settings" (controller: "petition"){action = [GET: "editSettingsStep", POST: "saveSettings"]}
         name petitionEditContent:       "/account/$userAlias/pt/$urlTitle-$campaignId/edit-content" (controller: "petition"){action = [GET: "editContentStep", POST: "saveContent"]}
         name petitionShow:              "/$userAlias/$urlTitle-$campaignId"           (controller: "campaign", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it)})}}
+        name petitionCopy:              "/account/petition/$campaignId/copy" (controller:"petition", action:"copy")
 
 
         name campaignShow:          "/$userAlias/$urlTitle-$campaignId" (controller: "campaign", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it)})}}
@@ -324,6 +329,7 @@ class UrlMappings {
         name politicianContactPersonalCodeGenerate:     "/account/contacts/$contactId/edit/personalCode/generate" (controller:"contacts", action:"generatePersonalCode")
         name politicianContactPersonalCodeRemove:       "/account/contacts/$contactId/edit/personalCode/remove" (controller:"contacts", action:"removePersonalCode")
         name politicianContactEditUpdateNote:           "/ajax/account/contacts/$contactId/edit/updateNote" (controller:"contacts",action:"updateContactNotes")
+        name politicianContactEditUpdateExtraInfo:      "/ajax/account/contacts/$contactId/edit/updateExtraInfo" (controller:"contacts",action:"updateContactExtraInfo")
         name politicianContactNew:                      "/account/contacts/new" (controller:"contacts"){action =[GET:"newContact", POST:"saveContact"]}
         name politicianContactUnsubscribe:              "/account/contacts/$contactId/unsubscribe" (controller:"contacts", action: "loggedUnsubscribe")
         name politicianInbox:                           "/account/inbox" (controller:"politician", action: "betaTesterPage")

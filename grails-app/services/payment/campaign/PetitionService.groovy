@@ -13,14 +13,13 @@ import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 import org.kuorum.rest.model.kuorumUser.BasicUserPageRSDTO
 
 @Transactional
-class PetitionService implements CampaignCreatorService<PetitionRSDTO, PetitionRDTO>{
+class PetitionService  extends AbstractCampaignCreatorService<PetitionRSDTO, PetitionRDTO> implements CampaignCreatorService<PetitionRSDTO, PetitionRDTO>{
 
     def grailsApplication
     def indexSolrService
     def notificationService
     def fileService
     KuorumMailService kuorumMailService
-    RestKuorumApiService restKuorumApiService
     CampaignService campaignService
 
     PagePetitionRSDTO findAllPetition(Integer page = 0, Integer size = 10){
@@ -215,14 +214,12 @@ class PetitionService implements CampaignCreatorService<PetitionRSDTO, PetitionR
     }
 
     @Override
-    PetitionRSDTO copy(KuorumUserSession user, Long campaignId) {
-        //TODO: KPV-1606
-        return null
+    protected TypeReference<PetitionRSDTO> getRsdtoType() {
+        return new TypeReference<PetitionRSDTO>() {};
     }
 
     @Override
-    PetitionRSDTO copy(String userId, Long campaignId) {
-        //TODO: KPV-1606
-        return null
+    protected RestKuorumApiService.ApiMethod getCopyApiMethod() {
+        return RestKuorumApiService.ApiMethod.ACCOUNT_PETITION_COPY;
     }
 }

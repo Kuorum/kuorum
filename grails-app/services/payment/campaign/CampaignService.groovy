@@ -7,9 +7,11 @@ import kuorum.register.KuorumUserSession
 import kuorum.solr.IndexSolrService
 import kuorum.util.rest.RestKuorumApiService
 import org.kuorum.rest.model.communication.*
+import org.kuorum.rest.model.communication.bulletin.BulletinRSDTO
 import org.kuorum.rest.model.communication.event.EventRDTO
 import org.kuorum.rest.model.communication.search.SearchCampaignRDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
+import org.kuorum.rest.model.notification.campaign.NewsletterRSDTO
 
 @Transactional
 class CampaignService {
@@ -92,7 +94,7 @@ class CampaignService {
     }
 
     CampaignRSDTO find(BasicDataKuorumUserRSDTO user, Long campaignId, String viewerUid = null) {
-        find(user.getId().toString(), campaignId, viewerUid)
+        find(user.getAlias(), campaignId, viewerUid)
     }
 
 //    @Cacheable(value="debate", key='#campaignId')
@@ -271,6 +273,10 @@ class CampaignService {
             log.error("Error checking if user belongs to group", e)
             return false
         }
+    }
+
+    def copy(KuorumUserSession user, Long campaignId) {
+        return null
     }
 
 }

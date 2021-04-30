@@ -231,6 +231,7 @@ class RestKuorumApiService {
         USER_CONTACTS_TAGS          ('/contacts/{userId}/tags'),
         USER_CONTACTS_PERSONAL_CODE ('/contacts/{userId}/personalCodes'),
         USER_CONTACT_FILES          ("/contacts/{userId}/{contactId}/files"),
+        USER_CONTACT_EXTRA_INFO     ("/contacts/{userId}/{contactId}/extraInfo"),
         USER_CONTACT_FILTERS        ('/contacts/{userId}/filters'),
         USER_CONTACT_FILTER         ("/contacts/{userId}/filters/{filterId}"),
         USER_CONTACT_SUBSCRIBE      ("/contacts/{userId}/suscribe"),
@@ -300,11 +301,13 @@ class RestKuorumApiService {
         ACCOUNT_DEBATE_PROPOSAL_COMMENTS        ("/communication/campaign/debate/{userId}/{debateId}/proposal/{proposalId}/comment"),
         ACCOUNT_DEBATE_PROPOSAL_COMMENT         ("/communication/campaign/debate/{userId}/{debateId}/proposal/{proposalId}/comment/{commentId}"),
         ACCOUNT_DEBATE_PROPOSAL_COMMENT_VOTE    ("/communication/campaign/debate/{userId}/{debateId}/proposal/{proposalId}/comment/{commentId}/vote"),
+        ACCOUNT_DEBATE_COPY                     ("/communication/campaign/debate/{userId}/{campaignId}/copy"),
 
         ACCOUNT_POSTS_ALL       ("/communication/campaign/post/"),
         ACCOUNT_POSTS           ("/communication/campaign/post/{userId}"),
         ACCOUNT_POST            ("/communication/campaign/post/{userId}/{postId}"),
         ACCOUNT_POST_LIKES      ("/communication/campaign/post/{userId}/{postId}/likes"),
+        ACCOUNT_POST_COPY       ("/communication/campaign/post/{userId}/{campaignId}/copy"),
 
         ACCOUNT_BULLETINS_ALL       ("/communication/campaign/bulletin"),
         ACCOUNT_BULLETINS           ("/communication/campaign/bulletin/{userId}"),
@@ -317,6 +320,7 @@ class RestKuorumApiService {
         ACCOUNT_SURVEY_ANSWER_FILE    ("/communication/campaign/survey/{userId}/{surveyId}/question/{questionId}/{questionOptionId}/file"),
         ACCOUNT_SURVEY_REPORT_STATS   ("/communication/campaign/survey/{userId}/{surveyId}/report/stats"),
         ACCOUNT_SURVEY_REPORT_RAW     ("/communication/campaign/survey/{userId}/{surveyId}/report/rawData"),
+        ACCOUNT_SURVEY_COPY           ("/communication/campaign/survey/{userId}/{campaignId}/copy"),
 
         ACCOUNT_ACTIVE_PARTICIPATORY_BUDGETS                            ("/communication/campaign/participatory-budget/"),
         ACCOUNT_PARTICIPATORY_BUDGETS                                   ("/communication/campaign/participatory-budget/{userId}"),
@@ -326,6 +330,7 @@ class RestKuorumApiService {
         ACCOUNT_PARTICIPATORY_BUDGET_DISTRICT_PROPOSAL_VOTE             ("/communication/campaign/participatory-budget/{userId}/{campaignId}/proposal/{proposalId}/vote"),
         ACCOUNT_PARTICIPATORY_BUDGET_DISTRICT_PROPOSAL_SUPPORT          ("/communication/campaign/participatory-budget/{userId}/{campaignId}/proposal/{proposalId}/support"),
         ACCOUNT_PARTICIPATORY_BUDGET_DISTRICT_PROPOSAL_TECHNICAL_REVIEW ("/communication/campaign/participatory-budget/{userId}/{campaignId}/proposal/{proposalId}/technicalReview"),
+        ACCOUNT_PARTICIPATORY_BUDGET_COPY                               ("/communication/campaign/participatory-budget/{userId}/{campaignId}/copy"),
 
         ACCOUNT_DISTRICT_PROPOSALS      ("/communication/campaign/participatory-budget/district-proposal/{userId}"),
         ACCOUNT_DISTRICT_PROPOSAL       ("/communication/campaign/participatory-budget/district-proposal/{userId}/{campaignId}"),
@@ -334,6 +339,8 @@ class RestKuorumApiService {
         ACCOUNT_PETITIONS           ("/communication/campaign/petition/{userId}"),
         ACCOUNT_PETITION            ("/communication/campaign/petition/{userId}/{petitionId}"),
         ACCOUNT_PETITION_SIGN       ("/communication/campaign/petition/{userId}/{petitionId}/sign"),
+        ACCOUNT_PETITION_COPY       ("/communication/campaign/petition/{userId}/{campaignId}/copy"),
+
 
         ACCOUNT_EVENTS              ("/communication/campaign/event/{userId}"),
         ACCOUNT_EVENT               ("/communication/campaign/event/{userId}/{campaignId}"),

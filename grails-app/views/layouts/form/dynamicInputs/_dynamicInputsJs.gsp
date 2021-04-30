@@ -124,7 +124,8 @@
                 e.preventDefault();
                 var $button = $(this);
                 var numElementsOnList = $('#${formId} div.dynamic-fieldset').length -1;
-                if (numElementsOnList >=  ${validationDataMaxSize}){
+                var maxElementsOnList = ${validationDataMaxSize};
+                if (numElementsOnList >=  maxElementsOnList && maxElementsOnList > 0){
                     $("#dynamicInputOverflow_${formId}").modal("show")
                 }else{
                     addLine_${formId}()
