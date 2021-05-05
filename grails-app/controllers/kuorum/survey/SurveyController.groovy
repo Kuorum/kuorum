@@ -101,7 +101,7 @@ class SurveyController extends CampaignController {
         KuorumUserSession surveyUser = springSecurityService.principal
         SurveyRSDTO survey = setCampaignAsDraft(campaignId, surveyService)
         if (!survey.body || !survey.title) {
-            flash.message = g.message(code: 'survey.form.nobody.redirect')
+            flash.error = g.message(code: 'survey.form.nobody.redirect')
             redirect mapping: 'surveyEditContent', params: survey.encodeAsLinkProperties()
         } else {
             Long numberRecipients = getCampaignNumberRecipients(surveyUser, survey)
