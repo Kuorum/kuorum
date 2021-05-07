@@ -10,7 +10,7 @@
                 %{--<g:render template="/layouts/searchHeadForm"/>--}%
                 %{--<g:render template="/layouts/discoverHead"/>--}%
                 <sec:ifLoggedIn>
-                    <g:include controller="layouts" action="userHead"/>
+                    <nav:headNotifications/>
                 </sec:ifLoggedIn>
                 <sec:ifNotLoggedIn>
                     <g:include controller="login" action="headAuth"/>

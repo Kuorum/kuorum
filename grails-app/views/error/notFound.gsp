@@ -4,6 +4,7 @@
     <title><g:message code="error.notFound.title"/></title>
     <meta name="layout" content="errorLayout">
     <parameter name="extraCssContainer" value="onecol error" />
+    <parameter name="showNavBar" value="false" />
 </head>
 
 <content tag="mainContent">

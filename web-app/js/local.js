@@ -418,12 +418,46 @@ $(document).ready(function() {
 
 
     // al hacer clic en los badges vacía el contenido para que desaparezca
+    function loadMoreNotifications(){
+        var $link = $("#see-more-notifications");
+        var offset= parseInt($link.attr("data-pagination-offset"))+1;
+        var max= parseInt($link.attr("data-pagination-max"));
+        var total= parseInt($link.attr("data-pagination-total"));
+        var url = $link.attr("href");
+        var $seeMoreContainer =  $link.parents(".see-more");
+        var $loadingLi = $("<li class='loading'></li>");
+        var $ul = $seeMoreContainer.parents("ul.notification-menu");
+        $ul.prepend($loadingLi)
+
+
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: {
+                offset: offset,
+                max: max
+            },
+            success: function(result) {
+                $link.attr("data-pagination-offset", offset);
+                $(result).insertBefore($ul.find("li").last());
+                if (total <= (offset+1)*max){
+                    $seeMoreContainer.fadeOut("fast")
+                }
+                $loadingLi.remove()
+
+            },
+            error: function() {
+                console.log('error');
+                $loadingLi.remove()
+            }
+        });
+    }
     $(function() {
         //Eventos del menu de cabecera
         $('.nav .dropdown > a >.badge').closest('a').click(function(e) {
             e.preventDefault();
             var url = $(this).attr('href');
-            console.log(url);
+            loadMoreNotifications();
             var element = $(this);
             $.ajax(url).done(function(data){
                 element.find('.badge').delay(1000).fadeOut("slow").queue(function() {
@@ -438,34 +472,7 @@ $(document).ready(function() {
         $('#see-more-notifications').on("click",function (event) {
             event.preventDefault();
             event.stopPropagation();
-            var $link = $(this);
-            var offset= parseInt($link.attr("data-pagination-offset"))+1;
-            var max= parseInt($link.attr("data-pagination-max"));
-            var total= parseInt($link.attr("data-pagination-total"));
-            var url = $link.attr("href");
-            var $seeMoreContainer =  $link.parents(".see-more");
-            var $ul = $seeMoreContainer.parents("ul.notification-menu");
-            console.log($ul);
-
-            $.ajax({
-                type: 'POST',
-                url: url,
-                data: {
-                    offset: offset,
-                    max: max
-                },
-                success: function(result) {
-                    $link.attr("data-pagination-offset", offset);
-                    $(result).insertBefore($ul.find("li").last());
-                    if (total <= (offset+1)*max){
-                        $seeMoreContainer.fadeOut("fast")
-                    }
-
-                },
-                error: function() {
-                    console.log('error');
-                }
-            });
+            loadMoreNotifications();
         });
 
 
