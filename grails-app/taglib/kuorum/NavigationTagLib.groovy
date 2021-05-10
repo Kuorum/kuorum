@@ -3,13 +3,17 @@ package kuorum
 import com.opensymphony.module.sitemesh.RequestConstants
 import kuorum.core.model.AvailableLanguage
 import kuorum.core.model.search.Pagination
+import kuorum.core.model.search.SearchNotifications
 import kuorum.core.model.search.SearchType
 import kuorum.core.model.solr.SolrType
 import kuorum.files.LessCompilerService
+import kuorum.notifications.NotificationService
+import kuorum.register.KuorumUserSession
 import org.codehaus.groovy.grails.web.mapping.LinkGenerator
 import org.codehaus.groovy.grails.web.mapping.UrlCreator
 import org.codehaus.groovy.grails.web.mapping.UrlMappingInfo
 import org.codehaus.groovy.grails.web.mapping.UrlMappingsHolder
+import org.kuorum.rest.model.notification.NotificationPageRSDTO
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
 
@@ -24,6 +28,8 @@ class NavigationTagLib {
     def springSecurityService
     LinkGenerator grailsLinkGenerator
     LessCompilerService lessCompilerService
+
+    NotificationService notificationService
 
     /**
      * Returns the css "ACTIVE" if the mapping is the same as the url loaded
@@ -298,6 +304,18 @@ class NavigationTagLib {
 
         out <<"<span class='counterList'>${(currentPage) * sizePage +1} - ${upperLimit} of <span class='totalList'>${totalElements}</span></span>"
         out << "</div>"
+    }
+
+
+    private static final MAX_HEAD_NOTIFICATIONS = 4
+    def headNotifications= { attrs, body ->
+        if (springSecurityService.isLoggedIn()){
+            KuorumUserSession user = springSecurityService.principal
+            SearchNotifications searchNotificationsCommand = new SearchNotifications(user:user, max: 0)
+            NotificationPageRSDTO notificationsPage = notificationService.findUserNotifications(searchNotificationsCommand)
+            notificationsPage.setSize(MAX_HEAD_NOTIFICATIONS)
+            out << g.render(template:'/layouts/payment/paymentHead', model:[user:user, notificationsPage:notificationsPage])
+        }
     }
 
     private String getPaginationLi(String arrow, Long nextPage, boolean disabled, String link="#"){

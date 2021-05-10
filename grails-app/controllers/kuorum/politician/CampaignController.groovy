@@ -26,7 +26,6 @@ import org.kuorum.rest.model.communication.survey.CampaignVisibilityRSDTO
 import org.kuorum.rest.model.communication.survey.SurveyRDTO
 import org.kuorum.rest.model.communication.survey.SurveyVoteTypeDTO
 import org.kuorum.rest.model.contact.ContactPageRSDTO
-import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
 import org.kuorum.rest.model.contact.filter.FilterRDTO
 import org.kuorum.rest.model.contact.filter.FilterRSDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
@@ -142,7 +141,7 @@ class CampaignController {
             if (campaignRSDTO.hasProperty('causes')) {
                 command.causes = campaignRSDTO.causes
             }
-            ExtendedFilterRSDTO currentFilter = campaignRSDTO.newsletter?.filter;
+            FilterRSDTO currentFilter = campaignRSDTO.newsletter?.filter;
             if (currentFilter && !filters.find { it.id == currentFilter.id }) {
 //              If current filter is not in the user'f filters, then it is a anonymous filter. Adding it to the list of filter to be displayed
                 filters.add(currentFilter)
