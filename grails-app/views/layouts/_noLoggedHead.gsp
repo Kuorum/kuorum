@@ -8,20 +8,22 @@
     </li>
 
 
-    <li class="dropdown">
-        <a href="#" class="dropdown-toggle dropdown-menu-right navbar-link" data-toggle="dropdown" role="button">
-            <span><g:message code="head.noLogged.sectors"/> <i class="fal fa-angle-down" aria-hidden="true"></i></span>
-        </a>
-        <ul id="navigation-options" class="dropdown-menu dropdown-menu-right" aria-labelledby="open-user-options" role="menu">
-            <g:each in="${_domainActiveCampaigns}" var="activeSolrType">
-                <li>
-                    <g:link mapping="searcherSearch${activeSolrType}" class="navbar-link ${nav.activeMenuCss(mappingName: 'searcherSearch'+activeSolrType)}">
-                        <span><g:message code="search.filters.SolrType.${activeSolrType}"/></span>
-                    </g:link>
-                </li>
-            </g:each>
-        </ul>
-    </li>
+    <nav:onlyPublicDomain>
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle dropdown-menu-right navbar-link" data-toggle="dropdown" role="button">
+                <span><g:message code="head.noLogged.sectors"/> <i class="fal fa-angle-down" aria-hidden="true"></i></span>
+            </a>
+            <ul id="navigation-options" class="dropdown-menu dropdown-menu-right" aria-labelledby="open-user-options" role="menu">
+                <g:each in="${_domainActiveCampaigns}" var="activeSolrType">
+                    <li>
+                        <g:link mapping="searcherSearch${activeSolrType}" class="navbar-link ${nav.activeMenuCss(mappingName: 'searcherSearch'+activeSolrType)}">
+                            <span><g:message code="search.filters.SolrType.${activeSolrType}"/></span>
+                        </g:link>
+                    </li>
+                </g:each>
+            </ul>
+        </li>
+    </nav:onlyPublicDomain>
 
     <li>
         <g:link mapping="loginAuth" class="navbar-link ${nav.activeMenuCss(mappingName: 'loginAuth')}">
