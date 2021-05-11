@@ -24,6 +24,10 @@ class FooterController {
         if (!legalInfo){
             legalInfo = new DomainLegalInfoRSDTO();
         }
+        if(legalInfo.privacyPolicy) {
+            legalInfo.domainOwner= legalInfo.domainOwner?:g.message(code:'footer.menu.default.legalInfo.domainOwner')
+            return legalInfo
+        }
         legalInfo.domainName = legalInfo.domainName?:g.message(code:'footer.menu.default.legalInfo.domainName')
         legalInfo.fileResponsibleEmail = legalInfo.fileResponsibleEmail?:g.message(code:'footer.menu.default.legalInfo.fileResponsibleEmail')
         legalInfo.fileResponsibleName = legalInfo.fileResponsibleName?:g.message(code:'footer.menu.default.legalInfo.fileResponsibleName')
@@ -33,6 +37,7 @@ class FooterController {
         legalInfo.city= legalInfo.city?:g.message(code:'footer.menu.default.legalInfo.city')
         legalInfo.address= legalInfo.address?:g.message(code:'footer.menu.default.legalInfo.address')
         legalInfo.domainOwner= legalInfo.domainOwner?:g.message(code:'footer.menu.default.legalInfo.domainOwner')
+
         return legalInfo
     }
 
