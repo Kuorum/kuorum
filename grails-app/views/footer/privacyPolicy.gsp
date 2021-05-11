@@ -9,6 +9,13 @@
     <g:render template="leftMenuLegal" model="[activeMapping:'footerPrivacyPolicy']"/>
 </content>
 
+<g:if test="${legalInfo.privacyPolicy}">
+    <content tag="mainContent">
+        ${legalInfo?.privacyPolicy}
+    </content>
+</g:if>
+
+<g:else>
 <content tag="mainContent">
     <h1><g:message code="layout.footer.privacyPolicy"/></h1>
     <h4><g:message code="footer.menu.footerPrivacyPolicy.subtitle01"/></h4>
@@ -291,3 +298,4 @@
         </p>
     </div>
 </content>
+</g:else>
