@@ -1,3 +1,4 @@
+<%@ page import="org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO" %>
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <g:set var="breadCrumbName">
@@ -12,6 +13,7 @@
     <title>${breadCrumbName}</title>
     <meta name="layout" content="basicPlainLayout">
     <!-- Schema.org markup for Google+ -->
+    <meta itemprop="name" content="${_domainName}">
 </head>
 
 <content tag="mainContent">
@@ -20,7 +22,20 @@
         <li><g:link mapping="politicianCampaignsNew"><g:message code="tools.campaign.new.title"/></g:link></li>
         <li class="active">${breadCrumbName}</li>
     </ol>
-    <g:render template="types/settingsStep" model="[command: command, filters: filters, totalContacts: totalContacts, campaignId: campaignId, campaign:campaign]"/>
-
-    <g:render template="timeZoneSelectorPopUp"/>
+    <g:render template="/newsletter/types/settingsStep" model="[
+            campaign:campaign,
+            attachEvent:false,
+            command: command,
+            domainValidation:domainValidation,
+            filters: filters,
+            totalContacts: totalContacts,
+            anonymousFilter: anonymousFilter,
+            events:[TrackingMailStatusRSDTO.OPEN,TrackingMailStatusRSDTO.CLICK,TrackingMailStatusRSDTO.ANSWERED, TrackingMailStatusRSDTO.TRACK_LINK],
+            mappings:[
+                    step:'settings',
+                    settings:'politicianMassMailingSettings',
+                    template:'politicianMassMailingTemplate',
+                    content:'politicianMassMailingContent',
+                    showResult: 'politicianCampaigns',
+                    next: 'politicianMassMailingTemplate']]"/>
 </content>

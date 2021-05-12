@@ -1,25 +1,6 @@
 $(function () {
 
-    // Guardar borrador
-    $('body').on('click','.form-final-options #save-draft-campaign', function(e) {
-        e.preventDefault();
-        $("#sendMassMailingType").val("DRAFT");
-        $(this).parents("form").submit();
-    });
 
-    // abrir modal confirmar envío campaña
-    $('body').on('click','.form-final-options #send', function(e) {
-        e.preventDefault();
-        if (isValidCampaignForm()) {
-            $sendButton.attr("data-massMailingType", "SEND")
-            campaignForm.prepareAndOpenCampaignConfirmModal();
-        }
-    });
-
-    $('body').on('click','#sendTestModalButonOk', function(e) {
-        e.preventDefault();
-        $("#sendTestModal").modal("hide")
-    });
     $('body').on('click','#sendTest', function(e) {
         e.preventDefault();
         if (isValidCampaignForm()) {
@@ -43,27 +24,6 @@ $(function () {
                 });
         }
     });
-
-    // function dateFromString(str) {
-    //     // FORMAT dd/mm/yyyy hh24:mi
-    //     var m = str.match(/(\d+)\/(\d+)\/(\d+)\s+(\d+):(\d+)/);
-    //     return new Date(+m[3], +m[2] - 1, +m[1], +m[4], +m[5], 0);
-    // }
-
-    // function correctCampaingScheduled(){
-    //     var strTimestampScheduled = $("#scheduled").val();
-    //     var timeZoneDate = $('#timeZoneDate').val();
-    //     var timestampScheduled = dateFromString(strTimestampScheduled); // Sat Oct 10 2012 03:47:00 GMT-0500 (EST)
-    //     console.log(timeZoneDate)
-    //     console.log(timestampScheduled)
-    //     if (timestampScheduled < new Date()){
-    //         var errorMsg = i18n.kuorum.web.commands.payment.massMailing.MassMailingCommand.scheduled.min.error;
-    //         $("#scheduled").parents("div.input-group.datetime").after("<span for='scheduled' class='error'><span class='tooltip-arrow'></span>"+errorMsg+"</span>")
-    //         $("#scheduled").addClass("error")
-    //         return false;
-    //     }
-    //     return true;
-    // }
 
     function isValidCampaignForm(){
         var valid = $("#politicianMassMailingForm").valid();
@@ -100,33 +60,4 @@ $(function () {
         }
         return valid;
     }
-
-    // Abrir modal confirmar envío campaña programada
-    $('body').on('click','.form-final-options #sendLater', function(e) {
-        e.preventDefault();
-        // if (isValidCampaignForm() && correctCampaingScheduled()){
-        if (isValidCampaignForm()){
-            $sendButton.attr("data-massMailingType", "SCHEDULED")
-            campaignForm.prepareAndOpenCampaignConfirmModal();
-        }
-    });
-
-
-    // CREATE CAMPAIGN moving on STEPS
-    var $stepButton = $('ul.newsletter-steps > li > a');
-    $stepButton.on('click', campaignForm.stepSubmit);
-
-    var $nextButton = $('.form-final-options #next[data-redirectLink]');
-    $nextButton.on('click', campaignForm.stepSubmit);
-
-    var $nextButton = $('.form-final-options #save-draft-campaign[data-redirectLink]');
-    $nextButton.on('click', campaignForm.stepSubmit);
-
-    var $sendButton = $('#campaignConfirm #saveCampaignBtn[data-redirectLink]');
-    $sendButton.on('click', function(e){
-        var mailingType = $sendButton.attr("data-massMailingType")
-        $("#sendMassMailingType").val(mailingType);
-        campaignForm.stepSubmit(e)
-    });
-
 });
