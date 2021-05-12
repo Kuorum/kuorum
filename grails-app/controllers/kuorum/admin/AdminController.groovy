@@ -120,6 +120,7 @@ class AdminController {
     def domainValidation() {
         DomainRSDTO domainRSDTO = domainService.getConfig(CustomDomainResolver.domain)
         DomainValidationCommand domainValidationCommand = new DomainValidationCommand()
+        domainValidationCommand.privateContent = DomainValidationCommand.PrivateContentType.getPrivateContent(domainRSDTO.privateContent)
         domainValidationCommand.validationCensus = domainRSDTO.validationCensus
         domainValidationCommand.validationPhone = domainRSDTO.validationPhone
         domainValidationCommand.validationCode = domainRSDTO.validationCode
@@ -141,6 +142,7 @@ class AdminController {
             domainRDTO.smsDomainName = command.smsDomainName ?: ''
             domainRDTO.defaultPhonePrefix = command.defaultPhonePrefix
         }
+        domainRDTO.privateContent = command.privateContent.isPrivate
         domainService.updateConfig(domainRDTO)
         flash.message = "Success"
         redirect mapping: 'adminDomainValidation'

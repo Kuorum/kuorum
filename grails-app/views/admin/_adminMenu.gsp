@@ -11,9 +11,11 @@
     <li class="${activeMapping=='adminDomainConfigUploadCarouselImages'?'active':''}">
         <g:link mapping="adminDomainConfigUploadCarouselImages"><g:message code="admin.menu.domainConfig.uploadCarouselImages"/></g:link>
     </li>
-    <li class="${activeMapping=='adminDomainConfigRelevantCampagins'?'active':''}">
-        <g:link mapping="adminDomainConfigRelevantCampagins"><g:message code="admin.menu.domainConfig.relevantCampaigns.title"/></g:link>
-    </li>
+    <nav:onlyPublicDomain checkLogged="false">
+        <li class="${activeMapping=='adminDomainConfigRelevantCampagins'?'active':''}">
+            <g:link mapping="adminDomainConfigRelevantCampagins"><g:message code="admin.menu.domainConfig.relevantCampaigns.title"/></g:link>
+        </li>
+    </nav:onlyPublicDomain>
     <li class="${activeMapping=='adminAuthorizedCampaigns'?'active':''}">
         <g:link mapping="adminAuthorizedCampaigns"><g:message code="admin.menu.domainConfig.authorizedCampaigns.title"/></g:link>
     </li>
