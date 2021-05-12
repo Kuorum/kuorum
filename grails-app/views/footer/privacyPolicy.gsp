@@ -11,7 +11,7 @@
 
 <g:if test="${legalInfo.privacyPolicy}">
     <content tag="mainContent">
-        ${legalInfo?.privacyPolicy}
+        ${raw(legalInfo?.privacyPolicy)}
     </content>
 </g:if>
 
