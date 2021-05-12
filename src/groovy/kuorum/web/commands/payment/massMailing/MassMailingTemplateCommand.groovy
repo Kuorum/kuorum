@@ -10,7 +10,7 @@ import org.kuorum.rest.model.notification.campaign.NewsletterTemplateDTO
 @Validateable
 class MassMailingTemplateCommand {
 
-    NewsletterTemplateDTO contentType
+    BulletinNewsletterTemplateDTO contentType
 
     static constraints = {
         contentType nullable: false
