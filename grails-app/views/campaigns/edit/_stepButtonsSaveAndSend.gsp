@@ -9,6 +9,13 @@
     <li><button class="btn btn-blue inverted" id="update-campaign" data-redirectLink="${mappings.showResult}" value="${g.message(code: "tools.massMailing.save")}" >${g.message(code: "tools.massMailing.save")}</button></li>
 </g:elseif>
 <g:else>
+
+    <g:if test="${campaign && campaign.campaignType == org.kuorum.rest.model.communication.CampaignTypeRSDTO.BULLETIN}">
+        <li>
+            <g:link mapping="politicianMassMailingSendTest" params="[campaignId:campaign.id]" elementId="sendTest" title="${g.message(code:'tools.massMailing.sendTest')}" class="btn btn-grey-light">${g.message(code:'tools.massMailing.sendTest')}</g:link>
+        </li>
+    </g:if>
+
     <li>
         <a href="#" id="save-draft-debate" data-redirectLink="politicianCampaigns" class="btn btn-grey-light">
             <g:message code="tools.massMailing.saveDraft"/>
