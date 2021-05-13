@@ -34,34 +34,5 @@
         </div>
     </fieldset>
 
-    <fieldset class="form-group">
-        <div class="col-sm-10 col-sm-offset-2 col-md-8 col-md-offset-4 form-control-campaign">
-            <ul class="form-final-options">
-                <li>
-                    <g:link mapping="politicianMassMailingSendTest" params="[campaignId:campaign.id]" elementId="sendTest" title="${g.message(code:'tools.massMailing.sendTest')}" class="btn btn-grey-light">${g.message(code:'tools.massMailing.sendTest')}</g:link>
-                </li>
-                <li>
-                    <a href="#" id="save-draft-campaign" data-redirectLink="politicianCampaigns" class="btn btn-grey-light">
-                        <g:message code="tools.massMailing.saveDraft"/>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="btn btn-blue inverted" role="button" id="openCalendar">
-                        <span class="fal fa-clock"></span>
-                        <g:message code="tools.massMailing.schedule"/>
-                    </a>
-                    <div id="selectDate">
-                        %{--<form>--}%
-                        <label class="sr-only"><g:message code="tools.massMailing.schedule.label"/></label>
-                        <formUtil:date field="scheduled" command="${command}" cssClass="form-control" time="true"/>
-                        <a href="#" class="btn btn-blue inverted" id="sendLater">
-                            <g:message code="tools.massMailing.schedule.sendLater"/>
-                        </a>
-                        %{--</form>--}%
-                    </div>
-                </li>
-                <li><a href="#" class="btn btn-blue inverted" id="send"><g:message code="tools.massMailing.send"/></a></li>
-            </ul>
-        </div>
-    </fieldset>
+    <g:render template="/campaigns/edit/stepButtons" model="[mappings:mappings, status:status, command: command, numberRecipients:numberRecipients]"/>
 </form>

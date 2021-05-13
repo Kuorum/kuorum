@@ -43,7 +43,7 @@ class FormTagLib {
 
     def uploadCampaignImages = {attrs, body->
         String field = attrs.field
-        NewsletterRSDTO campaign = attrs.campaign
+        CampaignRSDTO campaign = attrs.campaign
         def model = [
             fileGroup:FileGroup.MASS_MAIL_IMAGE,
             campaign:campaign,

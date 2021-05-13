@@ -14,6 +14,13 @@
             label:g.message(code:'tools.campaign.new.steps.district')
     ]"/>
     <g:render template="/campaigns/steps/campaignStepActionButton" model="[
+            show:mappings.template,
+            currentActive:mappings.step == 'template',
+            link:mappings.template,
+            faIcon:'fa-object-ungroup',
+            label:g.message(code:'tools.campaign.new.steps.template')
+    ]"/>
+    <g:render template="/campaigns/steps/campaignStepActionButton" model="[
             show:attachEvent,
             currentActive:mappings.step == 'event',
             link:mappings.event,
