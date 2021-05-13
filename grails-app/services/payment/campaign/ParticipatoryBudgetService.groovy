@@ -174,6 +174,7 @@ class ParticipatoryBudgetService extends AbstractCampaignCreatorService<Particip
             participatoryBudgetRDTO.maxDistrictProposalsPerUser = participatoryBudgetRSDTO.maxDistrictProposalsPerUser
             participatoryBudgetRDTO.minVotesImplementProposals = participatoryBudgetRSDTO.minVotesImplementProposals
             participatoryBudgetRDTO.activeSupport = participatoryBudgetRSDTO.activeSupport
+            participatoryBudgetRDTO.addProposalsWithValidation = participatoryBudgetRSDTO.addProposalsWithValidation
         }
         return participatoryBudgetRDTO
     }
