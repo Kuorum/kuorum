@@ -267,7 +267,7 @@ class CampaignController {
             command = new CampaignContentCommand()
             if (campaignRSDTO) {
                 command.title = campaignRSDTO.title
-                command.body = URLDecoder.decode(campaignRSDTO.body, "UTF-8")
+                command.body = campaignRSDTO.body
                 //Links are encoded Hopefully, user not use URL encoding in his texts
                 if (campaignRSDTO.videoUrl) {
                     command.videoPost = campaignRSDTO.videoUrl
