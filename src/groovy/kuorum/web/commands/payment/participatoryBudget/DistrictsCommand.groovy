@@ -20,6 +20,7 @@ class DistrictsCommand {
     String sendType
 
     Boolean activeSupport
+    Boolean addProposalsWithValidation
 
     static constraints = {
         importFrom CampaignContentCommand, include: ["publishOn", "sendType"]
@@ -27,6 +28,7 @@ class DistrictsCommand {
         maxDistrictProposalsPerUser min: 1
         minVotesImplementProposals min: 0
         activeSupport nullable: true
+        addProposalsWithValidation nullable: true
     }
 
 }
