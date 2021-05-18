@@ -1,5 +1,5 @@
 
-<g:set var="numberValidationsActive" value="${(_domainValidations.phone?2:0)+(_domainValidations.census?1:0)+(_domainValidations.customCode?1:0)}"/>
+<g:set var="numberValidationsActive" value="${(_domainValidations?.phone?2:0)+(_domainValidations?.census?1:0)+(_domainValidations?.customCode?1:0)}"/>
 
 <g:if test="${numberValidationsActive>1}">
 %{-- Only shows steps if the phone is active because if phone is not active the census doesn't need the step bullets--}%
