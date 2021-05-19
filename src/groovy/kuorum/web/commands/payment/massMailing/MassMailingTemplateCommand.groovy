@@ -1,6 +1,7 @@
 package kuorum.web.commands.payment.massMailing
 
 import grails.validation.Validateable
+import org.kuorum.rest.model.communication.bulletin.BulletinNewsletterTemplateDTO
 import org.kuorum.rest.model.notification.campaign.NewsletterTemplateDTO
 
 /**

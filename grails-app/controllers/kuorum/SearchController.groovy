@@ -79,7 +79,7 @@ class SearchController{
         fixXssSearch(searchParams)
         SearchParams editedSearchParams = searchParams
         if (searchParams.searchType == SearchType.REGION || searchParams.searchType== SearchType.ALL){
-            editedSearchParams = new SearchParams(searchParams.properties)
+            editedSearchParams = new SearchParams(searchParams.properties.findAll{it.key != "class"})
             Locale locale = localeResolver.resolveLocale(request)
             AvailableLanguage language = AvailableLanguage.fromLocaleParam(locale.language)
             RegionRSDTO suggestedRegion = null;

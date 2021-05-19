@@ -64,7 +64,7 @@
             </fieldset>
         </g:if>
 
-        <g:render template="/campaigns/edit/stepButtons" model="[mappings:mappings, status:status, command: command, numberRecipients:numberRecipients]"/>
+        <g:render template="/campaigns/edit/stepButtons" model="[campaign:campaign, mappings:mappings, status:status, command: command, numberRecipients:numberRecipients]"/>
     </form>
 </div>
 

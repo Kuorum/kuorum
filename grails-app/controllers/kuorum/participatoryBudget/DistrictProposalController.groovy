@@ -17,6 +17,7 @@ import org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudg
 import org.kuorum.rest.model.communication.search.SearchCampaignRDTO
 import org.kuorum.rest.model.communication.survey.CampaignVisibilityRSDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
+import org.kuorum.rest.model.kuorumUser.validation.UserValidationRSDTO
 import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
 import payment.campaign.CampaignCreatorService
 
@@ -27,6 +28,15 @@ class DistrictProposalController extends CampaignController {
         Long participatoryBudgetId = params.campaignId ? Long.parseLong(params.campaignId) : null
         BasicDataKuorumUserRSDTO user = kuorumUserService.findBasicUserRSDTO(params.userAlias)
         ParticipatoryBudgetRSDTO participatoryBudgetRSDTO = participatoryBudgetService.find(user.id.toString(), participatoryBudgetId)
+        if (participatoryBudgetRSDTO.addProposalsWithValidation){
+            KuorumUserSession userSession = springSecurityService.principal
+            UserValidationRSDTO userValidationRSDTO = kuorumUserService.getUserValidationStatus(userSession, participatoryBudgetId)
+            if (!userValidationRSDTO.isGranted()){
+                // USER NEEDS TO BE VALIDATED to add a proposal
+                redirect mapping:'campaignValidationInitProcess', params: participatoryBudgetRSDTO.encodeAsLinkProperties()
+                return ;
+            }
+        }
         def districtProposalsCounters = countNumDistrictProposalsPerBudget(participatoryBudgetRSDTO, participatoryBudgetId)
         if (districtProposalsCounters.numProposals >= participatoryBudgetRSDTO.maxDistrictProposalsPerUser) {
             render(view: 'maxDistrictProposalsPerUserAndBudget', model: [participatoryBudgetRSDTO: participatoryBudgetRSDTO, districtProposalsCounters: districtProposalsCounters])
@@ -221,7 +231,7 @@ class DistrictProposalController extends CampaignController {
     private def districtProposalModelSettings(CampaignSettingsCommand command, DistrictProposalRSDTO districtProposalRSDTO) {
         def model = modelSettings(command, districtProposalRSDTO)
         command.debatable = false
-        model.options = [debatable: false, hideCauses: true, hideValidateOption: true]
+        model.options = [debatable: false, hideCauses: true]
         return model
     }
 

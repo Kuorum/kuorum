@@ -62,7 +62,7 @@
                     </r:script>
                 </fieldset>
             </g:if>
-            <g:if test="${!options.hideValidateOption}">
+            <g:if test="${options.showSurveyCustomFields}">
                 <fieldset class="form-group fieldset-check-box">
 
                     <label for="voteType" class="col-sm-2 col-md-1 control-label">
@@ -80,17 +80,17 @@
                     </div>
                 </fieldset>
             </g:if>
-            <g:if test="${options.showSurveyCustomFields}">
-                <div class="campaign-super-admin">
-                    <fieldset class="form-group">
-                        <label for="validationType" class="col-sm-2 col-md-1 control-label">
-                            <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="${g.message(code:'kuorum.web.commands.payment.CampaignSettingsCommand.validationType.label.info')}"></span>
-                            <g:message code="kuorum.web.commands.payment.CampaignSettingsCommand.validationType.label.left"/>:
-                        </label>
-                        <div class="col-sm-4 col-md-4">
-                            <formUtil:selectEnum command="${command}" field="validationType" disabled="${!domainValidation}" showLabel="false"/>
-                        </div>
-                    </fieldset>
+            <div class="campaign-super-admin">
+                <fieldset class="form-group">
+                    <label for="validationType" class="col-sm-2 col-md-1 control-label">
+                        <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="${g.message(code:'kuorum.web.commands.payment.CampaignSettingsCommand.validationType.label.info')}"></span>
+                        <g:message code="kuorum.web.commands.payment.CampaignSettingsCommand.validationType.label.left"/>:
+                    </label>
+                    <div class="col-sm-4 col-md-4">
+                        <formUtil:selectEnum command="${command}" field="validationType" disabled="${!domainValidation}" showLabel="false"/>
+                    </div>
+                </fieldset>
+                <g:if test="${options.showSurveyCustomFields}">
                     <fieldset class="form-group fieldset-check-box">
                         <label for="signVotes" class="col-sm-2 col-md-1 control-label">
                             <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="${g.message(code:'kuorum.web.commands.payment.CampaignSettingsCommand.signVotes.label.info')}"></span>
@@ -100,8 +100,8 @@
                             <formUtil:checkBox command="${command}" field="signVotes" disabled="${!grails.plugin.springsecurity.SpringSecurityUtils.ifAllGranted("ROLE_SUPER_ADMIN")}"/>
                         </div>
                     </fieldset>
-                </div>
-            </g:if>
+                </g:if>
+            </div>
             <g:if test="${options.hiddeCommentsFlag}">
                 <fieldset class="form-group fieldset-check-box">
                     <label for="campaignVisibility" class="col-sm-2 col-md-1 control-label">

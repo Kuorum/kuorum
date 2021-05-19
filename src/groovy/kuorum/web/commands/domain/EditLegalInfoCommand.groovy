@@ -14,6 +14,7 @@ class EditLegalInfoCommand {
     String fileResponsibleEmail;
     String fileResponsibleName;
     String customLegalInfo;
+    String privacyPolicy;
 
         static constraints = {
             address nullable: true
@@ -25,5 +26,6 @@ class EditLegalInfoCommand {
             fileResponsibleEmail nullable: true
             fileResponsibleName nullable: true
             customLegalInfo nullable: true
+            privacyPolicy nullable: true
     }
 }

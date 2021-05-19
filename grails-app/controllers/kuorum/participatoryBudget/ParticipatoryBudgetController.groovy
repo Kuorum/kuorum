@@ -160,7 +160,8 @@ class ParticipatoryBudgetController extends CampaignController {
                 districts: districts,
                 maxDistrictProposalsPerUser: participatoryBudgetRSDTO.maxDistrictProposalsPerUser,
                 minVotesImplementProposals: participatoryBudgetRSDTO.minVotesImplementProposals,
-                activeSupport: participatoryBudgetRSDTO.activeSupport
+                activeSupport: participatoryBudgetRSDTO.activeSupport,
+                addProposalsWithValidation: participatoryBudgetRSDTO.addProposalsWithValidation
         )
     }
 
@@ -181,6 +182,7 @@ class ParticipatoryBudgetController extends CampaignController {
         rdto.maxDistrictProposalsPerUser = command.maxDistrictProposalsPerUser
         rdto.minVotesImplementProposals = command.minVotesImplementProposals
         rdto.activeSupport = command.activeSupport == null ? false : true
+        rdto.addProposalsWithValidation = command.addProposalsWithValidation == null ? false : true
         def result = saveAndSendCampaign(campaignUser, rdto, participatoryBudgetRSDTO.getId(), command.publishOn, command.sendType, participatoryBudgetService)
         redirect mapping: result.nextStep.mapping, params: result.nextStep.params
     }
