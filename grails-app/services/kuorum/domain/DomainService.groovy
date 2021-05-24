@@ -241,6 +241,6 @@ class DomainService {
 
 
     Boolean showPrivateContent(Boolean checkLogged = true){
-        !CustomDomainResolver.domainRSDTO.privateContent || (checkLogged && springSecurityService.isLoggedIn())
+        !CustomDomainResolver.domainRSDTO.domainPrivacy || (checkLogged && springSecurityService.isLoggedIn())
     }
 }
