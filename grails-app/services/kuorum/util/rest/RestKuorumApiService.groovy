@@ -206,6 +206,7 @@ class RestKuorumApiService {
     }
 
     enum ApiMethod{
+        USER_PREVALIDATION                  ('/user/prevalidation/email'),
         USER_STATS_REPUTATION               ('/user/{userId}/stats/reputation'),
         USER_STATS_REPUTATION_EVOLUTION     ('/user/{userId}/stats/reputation/evolution'),
 
