@@ -116,8 +116,8 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
             }
         }
         if (redirectAdminConfig){
-            log.info("Redirecting for first configuration of the domain ${CustomDomainResolver.domain}")
-            redirect mapping: 'adminDomainRegisterStep1'
+            log.info("Redirecting for default configuration of the domain ${CustomDomainResolver.domain}")
+            redirect mapping: 'home'
         }else{
             render ([result:"success"] as JSON)
         }
