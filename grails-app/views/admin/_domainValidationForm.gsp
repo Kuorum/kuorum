@@ -3,7 +3,7 @@
     <h4 class="box-ppal-section-title"><g:message code="kuorum.web.admin.domain.contentPrivacy.label"/></h4>
     <fieldset class="row">
         <div class="form-group col-md-12">
-            <formUtil:radioEnum command="${command}" field="privateContent" showLabel="false" multiLine="true"/>
+            <formUtil:radioEnum command="${command}" field="domainPrivacy" showLabel="false" multiLine="true"/>
         </div>
     </fieldset>
     <h4 class="box-ppal-section-title"><g:message code="kuorum.web.admin.domain.validation.label"/></h4>
