@@ -7984,11 +7984,14 @@ ul.notification-menu > li.see-more {
     bottom: 10px;
     padding: 0px;
 }
+/* CSS for questions with a long text. Hardcoded for RED ELECTRICA. It is commented for future uses */
+/*
 .survey-question-answer .question-option-image + label{
     line-height: 22px;
     margin-top: 5px;
     font-size: 12px;
 }
+*/
 .survey-question-answer .rating-option label{
     position: absolute;
     top: 8px;

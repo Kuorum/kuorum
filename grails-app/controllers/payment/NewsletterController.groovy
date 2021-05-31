@@ -1,14 +1,13 @@
 package payment
 
 import grails.converters.JSON
-import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.KuorumFile
 import kuorum.dashboard.DashboardService
-import kuorum.files.FileService
+import kuorum.politician.CampaignController
 import kuorum.register.KuorumUserSession
 import kuorum.users.KuorumUser
-import kuorum.users.KuorumUserService
+import kuorum.web.commands.payment.CampaignSettingsCommand
 import kuorum.web.commands.payment.contact.ContactFilterCommand
 import kuorum.web.commands.payment.massMailing.MassMailingCommand
 import kuorum.web.commands.payment.massMailing.MassMailingContentCommand
@@ -16,9 +15,8 @@ import kuorum.web.commands.payment.massMailing.MassMailingSettingsCommand
 import kuorum.web.commands.payment.massMailing.MassMailingTemplateCommand
 import kuorum.web.commands.profile.TimeZoneCommand
 import org.kuorum.rest.model.communication.CampaignLightPageRSDTO
-import org.kuorum.rest.model.communication.CampaignLightRSDTO
 import org.kuorum.rest.model.communication.CampaignRSDTO
-import org.kuorum.rest.model.communication.CampaignTypeRSDTO
+import org.kuorum.rest.model.communication.bulletin.BulletinRDTO
 import org.kuorum.rest.model.communication.bulletin.BulletinRSDTO
 import org.kuorum.rest.model.communication.search.SearchCampaignRDTO
 import org.kuorum.rest.model.contact.ContactPageRSDTO
@@ -31,28 +29,15 @@ import org.kuorum.rest.model.notification.campaign.NewsletterTemplateDTO
 import org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatsByCampaignPageRSDTO
 import org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO
 import payment.campaign.BulletinService
-import payment.campaign.CampaignService
 import payment.campaign.NewsletterService
-import payment.campaign.PostService
-import payment.contact.ContactService
 
 @Secured(['IS_AUTHENTICATED_REMEMBERED'])
-class NewsletterController {
+class NewsletterController extends CampaignController{
 
-    SpringSecurityService springSecurityService
-
-    ContactService contactService
-
-    KuorumUserService kuorumUserService
-
-    FileService fileService
 
     NewsletterService newsletterService
 
     BulletinService bulletinService;
-
-    CampaignService campaignService
-    PostService postService
 
     DashboardService dashboardService
 
@@ -75,27 +60,28 @@ class NewsletterController {
 
     @Secured(['ROLE_CAMPAIGN_NEWSLETTER'])
     def createNewsletter() {
-        KuorumUserSession user = springSecurityService.principal
-        def returnModels = modelMassMailingSettings(user, new MassMailingSettingsCommand(), null)
-
-        return returnModels
+        return bulletinModelSettings(new CampaignSettingsCommand(debatable:false), null)
     }
 
     @Secured(['ROLE_CAMPAIGN_NEWSLETTER'])
     def editSettingsStep() {
-        KuorumUserSession user = springSecurityService.principal
-        Long campaignId = Long.parseLong(params.campaignId)
-        def returnModels = modelMassMailingSettings(user, new MassMailingSettingsCommand(), campaignId)
+        KuorumUserSession userSession = springSecurityService.principal
+        BulletinRSDTO bulletinRSDTO = bulletinService.find(userSession, Long.parseLong(params.campaignId))
+        return bulletinModelSettings(new CampaignSettingsCommand(debatable:false), bulletinRSDTO)
+    }
 
-        return returnModels
+    private def bulletinModelSettings(CampaignSettingsCommand command, BulletinRSDTO bulletinRSDTO) {
+        def model = modelSettings(command, bulletinRSDTO)
+        command.debatable=false
+        model.options =[debatable:false, showCampaignDateLimits:false]
+        return model
     }
 
     @Secured(['ROLE_CAMPAIGN_NEWSLETTER'])
     def editTemplateStep() {
-        MassMailingTemplateCommand command = new MassMailingTemplateCommand()
-        KuorumUserSession user = springSecurityService.principal
         Long campaignId = Long.parseLong(params.campaignId)
-        BulletinRSDTO bulletinRSDTO = bulletinService.find(user, campaignId)
+        BulletinRSDTO bulletinRSDTO = setCampaignAsDraft(campaignId, bulletinService)
+        MassMailingTemplateCommand command = new MassMailingTemplateCommand()
         command.contentType = bulletinRSDTO.getNewsletter().template
         [command: command, campaign: bulletinRSDTO]
     }
@@ -215,15 +201,13 @@ class NewsletterController {
 
     private NewsletterRQDTO convertTemplateToCampaign(MassMailingTemplateCommand command, KuorumUserSession user, Long campaignId) {
         BulletinRSDTO bulletinRSDTO = bulletinService.find(user, campaignId)
-        NewsletterRSDTO NewsletterRSDTO = bulletinRSDTO.newsletter
-        NewsletterRQDTO newsletterRQDTO = transformRStoRQ(NewsletterRSDTO)
+        NewsletterRQDTO newsletterRQDTO = transformRStoRQ(bulletinRSDTO.getNewsletter())
         newsletterRQDTO.setTemplate(command.contentType)
 
-        if (NewsletterRSDTO.template != command.contentType) {
+        if (bulletinRSDTO.getNewsletter().getTemplate() != command.contentType) {
             // The template has been changed, so the body will be new
             newsletterRQDTO.body = ""
         }
-
         newsletterRQDTO
     }
 
@@ -253,7 +237,7 @@ class NewsletterController {
             savedBulletin = newsletterService.campaignSend(user, newsletterRQDTO, campaignId)
             msg = g.message(code: 'tools.massMailing.send.advise', args: [savedBulletin.name])
         } else if (command.sendType == "SCHEDULED") {
-            savedBulletin = newsletterService.campaignSchedule(user, newsletterRQDTO, command.getScheduled(), campaignId)
+            savedBulletin = newsletterService.campaignSchedule(user, newsletterRQDTO, command.getPublishOn(), campaignId)
             msg = g.message(code: 'tools.massMailing.schedule.advise', args: [savedBulletin.name, g.formatDate(date: savedBulletin.newsletter.sentOn, type: "datetime", style: "SHORT")])
         } else {
             // IS A DRAFT OR TEST
@@ -491,8 +475,12 @@ class NewsletterController {
     }
 
     private NewsletterRQDTO transformRStoRQ(KuorumUserSession loggedUser, Long campaignId) {
-        NewsletterRSDTO NewsletterRSDTO = newsletterService.findCampaign(loggedUser, campaignId)
-        transformRStoRQ(NewsletterRSDTO)
+        if (campaignId) {
+            BulletinRSDTO bulletinRSDTO = bulletinService.find(loggedUser, campaignId)
+            return transformRStoRQ(bulletinRSDTO.getNewsletter())
+        } else {
+            return new NewsletterRQDTO()
+        }
     }
 
     private NewsletterRQDTO transformRStoRQ(NewsletterRSDTO rsdto) {
@@ -525,12 +513,7 @@ class NewsletterController {
 
 
     private NewsletterRQDTO mapSettingsToCampaign(MassMailingSettingsCommand command, KuorumUserSession user, FilterRDTO anonymousFilter, Long campaignId) {
-        NewsletterRQDTO newsletterRQDTO = null
-        if (campaignId) {
-            newsletterRQDTO = transformRStoRQ(user, campaignId)
-        } else {
-            newsletterRQDTO = new NewsletterRQDTO()
-        }
+        NewsletterRQDTO newsletterRQDTO = transformRStoRQ(user, campaignId)
         newsletterRQDTO.setName(command.campaignName)
         if (!newsletterRQDTO.getSubject()) {
             newsletterRQDTO.setSubject(command.campaignName)

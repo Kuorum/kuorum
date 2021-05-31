@@ -35,7 +35,7 @@ settings.gradle
 /src/java/salenda_config.properties
 /src/java/aws_config.properties
 
-/src/java/Config_aws.groovy
+#/src/java/Config_aws.groovy
 /src/java/Config_development.groovy
 /src/java/Config_preproduction.groovy
 /src/java/Config_production.groovy

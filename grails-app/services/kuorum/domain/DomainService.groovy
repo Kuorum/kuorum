@@ -2,6 +2,7 @@ package kuorum.domain
 
 import com.fasterxml.jackson.core.type.TypeReference
 import grails.async.Promise
+import grails.plugin.springsecurity.SpringSecurityService
 import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.files.LessCompilerService
 import kuorum.util.rest.RestKuorumApiService
@@ -17,6 +18,8 @@ class DomainService {
     RestKuorumApiService restKuorumApiService
 
     LessCompilerService lessCompilerService
+
+    SpringSecurityService springSecurityService;
 
     DomainRSDTO getConfig(String domain){
         Map<String, String> params = [domainName:domain]
@@ -236,4 +239,8 @@ class DomainService {
         CustomDomainResolver.clear()
     }
 
+
+    Boolean showPrivateContent(Boolean checkLogged = true){
+        CustomDomainResolver.domainRSDTO.domainPrivacy == DomainPrivacyRDTO.PUBLIC || (checkLogged && springSecurityService.isLoggedIn())
+    }
 }

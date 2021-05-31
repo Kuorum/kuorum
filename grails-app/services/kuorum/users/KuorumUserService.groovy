@@ -564,4 +564,16 @@ class KuorumUserService {
                 query
         )
     }
+
+    Boolean checkEmailForRegistrationOnDomain(String email){
+        Map<String, String> params = [:] // DELETES ALL VALIDATIONS
+        Map<String, String> query = [email:email]
+        def apiResponse = restKuorumApiService.get(
+                RestKuorumApiService.ApiMethod.USER_PREVALIDATION,
+                params,
+                query,
+                new TypeReference<Boolean>(){}
+        )
+        return apiResponse.data
+    }
 }

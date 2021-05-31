@@ -199,8 +199,8 @@ class SurveyService extends AbstractCampaignCreatorService<SurveyRSDTO, SurveyRD
 
     }
 
-    QuestionRSDTO saveAnswer(SurveyRSDTO surveyRSDTO, KuorumUserSession userAnswer, Long questionId, List<QuestionAnswerRDTO> answers) {
-        Map<String, String> params = [userId: surveyRSDTO.user.id.toString(), surveyId: surveyRSDTO.id.toString(), questionId: questionId.toString()]
+    QuestionRSDTO saveAnswer(Long surveyId, KuorumUserSession userAnswer, Long questionId, List<QuestionAnswerRDTO> answers) {
+        Map<String, String> params = [userId: 'XXX', surveyId: surveyId.toString(), questionId: questionId.toString()]
         Map<String, String> query = [viewerUid: userAnswer.id.toString()]
         def response = restKuorumApiService.put(
                 RestKuorumApiService.ApiMethod.ACCOUNT_SURVEY_ANSWER,

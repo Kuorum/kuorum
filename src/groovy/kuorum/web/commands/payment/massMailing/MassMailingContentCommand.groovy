@@ -3,6 +3,8 @@ package kuorum.web.commands.payment.massMailing
 import grails.validation.Validateable
 import kuorum.register.KuorumUserSession
 import kuorum.util.TimeZoneUtil
+import kuorum.web.commands.payment.CampaignContentCommand
+import kuorum.web.constants.WebConstants
 import org.grails.databinding.BindingFormat
 import org.kuorum.rest.model.notification.campaign.NewsletterTemplateDTO
 
@@ -17,8 +19,8 @@ class MassMailingContentCommand {
     String headerPictureId
     NewsletterTemplateDTO contentType
 
-    @BindingFormat('dd/MM/yyyy HH:mm')
-    Date scheduled
+    @BindingFormat(WebConstants.WEB_FORMAT_DATE)
+    Date publishOn
     String sendType
 
 //    public static KuorumUser currentUser(){
@@ -47,14 +49,15 @@ class MassMailingContentCommand {
                 return "kuorum.web.commands.payment.massMailing.MassMailingCommand.headerPictureId.nullable"
             }
         }
-        scheduled nullable: true, validator: { val, obj ->
-            KuorumUserSession userSession = MassMailingContentTextCommand.currentUser()
-            Date scheduledTimeZone = TimeZoneUtil.convertToUserTimeZone(val, userSession.timeZone)
-            Date userTimeZone = Calendar.getInstance(userSession.getTimeZone()).getTime()
-            if (val && obj.sendType== "SCHEDULED" && scheduledTimeZone < userTimeZone){
+        publishOn nullable: true, validator: { val, obj ->
+            KuorumUserSession kuorumUser = CampaignContentCommand.currentUser()
+            Date scheduledTimeZone = TimeZoneUtil.convertToUserTimeZone(val, kuorumUser.timeZone)
+            Date userTimeZone = Calendar.getInstance(kuorumUser.getTimeZone()).getTime()
+            if (val && obj.sendType == "SCHEDULED" && scheduledTimeZone < userTimeZone) {
                 return "kuorum.web.commands.payment.massMailing.MassMailingCommand.scheduled.min.error"
             }
         }
-        sendType nullable: false, inList:["DRAFT", "SCHEDULED", "SEND", "SEND_TEST"]
+
+        sendType nullable: false, inList:["DRAFT", "SCHEDULED", "SEND", "SEND_TEST", "ACTIVATE"]
     }
 }
