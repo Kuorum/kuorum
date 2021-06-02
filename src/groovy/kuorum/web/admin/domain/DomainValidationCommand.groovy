@@ -1,11 +1,13 @@
 package kuorum.web.admin.domain
 
 import grails.validation.Validateable
+import org.kuorum.rest.model.domain.DomainPrivacyRDTO
 import org.kuorum.rest.model.kuorumUser.LanguageRSDTO
 
 @Validateable
 class DomainValidationCommand {
 
+    DomainPrivacyRDTO domainPrivacy
     Boolean validationCensus
     Boolean validationPhone
     Boolean validationCode
@@ -13,6 +15,7 @@ class DomainValidationCommand {
     String defaultPhonePrefix
 
     static constraints = {
+        domainPrivacy nullable: false
         validationCensus nullable: true
         validationPhone nullable: true
         validationCode nullable: true

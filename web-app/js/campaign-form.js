@@ -92,7 +92,7 @@ $(function(){
         e.preventDefault();
         if (campaignForm.validateCampaignForm()) {
             $('#saveCampaignBtn').attr('data-callback', 'scheduleParams');
-            //$("input[name='sendType']").val("SCHEDULED");
+            // $("input[name='sendType']").val("SCHEDULED");
             campaignForm.prepareAndOpenCampaignConfirmModal();
         }
     });

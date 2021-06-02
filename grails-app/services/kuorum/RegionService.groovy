@@ -101,6 +101,9 @@ class RegionService {
     }
 
     RegionRSDTO findMostAccurateRegion(String regionName, AvailableLanguage language= AvailableLanguage.en_EN){
+        if (!regionName){
+            return null;
+        }
         try{
             Map params = [regionName:regionName, lang: language.getLocale().language]
             def response = restKuorumApiService.get(

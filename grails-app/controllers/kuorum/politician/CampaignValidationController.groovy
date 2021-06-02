@@ -33,6 +33,11 @@ class CampaignValidationController {
     RegisterService registerService
 
 
+    def initValidation(){
+        CampaignRSDTO campaign = getCampaignRSDTO(params)
+        redirect uri:calcNextStepMappingName(campaign)
+    }
+
     def step0RegisterWithCensusCode(){
         String censusLogin = params['censusLogin'];
         CensusLoginRDTO censusLoginData = censusService.getContactByCensusCode(censusLogin)
