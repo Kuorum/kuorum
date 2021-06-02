@@ -30,8 +30,8 @@ class LandingController {
         [
                 campaigns:campaigns,
                 starredCampaign:starredCampaign,
-                slogan:domainRSDTO.slogan,
-                subtitle:domainRSDTO.subtitle,
+                slogan:domainRSDTO.slogan?:g.message(code: "kuorum.web.landing.configuration.default.slogan"),
+                subtitle:domainRSDTO.subtitle?:g.message(code: "kuorum.web.landing.configuration.default.subtitle"),
                 domainDescription:domainRSDTO.domainDescription,
                 landingVisibleRoles: domainRSDTO.landingVisibleRoles,
                 command: new KuorumRegisterCommand()

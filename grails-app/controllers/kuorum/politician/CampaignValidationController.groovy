@@ -66,7 +66,7 @@ class CampaignValidationController {
                 redirect uri:calcNextStepMappingName(campaign)
             }else{
                 // DEFAULT
-                log.info("[censusLogion: ${censusLogi n}] : User doesn't exists. Showing contact data page ")
+                log.info("[censusLogion: ${censusLogin}] : User doesn't exists. Showing contact data page ")
                 render view: '/campaignValidation/step0RegisterWithCensusCode', model:[
                         contact: contact,
                         censusLogin:censusLogin,
