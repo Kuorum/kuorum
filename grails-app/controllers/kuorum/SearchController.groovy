@@ -66,6 +66,7 @@ class SearchController{
         String regionCountryCode = request.session.getAttribute(WebConstants.COUNTRY_CODE_SESSION)
         if (searchParams.hasErrors()){
             searchParams=new SearchParams(word: '')
+            searchParams.setMax(searchParams.getMax())
             docs = searchSolrService.searchAPI(searchParams)
         }else{
             searchParams.searchType = searchParams.searchType?:SearchType.ALL

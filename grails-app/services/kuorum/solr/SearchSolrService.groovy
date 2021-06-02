@@ -47,7 +47,7 @@ class SearchSolrService {
     private SearchParamsRDTO convertParams(SearchParams searchParams){
         SearchParamsRDTO searchParamsRDTO = new SearchParamsRDTO()
         searchParamsRDTO.searchBy = SearchByRDTO.valueOf(searchParams.getSearchType().toString()) // CHAPU
-        searchParamsRDTO.addType(searchParams.getType()?SearchTypeRSDTO.valueOf(searchParams.getType().toString()):null) // CHAPU
+        searchParamsRDTO.addType(searchParams.getSolrType()?SearchTypeRSDTO.valueOf(searchParams.getSolrType().toString()):null) // CHAPU
         searchParamsRDTO.boostedRegions = searchParams.boostedRegions
         searchParamsRDTO.filteredIds = searchParams.filteredUserIds
         searchParamsRDTO.boostedAlias = searchParams.boostedAlias

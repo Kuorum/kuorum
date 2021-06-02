@@ -331,7 +331,7 @@ class KuorumUserService {
     List<SearchKuorumUserRSDTO> bestUsers(List<ObjectId> userFiltered = [], Pagination pagination = new Pagination()){
         SearchParams searchParams = new SearchParams(pagination.getProperties().findAll{k,v->k!="class"})
         searchParams.max +=1
-        searchParams.setType(SolrType.KUORUM_USER)
+        searchParams.setSolrType(SolrType.KUORUM_USER)
         searchParams.filteredUserIds = userFiltered.collect{it.toString()}
 
         SearchResultsRSDTO results = searchSolrService.searchAPI(searchParams)
