@@ -36,7 +36,6 @@ class LandingController {
                 starredCampaign    : null
         ]
         if (domainService.showPrivateContent()) {
-            List<CampaignRSDTO> campaigns = campaignService.findRelevantDomainCampaigns()
             CampaignRSDTO starredCampaign = findStarredCampaign(campaigns, domainRSDTO.getStarredCampaignId())
             model.put('campaigns',campaigns)
             model.put('starredCampaign',starredCampaign,)
