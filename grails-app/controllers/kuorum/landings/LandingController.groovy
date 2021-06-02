@@ -24,10 +24,11 @@ class LandingController {
             redirect(mapping: "dashboard")
             return
         }
+        List<CampaignRSDTO> campaigns = campaignService.findRelevantDomainCampaigns()
         DomainRSDTO domainRSDTO = domainService.getConfig(CustomDomainResolver.domain)
         def model = [
-                slogan             : domainRSDTO.slogan,
-                subtitle           : domainRSDTO.subtitle,
+                slogan             : domainRSDTO.slogan?:g.message(code: "kuorum.web.landing.configuration.default.slogan"),
+                subtitle           : domainRSDTO.subtitle?:g.message(code: "kuorum.web.landing.configuration.default.subtitle"),
                 domainDescription  : domainRSDTO.domainDescription,
                 landingVisibleRoles: domainRSDTO.landingVisibleRoles,
                 command            : new KuorumRegisterCommand(),
@@ -35,7 +36,6 @@ class LandingController {
                 starredCampaign    : null
         ]
         if (domainService.showPrivateContent()) {
-            List<CampaignRSDTO> campaigns = campaignService.findRelevantDomainCampaigns()
             CampaignRSDTO starredCampaign = findStarredCampaign(campaigns, domainRSDTO.getStarredCampaignId())
             model.put('campaigns',campaigns)
             model.put('starredCampaign',starredCampaign,)
