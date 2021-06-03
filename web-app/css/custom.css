@@ -3684,7 +3684,7 @@ h5#results {margin: 0 0 15px;}
 .onecol.list .block-results li {list-style: none; margin: 0 0 4px 0; font-size: 14px; font-size: 1.4rem;}
 .onecol.list .block-results li a {color: #545454;}
 
-.noty_message {padding: 10px !important;}
+.noty_message {padding: 10px !important}
 .noty_text {line-height:2rem;}
 .noty_text a {color:#167caa;}
 .noty_text a:hover{color:#116083;}
@@ -3694,7 +3694,7 @@ h5#results {margin: 0 0 15px;}
     border: 1px solid rgba(255,148,49,1);
     box-shadow: rgba(255,148,49, 0.1) 0px 2px 4px;
     padding: 5px 10px;
-    color:#FFFFFF;
+    color:#ff0000;
 }
 
 .noty_type_cookie .noty_text a {color:#ffffff; font-weight: bold;}
