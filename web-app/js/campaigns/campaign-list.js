@@ -11,6 +11,14 @@ $(function(){
         }
     });
 
+    $("#tabs-stats-campaign").on("change", ".pag-list-contacts select[name=sizePage]",function(e){
+        e.preventDefault();
+        var sizePage = $(this).val()
+        var link = $(this).parent().siblings("ul").attr("data-link")
+        $("select[name=sizePage]").val(sizePage)
+        loadTrackingCampaignEvents(link, 0)
+    });
+
     $("#tabs-stats-campaign").on("click", "#status-filter-options a", function(e){
         e.preventDefault();
         var link = $("#tabs-stats-campaign .pagination ul.paginationTop").attr("data-link");
@@ -41,7 +49,8 @@ $(function(){
         pageLoadingOn();
 
         var status = $("#filter-status").val();
-        var postData = {page:page, status:status}
+        var size = $("select[name=sizePage]").val()
+        var postData = {page:page, status:status, size:size}
         $.post( link, postData)
             .done(function(data) {
                 $("#recipients").html(data)

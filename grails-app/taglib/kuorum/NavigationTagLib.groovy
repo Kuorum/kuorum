@@ -290,22 +290,31 @@ class NavigationTagLib {
         Long totalPages = Math.floor(Math.max(totalElements - 1, 0) / sizePage)
         String link = attrs.link ?: ""
 
-        out << "<div class='pagination'>"
-        out << "<ul class='${ulClass}' data-page='${currentPage}' data-size='${sizePage}' data-link='${link}'>"
-
         Long lowerLimit = (currentPage + -1) * sizePage
         lowerLimit = Math.max(lowerLimit, 0)
-        String prevLink = link ? "${link}${link.contains("?") ? "&" : "?"}offset=${lowerLimit}" : ""
-        out << getPaginationLi("<", currentPage - 1, currentPage == 0, prevLink)
-
         Long upperLimit = (currentPage + 1) * sizePage
         upperLimit = Math.min(totalElements, upperLimit)
-        String nextLink = link ? "${link}${link.contains("?") ? "&" : "?"}offset=${upperLimit}" : ""
+
+        out << "<div class='pagination'>"
+        out << "<span class='pagination-page'>${(currentPage) * sizePage + 1} - ${upperLimit} of <span class='totalList'>${totalElements}</span></span>"
+        out << "<div class='pagination-data'>"
+        out << "<ul class='${ulClass}' data-page='${currentPage}' data-size='${sizePage}' data-link='${link}'>"
+
+
+        String prevLink = link ? "${link}${link.contains("?") ? "&" : "?"}offset=${lowerLimit}&max=${sizePage}" : ""
+        out << getPaginationLi("<", currentPage - 1, currentPage == 0, prevLink)
+
+        String nextLink = link ? "${link}${link.contains("?") ? "&" : "?"}offset=${upperLimit}&max=${sizePage}" : ""
         out << getPaginationLi(">", currentPage + 1, currentPage >= totalPages, nextLink)
 
         out << "</ul>"
-
-        out << "<span class='counterList'>${(currentPage) * sizePage + 1} - ${upperLimit} of <span class='totalList'>${totalElements}</span></span>"
+        out << "<div class='pagination-size'><label>${g.message(code:'pagination.show')}</label> <select class='form-control input' name='sizePage'>"
+        [10, 50, 100].each {
+            String changeSizeLink = link ? "${link}${link.contains("?") ? "&" : "?"}offset=0&max=${it}" : ""
+            out << "<option ${it==sizePage?'selected=\'selected\'':''} data-link='${changeSizeLink}'>${it}</option>"
+        }
+        out << "</select></div>"
+        out << "</div>"
         out << "</div>"
     }
 

@@ -28,6 +28,12 @@ $(function () {
             filterContacts.searchContactsCallBacks.page(page)
         }
     });
+    $("#listContacts").on("change", ".pag-list-contacts select[name=sizePage]",function(e){
+        e.preventDefault();
+        var sizePage = $(this).val()
+        $("select[name=sizePage]").val(sizePage)
+        filterContacts.searchContactsCallBacks.pageSize(sizePage)
+    });
 
     // abrir modal confirmar borrado contacto
     $('#listContacts').on('click','a.contactDelete', function(e) {
@@ -965,6 +971,10 @@ function FilterContacts() {
         },
         page:function (page) {
             $("input[name=page]").val(page);
+            that.searchContactsCallBacks.loadTableContacts();
+        },
+        pageSize:function (pageSize) {
+            $("input[name=size]").val(pageSize);
             that.searchContactsCallBacks.loadTableContacts();
         },
         resetPage:function () {

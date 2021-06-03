@@ -6,6 +6,7 @@
     <parameter name="extraCssContainer" value="search" />
     %{--<parameter name="idLeftMenu" value="search-filters" />--}%
     %{--<parameter name="idMainContent" value="search-results" />--}%
+    <r:require module="search"/>
 </head>
 
 
@@ -13,7 +14,7 @@
 <content tag="mainContent">
     <g:render template="searchActionsPagination" model="[searchParams:searchParams,docs:docs]"/>
     %{--<g:if test="${docs.suggest}">--}%
-        %{--<p><g:message code="search.spelling"/> <g:link mapping="searcherSearch" params="[word:docs.suggest.suggestedQuery, type:searchParams.type]" > ${docs.suggest.suggestedQuery} </g:link>(${docs.suggest.hits})</p>--}%
+        %{--<p><g:message code="search.spelling"/> <g:link mapping="searcherSearch" params="[word:docs.suggest.suggestedQuery, type:searchParams.solrType]" > ${docs.suggest.suggestedQuery} </g:link>(${docs.suggest.hits})</p>--}%
     %{--</g:if>--}%
 
     %{--<ul class="${cssClassUL}" id="search-list-id">--}%
@@ -28,7 +29,7 @@
     <ul class="search-options">
         <li>
             <label>
-                <g:link mapping="searcherSearch" params="${params.findAll {k,v-> k!='type' && k!='offset' && v}}" class="${!searchParams.type?'search-option-active':''}">
+                <g:link mapping="searcherSearch" params="${params.findAll {k,v-> k!='solrType' && k!='offset' && v}}" class="${!searchParams.solrType?'search-option-active':''}">
                     <g:message code="search.filters.SolrType.ALL"/>
                     %{--<g:set var="hits" value="${docs.facets.type.sum{it.hits}}"/>--}%
                     %{--<g:if test="${hits}">(${hits})</g:if>--}%
@@ -37,7 +38,7 @@
         </li>
         <li>
             <label>
-                <g:link mapping="searcherSearchKUORUM_USER" params="${params.findAll {k,v-> k!='type' && k!='offset' && v}}" class="${searchParams.type == kuorum.core.model.solr.SolrType.KUORUM_USER?'search-option-active':''}">
+                <g:link mapping="searcherSearchKUORUM_USER" params="${params.findAll {k,v-> k!='solrType' && k!='offset' && v}}" class="${searchParams.solrType == kuorum.core.model.solr.SolrType.KUORUM_USER?'search-option-active':''}">
                     <span class="fal fa-user fa-fw"></span>
                     <g:message code="search.filters.SolrType.KUORUM_USER"/>
                     %{--<g:set var="hits" value="${docs.facets.type.find{it.facetName==kuorum.core.model.solr.SolrType.KUORUM_USER.toString()}?.hits?:0}"/>--}%
@@ -48,7 +49,7 @@
         <g:each in="${_domainActiveCampaigns}" var="activeSolrType">
             <li>
                 <label>
-                    <g:link mapping="${'searcherSearch'+activeSolrType.toString()}" params="${params.findAll {k,v-> k!='type' && k!='offset' && v}}" class="${searchParams.type == activeSolrType?'search-option-active':''}">
+                    <g:link mapping="${'searcherSearch'+activeSolrType.toString()}" params="${params.findAll {k,v-> k!='solrType' && k!='offset' && v}}" class="${searchParams.solrType == activeSolrType?'search-option-active':''}">
                         <span class="fal ${activeSolrType.faIcon} fa-fw"></span>
                         <g:message code="search.filters.SolrType.${activeSolrType}"/>
                     %{--<g:set var="hits" value="${docs.facets.type.find{it.facetName==kuorum.core.model.solr.SolrType.POST.toString()}?.hits?:0}"/>--}%
