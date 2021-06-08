@@ -79,14 +79,14 @@
         </li>
     </ul>
     <ul class="list-actions">
+        <g:if test="${!hideRemove}">
+            <li>
+                <g:link mapping="${campaignGenericMappings.remove}" params="${campaign.encodeAsLinkProperties()}"  role="button" class="campaignDelete"><span class="fal fa-trash"></span> <span class="sr-only">Delete</span></g:link>
+            </li>
+        </g:if>
         <g:if test="${campaign.getCampaignType() != org.kuorum.rest.model.communication.CampaignTypeRSDTO.DISTRICT_PROPOSAL}" >
             <li>
                 <g:link mapping="${campaignGenericMappings.copy}" params="[campaignId:campaign.id]" class="campaignStats"><span class="fal fa-copy"></span> <span class="sr-only">Stats</span></g:link>
-            </li>
-        </g:if>
-        <g:if test="${campaign.campaignStatusRSDTO == CampaignStatusRSDTO.SENT || campaign.campaignStatusRSDTO == CampaignStatusRSDTO.PAUSE}">
-            <li>
-                <g:link mapping="politicianCampaignStatsShow" params="[campaignId: campaign.id]" role="button" class="campaignStats"><span class="fal fa-chart-line"></span> <span class="sr-only">Stats</span></g:link>
             </li>
         </g:if>
         <g:if test="${!hideEdit}">
@@ -95,9 +95,9 @@
                 <g:link mapping="${campaignGenericMappings.edit}" params="${campaign.encodeAsLinkProperties()}" role="button" class="campaignEdit ${modal}"><span class="fal fa-edit"></span><span class="sr-only">Edit</span></g:link>
             </li>
         </g:if>
-        <g:if test="${!hideRemove}">
+        <g:if test="${campaign.campaignStatusRSDTO == CampaignStatusRSDTO.SENT || campaign.campaignStatusRSDTO == CampaignStatusRSDTO.PAUSE}">
             <li>
-                <g:link mapping="${campaignGenericMappings.remove}" params="${campaign.encodeAsLinkProperties()}"  role="button" class="campaignDelete"><span class="fal fa-trash"></span> <span class="sr-only">Delete</span></g:link>
+                <g:link mapping="politicianCampaignStatsShow" params="[campaignId: campaign.id]" role="button" class="campaignStats"><span class="fal fa-chart-line"></span> <span class="sr-only">Stats</span></g:link>
             </li>
         </g:if>
         <g:if test="${!hidePause}">
