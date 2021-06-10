@@ -1599,7 +1599,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .pagination>.active>a:focus,
 .pagination>.active>span:focus {color: #fff;background-color: #ddd;border-color: #ddd;cursor: default;}
 .pagination > span{display: inline-block; text-align: right}
-.pagination > span.pagination-page{width: 100%; margin-top: -20px; font-size: 13px;}
+.pagination > span.pagination-page{width: 100%; margin-top: -15px; font-size: 13px; margin-bottom: 5px;}
 .pagination > .pagination-data {width: 100%; }
 .pagination > .pagination-data ul{float: right}
 .pagination > .pagination-data ul li:first-child{margin-left: 25px;}
