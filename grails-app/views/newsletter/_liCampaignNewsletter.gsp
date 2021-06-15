@@ -50,11 +50,6 @@
     </ul>
     <ul class="list-actions">
         <li>
-            <g:link mapping="politicianMassMailingRemove" params="[campaignId: bulletin.id]" role="button"
-                    class="campaignDelete"><span class="fal fa-trash"></span> <span
-                    class="sr-only">Delete</span></g:link>
-        </li>
-        <li>
             <g:link mapping="politicianMassMailingCopy" params="[campaignId: bulletin.id]" class="campaignStats"><span
                     class="fal fa-copy"></span> <span class="sr-only">Copy</span></g:link>
         </li>
@@ -72,5 +67,10 @@
                         class="sr-only">Edit</span></g:link>
             </li>
         </g:else>
+        <li>
+            <g:link mapping="politicianMassMailingRemove" params="[campaignId: bulletin.id]" role="button"
+                    class="campaignDelete"><span class="fal fa-trash"></span> <span
+                    class="sr-only">Delete</span></g:link>
+        </li>
     </ul>
 </li>
