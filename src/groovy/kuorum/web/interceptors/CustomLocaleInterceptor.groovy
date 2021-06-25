@@ -42,7 +42,14 @@ class CustomLocaleInterceptor extends LocaleChangeInterceptor{
                 KuorumUserSession user = springSecurityService.principal
                 userLanguage = user.language
             }else{
+                // First : language from param
                 userLanguage = AvailableLanguage.fromLocaleParam(localeParam)
+                if (!userLanguage){
+                    // Second : From the browser or cookie
+                    Locale local = localeResolver.resolveLocale(request)
+                    userLanguage = AvailableLanguage.fromLocaleParam(local.getLanguage())?:null
+                }
+                // If cookie/browser or param browser are not defined, then it takes it from domain
                 if (!userLanguage){
                     userLanguage = getLanguageFromDomain(request, localeResolver)
                 }
