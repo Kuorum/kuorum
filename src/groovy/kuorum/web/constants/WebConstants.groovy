@@ -21,5 +21,7 @@ class WebConstants {
     public static final String WEB_FORMAT_DATE="dd/MM/yyyy HH:mm"
     public static final String WEB_FORMAT_DATE_SHORT="dd/MM/yyyy"
 
+    public static final String WEB_PARAM_LANG="lang"
+
     public static final String FAKE_LANDING_ALIAS_USER = "admin"
 }

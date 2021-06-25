@@ -9,6 +9,7 @@ import kuorum.files.AmazonFileService
 import kuorum.register.MongoUserDetailsService
 import kuorum.security.permission.KuorumPermissionEvaluator
 import kuorum.security.rememberMe.RememberMeTokenRepository
+import kuorum.web.constants.WebConstants
 
 // Place your Spring DSL code here
 beans = {
@@ -35,7 +36,7 @@ beans = {
     localeResolver(org.springframework.web.servlet.i18n.CookieLocaleResolver){}
 
     localeChangeInterceptor(kuorum.web.interceptors.CustomLocaleInterceptor) {
-        paramName = "lang"
+        paramName = WebConstants.WEB_PARAM_LANG
     }
 
     tokenRepository(RememberMeTokenRepository){
