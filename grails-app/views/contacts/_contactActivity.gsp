@@ -19,7 +19,7 @@
                     <td><kuorumDate:humanDate date="${event.timestamp}"/></td>
                     <td>
                         <g:if test="${event.status == org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO.SENT && activity.trackingId}">
-                            <g:link mapping="politicianMassMailingTrackEventsResend" params="[newsletterId:activity.newsletterId,tackingMailId:activity.trackingId]" class="btn btn-blue inverted resend-email">
+                            <g:link mapping="politicianMassMailingTrackEventsResend" params="[campaignId:activity.campaignId,tackingMailId:activity.trackingId]" class="btn btn-blue inverted resend-email">
                                 <g:message code="tools.massMailing.actions.resend"/>
                                 <span class="fal fa-angle-double-right"></span>
                             </g:link>
