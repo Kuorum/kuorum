@@ -262,10 +262,17 @@ class NewsletterController extends CampaignController{
         redirect(mapping: 'politicianCampaigns')
     }
 
+//    @Secured(['ROLE_CAMPAIGN_NEWSLETTER'])
+//    def resendEmail(Long newsletterId, Long tackingMailId) {
+//        KuorumUserSession loggedUser = springSecurityService.principal
+//        newsletterService.resendEmail(loggedUser, newsletterId, tackingMailId)
+//        render "OK"
+//    }
+
     @Secured(['ROLE_CAMPAIGN_NEWSLETTER'])
-    def resendEmail(Long newsletterId, Long tackingMailId) {
+    def resendEmail(Long campaignId, Long tackingMailId) {
         KuorumUserSession loggedUser = springSecurityService.principal
-        newsletterService.resendEmail(loggedUser, newsletterId, tackingMailId)
+        newsletterService.resendEmail(loggedUser, campaignId, tackingMailId)
         render "OK"
     }
 
