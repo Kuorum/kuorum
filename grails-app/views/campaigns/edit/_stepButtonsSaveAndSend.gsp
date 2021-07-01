@@ -76,7 +76,7 @@
                 </h4>
             </div>
             <div class="modal-body">
-                <p><g:message code="tools.massMailing.sendTestModal.text"/></p>
+                <p class="text-left"><g:message code="tools.massMailing.sendTestModal.text"/></p>
                 <a href="#" class="btn btn-blue inverted btn-lg" id="sendTestModalButonOk" data-dismiss="modal">
                     <g:message code="tools.massMailing.sendTestModal.button"/>
                 </a>
