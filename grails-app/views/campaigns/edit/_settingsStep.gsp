@@ -1,6 +1,7 @@
 <%@ page import="org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO" %>
 <r:require modules="datepicker, postForm, debateForm" />
-
+<g:set var="disabledForAdmins" value="${grails.plugin.springsecurity.SpringSecurityUtils.ifAnyGranted("ROLE_ADMIN")  || grails.plugin.springsecurity.SpringSecurityUtils.ifAnyGranted("ROLE_SUPER_ADMIN")}" />
+<span>${!disabledForAdmins}</span>
 <div class="box-steps container-fluid campaign-steps">
     <g:render template="/campaigns/steps/campaignSteps" model="[mappings: mappings, attachEvent:attachEvent]"/>
 </div>
@@ -69,7 +70,7 @@
                         <g:message code="kuorum.web.commands.payment.CampaignSettingsCommand.voteType.label.left"/>:
                     </label>
                     <div class="col-sm-4 col-md-4">
-                        <formUtil:selectEnum command="${command}" field="voteType" disabled="${!grails.plugin.springsecurity.SpringSecurityUtils.ifAllGranted("ROLE_SUPER_ADMIN")}" showLabel="false"/>
+                        <formUtil:selectEnum command="${command}" field="voteType" disabled="${!disabledForAdmins}" showLabel="false"/>
                     </div>
                     <label for="campaignVisibility" class="col-sm-2 col-md-1 control-label">
                         <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="${g.message(code:'kuorum.web.commands.payment.CampaignSettingsCommand.campaignVisibility.label.info')}"></span>
@@ -97,7 +98,7 @@
                             <g:message code="kuorum.web.commands.payment.CampaignSettingsCommand.signVotes.label.left"/>:
                         </label>
                         <div class="col-sm-4">
-                            <formUtil:checkBox command="${command}" field="signVotes" disabled="${!grails.plugin.springsecurity.SpringSecurityUtils.ifAllGranted("ROLE_SUPER_ADMIN")}"/>
+                            <formUtil:checkBox command="${command}" field="signVotes" disabled="${!disabledForAdmins}"/>
                         </div>
                     </fieldset>
                 </g:if>
