@@ -40,10 +40,12 @@ class SurveyQuestionsCommand {
     }
 
     private static void checkOptionFlow(SurveyQuestionsCommand surveyQuestionsCommand){
-        List<Long> nextQuestionsIds = surveyQuestionsCommand.questions.collect{it.id}
+
+        //Revisar quitar una pregunta del Command que no sea la última hace que falle.
+        List<Long> nextQuestionsIds = surveyQuestionsCommand.questions.findAll({it}).collect(({ it?.id })) as List<Long>
         List<Long> previousQuestionIds = []
         surveyQuestionsCommand.questions
-                .findAll() {it.questionType == QuestionTypeRSDTO.ONE_OPTION}
+                .findAll() {it?.questionType == QuestionTypeRSDTO.ONE_OPTION }
                 .each {q ->
                     // Current question is an invalid reference
                     if (q.id){
@@ -52,7 +54,7 @@ class SurveyQuestionsCommand {
                     }
                     // Search for options with invalid reference
                     q.options
-                            .findAll{qo -> qo.nextQuestionId != null && qo.nextQuestionId!=0}
+                            .findAll{qo -> qo.nextQuestionId }
                             .each { qo ->
                                 if (previousQuestionIds.contains(qo.nextQuestionId)){
                                     qo.errors.rejectValue("nextQuestionId","referencePreviousQuestion")
