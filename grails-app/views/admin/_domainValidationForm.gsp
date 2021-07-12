@@ -1,5 +1,5 @@
 <g:set var="disabledForAdmins" value="${grails.plugin.springsecurity.SpringSecurityUtils.ifAnyGranted("ROLE_ADMIN") || grails.plugin.springsecurity.SpringSecurityUtils.ifAnyGranted("ROLE_SUPER_ADMIN")}" />
-<r:require modules="forms"/>
+<r:require modules="forms,domainValidation"/>
 <div class="box-ppal-section">
     <h4 class="box-ppal-section-title"><g:message code="kuorum.web.admin.domain.contentPrivacy.label"/></h4>
     <fieldset class="row">
