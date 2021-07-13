@@ -1,29 +1,37 @@
-let smsName = $("#smsDomainName").val();
-let phonePrefix = $("#defaultPhonePrefix").val();
-
-$(document).ready(function() {
-    enableSmsFields();
+$(document).ready(function () {
+    domainValidationFunctions.checkSmsFieldsVisibility();
 
     if ($("#validationPhone").click(function () {
-        enableSmsFields();
-    }));
+        domainValidationFunctions.checkSmsFieldsVisibility();
+    })) ;
 });
 
-function enableSmsFields() {
-
-    toogleInputDisabled(!$("#validationPhone").prop('checked'));
-}
-
-function toogleInputDisabled(disableFields) {
-    $("#smsDomainName").prop('disabled', disableFields);
-    $("#defaultPhonePrefix").prop('disabled', disableFields);
-    if(disableFields) {
-        smsName = $("#smsDomainName").val();
-        phonePrefix = $("#defaultPhonePrefix").val();
+var domainValidationFunctions = {
+    smsName:$("#smsDomainName").val(),
+    phonePrefix:$("#defaultPhonePrefix").val(),
+    toogleInputVisibility: function (disableFields = false) {
+        $("#smsDomainName").prop('disabled', disableFields);
+        $("#defaultPhonePrefix").prop('disabled', disableFields);
+        if (disableFields) {
+            domainValidationFunctions.getVariableValueFromInput();
+            domainValidationFunctions.setInputValuesToBlank();
+        } else {
+            domainValidationFunctions.setVariablesValuesOnInput();
+        }
+    },
+    getVariableValueFromInput: function () {
+        domainValidationFunctions.smsName = $("#smsDomainName").val();
+        domainValidationFunctions.phonePrefix = $("#defaultPhonePrefix").val();
+    },
+    checkSmsFieldsVisibility: function () {
+        domainValidationFunctions.toogleInputVisibility(!$("#validationPhone").prop('checked'));
+    },
+    setInputValuesToBlank: function (){
         $("#smsDomainName").val('');
         $("#defaultPhonePrefix").val('');
-    } else {
-        $("#smsDomainName").val(smsName);
-        $("#defaultPhonePrefix").val(phonePrefix);
+    },
+    setVariablesValuesOnInput() {
+        $("#smsDomainName").val(domainValidationFunctions.smsName);
+        $("#defaultPhonePrefix").val(domainValidationFunctions.phonePrefix);
     }
 }
