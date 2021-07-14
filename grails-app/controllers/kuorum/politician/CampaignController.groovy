@@ -192,7 +192,7 @@ class CampaignController {
         if (command.eventAttached && !rdto.event) {
             rdto.event = new EventRDTO()
         }
-        if (rdto instanceof SurveyRDTO && grails.plugin.springsecurity.SpringSecurityUtils.ifAllGranted("ROLE_SUPER_ADMIN")) {
+        if (rdto instanceof SurveyRDTO && (grails.plugin.springsecurity.SpringSecurityUtils.ifAllGranted("ROLE_SUPER_ADMIN") || grails.plugin.springsecurity.SpringSecurityUtils.ifAllGranted("ROLE_ADMIN"))) {
             //Custom logic of survey. May be this logic shouldn't be here
             rdto.voteType = command.voteType == null ? SurveyVoteTypeDTO.MANIFEST : command.voteType;
             rdto.signVotes = command.signVotes == null ? false : command.signVotes;

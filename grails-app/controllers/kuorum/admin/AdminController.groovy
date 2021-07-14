@@ -135,7 +135,7 @@ class AdminController {
             return
         }
         DomainRDTO domainRDTO = getPopulatedDomainRDTO()
-        if (SpringSecurityUtils.ifAllGranted("ROLE_SUPER_ADMIN")) {
+        if (SpringSecurityUtils.ifAllGranted("ROLE_SUPER_ADMIN") || SpringSecurityUtils.ifAllGranted("ROLE_ADMIN")) {
             domainRDTO.validationCensus = command.validationCensus ?: false
             domainRDTO.validationCode = command.validationCode ?: false
             domainRDTO.validationPhone = command.validationPhone ?: false

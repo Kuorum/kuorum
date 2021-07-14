@@ -11,6 +11,7 @@ import kuorum.domain.DomainService
 import kuorum.files.LessCompilerService
 import kuorum.notifications.NotificationService
 import kuorum.register.KuorumUserSession
+import kuorum.web.constants.WebConstants
 import org.codehaus.groovy.grails.web.mapping.LinkGenerator
 import org.codehaus.groovy.grails.web.mapping.UrlCreator
 import org.codehaus.groovy.grails.web.mapping.UrlMappingInfo
@@ -140,7 +141,7 @@ class NavigationTagLib {
             parameters.put("mappingName", "fake") // Fake to prevent a null pointer recovering urlCreator
             UrlCreator urlCreator = urlMappingsHolder.getReverseMapping(urlMappingInfo.controllerName, urlMappingInfo.actionName, parameters)
             languageList.each { lang ->
-                parameters.put("lang", lang.getLocale().getLanguage())
+                parameters.put(WebConstants.WEB_PARAM_LANG, lang.getLocale().getLanguage())
                 String url = urlCreator.createURL(parameters, null)
                 urls.put(lang, url)
             }

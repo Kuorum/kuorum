@@ -22,7 +22,7 @@
     %{--This line wirtes the goole verification code. It is a meta tag with its code--}%
     ${raw(kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.googleSiteVerification)}
 
-    <g:set var="lang" value="${org.springframework.web.servlet.support.RequestContextUtils.getLocale(request).language}" />
+    <g:set var="${kuorum.web.constants.WebConstants.WEB_PARAM_LANG}" value="${org.springframework.web.servlet.support.RequestContextUtils.getLocale(request).language}" />
     <r:require modules="lang_${lang}, kuorumCookies, application" />
     <r:require modules="widget, widgetResizer" />
 %{--    <sec:ifNotLoggedIn>--}%

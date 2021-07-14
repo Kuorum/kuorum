@@ -88,11 +88,18 @@
         </li>
     </ul>
     <ul class="list-actions">
-        <g:if test="${!hideRemove}">
+        <g:if test="${!hidePause}">
             <li>
-                <g:link mapping="${campaignGenericMappings.remove}" params="${campaign.encodeAsLinkProperties()}"
-                        role="button" class="campaignDelete"><span class="fal fa-trash"></span> <span
-                        class="sr-only">Delete</span></g:link>
+                <g:link
+                        mapping="campaignPause"
+                        params="${campaign.encodeAsLinkProperties()}"
+                        role="button"
+                        class="campaignPause"
+                        data-text-sent="${g.message(code: 'org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT')}"
+                        data-text-paused="${g.message(code: 'org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.PAUSE')}">
+                    <span class="fal ${campaign.newsletter.status == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT ? 'fa-pause-circle' : 'fa-play-circle'}"></span>
+                    <span class="sr-only">Pause</span>
+                </g:link>
             </li>
         </g:if>
         <g:if test="${campaign.getCampaignType() != org.kuorum.rest.model.communication.CampaignTypeRSDTO.DISTRICT_PROPOSAL}">
@@ -118,18 +125,11 @@
                         class="sr-only">Stats</span></g:link>
             </li>
         </g:if>
-        <g:if test="${!hidePause}">
+        <g:if test="${!hideRemove}">
             <li>
-                <g:link
-                        mapping="campaignPause"
-                        params="${campaign.encodeAsLinkProperties()}"
-                        role="button"
-                        class="campaignPause"
-                        data-text-sent="${g.message(code: 'org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT')}"
-                        data-text-paused="${g.message(code: 'org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.PAUSE')}">
-                    <span class="fal ${campaign.newsletter.status == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT ? 'fa-pause-circle' : 'fa-play-circle'}"></span>
-                    <span class="sr-only">Pause</span>
-                </g:link>
+                <g:link mapping="${campaignGenericMappings.remove}" params="${campaign.encodeAsLinkProperties()}"
+                        role="button" class="campaignDelete"><span class="fal fa-trash"></span> <span
+                        class="sr-only">Delete</span></g:link>
             </li>
         </g:if>
     </ul>
