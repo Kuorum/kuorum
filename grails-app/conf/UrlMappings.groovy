@@ -305,6 +305,7 @@ class UrlMappings {
         name editorKuorumAccountEdit:                       "/editor/user/$userAlias/edit/account-details"        (controller:"editorUser"){action =[GET:"editAdminAccountDetails", POST:"updateAdminAccountDetails"]}
         name editorAdminUserRights:                         "/editor/user/$userAlias/edit/rights"                 (controller:"admin"){action =[GET:"editUserRights", POST:"updateUserRights"]}
         name editorAdminUserInvalidate:                     "/editor/user/$userAlias/edit/invalidate"             (controller:"editorUser", action:'invalidateUser')
+        name editorAdminUserValidate:                       "/editor/user/$userAlias/edit/validate"               (controller:"editorUser", action:'validateUser')
 
         name ajaxDeleteRecommendedUser: "/ajax/kuorumUser/deleteRecommendedUser"(controller: 'recommendedUserInfo', action: 'deleteRecommendedUser')
 
