@@ -33,7 +33,7 @@ class CampaignSettingsCommand {
     CampaignValidationTypeRDTO validationType = CampaignValidationTypeRDTO.NONE;
     CampaignVisibilityRSDTO campaignVisibility = CampaignVisibilityRSDTO.VISIBLE;
     SurveyVoteTypeDTO voteType = SurveyVoteTypeDTO.ANONYMOUS;
-    Boolean signVotes;
+    Boolean signVotes = false;
     Boolean groupValidation = false;
     Boolean newsletterCommunication = false;
 
