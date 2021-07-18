@@ -49,5 +49,6 @@
             </div>
         </fieldset>
     </g:form>
+    <g:render template="checkValidationAndGoesToCampaign" model="[campaign:campaign]"/>
 </content>
 
