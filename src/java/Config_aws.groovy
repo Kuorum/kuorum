@@ -1,4 +1,3 @@
-
 grails.serverURL="https://kuorum.org"
 
 
