@@ -116,6 +116,16 @@ class QuestionCommand{
         return null
     }
 
+    static validatePoints = { val, obj ->
+        if(obj.questionType == QuestionTypeRSDTO.MULTIPLE_OPTION_POINTS && val == null) {
+            return "invalidNumber"
+        }
+        if (obj.minAnswers > obj.points) {
+            return "invalidMinPoints"
+        }
+        return null
+    }
+
     static constraints = {
         id nullable: true
         text nullable: false, blank: false
@@ -125,6 +135,7 @@ class QuestionCommand{
         minAnswers min:1, validator: validateMinAnswer
         points min:0D, nullable: true
         questionLimitAnswersType nullable: false
+        points min:1D, validator: validatePoints
     }
 }
 
