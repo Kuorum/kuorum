@@ -120,7 +120,7 @@ class QuestionCommand {
         if (obj.questionType != QuestionTypeRSDTO.MULTIPLE_OPTION_POINTS) {
             return null
         }
-        if (val == null) {
+        if (!val || val == 0) {
             return "invalidNumber"
         }
         if (obj.minAnswers > obj.points) {
@@ -137,7 +137,7 @@ class QuestionCommand {
         maxAnswers min: 0, validator: validateMaxAnswer
         minAnswers min: 1, validator: validateMinAnswer
         questionLimitAnswersType nullable: false
-        points min: 1D, validator: validatePoints
+        points validator: validatePoints
     }
 }
 
