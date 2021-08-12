@@ -136,7 +136,6 @@ class QuestionCommand {
         options minSize: 2, validator: validateOptions
         maxAnswers min: 0, validator: validateMaxAnswer
         minAnswers min: 1, validator: validateMinAnswer
-        points min: 0D, nullable: true
         questionLimitAnswersType nullable: false
         points min: 1D, validator: validatePoints
     }
