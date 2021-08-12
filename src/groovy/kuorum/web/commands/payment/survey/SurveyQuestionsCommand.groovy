@@ -24,44 +24,44 @@ class SurveyQuestionsCommand {
     String sendType
 
 
-    static validateQuestions = {val, obj ->
+    static validateQuestions = { val, obj ->
         String error = null
-        if (obj.sendType != "DRAFT"){
-            if (val.size()<1){
+        if (obj.sendType != "DRAFT") {
+            if (val.size() < 1) {
                 error = "minSize.error"
             }
-            val.each{
+            val.each {
                 if (!error && it)
-                    error = it.validate()?null:'invalidQuestions'
+                    error = it.validate() ? null : 'invalidQuestions'
             }
             checkOptionFlow(obj)
         }
         return error
     }
 
-    private static void checkOptionFlow(SurveyQuestionsCommand surveyQuestionsCommand){
+    private static void checkOptionFlow(SurveyQuestionsCommand surveyQuestionsCommand) {
 
         //Revisar quitar una pregunta del Command que no sea la última hace que falle.
-        List<Long> nextQuestionsIds = surveyQuestionsCommand.questions.findAll({it}).collect(({ it?.id })) as List<Long>
+        List<Long> nextQuestionsIds = surveyQuestionsCommand.questions.findAll({ it }).collect(({ it?.id })) as List<Long>
         List<Long> previousQuestionIds = []
         surveyQuestionsCommand.questions
-                .findAll() {it?.questionType == QuestionTypeRSDTO.ONE_OPTION }
-                .each {q ->
+                .findAll() { it?.questionType == QuestionTypeRSDTO.ONE_OPTION }
+                .each { q ->
                     // Current question is an invalid reference
-                    if (q.id){
+                    if (q.id) {
                         nextQuestionsIds.remove(q.id);
                         previousQuestionIds.add(q.id);
                     }
                     // Search for options with invalid reference
                     q.options
-                            .findAll{qo -> qo.nextQuestionId }
+                            .findAll { qo -> qo.nextQuestionId }
                             .each { qo ->
-                                if (previousQuestionIds.contains(qo.nextQuestionId)){
-                                    qo.errors.rejectValue("nextQuestionId","referencePreviousQuestion")
-                                    qo.errors.reject("invalidFlow","Invalid question flow")
-                                }else if (!nextQuestionsIds.contains(qo.nextQuestionId)){
-                                    qo.errors.rejectValue("nextQuestionId","invalidReference")
-                                    qo.errors.reject("invalidFlow","Invalid question flow")
+                                if (previousQuestionIds.contains(qo.nextQuestionId)) {
+                                    qo.errors.rejectValue("nextQuestionId", "referencePreviousQuestion")
+                                    qo.errors.reject("invalidFlow", "Invalid question flow")
+                                } else if (!nextQuestionsIds.contains(qo.nextQuestionId)) {
+                                    qo.errors.rejectValue("nextQuestionId", "invalidReference")
+                                    qo.errors.reject("invalidFlow", "Invalid question flow")
                                 }
                             }
                 }
@@ -74,50 +74,53 @@ class SurveyQuestionsCommand {
 }
 
 @Validateable
-class QuestionCommand{
+class QuestionCommand {
     Long id
     String text
     QuestionTypeRSDTO questionType
     QuestionLimitAnswersType questionLimitAnswersType
-    List<QuestionOptionCommand> options =[new QuestionOptionCommand(),new QuestionOptionCommand()]
+    List<QuestionOptionCommand> options = [new QuestionOptionCommand(), new QuestionOptionCommand()]
     Integer maxAnswers = 1;
     Integer minAnswers = 1;
     @BindingFormat(".")
     Double points;
 
-    static validateOptions = {val, obj ->
+    static validateOptions = { val, obj ->
         String error = null
-        if ([QuestionTypeRSDTO.ONE_OPTION, QuestionTypeRSDTO.MULTIPLE_OPTION].contains(obj.questionType) ){
-            val.each{
+        if ([QuestionTypeRSDTO.ONE_OPTION, QuestionTypeRSDTO.MULTIPLE_OPTION].contains(obj.questionType)) {
+            val.each {
                 if (!error && it)
-                    error = it.validate()?null:'invalidOptions'
+                    error = it.validate() ? null : 'invalidOptions'
             }
         }
         return error
     }
 
-    static validateMaxAnswer = {val, obj ->
+    static validateMaxAnswer = { val, obj ->
         Integer numOptions = obj.options.size()
         List<QuestionLimitAnswersType> checkMaxValidation = [QuestionLimitAnswersType.RANGE, QuestionLimitAnswersType.FORCE, QuestionLimitAnswersType.MAX]
-        if (checkMaxValidation.contains(obj.questionLimitAnswersType) && val > numOptions){
+        if (checkMaxValidation.contains(obj.questionLimitAnswersType) && val > numOptions) {
             return "invalidMax"
         }
         return null
     }
-    static validateMinAnswer = {val, obj ->
+    static validateMinAnswer = { val, obj ->
         Integer numOptions = obj.options.size()
         List<QuestionLimitAnswersType> checkMaxValidation = [QuestionLimitAnswersType.RANGE, QuestionLimitAnswersType.MIN]
-        if (checkMaxValidation.contains(obj.questionLimitAnswersType) && val > numOptions ){
+        if (checkMaxValidation.contains(obj.questionLimitAnswersType) && val > numOptions) {
             return "invalidMin"
         }
-        if (QuestionLimitAnswersType.RANGE == obj.questionLimitAnswersType && val > obj.maxAnswers ){
+        if (QuestionLimitAnswersType.RANGE == obj.questionLimitAnswersType && val > obj.maxAnswers) {
             return "invalidMinGTMax"
         }
         return null
     }
 
     static validatePoints = { val, obj ->
-        if(obj.questionType == QuestionTypeRSDTO.MULTIPLE_OPTION_POINTS && val == null) {
+        if(obj.questionType != QuestionTypeRSDTO.MULTIPLE_OPTION_POINTS) {
+            return null
+        }
+        if (!val) {
             return "invalidNumber"
         }
         if (obj.minAnswers > obj.points) {
@@ -131,35 +134,34 @@ class QuestionCommand{
         text nullable: false, blank: false
         questionType nullable: false
         options minSize: 2, validator: validateOptions
-        maxAnswers min:0, validator: validateMaxAnswer
-        minAnswers min:1, validator: validateMinAnswer
-        points min:0D, nullable: true
+        maxAnswers min: 0, validator: validateMaxAnswer
+        minAnswers min: 1, validator: validateMinAnswer
         questionLimitAnswersType nullable: false
-        points min:1D, validator: validatePoints
+        points min: 1D, nullable: true, validator: validatePoints
     }
 }
 
-enum QuestionLimitAnswersType{
-    MIN,MAX,RANGE,FORCE
+enum QuestionLimitAnswersType {
+    MIN, MAX, RANGE, FORCE
 
-    public static QuestionLimitAnswersType inferType(QuestionRSDTO questionRSDTO){
-        if (questionRSDTO.questionType == QuestionTypeRSDTO.MULTIPLE_OPTION_WEIGHTED){
+    public static QuestionLimitAnswersType inferType(QuestionRSDTO questionRSDTO) {
+        if (questionRSDTO.questionType == QuestionTypeRSDTO.MULTIPLE_OPTION_WEIGHTED) {
             // Multiple option weight has no limit. The limit is the max calculated with his ponderation.
             return QuestionLimitAnswersType.MIN;
-        }else if (questionRSDTO.maxAnswers == questionRSDTO.minAnswers){
+        } else if (questionRSDTO.maxAnswers == questionRSDTO.minAnswers) {
             return QuestionLimitAnswersType.FORCE
-        }else if (questionRSDTO.minAnswers != 1 && questionRSDTO.maxAnswers != 0 ){
+        } else if (questionRSDTO.minAnswers != 1 && questionRSDTO.maxAnswers != 0) {
             return QuestionLimitAnswersType.RANGE
-        }else if (questionRSDTO.minAnswers == 1 && questionRSDTO.maxAnswers != 0 ){
+        } else if (questionRSDTO.minAnswers == 1 && questionRSDTO.maxAnswers != 0) {
             return QuestionLimitAnswersType.MAX
-        }else{
+        } else {
             return QuestionLimitAnswersType.MIN
         }
     }
 }
 
 @Validateable
-class QuestionOptionCommand{
+class QuestionOptionCommand {
     Long id
     String text
     QuestionOptionTypeRDTO questionOptionType = QuestionOptionTypeRDTO.ANSWER_PREDEFINED
