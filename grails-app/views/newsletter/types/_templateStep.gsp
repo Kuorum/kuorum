@@ -1,7 +1,13 @@
 <%@ page import="org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO" %>
-<r:require modules="newsletter" />
-<div class="box-steps container-fluid choose-campaign">
-    <g:render template="/campaigns/steps/threeSteps" model="[editReference: 'politicianMassMailingTemplate']"/>
+<r:require modules="campaignForm" />
+<div class="box-steps container-fluid campaign-steps">
+    <g:set var="mappings" value="${[step:'template',
+        settings:'politicianMassMailingSettings',
+        template:'politicianMassMailingTemplate',
+        content:'politicianMassMailingContent',
+        showResult: 'politicianCampaigns',
+        next: 'politicianMassMailingContent']}"/>
+    <g:render template="/campaigns/steps/campaignSteps" model="[mappings: mappings]"/>
 </div>
 
 <div class="box-ppal campaign-new">
@@ -20,19 +26,7 @@
                 ]"/>
             </div>
         </fieldset>
-
-        <fieldset class="form-group">
-            <div class="col-sm-10 col-sm-offset-2 col-md-4 col-md-offset-8 form-control-campaign">
-                <ul class="form-final-options">
-                    <li>
-                        <a href="#" id="save-draft-campaign" data-redirectLink="politicianCampaigns" class="btn btn-grey-light btn-lg">
-                            <g:message code="tools.massMailing.saveDraft"/>
-                        </a>
-                    </li>
-                    <li><a href="#" class="btn btn-blue inverted" id="next" data-redirectLink="politicianMassMailingContent"><g:message code="tools.massMailing.next"/></a></li>
-                </ul>
-            </div>
-        </fieldset>
+        <g:render template="/campaigns/edit/stepButtons" model="[mappings:mappings, status:status, command: command]"/>
     </form>
 </div>
 

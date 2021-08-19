@@ -1,8 +1,8 @@
-<%@ page import="org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO" %>
-<r:require modules="datepicker, newsletter" />
+<%@ page import="org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO" %>
+<r:require modules="datepicker, campaignForm" />
 
-<div class="box-steps container-fluid choose-campaign">
-    <g:render template="/campaigns/steps/threeSteps" model="[editReference: 'politicianMassMailingSettings']"/>
+<div class="box-steps container-fluid campaign-steps">
+    <g:render template="/campaigns/steps/campaignSteps" model="[mappings: mappings]"/>
 </div>
 
 <div class="box-ppal campaign-new">
@@ -43,21 +43,10 @@
     </fieldset>
 
     <div id="advanced-features">
-        <g:render template="/newsletter/form/formGroupCampaignTags" model="[command:command, events:[TrackingMailStatusRSDTO.OPEN,TrackingMailStatusRSDTO.CLICK, TrackingMailStatusRSDTO.TRACK_LINK, TrackingMailStatusRSDTO.ANSWERED]]"/>
+        <g:render template="/newsletter/form/formGroupCampaignTags" model="[command:command, events:events, editable:campaign== null || !campaign.published]"/>
     </div>
         %{--<g:render template="/newsletter/form/formGroupCampaignTags" model="[command:command, events:[TrackingMailStatusRSDTO.OPEN,TrackingMailStatusRSDTO.CLICK]]"/>--}%
-        <fieldset class="form-group">
-            <div class="col-sm-10 col-sm-offset-2 col-md-4 col-md-offset-8 form-control-campaign">
-                <ul class="form-final-options">
-                    <li>
-                        <a href="#" id="save-draft-campaign" data-redirectLink="politicianCampaigns" class="btn btn-grey-light">
-                            <g:message code="tools.massMailing.saveDraft"/>
-                        </a>
-                    </li>
-                    <li><a href="#" class="btn btn-blue inverted" id="next" data-redirectLink="politicianMassMailingTemplate"><g:message code="tools.massMailing.next"/></a></li>
-                </ul>
-            </div>
-        </fieldset>
+        <g:render template="/campaigns/edit/stepButtons" model="[mappings:mappings, status:status, command: command]"/>
     </form>
 </div>
 

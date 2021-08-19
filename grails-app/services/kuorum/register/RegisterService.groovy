@@ -165,18 +165,31 @@ class RegisterService {
 
     }
 
-    Boolean checkValidEmail(String email){
+    String checkValidEmail(String email){
+        if (!email){
+            return 'springSecurity.KuorumRegisterCommand.email.nullable'
+        }
+        email = email.toLowerCase()
+
+        if (KuorumUser.findByEmailAndDomain(email, CustomDomainResolver.domain)) {
+            return 'registerCommand.username.unique'
+        }
         def mailParts = email.split("@")
         if (mailParts.size() == 2){
             def domain = mailParts[1]
             def notAllowed = grailsApplication.config.kuorum.register.notAllowedTemporalDomainEmails.find{"@$domain".equalsIgnoreCase(it)}
             if (notAllowed){
-                return false
+                return 'registerCommand.username.notAllowed'
             }
-            return true
         }else{
-            return false
+            return 'springSecurity.KuorumRegisterCommand.email.wrongFormat'
         }
+
+        Boolean autorizedEmail = kuorumUserService.checkEmailForRegistrationOnDomain(email);
+        if (!autorizedEmail){
+            return 'springSecurity.KuorumRegisterCommand.email.notAuthorized'
+        }
+        return null;
     }
 
     String encodePassword(KuorumUser user, String rawPass){

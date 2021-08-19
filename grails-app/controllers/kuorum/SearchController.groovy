@@ -66,6 +66,7 @@ class SearchController{
         String regionCountryCode = request.session.getAttribute(WebConstants.COUNTRY_CODE_SESSION)
         if (searchParams.hasErrors()){
             searchParams=new SearchParams(word: '')
+            searchParams.setMax(searchParams.getMax())
             docs = searchSolrService.searchAPI(searchParams)
         }else{
             searchParams.searchType = searchParams.searchType?:SearchType.ALL
@@ -79,7 +80,7 @@ class SearchController{
         fixXssSearch(searchParams)
         SearchParams editedSearchParams = searchParams
         if (searchParams.searchType == SearchType.REGION || searchParams.searchType== SearchType.ALL){
-            editedSearchParams = new SearchParams(searchParams.properties)
+            editedSearchParams = new SearchParams(searchParams.properties.findAll{it.key != "class"})
             Locale locale = localeResolver.resolveLocale(request)
             AvailableLanguage language = AvailableLanguage.fromLocaleParam(locale.language)
             RegionRSDTO suggestedRegion = null;

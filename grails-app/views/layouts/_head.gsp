@@ -11,7 +11,7 @@
                 <g:render template="/layouts/searchHeadForm"/>
                 <nav:ifPageProperty pageProperty="showNavBar">
                     <sec:ifLoggedIn>
-                        <g:include controller="layouts" action="userHead"/>
+                        <nav:headNotifications/>
                     </sec:ifLoggedIn>
                     <sec:ifNotLoggedIn>
                         %{--<g:include controller="login" action="headAuth"/>--}%

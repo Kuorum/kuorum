@@ -120,6 +120,7 @@ class AdminController {
     def domainValidation() {
         DomainRSDTO domainRSDTO = domainService.getConfig(CustomDomainResolver.domain)
         DomainValidationCommand domainValidationCommand = new DomainValidationCommand()
+        domainValidationCommand.domainPrivacy = domainRSDTO.domainPrivacy
         domainValidationCommand.validationCensus = domainRSDTO.validationCensus
         domainValidationCommand.validationPhone = domainRSDTO.validationPhone
         domainValidationCommand.validationCode = domainRSDTO.validationCode
@@ -134,13 +135,14 @@ class AdminController {
             return
         }
         DomainRDTO domainRDTO = getPopulatedDomainRDTO()
-        if (SpringSecurityUtils.ifAllGranted("ROLE_SUPER_ADMIN")) {
+        if (SpringSecurityUtils.ifAllGranted("ROLE_SUPER_ADMIN") || SpringSecurityUtils.ifAllGranted("ROLE_ADMIN")) {
             domainRDTO.validationCensus = command.validationCensus ?: false
             domainRDTO.validationCode = command.validationCode ?: false
             domainRDTO.validationPhone = command.validationPhone ?: false
             domainRDTO.smsDomainName = command.smsDomainName ?: ''
             domainRDTO.defaultPhonePrefix = command.defaultPhonePrefix
         }
+        domainRDTO.domainPrivacy = command.domainPrivacy
         domainService.updateConfig(domainRDTO)
         flash.message = "Success"
         redirect mapping: 'adminDomainValidation'
@@ -258,6 +260,7 @@ class AdminController {
         editLegalInfoCommand.fileResponsibleEmail = domainLegalInfoRDSTO?.fileResponsibleEmail
         editLegalInfoCommand.fileResponsibleName = domainLegalInfoRDSTO?.fileResponsibleName
         editLegalInfoCommand.customLegalInfo = domainLegalInfoRDSTO?.customLegalInfo
+        editLegalInfoCommand.privacyPolicy = domainLegalInfoRDSTO?.privacyPolicy
         [command: editLegalInfoCommand]
     }
 
@@ -276,6 +279,7 @@ class AdminController {
         domainLegalInfoRDTO.fileResponsibleEmail = command.fileResponsibleEmail
         domainLegalInfoRDTO.fileResponsibleName = command.fileResponsibleName
         domainLegalInfoRDTO.customLegalInfo = command.customLegalInfo
+        domainLegalInfoRDTO.privacyPolicy = command.privacyPolicy
         domainService.updateLegalInfo(domainLegalInfoRDTO)
         flash.message = "Success"
         redirect mapping: 'adminDomainConfigLegalInfo'

@@ -43,7 +43,7 @@ class FormTagLib {
 
     def uploadCampaignImages = {attrs, body->
         String field = attrs.field
-        NewsletterRSDTO campaign = attrs.campaign
+        CampaignRSDTO campaign = attrs.campaign
         def model = [
             fileGroup:FileGroup.MASS_MAIL_IMAGE,
             campaign:campaign,
@@ -1025,12 +1025,17 @@ class FormTagLib {
         def deleteOptions = attrs.deleteOptions?:[]
         def clazz = command.metaClass.properties.find{it.name == field}.type
         def label = buildLabel(command, field, attrs.label)
+        def showLabel = attrs.showLabel?Boolean.parseBoolean(attrs.showLabel):false
+        def multiLine = attrs.showLabel?Boolean.parseBoolean(attrs.multiLine):false
+        def labelRadioClass = multiLine?"radio":"radio-inline"
         def error = hasErrors(bean: command, field: field,'error')
-	def values = attrs.values?:clazz.values()
+	    def values = attrs.values?:clazz.values()
         out << "<div class='groupRadio'>"
-        out << "<span class='span-label ${labelCssClass}'>${label} </span>"
+        if (showLabel){
+            out << "<label for='${prefixFieldName}${field}'>${label}</label>"
+        }
         values.each{
-            out << "<label class='radio-inline'>"
+            out << "<label class='${labelRadioClass}'>"
             out << "<input type='radio' name='${field}' value='${it}' ${command."${field}"==it?'checked':''}>"
             String codeMessage = "${clazz.name}.$it"
             out << "${message(code:codeMessage)}"

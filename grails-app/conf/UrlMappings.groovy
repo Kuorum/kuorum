@@ -247,6 +247,7 @@ class UrlMappings {
         name customProcessRegisterStep2:          "/edit-profile/sign-up/step2"              (controller: "customRegister"){action = [GET:"step2", POST:"step2Save"]}
         name customProcessRegisterStep3:          "/edit-profile/sign-up/step3"              (controller: "customRegister", action :"step3")
 
+        name campaignValidationInitProcess:       "/$userAlias/$urlTitle-$campaignId/validation"            (controller: "campaignValidation", action: 'initValidation')
         name campaignValidationLinkCheck:         "/sign-up/census"                          (controller: "campaignValidation"){action = [GET:"step0RegisterWithCensusCode", POST:"step0RegisterWithCensusCodeSave"]}
         name campaignValidationCensus:            "/$userAlias/$urlTitle-$campaignId/validation/census"       (controller: "campaignValidation"){action = [GET:"stepCampaignValidationCensus", POST:"stepCampaignValidationCensusSave"]}
         name campaignValidationCode:              "/$userAlias/$urlTitle-$campaignId/validation/customCode"   (controller: "campaignValidation"){action = [GET:"stepCampaignValidationCustomCode", POST:"stepCampaignValidationCustomCodeSave"]}
@@ -304,6 +305,7 @@ class UrlMappings {
         name editorKuorumAccountEdit:                       "/editor/user/$userAlias/edit/account-details"        (controller:"editorUser"){action =[GET:"editAdminAccountDetails", POST:"updateAdminAccountDetails"]}
         name editorAdminUserRights:                         "/editor/user/$userAlias/edit/rights"                 (controller:"admin"){action =[GET:"editUserRights", POST:"updateUserRights"]}
         name editorAdminUserInvalidate:                     "/editor/user/$userAlias/edit/invalidate"             (controller:"editorUser", action:'invalidateUser')
+        name editorAdminUserValidate:                       "/editor/user/$userAlias/edit/validate"               (controller:"editorUser", action:'validateUser')
 
         name ajaxDeleteRecommendedUser: "/ajax/kuorumUser/deleteRecommendedUser"(controller: 'recommendedUserInfo', action: 'deleteRecommendedUser')
 
@@ -348,7 +350,7 @@ class UrlMappings {
         name politicianMassMailingSendTest:             "/account/mass-mailing/$campaignId/test" (controller:"newsletter", action: "sendMassMailingTest")
         name politicianMassMailingRemove:               "/ajax/account/mass-mailing/$campaignId/remove" (controller:"newsletter", action:"removeCampaign")
         name politicianMassMailingTrackEvents:          "/ajax/account/mass-mailing/$newsletterId/trackEvents" (controller:"newsletter", action: "showTrackingMails")
-        name politicianMassMailingTrackEventsResend:    "/ajax/account/mass-mailing/$newsletterId/trackEvents/resend/$tackingMailId" (controller:"newsletter", action: "resendEmail")
+        name politicianMassMailingTrackEventsResend:    "/ajax/account/mass-mailing/$campaignId/trackEvents/resend/$tackingMailId" (controller:"newsletter", action: "resendEmail")
         name politicianMassMailingTrackEventsReport:    "/ajax/account/mass-mailing/$campaignId/trackEvents/report" (controller:"newsletter", action: "sendReport")
         name politicianMassMailingHtml:                 "/account/mass-mailing/$campaignId/html" (controller:"newsletter", action: "showMailCampaign")
         name politicianMassMailingSaveTimeZone:         "/account/mass-mailing/saveTimeZone" (controller: "newsletter"){action = [POST:"saveTimeZone"]}

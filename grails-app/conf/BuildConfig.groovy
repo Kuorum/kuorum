@@ -118,6 +118,10 @@ grails.project.dependency.resolution = {
         compile 'org.igniterealtime.smack:smack:3.1.0'
         compile 'com.ecwid:ecwid-mailchimp:jar:2.0.0.1'
 
+        /******************************/
+        /****** SUPER TRICK ***********/
+        /*** WARNING CHANGING kuorumServices version -> Change them also in .aws/pom.xml **/
+        /** This trick is because I don't know how to use groovy with token to access to the AWS credentials **/
         compile 'kuorumServices:kuorumRestModel:jar:6.0-SNAPSHOT'
         compile 'kuorumServices:kuorumRestClient:jar:6.0-SNAPSHOT'
 

@@ -20,6 +20,8 @@ import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
 import kuorum.web.commands.customRegister.ForgotUserPasswordCommand
 import kuorum.web.users.KuorumRegistrationCode
+import org.codehaus.groovy.grails.web.context.ServletContextHolder
+import org.codehaus.groovy.grails.web.servlet.GrailsApplicationAttributes
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.web.authentication.RememberMeServices
@@ -116,8 +118,8 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
             }
         }
         if (redirectAdminConfig){
-            log.info("Redirecting for first configuration of the domain ${CustomDomainResolver.domain}")
-            redirect mapping: 'adminDomainRegisterStep1'
+            log.info("Redirecting for default configuration of the domain ${CustomDomainResolver.domain}")
+            redirect mapping: 'home'
         }else{
             render ([result:"success"] as JSON)
         }
@@ -352,17 +354,13 @@ class KuorumRegisterCommand{
     static constraints = {
         name nullable: false, maxSize: 15
         email nullable:false, email:true, validator: { val, obj ->
-            if (val && KuorumUser.findByEmailAndDomain(val.toLowerCase(), CustomDomainResolver.domain)) {
-                obj.email = val.toLowerCase()
-                return 'registerCommand.username.unique'
-            }
-            def mailParts = val.split("@")
-            if (mailParts.size() == 2){
-                def domain = mailParts[1]
-                def notAllowed = obj.grailsApplication.config.kuorum.register.notAllowedTemporalDomainEmails.find{"@$domain".equalsIgnoreCase(it)}
-                if (notAllowed){
-                    return 'registerCommand.username.notAllowed'
-                }
+
+            Object appContext = ServletContextHolder.servletContext.getAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT)
+            RegisterService registerService = (RegisterService)appContext.registerService
+            obj.email = val?val.toLowerCase():""
+            String codeError = registerService.checkValidEmail(val)
+            if (codeError){
+                return codeError
             }
         }
         password nullable:false

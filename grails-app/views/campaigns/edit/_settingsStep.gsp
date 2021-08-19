@@ -1,5 +1,6 @@
 <%@ page import="org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO" %>
 <r:require modules="datepicker, postForm, debateForm" />
+<g:set var="disabledForAdmins" value="${grails.plugin.springsecurity.SpringSecurityUtils.ifAnyGranted("ROLE_ADMIN")  || grails.plugin.springsecurity.SpringSecurityUtils.ifAnyGranted("ROLE_SUPER_ADMIN")}" />
 
 <div class="box-steps container-fluid campaign-steps">
     <g:render template="/campaigns/steps/campaignSteps" model="[mappings: mappings, attachEvent:attachEvent]"/>
@@ -62,14 +63,14 @@
                     </r:script>
                 </fieldset>
             </g:if>
-            <g:if test="${!options.hideValidateOption}">
+            <g:if test="${options.showSurveyCustomFields}">
                 <fieldset class="form-group fieldset-check-box">
 
                     <label for="voteType" class="col-sm-2 col-md-1 control-label">
                         <g:message code="kuorum.web.commands.payment.CampaignSettingsCommand.voteType.label.left"/>:
                     </label>
                     <div class="col-sm-4 col-md-4">
-                        <formUtil:selectEnum command="${command}" field="voteType" disabled="${!grails.plugin.springsecurity.SpringSecurityUtils.ifAllGranted("ROLE_SUPER_ADMIN")}" showLabel="false"/>
+                        <formUtil:selectEnum command="${command}" field="voteType" disabled="${!disabledForAdmins}" showLabel="false"/>
                     </div>
                     <label for="campaignVisibility" class="col-sm-2 col-md-1 control-label">
                         <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="${g.message(code:'kuorum.web.commands.payment.CampaignSettingsCommand.campaignVisibility.label.info')}"></span>
@@ -80,28 +81,28 @@
                     </div>
                 </fieldset>
             </g:if>
-            <g:if test="${options.showSurveyCustomFields}">
-                <div class="campaign-super-admin">
-                    <fieldset class="form-group">
-                        <label for="validationType" class="col-sm-2 col-md-1 control-label">
-                            <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="${g.message(code:'kuorum.web.commands.payment.CampaignSettingsCommand.validationType.label.info')}"></span>
-                            <g:message code="kuorum.web.commands.payment.CampaignSettingsCommand.validationType.label.left"/>:
-                        </label>
-                        <div class="col-sm-4 col-md-4">
-                            <formUtil:selectEnum command="${command}" field="validationType" disabled="${!domainValidation}" showLabel="false"/>
-                        </div>
-                    </fieldset>
+            <div class="campaign-super-admin">
+                <fieldset class="form-group">
+                    <label for="validationType" class="col-sm-2 col-md-1 control-label">
+                        <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="${g.message(code:'kuorum.web.commands.payment.CampaignSettingsCommand.validationType.label.info')}"></span>
+                        <g:message code="kuorum.web.commands.payment.CampaignSettingsCommand.validationType.label.left"/>:
+                    </label>
+                    <div class="col-sm-4 col-md-4">
+                        <formUtil:selectEnum command="${command}" field="validationType" disabled="${!domainValidation}" showLabel="false"/>
+                    </div>
+                </fieldset>
+                <g:if test="${options.showSurveyCustomFields}">
                     <fieldset class="form-group fieldset-check-box">
                         <label for="signVotes" class="col-sm-2 col-md-1 control-label">
                             <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="${g.message(code:'kuorum.web.commands.payment.CampaignSettingsCommand.signVotes.label.info')}"></span>
                             <g:message code="kuorum.web.commands.payment.CampaignSettingsCommand.signVotes.label.left"/>:
                         </label>
                         <div class="col-sm-4">
-                            <formUtil:checkBox command="${command}" field="signVotes" disabled="${!grails.plugin.springsecurity.SpringSecurityUtils.ifAllGranted("ROLE_SUPER_ADMIN")}"/>
+                            <formUtil:checkBox command="${command}" field="signVotes" disabled="${!disabledForAdmins}"/>
                         </div>
                     </fieldset>
-                </div>
-            </g:if>
+                </g:if>
+            </div>
             <g:if test="${options.hiddeCommentsFlag}">
                 <fieldset class="form-group fieldset-check-box">
                     <label for="campaignVisibility" class="col-sm-2 col-md-1 control-label">

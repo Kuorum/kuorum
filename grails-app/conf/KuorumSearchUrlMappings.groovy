@@ -20,11 +20,11 @@ class KuorumSearchUrlMappings {
         name de_searcherSearchByREGION:"/suche/von/$word?"           (controller: "search", action:"search"){searchType="REGION"; mappingName="searcherSearchByREGION"}
         name ca_searcherSearchByREGION:"/cerca/a/$word?"           (controller: "search", action:"search"){searchType="REGION"; mappingName="searcherSearchByREGION"}
 
-        name searcherSearchKUORUM_USER:     "/search/users"             (controller: "search", action:"search"){type="KUORUM_USER"; mappingName="searcherSearchKUORUM_USER"}
-        name en_searcherSearchKUORUM_USER:  "/search/users/$word?"      (controller: "search", action:"search"){type="KUORUM_USER"; mappingName="searcherSearchKUORUM_USER"}
-        name es_searcherSearchKUORUM_USER:  "/buscar/usuarios/$word?"   (controller: "search", action:"search"){type="KUORUM_USER"; mappingName="searcherSearchKUORUM_USER"}
-        name de_searcherSearchKUORUM_USER:  "/suche/benutzer/$word?"   (controller: "search", action:"search"){type="KUORUM_USER"; mappingName="searcherSearchKUORUM_USER"}
-        name ca_searcherSearchKUORUM_USER:  "/cerca/usuaris/$word?"   (controller: "search", action:"search"){type="KUORUM_USER"; mappingName="searcherSearchKUORUM_USER"}
+        name searcherSearchKUORUM_USER:     "/search/users"             (controller: "search", action:"search"){solrType="KUORUM_USER"; mappingName="searcherSearchKUORUM_USER"}
+        name en_searcherSearchKUORUM_USER:  "/search/users/$word?"      (controller: "search", action:"search"){solrType="KUORUM_USER"; mappingName="searcherSearchKUORUM_USER"}
+        name es_searcherSearchKUORUM_USER:  "/buscar/usuarios/$word?"   (controller: "search", action:"search"){solrType="KUORUM_USER"; mappingName="searcherSearchKUORUM_USER"}
+        name de_searcherSearchKUORUM_USER:  "/suche/benutzer/$word?"   (controller: "search", action:"search"){solrType="KUORUM_USER"; mappingName="searcherSearchKUORUM_USER"}
+        name ca_searcherSearchKUORUM_USER:  "/cerca/usuaris/$word?"   (controller: "search", action:"search"){solrType="KUORUM_USER"; mappingName="searcherSearchKUORUM_USER"}
 
         name searcherSearchKUORUM_USERByCAUSE:   "/search/users/cause/$word?"          (controller: "search", action:"search"){searchType="CAUSE";type="KUORUM_USER"; mappingName="searcherSearchKUORUM_USERByCAUSE"}
         name en_searcherSearchKUORUM_USERByCAUSE:"/search/users/cause/$word?"          (controller: "search", action:"search"){searchType="CAUSE";type="KUORUM_USER"; mappingName="searcherSearchKUORUM_USERByCAUSE"}
@@ -38,11 +38,11 @@ class KuorumSearchUrlMappings {
         name de_searcherSearchKUORUM_USERByREGION:"/suche/benutzer/von/$word?"         (controller: "search", action:"search"){searchType="REGION";type="KUORUM_USER"; mappingName="searcherSearchKUORUM_USERByREGION"}
         name ca_searcherSearchKUORUM_USERByREGION:"/cerca/usuaris/a/$word?"         (controller: "search", action:"search"){searchType="REGION";type="KUORUM_USER"; mappingName="searcherSearchKUORUM_USERByREGION"}
 
-        name searcherSearchPOST:   "/search/post"                   (controller: "search", action:"search"){type="POST"; mappingName="searcherSearchPOST"}
-        name en_searcherSearchPOST:"/search/post/$word?"            (controller: "search", action:"search"){type="POST"; mappingName="searcherSearchPOST"}
-        name es_searcherSearchPOST:"/buscar/publicacion/$word?"     (controller: "search", action:"search"){type="POST"; mappingName="searcherSearchPOST"}
-        name de_searcherSearchPOST:"/suche/beitraege/$word?"     (controller: "search", action:"search"){type="POST"; mappingName="searcherSearchPOST"}
-        name ca_searcherSearchPOST:"/cerca/proposta/$word?"     (controller: "search", action:"search"){type="POST"; mappingName="searcherSearchPOST"}
+        name searcherSearchPOST:   "/search/post"                   (controller: "search", action:"search"){solrType="POST"; mappingName="searcherSearchPOST"}
+        name en_searcherSearchPOST:"/search/post/$word?"            (controller: "search", action:"search"){solrType="POST"; mappingName="searcherSearchPOST"}
+        name es_searcherSearchPOST:"/buscar/publicacion/$word?"     (controller: "search", action:"search"){solrType="POST"; mappingName="searcherSearchPOST"}
+        name de_searcherSearchPOST:"/suche/beitraege/$word?"     (controller: "search", action:"search"){solrType="POST"; mappingName="searcherSearchPOST"}
+        name ca_searcherSearchPOST:"/cerca/proposta/$word?"     (controller: "search", action:"search"){solrType="POST"; mappingName="searcherSearchPOST"}
 
         name searcherSearchPOSTByCAUSE:   "/search/post/cause/$word?"           (controller: "search", action:"search"){searchType="CAUSE";type="POST"; mappingName="searcherSearchPOSTByCAUSE"}
         name en_searcherSearchPOSTByCAUSE:"/search/post/cause/$word?"           (controller: "search", action:"search"){searchType="CAUSE";type="POST"; mappingName="searcherSearchPOSTByCAUSE"}
@@ -56,11 +56,11 @@ class KuorumSearchUrlMappings {
         name de_searcherSearchPOSTByREGION:"/suche/beitraege/von/$word?"      (controller: "search", action:"search"){searchType="REGION";type="POST"; mappingName="searcherSearchPOSTByREGION"}
         name ca_searcherSearchPOSTByREGION:"/cerca/proposta/a/$word?"      (controller: "search", action:"search"){searchType="REGION";type="POST"; mappingName="searcherSearchPOSTByREGION"}
 
-        name searcherSearchDEBATE:   "/search/debate"            (controller: "search", action:"search"){type="DEBATE"; mappingName="searcherSearchDEBATE"}
-        name en_searcherSearchDEBATE:"/search/debate/$word?"     (controller: "search", action:"search"){type="DEBATE"; mappingName="searcherSearchDEBATE"}
-        name es_searcherSearchDEBATE:"/buscar/debate/$word?"     (controller: "search", action:"search"){type="DEBATE"; mappingName="searcherSearchDEBATE"}
-        name de_searcherSearchDEBATE:"/suche/debatte/$word?"     (controller: "search", action:"search"){type="DEBATE"; mappingName="searcherSearchDEBATE"}
-        name ca_searcherSearchDEBATE:"/cerca/debat/$word?"     (controller: "search", action:"search"){type="DEBATE"; mappingName="searcherSearchDEBATE"}
+        name searcherSearchDEBATE:   "/search/debate"            (controller: "search", action:"search"){solrType="DEBATE"; mappingName="searcherSearchDEBATE"}
+        name en_searcherSearchDEBATE:"/search/debate/$word?"     (controller: "search", action:"search"){solrType="DEBATE"; mappingName="searcherSearchDEBATE"}
+        name es_searcherSearchDEBATE:"/buscar/debate/$word?"     (controller: "search", action:"search"){solrType="DEBATE"; mappingName="searcherSearchDEBATE"}
+        name de_searcherSearchDEBATE:"/suche/debatte/$word?"     (controller: "search", action:"search"){solrType="DEBATE"; mappingName="searcherSearchDEBATE"}
+        name ca_searcherSearchDEBATE:"/cerca/debat/$word?"     (controller: "search", action:"search"){solrType="DEBATE"; mappingName="searcherSearchDEBATE"}
 
         name searcherSearchDEBATEByCAUSE:   "/search/debate/cause/$word?"          (controller: "search", action:"search"){searchType="CAUSE";type="DEBATE"; mappingName="searcherSearchDEBATEByCAUSE"}
         name en_searcherSearchDEBATEByCAUSE:"/search/debate/cause/$word?"          (controller: "search", action:"search"){searchType="CAUSE";type="DEBATE"; mappingName="searcherSearchDEBATEByCAUSE"}
@@ -75,11 +75,11 @@ class KuorumSearchUrlMappings {
         name ca_searcherSearchDEBATEByREGION:"/cerca/debat/a/$word?"             (controller: "search", action:"search"){searchType="REGION";type="DEBATE"; mappingName="searcherSearchDEBATEByREGION"}
 
 
-        name searcherSearchEVENT:   "/search/event"             (controller: "search", action:"search"){type="EVENT"; mappingName="searcherSearchEVENT"}
-        name en_searcherSearchEVENT:"/search/event/$word?"      (controller: "search", action:"search"){type="EVENT"; mappingName="searcherSearchEVENT"}
-        name es_searcherSearchEVENT:"/buscar/evento/$word?"     (controller: "search", action:"search"){type="EVENT"; mappingName="searcherSearchEVENT"}
-        name de_searcherSearchEVENT:"/suche/ereignis/$word?"     (controller: "search", action:"search"){type="EVENT"; mappingName="searcherSearchEVENT"}
-        name ca_searcherSearchEVENT:"/cerca/esdeveniment/$word?"     (controller: "search", action:"search"){type="EVENT"; mappingName="searcherSearchEVENT"}
+        name searcherSearchEVENT:   "/search/event"             (controller: "search", action:"search"){solrType="EVENT"; mappingName="searcherSearchEVENT"}
+        name en_searcherSearchEVENT:"/search/event/$word?"      (controller: "search", action:"search"){solrType="EVENT"; mappingName="searcherSearchEVENT"}
+        name es_searcherSearchEVENT:"/buscar/evento/$word?"     (controller: "search", action:"search"){solrType="EVENT"; mappingName="searcherSearchEVENT"}
+        name de_searcherSearchEVENT:"/suche/ereignis/$word?"     (controller: "search", action:"search"){solrType="EVENT"; mappingName="searcherSearchEVENT"}
+        name ca_searcherSearchEVENT:"/cerca/esdeveniment/$word?"     (controller: "search", action:"search"){solrType="EVENT"; mappingName="searcherSearchEVENT"}
 
         name searcherSearchEVENTByCAUSE:   "/search/event/cause/$word?"          (controller: "search", action:"search"){searchType="CAUSE";type="EVENT"; mappingName="searcherSearchEVENTByCAUSE"}
         name en_searcherSearchEVENTByCAUSE:"/search/event/cause/$word?"          (controller: "search", action:"search"){searchType="CAUSE";type="EVENT"; mappingName="searcherSearchEVENTByCAUSE"}
@@ -93,11 +93,11 @@ class KuorumSearchUrlMappings {
         name de_searcherSearchEVENTByREGION:"/suche/ereignis/von/$word?"           (controller: "search", action:"search"){searchType="REGION";type="EVENT"; mappingName="searcherSearchEVENTByREGION"}
         name ca_searcherSearchEVENTByREGION:"/cerca/esdeveniment/a/$word?"           (controller: "search", action:"search"){searchType="REGION";type="EVENT"; mappingName="searcherSearchEVENTByREGION"}
 
-        name searcherSearchSURVEY:   "/search/survey"               (controller: "search", action:"search"){type="SURVEY"; mappingName="searcherSearchSURVEY"}
-        name en_searcherSearchSURVEY:"/search/survey/$word?"        (controller: "search", action:"search"){type="SURVEY"; mappingName="searcherSearchSURVEY"}
-        name es_searcherSearchSURVEY:"/buscar/encuesta/$word?"      (controller: "search", action:"search"){type="SURVEY"; mappingName="searcherSearchSURVEY"}
-        name de_searcherSearchSURVEY:"/suche/umfrage/$word?"      (controller: "search", action:"search"){type="SURVEY"; mappingName="searcherSearchSURVEY"}
-        name ca_searcherSearchSURVEY:"/cerca/enquesta/$word?"      (controller: "search", action:"search"){type="SURVEY"; mappingName="searcherSearchSURVEY"}
+        name searcherSearchSURVEY:   "/search/survey"               (controller: "search", action:"search"){solrType="SURVEY"; mappingName="searcherSearchSURVEY"}
+        name en_searcherSearchSURVEY:"/search/survey/$word?"        (controller: "search", action:"search"){solrType="SURVEY"; mappingName="searcherSearchSURVEY"}
+        name es_searcherSearchSURVEY:"/buscar/encuesta/$word?"      (controller: "search", action:"search"){solrType="SURVEY"; mappingName="searcherSearchSURVEY"}
+        name de_searcherSearchSURVEY:"/suche/umfrage/$word?"      (controller: "search", action:"search"){solrType="SURVEY"; mappingName="searcherSearchSURVEY"}
+        name ca_searcherSearchSURVEY:"/cerca/enquesta/$word?"      (controller: "search", action:"search"){solrType="SURVEY"; mappingName="searcherSearchSURVEY"}
 
         name searcherSearchSURVEYByCAUSE:   "/search/survey/cause/$word?"      (controller: "search", action:"search"){searchType="CAUSE";type="SURVEY"; mappingName="searcherSearchSURVEYByCAUSE"}
         name en_searcherSearchSURVEYByCAUSE:"/search/survey/cause/$word?"      (controller: "search", action:"search"){searchType="CAUSE";type="SURVEY"; mappingName="searcherSearchSURVEYByCAUSE"}
@@ -111,11 +111,11 @@ class KuorumSearchUrlMappings {
         name de_searcherSearchSURVEYByREGION:"/suche/umfrage/von/$word?"      (controller: "search", action:"search"){searchType="REGION";type="SURVEY"; mappingName="searcherSearchSURVEYByREGION"}
         name ca_searcherSearchSURVEYByREGION:"/cerca/enquesta/a/$word?"      (controller: "search", action:"search"){searchType="REGION";type="SURVEY"; mappingName="searcherSearchSURVEYByREGION"}
 
-        name searcherSearchPARTICIPATORY_BUDGET:   "/search/participatory-budget"                  (controller: "search", action:"search"){type="PARTICIPATORY_BUDGET"; mappingName="searcherSearchPARTICIPATORY_BUDGET"}
-        name en_searcherSearchPARTICIPATORY_BUDGET:"/search/participatory-budget/$word?"           (controller: "search", action:"search"){type="PARTICIPATORY_BUDGET"; mappingName="searcherSearchPARTICIPATORY_BUDGET"}
-        name es_searcherSearchPARTICIPATORY_BUDGET:"/buscar/presupuesto-participativo/$word?"      (controller: "search", action:"search"){type="PARTICIPATORY_BUDGET"; mappingName="searcherSearchPARTICIPATORY_BUDGET"}
-        name de_searcherSearchPARTICIPATORY_BUDGET:"/suche/burgerhaushalt/$word?"                  (controller: "search", action:"search"){type="PARTICIPATORY_BUDGET"; mappingName="searcherSearchPARTICIPATORY_BUDGET"}
-        name ca_searcherSearchPARTICIPATORY_BUDGET:"/cerca/pressupost-participatiu/$word?" (controller: "search", action:"search"){type="PARTICIPATORY_BUDGET"; mappingName="searcherSearchPARTICIPATORY_BUDGET"}
+        name searcherSearchPARTICIPATORY_BUDGET:   "/search/participatory-budget"                  (controller: "search", action:"search"){solrType="PARTICIPATORY_BUDGET"; mappingName="searcherSearchPARTICIPATORY_BUDGET"}
+        name en_searcherSearchPARTICIPATORY_BUDGET:"/search/participatory-budget/$word?"           (controller: "search", action:"search"){solrType="PARTICIPATORY_BUDGET"; mappingName="searcherSearchPARTICIPATORY_BUDGET"}
+        name es_searcherSearchPARTICIPATORY_BUDGET:"/buscar/presupuesto-participativo/$word?"      (controller: "search", action:"search"){solrType="PARTICIPATORY_BUDGET"; mappingName="searcherSearchPARTICIPATORY_BUDGET"}
+        name de_searcherSearchPARTICIPATORY_BUDGET:"/suche/burgerhaushalt/$word?"                  (controller: "search", action:"search"){solrType="PARTICIPATORY_BUDGET"; mappingName="searcherSearchPARTICIPATORY_BUDGET"}
+        name ca_searcherSearchPARTICIPATORY_BUDGET:"/cerca/pressupost-participatiu/$word?" (controller: "search", action:"search"){solrType="PARTICIPATORY_BUDGET"; mappingName="searcherSearchPARTICIPATORY_BUDGET"}
 
         name searcherSearchPARTICIPATORY_BUDGETByCAUSE:   "/search/participatory-budget/cause/$word?"      (controller: "search", action:"search"){searchType="CAUSE";type="PARTICIPATORY_BUDGET"; mappingName="searcherSearchPARTICIPATORY_BUDGETByCAUSE"}
         name en_searcherSearchPARTICIPATORY_BUDGETByCAUSE:"/search/participatory-budget/cause/$word?"      (controller: "search", action:"search"){searchType="CAUSE";type="PARTICIPATORY_BUDGET"; mappingName="searcherSearchPARTICIPATORY_BUDGETByCAUSE"}
@@ -130,11 +130,11 @@ class KuorumSearchUrlMappings {
         name ca_searcherSearchPARTICIPATORY_BUDGETByREGION:"/cerca/pressupost-participatiu/a/$word?"      (controller: "search", action:"search"){searchType="REGION";type="PARTICIPATORY_BUDGET"; mappingName="searcherSearchPARTICIPATORY_BUDGETByREGION"}
 
 
-        name searcherSearchDISTRICT_PROPOSAL:   "/search/proposal"                  (controller: "search", action:"search"){type="DISTRICT_PROPOSAL"; mappingName="searcherSearchDISTRICT_PROPOSAL"}
-        name en_searcherSearchDISTRICT_PROPOSAL:"/search/proposal/$word?"           (controller: "search", action:"search"){type="DISTRICT_PROPOSAL"; mappingName="searcherSearchDISTRICT_PROPOSAL"}
-        name es_searcherSearchDISTRICT_PROPOSAL:"/buscar/propuesta/$word?"      (controller: "search", action:"search"){type="DISTRICT_PROPOSAL"; mappingName="searcherSearchDISTRICT_PROPOSAL"}
-        name de_searcherSearchDISTRICT_PROPOSAL:"/suche/vorschlag/$word?"                  (controller: "search", action:"search"){type="DISTRICT_PROPOSAL"; mappingName="searcherSearchDISTRICT_PROPOSAL"}
-        name ca_searcherSearchDISTRICT_PROPOSAL:"/cerca/publicacio/$word?" (controller: "search", action:"search"){type="DISTRICT_PROPOSAL"; mappingName="searcherSearchDISTRICT_PROPOSAL"}
+        name searcherSearchDISTRICT_PROPOSAL:   "/search/proposal"                  (controller: "search", action:"search"){solrType="DISTRICT_PROPOSAL"; mappingName="searcherSearchDISTRICT_PROPOSAL"}
+        name en_searcherSearchDISTRICT_PROPOSAL:"/search/proposal/$word?"           (controller: "search", action:"search"){solrType="DISTRICT_PROPOSAL"; mappingName="searcherSearchDISTRICT_PROPOSAL"}
+        name es_searcherSearchDISTRICT_PROPOSAL:"/buscar/propuesta/$word?"      (controller: "search", action:"search"){solrType="DISTRICT_PROPOSAL"; mappingName="searcherSearchDISTRICT_PROPOSAL"}
+        name de_searcherSearchDISTRICT_PROPOSAL:"/suche/vorschlag/$word?"                  (controller: "search", action:"search"){solrType="DISTRICT_PROPOSAL"; mappingName="searcherSearchDISTRICT_PROPOSAL"}
+        name ca_searcherSearchDISTRICT_PROPOSAL:"/cerca/publicacio/$word?" (controller: "search", action:"search"){solrType="DISTRICT_PROPOSAL"; mappingName="searcherSearchDISTRICT_PROPOSAL"}
 
         name searcherSearchDISTRICT_PROPOSALByCAUSE:   "/search/proposal/cause/$word?"      (controller: "search", action:"search"){searchType="CAUSE";type="DISTRICT_PROPOSAL"; mappingName="searcherSearchDISTRICT_PROPOSALByCAUSE"}
         name en_searcherSearchDISTRICT_PROPOSALByCAUSE:"/search/proposal/cause/$word?"      (controller: "search", action:"search"){searchType="CAUSE";type="DISTRICT_PROPOSAL"; mappingName="searcherSearchDISTRICT_PROPOSALByCAUSE"}
@@ -148,11 +148,11 @@ class KuorumSearchUrlMappings {
         name de_searcherSearchDISTRICT_PROPOSALByREGION:"/suche/vorschlag/von/$word?"      (controller: "search", action:"search"){searchType="REGION";type="DISTRICT_PROPOSAL"; mappingName="searcherSearchDISTRICT_PROPOSALByREGION"}
         name ca_searcherSearchDISTRICT_PROPOSALByREGION:"/cerca/publicacio/a/$word?"      (controller: "search", action:"search"){searchType="REGION";type="DISTRICT_PROPOSAL"; mappingName="searcherSearchDISTRICT_PROPOSALByREGION"}
 
-        name searcherSearchPETITION:   "/search/petition"                  (controller: "search", action:"search"){type="PETITION"; mappingName="searcherSearchPETITION"}
-        name en_searcherSearchPETITION:"/search/petition/$word?"           (controller: "search", action:"search"){type="PETITION"; mappingName="searcherSearchPETITION"}
-        name es_searcherSearchPETITION:"/buscar/peticion/$word?"      (controller: "search", action:"search"){type="PETITION"; mappingName="searcherSearchPETITION"}
-        name de_searcherSearchPETITION:"/suche/petition/$word?"                  (controller: "search", action:"search"){type="PETITION"; mappingName="searcherSearchPETITION"}
-        name ca_searcherSearchPETITION:"/cerca/peticio/$word?" (controller: "search", action:"search"){type="PETITION"; mappingName="searcherSearchPETITION"}
+        name searcherSearchPETITION:   "/search/petition"                  (controller: "search", action:"search"){solrType="PETITION"; mappingName="searcherSearchPETITION"}
+        name en_searcherSearchPETITION:"/search/petition/$word?"           (controller: "search", action:"search"){solrType="PETITION"; mappingName="searcherSearchPETITION"}
+        name es_searcherSearchPETITION:"/buscar/peticion/$word?"      (controller: "search", action:"search"){solrType="PETITION"; mappingName="searcherSearchPETITION"}
+        name de_searcherSearchPETITION:"/suche/petition/$word?"                  (controller: "search", action:"search"){solrType="PETITION"; mappingName="searcherSearchPETITION"}
+        name ca_searcherSearchPETITION:"/cerca/peticio/$word?" (controller: "search", action:"search"){solrType="PETITION"; mappingName="searcherSearchPETITION"}
 
         name searcherSearchPETITIONByCAUSE:   "/search/petition/cause/$word?"      (controller: "search", action:"search"){searchType="CAUSE";type="PETITION"; mappingName="searcherSearchPETITIONByCAUSE"}
         name en_searcherSearchPETITIONByCAUSE:"/search/petition/cause/$word?"      (controller: "search", action:"search"){searchType="CAUSE";type="PETITION"; mappingName="searcherSearchPETITIONByCAUSE"}
