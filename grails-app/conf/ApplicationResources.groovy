@@ -319,6 +319,10 @@ modules = {
         resource url:'js/kuorumUser.js'
     }
 
+    search{
+        dependsOn 'basic'
+        resource url:'js/search.js'
+    }
 //    projectStats{
 //        dependsOn 'basic'
 //        resource url:'js/chart.min.js'
@@ -328,4 +332,9 @@ modules = {
 //        resource url:'js/modernizr.js'
 //        resource url:'js/map.js'
 //    }
+
+    domainValidation {
+        dependsOn 'forms'
+        resource url:'js/domainValidation.js'
+    }
 }

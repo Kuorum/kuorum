@@ -1,4 +1,4 @@
-<%@ page import="kuorum.core.model.solr.SolrType; org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO" %>
+<%@ page import="org.kuorum.rest.model.communication.CampaignTypeRSDTO; kuorum.core.model.solr.SolrType; org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO" %>
 <g:each in="${activites.data}" var="activity">
     <div class="contact-activity">
         <h3><campaignUtil:showIcon campaignType="${activity.campaignType}" defaultType="${kuorum.core.model.solr.SolrType.NEWSLETTER}"/> ${activity.campaignName}</h3>
@@ -18,8 +18,8 @@
                     <td><g:formatDate formatName="default.date.format" date="${event.timestamp}"/> </td>
                     <td><kuorumDate:humanDate date="${event.timestamp}"/></td>
                     <td>
-                        <g:if test="${event.status == org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO.SENT && activity.trackingId}">
-                            <g:link mapping="politicianMassMailingTrackEventsResend" params="[newsletterId:activity.newsletterId,tackingMailId:activity.trackingId]" class="btn btn-blue inverted resend-email">
+                        <g:if test="${event.status == org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO.SENT && activity.trackingId && activity.campaignType == CampaignTypeRSDTO.BULLETIN }">
+                            <g:link mapping="politicianMassMailingTrackEventsResend" params="[campaignId:activity.campaignId,tackingMailId:activity.trackingId]" class="btn btn-blue inverted resend-email">
                                 <g:message code="tools.massMailing.actions.resend"/>
                                 <span class="fal fa-angle-double-right"></span>
                             </g:link>

@@ -26,6 +26,7 @@ import org.kuorum.rest.model.kuorumUser.KuorumUserExtraDataRSDTO
 import org.kuorum.rest.model.kuorumUser.KuorumUserRSDTO
 import org.kuorum.rest.model.kuorumUser.UserDataRDTO
 import org.kuorum.rest.model.kuorumUser.UserRoleRSDTO
+import org.kuorum.rest.model.kuorumUser.domainValidation.UserAdminValidationDTO
 import org.kuorum.rest.model.kuorumUser.domainValidation.UserCodeValidationDTO
 import org.kuorum.rest.model.kuorumUser.domainValidation.UserDataDomainValidationDTO
 import org.kuorum.rest.model.kuorumUser.domainValidation.UserPhoneValidationDTO
@@ -331,7 +332,7 @@ class KuorumUserService {
     List<SearchKuorumUserRSDTO> bestUsers(List<ObjectId> userFiltered = [], Pagination pagination = new Pagination()){
         SearchParams searchParams = new SearchParams(pagination.getProperties().findAll{k,v->k!="class"})
         searchParams.max +=1
-        searchParams.setType(SolrType.KUORUM_USER)
+        searchParams.setSolrType(SolrType.KUORUM_USER)
         searchParams.filteredUserIds = userFiltered.collect{it.toString()}
 
         SearchResultsRSDTO results = searchSolrService.searchAPI(searchParams)
@@ -563,5 +564,41 @@ class KuorumUserService {
                 params,
                 query
         )
+    }
+
+    UserValidationRSDTO adminValidation(KuorumUserSession actor,BasicDataKuorumUserRSDTO user, Long campaignId){
+        Map<String, String> params = [userId: user.getId().toString(), campaignId:campaignId.toString()]
+        Map<String, String> query = [:]
+        UserAdminValidationDTO userAdminValidationDTO = new UserAdminValidationDTO(actorId:actor.id.toString())
+        try{
+            def apiResponse= restKuorumApiService.put(
+                    RestKuorumApiService.ApiMethod.USER_VALIDATION_STATUS,
+                    params,
+                    query,
+                    userAdminValidationDTO,
+                    new TypeReference<UserValidationRSDTO>(){}
+            )
+            return apiResponse.data
+        }catch (Exception e){
+            if (e?.cause?.cause instanceof KuorumException){
+                log.info("Exception validating user: [Excpt: ${e?.cause?.cause?.getMessage()}]")
+                throw e.cause.cause
+            }else{
+                log.error("Exception validating user: [Excpt: ${e.getMessage()}]")
+                throw e;
+            }
+        }
+    }
+
+    Boolean checkEmailForRegistrationOnDomain(String email){
+        Map<String, String> params = [:] // DELETES ALL VALIDATIONS
+        Map<String, String> query = [email:email]
+        def apiResponse = restKuorumApiService.get(
+                RestKuorumApiService.ApiMethod.USER_PREVALIDATION,
+                params,
+                query,
+                new TypeReference<Boolean>(){}
+        )
+        return apiResponse.data
     }
 }

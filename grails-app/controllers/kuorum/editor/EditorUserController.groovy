@@ -1,8 +1,10 @@
 package kuorum.editor
 
+import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.RegionService
 import kuorum.files.FileService
+import kuorum.register.KuorumUserSession
 import kuorum.register.RegisterService
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
@@ -21,6 +23,7 @@ class EditorUserController {
     RegionService regionService
 
     RegisterService registerService
+    SpringSecurityService springSecurityService
 
     def editUser(String userAlias){
         KuorumUser user = kuorumUserService.findEditableUser(userAlias)
@@ -90,6 +93,26 @@ class EditorUserController {
             flash.message="User invalidated"
         }else{
             flash.error="User not found"
+        }
+        redirect(mapping:'editorAdminUserRights', params:user.encodeAsLinkProperties())
+    }
+
+    def validateUser(){
+        BasicDataKuorumUserRSDTO user = kuorumUserService.findBasicUserRSDTO(params.userAlias, true)
+        KuorumUserSession kuorumUserSession = springSecurityService.principal
+        Long campaignId
+        try{
+            campaignId = params.campaignId?Long.parseLong(params.campaignId):null
+
+
+            if (user && campaignId){
+                kuorumUserService.adminValidation(kuorumUserSession, user, campaignId)
+                flash.message="User validated"
+            }else{
+                flash.error="Campaign not found"
+            }
+        }catch(Exception e){
+            flash.error("Error validating user");
         }
         redirect(mapping:'editorAdminUserRights', params:user.encodeAsLinkProperties())
     }

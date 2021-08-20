@@ -19,7 +19,7 @@ class Pagination {
     Long offset = 0L
 
     public Integer getMax(){
-        Math.min(max ?: 10, 100)
+        Math.min(max != null && max >= 0? max: 10, 100)
     }
 
     public Long getOffset() {

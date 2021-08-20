@@ -368,7 +368,7 @@ input:focus,
 select:focus,
 textarea:focus,
 button:focus {
-/*    outline: 1px dashed #bac2cc;*/
+    /*    outline: 1px dashed #bac2cc;*/
     outline: 0 !important;
     outline-width: 0;
 }
@@ -501,7 +501,7 @@ body.configDomainProcess .qq-uploader{background-color: #FFF;}
 #navigation-admin-show-landing-button .tooltip.bottom .tooltip-arrow {border-bottom-color: #167caa;}
 
 
-    /* NUEVOS ESTILOS LANDING 2016 */
+/* NUEVOS ESTILOS LANDING 2016 */
 /* hay dos tipos de header: transparente y fondo blanco; añadimos clase al <header> para diferenciar el transparente */
 /* EN movil el header en vez de transparente es negro porque el desplegable es negro */
 header.transp .navbar {background-color: #000; border: none; color: #fff; transition: background-color 500ms ease-out;}
@@ -1187,19 +1187,19 @@ table.csv .highlight_row {background-color: #f7f7f7;}
  */
 
 .bootstrap-tagsinput {
-  background-color: #fff;
-  border: 1px solid #ccc;
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  display: inline-block;
-  /*min-height: 47px;*/
-  min-height: 0;
-  padding: 11px 9px 7px;
-  color: #555;
-  vertical-align: middle;
-  border-radius: 4px;
-  max-width: 100%;
-  line-height: 22px;
-  cursor: text;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    display: inline-block;
+    /*min-height: 47px;*/
+    min-height: 0;
+    padding: 11px 9px 7px;
+    color: #555;
+    vertical-align: middle;
+    border-radius: 4px;
+    max-width: 100%;
+    line-height: 22px;
+    cursor: text;
 }
 .bootstrap-tagsinput.disabled {
     background-color: #eee;
@@ -1224,32 +1224,32 @@ table.csv .highlight_row {background-color: #f7f7f7;}
     max-width: inherit;
 }
 .bootstrap-tagsinput.form-control input::-moz-placeholder {
-  color: #777;
-  opacity: 1;
+    color: #777;
+    opacity: 1;
 }
 .bootstrap-tagsinput.form-control input:-ms-input-placeholder {
-  color: #777;
+    color: #777;
 }
 .bootstrap-tagsinput.form-control input::-webkit-input-placeholder {
-  color: #777;
+    color: #777;
 }
 .bootstrap-tagsinput input:focus {
-  border: none;
-  box-shadow: none;
+    border: none;
+    box-shadow: none;
 }
 .bootstrap-tagsinput .tag,
 .addTagBtn,
 .addTag > ul > li a {
-  margin-right: 2px;
-  margin-bottom: 6px;
-  display: inline-block;
-  color: #ec931f;
-  background-color: rgba(32, 162, 234, 0.1);
-  border: 1px solid #ec931f;
-  font-family: Arial,Helvetica,sans-serif;
-  font-weight: 400;
-  font-size: 13px;
-  font-size: 1.3rem;
+    margin-right: 2px;
+    margin-bottom: 6px;
+    display: inline-block;
+    color: #ec931f;
+    background-color: rgba(32, 162, 234, 0.1);
+    border: 1px solid #ec931f;
+    font-family: Arial,Helvetica,sans-serif;
+    font-weight: 400;
+    font-size: 13px;
+    font-size: 1.3rem;
 }
 
 .bootstrap-tagsinput.disabled .tag{
@@ -1264,18 +1264,18 @@ table.csv .highlight_row {background-color: #f7f7f7;}
     background-color: #FFFFFF;
 }
 .bootstrap-tagsinput .tag [data-role="remove"] {
-  margin-left: 8px;
-  cursor: pointer;
+    margin-left: 8px;
+    cursor: pointer;
 }
 .bootstrap-tagsinput .tag [data-role="remove"]:after {
-  content: "x";
-  padding: 0px 2px;
+    content: "x";
+    padding: 0px 2px;
 }
 .bootstrap-tagsinput .tag [data-role="remove"]:hover {
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 .bootstrap-tagsinput .tag [data-role="remove"]:hover:active {
-  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
 }
 
 /*
@@ -1578,14 +1578,14 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .pag-list-campaigns .pagination,
 .pag-list-contacts .pagination {display:block; margin:0; float: right;}
 /* OVERWRITE PAGINATION BOOTSTRAP DEFAULT*/
-.pagination {color: #a8a8a8;font-size: 1.8rem;}
-.pagination > ul {padding: 0; margin: 0;float:right;}
-.pagination > ul > li{list-style: none; display: inline-block;}
-.pagination > ul > li a{color:#a8a8a8;}
-.pagination > ul > li a:focus,
-.pagination > ul > li a:hover{color:#a8a8a8;}
+.pagination {color: #a8a8a8;font-size: 1.8rem; width:100%; text-align: right;}
+.pagination ul {padding: 0; margin: 0;float:right;}
+.pagination ul > li{list-style: none; display: inline-block;}
+.pagination ul > li a{color:#a8a8a8;}
+.pagination ul > li a:focus,
+.pagination ul > li a:hover{color:#a8a8a8;}
 .pagination > span {display: block; line-height: 32px; float: right; margin-right: 5px;}
-.pagination a {text-align: center; color: #545454; display: block; float: right; width: 32px; height: 32px; line-height: 28px; margin-left: 10px; border: 1px solid #e5e5e5; background-color: #fff; background-position: center center; background-repeat: no-repeat;}
+.pagination a {text-align: center; color: #545454; display: block; float: right; width: 32px; height: 32px; line-height: 28px; margin-left: 0px; border: 1px solid #e5e5e5; background-color: #fff; background-position: center center; background-repeat: no-repeat;}
 .pagination a.disabled {background-color: #f7f7f7; color:#ddd}
 .pagination a:hover,
 .pagination a:focus,
@@ -1598,6 +1598,14 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .pagination>.active>span:hover,
 .pagination>.active>a:focus,
 .pagination>.active>span:focus {color: #fff;background-color: #ddd;border-color: #ddd;cursor: default;}
+.pagination > span{display: inline-block; text-align: right}
+.pagination > span.pagination-page{width: 100%; margin-top: -15px; font-size: 13px; margin-bottom: 5px;}
+.pagination > .pagination-data {width: 100%; }
+.pagination > .pagination-data ul{float: right}
+.pagination > .pagination-data ul li:first-child{margin-left: 15px;}
+.pagination > .pagination-data .pagination-size{float: right;  margin-top:-1px;}
+.pagination > .pagination-data .pagination-size > select{width:70px; float:left;}
+.pagination > .pagination-data .pagination-size > label{margin-top: 5px;margin-right: 5px; float:left;font-weight: normal;}
 .bootstrap-table .fixed-table-loading {top:105px !important; font-size: 25px}
 .bootstrap-table .fixed-table-body table tbody input {width: 95%;margin:auto;}
 .bootstrap-table .fixed-table-pagination .pagination a {line-height: 17px;}
@@ -1656,8 +1664,6 @@ ul.list > li > ul.list-actions > li > a {font-size: 1.6rem; line-height: 1.2; co
 ul.list > li > ul.list-actions > li > a:hover,
 ul.list > li > ul.list-actions > li > a:focus,
 ul.list > li > ul.list-actions > li > a:active {color: #ec931f;}
-
-ul.list#campaignsList > li > ul.list-actions {width:10%;}
 
 /* DASHBOARD (08/2016) */
 
@@ -2248,9 +2254,9 @@ ul.participatory-budget-steps-info li.active a {display: none}
 }
 .popover .user-type {
     color: #A8A8A8 !important;
-/*    padding: 0 0 0 49px !important;
-    margin: -18px 0 0 0!important;
-    display: block !important;*/
+    /*    padding: 0 0 0 49px !important;
+        margin: -18px 0 0 0!important;
+        display: block !important;*/
 }
 .popover .scroll .user-type {margin-left: 1px !important;}
 .popover .follow {width: auto; -webkit-border-radius: 2px !important; -moz-border-radius: 2px !important; border-radius: 2px !important; margin: 9px 0 0 0!important; float: right; padding: 6px 6px 5px !important; width: 80px !important;}
@@ -3241,7 +3247,7 @@ h2.underline {border-bottom: 1px solid #dadada; padding: 0 0 10px 0; margin-top:
 .search-list + [data-readmore-toggle]:hover,
 .search-list + [data-readmore-toggle]:focus,
 
-/* politician-card-sm */
+    /* politician-card-sm */
 .search-list{margin: 0; padding: 0; list-style: none;}
 .card-header-photo {
     height: 145px;
@@ -3405,17 +3411,17 @@ fieldset.rating:not(:checked) > label:before {
 fieldset.rating > input:checked ~ label:before,
 fieldset.rating > input + label:hover ~ label:before,
 fieldset.rating > input + label:hover:before {
-  content: "★ ";
-  color: #167caa;
+    content: "★ ";
+    color: #167caa;
 }
 fieldset.rating:hover > input + label:before {
-  content: "★ ";
-  color: #e1e1e1;
+    content: "★ ";
+    color: #e1e1e1;
 }
 fieldset.rating:hover > input + label:hover ~ label:before,
 fieldset.rating:hover > input + label:hover:before {
-  content: "★ ";
-  color: #167caa;
+    content: "★ ";
+    color: #167caa;
 }
 .rating label:hover > .rate-message {position: absolute; bottom: -.8em; color: #c6c6c6; font-size: .5em; left: 1em;}
 
@@ -3455,8 +3461,8 @@ fieldset.rating:hover > input + label:hover:before {
 
 /* 3390 NOTICIAS PERFIL POLÍTICO */
 .carousel.news .carousel-inner > .item {
-  -webkit-transition: 500ms ease-in-out left;
-  transition: 300ms ease-in-out left;
+    -webkit-transition: 500ms ease-in-out left;
+    transition: 300ms ease-in-out left;
 }
 .carousel.news {margin: 0 -5px 20px;}
 .carousel.news .carousel-inner .item {margin: 4px 0;}
@@ -3676,7 +3682,7 @@ h5#results {margin: 0 0 15px;}
 .onecol.list .block-results li {list-style: none; margin: 0 0 4px 0; font-size: 14px; font-size: 1.4rem;}
 .onecol.list .block-results li a {color: #545454;}
 
-.noty_message {padding: 10px !important;}
+.noty_message {padding: 10px !important}
 .noty_text {line-height:2rem;}
 .noty_text a {color:#167caa;}
 .noty_text a:hover{color:#116083;}
@@ -5005,10 +5011,14 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .edit-contact-header > div:first-child ul,
     .edit-contact-header > div:first-child ul li {list-style: none; display: contents; margin-right: 5px;}
     .removeQuestionButton .visible-xs {display:inline-block!important;padding-right: 5px;}
+
 }
 
 @media only screen and (max-width: 998px) {
-    form#pass-forget .form-group {text-align: center;}
+    form#pass-forget .form-group {text-align: center; padding-left: -100px}
+    #campaignsList > li > ul.list-campaign-stats {width: 70%;}
+    #campaignsList > li {padding-right: 0%;}
+    #campaignsList > li.h3.title, #campaignsList > li.p.name {margin-top: 0px; max-width: 35%;}
 }
 
 /* Small devices (tablets, 768px and up) */
@@ -5229,9 +5239,9 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
             -webkit-transition: 300ms ease-in-out all;
             transition: 300ms ease-in-out all;
             -webkit-backface-visibility: visible;
-                    backface-visibility: visible;
+            backface-visibility: visible;
             -webkit-transform: none!important;
-                    transform: none!important;
+            transform: none!important;
         }
     }
     .carousel.news .carousel-control {top: 22%;}
@@ -5277,9 +5287,9 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     #campaignsList > li h3, #campaignsList > li > p {padding-right: 50%; margin: 0;}
     #campaignsList > li h3 {font-size: 21px; font-size: 2.1rem; margin-bottom: 4px;}
     #campaignsList > li {padding: 10px 20px 10px 55px; min-height: 92px;}
-    #campaignsList > li > .state {left: 15px;}
-    #campaignsList > li > ul.list-campaign-stats {width: 36%; position: absolute; top: 10px; right: 10%; padding: 10px 0 0 10px; margin: 0; border-top: none; border-left: 1px solid #e5e5e5;}
-    #campaignsList > li > ul.list-campaign-stats > li {margin: 0 12px 0 0; width: 26%;}
+    #campaignsList > li > .state {left: 20px;}
+    #campaignsList > li > ul.list-campaign-stats {width: 20%; position: absolute; top: 10px; right: 10%; padding: 10px 0 0 10px; margin: 0; border-top: none; border-left: 1px solid #e5e5e5;}
+    #campaignsList > li > ul.list-campaign-stats > li {margin: 0 12px 0 0; width: 15%;}
     #campaignsList > li > ul.list-campaign-stats > li:last-child {margin: 0;}
     #campaignsList > li > ul.list-campaign-stats > li.recipients {width: 34%;}
     #campaignsList > li > ul.list-campaign-stats > li span {position: relative; min-height: 24px; font-size: 22px; font-size: 2.2rem; margin-bottom: 0;}
@@ -5315,6 +5325,8 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 
     #domain-description-landing-main {font-size: 34px;line-height: 50px; padding:100px 10%;}
     .fade-carousel .content form .form-group.conditions {margin-top:10px;}
+
+    #campaignsList > h3, #campaignsList > p.name {margin-top: 0px; max-width: 10%}
 }
 
 /* Medium devices (desktops, 992px and up) */
@@ -5491,6 +5503,10 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 
     .leader-post .header .call-to-action-mobile{  display: none;  }
     .conversation-box-comment > .header > .user span {  max-width: 450px  }
+
+    #campaignsList > li > ul.list-campaign-stats {width: 36%;}
+    #campaignsList > li {padding-right: 0%;}
+    #campaignsList > li.title, #campaignsList > li.name {margin-top: 0px; max-width: 45%}
 }
 
 @media only screen and (min-width: 1024px) {
@@ -5503,13 +5519,13 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 
     /* CAMPAIGNS */
     .form-final-options > li:first-child {display: inline-block; margin-bottom: 0;}
-    #campaignsList > li > .state {left: 20px;}
     #campaignsList > li {padding-left: 65px; padding-top: 24px; padding-bottom: 15px;}
     .campaignDelete, .contactDelete {right: 5px;}
     .campaignStats, .contactStats , #campaignsList .campaignEdit {right: 30px;}
     #campaignsList > li > ul.list-campaign-stats {width: 36%;}
-    #campaignsList > li h3, #campaignsList > li .name {padding-right: 48%;}
+    #campaignsList > li h3, #campaignsList > li .name {padding-right: 50%;}
     #campaignsList > li h3 {margin-top: 0px}
+
 
     /* NEW / EDIT CONTACT */
     .edit-contact .tab-pane#notes .form-group:last-child {padding-top: 255px;}
@@ -5533,6 +5549,10 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     /* LIST CONTACTS (08/2016) */
     #contactsList > li > h3, #contactsList > li > p {padding-right: 72%;}
     .container-lists {width: 68%;}
+    .campaignsList > h3 {max-width: 30%; padding-right: -100px}
+    .campaignsList > p {max-width: 30%; padding-right: -100px}
+    #campaignsList > li > ul.list-campaign-stats {max-width: 40%;}
+    ul.list#campaignsList > li > ul.list-actions {max-width: 30%;}
 }
 
 /* Large devices (large desktops, 1200px and up) */
@@ -5566,11 +5586,15 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     #campaignsList > li > span.far,
     #campaignsList > li > span.fal,
     #campaignsList > li > span.fas,
-    #campaignsList > li > span.fa {left: 24px;}
+    #campaignsList > li > span.fa {left: 2%;}
 }
 
 .resetTitle{
     color:#545454 !important;
+}
+
+@media only screen and (max-width: 1200) {
+    #campaignsList > li > .state {left: 20px;}
 }
 
 /* Politician Profile Page */
@@ -5679,7 +5703,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 .modal-user-picture .modal-header button.close{color: #FFF;}
 .modal-user-picture .modal-content{background: transparent;border: 0;box-shadow: none;}
 /*.profile-title{*/
-    /*margin-left: -25px;*/
+/*margin-left: -25px;*/
 /*}*/
 p.party{
     font-weight: bold;
@@ -5717,7 +5741,7 @@ p.party{
 
 /*Until we show the number of followers, this line is not necessary*/
 /*/!*.following .fa-check-circle-o:before{*!/*/
-    /*/!*content: " | \f05d";*!/*/
+/*/!*content: " | \f05d";*!/*/
 /*}*/
 
 
@@ -6383,6 +6407,8 @@ header .header-msg h6:hover{
         font-size: 16px;
     }
 
+
+
     .causes-icon{
         margin-bottom: 18px;
     }
@@ -6518,12 +6544,12 @@ div [class^='user-box col-'] {
 /*** global ***/
 .toggle-content {
     max-height: 0;
-	overflow: hidden;
-	transition: max-height 2000ms ease-in-out;
+    overflow: hidden;
+    transition: max-height 2000ms ease-in-out;
 }
 
 .toggle-content.is-visible {
-	max-height: 999em;
+    max-height: 999em;
 }
 
 .full-width {
@@ -6564,7 +6590,7 @@ div [class^='user-box col-'] {
 }
 
 /*.container-fluid {*/
-    /*margin-top: 10px;*/
+/*margin-top: 10px;*/
 /*}*/
 
 .grey {
@@ -6988,15 +7014,15 @@ ul.proposal-list:empty + .empty-proposal-list{display: block;}
 .fade-carousel .slides .slide-1,
 .fade-carousel .slides .slide-2,
 .fade-carousel .slides .slide-3 {
-  height: 640px;
-  background-size: cover;
-  background-repeat: no-repeat;
+    height: 640px;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .fade-carousel .slides .slide-footer {
-height: 300px;
-background-size: cover;
-background-repeat: no-repeat;
+    height: 300px;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 /* NEW LANDING FADES*/
@@ -7353,6 +7379,18 @@ ul.threeColumn .card-body p {
 
     .landing-footer {
         display: grid;
+    }
+    ul.list#campaignsList > li > ul.list-actions {font-size:15%;
+        width: 100%; margin-bottom: 5px; position: relative; padding: 0px; margin: 0px; text-align: left}
+    #campaignsList > li > ul.list-campaign-stats {font-size:1px; text-align: left; padding-left: 2%; width: 70%; margin-bottom: 5px; border: none;
+        position: relative;}
+
+    #campaignsList > li h3, #campaignsList > li > p {
+        width: 100%;
+        text-align: left;
+        padding-top: 10px;
+        padding-right: 0%;
+        margin: 0px;
     }
 }
 
@@ -7782,7 +7820,7 @@ ul.notification-menu > li.see-more {
 }
 
 .survey-question:first-child,
-/*.survey-question.answered + .survey-question,*/
+    /*.survey-question.answered + .survey-question,*/
 .survey-question.active-question,
 .survey-question.answered {
     margin-bottom: 20px;
@@ -7984,11 +8022,14 @@ ul.notification-menu > li.see-more {
     bottom: 10px;
     padding: 0px;
 }
+/* CSS for questions with a long text. Hardcoded for RED ELECTRICA. It is commented for future uses */
+/*
 .survey-question-answer .question-option-image + label{
     line-height: 22px;
     margin-top: 5px;
     font-size: 12px;
 }
+*/
 .survey-question-answer .rating-option label{
     position: absolute;
     top: 8px;
@@ -8453,7 +8494,7 @@ li.survey-question.answered .survey-question-answer .option-extra-content textar
     .navbar {
         overflow-x: hidden;
     }
-    
+
     .notification-menu {
         max-height: 100px;
         border: 1px solid #e4e4e4;
@@ -8463,7 +8504,7 @@ li.survey-question.answered .survey-question-answer .option-extra-content textar
         border-top: none;
         border-left: 1px solid #e4e4e4;
         border-right: 1px solid #e4e4e4;
-        border-bottom: 1px solid #e4e4e4;       
+        border-bottom: 1px solid #e4e4e4;
     }
 
     #campaignsList > li > .state {
@@ -8486,6 +8527,4 @@ li.survey-question.answered .survey-question-answer .option-extra-content textar
     .survey-question-header {
         padding-right:30px;
     }
-
 }
-

@@ -206,6 +206,7 @@ class RestKuorumApiService {
     }
 
     enum ApiMethod{
+        USER_PREVALIDATION                  ('/user/prevalidation/email'),
         USER_STATS_REPUTATION               ('/user/{userId}/stats/reputation'),
         USER_STATS_REPUTATION_EVOLUTION     ('/user/{userId}/stats/reputation/evolution'),
 
@@ -271,7 +272,7 @@ class RestKuorumApiService {
         ACCOUNT_MASS_MAILING_SEND               ("/communication/massmailing/{userId}/{newsletterId}/send"),
         ACCOUNT_MASS_MAILING_COPY               ("/communication/massmailing/{userId}/{campaignId}/copy"),
         ACCOUNT_MASS_MAILING_TRACKING           ("/communication/massmailing/{userId}/{campaignId}/trackingMails"),
-        ACCOUNT_MASS_MAILING_TRACKING_RESEND    ("/communication/massmailing/{userId}/{campaignId}/trackingMails/resend/{trackingEmailId}"),
+        ACCOUNT_MASS_MAILING_TRACKING_RESEND    ("/communication/campaign/bulletin/{userId}/{campaignId}/trackingMails/resend/{trackingEmailId}"),
         ACCOUNT_MASS_MAILING_REPORT             ("/communication/massmailing/{userId}/{campaignId}/trackingMails/report"),
         ACCOUNT_MASS_MAILING_CAMPAIGNS_REPORT   ("/communication/massmailing/{userId}/report"),
         ACCOUNT_MASS_MAILING_CONFIG             ("/communication/massmailing/{userId}/config"),
