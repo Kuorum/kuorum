@@ -241,6 +241,20 @@ class SurveyService extends AbstractCampaignCreatorService<SurveyRSDTO, SurveyRD
         )
     }
 
+    QuestionStatsRSDTO getQuestionStats(KuorumUserSession viewer,String aliasUserSurvey, Long campaignId,Long questionId){
+        Map<String, String> params = [userId: aliasUserSurvey, surveyId: campaignId.toString(), questionId: questionId.toString()]
+        Map<String, String> query = [:]
+        if (viewer) {
+            query.put("viewerUid", viewer.getId().toString())
+        }
+        def response = restKuorumApiService.get(
+                RestKuorumApiService.ApiMethod.ACCOUNT_SURVEY_ANSWER_STATS,
+                params,
+                query,
+                new TypeReference<QuestionStatsRSDTO>() {}
+        )
+        return response.data
+    }
 
     void deleteQuestionOptionFile(KuorumUserSession user, String aliasUserSurvey, Long surveyId, Long questionId, Long questionOptionId, String fileName) {
         fileName = java.net.URLEncoder.encode(fileName, "UTF-8")
