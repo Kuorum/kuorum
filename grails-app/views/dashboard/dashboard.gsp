@@ -5,9 +5,12 @@
     <!-- Schema.org markup for Google+ -->
     <meta itemprop="name" content="${_domainName}">
     <r:require modules="campaignsTargetsListResourcesRequired"/>
-    <g:if test="${tour}">
+    <g:if test="${tour && _VisibleFieldForUser && !_isSurveyPlatform}">
         <r:require module="tour"/>
     </g:if>
+    <g:elseif test="${tour && _VisibleFieldForUser && _isSurveyPlatform}">
+        <r:require module="tour_tutorial"/>
+    </g:elseif>
 </head>
 
 <content tag="mainContent">

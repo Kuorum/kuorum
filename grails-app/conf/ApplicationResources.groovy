@@ -314,6 +314,13 @@ modules = {
         resource url:'js/tour_dash_user.js'
     }
 
+    tour_tutorial{
+        dependsOn 'basic'
+        resource url:'js/bootstrap-tour.min.js'
+        resource url:'css/bootstrap-tour.min.css'
+        resource url:'js/tour_tutorials.js'
+    }
+
     kuorumUser{
         dependsOn 'basic'
         resource url:'js/kuorumUser.js'

@@ -291,4 +291,10 @@ class SurveyController extends CampaignController {
         }
     }
 
+    def questionStats(String userAlias, Long campaignId, Long questionId){
+        KuorumUserSession loggedUser = springSecurityService.isLoggedIn()? springSecurityService.principal : null
+        QuestionStatsRSDTO questionStatsRSDTO = surveyService.getQuestionStats(loggedUser, userAlias, campaignId, questionId)
+        render([status: "SUCCESS", questionStats : questionStatsRSDTO] as JSON)
+    }
+
 }

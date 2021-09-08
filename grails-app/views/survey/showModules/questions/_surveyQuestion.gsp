@@ -16,8 +16,9 @@
 <li
         class="comment-box survey-question ${questionClass} no-padding ${survey.closed || question.answered?'answered':''} ${activeQuestionId==question.id?'active-question':''}"
         id="question-${question.id}"
+        data-ajaxQuestionStats="${g.createLink(mapping:'ajaxSurveyQuestionStats', params:survey.encodeAsLinkProperties()+[questionId:question.id])}"
         data-question-id="${question.id}"
-        data-numAnswers="${question.amountAnswers}"
+        data-numAnswers="0"
         data-minAnswers="${question.minAnswers}"
         data-maxAnswers="${question.maxAnswers}"
         data-points="${question.points}"
