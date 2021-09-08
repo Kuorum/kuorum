@@ -1,6 +1,5 @@
 package kuorum.survey
 
-
 import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.core.exception.KuorumException
@@ -12,7 +11,6 @@ import kuorum.web.commands.payment.survey.*
 import kuorum.web.constants.WebConstants
 import org.kuorum.rest.model.communication.survey.*
 import org.kuorum.rest.model.communication.survey.answer.*
-import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 
 class SurveyController extends CampaignController {
 
@@ -291,10 +289,10 @@ class SurveyController extends CampaignController {
         }
     }
 
-    def questionStats(String userAlias, Long campaignId, Long questionId){
-        KuorumUserSession loggedUser = springSecurityService.isLoggedIn()? springSecurityService.principal : null
+    def questionStats(String userAlias, Long campaignId, Long questionId) {
+        KuorumUserSession loggedUser = springSecurityService.isLoggedIn() ? springSecurityService.principal : null
         QuestionStatsRSDTO questionStatsRSDTO = surveyService.getQuestionStats(loggedUser, userAlias, campaignId, questionId)
-        render([status: "SUCCESS", questionStats : questionStatsRSDTO] as JSON)
+        render([status: "SUCCESS", questionStats: questionStatsRSDTO] as JSON)
     }
 
 }
