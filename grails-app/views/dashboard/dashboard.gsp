@@ -5,7 +5,7 @@
     <!-- Schema.org markup for Google+ -->
     <meta itemprop="name" content="${_domainName}">
     <r:require modules="campaignsTargetsListResourcesRequired"/>
-    <g:if test="${tour}">
+    <g:if test="${tour && _VisibleFieldForUser}">
         <r:require module="tour"/>
     </g:if>
 </head>

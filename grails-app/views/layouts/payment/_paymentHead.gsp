@@ -5,7 +5,7 @@
             <span class=""><g:message code="default.home.label"/></span>
         </g:link>
     </li>
-    <g:if test="${grails.plugin.springsecurity.SpringSecurityUtils.ifAnyGranted("ROLE_ADMIN") || !_domainIsSurvey}">
+    <g:if test="${_VisibleFieldForUser}">
         <li class="underline" id="navigation-campaigns">
             <g:link mapping="politicianCampaigns"
                     class="navbar-link ${nav.activeMenuCss(controller: 'newsletter', action: 'index')}">

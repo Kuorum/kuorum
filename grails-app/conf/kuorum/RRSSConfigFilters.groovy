@@ -1,5 +1,6 @@
 package kuorum
 
+import grails.plugin.springsecurity.SpringSecurityUtils
 import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.model.solr.SolrType
 import org.codehaus.groovy.grails.commons.GrailsApplication
@@ -25,7 +26,8 @@ class RRSSConfigFilters {
                     model.put("_social", CustomDomainResolver.domainRSDTO?.social ?: null)
                     model.put("_domainName", CustomDomainResolver.domainRSDTO?.name ?: "")
                     model.put("_domainResourcesPath", CustomDomainResolver.domainRSDTO?.basicRootUrlStaticResources ?: "")
-                    model.put("_domainIsSurvey", CustomDomainResolver.domainRSDTO.getDomainTypeRSDTO() == DomainTypeRSDTO.SURVEY ?: false)
+                    model.put("_VisibleFieldForUser", CustomDomainResolver.domainRSDTO.getDomainTypeRSDTO() != DomainTypeRSDTO.SURVEY
+                            || SpringSecurityUtils.ifAllGranted("ROLE_ADMIN")  ?: false)
                     model.put("_domainActiveCampaigns", getActiveCampaigns())
                     model.put("_domainValidations", [
                             census    : CustomDomainResolver.domainRSDTO.validationCensus,
