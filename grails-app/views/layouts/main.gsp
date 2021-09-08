@@ -25,6 +25,7 @@
     <g:set var="${kuorum.web.constants.WebConstants.WEB_PARAM_LANG}" value="${org.springframework.web.servlet.support.RequestContextUtils.getLocale(request).language}" />
     <r:require modules="lang_${lang}, kuorumCookies, application" />
     <r:require modules="widget, widgetResizer" />
+    <r:require modules="tour_tutorial" />
 %{--    <sec:ifNotLoggedIn>--}%
         <r:require modules="loginApi" />
 %{--    </sec:ifNotLoggedIn>--}%

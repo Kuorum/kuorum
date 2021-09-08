@@ -2178,6 +2178,7 @@ ul.participatory-budget-steps-info li.active a {display: none}
 
 .more-users + .popover,
 .more-actions + .popover {width: 225px;}
+.popover.tour-video {width: 578px; max-width: 578px !important; padding: 8px;}
 .popover.tour {width: 300px; max-width: 300px !important; padding: 8px;}
 .popover.tour .popover-title {
     font-size: 20px;
