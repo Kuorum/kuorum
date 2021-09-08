@@ -8,8 +8,9 @@
         <li><g:link mapping="adminPrincipal"><g:message code="admin.adminPrincipal.title"/></g:link></li>
     </sec:ifAnyGranted>
 
-    <li class="hidden-xs"><g:link mapping="dashboard" params="[tour:true]"><g:message code="head.navigation.userMenu.tour"/></g:link></li>
-
+    <g:if test="${_VisibleFieldForUser}">
+        <li class="hidden-xs"><g:link mapping="dashboard" params="[tour:true]"><g:message code="head.navigation.userMenu.tour"/></g:link></li>
+    </g:if>
     <li><g:link mapping="logout"><g:message code="head.logged.logout"/></g:link></li>
     <sec:ifSwitched>
         <li>
