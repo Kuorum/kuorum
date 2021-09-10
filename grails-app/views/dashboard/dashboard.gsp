@@ -76,7 +76,7 @@
         <div class="col-md-4">
             <g:render template="/dashboard/payment/dashboardModules/dashboardPoliticianProfile"
                       model="[user: user, emptyEditableData: emptyEditableData, numberCampaigns: numberCampaigns]"/>
-            <g:if test="${_VisibleFieldForUser}">
+            <g:if test="${!_isSurveyPlatform}">
                 <g:render template="/dashboard/payment/dashboardModules/followOtherPoliticians"/>
             </g:if>
         </div>
