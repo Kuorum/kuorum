@@ -13,9 +13,9 @@
             <g:if test="${_isSurveyPlatform}">
                 <g:link mapping="politicianCampaigns" params="[tour:true]"><g:message code="head.navigation.userMenu.tour"/></g:link>
             </g:if>
-            <g:esle>
+            <g:else>
                 <g:link mapping="dashboard" params="[tour:true]"><g:message code="head.navigation.userMenu.tour"/></g:link>
-            </g:esle>
+            </g:else>
         </li>
     </g:if>
     <li><g:link mapping="logout"><g:message code="head.logged.logout"/></g:link></li>
