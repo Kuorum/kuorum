@@ -120,7 +120,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         }
         if (redirectAdminConfig){
             log.info("Redirecting for default configuration of the domain ${CustomDomainResolver.domain}")
-            redirect mapping: 'politicianCampaigns'
+            redirect mapping: 'politicianCampaigns', params:[tour:true]
         }else{
             render ([result:"success"] as JSON)
         }
