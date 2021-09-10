@@ -126,7 +126,6 @@ class KuorumUserController {
     def recommendations(){
         KuorumUser user = params.userId?KuorumUser.get(params.userId):null;
         List<SearchKuorumUserRSDTO> recommendations = kuorumUserService.recommendUsers(user, new Pagination([max:20]))
-        if(false)
         render(template:"/kuorumUser/userShowTemplates/columnC/recommendedUsersListAjaxLi", model:[recommendedUsers:recommendations])
     }
 

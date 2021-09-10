@@ -31,7 +31,12 @@
                 <div class="box-ppal">
                     <p>
                         <span class="text-empty-campaignList">
-                            <g:message code='dashboard.payment.followingCampaignList.empty'/>
+                            <g:if test="${_VisibleFieldForUser}">
+                                <g:message code='dashboard.payment.followinList.empty'/>
+                            </g:if>
+                            <g:else>
+                                <g:message code='dashboard.payment.followingCampaignList.empty'/>
+                            </g:else>
                         </span>
                         <span class="icon-empty-campaignList">
                             <span class="fas fa-info-circle"></span>
