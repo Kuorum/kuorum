@@ -88,7 +88,9 @@
     <g:render template="userShowTemplates/columnC/socialButtonsColumnC" model="[user:politician]"/>
     %{--<g:render template="showExtendedPoliticianTemplates/columnC/contactPolitician" model="[politician:politician]"/>--}%
     <g:render template="/dashboard/dashboardModules/supportedCauses" model="[user:politician, supportedCauses:causes]"/>
-    <g:render template="userShowTemplates/columnC/recommendedUsers" model="[user:politician,boxTitle:g.message(code:'modules.similarPoliticians.title')]"/>
+    <g:if test="${_VisibleFieldForUser}">
+        <g:render template="userShowTemplates/columnC/recommendedUsers" model="[user:politician,boxTitle:g.message(code:'modules.similarPoliticians.title')]"/>
+    </g:if>
     <g:render template="userShowTemplates/columnC/quickNotes" model="[politician:politician]"/>
 </content>
 
