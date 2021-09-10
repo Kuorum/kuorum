@@ -30,9 +30,6 @@
 %{--    </sec:ifNotLoggedIn>--}%
     <g:layoutHead/>
 
-    <r:layoutResources />
-    <g:render template="/layouts/internationalization/otherLangsRef"/>
-
     <g:if test="${tour && _VisibleFieldForUser && !_isSurveyPlatform}">
         <r:require module="tour"/>
     </g:if>
@@ -40,6 +37,9 @@
         <r:require module="tour_tutorial"/>
     </g:elseif>
 
+
+    <r:layoutResources />
+    <g:render template="/layouts/internationalization/otherLangsRef"/>
     <domain:customCss/>
     %{--<link rel="stylesheet" href="http://localhost/customDomainCss.css" type="text/css"/>--}%
 </head>
