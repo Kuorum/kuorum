@@ -34,7 +34,7 @@
                 <div class="box-ppal">
                     <p>
                         <span class="text-empty-campaignList">
-                            <g:if test="${_VisibleFieldForUser}">
+                            <g:if test="${_isSurveyPlatform}">
                                 <g:message code='dashboard.payment.followinList.empty'/>
                             </g:if>
                             <g:else>
