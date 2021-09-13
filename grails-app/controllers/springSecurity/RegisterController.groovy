@@ -85,7 +85,8 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
                 requestContentType : groovyx.net.http.ContentType.JSON
         )
 
-        if(!response.data.success)
+        log.info("Checking CAPTCHA :: Google response - ${response.data.hostname} || domain : ${CustomDomainResolver.domain}")
+        if(!response.data.success && response.data.hostname != CustomDomainResolver.domain)
             return false
         else
             return true
@@ -119,7 +120,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         }
         if (redirectAdminConfig){
             log.info("Redirecting for default configuration of the domain ${CustomDomainResolver.domain}")
-            redirect mapping: 'home'
+            redirect mapping: 'politicianCampaigns', params:[tour:true]
         }else{
             render ([result:"success"] as JSON)
         }

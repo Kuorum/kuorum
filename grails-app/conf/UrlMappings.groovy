@@ -162,6 +162,8 @@ class UrlMappings {
         name surveyShow:            "/$userAlias/$urlTitle-$campaignId"                          (controller: "campaign", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it)})}}
         name surveySaveAnswer:      "/ajax/$userAlias/$urlTitle-$campaignId/saveAnswer"          (controller: "survey", action: "saveAnswer"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it)})}}
         name surveyCopy:            "/account/survey/$campaignId/copy" (controller:"survey", action:"copy")
+        name ajaxSurveyQuestionStats:"/ajax/survey/$userAlias/$campaignId/question/$questionId/stats" (controller:'survey', action:"questionStats")
+
 
         name eventCreate:           "/account/event/new" (controller: "event"){action = [GET: "create", POST: "saveSettings"]}
 
@@ -276,7 +278,6 @@ class UrlMappings {
         name ajaxDeleteContactFile:         "/ajax/file/deleteContactFile/$userAlias/$contactId" (controller:'file', action:"deleteContactFile")
         name ajaxUploadQuestionOptionFile:  "/ajax/file/uploadQuestionOptionFile/$userAlias/$surveyId/$questionId/$questionOptionId" (controller:'file', action:"uploadQuestionOptionFile")
         name ajaxDeleteQuestionOptionFile:  "/ajax/file/deleteQuestionOptionFile/$userAlias/$surveyId/$questionId/$questionOptionId" (controller:'file', action:"deleteQuestionOptionFile")
-
 
         name adminPrincipal:                        "/sec/admin"                        (controller:"admin", action: "index")
         name adminTestMail:                         "/sec/admin/mailing/test"           (controller:"mailTesting", action: "index")

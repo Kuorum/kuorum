@@ -318,6 +318,7 @@ class RestKuorumApiService {
         ACCOUNT_SURVEYS               ("/communication/campaign/survey/{userId}"),
         ACCOUNT_SURVEY                ("/communication/campaign/survey/{userId}/{surveyId}"),
         ACCOUNT_SURVEY_ANSWER         ("/communication/campaign/survey/{userId}/{surveyId}/question/{questionId}"),
+        ACCOUNT_SURVEY_ANSWER_STATS   ("/communication/campaign/survey/{userId}/{surveyId}/question/{questionId}/stats"),
         ACCOUNT_SURVEY_ANSWER_FILE    ("/communication/campaign/survey/{userId}/{surveyId}/question/{questionId}/{questionOptionId}/file"),
         ACCOUNT_SURVEY_REPORT_STATS   ("/communication/campaign/survey/{userId}/{surveyId}/report/stats"),
         ACCOUNT_SURVEY_REPORT_RAW     ("/communication/campaign/survey/{userId}/{surveyId}/report/rawData"),
