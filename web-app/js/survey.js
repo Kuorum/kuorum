@@ -47,7 +47,7 @@ $(function () {
         e.preventDefault();
         var question = e.currentTarget.parentElement.parentElement.parentElement;
         var questionId= parseInt(question.getAttribute('data-question-id'), 10);
-        surveyFunctions._setProgressBarsPercentOneOption(questionId);
+        // surveyFunctions._setProgressBarsPercent(questionId);
         surveyFunctions._nextQuestion(questionId);
     });
 
@@ -57,7 +57,7 @@ $(function () {
         for (questionIdx = 0; questionIdx < survey.children.length; questionIdx++) {
             var question = survey.children[questionIdx];
             var questionId = parseInt(question.getAttribute('data-question-id'));
-            surveyFunctions._setProgressBarsPercent(questionId);
+            // surveyFunctions._setProgressBarsPercent(questionId);
             surveyFunctions._nextQuestion(questionId);
         };
     });
@@ -81,7 +81,7 @@ var surveyFunctions = {
         for (questionAnswerIdx = 0; questionAnswerIdx < singleAnswers.length; questionAnswerIdx++) {
             var question = singleAnswers[questionAnswerIdx];
             var questionId = parseInt(question.getAttribute('data-question-id'))
-            surveyFunctions._setProgressBarsPercent(questionId)
+            // surveyFunctions._setProgressBarsPercent(questionId)
             var nextQuestionId = surveyFunctions._getNextQuestionId(question);
             surveyFunctions._nextQuestion(questionId,nextQuestionId);
         };
@@ -422,11 +422,11 @@ var surveyFunctions = {
         // var question = event.currentTarget.parentElement.parentElement.parentElement;
         var answers = question.getElementsByClassName('survey-question-answers')[0];
         var selectedAnswer = question.getAttribute('data-answer-selected');
-        var answer = answers.querySelector('[data-answer-id="' + selectedAnswer + '"]');
+        //var answer = answers.querySelector('[data-answer-id="' + selectedAnswer + '"]');
         if (selectedAnswer) {
             // UPDATE NUM ANSWERS
-            answer.setAttribute("data-numanswers", parseInt(answer.getAttribute("data-numanswers"))+1);
-            question.setAttribute("data-numanswers", parseInt(question.getAttribute("data-numanswers"))+1);
+            //answer.setAttribute("data-numanswers", parseInt(answer.getAttribute("data-numanswers"))+1);
+            //question.setAttribute("data-numanswers", parseInt(question.getAttribute("data-numanswers"))+1);
 
             var questionId = parseInt(question.getAttribute('data-question-id'), 10);
             var nextQuestionId = surveyFunctions._getNextQuestionId(question);
@@ -434,8 +434,7 @@ var surveyFunctions = {
             var successFunction = function(questionRSDTO){
                 surveyFunctions._transformExtraDataNoEditable(questionId, true)
                 surveyFunctions._nextQuestion(questionId,nextQuestionId);
-                // surveyFunctions._setProgressBarsPercentOneOption(parseInt(question.getAttribute('data-question-id')));
-                surveyFunctions._setProgressBarsPercent(questionId);
+                // surveyFunctions._setProgressBarsPercent(questionId);
             }
             var failFunction = function(){
                 display.warn("ERROR SAVING ANSWER");
@@ -459,19 +458,18 @@ var surveyFunctions = {
         // var question = event.currentTarget.parentElement.parentElement.parentElement;
         var answers = question.getElementsByClassName('survey-question-answers')[0];
         var selectedAnswer = question.getAttribute('data-answer-selected');
-        var answer = answers.querySelector('[data-answer-id="' + selectedAnswer + '"]');
-        var options = question.querySelectorAll('.survey-question-answer'); // Html collection to array
+        //var answer = answers.querySelector('[data-answer-id="' + selectedAnswer + '"]');
+        //var options = question.querySelectorAll('.survey-question-answer'); // Html collection to array
         if (selectedAnswer) {
             // UPDATE NUM ANSWERS
-            answer.setAttribute("data-numanswers", parseInt(answer.getAttribute("data-numanswers"))+1);
-            question.setAttribute("data-numanswers", parseInt(question.getAttribute("data-numanswers"))+1);
+            //answer.setAttribute("data-numanswers", parseInt(answer.getAttribute("data-numanswers"))+1);
+            //question.setAttribute("data-numanswers", parseInt(question.getAttribute("data-numanswers"))+1);
 
             var questionId = parseInt(question.getAttribute('data-question-id'), 10);
 
             var successFunction = function(questionRSDTO){
-                // surveyFunctions._setProgressBarsPercentOneOption(parseInt(question.getAttribute('data-question-id')));
                 surveyFunctions._transformExtraDataNoEditable(questionId, true)
-                surveyFunctions._setProgressBarsPercent(questionId);
+                // surveyFunctions._setProgressBarsPercent(questionId);
                 surveyFunctions._nextQuestion(questionId);
             }
             var failFunction = function(){
@@ -490,16 +488,16 @@ var surveyFunctions = {
         selectedAnswers = JSON.parse(selectedAnswers);
         if (!!selectedAnswers) {
             // Updating num answers
-            var numQuestionAnswers = parseInt(question.getAttribute("data-numAnswers"));
-            numQuestionAnswers= numQuestionAnswers+1;
-            question.setAttribute("data-numAnswers",numQuestionAnswers);
+            //var numQuestionAnswers = parseInt(question.getAttribute("data-numAnswers"));
+            //numQuestionAnswers= numQuestionAnswers+1;
+            //question.setAttribute("data-numAnswers",numQuestionAnswers);
 
             var questionId = parseInt(question.getAttribute('data-question-id'), 10);
 
             var successFunction = function(questionRSDTO){
                 surveyFunctions._transformExtraDataNoEditable(questionId, true)
                 surveyFunctions._nextQuestion(questionId);
-                surveyFunctions._setProgressBarsPercentOneOption(questionId);
+                // surveyFunctions._setProgressBarsPercent(questionId);
             }
             var failFunction = function(){
                 display.warn("ERROR SAVING ANSWER");
@@ -533,6 +531,7 @@ var surveyFunctions = {
         if (currentQuestion.parentElement.classList.contains("survey-vote-secret")){
             surveyFunctions._clearAnswer(currentQuestion);
         }
+        surveyFunctions._updateQuestionStats(currentQuestionId);
     },
 
     _clearAnswer: function(question){
@@ -585,7 +584,7 @@ var surveyFunctions = {
 
     _setProgressBarsPercentRatio:function(questionId) {
         var question = document.querySelector('[data-question-id="' + questionId + '"]');
-        var numAnswers = parseInt(question.getAttribute("data-numAnswers"))
+        //var numAnswers = parseInt(question.getAttribute("data-numAnswers"))
         var answerOptions = Array.from(question.getElementsByClassName('survey-question-answer'))
         var answerOptionIdx; // IE10 not supports forEach
         // var totalScore = 0;
@@ -807,7 +806,6 @@ var surveyFunctions = {
             url: url,
             data: $.param(data),
             success: function(data){
-                surveyFunctions._updateOptionMetaDataFromQuestionRSDTOJson(data.question)
                 successFunction(data.question);
                 if (surveyFunctions.relodAfeterSubmit){
                     // Chapu para recargar la pagina sin pasar el callback desde mordor
@@ -833,18 +831,43 @@ var surveyFunctions = {
         });
     },
 
-    _updateOptionMetaDataFromQuestionRSDTOJson: function(questionRSDTO){
-        if (questionRSDTO != undefined){
-            var optionsIdx;
-            var options = questionRSDTO.options
-            for (optionsIdx = 0; optionsIdx < options.length; optionsIdx++) {
-                var optionRSDTO = options[optionsIdx];
-                $option = $("#question-option-" +optionRSDTO.id );
-                $option.attr("data-optionStats-total",optionRSDTO.optionStats.total)
-                $option.attr("data-optionStats-votes",optionRSDTO.optionStats.optionVotes)
-                $option.attr("data-optionStats-percentage",optionRSDTO.optionStats.percentage)
-            }
+    _updateQuestionStats: function(questionId){
+        updateQustionOptionWithStats = function(questionOptionStats){
+            var $questionOption = $("#question-option-"+questionOptionStats.questionOptionId);
+            $questionOption.attr("data-optionstats-total", questionOptionStats.total);
+            $questionOption.attr("data-optionstats-votes", questionOptionStats.optionVotes);
+            $questionOption.attr("data-optionstats-percentage", questionOptionStats.percentage);
         }
+        updateQuestionWithStats = function($question, questionStats) {
+            $question.attr("data-numAnswers", questionStats.answerAmount);
+            // questionStats.questionOptionStats.forEach(updateQustionOptionWithStats);
+            var answerOptionIdx; // IE10 not supports forEach
+            for (answerOptionIdx = 0; answerOptionIdx < questionStats.questionOptionStats.length; answerOptionIdx++) {
+                var questionOptionStats =  questionStats.questionOptionStats[answerOptionIdx];
+                updateQustionOptionWithStats(questionOptionStats);
+            }
+            surveyFunctions._setProgressBarsPercent(questionStats.questionId);
+        }
+        var $question = $("#question-"+questionId);
+        var urlQuestionStats = $question.attr("data-ajaxQuestionStats");
+        var data = {};
+        $.ajax({
+            type: "GET",
+            url: urlQuestionStats,
+            data: $.param(data),
+            success: function(data){
+                if (data.status = "SUCCESS"){
+                    updateQuestionWithStats($question, data.questionStats);
+                }else{
+                    console.log("Error recovering stats")
+                }
+            },
+            dataType: 'json'
+        }).fail(function(xhr, status, error) {
+            console.log(error);
+        }).always(function() {
+            // pageLoadingOff("Survey :: save answer. Question Id: "+questionId)
+        });
     },
 
     _recoverExtraDataForEachAnswer: function (answerIds){

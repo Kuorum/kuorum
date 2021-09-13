@@ -137,7 +137,7 @@ class QuestionCommand {
         maxAnswers min: 0, validator: validateMaxAnswer
         minAnswers min: 1, validator: validateMinAnswer
         questionLimitAnswersType nullable: false
-        points validator: validatePoints
+        points nullable: true, validator: validatePoints
     }
 }
 

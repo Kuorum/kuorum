@@ -51,7 +51,7 @@ class NewsletterController extends CampaignController{
                 onlyPublications: false
         )
         CampaignLightPageRSDTO campaignsPage = campaignService.findAllCampaigns(user, searchCampaignRDTO); // BAD TRICK
-        [campaigns: campaignsPage.getData(), user: user]
+        [campaigns: campaignsPage.getData(), user: user, "tour":params.tour?Boolean.parseBoolean(params.tour):false]
     }
 
     def newCampaign() {

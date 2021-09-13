@@ -1,5 +1,5 @@
 <!-- ^fade-carousel !-->
-<div id="carousel-landing-main" class="carousel slide fade-carousel ${msgPrefix}" data-ride="carousel" data-interval="5000" data-pause="null">
+<div id="carousel-landing-main" class="carousel slide fade-carousel ${msgPrefix}" data-ride="carousel" data-interval="7000" data-pause="null">
     <!-- Indicators -->
     <div class="container indicators">
         <ol class="carousel-indicators">

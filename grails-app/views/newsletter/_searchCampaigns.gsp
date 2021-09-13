@@ -32,7 +32,7 @@
             <div class="col-sm-3">
                 <ul>
                     <li>
-                        <g:link mapping="politicianCampaignsNew" class="btn btn-blue inverted">
+                        <g:link mapping="politicianCampaignsNew" class="btn btn-blue inverted" id="btn-campaign-new">
                             <g:message code="tools.massMailing.list.newCampaign"/>
                         </g:link>
                     </li>

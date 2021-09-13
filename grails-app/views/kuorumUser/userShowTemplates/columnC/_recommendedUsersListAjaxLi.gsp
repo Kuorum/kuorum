@@ -4,6 +4,5 @@
             showName="true"
             showActions="true"
             showDeleteRecommendation="true"
-            htmlWrapper="li"
-    />
+            htmlWrapper="li"/>
 </g:each>
