@@ -8,8 +8,8 @@ function SortCampaigns() {
         sort: function(a, b){
             var aTime = $(a).find('.link-wrapper').attr('data-datepublished');
             var bTime = $(b).find('.link-wrapper').attr('data-datepublished');
-            var aStarred = $(a).find('.link-wrapper').parents("article.box-ppal").hasClass("highlighted")
-            var bStarred = $(b).find('.link-wrapper').parents("article.box-ppal").hasClass("highlighted")
+            var aStarred = $(a).find('.link-wrapper').parents("article.box-ppal").hasClass("highlighted");
+            var bStarred = $(b).find('.link-wrapper').parents("article.box-ppal").hasClass("highlighted");
             if (aStarred) return 1;
             if (bStarred) return -1;
             if(aTime != undefined && bTime != undefined){
