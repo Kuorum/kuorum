@@ -64,7 +64,7 @@ class BootStrap {
         List<DomainRSDTO> domains = domainService.findAllDomains()
         List<Promise> asyncUpdateConfig = []
         domains.each { domainRSDTO ->
-            asyncUpdateConfig << grails.async.Promises.task {
+//            asyncUpdateConfig << grails.async.Promises.task {
                 URL urlThread = new URL("https://${domainRSDTO.domain}/kuorum")
                 CustomDomainResolver.setUrl(urlThread, "")
                 if (domainRSDTO.domain == "kuorum.org"){
@@ -78,7 +78,7 @@ class BootStrap {
                 }
                 // Used to update the version number and force browsers to download again the css and uploads the new css
                 // lessCompilerService.compileCssForDomain(it)
-            }
+//            }
         }
         grails.async.Promises.waitAll(asyncUpdateConfig)
         CustomDomainResolver.clear()
