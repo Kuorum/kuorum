@@ -46,8 +46,8 @@
             <ul class="search-list clearfix"
                 data-addCampaignsByUserUrl="${g.createLink(mapping: 'dashboardCampaignsSeeMore')}"
                 data-callback="campaignListCallback" id="campaign-list-id">
-                <g:render template="/campaigns/cards/campaignsList"
-                          model="[campaigns: campaigns, showAuthor: showAuthor]"/>
+                <g:render template="/campaigns/cards/campaignsList" model="[campaigns: starredCampaigns, showAuthor: showAuthor, highlighted:true]"/>
+                <g:render template="/campaigns/cards/campaignsList" model="[campaigns: campaigns, showAuthor: showAuthor, highlighted:false]"/>
             </ul>
             <!-- ver más -->
             <nav:loadMoreLink

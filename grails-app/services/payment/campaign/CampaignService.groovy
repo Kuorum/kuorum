@@ -6,6 +6,7 @@ import kuorum.core.exception.KuorumException
 import kuorum.register.KuorumUserSession
 import kuorum.solr.IndexSolrService
 import kuorum.util.rest.RestKuorumApiService
+import kuorum.web.constants.WebConstants
 import org.kuorum.rest.model.communication.*
 import org.kuorum.rest.model.communication.bulletin.BulletinRSDTO
 import org.kuorum.rest.model.communication.event.EventRDTO
@@ -18,6 +19,19 @@ class CampaignService {
 
     RestKuorumApiService restKuorumApiService
     IndexSolrService indexSolrService
+
+
+    CampaignRSDTO findStarredCampaign(List<CampaignRSDTO> relevantCampaigns, Long starredCampaign){
+
+        CampaignRSDTO relevantCampaign = null;
+        if (relevantCampaigns){
+            relevantCampaign = relevantCampaigns.find {it.id == starredCampaign}
+        }
+        if (relevantCampaign == null){
+            relevantCampaign = this.find(WebConstants.FAKE_LANDING_ALIAS_USER, starredCampaign)
+        }
+        return relevantCampaign
+    }
 
     List<CampaignRSDTO> findRelevantDomainCampaigns(String viewerUid = null) {
         Map<String, String> params = [:]
