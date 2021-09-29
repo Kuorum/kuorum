@@ -32,11 +32,11 @@
             </div>
         </fieldset>
 
-        <fieldset class="row">
-            <div class="form-group text-center option-buttons">
-                <a href="${redirectUrl}"  class="btn btn-lg">${g.message(code:'customRegister.step2.submit')}</a>
-            </div>
-        </fieldset>
+%{--        <fieldset class="row">--}%
+%{--            <div class="form-group text-center option-buttons">--}%
+%{--                <a href="${redirectUrl}"  class="btn btn-lg">${g.message(code:'customRegister.step2.submit')}</a>--}%
+%{--            </div>--}%
+%{--        </fieldset>--}%
     </g:form>
 </content>
 
