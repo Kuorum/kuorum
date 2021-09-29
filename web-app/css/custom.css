@@ -2532,6 +2532,7 @@ video#bgvid {
 
 ul.search-list{margin: 0;padding: 0;list-style: none;}
 ul.search-list .search-article .box-ppal {padding: 0; margin: 0 0 20px 0;height: auto; box-shadow: 0 0 2px rgba(200,200,200,0.6);}
+ul.search-list .search-article .box-ppal.highlighted {box-shadow: 0 0 5px #ec931f}
 ul.search-list > li {padding:0px;}
 ul.search-list > li.search-article .box-ppal .card-header-photo {height: auto;}
 ul.search-list > li.search-article .box-ppal .card-body {padding:1em;overflow: hidden;height: 325px;}
