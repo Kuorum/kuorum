@@ -2583,9 +2583,11 @@ div.info-campaigns-empty .icon-empty-campaignList img{color: #167caa; width: 30p
 
 ul.search-list.latestActivities .search-article {padding:0 0 20px 0px;}
 
-ul.search-list > .loading {width: 100%;
+ul.search-list > .loading {
+    width: 100%;
     height: 100px;
     background: url(../images/loading@2x.gif) center center / 50px auto no-repeat transparent;
+    float:left;
 }
 
 /*********************** Edit Post *************************************/
