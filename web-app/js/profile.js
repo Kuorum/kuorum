@@ -1,7 +1,7 @@
 
 function SortCampaigns() {
     var that = this;
-    var campaignList = $('.politician-card ul.search-list, .dashboard ul.search-list');
+    var campaignList = $('.politician-card ul.search-list, .dashboard ul#campaign-list-id.search-list');
 
     this.campaignOptions = {};
     this.campaignOptions['latest'] = {
@@ -10,8 +10,8 @@ function SortCampaigns() {
             var bTime = $(b).find('.link-wrapper').attr('data-datepublished');
             var aStarred = $(a).find('.link-wrapper').parents("article.box-ppal").hasClass("highlighted");
             var bStarred = $(b).find('.link-wrapper').parents("article.box-ppal").hasClass("highlighted");
-            if (aStarred) return 1;
-            if (bStarred) return -1;
+            if (aStarred) return -1;
+            if (bStarred) return 1;
             if(aTime != undefined && bTime != undefined){
                 return bTime.localeCompare(aTime);
             }
@@ -82,6 +82,7 @@ function SortCampaigns() {
     };
 
     this.orderList = function(){
+        console.log("orderList")
         var campaigns = campaignList.children('li').get();
         if(campaigns.length>0){
             $("#campaign-sorter").show();
@@ -90,17 +91,27 @@ function SortCampaigns() {
         $("#campaign-sorter li").removeClass("active");
         $("a[href=#"+campaignOption.name+"]").parent().addClass("active");
         campaigns.sort(campaignOption.sort)
+        var campaignIds = campaigns.map(function (i) {return $(i).find("article > .link-wrapper").attr("id").split("-")[1]})
+        var duplicatedIds = findDuplicates(campaignIds)
+        var repeated = function(pos, item) {
+            var currId = $(item).find(".link-wrapper").attr("id").split("-")[1];
+            var repeated = duplicatedIds.indexOf(currId)>=0;
+            var highlighted = $(item).find("article").hasClass("highlighted")
+            return repeated  && !highlighted;
+        };
         campaigns = campaigns.filter(function(item, pos, ary) {
             if (pos){
                 var currId = $(item).find(".link-wrapper").attr("id");
                 var prevId = $(ary[pos - 1]).find(".link-wrapper").attr("id");
-                return prevId != currId;
+                var repeated = duplicatedIds.indexOf(currId)>=0;
+                return prevId != currId && repeated;
             }else{
                 return false;
             }
         });
         $('ul.search-list > li').show();
         $('ul.search-list > li').filter(campaignOption.filter).hide();
+        $('ul.search-list > li').filter(repeated).remove();
         $.each(campaigns, function(idx, itm) {
             campaignList.append(itm);
         });
