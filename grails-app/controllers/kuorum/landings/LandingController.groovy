@@ -36,22 +36,10 @@ class LandingController {
                 starredCampaign    : null
         ]
         if (domainService.showPrivateContent()) {
-            CampaignRSDTO starredCampaign = findStarredCampaign(campaigns, domainRSDTO.getStarredCampaignId())
+            CampaignRSDTO starredCampaign = campaignService.findStarredCampaign(campaigns, domainRSDTO.getStarredCampaignId())
             model.put('campaigns',campaigns)
             model.put('starredCampaign',starredCampaign,)
         }
         return model;
-    }
-
-    private CampaignRSDTO findStarredCampaign(List<CampaignRSDTO> relevantCampaigns, Long starredCampaign){
-
-        CampaignRSDTO relevantCampaign = null;
-        if (relevantCampaigns){
-            relevantCampaign = relevantCampaigns.find {it.id == starredCampaign}
-        }
-        if (relevantCampaign == null){
-            relevantCampaign = campaignService.find(WebConstants.FAKE_LANDING_ALIAS_USER, starredCampaign)
-        }
-        return relevantCampaign
     }
 }

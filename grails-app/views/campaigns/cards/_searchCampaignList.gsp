@@ -1,6 +1,6 @@
 <%@ page import="org.kuorum.rest.model.search.kuorumElement.SearchDistrictProposalRSDTO" %>
 
-<article role="article" class="box-ppal">
+<article role="article" class="box-ppal ${highlighted?'highlighted':''}">
     <div class="link-wrapper" id="campaign-${campaign.id}" data-datepublished="${campaign.dateCreated.time}">
         <g:link mapping="campaignShow" params="${campaign.encodeAsLinkProperties()}" class="hidden"></g:link>
         %{--<g:if test="${campaign.urlImage || campaign.urlVideo}">--}%

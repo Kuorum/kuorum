@@ -1,4 +1,4 @@
-<article role="article" class="box-ppal clearfix">
+<article role="article" class="box-ppal clearfix ${highlighted?'highlighted':''}">
     <div class="link-wrapper" id="post-${post.id}" data-datepublished="${post.datePublished.time}">
         <g:link mapping="postShow" params="${post.encodeAsLinkProperties()}" class="hidden"></g:link>
         %{--<g:if test="${post.photoUrl || post.videoUrl}">--}%

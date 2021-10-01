@@ -1,6 +1,6 @@
 <%@ page import="org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO" %>
 
-<article role="article" class="box-ppal clearfix">
+<article role="article" class="box-ppal clearfix ${highlighted?'highlighted':''}">
     <div class="link-wrapper" id="districtProposal-${districtProposal.id}" data-datepublished="${districtProposal.datePublished.time}">
         <g:link mapping="districtProposalShow" params="${districtProposal.encodeAsLinkProperties()}" class="hidden"></g:link>
             <div class="card-header-photo">

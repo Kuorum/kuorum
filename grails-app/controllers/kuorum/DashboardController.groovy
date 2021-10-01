@@ -3,8 +3,10 @@ package kuorum
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.causes.CausesService
+import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.model.search.Pagination
 import kuorum.dashboard.DashboardService
+import kuorum.domain.DomainService
 import kuorum.register.KuorumUserSession
 import kuorum.users.CookieUUIDService
 import kuorum.users.KuorumUser
@@ -15,8 +17,11 @@ import kuorum.web.commands.profile.EditUserProfileCommand
 import kuorum.web.commands.profile.SocialNetworkCommand
 import kuorum.web.constants.WebConstants
 import org.kuorum.rest.model.communication.CampaignLightPageRSDTO
+import org.kuorum.rest.model.communication.CampaignLightRSDTO
 import org.kuorum.rest.model.communication.CampaignPageRSDTO
+import org.kuorum.rest.model.communication.CampaignRSDTO
 import org.kuorum.rest.model.communication.search.SearchCampaignRDTO
+import org.kuorum.rest.model.domain.DomainRSDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 import org.kuorum.rest.model.notification.campaign.NewsletterRQDTO
 import org.kuorum.rest.model.search.SearchResultsRSDTO
@@ -37,6 +42,7 @@ class DashboardController {
     CampaignService campaignService
     DashboardService dashboardService
     CookieUUIDService cookieUUIDService
+    DomainService domainService
 
     private  static final Integer MAX_PROJECT_EVENTS = 2
 
@@ -63,15 +69,32 @@ class DashboardController {
                 attachNotPublished: false
         )
         CampaignLightPageRSDTO myCampaigns = campaignService.findAllCampaigns(userSession,searchCampaignRDTO)
+        List<CampaignLightRSDTO> starredCampaigns = getStarredCampaigns();
+//        List<CampaignLightRSDTO> starredCampaigns = []
         [
                 numberCampaigns:myCampaigns.total,
                 user:user,
                 emptyEditableData:emptyEditableData(),
                 campaigns: [],
+                starredCampaigns :starredCampaigns,
                 totalCampaigns: 100,
                 showAuthor: true
         ]
 
+    }
+
+    private List<CampaignRSDTO> getStarredCampaigns(){
+        List<CampaignRSDTO> relevantCampaigns = campaignService.findRelevantDomainCampaigns()
+        DomainRSDTO domainRSDTO = domainService.getConfig(CustomDomainResolver.domain)
+        CampaignRSDTO starredCampaign = campaignService.findStarredCampaign(relevantCampaigns, domainRSDTO.getStarredCampaignId())
+        List<CampaignRSDTO> starredCampaigns = []
+        if (starredCampaign){
+            starredCampaigns.add(starredCampaign)
+        }
+        if (relevantCampaigns){
+            starredCampaigns.addAll(relevantCampaigns);
+        }
+        return starredCampaigns;
     }
 
     //FAST CHAPU - Evaluating empty data

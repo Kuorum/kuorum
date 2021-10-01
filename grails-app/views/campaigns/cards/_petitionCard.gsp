@@ -1,5 +1,5 @@
 
-<article role="article" class="box-ppal clearfix">
+<article role="article" class="box-ppal clearfix ${highlighted?'highlighted':''}">
     <div class="link-wrapper" id="petition-${petition.id}" data-datepublished="${petition.datePublished.time}">
         <g:link mapping="campaignShow" params="${petition.encodeAsLinkProperties()}" class="hidden"></g:link>
         %{--<g:if test="${survey.photoUrl || survey.videoUrl}">--}%
