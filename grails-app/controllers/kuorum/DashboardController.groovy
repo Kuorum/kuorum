@@ -69,8 +69,8 @@ class DashboardController {
                 attachNotPublished: false
         )
         CampaignLightPageRSDTO myCampaigns = campaignService.findAllCampaigns(userSession,searchCampaignRDTO)
-//        List<CampaignLightRSDTO> starredCampaigns = getStarredCampaigns();
-        List<CampaignLightRSDTO> starredCampaigns = []
+        List<CampaignLightRSDTO> starredCampaigns = getStarredCampaigns();
+//        List<CampaignLightRSDTO> starredCampaigns = []
         [
                 numberCampaigns:myCampaigns.total,
                 user:user,
