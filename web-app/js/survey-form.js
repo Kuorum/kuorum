@@ -115,7 +115,7 @@ var SurveyFormHelper ={
     questionTypeConfig:{
         'ONE_OPTION':               {cssClass:'ONE_OPTION',             showOptions: true,  extraDataVisibleClasses: []},
         'MULTIPLE_OPTION':          {cssClass:'MULTIPLE_OPTION',        showOptions: true,  extraDataVisibleClasses: ["question-data-extra-multi-limit"]},
-        'ONE_OPTION_WEIGHTED':      {cssClass:'MULTIPLE_OPTION',        showOptions: true,  extraDataVisibleClasses: ["question-data-extra-multi-limit"],                                       prepareOption:'forceOptionToNumber'},
+        'ONE_OPTION_WEIGHTED':      {cssClass:'ONE_OPTION',             showOptions: true,  extraDataVisibleClasses: [],                                       prepareOption:'forceOptionToNumber'},
         'MULTIPLE_OPTION_WEIGHTED': {cssClass:'MULTIPLE_OPTION',        showOptions: true,  extraDataVisibleClasses: ["question-data-extra-multi-limit"],                                       prepareOption:'forceOptionToNumber'},
         'MULTIPLE_OPTION_POINTS':   {cssClass:'MULTIPLE_OPTION',        showOptions: true,  extraDataVisibleClasses: ["question-data-extra-multi-limit", "question-data-extra-multi-points"],   prepareOption:'forceOptionToNumber'},
         'TEXT_OPTION':              {cssClass:'TEXT_OPTION',            showOptions: false, extraDataVisibleClasses: []},
