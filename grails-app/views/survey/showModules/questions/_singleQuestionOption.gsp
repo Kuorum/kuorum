@@ -17,6 +17,7 @@
         <g:if test="${question.questionType != org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.ONE_OPTION_WEIGHTED}">
             <g:render template="/survey/showModules/questions/formQuestionExtraContent" model="[option:option]"/>
         </g:if>
+        <g:render template="/survey/showModules/questions/formQuestionExtraContent" model="[option:option, visibility:'hidden']"/>
     </div>
     <div class="progress-info">
         <div class="progress-bar-counter"><span class="fas fa-spinner fa-spin"></span></div>

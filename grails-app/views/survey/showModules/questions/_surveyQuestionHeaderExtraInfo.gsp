@@ -1,5 +1,6 @@
 <%@ page import="org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO; kuorum.web.commands.payment.survey.QuestionLimitAnswersType" %>
-<g:if test="${questionTypeMultiples.contains(question.questionType)}">
+<g:if test="${questionTypeMultiples.contains(question.questionType) ||
+        question.questionType == org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.ONE_OPTION_WEIGHTED}">
     <div class="survey-question-extra-info">
         <g:if test="${question.questionType == org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.ONE_OPTION_WEIGHTED}">
             <div class="survey-question-extra-info-range"><g:message

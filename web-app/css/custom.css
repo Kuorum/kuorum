@@ -8529,3 +8529,7 @@ li.survey-question.answered .survey-question-answer .option-extra-content textar
         padding-right:30px;
     }
 }
+
+.displayNone {
+    display:none;
+}

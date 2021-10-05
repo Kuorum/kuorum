@@ -331,9 +331,30 @@ var surveyFunctions = {
             return phoneValidationData.valid;
         },
         ANSWER_NUMBER: function(questionAnswerOption,questionType){
-            var textNumberInputNodes = questionAnswerOption.querySelectorAll(".option-extra-content input");
-            var textNumberInput = textNumberInputNodes[0];
-            var validationData = surveyFunctions._checkValidAnswerType._checkInputData(textNumberInput);
+            console.log("questionType: " + questionType);
+            var textNumberInputNodes = "";
+            var textNumberInput = "";
+            var validationData = "";
+
+            if(questionType == "ONE_OPTION_WEIGHTED"){
+                textNumberInputNodes = questionAnswerOption.querySelectorAll(".option-extra-content input");
+                textNumberInput = textNumberInputNodes[0];
+                if(questionAnswerOption.getAttribute("class", "checked")){
+                    textNumberInput.value = 1;
+                } else {
+                    textNumberInput.value = 0;
+                }
+                validationData = {
+                    valid: true,
+                    msg:"",
+                    input: textNumberInput
+                };
+            } else {
+                textNumberInputNodes = questionAnswerOption.querySelectorAll(".option-extra-content input");
+                textNumberInput = textNumberInputNodes[0];
+                validationData = surveyFunctions._checkValidAnswerType._checkInputData(textNumberInput);
+            }
+
             if (validationData.valid){
                 validationData = surveyFunctions._checkValidAnswerType._checkValidInputAnswerByQuestionType[questionType](textNumberInput);
             }
