@@ -3377,6 +3377,18 @@ h2.underline {border-bottom: 1px solid #dadada; padding: 0 0 10px 0; margin-top:
 .user .popover-content .popover-user-body .rating{margin-bottom:0px;
     text-align: center;}
 
+
+.popover-image .popover {width: 122px}
+.popover-image .popover .popover-image-container .popover-image-header img {width: 100px}
+.popover-image .popover .popover-image-container .popover-image-header img {width: 100px}
+.popover-image .popover .popover-image-container .popover-image-body {margin-top: 10px;}
+.popover-image .modal .modal-body .upload-cropper-wrap {width: 300px; height: 300px;margin: 0 auto;}
+.popover-image .modal .modal-body .upload-cropper-choose-file-container {display: none;}
+.popover-image .modal .modal-body .upload-cropper-wrap .upload-cropper-wrap-container {}
+.popover-image .modal .modal-actions {margin-top: 20px;}
+.popover-image .modal .modal-actions span.error{display:block; width: 100%;}
+.popover-image .modal .modal-actions span.error .tooltip-arrow{display:none;}
+
 .rating {margin: 10px auto 0px; width: 12em;}
 .rating fieldset {position: relative; line-height: 32px;}
 .rating legend {

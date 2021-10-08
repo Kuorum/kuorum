@@ -28,6 +28,8 @@
     <!--[if IE 8]>
     <link rel="stylesheet" href="css/style_ie8.css" type="text/css" media="screen"><![endif]-->
 
+    <link rel="stylesheet" href="js/croppie/croppie.css"/>
+
     <!-- Soporte HTML5 y pseudo-clases CSS3 para IE9 e inferior -->
     <!--[if (lt IE 9) & (!IEMobile)]>
     <script src="js/respond.min.js"></script>
@@ -407,6 +409,88 @@
                         </ul>
                         <span class="counterList">1 - 10 of <span class="totalList">1469</span></span>
                     </div>
+                    <h2> Popover </h2>
+                    <h3>Popover user</h3>
+                    <div>
+                        <a href="https://kingslanding.kuorum.org/admin" class="popover-trigger" data-trigger="manual" rel="popover" role="button" data-toggle="popover" target="_self" itemprop="url" data-original-title="" title="">
+                            <img src="https://webcontent.pro.kuorum.org/UsersFiles/admin/maxresdefault.jpg" alt="King's Landing" class="user-img" itemprop="image">
+                            <span itemprop="name">King's Landing</span>
+                        </a>
+
+                        <div class="popover">
+                            <div class="popover-user">
+                                <div class="popover-user-header clearfix">
+                                    <div class="user pull-left" itemscope="" itemtype="http://schema.org/Person">
+                                        <a href="https://kingslanding.kuorum.org/admin" itemprop="url" target="_self">
+                                            <img src="https://webcontent.pro.kuorum.org/UsersFiles/admin/maxresdefault.jpg" alt="King's Landing" class="user-img" itemprop="image"><span itemprop="name">King's Landing</span>
+                                        </a>
+                                    </div><!-- /user -->
+
+                                    <button class="btn fake-follow btn-blue disabled btn-xs">
+                                        Following
+                                    </button>
+                                </div>
+                                <div class="popover-user-body load-rating" data-rating-link="https://kingslanding.kuorum.org/ajax/admin/loadRate">
+                                    <div class="loading md"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3>Popover images</h3>
+
+                    <div class="popover-image" id="popover-image-1">
+                        <span class="popover-trigger fas fa-image" data-trigger="click" rel="popover" data-toggle="popover" target="_self" data-original-title="" title="">
+                        </span>
+
+                        <div class="popover">
+                            <div class="popover-image-container">
+                                <div class="popover-image-header clearfix">
+                                    <img src="https://webcontent.pro.kuorum.org/UsersFiles/admin/maxresdefault.jpg" alt="Image Q1" />
+                                </div>
+                                <div class="popover-image-body center">
+                                    <button class="btn btn-transparent">
+                                        <span class="fa fa-trash"></span>
+                                    </button>
+                                    <button class="btn btn-transparent popover-image-upload">
+                                        <span class="fa fa-cloud-upload"></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal" id="modal-image" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="modal-image-title" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Cerrar"><span aria-hidden="true"
+                                                                          class="fal fa-times-circle fa"></span><span
+                                                class="sr-only">Cerrar</span></button>
+                                        <h4 id="modal-image-title">TITLE</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="upload-cropper-wrap">
+                                            <div class="upload-cropper-wrap-container"></div>
+                                        </div>
+                                        <div class="center upload-cropper-choose-file-container">
+                                            <a class="btn file-btn">
+                                                <input type="file" class="upload-cropper-choose-file" value="Choose a file" accept="image/*">
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    <div class="modal-actions">
+                                        <a href="https://api.dev.kuorum.org" class="btn upload-cropper-save">
+                                            <span>Save image</span>
+                                        </a>
+                                        <span class="error">Error saving image</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
                     <div>
                         <h2>Campaign selector</h2>
                         <ul id="mail" class="actionIcons">
@@ -2217,6 +2301,7 @@
                         </div>
                     </li>
                     //FIN VOTO PONDERADO
+
             </section>
             <aside id="aside-ppal" class="col-sm-12 col-md-4" role="complementary">
                 <section class="box-ppal">
@@ -2419,11 +2504,16 @@
 <script src="js/jquery.autocomplete.js"></script>
 <script src="js/inputs-handlers.js" async></script>
 <script src="js/jscolor.min.js" async></script>
+<script src="js/jquery.validate.min.js"></script>
+<script src="js/modal-validation.js"></script>
 <script src="js/customForm.js"></script>
 <script src="js/local.js"></script>
 <!-- el siguiente cargar al integrar -->
 <!--<script src="js/youtube-helper.js"></script>-->
 <!--<script src="js/custom.js"></script>-->
+
+<script type="application/javascript" src="js/croppie/croppie.js"></script>
+<script src="js/croppie/uploadCroppieImage.js"></script>
 
 <script>
     function openModal(e) {
