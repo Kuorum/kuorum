@@ -128,7 +128,8 @@
                                     overflow:"<g:message code="kuorum.web.commands.payment.survey.QuestionOptionCommand.text.overflow"/>"
                                 },
                                 number:{
-                                    negative:"<g:message code="kuorum.web.commands.payment.survey.QuestionOptionCommand.number.negative"/>"
+                                    negative:"<g:message code="kuorum.web.commands.payment.survey.QuestionOptionCommand.number.negative"/>",
+                                    points:"<g:message code="kuorum.web.commands.payment.survey.QuestionOptionCommand.number.points"/>"
                                 }
                             }
                         }

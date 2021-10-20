@@ -1,11 +1,11 @@
 <%@ page import="org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO; kuorum.web.commands.payment.survey.QuestionLimitAnswersType" %>
 <g:if test="${questionTypeMultiples.contains(question.questionType) ||
         question.questionType == org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.ONE_OPTION_WEIGHTED}">
-    <div class="survey-question-extra-info">
+    <div class="survey-question-extra-info question-${question.id}">
         <g:if test="${question.questionType == org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.ONE_OPTION_WEIGHTED}">
             <div class="survey-question-extra-info-range"><g:message
                     code="survey.questions.header.extrainfo.multi.QuestionLimitAnswersType.one.option"
-                    args="[question.minAnswers]"/></div>
+                    args="[question.points]"/></div>
         </g:if>
         <g:else>
             <div class="survey-question-extra-info-range"><g:message

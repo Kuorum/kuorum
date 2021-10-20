@@ -155,7 +155,7 @@ var surveyFunctions = {
         for (questionOptionsSelectedIdx = 0; questionOptionsSelectedIdx < questionOptionsSelected.length; questionOptionsSelectedIdx++) {
             var questionOption = questionOptionsSelected[questionOptionsSelectedIdx];
             var questionOptionType = questionOption.getAttribute(surveyFunctions.QUESTION_OPTION_ATTR_TYPE)
-            answersValid = surveyFunctions._checkValidAnswerType[questionOptionType](questionOption,questionType) && answersValid;
+            answersValid = surveyFunctions._checkValidAnswerType[questionOptionType](questionOption,questionType,question) && answersValid;
         }
         answersValid = answersValid && surveyFunctions._checkValidQuestion[questionType](question);
         return answersValid;
@@ -165,7 +165,6 @@ var surveyFunctions = {
         ONE_OPTION: function(question){return true;},
         MULTIPLE_OPTION : function(question){return true;},
         MULTIPLE_OPTION_WEIGHTED : function(question){
-            console.log("MULTIPLE_OPTION_WEIGHTED")
             var questionPoints = parseFloat(question.getAttribute("data-points"));
             var maxAnswers = parseFloat(question.getAttribute("data-maxanswers"));
             if (maxAnswers == 0){
@@ -330,15 +329,29 @@ var surveyFunctions = {
             surveyFunctions._checkValidAnswerType._handlePrintingError(phoneValidationData);
             return phoneValidationData.valid;
         },
-        ANSWER_NUMBER: function(questionAnswerOption,questionType){
-            console.log("questionType: " + questionType);
-            var textNumberInputNodes = "";
-            var textNumberInput = "";
+        ANSWER_NUMBER: function(questionAnswerOption,questionType, question){
+            var textNumberInputNodes = questionAnswerOption.querySelectorAll(".option-extra-content input");
+            var textNumberInput = textNumberInputNodes[0];
             var validationData = "";
 
-            if(questionType == "ONE_OPTION_WEIGHTED"){
-                textNumberInputNodes = questionAnswerOption.querySelectorAll(".option-extra-content input");
-                textNumberInput = textNumberInputNodes[0];
+            validationData = (questionType == "ONE_OPTION_WEIGHTED") ?
+                surveyFunctions._checkValidAnswerType.ANSWER_NUMBER_SPECIAL_CASE(questionAnswerOption, questionType, question) :
+                surveyFunctions._checkValidAnswerType.ANSWER_NUMBER_REGULAR_CASE()
+
+
+            return validationData.valid
+        },ANSWER_NUMBER_REGULAR_CASE(){
+            surveyFunctions._checkValidAnswerType._checkInputData(textNumberInput);
+            if (validationData.valid){
+                validationData = surveyFunctions._checkValidAnswerType._checkValidInputAnswerByQuestionType[questionType](textNumberInput);
+            }
+            surveyFunctions._checkValidAnswerType._handlePrintingError(validationData);
+            return validationData;
+        },
+        ANSWER_NUMBER_SPECIAL_CASE(questionAnswerOption, questionType, question) {
+            var validationData;
+            var questionPoints = parseFloat(question.getAttribute("data-points"));
+            if(questionType == "ONE_OPTION_WEIGHTED" && questionPoints <= 1){
                 if(questionAnswerOption.getAttribute("class", "checked")){
                     textNumberInput.value = 1;
                 } else {
@@ -349,17 +362,19 @@ var surveyFunctions = {
                     msg:"",
                     input: textNumberInput
                 };
-            } else {
-                textNumberInputNodes = questionAnswerOption.querySelectorAll(".option-extra-content input");
-                textNumberInput = textNumberInputNodes[0];
-                validationData = surveyFunctions._checkValidAnswerType._checkInputData(textNumberInput);
             }
-
-            if (validationData.valid){
-                validationData = surveyFunctions._checkValidAnswerType._checkValidInputAnswerByQuestionType[questionType](textNumberInput);
+            if(questionType == "ONE_OPTION_WEIGHTED" && questionPoints > 1){
+                var textSpecialNumberInputNodes = question.querySelectorAll(".option-extra-content input");
+                var summedPoints = 0;
+                for(var i= 0; i < textSpecialNumberInputNodes.length; i++) {
+                    var rawData = textSpecialNumberInputNodes[i].value
+                    var floatNumber = !isNaN(parseFloat(rawData))?parseFloat(rawData):0;
+                    summedPoints += floatNumber;
+                }
+                validationData = surveyFunctions._checkValidAnswerType._checkInputOneOptionWeightedData(textSpecialNumberInputNodes, questionPoints ,summedPoints);
             }
-            surveyFunctions._checkValidAnswerType._handlePrintingError(validationData);
-            return validationData.valid
+            surveyFunctions._checkValidAnswerType._handleSpecialCase(validationData, question);
+            return  validationData;
         },
         ANSWER_FILES: function(questionAnswerOption,questionType){
             var textFileListNodes = questionAnswerOption.querySelectorAll("li.qq-upload-success");
@@ -392,12 +407,27 @@ var surveyFunctions = {
                 };
             }
         },
+        _checkInputOneOptionWeightedData:function (inputNode, expectedPoints, actualPoints) {
+            if (actualPoints != expectedPoints){
+                return {
+                    valid: false,
+                    msg:i18n.kuorum.web.commands.payment.survey.QuestionOptionCommand.number.points + " " + expectedPoints,
+                    input: inputNode
+                };
+            }else{
+                return {
+                    valid: true,
+                    msg:"",
+                    input: inputNode
+                };
+            }
+        },
         _handlePrintingError: function(validationData){
             if (validationData.valid) {
                 $(validationData.input).siblings(".error").remove();
                 validationData.input.classList.remove("error")
                 return true;
-            }else{
+            }else {
                 $(validationData.input).siblings(".error").remove();
                 validationData.input.classList.add("error");
                 var errorNode = document.createElement("span");
@@ -405,13 +435,18 @@ var surveyFunctions = {
                 errorNode.innerHTML = validationData.msg
                 validationData.input.parentNode.insertBefore(errorNode, validationData.input.nextSibling);
             }
+        },_handleSpecialCase(validationData, question) {
+            $(".survey-question-extra-info."+question.id+" span.error").remove();
+            var errorDivNode = $(".survey-question-extra-info." + question.id);
+            $(".survey-question-extra-info.question-1001 span")
+            errorDivNode.append("<span class='error'>"+validationData.msg+"</span>");
         },
         _checkValidInputAnswerByQuestionType:{
             ONE_OPTION: function(inputNode){return surveyFunctions._checkValidAnswerType._checkValidInputAnswerByQuestionType.defaultValidation(inputNode);},
             MULTIPLE_OPTION : function(inputNode){return surveyFunctions._checkValidAnswerType._checkValidInputAnswerByQuestionType.defaultValidation(inputNode);},
             MULTIPLE_OPTION_WEIGHTED : function(inputNode){return surveyFunctions._checkValidAnswerType._checkValidInputAnswerByQuestionType.ONE_OPTION_WEIGHTED(inputNode);},
-            ONE_OPTION_WEIGHTED: function(inputNode){
-                var valid = parseFloat(inputNode.value)>0;
+            ONE_OPTION_WEIGHTED: function(inputNode, weigth, summedPoints){
+                var valid = parseFloat(inputNode.value) >0;
                 return {
                     valid: valid,
                     msg:i18n.kuorum.web.commands.payment.survey.QuestionOptionCommand.number.negative,

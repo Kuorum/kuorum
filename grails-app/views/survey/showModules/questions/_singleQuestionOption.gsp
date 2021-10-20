@@ -14,9 +14,6 @@
                           faClassEmpty:'far fa-circle',
                           faClassChecked:'fas fa-check-circle']"/>
         <label class="${isQuestionWithImages?'col-xs-12 col-sm-9': 'col-xs-10'}">${option.text}</label>
-        <g:if test="${question.questionType != org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.ONE_OPTION_WEIGHTED}">
-            <g:render template="/survey/showModules/questions/formQuestionExtraContent" model="[option:option]"/>
-        </g:if>
         <g:render template="/survey/showModules/questions/formQuestionExtraContent" model="[option:option, visibility:'hidden']"/>
     </div>
     <div class="progress-info">
