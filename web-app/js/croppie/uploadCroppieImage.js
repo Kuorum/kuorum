@@ -1,19 +1,50 @@
 
 $(function(){
+    prepareCropperPopups();
+});
+var activeCroppers ={}
+
+function prepareCropperPopups(){
     $(".popover-image").on("click", ".popover-image-upload", function (e) {
         e.preventDefault();
         var $popoverContainer = $(this).parents(".popover-image");
         new CropperPopup($popoverContainer);
     })
-});
-var activeCroppers ={}
+
+    $('[data-toggle="popover"][data-trigger="manual-hover"]')
+        //En el mousenter sacamos el popover
+        .on("mouseenter",function(e){
+            if ($(this).siblings(".in").length ==0){
+                $(this).popover('show');
+            }
+        })
+    // //En el click ejecutamos el link normal. El framework the popover lo está bloqueando
+    // .on("click", function(e){
+    //     if ( !($(this).hasClass('user-rating') || $(this).hasClass('rating'))) {
+    //         var href = $(this).attr("href");
+    //         var target = $(this).attr("target");
+    //         if (target && target == "_blank" ){
+    //             window.open(href, '_blank');
+    //             e.preventDefault();
+    //         }else{
+    //             window.location=href;
+    //         }
+    //     }
+    // });
+
+    $('[data-toggle="popover"]').popoverClosable();
+    $('[data-toggle="popover"][data-trigger="manual-hover"]').parent()
+        .on("mouseleave", function(e){
+            $(this).children('[data-toggle="popover"]').popover('hide')
+        });
+}
 
 function CropperPopup($popover){
     var $uploadCrop;
     var $modal;
     var popoverId;
     var reader;
-    var $inputFile = $popover.find(".upload-cropper-choose-file");
+    var $inputChooseFile = $popover.find(".upload-cropper-choose-file");
     var $saveButton = $popover.find(".upload-cropper-save");
     function readFile(input) {
         if (input.files && input.files[0]) {
@@ -48,38 +79,43 @@ function CropperPopup($popover){
     }
 
     function attachEvents(){
-        $inputFile.on('change', function () {
+        $inputChooseFile.on('change', function () {
             readFile(this);
             $modal.modal("show");
         });
 
         $saveButton.click(function(e){
             e.preventDefault();
-            var link = $(this).attr("href");
             $uploadCrop.croppie('result', {
-                type: 'canvas',
-                size: 'viewport'
+                type: "canvas",
+                size: "original",
+                format: "png",
+                quality: 1
             }).then(function(response){
-                $.ajax({
-                    url:link,
-                    type: "POST",
-                    data:{"image": response},
-                    success:function(data)
-                    {
-                        $popover.find(".popover-image-header img").src(response);
-                        $modal.modal('hide');
-                    },
-                    error:function(data){
-                        console.log(data)
-                        $popover.find(".modal-actions span.error").show();
-                    }
-                });
+                $popover.find(".popover-image-header img").attr("src",response);
+                $popover.find("input.upload-cropper-choose-file-base64").val(response);
+                $modal.modal('hide');
+
+                // $.ajax({
+                //     url:link,
+                //     type: "POST",
+                //     data:{"image": response},
+                //     success:function(data)
+                //     {
+                //         $popover.find(".popover-image-header img").src(response);
+                //         $modal.modal('hide');
+                //     },
+                //     error:function(data){
+                //         console.log(data)
+                //         $popover.find(".modal-actions span.error").show();
+                //     }
+                // });
             })
         });
     }
 
     function resetModal(){
-        $inputFile.val("")
+        $inputChooseFile.val("")
     }
 
     initPopoverId();
@@ -87,7 +123,7 @@ function CropperPopup($popover){
     // CROPPER OPTS
     var opts = {
         viewport: { width: 100, height: 100 },
-        boundary: { width: 300, height: 300 }, // It should fix as the css config
+        // boundary: { width: 300, height: 300 }, // It should fix as the css config
         showZoomer: true,
         enableOrientation: true // IMPORTANT: It doesn't crop properly without it
     };
@@ -103,7 +139,7 @@ function CropperPopup($popover){
         resetModal();
     })
 
-    $inputFile.click();
+    $inputChooseFile.click();
 
     // INIT CROPPER
     if (activeCroppers[popoverId] != undefined){
@@ -116,7 +152,5 @@ function CropperPopup($popover){
         initReader();
         attachEvents();
     }
-
-
 
 }

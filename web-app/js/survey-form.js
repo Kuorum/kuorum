@@ -14,11 +14,15 @@ $(function() {
         $clone.find("input, select").each(function(idx, input){
             $(input).val("")
             var name = $(input).attr("name")
-            var nameParts = name.split("]")
-            var optionPart = nameParts[1].substring(0, nameParts[1].length - 1)
-            optionPart = optionPart +questionsId
-            var name = nameParts[0]+"]"+optionPart+"]"+nameParts[2]
-            $(input).attr("name", name)
+            if (name != undefined){
+                var nameParts = name.split("]")
+                var optionPart = nameParts[1].substring(0, nameParts[1].length - 1)
+                optionPart = optionPart +questionsId
+                var name = nameParts[0]+"]"+optionPart+"]"+nameParts[2]
+                $(input).attr("name", name)
+            }else{
+                console.debug("Cloning inputs without name")
+            }
         })
         // Cloning select value -> By Defualt .clone() not clones the input values.
         var $originalSelects = $template.find('select');
@@ -134,7 +138,7 @@ var SurveyFormHelper ={
             // default options
             accept: '*',
             activeClass: 'sorting-questionOptions',
-            cancel: 'input, textarea, button, select, option',
+            cancel: 'input, textarea, button, select, option, .popover, .modal',
             connectWith: false,
             disabled: false,
             forcePlaceholderSize: false,
@@ -153,9 +157,13 @@ var SurveyFormHelper ={
                 $(element).find("input, select").each(function(idx, input){
                     var $input = $(input);
                     var inputName = $input.attr("name")
-                    var updatedInputName = inputName.replace(re, '$1[$2].$3['+questionOptionPos+']$5');
-                    // console.log("Updating name: "+inputName +" to -> "+updatedInputName);
-                    $input.attr("name", updatedInputName);
+                    if (updatedInputName != undefined){
+                        var updatedInputName = inputName.replace(re, '$1[$2].$3['+questionOptionPos+']$5');
+                        // console.log("Updating name: "+inputName +" to -> "+updatedInputName);
+                        $input.attr("name", updatedInputName);
+                    }else{
+                        console.debug("Updating field without name")
+                    }
                 })
                 formHelper.dirtyFormControl.dirty($form)
             });

@@ -63,19 +63,22 @@
 
         <fieldset class="row question-options">
             <div class="form-group">
-                <label for="text" class="col-sm-2 control-label"><g:message code="kuorum.web.commands.payment.survey.QuestionCommand.options.label"/>:</label>
-                <label for="text" class="col-sm-10 hidden-xs center">
+                <label for="text" class="col-xs-12"><g:message code="kuorum.web.commands.payment.survey.QuestionCommand.options.label"/>:</label>
+                <label for="text" class="col-xs-12 hidden-xs">
                     <div class="col-xs-offset-1 col-xs-11 col-sm-offset-1 col-sm-4">
                         <g:message code="kuorum.web.commands.payment.survey.QuestionOptionCommand.text.label"/>
                     </div>
-                    <div class="col-xs-offset-1 col-xs-11 col-sm-offset-0 col-sm-3">
+                    <div class="col-xs-1 center">
+                        <g:message code="kuorum.core.FileType.IMAGE"/>
+                    </div>
+                    <div class="col-xs-offset-1 col-xs-11 col-sm-offset-0 col-sm-2">
                         <g:message code="org.kuorum.rest.model.communication.survey.QuestionOptionTypeRDTO.label"/>
                     </div>
                     <div class="col-xs-offset-1 col-xs-11 col-sm-offset-0 col-sm-3 question-logic">
                         <g:message code="kuorum.web.commands.payment.survey.QuestionOptionCommand.nextQuestionId.label"/>
                     </div>
                 </label>
-                <div class="col-xs-12 col-sm-10 questionOption">
+                <div class="col-xs-12 questionOption clearfix">
                     <g:set var="i" value="${0}"/>
                     <g:each in="${listCommand.options}" var="option">
                         <g:render template="/survey/questions/questionOptionFields" model="[survey:survey,prefixField:prefixField, pos:i, option:option]"/>

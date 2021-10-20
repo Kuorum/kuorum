@@ -242,6 +242,7 @@ class SurveyController extends CampaignController {
         questionOptionRDTO.questionOptionType = command.questionOptionType
         questionOptionRDTO.nextQuestionId = command.nextQuestionId > 0 ? command.nextQuestionId : null
         questionOptionRDTO.exitSurvey = command.nextQuestionId == 0 ? true : false
+        questionOptionRDTO.urlImage = command.urlImage
         questionOptionRDTO
     }
 
@@ -274,6 +275,7 @@ class SurveyController extends CampaignController {
         command.text = option.text
         command.questionOptionType = option.questionOptionType
         command.nextQuestionId = option.exitSurvey ? 0 : option.nextQuestionId
+        command.urlImage = option.urlImage
         return command
     }
 

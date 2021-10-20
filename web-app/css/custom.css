@@ -3379,6 +3379,7 @@ h2.underline {border-bottom: 1px solid #dadada; padding: 0 0 10px 0; margin-top:
 
 
 .popover-image .popover {width: 122px}
+.popover-image .fas {font-size: 2em}
 .popover-image .popover .popover-image-container .popover-image-header img {width: 100px}
 .popover-image .popover .popover-image-container .popover-image-header img {width: 100px}
 .popover-image .popover .popover-image-container .popover-image-body {margin-top: 10px;}
@@ -4700,6 +4701,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 #questionsSurveyForm .questionOption .question:last-child .addQuestionOptionButton{display: inline-block; margin-top: 10px;}
 /*#questionsSurveyForm .questionOption.sorting-questionOptions .question:last-child .addQuestionOptionButton,*/
 #questionsSurveyForm .questionOption .question .addQuestionOptionButton{display: none;}
+#questionsSurveyForm .questionOption .question .question-option-image-popup{height: 30px;text-align: center; padding-top: 8px;}
 
 #questionsSurveyForm .dynamic-fieldset-addbutton .btn {margin-bottom:5px;}
 
@@ -4734,8 +4736,10 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 
 
 
-#questionsSurveyForm fieldset.question-options{
+#questionsSurveyForm.sort-questions fieldset.question-options{
     overflow-y: hidden;
+}
+#questionsSurveyForm fieldset.question-options{
     max-height: 5000px; /* approximate max height */
 
     transition-property: all;
