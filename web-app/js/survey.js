@@ -336,14 +336,14 @@ var surveyFunctions = {
 
             validationData = (questionType == "ONE_OPTION_WEIGHTED") ?
                 surveyFunctions._checkValidAnswerType.ANSWER_NUMBER_SPECIAL_CASE(questionAnswerOption, questionType, question) :
-                surveyFunctions._checkValidAnswerType.ANSWER_NUMBER_REGULAR_CASE()
+                surveyFunctions._checkValidAnswerType.ANSWER_NUMBER_REGULAR_CASE(validationData, questionType, textNumberInput)
 
 
             return validationData.valid
-        },ANSWER_NUMBER_REGULAR_CASE(){
-            surveyFunctions._checkValidAnswerType._checkInputData(textNumberInput);
+        },ANSWER_NUMBER_REGULAR_CASE(validationData, questionType, textNumberInput){
+            validationData = surveyFunctions._checkValidAnswerType._checkValidInputAnswerByQuestionType[questionType](textNumberInput);
             if (validationData.valid){
-                validationData = surveyFunctions._checkValidAnswerType._checkValidInputAnswerByQuestionType[questionType](textNumberInput);
+                validationData = surveyFunctions._checkValidAnswerType._checkInputData(textNumberInput);
             }
             surveyFunctions._checkValidAnswerType._handlePrintingError(validationData);
             return validationData;
@@ -437,9 +437,11 @@ var surveyFunctions = {
             }
         },_handleSpecialCase(validationData, question) {
             $(".survey-question-extra-info."+question.id+" span.error").remove();
-            var errorDivNode = $(".survey-question-extra-info." + question.id);
-            $(".survey-question-extra-info.question-1001 span")
-            errorDivNode.append("<span class='error'>"+validationData.msg+"</span>");
+            if(!validationData.valid) {
+                var errorDivNode = $(".survey-question-extra-info." + question.id);
+                $(".survey-question-extra-info.question-1001 span")
+                errorDivNode.append("<span class='error'>"+validationData.msg+"</span>");
+            }
         },
         _checkValidInputAnswerByQuestionType:{
             ONE_OPTION: function(inputNode){return surveyFunctions._checkValidAnswerType._checkValidInputAnswerByQuestionType.defaultValidation(inputNode);},
@@ -789,7 +791,6 @@ var surveyFunctions = {
             }
             return maxAnswers>0 && (overflowMax && questionType != "MULTIPLE_OPTION_WEIGHTED");
         }
-        console.log("MULTI")
         if (!!selectedAnswers === true && Array.isArray(selectedAnswers)) {
             var answerPosition = selectedAnswers.indexOf(answer.getAttribute('data-answer-id'));
             if (answerPosition === -1 && maxAnswersReached(">=") ) {
