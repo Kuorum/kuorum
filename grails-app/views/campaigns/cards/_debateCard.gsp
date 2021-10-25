@@ -1,5 +1,5 @@
 
-<article role="article" class="box-ppal clearfix">
+<article role="article" class="box-ppal clearfix ${highlighted?'highlighted':''}">
     <div class="link-wrapper" id="debate-${debate.id}" data-datePublished="${debate.datePublished.time}">
         <g:link mapping="debateShow" params="${debate.encodeAsLinkProperties()}" class="hidden"></g:link>
         %{--<g:if test="${debate.photoUrl || debate.videoUrl}">--}%
