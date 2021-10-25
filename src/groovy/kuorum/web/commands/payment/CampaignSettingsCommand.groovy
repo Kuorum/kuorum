@@ -7,6 +7,7 @@ import org.grails.databinding.BindUsing
 import org.grails.databinding.BindingFormat
 import org.kuorum.rest.model.communication.CampaignValidationTypeRDTO
 import org.kuorum.rest.model.communication.survey.CampaignVisibilityRSDTO
+import org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO
 import org.kuorum.rest.model.communication.survey.SurveyVoteTypeDTO
 import org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO
 
@@ -43,10 +44,21 @@ class CampaignSettingsCommand {
     @BindingFormat(WebConstants.WEB_FORMAT_DATE)
     Date startDate
 
+    static validateTitleSize = { val, obj ->
+
+        if (!val || val.size() <= 1) {
+            return "invalidTitleSizeMin"
+        }
+        if (val.size() >= 224) {
+            return "invalidTitleSizeMax"
+        }
+        return null
+    }
+
     static constraints = {
         filterId nullable: true
         filterEdited nullable: true
-        campaignName nullable: false
+        campaignName nullable: false, validator: validateTitleSize
         tags nullable: true
         causes nullable: true
         debatable nullable: true
