@@ -498,8 +498,10 @@ class ParticipatoryBudgetController extends CampaignController {
             response.status = 500
             if (e instanceof UndeclaredThrowableException) {
                 KuorumException ke = ((UndeclaredThrowableException) e).getCause().getCause()
+                log.info("Error voting: [Kuorum Exception] "+ke.getMessage());
                 render "{\"error\": \"API_ERROR\", \"code\":\"${ke.errors[0].code}\", \"msg\":\"${g.message(code: 'participatoryBudget.district.modal.differentDistrict.text', args: ke.errors[0].args)}\"}"
             } else {
+                log.info("Error voting: [Generic Exception]"+e.getMessage());
                 render "{\"error\": \"GENERIC_ERROR\", \"code\":\"error.api.500\"}"
             }
         }
