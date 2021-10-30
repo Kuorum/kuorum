@@ -1,9 +1,11 @@
 <g:set var="questionClass" value="single-answer"/>
-<g:set var="questionTypeMultiples" value="${[org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.MULTIPLE_OPTION,
-                                             org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.ONE_OPTION_WEIGHTED,
+<g:set var="questionTypeMultiples" value="${[(question.points>0)?org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.ONE_OPTION_WEIGHTED:"",
+                                             org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.MULTIPLE_OPTION,
                                              org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.MULTIPLE_OPTION_WEIGHTED,
                                              org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.MULTIPLE_OPTION_POINTS]}"/>
-<g:set var="oneOptionQuestion" value="${[org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.ONE_OPTION]}"/>
+
+<g:set var="oneOptionQuestion" value="${[(question.points>=1)?org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.ONE_OPTION_WEIGHTED:"",
+                                         org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.ONE_OPTION]}"/>
 
 <g:if test="${questionTypeMultiples.contains(question.questionType)}">
     <g:set var="questionClass" value="multi-answer"/>
