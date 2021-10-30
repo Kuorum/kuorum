@@ -335,7 +335,7 @@ var surveyFunctions = {
             var validationData = "";
 
             validationData = (questionType == "ONE_OPTION_WEIGHTED") ?
-                surveyFunctions._checkValidAnswerType.ANSWER_NUMBER_SPECIAL_CASE(questionAnswerOption, questionType, question) :
+                surveyFunctions._checkValidAnswerType.ANSWER_NUMBER_SPECIAL_CASE(questionAnswerOption, questionType, question, textNumberInput) :
                 surveyFunctions._checkValidAnswerType.ANSWER_NUMBER_REGULAR_CASE(validationData, questionType, textNumberInput)
 
 
@@ -348,7 +348,7 @@ var surveyFunctions = {
             surveyFunctions._checkValidAnswerType._handlePrintingError(validationData);
             return validationData;
         },
-        ANSWER_NUMBER_SPECIAL_CASE(questionAnswerOption, questionType, question) {
+        ANSWER_NUMBER_SPECIAL_CASE(questionAnswerOption, questionType, question, textNumberInput) {
             var validationData;
             var questionPoints = parseFloat(question.getAttribute("data-points"));
             if(questionType == "ONE_OPTION_WEIGHTED" && questionPoints <= 1){
