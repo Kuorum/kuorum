@@ -340,7 +340,8 @@ var surveyFunctions = {
 
 
             return validationData.valid
-        },ANSWER_NUMBER_REGULAR_CASE(validationData, questionType, textNumberInput){
+        },
+        ANSWER_NUMBER_REGULAR_CASE(validationData, questionType, textNumberInput){
             validationData = surveyFunctions._checkValidAnswerType._checkValidInputAnswerByQuestionType[questionType](textNumberInput);
             if (validationData.valid){
                 validationData = surveyFunctions._checkValidAnswerType._checkInputData(textNumberInput);
@@ -351,27 +352,11 @@ var surveyFunctions = {
         ANSWER_NUMBER_SPECIAL_CASE(questionAnswerOption, questionType, question, textNumberInput) {
             var validationData;
             var questionPoints = parseFloat(question.getAttribute("data-points"));
-            if(questionType == "ONE_OPTION_WEIGHTED" && questionPoints <= 1){
-                if(questionAnswerOption.getAttribute("class", "checked")){
-                    textNumberInput.value = 1;
-                } else {
-                    textNumberInput.value = 0;
-                }
-                validationData = {
-                    valid: true,
-                    msg:"",
-                    input: textNumberInput
-                };
+            if(questionType === "ONE_OPTION_WEIGHTED" && questionPoints <= 1){
+                validationData = surveyFunctions._checkValidAnswerType._checkOneOptionWightedPoints(questionAnswerOption ,textNumberInput);
             }
-            if(questionType == "ONE_OPTION_WEIGHTED" && questionPoints > 1){
-                var textSpecialNumberInputNodes = question.querySelectorAll(".option-extra-content input");
-                var summedPoints = 0;
-                for(var i= 0; i < textSpecialNumberInputNodes.length; i++) {
-                    var rawData = textSpecialNumberInputNodes[i].value
-                    var floatNumber = !isNaN(parseFloat(rawData))?parseFloat(rawData):0;
-                    summedPoints += floatNumber;
-                }
-                validationData = surveyFunctions._checkValidAnswerType._checkInputOneOptionWeightedData(textSpecialNumberInputNodes, questionPoints ,summedPoints);
+            if(questionType === "ONE_OPTION_WEIGHTED" && questionPoints > 1){
+                validationData = surveyFunctions._checkValidAnswerType._checkOneOptionWightedPoints2(question, questionPoints);
             }
             surveyFunctions._checkValidAnswerType._handleSpecialCase(validationData, question);
             return  validationData;
@@ -407,6 +392,36 @@ var surveyFunctions = {
                 };
             }
         },
+        _checkOneOptionWightedPoints:function(questionAnswerOption, textNumberInput) {
+            if(questionAnswerOption.getAttribute("class", "checked")){
+                textNumberInput.value = 1;
+            } else {
+                textNumberInput.value = 0;
+            }
+            return validationData = {
+                valid: true,
+                msg:"",
+                input: textNumberInput
+            };
+        },
+        _checkOneOptionWightedPoints2:function(question, questionPoints) {
+            var textSpecialNumberInputNodes = question.querySelectorAll(".option-extra-content input");
+            var summedPoints = 0;
+            var rawData;
+            var floatNumber;
+            var answerId;
+            for(var i= 0; i < textSpecialNumberInputNodes.length; i++) {
+                floatNumber = 0;
+                rawData = "";
+                answerId = textSpecialNumberInputNodes[i].id.split("_")[0];
+                if ($("#question-option-"+answerId).hasClass("checked")) {
+                    rawData = textSpecialNumberInputNodes[i].value
+                }
+                floatNumber = !isNaN(parseFloat(rawData))?parseFloat(rawData):0;
+                summedPoints += floatNumber;
+            }
+            return surveyFunctions._checkValidAnswerType._checkInputOneOptionWeightedData(textSpecialNumberInputNodes, questionPoints ,summedPoints);
+        },
         _checkInputOneOptionWeightedData:function (inputNode, expectedPoints, actualPoints) {
             if (actualPoints != expectedPoints){
                 return {
@@ -439,7 +454,6 @@ var surveyFunctions = {
             $(".survey-question-extra-info."+question.id+" span.error").remove();
             if(!validationData.valid) {
                 var errorDivNode = $(".survey-question-extra-info." + question.id);
-                $(".survey-question-extra-info.question-1001 span")
                 errorDivNode.append("<span class='error'>"+validationData.msg+"</span>");
             }
         },
