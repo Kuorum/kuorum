@@ -356,6 +356,13 @@ var surveyFunctions = {
                 validationData = surveyFunctions._checkValidAnswerType._checkOneOptionWightedPoints(questionAnswerOption ,textNumberInput);
             }
             if(questionType === "ONE_OPTION_WEIGHTED" && questionPoints > 1){
+                // Check basic data inputs -> No empty and greater than 0
+                var validationData = surveyFunctions._checkValidAnswerType.ANSWER_NUMBER_REGULAR_CASE(undefined, questionType, textNumberInput);
+                if (!validationData.valid){
+                    // Basic validation fails
+                    surveyFunctions._checkValidAnswerType._handlePrintingError(validationData);
+                    return validationData.valid;
+                }
                 validationData = surveyFunctions._checkValidAnswerType._checkOneOptionWightedPoints2(question, questionPoints);
             }
             surveyFunctions._checkValidAnswerType._handleSpecialCase(validationData, question);
