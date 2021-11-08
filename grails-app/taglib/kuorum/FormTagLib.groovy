@@ -307,6 +307,7 @@ class FormTagLib {
             cssClass += " counted"
         }
 
+
         if (showLabel){
             out << "<label for='${prefixFieldName}${field}' class='${labelCssClass}'>${label}</label>"
         }

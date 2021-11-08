@@ -1,12 +1,14 @@
 <%@ page import="kuorum.web.commands.payment.survey.QuestionOptionCommand" %>
 <formUtil:validateForm bean="${command}" form="questionsSurveyForm" dirtyControl="true"/>
 <form action="#"
-      class="form-horizontal campaign-form ${status== org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT || status== org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.PAUSE?'campaign-published':''}"
+      class="form-horizontal campaign-form ${status == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT || status == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.PAUSE ? 'campaign-published' : ''}"
       id="questionsSurveyForm"
       method="POST"
-      data-generalErrorMessage="${g.message(code:'kuorum.web.commands.payment.massMailing.DebateCommand.form.genericError')}">
+      data-generalErrorMessage="${g.message(code: 'kuorum.web.commands.payment.massMailing.DebateCommand.form.genericError')}">
     <input type="hidden" name="redirectLink" id="redirectLink"/>
-    <input type="hidden" name="sendType" value="${status== org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT?'SEND':'DRAFT'}" id="sendMassMailingType"/>
+    <input type="hidden" name="sendType"
+           value="${status == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT ? 'SEND' : 'DRAFT'}"
+           id="sendMassMailingType"/>
     <input type="hidden" name="surveyId" value="${command.surveyId}"/>
 
     <formUtil:dynamicComplexInputs
@@ -21,38 +23,54 @@
         <fieldset class="row question-data">
             <formUtil:input cssClass="hidden" field="id" command="${listCommand}" prefixFieldName="${prefixField}"/>
             <div class="form-group">
-                <label for="text" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.survey.QuestionCommand.text.label"/>:</label>
+                <label for="text" class="col-sm-2 col-md-1 control-label"><g:message
+                        code="kuorum.web.commands.payment.survey.QuestionCommand.text.label"/>:</label>
+
                 <div class="col-xs-12 col-sm-10">
                     <div class="form-group">
                         <div class="col-xs-12 col-sm-8 col-md-7 no-padding">
                             <formUtil:input field="text" command="${listCommand}" prefixFieldName="${prefixField}"/>
                         </div>
+
                         <div class="col-xs-10 col-sm-3 col-md-3 question-type">
-                            <span class="question-type-noEditable">${message(code:"org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.${listCommand.questionType}")}</span>
-                            <formUtil:selectEnum field="questionType" command="${listCommand}" prefixFieldName="${prefixField}" showLabel="false"/>
+                            <span class="question-type-noEditable">${message(code: "org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.${listCommand.questionType}")}</span>
+                            <formUtil:selectEnum field="questionType" command="${listCommand}"
+                                                 prefixFieldName="${prefixField}" showLabel="false"/>
                         </div>
+
                         <div class="hidden-xs hidden-sm col-md-1 question-type-info">
-                            <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="XX"></span>
+                            <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top"
+                                  title="XX"></span>
                         </div>
+
                         <div class="col-xs-1 col-sm-1 col-md-1 no-label-lg">
-                            <button type="button" class="btn btn-transparent btn-lg btn-icon removeButton"><i class="fal fa-trash"></i></button>
+                            <button type="button" class="btn btn-transparent btn-lg btn-icon removeButton"><i
+                                    class="fal fa-trash"></i></button>
                         </div>
                     </div>
+
                     <div class="form-group question-data-extra">
                         <div class="col-xs-12 no-padding question-data-extra-multi-limit">
                             <div class="col-xs-4 col-md-2 no-padding question-data-extra-multi-limit-type">
-                                <formUtil:selectEnum field="questionLimitAnswersType" command="${listCommand}" prefixFieldName="${prefixField}" showLabel="true"/>
+                                <formUtil:selectEnum field="questionLimitAnswersType" command="${listCommand}"
+                                                     prefixFieldName="${prefixField}" showLabel="true"/>
                             </div>
+
                             <div class="col-xs-4 col-md-3 question-data-exta-multi-limit-min">
-                                <formUtil:input field="minAnswers" command="${listCommand}" prefixFieldName="${prefixField}" showLabel="true"/>
+                                <formUtil:input field="minAnswers" command="${listCommand}"
+                                                prefixFieldName="${prefixField}" showLabel="true"/>
                             </div>
+
                             <div class="col-xs-4 col-md-3 question-data-exta-multi-limit-max">
-                                <formUtil:input field="maxAnswers" command="${listCommand}" prefixFieldName="${prefixField}" showLabel="true"/>
+                                <formUtil:input field="maxAnswers" command="${listCommand}"
+                                                prefixFieldName="${prefixField}" showLabel="true"/>
                             </div>
                         </div>
+
                         <div class="col-xs-12 no-padding question-data-extra-multi-points">
                             <div class="col-xs-4 col-md-2 no-padding">
-                                <formUtil:input field="points" command="${listCommand}" prefixFieldName="${prefixField}" showLabel="true"/>
+                                <formUtil:input field="points" command="${listCommand}" prefixFieldName="${prefixField}"
+                                                showLabel="true"/>
                             </div>
                         </div>
                     </div>
@@ -120,9 +138,9 @@
         </div>
     </fieldset>
     <g:render template="/campaigns/edit/stepButtons" model="[
-            saveAndSentButtons:true,
-            mappings:mappings,
-            status:status,
-            command: command,
-            numberRecipients:numberRecipients]"/>
+            saveAndSentButtons: true,
+            mappings          : mappings,
+            status            : status,
+            command           : command,
+            numberRecipients  : numberRecipients]"/>
 </form>

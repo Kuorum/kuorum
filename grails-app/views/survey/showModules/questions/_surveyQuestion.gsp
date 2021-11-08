@@ -1,8 +1,12 @@
 <g:set var="questionClass" value="single-answer"/>
-<g:set var="questionTypeMultiples" value="${[org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.MULTIPLE_OPTION,
-                                             org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.ONE_OPTION_WEIGHTED,
+<g:set var="questionTypeMultiples" value="${[(question.points>0)?org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.ONE_OPTION_WEIGHTED:"",
+                                             org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.MULTIPLE_OPTION,
                                              org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.MULTIPLE_OPTION_WEIGHTED,
                                              org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.MULTIPLE_OPTION_POINTS]}"/>
+
+<g:set var="oneOptionQuestion" value="${[(question.points<=1)?org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.ONE_OPTION_WEIGHTED:"",
+                                         org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.ONE_OPTION]}"/>
+
 <g:if test="${questionTypeMultiples.contains(question.questionType)}">
     <g:set var="questionClass" value="multi-answer"/>
 </g:if>
@@ -38,7 +42,7 @@
     </div>
     <div class="survey-question-answers" data-answer-selected="">
         <g:each in="${question.options}" var="option">
-            <g:if test="${question.questionType == org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.ONE_OPTION}">
+            <g:if test="${oneOptionQuestion.contains(question.questionType)}">
                 <g:render template="/survey/showModules/questions/singleQuestionOption" model="[survey:survey, question:question, option:option, isQuestionWithImages: isQuestionWithImages]"/>
             </g:if>
             <g:elseif test="${question.questionType == org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.RATING_OPTION}">
