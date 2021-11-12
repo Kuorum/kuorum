@@ -44,21 +44,10 @@ class CampaignSettingsCommand {
     @BindingFormat(WebConstants.WEB_FORMAT_DATE)
     Date startDate
 
-    static validateTitleSize = { val, obj ->
-
-        if (!val || val.size() <= 1) {
-            return "invalidTitleSizeMin"
-        }
-        if (val.size() >= 224) {
-            return "invalidTitleSizeMax"
-        }
-        return null
-    }
-
     static constraints = {
         filterId nullable: true
         filterEdited nullable: true
-        campaignName nullable: false, validator: validateTitleSize
+        campaignName nullable: false, maxSize: 100
         tags nullable: true
         causes nullable: true
         debatable nullable: true
@@ -68,7 +57,7 @@ class CampaignSettingsCommand {
         groupValidation nullable: true;
         voteType nullable: false;
         signVotes nullable: true;
-        newsletterCommunication nullable: true;
+        newsletterChttps://local.kuorum.org/kuorum/ommunication nullable: true;
         endDate nullable: true
         startDate nullable: true
     }
