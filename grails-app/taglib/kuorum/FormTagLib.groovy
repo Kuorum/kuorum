@@ -60,11 +60,14 @@ class FormTagLib {
         QuestionOptionCommand command = attrs.command
         def field = attrs.field
         def prefixFieldName=attrs.prefixFieldName?:""
+        FileGroup fileGroup = attrs.fileGroup
         String fieldName = prefixFieldName+field
         def value = (command."${field}"!=null?command."${field}":'')
         def model = [
                 popoverId:command.id?:Math.random(),
                 popoverImageUrl: value?:g.resource(dir: "images", file: "no-image.jpg"),
+                maxSizeMega: fileGroup.maxSizeMegas,
+                aspectRatio: fileGroup.aspectRatio,
                 fieldName:fieldName,
                 value:value
         ]

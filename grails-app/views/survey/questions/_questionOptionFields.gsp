@@ -4,7 +4,7 @@
         <formUtil:input field="text" command="${option}" prefixFieldName="${prefixField}options[${pos}]."  showLabel="true" labelCssClass="visible-xs"/>
     </div>
     <div class="col-xs-12 col-sm-1 question-option-image-popup">
-        <formUtil:imageCropperJs field="urlImage" command="${option}" prefixFieldName="${prefixField}options[${pos}]." />
+        <formUtil:imageCropperJs field="urlImage" command="${option}" prefixFieldName="${prefixField}options[${pos}]." fileGroup="${kuorum.core.FileGroup.USER_AVATAR}"/>
     </div>
     <div class="col-xs-11 col-sm-offset-0 col-sm-2">
         <formUtil:selectEnum field="questionOptionType" command="${option}" prefixFieldName="${prefixField}options[${pos}]." showLabel="true" labelCssClass="visible-xs"/>

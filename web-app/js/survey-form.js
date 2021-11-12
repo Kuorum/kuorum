@@ -33,6 +33,7 @@ $(function() {
         });
         $clone.appendTo($container)
         SurveyFormHelper.prepareSortableQuestionOptions();
+        SurveyFormHelper.preparePopOverImageCropper();
     });
 
     $("#questionsSurveyForm").on("click",".reorderQuestionsButton, .endReorderQuestionsButton",function (e) {
@@ -101,6 +102,7 @@ $(function() {
 
     SurveyFormHelper.prepareSortableQuestions();
     SurveyFormHelper.prepareSortableQuestionOptions();
+    SurveyFormHelper.preparePopOverImageCropper();
 });
 
 var SurveyFormHelper ={
@@ -130,6 +132,10 @@ var SurveyFormHelper ={
         'CONTACT_EXTERNAL_ID':      {cssClass:'CONTACT_EXTERNAL_ID',    showOptions: false, extraDataVisibleClasses: []},
         'CONTACT_WEIGHT':           {cssClass:'CONTACT_WEIGHT',         showOptions: false, extraDataVisibleClasses: []},
         'CONTACT_BIRTHDATE':        {cssClass:'CONTACT_BIRTHDATE',      showOptions: false, extraDataVisibleClasses: []}
+    },
+
+    preparePopOverImageCropper: function(){
+        prepareCropperPopups();
     },
 
     prepareSortableQuestionOptions: function(){
@@ -326,6 +332,7 @@ var SurveyFormHelper ={
         SurveyFormHelper.initQuestionOptions();
         $("form .dynamic-fieldset-addbutton button.addButton").on("kuorum.dynamicInput.add",function( event, formId ){
             prepareTooltips();
+            SurveyFormHelper.preparePopOverImageCropper()
         });
     }
 }

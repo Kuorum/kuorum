@@ -1,17 +1,17 @@
 %{--REQUIRE MODULE croppieFileUploader --}%
 
-<div class="popover-image" id="${popoverId}">
+<div class="popover-image" id="${popoverId}" data-image-size="${maxSizeMega}" data-image-ratio="${aspectRatio}">
     <span class="popover-trigger fas fa-image" data-trigger="manual-hover" rel="popover" data-placement="top"  data-toggle="popover" target="_self" data-original-title="" title="">
     </span>
 
-    <div class="popover" data-placement="top" >
+    <div class="popover" data-placement="top">
         <div class="popover-image-container">
             <div class="popover-image-header clearfix">
-                <img src="${popoverImageUrl}" alt="Image Q1" />
+                <img src="${popoverImageUrl}" alt="Image of the option" />
             </div>
             <div class="popover-image-body center">
                 <button class="btn btn-transparent">
-                    <span class="fa fa-trash"></span>
+                    <span class="fa fa-trash popover-image-delete"></span>
                 </button>
                 <button class="btn btn-transparent popover-image-upload">
                     <span class="fa fa-cloud-upload"></span>
@@ -35,14 +35,14 @@
                     </div>
                     <div class="center upload-cropper-choose-file-container">
                         <input type="file" class="upload-cropper-choose-file" value="Choose a file" accept="image/*">
-                        <input type="hidden" class="upload-cropper-choose-file-base64" name="${fieldName}" value="${value}">
+                        <input type="hidden" class="upload-cropper-choose-file-url" name="${fieldName}" value="${value}">
                     </div>
                 </div>
 
                 <div class="modal-actions">
-                    <a href="https://api.dev.kuorum.org" class="btn upload-cropper-save">
+                    <g:link mapping="ajaxUploadFile" class="btn upload-cropper-save">
                         <span><g:message code="default.save"/></span>
-                    </a>
+                    </g:link>
                     <span class="error">Error saving image</span>
                 </div>
             </div>
