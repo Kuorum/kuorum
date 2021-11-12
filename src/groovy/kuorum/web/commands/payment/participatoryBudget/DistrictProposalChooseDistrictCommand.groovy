@@ -9,7 +9,7 @@ class DistrictProposalChooseDistrictCommand {
     String cause
 
     static constraints = {
-        name nullable: false
+        name nullable: false, maxSize: 100
         districtId nullable: false
         cause nullable:true
     }
