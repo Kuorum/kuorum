@@ -14,7 +14,7 @@
                           faClassEmpty:'far fa-circle',
                           faClassChecked:'fas fa-check-circle']"/>
         <label class="${isQuestionWithImages?'col-xs-12 col-sm-9': 'col-xs-10'}">${option.text}</label>
-        <g:render template="/survey/showModules/questions/formQuestionExtraContent" model="[option:option]"/>
+        <g:render template="/survey/showModules/questions/formQuestionExtraContent" model="[option:option, visibility:'hidden']"/>
     </div>
     <div class="progress-info">
         <div class="progress-bar-counter"><span class="fas fa-spinner fa-spin"></span></div>
