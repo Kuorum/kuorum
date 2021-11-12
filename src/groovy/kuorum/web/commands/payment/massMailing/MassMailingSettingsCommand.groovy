@@ -20,7 +20,7 @@ class MassMailingSettingsCommand {
     Map<TrackingMailStatusRSDTO, List<String>> tags =[:]
 
     static constraints = {
-        campaignName nullable: false
+        campaignName nullable: false, maxSize: 100
         filterId nullable: false
         filterEdited nullable: true
     }
