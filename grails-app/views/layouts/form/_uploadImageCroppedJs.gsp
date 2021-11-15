@@ -10,8 +10,8 @@
                 <img src="${popoverImageUrl}" alt="Image of the option" />
             </div>
             <div class="popover-image-body center">
-                <button class="btn btn-transparent">
-                    <span class="fa fa-trash popover-image-delete"></span>
+                <button class="btn btn-transparent popover-image-delete">
+                    <span class="fa fa-trash"></span>
                 </button>
                 <button class="btn btn-transparent popover-image-upload">
                     <span class="fa fa-cloud-upload"></span>
@@ -19,7 +19,7 @@
             </div>
         </div>
     </div>
-    <div class="modal" id="modal-image-${popoverId}" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="modal-image-title" aria-hidden="true">
+    <div class="modal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="modal-image-title" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -27,7 +27,7 @@
                             aria-label="Cerrar"><span aria-hidden="true"
                                                       class="fal fa-times-circle fa"></span><span
                             class="sr-only">Cerrar</span></button>
-                    <h4 id="modal-image-title-${popoverId}"><g:message code="default.upload.image"/></h4>
+                    <h4><g:message code="default.upload.image"/></h4>
                 </div>
                 <div class="modal-body">
                     <div class="upload-cropper-wrap">

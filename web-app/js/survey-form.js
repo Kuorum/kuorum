@@ -7,7 +7,7 @@ $(function() {
         var $button = $(this);
         var $container_btn = $button.parents(".questionOptionActions")
         var $container = $container_btn.siblings(".questionOption")
-        var $template = $container.find("fieldset.question:first-child")
+        var $template = $container_btn.siblings(".questionOption-template").find("fieldset.question:first-child")
         var questionsId = parseInt($container.find(".question:last input").attr("name").split("]")[1].split("[")[1])+1;
         $clone = $template.clone()
         $clone.addClass("new-question-option")
@@ -19,11 +19,16 @@ $(function() {
                 var optionPart = nameParts[1].substring(0, nameParts[1].length - 1)
                 optionPart = optionPart +questionsId
                 var name = nameParts[0]+"]"+optionPart+"]"+nameParts[2]
+                name = name.replace("template-","");
                 $(input).attr("name", name)
             }else{
                 console.debug("Cloning inputs without name")
             }
         })
+        $clone.find(".popover-image").each(function(idx, popover){
+            $popover = $(popover);
+            $popover.removeAttr("id");
+        });
         // Cloning select value -> By Defualt .clone() not clones the input values.
         var $originalSelects = $template.find('select');
         $clone.find('select').each(function(index, item) {

@@ -96,6 +96,9 @@
                         <g:message code="kuorum.web.commands.payment.survey.QuestionOptionCommand.nextQuestionId.label"/>
                     </div>
                 </label>
+                <div class="questionOption-template" style="display: none">
+                    <g:render template="/survey/questions/questionOptionFields" model="[survey:survey,prefixField:'template-'+prefixField, pos:0, option:new QuestionOptionCommand()]"/>
+                </div>
                 <div class="col-xs-12 questionOption clearfix">
                     <g:set var="i" value="${0}"/>
                     <g:each in="${listCommand.options}" var="option">
