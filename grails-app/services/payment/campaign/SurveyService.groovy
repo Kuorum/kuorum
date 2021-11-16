@@ -148,6 +148,7 @@ class SurveyService extends AbstractCampaignCreatorService<SurveyRSDTO, SurveyRD
                     questionOptionRDTO.questionOptionType = qo.questionOptionType
                     questionOptionRDTO.nextQuestionId = qo.nextQuestionId
                     questionOptionRDTO.exitSurvey = qo.exitSurvey
+                    questionOptionRDTO.urlImage = qo.urlImage
 
                     return questionOptionRDTO
                 }

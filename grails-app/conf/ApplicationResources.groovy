@@ -248,7 +248,7 @@ modules = {
     }
 
     surveyForms{
-        dependsOn("campaignForm")
+        dependsOn("campaignForm", 'croppieFileUploader')
         resource url: 'js/sortable/touch-dnd.js'
         resource url: 'js/survey-form.js'
     }
@@ -283,6 +283,14 @@ modules = {
         resource url:'css/customUploader.css'
         resource url:'js/jquery.Jcrop.min.js'
         resource url:'css/jquery.Jcrop.min.css'
+    }
+
+    croppieFileUploader{
+//        resource url: 'https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.css'
+//        resource url: 'https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.js'
+        resource url: 'js/croppie/croppie.css'
+        resource url: 'js/croppie/croppie.js'
+        resource url:'js/croppie/uploadCroppieImage.js'
     }
 
     social{

@@ -22,6 +22,12 @@
 <script>
 //    TODO: Use jawr. The actual version ignore codification
     var i18n = {
+        uploader:{
+            error:{
+                sizeError: "<g:message code="uploader.error.sizeError"/>",
+                emptyError: "<g:message code="uploader.error.emptyError"/>"
+            }
+        },
         seeMore: "<g:message code="read.more"/>",
         lang : '${currentLang?.language?:'en'}',
         register:{
