@@ -29,7 +29,7 @@ class BootStrap {
 
 //        if (System.getenv("KUORUM_BUILD_CUSTOM_CSS_DOMAINS")){
 //            System.out.println("Builidng CSS")
-        buildCustomDomainCssForAllDomains()
+//        buildCustomDomainCssForAllDomains()
 //        }
 
 

@@ -63,6 +63,7 @@ $(function(){
         e.preventDefault();
         var $inputSendType = $('form.campaign-form').find("input[name=sendType]");
         $inputSendType.val("ACTIVATE")
+        console.log("CLICK SUBMIT")
         campaignForm.updateCampaign(e);
     });
 

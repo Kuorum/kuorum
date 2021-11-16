@@ -6,6 +6,7 @@ import com.amazonaws.regions.Regions
 import com.amazonaws.services.s3.AmazonS3
 import com.amazonaws.services.s3.AmazonS3ClientBuilder
 import com.amazonaws.services.s3.model.*
+import grails.plugin.springsecurity.SpringSecurityService
 import kuorum.KuorumFile
 import kuorum.core.FileGroup
 import kuorum.core.FileType
@@ -21,6 +22,8 @@ class AmazonFileService extends LocalFileService {
     private static final long UPLOAD_PART_SIZE = 5242880; // Set part size to 5 MB.
 
     private Regions AWS_REGION = Regions.EU_WEST_1;
+
+    SpringSecurityService springSecurityService;
 
 
     RestKuorumApiService restKuorumApiService;
@@ -215,76 +218,30 @@ class AmazonFileService extends LocalFileService {
 
     protected void uploadAmazonFile(KuorumFile kuorumFile, Boolean asTemporal) {
         if (kuorumFile.fileType == FileType.IMAGE) {
-            String bucketName = grailsApplication.config.kuorum.amazon.bucketName;
-            String keyName = generateAmazonKey(kuorumFile, asTemporal)
+            KuorumUserSession user = springSecurityService.principal
             String filePath = "${calculateLocalStoragePath(kuorumFile)}/${kuorumFile.fileName}";
-
-            AmazonS3 s3Client = buildAmazonClient();
-
-
-            // Create a list of UploadPartResponse objects. You get one of these for each part upload.
-            List<PartETag> partETags = new ArrayList<PartETag>();
-
-
             File file = new File(filePath);
-            long contentLength = file.length();
-            long partSize = UPLOAD_PART_SIZE;
 
-            // Step 1: Initialize.
-            InitiateMultipartUploadRequest initRequest = new InitiateMultipartUploadRequest(bucketName, keyName);
-            initRequest.putCustomRequestHeader("Cache-Control", "max-age=${3600 * 24 * 30}") // 30 days = 2592000 secs
-            initRequest.putCustomRequestHeader("Expires", "Thu, 15 Apr 2050 00:00:00 GMT")
+            String fileName = java.net.URLEncoder.encode(kuorumFile.fileName, "UTF-8")
+            Map<String, String> params = [userId: user.id.toString()]
+            Map<String, String> query = [:]
+            def response = restKuorumApiService.putFile(
+                    RestKuorumApiService.ApiMethod.FILE_UPLOAD,
+                    params,
+                    query,
+                    file,
+                    fileName
+            )
 
-            InitiateMultipartUploadResult initResponse = s3Client.initiateMultipartUpload(initRequest);
-
-
-
-            try {
-                // Step 2: Upload parts.
-                long filePosition = 0;
-                for (int i = 1; filePosition < contentLength; i++) {
-                    // Last part can be less than 5 MB. Adjust part size.
-                    partSize = Math.min(partSize, (contentLength - filePosition));
-
-                    // Create request to upload a part.
-                    UploadPartRequest uploadRequest = new UploadPartRequest()
-                            .withBucketName(bucketName)
-                            .withKey(keyName)
-                            .withUploadId(initResponse.getUploadId())
-                            .withPartNumber(i)
-                            .withFileOffset(filePosition)
-                            .withFile(file)
-                            .withPartSize(partSize);
-
-                    // Upload part and add response to our list.
-                    partETags.add(s3Client.uploadPart(uploadRequest).getPartETag());
-
-                    filePosition += partSize;
-                }
-
-                // Step 3: Complete.
-                CompleteMultipartUploadRequest compRequest = new CompleteMultipartUploadRequest(
-                        bucketName,
-                        keyName,
-                        initResponse.getUploadId(),
-                        partETags);
-
-                CompleteMultipartUploadResult uploadResult = s3Client.completeMultipartUpload(compRequest);
-//                String finalUrl = uploadResult.getLocation().replaceAll("%2F", "/")
-                String finalUrl = buildAmazonUrl(uploadResult.getKey())
-
-                kuorumFile.temporal = asTemporal
-                kuorumFile.url = finalUrl
-                kuorumFile.urlThumb = finalUrl
-                kuorumFile.fileType = asTemporal ? FileType.IMAGE : FileType.AMAZON_IMAGE
-                kuorumFile.local = !asTemporal;
-                kuorumFile.storagePath = keyName
-                kuorumFile.save(flush: true)
-                log.info("Se ha subido la imagen a Amazon. URL del exterior: ${kuorumFile.url}")
-            } catch (Exception e) {
-                s3Client.abortMultipartUpload(new AbortMultipartUploadRequest(bucketName, keyName, initResponse.getUploadId()));
-                log.error("Ha habido un error subiendo el fichero a Amazon.", e);
-            }
+            String finalUrl = response
+            kuorumFile.temporal = asTemporal
+            kuorumFile.url = finalUrl
+            kuorumFile.urlThumb = finalUrl
+            kuorumFile.fileType = FileType.AMAZON_IMAGE
+            kuorumFile.local = !asTemporal;
+            kuorumFile.storagePath = new URL(finalUrl).getPath()
+            kuorumFile.save(flush: true)
+            log.info("Se ha subido la imagen a Amazon. URL del exterior: ${kuorumFile.url}")
         }
     }
 
