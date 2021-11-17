@@ -3379,7 +3379,8 @@ h2.underline {border-bottom: 1px solid #dadada; padding: 0 0 10px 0; margin-top:
 
 
 .popover-image .popover {width: 122px}
-.popover-image .fas {font-size: 2em}
+.popover-image .popover-trigger.fas,
+.popover-image .popover-trigger.fal {font-size: 2em}
 .popover-image .popover .popover-image-container .popover-image-header img {width: 100px}
 .popover-image .popover .popover-image-container .popover-image-header img {width: 100px}
 .popover-image .popover .popover-image-container .popover-image-body {margin-top: 10px;}
@@ -3389,6 +3390,7 @@ h2.underline {border-bottom: 1px solid #dadada; padding: 0 0 10px 0; margin-top:
 .popover-image .modal .modal-actions {margin-top: 20px;}
 .popover-image .modal .modal-actions span.error{display:block; width: 100%;}
 .popover-image .modal .modal-actions span.error .tooltip-arrow{display:none;}
+.popover-image .modal .modal-actions span.upload-cropper-save span.fas{font-size:1em; margin:0 5px;}
 
 .rating {margin: 10px auto 0px; width: 12em;}
 .rating fieldset {position: relative; line-height: 32px;}
@@ -4701,7 +4703,8 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 #questionsSurveyForm .questionOption .question:last-child .addQuestionOptionButton{display: inline-block; margin-top: 10px;}
 /*#questionsSurveyForm .questionOption.sorting-questionOptions .question:last-child .addQuestionOptionButton,*/
 #questionsSurveyForm .questionOption .question .addQuestionOptionButton{display: none;}
-#questionsSurveyForm .questionOption .question .question-option-image-popup{height: 30px;text-align: center; padding-top: 8px;}
+#questionsSurveyForm .questionOption .question .question-option-image-popup{height: 40px;text-align: center; padding-top: 8px; cursor:default}
+#questionsSurveyForm .questionOption .question .question-option-image-popup label{float:left}
 
 #questionsSurveyForm .dynamic-fieldset-addbutton .btn {margin-bottom:5px;}
 

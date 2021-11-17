@@ -1,7 +1,7 @@
 %{--REQUIRE MODULE croppieFileUploader --}%
 
 <div class="popover-image" id="${popoverId}" data-image-size="${maxSizeMega}" data-image-ratio="${aspectRatio}">
-    <span class="popover-trigger fas fa-image" data-trigger="manual-hover" rel="popover" data-placement="top"  data-toggle="popover" target="_self" data-original-title="" title="">
+    <span class="popover-trigger ${value?'fas':'fal'} fa-image" data-trigger="manual-hover" rel="popover" data-placement="top"  data-toggle="popover" target="_self" data-original-title="" title="">
     </span>
 
     <div class="popover" data-placement="top">

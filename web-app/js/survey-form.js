@@ -149,7 +149,7 @@ var SurveyFormHelper ={
             // default options
             accept: '*',
             activeClass: 'sorting-questionOptions',
-            cancel: 'input, textarea, button, select, option, .popover, .modal',
+            cancel: 'input, textarea, button, select, option, .popover, .modal, .question-option-image-popup',
             connectWith: false,
             disabled: false,
             forcePlaceholderSize: false,
