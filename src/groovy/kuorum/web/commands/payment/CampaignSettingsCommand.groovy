@@ -57,7 +57,7 @@ class CampaignSettingsCommand {
         groupValidation nullable: true;
         voteType nullable: false;
         signVotes nullable: true;
-        newsletterChttps://local.kuorum.org/kuorum/ommunication nullable: true;
+        newsletterCommunication nullable: true;
         endDate nullable: true
         startDate nullable: true
     }
