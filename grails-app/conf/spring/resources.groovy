@@ -61,6 +61,7 @@ beans = {
                 grailsApplication=ref("grailsApplication")
                 burningImageService=ref("burningImageService")
                 restKuorumApiService=ref("restKuorumApiService")
+                springSecurityService=ref("springSecurityService")
             }
             break
     }

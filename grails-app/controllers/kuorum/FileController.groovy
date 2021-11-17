@@ -6,6 +6,7 @@ import kuorum.core.FileGroup
 import kuorum.files.FileService
 import kuorum.files.LocalFileService
 import kuorum.register.KuorumUserSession
+import org.apache.commons.codec.binary.Base64
 import org.bson.types.ObjectId
 import org.springframework.web.multipart.MultipartFile
 import org.springframework.web.multipart.MultipartHttpServletRequest
