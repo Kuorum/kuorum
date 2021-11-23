@@ -15,7 +15,12 @@
                 <div class="survey-question-extra-info-points"><g:message
                         code="survey.questions.header.extrainfo.multi.points" args="[question.points]"/></div>
             </g:if>
-            <g:if test="${[org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.MULTIPLE_OPTION_WEIGHTED].contains(question.questionType)}">
+            <g:if test="${[org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.MULTIPLE_OPTION_WEIGHTED].contains(question.questionType) && question.points <= 1}">
+                <div class="survey-question-extra-info-points"><g:message
+                        code="survey.questions.header.extrainfo.multi.points"
+                        args="[question.points]"/></div>
+            </g:if>
+            <g:if test="${[org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.MULTIPLE_OPTION_WEIGHTED].contains(question.questionType) && question.points > 1}">
                 <div class="survey-question-extra-info-points"><g:message
                         code="survey.questions.header.extrainfo.multi.points.weigth"
                         args="[(question.maxAnswers ?: question?.options?.size() ?: 0) * question.points, question.minAnswers * question.points, 1, question.points]"/></div>
