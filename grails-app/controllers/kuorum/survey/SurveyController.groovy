@@ -162,7 +162,7 @@ class SurveyController extends CampaignController {
         List<QuestionAnswerRDTO> answers = command.answers.collect { convertToRDTO(evidences, it) }
         QuestionRSDTO questionRSDTO
         try {
-            questionRSDTO = surveyService.saveAnswer(command.campaignId, userAnswer, evidences, command.questionId, answers)
+            questionRSDTO = surveyService.saveAnswer(command.campaignId, userAnswer, command.questionId, answers)
         } catch (Exception e) {
             if (e.cause.cause instanceof KuorumException && e.cause.cause.errors[0].code == "error.api.SERVICE_CAMPAIGN_NOT_EDITABLE") {
                 log.info("This questions is already answered. ")
