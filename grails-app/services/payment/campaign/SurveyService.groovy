@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.type.TypeReference
 import grails.transaction.Transactional
 import kuorum.core.exception.KuorumException
 import kuorum.register.KuorumUserSession
-import kuorum.security.evidences.Evidences
 import kuorum.util.rest.RestKuorumApiService
 import kuorum.web.commands.payment.survey.SurveyReportType
 import org.kuorum.rest.model.communication.survey.*
