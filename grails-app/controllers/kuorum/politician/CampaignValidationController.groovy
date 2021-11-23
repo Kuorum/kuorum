@@ -5,6 +5,8 @@ import grails.plugin.springsecurity.annotation.Secured
 import kuorum.core.exception.KuorumException
 import kuorum.register.KuorumUserSession
 import kuorum.register.RegisterService
+import kuorum.security.evidences.Evidences
+import kuorum.security.evidences.HttpRequestRecoverEvidences
 import kuorum.users.CookieUUIDService
 import kuorum.users.KuorumUserService
 import kuorum.web.commands.profile.DomainUserCustomCodeValidationCommand
@@ -125,7 +127,8 @@ class CampaignValidationController {
             return
         }
         KuorumUserSession user =  springSecurityService.principal
-        UserValidationRSDTO validationRSDTO = kuorumUserService.userDomainValidation(user, campaign.getId(), command.ndi, command.postalCode, command.birthDate)
+        Evidences evidences = new HttpRequestRecoverEvidences(request);
+        UserValidationRSDTO validationRSDTO = kuorumUserService.userDomainValidation(user, evidences, campaign.getId(), command.ndi, command.postalCode, command.birthDate)
         if (validationRSDTO.censusStatus.isGranted()){
             redirect uri:calcNextStepMappingName(campaign,validationRSDTO)
         }else{
@@ -150,7 +153,8 @@ class CampaignValidationController {
             return
         }
         KuorumUserSession userSession =  springSecurityService.principal
-        UserValidationRSDTO userValidationRSDTO = kuorumUserService.userCodeDomainValidation(userSession, campaign.getId(), command.customCode)
+        Evidences evidences = new HttpRequestRecoverEvidences(request);
+        UserValidationRSDTO userValidationRSDTO = kuorumUserService.userCodeDomainValidation(userSession, evidences, campaign.getId(), command.customCode)
         String msg;
         if (userValidationRSDTO.codeStatus.isGranted()){
             msg = "Success validation"
@@ -222,7 +226,8 @@ class CampaignValidationController {
             return
         }
         KuorumUserSession userSession = springSecurityService.principal
-        UserValidationRSDTO userValidationRSDTO = kuorumUserService.userPhoneDomainValidation(userSession, campaign.getId(),command.validationPhoneNumberPrefix, command.validationPhoneNumber, command.phoneHash, command.phoneCode)
+        Evidences evidences = new HttpRequestRecoverEvidences(request);
+        UserValidationRSDTO userValidationRSDTO = kuorumUserService.userPhoneDomainValidation(userSession, evidences, campaign.getId(),command.validationPhoneNumberPrefix, command.validationPhoneNumber, command.phoneHash, command.phoneCode)
         if (userValidationRSDTO.phoneStatus.isGranted()){
             redirect uri:calcNextStepMappingName(campaign,userValidationRSDTO)
         }else{
