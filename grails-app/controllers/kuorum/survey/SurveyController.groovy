@@ -197,19 +197,19 @@ class SurveyController extends CampaignController {
     QuestionAnswerRDTO convertToRDTO(Evidences evidences, QuestionAnswerDataCommand qac) {
         switch (qac.questionOptionType) {
             case QuestionOptionTypeRDTO.ANSWER_TEXT:
-                return new QuestionAnswerTextRDTO([optionId: qac.answerId, text: qac.text, ip: evidences.getIp(), browser: evidences.getBrowser() ])
+                return new QuestionAnswerTextRDTO([optionId: qac.answerId, text: qac.text, ip: evidences.getIp(), browserType: evidences.getBrowser() ])
             case QuestionOptionTypeRDTO.ANSWER_SMALL_TEXT:
-                return new QuestionAnswerSmallTextRDTO([optionId: qac.answerId, text: qac.text, ip: evidences.getIp(), browser: evidences.getBrowser()])
+                return new QuestionAnswerSmallTextRDTO([optionId: qac.answerId, text: qac.text, ip: evidences.getIp(), browserType: evidences.getBrowser()])
             case QuestionOptionTypeRDTO.ANSWER_PREDEFINED:
-                return new QuestionAnswerPredefinedRDTO([optionId: qac.answerId, ip: evidences.getIp(), browser: evidences.getBrowser()])
+                return new QuestionAnswerPredefinedRDTO([optionId: qac.answerId, ip: evidences.getIp(), browserType: evidences.getBrowser()])
             case QuestionOptionTypeRDTO.ANSWER_DATE:
-                return new QuestionAnswerDateRDTO([optionId: qac.answerId, date: qac.date, ip: evidences.getIp(), browser: evidences.getBrowser()])
+                return new QuestionAnswerDateRDTO([optionId: qac.answerId, date: qac.date, ip: evidences.getIp(), browserType: evidences.getBrowser()])
             case QuestionOptionTypeRDTO.ANSWER_PHONE:
-                return new QuestionAnswerPhoneRDTO([optionId: qac.answerId, phone: qac.text, prefixPhone: qac.text2, ip: evidences.getIp(), browser: evidences.getBrowser()])
+                return new QuestionAnswerPhoneRDTO([optionId: qac.answerId, phone: qac.text, prefixPhone: qac.text2, ip: evidences.getIp(), browserType: evidences.getBrowser()])
             case QuestionOptionTypeRDTO.ANSWER_NUMBER:
-                return new QuestionAnswerNumberRDTO([optionId: qac.answerId, number: qac.number, ip: evidences.getIp(), browser: evidences.getBrowser()])
+                return new QuestionAnswerNumberRDTO([optionId: qac.answerId, number: qac.number, ip: evidences.getIp(), browserType: evidences.getBrowser()])
             case QuestionOptionTypeRDTO.ANSWER_FILES:
-                return new QuestionAnswerFilesRDTO([optionId: qac.answerId, ip: evidences.getIp(), browser: evidences.getBrowser()])
+                return new QuestionAnswerFilesRDTO([optionId: qac.answerId, ip: evidences.getIp(), browserType: evidences.getBrowser()])
             default:
                 return null;
         }
