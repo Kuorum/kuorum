@@ -215,9 +215,11 @@ var SurveyFormHelper ={
                 $(questionContainer).find("input, select").each(function(idx, input){
                     var $input = $(input);
                     var inputName = $input.attr("name")
-                    var updatedInputName = inputName.replace(re, '$1['+questionPos+']$3');
-                    // console.log("Updating name: "+inputName +" to -> "+updatedInputName);
-                    $input.attr("name", updatedInputName);
+                    if (inputName != undefined){
+                        var updatedInputName = inputName.replace(re, '$1['+questionPos+']$3');
+                        // console.log("Updating name: "+inputName +" to -> "+updatedInputName);
+                        $input.attr("name", updatedInputName);
+                    }
                 })
             })
             formHelper.dirtyFormControl.dirty($form);
