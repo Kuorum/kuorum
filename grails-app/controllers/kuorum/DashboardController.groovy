@@ -88,11 +88,11 @@ class DashboardController {
         DomainRSDTO domainRSDTO = domainService.getConfig(CustomDomainResolver.domain)
         CampaignRSDTO starredCampaign = campaignService.findStarredCampaign(relevantCampaigns, domainRSDTO.getStarredCampaignId())
         List<CampaignRSDTO> starredCampaigns = []
-        if (starredCampaign){
-            starredCampaigns.add(starredCampaign)
-        }
         if (relevantCampaigns){
             starredCampaigns.addAll(relevantCampaigns);
+        }
+        if (starredCampaign && !starredCampaigns.contains(starredCampaign)){
+            starredCampaigns.add(starredCampaign)
         }
         return starredCampaigns;
     }

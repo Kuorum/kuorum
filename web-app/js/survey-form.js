@@ -162,13 +162,14 @@ var SurveyFormHelper ={
             var $item = $(ui.item);
             var $itemContainer = $item.parent();
             var $form = $item.parents("form");
+            console.log("Sorting")
             $itemContainer.find("fieldset.question").each(function(idx, element){
                 var questionOptionPos = idx;
                 var re = /(\w+)\[(\d+)\]\.(\w+)\[(\d+)\](.*)/;
                 $(element).find("input, select").each(function(idx, input){
                     var $input = $(input);
                     var inputName = $input.attr("name")
-                    if (updatedInputName != undefined){
+                    if (inputName != undefined){
                         var updatedInputName = inputName.replace(re, '$1[$2].$3['+questionOptionPos+']$5');
                         // console.log("Updating name: "+inputName +" to -> "+updatedInputName);
                         $input.attr("name", updatedInputName);
@@ -215,9 +216,11 @@ var SurveyFormHelper ={
                 $(questionContainer).find("input, select").each(function(idx, input){
                     var $input = $(input);
                     var inputName = $input.attr("name")
-                    var updatedInputName = inputName.replace(re, '$1['+questionPos+']$3');
-                    // console.log("Updating name: "+inputName +" to -> "+updatedInputName);
-                    $input.attr("name", updatedInputName);
+                    if (inputName != undefined){
+                        var updatedInputName = inputName.replace(re, '$1['+questionPos+']$3');
+                        // console.log("Updating name: "+inputName +" to -> "+updatedInputName);
+                        $input.attr("name", updatedInputName);
+                    }
                 })
             })
             formHelper.dirtyFormControl.dirty($form);

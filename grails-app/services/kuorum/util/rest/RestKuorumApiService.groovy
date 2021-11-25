@@ -242,6 +242,7 @@ class RestKuorumApiService {
         USER_CONTACT_SOCIAL_IMPORT  ("/contacts/social/{provider}/request"),
 
         CENSUS_LOGIN            ("/census/loginByCode/{censusCode}"),
+        CENSUS_LOGIN_POST       ("/census/loginByCode"),
 
         USER_FOLLOWER           ("/user/{userId}/follower/"),
         USER_FOLLOWER_FOLLOWING ("/user/{userId}/follower/following"),
