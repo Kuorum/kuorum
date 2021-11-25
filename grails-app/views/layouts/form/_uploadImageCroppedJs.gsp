@@ -11,10 +11,10 @@
             </div>
             <div class="popover-image-body center">
                 <button class="btn btn-transparent popover-image-delete">
-                    <span class="fa fa-trash"></span>
+                    <span class="fal fa-trash"></span>
                 </button>
                 <button class="btn btn-transparent popover-image-upload">
-                    <span class="fa fa-cloud-upload"></span>
+                    <span class="fal fa-cloud-upload"></span>
                 </button>
             </div>
         </div>
