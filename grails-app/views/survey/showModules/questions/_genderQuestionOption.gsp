@@ -14,7 +14,7 @@
                           isQuestionWithImages:isQuestionWithImages,
                           faClassEmpty:'far fa-circle',
                           faClassChecked:'fas fa-check-circle']"/>
-        <label><g:message code="org.kuorum.rest.model.contact.GenderRDTO.${option.text}"/></label>
+        <label class="col-xs-10"><g:message code="org.kuorum.rest.model.contact.GenderRDTO.${option.text}"/></label>
         <g:render template="/survey/showModules/questions/formQuestionExtraContent" model="[option:option]"/>
     </div>
     <div class="progress-info">

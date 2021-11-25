@@ -6,6 +6,8 @@ import kuorum.RegionService
 import kuorum.files.FileService
 import kuorum.register.KuorumUserSession
 import kuorum.register.RegisterService
+import kuorum.security.evidences.Evidences
+import kuorum.security.evidences.HttpRequestRecoverEvidences
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
 import kuorum.users.PersonalData
@@ -106,7 +108,8 @@ class EditorUserController {
 
 
             if (user && campaignId){
-                kuorumUserService.adminValidation(kuorumUserSession, user, campaignId)
+                Evidences evidences = new HttpRequestRecoverEvidences(request);
+                kuorumUserService.adminValidation(kuorumUserSession, evidences, user, campaignId)
                 flash.message="User validated"
             }else{
                 flash.error="Campaign not found"
