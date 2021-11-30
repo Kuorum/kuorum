@@ -342,7 +342,7 @@ var surveyFunctions = {
 
             return validationData.valid
         },
-        ANSWER_NUMBER_REGULAR_CASE(validationData, questionType, textNumberInput){
+        ANSWER_NUMBER_REGULAR_CASE: function(validationData, questionType, textNumberInput){
             validationData = surveyFunctions._checkValidAnswerType._checkValidInputAnswerByQuestionType[questionType](textNumberInput);
             if (validationData.valid){
                 validationData = surveyFunctions._checkValidAnswerType._checkInputData(textNumberInput);
@@ -350,7 +350,7 @@ var surveyFunctions = {
             surveyFunctions._checkValidAnswerType._handlePrintingError(validationData);
             return validationData;
         },
-        ANSWER_NUMBER_SPECIAL_CASE(questionAnswerOption, questionType, question, textNumberInput, questionPoints) {
+        ANSWER_NUMBER_SPECIAL_CASE: function(questionAnswerOption, questionType, question, textNumberInput, questionPoints) {
             var validationData;
 
             if(questionPoints <= 1){
