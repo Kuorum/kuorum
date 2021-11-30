@@ -341,7 +341,7 @@ var surveyFunctions = {
 
             return validationData.valid
         },
-        ANSWER_NUMBER_REGULAR_CASE(validationData, questionType, textNumberInput){
+        ANSWER_NUMBER_REGULAR_CASE: function (validationData, questionType, textNumberInput){
             validationData = surveyFunctions._checkValidAnswerType._checkValidInputAnswerByQuestionType[questionType](textNumberInput);
             if (validationData.valid){
                 validationData = surveyFunctions._checkValidAnswerType._checkInputData(textNumberInput);
@@ -349,7 +349,7 @@ var surveyFunctions = {
             surveyFunctions._checkValidAnswerType._handlePrintingError(validationData);
             return validationData;
         },
-        ANSWER_NUMBER_SPECIAL_CASE(questionAnswerOption, questionType, question, textNumberInput) {
+        ANSWER_NUMBER_SPECIAL_CASE: function (questionAnswerOption, questionType, question, textNumberInput) {
             var validationData;
             var questionPoints = parseFloat(question.getAttribute("data-points"));
             if(questionType === "ONE_OPTION_WEIGHTED" && questionPoints <= 1){
@@ -457,7 +457,7 @@ var surveyFunctions = {
                 errorNode.innerHTML = validationData.msg
                 validationData.input.parentNode.insertBefore(errorNode, validationData.input.nextSibling);
             }
-        },_handleSpecialCase(validationData, question) {
+        },_handleSpecialCase: function(validationData, question) {
             $(".survey-question-extra-info."+question.id+" span.error").remove();
             if(!validationData.valid) {
                 var errorDivNode = $(".survey-question-extra-info." + question.id);
