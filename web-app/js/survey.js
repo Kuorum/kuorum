@@ -333,16 +333,15 @@ var surveyFunctions = {
             var textNumberInputNodes = questionAnswerOption.querySelectorAll(".option-extra-content input");
             var textNumberInput = textNumberInputNodes[0];
             var validationData = "";
-            var questionPoints = parseFloat(question.getAttribute("data-points"));
 
-            validationData = (questionType === "ONE_OPTION_WEIGHTED" || (questionPoints <= 1 && questionType === 'MULTIPLE_OPTION_WEIGHTED')) ?
-                surveyFunctions._checkValidAnswerType.ANSWER_NUMBER_SPECIAL_CASE(questionAnswerOption, questionType, question, textNumberInput, questionPoints) :
+            validationData = (questionType == "ONE_OPTION_WEIGHTED") ?
+                surveyFunctions._checkValidAnswerType.ANSWER_NUMBER_SPECIAL_CASE(questionAnswerOption, questionType, question, textNumberInput) :
                 surveyFunctions._checkValidAnswerType.ANSWER_NUMBER_REGULAR_CASE(validationData, questionType, textNumberInput)
 
 
             return validationData.valid
         },
-        ANSWER_NUMBER_REGULAR_CASE(validationData, questionType, textNumberInput){
+        ANSWER_NUMBER_REGULAR_CASE: function (validationData, questionType, textNumberInput){
             validationData = surveyFunctions._checkValidAnswerType._checkValidInputAnswerByQuestionType[questionType](textNumberInput);
             if (validationData.valid){
                 validationData = surveyFunctions._checkValidAnswerType._checkInputData(textNumberInput);
@@ -350,11 +349,11 @@ var surveyFunctions = {
             surveyFunctions._checkValidAnswerType._handlePrintingError(validationData);
             return validationData;
         },
-        ANSWER_NUMBER_SPECIAL_CASE(questionAnswerOption, questionType, question, textNumberInput, questionPoints) {
+        ANSWER_NUMBER_SPECIAL_CASE: function (questionAnswerOption, questionType, question, textNumberInput) {
             var validationData;
-
-            if(questionPoints <= 1){
-                validationData = surveyFunctions._checkValidAnswerType._checkWeightedOptionOnePoint(questionAnswerOption ,textNumberInput);
+            var questionPoints = parseFloat(question.getAttribute("data-points"));
+            if(questionType === "ONE_OPTION_WEIGHTED" && questionPoints <= 1){
+                validationData = surveyFunctions._checkValidAnswerType._checkOneOptionWightedPoints(questionAnswerOption ,textNumberInput);
             }
             if(questionType === "ONE_OPTION_WEIGHTED" && questionPoints > 1){
                 // Check basic data inputs -> No empty and greater than 0
@@ -364,7 +363,7 @@ var surveyFunctions = {
                     surveyFunctions._checkValidAnswerType._handlePrintingError(validationData);
                     return validationData.valid;
                 }
-                validationData = surveyFunctions._checkValidAnswerType._checkOneOptionWeightedPointsSpecialCase(question, questionPoints);
+                validationData = surveyFunctions._checkValidAnswerType._checkOneOptionWightedPoints2(question, questionPoints);
             }
             surveyFunctions._checkValidAnswerType._handleSpecialCase(validationData, question);
             return  validationData;
@@ -400,7 +399,7 @@ var surveyFunctions = {
                 };
             }
         },
-        _checkWeightedOptionOnePoint:function(questionAnswerOption, textNumberInput) {
+        _checkOneOptionWightedPoints:function(questionAnswerOption, textNumberInput) {
             if(questionAnswerOption.getAttribute("class", "checked")){
                 textNumberInput.value = 1;
             } else {
@@ -412,7 +411,7 @@ var surveyFunctions = {
                 input: textNumberInput
             };
         },
-        _checkOneOptionWeightedPointsSpecialCase:function(question, questionPoints) {
+        _checkOneOptionWightedPoints2:function(question, questionPoints) {
             var textSpecialNumberInputNodes = question.querySelectorAll(".option-extra-content input");
             var summedPoints = 0;
             var rawData;
@@ -896,10 +895,10 @@ var surveyFunctions = {
             console.log(error);
             if (xhr.status==401){
                 surveyFunctions._openRegisterModal(question)
-            }else if (xhr.status==403){
+            }else if (xhr.status=403){
                 display.warn(xhr.responseJSON.msg)
                 noLoggedCallbacks.reloadPage("Survey :: _sendQuestionAnswers :: Survey validation changed");
-            }else if (xhr.status==405){
+            }else if (xhr.status=405){
                 display.warn(xhr.responseJSON.msg)
                 noLoggedCallbacks.reloadPage("Survey :: _sendQuestionAnswers :: Survey closed");
             }else{
