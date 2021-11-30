@@ -457,7 +457,7 @@ var surveyFunctions = {
                 errorNode.innerHTML = validationData.msg
                 validationData.input.parentNode.insertBefore(errorNode, validationData.input.nextSibling);
             }
-        },_handleSpecialCase(validationData, question) {
+        },_handleSpecialCase: function(validationData, question) {
             $(".survey-question-extra-info."+question.id+" span.error").remove();
             if(!validationData.valid) {
                 var errorDivNode = $(".survey-question-extra-info." + question.id);
