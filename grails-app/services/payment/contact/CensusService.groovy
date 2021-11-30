@@ -2,9 +2,11 @@ package payment.contact
 
 import com.fasterxml.jackson.core.type.TypeReference
 import grails.transaction.Transactional
+import kuorum.security.evidences.Evidences
 import kuorum.util.rest.RestKuorumApiService
 import org.kuorum.rest.model.CensusLoginRDTO
 import org.kuorum.rest.model.kuorumUser.KuorumUserRSDTO
+import org.kuorum.rest.model.kuorumUser.domainValidation.CensusTokenValidationDTO
 
 @Transactional
 class CensusService {
@@ -33,15 +35,15 @@ class CensusService {
     }
 
 
-    KuorumUserRSDTO createUserByCensusCode(String censusCode){
+    KuorumUserRSDTO createUserByCensusCode(String censusCode, Evidences evidences){
         Map<String, String> params = [censusCode:censusCode]
         Map<String, String> query = [:]
-
+        CensusTokenValidationDTO censusTokenValidationDTO = new CensusTokenValidationDTO(censusCode: censusCode, ip:evidences.getIp(), browserType: evidences.getBrowser())
         def response= restKuorumApiService.post(
-                RestKuorumApiService.ApiMethod.CENSUS_LOGIN,
+                RestKuorumApiService.ApiMethod.CENSUS_LOGIN_POST,
                 params,
                 query,
-                params,
+                censusTokenValidationDTO,
                 new TypeReference<KuorumUserRSDTO>(){})
         KuorumUserRSDTO kuorumUserRSDTO =null
         if (response.data){

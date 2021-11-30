@@ -15,6 +15,7 @@ import kuorum.core.model.search.SearchParams
 import kuorum.core.model.solr.SolrType
 import kuorum.mail.KuorumMailService
 import kuorum.register.KuorumUserSession
+import kuorum.security.evidences.Evidences
 import kuorum.solr.SearchSolrService
 import kuorum.util.rest.RestKuorumApiService
 import org.bson.types.ObjectId
@@ -25,7 +26,6 @@ import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 import org.kuorum.rest.model.kuorumUser.KuorumUserExtraDataRSDTO
 import org.kuorum.rest.model.kuorumUser.KuorumUserRSDTO
 import org.kuorum.rest.model.kuorumUser.UserDataRDTO
-import org.kuorum.rest.model.kuorumUser.UserRoleRSDTO
 import org.kuorum.rest.model.kuorumUser.domainValidation.UserAdminValidationDTO
 import org.kuorum.rest.model.kuorumUser.domainValidation.UserCodeValidationDTO
 import org.kuorum.rest.model.kuorumUser.domainValidation.UserDataDomainValidationDTO
@@ -446,10 +446,10 @@ class KuorumUserService {
         return validationRDTO;
     }
 
-    UserValidationRSDTO userDomainValidation(KuorumUserSession user, Long campaignId, String ndi, String postalCode, Date birthDate){
+    UserValidationRSDTO userDomainValidation(KuorumUserSession user, Evidences evidences, Long campaignId, String ndi, String postalCode, Date birthDate){
         Map<String, String> params = [userId: user.getId().toString(),campaignId: campaignId.toString()]
         Map<String, String> query = [:]
-        UserDataDomainValidationDTO userDataDomainValidationDTO = new UserDataDomainValidationDTO()
+        UserDataDomainValidationDTO userDataDomainValidationDTO = new UserDataDomainValidationDTO(ip: evidences.getIp(),browserType:evidences.getBrowser())
         userDataDomainValidationDTO.postalCode=postalCode
         userDataDomainValidationDTO.ndi=ndi
         userDataDomainValidationDTO.birthDate=kuorum.util.TimeZoneUtil.convertToUserTimeZone(birthDate, TimeZone.getTimeZone("UTC"))
@@ -492,10 +492,12 @@ class KuorumUserService {
         }
     }
 
-    UserValidationRSDTO userPhoneDomainValidation(KuorumUserSession user,Long campaignId, String phoneNumberPrefix, String phoneNumber, String hash, String code){
+    UserValidationRSDTO userPhoneDomainValidation(KuorumUserSession user, Evidences evidences, Long campaignId, String phoneNumberPrefix, String phoneNumber, String hash, String code){
         Map<String, String> params = [userId: user.getId().toString(), campaignId:campaignId.toString()]
         Map<String, String> query = [:]
         UserPhoneValidationDTO userPhoneValidationDTO = new UserPhoneValidationDTO(
+                ip: evidences.getIp(),
+                browserType: evidences.getBrowser(),
                 phoneNumberPrefix:phoneNumberPrefix,
                 phoneNumber: phoneNumber,
                 code:code,
@@ -515,10 +517,10 @@ class KuorumUserService {
             return new UserValidationRSDTO();
         }
     }
-    UserValidationRSDTO userCodeDomainValidation(KuorumUserSession user, Long campaignId, String code){
+    UserValidationRSDTO userCodeDomainValidation(KuorumUserSession user, Evidences evidences, Long campaignId, String code){
         Map<String, String> params = [userId: user.getId().toString(), campaignId:campaignId.toString()]
         Map<String, String> query = [:]
-        UserCodeValidationDTO userCodeValidationDTO = new UserCodeValidationDTO(code:code)
+        UserCodeValidationDTO userCodeValidationDTO = new UserCodeValidationDTO(code:code,ip: evidences.getIp(),browserType:evidences.getBrowser())
         try{
             def apiResponse= restKuorumApiService.put(
                     RestKuorumApiService.ApiMethod.USER_VALIDATION_CODE,
@@ -566,10 +568,10 @@ class KuorumUserService {
         )
     }
 
-    UserValidationRSDTO adminValidation(KuorumUserSession actor,BasicDataKuorumUserRSDTO user, Long campaignId){
+    UserValidationRSDTO adminValidation(KuorumUserSession actor, Evidences evidences, BasicDataKuorumUserRSDTO user, Long campaignId){
         Map<String, String> params = [userId: user.getId().toString(), campaignId:campaignId.toString()]
         Map<String, String> query = [:]
-        UserAdminValidationDTO userAdminValidationDTO = new UserAdminValidationDTO(actorId:actor.id.toString())
+        UserAdminValidationDTO userAdminValidationDTO = new UserAdminValidationDTO(actorId:actor.id.toString(),ip: evidences.getIp(),browserType:evidences.getBrowser())
         try{
             def apiResponse= restKuorumApiService.put(
                     RestKuorumApiService.ApiMethod.USER_VALIDATION_STATUS,

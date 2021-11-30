@@ -4,6 +4,7 @@ import grails.plugin.springsecurity.SpringSecurityService
 import kuorum.core.FileGroup
 import kuorum.core.exception.KuorumException
 import kuorum.register.KuorumUserSession
+import kuorum.web.commands.payment.survey.QuestionOptionCommand
 import kuorum.web.constants.WebConstants
 import org.bson.types.ObjectId
 import org.codehaus.groovy.grails.validation.*
@@ -53,6 +54,35 @@ class FormTagLib {
             field:field
         ]
         out << g.render(template:'/layouts/form/uploadMultiImage', model:model)
+    }
+
+    def imageCropperJs={attrs, body ->
+        QuestionOptionCommand command = attrs.command
+        def field = attrs.field
+        def clazz = attrs.enumClass?:command.metaClass.properties.find{it.name == field}.type
+        def prefixFieldName=attrs.prefixFieldName?:""
+        FileGroup fileGroup = attrs.fileGroup
+        String fieldName = prefixFieldName+field
+        def value = (command."${field}"!=null?command."${field}":'')
+
+        def showLabel = attrs.showLabel?Boolean.parseBoolean(attrs.showLabel):true
+
+        def labelCssClass=attrs.labelCssClass?:""
+        def label ="${attrs.label?:message(code: "${clazz.name}.label")}"
+
+        if (showLabel){
+            out <<"""<label class="${labelCssClass}">${label}</label>"""
+        }
+
+        def model = [
+                popoverId:command.id?:Math.random(),
+                popoverImageUrl: value?:g.resource(dir: "images", file: "no-image.jpg"),
+                maxSizeMega: fileGroup.maxSizeMegas,
+                aspectRatio: fileGroup.aspectRatio,
+                fieldName:fieldName,
+                value:value
+        ]
+        out << g.render(template:'/layouts/form/uploadImageCroppedJs', model:model)
     }
 
     def editImage ={attrs ->

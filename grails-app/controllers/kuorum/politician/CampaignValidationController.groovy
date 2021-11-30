@@ -5,6 +5,8 @@ import grails.plugin.springsecurity.annotation.Secured
 import kuorum.core.exception.KuorumException
 import kuorum.register.KuorumUserSession
 import kuorum.register.RegisterService
+import kuorum.security.evidences.Evidences
+import kuorum.security.evidences.HttpRequestRecoverEvidences
 import kuorum.users.CookieUUIDService
 import kuorum.users.KuorumUserService
 import kuorum.web.commands.profile.DomainUserCustomCodeValidationCommand
@@ -52,6 +54,7 @@ class CampaignValidationController {
             ContactRSDTO contact = censusLoginData.getContact();
             logoutIfContactDifferentAsLoggedUser(contact, censusLogin);
             log.info("[censusLogion: ${censusLogin}] : Receviced a valid censusLogin -> Contact: ${contact.email}")
+            Evidences evidences = new HttpRequestRecoverEvidences(request);
             if (campaign.closed){
                 // The closed view needs the OwnerTimeZone which is not mapped on camapaign ligh
                 CampaignRSDTO campaignRSDTO = campaignService.find(campaign.getUser(), campaign.id, null)
@@ -60,13 +63,13 @@ class CampaignValidationController {
             } else if (springSecurityService.isLoggedIn()){
 //                flash.message="You are already logged"
                 log.info("[censusLogion: ${censusLogin}] : Receviced a valid censusLogin -> User is logged and is the same as the censusLogin.");
-                KuorumUserRSDTO userFromContact = censusService.createUserByCensusCode(censusLogin); // THis method creates the user if not exists and then validates it.
+                KuorumUserRSDTO userFromContact = censusService.createUserByCensusCode(censusLogin, evidences); // THis method creates the user if not exists and then validates it.
                 censusService.deleteCensusCode(censusLogin)
                 redirect uri:calcNextStepMappingName(campaign)
             }else if (contact.getMongoId()){
                 // If user already exists, instead of create he will be validated
                 log.info("[censusLogion: ${censusLogin}] : User already exists. Recovering user and reauthenticate it ")
-                KuorumUserRSDTO userFromContact = censusService.createUserByCensusCode(censusLogin);
+                KuorumUserRSDTO userFromContact = censusService.createUserByCensusCode(censusLogin, evidences);
                 springSecurityService.reauthenticate userFromContact.getEmail()
                 redirect uri:calcNextStepMappingName(campaign)
             }else{
@@ -102,7 +105,8 @@ class CampaignValidationController {
             redirect mapping:'home'
         }else{
             log.info("[censusLogion: ${censusLogin}] : Valid census login => Creating user")
-            KuorumUserRSDTO userRSDTO = censusService.createUserByCensusCode(censusLogin);
+            Evidences evidences = new HttpRequestRecoverEvidences(request);
+            KuorumUserRSDTO userRSDTO = censusService.createUserByCensusCode(censusLogin,evidences);
             springSecurityService.reauthenticate userRSDTO.email
             redirect uri:calcNextStepMappingName(censusLoginRDTO.getCampaign())
         }
@@ -125,7 +129,8 @@ class CampaignValidationController {
             return
         }
         KuorumUserSession user =  springSecurityService.principal
-        UserValidationRSDTO validationRSDTO = kuorumUserService.userDomainValidation(user, campaign.getId(), command.ndi, command.postalCode, command.birthDate)
+        Evidences evidences = new HttpRequestRecoverEvidences(request);
+        UserValidationRSDTO validationRSDTO = kuorumUserService.userDomainValidation(user, evidences, campaign.getId(), command.ndi, command.postalCode, command.birthDate)
         if (validationRSDTO.censusStatus.isGranted()){
             redirect uri:calcNextStepMappingName(campaign,validationRSDTO)
         }else{
@@ -150,7 +155,8 @@ class CampaignValidationController {
             return
         }
         KuorumUserSession userSession =  springSecurityService.principal
-        UserValidationRSDTO userValidationRSDTO = kuorumUserService.userCodeDomainValidation(userSession, campaign.getId(), command.customCode)
+        Evidences evidences = new HttpRequestRecoverEvidences(request);
+        UserValidationRSDTO userValidationRSDTO = kuorumUserService.userCodeDomainValidation(userSession, evidences, campaign.getId(), command.customCode)
         String msg;
         if (userValidationRSDTO.codeStatus.isGranted()){
             msg = "Success validation"
@@ -222,7 +228,8 @@ class CampaignValidationController {
             return
         }
         KuorumUserSession userSession = springSecurityService.principal
-        UserValidationRSDTO userValidationRSDTO = kuorumUserService.userPhoneDomainValidation(userSession, campaign.getId(),command.validationPhoneNumberPrefix, command.validationPhoneNumber, command.phoneHash, command.phoneCode)
+        Evidences evidences = new HttpRequestRecoverEvidences(request);
+        UserValidationRSDTO userValidationRSDTO = kuorumUserService.userPhoneDomainValidation(userSession, evidences, campaign.getId(),command.validationPhoneNumberPrefix, command.validationPhoneNumber, command.phoneHash, command.phoneCode)
         if (userValidationRSDTO.phoneStatus.isGranted()){
             redirect uri:calcNextStepMappingName(campaign,userValidationRSDTO)
         }else{
