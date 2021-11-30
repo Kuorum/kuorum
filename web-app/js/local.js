@@ -75,7 +75,7 @@ $(document).tooltip({
     selector: '[rel="tooltip"]'
 });
 
-const findDuplicates = (arr) => {
+function findDuplicates(arr) {
     let sorted_arr = arr.slice().sort(); // You can define the comparing function here.
     // JS by default uses a crappy string compare.
     // (we use slice to clone the array so the
