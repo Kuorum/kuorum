@@ -812,7 +812,8 @@ var surveyFunctions = {
                 case "==":
                 default:overflowMax = selectedAnswers.length == maxAnswers ; break;
             }
-            return maxAnswers>0 && (overflowMax && questionType != "MULTIPLE_OPTION_WEIGHTED");
+            // return maxAnswers>0 && (overflowMax && questionType != "MULTIPLE_OPTION_WEIGHTED");
+            return maxAnswers>0 && overflowMax;
         }
         if (!!selectedAnswers === true && Array.isArray(selectedAnswers)) {
             var answerPosition = selectedAnswers.indexOf(answer.getAttribute('data-answer-id'));
