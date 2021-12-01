@@ -335,6 +335,7 @@ var surveyFunctions = {
             var validationData = "";
             var questionPoints = parseFloat(question.getAttribute("data-points"));
 
+            //Recovery from KPV-2035
             validationData = (questionType === "ONE_OPTION_WEIGHTED" || (questionPoints <= 1 && questionType === 'MULTIPLE_OPTION_WEIGHTED')) ?
                 surveyFunctions._checkValidAnswerType.ANSWER_NUMBER_SPECIAL_CASE(questionAnswerOption, questionType, question, textNumberInput, questionPoints) :
                 surveyFunctions._checkValidAnswerType.ANSWER_NUMBER_REGULAR_CASE(validationData, questionType, textNumberInput)
