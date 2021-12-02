@@ -60,7 +60,8 @@ function CropperPopup($popover, init = true){
     var $inputUrlCropped = $popover.find("input.upload-cropper-choose-file-url");
     var $popOverImage = $popover.find(".popover-image-header img");
     var $saveButton = $popover.find(".upload-cropper-save");
-    var $popoverTrigger = $popover.find(".popover-trigger");;
+    var $popoverTrigger = $popover.find(".popover-trigger");
+    var $popOverButtonRemove = $popover.find(".popover-image-delete");
     var maxSize = parseInt($popover.attr("data-image-size"));
     function readFile(input) {
         if (input.files && input.files[0]) {
@@ -171,6 +172,7 @@ function CropperPopup($popover, init = true){
                         $popOverImage.attr("src",response);
                         $inputUrlCropped.val(data.absolutePathImg);
                         $modal.modal('hide');
+                        $popOverButtonRemove.removeClass("hide");
                     },
                     error:function(data){
                         display.warn("Error uploading image")
@@ -235,6 +237,7 @@ function CropperPopup($popover, init = true){
         $inputUrlCropped.val("");
         $inputChooseFile.val("");
         $popOverImage.attr("src",staticNoImage);
+        $popOverButtonRemove.addClass("hide");
         switchIconActive("off")
     }
 }
