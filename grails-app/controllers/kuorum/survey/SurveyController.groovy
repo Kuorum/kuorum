@@ -6,6 +6,8 @@ import grails.plugin.springsecurity.annotation.Secured
 import kuorum.core.exception.KuorumException
 import kuorum.politician.CampaignController
 import kuorum.register.KuorumUserSession
+import kuorum.security.evidences.Evidences
+import kuorum.security.evidences.HttpRequestRecoverEvidences
 import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.commands.payment.CampaignSettingsCommand
 import kuorum.web.commands.payment.survey.*
@@ -156,7 +158,8 @@ class SurveyController extends CampaignController {
         };
         command.validate();
         KuorumUserSession userAnswer = springSecurityService.principal
-        List<QuestionAnswerRDTO> answers = command.answers.collect { convertToRDTO(it) }
+        Evidences evidences = new HttpRequestRecoverEvidences(request);
+        List<QuestionAnswerRDTO> answers = command.answers.collect { convertToRDTO(evidences, it) }
         QuestionRSDTO questionRSDTO
         try {
             questionRSDTO = surveyService.saveAnswer(command.campaignId, userAnswer, command.questionId, answers)
@@ -191,22 +194,22 @@ class SurveyController extends CampaignController {
         render([status: "success", msg: "", question: questionRSDTO] as JSON)
     }
 
-    QuestionAnswerRDTO convertToRDTO(QuestionAnswerDataCommand qac) {
+    QuestionAnswerRDTO convertToRDTO(Evidences evidences, QuestionAnswerDataCommand qac) {
         switch (qac.questionOptionType) {
             case QuestionOptionTypeRDTO.ANSWER_TEXT:
-                return new QuestionAnswerTextRDTO([optionId: qac.answerId, text: qac.text])
+                return new QuestionAnswerTextRDTO([optionId: qac.answerId, text: qac.text, ip: evidences.getIp(), browserType: evidences.getBrowser() ])
             case QuestionOptionTypeRDTO.ANSWER_SMALL_TEXT:
-                return new QuestionAnswerSmallTextRDTO([optionId: qac.answerId, text: qac.text])
+                return new QuestionAnswerSmallTextRDTO([optionId: qac.answerId, text: qac.text, ip: evidences.getIp(), browserType: evidences.getBrowser()])
             case QuestionOptionTypeRDTO.ANSWER_PREDEFINED:
-                return new QuestionAnswerPredefinedRDTO([optionId: qac.answerId])
+                return new QuestionAnswerPredefinedRDTO([optionId: qac.answerId, ip: evidences.getIp(), browserType: evidences.getBrowser()])
             case QuestionOptionTypeRDTO.ANSWER_DATE:
-                return new QuestionAnswerDateRDTO([optionId: qac.answerId, date: qac.date])
+                return new QuestionAnswerDateRDTO([optionId: qac.answerId, date: qac.date, ip: evidences.getIp(), browserType: evidences.getBrowser()])
             case QuestionOptionTypeRDTO.ANSWER_PHONE:
-                return new QuestionAnswerPhoneRDTO([optionId: qac.answerId, phone: qac.text, prefixPhone: qac.text2])
+                return new QuestionAnswerPhoneRDTO([optionId: qac.answerId, phone: qac.text, prefixPhone: qac.text2, ip: evidences.getIp(), browserType: evidences.getBrowser()])
             case QuestionOptionTypeRDTO.ANSWER_NUMBER:
-                return new QuestionAnswerNumberRDTO([optionId: qac.answerId, number: qac.number])
+                return new QuestionAnswerNumberRDTO([optionId: qac.answerId, number: qac.number, ip: evidences.getIp(), browserType: evidences.getBrowser()])
             case QuestionOptionTypeRDTO.ANSWER_FILES:
-                return new QuestionAnswerFilesRDTO([optionId: qac.answerId])
+                return new QuestionAnswerFilesRDTO([optionId: qac.answerId, ip: evidences.getIp(), browserType: evidences.getBrowser()])
             default:
                 return null;
         }
@@ -242,6 +245,7 @@ class SurveyController extends CampaignController {
         questionOptionRDTO.questionOptionType = command.questionOptionType
         questionOptionRDTO.nextQuestionId = command.nextQuestionId > 0 ? command.nextQuestionId : null
         questionOptionRDTO.exitSurvey = command.nextQuestionId == 0 ? true : false
+        questionOptionRDTO.urlImage = command.urlImage
         questionOptionRDTO
     }
 
@@ -274,6 +278,7 @@ class SurveyController extends CampaignController {
         command.text = option.text
         command.questionOptionType = option.questionOptionType
         command.nextQuestionId = option.exitSurvey ? 0 : option.nextQuestionId
+        command.urlImage = option.urlImage
         return command
     }
 

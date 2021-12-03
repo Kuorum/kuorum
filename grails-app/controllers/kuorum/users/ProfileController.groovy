@@ -16,6 +16,8 @@ import kuorum.mail.KuorumMailService
 import kuorum.notifications.NotificationService
 import kuorum.register.KuorumUserSession
 import kuorum.register.RegisterService
+import kuorum.security.evidences.Evidences
+import kuorum.security.evidences.HttpRequestRecoverEvidences
 import kuorum.users.extendedPoliticianData.PoliticianRelevantEvent
 import kuorum.users.extendedPoliticianData.ProfessionalDetails
 import kuorum.web.commands.profile.*
@@ -514,7 +516,8 @@ class ProfileController {
         }
         Long campaignId = Long.parseLong(params.campaignId)
         KuorumUserSession userSession = springSecurityService.principal
-        UserValidationRSDTO userValidationRSDTO = kuorumUserService.userDomainValidation(userSession, campaignId, domainValidationCommand.ndi, domainValidationCommand.postalCode, domainValidationCommand.birthDate)
+        Evidences evidences = new HttpRequestRecoverEvidences(request);
+        UserValidationRSDTO userValidationRSDTO = kuorumUserService.userDomainValidation(userSession, evidences, campaignId, domainValidationCommand.ndi, domainValidationCommand.postalCode, domainValidationCommand.birthDate)
         render ([
                 success: userValidationRSDTO.censusStatus.isGranted(),
                 validated:userValidationRSDTO.isGranted(),
@@ -543,7 +546,8 @@ class ProfileController {
         }
         Long campaignId = Long.parseLong(params.campaignId)
         KuorumUserSession userSession = springSecurityService.principal
-        UserValidationRSDTO userValidationRSDTO = kuorumUserService.userPhoneDomainValidation(userSession,campaignId, domainUserPhoneValidationCommand.validationPhoneNumberPrefix, domainUserPhoneValidationCommand.validationPhoneNumber, domainUserPhoneValidationCommand.phoneHash, domainUserPhoneValidationCommand.phoneCode)
+        Evidences evidences = new HttpRequestRecoverEvidences(request);
+        UserValidationRSDTO userValidationRSDTO = kuorumUserService.userPhoneDomainValidation(userSession, evidences, campaignId, domainUserPhoneValidationCommand.validationPhoneNumberPrefix, domainUserPhoneValidationCommand.validationPhoneNumber, domainUserPhoneValidationCommand.phoneHash, domainUserPhoneValidationCommand.phoneCode)
         render ([
                 success: userValidationRSDTO.phoneStatus.isGranted(),
                 validated: userValidationRSDTO.isGranted(),
@@ -561,8 +565,8 @@ class ProfileController {
         Long campaignId = Long.parseLong(params.campaignId)
         String msg
         UserValidationRSDTO userValidationRSDTO = null
-
-        userValidationRSDTO = kuorumUserService.userCodeDomainValidation(userSession, campaignId, domainUserCustomCodeValidationCommand.customCode)
+        Evidences evidences = new HttpRequestRecoverEvidences(request);
+        userValidationRSDTO = kuorumUserService.userCodeDomainValidation(userSession, evidences, campaignId, domainUserCustomCodeValidationCommand.customCode)
         if (userValidationRSDTO.codeStatus.isGranted()){
             msg = "Success validation"
         }else{

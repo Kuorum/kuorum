@@ -167,10 +167,12 @@ class QuestionOptionCommand {
     // 0 means endSurvey
     // >0 question means id of the next question
     Long nextQuestionId
+    String urlImage;
     static constraints = {
         text nullable: false, blank: false
         id nullable: true
         questionOptionType nullable: false
         nextQuestionId nullable: true
+        urlImage nullable: true
     }
 }

@@ -206,6 +206,8 @@ class RestKuorumApiService {
     }
 
     enum ApiMethod{
+        FILE_UPLOAD('/file/{userId}/tmp'),
+
         USER_PREVALIDATION                  ('/user/prevalidation/email'),
         USER_STATS_REPUTATION               ('/user/{userId}/stats/reputation'),
         USER_STATS_REPUTATION_EVOLUTION     ('/user/{userId}/stats/reputation/evolution'),
@@ -240,6 +242,7 @@ class RestKuorumApiService {
         USER_CONTACT_SOCIAL_IMPORT  ("/contacts/social/{provider}/request"),
 
         CENSUS_LOGIN            ("/census/loginByCode/{censusCode}"),
+        CENSUS_LOGIN_POST       ("/census/loginByCode"),
 
         USER_FOLLOWER           ("/user/{userId}/follower/"),
         USER_FOLLOWER_FOLLOWING ("/user/{userId}/follower/following"),
@@ -319,6 +322,7 @@ class RestKuorumApiService {
         ACCOUNT_SURVEY                ("/communication/campaign/survey/{userId}/{surveyId}"),
         ACCOUNT_SURVEY_ANSWER         ("/communication/campaign/survey/{userId}/{surveyId}/question/{questionId}"),
         ACCOUNT_SURVEY_ANSWER_STATS   ("/communication/campaign/survey/{userId}/{surveyId}/question/{questionId}/stats"),
+        // REMOVE THIS
         ACCOUNT_SURVEY_ANSWER_FILE    ("/communication/campaign/survey/{userId}/{surveyId}/question/{questionId}/{questionOptionId}/file"),
         ACCOUNT_SURVEY_REPORT_STATS   ("/communication/campaign/survey/{userId}/{surveyId}/report/stats"),
         ACCOUNT_SURVEY_REPORT_RAW     ("/communication/campaign/survey/{userId}/{surveyId}/report/rawData"),

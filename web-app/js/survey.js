@@ -333,9 +333,11 @@ var surveyFunctions = {
             var textNumberInputNodes = questionAnswerOption.querySelectorAll(".option-extra-content input");
             var textNumberInput = textNumberInputNodes[0];
             var validationData = "";
+            var questionPoints = parseFloat(question.getAttribute("data-points"));
 
-            validationData = (questionType == "ONE_OPTION_WEIGHTED") ?
-                surveyFunctions._checkValidAnswerType.ANSWER_NUMBER_SPECIAL_CASE(questionAnswerOption, questionType, question, textNumberInput) :
+            //Recovery from KPV-2035
+            validationData = (questionType === "ONE_OPTION_WEIGHTED" || (questionPoints <= 1 && questionType === 'MULTIPLE_OPTION_WEIGHTED')) ?
+                surveyFunctions._checkValidAnswerType.ANSWER_NUMBER_SPECIAL_CASE(questionAnswerOption, questionType, question, textNumberInput, questionPoints) :
                 surveyFunctions._checkValidAnswerType.ANSWER_NUMBER_REGULAR_CASE(validationData, questionType, textNumberInput)
 
 
@@ -349,21 +351,21 @@ var surveyFunctions = {
             surveyFunctions._checkValidAnswerType._handlePrintingError(validationData);
             return validationData;
         },
-        ANSWER_NUMBER_SPECIAL_CASE: function (questionAnswerOption, questionType, question, textNumberInput) {
+        ANSWER_NUMBER_SPECIAL_CASE: function (questionAnswerOption, questionType, question, textNumberInput, questionPoints) {
             var validationData;
-            var questionPoints = parseFloat(question.getAttribute("data-points"));
-            if(questionType === "ONE_OPTION_WEIGHTED" && questionPoints <= 1){
-                validationData = surveyFunctions._checkValidAnswerType._checkOneOptionWightedPoints(questionAnswerOption ,textNumberInput);
+
+            if(questionPoints <= 1){
+                validationData = surveyFunctions._checkValidAnswerType._checkWeightedOptionOnePoint(questionAnswerOption ,textNumberInput);
             }
             if(questionType === "ONE_OPTION_WEIGHTED" && questionPoints > 1){
                 // Check basic data inputs -> No empty and greater than 0
-                var validationData = surveyFunctions._checkValidAnswerType.ANSWER_NUMBER_REGULAR_CASE(undefined, questionType, textNumberInput);
+                validationData = surveyFunctions._checkValidAnswerType.ANSWER_NUMBER_REGULAR_CASE(undefined, questionType, textNumberInput);
                 if (!validationData.valid){
                     // Basic validation fails
                     surveyFunctions._checkValidAnswerType._handlePrintingError(validationData);
                     return validationData.valid;
                 }
-                validationData = surveyFunctions._checkValidAnswerType._checkOneOptionWightedPoints2(question, questionPoints);
+                validationData = surveyFunctions._checkValidAnswerType._checkOneOptionWeightedPointsSpecialCase(question, questionPoints);
             }
             surveyFunctions._checkValidAnswerType._handleSpecialCase(validationData, question);
             return  validationData;
@@ -399,7 +401,7 @@ var surveyFunctions = {
                 };
             }
         },
-        _checkOneOptionWightedPoints:function(questionAnswerOption, textNumberInput) {
+        _checkWeightedOptionOnePoint:function(questionAnswerOption, textNumberInput) {
             if(questionAnswerOption.getAttribute("class", "checked")){
                 textNumberInput.value = 1;
             } else {
@@ -411,7 +413,7 @@ var surveyFunctions = {
                 input: textNumberInput
             };
         },
-        _checkOneOptionWightedPoints2:function(question, questionPoints) {
+        _checkOneOptionWeightedPointsSpecialCase:function(question, questionPoints) {
             var textSpecialNumberInputNodes = question.querySelectorAll(".option-extra-content input");
             var summedPoints = 0;
             var rawData;
@@ -810,7 +812,8 @@ var surveyFunctions = {
                 case "==":
                 default:overflowMax = selectedAnswers.length == maxAnswers ; break;
             }
-            return maxAnswers>0 && (overflowMax && questionType != "MULTIPLE_OPTION_WEIGHTED");
+            // return maxAnswers>0 && (overflowMax && questionType != "MULTIPLE_OPTION_WEIGHTED");
+            return maxAnswers>0 && overflowMax;
         }
         if (!!selectedAnswers === true && Array.isArray(selectedAnswers)) {
             var answerPosition = selectedAnswers.indexOf(answer.getAttribute('data-answer-id'));
@@ -895,10 +898,10 @@ var surveyFunctions = {
             console.log(error);
             if (xhr.status==401){
                 surveyFunctions._openRegisterModal(question)
-            }else if (xhr.status=403){
+            }else if (xhr.status==403){
                 display.warn(xhr.responseJSON.msg)
                 noLoggedCallbacks.reloadPage("Survey :: _sendQuestionAnswers :: Survey validation changed");
-            }else if (xhr.status=405){
+            }else if (xhr.status==405){
                 display.warn(xhr.responseJSON.msg)
                 noLoggedCallbacks.reloadPage("Survey :: _sendQuestionAnswers :: Survey closed");
             }else{
