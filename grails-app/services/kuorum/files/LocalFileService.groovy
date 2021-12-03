@@ -124,6 +124,7 @@ class LocalFileService implements FileService{
 //                it.scaleAccurate(kuorumFile.fileGroup.imageWidth, kuorumFile.fileGroup.imageHeight)
 //            }
         }
+        kuorumFile.setFileType(FileType.IMAGE) // This uploads the image to AWS
         postProcessCroppingImage(kuorumFile)
 //        def imageWidth = fileGroup.imageWidth
 //        burningImageService.doWith("${kuorumFile.storagePath}/${kuorumFile.fileName}", kuorumFile.storagePath)
