@@ -45,7 +45,7 @@
 
                         <div class="col-xs-1 col-sm-1 col-md-1 no-label-lg">
                             <button type="button" class="btn btn-transparent btn-lg btn-icon removeButton"><i
-                                    class="fal fa-trash"></i></button>
+                                    class="far fa-trash"></i></button>
                         </div>
                     </div>
 
