@@ -1,6 +1,7 @@
 <%@ page import="org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO" %>
 <r:require modules="datepicker, postForm, debateForm" />
-<g:set var="disabledForAdmins" value="${grails.plugin.springsecurity.SpringSecurityUtils.ifAnyGranted("ROLE_ADMIN")  || grails.plugin.springsecurity.SpringSecurityUtils.ifAnyGranted("ROLE_SUPER_ADMIN")}" />
+<g:set var="enabledForAdmins" value="${grails.plugin.springsecurity.SpringSecurityUtils.ifAnyGranted("ROLE_ADMIN")  || grails.plugin.springsecurity.SpringSecurityUtils.ifAnyGranted("ROLE_SUPER_ADMIN")}" />
+<g:set var="campaingIsPublished" value="${campaign != null && campaign.published}" />
 
 <div class="box-steps container-fluid campaign-steps">
     <g:render template="/campaigns/steps/campaignSteps" model="[mappings: mappings, attachEvent:attachEvent]"/>
@@ -70,14 +71,19 @@
                         <g:message code="kuorum.web.commands.payment.CampaignSettingsCommand.voteType.label.left"/>:
                     </label>
                     <div class="col-sm-4 col-md-4">
-                        <formUtil:selectEnum command="${command}" field="voteType" disabled="${!disabledForAdmins}" showLabel="false"/>
+                        <g:if test="${campaingIsPublished}">
+                            <formUtil:selectEnum command="${command}" field="voteType" disabled="${!grails.plugin.springsecurity.SpringSecurityUtils.ifAnyGranted("ROLE_SUPER_ADMIN")}" showLabel="false"/>
+                        </g:if>
+                        <g:else>
+                            <formUtil:selectEnum command="${command}" field="voteType" disabled="${!enabledForAdmins}" showLabel="false"/>
+                        </g:else>
                     </div>
                     <label for="campaignVisibility" class="col-sm-2 col-md-1 control-label">
                         <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="${g.message(code:'kuorum.web.commands.payment.CampaignSettingsCommand.campaignVisibility.label.info')}"></span>
                         <g:message code="kuorum.web.commands.payment.CampaignSettingsCommand.campaignVisibility.label.left"/>:
                     </label>
                     <div class="col-sm-4 col-md-4">
-                        <formUtil:selectEnum command="${command}" field="campaignVisibility" showLabel="false"/>
+                        <formUtil:selectEnum command="${command}" disabled="${!enabledForAdmins}" field="campaignVisibility" showLabel="false"/>
                     </div>
                 </fieldset>
             </g:if>
@@ -98,7 +104,7 @@
                             <g:message code="kuorum.web.commands.payment.CampaignSettingsCommand.signVotes.label.left"/>:
                         </label>
                         <div class="col-sm-4">
-                            <formUtil:checkBox command="${command}" field="signVotes" disabled="${!disabledForAdmins}"/>
+                            <formUtil:checkBox command="${command}" field="signVotes" disabled="${!enabledForAdmins}"/>
                         </div>
                     </fieldset>
                 </g:if>
