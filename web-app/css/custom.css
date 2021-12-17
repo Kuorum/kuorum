@@ -3381,7 +3381,7 @@ h2.underline {border-bottom: 1px solid #dadada; padding: 0 0 10px 0; margin-top:
 .popover-image .popover {width: 122px}
 .popover-image .popover-trigger.fas,
 .popover-image .popover-trigger.far,
-.popover-image .popover-trigger.fal {font-size: 2em; color: #8e8e8c;}
+.popover-image .popover-trigger.fal {font-size: 2em; color: #8c8c8c;}
 .popover-image .popover .popover-image-container .popover-image-header img {width: 100px}
 .popover-image .popover .popover-image-container .popover-image-header img {width: 100px}
 .popover-image .popover .popover-image-container .popover-image-body {margin-top: 10px;}
@@ -8009,7 +8009,8 @@ ul.notification-menu > li.see-more {
     width: 40px;
 }
 .survey-question-answer .question-option-icon{
-    margin-right: 10px;
+    margin-right: 20px;
+    max-width: 15px;
 }
 .survey-question-answer .only-predefined-option label,
 .survey-question-answer .single-option label,

@@ -7,14 +7,14 @@
     <div class="popover" data-placement="top">
         <div class="popover-image-container">
             <div class="popover-image-header clearfix">
-                <img src="${popoverImageUrl}" alt="Image of the option" />
+                <img src="${value?:g.resource(dir: "images", file: "no-image.jpg")}" alt="Image of the option" />
             </div>
             <div class="popover-image-body center">
-                <button class="btn btn-transparent popover-image-delete">
-                    <span class="fal fa-trash"></span>
+                <button class="btn btn-transparent popover-image-delete ${value?'':'hide'}">
+                    <span class="far fa-trash"></span>
                 </button>
                 <button class="btn btn-transparent popover-image-upload">
-                    <span class="fal fa-cloud-upload"></span>
+                    <span class="far fa-cloud-upload"></span>
                 </button>
             </div>
         </div>

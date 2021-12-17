@@ -76,7 +76,6 @@ class FormTagLib {
 
         def model = [
                 popoverId:command.id?:Math.random(),
-                popoverImageUrl: value?:g.resource(dir: "images", file: "no-image.jpg"),
                 maxSizeMega: fileGroup.maxSizeMegas,
                 aspectRatio: fileGroup.aspectRatio,
                 fieldName:fieldName,
