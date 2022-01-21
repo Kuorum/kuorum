@@ -71,19 +71,19 @@
                         <g:message code="kuorum.web.commands.payment.CampaignSettingsCommand.voteType.label.left"/>:
                     </label>
                     <div class="col-sm-4 col-md-4">
-                        <g:if test="${campaingIsPublished}">
-                            <formUtil:selectEnum command="${command}" field="voteType" disabled="${!grails.plugin.springsecurity.SpringSecurityUtils.ifAnyGranted("ROLE_SUPER_ADMIN")}" showLabel="false"/>
-                        </g:if>
-                        <g:else>
-                            <formUtil:selectEnum command="${command}" field="voteType" disabled="${!enabledForAdmins}" showLabel="false"/>
-                        </g:else>
+                        <formUtil:selectEnum command="${command}" field="voteType" disabled="${!enabledForAdmins}" showLabel="false"/>
                     </div>
                     <label for="campaignVisibility" class="col-sm-2 col-md-1 control-label">
                         <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="${g.message(code:'kuorum.web.commands.payment.CampaignSettingsCommand.campaignVisibility.label.info')}"></span>
                         <g:message code="kuorum.web.commands.payment.CampaignSettingsCommand.campaignVisibility.label.left"/>:
                     </label>
                     <div class="col-sm-4 col-md-4">
-                        <formUtil:selectEnum command="${command}" disabled="${!enabledForAdmins}" field="campaignVisibility" showLabel="false"/>
+                        <g:if test="${campaingIsPublished}">
+                            <formUtil:selectEnum command="${command}" field="campaignVisibility" disabled="${!grails.plugin.springsecurity.SpringSecurityUtils.ifAnyGranted("ROLE_SUPER_ADMIN")}" showLabel="false"/>
+                        </g:if>
+                        <g:else>
+                            <formUtil:selectEnum command="${command}" field="campaignVisibility" disabled="${!enabledForAdmins}" showLabel="false"/>
+                        </g:else>
                     </div>
                 </fieldset>
             </g:if>
