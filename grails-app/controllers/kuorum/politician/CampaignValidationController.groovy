@@ -22,7 +22,7 @@ import org.kuorum.rest.model.kuorumUser.KuorumUserExtraDataRSDTO
 import org.kuorum.rest.model.kuorumUser.KuorumUserRSDTO
 import org.kuorum.rest.model.kuorumUser.domainValidation.UserPhoneValidationRDTO
 import org.kuorum.rest.model.kuorumUser.validation.UserValidationRSDTO
-import payment.campaign.*
+import payment.campaign.CampaignService
 import payment.contact.CensusService
 import springSecurity.KuorumRegisterCommand
 
@@ -34,16 +34,17 @@ class CampaignValidationController {
     CensusService censusService
     RegisterService registerService
 
+    private Boolean showLandingData = true;
 
-    def initValidation(){
+    def initValidation() {
         CampaignRSDTO campaign = getCampaignRSDTO(params)
-        redirect uri:calcNextStepMappingName(campaign)
+        redirect uri: calcNextStepMappingName(campaign)
     }
 
-    def step0RegisterWithCensusCode(){
+    def step0RegisterWithCensusCode() {
         String censusLogin = params['censusLogin'];
         CensusLoginRDTO censusLoginData = censusService.getContactByCensusCode(censusLogin)
-        if (censusLoginData == null){
+        if (censusLoginData == null) {
             censusService.deleteCensusCode(censusLogin)
             log.info("[censusLogion: ${censusLogin}] : Receviced an invalid census login")
             // Sending to campaign when the code is invalid.
@@ -66,12 +67,21 @@ class CampaignValidationController {
                 KuorumUserRSDTO userFromContact = censusService.createUserByCensusCode(censusLogin, evidences); // THis method creates the user if not exists and then validates it.
                 censusService.deleteCensusCode(censusLogin)
                 redirect uri:calcNextStepMappingName(campaign)
-            }else if (contact.getMongoId()){
-                // If user already exists, instead of create he will be validated
-                log.info("[censusLogion: ${censusLogin}] : User already exists. Recovering user and reauthenticate it ")
-                KuorumUserRSDTO userFromContact = censusService.createUserByCensusCode(censusLogin, evidences);
-                springSecurityService.reauthenticate userFromContact.getEmail()
-                redirect uri:calcNextStepMappingName(campaign)
+            }else if (contact.getMongoId()) {
+                if (showLandingData) {
+                    log.info("[censusLogion: ${censusLogin}] : User exists, but we are going to show the contact data page ")
+                    render view: '/campaignValidation/step0RegisterWithCensusCode', model: [
+                            contact    : contact,
+                            censusLogin: censusLogin,
+                            campaign   : campaign,
+                            command    : new KuorumRegisterCommand()]
+
+                } else {
+                    log.info("[censusLogion: ${censusLogin}] : User already exists. Recovering user and reauthenticate it ")
+                    KuorumUserRSDTO userFromContact = censusService.createUserByCensusCode(censusLogin, evidences);
+                    springSecurityService.reauthenticate userFromContact.getEmail()
+                    redirect uri: calcNextStepMappingName(campaign)
+                }
             }else{
                 // DEFAULT
                 log.info("[censusLogion: ${censusLogin}] : User doesn't exists. Showing contact data page ")
