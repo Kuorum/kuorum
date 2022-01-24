@@ -9,7 +9,7 @@ import org.codehaus.groovy.grails.exceptions.GrailsException
  * Time: 19:15
  * To change this template use File | Settings | File Templates.
  */
-class KuorumException extends GrailsException{
+class KuorumException extends GrailsException {
 
     ArrayList<KuorumExceptionData> errors
 
