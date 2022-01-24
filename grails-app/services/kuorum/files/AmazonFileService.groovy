@@ -181,7 +181,7 @@ class AmazonFileService extends LocalFileService {
 
 
     protected void copyAmazonFileFromTemporal(KuorumFile file, String destinationKey, Boolean attachTimestamp = false) {
-        String sourceKey = file.storagePath
+        String sourceKey = file.storagePath.encodeAsAmazonS3Key();
         if (sourceKey != destinationKey) {
             KuorumFile oldFile = KuorumFile.findByStoragePath(destinationKey);
             if (oldFile) {
