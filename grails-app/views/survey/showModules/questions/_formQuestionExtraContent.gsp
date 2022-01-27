@@ -1,4 +1,4 @@
-<g:set var="hiddenValue" value="${visibility != true?'hidden':''}" />
+<g:set var="hiddenValue" value="${visibility ? '' : 'hidden'}"/>
 <g:if test="${option.questionOptionType == org.kuorum.rest.model.communication.survey.QuestionOptionTypeRDTO.ANSWER_TEXT}">
     <div class="form-group option-extra-content">
         <formUtil:textArea
