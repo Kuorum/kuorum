@@ -1,4 +1,4 @@
-<g:set var="hiddenValue" value="${question.points <= 1?'hidden':''}"/>
+<g:set var="hiddenValue" value="${(question.points <= 1 && question.questionType == org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.MULTIPLE_OPTION_WEIGHTED) ?'hidden':''}"/>
 <div id="question-option-${option.id}"
      class="survey-question-answer ${option.answer!=null?'checked':''} ${option.questionOptionType}"
      data-answer-id="${option.id}"
