@@ -1,4 +1,4 @@
-<g:set var="hiddenValue" value="${(question.points <= 1 && question.questionType == org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.MULTIPLE_OPTION_WEIGHTED) ?'hidden':''}"/>
+<g:set var="hiddenValue" value="${(question.points > 1 && question.questionType == org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.MULTIPLE_OPTION_WEIGHTED) || (question.questionType == org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.ONE_OPTION_WEIGHTED && question.points > 1)}"/>
 <div id="question-option-${option.id}"
      class="survey-question-answer ${option.answer!=null?'checked':''} ${option.questionOptionType}"
      data-answer-id="${option.id}"
