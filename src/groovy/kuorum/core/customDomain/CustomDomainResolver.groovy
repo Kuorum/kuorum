@@ -4,6 +4,7 @@ import grails.util.Holders
 import org.apache.commons.collections.map.HashedMap
 import org.kuorum.rest.client.KuorumApi
 import org.kuorum.rest.model.domain.DomainRSDTO
+import org.omg.CORBA.Environment
 
 class CustomDomainResolver {
     private static final ThreadLocal<Map<String, Object>> CONTEXT = new ThreadLocal<>()
@@ -39,7 +40,7 @@ class CustomDomainResolver {
             String oauthPath = Holders.getGrailsApplication().config.kuorum.rest.authPath
             String clientId = Holders.getGrailsApplication().config.kuorum.rest.client_id
             String clientSecret = Holders.getGrailsApplication().config.kuorum.rest.client_secret
-            KuorumApi kuorumApi = new KuorumApi(apiUrl+oauthPath, clientId, domain,clientSecret)
+            KuorumApi kuorumApi = new KuorumApi(apiUrl+oauthPath, clientId, domain,clientSecret, grails.util.Environment.current == grails.util.Environment.DEVELOPMENT)
             API_TOKENS.put(domain, kuorumApi)
         }
     }
