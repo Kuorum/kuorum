@@ -1,3 +1,4 @@
+import kuorum.AmazonS3KeyCodec
 import kuorum.NormalizedCodec
 import kuorum.numberCodecs.HiddenPhoneCodec
 import kuorum.numberCodecs.ReducedPriceCodec
@@ -217,13 +218,31 @@ class CodecSpec extends Specification {
         then:
         res == normalizedString
         where:
-        orgString           | normalizedString
-        "Hola"              | "hola"
-        "  Hola  "          | "hola"
-        "  Hola.jpg  "      | "hola.jpg"
-        "  Hola qué tal"    | "hola_que_tal"
-        "Hola qué tal.png"  | "hola_que_tal.png"
-        ""                  | ""
-        "    "              | ""
+        orgString          | normalizedString
+        "Hola"             | "hola"
+        "  Hola  "         | "hola"
+        "  Hola.jpg  "     | "hola.jpg"
+        "  Hola qué tal"   | "hola_que_tal"
+        "Hola qué tal.png" | "hola_que_tal.png"
+        ""                 | ""
+        "    "             | ""
+    }
+
+    @Unroll
+    void "Test S3Key #orgString -> #normalizedString"() {
+        given: "The phone number"
+        when:
+        def res = AmazonS3KeyCodec.encode(orgString)
+        then:
+        res == normalizedString
+        where:
+        orgString                    | normalizedString
+        "/key/1"                     | "key/1"
+        "  key/1  "                  | "key/1"
+        " https://domain.com/key/1 " | "key/1"
+        "https://domain.com"         | ""
+        "https//domain.com"          | "https//domain.com" // ERROR: DOn't modify
+        ""                           | ""
+        "    "                       | ""
     }
 }

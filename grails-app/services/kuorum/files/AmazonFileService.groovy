@@ -181,7 +181,7 @@ class AmazonFileService extends LocalFileService {
 
 
     protected void copyAmazonFileFromTemporal(KuorumFile file, String destinationKey, Boolean attachTimestamp = false) {
-        String sourceKey = file.storagePath
+        String sourceKey = file.storagePath.encodeAsAmazonS3Key();
         if (sourceKey != destinationKey) {
             KuorumFile oldFile = KuorumFile.findByStoragePath(destinationKey);
             if (oldFile) {
@@ -211,7 +211,7 @@ class AmazonFileService extends LocalFileService {
             catch (AmazonServiceException e) {
                 // The call was transmitted successfully, but Amazon S3 couldn't process
                 // it, so it returned an error response.
-                log.error("Error copying", e)
+                log.error("Error copying from '"+sourceKey+"' to '"+destinationKey+"'", e)
             }
         }
     }
