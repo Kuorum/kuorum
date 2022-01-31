@@ -1,7 +1,7 @@
 <%@ page import="org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO" %>
 <r:require modules="datepicker, postForm, debateForm" />
 <g:set var="enabledForAdmins" value="${grails.plugin.springsecurity.SpringSecurityUtils.ifAnyGranted("ROLE_ADMIN")  || grails.plugin.springsecurity.SpringSecurityUtils.ifAnyGranted("ROLE_SUPER_ADMIN")}" />
-<g:set var="campaingIsPublished" value="${campaign != null && campaign.published}" />
+<g:set var="campaingIsPublished" value="${campaign != null && (campaign.published || campaign.campaignStatusRSDTO.PAUSE)}" />
 
 <div class="box-steps container-fluid campaign-steps">
     <g:render template="/campaigns/steps/campaignSteps" model="[mappings: mappings, attachEvent:attachEvent]"/>
