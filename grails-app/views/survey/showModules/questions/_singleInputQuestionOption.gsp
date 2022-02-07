@@ -9,7 +9,7 @@
         %{--<span class="far fa-circle check-icon"></span>--}%
         %{--<span class="fas fa-check-circle check-icon"></span>--}%
         %{--<label>${option.text}</label>--}%
-        <g:render template="/survey/showModules/questions/formQuestionExtraContent" model="[option:option]"/>
+        <g:render template="/survey/showModules/questions/formQuestionExtraContent" model="[option:option, visibility: true]"/>
     </div>
     <div class="progress-info">
         <div class="progress-bar-counter"><span class="fas fa-spinner fa-spin"></span></div>
