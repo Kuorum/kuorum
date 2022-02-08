@@ -11,6 +11,7 @@ import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.commands.payment.CampaignSettingsCommand
 import kuorum.web.commands.payment.survey.*
 import kuorum.web.constants.WebConstants
+import org.apache.commons.lang.StringUtils
 import org.kuorum.rest.model.communication.bulletin.BulletinRSDTO
 import org.kuorum.rest.model.communication.survey.*
 import org.kuorum.rest.model.communication.survey.answer.*
@@ -140,7 +141,13 @@ class SurveyController extends CampaignController {
         SurveyRDTO rdto = surveyService.map(survey)
         rdto.questions = command.questions?.findAll { it && it.text }.collect { mapQuestion(it) } ?: []
         def result = saveAndSendCampaign(surveyUser, rdto, survey.getId(), command.publishOn, command.sendType, surveyService)
-        redirect mapping: result.nextStep.mapping, params: result.nextStep.params
+        Boolean createSummoning = StringUtils.isNotEmpty(params.get("create-summoning"));
+        if (createSummoning) {
+            BulletinRSDTO summoningBulletin = surveyService.createSummoning(surveyUser, result.campaign.id)
+            redirect mapping: 'politicianMassMailingContent', params: summoningBulletin.encodeAsLinkProperties()
+        } else {
+            redirect mapping: result.nextStep.mapping, params: result.nextStep.params
+        }
 
     }
 
