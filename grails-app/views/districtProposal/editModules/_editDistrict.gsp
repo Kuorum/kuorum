@@ -47,6 +47,17 @@
                 </select>
             </div>
         </fieldset>
+        <fieldset class="form-group">
+            <label for="type" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.participatoryBudget.DistrictProposalChooseDistrictCommand.type.label"/>:</label>
+            <div class="col-sm-8 col-md-7">
+               <select class="form-control input-lg" name="type" >
+                   <option value="">---</option>
+                    <g:each in="${org.kuorum.rest.model.communication.participatoryBudget.ProposalEntityType}" var="type">
+                        <option value="${type}" ${type==command.type?'selected':''}>${type}</option>
+                    </g:each>
+                </select>
+            </div>
+        </fieldset>
 
 
     <g:render template="/campaigns/edit/stepButtons" model="[mappings:mappings, status:status, command: command, numberRecipients:numberRecipients]"/>
