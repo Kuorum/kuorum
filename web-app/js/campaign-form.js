@@ -94,23 +94,35 @@ $(function(){
         if (campaignForm.validateCampaignForm()) {
             $('#saveCampaignBtn').attr('data-callback', 'scheduleParams');
             // $("input[name='sendType']").val("SCHEDULED");
+            $("input[name=create-summoning]").val("");
             campaignForm.prepareAndOpenCampaignConfirmModal();
         }
     });
 
     // Abrir modal confirmar envio de debate
-    $('body').on('click','.form-final-options #send-draft', function(e) {
+    $('body').on('click', '.form-final-options #send-draft', function (e) {
         e.preventDefault();
         if (campaignForm.validateCampaignForm()) {
             $('#saveCampaignBtn').attr('data-callback', 'sendParams');
+            $("input[name=create-summoning]").val("");
             campaignForm.prepareAndOpenCampaignConfirmModal();
         }
     });
 
-    $("#districtProposalChooseDistrict select[name='districtId']").on("change", function(e){
+    // Abrir modal confirmar envio de debate
+    $('body').on('click', '.form-final-options #publish-with-summoning', function (e) {
+        e.preventDefault();
+        if (campaignForm.validateCampaignForm()) {
+            $('#saveCampaignBtn').attr('data-callback', 'sendParams');
+            $("input[name=create-summoning]").val("TRUE");
+            campaignForm.prepareAndOpenCampaignConfirmModal();
+        }
+    });
+
+    $("#districtProposalChooseDistrict select[name='districtId']").on("change", function (e) {
         var $select = $("#districtProposalChooseDistrict select[name='districtId']")
         var orgValue = $select.attr("data-original-value");
-        if (orgValue != "" && $select.val()!=orgValue){
+        if (orgValue != "" && $select.val() != orgValue) {
             $("#changeDistrictWarn").modal("show")
         }
     });
