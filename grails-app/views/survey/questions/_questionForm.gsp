@@ -143,7 +143,6 @@
     <g:render template="/campaigns/edit/stepButtons" model="[
             saveAndSentButtons: true,
             campaign          : survey,
-            campaign          : survey,
             mappings          : mappings,
             status            : status,
             command           : command,
