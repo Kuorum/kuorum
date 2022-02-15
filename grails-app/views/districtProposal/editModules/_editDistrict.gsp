@@ -48,12 +48,12 @@
             </div>
         </fieldset>
         <fieldset class="form-group">
-            <label for="type" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.participatoryBudget.DistrictProposalChooseDistrictCommand.type.label"/>:</label>
+            <label for="backerType" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.participatoryBudget.DistrictProposalChooseDistrictCommand.backerType.label"/>:</label>
             <div class="col-sm-8 col-md-7">
-               <select class="form-control input-lg" name="type" >
+               <select class="form-control input-lg" name="backerType" >
                    <option value="">---</option>
-                    <g:each in="${org.kuorum.rest.model.communication.participatoryBudget.ProposalEntityType}" var="type">
-                        <option value="${type}" ${type==command.type?'selected':''}>${type}</option>
+                    <g:each in="${org.kuorum.rest.model.communication.participatoryBudget.BackerTypeRSDTO}" var="type">
+                        <option value="${type}" ${type==command.backerType?'selected':''}><g:message code="kuorum.web.commands.payment.participatoryBudget.DistrictProposalChooseDistrictCommand.backerType.${type}"/></option>
                     </g:each>
                 </select>
             </div>
