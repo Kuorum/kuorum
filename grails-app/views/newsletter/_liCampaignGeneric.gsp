@@ -88,6 +88,14 @@
         </li>
     </ul>
     <ul class="list-actions">
+        <g:if test="${campaign.getCampaignType() == org.kuorum.rest.model.communication.CampaignTypeRSDTO.SURVEY}">
+            <li>
+                <g:link mapping="surveySummoning" params="${campaign.encodeAsLinkProperties()}"
+                        class="summoing-call"><span class="fal fa-envelope" aria-hidden="true"></span><span
+                        class="sr-only">Summoning button</span></g:link>
+            </li>
+        </g:if>
+
         <g:if test="${!hidePause}">
             <li>
                 <g:link

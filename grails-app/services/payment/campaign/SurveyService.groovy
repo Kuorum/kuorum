@@ -6,6 +6,7 @@ import kuorum.core.exception.KuorumException
 import kuorum.register.KuorumUserSession
 import kuorum.util.rest.RestKuorumApiService
 import kuorum.web.commands.payment.survey.SurveyReportType
+import org.kuorum.rest.model.communication.bulletin.BulletinRSDTO
 import org.kuorum.rest.model.communication.survey.*
 import org.kuorum.rest.model.communication.survey.answer.QuestionAnswerRDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
@@ -258,8 +259,8 @@ class SurveyService extends AbstractCampaignCreatorService<SurveyRSDTO, SurveyRD
     }
 
     void deleteQuestionOptionFile(KuorumUserSession user, String aliasUserSurvey, Long surveyId, Long questionId, Long questionOptionId, String fileName) {
-        fileName = java.net.URLEncoder.encode(fileName, "UTF-8")
         Map<String, String> params = [userId: aliasUserSurvey, surveyId: surveyId.toString(), questionId: questionId.toString(), questionOptionId: questionOptionId.toString()]
+        fileName = java.net.URLEncoder.encode(fileName, "UTF-8")
         Map<String, String> query = [viewerUid: user.getId().toString(), fileName: fileName]
         def response = restKuorumApiService.delete(
                 RestKuorumApiService.ApiMethod.ACCOUNT_SURVEY_ANSWER_FILE,
@@ -277,5 +278,19 @@ class SurveyService extends AbstractCampaignCreatorService<SurveyRSDTO, SurveyRD
     @Override
     protected RestKuorumApiService.ApiMethod getCopyApiMethod() {
         return RestKuorumApiService.ApiMethod.ACCOUNT_SURVEY_COPY;
+    }
+
+
+    BulletinRSDTO createSummoning(KuorumUserSession user, Long surveyId) {
+        Map<String, String> params = [userId: user.id.toString(), surveyId: surveyId.toString()]
+        Map<String, String> query = [:]
+        def response = restKuorumApiService.put(
+                RestKuorumApiService.ApiMethod.ACCOUNT_SURVEY_SUMMONING,
+                params,
+                query,
+                null,
+                new TypeReference<BulletinRSDTO>() {}
+        )
+        return response.data
     }
 }
