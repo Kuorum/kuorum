@@ -47,6 +47,12 @@
                 </select>
             </div>
         </fieldset>
+        <fieldset class="form-group">
+            <label for="backerType" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.participatoryBudget.DistrictProposalChooseDistrictCommand.backerType.label"/>:</label>
+            <div class="col-sm-8 col-md-7">
+                <formUtil:selectEnum command="${command}" field="backerType" showLabel="false" />
+            </div>
+        </fieldset>
 
 
     <g:render template="/campaigns/edit/stepButtons" model="[mappings:mappings, status:status, command: command, numberRecipients:numberRecipients]"/>
