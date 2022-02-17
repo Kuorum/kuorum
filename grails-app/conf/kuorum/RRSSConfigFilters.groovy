@@ -29,6 +29,7 @@ class RRSSConfigFilters {
                     model.put("_VisibleFieldForUser", (CustomDomainResolver.domainRSDTO.getDomainTypeRSDTO() != DomainTypeRSDTO.SURVEY)
                             || SpringSecurityUtils.ifAllGranted("ROLE_ADMIN")  ?: false)
                     model.put("_isSurveyPlatform", CustomDomainResolver.domainRSDTO.getDomainTypeRSDTO() == DomainTypeRSDTO.SURVEY)
+                    model.put("_showSocialButons", CustomDomainResolver.domainRSDTO.getDomainTypeRSDTO() != DomainTypeRSDTO.SURVEY)
                     model.put("_domainActiveCampaigns", getActiveCampaigns())
                     model.put("_domainValidations", [
                             census    : CustomDomainResolver.domainRSDTO.validationCensus,
