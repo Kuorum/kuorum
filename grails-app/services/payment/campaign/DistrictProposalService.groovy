@@ -136,6 +136,7 @@ class DistrictProposalService implements CampaignCreatorService<DistrictProposal
             districtProposalRDTO = campaignService.basicMapping(districtProposalRSDTO, districtProposalRDTO)
             districtProposalRDTO.districtId = districtProposalRSDTO.district.id
             districtProposalRDTO.participatoryBudgetId = districtProposalRSDTO.participatoryBudget.id
+            districtProposalRDTO.backerType = districtProposalRSDTO.backerType
         }
         return districtProposalRDTO
     }

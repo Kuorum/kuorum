@@ -217,6 +217,7 @@ class DistrictProposalController extends CampaignController {
         DistrictProposalRDTO rdto = districtProposalService.map(districtProposalRSDTO)
         rdto.districtId = command.districtId
         rdto.causes = [command.cause]
+        rdto.backerType = command.backerType
         districtProposalRSDTO = districtProposalService.save(user, rdto, districtProposalRSDTO.getId())
         def nextStep = processNextStep(user, districtProposalRSDTO, false)
         return nextStep;
@@ -240,6 +241,7 @@ class DistrictProposalController extends CampaignController {
             command = new DistrictProposalChooseDistrictCommand()
             command.districtId = districtProposalRSDTO.district.id
             command.cause = districtProposalRSDTO.causes ? districtProposalRSDTO.causes[0] : ""
+            command.backerType = districtProposalRSDTO.backerType
         }
         def model = [
                 campaign           : districtProposalRSDTO,

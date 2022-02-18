@@ -7,6 +7,10 @@
         <span class="fal fa-users" aria-hidden="true"></span>
         <span class="info"><g:message code="debate.authorFollowers" args="[campaignUser.numFollowers]" /></span>
     </li>
+    <li>
+        <span class="fal fa-building" aria-hidden="true"></span>
+        <span class="info"><g:message code="debate.backerType.${districtProposal.backerType}" /></span>
+    </li>
     <g:if test="${districtProposal.activeSupport}">
         <li>
             <span class="fal fa-rocket" aria-hidden="true"></span>
