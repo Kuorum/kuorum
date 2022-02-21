@@ -9,7 +9,7 @@
     </li>
     <li>
         <span class="fal fa-building" aria-hidden="true"></span>
-        <span class="info"><g:message code="debate.backerType.${districtProposal.backerType}" /></span>
+        <span class="info"><g:message code="org.kuorum.rest.model.communication.participatoryBudget.BackerTypeRSDTO.${districtProposal.backerType}" /></span>
     </li>
     <g:if test="${districtProposal.activeSupport}">
         <li>
