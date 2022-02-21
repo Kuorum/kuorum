@@ -4,12 +4,14 @@ import com.xlson.groovycsv.CsvParser
 import grails.converters.JSON
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
+import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.exception.KuorumException
 import kuorum.dashboard.DashboardService
 import kuorum.register.KuorumUserSession
 import kuorum.users.KuorumUserService
 import kuorum.web.binder.FormattedDoubleConverter
 import kuorum.web.commands.payment.contact.*
+import kuorum.web.constants.WebConstants
 import kuorum.web.session.CSVDataSession
 import org.kuorum.rest.model.contact.*
 import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
@@ -19,11 +21,12 @@ import org.kuorum.rest.model.contact.filter.condition.ConditionFieldTypeRDTO
 import org.kuorum.rest.model.contact.filter.condition.ConditionRDTO
 import org.kuorum.rest.model.contact.filter.condition.TextConditionOperatorTypeRDTO
 import org.kuorum.rest.model.contact.sort.SortContactsRDTO
+import org.kuorum.rest.model.domain.DomainPrivacyRDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
+import org.kuorum.rest.model.search.DirectionDTO
 import org.mozilla.universalchardet.UniversalDetector
 import org.springframework.web.multipart.MultipartFile
 import org.springframework.web.multipart.MultipartHttpServletRequest
-import org.kuorum.rest.model.search.DirectionDTO
 import payment.contact.ContactService
 
 @Secured(['IS_AUTHENTICATED_REMEMBERED'])
@@ -95,6 +98,7 @@ class ContactsController {
             render(template: "/contacts/listContacts", model: [
                     contacts                 : contacts,
                     searchContacts           : searchContactRSDTO,
+                    deleteAttachedUsers      : CustomDomainResolver.domainRSDTO.getDomainPrivacy() != DomainPrivacyRDTO.PUBLIC && user.getAlias().equals(WebConstants.FAKE_LANDING_ALIAS_USER),
                     bulkActionContactsCommand: new BulkActionContactsCommand()
             ])
         }

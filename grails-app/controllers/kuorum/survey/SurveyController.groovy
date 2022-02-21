@@ -1,6 +1,5 @@
 package kuorum.survey
 
-
 import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.core.exception.KuorumException
@@ -12,9 +11,10 @@ import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.commands.payment.CampaignSettingsCommand
 import kuorum.web.commands.payment.survey.*
 import kuorum.web.constants.WebConstants
+import org.apache.commons.lang.StringUtils
+import org.kuorum.rest.model.communication.bulletin.BulletinRSDTO
 import org.kuorum.rest.model.communication.survey.*
 import org.kuorum.rest.model.communication.survey.answer.*
-import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 
 class SurveyController extends CampaignController {
 
@@ -141,7 +141,13 @@ class SurveyController extends CampaignController {
         SurveyRDTO rdto = surveyService.map(survey)
         rdto.questions = command.questions?.findAll { it && it.text }.collect { mapQuestion(it) } ?: []
         def result = saveAndSendCampaign(surveyUser, rdto, survey.getId(), command.publishOn, command.sendType, surveyService)
-        redirect mapping: result.nextStep.mapping, params: result.nextStep.params
+        Boolean createSummoning = StringUtils.isNotEmpty(params.get("create-summoning"));
+        if (createSummoning) {
+            BulletinRSDTO summoningBulletin = surveyService.createSummoning(surveyUser, result.campaign.id)
+            redirect mapping: 'politicianMassMailingContent', params: summoningBulletin.encodeAsLinkProperties()
+        } else {
+            redirect mapping: result.nextStep.mapping, params: result.nextStep.params
+        }
 
     }
 
@@ -296,10 +302,19 @@ class SurveyController extends CampaignController {
         }
     }
 
-    def questionStats(String userAlias, Long campaignId, Long questionId){
-        KuorumUserSession loggedUser = springSecurityService.isLoggedIn()? springSecurityService.principal : null
+    def questionStats(String userAlias, Long campaignId, Long questionId) {
+        KuorumUserSession loggedUser = springSecurityService.isLoggedIn() ? springSecurityService.principal : null
         QuestionStatsRSDTO questionStatsRSDTO = surveyService.getQuestionStats(loggedUser, userAlias, campaignId, questionId)
-        render([status: "SUCCESS", questionStats : questionStatsRSDTO] as JSON)
+        render([status: "SUCCESS", questionStats: questionStatsRSDTO] as JSON)
     }
+
+
+    @Secured(['ROLE_CAMPAIGN_SURVEY'])
+    def createSummoning(Long campaignId) {
+        KuorumUserSession loggedUser = springSecurityService.principal
+        BulletinRSDTO bulletinSummoning = surveyService.createSummoning(loggedUser, campaignId)
+        redirect mapping: 'politicianMassMailingContent', params: bulletinSummoning.encodeAsLinkProperties()
+    }
+
 
 }

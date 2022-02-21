@@ -318,6 +318,7 @@ class RestKuorumApiService {
 
         ACCOUNT_SURVEYS("/communication/campaign/survey/{userId}"),
         ACCOUNT_SURVEY("/communication/campaign/survey/{userId}/{surveyId}"),
+        ACCOUNT_SURVEY_SUMMONING("/communication/campaign/survey/{userId}/{surveyId}/create-summoning"),
         ACCOUNT_SURVEY_ANSWER("/communication/campaign/survey/{userId}/{surveyId}/question/{questionId}"),
         ACCOUNT_SURVEY_ANSWER_STATS("/communication/campaign/survey/{userId}/{surveyId}/question/{questionId}/stats"),
         // REMOVE THIS

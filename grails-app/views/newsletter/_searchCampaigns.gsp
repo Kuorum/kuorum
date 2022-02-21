@@ -148,11 +148,15 @@
                         <g:message code="modal.exported.explanation"/>
                     </p>
                 </div>
+
                 <div class="modal-footer">
-                    <a href="#" class="btn" data-dismiss="modal" aria-label="Close"><g:message code="modal.exportedContacts.close"/></a>
+                    <a href="#" class="btn" data-dismiss="modal" aria-label="Close"><g:message
+                            code="modal.exportedContacts.close"/></a>
                 </div>
             </div>
         </div>
     </div>
+
+    <g:render template="/campaigns/showModules/campingModalCreateSummoning" model="[]"/>
 
 </div>
