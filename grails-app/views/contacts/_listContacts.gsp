@@ -47,19 +47,28 @@
             </g:each>
 
             <!-- MODAL CONFIRM -->
-            <div class="modal fade in" id="contactDeleteConfirm" tabindex="-1" role="dialog" aria-labelledby="contactDeleteTitle" aria-hidden="true">
+            <div class="modal fade in" id="contactDeleteConfirm" tabindex="-1" role="dialog"
+                 aria-labelledby="contactDeleteTitle" aria-hidden="true">
                 <div class="modal-dialog ">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
-                                <span aria-hidden="true" class="fal fa-times-circle fa"></span><span class="sr-only"><g:message code="modalDefend.close"/></span>
+                                <span aria-hidden="true" class="fal fa-times-circle fa"></span><span
+                                    class="sr-only"><g:message code="modalDefend.close"/></span>
                             </button>
                             <h4 id="contactDeleteTitle">
-                                <g:message code="tools.massMailing.deleteContactModal.title"/>
+                                <g:if test="${deleteAttachedUsers}">
+                                    <g:message code="tools.massMailing.deleteContactModal.deleteUser.title"/>
+                                </g:if>
+                                <g:else>
+                                    <g:message code="tools.massMailing.deleteContactModal.title"/>
+                                </g:else>
                             </h4>
                         </div>
+
                         <div class="modal-body">
-                            <a href="#UrlUpdatedByAjax" role="button" class="btn btn-blue inverted btn-lg deleteContactBtn">
+                            <a href="#UrlUpdatedByAjax" role="button"
+                               class="btn btn-blue inverted btn-lg deleteContactBtn">
                                 <g:message code="tools.massMailing.deleteContactModal.button"/>
                             </a>
                         </div>
