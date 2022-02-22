@@ -468,9 +468,7 @@ class ContactsController {
                     String rawGender = line[positions.genderPos] as String
                     try {
                         rawGender = rawGender ? rawGender.trim().toUpperCase() : ""
-                        GenderRDTO contactGender = GenderRDTO.valueOf(rawGender)
-                        contact.setGender(contactGender);
-
+                        contact.gender = GenderRDTO.valueOf(rawGender)
                     } catch (Exception e) {
                         log.info("Gender {} for contact {} was not recognized", rawGender, contact.getEmail())
                     }
