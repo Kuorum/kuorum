@@ -80,6 +80,7 @@ class ContactsController {
                 filterId                  : filterId,
                 command                   : new ContactFilterCommand(),
                 searchContacts            : searchContactRSDTO,
+                deleteAttachedUsers       : isDeletableAttachedUsers(user),
                 bulkActionContactsCommand : new BulkActionContactsCommand(),
                 bulkAddTagsContactsCommand: new BulkAddTagsContactsCommand()
         ]
@@ -98,10 +99,14 @@ class ContactsController {
             render(template: "/contacts/listContacts", model: [
                     contacts                 : contacts,
                     searchContacts           : searchContactRSDTO,
-                    deleteAttachedUsers      : CustomDomainResolver.domainRSDTO.getDomainPrivacy() != DomainPrivacyRDTO.PUBLIC && user.getAlias().equals(WebConstants.FAKE_LANDING_ALIAS_USER),
+                    deleteAttachedUsers      : isDeletableAttachedUsers(user),
                     bulkActionContactsCommand: new BulkActionContactsCommand()
             ])
         }
+    }
+
+    private Boolean isDeletableAttachedUsers(KuorumUserSession user) {
+        return CustomDomainResolver.domainRSDTO.getDomainPrivacy() != DomainPrivacyRDTO.PUBLIC && user.getAlias().equals(WebConstants.FAKE_LANDING_ALIAS_USER);
     }
 
 
