@@ -101,15 +101,24 @@
     <div id="bulk-action-delete-all-modal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="contactDeleteTitle" aria-hidden="true">
         <div class="modal-dialog ">
             <div class="modal-content">
-                <g:form method="POST" mapping="bulkActionRemoveContactsAjax" role="form" class="submitOrangeButton" autocomplete="off" data-type="1">
+                <g:form method="POST" mapping="bulkActionRemoveContactsAjax" role="form" class="submitOrangeButton"
+                        autocomplete="off" data-type="1">
                     <div class="modal-header"><h4><g:message code="tools.contact.bulkActions.deleteAll"/></h4></div>
+
                     <div class="modal-body">
                         <p>
-                            <g:message code="modal.bulkAction.deleteAll.explain" args="[contacts.total]"/>
+                            <g:if test="${deleteAttachedUsers}">
+                                <g:message code="modal.bulkAction.deleteAllUsers.explain" args="[contacts.total]"/>
+                            </g:if>
+                            <g:else>
+                                <g:message code="modal.bulkAction.deleteAll.explain" args="[contacts.total]"/>
+                            </g:else>
                         </p>
                     </div>
+
                     <div class="modal-footer">
-                        <button class="btn" type="submit"><g:message code="modal.bulkAction.deleteAll.deleteContacts"/></button>
+                        <button class="btn" type="submit"><g:message
+                                code="modal.bulkAction.deleteAll.deleteContacts"/></button>
                     </div>
                 </g:form>
             </div>
