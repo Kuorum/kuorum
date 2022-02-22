@@ -337,6 +337,7 @@ class ContactsController {
         Integer phonePos = columnOption.findIndexOf { it == "phone" }
         Integer personalCodePos = columnOption.findIndexOf { it == "personalCode" }
         Integer externalIdPos = columnOption.findIndexOf { it == "externalId" }
+        Integer genderPos = columnOption.findIndexOf { it == "gender" }
         Integer surveyVoteWeightPos = columnOption.findIndexOf { it == "surveyVoteWeight" }
         List<Number> tagsPos = columnOption.findIndexValues { it == "tag" }
         def tags = params.tags?.split(",") ?: []
@@ -359,6 +360,7 @@ class ContactsController {
         phonePrefixPos = phonePrefixPos < 0 || phonePrefixPos > realPos.size() ? phonePrefixPos : Integer.parseInt(realPos[phonePrefixPos])
         phonePos = phonePos < 0 || phonePos > realPos.size() ? phonePos : Integer.parseInt(realPos[phonePos])
         externalIdPos = externalIdPos < 0 || externalIdPos > realPos.size() ? externalIdPos : Integer.parseInt(realPos[externalIdPos])
+        genderPos = genderPos < 0 || genderPos > realPos.size() ? genderPos : Integer.parseInt(realPos[genderPos])
         personalCodePos = personalCodePos < 0 || personalCodePos > realPos.size() ? personalCodePos : Integer.parseInt(realPos[personalCodePos])
         surveyVoteWeightPos = surveyVoteWeightPos < 0 || surveyVoteWeightPos > realPos.size() ? surveyVoteWeightPos : Integer.parseInt(realPos[surveyVoteWeightPos])
         tagsPos = tagsPos?.collect { Integer.parseInt(realPos[it.intValue()]) } ?: []
@@ -368,7 +370,7 @@ class ContactsController {
             flash.error = g.message(code: 'tools.contact.import.csv.error.notEmailNameColumnSelected')
 
             try {
-                def model = modelUploadCSVContacts(emailPos, namePos, surnamePos, languagePos)
+                def model = modelUploadCSVContacts(emailPos, namePos, surnamePos, languagePos, genderPos)
                 def table = groovyPageRenderer.render(template: '/contacts/csvTableExample', model: model)
                 model["table"] = table
                 render(view: 'importCSVContactsUpload', model: model)
@@ -392,6 +394,7 @@ class ContactsController {
                 phonePos           : phonePos,
                 phonePrefixPos     : phonePrefixPos,
                 externalIdPos      : externalIdPos,
+                genderPos          : genderPos,
                 surveyVoteWeightPos: surveyVoteWeightPos,
                 personalCodePos    : personalCodePos,
                 tagsPos            : tagsPos
@@ -461,6 +464,17 @@ class ContactsController {
                 if (positions.externalIdPos >= 0) {
                     contact.setExternalId(line[positions.externalIdPos] as String)
                 }
+                if (positions.genderPos >= 0) {
+                    String rawGender = line[positions.genderPos] as String
+                    try {
+                        rawGender = rawGender ? rawGender.trim().toUpperCase() : ""
+                        GenderRDTO contactGender = GenderRDTO.valueOf(rawGender)
+                        contact.setGender(contactGender);
+
+                    } catch (Exception e) {
+                        log.info("Gender {} for contact {} was not recognized", rawGender, contact.getEmail())
+                    }
+                }
                 if (positions.personalCodePos >= 0) {
                     contact.setPersonalCode(line[positions.personalCodePos] as String)
                 }
@@ -511,7 +525,7 @@ class ContactsController {
 //        }
     }
 
-    private Map modelUploadCSVContacts(Integer emailPos = -1, Integer namePos = -1, surnamePos = -1, languagePos = -1) {
+    private Map modelUploadCSVContacts(Integer emailPos = -1, Integer namePos = -1, surnamePos = -1, languagePos = -1, genderPos = -1) {
         CSVDataSession csvDataSession = (CSVDataSession) request.getSession().getAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY)
         File csv = csvDataSession.file
         log.info("Calculating uploaded name: " + csv)
