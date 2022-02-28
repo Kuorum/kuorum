@@ -30,15 +30,22 @@
             <label class="sr-only"><g:message code="tools.massMailing.schedule.label"/></label>
             <formUtil:date command="${command}" field="publishOn" cssClass="form-control" time="true"/>
             <a href="#" class="btn btn-blue inverted" id="send-campaign-later">
-                <g:message code="${numberRecipients>0?'tools.massMailing.schedule.sendLater':'tools.massMailing.schedule.publishLater'}"/>
+                <g:message
+                        code="${numberRecipients > 0 ? 'tools.massMailing.schedule.sendLater' : 'tools.massMailing.schedule.publishLater'}"/>
             </a>
         </div>
     </li>
     <li>
         <a href="#" class="btn btn-blue inverted" id="send-draft">
-            <g:message code="${numberRecipients>0?'tools.massMailing.send':'tools.massMailing.publish'}"/>
+            <g:message code="${numberRecipients > 0 ? 'tools.massMailing.send' : 'tools.massMailing.publish'}"/>
         </a>
     </li>
+    <g:if test="${campaign && campaign.campaignType == org.kuorum.rest.model.communication.CampaignTypeRSDTO.SURVEY}">
+        <a href="#" class="btn btn-blue inverted" id="publish-with-summoning">
+            <g:message code="tools.summoning.campaign.publish"/>
+        </a>
+        <input type="hidden" name="create-summoning"/>
+    </g:if>
 </g:else>
 
 

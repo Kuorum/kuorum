@@ -4,12 +4,14 @@ import com.xlson.groovycsv.CsvParser
 import grails.converters.JSON
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
+import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.exception.KuorumException
 import kuorum.dashboard.DashboardService
 import kuorum.register.KuorumUserSession
 import kuorum.users.KuorumUserService
 import kuorum.web.binder.FormattedDoubleConverter
 import kuorum.web.commands.payment.contact.*
+import kuorum.web.constants.WebConstants
 import kuorum.web.session.CSVDataSession
 import org.kuorum.rest.model.contact.*
 import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
@@ -19,11 +21,12 @@ import org.kuorum.rest.model.contact.filter.condition.ConditionFieldTypeRDTO
 import org.kuorum.rest.model.contact.filter.condition.ConditionRDTO
 import org.kuorum.rest.model.contact.filter.condition.TextConditionOperatorTypeRDTO
 import org.kuorum.rest.model.contact.sort.SortContactsRDTO
+import org.kuorum.rest.model.domain.DomainPrivacyRDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
+import org.kuorum.rest.model.search.DirectionDTO
 import org.mozilla.universalchardet.UniversalDetector
 import org.springframework.web.multipart.MultipartFile
 import org.springframework.web.multipart.MultipartHttpServletRequest
-import org.kuorum.rest.model.search.DirectionDTO
 import payment.contact.ContactService
 
 @Secured(['IS_AUTHENTICATED_REMEMBERED'])
@@ -77,6 +80,7 @@ class ContactsController {
                 filterId                  : filterId,
                 command                   : new ContactFilterCommand(),
                 searchContacts            : searchContactRSDTO,
+                deleteAttachedUsers       : isDeletableAttachedUsers(user),
                 bulkActionContactsCommand : new BulkActionContactsCommand(),
                 bulkAddTagsContactsCommand: new BulkAddTagsContactsCommand()
         ]
@@ -95,9 +99,14 @@ class ContactsController {
             render(template: "/contacts/listContacts", model: [
                     contacts                 : contacts,
                     searchContacts           : searchContactRSDTO,
+                    deleteAttachedUsers      : isDeletableAttachedUsers(user),
                     bulkActionContactsCommand: new BulkActionContactsCommand()
             ])
         }
+    }
+
+    private Boolean isDeletableAttachedUsers(KuorumUserSession user) {
+        return CustomDomainResolver.domainRSDTO.getDomainPrivacy() != DomainPrivacyRDTO.PUBLIC && user.getAlias().equals(WebConstants.FAKE_LANDING_ALIAS_USER);
     }
 
 
@@ -333,6 +342,7 @@ class ContactsController {
         Integer phonePos = columnOption.findIndexOf { it == "phone" }
         Integer personalCodePos = columnOption.findIndexOf { it == "personalCode" }
         Integer externalIdPos = columnOption.findIndexOf { it == "externalId" }
+        Integer genderPos = columnOption.findIndexOf { it == "gender" }
         Integer surveyVoteWeightPos = columnOption.findIndexOf { it == "surveyVoteWeight" }
         List<Number> tagsPos = columnOption.findIndexValues { it == "tag" }
         def tags = params.tags?.split(",") ?: []
@@ -355,6 +365,7 @@ class ContactsController {
         phonePrefixPos = phonePrefixPos < 0 || phonePrefixPos > realPos.size() ? phonePrefixPos : Integer.parseInt(realPos[phonePrefixPos])
         phonePos = phonePos < 0 || phonePos > realPos.size() ? phonePos : Integer.parseInt(realPos[phonePos])
         externalIdPos = externalIdPos < 0 || externalIdPos > realPos.size() ? externalIdPos : Integer.parseInt(realPos[externalIdPos])
+        genderPos = genderPos < 0 || genderPos > realPos.size() ? genderPos : Integer.parseInt(realPos[genderPos])
         personalCodePos = personalCodePos < 0 || personalCodePos > realPos.size() ? personalCodePos : Integer.parseInt(realPos[personalCodePos])
         surveyVoteWeightPos = surveyVoteWeightPos < 0 || surveyVoteWeightPos > realPos.size() ? surveyVoteWeightPos : Integer.parseInt(realPos[surveyVoteWeightPos])
         tagsPos = tagsPos?.collect { Integer.parseInt(realPos[it.intValue()]) } ?: []
@@ -364,7 +375,7 @@ class ContactsController {
             flash.error = g.message(code: 'tools.contact.import.csv.error.notEmailNameColumnSelected')
 
             try {
-                def model = modelUploadCSVContacts(emailPos, namePos, surnamePos, languagePos)
+                def model = modelUploadCSVContacts(emailPos, namePos, surnamePos, languagePos, genderPos)
                 def table = groovyPageRenderer.render(template: '/contacts/csvTableExample', model: model)
                 model["table"] = table
                 render(view: 'importCSVContactsUpload', model: model)
@@ -388,6 +399,7 @@ class ContactsController {
                 phonePos           : phonePos,
                 phonePrefixPos     : phonePrefixPos,
                 externalIdPos      : externalIdPos,
+                genderPos          : genderPos,
                 surveyVoteWeightPos: surveyVoteWeightPos,
                 personalCodePos    : personalCodePos,
                 tagsPos            : tagsPos
@@ -457,6 +469,15 @@ class ContactsController {
                 if (positions.externalIdPos >= 0) {
                     contact.setExternalId(line[positions.externalIdPos] as String)
                 }
+                if (positions.genderPos >= 0) {
+                    String rawGender = line[positions.genderPos] as String
+                    try {
+                        rawGender = rawGender ? rawGender.trim().toUpperCase() : ""
+                        contact.gender = GenderRDTO.valueOf(rawGender)
+                    } catch (Exception e) {
+                        log.info("Gender {} for contact {} was not recognized", rawGender, contact.getEmail())
+                    }
+                }
                 if (positions.personalCodePos >= 0) {
                     contact.setPersonalCode(line[positions.personalCodePos] as String)
                 }
@@ -507,7 +528,7 @@ class ContactsController {
 //        }
     }
 
-    private Map modelUploadCSVContacts(Integer emailPos = -1, Integer namePos = -1, surnamePos = -1, languagePos = -1) {
+    private Map modelUploadCSVContacts(Integer emailPos = -1, Integer namePos = -1, surnamePos = -1, languagePos = -1, genderPos = -1) {
         CSVDataSession csvDataSession = (CSVDataSession) request.getSession().getAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY)
         File csv = csvDataSession.file
         log.info("Calculating uploaded name: " + csv)

@@ -123,18 +123,26 @@ $(function(){
             .done(function(data) {
                 campaignList.remove('id', campaignId);
             })
-            .fail(function(messageError) {
+            .fail(function (messageError) {
                 display.warn("Error");
             })
-            .always(function() {
+            .always(function () {
                 pageLoadingOff();
             });
+    });
+
+    // MODAL FOR CREATING A SUMMONING CALL
+    $('body').on('click', 'a.summoing-call', function (e) {
+        e.preventDefault();
+        var linkScheduled = $(this).attr('href');
+        $("#modalCreateSummoning").modal("show");
+        $("a#modalCreateSummoningButtonOk").attr("href", linkScheduled)
     });
 
     // FILTRADO Y BUSCADOR LISTADO CAMPAÑAS
     if ($('#listCampaigns').length) {
 
-        $('#search-form-campaign').submit(function(){
+        $('#search-form-campaign').submit(function () {
             //The search campaign form has not a submit action. All the search is done with javascript
             return false;
         });
