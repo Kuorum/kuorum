@@ -16,17 +16,29 @@
             <g:if test="${i != emailPos}">
                 <th class="${emptyColumns.contains(i)?'hide':''}">
                     <select class="form-control" name="columnOption">
-                        <option value=""><g:message code="tools.contact.import.table.columnOption.notImported"/> </option>
-                        <option value="name" ${i == namePos?'selected':''}><g:message code="tools.contact.import.table.columnOption.name"/> </option>
-                        <option value="email" ${i == emailPos?'selected':''}><g:message code="tools.contact.import.table.columnOption.email"/> </option>
-                        <option value="surname" ${i == surnamePos?'selected':''}><g:message code="tools.contact.import.table.columnOption.surname"/> </option>
-                        <option value="language" ${i == languagePos?'selected':''}><g:message code="tools.contact.import.table.columnOption.language"/> </option>
-                        <option value="externalId" ${i == externalIdPos?'selected':''}><g:message code="tools.contact.import.table.columnOption.externalId"/> </option>
-                        <option value="personalCode" ${i == personalCodePos?'selected':''}><g:message code="tools.contact.import.table.columnOption.personalCode"/> </option>
-                        <option value="phonePrefix" ${i == phonePrefixPos?'selected':''}><g:message code="tools.contact.import.table.columnOption.phonePrefix"/> </option>
-                        <option value="phone" ${i == phonePos?'selected':''}><g:message code="tools.contact.import.table.columnOption.phone"/> </option>
-                        <option value="surveyVoteWeight" ${i == surveyVoteWeightPos?'selected':''}><g:message code="tools.contact.import.table.columnOption.surveyVoteWeight"/> </option>
-                        <option value="tag"><g:message code="tools.contact.import.table.columnOption.tag"/> </option>
+                        <option value=""><g:message
+                                code="tools.contact.import.table.columnOption.notImported"/></option>
+                        <option value="name" ${i == namePos ? 'selected' : ''}><g:message
+                                code="tools.contact.import.table.columnOption.name"/></option>
+                        <option value="email" ${i == emailPos ? 'selected' : ''}><g:message
+                                code="tools.contact.import.table.columnOption.email"/></option>
+                        <option value="surname" ${i == surnamePos ? 'selected' : ''}><g:message
+                                code="tools.contact.import.table.columnOption.surname"/></option>
+                        <option value="language" ${i == languagePos ? 'selected' : ''}><g:message
+                                code="tools.contact.import.table.columnOption.language"/></option>
+                        <option value="externalId" ${i == externalIdPos ? 'selected' : ''}><g:message
+                                code="tools.contact.import.table.columnOption.externalId"/></option>
+                        <option value="personalCode" ${i == personalCodePos ? 'selected' : ''}><g:message
+                                code="tools.contact.import.table.columnOption.personalCode"/></option>
+                        <option value="phonePrefix" ${i == phonePrefixPos ? 'selected' : ''}><g:message
+                                code="tools.contact.import.table.columnOption.phonePrefix"/></option>
+                        <option value="phone" ${i == phonePos ? 'selected' : ''}><g:message
+                                code="tools.contact.import.table.columnOption.phone"/></option>
+                        <option value="gender" ${i == genderPos ? 'selected' : ''}><g:message
+                                code="kuorum.web.commands.profile.EditUserProfileCommand.gender.label"/></option>
+                        <option value="surveyVoteWeight" ${i == surveyVoteWeightPos ? 'selected' : ''}><g:message
+                                code="tools.contact.import.table.columnOption.surveyVoteWeight"/></option>
+                        <option value="tag"><g:message code="tools.contact.import.table.columnOption.tag"/></option>
                     </select>
                     <input type="hidden" name="realPos" value="${i}"/>
                 </th>

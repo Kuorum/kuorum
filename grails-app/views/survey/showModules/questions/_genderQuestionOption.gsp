@@ -15,7 +15,7 @@
                           faClassEmpty:'far fa-circle',
                           faClassChecked:'fas fa-check-circle']"/>
         <label class="col-xs-10"><g:message code="org.kuorum.rest.model.contact.GenderRDTO.${option.text}"/></label>
-        <g:render template="/survey/showModules/questions/formQuestionExtraContent" model="[option:option]"/>
+        <g:render template="/survey/showModules/questions/formQuestionExtraContent" model="[option:option, visibility: true]"/>
     </div>
     <div class="progress-info">
         <div class="progress-bar-counter"><span class="fas fa-spinner fa-spin"></span></div>

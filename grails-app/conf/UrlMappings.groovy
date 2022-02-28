@@ -162,6 +162,7 @@ class UrlMappings {
         name surveyShow:            "/$userAlias/$urlTitle-$campaignId"                          (controller: "campaign", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it)})}}
         name surveySaveAnswer:      "/ajax/$userAlias/$urlTitle-$campaignId/saveAnswer"          (controller: "survey", action: "saveAnswer"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it)})}}
         name surveyCopy:            "/account/survey/$campaignId/copy" (controller:"survey", action:"copy")
+        name surveySummoning:       "/account/survey/$campaignId/summoning" (controller:"survey", action:"createSummoning")
         name ajaxSurveyQuestionStats:"/ajax/survey/$userAlias/$campaignId/question/$questionId/stats" (controller:'survey', action:"questionStats")
 
 
