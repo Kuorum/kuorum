@@ -8557,3 +8557,10 @@ li.survey-question.answered .survey-question-answer .option-extra-content textar
 .displayNone {
     display:none;
 }
+
+
+/* Closed Campaign error view */
+.closedCampaignErrorTitle {
+    font-weight: bolder;
+    color: darkred;
+}
