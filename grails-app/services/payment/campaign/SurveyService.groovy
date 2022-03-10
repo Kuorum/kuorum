@@ -297,7 +297,7 @@ class SurveyService extends AbstractCampaignCreatorService<SurveyRSDTO, SurveyRD
     SurveyRSDTO buildSurveyExample(KuorumUserSession user) {
         Map<String, String> params = [userId: user.id.toString()]
         Map<String, String> query = [:]
-        def response = restKuorumApiService.put(
+        def response = restKuorumApiService.post(
                 RestKuorumApiService.ApiMethod.ACCOUNT_SURVEY_EXAMPLE,
                 params,
                 query,
