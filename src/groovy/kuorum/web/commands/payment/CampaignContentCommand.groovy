@@ -16,6 +16,11 @@ import org.kuorum.rest.model.communication.survey.CampaignVisibilityRSDTO
 
 @Validateable
 class CampaignContentCommand {
+    public static String CAMPAIGN_SEND_TYPE_DRAFT = "DRAFT";
+    public static String CAMPAIGN_SEND_TYPE_SCHEDULED = "SCHEDULED";
+    public static String CAMPAIGN_SEND_TYPE_SEND = "SEND";
+    public static String CAMPAIGN_SEND_TYPE_SEND_TEST = "SEND_TEST";
+    public static String CAMPAIGN_SEND_TYPE_ACTIVATE = "ACTIVATE";
 
     String title
     String body
@@ -56,11 +61,16 @@ class CampaignContentCommand {
             KuorumUserSession kuorumUser = CampaignContentCommand.currentUser()
             Date scheduledTimeZone = TimeZoneUtil.convertToUserTimeZone(val, kuorumUser.timeZone)
             Date userTimeZone = Calendar.getInstance(kuorumUser.getTimeZone()).getTime()
-            if (val && obj.sendType == "SCHEDULED" && scheduledTimeZone < userTimeZone) {
+            if (val && obj.sendType == CAMPAIGN_SEND_TYPE_SCHEDULED && scheduledTimeZone < userTimeZone) {
                 return "kuorum.web.commands.payment.massMailing.MassMailingCommand.scheduled.min.error"
             }
         }
 
-        sendType nullable: false, inList:["DRAFT", "SCHEDULED", "SEND", "SEND_TEST", "ACTIVATE"]
+        sendType nullable: false, inList: [
+                CampaignContentCommand.CAMPAIGN_SEND_TYPE_DRAFT,
+                CampaignContentCommand.CAMPAIGN_SEND_TYPE_SCHEDULED,
+                CampaignContentCommand.CAMPAIGN_SEND_TYPE_SEND,
+                CampaignContentCommand.CAMPAIGN_SEND_TYPE_SEND_TEST,
+                CampaignContentCommand.CAMPAIGN_SEND_TYPE_ACTIVATE]
     }
 }

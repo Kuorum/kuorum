@@ -4,6 +4,7 @@ import grails.plugin.springsecurity.SpringSecurityService
 import grails.validation.Validateable
 import kuorum.register.KuorumUserSession
 import kuorum.util.TimeZoneUtil
+import kuorum.web.commands.payment.CampaignContentCommand
 import org.codehaus.groovy.grails.web.context.ServletContextHolder
 import org.codehaus.groovy.grails.web.servlet.GrailsApplicationAttributes
 import org.grails.databinding.BindingFormat
@@ -31,13 +32,13 @@ class MassMailingContentTextCommand {
     static constraints = {
 
         subject nullable: true, validator: { val, obj ->
-            if (obj.sendType!= "DRAFT" && !val){
+            if (obj.sendType != CampaignContentCommand.CAMPAIGN_SEND_TYPE_DRAFT && !val) {
                 return "kuorum.web.commands.payment.massMailing.MassMailingCommand.subject.nullable"
             }
         }
 
         text nullable: true, validator: { val, obj ->
-            if (obj.sendType!= "DRAFT" && !val){
+            if (obj.sendType != CampaignContentCommand.CAMPAIGN_SEND_TYPE_DRAFT && !val) {
                 return "kuorum.web.commands.payment.massMailing.MassMailingCommand.text.nullable"
             }
         }
@@ -46,10 +47,14 @@ class MassMailingContentTextCommand {
             KuorumUserSession userSession = MassMailingContentTextCommand.currentUser()
             Date scheduledTimeZone = TimeZoneUtil.convertToUserTimeZone(val, userSession.timeZone)
             Date userTimeZone = Calendar.getInstance(userSession.getTimeZone()).getTime()
-            if (val && obj.sendType== "SCHEDULED" && scheduledTimeZone < userTimeZone){
+            if (val && obj.sendType == CampaignContentCommand.CAMPAIGN_SEND_TYPE_SCHEDULED && scheduledTimeZone < userTimeZone) {
                 return "kuorum.web.commands.payment.massMailing.MassMailingCommand.scheduled.min.error"
             }
         }
-        sendType nullable: false, inList:["DRAFT", "SCHEDULED", "SEND", "SEND_TEST"]
+        sendType nullable: false, inList: [
+                CampaignContentCommand.CAMPAIGN_SEND_TYPE_DRAFT,
+                CampaignContentCommand.CAMPAIGN_SEND_TYPE_SCHEDULED,
+                CampaignContentCommand.CAMPAIGN_SEND_TYPE_SEND,
+                "SEND_TEST"]
     }
 }
