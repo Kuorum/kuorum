@@ -151,58 +151,6 @@ class RestKuorumApiService {
     }
 
 
-    private RestClientNoSSL getRestMailKuorumServices(TypeReference clazz) {
-        RestClientNoSSL mailKuorumServices = new RestClientNoSSL(kuorumRestServices)
-
-        EncoderRegistry encoderRegistry = mailKuorumServices.getEncoder()
-        encoderRegistry.putAt(groovyx.net.http.ContentType.JSON, { it ->
-//            def builder = new groovy.json.JsonBuilder(); // Not use JacksonAnnotations
-//            builder.content = it
-//            String rawJson = builder.toString();
-
-            ObjectMapper builder = new ObjectMapper()
-//            String rawJson = builder.valueToTree(it).toString()
-            String rawJson = builder.writeValueAsString(it)
-
-            InputStreamEntity res = new InputStreamEntity(new ByteArrayInputStream(rawJson.getBytes(StandardCharsets.UTF_8)))
-            res.setContentType(groovyx.net.http.ContentType.JSON.toString())
-            return res
-        })
-
-        ParserRegistry parserRegistry = mailKuorumServices.getParser()
-        parserRegistry.putAt(groovyx.net.http.ContentType.JSON, { HttpResponseDecorator resp ->
-            def obj = null
-            if (resp.status == 200) {
-                if (clazz != null) {
-                    String jsonString = IOUtils.toString(resp.getEntity().getContent(), "UTF-8")
-                    ObjectMapper objectMapper = new ObjectMapper()
-                    objectMapper.setTimeZone(TimeZone.getTimeZone("UTC"))
-                    objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-                    obj = objectMapper.readValue(jsonString, clazz)
-                }
-                return obj
-            } else {
-                try {
-                    log.warn(resp.getContext().getAttribute("http.request").getAt("original").toString());
-                } catch (Throwable t) {
-                    log.warn("Error recovering original URL called to api to print it in logs")
-                }
-                String jsonString = IOUtils.toString(resp.getEntity().getContent(), "UTF-8")
-                ObjectMapper objectMapper = new ObjectMapper()
-                objectMapper.setTimeZone(TimeZone.getTimeZone("UTC"))
-                objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-                RestServiceError serviceError = objectMapper.readValue(jsonString, RestServiceError.class)
-                throw new KuorumException(serviceError.message, "error.api.${serviceError.code}", new ArrayList(serviceError.errorData?.values() ?: []))
-            }
-        })
-
-        mailKuorumServices.handler.failure = { resp, data ->
-            throw new KuorumException("No found")
-        }
-        return mailKuorumServices
-
-    }
-
     enum ApiMethod {
         FILE_UPLOAD('/file/{userId}/tmp'),
 
@@ -317,6 +265,7 @@ class RestKuorumApiService {
         ACCOUNT_BULLETIN_COPY("/communication/campaign/bulletin/{userId}/{campaignId}/copy"),
 
         ACCOUNT_SURVEYS("/communication/campaign/survey/{userId}"),
+        ACCOUNT_SURVEY_EXAMPLE("/communication/campaign/survey/{userId}/example"),
         ACCOUNT_SURVEY("/communication/campaign/survey/{userId}/{surveyId}"),
         ACCOUNT_SURVEY_SUMMONING("/communication/campaign/survey/{userId}/{surveyId}/create-summoning"),
         ACCOUNT_SURVEY_ANSWER("/communication/campaign/survey/{userId}/{surveyId}/question/{questionId}"),
@@ -377,5 +326,57 @@ class RestKuorumApiService {
             params.each { k, v -> builtUrl = builtUrl.replaceAll("\\{${k}}", v) }
             (contextPath + builtUrl).toString()
         }
+    }
+
+    private RestClientNoSSL getRestMailKuorumServices(TypeReference clazz) {
+        RestClientNoSSL mailKuorumServices = new RestClientNoSSL(kuorumRestServices)
+
+        EncoderRegistry encoderRegistry = mailKuorumServices.getEncoder()
+        encoderRegistry.putAt(groovyx.net.http.ContentType.JSON, { it ->
+//            def builder = new groovy.json.JsonBuilder(); // Not use JacksonAnnotations
+//            builder.content = it
+//            String rawJson = builder.toString();
+
+            ObjectMapper builder = new ObjectMapper()
+//            String rawJson = builder.valueToTree(it).toString()
+            String rawJson = builder.writeValueAsString(it)
+
+            InputStreamEntity res = new InputStreamEntity(new ByteArrayInputStream(rawJson.getBytes(StandardCharsets.UTF_8)))
+            res.setContentType(groovyx.net.http.ContentType.JSON.toString())
+            return res
+        })
+
+        ParserRegistry parserRegistry = mailKuorumServices.getParser()
+        parserRegistry.putAt(groovyx.net.http.ContentType.JSON, { HttpResponseDecorator resp ->
+            def obj = null
+            if (resp.status == 200) {
+                if (clazz != null) {
+                    String jsonString = IOUtils.toString(resp.getEntity().getContent(), "UTF-8")
+                    ObjectMapper objectMapper = new ObjectMapper()
+                    objectMapper.setTimeZone(TimeZone.getTimeZone("UTC"))
+                    objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+                    obj = objectMapper.readValue(jsonString, clazz)
+                }
+                return obj
+            } else {
+                try {
+                    log.warn(resp.getContext().getAttribute("http.request").getAt("original").toString());
+                } catch (Throwable t) {
+                    log.warn("Error recovering original URL called to api to print it in logs")
+                }
+                String jsonString = IOUtils.toString(resp.getEntity().getContent(), "UTF-8")
+                ObjectMapper objectMapper = new ObjectMapper()
+                objectMapper.setTimeZone(TimeZone.getTimeZone("UTC"))
+                objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+                RestServiceError serviceError = objectMapper.readValue(jsonString, RestServiceError.class)
+                throw new KuorumException(serviceError.message, "error.api.${serviceError.code}", new ArrayList(serviceError.errorData?.values() ?: []))
+            }
+        })
+
+        mailKuorumServices.handler.failure = { resp, data ->
+            throw new KuorumException("No found")
+        }
+        return mailKuorumServices
+
     }
 }

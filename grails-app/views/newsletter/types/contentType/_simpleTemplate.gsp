@@ -1,11 +1,17 @@
 <formUtil:validateForm bean="${command}" form="politicianMassMailingForm" dirtyControl="true"/>
-<form action="${g.createLink(mapping: 'politicianMassMailingContent', params: [campaignId: campaign.id])}" class="form-horizontal campaign-form" id="politicianMassMailingForm" method="POST" data-generalErrorMessage="${g.message(code:'kuorum.web.commands.payment.massMailing.MassMailingCommand.form.genericError')}">
-    <input type="hidden" name="sendType" value="DRAFT" id="sendMassMailingType"/>
+<form action="${g.createLink(mapping: 'politicianMassMailingContent', params: [campaignId: campaign.id])}"
+      class="form-horizontal campaign-form" id="politicianMassMailingForm" method="POST"
+      data-generalErrorMessage="${g.message(code: 'kuorum.web.commands.payment.massMailing.MassMailingCommand.form.genericError')}">
+    <input type="hidden" name="sendType" value="${CampaignContentCommand.CAMPAIGN_SEND_TYPE_DRAFT}"
+           id="sendMassMailingType"/>
     <input type="hidden" name="redirectLink" id="redirectLink"/>
-    <input type="hidden" name="contentType" value="${org.kuorum.rest.model.notification.campaign.NewsletterTemplateDTO.NEWSLETTER}"/>
+    <input type="hidden" name="contentType"
+           value="${org.kuorum.rest.model.notification.campaign.NewsletterTemplateDTO.NEWSLETTER}"/>
 
     <fieldset class="form-group">
-        <label for="subject" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.massMailing.MassMailingCommand.subject.label"/>:</label>
+        <label for="subject" class="col-sm-2 col-md-1 control-label"><g:message
+                code="kuorum.web.commands.payment.massMailing.MassMailingCommand.subject.label"/>:</label>
+
         <div class="col-sm-8 col-md-7">
             <formUtil:input
                     command="${command}"

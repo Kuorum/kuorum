@@ -26,7 +26,7 @@ class SurveyQuestionsCommand {
 
     static validateQuestions = { val, obj ->
         String error = null
-        if (obj.sendType != "DRAFT") {
+        if (obj.sendType != CampaignContentCommand.CAMPAIGN_SEND_TYPE_DRAFT) {
             if (val.size() < 1) {
                 error = "minSize.error"
             }
