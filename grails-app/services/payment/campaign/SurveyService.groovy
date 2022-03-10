@@ -302,7 +302,7 @@ class SurveyService extends AbstractCampaignCreatorService<SurveyRSDTO, SurveyRD
                 params,
                 query,
                 null,
-                new TypeReference<BulletinRSDTO>() {}
+                new TypeReference<SurveyRSDTO>() {}
         )
         return response.data
     }
