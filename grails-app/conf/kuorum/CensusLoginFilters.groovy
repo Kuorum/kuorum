@@ -32,6 +32,7 @@ class CensusLoginFilters {
                         if (params[WebConstants.WEB_PARAM_LANG]) {
                             params.put(WebConstants.WEB_PARAM_LANG,params[WebConstants.WEB_PARAM_LANG])
                         }
+                        log.info("Redirecting to census validation")
                         redirect(mapping: 'campaignValidationLinkCheck', params: params)
                         return false;
                     }
