@@ -8693,3 +8693,20 @@ li.survey-question.answered .survey-question-answer .option-extra-content textar
 .displayNone {
     display:none;
 }
+
+
+/* Closed Campaign error view */
+.closedCampaignErrorTitle {
+    font-weight: bolder;
+    color: #E43915;
+}
+
+.campaignClosedErrorbox {
+    border: 4px solid #E43915;
+    padding: 2px;
+    border-radius: 25px;
+}
+
+.campaignClosedImageBox {
+    border-radius: 10px 10px 25px 25px;
+}
