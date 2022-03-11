@@ -4730,25 +4730,67 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 
 #questionsSurveyForm fieldset.question-data {
     background-color: #D0D0D0;
-    padding:20px;
+    padding: 20px;
     margin-left: -10px; /* box-ppal tiene padding (10px)y es para que el sombreado llegue hasta el final */
     margin-right: -10px;
     margin-bottom: 15px;
 
 }
-#questionsSurveyForm fieldset.question-data  > .form-group {
-    margin:0;
-}
-#questionsSurveyForm.sort-questions > .sortable-placeholder {min-height: 3em; background-color: #F0F0F0; padding: 20px 10px; margin-bottom: 20px;}
-#questionsSurveyForm.sort-questions > .sortable-placeholder:before {font-family: "Font Awesome 5 Pro"; content: "\f356"; font-weight: bold; margin-left: 1%; mergin-top:5px;}
-#questionsSurveyForm.sort-questions .quesiton-dynamic-fields > fieldset.question-data{cursor:move;}
-#questionsSurveyForm.sort-questions .quesiton-dynamic-fields > fieldset.question-data:before {content: "\f0c9";font-family: "Font Awesome 5 Pro";position: absolute;    margin-top: 8px;margin-left: -8px;}
-#questionsSurveyForm .quesiton-dynamic-fields > fieldset.question-data .form-group .form-group{margin-bottom:0}
-#questionsSurveyForm .quesiton-dynamic-fields > fieldset.question-data .form-group .form-group +.form-group{margin-top:15px}
-#questionsSurveyForm .quesiton-dynamic-fields > fieldset.question-data .form-group .form-group.question-data-extra{margin-top:10px}
-#questionsSurveyForm .quesiton-dynamic-fields:not(.ONE_OPTION) > fieldset.question-options .question-logic {display:none;}
 
-#questionsSurveyForm .endReorderQuestionsButton {display: none;}
+#questionsSurveyForm fieldset.question-data > .form-group {
+    margin: 0;
+}
+
+#questionsSurveyForm fieldset.question-data > .form-group label {
+    padding: 7px 0 0 0;
+}
+
+#questionsSurveyForm.sort-questions > .sortable-placeholder {
+    min-height: 3em;
+    background-color: #F0F0F0;
+    padding: 20px 10px;
+    margin-bottom: 20px;
+}
+
+#questionsSurveyForm.sort-questions > .sortable-placeholder:before {
+    font-family: "Font Awesome 5 Pro";
+    content: "\f356";
+    font-weight: bold;
+    margin-left: 1%;
+    mergin-top: 5px;
+}
+
+#questionsSurveyForm.sort-questions .quesiton-dynamic-fields > fieldset.question-data {
+    cursor: move;
+}
+
+#questionsSurveyForm.sort-questions .quesiton-dynamic-fields > fieldset.question-data:before {
+    content: "\f0c9";
+    font-family: "Font Awesome 5 Pro";
+    position: absolute;
+    margin-top: 8px;
+    margin-left: -8px;
+}
+
+#questionsSurveyForm .quesiton-dynamic-fields > fieldset.question-data .form-group .form-group {
+    margin-bottom: 0
+}
+
+#questionsSurveyForm .quesiton-dynamic-fields > fieldset.question-data .form-group .form-group + .form-group {
+    margin-top: 15px
+}
+
+#questionsSurveyForm .quesiton-dynamic-fields > fieldset.question-data .form-group .form-group.question-data-extra {
+    margin-top: 10px
+}
+
+#questionsSurveyForm .quesiton-dynamic-fields:not(.ONE_OPTION) > fieldset.question-options .question-logic {
+    display: none;
+}
+
+#questionsSurveyForm .endReorderQuestionsButton {
+    display: none;
+}
 #questionsSurveyForm.sort-questions .endReorderQuestionsButton {display: inline-block;}
 #questionsSurveyForm.sort-questions .reorderQuestionsButton {display: none;}
 

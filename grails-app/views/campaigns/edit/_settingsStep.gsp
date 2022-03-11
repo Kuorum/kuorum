@@ -1,4 +1,4 @@
-<%@ page import="org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO" %>
+<%@ page import="kuorum.web.commands.payment.CampaignContentCommand; org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO" %>
 <r:require modules="datepicker, postForm, debateForm" />
 <g:set var="enabledForAdmins" value="${grails.plugin.springsecurity.SpringSecurityUtils.ifAnyGranted("ROLE_ADMIN")  || grails.plugin.springsecurity.SpringSecurityUtils.ifAnyGranted("ROLE_SUPER_ADMIN")}" />
 <g:set var="campaingIsPublished"
@@ -13,7 +13,8 @@
     <formUtil:validateForm bean="${command}" form="politicianMassMailingForm" dirtyControl="true"/>
     <form action="#" class="form-horizontal campaign-form" id="politicianMassMailingForm" method="POST"
           data-generalErrorMessage="${g.message(code: 'kuorum.web.commands.payment.massMailing.DebateCommand.form.genericError')}">
-        <input type="hidden" name="sendType" value="${CampaignContentCommand.CAMPAIGN_SEND_TYPE_DRAFT}"
+        <input type="hidden" name="sendType"
+               value="${kuorum.web.commands.payment.CampaignContentCommand.CAMPAIGN_SEND_TYPE_DRAFT}"
                id="sendMassMailingType"/>
         <input type="hidden" name="redirectLink" id="redirectLink"/>
 
