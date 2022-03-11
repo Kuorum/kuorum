@@ -43,6 +43,7 @@
 
     <div class="col-md-8">
         <div class="box-ppal campaign-new">
+            <h1><g:message code="domain.config.starting.steps.step3.title"/></h1>
             <formUtil:validateForm bean="${command}" form="surveyInitAddContactsForm" dirtyControl="true"/>
             <form action="#"
                   class="campaign-form ${status == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT || status == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.PAUSE ? 'campaign-published' : ''}"

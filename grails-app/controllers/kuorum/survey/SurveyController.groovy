@@ -220,8 +220,10 @@ class SurveyController extends CampaignController {
         Long campaignId = Long.parseLong(params.campaignId)
         KuorumUserSession surveyUser = springSecurityService.principal
         SurveyRSDTO survey = setCampaignAsDraft(campaignId, surveyService)
+        NewContactsCommand command = new NewContactsCommand()
+        command.newContactCommands.add(new NewContactCommand(name: surveyUser.name, email: surveyUser.email, conditions: true))
         return [
-                command: new NewContactsCommand(),
+                command: command,
                 survey : survey
         ]
     }

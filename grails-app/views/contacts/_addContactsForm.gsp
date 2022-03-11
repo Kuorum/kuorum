@@ -5,6 +5,7 @@
         listClassName="kuorum.web.commands.payment.contact.NewContactCommand"
         cssParentContainer="profile-dynamic-fields"
         customRemoveButton="true"
+        appendLast="true"
         formId="surveyInitAddContactsForm">
     <fieldset class="row">
         <input type="hidden" name="${prefixField}.conditions" value="true"/>
