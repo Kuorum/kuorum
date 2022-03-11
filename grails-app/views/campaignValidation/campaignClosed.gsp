@@ -11,9 +11,10 @@
 </head>
 
 <content tag="mainContent">
+    <div class="campaignClosedErrorbox">
     <div class="container-fluid politician-messages box-ppal">
         <div class="form-group col-xs-12 center">
-            <h1><g:message code="campaign.closed.token.error.title"/></h1>
+            <h1 ><span class="closedCampaignErrorTitle"><g:message code="campaign.closed.token.error.title"/></span></h1>
         </div>
 
         <div class="form-group col-xs-12 center">
@@ -23,21 +24,22 @@
 
     <div class="link-wrapper" id="campaign-${campaign.id}" data-datepublished="${campaign.datePublished.time}">
         <g:link mapping="surveyShow" params="${campaign.encodeAsLinkProperties()}" class="hidden"></g:link>
-        <div class="card-header-photo">
+        <div>
             ${campaign.title}
             <g:if test="${campaign.photoUrl}">
-                <img src="${campaign.photoUrl}" alt="${campaign.title}">
+                <img class="campaignClosedImageBox" src="${campaign.photoUrl}" alt="${campaign.title}">
             </g:if>
             <g:elseif test="${campaign.videoUrl}">
-                <image:showYoutube youtube="${campaign.videoUrl}" campaign="${campaign}"/>
+                <image:showYoutube class="campaignClosedImageBox" youtube="${campaign.videoUrl}" campaign="${campaign}"/>
             </g:elseif>
             <g:else>
                 <div class="imagen-shadowed-main-color-domain">
-                    <img class="empty" src="${g.resource(dir: "images", file: "emptyCampaign.png")}"
+                    <img class="campaignClosedImageBox" class="empty" src="${g.resource(dir: "images", file: "emptyCampaign.png")}"
                          alt="${campaign.title}"/>
                 </div>
             </g:else>
         </div>
+    </div>
     </div>
 </content>
 
