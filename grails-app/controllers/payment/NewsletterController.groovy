@@ -7,6 +7,7 @@ import kuorum.dashboard.DashboardService
 import kuorum.politician.CampaignController
 import kuorum.register.KuorumUserSession
 import kuorum.users.KuorumUser
+import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.commands.payment.CampaignSettingsCommand
 import kuorum.web.commands.payment.contact.ContactFilterCommand
 import kuorum.web.commands.payment.massMailing.MassMailingCommand
