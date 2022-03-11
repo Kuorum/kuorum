@@ -2,7 +2,8 @@
 <form action="${g.createLink(mapping: 'politicianMassMailingContent', params: [campaignId: campaign.id])}"
       class="form-horizontal campaign-form" id="politicianMassMailingForm" method="POST"
       data-generalErrorMessage="${g.message(code: 'kuorum.web.commands.payment.massMailing.MassMailingCommand.form.genericError')}">
-    <input type="hidden" name="sendType" value="${CampaignContentCommand.CAMPAIGN_SEND_TYPE_DRAFT}"
+    <input type="hidden" name="sendType"
+           value="${kuorum.web.commands.payment.CampaignContentCommand.CAMPAIGN_SEND_TYPE_DRAFT}"
            id="sendMassMailingType"/>
     <input type="hidden" name="redirectLink" id="redirectLink"/>
     <input type="hidden" name="contentType"
