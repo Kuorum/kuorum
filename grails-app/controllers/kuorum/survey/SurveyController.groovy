@@ -238,20 +238,19 @@ class SurveyController extends CampaignController {
                     command: command]
             return
         }
-        String voterTag = "voter"
-        String filterName = "voters"
+        ExtendedFilterRSDTO votersFilter = survey.anonymousFilter
+        String voterTag = votersFilter.filterConditions.get(0).value;
+        // The example survey has a filter which filters by tag
         updateContacts(surveyUser, command, voterTag);
-        ExtendedFilterRSDTO votersFilter = createInitialSurveyFilter(surveyUser, filterName, voterTag)
 
-        // Start survey with filter
-        SurveyRDTO surveyRDTO = surveyService.map(survey);
-        surveyRDTO.setFilterId(votersFilter.id);
-        saveAndSendCampaign(surveyUser, surveyRDTO, survey.id, new Date(), CampaignContentCommand.CAMPAIGN_SEND_TYPE_SEND, surveyService);
+//        // Start survey with filter
+//        SurveyRDTO surveyRDTO = surveyService.map(survey);
+//        surveyRDTO.setFilterId(votersFilter.id);
+//        saveAndSendCampaign(surveyUser, surveyRDTO, survey.id, new Date(), CampaignContentCommand.CAMPAIGN_SEND_TYPE_SEND, surveyService);
 
-        // Create and send summoning with filter
+        // Create and send summoning
         BulletinRSDTO summoning = surveyService.createSummoning(surveyUser, survey.id)
         BulletinRDTO summoningRDTO = bulletinService.map(summoning);
-//        summoningRDTO.setFilterId(votersFilter.id);
         saveAndSendCampaign(surveyUser, summoningRDTO, summoning.id, new Date(), CampaignContentCommand.CAMPAIGN_SEND_TYPE_SEND, bulletinService)
 
         redirect mapping: 'surveyShow', params: survey.encodeAsLinkProperties()

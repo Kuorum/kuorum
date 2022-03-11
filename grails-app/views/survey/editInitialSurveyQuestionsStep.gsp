@@ -58,6 +58,11 @@
                     <div class="text-right">
                         <ul class="form-final-options">
                             <li>
+                                <g:link mapping="politicianCampaigns" class="btn btn-grey-light">
+                                    <g:message code="default.paginate.skip"/>
+                                </g:link>
+                            </li>
+                            <li>
                                 <a href="#" class="btn btn-blue inverted" id="next"
                                    data-redirectLink="${mappings.next}">
                                     <g:message code="tools.massMailing.next"/>
