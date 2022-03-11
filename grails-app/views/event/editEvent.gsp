@@ -44,7 +44,8 @@
         <formUtil:validateForm bean="${command}" form="politicianMassMailingForm" dirtyControl="true"/>
         <form action="#" class="campaign-form form-horizontal" id="politicianMassMailingForm" method="POST"
               data-generalErrorMessage="${g.message(code: 'kuorum.web.commands.payment.massMailing.DebateCommand.form.genericError')}">
-            <input type="hidden" name="sendType" value="${CampaignContentCommand.CAMPAIGN_SEND_TYPE_DRAFT}"
+            <input type="hidden" name="sendType"
+                   value="${kuorum.web.commands.payment.CampaignContentCommand.CAMPAIGN_SEND_TYPE_DRAFT}"
                    id="sendMassMailingType"/>
             <input type="hidden" name="redirectLink" id="redirectLink"/>
             %{--<input type="hidden" name="latitude" id="latitude" value="${g.formatNumber(number:command.latitude, type:'number', format:'$##.##########')}"/>--}%
