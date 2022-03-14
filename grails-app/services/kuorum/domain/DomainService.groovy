@@ -233,14 +233,18 @@ class DomainService {
                 // lessCompilerService.compileCssForDomain(it)
             }
         }
-        if (waitUntilFinish){
+        if (waitUntilFinish) {
             grails.async.Promises.waitAll(asyncUpdateConfig)
         }
         CustomDomainResolver.clear()
     }
 
 
-    Boolean showPrivateContent(Boolean checkLogged = true){
+    Boolean showPrivateContent(Boolean checkLogged = true) {
         CustomDomainResolver.domainRSDTO.domainPrivacy == DomainPrivacyRDTO.PUBLIC || (checkLogged && springSecurityService.isLoggedIn())
+    }
+
+    Boolean isSurveyPlatform() {
+        return CustomDomainResolver.domainRSDTO.getDomainTypeRSDTO() == DomainTypeRSDTO.SURVEY
     }
 }

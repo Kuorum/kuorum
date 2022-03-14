@@ -1,6 +1,7 @@
 package kuorum.web.commands.payment.massMailing
 
 import grails.validation.Validateable
+import kuorum.web.commands.payment.CampaignContentCommand
 import org.grails.databinding.BindUsing
 import org.grails.databinding.BindingFormat
 import org.grails.databinding.DataBindingSource
@@ -42,23 +43,27 @@ class MassMailingCommand {
     static constraints = {
         subject nullable: false, maxSize: 100
         text nullable: true, validator: { val, obj ->
-            if (obj.sendType!= "DRAFT" && !val){
+            if (obj.sendType != CampaignContentCommand.CAMPAIGN_SEND_TYPE_DRAFT && !val) {
                 return "kuorum.web.commands.payment.massMailing.MassMailingCommand.text.nullable"
             }
         }
         filterId nullable: false
         filterEdited nullable: true
-        headerPictureId nullable: true, validator: {val, obj ->
-            if (obj.sendType!= "DRAFT" && !val){
+        headerPictureId nullable: true, validator: { val, obj ->
+            if (obj.sendType != CampaignContentCommand.CAMPAIGN_SEND_TYPE_DRAFT && !val) {
                 return "kuorum.web.commands.payment.massMailing.MassMailingCommand.headerPictureId.nullable"
             }
         }
         scheduled nullable: true, validator: { val, obj ->
-            if (val && obj.sendType== "SCHEDULED" && val < new Date()){
+            if (val && obj.sendType == CampaignContentCommand.CAMPAIGN_SEND_TYPE_SCHEDULED && val < new Date()) {
                 return "kuorum.web.commands.payment.massMailing.MassMailingCommand.scheduled.min.error"
             }
         }
-        sendType nullable: false, inList:["DRAFT", "SCHEDULED", "SEND", "SEND_TEST"]
+        sendType nullable: false, inList: [
+                CampaignContentCommand.CAMPAIGN_SEND_TYPE_DRAFT,
+                CampaignContentCommand.CAMPAIGN_SEND_TYPE_SCHEDULED,
+                CampaignContentCommand.CAMPAIGN_SEND_TYPE_SEND,
+                "SEND_TEST"]
         tags nullable: true
 
         campaignName nullable: false

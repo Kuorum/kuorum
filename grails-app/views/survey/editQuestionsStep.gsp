@@ -21,21 +21,34 @@
     <div class="box-steps container-fluid campaign-steps">
         <g:set var="mappings" value="${
             [step:'questions',
-             saveAndSentButtons:true,
-             next:'surveyEditContent',
-             settings:'surveyEditSettings',
-             questions:'surveyEditQuestions',
-             content:'surveyEditContent',
-             showResult: 'surveyShow']}"/>
+            saveAndSentButtons: true,
+            next: 'surveyEditContent',
+            settings: 'surveyEditSettings',
+            questions: 'surveyEditQuestions',
+            content: 'surveyEditContent',
+            showResult: 'surveyShow' ]}"/>
         <g:render template="/campaigns/steps/campaignSteps" model="[mappings: mappings]"/>
     </div>
 
     <div class="box-ppal campaign-new">
-        <g:render template="/survey/questions/questionForm" model="[
-                command:command,
-                satus:survey.campaignStatusRSDTO,
-                survey:survey,
-                mappings:mappings,
-                numberRecipients:numberRecipients]"/>
+        <formUtil:validateForm bean="${command}" form="questionsSurveyForm" dirtyControl="true"/>
+        <form action="#"
+              class="form-horizontal campaign-form ${status == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT || status == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.PAUSE ? 'campaign-published' : ''}"
+              id="questionsSurveyForm"
+              method="POST"
+              data-generalErrorMessage="${g.message(code: 'kuorum.web.commands.payment.massMailing.DebateCommand.form.genericError')}">
+
+            <g:render template="/survey/questions/questionForm" model="[
+                    command: command,
+                    status : survey.campaignStatusRSDTO,
+                    survey : survey]"/>
+            <g:render template="/campaigns/edit/stepButtons" model="[
+                    saveAndSentButtons: true,
+                    campaign          : survey,
+                    mappings          : mappings,
+                    status            : status,
+                    command           : command,
+                    numberRecipients  : numberRecipients]"/>
+        </form>
     </div>
 </content>

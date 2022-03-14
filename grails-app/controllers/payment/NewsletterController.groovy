@@ -7,6 +7,7 @@ import kuorum.dashboard.DashboardService
 import kuorum.politician.CampaignController
 import kuorum.register.KuorumUserSession
 import kuorum.users.KuorumUser
+import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.commands.payment.CampaignSettingsCommand
 import kuorum.web.commands.payment.contact.ContactFilterCommand
 import kuorum.web.commands.payment.massMailing.MassMailingCommand
@@ -16,7 +17,6 @@ import kuorum.web.commands.payment.massMailing.MassMailingTemplateCommand
 import kuorum.web.commands.profile.TimeZoneCommand
 import org.kuorum.rest.model.communication.CampaignLightPageRSDTO
 import org.kuorum.rest.model.communication.CampaignRSDTO
-import org.kuorum.rest.model.communication.bulletin.BulletinRDTO
 import org.kuorum.rest.model.communication.bulletin.BulletinRSDTO
 import org.kuorum.rest.model.communication.search.SearchCampaignRDTO
 import org.kuorum.rest.model.contact.ContactPageRSDTO
@@ -233,10 +233,10 @@ class NewsletterController extends CampaignController{
         NewsletterRQDTO newsletterRQDTO = mapContentCampaign(command, user, campaignId)
         String msg = ""
         BulletinRSDTO savedBulletin = null
-        if (command.getSendType() == "SEND") {
+        if (command.getSendType() == CampaignContentCommand.CAMPAIGN_SEND_TYPE_SEND) {
             savedBulletin = newsletterService.campaignSend(user, newsletterRQDTO, campaignId)
             msg = g.message(code: 'tools.massMailing.send.advise', args: [savedBulletin.name])
-        } else if (command.sendType == "SCHEDULED") {
+        } else if (command.sendType == CampaignContentCommand.CAMPAIGN_SEND_TYPE_SCHEDULED) {
             savedBulletin = newsletterService.campaignSchedule(user, newsletterRQDTO, command.getPublishOn(), campaignId)
             msg = g.message(code: 'tools.massMailing.schedule.advise', args: [savedBulletin.name, g.formatDate(date: savedBulletin.newsletter.sentOn, type: "datetime", style: "SHORT")])
         } else {
@@ -246,7 +246,7 @@ class NewsletterController extends CampaignController{
             msg = g.message(code: 'tools.massMailing.saveDraft.advise', args: [savedBulletin.name])
         }
 
-        if (command.sendType == "SEND_TEST") {
+        if (command.sendType == CampaignContentCommand.CAMPAIGN_SEND_TYPE_SEND_TEST) {
             msg = g.message(code: 'tools.massMailing.saveDraft.adviseTest', args: [savedBulletin.name])
             newsletterService.campaignTest(user, savedBulletin.newsletter.getId())
         }
@@ -449,7 +449,7 @@ class NewsletterController extends CampaignController{
             ([msg: msg] as JSON)
             return
         }
-        command.sendType = "SEND_TEST"
+        command.sendType = CampaignContentCommand.CAMPAIGN_SEND_TYPE_SEND_TEST
 
         Long campaignId = params.campaignId ? Long.parseLong(params.campaignId) : null
         def dataSend = saveAndSendContent(loggedUser, command, campaignId)
@@ -461,10 +461,10 @@ class NewsletterController extends CampaignController{
         NewsletterRQDTO newsletterRQDTO = convertCommandToCampaign(command, user, anonymousFilter)
         String msg = ""
         BulletinRSDTO savedCampaign = null
-        if (command.getSendType() == "SEND") {
+        if (command.getSendType() == CampaignContentCommand.CAMPAIGN_SEND_TYPE_SEND) {
             savedCampaign = newsletterService.campaignSend(user, newsletterRQDTO, campaignId)
             msg = g.message(code: 'tools.massMailing.send.advise', args: [savedCampaign.name])
-        } else if (command.sendType == "SCHEDULED") {
+        } else if (command.sendType == CampaignContentCommand.CAMPAIGN_SEND_TYPE_SCHEDULED) {
             savedCampaign = newsletterService.campaignSchedule(user, newsletterRQDTO, command.getScheduled(), campaignId)
             msg = g.message(code: 'tools.massMailing.schedule.advise', args: [savedCampaign.title, g.formatDate(date: savedCampaign.newsletter.sentOn, type: "datetime", style: "SHORT")])
         } else {
@@ -474,7 +474,7 @@ class NewsletterController extends CampaignController{
             msg = g.message(code: 'tools.massMailing.saveDraft.advise', args: [savedCampaign.title])
         }
 
-        if (command.sendType == "SEND_TEST") {
+        if (command.sendType == CampaignContentCommand.CAMPAIGN_SEND_TYPE_SEND_TEST) {
             msg = g.message(code: 'tools.massMailing.saveDraft.adviseTest', args: [savedCampaign.title])
             newsletterService.campaignTest(user, savedCampaign.getNewsletter().getId())
         }
