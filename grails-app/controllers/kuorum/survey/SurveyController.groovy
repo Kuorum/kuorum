@@ -255,7 +255,14 @@ class SurveyController extends CampaignController {
         BulletinRDTO summoningRDTO = bulletinService.map(summoning);
         saveAndSendCampaign(surveyUser, summoningRDTO, summoning.id, new Date(), CampaignContentCommand.CAMPAIGN_SEND_TYPE_SEND, bulletinService)
 
-        redirect mapping: 'surveyShow', params: survey.encodeAsLinkProperties()
+        redirect mapping: 'surveyInitDomainSuccess', params: [campaignId: survey.id]
+    }
+
+    @Secured(['ROLE_CAMPAIGN_SURVEY'])
+    def editInitialSurveyFinish() {
+        KuorumUserSession surveyUser = springSecurityService.principal
+        SurveyRSDTO survey = surveyService.find(surveyUser, Long.parseLong(params.campaignId))
+        [survey: survey]
     }
 
     private ExtendedFilterRSDTO createInitialSurveyFilter(KuorumUserSession user, String filterName, String voterTag) {
@@ -287,6 +294,7 @@ class SurveyController extends CampaignController {
         ContactRDTO contactRDTO = new ContactRDTO()
         contactRDTO.name = contactCommand.name
         contactRDTO.surname = contactCommand.surname
+        contactRDTO.phone = contactCommand.phone ? contactCommand.phone.toString() : ""
         contactRDTO.email = contactCommand.email
         return contactRDTO;
     }

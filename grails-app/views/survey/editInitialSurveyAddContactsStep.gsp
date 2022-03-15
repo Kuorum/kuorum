@@ -7,18 +7,14 @@
 
     <title>${breadCrumbName}</title>
     <meta name="layout" content="basicPlainLayout">
+    <parameter name="showHeadSearch" value="false"/>
+    <parameter name="showNavBar" value="false"/>
+    <parameter name="disableLogoLink" value="true"/>
     <!-- Schema.org markup for Google+ -->
     <r:require modules="datepicker, surveyForms"/>
 </head>
 
 <content tag="mainContent">
-    <ol class="breadcrumb">
-        <li><g:link mapping="politicianCampaigns"><g:message
-                code="head.logged.account.tools.massMailing"/></g:link></li>
-        <li><g:link mapping="politicianCampaignsNew"><g:message code="tools.campaign.new.title"/></g:link></li>
-        <li class="active">${breadCrumbName}</li>
-    </ol>
-
     <div class="box-steps container-fluid campaign-steps">
         <g:set var="mappings" value="${
             [ step: 'questions',
@@ -58,6 +54,12 @@
                             <li>
                                 <g:link mapping="politicianCampaigns" class="btn btn-grey-light">
                                     <g:message code="default.paginate.skip"/>
+                                </g:link>
+                            </li>
+                            <li>
+                                <g:link mapping="surveyInitDomainEditQuestions" params="[campaignId: survey.id]"
+                                        class="btn btn-grey inverted">
+                                    <g:message code="default.paginate.back"/>
                                 </g:link>
                             </li>
                             <li>
