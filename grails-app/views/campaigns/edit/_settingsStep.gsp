@@ -1,10 +1,14 @@
 <%@ page import="kuorum.web.commands.payment.CampaignContentCommand; org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO" %>
-<r:require modules="datepicker, postForm, debateForm" />
-<g:set var="enabledForAdmins" value="${grails.plugin.springsecurity.SpringSecurityUtils.ifAnyGranted("ROLE_ADMIN")  || grails.plugin.springsecurity.SpringSecurityUtils.ifAnyGranted("ROLE_SUPER_ADMIN")}" />
-<g:set var="campaingIsPublished"
-       value="${campaign != null && (campaign.published || campaign.campaignStatusRSDTO.PAUSE)}"/>
+<r:require modules="datepicker, postForm, debateForm"/>
+<g:set var="enabledForAdmins"
+       value="${grails.plugin.springsecurity.SpringSecurityUtils.ifAnyGranted("ROLE_ADMIN") || grails.plugin.springsecurity.SpringSecurityUtils.ifAnyGranted("ROLE_SUPER_ADMIN")}"/>
+<g:set var="campaignBlockVisibilityEdition"
+       value="${campaign != null && (campaign.published || campaign.campaignStatusRSDTO == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.PAUSE)}"/>
 
 <div class="box-steps container-fluid campaign-steps">
+    EnableForAdmins - >${enabledForAdmins}
+    <br/>
+    campaignBlockVisibilityEdition -> ${campaignBlockVisibilityEdition}
     <g:render template="/campaigns/steps/campaignSteps" model="[mappings: mappings, attachEvent: attachEvent]"/>
 </div>
 
@@ -84,8 +88,10 @@
                         <g:message code="kuorum.web.commands.payment.CampaignSettingsCommand.campaignVisibility.label.left"/>:
                     </label>
                     <div class="col-sm-4 col-md-4">
-                        <g:if test="${campaingIsPublished}">
-                            <formUtil:selectEnum command="${command}" field="campaignVisibility" disabled="${!grails.plugin.springsecurity.SpringSecurityUtils.ifAnyGranted("ROLE_SUPER_ADMIN")}" showLabel="false"/>
+                        <g:if test="${campaignBlockVisibilityEdition}">
+                            <formUtil:selectEnum command="${command}" field="campaignVisibility"
+                                                 disabled="${!grails.plugin.springsecurity.SpringSecurityUtils.ifAnyGranted("ROLE_SUPER_ADMIN")}"
+                                                 showLabel="false"/>
                         </g:if>
                         <g:else>
                             <formUtil:selectEnum command="${command}" field="campaignVisibility" disabled="${!enabledForAdmins}" showLabel="false"/>
