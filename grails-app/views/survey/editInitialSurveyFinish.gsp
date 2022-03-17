@@ -17,7 +17,7 @@
                 code="domain.config.starting.steps.step4.text.2"/></h3>
         <fieldset class="row">
             <div class="form-group">
-                <g:link class="btn btn-lg" mapping="politicianCampaigns">
+                <g:link class="btn btn-lg" mapping="politicianCampaigns" params="[tour: true]">
                     <g:message code="domain.config.starting.steps.step4.button"/>
                 </g:link>
             </div>

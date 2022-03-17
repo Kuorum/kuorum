@@ -1406,9 +1406,25 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 #saveFilterAsPopUp input {margin-bottom: 10px;}
 #sendLater {/*margin-left: 10px;*/ margin-bottom: 0; min-width: 85px;}
 
-.form-final-options {margin-top:15px;}
-.form-final-options > li {list-style: none; display: inline-block; margin-right: 10px; position: relative;}
-.form-final-options > li:last-child {margin-right: 0;}
+.form-final-options {
+    margin-top: 15px;
+    padding: 0
+}
+
+.form-final-options > li {
+    list-style: none;
+    display: inline-block;
+    margin-right: 10px;
+    position: relative;
+}
+
+.form-final-options > li.left {
+    float: left;
+}
+
+.form-final-options > li:last-child {
+    margin-right: 0;
+}
 .form-final-options #selectDate, #saveFilterAsPopUp {display: none; background-color: #f9f9f9; position: absolute; width: 260px; top: 48px; right: -80px;border: 1px solid #dddddd; padding: 15px;z-index:1;}
 #saveFilterAsPopUp {right: -30px;}
 .form-final-options #selectDate.on, #saveFilterAsPopUp.on {display: block;}
@@ -4111,7 +4127,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {border-radiu
 
 /*** commment-box ***/
 .comment-box {
-    padding: 25px 20px 10px 20px;
+    padding: 25px 25px;
     background-color: #FFF;
     border: 1px solid #F0F0F0;
 }
@@ -4703,8 +4719,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     white-space: nowrap;
 }
 
-#questionsSurveyForm > fieldset:nth-of-type(2){margin-bottom: 4em;}
-
 #questionsSurveyForm .row {margin:0;}
 #questionsSurveyForm .row .question-text-container {padding-right:30px;}
 
@@ -5004,13 +5018,18 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     #listCampaigns > div.box-ppal{box-shadow: 0 0 2px rgba(200,200,200,0.6); padding:22px 22px 0;}
     #searchContacts > div.box-ppal{box-shadow: 0 0 2px rgba(200,200,200,0.6);}
     #main > div.box-ppal.campaign-stats {box-shadow: 0 0 2px rgba(200,200,200,0.6);}
-    #main > div.box-ppal.campaign-new {box-shadow: 0 0 2px rgba(200,200,200,0.6);padding: 22px 15px;}
 
     /* box-ppal tiene padding /(15 px desktop)y es para que el sombreado llegue hasta el final */
     #questionsSurveyForm fieldset.question-data {margin-left: -15px; margin-right: -15px;}
 
-    .box-ppal.campaign-new{box-shadow: 0 0 2px rgba(200,200,200,0.6);}
-    .box-ppal.campaign-stats{box-shadow: 0 0 2px rgba(200,200,200,0.6);}
+    .box-ppal.campaign-new {
+        box-shadow: 0 0 2px rgba(200, 200, 200, 0.6);
+        padding: 22px 15px;
+    }
+
+    .box-ppal.campaign-stats {
+        box-shadow: 0 0 2px rgba(200, 200, 200, 0.6);
+    }
     #searchContacts > div#listContacts > div.box-ppal.list-contacts {padding: 22px 22px 0;}
 
     /* DASHBOARD */
