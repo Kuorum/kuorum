@@ -6,6 +6,9 @@
        value="${campaign != null && (campaign.published || campaign.campaignStatusRSDTO == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.PAUSE)}"/>
 
 <div class="box-steps container-fluid campaign-steps">
+    EnableForAdmins - >${enabledForAdmins}
+    <br/>
+    campaignBlockVisibilityEdition -> ${campaignBlockVisibilityEdition}
     <g:render template="/campaigns/steps/campaignSteps" model="[mappings: mappings, attachEvent: attachEvent]"/>
 </div>
 
