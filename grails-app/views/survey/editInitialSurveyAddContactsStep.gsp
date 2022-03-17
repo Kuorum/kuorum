@@ -56,7 +56,7 @@
                                     <g:message code="default.paginate.skip"/>
                                 </g:link>
                             </li>
-                            <li>
+                            <li class="left">
                                 <g:link mapping="surveyInitDomainEditQuestions" params="[campaignId: survey.id]"
                                         class="btn btn-grey inverted">
                                     <g:message code="default.paginate.back"/>
@@ -79,14 +79,12 @@
         <div class="comment-box call-to-action inverted">
             <div class="comment-header">
                 <span class="call-title">
-                    <g:message code="domain.config.starting.survey.question.explanation.title"/>
+                    <g:message code="domain.config.starting.steps.step3.explanation.title"/>
                 </span>
             </div>
 
             <div class="comment-body">
-                <g:message code="domain.config.starting.survey.question.explanation.text.1"/>
-                <br/><br/>
-                <g:message code="domain.config.starting.survey.question.explanation.text.2"/>
+                <g:message code="domain.config.starting.steps.step3.explanation.text1"/>
             </div>
         </div>
     </div>

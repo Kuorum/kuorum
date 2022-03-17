@@ -200,7 +200,7 @@ class SurveyController extends CampaignController {
         }
         SurveyRDTO rdto = surveyService.map(survey)
         rdto.questions = command.questions?.findAll { it && it.text }.collect { mapQuestion(it) } ?: []
-        def result = saveAndSendCampaign(surveyUser, rdto, survey.getId(), command.publishOn, command.sendType, surveyService)
+        def result = saveAndSendCampaign(surveyUser, rdto, survey.getId(), command.publishOn, CampaignContentCommand.CAMPAIGN_SEND_TYPE_SEND, surveyService)
         redirect mapping: 'surveyInitDomainEditSumonContacts', params: [campaignId: survey.getId()]
 
     }
