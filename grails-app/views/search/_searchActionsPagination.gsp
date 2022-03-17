@@ -9,8 +9,8 @@
     </div>
     <div class="pag-list-search col-md-6">
         <nav:contactPagination
-                link="${g.createLink(mapping:"searcherSearch", params:[word:searchParams.word, type:searchParams.solrType, searchType:searchParams.searchType, regionCode:params.regionCode], absolute:true)}"
-                currentPage="${Math.floor(searchParams.offset/searchParams.max)}"
+                link="${g.createLink(mapping: "searcherSearch", params: [word: searchParams.word, solrType: searchParams.solrType, searchType: searchParams.searchType, regionCode: params.regionCode], absolute: true)}"
+                currentPage="${Math.floor(searchParams.offset / searchParams.max)}"
                 sizePage="${searchParams.max}"
                 ulClasss="paginationTop"
                 total="${docs.total}"/>
