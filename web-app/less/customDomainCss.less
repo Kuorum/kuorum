@@ -58,7 +58,14 @@ body.landing > div > div {@title();}
 
 .box-ppal span.animated-info-icon {color: @mainColor;}
 .box-ppal span.animated-info-icon + .tooltip.bottom .tooltip-inner {background-color: @mainColor;@title();;}
-.box-ppal span.animated-info-icon + .tooltip.bottom .tooltip-arrow {border-bottom-color: @mainColor;}
+.box-ppal span.animated-info-icon + .tooltip.bottom .tooltip-arrow {
+    border-bottom-color: @mainColor;
+}
+
+.box-ppal.box-error .box-ppal-title,
+.box-ppal.box-error .box-ppal-title h3 {
+    color: @mainColor;
+}
 
 .actionIcons li > a {color: @mainColor; border-color: @mainColor;}
 

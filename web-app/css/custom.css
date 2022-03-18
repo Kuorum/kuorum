@@ -1177,9 +1177,24 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 }
 
 
+.box-ppal.box-error {
+}
+
+.box-ppal.box-error .box-ppal-title,
+.box-ppal.box-error .box-ppal-title h3 {
+    color: #ec931f;
+    font-size: 3.6rem;
+}
+
+.box-ppal.box-error .box-ppal-section {
+    font-size: 1.5em;
+}
+
 
 /* TAGS INPUT PLUGIN (08/2016) */
-#mySingleField {height: 35px;}
+#mySingleField {
+    height: 35px;
+}
 
 /*
  * bootstrap-tagsinput v0.8.0
@@ -8711,21 +8726,4 @@ li.survey-question.answered .survey-question-answer .option-extra-content textar
 
 .displayNone {
     display:none;
-}
-
-
-/* Closed Campaign error view */
-.closedCampaignErrorTitle {
-    font-weight: bolder;
-    color: #E43915;
-}
-
-.campaignClosedErrorbox {
-    border: 4px solid #E43915;
-    padding: 2px;
-    border-radius: 25px;
-}
-
-.campaignClosedImageBox {
-    border-radius: 10px 10px 25px 25px;
 }
