@@ -19,7 +19,7 @@
 
         <div class="box-ppal-section">
             <g:message code="campaign.closed.token.error.message"
-                       args="[contact.name, campaign.endDate, campagin.title]"/>
+                       args="[contact.name, campaign.endDate, campaign.title]"/>
         </div>
     </div>
 </content>
