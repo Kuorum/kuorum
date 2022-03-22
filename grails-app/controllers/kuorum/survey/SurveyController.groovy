@@ -9,14 +9,27 @@ import kuorum.security.evidences.Evidences
 import kuorum.security.evidences.HttpRequestRecoverEvidences
 import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.commands.payment.CampaignSettingsCommand
+import kuorum.web.commands.payment.contact.NewContactCommand
+import kuorum.web.commands.payment.contact.NewContactsCommand
 import kuorum.web.commands.payment.survey.*
 import kuorum.web.constants.WebConstants
 import org.apache.commons.lang.StringUtils
+import org.kuorum.rest.model.communication.bulletin.BulletinRDTO
 import org.kuorum.rest.model.communication.bulletin.BulletinRSDTO
 import org.kuorum.rest.model.communication.survey.*
 import org.kuorum.rest.model.communication.survey.answer.*
+import org.kuorum.rest.model.contact.ContactRDTO
+import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
+import org.kuorum.rest.model.contact.filter.FilterRDTO
+import org.kuorum.rest.model.contact.filter.OperatorTypeRDTO
+import org.kuorum.rest.model.contact.filter.condition.ConditionFieldTypeRDTO
+import org.kuorum.rest.model.contact.filter.condition.ConditionTextRDTO
+import org.kuorum.rest.model.contact.filter.condition.TextConditionOperatorTypeRDTO
+import payment.campaign.BulletinService
 
 class SurveyController extends CampaignController {
+
+    BulletinService bulletinService;
 
     private List<QuestionTypeRSDTO> questionTypesWithPredefinedAnswers = [
             QuestionTypeRSDTO.CONTACT_BIRTHDATE,
@@ -151,6 +164,149 @@ class SurveyController extends CampaignController {
 
     }
 
+    // TODO: xxxInitialSurveyXxxxStep should be in other controller?
+    @Secured(['ROLE_CAMPAIGN_SURVEY'])
+    def editInitialSurveyQuestionsStep() {
+        Long campaignId = Long.parseLong(params.campaignId)
+        KuorumUserSession surveyUser = springSecurityService.principal
+        SurveyRSDTO survey = setCampaignAsDraft(campaignId, surveyService)
+        if (!survey.body || !survey.title) {
+            flash.error = g.message(code: 'survey.form.nobody.redirect')
+            redirect mapping: 'surveyEditContent', params: survey.encodeAsLinkProperties()
+        } else {
+            Long numberRecipients = getCampaignNumberRecipients(surveyUser, survey)
+            SurveyQuestionsCommand command = modelQuestionStep(survey);
+            // After save, the camaping will be published
+            command.sendType = CampaignContentCommand.CAMPAIGN_SEND_TYPE_SEND
+            return [
+                    survey          : survey,
+                    command         : modelQuestionStep(survey),
+                    status          : survey.campaignStatusRSDTO,
+                    numberRecipients: numberRecipients]
+        }
+    }
+
+    @Secured(['ROLE_CAMPAIGN_SURVEY'])
+    def saveInitialSurveyQuestionsStep(SurveyQuestionsCommand command) {
+        KuorumUserSession surveyUser = springSecurityService.principal
+        SurveyRSDTO survey = surveyService.find(surveyUser, Long.parseLong(params.campaignId))
+        cleanQuestionDeleted(command);
+        command.sendType = CampaignContentCommand.CAMPAIGN_SEND_TYPE_SEND
+        command.validate()
+        if (command.hasErrors()) {
+            flash.error = message(error: command.errors.getFieldError())
+            render view: 'editInitialSurveyQuestionsStep', model: [
+                    survey          : survey,
+                    command         : command,
+                    status          : survey.campaignStatusRSDTO,
+                    numberRecipients: getCampaignNumberRecipients(surveyUser, survey)]
+            return
+        }
+        SurveyRDTO rdto = surveyService.map(survey)
+        rdto.questions = command.questions?.findAll { it && it.text }.collect { mapQuestion(it) } ?: []
+        def result = saveAndSendCampaign(surveyUser, rdto, survey.getId(), null, CampaignContentCommand.CAMPAIGN_SEND_TYPE_DRAFT, surveyService)
+        redirect mapping: 'surveyInitDomainEditSumonContacts', params: [campaignId: survey.getId()]
+
+    }
+
+    private void cleanQuestionDeleted(SurveyQuestionsCommand command) {
+        command.questions = command.questions.findAll { it }
+        for (QuestionCommand questionCommand : command.questions) {
+            if (!questionTypesWithPredefinedAnswers.contains(questionCommand.questionType)) {
+                // Clean all removed empty options (Questions with predefined answers has no answers)
+                questionCommand.options = questionCommand.options.findAll { it && it.text != null }
+            }
+        }
+    }
+
+    @Secured(['ROLE_CAMPAIGN_SURVEY'])
+    def editInitialSurveyAddContactsStep() {
+        Long campaignId = Long.parseLong(params.campaignId)
+        KuorumUserSession surveyUser = springSecurityService.principal
+        SurveyRSDTO survey = setCampaignAsDraft(campaignId, surveyService)
+        NewContactsCommand command = new NewContactsCommand()
+        command.newContactCommands.add(new NewContactCommand(name: surveyUser.name, email: surveyUser.email, conditions: true))
+        return [
+                command: command,
+                survey : survey
+        ]
+    }
+
+
+    @Secured(['ROLE_CAMPAIGN_SURVEY'])
+    def saveInitialSurveyAddContactsStep(NewContactsCommand command) {
+        KuorumUserSession surveyUser = springSecurityService.principal
+        SurveyRSDTO survey = surveyService.find(surveyUser, Long.parseLong(params.campaignId))
+        if (command.hasErrors()) {
+            flash.error = message(error: command.errors.getFieldError())
+            render view: 'editInitialSurveyAddContactsStep', model: [
+                    survey : survey,
+                    command: command]
+            return
+        }
+        SurveyRDTO rdto = surveyService.map(survey);
+        // PUBLISH SURVEY
+        saveAndSendCampaign(surveyUser, rdto, survey.getId(), new Date(), CampaignContentCommand.CAMPAIGN_SEND_TYPE_SEND, surveyService)
+
+        ExtendedFilterRSDTO votersFilter = survey.anonymousFilter
+        String voterTag = votersFilter.filterConditions.get(0).value;
+        // The example survey has a filter which filters by tag
+        updateContacts(surveyUser, command, voterTag);
+
+//        // Start survey with filter
+//        SurveyRDTO surveyRDTO = surveyService.map(survey);
+//        surveyRDTO.setFilterId(votersFilter.id);
+//        saveAndSendCampaign(surveyUser, surveyRDTO, survey.id, new Date(), CampaignContentCommand.CAMPAIGN_SEND_TYPE_SEND, surveyService);
+
+        // Create and send summoning
+        BulletinRSDTO summoning = surveyService.createSummoning(surveyUser, survey.id)
+        BulletinRDTO summoningRDTO = bulletinService.map(summoning);
+        saveAndSendCampaign(surveyUser, summoningRDTO, summoning.id, new Date(), CampaignContentCommand.CAMPAIGN_SEND_TYPE_SEND, bulletinService)
+
+        redirect mapping: 'surveyInitDomainSuccess', params: [campaignId: survey.id]
+    }
+
+    @Secured(['ROLE_CAMPAIGN_SURVEY'])
+    def editInitialSurveyFinish() {
+        KuorumUserSession surveyUser = springSecurityService.principal
+        SurveyRSDTO survey = surveyService.find(surveyUser, Long.parseLong(params.campaignId))
+        [survey: survey]
+    }
+
+    private ExtendedFilterRSDTO createInitialSurveyFilter(KuorumUserSession user, String filterName, String voterTag) {
+        FilterRDTO filterRDTO = new FilterRDTO();
+        filterRDTO.name = filterName
+        filterRDTO.operator = OperatorTypeRDTO.AND
+        ConditionTextRDTO conditionRDTO = new ConditionTextRDTO();
+        conditionRDTO.operator = TextConditionOperatorTypeRDTO.EQUALS
+        conditionRDTO.setField(ConditionFieldTypeRDTO.TAG)
+        conditionRDTO.setValue(voterTag)
+        filterRDTO.filterConditions = [conditionRDTO]
+        ExtendedFilterRSDTO filterRSDTO = contactService.createFilter(user, filterRDTO)
+        return filterRSDTO;
+    }
+
+    private void updateContacts(KuorumUserSession user, NewContactsCommand command, String voterTag) {
+        List<ContactRDTO> contacts = convertToContactRDTO(command);
+        for (ContactRDTO contactRDTO : contacts) {
+            contactRDTO.tags = [voterTag]
+            contactService.addContact(user, contactRDTO)
+        }
+    }
+
+    private List<ContactRDTO> convertToContactRDTO(NewContactsCommand command) {
+        return command.newContactCommands.collect { mapContactRDTO(it) }
+    }
+
+    private mapContactRDTO(NewContactCommand contactCommand) {
+        ContactRDTO contactRDTO = new ContactRDTO()
+        contactRDTO.name = contactCommand.name
+        contactRDTO.surname = contactCommand.surname
+        contactRDTO.phone = contactCommand.phone ? contactCommand.phone.toString() : ""
+        contactRDTO.email = contactCommand.email
+        return contactRDTO;
+    }
+
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def saveAnswer(QuestionAnswerCommand command) {
         command.answers = JSON.parse(params.answersJson).collect {
@@ -255,10 +411,11 @@ class SurveyController extends CampaignController {
         questionOptionRDTO
     }
 
-    private def modelQuestionStep(SurveyRSDTO survey) {
+    private SurveyQuestionsCommand modelQuestionStep(SurveyRSDTO survey) {
         SurveyQuestionsCommand command = new SurveyQuestionsCommand()
         command.surveyId = survey.id
         command.questions = survey.questions?.collect { mapQuestion(it) } ?: [new QuestionCommand()]
+        command.sendType = (survey.getCampaignStatusRSDTO() == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT ? CampaignContentCommand.CAMPAIGN_SEND_TYPE_SEND : CampaignContentCommand.CAMPAIGN_SEND_TYPE_DRAFT)
         if (survey.datePublished) {
             command.publishOn = survey.datePublished
         }

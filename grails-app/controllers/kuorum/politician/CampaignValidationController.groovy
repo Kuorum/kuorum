@@ -15,7 +15,9 @@ import kuorum.web.commands.profile.DomainUserPhoneValidationCommand
 import kuorum.web.commands.profile.DomainValidationCommand
 import kuorum.web.constants.WebConstants
 import org.kuorum.rest.model.CensusLoginRDTO
-import org.kuorum.rest.model.communication.*
+import org.kuorum.rest.model.communication.BasicCampaignInfoRSDTO
+import org.kuorum.rest.model.communication.CampaignLightRSDTO
+import org.kuorum.rest.model.communication.CampaignRSDTO
 import org.kuorum.rest.model.contact.ContactRSDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 import org.kuorum.rest.model.kuorumUser.KuorumUserExtraDataRSDTO
@@ -60,7 +62,7 @@ class CampaignValidationController {
                 // The closed view needs the OwnerTimeZone which is not mapped on camapaign ligh
                 CampaignRSDTO campaignRSDTO = campaignService.find(campaign.getUser(), campaign.id, null)
                 log.info("[censusLogion: ${censusLogin}] : Receviced a valid censusLogin -> Campaign is closed.");
-                render view: '/campaignValidation/step0RegisterWithCensusCode_NOT_ACTIVE' , model:[redirectUrl:null, contact: contact, campaign:campaignRSDTO]
+                render view: '/campaignValidation/campaignClosed' , model:[redirectUrl:null, contact: contact, campaign:campaignRSDTO]
             } else if (springSecurityService.isLoggedIn()){
 //                flash.message="You are already logged"
                 log.info("[censusLogion: ${censusLogin}] : Receviced a valid censusLogin -> User is logged and is the same as the censusLogin.");
@@ -70,6 +72,9 @@ class CampaignValidationController {
             }else if (contact.getMongoId()) {
                 if (showLandingData) {
                     log.info("[censusLogion: ${censusLogin}] : User exists, but we are going to show the contact data page ")
+                    // Reathenticating to remove an external redirec
+                    KuorumUserRSDTO userFromContact = kuorumUserService.findUserRSDTO(contact.getMongoId())
+                    springSecurityService.reauthenticate userFromContact.getEmail()
                     render view: '/campaignValidation/step0RegisterWithCensusCode', model: [
                             contact    : contact,
                             censusLogin: censusLogin,

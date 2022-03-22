@@ -33,17 +33,20 @@
                  settings:'debateEdit',
                  event:'debateEditEvent',
                  content:'debateEditContent',
-                 showResult: 'debateShow']}"/>
+                 showResult: 'debateShow' ]}"/>
         </g:if>
-        <g:render template="/campaigns/steps/campaignSteps" model="[mappings: mappings, attachEvent:true]"/>
+        <g:render template="/campaigns/steps/campaignSteps" model="[mappings: mappings, attachEvent: true]"/>
     </div>
 
     <div class="box-ppal campaign-new">
         <h1 class="sr-only"><g:message code="admin.createDebate.title"/></h1>
 
         <formUtil:validateForm bean="${command}" form="politicianMassMailingForm" dirtyControl="true"/>
-        <form action="#" class="campaign-form form-horizontal" id="politicianMassMailingForm" method="POST" data-generalErrorMessage="${g.message(code:'kuorum.web.commands.payment.massMailing.DebateCommand.form.genericError')}">
-            <input type="hidden" name="sendType" value="DRAFT" id="sendMassMailingType"/>
+        <form action="#" class="campaign-form form-horizontal" id="politicianMassMailingForm" method="POST"
+              data-generalErrorMessage="${g.message(code: 'kuorum.web.commands.payment.massMailing.DebateCommand.form.genericError')}">
+            <input type="hidden" name="sendType"
+                   value="${kuorum.web.commands.payment.CampaignContentCommand.CAMPAIGN_SEND_TYPE_DRAFT}"
+                   id="sendMassMailingType"/>
             <input type="hidden" name="redirectLink" id="redirectLink"/>
             %{--<input type="hidden" name="latitude" id="latitude" value="${g.formatNumber(number:command.latitude, type:'number', format:'$##.##########')}"/>--}%
             <input type="hidden" name="latitude" id="latitude" value="${command.latitude}"/>
@@ -51,7 +54,9 @@
             <input type="hidden" name="zoom" id="zoom" value="${command.zoom}"/>
 
             <fieldset class="form-group">
-                <label for="eventDate" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.event.EventCommand.eventDate.label"/>:</label>
+                <label for="eventDate" class="col-sm-2 col-md-1 control-label"><g:message
+                        code="kuorum.web.commands.payment.event.EventCommand.eventDate.label"/>:</label>
+
                 <div class="col-sm-8 col-md-5">
                     <formUtil:date command="${command}" field="eventDate" time="true"/>
                 </div>

@@ -346,7 +346,7 @@ class CampaignController {
     protected Map<String, Object> saveAndSendCampaign(KuorumUserSession user, CampaignRDTO campaignRDTO, Long campaignId, Date publishOn, String sendType, CampaignCreatorService campaignCreatorService) {
         CampaignRSDTO savedCampaign = null
         String msg
-        if (sendType == 'SEND') {
+        if (sendType == CampaignContentCommand.CAMPAIGN_SEND_TYPE_SEND) {
             campaignRDTO.publishOn = Calendar.getInstance(user.timeZone).time
         } else {
             campaignRDTO.publishOn = TimeZoneUtil.convertToUserTimeZone(publishOn, user.timeZone)
@@ -383,7 +383,7 @@ class CampaignController {
             msg = g.message(code: 'tools.massMailing.saveDraft.advise', args: [savedCampaign.title])
         }
 
-        if (sendType == "ACTIVATE") {
+        if (sendType == CampaignContentCommand.CAMPAIGN_SEND_TYPE_ACTIVATE) {
             campaignService.pauseCampaign(user, campaignId, false)
         }
 
