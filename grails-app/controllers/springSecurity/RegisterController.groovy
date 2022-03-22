@@ -131,6 +131,10 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         }
     }
 
+    def testInitialConfig() {
+        redirectInitialConfig(params)
+    }
+
     private def redirectInitialConfig(def params) {
         if (domainService.isSurveyPlatform()) {
             KuorumUserSession userLogged = springSecurityService.principal

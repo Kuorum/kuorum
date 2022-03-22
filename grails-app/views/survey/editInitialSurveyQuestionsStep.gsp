@@ -39,13 +39,12 @@
 
     <div class="col-md-8">
         <div class="box-ppal campaign-new">
-            <formUtil:validateForm bean="${command}" form="surveyInitDomainEditQuestions" dirtyControl="true"/>
+            <formUtil:validateForm bean="${command}" form="questionsSurveyForm" dirtyControl="true"/>
             <form action="#"
                   class="form-horizontal campaign-form ${status == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT || status == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.PAUSE ? 'campaign-published' : ''}"
                   id="questionsSurveyForm"
                   method="POST"
                   data-generalErrorMessage="${g.message(code: 'kuorum.web.commands.payment.massMailing.DebateCommand.form.genericError')}">
-
                 <g:render template="/survey/questions/questionForm" model="[
                         command: command,
                         status : survey.campaignStatusRSDTO,

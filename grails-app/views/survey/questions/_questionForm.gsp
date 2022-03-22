@@ -1,8 +1,6 @@
 <%@ page import="kuorum.web.commands.payment.survey.QuestionOptionCommand" %>
 <input type="hidden" name="redirectLink" id="redirectLink"/>
-<input type="hidden" name="sendType"
-       value="${status == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT ? 'SEND' : 'DRAFT'}"
-       id="sendMassMailingType"/>
+<input type="hidden" name="sendType" value="${command.sendType}" id="sendMassMailingType"/>
 <input type="hidden" name="surveyId" value="${command.surveyId}"/>
 
 <formUtil:dynamicComplexInputs
