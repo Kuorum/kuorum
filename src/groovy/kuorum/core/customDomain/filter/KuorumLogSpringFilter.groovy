@@ -10,6 +10,7 @@ import javax.servlet.FilterChain
 import javax.servlet.ServletException
 import javax.servlet.ServletRequest
 import javax.servlet.ServletResponse
+import javax.servlet.http.HttpServletRequest
 
 class KuorumLogSpringFilter extends GenericFilterBean {
 
@@ -21,16 +22,17 @@ class KuorumLogSpringFilter extends GenericFilterBean {
     SpringSecurityService springSecurityService
 
     void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
-        URL url = new URL(request.getRequestURL().toString())
+        HttpServletRequest servletRequest = (HttpServletRequest) request;
+        URL url = new URL(servletRequest.getRequestURL().toString())
         MDC.put(MDC_KEY_DOMAIN, CustomDomainResolver.getDomain());
-        if (springSecurityService.isLoggedIn()){
+        if (springSecurityService.isLoggedIn()) {
             KuorumUserSession userSession = springSecurityService.getPrincipal();
             MDC.put(MDC_KEY_DOMAIN_USER, userSession.getEmail());
-        }else{
+        } else {
             MDC.put(MDC_KEY_DOMAIN_USER, MDC_KEY_DOMAIN_ANONYMOUS);
         }
-        logger.info("Requested: ${url}")
-        try{
+        logger.info("[${servletRequest.getMethod()}]: ${url}")
+        try {
             filterChain.doFilter(request, response);
         }finally {
             MDC.clear();

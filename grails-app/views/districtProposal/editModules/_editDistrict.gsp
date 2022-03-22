@@ -9,14 +9,19 @@
 <div class="box-ppal campaign-new">
     <h1 class="sr-only"><g:message code="admin.createDebate.title"/></h1>
 
-    <formUtil:validateForm bean="${command}" form="districtProposalChooseDistrict"  dirtyControl="true"/>
-    <form action="#" class="form-horizontal campaign-form" id="districtProposalChooseDistrict" method="POST" data-generalErrorMessage="${g.message(code:'kuorum.web.commands.payment.massMailing.DebateCommand.form.genericError')}">
-        <input type="hidden" name="sendType" value="DRAFT" id="sendMassMailingType"/>
+    <formUtil:validateForm bean="${command}" form="districtProposalChooseDistrict" dirtyControl="true"/>
+    <form action="#" class="form-horizontal campaign-form" id="districtProposalChooseDistrict" method="POST"
+          data-generalErrorMessage="${g.message(code: 'kuorum.web.commands.payment.massMailing.DebateCommand.form.genericError')}">
+        <input type="hidden" name="sendType"
+               value="${kuorum.web.commands.payment.CampaignContentCommand.CAMPAIGN_SEND_TYPE_DRAFT}"
+               id="sendMassMailingType"/>
         <input type="hidden" name="redirectLink" id="redirectLink"/>
 
         <g:if test="${!campaign}">
             <fieldset class="form-group">
-                <label for="name" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.massMailing.DebateCommand.title.label"/>:</label>
+                <label for="name" class="col-sm-2 col-md-1 control-label"><g:message
+                        code="kuorum.web.commands.payment.massMailing.DebateCommand.title.label"/>:</label>
+
                 <div class="col-sm-8 col-md-7">
                     <formUtil:input command="${command}" field="name"/>
                 </div>

@@ -164,6 +164,9 @@ class UrlMappings {
         name surveyCopy:            "/account/survey/$campaignId/copy" (controller:"survey", action:"copy")
         name surveySummoning:       "/account/survey/$campaignId/summoning" (controller:"survey", action:"createSummoning")
         name ajaxSurveyQuestionStats:"/ajax/survey/$userAlias/$campaignId/question/$questionId/stats" (controller:'survey', action:"questionStats")
+        name surveyInitDomainEditQuestions: "/start/survey/$campaignId/edit-questions" (controller: "survey"){action = [GET: "editInitialSurveyQuestionsStep", POST: "saveInitialSurveyQuestionsStep"]}
+        name surveyInitDomainEditSumonContacts: "/start/survey/$campaignId/add-contacts" (controller: "survey"){action = [GET: "editInitialSurveyAddContactsStep", POST: "saveInitialSurveyAddContactsStep"]}
+        name surveyInitDomainSuccess: "/start/survey/$campaignId/success" (controller: "survey", action: "editInitialSurveyFinish");
 
 
         name eventCreate:           "/account/event/new" (controller: "event"){action = [GET: "create", POST: "saveSettings"]}

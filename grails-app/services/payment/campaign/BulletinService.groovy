@@ -127,7 +127,9 @@ class BulletinService implements CampaignCreatorService<BulletinRSDTO, BulletinR
 
     @Override
     BulletinRDTO map(BulletinRSDTO bulletinRSDTO) {
-        return campaignService.basicMapping(bulletinRSDTO, new BulletinRDTO())
+        BulletinRDTO bulletinRDTO = campaignService.basicMapping(bulletinRSDTO, new BulletinRDTO())
+        bulletinRDTO.setTemplate(bulletinRSDTO.getTemplate())
+        return bulletinRDTO;
     }
 
     @Override

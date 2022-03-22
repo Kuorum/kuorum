@@ -35,17 +35,17 @@ class MassMailingContentCommand {
         campaignId nullable: false
         contentType nullable: false
         subject nullable: true, maxSize: 155, validator: { val, obj ->
-            if (obj.sendType!= "DRAFT" && !val){
+            if (obj.sendType != CampaignContentCommand.CAMPAIGN_SEND_TYPE_DRAFT && !val) {
                 return "kuorum.web.commands.payment.massMailing.MassMailingCommand.subject.nullable"
             }
         }
         text nullable: true, validator: { val, obj ->
-            if (obj.sendType!= "DRAFT" && !val){
+            if (obj.sendType != CampaignContentCommand.CAMPAIGN_SEND_TYPE_DRAFT && !val) {
                 return "kuorum.web.commands.payment.massMailing.MassMailingCommand.text.nullable"
             }
         }
         headerPictureId nullable: true, validator: {val, obj ->
-            if (obj.sendType!= "DRAFT" && NewsletterTemplateDTO.NEWSLETTER.equals(obj.contentType) && !val){
+            if (obj.sendType != CampaignContentCommand.CAMPAIGN_SEND_TYPE_DRAFT && NewsletterTemplateDTO.NEWSLETTER.equals(obj.contentType) && !val) {
                 return "kuorum.web.commands.payment.massMailing.MassMailingCommand.headerPictureId.nullable"
             }
         }
@@ -53,11 +53,16 @@ class MassMailingContentCommand {
             KuorumUserSession kuorumUser = CampaignContentCommand.currentUser()
             Date scheduledTimeZone = TimeZoneUtil.convertToUserTimeZone(val, kuorumUser.timeZone)
             Date userTimeZone = Calendar.getInstance(kuorumUser.getTimeZone()).getTime()
-            if (val && obj.sendType == "SCHEDULED" && scheduledTimeZone < userTimeZone) {
+            if (val && obj.sendType == CampaignContentCommand.CAMPAIGN_SEND_TYPE_SCHEDULED && scheduledTimeZone < userTimeZone) {
                 return "kuorum.web.commands.payment.massMailing.MassMailingCommand.scheduled.min.error"
             }
         }
 
-        sendType nullable: false, inList:["DRAFT", "SCHEDULED", "SEND", "SEND_TEST", "ACTIVATE"]
+        sendType nullable: false, inList: [
+                CampaignContentCommand.CAMPAIGN_SEND_TYPE_DRAFT,
+                CampaignContentCommand.CAMPAIGN_SEND_TYPE_SCHEDULED,
+                CampaignContentCommand.CAMPAIGN_SEND_TYPE_SEND,
+                CampaignContentCommand.CAMPAIGN_SEND_TYPE_SEND_TEST,
+                CampaignContentCommand.CAMPAIGN_SEND_TYPE_ACTIVATE]
     }
 }

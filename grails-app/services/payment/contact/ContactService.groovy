@@ -5,7 +5,6 @@ import grails.transaction.Transactional
 import kuorum.register.KuorumUserSession
 import kuorum.util.rest.RestKuorumApiService
 import kuorum.web.commands.payment.contact.ContactFilterCommand
-import org.kuorum.rest.model.communication.CampaignRSDTO
 import org.kuorum.rest.model.contact.*
 import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
 import org.kuorum.rest.model.contact.filter.FilterRDTO
@@ -98,17 +97,17 @@ class ContactService {
         filter
     }
 
-    ExtendedFilterRSDTO updateFilter(KuorumUserSession user, FilterRDTO filterRSDTO, Long filterId){
-        Map<String, String> params = [userId:user.id.toString(),filterId:filterId.toString()]
+    ExtendedFilterRSDTO updateFilter(KuorumUserSession user, FilterRDTO filterRDTO, Long filterId) {
+        Map<String, String> params = [userId: user.id.toString(), filterId: filterId.toString()]
         Map<String, String> query = [:]
 
-        def response= restKuorumApiService.put(
+        def response = restKuorumApiService.put(
                 RestKuorumApiService.ApiMethod.USER_CONTACT_FILTER,
                 params,
                 query,
-                filterRSDTO,
-                new TypeReference<ExtendedFilterRSDTO>(){})
-        ExtendedFilterRSDTO filter= null
+                filterRDTO,
+                new TypeReference<ExtendedFilterRSDTO>() {})
+        ExtendedFilterRSDTO filter = null
         if (response.data){
             filter = response.data
         }

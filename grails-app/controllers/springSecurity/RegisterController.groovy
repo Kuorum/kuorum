@@ -10,9 +10,11 @@ import grails.plugin.springsecurity.ui.SpringSecurityUiService
 import grails.validation.Validateable
 import groovyx.net.http.RESTClient
 import kuorum.core.customDomain.CustomDomainResolver
+import kuorum.domain.DomainService
 import kuorum.files.FileService
 import kuorum.notifications.NotificationService
 import kuorum.register.IOAuthService
+import kuorum.register.KuorumUserSession
 import kuorum.register.RegisterService
 import kuorum.solr.IndexSolrService
 import kuorum.users.CookieUUIDService
@@ -22,9 +24,11 @@ import kuorum.web.commands.customRegister.ForgotUserPasswordCommand
 import kuorum.web.users.KuorumRegistrationCode
 import org.codehaus.groovy.grails.web.context.ServletContextHolder
 import org.codehaus.groovy.grails.web.servlet.GrailsApplicationAttributes
+import org.kuorum.rest.model.communication.survey.SurveyRSDTO
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.web.authentication.RememberMeServices
+import payment.campaign.SurveyService
 
 class RegisterController extends grails.plugin.springsecurity.ui.RegisterController {
 
@@ -39,6 +43,8 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
 
     FileService fileService
     CookieUUIDService cookieUUIDService
+    DomainService domainService
+    SurveyService surveyService
 
     @Value('${recaptcha.providers.google.secretKey}')
     String RECAPTCHA_SECRET
@@ -111,24 +117,39 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         oAuthToken.authenticated = true
         SecurityContextHolder.context.authentication = oAuthToken
         rememberMeServices.loginSuccess(request, response, springSecurityService.authentication)
-        if (oAuthToken.newUser){
-            try{
+        if (oAuthToken.newUser) {
+            try {
                 indexSolrService.deltaIndex()
-            }catch (Exception e){
+            } catch (Exception e) {
                 log.error("Error recovering and indexing new user. Reindex manually")
             }
         }
-        if (redirectAdminConfig){
-            log.info("Redirecting for default configuration of the domain ${CustomDomainResolver.domain}")
-            redirect mapping: 'politicianCampaigns', params:[tour:true]
-        }else{
-            render ([result:"success"] as JSON)
+        if (redirectAdminConfig) {
+            redirectInitialConfig(params)
+        } else {
+            render([result: "success"] as JSON)
         }
     }
 
-    def ajaxRegister(KuorumRegisterCommand command){
+    def testInitialConfig() {
+        redirectInitialConfig(params)
+    }
+
+    private def redirectInitialConfig(def params) {
+        if (domainService.isSurveyPlatform()) {
+            KuorumUserSession userLogged = springSecurityService.principal
+            log.info("Creating initial surver of domain ${CustomDomainResolver.domain} of user ${userLogged.alias}")
+            SurveyRSDTO surveyRSDTO = surveyService.buildSurveyExample(userLogged)
+            redirect mapping: 'surveyInitDomainEditQuestions', params: [campaignId: surveyRSDTO.getId()]
+        } else {
+            log.info("Redirecting for default configuration of the domain ${CustomDomainResolver.domain}")
+            redirect mapping: 'politicianCampaigns', params: [tour: true]
+        }
+    }
+
+    def ajaxRegister(KuorumRegisterCommand command) {
         if (command.hasErrors()) {
-            render ([success:false, error: g.message(error: command.errors.getAllErrors().first())] as JSON)
+            render([success: false, error: g.message(error: command.errors.getAllErrors().first())] as JSON)
             return
         }
 
