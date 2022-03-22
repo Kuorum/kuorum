@@ -415,7 +415,7 @@ class SurveyController extends CampaignController {
         SurveyQuestionsCommand command = new SurveyQuestionsCommand()
         command.surveyId = survey.id
         command.questions = survey.questions?.collect { mapQuestion(it) } ?: [new QuestionCommand()]
-        command.sendType = (status == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT ? CampaignContentCommand.CAMPAIGN_SEND_TYPE_SEND : CampaignContentCommand.CAMPAIGN_SEND_TYPE_DRAFT)
+        command.sendType = (survey.getCampaignStatusRSDTO() == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT ? CampaignContentCommand.CAMPAIGN_SEND_TYPE_SEND : CampaignContentCommand.CAMPAIGN_SEND_TYPE_DRAFT)
         if (survey.datePublished) {
             command.publishOn = survey.datePublished
         }
