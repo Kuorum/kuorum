@@ -175,6 +175,9 @@ class SurveyController extends CampaignController {
             redirect mapping: 'surveyEditContent', params: survey.encodeAsLinkProperties()
         } else {
             Long numberRecipients = getCampaignNumberRecipients(surveyUser, survey)
+            SurveyQuestionsCommand command = modelQuestionStep(survey);
+            // After save, the camaping will be published
+            command.sendType = CampaignContentCommand.CAMPAIGN_SEND_TYPE_SEND
             return [
                     survey          : survey,
                     command         : modelQuestionStep(survey),
@@ -188,6 +191,7 @@ class SurveyController extends CampaignController {
         KuorumUserSession surveyUser = springSecurityService.principal
         SurveyRSDTO survey = surveyService.find(surveyUser, Long.parseLong(params.campaignId))
         cleanQuestionDeleted(command);
+        command.sendType = CampaignContentCommand.CAMPAIGN_SEND_TYPE_SEND
         command.validate()
         if (command.hasErrors()) {
             flash.error = message(error: command.errors.getFieldError())
@@ -200,7 +204,7 @@ class SurveyController extends CampaignController {
         }
         SurveyRDTO rdto = surveyService.map(survey)
         rdto.questions = command.questions?.findAll { it && it.text }.collect { mapQuestion(it) } ?: []
-        def result = saveAndSendCampaign(surveyUser, rdto, survey.getId(), command.publishOn, CampaignContentCommand.CAMPAIGN_SEND_TYPE_SEND, surveyService)
+        def result = saveAndSendCampaign(surveyUser, rdto, survey.getId(), null, CampaignContentCommand.CAMPAIGN_SEND_TYPE_DRAFT, surveyService)
         redirect mapping: 'surveyInitDomainEditSumonContacts', params: [campaignId: survey.getId()]
 
     }
@@ -240,6 +244,10 @@ class SurveyController extends CampaignController {
                     command: command]
             return
         }
+        SurveyRDTO rdto = surveyService.map(survey);
+        // PUBLISH SURVEY
+        saveAndSendCampaign(surveyUser, rdto, survey.getId(), new Date(), CampaignContentCommand.CAMPAIGN_SEND_TYPE_SEND, surveyService)
+
         ExtendedFilterRSDTO votersFilter = survey.anonymousFilter
         String voterTag = votersFilter.filterConditions.get(0).value;
         // The example survey has a filter which filters by tag
@@ -403,10 +411,11 @@ class SurveyController extends CampaignController {
         questionOptionRDTO
     }
 
-    private def modelQuestionStep(SurveyRSDTO survey) {
+    private SurveyQuestionsCommand modelQuestionStep(SurveyRSDTO survey) {
         SurveyQuestionsCommand command = new SurveyQuestionsCommand()
         command.surveyId = survey.id
         command.questions = survey.questions?.collect { mapQuestion(it) } ?: [new QuestionCommand()]
+        command.sendType = (status == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT ? CampaignContentCommand.CAMPAIGN_SEND_TYPE_SEND : CampaignContentCommand.CAMPAIGN_SEND_TYPE_DRAFT)
         if (survey.datePublished) {
             command.publishOn = survey.datePublished
         }
