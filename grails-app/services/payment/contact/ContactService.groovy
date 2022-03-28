@@ -526,4 +526,15 @@ class ContactService {
         response.data
     }
 
+    void deleteContactIssue(KuorumUserSession userSession, Long contactId, Long issueId) {
+        Map<String, String> params = [contactId: contactId.toString(), userId: userSession.id.toString(), issueId: issueId.toString()]
+        Map<String, String> query = [:]
+        def response = restKuorumApiService.delete(
+                RestKuorumApiService.ApiMethod.USER_CONTACT_ISSUE,
+                params,
+                query
+        )
+        response.data
+    }
+
 }

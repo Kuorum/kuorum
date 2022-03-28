@@ -15,19 +15,22 @@
         </div>
     </fieldset>
 </g:form>
-<h4 class="center">Issues hisotry</h4>
+<h4 class="center"><g:message code="tools.contact.edit.tabs.contactIssues.table.title"/></h4>
 <ul class="contact-issues">
     <li class="col-xs-12 contact-issue header hidden-sm hidden-xs">
         <div class="col-md-2 contact-issue-type"><g:message
                 code="org.kuorum.rest.model.contact.ContactIssueTypeDTO.label"/></div>
 
-        <div class="col-md-2 contact-issue-date">Date</div>
+        <div class="col-md-2 contact-issue-date"><g:message
+                code="tools.contact.edit.tabs.contactIssues.table.labels.date"/></div>
 
-        <div class="col-md-2 contact-issue-resolver">Agent</div>
+        <div class="col-md-2 contact-issue-resolver"><g:message
+                code="tools.contact.edit.tabs.contactIssues.table.labels.resolver"/></div>
 
-        <div class="col-md-6 contact-issue-note">Note</div>
+        <div class="col-md-6 contact-issue-note"><g:message
+                code="tools.contact.edit.tabs.contactIssues.table.labels.note"/></div>
     </li>
     <g:each in="${contactIssues}" var="contactIssue">
-        <g:render template="contactIssue" model="[contactIssue: contactIssue]"/>
+        <g:render template="contactIssue" model="[contactIssue: contactIssue, contact: contact]"/>
     </g:each>
 </ul>

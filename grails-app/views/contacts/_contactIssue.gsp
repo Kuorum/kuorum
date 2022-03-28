@@ -18,9 +18,16 @@
         ${contactIssue.resolver}
     </div>
 
-    <div class="col-md-6 contact-issue-note">
+    <div class="col-md-5 contact-issue-note">
         <label class="hidden-md hidden-lg"><g:message
                 code="tools.contact.edit.tabs.contactIssues.table.labels.note"/>:</label>
         ${contactIssue.note}
+    </div>
+
+    <div class="col-md-1 contact-issue-delete">
+        <label class="hidden-md hidden-lg"><g:message
+                code="tools.contact.edit.tabs.contactIssues.table.labels.delete"/>:</label>
+        <g:link mapping="politicianContactDeleteIssues" params="[contactId: contact.id, issueId: contactIssue.id]"
+                class="btn btn-grey-light"><span class="fal fa-trash"></span></g:link>
     </div>
 </li>

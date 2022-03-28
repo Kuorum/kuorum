@@ -185,7 +185,7 @@ $(function () {
         var link = $form.attr("action");
         var $ul = $form.siblings("ul.contact-issues")
         if ($form.valid()) {
-            pageLoadingOn("Add Contact");
+            pageLoadingOn("Adding Issue Contact");
             $.post(link, postData)
                 .done(function (data) {
                     $ul.find("li:nth-child(2)").before(data);
@@ -200,6 +200,24 @@ $(function () {
                 });
         }
         return false;
+    });
+
+    $("#tabs-edit-contact #contactIssues .contact-issue-delete a").on("click", function (e) {
+        e.preventDefault();
+        $a = $(this)
+        var link = $a.attr("href");
+        var $li = $a.parents("li.contact-issue");
+        pageLoadingOn("Deleting Issue Contact");
+        $.post(link)
+            .done(function (data) {
+                $li.remove();
+            })
+            .fail(function (messageError) {
+                display.warn("Error");
+            })
+            .always(function () {
+                pageLoadingOff();
+            });
     });
 
     $("#tabs-edit-contact #extraInfo #extraInfoContact").on("submit", function (e) {

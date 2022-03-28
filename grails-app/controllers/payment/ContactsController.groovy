@@ -222,7 +222,13 @@ class ContactsController {
             contactIssueRDTO.resolver = user.name
         }
         ContactIssueRSDTO contactIssueRSDTO = contactService.addContactIssue(user, contact.getId(), contactIssueRDTO);
-        render template: "/contacts/contactIssue", model: [contactIssue: contactIssueRSDTO]
+        render template: "/contacts/contactIssue", model: [contactIssue: contactIssueRSDTO, contact: contact]
+    }
+
+    def deleteIssue(Long contactId, Long issueId) {
+        KuorumUserSession user = springSecurityService.principal
+        contactService.deleteContactIssue(user, contactId, issueId);
+        render([success: true, err: g.message(code: 'tools.contact.edit.error')] as JSON)
     }
 
     def generatePersonalCode(Long contactId) {

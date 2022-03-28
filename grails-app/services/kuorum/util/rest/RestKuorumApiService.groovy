@@ -182,6 +182,7 @@ class RestKuorumApiService {
         USER_CONTACT_FILES("/contacts/{userId}/{contactId}/files"),
         USER_CONTACT_EXTRA_INFO("/contacts/{userId}/{contactId}/extraInfo"),
         USER_CONTACT_ISSUES("/contacts/{userId}/{contactId}/issues"),
+        USER_CONTACT_ISSUE("/contacts/{userId}/{contactId}/issues/{issueId}"),
         USER_CONTACT_FILTERS('/contacts/{userId}/filters'),
         USER_CONTACT_FILTER("/contacts/{userId}/filters/{filterId}"),
         USER_CONTACT_SUBSCRIBE("/contacts/{userId}/suscribe"),
