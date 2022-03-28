@@ -188,7 +188,7 @@ $(function () {
             pageLoadingOn("Adding Issue Contact");
             $.post(link, postData)
                 .done(function (data) {
-                    $ul.find("li:nth-child(2)").before(data);
+                    $ul.find("li:first").after(data);
                     $form.find("input[name=note]").val("");
                     $form.find("select[name=issueType] option").prop("selected", false);
                 })

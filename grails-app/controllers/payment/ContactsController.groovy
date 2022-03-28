@@ -216,6 +216,7 @@ class ContactsController {
         ContactIssueRDTO contactIssueRDTO = new ContactIssueRDTO()
         contactIssueRDTO.issueType = contactIssueCommand.issueType
         contactIssueRDTO.note = contactIssueCommand.note
+        contactIssueRDTO.campaignId = contactIssueCommand.campaignId
         if (SpringSecurityUtils.isSwitched()) {
             contactIssueRDTO.resolver = SpringSecurityUtils.getSwitchedUserOriginalUsername();
         } else {
