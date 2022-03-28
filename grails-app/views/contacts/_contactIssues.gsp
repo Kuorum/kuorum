@@ -2,7 +2,12 @@
 <formUtil:validateForm form="addContactIssueForm" bean="${command}" dirtyControl="true"/>
 <g:form mapping="politicianContactAddIssues" params="[contactId: contact.id]" name="addContactIssueForm">
     <fieldset class="row">
-        <div class="form-group col-md-5">
+        <div class="form-group col-md-3">
+            <formUtil:selectAjax field="campaignId" command="${command}" showLabel="true" defaultEmpty="true"
+                                 ajaxOptionsMapping="politicianCampaignsMyActives"/>
+        </div>
+
+        <div class="form-group col-md-2">
             <formUtil:selectEnum field="issueType" command="${command}" showLabel="true" defaultEmpty="true"/>
         </div>
 

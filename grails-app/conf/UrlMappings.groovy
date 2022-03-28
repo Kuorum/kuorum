@@ -345,6 +345,7 @@ class UrlMappings {
         name politicianCampaigns:                       "/account/campaigns" (controller:"newsletter", action: "index")
         name politicianCampaignsNew:                    "/account/campaigns/new" (controller:"newsletter", action: "newCampaign")
         name politicianCampaignsLists:                  "/ajax/account/campaigns/lists" (controller:"campaign", action: "findLiUserCampaigns")
+        name politicianCampaignsMyActives:              "/ajax/account/campaigns/actives" (controller:"campaign", action: "findMyActiveCampaigns")
         name politicianCampaignsExport:                 "/account/campaigns/export" (controller:"newsletter", action: "exportCampaigns")
         name politicianCampaignsUploadImages:           "/ajax/account/campaign/$campaignId/uploadImages" (controller:"file", action: "uploadCampaignImages")
         name politicianCampaignsListImages:             "/ajax/account/campaign/$campaignId/listImages" (controller:"file", action: "getCampaignImages")

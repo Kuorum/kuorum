@@ -8,6 +8,7 @@ import org.kuorum.rest.model.contact.ContactIssueTypeDTO
  */
 @Validateable
 class ContactIssueCommand {
+    Long campaignId;
     String resolver;
     String note;
     ContactIssueTypeDTO issueType;

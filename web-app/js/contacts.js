@@ -232,18 +232,43 @@ $(function () {
                     display.success(data.msg)
                 }
             })
-            .fail(function(messageError) {
+            .fail(function (messageError) {
                 display.warn("Error");
             })
-            .always(function() {
+            .always(function () {
                 pageLoadingOff();
             });
         return false;
     });
 
 
+    //TODO: This function should go to a more generic js
+    function prepareSelectCampaigns() {
+        $select = $("select[name=campaignId][data-select-options-ajax-url]")
+        var url = $select.attr("data-select-options-ajax-url")
+        $.get(url)
+            .done(function (data, status, xhr) {
+                for (const campaign of data) {
+                    $select.append("<option value='" + campaign.id + "'>" + campaign.name + "</option>")
+                }
+                if (data.length == 1) {
+                    $select.find('option').get(0).remove();
+                }
+
+            })
+            .fail(function (data) {
+                console.log(data)
+            })
+            .always(function (data) {
+
+            })
+        ;
+    }
+
+    prepareSelectCampaigns();
+
     // Bulk actions -- Open modal
-    $("#listContacts").on("change", "#contactsOrderOptions .bulk-actions", function(e) {
+    $("#listContacts").on("change", "#contactsOrderOptions .bulk-actions", function (e) {
         e.preventDefault();
         var type = parseInt($(this).val());
 
