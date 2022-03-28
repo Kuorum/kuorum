@@ -169,24 +169,48 @@ $(function () {
                     display.success(data.msg)
                 }
             })
-            .fail(function(messageError) {
+            .fail(function (messageError) {
                 display.warn("Error");
             })
-            .always(function() {
+            .always(function () {
                 pageLoadingOff();
             });
         return false;
     });
 
-    $("#tabs-edit-contact #extraInfo #extraInfoContact").on("submit",function(e){
+    $("#tabs-edit-contact #contactIssues #addContactIssueForm").on("submit", function (e) {
+        e.preventDefault();
+        var $form = $(this)
+        var postData = $form.serialize();
+        var link = $form.attr("action");
+        var $ul = $form.siblings("ul.contact-issues")
+        if ($form.valid()) {
+            pageLoadingOn("Add Contact");
+            $.post(link, postData)
+                .done(function (data) {
+                    $ul.find("li:nth-child(2)").before(data);
+                    $form.find("input[name=note]").val("");
+                    $form.find("select[name=issueType] option").prop("selected", false);
+                })
+                .fail(function (messageError) {
+                    display.warn("Error");
+                })
+                .always(function () {
+                    pageLoadingOff();
+                });
+        }
+        return false;
+    });
+
+    $("#tabs-edit-contact #extraInfo #extraInfoContact").on("submit", function (e) {
         e.preventDefault();
         var postData = $(this).serialize();
         var link = $(this).attr("action")
-        $.post( link, postData)
-            .done(function(data) {
-                if (data.err != undefined){
+        $.post(link, postData)
+            .done(function (data) {
+                if (data.err != undefined) {
                     display.warn(data.err)
-                }else{
+                } else {
                     display.success(data.msg)
                 }
             })

@@ -72,25 +72,35 @@
             </ul>
         </div>
         <div class="container-lists">
-            <g:render template="/contacts/inputs/editContactTags" model="[contact:contact]"/>
-            <g:render template="/contacts/inputs/showContactEngagement" model="[contact:contact]"/>
+            <g:render template="/contacts/inputs/editContactTags" model="[contact: contact]"/>
+            <g:render template="/contacts/inputs/showContactEngagement" model="[contact: contact]"/>
         </div>
     </div>
+
     <div class="box-ppal edit-contact clearfix">
         <ul class="nav nav-tabs simple" data-tabs="tabs">
-            <li role="presentation" class="active"><a href="#details" data-toggle="tab"><g:message code="tools.contact.edit.tabs.basic"/></a></li>
-            <li role="presentation"><a href="#activity" data-toggle="tab"><g:message code="tools.contact.edit.tabs.activity"/></a></li>
-            <li role="presentation"><a href="#socialNetwork" data-toggle="tab"><g:message code="tools.contact.edit.tabs.socialNetworks"/></a></li>
-            <li role="presentation"><a href="#notes" data-toggle="tab"><g:message code="tools.contact.edit.tabs.notes"/></a></li>
-            <li role="presentation"><a href="#extraInfo" data-toggle="tab"><g:message code="tools.contact.edit.tabs.extraInfo"/></a></li>
-            <li role="presentation"><a href="#files" data-toggle="tab"><g:message code="tools.contact.edit.tabs.files"/></a></li>
+            <li role="presentation" class="active"><a href="#details" data-toggle="tab"><g:message
+                    code="tools.contact.edit.tabs.basic"/></a></li>
+            <li role="presentation"><a href="#activity" data-toggle="tab"><g:message
+                    code="tools.contact.edit.tabs.activity"/></a></li>
+            <li role="presentation"><a href="#socialNetwork" data-toggle="tab"><g:message
+                    code="tools.contact.edit.tabs.socialNetworks"/></a></li>
+            <li role="presentation"><a href="#notes" data-toggle="tab"><g:message
+                    code="tools.contact.edit.tabs.notes"/></a></li>
+            <li role="presentation"><a href="#contactIssues" data-toggle="tab"><g:message
+                    code="tools.contact.edit.tabs.contactIssues"/></a></li>
+            <li role="presentation"><a href="#extraInfo" data-toggle="tab"><g:message
+                    code="tools.contact.edit.tabs.extraInfo"/></a></li>
+            <li role="presentation"><a href="#files" data-toggle="tab"><g:message
+                    code="tools.contact.edit.tabs.files"/></a></li>
         </ul>
+
         <div id="tabs-edit-contact" class="tab-content">
             <div class="tab-pane active" id="details">
                 <h4 class="sr-only"><g:message code="tools.contact.edit.tabs.basic"/></h4>
                 <formUtil:validateForm bean="${command}" form="editBasicContactForm"/>
-                <g:form mapping="politicianContactEdit" params="[contactId:contact.id]" name="editBasicContactForm">
-                    <g:render template="inputs/basicContactInputs" model="[command:command, contact: contact]" />
+                <g:form mapping="politicianContactEdit" params="[contactId: contact.id]" name="editBasicContactForm">
+                    <g:render template="inputs/basicContactInputs" model="[command: command, contact: contact]"/>
                 </g:form>
             </div>
             <div class="tab-pane" id="activity">
@@ -162,17 +172,27 @@
             <div class="tab-pane" id="extraInfo">
                 <h4 class="sr-only"><g:message code="tools.contact.edit.tabs.extraInfo"/></h4>
                 <formUtil:validateForm form="extraInfoContact" bean="${extraInfoCommand}" dirtyControl="true"/>
-                <g:form mapping="politicianContactEditUpdateExtraInfo" params="[contactId:contact.id]" name="extraInfoContact">
+                <g:form mapping="politicianContactEditUpdateExtraInfo" params="[contactId: contact.id]"
+                        name="extraInfoContact">
                     <div class="row">
-                        <g:render template="/contacts/contactExtraInfoForm" model="[extraInfoCommand: extraInfoCommand]"/>
+                        <g:render template="/contacts/contactExtraInfoForm"
+                                  model="[extraInfoCommand: extraInfoCommand]"/>
                         <div class="form-group col-md-2 col-md-offset-2">
-                            <input type="submit" value="${g.message(code:'default.save')}" class="btn btn-blue inverted">
+                            <input type="submit" value="${g.message(code: 'default.save')}"
+                                   class="btn btn-blue inverted">
                         </div>
                     </div>
                 </g:form>
             </div>
+
+            <div class="tab-pane" id="contactIssues">
+                <h4 class="sr-only"><g:message code="tools.contact.edit.tabs.contactIssues"/></h4>
+                <g:render template="contactIssues" model="[contact: contact, contactIssues: contactIssues]"/>
+            </div>
+
             <div class="tab-pane" id="files">
                 <h4 class="sr-only"><g:message code="tools.contact.edit.tabs.files"/></h4>
+
                 <div class="textareaContainer col-sm-8 col-md-7">
                     <formUtil:uploadContactFiles contact="${contact}"/>
                 </div>

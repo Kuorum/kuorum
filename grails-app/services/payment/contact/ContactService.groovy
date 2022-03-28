@@ -500,4 +500,30 @@ class ContactService {
         )
     }
 
+    List<ContactIssueRSDTO> getContactIssues(KuorumUserSession userSession, Long contactId) {
+        Map<String, String> params = [contactId: contactId.toString(), userId: userSession.id.toString()]
+        Map<String, String> query = [:]
+        def response = restKuorumApiService.get(
+                RestKuorumApiService.ApiMethod.USER_CONTACT_ISSUES,
+                params,
+                query,
+                new TypeReference<List<ContactIssueRSDTO>>() {}
+        )
+        List<ContactIssueRSDTO> issues = response.data
+        issues.reverse()
+    }
+
+    ContactIssueRSDTO addContactIssue(KuorumUserSession userSession, Long contactId, ContactIssueRDTO contactIssueRDTO) {
+        Map<String, String> params = [contactId: contactId.toString(), userId: userSession.id.toString()]
+        Map<String, String> query = [:]
+        def response = restKuorumApiService.post(
+                RestKuorumApiService.ApiMethod.USER_CONTACT_ISSUES,
+                params,
+                query,
+                contactIssueRDTO,
+                new TypeReference<ContactIssueRSDTO>() {}
+        )
+        response.data
+    }
+
 }

@@ -3,6 +3,7 @@ package payment
 import com.xlson.groovycsv.CsvParser
 import grails.converters.JSON
 import grails.plugin.springsecurity.SpringSecurityService
+import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.exception.KuorumException
@@ -149,7 +150,8 @@ class ContactsController {
         BasicDataKuorumUserRSDTO contactUser = kuorumUserService.findBasicUserRSDTO(contact.mongoId, true)
         Map<String, String> extraInfo = contactService.getExtraInfo(user, contact.id);
         ContactExtraInfoCommand extraInfoCommand = new ContactExtraInfoCommand(extraInfo);
-        [command: command, contact: contact, contactUser: contactUser, extraInfoCommand:extraInfoCommand]
+        List<ContactIssueRSDTO> contactIssues = contactService.getContactIssues(user, contact.id);
+        [command: command, contact: contact, contactUser: contactUser, extraInfoCommand: extraInfoCommand, contactIssues: contactIssues]
     }
 
     def updateContact(ContactCommand command) {
@@ -199,9 +201,28 @@ class ContactsController {
             render([err: g.message(code: 'tools.contact.edit.error')] as JSON)
             return
         }
-        Map<String, String> extraInfo = extraInfoCommand.extraInfo.collectEntries{[it.key, it.value]}
+        Map<String, String> extraInfo = extraInfoCommand.extraInfo.collectEntries { [it.key, it.value] }
         contactService.putExtraInfo(user, contact.getId(), extraInfo)
         render([msg: g.message(code: 'tools.contact.edit.success', args: [contact.name])] as JSON)
+    }
+
+    def addIssue(Long contactId, ContactIssueCommand contactIssueCommand) {
+        KuorumUserSession user = springSecurityService.principal
+        ContactRSDTO contact = contactService.getContact(user, contactId)
+        if (!contact) {
+            render([err: g.message(code: 'tools.contact.edit.error')] as JSON)
+            return
+        }
+        ContactIssueRDTO contactIssueRDTO = new ContactIssueRDTO()
+        contactIssueRDTO.issueType = contactIssueCommand.issueType
+        contactIssueRDTO.note = contactIssueCommand.note
+        if (SpringSecurityUtils.isSwitched()) {
+            contactIssueRDTO.resolver = SpringSecurityUtils.getSwitchedUserOriginalUsername();
+        } else {
+            contactIssueRDTO.resolver = user.name
+        }
+        ContactIssueRSDTO contactIssueRSDTO = contactService.addContactIssue(user, contact.getId(), contactIssueRDTO);
+        render template: "/contacts/contactIssue", model: [contactIssue: contactIssueRSDTO]
     }
 
     def generatePersonalCode(Long contactId) {

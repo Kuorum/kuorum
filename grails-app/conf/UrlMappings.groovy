@@ -337,6 +337,7 @@ class UrlMappings {
         name politicianContactPersonalCodeRemove:       "/account/contacts/$contactId/edit/personalCode/remove" (controller:"contacts", action:"removePersonalCode")
         name politicianContactEditUpdateNote:           "/ajax/account/contacts/$contactId/edit/updateNote" (controller:"contacts",action:"updateContactNotes")
         name politicianContactEditUpdateExtraInfo:      "/ajax/account/contacts/$contactId/edit/updateExtraInfo" (controller:"contacts",action:"updateContactExtraInfo")
+        name politicianContactAddIssues:                "/ajax/account/contacts/$contactId/edit/addIssue" (controller:"contacts",action:"addIssue")
         name politicianContactNew:                      "/account/contacts/new" (controller:"contacts"){action =[GET:"newContact", POST:"saveContact"]}
         name politicianContactUnsubscribe:              "/account/contacts/$contactId/unsubscribe" (controller:"contacts", action: "loggedUnsubscribe")
         name politicianInbox:                           "/account/inbox" (controller:"politician", action: "betaTesterPage")
