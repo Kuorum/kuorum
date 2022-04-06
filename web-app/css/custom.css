@@ -1893,24 +1893,92 @@ ul.participatory-budget-steps-info li.active a {display: none}
 
 .progress-bar {background-color: #ec931f;}
 
-.participatory-budget-status .kuorum-tooltip + .tooltip.bottom{left: 70px !important;}
-.participatory-budget-status .kuorum-tooltip + .tooltip.bottom .tooltip-inner{position:relative; width:200px;}
-.participatory-budget-status .kuorum-tooltip + .tooltip.bottom .tooltip-arrow{position:relative;left: 10%;}
+.participatory-budget-status .kuorum-tooltip + .tooltip.bottom {
+    left: 70px !important;
+}
 
-.warn-district-overflow > div.modal-dialog >div.modal-content > div.modal-body > div.comment-box .label,
-#participatoryBudget-districtProposals-list > div > div.comment-box .label{text-align: center;font-weight: bold;font-family: 'Arial';color: #545454;font-size: 15px;}
+.participatory-budget-status .kuorum-tooltip + .tooltip.bottom .tooltip-inner {
+    position: relative;
+    width: 200px;
+}
+
+.participatory-budget-status .kuorum-tooltip + .tooltip.bottom .tooltip-arrow {
+    position: relative;
+    left: 10%;
+}
+
+.warn-district-overflow > div.modal-dialog > div.modal-content > div.modal-body > div.comment-box .label,
+#participatoryBudget-districtProposals-list > div > div.comment-box .label {
+    text-align: center;
+    font-weight: bold;
+    font-family: 'Arial';
+    color: #545454;
+    font-size: 15px;
+}
+
 .warn-district-overflow div.comment-box .campaign-progress-bar-wrapper,
-#participatoryBudget-districtProposals-list > div > div.comment-box .campaign-progress-bar-wrapper {margin-top:-10px;}
+#participatoryBudget-districtProposals-list > div > div.comment-box .campaign-progress-bar-wrapper {
+    margin-top: -10px;
+}
 
 
-#followAndRegister{padding: 10px 15px 0;}
-#followAndRegister .btn{width:100%;margin-bottom:7px; padding: 9px !important;}
-#followAndRegister.login .form-group:last-child {font-size: 11px; font-size: 1.1rem;}
-#followAndRegister.login .form-group {margin-bottom: 15px;}
+/**
+ EDIT PARTICIPATORY BUDGET
+ */
+.participatory-budget-voting-container {
+}
 
-#inviteForm textarea {height: 150px;}
-#inviteForm .form-group {text-align: left;}
-#inviteForm .control-label {font-size: 16px; font-size: 1.6rem;}
+.participatory-budget-voting-container.BUDGET .participatory-budget-type-BUDGET {
+    display: inline-block
+}
+
+.participatory-budget-voting-container.BUDGET .participatory-budget-type-SIMPLE_VOTE {
+    display: none
+}
+
+.participatory-budget-voting-container.SIMPLE_VOTE .participatory-budget-type-BUDGET {
+    display: none
+}
+
+.participatory-budget-voting-container.SIMPLE_VOTE .participatory-budget-type-SIMPLE_VOTE {
+    display: inline-block
+}
+
+/**
+END EDIT PARTICPATORY BUDGET
+ */
+
+#followAndRegister {
+    padding: 10px 15px 0;
+}
+
+#followAndRegister .btn {
+    width: 100%;
+    margin-bottom: 7px;
+    padding: 9px !important;
+}
+
+#followAndRegister.login .form-group:last-child {
+    font-size: 11px;
+    font-size: 1.1rem;
+}
+
+#followAndRegister.login .form-group {
+    margin-bottom: 15px;
+}
+
+#inviteForm textarea {
+    height: 150px;
+}
+
+#inviteForm .form-group {
+    text-align: left;
+}
+
+#inviteForm .control-label {
+    font-size: 16px;
+    font-size: 1.6rem;
+}
 
 
 /* LIST CONTACTS (08/2016) */
@@ -2179,8 +2247,14 @@ ul.participatory-budget-steps-info li.active a {display: none}
 .user-list-followers.hide3 > li + li + li {margin-bottom:0px;}
 .user-list-followers.hide2 > li + li {margin-bottom:0px;}
 
-.user-list-followers .popover{margin-top:3px;left:-80px !important}
-.owner .popover {margin-left:30px;}
+.user-list-followers .popover {
+    margin-top: 3px;
+    left: -80px !important
+}
+
+.owner .popover {
+    margin-left: 75px;
+}
 
 /* lista de a quién seguir al inicio del Dashboard */
 .condition .user-list-followers {margin: 0; padding: 0 !important;}

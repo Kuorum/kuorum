@@ -19,7 +19,6 @@ import org.kuorum.rest.model.communication.survey.SurveyRSDTO
 import org.kuorum.rest.model.communication.survey.answer.QuestionAnswerFilesRDTO
 import org.kuorum.rest.model.contact.ContactRSDTO
 import org.kuorum.rest.model.geolocation.RegionRSDTO
-import org.kuorum.rest.model.notification.campaign.NewsletterRSDTO
 import org.springframework.context.i18n.LocaleContextHolder
 import payment.campaign.CampaignService
 import payment.campaign.NewsletterService
@@ -772,10 +771,17 @@ class FormTagLib {
         Boolean defaultEmpty = attrs.defaultEmpty?Boolean.parseBoolean(attrs.defaultEmpty):false
         Boolean isRequired = isRequired(command,field) || (attrs.required?Boolean.parseBoolean(attrs.required):false)
         def label ="${attrs.label?:message(code: "${clazz.name}.label")}${isRequired?'*':''}"
+        String extraInfo = message(code: "${command.class.name}.${field}.extraInfo", default: '')
         def error = hasErrors(bean: command, field: field,'error')
-        if (showLabel){
-
-            out <<"""<label for="${id}" class="${labelCssClass}">${label}</label>"""
+        if (showLabel) {
+            out << """<label for="${id}" class="${labelCssClass}">${label}</label>"""
+            if (extraInfo) {
+                out << """
+                <span class="info-disabled">
+                    <span role="button" rel="popover" class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="${extraInfo}"></span>
+                </span>
+            """
+            }
         }
         out << """
             <select name="${prefixFieldName}${field}" class="form-control input-lg ${error}" id="${id}" ${disabled?'disabled':''}>
