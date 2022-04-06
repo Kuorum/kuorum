@@ -2026,25 +2026,126 @@ ul.participatory-budget-steps-info li.active a {display: none}
 }
 
 .edit-contact .tab-pane form {margin-top: 25px;}
-.edit-contact .tab-pane .form-group {margin-bottom: 30px;}
-.edit-contact .tab-pane#socialNetwork form .input-group-addon:first-child {border-right: none; background-color: #eeeeee;}
-.edit-contact .tab-pane#socialNetwork form > .row:last-child > div {text-align: right; padding-top: 34px;}
-.edit-contact .tab-pane form .btn {margin-bottom: 30px; min-width: 90px;}
-.edit-contact .tab-pane#notes .form-group:last-child {padding-top: 20px;}
-.edit-contact .tab-pane#notes .btn {position: absolute; right: 15px; bottom: 0; margin: 0;}
-.edit-contact .tab-pane#notes textarea {height: 226px;}
-.edit-contact .tab-pane#extraInfo {}
-.edit-contact .tab-pane#extraInfo fieldset.row {margin-left:0; margin-right: 0;}
+.edit-contact .tab-pane .form-group {
+    margin-bottom: 30px;
+}
+
+.edit-contact .tab-pane#socialNetwork form .input-group-addon:first-child {
+    border-right: none;
+    background-color: #eeeeee;
+}
+
+.edit-contact .tab-pane#socialNetwork form > .row:last-child > div {
+    text-align: right;
+    padding-top: 34px;
+}
+
+.edit-contact .tab-pane form .btn {
+    margin-bottom: 30px;
+    min-width: 90px;
+}
+
+.edit-contact .tab-pane#notes .form-group:last-child {
+    padding-top: 20px;
+}
+
+.edit-contact .tab-pane#notes .btn {
+    position: absolute;
+    right: 15px;
+    bottom: 0;
+    margin: 0;
+}
+
+.edit-contact .tab-pane#notes textarea {
+    height: 226px;
+}
+
+.edit-contact .tab-pane#extraInfo {
+}
+
+.edit-contact .tab-pane#extraInfo fieldset.row {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.contact-issue-add-button {
+    margin: 33px 0 0 0;
+    text-align: right;
+}
+
+.contact-issues {
+    padding: 0
+}
+
+.contact-issues .contact-issue {
+    border-bottom: 1px dotted #ccc;
+    padding: 10px;
+    list-style: none;
+}
+
+.contact-issues .contact-issue:last-child {
+    border-bottom: none;
+}
+
+.contact-issues .contact-issue label,
+.contact-issues .contact-issue.header {
+    font-weight: bold;
+}
+
+.contact-issues .contact-issue .contact-issue-type {
+}
+
+.contact-issues .contact-issue .contact-issue-date {
+}
+
+.contact-issues .contact-issue .contact-issue-resolver {
+}
+
+.contact-issues .contact-issue .contact-issue-note {
+}
 
 /* STATS CAMPAIGNS */
-#tabs-stats-campaign h3 {font-size: 20px; margin-top: 50px; font-size: 2rem; color: #a8a8a8;}
-.table.list-tracking {border: solid 1px #dddddd; margin-bottom: 20px;}
-.table.list-tracking thead {display: none;}
-.table.list-tracking th, .table.list-tracking td {color: #a8a8a8; padding: 12px; line-height: 1.2; vertical-align: middle; width: 100%; display: block; }
-.table.list-tracking td.recipient-name a {color: #a8a8a8}
-.table.list-tracking td:nth-child(4) {height: 46px;}
-.table.list-tracking td:nth-child(4) .only-mobile {display: block; margin-bottom: 5px;}
-#tabs-stats-campaign .pag-list-contacts .actions{float:left;}
+#tabs-stats-campaign h3 {
+    font-size: 20px;
+    margin-top: 50px;
+    font-size: 2rem;
+    color: #a8a8a8;
+}
+
+.table.list-tracking {
+    border: solid 1px #dddddd;
+    margin-bottom: 20px;
+}
+
+.table.list-tracking thead {
+    display: none;
+}
+
+.table.list-tracking th, .table.list-tracking td {
+    color: #a8a8a8;
+    padding: 12px;
+    line-height: 1.2;
+    vertical-align: middle;
+    width: 100%;
+    display: block;
+}
+
+.table.list-tracking td.recipient-name a {
+    color: #a8a8a8
+}
+
+.table.list-tracking td:nth-child(4) {
+    height: 46px;
+}
+
+.table.list-tracking td:nth-child(4) .only-mobile {
+    display: block;
+    margin-bottom: 5px;
+}
+
+#tabs-stats-campaign .pag-list-contacts .actions {
+    float: left;
+}
 #tabs-stats-campaign .pag-list-contacts .actions a{width: auto;line-height: inherit; margin-bottom:5px;}
 #campaignStatsContainer {height: 355px;}
 #campaignEmailContainer {width: 100%; height: 700px; border: 1px solid #dddddd; margin-bottom: 10px;}
