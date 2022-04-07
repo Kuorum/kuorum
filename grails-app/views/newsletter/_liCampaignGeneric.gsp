@@ -73,6 +73,7 @@
             :: ${campaign.anonymousFilter?.name ?: g.message(code: 'tools.massMailing.fields.filter.to.all')}
         </g:if>
     </p>
+<g:if test="${campaign.getCampaignType() == org.kuorum.rest.model.communication.CampaignTypeRSDTO.BULLETIN}">
     <ul class="list-campaign-stats">
         <li class="recipients">
             <span class="recip-number"><newsletterUtil:campaignsSent campaign="${campaign.newsletter}"/></span>
@@ -87,6 +88,7 @@
             <g:message code="tools.massMailing.list.click"/>
         </li>
     </ul>
+</g:if>
     <ul class="list-actions">
         <g:if test="${campaign.getCampaignType() == org.kuorum.rest.model.communication.CampaignTypeRSDTO.SURVEY}">
             <li>

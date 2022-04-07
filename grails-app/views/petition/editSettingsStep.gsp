@@ -31,8 +31,6 @@
                       totalContacts: totalContacts,
                       anonymousFilter: anonymousFilter,
                       events:[
-                              TrackingMailStatusRSDTO.OPEN,
-                              TrackingMailStatusRSDTO.CLICK,
                               TrackingMailStatusRSDTO.PETITION_SIGN]
                       ,
                       mappings:[
