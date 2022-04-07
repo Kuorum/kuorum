@@ -22,7 +22,7 @@
             filters: filters,
             totalContacts: totalContacts,
             anonymousFilter: anonymousFilter,
-            events:[TrackingMailStatusRSDTO.OPEN,TrackingMailStatusRSDTO.CLICK,TrackingMailStatusRSDTO.PETITION_SIGN],
+            events:[TrackingMailStatusRSDTO.PETITION_SIGN],
             mappings:[
                     step:'settings',
                     settings:'petitionEdit',
