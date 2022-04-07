@@ -3,7 +3,8 @@
     <g:set var="callSubtitleMsg" value="${g.message(code:"districtProposal.callToAction.RESULTS.${districtProposal.implemented?'implemented':'notImplemented'}.subtitle", args: [campaignUser.name])}"/>
     <g:render template="/districtProposal/showModules/cCallToActionStatus/cCallToActionHeader" model="[callTitleMsg:callTitleMsg, callSubtitleMsg:callSubtitleMsg]"/>
     <hr/>
-    <g:render template="/districtProposal/showModules/cCallToActionStatus/cCallToActionInfoBudget" model="[districtProposal:districtProposal, showPrice:true, showBudgetProgressBar:false]"/>
+    <g:render template="/districtProposal/showModules/cCallToActionStatus/cCallToActionInfoBudget"
+              model="[districtProposal: districtProposal, showPrice: districtProposal.participatoryBudget.participatoryBudgetType == org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetTypeDTO.BUDGET, showBudgetProgressBar: false]"/>
 </g:if>
 <g:else>
     <g:render template="/districtProposal/showModules/cCallToActionStatus/cCallToActionRejected" model="[districtProposal:districtProposal, campaignUser:campaignUser]"/>
