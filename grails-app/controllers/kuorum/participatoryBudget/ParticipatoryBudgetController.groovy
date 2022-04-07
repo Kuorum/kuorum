@@ -161,7 +161,8 @@ class ParticipatoryBudgetController extends CampaignController {
                 maxDistrictProposalsPerUser: participatoryBudgetRSDTO.maxDistrictProposalsPerUser,
                 minVotesImplementProposals: participatoryBudgetRSDTO.minVotesImplementProposals,
                 activeSupport: participatoryBudgetRSDTO.activeSupport,
-                addProposalsWithValidation: participatoryBudgetRSDTO.addProposalsWithValidation
+                addProposalsWithValidation: participatoryBudgetRSDTO.addProposalsWithValidation,
+                participatoryBudgetType: participatoryBudgetRSDTO.participatoryBudgetType
         )
     }
 
@@ -183,6 +184,7 @@ class ParticipatoryBudgetController extends CampaignController {
         rdto.minVotesImplementProposals = command.minVotesImplementProposals
         rdto.activeSupport = command.activeSupport == null ? false : true
         rdto.addProposalsWithValidation = command.addProposalsWithValidation == null ? false : true
+        rdto.participatoryBudgetType = command.participatoryBudgetType
         def result = saveAndSendCampaign(campaignUser, rdto, participatoryBudgetRSDTO.getId(), command.publishOn, command.sendType, participatoryBudgetService)
         redirect mapping: result.nextStep.mapping, params: result.nextStep.params
     }
@@ -440,7 +442,7 @@ class ParticipatoryBudgetController extends CampaignController {
             String msg = "Error updating proposal"
             if (realCause && realCause instanceof kuorum.core.exception.KuorumException) {
                 msg = g.message(code: ((kuorum.core.exception.KuorumException) realCause).errors.get(0).code)
-                districtProposalRSDTO.setPrice(command.price.intValue())
+                districtProposalRSDTO.setPrice(command.price?.intValue() ?: null)
                 districtProposalRSDTO.setTechnicalReviewStatus(TechnicalReviewStatusRDTO.INCORRECT)
                 response.status = 420
             } else {

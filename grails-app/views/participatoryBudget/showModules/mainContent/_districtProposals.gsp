@@ -13,11 +13,11 @@
     <g:each in="${participatoryBudget.districts}" var="district">
         <div style="display: none" id="proposal-district-${district.id}">
             <g:if test="${participatoryBudget.status == org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.BALLOT}">
-                <g:set var="userInvestement" value="${g.message(code:'kuorum.multidomain.money', args: [district.amountUserInvested])}" />
                 <g:render template="/participatoryBudget/showModules/mainContent/districtInvestmentProgressBar" model="[
-                        district:district,
-                        progressBarWidth:Math.round(district.amountUserInvested/district.budget*100),
-                        tooltipMsg:g.message(code:'participatoryBudget.progressBar.BALLOT.tooltip', args:[userInvestement, district.name])
+                        participatoryBudget: participatoryBudget,
+                        district           : district,
+                        progressBarWidth   : Math.round(district.amountUserInvested / district.budget * 100),
+                        tooltipMsg         : g.message(code: 'participatoryBudget.progressBar.BALLOT.' + participatoryBudget.participatoryBudgetType + '.tooltip', args: [district.amountUserInvested, district.name])
                 ]"/>
                 <ul class="nav nav-pills nav-pills-lvl2 nav-underline ">
                     <li class="active active-no-click">
@@ -25,20 +25,24 @@
                             <g:message code="participatoryBudget.show.listProposals.sort.random"/>
                         </a>
                     </li>
-                    <li>
-                        <a href="#" data-listSelector="price" data-direction="DESC" data-districtId="${district.id}">
-                            <g:message code="participatoryBudget.show.listProposals.sort.byPrice"/><span class="fal "></span>
-                        </a>
-                    </li>
+                    <g:if test="${participatoryBudget.participatoryBudgetType == org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetTypeDTO.BUDGET}">
+                        <li>
+                            <a href="#" data-listSelector="price" data-direction="DESC"
+                               data-districtId="${district.id}">
+                                <g:message code="participatoryBudget.show.listProposals.sort.byPrice"/><span
+                                    class="fal "></span>
+                            </a>
+                        </li>
+                    </g:if>
                 </ul>
             </g:if>
             <g:elseif test="${participatoryBudget.status == org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.RESULTS}">
-                <g:set var="investment" value="${g.message(code:'kuorum.multidomain.money', args: [district.investment])}" />
                 <g:render template="/participatoryBudget/showModules/mainContent/districtInvestmentProgressBar" model="[
-                        district:district,
-                        progressBarWidth:Math.round((district.investment?:0)/district.budget*100),
-                        importantClass:true,
-                        tooltipMsg:g.message(code:'participatoryBudget.progressBar.RESULTS.tooltip', args:[investment, district.name],)
+                        participatoryBudget: participatoryBudget,
+                        district           : district,
+                        progressBarWidth   : Math.round((district.investment ?: 0) / district.budget * 100),
+                        importantClass     : true,
+                        tooltipMsg         : g.message(code: 'participatoryBudget.progressBar.RESULTS.' + participatoryBudget.participatoryBudgetType + '.tooltip', args: [district.investment ?: 0, district.name],)
                 ]"/>
             </g:elseif>
             <ul class="search-list clearfix random"

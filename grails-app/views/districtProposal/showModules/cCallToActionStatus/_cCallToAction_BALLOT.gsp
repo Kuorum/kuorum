@@ -29,7 +29,8 @@
             <span class="fal fa-shopping-cart"></span>
         </a>
     </div>
-    <g:render template="/districtProposal/showModules/cCallToActionStatus/cCallToActionInfoBudget" model="[districtProposal:districtProposal, showPrice:true, showBudgetProgressBar:true]"/>
+    <g:render template="/districtProposal/showModules/cCallToActionStatus/cCallToActionInfoBudget"
+              model="[districtProposal: districtProposal, showPrice: districtProposal.participatoryBudget.participatoryBudgetType == org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetTypeDTO.BUDGET, showBudgetProgressBar: true]"/>
     <!-- District modal overflow -->
     <g:render template="/districtProposal/showModules/mainContent/districtProposalModalErrors" model="[district:districtProposal.district]"/>
 </g:if>
