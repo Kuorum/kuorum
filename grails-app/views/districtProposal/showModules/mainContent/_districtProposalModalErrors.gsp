@@ -8,11 +8,10 @@
             </div>
             <div class="modal-body">
                 <p><g:message code="participatoryBudget.district.modal.overrun.text" args="[district.name]"/></p>
-                <g:set var="userInvestement" value="${g.message(code:'kuorum.multidomain.money', args: [district.amountUserInvested])}" />
                 <g:render template="/participatoryBudget/showModules/mainContent/districtInvestmentProgressBar" model="[
-                        district:district,
-                        progressBarWidth:Math.round(district.amountUserInvested/district.budget*100),
-                        tooltipMsg:g.message(code:'participatoryBudget.progressBar.BALLOT.tooltip', args:[userInvestement, district.name])
+                        district        : district,
+                        progressBarWidth: Math.round(district.amountUserInvested / district.budget * 100),
+                        tooltipMsg      : g.message(code: 'participatoryBudget.progressBar.BALLOT.' + district.basicParticipatoryBudget.participatoryBudgetType + '.tooltip', args: [district.amountUserInvested, district.name])
                 ]"/>
             </div>
             <div class="modal-actions">

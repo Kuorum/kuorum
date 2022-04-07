@@ -1,9 +1,10 @@
-<div class="comment-counter pull-right comment-counter-${districtProposal.id}">
+<g:set var="positionCounter" value="${position == 'left' ? 'pull-left' : 'pull-right'}"/>
+<div class="comment-counter ${positionCounter} comment-counter-${districtProposal.id}">
 
-    <a type="button" class="${isActive?'active':''} ${callButtonActionClass}"
+    <a type="button" class="${isActive ? 'active' : ''} ${callButtonActionClass}"
        href="${callButtonAction}"
        data-campaignValidationActive="${districtProposal.checkValidationActive}"
-       data-campaignGroupValidationActive="${districtProposal.groupValidation?g.createLink(mapping: "campaignCheckGroupValidation", params: districtProposal.encodeAsLinkProperties()):''}"
+       data-campaignGroupValidationActive="${districtProposal.groupValidation ? g.createLink(mapping: "campaignCheckGroupValidation", params: districtProposal.encodeAsLinkProperties()) : ''}"
        data-campaignId="${districtProposal.id}"
        data-districtId="${districtProposal.district.id}"
        data-participatoryBudgetId="${districtProposal.participatoryBudget.id}"

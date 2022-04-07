@@ -771,10 +771,17 @@ class FormTagLib {
         Boolean defaultEmpty = attrs.defaultEmpty?Boolean.parseBoolean(attrs.defaultEmpty):false
         Boolean isRequired = isRequired(command,field) || (attrs.required?Boolean.parseBoolean(attrs.required):false)
         def label ="${attrs.label?:message(code: "${clazz.name}.label")}${isRequired?'*':''}"
+        String extraInfo = message(code: "${command.class.name}.${field}.extraInfo", default: '')
         def error = hasErrors(bean: command, field: field,'error')
-        if (showLabel){
-
-            out <<"""<label for="${id}" class="${labelCssClass}">${label}</label>"""
+        if (showLabel) {
+            out << """<label for="${id}" class="${labelCssClass}">${label}</label>"""
+            if (extraInfo) {
+                out << """
+                <span class="info-disabled">
+                    <span role="button" rel="popover" class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="${extraInfo}"></span>
+                </span>
+            """
+            }
         }
         out << """
             <select name="${prefixFieldName}${field}" class="form-control input-lg ${error}" id="${id}" ${disabled?'disabled':''}>
