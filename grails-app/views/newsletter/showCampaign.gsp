@@ -44,12 +44,11 @@
 </g:if>
 </ul>
 <div id="tabs-stats-campaign" class="tab-content">
-<g:if test="${campaign && campaign instanceof org.kuorum.rest.model.communication.bulletin.BulletinRSDTO}">
     <div class="tab-pane ${campaign instanceof org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetRSDTO ? '' : 'active'}"
          id="reportsLists">
         <g:render template="/newsletter/campaignTabs/campaignReports" model="[reportsList: reportsList]"/>
     </div>
-</g:if>
+
 
     <div class="tab-pane" id="stats">
         <g:render template="/newsletter/campaignTabs/campaignStats"

@@ -3,7 +3,8 @@
 <div class="pag-list-contacts clearfix">
 
     <div class="actions">
-        <g:if test="${newsletter}">
+        <g:if test="${campaign && campaign instanceof org.kuorum.rest.model.communication.bulletin.BulletinRSDTO}">
+
             <g:link mapping="politicianMassMailingTrackEventsReport" params="[campaignId:campaign.id]" class="btn btn-blue inverted export-modal-button" data-modalId="export-campaignEvents-modal">
                 <span class="fal fa-file-excel"></span>
                 <g:message code="tools.massMailing.list.recipients.export.csv"/>
