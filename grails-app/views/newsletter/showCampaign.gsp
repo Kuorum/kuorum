@@ -33,10 +33,10 @@
     <li role="presentation"><a href="#stats" data-toggle="tab"><g:message code="tools.massMailing.view.stats"/></a></li>
     <li role="presentation"><a href="#recipients" data-toggle="tab"><g:message
             code="tools.massMailing.list.recipients"/></a></li>
-</g:if>
-<g:if test="${newsletter.htmlBody}">
-    <li role="presentation"><a href="#viewemail" data-toggle="tab"><g:message
-            code="tools.massMailing.view.viewMail"/></a></li>
+    <g:if test="${newsletter.htmlBody}">
+        <li role="presentation"><a href="#viewemail" data-toggle="tab"><g:message
+                code="tools.massMailing.view.viewMail"/></a></li>
+    </g:if>
 </g:if>
 <g:if test="${campaign && campaign instanceof org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetRSDTO}">
     <li role="presentation" class="active"><a href="#proposalLists" data-toggle="tab"><g:message
