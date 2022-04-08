@@ -169,39 +169,106 @@ $(function () {
                     display.success(data.msg)
                 }
             })
-            .fail(function(messageError) {
+            .fail(function (messageError) {
                 display.warn("Error");
             })
-            .always(function() {
+            .always(function () {
                 pageLoadingOff();
             });
         return false;
     });
 
-    $("#tabs-edit-contact #extraInfo #extraInfoContact").on("submit",function(e){
+    $("#tabs-edit-contact #contactIssues #addContactIssueForm").on("submit", function (e) {
+        e.preventDefault();
+        var $form = $(this)
+        var postData = $form.serialize();
+        var link = $form.attr("action");
+        var $ul = $form.siblings("ul.contact-issues")
+        if ($form.valid()) {
+            pageLoadingOn("Adding Issue Contact");
+            $.post(link, postData)
+                .done(function (data) {
+                    $ul.find("li:first").after(data);
+                    $form.find("input[name=note]").val("");
+                    $form.find("select[name=issueType] option").prop("selected", false);
+                })
+                .fail(function (messageError) {
+                    display.warn("Error");
+                })
+                .always(function () {
+                    pageLoadingOff();
+                });
+        }
+        return false;
+    });
+
+    $("#tabs-edit-contact #contactIssues .contact-issue-delete a").on("click", function (e) {
+        e.preventDefault();
+        $a = $(this)
+        var link = $a.attr("href");
+        var $li = $a.parents("li.contact-issue");
+        pageLoadingOn("Deleting Issue Contact");
+        $.post(link)
+            .done(function (data) {
+                $li.remove();
+            })
+            .fail(function (messageError) {
+                display.warn("Error");
+            })
+            .always(function () {
+                pageLoadingOff();
+            });
+    });
+
+    $("#tabs-edit-contact #extraInfo #extraInfoContact").on("submit", function (e) {
         e.preventDefault();
         var postData = $(this).serialize();
         var link = $(this).attr("action")
-        $.post( link, postData)
-            .done(function(data) {
-                if (data.err != undefined){
+        $.post(link, postData)
+            .done(function (data) {
+                if (data.err != undefined) {
                     display.warn(data.err)
-                }else{
+                } else {
                     display.success(data.msg)
                 }
             })
-            .fail(function(messageError) {
+            .fail(function (messageError) {
                 display.warn("Error");
             })
-            .always(function() {
+            .always(function () {
                 pageLoadingOff();
             });
         return false;
     });
 
 
+    //TODO: This function should go to a more generic js
+    function prepareSelectCampaigns() {
+        $select = $("select[name=campaignId][data-select-options-ajax-url]")
+        var url = $select.attr("data-select-options-ajax-url")
+        $.get(url)
+            .done(function (data, status, xhr) {
+                for (const campaign of data) {
+                    $select.append("<option value='" + campaign.id + "'>" + campaign.name + "</option>")
+                }
+                if (data.length == 1) {
+                    $select.find('option').get(0).remove();
+                }
+
+            })
+            .fail(function (data) {
+                console.log(data)
+            })
+            .always(function (data) {
+
+            })
+        ;
+    }
+
+    prepareSelectCampaigns();
+
     // Bulk actions -- Open modal
-    $("#listContacts").on("change", "#contactsOrderOptions .bulk-actions", function(e) {
+    $("#listContacts").on("change", "#contactsOrderOptions .bulk-actions", function (e) {
         e.preventDefault();
         var type = parseInt($(this).val());
 

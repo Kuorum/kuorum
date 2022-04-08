@@ -26,31 +26,6 @@
                 %{--<div class="card-text"><modulesUtil:shortText text="${survey.body}"/></div>--}%
             %{--</g:if>--}%
         </div>
-        <div class="card-footer">
-            <ul>
-                <g:if test="${[
-                        org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.BALLOT,
-                        org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.CLOSED,
-                        org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.RESULTS,
-                ].contains(districtProposal.participatoryBudget.status) && districtProposal.price}">
-                    <li class="districtProposalPrice"><g:message code="kuorum.multidomain.money" args="[districtProposal.price]"/></li>
-                </g:if>
-                <g:elseif test="${showAuthor}">
-                    <li class="owner">
-                        <userUtil:showUser
-                                user="${districtProposal.user}"
-                                showName="true"
-                                showActions="false"
-                                showDeleteRecommendation="false"
-                                htmlWrapper="div"
-                        />
-                    </li>
-                </g:elseif>
-
-                <li class="${districtProposal.technicalReviewStatus == org.kuorum.rest.model.communication.participatoryBudget.TechnicalReviewStatusRDTO.VALID && districtProposal.participatoryBudget.status==org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.BALLOT?'comment-counter-as-button':''}">
-                    <g:render template="/districtProposal/showModules/districtProposalDataIcon" model="[districtProposal:districtProposal]"/>
-                </li>
-            </ul>
-        </div>
+        <g:render template="/campaigns/cards/districtProposalCardFooter" model="[districtProposal: districtProposal]"/>
     </div>
 </article>

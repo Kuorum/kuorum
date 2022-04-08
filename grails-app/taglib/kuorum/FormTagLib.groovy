@@ -19,7 +19,6 @@ import org.kuorum.rest.model.communication.survey.SurveyRSDTO
 import org.kuorum.rest.model.communication.survey.answer.QuestionAnswerFilesRDTO
 import org.kuorum.rest.model.contact.ContactRSDTO
 import org.kuorum.rest.model.geolocation.RegionRSDTO
-import org.kuorum.rest.model.notification.campaign.NewsletterRSDTO
 import org.springframework.context.i18n.LocaleContextHolder
 import payment.campaign.CampaignService
 import payment.campaign.NewsletterService
@@ -772,10 +771,17 @@ class FormTagLib {
         Boolean defaultEmpty = attrs.defaultEmpty?Boolean.parseBoolean(attrs.defaultEmpty):false
         Boolean isRequired = isRequired(command,field) || (attrs.required?Boolean.parseBoolean(attrs.required):false)
         def label ="${attrs.label?:message(code: "${clazz.name}.label")}${isRequired?'*':''}"
+        String extraInfo = message(code: "${command.class.name}.${field}.extraInfo", default: '')
         def error = hasErrors(bean: command, field: field,'error')
-        if (showLabel){
-
-            out <<"""<label for="${id}" class="${labelCssClass}">${label}</label>"""
+        if (showLabel) {
+            out << """<label for="${id}" class="${labelCssClass}">${label}</label>"""
+            if (extraInfo) {
+                out << """
+                <span class="info-disabled">
+                    <span role="button" rel="popover" class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="${extraInfo}"></span>
+                </span>
+            """
+            }
         }
         out << """
             <select name="${prefixFieldName}${field}" class="form-control input-lg ${error}" id="${id}" ${disabled?'disabled':''}>
@@ -788,49 +794,62 @@ class FormTagLib {
             String codeMessage = "${clazz.name}.$it"
             Boolean selected = (it==command."$field")
             if (command."$field" instanceof String){
-                selected = (it.toString()==command."$field")
+                selected = (it.toString() == command."$field")
             }
-            out << "<option value='${it}' ${selected?'selected':''}> ${message(code:codeMessage)}</option>"
+            out << "<option value='${it}' ${selected ? 'selected' : ''}> ${message(code: codeMessage)}</option>"
         }
         out << "</select>"
-        if(error){
+        if (error) {
             out << "<span for='${id}' class='error'>${g.fieldError(bean: command, field: id)}</span>"
         }
     }
 
+    def selectAjax = { attrs, body ->
+
+        attrs.values = [:]
+        if (!attrs.ajaxOptionsLink) {
+            attrs.ajaxOptionsLink = g.createLink(mapping: attrs.ajaxOptionsMapping);
+        }
+        out << selectMap(attrs, body)
+    }
+
     def selectQuestion = { attrs, body ->
         SurveyRSDTO survey = attrs.survey
-        def questionSelect =  survey.questions.inject([:]) {map, q -> map <<[(q.id):q.text]}
+        def questionSelect = survey.questions.inject([:]) { map, q -> map << [(q.id): q.text] }
         attrs.values = [:]
-        attrs.values[0] = g.message(code:'kuorum.web.commands.payment.survey.QuestionOptionCommand.nextQuestionId.endSurvey')
+        attrs.values[0] = g.message(code: 'kuorum.web.commands.payment.survey.QuestionOptionCommand.nextQuestionId.endSurvey')
         attrs.values << questionSelect
         out << selectMap(attrs, body)
     }
-    def selectMap = {attrs->
+    def selectMap = { attrs ->
         def command = attrs.command
         def field = attrs.field
         def showLabel = attrs.showLabel?Boolean.parseBoolean(attrs.showLabel):true
         def id = attrs.id?:field
-        def prefixFieldName=attrs.prefixFieldName?:""
+        def prefixFieldName = attrs.prefixFieldName ?: ""
         def cssClass = attrs.cssClass
-        def labelCssClass=attrs.labelCssClass?:""
-        Boolean defaultEmpty = attrs.defaultEmpty?Boolean.parseBoolean(attrs.defaultEmpty):false
-        Boolean isRequired = isRequired(command,field) || (attrs.required?Boolean.parseBoolean(attrs.required):false)
+        def labelCssClass = attrs.labelCssClass ?: ""
+        Boolean defaultEmpty = attrs.defaultEmpty ? Boolean.parseBoolean(attrs.defaultEmpty) : false
+        Boolean isRequired = isRequired(command, field) || (attrs.required ? Boolean.parseBoolean(attrs.required) : false)
         def label = buildLabel(command, field, attrs.label)
-        def error = hasErrors(bean: command, field: field,'error')
-        if (showLabel){
-            out <<"""<label for="${id}" class="${labelCssClass}">${label}</label>"""
+        def error = hasErrors(bean: command, field: field, 'error')
+        if (showLabel) {
+            out << """<label for="${id}" class="${labelCssClass}">${label}</label>"""
+        }
+        String ajaxLinkParameter = "";
+        if (attrs.ajaxOptionsLink) {
+            ajaxLinkParameter = "data-select-options-ajax-url='${attrs.ajaxOptionsLink}'"
         }
         out << """
-            <select name="${prefixFieldName}${field}" class="form-control input-lg ${error}" id="${id}">
+            <select name="${prefixFieldName}${field}" class="form-control input-lg ${error}" id="${id}" $ajaxLinkParameter>
             """
-        if (!isRequired || defaultEmpty){
-            out << "<option value=''> ${message(code:"${command.class.name}.${field}.empty", default: '')}</option>"
+        if (!isRequired || defaultEmpty) {
+            out << "<option value=''> ${message(code: "${command.class.name}.${field}.empty", default: '')}</option>"
         }
         def valuesMap = attrs.values
-        valuesMap.each{ key, val ->
-            Boolean selected = (key==command."$field")
-            if (command."$field" instanceof String){
+        valuesMap.each { key, val ->
+            Boolean selected = (key == command."$field")
+            if (command."$field" instanceof String) {
                 selected = (key.toString()==command."$field")
             }
             out << "<option value='${key}' ${selected?'selected':''}> ${val}</option>"

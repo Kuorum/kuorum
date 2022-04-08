@@ -1,5 +1,6 @@
 package kuorum.politician
 
+import grails.converters.JSON
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 import groovy.time.TimeCategory
@@ -16,12 +17,10 @@ import kuorum.util.TimeZoneUtil
 import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.commands.payment.CampaignSettingsCommand
 import kuorum.web.commands.payment.contact.ContactFilterCommand
-import org.kuorum.rest.model.communication.CampaignRDTO
-import org.kuorum.rest.model.communication.CampaignRSDTO
-import org.kuorum.rest.model.communication.CampaignTypeRSDTO
-import org.kuorum.rest.model.communication.CampaignValidationTypeRDTO
+import org.kuorum.rest.model.communication.*
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.kuorum.rest.model.communication.event.EventRDTO
+import org.kuorum.rest.model.communication.search.SearchCampaignRDTO
 import org.kuorum.rest.model.communication.survey.CampaignVisibilityRSDTO
 import org.kuorum.rest.model.communication.survey.SurveyRDTO
 import org.kuorum.rest.model.communication.survey.SurveyVoteTypeDTO
@@ -106,7 +105,6 @@ class CampaignController {
     }
 
     def findLiUserCampaigns(String userId) {
-        String viwerUid = cookieUUIDService.buildUserUUID()
         BasicDataKuorumUserRSDTO user = kuorumUserService.findBasicUserRSDTO(userId)
 
         List<SearchTypeRSDTO> campaignTypes = new ArrayList<SearchTypeRSDTO>(Arrays.asList(SearchTypeRSDTO.values()));
@@ -120,7 +118,20 @@ class CampaignController {
         SearchResultsRSDTO campaigns = searchSolrService.searchAPI(searchParamsRDTO)
         List<SearchKuorumElementRSDTO> userCampaigns = campaigns.data
         render template: '/campaigns/cards/campaignsList', model: [campaigns: userCampaigns, showAuthor: true]
+    }
 
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def findMyActiveCampaigns() {
+        KuorumUserSession user = springSecurityService.principal
+        // TODO: BAD TRICK -> Recover all campaigns without pagination
+        SearchCampaignRDTO searchCampaignRDTO = new SearchCampaignRDTO(
+                page: 0,
+                size: 1000,
+                attachNotPublished: false,
+                onlyPublications: true
+        )
+        CampaignLightPageRSDTO adminCampaigns = campaignService.findAllCampaigns(user, searchCampaignRDTO)
+        render adminCampaigns.data as JSON
     }
 
     protected def modelSettings(CampaignSettingsCommand command, CampaignRSDTO campaignRSDTO = null) {
@@ -425,5 +436,4 @@ class CampaignController {
             [success: true, belongsToCampaignGroup: belongsToCampaignGroup]
         }
     }
-
 }

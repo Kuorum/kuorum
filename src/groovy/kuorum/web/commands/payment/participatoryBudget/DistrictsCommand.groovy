@@ -4,6 +4,7 @@ import grails.validation.Validateable
 import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.constants.WebConstants
 import org.grails.databinding.BindingFormat
+import org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetTypeDTO
 
 @Validateable
 class DistrictsCommand {
@@ -21,6 +22,7 @@ class DistrictsCommand {
 
     Boolean activeSupport
     Boolean addProposalsWithValidation
+    ParticipatoryBudgetTypeDTO participatoryBudgetType
 
     static constraints = {
         importFrom CampaignContentCommand, include: ["publishOn", "sendType"]
@@ -29,6 +31,7 @@ class DistrictsCommand {
         minVotesImplementProposals min: 0
         activeSupport nullable: true
         addProposalsWithValidation nullable: true
+        participatoryBudgetType nullable: false
     }
 
 }

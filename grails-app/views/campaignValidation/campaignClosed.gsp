@@ -18,8 +18,14 @@
         </div>
 
         <div class="box-ppal-section">
-            <g:message code="campaign.closed.token.error.message"
-                       args="[contact.name, campaign.endDate, campaign.title]"/>
+            <g:if test="${campaign.startDate}">
+                <g:message code="campaign.closed.token.error.message.startDate"
+                           args="[contact.name, campaign.title, campaign.startDate, campaign.endDate]"/>
+            </g:if>
+            <g:else>
+                <g:message code="campaign.closed.token.error.message.endDate"
+                           args="[contact.name, campaign.title, campaign.endDate]"/>
+            </g:else>
         </div>
     </div>
 </content>
