@@ -480,6 +480,9 @@ class SurveyController extends CampaignController {
     def createSummoning(Long campaignId) {
         KuorumUserSession loggedUser = springSecurityService.principal
         BulletinRSDTO bulletinSummoning = surveyService.createSummoning(loggedUser, campaignId)
+        SurveyRSDTO survey = surveyService.find(loggedUser, campaignId)
+        SurveyRDTO rdto = surveyService.map(survey)
+        def result = saveAndSendCampaign(loggedUser, rdto, campaignId, new Date(), CampaignContentCommand.CAMPAIGN_SEND_TYPE_SEND, surveyService)
         redirect mapping: 'politicianMassMailingContent', params: bulletinSummoning.encodeAsLinkProperties()
     }
 
