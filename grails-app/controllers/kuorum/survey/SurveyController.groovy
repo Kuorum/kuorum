@@ -273,6 +273,16 @@ class SurveyController extends CampaignController {
         [survey: survey]
     }
 
+    @Secured(['ROLE_CAMPAIGN_SURVEY'])
+    def closeSurvey(Long campaignId) {
+        KuorumUserSession surveyUser = springSecurityService.principal
+        SurveyRSDTO survey = surveyService.find(surveyUser, campaignId)
+        SurveyRDTO surveyRDTO = surveyService.map(survey);
+        surveyRDTO.endDate = new Date();
+        surveyService.save(surveyUser, surveyRDTO, campaignId);
+        render([success: true, msg: ""] as JSON)
+    }
+
     private ExtendedFilterRSDTO createInitialSurveyFilter(KuorumUserSession user, String filterName, String voterTag) {
         FilterRDTO filterRDTO = new FilterRDTO();
         filterRDTO.name = filterName

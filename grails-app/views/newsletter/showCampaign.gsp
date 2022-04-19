@@ -121,6 +121,27 @@
                     </div>
                 </div>
             </div>
+
+            <div id="close-survey-modal" class="modal fade in" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog ">
+                    <div class="modal-content">
+                        <div class="modal-header"><h4><g:message code="modal.closeSurvey.title"/></h4></div>
+
+                        <div class="modal-body">
+                            <p>
+                                <g:message code="modal.closeSurvey.explanation"/>
+                            </p>
+                        </div>
+
+                        <div class="modal-footer">
+                            <a href="#" class="btn btn-grey-light" data-dismiss="modal" aria-label="Close"><g:message
+                                    code="profile.modal.cropImage.cancel"/></a>
+                            <a href="#" class="btn submit-close-survey-button"><g:message
+                                    code="tools.massMailing.view.stats.survey.close"/></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </g:if>
 
         <div id="export-campaignEvents-modal" class="modal fade in" tabindex="-1" role="dialog"
