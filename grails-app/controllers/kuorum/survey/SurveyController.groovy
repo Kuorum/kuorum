@@ -273,6 +273,16 @@ class SurveyController extends CampaignController {
         [survey: survey]
     }
 
+    @Secured(['ROLE_CAMPAIGN_SURVEY'])
+    def closeSurvey(Long campaignId) {
+        KuorumUserSession surveyUser = springSecurityService.principal
+        SurveyRSDTO survey = surveyService.find(surveyUser, campaignId)
+        SurveyRDTO surveyRDTO = surveyService.map(survey);
+        surveyRDTO.endDate = new Date();
+        surveyService.save(surveyUser, surveyRDTO, campaignId);
+        render([success: true, msg: ""] as JSON)
+    }
+
     private ExtendedFilterRSDTO createInitialSurveyFilter(KuorumUserSession user, String filterName, String voterTag) {
         FilterRDTO filterRDTO = new FilterRDTO();
         filterRDTO.name = filterName
@@ -470,6 +480,9 @@ class SurveyController extends CampaignController {
     def createSummoning(Long campaignId) {
         KuorumUserSession loggedUser = springSecurityService.principal
         BulletinRSDTO bulletinSummoning = surveyService.createSummoning(loggedUser, campaignId)
+        SurveyRSDTO survey = surveyService.find(loggedUser, campaignId)
+        SurveyRDTO rdto = surveyService.map(survey)
+        def result = saveAndSendCampaign(loggedUser, rdto, campaignId, new Date(), CampaignContentCommand.CAMPAIGN_SEND_TYPE_SEND, surveyService)
         redirect mapping: 'politicianMassMailingContent', params: bulletinSummoning.encodeAsLinkProperties()
     }
 

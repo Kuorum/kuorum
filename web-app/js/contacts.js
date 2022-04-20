@@ -202,8 +202,9 @@ $(function () {
         return false;
     });
 
-    $("#tabs-edit-contact #contactIssues .contact-issue-delete a").on("click", function (e) {
+    $("#tabs-edit-contact #contactIssues").on("click", ".contact-issue-delete a", function (e) {
         e.preventDefault();
+        console.log("DELETE ISSUE")
         $a = $(this)
         var link = $a.attr("href");
         var $li = $a.parents("li.contact-issue");
