@@ -16,19 +16,19 @@
         <li class="active">${breadCrumbName}</li>
     </ol>
     <g:render template="/campaigns/edit/settingsStep" model="[
-            attachEvent:false,
-            domainValidation:domainValidation,
-            command: command,
-            filters: filters,
-            totalContacts: totalContacts,
-            anonymousFilter: anonymousFilter,
-            events:[TrackingMailStatusRSDTO.OPEN,TrackingMailStatusRSDTO.CLICK,TrackingMailStatusRSDTO.POST_LIKE],
-            mappings:[
-                    step:'settings',
-                    settings:'postEdit',
-                    content:'postEditContent',
+            attachEvent     : false,
+            domainValidation: domainValidation,
+            command         : command,
+            filters         : filters,
+            totalContacts   : totalContacts,
+            anonymousFilter : anonymousFilter,
+            events          : [TrackingMailStatusRSDTO.POST_LIKE],
+            mappings        : [
+                    step      : 'settings',
+                    settings  : 'postEdit',
+                    content   : 'postEditContent',
                     showResult: 'postShow',
-                    next: 'postEditContent'
+                    next      : 'postEditContent'
             ]]"/>
     <g:render template="/newsletter/timeZoneSelectorPopUp"/>
 </content>

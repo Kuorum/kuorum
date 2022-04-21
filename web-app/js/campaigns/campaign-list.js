@@ -71,26 +71,53 @@ $(function(){
         var link = $a.attr("href")
         var modalId = $a.attr("data-modalId")
         $.post(link)
-            .done(function(data) {
-                $("#"+modalId).modal("show")
+            .done(function (data) {
+                $("#" + modalId).modal("show")
             })
-            .fail(function(messageError) {
+            .fail(function (messageError) {
                 display.warn("Error exporting");
             })
-            .always(function() {
+            .always(function () {
+                pageLoadingOff();
+            });
+    });
+
+    $("#close-survey-modal-button").on("click", function (e) {
+        e.preventDefault();
+        var $a = $(this)
+        var link = $a.attr("href")
+        var modalId = $a.attr("data-modalId")
+        var $modal = $("#" + modalId);
+        $modal.modal("show");
+        $modal.find(".submit-close-survey-button").attr("href", link);
+    });
+
+    $("#close-survey-modal").on("click", ".submit-close-survey-button", function (e) {
+        pageLoadingOn();
+        e.preventDefault();
+        var $a = $(this)
+        var link = $a.attr("href")
+        $.post(link)
+            .done(function (data) {
+                location.reload();
+            })
+            .fail(function (messageError) {
+                display.warn("Error closing survey");
+            })
+            .always(function () {
                 pageLoadingOff();
             });
     });
 
 
     // Request campaign collection export
-    $("#exportCampaigns").on("click", function(e){
+    $("#exportCampaigns").on("click", function (e) {
         pageLoadingOn();
         e.preventDefault();
         var $a = $(this);
         var link = $a.attr("href");
         $.post(link)
-            .done(function(data) {
+            .done(function (data) {
                 $("#export-campaigns-modal").modal("show");
             })
             .fail(function(messageError) {

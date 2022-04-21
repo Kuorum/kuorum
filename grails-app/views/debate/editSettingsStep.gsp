@@ -30,8 +30,6 @@
                       totalContacts: totalContacts,
                       anonymousFilter: anonymousFilter,
                       events:[
-                              TrackingMailStatusRSDTO.OPEN,
-                              TrackingMailStatusRSDTO.CLICK,
                               TrackingMailStatusRSDTO.DEBATE_PROPOSAL_NEW,
                               TrackingMailStatusRSDTO.DEBATE_PROPOSAL_COMMENT,
                               TrackingMailStatusRSDTO.DEBATE_PROPOSAL_LIKE]

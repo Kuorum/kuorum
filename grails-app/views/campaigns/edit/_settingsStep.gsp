@@ -129,14 +129,6 @@
                 </fieldset>
             </g:if>
             <fieldset class="form-group fieldset-check-box">
-                <label for="newsletterCommunication" class="col-sm-2 col-md-1 control-label">
-                    <g:message code="kuorum.web.commands.payment.CampaignSettingsCommand.newsletterCommunication.label.left"/>:
-                </label>
-                <div class="col-sm-8 col-md-7">
-                    <formUtil:checkBox command="${command}" field="newsletterCommunication" disabled="${campaign != null && campaign.published}"/>
-                </div>
-            </fieldset>
-            <fieldset class="form-group fieldset-check-box">
                 <label for="groupValidation" class="col-sm-2 col-md-1 control-label">
                     <g:message code="kuorum.web.commands.payment.CampaignSettingsCommand.groupValidation.label.left"/>:
                 </label>

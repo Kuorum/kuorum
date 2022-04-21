@@ -167,6 +167,7 @@ class UrlMappings {
         name surveyInitDomainEditQuestions: "/start/survey/$campaignId/edit-questions" (controller: "survey"){action = [GET: "editInitialSurveyQuestionsStep", POST: "saveInitialSurveyQuestionsStep"]}
         name surveyInitDomainEditSumonContacts: "/start/survey/$campaignId/add-contacts" (controller: "survey"){action = [GET: "editInitialSurveyAddContactsStep", POST: "saveInitialSurveyAddContactsStep"]}
         name surveyInitDomainSuccess: "/start/survey/$campaignId/success" (controller: "survey", action: "editInitialSurveyFinish");
+        name surveyCloseNow:         "/ajax/survey/$campaignId/close" (controller: "survey", action: "closeSurvey");
 
 
         name eventCreate:           "/account/event/new" (controller: "event"){action = [GET: "create", POST: "saveSettings"]}
@@ -337,12 +338,15 @@ class UrlMappings {
         name politicianContactPersonalCodeRemove:       "/account/contacts/$contactId/edit/personalCode/remove" (controller:"contacts", action:"removePersonalCode")
         name politicianContactEditUpdateNote:           "/ajax/account/contacts/$contactId/edit/updateNote" (controller:"contacts",action:"updateContactNotes")
         name politicianContactEditUpdateExtraInfo:      "/ajax/account/contacts/$contactId/edit/updateExtraInfo" (controller:"contacts",action:"updateContactExtraInfo")
+        name politicianContactAddIssues:                "/ajax/account/contacts/$contactId/edit/addIssue" (controller:"contacts",action:"addIssue")
+        name politicianContactDeleteIssues:             "/ajax/account/contacts/$contactId/edit/deleteIssue/$issueId" (controller:"contacts",action:"deleteIssue")
         name politicianContactNew:                      "/account/contacts/new" (controller:"contacts"){action =[GET:"newContact", POST:"saveContact"]}
         name politicianContactUnsubscribe:              "/account/contacts/$contactId/unsubscribe" (controller:"contacts", action: "loggedUnsubscribe")
         name politicianInbox:                           "/account/inbox" (controller:"politician", action: "betaTesterPage")
         name politicianCampaigns:                       "/account/campaigns" (controller:"newsletter", action: "index")
         name politicianCampaignsNew:                    "/account/campaigns/new" (controller:"newsletter", action: "newCampaign")
         name politicianCampaignsLists:                  "/ajax/account/campaigns/lists" (controller:"campaign", action: "findLiUserCampaigns")
+        name politicianCampaignsMyActives:              "/ajax/account/campaigns/actives" (controller:"campaign", action: "findMyActiveCampaigns")
         name politicianCampaignsExport:                 "/account/campaigns/export" (controller:"newsletter", action: "exportCampaigns")
         name politicianCampaignsUploadImages:           "/ajax/account/campaign/$campaignId/uploadImages" (controller:"file", action: "uploadCampaignImages")
         name politicianCampaignsListImages:             "/ajax/account/campaign/$campaignId/listImages" (controller:"file", action: "getCampaignImages")
