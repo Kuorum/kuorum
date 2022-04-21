@@ -22,21 +22,21 @@
     </ol>
     <g:render template="/campaigns/edit/settingsStep"
               model="[
-                      campaign:campaign,
-                      attachEvent:false,
-                      options:options,
-                      command: command,
-                      filters: filters,
-                      totalContacts: totalContacts,
+                      campaign       : campaign,
+                      attachEvent    : false,
+                      options        : options,
+                      command        : command,
+                      filters        : filters,
+                      totalContacts  : totalContacts,
                       anonymousFilter: anonymousFilter,
-                      events:[TrackingMailStatusRSDTO.OPEN,TrackingMailStatusRSDTO.CLICK],
-                      mappings:[
-                              step:'settings',
-                              settings:'participatoryBudgetEditSettings',
-                              content:'participatoryBudgetEditContent',
-                              districts:'participatoryBudgetEditDistricts',
-                              deadlines:'participatoryBudgetEditDeadlines',
+                      events         : [TrackingMailStatusRSDTO.DISTRICT_PROPOSAL_ADD, TrackingMailStatusRSDTO.DISTRICT_PROPOSAL_VOTE, TrackingMailStatusRSDTO.DISTRICT_PROPOSAL_SUPPORT],
+                      mappings       : [
+                              step      : 'settings',
+                              settings  : 'participatoryBudgetEditSettings',
+                              content   : 'participatoryBudgetEditContent',
+                              districts : 'participatoryBudgetEditDistricts',
+                              deadlines : 'participatoryBudgetEditDeadlines',
                               showResult: 'campaignShow',
-                              next: 'participatoryBudgetEditContent']
+                              next      : 'participatoryBudgetEditContent']
               ]"/>
 </content>

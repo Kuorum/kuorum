@@ -31,7 +31,6 @@
                       totalContacts: totalContacts,
                       anonymousFilter: anonymousFilter,
                       events:[
-                              TrackingMailStatusRSDTO.OPEN,
                               TrackingMailStatusRSDTO.CLICK]
                               + (campaign.event?[TrackingMailStatusRSDTO.EVENT_BOOK_TICKET,TrackingMailStatusRSDTO.EVENT_CHECK_IN]:[TrackingMailStatusRSDTO.POST_LIKE])
                       ,
