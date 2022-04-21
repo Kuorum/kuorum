@@ -29,7 +29,7 @@ body.landing > div > div {
 
 h4{
     /*font-variant: small-caps;*/
-    color: #333333;
+    color: #545454;
     font-weight: bold;
     margin-top: 0;
     margin-bottom: 12px;
@@ -2166,8 +2166,10 @@ END EDIT PARTICPATORY BUDGET
 .contact-issues .contact-issue .contact-issue-date {
 }
 
+.contact-issues .contact-issue .contact-issue-campaign,
 .contact-issues .contact-issue .contact-issue-resolver {
     overflow: hidden;
+    white-space: nowrap;
 }
 
 .contact-issues .contact-issue .contact-issue-note {

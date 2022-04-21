@@ -23,14 +23,17 @@
 <h4 class="center"><g:message code="tools.contact.edit.tabs.contactIssues.table.title"/></h4>
 <ul class="contact-issues">
     <li class="col-xs-12 contact-issue header hidden-sm hidden-xs">
-        <div class="col-md-2 contact-issue-type"><g:message
-                code="org.kuorum.rest.model.contact.ContactIssueTypeDTO.label"/></div>
-
         <div class="col-md-2 contact-issue-date"><g:message
                 code="tools.contact.edit.tabs.contactIssues.table.labels.date"/></div>
 
-        <div class="col-md-2 contact-issue-resolver"><g:message
+        <div class="col-md-1 contact-issue-resolver"><g:message
                 code="tools.contact.edit.tabs.contactIssues.table.labels.resolver"/></div>
+
+        <div class="col-md-1 contact-issue-campaign"><g:message
+                code="tools.contact.edit.tabs.contactIssues.table.labels.campaign"/></div>
+
+        <div class="col-md-2 contact-issue-type"><g:message
+                code="org.kuorum.rest.model.contact.ContactIssueTypeDTO.label"/></div>
 
         <div class="col-md-6 contact-issue-note"><g:message
                 code="tools.contact.edit.tabs.contactIssues.table.labels.note"/></div>
