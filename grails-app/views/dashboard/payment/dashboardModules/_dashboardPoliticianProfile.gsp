@@ -1,15 +1,18 @@
-<g:set var="percentageComplete" value="${g.formatNumber(number:emptyEditableData.percentage, type:"number",maxFractionDigits:0)}%"/>
-<div class="box-ppal" id="politicianProfile">
+<g:set var="percentageComplete"
+       value="${g.formatNumber(number: emptyEditableData.percentage, type: "number", maxFractionDigits: 0)}%"/>
+<div class="box-ppal ${_isSurveyPlatform ? 'SURVEY_PLATFORM' : ''}" id="politicianProfile">
     <div class="user" itemscope="" itemtype="http://schema.org/Person">
         <div id="profileInfo" class="clearfix">
             <div id="progressProfile">
                 <div id="progressProfileFill" data-progress="${percentageComplete}"></div>
-                <img src="${image.userImgSrc(user:user)}" alt="${user.name}" class="user-img big" itemprop="image">
+                <img src="${image.userImgSrc(user: user)}" alt="${user.name}" class="user-img big" itemprop="image">
             </div>
+
             <div id="progressLine"><div id="progressLineFill" data-progress="${percentageComplete}"></div></div>
             <span>
                 <a href="#" role="button" id="openAddInfo" class="dropdown-toggle" data-toggle="dropdown">
-                    <g:message code="dashboard.payment.profile.percentageComplete.percentage" args="[percentageComplete]"/>
+                    <g:message code="dashboard.payment.profile.percentageComplete.percentage"
+                               args="[percentageComplete]"/>
                     <span class="fas fa-caret-down fa-lg"></span>
                 </a>
                 <ul id="addInfo" class="dropdown-menu dropdown-menu-right" aria-labelledby="openAddInfo" role="menu">

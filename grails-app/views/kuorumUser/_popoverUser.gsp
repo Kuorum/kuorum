@@ -22,8 +22,5 @@
                 %{--</div>--}%
             %{--</userUtil:ifIsFollower>--}%
         </div>
-        <div class="popover-user-body load-rating" data-rating-link="${g.createLink(mapping:'userLoadRate', params:user.encodeAsLinkProperties())}">
-            <div class="loading md"></div>
-        </div>
     </div>
 </div>

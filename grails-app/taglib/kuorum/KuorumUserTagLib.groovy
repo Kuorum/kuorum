@@ -22,7 +22,6 @@ class KuorumUserTagLib {
     static namespace = "userUtil"
 
     def springSecurityService
-    def userReputationService
     RegisterService registerService
     RegionService regionService
     KuorumUserService kuorumUserService
@@ -116,7 +115,6 @@ class KuorumUserTagLib {
         }
 
         if (withPopover) {
-//            UserReputationRSDTO userReputationRSDTO = userReputationService.getReputationWithCache(user)
             out << g.render(template: '/kuorumUser/popoverUser', model: [
                     user: user,
                     targetBlank:targetBlank
