@@ -3,18 +3,14 @@ package kuorum.users
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.causes.CausesService
 import kuorum.core.model.search.Pagination
-import kuorum.notifications.NotificationService
 import kuorum.register.KuorumUserSession
-import kuorum.register.RegisterService
 import kuorum.web.commands.customRegister.KuorumUserContactMessageCommand
 import org.kuorum.rest.model.communication.message.NewMessageRDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 import org.kuorum.rest.model.kuorumUser.KuorumUserRSDTO
 import org.kuorum.rest.model.kuorumUser.news.UserNewRSDTO
-import org.kuorum.rest.model.kuorumUser.reputation.UserReputationRSDTO
 import org.kuorum.rest.model.search.kuorumElement.SearchKuorumUserRSDTO
 import org.kuorum.rest.model.tag.CauseRSDTO
-import payment.campaign.CampaignService
 
 import javax.servlet.http.HttpServletResponse
 
@@ -27,8 +23,6 @@ class KuorumUserController {
 
     CausesService causesService
     UserNewsService userNewsService
-
-    UserReputationService userReputationService
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def secShow(String userAlias){
@@ -51,12 +45,10 @@ class KuorumUserController {
             return false
         }
         List<CauseRSDTO> causes = causesService.findSupportedCauses(userRSDTO)
-        UserReputationRSDTO userReputationRSDTO = userReputationService.getReputation(userRSDTO)
         List<UserNewRSDTO> userNews = userNewsService.findUserNews(userRSDTO)
         [
                 politician:userRSDTO,
                 causes:causes,
-                userReputation: userReputationRSDTO,
                 userNews:userNews
         ]
     }

@@ -44,8 +44,6 @@
                 </div>
 
                 <div class="col-sm-5 profile-actions">
-                    <g:render template="politicianValuation"
-                              model="[user: politician, userReputation: userReputation]"/>
                     <div class="follow-btn-group">
                         <userUtil:followButton user="${politician}" cssExtra="inverted"/>
                         <userUtil:contactButton user="${politician}" cssExtra="inverted"/>

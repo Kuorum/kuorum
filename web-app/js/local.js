@@ -756,17 +756,3 @@ function removeDiacritics (str) {
     }
     return str;
 }
-
-
-function loadAjaxUserRatings($container){
-    var userRateLink = $container.attr("data-rating-link");
-    console.log($container);
-    $.ajax({
-        url: userRateLink,
-        method:'GET'
-    }).success(function (data) {
-        // Update rating
-        $container.html(data);
-        $container.removeClass("load-rating")
-    });
-}

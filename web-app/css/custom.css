@@ -2316,8 +2316,12 @@ END EDIT PARTICPATORY BUDGET
 
 .user {position: relative;}
 .user-type {position: absolute;top: 19px;left: 43px;font-size: 11px;color: #a8a8a8;}
-.popover-user .user-type {left: 2px;}
-.popover-user .popover-user-header {margin-bottom: 15px;}
+.popover-user .user-type {
+    left: 2px;
+}
+
+.popover-user .popover-user-header {
+}
 
 .user.show-user-role{line-height: 1.25em;}
 .user.show-user-role img.user-img{float:left;}
