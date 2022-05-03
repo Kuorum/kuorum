@@ -8440,14 +8440,19 @@ ul.notification-menu > li.see-more {
     cursor: default;
 }
 
-.survey-question-answer .only-predefined-option,
-.survey-question-answer .single-option,
-.survey-question-answer .multi-option {
+.survey-question .survey-question-answer .only-predefined-option,
+.survey-question .survey-question-answer .single-option,
+.survey-question .survey-question-answer .multi-option {
     display: flex;
     position: relative;
     z-index: 1;
-    flex-wrap: wrap;
     height: 100%;
+}
+
+.survey-question.questions-with-images .survey-question-answer .only-predefined-option,
+.survey-question.questions-with-images .survey-question-answer .single-option,
+.survey-question.questions-with-images .survey-question-answer .multi-option {
+    flex-wrap: wrap;
 }
 
 .survey-question-answer .rating-option{

@@ -17,18 +17,17 @@
 <g:if test="${question.questionType == org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.RATING_OPTION}">
     <g:set var="questionClass" value="rating-answer"/>
 </g:if>
-<g:set var="isQuestionWithImages" value="${question.options.find{it.urlImage}?true:false}"/>
+<g:set var="isQuestionWithImages" value="${question.options.find { it.urlImage } ? true : false}"/>
 <li
-        class="comment-box survey-question ${questionClass} no-padding ${survey.closed || question.answered?'answered':''} ${activeQuestionId==question.id?'active-question':''}"
+        class="comment-box survey-question ${questionClass} no-padding ${survey.closed || question.answered ? 'answered' : ''} ${activeQuestionId == question.id ? 'active-question' : ''} ${isQuestionWithImages ? 'questions-with-images' : ''}"
         id="question-${question.id}"
-        data-ajaxQuestionStats="${g.createLink(mapping:'ajaxSurveyQuestionStats', params:survey.encodeAsLinkProperties()+[questionId:question.id])}"
+        data-ajaxQuestionStats="${g.createLink(mapping: 'ajaxSurveyQuestionStats', params: survey.encodeAsLinkProperties() + [questionId: question.id])}"
         data-question-id="${question.id}"
         data-numAnswers="0"
         data-minAnswers="${question.minAnswers}"
         data-maxAnswers="${question.maxAnswers}"
         data-points="${question.points}"
-        data-questionType="${question.questionType}"
->
+        data-questionType="${question.questionType}">
 
     <div class="survey-question-header">
         <div class="survery-question-number">
