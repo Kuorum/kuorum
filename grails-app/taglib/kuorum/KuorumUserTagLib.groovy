@@ -422,20 +422,35 @@ class KuorumUserTagLib {
     }
 
     def ifLoggedUserHasNotTimeZone = { attrs, body ->
-        if (springSecurityService.isLoggedIn() && !((KuorumUserSession)springSecurityService.principal).timeZone) {
+        if (springSecurityService.isLoggedIn() && !((KuorumUserSession) springSecurityService.principal).timeZone) {
             out << body()
         }
     }
 
+    def impersonate = { attrs, body ->
+        if (springSecurityService.isLoggedIn() && SpringSecurityUtils.ifAnyGranted("ROLE_SUPER_ADMIN")) {
+            KuorumUserRSDTO user = kuorumUserService.findUserRSDTO(attrs.alias)
+            String wrapper = attrs.wrapper;
+            if (wrapper) {
+                out << "<$wrapper>"
+            }
+            out << g.render(template: '/editorUser/switchUser', model: [user: user])
+            if (wrapper) {
+                out << "</$wrapper>"
+            }
+        }
+    }
+
     private static final Integer MAX_LENGTH_TEXT = 300
-    private String highlightedField(SearchKuorumElementRSDTO element, String field, Integer maxLength = MAX_LENGTH_TEXT){
+
+    private String highlightedField(SearchKuorumElementRSDTO element, String field, Integer maxLength = MAX_LENGTH_TEXT) {
 
         String res = ""
-        if (element.highlighting?."$field"){
+        if (element.highlighting?."$field") {
             res = element.highlighting."$field"
-        }else if (element.hasProperty(field) && element."${field}"){
+        } else if (element.hasProperty(field) && element."${field}") {
             res = element."${field}"
-            if (res){
+            if (res) {
                 res = res.substring(0, Math.min(res.length(), maxLength))
             }
         }
