@@ -8,7 +8,7 @@ public class TargetBlankCodec {
 
     private static Pattern PATTERN;
     static{
-        PATTERN = ~/href=["']([^"']*)["']( target='_blank')*( rel='nofollow')*/
+        PATTERN = ~/href=["']([^"']*)["']( target='_blank')*( rel='.*')*/
     }
 
     static encode = {target->
@@ -25,6 +25,6 @@ public class TargetBlankCodec {
         if (!link.startsWith("http")){
             httpLink = "http://${link}"
         }
-        "href='${httpLink}' target='_blank' rel='nofollow'"
+        "href='${httpLink}' target='_blank' rel='nofollow noopener noreferrer'"
     }
 }

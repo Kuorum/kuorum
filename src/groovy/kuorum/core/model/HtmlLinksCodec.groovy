@@ -33,6 +33,6 @@ class HtmlLinksCodec {
         if (!link.startsWith("http")){
              link = "http://${link}"
         }
-          "<a href='${link}' target='_blank'>${link}</a>"
+          "<a href='${link}' target='_blank noopener noreferrer'>${link}</a>"
     }
 }

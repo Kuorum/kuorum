@@ -11,7 +11,7 @@
             <div class="container-fluid">
                 <div class="row">
 
-                    <section id="main" role="main" class="sign clearfix">
+                    <main id="main" role="main" class="sign clearfix">
                         <div class="col-sm-10 col-sm-offset-1 col-md-6 col-md-offset-1 col-lg-6 col-lg-offset-1">
                             <content id="mainContent">
                                 <g:pageProperty name="page.description"/>
@@ -22,7 +22,7 @@
                                 <g:pageProperty name="page.mainContent"/>
                             </content>
                         </div>
-                    </section>
+                    </main>
                 </div>
             </div>
         </div><!-- #main -->

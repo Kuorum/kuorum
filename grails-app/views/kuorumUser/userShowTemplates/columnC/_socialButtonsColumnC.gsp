@@ -15,7 +15,7 @@
     </li>
     <li>
         <g:set var="facebookLink">https://www.facebook.com/sharer/sharer.php?u=${userLink}</g:set>
-        <a class="social-link-facebook" href="${facebookLink}" target="_blank" title="${g.message(code:"project.social.facebook")}">
+        <a class="social-link-facebook" href="${facebookLink}" target="_blank" rel="nofollow noopener noreferrer" title="${g.message(code:"project.social.facebook")}">
             <span class="social-share fab fa-facebook-f"></span>
         </a>
     </li>
@@ -27,17 +27,17 @@
                 encodeAs="HTML"/></g:set>
         <g:set var="twitterLink">https://twitter.com/share?url=${userLink}&text=${twitterShareText}&hashtags=${user.alias?:""}</g:set>
 
-        <a href="${twitterLink}" target="_blank" title="${g.message(code: 'project.social.twitter')}">
+        <a href="${twitterLink}" target="_blank" rel="nofollow noopener noreferrer" title="${g.message(code: 'project.social.twitter')}">
             <span class="social-share fab fa-twitter"></span>
         </a>
     </li>
     <li>
-        <a href="http://www.reddit.com/submit?url=${userLink}&title=${user.name}" target="_blank" title="${g.message(code:'project.social.reddit')}">
+        <a href="http://www.reddit.com/submit?url=${userLink}&title=${user.name}" target="_blank" rel="nofollow noopener noreferrer" title="${g.message(code:'project.social.reddit')}">
             <span class="social-share fab fa-reddit"></span>
         </a>
     </li>
     <li>
-        <a href="http://www.linkedin.com/shareArticle?mini=true&url=${userLink}&title=${user.name}&summary=${user.bio}&source=${kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.domain}" target="_blank" title="${g.message(code:'project.social.linkedin')}">
+        <a href="http://www.linkedin.com/shareArticle?mini=true&url=${userLink}&title=${user.name}&summary=${user.bio}&source=${kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.domain}" target="_blank" rel="nofollow noopener noreferrer" title="${g.message(code:'project.social.linkedin')}">
             <span class="social-share fab fa-linkedin-in"></span>
         </a>
     </li>

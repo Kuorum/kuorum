@@ -1753,25 +1753,118 @@ ul.files-list li a.file-action:hover{ color:#167caa;}
 
 .dashboard > div > .box-ppal {min-height: 225px; box-shadow: 0 0 2px rgba(200,200,200,0.6);}
 .dashboard .box-ppal > h2 {font-size: 20px; font-size: 2rem; color: #a8a8a8; padding-bottom: 10px; border-bottom: solid 1px #e5e5e5; margin: 0 0 20px 0;}
-.box-ppal#createNewCampaign {margin-bottom:20px;}
-.box-ppal#createNewCampaign p {font-size: 20px; font-size: 2rem; color: #a8a8a8; line-height: 1.4; text-align: center;margin-bottom: 30px;}
-.box-ppal#createNewCampaign p strong {font-size: 26px; font-size: 2.6rem; color: #545454; font-weight: normal;}
+.box-ppal#createNewCampaign {
+    margin-bottom: 20px;
+}
 
-.box-ppal#followOthers > h2 {margin-bottom: 0;}
-.box-ppal#followOthers .user-list-followers {padding: 20px 0 0px !important;}
-.box-ppal#politicianProfile {padding-bottom:0; margin-bottom:20px;}
-.box-ppal#politicianProfile h2 {font-size: 30px; font-size: 3rem; margin: 10px 0;}
-.box-ppal#politicianProfile h3 {font-size: 18px; font-size: 1.8rem; color: #a8a8a8; margin: 0 0 14px 0;}
-.box-ppal#politicianProfile .activity {margin: 0;}
-#dashboardGraphs {min-height: 415px;}
-.nav-tabs.simple > li {margin-bottom: 10px; margin-right: 22px; float: none;}
-.nav-tabs.simple {margin-bottom: 20px;}
-ul.user-list-followers .loading.xs {width: 10px; height: 10px;}
+.box-ppal#createNewCampaign p {
+    font-size: 20px;
+    font-size: 2rem;
+    color: #a8a8a8;
+    line-height: 1.4;
+    text-align: center;
+    margin-bottom: 30px;
+}
 
-.alert-box {display: none; background-color: #ca1d3f; color: #fff; height: 54px; text-align: center; position: fixed; top: 0; left: 0; width: 100%; padding: 5px; font-size: 16px; font-size: 1.6rem; line-height: 1.4;}
-.alert-box.on {display: block;}
-.alert-box a {color: #fff; text-transform: uppercase; text-decoration: underline;}
-.alert-box a:hover, .alert-box a:focus, .alert-box a:active {color: #fff;}
+.box-ppal#createNewCampaign p strong {
+    font-size: 26px;
+    font-size: 2.6rem;
+    color: #545454;
+    font-weight: normal;
+}
+
+.box-ppal#followOthers > h2 {
+    margin-bottom: 0;
+}
+
+.box-ppal#followOthers .user-list-followers {
+    padding: 20px 0 0px !important;
+}
+
+.box-ppal#politicianProfile {
+    padding-bottom: 0;
+    margin-bottom: 20px;
+}
+
+.box-ppal#politicianProfile h2 {
+    font-size: 30px;
+    font-size: 3rem;
+    margin: 10px 0;
+}
+
+.box-ppal#politicianProfile h3 {
+    font-size: 18px;
+    font-size: 1.8rem;
+    color: #a8a8a8;
+    margin: 0 0 14px 0;
+}
+
+.box-ppal#politicianProfile .activity {
+    margin: 0;
+}
+
+.box-ppal#politicianProfile.SURVEY_PLATFORM {
+    text-align: center
+}
+
+.box-ppal#politicianProfile.SURVEY_PLATFORM #profileInfo {
+    margin-left: calc(50% - 60px);
+}
+
+.box-ppal#politicianProfile.SURVEY_PLATFORM #profileInfo #progressLine,
+.box-ppal#politicianProfile.SURVEY_PLATFORM #profileInfo #progressLine + span,
+.box-ppal#politicianProfile.SURVEY_PLATFORM .activity {
+    display: none;
+}
+
+#dashboardGraphs {
+    min-height: 415px;
+}
+
+.nav-tabs.simple > li {
+    margin-bottom: 10px;
+    margin-right: 22px;
+    float: none;
+}
+
+.nav-tabs.simple {
+    margin-bottom: 20px;
+}
+
+ul.user-list-followers .loading.xs {
+    width: 10px;
+    height: 10px;
+}
+
+.alert-box {
+    display: none;
+    background-color: #ca1d3f;
+    color: #fff;
+    height: 54px;
+    text-align: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 5px;
+    font-size: 16px;
+    font-size: 1.6rem;
+    line-height: 1.4;
+}
+
+.alert-box.on {
+    display: block;
+}
+
+.alert-box a {
+    color: #fff;
+    text-transform: uppercase;
+    text-decoration: underline;
+}
+
+.alert-box a:hover, .alert-box a:focus, .alert-box a:active {
+    color: #fff;
+}
 .alert-box.on + #header .navbar-fixed-top {top: 64px;}
 
 #profileInfo {position: relative; font-size: 15px; font-size: 1.5rem;}
@@ -2316,8 +2409,12 @@ END EDIT PARTICPATORY BUDGET
 
 .user {position: relative;}
 .user-type {position: absolute;top: 19px;left: 43px;font-size: 11px;color: #a8a8a8;}
-.popover-user .user-type {left: 2px;}
-.popover-user .popover-user-header {margin-bottom: 15px;}
+.popover-user .user-type {
+    left: 2px;
+}
+
+.popover-user .popover-user-header {
+}
 
 .user.show-user-role{line-height: 1.25em;}
 .user.show-user-role img.user-img{float:left;}
@@ -8343,14 +8440,19 @@ ul.notification-menu > li.see-more {
     cursor: default;
 }
 
-.survey-question-answer .only-predefined-option,
-.survey-question-answer .single-option,
-.survey-question-answer .multi-option {
+.survey-question .survey-question-answer .only-predefined-option,
+.survey-question .survey-question-answer .single-option,
+.survey-question .survey-question-answer .multi-option {
     display: flex;
     position: relative;
     z-index: 1;
-    flex-wrap: wrap;
     height: 100%;
+}
+
+.survey-question.questions-with-images .survey-question-answer .only-predefined-option,
+.survey-question.questions-with-images .survey-question-answer .single-option,
+.survey-question.questions-with-images .survey-question-answer .multi-option {
+    flex-wrap: wrap;
 }
 
 .survey-question-answer .rating-option{

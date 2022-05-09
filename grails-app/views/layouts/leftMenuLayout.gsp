@@ -10,7 +10,7 @@
         <div class="row main">
             <div class="container-fluid">
                 <div class="row">
-                    <section id="main" role="main" class="config ${pageProperty(name:'page.extraCssContainer')}">
+                    <main id="main" role="main" class="config ${pageProperty(name:'page.extraCssContainer')}">
 
                         <header id="${pageProperty(name:'page.idLeftMenu')}" class="col-xs-12 col-sm-4 col-md-4">
                             <div class="box-ppal">
@@ -30,7 +30,7 @@
                                 </div>
                             </div>
                         </section>
-                    </section>
+                    </main>
                 </div>
             </div>
         </div>

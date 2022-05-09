@@ -10,10 +10,10 @@
     <div class="single-option">
         <g:render template="/survey/showModules/questions/optionIcon"
                   model="[
-                          option: option,
-                          isQuestionWithImages:isQuestionWithImages,
-                          faClassEmpty:'far fa-circle',
-                          faClassChecked:'fas fa-check-circle']"/>
+                          option              : option,
+                          isQuestionWithImages: false,
+                          faClassEmpty        : 'far fa-circle',
+                          faClassChecked      : 'fas fa-check-circle']"/>
         <label class="col-xs-10"><g:message code="org.kuorum.rest.model.contact.GenderRDTO.${option.text}"/></label>
         <g:render template="/survey/showModules/questions/formQuestionExtraContent" model="[option:option, visibility: true]"/>
     </div>

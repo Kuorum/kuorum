@@ -1,5 +1,3 @@
-<%@ page import="kuorum.web.widget.AverageWidgetType; org.kuorum.rest.model.kuorumUser.reputation.UserReputationEvolutionRSDTO" %>
-
 function kuorumLoadScript (src, callback = function(){}){
 	{
         var script, r, t;

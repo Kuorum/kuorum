@@ -61,8 +61,15 @@ class CampaignValidationController {
             if (campaign.closed){
                 // The closed view needs the OwnerTimeZone which is not mapped on camapaign ligh
                 CampaignRSDTO campaignRSDTO = campaignService.find(campaign.getUser(), campaign.id, null)
-                log.info("[censusLogion: ${censusLogin}] : Receviced a valid censusLogin -> Campaign is closed.");
-                render view: '/campaignValidation/campaignClosed' , model:[redirectUrl:null, contact: contact, campaign:campaignRSDTO]
+                if (campaign.getStartDate().after(new Date())) {
+                    // CAMPAIGN NOT OPEN
+                    render view: '/campaignValidation/step0RegisterWithCensusCode_NOT_ACTIVE', model: [redirectUrl: null, contact: contact, campaign: campaignRSDTO]
+                    log.info("[censusLogion: ${censusLogin}] : Receviced a valid censusLogin -> Campaign is not open.");
+                } else {
+                    // CAMPAIGN FINISHED
+                    log.info("[censusLogion: ${censusLogin}] : Receviced a valid censusLogin -> Campaign is finished.");
+                    render view: '/campaignValidation/campaignClosed', model: [redirectUrl: null, contact: contact, campaign: campaignRSDTO]
+                }
             } else if (springSecurityService.isLoggedIn()){
 //                flash.message="You are already logged"
                 log.info("[censusLogion: ${censusLogin}] : Receviced a valid censusLogin -> User is logged and is the same as the censusLogin.");

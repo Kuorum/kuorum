@@ -9,10 +9,10 @@
     <g:render template="/layouts/head" model="[extraHeadCss:g.pageProperty(name:'page.extraHeadCss')]"/>
         <div class="row main">
             <div class="container-fluid onecol">
-                <section id="main" role="main">
+                <main id="main" role="main">
                     <h1><g:pageProperty name="page.title"/></h1>
                     <g:pageProperty name="page.mainContent"/>
-                </section>
+                </main>
             </div>
         </div><!-- .main -->
         <g:render template="/layouts/footer/footerRegister"/>
