@@ -18,7 +18,7 @@
             <h3 class="title">
                 <g:if test="${contactUser}">
                     <g:link mapping="userShow" params="${contactUser.encodeAsLinkProperties()}">${contactName}</g:link>
-                    <g:link mapping="userShow" params="${contactUser.encodeAsLinkProperties()}" target="_blank"><span class="fal fa-desktop fa-sm"></span><span class="sr-only">Profile</span></g:link>
+                    <g:link mapping="userShow" params="${contactUser.encodeAsLinkProperties()}" target="_blank" rel="noopener noreferrer"><span class="fal fa-desktop fa-sm"></span><span class="sr-only">Profile</span></g:link>
                 </g:if>
                 <g:else>
                     ${contactName}
@@ -35,13 +35,13 @@
             </p>
             <ul class="social-links">
                 <g:if test="${contact?.social?.facebook}">
-                    <li><a href="${contact.social.facebook}" target="_blank"><span class="fab fa-facebook"></span><span class="sr-only">Facebook</span></a></li>
+                    <li><a href="${contact.social.facebook}" target="_blank" rel="noopener noreferrer"><span class="fab fa-facebook"></span><span class="sr-only">Facebook</span></a></li>
                 </g:if>
                 <g:if test="${contact?.social?.twitter}">
-                    <li><a href="${contact.social.twitter}" target="_blank"><span class="fab fa-twitter"></span><span class="sr-only">Twitter</span></a></li>
+                    <li><a href="${contact.social.twitter}" target="_blank" rel="noopener noreferrer"><span class="fab fa-twitter"></span><span class="sr-only">Twitter</span></a></li>
                 </g:if>
                 <g:if test="${contact?.social?.linkedIn}">
-                    <li><a href="${contact.social.linkedIn}" target="_blank"><span class="fab fa-linkedin"></span><span class="sr-only">Linkedin</span></a></li>
+                    <li><a href="${contact.social.linkedIn}" target="_blank" rel="noopener noreferrer"><span class="fab fa-linkedin"></span><span class="sr-only">Linkedin</span></a></li>
                 </g:if>
             </ul>
             <ul class="btns">

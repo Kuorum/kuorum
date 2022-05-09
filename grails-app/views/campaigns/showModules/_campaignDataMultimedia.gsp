@@ -13,7 +13,7 @@
 
     <g:if test="${poweredByKuorum}">
         <div class="poweredByKuorum">
-            <g:link mapping="debateShow" params="${campaign.encodeAsLinkProperties()}" target="_blank">Powered by Kuorum</g:link>
+            <g:link mapping="debateShow" params="${campaign.encodeAsLinkProperties()}" target="_blank" rel='nofollow noopener noreferrer'>Powered by Kuorum</g:link>
         </div>
     </g:if>
     <g:if test="${!campaign.validationType.equals(org.kuorum.rest.model.communication.CampaignValidationTypeRDTO.NONE)}">

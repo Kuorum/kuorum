@@ -784,7 +784,7 @@ var surveyFunctions = {
         $(answerList).find(".survey-question-answer").removeClass('checked');
 
         $(answer).addClass('checked');
-        $(nextButton).removeClass('disabled');
+        surveyFunctions._switchEnableButton(nextButton, true);
         question.setAttribute('data-answer-selected', answer.getAttribute('data-answer-id'));
     },
 
@@ -841,13 +841,19 @@ var surveyFunctions = {
         }else{
             $(question).find(".survey-question-answer:not(.checked)").removeClass("disabled")
         }
-        if (selectedAnswers.length === 0 || selectedAnswers.length < minAnswers || maxAnswersReached(">")){
-            $(nextButton).addClass('disabled');
-        }else{
-            $(nextButton).removeClass('disabled');
-        }
+        var isDisabled = (selectedAnswers.length === 0 || selectedAnswers.length < minAnswers || maxAnswersReached(">"));
+        surveyFunctions._switchEnableButton(nextButton, !isDisabled);
     },
 
+    _switchEnableButton: function (button, active){
+        if (active){
+            $(button).removeClass('disabled');
+            $(button).prop("disabled", true)
+        }else{
+            $(button).addClass('disabled');
+            $(button).prop("disabled", false);
+        }
+    },
     _setProgressBarsPercent: function(questionId){
         var question = document.querySelector('[data-question-id="' + questionId + '"]');
         if (question == undefined){

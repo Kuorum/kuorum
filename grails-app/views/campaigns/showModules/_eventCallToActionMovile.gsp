@@ -4,11 +4,12 @@
          data-eventUserId="${campaign.user.id}"
          data-postUrl="${g.createLink(mapping: 'eventBookTicket',params:campaign.encodeAsLinkProperties())}">
         %{--EVENT DATA - CHAPU BORRAR --}%
-        <button type="button" class="btn btn-orange btn-lg call-message">
-            <g:message code="event.callToAction.button"/>
+        <g:set var="buttonText"><g:message code="event.callToAction.button"/></g:set>
+        <button type="button" class="btn btn-orange btn-lg call-message" name="${buttonText}">
+            ${buttonText}
         </button>
         <span class="fas fa-caret-down arrow"></span>
-        <button type="button" class="btn btn-orange btn-xl btn-circle call-button">
+        <button type="button" class="btn btn-orange btn-xl btn-circle call-button" name="${buttonText}">
             <span class="fal fa-ticket-alt fa-2x"></span>
         </button>
     </div>

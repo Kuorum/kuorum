@@ -16,11 +16,11 @@
 
 <div class="actions call-to-action-mobile go-to-survey">
     %{--EVENT DATA - CHAPU BORRAR --}%
-    <button type="button" class="btn btn-blue btn-lg call-message" data-goto="#survey-questions">
+    <button type="button" class="btn btn-blue btn-lg call-message" data-goto="#survey-questions" name="${callButtonMsg}">
         ${callButtonMsg}
     </button>
     <span class="fas fa-caret-down arrow"></span>
-    <button type="button" class="btn btn-blue btn-xl btn-circle call-button" data-goto="#survey-questions">
+    <button type="button" class="btn btn-blue btn-xl btn-circle call-button" data-goto="#survey-questions" name="${callButtonMsg}">
         <span class="fal fa-chart-pie fa-2x"></span>
     </button>
 </div>
