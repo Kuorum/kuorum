@@ -848,10 +848,10 @@ var surveyFunctions = {
     _switchEnableButton: function (button, active){
         if (active){
             $(button).removeClass('disabled');
-            $(button).prop("disabled", true)
+            $(button).prop("disabled", false)
         }else{
             $(button).addClass('disabled');
-            $(button).prop("disabled", false);
+            $(button).prop("disabled", true);
         }
     },
     _setProgressBarsPercent: function(questionId){
