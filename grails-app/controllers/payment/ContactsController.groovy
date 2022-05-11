@@ -440,10 +440,11 @@ class ContactsController {
 //        render contacts as JSON
     }
 
-    private static final def EMAIL_PATTERN = /^[_A-Za-z0-9\\.]+[\+_A-Za-z0-9]*@[A-Za-z0-9-]+\.[A-Za-z]{2,}$/
+    private static final def EMAIL_PATTERN = /^[\w.!#$%&’*+\\/=?^`{|}~-]+@[a-z0-9-]+(?:\.[a-z]{2,10}){1,}$/
 
     private Integer detectEmailPosition(final File csv) {
         Iterator lines = parseCsvFile(csv)
+        println lines.toString()
         Integer emailPos = null
         while (lines.hasNext() && !emailPos) {
             def line = lines.next()
@@ -453,6 +454,7 @@ class ContactsController {
                     emailPos = i
                 }
                 i++
+
             }
         }
         emailPos
