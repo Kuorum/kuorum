@@ -349,6 +349,7 @@ class ParticipatoryBudgetController extends CampaignController {
                         technicalReviewStatus: districtProposalRSDTO.technicalReviewStatus,
                         numSupports          : districtProposalRSDTO.numSupports,
                         numVotes             : districtProposalRSDTO.numVotes,
+                        backerType           : g.message(code:"org.kuorum.rest.model.communication.participatoryBudget.BackerTypeRSDTO.${districtProposalRSDTO.backerType}"),
                         url                  : g.createLink(mapping: 'districtProposalShow', params: districtProposalRSDTO.encodeAsLinkProperties())
                 ]
             }
@@ -418,6 +419,7 @@ class ParticipatoryBudgetController extends CampaignController {
             case "implemented": filter.implemented = Boolean.parseBoolean(value); break
             case "user.name": filter.userName = value; break
             case "technicalReviewStatus.i18n": filter.technicalReviewStatus = TechnicalReviewStatusRDTO.valueOf(value); break
+            case "backerType": filter.backerType = BackerTypeRSDTO.valueOf(value); break
             default: filter[rawKey] = value; break
         }
     }
