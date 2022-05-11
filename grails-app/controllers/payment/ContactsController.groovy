@@ -440,7 +440,7 @@ class ContactsController {
 //        render contacts as JSON
     }
 
-    private static final def EMAIL_PATTERN = /^[\w.!#$%&’*+\\/=?^`{|}~-]+@[a-z0-9-]+(?:\.[a-z]{2,10}){1,}$/
+    private static final def EMAIL_PATTERN = /^[\w\-+-]+@[\w|\-%]+(\.[\w\-%]+)*(\.[\w\-%]{2,})$/
 
     private Integer detectEmailPosition(final File csv) {
         Iterator lines = parseCsvFile(csv)
