@@ -444,7 +444,7 @@ class ContactsController {
 
     private Integer detectEmailPosition(final File csv) {
         Iterator lines = parseCsvFile(csv)
-        println lines.toString()
+
         Integer emailPos = null
         while (lines.hasNext() && !emailPos) {
             def line = lines.next()
