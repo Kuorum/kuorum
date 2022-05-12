@@ -1,5 +1,6 @@
 <g:set var="hideValue"
        value="${question.questionType == org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.ONE_OPTION_WEIGHTED && question.points <= 1}"/>
+<g:set var="labelOptionId" value="label-option-${option.id}"/>
 <div id="question-option-${option.id}"
      class="survey-question-answer ${option.answer!=null?'checked':''} ${option.questionOptionType}"
      data-nextQuestionId="${option.exitSurvey?0:option.nextQuestionId?:''}"
@@ -12,10 +13,13 @@
         <g:render template="/survey/showModules/questions/optionIcon"
                   model="[
                           option: option,
+                          optionIdx:optionIdx,
+                          roleInput           : 'radio',
+                          labelOptionId: labelOptionId,
                           isQuestionWithImages:isQuestionWithImages,
                           faClassEmpty:'far fa-circle',
                           faClassChecked:'fas fa-check-circle']"/>
-        <label class="${isQuestionWithImages?'col-xs-12 col-sm-9': 'col-xs-10'}">${option.text}</label>
+        <label class="${isQuestionWithImages?'col-xs-12 col-sm-9': 'col-xs-10'}" id="${labelOptionId}">${option.text}</label>
         <g:render template="/survey/showModules/questions/formQuestionExtraContent"
                   model="[option: option, visibility: !hideValue]"/>
     </div>
