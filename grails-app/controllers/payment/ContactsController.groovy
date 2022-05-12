@@ -48,9 +48,9 @@ class ContactsController {
     def index(ContactFilterCommand filterCommand) {
 
         KuorumUserSession user = springSecurityService.principal
-        SearchContactRSDTO searchContactRSDTO  = new SearchContactRSDTO()
-        searchContactRSDTO.sort = new SortContactsRDTO(field:ConditionFieldTypeRDTO.NAME, direction: DirectionDTO.ASC)
-        ContactPageRSDTO contacts = contactService.getUsers(user,searchContactRSDTO)
+        SearchContactRSDTO searchContactRSDTO = new SearchContactRSDTO()
+        searchContactRSDTO.sort = new SortContactsRDTO(field: ConditionFieldTypeRDTO.NAME, direction: DirectionDTO.ASC)
+        ContactPageRSDTO contacts = contactService.getUsers(user, searchContactRSDTO)
         if (contacts.total <= 0) {
             redirect mapping: "politicianContactImport"
             return
@@ -125,8 +125,8 @@ class ContactsController {
         contactService.removeContact(user, contactId)
 
         SearchContactRSDTO searchContactRSDTO = new SearchContactRSDTO()
-        searchContactRSDTO.sort = new SortContactsRDTO(field:ConditionFieldTypeRDTO.NAME, direction: DirectionDTO.ASC)
-        ContactPageRSDTO contacts = contactService.getUsers(user,searchContactRSDTO)
+        searchContactRSDTO.sort = new SortContactsRDTO(field: ConditionFieldTypeRDTO.NAME, direction: DirectionDTO.ASC)
+        ContactPageRSDTO contacts = contactService.getUsers(user, searchContactRSDTO)
 
         Map result = [contacts: contacts.getTotal()]
 
@@ -194,7 +194,7 @@ class ContactsController {
         render([msg: g.message(code: 'tools.contact.edit.success', args: [contactUpdated.name])] as JSON)
     }
 
-    def updateContactExtraInfo(Long contactId, ContactExtraInfoCommand extraInfoCommand ) {
+    def updateContactExtraInfo(Long contactId, ContactExtraInfoCommand extraInfoCommand) {
         KuorumUserSession user = springSecurityService.principal
         ContactRSDTO contact = contactService.getContact(user, contactId)
         if (!contact) {
@@ -272,7 +272,7 @@ class ContactsController {
         if (contactRSDTO) {
             if (alreadyExistsContact.total > 0) {
                 flash.message = g.message(code: 'tools.contact.new.alreadyExists')
-            }else{
+            } else {
                 flash.message = g.message(code: 'tools.contact.new.success', args: [displayerName])
             }
             redirect(mapping: "politicianContactEdit", params: [contactId: contactRSDTO.id])
@@ -440,7 +440,7 @@ class ContactsController {
 //        render contacts as JSON
     }
 
-    private static final def EMAIL_PATTERN = /^[_A-Za-z0-9\\.]+[\+_A-Za-z0-9]*@[A-Za-z0-9-]+\.[A-Za-z]{2,}$/
+    private static final def EMAIL_PATTERN = /^[\w\-+-]+@[\w|\-%]+(\.[\w\-%]+)*(\.[\w\-%]{2,})$/
 
     private Integer detectEmailPosition(final File csv) {
         Iterator lines = parseCsvFile(csv)
@@ -856,8 +856,8 @@ class ContactsController {
         searchContactRSDTO.page = Long.parseLong(params.page ?: "0")
         searchContactRSDTO.size = params.size ? Long.parseLong(params.size) : searchContactRSDTO.size
         searchContactRSDTO.sort = new SortContactsRDTO(
-                field: params.sort?.field?ConditionFieldTypeRDTO.valueOf(params.sort.field):ConditionFieldTypeRDTO.NAME,
-                direction: params.sort?.direction?DirectionDTO.valueOf(params.sort.direction):DirectionDTO.ASC
+                field: params.sort?.field ? ConditionFieldTypeRDTO.valueOf(params.sort.field) : ConditionFieldTypeRDTO.NAME,
+                direction: params.sort?.direction ? DirectionDTO.valueOf(params.sort.direction) : DirectionDTO.ASC
         )
         Long filterId = Long.parseLong(params.filterId ?: '0')
         FilterRDTO filterRDTO = filterCommand.buildFilter()

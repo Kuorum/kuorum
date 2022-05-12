@@ -782,8 +782,10 @@ var surveyFunctions = {
         var nextButton = question.querySelector('.footer .next-section button');
 
         $(answerList).find(".survey-question-answer").removeClass('checked');
+        $(answerList).find(".survey-question-answer [role=radio]").attr('aria-checked', 'false');
 
         $(answer).addClass('checked');
+        $(answer).find("[role=radio]").attr("aria-checked", "true");
         surveyFunctions._switchEnableButton(nextButton, true);
         question.setAttribute('data-answer-selected', answer.getAttribute('data-answer-id'));
     },
@@ -823,16 +825,19 @@ var surveyFunctions = {
             }else if (answerPosition === -1) {
                 selectedAnswers.push(answer.getAttribute('data-answer-id'));
                 $(answer).addClass('checked');
+                $(answer).find("[role=checkbox]").attr("aria-checked", "true");
                 numOptionAnswers = numOptionAnswers+1;
             } else {
                 selectedAnswers.splice(answerPosition, 1);
                 $(answer).removeClass('checked');
+                $(answer).find("[role=checkbox]").attr("aria-checked", "false");
                 numOptionAnswers = numOptionAnswers -1;
             }
         } else {
             selectedAnswers = [answer.getAttribute('data-answer-id')];
             numOptionAnswers = numOptionAnswers +1;
             $(answer).addClass('checked');
+            $(answer).find("[role=checkbox]").attr("aria-checked", "true");
         }
         answer.setAttribute("data-optionStats-votes",numOptionAnswers)
         question.setAttribute('data-answer-selected',  (selectedAnswers.length > 0) ? JSON.stringify(selectedAnswers) : '');

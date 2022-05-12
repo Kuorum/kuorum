@@ -8355,6 +8355,10 @@ ul.notification-menu > li.see-more {
 
 .survey-question-header {
     margin-top:20px;
+    border: unset;
+    color: #545454;
+    font-size: inherit;
+    float:left; /* Legend by default is over the top line of the fieldset. With float:left it is located under the top line*/
 }
 
 .survey-question-answers {
@@ -8589,6 +8593,7 @@ li.survey-question.answered .survey-question-answer .option-extra-content textar
     font-weight: 600;
     display: inline-block;
     width: 89%;
+    margin:0;
 }
 
 .survey-question-extra-info {padding-left:10%; color:#167caa; padding-top:5px;}
