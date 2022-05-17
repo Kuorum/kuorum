@@ -8448,6 +8448,7 @@ ul.notification-menu > li.see-more {
 .survey-question .survey-question-answer .single-option,
 .survey-question .survey-question-answer .multi-option {
     display: flex;
+    flex-wrap: wrap;
     position: relative;
     z-index: 1;
     height: 100%;

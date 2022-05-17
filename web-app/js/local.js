@@ -756,3 +756,13 @@ function removeDiacritics (str) {
     }
     return str;
 }
+
+KEYBOARD_EVENT_CODES={
+    SPACE:32,
+    ENTER:13,
+    TAB:9,
+    LEFT:39,
+    RIGHT:37,
+    UP:38,
+    DOWN:40
+}

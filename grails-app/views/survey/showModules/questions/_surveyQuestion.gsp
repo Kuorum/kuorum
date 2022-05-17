@@ -94,7 +94,8 @@
                     data-campaignGroupValidationActive="${survey.groupValidation?g.createLink(mapping: "campaignCheckGroupValidation", params: survey.encodeAsLinkProperties()):''}"
                     data-postUrl="${g.createLink(mapping:"surveySaveAnswer", params:survey.encodeAsLinkProperties())}"
                     data-campaignId="${survey.id}"
-                    data-campaignAlias="${survey.user.alias}">
+                    data-campaignAlias="${survey.user.alias}"
+                    tabindex="0">
                 <g:message code="survey.questions.footer.next"/>
             </button>
         </div>

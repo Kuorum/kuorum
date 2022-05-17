@@ -5,11 +5,12 @@
      data-questionOptionType="${option.questionOptionType}"
      data-optionStats-total="0"
      data-optionStats-votes="0"
-     data-optionStats-percentage="0">
+     data-optionStats-percentage="0"
+     aria-checked="${option.answer!=null?'true':'false'}" tabindex="0" aria-labelledby="${labelOptionId}">
     <div class="rating-option">
         <span class="fal fa-square check-icon"></span>
         <span class="fas fa-square check-icon"></span>
-        <input type="radio" name="rating" aria-checked="${option.answer!=null?'true':'false'}" tabindex="${optionIdx}" aria-labelledby="${labelOptionId}" data-value="${option.text}">
+        <input type="radio" name="rating"  data-value="${option.text}" tabindex="-1">
         <label id="${labelOptionId}">${option.text}</label>
         %{--<g:render template="/survey/showModules/questions/formQuestionExtraContent" model="[option:option]"/>--}%
     </div>
