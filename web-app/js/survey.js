@@ -13,7 +13,15 @@ $(function () {
     // Add click listener on answers that aren't answered
     $('.survey-question-answer')
         .filter(function() {return $(this).parents('.'+surveyFunctions.ANSWERED_CLASS).length === 0})
-        .on("click",surveyFunctions._selectAnswer)
+        .on("click",surveyFunctions._selectAnswer);
+    $('.survey-question-answer')
+        .filter(function() {return $(this).parents('.'+surveyFunctions.ANSWERED_CLASS).length === 0})
+        .on("keypress",function(event){
+            if ( surveyFunctions.KEYBOARD_SELECT_OPTION_CODES.indexOf(event.which)>=0) {
+                event.preventDefault();
+                surveyFunctions._selectAnswer(event);
+            }
+        });
 
     var nextButtonIdx;
     for (nextButtonIdx = 0; nextButtonIdx < singleOptionNextButton.length; nextButtonIdx++) {
@@ -73,6 +81,8 @@ var surveyFunctions = {
     relodAfeterSubmit: false,
 
     QUESTION_OPTION_ATTR_TYPE:"data-questionoptiontype",
+
+    KEYBOARD_SELECT_OPTION_CODES:[KEYBOARD_EVENT_CODES.SPACE],
 
     initSurvey:function(){
         // IE10 not supports foreach

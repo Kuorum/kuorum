@@ -67,7 +67,7 @@
             <g:each in="${relevantCauses}" var="tag">
                 <li class="cause link-wrapper active" id="cause-participacion">
                     <g:link mapping="searcherSearchByCAUSE" params="${params.findAll {k,v-> k!='searchType' && k!='offset' && v} + [word:tag.name]}" class="sr-only hidden"> Search cause ${tag.name}</g:link>
-                    <div class="cause-name" aria-hidden="true" tabindex="104">
+                    <div class="cause-name" aria-hidden="true" tabindex="1">
                         <span class="fal fa-hashtag"></span>
                         <span>${tag.name} (${tag.hits})</span>
                     </div>
