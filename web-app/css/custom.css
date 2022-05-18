@@ -1878,7 +1878,7 @@ ul.user-list-followers .loading.xs {
     bottom: 0;
     height: 0%;
 }
-.SURVEY_PLATFORM #progressProfileFill {height: 0%; !important; /* Survey platform doesn't show the progress var*/)}
+.SURVEY_PLATFORM #progressProfileFill {height: 0% !important; /* Survey platform doesn't show the progress var*/}
 #progressLine {display: block; width: 125px; height: 120px; position: absolute; left: 60px; z-index: 1;}
 #progressLineFill {
     width: 100%;
