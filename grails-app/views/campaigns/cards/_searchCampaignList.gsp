@@ -34,7 +34,8 @@
                             org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.CLOSED,
                             org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.RESULTS,
                 ].contains(campaign.participatoryBudget.status) &&
-                            campaign.technicalReviewStatus == org.kuorum.rest.model.communication.participatoryBudget.TechnicalReviewStatusRDTO.VALID}">
+                            campaign.technicalReviewStatus == org.kuorum.rest.model.communication.participatoryBudget.TechnicalReviewStatusRDTO.VALID &&
+                            campaign.participatoryBudget.participatoryBudgetType == org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetTypeDTO.BUDGET}">
                     <li class="districtProposalPrice"><g:message code="kuorum.multidomain.money" args="[campaign.price]"/></li>
                 </g:if>
                 <g:elseif test="${showAuthor}">

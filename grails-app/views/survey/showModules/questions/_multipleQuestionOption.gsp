@@ -11,6 +11,8 @@
         <g:render template="/survey/showModules/questions/optionIcon"
                   model="[
                           option: option,
+                          optionIdx:optionIdx,
+                          roleInput: 'checkbox',
                           isQuestionWithImages:isQuestionWithImages,
                           faClassEmpty:'fal fa-square',
                           faClassChecked:'fas fa-check-square']"/>

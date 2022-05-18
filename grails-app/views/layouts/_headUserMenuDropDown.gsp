@@ -27,4 +27,5 @@
         </li>
 
     </sec:ifSwitched>
+    <userUtil:impersonate alias="admin" wrapper="li"/>
 </ul>

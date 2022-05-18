@@ -3,7 +3,7 @@
         <g:each in="${reportsList}" var="report">
             <li>
                 <span class="file-icon ${report.icon}"></span>
-                <a href="${report.url}"class="file-name" target="_blank">${report.name}</a>
+                <a href="${report.url}"class="file-name" target="_blank" rel="nofollow noopener noreferrer">${report.name}</a>
                 <a class="file-action" href="${report.delete}"><span class="fal fa-trash"></span></a>
             </li>
         </g:each>

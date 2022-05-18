@@ -44,24 +44,24 @@ class CodecSpec extends Specification {
         res == tranformedString
         where:
         orgString                               | tranformedString
-        "http://hola.com"                       | "<a href='http://hola.com' target='_blank' rel='nofollow'>http://hola.com</a>"
-        "https://hola.com"                      | "<a href='https://hola.com' target='_blank' rel='nofollow'>https://hola.com</a>"
+        "http://hola.com"                       | "<a href='http://hola.com' target='_blank' rel='nofollow noopener noreferrer'>http://hola.com</a>"
+        "https://hola.com"                      | "<a href='https://hola.com' target='_blank' rel='nofollow noopener noreferrer'>https://hola.com</a>"
         "httpss://hola.xwzNoExiste"             | "httpss://hola.xwzNoExiste"
-        "un barco http://hola.com con vela"     | "un barco <a href='http://hola.com' target='_blank' rel='nofollow'>http://hola.com</a> con vela"
-        "un barco http://hola.com con vela"     | "un barco <a href='http://hola.com' target='_blank' rel='nofollow'>http://hola.com</a> con vela"
-        "dos http://urls.com seguidas http://hola.com"     | "dos <a href='http://urls.com' target='_blank' rel='nofollow'>http://urls.com</a> seguidas <a href='http://hola.com' target='_blank' rel='nofollow'>http://hola.com</a>"
-        "urls.com"                              | "<a href='http://urls.com' target='_blank' rel='nofollow'>urls.com</a>"
-        "urls.co"                               | "<a href='http://urls.co' target='_blank' rel='nofollow'>urls.co</a>"
-        "urls.es"                               | "<a href='http://urls.es' target='_blank' rel='nofollow'>urls.es</a>"
-        "urls.mobi"                             | "<a href='http://urls.mobi' target='_blank' rel='nofollow'>urls.mobi</a>"
-        "http://hola.com/kk/hola"               | "<a href='http://hola.com/kk/hola' target='_blank' rel='nofollow'>http://hola.com/kk/hola</a>"
-        "hola.com/kk/hola"                      | "<a href='http://hola.com/kk/hola' target='_blank' rel='nofollow'>hola.com/kk/hola</a>"
-        "hola.com/kk/hola?hh=23"                | "<a href='http://hola.com/kk/hola?hh=23' target='_blank' rel='nofollow'>hola.com/kk/hola?hh=23</a>"
+        "un barco http://hola.com con vela"     | "un barco <a href='http://hola.com' target='_blank' rel='nofollow noopener noreferrer'>http://hola.com</a> con vela"
+        "un barco http://hola.com con vela"     | "un barco <a href='http://hola.com' target='_blank' rel='nofollow noopener noreferrer'>http://hola.com</a> con vela"
+        "dos http://urls.com seguidas http://hola.com"     | "dos <a href='http://urls.com' target='_blank' rel='nofollow noopener noreferrer'>http://urls.com</a> seguidas <a href='http://hola.com' target='_blank' rel='nofollow noopener noreferrer'>http://hola.com</a>"
+        "urls.com"                              | "<a href='http://urls.com' target='_blank' rel='nofollow noopener noreferrer'>urls.com</a>"
+        "urls.co"                               | "<a href='http://urls.co' target='_blank' rel='nofollow noopener noreferrer'>urls.co</a>"
+        "urls.es"                               | "<a href='http://urls.es' target='_blank' rel='nofollow noopener noreferrer'>urls.es</a>"
+        "urls.mobi"                             | "<a href='http://urls.mobi' target='_blank' rel='nofollow noopener noreferrer'>urls.mobi</a>"
+        "http://hola.com/kk/hola"               | "<a href='http://hola.com/kk/hola' target='_blank' rel='nofollow noopener noreferrer'>http://hola.com/kk/hola</a>"
+        "hola.com/kk/hola"                      | "<a href='http://hola.com/kk/hola' target='_blank' rel='nofollow noopener noreferrer'>hola.com/kk/hola</a>"
+        "hola.com/kk/hola?hh=23"                | "<a href='http://hola.com/kk/hola?hh=23' target='_blank' rel='nofollow noopener noreferrer'>hola.com/kk/hola?hh=23</a>"
         "hola. com/kk/hola"                     | "hola. com/kk/hola"
         ".com"                                  | ".com"
-        "Estos:\nhttp://elpais.com/elpais/2014/06/23/media/1403547645_646044.html" | "Estos:\n<a href='http://elpais.com/elpais/2014/06/23/media/1403547645_646044.html' target='_blank' rel='nofollow'>http://elpais.com/elpais/2014/06/23/media/1403547645_646044.html</a>"
-        "Estos:\rhttp://elpais.com/elpais/2014/06/23/media/1403547645_646044.html" | "Estos:\r<a href='http://elpais.com/elpais/2014/06/23/media/1403547645_646044.html' target='_blank' rel='nofollow'>http://elpais.com/elpais/2014/06/23/media/1403547645_646044.html</a>"
-        "pongo www.rae.es\nUn" | "pongo <a href='http://www.rae.es' target='_blank' rel='nofollow'>www.rae.es</a>\nUn"
+        "Estos:\nhttp://elpais.com/elpais/2014/06/23/media/1403547645_646044.html" | "Estos:\n<a href='http://elpais.com/elpais/2014/06/23/media/1403547645_646044.html' target='_blank' rel='nofollow noopener noreferrer'>http://elpais.com/elpais/2014/06/23/media/1403547645_646044.html</a>"
+        "Estos:\rhttp://elpais.com/elpais/2014/06/23/media/1403547645_646044.html" | "Estos:\r<a href='http://elpais.com/elpais/2014/06/23/media/1403547645_646044.html' target='_blank' rel='nofollow noopener noreferrer'>http://elpais.com/elpais/2014/06/23/media/1403547645_646044.html</a>"
+        "pongo www.rae.es\nUn" | "pongo <a href='http://www.rae.es' target='_blank' rel='nofollow noopener noreferrer'>www.rae.es</a>\nUn"
     }
 
     @Unroll
@@ -169,10 +169,11 @@ class CodecSpec extends Specification {
         res == tranformedString
         where:
         orgString                               | tranformedString
-        "<a href='http://hola.com'>hola</a>"    | "<a href='http://hola.com' target='_blank' rel='nofollow'>hola</a>"
-        "<a href=\"http://hola.com\">hola</a>"  | "<a href='http://hola.com' target='_blank' rel='nofollow'>hola</a>"
-        "<a href=\"http://hola.com\" target='_blank'>hola</a>"  | "<a href='http://hola.com' target='_blank' rel='nofollow'>hola</a>"
-        "<a href=\"http://hola.com\" target='_blank' rel='nofollow'>hola</a>"  | "<a href='http://hola.com' target='_blank' rel='nofollow'>hola</a>"
+        "<a href='http://hola.com'>hola</a>"    | "<a href='http://hola.com' target='_blank' rel='nofollow noopener noreferrer'>hola</a>"
+        "<a href=\"http://hola.com\">hola</a>"  | "<a href='http://hola.com' target='_blank' rel='nofollow noopener noreferrer'>hola</a>"
+        "<a href=\"http://hola.com\" target='_blank'>hola</a>"  | "<a href='http://hola.com' target='_blank' rel='nofollow noopener noreferrer'>hola</a>"
+        "<a href=\"http://hola.com\" target='_blank' rel='nofollow'>hola</a>"  | "<a href='http://hola.com' target='_blank' rel='nofollow noopener noreferrer'>hola</a>"
+        "<a href=\"http://hola.com\" target='_blank' rel='nofollow noopener noreferrer'>hola</a>"  | "<a href='http://hola.com' target='_blank' rel='nofollow noopener noreferrer'>hola</a>"
         "Nada"                                  | "Nada"
         "<p>Nada</p>"                           | "<p>Nada</p>"
     }

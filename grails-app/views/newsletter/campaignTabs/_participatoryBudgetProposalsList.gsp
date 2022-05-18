@@ -1,17 +1,28 @@
 <script>
-    var filterDataImplemented={'true':'${g.message(code:"tools.massMailing.view.participatoryBudget.proposalList.table.implemented.filter.true")}','false':'${g.message(code:"tools.massMailing.view.participatoryBudget.proposalList.table.implemented.filter.false")}'}
-    var filterDataApproved={'true':'${g.message(code:"tools.massMailing.view.participatoryBudget.proposalList.table.approved.filter.true")}','false':'${g.message(code:"tools.massMailing.view.participatoryBudget.proposalList.table.approved.filter.false")}'}
-    var filterDataDistrict={ ${raw(participatoryBudget.districts.collect{"'${it.id}':'${it.name.encodeAsHTML()}'"}.join(","))} };
-    var filterDataCause={ ${raw(participatoryBudget.causes.collect{"'${it}':'${it.encodeAsHTML()}'"}.join(","))} };
-    var filterDataTechnicalReview={ ${raw(org.kuorum.rest.model.communication.participatoryBudget.TechnicalReviewStatusRDTO.values().collect{"'${it}':'${g.message(code:"org.kuorum.rest.model.communication.participatoryBudget.TechnicalReviewStatusRDTO."+it)}'"}.join(','))} };
+    var filterDataImplemented = {
+        'true': '${g.message(code:"tools.massMailing.view.participatoryBudget.proposalList.table.implemented.filter.true")}',
+        'false': '${g.message(code:"tools.massMailing.view.participatoryBudget.proposalList.table.implemented.filter.false")}'
+    }
+    var filterDataApproved = {
+        'true': '${g.message(code:"tools.massMailing.view.participatoryBudget.proposalList.table.approved.filter.true")}',
+        'false': '${g.message(code:"tools.massMailing.view.participatoryBudget.proposalList.table.approved.filter.false")}'
+    }
+    var filterDataDistrict = {${raw(participatoryBudget.districts.collect{"'${it.id}':'${it.name.encodeAsHTML()}'"}.join(","))}};
+    var filterDataCause = {${raw(participatoryBudget.causes.collect{"'${it}':'${it.encodeAsHTML()}'"}.join(","))}};
+    var filterDataTechnicalReview = {${raw(org.kuorum.rest.model.communication.participatoryBudget.TechnicalReviewStatusRDTO.values().collect{"'${it}':'${g.message(code:"org.kuorum.rest.model.communication.participatoryBudget.TechnicalReviewStatusRDTO."+it)}'"}.join(','))}};
+    var filterDataBackerType = {${raw(org.kuorum.rest.model.communication.participatoryBudget.BackerTypeRSDTO.values().collect{"'${it}':'${g.message(code:"org.kuorum.rest.model.communication.participatoryBudget.BackerTypeRSDTO."+it)}'"}.join(','))}};
 
 </script>
 
-<g:set var="visibleSupportColumn" value="${[org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.ADDING_PROPOSALS, org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.TECHNICAL_REVIEW].contains(participatoryBudget.status)?'true':'false'}"/>
-<g:set var="visibleVotesColumn" value="${![org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.ADDING_PROPOSALS, org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.TECHNICAL_REVIEW].contains(participatoryBudget.status)?'true':'false'}"/>
-<g:set var="visibleImplemented" value="${[org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.RESULTS, org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.CLOSED].contains(participatoryBudget.status)?'true':'false'}"/>
-<g:set var="visibleTechnicalReviewStatus" value="${![org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.ADDING_PROPOSALS].contains(participatoryBudget.status)?'true':'false'}"/>
-<g:set var="currentLang" value="${org.springframework.web.servlet.support.RequestContextUtils.getLocale(request)}" />
+<g:set var="visibleSupportColumn"
+       value="${[org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.ADDING_PROPOSALS, org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.TECHNICAL_REVIEW].contains(participatoryBudget.status) ? 'true' : 'false'}"/>
+<g:set var="visibleVotesColumn"
+       value="${![org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.ADDING_PROPOSALS, org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.TECHNICAL_REVIEW].contains(participatoryBudget.status) ? 'true' : 'false'}"/>
+<g:set var="visibleImplemented"
+       value="${[org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.RESULTS, org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.CLOSED].contains(participatoryBudget.status) ? 'true' : 'false'}"/>
+<g:set var="visibleTechnicalReviewStatus"
+       value="${![org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.ADDING_PROPOSALS].contains(participatoryBudget.status) ? 'true' : 'false'}"/>
+<g:set var="currentLang" value="${org.springframework.web.servlet.support.RequestContextUtils.getLocale(request)}"/>
 
 <div class="actions" id="toolbar-participatoryBudgetProposalReviewTable">
     <g:link mapping="politicianMassMailingParticipatoryBudgetReport" params="[campaignId:campaign.id]" class="btn btn-blue inverted export-modal-button" data-modalId="export-proposalsList-modal">
@@ -66,6 +77,9 @@
             data-filter-control="input" data-formatter="formatTableParticipatoryBudgetDistrictProposalAuthor"
             data-filter-control-placeholder="${g.message(code: 'tools.massMailing.view.participatoryBudget.proposalList.table.author.searchPlaceholder')}"><g:message
                 code="tools.massMailing.view.participatoryBudget.proposalList.table.author"/></th>
+        <th data-field="backerType" data-halign="center" data-align="center" data-sortable="true" data-visible="false"
+            data-filter-control="select" data-filter-data="var:filterDataBackerType"><g:message
+                code="participatoryBudgetProposalsList.fields.backerType"/></th>
         <th data-field="numSupports" data-halign="center" data-align="center" data-sortable="true"
             data-visible="${visibleSupportColumn}"><g:message
                 code="tools.massMailing.view.participatoryBudget.proposalList.table.supports"/></th>

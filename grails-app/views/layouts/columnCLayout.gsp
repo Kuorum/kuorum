@@ -7,7 +7,7 @@
     </head>
     <body>
     <g:render template="/layouts/head"/>
-    <div class="row main ${pageProperty(name: 'page.specialMainRowCssClass')}">
+    <main class="row main ${pageProperty(name: 'page.specialMainRowCssClass')}">
         <div class="container-fluid ${pageProperty(name: 'page.specialContainerCssClass')}">
             <g:pageProperty name="page.intro"/>
             <div class="row" >
@@ -26,7 +26,7 @@
                 </g:if>
             </div>
         </div><!-- /.conatiner-fluid -->
-    </div><!-- /#main -->
+    </main><!-- /#main -->
     <g:render template="/layouts/footer/footer"/>
     <g:if test="${pageProperty(name:'page.modals')}">
         <g:pageProperty name="page.modals"/>

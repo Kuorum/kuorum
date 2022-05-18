@@ -29,16 +29,16 @@
             </span>
         </li>
     </g:if>
-    <g:if test="${survey.hideResults}">
+    <g:if test="${survey.campaignVisibility == org.kuorum.rest.model.communication.survey.CampaignVisibilityRSDTO.VISIBLE}">
         <li>
             <span class="fal fa-poll" aria-hidden="true"></span>
-            <span class="info"><g:message code="survey.cColumn.stats.results.hidden"/></span>
+            <span class="info"><g:message code="survey.cColumn.stats.results.visible"/></span>
         </li>
     </g:if>
     <g:else>
         <li>
             <span class="fal fa-poll" aria-hidden="true"></span>
-            <span class="info"><g:message code="survey.cColumn.stats.results.visible"/></span>
+            <span class="info"><g:message code="survey.cColumn.stats.results.hidden"/></span>
         </li>
     </g:else>
     <g:if test="${survey.voteType != org.kuorum.rest.model.communication.survey.SurveyVoteTypeDTO.MANIFEST}">

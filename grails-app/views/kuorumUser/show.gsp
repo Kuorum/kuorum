@@ -44,8 +44,6 @@
                 </div>
 
                 <div class="col-sm-5 profile-actions">
-                    <g:render template="politicianValuation"
-                              model="[user: politician, userReputation: userReputation]"/>
                     <div class="follow-btn-group">
                         <userUtil:followButton user="${politician}" cssExtra="inverted"/>
                         <userUtil:contactButton user="${politician}" cssExtra="inverted"/>
@@ -98,9 +96,10 @@
 </content>
 
 <content tag="cColumn">
-
-    <g:render template="userShowTemplates/columnC/socialButtonsColumnC" model="[user: politician]"/>
+    <g:if test="${!_isSurveyPlatform}">
+        <g:render template="userShowTemplates/columnC/socialButtonsColumnC" model="[user: politician]"/>
     %{--<g:render template="showExtendedPoliticianTemplates/columnC/contactPolitician" model="[politician:politician]"/>--}%
+    </g:if>
     <g:render template="/dashboard/dashboardModules/supportedCauses"
               model="[user: politician, supportedCauses: causes]"/>
     <g:if test="${!_isSurveyPlatform}">

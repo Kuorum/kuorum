@@ -98,13 +98,17 @@ var userValidatedByDomain={
         });
     },
     checkGroupValidation:function(executableFunctionCallback, closeCallbackModal){
-        if (userValidatedByDomain.dataValidation.groupValidation != undefined && userValidatedByDomain.dataValidation.groupValidation != ''){
-            userValidatedByDomain._ajaxRemoteCheckGroupValidation(executableFunctionCallback)
-        }else{
+
+        var joinCallbacks = new userValidatedByDomain.ExcutableFunctionCallback(function(params){
             executableFunctionCallback.exec()
             if (closeCallbackModal != undefined){
                 closeCallbackModal()
             }
+        }, "Joined functions -> No need params")
+        if (userValidatedByDomain.dataValidation.groupValidation != undefined && userValidatedByDomain.dataValidation.groupValidation != ''){
+            userValidatedByDomain._ajaxRemoteCheckGroupValidation(joinCallbacks)
+        }else{
+            joinCallbacks.exec();
         }
     },
     _ajaxRemoteCheckGroupValidation:function(executableFunctionCallback){
