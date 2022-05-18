@@ -1,7 +1,7 @@
 <sec:ifNotSwitched>
 %{--<sec:ifAllGranted roles='ROLE_SWITCH_USER'>--}%
 %{--<sec:ifAllGranted roles='ROLE_ADMIN'>--}%
-    <a herf="#" class="switchUserLink"><g:message code="switchUser.admin.switchUser" args="[user.alias]"/></a>
+    <a href="#" class="switchUserLink"><g:message code="switchUser.admin.switchUser" args="[user.alias]"/></a>
 
     <form class="switchUserForm" action='${request.contextPath}/j_spring_security_switch_user' method='POST'
           class="hidden">
