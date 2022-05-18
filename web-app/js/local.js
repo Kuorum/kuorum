@@ -757,16 +757,12 @@ function removeDiacritics (str) {
     return str;
 }
 
-
-function loadAjaxUserRatings($container){
-    var userRateLink = $container.attr("data-rating-link");
-    console.log($container);
-    $.ajax({
-        url: userRateLink,
-        method:'GET'
-    }).success(function (data) {
-        // Update rating
-        $container.html(data);
-        $container.removeClass("load-rating")
-    });
+KEYBOARD_EVENT_CODES={
+    SPACE:32,
+    ENTER:13,
+    TAB:9,
+    LEFT:39,
+    RIGHT:37,
+    UP:38,
+    DOWN:40
 }

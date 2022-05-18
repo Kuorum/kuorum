@@ -1,4 +1,5 @@
 <g:set var="questionClass" value="single-answer"/>
+<g:set var="roleAriaGroup" value='role=radiogroup'/>
 <g:set var="questionTypeMultiples"
        value="${[(question.points > 1) ? org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.ONE_OPTION_WEIGHTED : "",
                  org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.MULTIPLE_OPTION,
@@ -10,53 +11,57 @@
 
 <g:if test="${questionTypeMultiples.contains(question.questionType)}">
     <g:set var="questionClass" value="multi-answer"/>
+    <g:set var="roleAriaGroup" value=""/>
 </g:if>
 <g:if test="${question.questionType == org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.TEXT_OPTION}">
     <g:set var="questionClass" value="text-answer"/>
+    <g:set var="roleAriaGroup" value=""/>
 </g:if>
 <g:if test="${question.questionType == org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.RATING_OPTION}">
     <g:set var="questionClass" value="rating-answer"/>
+    <g:set var="roleAriaGroup" value='role=radiogroup'/>
 </g:if>
-<g:set var="isQuestionWithImages" value="${question.options.find{it.urlImage}?true:false}"/>
-<li
-        class="comment-box survey-question ${questionClass} no-padding ${survey.closed || question.answered?'answered':''} ${activeQuestionId==question.id?'active-question':''}"
+<g:set var="isQuestionWithImages" value="${question.options.find { it.urlImage } ? true : false}"/>
+<g:set var="legendId" value="legend-question-${question.id}"/>
+<g:set var="groupAnswersId" value="group-answers-question-${question.id}"/>
+<fieldset
+        class="comment-box survey-question ${questionClass} no-padding ${survey.closed || question.answered ? 'answered' : ''} ${activeQuestionId == question.id ? 'active-question' : ''} ${isQuestionWithImages ? 'questions-with-images' : ''}"
         id="question-${question.id}"
-        data-ajaxQuestionStats="${g.createLink(mapping:'ajaxSurveyQuestionStats', params:survey.encodeAsLinkProperties()+[questionId:question.id])}"
+        data-ajaxQuestionStats="${g.createLink(mapping: 'ajaxSurveyQuestionStats', params: survey.encodeAsLinkProperties() + [questionId: question.id])}"
         data-question-id="${question.id}"
         data-numAnswers="0"
         data-minAnswers="${question.minAnswers}"
         data-maxAnswers="${question.maxAnswers}"
         data-points="${question.points}"
-        data-questionType="${question.questionType}"
->
+        data-questionType="${question.questionType}">
 
-    <div class="survey-question-header">
-        <div class="survery-question-number">
+    <legend class="survey-question-header" id="${legendId}">
+        <span class="survery-question-number">
             <span class="survey-quiestion-number-idx">${numQuestion}</span>
 %{--            <span class="survey-quiestion-number-total hidden-xs">/${questionsTotal}</span>--}%
             <span class="survey-quiestion-number-total hidden-xs">.</span>
-        </div>
-        <div class="survey-question-title">
+        </span>
+        <h2 class="survey-question-title">
             ${question.text}
-        </div>
+        </h2>
         <g:render template="/survey/showModules/questions/surveyQuestionHeaderExtraInfo" model="[survey:survey, question:question, questionTypeMultiples:questionTypeMultiples]"/>
-    </div>
-    <div class="survey-question-answers" data-answer-selected="">
-        <g:each in="${question.options}" var="option">
+    </legend>
+    <div class="survey-question-answers" data-answer-selected="" ${roleAriaGroup} aria-labelledby="${legendId}" id="${groupAnswersId}">
+        <g:each in="${question.options}" var="option" status="optionIdx">
             <g:if test="${oneOptionQuestion.contains(question.questionType)}">
-                <g:render template="/survey/showModules/questions/singleQuestionOption" model="[survey:survey, question:question, option:option, isQuestionWithImages: isQuestionWithImages]"/>
+                <g:render template="/survey/showModules/questions/singleQuestionOption" model="[survey:survey, question:question, option:option, isQuestionWithImages: isQuestionWithImages, optionIdx:optionIdx]"/>
             </g:if>
             <g:elseif test="${question.questionType == org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.RATING_OPTION}">
-                <g:render template="/survey/showModules/questions/ratingQuestionOption" model="[survey:survey, question:question, option:option]"/>
+                <g:render template="/survey/showModules/questions/ratingQuestionOption" model="[survey:survey, question:question, option:option, optionIdx:optionIdx]"/>
             </g:elseif>
             <g:elseif test="${questionTypeMultiples.contains(question.questionType)}">
-                <g:render template="/survey/showModules/questions/multipleQuestionOption" model="[survey:survey, question:question, option:option, isQuestionWithImages: isQuestionWithImages]"/>
+                <g:render template="/survey/showModules/questions/multipleQuestionOption" model="[survey:survey, question:question, option:option, isQuestionWithImages: isQuestionWithImages, optionIdx:optionIdx]"/>
             </g:elseif>
             <g:elseif test="${question.questionType == org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.CONTACT_GENDER}">
-                <g:render template="/survey/showModules/questions/genderQuestionOption" model="[survey:survey, question:question, option:option]"/>
+                <g:render template="/survey/showModules/questions/genderQuestionOption" model="[survey:survey, question:question, option:option, optionIdx:optionIdx]"/>
             </g:elseif>
             <g:elseif test="${question.questionType == org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.CONTACT_UPLOAD_FILES}">
-                <g:render template="/survey/showModules/questions/fileQuestionOption" model="[survey:survey, question:question, option:option]"/>
+                <g:render template="/survey/showModules/questions/fileQuestionOption" model="[survey:survey, question:question, option:option, optionIdx:optionIdx]"/>
             </g:elseif>
             <g:else>
                 <g:render template="/survey/showModules/questions/singleInputQuestionOption" model="[survey:survey, question:question, option:option]"/>
@@ -78,8 +83,8 @@
         <g:render template="/campaigns/showModules/campaignDataSocial" model="[campaign:survey]"/>
         <div class="actions next-section pull-right">
             <userUtil:ifUserIsTheLoggedOne user="${campaignUser}" authorizedSuperAdmin="true">
-                <a href="#" target="_blank" class="skip-survey"><g:message code="survey.questions.footer.ownerSurveyNext"/></a>
-                <a href="#" target="_blank" class="skip-question"><g:message code="survey.questions.footer.ownerNext"/></a>
+                <a href="#" class="skip-survey"><g:message code="survey.questions.footer.ownerSurveyNext"/></a>
+                <a href="#" class="skip-question"><g:message code="survey.questions.footer.ownerNext"/></a>
             </userUtil:ifUserIsTheLoggedOne>
             <button
                     type="button"
@@ -89,9 +94,10 @@
                     data-campaignGroupValidationActive="${survey.groupValidation?g.createLink(mapping: "campaignCheckGroupValidation", params: survey.encodeAsLinkProperties()):''}"
                     data-postUrl="${g.createLink(mapping:"surveySaveAnswer", params:survey.encodeAsLinkProperties())}"
                     data-campaignId="${survey.id}"
-                    data-campaignAlias="${survey.user.alias}">
+                    data-campaignAlias="${survey.user.alias}"
+                    tabindex="0">
                 <g:message code="survey.questions.footer.next"/>
             </button>
         </div>
     </div>
-</li>
+</fieldset>

@@ -9,9 +9,9 @@
         <g:render template="/layouts/head"/>
         <div class="row main">
             <div class="container-fluid">
-                <section id="main" role="main">
+                <main id="main" role="main">
                     <g:pageProperty name="page.mainContent"/>
-                </section>
+                </main>
             </div>
         </div>
         <g:render template="/layouts/footer/footer"/>

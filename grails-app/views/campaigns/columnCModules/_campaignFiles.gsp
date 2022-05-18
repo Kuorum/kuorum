@@ -7,7 +7,7 @@
         <div class="comment-proposal clearfix">
             <ul class="list-campaign-files">
                 <g:each in="${campaignFiles}" var="file">
-                    <li><a href="${file.url}" target="_blank"><span class="${file.icon}"></span>${file.name}</a></li>
+                    <li><a href="${file.url}" target="_blank" rel='nofollow noopener noreferrer'><span class="${file.icon}"></span>${file.name}</a></li>
                 </g:each>
             </ul>
         </div>

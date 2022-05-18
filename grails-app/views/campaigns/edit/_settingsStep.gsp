@@ -2,8 +2,8 @@
 <r:require modules="datepicker, postForm, debateForm"/>
 <g:set var="enabledForAdmins"
        value="${grails.plugin.springsecurity.SpringSecurityUtils.ifAnyGranted("ROLE_ADMIN") || grails.plugin.springsecurity.SpringSecurityUtils.ifAnyGranted("ROLE_SUPER_ADMIN")}"/>
-<g:set var="campaignBlockVisibilityEdition"
-       value="${campaign != null && (campaign.published || campaign.campaignStatusRSDTO == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.PAUSE)}"/>
+<g:set var="allowSuperAdminFields"
+       value="${grails.plugin.springsecurity.SpringSecurityUtils.ifAnyGranted("ROLE_SUPER_ADMIN") ||campaign == null ||  campaign != null && campaign.campaignStatusRSDTO == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.DRAFT}"/>
 
 <div class="box-steps container-fluid campaign-steps">
     <g:render template="/campaigns/steps/campaignSteps" model="[mappings: mappings, attachEvent: attachEvent]"/>
@@ -50,23 +50,28 @@
                 <fieldset class="form-group fieldset-check-box">
                     %{--<label for="campaignName" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.debate.CampaignSettingsCommand.campaignName.label"/>:</label>--}%
                     <div class="col-md-offset-1 col-sm-8 col-md-7">
-                        <formUtil:checkBox command="${command}" field="debatable" disabled="${command.debatable!=null}"/>
+                        <formUtil:checkBox command="${command}" field="debatable"
+                                           disabled="${command.debatable != null}"/>
                     </div>
                 </fieldset>
             </g:if>
             <g:if test="${options.showCampaignDateLimits}">
                 <fieldset class="form-group" id="campaign-date-range">
-                    <label for="startDate" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.CampaignSettingsCommand.startDate.label"/>:</label>
+                    <label for="startDate" class="col-sm-2 col-md-1 control-label"><g:message
+                            code="kuorum.web.commands.payment.CampaignSettingsCommand.startDate.label"/>:</label>
+
                     <div class="col-sm-4 col-md-4">
                         <formUtil:date command="${command}" field="startDate" time="true"/>
                     </div>
-                    <label for="endDate" class="col-sm-1 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.CampaignSettingsCommand.endDate.label"/>:</label>
+                    <label for="endDate" class="col-sm-1 col-md-1 control-label"><g:message
+                            code="kuorum.web.commands.payment.CampaignSettingsCommand.endDate.label"/>:</label>
+
                     <div class="col-sm-4 col-md-4">
                         <formUtil:date command="${command}" field="endDate" time="true"/>
                     </div>
                     <r:script>
                         $(function(){
-                            $("#endDate").rules('add', { greaterThan: "#startDate" , messages:{greaterThan:"${g.message(code:'kuorum.web.commands.payment.CampaignSettingsCommand.endDate.greaterThan')}"} });
+                            $("#endDate").rules('add', { greaterThan: "#startDate" , messages:{greaterThan:"${g.message(code: 'kuorum.web.commands.payment.CampaignSettingsCommand.endDate.greaterThan')}"} });
                         });
                     </r:script>
                 </fieldset>
@@ -77,41 +82,48 @@
                     <label for="voteType" class="col-sm-2 col-md-1 control-label">
                         <g:message code="kuorum.web.commands.payment.CampaignSettingsCommand.voteType.label.left"/>:
                     </label>
+
                     <div class="col-sm-4 col-md-4">
-                        <formUtil:selectEnum command="${command}" field="voteType" disabled="${!enabledForAdmins}" showLabel="false"/>
+
+                        <formUtil:selectEnum command="${command}" field="voteType" disabled="${!allowSuperAdminFields}"
+                                             showLabel="false"/>
                     </div>
                     <label for="campaignVisibility" class="col-sm-2 col-md-1 control-label">
-                        <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="${g.message(code:'kuorum.web.commands.payment.CampaignSettingsCommand.campaignVisibility.label.info')}"></span>
-                        <g:message code="kuorum.web.commands.payment.CampaignSettingsCommand.campaignVisibility.label.left"/>:
+                        <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top"
+                              title="${g.message(code: 'kuorum.web.commands.payment.CampaignSettingsCommand.campaignVisibility.label.info')}"></span>
+                        <g:message
+                                code="kuorum.web.commands.payment.CampaignSettingsCommand.campaignVisibility.label.left"/>:
                     </label>
+
                     <div class="col-sm-4 col-md-4">
-                        <g:if test="${campaignBlockVisibilityEdition}">
-                            <formUtil:selectEnum command="${command}" field="campaignVisibility"
-                                                 disabled="${!grails.plugin.springsecurity.SpringSecurityUtils.ifAnyGranted("ROLE_SUPER_ADMIN")}"
-                                                 showLabel="false"/>
-                        </g:if>
-                        <g:else>
-                            <formUtil:selectEnum command="${command}" field="campaignVisibility" disabled="${!enabledForAdmins}" showLabel="false"/>
-                        </g:else>
+                        <formUtil:selectEnum command="${command}" field="campaignVisibility"
+                                             disabled="${!allowSuperAdminFields}" showLabel="false"/>
                     </div>
                 </fieldset>
             </g:if>
             <div class="campaign-super-admin">
                 <fieldset class="form-group">
                     <label for="validationType" class="col-sm-2 col-md-1 control-label">
-                        <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="${g.message(code:'kuorum.web.commands.payment.CampaignSettingsCommand.validationType.label.info')}"></span>
-                        <g:message code="kuorum.web.commands.payment.CampaignSettingsCommand.validationType.label.left"/>:
+                        <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top"
+                              title="${g.message(code: 'kuorum.web.commands.payment.CampaignSettingsCommand.validationType.label.info')}"></span>
+                        <g:message
+                                code="kuorum.web.commands.payment.CampaignSettingsCommand.validationType.label.left"/>:
                     </label>
+
                     <div class="col-sm-4 col-md-4">
-                        <formUtil:selectEnum command="${command}" field="validationType" disabled="${!domainValidation}" showLabel="false"/>
+                        <formUtil:selectEnum command="${command}" field="validationType" disabled="${!domainValidation}"
+                                             showLabel="false"/>
                     </div>
                 </fieldset>
                 <g:if test="${options.showSurveyCustomFields}">
                     <fieldset class="form-group fieldset-check-box">
                         <label for="signVotes" class="col-sm-2 col-md-1 control-label">
-                            <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="${g.message(code:'kuorum.web.commands.payment.CampaignSettingsCommand.signVotes.label.info')}"></span>
-                            <g:message code="kuorum.web.commands.payment.CampaignSettingsCommand.signVotes.label.left"/>:
+                            <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top"
+                                  title="${g.message(code: 'kuorum.web.commands.payment.CampaignSettingsCommand.signVotes.label.info')}"></span>
+                            <g:message
+                                    code="kuorum.web.commands.payment.CampaignSettingsCommand.signVotes.label.left"/>:
                         </label>
+
                         <div class="col-sm-4">
                             <formUtil:checkBox command="${command}" field="signVotes" disabled="${!enabledForAdmins}"/>
                         </div>
@@ -123,8 +135,10 @@
                     <label for="campaignVisibility" class="col-sm-2 col-md-1 control-label">
                         <g:message code="kuorum.web.commands.payment.CampaignSettingsCommand.hideComments.label.left"/>:
                     </label>
+
                     <div class="col-sm-8 col-md-7">
-                        <formUtil:selectEnum command="${command}" field="campaignVisibility" disabled="${!domainValidation}" showLabel="false"/>
+                        <formUtil:selectEnum command="${command}" field="campaignVisibility"
+                                             disabled="${!domainValidation}" showLabel="false"/>
                     </div>
                 </fieldset>
             </g:if>
@@ -132,37 +146,46 @@
                 <label for="groupValidation" class="col-sm-2 col-md-1 control-label">
                     <g:message code="kuorum.web.commands.payment.CampaignSettingsCommand.groupValidation.label.left"/>:
                 </label>
+
                 <div class="col-sm-8 col-md-7">
                     <formUtil:checkBox command="${command}" field="groupValidation"/>
                 </div>
             </fieldset>
+
             <div id="filter-contact-selector" style="display: none">
-                <g:render template="/newsletter/filter" model="[command: command, filters: filters,currentFilter: campaign?.newsletter?.filter, totalContacts: totalContacts, hideSendTestButton: true, showOnly:campaign?.newsletter?.status== org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT]"/>
+                <g:render template="/newsletter/filter"
+                          model="[command: command, filters: filters, currentFilter: campaign?.newsletter?.filter, totalContacts: totalContacts, hideSendTestButton: true, showOnly: campaign?.newsletter?.status == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT]"/>
             </div>
-            <g:render template="/newsletter/form/formGroupCampaignTags" model="[command:command, events:events, editable:campaign== null || !campaign.published]"/>
+            <g:render template="/newsletter/form/formGroupCampaignTags"
+                      model="[command: command, events: events, editable: campaign == null || !campaign.published]"/>
         </div>
-        <g:render template="/campaigns/edit/stepButtons" model="[mappings:mappings, status:status, command: command]"/>
+        <g:render template="/campaigns/edit/stepButtons"
+                  model="[mappings: mappings, status: status, command: command]"/>
     </form>
 </div>
 
 <!-- WARN USING ANONYMOUS FILTER -->
-<div class="modal fade in" id="campaignWarnFilterEdited" tabindex="-1" role="dialog" aria-labelledby="campaignWarnFilterEditedTitle" aria-hidden="true">
+<div class="modal fade in" id="campaignWarnFilterEdited" tabindex="-1" role="dialog"
+     aria-labelledby="campaignWarnFilterEditedTitle" aria-hidden="true">
     <div class="modal-dialog ">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
-                    <span aria-hidden="true" class="fal fa-times-circle fa"></span><span class="sr-only"><g:message code="modalDefend.close"/></span>
+                    <span aria-hidden="true" class="fal fa-times-circle fa"></span><span class="sr-only"><g:message
+                        code="modalDefend.close"/></span>
                 </button>
                 <h4>
                     <g:message code="tools.massMailing.warnFilterEdited.title"/>
                 </h4>
             </div>
+
             <div class="modal-body">
-                <p><g:message code="tools.massMailing.warnFilterEdited.text"/> </p>
+                <p><g:message code="tools.massMailing.warnFilterEdited.text"/></p>
                 <a href="#" class="btn btn-blue inverted btn-lg" id="campaignWarnFilterEditedButtonOk">
                     <g:message code="tools.massMailing.warnFilterEdited.button"/>
                 </a>
-                <a href="#" class="btn btn-grey-light btn-lg" data-dismiss="modal" id="campaignWarnFilterEditedButtonClose">
+                <a href="#" class="btn btn-grey-light btn-lg" data-dismiss="modal"
+                   id="campaignWarnFilterEditedButtonClose">
                     <g:message code="tools.massMailing.warnFilterEdited.cancel"/>
                 </a>
 

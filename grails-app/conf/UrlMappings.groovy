@@ -227,9 +227,6 @@ class UrlMappings {
 
         name ajaxRegisterContact:            "/ajax/kuorum-user/contact"(controller: "kuorumUser", action: "contactUser")
 
-        name userRate:                  "/ajax/$userAlias/rate"(controller: "rating", action:"ratePolitician")
-        name userLoadRate:              "/ajax/$userAlias/loadRate"(controller: "rating", action:"loadRating")
-
         name suggestSearcher:       "/ajax/search/suggestions/all"(controller: "search", action:"suggest")
         name suggestRegions:        "/ajax/search/suggestions/regions"(controller: "search", action:"suggestRegions")
         name suggestTags:           "/ajax/search/suggestions/tags"(controller: "search", action:"suggestTags")

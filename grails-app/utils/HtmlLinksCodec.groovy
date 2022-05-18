@@ -40,6 +40,6 @@ class HtmlLinksCodec {
         if (!link.startsWith("http")){
             httpLink = "http://${link}"
         }
-          "<a href='${httpLink}' target='_blank' rel='nofollow'>${link}</a>"
+          "<a href='${httpLink}' target='_blank' rel='nofollow noopener noreferrer'>${link}</a>"
     }
 }

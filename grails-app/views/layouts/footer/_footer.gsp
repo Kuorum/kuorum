@@ -3,8 +3,8 @@
         <section class="links">
             <ul>
                 <domain:footerLis/>
-                <li><g:link mapping="footerPrivacyPolicy" target="_blank"><g:message code="layout.footer.privacyPolicy"/></g:link></li>
-                <li><g:link mapping="footerTermsUse" target="_blank"><g:message code="layout.footer.termsUse"/></g:link></li>
+                <li><g:link mapping="footerPrivacyPolicy" target="_blank" rel="nofollow noopener noreferrer"><g:message code="layout.footer.privacyPolicy"/></g:link></li>
+                <li><g:link mapping="footerTermsUse" target="_blank" rel="nofollow noopener noreferrer"><g:message code="layout.footer.termsUse"/></g:link></li>
                 %{--<sec:ifNotLoggedIn>--}%
                     %{--<li class="lang-selector"><nav:generateLangSelector /></li>--}%
                 %{--</sec:ifNotLoggedIn>--}%
@@ -19,11 +19,11 @@
                     <g:if test="${_social}">
                         <ul class="social">
                             <li class="hidden-xs"><g:message code="layout.footer.followUs"/></li>
-                            <g:if test="${_social?.twitter}"><li><a href="${_social.twitter}" target="_blank"><span class="sr-only">Twitter</span><span class="fa-stack fa-lg"><span class="fas fa-circle fa-stack-2x"></span><span class="fab fa-twitter fa-stack-1x"></span></span></a></li></g:if>
-                            <g:if test="${_social?.facebook}"><li><a href="${_social.facebook}" target="_blank"><span class="sr-only" target="_blank">Facebook</span><span class="fa-stack fa-lg"><span class="fas fa-circle fa-stack-2x"></span><span class="fab fa-facebook-f fa-stack-1x"></span></span></a></li></g:if>
-                            <g:if test="${_social?.linkedIn}"><li><a href="${_social.linkedIn}" target="_blank"><span class="sr-only" target="_blank">LinkedIn</span><span class="fa-stack fa-lg"><span class="fas fa-circle fa-stack-2x"></span><span class="fab fa-linkedin-in fa-stack-1x"></span></span></a></li></g:if>
-                            <g:if test="${_social?.instagram}"><li><a href="${_social.instagram}" target="_blank"><span class="sr-only" target="_blank">Instagram</span><span class="fa-stack fa-lg"><span class="fas fa-circle fa-stack-2x"></span><span class="fab fa-instagram fa-stack-1x"></span></span></a></li></g:if>
-                            <g:if test="${_social?.youtube}"><li><a href="${_social.youtube}" target="_blank"><span class="sr-only" target="_blank">Youtube</span><span class="fa-stack fa-lg"><span class="fas fa-circle fa-stack-2x"></span><span class="fab fa-youtube fa-stack-1x"></span></span></a></li></g:if>
+                            <g:if test="${_social?.twitter}"><li><a href="${_social.twitter}" target="_blank" rel="nofollow noopener noreferrer"><span class="sr-only">Twitter</span><span class="fa-stack fa-lg"><span class="fas fa-circle fa-stack-2x"></span><span class="fab fa-twitter fa-stack-1x"></span></span></a></li></g:if>
+                            <g:if test="${_social?.facebook}"><li><a href="${_social.facebook}" target="_blank" rel="nofollow noopener noreferrer"><span class="sr-only" target="_blank">Facebook</span><span class="fa-stack fa-lg"><span class="fas fa-circle fa-stack-2x"></span><span class="fab fa-facebook-f fa-stack-1x"></span></span></a></li></g:if>
+                            <g:if test="${_social?.linkedIn}"><li><a href="${_social.linkedIn}" target="_blank" rel="nofollow noopener noreferrer"><span class="sr-only" target="_blank">LinkedIn</span><span class="fa-stack fa-lg"><span class="fas fa-circle fa-stack-2x"></span><span class="fab fa-linkedin-in fa-stack-1x"></span></span></a></li></g:if>
+                            <g:if test="${_social?.instagram}"><li><a href="${_social.instagram}" target="_blank" rel="nofollow noopener noreferrer"><span class="sr-only" target="_blank">Instagram</span><span class="fa-stack fa-lg"><span class="fas fa-circle fa-stack-2x"></span><span class="fab fa-instagram fa-stack-1x"></span></span></a></li></g:if>
+                            <g:if test="${_social?.youtube}"><li><a href="${_social.youtube}" target="_blank" rel="nofollow noopener noreferrer"><span class="sr-only" target="_blank">Youtube</span><span class="fa-stack fa-lg"><span class="fas fa-circle fa-stack-2x"></span><span class="fab fa-youtube fa-stack-1x"></span></span></a></li></g:if>
                         </ul>
                     </g:if>
                 </div>

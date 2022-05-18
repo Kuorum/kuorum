@@ -16,9 +16,9 @@
             </div>
         </div>
         <div class="row main landing">
-            <section id="main" role="main" class="landing clearfix">
+            <main id="main" role="main" class="landing clearfix">
                 <g:pageProperty name="page.main"/>
-            </section>
+            </main>
         </div>
         <g:if test="${g.pageProperty(name:'page.showHowItWorks')=="true"}">
             <div class="row landing-section-dark">

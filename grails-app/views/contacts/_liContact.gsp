@@ -10,7 +10,7 @@
         <span class="user-img"><img src="${image.contactImgSrc(contact:contact)}" alt="${contact.name} ${contact.surname}" itemprop="image"></span>
         <h3 class="title">
             <g:link mapping="politicianContactEdit" params="[contactId:contact.id]" class="contactStats">${contact.name} ${contact.surname}</g:link>
-            <g:link mapping="politicianContactEdit" params="[contactId:contact.id]" target="_blank">
+            <g:link mapping="politicianContactEdit" params="[contactId:contact.id]" target="_blank" rel="noopener noreferrer">
 
                 <span class="fal fa-external-link fa-sm"></span><span class="sr-only"><g:message code="tools.contact.list.contact.edit"/></span>
             </g:link>

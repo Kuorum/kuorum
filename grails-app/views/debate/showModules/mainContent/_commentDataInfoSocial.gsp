@@ -13,7 +13,7 @@
         <li>
             <g:set var="twitterShareText">${debate.title}</g:set>
             <g:set var="twitterLink">https://twitter.com/share?url=${debateLink.encodeAsURL()}&text=${twitterShareText}</g:set>
-            <a href="${twitterLink}" target="_blank" title="${g.message(code: 'project.social.twitter')}">
+            <a href="${twitterLink}" target="_blank" title="${g.message(code: 'project.social.twitter')}" rel="noopener noreferrer">
                 <span class="fa-stack fa-lg" aria-hidden="true">
                     <span class="fab fa-twitter fa-stack-1x"></span>
                 </span>
@@ -21,7 +21,7 @@
         </li>
         <li>
             <g:set var="facebookLink">https://www.facebook.com/sharer/sharer.php?u=${debateLink}</g:set>
-            <a href="${facebookLink}" target="_blank" title="${g.message(code: 'project.social.facebook')}">
+            <a href="${facebookLink}" target="_blank" title="${g.message(code: 'project.social.facebook')}" rel="noopener noreferrer">
                 <span class="fa-stack fa-lg" aria-hidden="true">
                     <span class="fab fa-facebook-f fa-stack-1x"></span>
                 </span>
@@ -29,7 +29,7 @@
         </li>
         <li>
             <a href="http://www.linkedin.com/shareArticle?mini=true&url=${debateLink}&title=${debate.title}&summary=${debate.body}&source=${kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.domain}"
-               target="_blank" title="${g.message(code: 'project.social.linkedin')}">
+               target="_blank" title="${g.message(code: 'project.social.linkedin')}" rel="noopener noreferrer">
                 <span class="fa-stack fa-lg" aria-hidden="true">
                     <span class="fab fa-linkedin-in fa-stack-1x"></span>
                 </span>

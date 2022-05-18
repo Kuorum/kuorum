@@ -243,7 +243,7 @@
             <g:message code="footer.menu.footerPrivacyPolicy.description0402" args="[legalInfo.domainName]"/>
         </p>
         <p>
-            <g:message code="footer.menu.footerPrivacyPolicy.description0403" args="[legalInfo.domainName]"/>
+            <g:message code="footer.menu.footerPrivacyPolicy.description0403" args="[legalInfo.domainName, legalInfo.fileResponsibleEmail]"/>
         </p>
         <p>
             <g:message code="footer.menu.footerPrivacyPolicy.description0404" args="[legalInfo.domainName]"/>
