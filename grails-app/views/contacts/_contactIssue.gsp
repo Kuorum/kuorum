@@ -15,8 +15,14 @@
     <div class="col-md-1 contact-issue-campaign">
         <label class="hidden-md hidden-lg"><g:message
                 code="tools.contact.edit.tabs.contactIssues.table.labels.campaign"/>:</label>
-        <g:link mapping="campaignShow"
-                params="${contactIssue.lightCampaign.encodeAsLinkProperties()}">${contactIssue.lightCampaign.title}</g:link>
+        <g:if test="${contactIssue.lightCampaign}">
+            <g:link mapping="campaignShow"
+                    params="${contactIssue.lightCampaign.encodeAsLinkProperties()}">${contactIssue.lightCampaign.title}</g:link>
+        </g:if>
+        <g:else>
+            <!-- DELETED -->
+            --
+        </g:else>
     </div>
 
     <div class="col-md-2 contact-issue-type">
