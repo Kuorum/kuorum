@@ -35,11 +35,5 @@
     </li>
 
 
-    <sec:ifAnyGranted roles="ROLE_ADMIN">
-        <li class="underline" id="navigation-admin-show-landing-button">
-            <g:link mapping="logout" rel="tooltip" data-toggle="tooltip" data-placement="bottom" title=""
-                    data-original-title="${g.message(code: 'head.logged.admin.showLanding')}"><span
-                    class="fa fa-eye"></span></g:link>
-        </li>
-    </sec:ifAnyGranted>
+
 </ul>
