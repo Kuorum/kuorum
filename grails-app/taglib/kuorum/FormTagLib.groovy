@@ -518,7 +518,7 @@ class FormTagLib {
             </div>
         """
         if(error){
-            out << "<span for='${id}' class='error'>${g.fieldError(bean: command, field: field)}</span>"
+            out << "<span for='${id}' class='error' id='${id}-error'>${g.fieldError(bean: command, field: field)}</span>"
         }
     }
 

@@ -460,13 +460,17 @@ var surveyFunctions = {
             if (validationData.valid) {
                 $(validationData.input).siblings(".error").remove();
                 validationData.input.classList.remove("error")
+                validationData.input.setAttribute("aria-invalid", "false");
                 return true;
             }else {
                 $(validationData.input).siblings(".error").remove();
+                validationData.input.setAttribute("aria-invalid", "true");
+                var idError = $(validationData.input).attr("aria-errormessage")
                 validationData.input.classList.add("error");
                 var errorNode = document.createElement("span");
                 errorNode.classList = "error";
                 errorNode.innerHTML = validationData.msg
+                errorNode.setAttribute("id", idError);
                 validationData.input.parentNode.insertBefore(errorNode, validationData.input.nextSibling);
             }
         },_handleSpecialCase: function(validationData, question) {
