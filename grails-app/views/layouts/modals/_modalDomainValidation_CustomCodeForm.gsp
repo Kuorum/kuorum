@@ -16,7 +16,7 @@
         </div>
     </div>
 
-    <fieldset class="center modal-login-action-buttons">
+    <fieldset aria-live="polite" class="center modal-login-action-buttons">
         <button id="validateCustomCodeDomain-modal-form-button-id" class="btn btn-orange">
             <g:message code="kuorum.web.commands.profile.DomainUserCustomCodeValidationCommand.modal.submit"/>
         </button>

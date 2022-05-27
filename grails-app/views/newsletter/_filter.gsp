@@ -1,6 +1,6 @@
 <g:if test="${showOnly && !hide}">
     <!-- Show only -->
-    <fieldset class="form-group showOnly" id="toFilters">
+    <fieldset aria-live="polite" class="form-group showOnly" id="toFilters">
         <label for="to" class="col-sm-2 col-md-1 control-label"><g:message code="tools.massMailing.fields.filter.to"/> :</label>
         <div class="col-sm-4 filter-name">
             <g:each in="${filters}" var="filter">
@@ -35,7 +35,7 @@
     </fieldset>
 </g:if>
 <g:elseif test="${!hide}">
-    <fieldset class="form-group" id="toFilters">
+    <fieldset aria-live="polite" class="form-group" id="toFilters">
         <label for="to" class="col-sm-2 col-md-1 control-label"><g:message code="tools.massMailing.fields.filter.to"/> :</label>
         <div class="col-sm-4 col-md-3">
             <select name="filterId" class="form-control input-lg" id="recipients">

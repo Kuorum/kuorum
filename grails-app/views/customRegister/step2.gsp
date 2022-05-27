@@ -26,7 +26,7 @@
     <formUtil:validateForm bean="${command}" form="step2" autocomplete="off"/>
     <g:form mapping="customProcessRegisterStep2" name="step2" role="form" method="POST" autocomplete="off"  class="signup step2">
         <input type="hidden" name="user.id" value="${command?.user?.id}"/>
-        <fieldset class="row">
+        <fieldset aria-live="polite" class="row">
             <div class="form-group col-md-6">
                 <formUtil:input
                         command="${command}"
@@ -37,7 +37,7 @@
                         required="true"/>
             </div>
             <div class="form-group col-md-6">
-                <input type="text" name="autocompleteNameOff" style="display:none" data-ays-ignore="true"/>
+                %{--                <input type="text" name="autocompleteNameOff" style="display:none" data-ays-ignore="true"/>--}%
                 <formUtil:selectEnum
                         command="${command}"
                         field="gender"
@@ -48,7 +48,7 @@
             </div>
         </fieldset>
 
-        <fieldset class="row">
+        <fieldset aria-live="polite" class="row">
             <div class="form-group col-md-6">
                 <formUtil:regionInput
                         command="${command}"
@@ -74,7 +74,7 @@
             %{--</div>--}%
         </fieldset>
 
-        <fieldset class="row">
+        <fieldset aria-live="polite" class="row">
             <div class="form-group text-center option-buttons">
                 %{--<label><g:message code="customRegister.step2.choseUserType.label"/> </label>--}%
                 <input type="submit"value="${g.message(code:'customRegister.step2.submit')}" class="btn btn-lg">

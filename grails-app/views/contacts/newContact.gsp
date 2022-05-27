@@ -13,7 +13,7 @@
     <div class="box-ppal edit-contact clearfix">
         <formUtil:validateForm bean="${command}" form="newContact"/>
         <g:form method="POST" mapping="politicianContactNew"  name="newContact" role="form" class="clearfix">
-            <fieldset>
+            <fieldset aria-live="polite">
                 <div class="row">
                     <div class="form-group col-md-4">
                         <formUtil:input command="${command}" field="name" showLabel="true"/>
@@ -33,7 +33,7 @@
                     </div>
                 </div>
             </fieldset>
-            <fieldset>
+            <fieldset aria-live="polite">
                 <input type="submit" value="${g.message(code: 'tools.contact.new.save')}" class="btn btn-blue inverted">
             </fieldset>
         </g:form>

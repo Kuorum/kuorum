@@ -22,10 +22,10 @@
         <li class="active"><div class="step-label"><g:message code="customRegister.step4.title"/></div></li>
     </ol>
     <div class="signup final">
-            <h3><g:message code="customRegister.step4.congratulations"/> </h3>
-            <fieldset class="row">
-                <div class="form-group">
-                    <g:link class="btn btn-lg" mapping="dashboard" params="[tour:true]">
+            <h3><g:message code="customRegister.step4.congratulations"/></h3>
+        <fieldset aria-live="polite" class="row">
+            <div class="form-group">
+                <g:link class="btn btn-lg" mapping="dashboard" params="[tour:true]">
                         <g:message code="customRegister.step4.goToDashboard"/>
                     </g:link>
                 </div>

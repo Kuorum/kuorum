@@ -18,7 +18,7 @@
         <input type="hidden" name="redirectLink" id="redirectLink"/>
 
         <g:if test="${!campaign}">
-            <fieldset class="form-group">
+            <fieldset aria-live="polite" class="form-group">
                 <label for="name" class="col-sm-2 col-md-1 control-label"><g:message
                         code="kuorum.web.commands.payment.massMailing.DebateCommand.title.label"/>:</label>
 
@@ -30,8 +30,8 @@
         <g:else>
             <input type="hidden" name="name" value="${campaign.title}" />
         </g:else>
-        <fieldset class="form-group">
-            <label for="districtId" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.participatoryBudget.DistrictProposalChooseDistrictCommand.district.label"/>:</label>
+    <fieldset aria-live="polite" class="form-group">
+        <label for="districtId" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.participatoryBudget.DistrictProposalChooseDistrictCommand.district.label"/>:</label>
             <div class="col-sm-8 col-md-7">
                 <select class="form-control input-lg" name="districtId" data-original-value="${command.districtId}">
                     <option value="">----</option>
@@ -40,9 +40,9 @@
                     </g:each>
                 </select>
             </div>
-        </fieldset>
-        <fieldset class="form-group">
-            <label for="cause" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.participatoryBudget.DistrictProposalChooseDistrictCommand.cause.label"/>:</label>
+    </fieldset>
+    <fieldset aria-live="polite" class="form-group">
+        <label for="cause" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.participatoryBudget.DistrictProposalChooseDistrictCommand.cause.label"/>:</label>
             <div class="col-sm-8 col-md-7">
                 <select class="form-control input-lg" name="cause">
                     <option value="">---</option>
@@ -51,9 +51,9 @@
                     </g:each>
                 </select>
             </div>
-        </fieldset>
-        <fieldset class="form-group">
-            <label for="backerType" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.participatoryBudget.DistrictProposalChooseDistrictCommand.backerType.label"/>:</label>
+    </fieldset>
+    <fieldset aria-live="polite" class="form-group">
+        <label for="backerType" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.participatoryBudget.DistrictProposalChooseDistrictCommand.backerType.label"/>:</label>
             <div class="col-sm-8 col-md-7">
                 <formUtil:selectEnum command="${command}" field="backerType" showLabel="false" />
             </div>

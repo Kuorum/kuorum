@@ -9,7 +9,7 @@
     <input type="hidden" name="contentType"
            value="${org.kuorum.rest.model.notification.campaign.NewsletterTemplateDTO.PLAIN_TEXT}"/>
 
-    <fieldset class="form-group">
+    <fieldset aria-live="polite" class="form-group">
         <label for="subject" class="col-sm-2 col-md-1 control-label"><g:message
                 code="kuorum.web.commands.payment.massMailing.MassMailingCommand.subject.label"/>:</label>
 
@@ -24,14 +24,14 @@
         %{--<input type="text" class="form-control input-lg" id="subject" placeholder="It’s time to build a better country for everybody" equired aria-required="true">--}%
         %{--</div>--}%
     </fieldset>
-    <fieldset class="form-group">
+    <fieldset aria-live="polite" class="form-group">
         <label for="text" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.massMailing.MassMailingCommand.text.label"/>:</label>
         <div class="textareaContainer col-sm-8 col-md-7">
             <formUtil:textArea command="${command}" field="text" rows="8" placeholder="${message(code: 'kuorum.web.commands.payment.massMailing.MassMailingCommand.text.placeHolder')}"/>
         </div>
     </fieldset>
 
-    <fieldset class="form-group">
+    <fieldset aria-live="polite" class="form-group">
         <label for="files" class="col-sm-2 col-md-1 control-label">
             <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="${g.message(code:'kuorum.web.commands.payment.massMailing.MassMailingCommand.files.label.info')}"></span>
             <g:message code="kuorum.web.commands.payment.massMailing.MassMailingCommand.files.label"/>:

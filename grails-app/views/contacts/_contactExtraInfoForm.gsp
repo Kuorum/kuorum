@@ -7,7 +7,7 @@
         customRemoveButton="true"
         appendLast="true"
         formId="extraInfoContact">
-    <fieldset class="row">
+    <fieldset aria-live="polite" class="row">
         <div class="form-group col-md-5">
             <formUtil:input field="key" command="${listCommand}" prefixFieldName="${prefixField}" showLabel="false"/>
         </div>

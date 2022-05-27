@@ -3,7 +3,7 @@
 <r:require modules="campaignList"/>
 <div class="box-ppal filterbox">
     <form class="form-horizontal" id="search-form-campaign">
-        <fieldset class="form-group" id="toFilters">
+        <fieldset aria-live="polite" class="form-group" id="toFilters">
             <div class="col-sm-3">
                 <label for="filterCampaigns" class="sr-only">
                     <g:message code="tools.massMailing.list.filter.title"/> :
@@ -102,9 +102,10 @@
                     </h4>
                 </div>
                 <div class="modal-body">
-                    <p><g:message code="tools.massMailing.editCampaignModal.text"/> </p>
-                    <fieldset class="text-right">
-                        <a href="#" class="btn btn-grey-light btn-lg" data-dismiss="modal" id="modalEditScheduledButtonClose">
+                    <p><g:message code="tools.massMailing.editCampaignModal.text"/></p>
+                    <fieldset aria-live="polite" class="text-right">
+                        <a href="#" class="btn btn-grey-light btn-lg" data-dismiss="modal"
+                           id="modalEditScheduledButtonClose">
                             <g:message code="tools.massMailing.editCampaignModal.cancel"/>
                         </a>
                         <a href="#" class="btn btn-blue inverted btn-lg" id="modalEditScheduledButtonOk">

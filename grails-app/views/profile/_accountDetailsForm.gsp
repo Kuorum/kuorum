@@ -1,5 +1,5 @@
 <input type="hidden" name="user.id" value="${command?.user?.id}"/>
-<fieldset class="row">
+<fieldset aria-live="polite" class="row">
     <div class="form-group col-md-6">
         <formUtil:input command="${command}" field="name" required="true" showLabel="true" showCharCounter="false"/>
     </div>
@@ -7,7 +7,7 @@
         <formUtil:input command="${command}" field="surname" required="true" showLabel="true" showCharCounter="false"/>
     </div>
 </fieldset>
-<fieldset class="row">
+<fieldset aria-live="polite" class="row">
     <div class="form-group col-md-6">
         <formUtil:input command="${command}" field="email" required="true" showLabel="true"/>
     </div>
@@ -15,7 +15,7 @@
         <formUtil:input command="${command}" field="alias" showLabel="true" showCharCounter="false" helpBlock="https://${kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.domain}/${command.alias?:'alias'}"/>
     </div>
 </fieldset>
-<fieldset class="row">
+<fieldset aria-live="polite" class="row">
     <div class="form-group col-md-6">
         <formUtil:selectEnum command="${command}" field="language"/>
     </div>
@@ -24,7 +24,7 @@
     </div>
 
 </fieldset>
-<fieldset class="row">
+<fieldset aria-live="polite" class="row">
     <div class="form-group col-md-6">
         <formUtil:regionInput command="${command}" field="homeRegion" showLabel="true"/>
     </div>

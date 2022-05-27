@@ -8,7 +8,7 @@
     <input type="hidden" name="campaignId" value="${command.campaignId}"/>
 
 
-    <fieldset class="form-group">
+    <fieldset aria-live="polite" class="form-group">
         <div class="col-xs-3 col-sm-3 col-sm-offset-1">
             <formUtil:selectEnum command="${command}" field="participatoryBudgetType" extraClass="" showLabel="true"/>
         </div>
@@ -21,7 +21,7 @@
             <formUtil:input command="${command}" field="minVotesImplementProposals" type="number" showLabel="true"/>
         </div>
     </fieldset>
-    <fieldset class="form-group fieldset-check-box">
+    <fieldset aria-live="polite" class="form-group fieldset-check-box">
         <label for="activeSupport" class="col-xs-12 col-sm-1 col-md-1 control-label">
             <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top"
                   title="${g.message(code: 'kuorum.web.commands.payment.participatoryBudget.DistrictsCommand.activeSupport.label.info')}"></span>
@@ -31,7 +31,7 @@
             <formUtil:checkBox command="${command}" field="activeSupport" extraClass=""/>
         </div>
     </fieldset>
-    <fieldset class="form-group fieldset-check-box">
+    <fieldset aria-live="polite" class="form-group fieldset-check-box">
         <label for="activeSupport" class="col-xs-12 col-sm-1 col-md-1 control-label">
             <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top"
                   title="${g.message(code: 'kuorum.web.commands.payment.participatoryBudget.DistrictsCommand.addProposalsWithValidation.label.info')}"></span>
@@ -53,7 +53,7 @@
             </div>
         </div>
     </div>
-    <fieldset class="dynamic-input-list">
+    <fieldset aria-live="polite" class="dynamic-input-list">
         <label for="districs" class="col-sm-2 col-md-1 control-label"><g:message
                 code="kuorum.web.commands.payment.participatoryBudget.DistrictsCommand.districts"/>:</label>
 
@@ -66,7 +66,7 @@
                     customAddButton="true"
                     appendLast="true"
                     formId="districtParticipatoryBudgetForm">
-                <fieldset class="row">
+                <fieldset aria-live="polite" class="row">
                     <formUtil:input cssClass="hidden" field="districtId" command="${listCommand}"
                                     prefixFieldName="${prefixField}"/>
 
@@ -104,7 +104,7 @@
                     </div>
                 </fieldset>
             </formUtil:dynamicComplexInputs>
-            <fieldset class="row">
+            <fieldset aria-live="polite" class="row">
                 <div class="form-group right">
                     <div class="col-md-12">
                         <button type="button" class="btn btn-lg btn-icon btn-transparent addButton">

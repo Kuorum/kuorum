@@ -52,9 +52,9 @@ $(function ($)
 
         // Create the html picker skeleton
           var $fieldset = $("<fieldset class='birthdayPicker'></fieldset>"),
-              $year = $("<select class='birthYear "+options.sizeClass+"' name='"+parentId+"_birth[year]'></select>"),
-              $month = $("<select class='birthMonth "+options.sizeClass+"' name='"+parentId+"_birth[month]'></select>"),
-              $day = $("<select class='birthDate "+options.sizeClass+"' name='"+parentId+"_birth[day]'></select>")
+              $year = $("<select class='birthYear " + options.sizeClass + "' aria-label='" + language.placeholder.year + "' name='" + parentId + "_birth[year]'></select>"),
+              $month = $("<select class='birthMonth " + options.sizeClass + "' aria-label='" + language.placeholder.month + "' name='" + parentId + "_birth[month]'></select>"),
+              $day = $("<select class='birthDate " + options.sizeClass + "'  aria-label='" + language.placeholder.day + "' name='" + parentId + "_birth[day]'></select>")
               $birthday = $("<input class='birthDay' name='"+options.inputName+"' type='hidden'/>");
 
          // Add the option placeholders if specified

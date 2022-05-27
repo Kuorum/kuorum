@@ -27,7 +27,7 @@
                 showLabel="true"
                 datePickerType="birthDate"/>
     </div>
-    <fieldset class="center modal-login-action-buttons">
+    <fieldset aria-live="polite" class="center modal-login-action-buttons">
         <button id="validateDomain-modal-form-button-id" class="btn btn-orange btn-lg">
             <g:message code="kuorum.web.commands.profile.DomainValidationCommand.modal.submit"/>
         </button>

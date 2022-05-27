@@ -15,7 +15,7 @@
 
             <div class="modal-body">
                 <p><g:message code="tools.summoning.modal.text"/></p>
-                <fieldset class="text-right">
+                <fieldset aria-live="polite" class="text-right">
                     <a href="#" class="btn btn-grey-light btn-lg" data-dismiss="modal"
                        id="modalCreateSummoningButtonClose">
                         <g:message code="tools.massMailing.editCampaignModal.cancel"/>

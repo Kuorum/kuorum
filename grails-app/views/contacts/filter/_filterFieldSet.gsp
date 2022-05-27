@@ -5,7 +5,7 @@
     %{--<input type="hidden" name="filterId" value="${filter.id}"/>--}%
     <input type="hidden" name="filterEdited" value="false"/>
     <input type="hidden" name="filterName" value="${filter.name}"/>
-    <fieldset class="form-group new-filter-options first">
+    <fieldset aria-live="polite" class="form-group new-filter-options first">
         <label class="col-sm-2 col-md-1 control-label contact-filter-text"><g:message code="tools.contact.filter.form.matches"/></label>
         <div class="col-sm-4 col-md-3">
             <formUtil:selectEnum
@@ -25,10 +25,11 @@
             customAddButton="true"
             appendLast="true"
             formId="${formId}">
-        <fieldset class="form-group new-filter-options">
+        <fieldset aria-live="polite" class="form-group new-filter-options">
 
             <div class="col-sm-2 col-sm-offset-2 col-md-2 col-md-offset-1">
-                <a href="#" role="button" class="minus-condition"><span class="fal fa-minus-circle fa-lg"></span> <span class="text">Delete condition</span></a>
+                <a href="#" role="button" class="minus-condition"><span class="fal fa-minus-circle fa-lg"></span> <span
+                        class="text">Delete condition</span></a>
                 <formUtil:selectEnum
                         field="field"
                         command="${listCommand}"
@@ -167,7 +168,7 @@
         </fieldset>
     </formUtil:dynamicComplexInputs>
 
-    <fieldset class="form-group new-filter-options last">
+    <fieldset aria-live="polite" class="form-group new-filter-options last">
         <div class="col-sm-2 col-sm-offset-2 col-md-2 col-md-offset-1">
             <a href="#" role="button" class="plus-condition addButton">
                 <span class="fal fa-plus-circle fa-lg"></span>
@@ -177,7 +178,7 @@
     </fieldset>
     <%-- miguel este conjunto de campos tiene un margen de 35 px que tendria que ser de 22 si es que se desea que coincida con el div box-ppal filterbox --%>
     <%-- miguel procedo a crear una clase para este fielfset en concreto  --%>
-    <fieldset class="new-filter-actions">
+    <fieldset aria-live="polite" class="new-filter-actions">
         <g:link mapping="politicianContactsSearch" elementId="numberRecipients"><g:message code="tools.contact.filter.form.recipients" args="[filter.amountOfContacts==null?'-':filter.amountOfContacts]"/></g:link>
         <g:link mapping="politicianContactFilterRefresh"    data-callaBackFunction="campaignFilterRefresh" role="button" class="btn btn-blue inverted" elementId="refreshFilter"><span class="far fa-sync-alt"></span> <g:message code="tools.contact.filter.form.refresh"/></g:link>
         <g:link mapping="politicianContactFilterUpdate"     data-callaBackFunction="campaignFilterSave" role="button" class="btn btn-blue inverted ${filter?.id==-2?'disabled':''}" elementId="saveFilter"><g:message code="default.save"/></g:link>

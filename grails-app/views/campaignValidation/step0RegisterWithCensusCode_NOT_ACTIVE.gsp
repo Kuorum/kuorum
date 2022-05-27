@@ -16,7 +16,7 @@
 
 <content tag="mainContent">
     <div class="signup stepDomainValidation count-down">
-        <fieldset class="row">
+        <fieldset aria-live="polite" class="row">
             <div class="form-group col-xs-12 center">
                 <g:if test="${campaign.startDate}">
                     <p class="count-down-info"><g:message code="kuorum.web.commands.profile.directCensusLogin.notActive.intro" args="[campaign.title]" encodeAs="raw"/></p>

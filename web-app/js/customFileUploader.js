@@ -880,7 +880,9 @@ qq.extend(qq.MultipleFileUploader.prototype, {
 
         var fileExtension = fileName.split('.').pop();
         this._find(item, 'fileType').innerHTML="<span class='"+this._classes.fileIcons[fileExtension]+"'></span>";
-        this._find(item, 'deleteFile').setAttribute("href", this._options.actionDelete+"?fileName="+fileName);
+        var deleteUrl = new URL(this._options.actionDelete);
+        deleteUrl.searchParams.append('fileName', fileName);
+        this._find(item, 'deleteFile').setAttribute("href", deleteUrl.toString());
 
 
         if (result.success){

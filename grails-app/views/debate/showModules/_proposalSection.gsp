@@ -63,8 +63,9 @@
                     <g:message code="debate.modalDelete.title"/>
                 </h4>
             </div>
-            <fieldset class="modal-body">
-                <a href="#UrlUpdatedByAjax" role="button" class="btn btn-blue inverted btn-lg pull-right" id="modalDeleteDebateButton">
+            <fieldset aria-live="polite" class="modal-body">
+                <a href="#UrlUpdatedByAjax" role="button" class="btn btn-blue inverted btn-lg pull-right"
+                   id="modalDeleteDebateButton">
                     <g:message code="tools.massMailing.deleteContactModal.button"/>
                 </a>
             </fieldset>

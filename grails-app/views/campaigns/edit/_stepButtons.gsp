@@ -1,4 +1,4 @@
-<fieldset class="buttons">
+<fieldset aria-live="polite" class="buttons">
     <div class="text-right">
         <ul class="form-final-options">
             <g:if test="${mappings.saveAndSentButtons}">

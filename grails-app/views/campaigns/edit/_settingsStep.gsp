@@ -17,10 +17,10 @@
         <input type="hidden" name="sendType"
                value="${kuorum.web.commands.payment.CampaignContentCommand.CAMPAIGN_SEND_TYPE_DRAFT}"
                id="sendMassMailingType"/>
-        <input type="hidden" name="redirectLink" id="redirectLink"/>
+    <input type="hidden" name="redirectLink" id="redirectLink"/>
 
-        <fieldset class="form-group">
-            <label for="campaignName" class="col-sm-2 col-md-1 control-label"><g:message
+    <fieldset aria-live="polite" class="form-group">
+        <label for="campaignName" class="col-sm-2 col-md-1 control-label"><g:message
                     code="kuorum.web.commands.payment.CampaignSettingsCommand.campaignName.label"/>:</label>
 
             <div class="col-sm-8 col-md-7">
@@ -29,8 +29,8 @@
         </fieldset>
         <g:render template="/newsletter/form/formGroupCampaignCauses" model="[command: command, options: options]"/>
 
-        <fieldset class="form-group" id="advanced-features-section">
-            %{--<label for="advanced-feature" class="col-sm-2 col-md-1 control-label">Advanced features:</label>--}%
+    <fieldset aria-live="polite" class="form-group" id="advanced-features-section">
+        %{--<label for="advanced-feature" class="col-sm-2 col-md-1 control-label">Advanced features:</label>--}%
             <div class="col-sm-offset-1 col-sm-10">
                 <a href="">
                     <g:message code="tools.massMailing.advanced-features.title"/>
@@ -47,7 +47,7 @@
 
         <div id="advanced-features">
             <g:if test="${options.debatable}">
-                <fieldset class="form-group fieldset-check-box">
+                <fieldset aria-live="polite" class="form-group fieldset-check-box">
                     %{--<label for="campaignName" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.debate.CampaignSettingsCommand.campaignName.label"/>:</label>--}%
                     <div class="col-md-offset-1 col-sm-8 col-md-7">
                         <formUtil:checkBox command="${command}" field="debatable"
@@ -56,7 +56,7 @@
                 </fieldset>
             </g:if>
             <g:if test="${options.showCampaignDateLimits}">
-                <fieldset class="form-group" id="campaign-date-range">
+                <fieldset aria-live="polite" class="form-group" id="campaign-date-range">
                     <label for="startDate" class="col-sm-2 col-md-1 control-label"><g:message
                             code="kuorum.web.commands.payment.CampaignSettingsCommand.startDate.label"/>:</label>
 
@@ -77,7 +77,7 @@
                 </fieldset>
             </g:if>
             <g:if test="${options.showSurveyCustomFields}">
-                <fieldset class="form-group fieldset-check-box">
+                <fieldset aria-live="polite" class="form-group fieldset-check-box">
 
                     <label for="voteType" class="col-sm-2 col-md-1 control-label">
                         <g:message code="kuorum.web.commands.payment.CampaignSettingsCommand.voteType.label.left"/>:
@@ -102,7 +102,7 @@
                 </fieldset>
             </g:if>
             <div class="campaign-super-admin">
-                <fieldset class="form-group">
+                <fieldset aria-live="polite" class="form-group">
                     <label for="validationType" class="col-sm-2 col-md-1 control-label">
                         <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top"
                               title="${g.message(code: 'kuorum.web.commands.payment.CampaignSettingsCommand.validationType.label.info')}"></span>
@@ -116,7 +116,7 @@
                     </div>
                 </fieldset>
                 <g:if test="${options.showSurveyCustomFields}">
-                    <fieldset class="form-group fieldset-check-box">
+                    <fieldset aria-live="polite" class="form-group fieldset-check-box">
                         <label for="signVotes" class="col-sm-2 col-md-1 control-label">
                             <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top"
                                   title="${g.message(code: 'kuorum.web.commands.payment.CampaignSettingsCommand.signVotes.label.info')}"></span>
@@ -131,7 +131,7 @@
                 </g:if>
             </div>
             <g:if test="${options.hiddeCommentsFlag}">
-                <fieldset class="form-group fieldset-check-box">
+                <fieldset aria-live="polite" class="form-group fieldset-check-box">
                     <label for="campaignVisibility" class="col-sm-2 col-md-1 control-label">
                         <g:message code="kuorum.web.commands.payment.CampaignSettingsCommand.hideComments.label.left"/>:
                     </label>
@@ -142,7 +142,7 @@
                     </div>
                 </fieldset>
             </g:if>
-            <fieldset class="form-group fieldset-check-box">
+            <fieldset aria-live="polite" class="form-group fieldset-check-box">
                 <label for="groupValidation" class="col-sm-2 col-md-1 control-label">
                     <g:message code="kuorum.web.commands.payment.CampaignSettingsCommand.groupValidation.label.left"/>:
                 </label>
