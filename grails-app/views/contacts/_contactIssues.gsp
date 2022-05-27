@@ -1,7 +1,7 @@
 <g:set var="command" value="${new kuorum.web.commands.payment.contact.ContactIssueCommand()}"/>
 <formUtil:validateForm form="addContactIssueForm" bean="${command}" dirtyControl="true"/>
 <g:form mapping="politicianContactAddIssues" params="[contactId: contact.id]" name="addContactIssueForm">
-    <fieldset class="row">
+    <fieldset aria-live="polite" class="row">
         <div class="form-group col-md-3">
             <formUtil:selectAjax field="campaignId" command="${command}" showLabel="true" defaultEmpty="true"
                                  ajaxOptionsMapping="politicianCampaignsMyActives"/>

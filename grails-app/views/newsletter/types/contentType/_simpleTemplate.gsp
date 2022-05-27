@@ -10,7 +10,7 @@
     <input type="hidden" name="contentType"
            value="${org.kuorum.rest.model.notification.campaign.NewsletterTemplateDTO.NEWSLETTER}"/>
 
-    <fieldset class="form-group">
+    <fieldset aria-live="polite" class="form-group">
         <label for="subject" class="col-sm-2 col-md-1 control-label"><g:message
                 code="kuorum.web.commands.payment.massMailing.MassMailingCommand.subject.label"/>:</label>
 
@@ -25,7 +25,8 @@
         %{--<input type="text" class="form-control input-lg" id="subject" placeholder="It’s time to build a better country for everybody" equired aria-required="true">--}%
         %{--</div>--}%
     </fieldset>
-    <fieldset class="form-group image header-campaign" data-multimedia-switch="on" data-multimedia-type="IMAGE">
+    <fieldset aria-live="polite" class="form-group image header-campaign" data-multimedia-switch="on"
+              data-multimedia-type="IMAGE">
         <label for="header" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.massMailing.MassMailingCommand.headerPictureId.label"/>:</label>
         <formUtil:editImage
                 command="${command}"
@@ -34,7 +35,7 @@
                 cssClass="col-sm-8 col-md-7"
                 labelCssClass="sr-only"/>
     </fieldset>
-    <fieldset class="form-group ">
+    <fieldset aria-live="polite" class="form-group ">
         <label for="text" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.massMailing.MassMailingCommand.text.label"/>:</label>
 
         <div class="textareaContainer col-sm-8 col-md-7">
@@ -43,7 +44,7 @@
         </div>
     </fieldset>
 
-    <fieldset class="form-group">
+    <fieldset aria-live="polite" class="form-group">
         <label for="files" class="col-sm-2 col-md-1 control-label">
             <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="${g.message(code:'kuorum.web.commands.payment.massMailing.MassMailingCommand.files.label.info')}"></span>
             <g:message code="kuorum.web.commands.payment.massMailing.MassMailingCommand.files.label"/>:

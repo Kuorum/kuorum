@@ -18,24 +18,25 @@
     <formUtil:validateForm form="changePassword" bean="${command}"/>
     <g:form method="POST" mapping="profileChangePass" name="changePassword" role="form" class="submitOrangeButton">
         <div class="box-ppal-section">
-            <fieldset class="row">
+            <fieldset aria-live="polite" class="row">
                 <div class="form-group col-md-6">
                     <formUtil:password command="${command}" field="originalPassword" required="true" showLabel="true"/>
                 </div>
             </fieldset>
-            <fieldset class="row">
+            <fieldset aria-live="polite" class="row">
                 <div class="form-group col-md-6">
                     <formUtil:input type="password" command="${command}" field="password" required="true" showLabel="true"/>
                 </div>
             </fieldset>
-            <fieldset class="row">
+            <fieldset aria-live="polite" class="row">
                 <div class="form-group col-md-6">
                     <formUtil:input type="password" command="${command}" field="password2" required="true" showLabel="true"/>
                 </div>
             </fieldset>
         </div>
+
         <div class="box-ppal-section">
-            <fieldset class="form-group text-center">
+            <fieldset aria-live="polite" class="form-group text-center">
                 <input type="submit" value="${g.message(code:'default.save')}" class="btn btn-orange btn-lg">
             </fieldset>
         </div>

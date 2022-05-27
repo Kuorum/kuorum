@@ -1,4 +1,4 @@
-<fieldset class="row">
+<fieldset aria-live="polite" class="row">
     <g:each in="${campaignRoles}" var="campaignRole">
         <div class="multiple-range-selector">
             <label><g:message code="org.kuorum.rest.model.kuorumUser.UserRoleRSDTO.${campaignRole}"/></label>

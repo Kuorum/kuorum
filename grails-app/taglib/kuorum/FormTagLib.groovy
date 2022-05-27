@@ -311,30 +311,33 @@ class FormTagLib {
         def value = (command."${field}"!=null?command."${field}":'').encodeAsHTML()
         def error = hasErrors(bean: command, field: field,'error')
 
-        ConstrainedProperty constraints = command.constraints.find{it.key.toString() == field}.value
-        MaxSizeConstraint maxSizeConstraint = constraints.appliedConstraints.find{it instanceof MaxSizeConstraint}
-        def maxSize = maxSizeConstraint?.maxSize?:0
-        def maxlength = maxSize?"maxlength='${maxSize}'":''
-        if (maxSize > 0){
+        ConstrainedProperty constraints = command.constraints.find { it.key.toString() == field }.value
+        MaxSizeConstraint maxSizeConstraint = constraints.appliedConstraints.find { it instanceof MaxSizeConstraint }
+        def maxSize = maxSizeConstraint?.maxSize ?: 0
+        def maxlength = maxSize ? "maxlength='${maxSize}'" : ''
+        if (maxSize > 0) {
             cssClass += " counted"
         }
 
 
-        if (showLabel){
+        def ariaLabel = "";
+        if (showLabel) {
             out << "<label for='${prefixFieldName}${field}' class='${labelCssClass}'>${label}</label>"
+        } else {
+            ariaLabel = "aria-label='${label}'";
         }
-        if (extraInfo){
+        if (extraInfo) {
             out << """
                 <span class="info-disabled">
                     <span role="button" rel="popover" class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="${extraInfo}"></span>
                 </span>
             """
         }
-        out <<"""
-            <input type="${type}" ${numberStep?"step='${numberStep}'":''} name="${prefixFieldName}${field}" class="${cssClass} ${extraClass} ${error?'error':''}" id="${id}" ${required} ${maxlength} placeholder="${placeHolder}" value="${value}" ${disabled} ${readonly} />
+        out << """
+            <input type="${type}" ${numberStep ? "step='${numberStep}'" : ''} name="${prefixFieldName}${field}" class="${cssClass} ${extraClass} ${error ? 'error' : ''}" id="${id}" ${required} ${maxlength} placeholder="${placeHolder}" aria-errormessage="${id}-error" value="${value}" ${disabled} ${readonly} ${ariaLabel}/>
         """
         if(error){
-            out << "<span for='${id}' class='error'>${g.fieldError(bean: command, field: field)}</span>"
+            out << "<span for='${id}' class='error' id='${id}-error'>${g.fieldError(bean: command, field: field)}</span>"
         }
 
         if (helpBlock){
@@ -367,11 +370,11 @@ class FormTagLib {
         }else{
             out << "<label class='sr-only' for='${prefixFieldName}${field}'>${label}</label>"
         }
-        out <<"""
+        out << """
                 <div class="input-append input-group">
-                    <input type="password" required aria-required="true" id="${id}" name="${field}" class="form-control input-lg" placeholder="${g.message(code:"login.email.form.password.label")}" value="${value}" data-ays-ignore="true">
+                    <input type="password" required aria-required="true" id="${id}" name="${field}" class="form-control input-lg" placeholder="${g.message(code: "login.email.form.password.label")}" aria-errormessage="${id}-error" value="${value}" data-ays-ignore="true">
                     <span tabindex="100" class="add-on input-group-addon">
-                        <label><input type="checkbox" name="show-${id}" class="show-hide-pass" id="show-${id}" data-ays-ignore="true">${message(code:'login.email.form.password.show')}</label>
+                        <label><input type="checkbox" name="show-${id}" class="show-hide-pass" id="show-${id}" data-ays-ignore="true">${message(code: 'login.email.form.password.show')}</label>
                     </span>
                 </div>
             """
@@ -508,9 +511,9 @@ class FormTagLib {
             value = command."${field}"?command."${field}".format(WebConstants.WEB_FORMAT_DATE, user.timeZone):''
         }
 
-        out <<"""
+        out << """
             <div class="input-group ${typePicker}" data-timeZone="${timeZoneId}" data-timeZoneLabel="${timeZoneLabel}" data-timeZoneChangeLink="${timeZoneChangeLink}" data-datePicker-type="${datePickerType}">
-                <input type="text" name="${prefixFieldName}${field}" class="${cssClass} ${error?'error':''}" placeholder="${placeHolder}" id="${id}" aria-required="${required}" value="${value}">
+                <input type="text" name="${prefixFieldName}${field}" class="${cssClass} ${error ? 'error' : ''}" placeholder="${placeHolder}" id="${id}" aria-required="${required}" value="${value}" aria-errormessage="${id}-error">
                 <span class="input-group-addon"><span class="fal fa-calendar fa-lg"></span></span>
             </div>
         """
@@ -735,7 +738,7 @@ class FormTagLib {
             out <<"""<label for="${id}" class="${labelCssClass}">${label}</label>"""
         }
         out << """
-            <select name="${prefixFieldName}${field}" class="form-control input-lg ${error}" id="${id}" ${disabled?'disabled':''}>
+            <select name="${prefixFieldName}${field}"  aria-label="${label}" class="form-control input-lg ${error}" id="${id}" ${disabled ? 'disabled' : ''} aria-errormessage="${id}-error">
             """
         if (!isRequired || defaultEmpty){
             out << "<option value=''> ${message(code:"${command.class.name}.${field}.empty", default: '')}</option>"
@@ -754,7 +757,7 @@ class FormTagLib {
         }
         out << "</select>"
         if(error){
-            out << "<span for='${id}' class='error'>${g.fieldError(bean: command, field: id)}</span>"
+            out << "<span for='${id}' class='error' id=\"${id}-error\">${g.fieldError(bean: command, field: id)}</span>"
         }
     }
 
@@ -774,7 +777,7 @@ class FormTagLib {
         String extraInfo = message(code: "${command.class.name}.${field}.extraInfo", default: '')
         def error = hasErrors(bean: command, field: field,'error')
         if (showLabel) {
-            out << """<label for="${id}" class="${labelCssClass}">${label}</label>"""
+            out << """<label for="${id}" class="${labelCssClass}" for="${id}">${label}</label>"""
             if (extraInfo) {
                 out << """
                 <span class="info-disabled">
@@ -784,7 +787,7 @@ class FormTagLib {
             }
         }
         out << """
-            <select name="${prefixFieldName}${field}" class="form-control input-lg ${error}" id="${id}" ${disabled?'disabled':''}>
+            <select name="${prefixFieldName}${field}" aria-label="${label}" class="form-control input-lg ${error}" id="${id}" ${disabled ? 'disabled' : ''} aria-errormessage="${id}-error">
             """
         if (!isRequired || defaultEmpty){
             out << "<option value=''> ${message(code:"${clazz.name}.empty", default: '')}</option>"
@@ -800,7 +803,7 @@ class FormTagLib {
         }
         out << "</select>"
         if (error) {
-            out << "<span for='${id}' class='error'>${g.fieldError(bean: command, field: id)}</span>"
+            out << "<span for='${id}' class='error' id=\"${id}-error\">${g.fieldError(bean: command, field: id)}</span>"
         }
     }
 
@@ -834,7 +837,7 @@ class FormTagLib {
         def label = buildLabel(command, field, attrs.label)
         def error = hasErrors(bean: command, field: field, 'error')
         if (showLabel) {
-            out << """<label for="${id}" class="${labelCssClass}">${label}</label>"""
+            out << """<label for="${id}" class="${labelCssClass}" aria-errormessage="${id}-error">${label}</label>"""
         }
         String ajaxLinkParameter = "";
         if (attrs.ajaxOptionsLink) {
@@ -856,7 +859,7 @@ class FormTagLib {
         }
         out << "</select>"
         if(error){
-            out << "<span for='${id}' class='error'>${g.fieldError(bean: command, field: id)}</span>"
+            out << "<span for='${id}' class='error' id=\"${id}-error\">${g.fieldError(bean: command, field: id)}</span>"
         }
     }
 
@@ -874,9 +877,9 @@ class FormTagLib {
         Boolean isRequired = isRequired(command,field) || (attrs.required?Boolean.parseBoolean(attrs.required):false)
         def label ="${attrs.label?:message(code: "${clazz.name}.label")}${isRequired?'*':''}"
         def error = hasErrors(bean: command, field: field,'error')
-        out <<"""
+        out << """
             <label for="${id}" class="${labelCssClass}">${label}</label>
-            <select name="${prefixFieldName}${field}" class="form-control input-lg ${error}" id="${id}">
+            <select name="${prefixFieldName}${field}" class="form-control input-lg ${error}" id="${id}" aria-errormessage="${id}-error">
             """
         if (!isRequired || defaultEmpty){
             out << "<option value=''> ${message(code:"${clazz.name}.empty")}</option>"
@@ -896,7 +899,7 @@ class FormTagLib {
         }
         out << "</select>"
         if(error){
-            out << "<span for='${id}' class='error'>${g.fieldError(bean: command, field: id)}</span>"
+            out << "<span for='${id}' class='error' id='${id}-error'>${g.fieldError(bean: command, field: id)}</span>"
         }
     }
 
@@ -924,9 +927,9 @@ class FormTagLib {
         Boolean isRequired = isRequired(command,field)
         def label ="${message(code: "${command.class.name}.${field}.label")}${isRequired?'*':''}"
         def error = hasErrors(bean: command, field: field,'error')
-        out <<"""
+        out << """
             <label for="${id}" class="${labelCssClass}">${label}</label>
-            <select name="${prefixFieldName}${field}" class="form-control input-lg ${error}" id="${id}">
+            <select name="${prefixFieldName}${field}" class="form-control input-lg ${error}" id="${id}" aria-errormessage="${id}-error">
             """
 //        if (!isRequired){
 //            out << "<option value=''> ${message(code:"${command.class.name}.${field}.empty")}</option>"
@@ -941,7 +944,7 @@ class FormTagLib {
         }
         out << "</select>"
         if(error){
-            out << "<span for='${id}' class='error'>${g.fieldError(bean: command, field: id)}</span>"
+            out << "<span for='${id}' class='error' id='${id}-error'>${g.fieldError(bean: command, field: id)}</span>"
         }
     }
 
@@ -959,9 +962,9 @@ class FormTagLib {
         def clazz = command.class
         def label = message(code: "${clazz.name}.${field}.label")
         def error = hasErrors(bean: command, field: field,'error')
-        out <<"""
+        out << """
             <label for="${id}" class="${cssClass}">${label}</label>
-            <select name="${field}" class="form-control input-lg ${error}" id="${id}">
+            <select name="${field}" class="form-control input-lg ${error}" id="${id}" aria-errormessage="${id}-error">
             """
         out << "<option value=''> ${message(code:"${clazz.name}.${field}.empty")}</option>"
         Integer startYear = 1900
@@ -971,7 +974,7 @@ class FormTagLib {
         }
         out << "</select>"
         if(error){
-            out << "<span for='${id}' class='error'>${g.fieldError(bean: command, field: id)}</span>"
+            out << "<span for='${id}' class='error' id='${id}-error'>${g.fieldError(bean: command, field: id)}</span>"
         }
     }
 
@@ -992,15 +995,15 @@ class FormTagLib {
         def label = attrs.label?:message(code: "${command.class.name}.${field}.label")
         def extraClass = attrs.extraClass?:""
         def error = hasErrors(bean: command, field: field,'error')
-        out <<"""
-            <label class="checkbox-inline ${extraClass} ${disabled?'disabled':''}">
-                <input id="${elementId}" class="${error}" type="checkbox" name='${prefixFieldName}${field}' ${checked} value='${value}' ${disabled?'disabled':''}/>
+        out << """
+            <label class="checkbox-inline ${extraClass} ${disabled ? 'disabled' : ''}" for="${elementId}">
+                <input id="${elementId}" class="${error}" type="checkbox" name='${prefixFieldName}${field}' ${checked} value='${value}' ${disabled ? 'disabled' : ''} aria-errormessage="${elementId}-error"/>
                 <span class="check-box-icon"></span>
                 <span class="label-checkbox">${label}</span>
             </label>
             """
         if (error) {
-            out << "<span for='${field}' class='error'>${g.fieldError(bean: command, field: field)}</span>"
+            out << "<span for='${field}' class='error' id='${elementId}-error'>${g.fieldError(bean: command, field: field)}</span>"
         }
     }
 
@@ -1049,9 +1052,9 @@ class FormTagLib {
         def label = message(code: "${command.class.name}.${field}.label", default: '')
         label = label?:message(code: "${clazz.name}.label")
         def error = hasErrors(bean: command, field: field,'error')
-        out <<"""
+        out << """
         <label for="${id}">${label}</label>
-        <select name="${field}.id" class="form-control ${error}" id="${id}" ${required?'required':''}>
+        <select name="${field}.id" class="form-control ${error}" id="${id}" ${required ? 'required' : ''} aria-errormessage="${id}-error">
         """
         out << "<option value=''> ${message(code:"${clazz.name}.empty")}</option>"
         values.each{
@@ -1062,7 +1065,7 @@ class FormTagLib {
         }
         out << "</select>"
         if(error){
-            out << "<span for='${id}' class='error'>${g.fieldError(bean: command, field: field)}</span>"
+            out << "<span for='${id}' class='error' id='${id}-error'>${g.fieldError(bean: command, field: field)}</span>"
         }
     }
 
@@ -1074,6 +1077,7 @@ class FormTagLib {
         def deleteOptions = attrs.deleteOptions?:[]
         def clazz = command.metaClass.properties.find{it.name == field}.type
         def label = buildLabel(command, field, attrs.label)
+        def id = attrs.id ?: "${field}.id"
         def showLabel = attrs.showLabel?Boolean.parseBoolean(attrs.showLabel):false
         def multiLine = attrs.showLabel?Boolean.parseBoolean(attrs.multiLine):false
         def labelRadioClass = multiLine?"radio":"radio-inline"
@@ -1084,12 +1088,13 @@ class FormTagLib {
             out << "<label for='${prefixFieldName}${field}'>${label}</label>"
         }
         values.each{
+            def idOption = "$id-$it"
             out << "<label class='${labelRadioClass}'>"
-            out << "<input type='radio' name='${field}' value='${it}' ${command."${field}"==it?'checked':''}>"
+            out << "<input id='${idOption}' type='radio' name='${field}' value='${it}' ${command."${field}" == it ? 'checked' : ''} aria-errormessage='${idOption}-error'>"
             String codeMessage = "${clazz.name}.$it"
             out << "${message(code:codeMessage)}"
             if(error){
-                out << "<span for='${field}' class='error'>${g.fieldError(bean: command, field: field)}</span>"
+                out << "<span for='${idOption}' class='error' id='${idOption}-error'>${g.fieldError(bean: command, field: field)}</span>"
                 error = "" //Only first radio button
             }
             out << "</label>"
@@ -1117,10 +1122,10 @@ class FormTagLib {
             out << "<label for='${prefixFieldName}${field}'>${label}</label>"
         }
         out << """
-            <textarea name='${prefixFieldName}${field}' class="${maxSize?"counted":""} ${texteditor} ${error}" rows="${rows}" id="${prefixFieldName}${id}" placeholder="${placeHolder}">${value}</textarea>
+            <textarea name='${prefixFieldName}${field}' class="${maxSize ? "counted" : ""} ${texteditor} ${error}" rows="${rows}" id="${prefixFieldName}${id}" placeholder="${placeHolder}" aria-errormessage="${id}-error">${value}</textarea>
         """
         if (error){
-            out << "<span for='${prefixFieldName}${id}' class='error'>${g.fieldError(bean: command, field: field)}</span>"
+            out << "<span for='${prefixFieldName}${id}' class='error' id=\"${id}-error\">${g.fieldError(bean: command, field: field)}</span>"
         }
 
         if (maxSize && !texteditor){
@@ -1265,7 +1270,18 @@ class FormTagLib {
                     }else {
                         error.insertAfter(element);
                     }
+                    console.log(element);
+                    \$(element).attr("aria-invalid","true");
+                    var idError = \$(element).attr("aria-errormessage");
+                    \$(error).attr("id",idError);
                 },
+                 success: function(label) {
+                    \$label = \$(label)
+                    \$element = \$("#"+\$label.attr("for"));
+                    \$element.attr("aria-invalid","false");
+                    \$label.remove();
+                    
+                  },
                 errorElement:'span',
         """
         def rulesAndMessages = generateRulesAndMessages(obj)

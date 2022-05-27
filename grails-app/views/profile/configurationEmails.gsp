@@ -74,8 +74,9 @@
             </div>
 
         </div>
+
         <div class="box-ppal-section">
-            <fieldset class="form-group text-center">
+            <fieldset aria-live="polite" class="form-group text-center">
                 <input type="submit" value="${g.message(code:'default.save')}" class="btn btn-orange btn-lg">
             </fieldset>
         </div>

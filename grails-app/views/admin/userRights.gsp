@@ -14,7 +14,7 @@
     <form role="form" class="signup-custom-site"  name="signup-custom-site" method="post" action="#">
         <p><g:message code="domain.config.firstConfig.steps.step2.intro"/> </p>
         <g:render template="inputUserRights" model="[campaignRoles:campaignRoles]"/>
-        <fieldset>
+        <fieldset aria-live="polite">
             <div class="form-group center">
                 <input type="submit" value="${g.message(code:'domain.config.firstConfig.steps.step2.submit')}" class="btn btn-lg btn-blue">
             </div>

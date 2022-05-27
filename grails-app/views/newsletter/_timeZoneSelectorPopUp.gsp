@@ -12,7 +12,7 @@
                         <p>
                             <g:message code="modal.timeZone.explain"/>
                         </p>
-                        <fieldset class="time-zone">
+                        <fieldset aria-live="polite" class="time-zone">
                             <div class="row form-group">
                                 <formUtil:selectTimeZone command="${timeZoneCommand}" field="timeZoneId" required="true" labelCssClass="hide" cssClass="col-xs-12 col-sm-4"/>
                             </div>

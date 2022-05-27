@@ -1,4 +1,4 @@
-<fieldset class="row question">
+<fieldset aria-live="polite" class="row question">
     <input type="hidden" name="${prefixField}options[${pos}].id" value="${option?.id}"/>
     <div class="col-xs-offset-1 col-xs-11 col-sm-offset-1 col-sm-4">
         <formUtil:input field="text" command="${option}" prefixFieldName="${prefixField}options[${pos}]."  showLabel="true" labelCssClass="visible-xs"/>

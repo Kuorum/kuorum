@@ -32,16 +32,22 @@
 
     <div class="box-ppal-section">
         <div class="form-group">
-            <span class="span-label"><g:message code="kuorum.web.commands.profile.NewsletterConfigCommand.customEmailSender.label"/></span>
-            <p class="help-block"><g:message code="kuorum.web.commands.profile.NewsletterConfigCommand.customEmailSender.label.helpBlock"/></p>
+            <span class="span-label"><g:message
+                    code="kuorum.web.commands.profile.NewsletterConfigCommand.customEmailSender.label"/></span>
+
+            <p class="help-block"><g:message
+                    code="kuorum.web.commands.profile.NewsletterConfigCommand.customEmailSender.label.helpBlock"/></p>
         </div>
     </div>
+
     <div class="box-ppal-section">
-        <fieldset class="form-group text-center ${buttonVisibility}">
-            <input id="requestCustomSender" type="submit" value="${g.message(code:'kuorum.web.commands.profile.NewsletterConfigCommand.customEmailSender.button.request')}"
-                   class="btn btn-orange btn-lg" ${buttonState} data-ajaxRequestSender="${g.createLink(mapping: 'adminRequestEmailSender')}">
+        <fieldset aria-live="polite" class="form-group text-center ${buttonVisibility}">
+            <input id="requestCustomSender" type="submit"
+                   value="${g.message(code: 'kuorum.web.commands.profile.NewsletterConfigCommand.customEmailSender.button.request')}"
+                   class="btn btn-orange btn-lg" ${buttonState}
+                   data-ajaxRequestSender="${g.createLink(mapping: 'adminRequestEmailSender')}">
         </fieldset>
-        <fieldset class="validate">
+        <fieldset aria-live="polite" class="validate">
             <div class="col-xs-12 valid ${checkVisibility}">
                 <i class="fal fa-check fa-2x"></i><span>${textInfo}</span>
             </div>

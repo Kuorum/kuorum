@@ -22,11 +22,11 @@
                 <input type="hidden" name="sort.direction" value="${searchContacts.sort.direction}"/>
                 <input type="hidden" name="page" value="${searchContacts.page}"/>
                 <input type="hidden" name="size" value="${searchContacts.size}"/>
-                <fieldset class="form-group" id="boxfiltersContacts">
-                    <div class="col-sm-3">
-                        <label for="recipients" class="sr-only">Filter Contacts:</label>
-                        <select name="filterId" class="form-control input-lg" id="recipients">
-                            <option value="0" data-amountContacts="${totalContacts}"><g:message code="tools.massMailing.fields.filter.to.all"/></option>
+        <fieldset aria-live="polite" class="form-group" id="boxfiltersContacts">
+            <div class="col-sm-3">
+                <label for="recipients" class="sr-only">Filter Contacts:</label>
+                <select name="filterId" class="form-control input-lg" id="recipients">
+                    <option value="0" data-amountContacts="${totalContacts}"><g:message code="tools.massMailing.fields.filter.to.all"/></option>
                             <g:each in="${filters}" var="filter">
                                 <option value="${filter.id}" ${filterId == filter.id?'selected':''} >${filter.name}</option>
                             </g:each>
@@ -133,7 +133,7 @@
                         <p>
                             <g:message code="modal.bulkAction.addTags.explain" args="[contacts.total]"/>
                         </p>
-                        <fieldset class="row">
+                        <fieldset aria-live="polite" class="row">
                             <div class="form-group col-md-12">
                                 <label for="addTagsField" class="sr-only"><g:message code="tools.contact.bulkActions.addTags"/> </label>
                                 <input id="addTagsField" name="tags" class="tagsField" type="text" data-urlTags="${g.createLink(mapping:'politicianContactTagsAjax')}" />
@@ -156,7 +156,7 @@
                         <p>
                             <g:message code="modal.bulkAction.removeTags.explain" args="[contacts.total]"/>
                         </p>
-                        <fieldset class="row">
+                        <fieldset aria-live="polite" class="row">
                             <div class="form-group col-md-12">
                                 <label for="removeTagsField" class="sr-only"><g:message code="tools.contact.bulkActions.removeTags"/> </label>
                                 <input id="removeTagsField" name="tags" class="tagsField" type="text" data-urlTags="${g.createLink(mapping:'politicianContactTagsAjax')}" />

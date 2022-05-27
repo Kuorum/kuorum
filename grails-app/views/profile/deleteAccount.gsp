@@ -22,11 +22,11 @@
             %{--<label for="why" class="sr-only"><g:message code="profile.deleteAccount.why"/></label>--}%
             %{--<textarea id="why" class="form-control" rows="3"></textarea>--}%
         </div>
-        <fieldset class="form-group text-right">
-        <div class="form-group">
-            <!-- <input type="submit" value="Os voya a dar una segnuda oportunidad, pero quiero que leáis esto" class="btn btn-grey btn-lg"> -->
-            <!-- como input es muy largo y no podemos meter salto de línea, así que uso button -->
-            <a href="#" class="btn btn-lg btn-grey inverted"><g:message code="profile.deleteAccount.deleteForever"/></a>
+        <fieldset aria-live="polite" class="form-group text-right">
+            <div class="form-group">
+                <!-- <input type="submit" value="Os voya a dar una segnuda oportunidad, pero quiero que leáis esto" class="btn btn-grey btn-lg"> -->
+                <!-- como input es muy largo y no podemos meter salto de línea, así que uso button -->
+                <a href="#" class="btn btn-lg btn-grey inverted"><g:message code="profile.deleteAccount.deleteForever"/></a>
             <button type="button" class="btn btn-blue btn-lg"><g:message code="profile.deleteAccount.oneChance"/></button>
         </div>
         </fieldset>
