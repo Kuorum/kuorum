@@ -337,7 +337,7 @@ class FormTagLib {
             <input type="${type}" ${numberStep ? "step='${numberStep}'" : ''} name="${prefixFieldName}${field}" class="${cssClass} ${extraClass} ${error ? 'error' : ''}" id="${id}" ${required} ${maxlength} placeholder="${placeHolder}" aria-errormessage="${id}-error" value="${value}" ${disabled} ${readonly} ${ariaLabel}/>
         """
         if(error){
-            out << "<span for='${id}' class='error' id='${id}-error'>${g.fieldError(bean: command, field: field)}</span>"
+            out << "<span class='error' id='${id}-error'>${g.fieldError(bean: command, field: field)}</span>"
         }
 
         if (helpBlock){
@@ -379,7 +379,7 @@ class FormTagLib {
                 </div>
             """
         if(error){
-            out << "<span for='${id}' class='error'>${g.fieldError(bean: command, field: field)}</span>"
+            out << "<span class='error'>${g.fieldError(bean: command, field: field)}</span>"
         }
     }
 
@@ -518,7 +518,7 @@ class FormTagLib {
             </div>
         """
         if(error){
-            out << "<span for='${id}' class='error' id='${id}-error'>${g.fieldError(bean: command, field: field)}</span>"
+            out << "<span class='error' id='${id}-error'>${g.fieldError(bean: command, field: field)}</span>"
         }
     }
 
@@ -593,10 +593,10 @@ class FormTagLib {
         }
         def error = hasErrors(bean: command, field: field, 'error')
         def cssClass ="form-control input-lg"
-        out << "<input type='text' class='${extraCss} ${cssClass} input-region ${error?'error':''}' placeholder='${placeHolder}' name='${field}' value='${showedValue}' data-real-input-id='${fieldId}'>"
+        out << "<input type='text' class='${extraCss} ${cssClass} input-region ${error ? 'error' : ''}' placeholder='${placeHolder}' name='${field}' value='${showedValue}' data-real-input-id='${fieldId}' aria-errormessage='${id}-error'>"
         out << "<input type='hidden' class='' name='${fieldId}' value='${value}' id=${fieldId}>"
         if(error){
-            out << "<span for='${id}' class='error'>${g.fieldError(bean: command, field: field)}</span>"
+            out << "<span class='error' id='${id}-error'>${g.fieldError(bean: command, field: field)}</span>"
         }
         if (helpBlock){
             out << "<p class='help-block'>${helpBlock}</p>"
@@ -621,11 +621,11 @@ class FormTagLib {
         }
         def error = hasErrors(bean: command, field: field,'error')
         def stringError = message(code: "${command.class.name}.${field}.wrongFormat") //It is for fix a problem on dynamic list inputs
-        out <<"""
-            <input name="${prefixFieldName}${field}" type="url" data-msg-url="${stringError}" value="${value}" class="${cssClass} ${error?'error':''}" id="${id}" placeholder="${placeHolder}">
+        out << """
+            <input name="${prefixFieldName}${field}" type="url" data-msg-url="${stringError}" value="${value}" class="${cssClass} ${error ? 'error' : ''}" id="${id}" placeholder="${placeHolder}" aria-errormessage='${id}-error'>
         """
         if(error){
-            out << "<span for='${id}' class='error'>${g.fieldError(bean: command, field: field)}</span>"
+            out << "<span class='error' id='${id}-error'>${g.fieldError(bean: command, field: field)}</span>"
         }
     }
 
@@ -654,11 +654,11 @@ class FormTagLib {
         if (showLabel){
             out << "<label for='${prefixFieldName}${field}'>${label}</label>"
         }
-        out <<"""
-            <input type="${type}" name="${prefixFieldName}${field}" class="${cssClass} ${error?'error':''}" id="${id}" ${required} ${maxlength} placeholder="${placeHolder}" value="${value}" ${disabled}>
+        out << """
+            <input type="${type}" name="${prefixFieldName}${field}" class="${cssClass} ${error ? 'error' : ''}" id="${id}" ${required} ${maxlength} placeholder="${placeHolder}" value="${value}" ${disabled} aria-errormessage='${id}-error'>
         """
         if(error){
-            out << "<span for='${id}' class='error'>${g.fieldError(bean: command, field: field)}</span>"
+            out << "<span class='error' id='${id}-error'>${g.fieldError(bean: command, field: field)}</span>"
         }
 
         if (helpBlock){
@@ -707,15 +707,15 @@ class FormTagLib {
         def value = command."${field}"?:''
 
         def error = hasErrors(bean: command, field: field,'error')
-        out <<"""
+        out << """
             <label for="${field}">${label}</label>
             <div class="input-group">
                 <span class="input-group-addon"><span class="${cssIcon} fa-fw"></span></span>
-                <input class="form-control ${error?'error':''}" value="${value}" id="${field}" name="${field}" type="text" placeholder="${placeHolder}">
+                <input class="form-control ${error ? 'error' : ''}" value="${value}" id="${field}" name="${field}" type="text" placeholder="${placeHolder}" >
             </div>
         """
         if (error){
-            out << "<span for='${field}' class='error'>${g.fieldError(bean: command, field: field)}</span>"
+            out << "<span class='error'>${g.fieldError(bean: command, field: field)}</span>"
         }
     }
 
@@ -757,7 +757,7 @@ class FormTagLib {
         }
         out << "</select>"
         if(error){
-            out << "<span for='${id}' class='error' id=\"${id}-error\">${g.fieldError(bean: command, field: id)}</span>"
+            out << "<span class='error' id=\"${id}-error\">${g.fieldError(bean: command, field: id)}</span>"
         }
     }
 
@@ -803,7 +803,7 @@ class FormTagLib {
         }
         out << "</select>"
         if (error) {
-            out << "<span for='${id}' class='error' id=\"${id}-error\">${g.fieldError(bean: command, field: id)}</span>"
+            out << "<span class='error' id=\"${id}-error\">${g.fieldError(bean: command, field: id)}</span>"
         }
     }
 
@@ -859,7 +859,7 @@ class FormTagLib {
         }
         out << "</select>"
         if(error){
-            out << "<span for='${id}' class='error' id=\"${id}-error\">${g.fieldError(bean: command, field: id)}</span>"
+            out << "<span class='error' id=\"${id}-error\">${g.fieldError(bean: command, field: id)}</span>"
         }
     }
 
@@ -899,7 +899,7 @@ class FormTagLib {
         }
         out << "</select>"
         if(error){
-            out << "<span for='${id}' class='error' id='${id}-error'>${g.fieldError(bean: command, field: id)}</span>"
+            out << "<span class='error' id='${id}-error'>${g.fieldError(bean: command, field: id)}</span>"
         }
     }
 
@@ -944,7 +944,7 @@ class FormTagLib {
         }
         out << "</select>"
         if(error){
-            out << "<span for='${id}' class='error' id='${id}-error'>${g.fieldError(bean: command, field: id)}</span>"
+            out << "<span class='error' id='${id}-error'>${g.fieldError(bean: command, field: id)}</span>"
         }
     }
 
@@ -974,7 +974,7 @@ class FormTagLib {
         }
         out << "</select>"
         if(error){
-            out << "<span for='${id}' class='error' id='${id}-error'>${g.fieldError(bean: command, field: id)}</span>"
+            out << "<span class='error' id='${id}-error'>${g.fieldError(bean: command, field: id)}</span>"
         }
     }
 
@@ -1003,7 +1003,7 @@ class FormTagLib {
             </label>
             """
         if (error) {
-            out << "<span for='${field}' class='error' id='${elementId}-error'>${g.fieldError(bean: command, field: field)}</span>"
+            out << "<span class='error' id='${elementId}-error'>${g.fieldError(bean: command, field: field)}</span>"
         }
     }
 
@@ -1035,7 +1035,7 @@ class FormTagLib {
         }
         out << "</ul>"
         if(error){
-            out << "<span for='${field}' class='error'>${g.fieldError(bean: command, field: field)}</span>"
+            out << "<span class='error'>${g.fieldError(bean: command, field: field)}</span>"
         }
     }
 
@@ -1065,7 +1065,7 @@ class FormTagLib {
         }
         out << "</select>"
         if(error){
-            out << "<span for='${id}' class='error' id='${id}-error'>${g.fieldError(bean: command, field: field)}</span>"
+            out << "<span class='error' id='${id}-error'>${g.fieldError(bean: command, field: field)}</span>"
         }
     }
 
@@ -1094,7 +1094,7 @@ class FormTagLib {
             String codeMessage = "${clazz.name}.$it"
             out << "${message(code:codeMessage)}"
             if(error){
-                out << "<span for='${idOption}' class='error' id='${idOption}-error'>${g.fieldError(bean: command, field: field)}</span>"
+                out << "<span class='error' id='${idOption}-error'>${g.fieldError(bean: command, field: field)}</span>"
                 error = "" //Only first radio button
             }
             out << "</label>"
@@ -1125,7 +1125,7 @@ class FormTagLib {
             <textarea name='${prefixFieldName}${field}' class="${maxSize ? "counted" : ""} ${texteditor} ${error}" rows="${rows}" id="${prefixFieldName}${id}" placeholder="${placeHolder}" aria-errormessage="${id}-error">${value}</textarea>
         """
         if (error){
-            out << "<span for='${prefixFieldName}${id}' class='error' id=\"${id}-error\">${g.fieldError(bean: command, field: field)}</span>"
+            out << "<span class='error' id=\"${id}-error\">${g.fieldError(bean: command, field: field)}</span>"
         }
 
         if (maxSize && !texteditor){

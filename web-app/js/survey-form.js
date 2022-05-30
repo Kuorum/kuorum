@@ -87,7 +87,7 @@ $(function() {
             if ($(input).val() == "") {
                 var errorMsg = i18n.kuorum.web.commands.payment.survey.QuestionOptionCommand.text.nullable;
                 if (!$(input).next().hasClass("error")){
-                    $(input).parent().append('<span for="text" class="error"><span class="tooltip-arrow"></span>'+errorMsg+'</span>');
+                    $(input).parent().append('<span class="error"><span class="tooltip-arrow"></span>' + errorMsg + '</span>');
                     $(input).addClass("error");
                 }else{
                     $(input).next().css("display","inline-block") // form.validate() hide this
