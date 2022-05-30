@@ -28,10 +28,13 @@
     </g:if>
     <g:else>
         <div class="comment-proposal clearfix">
-            <div class="comment editable col-md-11 col-xs-12" data-placeholder="${message(code: "debate.proposal.placeholder")}" style="min-height: 100px; padding-top: 20px"></div>
+            <div class="comment editable col-md-11 col-xs-12"
+                 data-placeholder="${message(code: "debate.proposal.placeholder")}"
+                 style="min-height: 100px; padding-top: 20px"></div>
         </div>
 
-        <span for="editable" class="error" style="display: none;"><span class="tooltip-arrow"></span>${message(code: "debate.proposals.error")}</span>
+        <span class="error" style="display: none;"><span
+                class="tooltip-arrow"></span>${message(code: "debate.proposals.error")}</span>
 
         <div class="actions clearfix">
             <button
@@ -40,8 +43,7 @@
                     data-userLoggedAlias="${userUtil.loggedUserId()}"
                     data-postUrl="${g.createLink(mapping: 'debateProposalNew')}"
                     data-debateId="${debate.id}"
-                    data-debateAlias="${debateUser.alias}"
-            >
+                    data-debateAlias="${debateUser.alias}">
                 ${callButtonMsg}
             </button>
         </div>
