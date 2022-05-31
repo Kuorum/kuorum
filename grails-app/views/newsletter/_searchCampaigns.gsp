@@ -9,14 +9,19 @@
                     <g:message code="tools.massMailing.list.filter.title"/> :
                 </label>
                 <select name="filterCampaigns" class="form-control" id="filterCampaigns">
-                    <option value="all" name="all" id="all"><g:message code="tools.massMailing.list.filter.all"/> </option>
-                    <g:each in="${_isSurveyPlatform?['newsletter', 'SURVEY']:['newsletter', 'DEBATE', 'POST', 'PARTICIPATORY_BUDGET', 'DISTRICT_PROPOSAL','SURVEY','PETITION','EVENT']}" var="campaignType">
+                    <option value="all" name="all" id="all"><g:message
+                            code="tools.massMailing.list.filter.all"/></option>
+                    <g:set var="activeCampaignTypes"
+                           value="${_isSurveyPlatform ? ['newsletter', 'SURVEY'] : ['newsletter', 'DEBATE', 'POST', 'PARTICIPATORY_BUDGET', 'DISTRICT_PROPOSAL', 'SURVEY', 'PETITION', 'EVENT']}"/>
+                    <g:each in="${activeCampaignTypes.sort { c1, c2 -> g.message(code: 'tools.campaign.new.' + c1) <=> g.message(code: 'tools.campaign.new.' + c2) }}"
+                            var="campaignType">
                         <option value="${campaignType}" name="${campaignType}" id="${campaignType}">
                             <g:message code="${'tools.campaign.new'}.${campaignType}"/>
                         </option>
                     </g:each>
                 </select>
             </div>
+
             <div class="col-sm-2">
                 <span id="infoFilterCampaigns">
                     <span class="totalList">${campaigns.size()}</span>
