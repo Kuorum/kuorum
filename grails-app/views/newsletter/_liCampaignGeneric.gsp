@@ -35,6 +35,9 @@
 <g:elseif test="${campaign.campaignType == org.kuorum.rest.model.communication.CampaignTypeRSDTO.PETITION}">
     <g:set var="faIcon" value="fa-microphone"/>
 </g:elseif>
+<g:elseif test="${campaign.campaignType == org.kuorum.rest.model.communication.CampaignTypeRSDTO.CONTEST}">
+    <g:set var="faIcon" value="fa-trophy"/>
+</g:elseif>
 <g:set var="typeName" value="${g.message(code: 'tools.campaign.new.' + type)}"/>
 <g:set var="campaignGenericMappings"
        value="[show: urlMappingNameShow, edit: urlMappingNameEditStep, remove: urlMappingNameRemove, copy: urlMappingNameCopy]"/>

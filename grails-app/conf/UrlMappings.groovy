@@ -204,6 +204,15 @@ class UrlMappings {
         name petitionCopy:              "/account/petition/$campaignId/copy" (controller:"petition", action:"copy")
 
 
+        name contestCreate:            "/account/contest/new" (controller: "contest"){action = [GET: "create", POST: "saveSettings"]}
+        name contestCopy:              "/account/contest/$campaignId/copy" (controller:"contest", action:"copy")
+        name contestEditSettings:      "/account/$userAlias/ct/$urlTitle-$campaignId/edit-settings" (controller: "contest"){action = [GET: "editSettingsStep", POST: "saveSettings"]}
+        name contestEditDistricts:     "/account/$userAlias/ct/$urlTitle-$campaignId/edit-districts"(controller: "contest"){action = [GET: "editDistricts", POST: "saveDistricts"]}
+        name contestEditDeadlines:     "/account/$userAlias/ct/$urlTitle-$campaignId/edit-deadlines"(controller: "contest"){action = [GET: "editDeadlines", POST: "saveDeadlines"]}
+        name contestEditContent:       "/account/$userAlias/ct/$urlTitle-$campaignId/edit-content"  (controller: "contest"){action = [GET: "editContentStep", POST: "saveContent"]}
+        name contestRemove:            "/ajax/account/$userAlias/ct/$urlTitle-$campaignId/remove"    (controller: "contest", action:"remove")
+        name contestShow:              "/$userAlias/$urlTitle-$campaignId"           (controller: "campaign", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it)})}}
+
         name campaignShow:          "/$userAlias/$urlTitle-$campaignId" (controller: "campaign", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it)})}}
         name campaignCheckGroupValidation:"/ajax/$userAlias/$urlTitle-$campaignId/group/check" (controller: "campaign", action: "checkGroupCampaignValidation")
         name campaignPause:         "/ajax/account/$userAlias/$urlTitle-$campaignId/pause" (controller: "newsletter", action: "pauseCampaign")

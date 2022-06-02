@@ -1,0 +1,23 @@
+<html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+<head>
+    <g:set var="titleMessageCode" value="contest.show.title"/>
+    <title><g:message code="${titleMessageCode}" args="[contest.title, _domainName]"/></title>
+    <meta name="layout" content="columnCLayout">
+    <g:set var="schemaData" value="${[schema: 'http://schema.org/Article', name: contest.title]}" scope="request"/>
+    <g:render template="/campaigns/showModules/campaignMetaTags"
+              model="[campaign: contest, titleMessageCode: titleMessageCode]"/>
+    %{--    <r:require modules="participatoryBudget, districtProposal, forms"/>--}%
+</head>
+
+<content tag="mainContent">
+    <g:render template="/contest/showModules/mainContent" model="[contest: contest, campaignUser: campaignUser]"/>
+</content>
+
+<content tag="cColumn">
+    <g:render template="/contest/showModules/cCallToAction"
+              model="[contest: contest, campaignUser: campaignUser, hideXs: true]"/>
+    %{--    <g:render template="/participatoryBudget/showModules/cParticipatoryBudgetStatus" model="[participatoryBudget: participatoryBudget, campaignUser: campaignUser]"/>--}%
+    %{--    <g:render template="/campaigns/columnCModules/campaignFiles" model="[campaignFiles:campaignFiles]"/>--}%
+    %{--    <g:render template="/participatoryBudget/showModules/cParticipatoryBudgetStats" model="[participatoryBudget: participatoryBudget, campaignUser: campaignUser]"/>--}%
+</content>
+
