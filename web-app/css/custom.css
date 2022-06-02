@@ -1910,7 +1910,7 @@ ul.user-list-followers .loading.xs {
 .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done {position: relative; width: 0%; height: 100%; background: #ff9934;border-radius: 10px;}
 .campaign-progress-bar.important .progress-bar-custom .progress-bar-custom-done{background: #ff9934;}
 
-.participatory-budget-steps-wrapper .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done {
+.campaign-steps-wrapper .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done {
 
     /* "Loafing" animation */
     -moz-animation-name: loadProgressBar;
@@ -1929,35 +1929,326 @@ ul.user-list-followers .loading.xs {
     animation-duration: 3s;
 }
 
-@-moz-keyframes loadProgressBar {0% {width: 0;} 100% {width: 75%;}}
-@-webkit-keyframes loadProgressBar {0% {width: 0%;}100% {width: 75%;} }
-@keyframes loadProgressBar {0% {width: 0%;}100% {width: 75%;}}
+@-moz-keyframes loadProgressBar {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 75%;
+    }
+}
+
+@-webkit-keyframes loadProgressBar {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 75%;
+    }
+}
+
+@keyframes loadProgressBar {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 75%;
+    }
+}
 
 
-@-moz-keyframes participatory-budget-steps-loadProgressBar-step1 {0% {width: 0;} 100% {width: 9%;}}
-@-webkit-keyframes participatory-budget-steps-loadProgressBar-step1 {0% {width: 0%;}100% {width: 9%;} }
-@keyframes participatory-budget-steps-loadProgressBar-step1 {0% {width: 0%;}100% {width: 9%;}}
+@-moz-keyframes campaign-steps5-loadProgressBar-step1 {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 9%;
+    }
+}
 
-@-moz-keyframes participatory-budget-steps-loadProgressBar-step2 {0% {width: 0;} 100% {width: 30%;}}
-@-webkit-keyframes participatory-budget-steps-loadProgressBar-step2 {0% {width: 0%;}100% {width: 30%;} }
-@keyframes participatory-budget-steps-loadProgressBar-step2 {0% {width: 0%;}100% {width: 30%;}}
+@-webkit-keyframes campaign-steps5-loadProgressBar-step1 {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 9%;
+    }
+}
 
-@-moz-keyframes participatory-budget-steps-loadProgressBar-step3 {0% {width: 0;} 100% {width: 50%;}}
-@-webkit-keyframes participatory-budget-steps-loadProgressBar-step3 {0% {width: 0%;}100% {width: 50%;} }
-@keyframes participatory-budget-steps-loadProgressBar-step3 {0% {width: 0%;}100% {width: 50%;}}
+@keyframes campaign-steps5-loadProgressBar-step1 {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 9%;
+    }
+}
 
-@-moz-keyframes participatory-budget-steps-loadProgressBar-step4 {0% {width: 0;} 100% {width: 69%;}}
-@-webkit-keyframes participatory-budget-steps-loadProgressBar-step4 {0% {width: 0%;}100% {width: 69%;} }
-@keyframes participatory-budget-steps-loadProgressBar-step4 {0% {width: 0%;}100% {width: 69%;}}
+@-moz-keyframes campaign-steps5-loadProgressBar-step2 {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 30%;
+    }
+}
 
-@-moz-keyframes participatory-budget-steps-loadProgressBar-step5 {0% {width: 0;} 100% {width: 90%;}}
-@-webkit-keyframes participatory-budget-steps-loadProgressBar-step5 {0% {width: 0%;}100% {width: 90%;} }
-@keyframes participatory-budget-steps-loadProgressBar-step5 {0% {width: 0%;}100% {width: 90%;}}
+@-webkit-keyframes campaign-steps5-loadProgressBar-step2 {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 30%;
+    }
+}
 
-.campaign-progress-bar-wrapper .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done::after {content: ""; position: absolute; border: 10px solid #ff9934; border-left-color: transparent; border-right-color: transparent; border-bottom-color: transparent; width: 1px; height: 1px; right: -10px; top: -10px;}
-.campaign-progress-bar-wrapper .campaign-progress-bar.important .progress-bar-custom .progress-bar-custom-done::after {border: 10px solid #ff9934; border-left-color: transparent; border-right-color: transparent; border-bottom-color: transparent; }
+@keyframes campaign-steps5-loadProgressBar-step2 {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 30%;
+    }
+}
 
-.participatory-budget-steps-wrapper {padding: 15px 15px 10px 15px;
+@-moz-keyframes campaign-steps5-loadProgressBar-step3 {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 50%;
+    }
+}
+
+@-webkit-keyframes campaign-steps5-loadProgressBar-step3 {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 50%;
+    }
+}
+
+@keyframes campaign-steps5-loadProgressBar-step3 {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 50%;
+    }
+}
+
+@-moz-keyframes campaign-steps5-loadProgressBar-step4 {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 69%;
+    }
+}
+
+@-webkit-keyframes campaign-steps5-loadProgressBar-step4 {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 69%;
+    }
+}
+
+@keyframes campaign-steps5-loadProgressBar-step4 {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 69%;
+    }
+}
+
+@-moz-keyframes campaign-steps5-loadProgressBar-step5 {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 90%;
+    }
+}
+
+@-webkit-keyframes campaign-steps5-loadProgressBar-step5 {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 90%;
+    }
+}
+
+@keyframes campaign-steps5-loadProgressBar-step5 {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 90%;
+    }
+}
+
+@-moz-keyframes campaign-steps4-loadProgressBar-step1 {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 12%;
+    }
+}
+
+@-webkit-keyframes campaign-steps4-loadProgressBar-step1 {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 12%;
+    }
+}
+
+@keyframes campaign-steps4-loadProgressBar-step1 {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 12%;
+    }
+}
+
+@-moz-keyframes campaign-steps4-loadProgressBar-step2 {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 35%;
+    }
+}
+
+@-webkit-keyframes campaign-steps4-loadProgressBar-step2 {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 35%;
+    }
+}
+
+@keyframes campaign-steps4-loadProgressBar-step2 {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 35%;
+    }
+}
+
+@-moz-keyframes campaign-steps4-loadProgressBar-step3 {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 60%;
+    }
+}
+
+@-webkit-keyframes campaign-steps4-loadProgressBar-step3 {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 60%;
+    }
+}
+
+@keyframes campaign-steps4-loadProgressBar-step3 {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 60%;
+    }
+}
+
+@-moz-keyframes campaign-steps4-loadProgressBar-step4 {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 85%;
+    }
+}
+
+@-webkit-keyframes campaign-steps4-loadProgressBar-step4 {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 85%;
+    }
+}
+
+@keyframes campaign-steps4-loadProgressBar-step4 {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 85%;
+    }
+}
+
+@-moz-keyframes campaign-steps4-loadProgressBar-step5 {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 90%;
+    }
+}
+
+@-webkit-keyframes campaign-steps4-loadProgressBar-step5 {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 90%;
+    }
+}
+
+@keyframes campaign-steps4-loadProgressBar-step5 {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 90%;
+    }
+}
+
+.campaign-progress-bar-wrapper .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done::after {
+    content: "";
+    position: absolute;
+    border: 10px solid #ff9934;
+    border-left-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+    width: 1px;
+    height: 1px;
+    right: -10px;
+    top: -10px;
+}
+
+.campaign-progress-bar-wrapper .campaign-progress-bar.important .progress-bar-custom .progress-bar-custom-done::after {
+    border: 10px solid #ff9934;
+    border-left-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+}
+
+.campaign-steps-wrapper {
+    padding: 15px 15px 10px 15px;
     -webkit-transform-origin: 0 100%;
     -webkit-transform: rotate(90deg);
     -moz-transform-origin: 0 100%;
@@ -1967,36 +2258,137 @@ ul.user-list-followers .loading.xs {
     transform-origin: 0 100%;
     transform: rotate(90deg);
     width: 160px;
-    padding:0;
+    padding: 0;
 }
-.participatory-budget-steps-wrapper .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done::after{content: ""; position: absolute; border: 12px solid #ff9934; border-radius: 12px; margin-bottom: 4px; width: 1px; height: 1px; right: -10px; bottom: -10px;}
-.participatory-budget-steps-wrapper .campaign-progress-bar .pop-up {display:none}
-.ADDING_PROPOSALS .participatory-budget-steps-wrapper .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done{width:9%; -moz-animation-name: participatory-budget-steps-loadProgressBar-step1; -webkit-animation-name: participatory-budget-steps-loadProgressBar-step1;animation-name: participatory-budget-steps-loadProgressBar-step1;}
-.TECHNICAL_REVIEW .participatory-budget-steps-wrapper .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done{width:30%; -moz-animation-name: participatory-budget-steps-loadProgressBar-step2; -webkit-animation-name: participatory-budget-steps-loadProgressBar-step2;animation-name: participatory-budget-steps-loadProgressBar-step2;}
-.BALLOT           .participatory-budget-steps-wrapper .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done{width:50%; -moz-animation-name: participatory-budget-steps-loadProgressBar-step3; -webkit-animation-name: participatory-budget-steps-loadProgressBar-step3;animation-name: participatory-budget-steps-loadProgressBar-step3;}
-.CLOSED           .participatory-budget-steps-wrapper .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done{width:69%; -moz-animation-name: participatory-budget-steps-loadProgressBar-step4; -webkit-animation-name: participatory-budget-steps-loadProgressBar-step4;animation-name: participatory-budget-steps-loadProgressBar-step4;}
-.RESULTS          .participatory-budget-steps-wrapper .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done{width:88%; -moz-animation-name: participatory-budget-steps-loadProgressBar-step4; -webkit-animation-name: participatory-budget-steps-loadProgressBar-step4;animation-name: participatory-budget-steps-loadProgressBar-step5;}
 
-ul.participatory-budget-steps-info {list-style: none;padding:10px 0 0 35px}
-ul.participatory-budget-steps-info li{margin-bottom:15px; line-height:10px;}
-ul.participatory-budget-steps-info li label{font-weight: bold;}
-ul.participatory-budget-steps-info li span{font-size: 11px;}
-ul.participatory-budget-steps-info li.active a {display: none}
+.campaign-steps-wrapper.steps5 {
+    width: 160px;
+}
 
-.participatory-budget-status .comment-proposal{margin-bottom: 30px;margin-top:-20px;}
+.campaign-steps-wrapper.steps4 {
+    width: 130px;
+}
 
-.progress-bar {background-color: #ec931f;}
+.campaign-steps-wrapper .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done::after {
+    content: "";
+    position: absolute;
+    border: 12px solid #ff9934;
+    border-radius: 12px;
+    margin-bottom: 4px;
+    width: 1px;
+    height: 1px;
+    right: -10px;
+    bottom: -10px;
+}
 
-.participatory-budget-status .kuorum-tooltip + .tooltip.bottom {
+.campaign-steps-wrapper .campaign-progress-bar .pop-up {
+    display: none
+}
+
+.ADDING_PROPOSALS .campaign-steps-wrapper.steps5 .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done {
+    width: 9%;
+    -moz-animation-name: campaign-steps5-loadProgressBar-step1;
+    -webkit-animation-name: campaign-steps5-loadProgressBar-step1;
+    animation-name: campaign-steps5-loadProgressBar-step1;
+}
+
+.TECHNICAL_REVIEW .campaign-steps-wrapper.steps5 .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done {
+    width: 30%;
+    -moz-animation-name: campaign-steps5-loadProgressBar-step2;
+    -webkit-animation-name: campaign-steps5-loadProgressBar-step2;
+    animation-name: campaign-steps5-loadProgressBar-step2;
+}
+
+.BALLOT .campaign-steps-wrapper.steps5 .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done {
+    width: 50%;
+    -moz-animation-name: campaign-steps5-loadProgressBar-step3;
+    -webkit-animation-name: campaign-steps5-loadProgressBar-step3;
+    animation-name: campaign-steps5-loadProgressBar-step3;
+}
+
+.CLOSED .campaign-steps-wrapper.steps5 .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done {
+    width: 69%;
+    -moz-animation-name: campaign-steps5-loadProgressBar-step4;
+    -webkit-animation-name: campaign-steps5-loadProgressBar-step4;
+    animation-name: campaign-steps5-loadProgressBar-step4;
+}
+
+.RESULTS .campaign-steps-wrapper.steps5 .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done {
+    width: 88%;
+    -moz-animation-name: campaign-steps5-loadProgressBar-step4;
+    -webkit-animation-name: campaign-steps5-loadProgressBar-step4;
+    animation-name: campaign-steps5-loadProgressBar-step5;
+}
+
+.ADDING_APPLICATIONS .campaign-steps-wrapper.steps4 .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done {
+    width: 12%;
+    -moz-animation-name: campaign-steps4-loadProgressBar-step1;
+    -webkit-animation-name: campaign-steps4-loadProgressBar-step1;
+    animation-name: campaign-steps4-loadProgressBar-step1;
+}
+
+.VALIDATING_APPLICATIONS .campaign-steps-wrapper.steps4 .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done {
+    width: 35%;
+    -moz-animation-name: campaign-steps4-loadProgressBar-step2;
+    -webkit-animation-name: campaign-steps4-loadProgressBar-step2;
+    animation-name: campaign-steps4-loadProgressBar-step2;
+}
+
+.VOTING .campaign-steps-wrapper.steps4 .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done {
+    width: 60%;
+    -moz-animation-name: campaign-steps4-loadProgressBar-step3;
+    -webkit-animation-name: campaign-steps4-loadProgressBar-step3;
+    animation-name: campaign-steps4-loadProgressBar-step3;
+}
+
+.RESULTS .campaign-steps-wrapper.steps4 .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done {
+    width: 85%;
+    -moz-animation-name: campaign-steps4-loadProgressBar-step4;
+    -webkit-animation-name: campaign-steps4-loadProgressBar-step4;
+    animation-name: campaign-steps4-loadProgressBar-step4;
+}
+
+ul.campaign-steps-info {
+    list-style: none;
+    padding: 10px 0 0 35px
+}
+
+ul.campaign-steps-info li {
+    margin-bottom: 15px;
+    line-height: 10px;
+}
+
+ul.campaign-steps-info li label {
+    font-weight: bold;
+}
+
+ul.campaign-steps-info li span {
+    font-size: 11px;
+}
+
+ul.campaign-steps-info li.active a {
+    display: none
+}
+
+.campaign-steps-status .comment-proposal {
+    margin-bottom: 30px;
+    margin-top: -20px;
+}
+
+.progress-bar {
+    background-color: #ec931f;
+}
+
+.campaign-steps-status .kuorum-tooltip + .tooltip.bottom {
     left: 70px !important;
 }
 
-.participatory-budget-status .kuorum-tooltip + .tooltip.bottom .tooltip-inner {
+.campaign-steps-status .kuorum-tooltip + .tooltip.bottom .tooltip-inner {
     position: relative;
     width: 200px;
 }
 
-.participatory-budget-status .kuorum-tooltip + .tooltip.bottom .tooltip-arrow {
+.campaign-steps-status .kuorum-tooltip + .tooltip.bottom .tooltip-arrow {
     position: relative;
     left: 10%;
 }

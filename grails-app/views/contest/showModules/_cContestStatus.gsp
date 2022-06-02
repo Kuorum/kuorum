@@ -1,4 +1,4 @@
-<div class="comment-box call-to-action participatory-budget-status">
+<div class="comment-box call-to-action campaign-steps-status">
     <div class="comment-header">
         <span class="call-title">
             <g:message code="participatoryBudget.status.title"/>
@@ -9,7 +9,7 @@
     </div>
 
     <div class="comment-proposal ${contest.status}">
-        <div class="participatory-budget-steps-wrapper">
+        <div class="campaign-steps-wrapper steps4">
             <div class="campaign-progress-bar">
                 <div class="pop-up">
                     ${g.message(code: "org.kuorum.rest.model.communication.contest.ContestStatusDTO.${contest.status}")}
@@ -21,7 +21,7 @@
                 </div>
             </div>
         </div>
-        <ul class="participatory-budget-steps-info">
+        <ul class="campaign-steps-info">
             <g:each in="${org.kuorum.rest.model.communication.contest.ContestStatusDTO.values()}" var="status"
                     status="i">
                 <li class=" kuorum-tooltip ${status == contest.status ? 'active' : ''}"
