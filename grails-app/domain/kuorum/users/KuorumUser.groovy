@@ -166,8 +166,10 @@ class KuorumUser {
         email = plainText(email.toLowerCase())
         alias = plainText(alias?.toLowerCase())
         bio = plainText(bio)
+        name = plainText(name)
+        surname = plainText(surname)
         if (!followers) followers = []
-        if (!personalData){
+        if (!personalData) {
             this.personalData = new PersonalData()
         }
     }
