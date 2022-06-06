@@ -25,7 +25,7 @@
     </ol>
     <formUtil:validateForm bean="${command}" form="stepDomainValidationPhoneNumber" autocomplete="off"/>
     <g:form mapping="campaignValidationPhoneNumberCode" params="${campaign.encodeAsLinkProperties()}" name="stepDomainValidationPhoneNumber" role="form" method="GET" autocomplete="off"  class="signup stepDomainValidationPhoneNumber">
-        <fieldset class="row">
+        <fieldset aria-live="polite" class="row">
             <g:if test="${predefinedPhone}">
                 <input type="hidden" value="000" name="phoneNumber"/>
                 <input type="hidden" value="0034" name="phoneNumberPrefix"/>
@@ -57,7 +57,7 @@
             </g:else>
         </fieldset>
 
-        <fieldset class="row">
+        <fieldset aria-live="polite" class="row">
             <div class="form-group col-md-offset-3 col-md-6 center option-buttons">
                 %{--<label><g:message code="customRegister.step2.choseUserType.label"/> </label>--}%
 %{--                <g:link mapping="customProcessRegisterStep3" class="btn btn-light"><g:message code="customRegister.step4.validation.omit"/></g:link>--}%

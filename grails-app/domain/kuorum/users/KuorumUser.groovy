@@ -8,7 +8,10 @@ import kuorum.core.model.CommissionType
 import kuorum.core.model.UserType
 import kuorum.users.extendedPoliticianData.PoliticianRelevantEvent
 import kuorum.users.extendedPoliticianData.ProfessionalDetails
+import org.apache.commons.lang.StringUtils
 import org.bson.types.ObjectId
+import org.jsoup.Jsoup
+import org.jsoup.nodes.Document
 
 /**
  * Represents the user in kuorum
@@ -160,14 +163,24 @@ class KuorumUser {
 
     //Is not private for call it from service. I'm not proud for that
     void updateDenormalizedData(){
-        email = email.toLowerCase()
-        alias = alias?.toLowerCase()
+        email = plainText(email.toLowerCase())
+        alias = plainText(alias?.toLowerCase())
+        bio = plainText(bio)
+        name = plainText(name)
+        surname = plainText(surname)
         if (!followers) followers = []
-        if (!personalData){
+        if (!personalData) {
             this.personalData = new PersonalData()
         }
     }
 
+    private static String plainText(String str) {
+        if (StringUtils.isBlank(str)){
+            return "";
+        }
+        Document doc = Jsoup.parse(str);
+        return doc.text();
+    }
 
     int hashCode() {
         return id?id.hashCode():email.hashCode()

@@ -29,26 +29,26 @@
         <input type="hidden" name="email" value="${contact.email}"/>
         <input type="hidden" name="name" value="${contact.name}"/>
         <input type="hidden" name="password" value="XXXX"/>
-        <fieldset class="row">
+        <fieldset aria-live="polite" class="row">
             <div class="form-group col-xs-12 center">
                 <p><g:message code="kuorum.web.commands.profile.directCensusLogin.intro" args="[contact.name]" encodeAs="raw"/></p>
                 <g:render template="step0RegisterWithCensusCode_CodeData" model="[contact:contact, campaign:campaign]"/>
             </div>
         </fieldset>
-        <fieldset class="row">
+        <fieldset aria-live="polite" class="row">
             <div class="form-group col-xs-12 center">
                 <formUtil:checkBox
                         command="${command}"
                         field="conditions"
-                        label="${g.message(code:'register.conditions', args:[g.createLink(mapping: 'footerPrivacyPolicy')], encodeAs: 'raw')}"/>
+                        label="${g.message(code: 'register.conditions', args: [g.createLink(mapping: 'footerPrivacyPolicy')], encodeAs: 'raw')}"/>
             </div>
         </fieldset>
 
 
-        <fieldset class="row">
+        <fieldset aria-live="polite" class="row">
             <div class="form-group text-center option-buttons">
                 %{--<label><g:message code="customRegister.step2.choseUserType.label"/> </label>--}%
-                <input type="submit"value="${g.message(code:'customRegister.step2.submit')}" class="btn btn-lg">
+                <button type="submit" class="btn btn-lg">${g.message(code: 'customRegister.step2.submit')}</button>
                 %{--<input type="submit" id="submitCitizen" value="${g.message(code:'customRegister.step2.choseUserType.citizen')}" class="btn btn-blue btn-lg">--}%
             </div>
         </fieldset>

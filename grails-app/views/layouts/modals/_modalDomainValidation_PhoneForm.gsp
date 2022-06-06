@@ -33,7 +33,7 @@
         </div>
 
 
-        <fieldset class="center modal-login-action-buttons">
+        <fieldset aria-live="polite" class="center modal-login-action-buttons">
             <button id="validatePhoneDomain-modal-form-button-id" class="btn btn-orange">
                 <g:message code="kuorum.web.commands.profile.DomainUserPhoneValidationCommand.modal.submit"/>
             </button>
@@ -55,7 +55,7 @@
                     cssClass="form-control input-lg"
                     required="true"/>
         </div>
-        <fieldset class="modal-login-action-buttons">
+        <fieldset aria-live="polite" class="modal-login-action-buttons">
             <a href="#" id="validatePhoneCodeDomain-modal-form-button-back" class="btn btn-grey-light col-xs-6"><g:message code="kuorum.web.commands.profile.DomainUserPhoneCodeValidationCommand.modal.back"/></a>
             <button id="validatePhoneCodeDomain-modal-form-button-id" class="btn btn-orange col-xs-6">
                 <g:message code="kuorum.web.commands.profile.DomainUserPhoneCodeValidationCommand.modal.submit"/>

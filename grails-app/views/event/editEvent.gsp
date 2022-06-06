@@ -54,29 +54,29 @@
             <input type="hidden" name="longitude" id="longitude" value="${command.longitude}"/>
             <input type="hidden" name="zoom" id="zoom" value="${command.zoom}"/>
 
-            <fieldset class="form-group">
-                <label for="eventDate" class="col-sm-2 col-md-1 control-label"><g:message
+        <fieldset aria-live="polite" class="form-group">
+            <label for="eventDate" class="col-sm-2 col-md-1 control-label"><g:message
                         code="kuorum.web.commands.payment.event.EventCommand.eventDate.label"/>:</label>
 
                 <div class="col-sm-8 col-md-5">
                     <formUtil:date command="${command}" field="eventDate" time="true"/>
                 </div>
-            </fieldset>
+        </fieldset>
 
-            <fieldset class="form-group">
-                <label for="localName" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.event.EventCommand.localName.label"/>:</label>
+        <fieldset aria-live="polite" class="form-group">
+            <label for="localName" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.event.EventCommand.localName.label"/>:</label>
                 <div class="col-sm-8 col-md-5">
                     <formUtil:input command="${command}" field="localName"/>
                 </div>
-            </fieldset>
-            <fieldset class="form-group">
-                <label for="capacity" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.event.EventCommand.capacity.label"/>:</label>
+        </fieldset>
+        <fieldset aria-live="polite" class="form-group">
+            <label for="capacity" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.event.EventCommand.capacity.label"/>:</label>
                 <div class="col-sm-8 col-md-5">
                     <formUtil:input command="${command}" field="capacity" type="number"/>
                 </div>
-            </fieldset>
-            <fieldset class="form-group map-location">
-                <label for="address" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.event.EventCommand.address.label"/>:</label>
+        </fieldset>
+        <fieldset aria-live="polite" class="form-group map-location">
+            <label for="address" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.event.EventCommand.address.label"/>:</label>
                 <div class="col-sm-8 col-md-5">
                     <formUtil:input command="${command}" field="address"/>
                     <a href="#" class="btn btn-lg btn-icon btn-grey" id="geocode-address">

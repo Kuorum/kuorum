@@ -10,12 +10,7 @@
 <content tag="mainContent">
     <div class="row dashboard">
         <div class="col-md-8">
-            <sec:ifAnyGranted roles="ROLE_ADMIN">
-                <div class="box-ppal" id="createNewCampaign">
-                    <g:render template="/newsletter/chooseCampaign"
-                              model="[chooseCampaignTitle: g.message(code: 'dashboard.payment.newCampaign.title')]"/>
-                </div>
-            </sec:ifAnyGranted>
+
         %{--<g:if test="${debates && posts}">--}%
         %{--<ul id="campaign-sorter" class="nav nav-pills nav-underline hidden-xs">--}%
         %{--<li class="active"><a href="#latest"><g:message code="search.filters.all"/> </a></li>--}%

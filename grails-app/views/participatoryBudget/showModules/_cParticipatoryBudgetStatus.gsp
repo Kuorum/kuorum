@@ -59,9 +59,10 @@
                         </h4>
                     </div>
                     <div class="modal-body">
-                        <p><g:message code="participatoryBudget.status.change.modal.text"/> </p>
-                        <fieldset class="text-right">
-                            <a href="#" class="btn btn-grey-light btn-lg" data-dismiss="modal" id="modalEditParticipatoryBudgetStatusButtonClose">
+                        <p><g:message code="participatoryBudget.status.change.modal.text"/></p>
+                        <fieldset aria-live="polite" class="text-right">
+                            <a href="#" class="btn btn-grey-light btn-lg" data-dismiss="modal"
+                               id="modalEditParticipatoryBudgetStatusButtonClose">
                                 <g:message code="participatoryBudget.status.change.modal.cancel"/>
                             </a>
                             <g:link mapping="participatoryBudgetEditStatus" params="${participatoryBudget.encodeAsLinkProperties()+[status:"STATUS"]}" class="btn btn-blue inverted btn-lg" elementId="modalEditParticipatoryBudgetStatusButtonOk">

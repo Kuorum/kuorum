@@ -30,8 +30,9 @@
         <div class="box-ppal-section">
             <g:render template="accountDetailsForm" model="[command:command]"/>
         </div>
+
         <div class="box-ppal-section">
-            <fieldset class="form-group text-center">
+            <fieldset aria-live="polite" class="form-group text-center">
                 <g:if test="${requirePassword}">
                     <a href="#" class="btn btn-orange btn-lg" id="auth"><g:message code="default.save"/></a>
                 </g:if>
@@ -56,11 +57,12 @@
                             <g:message code="kuorum.web.commands.profile.AccountDetailsCommand.password.modal.title"/>
                         </h4>
                     </div>
+
                     <div class="modal-body">
 
-                        <fieldset class="row">
+                        <fieldset aria-live="polite" class="row">
                             <div class="form-group col-md-10">
-                                <input type="text" name="autocompleteNameOff" style="display:none" data-ays-ignore="true"/>
+                            %{--                                <input type="text" name="autocompleteNameOff" style="display:none" data-ays-ignore="true"/>--}%
                                 <g:if test="${requirePassword}">
                                     <formUtil:password command="${command}" field="password" required="true" showLabel="true"/>
                                 </g:if>
@@ -71,9 +73,10 @@
                             </div>
                         </fieldset>
 
-                        <p><g:message code="kuorum.web.commands.profile.AccountDetailsCommand.password.modal.body"/> </p>
-                        <fieldset class="text-right">
-                            <a href="#" class="btn btn-grey-light btn-lg" data-dismiss="modal" id="authorizeProfileEditionButtonClose">
+                        <p><g:message code="kuorum.web.commands.profile.AccountDetailsCommand.password.modal.body"/></p>
+                        <fieldset aria-live="polite" class="text-right">
+                            <a href="#" class="btn btn-grey-light btn-lg" data-dismiss="modal"
+                               id="authorizeProfileEditionButtonClose">
                                 <g:message code="kuorum.web.commands.profile.AccountDetailsCommand.password.modal.cancel"/>
                             </a>
                             <a href="#" class="btn btn-blue inverted btn-lg" id="authorizeProfileEditionButtonOk">

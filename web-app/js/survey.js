@@ -12,16 +12,27 @@ $(function () {
 
     // Add click listener on answers that aren't answered
     $('.survey-question-answer')
-        .filter(function() {return $(this).parents('.'+surveyFunctions.ANSWERED_CLASS).length === 0})
-        .on("click",surveyFunctions._selectAnswer);
+        .filter(function () {
+            return $(this).parents('.' + surveyFunctions.ANSWERED_CLASS).length === 0
+        })
+        .on("click", surveyFunctions._selectAnswer);
+
+    // WAG 2.1 EVENTS
     $('.survey-question-answer')
-        .filter(function() {return $(this).parents('.'+surveyFunctions.ANSWERED_CLASS).length === 0})
-        .on("keypress",function(event){
-            if ( surveyFunctions.KEYBOARD_SELECT_OPTION_CODES.indexOf(event.which)>=0) {
+        .filter(function () {
+            return $(this).parents('.' + surveyFunctions.ANSWERED_CLASS).length === 0
+        })
+        .on("keypress", function (event) {
+            if (surveyFunctions.KEYBOARD_SELECT_OPTION_CODES.indexOf(event.which) >= 0) {
                 event.preventDefault();
                 surveyFunctions._selectAnswer(event);
             }
         });
+    $('.survey-question-answer input, .survey-question-answer textarea')
+        .on("keypress", function (event) {
+            event.stopPropagation();
+        });
+    // END WAG EVENTS
 
     var nextButtonIdx;
     for (nextButtonIdx = 0; nextButtonIdx < singleOptionNextButton.length; nextButtonIdx++) {
@@ -460,13 +471,17 @@ var surveyFunctions = {
             if (validationData.valid) {
                 $(validationData.input).siblings(".error").remove();
                 validationData.input.classList.remove("error")
+                validationData.input.setAttribute("aria-invalid", "false");
                 return true;
             }else {
                 $(validationData.input).siblings(".error").remove();
+                validationData.input.setAttribute("aria-invalid", "true");
+                var idError = $(validationData.input).attr("aria-errormessage")
                 validationData.input.classList.add("error");
                 var errorNode = document.createElement("span");
                 errorNode.classList = "error";
                 errorNode.innerHTML = validationData.msg
+                errorNode.setAttribute("id", idError);
                 validationData.input.parentNode.insertBefore(errorNode, validationData.input.nextSibling);
             }
         },_handleSpecialCase: function(validationData, question) {
@@ -944,9 +959,11 @@ var surveyFunctions = {
             $question.attr("data-numAnswers", questionStats.answerAmount);
             // questionStats.questionOptionStats.forEach(updateQustionOptionWithStats);
             var answerOptionIdx; // IE10 not supports forEach
-            for (answerOptionIdx = 0; answerOptionIdx < questionStats.questionOptionStats.length; answerOptionIdx++) {
-                var questionOptionStats =  questionStats.questionOptionStats[answerOptionIdx];
-                updateQustionOptionWithStats(questionOptionStats);
+            if (questionStats.questionOptionStats != null) {
+                for (answerOptionIdx = 0; answerOptionIdx < questionStats.questionOptionStats.length; answerOptionIdx++) {
+                    var questionOptionStats = questionStats.questionOptionStats[answerOptionIdx];
+                    updateQustionOptionWithStats(questionOptionStats);
+                }
             }
             surveyFunctions._setProgressBarsPercent(questionStats.questionId);
         }

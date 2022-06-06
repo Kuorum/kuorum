@@ -12,7 +12,7 @@
         customAddButton="true"
         appendLast="true"
         formId="questionsSurveyForm">
-    <fieldset class="row question-data">
+    <fieldset aria-live="polite" class="row question-data">
         <formUtil:input cssClass="hidden" field="id" command="${listCommand}" prefixFieldName="${prefixField}"/>
         <div class="form-group">
             <label for="text" class="col-sm-2 col-md-1 control-label"><g:message
@@ -71,7 +71,7 @@
         </div>
     </fieldset>
 
-    <fieldset class="row question-options">
+    <fieldset aria-live="polite" class="row question-options">
         <div class="form-group">
             <label for="text" class="col-xs-12"><g:message
                     code="kuorum.web.commands.payment.survey.QuestionCommand.options.label"/>:</label>
@@ -112,7 +112,7 @@
             </div>
 
             <div class="col-xs-12 col-sm-offset-2 col-sm-10 questionOptionActions">
-                <fieldset class="row">
+                <fieldset aria-live="polite" class="row">
                     <div class="col-xs-offset-1 col-xs-11">
                         <button type="button" class="btn btn-lg btn-icon btn-transparent addQuestionOptionButton">
                             <g:message code="survey.form.button.addOption"/>
@@ -124,7 +124,7 @@
         </div>
     </fieldset>
 </formUtil:dynamicComplexInputs>
-<fieldset class="row dynamic-fieldset-addbutton">
+<fieldset aria-live="polite" class="row dynamic-fieldset-addbutton">
     <div class="form-group">
         <div class="col-xs-12 center">
             <button type="button" class="btn btn-lg btn-grey addButton">

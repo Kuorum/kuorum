@@ -342,6 +342,10 @@ var userValidatedByDomain={
         userValidatedByDomain.hideModalLoading();
         userValidatedByDomain.modalNotifications.show();
         userValidatedByDomain.modalNotifications.find(".text-danger .text-error-data").html(msg);
+        var idError = userValidatedByDomain.modal.find("input:visible").attr("aria-errormessage")
+        if (idError != undefined) {
+            userValidatedByDomain.modalNotifications.find(".text-danger .text-error-data").attr("id", idError);
+        }
         userValidatedByDomain.modalNotifications.find(".text-danger").show();
         userValidatedByDomain.modal.find(".modal-login-action-buttons").show();
     },
