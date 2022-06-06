@@ -49,11 +49,11 @@
                         command: command,
                         status : survey.campaignStatusRSDTO,
                         survey : survey]"/>
-                <fieldset class="buttons">
-                    <div class="text-right">
-                        <ul class="form-final-options">
-                            <li>
-                                <g:link mapping="politicianCampaigns" class="btn btn-grey-light">
+            <fieldset aria-live="polite" class="buttons">
+                <div class="text-right">
+                    <ul class="form-final-options">
+                        <li>
+                            <g:link mapping="politicianCampaigns" class="btn btn-grey-light">
                                     <g:message code="default.paginate.skip"/>
                                 </g:link>
                             </li>

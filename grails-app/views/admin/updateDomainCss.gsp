@@ -15,7 +15,7 @@
 <content tag="mainContent">
     <h1>Recreate all css asynchronous </h1>
     <g:form mapping="adminRecerateAllCss" method="POST">
-        <fieldset>
+        <fieldset aria-live="polite">
             <div class="form-group text-center">
                 <button type="submit" class="btn btn-default btn-lg">Recreate</button>
             </div>

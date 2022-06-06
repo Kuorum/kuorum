@@ -16,7 +16,7 @@
 
     <formUtil:validateForm bean="${command}" form="signup-custom-site"/>
     <g:uploadForm method="POST" mapping="adminDomainRegisterStep1" name="signup-custom-site" role="form" class="signup-custom-site slowForm" data-slowLoading-texts='["${g.message(code:'form.submit.slowLoading.modal.text1')}","${g.message(code:'form.submit.slowLoading.modal.text2')}"]'>
-        <fieldset class="row">
+        <fieldset aria-live="polite" class="row">
             <div class="form-group col-md-6">
                 <formUtil:input command="${command}" field="slogan" showLabel="true"/>
             </div>
@@ -24,7 +24,7 @@
                 <formUtil:input command="${command}" field="subtitle" showLabel="true"/>
             </div>
         </fieldset>
-        <fieldset class="row">
+        <fieldset aria-live="polite" class="row">
             <div class="form-group col-md-6">
                 <label for="logo"><g:message code="kuorum.web.admin.domain.DomainConfigStep1Command.logo.label"/> *</label>
 
@@ -60,12 +60,13 @@
                             <input class="input-color-picker jscolor {closable:true,closeText:'Close', valueElement:'color-picker-hex-code'}" readonly>
                         </label>
                     </span>
-                    <input type="text" required aria-required="true" id="color-picker-hex-code" name="colorHexCode" class="form-control input-lg" value="${command.colorHexCode}" placeholder="">
+                    <input type="text" required aria-required="true" id="color-picker-hex-code" name="colorHexCode" class="form-control input-lg" value="${command.colorHexCode}"
+                           placeholder="">
                 </div>
             </div>
         </fieldset>
 
-        <fieldset>
+        <fieldset aria-live="polite">
             <label for="color-picker-hex-code"><g:message code="kuorum.web.admin.domain.DomainConfigStep1Command.carousel.label"/>*</label>
 
             <div class="form-group">
@@ -81,7 +82,7 @@
             </div>
         </fieldset>
 
-        <fieldset>
+        <fieldset aria-live="polite">
             <div class="form-group center">
                 <input type="submit" value="${message(code:'tour.dashboard.next')}" class="btn btn-lg btn-blue">
             </div>

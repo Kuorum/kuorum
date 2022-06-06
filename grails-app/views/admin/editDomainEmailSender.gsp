@@ -25,20 +25,21 @@
         </div>
         <div class="box-ppal-section">
             <g:if test="${requestState}">
-                <fieldset class="row validate" style="text-align: left">
+                <fieldset aria-live="polite" class="row validate" style="text-align: left">
                     <div class="col-xs-12 valid">
-                        <strong><span>Sender with web domain: </span></strong><i class="fas fa-check fa-2x"></i>
+                        <strong><span>Sender with web domain:</span></strong><i class="fas fa-check fa-2x"></i>
                     </div>
                 </fieldset>
             </g:if>
             <g:else>
-                <fieldset class="row">
+                <fieldset aria-live="polite" class="row">
                     <div class="form-group col-md-6">
                         <formUtil:input type="text" command="${command}" field="mandrillAppKey" showLabel="true"/>
                     </div>
                 </fieldset>
+
                 <div class="box-ppal-section">
-                    <fieldset class="form-group text-center">
+                    <fieldset aria-live="polite" class="form-group text-center">
                         <input type="submit" value="${g.message(code:'default.save')}" class="btn btn-orange btn-lg">
                     </fieldset>
                 </div>

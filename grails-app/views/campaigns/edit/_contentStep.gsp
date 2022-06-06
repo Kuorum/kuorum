@@ -13,26 +13,26 @@
         <input type="hidden" name="sendType"
                value="${kuorum.web.commands.payment.CampaignContentCommand.CAMPAIGN_SEND_TYPE_DRAFT}"
                id="sendMassMailingType"/>
-        <input type="hidden" name="redirectLink" id="redirectLink"/>
+    <input type="hidden" name="redirectLink" id="redirectLink"/>
 
-        <fieldset class="form-group">
-            <label for="title" class="col-sm-2 col-md-1 control-label"><g:message
+    <fieldset aria-live="polite" class="form-group">
+        <label for="title" class="col-sm-2 col-md-1 control-label"><g:message
                     code="kuorum.web.commands.payment.massMailing.DebateCommand.title.label"/>:</label>
 
             <div class="col-sm-8 col-md-7">
                 <formUtil:input command="${command}" field="title"/>
             </div>
-        </fieldset>
+    </fieldset>
 
-        <fieldset class="form-group">
-            <label for="text" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.massMailing.MassMailingCommand.text.label"/>:</label>
+    <fieldset aria-live="polite" class="form-group">
+        <label for="text" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.massMailing.MassMailingCommand.text.label"/>:</label>
             <div class="textareaContainer col-sm-8 col-md-7">
                 <formUtil:textArea command="${command}" field="body" rows="8" texteditor="texteditor" placeholder="${customPlaceHolderBody}"/>
             </div>
-        </fieldset>
+    </fieldset>
 
-        <fieldset class="form-group multimedia">
-            <label for="headerPictureId" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.massMailing.DebateCommand.image.label"/>:</label>
+    <fieldset aria-live="polite" class="form-group multimedia">
+        <label for="headerPictureId" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.massMailing.DebateCommand.image.label"/>:</label>
             <div class="col-sm-8 col-md-7">
                 <span class="span-label sr-only"><g:message code="default.upload.title" /></span>
                 <input type="hidden" name="fileType" value="${(command.fileType == kuorum.core.FileType.YOUTUBE.toString())?'YOUTUBE':'IMAGE'}" id="fileType">
@@ -61,7 +61,7 @@
         </fieldset>
 
         <g:if test="${campaign}">
-            <fieldset class="form-group">
+            <fieldset aria-live="polite" class="form-group">
                 <label for="files" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.massMailing.MassMailingCommand.files.label"/>:</label>
                 <div class="textareaContainer col-sm-8 col-md-7">
                     <formUtil:uploadCampaignFiles campaign="${campaign}"/>

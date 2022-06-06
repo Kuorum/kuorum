@@ -41,7 +41,7 @@ $(function () {
 
         if ($("textarea[name=text]").val() == "") {
             var errorMsg = i18n.kuorum.web.commands.payment.massMailing.MassMailingCommand.text.nullable;
-            $("div.textareaContainer").append('<span id="campatingTextErrorSpan" for="text" class="error"><span class="tooltip-arrow"></span>'+errorMsg+'</span>');
+            $("div.textareaContainer").append('<span id="campatingTextErrorSpan" class="error"><span class="tooltip-arrow"></span>' + errorMsg + '</span>');
             valid = false;
         } else {
             $("#campatingTextErrorSpan").fadeOut()
@@ -49,7 +49,7 @@ $(function () {
 
         if ($("input[name=subject]").val() == "") {
             var errorMsg = i18n.kuorum.web.commands.payment.massMailing.MassMailingCommand.subject.nullable;
-            $("input[name=subject]").parent().append('<span id="campatingTextErrorSpan" for="text" class="error"><span class="tooltip-arrow"></span>'+errorMsg+'</span>');
+            $("input[name=subject]").parent().append('<span id="campatingTextErrorSpan" class="error"><span class="tooltip-arrow"></span>' + errorMsg + '</span>');
             valid = false;
         } else {
             $("#campatingTextErrorSpan").fadeOut()

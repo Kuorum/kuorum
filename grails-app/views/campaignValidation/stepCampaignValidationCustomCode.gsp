@@ -25,7 +25,7 @@
     </ol>
     <formUtil:validateForm bean="${command}" form="stepDomainValidation" autocomplete="off"/>
     <g:form mapping="campaignValidationCode" params="${campaign.encodeAsLinkProperties()}" name="stepDomainValidation" role="form" method="POST" autocomplete="off"  class="signup stepDomainValidation">
-        <fieldset class="row">
+        <fieldset aria-live="polite" class="row">
             <div class="form-group col-md-offset-3  col-md-6">
                 <formUtil:input
                         command="${command}"
@@ -37,7 +37,7 @@
             </div>
         </fieldset>
 
-        <fieldset class="row">
+        <fieldset aria-live="polite" class="row">
             <div class="form-group col-md-offset-3 col-md-6 center option-buttons">
                 %{--<label><g:message code="customRegister.step2.choseUserType.label"/> </label>--}%
 %{--                <g:link mapping="customProcessRegisterStep3" class="btn btn-light"><g:message code="customRegister.step4.validation.omit"/></g:link>--}%

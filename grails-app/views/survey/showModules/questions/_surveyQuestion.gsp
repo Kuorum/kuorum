@@ -24,8 +24,8 @@
 <g:set var="isQuestionWithImages" value="${question.options.find { it.urlImage } ? true : false}"/>
 <g:set var="legendId" value="legend-question-${question.id}"/>
 <g:set var="groupAnswersId" value="group-answers-question-${question.id}"/>
-<fieldset
-        class="comment-box survey-question ${questionClass} no-padding ${survey.closed || question.answered ? 'answered' : ''} ${activeQuestionId == question.id ? 'active-question' : ''} ${isQuestionWithImages ? 'questions-with-images' : ''}"
+<fieldset aria-live="polite"
+          class="comment-box survey-question ${questionClass} no-padding ${survey.closed || question.answered ? 'answered' : ''} ${activeQuestionId == question.id ? 'active-question' : ''} ${isQuestionWithImages ? 'questions-with-images' : ''}"
         id="question-${question.id}"
         data-ajaxQuestionStats="${g.createLink(mapping: 'ajaxSurveyQuestionStats', params: survey.encodeAsLinkProperties() + [questionId: question.id])}"
         data-question-id="${question.id}"

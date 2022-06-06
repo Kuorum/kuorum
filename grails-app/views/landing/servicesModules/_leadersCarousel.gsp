@@ -21,7 +21,7 @@
     <sec:ifNotLoggedIn>
         <formUtil:validateForm bean="${command}" form="sign"/>
         <g:form mapping="register" autocomplete="off" method="post" name="sign" class="form-inline dark" role="form" novalidate="novalidate">
-            <fieldset>
+            <fieldset aria-live="polite">
                 <div class="form-group col-sm-3">
                     <formUtil:input
                             command="${command}"
@@ -59,7 +59,7 @@
                     </button>
                 </div>
             </fieldset>
-            <fieldset>
+            <fieldset aria-live="polite">
                 <div class="form-group col-xs-12 conditions">
                     <formUtil:checkBox
                             command="${command}"

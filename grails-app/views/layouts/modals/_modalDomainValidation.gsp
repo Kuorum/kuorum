@@ -20,8 +20,9 @@
                 <div class="modal-domain-validation modal-domain-validation-groupCampaign">
                     <g:render template="/layouts/modals/modalDomainValidation_groupCampaignValidation"/>
                 </div>
-                <fieldset class="center modal-domain-validation-notifications">
-                    <p class="loading" style="display: none"><span class="fas fa-spinner fa-spin"></span> </p>
+                <fieldset aria-live="polite" class="center modal-domain-validation-notifications">
+                    <p class="loading" style="display: none"><span class="fas fa-spinner fa-spin"></span></p>
+
                     <p class="text-success" style="display: none">
                         <g:message code="kuorum.web.commands.profile.DomainValidationCommand.modal.success"/>
                         <span class="fal fa-check-circle"></span>

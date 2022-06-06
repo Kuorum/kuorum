@@ -7,7 +7,7 @@
         customRemoveButton="true"
         appendLast="true"
         formId="surveyInitAddContactsForm">
-    <fieldset class="row">
+    <fieldset aria-live="polite" class="row">
         <input type="hidden" name="${prefixField}.conditions" value="true"/>
 
         <div class="form-group col-xs-12 col-md-4">

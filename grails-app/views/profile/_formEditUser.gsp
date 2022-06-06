@@ -1,7 +1,7 @@
 <%@ page import="kuorum.core.model.UserType" %>
 <div class="box-ppal-section">
     <h4 class="box-ppal-section-title"><g:message code="profile.editUser.profileInfo"/></h4>
-    <fieldset class="form-group">
+    <fieldset aria-live="polite" class="form-group">
         <formUtil:textArea command="${command}" field="bio" showLabel="true"/>
     </fieldset>
 
@@ -12,8 +12,9 @@
         <g:render template="/profile/formEditUserCitizen" model="[user:user, command:command]"/>
     %{--</g:else>--}%
 </div>
+
 <div class="box-ppal-section">
-    <fieldset class="form-group text-center">
+    <fieldset aria-live="polite" class="form-group text-center">
         <input type="submit" value="${g.message(code:'default.save')}" class="btn btn-orange btn-lg">
     </fieldset>
 

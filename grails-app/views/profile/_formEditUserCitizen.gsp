@@ -1,5 +1,5 @@
 <%@ page import="kuorum.core.model.Gender" %>
-<fieldset class="row">
+<fieldset aria-live="polite" class="row">
     <div class="form-group col-md-6">
         <formUtil:selectEnum command="${command}" field="gender"/>
     </div>

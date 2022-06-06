@@ -26,13 +26,13 @@
 %{--    <formUtil:validateForm bean="${command}" form="step0" autocomplete="off"/>--}%
     <g:form mapping="campaignValidationLinkCheck" name="step0" role="form" method="POST" autocomplete="off"  class="signup step0">
 
-        <fieldset class="row">
+        <fieldset aria-live="polite" class="row">
             <div class="form-group col-xs-12 center">
                 <p><g:message code="kuorum.web.commands.profile.directCensusLogin.wrongCode.text" args="['info@kuorum.og']" encodeAs="raw"/></p>
             </div>
         </fieldset>
 
-%{--        <fieldset class="row">--}%
+    %{--        <fieldset aria-live="polite"  class="row">--}%
 %{--            <div class="form-group text-center option-buttons">--}%
 %{--                <a href="${redirectUrl}"  class="btn btn-lg">${g.message(code:'customRegister.step2.submit')}</a>--}%
 %{--            </div>--}%

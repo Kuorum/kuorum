@@ -16,8 +16,8 @@
         <input type="hidden" name="redirectLink" id="redirectLink"/>
         <input type="hidden" name="campaignId" value="${campaignId}"/>
 
-        <fieldset class="form-group">
-            <label for="campaignName" class="col-sm-2 col-md-1 control-label"><g:message
+    <fieldset aria-live="polite" class="form-group">
+        <label for="campaignName" class="col-sm-2 col-md-1 control-label"><g:message
                     code="kuorum.web.commands.payment.massMailing.MassMailingCommand.campaignName.label"/>:</label>
 
             <div class="col-sm-8 col-md-7">
@@ -31,7 +31,7 @@
 
         <g:render template="/newsletter/filter" model="[command: command, filters: filters, currentFilter: campaign?.newsletter?.filter,totalContacts:totalContacts]"/>
 
-    <fieldset class="form-group" id="advanced-features-section">
+    <fieldset aria-live="polite" class="form-group" id="advanced-features-section">
         %{--<label for="advanced-feature" class="col-sm-2 col-md-1 control-label">Advanced features:</label>--}%
         <div class="col-sm-offset-1 col-sm-10">
             <a href="">

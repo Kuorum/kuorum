@@ -28,7 +28,7 @@
         <input type="hidden" name="phoneHash" id="stepPhone_phoneHash" required="" value="${command.phoneHash}">
         <input type="hidden" name="validationPhoneNumberPrefix" id="stepPhone_validationPhoneNumberPrefix" required="" value="${command.validationPhoneNumberPrefix}">
         <input type="hidden" name="validationPhoneNumber" id="stepPhone_validationPhoneNumber" required="" value="${command.validationPhoneNumber}">
-        <fieldset class="row">
+        <fieldset aria-live="polite" class="row">
             <div class="form-group col-md-offset-3  col-md-6">
                 <formUtil:input
                         command="${command}"
@@ -40,7 +40,7 @@
         </fieldset>
 
 
-        <fieldset class="row">
+        <fieldset aria-live="polite" class="row">
             <div class="form-group col-md-offset-3 col-md-6 center option-buttons">
                 %{--<label><g:message code="customRegister.step2.choseUserType.label"/> </label>--}%
                 <g:link mapping="campaignValidationPhoneNumber" params="${campaign.encodeAsLinkProperties()}" class="btn btn-light"><g:message code="kuorum.web.commands.profile.DomainUserPhoneCodeValidationCommand.modal.back"/></g:link>

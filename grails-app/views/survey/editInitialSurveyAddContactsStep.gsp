@@ -48,11 +48,11 @@
                   data-generalErrorMessage="${g.message(code: 'kuorum.web.commands.payment.massMailing.DebateCommand.form.genericError')}">
 
                 <g:render template="/contacts/addContactsForm" model="[command: command]"/>
-                <fieldset class="buttons">
-                    <div class="text-right">
-                        <ul class="form-final-options">
-                            <li>
-                                <g:link mapping="politicianCampaigns" class="btn btn-grey-light">
+            <fieldset aria-live="polite" class="buttons">
+                <div class="text-right">
+                    <ul class="form-final-options">
+                        <li>
+                            <g:link mapping="politicianCampaigns" class="btn btn-grey-light">
                                     <g:message code="default.paginate.skip"/>
                                 </g:link>
                             </li>

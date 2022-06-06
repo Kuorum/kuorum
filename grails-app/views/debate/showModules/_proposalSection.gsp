@@ -6,9 +6,13 @@
             <img class="img-circle" alt="${userUtil.loggedUserName()}" src="${image.loggedUserImgSrc()}">
         </div>
 
-        <div class="comment editable col-md-11 col-xs-12" data-placeholder="${message(code: "debate.proposal.placeholder")}" style="min-height: 100px; padding-top: 10px"></div>
+        <div class="comment editable col-md-11 col-xs-12"
+             data-placeholder="${message(code: "debate.proposal.placeholder")}"
+             style="min-height: 100px; padding-top: 10px"></div>
+
         <div class="col-md-11 col-xs-12 pull-right">
-            <span for="editable" class="error" style="display: none;"><span class="tooltip-arrow"></span>${message(code: "debate.proposals.error")}</span>
+            <span class="error" style="display: none;"><span
+                    class="tooltip-arrow"></span>${message(code: "debate.proposals.error")}</span>
         </div>
 
         <div class="actions pull-right">
@@ -63,8 +67,9 @@
                     <g:message code="debate.modalDelete.title"/>
                 </h4>
             </div>
-            <fieldset class="modal-body">
-                <a href="#UrlUpdatedByAjax" role="button" class="btn btn-blue inverted btn-lg pull-right" id="modalDeleteDebateButton">
+            <fieldset aria-live="polite" class="modal-body">
+                <a href="#UrlUpdatedByAjax" role="button" class="btn btn-blue inverted btn-lg pull-right"
+                   id="modalDeleteDebateButton">
                     <g:message code="tools.massMailing.deleteContactModal.button"/>
                 </a>
             </fieldset>

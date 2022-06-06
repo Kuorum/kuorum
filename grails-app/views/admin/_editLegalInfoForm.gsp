@@ -1,7 +1,7 @@
 <r:require modules="forms"/>
 <div class="box-ppal-section">
     <h4 class="box-ppal-section-title"><g:message code="kuorum.web.admin.domain.legalInfo.label"/></h4>
-    <fieldset class="row">
+    <fieldset aria-live="polite" class="row">
         <div class="form-group col-md-6">
             <formUtil:input command="${command}" field="domainOwner" showLabel="true" />
         </div>
@@ -16,7 +16,7 @@
         </div>
     </fieldset>
     %{--<h4 class="box-ppal-section-title"><g:message code="kuorum.web.admin.domain.colors.label"/></h4>--}%
-    <fieldset class="row">
+    <fieldset aria-live="polite" class="row">
         <div class="form-group col-md-6">
             <formUtil:input command="${command}" field="fileResponsibleName" showLabel="true" />
         </div>
@@ -30,19 +30,20 @@
             <formUtil:textArea command="${command}" field="filePurpose" showLabel="true" />
         </div>
     </fieldset>
-    <fieldset class="row">
+    <fieldset aria-live="polite" class="row">
         <div class="form-group col-md-12">
             <formUtil:textArea command="${command}" field="customLegalInfo" showLabel="true" rows="8" texteditor="texteditor"/>
         </div>
     </fieldset>
-    <fieldset class="row">
+    <fieldset aria-live="polite" class="row">
         <div class="form-group col-md-12">
             <formUtil:textArea command="${command}" field="privacyPolicy" showLabel="true" rows="8" texteditor="texteditor"/>
         </div>
     </fieldset>
 </div>
+
 <div class="box-ppal-section">
-    <fieldset>
+    <fieldset aria-live="polite">
         <div class="form-group text-center">
             <button type="submit" class="btn btn-default btn-lg"><g:message code="default.save"/></button>
         </div>

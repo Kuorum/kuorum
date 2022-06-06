@@ -16,7 +16,7 @@
 </content>
 <content tag="mainContent">
     <g:uploadForm mapping="adminDomainConfigUploadCarouselImages">
-        <fieldset class="form-group">
+        <fieldset aria-live="polite" class="form-group">
             <label><g:message code="kuorum.web.admin.domain.DomainConfigStep1Command.carousel.label"/>*</label>
 
             <div class="">
@@ -31,7 +31,7 @@
                 </div>
             </div>
         </fieldset>
-        <fieldset class="form-group text-center">
+        <fieldset aria-live="polite" class="form-group text-center">
             <input type="submit" value="${g.message(code:'default.save')}" class="btn btn-orange btn-lg">
         </fieldset>
     </g:uploadForm>
