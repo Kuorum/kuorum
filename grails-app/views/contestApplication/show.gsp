@@ -6,7 +6,7 @@
     <g:set var="schemaData" value="${[schema: 'http://schema.org/Article', name: contestApplication.title]}"
            scope="request"/>
     <g:render template="/campaigns/showModules/campaignMetaTags"
-              model="[campaign: contest, titleMessageCode: titleMessageCode]"/>
+              model="[campaign: contestApplication, titleMessageCode: titleMessageCode]"/>
     %{--    <r:require modules="participatoryBudget, districtProposal, forms"/>--}%
 </head>
 
@@ -17,9 +17,9 @@
 
 <content tag="cColumn">
     <g:render template="/contestApplication/showModules/cCallToAction"
-              model="[contest: contestApplication, campaignUser: campaignUser, hideXs: true]"/>
+              model="[contestApplication: contestApplication, campaignUser: campaignUser, hideXs: true]"/>
     <g:render template="/campaigns/columnCModules/campaignFiles" model="[campaignFiles: campaignFiles]"/>
     <g:render template="/contestApplication/showModules/cContestApplicationStats"
-              model="[contest: contestApplication, campaignUser: campaignUser]"/>
+              model="[contestApplication: contestApplication, campaignUser: campaignUser]"/>
 </content>
 

@@ -1,5 +1,5 @@
-<g:set var="callTitleMsg" value="${g.message(code: 'contest.callToAction.draft.title')}"/>
-<g:set var="callSubtitleMsg" value="${g.message(code: 'contest.callToAction.draft.subtitle')}"/>
+<g:set var="callTitleMsg" value="${g.message(code: 'contestApplication.callToAction.draft.title')}"/>
+<g:set var="callSubtitleMsg" value="${g.message(code: 'contestApplication.callToAction.draft.subtitle')}"/>
 <g:set var="callButtonMsg" value=""/>
 
 <div class="comment-box call-to-action call-to-action-add-proposal ${hideXs ? 'hidden-sm hidden-xs' : ''}">

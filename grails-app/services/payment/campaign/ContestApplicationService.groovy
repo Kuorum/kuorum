@@ -153,7 +153,7 @@ class ContestApplicationService extends AbstractCampaignCreatorService<ContestAp
         Random seed = new Random()
         Double randomSeed = seed.nextDouble()
 
-        def model = [contestApplication: contestApplicationRSDTO, campaignUser: campaignUser, randomSeed: randomSeed]
+        def model = [contestApplication: contestApplicationRSDTO, campaignUser: campaignUser]
         return [view: '/contestApplication/show', model: model]
     }
 
