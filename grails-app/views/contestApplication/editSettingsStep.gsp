@@ -30,13 +30,13 @@
                       filters        : filters,
                       totalContacts  : totalContacts,
                       anonymousFilter: anonymousFilter,
-                      events         : [TrackingMailStatusRSDTO.CONTEST_APPLICATION_ADD],
+                      events         : [TrackingMailStatusRSDTO.DISTRICT_PROPOSAL_ADD],
                       mappings       : [
-                              step      : 'settings',
-                              settings  : 'contestEditSettings',
-                              content   : 'contestEditContent',
-                              deadlines : 'contestEditDeadlines',
-                              showResult: 'campaignShow',
-                              next      : 'contestEditContent']
+                              step       : 'settings',
+                              settings   : 'contestApplicationEditSettings',
+                              content    : 'contestApplicationEditContent',
+                              environment: 'contestApplicationEditEnvironment',
+                              showResult : 'campaignShow',
+                              next       : 'contestApplicationEditContent']
               ]"/>
 </content>

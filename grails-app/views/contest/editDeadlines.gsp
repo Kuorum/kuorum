@@ -25,7 +25,7 @@
             content: 'contestEditContent' ,
             deadlines: 'contestEditDeadlines',
             showResult: 'campaignShow',
-            next: 'contestEditDistricts'
+            next: 'contestEditContent'
             ]}"/>
         <g:render template="/campaigns/steps/campaignSteps" model="[mappings: mappings]"/>
     </div>

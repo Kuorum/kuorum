@@ -207,11 +207,18 @@ class UrlMappings {
         name contestCreate:            "/account/contest/new" (controller: "contest"){action = [GET: "create", POST: "saveSettings"]}
         name contestCopy:              "/account/contest/$campaignId/copy" (controller:"contest", action:"copy")
         name contestEditSettings:      "/account/$userAlias/ct/$urlTitle-$campaignId/edit-settings" (controller: "contest"){action = [GET: "editSettingsStep", POST: "saveSettings"]}
-        name contestEditDistricts:     "/account/$userAlias/ct/$urlTitle-$campaignId/edit-districts"(controller: "contest"){action = [GET: "editDistricts", POST: "saveDistricts"]}
         name contestEditDeadlines:     "/account/$userAlias/ct/$urlTitle-$campaignId/edit-deadlines"(controller: "contest"){action = [GET: "editDeadlines", POST: "saveDeadlines"]}
         name contestEditContent:       "/account/$userAlias/ct/$urlTitle-$campaignId/edit-content"  (controller: "contest"){action = [GET: "editContentStep", POST: "saveContent"]}
         name contestRemove:            "/ajax/account/$userAlias/ct/$urlTitle-$campaignId/remove"    (controller: "contest", action:"remove")
         name contestShow:              "/$userAlias/$urlTitle-$campaignId"           (controller: "campaign", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it)})}}
+
+        name contestApplicationCreate: "/account/$userAlias/pb/$urlTitle-$campaignId/new-application" (controller: "contestApplication"){action = [GET: "create", POST: "saveNewApplication"]}
+        name contestApplicationCopy:   "/account/contestApplication/$campaignId/copy" (controller:"contestApplication", action:"copy")
+        name contestApplicationEditSettings: "/account/$userAlias/cta/$contestTitle-$contestId/$urlTitle-$campaignId/edit-settings"  (controller: "contestApplication"){action = [GET: "editSettingsStep", POST: "saveSettings"]}
+        name contestApplicationEditContent: "/account/$userAlias/cta/$contestTitle-$contestId/$urlTitle-$campaignId/edit-content"  (controller: "contestApplication"){action = [GET: "editContentStep", POST: "saveContent"]}
+        name contestApplicationEditEnvironment: "/account/$userAlias/cta/$contestTitle-$contestId/$urlTitle-$campaignId/edit-environment"  (controller: "contestApplication"){action = [GET: "editEnvironmentStep", POST: "saveEnvironment"]}
+        name contestApplicationRemove:  "/ajax/account/$userAlias/cta/$urlTitle-$campaignId/remove"    (controller: "contestApplication", action:"remove")
+        name contestApplicationShow:    "/$userAlias/$contestTitle-$contestId/$urlTitle-$campaignId"           (controller: "campaign", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it)})}}
 
         name campaignShow:          "/$userAlias/$urlTitle-$campaignId" (controller: "campaign", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it)})}}
         name campaignCheckGroupValidation:"/ajax/$userAlias/$urlTitle-$campaignId/group/check" (controller: "campaign", action: "checkGroupCampaignValidation")

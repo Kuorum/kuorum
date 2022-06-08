@@ -31,7 +31,7 @@
     <g:if test="${contest.published}">
         <div class="actions clearfix">
             <g:link
-                    mapping="districtProposalCreate"
+                    mapping="contestApplicationCreate"
                     params="${contest.encodeAsLinkProperties()}"
                     type="button"
                     data-loggedUser="${sec.username()}"

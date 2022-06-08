@@ -20,6 +20,7 @@ import kuorum.web.commands.payment.contact.ContactFilterCommand
 import org.kuorum.rest.model.communication.*
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.kuorum.rest.model.communication.event.EventRDTO
+import org.kuorum.rest.model.communication.participatoryBudget.DistrictProposalRDTO
 import org.kuorum.rest.model.communication.search.SearchCampaignRDTO
 import org.kuorum.rest.model.communication.survey.CampaignVisibilityRSDTO
 import org.kuorum.rest.model.communication.survey.SurveyRDTO
@@ -46,6 +47,7 @@ class CampaignController {
     ContactService contactService
     ParticipatoryBudgetService participatoryBudgetService
     ContestService contestService
+    ContestApplicationService contestApplicationService
     DistrictProposalService districtProposalService
     PetitionService petitionService
     SpringSecurityService springSecurityService
@@ -86,6 +88,9 @@ class CampaignController {
                     break
                 case CampaignTypeRSDTO.CONTEST:
                     dataView = contestService.buildView(campaignRSDTO, user, viewerUid, params)
+                    break
+                case CampaignTypeRSDTO.CONTEST_APPLICATION:
+                    dataView = contestApplicationService.buildView(campaignRSDTO, user, viewerUid, params)
                     break
                 default:
                     log.error("Campaign type not recognized: ${campaignRSDTO.campaignType}")
@@ -438,6 +443,12 @@ class CampaignController {
 
         render(contentType: "application/json") {
             [success: true, belongsToCampaignGroup: belongsToCampaignGroup]
+        }
+    }
+
+    protected void setCampaignName(CampaignRDTO campaignRDTO, CampaignContentCommand command) {
+        if (campaignRDTO.name == null) {
+            campaignRDTO.name = command.title
         }
     }
 }
