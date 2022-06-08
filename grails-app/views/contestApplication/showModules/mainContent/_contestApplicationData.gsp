@@ -6,7 +6,7 @@
         <userUtil:showUser user="${campaignUser}" showRole="true" itemprop="author"/>
         %{--<g:render template="/participatoryBudget/showModules/mainContent/participatoryBudgetDataMobileCallToAction"/>--}%
         <g:render template="/campaigns/showModules/campaignDataDatePublished"
-                  model="[campaign: contestApplication, campaignUser: campaignUser, editMappingName: 'contestEditContent']"/>
+                  model="[campaign: contestApplication, campaignUser: campaignUser, editMappingName: 'contestApplicationEditContent']"/>
     </div>
 
     <div class="body" itemprop="articleBody">
