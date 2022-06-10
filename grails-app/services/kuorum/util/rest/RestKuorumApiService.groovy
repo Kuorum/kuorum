@@ -234,6 +234,7 @@ class RestKuorumApiService {
         ACCOUNT_CAMPAIGNS("/communication/campaign/{userId}"),
         ACCOUNT_CAMPAIGN("/communication/campaign/{userId}/{campaignId}"),
         ACCOUNT_CAMPAIGN_FILES("/communication/campaign/{userId}/{campaignId}/files"),
+        ACCOUNT_CAMPAIGN_CONTACT_FILES("/communication/campaign/{userId}/{campaignId}/contact-files"),
         ACCOUNT_CAMPAIGN_REPORTS("/communication/campaign/{userId}/{campaignId}/reports"),
         ACCOUNT_CAMPAIGN_REPORT_FILE("/communication/campaign/{userId}/{campaignId}/reports/{fileName}"),
         ACCOUNT_CAMPAIGN_PICTURE("/communication/campaign/{userId}/{campaignId}/picture"),

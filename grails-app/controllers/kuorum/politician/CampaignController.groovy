@@ -98,7 +98,9 @@ class CampaignController {
             }
             def model = dataView.model
             List<String> linkFiles = campaignService.getFiles(campaignRSDTO);
+            List<String> linkContactFiles = campaignService.getContactFiles(campaignRSDTO, viewerUid);
             model.campaignFiles = linkFiles.collect { it -> it.encodeAsS3File() }
+            model.contactFiles = linkContactFiles.collect { it -> it.encodeAsS3File() }
             if (springSecurityService.isLoggedIn()) {
                 KuorumUserSession userLogged = springSecurityService.principal
                 model.displayTimeZone = userLogged.timeZone ?: campaignRSDTO.user.timeZone
