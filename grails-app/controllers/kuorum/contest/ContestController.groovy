@@ -13,6 +13,9 @@ import kuorum.web.constants.WebConstants
 import org.kuorum.rest.model.communication.CampaignLightRSDTO
 import org.kuorum.rest.model.communication.contest.ContestRDTO
 import org.kuorum.rest.model.communication.contest.ContestRSDTO
+import org.kuorum.rest.model.communication.contest.ContestStatusDTO
+import org.kuorum.rest.model.communication.contest.FilterContestApplicationRDTO
+import org.kuorum.rest.model.communication.contest.PageContestApplicationRSDTO
 import org.kuorum.rest.model.communication.participatoryBudget.*
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 
@@ -138,5 +141,33 @@ class ContestController extends CampaignController {
     def copy(Long campaignId) {
         return super.copyCampaign(campaignId, contestService)
     }
+
+
+    def findContestApplications() {
+        BasicDataKuorumUserRSDTO contestUser = kuorumUserService.findBasicUserRSDTO(params.userAlias)
+        Long participatoryBudgetId = Long.parseLong(params.campaignId)
+        Integer page = params.page ? Integer.parseInt(params.page) : 0
+        String viewerUid = cookieUUIDService.buildUserUUID()
+        FilterContestApplicationRDTO filter = new FilterContestApplicationRDTO(page: page)
+        if (params.randomSeed) {
+            Double randomSeed = Double.parseDouble(params.randomSeed)
+            filter.sort = new FilterContestApplicationRDTO.SortContestApplicationRDTO(randomSeed: randomSeed)
+        } else {
+            filter.sort = new FilterContestApplicationRDTO.SortContestApplicationRDTO(field: FilterContestApplicationRDTO.SortableFieldRDTO.VOTES, direction: FilterContestApplicationRDTO.DirectionRDTO.ASC)
+        }
+
+        if (filter.sort && params.direction) {
+            FilterContestApplicationRDTO.DirectionRDTO dir = FilterContestApplicationRDTO.DirectionRDTO.valueOf(params.direction)
+            filter.sort.direction = dir
+        }
+        PageContestApplicationRSDTO pageContestApplications = contestService.findContestApplications(contestUser, participatoryBudgetId, filter, viewerUid)
+        if (pageContestApplications.total == 0) {
+            render template: '/contest/showModules/mainContent/contestApplicationsEmpty'
+        } else {
+            response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${pageContestApplications.total > ((pageContestApplications.page + 1) * pageContestApplications.size)}")
+            render template: '/campaigns/cards/campaignsList', model: [campaigns: pageContestApplications.data, showAuthor: true]
+        }
+    }
+
 
 }

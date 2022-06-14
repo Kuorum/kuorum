@@ -6,7 +6,7 @@
     <g:set var="schemaData" value="${[schema: 'http://schema.org/Article', name: contest.title]}" scope="request"/>
     <g:render template="/campaigns/showModules/campaignMetaTags"
               model="[campaign: contest, titleMessageCode: titleMessageCode]"/>
-    %{--    <r:require modules="participatoryBudget, districtProposal, forms"/>--}%
+    <r:require modules="contest, forms"/>
 </head>
 
 <content tag="mainContent">

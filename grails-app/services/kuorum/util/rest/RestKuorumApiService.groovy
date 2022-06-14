@@ -293,6 +293,7 @@ class RestKuorumApiService {
         ACCOUNT_CONTESTS("/communication/campaign/contest/{userId}"),
         ACCOUNT_CONTEST("/communication/campaign/contest/{userId}/{campaignId}"),
         ACCOUNT_CONTEST_COPY("/communication/campaign/contest/{userId}/{campaignId}/copy"),
+        ACCOUNT_CONTEST_APPLICATIONS_LIST("/communication/campaign/contest/{userId}/{campaignId}/applications"),
 
         ACCOUNT_CONTEST_APPLICATIONS("/communication/campaign/contest/application/{userId}"),
         ACCOUNT_CONTEST_APPLICATION("/communication/campaign/contest/application/{userId}/{campaignId}"),

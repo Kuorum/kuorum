@@ -150,9 +150,6 @@ class ContestApplicationService extends AbstractCampaignCreatorService<ContestAp
 
     @Override
     def buildView(ContestApplicationRSDTO contestApplicationRSDTO, BasicDataKuorumUserRSDTO campaignUser, String viewerUid, def params) {
-        Random seed = new Random()
-        Double randomSeed = seed.nextDouble()
-
         def model = [contestApplication: contestApplicationRSDTO, campaignUser: campaignUser]
         return [view: '/contestApplication/show', model: model]
     }

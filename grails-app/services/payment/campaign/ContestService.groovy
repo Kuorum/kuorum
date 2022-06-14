@@ -7,6 +7,9 @@ import kuorum.solr.IndexSolrService
 import kuorum.util.rest.RestKuorumApiService
 import org.kuorum.rest.model.communication.contest.ContestRDTO
 import org.kuorum.rest.model.communication.contest.ContestRSDTO
+import org.kuorum.rest.model.communication.contest.PageContestApplicationRSDTO
+import org.kuorum.rest.model.communication.contest.FilterContestApplicationRDTO
+import org.kuorum.rest.model.communication.participatoryBudget.PageDistrictProposalRSDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 
 class ContestService extends AbstractCampaignCreatorService<ContestRSDTO, ContestRDTO> implements CampaignCreatorService<ContestRSDTO, ContestRDTO> {
@@ -168,5 +171,37 @@ class ContestService extends AbstractCampaignCreatorService<ContestRSDTO, Contes
     @Override
     protected RestKuorumApiService.ApiMethod getCopyApiMethod() {
         return RestKuorumApiService.ApiMethod.ACCOUNT_CONTEST_COPY;
+    }
+
+    PageContestApplicationRSDTO findContestApplications(KuorumUserSession user, Long contestId, FilterContestApplicationRDTO filter, String viewerUid = null) {
+        return findContestApplications(user.id.toString(), contestId, filter, viewerUid)
+    }
+
+    PageContestApplicationRSDTO findContestApplications(BasicDataKuorumUserRSDTO user, Long contestId, FilterContestApplicationRDTO filter, String viewerUid = null) {
+        return findContestApplications(user.id, contestId, filter, viewerUid)
+    }
+
+    PageContestApplicationRSDTO findContestApplications(String userId, Long contestId, FilterContestApplicationRDTO filter, String viewerUid = null) {
+        if (!contestId) {
+            return null
+        }
+        Map<String, String> params = [userId: userId, campaignId: contestId.toString()]
+        Map<String, String> query = filter.encodeAsQueryParams()
+        if (viewerUid) {
+            query.put("viewerUid", viewerUid)
+        }
+        try {
+            def response = restKuorumApiService.get(
+                    RestKuorumApiService.ApiMethod.ACCOUNT_CONTEST_APPLICATIONS_LIST,
+                    params,
+                    query,
+                    new TypeReference<PageContestApplicationRSDTO>() {}
+            )
+
+            return response.data
+        } catch (KuorumException e) {
+            log.info("Error recovering applications [Contest ID: ${filter.id} ]: ${e.message}")
+            return null
+        }
     }
 }
