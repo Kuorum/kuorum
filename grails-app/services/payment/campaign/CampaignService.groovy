@@ -198,6 +198,18 @@ class CampaignService {
         response.data
     }
 
+    List<String> getContactFiles(CampaignRSDTO campaignRSDTO, String viewerUid) {
+        Map<String, String> params = [campaignId: campaignRSDTO.getId().toString(), userId: campaignRSDTO.getUser().getId()]
+        Map<String, String> query = [viewerUid: viewerUid]
+        def response = restKuorumApiService.get(
+                RestKuorumApiService.ApiMethod.ACCOUNT_CAMPAIGN_CONTACT_FILES,
+                params,
+                query,
+                new TypeReference<List<String>>() {}
+        )
+        response.data
+    }
+
     List<String> getReports(KuorumUserSession loggedUser, Long campaignId) {
         Map<String, String> params = [campaignId: campaignId.toString(), userId: loggedUser.getId().toString()]
         Map<String, String> query = [:]
