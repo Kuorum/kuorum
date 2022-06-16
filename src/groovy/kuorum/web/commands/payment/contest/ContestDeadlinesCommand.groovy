@@ -12,6 +12,7 @@ class ContestDeadlinesCommand {
     Date deadLineReview
     Date deadLineVotes
     Date deadLineResults
+    Integer numWinnerApplications;
 
     @BindingFormat(WebConstants.WEB_FORMAT_DATE)
     Date publishOn
@@ -24,6 +25,7 @@ class ContestDeadlinesCommand {
         deadLineReview nullable: false
         deadLineVotes nullable: false
         deadLineResults nullable: false
+        numWinnerApplications nullable: false
     }
 
 }

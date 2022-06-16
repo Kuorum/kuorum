@@ -7,35 +7,31 @@
            id="sendMassMailingType"/>
     <input type="hidden" name="campaignId" value="${command.campaignId}"/>
     <fieldset aria-live="polite" class="form-group">
-        <label for="deadLineApplications" class="col-sm-4 control-label"><g:message
-                code="kuorum.web.commands.payment.contest.ContestDeadlinesCommand.deadLineApplications.label"/>:</label>
+        <h2 class="col-sm-offset-1"><g:message
+                code="kuorum.web.commands.payment.contest.ContestDeadlinesCommand.dates.config"/></h2>
 
-        <div class="col-sm-4">
-            <formUtil:date command="${command}" field="deadLineApplications"/>
+        <div class=" col-sm-offset-1 col-sm-4">
+            <formUtil:input command="${command}" field="numWinnerApplications" showLabel="true"/>
         </div>
     </fieldset>
     <fieldset aria-live="polite" class="form-group">
-        <label for="deadLineReview" class="col-sm-4 control-label"><g:message
-                code="kuorum.web.commands.payment.contest.ContestDeadlinesCommand.deadLineTechnicalReview.label"/>:</label>
+        <h2 class="col-sm-offset-1"><g:message
+                code="kuorum.web.commands.payment.contest.ContestDeadlinesCommand.dates.title"/></h2>
 
-        <div class="col-sm-4">
-            <formUtil:date command="${command}" field="deadLineReview"/>
+        <div class="col-sm-offset-1 col-sm-4">
+            <formUtil:date command="${command}" field="deadLineApplications" showLabel="true"/>
         </div>
-    </fieldset>
-    <fieldset aria-live="polite" class="form-group">
-        <label for="deadLineVotes" class="col-sm-4 control-label"><g:message
-                code="kuorum.web.commands.payment.contest.ContestDeadlinesCommand.deadLineVotes.label"/>:</label>
 
         <div class="col-sm-4">
-            <formUtil:date command="${command}" field="deadLineVotes"/>
+            <formUtil:date command="${command}" field="deadLineReview" showLabel="true"/>
         </div>
-    </fieldset>
-    <fieldset aria-live="polite" class="form-group">
-        <label for="deadLineResults" class="col-sm-4 control-label"><g:message
-                code="kuorum.web.commands.payment.contest.ContestDeadlinesCommand.deadLineFinalReview.label"/>:</label>
+
+        <div class="col-sm-offset-1 col-sm-4">
+            <formUtil:date command="${command}" field="deadLineVotes" showLabel="true"/>
+        </div>
 
         <div class="col-sm-4">
-            <formUtil:date command="${command}" field="deadLineResults"/>
+            <formUtil:date command="${command}" field="deadLineResults" showLabel="true"/>
         </div>
     </fieldset>
 

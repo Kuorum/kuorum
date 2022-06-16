@@ -96,7 +96,8 @@ class ContestController extends CampaignController {
                 deadLineApplications: contestRSDTO.deadLineApplications,
                 deadLineReview: contestRSDTO.deadLineReview,
                 deadLineVotes: contestRSDTO.deadLineVotes,
-                deadLineResults: contestRSDTO.deadLineResults
+                deadLineResults: contestRSDTO.deadLineResults,
+                numWinnerApplications: contestRSDTO.numWinnerApplications
         )
     }
 
@@ -116,6 +117,7 @@ class ContestController extends CampaignController {
         rdto.deadLineReview = command.deadLineReview
         rdto.deadLineVotes = command.deadLineVotes
         rdto.deadLineResults = command.deadLineResults
+        rdto.numWinnerApplications = command.numWinnerApplications
         def result = saveAndSendCampaign(campaignUser, rdto, contestRSDTO.getId(), null, null, contestService)
         redirect mapping: result.nextStep.mapping, params: result.nextStep.params
     }

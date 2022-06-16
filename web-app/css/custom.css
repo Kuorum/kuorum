@@ -105,7 +105,15 @@ abbr{
     border:none !important;
 }
 
-span[rel=tooltip] {cursor: default;}
+fieldset > h2 {
+    font-size: 14px;
+    font-weight: bold;
+    color: #666;
+}
+
+span[rel=tooltip] {
+    cursor: default;
+}
 
 /* text truncation */
 .ellipsis{
