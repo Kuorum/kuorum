@@ -7,6 +7,13 @@ $(function () {
         contestApplicationHelper.showListApplications(listSelector);
     })
 
+    $("#contest-applications-list ul.search-list").on("click", "a.loadMore", function (e) {
+        e.preventDefault();
+        var $a = $(this);
+        var $ul = $a.parents("ul.search-list")
+        contestApplicationHelper.loadMoreApplications($ul)
+    });
+
     contestApplicationHelper.showListApplications();
 });
 
@@ -20,6 +27,7 @@ var contestApplicationHelper = {
     },
 
     loadMoreApplications: function ($ulIdSelector) {
+        $ulIdSelector.find("li.load-more-contest-application").remove();
         var urlLoadMoreDistrictProposals = $ulIdSelector.attr("data-loadProposals");
         var params = {
             page: $ulIdSelector.attr("data-page")
@@ -46,12 +54,13 @@ var contestApplicationHelper = {
                 $ulIdSelector.append(data);
                 if (moreResults) {
                     $ulIdSelector.append("" +
-                        "<li class='col-xs-12 center load-more-district-proposals load-more'> " +
+                        "<li class='col-xs-12 center load-more-contest-application load-more'> " +
                         "<a href='#' class='loadMore' >" + i18n.seeMore + " " +
                         "<span class='fal fa-angle-down'></span>" +
                         "</a>" +
                         "</li>")
                 }
+                $ulIdSelector.attr("data-page", Number.parseInt(params.page) + 1);
                 prepareYoutubeVideosClick();
             })
             .fail(function (messageError) {

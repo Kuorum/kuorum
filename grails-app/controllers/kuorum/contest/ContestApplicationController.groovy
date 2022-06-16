@@ -29,7 +29,7 @@ class ContestApplicationController extends CampaignController {
     // Grails renderer -> For CSV hack
     grails.gsp.PageRenderer groovyPageRenderer
 
-    @Secured(['ROLE_CAMPAIGN_CONTEST'])
+    @Secured(['ROLE_CAMPAIGN_CONTEST_APPLICATION'])
     def create() {
         Long contestId = params.campaignId ? Long.parseLong(params.campaignId) : null
         BasicDataKuorumUserRSDTO user = kuorumUserService.findBasicUserRSDTO(params.userAlias)
@@ -37,7 +37,7 @@ class ContestApplicationController extends CampaignController {
         return contestApplicationModelEditEnvironment(new ContestApplicationEnvironmentCommand(), null, contest)
     }
 
-    @Secured(['ROLE_CAMPAIGN_CONTEST'])
+    @Secured(['ROLE_CAMPAIGN_CONTEST_APPLICATION'])
     def saveNewApplication(ContestApplicationEnvironmentCommand command) {
         Long contestId = params.campaignId ? Long.parseLong(params.campaignId) : null
         BasicDataKuorumUserRSDTO user = kuorumUserService.findBasicUserRSDTO(params.userAlias)
@@ -60,21 +60,21 @@ class ContestApplicationController extends CampaignController {
 
     }
 
-    @Secured(['ROLE_CAMPAIGN_CONTEST'])
+    @Secured(['ROLE_CAMPAIGN_CONTEST_APPLICATION'])
     def editSettingsStep() {
         KuorumUserSession user = springSecurityService.principal
         ContestApplicationRSDTO contestApplicationRSDTO = contestApplicationService.find(user, Long.parseLong((String) params.campaignId))
         return contestModelSettings(new CampaignSettingsCommand(debatable: false), contestApplicationRSDTO)
     }
 
-    @Secured(['ROLE_CAMPAIGN_CONTEST'])
+    @Secured(['ROLE_CAMPAIGN_CONTEST_APPLICATION'])
     def editContentStep() {
         Long campaignId = Long.parseLong((String) params.campaignId)
         ContestApplicationRSDTO contestApplicationRSDTO = setCampaignAsDraft(campaignId, contestApplicationService)
         return campaignModelContent(campaignId, contestApplicationRSDTO, null, contestApplicationService)
     }
 
-    @Secured(['ROLE_CAMPAIGN_CONTEST'])
+    @Secured(['ROLE_CAMPAIGN_CONTEST_APPLICATION'])
     def editEnvironmentStep() {
         Long contestApplicationId = params.campaignId ? Long.parseLong(params.campaignId) : null
         BasicDataKuorumUserRSDTO user = kuorumUserService.findBasicUserRSDTO(params.userAlias)
@@ -83,7 +83,7 @@ class ContestApplicationController extends CampaignController {
         return contestApplicationModelEditEnvironment(null, contestApplicationRSDTO, contest)
     }
 
-    @Secured(['ROLE_CAMPAIGN_CONTEST'])
+    @Secured(['ROLE_CAMPAIGN_CONTEST_APPLICATION'])
     def saveEnvironment(ContestApplicationEnvironmentCommand command) {
         KuorumUserSession user = springSecurityService.principal
         Long contestApplicationId = params.campaignId ? Long.parseLong(params.campaignId) : null
@@ -92,7 +92,7 @@ class ContestApplicationController extends CampaignController {
         redirect mapping: nextStep.mapping, params: nextStep.params
     }
 
-    @Secured(['ROLE_CAMPAIGN_CONTEST'])
+    @Secured(['ROLE_CAMPAIGN_CONTEST_APPLICATION'])
     def saveSettings(CampaignSettingsCommand command) {
         if (command.hasErrors()) {
             render view: 'create', model: contestModelSettings(command, null)
@@ -104,7 +104,7 @@ class ContestApplicationController extends CampaignController {
         redirect mapping: result.nextStep.mapping, params: result.nextStep.params
     }
 
-    @Secured(['ROLE_CAMPAIGN_CONTEST'])
+    @Secured(['ROLE_CAMPAIGN_CONTEST_APPLICATION'])
     def saveContent(CampaignContentCommand command) {
         Long campaignId = params.campaignId ? Long.parseLong(params.campaignId) : null
         if (command.hasErrors()) {
@@ -120,7 +120,7 @@ class ContestApplicationController extends CampaignController {
     }
 
 
-    @Secured(['ROLE_CAMPAIGN_CONTEST'])
+    @Secured(['ROLE_CAMPAIGN_CONTEST_APPLICATION'])
     def remove(Long campaignId) {
         removeCampaign(campaignId, participatoryBudgetService)
         render([msg: "Contest budget deleted"] as JSON)

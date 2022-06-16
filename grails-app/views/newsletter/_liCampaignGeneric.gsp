@@ -42,6 +42,7 @@
     <g:set var="urlMappingNameEditStep" value="contestApplicationEditContent"/>
     <g:set var="urlMappingNameShow" value="contestApplicationShow"/>
     <g:set var="urlMappingNameRemove" value="contestApplicationRemove"/>
+    <g:set var="urlMappingNameCopy" value="contestApplicationCopy"/>
     <g:set var="faIcon" value="far fa-scroll"/>
 </g:elseif>
 <g:set var="typeName" value="${g.message(code: 'tools.campaign.new.' + type)}"/>
