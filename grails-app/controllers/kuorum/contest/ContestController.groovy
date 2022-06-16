@@ -147,7 +147,7 @@ class ContestController extends CampaignController {
 
     def findContestApplications() {
         BasicDataKuorumUserRSDTO contestUser = kuorumUserService.findBasicUserRSDTO(params.userAlias)
-        Long participatoryBudgetId = Long.parseLong(params.campaignId)
+        Long contestId = Long.parseLong(params.campaignId)
         Integer page = params.page ? Integer.parseInt(params.page) : 0
         String viewerUid = cookieUUIDService.buildUserUUID()
         FilterContestApplicationRDTO filter = new FilterContestApplicationRDTO(page: page)
@@ -162,7 +162,7 @@ class ContestController extends CampaignController {
             FilterContestApplicationRDTO.DirectionRDTO dir = FilterContestApplicationRDTO.DirectionRDTO.valueOf(params.direction)
             filter.sort.direction = dir
         }
-        PageContestApplicationRSDTO pageContestApplications = contestService.findContestApplications(contestUser, participatoryBudgetId, filter, viewerUid)
+        PageContestApplicationRSDTO pageContestApplications = contestService.findContestApplications(contestUser, contestId, filter, viewerUid)
         if (pageContestApplications.total == 0) {
             render template: '/contest/showModules/mainContent/contestApplicationsEmpty'
         } else {

@@ -16,6 +16,6 @@
     <div class="footer clearfix">
         <g:render template="/campaigns/showModules/campaignDataLabels" model="[causes: contest.causes]"/>
         <g:render template="/campaigns/showModules/campaignDataSocial" model="[campaign: contest]"/>
-        %{--        <g:render template="/districtProposal/showModules/districtProposalDataIcon" model="[districtProposal:districtProposal]"/>--}%
+        <g:render template="/contest/showModules/mainContent/contestDataIcon" model="[contest: contest]"/>
     </div>
 </div>
