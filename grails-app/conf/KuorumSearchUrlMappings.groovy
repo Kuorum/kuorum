@@ -165,6 +165,43 @@ class KuorumSearchUrlMappings {
         name es_searcherSearchPETITIONByREGION:"/buscar/peticion/en/$word?"      (controller: "search", action:"search"){searchType="REGION";type="PETITION"; mappingName="searcherSearchPETITIONByREGION"}
         name de_searcherSearchPETITIONByREGION:"/suche/petition/von/$word?"      (controller: "search", action:"search"){searchType="REGION";type="PETITION"; mappingName="searcherSearchPETITIONByREGION"}
         name ca_searcherSearchPETITIONByREGION:"/cerca/peticio/a/$word?"      (controller: "search", action:"search"){searchType="REGION";type="PETITION"; mappingName="searcherSearchPETITIONByREGION"}
+
+        name searcherSearchCONTEST:    "/search/contest"                        (controller: "search", action:"search"){solrType="CONTEST"; mappingName="searcherSearchCONTEST"}
+        name en_searcherSearchCONTEST:"/search/contest/$word?"                  (controller: "search", action:"search"){solrType="CONTEST"; mappingName="searcherSearchCONTEST"}
+        name es_searcherSearchCONTEST:"/buscar/concurso/$word?"                 (controller: "search", action:"search"){solrType="CONTEST"; mappingName="searcherSearchCONTEST"}
+        name de_searcherSearchCONTEST:"/suche/wettbewerb/$word?"                (controller: "search", action:"search"){solrType="CONTEST"; mappingName="searcherSearchCONTEST"}
+        name ca_searcherSearchCONTEST:"/cerca/concurs/$word?"                   (controller: "search", action:"search"){solrType="CONTEST"; mappingName="searcherSearchCONTEST"}
+
+        name searcherSearchCONTESTByCAUSE:   "/search/contest/cause/$word?"     (controller: "search", action:"search"){searchType="CAUSE";type="CONTEST"; mappingName="searcherSearchCONTESTByCAUSE"}
+        name en_searcherSearchCONTESTByCAUSE:"/search/contest/cause/$word?"     (controller: "search", action:"search"){searchType="CAUSE";type="CONTEST"; mappingName="searcherSearchCONTESTByCAUSE"}
+        name es_searcherSearchCONTESTByCAUSE:"/buscar/concurso/causa/$word?"    (controller: "search", action:"search"){searchType="CAUSE";type="CONTEST"; mappingName="searcherSearchCONTESTByCAUSE"}
+        name de_searcherSearchCONTESTByCAUSE:"/suche/wettbewerb/themen/$word?"  (controller: "search", action:"search"){searchType="CAUSE";type="CONTEST"; mappingName="searcherSearchCONTESTByCAUSE"}
+        name ca_searcherSearchCONTESTByCAUSE:"/cerca/concurs/causa/$word?"      (controller: "search", action:"search"){searchType="CAUSE";type="CONTEST"; mappingName="searcherSearchCONTESTByCAUSE"}
+
+        name searcherSearchCONTESTByREGION:   "/search/contest/from/$word?"     (controller: "search", action:"search"){searchType="REGION";type="CONTEST"; mappingName="searcherSearchCONTESTByREGION"}
+        name en_searcherSearchCONTESTByREGION:"/search/contest/from/$word?"     (controller: "search", action:"search"){searchType="REGION";type="CONTEST"; mappingName="searcherSearchCONTESTByREGION"}
+        name es_searcherSearchCONTESTByREGION:"/buscar/concurso/en/$word?"      (controller: "search", action:"search"){searchType="REGION";type="CONTEST"; mappingName="searcherSearchCONTESTByREGION"}
+        name de_searcherSearchCONTESTByREGION:"/suche/wettbewerb/von/$word?"    (controller: "search", action:"search"){searchType="REGION";type="CONTEST"; mappingName="searcherSearchCONTESTByREGION"}
+        name ca_searcherSearchCONTESTByREGION:"/cerca/concurs/a/$word?"         (controller: "search", action:"search"){searchType="REGION";type="CONTEST"; mappingName="searcherSearchCONTESTByREGION"}
+
+        name searcherSearchCONTEST_APPLICATION:    "/search/application"                    (controller: "search", action:"search"){solrType="CONTEST_APPLICATION"; mappingName="searcherSearchCONTEST_APPLICATION"}
+        name en_searcherSearchCONTEST_APPLICATION:"/search/application/$word?"              (controller: "search", action:"search"){solrType="CONTEST_APPLICATION"; mappingName="searcherSearchCONTEST_APPLICATION"}
+        name es_searcherSearchCONTEST_APPLICATION:"/buscar/proyecto/$word?"                 (controller: "search", action:"search"){solrType="CONTEST_APPLICATION"; mappingName="searcherSearchCONTEST_APPLICATION"}
+        name de_searcherSearchCONTEST_APPLICATION:"/suche/anwendungen/$word?"               (controller: "search", action:"search"){solrType="CONTEST_APPLICATION"; mappingName="searcherSearchCONTEST_APPLICATION"}
+        name ca_searcherSearchCONTEST_APPLICATION:"/cerca/projecte/$word?"                  (controller: "search", action:"search"){solrType="CONTEST_APPLICATION"; mappingName="searcherSearchCONTEST_APPLICATION"}
+
+        name searcherSearchCONTEST_APPLICATIONByCAUSE:   "/search/application/cause/$word?" (controller: "search", action:"search"){searchType="CAUSE";type="CONTEST_APPLICATION"; mappingName="searcherSearchCONTEST_APPLICATIONByCAUSE"}
+        name en_searcherSearchCONTEST_APPLICATIONByCAUSE:"/search/application/cause/$word?" (controller: "search", action:"search"){searchType="CAUSE";type="CONTEST_APPLICATION"; mappingName="searcherSearchCONTEST_APPLICATIONByCAUSE"}
+        name es_searcherSearchCONTEST_APPLICATIONByCAUSE:"/buscar/proyecto/causa/$word?"    (controller: "search", action:"search"){searchType="CAUSE";type="CONTEST_APPLICATION"; mappingName="searcherSearchCONTEST_APPLICATIONByCAUSE"}
+        name de_searcherSearchCONTEST_APPLICATIONByCAUSE:"/suche/anwendungen/themen/$word?" (controller: "search", action:"search"){searchType="CAUSE";type="CONTEST_APPLICATION"; mappingName="searcherSearchCONTEST_APPLICATIONByCAUSE"}
+        name ca_searcherSearchCONTEST_APPLICATIONByCAUSE:"/cerca/projecte/causa/$word?"     (controller: "search", action:"search"){searchType="CAUSE";type="CONTEST_APPLICATION"; mappingName="searcherSearchCONTEST_APPLICATIONByCAUSE"}
+
+        name searcherSearchCONTEST_APPLICATIONByREGION:   "/search/application/from/$word?" (controller: "search", action:"search"){searchType="REGION";type="CONTEST_APPLICATION"; mappingName="searcherSearchCONTEST_APPLICATIONByREGION"}
+        name en_searcherSearchCONTEST_APPLICATIONByREGION:"/search/application/from/$word?" (controller: "search", action:"search"){searchType="REGION";type="CONTEST_APPLICATION"; mappingName="searcherSearchCONTEST_APPLICATIONByREGION"}
+        name es_searcherSearchCONTEST_APPLICATIONByREGION:"/buscar/proyecto/en/$word?"      (controller: "search", action:"search"){searchType="REGION";type="CONTEST_APPLICATION"; mappingName="searcherSearchCONTEST_APPLICATIONByREGION"}
+        name de_searcherSearchCONTEST_APPLICATIONByREGION:"/suche/anwendungen/von/$word?"   (controller: "search", action:"search"){searchType="REGION";type="CONTEST_APPLICATION"; mappingName="searcherSearchCONTEST_APPLICATIONByREGION"}
+        name ca_searcherSearchCONTEST_APPLICATIONByREGION:"/cerca/projecte/a/$word?"        (controller: "search", action:"search"){searchType="REGION";type="CONTEST_APPLICATION"; mappingName="searcherSearchCONTEST_APPLICATIONByREGION"}
+
     }
 
 }

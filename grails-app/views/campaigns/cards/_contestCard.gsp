@@ -20,8 +20,8 @@
                 <li>
                     <g:link mapping="campaignShow" params="${contest.encodeAsLinkProperties()}"
                             fragment="participatory-budget-district-proposals-list-tab" role="button">
-                        <span class="fal fa-money-bill-alt" aria-hidden="true"></span>
-                        <span class="number">XXX</span>
+                        <span class="fal fa-trophy" aria-hidden="true"></span>
+                        <span class="number">${contest.numApplications}</span>
                     </g:link>
                 </li>
             </ul>

@@ -14,4 +14,8 @@
         <span class="info"><g:message code="debate.lastActivity"/> <kuorumDate:humanDate
                 date="${contest.lastActivity}"/></span>
     </li>
+    <li>
+        <span class="fal fa-flag" aria-hidden="true"></span>
+        <span class="info"><g:message code="contest.numWinnerApplications" args="[contest.numWinnerApplications]"/>
+    </li>
 </ul>

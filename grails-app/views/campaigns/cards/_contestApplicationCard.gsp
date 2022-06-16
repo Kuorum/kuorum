@@ -24,7 +24,7 @@
                 <li>
                     <g:link mapping="campaignShow" params="${contestApplication.encodeAsLinkProperties()}"
                             fragment="participatory-budget-district-proposals-list-tab" role="button">
-                        <span class="fal fa-money-bill-alt" aria-hidden="true"></span>
+                        <span class="fal fa-scroll" aria-hidden="true"></span>
                         <span class="number">XXX</span>
                     </g:link>
                 </li>
