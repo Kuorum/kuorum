@@ -129,12 +129,28 @@
                                     <g:message code="dashboard.payment.chooseCampaign.tooltip.districtProposal.modal.title"/>
                                 </h4>
                             </div>
+
                             <div class="modal-body">
                                 <div class="pb-list"></div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </li>
+        </sec:ifAnyGranted>
+
+
+        <sec:ifAnyGranted roles="ROLE_CAMPAIGN_CONTEST">
+            <li class="fontIcon">
+                <g:link mapping="contestCreate" role="button" class="actionIcons"
+                        rel="tooltip"
+                        data-toggle="tooltip"
+                        data-placement="bottom"
+                        title=""
+                        data-original-title="${g.message(code: 'dashboard.payment.chooseCampaign.tooltip.CONTEST')}">
+                    <span class="fal fa-trophy"></span>
+                    <span class="label"><g:message code="tools.campaign.new.CONTEST"/></span>
+                </g:link>
             </li>
         </sec:ifAnyGranted>
     </ul>

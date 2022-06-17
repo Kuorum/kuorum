@@ -82,20 +82,30 @@
                             <span class="number">${campaign.amountAssistants}</span>
                         </g:link>
                     </g:elseif>
-                    <g:elseif test="${campaign.type== org.kuorum.rest.model.search.SearchTypeRSDTO.PARTICIPATORY_BUDGET}">
-                        <g:render template="/participatoryBudget/showModules/participatoryBudgetDataIcon" model="[participatoryBudget:campaign]"/>
+                    <g:elseif
+                            test="${campaign.type == org.kuorum.rest.model.search.SearchTypeRSDTO.PARTICIPATORY_BUDGET}">
+                        <g:render template="/participatoryBudget/showModules/participatoryBudgetDataIcon"
+                                  model="[participatoryBudget: campaign]"/>
                     </g:elseif>
-                    <g:elseif test="${campaign.type== org.kuorum.rest.model.search.SearchTypeRSDTO.DISTRICT_PROPOSAL}">
-                        <g:render template="/districtProposal/showModules/districtProposalDataIcon/districtProposalDataIcon_${campaign.participatoryBudget.status}" model="[districtProposal:campaign]"/>
+                    <g:elseif test="${campaign.type == org.kuorum.rest.model.search.SearchTypeRSDTO.DISTRICT_PROPOSAL}">
+                        <g:render
+                                template="/districtProposal/showModules/districtProposalDataIcon/districtProposalDataIcon_${campaign.participatoryBudget.status}"
+                                model="[districtProposal: campaign]"/>
                     </g:elseif>
-                    <g:elseif test="${campaign.type== org.kuorum.rest.model.search.SearchTypeRSDTO.PETITION}">
-                        <g:render template="/petition/showModules/mainContent/petitionDataIcon" model="[petition:campaign]"/>
+                    <g:elseif test="${campaign.type == org.kuorum.rest.model.search.SearchTypeRSDTO.PETITION}">
+                        <g:render template="/petition/showModules/mainContent/petitionDataIcon"
+                                  model="[petition: campaign]"/>
+                    </g:elseif>
+                    <g:elseif test="${campaign.type == org.kuorum.rest.model.search.SearchTypeRSDTO.CONTEST}">
+                        <g:render template="/contest/showModules/mainContent/contestDataIcon"
+                                  model="[contest: campaign]"/>
                     </g:elseif>
                 </li>
             </ul>
         </div>
     </div>
     <g:if test="${campaign instanceof org.kuorum.rest.model.search.kuorumElement.SearchDistrictProposalRSDTO}">
-        <g:render template="/districtProposal/showModules/mainContent/districtProposalModalErrors" model="[district:campaign.district]"/>
+        <g:render template="/districtProposal/showModules/mainContent/districtProposalModalErrors"
+                  model="[district: campaign.district]"/>
     </g:if>
 </article>

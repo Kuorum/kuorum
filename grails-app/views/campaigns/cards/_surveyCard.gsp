@@ -1,32 +1,9 @@
-
-<article role="article" class="box-ppal clearfix ${highlighted?'highlighted':''}">
+<article role="article" class="box-ppal clearfix ${highlighted ? 'highlighted' : ''}">
     <div class="link-wrapper" id="survey-${survey.id}" data-datepublished="${survey.datePublished.time}">
-        <g:link mapping="surveyShow" params="${survey.encodeAsLinkProperties()}" class="hidden"></g:link>
-        %{--<g:if test="${survey.photoUrl || survey.videoUrl}">--}%
-            <div class="card-header-photo">
-                <g:if test="${survey.photoUrl}">
-                    <img src="${survey.photoUrl}" alt="${survey.title}">
-                </g:if>
-                <g:elseif test="${survey.videoUrl}">
-                    <image:showYoutube youtube="${survey.videoUrl}" campaign="${survey}"/>
-                </g:elseif>
-                <g:else>
-                    <div class="imagen-shadowed-main-color-domain">
-                        <img class="empty" src="${g.resource(dir: "images", file: "emptyCampaign.png")}" alt="${survey.title}"/>
-                    </div>
-                </g:else>
-            </div>
-        %{--</g:if>--}%
-        <div class="card-body">
-            <h1>
-                <g:link mapping="surveyShow" class="link-wrapper-clickable" params="${survey.encodeAsLinkProperties()}">
-                    ${survey.title}
-                </g:link>
-            </h1>
-            %{--<g:if test="${!surveyMultimedia}">--}%
-                %{--<div class="card-text"><modulesUtil:shortText text="${survey.body}"/></div>--}%
-            %{--</g:if>--}%
-        </div>
+        <g:set var="campaignLink" value="${g.link(mapping: 'surveyShow', params: survey.encodeAsLinkProperties())}"/>
+        <a href="${campaignLink}" class="hidden"></a>
+        <g:render template="/campaigns/cards/campaignMultimediaCard" model="[campaign: survey]"/>
+        <g:render template="/campaigns/cards/campaignBodyCard" model="[campaign: survey, campaignLink: campaignLink]"/>
         <div class="card-footer">
             <ul>
                 <g:if test="${showAuthor}">
