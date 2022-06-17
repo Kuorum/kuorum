@@ -2,24 +2,17 @@ package kuorum.contest
 
 import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
-import kuorum.core.exception.KuorumException
 import kuorum.politician.CampaignController
 import kuorum.register.KuorumUserSession
 import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.commands.payment.CampaignSettingsCommand
 import kuorum.web.commands.payment.contest.ContestDeadlinesCommand
-import kuorum.web.commands.payment.participatoryBudget.*
 import kuorum.web.constants.WebConstants
-import org.kuorum.rest.model.communication.CampaignLightRSDTO
 import org.kuorum.rest.model.communication.contest.ContestRDTO
 import org.kuorum.rest.model.communication.contest.ContestRSDTO
-import org.kuorum.rest.model.communication.contest.ContestStatusDTO
 import org.kuorum.rest.model.communication.contest.FilterContestApplicationRDTO
 import org.kuorum.rest.model.communication.contest.PageContestApplicationRSDTO
-import org.kuorum.rest.model.communication.participatoryBudget.*
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
-
-import java.lang.reflect.UndeclaredThrowableException
 
 class ContestController extends CampaignController {
 

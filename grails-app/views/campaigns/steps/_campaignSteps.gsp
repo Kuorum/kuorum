@@ -35,6 +35,13 @@
             label        : g.message(code: 'tools.campaign.new.steps.environment')
     ]"/>
     <g:render template="/campaigns/steps/campaignStepActionButton" model="[
+            show         : mappings.deadlines,
+            currentActive: mappings.step == 'deadlines',
+            link         : mappings.deadlines,
+            faIcon       : 'fa-calendar-exclamation',
+            label        : g.message(code: 'tools.campaign.new.steps.deadlines')
+    ]"/>
+    <g:render template="/campaigns/steps/campaignStepActionButton" model="[
             show         : mappings.content,
             currentActive: mappings.step == 'content',
             link         : mappings.content,
@@ -47,13 +54,6 @@
             link         : mappings.questions,
             faIcon:'fa-question-circle',
             label:g.message(code:'tools.campaign.new.steps.questions')
-    ]"/>
-    <g:render template="/campaigns/steps/campaignStepActionButton" model="[
-            show:mappings.deadlines,
-            currentActive:mappings.step == 'deadlines',
-            link:mappings.deadlines,
-            faIcon:'fa-calendar-exclamation',
-            label:g.message(code:'tools.campaign.new.steps.deadlines')
     ]"/>
     <g:render template="/campaigns/steps/campaignStepActionButton" model="[
             show:mappings.districts,

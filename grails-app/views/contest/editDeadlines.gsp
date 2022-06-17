@@ -19,7 +19,7 @@
     <div class="box-steps container-fluid campaign-steps">
         <g:set var="mappings" value="${
             [
-            saveAndSentButtons: true,
+            saveAndSentButtons: false,
             step: 'deadlines' ,
             settings: 'contestEditSettings',
             content: 'contestEditContent' ,
