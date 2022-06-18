@@ -14,10 +14,11 @@
     </li>
     <li>
         <span class="fal fa-flag" aria-hidden="true"></span>
-        <span class="info"><g:message code="contest.numWinnerApplications" args="[contest.numWinnerApplications]"/>
+        <span class="info"><g:message code="contest.numWinnerApplications"
+                                      args="[contest.numWinnerApplications ?: '--']"/>
     </li>
     <li>
         <span class="fal fa-scroll" aria-hidden="true"></span>
-        <span class="info"><g:message code="contest.numApplications" args="[contest.numApplications]"/>
+        <span class="info"><g:message code="contest.numApplications" args="[contest.numApplications ?: '--']"/>
     </li>
 </ul>

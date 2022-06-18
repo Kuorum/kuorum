@@ -1,6 +1,7 @@
 <article role="article" class="box-ppal clearfix ${highlighted ? 'highlighted' : ''}">
     <div class="link-wrapper" id="survey-${survey.id}" data-datepublished="${survey.datePublished.time}">
-        <g:set var="campaignLink" value="${g.link(mapping: 'surveyShow', params: survey.encodeAsLinkProperties())}"/>
+        <g:set var="campaignLink"
+               value="${g.createLink(mapping: 'surveyShow', params: survey.encodeAsLinkProperties())}"/>
         <a href="${campaignLink}" class="hidden"></a>
         <g:render template="/campaigns/cards/campaignMultimediaCard" model="[campaign: survey]"/>
         <g:render template="/campaigns/cards/campaignBodyCard" model="[campaign: survey, campaignLink: campaignLink]"/>

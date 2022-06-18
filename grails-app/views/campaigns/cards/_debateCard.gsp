@@ -1,29 +1,10 @@
-
-<article role="article" class="box-ppal clearfix ${highlighted?'highlighted':''}">
+<article role="article" class="box-ppal clearfix ${highlighted ? 'highlighted' : ''}">
     <div class="link-wrapper" id="debate-${debate.id}" data-datePublished="${debate.datePublished.time}">
-        <g:link mapping="debateShow" params="${debate.encodeAsLinkProperties()}" class="hidden"></g:link>
-        %{--<g:if test="${debate.photoUrl || debate.videoUrl}">--}%
-            <div class="card-header-photo">
-                <g:if test="${debate.photoUrl}">
-                    <img src="${debate.photoUrl}" alt="${debate.title}">
-                </g:if>
-                <g:elseif test="${debate.videoUrl}">
-                    <image:showYoutube youtube="${debate.videoUrl}" campaign="${debate}"/>
-                </g:elseif>
-                <g:else>
-                    <div class="imagen-shadowed-main-color-domain">
-                        <img class="empty" src="${g.resource(dir: "images", file: "emptyCampaign.png")}" alt="${debate.title}"/>
-                    </div>
-                </g:else>
-            </div>
-        %{--</g:if>--}%
-        <div class="card-body">
-            <h1>
-                <g:link mapping="debateShow" class="link-wrapper-clickable" params="${debate.encodeAsLinkProperties()}">
-                    ${debate.title}
-                </g:link>
-            </h1>
-        </div>
+        <g:set var="campaignLink"
+               value="${g.createLink(mapping: 'debateShow', params: debate.encodeAsLinkProperties())}"/>
+        <a href="${campaignLink}" class="hidden"></a>
+        <g:render template="/campaigns/cards/campaignMultimediaCard" model="[campaign: debate]"/>
+        <g:render template="/campaigns/cards/campaignBodyCard" model="[campaign: debate, campaignLink: campaignLink]"/>
         <div class="card-footer">
             <ul>
                 <g:if test="${showAuthor}">
