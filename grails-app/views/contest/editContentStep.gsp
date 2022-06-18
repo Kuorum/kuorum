@@ -20,7 +20,7 @@
             numberRecipients: numberRecipients,
             status          : status,
             mappings        : [
-                    saveAndSentButtons: false,
+                    saveAndSentButtons: true,
                     step              : 'content',
                     settings          : 'contestEditSettings',
                     content           : 'contestEditContent',
