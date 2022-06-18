@@ -19,7 +19,8 @@
     <g:render template="/contestApplication/showModules/cCallToAction"
               model="[contestApplication: contestApplication, campaignUser: campaignUser, hideXs: true]"/>
     <g:render template="/campaigns/columnCModules/campaignFiles" model="[campaignFiles: campaignFiles]"/>
-    <g:render template="/campaigns/columnCModules/campaignFiles" model="[campaignFiles: contactFiles]"/>
+    <g:render template="/campaigns/columnCModules/campaignFiles"
+              model="[campaignFiles: contactFiles, title: g.message(code: 'campaign.show.contact-files.title'), subtitle: g.message(code: 'campaign.show.contact-files.subtitle')]"/>
 
     <g:render template="/contestApplication/showModules/cContestApplicationStats"
               model="[contestApplication: contestApplication, campaignUser: campaignUser]"/>
