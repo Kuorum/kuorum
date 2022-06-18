@@ -34,21 +34,25 @@
                             code="org.kuorum.rest.model.communication.contest.ContestStatusDTO.${status}"/></label>
                     <g:set var="statusDate">--</g:set>
                     <g:set var="statusDateMsgCode" value="participatoryBudget.status.until"/>
-                    <g:if test="${status == org.kuorum.rest.model.communication.contest.ContestStatusDTO.ADDING_APPLICATIONS}"><g:set
-                            var="statusDate"><g:formatDate formatName="default.date.format.small"
-                                                           date="${contest.deadLineApplications}"/></g:set></g:if>
-                    <g:if test="${status == org.kuorum.rest.model.communication.contest.ContestStatusDTO.VALIDATING_APPLICATIONS}"><g:set
-                            var="statusDate"><g:formatDate formatName="default.date.format.small"
-                                                           date="${contest.deadLineReview}"/></g:set></g:if>
-                    <g:if test="${status == org.kuorum.rest.model.communication.contest.ContestStatusDTO.VOTING}"><g:set
-                            var="statusDate"><g:formatDate formatName="default.date.format.small"
-                                                           date="${contest.deadLineVotes}"/></g:set></g:if>
-                    <g:if test="${status == org.kuorum.rest.model.communication.contest.ContestStatusDTO.RESULTS}"><g:set
-                            var="statusDate"><g:formatDate formatName="default.date.format.small"
-                                                           date="${contest.deadLineResults}"/></g:set></g:if>
-                    <g:if test="${status != org.kuorum.rest.model.communication.contest.ContestStatusDTO.RESULTS}">
-                        <span>(<g:message code="${statusDateMsgCode}" args="[statusDate]"/>)</span>
+                    <g:if test="${status == org.kuorum.rest.model.communication.contest.ContestStatusDTO.ADDING_APPLICATIONS}">
+                        <g:set var="statusDate"><g:formatDate formatName="default.date.format.small"
+                                                              date="${contest.deadLineApplications}"/></g:set>
                     </g:if>
+                    <g:if test="${status == org.kuorum.rest.model.communication.contest.ContestStatusDTO.VALIDATING_APPLICATIONS}">
+                        <g:set var="statusDate"><g:formatDate formatName="default.date.format.small"
+                                                              date="${contest.deadLineReview}"/></g:set>
+                    </g:if>
+                    <g:if test="${status == org.kuorum.rest.model.communication.contest.ContestStatusDTO.VOTING}">
+                        <g:set var="statusDate"><g:formatDate formatName="default.date.format.small"
+                                                              date="${contest.deadLineVotes}"/></g:set>
+                    </g:if>
+                    <g:if test="${status == org.kuorum.rest.model.communication.contest.ContestStatusDTO.RESULTS}">
+                        <g:set var="statusDate"><g:formatDate formatName="default.date.format.small"
+                                                              date="${contest.deadLineResults}"/></g:set>
+                        <g:set var="statusDateMsgCode" value="participatoryBudget.status.from"/>
+                    </g:if>
+                    <span>(<g:message code="${statusDateMsgCode}" args="[statusDate]"/>)</span>
+
                     <userUtil:ifUserIsTheLoggedOne user="${campaignUser}">
                         <a data-status="${status}"
                            data-status-text="${g.message(code: "org.kuorum.rest.model.communication.contest.ContestStatusDTO.${status}")}"><span
