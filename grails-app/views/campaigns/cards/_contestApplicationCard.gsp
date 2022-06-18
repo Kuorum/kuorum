@@ -2,7 +2,7 @@
     <div class="link-wrapper" id="contestApplication-${contestApplication.id}"
          data-datepublished="${contestApplication.datePublished.time}">
         <g:set var="campaignLink"
-               value="${g.link(mapping: 'contestApplicationShow', params: contestApplication.encodeAsLinkProperties())}"/>
+               value="${g.createLink(mapping: 'contestApplicationShow', params: contestApplication.encodeAsLinkProperties())}"/>
         <a href="${campaignLink}" class="hidden"></a>
         <g:render template="/campaigns/cards/campaignMultimediaCard" model="[campaign: contestApplication]"/>
         <g:render template="/campaigns/cards/campaignBodyCard"

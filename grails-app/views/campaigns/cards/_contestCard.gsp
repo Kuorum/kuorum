@@ -1,6 +1,7 @@
 <article role="article" class="box-ppal clearfix ${highlighted ? 'highlighted' : ''}">
     <div class="link-wrapper" id="contest-${contest.id}" data-datepublished="${contest.datePublished.time}">
-        <g:set var="campaignLink" value="${g.link(mapping: 'contestShow', params: contest.encodeAsLinkProperties())}"/>
+        <g:set var="campaignLink"
+               value="${g.createLink(mapping: 'contestShow', params: contest.encodeAsLinkProperties())}"/>
         <a href="${campaignLink}" class="hidden"></a>
         <g:render template="/campaigns/cards/campaignMultimediaCard" model="[campaign: contest]"/>
         <g:render template="/campaigns/cards/campaignBodyCard" model="[campaign: contest, campaignLink: campaignLink]"/>
