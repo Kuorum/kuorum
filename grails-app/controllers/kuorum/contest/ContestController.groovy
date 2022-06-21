@@ -117,7 +117,7 @@ class ContestController extends CampaignController {
 
     @Secured(['ROLE_CAMPAIGN_CONTEST'])
     def remove(Long campaignId) {
-        removeCampaign(campaignId, participatoryBudgetService)
+        removeCampaign(campaignId, contestService)
         render([msg: "Contest budget deleted"] as JSON)
     }
 

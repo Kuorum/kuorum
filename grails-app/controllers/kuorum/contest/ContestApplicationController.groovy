@@ -7,18 +7,11 @@ import kuorum.register.KuorumUserSession
 import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.commands.payment.CampaignSettingsCommand
 import kuorum.web.commands.payment.contest.ContestApplicationEnvironmentCommand
-import kuorum.web.commands.payment.contest.ContestDeadlinesCommand
 import kuorum.web.commands.payment.contest.NewContestApplicationCommand
-import kuorum.web.commands.payment.participatoryBudget.DistrictProposalChooseDistrictCommand
-import kuorum.web.commands.payment.participatoryBudget.NewDistrictProposalWithDistrictCommand
 import org.kuorum.rest.model.communication.CampaignRDTO
 import org.kuorum.rest.model.communication.contest.ContestApplicationRDTO
 import org.kuorum.rest.model.communication.contest.ContestApplicationRSDTO
-import org.kuorum.rest.model.communication.contest.ContestRDTO
 import org.kuorum.rest.model.communication.contest.ContestRSDTO
-import org.kuorum.rest.model.communication.participatoryBudget.DistrictProposalRDTO
-import org.kuorum.rest.model.communication.participatoryBudget.DistrictProposalRSDTO
-import org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetRSDTO
 import org.kuorum.rest.model.communication.survey.CampaignVisibilityRSDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
@@ -122,7 +115,7 @@ class ContestApplicationController extends CampaignController {
 
     @Secured(['ROLE_CAMPAIGN_CONTEST_APPLICATION'])
     def remove(Long campaignId) {
-        removeCampaign(campaignId, participatoryBudgetService)
+        removeCampaign(campaignId, contestApplicationService)
         render([msg: "Contest budget deleted"] as JSON)
     }
 
