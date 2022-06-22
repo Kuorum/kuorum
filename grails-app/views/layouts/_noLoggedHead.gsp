@@ -10,7 +10,7 @@
 
 
     <nav:onlyPublicDomain>
-       <g:if test="${_domainActiveCampaigns.size() == 8}">
+       <g:if test="${_domainActiveCampaigns.size() == 1}">
            <g:set var="activeCampaign" value="${_domainActiveCampaigns.get(0)}"/>
             <li>
                 <g:link mapping="searcherSearch${activeCampaign}"
