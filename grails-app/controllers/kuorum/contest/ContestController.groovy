@@ -6,13 +6,17 @@ import kuorum.politician.CampaignController
 import kuorum.register.KuorumUserSession
 import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.commands.payment.CampaignSettingsCommand
+import kuorum.web.commands.payment.contest.ContestAreasCommand
 import kuorum.web.commands.payment.contest.ContestDeadlinesCommand
 import kuorum.web.constants.WebConstants
 import org.kuorum.rest.model.communication.contest.ContestRDTO
 import org.kuorum.rest.model.communication.contest.ContestRSDTO
 import org.kuorum.rest.model.communication.contest.FilterContestApplicationRDTO
 import org.kuorum.rest.model.communication.contest.PageContestApplicationRSDTO
+import org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetRDTO
+import org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetRSDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
+import payment.campaign.ContestService
 
 class ContestController extends CampaignController {
 
@@ -89,8 +93,7 @@ class ContestController extends CampaignController {
                 deadLineApplications: contestRSDTO.deadLineApplications,
                 deadLineReview: contestRSDTO.deadLineReview,
                 deadLineVotes: contestRSDTO.deadLineVotes,
-                deadLineResults: contestRSDTO.deadLineResults,
-                numWinnerApplications: contestRSDTO.numWinnerApplications
+                deadLineResults: contestRSDTO.deadLineResults
         )
     }
 
@@ -110,10 +113,45 @@ class ContestController extends CampaignController {
         rdto.deadLineReview = command.deadLineReview
         rdto.deadLineVotes = command.deadLineVotes
         rdto.deadLineResults = command.deadLineResults
-        rdto.numWinnerApplications = command.numWinnerApplications
         def result = saveAndSendCampaign(campaignUser, rdto, contestRSDTO.getId(), null, null, contestService)
         redirect mapping: result.nextStep.mapping, params: result.nextStep.params
     }
+
+    @Secured(['ROLE_CAMPAIGN_CONTEST'])
+    def editContestAreas() {
+        Long campaignId = Long.parseLong(params.campaignId)
+        ContestRSDTO contestRSDTO = setCampaignAsDraft(campaignId, contestService)
+        if (!contestRSDTO.body || !contestRSDTO.title) {
+            flash.message = g.message(code: 'contest.form.nobody.redirect')
+            redirect mapping: 'contestEditContent', params: contestRSDTO.encodeAsLinkProperties()
+        } else if (!contestRSDTO.deadLineResults || !contestRSDTO.deadLineReview || !contestRSDTO.deadLineApplications || !contestRSDTO.deadLineVotes) {
+            flash.message = g.message(code: 'contest.form.nobody.redirect')
+            redirect mapping: 'contestEditDeadlines', params: contestRSDTO.encodeAsLinkProperties()
+        } else {
+            return campaignModelContestArea(campaignId, contestRSDTO, new ContestAreasCommand())
+        }
+    }
+
+
+    @Secured(['ROLE_CAMPAIGN_CONTEST'])
+    def saveContestAreas(ContestAreasCommand command) {
+        KuorumUserSession campaignUser = springSecurityService.principal
+        Long campaignId = params.campaignId ? Long.parseLong(params.campaignId) : null
+        ContestRSDTO contestRSDTO = contestService.find(campaignUser, command.campaignId)
+        if (command.hasErrors()) {
+            if (command.errors.getFieldError().arguments.first() == "publishOn") {
+                flash.error = message(code: "debate.scheduleError")
+            }
+            render view: 'editContestAreas', model: campaignModelContestArea(campaignId, contestRSDTO, command)
+            return
+        }
+        ContestRDTO rdto = contestService.map(contestRSDTO)
+//        rdto.causes = command.causes
+        rdto.numWinnerApplications = command.numWinnerApplications
+        def result = saveAndSendCampaign(campaignUser, rdto, contestRSDTO.getId(), command.publishOn, command.sendType, contestService)
+        redirect mapping: result.nextStep.mapping, params: result.nextStep.params
+    }
+
 
     @Secured(['ROLE_CAMPAIGN_CONTEST'])
     def remove(Long campaignId) {
@@ -165,4 +203,12 @@ class ContestController extends CampaignController {
     }
 
 
+    private def campaignModelContestArea(long idCampaign, ContestRSDTO contestRSDTO, ContestAreasCommand command) {
+        command.setCampaignId(idCampaign)
+        command.setNumWinnerApplications(contestRSDTO.getNumWinnerApplications())
+        return [
+                campaign: contestRSDTO,
+                command : command
+        ]
+    }
 }

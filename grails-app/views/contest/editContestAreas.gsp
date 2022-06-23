@@ -19,14 +19,14 @@
     <div class="box-steps container-fluid campaign-steps">
         <g:set var="mappings" value="${
             [
-            saveAndSentButtons: false,
-            step: 'deadlines' ,
+            saveAndSentButtons: true,
+            step: 'contestArea' ,
             settings: 'contestEditSettings',
             content: 'contestEditContent' ,
             deadlines: 'contestEditDeadlines',
             contestArea: 'contestEditContestAreas' ,
             showResult: 'campaignShow',
-            next: 'contestEditContestAreas'
+            next: 'contestEditContent'
             ]}"/>
         <g:render template="/campaigns/steps/campaignSteps" model="[mappings: mappings]"/>
     </div>
@@ -34,7 +34,7 @@
     <div class="box-ppal campaign-new">
         <h1 class="sr-only"><g:message code="admin.contest.title"/></h1>
 
-        <g:render template="/contest/deadlinesForm" model="[
+        <g:render template="/contest/contestAreasForm" model="[
                 command : command,
                 status  : campaign.campaignStatusRSDTO,
                 campaign: campaign,

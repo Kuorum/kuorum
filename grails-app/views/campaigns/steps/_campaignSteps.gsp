@@ -35,13 +35,6 @@
             label        : g.message(code: 'tools.campaign.new.steps.environment')
     ]"/>
     <g:render template="/campaigns/steps/campaignStepActionButton" model="[
-            show         : mappings.deadlines,
-            currentActive: mappings.step == 'deadlines',
-            link         : mappings.deadlines,
-            faIcon       : 'fa-calendar-exclamation',
-            label        : g.message(code: 'tools.campaign.new.steps.deadlines')
-    ]"/>
-    <g:render template="/campaigns/steps/campaignStepActionButton" model="[
             show         : mappings.content,
             currentActive: mappings.step == 'content',
             link         : mappings.content,
@@ -49,17 +42,31 @@
             label        : g.message(code: 'tools.campaign.new.steps.content')
     ]"/>
     <g:render template="/campaigns/steps/campaignStepActionButton" model="[
+            show         : mappings.deadlines,
+            currentActive: mappings.step == 'deadlines',
+            link         : mappings.deadlines,
+            faIcon       : 'fa-calendar-exclamation',
+            label        : g.message(code: 'tools.campaign.new.steps.deadlines')
+    ]"/>
+    <g:render template="/campaigns/steps/campaignStepActionButton" model="[
             show         : mappings.questions,
             currentActive: mappings.step == 'questions',
             link         : mappings.questions,
-            faIcon:'fa-question-circle',
-            label:g.message(code:'tools.campaign.new.steps.questions')
+            faIcon       : 'fa-question-circle',
+            label        : g.message(code: 'tools.campaign.new.steps.questions')
     ]"/>
     <g:render template="/campaigns/steps/campaignStepActionButton" model="[
-            show:mappings.districts,
-            currentActive:mappings.step == 'districts',
-            link:mappings.districts,
-            faIcon:'fa-globe',
-            label:g.message(code:'tools.campaign.new.steps.districts')
+            show         : mappings.districts,
+            currentActive: mappings.step == 'districts',
+            link         : mappings.districts,
+            faIcon       : 'fa-globe',
+            label        : g.message(code: 'tools.campaign.new.steps.districts')
+    ]"/>
+    <g:render template="/campaigns/steps/campaignStepActionButton" model="[
+            show         : mappings.contestArea,
+            currentActive: mappings.step == 'contestArea',
+            link         : mappings.contestArea,
+            faIcon       : 'fa-globe',
+            label        : g.message(code: 'tools.campaign.new.steps.contestArea')
     ]"/>
 </ul>
