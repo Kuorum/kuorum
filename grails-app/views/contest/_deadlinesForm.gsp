@@ -7,8 +7,8 @@
            id="sendMassMailingType"/>
     <input type="hidden" name="campaignId" value="${command.campaignId}"/>
     <fieldset aria-live="polite" class="form-group">
-        <h2 class="col-sm-offset-1"><g:message
-                code="kuorum.web.commands.payment.contest.ContestDeadlinesCommand.dates.title"/></h2>
+        %{--        <h2 class="col-sm-offset-1"><g:message--}%
+        %{--                code="kuorum.web.commands.payment.contest.ContestDeadlinesCommand.dates.title"/></h2>--}%
 
         <div class="col-sm-offset-1 col-sm-4">
             <formUtil:date command="${command}" field="deadLineApplications" showLabel="true"/>

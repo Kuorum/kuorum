@@ -63,10 +63,10 @@
             label        : g.message(code: 'tools.campaign.new.steps.districts')
     ]"/>
     <g:render template="/campaigns/steps/campaignStepActionButton" model="[
-            show         : mappings.contestArea,
-            currentActive: mappings.step == 'contestArea',
-            link         : mappings.contestArea,
-            faIcon       : 'fa-globe',
-            label        : g.message(code: 'tools.campaign.new.steps.contestArea')
+            show         : mappings.configContest,
+            currentActive: mappings.step == 'configContest',
+            link         : mappings.configContest,
+            faIcon       : 'fa-tools',
+            label        : g.message(code: 'tools.campaign.new.steps.configContest')
     ]"/>
 </ul>
