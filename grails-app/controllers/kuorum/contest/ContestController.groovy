@@ -16,6 +16,7 @@ import org.kuorum.rest.model.communication.contest.PageContestApplicationRSDTO
 import org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetRDTO
 import org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetRSDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
+import payment.campaign.ContestService
 
 class ContestController extends CampaignController {
 
@@ -127,13 +128,7 @@ class ContestController extends CampaignController {
             flash.message = g.message(code: 'contest.form.nobody.redirect')
             redirect mapping: 'contestEditDeadlines', params: contestRSDTO.encodeAsLinkProperties()
         } else {
-            ContestAreasCommand command = new ContestAreasCommand();
-            command.setCampaignId(campaignId)
-            command.setNumWinnerApplications(contestRSDTO.getNumWinnerApplications())
-            return [
-                    campaign: contestRSDTO,
-                    command : command
-            ]
+            return campaignModelContestArea(campaignId, contestRSDTO, new ContestAreasCommand())
         }
     }
 
@@ -142,20 +137,21 @@ class ContestController extends CampaignController {
     def saveContestAreas(ContestAreasCommand command) {
         KuorumUserSession campaignUser = springSecurityService.principal
         Long campaignId = params.campaignId ? Long.parseLong(params.campaignId) : null
+        ContestRSDTO contestRSDTO = contestService.find(campaignUser, command.campaignId)
         if (command.hasErrors()) {
             if (command.errors.getFieldError().arguments.first() == "publishOn") {
                 flash.error = message(code: "debate.scheduleError")
             }
-            render view: 'editContentStep', model: campaignModelContent(campaignId, null, command, contestService)
+            render view: 'editContestAreas', model: campaignModelContestArea(campaignId, contestRSDTO, command)
             return
         }
-        ContestRSDTO contestRSDTO = contestService.find(campaignUser, command.campaignId)
         ContestRDTO rdto = contestService.map(contestRSDTO)
 //        rdto.causes = command.causes
         rdto.numWinnerApplications = command.numWinnerApplications
         def result = saveAndSendCampaign(campaignUser, rdto, contestRSDTO.getId(), command.publishOn, command.sendType, contestService)
         redirect mapping: result.nextStep.mapping, params: result.nextStep.params
     }
+
 
     @Secured(['ROLE_CAMPAIGN_CONTEST'])
     def remove(Long campaignId) {
@@ -207,4 +203,12 @@ class ContestController extends CampaignController {
     }
 
 
+    private def campaignModelContestArea(long idCampaign, ContestRSDTO contestRSDTO, ContestAreasCommand command) {
+        command.setCampaignId(idCampaign)
+        command.setNumWinnerApplications(contestRSDTO.getNumWinnerApplications())
+        return [
+                campaign: contestRSDTO,
+                command : command
+        ]
+    }
 }

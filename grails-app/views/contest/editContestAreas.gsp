@@ -20,7 +20,7 @@
         <g:set var="mappings" value="${
             [
             saveAndSentButtons: true,
-            step: 'deadlines' ,
+            step: 'contestArea' ,
             settings: 'contestEditSettings',
             content: 'contestEditContent' ,
             deadlines: 'contestEditDeadlines',
