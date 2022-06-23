@@ -20,11 +20,12 @@
             numberRecipients: numberRecipients,
             status          : status,
             mappings        : [
-                    saveAndSentButtons: true,
+                    saveAndSentButtons: false,
                     step              : 'content',
                     settings          : 'contestEditSettings',
                     content           : 'contestEditContent',
                     deadlines         : 'contestEditDeadlines',
+                    contestArea       : 'contestEditContestAreas',
                     showResult        : 'campaignShow',
                     next              : 'contestEditDeadlines']]"/>
 </content>

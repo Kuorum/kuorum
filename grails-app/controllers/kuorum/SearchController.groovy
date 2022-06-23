@@ -63,48 +63,16 @@ class SearchController{
 
     private SearchResultsRSDTO searchDocs(SearchParams searchParams, def params){
         SearchResultsRSDTO docs
-        String regionCountryCode = request.session.getAttribute(WebConstants.COUNTRY_CODE_SESSION)
         if (searchParams.hasErrors()){
             searchParams=new SearchParams(word: '')
             searchParams.setMax(searchParams.getMax())
             docs = searchSolrService.searchAPI(searchParams)
         }else{
-            searchParams.searchType = searchParams.searchType?:SearchType.ALL
-            searchParams = createRegionSearchParams(searchParams, params, regionCountryCode)
+            searchParams.searchType = searchParams.searchType ?: SearchType.ALL
+            fixXssSearch(searchParams);
             docs = searchSolrService.searchAPI(searchParams)
         }
         return docs;
-    }
-
-    private SearchParams createRegionSearchParams( SearchParams searchParams, def params, String preferredCountry){
-        fixXssSearch(searchParams)
-        SearchParams editedSearchParams = searchParams
-        if (searchParams.searchType == SearchType.REGION || searchParams.searchType== SearchType.ALL){
-            editedSearchParams = new SearchParams(searchParams.properties.findAll{it.key != "class"})
-            Locale locale = localeResolver.resolveLocale(request)
-            AvailableLanguage language = AvailableLanguage.fromLocaleParam(locale.language)
-            RegionRSDTO suggestedRegion = null;
-            if (params.regionCode && searchParams.searchType==SearchType.REGION){
-                suggestedRegion = regionService.findRegionBySuggestedId(params.regionCode)
-            }
-            if (!suggestedRegion){
-                suggestedRegion = regionService.findMostAccurateRegion(searchParams.word, language)
-            }
-
-            List<String> regionCodes = []
-            if (suggestedRegion){
-                regionCodes = regionService.buildListOfParentsCodes(suggestedRegion)
-            }
-            if (regionCodes){
-                editedSearchParams.boostedRegions = regionCodes
-                editedSearchParams.word = "";
-            }
-        }
-        if (searchParams.searchType== SearchType.ALL){
-            // Restoring word to search
-            editedSearchParams.word = searchParams.word
-        }
-        return editedSearchParams;
     }
 
     private void fixXssSearch(SearchParams searchParams){
