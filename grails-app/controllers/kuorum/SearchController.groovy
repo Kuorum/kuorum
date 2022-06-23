@@ -81,18 +81,15 @@ class SearchController{
 
 
     def suggest(SearchParams searchParams){
-        if (searchParams.hasErrors()){
-            render ([] as JSON)
+        if (searchParams.hasErrors()) {
+            render([] as JSON)
             return;
         }
-        if (searchParams.searchType == SearchType.REGION){
-            return suggestRegions(new SuggestRegion(word: searchParams.word))
-        }else{
-            SolrAutocomplete res = searchSolrService.suggest(searchParams)
-            init()
-            JSON.use('suggest') {
-                render res as JSON
-            }
+
+        SolrAutocomplete res = searchSolrService.suggest(searchParams)
+        init()
+        JSON.use('suggest') {
+            render res as JSON
         }
     }
 
