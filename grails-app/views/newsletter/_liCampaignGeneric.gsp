@@ -80,7 +80,9 @@
                 (<g:formatDate date="${campaign.datePublished}" type="datetime" style="LONG" timeStyle="SHORT"
                                timeZone="${user.timeZone}"/>)
             </span>
-            :: ${campaign.anonymousFilter?.name ?: g.message(code: 'tools.massMailing.fields.filter.to.all')}
+            <g:if test="${campaign.anonymousFilter || campaign.getCampaignType() == org.kuorum.rest.model.communication.CampaignTypeRSDTO.BULLETIN}">
+                :: ${campaign.anonymousFilter?.name ?: g.message(code: 'tools.massMailing.fields.filter.to.all')}
+            </g:if>
         </g:if>
     </p>
 <g:if test="${campaign.getCampaignType() == org.kuorum.rest.model.communication.CampaignTypeRSDTO.BULLETIN}">
