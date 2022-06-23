@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference
 import kuorum.core.exception.KuorumException
 import kuorum.register.KuorumUserSession
 import kuorum.solr.IndexSolrService
+import kuorum.users.KuorumUserService
 import kuorum.util.rest.RestKuorumApiService
 import org.kuorum.rest.model.communication.contest.ContestApplicationRDTO
 import org.kuorum.rest.model.communication.contest.ContestApplicationRSDTO
@@ -13,6 +14,7 @@ class ContestApplicationService extends AbstractCampaignCreatorService<ContestAp
 
     CampaignService campaignService
     IndexSolrService indexSolrService
+    KuorumUserService kuorumUserService
 
 //    @Override
     List<ContestApplicationRSDTO> findAll(KuorumUserSession user, String viewerUid = null) {
@@ -150,6 +152,7 @@ class ContestApplicationService extends AbstractCampaignCreatorService<ContestAp
 
     @Override
     def buildView(ContestApplicationRSDTO contestApplicationRSDTO, BasicDataKuorumUserRSDTO campaignUser, String viewerUid, def params) {
+        campaignUser = kuorumUserService.findBasicUserRSDTO(contestApplicationRSDTO.user.id)
         def model = [contestApplication: contestApplicationRSDTO, campaignUser: campaignUser]
         return [view: '/contestApplication/show', model: model]
     }

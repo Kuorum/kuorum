@@ -25,6 +25,6 @@
                     settings          : 'contestApplicationEditSettings',
                     content           : 'contestApplicationEditContent',
                     environment       : 'contestApplicationEditEnvironment',
-                    showResult        : 'campaignShow',
+                    showResult        : 'contestApplicationShow',
                     next              : 'contestApplicationEditContent']]"/>
 </content>
