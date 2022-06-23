@@ -118,7 +118,7 @@ class ContestController extends CampaignController {
     }
 
     @Secured(['ROLE_CAMPAIGN_CONTEST'])
-    def editContestAreas() {
+    def editContestConfig() {
         Long campaignId = Long.parseLong(params.campaignId)
         ContestRSDTO contestRSDTO = setCampaignAsDraft(campaignId, contestService)
         if (!contestRSDTO.body || !contestRSDTO.title) {
@@ -134,7 +134,7 @@ class ContestController extends CampaignController {
 
 
     @Secured(['ROLE_CAMPAIGN_CONTEST'])
-    def saveContestAreas(ContestAreasCommand command) {
+    def saveContestConfig(ContestAreasCommand command) {
         KuorumUserSession campaignUser = springSecurityService.principal
         Long campaignId = params.campaignId ? Long.parseLong(params.campaignId) : null
         ContestRSDTO contestRSDTO = contestService.find(campaignUser, command.campaignId)

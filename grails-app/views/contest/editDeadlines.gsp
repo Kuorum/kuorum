@@ -24,9 +24,9 @@
             settings: 'contestEditSettings',
             content: 'contestEditContent' ,
             deadlines: 'contestEditDeadlines',
-            contestArea: 'contestEditContestAreas' ,
+            configContest: 'contestEditConfigContest' ,
             showResult: 'campaignShow',
-            next: 'contestEditContestAreas'
+            next: 'contestEditConfigContest'
             ]}"/>
         <g:render template="/campaigns/steps/campaignSteps" model="[mappings: mappings]"/>
     </div>

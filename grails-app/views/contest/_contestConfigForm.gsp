@@ -7,9 +7,6 @@
            id="sendMassMailingType"/>
     <input type="hidden" name="campaignId" value="${command.campaignId}"/>
     <fieldset aria-live="polite" class="form-group">
-        <h2 class="col-sm-offset-1"><g:message
-                code="kuorum.web.commands.payment.contest.ContestDeadlinesCommand.dates.config"/></h2>
-
         <div class=" col-sm-offset-1 col-sm-4">
             <formUtil:input command="${command}" field="numWinnerApplications" showLabel="true"/>
         </div>

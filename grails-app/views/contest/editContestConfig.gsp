@@ -20,26 +20,25 @@
         <g:set var="mappings" value="${
             [
             saveAndSentButtons: true,
-            step: 'districts' ,
+            step: 'configContest' ,
             settings: 'contestEditSettings',
             content: 'contestEditContent' ,
             deadlines: 'contestEditDeadlines',
-            contestArea: 'contestEditContestAreas' ,
+            configContest: 'contestEditConfigContest' ,
             showResult: 'campaignShow',
-            next: 'participatoryBudgetEditContent'
+            next: 'contestEditContent'
             ]}"/>
         <g:render template="/campaigns/steps/campaignSteps" model="[mappings: mappings]"/>
     </div>
 
     <div class="box-ppal campaign-new">
-        <h1 class="sr-only"><g:message code="admin.createDebate.title"/></h1>
+        <h1 class="sr-only"><g:message code="admin.contest.title"/></h1>
 
-        <g:render template="/participatoryBudget/districts/districtsForm" model="[
-                command         : command,
-                status          : campaign.campaignStatusRSDTO,
-                campaign        : campaign,
-                mappings        : mappings,
-                numberRecipients: numberRecipients]"/>
+        <g:render template="/contest/contestConfigForm" model="[
+                command : command,
+                status  : campaign.campaignStatusRSDTO,
+                campaign: campaign,
+                mappings: mappings]"/>
     </div>
 
 </content>
