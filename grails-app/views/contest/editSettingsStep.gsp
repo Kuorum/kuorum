@@ -32,11 +32,12 @@
                       anonymousFilter: anonymousFilter,
                       events         : [TrackingMailStatusRSDTO.CONTEST_APPLICATION_ADD],
                       mappings       : [
-                              step      : 'settings',
-                              settings  : 'contestEditSettings',
-                              content   : 'contestEditContent',
-                              deadlines : 'contestEditDeadlines',
-                              showResult: 'campaignShow',
-                              next      : 'contestEditContent']
+                              step       : 'settings',
+                              settings   : 'contestEditSettings',
+                              content    : 'contestEditContent',
+                              deadlines  : 'contestEditDeadlines',
+                              contestArea: 'contestEditContestAreas',
+                              showResult : 'campaignShow',
+                              next       : 'contestEditContent']
               ]"/>
 </content>

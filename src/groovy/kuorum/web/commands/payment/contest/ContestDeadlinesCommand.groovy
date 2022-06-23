@@ -12,7 +12,6 @@ class ContestDeadlinesCommand {
     Date deadLineReview
     Date deadLineVotes
     Date deadLineResults
-    Integer numWinnerApplications;
 
     static constraints = {
         campaignId nullable: false
@@ -20,7 +19,6 @@ class ContestDeadlinesCommand {
         deadLineReview nullable: false
         deadLineVotes nullable: false
         deadLineResults nullable: false
-        numWinnerApplications nullable: false
     }
 
 }
