@@ -176,6 +176,12 @@ modules = {
         resource url:'js/campaigns/districtProposal.js'
     }
 
+
+    contest{
+        dependsOn("basic",'campaign', 'campaignList')
+        resource url:'js/campaigns/contest.js'
+    }
+
     // This module groups all js required of list of campaign targets. (i.e: Like post has its custom logic that can be executed on the list)
     campaignsTargetsListResourcesRequired{
         dependsOn("post", "districtProposal", "petition")
@@ -256,6 +262,11 @@ modules = {
     participatoryBudgetForm{
         dependsOn("campaignForm")
         resource url: 'js/campaigns/participatoryBudget-form.js'
+    }
+
+    contestForm{
+        dependsOn("campaignForm")
+        resource url: 'js/campaigns/contest-form.js'
     }
 
     contacts{

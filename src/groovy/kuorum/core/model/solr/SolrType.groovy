@@ -17,7 +17,9 @@ enum SolrType {
     SURVEY("fa-chart-pie", CampaignTypeRSDTO.SURVEY),
     PETITION("fa-microphone", CampaignTypeRSDTO.PETITION),
     PARTICIPATORY_BUDGET("fa-money-bill-alt", CampaignTypeRSDTO.PARTICIPATORY_BUDGET),
-    DISTRICT_PROPOSAL("fa-rocket", CampaignTypeRSDTO.DISTRICT_PROPOSAL)
+    DISTRICT_PROPOSAL("fa-rocket", CampaignTypeRSDTO.DISTRICT_PROPOSAL),
+    CONTEST("fa-trophy", CampaignTypeRSDTO.CONTEST),
+    CONTEST_APPLICATION("fa-scroll", CampaignTypeRSDTO.CONTEST_APPLICATION);
 
     String faIcon
 

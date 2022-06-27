@@ -32,7 +32,6 @@ function preparePopover(){
             .on("mouseenter",function(e){
                 if ($(this).siblings(".in").length ==0){
                     $(this).popover('show');
-                    loadAjaxUserRatings($($(this).siblings(".popover")[0]).find(".load-rating"))
                 }
             })
             //En el click ejecutamos el link normal. El framework the popover lo está bloqueando

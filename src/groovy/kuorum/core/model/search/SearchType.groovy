@@ -11,13 +11,13 @@ import grails.validation.Validateable
  */
 @Validateable
 enum SearchType {
-    ALL, REGION, CAUSE;
+    ALL, CAUSE;
 
-    static final SearchType safeParse(String rawType){
+    static final SearchType safeParse(String rawType) {
         SearchType searchType = null;
-        try{
+        try {
             SearchType.valueOf(rawType)
-        }catch (Exception){
+        } catch (Exception) {
             searchType = null;
         }
         return searchType;

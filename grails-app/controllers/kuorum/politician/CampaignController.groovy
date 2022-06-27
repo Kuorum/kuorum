@@ -20,6 +20,7 @@ import kuorum.web.commands.payment.contact.ContactFilterCommand
 import org.kuorum.rest.model.communication.*
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.kuorum.rest.model.communication.event.EventRDTO
+import org.kuorum.rest.model.communication.participatoryBudget.DistrictProposalRDTO
 import org.kuorum.rest.model.communication.search.SearchCampaignRDTO
 import org.kuorum.rest.model.communication.survey.CampaignVisibilityRSDTO
 import org.kuorum.rest.model.communication.survey.SurveyRDTO
@@ -45,6 +46,8 @@ class CampaignController {
     SurveyService surveyService
     ContactService contactService
     ParticipatoryBudgetService participatoryBudgetService
+    ContestService contestService
+    ContestApplicationService contestApplicationService
     DistrictProposalService districtProposalService
     PetitionService petitionService
     SpringSecurityService springSecurityService
@@ -83,13 +86,21 @@ class CampaignController {
                 case CampaignTypeRSDTO.PETITION:
                     dataView = petitionService.buildView(campaignRSDTO, user, viewerUid, params)
                     break
+                case CampaignTypeRSDTO.CONTEST:
+                    dataView = contestService.buildView(campaignRSDTO, user, viewerUid, params)
+                    break
+                case CampaignTypeRSDTO.CONTEST_APPLICATION:
+                    dataView = contestApplicationService.buildView(campaignRSDTO, user, viewerUid, params)
+                    break
                 default:
                     log.error("Campaign type not recognized: ${campaignRSDTO.campaignType}")
                     throw new Exception("Campaign type not recognized: ${campaignRSDTO.campaignType}")
             }
             def model = dataView.model
             List<String> linkFiles = campaignService.getFiles(campaignRSDTO);
+            List<String> linkContactFiles = campaignService.getContactFiles(campaignRSDTO, viewerUid);
             model.campaignFiles = linkFiles.collect { it -> it.encodeAsS3File() }
+            model.contactFiles = linkContactFiles.collect { it -> it.encodeAsS3File() }
             if (springSecurityService.isLoggedIn()) {
                 KuorumUserSession userLogged = springSecurityService.principal
                 model.displayTimeZone = userLogged.timeZone ?: campaignRSDTO.user.timeZone
@@ -434,6 +445,12 @@ class CampaignController {
 
         render(contentType: "application/json") {
             [success: true, belongsToCampaignGroup: belongsToCampaignGroup]
+        }
+    }
+
+    protected void setCampaignName(CampaignRDTO campaignRDTO, CampaignContentCommand command) {
+        if (campaignRDTO.name == null) {
+            campaignRDTO.name = command.title
         }
     }
 }

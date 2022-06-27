@@ -15,6 +15,8 @@
 <content tag="cColumn">
     <g:render template="/survey/showModules/cCallToAction" model="[survey: survey]"/>
     <g:render template="/campaigns/columnCModules/campaignFiles" model="[campaignFiles:campaignFiles]"/>
+    <g:render template="/campaigns/columnCModules/campaignFiles"
+              model="[campaignFiles: contactFiles, title: g.message(code: 'campaign.show.contact-files.title'), subtitle: g.message(code: 'campaign.show.contact-files.subtitle')]"/>
     <g:render template="/survey/showModules/cSurveyStats" model="[survey: survey,campaignUser: campaignUser, displayTimeZone:displayTimeZone]"/>
 </content>
 

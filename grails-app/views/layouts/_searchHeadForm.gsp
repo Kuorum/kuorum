@@ -43,7 +43,6 @@
 
                 <input type="hidden" name="type" id="srch-userType" value="${params.type}"/>
                 <input type="hidden" name="searchType" id="srch-type" value="${params.searchType}" />
-                <input type="hidden" name="regionCode" id="srch-regionCode" value="${params.regionCode}" />
 
             </div>
         </form>

@@ -105,7 +105,15 @@ abbr{
     border:none !important;
 }
 
-span[rel=tooltip] {cursor: default;}
+fieldset > h2 {
+    font-size: 14px;
+    font-weight: bold;
+    color: #666;
+}
+
+span[rel=tooltip] {
+    cursor: default;
+}
 
 /* text truncation */
 .ellipsis{
@@ -1671,8 +1679,17 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 #campaignsList > li.SCHEDULED > .state {background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAaCAYAAABCfffNAAAEe0lEQVRIS5VWfWhbVRT/3Ze0zaJ2W5LWIZvODYeKYh1jiB/I1CGIdnV0oZp2m5swcML8ZwjioIqg+IegzvqBrCwfrQa3sSmj+EGLn+jAwUBBtlHQdtoleXGtc+bjvevvvvdMXvKSMC/c9N1zfvf87jnnnnMr0GqMnl8Gv1gPaHcD4gZALic8wPk75zSkOAm/OYWF8FnsEqVmpkRDRVq2o5C9k4Z3cj5AzBLHuBte5mKB82di4ujwfYToYr2RPS9JMrccUj7HjU9yQ1tLT2uV38CUw9gW+bx+Ty1JKt8D09xP0F0e4xI6hHVy0/Eq4j2EzEBowxgMjbj3V0mS+q08SZqGbqwj+Iyy41ZYhHaeXhqcV3GuhhD3Uv4IZ7drT5G6vdgaeeM/mU0yNnc1ym3jEHKDCzxL4y+g3X+oWawxKf2Y1ddxzzAkHnTt/YvfWzAUnlAymySR28ffF6sgcQYakx5b+mWNV1IKYnnbxLXwt03i8c6spU9fCKFQep3yQRf+BCPzKHM0K5DM3cwoT5BuhQO4QGV/owQi/dsiFK4Y41XuI6aPmKMVowfnw9BKH3J9f0Um5dP0ZkQgnn2esVVe2F4JvITBsPLMO949F0SwI0lFL/O/GUNdx2pAydwdzAdlosux9R3z+JRy/1MKNjrgaRi+jdi+5GxDEuVJMZhk/HtZiJuxNfSxB5fMjVK/vRIViLcUiTK4yhF+QPcea0hgxV6FK5jg16amJHF9gBdIeetz7HyhSPJcqIpW938vSV5rSqIUidw4f/ubkhzMrGGIGCaEHDunFMklLtiPZIG52cZ8qOTZIy19KGVWoeyLQDML7GEB61pLeQ8N9bPoPvEcyLoAxe+Zl9WO7hdF8jcXiziLVOzAUChV2ajqx/CRVKgCVb1K47STCgzQ60MekgMLXWgv/sC8rHSTZLhQLULylGwJ4Wq9WKcqv88Y91Bb4FQYSWye4XqWif/a60n+dno9RXmnrRM/Kk/YRXGTA55AR+hhRIVhra3im+uCL3AlF7bMEBo0o4SLobmG7T2e3c2wv6msc6o8H1XFmObZttgkbHAQfQzDt54TXo7AeiL0I4Q+5MD/4N9XeFJ9F40rZqetyxQ6wjvoDXP0P0dCj9HWe9wVdEJ1jKHeLazmaPhVI+txTHq66GVRJfK3MTppYtdU7Ag5gMHIEbuVxLNDjOMBfvkdwEXr4VoRHsEGoW5V65HKroepvU0v1laAAodRmo/hiev/sUlUy57R3+EXn9vKYNLkGPO1HwHzJ0S7VfuuDlVDl3LLeLgoU7yHiutc2tMwBZts6JSSVR+tsfkITF5XKTfVHVu18ylOdV1n2H3L3LWUJbPWeX9uqcPPUL+TpaB6ojVqn19FZJRedjxq/E9Gy8DJkyTfw4L+yg3zGhqdDsDXGSP9MwTWn7IZxZ8MW4pV8SoL9Nd6UPPTjmeugaFFGdteq+KhQuQeVq87w8qfZO7G2cfYFIXqBp7ROiRpfTGK5n1MPt8bsdIh8tPwAoR5jrITrP7jiHWfbhXFfwFoyZDIbT0KhwAAAABJRU5ErkJggg==');}
 #campaignsList > li.DRAFT > .state {background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAACXUlEQVQ4T52Uz0tUURTHz50foAktBly07BeU2UxC0SaEFm1atJSgNoWk2BshxcoCmWXG9OvNjyyLWberKIv+gTYh/VAqjRZRm6xAaBLE8fY5j/dCZ54604PvnHvn3vO533PfmTHyH4/N5XZJJJKR5eVOMaYk8fhV09MzryjTCM9mMhFJJFISjY6ItcfIjaA/KCuLi1fMwMBCY8BSqUnK5SKAU1VGFnA6KrHYzbqBtlhMSqWSoNQtuBsGuLcGKpKvC2gLhQPcl4uLBPE4JceA3g+Dbgi0rtuBqxzJB9E8oCmA/YBbOKDAvGOF08l1gcBSJI2hJCqS3EJyN+Mpyj8JWOd3fOgk8dKaQO/OrM37m13id0CnASR9Ry8BngG80zvE2nGTTj8MBfplFtjYjm6gnyiNdlS9iDfMhzjonbS2zpmurkoNkBewj9PG2KjlXmP8w4dtC+nZL6z34uxZsLYKaPP5PWy4B2g/MUucY+NZFAabYX2Y3nvOr0Sb23v+AT2YiDrTt+mir8hB20OcfeTA8zh7XL3mAbmzNlpD76wT3UafOb2XJL3w1Y+2jTEXjONMhBwkxi9zlE1H2aAlvkJb0e6QhA98N7gWzCsZ4APiEYDjHsDafj6bamDGzLI2BOxRmLPgOwV+Y+OsOM5hyWY3SXPzdRZPIG3a4Pnkweiz9WCBQy0jisMscYL4m2Y9R7zIPI50XZ092QgWAF8zSKEyLi7j4hauu5nfRTO8rEHT1/e0HlgAnGbQ5ie8BTqNu0PMf+nf1MqmrQeqd/iCxHYgS8QYcTOJ7xmPNArTA/8CHvDtgw1o76YAAAAASUVORK5CYII=');}
 #campaignsList > li.PROCESSING > .state {background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAYAAACN1PRVAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4AgSCCcWMPIzewAAABl0RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAAKaSURBVEjH7ZbPSxVRFMe/594ZX4ZGC6GiSIgw7A8QqrcooR/7aBNEQYFtooTCdJinMQxkb/Gg2oQZFS2k31DUXlcFbYKCNKIgDCWCMp/y3p3zbSMymWLl1CI6cHfnnM+cc7733AH+osnPOHV2dq4xxqz4XYhzzvX29r5bFNbV1dVsrb0AYPMSinKqetFbzMtauxbAVhGpXWIXW8xiHqpqspiXMcZ6C7RupXOuwfd9S3JDVgL5AVYoFPYnSXIol8s1A/BERADUZg4LguAgyW5jTCOAYQAg6YvIqkxamQYZY7oBrFfVHgDbZ04PyanMKguC4EAKdCaO4yj1EePGmGxmVigU1gM4RrJRVXvSoKzNq1ar63zfbwLwlOTDIAg2pR2yVuMykj6AFmvtox/22Z9Qo4gYAKv/5CI2+Iv2D8MW2A7TSZIMk3z/K8lITpF8RXJ0Xpi19qiILE8FlJMk6XDO7QCwl+S9nwR9BXDKObfDObcvSZIHc16PxAMwRvKlqnrW2iZVfVYuly+XSqUygNEwDO+Q3AOAAN7OczU8AE0AnkRR1AegAuBDGIb3Se4CUAUwAmDQjI+PHwbQSvI4yU/GGL++vt5P5asFYFV1oFKp7ATQmj4kT5L8IiK5tra2XCpu2YwmbkxMTOyO4/j87G9Be3t7Q11d3cBMknPOuZue520QkeMktwBoi6Kof25lYRiuEpHbJLeJyFnn3C1r7UYAJwC0qOqROI6vfafGUqn0UVX7RGRERDqMMY8AXCG5DcB159zd+WYVRdEYyUsA3pA8LSKPAfQD2KKqV2tqamZnbtOBQ0NDL/L5/LCITImID+C1qvZNTk4Wi8Xip4XEMTg4+Dyfz48AmDbG1AB4BeBSkiTFKIo+479lad8A1mQzSakS41oAAAAASUVORK5CYII=');}
-#campaignsList > li.PAUSE > .state {background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4wgWBzUvFalpZAAAAB1pVFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3aXRoIEdJTVBkLmUHAAADaElEQVRIx72WTWhcdRTFf/c+k5k0XXSRpSbaNouYhRSLaBUF8QsLwZD0ZSYkI4gfizbYgoguJEQEkbapUHXhwpBFMzMPMVahKKgQlWKipbiQCVoxqVtFBZPMJJl3XPRNCK1Jmzr1rB7c9+55/3vP/95jbIIoippWV1fvCYLgXkl7JbWZWXMSXgQuAt+5+1flcnk6l8stbJTLNgoUi8VQ0gHgEaACXAB+NbPfJAloAVqBnUAT8DkQlUqlaGRkJL4q0fj4eGsqlXoeeNbM5iV9AJxx9xLwdxiG1eS0AbAd2C3pcaBbUruksSAIToRh+MuGRFEU7Zb0CjAg6SQwlslkvucakM/nO8zsaeAg8HEcx8f6+/unryDK5/O3uPtrkh5z9zfCMBzlOlAsFg9KegmYcfcXaifzNUazw8CAmR29XhKAvr6+t4HXgf3VavXI8PCwA9wEMDEx0Qs8I+mtUqm0RlIoFHqAfWbmiQDOZTKZU8mfZyXtTWKxpJlsNlsEyGQy7xQKhV1m9lxHR8dZoGBRFDXFcTwOdAL9tZ5EURTEcTxmZoM1Yknvu3smec4DB9bFJtw9VxNL0rNTZjZfqVQGHLgLeAiY/JfGBxuVSJJtVsJsNlsys0lJD6bT6X1erVbvv/SdPqXOMLMzwGIcxw+4me0BLgRB8EO9iSqVyk+SfjazPW5mbcAc8Fe9iVKp1AIwF8dxq0vaBvxZa2I9EYZh1cx+N7Nm53+Cm9kisCOZXXVFkrNF0oJLmjez25aWlnbcADE0A7e6+0WXdF7SrsbGxttvgBjagZ2SznsQBF9ekrw9Wm+iZH1sc/cpB2aAz4DuQqFwx2XvVje5jLra2pDUbWZflMvlsx6G4RJQNLObgadq0zaR+2lJo8Cbkk4AH4ZhWE1ik+tio5I+Wn9Fkt3ULqmYy+UWbN2kPg4cMbMX+/r6jv2XkiU76bikd2dnZw+PjIzEa5Lu6ekpuXuLpCd7e3vV2dk5PTU1pa2S5PP5Q8DLiYd4dWho6I8NV7mkQeAk8N5WV7mkQ2Z2emVl5ejg4OC3WzInkj5Jhu4V5mR1dbUd2O/uTyRGZQwYzWazc9dkt6Io6o3jOAQeTtT3Y13t1uUGcnl5+e6Ghob7JN0JtAHbzcwkLQBzks4FQfB1Op3+pqura3GjXP8A6nfRzymC7lgAAAAASUVORK5CYII=');}
-#campaignsList > li  > .name > .date {display: none;}
+#campaignsList > li.PAUSE > .state {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4wgWBzUvFalpZAAAAB1pVFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3aXRoIEdJTVBkLmUHAAADaElEQVRIx72WTWhcdRTFf/c+k5k0XXSRpSbaNouYhRSLaBUF8QsLwZD0ZSYkI4gfizbYgoguJEQEkbapUHXhwpBFMzMPMVahKKgQlWKipbiQCVoxqVtFBZPMJJl3XPRNCK1Jmzr1rB7c9+55/3vP/95jbIIoippWV1fvCYLgXkl7JbWZWXMSXgQuAt+5+1flcnk6l8stbJTLNgoUi8VQ0gHgEaACXAB+NbPfJAloAVqBnUAT8DkQlUqlaGRkJL4q0fj4eGsqlXoeeNbM5iV9AJxx9xLwdxiG1eS0AbAd2C3pcaBbUruksSAIToRh+MuGRFEU7Zb0CjAg6SQwlslkvucakM/nO8zsaeAg8HEcx8f6+/unryDK5/O3uPtrkh5z9zfCMBzlOlAsFg9KegmYcfcXaifzNUazw8CAmR29XhKAvr6+t4HXgf3VavXI8PCwA9wEMDEx0Qs8I+mtUqm0RlIoFHqAfWbmiQDOZTKZU8mfZyXtTWKxpJlsNlsEyGQy7xQKhV1m9lxHR8dZoGBRFDXFcTwOdAL9tZ5EURTEcTxmZoM1Yknvu3smec4DB9bFJtw9VxNL0rNTZjZfqVQGHLgLeAiY/JfGBxuVSJJtVsJsNlsys0lJD6bT6X1erVbvv/SdPqXOMLMzwGIcxw+4me0BLgRB8EO9iSqVyk+SfjazPW5mbcAc8Fe9iVKp1AIwF8dxq0vaBvxZa2I9EYZh1cx+N7Nm53+Cm9kisCOZXXVFkrNF0oJLmjez25aWlnbcADE0A7e6+0WXdF7SrsbGxttvgBjagZ2SznsQBF9ekrw9Wm+iZH1sc/cpB2aAz4DuQqFwx2XvVje5jLra2pDUbWZflMvlsx6G4RJQNLObgadq0zaR+2lJo8Cbkk4AH4ZhWE1ik+tio5I+Wn9Fkt3ULqmYy+UWbN2kPg4cMbMX+/r6jv2XkiU76bikd2dnZw+PjIzEa5Lu6ekpuXuLpCd7e3vV2dk5PTU1pa2S5PP5Q8DLiYd4dWho6I8NV7mkQeAk8N5WV7mkQ2Z2emVl5ejg4OC3WzInkj5Jhu4V5mR1dbUd2O/uTyRGZQwYzWazc9dkt6Io6o3jOAQeTtT3Y13t1uUGcnl5+e6Ghob7JN0JtAHbzcwkLQBzks4FQfB1Op3+pqura3GjXP8A6nfRzymC7lgAAAAASUVORK5CYII=');
+}
+
+#campaignsList > li.REVIEW > .state {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAaCAYAAABCfffNAAAABGdBTUEAALGPC/xhBQAAAYVpQ0NQSUNDIHByb2ZpbGUAACiRfZE9SMNAHMVfU7VSqg52EHHIUJ0sfiKOWoUiVAi1QqsOJpd+CE0akhQXR8G14ODHYtXBxVlXB1dBEPwAcXRyUnSREv+XFFrEenDcj3f3HnfvAKFaZJrVNgpoum0m4zExnVkRA6/oQBDdGMGYzCxjVpISaDm+7uHj612UZ7U+9+foUrMWA3wi8QwzTJt4nXhq0zY47xOHWUFWic+Jh026IPEj1xWP3zjnXRZ4ZthMJeeIw8RivomVJmYFUyOeJI6omk75QtpjlfMWZ61YZvV78heGsvryEtdpDiCOBSxCgggFZWygCBtRWnVSLCRpP9bC3+/6JXIp5NoAI8c8StAgu37wP/jdrZWbGPeSQjGg/cVxPgaBwC5QqzjO97Hj1E4A/zNwpTf8pSow/Ul6paFFjoCebeDiuqEpe8DlDtD3ZMim7Ep+mkIuB7yf0TdlgN5bILjq9Vbfx+kDkKKuEjfAwSEwlKfstRbv7mzu7d8z9f5+AKm1cr3P2be9AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAC4jAAAuIwF4pT92AAAAB3RJTUUH5gYKDjkM4ZirYAAAABl0RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAAJhSURBVEjHvdVPjM9HGMfx18oeRINfjVRcBJE4SKQ4SKQpv/Qi4YC6tDFbehB6aTi4cEBPTQihcWKFcSFBBKlIavVADzRxqJOsiksrzdhVf9IDaQ/f+W2+Nrtrf2u3TzLJd2a+M+9nPs88z3RIuRtbjI/tEMPhwYOdBfADzr8nYAvWY0gI3BfDzfdCpLwK84aamuR/sM5B3jTQwDnsx2NsGGH9ITE8aw/CUvyEM2K4IuXVWDnC+m60CYnhhpTX4ufSv4Zr4ytXtfHViY7JJCzGSzwRw9/jD2EGfsQbfFJicnaYta+wSAyPSr8XH44G0oF/8AGm4jr2DQPprwGIISGNJvB/SXkZXtek2jsRgX86ygzvwEYsqsl3UQwP3g1JeSc6xHCwJOfHZebRgDxVCTmFOWiVowa+l/JldImhf6SychAHpDy7FLye0o4WQBM3Si7NEEOztCVoYi56ioPDQr7EdjH8IYaTCJiNz6U8BadxWgxdYugbJPVNfIqPsKsuz79S3jbKOGyScl/dy9rcOimvK9+bpfysxK3tKrwEdwf0Tnm7lBtS/goX0VX+u4RpWD4WyEK8KIBZOIY7OI57+LrI1pJx8lggd8uNIoYn+AIz8RuatRO2Hq8/qwxPua9488swG/cMvJopr8AtzBfD72Vsbsn+/lp89iOKYV4rT7bim3IrhrLe2u25LeXruCDlyvN6aakAn2G36tEbqFXtWXWzekpgv8M5MbyS8oIS+D1l3+dFwl/bh1Sg6diBb0umt+weTpai2kA/mmODvA1cWk71WAwPy9gaXC4nOmLCrErIE/AfXpLLZIS14lAAAAAASUVORK5CYII=');
+}
+
+#campaignsList > li > .name > .date {
+    display: none;
+}
 #campaignsList > li.SCHEDULED > .name >.date,
 #campaignsList > li.SENT > .name >.date {display: inline-block;}
 
@@ -1910,7 +1927,7 @@ ul.user-list-followers .loading.xs {
 .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done {position: relative; width: 0%; height: 100%; background: #ff9934;border-radius: 10px;}
 .campaign-progress-bar.important .progress-bar-custom .progress-bar-custom-done{background: #ff9934;}
 
-.participatory-budget-steps-wrapper .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done {
+.campaign-steps-wrapper .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done {
 
     /* "Loafing" animation */
     -moz-animation-name: loadProgressBar;
@@ -1929,35 +1946,326 @@ ul.user-list-followers .loading.xs {
     animation-duration: 3s;
 }
 
-@-moz-keyframes loadProgressBar {0% {width: 0;} 100% {width: 75%;}}
-@-webkit-keyframes loadProgressBar {0% {width: 0%;}100% {width: 75%;} }
-@keyframes loadProgressBar {0% {width: 0%;}100% {width: 75%;}}
+@-moz-keyframes loadProgressBar {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 75%;
+    }
+}
+
+@-webkit-keyframes loadProgressBar {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 75%;
+    }
+}
+
+@keyframes loadProgressBar {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 75%;
+    }
+}
 
 
-@-moz-keyframes participatory-budget-steps-loadProgressBar-step1 {0% {width: 0;} 100% {width: 9%;}}
-@-webkit-keyframes participatory-budget-steps-loadProgressBar-step1 {0% {width: 0%;}100% {width: 9%;} }
-@keyframes participatory-budget-steps-loadProgressBar-step1 {0% {width: 0%;}100% {width: 9%;}}
+@-moz-keyframes campaign-steps5-loadProgressBar-step1 {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 9%;
+    }
+}
 
-@-moz-keyframes participatory-budget-steps-loadProgressBar-step2 {0% {width: 0;} 100% {width: 30%;}}
-@-webkit-keyframes participatory-budget-steps-loadProgressBar-step2 {0% {width: 0%;}100% {width: 30%;} }
-@keyframes participatory-budget-steps-loadProgressBar-step2 {0% {width: 0%;}100% {width: 30%;}}
+@-webkit-keyframes campaign-steps5-loadProgressBar-step1 {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 9%;
+    }
+}
 
-@-moz-keyframes participatory-budget-steps-loadProgressBar-step3 {0% {width: 0;} 100% {width: 50%;}}
-@-webkit-keyframes participatory-budget-steps-loadProgressBar-step3 {0% {width: 0%;}100% {width: 50%;} }
-@keyframes participatory-budget-steps-loadProgressBar-step3 {0% {width: 0%;}100% {width: 50%;}}
+@keyframes campaign-steps5-loadProgressBar-step1 {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 9%;
+    }
+}
 
-@-moz-keyframes participatory-budget-steps-loadProgressBar-step4 {0% {width: 0;} 100% {width: 69%;}}
-@-webkit-keyframes participatory-budget-steps-loadProgressBar-step4 {0% {width: 0%;}100% {width: 69%;} }
-@keyframes participatory-budget-steps-loadProgressBar-step4 {0% {width: 0%;}100% {width: 69%;}}
+@-moz-keyframes campaign-steps5-loadProgressBar-step2 {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 30%;
+    }
+}
 
-@-moz-keyframes participatory-budget-steps-loadProgressBar-step5 {0% {width: 0;} 100% {width: 90%;}}
-@-webkit-keyframes participatory-budget-steps-loadProgressBar-step5 {0% {width: 0%;}100% {width: 90%;} }
-@keyframes participatory-budget-steps-loadProgressBar-step5 {0% {width: 0%;}100% {width: 90%;}}
+@-webkit-keyframes campaign-steps5-loadProgressBar-step2 {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 30%;
+    }
+}
 
-.campaign-progress-bar-wrapper .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done::after {content: ""; position: absolute; border: 10px solid #ff9934; border-left-color: transparent; border-right-color: transparent; border-bottom-color: transparent; width: 1px; height: 1px; right: -10px; top: -10px;}
-.campaign-progress-bar-wrapper .campaign-progress-bar.important .progress-bar-custom .progress-bar-custom-done::after {border: 10px solid #ff9934; border-left-color: transparent; border-right-color: transparent; border-bottom-color: transparent; }
+@keyframes campaign-steps5-loadProgressBar-step2 {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 30%;
+    }
+}
 
-.participatory-budget-steps-wrapper {padding: 15px 15px 10px 15px;
+@-moz-keyframes campaign-steps5-loadProgressBar-step3 {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 50%;
+    }
+}
+
+@-webkit-keyframes campaign-steps5-loadProgressBar-step3 {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 50%;
+    }
+}
+
+@keyframes campaign-steps5-loadProgressBar-step3 {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 50%;
+    }
+}
+
+@-moz-keyframes campaign-steps5-loadProgressBar-step4 {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 69%;
+    }
+}
+
+@-webkit-keyframes campaign-steps5-loadProgressBar-step4 {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 69%;
+    }
+}
+
+@keyframes campaign-steps5-loadProgressBar-step4 {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 69%;
+    }
+}
+
+@-moz-keyframes campaign-steps5-loadProgressBar-step5 {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 90%;
+    }
+}
+
+@-webkit-keyframes campaign-steps5-loadProgressBar-step5 {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 90%;
+    }
+}
+
+@keyframes campaign-steps5-loadProgressBar-step5 {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 90%;
+    }
+}
+
+@-moz-keyframes campaign-steps4-loadProgressBar-step1 {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 12%;
+    }
+}
+
+@-webkit-keyframes campaign-steps4-loadProgressBar-step1 {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 12%;
+    }
+}
+
+@keyframes campaign-steps4-loadProgressBar-step1 {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 12%;
+    }
+}
+
+@-moz-keyframes campaign-steps4-loadProgressBar-step2 {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 35%;
+    }
+}
+
+@-webkit-keyframes campaign-steps4-loadProgressBar-step2 {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 35%;
+    }
+}
+
+@keyframes campaign-steps4-loadProgressBar-step2 {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 35%;
+    }
+}
+
+@-moz-keyframes campaign-steps4-loadProgressBar-step3 {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 60%;
+    }
+}
+
+@-webkit-keyframes campaign-steps4-loadProgressBar-step3 {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 60%;
+    }
+}
+
+@keyframes campaign-steps4-loadProgressBar-step3 {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 60%;
+    }
+}
+
+@-moz-keyframes campaign-steps4-loadProgressBar-step4 {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 85%;
+    }
+}
+
+@-webkit-keyframes campaign-steps4-loadProgressBar-step4 {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 85%;
+    }
+}
+
+@keyframes campaign-steps4-loadProgressBar-step4 {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 85%;
+    }
+}
+
+@-moz-keyframes campaign-steps4-loadProgressBar-step5 {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 90%;
+    }
+}
+
+@-webkit-keyframes campaign-steps4-loadProgressBar-step5 {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 90%;
+    }
+}
+
+@keyframes campaign-steps4-loadProgressBar-step5 {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 90%;
+    }
+}
+
+.campaign-progress-bar-wrapper .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done::after {
+    content: "";
+    position: absolute;
+    border: 10px solid #ff9934;
+    border-left-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+    width: 1px;
+    height: 1px;
+    right: -10px;
+    top: -10px;
+}
+
+.campaign-progress-bar-wrapper .campaign-progress-bar.important .progress-bar-custom .progress-bar-custom-done::after {
+    border: 10px solid #ff9934;
+    border-left-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+}
+
+.campaign-steps-wrapper {
+    padding: 15px 15px 10px 15px;
     -webkit-transform-origin: 0 100%;
     -webkit-transform: rotate(90deg);
     -moz-transform-origin: 0 100%;
@@ -1967,36 +2275,137 @@ ul.user-list-followers .loading.xs {
     transform-origin: 0 100%;
     transform: rotate(90deg);
     width: 160px;
-    padding:0;
+    padding: 0;
 }
-.participatory-budget-steps-wrapper .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done::after{content: ""; position: absolute; border: 12px solid #ff9934; border-radius: 12px; margin-bottom: 4px; width: 1px; height: 1px; right: -10px; bottom: -10px;}
-.participatory-budget-steps-wrapper .campaign-progress-bar .pop-up {display:none}
-.ADDING_PROPOSALS .participatory-budget-steps-wrapper .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done{width:9%; -moz-animation-name: participatory-budget-steps-loadProgressBar-step1; -webkit-animation-name: participatory-budget-steps-loadProgressBar-step1;animation-name: participatory-budget-steps-loadProgressBar-step1;}
-.TECHNICAL_REVIEW .participatory-budget-steps-wrapper .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done{width:30%; -moz-animation-name: participatory-budget-steps-loadProgressBar-step2; -webkit-animation-name: participatory-budget-steps-loadProgressBar-step2;animation-name: participatory-budget-steps-loadProgressBar-step2;}
-.BALLOT           .participatory-budget-steps-wrapper .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done{width:50%; -moz-animation-name: participatory-budget-steps-loadProgressBar-step3; -webkit-animation-name: participatory-budget-steps-loadProgressBar-step3;animation-name: participatory-budget-steps-loadProgressBar-step3;}
-.CLOSED           .participatory-budget-steps-wrapper .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done{width:69%; -moz-animation-name: participatory-budget-steps-loadProgressBar-step4; -webkit-animation-name: participatory-budget-steps-loadProgressBar-step4;animation-name: participatory-budget-steps-loadProgressBar-step4;}
-.RESULTS          .participatory-budget-steps-wrapper .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done{width:88%; -moz-animation-name: participatory-budget-steps-loadProgressBar-step4; -webkit-animation-name: participatory-budget-steps-loadProgressBar-step4;animation-name: participatory-budget-steps-loadProgressBar-step5;}
 
-ul.participatory-budget-steps-info {list-style: none;padding:10px 0 0 35px}
-ul.participatory-budget-steps-info li{margin-bottom:15px; line-height:10px;}
-ul.participatory-budget-steps-info li label{font-weight: bold;}
-ul.participatory-budget-steps-info li span{font-size: 11px;}
-ul.participatory-budget-steps-info li.active a {display: none}
+.campaign-steps-wrapper.steps5 {
+    width: 160px;
+}
 
-.participatory-budget-status .comment-proposal{margin-bottom: 30px;margin-top:-20px;}
+.campaign-steps-wrapper.steps4 {
+    width: 130px;
+}
 
-.progress-bar {background-color: #ec931f;}
+.campaign-steps-wrapper .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done::after {
+    content: "";
+    position: absolute;
+    border: 12px solid #ff9934;
+    border-radius: 12px;
+    margin-bottom: 4px;
+    width: 1px;
+    height: 1px;
+    right: -10px;
+    bottom: -10px;
+}
 
-.participatory-budget-status .kuorum-tooltip + .tooltip.bottom {
+.campaign-steps-wrapper .campaign-progress-bar .pop-up {
+    display: none
+}
+
+.ADDING_PROPOSALS .campaign-steps-wrapper.steps5 .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done {
+    width: 9%;
+    -moz-animation-name: campaign-steps5-loadProgressBar-step1;
+    -webkit-animation-name: campaign-steps5-loadProgressBar-step1;
+    animation-name: campaign-steps5-loadProgressBar-step1;
+}
+
+.TECHNICAL_REVIEW .campaign-steps-wrapper.steps5 .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done {
+    width: 30%;
+    -moz-animation-name: campaign-steps5-loadProgressBar-step2;
+    -webkit-animation-name: campaign-steps5-loadProgressBar-step2;
+    animation-name: campaign-steps5-loadProgressBar-step2;
+}
+
+.BALLOT .campaign-steps-wrapper.steps5 .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done {
+    width: 50%;
+    -moz-animation-name: campaign-steps5-loadProgressBar-step3;
+    -webkit-animation-name: campaign-steps5-loadProgressBar-step3;
+    animation-name: campaign-steps5-loadProgressBar-step3;
+}
+
+.CLOSED .campaign-steps-wrapper.steps5 .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done {
+    width: 69%;
+    -moz-animation-name: campaign-steps5-loadProgressBar-step4;
+    -webkit-animation-name: campaign-steps5-loadProgressBar-step4;
+    animation-name: campaign-steps5-loadProgressBar-step4;
+}
+
+.RESULTS .campaign-steps-wrapper.steps5 .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done {
+    width: 88%;
+    -moz-animation-name: campaign-steps5-loadProgressBar-step4;
+    -webkit-animation-name: campaign-steps5-loadProgressBar-step4;
+    animation-name: campaign-steps5-loadProgressBar-step5;
+}
+
+.ADDING_APPLICATIONS .campaign-steps-wrapper.steps4 .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done {
+    width: 12%;
+    -moz-animation-name: campaign-steps4-loadProgressBar-step1;
+    -webkit-animation-name: campaign-steps4-loadProgressBar-step1;
+    animation-name: campaign-steps4-loadProgressBar-step1;
+}
+
+.VALIDATING_APPLICATIONS .campaign-steps-wrapper.steps4 .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done {
+    width: 35%;
+    -moz-animation-name: campaign-steps4-loadProgressBar-step2;
+    -webkit-animation-name: campaign-steps4-loadProgressBar-step2;
+    animation-name: campaign-steps4-loadProgressBar-step2;
+}
+
+.VOTING .campaign-steps-wrapper.steps4 .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done {
+    width: 60%;
+    -moz-animation-name: campaign-steps4-loadProgressBar-step3;
+    -webkit-animation-name: campaign-steps4-loadProgressBar-step3;
+    animation-name: campaign-steps4-loadProgressBar-step3;
+}
+
+.RESULTS .campaign-steps-wrapper.steps4 .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done {
+    width: 85%;
+    -moz-animation-name: campaign-steps4-loadProgressBar-step4;
+    -webkit-animation-name: campaign-steps4-loadProgressBar-step4;
+    animation-name: campaign-steps4-loadProgressBar-step4;
+}
+
+ul.campaign-steps-info {
+    list-style: none;
+    padding: 10px 0 0 35px
+}
+
+ul.campaign-steps-info li {
+    margin-bottom: 15px;
+    line-height: 10px;
+}
+
+ul.campaign-steps-info li label {
+    font-weight: bold;
+}
+
+ul.campaign-steps-info li span {
+    font-size: 11px;
+}
+
+ul.campaign-steps-info li.active a {
+    display: none
+}
+
+.campaign-steps-status .comment-proposal {
+    margin-bottom: 30px;
+    margin-top: -20px;
+}
+
+.progress-bar {
+    background-color: #ec931f;
+}
+
+.campaign-steps-status .kuorum-tooltip + .tooltip.bottom {
     left: 70px !important;
 }
 
-.participatory-budget-status .kuorum-tooltip + .tooltip.bottom .tooltip-inner {
+.campaign-steps-status .kuorum-tooltip + .tooltip.bottom .tooltip-inner {
     position: relative;
     width: 200px;
 }
 
-.participatory-budget-status .kuorum-tooltip + .tooltip.bottom .tooltip-arrow {
+.campaign-steps-status .kuorum-tooltip + .tooltip.bottom .tooltip-arrow {
     position: relative;
     left: 10%;
 }

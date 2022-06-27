@@ -13,7 +13,10 @@
   border-bottom-color: transparent;
 }
 
-.campaign-progress-bar.important .progress-bar-custom .progress-bar-custom-done {background: @mainColor;}
+.campaign-progress-bar.important .progress-bar-custom .progress-bar-custom-done {
+  background: @mainColor;
+}
+
 .campaign-progress-bar-wrapper .campaign-progress-bar.important .progress-bar-custom .progress-bar-custom-done::after {
   border-color: @mainColor;
   border-left-color: transparent;
@@ -21,8 +24,13 @@
   border-bottom-color: transparent;
 }
 
-.participatory-budget-steps-wrapper .progress-bar-custom .progress-bar-custom-done {background: @mainColor;}
-.participatory-budget-steps-wrapper .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done::after {border-color: @mainColor;}
+.campaign-steps-wrapper .progress-bar-custom .progress-bar-custom-done {
+  background: @mainColor;
+}
+
+.campaign-steps-wrapper .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done::after {
+  border-color: @mainColor;
+}
 
 
 .nav-tabs.simple > li.active > a,
@@ -31,6 +39,7 @@
   color: @secondColor;
   border-bottom-color: @secondColor;
 }
+
 .nav-tabs.simple > li > a:hover,
 .nav-tabs.simple > li > a:focus {
   color: @secondColor;
