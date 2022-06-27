@@ -4,6 +4,8 @@ import kuorum.register.KuorumUserSession
 import kuorum.users.KuorumUser
 import org.kuorum.rest.model.communication.CampaignLightRSDTO
 import org.kuorum.rest.model.communication.CampaignRSDTO
+import org.kuorum.rest.model.communication.contest.ContestApplicationRDTO
+import org.kuorum.rest.model.communication.contest.ContestApplicationRSDTO
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.kuorum.rest.model.communication.debate.ProposalRSDTO
 import org.kuorum.rest.model.communication.event.EventRSDTO
@@ -74,19 +76,28 @@ class LinkPropertiesCodec {
     }
 
     private static def prepareParams(CampaignLightRSDTO campaignRSDTO) {
-        if (campaignRSDTO.participatoryBudget){
+        if (campaignRSDTO.participatoryBudget) {
             // IT IS A DISTRICT PROPOSAL
-            return  [
-                    userAlias: campaignRSDTO.participatoryBudget.userAlias.toLowerCase(),
-                    participatoryBudgetTitle: campaignRSDTO.participatoryBudget.title.encodeAsKuorumUrl(),
-                    participatoryBudgetId: campaignRSDTO.participatoryBudget.id,
-                    urlTitle: getNameTitleUrl(campaignRSDTO),
-                    campaignId: campaignRSDTO.id
-            ]
-        }else{
             return [
-                    userAlias: campaignRSDTO.user.alias.toLowerCase(),
-                    urlTitle: getNameTitleUrl(campaignRSDTO),
+                    userAlias               : campaignRSDTO.participatoryBudget.userAlias.toLowerCase(),
+                    participatoryBudgetTitle: campaignRSDTO.participatoryBudget.title.encodeAsKuorumUrl(),
+                    participatoryBudgetId   : campaignRSDTO.participatoryBudget.id,
+                    urlTitle                : getNameTitleUrl(campaignRSDTO),
+                    campaignId              : campaignRSDTO.id
+            ]
+        } else if (campaignRSDTO.contest) {
+            // IT IS A CONTEST APPLICATION [We need inheritance]
+            return [
+                    userAlias   : campaignRSDTO.contest.userAlias.toLowerCase(),
+                    contestTitle: campaignRSDTO.contest.title.encodeAsKuorumUrl(),
+                    contestId   : campaignRSDTO.contest.id,
+                    urlTitle    : getNameTitleUrl(campaignRSDTO),
+                    campaignId  : campaignRSDTO.id
+            ]
+        } else {
+            return [
+                    userAlias : campaignRSDTO.user.alias.toLowerCase(),
+                    urlTitle  : getNameTitleUrl(campaignRSDTO),
                     campaignId: campaignRSDTO.id
             ]
         }
@@ -102,20 +113,31 @@ class LinkPropertiesCodec {
 
     private static def prepareParams(DistrictProposalRSDTO districtProposalRSDTO) {
         [
-                userAlias: districtProposalRSDTO.participatoryBudget.userAlias.toLowerCase(),
+                userAlias               : districtProposalRSDTO.participatoryBudget.userAlias.toLowerCase(),
                 participatoryBudgetTitle: districtProposalRSDTO.participatoryBudget.title.encodeAsKuorumUrl(),
-                participatoryBudgetId: districtProposalRSDTO.participatoryBudget.id,
-                urlTitle: getNameTitleUrl(districtProposalRSDTO),
-                campaignId: districtProposalRSDTO.id
+                participatoryBudgetId   : districtProposalRSDTO.participatoryBudget.id,
+                urlTitle                : getNameTitleUrl(districtProposalRSDTO),
+                campaignId              : districtProposalRSDTO.id
         ]
     }
+
+    private static def prepareParams(ContestApplicationRSDTO contestApplicationRSDTO) {
+        [
+                userAlias   : contestApplicationRSDTO.contest.userAlias.toLowerCase(),
+                contestTitle: contestApplicationRSDTO.contest.title.encodeAsKuorumUrl(),
+                contestId   : contestApplicationRSDTO.contest.id,
+                urlTitle    : getNameTitleUrl(contestApplicationRSDTO),
+                campaignId  : contestApplicationRSDTO.id
+        ]
+    }
+
     private static def prepareParams(SearchDistrictProposalRSDTO districtProposalRSDTO) {
         [
-                userAlias: districtProposalRSDTO.participatoryBudget.userAlias.toLowerCase(),
+                userAlias               : districtProposalRSDTO.participatoryBudget.userAlias.toLowerCase(),
                 participatoryBudgetTitle: districtProposalRSDTO.participatoryBudget.title.encodeAsKuorumUrl(),
-                participatoryBudgetId: districtProposalRSDTO.participatoryBudget.id,
-                urlTitle: getNameTitleUrl(districtProposalRSDTO),
-                campaignId: districtProposalRSDTO.id
+                participatoryBudgetId   : districtProposalRSDTO.participatoryBudget.id,
+                urlTitle                : getNameTitleUrl(districtProposalRSDTO),
+                campaignId              : districtProposalRSDTO.id
         ]
     }
 

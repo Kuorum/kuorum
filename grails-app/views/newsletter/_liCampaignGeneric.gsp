@@ -35,6 +35,16 @@
 <g:elseif test="${campaign.campaignType == org.kuorum.rest.model.communication.CampaignTypeRSDTO.PETITION}">
     <g:set var="faIcon" value="fa-microphone"/>
 </g:elseif>
+<g:elseif test="${campaign.campaignType == org.kuorum.rest.model.communication.CampaignTypeRSDTO.CONTEST}">
+    <g:set var="faIcon" value="fa-trophy"/>
+</g:elseif>
+<g:elseif test="${campaign.campaignType == org.kuorum.rest.model.communication.CampaignTypeRSDTO.CONTEST_APPLICATION}">
+    <g:set var="urlMappingNameEditStep" value="contestApplicationEditContent"/>
+    <g:set var="urlMappingNameShow" value="contestApplicationShow"/>
+    <g:set var="urlMappingNameRemove" value="contestApplicationRemove"/>
+    <g:set var="urlMappingNameCopy" value="contestApplicationCopy"/>
+    <g:set var="faIcon" value="far fa-scroll"/>
+</g:elseif>
 <g:set var="typeName" value="${g.message(code: 'tools.campaign.new.' + type)}"/>
 <g:set var="campaignGenericMappings"
        value="[show: urlMappingNameShow, edit: urlMappingNameEditStep, remove: urlMappingNameRemove, copy: urlMappingNameCopy]"/>
@@ -70,7 +80,9 @@
                 (<g:formatDate date="${campaign.datePublished}" type="datetime" style="LONG" timeStyle="SHORT"
                                timeZone="${user.timeZone}"/>)
             </span>
-            :: ${campaign.anonymousFilter?.name ?: g.message(code: 'tools.massMailing.fields.filter.to.all')}
+            <g:if test="${campaign.anonymousFilter || campaign.getCampaignType() == org.kuorum.rest.model.communication.CampaignTypeRSDTO.BULLETIN}">
+                :: ${campaign.anonymousFilter?.name ?: g.message(code: 'tools.massMailing.fields.filter.to.all')}
+            </g:if>
         </g:if>
     </p>
 <g:if test="${campaign.getCampaignType() == org.kuorum.rest.model.communication.CampaignTypeRSDTO.BULLETIN}">

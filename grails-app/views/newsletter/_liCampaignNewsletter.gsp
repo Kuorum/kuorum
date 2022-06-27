@@ -30,7 +30,7 @@
                 (<g:formatDate date="${newsletter.sentOn}" type="datetime" style="LONG" timeStyle="SHORT"
                                timeZone="${user.timeZone}"/>)
             </span>
-            - ${newsletter.filter?.name ?: g.message(code: 'tools.massMailing.fields.filter.to.all')}
+            :: ${newsletter.filter?.name ?: g.message(code: 'tools.massMailing.fields.filter.to.all')}
         </g:if>
     </p>
     <ul class="list-campaign-stats">

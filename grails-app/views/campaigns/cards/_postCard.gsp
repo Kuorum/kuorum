@@ -1,28 +1,9 @@
-<article role="article" class="box-ppal clearfix ${highlighted?'highlighted':''}">
+<article role="article" class="box-ppal clearfix ${highlighted ? 'highlighted' : ''}">
     <div class="link-wrapper" id="post-${post.id}" data-datepublished="${post.datePublished.time}">
-        <g:link mapping="postShow" params="${post.encodeAsLinkProperties()}" class="hidden"></g:link>
-        %{--<g:if test="${post.photoUrl || post.videoUrl}">--}%
-        <div class="card-header-photo">
-            <g:if test="${post.photoUrl}">
-                <img src="${post.photoUrl}" alt="${post.title}">
-            </g:if>
-            <g:elseif test="${post.videoUrl}">
-                <image:showYoutube youtube="${post.videoUrl}" campaign="${post}"/>
-            </g:elseif>
-            <g:else>
-                <div class="imagen-shadowed-main-color-domain">
-                    <img class="empty" src="${g.resource(dir: "images", file: "emptyCampaign.png")}" alt="${post.title}"/>
-                </div>
-            </g:else>
-        </div>
-        %{--</g:if>--}%
-            <div class="card-body">
-                <h1>
-                    <g:link mapping="postShow" class="link-wrapper-clickable" params="${post.encodeAsLinkProperties()}">
-                        ${post.title}
-                    </g:link>
-                </h1>
-            </div>
+        <g:set var="campaignLink" value="${g.createLink(mapping: 'postShow', params: post.encodeAsLinkProperties())}"/>
+        <a href="${campaignLink}" class="hidden"></a>
+        <g:render template="/campaigns/cards/campaignMultimediaCard" model="[campaign: post]"/>
+        <g:render template="/campaigns/cards/campaignBodyCard" model="[campaign: post, campaignLink: campaignLink]"/>
         <div class="card-footer">
             <ul>
                 <g:if test="${showAuthor}">

@@ -234,6 +234,7 @@ class RestKuorumApiService {
         ACCOUNT_CAMPAIGNS("/communication/campaign/{userId}"),
         ACCOUNT_CAMPAIGN("/communication/campaign/{userId}/{campaignId}"),
         ACCOUNT_CAMPAIGN_FILES("/communication/campaign/{userId}/{campaignId}/files"),
+        ACCOUNT_CAMPAIGN_CONTACT_FILES("/communication/campaign/{userId}/{campaignId}/contact-files"),
         ACCOUNT_CAMPAIGN_REPORTS("/communication/campaign/{userId}/{campaignId}/reports"),
         ACCOUNT_CAMPAIGN_REPORT_FILE("/communication/campaign/{userId}/{campaignId}/reports/{fileName}"),
         ACCOUNT_CAMPAIGN_PICTURE("/communication/campaign/{userId}/{campaignId}/picture"),
@@ -288,6 +289,15 @@ class RestKuorumApiService {
 
         ACCOUNT_DISTRICT_PROPOSALS("/communication/campaign/participatory-budget/district-proposal/{userId}"),
         ACCOUNT_DISTRICT_PROPOSAL("/communication/campaign/participatory-budget/district-proposal/{userId}/{campaignId}"),
+
+        ACCOUNT_CONTESTS("/communication/campaign/contest/{userId}"),
+        ACCOUNT_CONTEST("/communication/campaign/contest/{userId}/{campaignId}"),
+        ACCOUNT_CONTEST_COPY("/communication/campaign/contest/{userId}/{campaignId}/copy"),
+        ACCOUNT_CONTEST_APPLICATIONS_LIST("/communication/campaign/contest/{userId}/{campaignId}/applications"),
+
+        ACCOUNT_CONTEST_APPLICATIONS("/communication/campaign/contest/application/{userId}"),
+        ACCOUNT_CONTEST_APPLICATION("/communication/campaign/contest/application/{userId}/{campaignId}"),
+        ACCOUNT_CONTEST_APPLICATION_COPY("/communication/campaign/contest/application/{userId}/{campaignId}/copy"),
 
         ACCOUNT_PETITIONS_ALL("/communication/campaign/petition/"),
         ACCOUNT_PETITIONS("/communication/campaign/petition/{userId}"),
