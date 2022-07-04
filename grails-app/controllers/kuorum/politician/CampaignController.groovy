@@ -12,11 +12,13 @@ import kuorum.files.FileService
 import kuorum.register.KuorumUserSession
 import kuorum.solr.SearchSolrService
 import kuorum.users.CookieUUIDService
+import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
 import kuorum.util.TimeZoneUtil
 import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.commands.payment.CampaignSettingsCommand
 import kuorum.web.commands.payment.contact.ContactFilterCommand
+import kuorum.web.constants.WebConstants
 import org.kuorum.rest.model.communication.*
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.kuorum.rest.model.communication.event.EventRDTO
@@ -26,9 +28,11 @@ import org.kuorum.rest.model.communication.survey.CampaignVisibilityRSDTO
 import org.kuorum.rest.model.communication.survey.SurveyRDTO
 import org.kuorum.rest.model.communication.survey.SurveyVoteTypeDTO
 import org.kuorum.rest.model.contact.ContactPageRSDTO
+import org.kuorum.rest.model.contact.ContactRSDTO
 import org.kuorum.rest.model.contact.filter.FilterRDTO
 import org.kuorum.rest.model.contact.filter.FilterRSDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
+import org.kuorum.rest.model.kuorumUser.KuorumUserRSDTO
 import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
 import org.kuorum.rest.model.search.SearchKuorumElementRSDTO
 import org.kuorum.rest.model.search.SearchParamsRDTO
@@ -158,6 +162,7 @@ class CampaignController {
             command.groupValidation = campaignRSDTO.groupValidation
             command.campaignVisibility = campaignRSDTO.campaignVisibility
             command.newsletterCommunication = campaignRSDTO.newsletterCommunication
+            command.profileComplete = campaignRSDTO.profileComplete
             command.endDate = campaignRSDTO.endDate
             command.startDate = campaignRSDTO.startDate
             if (campaignRSDTO.hasProperty('causes')) {
@@ -202,6 +207,7 @@ class CampaignController {
         rdto.campaignVisibility = command.campaignVisibility == null ? CampaignVisibilityRSDTO.NON_VISIBLE : command.campaignVisibility
         rdto.groupValidation = command.groupValidation == null ? false : command.groupValidation
         rdto.newsletterCommunication = command.newsletterCommunication == null ? false : command.newsletterCommunication
+        rdto.profileComplete = command.profileComplete == null ? false : command.profileComplete
         rdto.startDate = TimeZoneUtil.convertToUserTimeZone(command.startDate, user.timeZone)
         rdto.endDate = TimeZoneUtil.convertToUserTimeZone(command.endDate, user.timeZone)
         if (command.filterEdited) {
@@ -448,9 +454,27 @@ class CampaignController {
         }
     }
 
-    protected void setCampaignName(CampaignRDTO campaignRDTO, CampaignContentCommand command) {
-        if (campaignRDTO.name == null) {
-            campaignRDTO.name = command.title
-        }
+    protected boolean checkRequiredProfileData(CampaignRSDTO campaignRSDTO) {
+        // TODO: May be this logic should be in the API
+        KuorumUserSession loggedUser = springSecurityService.principal
+        BasicDataKuorumUserRSDTO campaignOwner = campaignRSDTO.user
+        ContactRSDTO ownerContact = contactService.getContactByEmail(campaignOwner.getId(), loggedUser.getEmail())
+        KuorumUserRSDTO user = kuorumUserService.findUserRSDTO(loggedUser)
+        return checkBasicData(user) &&
+                checkPictures(user) &&
+                checkFiles(campaignOwner, ownerContact);
+    }
+
+    private boolean checkBasicData(KuorumUserRSDTO loggedUser) {
+        return loggedUser.nid && loggedUser.name && loggedUser.bio && loggedUser.nid && loggedUser.getPhone() && loggedUser.getPhonePrefix()
+    }
+
+    private boolean checkPictures(KuorumUserRSDTO user) {
+        return user.getAvatarUrl() && user.getUrlImageProfile()
+    }
+
+    private boolean checkFiles(BasicDataKuorumUserRSDTO campaignOwner, ContactRSDTO ownerContact) {
+        List<String> files = contactService.getFiles(campaignOwner.getId().toString(), ownerContact)
+        return files.size() >= WebConstants.MIN_FILES_PER_DOC_IN_CONTEST;
     }
 }

@@ -359,6 +359,20 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
                 mapping: mapping,
                 params: linkParams)
     }
+
+
+    /// FUNNEL TO COMPLETE THE PROFILE
+    def campaignFunnelRegisterStart() {
+        def model = index()
+        model.hiddeRegisterSocialButtons = true
+        render view: 'index', model: model
+    }
+
+    def saveCampaignFunnelRegisterStart(KuorumRegisterCommand command) {
+        register(command)
+        redirect mapping: "funnelFillBasicData"
+    }
+
 }
 
 @Validateable

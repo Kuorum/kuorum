@@ -13,7 +13,7 @@
 <content tag="mainContent">
     <r:require modules="recaptcha_register"/>
     <formUtil:validateForm bean="${command}" form="sign" autocomplete="off"/>
-    <g:form mapping="register" name="sign" role="form" method="POST" autocomplete="off" class="login">
+    <form action="#" name="sign" role="form" method="POST" autocomplete="off" class="login">
         <div class="form-group">
             <formUtil:input
                     command="${command}"
@@ -50,18 +50,21 @@
                 <formUtil:checkBox
                         command="${command}"
                         field="conditions"
-                        label="${g.message(code:'register.conditions', args:[g.createLink(mapping: 'footerPrivacyPolicy')], encodeAs: 'raw')}"/>
+                        label="${g.message(code: 'register.conditions', args: [g.createLink(mapping: 'footerPrivacyPolicy')], encodeAs: 'raw')}"/>
 
             </p>
             <button id="register-submit"
                     data-recaptcha=""
                     data-callback="registerCallback"
-                    class="btn btn-lg g-recaptcha">${g.message(code:'register.email.form.submit')}</button>
+                    class="btn btn-lg g-recaptcha">${g.message(code: 'register.email.form.submit')}</button>
+
             <p>
                 <g:message code="login.intro.loginAfter" args="[g.createLink(mapping: 'login'), '']"/>
             </p>
         </div>
-    </g:form>
-    <g:render template="/register/registerSocial"/>
+    </form>
+    <g:if test="${!hiddeRegisterSocialButtons}">
+        <g:render template="/register/registerSocial"/>
+    </g:if>
 </content>
 

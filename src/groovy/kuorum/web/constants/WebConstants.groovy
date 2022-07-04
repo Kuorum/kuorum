@@ -9,19 +9,20 @@ class WebConstants {
     public static final String AJAX_IS_FAVORITE = "isFavorite"
     public static final String AJAX_NUM_LIST = "numList" //Num of elements of some list
 
-    public static final String COUNTRY_CODE_SESSION="countryCode"
+    public static final String COUNTRY_CODE_SESSION = "countryCode"
 
-    public static final String COOKIE_USER_UUID='KUORUM_USER_UUID'
-    public static final String COOKIE_PATH='/'
-    public static final String COOKIE_PAYMENT_REDIRECT='KUORUM_PAYMENT_REDIRECT'
-    public static final String COOKIE_DOMAIN=".kuorum.org"; // Deprecated
-    public static final String COOKIE_URL_CALLBACK_REMEMBER_PASS="urlAfterRememberPassword"
-    public static final String COOKIE_URL_CALLBACK_CENSUS_LOGIN="urlCensusRegister_redirectAfeterSuccess"
+    public static final String COOKIE_USER_UUID = 'KUORUM_USER_UUID'
+    public static final String COOKIE_PATH = '/'
+    public static final String COOKIE_PAYMENT_REDIRECT = 'KUORUM_PAYMENT_REDIRECT'
+    public static final String COOKIE_DOMAIN = ".kuorum.org"; // Deprecated
+    public static final String COOKIE_URL_CALLBACK_REMEMBER_PASS = "urlAfterRememberPassword"
+    public static final String COOKIE_URL_CALLBACK_CENSUS_LOGIN = "urlCensusRegister_redirectAfeterSuccess"
 
-    public static final String WEB_FORMAT_DATE="dd/MM/yyyy HH:mm"
-    public static final String WEB_FORMAT_DATE_SHORT="dd/MM/yyyy"
+    public static final String WEB_FORMAT_DATE = "dd/MM/yyyy HH:mm"
+    public static final String WEB_FORMAT_DATE_SHORT = "dd/MM/yyyy"
 
-    public static final String WEB_PARAM_LANG="lang"
+    public static final String WEB_PARAM_LANG = "lang"
 
     public static final String FAKE_LANDING_ALIAS_USER = "admin"
+    public static final Integer MIN_FILES_PER_DOC_IN_CONTEST = 2;
 }

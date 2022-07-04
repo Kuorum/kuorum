@@ -210,22 +210,24 @@ class FormTagLib {
 
     }
 
-    def uploadContactFiles = {attrs ->
+    def uploadContactFiles = { attrs ->
         ContactRSDTO contact = attrs.contact
         String label = attrs.label
-        KuorumUserSession userSession= springSecurityService.principal
-        List<String> alreadyUploadedFiles = contactService.getFiles(userSession,contact)
-        alreadyUploadedFiles = alreadyUploadedFiles.collect{it.split('\\?').first()}
+        Boolean adminContact = attrs.adminContact ? Boolean.parseBoolean(attrs.adminContact) : false;
+        KuorumUserSession userSession = springSecurityService.principal
+        String contactOwnerId = adminContact ? WebConstants.FAKE_LANDING_ALIAS_USER : userSession.id.toString()
+        List<String> alreadyUploadedFiles = contactService.getFiles(contactOwnerId, contact)
+        alreadyUploadedFiles = alreadyUploadedFiles.collect { it.split('\\?').first() }
         def model = [
-                alreadyUploadedFiles:alreadyUploadedFiles,
-                elementId: contact.id,
-                disabled: false,
-                confirmRemoveFile: true,
-                actionUpload: g.createLink(mapping:'ajaxUploadContactFile', params: [contactId: contact.id, userAlias:userSession.id.toString()]),
-                actionDelete: g.createLink(mapping:'ajaxDeleteContactFile', params: [contactId: contact.id, userAlias:userSession.id.toString()]),
-                label:label
+                alreadyUploadedFiles: alreadyUploadedFiles,
+                elementId           : contact.id,
+                disabled            : false,
+                confirmRemoveFile   : true,
+                actionUpload        : g.createLink(mapping: 'ajaxUploadContactFile', params: [contactId: contact.id, userAlias: contactOwnerId, adminContact: adminContact]),
+                actionDelete        : g.createLink(mapping: 'ajaxDeleteContactFile', params: [contactId: contact.id, userAlias: contactOwnerId, adminContact: adminContact]),
+                label               : label
         ]
-        out << g.render(template:'/layouts/form/uploadMultipleFiles', model:model)
+        out << g.render(template: '/layouts/form/uploadMultipleFiles', model: model)
     }
     def uploadQuestionOptionFiles = {attrs ->
         SurveyRSDTO survey = attrs.survey

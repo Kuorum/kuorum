@@ -162,7 +162,11 @@ class ContestController extends CampaignController {
     private def contestModelSettings(CampaignSettingsCommand command, ContestRSDTO contestRSDTO) {
         def model = modelSettings(command, contestRSDTO)
         command.debatable = false
-        model.options = [debatable: false]
+        if (contestRSDTO == null) {
+            // By default the creation of a contest, profile controler is active
+            command.profileComplete = true
+        }
+        model.options = [debatable: false, configProfileComplete: true]
         return model
     }
 

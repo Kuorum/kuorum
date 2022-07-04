@@ -23,6 +23,7 @@ class KuorumUser {
     String surname
     String email
     String domain
+    String nid
     String alias
     List<String> oldAlias
     String bio

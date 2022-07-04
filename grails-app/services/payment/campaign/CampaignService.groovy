@@ -154,6 +154,7 @@ class CampaignService {
             rdto.publishOn = campaignRSDTO.datePublished
             rdto.campaignVisibility = campaignRSDTO.campaignVisibility
             rdto.groupValidation = campaignRSDTO.groupValidation
+            rdto.profileComplete = campaignRSDTO.profileComplete
             rdto.newsletterCommunication = campaignRSDTO.newsletterCommunication
             rdto.causes = campaignRSDTO.causes
             rdto.startDate = campaignRSDTO.startDate

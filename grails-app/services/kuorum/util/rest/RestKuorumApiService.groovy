@@ -218,7 +218,7 @@ class RestKuorumApiService {
 
         ACCOUNT_MASS_MAILINGS("/communication/massmailing/{userId}"),
         ACCOUNT_MASS_MAILING("/communication/massmailing/{userId}/{campaignId}"),
-        ACCOUNT_MASS_MAILING_SEND("/communication/massmailing/{userId}/{newsletterId}/send"),
+        ACCOUNT_MASS_MAILING_SEND_TEST("/communication/massmailing/{userId}/{newsletterId}/sendTest"),
         ACCOUNT_MASS_MAILING_COPY("/communication/massmailing/{userId}/{campaignId}/copy"),
         ACCOUNT_MASS_MAILING_TRACKING("/communication/massmailing/{userId}/{campaignId}/trackingMails"),
         ACCOUNT_MASS_MAILING_TRACKING_RESEND("/communication/campaign/bulletin/{userId}/{campaignId}/trackingMails/resend/{trackingEmailId}"),
