@@ -97,6 +97,7 @@ class KuorumUser {
         oldAlias nullable:true
         password nullable:true
         bio nullable:true
+        nid nullable: true
         avatar nullable:true
         imageProfile nullable:true
         userType nullable: false

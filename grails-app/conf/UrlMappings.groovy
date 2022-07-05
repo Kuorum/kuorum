@@ -57,7 +57,12 @@ class UrlMappings {
         name de_registerSuccess:    "/registrierung/erfolgreich"   (controller: "register",action:"registerSuccess"){mappingName="registerSuccess"}
         name ca_registerSuccess:    "/registre/satisfactori"   (controller: "register",action:"registerSuccess"){mappingName="registerSuccess"}
 
-        name registerCampaignFunnel:            "/register/fill-profile/sign-up"          (controller: "register"){action = [GET:"campaignFunnelRegisterStart", POST:"saveCampaignFunnelRegisterStart"]}
+        name registerCampaignFunnel:"/register/fill-profile/sign-up"          (controller: "register"){action = [GET:"campaignFunnelRegisterStart", POST:"saveCampaignFunnelRegisterStart"]}{mappingName="registerCampaignFunnel"}
+        name en_registerCampaignFunnel:"/register/fill-profile/sign-up"          (controller: "register"){action = [GET:"campaignFunnelRegisterStart", POST:"saveCampaignFunnelRegisterStart"]}{mappingName="registerCampaignFunnel"}
+        name es_registerCampaignFunnel:"/registro/completa-perfil/registro"          (controller: "register"){action = [GET:"campaignFunnelRegisterStart", POST:"saveCampaignFunnelRegisterStart"]}{mappingName="registerCampaignFunnel"}
+        name de_registerCampaignFunnel:"/registrierung/fill-profile/sign-up"          (controller: "register"){action = [GET:"campaignFunnelRegisterStart", POST:"saveCampaignFunnelRegisterStart"]}{mappingName="registerCampaignFunnel"}
+        name ca_registerCampaignFunnel:"/registre/fill-profile/registre"          (controller: "register"){action = [GET:"campaignFunnelRegisterStart", POST:"saveCampaignFunnelRegisterStart"]}{mappingName="registerCampaignFunnel"}
+
         name funnelFillBasicData:  "/edit-profile/fill-profile/setup-basic"   (controller: "profile"){action = [GET:"funnelFillBasicData",    POST:"saveFunnelFillBasicData"]}
         name funnelFillImages:     "/edit-profile/fill-profile/setup-images"  (controller: "profile"){action = [GET:"funnelFillImages",       POST:"saveFunnelFillImages"]}
         name funnelFillFiles:      "/edit-profile/fill-profile/setup-files"   (controller: "profile"){action = [GET:"funnelFillFiles",        POST:"saveFunnelFillFiles"]}

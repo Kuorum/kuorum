@@ -21,6 +21,7 @@
                     cssClass="form-control input-lg"
                     labelCssClass="sr-only"
                     showCharCounter="false"
+                    placeHolder="${namePlaceholderOverwritten}"
                     required="true"/>
         </div>
         <div class="form-group">
@@ -31,6 +32,7 @@
                     id="email"
                     cssClass="form-control input-lg"
                     labelCssClass="sr-only"
+                    placeHolder="${emailPlaceholderOverwritten}"
                     required="true"/>
         </div>
         <div class="form-group">
