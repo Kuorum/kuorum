@@ -222,10 +222,10 @@ class ContactService {
     }
 
     ContactRSDTO updateContact(KuorumUserSession user, ContactRDTO contactRDTO, Long contactId){
-        Map<String, String> params = [userId:user.id.toString(),contactId:contactId.toString()]
+        Map<String, String> params = [userId: user.id.toString(), contactId: contactId.toString()]
         Map<String, String> query = [:]
 
-        def response= restKuorumApiService.put(
+        def response = restKuorumApiService.put(
                 RestKuorumApiService.ApiMethod.USER_CONTACT,
                 params,
                 query,
