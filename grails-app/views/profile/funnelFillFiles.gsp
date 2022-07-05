@@ -22,7 +22,8 @@
         <li class="active"><div class="step-label"><g:message code="customRegister.fillProfile.files"/></div></li>
         <li class=""><div class="step-label"><g:message code="customRegister.fillProfile.social"/></div></li>
     </ol>
-    <g:form mapping="funnelFillFiles" name="stepFillFiles" role="form" method="POST" autocomplete="off">
+
+    <form name="stepFillFiles" role="form" method="POST" autocomplete="off">
         <fieldset aria-live="polite" class="row">
             <div class="form-group form-group-files">
                 <formUtil:uploadContactFiles contact="${contact}" adminContact="true"
@@ -36,6 +37,6 @@
                 %{--<input type="submit" id="submitCitizen" value="${g.message(code:'customRegister.step2.choseUserType.citizen')}" class="btn btn-blue btn-lg">--}%
             </div>
         </fieldset>
-    </g:form>
+    </form>
 </content>
 

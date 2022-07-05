@@ -135,7 +135,7 @@ class CampaignService {
             }
             return campaignRSDTO
         } catch (KuorumException e) {
-            log.info("Error recovering debate $campaignId : ${e.message}")
+            log.info("Error recovering campaign $campaignId : ${e.message}")
             return null
         }
     }

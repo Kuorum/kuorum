@@ -23,8 +23,8 @@
         <li class="active"><div class="step-label"><g:message code="customRegister.fillProfile.social"/></div></li>
     </ol>
     <formUtil:validateForm bean="${command}" form="stepFillSocial" autocomplete="off"/>
-    <g:form mapping="funnelFillSocial" name="stepFillSocial" role="form" method="POST" autocomplete="off"
-            class="signup step2">
+    <form name="stepFillSocial" role="form" method="POST" autocomplete="off"
+          class="signup step2">
 
         <g:render template="formSocialNetworks" model="[command: command, showPoliticianFields: showPoliticianFields]"/>
 
@@ -35,6 +35,6 @@
                 %{--<input type="submit" id="submitCitizen" value="${g.message(code:'customRegister.step2.choseUserType.citizen')}" class="btn btn-blue btn-lg">--}%
             </div>
         </fieldset>
-    </g:form>
+    </form>
 </content>
 

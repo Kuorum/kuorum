@@ -27,6 +27,8 @@ import kuorum.web.commands.profile.politician.RelevantEventsCommand
 import kuorum.web.constants.WebConstants
 import org.bson.types.ObjectId
 import org.codehaus.groovy.runtime.InvokerHelper
+import org.kuorum.rest.model.communication.CampaignRSDTO
+import org.kuorum.rest.model.communication.CampaignTypeRSDTO
 import org.kuorum.rest.model.contact.ContactRDTO
 import org.kuorum.rest.model.contact.ContactRSDTO
 import org.kuorum.rest.model.domain.SocialRDTO
@@ -41,6 +43,7 @@ import org.kuorum.rest.model.kuorumUser.validation.UserValidationRSDTO
 import org.kuorum.rest.model.notification.campaign.config.NewsletterConfigRQDTO
 import org.kuorum.rest.model.notification.campaign.config.NewsletterConfigRSDTO
 import org.kuorum.rest.model.tag.CauseRSDTO
+import payment.campaign.CampaignService
 import payment.campaign.NewsletterService
 import payment.contact.ContactService
 
@@ -64,6 +67,7 @@ class ProfileController {
     CausesService causesService
     PoliticianService politicianService
     ContactService contactService;
+    CampaignService campaignService
     Pattern pattern
     Matcher matcher
 
@@ -624,7 +628,7 @@ class ProfileController {
         user.name = command.name
         user.nid = command.nid
         kuorumUserService.updateUser(user)
-        redirect mapping: 'funnelFillImages'
+        redirect mapping: 'funnelFillImages', params: [campaignId: params.campaignId]
     }
 
     def funnelFillImages() {
@@ -637,13 +641,18 @@ class ProfileController {
     def saveFunnelFillImages(EditProfilePicturesCommand command) {
         KuorumUser user = params.user
         if (command.hasErrors()) {
-            render view: "editPictures", model: [command: command, user: user]
+            render view: "funnelFillImages", model: [command: command]
+            return
+        }
+        if (command.getPhotoId() == null || command.getImageProfile() == null) {
+            flash.error = g.message(code: 'register.funnel.association.images.error')
+            render view: "funnelFillImages", model: [command: command]
             return
         }
         prepareUserImages(user, command, fileService)
         kuorumUserService.updateUser(user)
         flash.message = message(code: 'profile.editUser.success')
-        redirect mapping: 'funnelFillFiles'
+        redirect mapping: 'funnelFillFiles', params: [campaignId: params.campaignId]
     }
 
     def funnelFillFiles() {
@@ -667,7 +676,7 @@ class ProfileController {
             render view: "funnelFillFiles", model: [contact: adminContact]
             return;
         }
-        redirect mapping: 'funnelFillSocial'
+        redirect mapping: 'funnelFillSocial', params: [campaignId: params.campaignId]
     }
 
     def funnelFillSocial() {
@@ -680,6 +689,18 @@ class ProfileController {
             return
         }
         kuorumUserService.updateSocialNetworkLoggedUser(command);
-        redirect mapping: 'home', params: [tour: true]
+        CampaignRSDTO campaignRSDTO = null
+        if (params.campaignId) {
+            campaignRSDTO = campaignService.find(WebConstants.FAKE_LANDING_ALIAS_USER, Long.parseLong(params.campaignId))
+
+        }
+
+        if (campaignRSDTO != null && campaignRSDTO.campaignType.equals(CampaignTypeRSDTO.CONTEST)) {
+            redirect mapping: 'contestApplicationCreate', params: campaignRSDTO.encodeAsLinkProperties()
+        } else if (campaignRSDTO != null && campaignRSDTO.campaignType.equals(CampaignTypeRSDTO.PARTICIPATORY_BUDGET)) {
+            redirect mapping: 'home', params: [tour: true]
+        } else {
+            redirect mapping: 'home', params: [tour: true]
+        }
     }
 }

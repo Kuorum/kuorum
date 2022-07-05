@@ -23,8 +23,8 @@
         <li class=""><div class="step-label"><g:message code="customRegister.fillProfile.social"/></div></li>
     </ol>
     <formUtil:validateForm bean="${command}" form="stepFillImages" autocomplete="off"/>
-    <g:form mapping="funnelFillImages" name="stepFillImages" role="form" method="POST" autocomplete="off"
-            class="signup">
+    <form name="stepFillImages" role="form" method="POST" autocomplete="off"
+          class="signup">
 
         <fieldset aria-live="polite" class="row">
             <g:render template="formEditPictures" model="[command: command]"/>
@@ -36,6 +36,6 @@
                 %{--<input type="submit" id="submitCitizen" value="${g.message(code:'customRegister.step2.choseUserType.citizen')}" class="btn btn-blue btn-lg">--}%
             </div>
         </fieldset>
-    </g:form>
+    </form>
 </content>
 

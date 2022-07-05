@@ -21,4 +21,6 @@
             </g:link>
         </div>
     </g:if>
+    <g:render template="/contestApplication/showModules/cCallToActionInfoContest"
+              model="[contestApplication: contestApplication]"/>
 </div>
