@@ -27,6 +27,7 @@ import kuorum.web.commands.profile.politician.RelevantEventsCommand
 import kuorum.web.constants.WebConstants
 import org.bson.types.ObjectId
 import org.codehaus.groovy.runtime.InvokerHelper
+import org.kuorum.rest.model.contact.ContactRDTO
 import org.kuorum.rest.model.contact.ContactRSDTO
 import org.kuorum.rest.model.domain.SocialRDTO
 import org.kuorum.rest.model.kuorumUser.KuorumUserExtraDataRSDTO
@@ -648,6 +649,12 @@ class ProfileController {
     def funnelFillFiles() {
         KuorumUserSession loggedUser = springSecurityService.principal
         ContactRSDTO adminContact = contactService.getContactByEmail(WebConstants.FAKE_LANDING_ALIAS_USER, loggedUser.email)
+        if (adminContact == null) {
+            ContactRDTO newAdminContact = new ContactRDTO()
+            newAdminContact.setEmail(loggedUser.email)
+            newAdminContact.setName(loggedUser.name)
+            adminContact = contactService.addContact(WebConstants.FAKE_LANDING_ALIAS_USER, newAdminContact)
+        }
         [contact: adminContact]
     }
 

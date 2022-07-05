@@ -230,26 +230,30 @@ class ContactService {
                 params,
                 query,
                 contactRDTO,
-                new TypeReference<ContactRSDTO>(){})
-        ContactRSDTO contact =null
-        if (response.data){
+                new TypeReference<ContactRSDTO>() {})
+        ContactRSDTO contact = null
+        if (response.data) {
             contact = response.data
         }
         contact
     }
 
-    ContactRSDTO addContact(KuorumUserSession user, ContactRDTO contactRDTO){
-        Map<String, String> params = [userId:user.id.toString()]
+    ContactRSDTO addContact(KuorumUserSession user, ContactRDTO contactRDTO) {
+        return addContact(user.getId().toString(), contactRDTO)
+    }
+
+    ContactRSDTO addContact(String userId, ContactRDTO contactRDTO) {
+        Map<String, String> params = [userId: userId]
         Map<String, String> query = [:]
 
-        def response= restKuorumApiService.post(
+        def response = restKuorumApiService.post(
                 RestKuorumApiService.ApiMethod.USER_CONTACTS,
                 params,
                 query,
                 contactRDTO,
-                new TypeReference<ContactRSDTO>(){})
-        ContactRSDTO contact =null
-        if (response.data){
+                new TypeReference<ContactRSDTO>() {})
+        ContactRSDTO contact = null
+        if (response.data) {
             contact = response.data
         }
         contact
