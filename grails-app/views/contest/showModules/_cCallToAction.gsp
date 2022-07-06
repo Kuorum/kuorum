@@ -31,14 +31,8 @@
     <g:if test="${contest.published}">
         <div class="actions clearfix">
             <g:if test="${contest.status == org.kuorum.rest.model.communication.contest.ContestStatusDTO.ADDING_APPLICATIONS}">
-                <sec:ifLoggedIn>
-                    <g:set var="addContestApplicationMapping" value="contestApplicationCreate"/>
-                </sec:ifLoggedIn>
-                <sec:ifNotLoggedIn>
-                    <g:set var="addContestApplicationMapping" value="registerCampaignFunnel"/>
-                </sec:ifNotLoggedIn>
                 <g:link
-                        mapping="${addContestApplicationMapping}"
+                        mapping="contestApplicationCreate"
                         params="${contest.encodeAsLinkProperties()}"
                         type="button"
                         data-loggedUser="${sec.username()}"

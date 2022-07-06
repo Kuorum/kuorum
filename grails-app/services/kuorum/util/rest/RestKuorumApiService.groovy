@@ -234,6 +234,7 @@ class RestKuorumApiService {
         ACCOUNT_CAMPAIGNS("/communication/campaign/{userId}"),
         ACCOUNT_CAMPAIGN("/communication/campaign/{userId}/{campaignId}"),
         ACCOUNT_CAMPAIGN_FILES("/communication/campaign/{userId}/{campaignId}/files"),
+        ACCOUNT_CAMPAIGN_CONTACT_DATA("/communication/campaign/{userId}/{campaignId}/contact-data"),
         ACCOUNT_CAMPAIGN_CONTACT_FILES("/communication/campaign/{userId}/{campaignId}/contact-files"),
         ACCOUNT_CAMPAIGN_REPORTS("/communication/campaign/{userId}/{campaignId}/reports"),
         ACCOUNT_CAMPAIGN_REPORT_FILE("/communication/campaign/{userId}/{campaignId}/reports/{fileName}"),
@@ -368,11 +369,14 @@ class RestKuorumApiService {
                     obj = objectMapper.readValue(jsonString, clazz)
                 }
                 return obj
+            } else if (resp.status == 404) {
+                log.warn("API Response :: Element not found -> ${resp?.context?.getAttribute("http.cookie-origin")?.path}")
+                throw new KuorumException("Element not found")
             } else {
                 try {
                     log.warn(resp.getContext().getAttribute("http.request").getAt("original").toString());
                 } catch (Throwable t) {
-                    log.warn("Error recovering original URL called to api to print it in logs")
+                    log.warn("API Response :: Error recovering original URL called to api to print it in logs")
                 }
                 String jsonString = IOUtils.toString(resp.getEntity().getContent(), "UTF-8")
                 ObjectMapper objectMapper = new ObjectMapper()
@@ -383,9 +387,22 @@ class RestKuorumApiService {
             }
         })
 
-        mailKuorumServices.handler.failure = { resp, data ->
-            throw new KuorumException("No found")
-        }
+//        mailKuorumServices.handler.failure = { resp, data ->
+//            throw new KuorumException("No found")
+//        }
+//
+//        mailKuorumServices.handler.success = { resp, data ->
+//            def obj = null
+//            if (clazz != null) {
+//                String jsonString = IOUtils.toString(resp.getEntity().getContent(), "UTF-8")
+//                ObjectMapper objectMapper = new ObjectMapper()
+//                objectMapper.setTimeZone(TimeZone.getTimeZone("UTC"))
+//                objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+//                obj = objectMapper.readValue(jsonString, clazz)
+//            }
+//            return obj
+//        }
+//
         return mailKuorumServices
 
     }

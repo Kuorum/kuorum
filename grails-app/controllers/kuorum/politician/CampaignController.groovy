@@ -2,6 +2,7 @@ package kuorum.politician
 
 import grails.converters.JSON
 import grails.plugin.springsecurity.SpringSecurityService
+import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.annotation.Secured
 import groovy.time.TimeCategory
 import kuorum.KuorumFile
@@ -102,9 +103,14 @@ class CampaignController {
             }
             def model = dataView.model
             List<String> linkFiles = campaignService.getFiles(campaignRSDTO);
-            List<String> linkContactFiles = campaignService.getContactFiles(campaignRSDTO, viewerUid);
             model.campaignFiles = linkFiles.collect { it -> it.encodeAsS3File() }
-            model.contactFiles = linkContactFiles.collect { it -> it.encodeAsS3File() }
+            if (SpringSecurityUtils.ifAllGranted("ROLE_ADMIN")) {
+                // Only admins recovers the contact info. This reduce the loading time requesting stupid info
+                ContactRSDTO contactRSDTO = campaignService.getContactData(campaignRSDTO, viewerUid);
+                model.contact = contactRSDTO
+                List<String> linkContactFiles = campaignService.getContactFiles(campaignRSDTO, viewerUid);
+                model.contactFiles = linkContactFiles.collect { it -> it.encodeAsS3File() }
+            }
             if (springSecurityService.isLoggedIn()) {
                 KuorumUserSession userLogged = springSecurityService.principal
                 model.displayTimeZone = userLogged.timeZone ?: campaignRSDTO.user.timeZone

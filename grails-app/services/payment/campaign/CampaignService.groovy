@@ -11,6 +11,7 @@ import org.kuorum.rest.model.communication.*
 import org.kuorum.rest.model.communication.bulletin.BulletinRSDTO
 import org.kuorum.rest.model.communication.event.EventRDTO
 import org.kuorum.rest.model.communication.search.SearchCampaignRDTO
+import org.kuorum.rest.model.contact.ContactRSDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 import org.kuorum.rest.model.notification.campaign.NewsletterRSDTO
 
@@ -209,6 +210,23 @@ class CampaignService {
                 new TypeReference<List<String>>() {}
         )
         response.data
+    }
+
+    ContactRSDTO getContactData(CampaignRSDTO campaignRSDTO, String viewerUid) {
+        Map<String, String> params = [campaignId: campaignRSDTO.getId().toString(), userId: campaignRSDTO.getUser().getId()]
+        Map<String, String> query = [viewerUid: viewerUid]
+        try {
+            def response = restKuorumApiService.get(
+                    RestKuorumApiService.ApiMethod.ACCOUNT_CAMPAIGN_CONTACT_DATA,
+                    params,
+                    query,
+                    new TypeReference<ContactRSDTO>() {}
+            )
+            response.data
+        } catch (Exception e) {
+            log.info("Contact of the campaign not found")
+            return null;
+        }
     }
 
     List<String> getReports(KuorumUserSession loggedUser, Long campaignId) {
