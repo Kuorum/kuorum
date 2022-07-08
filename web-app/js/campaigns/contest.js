@@ -1,5 +1,22 @@
 $(function () {
 
+    $(".campaign-steps-status .campaign-steps-info a").on("click", function (e) {
+        e.preventDefault();
+        var status = $(this).attr("data-status");
+        var statusText = $(this).attr("data-status-text");
+        console.log(status)
+        console.log(statusText)
+
+        var link = $("#modalEditParticipatoryBudgetStatusButtonOk").attr("href");
+        link = link.replace(/status=.*/, "status=" + status);
+        $("#modalEditParticipatoryBudgetStatusButtonOk").attr("href", link);
+
+
+        $("#modalEditParticipatoryBudgetStatus .modal-body p strong").html(statusText);
+        $("#modalEditParticipatoryBudgetStatus").modal("show")
+
+    });
+
     $("#contest-applications-list .nav-underline a").on("click", function (e) {
         e.preventDefault();
         var $a = $(this);
