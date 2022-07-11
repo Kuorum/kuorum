@@ -152,6 +152,19 @@
                 </div>
             </fieldset>
 
+            <g:if test="${options.configProfileComplete}">
+                <fieldset aria-live="polite" class="form-group fieldset-check-box">
+                    <label for="profileComplete" class="col-sm-2 col-md-1 control-label">
+                        <g:message
+                                code="kuorum.web.commands.payment.CampaignSettingsCommand.profileComplete.label.left"/>:
+                    </label>
+
+                    <div class="col-sm-11">
+                        <formUtil:checkBox command="${command}" field="profileComplete"/>
+                    </div>
+                </fieldset>
+            </g:if>
+
             <div id="filter-contact-selector" style="display: none">
                 <g:render template="/newsletter/filter"
                           model="[command: command, filters: filters, currentFilter: campaign?.newsletter?.filter, totalContacts: totalContacts, hideSendTestButton: true, showOnly: campaign?.newsletter?.status == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT]"/>
@@ -159,9 +172,9 @@
             <g:render template="/newsletter/form/formGroupCampaignTags"
                       model="[command: command, events: events, editable: campaign == null || !campaign.published]"/>
         </div>
-        <g:render template="/campaigns/edit/stepButtons"
-                  model="[mappings: mappings, status: status, command: command]"/>
-    </form>
+    <g:render template="/campaigns/edit/stepButtons"
+              model="[mappings: mappings, status: status, command: command]"/>
+</form>
 </div>
 
 <!-- WARN USING ANONYMOUS FILTER -->

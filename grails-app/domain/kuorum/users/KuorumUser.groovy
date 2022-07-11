@@ -23,6 +23,7 @@ class KuorumUser {
     String surname
     String email
     String domain
+    String nid
     String alias
     List<String> oldAlias
     String bio
@@ -96,6 +97,7 @@ class KuorumUser {
         oldAlias nullable:true
         password nullable:true
         bio nullable:true
+        nid nullable: true
         avatar nullable:true
         imageProfile nullable:true
         userType nullable: false

@@ -84,12 +84,12 @@ class NewsletterService {
 
     NewsletterRSDTO campaignTest(KuorumUserSession user, Long newsletterId){
         Map<String, String> params = [userId:user.id.toString(), newsletterId:newsletterId.toString()]
-        Map<String, String> query = [test:true]
+        Map<String, String> query = [:]
         def response= restKuorumApiService.get(
-                RestKuorumApiService.ApiMethod.ACCOUNT_MASS_MAILING_SEND,
+                RestKuorumApiService.ApiMethod.ACCOUNT_MASS_MAILING_SEND_TEST,
                 params,
                 query,
-                new TypeReference<NewsletterRSDTO>(){}
+                new TypeReference<NewsletterRSDTO>() {}
         )
         NewsletterRSDTO campaignSaved=null
         if (response.data){

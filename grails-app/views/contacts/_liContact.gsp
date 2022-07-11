@@ -5,6 +5,7 @@
             field="listIds"
             label=" "
             value="${contact.id}"
+            elementId="listContactId-${contact.id}"
         />
 
         <span class="user-img"><img src="${image.contactImgSrc(contact:contact)}" alt="${contact.name} ${contact.surname}" itemprop="image"></span>

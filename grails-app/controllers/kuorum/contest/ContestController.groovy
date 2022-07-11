@@ -2,21 +2,24 @@ package kuorum.contest
 
 import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
+import kuorum.core.exception.KuorumException
 import kuorum.politician.CampaignController
 import kuorum.register.KuorumUserSession
 import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.commands.payment.CampaignSettingsCommand
 import kuorum.web.commands.payment.contest.ContestAreasCommand
+import kuorum.web.commands.payment.contest.ContestChangeStatusCommand
 import kuorum.web.commands.payment.contest.ContestDeadlinesCommand
+import kuorum.web.commands.payment.contest.NewContestApplicationCommand
 import kuorum.web.constants.WebConstants
 import org.kuorum.rest.model.communication.contest.ContestRDTO
 import org.kuorum.rest.model.communication.contest.ContestRSDTO
+import org.kuorum.rest.model.communication.contest.ContestStatusDTO
 import org.kuorum.rest.model.communication.contest.FilterContestApplicationRDTO
 import org.kuorum.rest.model.communication.contest.PageContestApplicationRSDTO
-import org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetRDTO
-import org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetRSDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
-import payment.campaign.ContestService
+
+import java.lang.reflect.UndeclaredThrowableException
 
 class ContestController extends CampaignController {
 
@@ -40,6 +43,39 @@ class ContestController extends CampaignController {
         Long campaignId = Long.parseLong((String) params.campaignId)
         ContestRSDTO contestRSDTO = setCampaignAsDraft(campaignId, contestService)
         return campaignModelContent(campaignId, contestRSDTO, null, contestService)
+    }
+
+    @Secured(['ROLE_CAMPAIGN_CONTEST'])
+    def editStatus(ContestChangeStatusCommand command) {
+
+        KuorumUserSession loggedUser = springSecurityService.principal
+        ContestRSDTO contestRSDTO = contestService.find(loggedUser, command.campaignId)
+        if (command.hasErrors()) {
+            flash.error = message(error: command.errors.getFieldError())
+            redirect mapping: 'contestShow', params: contestRSDTO.encodeAsLinkProperties()
+            return
+        }
+        ContestRDTO rdto = contestService.map(contestRSDTO)
+        rdto.setStatus(command.getStatus())
+        String msgError = null
+        try {
+            contestService.save(loggedUser, rdto, command.campaignId)
+        } catch (UndeclaredThrowableException e) {
+            if (e.undeclaredThrowable.cause instanceof KuorumException) {
+                KuorumException ke = e.undeclaredThrowable.cause
+                msgError = message(code: ke.errors[0].code)
+            } else {
+                msgError = "Error updating contest status"
+            }
+        }
+        if (request.xhr) {
+            render([success: (msgError == null), msg: msgError] as JSON)
+        } else {
+            if (msgError) {
+                flash.error = msgError
+            }
+            redirect mapping: 'contestShow', params: contestRSDTO.encodeAsLinkProperties()
+        }
     }
 
     @Secured(['ROLE_CAMPAIGN_CONTEST'])
@@ -162,7 +198,11 @@ class ContestController extends CampaignController {
     private def contestModelSettings(CampaignSettingsCommand command, ContestRSDTO contestRSDTO) {
         def model = modelSettings(command, contestRSDTO)
         command.debatable = false
-        model.options = [debatable: false]
+        if (contestRSDTO == null) {
+            // By default the creation of a contest, profile controler is active
+            command.profileComplete = true
+        }
+        model.options = [debatable: false, configProfileComplete: true]
         return model
     }
 

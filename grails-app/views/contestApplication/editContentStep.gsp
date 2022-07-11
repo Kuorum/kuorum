@@ -21,8 +21,9 @@
             status          : status,
             mappings        : [
                     saveAndSentButtons: true,
+                    hideScheduler     : true,
                     step              : 'content',
-                    settings          : 'contestApplicationEditSettings',
+//                    settings          : 'contestApplicationEditSettings',
                     content           : 'contestApplicationEditContent',
                     environment       : 'contestApplicationEditEnvironment',
                     showResult        : 'contestApplicationShow',

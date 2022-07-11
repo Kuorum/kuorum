@@ -59,27 +59,73 @@ cite{
 input[type="text"],
 input[type="number"],
 input[type="email"],
-select {color: #545454; font-size: 12px; font-size:  1.2rem; border: 1px solid #DDDDDD; box-shadow: 0 0 0 rgba(0, 0, 0, 0);}
+select {
+    color: #545454;
+    font-size: 12px;
+    font-size: 1.2rem;
+    border: 1px solid #DDDDDD;
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+}
+
 /*input[type="text"],
 input[type="number"],
 input[type="email"],
 select {padding: 6px 6px 6px 8px !important;}*/
 
-.form-group {margin-bottom: 20px;}
-.form-group .input-group.date{width: 100%;}
-.form-group-phone label {width: 100%;}
-.form-group-phone select {width: 7em; background: #fff;margin-right: 5px; float:left}
-.form-group-phone label + select + label{display: none;}
-.form-group-phone input {width: calc(100% - 7em - 5px);}
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group .input-group.date {
+    width: 100%;
+}
+
+.form-group-phone label {
+    width: 100%;
+}
+
+.form-group-phone select {
+    width: 7em;
+    background: #fff;
+    margin-right: 5px;
+    float: left
+}
+
+.form-group-phone label + select + label {
+    display: none;
+}
+
+.form-group-phone input {
+    width: calc(100% - 7em - 5px);
+}
+
+.form-group-files label {
+    width: 100%;
+    border-bottom: 1px solid #EEEEEE;
+}
 
 
-.form-group-inputButton label {width: 100%;}
-.form-group-inputButton input {width: calc(100% - 60px - 5px); float:left}
+.form-group-inputButton label {
+    width: 100%;
+}
+
+.form-group-inputButton input {
+    width: calc(100% - 60px - 5px);
+    float: left
+}
+
 .edit-contact .tab-pane form .form-group-inputButton .btn, /* Overwriting .edit-contact .tab-pane form .btn */
-.form-group-inputButton .btn {width: 60px; min-width: auto; margin: 0 0 0 5px; padding:11px 11px !important;}
+.form-group-inputButton .btn {
+    width: 60px;
+    min-width: auto;
+    margin: 0 0 0 5px;
+    padding: 11px 11px !important;
+}
 
 .form-group-inputButton .btn.btn-grey.inverted.delete:hover,
-.form-group-inputButton .btn.delete:hover {background-color: #BF4343 !important;}
+.form-group-inputButton .btn.delete:hover {
+    background-color: #BF4343 !important;
+}
 
 .center{text-align:center;}
 
@@ -3470,41 +3516,136 @@ div.errors ul li {
 }
 
 /* páginas de entrar y registro, con layout de 1 columna */
-.sign h1 {      font-size: 25px; font-size: 2.2rem; margin-top: 0;text-align:center;}
-.sign h2 {font-size: 18px; font-size: 1.8rem; line-height: 1.4; padding: 0;text-align:center;}
-.sign h3 {font-size: 18px; font-size: 1.8rem;text-align:left;}
-.sign .login {margin: 20px auto;}
+.sign h1 {
+    font-size: 25px;
+    font-size: 2.2rem;
+    margin-top: 0;
+    text-align: center;
+}
+
+.sign h2 {
+    font-size: 18px;
+    font-size: 1.8rem;
+    line-height: 1.4;
+    padding: 0;
+    text-align: center;
+}
+
+.sign h3 {
+    font-size: 18px;
+    font-size: 1.8rem;
+    text-align: left;
+}
+
+.sign .login {
+    margin: 20px auto;
+}
+
 .sign .login .socialGo .btn.tw,
-.sign .login .socialGo .btn.fb {padding: 15px !important;}
-.sign .login {width: 305px;}
-.sign .login .form-group:last-child {font-size: 14px; font-size: 1.4rem;}
+.sign .login .socialGo .btn.fb {
+    padding: 15px !important;
+}
 
-form#sign {margin: 30px auto 0; max-width: 900px;}
+.sign .login {
+    width: 305px;
+}
 
-.sign.purchase h2 {font-size: 16px; font-size: 1.6rem;}
+.sign .login .form-group:last-child {
+    font-size: 14px;
+    font-size: 1.4rem;
+}
 
-.modal-content .modal-header h4 {margin-bottom: 5px; text-align:center; font-variant: inherit; font-weight: normal;}
+form#sign {
+    margin: 30px auto 0;
+    max-width: 900px;
+}
+
+.sign.purchase h2 {
+    font-size: 16px;
+    font-size: 1.6rem;
+}
+
+.modal-content .modal-header h4 {
+    margin-bottom: 5px;
+    text-align: center;
+    font-variant: inherit;
+    font-weight: normal;
+}
 
 /* entrar /registro landing */
-.landing + .row.main .onecol #main {text-align: center;}
-.landing + .row.main .onecol #main h1 {margin-bottom: 25px;}
+.landing + .row.main .onecol #main {
+}
+
+.landing + .row.main .onecol #main h1 {
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.landing + .row.main .onecol #main h2 {
+    text-align: center;
+}
+
 .landing + .row.main .onecol .login,
 .landing + .row.main .onecol form#sign,
-.landing + .row.main .onecol .socialGo {width: 100%; max-width: 380px; margin: 0 auto 30px; }
-.landing + .row.main .onecol .login {background-color: rgba(0,0,0,.4); padding: 15px 25px 25px 25px;}
-.landing + .row.main .onecol .login .form-group p {color:#c6c6c6;}
-.landing + .row.main .onecol .login .form-group:last-child a {/*color:#167caa;*/}
-.landing + .row.main .onecol .input-lg {height: 50px;}
-.landing + .row.main .onecol .btn.btn-lg {font-size: 21px !important; font-size: 2.1rem !important;}
-.landing + .row.main .onecol .login .cancel {font-size: 21px !important; font-size: 2.1rem !important; color: #c6c6c6 !important;}
-.landing + .row.main .onecol .login a {color: #fff;}
-.landing + .row.main .onecol h2 {font-size: 18px; font-size: 1.8rem; padding: 0; text-transform: none;}
-.landing + .row.main .onecol .socialGo .btn {width: 155px;}
-.landing + .row.main .onecol .socialGo li {margin: 10px;}
-.landing + .row.main .onecol .login .form-group:last-child {color: #c6c6c6;}
+.landing + .row.main .onecol .socialGo {
+    width: 100%;
+    max-width: 380px;
+    margin: 0 auto 30px;
+}
+
+.landing + .row.main .onecol .login {
+    background-color: rgba(0, 0, 0, .4);
+    padding: 15px 25px 25px 25px;
+}
+
+.landing + .row.main .onecol .login .form-group p {
+    color: #c6c6c6;
+}
+
+.landing + .row.main .onecol .login .form-group:last-child a { /*color:#167caa;*/
+}
+
+.landing + .row.main .onecol .input-lg {
+    height: 50px;
+}
+
+.landing + .row.main .onecol .btn.btn-lg {
+    font-size: 21px !important;
+    font-size: 2.1rem !important;
+}
+
+.landing + .row.main .onecol .login .cancel {
+    font-size: 21px !important;
+    font-size: 2.1rem !important;
+    color: #c6c6c6 !important;
+}
+
+.landing + .row.main .onecol .login a {
+    color: #fff;
+}
+
+.landing + .row.main .onecol h2 {
+    font-size: 18px;
+    font-size: 1.8rem;
+    padding: 0;
+    text-transform: none;
+}
+
+.landing + .row.main .onecol .socialGo .btn {
+    width: 155px;
+}
+
+.landing + .row.main .onecol .socialGo li {
+    margin: 10px;
+}
+
+.landing + .row.main .onecol .login .form-group:last-child {
+    color: #c6c6c6;
+}
 
 /* Sign in - Sign up */
-.stepsSign {list-style: none;
+.stepsSign {
+    list-style: none;
     padding: 0;
     display: flex;
     margin: 0 auto;
@@ -3749,26 +3890,107 @@ fieldset > .multiple-range-selector:first-child {margin-top:40px;}
 .qq-upload-spinner,
 .qq-upload-size,
 .qq-upload-cancel,
-.qq-upload-failed-text {margin-right: 7px;}
-.qq-upload-spinner {display:inline-block; background: url('../images/loading.gif') center center no-repeat; width:15px; height:15px; vertical-align:text-bottom;}
-.qq-upload-size,.qq-upload-cancel {font-size: 11px;}
-.qq-upload-failed-text {display: none;}
-.qq-upload-fail .qq-upload-failed-text {display: inline;}
+.qq-upload-failed-text {
+    margin-right: 7px;
+}
+
+.qq-upload-spinner {
+    display: inline-block;
+    background: url('../images/loading.gif') center center no-repeat;
+    width: 15px;
+    height: 15px;
+    vertical-align: text-bottom;
+}
+
+.qq-upload-size, .qq-upload-cancel {
+    font-size: 11px;
+}
+
+.qq-upload-failed-text {
+    display: none;
+}
+
+.qq-upload-fail .qq-upload-failed-text {
+    display: inline;
+}
+
 /* fin estilos resize upload image */
 
-.qq-uploader-multiple-files .qq-upload-drop-area {background: none; padding:15px; color:#DADADA;  border: 1px dotted #CCCCCC; margin-top: 10px;}
-.qq-uploader-multiple-files .button-container {margin:0; text-align: left; padding: 0;width: auto; margin-bottom: 15px;}
-.qq-uploader-multiple-files .button-container .qq-upload-button.btn {display: inline-table;}
-.qq-uploader-multiple-files .qq-upload-list {padding: 0;margin:0; display:block; text-align:left; color:#545454}
-.qq-uploader-multiple-files .qq-upload-list a {color:#545454}
-.qq-uploader-multiple-files .qq-upload-list li{padding: 10px; width: 100%;list-style: none;font-size: 1.3em;}
-.qq-uploader-multiple-files .qq-upload-list li:hover {background-color: #dadada}
-.qq-uploader-multiple-files .qq-upload-list li div{display:inline-block; white-space: nowrap;overflow: hidden;text-overflow: ellipsis;vertical-align: bottom;height: 20px;}
-.qq-uploader-multiple-files .qq-upload-list li .qq-upload-file{width: calc(100% - 110px); line-height: 18px;}
-.qq-uploader-multiple-files .qq-upload-list li .qq-upload-file-type{width: 20px;}
-.qq-uploader-multiple-files .qq-upload-list li .qq-upload-size{width: 40px}
+.qq-uploader-multiple-files {
+    position: relative;
+}
+
+.qq-uploader-multiple-files .qq-upload-drop-area {
+    background: none;
+    padding: 15px;
+    color: #DADADA;
+    border: 1px dotted #CCCCCC;
+    margin-top: 10px;
+}
+
+.qq-uploader-multiple-files .button-container {
+    display: inline;
+    margin: 0;
+    text-align: center;
+    padding: 0;
+    width: auto;
+    margin-right: 15px;
+}
+
+.qq-uploader-multiple-files .button-container .qq-upload-button.btn {
+    display: inline-table;
+}
+
+.qq-uploader-multiple-files .qq-upload-list {
+    padding: 0;
+    margin: 0;
+    display: block;
+    text-align: left;
+    color: #545454
+}
+
+.qq-uploader-multiple-files .qq-upload-list a {
+    color: #545454
+}
+
+.qq-uploader-multiple-files .qq-upload-list li {
+    padding: 10px;
+    width: 100%;
+    list-style: none;
+    font-size: 1.3em;
+}
+
+.qq-uploader-multiple-files .qq-upload-list li:hover {
+    background-color: #dadada
+}
+
+.qq-uploader-multiple-files .qq-upload-list li div {
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: bottom;
+    height: 20px;
+}
+
+.qq-uploader-multiple-files .qq-upload-list li .qq-upload-file {
+    width: calc(100% - 110px);
+    line-height: 18px;
+}
+
+.qq-uploader-multiple-files .qq-upload-list li .qq-upload-file-type {
+    width: 20px;
+}
+
+.qq-uploader-multiple-files .qq-upload-list li .qq-upload-size {
+    width: 40px
+}
+
 .qq-uploader-multiple-files .qq-upload-list li .qq-upload-failed-text,
-.qq-uploader-multiple-files .qq-upload-list li .qq-upload-success{width: 20px;display:none;}
+.qq-uploader-multiple-files .qq-upload-list li .qq-upload-success {
+    width: 20px;
+    display: none;
+}
 .qq-uploader-multiple-files .qq-upload-list li .qq-upload-failed-text{color:#ff0000;}
 .qq-uploader-multiple-files .qq-upload-list li.qq-upload-success .qq-upload-success{display: inline-block;cursor: pointer}
 .qq-uploader-multiple-files .qq-upload-list li.qq-upload-success .qq-upload-success:hover{color:#ec931f;}
@@ -5514,7 +5736,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     overflow-y: hidden;
 }
 #questionsSurveyForm fieldset.question-options{
-    max-height: 5000px; /* approximate max height */
+    max-height: 135000px; /* approximate max height */
 
     transition-property: all;
     transition-duration: .5s;
@@ -8705,7 +8927,7 @@ ul.notification-menu > li.see-more {
     margin-bottom: 20px;
     border:1px solid #F0F0F0;;
     box-shadow: 0 0 2px rgba(200,200,200,0.6);
-    max-height: 10000px;
+    max-height: 100000px;
     transition: max-height 5s ease-in;
 }
 

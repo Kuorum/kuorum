@@ -9,6 +9,7 @@ import org.kuorum.rest.model.communication.survey.CampaignVisibilityRSDTO
 
 @Validateable
 class NewContestApplicationCommand extends CampaignContentCommand {
+    String name
     Long contestId
     String cause
     ContestApplicationActivityTypeDTO activityType
@@ -17,9 +18,7 @@ class NewContestApplicationCommand extends CampaignContentCommand {
     static constraints = {
         importFrom CampaignContentCommand
         contestId nullable: false
-        cause nullable: false
-        activityType nullable: false
-        focusType nullable: false
+        name nullable: false
     }
 
 }
