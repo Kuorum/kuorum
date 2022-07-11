@@ -13,12 +13,12 @@ function recaptchaRegister(dataRecaptcha){
 }
 
 function registerCallback(){
-    var $form = $('#sign');
+
+    var $form = $('[name=sign]');
     var dataRecaptcha = $('#register-submit').attr('data-recaptcha');
-    if($form.valid()){
+    if ($form.valid()) {
         $form.submit()
-    }
-    else{
+    } else {
         grecaptcha.reset(dataRecaptcha);
     }
 }

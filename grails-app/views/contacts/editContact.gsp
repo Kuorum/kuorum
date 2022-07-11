@@ -193,7 +193,7 @@
             <div class="tab-pane" id="files">
                 <h4 class="sr-only"><g:message code="tools.contact.edit.tabs.files"/></h4>
 
-                <div class="textareaContainer col-sm-8 col-md-7">
+                <div class="textareaContainer col-xs-12">
                     <formUtil:uploadContactFiles contact="${contact}"/>
                 </div>
             </div>

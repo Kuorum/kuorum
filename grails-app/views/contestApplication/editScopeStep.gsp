@@ -22,7 +22,7 @@
             mappings        : [
                     saveAndSentButtons: false,
                     step              : 'environment',
-                    settings          : 'contestApplicationEditSettings',
+//                    settings          : 'contestApplicationEditSettings',
                     content           : 'contestApplicationEditContent',
                     environment       : 'contestApplicationEditEnvironment',
                     showResult        : 'campaignShow',

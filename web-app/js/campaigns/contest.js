@@ -36,6 +36,13 @@ $(function () {
 
     contestApplicationHelper.showListApplications();
 
+    noLoggedCallbacks['contestAddApplicationAction'] = function () {
+        var buttonId = $('#registro').find("form").attr("data-buttonId");
+        var $button = $("#" + buttonId);
+        var link = $button.attr("href");
+        window.location = link;
+    };
+
     $(window).scroll(function () {
         if (($(window).scrollTop() + $(window).height()) > 0.9 * $(document).height()) {
             $activeListLink = $("#" + contestApplicationHelper.containerId + " > .nav > li.active a")
@@ -44,6 +51,8 @@ $(function () {
             contestApplicationHelper.loadMoreApplications($ul)
         }
     });
+
+    $(".call-to-action").on("click", "a.btn.ADDING_APPLICATIONS", contestApplicationHelper.bindActionClickAddDistrictProposal);
 });
 
 var contestApplicationHelper = {
@@ -112,4 +121,21 @@ var contestApplicationHelper = {
             // NO MORE RESULTS
         }
     },
+
+    bindActionClickAddDistrictProposal: function (e) {
+        var $button = $(this);
+        var loggedUser = $button.attr("data-loggedUser");
+        if (loggedUser == undefined || loggedUser == "") {
+            e.preventDefault();
+            e.stopPropagation();
+            event.stopPropagation();
+            console.log("NO LOGGED")
+            // NO LOGGED
+            var buttonId = guid();
+            $button.attr("id", buttonId);
+            $('#registro').find("form").attr("callback", "contestAddApplicationAction");
+            $('#registro').find("form").attr("data-buttonId", buttonId);
+            $('#registro').modal('show');
+        }
+    }
 }

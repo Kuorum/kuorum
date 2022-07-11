@@ -21,10 +21,16 @@ import kuorum.security.evidences.HttpRequestRecoverEvidences
 import kuorum.users.extendedPoliticianData.PoliticianRelevantEvent
 import kuorum.users.extendedPoliticianData.ProfessionalDetails
 import kuorum.web.commands.profile.*
+import kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand
 import kuorum.web.commands.profile.politician.PoliticianCausesCommand
 import kuorum.web.commands.profile.politician.RelevantEventsCommand
+import kuorum.web.constants.WebConstants
 import org.bson.types.ObjectId
 import org.codehaus.groovy.runtime.InvokerHelper
+import org.kuorum.rest.model.communication.CampaignRSDTO
+import org.kuorum.rest.model.communication.CampaignTypeRSDTO
+import org.kuorum.rest.model.contact.ContactRDTO
+import org.kuorum.rest.model.contact.ContactRSDTO
 import org.kuorum.rest.model.domain.SocialRDTO
 import org.kuorum.rest.model.kuorumUser.KuorumUserExtraDataRSDTO
 import org.kuorum.rest.model.kuorumUser.KuorumUserRSDTO
@@ -37,7 +43,9 @@ import org.kuorum.rest.model.kuorumUser.validation.UserValidationRSDTO
 import org.kuorum.rest.model.notification.campaign.config.NewsletterConfigRQDTO
 import org.kuorum.rest.model.notification.campaign.config.NewsletterConfigRSDTO
 import org.kuorum.rest.model.tag.CauseRSDTO
+import payment.campaign.CampaignService
 import payment.campaign.NewsletterService
+import payment.contact.ContactService
 
 import java.util.regex.Matcher
 import java.util.regex.Pattern
@@ -58,15 +66,17 @@ class ProfileController {
     NewsletterService newsletterService
     CausesService causesService
     PoliticianService politicianService
+    ContactService contactService;
+    CampaignService campaignService
     Pattern pattern
     Matcher matcher
 
-    def beforeInterceptor ={
-        if (springSecurityService.isLoggedIn()){//Este if es para la confirmacion del email
+    def beforeInterceptor = {
+        if (springSecurityService.isLoggedIn()) {//Este if es para la confirmacion del email
             KuorumUser user
-            if (params.userId){
+            if (params.userId) {
                 user = KuorumUser.get(params.userId)
-            }else{
+            } else {
                 user = KuorumUser.get(springSecurityService.principal.id)
             }
             params.user = user
@@ -247,7 +257,7 @@ class ProfileController {
         prepareUserImages(user,command, fileService)
         kuorumUserService.updateUser(user)
         flash.message=message(code:'profile.editUser.success')
-        redirect mapping:'profilePictures'
+        redirect mapping: "profilePictures"
 
     }
 
@@ -347,21 +357,13 @@ class ProfileController {
     }
 
     def socialNetworksSave(SocialNetworkCommand command) {
-        if (command.hasErrors()){
-            render (view:'socialNetworks', model:[command: command])
+        if (command.hasErrors()) {
+            render(view: 'socialNetworks', model: [command: command])
             return
         }
-        SocialRDTO social = new SocialRDTO()
-        command.properties.each {
-            if (it.key!= "class" && social.hasProperty(it.key))
-                social."${it.key}" = it.value
-        }
-        KuorumUserSession loggedUser = springSecurityService.principal
-        UserDataRDTO userDataRDTO = kuorumUserService.mapUserToRDTO(loggedUser)
-        userDataRDTO.socialLinks = social
-        kuorumUserService.updateKuorumUser(loggedUser, userDataRDTO)
+        kuorumUserService.updateSocialNetworkLoggedUser(command);
         flash.message = g.message(code: 'kuorum.web.commands.profile.SocialNetworkCommand.save.success')
-        redirect mapping:'profileSocialNetworks'
+        redirect mapping: 'profileSocialNetworks'
     }
 
     def configurationEmails() {
@@ -585,17 +587,120 @@ class ProfileController {
     private def getPendingValidations(UserValidationRSDTO userValidationRSDTO){
         String phone = null;
         Boolean predefinedPhone = false;
-        if (!userValidationRSDTO.phoneStatus.isGranted()){
-            KuorumUserSession userSession = (KuorumUserSession)springSecurityService.principal
+        if (!userValidationRSDTO.phoneStatus.isGranted()) {
+            KuorumUserSession userSession = (KuorumUserSession) springSecurityService.principal
             KuorumUserExtraDataRSDTO extraDataRSDTO = kuorumUserService.findUserExtendedDataRSDTO(userSession)
             phone = extraDataRSDTO.phoneNumber?.encodeAsHiddenPhone()
-            predefinedPhone = extraDataRSDTO.phoneNumber?true:false;
+            predefinedPhone = extraDataRSDTO.phoneNumber ? true : false;
         }
         return [
-                censusValidation:[success:  userValidationRSDTO.censusStatus.isGranted(), data:[:]],
-                phoneValidation:[success:  userValidationRSDTO.phoneStatus.isGranted(), data:[phone:phone, predefinedPhone:predefinedPhone]],
-                codeValidation: [success:  userValidationRSDTO.codeStatus.isGranted(), data:[:]]
+                censusValidation: [success: userValidationRSDTO.censusStatus.isGranted(), data: [:]],
+                phoneValidation : [success: userValidationRSDTO.phoneStatus.isGranted(), data: [phone: phone, predefinedPhone: predefinedPhone]],
+                codeValidation  : [success: userValidationRSDTO.codeStatus.isGranted(), data: [:]]
 
         ]
+    }
+
+    def funnelFillBasicData() {
+        KuorumUser user = params.user
+        FunnelFillBasicDataCommand command = new FunnelFillBasicDataCommand();
+        command.name = user.name
+        command.email = user.email
+        command.bio = user.bio
+        command.phone = user.personalData?.telephone
+        command.phonePrefix = user.personalData?.phonePrefix
+        command.nid = user.nid
+        return [command: command]
+    }
+
+    def saveFunnelFillBasicData(FunnelFillBasicDataCommand command) {
+        if (command.hasErrors()) {
+            render view: 'funnelFillBasicData', model: [command: command]
+            return;
+        }
+        KuorumUser user = params.user
+        if (user.personalData == null) {
+            user.personalData = new PersonalData()
+        }
+        user.bio = command.bio
+        user.personalData.phonePrefix = command.phonePrefix
+        user.personalData.telephone = command.phone
+        user.name = command.name
+        user.nid = command.nid
+        kuorumUserService.updateUser(user)
+        redirect mapping: 'funnelFillImages', params: [campaignId: params.campaignId]
+    }
+
+    def funnelFillImages() {
+        KuorumUser user = params.user
+        EditProfilePicturesCommand command = new EditProfilePicturesCommand(user)
+
+        [command: command]
+    }
+
+    def saveFunnelFillImages(EditProfilePicturesCommand command) {
+        KuorumUser user = params.user
+        if (command.hasErrors()) {
+            render view: "funnelFillImages", model: [command: command]
+            return
+        }
+        if (command.getPhotoId() == null || command.getImageProfile() == null) {
+            flash.error = g.message(code: 'register.funnel.association.images.error')
+            render view: "funnelFillImages", model: [command: command]
+            return
+        }
+        prepareUserImages(user, command, fileService)
+        kuorumUserService.updateUser(user)
+        flash.message = message(code: 'profile.editUser.success')
+        redirect mapping: 'funnelFillFiles', params: [campaignId: params.campaignId]
+    }
+
+    def funnelFillFiles() {
+        KuorumUserSession loggedUser = springSecurityService.principal
+        ContactRSDTO adminContact = contactService.getContactByEmail(WebConstants.FAKE_LANDING_ALIAS_USER, loggedUser.email)
+        if (adminContact == null) {
+            ContactRDTO newAdminContact = new ContactRDTO()
+            newAdminContact.setEmail(loggedUser.email)
+            newAdminContact.setName(loggedUser.name)
+            adminContact = contactService.addContact(WebConstants.FAKE_LANDING_ALIAS_USER, newAdminContact)
+        }
+        [contact: adminContact]
+    }
+
+    def saveFunnelFillFiles() {
+        KuorumUserSession loggedUser = springSecurityService.principal
+        ContactRSDTO adminContact = contactService.getContactByEmail(WebConstants.FAKE_LANDING_ALIAS_USER, loggedUser.email)
+        List<String> contactFiles = contactService.getFiles(WebConstants.FAKE_LANDING_ALIAS_USER, adminContact)
+        if (contactFiles.size() < WebConstants.MIN_FILES_PER_DOC_IN_CONTEST) {
+            flash.error = g.message(code: "kuorum.web.commands.profile.funnel.files.minFiles")
+            render view: "funnelFillFiles", model: [contact: adminContact]
+            return;
+        }
+        redirect mapping: 'funnelFillSocial', params: [campaignId: params.campaignId]
+    }
+
+    def funnelFillSocial() {
+        return socialNetworks()
+    }
+
+    def saveFunnelFillSocial(SocialNetworkCommand command) {
+        if (command.hasErrors()) {
+            render(view: 'funnelFillSocial', model: [command: command])
+            return
+        }
+        kuorumUserService.updateSocialNetworkLoggedUser(command);
+        CampaignRSDTO campaignRSDTO = null
+        if (params.campaignId) {
+            campaignRSDTO = campaignService.find(WebConstants.FAKE_LANDING_ALIAS_USER, Long.parseLong(params.campaignId))
+
+        }
+
+        if (campaignRSDTO != null && campaignRSDTO.campaignType.equals(CampaignTypeRSDTO.CONTEST)) {
+            redirect mapping: 'contestApplicationCreate', params: campaignRSDTO.encodeAsLinkProperties()
+        } else if (campaignRSDTO != null && campaignRSDTO.campaignType.equals(CampaignTypeRSDTO.PARTICIPATORY_BUDGET)) {
+            redirect mapping: 'home', params: [tour: true]
+        } else {
+            redirect mapping: 'home', params: [tour: true]
+        }
     }
 }

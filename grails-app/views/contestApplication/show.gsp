@@ -19,9 +19,13 @@
     <g:render template="/contestApplication/showModules/cCallToAction"
               model="[contestApplication: contestApplication, campaignUser: campaignUser, hideXs: true]"/>
     <g:render template="/campaigns/columnCModules/campaignFiles" model="[campaignFiles: campaignFiles]"/>
-    <g:render template="/campaigns/columnCModules/campaignFiles"
-              model="[campaignFiles: contactFiles, title: g.message(code: 'campaign.show.contact-files.title'), subtitle: g.message(code: 'campaign.show.contact-files.subtitle')]"/>
 
+    <g:if test="${contact}">
+        <g:set var="contactLink"
+               value="${g.createLink(mapping: 'politicianContactEdit', params: [contactId: contact.id])}"/>
+        <g:render template="/campaigns/columnCModules/campaignFiles"
+                  model="[campaignFiles: contactFiles, title: g.message(code: 'campaign.show.contact-files.title'), subtitle: g.message(code: 'campaign.show.contact-files.subtitle', args: [contactLink, contact.name])]"/>
+    </g:if>
     <g:render template="/contestApplication/showModules/cContestApplicationStats"
               model="[contestApplication: contestApplication, campaignUser: campaignUser]"/>
 </content>
