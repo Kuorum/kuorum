@@ -1,7 +1,7 @@
 <div class="comment-box call-to-action campaign-steps-status">
     <div class="comment-header">
         <span class="call-title">
-            <g:message code="participatoryBudget.status.title"/>
+            <g:message code="contest.status.title"/>
         </span>
         <span class="call-subTitle">
             <g:message code="participatoryBudget.status.subtitle"/>
