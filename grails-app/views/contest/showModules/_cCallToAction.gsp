@@ -15,10 +15,12 @@
            value="${g.message(code: "contest.callToAction.PROCESSING.subtitle", args: [campaignUser.name])}"/>
 </g:elseif>
 <g:elseif test="${contest.published}">
+    <g:set var="addApplicationsDeadLineDate"><g:formatDate formatName="default.date.format.small"
+                                                           date="${contest.deadLineApplications}"/></g:set>
     <g:set var="callTitleMsg"
            value="${g.message(code: "contest.callToAction.${contest.status}.title", args: [campaignUser.name])}"/>
     <g:set var="callSubtitleMsg"
-           value="${g.message(code: "contest.callToAction.${contest.status}.subtitle", args: [campaignUser.name])}"/>
+           value="${g.message(code: "contest.callToAction.${contest.status}.subtitle", args: [campaignUser.name, addApplicationsDeadLineDate])}"/>
     <g:set var="callButtonMsg"
            value="${g.message(code: "contest.callToAction.${contest.status}.button", args: [campaignUser.name])}"/>
 </g:elseif>
