@@ -19,8 +19,8 @@
     <g:render template="/contest/showModules/cContestStatus" model="[contest: contest, campaignUser: campaignUser]"/>
     <g:render template="/campaigns/columnCModules/campaignFiles"
               model="[campaignFiles: campaignFiles, subtitle: g.message(code: 'contest.show.files.subtitle')]"/>
-    <g:render template="/campaigns/columnCModules/campaignFiles"
-              model="[campaignFiles: contactFiles, title: g.message(code: 'campaign.show.contact-files.title'), subtitle: g.message(code: 'campaign.show.contact-files.subtitle')]"/>
+    <g:render template="/campaigns/columnCModules/campaignContactFiles"
+              model="[contact: contact, contactFiles: contactFiles]"/>
     <g:render template="/contest/showModules/cContestStats" model="[contest: contest, campaignUser: campaignUser]"/>
 </content>
 
