@@ -604,7 +604,7 @@ class ProfileController {
     def funnelFillBasicData() {
         KuorumUser user = params.user
         FunnelFillBasicDataCommand command = new FunnelFillBasicDataCommand();
-        command.name = user.name
+//        command.name = user.name // Is not se because we want to force to update the name to the association nam
         command.email = user.email
         command.bio = user.bio
         command.phone = user.personalData?.telephone
@@ -651,7 +651,6 @@ class ProfileController {
         }
         prepareUserImages(user, command, fileService)
         kuorumUserService.updateUser(user)
-        flash.message = message(code: 'profile.editUser.success')
         redirect mapping: 'funnelFillFiles', params: [campaignId: params.campaignId]
     }
 

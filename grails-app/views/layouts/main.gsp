@@ -81,10 +81,12 @@
     </r:script>
 </g:if>
 <sec:ifAnyGranted roles="ROLE_INCOMPLETE_USER">
-    <nav:ifActiveMapping mappingNames="customProcessRegisterStep2, customProcessRegisterStep3, registerSubscriptionStep1, registerSubscriptionStep1Save, registerSubscriptionStep3" equals="false">
+    <nav:ifActiveMapping
+            mappingNames="customProcessRegisterStep2, customProcessRegisterStep3, registerSubscriptionStep1, registerSubscriptionStep1Save, registerSubscriptionStep3, funnelFillBasicData, funnelFillImages, funnelFillFiles, funnelFillSocial"
+            equals="false">
         <r:script>
             function notMailConfirmedWarn(){
-                display.warn("<userUtil:showMailConfirm />");
+                display.warn("<userUtil:showMailConfirm/>");
             }
             $(function(){
                 notMailConfirmedWarn();
