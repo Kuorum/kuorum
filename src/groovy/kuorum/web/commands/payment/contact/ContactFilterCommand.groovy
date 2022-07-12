@@ -72,9 +72,11 @@ class ContactFilterOptionCommand{
             this.operatorContactType = conditionRDTO.operator
         }else if (conditionRDTO instanceof ConditionEventAssistantRDTO){
             this.operatorAssistantEvent = conditionRDTO.operator
-        }else if (conditionRDTO instanceof ConditionParticipatoryBudgetRDTO){
+        }else if (conditionRDTO instanceof ConditionParticipatoryBudgetRDTO) {
             this.operatorParticipatoryBudget = conditionRDTO.operator
-        }else{
+        } else if (conditionRDTO instanceof ConditionContestRDTO) {
+            this.operatorContest = conditionRDTO.operator
+        } else {
             this.operatorNumber = conditionRDTO.operator
         }
         this.value = conditionRDTO.value.toString()
