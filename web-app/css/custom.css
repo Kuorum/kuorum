@@ -105,10 +105,6 @@ select {padding: 6px 6px 6px 8px !important;}*/
 }
 
 
-.form-group-inputButton label {
-    width: 100%;
-}
-
 .form-group-inputButton input {
     width: calc(100% - 60px - 5px);
     float: left
