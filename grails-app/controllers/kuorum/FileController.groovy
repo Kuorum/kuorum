@@ -6,8 +6,10 @@ import kuorum.core.FileGroup
 import kuorum.files.FileService
 import kuorum.files.LocalFileService
 import kuorum.register.KuorumUserSession
+import kuorum.web.constants.WebConstants
 import org.apache.commons.codec.binary.Base64
 import org.bson.types.ObjectId
+import org.kuorum.rest.model.contact.ContactRSDTO
 import org.springframework.web.multipart.MultipartFile
 import org.springframework.web.multipart.MultipartHttpServletRequest
 import payment.campaign.CampaignService
@@ -80,22 +82,46 @@ class FileController {
     def uploadContactFile() {
         def fileData = getFileData(request)
         File file = File.createTempFile("contactFile", "kuorum")
-        localFileService.upload(fileData.inputStream,file);
-        String fileUrl = contactService.uploadFile(springSecurityService.principal,Long.parseLong(params.contactId), file, fileData.fileName);
+        localFileService.upload(fileData.inputStream, file);
+
+        KuorumUserSession userSession = springSecurityService.principal
+        Boolean adminContact = params.adminContact ? Boolean.parseBoolean(params.adminContact) : false;
+        String fileUrl
+        if (adminContact) {
+            // Upload my files on AdminContact
+            // Recover contact instead read it from params for security reasons.
+            ContactRSDTO contactRSDTO = contactService.getContactByEmail(WebConstants.FAKE_LANDING_ALIAS_USER, userSession.email)
+            fileUrl = contactService.uploadFile(WebConstants.FAKE_LANDING_ALIAS_USER, contactRSDTO.getId(), file, fileData.fileName);
+        } else {
+            // Upload files of my contacts
+            fileUrl = contactService.uploadFile(springSecurityService.principal, Long.parseLong(params.contactId), file, fileData.fileName);
+        }
+
+
         file.delete();
 //        FileGroup fileGroup = FileGroup.PDF
 //        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
 //        KuorumFile kuorumFile = fileService.uploadTemporalFile(fileData.inputStream, user, fileData.fileName, fileGroup)
 
-        render ([fileUrl: fileUrl, fileName: fileData.fileName, status:200, success:true] as JSON)
+        render([fileUrl: fileUrl, fileName: fileData.fileName, status: 200, success: true] as JSON)
     }
 
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def deleteContactFile() {
         def fileName = params.fileName
-        contactService.deleteFile(springSecurityService.principal, Long.parseLong(params.contactId), fileName)
-        render ([fileUrl: "#FILE", fileName: fileName, status:200, success:true] as JSON)
+        KuorumUserSession userSession = springSecurityService.principal
+        Boolean adminContact = params.adminContact ? Boolean.parseBoolean(params.adminContact) : false;
+        if (adminContact) {
+            // Delete my files on AdminContact
+            // Recover contact instead read it from params for security reasons.
+            ContactRSDTO contactRSDTO = contactService.getContactByEmail(WebConstants.FAKE_LANDING_ALIAS_USER, userSession.email)
+            contactService.deleteFile(WebConstants.FAKE_LANDING_ALIAS_USER, contactRSDTO.id, fileName)
+        } else {
+            // Delete files of my contacts
+            contactService.deleteFile(userSession, Long.parseLong(params.contactId), fileName)
+        }
+        render([fileUrl: "#FILE", fileName: fileName, status: 200, success: true] as JSON)
     }
 
 

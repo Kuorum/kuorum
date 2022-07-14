@@ -25,8 +25,7 @@
     <g:set var="urlMappingNameShow" value="districtProposalShow"/>
     <g:set var="urlMappingNameRemove" value="districtProposalRemove"/>
     <g:set var="faIcon" value="fa-rocket"/>
-    <g:set var="hideEdit"
-           value="${campaign.participatoryBudget.status != org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.ADDING_PROPOSALS}"/>
+    <g:set var="hideEdit" value="${!campaign.editable}"/>
     <g:set var="hidePause"
            value="${campaign.participatoryBudget.status != org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.ADDING_PROPOSALS}"/>
     <g:set var="hideRemove"
@@ -44,6 +43,9 @@
     <g:set var="urlMappingNameRemove" value="contestApplicationRemove"/>
     <g:set var="urlMappingNameCopy" value="contestApplicationCopy"/>
     <g:set var="faIcon" value="far fa-scroll"/>
+    <g:set var="hideEdit" value="${!campaign.editable}"/>
+    <g:set var="hidePause" value="${!campaign.editable}"/>
+    <g:set var="hideRemove" value="${!campaign.editable}"/>
 </g:elseif>
 <g:set var="typeName" value="${g.message(code: 'tools.campaign.new.' + type)}"/>
 <g:set var="campaignGenericMappings"
@@ -80,7 +82,9 @@
                 (<g:formatDate date="${campaign.datePublished}" type="datetime" style="LONG" timeStyle="SHORT"
                                timeZone="${user.timeZone}"/>)
             </span>
-            :: ${campaign.anonymousFilter?.name ?: g.message(code: 'tools.massMailing.fields.filter.to.all')}
+            <g:if test="${campaign.anonymousFilter || campaign.getCampaignType() == org.kuorum.rest.model.communication.CampaignTypeRSDTO.BULLETIN}">
+                :: ${campaign.anonymousFilter?.name ?: g.message(code: 'tools.massMailing.fields.filter.to.all')}
+            </g:if>
         </g:if>
     </p>
 <g:if test="${campaign.getCampaignType() == org.kuorum.rest.model.communication.CampaignTypeRSDTO.BULLETIN}">

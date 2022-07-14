@@ -57,6 +57,17 @@ class UrlMappings {
         name de_registerSuccess:    "/registrierung/erfolgreich"   (controller: "register",action:"registerSuccess"){mappingName="registerSuccess"}
         name ca_registerSuccess:    "/registre/satisfactori"   (controller: "register",action:"registerSuccess"){mappingName="registerSuccess"}
 
+        name registerCampaignFunnel:"/register/fill-profile/sign-up"          (controller: "register"){action = [GET:"campaignFunnelRegisterStart", POST:"saveCampaignFunnelRegisterStart"]}{mappingName="registerCampaignFunnel"}
+        name en_registerCampaignFunnel:"/register/fill-profile/sign-up"          (controller: "register"){action = [GET:"campaignFunnelRegisterStart", POST:"saveCampaignFunnelRegisterStart"]}{mappingName="registerCampaignFunnel"}
+        name es_registerCampaignFunnel:"/registro/completa-perfil/registro"          (controller: "register"){action = [GET:"campaignFunnelRegisterStart", POST:"saveCampaignFunnelRegisterStart"]}{mappingName="registerCampaignFunnel"}
+        name de_registerCampaignFunnel:"/registrierung/fill-profile/sign-up"          (controller: "register"){action = [GET:"campaignFunnelRegisterStart", POST:"saveCampaignFunnelRegisterStart"]}{mappingName="registerCampaignFunnel"}
+        name ca_registerCampaignFunnel:"/registre/fill-profile/registre"          (controller: "register"){action = [GET:"campaignFunnelRegisterStart", POST:"saveCampaignFunnelRegisterStart"]}{mappingName="registerCampaignFunnel"}
+
+        name funnelFillBasicData:  "/edit-profile/fill-profile/setup-basic"   (controller: "profile"){action = [GET:"funnelFillBasicData",    POST:"saveFunnelFillBasicData"]}
+        name funnelFillImages:     "/edit-profile/fill-profile/setup-images"  (controller: "profile"){action = [GET:"funnelFillImages",       POST:"saveFunnelFillImages"]}
+        name funnelFillFiles:      "/edit-profile/fill-profile/setup-files"   (controller: "profile"){action = [GET:"funnelFillFiles",        POST:"saveFunnelFillFiles"]}
+        name funnelFillSocial:     "/edit-profile/fill-profile/setup-social"  (controller: "profile"){action = [GET:"funnelFillSocial",       POST:"saveFunnelFillSocial"]}
+
         name registerResendMail:    "/sign-up/no-valid"                 (controller: "register"){action=[GET:"resendRegisterVerification", POST:"resendVerification"];mappingName="registerResendMail"}
         name en_registerResendMail: "/sign-up/no-valid"                 (controller: "register"){action=[GET:"resendRegisterVerification", POST:"resendVerification"];mappingName="registerResendMail"}
         name es_registerResendMail: "/registro/no-verificado"           (controller: "register"){action=[GET:"resendRegisterVerification", POST:"resendVerification"];mappingName="registerResendMail"}
@@ -209,15 +220,19 @@ class UrlMappings {
         name contestEditSettings:      "/account/$userAlias/ct/$urlTitle-$campaignId/edit-settings" (controller: "contest"){action = [GET: "editSettingsStep", POST: "saveSettings"]}
         name contestEditDeadlines:     "/account/$userAlias/ct/$urlTitle-$campaignId/edit-deadlines"(controller: "contest"){action = [GET: "editDeadlines", POST: "saveDeadlines"]}
         name contestEditContent:       "/account/$userAlias/ct/$urlTitle-$campaignId/edit-content"  (controller: "contest"){action = [GET: "editContentStep", POST: "saveContent"]}
+        name contestEditConfigContest:  "/account/$userAlias/ct/$urlTitle-$campaignId/edit-areas"    (controller: "contest"){action = [GET: "editContestConfig", POST: "saveContestConfig"]}
         name contestRemove:            "/ajax/account/$userAlias/ct/$urlTitle-$campaignId/remove"    (controller: "contest", action:"remove")
         name contestShow:              "/$userAlias/$urlTitle-$campaignId"           (controller: "campaign", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it)})}}
         name contestListApplications:  "/ajax/$userAlias/$urlTitle-$campaignId/applications" (controller: "contest", action:"findContestApplications")
+        name contestEditStatus:        "/ajax/account/$userAlias/ct/$urlTitle-$campaignId/edit-status" (controller: "contest", action:"editStatus")
+
 
         name contestApplicationCreate: "/account/$userAlias/pb/$urlTitle-$campaignId/new-application" (controller: "contestApplication"){action = [GET: "create", POST: "saveNewApplication"]}
         name contestApplicationCopy:   "/account/contestApplication/$campaignId/copy" (controller:"contestApplication", action:"copy")
         name contestApplicationEditSettings: "/account/$userAlias/cta/$contestTitle-$contestId/$urlTitle-$campaignId/edit-settings"  (controller: "contestApplication"){action = [GET: "editSettingsStep", POST: "saveSettings"]}
         name contestApplicationEditContent: "/account/$userAlias/cta/$contestTitle-$contestId/$urlTitle-$campaignId/edit-content"  (controller: "contestApplication"){action = [GET: "editContentStep", POST: "saveContent"]}
-        name contestApplicationEditEnvironment: "/account/$userAlias/cta/$contestTitle-$contestId/$urlTitle-$campaignId/edit-environment"  (controller: "contestApplication"){action = [GET: "editEnvironmentStep", POST: "saveEnvironment"]}
+        name contestApplicationEditProfile: "/account/$userAlias/cta/$urlTitle-$campaignId/edit-profile"    (controller: "contestApplication"){action = [GET: "editProfileStep", POST: "saveProfileStep"]}
+        name contestApplicationEditEnvironment: "/account/$userAlias/cta/$contestTitle-$contestId/$urlTitle-$campaignId/edit-scope"  (controller: "contestApplication"){action = [GET: "editScopeStep", POST: "saveScope"]}
         name contestApplicationRemove:  "/ajax/account/$userAlias/cta/$urlTitle-$campaignId/remove"    (controller: "contestApplication", action:"remove")
         name contestApplicationShow:    "/$userAlias/$contestTitle-$contestId/$urlTitle-$campaignId"           (controller: "campaign", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it)})}}
 

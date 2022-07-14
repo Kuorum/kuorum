@@ -27,7 +27,7 @@ class CampaignSettingsCommand {
 
     @BindUsing({obj,  org.grails.databinding.DataBindingSource source ->
         String normalizedCauses = source['causes'].replaceAll(';', ',')
-        normalizedCauses.split(',').findAll({it}).collect{it.decodeHashtag().trim()}.unique { a, b -> a <=> b }
+        normalizedCauses.split(',').findAll({ it }).collect { it.decodeHashtag().trim() }.unique { a, b -> a <=> b }
     })
     Set<String> causes;
 
@@ -37,6 +37,7 @@ class CampaignSettingsCommand {
     Boolean signVotes = false;
     Boolean groupValidation = false;
     Boolean newsletterCommunication = false;
+    Boolean profileComplete = false;
 
     @BindingFormat(WebConstants.WEB_FORMAT_DATE)
     Date endDate
@@ -55,6 +56,7 @@ class CampaignSettingsCommand {
         validationType nullable: false
         campaignVisibility nullable: false;
         groupValidation nullable: true;
+        profileComplete nullable: true;
         voteType nullable: false;
         signVotes nullable: true;
         newsletterCommunication nullable: true;

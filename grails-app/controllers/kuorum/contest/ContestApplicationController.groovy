@@ -4,23 +4,21 @@ import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.politician.CampaignController
 import kuorum.register.KuorumUserSession
+import kuorum.users.KuorumUser
 import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.commands.payment.CampaignSettingsCommand
-import kuorum.web.commands.payment.contest.ContestApplicationEnvironmentCommand
-import kuorum.web.commands.payment.contest.ContestDeadlinesCommand
+import kuorum.web.commands.payment.contest.ContestApplicationScopeCommand
+import kuorum.web.commands.payment.contest.ContestProfileCommand
 import kuorum.web.commands.payment.contest.NewContestApplicationCommand
-import kuorum.web.commands.payment.participatoryBudget.DistrictProposalChooseDistrictCommand
-import kuorum.web.commands.payment.participatoryBudget.NewDistrictProposalWithDistrictCommand
+import kuorum.web.commands.profile.SocialNetworkCommand
 import org.kuorum.rest.model.communication.CampaignRDTO
 import org.kuorum.rest.model.communication.contest.ContestApplicationRDTO
 import org.kuorum.rest.model.communication.contest.ContestApplicationRSDTO
-import org.kuorum.rest.model.communication.contest.ContestRDTO
 import org.kuorum.rest.model.communication.contest.ContestRSDTO
-import org.kuorum.rest.model.communication.participatoryBudget.DistrictProposalRDTO
-import org.kuorum.rest.model.communication.participatoryBudget.DistrictProposalRSDTO
-import org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetRSDTO
 import org.kuorum.rest.model.communication.survey.CampaignVisibilityRSDTO
+import org.kuorum.rest.model.contact.ContactRSDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
+import org.kuorum.rest.model.kuorumUser.KuorumUserRSDTO
 import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
 import payment.campaign.CampaignCreatorService
 
@@ -34,27 +32,25 @@ class ContestApplicationController extends CampaignController {
         Long contestId = params.campaignId ? Long.parseLong(params.campaignId) : null
         BasicDataKuorumUserRSDTO user = kuorumUserService.findBasicUserRSDTO(params.userAlias)
         ContestRSDTO contest = contestService.find(user.id.toString(), contestId)
-        return contestApplicationModelEditEnvironment(new ContestApplicationEnvironmentCommand(), null, contest)
+        if (checkRequiredProfileData(contest)) {
+            return contestApplicationModelEditScope(new ContestApplicationScopeCommand(), null, contest)
+        } else {
+            redirect mapping: 'funnelFillBasicData', params: [campaignId: contest.id]
+        }
     }
 
     @Secured(['ROLE_CAMPAIGN_CONTEST_APPLICATION'])
-    def saveNewApplication(ContestApplicationEnvironmentCommand command) {
+    def saveNewApplication(ContestApplicationScopeCommand command) {
         Long contestId = params.campaignId ? Long.parseLong(params.campaignId) : null
-        BasicDataKuorumUserRSDTO user = kuorumUserService.findBasicUserRSDTO(params.userAlias)
-        ContestRSDTO contest = contestService.find(user.id.toString(), contestId)
         if (!command.validate()) {
-            render view: 'create', model: contestApplicationModelEditEnvironment(command, null, contest)
+            BasicDataKuorumUserRSDTO userData = kuorumUserService.findBasicUserRSDTO(params.userAlias)
+            ContestRSDTO contest = contestService.find(userData.id.toString(), contestId)
+            render view: 'create', model: contestApplicationModelEditScope(command, null, contest)
             return
         }
-
-        NewContestApplicationCommand contentCommand = new NewContestApplicationCommand(title: command.name);
-        contentCommand.title = command.name
-        contentCommand.cause = command.cause
-        contentCommand.activityType = command.activityType
-        contentCommand.focusType = command.focusType
-        contentCommand.campaignVisibility = CampaignVisibilityRSDTO.VISIBLE
-        contentCommand.contestId = contestId
-        Map<String, Object> result = saveAndSendCampaignContent(contentCommand, null, contestApplicationService)
+        KuorumUserSession loggedUser = springSecurityService.principal
+        CampaignRDTO campaignRDTO = convertCommandContentToRDTO(command, loggedUser, null, contestApplicationService)
+        Map<String, Object> result = saveAndSendCampaign(loggedUser, campaignRDTO, null, null, CampaignContentCommand.CAMPAIGN_SEND_TYPE_DRAFT, contestApplicationService)
         def nextStep = result.nextStep
         redirect mapping: nextStep.mapping, params: nextStep.params
 
@@ -75,16 +71,16 @@ class ContestApplicationController extends CampaignController {
     }
 
     @Secured(['ROLE_CAMPAIGN_CONTEST_APPLICATION'])
-    def editEnvironmentStep() {
+    def editScopeStep() {
         Long contestApplicationId = params.campaignId ? Long.parseLong(params.campaignId) : null
         BasicDataKuorumUserRSDTO user = kuorumUserService.findBasicUserRSDTO(params.userAlias)
         ContestApplicationRSDTO contestApplicationRSDTO = contestApplicationService.find(user.id.toString(), contestApplicationId)
         ContestRSDTO contest = contestService.find(user.id.toString(), contestApplicationRSDTO.getContest().getId())
-        return contestApplicationModelEditEnvironment(null, contestApplicationRSDTO, contest)
+        return contestApplicationModelEditScope(null, contestApplicationRSDTO, contest)
     }
 
     @Secured(['ROLE_CAMPAIGN_CONTEST_APPLICATION'])
-    def saveEnvironment(ContestApplicationEnvironmentCommand command) {
+    def saveScope(ContestApplicationScopeCommand command) {
         KuorumUserSession user = springSecurityService.principal
         Long contestApplicationId = params.campaignId ? Long.parseLong(params.campaignId) : null
         ContestApplicationRSDTO contestApplication = contestApplicationService.find(user.id.toString(), contestApplicationId)
@@ -122,7 +118,7 @@ class ContestApplicationController extends CampaignController {
 
     @Secured(['ROLE_CAMPAIGN_CONTEST_APPLICATION'])
     def remove(Long campaignId) {
-        removeCampaign(campaignId, participatoryBudgetService)
+        removeCampaign(campaignId, contestApplicationService)
         render([msg: "Contest budget deleted"] as JSON)
     }
 
@@ -142,9 +138,9 @@ class ContestApplicationController extends CampaignController {
     /******************/
 
 
-    private def contestApplicationModelEditEnvironment(ContestApplicationEnvironmentCommand command, ContestApplicationRSDTO contestApplicationRSDTO, ContestRSDTO contestRSDTO) {
+    private def contestApplicationModelEditScope(ContestApplicationScopeCommand command, ContestApplicationRSDTO contestApplicationRSDTO, ContestRSDTO contestRSDTO) {
         if (!command && contestApplicationRSDTO) {
-            command = new ContestApplicationEnvironmentCommand()
+            command = new ContestApplicationScopeCommand()
             command.cause = contestApplicationRSDTO.causes ? contestApplicationRSDTO.causes[0] : ""
             command.focusType = contestApplicationRSDTO.focusType
             command.activityType = contestApplicationRSDTO.activityType
@@ -155,20 +151,18 @@ class ContestApplicationController extends CampaignController {
                 status  : contestApplicationRSDTO?.campaignStatusRSDTO ?: CampaignStatusRSDTO.DRAFT,
                 command : command
         ]
-        model.options = [debatable: false]
         return model
     }
 
-    protected CampaignRDTO convertCommandContentToRDTO(CampaignContentCommand command, KuorumUserSession user, Long campaignId, CampaignCreatorService campaignService) {
-        command.campaignVisibility = CampaignVisibilityRSDTO.VISIBLE
-        ContestApplicationRDTO campaignRDTO = (ContestApplicationRDTO) super.convertCommandContentToRDTO(command, user, campaignId, campaignService)
-        setCampaignName(campaignRDTO, command)
+    protected CampaignRDTO convertCommandContentToRDTO(ContestApplicationScopeCommand command, KuorumUserSession user, Long campaignId, CampaignCreatorService campaignService) {
+        ContestApplicationRDTO campaignRDTO = (ContestApplicationRDTO) createRDTO(user, campaignId, campaignService)
+        campaignRDTO.setCampaignVisibility(CampaignVisibilityRSDTO.VISIBLE)
+        campaignRDTO.setTitle(command.name)
+        campaignRDTO.setName(command.name)
         setContest(campaignRDTO)
-        if (command instanceof NewContestApplicationCommand) {
-            campaignRDTO.causes = [command.cause]
-            campaignRDTO.focusType = command.focusType
-            campaignRDTO.activityType = command.activityType
-        }
+        campaignRDTO.causes = [command.cause]
+        campaignRDTO.focusType = command.focusType
+        campaignRDTO.activityType = command.activityType
         return campaignRDTO
     }
 
@@ -179,14 +173,14 @@ class ContestApplicationController extends CampaignController {
         }
     }
 
-    private def updateEnvironmentByCommand(ContestApplicationEnvironmentCommand command, ContestApplicationRSDTO contestApplicationRSDTO) {
+    private def updateEnvironmentByCommand(ContestApplicationScopeCommand command, ContestApplicationRSDTO contestApplicationRSDTO) {
         KuorumUserSession user = springSecurityService.principal
         Long contestId = params.contestId ? Long.parseLong(params.contestId) : null
         BasicDataKuorumUserRSDTO contestApplicationUser = kuorumUserService.findBasicUserRSDTO(params.userAlias)
         ContestRSDTO contestRSDTO = contestService.find(contestApplicationUser.id.toString(), contestId)
         if (command.hasErrors()) {
             flash.error = message(error: command.errors.getFieldError())
-            render view: 'editEnvironmentStep', model: contestApplicationModelEditEnvironment(command, contestApplicationRSDTO, contestRSDTO)
+            render view: 'editEnvironmentStep', model: contestApplicationModelEditScope(command, contestApplicationRSDTO, contestRSDTO)
             return
         }
         ContestApplicationRDTO rdto = contestApplicationService.map(contestApplicationRSDTO)

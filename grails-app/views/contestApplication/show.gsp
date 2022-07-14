@@ -19,7 +19,8 @@
     <g:render template="/contestApplication/showModules/cCallToAction"
               model="[contestApplication: contestApplication, campaignUser: campaignUser, hideXs: true]"/>
     <g:render template="/campaigns/columnCModules/campaignFiles" model="[campaignFiles: campaignFiles]"/>
-    <g:render template="/campaigns/columnCModules/campaignFiles" model="[campaignFiles: contactFiles]"/>
+    <g:render template="/campaigns/columnCModules/campaignContactFiles"
+              model="[contact: contact, contactFiles: contactFiles]"/>
 
     <g:render template="/contestApplication/showModules/cContestApplicationStats"
               model="[contestApplication: contestApplication, campaignUser: campaignUser]"/>

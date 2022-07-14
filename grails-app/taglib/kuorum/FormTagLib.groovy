@@ -10,6 +10,7 @@ import org.bson.types.ObjectId
 import org.codehaus.groovy.grails.validation.*
 import org.kuorum.rest.model.communication.CampaignRSDTO
 import org.kuorum.rest.model.communication.CampaignTypeRSDTO
+import org.kuorum.rest.model.communication.contest.ContestRSDTO
 import org.kuorum.rest.model.communication.event.EventRSDTO
 import org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetRSDTO
 import org.kuorum.rest.model.communication.survey.QuestionOptionRSDTO
@@ -21,6 +22,7 @@ import org.kuorum.rest.model.contact.ContactRSDTO
 import org.kuorum.rest.model.geolocation.RegionRSDTO
 import org.springframework.context.i18n.LocaleContextHolder
 import payment.campaign.CampaignService
+import payment.campaign.ContestService
 import payment.campaign.NewsletterService
 import payment.campaign.ParticipatoryBudgetService
 import payment.campaign.event.EventService
@@ -35,6 +37,7 @@ class FormTagLib {
     RegionService regionService
     EventService eventService
     ParticipatoryBudgetService participatoryBudgetService
+    ContestService contestService
     CampaignService campaignService
     NewsletterService newsletterService
     ContactService contactService
@@ -210,22 +213,24 @@ class FormTagLib {
 
     }
 
-    def uploadContactFiles = {attrs ->
+    def uploadContactFiles = { attrs ->
         ContactRSDTO contact = attrs.contact
         String label = attrs.label
-        KuorumUserSession userSession= springSecurityService.principal
-        List<String> alreadyUploadedFiles = contactService.getFiles(userSession,contact)
-        alreadyUploadedFiles = alreadyUploadedFiles.collect{it.split('\\?').first()}
+        Boolean adminContact = attrs.adminContact ? Boolean.parseBoolean(attrs.adminContact) : false;
+        KuorumUserSession userSession = springSecurityService.principal
+        String contactOwnerId = adminContact ? WebConstants.FAKE_LANDING_ALIAS_USER : userSession.id.toString()
+        List<String> alreadyUploadedFiles = contactService.getFiles(contactOwnerId, contact)
+        alreadyUploadedFiles = alreadyUploadedFiles.collect { it.split('\\?').first() }
         def model = [
-                alreadyUploadedFiles:alreadyUploadedFiles,
-                elementId: contact.id,
-                disabled: false,
-                confirmRemoveFile: true,
-                actionUpload: g.createLink(mapping:'ajaxUploadContactFile', params: [contactId: contact.id, userAlias:userSession.id.toString()]),
-                actionDelete: g.createLink(mapping:'ajaxDeleteContactFile', params: [contactId: contact.id, userAlias:userSession.id.toString()]),
-                label:label
+                alreadyUploadedFiles: alreadyUploadedFiles,
+                elementId           : contact.id,
+                disabled            : false,
+                confirmRemoveFile   : true,
+                actionUpload        : g.createLink(mapping: 'ajaxUploadContactFile', params: [contactId: contact.id, userAlias: contactOwnerId, adminContact: adminContact]),
+                actionDelete        : g.createLink(mapping: 'ajaxDeleteContactFile', params: [contactId: contact.id, userAlias: contactOwnerId, adminContact: adminContact]),
+                label               : label
         ]
-        out << g.render(template:'/layouts/form/uploadMultipleFiles', model:model)
+        out << g.render(template: '/layouts/form/uploadMultipleFiles', model: model)
     }
     def uploadQuestionOptionFiles = {attrs ->
         SurveyRSDTO survey = attrs.survey
@@ -887,7 +892,8 @@ class FormTagLib {
         def selectValues;
         switch (campaignType){
             case "EVENT": selectValues = eventSelectKeyValue(); break;
-            case "PARTICIPATORY_BUDGET": selectValues = participatoryBudgetSelectKeyValue();break;
+            case "PARTICIPATORY_BUDGET": selectValues = participatoryBudgetSelectKeyValue(); break;
+            case "CONTEST": selectValues = contestKeyValue(); break;
             default: throw new KuorumException("Campaign selector ('${campaignType}') not suported")
         }
         selectValues.each{selectValue ->
@@ -906,25 +912,31 @@ class FormTagLib {
     private def eventSelectKeyValue(){
         KuorumUserSession user = springSecurityService.principal
         List<EventRSDTO> events = eventService.findEvents(user)
-        return events.collect{[id:it.id, value:it.title]}
+        return events.collect { [id: it.id, value: it.title] }
     }
 
 
-    private def participatoryBudgetSelectKeyValue(){
+    private def participatoryBudgetSelectKeyValue() {
         KuorumUserSession user = springSecurityService.principal
         List<ParticipatoryBudgetRSDTO> participatoryBudgets = participatoryBudgetService.findAll(user)
-        return participatoryBudgets.findAll{it.published}.collect{[id:it.id, value:it.name]}
+        return participatoryBudgets.findAll { it.published }.collect { [id: it.id, value: it.name] }
     }
 
-    def selectTimeZone = {attrs->
+    private def contestKeyValue() {
+        KuorumUserSession user = springSecurityService.principal
+        List<ContestRSDTO> contests = contestService.findAll(user)
+        return contests.findAll { it.published }.collect { [id: it.id, value: it.name] }
+    }
+
+    def selectTimeZone = { attrs ->
         def command = attrs.command
         def field = attrs.field
 
-        def id = attrs.id?:field
-        def prefixFieldName=attrs.prefixFieldName?:""
+        def id = attrs.id ?: field
+        def prefixFieldName = attrs.prefixFieldName ?: ""
         def cssClass = attrs.cssClass
-        def labelCssClass=attrs.labelCssClass?:""
-        Boolean isRequired = isRequired(command,field)
+        def labelCssClass = attrs.labelCssClass ?: ""
+        Boolean isRequired = isRequired(command, field)
         def label ="${message(code: "${command.class.name}.${field}.label")}${isRequired?'*':''}"
         def error = hasErrors(bean: command, field: field,'error')
         out << """

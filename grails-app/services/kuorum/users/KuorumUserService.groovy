@@ -18,6 +18,7 @@ import kuorum.register.KuorumUserSession
 import kuorum.security.evidences.Evidences
 import kuorum.solr.SearchSolrService
 import kuorum.util.rest.RestKuorumApiService
+import kuorum.web.commands.profile.SocialNetworkCommand
 import org.bson.types.ObjectId
 import org.codehaus.groovy.grails.commons.GrailsApplication
 import org.codehaus.groovy.grails.web.json.JSONElement
@@ -91,10 +92,23 @@ class KuorumUserService {
         return userDataRDTO
     }
 
-    KuorumUserRSDTO updateKuorumUser(KuorumUserSession user, UserDataRDTO userDataRDTO){
+    void updateSocialNetworkLoggedUser(SocialNetworkCommand socialNetworkCommand) {
+        SocialRDTO social = new SocialRDTO()
+        socialNetworkCommand.properties.each {
+            if (it.key != "class" && social.hasProperty(it.key))
+                social."${it.key}" = it.value
+        }
+        KuorumUserSession loggedUser = springSecurityService.principal
+        UserDataRDTO userDataRDTO = this.mapUserToRDTO(loggedUser)
+        userDataRDTO.socialLinks = social
+        this.updateKuorumUser(loggedUser, userDataRDTO)
+    }
+
+    KuorumUserRSDTO updateKuorumUser(KuorumUserSession user, UserDataRDTO userDataRDTO) {
         updateKuorumUser(user.id.toString(), userDataRDTO)
     }
-    KuorumUserRSDTO updateKuorumUser(String userId, UserDataRDTO userDataRDTO){
+
+    KuorumUserRSDTO updateKuorumUser(String userId, UserDataRDTO userDataRDTO) {
         Map<String, String> params = [userId: userId]
         Map<String, String> query = [:]
         def apiResponse = restKuorumApiService.put(
@@ -120,6 +134,7 @@ class KuorumUserService {
         userDataRDTO.phoneNumber = user.getPersonalData().getTelephone()
         userDataRDTO.phoneNumberPrefix = user.getPersonalData().getPhonePrefix()
         userDataRDTO.language = org.kuorum.rest.model.kuorumUser.LanguageRSDTO.valueOf(user.language.toString())
+        userDataRDTO.nid = user.nid
         return updateKuorumUser(user.id.toString(), userDataRDTO)
     }
 

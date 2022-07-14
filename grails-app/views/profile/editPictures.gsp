@@ -17,6 +17,15 @@
 <content tag="mainContent">
     <formUtil:validateForm bean="${command}" form="config1" dirtyControl="true"/>
     <g:form method="POST" mapping="profilePictures" name="config1" role="form">
-        <g:render template="formEditPictures" model="[command:command]"/>
+        <div class="box-ppal-section">
+            <g:render template="formEditPictures" model="[command: command]"/>
+        </div>
+
+        <div class="box-ppal-section">
+            <fieldset aria-live="polite" class="form-group text-center">
+                <input type="submit" value="${g.message(code: 'default.save')}" class="btn btn-orange btn-lg">
+            </fieldset>
+
+        </div>
     </g:form>
 </content>

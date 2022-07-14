@@ -27,8 +27,6 @@ class SearchParams extends Pagination implements Serializable{
 
     List<String> filteredUserIds;
 
-    List<String> boostedRegions;
-
     List<String> boostedAlias;
 
 
@@ -38,7 +36,6 @@ class SearchParams extends Pagination implements Serializable{
         filteredUserIds nullable:true
         searchType nullable:true
         solrType nullable:true
-        boostedRegions nullable: true
         boostedAlias nullable: true
     }
 }

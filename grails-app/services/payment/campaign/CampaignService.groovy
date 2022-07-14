@@ -11,6 +11,7 @@ import org.kuorum.rest.model.communication.*
 import org.kuorum.rest.model.communication.bulletin.BulletinRSDTO
 import org.kuorum.rest.model.communication.event.EventRDTO
 import org.kuorum.rest.model.communication.search.SearchCampaignRDTO
+import org.kuorum.rest.model.contact.ContactRSDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 import org.kuorum.rest.model.notification.campaign.NewsletterRSDTO
 
@@ -135,7 +136,7 @@ class CampaignService {
             }
             return campaignRSDTO
         } catch (KuorumException e) {
-            log.info("Error recovering debate $campaignId : ${e.message}")
+            log.info("Error recovering campaign $campaignId : ${e.message}")
             return null
         }
     }
@@ -154,6 +155,7 @@ class CampaignService {
             rdto.publishOn = campaignRSDTO.datePublished
             rdto.campaignVisibility = campaignRSDTO.campaignVisibility
             rdto.groupValidation = campaignRSDTO.groupValidation
+            rdto.profileComplete = campaignRSDTO.profileComplete
             rdto.newsletterCommunication = campaignRSDTO.newsletterCommunication
             rdto.causes = campaignRSDTO.causes
             rdto.startDate = campaignRSDTO.startDate
@@ -208,6 +210,23 @@ class CampaignService {
                 new TypeReference<List<String>>() {}
         )
         response.data
+    }
+
+    ContactRSDTO getContactData(CampaignRSDTO campaignRSDTO, String viewerUid) {
+        Map<String, String> params = [campaignId: campaignRSDTO.getId().toString(), userId: campaignRSDTO.getUser().getId()]
+        Map<String, String> query = [viewerUid: viewerUid]
+        try {
+            def response = restKuorumApiService.get(
+                    RestKuorumApiService.ApiMethod.ACCOUNT_CAMPAIGN_CONTACT_DATA,
+                    params,
+                    query,
+                    new TypeReference<ContactRSDTO>() {}
+            )
+            response.data
+        } catch (Exception e) {
+            log.info("Contact of the campaign not found")
+            return null;
+        }
     }
 
     List<String> getReports(KuorumUserSession loggedUser, Long campaignId) {

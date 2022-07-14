@@ -19,13 +19,14 @@
     <div class="box-steps container-fluid campaign-steps">
         <g:set var="mappings" value="${
             [
-            saveAndSentButtons: true,
+            saveAndSentButtons: false,
             step: 'deadlines' ,
             settings: 'contestEditSettings',
             content: 'contestEditContent' ,
             deadlines: 'contestEditDeadlines',
+            configContest: 'contestEditConfigContest' ,
             showResult: 'campaignShow',
-            next: 'contestEditContent'
+            next: 'contestEditConfigContest'
             ]}"/>
         <g:render template="/campaigns/steps/campaignSteps" model="[mappings: mappings]"/>
     </div>

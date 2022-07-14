@@ -4,12 +4,11 @@ import kuorum.register.KuorumUserSession
 import kuorum.users.KuorumUser
 import org.kuorum.rest.model.communication.CampaignLightRSDTO
 import org.kuorum.rest.model.communication.CampaignRSDTO
-import org.kuorum.rest.model.communication.contest.ContestApplicationRDTO
+import org.kuorum.rest.model.communication.EmbeddedCampaignRSDTO
 import org.kuorum.rest.model.communication.contest.ContestApplicationRSDTO
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.kuorum.rest.model.communication.debate.ProposalRSDTO
 import org.kuorum.rest.model.communication.event.EventRSDTO
-import org.kuorum.rest.model.communication.participatoryBudget.BasicParticipatoryBudgetRSDTO
 import org.kuorum.rest.model.communication.participatoryBudget.DistrictProposalRSDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 import org.kuorum.rest.model.notification.NotificationProposalCommentMentionRSDTO
@@ -103,10 +102,10 @@ class LinkPropertiesCodec {
         }
     }
 
-    private static def prepareParams(BasicParticipatoryBudgetRSDTO campaignRSDTO) {
+    private static def prepareParams(EmbeddedCampaignRSDTO campaignRSDTO) {
         [
-                userAlias: campaignRSDTO.userAlias.toLowerCase(),
-                urlTitle: getNameTitleUrl(campaignRSDTO),
+                userAlias : campaignRSDTO.userAlias.toLowerCase(),
+                urlTitle  : getNameTitleUrl(campaignRSDTO),
                 campaignId: campaignRSDTO.id
         ]
     }

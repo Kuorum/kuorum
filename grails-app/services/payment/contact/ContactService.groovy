@@ -9,6 +9,11 @@ import org.kuorum.rest.model.contact.*
 import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
 import org.kuorum.rest.model.contact.filter.FilterRDTO
 import org.kuorum.rest.model.contact.filter.FilterRSDTO
+import org.kuorum.rest.model.contact.filter.condition.ConditionExistsRDTO
+import org.kuorum.rest.model.contact.filter.condition.ConditionFieldTypeRDTO
+import org.kuorum.rest.model.contact.filter.condition.ConditionRDTO
+import org.kuorum.rest.model.contact.filter.condition.ConditionTextRDTO
+import org.kuorum.rest.model.contact.filter.condition.TextConditionOperatorTypeRDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 
 @Transactional
@@ -16,7 +21,7 @@ class ContactService {
 
     RestKuorumApiService restKuorumApiService
 
-    void addBulkContacts(BasicDataKuorumUserRSDTO user, List<ContactRDTO> contactRSDTOs){
+    void addBulkContacts(BasicDataKuorumUserRSDTO user, List<ContactRDTO> contactRSDTOs) {
         addBulkContacts(user.id, contactRSDTOs)
     }
     void addBulkContacts(KuorumUserSession user, List<ContactRDTO> contactRSDTOs){
@@ -131,50 +136,76 @@ class ContactService {
     }
 
     void removeFilter(KuorumUserSession user, Long filterId){
-        Map<String, String> params = [userId:user.id.toString(),filterId:filterId.toString()]
+        Map<String, String> params = [userId: user.id.toString(), filterId: filterId.toString()]
         Map<String, String> query = [:]
 
-        def response= restKuorumApiService.delete(
+        def response = restKuorumApiService.delete(
                 RestKuorumApiService.ApiMethod.USER_CONTACT_FILTER,
                 params,
                 query)
 
     }
 
-    ContactPageRSDTO getUsers(KuorumUserSession user, FilterRDTO filterRDTO = null){
-        SearchContactRSDTO searchContactRSDTO = new SearchContactRSDTO(filter:filterRDTO)
+    ContactPageRSDTO getUsers(KuorumUserSession user, FilterRDTO filterRDTO = null) {
+        SearchContactRSDTO searchContactRSDTO = new SearchContactRSDTO(filter: filterRDTO)
         getUsers(user, searchContactRSDTO)
     }
 
-    ContactPageRSDTO getUsers(KuorumUserSession user, SearchContactRSDTO searchContactRSDTO){
-        Map<String, String> params = [userId:user.id.toString()]
+    ContactPageRSDTO getUsers(KuorumUserSession user, SearchContactRSDTO searchContactRSDTO) {
+        return getUsers(user.id, searchContactRSDTO);
+    }
+
+    ContactPageRSDTO getUsers(Object userId, SearchContactRSDTO searchContactRSDTO) {
+        Map<String, String> params = [userId: userId.toString()]
 
 
         Map<String, String> query = searchContactRSDTO.encodeAsQueryParams()
 
-        def response= restKuorumApiService.get(
+        def response = restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.USER_CONTACTS,
                 params,
                 query,
-                new TypeReference<ContactPageRSDTO>(){})
+                new TypeReference<ContactPageRSDTO>() {})
         ContactPageRSDTO contactPage = new ContactPageRSDTO()
-        if (response.data){
+        if (response.data) {
             contactPage = response.data
         }
         contactPage
     }
 
-    ContactRSDTO getContact(KuorumUserSession user, Long contactId){
-        Map<String, String> params = [userId:user.id.toString(),contactId:contactId.toString()]
+    ContactRSDTO getContactByEmail(Object userId, String email) {
+        SearchContactRSDTO searchContactRSDTO = new SearchContactRSDTO();
+        FilterRSDTO filterRSDTO = new FilterRSDTO();
+        filterRSDTO.setFilterConditions(new ArrayList<ConditionRDTO>());
+        ConditionTextRDTO conditionTextRDTO = new ConditionTextRDTO();
+        conditionTextRDTO.field = ConditionFieldTypeRDTO.EMAIL;
+        conditionTextRDTO.operator = TextConditionOperatorTypeRDTO.EQUALS
+        conditionTextRDTO.value = email
+        filterRSDTO.getFilterConditions().add(conditionTextRDTO);
+        searchContactRSDTO.filter = filterRSDTO;
+        ContactPageRSDTO contactPageRSDTO = this.getUsers(userId, searchContactRSDTO);
+        if (contactPageRSDTO.total >= 1) {
+            return contactPageRSDTO.data.get(0)
+        } else {
+            return null;
+        }
+    }
+
+    ContactRSDTO getContact(KuorumUserSession user, Long contactId) {
+        return getContact(user.id.toString(), contactId)
+    }
+
+    ContactRSDTO getContact(String userId, Long contactId) {
+        Map<String, String> params = [userId: userId, contactId: contactId.toString()]
         Map<String, String> query = [:]
 
-        def response= restKuorumApiService.get(
+        def response = restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.USER_CONTACT,
                 params,
                 query,
-                new TypeReference<ContactRSDTO>(){})
-        ContactRSDTO contactPage =null
-        if (response.data){
+                new TypeReference<ContactRSDTO>() {})
+        ContactRSDTO contactPage = null
+        if (response.data) {
             contactPage = response.data
         }
         contactPage
@@ -191,34 +222,38 @@ class ContactService {
     }
 
     ContactRSDTO updateContact(KuorumUserSession user, ContactRDTO contactRDTO, Long contactId){
-        Map<String, String> params = [userId:user.id.toString(),contactId:contactId.toString()]
+        Map<String, String> params = [userId: user.id.toString(), contactId: contactId.toString()]
         Map<String, String> query = [:]
 
-        def response= restKuorumApiService.put(
+        def response = restKuorumApiService.put(
                 RestKuorumApiService.ApiMethod.USER_CONTACT,
                 params,
                 query,
                 contactRDTO,
-                new TypeReference<ContactRSDTO>(){})
-        ContactRSDTO contact =null
-        if (response.data){
+                new TypeReference<ContactRSDTO>() {})
+        ContactRSDTO contact = null
+        if (response.data) {
             contact = response.data
         }
         contact
     }
 
-    ContactRSDTO addContact(KuorumUserSession user, ContactRDTO contactRDTO){
-        Map<String, String> params = [userId:user.id.toString()]
+    ContactRSDTO addContact(KuorumUserSession user, ContactRDTO contactRDTO) {
+        return addContact(user.getId().toString(), contactRDTO)
+    }
+
+    ContactRSDTO addContact(String userId, ContactRDTO contactRDTO) {
+        Map<String, String> params = [userId: userId]
         Map<String, String> query = [:]
 
-        def response= restKuorumApiService.post(
+        def response = restKuorumApiService.post(
                 RestKuorumApiService.ApiMethod.USER_CONTACTS,
                 params,
                 query,
                 contactRDTO,
-                new TypeReference<ContactRSDTO>(){})
-        ContactRSDTO contact =null
-        if (response.data){
+                new TypeReference<ContactRSDTO>() {})
+        ContactRSDTO contact = null
+        if (response.data) {
             contact = response.data
         }
         contact
@@ -427,22 +462,26 @@ class ContactService {
     }
 
 
-    String getSocialImportContactUrl(String userId, String provider){
-        Map<String, String> params = [provider:provider]
-        Map<String, String> query = [userId:userId]
+    String getSocialImportContactUrl(String userId, String provider) {
+        Map<String, String> params = [provider: provider]
+        Map<String, String> query = [userId: userId]
 
-        def response= restKuorumApiService.get(
+        def response = restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.USER_CONTACT_SOCIAL_IMPORT,
                 params,
                 query,
-                new TypeReference<String>(){})
-        return ((StringReader)response.data).str
+                new TypeReference<String>() {})
+        return ((StringReader) response.data).str
     }
 
 
-    String uploadFile(KuorumUserSession user, Long contactId, File file, String fileName){
+    String uploadFile(KuorumUserSession user, Long contactId, File file, String fileName) {
+        return uploadFile(user.getId().toString(), contactId, file, fileName)
+    }
+
+    String uploadFile(String userId, Long contactId, File file, String fileName) {
         fileName = java.net.URLEncoder.encode(fileName, "UTF-8")
-        Map<String, String> params = [contactId: contactId.toString(), userId: user.id.toString()]
+        Map<String, String> params = [contactId: contactId.toString(), userId: userId]
         Map<String, String> query = [:]
         def response = restKuorumApiService.putFile(
                 RestKuorumApiService.ApiMethod.USER_CONTACT_FILES,
@@ -454,25 +493,33 @@ class ContactService {
     }
 
 
-    void deleteFile(KuorumUserSession user, Long contactId, String fileName){
-        Map<String, String> params = [contactId: contactId.toString(), userId: user.id.toString()]
-        Map<String, String> query = [fileName:fileName]
+    void deleteFile(KuorumUserSession user, Long contactId, String fileName) {
+        deleteFile(user.id.toString(), contactId, fileName)
+    }
+
+    void deleteFile(String userId, Long contactId, String fileName) {
+        Map<String, String> params = [contactId: contactId.toString(), userId: userId]
+        Map<String, String> query = [fileName: fileName]
         def response = restKuorumApiService.delete(
                 RestKuorumApiService.ApiMethod.USER_CONTACT_FILES,
                 params,
                 query,
-                new TypeReference<String>(){}
+                new TypeReference<String>() {}
         )
     }
 
-    List<String> getFiles( KuorumUserSession userSession, ContactRSDTO contactRSDTO){
-        Map<String, String> params = [contactId: contactRSDTO.getId().toString(), userId: userSession.id.toString()]
+    List<String> getFiles(KuorumUserSession userSession, ContactRSDTO contactRSDTO) {
+        return getFiles(userSession.getId().toString(), contactRSDTO)
+    }
+
+    List<String> getFiles(String userId, ContactRSDTO contactRSDTO) {
+        Map<String, String> params = [contactId: contactRSDTO.getId().toString(), userId: userId]
         Map<String, String> query = [:]
         def response = restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.USER_CONTACT_FILES,
                 params,
                 query,
-                new TypeReference<List<String>>(){}
+                new TypeReference<List<String>>() {}
         )
         response.data
     }

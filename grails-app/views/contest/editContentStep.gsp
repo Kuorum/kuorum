@@ -25,6 +25,7 @@
                     settings          : 'contestEditSettings',
                     content           : 'contestEditContent',
                     deadlines         : 'contestEditDeadlines',
+                    configContest     : 'contestEditConfigContest',
                     showResult        : 'campaignShow',
                     next              : 'contestEditDeadlines']]"/>
 </content>

@@ -7,16 +7,16 @@ import kuorum.politician.CampaignController
 import kuorum.register.KuorumUserSession
 import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.commands.payment.CampaignSettingsCommand
+import kuorum.web.commands.payment.contest.ContestAreasCommand
+import kuorum.web.commands.payment.contest.ContestChangeStatusCommand
 import kuorum.web.commands.payment.contest.ContestDeadlinesCommand
-import kuorum.web.commands.payment.participatoryBudget.*
+import kuorum.web.commands.payment.contest.NewContestApplicationCommand
 import kuorum.web.constants.WebConstants
-import org.kuorum.rest.model.communication.CampaignLightRSDTO
 import org.kuorum.rest.model.communication.contest.ContestRDTO
 import org.kuorum.rest.model.communication.contest.ContestRSDTO
 import org.kuorum.rest.model.communication.contest.ContestStatusDTO
 import org.kuorum.rest.model.communication.contest.FilterContestApplicationRDTO
 import org.kuorum.rest.model.communication.contest.PageContestApplicationRSDTO
-import org.kuorum.rest.model.communication.participatoryBudget.*
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 
 import java.lang.reflect.UndeclaredThrowableException
@@ -43,6 +43,39 @@ class ContestController extends CampaignController {
         Long campaignId = Long.parseLong((String) params.campaignId)
         ContestRSDTO contestRSDTO = setCampaignAsDraft(campaignId, contestService)
         return campaignModelContent(campaignId, contestRSDTO, null, contestService)
+    }
+
+    @Secured(['ROLE_CAMPAIGN_CONTEST'])
+    def editStatus(ContestChangeStatusCommand command) {
+
+        KuorumUserSession loggedUser = springSecurityService.principal
+        ContestRSDTO contestRSDTO = contestService.find(loggedUser, command.campaignId)
+        if (command.hasErrors()) {
+            flash.error = message(error: command.errors.getFieldError())
+            redirect mapping: 'contestShow', params: contestRSDTO.encodeAsLinkProperties()
+            return
+        }
+        ContestRDTO rdto = contestService.map(contestRSDTO)
+        rdto.setStatus(command.getStatus())
+        String msgError = null
+        try {
+            contestService.save(loggedUser, rdto, command.campaignId)
+        } catch (UndeclaredThrowableException e) {
+            if (e.undeclaredThrowable.cause instanceof KuorumException) {
+                KuorumException ke = e.undeclaredThrowable.cause
+                msgError = message(code: ke.errors[0].code)
+            } else {
+                msgError = "Error updating contest status"
+            }
+        }
+        if (request.xhr) {
+            render([success: (msgError == null), msg: msgError] as JSON)
+        } else {
+            if (msgError) {
+                flash.error = msgError
+            }
+            redirect mapping: 'contestShow', params: contestRSDTO.encodeAsLinkProperties()
+        }
     }
 
     @Secured(['ROLE_CAMPAIGN_CONTEST'])
@@ -96,8 +129,7 @@ class ContestController extends CampaignController {
                 deadLineApplications: contestRSDTO.deadLineApplications,
                 deadLineReview: contestRSDTO.deadLineReview,
                 deadLineVotes: contestRSDTO.deadLineVotes,
-                deadLineResults: contestRSDTO.deadLineResults,
-                numWinnerApplications: contestRSDTO.numWinnerApplications
+                deadLineResults: contestRSDTO.deadLineResults
         )
     }
 
@@ -117,21 +149,60 @@ class ContestController extends CampaignController {
         rdto.deadLineReview = command.deadLineReview
         rdto.deadLineVotes = command.deadLineVotes
         rdto.deadLineResults = command.deadLineResults
-        rdto.numWinnerApplications = command.numWinnerApplications
         def result = saveAndSendCampaign(campaignUser, rdto, contestRSDTO.getId(), null, null, contestService)
         redirect mapping: result.nextStep.mapping, params: result.nextStep.params
     }
 
     @Secured(['ROLE_CAMPAIGN_CONTEST'])
+    def editContestConfig() {
+        Long campaignId = Long.parseLong(params.campaignId)
+        ContestRSDTO contestRSDTO = setCampaignAsDraft(campaignId, contestService)
+        if (!contestRSDTO.body || !contestRSDTO.title) {
+            flash.message = g.message(code: 'contest.form.nobody.redirect')
+            redirect mapping: 'contestEditContent', params: contestRSDTO.encodeAsLinkProperties()
+        } else if (!contestRSDTO.deadLineResults || !contestRSDTO.deadLineReview || !contestRSDTO.deadLineApplications || !contestRSDTO.deadLineVotes) {
+            flash.message = g.message(code: 'contest.form.nobody.redirect')
+            redirect mapping: 'contestEditDeadlines', params: contestRSDTO.encodeAsLinkProperties()
+        } else {
+            return campaignModelContestArea(campaignId, contestRSDTO, new ContestAreasCommand())
+        }
+    }
+
+
+    @Secured(['ROLE_CAMPAIGN_CONTEST'])
+    def saveContestConfig(ContestAreasCommand command) {
+        KuorumUserSession campaignUser = springSecurityService.principal
+        Long campaignId = params.campaignId ? Long.parseLong(params.campaignId) : null
+        ContestRSDTO contestRSDTO = contestService.find(campaignUser, command.campaignId)
+        if (command.hasErrors()) {
+            if (command.errors.getFieldError().arguments.first() == "publishOn") {
+                flash.error = message(code: "debate.scheduleError")
+            }
+            render view: 'editContestAreas', model: campaignModelContestArea(campaignId, contestRSDTO, command)
+            return
+        }
+        ContestRDTO rdto = contestService.map(contestRSDTO)
+//        rdto.causes = command.causes
+        rdto.numWinnerApplications = command.numWinnerApplications
+        def result = saveAndSendCampaign(campaignUser, rdto, contestRSDTO.getId(), command.publishOn, command.sendType, contestService)
+        redirect mapping: result.nextStep.mapping, params: result.nextStep.params
+    }
+
+
+    @Secured(['ROLE_CAMPAIGN_CONTEST'])
     def remove(Long campaignId) {
-        removeCampaign(campaignId, participatoryBudgetService)
+        removeCampaign(campaignId, contestService)
         render([msg: "Contest budget deleted"] as JSON)
     }
 
     private def contestModelSettings(CampaignSettingsCommand command, ContestRSDTO contestRSDTO) {
         def model = modelSettings(command, contestRSDTO)
         command.debatable = false
-        model.options = [debatable: false]
+        if (contestRSDTO == null) {
+            // By default the creation of a contest, profile controler is active
+            command.profileComplete = true
+        }
+        model.options = [debatable: false, configProfileComplete: true]
         return model
     }
 
@@ -172,4 +243,12 @@ class ContestController extends CampaignController {
     }
 
 
+    private def campaignModelContestArea(long idCampaign, ContestRSDTO contestRSDTO, ContestAreasCommand command) {
+        command.setCampaignId(idCampaign)
+        command.setNumWinnerApplications(contestRSDTO.getNumWinnerApplications())
+        return [
+                campaign: contestRSDTO,
+                command : command
+        ]
+    }
 }

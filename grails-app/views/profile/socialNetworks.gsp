@@ -22,6 +22,15 @@
         <sec:ifAnyGranted roles="ROLE_POLITICIAN">
             <g:set var="showPoliticianFields" value="${true}"/>
         </sec:ifAnyGranted>
-        <g:render template="formSocialNetworks" model="[command:command,showPoliticianFields:showPoliticianFields]"/>
+        <div class="box-ppal-section">
+            <g:render template="formSocialNetworks"
+                      model="[command: command, showPoliticianFields: showPoliticianFields]"/>
+        </div>
+
+        <div class="box-ppal-section">
+            <fieldset aria-live="polite" class="form-group text-center">
+                <input type="submit" value="${g.message(code: 'default.save')}" class="btn btn-orange btn-lg">
+            </fieldset>
+        </div>
     </g:form>
 </content>

@@ -1,7 +1,10 @@
-<g:if test="${status == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT}">
+<g:if test="${[org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT, org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.REVIEW].contains(status)}">
     <!-- Hidden inputs -->
-    <input type="hidden" name="publishOn" value="${g.formatDate(date: command.publishOn, format: kuorum.web.constants.WebConstants.WEB_FORMAT_DATE)}"/>
-    <li><button class="btn btn-blue inverted" id="update-campaign" data-redirectLink="${mappings.showResult}" value="${g.message(code: "tools.massMailing.save")}" >${g.message(code: "tools.massMailing.save")}</button></li>
+    <input type="hidden" name="publishOn"
+           value="${g.formatDate(date: command.publishOn, format: kuorum.web.constants.WebConstants.WEB_FORMAT_DATE)}"/>
+    <li><button class="btn btn-blue inverted" id="update-campaign" data-redirectLink="${mappings.showResult}"
+                value="${g.message(code: "tools.massMailing.save")}">${g.message(code: "tools.massMailing.save")}</button>
+    </li>
 </g:if>
 <g:elseif test="${status == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.PAUSE}">
     <input type="hidden" name="publishOn" value="${g.formatDate(date: command.publishOn, format: kuorum.web.constants.WebConstants.WEB_FORMAT_DATE)}"/>
@@ -12,7 +15,9 @@
 
     <g:if test="${campaign && campaign.campaignType == org.kuorum.rest.model.communication.CampaignTypeRSDTO.BULLETIN}">
         <li>
-            <g:link mapping="politicianMassMailingSendTest" params="[campaignId:campaign.id]" elementId="sendTest" title="${g.message(code:'tools.massMailing.sendTest')}" class="btn btn-grey-light">${g.message(code:'tools.massMailing.sendTest')}</g:link>
+            <g:link mapping="politicianMassMailingSendTest" params="[campaignId: campaign.id]" elementId="sendTest"
+                    title="${g.message(code: 'tools.massMailing.sendTest')}"
+                    class="btn btn-grey-light">${g.message(code: 'tools.massMailing.sendTest')}</g:link>
         </li>
     </g:if>
 
@@ -21,20 +26,23 @@
             <g:message code="tools.massMailing.saveDraft"/>
         </a>
     </li>
-    <li>
-        <a href="#" class="btn btn-blue inverted" role="button" id="openCalendar">
-            <span class="fal fa-clock"></span>
-            <g:message code="tools.massMailing.schedule"/>
-        </a>
-        <div id="selectDate">
-            <label class="sr-only"><g:message code="tools.massMailing.schedule.label"/></label>
-            <formUtil:date command="${command}" field="publishOn" cssClass="form-control" time="true"/>
-            <a href="#" class="btn btn-blue inverted" id="send-campaign-later">
-                <g:message
-                        code="${numberRecipients > 0 ? 'tools.massMailing.schedule.sendLater' : 'tools.massMailing.schedule.publishLater'}"/>
+    <g:if test="${!mappings.hideScheduler}">
+        <li>
+            <a href="#" class="btn btn-blue inverted" role="button" id="openCalendar">
+                <span class="fal fa-clock"></span>
+                <g:message code="tools.massMailing.schedule"/>
             </a>
-        </div>
-    </li>
+
+            <div id="selectDate">
+                <label class="sr-only"><g:message code="tools.massMailing.schedule.label"/></label>
+                <formUtil:date command="${command}" field="publishOn" cssClass="form-control" time="true"/>
+                <a href="#" class="btn btn-blue inverted" id="send-campaign-later">
+                    <g:message
+                            code="${numberRecipients > 0 ? 'tools.massMailing.schedule.sendLater' : 'tools.massMailing.schedule.publishLater'}"/>
+                </a>
+            </div>
+        </li>
+    </g:if>
     <li>
         <a href="#" class="btn btn-blue inverted" id="send-draft">
             <g:message code="${numberRecipients > 0 ? 'tools.massMailing.send' : 'tools.massMailing.publish'}"/>

@@ -1,8 +1,28 @@
 $(function () {
 
+    $(".campaign-steps-status .campaign-steps-info a").on("click", function (e) {
+        e.preventDefault();
+        var status = $(this).attr("data-status");
+        var statusText = $(this).attr("data-status-text");
+        console.log(status)
+        console.log(statusText)
+
+        var link = $("#modalEditParticipatoryBudgetStatusButtonOk").attr("href");
+        link = link.replace(/status=.*/, "status=" + status);
+        $("#modalEditParticipatoryBudgetStatusButtonOk").attr("href", link);
+
+
+        $("#modalEditParticipatoryBudgetStatus .modal-body p strong").html(statusText);
+        $("#modalEditParticipatoryBudgetStatus").modal("show")
+
+    });
+
     $("#contest-applications-list .nav-underline a").on("click", function (e) {
         e.preventDefault();
         var $a = $(this);
+        console.log($a)
+        $a.parents("ul.nav").find("li").removeClass("active")
+        $a.parent().addClass("active")
         var listSelector = $a.attr("data-listSelector");
         contestApplicationHelper.showListApplications(listSelector);
     })
@@ -15,6 +35,24 @@ $(function () {
     });
 
     contestApplicationHelper.showListApplications();
+
+    noLoggedCallbacks['contestAddApplicationAction'] = function () {
+        var buttonId = $('#registro').find("form").attr("data-buttonId");
+        var $button = $("#" + buttonId);
+        var link = $button.attr("href");
+        window.location = link;
+    };
+
+    $(window).scroll(function () {
+        if (($(window).scrollTop() + $(window).height()) > 0.9 * $(document).height()) {
+            $activeListLink = $("#" + contestApplicationHelper.containerId + " > .nav > li.active a")
+            var listSelector = $activeListLink.attr("data-listselector");
+            var $ul = $("#" + contestApplicationHelper.containerId + " > ul." + listSelector)
+            contestApplicationHelper.loadMoreApplications($ul)
+        }
+    });
+
+    $(".call-to-action").on("click", "a.btn.ADDING_APPLICATIONS", contestApplicationHelper.bindActionClickAddDistrictProposal);
 });
 
 var contestApplicationHelper = {
@@ -28,48 +66,76 @@ var contestApplicationHelper = {
 
     loadMoreApplications: function ($ulIdSelector) {
         $ulIdSelector.find("li.load-more-contest-application").remove();
-        var urlLoadMoreDistrictProposals = $ulIdSelector.attr("data-loadProposals");
-        var params = {
-            page: $ulIdSelector.attr("data-page")
-        };
-        var direction = $ulIdSelector.attr("data-direction");
-        if (typeof direction !== typeof undefined && direction !== false) {
-            params['direction'] = direction
-        }
-        var randomSeed = $ulIdSelector.attr("data-randomSeed");
-        if (typeof randomSeed !== typeof undefined && randomSeed !== false) {
-            params['randomSeed'] = randomSeed
-        }
-        var appender = "&"
-        if (urlLoadMoreDistrictProposals.indexOf("?") < 0) {
-            appender = "?";
-        }
-        urlLoadMoreDistrictProposals = urlLoadMoreDistrictProposals + appender + $.param(params)
+        var noMoreResults = $ulIdSelector.attr("noMoreResults");
+        var loading = $ulIdSelector.attr("loading");
+        // console.dir({loading:loading, noMoreResults: noMoreResults, isUndefined:!noMoreResults, isLoading:loading === undefined || loading=="false", total:noMoreResults != undefined && (loading === undefined || loading=="true")})
+        if (!noMoreResults && (loading === undefined || loading == "false")) {
+            console.log("Loading more contests applications");
+            $ulIdSelector.attr("loading", "true");
+            var urlLoadMoreDistrictProposals = $ulIdSelector.attr("data-loadProposals");
+            var params = {
+                page: $ulIdSelector.attr("data-page")
+            };
+            var direction = $ulIdSelector.attr("data-direction");
+            if (typeof direction !== typeof undefined && direction !== false) {
+                params['direction'] = direction
+            }
+            var randomSeed = $ulIdSelector.attr("data-randomSeed");
+            if (typeof randomSeed !== typeof undefined && randomSeed !== false) {
+                params['randomSeed'] = randomSeed
+            }
+            var appender = "&"
+            if (urlLoadMoreDistrictProposals.indexOf("?") < 0) {
+                appender = "?";
+            }
+            urlLoadMoreDistrictProposals = urlLoadMoreDistrictProposals + appender + $.param(params)
 
-        $ulIdSelector.append("<li class='loading'></li>");
-        $ulIdSelector.show();
-        $.get(urlLoadMoreDistrictProposals)
-            .done(function (data, staus, xhr) {
-                var moreResults = $.parseJSON(xhr.getResponseHeader('moreResults')); //Para que sea un bool)
-                $ulIdSelector.append(data);
-                if (moreResults) {
-                    $ulIdSelector.append("" +
-                        "<li class='col-xs-12 center load-more-contest-application load-more'> " +
-                        "<a href='#' class='loadMore' >" + i18n.seeMore + " " +
-                        "<span class='fal fa-angle-down'></span>" +
-                        "</a>" +
-                        "</li>")
-                }
-                $ulIdSelector.attr("data-page", Number.parseInt(params.page) + 1);
-                prepareYoutubeVideosClick();
-            })
-            .fail(function (messageError) {
-                display.warn("Error");
-            })
-            .always(function () {
-                // pageLoadingOff("Load more districts");
-                $ulIdSelector.find(".loading").remove()
-                // $liLoading.remove()
-            });
+            $ulIdSelector.append("<li class='loading'></li>");
+            $ulIdSelector.show();
+            $.get(urlLoadMoreDistrictProposals)
+                .done(function (data, staus, xhr) {
+                    var moreResults = $.parseJSON(xhr.getResponseHeader('moreResults')); //Para que sea un bool)
+                    $ulIdSelector.append(data);
+                    if (!moreResults) {
+                        // $ulIdSelector.append("" +
+                        //     "<li class='col-xs-12 center load-more-contest-application load-more'> " +
+                        //     "<a href='#' class='loadMore' >" + i18n.seeMore + " " +
+                        //     "<span class='fal fa-angle-down'></span>" +
+                        //     "</a>" +
+                        //     "</li>")
+                        $ulIdSelector.attr("noMoreResults", "true");
+                    }
+                    $ulIdSelector.attr("data-page", Number.parseInt(params.page) + 1);
+                    prepareYoutubeVideosClick();
+                    $ulIdSelector.attr("loading", "false");
+                })
+                .fail(function (messageError) {
+                    display.warn("Error");
+                })
+                .always(function () {
+                    // pageLoadingOff("Load more districts");
+                    $ulIdSelector.find(".loading").remove()
+                    // $liLoading.remove()
+                });
+        } else {
+            // NO MORE RESULTS
+        }
     },
+
+    bindActionClickAddDistrictProposal: function (e) {
+        var $button = $(this);
+        var loggedUser = $button.attr("data-loggedUser");
+        if (loggedUser == undefined || loggedUser == "") {
+            e.preventDefault();
+            e.stopPropagation();
+            event.stopPropagation();
+            console.log("NO LOGGED")
+            // NO LOGGED
+            var buttonId = guid();
+            $button.attr("id", buttonId);
+            $('#registro').find("form").attr("callback", "contestAddApplicationAction");
+            $('#registro').find("form").attr("data-buttonId", buttonId);
+            $('#registro').modal('show');
+        }
+    }
 }
