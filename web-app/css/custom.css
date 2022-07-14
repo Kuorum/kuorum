@@ -9102,8 +9102,7 @@ ul.notification-menu > li.see-more {
 .survey-question-answer .only-predefined-option label,
 .survey-question-answer .single-option label,
 .survey-question-answer .multi-option label{
-    line-height: 30px;
-    margin-top:5px;
+    line-height: 40px;
 }
 
 
