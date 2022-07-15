@@ -29,7 +29,7 @@
                         code="kuorum.web.commands.payment.contest.contestApplicationEditEnvironmentCommand.cause.label"/>:</label>
                 <select class="form-control input-lg" name="cause">
                     <option value="">---</option>
-                    <g:each in="${contest.causes}" var="cause">
+                    <g:each in="${contest.causes.sort { it.toLowerCase() }}" var="cause">
                         <option value="${cause}" ${cause == command.cause ? 'selected' : ''}>${cause}</option>
                     </g:each>
                 </select>
