@@ -67,7 +67,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         registerUser(command, "customProcessRegisterStep2")
     }
 
-    private void registerUser(KuorumRegisterCommand command, String redirectMapping, def paramsMapping) {
+    private void registerUser(KuorumRegisterCommand command, String redirectMapping, def paramsMapping = [:]) {
         if (command.hasErrors()) {
             render view: 'index', model: [command: command]
             return
