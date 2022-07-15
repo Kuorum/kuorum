@@ -7,6 +7,7 @@
 <g:set var="faIcon" value="fa-newspaper"/>
 <g:set var="hidePause"
        value="${campaign.campaignStatusRSDTO != org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT && campaign.campaignStatusRSDTO != org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.PAUSE}"/>
+<g:set var="hideCopy" value="${false}"/>
 <g:if test="${campaign.campaignType == org.kuorum.rest.model.communication.CampaignTypeRSDTO.DEBATE}">
     <g:set var="faIcon" value="fa-comments"/>
 </g:if>
@@ -26,10 +27,10 @@
     <g:set var="urlMappingNameRemove" value="districtProposalRemove"/>
     <g:set var="faIcon" value="fa-rocket"/>
     <g:set var="hideEdit" value="${!campaign.editable}"/>
-    <g:set var="hidePause"
-           value="${campaign.participatoryBudget.status != org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.ADDING_PROPOSALS}"/>
     <g:set var="hideRemove"
            value="${!(campaign.participatoryBudget.status == org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.ADDING_PROPOSALS || campaign.newsletter.status == CampaignStatusRSDTO.DRAFT)}"/>
+    <g:set var="hidePause" value="${true}"/>
+    <g:set var="hideCopy" value="${true}"/>
 </g:elseif>
 <g:elseif test="${campaign.campaignType == org.kuorum.rest.model.communication.CampaignTypeRSDTO.PETITION}">
     <g:set var="faIcon" value="fa-microphone"/>
@@ -44,8 +45,9 @@
     <g:set var="urlMappingNameCopy" value="contestApplicationCopy"/>
     <g:set var="faIcon" value="far fa-scroll"/>
     <g:set var="hideEdit" value="${!campaign.editable}"/>
-    <g:set var="hidePause" value="${!campaign.editable}"/>
+    <g:set var="hidePause" value="${true}"/>
     <g:set var="hideRemove" value="${!campaign.editable}"/>
+    <g:set var="hideCopy" value="${true}"/>
 </g:elseif>
 <g:set var="typeName" value="${g.message(code: 'tools.campaign.new.' + type)}"/>
 <g:set var="campaignGenericMappings"
@@ -142,7 +144,7 @@
                         class="sr-only">Edit</span></g:link>
             </li>
         </g:if>
-        <g:if test="${campaign.getCampaignType() != org.kuorum.rest.model.communication.CampaignTypeRSDTO.DISTRICT_PROPOSAL}">
+        <g:if test="${!hideCopy}">
             <li>
                 <g:link mapping="${campaignGenericMappings.copy}" params="[campaignId: campaign.id]"
                         class="campaignStats"><span class="fal fa-copy"></span> <span
