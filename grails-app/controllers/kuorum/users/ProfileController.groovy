@@ -626,6 +626,7 @@ class ProfileController {
         user.personalData.phonePrefix = command.phonePrefix
         user.personalData.telephone = command.phone
         user.name = command.name
+        user.surname = "" // RESET SURNAME => His name will be overwritten with the association name
         user.nid = command.nid
         kuorumUserService.updateUser(user)
         redirect mapping: 'funnelFillImages', params: [campaignId: params.campaignId]
