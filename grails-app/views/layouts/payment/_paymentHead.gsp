@@ -13,13 +13,15 @@
                 <span class=""><g:message code="head.logged.account.tools.massMailing"/></span>
             </g:link>
         </li>
-        <li class="underline" id="navigation-contacts">
-            <g:link mapping="politicianContacts"
-                    class="navbar-link ${nav.activeMenuCss(controller: 'contacts', action: 'index')}">
-                <span class="fas fa-address-card fa-lg"></span>
-                <span class=""><g:message code="tools.contact.title"/></span>
-            </g:link>
-        </li>
+        <sec:ifAnyGranted roles="ROLE_CAMPAIGN_NEWSLETTER">
+            <li class="underline" id="navigation-contacts">
+                <g:link mapping="politicianContacts"
+                        class="navbar-link ${nav.activeMenuCss(controller: 'contacts', action: 'index')}">
+                    <span class="fas fa-address-card fa-lg"></span>
+                    <span class=""><g:message code="tools.contact.title"/></span>
+                </g:link>
+            </li>
+        </sec:ifAnyGranted>
     </g:if>
     <g:render template="/layouts/payment/paymentHeadNotifications" bean="[notificationsPage: notificationsPage]"/>
     <li class="dropdown underline" itemscope itemtype="http://schema.org/Person" id="navigation-profile">
