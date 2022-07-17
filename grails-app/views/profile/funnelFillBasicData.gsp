@@ -60,19 +60,23 @@
                 <formUtil:input command="${command}" field="phone" showLabel="true" type="number"/>
             </div>
         </fieldset>
-        <fieldset aria-live="polite" class="row">
-            <div class="form-group col-xs-12">
-                <formUtil:textArea command="${command}" field="bio" showLabel="true"/>
-            </div>
-        </fieldset>
+    <fieldset aria-live="polite" class="row">
+        <div class="form-group col-xs-12">
+            <formUtil:textArea command="${command}" field="bio" showLabel="true" texteditor="texteditor"/>
+        </div>
 
-        <fieldset aria-live="polite" class="row">
-            <div class="form-group text-center option-buttons">
-                %{--<label><g:message code="customRegister.step2.choseUserType.label"/> </label>--}%
-                <input type="submit" value="${g.message(code: 'customRegister.step2.submit')}" class="btn btn-lg">
-                %{--<input type="submit" id="submitCitizen" value="${g.message(code:'customRegister.step2.choseUserType.citizen')}" class="btn btn-blue btn-lg">--}%
-            </div>
-        </fieldset>
+        <div class="form-group col-xs-12">
+            <formUtil:textArea command="${command}" field="bio2" showLabel="true" texteditor="texteditor"/>
+        </div>
+    </fieldset>
+
+    <fieldset aria-live="polite" class="row">
+        <div class="form-group text-center option-buttons">
+            %{--<label><g:message code="customRegister.step2.choseUserType.label"/> </label>--}%
+            <input type="submit" value="${g.message(code: 'customRegister.step2.submit')}" class="btn btn-lg">
+            %{--<input type="submit" id="submitCitizen" value="${g.message(code:'customRegister.step2.choseUserType.citizen')}" class="btn btn-blue btn-lg">--}%
+        </div>
+    </fieldset>
     </form>
 </content>
 

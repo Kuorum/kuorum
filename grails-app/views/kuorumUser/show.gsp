@@ -64,7 +64,7 @@
                     <h4><g:message code="politician.bio"/></h4>
 
                     <div class="limit-height" data-collapsedHeight="100" itemprop="description">
-                        <div class="clearfix">${politician.bio}</div>
+                        <div class="clearfix">${raw(politician.bio)}</div>
                     </div>
                 %{--<p class="limit-height" data-collapsedHeight="50"  itemprop="description">${politician.bio}</p>--}%
                 </g:if>

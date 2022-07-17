@@ -2,7 +2,7 @@
 <div class="box-ppal-section">
     <h4 class="box-ppal-section-title"><g:message code="profile.editUser.profileInfo"/></h4>
     <fieldset aria-live="polite" class="form-group">
-        <formUtil:textArea command="${command}" field="bio" showLabel="true"/>
+        <formUtil:textArea command="${command}" field="bio" showLabel="true" texteditor="texteditor"/>
     </fieldset>
 
     %{--<g:if test="${user.userType == UserType.POLITICIAN || user.userType == kuorum.core.model.UserType.CANDIDATE}">--}%

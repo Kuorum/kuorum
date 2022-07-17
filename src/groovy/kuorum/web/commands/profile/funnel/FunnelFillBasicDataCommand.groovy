@@ -37,6 +37,7 @@ class FunnelFillBasicDataCommand {
 
     String nid;
     String bio;
+    String bio2;
     static constraints = {
         importFrom KuorumUser, include: ["alias"]
         name nullable: false
@@ -46,6 +47,7 @@ class FunnelFillBasicDataCommand {
         phone nullable: false
         nid nullable: false
         bio nullable: false, maxSize: 500
+        bio2 nullable: false, maxSize: 800
     }
 
     static Boolean isPasswordValid(KuorumUser user, String inputPassword) {
