@@ -6716,24 +6716,47 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 .panel.collapsable .panel-title .fa-chevron-down {float:right}
 .panel.collapsable .panel-title .fa-chevron-up {float:right}
 .panel.collapsable:not(.collapsed) .panel-title .fa-chevron-down {display:none}
-.panel.collapsable:not(.collapsed) .panel-title .fa-chevron-up {display:blcok}
-.panel.collapsable.collapsed .panel-title .fa-chevron-down {display:block}
-.panel.collapsable.collapsed .panel-title .fa-chevron-up {display:none}
+.panel.collapsable:not(.collapsed) .panel-title .fa-chevron-up {
+    display: blcok
+}
+
+.panel.collapsable.collapsed .panel-title .fa-chevron-down {
+    display: block
+}
+
+.panel.collapsable.collapsed .panel-title .fa-chevron-up {
+    display: none
+}
 
 /* Profile Card ----------------*/
-.politician-card p{
+.politician-card p {
     text-align: justify;
     margin: 0px;
-    display: inline;
+    /*display: inline;*/
 }
-.profile-header{
+
+.politician-card h5 {
+    font-size: 18px;
+}
+
+.profile-header {
     position: relative;
 }
-.profile-header img{
+
+.profile-header img {
     min-height: 200px;
 }
-.popover-trigger.open-menu span{font-size: 2.2rem; margin: 5px 0px; color: #666;}
-.popover-trigger.open-menu span:hover{color:#ffffff;}
+
+.popover-trigger.open-menu span {
+    font-size: 2.2rem;
+    margin: 5px 0px;
+    color: #666;
+}
+
+.popover-trigger.open-menu span:hover {
+    color: #ffffff;
+}
+
 /*.profile-header .btn.follow{
     position: absolute;
     bottom: 16px;

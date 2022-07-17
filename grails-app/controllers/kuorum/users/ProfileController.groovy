@@ -622,7 +622,13 @@ class ProfileController {
         if (user.personalData == null) {
             user.personalData = new PersonalData()
         }
-        user.bio = command.bio
+        user.bio = """
+            <h5>${g.message(code: 'asoc.bio.title1')}</h5>
+            <p>${command.bio}</p>
+            <br/>
+            <h5>${g.message(code: 'asoc.bio.title2')}</h5>
+            <p>${command.bio2}</p>
+"""
         user.personalData.phonePrefix = command.phonePrefix
         user.personalData.telephone = command.phone
         user.name = command.name
