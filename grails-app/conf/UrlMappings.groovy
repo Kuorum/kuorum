@@ -387,7 +387,7 @@ class UrlMappings {
         name politicianMassMailingCopy:                 "/account/mass-mailing/$campaignId/copy" (controller:"newsletter", action:"copyCampaign")
         name politicianMassMailingSendTest:             "/account/mass-mailing/$campaignId/test" (controller:"newsletter", action: "sendMassMailingTest")
         name politicianMassMailingRemove:               "/ajax/account/mass-mailing/$campaignId/remove" (controller:"newsletter", action:"removeCampaign")
-        name politicianMassMailingTrackEvents:          "/ajax/account/mass-mailing/$newsletterId/trackEvents" (controller:"newsletter", action: "showTrackingMails")
+        name politicianMassMailingTrackEvents:          "/ajax/account/mass-mailing/$campaignId/trackEvents" (controller:"newsletter", action: "showTrackingMails")
         name politicianMassMailingTrackEventsResend:    "/ajax/account/mass-mailing/$campaignId/trackEvents/resend/$tackingMailId" (controller:"newsletter", action: "resendEmail")
         name politicianMassMailingTrackEventsReport:    "/ajax/account/mass-mailing/$campaignId/trackEvents/report" (controller:"newsletter", action: "sendReport")
         name politicianMassMailingHtml:                 "/account/mass-mailing/$campaignId/html" (controller:"newsletter", action: "showMailCampaign")
