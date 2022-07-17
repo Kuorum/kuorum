@@ -43,12 +43,14 @@
             <g:if test="${campaign && campaign instanceof org.kuorum.rest.model.communication.bulletin.BulletinRSDTO}">
                 <li role="presentation"><a href="#stats" data-toggle="tab"><g:message
                         code="tools.massMailing.view.stats"/></a></li>
-                <li role="presentation"><a href="#recipients" data-toggle="tab"><g:message
-                        code="tools.massMailing.list.recipients"/></a></li>
                 <g:if test="${newsletter.htmlBody}">
                     <li role="presentation"><a href="#viewemail" data-toggle="tab"><g:message
                             code="tools.massMailing.view.viewMail"/></a></li>
                 </g:if>
+            </g:if>
+            <g:if test="${campaignStatusesValid}">
+                <li role="presentation"><a href="#recipients" data-toggle="tab"><g:message
+                        code="tools.massMailing.list.recipients"/></a></li>
             </g:if>
             <g:if test="${campaign && campaign instanceof org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetRSDTO}">
                 <li role="presentation" class="active"><a href="#proposalLists" data-toggle="tab"><g:message
@@ -70,7 +72,7 @@
 
             <div class="tab-pane" id="recipients">
                 <g:render template="/newsletter/campaignTabs/campaignRecipeints"
-                          model="[trackingPage: trackingPage, newsletterId: newsletter.id]"/>
+                          model="[trackingPage: trackingPage, campaignId: campaign.id, campaignStatusesValid: campaignStatusesValid]"/>
             </div>
             <g:if test="${newsletter.htmlBody}">
                 <div class="tab-pane" id="viewemail">
