@@ -49,10 +49,12 @@ class FunnelFillBasicDataCommand {
         email nullable: true
         phonePrefix nullable: false
         phone nullable: false, matches: "^[0-9]{9}\$"
-        nid nullable: false, matches: "^[CDFGJPRV][0-9]{7}[A-Z]", validator: { val, obj ->
+        nid nullable: false, matches: "^[A-Z][0-9]{8}", validator: { val, obj ->
             CalculaNif calculaNif = new CalculaNif(val)
             if (!calculaNif.isValid()) {
                 return "kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand.nid.invalid"
+            } else if (!calculaNif.isAsociacion()) {
+                return "kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand.nid.notAsoc"
             }
         }
         bio nullable: false, maxSize: 500

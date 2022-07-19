@@ -16,11 +16,13 @@ public class CalculaNif {
 //    private final String cifNumero = "ABEH";
     private final String cifLetra = "KPQRSNW";
 
+    private boolean isValidFormat = false;
 
     private String nif;
 
     public CalculaNif(String nif) {
         this.nif = nif.toUpperCase();
+        this.isValidFormat = this.nif ==~ /[A-Z]*[0-9]{8,9}[A-Z]*/
     }
 
     def getNif() {
@@ -34,6 +36,9 @@ public class CalculaNif {
  * @return devuelve el documento con el dígito o letra de control calculado.
  */
     public String calcControlDigit() {
+        if (!isValidFormat) {
+            return null;
+        }
         String a = nif.substring(0, 1);
 
         if (letrasCif.contains(a)) {
@@ -52,6 +57,9 @@ public class CalculaNif {
      * @return true si es válido, false si no lo es.
      */
     boolean isValid() {
+        if (!isValidFormat) {
+            return false;
+        }
         String a = nif.substring(0, 1);
 
         if (letrasCif.contains(a)) {

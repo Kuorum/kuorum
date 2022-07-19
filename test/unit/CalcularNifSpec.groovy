@@ -16,13 +16,19 @@ class CalcularNifSpec extends Specification {
         then:
         isValid == cif.isValid()
         isOrganization == cif.isAsociacion()
+        controlDigit == cif.calcControlDigit()
         where:
-        orgNif      | isValid | isOrganization
-        "B12345678" | false   | false
-        "B86761459" | true    | false
-        "G28197564" | true    | true
-        "G08967713" | true    | true
-        "G11111111" | false   | true
+        orgNif      | controlDigit | isValid | isOrganization | personaFisica
+        "B12345678" | "B123456784" | false   | false          | false
+        "B86761459" | "B867614599" | true    | false          | false
+        "G28197564" | "G281975644" | true    | true           | false
+        "G08967713" | "G089677133" | true    | true           | false
+        "G11111111" | "G111111119" | false   | true           | false
+        "53392474K" | "53392474K"  | true    | false          | true
+        "53392474"  | "53392474K"  | false   | false          | true
+        "1"         | null         | false   | false          | false
+        "1234"      | null         | false   | false          | false
+        "123D"      | null         | false   | false          | false
 
     }
 
