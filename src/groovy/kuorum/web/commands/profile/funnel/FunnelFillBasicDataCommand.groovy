@@ -5,6 +5,7 @@ import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.model.AvailableLanguage
 import kuorum.register.RegisterService
 import kuorum.users.KuorumUser
+import kuorum.util.cif.CalculaNif
 import kuorum.web.binder.RegionBinder
 import kuorum.web.commands.profile.AccountDetailsCommand
 import org.codehaus.groovy.grails.web.context.ServletContextHolder
@@ -48,7 +49,12 @@ class FunnelFillBasicDataCommand {
         email nullable: true
         phonePrefix nullable: false
         phone nullable: false, matches: "^[0-9]{9}\$"
-        nid nullable: false, matches: "^[CDFGJPRV][0-9]{7}[A-Z]"
+        nid nullable: false, matches: "^[CDFGJPRV][0-9]{7}[A-Z]", validator: { val, obj ->
+            CalculaNif calculaNif = new CalculaNif(val)
+            if (!calculaNif.isValid()) {
+                return "kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand.nid.invalid"
+            }
+        }
         bio nullable: false, maxSize: 500
         bio2 nullable: false, maxSize: 800
     }
