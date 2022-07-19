@@ -30,11 +30,11 @@ class RRSSConfigFilters {
                     model.put("_social", CustomDomainResolver.domainRSDTO?.social ?: null)
                     model.put("_domainName", CustomDomainResolver.domainRSDTO?.name ?: "")
                     model.put("_domainResourcesPath", CustomDomainResolver.domainRSDTO?.basicRootUrlStaticResources ?: "")
-                    model.put("_VisibleFieldForUser", (CustomDomainResolver.domainRSDTO.getDomainTypeRSDTO() != DomainTypeRSDTO.SURVEY)
+                    model.put("_isActiveTour", (CustomDomainResolver.domainRSDTO.getDomainTypeRSDTO() != DomainTypeRSDTO.SURVEY)
                             || SpringSecurityUtils.ifAllGranted("ROLE_ADMIN")  ?: false)
                     model.put("_isSurveyPlatform", domainService.isSurveyPlatform())
                     model.put("_isPrivatePlatform", CustomDomainResolver.domainRSDTO.getDomainPrivacy() != DomainPrivacyRDTO.PUBLIC)
-                    model.put("_showSocialButons", !model.get("_isPrivatePlatform"))
+                    model.put("_showSocialButtons", !model.get("_isPrivatePlatform"))
                     model.put("_domainActiveCampaigns", getActiveCampaigns())
                     model.put("_domainValidations", [
                             census    : CustomDomainResolver.domainRSDTO.validationCensus,

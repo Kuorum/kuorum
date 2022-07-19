@@ -30,10 +30,10 @@
 %{--    </sec:ifNotLoggedIn>--}%
     <g:layoutHead/>
 
-    <g:if test="${tour && _VisibleFieldForUser && !_isSurveyPlatform}">
+    <g:if test="${tour && _isActiveTour && !_isSurveyPlatform}">
         <r:require module="tour"/>
     </g:if>
-    <g:elseif test="${tour && _VisibleFieldForUser && _isSurveyPlatform}">
+    <g:elseif test="${tour && _isActiveTour && _isSurveyPlatform}">
         <r:require module="tour_tutorial"/>
     </g:elseif>
 
