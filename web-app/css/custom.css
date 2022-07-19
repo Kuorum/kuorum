@@ -1919,17 +1919,17 @@ ul.files-list li a.file-action:hover{ color:#167caa;}
     margin: 0;
 }
 
-.box-ppal#politicianProfile.SURVEY_PLATFORM {
+.box-ppal#politicianProfile.hideSocialOptions {
     text-align: center
 }
 
-.box-ppal#politicianProfile.SURVEY_PLATFORM #profileInfo {
+.box-ppal#politicianProfile.hideSocialOptions #profileInfo {
     margin-left: calc(50% - 60px);
 }
 
-.box-ppal#politicianProfile.SURVEY_PLATFORM #profileInfo #progressLine,
-.box-ppal#politicianProfile.SURVEY_PLATFORM #profileInfo #progressLine + span,
-.box-ppal#politicianProfile.SURVEY_PLATFORM .activity {
+.box-ppal#politicianProfile.hideSocialOptions #profileInfo #progressLine,
+.box-ppal#politicianProfile.hideSocialOptions #profileInfo #progressLine + span,
+.box-ppal#politicianProfile.hideSocialOptions .activity {
     display: none;
 }
 
@@ -1985,6 +1985,7 @@ ul.user-list-followers .loading.xs {
 
 #profileInfo {position: relative; font-size: 15px; font-size: 1.5rem;}
 #progressProfile {overflow: hidden; position: relative; background-color: #e5e5e5; display: block; float: left; border-radius: 50%; width: 120px; height: 120px; z-index: 2;}
+
 #progressProfileFill {
     width: 100%;
     overflow: hidden;
@@ -1994,8 +1995,19 @@ ul.user-list-followers .loading.xs {
     bottom: 0;
     height: 0%;
 }
-.SURVEY_PLATFORM #progressProfileFill {height: 100% !important; /* Survey platform doesn't show the progress var*/}
-#progressLine {display: block; width: 125px; height: 120px; position: absolute; left: 60px; z-index: 1;}
+
+.box-ppal#politicianProfile.hideSocialOptions #progressProfileFill {
+    height: 100% !important; /* Survey platform doesn't show the progress var*/
+}
+
+#progressLine {
+    display: block;
+    width: 125px;
+    height: 120px;
+    position: absolute;
+    left: 60px;
+    z-index: 1;
+}
 #progressLineFill {
     width: 100%;
     overflow: hidden;
