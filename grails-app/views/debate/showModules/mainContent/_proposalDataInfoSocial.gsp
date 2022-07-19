@@ -7,12 +7,13 @@
         params="${debate.encodeAsLinkProperties()}"
         fragment="proposal_${proposal.id}"
         absolute="true"/></g:set>
-<g:if test="${_showSocialButons}">
+<g:if test="${_showSocialButtons}">
     <ul class="social pull-left">
         <li>
             <g:set var="twitterShareText">${debate.title}</g:set>
             <g:set var="twitterLink">https://twitter.com/share?url=${debateLink.encodeAsURL()}&text=${twitterShareText}</g:set>
-            <a href="${twitterLink}" target="_blank" rel="noopener noreferrer" title="${g.message(code: 'project.social.twitter')}">
+            <a href="${twitterLink}" target="_blank" rel="noopener noreferrer"
+               title="${g.message(code: 'project.social.twitter')}">
                 <span class="fa-stack fa-lg" aria-hidden="true">
                     <span class="fas fa-circle dark fa-stack-2x"></span>
                     <span class="fab fa-twitter fa-stack-1x fa-inverse"></span>
