@@ -35,6 +35,9 @@ class FunnelFillBasicDataCommand {
     String phonePrefix
     String phone
 
+    @BindUsing({ obj, source ->
+        source['nid']?.toUpperCase().trim()
+    })
     String nid;
     String bio;
     String bio2;
@@ -44,8 +47,8 @@ class FunnelFillBasicDataCommand {
         // WILL BE IGNORED. IS ONLY FOR VIEW
         email nullable: true
         phonePrefix nullable: false
-        phone nullable: false
-        nid nullable: false
+        phone nullable: false, matches: "^[0-9]{9}\$"
+        nid nullable: false, matches: "^[CDFGJPRV][0-9]{7}[A-Z]"
         bio nullable: false, maxSize: 500
         bio2 nullable: false, maxSize: 800
     }
