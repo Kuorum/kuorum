@@ -706,14 +706,14 @@ qq.MultipleFileUploader = function(o){
 
         template: '<div class="qq-uploader-multiple-files">' +
 
-
-        '<div class="button-container">' +
-        '   <div class="qq-upload-button btn btn-grey inverted">'+i18n.form.image.openBrowser+'</div>' +
-        '</div>' +
-        '<ul class="qq-upload-list"></ul>' +
-        '<div class="qq-upload-drop-area"> or DRAG HERE YOUR FILES' +
-        '</div>' +
-        '</div>',
+            '<ul class="qq-upload-list"></ul>' +
+            '<div class="qq-upload-drop-area">' +
+            i18n.form.image.dragImage +
+            '<div class="button-container">' +
+            '   <div class="qq-upload-button btn btn-grey inverted">' + i18n.form.image.openBrowser + '</div>' +
+            '</div>' +
+            '</div>' +
+            '</div>',
         // template for one item in file list
         fileTemplate: '<li>' +
         '<div class="qq-upload-file-type"></div>' +

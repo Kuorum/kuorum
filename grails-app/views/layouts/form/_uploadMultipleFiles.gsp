@@ -62,30 +62,34 @@
             },
             action: '${raw(actionUpload)}', // path to server-side upload script
             actionDelete: '${raw(actionDelete)}', // path to server-side delete file
-            initialFiles: ${alreadyUploadedFiles?raw("['${alreadyUploadedFiles.join("','")}']"):'[]'},
+            initialFiles: ${alreadyUploadedFiles ? raw("['${alreadyUploadedFiles.join("','")}']") : '[]'},
             fileTemplate: '<li>' +
-                '<div class="qq-upload-file-type"></div>' +
-                '<div class="qq-upload-file"></div>' +
-                '<div class="qq-upload-spinner"></div>' +
-                '<div class="qq-upload-size"></div>' +
-                '<div class="qq-upload-cancel"><span class="fal fa-ban"></span></div>' +
-                '<div class="qq-upload-failed-text"><abbr title="${g.message(code:'uploader.error.serviceError')}"><span class="fal fa-exclamation-circle"></span></abbr></div>' +
-                '<div class="qq-upload-success"><span class="fal fa-copy"></span></div>' +
-                '<div class="qq-upload-delete"> <a href="#" class="qq-upload-delete-action fal fa-trash"></a></div>' +
-                '</li>',
+'<div class="qq-upload-file-type"></div>' +
+'<div class="qq-upload-file"></div>' +
+'<div class="qq-upload-spinner"></div>' +
+'<div class="qq-upload-size"></div>' +
+'<div class="qq-upload-cancel"><span class="fal fa-ban"></span></div>' +
+'<div class="qq-upload-failed-text">' +
+'<abbr title="${g.message(code: 'uploader.error.serviceError')}">' +
+'<span class="fal fa-exclamation-circle"></span>' +
+'</abbr>' +
+'</div>' +
+'<div class="qq-upload-success"><span class="fal fa-link"></span></div>' +
+'<div class="qq-upload-delete"><a href="#" class="qq-upload-delete-action fal fa-trash"></a></div>' +
+'</li>',
             removeConfirmModal: function(fileName, msgConfirm, deleteActionCallback){
-                <g:if test="${confirmRemoveFile}">
-                    $("#multi-uploader-remove-file-modal-${divId}").find(".modal-body p").html(msgConfirm);
+    <g:if test="${confirmRemoveFile}">
+        $("#multi-uploader-remove-file-modal-${divId}").find(".modal-body p").html(msgConfirm);
                     removeCallbackAction = deleteActionCallback;
                     $("#multi-uploader-remove-file-modal-${divId}").modal("show");
-                </g:if>
-                <g:else>
-                    deleteActionCallback();
-                </g:else>
-            }
-        });
+    </g:if>
+    <g:else>
+        deleteActionCallback();
+    </g:else>
+    }
+});
 
-         $("#multi-uploader-remove-file-modal-${divId}").find(".confirm-button").on("click", function(e) {
+ $("#multi-uploader-remove-file-modal-${divId}").find(".confirm-button").on("click", function(e) {
             e.preventDefault();
             removeCallbackAction();
             $("#multi-uploader-remove-file-modal-${divId}").modal("hide");

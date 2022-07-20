@@ -12,6 +12,7 @@ import org.apache.commons.lang.StringUtils
 import org.bson.types.ObjectId
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
+import org.jsoup.safety.Whitelist
 
 /**
  * Represents the user in kuorum
@@ -23,6 +24,7 @@ class KuorumUser {
     String surname
     String email
     String domain
+    String nid
     String alias
     List<String> oldAlias
     String bio
@@ -96,6 +98,7 @@ class KuorumUser {
         oldAlias nullable:true
         password nullable:true
         bio nullable:true
+        nid nullable: true
         avatar nullable:true
         imageProfile nullable:true
         userType nullable: false
@@ -165,7 +168,7 @@ class KuorumUser {
     void updateDenormalizedData(){
         email = plainText(email.toLowerCase())
         alias = plainText(alias?.toLowerCase())
-        bio = plainText(bio)
+        bio = richText(bio)
         name = plainText(name)
         surname = plainText(surname)
         if (!followers) followers = []
@@ -175,14 +178,29 @@ class KuorumUser {
     }
 
     private static String plainText(String str) {
-        if (StringUtils.isBlank(str)){
+        if (StringUtils.isBlank(str)) {
             return "";
         }
         Document doc = Jsoup.parse(str);
         return doc.text();
     }
 
+    private static String richText(String str) {
+        if (StringUtils.isBlank(str)) {
+            return "";
+        }
+        Whitelist whitelist = new Whitelist();
+        whitelist
+                .addTags("a", "b", "div", "strike", "ul", "li", "u", "p", "i", "h5")
+                .addAttributes("a", "href", "title", "rel")
+//                .addAttributes("ol", "start", "type")
+                .addAttributes("ul", "type")
+                .addProtocols("a", "href", "ftp", "http", "https", "mailto");
+        str = Jsoup.clean(str, whitelist);
+        return str;
+    }
+
     int hashCode() {
-        return id?id.hashCode():email.hashCode()
+        return id ? id.hashCode() : email.hashCode()
     }
 }

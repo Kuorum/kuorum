@@ -64,26 +64,30 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
     }
 
     def register(KuorumRegisterCommand command) {
+        registerUser(command, "customProcessRegisterStep2")
+    }
+
+    private void registerUser(KuorumRegisterCommand command, String redirectMapping, def paramsMapping = [:]) {
         if (command.hasErrors()) {
             render view: 'index', model: [command: command]
             return
         }
 
-        if(!verifyRegister()){
-            render ([success:false] as JSON)
+        if (!verifyRegister()) {
+            render([success: false] as JSON)
             return
         }
 
         KuorumUser user = registerService.registerUser(command)
-        redirect mapping:"customProcessRegisterStep2"
+        redirect mapping: redirectMapping, params: paramsMapping
     }
 
-    def verifyRegister(){
+    def verifyRegister() {
         String secretKey = RECAPTCHA_SECRET
         String responseCaptcha = params.'g-recaptcha-response'
-        String path =  "/recaptcha/api/siteverify"
-        def query = [secret:secretKey, response:responseCaptcha]
-        RESTClient mailKuorumServices = new RESTClient( "https://www.google.com")
+        String path = "/recaptcha/api/siteverify"
+        def query = [secret: secretKey, response: responseCaptcha]
+        RESTClient mailKuorumServices = new RESTClient("https://www.google.com")
         def response = mailKuorumServices.get(
                 path: path,
                 headers: ["User-Agent": "Kuorum Web"],
@@ -359,6 +363,21 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
                 mapping: mapping,
                 params: linkParams)
     }
+
+
+    /// FUNNEL TO COMPLETE THE PROFILE
+    def campaignFunnelRegisterStart() {
+        def model = index()
+        model.hiddeRegisterSocialButtons = true
+        model.namePlaceholderOverwritten = (g.message(code: 'register.funnel.association.name')).toString()
+        model.emailPlaceholderOverwritten = (g.message(code: 'register.funnel.association.email')).toString()
+        render view: 'index', model: model
+    }
+
+    def saveCampaignFunnelRegisterStart(KuorumRegisterCommand command) {
+        registerUser(command, "funnelFillBasicData", [campaignId: params.campaignId])
+    }
+
 }
 
 @Validateable

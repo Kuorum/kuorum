@@ -8,7 +8,7 @@
 %{--        </g:link>--}%
 %{--    </div>--}%
     <nav:contactPagination
-            link="${g.createLink(mapping:"politicianMassMailingTrackEvents", params: [newsletterId:newsletterId], absolute:true)}"
+            link="${g.createLink(mapping: "politicianMassMailingTrackEvents", params: [campaignId: campaignId], absolute: true)}"
             currentPage="${trackingPage.page}"
             sizePage="${trackingPage.size}"
             ulClasss="paginationTop"
@@ -34,17 +34,11 @@
                         </g:if>
                     </a>
                 </li>
-                <g:each in="${[
-                        org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO.OPEN,
-                        org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO.CLICK,
-                        org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO.BOUNCED,
-                        org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO.HARD_BOUNCED,
-                        org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO.NOT_SENT,
-                        org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO.UNSUBSCRIBE,
-                ]}" var="filterOptionMailStatus">
+                <g:each in="${campaignStatusesValid}" var="filterOptionMailStatus">
                     <li>
                         <a href="#${filterOptionMailStatus}">
-                            <g:message code="org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO.${filterOptionMailStatus}"/>
+                            <g:message
+                                    code="org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO.${filterOptionMailStatus}"/>
                             <g:if test="${filterOptionMailStatus == status}">
                                 <span class="far fa-check"/>
                             </g:if>
@@ -88,7 +82,7 @@
 </table>
 <div class="pag-list-contacts clearfix">
     <nav:contactPagination
-            link="${g.createLink(mapping:"politicianMassMailingTrackEvents", params: [newsletterId:newsletterId], absolute:true)}"
+            link="${g.createLink(mapping: "politicianMassMailingTrackEvents", params: [campaignId: campaignId], absolute: true)}"
             currentPage="${trackingPage.page}"
             sizePage="${trackingPage.size}"
             ulClasss="paginationBottom"

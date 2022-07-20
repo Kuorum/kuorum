@@ -5,7 +5,9 @@
             <span class=""><g:message code="default.home.label"/></span>
         </g:link>
     </li>
-    <g:if test="${_VisibleFieldForUser}">
+    <g:set var="CAMPAIGN_ROLES_LIST"
+           value="${org.kuorum.rest.model.kuorumUser.UserRoleRSDTO.values().findAll { role -> role.toString().startsWith("ROLE_CAMPAIGN") }}"/>
+    <sec:ifAnyGranted roles="${CAMPAIGN_ROLES_LIST.join(",")}">
         <li class="underline" id="navigation-campaigns">
             <g:link mapping="politicianCampaigns"
                     class="navbar-link ${nav.activeMenuCss(controller: 'newsletter', action: 'index')}">
@@ -13,6 +15,8 @@
                 <span class=""><g:message code="head.logged.account.tools.massMailing"/></span>
             </g:link>
         </li>
+    </sec:ifAnyGranted>
+    <sec:ifAnyGranted roles="ROLE_CAMPAIGN_NEWSLETTER">
         <li class="underline" id="navigation-contacts">
             <g:link mapping="politicianContacts"
                     class="navbar-link ${nav.activeMenuCss(controller: 'contacts', action: 'index')}">
@@ -20,7 +24,7 @@
                 <span class=""><g:message code="tools.contact.title"/></span>
             </g:link>
         </li>
-    </g:if>
+    </sec:ifAnyGranted>
     <g:render template="/layouts/payment/paymentHeadNotifications" bean="[notificationsPage: notificationsPage]"/>
     <li class="dropdown underline" itemscope itemtype="http://schema.org/Person" id="navigation-profile">
         <a data-target="#" href="#" id="open-user-options"

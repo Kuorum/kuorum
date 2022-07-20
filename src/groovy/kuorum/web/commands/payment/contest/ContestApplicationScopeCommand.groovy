@@ -6,14 +6,14 @@ import org.kuorum.rest.model.communication.contest.ContestApplicationFocusTypeDT
 import org.kuorum.rest.model.communication.participatoryBudget.BackerTypeRSDTO
 
 @Validateable
-class ContestApplicationEnvironmentCommand {
+class ContestApplicationScopeCommand {
     String name
     String cause
     ContestApplicationActivityTypeDTO activityType
     ContestApplicationFocusTypeDTO focusType
 
     static constraints = {
-        name nullable: false, maxSize: 100
+        name nullable: false
         cause nullable: false
         activityType nullable: false
         focusType nullable: false

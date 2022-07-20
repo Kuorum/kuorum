@@ -1,4 +1,4 @@
-<g:if test="${_showSocialButons}">
+<g:if test="${_showSocialButtons}">
     <r:require modules="social"/>
 
     <g:set var="campaignLink"><g:createLink

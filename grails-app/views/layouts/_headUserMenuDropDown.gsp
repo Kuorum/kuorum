@@ -8,13 +8,15 @@
         <li><g:link mapping="adminPrincipal"><g:message code="admin.adminPrincipal.title"/></g:link></li>
     </sec:ifAnyGranted>
 
-    <g:if test="${_VisibleFieldForUser}">
+    <g:if test="${_isActiveTour}">
         <li class="hidden-xs">
             <g:if test="${_isSurveyPlatform}">
-                <g:link mapping="politicianCampaigns" params="[tour:true]"><g:message code="head.navigation.userMenu.tour"/></g:link>
+                <g:link mapping="politicianCampaigns" params="[tour: true]"><g:message
+                        code="head.navigation.userMenu.tour"/></g:link>
             </g:if>
             <g:else>
-                <g:link mapping="dashboard" params="[tour:true]"><g:message code="head.navigation.userMenu.tour"/></g:link>
+                <g:link mapping="dashboard" params="[tour: true]"><g:message
+                        code="head.navigation.userMenu.tour"/></g:link>
             </g:else>
         </li>
     </g:if>

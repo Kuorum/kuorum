@@ -17,6 +17,7 @@ import kuorum.web.commands.payment.massMailing.MassMailingTemplateCommand
 import kuorum.web.commands.profile.TimeZoneCommand
 import org.kuorum.rest.model.communication.CampaignLightPageRSDTO
 import org.kuorum.rest.model.communication.CampaignRSDTO
+import org.kuorum.rest.model.communication.CampaignTypeRSDTO
 import org.kuorum.rest.model.communication.bulletin.BulletinRSDTO
 import org.kuorum.rest.model.communication.search.SearchCampaignRDTO
 import org.kuorum.rest.model.contact.ContactPageRSDTO
@@ -286,7 +287,28 @@ class NewsletterController extends CampaignController{
         } else {
             TrackingMailStatsByCampaignPageRSDTO trackingPage = newsletterService.findTrackingMails(loggedUser, newsletterRSDTO.getId())
             List<String> reportsList = printableNewsletterReportList(loggedUser, bulletin.getId())
-            render view: 'showCampaign', model: [campaign: bulletin, newsletter: newsletterRSDTO, trackingPage: trackingPage, reportsList: reportsList]
+            render view: 'showCampaign', model: [
+                    campaign             : bulletin,
+                    campaignStatusesValid: getValidCampaignMailStatus(bulletin),
+                    newsletter           : newsletterRSDTO,
+                    trackingPage         : trackingPage,
+                    reportsList          : reportsList]
+        }
+    }
+
+    private List<TrackingMailStatusRSDTO> getValidCampaignMailStatus(CampaignRSDTO campaign) {
+        switch (campaign.getCampaignType()) {
+            case CampaignTypeRSDTO.POST: return [TrackingMailStatusRSDTO.POST_LIKE];
+            case CampaignTypeRSDTO.DEBATE: return [TrackingMailStatusRSDTO.DEBATE_PROPOSAL_COMMENT, TrackingMailStatusRSDTO.DEBATE_PROPOSAL_LIKE, TrackingMailStatusRSDTO.DEBATE_PROPOSAL_NEW];
+            case CampaignTypeRSDTO.SURVEY: return [TrackingMailStatusRSDTO.SURVEY_ANSWER, TrackingMailStatusRSDTO.SURVEY_FINISHED];
+            case CampaignTypeRSDTO.PARTICIPATORY_BUDGET: return [TrackingMailStatusRSDTO.DISTRICT_PROPOSAL_ADD, TrackingMailStatusRSDTO.DISTRICT_PROPOSAL_SUPPORT, TrackingMailStatusRSDTO.DISTRICT_PROPOSAL_VOTE];
+            case CampaignTypeRSDTO.DISTRICT_PROPOSAL: return [];
+            case CampaignTypeRSDTO.PETITION: return [TrackingMailStatusRSDTO.PETITION_SIGN];
+            case CampaignTypeRSDTO.BULLETIN: return [TrackingMailStatusRSDTO.QUEUED, TrackingMailStatusRSDTO.SENT, TrackingMailStatusRSDTO.RESENT, TrackingMailStatusRSDTO.BOUNCED, TrackingMailStatusRSDTO.HARD_BOUNCED, TrackingMailStatusRSDTO.REJECT, TrackingMailStatusRSDTO.SPAM, TrackingMailStatusRSDTO.NOT_SENT, TrackingMailStatusRSDTO.OPEN, TrackingMailStatusRSDTO.CLICK, TrackingMailStatusRSDTO.TRACK_LINK, TrackingMailStatusRSDTO.ANSWERED, TrackingMailStatusRSDTO.UNSUBSCRIBE];
+            case CampaignTypeRSDTO.CONTEST: return [TrackingMailStatusRSDTO.CONTEST_APPLICATION_ADD, TrackingMailStatusRSDTO.CONTEST_APPLICATION_APPROVED];
+            case CampaignTypeRSDTO.CONTEST_APPLICATION: return [];
+            default:
+                return [];
         }
     }
 
@@ -302,10 +324,11 @@ class NewsletterController extends CampaignController{
             def reportsList = printableCampaignReportList(loggedUser, campaign.getId())
             render view: 'showCampaign',
                     model: [
-                            newsletter  : campaign.newsletter,
-                            trackingPage: trackingPage,
-                            campaign    : campaign,
-                            reportsList : reportsList]
+                            newsletter           : campaign.newsletter,
+                            campaignStatusesValid: getValidCampaignMailStatus(campaign),
+                            trackingPage         : trackingPage,
+                            campaign             : campaign,
+                            reportsList          : reportsList]
         }
     }
 
@@ -353,7 +376,7 @@ class NewsletterController extends CampaignController{
         render newsletterRSDTO.htmlBody ?: "Not sent"
     }
 
-    def showTrackingMails(Long newsletterId) {
+    def showTrackingMails(Long campaignId) {
         KuorumUserSession loggedUser = springSecurityService.principal
         Integer page = params.page ? Integer.parseInt(params.page) : 0
         Integer size = params.size ? Integer.parseInt(params.size) : 10
@@ -363,12 +386,14 @@ class NewsletterController extends CampaignController{
         } catch (Exception e) {
             status = null
         }
-        TrackingMailStatsByCampaignPageRSDTO trackingPage = newsletterService.findTrackingMails(loggedUser, newsletterId, status, page, size)
+        CampaignRSDTO campaign = campaignService.find(loggedUser, campaignId, loggedUser.getId().toString());
+        TrackingMailStatsByCampaignPageRSDTO trackingPage = newsletterService.findTrackingMails(loggedUser, campaign.newsletter.id, status, page, size)
         render template: '/newsletter/campaignTabs/campaignRecipeints',
                 model: [
-                        trackingPage: trackingPage,
-                        newsletterId: newsletterId,
-                        status      : status
+                        trackingPage         : trackingPage,
+                        campaignId           : campaignId,
+                        campaignStatusesValid: getValidCampaignMailStatus(campaign),
+                        status               : status
                 ]
     }
 

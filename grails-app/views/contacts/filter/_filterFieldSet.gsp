@@ -156,10 +156,32 @@
                             enumClass="${org.kuorum.rest.model.contact.filter.condition.ParticipatoryBudgetConditionOperatorTypeRDTO.class}"
                             labelCssClass="sr-only"/>
                 </div>
+
                 <div class="col-sm-4">
                     <formUtil:selectCampaign
                             field="value"
                             campaignType="PARTICIPATORY_BUDGET"
+                            command="${listCommand}"
+                            prefixFieldName="${prefixField}"
+                            labelCssClass="sr-only"/>
+                </div>
+            </div>
+
+            <div class="filter-operator contest-operator">
+                <div class="col-sm-3">
+                    <formUtil:selectEnum
+                            field="operatorContest"
+                            defaultEmpty="false"
+                            command="${listCommand}"
+                            prefixFieldName="${prefixField}"
+                            enumClass="${org.kuorum.rest.model.contact.filter.condition.ContestConditionOperatorTypeRDTO.class}"
+                            labelCssClass="sr-only"/>
+                </div>
+
+                <div class="col-sm-4">
+                    <formUtil:selectCampaign
+                            field="value"
+                            campaignType="CONTEST"
                             command="${listCommand}"
                             prefixFieldName="${prefixField}"
                             labelCssClass="sr-only"/>
