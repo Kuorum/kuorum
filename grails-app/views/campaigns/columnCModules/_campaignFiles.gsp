@@ -1,5 +1,5 @@
 <g:set var="title" value="${title ?: g.message(code: 'campaign.show.files.title')}"/>
-<g:set var="subtitle" value="${subtitle ?: g.message(code: 'campaign.show.files.title')}"/>
+<g:set var="subtitle" value="${subtitle ?: g.message(code: 'campaign.show.files.subtitle')}"/>
 <g:if test="${campaignFiles}">
     <div class="comment-box call-to-action">
         <div class="comment-header">

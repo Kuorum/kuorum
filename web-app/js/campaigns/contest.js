@@ -1,5 +1,22 @@
 $(function () {
 
+    $(".campaign-steps-status .campaign-steps-info a").on("click", function (e) {
+        e.preventDefault();
+        var status = $(this).attr("data-status");
+        var statusText = $(this).attr("data-status-text");
+        console.log(status)
+        console.log(statusText)
+
+        var link = $("#modalEditParticipatoryBudgetStatusButtonOk").attr("href");
+        link = link.replace(/status=.*/, "status=" + status);
+        $("#modalEditParticipatoryBudgetStatusButtonOk").attr("href", link);
+
+
+        $("#modalEditParticipatoryBudgetStatus .modal-body p strong").html(statusText);
+        $("#modalEditParticipatoryBudgetStatus").modal("show")
+
+    });
+
     $("#contest-applications-list .nav-underline a").on("click", function (e) {
         e.preventDefault();
         var $a = $(this);
@@ -19,6 +36,13 @@ $(function () {
 
     contestApplicationHelper.showListApplications();
 
+    noLoggedCallbacks['contestAddApplicationAction'] = function () {
+        var buttonId = $('#registro').find("form").attr("data-buttonId");
+        var $button = $("#" + buttonId);
+        var link = $button.attr("href");
+        window.location = link;
+    };
+
     $(window).scroll(function () {
         if (($(window).scrollTop() + $(window).height()) > 0.9 * $(document).height()) {
             $activeListLink = $("#" + contestApplicationHelper.containerId + " > .nav > li.active a")
@@ -27,6 +51,8 @@ $(function () {
             contestApplicationHelper.loadMoreApplications($ul)
         }
     });
+
+    $(".call-to-action").on("click", "a.btn.ADDING_APPLICATIONS", contestApplicationHelper.bindActionClickAddDistrictProposal);
 });
 
 var contestApplicationHelper = {
@@ -95,4 +121,21 @@ var contestApplicationHelper = {
             // NO MORE RESULTS
         }
     },
+
+    bindActionClickAddDistrictProposal: function (e) {
+        var $button = $(this);
+        var loggedUser = $button.attr("data-loggedUser");
+        if (loggedUser == undefined || loggedUser == "") {
+            e.preventDefault();
+            e.stopPropagation();
+            event.stopPropagation();
+            console.log("NO LOGGED")
+            // NO LOGGED
+            var buttonId = guid();
+            $button.attr("id", buttonId);
+            $('#registro').find("form").attr("callback", "contestAddApplicationAction");
+            $('#registro').find("form").attr("data-buttonId", buttonId);
+            $('#registro').modal('show');
+        }
+    }
 }

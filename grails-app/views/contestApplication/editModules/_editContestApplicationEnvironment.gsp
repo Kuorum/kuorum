@@ -11,18 +11,12 @@
     <formUtil:validateForm bean="${command}" form="contestApplicationEditEnvironment" dirtyControl="true"/>
     <form action="#" class="form-horizontal campaign-form" id="contestApplicationEditEnvironment" method="POST"
           data-generalErrorMessage="${g.message(code: 'kuorum.web.commands.payment.massMailing.DebateCommand.form.genericError')}">
-        <input type="hidden" name="sendType"
-               value="${kuorum.web.commands.payment.CampaignContentCommand.CAMPAIGN_SEND_TYPE_DRAFT}"
-               id="sendMassMailingType"/>
         <input type="hidden" name="redirectLink" id="redirectLink"/>
 
         <g:if test="${!campaign}">
             <fieldset aria-live="polite" class="form-group">
-
                 <div class="col-sm-offset-1 col-sm-8">
-                    <label for="name"><g:message
-                            code="kuorum.web.commands.payment.massMailing.DebateCommand.title.label"/>:</label>
-                    <formUtil:input command="${command}" field="name"/>
+                    <formUtil:input command="${command}" field="name" showLabel="true"/>
                 </div>
             </fieldset>
         </g:if>
@@ -35,7 +29,7 @@
                         code="kuorum.web.commands.payment.contest.contestApplicationEditEnvironmentCommand.cause.label"/>:</label>
                 <select class="form-control input-lg" name="cause">
                     <option value="">---</option>
-                    <g:each in="${contest.causes}" var="cause">
+                    <g:each in="${contest.causes.sort { it.toLowerCase() }}" var="cause">
                         <option value="${cause}" ${cause == command.cause ? 'selected' : ''}>${cause}</option>
                     </g:each>
                 </select>

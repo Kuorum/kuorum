@@ -56,6 +56,7 @@ class ContactFilterOptionCommand{
         this.operatorContactType = ContactTypeConditionOperatorTypeRDTO.FOLLOWER
         this.operatorAssistantEvent = EventAssistantConditionOperatorTypeRDTO.BOOKED_TICKET
         this.operatorParticipatoryBudget = ParticipatoryBudgetConditionOperatorTypeRDTO.CREATED_PROPOSAL
+        this.operatorContest = ContestConditionOperatorTypeRDTO.CREATED_CONTEST_APPLICATION
     }
     ContactFilterOptionCommand(ConditionRDTO conditionRDTO){
         this()
@@ -71,9 +72,11 @@ class ContactFilterOptionCommand{
             this.operatorContactType = conditionRDTO.operator
         }else if (conditionRDTO instanceof ConditionEventAssistantRDTO){
             this.operatorAssistantEvent = conditionRDTO.operator
-        }else if (conditionRDTO instanceof ConditionParticipatoryBudgetRDTO){
+        }else if (conditionRDTO instanceof ConditionParticipatoryBudgetRDTO) {
             this.operatorParticipatoryBudget = conditionRDTO.operator
-        }else{
+        } else if (conditionRDTO instanceof ConditionContestRDTO) {
+            this.operatorContest = conditionRDTO.operator
+        } else {
             this.operatorNumber = conditionRDTO.operator
         }
         this.value = conditionRDTO.value.toString()
@@ -88,24 +91,27 @@ class ContactFilterOptionCommand{
     ContactTypeConditionOperatorTypeRDTO operatorContactType;
     EventAssistantConditionOperatorTypeRDTO operatorAssistantEvent;
     ParticipatoryBudgetConditionOperatorTypeRDTO operatorParticipatoryBudget;
+    ContestConditionOperatorTypeRDTO operatorContest;
     String value;
 
-    public String getOperator(){
+    public String getOperator() {
         if (ConditionFieldTypeRDTO.STATUS.equals(field)) {
             return operatorNumber.toString()
-        }else if(ConditionFieldTypeRDTO.BLACK_LIST.equals(field)){
+        } else if (ConditionFieldTypeRDTO.BLACK_LIST.equals(field)) {
             return operatorBoolean.toString();
-        }else if(ConditionFieldTypeRDTO.SUBSCRIBED.equals(field)){
+        } else if (ConditionFieldTypeRDTO.SUBSCRIBED.equals(field)) {
             return operatorBoolean.toString();
-        }else if(ConditionFieldTypeRDTO.CONTACT_TYPE.equals(field)) {
+        } else if (ConditionFieldTypeRDTO.CONTACT_TYPE.equals(field)) {
             return operatorContactType.toString();
         }else if(ConditionFieldTypeRDTO.PERSONAL_CODE.equals(field)) {
             return operatorExists.toString();
         }else if(ConditionFieldTypeRDTO.EVENT.equals(field)){
             return operatorAssistantEvent.toString();
-        }else if(ConditionFieldTypeRDTO.PARTICIPATORY_BUDGET.equals(field)){
+        }else if (ConditionFieldTypeRDTO.PARTICIPATORY_BUDGET.equals(field)) {
             return operatorParticipatoryBudget.toString();
-        }else{
+        } else if (ConditionFieldTypeRDTO.CONTEST.equals(field)) {
+            return operatorContest.toString();
+        } else {
             return operatorText.toString()
         }
     }

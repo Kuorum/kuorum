@@ -1,7 +1,7 @@
 <div class="comment-box call-to-action campaign-steps-status">
     <div class="comment-header">
         <span class="call-title">
-            <g:message code="participatoryBudget.status.title"/>
+            <g:message code="contest.status.title"/>
         </span>
         <span class="call-subTitle">
             <g:message code="participatoryBudget.status.subtitle"/>
@@ -75,18 +75,18 @@
                                 class="sr-only"><g:message code="modalDefend.close"/></span>
                         </button>
                         <h4>
-                            <g:message code="participatoryBudget.status.change.modal.title"/>
+                            <g:message code="modal.changeContestStatusModal.title"/>
                         </h4>
                     </div>
 
                     <div class="modal-body">
-                        <p><g:message code="participatoryBudget.status.change.modal.text"/></p>
+                        <p><g:message code="modal.changeContestStatusModal.text"/></p>
                         <fieldset aria-live="polite" class="text-right">
                             <a href="#" class="btn btn-grey-light btn-lg" data-dismiss="modal"
                                id="modalEditParticipatoryBudgetStatusButtonClose">
                                 <g:message code="participatoryBudget.status.change.modal.cancel"/>
                             </a>
-                            <g:link mapping="participatoryBudgetEditStatus"
+                            <g:link mapping="contestEditStatus"
                                     params="${contest.encodeAsLinkProperties() + [status: "STATUS"]}"
                                     class="btn btn-blue inverted btn-lg"
                                     elementId="modalEditParticipatoryBudgetStatusButtonOk">
