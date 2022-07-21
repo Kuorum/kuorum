@@ -126,6 +126,8 @@ class AdminController {
         domainValidationCommand.validationCode = domainRSDTO.validationCode
         domainValidationCommand.smsDomainName = domainRSDTO.smsDomainName
         domainValidationCommand.defaultPhonePrefix = domainRSDTO.defaultPhonePrefix
+        domainValidationCommand.isSocialNetwork = domainRSDTO.isSocialNetwork
+        domainValidationCommand.isUserProfileExtended = domainRSDTO.isUserProfileExtended
         [command: domainValidationCommand]
     }
 
@@ -135,10 +137,12 @@ class AdminController {
             return
         }
         DomainRDTO domainRDTO = getPopulatedDomainRDTO()
-        if (SpringSecurityUtils.ifAllGranted("ROLE_SUPER_ADMIN") || SpringSecurityUtils.ifAllGranted("ROLE_ADMIN")) {
+        if (SpringSecurityUtils.ifAllGranted("ROLE_SUPER_ADMIN")) {
             domainRDTO.validationCensus = command.validationCensus ?: false
             domainRDTO.validationCode = command.validationCode ?: false
             domainRDTO.validationPhone = command.validationPhone ?: false
+            domainRDTO.isSocialNetwork = command.isSocialNetwork ?: false
+            domainRDTO.isUserProfileExtended = command.isUserProfileExtended ?: false
             domainRDTO.smsDomainName = command.smsDomainName ?: ''
             domainRDTO.defaultPhonePrefix = command.defaultPhonePrefix
         }
