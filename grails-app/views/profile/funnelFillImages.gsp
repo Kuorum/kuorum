@@ -27,7 +27,12 @@
           class="signup">
 
         <fieldset aria-live="polite" class="row">
-            <g:render template="formEditPictures" model="[command: command]"/>
+            <fieldset aria-live="polite" class="form-group image perfil center" data-multimedia-switch="on"
+                      data-multimedia-type="IMAGE">
+                <label><g:message code="register.funnel.association.images.label"/></label>
+                <formUtil:editImage command="${command}" field="photoId"
+                                    fileGroup="${kuorum.core.FileGroup.USER_AVATAR}"/>
+            </fieldset>
         </fieldset>
         <fieldset aria-live="polite" class="row">
             <div class="form-group text-center option-buttons">

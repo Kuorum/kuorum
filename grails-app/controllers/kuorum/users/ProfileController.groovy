@@ -651,7 +651,7 @@ class ProfileController {
             render view: "funnelFillImages", model: [command: command]
             return
         }
-        if (command.getPhotoId() == null || command.getImageProfile() == null) {
+        if (command.getPhotoId() == null) {
             flash.error = g.message(code: 'register.funnel.association.images.error')
             render view: "funnelFillImages", model: [command: command]
             return

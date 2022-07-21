@@ -3935,8 +3935,14 @@ fieldset > .multiple-range-selector:first-child {margin-top:40px;}
 
 .uploaderImageContainer .qq-upload-drop-area .button-container {width: 80%; margin: 0 auto; border-radius: 4px; padding: 0; }
 
-.uploaderImageContainer.USER_AVATAR  {width: 220px;}
-.uploaderImageContainer.USER_AVATAR .qq-upload-drop-area {padding-top: 30%}
+.uploaderImageContainer.USER_AVATAR {
+    width: 220px;
+    margin-left: calc(50% - 110px);
+}
+
+.uploaderImageContainer.USER_AVATAR .qq-upload-drop-area {
+    padding-top: 30%
+}
 .uploaderImageContainer.USER_PROFILE .qq-upload-drop-area {padding-top: 15%}
 .uploaderImageContainer.MASS_MAIL_IMAGE .qq-upload-drop-area {padding-top: 1%;}
 .uploaderImageContainer.PROJECT_IMAGE .qq-upload-drop-area {padding-top: 20%}
