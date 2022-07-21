@@ -2,6 +2,20 @@
        value="${grails.plugin.springsecurity.SpringSecurityUtils.ifAnyGranted("ROLE_SUPER_ADMIN")}"/>
 <r:require modules="forms,domainValidation"/>
 <div class="box-ppal-section">
+    <h4 class="box-ppal-section-title"><g:message code="kuorum.web.admin.domain.configuration.label"/></h4>
+    <fieldset aria-live="polite" class="row">
+        <div class="form-group col-md-6">
+            <formUtil:checkBox command="${command}" field="isSocialNetwork" showLabel="true"
+                               disabled="${!disabledForAdmins}"/>
+        </div>
+    </fieldset>
+
+    <fieldset aria-live="polite" class="row">
+        <div class="form-group col-md-6">
+            <formUtil:checkBox command="${command}" field="isUserProfileExtended" showLabel="true"
+                               disabled="${!disabledForAdmins}"/>
+        </div>
+    </fieldset>
     <h4 class="box-ppal-section-title"><g:message code="kuorum.web.admin.domain.contentPrivacy.label"/></h4>
     <fieldset aria-live="polite" class="row">
         <div class="form-group col-md-12">
@@ -28,20 +42,6 @@
         </div>
     </fieldset>
 
-    <h4 class="box-ppal-section-title"><g:message code="kuorum.web.admin.domain.configuration.label"/></h4>
-    <fieldset aria-live="polite" class="row">
-        <div class="form-group col-md-6">
-            <formUtil:checkBox command="${command}" field="isSocialNetwork" showLabel="true"
-                               disabled="${!disabledForAdmins}"/>
-        </div>
-    </fieldset>
-
-    <fieldset aria-live="polite" class="row">
-        <div class="form-group col-md-6">
-            <formUtil:checkBox command="${command}" field="isUserProfileExtended" showLabel="true"
-                               disabled="${!disabledForAdmins}"/>
-        </div>
-    </fieldset>
     <fieldset aria-live="polite" class="row">
 
         <div class="form-group col-md-6">
