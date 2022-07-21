@@ -84,9 +84,7 @@
 
     <fieldset aria-live="polite" class="row">
         <div class="form-group text-center option-buttons">
-            %{--<label><g:message code="customRegister.step2.choseUserType.label"/> </label>--}%
             <input type="submit" value="${g.message(code: 'customRegister.step2.submit')}" class="btn btn-lg">
-            %{--<input type="submit" id="submitCitizen" value="${g.message(code:'customRegister.step2.choseUserType.citizen')}" class="btn btn-blue btn-lg">--}%
         </div>
     </fieldset>
     </form>
