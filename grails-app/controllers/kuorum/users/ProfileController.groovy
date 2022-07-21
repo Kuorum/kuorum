@@ -614,11 +614,12 @@ class ProfileController {
     }
 
     def saveFunnelFillBasicData(FunnelFillBasicDataCommand command) {
+        KuorumUser user = params.user
         if (command.hasErrors()) {
+            command.email = user.email
             render view: 'funnelFillBasicData', model: [command: command]
             return;
         }
-        KuorumUser user = params.user
         if (user.personalData == null) {
             user.personalData = new PersonalData()
         }

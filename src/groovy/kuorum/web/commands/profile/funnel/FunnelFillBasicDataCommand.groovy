@@ -44,7 +44,7 @@ class FunnelFillBasicDataCommand {
     String bio2;
     static constraints = {
         importFrom KuorumUser, include: ["alias"]
-        name nullable: false
+        name nullable: false, maxSize: 70
         // WILL BE IGNORED. IS ONLY FOR VIEW
         email nullable: true
         phonePrefix nullable: false
