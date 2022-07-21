@@ -9314,6 +9314,7 @@ li.survey-question.answered .survey-question-answer .option-extra-content textar
     display: inline-block;
     width: 89%;
     margin:0;
+    line-height: 40px;
 }
 
 .survey-question-extra-info {padding-left:10%; color:#167caa; padding-top:5px;}
