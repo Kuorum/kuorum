@@ -365,13 +365,11 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
             options = options ? options : {};
             var optionTypes = Object.keys(this.defaultOptions);
 
-            console.log("NEW SLIDER")
             for (var i = 0; i < optionTypes.length; i++) {
                 var optName = optionTypes[i];
                 // First check if an option was passed in via the constructor
 
                 var val = options[optName];
-                console.log("OptionType: " + optName + " -> " + val);
                 // If no data attrib, then check data atrributes
                 val = typeof val !== 'undefined' ? val : getDataAttrib(this.element, optName);
                 // Finally, if nothing was specified, use the defaults
@@ -384,7 +382,6 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
                 this.options[optName] = val;
             }
 
-            console.log(this.options)
             // Check options.rtl
             if (this.options.rtl === 'auto') {
                 this.options.rtl = window.getComputedStyle(this.element).direction === 'rtl';
