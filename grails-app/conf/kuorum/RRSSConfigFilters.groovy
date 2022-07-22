@@ -31,7 +31,7 @@ class RRSSConfigFilters {
                     model.put("_domainName", CustomDomainResolver.domainRSDTO?.name ?: "")
                     model.put("_domainResourcesPath", CustomDomainResolver.domainRSDTO?.basicRootUrlStaticResources ?: "")
                     model.put("_isActiveTour", (CustomDomainResolver.domainRSDTO.getDomainTypeRSDTO() != DomainTypeRSDTO.SURVEY)
-                            || SpringSecurityUtils.ifAllGranted("ROLE_ADMIN")  ?: false)
+                            || SpringSecurityUtils.ifAllGranted("ROLE_ADMIN") ?: false)
                     model.put("_isSurveyPlatform", domainService.isSurveyPlatform())
                     model.put("_isPrivatePlatform", CustomDomainResolver.domainRSDTO.getDomainPrivacy() != DomainPrivacyRDTO.PUBLIC)
                     model.put("_showSocialButtons", !model.get("_isPrivatePlatform"))
@@ -69,12 +69,12 @@ class RRSSConfigFilters {
         Map globalAuthorities = CustomDomainResolver.domainRSDTO?.globalAuthorities
         if (globalAuthorities) {
             List<UserRoleRSDTO> adminActiveRoles = globalAuthorities.get(UserRoleRSDTO.ROLE_ADMIN)
-            List<SolrType> searchableCampaigns = adminActiveRoles
+            List<SolrType> activeDomainCampaign = adminActiveRoles
                     .collect { it.toString() }
                     .findAll { it.startsWith("ROLE_CAMPAIGN") }
                     .collect { it.replace("ROLE_CAMPAIGN_", "") }
                     .collect { SolrType.valueOf(it) }
-            return (searchableCampaigns - [SolrType.DISTRICT_PROPOSAL, SolrType.NEWSLETTER]).sort { a, b -> a.ordinal() <=> b.ordinal() }
+            return activeDomainCampaign.sort { a, b -> a.ordinal() <=> b.ordinal() }
         } else {
             return []
         }
