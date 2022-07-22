@@ -4179,14 +4179,34 @@ h2.underline {border-bottom: 1px solid #dadada; padding: 0 0 10px 0; margin-top:
 /* post =========== */
 /* ====================================================== */
 
-.comments {margin-bottom: 20px;}
+.comments {
+    margin-bottom: 20px;
+}
 
 
-.debate {margin-bottom: 40px;}
+.debate {
+    margin-bottom: 40px;
+}
 
-.debate p.no-debate {padding: 15px; background-color: #f8f8f8; border: 1px solid #e5e5e5;}
+.debate p.no-debate {
+    padding: 15px;
+    background-color: #f8f8f8;
+    border: 1px solid #e5e5e5;
+}
 
-.popover-box .infoActivity li:last-child {margin: 0;}
+.popover-box .infoActivity li:last-child {
+    margin: 0;
+}
+
+
+/* MORE SPACE UNDER USER RIGHTS FORM*/
+#domainConfigValidationForm + hr {
+    margin-bottom: 30px;
+}
+
+#editAuthorizedCampaignsForm {
+    margin-bottom: 50px;
+}
 
 /* Home =========== */
 /* ====================================================== */
@@ -4195,9 +4215,16 @@ h2.underline {border-bottom: 1px solid #dadada; padding: 0 0 10px 0; margin-top:
 .sign.home .login .cancel a:hover,
 .sign.home .login .cancel a:active,
 .sign.home .login .cancel a:focus,
-.sign.home .login .form-group:last-child a {color: #fff;}
+.sign.home .login .form-group:last-child a {
+    color: #fff;
+}
 
-.form-home-container {position: relative; margin: 0 auto; min-height: 410px; width: 100%;}
+.form-home-container {
+    position: relative;
+    margin: 0 auto;
+    min-height: 410px;
+    width: 100%;
+}
 .sign.home .form-home-container .login {position: absolute; top: 0; left: 0; width: 100%;}
 .sign.home .form-home-container .login .btn + .cancel {
     line-height: 2.4;

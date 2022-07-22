@@ -128,9 +128,12 @@ class AdminController {
         domainValidationCommand.defaultPhonePrefix = domainRSDTO.defaultPhonePrefix
         domainValidationCommand.isSocialNetwork = domainRSDTO.isSocialNetwork
         domainValidationCommand.isUserProfileExtended = domainRSDTO.isUserProfileExtended
-        [command: domainValidationCommand]
+
+        def modelAuthorizedCampaigns = modelAuthorizedCampaigns();
+        [command: domainValidationCommand] + modelAuthorizedCampaigns
     }
 
+    @Secured(['IS_AUTHENTICATED_FULLY', 'ROLE_SUPER_ADMIN'])
     def domainValidationSave(DomainValidationCommand command) {
         if (command.hasErrors()) {
             render view: 'domainValidation', model: [command: command]
@@ -185,6 +188,10 @@ class AdminController {
     private static final Map userRoles = [(UserRoleRSDTO.ROLE_ADMIN): 1, (UserRoleRSDTO.ROLE_SUPER_USER): 2, (UserRoleRSDTO.ROLE_USER): 3]
 
     def editAuthorizedCampaigns() {
+        redirect mapping: 'adminDomainValidation'
+    }
+
+    private def modelAuthorizedCampaigns() {
         DomainRSDTO domainRSDTO = domainService.getConfig(CustomDomainResolver.domain)
         def globalAuthoritiesCommand = [:]
         List campaignRoles = domainRSDTO.campaignRolesActive
@@ -205,6 +212,7 @@ class AdminController {
         }
     }
 
+    @Secured(['IS_AUTHENTICATED_FULLY', 'ROLE_SUPER_ADMIN'])
     def updateAuthorizedCampaigns() {
         updateDomainUserRights()
         redirect mapping: 'adminAuthorizedCampaigns'
@@ -537,7 +545,7 @@ class AdminController {
 
 
     def userRights() {
-        editAuthorizedCampaigns()
+        modelAuthorizedCampaigns()
     }
 
     def saveUserRights() {
