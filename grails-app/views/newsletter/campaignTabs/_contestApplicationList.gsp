@@ -1,0 +1,2 @@
+COPIAR LOGICA DE
+_participatoryBudgetProposalsList.gsp

@@ -16,30 +16,19 @@
 
 <content tag="mainContent">
     <ol class="breadcrumb">
-        <li><g:link mapping="politicianCampaigns"><g:message code="head.logged.account.tools.massMailing"/></g:link></li>
+        <li><g:link mapping="politicianCampaigns"><g:message
+                code="head.logged.account.tools.massMailing"/></g:link></li>
         <g:if test="${!campaign instanceof org.kuorum.rest.model.communication.bulletin.BulletinRSDTO}">
-            <li><g:link mapping="campaignShow" params="${campaign.encodeAsLinkProperties()}">${campaign.name}</g:link></li>
+            <li><g:link mapping="campaignShow"
+                        params="${campaign.encodeAsLinkProperties()}">${campaign.name}</g:link></li>
         </g:if>
         <li class="active">${breadCrumbName}</li>
     </ol>
 
-
-
-
-
-
-
-
-
-
-
-
-
     <div class="box-ppal campaign-stats">
         <ul class="nav nav-tabs simple" data-tabs="tabs">
-            <li role="presentation"
-                class="${campaign instanceof org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetRSDTO ? '' : 'active'}"><a
-                    href="#reportsLists" data-toggle="tab"><g:message code="tools.massMailing.view.report"/></a></li>
+            <li role="presentation"><a href="#reportsLists" data-toggle="tab"><g:message
+                    code="tools.massMailing.view.report"/></a></li>
             <g:if test="${campaign && campaign instanceof org.kuorum.rest.model.communication.bulletin.BulletinRSDTO}">
                 <li role="presentation"><a href="#stats" data-toggle="tab"><g:message
                         code="tools.massMailing.view.stats"/></a></li>
@@ -56,10 +45,14 @@
                 <li role="presentation" class="active"><a href="#proposalLists" data-toggle="tab"><g:message
                         code="tools.massMailing.view.participatoryBudget.proposalList"/></a></li>
             </g:if>
+            <g:if test="${campaign && campaign instanceof org.kuorum.rest.model.communication.contest.ContestRSDTO}">
+                <li role="presentation" class="active"><a href="#applicationLists" data-toggle="tab"><g:message
+                        code="tools.massMailing.view.contest.applicationsList"/></a></li>
+            </g:if>
         </ul>
 
         <div id="tabs-stats-campaign" class="tab-content">
-            <div class="tab-pane ${campaign instanceof org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetRSDTO ? '' : 'active'}"
+            <div class="tab-pane"
                  id="reportsLists">
                 <g:render template="/newsletter/campaignTabs/campaignReports" model="[reportsList: reportsList]"/>
             </div>
@@ -83,6 +76,11 @@
                 <div class="tab-pane active" id="proposalLists">
                     <g:render template="/newsletter/campaignTabs/participatoryBudgetProposalsList"
                               model="[participatoryBudget: campaign]"/>
+                </div>
+            </g:if>
+            <g:if test="${campaign && campaign instanceof org.kuorum.rest.model.communication.contest.ContestRSDTO}">
+                <div class="tab-pane active" id="applicationLists">
+                    <g:render template="/newsletter/campaignTabs/contestApplicationList" model="[contest: campaign]"/>
                 </div>
             </g:if>
         </div>
