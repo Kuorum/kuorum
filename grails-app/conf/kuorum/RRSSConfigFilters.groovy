@@ -71,12 +71,12 @@ class RRSSConfigFilters {
         Map globalAuthorities = CustomDomainResolver.domainRSDTO?.globalAuthorities
         if (globalAuthorities) {
             List<UserRoleRSDTO> adminActiveRoles = globalAuthorities.get(UserRoleRSDTO.ROLE_ADMIN)
-            List<SolrType> searchableCampaigns = adminActiveRoles
+            List<SolrType> activeDomainCampaign = adminActiveRoles
                     .collect { it.toString() }
                     .findAll { it.startsWith("ROLE_CAMPAIGN") }
                     .collect { it.replace("ROLE_CAMPAIGN_", "") }
                     .collect { SolrType.valueOf(it) }
-            return (searchableCampaigns - [SolrType.DISTRICT_PROPOSAL, SolrType.NEWSLETTER]).sort { a, b -> a.ordinal() <=> b.ordinal() }
+            return activeDomainCampaign.sort { a, b -> a.ordinal() <=> b.ordinal() }
         } else {
             return []
         }
