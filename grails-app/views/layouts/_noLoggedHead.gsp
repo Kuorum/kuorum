@@ -10,7 +10,6 @@
 
 
     <nav:onlyPublicDomain>
-        <g:set var="tomorrow" value="${new Date() + 1}" />
         <g:set var="activeCampaignsHeader" value="${_domainActiveCampaigns.findAll{it.header}}" />
         <g:if test="${activeCampaignsHeader.size() == 1}">
             <g:set var="activeCampaign" value="${activeCampaignsHeader.get(0)}"/>
