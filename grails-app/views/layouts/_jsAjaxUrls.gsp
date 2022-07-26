@@ -1,16 +1,16 @@
-
 <script>
-    var kuorumUrls = {
-        home:'<g:createLink mapping="home" absolute="true"/>',
-        searchSuggest:'<g:createLink mapping="suggestSearcher" absolute="true"/>',
-        search:'<g:createLink mapping="searcherSearch" absolute="true"/>',
-        suggestRegion:'<g:createLink mapping="suggestRegions" absolute="true"/>',
+    const kuorumUrls = {
+        home: '<g:createLink mapping="home" absolute="true"/>',
+        searchSuggest: '<g:createLink mapping="suggestSearcher" absolute="true"/>',
+        search: '<g:createLink mapping="searcherSearch" absolute="true"/>',
+        suggestRegion: '<g:createLink mapping="suggestRegions" absolute="true"/>',
         suggestAlias: '<g:createLink mapping="suggestAlias" absolute="true"/>',
         ajaxLoginRRSS: '<g:createLink mapping="ajaxRegisterRRSSOAuth" absolute="true"/>',
         profileDomainValidationChecker: '<g:createLink mapping="profileDomainValidationChecker" absolute="true"/>',
-        politicianContactFilterData: '<g:createLink mapping="politicianContactFilterData" absolute="true"/>'
+        politicianContactFilterData: '<g:createLink mapping="politicianContactFilterData" absolute="true"/>',
+        contestApplicationUpdateReview: '<g:createLink mapping="contestApplicationUpdateReview" absolute="true"/>'
     };
-    var ajaxHeadNotificationsChecked='<g:createLink mapping="ajaxHeadNotificationsChecked" absolute="true"/>';
+    var ajaxHeadNotificationsChecked = '<g:createLink mapping="ajaxHeadNotificationsChecked" absolute="true"/>';
 
     var kuorumKeys = {
         _googleCaptchaKey: '${_googleCaptchaKey}',

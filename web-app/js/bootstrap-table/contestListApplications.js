@@ -1,15 +1,15 @@
 $(function () {
-    $("#changeParticipatoryBudgetBtn").on("click", function (e) {
+    $("#changeContestBtn").on("click", function (e) {
         e.preventDefault();
-        $("#changeParticipatoryBudgetStatusModal").modal("show")
+        $("#changeContestStatusModal").modal("show")
     })
 
-    $("#changeParticipatoryBudgetStatusSubmit").on("click", function (e) {
+    $("#changeContestStatusSubmit").on("click", function (e) {
         e.preventDefault();
         var $a = $(this)
         var url = $a.attr("href")
-        var status = $("#changeParticipatoryBudgetStatusModalSelect").val()
-        var statusText = $("#changeParticipatoryBudgetStatusModalSelect option:selected").text();
+        var status = $("#changeContestStatusModalSelect").val()
+        var statusText = $("#changeContestStatusModalSelect option:selected").text();
         var changeStatusData = {
             'status': status
         }
@@ -17,9 +17,9 @@ $(function () {
         $.post(url, changeStatusData)
             .done(function (data) {
                 if (data.success) {
-                    participatoryBudgetListProposalHelper.refreshTable();
-                    $("#changeParticipatoryBudgetStatusModal").modal("hide")
-                    $("#changeParticipatoryBudgetBtnStatusText").html(statusText)
+                    contestListProposalHelper.refreshTable();
+                    $("#changeContestStatusModal").modal("hide")
+                    $("#changeContestBtnStatusText").html(statusText)
                 } else {
                     display.warn(data.msg)
                 }
@@ -34,25 +34,32 @@ $(function () {
 });
 
 function contestApplicationTableRowStyle(contestApplicationRow, index) {
-    //var classes = ['active', 'success', 'info', 'warning', 'danger'];
-    //if (index % 2 === 0 && index / 2 < classes.length) {
-    //    return {
-    //        classes: classes[index / 2]
-    //    };
-    //}
-    if (contestApplicationRow.status == 'SENT' && contestApplicationRow.status == 'APPROVED') {
+
+    if (contestApplicationRow.campaignStatus.type == 'SENT' || contestApplicationRow.campaignStatus.type == 'APPROVED') {
         return {classes: 'success'};
     }
-    if (contestApplicationRow.status == 'REJECT') {
+    if (contestApplicationRow.campaignStatus.type == 'REJECT') {
         return {classes: 'danger'};
     }
     return {};
 }
 
 function detailFormatterActions(index, campaignRow) {
-    return "" +
-        "<a href='#' class='btn btn-grey-light'>" + i18n.kuorum.web.commands.payment.contest.reject + "</a>" +
-        "<a href='#' class='btn btn-blue'>" + i18n.kuorum.web.commands.payment.contest.approve + "</a>";
+    if (campaignRow.campaignStatus.type == 'REVIEW') {
+        var params = {
+            contestApplicationId: campaignRow.id,
+            action: 'REJECT'
+        }
+        const paramsReject = jQuery.param(params);
+        params['action'] = 'APPROVED'
+        const paramsApprove = jQuery.param(params);
+
+        return "" +
+            "<a href='" + kuorumUrls.contestApplicationUpdateReview + "?" + paramsReject + "' class='btn btn-grey-light'>" + i18n.kuorum.web.commands.payment.contest.reject + "</a>" +
+            "<a href='" + kuorumUrls.contestApplicationUpdateReview + "?" + paramsApprove + "' class='btn btn-blue'>" + i18n.kuorum.web.commands.payment.contest.approve + "</a>";
+    } else {
+        return "";
+    }
 }
 
 window.inputEventsCheckValidation = {
@@ -63,16 +70,16 @@ window.inputEventsCheckValidation = {
             price: row.price,
             rejectComment: row.rejectComment
         }
-        participatoryBudgetListProposalHelper.updateParticipatoryBudgetRow(index, row, updateData)
+        ContestListProposalHelper.updateContestRow(index, row, updateData)
     }
 }
 
-var participatoryBudgetListProposalHelper = {
+var contestListProposalHelper = {
 
-    updateParticipatoryBudgetRow: function (index, row, updatableData) {
+    updateContestRow: function (index, row, updatableData) {
 
         var data = {
-            participatoryBudgetId: row.participatoryBudget.id,
+            ContestId: row.Contest.id,
             districtProposalUserId: row.user.id,
             districtProposalId: row.id,
             approved: updatableData.approved,

@@ -227,7 +227,8 @@ class UrlMappings {
         name contestListApplications:  "/ajax/$userAlias/$urlTitle-$campaignId/applications" (controller: "contest", action:"findContestApplications")
         name contestEditStatus:        "/ajax/account/$userAlias/ct/$urlTitle-$campaignId/edit-status" (controller: "contest", action:"editStatus")
         name contestListApplciationsPaggination:        "/ajax/account/$userAlias/ct/$urlTitle-$campaignId/applications/pagination" (controller: "contest", action:"paginateContestApplicationJson")
-        name contestApplicationUpdateReview:     "/ajax/account/$userAlias/ct/$urlTitle-$campaignId/applications/review" (controller: "contest", action:"updateReview")
+        name contestApplicationUpdateReview:     "/ajax/account/ct/applications/review" (controller: "contest", action:"updateReview")
+        name contestApplicationsReport:"/ajax/account/contest/$campaignId/report" (controller:"contest", action: "sendApplicationsReport")
 
 
         name contestApplicationCreate: "/account/$userAlias/pb/$urlTitle-$campaignId/new-application" (controller: "contestApplication"){action = [GET: "create", POST: "saveNewApplication"]}

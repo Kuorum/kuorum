@@ -13,12 +13,6 @@
 <g:set var="currentLang" value="${org.springframework.web.servlet.support.RequestContextUtils.getLocale(request)}"/>
 
 <div class="actions" id="toolbar-contestApplicationReviewTable">
-    <g:link mapping="politicianMassMailingParticipatoryBudgetReport" params="[campaignId: campaign.id]"
-            class="btn btn-blue inverted export-modal-button" data-modalId="export-proposalsList-modal">
-        <span class="fal fa-file-excel"></span>
-        <g:message code="tools.massMailing.view.participatoryBudget.report"/>
-    </g:link>
-
     <a href="#" class="btn btn-blue inverted" id="changeParticipatoryBudgetBtn">
         <span class="fal fa-edit"></span>
         <g:message code="org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.label"/>:

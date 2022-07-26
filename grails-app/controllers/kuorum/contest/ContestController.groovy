@@ -352,4 +352,8 @@ class ContestController extends CampaignController {
     def updateReview() {
         render "OK"
     }
+
+    def sendApplicationsReport() {
+        render "OK";
+    }
 }
