@@ -2831,24 +2831,69 @@ END EDIT PARTICPATORY BUDGET
 #tabs-stats-campaign .pag-list-contacts .actions {
     float: left;
 }
-#tabs-stats-campaign .pag-list-contacts .actions a{width: auto;line-height: inherit; margin-bottom:5px;}
-#campaignStatsContainer {height: 355px;}
-#campaignEmailContainer {width: 100%; height: 700px; border: 1px solid #dddddd; margin-bottom: 10px;}
 
-.contact-activity h3 {font-size:1.3em; color:#a8a8a8}
+#tabs-stats-campaign .pag-list-contacts .actions a {
+    width: auto;
+    line-height: inherit;
+    margin-bottom: 5px;
+}
 
-#tabs-stats-campaign #participatoryBudgetProposalReviewTable.table tr.detail-view > td {padding:10px;}
-#tabs-stats-campaign #participatoryBudgetProposalReviewTable.table tr.detail-view > td .box-ppal{margin:0;padding-bottom: 10px;}
-#tabs-stats-campaign #participatoryBudgetProposalReviewTable.table > tbody > tr > td > a {color:inherit; font-weight: bold;}
+#campaignStatsContainer {
+    height: 355px;
+}
+
+#campaignEmailContainer {
+    width: 100%;
+    height: 700px;
+    border: 1px solid #dddddd;
+    margin-bottom: 10px;
+}
+
+.contact-activity h3 {
+    font-size: 1.3em;
+    color: #a8a8a8
+}
+
+#tabs-stats-campaign .list-working-campaign-table.table tr.detail-view > td {
+    padding: 10px;
+}
+
+#tabs-stats-campaign .list-working-campaign-table.table tr.detail-view > td .box-ppal {
+    margin: 0;
+    padding-bottom: 10px;
+}
+
+#tabs-stats-campaign .list-working-campaign-table.table > tbody > tr > td > a {
+    color: inherit;
+    font-weight: bold;
+}
 
 #importContacts-02 table.csv .checkbox-inline,
-#tabs-stats-campaign #participatoryBudgetProposalReviewTable.table .checkbox-inline {margin-left:25px;}
-#importContacts-02 table.csv .checkbox-inline > span.check-box-icon,
-#tabs-stats-campaign #participatoryBudgetProposalReviewTable.table .checkbox-inline > span.check-box-icon {position:relative; padding: 5px 6px;padding: 5px 6px;width: 20px; height: 20px;}
-#importContacts-02 table.csv .checkbox-inline > span.check-box-icon:after,
-#tabs-stats-campaign #participatoryBudgetProposalReviewTable.table .checkbox-inline > span.check-box-icon:after {}
+#tabs-stats-campaign .list-working-campaign-table.table .checkbox-inline {
+    margin-left: 25px;
+}
 
-.open-menu {color: #dbdbdb; position: absolute !important; top: 2px; right: 8px; z-index: 1;}
+#importContacts-02 table.csv .checkbox-inline > span.check-box-icon,
+#tabs-stats-campaign .list-working-campaign-table.table .checkbox-inline > span.check-box-icon {
+    position: relative;
+    padding: 5px 6px;
+    padding: 5px 6px;
+    width: 20px;
+    height: 20px;
+}
+
+#importContacts-02 table.csv .checkbox-inline > span.check-box-icon:after,
+#tabs-stats-campaign .list-working-campaign-table.table .checkbox-inline > span.check-box-icon:after {
+}
+
+.open-menu {
+    color: #dbdbdb;
+    position: absolute !important;
+    top: 2px;
+    right: 8px;
+    z-index: 1;
+}
+
 .box-ppal .link-wrapper:hover,
 .box-ppal .link-wrapper:active,
 .box-ppal .link-wrapper:focus {background-color: #efefef;}

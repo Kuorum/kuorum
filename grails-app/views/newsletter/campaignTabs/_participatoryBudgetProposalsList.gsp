@@ -35,10 +35,11 @@
         <g:message code="org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.label"/>:
         <span id="changeParticipatoryBudgetBtnStatusText">
             <g:message code="org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.${participatoryBudget.status}"/>
-        </span>
+    </span>
     </a>
 </div>
 <table id="participatoryBudgetProposalReviewTable"
+       class="list-working-campaign-table"
        data-toggle="table"
        data-url="${g.createLink(mapping:'participatoryBudgetDistrictProposalsPagination', params:participatoryBudget.encodeAsLinkProperties())}"
        data-side-pagination="server"
