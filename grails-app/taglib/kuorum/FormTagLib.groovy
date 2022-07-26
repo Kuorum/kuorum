@@ -1085,7 +1085,7 @@ class FormTagLib {
         def command = attrs.command
         def field = attrs.field
         def labelCssClass = attrs.labelCssClass?:""
-
+        def disabled = attrs.disabled
         def deleteOptions = attrs.deleteOptions?:[]
         def clazz = command.metaClass.properties.find{it.name == field}.type
         def label = buildLabel(command, field, attrs.label)
@@ -1095,14 +1095,14 @@ class FormTagLib {
         def labelRadioClass = multiLine?"radio":"radio-inline"
         def error = hasErrors(bean: command, field: field,'error')
 	    def values = attrs.values?:clazz.values()
-        out << "<div class='groupRadio'>"
+        out << "<div class='groupRadio ${disabled ? 'disabled' : ''}'>"
         if (showLabel){
             out << "<label for='${prefixFieldName}${field}'>${label}</label>"
         }
         values.each{
             def idOption = "$id-$it"
             out << "<label class='${labelRadioClass}'>"
-            out << "<input id='${idOption}' type='radio' name='${field}' value='${it}' ${command."${field}" == it ? 'checked' : ''} aria-errormessage='${idOption}-error'>"
+            out << "<input id='${idOption}' type='radio' name='${field}' value='${it}' ${command."${field}" == it ? 'checked' : ''} aria-errormessage='${idOption}-error' ${disabled ? 'disabled=disabled' : ''}>"
             String codeMessage = "${clazz.name}.$it"
             out << "${message(code:codeMessage)}"
             if(error){

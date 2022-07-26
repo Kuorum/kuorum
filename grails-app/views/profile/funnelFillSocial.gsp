@@ -30,9 +30,9 @@
 
         <fieldset aria-live="polite" class="row">
             <div class="form-group text-center option-buttons">
-                %{--<label><g:message code="customRegister.step2.choseUserType.label"/> </label>--}%
+                <g:link mapping="funnelFillFiles" params="[campaignId: campaignId]"
+                        class="btn btn-lg btn-grey-light"><g:message code="default.paginate.back"/></g:link>
                 <input type="submit" value="${g.message(code: 'customRegister.step2.submit')}" class="btn btn-lg">
-                %{--<input type="submit" id="submitCitizen" value="${g.message(code:'customRegister.step2.choseUserType.citizen')}" class="btn btn-blue btn-lg">--}%
             </div>
         </fieldset>
     </form>

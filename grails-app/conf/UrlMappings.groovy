@@ -1,5 +1,6 @@
 import grails.util.Environment
 import kuorum.core.exception.KuorumException
+import kuorum.web.commands.payment.participatoryBudget.DistrictProposalTechnicalReviewCommand
 import org.springframework.security.access.AccessDeniedException
 
 class UrlMappings {
@@ -225,6 +226,8 @@ class UrlMappings {
         name contestShow:              "/$userAlias/$urlTitle-$campaignId"           (controller: "campaign", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it)})}}
         name contestListApplications:  "/ajax/$userAlias/$urlTitle-$campaignId/applications" (controller: "contest", action:"findContestApplications")
         name contestEditStatus:        "/ajax/account/$userAlias/ct/$urlTitle-$campaignId/edit-status" (controller: "contest", action:"editStatus")
+        name contestListApplciationsPaggination:        "/ajax/account/$userAlias/ct/$urlTitle-$campaignId/applications/pagination" (controller: "contest", action:"paginateContestApplicationJson")
+        name contestApplicationUpdateReview:     "/ajax/account/$userAlias/ct/$urlTitle-$campaignId/applications/review" (controller: "contest", action:"updateReview")
 
 
         name contestApplicationCreate: "/account/$userAlias/pb/$urlTitle-$campaignId/new-application" (controller: "contestApplication"){action = [GET: "create", POST: "saveNewApplication"]}
@@ -333,8 +336,9 @@ class UrlMappings {
         name adminEditDomainEmailSender:            "/sec/admin/domain/setSender"       (controller:"admin"){action =[GET:"editDomainEmailSender", POST:"updateDomainEmailSender"]}
         name adminDomainDelete:                     "/sec/admin/domain/delete"          (controller:"admin"){action =[GET:"deleteDomain", POST:"deleteDomainConfirm"]}
 
-        name adminDomainRegisterStep1:              "/sec/admin/domain/config/landing"  (controller:"admin"){action =[GET:"designLandingPage", POST:"saveDesignLandingPage"]}
-        name adminDomainRegisterStep2:              "/sec/admin/domain/config/rights"   (controller:"admin"){action =[GET:"userRights", POST:"saveUserRights"]}
+        // REMOVE This entries and his actions
+        //name adminDomainRegisterStep1:              "/sec/admin/domain/config/landing"  (controller:"admin"){action =[GET:"designLandingPage", POST:"saveDesignLandingPage"]}
+        //name adminDomainRegisterStep2:              "/sec/admin/domain/config/rights"   (controller:"admin"){action =[GET:"userRights", POST:"saveUserRights"]}
 
         name editorEditUserProfile:                         "/editor/user/$userAlias/edit/profile"                (controller:"editorUser"){action =[GET:"editUser", POST:"updateUser"]}
         name editorKuorumAccountEdit:                       "/editor/user/$userAlias/edit/account-details"        (controller:"editorUser"){action =[GET:"editAdminAccountDetails", POST:"updateAdminAccountDetails"]}

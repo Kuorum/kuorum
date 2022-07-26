@@ -12,6 +12,7 @@ import kuorum.web.constants.WebConstants
 import org.kuorum.rest.model.communication.CampaignLightRSDTO
 import org.kuorum.rest.model.communication.participatoryBudget.*
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
+import org.kuorum.rest.model.search.DirectionDTO
 
 import java.lang.reflect.UndeclaredThrowableException
 
@@ -254,12 +255,12 @@ class ParticipatoryBudgetController extends CampaignController {
             Double randomSeed = Double.parseDouble(params.randomSeed)
             filter.sort = new FilterDistrictProposalRDTO.SortDistrictProposalRDTO(randomSeed: randomSeed)
         } else {
-            filter.sort = new FilterDistrictProposalRDTO.SortDistrictProposalRDTO(field: FilterDistrictProposalRDTO.SortableFieldRDTO.PRICE, direction: FilterDistrictProposalRDTO.DirectionRDTO.ASC)
+            filter.sort = new FilterDistrictProposalRDTO.SortDistrictProposalRDTO(field: FilterDistrictProposalRDTO.SortableFieldRDTO.PRICE, direction: DirectionDTO.ASC)
         }
         ParticipatoryBudgetStatusDTO participatoryBudgetStatus = ParticipatoryBudgetStatusDTO.valueOf(params.participatoryBudgetStatus)
         switch (participatoryBudgetStatus) {
             case ParticipatoryBudgetStatusDTO.RESULTS:
-                filter.sort = new FilterDistrictProposalRDTO.SortDistrictProposalRDTO(field: FilterDistrictProposalRDTO.SortableFieldRDTO.VOTES, direction: FilterDistrictProposalRDTO.DirectionRDTO.DESC)
+                filter.sort = new FilterDistrictProposalRDTO.SortDistrictProposalRDTO(field: FilterDistrictProposalRDTO.SortableFieldRDTO.VOTES, direction: DirectionDTO.DESC)
                 filter.approved = true
                 break
             case ParticipatoryBudgetStatusDTO.BALLOT:
@@ -273,7 +274,7 @@ class ParticipatoryBudgetController extends CampaignController {
         }
 
         if (filter.sort && params.direction) {
-            FilterDistrictProposalRDTO.DirectionRDTO dir = FilterDistrictProposalRDTO.DirectionRDTO.valueOf(params.direction)
+            DirectionDTO dir = DirectionDTO.valueOf(params.direction)
             filter.sort.direction = dir
         }
         PageDistrictProposalRSDTO pageDistrictProposals = participatoryBudgetService.findDistrictProposalsByDistrict(districtProposalUser, participatoryBudgetId, filter, viewerUid)
@@ -387,7 +388,7 @@ class ParticipatoryBudgetController extends CampaignController {
     private void populateSort(FilterDistrictProposalRDTO filter, String sortField, String order) {
         filter.sort = new FilterDistrictProposalRDTO.SortDistrictProposalRDTO()
         filter.sort.field = FilterDistrictProposalRDTO.SortableFieldRDTO.ID
-        filter.sort.direction = FilterDistrictProposalRDTO.DirectionRDTO.ASC
+        filter.sort.direction = DirectionDTO.ASC
         if (sortField) {
             switch (sortField) {
                 case "district.name": filter.sort.field = FilterDistrictProposalRDTO.SortableFieldRDTO.DISTRICT; break
@@ -399,7 +400,7 @@ class ParticipatoryBudgetController extends CampaignController {
         }
 
         if (order) {
-            filter.sort.direction = FilterDistrictProposalRDTO.DirectionRDTO.valueOf(order.toUpperCase())
+            filter.sort.direction = DirectionDTO.valueOf(order.toUpperCase())
         }
 
     }

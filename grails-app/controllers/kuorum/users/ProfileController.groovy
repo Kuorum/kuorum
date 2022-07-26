@@ -601,6 +601,7 @@ class ProfileController {
         ]
     }
 
+    private static final String PREFIX_CONTACT_NOTE = "Contacto: "
     def funnelFillBasicData() {
         KuorumUser user = params.user
         FunnelFillBasicDataCommand command = new FunnelFillBasicDataCommand();
@@ -610,15 +611,23 @@ class ProfileController {
         command.phone = user.personalData?.telephone
         command.phonePrefix = user.personalData?.phonePrefix
         command.nid = user.nid
+        ContactRSDTO contact = contactService.getContactByEmail(WebConstants.FAKE_LANDING_ALIAS_USER, user.email);
+        if (!contact || !contact.notes) {
+            command.contactName = user.name
+        } else {
+            command.contactName = contact.notes.startsWith(PREFIX_CONTACT_NOTE) ? contact.notes - PREFIX_CONTACT_NOTE : '';
+            command.name = user.name
+        }
         return [command: command]
     }
 
     def saveFunnelFillBasicData(FunnelFillBasicDataCommand command) {
+        KuorumUser user = params.user
         if (command.hasErrors()) {
+            command.email = user.email
             render view: 'funnelFillBasicData', model: [command: command]
             return;
         }
-        KuorumUser user = params.user
         if (user.personalData == null) {
             user.personalData = new PersonalData()
         }
@@ -635,6 +644,14 @@ class ProfileController {
         user.surname = "" // RESET SURNAME => His name will be overwritten with the association name
         user.nid = command.nid
         kuorumUserService.updateUser(user)
+
+        ContactRSDTO contact = contactService.getContactByEmail(WebConstants.FAKE_LANDING_ALIAS_USER, user.email);
+        contact.setNotes(PREFIX_CONTACT_NOTE + command.contactName);
+        contact.setName(user.name);
+        contact.setPhone(command.phone);
+        contact.setPhonePrefix(command.phonePrefix);
+        contact.setExternalId(command.nid);
+        ContactRSDTO contactUpdated = contactService.updateContact(WebConstants.FAKE_LANDING_ALIAS_USER, contact, contact.getId())
         redirect mapping: 'funnelFillImages', params: [campaignId: params.campaignId]
     }
 
@@ -651,7 +668,7 @@ class ProfileController {
             render view: "funnelFillImages", model: [command: command]
             return
         }
-        if (command.getPhotoId() == null || command.getImageProfile() == null) {
+        if (command.getPhotoId() == null) {
             flash.error = g.message(code: 'register.funnel.association.images.error')
             render view: "funnelFillImages", model: [command: command]
             return

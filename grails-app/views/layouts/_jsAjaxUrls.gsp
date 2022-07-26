@@ -128,26 +128,30 @@
                             }
                         },
                         survey:{
-                            QuestionOptionCommand:{
-                                text:{
-                                    nullable:"<g:message code="kuorum.web.commands.payment.survey.QuestionOptionCommand.text.nullable"/>",
-                                    overflow:"<g:message code="kuorum.web.commands.payment.survey.QuestionOptionCommand.text.overflow"/>"
+                            QuestionOptionCommand: {
+                                text: {
+                                    nullable: "<g:message code="kuorum.web.commands.payment.survey.QuestionOptionCommand.text.nullable"/>",
+                                    overflow: "<g:message code="kuorum.web.commands.payment.survey.QuestionOptionCommand.text.overflow"/>"
                                 },
-                                number:{
-                                    negative:"<g:message code="kuorum.web.commands.payment.survey.QuestionOptionCommand.number.negative"/>",
-                                    points:"<g:message code="kuorum.web.commands.payment.survey.QuestionOptionCommand.number.points"/>"
+                                number: {
+                                    negative: "<g:message code="kuorum.web.commands.payment.survey.QuestionOptionCommand.number.negative"/>",
+                                    points: "<g:message code="kuorum.web.commands.payment.survey.QuestionOptionCommand.number.points"/>"
                                 }
                             }
+                        },
+                        contest: {
+                            reject: "<g:message code="kuorum.web.commands.payment.contest.reject"/>",
+                            approve: "<g:message code="kuorum.web.commands.payment.contest.approve"/>",
                         }
                     },
-                    profile:{
-                        DomainValidationCommand:{
-                            closeWithoutValidation :"<g:message code="kuorum.web.commands.profile.DomainValidationCommand.closeWithoutValidation"/>"
+                    profile: {
+                        DomainValidationCommand: {
+                            closeWithoutValidation: "<g:message code="kuorum.web.commands.profile.DomainValidationCommand.closeWithoutValidation"/>"
                         }
                     }
                 }
             },
-            session:{
+            session: {
                 validation:{
                     error : "<g:message code="kuorum.session.validation.error"/>",
                     groupError : "<g:message code="kuorum.session.validation.groupError"/>",

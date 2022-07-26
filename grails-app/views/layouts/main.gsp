@@ -22,30 +22,34 @@
     %{--This line wirtes the goole verification code. It is a meta tag with its code--}%
     ${raw(kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.googleSiteVerification)}
 
-    <g:set var="${kuorum.web.constants.WebConstants.WEB_PARAM_LANG}" value="${org.springframework.web.servlet.support.RequestContextUtils.getLocale(request).language}" />
-    <r:require modules="lang_${lang}, kuorumCookies, application" />
-    <r:require modules="widget, widgetResizer" />
-%{--    <sec:ifNotLoggedIn>--}%
-        <r:require modules="loginApi" />
-%{--    </sec:ifNotLoggedIn>--}%
+    <g:set var="${kuorum.web.constants.WebConstants.WEB_PARAM_LANG}"
+           value="${org.springframework.web.servlet.support.RequestContextUtils.getLocale(request).language}"/>
+    <r:require modules="lang_${lang}, kuorumCookies, application"/>
+    <r:require modules="widget, widgetResizer"/>
+    %{--    <sec:ifNotLoggedIn>--}%
+    <r:require modules="loginApi"/>
+    %{--    </sec:ifNotLoggedIn>--}%
     <g:layoutHead/>
 
-    <g:if test="${tour && _isActiveTour && !_isSurveyPlatform}">
-        <r:require module="tour"/>
+    <g:if test="${tour && _isActiveTour}">
+        <g:if test="${_isSocialNetwork}">
+            <r:require module="tour"/>
+        </g:if>
+        <g:else>
+            <r:require module="tour_tutorial"/>
+        </g:else>
     </g:if>
-    <g:elseif test="${tour && _isActiveTour && _isSurveyPlatform}">
-        <r:require module="tour_tutorial"/>
-    </g:elseif>
 
-
-    <r:layoutResources />
+    <r:layoutResources/>
     <g:render template="/layouts/internationalization/otherLangsRef"/>
     <domain:customCss/>
     %{--<link rel="stylesheet" href="http://localhost/customDomainCss.css" type="text/css"/>--}%
 </head>
 
 <g:if test="${!schemaData?.schema}">
-    <g:set var="schemaData" value="${[schema:'http://schema.org/WebSite', name:g.layoutTitle(default:g.message(code:'layout.head.title.default', args:[kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.name]))]}" scope="request"/>
+    <g:set var="schemaData"
+           value="${[schema: 'http://schema.org/WebSite', name: g.layoutTitle(default: g.message(code: 'layout.head.title.default', args: [kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.name]))]}"
+           scope="request"/>
 </g:if>
 
 <g:set var="dynamicBodyCss" value=""/>
@@ -82,7 +86,7 @@
 </g:if>
 <sec:ifAnyGranted roles="ROLE_INCOMPLETE_USER">
     <nav:ifActiveMapping
-            mappingNames="customProcessRegisterStep2, customProcessRegisterStep3, registerSubscriptionStep1, registerSubscriptionStep1Save, registerSubscriptionStep3, funnelFillBasicData, funnelFillImages, funnelFillFiles, funnelFillSocial"
+            mappingNames="customProcessRegisterStep2, customProcessRegisterStep3, registerSubscriptionStep1, registerSubscriptionStep1Save, registerSubscriptionStep3"
             equals="false">
         <r:script>
             function notMailConfirmedWarn(){

@@ -42,9 +42,10 @@ class FunnelFillBasicDataCommand {
     String nid;
     String bio;
     String bio2;
+    String contactName;
     static constraints = {
         importFrom KuorumUser, include: ["alias"]
-        name nullable: false
+        name nullable: false, maxSize: 70
         // WILL BE IGNORED. IS ONLY FOR VIEW
         email nullable: true
         phonePrefix nullable: false
@@ -59,6 +60,7 @@ class FunnelFillBasicDataCommand {
         }
         bio nullable: false, maxSize: 500
         bio2 nullable: false, maxSize: 800
+        contactName nullable: false, maxSize: 70
     }
 
     static Boolean isPasswordValid(KuorumUser user, String inputPassword) {

@@ -1,10 +1,26 @@
-<g:set var="disabledForAdmins" value="${grails.plugin.springsecurity.SpringSecurityUtils.ifAnyGranted("ROLE_ADMIN") || grails.plugin.springsecurity.SpringSecurityUtils.ifAnyGranted("ROLE_SUPER_ADMIN")}" />
+<g:set var="disabledForAdmins"
+       value="${grails.plugin.springsecurity.SpringSecurityUtils.ifAnyGranted("ROLE_SUPER_ADMIN")}"/>
 <r:require modules="forms,domainValidation"/>
 <div class="box-ppal-section">
+    <h4 class="box-ppal-section-title"><g:message code="kuorum.web.admin.domain.configuration.label"/></h4>
+    <fieldset aria-live="polite" class="row">
+        <div class="form-group col-md-6">
+            <formUtil:checkBox command="${command}" field="isSocialNetwork" showLabel="true"
+                               disabled="${!disabledForAdmins}"/>
+        </div>
+    </fieldset>
+
+    <fieldset aria-live="polite" class="row">
+        <div class="form-group col-md-6">
+            <formUtil:checkBox command="${command}" field="isUserProfileExtended" showLabel="true"
+                               disabled="${!disabledForAdmins}"/>
+        </div>
+    </fieldset>
     <h4 class="box-ppal-section-title"><g:message code="kuorum.web.admin.domain.contentPrivacy.label"/></h4>
     <fieldset aria-live="polite" class="row">
         <div class="form-group col-md-12">
-            <formUtil:radioEnum command="${command}" field="domainPrivacy" showLabel="false" multiLine="true"/>
+            <formUtil:radioEnum command="${command}" field="domainPrivacy" showLabel="false" multiLine="true"
+                                disabled="${!disabledForAdmins}"/>
         </div>
     </fieldset>
     <h4 class="box-ppal-section-title"><g:message code="kuorum.web.admin.domain.validation.label"/></h4>
@@ -15,22 +31,27 @@
     </fieldset>
     <fieldset aria-live="polite" class="row">
         <div class="form-group col-md-6">
-            <formUtil:checkBox command="${command}" field="validationCode" showLabel="true" disabled="${!disabledForAdmins}"/>
+            <formUtil:checkBox command="${command}" field="validationCode" showLabel="true"
+                               disabled="${!disabledForAdmins}"/>
         </div>
     </fieldset>
     <fieldset aria-live="polite" class="row">
         <div class="form-group col-md-6">
-            <formUtil:checkBox command="${command}" field="validationPhone" showLabel="true" disabled="${!disabledForAdmins}"/>
+            <formUtil:checkBox command="${command}" field="validationPhone" showLabel="true"
+                               disabled="${!disabledForAdmins}"/>
         </div>
-
     </fieldset>
+
     <fieldset aria-live="polite" class="row">
 
         <div class="form-group col-md-6">
-            <formUtil:input command="${command}" field="smsDomainName" showLabel="true" disabled="${!disabledForAdmins}"/>
+            <formUtil:input command="${command}" field="smsDomainName" showLabel="true"
+                            disabled="${!disabledForAdmins}"/>
         </div>
+
         <div class="form-group col-md-6">
-            <formUtil:selectPhonePrefix command="${command}" field="defaultPhonePrefix" showLabel="true" disabled="${!disabledForAdmins}"/>
+            <formUtil:selectPhonePrefix command="${command}" field="defaultPhonePrefix" showLabel="true"
+                                        disabled="${!disabledForAdmins}"/>
         </div>
     </fieldset>
 </div>
