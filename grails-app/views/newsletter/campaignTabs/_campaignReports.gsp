@@ -56,21 +56,32 @@
             </g:link>
         </g:if>
         <g:if test="${campaign && campaign.exportableData && campaign instanceof org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetRSDTO}">
-            <g:link mapping="politicianMassMailingParticipatoryBudgetReport" params="[campaignId:campaign.id]" class="btn btn-blue inverted export-modal-button" data-modalId="export-proposalsList-modal">
+            <g:link mapping="politicianMassMailingParticipatoryBudgetReport" params="[campaignId: campaign.id]"
+                    class="btn btn-blue inverted export-modal-button" data-modalId="export-proposalsList-modal">
                 <span class="fal fa-file-excel"></span>
                 <g:message code="tools.massMailing.view.participatoryBudget.report"/>
             </g:link>
         </g:if>
+        <g:if test="${campaign && campaign.exportableData && campaign instanceof org.kuorum.rest.model.communication.contest.ContestRSDTO}">
+            <g:link mapping="contestApplicationsReport" params="[campaignId: campaign.id]"
+                    class="btn btn-blue inverted export-modal-button" data-modalId="export-proposalsList-modal">
+                <span class="fal fa-file-excel"></span>
+                <g:message code="tools.massMailing.view.contest.report"/>
+            </g:link>
+        </g:if>
     </div>
 </div>
+
 <div id="report-files">
     <div class="report-files-list-actions">
         <g:set var="link" value="#"/>
         <g:if test="${newsletter}">
-            <g:set var="link" value="${g.createLink(mapping: 'politicianNewsletterRefreshReport', params:[campaignId:campaign.id])}"/>
+            <g:set var="link"
+                   value="${g.createLink(mapping: 'politicianNewsletterRefreshReport', params: [campaignId: campaign.id])}"/>
         </g:if>
         <g:else>
-            <g:set var="link" value="${g.createLink(mapping: 'politicianCampaignRefreshReport', params:[campaignId:campaign.id])}"/>
+            <g:set var="link"
+                   value="${g.createLink(mapping: 'politicianCampaignRefreshReport', params: [campaignId: campaign.id])}"/>
         </g:else>
         <a href="${link}" class="files-list-btn-refresh">
             <span class="fal fa-sync"></span><g:message code="tools.massMailing.view.reports.reload"/>
