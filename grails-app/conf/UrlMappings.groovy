@@ -1,5 +1,6 @@
 import grails.util.Environment
 import kuorum.core.exception.KuorumException
+import kuorum.web.commands.payment.participatoryBudget.DistrictProposalTechnicalReviewCommand
 import org.springframework.security.access.AccessDeniedException
 
 class UrlMappings {
@@ -225,6 +226,8 @@ class UrlMappings {
         name contestShow:              "/$userAlias/$urlTitle-$campaignId"           (controller: "campaign", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it)})}}
         name contestListApplications:  "/ajax/$userAlias/$urlTitle-$campaignId/applications" (controller: "contest", action:"findContestApplications")
         name contestEditStatus:        "/ajax/account/$userAlias/ct/$urlTitle-$campaignId/edit-status" (controller: "contest", action:"editStatus")
+        name contestListApplciationsPaggination:        "/ajax/account/$userAlias/ct/$urlTitle-$campaignId/applications/pagination" (controller: "contest", action:"paginateContestApplicationJson")
+        name contestApplicationUpdateReview:     "/ajax/account/$userAlias/ct/$urlTitle-$campaignId/applications/review" (controller: "contest", action:"updateReview")
 
 
         name contestApplicationCreate: "/account/$userAlias/pb/$urlTitle-$campaignId/new-application" (controller: "contestApplication"){action = [GET: "create", POST: "saveNewApplication"]}

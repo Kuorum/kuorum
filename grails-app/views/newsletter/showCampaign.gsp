@@ -11,14 +11,22 @@
     <meta itemprop="name" content="${_domainName}">
     <meta itemprop="description"
           content="${g.message(code: "layout.head.meta.description", args: [kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.name])}">
-    <r:require modules="campaignList, participatoryBudgetEditableTable"/>
+    <g:if test="${campaign && campaign instanceof org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetRSDTO}">
+        <r:require modules="campaignList, participatoryBudgetEditableTable"/>
+    </g:if>
+    <g:elseif test="${campaign && campaign instanceof org.kuorum.rest.model.communication.contest.ContestRSDTO}">
+        <r:require modules="campaignList, contestApplicationEditableTable"/>
+    </g:elseif>
+    <g:else>
+        <r:require modules="campaignList, participatoryBudgetEditableTable"/>
+    </g:else>
 </head>
 
 <content tag="mainContent">
     <ol class="breadcrumb">
         <li><g:link mapping="politicianCampaigns"><g:message
                 code="head.logged.account.tools.massMailing"/></g:link></li>
-        <g:if test="${!campaign instanceof org.kuorum.rest.model.communication.bulletin.BulletinRSDTO}">
+        <g:if test="${!(campaign instanceof org.kuorum.rest.model.communication.bulletin.BulletinRSDTO)}">
             <li><g:link mapping="campaignShow"
                         params="${campaign.encodeAsLinkProperties()}">${campaign.name}</g:link></li>
         </g:if>
