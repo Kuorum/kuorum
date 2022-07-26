@@ -14,11 +14,16 @@ class DomainValidationCommand {
     String smsDomainName
     String defaultPhonePrefix
 
+    Boolean isSocialNetwork
+    Boolean isUserProfileExtended
+
     static constraints = {
         domainPrivacy nullable: false
         validationCensus nullable: true
         validationPhone nullable: true
         validationCode nullable: true
+        isSocialNetwork nullable: true
+        isUserProfileExtended nullable: true
         smsDomainName nullable: true, matches: '[a-zA-Z0-9]*[a-zA-Z]+[a-zA-Z0-9]*', maxSize: 11
         defaultPhonePrefix nullable: true
     }

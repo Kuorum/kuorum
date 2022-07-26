@@ -24,7 +24,12 @@ var domainValidationFunctions = {
         domainValidationFunctions.phonePrefix = $("#defaultPhonePrefix").val();
     },
     checkSmsFieldsVisibility: function () {
-        domainValidationFunctions.toogleInputVisibility(!$("#validationPhone").prop('checked'));
+        var validationPhoneDisabled = $("#validationPhone").attr("disabled") == 'disabled';
+        var isValidationPhoneChecked = $("#validationPhone").prop('checked');
+        console.log("Disabled: " + validationPhoneDisabled)
+        console.log("Checked: " + isValidationPhoneChecked)
+        console.log("Visibility:" + (!validationPhoneDisabled && !isValidationPhoneChecked));
+        domainValidationFunctions.toogleInputVisibility(validationPhoneDisabled || !isValidationPhoneChecked);
     },
     setInputValuesToBlank: function (){
         $("#smsDomainName").val('');

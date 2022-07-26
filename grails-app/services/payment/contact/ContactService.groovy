@@ -212,17 +212,21 @@ class ContactService {
     }
 
     void removeContact(KuorumUserSession user, Long contactId){
-        Map<String, String> params = [userId:user.id.toString(),contactId:contactId.toString()]
+        Map<String, String> params = [userId: user.id.toString(), contactId: contactId.toString()]
         Map<String, String> query = [:]
 
-        def response= restKuorumApiService.delete(
+        def response = restKuorumApiService.delete(
                 RestKuorumApiService.ApiMethod.USER_CONTACT,
                 params,
                 query)
     }
 
-    ContactRSDTO updateContact(KuorumUserSession user, ContactRDTO contactRDTO, Long contactId){
-        Map<String, String> params = [userId: user.id.toString(), contactId: contactId.toString()]
+    ContactRSDTO updateContact(KuorumUserSession user, ContactRDTO contactRDTO, Long contactId) {
+        return updateContact(user.id.toString(), contactRDTO, contactId)
+    }
+
+    ContactRSDTO updateContact(String userId, ContactRDTO contactRDTO, Long contactId) {
+        Map<String, String> params = [userId: userId, contactId: contactId.toString()]
         Map<String, String> query = [:]
 
         def response = restKuorumApiService.put(

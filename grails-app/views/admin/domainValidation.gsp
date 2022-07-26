@@ -11,11 +11,17 @@
 </content>
 <content tag="titleContent">
     <h1><g:message code="admin.menu.domainConfig.title"/></h1>
+
     <h3><g:message code="admin.menu.domainConfig.subtitle"/></h3>
 </content>
 <content tag="mainContent">
     <formUtil:validateForm form="domainConfigValidationForm" bean="${command}" dirtyControl="true"/>
     <g:form method="POST" mapping="adminDomainValidation" name="domainConfigValidationForm" role="form">
-        <g:render template="domainValidationForm" model="[command:command]"/>
+        <g:render template="domainValidationForm" model="[command: command]"/>
+    </g:form>
+    <hr/>
+    <g:form method="POST" mapping="adminAuthorizedCampaigns" name="editAuthorizedCampaignsForm" role="form">
+        <g:render template="domainAuthorizedCampaigns"
+                  model="[campaignRoles: campaignRoles, userRoles: userRoles, globalAuthoritiesCommand: globalAuthoritiesCommand]"/>
     </g:form>
 </content>

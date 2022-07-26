@@ -27,13 +27,18 @@
           class="signup">
 
         <fieldset aria-live="polite" class="row">
-            <g:render template="formEditPictures" model="[command: command]"/>
+            <fieldset aria-live="polite" class="form-group image perfil center" data-multimedia-switch="on"
+                      data-multimedia-type="IMAGE">
+                <label><g:message code="register.funnel.association.images.label"/></label>
+                <formUtil:editImage command="${command}" field="photoId"
+                                    fileGroup="${kuorum.core.FileGroup.USER_AVATAR}"/>
+            </fieldset>
         </fieldset>
         <fieldset aria-live="polite" class="row">
             <div class="form-group text-center option-buttons">
-                %{--<label><g:message code="customRegister.step2.choseUserType.label"/> </label>--}%
+                <g:link mapping="funnelFillBasicData" params="[campaignId: campaignId]"
+                        class="btn btn-lg btn-grey-light"><g:message code="default.paginate.back"/></g:link>
                 <input type="submit" value="${g.message(code: 'customRegister.step2.submit')}" class="btn btn-lg">
-                %{--<input type="submit" id="submitCitizen" value="${g.message(code:'customRegister.step2.choseUserType.citizen')}" class="btn btn-blue btn-lg">--}%
             </div>
         </fieldset>
     </form>

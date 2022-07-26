@@ -34,10 +34,6 @@ $(function(){
     })
 });
 
-
-function detailFormatter(index, districtProposalRow) {
-    return participatoryBudgetListProposalHelper.renderProposalExtraInfo(districtProposalRow);
-}
 function districtProposalTableRowStyle(districtProposalRow, index) {
     //var classes = ['active', 'success', 'info', 'warning', 'danger'];
     //if (index % 2 === 0 && index / 2 < classes.length) {
@@ -54,33 +50,6 @@ function districtProposalTableRowStyle(districtProposalRow, index) {
     return {};
 }
 
-function formatTableParticipatoryBudgetDistrictProposalId(value, districtProposalRow){
-    return "<a href='"+districtProposalRow.url+"' target='_blank'>"+value+"</a>"
-}
-
-function formatTableParticipatoryBudgetDistrictProposalAuthor(value, districtProposalRow){
-    return "<a href='"+districtProposalRow.user.userLink+"' target='_blank'>"+value+"</a>"
-}
-
-function formatCheckValidation(value, districtProposalRow){
-    if (districtProposalRow.participatoryBudget.status.type =='TECHNICAL_REVIEW'){
-        var checked = value ?'checked':'';
-        // return '<input type="checkbox" '+checked+'>'
-        return '<label class="checkbox-inline">' +
-                    '<input type="checkbox" '+checked+'>' +
-                    '<span class="check-box-icon"></span>' +
-                    '<span class="label-checkbox"></span>' +
-                '</label>';
-    }else{
-        return formatBoolean(value)
-    }
-    //return text;
-}
-
-function formatBoolean(value){
-    var icon = value ? 'fa-check' : 'fa-remove'
-    return '<span class="fa ' + icon + '"></span>';
-}
 function formatPrice(value, districtProposalRow){
     if (value == null || value == undefined){
         value = '';
@@ -138,36 +107,7 @@ window.inputEventsCheckValidation={
         participatoryBudgetListProposalHelper.updateParticipatoryBudgetRow(index, row, updateData)
     }
 }
-
-$("#participatoryBudgetProposalReviewTable").on('expand-row.bs.table', function(index, row, $detail){
-    prepareYoutubeVideosClick()
-})
-
 var participatoryBudgetListProposalHelper = {
-    renderProposalExtraInfo:function (districtProposal) {
-        var multimedia = ""
-        if (districtProposal.photoUrl != null && districtProposal.photoUrl != undefined){
-            multimedia = "<img src='"+districtProposal.photoUrl+"'/>"
-        }else{
-            multimedia = "<img class='empty' src='images/emptyCampaign.png'/>"
-        }
-        //IE8 compatibility <- Before was const districtProposal = `data`
-        var districtProposalTableInfo = "";
-        var districtProposalTableInfo = districtProposalTableInfo + "<div class=\"box-ppal\">";
-        var districtProposalTableInfo = districtProposalTableInfo + "   <div class=\"box-ppal-title\">"+districtProposal.title+"</div>";
-        var districtProposalTableInfo = districtProposalTableInfo + "   <div class=\"box-ppal-section\">";
-        var districtProposalTableInfo = districtProposalTableInfo + "       <div class=\"row\">";
-        var districtProposalTableInfo = districtProposalTableInfo + "           <div class=\"col-md-3\">";
-        var districtProposalTableInfo = districtProposalTableInfo + "               "+ districtProposal.multimediaHtml;
-        var districtProposalTableInfo = districtProposalTableInfo + "           </div>";
-        var districtProposalTableInfo = districtProposalTableInfo + "           <div class=\"distict-proposal-body col-md-9\">";
-        var districtProposalTableInfo = districtProposalTableInfo + "               "+ districtProposal.body;
-        var districtProposalTableInfo = districtProposalTableInfo + "           </div>";
-        var districtProposalTableInfo = districtProposalTableInfo + "       </div>";
-        var districtProposalTableInfo = districtProposalTableInfo + "   </div>";
-        var districtProposalTableInfo = districtProposalTableInfo + "</div>";
-        return districtProposalTableInfo;
-    },
 
     updateParticipatoryBudgetRow:function(index,row, updatableData){
 

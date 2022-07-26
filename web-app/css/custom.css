@@ -1919,17 +1919,17 @@ ul.files-list li a.file-action:hover{ color:#167caa;}
     margin: 0;
 }
 
-.box-ppal#politicianProfile.SURVEY_PLATFORM {
+.box-ppal#politicianProfile.hideSocialOptions {
     text-align: center
 }
 
-.box-ppal#politicianProfile.SURVEY_PLATFORM #profileInfo {
+.box-ppal#politicianProfile.hideSocialOptions #profileInfo {
     margin-left: calc(50% - 60px);
 }
 
-.box-ppal#politicianProfile.SURVEY_PLATFORM #profileInfo #progressLine,
-.box-ppal#politicianProfile.SURVEY_PLATFORM #profileInfo #progressLine + span,
-.box-ppal#politicianProfile.SURVEY_PLATFORM .activity {
+.box-ppal#politicianProfile.hideSocialOptions #profileInfo #progressLine,
+.box-ppal#politicianProfile.hideSocialOptions #profileInfo #progressLine + span,
+.box-ppal#politicianProfile.hideSocialOptions .activity {
     display: none;
 }
 
@@ -1985,6 +1985,7 @@ ul.user-list-followers .loading.xs {
 
 #profileInfo {position: relative; font-size: 15px; font-size: 1.5rem;}
 #progressProfile {overflow: hidden; position: relative; background-color: #e5e5e5; display: block; float: left; border-radius: 50%; width: 120px; height: 120px; z-index: 2;}
+
 #progressProfileFill {
     width: 100%;
     overflow: hidden;
@@ -1994,8 +1995,19 @@ ul.user-list-followers .loading.xs {
     bottom: 0;
     height: 0%;
 }
-.SURVEY_PLATFORM #progressProfileFill {height: 100% !important; /* Survey platform doesn't show the progress var*/}
-#progressLine {display: block; width: 125px; height: 120px; position: absolute; left: 60px; z-index: 1;}
+
+.box-ppal#politicianProfile.hideSocialOptions #progressProfileFill {
+    height: 100% !important; /* Survey platform doesn't show the progress var*/
+}
+
+#progressLine {
+    display: block;
+    width: 125px;
+    height: 120px;
+    position: absolute;
+    left: 60px;
+    z-index: 1;
+}
 #progressLineFill {
     width: 100%;
     overflow: hidden;
@@ -2819,24 +2831,69 @@ END EDIT PARTICPATORY BUDGET
 #tabs-stats-campaign .pag-list-contacts .actions {
     float: left;
 }
-#tabs-stats-campaign .pag-list-contacts .actions a{width: auto;line-height: inherit; margin-bottom:5px;}
-#campaignStatsContainer {height: 355px;}
-#campaignEmailContainer {width: 100%; height: 700px; border: 1px solid #dddddd; margin-bottom: 10px;}
 
-.contact-activity h3 {font-size:1.3em; color:#a8a8a8}
+#tabs-stats-campaign .pag-list-contacts .actions a {
+    width: auto;
+    line-height: inherit;
+    margin-bottom: 5px;
+}
 
-#tabs-stats-campaign #participatoryBudgetProposalReviewTable.table tr.detail-view > td {padding:10px;}
-#tabs-stats-campaign #participatoryBudgetProposalReviewTable.table tr.detail-view > td .box-ppal{margin:0;padding-bottom: 10px;}
-#tabs-stats-campaign #participatoryBudgetProposalReviewTable.table > tbody > tr > td > a {color:inherit; font-weight: bold;}
+#campaignStatsContainer {
+    height: 355px;
+}
+
+#campaignEmailContainer {
+    width: 100%;
+    height: 700px;
+    border: 1px solid #dddddd;
+    margin-bottom: 10px;
+}
+
+.contact-activity h3 {
+    font-size: 1.3em;
+    color: #a8a8a8
+}
+
+#tabs-stats-campaign .list-working-campaign-table.table tr.detail-view > td {
+    padding: 10px;
+}
+
+#tabs-stats-campaign .list-working-campaign-table.table tr.detail-view > td .box-ppal {
+    margin: 0;
+    padding-bottom: 10px;
+}
+
+#tabs-stats-campaign .list-working-campaign-table.table > tbody > tr > td > a {
+    color: inherit;
+    font-weight: bold;
+}
 
 #importContacts-02 table.csv .checkbox-inline,
-#tabs-stats-campaign #participatoryBudgetProposalReviewTable.table .checkbox-inline {margin-left:25px;}
-#importContacts-02 table.csv .checkbox-inline > span.check-box-icon,
-#tabs-stats-campaign #participatoryBudgetProposalReviewTable.table .checkbox-inline > span.check-box-icon {position:relative; padding: 5px 6px;padding: 5px 6px;width: 20px; height: 20px;}
-#importContacts-02 table.csv .checkbox-inline > span.check-box-icon:after,
-#tabs-stats-campaign #participatoryBudgetProposalReviewTable.table .checkbox-inline > span.check-box-icon:after {}
+#tabs-stats-campaign .list-working-campaign-table.table .checkbox-inline {
+    margin-left: 25px;
+}
 
-.open-menu {color: #dbdbdb; position: absolute !important; top: 2px; right: 8px; z-index: 1;}
+#importContacts-02 table.csv .checkbox-inline > span.check-box-icon,
+#tabs-stats-campaign .list-working-campaign-table.table .checkbox-inline > span.check-box-icon {
+    position: relative;
+    padding: 5px 6px;
+    padding: 5px 6px;
+    width: 20px;
+    height: 20px;
+}
+
+#importContacts-02 table.csv .checkbox-inline > span.check-box-icon:after,
+#tabs-stats-campaign .list-working-campaign-table.table .checkbox-inline > span.check-box-icon:after {
+}
+
+.open-menu {
+    color: #dbdbdb;
+    position: absolute !important;
+    top: 2px;
+    right: 8px;
+    z-index: 1;
+}
+
 .box-ppal .link-wrapper:hover,
 .box-ppal .link-wrapper:active,
 .box-ppal .link-wrapper:focus {background-color: #efefef;}
@@ -2866,8 +2923,21 @@ END EDIT PARTICPATORY BUDGET
     padding: 0 0 20px;
     margin-bottom: 20px;}
 .box-ppal-title h1 {margin:0 0 10px 0 !important;font-size: 2.5rem}
-.box-ppal-title h3 {color: #a8a8a8; margin:0px;font-size:1.4rem;}
-.box-ppal.profile {padding: 0; margin-bottom: 10px;}
+.box-ppal-title h3 {
+    color: #a8a8a8;
+    margin: 0px;
+    font-size: 1.4rem;
+}
+
+.box-ppal-action {
+    text-align: right;
+    margin: 20px;
+}
+
+.box-ppal.profile {
+    padding: 0;
+    margin-bottom: 10px;
+}
 .config .box-ppal {padding: 10px;}
 .team > section > .box-ppal{padding:0; margin:0; background-color: transparent;border:0}
 
@@ -3923,8 +3993,14 @@ fieldset > .multiple-range-selector:first-child {margin-top:40px;}
 
 .uploaderImageContainer .qq-upload-drop-area .button-container {width: 80%; margin: 0 auto; border-radius: 4px; padding: 0; }
 
-.uploaderImageContainer.USER_AVATAR  {width: 220px;}
-.uploaderImageContainer.USER_AVATAR .qq-upload-drop-area {padding-top: 30%}
+.uploaderImageContainer.USER_AVATAR {
+    width: 220px;
+    margin-left: calc(50% - 110px);
+}
+
+.uploaderImageContainer.USER_AVATAR .qq-upload-drop-area {
+    padding-top: 30%
+}
 .uploaderImageContainer.USER_PROFILE .qq-upload-drop-area {padding-top: 15%}
 .uploaderImageContainer.MASS_MAIL_IMAGE .qq-upload-drop-area {padding-top: 1%;}
 .uploaderImageContainer.PROJECT_IMAGE .qq-upload-drop-area {padding-top: 20%}
@@ -4161,14 +4237,34 @@ h2.underline {border-bottom: 1px solid #dadada; padding: 0 0 10px 0; margin-top:
 /* post =========== */
 /* ====================================================== */
 
-.comments {margin-bottom: 20px;}
+.comments {
+    margin-bottom: 20px;
+}
 
 
-.debate {margin-bottom: 40px;}
+.debate {
+    margin-bottom: 40px;
+}
 
-.debate p.no-debate {padding: 15px; background-color: #f8f8f8; border: 1px solid #e5e5e5;}
+.debate p.no-debate {
+    padding: 15px;
+    background-color: #f8f8f8;
+    border: 1px solid #e5e5e5;
+}
 
-.popover-box .infoActivity li:last-child {margin: 0;}
+.popover-box .infoActivity li:last-child {
+    margin: 0;
+}
+
+
+/* MORE SPACE UNDER USER RIGHTS FORM*/
+#domainConfigValidationForm + hr {
+    margin-bottom: 30px;
+}
+
+#editAuthorizedCampaignsForm {
+    margin-bottom: 50px;
+}
 
 /* Home =========== */
 /* ====================================================== */
@@ -4177,9 +4273,16 @@ h2.underline {border-bottom: 1px solid #dadada; padding: 0 0 10px 0; margin-top:
 .sign.home .login .cancel a:hover,
 .sign.home .login .cancel a:active,
 .sign.home .login .cancel a:focus,
-.sign.home .login .form-group:last-child a {color: #fff;}
+.sign.home .login .form-group:last-child a {
+    color: #fff;
+}
 
-.form-home-container {position: relative; margin: 0 auto; min-height: 410px; width: 100%;}
+.form-home-container {
+    position: relative;
+    margin: 0 auto;
+    min-height: 410px;
+    width: 100%;
+}
 .sign.home .form-home-container .login {position: absolute; top: 0; left: 0; width: 100%;}
 .sign.home .form-home-container .login .btn + .cancel {
     line-height: 2.4;

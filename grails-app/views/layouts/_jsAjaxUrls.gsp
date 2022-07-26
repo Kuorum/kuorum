@@ -1,16 +1,16 @@
-
 <script>
-    var kuorumUrls = {
-        home:'<g:createLink mapping="home" absolute="true"/>',
-        searchSuggest:'<g:createLink mapping="suggestSearcher" absolute="true"/>',
-        search:'<g:createLink mapping="searcherSearch" absolute="true"/>',
-        suggestRegion:'<g:createLink mapping="suggestRegions" absolute="true"/>',
+    const kuorumUrls = {
+        home: '<g:createLink mapping="home" absolute="true"/>',
+        searchSuggest: '<g:createLink mapping="suggestSearcher" absolute="true"/>',
+        search: '<g:createLink mapping="searcherSearch" absolute="true"/>',
+        suggestRegion: '<g:createLink mapping="suggestRegions" absolute="true"/>',
         suggestAlias: '<g:createLink mapping="suggestAlias" absolute="true"/>',
         ajaxLoginRRSS: '<g:createLink mapping="ajaxRegisterRRSSOAuth" absolute="true"/>',
         profileDomainValidationChecker: '<g:createLink mapping="profileDomainValidationChecker" absolute="true"/>',
-        politicianContactFilterData: '<g:createLink mapping="politicianContactFilterData" absolute="true"/>'
+        politicianContactFilterData: '<g:createLink mapping="politicianContactFilterData" absolute="true"/>',
+        contestApplicationUpdateReview: '<g:createLink mapping="contestApplicationUpdateReview" absolute="true"/>'
     };
-    var ajaxHeadNotificationsChecked='<g:createLink mapping="ajaxHeadNotificationsChecked" absolute="true"/>';
+    var ajaxHeadNotificationsChecked = '<g:createLink mapping="ajaxHeadNotificationsChecked" absolute="true"/>';
 
     var kuorumKeys = {
         _googleCaptchaKey: '${_googleCaptchaKey}',
@@ -128,26 +128,30 @@
                             }
                         },
                         survey:{
-                            QuestionOptionCommand:{
-                                text:{
-                                    nullable:"<g:message code="kuorum.web.commands.payment.survey.QuestionOptionCommand.text.nullable"/>",
-                                    overflow:"<g:message code="kuorum.web.commands.payment.survey.QuestionOptionCommand.text.overflow"/>"
+                            QuestionOptionCommand: {
+                                text: {
+                                    nullable: "<g:message code="kuorum.web.commands.payment.survey.QuestionOptionCommand.text.nullable"/>",
+                                    overflow: "<g:message code="kuorum.web.commands.payment.survey.QuestionOptionCommand.text.overflow"/>"
                                 },
-                                number:{
-                                    negative:"<g:message code="kuorum.web.commands.payment.survey.QuestionOptionCommand.number.negative"/>",
-                                    points:"<g:message code="kuorum.web.commands.payment.survey.QuestionOptionCommand.number.points"/>"
+                                number: {
+                                    negative: "<g:message code="kuorum.web.commands.payment.survey.QuestionOptionCommand.number.negative"/>",
+                                    points: "<g:message code="kuorum.web.commands.payment.survey.QuestionOptionCommand.number.points"/>"
                                 }
                             }
+                        },
+                        contest: {
+                            reject: "<g:message code="kuorum.web.commands.payment.contest.reject"/>",
+                            approve: "<g:message code="kuorum.web.commands.payment.contest.approve"/>",
                         }
                     },
-                    profile:{
-                        DomainValidationCommand:{
-                            closeWithoutValidation :"<g:message code="kuorum.web.commands.profile.DomainValidationCommand.closeWithoutValidation"/>"
+                    profile: {
+                        DomainValidationCommand: {
+                            closeWithoutValidation: "<g:message code="kuorum.web.commands.profile.DomainValidationCommand.closeWithoutValidation"/>"
                         }
                     }
                 }
             },
-            session:{
+            session: {
                 validation:{
                     error : "<g:message code="kuorum.session.validation.error"/>",
                     groupError : "<g:message code="kuorum.session.validation.groupError"/>",

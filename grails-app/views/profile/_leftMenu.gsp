@@ -6,7 +6,7 @@
     <li class="${activeMapping == 'profilePictures' ? 'active' : ''}">
         <g:link mapping="profilePictures"><g:message code="profile.menu.profilePictures"/></g:link>
     </li>
-    <g:if test="${!_isSurveyPlatform}">
+    <g:if test="${_isUserProfileExtended}">
         <li class="${activeMapping == 'profileCauses' ? 'active' : ''}">
             <g:link mapping="profileCauses"><g:message code="profile.menu.profileCauses"/></g:link>
         </li>
