@@ -7,16 +7,16 @@
 </script>
 
 <g:set var="visibleVotesColumn"
-       value="${![org.kuorum.rest.model.communication.contest.ContestStatusDTO.RESULTS, org.kuorum.rest.model.communication.contest.ContestStatusDTO.VOTING].contains(contest.status) ? 'true' : 'false'}"/>
+       value="${[org.kuorum.rest.model.communication.contest.ContestStatusDTO.RESULTS, org.kuorum.rest.model.communication.contest.ContestStatusDTO.VOTING].contains(contest.status) ? 'true' : 'false'}"/>
 <g:set var="visibleImplemented"
        value="${[org.kuorum.rest.model.communication.contest.ContestStatusDTO.RESULTS].contains(contest.status) ? 'true' : 'false'}"/>
 <g:set var="currentLang" value="${org.springframework.web.servlet.support.RequestContextUtils.getLocale(request)}"/>
 
 <div class="actions" id="toolbar-contestApplicationReviewTable">
-    <a href="#" class="btn btn-blue inverted" id="changeParticipatoryBudgetBtn">
+    <a href="#" class="btn btn-blue inverted" id="changeContestBtn">
         <span class="fal fa-edit"></span>
         <g:message code="org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.label"/>:
-        <span id="changeParticipatoryBudgetBtnStatusText">
+        <span id="changeContestBtnStatusText">
             <g:message code="org.kuorum.rest.model.communication.contest.ContestStatusDTO.${contest.status}"/>
         </span>
     </a>
@@ -75,21 +75,21 @@
     </thead>
 </table>
 
-<div id="changeParticipatoryBudgetStatusModal" class="modal fade in" tabindex="-1" role="dialog"
-     aria-labelledby="changeParticipatoryBudgetStatusTitle" aria-hidden="true">
+<div id="changeContestStatusModal" class="modal fade in" tabindex="-1" role="dialog"
+     aria-labelledby="changeContestStatusTitle" aria-hidden="true">
     <div class="modal-dialog ">
         <div class="modal-content">
-            <div class="modal-header"><h4><g:message code="modal.changeParticipatoryBudgetStatusModal.title"/></h4>
+            <div class="modal-header"><h4><g:message code="modal.changeContestStatusModal.title"/></h4>
             </div>
 
             <div class="modal-body">
                 <p>
-                    <g:message code="modal.changeParticipatoryBudgetStatusModal.text" args="[contest.title]"/>
+                    <g:message code="modal.changeContestStatusModal.text" args="[contest.title]"/>
                 </p>
-                <select class="form-control input-lg" id="changeParticipatoryBudgetStatusModalSelect">
-                    <g:each in="${org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.values()}"
+                <select class="form-control input-lg" id="changeContestStatusModalSelect">
+                    <g:each in="${org.kuorum.rest.model.communication.contest.ContestStatusDTO.values()}"
                             var="status">
-                        <option value="${status}" ${contest.status == status ? 'selected' : ''}>${g.message(code: "org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO." + status)}</option>
+                        <option value="${status}" ${contest.status == status ? 'selected' : ''}>${g.message(code: "org.kuorum.rest.model.communication.contest.ContestStatusDTO." + status)}</option>
                     </g:each>
                 </select>
 
@@ -100,7 +100,7 @@
                         code="modal.changeParticipatoryBudgetStatusModal.close"/></a>
                 <g:link mapping="participatoryBudgetEditStatus" params="${contest.encodeAsLinkProperties()}"
                         class="btn btn-blue" aria-label="Ok"
-                        elementId="changeParticipatoryBudgetStatusSubmit"><g:message
+                        elementId="changeContestStatusSubmit"><g:message
                         code="modal.changeParticipatoryBudgetStatusModal.submit"/></g:link>
             </div>
         </div>

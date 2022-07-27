@@ -7,6 +7,7 @@ import kuorum.politician.CampaignController
 import kuorum.register.KuorumUserSession
 import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.commands.payment.CampaignSettingsCommand
+import kuorum.web.commands.payment.contest.ContestApplicationChangeStatusCommand
 import kuorum.web.commands.payment.contest.ContestAreasCommand
 import kuorum.web.commands.payment.contest.ContestChangeStatusCommand
 import kuorum.web.commands.payment.contest.ContestDeadlinesCommand
@@ -349,8 +350,14 @@ class ContestController extends CampaignController {
     }
 
     @Secured(['ROLE_CAMPAIGN_CONTEST'])
-    def updateReview() {
-        render "OK"
+    def updateReview(ContestApplicationChangeStatusCommand command) {
+        if (command.hasErrors()) {
+            render([success: false, message: "There are errors on the data"] as JSON)
+        }
+        Boolean isApproved = command.getNewStatus() == CampaignStatusRSDTO.APPROVED
+        KuorumUserSession loggedUser = springSecurityService.principal
+        contestApplicationService.updateValidate(loggedUser, command.getContestApplicationId(), isApproved)
+        render([success: true, message: "Update success"] as JSON)
     }
 
     def sendApplicationsReport() {
