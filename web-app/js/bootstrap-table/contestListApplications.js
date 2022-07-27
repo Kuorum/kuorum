@@ -53,6 +53,34 @@ $(function () {
             });
 
     })
+
+    $("#changeContestStatusSubmit").on("click", function (e) {
+        e.preventDefault();
+        var $a = $(this)
+        var url = $a.attr("href")
+        var status = $("#changeContestStatusModalSelect").val()
+        var statusText = $("#changeContestStatusModalSelect option:selected").text();
+        var changeStatusData = {
+            'status': status
+        }
+        pageLoadingOn();
+        $.post(url, changeStatusData)
+            .done(function (data) {
+                if (data.success) {
+                    participatoryBudgetListProposalHelper.refreshTable();
+                    $("#changeParticipatoryBudgetStatusModal").modal("hide")
+                    $("#changeParticipatoryBudgetBtnStatusText").html(statusText)
+                } else {
+                    display.warn(data.msg)
+                }
+            })
+            .fail(function (error) {
+                display.warn("There was an error changing the status");
+            })
+            .always(function () {
+                pageLoadingOff();
+            });
+    })
 });
 
 function contestApplicationTableRowStyle(contestApplicationRow, index) {

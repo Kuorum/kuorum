@@ -98,7 +98,7 @@
             <div class="modal-footer">
                 <a href="#" class="btn btn-grey-light" data-dismiss="modal" aria-label="Close"><g:message
                         code="modal.changeParticipatoryBudgetStatusModal.close"/></a>
-                <g:link mapping="participatoryBudgetEditStatus" params="${contest.encodeAsLinkProperties()}"
+                <g:link mapping="contestEditStatus" params="${contest.encodeAsLinkProperties()}"
                         class="btn btn-blue" aria-label="Ok"
                         elementId="changeContestStatusSubmit"><g:message
                         code="modal.changeParticipatoryBudgetStatusModal.submit"/></g:link>
