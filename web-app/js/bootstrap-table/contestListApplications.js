@@ -13,9 +13,10 @@ $(function () {
         var changeStatusData = {
             'status': status
         }
-        pageLoadingOn();
+        pageLoadingOn("Changing contest status");
         $.post(url, changeStatusData)
             .done(function (data) {
+                console.log("Change status")
                 if (data.success) {
                     contestListProposalHelper.refreshTable();
                     $("#changeContestStatusModal").modal("hide")
@@ -28,7 +29,7 @@ $(function () {
                 display.warn("There was an error changing the status");
             })
             .always(function () {
-                pageLoadingOff();
+                pageLoadingOff("Changing contest status");
             });
     })
     $("#contestApplicationsReviewTable").on("click", ".box-ppal-action a", function (e) {
@@ -52,34 +53,6 @@ $(function () {
                 pageLoadingOff();
             });
 
-    })
-
-    $("#changeContestStatusSubmit").on("click", function (e) {
-        e.preventDefault();
-        var $a = $(this)
-        var url = $a.attr("href")
-        var status = $("#changeContestStatusModalSelect").val()
-        var statusText = $("#changeContestStatusModalSelect option:selected").text();
-        var changeStatusData = {
-            'status': status
-        }
-        pageLoadingOn();
-        $.post(url, changeStatusData)
-            .done(function (data) {
-                if (data.success) {
-                    participatoryBudgetListProposalHelper.refreshTable();
-                    $("#changeParticipatoryBudgetStatusModal").modal("hide")
-                    $("#changeParticipatoryBudgetBtnStatusText").html(statusText)
-                } else {
-                    display.warn(data.msg)
-                }
-            })
-            .fail(function (error) {
-                display.warn("There was an error changing the status");
-            })
-            .always(function () {
-                pageLoadingOff();
-            });
     })
 });
 
