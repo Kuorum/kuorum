@@ -678,10 +678,7 @@ class ProfileController {
     }
 
     def funnelFillFiles() {
-        KuorumUserSession loggedUser = springSecurityService.principal
-        ContactRSDTO adminContact = contactService.getContactByEmail(WebConstants.FAKE_LANDING_ALIAS_USER, loggedUser.email)
-        getAdminContact(adminContact)
-        [contact: adminContact]
+        getAdminContact()
     }
 
     def saveFunnelFillFiles() {
@@ -722,19 +719,18 @@ class ProfileController {
     }
 
     def editAdminFiles() {
-        KuorumUserSession loggedUser = springSecurityService.principal
-        ContactRSDTO adminContact = contactService.getContactByEmail(WebConstants.FAKE_LANDING_ALIAS_USER, loggedUser.email)
-        getAdminContact(adminContact)
-        [contact: adminContact]
-
+        getAdminContact()
     }
 
-    def getAdminContact(adminContact) {
+    def getAdminContact() {
+        KuorumUserSession loggedUser = springSecurityService.principal
+        ContactRSDTO adminContact = contactService.getContactByEmail(WebConstants.FAKE_LANDING_ALIAS_USER, loggedUser.email)
         if (adminContact == null) {
             ContactRDTO newAdminContact = new ContactRDTO()
             newAdminContact.setEmail(loggedUser.email)
             newAdminContact.setName(loggedUser.name)
             adminContact = contactService.addContact(WebConstants.FAKE_LANDING_ALIAS_USER, newAdminContact)
         }
+        [contact: adminContact]
     }
 }
