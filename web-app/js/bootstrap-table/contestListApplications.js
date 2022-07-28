@@ -13,9 +13,10 @@ $(function () {
         var changeStatusData = {
             'status': status
         }
-        pageLoadingOn();
+        pageLoadingOn("Changing contest status");
         $.post(url, changeStatusData)
             .done(function (data) {
+                console.log("Change status")
                 if (data.success) {
                     contestListProposalHelper.refreshTable();
                     $("#changeContestStatusModal").modal("hide")
@@ -28,8 +29,30 @@ $(function () {
                 display.warn("There was an error changing the status");
             })
             .always(function () {
+                pageLoadingOff("Changing contest status");
+            });
+    })
+    $("#contestApplicationsReviewTable").on("click", ".box-ppal-action a", function (e) {
+        e.preventDefault();
+        var $a = $(this);
+        pageLoadingOn();
+        var urlUpdateStatus = $a.attr("href")
+        var data = {}
+        $.post(urlUpdateStatus, data)
+            .done(function (response) {
+                if (response.success) {
+                    contestListProposalHelper.refreshTable();
+                } else {
+                    display.error("Error updating application - Malformed data")
+                }
+            })
+            .fail(function (messageError) {
+                display.error("Error updating application")
+            })
+            .always(function () {
                 pageLoadingOff();
             });
+
     })
 });
 
@@ -48,10 +71,10 @@ function detailFormatterActions(index, campaignRow) {
     if (campaignRow.campaignStatus.type == 'REVIEW') {
         var params = {
             contestApplicationId: campaignRow.id,
-            action: 'REJECT'
+            newStatus: 'REJECT'
         }
         const paramsReject = jQuery.param(params);
-        params['action'] = 'APPROVED'
+        params['newStatus'] = 'APPROVED'
         const paramsApprove = jQuery.param(params);
 
         return "" +
@@ -62,56 +85,7 @@ function detailFormatterActions(index, campaignRow) {
     }
 }
 
-window.inputEventsCheckValidation = {
-    'change :checkbox': function (e, value, row, index) {
-        var newValue = $(e.target).prop('checked');
-        var updateData = {
-            approved: newValue,
-            price: row.price,
-            rejectComment: row.rejectComment
-        }
-        ContestListProposalHelper.updateContestRow(index, row, updateData)
-    }
-}
-
 var contestListProposalHelper = {
-
-    updateContestRow: function (index, row, updatableData) {
-
-        var data = {
-            ContestId: row.Contest.id,
-            districtProposalUserId: row.user.id,
-            districtProposalId: row.id,
-            approved: updatableData.approved,
-            price: updatableData.price,
-            rejectComment: updatableData.rejectComment
-        }
-        $table = $("#contestApplicationsReviewTable")
-        var urlUpdateTechnicalReview = $table.attr("data-update-technicalReview-url")
-        pageLoadingOn();
-        $.post(urlUpdateTechnicalReview, data)
-            .done(function (response) {
-                $table.bootstrapTable('updateRow', {
-                    index: index,
-                    row: response.districtProposalData
-                });
-            })
-            .fail(function (messageError) {
-                if (messageError.status == 420) {
-                    display.error(messageError.responseJSON.msg);
-                    $table.bootstrapTable('updateRow', {
-                        index: index,
-                        row: messageError.responseJSON.districtProposalData
-                    });
-                } else {
-                    display.error("Error updating proposal")
-                }
-
-            })
-            .always(function () {
-                pageLoadingOff();
-            });
-    },
 
     refreshTable: function () {
         $table = $("#contestApplicationsReviewTable")

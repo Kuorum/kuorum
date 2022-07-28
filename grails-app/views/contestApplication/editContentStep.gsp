@@ -20,12 +20,13 @@
             numberRecipients: numberRecipients,
             status          : status,
             mappings        : [
-                    saveAndSentButtons: true,
+                    saveAndSentButtons: false,
                     hideScheduler     : true,
                     step              : 'content',
 //                    settings          : 'contestApplicationEditSettings',
                     content           : 'contestApplicationEditContent',
-                    environment       : 'contestApplicationEditEnvironment',
+                    environment       : 'contestApplicationEditScope',
                     showResult        : 'contestApplicationShow',
-                    next              : 'contestApplicationEditContent']]"/>
+                    authorizations    : 'contestApplicationEditAuthorizations',
+                    next              : 'contestApplicationEditAuthorizations']]"/>
 </content>

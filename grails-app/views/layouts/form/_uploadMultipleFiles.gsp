@@ -42,20 +42,20 @@
     $(function(){
         multipleFileUploaders['${divId}'] = new qq.MultipleFileUploader({
             multiple:true,
-            disabled:${disabled?'true':'false'},
+            disabled:${disabled ? 'true' : 'false'},
             element: document.getElementById('${divId}'),
             allowedExtensions: ['pdf', 'doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx', 'zip', 'rar', 'jpg', 'jpeg', 'JPG', 'JPEG', 'gif','GIF', 'PNG', 'png'],
-            sizeLimit: 20971520, // 20 M max size
+            sizeLimit: 10485760, // 10 M max size // 20971520, // 20 M max size
             minSizeLimit: 0, // min size
             abortOnFailure: true,
             messages:{
-                typeError: '${g.message(code:'uploader.error.typeError')}',
-                sizeError: '${g.message(code:'uploader.error.sizeError', args : ['20'])}',
-                minSizeError: '${g.message(code:'uploader.error.minSizeError')}',
-                emptyError: '${g.message(code:'uploader.error.emptyError')}',
-                onLeave: '"${g.message(code:'uploader.error.onLeave')}"',
-                fileUrlCopiedSuccess: "${g.message(code:'uploader.error.copiedUrlSuccess')}",
-                confirmRemoveMessage: "${g.message(code:'uploader.multiFile.removeFile.modal.body')}"
+                typeError: '${g.message(code: 'uploader.error.typeError')}',
+                sizeError: '${g.message(code: 'uploader.error.sizeError', args: ['10'])}',
+                minSizeError: '${g.message(code: 'uploader.error.minSizeError')}',
+                emptyError: '${g.message(code: 'uploader.error.emptyError')}',
+                onLeave: '"${g.message(code: 'uploader.error.onLeave')}"',
+                fileUrlCopiedSuccess: "${g.message(code: 'uploader.error.copiedUrlSuccess')}",
+                confirmRemoveMessage: "${g.message(code: 'uploader.multiFile.removeFile.modal.body')}"
             },
             showMessage:function(message){
                 display.success(message);

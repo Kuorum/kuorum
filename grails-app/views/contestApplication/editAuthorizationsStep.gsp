@@ -14,18 +14,19 @@
         <li><g:link mapping="politicianCampaignsNew"><g:message code="tools.campaign.new.title"/></g:link></li>
         <li class="active">${breadCrumbName}</li>
     </ol>
-    <g:render template="/contestApplication/editModules/editContestApplicationEnvironment" model="[
+    <g:render template="/contestApplication/editModules/editContestApplicationAuthorizations" model="[
             attachEvent     : false,
             command         : command,
             numberRecipients: numberRecipients,
             status          : status,
             mappings        : [
-                    saveAndSentButtons: false,
-                    step              : 'environment',
+                    saveAndSentButtons: true,
+                    hideScheduler     : true,
+                    step              : 'authorizations',
 //                    settings          : 'contestApplicationEditSettings',
                     content           : 'contestApplicationEditContent',
                     environment       : 'contestApplicationEditScope',
                     authorizations    : 'contestApplicationEditAuthorizations',
-                    showResult        : 'campaignShow',
+                    showResult        : 'contestApplicationShow',
                     next              : 'contestApplicationEditContent']]"/>
 </content>

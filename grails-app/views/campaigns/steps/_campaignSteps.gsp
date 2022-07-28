@@ -69,4 +69,11 @@
             faIcon       : 'fa-tools',
             label        : g.message(code: 'tools.campaign.new.steps.configContest')
     ]"/>
+    <g:render template="/campaigns/steps/campaignStepActionButton" model="[
+            show         : mappings.authorizations,
+            currentActive: mappings.step == 'authorizations',
+            link         : mappings.authorizations,
+            faIcon       : 'fa-hands-helping',
+            label        : g.message(code: 'tools.campaign.new.steps.authorizations')
+    ]"/>
 </ul>

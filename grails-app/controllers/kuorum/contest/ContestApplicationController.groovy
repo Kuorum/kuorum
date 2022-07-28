@@ -7,6 +7,7 @@ import kuorum.register.KuorumUserSession
 import kuorum.users.KuorumUser
 import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.commands.payment.CampaignSettingsCommand
+import kuorum.web.commands.payment.contest.ContestApplicationAuthorizationsCommand
 import kuorum.web.commands.payment.contest.ContestApplicationScopeCommand
 import kuorum.web.commands.payment.contest.ContestProfileCommand
 import kuorum.web.commands.payment.contest.NewContestApplicationCommand
@@ -89,6 +90,15 @@ class ContestApplicationController extends CampaignController {
     }
 
     @Secured(['ROLE_CAMPAIGN_CONTEST_APPLICATION'])
+    def editAuthorizationsStep() {
+        KuorumUserSession loggedUser = springSecurityService.principal
+        ContestApplicationRSDTO contestApplicationRSDTO = contestApplicationService.find(loggedUser, Long.parseLong((String) params.campaignId))
+        BasicDataKuorumUserRSDTO user = kuorumUserService.findBasicUserRSDTO(params.userAlias)
+        ContestRSDTO contest = contestService.find(user.id.toString(), contestApplicationRSDTO.getContest().getId())
+        return contestApplicationModelEditAuthorizations(null, contestApplicationRSDTO, contest)
+    }
+
+    @Secured(['ROLE_CAMPAIGN_CONTEST_APPLICATION'])
     def saveSettings(CampaignSettingsCommand command) {
         if (command.hasErrors()) {
             render view: 'create', model: contestModelSettings(command, null)
@@ -112,6 +122,28 @@ class ContestApplicationController extends CampaignController {
         }
 
         Map<String, Object> result = saveAndSendCampaignContent(command, campaignId, contestApplicationService)
+        redirect mapping: result.nextStep.mapping, params: result.nextStep.params
+    }
+
+    @Secured(['ROLE_CAMPAIGN_CONTEST_APPLICATION'])
+    def saveAuthorizations(ContestApplicationAuthorizationsCommand command) {
+        Long campaignId = params.campaignId ? Long.parseLong(params.campaignId) : null
+        KuorumUserSession loggedUser = springSecurityService.principal
+        if (command.hasErrors()) {
+            if (command.errors.getFieldError().arguments.first() == "publishOn") {
+                flash.error = message(code: "debate.scheduleError")
+            }
+            ContestApplicationRSDTO contestApplicationRSDTO = contestApplicationService.find(loggedUser, Long.parseLong((String) params.campaignId))
+            BasicDataKuorumUserRSDTO user = kuorumUserService.findBasicUserRSDTO(params.userAlias)
+            ContestRSDTO contest = contestService.find(user.id.toString(), contestApplicationRSDTO.getContest().getId())
+            render view: 'contestApplicationEditAuthorizations', model: contestApplicationModelEditAuthorizations(command, contestApplicationRSDTO, contest)
+            return
+        }
+        ContestApplicationRDTO contestApplicationRSDTO = createRDTO(loggedUser, campaignId, contestApplicationService)
+        contestApplicationRSDTO.authorizedAgent = command.authorizedAgent
+        contestApplicationRSDTO.acceptedLegalBases = command.acceptedLegalBases
+        contestApplicationRSDTO.imageRights = command.imageRights
+        def result = saveAndSendCampaign(loggedUser, contestApplicationRSDTO, campaignId, command.publishOn, command.sendType, contestApplicationService)
         redirect mapping: result.nextStep.mapping, params: result.nextStep.params
     }
 
@@ -144,6 +176,22 @@ class ContestApplicationController extends CampaignController {
             command.cause = contestApplicationRSDTO.causes ? contestApplicationRSDTO.causes[0] : ""
             command.focusType = contestApplicationRSDTO.focusType
             command.activityType = contestApplicationRSDTO.activityType
+        }
+        def model = [
+                campaign: contestApplicationRSDTO,
+                contest : contestRSDTO,
+                status  : contestApplicationRSDTO?.campaignStatusRSDTO ?: CampaignStatusRSDTO.DRAFT,
+                command : command
+        ]
+        return model
+    }
+
+    private def contestApplicationModelEditAuthorizations(ContestApplicationAuthorizationsCommand command, ContestApplicationRSDTO contestApplicationRSDTO, ContestRSDTO contestRSDTO) {
+        if (!command && contestApplicationRSDTO) {
+            command = new ContestApplicationAuthorizationsCommand()
+            command.authorizedAgent = contestApplicationRSDTO.authorizedAgent
+            command.acceptedLegalBases = contestApplicationRSDTO.acceptedLegalBases
+            command.imageRights = contestApplicationRSDTO.imageRights
         }
         def model = [
                 campaign: contestApplicationRSDTO,

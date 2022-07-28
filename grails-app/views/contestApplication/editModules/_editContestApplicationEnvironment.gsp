@@ -8,8 +8,8 @@
 <div class="box-ppal campaign-new">
     <h1 class="sr-only"><g:message code="admin.createDebate.title"/></h1>
 
-    <formUtil:validateForm bean="${command}" form="contestApplicationEditEnvironment" dirtyControl="true"/>
-    <form action="#" class="form-horizontal campaign-form" id="contestApplicationEditEnvironment" method="POST"
+    <formUtil:validateForm bean="${command}" form="contestApplicationEditScope" dirtyControl="true"/>
+    <form action="#" class="form-horizontal campaign-form" id="contestApplicationEditScope" method="POST"
           data-generalErrorMessage="${g.message(code: 'kuorum.web.commands.payment.massMailing.DebateCommand.form.genericError')}">
         <input type="hidden" name="redirectLink" id="redirectLink"/>
 
@@ -26,7 +26,7 @@
         <fieldset aria-live="polite" class="form-group">
             <div class="col-sm-offset-1 col-sm-8">
                 <label for="cause"><g:message
-                        code="kuorum.web.commands.payment.contest.contestApplicationEditEnvironmentCommand.cause.label"/>:</label>
+                        code="kuorum.web.commands.payment.contest.contestApplicationEditScopeCommand.cause.label"/>:</label>
                 <select class="form-control input-lg" name="cause">
                     <option value="">---</option>
                     <g:each in="${contest.causes.sort { it.toLowerCase() }}" var="cause">

@@ -8,8 +8,8 @@
 <div class="box-ppal campaign-new">
     <h1 class="sr-only"><g:message code="admin.createDebate.title"/></h1>
 
-    <formUtil:validateForm bean="${command}" form="contestApplicationEditEnvironment" dirtyControl="true"/>
-    <form action="#" class="form-horizontal campaign-form" id="contestApplicationEditEnvironment" method="POST"
+    <formUtil:validateForm bean="${command}" form="contestApplicationEditScope" dirtyControl="true"/>
+    <form action="#" class="form-horizontal campaign-form" id="contestApplicationEditScope" method="POST"
           data-generalErrorMessage="${g.message(code: 'kuorum.web.commands.payment.massMailing.DebateCommand.form.genericError')}">
         <input type="hidden" name="sendType"
                value="${kuorum.web.commands.payment.CampaignContentCommand.CAMPAIGN_SEND_TYPE_DRAFT}"
