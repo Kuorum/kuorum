@@ -147,6 +147,9 @@ class ContestApplicationService extends AbstractCampaignCreatorService<ContestAp
             contestApplicationRDTO.activityType = contestApplicationRSDTO.activityType
             contestApplicationRDTO.focusType = contestApplicationRSDTO.focusType
             contestApplicationRDTO.contestId = contestApplicationRSDTO.contest.id
+            contestApplicationRDTO.authorizedAgent = contestApplicationRSDTO.authorizedAgent
+            contestApplicationRDTO.acceptedLegalBases = contestApplicationRSDTO.acceptedLegalBases
+            contestApplicationRDTO.imageRights = contestApplicationRSDTO.imageRights
         }
         return contestApplicationRDTO
     }
