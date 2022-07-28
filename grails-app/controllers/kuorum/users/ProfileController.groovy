@@ -678,12 +678,12 @@ class ProfileController {
     }
 
     def funnelFillFiles() {
-        getAdminContact()
+        ContactRSDTO contactRSDTO = getAdminContact()
+        [contact: contactRSDTO]
     }
 
     def saveFunnelFillFiles() {
-        KuorumUserSession loggedUser = springSecurityService.principal
-        ContactRSDTO adminContact = contactService.getContactByEmail(WebConstants.FAKE_LANDING_ALIAS_USER, loggedUser.email)
+        ContactRSDTO adminContact =  getAdminContact()
         List<String> contactFiles = contactService.getFiles(WebConstants.FAKE_LANDING_ALIAS_USER, adminContact)
         if (contactFiles.size() < WebConstants.MIN_FILES_PER_DOC_IN_CONTEST) {
             flash.error = g.message(code: "kuorum.web.commands.profile.funnel.files.minFiles")
@@ -719,7 +719,8 @@ class ProfileController {
     }
 
     def editAdminFiles() {
-        getAdminContact()
+        ContactRSDTO contactRSDTO = getAdminContact()
+        [contact: contactRSDTO]
     }
 
     def getAdminContact() {
@@ -731,6 +732,6 @@ class ProfileController {
             newAdminContact.setName(loggedUser.name)
             adminContact = contactService.addContact(WebConstants.FAKE_LANDING_ALIAS_USER, newAdminContact)
         }
-        [contact: adminContact]
+        return adminContact
     }
 }
