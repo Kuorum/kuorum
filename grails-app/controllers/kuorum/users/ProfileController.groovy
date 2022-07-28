@@ -1,7 +1,6 @@
 package kuorum.users
 
 import grails.converters.JSON
-import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.annotation.Secured
 import grails.plugin.springsecurity.ui.RegistrationCode
 import grails.plugin.springsecurity.ui.ResetPasswordCommand
@@ -18,7 +17,7 @@ import kuorum.register.KuorumUserSession
 import kuorum.register.RegisterService
 import kuorum.security.evidences.Evidences
 import kuorum.security.evidences.HttpRequestRecoverEvidences
-import kuorum.users.extendedPoliticianData.PoliticianRelevantEvent
+import kuorum.users.CookieUUIDService
 import kuorum.users.extendedPoliticianData.ProfessionalDetails
 import kuorum.web.commands.profile.*
 import kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand
@@ -31,14 +30,11 @@ import org.kuorum.rest.model.communication.CampaignRSDTO
 import org.kuorum.rest.model.communication.CampaignTypeRSDTO
 import org.kuorum.rest.model.contact.ContactRDTO
 import org.kuorum.rest.model.contact.ContactRSDTO
-import org.kuorum.rest.model.domain.SocialRDTO
 import org.kuorum.rest.model.kuorumUser.KuorumUserExtraDataRSDTO
 import org.kuorum.rest.model.kuorumUser.KuorumUserRSDTO
-import org.kuorum.rest.model.kuorumUser.UserDataRDTO
 import org.kuorum.rest.model.kuorumUser.config.NotificationConfigRDTO
 import org.kuorum.rest.model.kuorumUser.config.NotificationMailConfigRDTO
 import org.kuorum.rest.model.kuorumUser.domainValidation.UserPhoneValidationRDTO
-import org.kuorum.rest.model.kuorumUser.news.UserNewRSDTO
 import org.kuorum.rest.model.kuorumUser.validation.UserValidationRSDTO
 import org.kuorum.rest.model.notification.campaign.config.NewsletterConfigRQDTO
 import org.kuorum.rest.model.notification.campaign.config.NewsletterConfigRSDTO
@@ -70,6 +66,8 @@ class ProfileController {
     CampaignService campaignService
     Pattern pattern
     Matcher matcher
+    CookieUUIDService cookieUUIDService;
+
 
     def beforeInterceptor = {
         if (springSecurityService.isLoggedIn()) {//Este if es para la confirmacion del email
@@ -725,5 +723,17 @@ class ProfileController {
         } else {
             redirect mapping: 'home', params: [tour: true]
         }
+    }
+    def editAdminFiles() {
+        KuorumUserSession loggedUser = springSecurityService.principal
+        ContactRSDTO adminContact = contactService.getContactByEmail(WebConstants.FAKE_LANDING_ALIAS_USER, loggedUser.email)
+        if (adminContact == null) {
+            ContactRDTO newAdminContact = new ContactRDTO()
+            newAdminContact.setEmail(loggedUser.email)
+            newAdminContact.setName(loggedUser.name)
+            adminContact = contactService.addContact(WebConstants.FAKE_LANDING_ALIAS_USER, newAdminContact)
+        }
+        [contact: adminContact]
+
     }
 }
