@@ -17,7 +17,7 @@ import kuorum.register.KuorumUserSession
 import kuorum.register.RegisterService
 import kuorum.security.evidences.Evidences
 import kuorum.security.evidences.HttpRequestRecoverEvidences
-import kuorum.users.CookieUUIDService
+
 import kuorum.users.extendedPoliticianData.ProfessionalDetails
 import kuorum.web.commands.profile.*
 import kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand
@@ -66,7 +66,6 @@ class ProfileController {
     CampaignService campaignService
     Pattern pattern
     Matcher matcher
-    CookieUUIDService cookieUUIDService;
 
 
     def beforeInterceptor = {
