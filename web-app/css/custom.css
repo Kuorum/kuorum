@@ -3989,6 +3989,7 @@ fieldset > .multiple-range-selector:first-child {margin-top:40px;}
     text-align: center;
     border: 1px solid #EFEFEF;
     display: block;
+    margin-bottom: 20px;
 }
 
 .uploaderImageContainer .qq-upload-drop-area .button-container {width: 80%; margin: 0 auto; border-radius: 4px; padding: 0; }
