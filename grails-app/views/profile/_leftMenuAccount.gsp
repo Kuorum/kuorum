@@ -6,6 +6,9 @@
     <li class="${activeMapping == 'profileChangePass' ? 'active' : ''}">
         <g:link mapping="profileChangePass"><g:message code="profile.menu.changePass"/></g:link>
     </li>
+    <li class="${activeMapping == 'profilePrivateFiles' ? 'active' : ''}">
+        <g:link mapping="profilePrivateFiles"><g:message code="profile.menu.adminPrivateFiles"/></g:link>
+    </li>
     <g:if test="${_isSocialNetwork}">
         <li class="${activeMapping == 'profileEmailNotifications' ? 'active' : ''}">
             <g:link mapping="profileEmailNotifications"><g:message

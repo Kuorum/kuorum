@@ -3989,6 +3989,7 @@ fieldset > .multiple-range-selector:first-child {margin-top:40px;}
     text-align: center;
     border: 1px solid #EFEFEF;
     display: block;
+    margin-bottom: 20px;
 }
 
 .uploaderImageContainer .qq-upload-drop-area .button-container {width: 80%; margin: 0 auto; border-radius: 4px; padding: 0; }
@@ -4430,8 +4431,25 @@ h2.underline {border-bottom: 1px solid #dadada; padding: 0 0 10px 0; margin-top:
 .search-list .search-kuorum-user .box-ppal > small .fa {opacity: .5;}
 .search-list .search-kuorum-user .box-ppal {padding: 0; margin: 0 0 20px 0;box-shadow: 0 0 2px rgba(200,200,200,0.6);}
 .search-list .search-kuorum-user .box-ppal .link-wrapper {padding-bottom: 10px;}
-.search-list .search-kuorum-user .box-ppal .link-wrapper > p {padding: 0 15px; font-size: 13px; font-size: 1.3rem; margin: 0;}
-.search-list .search-kuorum-user .box-ppal > .pull-right {width: 42%; margin: 0; padding: 10px; font-size: 18px; font-size: 1.8rem; text-align: right;}
+.search-list .search-kuorum-user .box-ppal .link-wrapper > p {
+    padding: 0 15px;
+    font-size: 13px;
+    font-size: 1.3rem;
+    margin: 0;
+}
+
+.search-list .search-kuorum-user .box-ppal .link-wrapper > h5 {
+    padding: 0 10px;
+}
+
+.search-list .search-kuorum-user .box-ppal > .pull-right {
+    width: 42%;
+    margin: 0;
+    padding: 10px;
+    font-size: 18px;
+    font-size: 1.8rem;
+    text-align: right;
+}
 .search-list .search-kuorum-user .box-ppal .card-footer{
     position: absolute;
     bottom: 10px;

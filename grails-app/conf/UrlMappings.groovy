@@ -236,7 +236,8 @@ class UrlMappings {
         name contestApplicationEditSettings: "/account/$userAlias/cta/$contestTitle-$contestId/$urlTitle-$campaignId/edit-settings"  (controller: "contestApplication"){action = [GET: "editSettingsStep", POST: "saveSettings"]}
         name contestApplicationEditContent: "/account/$userAlias/cta/$contestTitle-$contestId/$urlTitle-$campaignId/edit-content"  (controller: "contestApplication"){action = [GET: "editContentStep", POST: "saveContent"]}
         name contestApplicationEditProfile: "/account/$userAlias/cta/$urlTitle-$campaignId/edit-profile"    (controller: "contestApplication"){action = [GET: "editProfileStep", POST: "saveProfileStep"]}
-        name contestApplicationEditEnvironment: "/account/$userAlias/cta/$contestTitle-$contestId/$urlTitle-$campaignId/edit-scope"  (controller: "contestApplication"){action = [GET: "editScopeStep", POST: "saveScope"]}
+        name contestApplicationEditScope: "/account/$userAlias/cta/$contestTitle-$contestId/$urlTitle-$campaignId/edit-scope"  (controller: "contestApplication"){action = [GET: "editScopeStep", POST: "saveScope"]}
+        name contestApplicationEditAuthorizations: "/account/$userAlias/cta/$contestTitle-$contestId/$urlTitle-$campaignId/edit-authorizations"  (controller: "contestApplication"){action = [GET: "editAuthorizationsStep", POST: "saveAuthorizations"]}
         name contestApplicationRemove:  "/ajax/account/$userAlias/cta/$urlTitle-$campaignId/remove"    (controller: "contestApplication", action:"remove")
         name contestApplicationShow:    "/$userAlias/$contestTitle-$contestId/$urlTitle-$campaignId"           (controller: "campaign", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it)})}}
 
@@ -272,6 +273,7 @@ class UrlMappings {
         name profileEditUser:               "/edit-profile"                                    (controller: "profile"){action =[GET:"editUser", POST:"editUserSave"]}
         name profileChangePass:             "/edit-profile/change-password"                    (controller: "profile"){action =[GET:"changePassword", POST:"changePasswordSave"]}
         name profileSetPass:                "/edit-profile/create-password"                    (controller: "profile"){action =[GET:"setPassword", POST:"setPasswordSave"]}
+        name profilePrivateFiles:           "/edit-profile/private-files"                      (controller: "profile", action:"editAdminFiles")
         name profileChangeEmail:            "/edit-profile/change-email"                       (controller: "profile"){action =[GET:"changeEmail", POST:"changeEmailSave"]}
         name profileChangeEmailSent:        "/edit-profile/change-email/request-received"      (controller: "profile", action :"changeEmailConfirmSent")
         name profileChangeEmailResend:      "/edit-profile/change-email/resend-email"          (controller: "profile", action :"updateUserEmail")

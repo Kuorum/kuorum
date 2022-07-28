@@ -476,7 +476,7 @@ class CampaignController {
     }
 
     private boolean checkPictures(KuorumUserRSDTO user) {
-        return user.getAvatarUrl() && user.getUrlImageProfile()
+        return user.getAvatarUrl()
     }
 
     private boolean checkFiles(BasicDataKuorumUserRSDTO campaignOwner, ContactRSDTO ownerContact) {

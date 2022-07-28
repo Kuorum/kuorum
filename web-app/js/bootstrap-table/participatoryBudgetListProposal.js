@@ -14,14 +14,14 @@ $(function(){
         var changeStatusData = {
             'status' : status
         }
-        pageLoadingOn();
+        pageLoadingOn("Changing status of a participatory budget");
         $.post(url, changeStatusData)
-            .done(function(data){
-                if (data.success){
+            .done(function (data) {
+                if (data.success) {
                     participatoryBudgetListProposalHelper.refreshTable();
                     $("#changeParticipatoryBudgetStatusModal").modal("hide")
                     $("#changeParticipatoryBudgetBtnStatusText").html(statusText)
-                }else{
+                } else {
                     display.warn(data.msg)
                 }
             })
@@ -29,7 +29,7 @@ $(function(){
                 display.warn("There was an error changing the status");
             })
             .always(function() {
-                pageLoadingOff();
+                pageLoadingOff("Changing status of a participatory budget");
             });
     })
 });
