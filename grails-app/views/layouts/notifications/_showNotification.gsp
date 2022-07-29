@@ -42,13 +42,21 @@
     <g:render template="/layouts/notifications/districtProposalSupportNotification" model='[notification:notification]'/>
 </g:elseif>
 <g:elseif test="${notification instanceof org.kuorum.rest.model.notification.NotificationDistrictProposalVoteRSDTO}">
-    <g:render template="/layouts/notifications/districtProposalVoteNotification" model='[notification:notification]'/>
+    <g:render template="/layouts/notifications/districtProposalVoteNotification" model='[notification: notification]'/>
 </g:elseif>
 <g:elseif test="${notification instanceof org.kuorum.rest.model.notification.NotificationPetitionSignRSDTO}">
-    <g:render template="/layouts/notifications/petitionSignedNotification" model='[notification:notification]'/>
+    <g:render template="/layouts/notifications/petitionSignedNotification" model='[notification: notification]'/>
 </g:elseif>
 <g:elseif test="${notification instanceof org.kuorum.rest.model.notification.NotificationPetitionNewRSDTO}">
-    <g:render template="/layouts/notifications/petitionCreatedNotification" model='[notification:notification]'/>
+    <g:render template="/layouts/notifications/petitionCreatedNotification" model='[notification: notification]'/>
+</g:elseif>
+<g:elseif test="${notification instanceof org.kuorum.rest.model.notification.NotificationContestApplicationNewRSDTO}">
+    <g:render template="/layouts/notifications/contestApplicationNewNotifications"
+              model='[notification: notification]'/>
+</g:elseif>
+<g:elseif test="${notification instanceof org.kuorum.rest.model.notification.NotificationContestApplication}">
+    <g:render template="/layouts/notifications/contestApplicationNewNotifications"
+              model='[notification: notification]'/>
 </g:elseif>
 <g:elseif env="development">
     NOT DONE ${notification.class.name}
