@@ -22,7 +22,11 @@
                 code="admin.menu.domainConfig.requestCustomDomain"/></g:link>
     </li>
     <li class="${activeMapping == 'adminDomainValidation' ? 'active' : ''}">
-        <g:link mapping="adminDomainValidation"><g:message code="admin.menu.domainValidation.link"/></g:link>
+        <g:link mapping="adminDomainValidation">
+            <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top"
+                  title="${g.message(code: 'admin.menu.domainValidation.link.info')}"></span> <g:message
+                code="admin.menu.domainValidation.link"/>
+        </g:link>
     </li>
     <li class="${activeMapping == 'adminDomainDelete' ? 'active' : ''}">
         <g:link mapping="adminDomainDelete"><g:message code="admin.menu.domainConfig.deleteDomain.title"/></g:link>
