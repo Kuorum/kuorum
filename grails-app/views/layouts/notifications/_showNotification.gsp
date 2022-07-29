@@ -54,8 +54,8 @@
     <g:render template="/layouts/notifications/contestApplicationNewNotifications"
               model='[notification: notification]'/>
 </g:elseif>
-<g:elseif test="${notification instanceof org.kuorum.rest.model.notification.NotificationContestApplication}">
-    <g:render template="/layouts/notifications/contestApplicationNewNotifications"
+<g:elseif test="${notification instanceof org.kuorum.rest.model.notification.NotificationContestApplicationApprovedRSDTO}">
+    <g:render template="/layouts/notifications/contestApplicationApprovedNotifications"
               model='[notification: notification]'/>
 </g:elseif>
 <g:elseif env="development">
