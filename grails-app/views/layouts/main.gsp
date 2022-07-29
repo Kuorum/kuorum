@@ -86,7 +86,7 @@
 </g:if>
 <sec:ifAnyGranted roles="ROLE_INCOMPLETE_USER">
     <nav:ifActiveMapping
-            mappingNames="customProcessRegisterStep2, customProcessRegisterStep3, registerSubscriptionStep1, registerSubscriptionStep1Save, registerSubscriptionStep3"
+            mappingNames="customProcessRegisterStep2, customProcessRegisterStep3, registerSubscriptionStep1, registerSubscriptionStep1Save, registerSubscriptionStep3, funnelFillBasicData, funnelFillImages, funnelFillFiles, funnelFillSocial"
             equals="false">
         <r:script>
             function notMailConfirmedWarn(){
