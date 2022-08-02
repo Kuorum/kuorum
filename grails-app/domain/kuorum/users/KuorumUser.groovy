@@ -28,6 +28,7 @@ class KuorumUser {
     String alias
     List<String> oldAlias
     String bio
+    String bio2
 //    String username
     String password
     AvailableLanguage language = AvailableLanguage.en_EN

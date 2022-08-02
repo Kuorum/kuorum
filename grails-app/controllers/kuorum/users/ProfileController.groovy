@@ -603,10 +603,12 @@ class ProfileController {
 
     def funnelFillBasicData() {
         KuorumUser user = params.user
+
         FunnelFillBasicDataCommand command = new FunnelFillBasicDataCommand();
 //        command.name = user.name // Is not se because we want to force to update the name to the association nam
         command.email = user.email
         command.bio = user.bio
+        command.bio2 = user.bio2
         command.phone = user.personalData?.telephone
         command.phonePrefix = user.personalData?.phonePrefix
         command.nid = user.nid
@@ -630,13 +632,8 @@ class ProfileController {
         if (user.personalData == null) {
             user.personalData = new PersonalData()
         }
-        user.bio = """
-            <h5>${g.message(code: 'asoc.bio.title1')}</h5>
-            <p>${command.bio}</p>
-            <br/>
-            <h5>${g.message(code: 'asoc.bio.title2')}</h5>
-            <p>${command.bio2}</p>
-"""
+        funnelFillBio(command, user)
+
         user.personalData.phonePrefix = command.phonePrefix
         user.personalData.telephone = command.phone
         user.name = command.name
@@ -652,6 +649,17 @@ class ProfileController {
         contact.setExternalId(command.nid);
         ContactRSDTO contactUpdated = contactService.updateContact(WebConstants.FAKE_LANDING_ALIAS_USER, contact, contact.getId())
         redirect mapping: 'funnelFillImages', params: [campaignId: params.campaignId]
+    }
+
+    def void funnelFillBio(FunnelFillBasicDataCommand command, KuorumUser user) {
+        String filter = g.message(code: 'asoc.bio.title1')
+        if (command.bio.contains(filter)) {
+            user.bio = """<p>${command.bio}</p>"""
+            user.bio2 = """<p>${command.bio2}</p>"""
+        } else {
+            user.bio = """<h5><b>${g.message(code: 'asoc.bio.title1')}</b></h5><p>${command.bio}</p>"""
+            user.bio2 = """<h5><b>${g.message(code: 'asoc.bio.title2')}</b></h5><p>${command.bio2}</p>"""
+        }
     }
 
     def funnelFillImages() {
@@ -683,7 +691,7 @@ class ProfileController {
     }
 
     def saveFunnelFillFiles() {
-        ContactRSDTO adminContact =  getAdminContact()
+        ContactRSDTO adminContact = getAdminContact()
         List<String> contactFiles = contactService.getFiles(WebConstants.FAKE_LANDING_ALIAS_USER, adminContact)
         if (contactFiles.size() < WebConstants.MIN_FILES_PER_DOC_IN_CONTEST) {
             flash.error = g.message(code: "kuorum.web.commands.profile.funnel.files.minFiles")

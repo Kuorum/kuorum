@@ -28,6 +28,7 @@ class FunnelFillBasicDataCommand {
         this.phone = user.personalData?.telephone ?: ''
         this.phonePrefix = user.personalData?.phonePrefix ?: ''
         this.bio = user.bio
+        this.bio2 = user.bio2
 
     }
 
