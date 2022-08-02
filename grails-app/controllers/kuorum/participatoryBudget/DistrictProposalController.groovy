@@ -107,6 +107,12 @@ class DistrictProposalController extends CampaignController {
         return campaignRDTO
     }
 
+    private void setCampaignName(DistrictProposalRDTO districtProposalRDTO, CampaignContentCommand command) {
+        if (districtProposalRDTO.name == null) {
+            districtProposalRDTO.name = command.title
+        }
+    }
+
     private void setDistrictProposalFields(DistrictProposalRDTO districtProposalRDTO, NewDistrictProposalWithDistrictCommand newDistrictProposalWithDistrictCommand) {
         districtProposalRDTO.districtId = newDistrictProposalWithDistrictCommand.districtId
         districtProposalRDTO.causes = [newDistrictProposalWithDistrictCommand.cause]
