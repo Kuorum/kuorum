@@ -607,6 +607,7 @@ class ProfileController {
 //        command.name = user.name // Is not se because we want to force to update the name to the association nam
         command.email = user.email
         command.bio = user.bio
+        command.bio2 = user.bio2
         command.phone = user.personalData?.telephone
         command.phonePrefix = user.personalData?.phonePrefix
         command.nid = user.nid
@@ -630,6 +631,7 @@ class ProfileController {
         if (user.personalData == null) {
             user.personalData = new PersonalData()
         }
+
         user.bio = """
             <h5>${g.message(code: 'asoc.bio.title1')}</h5>
             <p>${command.bio}</p>
@@ -637,6 +639,12 @@ class ProfileController {
             <h5>${g.message(code: 'asoc.bio.title2')}</h5>
             <p>${command.bio2}</p>
 """
+        String filteredBio = user.bio.replaceAll("<br/>", "@")
+        List arrayBio = filteredBio.split("@")
+        // Used magic numbers because there are only two bio fields
+        user.bio = arrayBio.get(0)
+        user.bio2 = arrayBio.get(1)
+
         user.personalData.phonePrefix = command.phonePrefix
         user.personalData.telephone = command.phone
         user.name = command.name
@@ -683,7 +691,7 @@ class ProfileController {
     }
 
     def saveFunnelFillFiles() {
-        ContactRSDTO adminContact =  getAdminContact()
+        ContactRSDTO adminContact = getAdminContact()
         List<String> contactFiles = contactService.getFiles(WebConstants.FAKE_LANDING_ALIAS_USER, adminContact)
         if (contactFiles.size() < WebConstants.MIN_FILES_PER_DOC_IN_CONTEST) {
             flash.error = g.message(code: "kuorum.web.commands.profile.funnel.files.minFiles")
