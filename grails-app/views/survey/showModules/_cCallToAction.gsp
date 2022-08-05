@@ -1,3 +1,5 @@
+<g:set var="enabledForAdmin" value="${grails.plugin.springsecurity.SpringSecurityUtils.ifAnyGranted("ROLE_ADMIN")}"/>
+<g:set var="enabledForSuperAdmin" value="${grails.plugin.springsecurity.SpringSecurityUtils.ifAnyGranted("ROLE_SUPER_ADMIN")}"/>
 <g:set var="callTitleMsg" value="${g.message(code: 'survey.callToAction.draft.title')}"/>
 <g:set var="callSubtitleMsg" value="${g.message(code: 'survey.callToAction.draft.subtitle')}"/>
 <g:set var="callButtonMsg" value=""/>
@@ -16,13 +18,13 @@
     <g:if test="${survey.endDate?.before(new Date())}">
         <g:set var="callClosedTimeAgo"><kuorumDate:humanDate date="${survey.endDate}"/></g:set>
         <g:set var="callSubtitleMsg"
-               value="${g.message(code: "survey.callToAction.closed.subtitle.after", args: [callClosedTimeAgo], encodeAs: "raw")}"/>
+        value="${g.message(code: "survey.callToAction.closed.subtitle.after", args: [callClosedTimeAgo], encodeAs: "raw")}"/>
         <g:set var="callButtonMsg" value="${g.message(code: "survey.callToAction.closed.button.after")}"/>
     </g:if>
     <g:else>
         <g:set var="callClosedTimeAgo"><kuorumDate:humanDate date="${survey.startDate}"/></g:set>
         <g:set var="callSubtitleMsg"
-               value="${g.message(code: "survey.callToAction.closed.subtitle.before", args: [callClosedTimeAgo], encodeAs: "raw")}"/>
+        value="${g.message(code: "survey.callToAction.closed.subtitle.before", args: [callClosedTimeAgo], encodeAs: "raw")}"/>
         <g:set var="callButtonMsg" value="${g.message(code: "survey.callToAction.closed.button.before")}"/>
     </g:else>
 </g:if>
@@ -32,7 +34,8 @@
         <span class="call-title">${callTitleMsg}</span>
         <span class="call-subTitle">${callSubtitleMsg}</span>
     </div>
-    <g:if test="${survey.published && survey.campaignVisibility == org.kuorum.rest.model.communication.survey.CampaignVisibilityRSDTO.VISIBLE}">
+    <g:if test="${ survey.published && survey.campaignVisibility == org.kuorum.rest.model.communication.survey.CampaignVisibilityRSDTO.VISIBLE ||
+            enabledForAdmin && survey.campaignVisibility == org.kuorum.rest.model.communication.survey.CampaignVisibilityRSDTO.RESTRICTED || enabledForSuperAdmin}">
         <div class="actions clearfix">
             <button type="button" class="btn btn-blue btn-lg" data-goto="#survey-questions"
                     id="survey-call-to-action">
