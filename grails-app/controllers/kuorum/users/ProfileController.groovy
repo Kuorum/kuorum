@@ -653,7 +653,7 @@ class ProfileController {
         KuorumUser user = params.user
         EditProfilePicturesCommand command = new EditProfilePicturesCommand(user)
 
-        [command: command]
+        [command: command, campaignId: params.campaignId]
     }
 
     def saveFunnelFillImages(EditProfilePicturesCommand command) {
@@ -674,7 +674,7 @@ class ProfileController {
 
     def funnelFillFiles() {
         ContactRSDTO contactRSDTO = getAdminContact()
-        [contact: contactRSDTO]
+        [contact: contactRSDTO, campaignId: params.campaignId]
     }
 
     def saveFunnelFillFiles() {
@@ -689,7 +689,9 @@ class ProfileController {
     }
 
     def funnelFillSocial() {
-        return socialNetworks()
+        def model = socialNetworks()
+        model + [campaignId: params.campaignId]
+        model
     }
 
     def saveFunnelFillSocial(SocialNetworkCommand command) {
