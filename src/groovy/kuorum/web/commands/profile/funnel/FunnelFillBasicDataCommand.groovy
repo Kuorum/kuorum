@@ -12,6 +12,7 @@ import org.codehaus.groovy.grails.web.context.ServletContextHolder
 import org.codehaus.groovy.grails.web.servlet.GrailsApplicationAttributes
 import org.grails.databinding.BindUsing
 import org.grails.databinding.SimpleMapDataBindingSource
+import org.jsoup.Jsoup
 import org.kuorum.rest.model.geolocation.RegionRSDTO
 
 /**
@@ -21,16 +22,6 @@ import org.kuorum.rest.model.geolocation.RegionRSDTO
 class FunnelFillBasicDataCommand {
 
     FunnelFillBasicDataCommand() {}
-
-    FunnelFillBasicDataCommand(KuorumUser user) {
-        this.name = user.name
-        this.email = user.email
-        this.phone = user.personalData?.telephone ?: ''
-        this.phonePrefix = user.personalData?.phonePrefix ?: ''
-        this.bio = user.bio
-
-    }
-
     String name
     String email
     String phonePrefix
@@ -78,5 +69,41 @@ class FunnelFillBasicDataCommand {
         String s = java.text.Normalizer.normalize(alias, java.text.Normalizer.Form.NFD)
         s = s.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "")
         return s
+    }
+
+    // This method is a fake to simulate 2 fields in the funnel, but in DDBB will be saved only one field -> BIO
+    void fillBioParts(String bio) {
+        String bioTransformed = bio
+                .replaceAll(/<h5>[^<]*<\/h5>/, "|")
+                .replaceAll("<br/>", "")
+        String[] bioParts = bioTransformed.split("\\|");
+        switch (bioParts.size()) {
+            case 0:
+                this.bio = ""
+                this.bio2 = ""
+                break
+            case 1:
+                this.bio = bioParts[0]
+                this.bio2 = ""
+                break
+            case 2:
+                this.bio = bioParts[1]
+                this.bio2 = ""
+                break
+            default:
+                this.bio = bioParts[1]
+                this.bio2 = bioParts[2]
+        }
+    }
+
+    // This method builds the final bio recovering both bio fields
+    String getCompleteBio(String title1, String title2) {
+        return """
+            <h5>${title1}</h5>
+            <p>${this.bio}</p>
+            <h5>${title2}</h5>
+            <p>${this.bio2}</p>
+        """
+
     }
 }
