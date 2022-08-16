@@ -25,6 +25,7 @@ import kuorum.web.commands.profile.politician.RelevantEventsCommand
 import kuorum.web.constants.WebConstants
 import org.bson.types.ObjectId
 import org.codehaus.groovy.runtime.InvokerHelper
+import org.jsoup.Jsoup
 import org.kuorum.rest.model.communication.CampaignRSDTO
 import org.kuorum.rest.model.communication.CampaignTypeRSDTO
 import org.kuorum.rest.model.contact.ContactRDTO
@@ -606,7 +607,7 @@ class ProfileController {
         FunnelFillBasicDataCommand command = new FunnelFillBasicDataCommand();
 //        command.name = user.name // Is not se because we want to force to update the name to the association nam
         command.email = user.email
-        command.bio = user.bio
+        command.fillBioParts(user.bio)
         command.phone = user.personalData?.telephone
         command.phonePrefix = user.personalData?.phonePrefix
         command.nid = user.nid
@@ -630,13 +631,7 @@ class ProfileController {
         if (user.personalData == null) {
             user.personalData = new PersonalData()
         }
-        user.bio = """
-            <h5>${g.message(code: 'asoc.bio.title1')}</h5>
-            <p>${command.bio}</p>
-            <br/>
-            <h5>${g.message(code: 'asoc.bio.title2')}</h5>
-            <p>${command.bio2}</p>
-"""
+        user.bio = command.getCompleteBio(g.message(code: 'asoc.bio.title1'), g.message(code: 'asoc.bio.title2'))
         user.personalData.phonePrefix = command.phonePrefix
         user.personalData.telephone = command.phone
         user.name = command.name
@@ -658,7 +653,7 @@ class ProfileController {
         KuorumUser user = params.user
         EditProfilePicturesCommand command = new EditProfilePicturesCommand(user)
 
-        [command: command]
+        [command: command, campaignId: params.campaignId]
     }
 
     def saveFunnelFillImages(EditProfilePicturesCommand command) {
@@ -679,7 +674,7 @@ class ProfileController {
 
     def funnelFillFiles() {
         ContactRSDTO contactRSDTO = getAdminContact()
-        [contact: contactRSDTO]
+        [contact: contactRSDTO, campaignId: params.campaignId]
     }
 
     def saveFunnelFillFiles() {
@@ -694,7 +689,9 @@ class ProfileController {
     }
 
     def funnelFillSocial() {
-        return socialNetworks()
+        def model = socialNetworks()
+        model + [campaignId: params.campaignId]
+        model
     }
 
     def saveFunnelFillSocial(SocialNetworkCommand command) {
