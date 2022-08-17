@@ -37,29 +37,41 @@
             <div class="form-group col-md-6">
                 <formUtil:input
                         command="${command}"
-                        field="email"
-                        cssClass="form-control input-lg"
-                        showLabel="true"
-                        showCharCounter="false"
-                        disabled="true"/>
-            </div>
-        </fieldset>
-        <fieldset aria-live="polite" class="row">
-            <div class="form-group col-md-6">
-                <formUtil:input
-                        command="${command}"
                         field="nid"
                         cssClass="form-control input-lg"
                         showLabel="true"
                         showCharCounter="false"/>
             </div>
 
-            <div class="form-group form-group-phone col-md-6">
-                <formUtil:selectPhonePrefix command="${command}" field="phonePrefix" showLabel="true"
-                                            label="${g.message(code: 'kuorum.web.commands.payment.contact.ContactCommand.phone.label')}"/>
-                <formUtil:input command="${command}" field="phone" showLabel="true" type="number"/>
-            </div>
         </fieldset>
+    <fieldset aria-live="polite" class="row">
+        <div class="form-group col-md-6">
+            <formUtil:input
+                    command="${command}"
+                    field="contactName"
+                    cssClass="form-control input-lg"
+                    showLabel="true"
+                    showCharCounter="false"/>
+        </div>
+
+        <div class="form-group col-md-6">
+            <formUtil:input
+                    command="${command}"
+                    field="email"
+                    cssClass="form-control input-lg"
+                    showLabel="true"
+                    showCharCounter="false"
+                    disabled="true"/>
+        </div>
+    </fieldset>
+    <fieldset aria-live="polite" class="row">
+        <div class="form-group form-group-phone col-md-6">
+            <formUtil:selectPhonePrefix command="${command}" field="phonePrefix" showLabel="true"
+                                        label="${g.message(code: 'kuorum.web.commands.payment.contact.ContactCommand.phone.label')}"/>
+            <formUtil:input command="${command}" field="phone" showLabel="true" type="number"/>
+        </div>
+
+    </fieldset>
     <fieldset aria-live="polite" class="row">
         <div class="form-group col-xs-12">
             <formUtil:textArea command="${command}" field="bio" showLabel="true" texteditor="texteditor"/>
@@ -72,9 +84,7 @@
 
     <fieldset aria-live="polite" class="row">
         <div class="form-group text-center option-buttons">
-            %{--<label><g:message code="customRegister.step2.choseUserType.label"/> </label>--}%
             <input type="submit" value="${g.message(code: 'customRegister.step2.submit')}" class="btn btn-lg">
-            %{--<input type="submit" id="submitCitizen" value="${g.message(code:'customRegister.step2.choseUserType.citizen')}" class="btn btn-blue btn-lg">--}%
         </div>
     </fieldset>
     </form>

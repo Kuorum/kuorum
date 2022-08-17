@@ -12,6 +12,7 @@ import org.apache.commons.lang.StringUtils
 import org.bson.types.ObjectId
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
+import org.jsoup.nodes.Element
 import org.jsoup.safety.Whitelist
 
 /**
@@ -197,6 +198,7 @@ class KuorumUser {
                 .addAttributes("ul", "type")
                 .addProtocols("a", "href", "ftp", "http", "https", "mailto");
         str = Jsoup.clean(str, whitelist);
+        str = str.replaceAll("\\n", "")
         return str;
     }
 

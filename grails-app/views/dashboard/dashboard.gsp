@@ -23,11 +23,11 @@
                 <div class="box-ppal">
                     <p>
                         <span class="text-empty-campaignList">
-                            <g:if test="${_isSurveyPlatform}">
-                                <g:message code='dashboard.payment.followinList.empty'/>
+                            <g:if test="${_isSocialNetwork}">
+                                <g:message code='dashboard.payment.followingCampaignList.empty'/>
                             </g:if>
                             <g:else>
-                                <g:message code='dashboard.payment.followingCampaignList.empty'/>
+                                <g:message code='dashboard.payment.followinList.empty'/>
                             </g:else>
                         </span>
                         <span class="icon-empty-campaignList">
@@ -65,7 +65,7 @@
         <div class="col-md-4">
             <g:render template="/dashboard/payment/dashboardModules/dashboardPoliticianProfile"
                       model="[user: user, emptyEditableData: emptyEditableData, numberCampaigns: numberCampaigns]"/>
-            <g:if test="${!_isSurveyPlatform}">
+            <g:if test="${_isSocialNetwork}">
                 <g:render template="/dashboard/payment/dashboardModules/followOtherPoliticians"/>
             </g:if>
         </div>

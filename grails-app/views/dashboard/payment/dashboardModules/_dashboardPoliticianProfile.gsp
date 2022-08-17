@@ -1,6 +1,6 @@
 <g:set var="percentageComplete"
        value="${g.formatNumber(number: emptyEditableData.percentage, type: "number", maxFractionDigits: 0)}%"/>
-<div class="box-ppal ${_isSurveyPlatform ? 'SURVEY_PLATFORM' : ''}" id="politicianProfile">
+<div class="box-ppal ${_isSocialNetwork ? '' : 'hideSocialOptions'}" id="politicianProfile">
     <div class="user" itemscope="" itemtype="http://schema.org/Person">
         <div id="profileInfo" class="clearfix">
             <div id="progressProfile">

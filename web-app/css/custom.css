@@ -1774,11 +1774,12 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 #campaignsList > li.APPROVED > .state {
     background-image: url('data:image/png;base64,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Imh0dHA6Ly9ucy5hZG9iZS5jb20vdGlmZi8xLjAvIgogICAgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIgogICB4bXBNTTpEb2N1bWVudElEPSJnaW1wOmRvY2lkOmdpbXA6NDEyZDlkMzEtODY1MS00MDVkLTk3YTItMzI3N2E5ZGRiYWRjIgogICB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjk4ZjVjMjkwLWYxYzgtNDM4ZC1iZmYyLWZiZmRiZTU2ZThiMCIKICAgeG1wTU06T3JpZ2luYWxEb2N1bWVudElEPSJ4bXAuZGlkOjFlOWYyNTEzLTY3NzgtNDlhZS05ZmMxLTgwNjYxOGFjZjNiZSIKICAgZGM6Rm9ybWF0PSJpbWFnZS9wbmciCiAgIEdJTVA6QVBJPSIyLjAiCiAgIEdJTVA6UGxhdGZvcm09IkxpbnV4IgogICBHSU1QOlRpbWVTdGFtcD0iMTY1Nzg3MjgwMjA3ODMzMyIKICAgR0lNUDpWZXJzaW9uPSIyLjEwLjMwIgogICB0aWZmOk9yaWVudGF0aW9uPSIxIgogICB4bXA6Q3JlYXRvclRvb2w9IkdJTVAgMi4xMCI+CiAgIDx4bXBNTTpIaXN0b3J5PgogICAgPHJkZjpTZXE+CiAgICAgPHJkZjpsaQogICAgICBzdEV2dDphY3Rpb249InNhdmVkIgogICAgICBzdEV2dDpjaGFuZ2VkPSIvIgogICAgICBzdEV2dDppbnN0YW5jZUlEPSJ4bXAuaWlkOmJkZDNkY2IxLTJlY2QtNDU4OC05MDhlLWZjODVkOTY1Njk3MyIKICAgICAgc3RFdnQ6c29mdHdhcmVBZ2VudD0iR2ltcCAyLjEwIChMaW51eCkiCiAgICAgIHN0RXZ0OndoZW49IjIwMjItMDctMTVUMTA6MTM6MjIrMDI6MDAiLz4KICAgIDwvcmRmOlNlcT4KICAgPC94bXBNTTpIaXN0b3J5PgogIDwvcmRmOkRlc2NyaXB0aW9uPgogPC9yZGY6UkRGPgo8L3g6eG1wbWV0YT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgIAo8P3hwYWNrZXQgZW5kPSJ3Ij8+NAnkigAAAAZiS0dEAAAAAAAA+UO7fwAAAAlwSFlzAAAuIwAALiMBeKU/dgAAAAd0SU1FB+YHDwgNFqnjBN0AAAAZdEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAACFUlEQVRIx83VS6iNURQH8N93XPfeRB7fwCvyKpKMvBm4YWTkWeIz8ZoYUZSZlBmZmCnymVEUA648iiTKO4q8BsrrS8gz7jG4i04Hp3N1Tlm1W+vbe3/993/vtf4rUcvyIsFKTEM/7JKld/TQWmoA9EYn5lbM9sWynoKUaqytDYAHyPAai+XF0EaCzAu/VZYewsHYv6aRIH3Cvw2/F2Wsb8+LUqNAXoUfBLL0EU5ixGeWNgrkSfjJFXN7wm9qFMiV8NN+zWRpJ25jurxYUC9IUpW2gzEDEyNdt+EzUln6MfYswRHcSZhVztL39YHkRTt2Y8Nf2C2XpYcrDnMWHbiHjbL0bD3FuC8q+x2OVrzHMIzC9ar/FgWb+TgjL67heKhCtV1N5MUcXIhsmipLn9b9onmxCtsxpsauD6WobNjeI4DuRDjUliTj4poF42UVowullnhoOOYf7MuqQWV5cT8+X8jSIxVMf6Xw8DjVM02yEr5VyHrTQB5GPKGZII8jHt9MkJsRT2omyK2IZzQLpAWXo0/Mlhe9ZOn3OguxAyvQv2YbR4ssfSkvLmMmVmN/Tep50drFTmz+w3JXkhet5Srx/SmQC3ECX3EaN0Jmnkdn/B66NB7rMDrmt+EuRuLAb6rebZ+SCvpbsAOtdVzWeayVpQ+hNS9KXzkVGhZElGNcrO4nAzEFYzEkTj8AbXgTzM7J0kv+N/sBWaCQxTtUq6wAAAAASUVORK5CYII=');
 }
-
+#campaignsList > li.REJECT > .state {
+   background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAIAAABLixI0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAKdSURBVEhLvZTNaxNRFMUf2vrRlCCm7ixaNdJSKy0WbN2Jn2Ch6aIgrrvQhX+G0p1QcCGCorip4k53/hUFTdJMYpMmsYLTD7pJZkzG38y9EzsxtQjFQxjuOe/cMy/vvXnG2z/8l6xGw7UfLZQuT1tHB5fNSZ7UKOjq+AOds6qpubTpyph4xvRmTCxjeoIndTxtuhlVXxTtWfXC14w5ljXH0+ZIaSK19fpdPV9w7Q2e1Chpc5hRPDi1J0Qki+G0OZQ1iUJizF23VY3Cte1CYhQPzra4SFYwo8TqlRnluwMPTvzKA/zOqkzPMfl8YlT5XsCJny7lraxmw2WxWSP+gijb7z+uDF1rCglAjYIuFCd+uugVRbPsxwvsUWliWigoXrzN3nEalHseNQq6cs/DTxe9QjWLs8OWb716K1SQMwNZcyJnTjcatbAe0LEA+OmiV6hmWT2DvLNu5YW2YB1IBtOJ+8f1YFLVEHXLootjLFSzlk0/qvuj/Rw0vZ8EWeYcz6bXUDUE/mAd+oWG84oN+fPKWUJbyJlTrXlRqxoCvz+v2JDQcL0mZ/jnmy8WhQJ2jX7WyOpKUvMHqVF27uzmy0V/vSZTQjXLnn/Ky4vjU0LByvB1PsOcOaPcn+NZlJXhG8rZ60tTdNErVLOaXpOP1j9fa99F2f7waWe0oDQ+hS61u7YWnK9uekXRLFCdfeCf+/gF5XsBJ/7q7H3lO7MAn1jW9BXH7ijfHXhw4lceIJLllKvBPdFn9Q475YqqUTjlMqN4uHzaPJEs4FSqwQv9+6s4cmvj2Zva0henulpb+kxdHLmJzigenNoToj1L8O3eQxaVPQruUm5U+em9yqj6ouicJVh/8nz16l3ullz3eZ7UKDrWCX/L+lcYZ7/gOL8AuhH7H0fK6dQAAAAASUVORK5CYII=');
+}
 #campaignsList > li > .name > .date {
     display: none;
 }
-
 #campaignsList > li.SCHEDULED > .name > .date,
 #campaignsList > li.SENT > .name > .date {
     display: inline-block;
@@ -1919,17 +1920,17 @@ ul.files-list li a.file-action:hover{ color:#167caa;}
     margin: 0;
 }
 
-.box-ppal#politicianProfile.SURVEY_PLATFORM {
+.box-ppal#politicianProfile.hideSocialOptions {
     text-align: center
 }
 
-.box-ppal#politicianProfile.SURVEY_PLATFORM #profileInfo {
+.box-ppal#politicianProfile.hideSocialOptions #profileInfo {
     margin-left: calc(50% - 60px);
 }
 
-.box-ppal#politicianProfile.SURVEY_PLATFORM #profileInfo #progressLine,
-.box-ppal#politicianProfile.SURVEY_PLATFORM #profileInfo #progressLine + span,
-.box-ppal#politicianProfile.SURVEY_PLATFORM .activity {
+.box-ppal#politicianProfile.hideSocialOptions #profileInfo #progressLine,
+.box-ppal#politicianProfile.hideSocialOptions #profileInfo #progressLine + span,
+.box-ppal#politicianProfile.hideSocialOptions .activity {
     display: none;
 }
 
@@ -1985,6 +1986,7 @@ ul.user-list-followers .loading.xs {
 
 #profileInfo {position: relative; font-size: 15px; font-size: 1.5rem;}
 #progressProfile {overflow: hidden; position: relative; background-color: #e5e5e5; display: block; float: left; border-radius: 50%; width: 120px; height: 120px; z-index: 2;}
+
 #progressProfileFill {
     width: 100%;
     overflow: hidden;
@@ -1994,8 +1996,19 @@ ul.user-list-followers .loading.xs {
     bottom: 0;
     height: 0%;
 }
-.SURVEY_PLATFORM #progressProfileFill {height: 100% !important; /* Survey platform doesn't show the progress var*/}
-#progressLine {display: block; width: 125px; height: 120px; position: absolute; left: 60px; z-index: 1;}
+
+.box-ppal#politicianProfile.hideSocialOptions #progressProfileFill {
+    height: 100% !important; /* Survey platform doesn't show the progress var*/
+}
+
+#progressLine {
+    display: block;
+    width: 125px;
+    height: 120px;
+    position: absolute;
+    left: 60px;
+    z-index: 1;
+}
 #progressLineFill {
     width: 100%;
     overflow: hidden;
@@ -2819,24 +2832,69 @@ END EDIT PARTICPATORY BUDGET
 #tabs-stats-campaign .pag-list-contacts .actions {
     float: left;
 }
-#tabs-stats-campaign .pag-list-contacts .actions a{width: auto;line-height: inherit; margin-bottom:5px;}
-#campaignStatsContainer {height: 355px;}
-#campaignEmailContainer {width: 100%; height: 700px; border: 1px solid #dddddd; margin-bottom: 10px;}
 
-.contact-activity h3 {font-size:1.3em; color:#a8a8a8}
+#tabs-stats-campaign .pag-list-contacts .actions a {
+    width: auto;
+    line-height: inherit;
+    margin-bottom: 5px;
+}
 
-#tabs-stats-campaign #participatoryBudgetProposalReviewTable.table tr.detail-view > td {padding:10px;}
-#tabs-stats-campaign #participatoryBudgetProposalReviewTable.table tr.detail-view > td .box-ppal{margin:0;padding-bottom: 10px;}
-#tabs-stats-campaign #participatoryBudgetProposalReviewTable.table > tbody > tr > td > a {color:inherit; font-weight: bold;}
+#campaignStatsContainer {
+    height: 355px;
+}
+
+#campaignEmailContainer {
+    width: 100%;
+    height: 700px;
+    border: 1px solid #dddddd;
+    margin-bottom: 10px;
+}
+
+.contact-activity h3 {
+    font-size: 1.3em;
+    color: #a8a8a8
+}
+
+#tabs-stats-campaign .list-working-campaign-table.table tr.detail-view > td {
+    padding: 10px;
+}
+
+#tabs-stats-campaign .list-working-campaign-table.table tr.detail-view > td .box-ppal {
+    margin: 0;
+    padding-bottom: 10px;
+}
+
+#tabs-stats-campaign .list-working-campaign-table.table > tbody > tr > td > a {
+    color: inherit;
+    font-weight: bold;
+}
 
 #importContacts-02 table.csv .checkbox-inline,
-#tabs-stats-campaign #participatoryBudgetProposalReviewTable.table .checkbox-inline {margin-left:25px;}
-#importContacts-02 table.csv .checkbox-inline > span.check-box-icon,
-#tabs-stats-campaign #participatoryBudgetProposalReviewTable.table .checkbox-inline > span.check-box-icon {position:relative; padding: 5px 6px;padding: 5px 6px;width: 20px; height: 20px;}
-#importContacts-02 table.csv .checkbox-inline > span.check-box-icon:after,
-#tabs-stats-campaign #participatoryBudgetProposalReviewTable.table .checkbox-inline > span.check-box-icon:after {}
+#tabs-stats-campaign .list-working-campaign-table.table .checkbox-inline {
+    margin-left: 25px;
+}
 
-.open-menu {color: #dbdbdb; position: absolute !important; top: 2px; right: 8px; z-index: 1;}
+#importContacts-02 table.csv .checkbox-inline > span.check-box-icon,
+#tabs-stats-campaign .list-working-campaign-table.table .checkbox-inline > span.check-box-icon {
+    position: relative;
+    padding: 5px 6px;
+    padding: 5px 6px;
+    width: 20px;
+    height: 20px;
+}
+
+#importContacts-02 table.csv .checkbox-inline > span.check-box-icon:after,
+#tabs-stats-campaign .list-working-campaign-table.table .checkbox-inline > span.check-box-icon:after {
+}
+
+.open-menu {
+    color: #dbdbdb;
+    position: absolute !important;
+    top: 2px;
+    right: 8px;
+    z-index: 1;
+}
+
 .box-ppal .link-wrapper:hover,
 .box-ppal .link-wrapper:active,
 .box-ppal .link-wrapper:focus {background-color: #efefef;}
@@ -2866,8 +2924,21 @@ END EDIT PARTICPATORY BUDGET
     padding: 0 0 20px;
     margin-bottom: 20px;}
 .box-ppal-title h1 {margin:0 0 10px 0 !important;font-size: 2.5rem}
-.box-ppal-title h3 {color: #a8a8a8; margin:0px;font-size:1.4rem;}
-.box-ppal.profile {padding: 0; margin-bottom: 10px;}
+.box-ppal-title h3 {
+    color: #a8a8a8;
+    margin: 0px;
+    font-size: 1.4rem;
+}
+
+.box-ppal-action {
+    text-align: right;
+    margin: 20px;
+}
+
+.box-ppal.profile {
+    padding: 0;
+    margin-bottom: 10px;
+}
 .config .box-ppal {padding: 10px;}
 .team > section > .box-ppal{padding:0; margin:0; background-color: transparent;border:0}
 
@@ -3919,12 +3990,19 @@ fieldset > .multiple-range-selector:first-child {margin-top:40px;}
     text-align: center;
     border: 1px solid #EFEFEF;
     display: block;
+    margin-bottom: 20px;
 }
 
 .uploaderImageContainer .qq-upload-drop-area .button-container {width: 80%; margin: 0 auto; border-radius: 4px; padding: 0; }
 
-.uploaderImageContainer.USER_AVATAR  {width: 220px;}
-.uploaderImageContainer.USER_AVATAR .qq-upload-drop-area {padding-top: 30%}
+.uploaderImageContainer.USER_AVATAR {
+    width: 220px;
+    margin-left: calc(50% - 110px);
+}
+
+.uploaderImageContainer.USER_AVATAR .qq-upload-drop-area {
+    padding-top: 30%
+}
 .uploaderImageContainer.USER_PROFILE .qq-upload-drop-area {padding-top: 15%}
 .uploaderImageContainer.MASS_MAIL_IMAGE .qq-upload-drop-area {padding-top: 1%;}
 .uploaderImageContainer.PROJECT_IMAGE .qq-upload-drop-area {padding-top: 20%}
@@ -4161,14 +4239,34 @@ h2.underline {border-bottom: 1px solid #dadada; padding: 0 0 10px 0; margin-top:
 /* post =========== */
 /* ====================================================== */
 
-.comments {margin-bottom: 20px;}
+.comments {
+    margin-bottom: 20px;
+}
 
 
-.debate {margin-bottom: 40px;}
+.debate {
+    margin-bottom: 40px;
+}
 
-.debate p.no-debate {padding: 15px; background-color: #f8f8f8; border: 1px solid #e5e5e5;}
+.debate p.no-debate {
+    padding: 15px;
+    background-color: #f8f8f8;
+    border: 1px solid #e5e5e5;
+}
 
-.popover-box .infoActivity li:last-child {margin: 0;}
+.popover-box .infoActivity li:last-child {
+    margin: 0;
+}
+
+
+/* MORE SPACE UNDER USER RIGHTS FORM*/
+#domainConfigValidationForm + hr {
+    margin-bottom: 30px;
+}
+
+#editAuthorizedCampaignsForm {
+    margin-bottom: 50px;
+}
 
 /* Home =========== */
 /* ====================================================== */
@@ -4177,9 +4275,16 @@ h2.underline {border-bottom: 1px solid #dadada; padding: 0 0 10px 0; margin-top:
 .sign.home .login .cancel a:hover,
 .sign.home .login .cancel a:active,
 .sign.home .login .cancel a:focus,
-.sign.home .login .form-group:last-child a {color: #fff;}
+.sign.home .login .form-group:last-child a {
+    color: #fff;
+}
 
-.form-home-container {position: relative; margin: 0 auto; min-height: 410px; width: 100%;}
+.form-home-container {
+    position: relative;
+    margin: 0 auto;
+    min-height: 410px;
+    width: 100%;
+}
 .sign.home .form-home-container .login {position: absolute; top: 0; left: 0; width: 100%;}
 .sign.home .form-home-container .login .btn + .cancel {
     line-height: 2.4;
@@ -4266,17 +4371,42 @@ h2.underline {border-bottom: 1px solid #dadada; padding: 0 0 10px 0; margin-top:
     color: #999;
     font-size: 3em;
     text-align: center;
-    padding-top:10%;
+    padding-top: 10%;
 }
 
-.card-header-photo .watermarked::before {padding-top:5%;font-size: 2em;}
+.card-header-photo .watermarked::before {
+    padding-top: 5%;
+    font-size: 2em;
+}
 
-.search-list .search-kuorum-user .box-ppal .user {margin: -60px 15px 0px 15px;}
-.search-list .search-kuorum-user .box-ppal em {background-color: #fefea5;}
-.profile-pic-div{
+.search-list .search-kuorum-user .box-ppal .user {
+    margin: -60px 15px 0px 15px;
+}
+
+.search-list .search-kuorum-user .box-ppal .search-user-bio {
+    padding: 10px;
+    height: 115px;
+    overflow: hidden;
+}
+
+.search-list .search-kuorum-user .box-ppal .search-user-bio p {
+    margin: 0 0 10px 0;
+    line-height: 15px;
+}
+
+.search-list .search-kuorum-user .box-ppal .search-user-bio h5 {
+    font-size: calc(100% + 2px);
+}
+
+.search-list .search-kuorum-user .box-ppal em {
+    background-color: #fefea5;
+}
+
+.profile-pic-div {
     position: relative;
     display: inline-block;
 }
+
 .search-list .search-kuorum-user .box-ppal .user .user-img {
     border: 4px solid #fff;
     width: 96px;
@@ -4327,8 +4457,25 @@ h2.underline {border-bottom: 1px solid #dadada; padding: 0 0 10px 0; margin-top:
 .search-list .search-kuorum-user .box-ppal > small .fa {opacity: .5;}
 .search-list .search-kuorum-user .box-ppal {padding: 0; margin: 0 0 20px 0;box-shadow: 0 0 2px rgba(200,200,200,0.6);}
 .search-list .search-kuorum-user .box-ppal .link-wrapper {padding-bottom: 10px;}
-.search-list .search-kuorum-user .box-ppal .link-wrapper > p {padding: 0 15px; font-size: 13px; font-size: 1.3rem; margin: 0;}
-.search-list .search-kuorum-user .box-ppal > .pull-right {width: 42%; margin: 0; padding: 10px; font-size: 18px; font-size: 1.8rem; text-align: right;}
+.search-list .search-kuorum-user .box-ppal .link-wrapper > p {
+    padding: 0 15px;
+    font-size: 13px;
+    font-size: 1.3rem;
+    margin: 0;
+}
+
+.search-list .search-kuorum-user .box-ppal .link-wrapper > h5 {
+    padding: 0 10px;
+}
+
+.search-list .search-kuorum-user .box-ppal > .pull-right {
+    width: 42%;
+    margin: 0;
+    padding: 10px;
+    font-size: 18px;
+    font-size: 1.8rem;
+    text-align: right;
+}
 .search-list .search-kuorum-user .box-ppal .card-footer{
     position: absolute;
     bottom: 10px;
@@ -6422,7 +6569,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .config.search > article > .clearfix > h1 {width: 70%; float: left; cursor: pointer}
     .config.search > article > .clearfix > #results {width: 30%; float: right; line-height: 30px; margin: 20px 0 0 0; text-align: right;}
 
-    .search-list .search-kuorum-user .box-ppal p {height: 70px; margin: 0 0 7px; overflow: hidden;}
     .search-list .search-kuorum-user .box-ppal p.party{font-size: 12px; height: auto; margin: 0;}
     .search-list .search-kuorum-user .box-ppal > small {float: none; position: absolute; bottom: 0; left: 0;}
     .search-list .search-kuorum-user .box-ppal > .pull-right {float: none; position: absolute; bottom: 0; right: 0;}
@@ -7776,11 +7922,15 @@ button.btn-see-more {
 
 
 /*** Leader post section ***/
+.leader-post {
+    padding-bottom: 25px;
+}
+
 .leader-post, .comment-box {
     background-color: #FFF;
     border: 1px solid #F0F0F0;
     margin-bottom: 20px;
-    box-shadow: 0 0 2px rgba(200,200,200,0.6);
+    box-shadow: 0 0 2px rgba(200, 200, 200, 0.6);
 }
 
 .leader-post h1.title {
@@ -7893,7 +8043,7 @@ body.noLogged .leader-post .header .call-to-action-mobile{
 
 .leader-post > .footer .social {
     list-style: none outside none;
-    margin: 30px 0 30px 0;
+    margin: 30px 0 0 0;
     padding: 0;
 }
 
@@ -7910,8 +8060,16 @@ body.noLogged .leader-post .header .call-to-action-mobile{
     color: #ec931f;
 }
 
-.leader-post > .footer .comment-counter {margin:30px 0; font-size: 20px;}
-.leader-post > .footer .comment-counter.important {color:#167caa; margin-top:28px; margin-right: 10px;}
+.leader-post > .footer .comment-counter {
+    margin: 30px 0 0 0;
+    font-size: 20px;
+}
+
+.leader-post > .footer .comment-counter.important {
+    color: #167caa;
+    margin-top: 28px;
+    margin-right: 10px;
+}
 .leader-post > .footer .comment-counter a,
 .comment-counter + .comment-counter {margin-right: 5px;}
 

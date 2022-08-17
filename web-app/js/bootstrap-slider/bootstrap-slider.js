@@ -367,8 +367,8 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
 
             for (var i = 0; i < optionTypes.length; i++) {
                 var optName = optionTypes[i];
-
                 // First check if an option was passed in via the constructor
+
                 var val = options[optName];
                 // If no data attrib, then check data atrributes
                 val = typeof val !== 'undefined' ? val : getDataAttrib(this.element, optName);

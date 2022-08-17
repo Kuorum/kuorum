@@ -10,11 +10,12 @@
 
 
     <nav:onlyPublicDomain>
-       <g:if test="${_domainActiveCampaigns.size() == 1}">
-           <g:set var="activeCampaign" value="${_domainActiveCampaigns.get(0)}"/>
+        <g:set var="activeCampaignsHeader" value="${_domainActiveCampaigns.findAll{it.header}}" />
+        <g:if test="${activeCampaignsHeader.size() == 1}">
+            <g:set var="activeCampaign" value="${activeCampaignsHeader.get(0)}"/>
             <li>
                 <g:link mapping="searcherSearch${activeCampaign}"
-                        class="navbar-link ${nav.activeMenuCss(mappingName: 'searcherSearch' + activeCampaign)}">
+                        class="navbar-link ${nav.activeMenuCss(mappingName: 'searcherSearch' + activeCampaignsHeader)}">
                     <span><g:message code="head.noLogged.sectors"/></span>
                 </g:link>
             </li>
@@ -28,7 +29,8 @@
                 </a>
                 <ul id="navigation-options" class="dropdown-menu dropdown-menu-right"
                     aria-labelledby="open-user-options" role="menu">
-                    <g:each in="${_domainActiveCampaigns}" var="activeSolrType">
+
+                    <g:each in="${activeCampaignsHeader}" var="activeSolrType">
                         <li>
                             <g:link mapping="searcherSearch${activeSolrType}"
                                     class="navbar-link ${nav.activeMenuCss(mappingName: 'searcherSearch' + activeSolrType)}">

@@ -19,7 +19,7 @@ $(function(){
         loadTrackingCampaignEvents(link, 0)
     });
 
-    $("#tabs-stats-campaign").on("click", "#status-filter-options a", function(e){
+    $("#tabs-stats-campaign").on("click", "#status-filter-options a", function (e) {
         e.preventDefault();
         var link = $("#tabs-stats-campaign .pagination ul.paginationTop").attr("data-link");
         var status = $(this).attr("href").substring(1);
@@ -28,13 +28,26 @@ $(function(){
 
     });
 
-    $("#report-files").on("click",".files-list-btn-refresh, .file-action", function(e){
+    function setDefaultStatsTabActive() {
+        var $tabs = $("#tabs-stats-campaign").parents(".campaign-stats").children(".nav-tabs");
+        var numberActive = $tabs.children("li.active").length
+        if (numberActive == 0) {
+            $defaultActiveLi = $tabs.find("li:first-child");
+            $defaultActiveLi.addClass("active");
+            var defaultTabId = $defaultActiveLi.find("a").attr("href");
+            $(defaultTabId).addClass("active")
+        }
+    }
+
+    setDefaultStatsTabActive();
+
+    $("#report-files").on("click", ".files-list-btn-refresh, .file-action", function (e) {
         pageLoadingOn();
         e.preventDefault();
         var link = $(this).attr("href");
         var postData = {}
-        $.post( link, postData)
-            .done(function(data) {
+        $.post(link, postData)
+            .done(function (data) {
                 $("#report-files-list").html(data)
             })
             .fail(function(messageError) {

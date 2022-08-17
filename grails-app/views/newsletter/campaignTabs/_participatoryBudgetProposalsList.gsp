@@ -35,10 +35,11 @@
         <g:message code="org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.label"/>:
         <span id="changeParticipatoryBudgetBtnStatusText">
             <g:message code="org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.${participatoryBudget.status}"/>
-        </span>
+    </span>
     </a>
 </div>
 <table id="participatoryBudgetProposalReviewTable"
+       class="list-working-campaign-table"
        data-toggle="table"
        data-url="${g.createLink(mapping:'participatoryBudgetDistrictProposalsPagination', params:participatoryBudget.encodeAsLinkProperties())}"
        data-side-pagination="server"
@@ -57,7 +58,7 @@
     <thead>
     <tr>
         <th data-field="id" data-halign="center" data-align="center" data-sortable="true" data-visible="true"
-            data-filter-control="input" data-formatter="formatTableParticipatoryBudgetDistrictProposalId"
+            data-filter-control="input" data-formatter="formatTableCampaignId"
             data-filter-control-placeholder="${g.message(code: 'tools.massMailing.view.participatoryBudget.proposalList.table.id.searchPlaceholder')}"><g:message
                 code="tools.massMailing.view.participatoryBudget.proposalList.table.id"/></th>
         <th data-field="title" data-halign="center" data-align="center" data-sortable="true" data-visible="true"
@@ -74,7 +75,7 @@
             data-filter-control="select" data-filter-data="var:filterDataCause"><g:message
                 code="tools.massMailing.view.participatoryBudget.proposalList.table.cause"/></th>
         <th data-field="user.name" data-halign="center" data-align="center" data-sortable="true" data-visible="false"
-            data-filter-control="input" data-formatter="formatTableParticipatoryBudgetDistrictProposalAuthor"
+            data-filter-control="input" data-formatter="formatTableCampaignAuthor"
             data-filter-control-placeholder="${g.message(code: 'tools.massMailing.view.participatoryBudget.proposalList.table.author.searchPlaceholder')}"><g:message
                 code="tools.massMailing.view.participatoryBudget.proposalList.table.author"/></th>
         <th data-field="backerType" data-halign="center" data-align="center" data-sortable="true" data-visible="false"
