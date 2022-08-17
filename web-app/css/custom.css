@@ -4371,17 +4371,42 @@ h2.underline {border-bottom: 1px solid #dadada; padding: 0 0 10px 0; margin-top:
     color: #999;
     font-size: 3em;
     text-align: center;
-    padding-top:10%;
+    padding-top: 10%;
 }
 
-.card-header-photo .watermarked::before {padding-top:5%;font-size: 2em;}
+.card-header-photo .watermarked::before {
+    padding-top: 5%;
+    font-size: 2em;
+}
 
-.search-list .search-kuorum-user .box-ppal .user {margin: -60px 15px 0px 15px;}
-.search-list .search-kuorum-user .box-ppal em {background-color: #fefea5;}
-.profile-pic-div{
+.search-list .search-kuorum-user .box-ppal .user {
+    margin: -60px 15px 0px 15px;
+}
+
+.search-list .search-kuorum-user .box-ppal .search-user-bio {
+    padding: 10px;
+    height: 115px;
+    overflow: hidden;
+}
+
+.search-list .search-kuorum-user .box-ppal .search-user-bio p {
+    margin: 0 0 10px 0;
+    line-height: 15px;
+}
+
+.search-list .search-kuorum-user .box-ppal .search-user-bio h5 {
+    font-size: calc(100% + 2px);
+}
+
+.search-list .search-kuorum-user .box-ppal em {
+    background-color: #fefea5;
+}
+
+.profile-pic-div {
     position: relative;
     display: inline-block;
 }
+
 .search-list .search-kuorum-user .box-ppal .user .user-img {
     border: 4px solid #fff;
     width: 96px;
@@ -6544,7 +6569,6 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .config.search > article > .clearfix > h1 {width: 70%; float: left; cursor: pointer}
     .config.search > article > .clearfix > #results {width: 30%; float: right; line-height: 30px; margin: 20px 0 0 0; text-align: right;}
 
-    .search-list .search-kuorum-user .box-ppal p {height: 70px; margin: 0 0 7px; overflow: hidden;}
     .search-list .search-kuorum-user .box-ppal p.party{font-size: 12px; height: auto; margin: 0;}
     .search-list .search-kuorum-user .box-ppal > small {float: none; position: absolute; bottom: 0; left: 0;}
     .search-list .search-kuorum-user .box-ppal > .pull-right {float: none; position: absolute; bottom: 0; right: 0;}
@@ -7898,11 +7922,15 @@ button.btn-see-more {
 
 
 /*** Leader post section ***/
+.leader-post {
+    padding-bottom: 25px;
+}
+
 .leader-post, .comment-box {
     background-color: #FFF;
     border: 1px solid #F0F0F0;
     margin-bottom: 20px;
-    box-shadow: 0 0 2px rgba(200,200,200,0.6);
+    box-shadow: 0 0 2px rgba(200, 200, 200, 0.6);
 }
 
 .leader-post h1.title {
@@ -8015,7 +8043,7 @@ body.noLogged .leader-post .header .call-to-action-mobile{
 
 .leader-post > .footer .social {
     list-style: none outside none;
-    margin: 30px 0 30px 0;
+    margin: 30px 0 0 0;
     padding: 0;
 }
 
@@ -8032,8 +8060,16 @@ body.noLogged .leader-post .header .call-to-action-mobile{
     color: #ec931f;
 }
 
-.leader-post > .footer .comment-counter {margin:30px 0; font-size: 20px;}
-.leader-post > .footer .comment-counter.important {color:#167caa; margin-top:28px; margin-right: 10px;}
+.leader-post > .footer .comment-counter {
+    margin: 30px 0 0 0;
+    font-size: 20px;
+}
+
+.leader-post > .footer .comment-counter.important {
+    color: #167caa;
+    margin-top: 28px;
+    margin-right: 10px;
+}
 .leader-post > .footer .comment-counter a,
 .comment-counter + .comment-counter {margin-right: 5px;}
 

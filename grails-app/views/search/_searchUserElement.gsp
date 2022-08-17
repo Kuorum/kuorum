@@ -10,17 +10,25 @@
 
         <div class="user">
             <div class='profile-pic-div'>
-                <img itemprop="image" class="user-img big" alt="${message(code:'kuorumUser.image.avatar.alt', args:[solrUser.name])}" title="${message(code:'kuorumUser.image.avatar.title', args:[solrUser.name])}" src="${image.userImgSrc(user:solrUser)}">
+                <img itemprop="image" class="user-img big"
+                     alt="${message(code: 'kuorumUser.image.avatar.alt', args: [solrUser.name])}"
+                     title="${message(code: 'kuorumUser.image.avatar.title', args: [solrUser.name])}"
+                     src="${image.userImgSrc(user: solrUser)}">
             </div>
-        %{--<button type="button" class="btn btn-blue btn-lg follow allow">Seguir</button>--}%
+            %{--<button type="button" class="btn btn-blue btn-lg follow allow">Seguir</button>--}%
             <userUtil:followButton user="${solrUser}" cssSize="btn-lg"/>
-            <g:link mapping="userShow" params="${solrUser.encodeAsLinkProperties()}" class="user-name link-wrapper-clickable" itemprop="name">
+            <g:link mapping="userShow" params="${solrUser.encodeAsLinkProperties()}"
+                    class="user-name link-wrapper-clickable" itemprop="name">
                 <searchUtil:highlightedField searchElement="${solrUser}" field="name"/>
             </g:link>
             <cite><userUtil:userRegionName user="${solrUser}"/></cite>
+
             <p class="party"><userUtil:roleName user="${solrUser}"/></p>
         </div>
-        <p><searchUtil:highlightedField searchElement="${solrUser}" field="text" maxLength="165"/> </p>
+
+        <div class="search-user-bio">
+            <searchUtil:highlightedField searchElement="${solrUser}" field="text" maxLength="165"/>
+        </div>
         %{--<p><kuorumDate:showShortedText text="${user.bio}" numChars="140"/> </p>--}%
         <div class='card-footer'>
             <userUtil:ifIsFollower user="${solrUser}">
