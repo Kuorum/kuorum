@@ -32,7 +32,7 @@
         <span class="call-title">${callTitleMsg}</span>
         <span class="call-subTitle">${callSubtitleMsg}</span>
     </div>
-    <g:if test="${survey.published && survey.campaignVisibility == org.kuorum.rest.model.communication.survey.CampaignVisibilityRSDTO.VISIBLE}">
+    <g:if test="${survey.published && !survey.closed || !survey.hideResults}">
         <div class="actions clearfix">
             <button type="button" class="btn btn-blue btn-lg" data-goto="#survey-questions"
                     id="survey-call-to-action">
