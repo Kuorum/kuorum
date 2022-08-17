@@ -23,9 +23,11 @@
     </li>
     <li class="${activeMapping == 'adminDomainValidation' ? 'active' : ''}">
         <g:link mapping="adminDomainValidation">
-            <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top"
-                  title="${g.message(code: 'admin.menu.domainValidation.link.info')}"></span> <g:message
-                code="admin.menu.domainValidation.link"/>
+            <g:message code="admin.menu.domainValidation.link"/><span
+                class="fas fa-info-circle"
+                data-toggle="tooltip"
+                data-placement="top"
+                title="${g.message(code: 'admin.menu.domainValidation.link.info')}"></span>
         </g:link>
     </li>
     <li class="${activeMapping == 'adminDomainDelete' ? 'active' : ''}">
