@@ -7922,11 +7922,15 @@ button.btn-see-more {
 
 
 /*** Leader post section ***/
+.leader-post {
+    padding-bottom: 25px;
+}
+
 .leader-post, .comment-box {
     background-color: #FFF;
     border: 1px solid #F0F0F0;
     margin-bottom: 20px;
-    box-shadow: 0 0 2px rgba(200,200,200,0.6);
+    box-shadow: 0 0 2px rgba(200, 200, 200, 0.6);
 }
 
 .leader-post h1.title {
@@ -8039,7 +8043,7 @@ body.noLogged .leader-post .header .call-to-action-mobile{
 
 .leader-post > .footer .social {
     list-style: none outside none;
-    margin: 30px 0 30px 0;
+    margin: 30px 0 0 0;
     padding: 0;
 }
 
@@ -8056,8 +8060,16 @@ body.noLogged .leader-post .header .call-to-action-mobile{
     color: #ec931f;
 }
 
-.leader-post > .footer .comment-counter {margin:30px 0; font-size: 20px;}
-.leader-post > .footer .comment-counter.important {color:#167caa; margin-top:28px; margin-right: 10px;}
+.leader-post > .footer .comment-counter {
+    margin: 30px 0 0 0;
+    font-size: 20px;
+}
+
+.leader-post > .footer .comment-counter.important {
+    color: #167caa;
+    margin-top: 28px;
+    margin-right: 10px;
+}
 .leader-post > .footer .comment-counter a,
 .comment-counter + .comment-counter {margin-right: 5px;}
 
