@@ -6,15 +6,20 @@
     <li class="${activeMapping == 'profileChangePass' ? 'active' : ''}">
         <g:link mapping="profileChangePass"><g:message code="profile.menu.changePass"/></g:link>
     </li>
-    <g:if test="${!_isSurveyPlatform}">
+    <li class="${activeMapping == 'profilePrivateFiles' ? 'active' : ''}">
+        <g:link mapping="profilePrivateFiles"><g:message code="profile.menu.adminPrivateFiles"/></g:link>
+    </li>
+    <g:if test="${_isSocialNetwork}">
         <li class="${activeMapping == 'profileEmailNotifications' ? 'active' : ''}">
             <g:link mapping="profileEmailNotifications"><g:message
                     code="profile.menu.profileEmailNotifications"/></g:link>
         </li>
+    </g:if>
+    <sec:ifAnyGranted roles="ROLE_CAMPAIGN_NEWSLETTER">
         <li class="${activeMapping == 'profileNewsletterConfig' ? 'active' : ''}">
             <g:link mapping="profileNewsletterConfig"><g:message code="profile.menu.profileNewsletterConfig"/></g:link>
         </li>
-    </g:if>
+    </sec:ifAnyGranted>
     <li class="${activeMapping == 'profileDeleteAccount' ? 'active' : ''}">
         <g:link mapping="profileDeleteAccount"><g:message code="profile.menu.profileDeleteAccount"/></g:link>
     </li>

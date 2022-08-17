@@ -7,17 +7,15 @@ import kuorum.politician.CampaignController
 import kuorum.register.KuorumUserSession
 import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.commands.payment.CampaignSettingsCommand
+import kuorum.web.commands.payment.contest.ContestApplicationChangeStatusCommand
 import kuorum.web.commands.payment.contest.ContestAreasCommand
 import kuorum.web.commands.payment.contest.ContestChangeStatusCommand
 import kuorum.web.commands.payment.contest.ContestDeadlinesCommand
-import kuorum.web.commands.payment.contest.NewContestApplicationCommand
 import kuorum.web.constants.WebConstants
-import org.kuorum.rest.model.communication.contest.ContestRDTO
-import org.kuorum.rest.model.communication.contest.ContestRSDTO
-import org.kuorum.rest.model.communication.contest.ContestStatusDTO
-import org.kuorum.rest.model.communication.contest.FilterContestApplicationRDTO
-import org.kuorum.rest.model.communication.contest.PageContestApplicationRSDTO
+import org.kuorum.rest.model.communication.contest.*
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
+import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
+import org.kuorum.rest.model.search.DirectionDTO
 
 import java.lang.reflect.UndeclaredThrowableException
 
@@ -226,11 +224,11 @@ class ContestController extends CampaignController {
             Double randomSeed = Double.parseDouble(params.randomSeed)
             filter.sort = new FilterContestApplicationRDTO.SortContestApplicationRDTO(randomSeed: randomSeed)
         } else {
-            filter.sort = new FilterContestApplicationRDTO.SortContestApplicationRDTO(field: FilterContestApplicationRDTO.SortableFieldRDTO.VOTES, direction: FilterContestApplicationRDTO.DirectionRDTO.ASC)
+            filter.sort = new FilterContestApplicationRDTO.SortContestApplicationRDTO(field: FilterContestApplicationRDTO.ContestSortableFieldRDTO.VOTES, direction: DirectionDTO.ASC)
         }
 
         if (filter.sort && params.direction) {
-            FilterContestApplicationRDTO.DirectionRDTO dir = FilterContestApplicationRDTO.DirectionRDTO.valueOf(params.direction)
+            DirectionDTO dir = DirectionDTO.valueOf(params.direction)
             filter.sort.direction = dir
         }
         PageContestApplicationRSDTO pageContestApplications = contestService.findContestApplications(contestUser, contestId, filter, viewerUid)
@@ -250,5 +248,120 @@ class ContestController extends CampaignController {
                 campaign: contestRSDTO,
                 command : command
         ]
+    }
+
+
+    @Secured(['ROLE_CAMPAIGN_CONTEST'])
+    def paginateContestApplicationJson() {
+        initJson()
+        Integer limit = Integer.parseInt(params.limit)
+        Integer offset = Integer.parseInt(params.offset)
+        KuorumUserSession userLogged = springSecurityService.principal
+        Long participatoryBudgetId = Long.parseLong(params.campaignId)
+        FilterContestApplicationRDTO filter = new FilterContestApplicationRDTO(page: Math.floor(offset / limit).intValue(), size: limit)
+        populateFilters(filter, params.filter)
+        populateSort(filter, params.sort, params.order)
+        filter.attachNotPublished = true
+        PageContestApplicationRSDTO pageDistrictProposals = contestService.findContestApplications(userLogged, participatoryBudgetId, filter)
+        JSON.use('infoContestApplicationTable') {
+            render(["total": pageDistrictProposals.total, "rows": pageDistrictProposals.data] as JSON)
+        }
+    }
+
+    private void initJson() {
+        JSON.createNamedConfig('infoContestApplicationTable') {
+//            log("suggest JSON marshaled created")
+            it.registerObjectMarshaller(CampaignStatusRSDTO) { CampaignStatusRSDTO status -> messageEnumJson(status) }
+            it.registerObjectMarshaller(ContestApplicationActivityTypeDTO) { ContestApplicationActivityTypeDTO activityType -> messageEnumJson(activityType) }
+            it.registerObjectMarshaller(ContestApplicationFocusTypeDTO) { ContestApplicationFocusTypeDTO focusType -> messageEnumJson(focusType) }
+            it.registerObjectMarshaller(BasicDataKuorumUserRSDTO) { BasicDataKuorumUserRSDTO basicDataKuorumUserRSDTO ->
+                [
+                        id       : basicDataKuorumUserRSDTO.id,
+                        alias    : basicDataKuorumUserRSDTO.alias,
+                        name     : basicDataKuorumUserRSDTO.name,
+                        avatarUrl: basicDataKuorumUserRSDTO.avatarUrl,
+                        userLink : g.createLink(mapping: 'userShow', params: basicDataKuorumUserRSDTO.encodeAsLinkProperties())
+                ]
+            }
+            it.registerObjectMarshaller(ContestApplicationRSDTO) { ContestApplicationRSDTO contestApplicationRSDTO ->
+                [
+                        id            : contestApplicationRSDTO.id,
+                        name          : contestApplicationRSDTO.name,
+                        title         : contestApplicationRSDTO.title,
+                        body          : contestApplicationRSDTO.body,
+                        campaignStatus: contestApplicationRSDTO.campaignStatusRSDTO,
+                        photoUrl      : contestApplicationRSDTO.photoUrl,
+                        videoUrl      : contestApplicationRSDTO.videoUrl,
+                        multimediaHtml: groovyPageRenderer.render(template: '/campaigns/showModules/campaignDataMultimedia', model: [campaign: contestApplicationRSDTO]),
+                        visits        : contestApplicationRSDTO.visits,
+                        user          : contestApplicationRSDTO.user,
+                        cause         : contestApplicationRSDTO.causes ? contestApplicationRSDTO.causes[0] : null,
+                        contest       : contestApplicationRSDTO.contest,
+                        activityType  : contestApplicationRSDTO.activityType,
+                        focusType     : contestApplicationRSDTO.focusType,
+                        url           : g.createLink(mapping: 'contestApplicationShow', params: contestApplicationRSDTO.encodeAsLinkProperties())
+                ]
+            }
+        }
+    }
+
+    private messageEnumJson(def type) {
+        [
+                type: type.toString(),
+                i18n: g.message(code: "${type.class.name}.${type}")
+        ]
+    }
+
+
+    private void populateSort(FilterContestApplicationRDTO filter, String sortField, String order) {
+        filter.sort = new FilterContestApplicationRDTO.SortContestApplicationRDTO()
+        filter.sort.field = FilterContestApplicationRDTO.ContestSortableFieldRDTO.ID
+        filter.sort.direction = DirectionDTO.ASC
+        if (sortField) {
+            switch (sortField) {
+//                case "cause.name": filter.sort.field = FilterContestApplicationRDTO.SortableFieldRDTO.CAUSE; break
+                case "user.name": filter.sort.field = FilterContestApplicationRDTO.ContestSortableFieldRDTO.CRM_USER; break
+                case "numVotes": filter.sort.field = FilterContestApplicationRDTO.ContestSortableFieldRDTO.VOTES; break
+                default: filter.sort.field = FilterContestApplicationRDTO.ContestSortableFieldRDTO.valueOf(sortField.toUpperCase()); break
+            }
+        }
+
+        if (order) {
+            filter.sort.direction = DirectionDTO.valueOf(order.toUpperCase())
+        }
+
+    }
+
+    private void populateFilters(FilterContestApplicationRDTO filter, String jsonFilter) {
+        if (jsonFilter) {
+            def rawFilter = JSON.parse(jsonFilter)
+            rawFilter.each { k, v -> populateFilter(filter, k, v) }
+        }
+    }
+
+    private void populateFilter(FilterContestApplicationRDTO filter, String rawKey, String value) {
+        switch (rawKey) {
+            case "id": filter.id = Long.parseLong(value); break
+            case "campaignStatus.i18n": filter.campaignStatus = CampaignStatusRSDTO.valueOf(value); break
+            case "activityType.i18n": filter.activityType = ContestApplicationActivityTypeDTO.valueOf(value); break
+            case "focusType.i18n": filter.focusType = ContestApplicationFocusTypeDTO.valueOf(value); break
+            case "user.name": filter.userName = value; break
+            default: filter[rawKey] = value; break
+        }
+    }
+
+    @Secured(['ROLE_CAMPAIGN_CONTEST'])
+    def updateReview(ContestApplicationChangeStatusCommand command) {
+        if (command.hasErrors()) {
+            render([success: false, message: "There are errors on the data"] as JSON)
+        }
+        Boolean isApproved = command.getNewStatus() == CampaignStatusRSDTO.APPROVED
+        KuorumUserSession loggedUser = springSecurityService.principal
+        contestApplicationService.updateValidate(loggedUser, command.getContestApplicationId(), isApproved)
+        render([success: true, message: "Update success"] as JSON)
+    }
+
+    def sendApplicationsReport() {
+        render "OK";
     }
 }

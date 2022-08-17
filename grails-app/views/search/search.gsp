@@ -46,7 +46,8 @@
                 </g:link>
             </label>
         </li>
-        <g:each in="${_domainActiveCampaigns}" var="activeSolrType">
+        <g:set var="activeSearchableCampaigns" value="${_domainActiveCampaigns.findAll{it.searchable}}" />
+        <g:each in="${activeSearchableCampaigns}" var="activeSolrType">
             <li>
                 <label>
                     <g:link mapping="${'searcherSearch'+activeSolrType.toString()}" params="${params.findAll {k,v-> k!='solrType' && k!='offset' && v}}" class="${searchParams.solrType == activeSolrType?'search-option-active':''}">

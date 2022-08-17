@@ -10,12 +10,12 @@
 
     <g:if test="${_isActiveTour}">
         <li class="hidden-xs">
-            <g:if test="${_isSurveyPlatform}">
-                <g:link mapping="politicianCampaigns" params="[tour: true]"><g:message
+            <g:if test="${_isSocialNetwork}">
+                <g:link mapping="dashboard" params="[tour: true]"><g:message
                         code="head.navigation.userMenu.tour"/></g:link>
             </g:if>
             <g:else>
-                <g:link mapping="dashboard" params="[tour: true]"><g:message
+                <g:link mapping="politicianCampaigns" params="[tour: true]"><g:message
                         code="head.navigation.userMenu.tour"/></g:link>
             </g:else>
         </li>

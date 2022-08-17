@@ -1,5 +1,6 @@
 import grails.util.Environment
 import kuorum.core.exception.KuorumException
+import kuorum.web.commands.payment.participatoryBudget.DistrictProposalTechnicalReviewCommand
 import org.springframework.security.access.AccessDeniedException
 
 class UrlMappings {
@@ -225,6 +226,9 @@ class UrlMappings {
         name contestShow:              "/$userAlias/$urlTitle-$campaignId"           (controller: "campaign", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it)})}}
         name contestListApplications:  "/ajax/$userAlias/$urlTitle-$campaignId/applications" (controller: "contest", action:"findContestApplications")
         name contestEditStatus:        "/ajax/account/$userAlias/ct/$urlTitle-$campaignId/edit-status" (controller: "contest", action:"editStatus")
+        name contestListApplciationsPaggination:        "/ajax/account/$userAlias/ct/$urlTitle-$campaignId/applications/pagination" (controller: "contest", action:"paginateContestApplicationJson")
+        name contestApplicationUpdateReview:     "/ajax/account/ct/applications/review" (controller: "contest", action:"updateReview")
+        name contestApplicationsReport:"/ajax/account/contest/$campaignId/report" (controller:"contest", action: "sendApplicationsReport")
 
 
         name contestApplicationCreate: "/account/$userAlias/pb/$urlTitle-$campaignId/new-application" (controller: "contestApplication"){action = [GET: "create", POST: "saveNewApplication"]}
@@ -232,7 +236,8 @@ class UrlMappings {
         name contestApplicationEditSettings: "/account/$userAlias/cta/$contestTitle-$contestId/$urlTitle-$campaignId/edit-settings"  (controller: "contestApplication"){action = [GET: "editSettingsStep", POST: "saveSettings"]}
         name contestApplicationEditContent: "/account/$userAlias/cta/$contestTitle-$contestId/$urlTitle-$campaignId/edit-content"  (controller: "contestApplication"){action = [GET: "editContentStep", POST: "saveContent"]}
         name contestApplicationEditProfile: "/account/$userAlias/cta/$urlTitle-$campaignId/edit-profile"    (controller: "contestApplication"){action = [GET: "editProfileStep", POST: "saveProfileStep"]}
-        name contestApplicationEditEnvironment: "/account/$userAlias/cta/$contestTitle-$contestId/$urlTitle-$campaignId/edit-scope"  (controller: "contestApplication"){action = [GET: "editScopeStep", POST: "saveScope"]}
+        name contestApplicationEditScope: "/account/$userAlias/cta/$contestTitle-$contestId/$urlTitle-$campaignId/edit-scope"  (controller: "contestApplication"){action = [GET: "editScopeStep", POST: "saveScope"]}
+        name contestApplicationEditAuthorizations: "/account/$userAlias/cta/$contestTitle-$contestId/$urlTitle-$campaignId/edit-authorizations"  (controller: "contestApplication"){action = [GET: "editAuthorizationsStep", POST: "saveAuthorizations"]}
         name contestApplicationRemove:  "/ajax/account/$userAlias/cta/$urlTitle-$campaignId/remove"    (controller: "contestApplication", action:"remove")
         name contestApplicationShow:    "/$userAlias/$contestTitle-$contestId/$urlTitle-$campaignId"           (controller: "campaign", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it)})}}
 
@@ -268,6 +273,7 @@ class UrlMappings {
         name profileEditUser:               "/edit-profile"                                    (controller: "profile"){action =[GET:"editUser", POST:"editUserSave"]}
         name profileChangePass:             "/edit-profile/change-password"                    (controller: "profile"){action =[GET:"changePassword", POST:"changePasswordSave"]}
         name profileSetPass:                "/edit-profile/create-password"                    (controller: "profile"){action =[GET:"setPassword", POST:"setPasswordSave"]}
+        name profilePrivateFiles:           "/edit-profile/private-files"                      (controller: "profile", action:"editAdminFiles")
         name profileChangeEmail:            "/edit-profile/change-email"                       (controller: "profile"){action =[GET:"changeEmail", POST:"changeEmailSave"]}
         name profileChangeEmailSent:        "/edit-profile/change-email/request-received"      (controller: "profile", action :"changeEmailConfirmSent")
         name profileChangeEmailResend:      "/edit-profile/change-email/resend-email"          (controller: "profile", action :"updateUserEmail")
@@ -333,8 +339,9 @@ class UrlMappings {
         name adminEditDomainEmailSender:            "/sec/admin/domain/setSender"       (controller:"admin"){action =[GET:"editDomainEmailSender", POST:"updateDomainEmailSender"]}
         name adminDomainDelete:                     "/sec/admin/domain/delete"          (controller:"admin"){action =[GET:"deleteDomain", POST:"deleteDomainConfirm"]}
 
-        name adminDomainRegisterStep1:              "/sec/admin/domain/config/landing"  (controller:"admin"){action =[GET:"designLandingPage", POST:"saveDesignLandingPage"]}
-        name adminDomainRegisterStep2:              "/sec/admin/domain/config/rights"   (controller:"admin"){action =[GET:"userRights", POST:"saveUserRights"]}
+        // REMOVE This entries and his actions
+        //name adminDomainRegisterStep1:              "/sec/admin/domain/config/landing"  (controller:"admin"){action =[GET:"designLandingPage", POST:"saveDesignLandingPage"]}
+        //name adminDomainRegisterStep2:              "/sec/admin/domain/config/rights"   (controller:"admin"){action =[GET:"userRights", POST:"saveUserRights"]}
 
         name editorEditUserProfile:                         "/editor/user/$userAlias/edit/profile"                (controller:"editorUser"){action =[GET:"editUser", POST:"updateUser"]}
         name editorKuorumAccountEdit:                       "/editor/user/$userAlias/edit/account-details"        (controller:"editorUser"){action =[GET:"editAdminAccountDetails", POST:"updateAdminAccountDetails"]}

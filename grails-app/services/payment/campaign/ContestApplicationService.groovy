@@ -9,6 +9,7 @@ import kuorum.util.rest.RestKuorumApiService
 import org.kuorum.rest.model.communication.contest.ContestApplicationRDTO
 import org.kuorum.rest.model.communication.contest.ContestApplicationRSDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
+import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
 
 class ContestApplicationService extends AbstractCampaignCreatorService<ContestApplicationRSDTO, ContestApplicationRDTO> implements CampaignCreatorService<ContestApplicationRSDTO, ContestApplicationRDTO> {
 
@@ -146,6 +147,9 @@ class ContestApplicationService extends AbstractCampaignCreatorService<ContestAp
             contestApplicationRDTO.activityType = contestApplicationRSDTO.activityType
             contestApplicationRDTO.focusType = contestApplicationRSDTO.focusType
             contestApplicationRDTO.contestId = contestApplicationRSDTO.contest.id
+            contestApplicationRDTO.authorizedAgent = contestApplicationRSDTO.authorizedAgent
+            contestApplicationRDTO.acceptedLegalBases = contestApplicationRSDTO.acceptedLegalBases
+            contestApplicationRDTO.imageRights = contestApplicationRSDTO.imageRights
         }
         return contestApplicationRDTO
     }
@@ -165,5 +169,17 @@ class ContestApplicationService extends AbstractCampaignCreatorService<ContestAp
     @Override
     protected RestKuorumApiService.ApiMethod getCopyApiMethod() {
         return RestKuorumApiService.ApiMethod.ACCOUNT_CONTEST_APPLICATION_COPY;
+    }
+
+    public void updateValidate(KuorumUserSession user, Long campaignId, Boolean isApproved) {
+        Map<String, String> params = [userId: user.id.toString(), campaignId: campaignId.toString()]
+        Map<String, String> query = [isApproved: isApproved]
+        def response = restKuorumApiService.put(
+                RestKuorumApiService.ApiMethod.ACCOUNT_CONTEST_APPLICATION_VALIDATE,
+                params,
+                query,
+                null,
+                null
+        )
     }
 }

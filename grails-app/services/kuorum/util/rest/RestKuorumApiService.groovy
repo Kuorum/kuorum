@@ -299,6 +299,7 @@ class RestKuorumApiService {
         ACCOUNT_CONTEST_APPLICATIONS("/communication/campaign/contest/application/{userId}"),
         ACCOUNT_CONTEST_APPLICATION("/communication/campaign/contest/application/{userId}/{campaignId}"),
         ACCOUNT_CONTEST_APPLICATION_COPY("/communication/campaign/contest/application/{userId}/{campaignId}/copy"),
+        ACCOUNT_CONTEST_APPLICATION_VALIDATE("/communication/campaign/contest/application/{userId}/{campaignId}/validate"),
 
         ACCOUNT_PETITIONS_ALL("/communication/campaign/petition/"),
         ACCOUNT_PETITIONS("/communication/campaign/petition/{userId}"),
