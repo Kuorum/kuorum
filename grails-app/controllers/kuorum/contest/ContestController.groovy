@@ -345,6 +345,7 @@ class ContestController extends CampaignController {
             case "campaignStatus.i18n": filter.campaignStatus = CampaignStatusRSDTO.valueOf(value); break
             case "activityType.i18n": filter.activityType = ContestApplicationActivityTypeDTO.valueOf(value); break
             case "focusType.i18n": filter.focusType = ContestApplicationFocusTypeDTO.valueOf(value); break
+            case "user.name": filter.userName = value; break
             default: filter[rawKey] = value; break
         }
     }
