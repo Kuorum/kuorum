@@ -3,7 +3,7 @@
 <head>
     <title><g:message code="tools.campaign.new.title"/></title>
     <meta name="layout" content="basicPlainLayout">
-    <!-- Schema.org markup for Google+ -->
+
 </head>
 
 <content tag="mainContent">

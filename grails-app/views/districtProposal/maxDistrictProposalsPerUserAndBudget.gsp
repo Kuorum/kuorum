@@ -7,7 +7,7 @@
 
     <title>${breadCrumbName}</title>
     <meta name="layout" content="centerColumn1Layout">
-    <!-- Schema.org markup for Google+ -->
+
 </head>
 
 <content tag="mainContent">
