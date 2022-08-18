@@ -3,7 +3,7 @@
     <g:set var="contactName" value="${contact.name} ${contact.surname?:''}"/>
     <title><g:message code="page.title.contacts.edit" args="[contactName]"/></title>
     <meta name="layout" content="basicPlainLayout">
-    <!-- Schema.org markup for Google+ -->
+
     <r:require modules="contacts"/>
 </head>
 

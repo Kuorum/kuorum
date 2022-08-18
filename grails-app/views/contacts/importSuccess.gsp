@@ -2,7 +2,7 @@
 <head>
     <title><g:message code="tools.contact.import.title.success"/></title>
     <meta name="layout" content="basicPlainLayout">
-    <!-- Schema.org markup for Google+ -->
+
 </head>
 
 <content tag="mainContent">

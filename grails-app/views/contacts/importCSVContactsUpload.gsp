@@ -2,7 +2,7 @@
 <head>
     <title><g:message code="page.title.contacts.import"/></title>
     <meta name="layout" content="basicPlainLayout">
-    <!-- Schema.org markup for Google+ -->
+
 </head>
 
 <content tag="mainContent">

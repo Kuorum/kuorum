@@ -4,7 +4,7 @@
 
     <title>${breadCrumbName}</title>
     <meta name="layout" content="basicPlainLayout">
-    <!-- Schema.org markup for Google+ -->
+
     <meta itemprop="name" content="${_domainName}">
 </head>
 

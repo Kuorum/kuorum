@@ -7,7 +7,7 @@
 
     <title>${breadCrumbName}</title>
     <meta name="layout" content="basicPlainLayout">
-    <!-- Schema.org markup for Google+ -->
+    <!-- Schema.org markup for Google -->
     <meta itemprop="name" content="${_domainName}">
     <meta itemprop="description"
           content="${g.message(code: "layout.head.meta.description", args: [kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.name])}">
