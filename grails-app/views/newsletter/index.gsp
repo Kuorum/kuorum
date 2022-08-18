@@ -2,7 +2,7 @@
 <head>
     <title><g:message code="head.logged.account.tools.massMailing"/></title>
     <meta name="layout" content="basicPlainLayout">
-    <!-- Schema.org markup for Google+ -->
+
     <meta itemprop="name" content="${_domainName}">
     <r:require modules="campaignList"/>
 </head>
