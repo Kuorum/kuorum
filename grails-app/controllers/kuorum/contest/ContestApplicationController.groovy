@@ -11,11 +11,13 @@ import kuorum.web.commands.payment.contest.ContestApplicationAuthorizationsComma
 import kuorum.web.commands.payment.contest.ContestApplicationScopeCommand
 import kuorum.web.commands.payment.contest.ContestProfileCommand
 import kuorum.web.commands.payment.contest.NewContestApplicationCommand
+import kuorum.web.commands.payment.participatoryBudget.NewDistrictProposalWithDistrictCommand
 import kuorum.web.commands.profile.SocialNetworkCommand
 import org.kuorum.rest.model.communication.CampaignRDTO
 import org.kuorum.rest.model.communication.contest.ContestApplicationRDTO
 import org.kuorum.rest.model.communication.contest.ContestApplicationRSDTO
 import org.kuorum.rest.model.communication.contest.ContestRSDTO
+import org.kuorum.rest.model.communication.participatoryBudget.DistrictProposalRDTO
 import org.kuorum.rest.model.communication.survey.CampaignVisibilityRSDTO
 import org.kuorum.rest.model.contact.ContactRSDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
@@ -124,6 +126,20 @@ class ContestApplicationController extends CampaignController {
         Map<String, Object> result = saveAndSendCampaignContent(command, campaignId, contestApplicationService)
         redirect mapping: result.nextStep.mapping, params: result.nextStep.params
     }
+
+    protected CampaignRDTO convertCommandContentToRDTO(CampaignContentCommand command, KuorumUserSession user, Long campaignId, CampaignCreatorService campaignService) {
+        command.campaignVisibility = CampaignVisibilityRSDTO.VISIBLE
+        ContestApplicationRDTO campaignRDTO = (ContestApplicationRDTO) super.convertCommandContentToRDTO(command, user, campaignId, campaignService)
+        setCampaignName(campaignRDTO, command)
+        return campaignRDTO
+    }
+
+    private void setCampaignName(ContestApplicationRDTO contestApplicationRDTO, CampaignContentCommand command) {
+        if (contestApplicationRDTO.name == null) {
+            contestApplicationRDTO.name = command.title
+        }
+    }
+
 
     @Secured(['ROLE_CAMPAIGN_CONTEST_APPLICATION'])
     def saveAuthorizations(ContestApplicationAuthorizationsCommand command) {
