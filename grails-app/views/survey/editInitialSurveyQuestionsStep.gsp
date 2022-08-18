@@ -10,7 +10,7 @@
     <parameter name="showHeadSearch" value="false"/>
     <parameter name="showNavBar" value="false"/>
     <parameter name="disableLogoLink" value="true"/>
-    <!-- Schema.org markup for Google+ -->
+
     <r:require modules="datepicker, surveyForms"/>
 </head>
 
