@@ -4926,11 +4926,20 @@ h5#results {margin: 0 0 15px;}
 .config > header h2 {    padding: 10px;border-top: 1px solid #ccc;margin: 0;font-size: 20px;}
 .config > header ul {margin: 0; padding: 0;}
 .config > header ul > li {list-style: none; padding: 15px 20px; margin: 0; border-bottom: 1px solid #dadada; font-size: 1.9rem;}
-.config > header ul > li:last-child {border: none;}
-.config > header ul > li > a {color: #545454; padding: 4px 8px; display: block;}
+.config > header ul > li:last-child {
+    border: none;
+}
+
+.config > header ul > li > a {
+    color: #545454;
+    display: inline-block;
+}
+
 .config > header ul > li > a:hover,
 .config > header ul > li > a:focus,
-.config > header ul > li > a:active {text-decoration: underline;}
+.config > header ul > li > a:active {
+    text-decoration: underline;
+}
 .config > header ul > li.active > a {text-decoration: none; font-weight: bold;}
 .config > header ul > li > a:hover > .badge,
 .config > header ul > li > a:focus > .badge,
