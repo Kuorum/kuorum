@@ -368,7 +368,6 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
     /// FUNNEL TO COMPLETE THE PROFILE
     def campaignFunnelRegisterStart() {
         def model = index()
-        model.hiddeRegisterSocialButtons = true
         model.namePlaceholderOverwritten = (g.message(code: 'register.funnel.association.name')).toString()
         model.emailPlaceholderOverwritten = (g.message(code: 'register.funnel.association.email')).toString()
         render view: 'index', model: model
