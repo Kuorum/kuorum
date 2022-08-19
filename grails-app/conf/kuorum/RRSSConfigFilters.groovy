@@ -27,6 +27,7 @@ class RRSSConfigFilters {
                     model.put("_googleCaptchaKey", getGoogleCaptchaKey())
                     model.put("_googleJsAPIKey", getGoogleJsAPIKey())
                     model.put("_domain", CustomDomainResolver.domain)
+                    model.put("_domainLoginSettings", CustomDomainResolver.domainRSDTO.loginSettings)
                     model.put("_social", CustomDomainResolver.domainRSDTO?.social ?: null)
                     model.put("_domainName", CustomDomainResolver.domainRSDTO?.name ?: "")
                     model.put("_domainResourcesPath", CustomDomainResolver.domainRSDTO?.basicRootUrlStaticResources ?: "")

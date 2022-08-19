@@ -14,6 +14,7 @@ class DomainLandingCommand {
     List<LinkCommand> footerLinks
 
     List<UserRoleRSDTO> landingVisibleRoles
+    Boolean showLandingLogin
 
 
     static constraints = {
@@ -22,5 +23,6 @@ class DomainLandingCommand {
         domainDescription nullable:true
         footerLinks minSize: 0, maxSize: 10
         landingVisibleRoles nullable: true, maxSize: 4
+        showLandingLogin nullable: true
     }
 }
