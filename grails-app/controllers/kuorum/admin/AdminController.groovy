@@ -163,6 +163,7 @@ class AdminController {
         domainLandingCommand.domainDescription = domainRSDTO.domainDescription
         domainLandingCommand.footerLinks = domainRSDTO.footerLinks.collect { new LinkCommand(title: it.key, url: it.value) }
         domainLandingCommand.landingVisibleRoles = domainRSDTO.landingVisibleRoles
+        domainLandingCommand.showLandingLogin = domainRSDTO.getLoginSettings().getShowLandingLogin() ?: false
         [command: domainLandingCommand]
     }
 
@@ -178,6 +179,7 @@ class AdminController {
         domainRDTO.domainDescription = command.domainDescription
         domainRDTO.footerLinks = command.footerLinks?.findAll { it }?.collectEntries { [(it.title): it.url] } ?: null
         domainRDTO.landingVisibleRoles = command.landingVisibleRoles
+        domainRDTO.getLoginSettings().showLandingLogin = command.showLandingLogin ?: false
         domainService.updateConfig(domainRDTO)
         flash.message = "Success"
         redirect mapping: 'adminDomainConfigLanding'
