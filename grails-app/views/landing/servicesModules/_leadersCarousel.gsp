@@ -19,7 +19,7 @@
         <a href="#how-it-works" class="btn btn-lg btn-grey-transparent hidden-xs" data-effect="scroll"><g:message code="landingServices.howItWorks.title"/> </a>
     </g:if>
     <sec:ifNotLoggedIn>
-        <g:if test="${_domainLoginSettings.showLandingLogin}">
+        <g:if test="${_domainLoginSettings.showLandingLogin && _domainLoginSettings.providerBasicEmailForm}">
             <formUtil:validateForm bean="${command}" form="sign"/>
             <g:form mapping="register" autocomplete="off" method="post" name="sign" class="form-inline dark" role="form"
                     novalidate="novalidate">
