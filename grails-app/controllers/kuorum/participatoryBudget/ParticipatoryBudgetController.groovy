@@ -152,7 +152,7 @@ class ParticipatoryBudgetController extends CampaignController {
     private def modelDistrictsStep(ParticipatoryBudgetRSDTO participatoryBudgetRSDTO) {
         def districts
         if (participatoryBudgetRSDTO.districts) {
-            districts = participatoryBudgetRSDTO.districts.collect { d -> new DistrictCommand(allCity: d.allCity, name: d.name, budget: d.budget, districtId: d.id) }
+            districts = participatoryBudgetRSDTO.districts.collect { d -> new DistrictCommand(allCity: d.allCity, name: d.name, budget: d.budget, districtId: d.id, minVotesImplementProposals: d.minVotesImplementProposals) }
         } else {
             districts = [new DistrictCommand()]
         }
@@ -160,7 +160,6 @@ class ParticipatoryBudgetController extends CampaignController {
         new DistrictsCommand(
                 districts: districts,
                 maxDistrictProposalsPerUser: participatoryBudgetRSDTO.maxDistrictProposalsPerUser,
-                minVotesImplementProposals: participatoryBudgetRSDTO.minVotesImplementProposals,
                 activeSupport: participatoryBudgetRSDTO.activeSupport,
                 addProposalsWithValidation: participatoryBudgetRSDTO.addProposalsWithValidation,
                 participatoryBudgetType: participatoryBudgetRSDTO.participatoryBudgetType
@@ -182,7 +181,6 @@ class ParticipatoryBudgetController extends CampaignController {
         ParticipatoryBudgetRDTO rdto = participatoryBudgetService.map(participatoryBudgetRSDTO)
         rdto.districts = command.districts?.findAll { it && it.name && it.budget }.collect { mapDistrict(it) } ?: []
         rdto.maxDistrictProposalsPerUser = command.maxDistrictProposalsPerUser
-        rdto.minVotesImplementProposals = command.minVotesImplementProposals
         rdto.activeSupport = command.activeSupport == null ? false : true
         rdto.addProposalsWithValidation = command.addProposalsWithValidation == null ? false : true
         rdto.participatoryBudgetType = command.participatoryBudgetType
@@ -195,6 +193,7 @@ class ParticipatoryBudgetController extends CampaignController {
                 id: districtCommand.districtId,
                 name: districtCommand.name,
                 budget: districtCommand.budget,
+                minVotesImplementProposals: districtCommand.minVotesImplementProposals,
                 allCity: districtCommand.allCity ?: false
         )
     }

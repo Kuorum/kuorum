@@ -17,9 +17,6 @@
             <formUtil:input command="${command}" field="maxDistrictProposalsPerUser" type="number" showLabel="true"/>
         </div>
 
-        <div class="col-xs-12 col-sm-3 ">
-            <formUtil:input command="${command}" field="minVotesImplementProposals" type="number" showLabel="true"/>
-        </div>
     </fieldset>
     <fieldset aria-live="polite" class="form-group fieldset-check-box">
         <label for="activeSupport" class="col-xs-12 col-sm-1 col-md-1 control-label">
@@ -45,11 +42,16 @@
 
     <div class="form-group hidden-xs">
         <div class="col-sm-offset-2 col-sm-8 col-md-offset-1 col-md-7">
-            <div class="col-sm-offset-5 col-sm-5 participatory-budget-voting-container ${command.participatoryBudgetType}">
+            <div class="col-sm-offset-5 col-sm-2 participatory-budget-voting-container ${command.participatoryBudgetType}">
                 <span class="participatory-budget-type-BUDGET"><g:message
                         code="kuorum.web.commands.payment.participatoryBudget.DistrictCommand.budget.label"/></span>
                 <span class="participatory-budget-type-SIMPLE_VOTE"><g:message
                         code="kuorum.web.commands.payment.participatoryBudget.DistrictCommand.singleVote.label"/></span>
+            </div>
+
+            <div class="col-sm-2 participatory-budget-voting-container ${command.participatoryBudgetType}">
+                <span class=""><g:message
+                        code="kuorum.web.commands.payment.participatoryBudget.DistrictCommand.minVotesImplementProposals.label"/></span>
             </div>
         </div>
     </div>
@@ -86,6 +88,17 @@
                                         code="kuorum.web.commands.payment.participatoryBudget.DistrictCommand.singleVote.label"/></span>
                             </label>
                             <formUtil:input field="budget" command="${listCommand}" prefixFieldName="${prefixField}"
+                                            showLabel="false"/>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-2 ">
+                            <label for="districts[0].minVotesImplementProposals"
+                                   class="visible-xs participatory-budget-voting-container ${command.participatoryBudgetType}">
+                                <span class=""><g:message
+                                        code="kuorum.web.commands.payment.participatoryBudget.DistrictCommand.minVotesImplementProposals.label"/></span>
+                            </label>
+                            <formUtil:input field="minVotesImplementProposals" command="${listCommand}"
+                                            prefixFieldName="${prefixField}"
                                             showLabel="false"/>
                         </div>
 
