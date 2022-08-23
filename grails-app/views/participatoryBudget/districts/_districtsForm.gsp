@@ -41,8 +41,8 @@
     <hr/>
 
     <div class="form-group hidden-xs">
-        <div class="col-sm-offset-2 col-sm-8 col-md-offset-1 col-md-7">
-            <div class="col-sm-offset-5 col-sm-2 participatory-budget-voting-container ${command.participatoryBudgetType}">
+        <div class="col-sm-offset-2 col-md-offset-1 col-sm-10">
+            <div class="col-sm-offset-4 col-sm-2 participatory-budget-voting-container ${command.participatoryBudgetType}">
                 <span class="participatory-budget-type-BUDGET"><g:message
                         code="kuorum.web.commands.payment.participatoryBudget.DistrictCommand.budget.label"/></span>
                 <span class="participatory-budget-type-SIMPLE_VOTE"><g:message
@@ -59,7 +59,7 @@
         <label for="districs" class="col-sm-2 col-md-1 control-label"><g:message
                 code="kuorum.web.commands.payment.participatoryBudget.DistrictsCommand.districts"/>:</label>
 
-        <div class="col-sm-8 col-md-7">
+        <div class="col-sm-10">
             <formUtil:dynamicComplexInputs
                     command="${command}"
                     field="districts"
@@ -74,8 +74,8 @@
 
                     <div class="form-group district-data">
                         %{--<div class="col-xs-12 col-sm-8 col-md-7">--}%
-                        <div class="col-xs-12 col-sm-5">
-                            <formUtil:input field="name" command="${listCommand}" prefixFieldName="${prefixField}"
+                    <div class="col-xs-12 col-sm-4">
+                        <formUtil:input field="name" command="${listCommand}" prefixFieldName="${prefixField}"
                                             showLabel="true" labelCssClass="visible-xs"/>
                         </div>
 
@@ -102,8 +102,8 @@
                                             showLabel="false"/>
                         </div>
 
-                        <div class="col-xs-12 col-sm-4 form-group-checkbox-inline no-label-lg">
-                            <formUtil:checkBox field="allCity" command="${listCommand}"
+                    <div class="col-xs-12 col-sm-3 form-group-checkbox-inline no-label-lg">
+                        <formUtil:checkBox field="allCity" command="${listCommand}"
                                                prefixFieldName="${prefixField}"/>
                             <span class="fal fa-info-circle" data-toggle="tooltip" data-placement="top"
                                   title="${g.message(code: 'kuorum.web.commands.payment.participatoryBudget.DistrictCommand.allCity.tooltip')}"></span>
