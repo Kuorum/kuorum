@@ -52,6 +52,11 @@
             <div class="col-sm-2 participatory-budget-voting-container ${command.participatoryBudgetType}">
                 <span class=""><g:message
                         code="kuorum.web.commands.payment.participatoryBudget.DistrictCommand.minVotesImplementProposals.label"/></span>
+                <span class="info-disabled">
+                    <span role="button" rel="popover" class="fas fa-info-circle" data-toggle="tooltip"
+                          data-placement="top" title=""
+                          data-original-title="${g.message(code: 'kuorum.web.commands.payment.participatoryBudget.DistrictCommand.minVotesImplementProposals.headTableInfo')}"></span>
+                </span>
             </div>
         </div>
     </div>
