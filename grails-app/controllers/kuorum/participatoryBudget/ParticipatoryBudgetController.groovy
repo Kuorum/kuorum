@@ -152,7 +152,7 @@ class ParticipatoryBudgetController extends CampaignController {
     private def modelDistrictsStep(ParticipatoryBudgetRSDTO participatoryBudgetRSDTO) {
         def districts
         if (participatoryBudgetRSDTO.districts) {
-            districts = participatoryBudgetRSDTO.districts.collect { d -> new DistrictCommand(allCity: d.allCity, name: d.name, budget: d.budget, districtId: d.id, minVotesImplementProposals: d.minVotesImplementProposals) }
+            districts = participatoryBudgetRSDTO.districts.collect { d -> new DistrictCommand(allCity: d.allCity, name: d.name, budget: d.budget, districtId: d.id, minVotesImplementProposals: d.minVotesImplementProposals, maxEligibleProposals: d.maxEligibleProposals) }
         } else {
             districts = [new DistrictCommand()]
         }
@@ -194,6 +194,7 @@ class ParticipatoryBudgetController extends CampaignController {
                 name: districtCommand.name,
                 budget: districtCommand.budget,
                 minVotesImplementProposals: districtCommand.minVotesImplementProposals,
+                maxEligibleProposals: districtCommand.maxEligibleProposals,
                 allCity: districtCommand.allCity ?: false
         )
     }

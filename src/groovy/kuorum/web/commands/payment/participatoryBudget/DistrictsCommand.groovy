@@ -41,6 +41,7 @@ class DistrictCommand{
     Long budget
     Boolean allCity
     Integer minVotesImplementProposals
+    Integer maxEligibleProposals
 
     static constraints = {
         districtId nullable: true
@@ -48,5 +49,6 @@ class DistrictCommand{
         budget nullable: false, min:0L
         allCity nullable: true
         minVotesImplementProposals min: 0
+        maxEligibleProposals min: 0
     }
 }

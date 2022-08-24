@@ -999,6 +999,7 @@ class FormTagLib {
         def checked = ''
         def value = attrs.value?:"true"
         def elementId = attrs.elementId?:field
+        def showLabel = attrs.showLabel?Boolean.parseBoolean(attrs.showLabel):true
         if (command."$field" instanceof Collection) {
             checked = ((Collection)command."$field").contains(value)?'checked':''
         } else {
@@ -1006,12 +1007,13 @@ class FormTagLib {
         }
         def label = attrs.label?:message(code: "${command.class.name}.${field}.label")
         def extraClass = attrs.extraClass?:""
+        def labelCssClass = attrs.labelCssClass?:""
         def error = hasErrors(bean: command, field: field,'error')
         out << """
             <label class="checkbox-inline ${extraClass} ${disabled ? 'disabled' : ''}" for="${elementId}">
                 <input id="${elementId}" class="${error}" type="checkbox" name='${prefixFieldName}${field}' ${checked} value='${value}' ${disabled ? 'disabled' : ''} aria-errormessage="${elementId}-error"/>
                 <span class="check-box-icon"></span>
-                <span class="label-checkbox">${label}</span>
+                <span class="label-checkbox ${labelCssClass}">${showLabel?label:""}</span>
             </label>
             """
         if (error) {

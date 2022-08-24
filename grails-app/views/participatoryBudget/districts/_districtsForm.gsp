@@ -42,7 +42,7 @@
 
     <div class="form-group hidden-xs">
         <div class="col-sm-offset-2 col-md-offset-1 col-sm-10">
-            <div class="col-sm-offset-4 col-sm-2 participatory-budget-voting-container ${command.participatoryBudgetType}">
+            <div class="col-sm-offset-3 col-sm-2 participatory-budget-voting-container ${command.participatoryBudgetType}">
                 <span class="participatory-budget-type-BUDGET"><g:message
                         code="kuorum.web.commands.payment.participatoryBudget.DistrictCommand.budget.label"/></span>
                 <span class="participatory-budget-type-SIMPLE_VOTE"><g:message
@@ -56,6 +56,26 @@
                     <span role="button" rel="popover" class="fas fa-info-circle" data-toggle="tooltip"
                           data-placement="top" title=""
                           data-original-title="${g.message(code: 'kuorum.web.commands.payment.participatoryBudget.DistrictCommand.minVotesImplementProposals.headTableInfo')}"></span>
+                </span>
+            </div>
+
+            <div class="col-sm-2 participatory-budget-voting-container ${command.participatoryBudgetType}">
+                <span class=""><g:message
+                        code="kuorum.web.commands.payment.participatoryBudget.DistrictCommand.maxEligibleProposals.label"/></span>
+                <span class="info-disabled">
+                    <span role="button" rel="popover" class="fas fa-info-circle" data-toggle="tooltip"
+                          data-placement="top" title=""
+                          data-original-title="${g.message(code: 'kuorum.web.commands.payment.participatoryBudget.DistrictCommand.maxEligibleProposals.headTableInfo')}"></span>
+                </span>
+            </div>
+
+            <div class="col-sm-2 participatory-budget-voting-container ${command.participatoryBudgetType}">
+                <span class=""><g:message
+                        code="kuorum.web.commands.payment.participatoryBudget.DistrictCommand.allCity.label"/></span>
+                <span class="info-disabled">
+                    <span role="button" rel="popover" class="fas fa-info-circle" data-toggle="tooltip"
+                          data-placement="top" title=""
+                          data-original-title="${g.message(code: 'kuorum.web.commands.payment.participatoryBudget.DistrictCommand.allCity.tooltip')}"></span>
                 </span>
             </div>
         </div>
@@ -79,8 +99,8 @@
 
                     <div class="form-group district-data">
                         %{--<div class="col-xs-12 col-sm-8 col-md-7">--}%
-                    <div class="col-xs-12 col-sm-4">
-                        <formUtil:input field="name" command="${listCommand}" prefixFieldName="${prefixField}"
+                        <div class="col-xs-12 col-sm-3">
+                            <formUtil:input field="name" command="${listCommand}" prefixFieldName="${prefixField}"
                                             showLabel="true" labelCssClass="visible-xs"/>
                         </div>
 
@@ -107,11 +127,21 @@
                                             showLabel="false"/>
                         </div>
 
-                    <div class="col-xs-12 col-sm-3 form-group-checkbox-inline no-label-lg">
-                        <formUtil:checkBox field="allCity" command="${listCommand}"
-                                               prefixFieldName="${prefixField}"/>
-                            <span class="fal fa-info-circle" data-toggle="tooltip" data-placement="top"
-                                  title="${g.message(code: 'kuorum.web.commands.payment.participatoryBudget.DistrictCommand.allCity.tooltip')}"></span>
+                        <div class="col-xs-12 col-sm-2 ">
+                            <label for="districts[0].maxEligibleProposals"
+                                   class="visible-xs participatory-budget-voting-container ${command.participatoryBudgetType}">
+                                <span class=""><g:message
+                                        code="kuorum.web.commands.payment.participatoryBudget.DistrictCommand.maxEligibleProposals.label"/></span>
+                            </label>
+                            <formUtil:input field="maxEligibleProposals" command="${listCommand}"
+                                            prefixFieldName="${prefixField}"
+                                            showLabel="false"/>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-2 form-group-checkbox-inline no-label-lg">
+                            <formUtil:checkBox field="allCity" command="${listCommand}"
+                                               prefixFieldName="${prefixField}"
+                                               labelCssClass="visible-xs"/>
                         </div>
 
                         <div class="col-xs-12 col-sm-1 form-group-remove no-label-lg">
@@ -126,7 +156,8 @@
                 <div class="form-group right">
                     <div class="col-md-12">
                         <button type="button" class="btn btn-lg btn-icon btn-transparent addButton">
-                            <g:message code="kuorum.web.commands.payment.participatoryBudget.DistrictsCommand.addDistrict"/>
+                            <g:message
+                                    code="kuorum.web.commands.payment.participatoryBudget.DistrictsCommand.addDistrict"/>
                             <i class="far fa-plus"></i>
                         </button>
                     </div>
@@ -136,9 +167,9 @@
     </fieldset>
 
     <g:render template="/campaigns/edit/stepButtons" model="[
-            saveAndSentButtons:true,
-            mappings:mappings,
-            status:status,
-            command: command,
-            numberRecipients:numberRecipients]"/>
+            saveAndSentButtons: true,
+            mappings          : mappings,
+            status            : status,
+            command           : command,
+            numberRecipients  : numberRecipients]"/>
 </form>
