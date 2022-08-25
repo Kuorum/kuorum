@@ -22,7 +22,8 @@
             </div>
 
             <div class="modal-actions">
-                <a href="" role="button" class="btn btn-blue inverted btn-lg close-modal">VOTAR</a>
+                <a href="" role="button" class="btn btn-blue inverted btn-lg close-modal"><g:message
+                        code="petition.modal.sign.button"/></a>
             </div>
         </div>
     </div>
