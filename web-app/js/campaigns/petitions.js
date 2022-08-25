@@ -1,18 +1,18 @@
 
 $(function () {
 
-    var likeButton = $('.petition-sign');
-    likeButton.on("click", petitionFunctions.bindSignClick);
-    noLoggedCallbacks['signPetitionNoLogged']= function(){
+    var signButton = $('.petition-sign');
+    signButton.on("click", petitionFunctions.bindSignClick);
+    noLoggedCallbacks['signPetitionNoLogged'] = function () {
         var buttonId = $('#registro').find("form").attr("data-buttonId");
-        var $button = $("#"+buttonId);
+        var $button = $("#" + buttonId);
         pageLoadingOff();
         petitionFunctions.onClickSignPetition($button, noLoggedCallbacks.reloadPage);
     };
 
-    $(".petition-sign-call-to-action").on("click", function(e){
+    $(".petition-sign-call-to-action").on("click", function (e) {
         e.preventDefault();
-        likeButton.click();
+        signButton.click();
     })
 });
 
@@ -54,6 +54,16 @@ var petitionFunctions = {
         var petitionId = $button.attr('data-petitionId');
         var requestPdfUrl = $button.attr('data-requestPdfUrl');
         var viewPdfUrl = $button.attr('data-viewPdfUrl');
+        var $modal = $("#petition-sign-pdf-modal-" + petitionId);
+        var $modalSubmitButton = $modal.find(".modal-sign");
+        if ($modalSubmitButton.attr("href") !== '') {
+            // BIND CLICK
+            $modalSubmitButton.on("click", function (e) {
+                e.preventDefault();
+                petitionFunctions.__executableAsyncPetitionSign(params)
+            });
+            $modalSubmitButton.attr("href", signUrl);
+        }
 
         var data = {};
 
@@ -62,7 +72,7 @@ var petitionFunctions = {
             url: requestPdfUrl,
             data: data,
             success: function (petitionSign) {
-                var $modal = $("#petition-sign-pdf-modal-" + petitionId);
+
                 $modal.modal("show");
                 petitionFunctions._loadPDFIframe($modal, viewPdfUrl);
             },
