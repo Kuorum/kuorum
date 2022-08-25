@@ -172,7 +172,6 @@ class ParticipatoryBudgetService extends AbstractCampaignCreatorService<Particip
             participatoryBudgetRDTO.status = participatoryBudgetRSDTO.status
             participatoryBudgetRDTO.districts = participatoryBudgetRSDTO.districts
             participatoryBudgetRDTO.maxDistrictProposalsPerUser = participatoryBudgetRSDTO.maxDistrictProposalsPerUser
-            participatoryBudgetRDTO.minVotesImplementProposals = participatoryBudgetRSDTO.minVotesImplementProposals
             participatoryBudgetRDTO.activeSupport = participatoryBudgetRSDTO.activeSupport
             participatoryBudgetRDTO.addProposalsWithValidation = participatoryBudgetRSDTO.addProposalsWithValidation
             participatoryBudgetRDTO.participatoryBudgetType = participatoryBudgetRSDTO.participatoryBudgetType
