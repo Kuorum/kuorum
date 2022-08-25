@@ -22,7 +22,7 @@
             </div>
 
             <div class="modal-actions">
-                <a href="" role="button" class="btn btn-blue inverted btn-lg close-modal"><g:message
+                <a href="" role="button" class="btn btn-blue inverted btn-lg modal-sign"><g:message
                         code="petition.modal.sign.button"/></a>
             </div>
         </div>
