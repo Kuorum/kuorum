@@ -1,0 +1,1 @@
+<p>Necesitas que te manden una invitación para poder participar</p>

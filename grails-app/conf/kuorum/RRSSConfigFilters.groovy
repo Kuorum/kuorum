@@ -41,7 +41,8 @@ class RRSSConfigFilters {
                     model.put("_domainValidations", [
                             census    : CustomDomainResolver.domainRSDTO.validationCensus,
                             phone     : CustomDomainResolver.domainRSDTO.validationPhone,
-                            customCode: CustomDomainResolver.domainRSDTO.validationCode
+                            customCode: CustomDomainResolver.domainRSDTO.validationCode,
+                            tokenMail : CustomDomainResolver.domainRSDTO.validationTokenMail
                     ])
                 }
             }
