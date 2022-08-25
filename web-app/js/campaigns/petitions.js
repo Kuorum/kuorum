@@ -35,18 +35,47 @@ var petitionFunctions = {
         }
     },
     onClickSignPetition:function($button, callback) {
-        if(isPageLoading()){
+        if (isPageLoading()) {
             return;
         }
         pageLoadingOn();
         var params = {
             callback: callback,
-            $button : $button
+            $button: $button
         };
-        var executableFunction = new userValidatedByDomain.ExcutableFunctionCallback(petitionFunctions.__executableAsyncPetitionSign, params);
+        var executableFunction = new userValidatedByDomain.ExcutableFunctionCallback(petitionFunctions.__requestSignReport, params);
         userValidatedByDomain.executeClickButtonHandlingValidations($button, executableFunction);
     },
-    __executableAsyncPetitionSign:function (params) {
+    __requestSignReport: function (params) {
+        pageLoadingOff();
+        var callback = params.callback;
+        var $button = params.$button;
+        var signUrl = $button.attr('href');
+        var petitionId = $button.attr('data-petitionId');
+        var requestPdfUrl = $button.attr('data-requestPdfUrl');
+        var viewPdfUrl = $button.attr('data-viewPdfUrl');
+
+        var data = {};
+
+        $.ajax({
+            type: 'POST',
+            url: requestPdfUrl,
+            data: data,
+            success: function (petitionSign) {
+                var $modal = $("#petition-sign-pdf-modal-" + petitionId);
+                $modal.modal("show");
+                petitionFunctions._loadPDFIframe($modal, viewPdfUrl);
+            },
+            error: function () {
+
+            },
+            complete: function () {
+                pageLoadingOff();
+            }
+        });
+
+    },
+    __executableAsyncPetitionSign: function (params) {
         var callback = params.callback;
         var $button = params.$button;
         var url = $button.attr('href');
@@ -76,12 +105,43 @@ var petitionFunctions = {
                 }
                 $(".petition-sign-call-to-action").fadeOut();
             },
-            error: function(){
+            error: function () {
 
             },
-            complete: function(){
+            complete: function () {
                 pageLoadingOff();
             }
         });
+    },
+
+    _loadPDFIframe: function ($modal, viewPdfUrl) {
+        var iframe = $modal.find("iframe");
+        var $loading = $modal.find(".loading");
+        $loading.show()
+        iframe.attr("src", viewPdfUrl);
+        iframe.hide();
+        var reloadUntilCorrectPdf = function (e) {
+            var title = iframe.contents().find("title").html();
+            console.log("Reloading until pdf generated. Title = " + title)
+            if (title == "File not found") { // Title checking
+                console.log("Reloading IFRAME")
+                iframe.attr('src', function (i, val) {
+                    return val;
+                }); // resets iframe
+                iframe.attr('data', function (i, val) {
+                    return val;
+                }); // resets iframe
+            } else {
+                console.log("PDF Loaded")
+                petitionFunctions._showIframeWithPdf($modal);
+            }
+        }
+        iframe.load(reloadUntilCorrectPdf);
+    },
+    _showIframeWithPdf: function ($modal) {
+        var $iframe = $modal.find("iframe");
+        var $loading = $modal.find(".loading");
+        $iframe.show();
+        $loading.hide();
     }
 };
