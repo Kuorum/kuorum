@@ -43,8 +43,20 @@ var petitionFunctions = {
             callback: callback,
             $button: $button
         };
-        var executableFunction = new userValidatedByDomain.ExcutableFunctionCallback(petitionFunctions.__requestSignReport, params);
-        userValidatedByDomain.executeClickButtonHandlingValidations($button, executableFunction);
+        var sign = $button.hasClass('on');
+        console.log($button)
+        console.log("Already signed: " + sign)
+        if (sign) {
+            // ALREADY SIGNED
+            pageLoadingOff();
+            var petitionId = $button.attr('data-petitionId');
+            console.log("Already signed: " + petitionId)
+            var $modalAlreadySigned = $("#petition-already-signed-modal-" + petitionId);
+            $modalAlreadySigned.modal("show");
+        } else {
+            var executableFunction = new userValidatedByDomain.ExcutableFunctionCallback(petitionFunctions.__requestSignReport, params);
+            userValidatedByDomain.executeClickButtonHandlingValidations($button, executableFunction);
+        }
     },
     __requestSignReport: function (params) {
         pageLoadingOff();

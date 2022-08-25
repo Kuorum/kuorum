@@ -28,3 +28,28 @@
         </div>
     </div>
 </div>
+
+<!-- Modal petition show pdf for signing -->
+<div class="modal petition-already-signed-modal" id="petition-already-signed-modal-${petition.id}" tabindex="-1"
+     role="dialog" aria-labelledby="petition-already-signed-modal-title" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true"
+                                                                                                   class="fal fa-times-circle fa"></span><span
+                        class="sr-only">Cerrar</span></button>
+                <h4 id="petition-already-signed-modal-title"><g:message code="petition.modal.signed.title"/></h4>
+            </div>
+
+            <div class="modal-body">
+                <p><g:message code="petition.modal.signed.body"/></p>
+            </div>
+
+            <div class="modal-actions">
+                <a href="" role="button" class="btn btn-blue inverted btn-lg modal-sign"><g:message
+                        code="default.close"/></a>
+            </div>
+        </div>
+    </div>
+</div>
+
