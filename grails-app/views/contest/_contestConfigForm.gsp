@@ -10,6 +10,9 @@
         <div class=" col-sm-offset-1 col-sm-4">
             <formUtil:input command="${command}" field="numWinnerApplications" showLabel="true"/>
         </div>
+        <div class=" col-sm-offset-1 col-sm-4">
+            <formUtil:input command="${command}" field="maxApplicationsPerUser" showLabel="true"/>
+        </div>
     </fieldset>
 
 
