@@ -1,1 +1,1 @@
-<p>Necesitas que te manden una invitación para poder participar</p>
+<p><g:message code="kuorum.web.commands.profile.tokenMail.body"/></p>

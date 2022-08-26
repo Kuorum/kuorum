@@ -17,8 +17,6 @@
 <content tag="mainContent">
     <ol class="stepsSign">
         <li class=""><div class="step-label"><g:message code="kuorum.web.commands.profile.directCensusLogin.title"/></div></li>
-        <g:if test="${_domainValidations.tokenMail}"><li class=""><div class="step-label"><g:message
-                code="kuorum.web.commands.profile.tokenMail.title"/></div></li></g:if>
         <g:if test="${_domainValidations.census}"><li class=""><div class="step-label"><g:message code="kuorum.web.commands.profile.DomainValidationCommand.title"/></div></li></g:if>
         <g:if test="${_domainValidations.customCode}"><li class="active"><div class="step-label"><g:message code="kuorum.web.commands.profile.DomainUserCustomCodeValidationCommand.title"/></div></li></g:if>
         <g:if test="${_domainValidations.phone}"><li class=""><div class="step-label"><g:message code="kuorum.web.commands.profile.DomainUserPhoneValidationCommand.title"/></div></li></g:if>
