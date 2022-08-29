@@ -75,7 +75,8 @@
         <div class="center">
             <h3><g:message code="login.intro.loginAfter.noRegister.title"/></h3>
 
-            <p><g:message code="login.intro.loginAfter.noRegister.login" args="['#', 'change-home-login']"/></p>
+            <p><g:message code="login.intro.loginAfter.noRegister.login"
+                          args="[g.createLink(mapping: 'login'), 'change-home-login']"/></p>
         </div>
     </g:elseif>
     <g:render template="/register/registerSocial"/>
