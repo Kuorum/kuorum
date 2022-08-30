@@ -182,6 +182,7 @@ class ContestController extends CampaignController {
         ContestRDTO rdto = contestService.map(contestRSDTO)
 //        rdto.causes = command.causes
         rdto.numWinnerApplications = command.numWinnerApplications
+        rdto.maxApplicationsPerUser = command.maxApplicationsPerUser
         def result = saveAndSendCampaign(campaignUser, rdto, contestRSDTO.getId(), command.publishOn, command.sendType, contestService)
         redirect mapping: result.nextStep.mapping, params: result.nextStep.params
     }
@@ -244,6 +245,7 @@ class ContestController extends CampaignController {
     private def campaignModelContestArea(long idCampaign, ContestRSDTO contestRSDTO, ContestAreasCommand command) {
         command.setCampaignId(idCampaign)
         command.setNumWinnerApplications(contestRSDTO.getNumWinnerApplications())
+        command.setMaxApplicationsPerUser(contestRSDTO.getMaxApplicationsPerUser())
         return [
                 campaign: contestRSDTO,
                 command : command
