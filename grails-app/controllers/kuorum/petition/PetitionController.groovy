@@ -84,14 +84,38 @@ class PetitionController extends CampaignController{
             }
             return
         }
-        KuorumUserSession currentUser= springSecurityService.principal
-        PetitionRSDTO petitionRSDTO= petitionService.signPetition(command.campaignId, currentUser, command.sign, command.petitionUserId)
+        KuorumUserSession currentUser = springSecurityService.principal
+        PetitionRSDTO petitionRSDTO = petitionService.signPetition(command.campaignId, currentUser, command.sign, command.petitionUserId)
         BasicUserPageRSDTO signs = petitionService.listSigns(petitionRSDTO.id, 0, 12)
         def signsHtml = groovyPageRenderer.render(template: '/petition/showModules/signedUsersContent', model: [petition: petitionRSDTO, signs: signs.getData()])
-        render ([signsHtml:signsHtml, petition: petitionRSDTO] as JSON)
+        render([signsHtml: signsHtml, petition: petitionRSDTO] as JSON)
     }
 
     def copy(Long campaignId) {
         return super.copyCampaign(campaignId, petitionService)
+    }
+
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def requestPdfToSign(Long campaignId) {
+        KuorumUserSession currentUser = springSecurityService.principal
+        petitionService.requestSignedReport(currentUser, campaignId)
+        render([success: true] as JSON)
+    }
+
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def downloadPdfToSign(Long campaignId) {
+        KuorumUserSession loggedUser = springSecurityService.principal
+        try {
+            ByteArrayOutputStream outPdf = new ByteArrayOutputStream();
+            petitionService.getSignedReport(loggedUser, campaignId, outPdf)
+            outPdf.writeTo(response.outputStream);
+            response.setContentType("application/pdf")
+            response.setHeader("Content-disposition", "filename=${fileName}")
+            response.outputStream.flush()
+            return
+        } catch (Exception e) {
+            render "<html><heaad><title>File not found</title></head><body>File not found</body></html>"
+        }
+
     }
 }

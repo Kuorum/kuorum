@@ -156,18 +156,24 @@ var userValidatedByDomain={
         $("#domain-validation .modal-domain-validation-step-tabs li.modal-domain-validation-step-tabs-customCode").addClass("active");
         userValidatedByDomain.hideErrorModal();
     },
-    showPhoneValidation:function(){
+    showPhoneValidation: function () {
         $("#domain-validation .modal-domain-validation").hide();
         $("#domain-validation .modal-domain-validation-phone").show();
-        if ($("phoneHash").val()=="" || $("phoneHash").val() == undefined){
+        if ($("phoneHash").val() == "" || $("phoneHash").val() == undefined) {
             userValidatedByDomain.showPhoneValidationStep1();
-        }else{
+        } else {
             userValidatedByDomain.showPhoneValidationStep2();
         }
     },
-    showPhoneValidationStep1:function(e){
-        if (e != undefined){e.preventDefault();}
-        if (userValidatedByDomain.dataValidation.predefinedPhone){
+    showTokenMailValidation: function () {
+        $("#domain-validation .modal-domain-validation").hide();
+        $("#domain-validation .modal-domain-validation-tokenMail").show();
+    },
+    showPhoneValidationStep1: function (e) {
+        if (e != undefined) {
+            e.preventDefault();
+        }
+        if (userValidatedByDomain.dataValidation.predefinedPhone) {
             $("#domain-validation .modal-domain-validation-phone .modal-domain-validation-phone-step1 .modal-domain-validation-phone-step1-predefinedPhone").show();
             $("#domain-validation .modal-domain-validation-phone .modal-domain-validation-phone-step1 .modal-domain-validation-phone-step1-inputPhone").hide();
         }
@@ -374,17 +380,20 @@ var userValidatedByDomain={
             // RESTORE STATUS
             console.log("Next step :: Not validation success");
             userValidatedByDomain.showErrorModal(callbackData.msg)
-        }else{
-            if (!callbackData.pendingValidations.censusValidation.success){
+        }else {
+            if (!callbackData.pendingValidations.tokenMailValidation.success) {
+                console.log("Next step :: Show Token Mail Validation")
+                userValidatedByDomain.showTokenMailValidation();
+            } else if (!callbackData.pendingValidations.censusValidation.success) {
                 console.log("Next step :: Show Census validation")
                 userValidatedByDomain.showCensusValidation();
-            }else if (!callbackData.pendingValidations.codeValidation.success){
+            } else if (!callbackData.pendingValidations.codeValidation.success) {
                 console.log("Next step :: Show Code validation")
                 userValidatedByDomain.showCodeValidation();
-            }else if (!callbackData.pendingValidations.phoneValidation.success){
+            } else if (!callbackData.pendingValidations.phoneValidation.success) {
                 console.log("Next step :: Show phone validation");
-                if (callbackData.pendingValidations.phoneValidation.data.predefinedPhone){
-                    userValidatedByDomain.dataValidation.predefinedPhone=true;
+                if (callbackData.pendingValidations.phoneValidation.data.predefinedPhone) {
+                    userValidatedByDomain.dataValidation.predefinedPhone = true;
                     $(".modal-domain-validation-phone-step1-predefinedPhone-phone").html(callbackData.pendingValidations.phoneValidation.data.phone)
                 }
                 userValidatedByDomain.showPhoneValidation();

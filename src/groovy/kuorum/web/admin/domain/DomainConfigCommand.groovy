@@ -19,19 +19,28 @@ class DomainConfigCommand {
     String instagram;
     String youtube;
 
+    Boolean providerBasicEmailForm
+    Boolean providerGoogle
+    Boolean providerFacebook
+    Boolean providerAoc
+
     private static final String HEX_PATTERN = '^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$';
     static constraints = {
         name nullable: false
         language nullable: false
-        mainColor nullable:false, matches:HEX_PATTERN
-        mainColorShadowed nullable: false, matches:HEX_PATTERN
-        secondaryColor nullable: false, matches:HEX_PATTERN
-        secondaryColorShadowed nullable: false, matches:HEX_PATTERN
+        mainColor nullable: false, matches: HEX_PATTERN
+        mainColorShadowed nullable: false, matches: HEX_PATTERN
+        secondaryColor nullable: false, matches: HEX_PATTERN
+        secondaryColorShadowed nullable: false, matches: HEX_PATTERN
         titleWebFont nullable: false
-        facebook nullable:true
-        twitter nullable:true
-        linkedIn nullable:true
-        instagram nullable:true
-        youtube nullable:true
+        facebook nullable: true
+        twitter nullable: true
+        linkedIn nullable: true
+        instagram nullable: true
+        youtube nullable: true
+        providerBasicEmailForm nullable: true
+        providerGoogle nullable: true
+        providerFacebook nullable: true
+        providerAoc nullable: true
     }
 }

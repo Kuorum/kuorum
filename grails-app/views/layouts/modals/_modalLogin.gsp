@@ -16,7 +16,8 @@
                 <g:render template="/layouts/recoverPassword" model="[ modalId:'registro']"/>
 
                 <!-- Formulario de Registro -->
-                <g:render template="/layouts/registerForm" model="[registerCommand: new springSecurity.KuorumRegisterCommand(), formId:'signup-modal']"/>
+                <g:render template="/layouts/registerForm"
+                          model="[command: new springSecurity.KuorumRegisterCommand(), formId: 'signup-modal']"/>
                 <g:render template="/register/registerSocial"/>
             </div>
         </div>

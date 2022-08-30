@@ -28,6 +28,8 @@
         <g:if test="${campaign instanceof org.kuorum.rest.model.communication.petition.PetitionRSDTO}">
             <g:render template="/campaigns/cards/petitionCard"
                       model="[petition: campaign, showAuthor: showAuthor, referred: 'dashboard', highlighted: highlighted]"/>
+            <g:render template="/petition/showModules/mainContent/petitionModalErrors"
+                      model="[petition: campaign]"/>
         </g:if>
         <g:if test="${campaign instanceof org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetRSDTO}">
             <g:render template="/campaigns/cards/participatoryBudgetCard"

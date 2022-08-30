@@ -14,7 +14,8 @@ class ContestAreasCommand {
     Date publishOn
     String sendType
 
-    Integer numWinnerApplications;
+    Integer numWinnerApplications
+    Integer maxApplicationsPerUser
 
 //    @BindUsing({ obj, org.grails.databinding.DataBindingSource source ->
 //        String normalizedCauses = source['causes'].replaceAll(';', ',')
@@ -25,6 +26,7 @@ class ContestAreasCommand {
     static constraints = {
         importFrom CampaignContentCommand, include: ["publishOn", "sendType"]
         numWinnerApplications nullable: false
+        maxApplicationsPerUser nullable: false
     }
 
 }
