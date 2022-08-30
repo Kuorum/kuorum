@@ -11,6 +11,7 @@ class DomainValidationCommand {
     Boolean validationCensus
     Boolean validationPhone
     Boolean validationCode
+    Boolean validationTokenMail
     String smsDomainName
     String defaultPhonePrefix
 
@@ -22,6 +23,7 @@ class DomainValidationCommand {
         validationCensus nullable: true
         validationPhone nullable: true
         validationCode nullable: true
+        validationTokenMail nullable: true
         isSocialNetwork nullable: true
         isUserProfileExtended nullable: true
         smsDomainName nullable: true, matches: '[a-zA-Z0-9]*[a-zA-Z]+[a-zA-Z0-9]*', maxSize: 11
