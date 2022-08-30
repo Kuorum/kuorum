@@ -34,19 +34,21 @@
             <g:link
                     mapping="petitionSign"
                     params="${petition.encodeAsLinkProperties()}"
-                    class="petition-sign petition-sign-${petition.id} btn btn-blue-status btn-lg ${petition.signed?'on':''}"
+                    class="petition-sign petition-sign-${petition.id} btn btn-blue-status btn-lg ${petition.signed ? 'on' : ''}"
                     type="button"
                     data-petitionId="${petition.id}"
                     data-petitionUserId="${petition.user.id}"
                     data-campaignValidationActive="${petition.checkValidationActive}"
-                    data-campaignGroupValidationActive="${petition.groupValidation?g.createLink(mapping: "campaignCheckGroupValidation", params: petition.encodeAsLinkProperties()):''}"
+                    data-campaignGroupValidationActive="${petition.groupValidation ? g.createLink(mapping: "campaignCheckGroupValidation", params: petition.encodeAsLinkProperties()) : ''}"
                     data-campaignId="${petition.id}"
                     data-loggedUser="${sec.username()}"
-                    data-txt-on="${g.message(code:"petition.callToAction.SENT.button.on",args: [petition.title])}"
-                    data-txt-on-hover="${g.message(code:"petition.callToAction.SENT.button.on.hover",args: [petition.title])}"
-                    data-txt-off="${g.message(code:"petition.callToAction.SENT.button.off",args: [petition.title])}"
-                    data-txt-off-hover="${g.message(code:"petition.callToAction.SENT.button.off.hover",args: [petition.title])}">
-                <span class="${petition.signed?'fas':'fal'} fa-microphone"></span>
+                    data-requestPdfUrl="${g.createLink(mapping: "petitionPdfRequest", params: petition.encodeAsLinkProperties())}"
+                    data-viewPdfUrl="${g.createLink(mapping: "petitionPdfView", params: petition.encodeAsLinkProperties())}"
+                    data-txt-on="${g.message(code: "petition.callToAction.SENT.button.on", args: [petition.title])}"
+                    data-txt-on-hover="${g.message(code: "petition.callToAction.SENT.button.on.hover", args: [petition.title])}"
+                    data-txt-off="${g.message(code: "petition.callToAction.SENT.button.off", args: [petition.title])}"
+                    data-txt-off-hover="${g.message(code: "petition.callToAction.SENT.button.off.hover", args: [petition.title])}">
+                <span class="${petition.signed ? 'fas' : 'fal'} fa-microphone"></span>
             </g:link>
         </div>
     </g:if>

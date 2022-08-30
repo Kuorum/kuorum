@@ -57,14 +57,24 @@
                 <div class="form-group col-md-5">
                     <formUtil:input field="title" command="${listCommand}" prefixFieldName="${prefixField}" showLabel="true"/>
                 </div>
+
                 <div class="form-group col-md-5">
-                    <formUtil:url field="url" command="${listCommand}" prefixFieldName="${prefixField}" showLabel="true"/>
+                    <formUtil:url field="url" command="${listCommand}" prefixFieldName="${prefixField}"
+                                  showLabel="true"/>
                 </div>
+
                 <div class="form-group col-md-1 form-group-remove">
                     <button type="button" class="btn btn-transparent removeButton"><i class="fa fa-trash"></i></button>
                 </div>
             </fieldset>
         </formUtil:dynamicComplexInputs>
+    </fieldset>
+    <h4 class="box-ppal-section-title"><g:message code="kuorum.web.admin.domain.login.label"/></h4>
+    <fieldset aria-live="polite">
+        <div class="form-group col-md-12">
+            <formUtil:checkBox command="${command}" field="showLandingLogin" showLabel="true"/>
+        </div>
+
     </fieldset>
 </div>
 

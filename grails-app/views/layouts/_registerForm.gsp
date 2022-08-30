@@ -1,4 +1,3 @@
-
 <r:script>
     $(function (){
         jQuery.validator.addMethod("validate_email",function(value, element) {
@@ -72,58 +71,74 @@
     });
 </r:script>
 <r:require modules="recaptcha_modalRegister"/>
-<g:form mapping="register" action-ajax="${g.createLink(mapping: 'ajaxRegister')}" autocomplete="off" method="post" name="${formId}" class="login" role="form" novalidate="novalidate">
-    <input type="hidden" value="${request.forwardURI.replaceFirst(request.contextPath, "")}" name="redirectUrl"/>
-    <div class="form-group">
-        <formUtil:input
-                command="${registerCommand}"
-                field="name"
-                cssClass="form-control input-lg"
-                labelCssClass="sr-only"
-                showCharCounter="false"
-                required="true"/>
-    </div>
-    <div class="form-group">
-        <formUtil:input
-                command="${registerCommand}"
-                field="email"
-                type="email"
-                id="email"
-                cssClass="form-control input-lg"
-                labelCssClass="sr-only"
-                required="true"/>
-    </div>
-    <div class="form-group">
-        <formUtil:input
-                command="${registerCommand}"
-                field="password"
-                type="password"
-                id="password"
-                cssClass="form-control input-lg"
-                labelCssClass="sr-only"
-                required="true"/>
-    </div>
-    <div class="form-group">
-        <p>
+<g:form mapping="register" action-ajax="${g.createLink(mapping: 'ajaxRegister')}" autocomplete="off" method="post"
+        name="${formId}" class="login" role="form" novalidate="novalidate">
+    <g:if test="${_domainLoginSettings.providerBasicEmailForm}">
 
-            %{--<input type="checkbox" name="conditions" id="conditions"/>--}%
-            %{--<g:message code="register.conditions" args="[g.createLink(mapping: 'footerPrivacyPolicy')]" encodeAs="raw"/>--}%
+        <input type="hidden" value="${request.forwardURI.replaceFirst(request.contextPath, "")}" name="redirectUrl"/>
+
+        <div class="form-group">
+            <formUtil:input
+                    command="${command}"
+                    field="name"
+                    cssClass="form-control input-lg"
+                    labelCssClass="sr-only"
+                    showCharCounter="false"
+                    required="true"/>
+        </div>
+
+        <div class="form-group">
+            <formUtil:input
+                    command="${command}"
+                    field="email"
+                    type="email"
+                    id="email"
+                    cssClass="form-control input-lg"
+                    labelCssClass="sr-only"
+                    required="true"/>
+        </div>
+
+        <div class="form-group">
+            <formUtil:input
+                    command="${command}"
+                    field="password"
+                    type="password"
+                    id="password"
+                    cssClass="form-control input-lg"
+                    labelCssClass="sr-only"
+                    required="true"/>
+        </div>
+
+        <div class="form-group">
+            <p>
+
+                %{--<input type="checkbox" name="conditions" id="conditions"/>--}%
+                %{--<g:message code="register.conditions" args="[g.createLink(mapping: 'footerPrivacyPolicy')]" encodeAs="raw"/>--}%
 
 
-            <formUtil:checkBox
-                    command="${registerCommand}"
-                    field="conditions"
-                    label="${g.message(code:'register.conditions', args:[g.createLink(mapping: 'footerPrivacyPolicy')], encodeAs: 'raw')}"/>
+                <formUtil:checkBox
+                        command="${command}"
+                        field="conditions"
+                        label="${g.message(code: 'register.conditions', args: [g.createLink(mapping: 'footerPrivacyPolicy')], encodeAs: 'raw')}"/>
 
-        </p>
-        <button id="register-modal-form-id"
-                data-recaptcha=""
-                data-callback="registerModalCallback"
-                class="btn btn-orange btn-lg g-recaptcha"><g:message code="register.email.form.submit"/>
-        </button>
-        %{--<input type="submit" class="btn btn-lg" value="${g.message(code:'register.email.form.submit')}">--}%
-    </div>
-    <div class="form-group">
-        <p><g:message code="login.intro.loginAfter" args="['#','change-home-login']"/></p>
-    </div>
+            </p>
+            <button id="register-modal-form-id"
+                    data-recaptcha=""
+                    data-callback="registerModalCallback"
+                    class="btn btn-orange btn-lg g-recaptcha"><g:message code="register.email.form.submit"/>
+            </button>
+            %{--<input type="submit" class="btn btn-lg" value="${g.message(code:'register.email.form.submit')}">--}%
+        </div>
+
+        <div class="form-group">
+            <p><g:message code="login.intro.loginAfter" args="['#', 'change-home-login']"/></p>
+        </div>
+    </g:if>
+    <g:elseif test="${!_domainLoginSettingsSocialLoginSectionActive}">
+        <div class="form-group">
+            <p><g:message code="login.intro.loginAfter.noRegister.title"/></p>
+
+            <p><g:message code="login.intro.loginAfter.noRegister.login" args="['#', 'change-home-login']"/></p>
+        </div>
+    </g:elseif>
 </g:form>

@@ -88,6 +88,10 @@ class AdminController {
         domainConfigCommand.instagram = domainRSDTO.social?.instagram
         domainConfigCommand.youtube = domainRSDTO.social?.youtube
         domainConfigCommand.titleWebFont = KuorumWebFont.build(domainRSDTO.webFontCombinationName)
+        domainConfigCommand.providerBasicEmailForm = domainRSDTO.loginSettings.providerBasicEmailForm
+        domainConfigCommand.providerGoogle = domainRSDTO.loginSettings.providerGoogle
+        domainConfigCommand.providerFacebook = domainRSDTO.loginSettings.providerFacebook
+        domainConfigCommand.providerAoc = domainRSDTO.loginSettings.providerAoc
         [command: domainConfigCommand]
 
     }
@@ -111,6 +115,10 @@ class AdminController {
         domainRDTO.social.linkedIn = command.linkedIn
         domainRDTO.social.instagram = command.instagram
         domainRDTO.social.youtube = command.youtube
+        domainRDTO.loginSettings.providerBasicEmailForm = command.providerBasicEmailForm ?: false
+        domainRDTO.loginSettings.providerGoogle = command.providerGoogle ?: false
+        domainRDTO.loginSettings.providerFacebook = command.providerFacebook ?: false
+        domainRDTO.loginSettings.providerAoc = command.providerAoc ?: false
 
         domainService.updateConfig(domainRDTO)
         flash.message = "Success"
@@ -165,6 +173,7 @@ class AdminController {
         domainLandingCommand.domainDescription = domainRSDTO.domainDescription
         domainLandingCommand.footerLinks = domainRSDTO.footerLinks.collect { new LinkCommand(title: it.key, url: it.value) }
         domainLandingCommand.landingVisibleRoles = domainRSDTO.landingVisibleRoles
+        domainLandingCommand.showLandingLogin = domainRSDTO.getLoginSettings().getShowLandingLogin() ?: false
         [command: domainLandingCommand]
     }
 
@@ -180,6 +189,7 @@ class AdminController {
         domainRDTO.domainDescription = command.domainDescription
         domainRDTO.footerLinks = command.footerLinks?.findAll { it }?.collectEntries { [(it.title): it.url] } ?: null
         domainRDTO.landingVisibleRoles = command.landingVisibleRoles
+        domainRDTO.getLoginSettings().showLandingLogin = command.showLandingLogin ?: false
         domainService.updateConfig(domainRDTO)
         flash.message = "Success"
         redirect mapping: 'adminDomainConfigLanding'
