@@ -35,7 +35,7 @@ class DistrictProposalController extends CampaignController {
                 return;
             }
         }
-        def districtProposalsCounters = countNumDistrictProposalsPerBudget(participatoryBudgetRSDTO, participatoryBudgetId)
+        def districtProposalsCounters = countNumDistrictProposalsPerBudget(participatoryBudgetId)
         if (districtProposalsCounters.numProposals >= participatoryBudgetRSDTO.maxDistrictProposalsPerUser) {
             render(view: 'maxDistrictProposalsPerUserAndBudget', model: [participatoryBudgetRSDTO: participatoryBudgetRSDTO, districtProposalsCounters: districtProposalsCounters])
         } else {
@@ -49,9 +49,8 @@ class DistrictProposalController extends CampaignController {
     }
 
 
-    private def countNumDistrictProposalsPerBudget(ParticipatoryBudgetRSDTO participatoryBudgetRSDTO, Long participatoryBudgetId) {
+    private def countNumDistrictProposalsPerBudget(Long participatoryBudgetId) {
         KuorumUserSession user = springSecurityService.principal
-//        CampaignLightPageRSDTO campaigns = campaignService.findAllCampaigns( user,searchCampaignRDTO)
         CampaignLightPageRSDTO campaigns = districtProposalService.findAllProposals(user, participatoryBudgetId)
         return [
                 numProposals     : campaigns.getTotal(),
