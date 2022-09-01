@@ -55,25 +55,6 @@
             <formUtil:socialInput command="${command}" field="instagram" cssIcon="fab fa-instagram"/>
         </div>
     </fieldset>
-    <h4 class="box-ppal-section-title"><g:message code="kuorum.web.admin.domain.identityProviders.label"/></h4>
-    <fieldset aria-live="polite" class="row">
-        <div class="form-group col-md-12">
-            <formUtil:checkBox command="${command}" field="providerBasicEmailForm" showLabel="true"/>
-        </div>
-
-        <div class="form-group col-md-12">
-            <formUtil:checkBox command="${command}" field="providerGoogle" showLabel="true"/>
-        </div>
-
-        <div class="form-group col-md-12">
-            <formUtil:checkBox command="${command}" field="providerFacebook" showLabel="true"/>
-        </div>
-
-        <div class="form-group col-md-12">
-            <formUtil:checkBox command="${command}" field="providerAoc" showLabel="true"/>
-        </div>
-    </fieldset>
-
 </div>
 
 <div class="box-ppal-section">
