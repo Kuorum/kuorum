@@ -18,6 +18,11 @@ class DomainValidationCommand {
     Boolean isSocialNetwork
     Boolean isUserProfileExtended
 
+    Boolean providerBasicEmailForm
+    Boolean providerGoogle
+    Boolean providerFacebook
+    Boolean providerAoc
+
     static constraints = {
         domainPrivacy nullable: false
         validationCensus nullable: true
@@ -28,5 +33,9 @@ class DomainValidationCommand {
         isUserProfileExtended nullable: true
         smsDomainName nullable: true, matches: '[a-zA-Z0-9]*[a-zA-Z]+[a-zA-Z0-9]*', maxSize: 11
         defaultPhonePrefix nullable: true
+        providerBasicEmailForm nullable: true
+        providerGoogle nullable: true
+        providerFacebook nullable: true
+        providerAoc nullable: true
     }
 }
