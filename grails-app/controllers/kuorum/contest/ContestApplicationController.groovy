@@ -9,7 +9,10 @@ import kuorum.web.commands.payment.CampaignSettingsCommand
 import kuorum.web.commands.payment.contest.ContestApplicationAuthorizationsCommand
 import kuorum.web.commands.payment.contest.ContestApplicationScopeCommand
 import org.kuorum.rest.model.communication.CampaignRDTO
-import org.kuorum.rest.model.communication.contest.*
+import org.kuorum.rest.model.communication.contest.ContestApplicationRDTO
+import org.kuorum.rest.model.communication.contest.ContestApplicationRSDTO
+import org.kuorum.rest.model.communication.contest.ContestRSDTO
+import org.kuorum.rest.model.communication.contest.PageContestApplicationRSDTO
 import org.kuorum.rest.model.communication.survey.CampaignVisibilityRSDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
@@ -24,11 +27,8 @@ class ContestApplicationController extends CampaignController {
     def create() {
         Long contestId = params.campaignId ? Long.parseLong(params.campaignId) : null
         ContestRSDTO contest = getContest(contestId)
-        String viewerId = cookieUUIDService.buildUserUUID()
-        BasicDataKuorumUserRSDTO viewer = kuorumUserService.findBasicUserRSDTO(viewerId, false)
-
-        PageContestApplicationRSDTO contestApplicationsCounters = contestService.findContestApplications(viewerId, contestId, buildApplicationsPerUserFilter(viewer))
-        if (contestApplicationsCounters.getTotal() >= contest.maxApplicationsPerUser) {
+        PageContestApplicationRSDTO contestApplicationsCounters = contestService.countContestApplications(springSecurityService.principal, contestId)
+        if (contest.maxApplicationsPerUser > 0 && contestApplicationsCounters.getTotal() >= contest.maxApplicationsPerUser) {
             render(view: 'maxContestApplicationPerUserAndContest', model: [contestRSDTO: contest, contestApplicationsCounters: contestApplicationsCounters])
         } else if (checkRequiredProfileData(contest)) {
             return contestApplicationModelEditScope(new ContestApplicationScopeCommand(), null, contest)
@@ -249,15 +249,7 @@ class ContestApplicationController extends CampaignController {
         return nextStep
     }
 
-    private FilterContestApplicationRDTO buildApplicationsPerUserFilter(BasicDataKuorumUserRSDTO user) {
-        FilterContestApplicationRDTO filter = new FilterContestApplicationRDTO(page: 0, size: 1);
-        filter.setUserName(user.getName())
-        filter.setAttachNotPublished(true)
-        return filter
-    }
-
     private ContestRSDTO getContest(long contestId) {
-        BasicDataKuorumUserRSDTO user = kuorumUserService.findBasicUserRSDTO(params.userAlias)
-        contestService.find(user.id.toString(), contestId)
+        contestService.find(params.userAlias, contestId)
     }
 }
