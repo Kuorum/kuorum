@@ -23,15 +23,15 @@ class DomainConfigCommand {
     static constraints = {
         name nullable: false
         language nullable: false
-        mainColor nullable:false, matches:HEX_PATTERN
-        mainColorShadowed nullable: false, matches:HEX_PATTERN
-        secondaryColor nullable: false, matches:HEX_PATTERN
-        secondaryColorShadowed nullable: false, matches:HEX_PATTERN
+        mainColor nullable: false, matches: HEX_PATTERN
+        mainColorShadowed nullable: false, matches: HEX_PATTERN
+        secondaryColor nullable: false, matches: HEX_PATTERN
+        secondaryColorShadowed nullable: false, matches: HEX_PATTERN
         titleWebFont nullable: false
-        facebook nullable:true
-        twitter nullable:true
-        linkedIn nullable:true
-        instagram nullable:true
-        youtube nullable:true
+        facebook nullable: true
+        twitter nullable: true
+        linkedIn nullable: true
+        instagram nullable: true
+        youtube nullable: true
     }
 }

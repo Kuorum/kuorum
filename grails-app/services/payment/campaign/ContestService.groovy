@@ -149,6 +149,7 @@ class ContestService extends AbstractCampaignCreatorService<ContestRSDTO, Contes
             contestRDTO.deadLineVotes = contestRSDTO.deadLineVotes
             contestRDTO.deadLineResults = contestRSDTO.deadLineResults
             contestRDTO.numWinnerApplications = contestRSDTO.numWinnerApplications
+            contestRDTO.maxApplicationsPerUser = contestRSDTO.maxApplicationsPerUser
             contestRDTO.status = contestRSDTO.status
         }
         return contestRDTO

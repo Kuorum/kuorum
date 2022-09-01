@@ -124,10 +124,16 @@ class AdminController {
         domainValidationCommand.validationCensus = domainRSDTO.validationCensus
         domainValidationCommand.validationPhone = domainRSDTO.validationPhone
         domainValidationCommand.validationCode = domainRSDTO.validationCode
+        domainValidationCommand.validationTokenMail = domainRSDTO.validationTokenMail
         domainValidationCommand.smsDomainName = domainRSDTO.smsDomainName
         domainValidationCommand.defaultPhonePrefix = domainRSDTO.defaultPhonePrefix
         domainValidationCommand.isSocialNetwork = domainRSDTO.isSocialNetwork
         domainValidationCommand.isUserProfileExtended = domainRSDTO.isUserProfileExtended
+
+        domainValidationCommand.providerBasicEmailForm = domainRSDTO.loginSettings.providerBasicEmailForm
+        domainValidationCommand.providerGoogle = domainRSDTO.loginSettings.providerGoogle
+        domainValidationCommand.providerFacebook = domainRSDTO.loginSettings.providerFacebook
+        domainValidationCommand.providerAoc = domainRSDTO.loginSettings.providerAoc
 
         def modelAuthorizedCampaigns = modelAuthorizedCampaigns();
         [command: domainValidationCommand] + modelAuthorizedCampaigns
@@ -144,10 +150,16 @@ class AdminController {
             domainRDTO.validationCensus = command.validationCensus ?: false
             domainRDTO.validationCode = command.validationCode ?: false
             domainRDTO.validationPhone = command.validationPhone ?: false
+            domainRDTO.validationTokenMail = command.validationTokenMail ?: false
             domainRDTO.isSocialNetwork = command.isSocialNetwork ?: false
             domainRDTO.isUserProfileExtended = command.isUserProfileExtended ?: false
             domainRDTO.smsDomainName = command.smsDomainName ?: ''
             domainRDTO.defaultPhonePrefix = command.defaultPhonePrefix
+
+            domainRDTO.loginSettings.providerBasicEmailForm = command.providerBasicEmailForm ?: false
+            domainRDTO.loginSettings.providerGoogle = command.providerGoogle ?: false
+            domainRDTO.loginSettings.providerFacebook = command.providerFacebook ?: false
+            domainRDTO.loginSettings.providerAoc = command.providerAoc ?: false
         }
         domainRDTO.domainPrivacy = command.domainPrivacy
         domainService.updateConfig(domainRDTO)
@@ -163,6 +175,7 @@ class AdminController {
         domainLandingCommand.domainDescription = domainRSDTO.domainDescription
         domainLandingCommand.footerLinks = domainRSDTO.footerLinks.collect { new LinkCommand(title: it.key, url: it.value) }
         domainLandingCommand.landingVisibleRoles = domainRSDTO.landingVisibleRoles
+        domainLandingCommand.showLandingLogin = domainRSDTO.getLoginSettings().getShowLandingLogin() ?: false
         [command: domainLandingCommand]
     }
 
@@ -178,6 +191,7 @@ class AdminController {
         domainRDTO.domainDescription = command.domainDescription
         domainRDTO.footerLinks = command.footerLinks?.findAll { it }?.collectEntries { [(it.title): it.url] } ?: null
         domainRDTO.landingVisibleRoles = command.landingVisibleRoles
+        domainRDTO.getLoginSettings().showLandingLogin = command.showLandingLogin ?: false
         domainService.updateConfig(domainRDTO)
         flash.message = "Success"
         redirect mapping: 'adminDomainConfigLanding'

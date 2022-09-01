@@ -45,6 +45,7 @@
         <div class="form-group col-md-6">
             <formUtil:socialInput command="${command}" field="youtube" cssIcon="fab fa-youtube-square"/>
         </div>
+
         <div class="form-group col-md-6">
             <formUtil:socialInput command="${command}" field="linkedIn" cssIcon="fab fa-linkedin-in"/>
         </div>

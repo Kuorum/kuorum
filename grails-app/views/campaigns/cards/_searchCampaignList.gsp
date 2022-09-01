@@ -108,4 +108,8 @@
         <g:render template="/districtProposal/showModules/mainContent/districtProposalModalErrors"
                   model="[district: campaign.district]"/>
     </g:if>
+    <g:if test="${campaign instanceof org.kuorum.rest.model.search.kuorumElement.SearchPetitionRSDTO}">
+        <g:render template="/petition/showModules/mainContent/petitionModalErrors"
+                  model="[petition: campaign]"/>
+    </g:if>
 </article>
