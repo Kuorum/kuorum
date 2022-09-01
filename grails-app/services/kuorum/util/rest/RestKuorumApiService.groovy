@@ -122,6 +122,7 @@ class RestKuorumApiService {
         String path = apiMethod.buildUrl(apiPath, params)
         http.request(Method.GET, ContentType.BINARY) { req ->
             uri.path = path
+            uri.query = query
             headers = ["User-Agent": "Kuorum Web", "Authorization": CustomDomainResolver.apiToken]
 
             response.success = { resp, data ->
@@ -306,6 +307,7 @@ class RestKuorumApiService {
         ACCOUNT_PETITION("/communication/campaign/petition/{userId}/{petitionId}"),
         ACCOUNT_PETITION_SIGN("/communication/campaign/petition/{userId}/{petitionId}/sign"),
         ACCOUNT_PETITION_COPY("/communication/campaign/petition/{userId}/{campaignId}/copy"),
+        ACCOUNT_PETITION_REPORT_SIGN("/communication/campaign/petition/{userId}/{petitionId}/sign/pdf"),
 
 
         ACCOUNT_EVENTS("/communication/campaign/event/{userId}"),

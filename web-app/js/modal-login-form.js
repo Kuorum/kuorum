@@ -1,6 +1,7 @@
 $(document).ready(function(){
     // cambio de formulario Entrar/Registro
-    $('body').on('click','.change-home-register', function(e) {
+    $('body').on('click', '#registro.modal-register .change-home-register', function (e) {
+        console.log("CHANGE REGISTER")
         e.stopPropagation();
         e.preventDefault();
         $('form#login-modal').hide();
@@ -8,7 +9,7 @@ $(document).ready(function(){
         $('form#signup-modal').show();
     });
 
-    $('body').on('click','.change-home-login', function(e) {
+    $('body').on('click', '#registro.modal-register .change-home-login', function (e) {
         e.stopPropagation();
         e.preventDefault();
         $('form#signup-modal').hide();
@@ -16,7 +17,7 @@ $(document).ready(function(){
         $('form#login-modal').show();
     });
 
-    $('body').on('click','.change-home-forgot-password', function(e) {
+    $('body').on('click', '#registro.modal-register .change-home-forgot-password', function (e) {
         e.stopPropagation();
         e.preventDefault();
         $('form#signup-modal').hide();

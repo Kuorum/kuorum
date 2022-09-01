@@ -214,6 +214,8 @@ class UrlMappings {
         name petitionEditContent:       "/account/$userAlias/pt/$urlTitle-$campaignId/edit-content" (controller: "petition"){action = [GET: "editContentStep", POST: "saveContent"]}
         name petitionShow:              "/$userAlias/$urlTitle-$campaignId"           (controller: "campaign", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it)})}}
         name petitionCopy:              "/account/petition/$campaignId/copy" (controller:"petition", action:"copy")
+        name petitionPdfRequest:        "/ajax/account/petition/$campaignId/pdf/request" (controller:"petition", action:"requestPdfToSign")
+        name petitionPdfView:           "/account/petition/$campaignId/pdf/view"    (controller:"petition", action:"downloadPdfToSign")
 
 
         name contestCreate:            "/account/contest/new" (controller: "contest"){action = [GET: "create", POST: "saveSettings"]}

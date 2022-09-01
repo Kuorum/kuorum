@@ -593,9 +593,10 @@ class ProfileController {
             predefinedPhone = extraDataRSDTO.phoneNumber ? true : false;
         }
         return [
-                censusValidation: [success: userValidationRSDTO.censusStatus.isGranted(), data: [:]],
-                phoneValidation : [success: userValidationRSDTO.phoneStatus.isGranted(), data: [phone: phone, predefinedPhone: predefinedPhone]],
-                codeValidation  : [success: userValidationRSDTO.codeStatus.isGranted(), data: [:]]
+                tokenMailValidation: [success: userValidationRSDTO.tokenMailStatus.isGranted(), data: [:]],
+                censusValidation   : [success: userValidationRSDTO.censusStatus.isGranted(), data: [:]],
+                phoneValidation    : [success: userValidationRSDTO.phoneStatus.isGranted(), data: [phone: phone, predefinedPhone: predefinedPhone]],
+                codeValidation     : [success: userValidationRSDTO.codeStatus.isGranted(), data: [:]]
 
         ]
     }

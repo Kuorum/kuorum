@@ -27,6 +27,8 @@ class RRSSConfigFilters {
                     model.put("_googleCaptchaKey", getGoogleCaptchaKey())
                     model.put("_googleJsAPIKey", getGoogleJsAPIKey())
                     model.put("_domain", CustomDomainResolver.domain)
+                    model.put("_domainLoginSettings", CustomDomainResolver.domainRSDTO.loginSettings)
+                    model.put("_domainLoginSettingsSocialLoginSectionActive", CustomDomainResolver.domainRSDTO.loginSettings.providerFacebook || CustomDomainResolver.domainRSDTO.loginSettings.providerGoogle || CustomDomainResolver.domainRSDTO.loginSettings.providerAoc)
                     model.put("_social", CustomDomainResolver.domainRSDTO?.social ?: null)
                     model.put("_domainName", CustomDomainResolver.domainRSDTO?.name ?: "")
                     model.put("_domainResourcesPath", CustomDomainResolver.domainRSDTO?.basicRootUrlStaticResources ?: "")
@@ -41,7 +43,8 @@ class RRSSConfigFilters {
                     model.put("_domainValidations", [
                             census    : CustomDomainResolver.domainRSDTO.validationCensus,
                             phone     : CustomDomainResolver.domainRSDTO.validationPhone,
-                            customCode: CustomDomainResolver.domainRSDTO.validationCode
+                            customCode: CustomDomainResolver.domainRSDTO.validationCode,
+                            tokenMail : CustomDomainResolver.domainRSDTO.validationTokenMail
                     ])
                 }
             }

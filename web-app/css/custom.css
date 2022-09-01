@@ -2981,7 +2981,15 @@ END EDIT PARTICPATORY BUDGET
     display: inline-block;}
 .socialGo a.btn-gog:hover {background-image: url('../images/social/google/btn_google_dark_pressed_ios.svg');}
 
-.modal .socialGo a.btn.btn-gog{
+.socialGo a.btn.btn-aoc {
+    background: url('../images/social/idcat/idcatbtn.jpg');
+    background-repeat: no-repeat;
+    background-size: 33px;
+    background-position: 2px center;
+    padding-left: 60px !important;
+}
+
+.modal .socialGo a.btn.btn-gog {
     padding-top: 18px !important;
     height: 45px;
     background-size: 51px;
@@ -4181,8 +4189,16 @@ h2.underline {border-bottom: 1px solid #dadada; padding: 0 0 10px 0; margin-top:
 
 .modal-domain-validation .modal-domain-validation-notifications{display:none; min-height: auto; margin-top:15px;}
 .modal-domain-validation .modal-domain-validation-notifications p{margin:0; padding: 0;}
-.modal-domain-validation .modal-domain-validation-census{}
-.modal-domain-validation .modal-domain-validation {display:none;}
+.modal-domain-validation .modal-domain-validation-census {
+}
+
+.modal-domain-validation .modal-domain-validation-tokenMail {
+    text-align: center;
+}
+
+.modal-domain-validation .modal-domain-validation {
+    display: none;
+}
 .modal-domain-validation .modal-domain-validation-phone .modal-domain-validation-phone-step1{}
 .modal-domain-validation .modal-domain-validation-phone .modal-domain-validation-phone-step1 .modal-domain-validation-phone-step1-predefinedPhone{ display: none}
 .modal-domain-validation .modal-domain-validation-phone .modal-domain-validation-phone-step1 .modal-domain-validation-phone-step1-predefinedPhone .modal-domain-validation-phone-step1-predefinedPhone-text{}

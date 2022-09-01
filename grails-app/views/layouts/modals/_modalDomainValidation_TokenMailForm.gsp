@@ -1,0 +1,1 @@
+<p><g:message code="kuorum.web.commands.profile.tokenMail.body"/></p>

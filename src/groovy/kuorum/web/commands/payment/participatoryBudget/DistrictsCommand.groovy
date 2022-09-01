@@ -13,7 +13,6 @@ class DistrictsCommand {
     List<DistrictCommand> districts = []
 
     Integer maxDistrictProposalsPerUser
-    Integer minVotesImplementProposals
 
 
     @BindingFormat(WebConstants.WEB_FORMAT_DATE)
@@ -28,7 +27,6 @@ class DistrictsCommand {
         importFrom CampaignContentCommand, include: ["publishOn", "sendType"]
         districts minSize: 1, maxSize: 100
         maxDistrictProposalsPerUser min: 1
-        minVotesImplementProposals min: 0
         activeSupport nullable: true
         addProposalsWithValidation nullable: true
         participatoryBudgetType nullable: false
@@ -42,11 +40,15 @@ class DistrictCommand{
     String name
     Long budget
     Boolean allCity
+    Integer minVotesImplementProposals
+    Integer maxEligibleProposals
 
     static constraints = {
         districtId nullable: true
         name nullable: false, blank: false
         budget nullable: false, min:0L
         allCity nullable: true
+        minVotesImplementProposals min: 0
+        maxEligibleProposals min: 0
     }
 }

@@ -15,21 +15,41 @@ import org.kuorum.rest.model.kuorumUser.BasicUserPageRSDTO
 @Transactional
 class PetitionService  extends AbstractCampaignCreatorService<PetitionRSDTO, PetitionRDTO> implements CampaignCreatorService<PetitionRSDTO, PetitionRDTO>{
 
-    def grailsApplication
     def indexSolrService
-    def notificationService
-    def fileService
-    KuorumMailService kuorumMailService
     CampaignService campaignService
 
-    PagePetitionRSDTO findAllPetition(Integer page = 0, Integer size = 10){
+
+    void requestSignedReport(KuorumUserSession user, Long campaignId) {
+        Map<String, String> params = [petitionId: campaignId.toString(), userId: user.getId().toString()]
+        Map<String, String> query = [viewerUid: user.getId().toString()]
+        def response = restKuorumApiService.put(
+                RestKuorumApiService.ApiMethod.ACCOUNT_PETITION_REPORT_SIGN,
+                params,
+                query,
+                null,
+                null
+        )
+    }
+
+    void getSignedReport(KuorumUserSession user, Long campaignId, OutputStream outputStream) {
+        Map<String, String> params = [petitionId: campaignId.toString(), userId: user.getId().toString()]
+        Map<String, String> query = [viewerUid: user.getId().toString()]
+        def response = restKuorumApiService.getFile(
+                RestKuorumApiService.ApiMethod.ACCOUNT_PETITION_REPORT_SIGN,
+                params,
+                query,
+                outputStream
+        )
+    }
+
+    PagePetitionRSDTO findAllPetition(Integer page = 0, Integer size = 10) {
         Map<String, String> params = [:]
-        Map<String, String> query = [page:page.toString(), size:size.toString()]
+        Map<String, String> query = [page: page.toString(), size: size.toString()]
         def response = restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.ACCOUNT_PETITIONS_ALL,
                 params,
                 query,
-                new TypeReference<PagePetitionRSDTO>(){}
+                new TypeReference<PagePetitionRSDTO>() {}
         )
 
         response.data
