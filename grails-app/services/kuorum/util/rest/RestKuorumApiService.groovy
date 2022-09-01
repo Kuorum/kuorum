@@ -291,6 +291,7 @@ class RestKuorumApiService {
 
         ACCOUNT_DISTRICT_PROPOSALS("/communication/campaign/participatory-budget/district-proposal/{userId}"),
         ACCOUNT_DISTRICT_PROPOSAL("/communication/campaign/participatory-budget/district-proposal/{userId}/{campaignId}"),
+        ACCOUNT_DISTRICT_PROPOSALS_ON_PARTICIPATORY_BUDGET("/communication/campaign/participatory-budget/district-proposal/{userId}/participatory-budget/{participatoryBudgetId}"),
 
         ACCOUNT_CONTESTS("/communication/campaign/contest/{userId}"),
         ACCOUNT_CONTEST("/communication/campaign/contest/{userId}/{campaignId}"),

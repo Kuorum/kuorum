@@ -10,11 +10,9 @@ import kuorum.web.commands.payment.participatoryBudget.DistrictProposalChooseDis
 import kuorum.web.commands.payment.participatoryBudget.NewDistrictProposalWithDistrictCommand
 import org.kuorum.rest.model.communication.CampaignLightPageRSDTO
 import org.kuorum.rest.model.communication.CampaignRDTO
-import org.kuorum.rest.model.communication.CampaignTypeRSDTO
 import org.kuorum.rest.model.communication.participatoryBudget.DistrictProposalRDTO
 import org.kuorum.rest.model.communication.participatoryBudget.DistrictProposalRSDTO
 import org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetRSDTO
-import org.kuorum.rest.model.communication.search.SearchCampaignRDTO
 import org.kuorum.rest.model.communication.survey.CampaignVisibilityRSDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 import org.kuorum.rest.model.kuorumUser.validation.UserValidationRSDTO
@@ -28,21 +26,21 @@ class DistrictProposalController extends CampaignController {
         Long participatoryBudgetId = params.campaignId ? Long.parseLong(params.campaignId) : null
         BasicDataKuorumUserRSDTO user = kuorumUserService.findBasicUserRSDTO(params.userAlias)
         ParticipatoryBudgetRSDTO participatoryBudgetRSDTO = participatoryBudgetService.find(user.id.toString(), participatoryBudgetId)
-        if (participatoryBudgetRSDTO.addProposalsWithValidation){
+        if (participatoryBudgetRSDTO.addProposalsWithValidation) {
             KuorumUserSession userSession = springSecurityService.principal
             UserValidationRSDTO userValidationRSDTO = kuorumUserService.getUserValidationStatus(userSession, participatoryBudgetId)
-            if (!userValidationRSDTO.isGranted()){
+            if (!userValidationRSDTO.isGranted()) {
                 // USER NEEDS TO BE VALIDATED to add a proposal
-                redirect mapping:'campaignValidationInitProcess', params: participatoryBudgetRSDTO.encodeAsLinkProperties()
-                return ;
+                redirect mapping: 'campaignValidationInitProcess', params: participatoryBudgetRSDTO.encodeAsLinkProperties()
+                return;
             }
         }
-        def districtProposalsCounters = countNumDistrictProposalsPerBudget(participatoryBudgetRSDTO, participatoryBudgetId)
+        def districtProposalsCounters = countNumDistrictProposalsPerBudget(participatoryBudgetId)
         if (districtProposalsCounters.numProposals >= participatoryBudgetRSDTO.maxDistrictProposalsPerUser) {
             render(view: 'maxDistrictProposalsPerUserAndBudget', model: [participatoryBudgetRSDTO: participatoryBudgetRSDTO, districtProposalsCounters: districtProposalsCounters])
         } else {
             DistrictProposalChooseDistrictCommand command = new DistrictProposalChooseDistrictCommand()
-            if (participatoryBudgetRSDTO.districts && participatoryBudgetRSDTO.districts.size()==1){
+            if (participatoryBudgetRSDTO.districts && participatoryBudgetRSDTO.districts.size() == 1) {
                 // If there is only one district, the district is preselected to the unique district.
                 command.setDistrictId(participatoryBudgetRSDTO.districts.get(0).getId())
             }
@@ -51,17 +49,9 @@ class DistrictProposalController extends CampaignController {
     }
 
 
-    private def countNumDistrictProposalsPerBudget(ParticipatoryBudgetRSDTO participatoryBudgetRSDTO, participatoryBudgetId) {
+    private def countNumDistrictProposalsPerBudget(Long participatoryBudgetId) {
         KuorumUserSession user = springSecurityService.principal
-        SearchCampaignRDTO searchCampaignRDTO = new SearchCampaignRDTO(
-                page:0,
-                size: 1,
-                attachNotPublished: true,
-                onlyPublications: false,
-                campaignType: CampaignTypeRSDTO.DISTRICT_PROPOSAL,
-                participatoryBudgetId: participatoryBudgetId
-        )
-        CampaignLightPageRSDTO campaigns = campaignService.findAllCampaigns( user,searchCampaignRDTO)
+        CampaignLightPageRSDTO campaigns = districtProposalService.findAllProposals(user, participatoryBudgetId)
         return [
                 numProposals     : campaigns.getTotal(),
                 numProposalsDraft: campaigns.getTotal()
