@@ -4,18 +4,22 @@ import com.fasterxml.jackson.core.type.TypeReference
 import kuorum.core.exception.KuorumException
 import kuorum.register.KuorumUserSession
 import kuorum.solr.IndexSolrService
+import kuorum.users.KuorumUserService
 import kuorum.util.rest.RestKuorumApiService
 import org.kuorum.rest.model.communication.contest.ContestRDTO
 import org.kuorum.rest.model.communication.contest.ContestRSDTO
-import org.kuorum.rest.model.communication.contest.PageContestApplicationRSDTO
 import org.kuorum.rest.model.communication.contest.FilterContestApplicationRDTO
-import org.kuorum.rest.model.communication.participatoryBudget.PageDistrictProposalRSDTO
+import org.kuorum.rest.model.communication.contest.PageContestApplicationRSDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
+
+import static org.kuorum.rest.model.communication.contest.ContestStatusDTO.ADDING_APPLICATIONS
 
 class ContestService extends AbstractCampaignCreatorService<ContestRSDTO, ContestRDTO> implements CampaignCreatorService<ContestRSDTO, ContestRDTO> {
 
     CampaignService campaignService
     IndexSolrService indexSolrService
+    KuorumUserService kuorumUserService
+
 
 //    @Override
     List<ContestRSDTO> findAll(KuorumUserSession user, String viewerUid = null) {
@@ -159,8 +163,8 @@ class ContestService extends AbstractCampaignCreatorService<ContestRSDTO, Contes
     def buildView(ContestRSDTO contestRSDTO, BasicDataKuorumUserRSDTO campaignUser, String viewerUid, def params) {
         Random seed = new Random()
         Double randomSeed = seed.nextDouble()
-
-        def model = [contest: contestRSDTO, campaignUser: campaignUser, randomSeed: randomSeed]
+        int userContestApplications = getUserContestApplicationCountIfNeeded(campaignUser.id, contestRSDTO, viewerUid)
+        def model = [contest: contestRSDTO, campaignUser: campaignUser, randomSeed: randomSeed, userContestApplications: userContestApplications]
         return [view: '/contest/show', model: model]
     }
 
@@ -174,19 +178,27 @@ class ContestService extends AbstractCampaignCreatorService<ContestRSDTO, Contes
         return RestKuorumApiService.ApiMethod.ACCOUNT_CONTEST_COPY;
     }
 
+    PageContestApplicationRSDTO countContestApplications(String ownerCampaignId, Long contestId, KuorumUserSession viewer) {
+        countContestApplications(ownerCampaignId, contestId, viewer.id.toString())
+    }
+
+    PageContestApplicationRSDTO countContestApplications(String ownerCampaignId, Long contestId, String viewerId) {
+        return findContestApplications(ownerCampaignId, contestId, buildApplicationsCountFilter(), viewerId)
+    }
+
     PageContestApplicationRSDTO findContestApplications(KuorumUserSession user, Long contestId, FilterContestApplicationRDTO filter, String viewerUid = null) {
         return findContestApplications(user.id.toString(), contestId, filter, viewerUid)
     }
 
     PageContestApplicationRSDTO findContestApplications(BasicDataKuorumUserRSDTO user, Long contestId, FilterContestApplicationRDTO filter, String viewerUid = null) {
-        return findContestApplications(user.id, contestId, filter, viewerUid)
+        return findContestApplications(user.id, contestId, filter, viewerUid) //User.id don't affect to filter
     }
 
-    PageContestApplicationRSDTO findContestApplications(String userId, Long contestId, FilterContestApplicationRDTO filter, String viewerUid = null) {
+    PageContestApplicationRSDTO findContestApplications(String ownerCampaignId, Long contestId, FilterContestApplicationRDTO filter, String viewerUid = null) {
         if (!contestId) {
             return null
         }
-        Map<String, String> params = [userId: userId, campaignId: contestId.toString()]
+        Map<String, String> params = [userId: ownerCampaignId, campaignId: contestId.toString()]
         Map<String, String> query = filter.encodeAsQueryParams()
         if (viewerUid) {
             query.put("viewerUid", viewerUid)
@@ -204,5 +216,27 @@ class ContestService extends AbstractCampaignCreatorService<ContestRSDTO, Contes
             log.info("Error recovering applications [Contest ID: ${filter.id} ]: ${e.message}")
             return null
         }
+    }
+
+    private FilterContestApplicationRDTO buildApplicationsCountFilter() {
+        FilterContestApplicationRDTO filter = new FilterContestApplicationRDTO(page: 0, size: 1);
+        filter.setAttachNotPublished(true)
+        return filter
+    }
+
+    private int getUserContestApplicationCountIfNeeded(String ownerCampaignId, ContestRSDTO contestRSDTO, String viewerUid) {
+        return maxApplicationsLimitAppliable(contestRSDTO) ? secureGetUserApplicationsCount(ownerCampaignId, contestRSDTO, viewerUid) : 0
+    }
+
+    private boolean maxApplicationsLimitAppliable(ContestRSDTO contestRSDTO) {
+        ADDING_APPLICATIONS == contestRSDTO.status && contestRSDTO.maxApplicationsPerUser > 0
+    }
+
+    private int secureGetUserApplicationsCount(String ownerCampaignId, ContestRSDTO contestRSDTO, String viewerUid) {
+        return viewerUid != null ? getUserApplicationsCount(ownerCampaignId, contestRSDTO, viewerUid) : 0
+    }
+
+    private long getUserApplicationsCount(String ownerCampaignId, ContestRSDTO contestRSDTO, String viewerId) {
+        return countContestApplications(ownerCampaignId, contestRSDTO.getId(), viewerId).total
     }
 }

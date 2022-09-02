@@ -9,11 +9,13 @@
 
 
     <fieldset aria-live="polite" class="form-group">
-        <div class="col-xs-3 col-sm-3 col-sm-offset-1">
+        <div class="col-xs-12 col-sm-6 col-sm-offset-1">
             <formUtil:selectEnum command="${command}" field="participatoryBudgetType" extraClass="" showLabel="true"/>
         </div>
 
-        <div class="col-xs-3 col-sm-3 ">
+    </fieldset>
+    <fieldset aria-live="polite" class="form-group">
+        <div class="col-xs-12 col-sm-6 col-sm-offset-1">
             <formUtil:input command="${command}" field="maxDistrictProposalsPerUser" type="number" showLabel="true"/>
         </div>
 
