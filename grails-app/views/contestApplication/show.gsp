@@ -7,7 +7,7 @@
            scope="request"/>
     <g:render template="/campaigns/showModules/campaignMetaTags"
               model="[campaign: contestApplication, titleMessageCode: titleMessageCode]"/>
-    %{--    <r:require modules="participatoryBudget, districtProposal, forms"/>--}%
+        <r:require modules="contestApplication"/>
 </head>
 
 <content tag="mainContent">

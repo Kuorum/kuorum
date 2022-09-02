@@ -147,6 +147,11 @@ modules = {
         resource url:'js/campaigns/petitions.js'
     }
 
+    contestApplication {
+        dependsOn("basic", "forms",'campaign')
+        resource url:'js/campaigns/contestApplication.js'
+    }
+
     survey{
         dependsOn("basic",'campaign')
         resource url:'js/survey.js'
