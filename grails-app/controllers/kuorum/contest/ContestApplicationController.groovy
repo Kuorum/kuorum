@@ -27,7 +27,8 @@ class ContestApplicationController extends CampaignController {
     def create() {
         Long contestId = params.campaignId ? Long.parseLong(params.campaignId) : null
         ContestRSDTO contest = getContest(contestId)
-        PageContestApplicationRSDTO contestApplicationsCounters = contestService.countContestApplications(springSecurityService.principal, contestId)
+        KuorumUserSession loggedUser = springSecurityService.principal
+        PageContestApplicationRSDTO contestApplicationsCounters = contestService.countContestApplications(params.userAlias, contestId, loggedUser)
         if (contest.maxApplicationsPerUser > 0 && contestApplicationsCounters.getTotal() >= contest.maxApplicationsPerUser) {
             render(view: 'maxContestApplicationPerUserAndContest', model: [contestRSDTO: contest, contestApplicationsCounters: contestApplicationsCounters])
         } else if (checkRequiredProfileData(contest)) {
