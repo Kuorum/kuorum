@@ -257,12 +257,12 @@ class ContestController extends CampaignController {
         Integer limit = Integer.parseInt(params.limit)
         Integer offset = Integer.parseInt(params.offset)
         KuorumUserSession userLogged = springSecurityService.principal
-        Long participatoryBudgetId = Long.parseLong(params.campaignId)
+        Long contestId = Long.parseLong(params.campaignId)
         FilterContestApplicationRDTO filter = new FilterContestApplicationRDTO(page: Math.floor(offset / limit).intValue(), size: limit)
         populateFilters(filter, params.filter)
         populateSort(filter, params.sort, params.order)
         filter.attachNotPublished = true
-        PageContestApplicationRSDTO pageDistrictProposals = contestService.findContestApplications(userLogged, participatoryBudgetId, filter)
+        PageContestApplicationRSDTO pageDistrictProposals = contestService.findContestApplications(userLogged, contestId, filter)
         JSON.use('infoContestApplicationTable') {
             render(["total": pageDistrictProposals.total, "rows": pageDistrictProposals.data] as JSON)
         }
@@ -363,5 +363,30 @@ class ContestController extends CampaignController {
 
     def sendApplicationsReport() {
         render "OK";
+    }
+
+    @Secured(['ROLE_CAMPAIGN_CONTEST_APPLICATION'])
+    def vote(ContestApplicationVoteCommand command) {
+        if (command.hasErrors()) {
+            render([success: false, message: "There are errors on the data"] as JSON)
+        }
+        KuorumUserSession loggedUser = springSecurityService.principal
+        try {
+            ContestApplicationVoteRSDTO vote = contestApplicationService.vote(command.userAlias, command.contestId, command.campaignId, loggedUser.getId().toString());
+            render([success: true, message: "Vote saved", vote: vote] as JSON)
+        } catch (Exception e) {
+            ContestRSDTO contestRSDTO = contestService.find(command.userAlias, command.contestId)
+            String msgError = "Error updating saving your vote"
+            if (e.undeclaredThrowable.cause instanceof KuorumException) {
+                KuorumException ke = e.undeclaredThrowable.cause
+                msgError = message(code: "contestApplication.callToAction.VOTING.${ke.errors[0].code}", args: [contestRSDTO.title])
+            }
+            render([success: false, message: msgError, vote: null] as JSON)
+        }
+    }
+
+    def anonymousVote(ContestApplicationVoteCommand) {
+
+//        contestApplicationService.vote()
     }
 }

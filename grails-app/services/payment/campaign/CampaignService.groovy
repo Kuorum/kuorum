@@ -74,19 +74,6 @@ class CampaignService {
         debatesFound
     }
 
-    SearchCampaignRDTO buildSearchCampaignRDTO(Boolean attachDrafts = false, Integer page = 0, Integer size = 10,
-                                               Boolean onlyPublications, String quickSearch, CampaignTypeRSDTO campaignTypeRSDTO, Long participatoryBudgetId) {
-        new SearchCampaignRDTO(
-                page : page,
-        size : size,
-        attachNotPublished : attachDrafts,
-        onlyPublications : onlyPublications,
-        campaignType: campaignTypeRSDTO,
-        quickSearch: quickSearch,
-        participatoryBudgetId: participatoryBudgetId
-        )
-    }
-
     CampaignLightPageRSDTO findAllCampaigns(KuorumUserSession user, SearchCampaignRDTO searchCampaignRSDTO) {
         return findAllCampaigns(user.id.toString(), searchCampaignRSDTO)
     }

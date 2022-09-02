@@ -242,6 +242,7 @@ class UrlMappings {
         name contestApplicationEditAuthorizations: "/account/$userAlias/cta/$contestTitle-$contestId/$urlTitle-$campaignId/edit-authorizations"  (controller: "contestApplication"){action = [GET: "editAuthorizationsStep", POST: "saveAuthorizations"]}
         name contestApplicationRemove:  "/ajax/account/$userAlias/cta/$urlTitle-$campaignId/remove"    (controller: "contestApplication", action:"remove")
         name contestApplicationShow:    "/$userAlias/$contestTitle-$contestId/$urlTitle-$campaignId"           (controller: "campaign", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it)})}}
+        name contestApplicationVote:    "/ajax/$userAlias/ct/$contestTitle-$contestId/cta/$urlTitle-$campaignId/vote"           (controller: "contest", action: "vote")
 
         name campaignShow:          "/$userAlias/$urlTitle-$campaignId" (controller: "campaign", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it)})}}
         name campaignCheckGroupValidation:"/ajax/$userAlias/$urlTitle-$campaignId/group/check" (controller: "campaign", action: "checkGroupCampaignValidation")
