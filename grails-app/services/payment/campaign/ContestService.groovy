@@ -163,7 +163,7 @@ class ContestService extends AbstractCampaignCreatorService<ContestRSDTO, Contes
     def buildView(ContestRSDTO contestRSDTO, BasicDataKuorumUserRSDTO campaignUser, String viewerUid, def params) {
         Random seed = new Random()
         Double randomSeed = seed.nextDouble()
-        int userContestApplications = getUserContestApplicationCountIfNeeded(contestRSDTO, viewerUid)
+        int userContestApplications = getUserContestApplicationCountIfNeeded(campaignUser.id, contestRSDTO, viewerUid)
         def model = [contest: contestRSDTO, campaignUser: campaignUser, randomSeed: randomSeed, userContestApplications: userContestApplications]
         return [view: '/contest/show', model: model]
     }
@@ -178,12 +178,12 @@ class ContestService extends AbstractCampaignCreatorService<ContestRSDTO, Contes
         return RestKuorumApiService.ApiMethod.ACCOUNT_CONTEST_COPY;
     }
 
-    PageContestApplicationRSDTO countContestApplications(KuorumUserSession user, Long contestId) {
-        countContestApplications(user.id.toString(), contestId)
+    PageContestApplicationRSDTO countContestApplications(String ownerCampaignId, Long contestId, KuorumUserSession viewer) {
+        countContestApplications(ownerCampaignId, contestId, viewer.id.toString())
     }
 
-    PageContestApplicationRSDTO countContestApplications(String userId, Long contestId) {
-        return findContestApplications(userId, contestId, buildApplicationsCountFilter())
+    PageContestApplicationRSDTO countContestApplications(String ownerCampaignId, Long contestId, String viewerId) {
+        return findContestApplications(ownerCampaignId, contestId, buildApplicationsCountFilter(), viewerId)
     }
 
     PageContestApplicationRSDTO findContestApplications(KuorumUserSession user, Long contestId, FilterContestApplicationRDTO filter, String viewerUid = null) {
@@ -194,11 +194,11 @@ class ContestService extends AbstractCampaignCreatorService<ContestRSDTO, Contes
         return findContestApplications(user.id, contestId, filter, viewerUid) //User.id don't affect to filter
     }
 
-    PageContestApplicationRSDTO findContestApplications(String userId, Long contestId, FilterContestApplicationRDTO filter, String viewerUid = null) {
+    PageContestApplicationRSDTO findContestApplications(String ownerCampaignId, Long contestId, FilterContestApplicationRDTO filter, String viewerUid = null) {
         if (!contestId) {
             return null
         }
-        Map<String, String> params = [userId: userId, campaignId: contestId.toString()]
+        Map<String, String> params = [userId: ownerCampaignId, campaignId: contestId.toString()]
         Map<String, String> query = filter.encodeAsQueryParams()
         if (viewerUid) {
             query.put("viewerUid", viewerUid)
@@ -224,19 +224,19 @@ class ContestService extends AbstractCampaignCreatorService<ContestRSDTO, Contes
         return filter
     }
 
-    private int getUserContestApplicationCountIfNeeded(ContestRSDTO contestRSDTO, String viewerUid) {
-        return maxApplicationsLimitAppliable(contestRSDTO) ? secureGetUserApplicationsCount(viewerUid, contestRSDTO) : 0
+    private int getUserContestApplicationCountIfNeeded(String ownerCampaignId, ContestRSDTO contestRSDTO, String viewerUid) {
+        return maxApplicationsLimitAppliable(contestRSDTO) ? secureGetUserApplicationsCount(ownerCampaignId, contestRSDTO, viewerUid) : 0
     }
 
     private boolean maxApplicationsLimitAppliable(ContestRSDTO contestRSDTO) {
         ADDING_APPLICATIONS == contestRSDTO.status && contestRSDTO.maxApplicationsPerUser > 0
     }
 
-    private int secureGetUserApplicationsCount(String viewerUid, ContestRSDTO contestRSDTO) {
-        return viewerUid != null ? getUserApplicationsCount(viewerUid, contestRSDTO) : 0
+    private int secureGetUserApplicationsCount(String ownerCampaignId, ContestRSDTO contestRSDTO, String viewerUid) {
+        return viewerUid != null ? getUserApplicationsCount(ownerCampaignId, contestRSDTO, viewerUid) : 0
     }
 
-    private long getUserApplicationsCount(String viewerUid, ContestRSDTO contestRSDTO) {
-        return countContestApplications(viewerUid, contestRSDTO.getId()).total
+    private long getUserApplicationsCount(String ownerCampaignId, ContestRSDTO contestRSDTO, String viewerId) {
+        return countContestApplications(ownerCampaignId, contestRSDTO.getId(), viewerId).total
     }
 }
