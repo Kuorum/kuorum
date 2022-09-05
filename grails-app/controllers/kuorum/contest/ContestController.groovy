@@ -7,10 +7,8 @@ import kuorum.politician.CampaignController
 import kuorum.register.KuorumUserSession
 import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.commands.payment.CampaignSettingsCommand
-import kuorum.web.commands.payment.contest.ContestApplicationChangeStatusCommand
-import kuorum.web.commands.payment.contest.ContestAreasCommand
-import kuorum.web.commands.payment.contest.ContestChangeStatusCommand
-import kuorum.web.commands.payment.contest.ContestDeadlinesCommand
+import kuorum.web.commands.payment.contest.*
+
 import kuorum.web.constants.WebConstants
 import org.kuorum.rest.model.communication.contest.*
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
@@ -232,7 +230,7 @@ class ContestController extends CampaignController {
             DirectionDTO dir = DirectionDTO.valueOf(params.direction)
             filter.sort.direction = dir
         }
-        PageContestApplicationRSDTO pageContestApplications = contestService.findContestApplications(contestUser, contestId, filter, viewerUid)
+        PageContestApplicationRSDTO pageContestApplications = contestService.findContestApplications(contestUser, contestId, filter)
         if (pageContestApplications.total == 0) {
             render template: '/contest/showModules/mainContent/contestApplicationsEmpty'
         } else {
