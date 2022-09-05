@@ -9,5 +9,5 @@
         data-disabledText="${g.message(code: 'contestApplication.callToAction.VOTING.SENT.button.disabled')}"
         class="contestApplication-vote">
     <span class="fal fa-scroll" aria-hidden="true"></span>
-    <span class="number">XXXXX</span>
+    <span class="number">${contestApplication.votes}</span>
 </g:link>
