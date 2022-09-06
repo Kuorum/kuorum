@@ -532,7 +532,13 @@ class CampaignController {
         try {
             UserPhoneValidationRDTO userPhoneValidationRDTO = kuorumUserService.sendSMSWithValidationCode(votingUser, campaignId, domainUserPhoneValidationCommand.phoneNumber.toString(), domainUserPhoneValidationCommand.phoneNumberPrefix)
             cookieUUIDService.buildAnonymousUser(userPhoneValidationRDTO.getUserId());
-            render([validated: false, success: true, hash: userPhoneValidationRDTO.getHash(), validationPhoneNumberPrefix: userPhoneValidationRDTO.getPhoneNumberPrefix(), validationPhoneNumber: userPhoneValidationRDTO.getPhoneNumber()] as JSON)
+            render([
+                    validated                  : userPhoneValidationRDTO.validationStatus.phoneStatus.isGranted(),
+                    pendingValidations         : getPendingValidations(userPhoneValidationRDTO.validationStatus),
+                    success                    : true,
+                    hash                       : userPhoneValidationRDTO.getHash(),
+                    validationPhoneNumberPrefix: userPhoneValidationRDTO.getPhoneNumberPrefix(),
+                    validationPhoneNumber      : userPhoneValidationRDTO.getPhoneNumber()] as JSON)
         } catch (KuorumException e) {
             render([validated: false, success: false, hash: null, validationPhoneNumberPrefix: null, validationPhoneNumber: null, msg: g.message(code: 'kuorum.web.commands.profile.DomainUserPhoneValidationCommand.phoneNumber.repeatedNumber')] as JSON)
         } catch (Exception e) {

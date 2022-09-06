@@ -62,7 +62,7 @@ class CookieUUIDService {
                  maxAge  : Integer.MAX_VALUE,
                  path    : WebConstants.COOKIE_PATH,
                  domain  : CustomDomainResolver.domain,
-                 secure  : false,
+                 secure  : true,
                  httpOnly: false])
     }
 

@@ -47,7 +47,8 @@ var userValidatedByDomain={
             $('#registro').find("form").attr("data-buttonId", buttonId);
             $('#registro').modal('show');
         } else {
-            clickButtonOnSuccess.exec();
+            console.log("User Logged. ");
+            userValidatedByDomain.executeClickButtonHandlingValidations($button, clickButtonOnSuccess);
         }
     },
 
@@ -134,7 +135,7 @@ var userValidatedByDomain={
             }
         });
     },
-    checkUserValid: function () {
+    checkUserValid: function (executableFunctionCallback) {
         var url = kuorumUrls.domainValidationChecker;
         var data = userValidatedByDomain.dataValidation;
         $.ajax({
@@ -288,11 +289,16 @@ var userValidatedByDomain={
                 data: data,
                 success: function (dataSms) {
                     console.log(dataSms)
-                    if (dataSms.success){
+                    if (dataSms.success) {
                         $("#phoneHash").val(dataSms.hash)
                         $("#validationPhoneNumber").val(dataSms.validationPhoneNumber)
                         $("#validationPhoneNumberPrefix").val(dataSms.validationPhoneNumberPrefix)
-                        userValidatedByDomain.showPhoneValidationStep2();
+                        if (dataSms.validated) {
+                            // This phone is already validated
+                            userValidatedByDomain.nextValidationStep(dataSms);
+                        } else {
+                            userValidatedByDomain.showPhoneValidationStep2();
+                        }
                     }else{
                         userValidatedByDomain.showErrorModal(dataSms.msg)
                     }

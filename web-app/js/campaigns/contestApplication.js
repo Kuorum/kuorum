@@ -1,7 +1,7 @@
 $(function () {
 
 
-    $("body").on("click", '.contestApplication-vote', contestApplicationFunctions.bindSignClick);
+    $("body").on("click", '.contestApplication-vote', contestApplicationFunctions.bindVoteClick);
     noLoggedCallbacks['contestApplicationVoteNoLogged'] = function () {
         var buttonId = $('#registro').find("form").attr("data-buttonId");
         var $button = $("#" + buttonId);
@@ -13,21 +13,28 @@ $(function () {
 
 
 var contestApplicationFunctions = {
-    bindSignClick: function (event) {
+    bindVoteClick: function (event) {
         event.preventDefault();
         event.stopPropagation();
         var $button = $(this);
 
-        var params = {
-            callback: undefined,
-            $button: $button
-        };
-        var executableFunction = new userValidatedByDomain.ExcutableFunctionCallback(contestApplicationFunctions._executableVoteContestApplication, params);
+        if ($button.attr("disabled") != undefined) {
+            // display.warn("You have already voted")
+        } else {
+            var params = {
+                callback: undefined,
+                $button: $button
+            };
+            var executableFunction = new userValidatedByDomain.ExcutableFunctionCallback(contestApplicationFunctions.onClickVoteContestApplicationWithParams, params);
 
-        userValidatedByDomain.handleLoginAndValidationUser(
-            $button,
-            "contestApplicationVoteNoLogged",
-            executableFunction)
+            userValidatedByDomain.handleLoginAndValidationUser(
+                $button,
+                "contestApplicationVoteNoLogged",
+                executableFunction)
+        }
+    },
+    onClickVoteContestApplicationWithParams: function (params) {
+        contestApplicationFunctions.onClickVoteContestApplication(params.$button, params.callback)
     },
     onClickVoteContestApplication: function ($button, callback) {
         if (isPageLoading()) {
@@ -54,9 +61,15 @@ var contestApplicationFunctions = {
             data: data,
             success: function (contestApplicationVote) {
                 if (contestApplicationVote.success) {
-                    $button.attr("disabled", "disabled")
-                    // $button.html($button.attr("data-disabledText"))
-                    display.success("Se ha registrado tu voto satisfactoriamente")
+                    console.log("Vote Success")
+                    console.log(contestApplicationVote)
+                    var $buttonMainPage = $("section#main .leader-post .contestApplication-vote")
+                    var $buttonColumnC = $("#aside-ppal .call-to-action .actions a")
+
+                    contestApplicationFunctions._disableButton($button, contestApplicationVote.vote.votes);
+                    contestApplicationFunctions._disableButton($buttonMainPage, contestApplicationVote.vote.votes);
+                    contestApplicationFunctions._disableButton($buttonColumnC, contestApplicationVote.vote.votes);
+                    display.success(contestApplicationVote.message)
                 } else {
                     display.error(contestApplicationVote.message)
                 }
@@ -70,34 +83,12 @@ var contestApplicationFunctions = {
         });
     },
 
-    _loadPDFIframe: function ($modal, viewPdfUrl) {
-        var iframe = $modal.find("iframe");
-        var $loading = $modal.find(".loading");
-        $loading.show()
-        iframe.attr("src", viewPdfUrl);
-        iframe.hide();
-        var reloadUntilCorrectPdf = function (e) {
-            var title = iframe.contents().find("title").html();
-            console.log("Reloading until pdf generated. Title = " + title)
-            if (title == "File not found") { // Title checking
-                console.log("Reloading IFRAME")
-                iframe.attr('src', function (i, val) {
-                    return val;
-                }); // resets iframe
-                iframe.attr('data', function (i, val) {
-                    return val;
-                }); // resets iframe
-            } else {
-                console.log("PDF Loaded")
-                contestApplicationFunctions._showIframeWithPdf($modal);
-            }
-        }
-        iframe.load(reloadUntilCorrectPdf);
-    },
-    _showIframeWithPdf: function ($modal) {
-        var $iframe = $modal.find("iframe");
-        var $loading = $modal.find(".loading");
-        $iframe.show();
-        $loading.hide();
+    _disableButton: function ($button, numVotes) {
+        $button.attr("disabled", "disabled")
+        $button.addClass("active")
+        $button.addClass("disabled")
+        $button.find(".fa-scroll").removeClass("fal")
+        $button.find(".fa-scroll").addClass("fas")
+        $button.find(".number").html(numVotes)
     }
 };
