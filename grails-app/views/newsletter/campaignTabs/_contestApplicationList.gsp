@@ -55,7 +55,7 @@
             data-filter-control="input" data-formatter="formatTableCampaignAuthor"
             data-filter-control-placeholder="${g.message(code: 'tools.massMailing.view.participatoryBudget.proposalList.table.author.searchPlaceholder')}"><g:message
                 code="tools.massMailing.view.participatoryBudget.proposalList.table.author"/></th>
-        <th data-field="nid" data-halign="center" data-align="center" data-sortable="true" data-visible="true"
+        <th data-field="nid" data-halign="center" data-align="center" data-sortable="false" data-visible="true"
             data-filter-control="input" data-filter-control-placeholder="${g.message(code: 'tools.massMailing.view.participatoryBudget.proposalList.table.author.nid.searchPlaceholder')}"><g:message
                 code="tools.massMailing.view.participatoryBudget.proposalList.table.author.nid"/></th>
         <th data-field="campaignStatus.i18n" data-halign="center" data-align="center" data-sortable="false"
