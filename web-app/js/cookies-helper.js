@@ -23,6 +23,7 @@ var cookiesHelper = {
     },
     removeCookie:function(cname){
         cookiesHelper.setCookie(cname, "", -1);
+        document.cookie = cname + '=; expires=Thu, 01-Jan-70 00:00:01 GMT;';
     },
     checkCookie: function(cname, onCookieFound, onNotCookieFound) {
         var cvalue=this.getCookie(cname);

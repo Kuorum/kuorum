@@ -1,34 +1,76 @@
-    package kuorum.users
+package kuorum.users
 
 import grails.plugin.cookie.CookieService
 import grails.plugin.springsecurity.SpringSecurityService
-    import kuorum.core.customDomain.CustomDomainResolver
-    import kuorum.web.constants.WebConstants
+import kuorum.core.customDomain.CustomDomainResolver
+import kuorum.register.KuorumUserSession
+import kuorum.web.constants.WebConstants
 
 class CookieUUIDService {
 
     SpringSecurityService springSecurityService
     CookieService cookieService
 
-    String getUserUUID(){
+    // I don't know why  cookieService.deleteCookie(cookie) doesn't delete the cookie. That's why I'm going to use a logic delete with this text
+    private final String DELETED_COOKIE_VALUE = "KUORUM_DELETED";
+
+    String getUserUUID() {
         String evaluatorId = cookieService.getCookie(WebConstants.COOKIE_USER_UUID)
-        if (springSecurityService.isLoggedIn()){
+        if (springSecurityService.isLoggedIn()) {
             evaluatorId = springSecurityService.principal.id.toString()
         }
         return evaluatorId;
     }
 
-    void setUserUUID(String evaluatorId){
-        cookieService.setCookie(
-                [name:WebConstants.COOKIE_USER_UUID,
-                 value:evaluatorId,
-                 maxAge:Integer.MAX_VALUE ,
-                 path:WebConstants.COOKIE_PATH,
-                 domain:CustomDomainResolver.domain])
+    KuorumUserSession buildAnonymousUser(String userId) {
+        if (springSecurityService.isLoggedIn()) {
+            return springSecurityService.principal
+        } else {
+            return createAnonymousUserSession(userId);
+        }
     }
 
-    void removeUserUUID(){
-        cookieService.deleteCookie(WebConstants.COOKIE_USER_UUID,WebConstants.COOKIE_PATH,CustomDomainResolver.domain)
+    private createAnonymousUserSession(String userId) {
+        if (userId) {
+            setUserUUID(userId);
+        }
+        String uuid = getUserUUID();
+        return new KuorumUserSession(
+                uuid,
+                uuid,
+                "",
+                false,
+                true,
+                true,
+                true,
+                [],
+                uuid,
+                uuid,
+                null,
+                null,
+                null,
+                false,
+                false,
+                false,
+        )
+    }
+
+    void setUserUUID(String evaluatorId) {
+        cookieService.setCookie(
+                [name    : WebConstants.COOKIE_USER_UUID,
+                 value   : evaluatorId,
+                 maxAge  : Integer.MAX_VALUE,
+                 path    : WebConstants.COOKIE_PATH,
+                 domain  : CustomDomainResolver.domain,
+                 secure  : false,
+                 httpOnly: false])
+    }
+
+    void removeUserUUID() {
+        // NOT WORKING
+        def cookie = cookieService.findCookie(WebConstants.COOKIE_USER_UUID)
+        setUserUUID(DELETED_COOKIE_VALUE)
+        cookieService.deleteCookie(cookie)
     }
 
     /**
@@ -39,7 +81,7 @@ class CookieUUIDService {
      */
     String buildUserUUID(){
         String userUUID = getUserUUID();
-        if (!userUUID){
+        if (!userUUID || userUUID == DELETED_COOKIE_VALUE) {
             userUUID = UUID.randomUUID().toString()
             setUserUUID(userUUID)
         }

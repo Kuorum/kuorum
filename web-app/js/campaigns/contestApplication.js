@@ -6,6 +6,7 @@ $(function () {
         var buttonId = $('#registro').find("form").attr("data-buttonId");
         var $button = $("#" + buttonId);
         pageLoadingOff();
+        console.log("Contest application voting NO LOGGED :: RELOADING")
         contestApplicationFunctions.onClickVoteContestApplication($button, noLoggedCallbacks.reloadPage);
     };
 });
@@ -16,17 +17,17 @@ var contestApplicationFunctions = {
         event.preventDefault();
         event.stopPropagation();
         var $button = $(this);
-        var loggedUser = $button.attr("data-loggedUser");
-        if (loggedUser == undefined || loggedUser == "") {
-            // NO LOGGED
-            var buttonId = guid();
-            $button.attr("id", buttonId);
-            $('#registro').find("form").attr("callback", "contestApplicationVoteNoLogged");
-            $('#registro').find("form").attr("data-buttonId", buttonId);
-            $('#registro').modal('show');
-        } else {
-            contestApplicationFunctions.onClickVoteContestApplication($button);
-        }
+
+        var params = {
+            callback: undefined,
+            $button: $button
+        };
+        var executableFunction = new userValidatedByDomain.ExcutableFunctionCallback(contestApplicationFunctions._executableVoteContestApplication, params);
+
+        userValidatedByDomain.handleLoginAndValidationUser(
+            $button,
+            "contestApplicationVoteNoLogged",
+            executableFunction)
     },
     onClickVoteContestApplication: function ($button, callback) {
         if (isPageLoading()) {
@@ -47,17 +48,15 @@ var contestApplicationFunctions = {
         var url = $button.attr('href');
 
         var data = {};
-
         $.ajax({
             type: 'POST',
             url: url,
             data: data,
             success: function (contestApplicationVote) {
-                console.log("VOTE")
-                console.log(contestApplicationVote)
                 if (contestApplicationVote.success) {
                     $button.attr("disabled", "disabled")
-                    $button.html($button.attr("data-disabledText"))
+                    // $button.html($button.attr("data-disabledText"))
+                    display.success("Se ha registrado tu voto satisfactoriamente")
                 } else {
                     display.error(contestApplicationVote.message)
                 }

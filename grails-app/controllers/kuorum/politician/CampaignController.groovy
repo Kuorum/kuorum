@@ -11,6 +11,8 @@ import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.exception.KuorumException
 import kuorum.files.FileService
 import kuorum.register.KuorumUserSession
+import kuorum.security.evidences.Evidences
+import kuorum.security.evidences.HttpRequestRecoverEvidences
 import kuorum.solr.SearchSolrService
 import kuorum.users.CookieUUIDService
 import kuorum.users.KuorumUser
@@ -19,6 +21,10 @@ import kuorum.util.TimeZoneUtil
 import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.commands.payment.CampaignSettingsCommand
 import kuorum.web.commands.payment.contact.ContactFilterCommand
+import kuorum.web.commands.profile.DomainUserCustomCodeValidationCommand
+import kuorum.web.commands.profile.DomainUserPhoneCodeValidationCommand
+import kuorum.web.commands.profile.DomainUserPhoneValidationCommand
+import kuorum.web.commands.profile.DomainValidationCommand
 import kuorum.web.constants.WebConstants
 import org.kuorum.rest.model.communication.*
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
@@ -33,7 +39,10 @@ import org.kuorum.rest.model.contact.ContactRSDTO
 import org.kuorum.rest.model.contact.filter.FilterRDTO
 import org.kuorum.rest.model.contact.filter.FilterRSDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
+import org.kuorum.rest.model.kuorumUser.KuorumUserExtraDataRSDTO
 import org.kuorum.rest.model.kuorumUser.KuorumUserRSDTO
+import org.kuorum.rest.model.kuorumUser.domainValidation.UserPhoneValidationRDTO
+import org.kuorum.rest.model.kuorumUser.validation.UserValidationRSDTO
 import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
 import org.kuorum.rest.model.search.SearchKuorumElementRSDTO
 import org.kuorum.rest.model.search.SearchParamsRDTO
@@ -483,4 +492,118 @@ class CampaignController {
         List<String> files = contactService.getFiles(campaignOwner.getId().toString(), ownerContact)
         return files.size() >= WebConstants.MIN_FILES_PER_DOC_IN_CONTEST;
     }
+
+    def campaignUserValidChecker() {
+        Long campaignId = Long.parseLong(params.campaignId)
+        String userUUID = cookieUUIDService.getUserUUID();
+        UserValidationRSDTO userValidationRSDTO = kuorumUserService.getUserValidationStatus(userUUID, campaignId)
+        render([validated: userValidationRSDTO.isGranted(), success: true, pendingValidations: getPendingValidations(userValidationRSDTO)] as JSON)
+    }
+    // USER VALIDATION
+
+    def domainUserValidChecker() {
+        Long campaignId = Long.parseLong(params.campaignId)
+        KuorumUserSession userSession = cookieUUIDService.buildAnonymousUser();
+        UserValidationRSDTO userValidationRSDTO = kuorumUserService.getUserValidationStatus(userSession, campaignId)
+        render([validated: userValidationRSDTO.isGranted(), success: true, pendingValidations: getPendingValidations(userValidationRSDTO)] as JSON)
+    }
+
+
+    def validateUser(DomainValidationCommand domainValidationCommand) {
+        if (domainValidationCommand.hasErrors()) {
+            render([validated: false, success: false, msg: message(error: domainValidationCommand.getErrors().getAllErrors().get(0))] as JSON)
+            return
+        }
+        Long campaignId = Long.parseLong(params.campaignId)
+        KuorumUserSession userSession = springSecurityService.principal
+        Evidences evidences = new HttpRequestRecoverEvidences(request);
+        UserValidationRSDTO userValidationRSDTO = kuorumUserService.userDomainValidation(userSession, evidences, campaignId, domainValidationCommand.ndi, domainValidationCommand.postalCode, domainValidationCommand.birthDate)
+        render([
+                success           : userValidationRSDTO.censusStatus.isGranted(),
+                validated         : userValidationRSDTO.isGranted(),
+                msg               : userValidationRSDTO.censusStatus.isGranted() ? "Success validation" : g.message(code: 'kuorum.web.commands.profile.DomainValidationCommand.validationError'),
+                pendingValidations: getPendingValidations(userValidationRSDTO)
+        ] as JSON)
+    }
+
+    def validateUserPhoneSendSMS(DomainUserPhoneValidationCommand domainUserPhoneValidationCommand) {
+        KuorumUserSession votingUser = cookieUUIDService.buildAnonymousUser();
+        Long campaignId = Long.parseLong(params.campaignId)
+        try {
+            UserPhoneValidationRDTO userPhoneValidationRDTO = kuorumUserService.sendSMSWithValidationCode(votingUser, campaignId, domainUserPhoneValidationCommand.phoneNumber.toString(), domainUserPhoneValidationCommand.phoneNumberPrefix)
+            cookieUUIDService.buildAnonymousUser(userPhoneValidationRDTO.getUserId());
+            render([validated: false, success: true, hash: userPhoneValidationRDTO.getHash(), validationPhoneNumberPrefix: userPhoneValidationRDTO.getPhoneNumberPrefix(), validationPhoneNumber: userPhoneValidationRDTO.getPhoneNumber()] as JSON)
+        } catch (KuorumException e) {
+            render([validated: false, success: false, hash: null, validationPhoneNumberPrefix: null, validationPhoneNumber: null, msg: g.message(code: 'kuorum.web.commands.profile.DomainUserPhoneValidationCommand.phoneNumber.repeatedNumber')] as JSON)
+        } catch (Exception e) {
+            render([validated: false, success: false, hash: null, validationPhoneNumberPrefix: null, validationPhoneNumber: null, msg: 'Internal error. Try again or contact with info@kuorum.org'] as JSON)
+        }
+    }
+
+    def validateUserPhone(DomainUserPhoneCodeValidationCommand domainUserPhoneValidationCommand) {
+        if (domainUserPhoneValidationCommand.hasErrors()) {
+            render([validated: false, success: false, msg: message(error: domainUserPhoneValidationCommand.getErrors().getAllErrors().get(0))] as JSON)
+            return
+        }
+        Long campaignId = Long.parseLong(params.campaignId)
+        KuorumUserSession userSession = cookieUUIDService.buildAnonymousUser();
+        Evidences evidences = new HttpRequestRecoverEvidences(request);
+        UserValidationRSDTO userValidationRSDTO = kuorumUserService.userPhoneDomainValidation(userSession, evidences, campaignId, domainUserPhoneValidationCommand.validationPhoneNumberPrefix, domainUserPhoneValidationCommand.validationPhoneNumber, domainUserPhoneValidationCommand.phoneHash, domainUserPhoneValidationCommand.phoneCode)
+        render([
+                success           : userValidationRSDTO.phoneStatus.isGranted(),
+                validated         : userValidationRSDTO.isGranted(),
+                msg               : userValidationRSDTO.phoneStatus.isGranted() ? "Success validation" : g.message(code: 'kuorum.web.commands.profile.DomainUserPhoneCodeValidationCommand.phoneCode.validationError'),
+                pendingValidations: getPendingValidations(userValidationRSDTO)
+        ] as JSON)
+    }
+
+    def validateUserCustomCode(DomainUserCustomCodeValidationCommand domainUserCustomCodeValidationCommand) {
+        if (domainUserCustomCodeValidationCommand.hasErrors()) {
+            render([validated: false, success: false, msg: message(error: domainUserCustomCodeValidationCommand.getErrors().getAllErrors().get(0))] as JSON)
+            return
+        }
+        KuorumUserSession userSession = cookieUUIDService.buildAnonymousUser();
+        Long campaignId = Long.parseLong(params.campaignId)
+        String msg
+        UserValidationRSDTO userValidationRSDTO = null
+        Evidences evidences = new HttpRequestRecoverEvidences(request);
+        userValidationRSDTO = kuorumUserService.userCodeDomainValidation(userSession, evidences, campaignId, domainUserCustomCodeValidationCommand.customCode)
+        if (userValidationRSDTO.codeStatus.isGranted()) {
+            msg = "Success validation"
+        } else {
+            msg = g.message(code: "kuorum.web.commands.profile.DomainUserCustomCodeValidationCommand.customCode.validationError", args: [userSession.email.replaceFirst(/([^@]{3}).*@(..).*/, "\$1***@\$2***")])
+            log.info("Error validating user: ${msg}")
+        }
+
+        render([
+                success           : userValidationRSDTO.codeStatus.isGranted(),
+                validated         : userValidationRSDTO.isGranted(),
+                msg               : msg,
+                pendingValidations: getPendingValidations(userValidationRSDTO)
+        ] as JSON)
+    }
+
+
+    private def getPendingValidations(UserValidationRSDTO userValidationRSDTO) {
+        String phone = null;
+        Boolean predefinedPhone = false;
+        if (!userValidationRSDTO.phoneStatus.isGranted()) {
+            if (springSecurityService.isLoggedIn()) {
+                KuorumUserSession userSession = cookieUUIDService.buildAnonymousUser();
+                KuorumUserExtraDataRSDTO extraDataRSDTO = kuorumUserService.findUserExtendedDataRSDTO(userSession)
+                phone = extraDataRSDTO.phoneNumber?.encodeAsHiddenPhone()
+                predefinedPhone = extraDataRSDTO.phoneNumber ? true : false;
+            } else {
+                predefinedPhone = false;
+            }
+        }
+        return [
+                tokenMailValidation: [success: userValidationRSDTO.tokenMailStatus.isGranted(), data: [:]],
+                censusValidation   : [success: userValidationRSDTO.censusStatus.isGranted(), data: [:]],
+                phoneValidation    : [success: userValidationRSDTO.phoneStatus.isGranted(), data: [phone: phone, predefinedPhone: predefinedPhone]],
+                codeValidation     : [success: userValidationRSDTO.codeStatus.isGranted(), data: [:]]
+
+        ]
+    }
+
 }

@@ -2,22 +2,25 @@
 
 var userValidatedByDomain={
 
-    executable : undefined,
-    binded:false,
+    executable: undefined,
+    binded: false,
     validated: false,
+    allowAnonymousAction: false,
     modalNotifications: undefined,
     modal: undefined,
-    loading:undefined,
+    loading: undefined,
     dataValidation: undefined,
+    urlAnonymousValidation: undefined,
+    successFunctionCallback: undefined,
 
-    initVariables:function(){
-        if(!userValidatedByDomain.binded){
-            $("#validateDomain-modal-form-button-id").on("click",userValidatedByDomain.handleSubmitValidationForm );
-            $("#validatePhoneDomain-modal-form-button-id").on("click",userValidatedByDomain.sendSMSForPhoneValidation );
-            $("#validatePhoneCodeDomain-modal-form-button-id").on("click",userValidatedByDomain.handleSubmitValidationPhone );
-            $("#validatePhoneCodeDomain-modal-form-button-back").on("click",userValidatedByDomain.showPhoneValidationStep1 );
-            $("#validateCustomCodeDomain-modal-form-button-id").on("click",userValidatedByDomain.handleSubmitValidationCustomCode );
-            $("#groupValidationCampaign-modal-button-id").on("click",function(e){
+    initVariables: function () {
+        if (!userValidatedByDomain.binded) {
+            $("#validateDomain-modal-form-button-id").on("click", userValidatedByDomain.handleSubmitValidationForm);
+            $("#validatePhoneDomain-modal-form-button-id").on("click", userValidatedByDomain.sendSMSForPhoneValidation);
+            $("#validatePhoneCodeDomain-modal-form-button-id").on("click", userValidatedByDomain.handleSubmitValidationPhone);
+            $("#validatePhoneCodeDomain-modal-form-button-back").on("click", userValidatedByDomain.showPhoneValidationStep1);
+            $("#validateCustomCodeDomain-modal-form-button-id").on("click", userValidatedByDomain.handleSubmitValidationCustomCode);
+            $("#groupValidationCampaign-modal-button-id").on("click", function (e) {
                 e.preventDefault();
                 $("#domain-validation").modal("hide");
             });
@@ -27,52 +30,86 @@ var userValidatedByDomain={
         }
     },
 
-    openAndPrepareValidationModal:function(){
+    handleLoginAndValidationUser: function ($button, callbackNameAfterLogin, clickButtonOnSuccess) {
+        var loggedUserAlias = $button.attr("data-loggedUser");
+        var noLoggedUser = loggedUserAlias == undefined || loggedUserAlias == "";
+        var allowedAnonymousVote = $button.attr("data-allowAnonymousAction") == "true";
+        console.log("Handling login and validation");
+        if (noLoggedUser && allowedAnonymousVote) {
+            console.log("CHECK DOMAIN VALIDATION");
+            userValidatedByDomain.initDataValidation($button, clickButtonOnSuccess);
+            userValidatedByDomain.checkNoUserValidations($button, clickButtonOnSuccess)
+        } else if (noLoggedUser) {
+            // NO LOGGED
+            var buttonId = guid();
+            $button.attr("id", buttonId);
+            $('#registro').find("form").attr("callback", callbackNameAfterLogin);
+            $('#registro').find("form").attr("data-buttonId", buttonId);
+            $('#registro').modal('show');
+        } else {
+            clickButtonOnSuccess.exec();
+        }
+    },
+
+    openAndPrepareValidationModal: function () {
         // Open validation modal
         $("#domain-validation").modal({
             backdrop: 'static',
             keyboard: false
         });
+        userValidatedByDomain.closeRegisterModal(true);
 
-        // CLOSE LOGIN MODAL IF IT IS OPEN
-        if (($("#registro").data('bs.modal') || {}).isShown){
-            $("#registro").modal("hide");
+        console.log("Anonimous vote is active: " + userValidatedByDomain.dataValidation.allowAnonymousAction)
+        if (!isUserLogged() && !userValidatedByDomain.dataValidation.allowAnonymousAction) {
+            // User is logged but the page is not reloaded and the anonymous action is not allowed.
             $('#domain-validation').on('hidden.bs.modal', function () {
-                noLoggedCallbacks.reloadPage("Validation :: Close login modal :: Close validation modal",500)
-            })
-        }
-
-        if (!isUserLogged()){
-            // User is logged but the page is not reloaded
-            $('#domain-validation').on('hidden.bs.modal', function () {
-                if (!userValidatedByDomain.validated){
+                if (!userValidatedByDomain.validated) {
                     // Delay reload to show the error message
                     display.error(i18n.kuorum.web.commands.profile.DomainValidationCommand.closeWithoutValidation);
                 }
-                noLoggedCallbacks.reloadPage("Validation :: User logged :: Close validation modal",1000); //1 sec
+                noLoggedCallbacks.reloadPage("Validation :: User logged :: Close validation modal", 1000); //1 sec
             })
         }
     },
 
-    executeClickButtonHandlingValidations:function($button, executableFunctionCallback){
-        userValidatedByDomain.dataValidation ={
-            loggedUser : $button.attr('data-useralias'), // No needed
-            validationActive : $button.attr('data-campaignValidationActive'),
-            groupValidation : $button.attr('data-campaignGroupValidationActive'),
-            campaignId : $button.attr('data-campaignId'),
-            predefinedPhone : false,
+    closeRegisterModal: function (reloadPageOnCloseValidation) {
+        if (($("#registro").data('bs.modal') || {}).isShown) {
+            $("#registro").modal("hide");
+            if (reloadPageOnCloseValidation) {
+                $('#domain-validation').on('hidden.bs.modal', function () {
+                    noLoggedCallbacks.reloadPage("Validation :: Close login modal :: Close validation modal", 500)
+                })
+            }
         }
-        if (userValidatedByDomain.dataValidation.validationActive=="true"){
+    },
+
+    executeClickButtonHandlingValidations: function ($button, executableFunctionCallback) {
+        userValidatedByDomain.initDataValidation($button, executableFunctionCallback);
+        if (userValidatedByDomain.dataValidation.validationActive == "true") {
             userValidatedByDomain.checkUserValid(executableFunctionCallback)
-        }else{
+        } else {
             userValidatedByDomain.checkGroupValidation(executableFunctionCallback)
         }
     },
 
-    checkUserValid:function(executableFunctionCallback){
-        var url = kuorumUrls.profileDomainValidationChecker;
+    initDataValidation: function ($button, callbackSuccess) {
+        userValidatedByDomain.dataValidation = {
+            loggedUser: $button.attr('data-useralias'), // No needed
+            validationActive: $button.attr('data-campaignValidationActive'),
+            groupValidation: $button.attr('data-campaignGroupValidationActive'),
+            campaignId: $button.attr('data-campaignId'),
+            allowAnonymousAction: $button.attr('data-allowAnonymousAction'),
+            urlAnonymousValidation: $button.attr('data-ajaxAnonymousValidationChecker'),
+            predefinedPhone: false,
+        }
+        userValidatedByDomain.successFunctionCallback = callbackSuccess;
+    },
+
+    checkNoUserValidations: function ($button) {
+
+        var url = userValidatedByDomain.dataValidation.urlAnonymousValidation;
+        console.log(url)
         var data = userValidatedByDomain.dataValidation;
-        executable = executableFunctionCallback;
         $.ajax({
             type: "POST",
             url: url,
@@ -80,7 +117,34 @@ var userValidatedByDomain={
             success: function (dataLogin) {
                 userValidatedByDomain.initVariables();
                 userValidatedByDomain.nextValidationStep(dataLogin);
-                if (!dataLogin.validated){
+                if (!dataLogin.validated) {
+                    userValidatedByDomain.openAndPrepareValidationModal();
+                } else {
+                    userValidatedByDomain.validated = true
+                }
+            },
+            error: function () {
+                // User is no logged or is not validated
+                // Showing modal validation process
+                pageLoadingOff();
+                display.error(i18n.kuorum.session.validation.error)
+            },
+            complete: function () {
+                pageLoadingOff();
+            }
+        });
+    },
+    checkUserValid: function () {
+        var url = kuorumUrls.domainValidationChecker;
+        var data = userValidatedByDomain.dataValidation;
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: data,
+            success: function (dataLogin) {
+                userValidatedByDomain.initVariables();
+                userValidatedByDomain.nextValidationStep(dataLogin, executableFunctionCallback);
+                if (!dataLogin.validated) {
                     userValidatedByDomain.openAndPrepareValidationModal();
                 }else{
                     userValidatedByDomain.validated = true
@@ -99,9 +163,13 @@ var userValidatedByDomain={
     },
     checkGroupValidation:function(executableFunctionCallback, closeCallbackModal){
 
-        var joinCallbacks = new userValidatedByDomain.ExcutableFunctionCallback(function(params){
-            executableFunctionCallback.exec()
-            if (closeCallbackModal != undefined){
+        var joinCallbacks = new userValidatedByDomain.ExcutableFunctionCallback(function(params) {
+            console.log("gorupValidationJoined")
+            if (executableFunctionCallback != undefined) {
+                console.log("Executing callback")
+                executableFunctionCallback.exec()
+            }
+            if (closeCallbackModal != undefined) {
                 closeCallbackModal()
             }
         }, "Joined functions -> No need params")
@@ -370,7 +438,7 @@ var userValidatedByDomain={
             userValidatedByDomain.hideErrorModal();
             userValidatedByDomain.validated = true;
             $("#validateDomain-modal-form-button-id").find(".text-success").show();
-            userValidatedByDomain.checkGroupValidation(executable, function(){
+            userValidatedByDomain.checkGroupValidation(userValidatedByDomain.successFunctionCallback, function () {
                 setTimeout(function () {
                     console.log("Closing modal")
                     $("#domain-validation").modal("hide")

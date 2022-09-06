@@ -24,6 +24,8 @@
                     params="${contestApplication.encodeAsLinkProperties()}"
                     type="button"
                     data-loggedUser="${sec.username()}"
+                    data-allowAnonymousAction="${contestApplication.allowAnonymousAction}"
+                    data-ajaxAnonymousValidationChecker="${g.createLink(mapping: 'campaignCheckValidation', params: contestApplication.encodeAsLinkProperties())}"
                     data-userLoggedAlias="${userUtil.loggedUserId()}"
                     data-campaignValidationActive="${contestApplication.checkValidationActive}"
                     data-campaignGroupValidationActive="${contestApplication.groupValidation ? g.createLink(mapping: "campaignCheckGroupValidation", params: contestApplication.encodeAsLinkProperties()) : ''}"

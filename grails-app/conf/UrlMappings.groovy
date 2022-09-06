@@ -245,6 +245,7 @@ class UrlMappings {
         name contestApplicationVote:    "/ajax/$userAlias/ct/$contestTitle-$contestId/cta/$urlTitle-$campaignId/vote"           (controller: "contest", action: "vote")
 
         name campaignShow:          "/$userAlias/$urlTitle-$campaignId" (controller: "campaign", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it)})}}
+        name campaignCheckValidation:"/ajax/$userAlias/$urlTitle-$campaignId/validation/check" (controller: "campaign", action: "campaignUserValidChecker")
         name campaignCheckGroupValidation:"/ajax/$userAlias/$urlTitle-$campaignId/group/check" (controller: "campaign", action: "checkGroupCampaignValidation")
         name campaignPause:         "/ajax/account/$userAlias/$urlTitle-$campaignId/pause" (controller: "newsletter", action: "pauseCampaign")
 
@@ -299,11 +300,11 @@ class UrlMappings {
         name campaignValidationPhoneNumber:       "/$userAlias/$urlTitle-$campaignId/validation/phone/number" (controller: "campaignValidation"){action = [GET:"stepCampaignValidationPhoneNumber"]}
         name campaignValidationPhoneNumberCode:   "/$userAlias/$urlTitle-$campaignId/validation/phone/code"   (controller: "campaignValidation"){action = [GET:"stepCampaignValidationPhoneCode", POST:"stepCampaignValidationPhoneCodeSave"]}
 
-        name profileDomainValidationChecker:            "/ajax/edit-profile/domain-valid-cheker"            (controller: "profile", action :"domainUserValidChecker")
-        name profileDomainValidationByCensusValidate:   "/ajax/edit-profile/domain-validate"                (controller: "profile", action :"validateUser")
-        name profileDomainValidationByPhoneSendSms:     "/ajax/edit-profile/domain-valid-phone-sendSms"     (controller: "profile", action :"validateUserPhoneSendSMS")
-        name profileDomainValidationByPhoneValidate:    "/ajax/edit-profile/domain-valid-phone-validate"    (controller: "profile", action :"validateUserPhone")
-        name profileDomainValidationByCodeValidate:     "/ajax/edit-profile/domain-valid-code-validate"    (controller: "profile", action :"validateUserCustomCode")
+        name domainValidationChecker:            "/ajax/validation/domain-valid-cheker"          (controller: "campaign", action :"domainUserValidChecker")
+        name domainValidationByCensusValidate:   "/ajax/validation/domain-validate"              (controller: "campaign", action :"validateUser")
+        name domainValidationByPhoneSendSms:     "/ajax/validation/domain-valid-phone-sendSms"   (controller: "campaign", action :"validateUserPhoneSendSMS")
+        name domainValidationByPhoneValidate:    "/ajax/validation/domain-valid-phone-validate"  (controller: "campaign", action :"validateUserPhone")
+        name domainValidationByCodeValidate:     "/ajax/validation/domain-valid-code-validate"   (controller: "campaign", action :"validateUserCustomCode")
 
         name causeSupport:         "/ajax/cause/$causeName/support" (controller:"causes", action: "supportCause")
 
