@@ -295,11 +295,13 @@ class ContestController extends CampaignController {
                         multimediaHtml: groovyPageRenderer.render(template: '/campaigns/showModules/campaignDataMultimedia', model: [campaign: contestApplicationRSDTO]),
                         visits        : contestApplicationRSDTO.visits,
                         user          : contestApplicationRSDTO.user,
+                        nid           : contestApplicationRSDTO.user.nid,
                         cause         : contestApplicationRSDTO.causes ? contestApplicationRSDTO.causes[0] : null,
                         contest       : contestApplicationRSDTO.contest,
                         activityType  : contestApplicationRSDTO.activityType,
                         focusType     : contestApplicationRSDTO.focusType,
-                        url           : g.createLink(mapping: 'contestApplicationShow', params: contestApplicationRSDTO.encodeAsLinkProperties())
+                        url           : g.createLink(mapping: 'contestApplicationShow', params: contestApplicationRSDTO.encodeAsLinkProperties()),
+                        numVotes         : contestApplicationRSDTO.votes
                 ]
             }
         }
