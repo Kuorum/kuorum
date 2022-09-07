@@ -5,6 +5,7 @@ import grails.plugin.springsecurity.annotation.Secured
 import kuorum.core.exception.KuorumException
 import kuorum.politician.CampaignController
 import kuorum.register.KuorumUserSession
+import kuorum.util.TimeZoneUtil
 import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.commands.payment.CampaignSettingsCommand
 import kuorum.web.commands.payment.contest.*
@@ -141,10 +142,10 @@ class ContestController extends CampaignController {
             return
         }
         ContestRDTO rdto = contestService.map(contestRSDTO)
-        rdto.deadLineApplications = command.deadLineApplications
-        rdto.deadLineReview = command.deadLineReview
-        rdto.deadLineVotes = command.deadLineVotes
-        rdto.deadLineResults = command.deadLineResults
+        rdto.deadLineApplications = TimeZoneUtil.convertToUserTimeZone(command.deadLineApplications, campaignUser.timeZone)
+        rdto.deadLineReview = TimeZoneUtil.convertToUserTimeZone(command.deadLineReview, campaignUser.timeZone)
+        rdto.deadLineVotes = TimeZoneUtil.convertToUserTimeZone(command.deadLineVotes, campaignUser.timeZone)
+        rdto.deadLineResults = TimeZoneUtil.convertToUserTimeZone(command.deadLineResults, campaignUser.timeZone)
         def result = saveAndSendCampaign(campaignUser, rdto, contestRSDTO.getId(), null, null, contestService)
         redirect mapping: result.nextStep.mapping, params: result.nextStep.params
     }
