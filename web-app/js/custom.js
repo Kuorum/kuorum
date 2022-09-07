@@ -466,8 +466,10 @@ var noLoggedCallbacks = {
     reloadPage : function(path , delayInMils){
         path = path || "NO_PATH";
         if (delayInMils !=undefined){
-            pageLoadingOn(path+" :: Reloading page with delay of "+delayInMils);
-            setTimeout(function(){document.location.reload() }, delayInMils);
+            pageLoadingOn(path + " :: Reloading page with delay of " + delayInMils);
+            setTimeout(function () {
+                document.location.reload()
+            }, delayInMils);
         }else{
             pageLoadingOn(path+" :: Reloading page now");
             document.location.reload();

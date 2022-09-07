@@ -133,7 +133,7 @@ class ContestController extends CampaignController {
     @Secured(['ROLE_CAMPAIGN_CONTEST'])
     def saveDeadlines(ContestDeadlinesCommand command) {
         KuorumUserSession campaignUser = springSecurityService.principal
-        ContestRSDTO contestRSDTO = contestService.find(campaignUser, command.campaignId)
+        ContestRSDTO contestRSDTO = contestService.find(params.userAlias, command.campaignId)
         if (command.hasErrors()) {
             flash.error = message(error: command.errors.getFieldError())
             render view: '/contest/editDeadlines', model: [
@@ -369,22 +369,29 @@ class ContestController extends CampaignController {
         render "OK";
     }
 
-    @Secured(['ROLE_CAMPAIGN_CONTEST_APPLICATION'])
+//    @Secured(['ROLE_CAMPAIGN_CONTEST_APPLICATION'])
     def vote(ContestApplicationVoteCommand command) {
         if (command.hasErrors()) {
             render([success: false, message: "There are errors on the data"] as JSON)
         }
-        KuorumUserSession loggedUser = springSecurityService.principal
+        ContestRSDTO contestRSDTO = contestService.find(command.userAlias, command.contestId)
+        if (!springSecurityService.isLoggedIn() && !contestRSDTO.allowAnonymousAction) {
+            log.warn("Someone [NO LOGGED] trying to vote in a campaign that requires register")
+            render([success: false, message: "You are unauthorized", vote: null] as JSON)
+            return
+        }
+        KuorumUserSession loggedUser = cookieUUIDService.buildAnonymousUser()
         try {
             ContestApplicationVoteRSDTO vote = contestApplicationService.vote(command.userAlias, command.contestId, command.campaignId, loggedUser.getId().toString());
+            cookieUUIDService.removeUserUUID();
             render([success: true, message: "Vote saved", vote: vote] as JSON)
         } catch (Exception e) {
-            ContestRSDTO contestRSDTO = contestService.find(command.userAlias, command.contestId)
             String msgError = "Error updating saving your vote"
             if (e.undeclaredThrowable.cause instanceof KuorumException) {
                 KuorumException ke = e.undeclaredThrowable.cause
                 msgError = message(code: "contestApplication.callToAction.VOTING.${ke.errors[0].code}", args: [contestRSDTO.title])
             }
+            cookieUUIDService.removeUserUUID();
             render([success: false, message: msgError, vote: null] as JSON)
         }
     }

@@ -24,12 +24,14 @@
                     params="${contestApplication.encodeAsLinkProperties()}"
                     type="button"
                     data-loggedUser="${sec.username()}"
+                    data-allowAnonymousAction="${contestApplication.allowAnonymousAction}"
+                    data-ajaxAnonymousValidationChecker="${g.createLink(mapping: 'campaignCheckValidation', params: contestApplication.encodeAsLinkProperties())}"
                     data-userLoggedAlias="${userUtil.loggedUserId()}"
                     data-campaignValidationActive="${contestApplication.checkValidationActive}"
                     data-campaignGroupValidationActive="${contestApplication.groupValidation ? g.createLink(mapping: "campaignCheckGroupValidation", params: contestApplication.encodeAsLinkProperties()) : ''}"
                     data-campaignId="${contestApplication.id}"
                     data-disabledText="${g.message(code: 'contestApplication.callToAction.VOTING.SENT.button.disabled')}"
-                    class="btn btn-blue btn-lg contestApplication-vote">
+                    class="btn btn-blue btn-lg contestApplication-vote contestApplication-vote-${contestApplication.id}">
                 ${callButtonMsg}
             </g:link>
         </div>

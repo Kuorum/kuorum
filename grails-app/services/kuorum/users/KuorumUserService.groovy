@@ -442,20 +442,24 @@ class KuorumUserService {
                 RestKuorumApiService.ApiMethod.USER_EXTRA_DATA,
                 params,
                 query,
-                new TypeReference<KuorumUserExtraDataRSDTO>(){}
+                new TypeReference<KuorumUserExtraDataRSDTO>() {}
         )
         return apiResponse.data
 
     }
 
-    UserValidationRSDTO getUserValidationStatus(KuorumUserSession user, Long campaignId){
-        Map<String, String> params = [userId: user.getId().toString(), campaignId: campaignId.toString()]
+    UserValidationRSDTO getUserValidationStatus(KuorumUserSession user, Long campaignId) {
+        return getUserValidationStatus(user.getId().toString(), campaignId)
+    }
+
+    UserValidationRSDTO getUserValidationStatus(String userId, Long campaignId) {
+        Map<String, String> params = [userId: userId, campaignId: campaignId.toString()]
         Map<String, String> query = [:]
-        def apiResponse= restKuorumApiService.get(
+        def apiResponse = restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.USER_VALIDATION_STATUS,
                 params,
                 query,
-                new TypeReference<UserValidationRSDTO>(){}
+                new TypeReference<UserValidationRSDTO>() {}
         )
         UserValidationRSDTO validationRDTO = apiResponse.data
         return validationRDTO;
