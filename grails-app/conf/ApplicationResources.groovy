@@ -340,6 +340,17 @@ modules = {
         resource url:'js/cookies.js'
     }
 
+    cookiesInfo{
+        dependsOn 'cookiesHelper'
+        resource url:'js/cookiesInfo.js'
+    }
+
+    googleTagManager{
+        dependsOn 'cookiesHelper'
+        resource url:'js/googleTagManager.js'
+    }
+
+
     tour{
         dependsOn 'basic'
         resource url:'js/bootstrap-tour.min.js'
