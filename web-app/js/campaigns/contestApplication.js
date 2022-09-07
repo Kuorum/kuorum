@@ -18,9 +18,7 @@ var contestApplicationFunctions = {
         event.stopPropagation();
         var $button = $(this);
 
-        if ($button.attr("disabled") != undefined) {
-            // display.warn("You have already voted")
-        } else {
+        if ($button.attr("disabled") == undefined) {
             var params = {
                 callback: undefined,
                 $button: $button
@@ -32,6 +30,7 @@ var contestApplicationFunctions = {
                 "contestApplicationVoteNoLogged",
                 executableFunction)
         }
+        // ELSE means that the user has already voted
     },
     onClickVoteContestApplicationWithParams: function (params) {
         contestApplicationFunctions.onClickVoteContestApplication(params.$button, params.callback)
