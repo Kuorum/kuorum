@@ -263,7 +263,7 @@ class ContestController extends CampaignController {
         populateFilters(filter, params.filter)
         populateSort(filter, params.sort, params.order)
         filter.attachNotPublished = true
-        PageContestApplicationRSDTO pageDistrictProposals = contestService.findContestApplications(userLogged, contestId, filter)
+        PageContestApplicationRSDTO pageDistrictProposals = contestService.findContestApplications(userLogged, contestId, filter, String.valueOf(userLogged.getId()))
         JSON.use('infoContestApplicationTable') {
             render(["total": pageDistrictProposals.total, "rows": pageDistrictProposals.data] as JSON)
         }
@@ -349,6 +349,7 @@ class ContestController extends CampaignController {
             case "activityType.i18n": filter.activityType = ContestApplicationActivityTypeDTO.valueOf(value); break
             case "focusType.i18n": filter.focusType = ContestApplicationFocusTypeDTO.valueOf(value); break
             case "user.name": filter.userName = value; break
+            case "nid": filter.nid = value; break
             default: filter[rawKey] = value; break
         }
     }
