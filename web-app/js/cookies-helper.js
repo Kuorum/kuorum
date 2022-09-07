@@ -38,14 +38,29 @@ var cookiesHelper = {
             function () {
             },
             function (cName) {
-                var buttonAccept = "<button id='acceptCookies' class='btn btn-xs' onclick='cookiesHelper.acceptedCookiesPolitics()'>" + i18n.cookies.accept + "</button>";
+                var buttonAccept = "<button id='acceptCookies' class='btn btn-xs' onclick='cookiesHelper.acceptedAllCookies()'>" + i18n.cookies.accept + "</button>";
                 var message = i18n.cookies.message + buttonAccept
                 display.cookie(message);
             }
         )
     },
-    acceptedCookiesPolitics: function () {
-        this.setCookie(this.cookieTechnicalAccepted, "true", 99999);
-        this.setCookie(this.cookieThirdAccepted, "true", 99999);
+    acceptedAllCookies: function () {
+        cookiesHelper.acceptTechnicalCookies()
+        cookiesHelper.acceptThirdCookies(true)
+        if (cookiesInfo) {
+            cookiesInfo.initTechnicalBox(true)
+            cookiesInfo.initThirdBox(true)
+            cookiesInfo.initAllButton(true)
+        }
+    },
+    acceptTechnicalCookies: function () {
+        cookiesHelper.setCookie(this.cookieTechnicalAccepted, "true", 99999);
+    },
+    acceptThirdCookies: function (value) {
+        if (value) {
+            cookiesHelper.setCookie(this.cookieThirdAccepted, "true", 99999);
+        } else {
+            cookiesHelper.removeCookie(this.cookieThirdAccepted)
+        }
     }
 }
