@@ -5,6 +5,7 @@ import grails.plugin.springsecurity.annotation.Secured
 import kuorum.core.exception.KuorumException
 import kuorum.politician.CampaignController
 import kuorum.register.KuorumUserSession
+import kuorum.util.TimeZoneUtil
 import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.commands.payment.CampaignSettingsCommand
 import kuorum.web.commands.payment.contest.*
@@ -141,10 +142,10 @@ class ContestController extends CampaignController {
             return
         }
         ContestRDTO rdto = contestService.map(contestRSDTO)
-        rdto.deadLineApplications = command.deadLineApplications
-        rdto.deadLineReview = command.deadLineReview
-        rdto.deadLineVotes = command.deadLineVotes
-        rdto.deadLineResults = command.deadLineResults
+        rdto.deadLineApplications = TimeZoneUtil.convertToUserTimeZone(command.deadLineApplications, campaignUser.timeZone)
+        rdto.deadLineReview = TimeZoneUtil.convertToUserTimeZone(command.deadLineReview, campaignUser.timeZone)
+        rdto.deadLineVotes = TimeZoneUtil.convertToUserTimeZone(command.deadLineVotes, campaignUser.timeZone)
+        rdto.deadLineResults = TimeZoneUtil.convertToUserTimeZone(command.deadLineResults, campaignUser.timeZone)
         def result = saveAndSendCampaign(campaignUser, rdto, contestRSDTO.getId(), null, null, contestService)
         redirect mapping: result.nextStep.mapping, params: result.nextStep.params
     }
@@ -262,7 +263,7 @@ class ContestController extends CampaignController {
         populateFilters(filter, params.filter)
         populateSort(filter, params.sort, params.order)
         filter.attachNotPublished = true
-        PageContestApplicationRSDTO pageDistrictProposals = contestService.findContestApplications(userLogged, contestId, filter)
+        PageContestApplicationRSDTO pageDistrictProposals = contestService.findContestApplications(userLogged, contestId, filter, String.valueOf(userLogged.getId()))
         JSON.use('infoContestApplicationTable') {
             render(["total": pageDistrictProposals.total, "rows": pageDistrictProposals.data] as JSON)
         }
@@ -295,11 +296,13 @@ class ContestController extends CampaignController {
                         multimediaHtml: groovyPageRenderer.render(template: '/campaigns/showModules/campaignDataMultimedia', model: [campaign: contestApplicationRSDTO]),
                         visits        : contestApplicationRSDTO.visits,
                         user          : contestApplicationRSDTO.user,
+                        nid           : contestApplicationRSDTO.user.nid,
                         cause         : contestApplicationRSDTO.causes ? contestApplicationRSDTO.causes[0] : null,
                         contest       : contestApplicationRSDTO.contest,
                         activityType  : contestApplicationRSDTO.activityType,
                         focusType     : contestApplicationRSDTO.focusType,
-                        url           : g.createLink(mapping: 'contestApplicationShow', params: contestApplicationRSDTO.encodeAsLinkProperties())
+                        url           : g.createLink(mapping: 'contestApplicationShow', params: contestApplicationRSDTO.encodeAsLinkProperties()),
+                        numVotes         : contestApplicationRSDTO.votes
                 ]
             }
         }
@@ -346,6 +349,7 @@ class ContestController extends CampaignController {
             case "activityType.i18n": filter.activityType = ContestApplicationActivityTypeDTO.valueOf(value); break
             case "focusType.i18n": filter.focusType = ContestApplicationFocusTypeDTO.valueOf(value); break
             case "user.name": filter.userName = value; break
+            case "nid": filter.nid = value; break
             default: filter[rawKey] = value; break
         }
     }

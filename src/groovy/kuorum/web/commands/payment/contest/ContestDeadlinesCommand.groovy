@@ -8,9 +8,13 @@ import org.grails.databinding.BindingFormat
 @Validateable
 class ContestDeadlinesCommand {
     Long campaignId
+    @BindingFormat(WebConstants.WEB_FORMAT_DATE)
     Date deadLineApplications
+    @BindingFormat(WebConstants.WEB_FORMAT_DATE)
     Date deadLineReview
+    @BindingFormat(WebConstants.WEB_FORMAT_DATE)
     Date deadLineVotes
+    @BindingFormat(WebConstants.WEB_FORMAT_DATE)
     Date deadLineResults
 
     static constraints = {

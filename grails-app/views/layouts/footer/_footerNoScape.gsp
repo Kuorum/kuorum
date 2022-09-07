@@ -7,6 +7,7 @@
                         <ul>
                             <li><g:link mapping="footerPrivacyPolicy" target="_blank" rel="nofollow noopener noreferrer"><g:message code="layout.footer.privacyPolicy"/></g:link></li>
                             <li><g:link mapping="footerTermsUse" target="_blank" rel="nofollow noopener noreferrer"><g:message code="layout.footer.termsUse"/></g:link></li>
+                            <li><g:link mapping="footerCookiesInfo" target="_blank" rel="nofollow noopener noreferrer"><g:message code="layout.footer.cookiesInfo"/></g:link></li>
                         </ul>
                     </section>
                 </div>

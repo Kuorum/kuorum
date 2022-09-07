@@ -1,14 +1,13 @@
 import grails.util.Environment
 import kuorum.core.exception.KuorumException
-import kuorum.web.commands.payment.participatoryBudget.DistrictProposalTechnicalReviewCommand
 import org.springframework.security.access.AccessDeniedException
 
 class UrlMappings {
 
     static excludes = ['/robots.txt', '/error-page/402.html']
 
-    static List<String> RESERVED_PATHS = ['j_spring_security_facebook_redirect','j_spring_security_exit_user', 'register', 'login','js','images','css', 'fonts']
-	static mappings = {
+    static List<String> RESERVED_PATHS = ['j_spring_security_facebook_redirect', 'j_spring_security_exit_user', 'register', 'login', 'js', 'images', 'css', 'fonts']
+    static mappings = {
 
         /**********************/
         /***** I18N URLs ******/
@@ -16,58 +15,65 @@ class UrlMappings {
 
         /**/
         /** NEW LANDIGNS **/
-        name landingServices:       "/"  (controller: "landing", action: "landingServices"){mappingName="landingServices"}
-        name en_landingServices:    "/"  (controller: "landing", action: "landingServices"){mappingName="landingServices"}
-        name es_landingServices:    "/"  (controller: "landing", action: "landingServices"){mappingName="landingServices"}
-        name de_landingServices:    "/"  (controller: "landing", action: "landingServices"){mappingName="landingServices"}
-        name ca_landingServices:    "/"  (controller: "landing", action: "landingServices"){mappingName="landingServices"}
+        name landingServices: "/"(controller: "landing", action: "landingServices") { mappingName = "landingServices" }
+        name en_landingServices: "/"(controller: "landing", action: "landingServices") { mappingName = "landingServices" }
+        name es_landingServices: "/"(controller: "landing", action: "landingServices") { mappingName = "landingServices" }
+        name de_landingServices: "/"(controller: "landing", action: "landingServices") { mappingName = "landingServices" }
+        name ca_landingServices: "/"(controller: "landing", action: "landingServices") { mappingName = "landingServices" }
 
-        name home:              "/"  (controller: "landing", action:"landingServices"){mappingName="home"}
-        name en_home:           "/"  (controller: "landing", action:"landingServices"){mappingName="home"}
-        name es_home:           "/"  (controller: "landing", action:"landingServices"){mappingName="home"}
-        name de_home:           "/"  (controller: "landing", action:"landingServices"){mappingName="home"}
-        name ca_home:           "/"  (controller: "landing", action:"landingServices"){mappingName="home"}
+        name home: "/"(controller: "landing", action: "landingServices") { mappingName = "home" }
+        name en_home: "/"(controller: "landing", action: "landingServices") { mappingName = "home" }
+        name es_home: "/"(controller: "landing", action: "landingServices") { mappingName = "home" }
+        name de_home: "/"(controller: "landing", action: "landingServices") { mappingName = "home" }
+        name ca_home: "/"(controller: "landing", action: "landingServices") { mappingName = "home" }
 
-        name footerPrivacyPolicy:   "/legal/privacy-policy"       (controller:"footer", action: "privacyPolicy"){mappingName="footerPrivacyPolicy"}
-        name en_footerPrivacyPolicy:"/legal/privacy-policy"       (controller:"footer", action: "privacyPolicy"){mappingName="footerPrivacyPolicy"}
-        name es_footerPrivacyPolicy:"/legal/politica-privacidad"  (controller:"footer", action: "privacyPolicy"){mappingName="footerPrivacyPolicy"}
-        name de_footerPrivacyPolicy:"/legal/dantensutzpolitik"  (controller:"footer", action: "privacyPolicy"){mappingName="footerPrivacyPolicy"}
-        name ca_footerPrivacyPolicy:"/legal/politica-de-privadesa"  (controller:"footer", action: "privacyPolicy"){mappingName="footerPrivacyPolicy"}
+        name footerPrivacyPolicy: "/legal/privacy-policy"(controller: "footer", action: "privacyPolicy") { mappingName = "footerPrivacyPolicy" }
+        name en_footerPrivacyPolicy: "/legal/privacy-policy"(controller: "footer", action: "privacyPolicy") { mappingName = "footerPrivacyPolicy" }
+        name es_footerPrivacyPolicy: "/legal/politica-privacidad"(controller: "footer", action: "privacyPolicy") { mappingName = "footerPrivacyPolicy" }
+        name de_footerPrivacyPolicy: "/legal/dantensutzpolitik"(controller: "footer", action: "privacyPolicy") { mappingName = "footerPrivacyPolicy" }
+        name ca_footerPrivacyPolicy: "/legal/politica-de-privadesa"(controller: "footer", action: "privacyPolicy") { mappingName = "footerPrivacyPolicy" }
 
-        name footerTermsUse:        "/legal/terms-of-use"         (controller:"footer", action: "termsUse")
-        name en_footerTermsUse:     "/legal/terms-of-use"         (controller:"footer", action: "termsUse")
-        name es_footerTermsUse:     "/legal/condiciones-de-uso"   (controller:"footer", action: "termsUse")
-        name de_footerTermsUse:     "/legal/nutzungsbedingungen"  (controller:"footer", action: "termsUse")
-        name ca_footerTermsUse:     "/legal/condicions-d-us"      (controller:"footer", action: "termsUse")
+        name footerTermsUse: "/legal/terms-of-use"(controller: "footer", action: "termsUse")
+        name en_footerTermsUse: "/legal/terms-of-use"(controller: "footer", action: "termsUse")
+        name es_footerTermsUse: "/legal/condiciones-de-uso"(controller: "footer", action: "termsUse")
+        name de_footerTermsUse: "/legal/nutzungsbedingungen"(controller: "footer", action: "termsUse")
+        name ca_footerTermsUse: "/legal/condicions-d-us"(controller: "footer", action: "termsUse")
 
-        name register:              "/sign-up"          (controller: "register"){action = [GET:"index", POST:"register"]}
-        name en_register:           "/sign-up"          (controller: "register"){action = [GET:"index", POST:"register"]}
-        name es_register:           "/registro"         (controller: "register"){action = [GET:"index", POST:"register"]}
-        name de_register:           "/registrierung"    (controller: "register"){action = [GET:"index", POST:"register"]}
-        name ca_register:           "/registre"         (controller: "register"){action = [GET:"index", POST:"register"]}
+        name footerCookiesInfo: "/legal/cookies-info"(controller: "footer", action: "cookiesInfo")
+        name en_footerCookiesInfo: "/legal/cookies-info"(controller: "footer", action: "cookiesInfo")
+        name es_footerCookiesInfo: "/legal/configuracion-info"(controller: "footer", action: "cookiesInfo")
+//        TODO
+//        name de_footerTermsUse:     "/legal/nutzungsbedingungen"  (controller:"footer", action: "cookiesSettings")
+//        name ca_footerTermsUse:     "/legal/condicions-d-us"      (controller:"footer", action: "cookiesSettings")
 
-        name ajaxRegister:          "/ajax/sign-up"     (controller: "register", action:"ajaxRegister")
-        name ajaxRegisterCheckEmail:"/ajax/sign-up/checkEmail"(controller: "register", action:"checkEmail")
-        name ajaxRegisterRRSSOAuth: "/ajax/sign-up/rrssOAuth"(controller: "register", action:"registerRRSSOAuthAjax")
-                                    // THIS URL IS USED BY kuorum.org to redirect to domain configuration the first time
-                                    "/sec/admin/domain/config/registering"(controller: "register", action:"registerRRSSOAuthAjax") {redirectAdminConfig=true}
+        name register: "/sign-up"(controller: "register") { action = [GET: "index", POST: "register"] }
+        name en_register: "/sign-up"(controller: "register") { action = [GET: "index", POST: "register"] }
+        name es_register: "/registro"(controller: "register") { action = [GET: "index", POST: "register"] }
+        name de_register: "/registrierung"(controller: "register") { action = [GET: "index", POST: "register"] }
+        name ca_register: "/registre"(controller: "register") { action = [GET: "index", POST: "register"] }
 
-        name registerSuccess:       "/sign-up/success"          (controller: "register",action:"registerSuccess"){mappingName="registerSuccess"}
-        name en_registerSuccess:    "/sign-up/success"          (controller: "register",action:"registerSuccess"){mappingName="registerSuccess"}
-        name es_registerSuccess:    "/registro/satisfactorio"   (controller: "register",action:"registerSuccess"){mappingName="registerSuccess"}
-        name de_registerSuccess:    "/registrierung/erfolgreich"   (controller: "register",action:"registerSuccess"){mappingName="registerSuccess"}
-        name ca_registerSuccess:    "/registre/satisfactori"   (controller: "register",action:"registerSuccess"){mappingName="registerSuccess"}
+        name ajaxRegister: "/ajax/sign-up"(controller: "register", action: "ajaxRegister")
+        name ajaxRegisterCheckEmail: "/ajax/sign-up/checkEmail"(controller: "register", action: "checkEmail")
+        name ajaxRegisterRRSSOAuth: "/ajax/sign-up/rrssOAuth"(controller: "register", action: "registerRRSSOAuthAjax")
+        // THIS URL IS USED BY kuorum.org to redirect to domain configuration the first time
+        "/sec/admin/domain/config/registering"(controller: "register", action: "registerRRSSOAuthAjax") { redirectAdminConfig = true }
 
-        name registerCampaignFunnel:"/register/fill-profile/sign-up"          (controller: "register"){action = [GET:"campaignFunnelRegisterStart", POST:"saveCampaignFunnelRegisterStart"]}{mappingName="registerCampaignFunnel"}
-        name en_registerCampaignFunnel:"/register/fill-profile/sign-up"          (controller: "register"){action = [GET:"campaignFunnelRegisterStart", POST:"saveCampaignFunnelRegisterStart"]}{mappingName="registerCampaignFunnel"}
-        name es_registerCampaignFunnel:"/registro/completa-perfil/registro"          (controller: "register"){action = [GET:"campaignFunnelRegisterStart", POST:"saveCampaignFunnelRegisterStart"]}{mappingName="registerCampaignFunnel"}
-        name de_registerCampaignFunnel:"/registrierung/fill-profile/sign-up"          (controller: "register"){action = [GET:"campaignFunnelRegisterStart", POST:"saveCampaignFunnelRegisterStart"]}{mappingName="registerCampaignFunnel"}
-        name ca_registerCampaignFunnel:"/registre/fill-profile/registre"          (controller: "register"){action = [GET:"campaignFunnelRegisterStart", POST:"saveCampaignFunnelRegisterStart"]}{mappingName="registerCampaignFunnel"}
+        name registerSuccess: "/sign-up/success"(controller: "register", action: "registerSuccess") { mappingName = "registerSuccess" }
+        name en_registerSuccess: "/sign-up/success"(controller: "register", action: "registerSuccess") { mappingName = "registerSuccess" }
+        name es_registerSuccess: "/registro/satisfactorio"(controller: "register", action: "registerSuccess") { mappingName = "registerSuccess" }
+        name de_registerSuccess: "/registrierung/erfolgreich"(controller: "register", action: "registerSuccess") { mappingName = "registerSuccess" }
+        name ca_registerSuccess: "/registre/satisfactori"(controller: "register", action: "registerSuccess") { mappingName = "registerSuccess" }
 
-        name funnelFillBasicData:  "/edit-profile/fill-profile/setup-basic"   (controller: "profile"){action = [GET:"funnelFillBasicData",    POST:"saveFunnelFillBasicData"]}
-        name funnelFillImages:     "/edit-profile/fill-profile/setup-images"  (controller: "profile"){action = [GET:"funnelFillImages",       POST:"saveFunnelFillImages"]}
-        name funnelFillFiles:      "/edit-profile/fill-profile/setup-files"   (controller: "profile"){action = [GET:"funnelFillFiles",        POST:"saveFunnelFillFiles"]}
-        name funnelFillSocial:     "/edit-profile/fill-profile/setup-social"  (controller: "profile"){action = [GET:"funnelFillSocial",       POST:"saveFunnelFillSocial"]}
+        name registerCampaignFunnel: "/register/fill-profile/sign-up"(controller: "register") { action = [GET: "campaignFunnelRegisterStart", POST: "saveCampaignFunnelRegisterStart"] } { mappingName = "registerCampaignFunnel" }
+        name en_registerCampaignFunnel: "/register/fill-profile/sign-up"(controller: "register") { action = [GET: "campaignFunnelRegisterStart", POST: "saveCampaignFunnelRegisterStart"] } { mappingName = "registerCampaignFunnel" }
+        name es_registerCampaignFunnel: "/registro/completa-perfil/registro"(controller: "register") { action = [GET: "campaignFunnelRegisterStart", POST: "saveCampaignFunnelRegisterStart"] } { mappingName = "registerCampaignFunnel" }
+        name de_registerCampaignFunnel: "/registrierung/fill-profile/sign-up"(controller: "register") { action = [GET: "campaignFunnelRegisterStart", POST: "saveCampaignFunnelRegisterStart"] } { mappingName = "registerCampaignFunnel" }
+        name ca_registerCampaignFunnel: "/registre/fill-profile/registre"(controller: "register") { action = [GET: "campaignFunnelRegisterStart", POST: "saveCampaignFunnelRegisterStart"] } { mappingName = "registerCampaignFunnel" }
+
+        name funnelFillBasicData: "/edit-profile/fill-profile/setup-basic"(controller: "profile") { action = [GET: "funnelFillBasicData", POST: "saveFunnelFillBasicData"] }
+        name funnelFillImages: "/edit-profile/fill-profile/setup-images"(controller: "profile") { action = [GET: "funnelFillImages", POST: "saveFunnelFillImages"] }
+        name funnelFillFiles: "/edit-profile/fill-profile/setup-files"(controller: "profile") { action = [GET: "funnelFillFiles", POST: "saveFunnelFillFiles"] }
+        name funnelFillSocial: "/edit-profile/fill-profile/setup-social"(controller: "profile") { action = [GET: "funnelFillSocial", POST: "saveFunnelFillSocial"] }
 
         name registerResendMail:    "/sign-up/no-valid"                 (controller: "register"){action=[GET:"resendRegisterVerification", POST:"resendVerification"];mappingName="registerResendMail"}
         name en_registerResendMail: "/sign-up/no-valid"                 (controller: "register"){action=[GET:"resendRegisterVerification", POST:"resendVerification"];mappingName="registerResendMail"}
@@ -81,19 +87,19 @@ class UrlMappings {
         name de_resetPassword:      "/registrierung/passwort-wiederherstellen"    (controller: "register"){action=[GET:"forgotPassword", POST:"forgotPasswordPost"];mappingName="resetPassword"}
         name ca_resetPassword:      "/registre/password-oblidada"    (controller: "register"){action=[GET:"forgotPassword", POST:"forgotPasswordPost"];mappingName="resetPassword"}
 
-        name registerVerifyAccount:         "/register/verifyRegistration"   (controller: "register", action:"verifyRegistration"){mappingName="registerVerifyAccount"}
-        name en_registerVerifyAccount:      "/register/verify-registration"  (controller: "register", action:"verifyRegistration"){mappingName="registerVerifyAccount"}
-        name es_registerVerifyAccount:      "/registro/verificar-cuenta"     (controller: "register", action:"verifyRegistration"){mappingName="registerVerifyAccount"}
-        name de_registerVerifyAccount:      "/registrierung/konto-bestaetigen"     (controller: "register", action:"verifyRegistration"){mappingName="registerVerifyAccount"}
-        name ca_registerVerifyAccount:      "/registre/verifica-compte"     (controller: "register", action:"verifyRegistration"){mappingName="registerVerifyAccount"}
+        name registerVerifyAccount: "/register/verifyRegistration"(controller: "register", action: "verifyRegistration") { mappingName = "registerVerifyAccount" }
+        name en_registerVerifyAccount: "/register/verify-registration"(controller: "register", action: "verifyRegistration") { mappingName = "registerVerifyAccount" }
+        name es_registerVerifyAccount: "/registro/verificar-cuenta"(controller: "register", action: "verifyRegistration") { mappingName = "registerVerifyAccount" }
+        name de_registerVerifyAccount: "/registrierung/konto-bestaetigen"(controller: "register", action: "verifyRegistration") { mappingName = "registerVerifyAccount" }
+        name ca_registerVerifyAccount: "/registre/verifica-compte"(controller: "register", action: "verifyRegistration") { mappingName = "registerVerifyAccount" }
 
-        name validateResetPasswordAjax:"/ajax/forgot-password" (controller:"register", action: "ajaxValidationForgotPassword")
+        name validateResetPasswordAjax: "/ajax/forgot-password"(controller: "register", action: "ajaxValidationForgotPassword")
 
-        name resetPasswordSent:     "/sign-up/verification-sent"     (controller: "register", action:"forgotPasswordSuccess"){mappingName="resetPasswordSent"}
-        name en_resetPasswordSent:  "/sign-up/verification-sent"     (controller: "register", action:"forgotPasswordSuccess"){mappingName="resetPasswordSent"}
-        name es_resetPasswordSent:  "/registro/enviada-verificacion" (controller: "register", action:"forgotPasswordSuccess"){mappingName="resetPasswordSent"}
-        name de_resetPasswordSent:  "/registrierung/bestaetigung-geschickt" (controller: "register", action:"forgotPasswordSuccess"){mappingName="resetPasswordSent"}
-        name ca_resetPasswordSent:  "/registre/enviada-verificacio" (controller: "register", action:"forgotPasswordSuccess"){mappingName="resetPasswordSent"}
+        name resetPasswordSent: "/sign-up/verification-sent"(controller: "register", action: "forgotPasswordSuccess") { mappingName = "resetPasswordSent" }
+        name en_resetPasswordSent: "/sign-up/verification-sent"(controller: "register", action: "forgotPasswordSuccess") { mappingName = "resetPasswordSent" }
+        name es_resetPasswordSent: "/registro/enviada-verificacion"(controller: "register", action: "forgotPasswordSuccess") { mappingName = "resetPasswordSent" }
+        name de_resetPasswordSent: "/registrierung/bestaetigung-geschickt"(controller: "register", action: "forgotPasswordSuccess") { mappingName = "resetPasswordSent" }
+        name ca_resetPasswordSent: "/registre/enviada-verificacio"(controller: "register", action: "forgotPasswordSuccess") { mappingName = "resetPasswordSent" }
 
 
         name resetPasswordChange:   "/sign-up/change-pass"       (controller: "register"){action=[GET:"resetPassword", POST:"resetPassword"];mappingName="resetPasswordChange"}
@@ -103,54 +109,54 @@ class UrlMappings {
         name ca_resetPasswordChange:"/registre/canvia-password" (controller: "register"){action=[GET:"resetPassword", POST:"resetPassword"];mappingName="resetPasswordChange"}
 
 
-        name login:     "/log-in"    (controller:"login", action:"index"){mappingName="login"}
-        name en_login:  "/log-in"    (controller:"login", action:"index"){mappingName="login"}
-        name es_login:  "/entrar"    (controller:"login", action:"index"){mappingName="login"}
-        name de_login:  "/anmelden"    (controller:"login", action:"index"){mappingName="login"}
-        name ca_login:  "/accedir"    (controller:"login", action:"index"){mappingName="login"}
+        name login: "/log-in"(controller: "login", action: "index") { mappingName = "login" }
+        name en_login: "/log-in"(controller: "login", action: "index") { mappingName = "login" }
+        name es_login: "/entrar"(controller: "login", action: "index") { mappingName = "login" }
+        name de_login: "/anmelden"(controller: "login", action: "index") { mappingName = "login" }
+        name ca_login: "/accedir"(controller: "login", action: "index") { mappingName = "login" }
 
-        name ajaxLoginCheck:"/ajax/checkLogin"  (controller:"login", action:"checkEmailAndPass")
-        name ajaxLoginModal:"/ajax/login/modal-auth"  (controller:"login", action:"modalAuth")
+        name ajaxLoginCheck: "/ajax/checkLogin"(controller: "login", action: "checkEmailAndPass")
+        name ajaxLoginModal: "/ajax/login/modal-auth"(controller: "login", action: "modalAuth")
 
-        name loginAuth:     "/sign-in"       (controller:"login", action:"auth"){mappingName="loginAuth"}
-        name en_loginAuth:  "/sign-in"       (controller:"login", action:"auth"){mappingName="loginAuth"}
-        name es_loginAuth:  "/entra"         (controller:"login", action:"auth"){mappingName="loginAuth"}
-        name de_loginAuth:  "/einloggen"     (controller:"login", action:"auth"){mappingName="loginAuth"}
-        name ca_loginAuth:  "/accedeix"       (controller:"login", action:"auth"){mappingName="loginAuth"}
+        name loginAuth: "/sign-in"(controller: "login", action: "auth") { mappingName = "loginAuth" }
+        name en_loginAuth: "/sign-in"(controller: "login", action: "auth") { mappingName = "loginAuth" }
+        name es_loginAuth: "/entra"(controller: "login", action: "auth") { mappingName = "loginAuth" }
+        name de_loginAuth: "/einloggen"(controller: "login", action: "auth") { mappingName = "loginAuth" }
+        name ca_loginAuth: "/accedeix"(controller: "login", action: "auth") { mappingName = "loginAuth" }
 
-        name authError:     "/login/authfail"       (controller:"login", action:"authfail")
+        name authError: "/login/authfail"(controller: "login", action: "authfail")
 
-        name loginFull:     "/check-user"            (controller:"login", action:"full"){mappingName="loginFull"}
-        name en_loginFull:  "/check-user"            (controller:"login", action:"full"){mappingName="loginFull"}
-        name es_loginFull:  "/confirmar-usuario"     (controller:"login", action:"full"){mappingName="loginFull"}
-        name de_loginFull:  "/benutzer-bestaetigen"     (controller:"login", action:"full"){mappingName="loginFull"}
-        name ca_loginFull:  "/confirma-usuari"     (controller:"login", action:"full"){mappingName="loginFull"}
+        name loginFull: "/check-user"(controller: "login", action: "full") { mappingName = "loginFull" }
+        name en_loginFull: "/check-user"(controller: "login", action: "full") { mappingName = "loginFull" }
+        name es_loginFull: "/confirmar-usuario"(controller: "login", action: "full") { mappingName = "loginFull" }
+        name de_loginFull: "/benutzer-bestaetigen"(controller: "login", action: "full") { mappingName = "loginFull" }
+        name ca_loginFull: "/confirma-usuari"(controller: "login", action: "full") { mappingName = "loginFull" }
 
-        name logout:    "/logout"       (controller:"logout", action:"index")
+        name logout: "/logout"(controller: "logout", action: "index")
 
         /**********************/
         /***** LOGGED URLs ****/ //Language no matters
         /**********************/
-        name dashboard:                     "/dashboard" (controller: "dashboard", action:"dashboard")
-        name dashboardCampaignsSeeMore:     "/ajax/dashboard/campaigns/see-more" (controller: "dashboard", action:"dashboardCampaigns")
+        name dashboard: "/dashboard"(controller: "dashboard", action: "dashboard")
+        name dashboardCampaignsSeeMore: "/ajax/dashboard/campaigns/see-more"(controller: "dashboard", action: "dashboardCampaigns")
 
-        name debateCreate:      "/account/debate/new" (controller: "debate"){action = [GET: "create", POST: "saveSettings"]}
-        name debateEdit:        "/account/$userAlias/d/$urlTitle-$campaignId/edit-settings" (controller: "debate"){action = [GET: "editSettingsStep", POST: "saveSettings"]}
-        name debateEditEvent:   "/account/$userAlias/d/$urlTitle-$campaignId/edit-event" (controller: "event"){action = [GET: "editEvent", POST: "updateEvent"]}
-        name debateEditContent: "/account/$userAlias/d/$urlTitle-$campaignId/edit-content" (controller: "debate"){action = [GET: "editContentStep", POST: "saveContent"]}
+        name debateCreate: "/account/debate/new"(controller: "debate") { action = [GET: "create", POST: "saveSettings"] }
+        name debateEdit: "/account/$userAlias/d/$urlTitle-$campaignId/edit-settings"(controller: "debate") { action = [GET: "editSettingsStep", POST: "saveSettings"] }
+        name debateEditEvent: "/account/$userAlias/d/$urlTitle-$campaignId/edit-event"(controller: "event") { action = [GET: "editEvent", POST: "updateEvent"] }
+        name debateEditContent: "/account/$userAlias/d/$urlTitle-$campaignId/edit-content"(controller: "debate") { action = [GET: "editContentStep", POST: "saveContent"] }
 
         name debateRemove:      "/ajax/account/$userAlias/d/$urlTitle-$campaignId/remove" (controller: "debate", action: "remove")
         name debateShow:        "/$userAlias/$urlTitle-$campaignId"         (controller: "campaign", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it)})}}
                                 "/$userAlias/-$campaignId"                  (controller: "campaign", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it)})}}
         name debateCopy:        "/account/debate/$campaignId/copy"          (controller:"debate", action:"copy")
 
-        name debateProposalNew:             "/ajax/addProposal"(controller: "debateProposal", action: "addProposal")
-        name debateProposalDelete:          "/ajax/deleteProposal"(controller: "debateProposal", action: "deleteProposal")
-        name debateProposalPin:             "/ajax/pinProposal"(controller: "debateProposal", action: "pinProposal")
-        name debateProposalLike:            "/ajax/likeProposal"(controller: "debateProposal", action: "likeProposal")
-        name debateProposalComment:         "/ajax/proposalComment/add"(controller: "debateProposal", action: "addComment")
-        name debateProposalDeleteComment:   "/ajax/proposalComment/delete"(controller: "debateProposal", action: "deleteComment")
-        name debateProposalVoteComment:     "/ajax/proposalComment/vote"(controller: "debateProposal", action: "voteComment")
+        name debateProposalNew: "/ajax/addProposal"(controller: "debateProposal", action: "addProposal")
+        name debateProposalDelete: "/ajax/deleteProposal"(controller: "debateProposal", action: "deleteProposal")
+        name debateProposalPin: "/ajax/pinProposal"(controller: "debateProposal", action: "pinProposal")
+        name debateProposalLike: "/ajax/likeProposal"(controller: "debateProposal", action: "likeProposal")
+        name debateProposalComment: "/ajax/proposalComment/add"(controller: "debateProposal", action: "addComment")
+        name debateProposalDeleteComment: "/ajax/proposalComment/delete"(controller: "debateProposal", action: "deleteComment")
+        name debateProposalVoteComment: "/ajax/proposalComment/vote"(controller: "debateProposal", action: "voteComment")
 
         name eventBookTicket:           "/ajax/$userAlias/event/$urlTitle-$campaignId/book"(controller:"event", action: "bookTicket")
         name eventConfirmAssistance:    "/account/event/$campaignId/confirm"(controller:"event", action: "checkIn")
@@ -249,7 +255,7 @@ class UrlMappings {
         name campaignCheckGroupValidation:"/ajax/$userAlias/$urlTitle-$campaignId/group/check" (controller: "campaign", action: "checkGroupCampaignValidation")
         name campaignPause:         "/ajax/account/$userAlias/$urlTitle-$campaignId/pause" (controller: "newsletter", action: "pauseCampaign")
 
-        name widgetJs:      "/widget.js"(controller: "widget", action:"kuorumWidgetjs")
+        name widgetJs: "/widget.js"(controller: "widget", action: "kuorumWidgetjs")
 
         name userShow:              "/$userAlias"           (controller: "kuorumUser", action: "show") {constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it)})}}
         name secUserShow:           "/sec/$userAlias"       (controller: "kuorumUser", action: "secShow")
@@ -417,52 +423,52 @@ class UrlMappings {
         name ajaxDeleteMassMailingAttachFile:           "/ajax/file/deleteMassMailingFile/$campaignId" (controller:'file', action:"deleteNewsletterAttachedFile")
 
 
-        name politicianTeamManagement:                  "/account/team-management" (controller:"politician", action: "betaTesterPage")
+        name politicianTeamManagement: "/account/team-management"(controller: "politician", action: "betaTesterPage")
 
-        name sitemapIndex:  "/sitemap" (controller: "siteMap", action: "sitemapIndex")
+        name sitemapIndex: "/sitemap"(controller: "siteMap", action: "sitemapIndex")
 
-        name sitemapLandings:   "/sitemap/landings" (controller: "siteMap", action: "sitemapLandings")
-        name sitemapFooters:    "/sitemap/footers"   (controller: "siteMap", action: "sitemapFooters")
-        name sitemapSearchs:    "/sitemap/searchs"  (controller: "siteMap", action: "sitemapSearchs")
-        name sitemapUsersIdx:   "/sitemap/users"    (controller: "siteMap", action: "sitemapUsersIndex")
-        name sitemapUsers:      "/sitemap/users/$year/$month"    (controller: "siteMap", action: "sitemapUsers")
+        name sitemapLandings: "/sitemap/landings"(controller: "siteMap", action: "sitemapLandings")
+        name sitemapFooters: "/sitemap/footers"(controller: "siteMap", action: "sitemapFooters")
+        name sitemapSearchs: "/sitemap/searchs"(controller: "siteMap", action: "sitemapSearchs")
+        name sitemapUsersIdx: "/sitemap/users"(controller: "siteMap", action: "sitemapUsersIndex")
+        name sitemapUsers: "/sitemap/users/$year/$month"(controller: "siteMap", action: "sitemapUsers")
 
 
         // TODO: REVIEW BASIC URL -> RegisterController:sendConfirmationEmail || Reset password and others
-        "/$controller/$action?/$id?"{
+        "/$controller/$action?/$id?" {
             constraints {
                 // apply constraints here
             }
         }
 
 
-        "403" (controller: "error", action: "forbidden")
-        "404" (controller: "error", action: "notFound")
-        "401" (controller: "error", action: "notAuthorized")
+        "403"(controller: "error", action: "forbidden")
+        "404"(controller: "error", action: "notFound")
+        "401"(controller: "error", action: "notAuthorized")
 
 
         Environment.executeForCurrentEnvironment {
             development {
-                "500" (controller: "error", action: "kuorumExceptionHandler", exception: KuorumException)
-                "500" (controller: "error", action: "notAuthorized", exception: AccessDeniedException)
-                "500" (controller: "error", action: "internalError")
+                "500"(controller: "error", action: "kuorumExceptionHandler", exception: KuorumException)
+                "500"(controller: "error", action: "notAuthorized", exception: AccessDeniedException)
+                "500"(controller: "error", action: "internalError")
 //                "500"(view:'/error')
             }
-            test{
-                "500" (controller: "error", action: "kuorumExceptionHandler", exception: KuorumException)
-                "500" (controller: "error", action: "notAuthorized", exception: AccessDeniedException)
-                "500" (controller: "error", action: "internalError")
+            test {
+                "500"(controller: "error", action: "kuorumExceptionHandler", exception: KuorumException)
+                "500"(controller: "error", action: "notAuthorized", exception: AccessDeniedException)
+                "500"(controller: "error", action: "internalError")
             }
-            production{
-                "500" (controller: "error", action: "kuorumExceptionHandler", exception: KuorumException)
-                "500" (controller: "error", action: "notAuthorized", exception: AccessDeniedException)
-                "500" (controller: "error", action: "internalError")
+            production {
+                "500"(controller: "error", action: "kuorumExceptionHandler", exception: KuorumException)
+                "500"(controller: "error", action: "notAuthorized", exception: AccessDeniedException)
+                "500"(controller: "error", action: "internalError")
             }
 
 
         }
 //        "500"(view:'/error')
-	}
+    }
 
     static exceptionMappings = {
         "Access is denied" org.springframework.security.access.AccessDeniedException { ex ->
@@ -471,7 +477,7 @@ class UrlMappings {
             exception = ex
         }
 
-        "Lost cookie" org.springframework.security.web.authentication.rememberme.CookieTheftException {ex ->
+        "Lost cookie" org.springframework.security.web.authentication.rememberme.CookieTheftException { ex ->
             controller = "error"
             action = "cookieLost"
             exception = ex

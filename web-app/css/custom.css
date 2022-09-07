@@ -5270,7 +5270,10 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {border-radiu
     margin: 6px 1px 8px 6px !important;
 }
 
-
+#settingsCookies{
+    font-weight: normal !important;
+    margin: 6px 1px 8px 6px !important;
+}
 
 /*** commment-box ***/
 .comment-box {
