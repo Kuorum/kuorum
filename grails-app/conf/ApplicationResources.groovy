@@ -147,6 +147,11 @@ modules = {
         resource url:'js/campaigns/petitions.js'
     }
 
+    contestApplication {
+        dependsOn("basic", "forms",'campaign')
+        resource url:'js/campaigns/contestApplication.js'
+    }
+
     survey{
         dependsOn("basic",'campaign')
         resource url:'js/survey.js'
@@ -334,6 +339,17 @@ modules = {
         dependsOn 'cookiesHelper'
         resource url:'js/cookies.js'
     }
+
+    cookiesInfo{
+        dependsOn 'cookiesHelper'
+        resource url:'js/cookiesInfo.js'
+    }
+
+    googleTagManager{
+        dependsOn 'cookiesHelper'
+        resource url:'js/googleTagManager.js'
+    }
+
 
     tour{
         dependsOn 'basic'

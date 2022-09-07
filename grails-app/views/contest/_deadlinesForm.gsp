@@ -11,19 +11,19 @@
         %{--                code="kuorum.web.commands.payment.contest.ContestDeadlinesCommand.dates.title"/></h2>--}%
 
         <div class="col-sm-offset-1 col-sm-4">
-            <formUtil:date command="${command}" field="deadLineApplications" showLabel="true"/>
+            <formUtil:date command="${command}" field="deadLineApplications" showLabel="true" time="true"/>
         </div>
 
         <div class="col-sm-4">
-            <formUtil:date command="${command}" field="deadLineReview" showLabel="true"/>
+            <formUtil:date command="${command}" field="deadLineReview" showLabel="true" time="true"/>
         </div>
 
         <div class="col-sm-offset-1 col-sm-4">
-            <formUtil:date command="${command}" field="deadLineVotes" showLabel="true"/>
+            <formUtil:date command="${command}" field="deadLineVotes" showLabel="true" time="true"/>
         </div>
 
         <div class="col-sm-4">
-            <formUtil:date command="${command}" field="deadLineResults" showLabel="true"/>
+            <formUtil:date command="${command}" field="deadLineResults" showLabel="true" time="true"/>
         </div>
     </fieldset>
 

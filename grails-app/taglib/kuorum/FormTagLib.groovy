@@ -620,6 +620,7 @@ class FormTagLib {
         def label = buildLabel(command,field, attrs.label)
         def placeHolder = attrs.placeHolder?:message(code: "${command.class.name}.${field}.placeHolder", default: '')
         def value = command."${field}"?:''
+        String helpBlock = attrs.helpBlock?:message(code: "${command.class.name}.${field}.helpBlock", default: '')
 
         if (showLabel){
             out << "<label for='${prefixFieldName}${field}'>${label}</label>"
@@ -631,6 +632,9 @@ class FormTagLib {
         """
         if(error){
             out << "<span class='error' id='${id}-error'>${g.fieldError(bean: command, field: field)}</span>"
+        }
+        if (helpBlock){
+            out << "<p class='help-block'>${helpBlock}</p>"
         }
     }
 

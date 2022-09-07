@@ -6,7 +6,7 @@
         suggestRegion: '<g:createLink mapping="suggestRegions" absolute="true"/>',
         suggestAlias: '<g:createLink mapping="suggestAlias" absolute="true"/>',
         ajaxLoginRRSS: '<g:createLink mapping="ajaxRegisterRRSSOAuth" absolute="true"/>',
-        profileDomainValidationChecker: '<g:createLink mapping="profileDomainValidationChecker" absolute="true"/>',
+        domainValidationChecker: '<g:createLink mapping="domainValidationChecker" absolute="true"/>',
         politicianContactFilterData: '<g:createLink mapping="politicianContactFilterData" absolute="true"/>',
         contestApplicationUpdateReview: '<g:createLink mapping="contestApplicationUpdateReview" absolute="true"/>'
     };
@@ -49,7 +49,7 @@
             }
         },
         cookies:{
-            message: '<g:message code="cookies.message" args="[createLink(mapping: 'footerPrivacyPolicy', absolute: true)]" encodeAs="raw"/>',
+            message: '<g:message code="cookies.message" args="[createLink(mapping: 'footerPrivacyPolicy', absolute: true),createLink(mapping: 'footerCookiesInfo', absolute: true)]" encodeAs="raw"/>',
             accept:"<g:message code="cookies.accept"/>"
         },
         read:{

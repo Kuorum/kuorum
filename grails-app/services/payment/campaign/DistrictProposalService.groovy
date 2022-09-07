@@ -7,9 +7,12 @@ import kuorum.register.KuorumUserSession
 import kuorum.solr.IndexSolrService
 import kuorum.users.KuorumUserService
 import kuorum.util.rest.RestKuorumApiService
+import org.kuorum.rest.model.communication.CampaignLightPageRSDTO
+import org.kuorum.rest.model.communication.CampaignTypeRSDTO
 import org.kuorum.rest.model.communication.participatoryBudget.DistrictProposalRDTO
 import org.kuorum.rest.model.communication.participatoryBudget.DistrictProposalRSDTO
 import org.kuorum.rest.model.communication.participatoryBudget.DistrictProposalTechnicalReviewRDTO
+import org.kuorum.rest.model.communication.search.SearchCampaignRDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 
 @Transactional
@@ -40,6 +43,33 @@ class DistrictProposalService implements CampaignCreatorService<DistrictProposal
             log.info("Error recovering district proposal $campaignId : ${e.message}")
             return null
         }
+    }
+
+    CampaignLightPageRSDTO findAllProposals(KuorumUserSession user, Long participatoryBudgetId) {
+        findAllProposals(user.getId().toString(), participatoryBudgetId.toString())
+    }
+    CampaignLightPageRSDTO findAllProposals(String userId, String participatoryBudgetId) {
+        Map<String, String> params = [userId: userId, participatoryBudgetId: participatoryBudgetId]
+        Map<String, String> query = buildSearchRDTO().encodeAsQueryParams()
+        def response = restKuorumApiService.get(
+                RestKuorumApiService.ApiMethod.ACCOUNT_DISTRICT_PROPOSALS_ON_PARTICIPATORY_BUDGET,
+                params,
+                query,
+                new TypeReference<CampaignLightPageRSDTO>() {}
+        )
+
+        response.data
+    }
+
+    private SearchCampaignRDTO buildSearchRDTO() {
+        SearchCampaignRDTO searchCampaignRDTO = new SearchCampaignRDTO(
+                page: 0,
+                size: 1,
+                attachNotPublished: true,
+                onlyPublications: false,
+                campaignType: CampaignTypeRSDTO.DISTRICT_PROPOSAL,
+        )
+        searchCampaignRDTO
     }
 
     DistrictProposalRSDTO find(KuorumUserSession user, Long campaignId, String viewerUid = null) {

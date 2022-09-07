@@ -5,12 +5,11 @@ import grails.plugin.springsecurity.annotation.Secured
 import kuorum.core.exception.KuorumException
 import kuorum.politician.CampaignController
 import kuorum.register.KuorumUserSession
+import kuorum.util.TimeZoneUtil
 import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.commands.payment.CampaignSettingsCommand
-import kuorum.web.commands.payment.contest.ContestApplicationChangeStatusCommand
-import kuorum.web.commands.payment.contest.ContestAreasCommand
-import kuorum.web.commands.payment.contest.ContestChangeStatusCommand
-import kuorum.web.commands.payment.contest.ContestDeadlinesCommand
+import kuorum.web.commands.payment.contest.*
+
 import kuorum.web.constants.WebConstants
 import org.kuorum.rest.model.communication.contest.*
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
@@ -134,7 +133,7 @@ class ContestController extends CampaignController {
     @Secured(['ROLE_CAMPAIGN_CONTEST'])
     def saveDeadlines(ContestDeadlinesCommand command) {
         KuorumUserSession campaignUser = springSecurityService.principal
-        ContestRSDTO contestRSDTO = contestService.find(campaignUser, command.campaignId)
+        ContestRSDTO contestRSDTO = contestService.find(params.userAlias, command.campaignId)
         if (command.hasErrors()) {
             flash.error = message(error: command.errors.getFieldError())
             render view: '/contest/editDeadlines', model: [
@@ -143,10 +142,10 @@ class ContestController extends CampaignController {
             return
         }
         ContestRDTO rdto = contestService.map(contestRSDTO)
-        rdto.deadLineApplications = command.deadLineApplications
-        rdto.deadLineReview = command.deadLineReview
-        rdto.deadLineVotes = command.deadLineVotes
-        rdto.deadLineResults = command.deadLineResults
+        rdto.deadLineApplications = TimeZoneUtil.convertToUserTimeZone(command.deadLineApplications, campaignUser.timeZone)
+        rdto.deadLineReview = TimeZoneUtil.convertToUserTimeZone(command.deadLineReview, campaignUser.timeZone)
+        rdto.deadLineVotes = TimeZoneUtil.convertToUserTimeZone(command.deadLineVotes, campaignUser.timeZone)
+        rdto.deadLineResults = TimeZoneUtil.convertToUserTimeZone(command.deadLineResults, campaignUser.timeZone)
         def result = saveAndSendCampaign(campaignUser, rdto, contestRSDTO.getId(), null, null, contestService)
         redirect mapping: result.nextStep.mapping, params: result.nextStep.params
     }
@@ -232,7 +231,7 @@ class ContestController extends CampaignController {
             DirectionDTO dir = DirectionDTO.valueOf(params.direction)
             filter.sort.direction = dir
         }
-        PageContestApplicationRSDTO pageContestApplications = contestService.findContestApplications(contestUser, contestId, filter, viewerUid)
+        PageContestApplicationRSDTO pageContestApplications = contestService.findContestApplications(contestUser, contestId, filter)
         if (pageContestApplications.total == 0) {
             render template: '/contest/showModules/mainContent/contestApplicationsEmpty'
         } else {
@@ -259,12 +258,12 @@ class ContestController extends CampaignController {
         Integer limit = Integer.parseInt(params.limit)
         Integer offset = Integer.parseInt(params.offset)
         KuorumUserSession userLogged = springSecurityService.principal
-        Long participatoryBudgetId = Long.parseLong(params.campaignId)
+        Long contestId = Long.parseLong(params.campaignId)
         FilterContestApplicationRDTO filter = new FilterContestApplicationRDTO(page: Math.floor(offset / limit).intValue(), size: limit)
         populateFilters(filter, params.filter)
         populateSort(filter, params.sort, params.order)
         filter.attachNotPublished = true
-        PageContestApplicationRSDTO pageDistrictProposals = contestService.findContestApplications(userLogged, participatoryBudgetId, filter)
+        PageContestApplicationRSDTO pageDistrictProposals = contestService.findContestApplications(userLogged, contestId, filter, String.valueOf(userLogged.getId()))
         JSON.use('infoContestApplicationTable') {
             render(["total": pageDistrictProposals.total, "rows": pageDistrictProposals.data] as JSON)
         }
@@ -297,11 +296,13 @@ class ContestController extends CampaignController {
                         multimediaHtml: groovyPageRenderer.render(template: '/campaigns/showModules/campaignDataMultimedia', model: [campaign: contestApplicationRSDTO]),
                         visits        : contestApplicationRSDTO.visits,
                         user          : contestApplicationRSDTO.user,
+                        nid           : contestApplicationRSDTO.user.nid,
                         cause         : contestApplicationRSDTO.causes ? contestApplicationRSDTO.causes[0] : null,
                         contest       : contestApplicationRSDTO.contest,
                         activityType  : contestApplicationRSDTO.activityType,
                         focusType     : contestApplicationRSDTO.focusType,
-                        url           : g.createLink(mapping: 'contestApplicationShow', params: contestApplicationRSDTO.encodeAsLinkProperties())
+                        url           : g.createLink(mapping: 'contestApplicationShow', params: contestApplicationRSDTO.encodeAsLinkProperties()),
+                        numVotes         : contestApplicationRSDTO.votes
                 ]
             }
         }
@@ -348,6 +349,7 @@ class ContestController extends CampaignController {
             case "activityType.i18n": filter.activityType = ContestApplicationActivityTypeDTO.valueOf(value); break
             case "focusType.i18n": filter.focusType = ContestApplicationFocusTypeDTO.valueOf(value); break
             case "user.name": filter.userName = value; break
+            case "nid": filter.nid = value; break
             default: filter[rawKey] = value; break
         }
     }
@@ -365,5 +367,37 @@ class ContestController extends CampaignController {
 
     def sendApplicationsReport() {
         render "OK";
+    }
+
+//    @Secured(['ROLE_CAMPAIGN_CONTEST_APPLICATION'])
+    def vote(ContestApplicationVoteCommand command) {
+        if (command.hasErrors()) {
+            render([success: false, message: "There are errors on the data"] as JSON)
+        }
+        ContestRSDTO contestRSDTO = contestService.find(command.userAlias, command.contestId)
+        if (!springSecurityService.isLoggedIn() && !contestRSDTO.allowAnonymousAction) {
+            log.warn("Someone [NO LOGGED] trying to vote in a campaign that requires register")
+            render([success: false, message: "You are unauthorized", vote: null] as JSON)
+            return
+        }
+        KuorumUserSession loggedUser = cookieUUIDService.buildAnonymousUser()
+        try {
+            ContestApplicationVoteRSDTO vote = contestApplicationService.vote(command.userAlias, command.contestId, command.campaignId, loggedUser.getId().toString());
+            cookieUUIDService.removeUserUUID();
+            render([success: true, message: "Vote saved", vote: vote] as JSON)
+        } catch (Exception e) {
+            String msgError = "Error updating saving your vote"
+            if (e.undeclaredThrowable.cause instanceof KuorumException) {
+                KuorumException ke = e.undeclaredThrowable.cause
+                msgError = message(code: "contestApplication.callToAction.VOTING.${ke.errors[0].code}", args: [contestRSDTO.title])
+            }
+            cookieUUIDService.removeUserUUID();
+            render([success: false, message: msgError, vote: null] as JSON)
+        }
+    }
+
+    def anonymousVote(ContestApplicationVoteCommand) {
+
+//        contestApplicationService.vote()
     }
 }

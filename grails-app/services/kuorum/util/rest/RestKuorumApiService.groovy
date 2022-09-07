@@ -291,6 +291,7 @@ class RestKuorumApiService {
 
         ACCOUNT_DISTRICT_PROPOSALS("/communication/campaign/participatory-budget/district-proposal/{userId}"),
         ACCOUNT_DISTRICT_PROPOSAL("/communication/campaign/participatory-budget/district-proposal/{userId}/{campaignId}"),
+        ACCOUNT_DISTRICT_PROPOSALS_ON_PARTICIPATORY_BUDGET("/communication/campaign/participatory-budget/district-proposal/{userId}/participatory-budget/{participatoryBudgetId}"),
 
         ACCOUNT_CONTESTS("/communication/campaign/contest/{userId}"),
         ACCOUNT_CONTEST("/communication/campaign/contest/{userId}/{campaignId}"),
@@ -301,6 +302,7 @@ class RestKuorumApiService {
         ACCOUNT_CONTEST_APPLICATION("/communication/campaign/contest/application/{userId}/{campaignId}"),
         ACCOUNT_CONTEST_APPLICATION_COPY("/communication/campaign/contest/application/{userId}/{campaignId}/copy"),
         ACCOUNT_CONTEST_APPLICATION_VALIDATE("/communication/campaign/contest/application/{userId}/{campaignId}/validate"),
+        ACCOUNT_CONTEST_APPLICATION_VOTE("/communication/campaign/contest/{userId}/{campaignId}/application/{applicationId}/vote"),
 
         ACCOUNT_PETITIONS_ALL("/communication/campaign/petition/"),
         ACCOUNT_PETITIONS("/communication/campaign/petition/{userId}"),
@@ -386,6 +388,7 @@ class RestKuorumApiService {
                 objectMapper.setTimeZone(TimeZone.getTimeZone("UTC"))
                 objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
                 RestServiceError serviceError = objectMapper.readValue(jsonString, RestServiceError.class)
+//                retuKuorumExceptionrn serviceError
                 throw new KuorumException(serviceError.message, "error.api.${serviceError.code}", new ArrayList(serviceError.errorData?.values() ?: []))
             }
         })
