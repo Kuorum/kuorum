@@ -178,12 +178,12 @@ class ContestService extends AbstractCampaignCreatorService<ContestRSDTO, Contes
         return RestKuorumApiService.ApiMethod.ACCOUNT_CONTEST_COPY;
     }
 
-    PageContestApplicationRSDTO countContestApplications(String ownerCampaignId, Long contestId, KuorumUserSession viewer) {
-        countContestApplications(ownerCampaignId, contestId, viewer.id.toString())
+    PageContestApplicationRSDTO countContestApplications(String ownerCampaignId, Long contestId, KuorumUserSession contestApplicationOwner) {
+        countContestApplications(ownerCampaignId, contestId, contestApplicationOwner.id.toString())
     }
 
-    PageContestApplicationRSDTO countContestApplications(String ownerCampaignId, Long contestId, String viewerId) {
-        return findContestApplications(ownerCampaignId, contestId, buildApplicationsCountFilter(), viewerId)
+    PageContestApplicationRSDTO countContestApplications(String ownerCampaignId, Long contestId, String countestApplicationOwner) {
+        return findContestApplications(ownerCampaignId, contestId, buildApplicationsCountFilter(countestApplicationOwner))
     }
 
     PageContestApplicationRSDTO findContestApplications(KuorumUserSession user, Long contestId, FilterContestApplicationRDTO filter, String viewerUid = null) {
@@ -218,9 +218,10 @@ class ContestService extends AbstractCampaignCreatorService<ContestRSDTO, Contes
         }
     }
 
-    private FilterContestApplicationRDTO buildApplicationsCountFilter() {
+    private FilterContestApplicationRDTO buildApplicationsCountFilter(String ownerId) {
         FilterContestApplicationRDTO filter = new FilterContestApplicationRDTO(page: 0, size: 1);
         filter.setAttachNotPublished(true)
+        filter.setOwnerId(ownerId)
         return filter
     }
 
