@@ -384,7 +384,7 @@ class ContestController extends CampaignController {
         try {
             ContestApplicationVoteRSDTO vote = contestApplicationService.vote(command.userAlias, command.contestId, command.campaignId, loggedUser.getId().toString());
             cookieUUIDService.removeUserUUID();
-            render([success: true, message: "Vote saved", vote: vote] as JSON)
+            render([success: true, message: g.message(code: 'contestApplication.callToAction.VOTING.success'), vote: vote] as JSON)
         } catch (Exception e) {
             String msgError = "Error updating saving your vote"
             if (e.undeclaredThrowable.cause instanceof KuorumException) {
