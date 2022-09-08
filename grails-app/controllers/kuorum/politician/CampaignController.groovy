@@ -495,7 +495,7 @@ class CampaignController {
 
     def campaignUserValidChecker() {
         Long campaignId = Long.parseLong(params.campaignId)
-        String userUUID = cookieUUIDService.getUserUUID();
+        String userUUID = cookieUUIDService.buildUserUUID();
         UserValidationRSDTO userValidationRSDTO = kuorumUserService.getUserValidationStatus(userUUID, campaignId)
         render([validated: userValidationRSDTO.isGranted(), success: true, pendingValidations: getPendingValidations(userValidationRSDTO)] as JSON)
     }
