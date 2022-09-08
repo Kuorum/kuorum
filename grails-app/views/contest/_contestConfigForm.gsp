@@ -7,10 +7,12 @@
            id="sendMassMailingType"/>
     <input type="hidden" name="campaignId" value="${command.campaignId}"/>
     <fieldset aria-live="polite" class="form-group">
-        <div class=" col-sm-offset-1 col-sm-4">
+        <div class="col-sm-offset-1 col-sm-4">
             <formUtil:input command="${command}" field="numWinnerApplications" showLabel="true"/>
         </div>
-        <div class=" col-sm-offset-1 col-sm-4">
+    </fieldset>
+    <fieldset aria-live="polite" class="form-group">
+        <div class="col-sm-offset-1 col-sm-4">
             <formUtil:input command="${command}" field="maxApplicationsPerUser" showLabel="true"/>
         </div>
     </fieldset>
