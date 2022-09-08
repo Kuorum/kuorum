@@ -49,7 +49,8 @@
             }
         },
         cookies:{
-            message: '<g:message code="cookies.message" args="[createLink(mapping: 'footerPrivacyPolicy', absolute: true),createLink(mapping: 'footerCookiesInfo', absolute: true)]" encodeAs="raw"/>',
+            message: '<g:message code="cookies.message" args="[createLink(mapping: 'footerPrivacyPolicy', absolute: true)]" encodeAs="raw"/>',
+            settingsLink: '<g:message code="cookies.settings.link" args="[createLink(mapping: 'footerCookiesInfo', absolute: true)]" encodeAs="raw"/>',
             accept:"<g:message code="cookies.accept"/>"
         },
         read:{
