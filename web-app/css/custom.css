@@ -5981,12 +5981,9 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 #questionsSurveyForm.campaign-published div.quesiton-dynamic-fields:not(.dynamic-input-new-line) .question-type .question-type-noEditable{display: inline-block; margin:10px 0;}
 
 #domain-description-landing-main {
-    text-align:center;
-    color:#CCCCCC;
-    background-color: #545454;
-    font-size: 18px;
+    text-align: left;
+    color: #545454;
     font-style: italic;
-    line-height: 24px;
     padding: 50px 10%;
 }
 
