@@ -198,7 +198,7 @@ modules = {
 
     // This module groups all js required of list of campaign targets. (i.e: Like post has its custom logic that can be executed on the list)
     campaignsTargetsListResourcesRequired{
-        dependsOn("post", "districtProposal", "petition")
+        dependsOn("post", "districtProposal", "petition", "contestApplication")
     }
     causes {
         dependsOn("basic")
