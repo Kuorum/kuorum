@@ -1,6 +1,7 @@
 package payment.campaign
 
 import com.fasterxml.jackson.core.type.TypeReference
+import grails.plugin.springsecurity.SpringSecurityService
 import kuorum.core.exception.KuorumException
 import kuorum.register.KuorumUserSession
 import kuorum.solr.IndexSolrService
@@ -18,7 +19,7 @@ class ContestService extends AbstractCampaignCreatorService<ContestRSDTO, Contes
 
     CampaignService campaignService
     IndexSolrService indexSolrService
-    KuorumUserService kuorumUserService
+    SpringSecurityService springSecurityService
 
 
 //    @Override
@@ -163,7 +164,7 @@ class ContestService extends AbstractCampaignCreatorService<ContestRSDTO, Contes
     def buildView(ContestRSDTO contestRSDTO, BasicDataKuorumUserRSDTO campaignUser, String viewerUid, def params) {
         Random seed = new Random()
         Double randomSeed = seed.nextDouble()
-        int userContestApplications = getUserContestApplicationCountIfNeeded(campaignUser.id, contestRSDTO, viewerUid)
+        int userContestApplications = springSecurityService.isLoggedIn()?getUserContestApplicationCountIfNeeded(campaignUser.id, contestRSDTO, viewerUid):0
         def model = [contest: contestRSDTO, campaignUser: campaignUser, randomSeed: randomSeed, userContestApplications: userContestApplications]
         return [view: '/contest/show', model: model]
     }
