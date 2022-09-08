@@ -389,7 +389,8 @@ class ContestController extends CampaignController {
             String msgError = "Error updating saving your vote"
             if (e.undeclaredThrowable.cause instanceof KuorumException) {
                 KuorumException ke = e.undeclaredThrowable.cause
-                msgError = message(code: "contestApplication.callToAction.VOTING.${ke.errors[0].code}", args: [contestRSDTO.title])
+                String dateClosed = g.formatDate([format: g.message(code: 'default.date.format'), date: contestRSDTO.deadLineVotes, timeZone: contestRSDTO.user.timeZone])
+                msgError = message(code: "contestApplication.callToAction.VOTING.${ke.errors[0].code}", args: [contestRSDTO.title, dateClosed])
             }
             cookieUUIDService.removeUserUUID();
             render([success: false, message: msgError, vote: null] as JSON)
