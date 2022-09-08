@@ -15,7 +15,7 @@
     <div class="box-ppal center">
         <h1><g:message code="contestApplication.create.limitPerUser.title" /> </h1>
         <p><g:message code="contestApplication.create.limitPerUser.subtitle" args="[contestRSDTO.maxApplicationsPerUser]"/> </p>
-            <h4><g:message code="contestApplication.create.limitPerUser.body" args="[contestApplicationsCounters.total]"/> </h4>
+            <h4><g:message code="contestApplication.create.limitPerUser.body" args="[contestApplicationsCount]"/> </h4>
         <br/>
         <g:link mapping="politicianCampaigns" class="btn btn-lg btn-blue"><g:message code="districtProposal.create.limitPerUser.campaignList"/></g:link>
     </div>
