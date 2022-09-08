@@ -9,7 +9,7 @@
     <g:render template="userMetaTags" model="[user: politician]"/>
     <link rel="canonical"
           href="${g.createLink(mapping: "userShow", params: politician.encodeAsLinkProperties(), absolute: true)}"/>
-    <r:require modules="post, districtProposal, kuorumUser, contestApplication-vote"/>
+    <r:require modules="post, districtProposal, kuorumUser, contestApplication"/>
 </head>
 
 <content tag="mainContent">
