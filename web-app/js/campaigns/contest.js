@@ -25,7 +25,7 @@ $(function () {
         $a.parent().addClass("active")
         var listSelector = $a.attr("data-listSelector");
 
-        //Si se selecciona el listado por orden de votos, se refresca la vista.
+        //If sorted by number of votes is selected, data is refreshed.
         if(listSelector === "vote") {
             var $ul = $("#" + contestApplicationHelper.containerId).find(".search-list." + listSelector);
             $ul.empty();
