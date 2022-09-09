@@ -24,6 +24,16 @@ $(function () {
         $a.parents("ul.nav").find("li").removeClass("active")
         $a.parent().addClass("active")
         var listSelector = $a.attr("data-listSelector");
+
+        //Si se selecciona el listado por orden de votos, se refresca la vista.
+        if(listSelector === "vote") {
+            var $ul = $("#" + contestApplicationHelper.containerId).find(".search-list." + listSelector);
+            $ul.empty();
+            $ul.removeAttr("noMoreResults");
+            $ul.attr("data-page", 0);
+            $ul.attr("loading", false);
+        }
+
         contestApplicationHelper.showListApplications(listSelector);
     })
 
