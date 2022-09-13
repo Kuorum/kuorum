@@ -4869,6 +4869,10 @@ h5#results {margin: 0 0 15px;}
     color:#FFFFFF;
 }
 
+.noty_type_cookie p {
+    font-size: 15px;
+}
+
 .noty_type_cookie .noty_text a {color:#ffffff; font-weight: bold;}
 
 .container-fluid.info {padding-top: 20px;}
