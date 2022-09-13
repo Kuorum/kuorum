@@ -2,7 +2,7 @@
 <g:set var="validateCustomCodeCommand" value="${new kuorum.web.commands.profile.DomainUserCustomCodeValidationCommand()}"/>
 <g:render template="/layouts/modals/modalDomainValidation_tabs"/>
 <formUtil:validateForm bean="${validateCustomCodeCommand}" form="modal-form-validate-customCode-user-domain"/>
-<g:form mapping="profileDomainValidationByCodeValidate" method="POST" name="modal-form-validate-customCode-user-domain">
+<g:form mapping="domainValidationByCodeValidate" method="POST" name="modal-form-validate-customCode-user-domain">
     <div class="form-group">
         <div class="form-group">
             <formUtil:input
@@ -11,8 +11,7 @@
                     showLabel="true"
                     placeHolder=""
                     cssClass="form-control input-lg"
-                    required="true"
-                    />
+                    required="true"/>
         </div>
     </div>
 

@@ -8,6 +8,7 @@ import kuorum.users.KuorumUserService
 import kuorum.util.rest.RestKuorumApiService
 import org.kuorum.rest.model.communication.contest.ContestApplicationRDTO
 import org.kuorum.rest.model.communication.contest.ContestApplicationRSDTO
+import org.kuorum.rest.model.communication.contest.ContestApplicationVoteRSDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
 
@@ -181,5 +182,18 @@ class ContestApplicationService extends AbstractCampaignCreatorService<ContestAp
                 null,
                 null
         )
+    }
+
+    ContestApplicationVoteRSDTO vote(String userCampaignId, Long campaignId, Long applicationId, String viewerUid) {
+        Map<String, String> params = [userId: userCampaignId, campaignId: campaignId.toString(), applicationId: applicationId.toString()]
+        Map<String, String> query = [viewerUid: viewerUid]
+        def response = restKuorumApiService.put(
+                RestKuorumApiService.ApiMethod.ACCOUNT_CONTEST_APPLICATION_VOTE,
+                params,
+                query,
+                null,
+                new TypeReference<ContestApplicationVoteRSDTO>() {}
+        )
+        return response.data;
     }
 }

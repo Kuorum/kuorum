@@ -4,24 +4,17 @@ import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.politician.CampaignController
 import kuorum.register.KuorumUserSession
-import kuorum.users.KuorumUser
 import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.commands.payment.CampaignSettingsCommand
 import kuorum.web.commands.payment.contest.ContestApplicationAuthorizationsCommand
 import kuorum.web.commands.payment.contest.ContestApplicationScopeCommand
-import kuorum.web.commands.payment.contest.ContestProfileCommand
-import kuorum.web.commands.payment.contest.NewContestApplicationCommand
-import kuorum.web.commands.payment.participatoryBudget.NewDistrictProposalWithDistrictCommand
-import kuorum.web.commands.profile.SocialNetworkCommand
 import org.kuorum.rest.model.communication.CampaignRDTO
 import org.kuorum.rest.model.communication.contest.ContestApplicationRDTO
 import org.kuorum.rest.model.communication.contest.ContestApplicationRSDTO
 import org.kuorum.rest.model.communication.contest.ContestRSDTO
-import org.kuorum.rest.model.communication.participatoryBudget.DistrictProposalRDTO
+import org.kuorum.rest.model.communication.contest.PageContestApplicationRSDTO
 import org.kuorum.rest.model.communication.survey.CampaignVisibilityRSDTO
-import org.kuorum.rest.model.contact.ContactRSDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
-import org.kuorum.rest.model.kuorumUser.KuorumUserRSDTO
 import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
 import payment.campaign.CampaignCreatorService
 
@@ -33,9 +26,12 @@ class ContestApplicationController extends CampaignController {
     @Secured(['ROLE_CAMPAIGN_CONTEST_APPLICATION'])
     def create() {
         Long contestId = params.campaignId ? Long.parseLong(params.campaignId) : null
-        BasicDataKuorumUserRSDTO user = kuorumUserService.findBasicUserRSDTO(params.userAlias)
-        ContestRSDTO contest = contestService.find(user.id.toString(), contestId)
-        if (checkRequiredProfileData(contest)) {
+        ContestRSDTO contest = getContest(contestId)
+        KuorumUserSession loggedUser = springSecurityService.principal
+        int contestApplicationsCount = contestService.secureCountUserApplications(params.userAlias, contestId, loggedUser.id.toString())
+        if (contest.maxApplicationsPerUser > 0 && contestApplicationsCount >= contest.maxApplicationsPerUser) {
+            render(view: 'maxContestApplicationPerUserAndContest', model: [contestRSDTO: contest, contestApplicationsCount: contestApplicationsCount])
+        } else if (checkRequiredProfileData(contest)) {
             return contestApplicationModelEditScope(new ContestApplicationScopeCommand(), null, contest)
         } else {
             redirect mapping: 'funnelFillBasicData', params: [campaignId: contest.id]
@@ -46,8 +42,7 @@ class ContestApplicationController extends CampaignController {
     def saveNewApplication(ContestApplicationScopeCommand command) {
         Long contestId = params.campaignId ? Long.parseLong(params.campaignId) : null
         if (!command.validate()) {
-            BasicDataKuorumUserRSDTO userData = kuorumUserService.findBasicUserRSDTO(params.userAlias)
-            ContestRSDTO contest = contestService.find(userData.id.toString(), contestId)
+            ContestRSDTO contest = getContest(contestId)
             render view: 'create', model: contestApplicationModelEditScope(command, null, contest)
             return
         }
@@ -95,8 +90,7 @@ class ContestApplicationController extends CampaignController {
     def editAuthorizationsStep() {
         KuorumUserSession loggedUser = springSecurityService.principal
         ContestApplicationRSDTO contestApplicationRSDTO = contestApplicationService.find(loggedUser, Long.parseLong((String) params.campaignId))
-        BasicDataKuorumUserRSDTO user = kuorumUserService.findBasicUserRSDTO(params.userAlias)
-        ContestRSDTO contest = contestService.find(user.id.toString(), contestApplicationRSDTO.getContest().getId())
+        ContestRSDTO contest = getContest(contestApplicationRSDTO.getContest().getId())
         return contestApplicationModelEditAuthorizations(null, contestApplicationRSDTO, contest)
     }
 
@@ -140,7 +134,6 @@ class ContestApplicationController extends CampaignController {
         }
     }
 
-
     @Secured(['ROLE_CAMPAIGN_CONTEST_APPLICATION'])
     def saveAuthorizations(ContestApplicationAuthorizationsCommand command) {
         Long campaignId = params.campaignId ? Long.parseLong(params.campaignId) : null
@@ -150,8 +143,7 @@ class ContestApplicationController extends CampaignController {
                 flash.error = message(code: "debate.scheduleError")
             }
             ContestApplicationRSDTO contestApplicationRSDTO = contestApplicationService.find(loggedUser, Long.parseLong((String) params.campaignId))
-            BasicDataKuorumUserRSDTO user = kuorumUserService.findBasicUserRSDTO(params.userAlias)
-            ContestRSDTO contest = contestService.find(user.id.toString(), contestApplicationRSDTO.getContest().getId())
+            ContestRSDTO contest = getContest(contestApplicationRSDTO.getContest().getId())
             render view: 'contestApplicationEditAuthorizations', model: contestApplicationModelEditAuthorizations(command, contestApplicationRSDTO, contest)
             return
         }
@@ -170,12 +162,14 @@ class ContestApplicationController extends CampaignController {
         render([msg: "Contest budget deleted"] as JSON)
     }
 
+
     private def contestModelSettings(CampaignSettingsCommand command, ContestApplicationRSDTO contestApplicationRSDTO) {
         def model = modelSettings(command, contestApplicationRSDTO)
         command.debatable = false
         model.options = [debatable: false]
         return model
     }
+
 
     def copy(Long campaignId) {
         return super.copyCampaign(campaignId, contestApplicationService)
@@ -253,6 +247,10 @@ class ContestApplicationController extends CampaignController {
         rdto.activityType = command.activityType
         contestApplicationRSDTO = contestApplicationService.save(user, rdto, contestApplicationRSDTO.getId())
         def nextStep = processNextStep(user, contestApplicationRSDTO, false)
-        return nextStep;
+        return nextStep
+    }
+
+    private ContestRSDTO getContest(long contestId) {
+        contestService.find(params.userAlias, contestId)
     }
 }

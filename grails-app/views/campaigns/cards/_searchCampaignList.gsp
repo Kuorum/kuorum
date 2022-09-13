@@ -100,6 +100,11 @@
                         <g:render template="/contest/showModules/mainContent/contestDataIcon"
                                   model="[contest: campaign]"/>
                     </g:elseif>
+                    <g:elseif
+                            test="${campaign.type == org.kuorum.rest.model.search.SearchTypeRSDTO.CONTEST_APPLICATION}">
+                        <g:render template="/contestApplication/showModules/mainContent/contestApplicationDataIcon"
+                                  model="[contestApplication: campaign]"/>
+                    </g:elseif>
                 </li>
             </ul>
         </div>
