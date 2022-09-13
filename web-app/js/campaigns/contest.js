@@ -21,20 +21,22 @@ $(function () {
         e.preventDefault();
         var $a = $(this);
         console.log($a)
-        $a.parents("ul.nav").find("li").removeClass("active")
-        $a.parent().addClass("active")
-        var listSelector = $a.attr("data-listSelector");
+        if(!$a.parent().hasClass("active")) {
+            $a.parents("ul.nav").find("li").removeClass("active")
+            $a.parent().addClass("active")
+            var listSelector = $a.attr("data-listSelector");
 
-        //If sorted by number of votes is selected, data is refreshed.
-        if(listSelector === "vote") {
-            var $ul = $("#" + contestApplicationHelper.containerId).find(".search-list." + listSelector);
-            $ul.empty();
-            $ul.removeAttr("noMoreResults");
-            $ul.attr("data-page", 0);
-            $ul.attr("loading", false);
+            //If sorted by number of votes is selected, data is refreshed.
+            if(listSelector === "vote") {
+                var $ul = $("#" + contestApplicationHelper.containerId).find(".search-list." + listSelector);
+                $ul.empty();
+                $ul.removeAttr("noMoreResults");
+                $ul.attr("data-page", 0);
+                $ul.attr("loading", false);
+            }
+
+            contestApplicationHelper.showListApplications(listSelector);
         }
-
-        contestApplicationHelper.showListApplications(listSelector);
     })
 
     $("#contest-applications-list ul.search-list").on("click", "a.loadMore", function (e) {
