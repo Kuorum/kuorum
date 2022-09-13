@@ -14,6 +14,8 @@ import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 import org.kuorum.rest.model.notification.NotificationProposalCommentMentionRSDTO
 import org.kuorum.rest.model.notification.NotificationProposalCommentRSDTO
 import org.kuorum.rest.model.search.SearchKuorumElementRSDTO
+import org.kuorum.rest.model.search.kuorumElement.SearchContestApplicationRSDTO
+import org.kuorum.rest.model.search.kuorumElement.SearchContestRSDTO
 import org.kuorum.rest.model.search.kuorumElement.SearchDistrictProposalRSDTO
 import org.kuorum.rest.model.search.kuorumElement.SearchKuorumUserRSDTO
 import org.kuorum.rest.model.tag.CauseRSDTO
@@ -23,7 +25,7 @@ import org.kuorum.rest.model.tag.CauseRSDTO
  */
 class LinkPropertiesCodec {
 
-    static encode = {target->
+    static encode = { target ->
         prepareParams(target)
     }
 
@@ -121,6 +123,16 @@ class LinkPropertiesCodec {
     }
 
     private static def prepareParams(ContestApplicationRSDTO contestApplicationRSDTO) {
+        [
+                userAlias   : contestApplicationRSDTO.contest.userAlias.toLowerCase(),
+                contestTitle: contestApplicationRSDTO.contest.title.encodeAsKuorumUrl(),
+                contestId   : contestApplicationRSDTO.contest.id,
+                urlTitle    : getNameTitleUrl(contestApplicationRSDTO),
+                campaignId  : contestApplicationRSDTO.id
+        ]
+    }
+
+    private static def prepareParams(SearchContestApplicationRSDTO contestApplicationRSDTO) {
         [
                 userAlias   : contestApplicationRSDTO.contest.userAlias.toLowerCase(),
                 contestTitle: contestApplicationRSDTO.contest.title.encodeAsKuorumUrl(),

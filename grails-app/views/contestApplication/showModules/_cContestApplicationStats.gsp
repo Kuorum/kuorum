@@ -20,4 +20,10 @@
                 code="org.kuorum.rest.model.communication.contest.ContestApplicationFocusTypeDTO.shortLabel"/>: <g:message
                 code="org.kuorum.rest.model.communication.contest.ContestApplicationFocusTypeDTO.${contestApplication.focusType}"/></span>
     </li>
+    <li>
+        <span class="fal fa-scroll" aria-hidden="true"></span>
+        <span class="info">
+            <span class="number">${contestApplication.votes}</span>
+            <g:message code="contestApplication.stats.numVotes"/></span>
+    </li>
 </ul>

@@ -418,7 +418,7 @@ var display = {
                 easing: 'swing',
                 speed: 500 // opening & closing animation speed
             },
-            timeout: 10000,
+            timeout: 0,
             template: '<div class="noty_message" role="alert"><span class="noty_text"></span><div class="noty_close"></div></div>',
             type: type,
             text: htmlText
@@ -466,8 +466,10 @@ var noLoggedCallbacks = {
     reloadPage : function(path , delayInMils){
         path = path || "NO_PATH";
         if (delayInMils !=undefined){
-            pageLoadingOn(path+" :: Reloading page with delay of "+delayInMils);
-            setTimeout(function(){document.location.reload() }, delayInMils);
+            pageLoadingOn(path + " :: Reloading page with delay of " + delayInMils);
+            setTimeout(function () {
+                document.location.reload()
+            }, delayInMils);
         }else{
             pageLoadingOn(path+" :: Reloading page now");
             document.location.reload();
