@@ -6,9 +6,6 @@ var cookiesHelper = {
         d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
         var expires = "expires=" + d.toGMTString();
         var domain = document.domain;
-        if (domain.indexOf("kuorum.org") > 1) {
-            domain = ".kuorum.org"; //Subdomains shares the cookie
-        }
         document.cookie = cname + "=" + cvalue + "; " + expires + ";domain=" + domain + ";path=/";
     },
     getCookie: function (cname) {
