@@ -36,7 +36,7 @@ var cookiesHelper = {
             function () {
             },
             function (cName) {
-                var buttonAccept = "<button id='acceptCookies' class='btn btn-xs' onclick='cookiesHelper.acceptedAllCookies()'>" + i18n.cookies.accept + "</button>";
+                var buttonAccept = "<button id='acceptCookies' class='btn btn-orange' onclick='cookiesHelper.acceptedAllCookies()'>" + i18n.cookies.accept + "</button>";
                 var message = "<p>" + i18n.cookies.message + "</p><div>" + i18n.cookies.settingsLink + buttonAccept + "</div>"
                 display.cookie(message);
             }
