@@ -147,6 +147,11 @@ modules = {
         resource url:'js/campaigns/petitions.js'
     }
 
+    contestApplication {
+        dependsOn("basic", "forms",'campaign')
+        resource url:'js/campaigns/contestApplication.js'
+    }
+
     survey{
         dependsOn("basic",'campaign')
         resource url:'js/survey.js'
@@ -193,7 +198,7 @@ modules = {
 
     // This module groups all js required of list of campaign targets. (i.e: Like post has its custom logic that can be executed on the list)
     campaignsTargetsListResourcesRequired{
-        dependsOn("post", "districtProposal", "petition")
+        dependsOn("post", "districtProposal", "petition", "contestApplication")
     }
     causes {
         dependsOn("basic")
@@ -334,6 +339,17 @@ modules = {
         dependsOn 'cookiesHelper'
         resource url:'js/cookies.js'
     }
+
+    cookiesInfo{
+        dependsOn 'cookiesHelper'
+        resource url:'js/cookiesInfo.js'
+    }
+
+    googleTagManager{
+        dependsOn 'cookiesHelper'
+        resource url:'js/googleTagManager.js'
+    }
+
 
     tour{
         dependsOn 'basic'

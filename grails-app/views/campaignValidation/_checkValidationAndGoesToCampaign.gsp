@@ -3,7 +3,7 @@
             var url =
             $.ajax({
                 type: "POST",
-                url: kuorumUrls.profileDomainValidationChecker,
+                url: kuorumUrls.domainValidationChecker,
                 data: {
                     campaignId:${campaign.id}
     },

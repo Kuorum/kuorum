@@ -73,7 +73,7 @@
 <r:require modules="recaptcha_modalRegister"/>
 <g:form mapping="register" action-ajax="${g.createLink(mapping: 'ajaxRegister')}" autocomplete="off" method="post"
         name="${formId}" class="login" role="form" novalidate="novalidate">
-    <g:if test="${_domainLoginSettings.providerBasicEmailForm}">
+    <g:if test="${_domainLoginSettings != null && _domainLoginSettings.providerBasicEmailForm}">
 
         <input type="hidden" value="${request.forwardURI.replaceFirst(request.contextPath, "")}" name="redirectUrl"/>
 

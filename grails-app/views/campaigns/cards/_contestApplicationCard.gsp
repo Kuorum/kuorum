@@ -22,11 +22,8 @@
                 </g:if>
 
                 <li>
-                    <g:link mapping="campaignShow" params="${contestApplication.encodeAsLinkProperties()}"
-                            fragment="participatory-budget-district-proposals-list-tab" role="button">
-                        <span class="fal fa-scroll" aria-hidden="true"></span>
-                        <span class="number">XXX</span>
-                    </g:link>
+                    <g:render template="/contestApplication/showModules/mainContent/contestApplicationDataIconButton"
+                              model="[contestApplication: contestApplication]"/>
                 </li>
             </ul>
         </div>
