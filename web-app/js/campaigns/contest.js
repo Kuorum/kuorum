@@ -19,25 +19,27 @@ $(function () {
 
     $("#contest-applications-list .nav-underline a").on("click", function (e) {
         e.preventDefault();
-        var $a = $(this);
+        const $a = $(this);
         console.log($a)
         if(!$a.parent().hasClass("active")) {
-            $a.parents("ul.nav").find("li").removeClass("active")
-            $a.parent().addClass("active")
-            var listSelector = $a.attr("data-listSelector");
+            const listSelector = $a.attr("data-listSelector");
 
-            //If sorted by number of votes is selected, data is refreshed.
-            if(listSelector === "vote") {
-                var $ul = $("#" + contestApplicationHelper.containerId).find(".search-list." + listSelector);
-                $ul.empty();
-                $ul.removeAttr("noMoreResults");
-                $ul.attr("data-page", 0);
-                $ul.attr("loading", false);
-            }
+            setActiveAndRefreshList($a, listSelector);
 
             contestApplicationHelper.showListApplications(listSelector);
         }
     })
+
+    function setActiveAndRefreshList($a, listSelector) {
+        $a.parents("ul.nav").find("li").removeClass("active")
+        $a.parent().addClass("active")
+
+        const $ul = $("#" + contestApplicationHelper.containerId).find(".search-list." + listSelector);
+        $ul.empty();
+        $ul.removeAttr("noMoreResults");
+        $ul.attr("data-page", 0);
+        $ul.attr("loading", false);
+    }
 
     $("#contest-applications-list ul.search-list").on("click", "a.loadMore", function (e) {
         e.preventDefault();
