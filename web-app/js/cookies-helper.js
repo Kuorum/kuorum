@@ -48,7 +48,6 @@ var cookiesHelper = {
         if (cookiesInfo) {
             cookiesInfo.initTechnicalBox(true)
             cookiesInfo.initThirdBox(true)
-            cookiesInfo.initAllButton(true)
         }
     },
     acceptTechnicalCookies: function () {

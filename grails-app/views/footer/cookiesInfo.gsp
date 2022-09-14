@@ -88,10 +88,4 @@
         <span class="check-box-icon"></span>
         <span class="label-checkbox"><g:message code="footer.menu.footerCookiesInfo.cookieThird.label"/></span>
     </label>
-
-    <div class="columns1">
-        <a id="acceptAllButton" class="btn btn-blue" style="display: none"><g:message code="cookies.acceptAll"/></a>
-    </div>
-
-    <div class="columns1"><p/></div>
 </content>
