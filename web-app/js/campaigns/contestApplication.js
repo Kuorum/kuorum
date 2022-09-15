@@ -75,19 +75,20 @@ var contestApplicationFunctions = {
     },
 
     _handleButtonsAtSuccess: function (contestApplicationVote, $button) {
-        const $buttonMainPage = $("section#main .leader-post .contestApplication-vote")
-        const $buttonColumnC = $("#aside-ppal .call-to-action .actions .contestApplication-vote a")
-        const $buttonContestApplicationList = $("#contest-applications-list  .contestApplication-vote-" + contestApplicationVote.vote.contestApplicationId)
-        const $liStats = $(".leader-post-stats .fa-scroll").parents("li")
+        const $buttonMain = $("section#main .leader-post .contestApplication-vote");
+        const $buttonContestApplicationList = $("#contest-applications-list  .contestApplication-vote-" + contestApplicationVote.vote.contestApplicationId);
+        const $buttonColumnCallToAction = $("#aside-ppal .call-to-action .actions .contestApplication-vote a");
+        const $badgeNumVotesStats = $(".leader-post-stats .fa-scroll").parents("li");
 
+        const buttons = [$buttonMain, $buttonContestApplicationList, $buttonColumnCallToAction]
+        const stats = [$buttonMain,$buttonContestApplicationList, $badgeNumVotesStats]
+
+        const numVotes = contestApplicationVote.vote.votes;
         if ($button.attr("data-loggedUser") !== '') {
-            contestApplicationFunctions._disableVoteButton($buttonMainPage, contestApplicationVote.vote.votes);
-            contestApplicationFunctions._disableVoteButton($buttonColumnC, contestApplicationVote.vote.votes);
-            contestApplicationFunctions._disableVoteButton($buttonContestApplicationList, contestApplicationVote.vote.votes);
+            buttons.forEach(function (item){contestApplicationFunctions._disableVoteButton(item,numVotes)});
         }
-        contestApplicationFunctions._updateNumVotes($buttonMainPage, contestApplicationVote.vote.votes);
-        contestApplicationFunctions._updateNumVotes($liStats, contestApplicationVote.vote.votes);
-        contestApplicationFunctions._updateNumVotes($buttonContestApplicationList, contestApplicationVote.vote.votes);
+        stats.forEach(function (item){contestApplicationFunctions._updateNumVotes(item,numVotes)});
+
     },
 
     _disableVoteButton: function ($button, numVotes) {
