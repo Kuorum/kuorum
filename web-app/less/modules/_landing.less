@@ -39,7 +39,11 @@ ul.globus li.fontIcon > a > span.fas:hover {
 }
 
 #domain-description-landing-main {
-  background: fade(@mainColor, 20%);
+  background: @mainColor;
+}
+
+#domain-description-landing-main:after {
+  background: radial-gradient(circle 40px at 0% 100%, transparent, transparent 100px, @mainColor 100px);;
 }
 
 #starredCampaign .starredCampaign-title .starredCampaing-title-text {@title();

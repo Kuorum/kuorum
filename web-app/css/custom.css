@@ -5988,13 +5988,28 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 #questionsSurveyForm.campaign-published div.quesiton-dynamic-fields:not(.dynamic-input-new-line) .question-type .question-type-noEditable{display: inline-block; margin:10px 0;}
 
 #domain-description-landing-main {
-    text-align: left;
-    color: #545454;
+    text-align: center;
+    color: #FFFFFF;
     font-style: italic;
     padding: 50px 10%;
+    border-bottom-left-radius: 4.5em 8em;
+    position: relative;
 }
 
+#domain-description-landing-main a {
+    color: inherit;
+    font-weight: bold;
+}
 
+#domain-description-landing-main:after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: -100px;
+    width: 100px;
+    height: 200px;
+    background: radial-gradient(circle 40px at 0% 100%, transparent, transparent 100px, #CCC 100px);
+}
 
 
 
