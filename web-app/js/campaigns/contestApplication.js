@@ -49,32 +49,17 @@ var contestApplicationFunctions = {
     },
 
     _executableVoteContestApplication: function (params) {
-        var callback = params.callback;
-        var $button = params.$button;
-        var url = $button.attr('href');
+        const $button = params.$button;
+        const url = $button.attr('href');
+        const data = {};
 
-        var data = {};
         $.ajax({
             type: 'POST',
             url: url,
             data: data,
             success: function (contestApplicationVote) {
                 if (contestApplicationVote.success) {
-                    console.log("Vote Success")
-                    console.log(contestApplicationVote)
-                    const $buttonMainPage = $("section#main .leader-post .contestApplication-vote")
-                    const $buttonColumnC = $("#aside-ppal .call-to-action .actions .contestApplication-vote a")
-                    const $buttonContestApplicationList = $("#contest-applications-list  .contestApplication-vote-" + contestApplicationVote.vote.contestApplicationId)
-                    const $liStats = $(".leader-post-stats .fa-scroll").parents("li")
-
-                    if($button.attr("data-loggedUser") !== '') {
-                        contestApplicationFunctions._disableVoteButton($buttonMainPage, contestApplicationVote.vote.votes);
-                        contestApplicationFunctions._disableVoteButton($buttonColumnC, contestApplicationVote.vote.votes);
-                        contestApplicationFunctions._disableVoteButton($buttonContestApplicationList, contestApplicationVote.vote.votes);
-                    }
-                    contestApplicationFunctions._updateNumVotes($buttonMainPage, contestApplicationVote.vote.votes);
-                    contestApplicationFunctions._updateNumVotes($liStats, contestApplicationVote.vote.votes);
-                    contestApplicationFunctions._updateNumVotes($buttonContestApplicationList, contestApplicationVote.vote.votes);
+                    this._handleButtonsAtSuccess(contestApplicationVote, $button);
                     display.success(contestApplicationVote.message)
                 } else {
                     display.error(contestApplicationVote.message)
@@ -87,6 +72,22 @@ var contestApplicationFunctions = {
                 pageLoadingOff();
             }
         });
+    },
+
+    _handleButtonsAtSuccess: function (contestApplicationVote, $button) {
+        const $buttonMainPage = $("section#main .leader-post .contestApplication-vote")
+        const $buttonColumnC = $("#aside-ppal .call-to-action .actions .contestApplication-vote a")
+        const $buttonContestApplicationList = $("#contest-applications-list  .contestApplication-vote-" + contestApplicationVote.vote.contestApplicationId)
+        const $liStats = $(".leader-post-stats .fa-scroll").parents("li")
+
+        if ($button.attr("data-loggedUser") !== '') {
+            contestApplicationFunctions._disableVoteButton($buttonMainPage, contestApplicationVote.vote.votes);
+            contestApplicationFunctions._disableVoteButton($buttonColumnC, contestApplicationVote.vote.votes);
+            contestApplicationFunctions._disableVoteButton($buttonContestApplicationList, contestApplicationVote.vote.votes);
+        }
+        contestApplicationFunctions._updateNumVotes($buttonMainPage, contestApplicationVote.vote.votes);
+        contestApplicationFunctions._updateNumVotes($liStats, contestApplicationVote.vote.votes);
+        contestApplicationFunctions._updateNumVotes($buttonContestApplicationList, contestApplicationVote.vote.votes);
     },
 
     _disableVoteButton: function ($button, numVotes) {
