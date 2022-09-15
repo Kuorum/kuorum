@@ -13,9 +13,11 @@
                     <g:render template="/campaigns/showModules/campingModalCreateSummoning" model="[]"/>
                 </g:if>
 
-                <g:link mapping="politicianCampaignStatsShow" params="[campaignId: campaign.id]" role="button"
-                        class="edit"><span class="fal fa-chart-line fa-2x"></span><span
-                        class="sr-only">Stats</span></g:link>
+                <g:if test="${campaign.statsEnabled == true}">
+                    <g:link mapping="politicianCampaignStatsShow" params="[campaignId: campaign.id]" role="button"
+                            class="edit"><span class="fal fa-chart-line fa-2x"></span><span
+                            class="sr-only">Stats</span></g:link>
+                </g:if>
 
                 <g:set var="modal"
                        value="${campaign.newsletter.status == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SCHEDULED ? 'modalEditScheduled' : ''}"/>
