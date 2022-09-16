@@ -1,5 +1,6 @@
-
-$(document).ready(function() {
-    cookiesHelper.displayCookiesPolitics();
+$(document).ready(function () {
+    if (!cookiesInfo) {
+        cookiesHelper.displayCookiesPolitics();
+    }
 })
 

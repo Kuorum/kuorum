@@ -10054,3 +10054,15 @@ li.survey-question.answered .survey-question-answer .option-extra-content textar
 .displayNone {
     display:none;
 }
+
+div.horizontal-scroll {
+    overflow:auto;
+    white-space:nowrap;
+    margin:10px;
+}
+
+table.table td{
+    max-width:220px;
+    min-width:220px;
+    white-space:break-spaces;
+}
