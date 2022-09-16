@@ -231,7 +231,7 @@ class ContestController extends CampaignController {
             DirectionDTO dir = DirectionDTO.valueOf(params.direction)
             filter.sort.direction = dir
         }
-        PageContestApplicationRSDTO pageContestApplications = contestService.findContestApplications(contestUser, contestId, filter)
+        PageContestApplicationRSDTO pageContestApplications = contestService.findContestApplications(contestUser, contestId, filter, viewerUid)
         if (pageContestApplications.total == 0) {
             render template: '/contest/showModules/mainContent/contestApplicationsEmpty'
         } else {
