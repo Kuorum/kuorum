@@ -435,8 +435,8 @@ var display = {
     },
 
     _slideUp:function() {
-        // $("#header nav.navbar a.header-msg").slideUp();
-        // $("div.row.main").animate({ marginTop: '0px'}, 500);
+        $("#header nav.navbar a.header-msg").slideUp();
+        $("div.row.main").animate({marginTop: '0px'}, 500);
     }
 };
 
