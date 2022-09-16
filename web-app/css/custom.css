@@ -5157,20 +5157,69 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li a {
 fieldset.multimedia ul.nav.nav-pills.nav-justified li.active a,
 fieldset.multimedia ul.nav.nav-pills.nav-justified li a:hover,
 fieldset.multimedia ul.nav.nav-pills.nav-justified li a:focus,
-fieldset.multimedia ul.nav.nav-pills.nav-justified li a:active {background-color: #fafafa;}
-fieldset.multimedia ul.nav.nav-pills.nav-justified li a {border-radius: 0; padding: 5px 15px;}
-fieldset.multimedia ul.nav.nav-pills.nav-justified li a:first-child {border-radius: 4px 0px 0px 4px;}
-fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {border-radius: 0px 4px 4px 0px;}
+fieldset.multimedia ul.nav.nav-pills.nav-justified li a:active {
+    background-color: #fafafa;
+}
 
-.strong {font-weight: bold}
+fieldset.multimedia ul.nav.nav-pills.nav-justified li a {
+    border-radius: 0;
+    padding: 5px 15px;
+}
+
+fieldset.multimedia ul.nav.nav-pills.nav-justified li a:first-child {
+    border-radius: 4px 0px 0px 4px;
+}
+
+fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {
+    border-radius: 0px 4px 4px 0px;
+}
+
+fieldset.multimedia ul.nav.nav-pills.nav-justified {
+    display: table;
+    position: relative;
+}
+
+fieldset.multimedia ul.nav.nav-pills.nav-justified li {
+    width: 100%
+}
+
+.strong {
+    font-weight: bold
+}
 
 /* Descubre */
-.config.discover header .box-ppal > ul {margin-bottom: 15px;}
-.config.discover header .box-ppal > ul > li {padding: 15px 15px 0 15px; border: none;}
-.config.discover header .box-ppal > ul > li > .btn-group {width: 100%; text-align: left; margin: 0 !important; padding: 0 !important;}
-.config.discover header .box-ppal > ul > li > .btn-group > .btn {width: 100%; text-align: left; margin: 0 !important; padding: 10px 15px !important;}
-.config.discover header .box-ppal > ul > li > .btn-group > .btn > .caret {position: absolute; right: 10px; top: 45%;}
-.config.discover header .box-ppal > ul > li > .btn-group.open .dropdown-toggle {box-shadow: 0 0 0 rgba(0, 0, 0, 0) inset;}
+.config.discover header .box-ppal > ul {
+    margin-bottom: 15px;
+}
+
+.config.discover header .box-ppal > ul > li {
+    padding: 15px 15px 0 15px;
+    border: none;
+}
+
+.config.discover header .box-ppal > ul > li > .btn-group {
+    width: 100%;
+    text-align: left;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.config.discover header .box-ppal > ul > li > .btn-group > .btn {
+    width: 100%;
+    text-align: left;
+    margin: 0 !important;
+    padding: 10px 15px !important;
+}
+
+.config.discover header .box-ppal > ul > li > .btn-group > .btn > .caret {
+    position: absolute;
+    right: 10px;
+    top: 45%;
+}
+
+.config.discover header .box-ppal > ul > li > .btn-group.open .dropdown-toggle {
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0) inset;
+}
 .config.discover header .box-ppal > ul > li .dropdown-menu {width: 100%;}
 .config.discover header .box-ppal > ul > li .dropdown-menu > li {
     border-bottom: medium none;
@@ -6369,22 +6418,85 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     .socialGo {margin: 0; padding: 0; text-align: center;}
 
     .sign .login {margin-top: 50px; margin-bottom: 50px;}
+
     .sign .login .socialGo .btn.tw,
-    .sign .login .socialGo .btn.fb {padding: 15px 25px !important;}
-    .sign .login {margin: 20px auto;}
-    .sign .login .btn + .cancel {margin-left: 33px;}
+    .sign .login .socialGo .btn.fb {
+        padding: 15px 25px !important;
+    }
 
-    .home .play {font-size: 16px; font-size: 1.6rem;text-align: center;}
-    .config > section .filter-order > li {display: inline; margin: 0 2% 0 0; font-size: 14px; font-size: 1.4rem; text-align: left;}
+    .sign .login {
+        margin: 20px auto;
+    }
 
-    h1.withArrow {margin-bottom: 50px;}
-    fieldset.multimedia ul.nav.nav-pills.nav-justified li a {padding: 5px 15px;}
-    .charNum {margin: 0;}
-    .login .btn.btn-blue.btn-lg {padding-left: 50px !important; padding-right: 50px !important;}
-    #pass-forget.login .btn.btn-blue.btn-lg { width: 100%; padding-left: 0px !important; padding-right: 0px !important;}
-    #pass-forget.login span.error { margin-bottom: 15px; float: left;}
+    .sign .login .btn + .cancel {
+        margin-left: 33px;
+    }
 
-    .callMobile {display: none !important;}
+    .home .play {
+        font-size: 16px;
+        font-size: 1.6rem;
+        text-align: center;
+    }
+
+    .config > section .filter-order > li {
+        display: inline;
+        margin: 0 2% 0 0;
+        font-size: 14px;
+        font-size: 1.4rem;
+        text-align: left;
+    }
+
+    h1.withArrow {
+        margin-bottom: 50px;
+    }
+
+    fieldset.multimedia ul.nav.nav-pills.nav-justified li a {
+        padding: 5px 15px;
+    }
+
+    fieldset.multimedia ul.nav.nav-pills.nav-justified.nav-justified-2li li {
+        width: 50%
+    }
+
+    fieldset.multimedia ul.nav.nav-pills.nav-justified li.nav-pills-disjunction {
+
+        background: url('../images/nav-pills-or.svg') no-repeat center;
+        background-size: 50px 50px;
+        position: absolute;
+        left: calc(50% - 25px);
+        top: 0;
+        z-index: 1;
+        width: 50px;
+        height: 36px;
+        padding: 5px 0;
+        text-align: center;
+        margin-left: 0px;
+    }
+
+    .charNum {
+        margin: 0;
+    }
+
+    .login .btn.btn-blue.btn-lg {
+        padding-left: 50px !important;
+        padding-right: 50px !important;
+    }
+
+    #pass-forget.login .btn.btn-blue.btn-lg {
+        width: 100%;
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }
+
+    #pass-forget.login span.error {
+        margin-bottom: 15px;
+        float: left;
+    }
+
+    .callMobile {
+        display: none !important;
+    }
+
     .btn .btn-xs {
         border-radius: 2px !important;
         font-size: 12px !important;
