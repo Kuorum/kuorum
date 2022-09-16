@@ -1,13 +1,11 @@
 package kuorum.users
 
-import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 import grails.plugin.springsecurity.ui.RegistrationCode
 import grails.plugin.springsecurity.ui.ResetPasswordCommand
 import kuorum.KuorumFile
 import kuorum.causes.CausesService
 import kuorum.core.customDomain.CustomDomainResolver
-import kuorum.core.exception.KuorumException
 import kuorum.core.model.Gender
 import kuorum.core.model.UserType
 import kuorum.files.FileService
@@ -15,8 +13,6 @@ import kuorum.mail.KuorumMailService
 import kuorum.notifications.NotificationService
 import kuorum.register.KuorumUserSession
 import kuorum.register.RegisterService
-import kuorum.security.evidences.Evidences
-import kuorum.security.evidences.HttpRequestRecoverEvidences
 import kuorum.users.extendedPoliticianData.ProfessionalDetails
 import kuorum.web.commands.profile.*
 import kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand
@@ -25,17 +21,13 @@ import kuorum.web.commands.profile.politician.RelevantEventsCommand
 import kuorum.web.constants.WebConstants
 import org.bson.types.ObjectId
 import org.codehaus.groovy.runtime.InvokerHelper
-import org.jsoup.Jsoup
 import org.kuorum.rest.model.communication.CampaignRSDTO
 import org.kuorum.rest.model.communication.CampaignTypeRSDTO
 import org.kuorum.rest.model.contact.ContactRDTO
 import org.kuorum.rest.model.contact.ContactRSDTO
-import org.kuorum.rest.model.kuorumUser.KuorumUserExtraDataRSDTO
 import org.kuorum.rest.model.kuorumUser.KuorumUserRSDTO
 import org.kuorum.rest.model.kuorumUser.config.NotificationConfigRDTO
 import org.kuorum.rest.model.kuorumUser.config.NotificationMailConfigRDTO
-import org.kuorum.rest.model.kuorumUser.domainValidation.UserPhoneValidationRDTO
-import org.kuorum.rest.model.kuorumUser.validation.UserValidationRSDTO
 import org.kuorum.rest.model.notification.campaign.config.NewsletterConfigRQDTO
 import org.kuorum.rest.model.notification.campaign.config.NewsletterConfigRSDTO
 import org.kuorum.rest.model.tag.CauseRSDTO
@@ -548,7 +540,14 @@ class ProfileController {
         contact.setPhone(command.phone);
         contact.setPhonePrefix(command.phonePrefix);
         contact.setExternalId(command.nid);
-        ContactRSDTO contactUpdated = contactService.updateContact(WebConstants.FAKE_LANDING_ALIAS_USER, contact, contact.getId())
+        try {
+            contactService.updateContact(WebConstants.FAKE_LANDING_ALIAS_USER, contact, contact.getId())
+        } catch (Exception e) {
+            command.errors.rejectValue("phone", "kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand.phone.repeated")
+            render view: 'funnelFillBasicData', model: [command: command]
+            return;
+        }
+
         redirect mapping: 'funnelFillImages', params: [campaignId: params.campaignId]
     }
 
