@@ -519,8 +519,7 @@ class ProfileController {
     def saveFunnelFillBasicData(FunnelFillBasicDataCommand command) {
         KuorumUser user = params.user
         if (command.hasErrors()) {
-            command.email = user.email
-            render view: 'funnelFillBasicData', model: [command: command]
+            handleSaveFunnelFillBasicDataErrorCommand(command, user)
             return;
         }
         if (user.personalData == null) {
@@ -544,11 +543,16 @@ class ProfileController {
             contactService.updateContact(WebConstants.FAKE_LANDING_ALIAS_USER, contact, contact.getId())
         } catch (Exception e) {
             command.errors.rejectValue("phone", "kuorum.web.commands.profile.funnel.FunnelFillBasicDataCommand.phone.repeated")
-            render view: 'funnelFillBasicData', model: [command: command]
+            handleSaveFunnelFillBasicDataErrorCommand(command, user)
             return;
         }
 
         redirect mapping: 'funnelFillImages', params: [campaignId: params.campaignId]
+    }
+
+    private def handleSaveFunnelFillBasicDataErrorCommand(FunnelFillBasicDataCommand command, KuorumUser user) {
+        command.email = user.email
+        render view: 'funnelFillBasicData', model: [command: command]
     }
 
     def funnelFillImages() {
