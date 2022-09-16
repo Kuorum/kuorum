@@ -6037,17 +6037,17 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 #questionsSurveyForm.campaign-published div.quesiton-dynamic-fields:not(.dynamic-input-new-line) .question-type .question-type-noEditable{display: inline-block; margin:10px 0;}
 
 #domain-description-landing-main {
-    text-align:center;
-    color:#CCCCCC;
-    background-color: #545454;
-    font-size: 18px;
+    text-align: center;
+    color: #FFFFFF;
     font-style: italic;
-    line-height: 24px;
     padding: 50px 10%;
+    position: relative;
 }
 
-
-
+#domain-description-landing-main a {
+    color: inherit;
+    font-weight: bold;
+}
 
 
 .fade-carousel .carousel-inner {
@@ -6681,17 +6681,48 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     #boxfiltersContacts .searchContainer {margin: 0;}
     #boxfiltersContacts .dropdown-menu {min-width: 99px;}
     /*#contactsOrderOptions.box-order-options > div {width: 25%;}*/
-
     /* NEW / EDIT CONTACT */
-    .edit-contact-header > div:first-child {padding: 10px 0 0 140px;}
-    .edit-contact-header > div:first-child .user-img {width: 114px; height: 114px;}
+    .edit-contact-header > div:first-child {
+        padding: 10px 0 0 140px;
+    }
 
-    .button-container {padding-top: 7px;}
+    .edit-contact-header > div:first-child .user-img {
+        width: 114px;
+        height: 114px;
+    }
 
-    #domain-description-landing-main {font-size: 34px;line-height: 50px; padding:100px 10%;}
-    .fade-carousel .content form .form-group.conditions {margin-top:10px;}
+    .button-container {
+        padding-top: 7px;
+    }
 
-    #campaignsList > h3, #campaignsList > p.name {margin-top: 0px; max-width: 10%}
+    #domain-description-landing-main {
+        font-size: 34px;
+        line-height: 50px;
+        padding: 100px 10%;
+    }
+
+    .fade-carousel .content form .form-group.conditions {
+        margin-top: 10px;
+    }
+
+    #campaignsList > h3, #campaignsList > p.name {
+        margin-top: 0px;
+        max-width: 10%
+    }
+
+    #domain-description-landing-main {
+        border-bottom-left-radius: 22em 8em;
+    }
+
+    #domain-description-landing-main:after {
+        content: "";
+        position: absolute;
+        right: 0;
+        bottom: -100px;
+        width: 100px;
+        height: 200px;
+        background: radial-gradient(circle 40px at 0% 100%, transparent, transparent 100px, #CCC 100px);
+    }
 }
 
 /* Medium devices (desktops, 992px and up) */
