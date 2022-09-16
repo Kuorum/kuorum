@@ -2,6 +2,7 @@ $(function () {
 
 
     $("body").on("click", '.contestApplication-vote', contestApplicationFunctions.bindVoteClick);
+    $("body").on("click", '.modal.confirm-vote-contest-application .confirm-vote-contest-application', contestApplicationFunctions.warnBeforeVote.acceptWarnBeforeVote);
     noLoggedCallbacks['contestApplicationVoteNoLogged'] = function () {
         var buttonId = $('#registro').find("form").attr("data-buttonId");
         var $button = $("#" + buttonId);
@@ -13,12 +14,40 @@ $(function () {
 
 
 var contestApplicationFunctions = {
+
+    BUTTON_DATA: {
+        ACCEPTED_CONDITIONS: "data-acceptedConditions",
+        CAMPAIGN_ID: "data-campaignId"
+    },
+
+    warnBeforeVote: {
+        showWarnBeforeVote: function ($button) {
+            const campaignId = $button.attr(contestApplicationFunctions.BUTTON_DATA.CAMPAIGN_ID)
+            const $modal = $("#confirm-vote-contest-application-" + campaignId);
+            $modal.modal("show")
+            const $modalButton = $modal.find(".confirm-vote-contest-application")
+            const voteButtonId = guid()
+            $button.attr("id", voteButtonId)
+            $modalButton.attr("voteButtonId", voteButtonId)
+        },
+        acceptWarnBeforeVote: function (e) {
+            e.preventDefault();
+            const $modalButton = $(this)
+            const $modal = $modalButton.parents(".confirm-vote-contest-application");
+            $modal.modal("hide")
+            const $button = $("#" + $modalButton.attr("voteButtonId"))
+            $button.attr(contestApplicationFunctions.BUTTON_DATA.ACCEPTED_CONDITIONS, true)
+            $button.click()
+        }
+    },
     bindVoteClick: function (event) {
         event.preventDefault();
         event.stopPropagation();
         var $button = $(this);
+        if ($button.attr(contestApplicationFunctions.BUTTON_DATA.ACCEPTED_CONDITIONS) != "true") {
+            contestApplicationFunctions.warnBeforeVote.showWarnBeforeVote($button);
 
-        if ($button.attr("btn-disabled") === "false") {
+        } else if ($button.attr("btn-disabled") === "false") {
             var params = {
                 callback: undefined,
                 $button: $button
