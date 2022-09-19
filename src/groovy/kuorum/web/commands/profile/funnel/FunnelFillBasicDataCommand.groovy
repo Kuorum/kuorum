@@ -73,9 +73,7 @@ class FunnelFillBasicDataCommand {
 
     // This method is a fake to simulate 2 fields in the funnel, but in DDBB will be saved only one field -> BIO
     void fillBioParts(String bio) {
-        String bioTransformed = bio
-                .replaceAll(/<h5>[^<]*<\/h5>/, "|")
-                .replaceAll("<br/>", "")
+        String bioTransformed = bio?.replaceAll(/<h5>[^<]*<\/h5>/, "|")?.replaceAll("<br/>", "") ?: ""
         String[] bioParts = bioTransformed.split("\\|");
         switch (bioParts.size()) {
             case 0:

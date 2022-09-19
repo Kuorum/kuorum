@@ -1,9 +1,18 @@
 
+.fade-carousel .slides .slide-1.landingServices {
+  background-image: url("@{staticUrlRoot}/landingSlider/landing-1.jpg?version=@{cache-version}");
+}
 
-.fade-carousel .slides .slide-1.landingServices { background-image: url("@{staticUrlRoot}/landingSlider/landing-1.jpg?version=@{cache-version}");}
-.fade-carousel .slides .slide-2.landingServices { background-image: url("@{staticUrlRoot}/landingSlider/landing-2.jpg?version=@{cache-version}");}
-.fade-carousel .slides .slide-3.landingServices { background-image: url("@{staticUrlRoot}/landingSlider/landing-3.jpg?version=@{cache-version}");}
-.fade-carousel .content form .form-group.conditions {@text();}
+.fade-carousel .slides .slide-2.landingServices {
+  background-image: url("@{staticUrlRoot}/landingSlider/landing-2.jpg?version=@{cache-version}");
+}
+
+.fade-carousel .slides .slide-3.landingServices {
+  background-image: url("@{staticUrlRoot}/landingSlider/landing-3.jpg?version=@{cache-version}");
+}
+
+.fade-carousel .content form .form-group.conditions {@text();
+}
 
 // The main title of the landing page is always Arial Black
 //.fade-carousel .content h1,
@@ -12,17 +21,38 @@
 ul.globus li.fontIcon > a > span.fa,
 ul.globus li.fontIcon > a > span.fal,
 ul.globus li.fontIcon > a > span.far,
-ul.globus li.fontIcon > a > span.fas {color:@mainColor;}
+ul.globus li.fontIcon > a > span.fas {
+  color: @mainColor;
+}
+
 ul.globus li.fontIcon > a > span.fa:hover,
 ul.globus li.fontIcon > a > span.fal:hover,
 ul.globus li.fontIcon > a > span.far:hover,
-ul.globus li.fontIcon > a > span.fas:hover {color:@mainColorHover;}
+ul.globus li.fontIcon > a > span.fas:hover {
+  color: @mainColorHover;
+}
 
 
 .section-body a,
-.section-header a{
+.section-header a {
   color: @secondColor;
 }
-#starredCampaign .starredCampaign-title .starredCampaing-title-text {@title();}
-#starredCampaign .starredCampaign-title .fal{color:@mainColor}
-.participate a:focus {color: @secondColorHover;}
+
+#domain-description-landing-main {
+  background: @mainColor;
+}
+
+#domain-description-landing-main:after {
+  background: radial-gradient(circle 40px at 0% 100%, transparent, transparent 100px, @mainColor 100px);;
+}
+
+#starredCampaign .starredCampaign-title .starredCampaing-title-text {@title();
+}
+
+#starredCampaign .starredCampaign-title .fal {
+  color: @mainColor
+}
+
+.participate a:focus {
+  color: @secondColorHover;
+}
