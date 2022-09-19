@@ -11,26 +11,37 @@ $(function () {
     };
 });
 
-
 var contestApplicationFunctions = {
     bindVoteClick: function (event) {
         event.preventDefault();
         event.stopPropagation();
-        var $button = $(this);
+        const $button = $(this);
 
         if ($button.attr("btn-disabled") === "false") {
-            var params = {
+            const params = {
                 callback: undefined,
                 $button: $button
             };
-            var executableFunction = new userValidatedByDomain.ExcutableFunctionCallback(contestApplicationFunctions.onClickVoteContestApplicationWithParams, params);
 
-            userValidatedByDomain.handleLoginAndValidationUser(
-                $button,
-                "contestApplicationVoteNoLogged",
-                executableFunction)
+            if (contestApplicationFunctions._outOfTime($button.attr("data-deadLineVotesTimeStamp"))) {
+                display.error($button.attr("data-deadLineVotesErrorMsg"))
+            } else {
+                const executableFunction = new userValidatedByDomain.ExcutableFunctionCallback(contestApplicationFunctions.onClickVoteContestApplicationWithParams, params);
+
+                userValidatedByDomain.handleLoginAndValidationUser(
+                    $button,
+                    "contestApplicationVoteNoLogged",
+                    executableFunction)
+            }
         }
         // ELSE means that the user has already voted
+    },
+    _nowUTC: function () {
+        const now = new Date();
+        return now.getTime() + now.getTimezoneOffset() * 60000
+    }, _outOfTime: function (deadLineVotes) {
+        const deadLineMillisecondsUTC = parseInt(deadLineVotes)
+        return deadLineMillisecondsUTC < this._nowUTC()
     },
     onClickVoteContestApplicationWithParams: function (params) {
         contestApplicationFunctions.onClickVoteContestApplication(params.$button, params.callback)
