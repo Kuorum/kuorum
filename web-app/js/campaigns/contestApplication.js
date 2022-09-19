@@ -23,7 +23,7 @@ var contestApplicationFunctions = {
                 $button: $button
             };
 
-            if (contestApplicationFunctions.outOfTime($button.attr("data-deadLineVotesTimeStamp"))) {
+            if (contestApplicationFunctions._outOfTime($button.attr("data-deadLineVotesTimeStamp"))) {
                 display.error($button.attr("data-deadLineVotesErrorMsg"))
             } else {
                 const executableFunction = new userValidatedByDomain.ExcutableFunctionCallback(contestApplicationFunctions.onClickVoteContestApplicationWithParams, params);
@@ -36,12 +36,12 @@ var contestApplicationFunctions = {
         }
         // ELSE means that the user has already voted
     },
-    nowUTC: function () {
+    _nowUTC: function () {
         const now = new Date();
         return now.getTime() + now.getTimezoneOffset() * 60000
-    }, outOfTime: function (deadLineVotes) {
+    }, _outOfTime: function (deadLineVotes) {
         const deadLineMillisecondsUTC = parseInt(deadLineVotes)
-        return deadLineMillisecondsUTC < this.nowUTC()
+        return deadLineMillisecondsUTC < this._nowUTC()
     },
     onClickVoteContestApplicationWithParams: function (params) {
         contestApplicationFunctions.onClickVoteContestApplication(params.$button, params.callback)
