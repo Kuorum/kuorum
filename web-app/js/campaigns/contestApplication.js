@@ -43,18 +43,16 @@ var contestApplicationFunctions = {
         event.preventDefault();
         event.stopPropagation();
         const $button = $(this);
-        if ($button.attr(contestApplicationFunctions.BUTTON_DATA.ACCEPTED_CONDITIONS) != "true") {
-            contestApplicationFunctions.warnBeforeVote.showWarnBeforeVote($button);
-
-        } else if ($button.attr("btn-disabled") === "false") {
-            const params = {
-                callback: undefined,
-                $button: $button
-            };
-
+        if ($button.attr("btn-disabled") === "false") {
             if (contestApplicationFunctions._outOfTime($button.attr("data-deadLineVotesTimeStamp"))) {
                 display.error($button.attr("data-deadLineVotesErrorMsg"))
+            } else if ($button.attr(contestApplicationFunctions.BUTTON_DATA.ACCEPTED_CONDITIONS) != "true") {
+                contestApplicationFunctions.warnBeforeVote.showWarnBeforeVote($button);
             } else {
+                const params = {
+                    callback: undefined,
+                    $button: $button
+                };
                 const executableFunction = new userValidatedByDomain.ExcutableFunctionCallback(contestApplicationFunctions.onClickVoteContestApplicationWithParams, params);
 
                 userValidatedByDomain.handleLoginAndValidationUser(
@@ -71,7 +69,7 @@ var contestApplicationFunctions = {
     },
     _outOfTime: function (deadLineVotes) {
         const deadLineMillisecondsUTC = parseInt(deadLineVotes)
-        return deadLineMillisecondsUTC < this._nowUTC()
+        return deadLineMillisecondsUTC < contestApplicationFunctions._nowUTC()
     },
     onClickVoteContestApplicationWithParams: function (params) {
         contestApplicationFunctions.onClickVoteContestApplication(params.$button, params.callback)
@@ -100,7 +98,7 @@ var contestApplicationFunctions = {
             data: data,
             success: function (contestApplicationVote) {
                 if (contestApplicationVote.success) {
-                    this._handleButtonsAtSuccess(contestApplicationVote, $button);
+                    contestApplicationFunctions._handleButtonsAtSuccess(contestApplicationVote, $button);
                     display.success(contestApplicationVote.message)
                 } else {
                     display.error(contestApplicationVote.message)
