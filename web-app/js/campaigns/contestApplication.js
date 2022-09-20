@@ -1,7 +1,7 @@
 $(function () {
 
 
-    $("body").on("click", '.contestApplication-vote', contestApplicationFunctions.bindVoteClick);
+    $("body").on("click", '.' + contestApplicationFunctions.BUTTON_DATA.BUTTON_CLASS, contestApplicationFunctions.bindVoteClick);
     $("body").on("click", '.modal.confirm-vote-contest-application .confirm-vote-contest-application', contestApplicationFunctions.warnBeforeVote.acceptWarnBeforeVote);
     noLoggedCallbacks['contestApplicationVoteNoLogged'] = function () {
         var buttonId = $('#registro').find("form").attr("data-buttonId");
@@ -16,7 +16,9 @@ var contestApplicationFunctions = {
 
     BUTTON_DATA: {
         ACCEPTED_CONDITIONS: "data-acceptedConditions",
-        CAMPAIGN_ID: "data-campaignId"
+        REMAINING_VOTES: "data-contestRemainingVotes",
+        CAMPAIGN_ID: "data-campaignId",
+        BUTTON_CLASS: 'contestApplication-vote'
     },
 
     warnBeforeVote: {
@@ -35,8 +37,15 @@ var contestApplicationFunctions = {
             const $modal = $modalButton.parents(".confirm-vote-contest-application");
             $modal.modal("hide")
             const $button = $("#" + $modalButton.attr("voteButtonId"))
-            $button.attr(contestApplicationFunctions.BUTTON_DATA.ACCEPTED_CONDITIONS, true)
+            contestApplicationFunctions.warnBeforeVote.toggleShowWarn($button, true);
             $button.click()
+        },
+        isActiveWarn: function ($button) {
+            const remaining = parseInt($button.attr(contestApplicationFunctions.BUTTON_DATA.REMAINING_VOTES));
+            return remaining > 0 && $button.attr(contestApplicationFunctions.BUTTON_DATA.ACCEPTED_CONDITIONS) != "true"
+        },
+        toggleShowWarn: function ($button, active) {
+            $button.attr(contestApplicationFunctions.BUTTON_DATA.ACCEPTED_CONDITIONS, active)
         }
     },
     bindVoteClick: function (event) {
@@ -46,9 +55,10 @@ var contestApplicationFunctions = {
         if ($button.attr("btn-disabled") === "false") {
             if (contestApplicationFunctions._outOfTime($button.attr("data-deadLineVotesTimeStamp"))) {
                 display.error($button.attr("data-deadLineVotesErrorMsg"))
-            } else if ($button.attr(contestApplicationFunctions.BUTTON_DATA.ACCEPTED_CONDITIONS) != "true") {
+            } else if (contestApplicationFunctions.warnBeforeVote.isActiveWarn($button)) {
                 contestApplicationFunctions.warnBeforeVote.showWarnBeforeVote($button);
             } else {
+                contestApplicationFunctions.warnBeforeVote.toggleShowWarn($button, false);
                 const params = {
                     callback: undefined,
                     $button: $button
@@ -70,6 +80,9 @@ var contestApplicationFunctions = {
     _outOfTime: function (deadLineVotes) {
         const deadLineMillisecondsUTC = parseInt(deadLineVotes)
         return deadLineMillisecondsUTC < contestApplicationFunctions._nowUTC()
+    },
+    _isLogged: function ($button) {
+        return $button.attr("data-loggedUser") !== '';
     },
     onClickVoteContestApplicationWithParams: function (params) {
         contestApplicationFunctions.onClickVoteContestApplication(params.$button, params.callback)
@@ -123,8 +136,11 @@ var contestApplicationFunctions = {
         const stats = [$buttonMain,$buttonContestApplicationList, $badgeNumVotesStats]
 
         const numVotes = contestApplicationVote.vote.votes;
-        if ($button.attr("data-loggedUser") !== '') {
-            buttons.forEach(function (item){contestApplicationFunctions._disableVoteButton(item,numVotes)});
+        if (contestApplicationFunctions._isLogged($button)) {
+            buttons.forEach(function (item) {
+                contestApplicationFunctions._disableVoteButton(item, numVotes)
+            });
+            $('.' + contestApplicationFunctions.BUTTON_DATA.BUTTON_CLASS).attr(contestApplicationFunctions.BUTTON_DATA.REMAINING_VOTES, 0)
         }
         stats.forEach(function (item){contestApplicationFunctions._updateNumVotes(item,numVotes)});
 
