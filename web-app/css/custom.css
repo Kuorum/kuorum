@@ -4886,6 +4886,10 @@ h5#results {margin: 0 0 15px;}
     font-size: 18px;
 }
 
+.noty_type_cookie .noty_close_fake {
+    display: none;
+}
+
 .container-fluid.info {
     padding-top: 20px;
 }
