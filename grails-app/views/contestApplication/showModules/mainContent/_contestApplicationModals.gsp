@@ -18,7 +18,7 @@
                               args="[contestApplication.contest.title]"/></p>
 
                 <p><g:message code="contestApplication.modal.confirmVote.body.phoneWarn"
-                              args="[contestApplication.contest.title]"/></p>
+                              args="[kuorum.core.customDomain.CustomDomainResolver.domainRSDTO?.name, g.createLink(mapping: 'footerPrivacyPolicy')]"/></p>
             </div>
 
             <div class="modal-actions">
