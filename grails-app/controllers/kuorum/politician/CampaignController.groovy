@@ -15,9 +15,9 @@ import kuorum.security.evidences.Evidences
 import kuorum.security.evidences.HttpRequestRecoverEvidences
 import kuorum.solr.SearchSolrService
 import kuorum.users.CookieUUIDService
-import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
 import kuorum.util.TimeZoneUtil
+import kuorum.util.rest.RestKuorumApiService
 import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.commands.payment.CampaignSettingsCommand
 import kuorum.web.commands.payment.contact.ContactFilterCommand
@@ -29,7 +29,6 @@ import kuorum.web.constants.WebConstants
 import org.kuorum.rest.model.communication.*
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.kuorum.rest.model.communication.event.EventRDTO
-import org.kuorum.rest.model.communication.participatoryBudget.DistrictProposalRDTO
 import org.kuorum.rest.model.communication.search.SearchCampaignRDTO
 import org.kuorum.rest.model.communication.survey.CampaignVisibilityRSDTO
 import org.kuorum.rest.model.communication.survey.SurveyRDTO
@@ -52,6 +51,8 @@ import payment.campaign.*
 import payment.contact.ContactService
 
 import javax.servlet.http.HttpServletResponse
+
+import static kuorum.util.rest.RestKuorumApiService.ApiMethod.ACCOUNT_PARTICIPATORY_BUDGET_REPORT
 
 class CampaignController {
 
@@ -589,6 +590,18 @@ class CampaignController {
         ] as JSON)
     }
 
+    def abstractSendProposalsReport(RestKuorumApiService.ApiMethod reportApiMethod) {
+        KuorumUserSession campaignUser = springSecurityService.principal
+        Long participatoryBudgetId = Long.parseLong(params.campaignId)
+        participatoryBudgetService.sendReport(campaignUser, participatoryBudgetId, reportApiMethod)
+        Boolean isAjax = request.xhr
+        if (isAjax) {
+            render([success: "success"] as JSON)
+        } else {
+            flash.message = g.message(code: 'modal.exportedTrackingEvents.title')
+            redirect(mapping: 'politicianCampaignStatsShow', params: [campaignId: participatoryBudgetId])
+        }
+    }
 
     private def getPendingValidations(UserValidationRSDTO userValidationRSDTO) {
         String phone = null;
