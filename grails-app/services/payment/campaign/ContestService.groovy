@@ -240,4 +240,15 @@ class ContestService extends AbstractCampaignCreatorService<ContestRSDTO, Contes
     private long countUserApplications(String ownerCampaignId, Long contestId, String viewerId) {
         return countContestApplications(ownerCampaignId, contestId, viewerId).total
     }
+
+    void sendVotesReport(KuorumUserSession user, Long campaignId) {
+        Map<String, String> params = [userId: user.getId().toString(), campaignId: campaignId.toString()]
+        Map<String, String> query = [:]
+        def response = restKuorumApiService.get(
+                RestKuorumApiService.ApiMethod.ACCOUNT_CONTEST_VOTES_REPORT,
+                params,
+                query,
+                null
+        )
+    }
 }
