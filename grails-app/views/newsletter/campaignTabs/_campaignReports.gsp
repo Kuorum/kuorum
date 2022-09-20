@@ -68,6 +68,11 @@
                 <span class="fal fa-file-excel"></span>
                 <g:message code="tools.massMailing.view.contest.report"/>
             </g:link>
+            <g:link mapping="contestVotesReport" params="[campaignId: campaign.id]"
+                    class="btn btn-blue inverted export-modal-button" data-modalId="export-proposalsList-modal">
+                <span class="fal fa-file-excel"></span>
+                <g:message code="tools.massMailing.view.contest.votes.report"/>
+            </g:link>
         </g:if>
     </div>
 </div>
