@@ -10055,14 +10055,14 @@ li.survey-question.answered .survey-question-answer .option-extra-content textar
     display:none;
 }
 
-div.horizontal-scroll {
-    overflow:auto;
-    white-space:nowrap;
-    margin:10px;
+div.horizontal-scroll-cookies {
+    overflow: auto;
+    white-space: nowrap;
+    margin: 10px;
 }
 
-table.table td{
-    max-width:220px;
-    min-width:220px;
-    white-space:break-spaces;
+table.table-cookies td {
+    max-width: 220px;
+    min-width: 220px;
+    white-space: break-spaces;
 }

@@ -44,8 +44,9 @@
             <g:message code="footer.menu.footerCookiesInfo.description0202"/>
         </p>
     </div>
-    <div class="horizontal-scroll">
-        <table class="table">
+
+    <div class="horizontal-scroll-cookies">
+        <table class="table table-cookies">
             <thead>
             <tr>
                 <th class="col-md-2"><g:message code="footer.menu.footerCookiesInfo.cookie.tableHead.name"/></th>
