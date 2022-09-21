@@ -3,12 +3,11 @@
     <form class="form-horizontal" id="search-form-campaign">
         <fieldset aria-live="polite" class="form-group">
             <div class="col-sm-3 col-xs-12">
-                <label for="filterCampaignsByCause"><g:message code="contest.ranking.filter.byCause"/></label>
+                <label for="filterCampaignsByCause"><g:message code="contest.ranking.filter.quickSearch"/></label>
 
                 <div class="searchContainer">
                     <input type="text" class="form-control searchRankingCampaign" name="searchRankingCampaign"
-                           id="searchRankingCampaign"
-                           placeholder="${g.message(code: 'tools.campaign.filter.quickSearch.placeHolder')}"/>
+                           id="searchRankingCampaign"/>
                 </div>
             </div>
 
