@@ -415,4 +415,16 @@ class ContestController extends CampaignController {
 
 //        contestApplicationService.vote()
     }
+
+    def ranking() {
+        BasicDataKuorumUserRSDTO contestUser = kuorumUserService.findBasicUserRSDTO(params.userAlias)
+        Long contestId = Long.parseLong(params.campaignId)
+        ContestRSDTO contest = contestService.find(params.userAlias, contestId);
+        String viewerUid = cookieUUIDService.buildUserUUID()
+        FilterContestApplicationRDTO filter = new FilterContestApplicationRDTO(page: 0, size: 10000)
+        filter.sort = new FilterContestApplicationRDTO.SortContestApplicationRDTO(field: FilterContestApplicationRDTO.ContestSortableFieldRDTO.VOTES, direction: DirectionDTO.DESC)
+
+        PageContestApplicationRSDTO pageContestApplications = contestService.findContestApplications(contestUser, contestId, filter, viewerUid)
+        [contest: contest, contestApplications: pageContestApplications.data]
+    }
 }

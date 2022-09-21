@@ -209,13 +209,17 @@ $(function(){
             outerWindow: 1
         };
         var options = {
-            valueNames: [ 'id', 'name', 'title', 'recip-number', 'open-number', 'click-number', 'state', 'type',{ name: 'timestamp', attr: 'val' } ],
+            valueNames: ['id', 'name', 'title', 'recip-number', 'open-number', 'click-number', 'state', 'type', {
+                name: 'timestamp',
+                attr: 'val'
+            }],
             page: 10,
             searchClass: "searchCampaigns",
             plugins: [
                 ListPagination(paginationTopOptions),
                 ListPagination(paginationBottomOptions)
-            ]
+            ],
+            pagination: true
         };
         var campaignList = new List('listCampaigns', options);
 
