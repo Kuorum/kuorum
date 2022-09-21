@@ -41,7 +41,7 @@ $(function () {
 var rankingHelper = {
     rankingCampaignList: undefined,
     options: undefined,
-    timeoutInSeconds: 0,
+    timeoutInSeconds: 5,
     reloadDataTimer: undefined,
     sortInfo: {
         a: undefined,

@@ -5,6 +5,8 @@
 
     <meta itemprop="name" content="${_domainName}">
     <r:require modules="rankingList"/>
+    <g:set var="rankingReady"
+           value="${[org.kuorum.rest.model.communication.contest.ContestStatusDTO.VOTING, org.kuorum.rest.model.communication.contest.ContestStatusDTO.RESULTS].contains(contest.status)}"/>
 </head>
 
 <content tag="mainContent">
@@ -13,64 +15,13 @@
         <li class="active"><g:message code="contest.ranking.breadcrumb.ranking"/></li>
     </ol>
 
-    <div id="rankingListCampaigns">
-        <g:render template="ranking/rankingFilter"/>
-        <!-- LISTADO DE CAMPAÑAS -->
+    <g:if test="${rankingReady}">
+        <g:render template="ranking/rankingTable" model="[contest: contest]"/>
+    </g:if>
+    <g:else>
         <div class="box-ppal list-campaigns">
-            <div class="pag-list-campaigns">
-                <div class="pagination">
-                    <span class="reloading">Reloading in <span class="reloading-counter">5</span> seconds</span>
-                    <ul class="paginationTop"></ul>
-                    <span class="counterList"><g:message code="tools.massMailing.list.pagination.label"/> <span
-                            class="totalList"></span></span>
-                </div>
-            </div>
-
-            <div id="campaignsOrderOptions" class="box-order-options clearfix">
-                %{--                    <span><g:message code="tools.massMailing.list.order.by"/> :</span>--}%
-                <ul class="sort-options">
-                    <li class="ranking-pos-header "><a href="#" role="button" class="sort active asc"
-                                                       data-sort="ranking-pos">#</a></li>
-                    <li class="ranking-title-author-header">
-                        <a href="#" role="button" class="ranking-title-header sort"
-                           data-sort="ranking-campaign-title"><g:message
-                                code="contest.ranking.list.header.order.title"/></a>
-                        <a href="#" role="button" class="ranking-author-header sort"
-                           data-sort="ranking-campaign-author"><g:message
-                                code="contest.ranking.list.header.order.author"/></a>
-                    </li>
-                    <li class="ranking-extra-info">
-                        <ul>
-                            <li class="ranking-cause-header"><a href="#" role="button" class="sort active asc"
-                                                                data-sort="ranking-cause"><g:message
-                                        code="contest.ranking.list.header.order.cause"/></a></li>
-                            <li class="ranking-contest-focusType-header"><a href="#" role="button"
-                                                                            class="sort active asc"
-                                                                            data-sort="ranking-contest-focusType"><g:message
-                                        code="contest.ranking.list.header.order.focusType"/></a></li>
-                            <li class="ranking-contest-activityType-header"><a href="#" role="button"
-                                                                               class="sort active asc"
-                                                                               data-sort="ranking-contest-activityType"><g:message
-                                        code="contest.ranking.list.header.order.activityType"/></a></li>
-                            <li class="ranking-numVotes-header"><a href="#" role="button" class="sort active asc"
-                                                                   data-sort="ranking-numVotes"><g:message
-                                        code="contest.ranking.list.header.order.votes"/></a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-            <ul id="rankingList" class="list"
-                data-ajaxLoadContestApplications="${g.createLink(mapping: 'contestRankingApplications', params: contest.encodeAsLinkProperties())}">
-            </ul>
-
-            <div class="pag-list-campaigns clearfix">
-                <div class="pagination">
-                    <ul class="paginationBottom"></ul>
-                    <span class="counterList"><g:message code="tools.massMailing.list.pagination.label"/> <span
-                            class="totalList"></span></span>
-                </div>
-            </div>
+            <g:message code="contest.ranking.noReady"/>
         </div>
-    </div>
+    </g:else>
 
 </content>
