@@ -1667,8 +1667,20 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .pagination ul > li{list-style: none; display: inline-block;}
 .pagination ul > li a{color:#a8a8a8;}
 .pagination ul > li a:focus,
-.pagination ul > li a:hover{color:#a8a8a8;}
-.pagination > span {display: block; line-height: 32px; float: right; margin-right: 5px;}
+.pagination ul > li a:hover {
+    color: #a8a8a8;
+}
+
+.pagination ul > li.active a {
+    font-weight: bold
+}
+
+.pagination > span {
+    display: block;
+    line-height: 32px;
+    float: right;
+    margin-right: 5px;
+}
 .pagination a {text-align: center; color: #545454; display: block; float: right; width: 32px; height: 32px; line-height: 28px; margin-left: 0px; border: 1px solid #e5e5e5; background-color: #fff; background-position: center center; background-repeat: no-repeat;}
 .pagination a.disabled {background-color: #f7f7f7; color:#ddd}
 .pagination a:hover,
@@ -1900,7 +1912,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 }
 
 #rankingList > li {
-    padding: 15px 10px 10px 15px;
+    padding: 10px 10px 5px 15px;
     border-bottom: 1px solid #e5e5e5;
     position: relative;
     display: block;
