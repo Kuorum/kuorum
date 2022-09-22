@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    if (!cookiesInfo) {
+    if (typeof cookiesInfo === 'undefined') {
         cookiesHelper.displayCookiesPolitics();
     }
 })

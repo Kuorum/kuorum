@@ -370,6 +370,20 @@ class ContestController extends CampaignController {
         abstractSendProposalsReport(ACCOUNT_CONTEST_REPORT)
     }
 
+    @Secured(['ROLE_CAMPAIGN_CONTEST'])
+    def sendVotesReport() {
+        KuorumUserSession campaignUser = springSecurityService.getPrincipal()
+        Long contestId = Long.parseLong(params.campaignId)
+        contestService.sendVotesReport(campaignUser, contestId)
+        Boolean isAjax = request.xhr
+        if (isAjax) {
+            render([success: "success"] as JSON)
+        } else {
+            flash.message = g.message(code: 'modal.exportedTrackingEvents.title')
+            redirect(mapping: 'contestCampaignStatsShow', params: [campaignId: contestId])
+        }
+    }
+
 //    @Secured(['ROLE_CAMPAIGN_CONTEST_APPLICATION'])
     def vote(ContestApplicationVoteCommand command) {
         if (command.hasErrors()) {

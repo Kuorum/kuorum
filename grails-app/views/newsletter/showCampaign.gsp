@@ -243,6 +243,31 @@
                 </div>
             </g:if>
 
+    <!-- MODAL CONTEST -->
+            <g:if test="${campaign && campaign instanceof org.kuorum.rest.model.communication.contest.ContestRSDTO}">
+                <div id="export-votesList-modal" class="modal fade in" tabindex="-1" role="dialog"
+                     aria-labelledby="exportContestStatsTitle" aria-hidden="true">
+                    <div class="modal-dialog ">
+                        <div class="modal-content">
+                            <div class="modal-header"><h4><g:message
+                                    code="modal.exportedContestVotes.title"/></h4></div>
+
+                            <div class="modal-body">
+                                <p>
+                                    <g:message code="modal.exportedContestVotes.explanation"
+                                               args="[campaign.title]"/>
+                                </p>
+                            </div>
+
+                            <div class="modal-footer">
+                                <a href="#" class="btn" data-dismiss="modal" aria-label="Close"><g:message
+                                        code="modal.exportedContestVotes.close"/></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </g:if>
+
         </div>
         <!-- END MODALS -->
     </div>
