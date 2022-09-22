@@ -117,4 +117,8 @@
         <g:render template="/petition/showModules/mainContent/petitionModalErrors"
                   model="[petition: campaign]"/>
     </g:if>
+    <g:if test="${campaign instanceof org.kuorum.rest.model.search.kuorumElement.SearchContestApplicationRSDTO}">
+        <g:render template="/contestApplication/showModules/mainContent/contestApplicationModals"
+                  model="[contestApplication: campaign]"/>
+    </g:if>
 </article>

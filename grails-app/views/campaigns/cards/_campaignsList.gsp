@@ -49,6 +49,8 @@
         <g:if test="${campaign instanceof org.kuorum.rest.model.communication.contest.ContestApplicationRSDTO}">
             <g:render template="/campaigns/cards/contestApplicationCard"
                       model="[contestApplication: campaign, showAuthor: showAuthor, referred: 'dashboard', highlighted: highlighted]"/>
+            <g:render template="/contestApplication/showModules/mainContent/contestApplicationModals"
+                      model="[contestApplication: campaign]"/>
         </g:if>
         <g:if test="${campaign instanceof org.kuorum.rest.model.search.SearchKuorumElementRSDTO}">
             <g:render template="/campaigns/cards/searchCampaignList"

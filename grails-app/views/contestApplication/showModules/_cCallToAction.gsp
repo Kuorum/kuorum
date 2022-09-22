@@ -33,6 +33,7 @@
                     data-campaignValidationActive="${contestApplication.checkValidationActive}"
                     data-campaignGroupValidationActive="${contestApplication.groupValidation ? g.createLink(mapping: "campaignCheckGroupValidation", params: contestApplication.encodeAsLinkProperties()) : ''}"
                     data-campaignId="${contestApplication.id}"
+                    data-contestRemainingVotes="${contestApplication.contest.remainingVotes}"
                     data-disabledText="${g.message(code: 'contestApplication.callToAction.VOTING.SENT.button.disabled')}"
                     class="btn btn-blue btn-lg contestApplication-vote contestApplication-vote-${contestApplication.id} ${contestApplicationVoted ? 'active disabled' : ''}"
                     btn-disabled="${contestApplicationVoted}">

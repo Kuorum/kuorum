@@ -4864,26 +4864,70 @@ h5#results {margin: 0 0 15px;}
     background: rgba(255,148,49, 0.4);
     border-radius: 5px;
     border: 1px solid rgba(255,148,49,1);
-    box-shadow: rgba(255,148,49, 0.1) 0px 2px 4px;
+    box-shadow: rgba(255, 148, 49, 0.1) 0px 2px 4px;
     padding: 5px 10px;
-    color:#FFFFFF;
+    color: #FFFFFF;
 }
 
 .noty_type_cookie p {
     font-size: 15px;
 }
 
-.noty_type_cookie .noty_text a {color:#ffffff; font-weight: bold;}
+.noty_type_cookie .noty_text a {
+    color: #ffffff;
+    font-weight: bold;
+}
 
-.container-fluid.info {padding-top: 20px;}
-.info #main > header nav ul {margin: 0; padding: 0;}
-.info #main > header nav ul li {list-style: none;}
-.info #main > header nav ul li h1 {font-size: 17px; font-size: 1.7rem; font-weight: bold; margin-top: 20px;}
-.info #main > header nav ul li a {color: #a8a8a8; padding: 4px 30px; display: block;}
+.noty_close_fake {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 10px 15px;
+    font-size: 18px;
+}
+
+.noty_type_cookie .noty_close_fake {
+    display: none;
+}
+
+.container-fluid.info {
+    padding-top: 20px;
+}
+
+.info #main > header nav ul {
+    margin: 0;
+    padding: 0;
+}
+
+.info #main > header nav ul li {
+    list-style: none;
+}
+
+.info #main > header nav ul li h1 {
+    font-size: 17px;
+    font-size: 1.7rem;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.info #main > header nav ul li a {
+    color: #a8a8a8;
+    padding: 4px 30px;
+    display: block;
+}
+
 .info #main > header nav ul li a:hover,
 .info #main > header nav ul li a:active,
-.info #main > header nav ul li a:focus {text-decoration: none; color: #545454; background-color: #dddddd;}
-.info #main > header nav ul li a.active {color: #545454; background-color: #dadada;}
+.info #main > header nav ul li a:focus {
+    text-decoration: none;
+    color: #545454;
+    background-color: #dddddd;
+}
+
+.info #main > header nav ul li a.active {
+    color: #545454;
+    background-color: #dadada;
+}
 .info #main article h1 {font-size: 46px; font-size: 4.6rem; text-transform: uppercase; border-bottom: 1px solid #DADADA; padding-bottom: 15px;}
 .info #main article h2 {font-size: 22px; font-size: 2.2rem; margin: 20px 0; font-weight: bold;}
 .info #main article h2.border {border-top: 1px solid #DADADA; padding-top: 15px;}
