@@ -50,32 +50,39 @@ var rankingHelper = {
         itemPerPage: 100
     },
 
+    _buildDefaultPaginationTopOptions: function () {
+        return {
+            name: "paginationTop",
+            paginationClass: "paginationTop",
+            innerWindow: 1,
+            outerWindow: 1
+        };
+    },
+    _buildDefaultPaginationBottomOptions: function () {
+        return {
+            name: "paginationBottom",
+            paginationClass: "paginationBottom",
+            innerWindow: 2,
+            outerWindow: 1
+        };
+    },
+    _buildDefaultOptions: function () {
+        return {
+            valueNames: ['id', 'ranking-campaign-title', 'ranking-campaign-author', 'ranking-campaign-author', 'ranking-cause', 'ranking-pos', 'ranking-contest-focusType', 'ranking-contest-activityType', 'ranking-numVotes'],
+            page: rankingHelper.sortInfo.itemPerPage,
+            searchClass: "searchRankingCampaign",
+            plugins: [
+                ListPagination(this._buildDefaultPaginationTopOptions()),
+                ListPagination(this._buildDefaultPaginationBottomOptions())
+            ],
+            pagination: true
+        };
+    },
+
     init: function (data) {
         //plugin options
         if (rankingHelper.rankingCampaignList == undefined) {
-            var paginationTopOptions = {
-                name: "paginationTop",
-                paginationClass: "paginationTop",
-                innerWindow: 1,
-                outerWindow: 1
-            };
-            var paginationBottomOptions = {
-                name: "paginationBottom",
-                paginationClass: "paginationBottom",
-                innerWindow: 2,
-                outerWindow: 1
-            };
-
-            rankingHelper.options = {
-                valueNames: ['id', 'ranking-campaign-title', 'ranking-campaign-author', 'ranking-campaign-author', 'ranking-cause', 'ranking-pos', 'ranking-contest-focusType', 'ranking-contest-activityType', 'ranking-numVotes'],
-                page: rankingHelper.sortInfo.itemPerPage,
-                searchClass: "searchRankingCampaign",
-                plugins: [
-                    ListPagination(paginationTopOptions),
-                    ListPagination(paginationBottomOptions)
-                ],
-                pagination: true
-            };
+            rankingHelper.options = this._buildDefaultOptions();
             $("#rankingList").html(data);
             rankingHelper.rankingCampaignList = new List('rankingListCampaigns', rankingHelper.options);
             rankingHelper._savePageStatus();
