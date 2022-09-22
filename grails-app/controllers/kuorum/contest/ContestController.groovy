@@ -17,7 +17,7 @@ import org.kuorum.rest.model.search.DirectionDTO
 
 import java.lang.reflect.UndeclaredThrowableException
 
-import static kuorum.util.rest.RestKuorumApiService.ApiMethod.ACCOUNT_CONTEST_REPORT
+import static kuorum.util.rest.RestKuorumApiService.ApiMethod.ACCOUNT_CONTEST_APPLICATIONS_REPORT
 
 class ContestController extends CampaignController {
 
@@ -367,7 +367,7 @@ class ContestController extends CampaignController {
     }
 
     def sendApplicationsReport() {
-        abstractSendProposalsReport(ACCOUNT_CONTEST_REPORT)
+        abstractSendProposalsReport(ACCOUNT_CONTEST_APPLICATIONS_REPORT)
     }
 
     @Secured(['ROLE_CAMPAIGN_CONTEST'])
