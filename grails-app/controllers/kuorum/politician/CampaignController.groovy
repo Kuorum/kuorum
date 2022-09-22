@@ -592,14 +592,14 @@ class CampaignController {
 
     def abstractSendProposalsReport(RestKuorumApiService.ApiMethod reportApiMethod) {
         KuorumUserSession campaignUser = springSecurityService.principal
-        Long participatoryBudgetId = Long.parseLong(params.campaignId)
-        participatoryBudgetService.sendReport(campaignUser, participatoryBudgetId, reportApiMethod)
+        Long campaignId = Long.parseLong(params.campaignId)
+        participatoryBudgetService.sendReport(campaignUser, campaignId, reportApiMethod)
         Boolean isAjax = request.xhr
         if (isAjax) {
             render([success: "success"] as JSON)
         } else {
             flash.message = g.message(code: 'modal.exportedTrackingEvents.title')
-            redirect(mapping: 'politicianCampaignStatsShow', params: [campaignId: participatoryBudgetId])
+            redirect(mapping: 'politicianCampaignStatsShow', params: [campaignId: campaignId])
         }
     }
 
