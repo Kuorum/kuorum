@@ -12,6 +12,9 @@ class DomainConfigStep1Command {
     String slideId1
     String slideId2
     String slideId3
+    String carouselFooter1
+    String carouselFooter2
+    String carouselFooter3
     static constraints = {
         slogan nullable:false
         subtitle nullable:false
