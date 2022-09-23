@@ -590,10 +590,10 @@ class CampaignController {
         ] as JSON)
     }
 
-    def abstractSendProposalsReport(RestKuorumApiService.ApiMethod reportApiMethod) {
+    def sendReport(RestKuorumApiService.ApiMethod reportApiMethod) {
         KuorumUserSession campaignUser = springSecurityService.principal
         Long campaignId = Long.parseLong(params.campaignId)
-        participatoryBudgetService.sendReport(campaignUser, campaignId, reportApiMethod)
+        campaignService.sendReport(campaignUser, campaignId, reportApiMethod)
         Boolean isAjax = request.xhr
         if (isAjax) {
             render([success: "success"] as JSON)

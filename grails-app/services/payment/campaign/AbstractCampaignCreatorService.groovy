@@ -47,15 +47,4 @@ abstract class AbstractCampaignCreatorService<RSDTO extends CampaignRSDTO, RDTO 
 
     protected abstract RestKuorumApiService.ApiMethod getCopyApiMethod();
 
-    void sendReport(KuorumUserSession user, Long campaignId, RestKuorumApiService.ApiMethod reportApiMethod) {
-        Map<String, String> params = [userId: user.getId().toString(), campaignId: campaignId.toString()]
-        Map<String, String> query = [:]
-        def response = restKuorumApiService.get(
-                reportApiMethod,
-                params,
-                query,
-                null
-        )
-    }
-
 }

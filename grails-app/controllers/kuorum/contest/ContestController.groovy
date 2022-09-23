@@ -367,7 +367,7 @@ class ContestController extends CampaignController {
     }
 
     def sendApplicationsReport() {
-        abstractSendProposalsReport(ACCOUNT_CONTEST_APPLICATIONS_REPORT)
+        sendReport(ACCOUNT_CONTEST_APPLICATIONS_REPORT)
     }
 
     @Secured(['ROLE_CAMPAIGN_CONTEST'])

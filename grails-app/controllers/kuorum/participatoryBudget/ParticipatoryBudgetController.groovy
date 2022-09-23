@@ -295,7 +295,7 @@ class ParticipatoryBudgetController extends CampaignController {
 
     @Secured(['ROLE_CAMPAIGN_PARTICIPATORY_BUDGET'])
     def sendProposalsReport() {
-        abstractSendProposalsReport(ACCOUNT_PARTICIPATORY_BUDGET_REPORT)
+        sendReport(ACCOUNT_PARTICIPATORY_BUDGET_REPORT)
     }
 
 
