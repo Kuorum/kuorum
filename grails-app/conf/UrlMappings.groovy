@@ -232,6 +232,8 @@ class UrlMappings {
         name contestEditConfigContest:  "/account/$userAlias/ct/$urlTitle-$campaignId/edit-areas"    (controller: "contest"){action = [GET: "editContestConfig", POST: "saveContestConfig"]}
         name contestRemove:            "/ajax/account/$userAlias/ct/$urlTitle-$campaignId/remove"    (controller: "contest", action:"remove")
         name contestShow:              "/$userAlias/$urlTitle-$campaignId"           (controller: "campaign", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it)})}}
+        name contestRanking:           "/$userAlias/$urlTitle-$campaignId/ranking"           (controller: "contest", action: "ranking"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it)})}}
+        name contestRankingApplications:"/ajax/$userAlias/$urlTitle-$campaignId/ranking/data"           (controller: "contest", action: "rankingContestApplicationList"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it)})}}
         name contestListApplications:  "/ajax/$userAlias/$urlTitle-$campaignId/applications" (controller: "contest", action:"findContestApplications")
         name contestEditStatus:        "/ajax/account/$userAlias/ct/$urlTitle-$campaignId/edit-status" (controller: "contest", action:"editStatus")
         name contestListApplciationsPaggination:        "/ajax/account/$userAlias/ct/$urlTitle-$campaignId/applications/pagination" (controller: "contest", action:"paginateContestApplicationJson")

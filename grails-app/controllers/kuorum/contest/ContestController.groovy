@@ -415,4 +415,16 @@ class ContestController extends CampaignController {
 
 //        contestApplicationService.vote()
     }
+
+    def ranking() {
+        Long contestId = Long.parseLong(params.campaignId)
+        ContestRSDTO contest = contestService.find(params.userAlias, contestId);
+        [contest: contest]
+    }
+
+    def rankingContestApplicationList() {
+        Long contestId = Long.parseLong(params.campaignId)
+        List<ContestApplicationRSDTO> contestApplications = contestService.getRanking(params.userAlias, contestId)
+        render template: '/contest/ranking/rankingCampaign', model: [contestApplications: contestApplications]
+    }
 }
