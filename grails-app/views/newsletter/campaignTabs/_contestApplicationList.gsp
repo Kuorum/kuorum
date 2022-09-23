@@ -13,6 +13,11 @@
 <g:set var="currentLang" value="${org.springframework.web.servlet.support.RequestContextUtils.getLocale(request)}"/>
 
 <div class="actions" id="toolbar-contestApplicationReviewTable">
+    <g:link mapping="contestApplicationsReport" params="[campaignId: campaign.id]"
+            class="btn btn-blue inverted export-modal-button" data-modalId="export-proposalsList-modal">
+        <span class="fal fa-file-excel"></span>
+        <g:message code="tools.massMailing.view.contest.report"/>
+    </g:link>
     <a href="#" class="btn btn-blue inverted" id="changeContestBtn">
         <span class="fal fa-edit"></span>
         <g:message code="org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetStatusDTO.label"/>:
@@ -56,7 +61,8 @@
             data-filter-control-placeholder="${g.message(code: 'tools.massMailing.view.participatoryBudget.proposalList.table.author.searchPlaceholder')}"><g:message
                 code="tools.massMailing.view.participatoryBudget.proposalList.table.author"/></th>
         <th data-field="nid" data-halign="center" data-align="center" data-sortable="false" data-visible="true"
-            data-filter-control="input" data-filter-control-placeholder="${g.message(code: 'tools.massMailing.view.participatoryBudget.proposalList.table.author.nid.searchPlaceholder')}"><g:message
+            data-filter-control="input"
+            data-filter-control-placeholder="${g.message(code: 'tools.massMailing.view.participatoryBudget.proposalList.table.author.nid.searchPlaceholder')}"><g:message
                 code="tools.massMailing.view.participatoryBudget.proposalList.table.author.nid"/></th>
         <th data-field="campaignStatus.i18n" data-halign="center" data-align="center" data-sortable="false"
             data-visible="true"

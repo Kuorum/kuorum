@@ -16,6 +16,8 @@ import org.kuorum.rest.model.search.DirectionDTO
 
 import java.lang.reflect.UndeclaredThrowableException
 
+import static kuorum.util.rest.RestKuorumApiService.ApiMethod.ACCOUNT_PARTICIPATORY_BUDGET_REPORT
+
 class ParticipatoryBudgetController extends CampaignController {
 
     // Grails renderer -> For CSV hack
@@ -134,9 +136,9 @@ class ParticipatoryBudgetController extends CampaignController {
             flash.message = g.message(code: 'participatoryBudget.form.nobody.redirect')
             redirect mapping: 'participatoryBudgetEditContent', params: participatoryBudgetRSDTO.encodeAsLinkProperties()
         } else if (
-        !participatoryBudgetRSDTO.deadLineTechnicalReview ||
-                !participatoryBudgetRSDTO.deadLineProposals ||
-                !participatoryBudgetRSDTO.deadLineVotes
+                !participatoryBudgetRSDTO.deadLineTechnicalReview ||
+                        !participatoryBudgetRSDTO.deadLineProposals ||
+                        !participatoryBudgetRSDTO.deadLineVotes
         ) {
             flash.message = g.message(code: 'participatoryBudget.form.nobody.redirect')
             redirect mapping: 'participatoryBudgetEditDeadlines', params: participatoryBudgetRSDTO.encodeAsLinkProperties()
@@ -293,16 +295,7 @@ class ParticipatoryBudgetController extends CampaignController {
 
     @Secured(['ROLE_CAMPAIGN_PARTICIPATORY_BUDGET'])
     def sendProposalsReport() {
-        KuorumUserSession campaignUser = springSecurityService.principal
-        Long participatoryBudgetId = Long.parseLong(params.campaignId)
-        participatoryBudgetService.sendReport(campaignUser, participatoryBudgetId)
-        Boolean isAjax = request.xhr
-        if (isAjax) {
-            render([success: "success"] as JSON)
-        } else {
-            flash.message = g.message(code: 'modal.exportedTrackingEvents.title')
-            redirect(mapping: 'politicianCampaignStatsShow', params: [campaignId: participatoryBudgetId])
-        }
+        sendReport(ACCOUNT_PARTICIPATORY_BUDGET_REPORT)
     }
 
 
@@ -350,7 +343,7 @@ class ParticipatoryBudgetController extends CampaignController {
                         technicalReviewStatus: districtProposalRSDTO.technicalReviewStatus,
                         numSupports          : districtProposalRSDTO.numSupports,
                         numVotes             : districtProposalRSDTO.numVotes,
-                        backerType           : g.message(code:"org.kuorum.rest.model.communication.participatoryBudget.BackerTypeRSDTO.${districtProposalRSDTO.backerType}"),
+                        backerType           : g.message(code: "org.kuorum.rest.model.communication.participatoryBudget.BackerTypeRSDTO.${districtProposalRSDTO.backerType}"),
                         url                  : g.createLink(mapping: 'districtProposalShow', params: districtProposalRSDTO.encodeAsLinkProperties())
                 ]
             }
@@ -503,10 +496,10 @@ class ParticipatoryBudgetController extends CampaignController {
             response.status = 500
             if (e instanceof UndeclaredThrowableException) {
                 KuorumException ke = ((UndeclaredThrowableException) e).getCause().getCause()
-                log.info("Error voting: [Kuorum Exception] "+ke.getMessage());
+                log.info("Error voting: [Kuorum Exception] " + ke.getMessage());
                 render "{\"error\": \"API_ERROR\", \"code\":\"${ke.errors[0].code}\", \"msg\":\"${g.message(code: 'participatoryBudget.district.modal.differentDistrict.text', args: ke.errors[0].args)}\"}"
             } else {
-                log.info("Error voting: [Generic Exception]"+e.getMessage());
+                log.info("Error voting: [Generic Exception]" + e.getMessage());
                 render "{\"error\": \"GENERIC_ERROR\", \"code\":\"error.api.500\"}"
             }
         }
