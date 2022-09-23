@@ -223,6 +223,13 @@ modules = {
         resource url: 'js/campaigns/campaign-list.js'
     }
 
+    rankingList{
+        dependsOn("basic")
+        resource url: 'js/list.min.js'
+        resource url: 'js/list.pagination.min.js'
+        resource url: 'js/campaigns/ranking-list.js'
+    }
+
     campaignForm{
         dependsOn("basic", "forms", "contacts")
         resource url: 'js/campaign-form.js'

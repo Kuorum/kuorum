@@ -17,7 +17,6 @@
         <g:render template="/campaigns/showModules/campaignDataLabels" model="[causes: contestApplication.causes]"/>
         <g:render template="/campaigns/showModules/campaignDataSocial" model="[campaign: contestApplication]"/>
         <g:render template="/contestApplication/showModules/mainContent/contestApplicationDataIcon"
-            model="[contestApplication: contestApplication]"/>
-        %{--        <g:render template="/districtProposal/showModules/districtProposalDataIcon" model="[districtProposal:districtProposal]"/>--}%
+                  model="[contestApplication: contestApplication]"/>
     </div>
 </div>

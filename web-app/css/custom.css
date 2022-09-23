@@ -1667,8 +1667,20 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .pagination ul > li{list-style: none; display: inline-block;}
 .pagination ul > li a{color:#a8a8a8;}
 .pagination ul > li a:focus,
-.pagination ul > li a:hover{color:#a8a8a8;}
-.pagination > span {display: block; line-height: 32px; float: right; margin-right: 5px;}
+.pagination ul > li a:hover {
+    color: #a8a8a8;
+}
+
+.pagination ul > li.active a {
+    font-weight: bold
+}
+
+.pagination > span {
+    display: block;
+    line-height: 32px;
+    float: right;
+    margin-right: 5px;
+}
 .pagination a {text-align: center; color: #545454; display: block; float: right; width: 32px; height: 32px; line-height: 28px; margin-left: 0px; border: 1px solid #e5e5e5; background-color: #fff; background-position: center center; background-repeat: no-repeat;}
 .pagination a.disabled {background-color: #f7f7f7; color:#ddd}
 .pagination a:hover,
@@ -1797,21 +1809,200 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 
 #campaignsList > li > p,
 #campaignsList > li > ul.list-campaign-stats > li,
-#campaignsList > li > a {font-size: 16px; font-size: 1.6rem; line-height: 1.2;}
-#campaignsList > li > ul.list-campaign-stats {padding: 10px 0 0 0; margin: 0 0 0 -30px; border-top: 1px solid #e5e5e5;}
-#campaignsList > li > ul.list-campaign-stats > li {display: inline-block; margin: 0; width: 30%; text-align: center; font-size: 15px; font-size: 1.5rem;}
-#campaignsList > li > ul.list-campaign-stats > li span {position: relative; min-height: 24px; font-size: 16px; font-size: 1.6rem; display: block; margin-bottom: 2px;}
-#campaignsList > li > ul.list-campaign-stats > li span.open-number:empty::before,
-#campaignsList > li > ul.list-campaign-stats > li span.click-number:empty::before {content:'-'; left:30px; position:absolute; top:2px;}
-#campaignsList > li > ul.list-campaign-stats > li span.recip-number:empty::before {left:32px;}
-#campaignsList > li > .type {display: none;}
+#campaignsList > li > a {
+    font-size: 16px;
+    font-size: 1.6rem;
+    line-height: 1.2;
+}
 
-ul.list > li > ul.list-actions {position:absolute; top:10px; right: 10px;text-align: right;margin: 0;padding: 0; border:0;}
-ul.list > li > ul.list-actions > li {display: inline-block;margin-right: 10px;}
-ul.list > li > ul.list-actions > li > a {font-size: 1.6rem; line-height: 1.2; color:#545454}
+#campaignsList > li > ul.list-campaign-stats {
+    padding: 10px 0 0 0;
+    margin: 0 0 0 -30px;
+    border-top: 1px solid #e5e5e5;
+}
+
+#campaignsList > li > ul.list-campaign-stats > li {
+    display: inline-block;
+    margin: 0;
+    width: 30%;
+    text-align: center;
+    font-size: 15px;
+    font-size: 1.5rem;
+}
+
+#campaignsList > li > ul.list-campaign-stats > li span {
+    position: relative;
+    min-height: 24px;
+    font-size: 16px;
+    font-size: 1.6rem;
+    display: block;
+    margin-bottom: 2px;
+}
+
+#campaignsList > li > ul.list-campaign-stats > li span.open-number:empty::before,
+#campaignsList > li > ul.list-campaign-stats > li span.click-number:empty::before {
+    content: '-';
+    left: 30px;
+    position: absolute;
+    top: 2px;
+}
+
+#campaignsList > li > ul.list-campaign-stats > li span.recip-number:empty::before {
+    left: 32px;
+}
+
+#campaignsList > li > .type {
+    display: none;
+}
+
+#rankingListCampaigns .pag-list-campaigns {
+    margin: 0;
+}
+
+#rankingListCampaigns .reloading {
+    float: left;
+}
+
+#rankingListCampaigns .reloading .reloading-counter {
+    font-weight: bold;
+}
+
+#rankingListCampaigns .box-order-options ul,
+#rankingListCampaigns .box-order-options ul li {
+    margin: 0;
+}
+
+#rankingListCampaigns .box-order-options .ranking-pos-header {
+    width: 10%;
+    display: inline-block;
+    max-width: 50px;
+}
+
+#rankingListCampaigns .box-order-options .ranking-title-author-header {
+    width: 80%;
+    display: inline-block;
+}
+
+#rankingListCampaigns .box-order-options .ranking-title-header:after {
+    margin-left: 15px;
+    content: "/"
+}
+
+#rankingListCampaigns .box-order-options .ranking-author-header {
+    margin-left: 10px;
+    display: inline-block;
+}
+
+#rankingListCampaigns .box-order-options .ranking-author-header {
+    margin-left: 10px;
+    display: inline-block;
+}
+
+#rankingListCampaigns .box-order-options .ranking-extra-info ul {
+    width: 400px;
+    display: none;
+}
+
+#rankingListCampaigns .box-order-options .ranking-extra-info ul li {
+    width: 95px;
+    text-align: center
+}
+
+#rankingList {
+}
+
+#rankingList > li {
+    padding: 10px 10px 5px 15px;
+    border-bottom: 1px solid #e5e5e5;
+    position: relative;
+    display: block;
+}
+
+#rankingList > li > .ranking-pos {
+    width: 10%;
+    display: inline-block;
+    font-size: 40px;
+    max-width: 50px;
+    vertical-align: top;
+    padding-top: 5px;
+}
+
+#rankingList > li .ranking-campaign-info {
+    padding: 0px 10px;
+    display: inline-block;
+    width: 80%;
+}
+
+#rankingList > li .ranking-campaign-info h3 {
+    width: 100%;
+    display: block;
+    margin: 0;
+    font-size: 18px;
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+#rankingList > li .ranking-campaign-info h4 {
+    width: 100%;
+    display: block;
+    margin: 0;
+    font-size: 14px;
+    font-size: 1.4rem;
+    font-weight: normal;
+}
+
+#rankingList > li > ul.list-campaign-extra-data {
+    width: 400px;
+    display: block;
+    padding: 0
+}
+
+#rankingList > li > ul.list-campaign-extra-data > li {
+    display: inline-block;
+    margin: 0;
+    width: 95px;
+    text-align: center;
+    font-size: 15px;
+    font-size: 1.5rem;
+    vertical-align: middle;
+}
+
+#rankingList > li > ul.list-campaign-extra-data > li span {
+    position: relative;
+    min-height: 24px;
+    font-size: 16px;
+    font-size: 1.6rem;
+    display: block;
+    margin-bottom: 2px;
+}
+
+
+ul.list > li > ul.list-actions {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    text-align: right;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+ul.list > li > ul.list-actions > li {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+ul.list > li > ul.list-actions > li > a {
+    font-size: 1.6rem;
+    line-height: 1.2;
+    color: #545454
+}
+
 ul.list > li > ul.list-actions > li > a:hover,
 ul.list > li > ul.list-actions > li > a:focus,
-ul.list > li > ul.list-actions > li > a:active {color: #ec931f;}
+ul.list > li > ul.list-actions > li > a:active {
+    color: #ec931f;
+}
 
 /* DASHBOARD (08/2016) */
 
@@ -4864,26 +5055,70 @@ h5#results {margin: 0 0 15px;}
     background: rgba(255,148,49, 0.4);
     border-radius: 5px;
     border: 1px solid rgba(255,148,49,1);
-    box-shadow: rgba(255,148,49, 0.1) 0px 2px 4px;
+    box-shadow: rgba(255, 148, 49, 0.1) 0px 2px 4px;
     padding: 5px 10px;
-    color:#FFFFFF;
+    color: #FFFFFF;
 }
 
 .noty_type_cookie p {
     font-size: 15px;
 }
 
-.noty_type_cookie .noty_text a {color:#ffffff; font-weight: bold;}
+.noty_type_cookie .noty_text a {
+    color: #ffffff;
+    font-weight: bold;
+}
 
-.container-fluid.info {padding-top: 20px;}
-.info #main > header nav ul {margin: 0; padding: 0;}
-.info #main > header nav ul li {list-style: none;}
-.info #main > header nav ul li h1 {font-size: 17px; font-size: 1.7rem; font-weight: bold; margin-top: 20px;}
-.info #main > header nav ul li a {color: #a8a8a8; padding: 4px 30px; display: block;}
+.noty_close_fake {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 10px 15px;
+    font-size: 18px;
+}
+
+.noty_type_cookie .noty_close_fake {
+    display: none;
+}
+
+.container-fluid.info {
+    padding-top: 20px;
+}
+
+.info #main > header nav ul {
+    margin: 0;
+    padding: 0;
+}
+
+.info #main > header nav ul li {
+    list-style: none;
+}
+
+.info #main > header nav ul li h1 {
+    font-size: 17px;
+    font-size: 1.7rem;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.info #main > header nav ul li a {
+    color: #a8a8a8;
+    padding: 4px 30px;
+    display: block;
+}
+
 .info #main > header nav ul li a:hover,
 .info #main > header nav ul li a:active,
-.info #main > header nav ul li a:focus {text-decoration: none; color: #545454; background-color: #dddddd;}
-.info #main > header nav ul li a.active {color: #545454; background-color: #dadada;}
+.info #main > header nav ul li a:focus {
+    text-decoration: none;
+    color: #545454;
+    background-color: #dddddd;
+}
+
+.info #main > header nav ul li a.active {
+    color: #545454;
+    background-color: #dadada;
+}
 .info #main article h1 {font-size: 46px; font-size: 4.6rem; text-transform: uppercase; border-bottom: 1px solid #DADADA; padding-bottom: 15px;}
 .info #main article h2 {font-size: 22px; font-size: 2.2rem; margin: 20px 0; font-weight: bold;}
 .info #main article h2.border {border-top: 1px solid #DADADA; padding-top: 15px;}
@@ -6656,25 +6891,103 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     #campaignsList > li > ul.list-campaign-stats {width: 20%; position: absolute; top: 10px; right: 10%; padding: 10px 0 0 10px; margin: 0; border-top: none; border-left: 1px solid #e5e5e5;}
     #campaignsList > li > ul.list-campaign-stats > li {margin: 0 12px 0 0; width: 15%;}
     #campaignsList > li > ul.list-campaign-stats > li:last-child {margin: 0;}
-    #campaignsList > li > ul.list-campaign-stats > li.recipients {width: 34%;}
-    #campaignsList > li > ul.list-campaign-stats > li span {position: relative; min-height: 24px; font-size: 22px; font-size: 2.2rem; margin-bottom: 0;}
-    #campaignsList > li > ul.list-campaign-stats > li span:empty {min-width: 100%;}
+
+    #campaignsList > li > ul.list-campaign-stats > li.recipients {
+        width: 34%;
+    }
+
+    #campaignsList > li > ul.list-campaign-stats > li span {
+        position: relative;
+        min-height: 24px;
+        font-size: 22px;
+        font-size: 2.2rem;
+        margin-bottom: 0;
+    }
+
+    #campaignsList > li > ul.list-campaign-stats > li span:empty {
+        min-width: 100%;
+    }
+
     /*#campaignsList > li > ul.list-campaign-stats > li span.open-number::after,
     #campaignsList > li > ul.list-campaign-stats > li span.click-number::after {content:'%'; right:-12px; position:absolute; top:2px;}*/
     #campaignsList > li > span.far,
     #campaignsList > li > span.fal,
     #campaignsList > li > span.fas,
-    #campaignsList > li > span.fa {left: 18px;}
-    #campaignsList > li h3 {margin-top: 14px;}
-    .campaignDelete, .contactDelete  {right: 5px;}
-    .campaignStats, .contactStats, #campaignsList .campaignEdit {right: 28px;}
+    #campaignsList > li > span.fa {
+        left: 18px;
+    }
 
-    .tags-campaign .tag-events {border-left: 1px solid #DDDDDD;}
+    #campaignsList > li h3 {
+        margin-top: 14px;
+    }
+
+    #rankingList > li .ranking-campaign-info {
+        display: inline-block;
+        width: calc(90% - 400px);
+    }
+
+    #rankingListCampaigns .box-order-options {
+        margin-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    #rankingListCampaigns .box-order-options .ranking-extra-info ul {
+        display: block;
+        padding: 0;
+        margin: 0
+    }
+
+    #rankingListCampaigns .box-order-options .ranking-extra-info ul li {
+        padding: 0;
+        margin: 0
+    }
+
+    #rankingListCampaigns .box-order-options .ranking-extra-info,
+    #rankingList > li > ul.list-campaign-extra-data {
+        border: 0;
+        width: 400px;
+        display: inline-block;
+        padding: 0;
+        margin: 0
+    }
+
+    #rankingListCampaigns #campaignsOrderOptions.box-order-options .sort-options {
+        width: 100%;
+        display: block;
+    }
+
+    #rankingListCampaigns .box-order-options .ranking-title-author-header {
+        width: calc(90% - 400px);
+        display: inline-block;
+    }
+
+    .campaignDelete, .contactDelete {
+        right: 5px;
+    }
+
+    .campaignStats, .contactStats, #campaignsList .campaignEdit {
+        right: 28px;
+    }
+
+    .tags-campaign .tag-events {
+        border-left: 1px solid #DDDDDD;
+    }
 
     /* DASHBOARD (08/2016) */
-    .nav-tabs.simple > li {margin-bottom: -1px; margin-right: 1px;}
-    .alert-box {height: 54px; padding: 15px;}
-    #inviteFriendsModal h4 {font-size: 26px; font-size: 2.6rem;}
+    .nav-tabs.simple > li {
+        margin-bottom: -1px;
+        margin-right: 1px;
+    }
+
+    .alert-box {
+        height: 54px;
+        padding: 15px;
+    }
+
+    #inviteFriendsModal h4 {
+        font-size: 26px;
+        font-size: 2.6rem;
+    }
     .box-order-options {padding-left: 10px; padding-right: 10px;}
 
     /* LIST CONTACTS (08/2016) */
