@@ -114,6 +114,7 @@ var rankingHelper = {
     loadData: function () {
         const $rankingList = $("#rankingList");
         const loadDataUrl = $rankingList.attr("data-ajaxLoadContestApplications");
+        rankingHelper._savePageStatus();
         // pageLoadingOn();
         $.get(loadDataUrl, function (data) {
             rankingHelper.init(data);
@@ -133,7 +134,6 @@ var rankingHelper = {
     },
 
     _savePageStatus: function () {
-        const $sort = $(".sort-options .sort.active")
         rankingHelper.sortInfo.a = $(".sort-options .sort.active")
         rankingHelper.sortInfo.order = rankingHelper.sortInfo.a.hasClass("desc") ? "desc" : "asc"
         rankingHelper.sortInfo.activePage = $(".paginationTop li.active a").html()
