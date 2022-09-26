@@ -24,21 +24,21 @@
                        data-sort="ranking-campaign-author"><g:message
                             code="contest.ranking.list.header.order.author"/></a>
                 </li>
-                <li class="ranking-extra-info">
-                    <ul>
-                        <li class="ranking-cause-header"><a href="#" role="button" class="sort active asc"
-                                                            data-sort="ranking-cause"><g:message
+            <li class="ranking-extra-info">
+                <ul>
+                    <li class="ranking-cause-header"><a href="#" role="button" class="sort"
+                                                        data-sort="ranking-cause"><g:message
                                     code="contest.ranking.list.header.order.cause"/></a></li>
-                        <li class="ranking-contest-focusType-header"><a href="#" role="button"
-                                                                        class="sort active asc"
-                                                                        data-sort="ranking-contest-focusType"><g:message
+                    <li class="ranking-contest-focusType-header"><a href="#" role="button"
+                                                                    class="sort"
+                                                                    data-sort="ranking-contest-focusType"><g:message
                                     code="contest.ranking.list.header.order.focusType"/></a></li>
-                        <li class="ranking-contest-activityType-header"><a href="#" role="button"
-                                                                           class="sort active asc"
-                                                                           data-sort="ranking-contest-activityType"><g:message
+                    <li class="ranking-contest-activityType-header"><a href="#" role="button"
+                                                                       class="sort"
+                                                                       data-sort="ranking-contest-activityType"><g:message
                                     code="contest.ranking.list.header.order.activityType"/></a></li>
-                        <li class="ranking-numVotes-header"><a href="#" role="button" class="sort active asc"
-                                                               data-sort="ranking-numVotes"><g:message
+                    <li class="ranking-numVotes-header"><a href="#" role="button" class="sort"
+                                                           data-sort="ranking-numVotes"><g:message
                                     code="contest.ranking.list.header.order.votes"/></a></li>
                     </ul>
                 </li>
