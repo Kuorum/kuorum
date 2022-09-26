@@ -425,7 +425,7 @@ class ContestController extends CampaignController {
 
     def rankingContestApplicationList() {
         Long contestId = Long.parseLong(params.campaignId)
-        List<ContestApplicationRSDTO> contestApplications = contestService.getRanking(params.userAlias, contestId)
+        List<ContestApplicationRankingRSDTO> contestApplications = contestService.getRanking(params.userAlias, contestId)
         render template: '/contest/ranking/rankingCampaign', model: [contestApplications: contestApplications]
     }
 }

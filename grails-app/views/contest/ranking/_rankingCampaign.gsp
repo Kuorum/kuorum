@@ -9,7 +9,7 @@
         <div class="ranking-campaign-info">
             <h3 class="ranking-campaign-title">
                 <g:link mapping="campaignShow" params="${campaign.encodeAsLinkProperties()}"
-                        class="title">${campaign.name}<span></span></g:link>
+                        class="title">${campaign.title}<span></span></g:link>
             </h3>
             <h4 class="ranking-campaign-author">
                 <g:link mapping="userShow" params="${campaign.user.encodeAsLinkProperties()}"
