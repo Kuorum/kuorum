@@ -9,7 +9,6 @@ import kuorum.util.TimeZoneUtil
 import kuorum.web.commands.payment.CampaignContentCommand
 import kuorum.web.commands.payment.CampaignSettingsCommand
 import kuorum.web.commands.payment.contest.*
-
 import kuorum.web.constants.WebConstants
 import org.kuorum.rest.model.communication.contest.*
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
@@ -17,6 +16,8 @@ import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
 import org.kuorum.rest.model.search.DirectionDTO
 
 import java.lang.reflect.UndeclaredThrowableException
+
+import static kuorum.util.rest.RestKuorumApiService.ApiMethod.ACCOUNT_CONTEST_APPLICATIONS_REPORT
 
 class ContestController extends CampaignController {
 
@@ -302,7 +303,7 @@ class ContestController extends CampaignController {
                         activityType  : contestApplicationRSDTO.activityType,
                         focusType     : contestApplicationRSDTO.focusType,
                         url           : g.createLink(mapping: 'contestApplicationShow', params: contestApplicationRSDTO.encodeAsLinkProperties()),
-                        numVotes         : contestApplicationRSDTO.votes
+                        numVotes      : contestApplicationRSDTO.votes
                 ]
             }
         }
@@ -366,7 +367,21 @@ class ContestController extends CampaignController {
     }
 
     def sendApplicationsReport() {
-        render "OK";
+        sendReport(ACCOUNT_CONTEST_APPLICATIONS_REPORT)
+    }
+
+    @Secured(['ROLE_CAMPAIGN_CONTEST'])
+    def sendVotesReport() {
+        KuorumUserSession campaignUser = springSecurityService.getPrincipal()
+        Long contestId = Long.parseLong(params.campaignId)
+        contestService.sendVotesReport(campaignUser, contestId)
+        Boolean isAjax = request.xhr
+        if (isAjax) {
+            render([success: "success"] as JSON)
+        } else {
+            flash.message = g.message(code: 'modal.exportedTrackingEvents.title')
+            redirect(mapping: 'contestCampaignStatsShow', params: [campaignId: contestId])
+        }
     }
 
 //    @Secured(['ROLE_CAMPAIGN_CONTEST_APPLICATION'])
@@ -400,5 +415,17 @@ class ContestController extends CampaignController {
     def anonymousVote(ContestApplicationVoteCommand) {
 
 //        contestApplicationService.vote()
+    }
+
+    def ranking() {
+        Long contestId = Long.parseLong(params.campaignId)
+        ContestRSDTO contest = contestService.find(params.userAlias, contestId);
+        [contest: contest]
+    }
+
+    def rankingContestApplicationList() {
+        Long contestId = Long.parseLong(params.campaignId)
+        List<ContestApplicationRSDTO> contestApplications = contestService.getRanking(params.userAlias, contestId)
+        render template: '/contest/ranking/rankingCampaign', model: [contestApplications: contestApplications]
     }
 }

@@ -599,6 +599,51 @@
                 </div>
 
                 <div class="container-fluid box-ppal">
+                    <div class="horizontal-scroll">
+                    <table class="table">
+                            <thead>
+                            <tr>
+                                <th class="col-md-1">Cookie name</th>
+                                <th class="col-md-8">Description</th>
+                                <th class="col-md-3">Expiration</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>JSESSIONID</td>
+                                <td>Logged user identification</td>
+                                <td>On browsing session ends</td>
+                            </tr>
+                            <tr>
+                                <td>KUORUM_USER_UUID</td>
+                                <td>User unique identification</td>
+                                <td>On one month</td>
+                            </tr>
+                            <tr>
+                                <td>kuorumCookiesAccepted</td>
+                                <td>Technical cookies accepted status. Application needed a true value to work</td>
+                                <td>On one month</td>
+                            </tr>
+                            <tr>
+                                <td>kuorumCookiesAccepted</td>
+                                <td>Information to facilitate future access to the user</td>
+                                <td>On one month</td>
+                            </tr>
+                            <tr>
+                                <td>kuorumThirdCookiesAccepted</td>
+                                <td>Third-party cookies accepted status. When exist and value is true, analytics cookies are created.</td>
+                                <td>On one month</td>
+                            </tr>
+                            <tr>
+                                <td>org.springframework .web.servlet.i18n. CookieLocaleResolver.LOCALE</td>
+                                <td>Code to select application language</td>
+                                <td>On browsing session ends</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                <div class="container-fluid box-ppal">
                     <h1>Inputs lg</h1>
                     <div class="row">
                         <div class="form-group col-md-4">
@@ -2497,7 +2542,6 @@
                         </span>
                     </div>
                 </div>
-
             </aside>
         </div><!-- /.conatiner-fluid -->
     </div><!-- /.row.main -->

@@ -6,7 +6,7 @@
             <li data-target="#carousel-landing-main" data-slide-to="0" class="active"></li>
             <li data-target="#carousel-landing-main" data-slide-to="1"></li>
             <li data-target="#carousel-landing-main" data-slide-to="2"></li>
-            <li class="text"><span><g:message code="${msgPrefix}.carousel.slide1.text"/></span></li>
+            <li class="text"><span>${carouselFooter1}</span></li>
         </ol>
     </div>
     <!-- Wrapper for slides -->
@@ -117,9 +117,9 @@
             var $carouselContainer = $(event.target);
             var $carouselText = $($carouselContainer.find('li.text')[0]);
             var messages = {
-                'slide-0': '<g:message code="${msgPrefix}.carousel.slide1.text"/>',
-                'slide-1': '<g:message code="${msgPrefix}.carousel.slide2.text"/>',
-                'slide-2': '<g:message code="${msgPrefix}.carousel.slide3.text"/>'
+                'slide-0': '${carouselFooter1}',
+                'slide-1': '${carouselFooter2}',
+                'slide-2': '${carouselFooter3}'
             };
             $carouselText.slideToggle('slow', function () {
                 var activeSlide = $carouselContainer.find('.carousel-indicators li.active').attr('data-slide-to');

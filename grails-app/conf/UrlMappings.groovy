@@ -232,11 +232,15 @@ class UrlMappings {
         name contestEditConfigContest:  "/account/$userAlias/ct/$urlTitle-$campaignId/edit-areas"    (controller: "contest"){action = [GET: "editContestConfig", POST: "saveContestConfig"]}
         name contestRemove:            "/ajax/account/$userAlias/ct/$urlTitle-$campaignId/remove"    (controller: "contest", action:"remove")
         name contestShow:              "/$userAlias/$urlTitle-$campaignId"           (controller: "campaign", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it)})}}
+        name contestRanking:           "/$userAlias/$urlTitle-$campaignId/ranking"           (controller: "contest", action: "ranking"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it)})}}
+        name contestRankingApplications:"/ajax/$userAlias/$urlTitle-$campaignId/ranking/data"           (controller: "contest", action: "rankingContestApplicationList"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it)})}}
         name contestListApplications:  "/ajax/$userAlias/$urlTitle-$campaignId/applications" (controller: "contest", action:"findContestApplications")
         name contestEditStatus:        "/ajax/account/$userAlias/ct/$urlTitle-$campaignId/edit-status" (controller: "contest", action:"editStatus")
         name contestListApplciationsPaggination:        "/ajax/account/$userAlias/ct/$urlTitle-$campaignId/applications/pagination" (controller: "contest", action:"paginateContestApplicationJson")
         name contestApplicationUpdateReview:     "/ajax/account/ct/applications/review" (controller: "contest", action:"updateReview")
         name contestApplicationsReport:"/ajax/account/contest/$campaignId/report" (controller:"contest", action: "sendApplicationsReport")
+        name contestVotesReport:"/ajax/account/contest/$campaignId/votes/report" (controller:"contest", action: "sendVotesReport")
+        name contestCampaignStatsShow:   "/account/campaign/$campaignId" (controller:"newsletter", action:"showCampaignStats")
 
 
         name contestApplicationCreate: "/account/$userAlias/pb/$urlTitle-$campaignId/new-application" (controller: "contestApplication"){action = [GET: "create", POST: "saveNewApplication"]}

@@ -1,7 +1,8 @@
 $(function () {
 
 
-    $("body").on("click", '.contestApplication-vote', contestApplicationFunctions.bindVoteClick);
+    $("body").on("click", '.' + contestApplicationFunctions.BUTTON_DATA.BUTTON_CLASS, contestApplicationFunctions.bindVoteClick);
+    $("body").on("click", '.modal.confirm-vote-contest-application .confirm-vote-contest-application', contestApplicationFunctions.warnBeforeVote.acceptWarnBeforeVote);
     noLoggedCallbacks['contestApplicationVoteNoLogged'] = function () {
         var buttonId = $('#registro').find("form").attr("data-buttonId");
         var $button = $("#" + buttonId);
@@ -11,26 +12,77 @@ $(function () {
     };
 });
 
-
 var contestApplicationFunctions = {
+
+    BUTTON_DATA: {
+        ACCEPTED_CONDITIONS: "data-acceptedConditions",
+        REMAINING_VOTES: "data-contestRemainingVotes",
+        CAMPAIGN_ID: "data-campaignId",
+        BUTTON_CLASS: 'contestApplication-vote'
+    },
+
+    warnBeforeVote: {
+        showWarnBeforeVote: function ($button) {
+            const campaignId = $button.attr(contestApplicationFunctions.BUTTON_DATA.CAMPAIGN_ID)
+            const $modal = $("#confirm-vote-contest-application-" + campaignId);
+            $modal.modal("show")
+            const $modalButton = $modal.find(".confirm-vote-contest-application")
+            const voteButtonId = guid()
+            $button.attr("id", voteButtonId)
+            $modalButton.attr("voteButtonId", voteButtonId)
+        },
+        acceptWarnBeforeVote: function (e) {
+            e.preventDefault();
+            const $modalButton = $(this)
+            const $modal = $modalButton.parents(".confirm-vote-contest-application");
+            $modal.modal("hide")
+            const $button = $("#" + $modalButton.attr("voteButtonId"))
+            contestApplicationFunctions.warnBeforeVote.toggleShowWarn($button, true);
+            $button.click()
+        },
+        isActiveWarn: function ($button) {
+            const remaining = parseInt($button.attr(contestApplicationFunctions.BUTTON_DATA.REMAINING_VOTES));
+            return remaining > 0 && $button.attr(contestApplicationFunctions.BUTTON_DATA.ACCEPTED_CONDITIONS) != "true"
+        },
+        toggleShowWarn: function ($button, active) {
+            $button.attr(contestApplicationFunctions.BUTTON_DATA.ACCEPTED_CONDITIONS, active)
+        }
+    },
     bindVoteClick: function (event) {
         event.preventDefault();
         event.stopPropagation();
-        var $button = $(this);
-
+        const $button = $(this);
         if ($button.attr("btn-disabled") === "false") {
-            var params = {
-                callback: undefined,
-                $button: $button
-            };
-            var executableFunction = new userValidatedByDomain.ExcutableFunctionCallback(contestApplicationFunctions.onClickVoteContestApplicationWithParams, params);
+            if (contestApplicationFunctions._outOfTime($button.attr("data-deadLineVotesTimeStamp"))) {
+                display.error($button.attr("data-deadLineVotesErrorMsg"))
+            } else if (contestApplicationFunctions.warnBeforeVote.isActiveWarn($button)) {
+                contestApplicationFunctions.warnBeforeVote.showWarnBeforeVote($button);
+            } else {
+                contestApplicationFunctions.warnBeforeVote.toggleShowWarn($button, false);
+                const params = {
+                    callback: undefined,
+                    $button: $button
+                };
+                const executableFunction = new userValidatedByDomain.ExcutableFunctionCallback(contestApplicationFunctions.onClickVoteContestApplicationWithParams, params);
 
-            userValidatedByDomain.handleLoginAndValidationUser(
-                $button,
-                "contestApplicationVoteNoLogged",
-                executableFunction)
+                userValidatedByDomain.handleLoginAndValidationUser(
+                    $button,
+                    "contestApplicationVoteNoLogged",
+                    executableFunction)
+            }
         }
         // ELSE means that the user has already voted
+    },
+    _nowUTC: function () {
+        const now = new Date();
+        return now.getTime() + now.getTimezoneOffset() * 60000
+    },
+    _outOfTime: function (deadLineVotes) {
+        const deadLineMillisecondsUTC = parseInt(deadLineVotes)
+        return deadLineMillisecondsUTC < contestApplicationFunctions._nowUTC()
+    },
+    _isLogged: function ($button) {
+        return $button.attr("data-loggedUser") !== '';
     },
     onClickVoteContestApplicationWithParams: function (params) {
         contestApplicationFunctions.onClickVoteContestApplication(params.$button, params.callback)
@@ -59,7 +111,7 @@ var contestApplicationFunctions = {
             data: data,
             success: function (contestApplicationVote) {
                 if (contestApplicationVote.success) {
-                    this._handleButtonsAtSuccess(contestApplicationVote, $button);
+                    contestApplicationFunctions._handleButtonsAtSuccess(contestApplicationVote, $button);
                     display.success(contestApplicationVote.message)
                 } else {
                     display.error(contestApplicationVote.message)
@@ -75,19 +127,23 @@ var contestApplicationFunctions = {
     },
 
     _handleButtonsAtSuccess: function (contestApplicationVote, $button) {
-        const $buttonMainPage = $("section#main .leader-post .contestApplication-vote")
-        const $buttonColumnC = $("#aside-ppal .call-to-action .actions .contestApplication-vote a")
-        const $buttonContestApplicationList = $("#contest-applications-list  .contestApplication-vote-" + contestApplicationVote.vote.contestApplicationId)
-        const $liStats = $(".leader-post-stats .fa-scroll").parents("li")
+        const $buttonMain = $("section#main .leader-post .contestApplication-vote");
+        const $buttonContestApplicationList = $("#contest-applications-list  .contestApplication-vote-" + contestApplicationVote.vote.contestApplicationId);
+        const $buttonColumnCallToAction = $("#aside-ppal .call-to-action .actions .contestApplication-vote a");
+        const $badgeNumVotesStats = $(".leader-post-stats .fa-scroll").parents("li");
 
-        if ($button.attr("data-loggedUser") !== '') {
-            contestApplicationFunctions._disableVoteButton($buttonMainPage, contestApplicationVote.vote.votes);
-            contestApplicationFunctions._disableVoteButton($buttonColumnC, contestApplicationVote.vote.votes);
-            contestApplicationFunctions._disableVoteButton($buttonContestApplicationList, contestApplicationVote.vote.votes);
+        const buttons = [$buttonMain, $buttonContestApplicationList, $buttonColumnCallToAction]
+        const stats = [$buttonMain,$buttonContestApplicationList, $badgeNumVotesStats]
+
+        const numVotes = contestApplicationVote.vote.votes;
+        if (contestApplicationFunctions._isLogged($button)) {
+            buttons.forEach(function (item) {
+                contestApplicationFunctions._disableVoteButton(item, numVotes)
+            });
+            $('.' + contestApplicationFunctions.BUTTON_DATA.BUTTON_CLASS).attr(contestApplicationFunctions.BUTTON_DATA.REMAINING_VOTES, 0)
         }
-        contestApplicationFunctions._updateNumVotes($buttonMainPage, contestApplicationVote.vote.votes);
-        contestApplicationFunctions._updateNumVotes($liStats, contestApplicationVote.vote.votes);
-        contestApplicationFunctions._updateNumVotes($buttonContestApplicationList, contestApplicationVote.vote.votes);
+        stats.forEach(function (item){contestApplicationFunctions._updateNumVotes(item,numVotes)});
+
     },
 
     _disableVoteButton: function ($button, numVotes) {

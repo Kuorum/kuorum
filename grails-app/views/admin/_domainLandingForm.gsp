@@ -5,15 +5,17 @@
 
     <fieldset aria-live="polite" class="row">
         <div class="form-group col-md-6">
-            <formUtil:input command="${command}" field="slogan" showLabel="true" />
+            <formUtil:input command="${command}" field="slogan" showLabel="true"/>
         </div>
+
         <div class="form-group col-md-6">
-            <formUtil:input command="${command}" field="subtitle" showLabel="true" />
+            <formUtil:input command="${command}" field="subtitle" showLabel="true"/>
         </div>
     </fieldset>
     <fieldset aria-live="polite" class="row">
         <div class="form-group col-md-12">
-            <formUtil:textArea command="${command}" field="domainDescription" showLabel="true" />
+            <formUtil:textArea command="${command}" field="domainDescription" rows="12" showLabel="true"
+                               texteditor="texteditor"/>
         </div>
     </fieldset>
 
@@ -21,12 +23,12 @@
     <fieldset aria-live="polite" class="row pretty-check-box-row">
         <ul class="pretty-check-boxes">
             <g:each in="${[
-                    [role:org.kuorum.rest.model.kuorumUser.UserRoleRSDTO.ROLE_CAMPAIGN_POST, label:'POST', icon:'fa-newspaper'],
-                    [role:org.kuorum.rest.model.kuorumUser.UserRoleRSDTO.ROLE_CAMPAIGN_DEBATE, label:'DEBATE', icon:'fa-comments'],
-                    [role:org.kuorum.rest.model.kuorumUser.UserRoleRSDTO.ROLE_CAMPAIGN_EVENT, label:'EVENT', icon:'fa-calendar-star'],
-                    [role:org.kuorum.rest.model.kuorumUser.UserRoleRSDTO.ROLE_CAMPAIGN_SURVEY, label:'SURVEY', icon:'fa-chart-bar'],
-                    [role:org.kuorum.rest.model.kuorumUser.UserRoleRSDTO.ROLE_CAMPAIGN_PETITION, label:'PETITION', icon:'fa-microphone'],
-                    [role:org.kuorum.rest.model.kuorumUser.UserRoleRSDTO.ROLE_CAMPAIGN_PARTICIPATORY_BUDGET, label:'PARTICIPATORY_BUDGET', icon:'fa-money-bill-alt']
+                    [role: org.kuorum.rest.model.kuorumUser.UserRoleRSDTO.ROLE_CAMPAIGN_POST, label: 'POST', icon: 'fa-newspaper'],
+                    [role: org.kuorum.rest.model.kuorumUser.UserRoleRSDTO.ROLE_CAMPAIGN_DEBATE, label: 'DEBATE', icon: 'fa-comments'],
+                    [role: org.kuorum.rest.model.kuorumUser.UserRoleRSDTO.ROLE_CAMPAIGN_EVENT, label: 'EVENT', icon: 'fa-calendar-star'],
+                    [role: org.kuorum.rest.model.kuorumUser.UserRoleRSDTO.ROLE_CAMPAIGN_SURVEY, label: 'SURVEY', icon: 'fa-chart-bar'],
+                    [role: org.kuorum.rest.model.kuorumUser.UserRoleRSDTO.ROLE_CAMPAIGN_PETITION, label: 'PETITION', icon: 'fa-microphone'],
+                    [role: org.kuorum.rest.model.kuorumUser.UserRoleRSDTO.ROLE_CAMPAIGN_PARTICIPATORY_BUDGET, label: 'PARTICIPATORY_BUDGET', icon: 'fa-money-bill-alt']
             ]}" var="roleData">
                 <li class="pretty-check-box">
                     <label  for="landingVisibleRoles_${roleData.role}" rel="tooltip" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="${g.message(code:"dashboard.payment.chooseCampaign.tooltip.${roleData.label}")}">

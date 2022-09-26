@@ -213,24 +213,55 @@
             </g:if>
 
         <!-- MODAL PARTICIPATORY BUDGET -->
-            <g:if test="${campaign && campaign instanceof org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetRSDTO}">
+            <g:if test="${campaign
+                    && campaign instanceof org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetRSDTO
+                    || campaign instanceof org.kuorum.rest.model.communication.contest.ContestRSDTO}">
+                <g:if test="${campaign instanceof org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetRSDTO}">
+                    <g:set var="title"><g:message code="modal.exportedParticipatoryBudgetProposals.title"/></g:set>
+                    <g:set var="explanation"><g:message code="modal.exportedParticipatoryBudgetProposals.explanation"
+                                                        args="[campaign.title]"/></g:set>
+                </g:if>
+                <g:else>
+                    <g:set var="title"><g:message code="modal.exportedApplications.title"/></g:set>
+                    <g:set var="explanation"><g:message code="modal.exportedApplications.explanation"
+                                                        args="[campaign.title]"/></g:set>
+                </g:else>
                 <div id="export-proposalsList-modal" class="modal fade in" tabindex="-1" role="dialog"
                      aria-labelledby="exportDebateStatsTitle" aria-hidden="true">
                     <div class="modal-dialog ">
                         <div class="modal-content">
+                            <div class="modal-header"><h4>${title}</h4></div>
+
+                            <div class="modal-body"><p>${explanation}</p></div>
+
+                            <div class="modal-footer">
+                                <a href="#" class="btn" data-dismiss="modal" aria-label="Close"><g:message
+                                        code="modal.exportedDebateStats.close"/></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </g:if>
+
+    <!-- MODAL CONTEST -->
+            <g:if test="${campaign && campaign instanceof org.kuorum.rest.model.communication.contest.ContestRSDTO}">
+                <div id="export-votesList-modal" class="modal fade in" tabindex="-1" role="dialog"
+                     aria-labelledby="exportContestStatsTitle" aria-hidden="true">
+                    <div class="modal-dialog ">
+                        <div class="modal-content">
                             <div class="modal-header"><h4><g:message
-                                    code="modal.exportedParticipatoryBudgetProposals.title"/></h4></div>
+                                    code="modal.exportedContestVotes.title"/></h4></div>
 
                             <div class="modal-body">
                                 <p>
-                                    <g:message code="modal.exportedParticipatoryBudgetProposals.explanation"
+                                    <g:message code="modal.exportedContestVotes.explanation"
                                                args="[campaign.title]"/>
                                 </p>
                             </div>
 
                             <div class="modal-footer">
                                 <a href="#" class="btn" data-dismiss="modal" aria-label="Close"><g:message
-                                        code="modal.exportedDebateStats.close"/></a>
+                                        code="modal.exportedContestVotes.close"/></a>
                             </div>
                         </div>
                     </div>
