@@ -22,12 +22,15 @@
             <div class="">
                 <div class="col-sm-4">
                     <formUtil:editImage command="${command}" field="slideId1" fileGroup="${kuorum.core.FileGroup.DOMAIN_SLIDE_IMAGE}"/>
+                    <formUtil:input command="${command}" field="carouselFooter1" showLabel="true"/>
                 </div>
                 <div class="col-sm-4">
                     <formUtil:editImage command="${command}" field="slideId2" fileGroup="${kuorum.core.FileGroup.DOMAIN_SLIDE_IMAGE}"/>
+                    <formUtil:input command="${command}" field="carouselFooter2" showLabel="true"/>
                 </div>
                 <div class="col-sm-4">
                     <formUtil:editImage command="${command}" field="slideId3" fileGroup="${kuorum.core.FileGroup.DOMAIN_SLIDE_IMAGE}"/>
+                    <formUtil:input command="${command}" field="carouselFooter3" showLabel="true"/>
                 </div>
             </div>
         </fieldset>
