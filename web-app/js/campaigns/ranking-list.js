@@ -101,10 +101,11 @@ var rankingHelper = {
         const currentTime = parseInt($(".reloading-counter").html());
         var newTime = currentTime - 1;
         if (newTime == 0) {
-            rankingHelper.loadData();
             rankingHelper.stopTimer();
+            rankingHelper.loadData();
+        } else {
+            $(".reloading-counter").html(newTime <= 0 ? 0 : newTime)
         }
-        $(".reloading-counter").html(newTime <= 0 ? 0 : newTime)
     },
 
     restarConuter: function () {
@@ -116,6 +117,7 @@ var rankingHelper = {
         const loadDataUrl = $rankingList.attr("data-ajaxLoadContestApplications");
         rankingHelper._savePageStatus();
         // pageLoadingOn();
+        rankingHelper._putLoadingSpinner();
         $.get(loadDataUrl, function (data) {
             rankingHelper.init(data);
             rankingHelper.startTimer();
@@ -137,6 +139,10 @@ var rankingHelper = {
         rankingHelper.sortInfo.a = $(".sort-options .sort.active")
         rankingHelper.sortInfo.order = rankingHelper.sortInfo.a.hasClass("desc") ? "desc" : "asc"
         rankingHelper.sortInfo.activePage = $(".paginationTop li.active a").html()
+    },
+
+    _putLoadingSpinner: function () {
+        $('#rankingListCampaigns').find(".reloading-counter").html("<span class='fa fa-spinner fa-spin'></span>")
     },
 
     _recoverPageStatus: function () {

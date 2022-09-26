@@ -1876,6 +1876,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
     width: 10%;
     display: inline-block;
     max-width: 50px;
+    text-align: center;
 }
 
 #rankingListCampaigns .box-order-options .ranking-title-author-header {
@@ -1912,7 +1913,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 }
 
 #rankingList > li {
-    padding: 10px 10px 5px 15px;
+    padding: 10px 0px 0px 0px;
     border-bottom: 1px solid #e5e5e5;
     position: relative;
     display: block;
@@ -1921,10 +1922,11 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 #rankingList > li > .ranking-pos {
     width: 10%;
     display: inline-block;
-    font-size: 40px;
+    font-size: 20px;
     max-width: 50px;
     vertical-align: top;
     padding-top: 5px;
+    text-align: center;
 }
 
 #rankingList > li .ranking-campaign-info {
@@ -6919,6 +6921,14 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
 
     #campaignsList > li h3 {
         margin-top: 14px;
+    }
+
+    #rankingList > li {
+        padding: 10px 10px 5px 15px;
+    }
+
+    #rankingList > li .ranking-pos {
+        font-size: 35px;
     }
 
     #rankingList > li .ranking-campaign-info {
