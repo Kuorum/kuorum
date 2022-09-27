@@ -152,7 +152,8 @@ var rankingHelper = {
             rankingHelper.sortInfo.a.addClass("active")
             const field = rankingHelper.sortInfo.a.attr("data-sort")
             rankingHelper.rankingCampaignList.sort(field, {order: rankingHelper.sortInfo.order})
-            rankingHelper.rankingCampaignList.show(rankingHelper.sortInfo.activePage, rankingHelper.sortInfo.itemPerPage)
+            const firstElementPage = (rankingHelper.sortInfo.activePage - 1) * rankingHelper.sortInfo.itemPerPage + 1
+            rankingHelper.rankingCampaignList.show(firstElementPage, rankingHelper.sortInfo.itemPerPage)
         }
     },
 
