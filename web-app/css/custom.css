@@ -7019,7 +7019,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     }
 
     #domain-description-landing-main {
-        font-size: 34px;
+        font-size: 25px;
         line-height: 50px;
         padding: 100px 10%;
     }
@@ -7034,7 +7034,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     }
 
     #domain-description-landing-main {
-        border-bottom-left-radius: 22em 8em;
+        border-bottom-left-radius: 10em 10em;
     }
 
     #domain-description-landing-main:after {
@@ -9117,7 +9117,9 @@ ul.threeColumn .card-body p {
     font-size: 2.5rem;
 }
 
-#latestActivities .btn{font-size: 25px !important; }
+#latestActivities > a#register-submit-footer {
+    font-size: 25px !important;
+}
 
 
 .landing-overflow-image-right {

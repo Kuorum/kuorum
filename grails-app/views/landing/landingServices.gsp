@@ -47,5 +47,6 @@
         <g:render template="/campaigns/cards/campaignsList" model="[campaigns:campaigns, center:true]"/>
     </ul>
 
-    <g:link mapping="register" id="register-submit" class="btn btn-orange btn-lg"> <g:message code="landingPage.register.form.submit"/></g:link>
+    <g:link mapping="register" elementId="register-submit-footer" class="btn btn-orange btn-lg"><g:message
+            code="landingPage.register.form.submit"/></g:link>
 </content>
