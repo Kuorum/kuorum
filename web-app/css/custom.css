@@ -9117,7 +9117,9 @@ ul.threeColumn .card-body p {
     font-size: 2.5rem;
 }
 
-#latestActivities .btn{font-size: 25px !important; }
+#latestActivities > a#register-submit-footer {
+    font-size: 25px !important;
+}
 
 
 .landing-overflow-image-right {
