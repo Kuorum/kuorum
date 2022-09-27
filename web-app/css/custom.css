@@ -7034,7 +7034,7 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     }
 
     #domain-description-landing-main {
-        border-bottom-left-radius: 22em 8em;
+        border-bottom-left-radius: 10em 10em;
     }
 
     #domain-description-landing-main:after {
