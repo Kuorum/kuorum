@@ -22,7 +22,8 @@
             </div>
 
             <div class="modal-actions">
-                <a href="" role="button" class="btn btn-blue btn-lg confirm-vote-contest-application"><g:message
+                <a href="" role="button" class="btn btn-blue btn-lg confirm-vote-contest-application"
+                   id="confirm-vote-contest-application-accept-vote-button-${contestApplication.id}"><g:message
                         code="contestApplication.modal.confirmVote.buttonVote"/></a>
                 <button data-dismiss="modal" role="button" class="btn btn-blue inverted btn-lg close-modal"><g:message
                         code="default.close"/></button>
