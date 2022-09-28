@@ -9,7 +9,9 @@ import kuorum.register.KuorumUserSession
 import kuorum.users.KuorumUser
 import pl.burningice.plugins.image.BurningImageService
 
+import javax.imageio.ImageIO
 import javax.servlet.http.HttpServletResponse
+import java.awt.image.BufferedImage
 
 @Transactional
 class LocalFileService implements FileService{
@@ -109,6 +111,10 @@ class LocalFileService implements FileService{
 
         String folderPath = calculateLocalStoragePath(kuorumFile)
         String filePath = "${folderPath}/${kuorumFile.fileName}"
+
+        //This rewrites the jpg files to avoid problems with CMYK images.
+        handleJpgFile(kuorumFile, filePath)
+
         burningImageService.doWith(filePath, folderPath)
                 .execute {pl.burningice.plugins.image.engines.Action it ->
 //            log.info(it.loadedImage.size.getWidth())
@@ -136,6 +142,20 @@ class LocalFileService implements FileService{
 //
 //        }
         return kuorumFile
+    }
+
+    private void handleJpgFile(KuorumFile kuorumFile, String filePath) {
+        String fileNameLower = kuorumFile.fileName.toLowerCase()
+        Boolean isJpgFile = fileNameLower.endsWith(".jpg") || fileNameLower.endsWith(".jpeg")
+        if (isJpgFile) {
+            rewriteFile(filePath)
+        }
+    }
+
+    private void rewriteFile(String filePath) {
+        File imageFile = new File(filePath);
+        BufferedImage image = ImageIO.read(imageFile);
+        ImageIO.write(image, "JPG", imageFile);
     }
 
     protected String calculateLocalStoragePath(KuorumFile kuorumFile){
