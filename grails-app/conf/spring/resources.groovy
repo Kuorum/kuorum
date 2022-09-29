@@ -98,6 +98,11 @@ beans = {
     }
 
     // DOMAIN
+    cacheResponseSpringFilter(CacheResponseSpringFilter){
+        domainService = ref('domainService')
+        springSecurityService = ref('springSecurityService')
+    }
+    // DOMAIN
     customDomainSpringFilter(CustomDomainSpringFilter){
         domainService = ref('domainService')
     }
