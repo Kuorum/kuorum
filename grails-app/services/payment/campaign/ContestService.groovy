@@ -6,6 +6,8 @@ import kuorum.core.exception.KuorumException
 import kuorum.register.KuorumUserSession
 import kuorum.solr.IndexSolrService
 import kuorum.util.rest.RestKuorumApiService
+import org.kuorum.rest.model.communication.contest.ContestApplicationRSDTO
+import org.kuorum.rest.model.communication.contest.ContestApplicationRankingRSDTO
 import org.kuorum.rest.model.communication.contest.ContestRDTO
 import org.kuorum.rest.model.communication.contest.ContestRSDTO
 import org.kuorum.rest.model.communication.contest.FilterContestApplicationRDTO
@@ -239,5 +241,37 @@ class ContestService extends AbstractCampaignCreatorService<ContestRSDTO, Contes
 
     private long countUserApplications(String ownerCampaignId, Long contestId, String viewerId) {
         return countContestApplications(ownerCampaignId, contestId, viewerId).total
+    }
+
+    void sendVotesReport(KuorumUserSession user, Long campaignId) {
+        Map<String, String> params = [userId: user.getId().toString(), campaignId: campaignId.toString()]
+        Map<String, String> query = [:]
+        def response = restKuorumApiService.get(
+                RestKuorumApiService.ApiMethod.ACCOUNT_CONTEST_VOTES_REPORT,
+                params,
+                query,
+                null
+        )
+    }
+
+
+    List<ContestApplicationRankingRSDTO> getRanking(String ownerCampaignId, Long contestId) {
+        if (!contestId) {
+            return null
+        }
+        Map<String, String> params = [userId: ownerCampaignId, campaignId: contestId.toString()]
+        try {
+            def response = restKuorumApiService.get(
+                    RestKuorumApiService.ApiMethod.ACCOUNT_CONTEST_RANKING,
+                    params,
+                    null,
+                    new TypeReference<List<ContestApplicationRankingRSDTO>>() {}
+            )
+
+            return response.data
+        } catch (KuorumException e) {
+            log.info("Error recovering applications [Contest ID: ${filter.id} ]: ${e.message}")
+            return null
+        }
     }
 }

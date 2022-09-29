@@ -179,19 +179,6 @@ class ParticipatoryBudgetService extends AbstractCampaignCreatorService<Particip
         return participatoryBudgetRDTO
     }
 
-
-    void sendReport(KuorumUserSession user, Long campaignId) {
-        Map<String, String> params = [userId: user.getId().toString(), campaignId: campaignId.toString()]
-        Map<String, String> query = [:]
-        def response = restKuorumApiService.get(
-                RestKuorumApiService.ApiMethod.ACCOUNT_PARTICIPATORY_BUDGET_REPORT,
-                params,
-                query,
-                null
-        )
-    }
-
-
     PageDistrictProposalRSDTO findDistrictProposalsByDistrict(KuorumUserSession user, Long participatoryBudgetId, FilterDistrictProposalRDTO filter, String viewerUid = null) {
         return findDistrictProposalsByDistrict(user.id.toString(), participatoryBudgetId, filter, viewerUid)
     }

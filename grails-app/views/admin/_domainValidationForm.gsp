@@ -64,19 +64,19 @@
     <h4 class="box-ppal-section-title"><g:message code="kuorum.web.admin.domain.identityProviders.label"/></h4>
     <fieldset aria-live="polite" class="row">
         <div class="form-group col-md-12">
-            <formUtil:checkBox command="${command}" field="providerBasicEmailForm" showLabel="true"/>
+            <formUtil:checkBox command="${command}" field="providerBasicEmailForm" showLabel="true" disabled="${!disabledForAdmins}"/>
         </div>
 
         <div class="form-group col-md-12">
-            <formUtil:checkBox command="${command}" field="providerGoogle" showLabel="true"/>
+            <formUtil:checkBox command="${command}" field="providerGoogle" showLabel="true" disabled="${!disabledForAdmins}"/>
         </div>
 
         <div class="form-group col-md-12">
-            <formUtil:checkBox command="${command}" field="providerFacebook" showLabel="true"/>
+            <formUtil:checkBox command="${command}" field="providerFacebook" showLabel="true" disabled="${!disabledForAdmins}"/>
         </div>
 
         <div class="form-group col-md-12">
-            <formUtil:checkBox command="${command}" field="providerAoc" showLabel="true"/>
+            <formUtil:checkBox command="${command}" field="providerAoc" showLabel="true" disabled="${!disabledForAdmins}"/>
         </div>
     </fieldset>
 </div>

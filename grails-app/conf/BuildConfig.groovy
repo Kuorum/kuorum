@@ -151,6 +151,8 @@ grails.project.dependency.resolution = {
 
         runtime group: 'org.graylog2', name: 'gelfj', version: '1.1.13'
 
+        compile group: 'com.twelvemonkeys.imageio', name: 'imageio-jpeg', version: '3.8.1'
+
 
         // https://mvnrepository.com/artifact/de.javakaffee.msm/memcached-session-manager
 //        compile group: 'de.javakaffee.msm', name: 'memcached-session-manager', version: '2.3.2'
