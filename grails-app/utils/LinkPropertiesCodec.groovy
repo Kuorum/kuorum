@@ -6,6 +6,7 @@ import org.kuorum.rest.model.communication.CampaignLightRSDTO
 import org.kuorum.rest.model.communication.CampaignRSDTO
 import org.kuorum.rest.model.communication.EmbeddedCampaignRSDTO
 import org.kuorum.rest.model.communication.contest.ContestApplicationRSDTO
+import org.kuorum.rest.model.communication.contest.ContestApplicationRankingRSDTO
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.kuorum.rest.model.communication.debate.ProposalRSDTO
 import org.kuorum.rest.model.communication.event.EventRSDTO
@@ -123,6 +124,16 @@ class LinkPropertiesCodec {
     }
 
     private static def prepareParams(ContestApplicationRSDTO contestApplicationRSDTO) {
+        [
+                userAlias   : contestApplicationRSDTO.contest.userAlias.toLowerCase(),
+                contestTitle: contestApplicationRSDTO.contest.title.encodeAsKuorumUrl(),
+                contestId   : contestApplicationRSDTO.contest.id,
+                urlTitle    : getNameTitleUrl(contestApplicationRSDTO),
+                campaignId  : contestApplicationRSDTO.id
+        ]
+    }
+
+    private static def prepareParams(ContestApplicationRankingRSDTO contestApplicationRSDTO) {
         [
                 userAlias   : contestApplicationRSDTO.contest.userAlias.toLowerCase(),
                 contestTitle: contestApplicationRSDTO.contest.title.encodeAsKuorumUrl(),

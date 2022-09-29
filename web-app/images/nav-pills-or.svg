@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="285.808 36.736 194.316 343.542" xmlns="http://www.w3.org/2000/svg">
+    <rect x="370.573" y="37.464" width="21.758" height="342.96"
+          style="fill: rgb(255, 255, 255); stroke: rgb(84, 84, 84);" rx="0.201" ry="0.201"/>
+    <ellipse style="fill: rgb(255, 255, 255); stroke: rgb(84, 84, 84);" cx="381.986" cy="210.397" rx="93.849" ry="78">
+        <title>Circulo Exterior</title>
+    </ellipse>
+    <rect x="371.035" y="110.573" width="20.749" height="200.649" style="fill: rgb(255, 255, 255);" rx="0.201"
+          ry="0.201">
+        <title>Rectangulo que borra bordes</title>
+    </rect>
+    <ellipse style="fill: rgb(255, 255, 255); stroke: rgb(84, 84, 84);" cx="382.067" cy="209.437" rx="73.215"
+             ry="59.453">
+        <title>Circulo interior</title>
+    </ellipse>
+</svg>

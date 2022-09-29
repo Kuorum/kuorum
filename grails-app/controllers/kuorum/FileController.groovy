@@ -7,7 +7,6 @@ import kuorum.files.FileService
 import kuorum.files.LocalFileService
 import kuorum.register.KuorumUserSession
 import kuorum.web.constants.WebConstants
-import org.apache.commons.codec.binary.Base64
 import org.bson.types.ObjectId
 import org.kuorum.rest.model.contact.ContactRSDTO
 import org.springframework.web.multipart.MultipartFile

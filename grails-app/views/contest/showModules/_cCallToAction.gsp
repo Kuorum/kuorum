@@ -29,7 +29,7 @@
     <g:set var="addApplicationsDeadLineDate"><g:formatDate formatName="default.date.format.small"
                                                            date="${contest.deadLineApplications}"/></g:set>
     <g:set var="callTitleMsg"
-           value="${g.message(code: "contest.callToAction.${contest.status}.title", args: [campaignUser.name])}"/>
+           value="${g.message(code: "contest.callToAction.${contest.status}.title", args: [campaignUser.name, contest.title])}"/>
     <g:set var="callSubtitleMsg"
            value="${g.message(code: "contest.callToAction.${contest.status}.subtitle", args: [campaignUser.name, addApplicationsDeadLineDate])}"/>
     <g:set var="callButtonMsg"

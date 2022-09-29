@@ -6,9 +6,6 @@ var cookiesHelper = {
         d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
         var expires = "expires=" + d.toGMTString();
         var domain = document.domain;
-        if (domain.indexOf("kuorum.org") > 1) {
-            domain = ".kuorum.org"; //Subdomains shares the cookie
-        }
         document.cookie = cname + "=" + cvalue + "; " + expires + ";domain=" + domain + ";path=/";
     },
     getCookie: function (cname) {
@@ -39,8 +36,8 @@ var cookiesHelper = {
             function () {
             },
             function (cName) {
-                var buttonAccept = "<button id='acceptCookies' class='btn btn-xs' onclick='cookiesHelper.acceptedAllCookies()'>" + i18n.cookies.accept + "</button>";
-                var message = i18n.cookies.message + "<div>" + i18n.cookies.settingsLink + buttonAccept + "</div>"
+                var buttonAccept = "<button id='acceptCookies' class='btn btn-orange' onclick='cookiesHelper.acceptedAllCookies()'>" + i18n.cookies.accept + "</button>";
+                var message = "<p>" + i18n.cookies.message + "</p><div>" + i18n.cookies.settingsLink + buttonAccept + "</div>"
                 display.cookie(message);
             }
         )
@@ -51,7 +48,6 @@ var cookiesHelper = {
         if (cookiesInfo) {
             cookiesInfo.initTechnicalBox(true)
             cookiesInfo.initThirdBox(true)
-            cookiesInfo.initAllButton(true)
         }
     },
     acceptTechnicalCookies: function () {

@@ -7,28 +7,26 @@ import kuorum.register.KuorumUserSession
 import kuorum.solr.IndexSolrService
 import kuorum.util.rest.RestKuorumApiService
 import kuorum.web.constants.WebConstants
-import org.kuorum.rest.model.communication.*
-import org.kuorum.rest.model.communication.bulletin.BulletinRSDTO
+import org.kuorum.rest.model.communication.CampaignLightPageRSDTO
+import org.kuorum.rest.model.communication.CampaignRDTO
+import org.kuorum.rest.model.communication.CampaignRSDTO
 import org.kuorum.rest.model.communication.event.EventRDTO
 import org.kuorum.rest.model.communication.search.SearchCampaignRDTO
 import org.kuorum.rest.model.contact.ContactRSDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
-import org.kuorum.rest.model.notification.campaign.NewsletterRSDTO
 
 @Transactional
 class CampaignService {
 
     RestKuorumApiService restKuorumApiService
-    IndexSolrService indexSolrService
 
-
-    CampaignRSDTO findStarredCampaign(List<CampaignRSDTO> relevantCampaigns, Long starredCampaign){
+    CampaignRSDTO findStarredCampaign(List<CampaignRSDTO> relevantCampaigns, Long starredCampaign) {
 
         CampaignRSDTO relevantCampaign = null;
-        if (relevantCampaigns){
-            relevantCampaign = relevantCampaigns.find {it.id == starredCampaign}
+        if (relevantCampaigns) {
+            relevantCampaign = relevantCampaigns.find { it.id == starredCampaign }
         }
-        if (relevantCampaign == null){
+        if (relevantCampaign == null) {
             relevantCampaign = this.find(WebConstants.FAKE_LANDING_ALIAS_USER, starredCampaign)
         }
         return relevantCampaign
@@ -77,6 +75,7 @@ class CampaignService {
     CampaignLightPageRSDTO findAllCampaigns(KuorumUserSession user, SearchCampaignRDTO searchCampaignRSDTO) {
         return findAllCampaigns(user.id.toString(), searchCampaignRSDTO)
     }
+
     CampaignLightPageRSDTO findAllCampaigns(String userId, SearchCampaignRDTO searchCampaignRSDTO) {
         Map<String, String> params = [userId: userId]
         Map<String, String> query = searchCampaignRSDTO.encodeAsQueryParams()
@@ -311,4 +310,14 @@ class CampaignService {
         return null
     }
 
+    void sendReport(KuorumUserSession user, Long campaignId, RestKuorumApiService.ApiMethod reportApiMethod) {
+        Map<String, String> params = [userId: user.getId().toString(), campaignId: campaignId.toString()]
+        Map<String, String> query = [:]
+        restKuorumApiService.get(
+                reportApiMethod,
+                params,
+                query,
+                null
+        )
+    }
 }

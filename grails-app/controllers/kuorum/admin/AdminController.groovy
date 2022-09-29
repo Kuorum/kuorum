@@ -417,6 +417,10 @@ class AdminController {
         command.slideId1 = slide1?.id?.toString() ?: null
         command.slideId2 = slide2?.id?.toString() ?: null
         command.slideId3 = slide3?.id?.toString() ?: null
+        DomainRSDTO domainRSDTO = CustomDomainResolver.domainRSDTO
+        command.carouselFooter1 = domainRSDTO.carouselFooter1?: null
+        command.carouselFooter2 = domainRSDTO.carouselFooter2?: null
+        command.carouselFooter3 = domainRSDTO.carouselFooter3?: null
         [command: command]
     }
 
@@ -429,7 +433,13 @@ class AdminController {
             KuorumFile slideFile2 = KuorumFile.get(command.slideId2)
             KuorumFile slideFile3 = KuorumFile.get(command.slideId3)
             domainResourcesService.uploadCarouselImages(slideFile1, slideFile2, slideFile3, domain)
-            DomainRSDTO domainRSDTO = domainService.updateConfig(CustomDomainResolver.domainRSDTO)
+            DomainRSDTO domainRSDTO = CustomDomainResolver.domainRSDTO
+
+            domainRSDTO.setCarouselFooter1(command.carouselFooter1)
+            domainRSDTO.setCarouselFooter2(command.carouselFooter2)
+            domainRSDTO.setCarouselFooter3(command.carouselFooter3)
+
+            domainService.updateConfig(domainRSDTO)
             flash.message = "Sus imágenes se subieron correctamente"
             redirect mapping: 'adminDomainConfigUploadCarouselImages'
         }
@@ -544,6 +554,9 @@ class AdminController {
         domainResourcesService.uploadCarouselImages(slideFile1, slideFile2, slideFile3, domain)
 
         DomainRDTO domainRDTO = getPopulatedDomainRDTO()
+        domainRDTO.carouselFooter1 = command.carouselFooter1
+        domainRDTO.carouselFooter2 = command.carouselFooter2
+        domainRDTO.carouselFooter3 = command.carouselFooter3
         domainRDTO.slogan = command.slogan
         domainRDTO.name = command.slogan
         domainRDTO.subtitle = command.subtitle

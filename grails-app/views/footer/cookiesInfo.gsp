@@ -44,6 +44,50 @@
             <g:message code="footer.menu.footerCookiesInfo.description0202"/>
         </p>
     </div>
+
+    <div class="horizontal-scroll-cookies">
+        <table class="table table-cookies">
+            <thead>
+            <tr>
+                <th class="col-md-2"><g:message code="footer.menu.footerCookiesInfo.cookie.tableHead.name"/></th>
+                <th class="col-md-8"><g:message code="footer.menu.footerCookiesInfo.cookie.tableHead.description"/></th>
+                <th class="col-md-2"><g:message code="footer.menu.footerCookiesInfo.cookie.tableHead.expiration"/></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>JSESSIONID</td>
+                <td><g:message code="footer.menu.footerCookiesInfo.cookie.JSESSIONID.description"/></td>
+                <td><g:message code="footer.menu.footerCookiesInfo.cookie.expiration.browsingSession"/></td>
+            </tr>
+            <tr>
+                <td>KUORUM_USER_UUID</td>
+                <td><g:message code="footer.menu.footerCookiesInfo.cookie.KUORUM_USER_UUID.description"/></td>
+                <td><g:message code="footer.menu.footerCookiesInfo.cookie.expiration.oneMonth"/></td>
+            </tr>
+            <tr>
+                <td>kuorumCookiesAccepted</td>
+                <td><g:message code="footer.menu.footerCookiesInfo.cookie.kuorumCookiesAccepted.description"/></td>
+                <td><g:message code="footer.menu.footerCookiesInfo.cookie.expiration.oneMonth"/></td>
+            </tr>
+            <tr>
+                <td>kuorumCookiesAccepted</td>
+                <td><g:message code="footer.menu.footerCookiesInfo.cookie.kuorumSecurity_rememberMe.description"/></td>
+                <td><g:message code="footer.menu.footerCookiesInfo.cookie.expiration.oneMonth"/></td>
+            </tr>
+            <tr>
+                <td>kuorumThirdCookiesAccepted</td>
+                <td><g:message code="footer.menu.footerCookiesInfo.cookie.kuorumThirdCookiesAccepted.description"/></td>
+                <td><g:message code="footer.menu.footerCookiesInfo.cookie.expiration.oneMonth"/></td>
+            </tr>
+            <tr>
+                <td>org.springframework.web. servlet.i18n. CookieLocaleResolver.LOCALE</td>
+                <td><g:message code="footer.menu.footerCookiesInfo.cookie.i18n_CookieLocaleResolver.description"/></td>
+                <td><g:message code="footer.menu.footerCookiesInfo.cookie.expiration.browsingSession"/></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
     <label class="checkbox">
         <input id="technicalCookiesAccepted" type="checkbox"/>
         <span class="check-box-icon"></span>
@@ -88,10 +132,4 @@
         <span class="check-box-icon"></span>
         <span class="label-checkbox"><g:message code="footer.menu.footerCookiesInfo.cookieThird.label"/></span>
     </label>
-
-    <div class="columns1">
-        <a id="acceptAllButton" class="btn btn-blue" style="display: none"><g:message code="cookies.acceptAll"/></a>
-    </div>
-
-    <div class="columns1"><p/></div>
 </content>
