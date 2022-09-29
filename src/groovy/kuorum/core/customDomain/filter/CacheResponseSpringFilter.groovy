@@ -10,6 +10,7 @@ import javax.servlet.ServletException
 import javax.servlet.ServletRequest
 import javax.servlet.ServletResponse
 import javax.servlet.http.HttpServletResponse
+import javax.servlet.http.HttpServletResponseWrapper
 
 class CacheResponseSpringFilter extends GenericFilterBean {
 
@@ -25,9 +26,10 @@ class CacheResponseSpringFilter extends GenericFilterBean {
         String rawHTML = getCachedWeb(url);
         if (rawHTML && isURLCacheable(URL)) {
             // TODO: RECOVER DATA FROM CACHE AND FILL THE RESPONSE
+            response.getWriter().print(rawHTML);
         } else {
             filterChain.doFilter(request, response)
-            saveCache(response)
+            saveCache(url,response)
         }
     }
 
@@ -57,7 +59,8 @@ class CacheResponseSpringFilter extends GenericFilterBean {
         HttpServletResponse httpServletResponse = (HttpServletResponse) response;
         if (isURLCacheable(url)) {
             // TODO: RECOVER DATA FROM RESPONSE AND SAVE RESPONSE
-
+            def response1 = ((HttpServletResponse)response).getWriter().get
+//            fakeCache.put(url,response.)
         }
     }
 
