@@ -2,6 +2,8 @@ package kuorum.core.customDomain.filter
 
 import grails.plugin.springsecurity.SpringSecurityService
 import kuorum.register.KuorumUserSession
+import org.codehaus.groovy.grails.web.mapping.UrlMappingInfo
+import org.codehaus.groovy.grails.web.mapping.UrlMappingsHolder
 import org.springframework.web.filter.GenericFilterBean
 
 import javax.servlet.FilterChain
@@ -13,7 +15,9 @@ import javax.servlet.http.HttpServletResponse
 
 class CacheResponseSpringFilter extends GenericFilterBean {
 
+    public static final String CACHE_ACTIVE = "cacheActive"
     SpringSecurityService springSecurityService
+    UrlMappingsHolder urlMappingsHolder
 
     public static final String HEADER_LAST_MODIFIED = "Last-Modified";
     public static final String HEADER_CONTENT_TYPE = "Content-Type";
@@ -41,16 +45,17 @@ class CacheResponseSpringFilter extends GenericFilterBean {
     private long cacheControlMaxAge = MAX_AGE_TIME;
 
     void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
-        URL url = new URL(((HttpServletRequest)request).getRequestURL().toString())
+        HttpServletRequest httpServletRequest = (HttpServletRequest)request
 
-        // Evita llamadas repetidas
-        if (isFilteredBefore(request)) {
-            filterChain.doFilter(request, response);
-            return;
-        }
-        request.setAttribute(REQUEST_FILTERED, Boolean.TRUE);
+        if (isCacheable(httpServletRequest)) {
+            // Evita llamadas repetidas
+            if (isFilteredBefore(request)) {
+                filterChain.doFilter(request, response);
+                return;
+            }
+            request.setAttribute(REQUEST_FILTERED, Boolean.TRUE);
 
-        if (isURLCacheable(url)) {
+            URL url = new URL(httpServletRequest.getRequestURL().toString())
             String key = buildKey(url);
             ResponseContent responseContent = fakeCache.get(key);
             if (responseContent != null) {
@@ -67,11 +72,20 @@ class CacheResponseSpringFilter extends GenericFilterBean {
         } else {
             filterChain.doFilter(request, response);
         }
+
     }
 
-    Boolean isURLCacheable(URL url) {
-        // TODO: THINK WHICH URLS SHOULD BE CACHED
-        return url.toString().contains("/admin/");
+    private Boolean isCacheable(HttpServletRequest httpServletRequest) {
+        UrlMappingInfo urlMappingInfo = urlMappingsHolder.match(httpServletRequest.forwardURI.replaceFirst(httpServletRequest.contextPath, ""))
+        Boolean cacheable
+
+        if (urlMappingInfo && urlMappingInfo.parameters.containsKey(CACHE_ACTIVE)) {
+            cacheable = Boolean.parseBoolean(urlMappingInfo.parameters.get(CACHE_ACTIVE) as String)
+        } else {
+            cacheable = false
+        }
+
+        return cacheable;
     }
 
     String buildKey(URL url) {
