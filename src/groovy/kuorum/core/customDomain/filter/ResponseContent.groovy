@@ -1,16 +1,8 @@
 package kuorum.core.customDomain.filter
-import java.io.BufferedOutputStream;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.Serializable;
-import java.util.Locale;
-import java.util.zip.GZIPInputStream;
 
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletResponse;
-
+import javax.servlet.ServletResponse
+import javax.servlet.http.HttpServletResponse
+import java.util.zip.GZIPInputStream
 /**
  * Holds the servlet response in a byte array so that it can be held in the
  * cache (and, since this class is serializable, optionally persisted to disk).
@@ -173,25 +165,25 @@ public class ResponseContent implements Serializable {
 
                 // add the last modified header
                 if (lastModified != -1) {
-                    httpResponse.setDateHeader(CacheFilter.HEADER_LAST_MODIFIED, lastModified);
+                    httpResponse.setDateHeader(CacheResponseSpringFilter.HEADER_LAST_MODIFIED, lastModified);
                 }
 
                 // add the expires header
                 if (expires != Long.MAX_VALUE) {
-                    httpResponse.setDateHeader(CacheFilter.HEADER_EXPIRES, expires);
+                    httpResponse.setDateHeader(CacheResponseSpringFilter.HEADER_EXPIRES, expires);
                 }
 
                 // add the cache-control header for max-age
-                if (maxAge == CacheFilter.MAX_AGE_NO_INIT || maxAge == CacheFilter.MAX_AGE_TIME) {
+                if (maxAge == CacheResponseSpringFilter.MAX_AGE_TIME) {
                     // do nothing
                 } else if (maxAge > 0) { // set max-age based on life time
                     long currentMaxAge = maxAge / 1000 - System.currentTimeMillis() / 1000;
                     if (currentMaxAge < 0) {
                         currentMaxAge = 0;
                     }
-                    httpResponse.addHeader(CacheFilter.HEADER_CACHE_CONTROL, "max-age=" + currentMaxAge);
+                    httpResponse.addHeader(CacheResponseSpringFilter.HEADER_CACHE_CONTROL, "max-age=" + currentMaxAge);
                 } else {
-                    httpResponse.addHeader(CacheFilter.HEADER_CACHE_CONTROL, "max-age=" + (-maxAge));
+                    httpResponse.addHeader(CacheResponseSpringFilter.HEADER_CACHE_CONTROL, "max-age=" + (-maxAge));
                 }
 
             }
@@ -205,7 +197,7 @@ public class ResponseContent implements Serializable {
 
         if (isContentGZiped()) {
             if (acceptsGZip) {
-                ((HttpServletResponse) response).addHeader(CacheFilter.HEADER_CONTENT_ENCODING, "gzip");
+                ((HttpServletResponse) response).addHeader(CacheResponseSpringFilter.HEADER_CONTENT_ENCODING, "gzip");
                 response.setContentLength(content.length);
                 out.write(content);
             } else {

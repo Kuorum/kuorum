@@ -1,16 +1,11 @@
 package kuorum.core.customDomain.filter
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.util.Locale;
 
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpServletResponseWrapper;
+import org.apache.commons.logging.Log
+import org.apache.commons.logging.LogFactory
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
+import javax.servlet.ServletOutputStream
+import javax.servlet.http.HttpServletResponse
+import javax.servlet.http.HttpServletResponseWrapper
 /**
  * HttpServletResponseWrapper en caché, que registrará algunos datos de {@link HttpServletResponse} en {@link ResponseContent}.
  */
@@ -24,7 +19,7 @@ public class CacheHttpServletResponseWrapper extends HttpServletResponseWrapper 
     private long cacheControl = -60;
 
     public CacheHttpServletResponseWrapper(HttpServletResponse response) {
-        this(response, Long.MAX_VALUE, CacheFilter.EXPIRES_ON, CacheFilter.LAST_MODIFIED_INITIAL, -60);
+        this(response, Long.MAX_VALUE, CacheResponseSpringFilter.EXPIRES_ON, CacheResponseSpringFilter.LAST_MODIFIED_INITIAL, -60);
     }
 
 
@@ -36,28 +31,28 @@ public class CacheHttpServletResponseWrapper extends HttpServletResponseWrapper 
 
         // setting a default last modified value based on object creation and
         // remove the millis
-        if (lastModified == CacheFilter.LAST_MODIFIED_INITIAL) {
+        if (lastModified == CacheResponseSpringFilter.LAST_MODIFIED_INITIAL) {
             long current = System.currentTimeMillis();
             current = current - (current % 1000);
             result.setLastModified(current);
-            super.setDateHeader(CacheFilter.HEADER_LAST_MODIFIED, result.getLastModified());
+            super.setDateHeader(CacheResponseSpringFilter.HEADER_LAST_MODIFIED, result.getLastModified());
         }
         // setting the expires value
-        if (expires == CacheFilter.EXPIRES_TIME) {
+        if (expires == CacheResponseSpringFilter.EXPIRES_ON) {
             result.setExpires(result.getLastModified() + time);
-            super.setDateHeader(CacheFilter.HEADER_EXPIRES, result.getExpires());
+            super.setDateHeader(CacheResponseSpringFilter.HEADER_EXPIRES, result.getExpires());
         }
         // setting the cache control with max-age
-        if (this.cacheControl == CacheFilter.MAX_AGE_TIME) {
+        if (this.cacheControl == CacheResponseSpringFilter.MAX_AGE_TIME) {
             // set the count down
             long maxAge = System.currentTimeMillis();
             maxAge = maxAge - (maxAge % 1000) + time;
             result.setMaxAge(maxAge);
-            super.addHeader(CacheFilter.HEADER_CACHE_CONTROL, "max-age=" + time / 1000);
-        } else if (this.cacheControl != CacheFilter.MAX_AGE_NO_INIT) {
+            super.addHeader(CacheResponseSpringFilter.HEADER_CACHE_CONTROL, "max-age=" + time / 1000);
+        } else if (this.cacheControl != CacheResponseSpringFilter.MAX_AGE_TIME) {
             result.setMaxAge(this.cacheControl);
-            super.addHeader(CacheFilter.HEADER_CACHE_CONTROL, "max-age=" + (-this.cacheControl));
-        } else if (this.cacheControl == CacheFilter.MAX_AGE_NO_INIT) {
+            super.addHeader(CacheResponseSpringFilter.HEADER_CACHE_CONTROL, "max-age=" + (-this.cacheControl));
+        } else if (this.cacheControl == CacheResponseSpringFilter.MAX_AGE_TIME) {
             result.setMaxAge(this.cacheControl);
         }
     }
@@ -101,11 +96,11 @@ public class CacheHttpServletResponseWrapper extends HttpServletResponseWrapper 
         if (log.isDebugEnabled()) {
             log.debug("header: " + name + ": " + value);
         }
-        if (CacheFilter.HEADER_CONTENT_TYPE.equalsIgnoreCase(name)) {
+        if (CacheResponseSpringFilter.HEADER_CONTENT_TYPE.equalsIgnoreCase(name)) {
             result.setContentType(value);
         }
 
-        if (CacheFilter.HEADER_CONTENT_ENCODING.equalsIgnoreCase(name)) {
+        if (CacheResponseSpringFilter.HEADER_CONTENT_ENCODING.equalsIgnoreCase(name)) {
             result.setContentEncoding(value);
         }
         super.setHeader(name, value);
@@ -122,11 +117,11 @@ public class CacheHttpServletResponseWrapper extends HttpServletResponseWrapper 
             log.debug("header: " + name + ": " + value);
         }
 
-        if (CacheFilter.HEADER_CONTENT_TYPE.equalsIgnoreCase(name)) {
+        if (CacheResponseSpringFilter.HEADER_CONTENT_TYPE.equalsIgnoreCase(name)) {
             result.setContentType(value);
         }
 
-        if (CacheFilter.HEADER_CONTENT_ENCODING.equalsIgnoreCase(name)) {
+        if (CacheResponseSpringFilter.HEADER_CONTENT_ENCODING.equalsIgnoreCase(name)) {
             result.setContentEncoding(value);
         }
 
