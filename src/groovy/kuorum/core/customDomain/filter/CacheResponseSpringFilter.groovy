@@ -18,30 +18,8 @@ class CacheResponseSpringFilter extends GenericFilterBean {
     UrlMappingsHolder urlMappingsHolder
     ServletResponseCache servletResponseCache
 
-    public static final String HEADER_LAST_MODIFIED = "Last-Modified";
-    public static final String HEADER_CONTENT_TYPE = "Content-Type";
-    public static final String HEADER_CONTENT_ENCODING = "Content-Encoding";
-    public static final String HEADER_EXPIRES = "Expires";
-    public static final String HEADER_IF_MODIFIED_SINCE = "If-Modified-Since";
-    public static final String HEADER_CACHE_CONTROL = "Cache-Control";
-    public static final String HEADER_ACCEPT_ENCODING = "Accept-Encoding";
-
     private static final String REQUEST_FILTERED = "cache_filter_" + CacheResponseSpringFilter.class.getName();
 
-    // TODO: CHANGE CACHE
-    HashMap<String, ResponseContent> fakeCache = new HashMap<>();
-
-    // Last Modified parameter
-    public static final long LAST_MODIFIED_INITIAL = -1
-
-    // Expires parameter
-    public static final long EXPIRES_ON = 1
-    public static final long MAX_AGE_TIME = -60
-
-    private int time = 60 * 60
-    private long lastModified = LAST_MODIFIED_INITIAL
-    private long expires = EXPIRES_ON
-    private long cacheControlMaxAge = MAX_AGE_TIME
 
     void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request
@@ -63,12 +41,10 @@ class CacheResponseSpringFilter extends GenericFilterBean {
         } else {
             filterChain.doFilter(request, response);
         }
-
     }
 
     private CacheHttpServletResponseWrapper wrapResponse(ServletRequest request, ServletResponse response, FilterChain filterChain) {
-        CacheHttpServletResponseWrapper cacheResponse = new CacheHttpServletResponseWrapper((HttpServletResponse) response,
-                time * 1000L, lastModified, expires, cacheControlMaxAge);
+        CacheHttpServletResponseWrapper cacheResponse = new CacheHttpServletResponseWrapper((HttpServletResponse) response);
         filterChain.doFilter(request, cacheResponse);
         cacheResponse.flushBuffer();
         return cacheResponse
