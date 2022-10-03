@@ -1,4 +1,4 @@
-package kuorum.core.customDomain.filter
+package kuorum.core.navigation.cache
 
 import javax.servlet.ServletResponse
 
@@ -16,7 +16,7 @@ class ResponseContent implements Serializable {
 
     /**
      * Get an output stream. This is used by the
-     * {@link SplitServletOutputStream} to capture the original (uncached)
+     * {@link kuorum.core.customDomain.filter.SplitServletOutputStream} to capture the original (uncached)
      * response into a byte array.
      *
      * @return the original (uncached) response, returns null if response is

@@ -1,8 +1,6 @@
 package kuorum.core.navigation.cache
 
 
-import kuorum.core.customDomain.filter.ResponseContent
-
 import javax.servlet.ServletResponse
 
 interface ServletResponseCache {

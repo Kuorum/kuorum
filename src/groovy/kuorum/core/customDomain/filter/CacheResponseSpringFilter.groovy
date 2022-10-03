@@ -1,5 +1,6 @@
 package kuorum.core.customDomain.filter
 
+import kuorum.core.navigation.cache.CacheHttpServletResponseWrapper
 import kuorum.core.navigation.cache.ServletResponseCache
 import org.codehaus.groovy.grails.web.mapping.UrlMappingInfo
 import org.codehaus.groovy.grails.web.mapping.UrlMappingsHolder

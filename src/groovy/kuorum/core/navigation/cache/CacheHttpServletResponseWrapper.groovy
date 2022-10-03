@@ -1,5 +1,6 @@
-package kuorum.core.customDomain.filter
+package kuorum.core.navigation.cache
 
+import kuorum.core.customDomain.filter.SplitServletOutputStream
 
 import javax.servlet.ServletOutputStream
 import javax.servlet.http.HttpServletResponse

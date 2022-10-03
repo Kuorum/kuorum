@@ -15,17 +15,17 @@ class UrlMappings {
 
         /**/
         /** NEW LANDIGNS **/
-        name landingServices: "/"(controller: "landing", action: "landingServices") { mappingName = "landingServices" }  //CACHE
-        name en_landingServices: "/"(controller: "landing", action: "landingServices") { mappingName = "landingServices" }
-        name es_landingServices: "/"(controller: "landing", action: "landingServices") { mappingName = "landingServices" }
-        name de_landingServices: "/"(controller: "landing", action: "landingServices") { mappingName = "landingServices" }
-        name ca_landingServices: "/"(controller: "landing", action: "landingServices") { mappingName = "landingServices" }
+        name landingServices: "/"(controller: "landing", action: "landingServices") { mappingName = "landingServices"; cacheActive = "true"}
+        name en_landingServices: "/"(controller: "landing", action: "landingServices") { mappingName = "landingServices"; cacheActive = "true"}
+        name es_landingServices: "/"(controller: "landing", action: "landingServices") { mappingName = "landingServices"; cacheActive = "true"}
+        name de_landingServices: "/"(controller: "landing", action: "landingServices") { mappingName = "landingServices"; cacheActive = "true"}
+        name ca_landingServices: "/"(controller: "landing", action: "landingServices") { mappingName = "landingServices"; cacheActive = "true"}
 
-        name home: "/"(controller: "landing", action: "landingServices") { mappingName = "home" }
-        name en_home: "/"(controller: "landing", action: "landingServices") { mappingName = "home" }
-        name es_home: "/"(controller: "landing", action: "landingServices") { mappingName = "home" }
-        name de_home: "/"(controller: "landing", action: "landingServices") { mappingName = "home" }
-        name ca_home: "/"(controller: "landing", action: "landingServices") { mappingName = "home" }
+        name home: "/"(controller: "landing", action: "landingServices") { mappingName = "home"; cacheActive = "true" }
+        name en_home: "/"(controller: "landing", action: "landingServices") { mappingName = "home"; cacheActive = "true" }
+        name es_home: "/"(controller: "landing", action: "landingServices") { mappingName = "home"; cacheActive = "true" }
+        name de_home: "/"(controller: "landing", action: "landingServices") { mappingName = "home"; cacheActive = "true" }
+        name ca_home: "/"(controller: "landing", action: "landingServices") { mappingName = "home"; cacheActive = "true" }
 
         name footerPrivacyPolicy: "/legal/privacy-policy"(controller: "footer", action: "privacyPolicy") { mappingName = "footerPrivacyPolicy" }
         name en_footerPrivacyPolicy: "/legal/privacy-policy"(controller: "footer", action: "privacyPolicy") { mappingName = "footerPrivacyPolicy" }
