@@ -5,6 +5,7 @@ import kuorum.core.customDomain.filter.CacheResponseSpringFilter
 import kuorum.core.customDomain.filter.CustomDomainSpringFilter
 import kuorum.core.customDomain.filter.KuorumLogSpringFilter
 import kuorum.core.customDomain.filter.PingSpringFilter
+import kuorum.core.navigation.cache.HasMapServletResponseCacheImpl
 import kuorum.core.springSecurity.handlers.SuccessAuthenticationHandler
 import kuorum.files.AmazonFileService
 import kuorum.register.MongoUserDetailsService
@@ -14,37 +15,37 @@ import kuorum.web.constants.WebConstants
 
 // Place your Spring DSL code here
 beans = {
-    xmlns aop:"http://www.springframework.org/schema/aop"
+    xmlns aop: "http://www.springframework.org/schema/aop"
     languajeAspectBean(kuorum.core.aop.LanguageInjectorAOP)
 
     Boolean cdnActive =
-            application.config.grails.resources.mappers.amazoncdn.enabled instanceof Boolean? application.config.grails.resources.mappers.amazoncdn.enabled :
-            application.config.grails.resources.mappers.amazoncdn.enabled instanceof String? Boolean.parseBoolean(application.config.grails.resources.mappers.amazoncdn.enabled) :false
-    if (cdnActive){
+            application.config.grails.resources.mappers.amazoncdn.enabled instanceof Boolean ? application.config.grails.resources.mappers.amazoncdn.enabled :
+                    application.config.grails.resources.mappers.amazoncdn.enabled instanceof String ? Boolean.parseBoolean(application.config.grails.resources.mappers.amazoncdn.enabled) : false
+    if (cdnActive) {
         cdnAspectBean(kuorum.core.aop.CDNBaseUrlInjectorAOP)
     }
 
-    aop.config("proxy-target-class":true) {
+    aop.config("proxy-target-class": true) {
     }
 
     formattedDoubleConverter kuorum.web.binder.FormattedDoubleConverter
 
-   userDetailsService(MongoUserDetailsService){
-       kuorumUserService = ref("kuorumUserService")
-   }
+    userDetailsService(MongoUserDetailsService) {
+        kuorumUserService = ref("kuorumUserService")
+    }
 
 
-    localeResolver(org.springframework.web.servlet.i18n.CookieLocaleResolver){}
+    localeResolver(org.springframework.web.servlet.i18n.CookieLocaleResolver) {}
 
     localeChangeInterceptor(kuorum.web.interceptors.CustomLocaleInterceptor) {
         paramName = WebConstants.WEB_PARAM_LANG
     }
 
-    tokenRepository(RememberMeTokenRepository){
-        grailsApplication=ref("grailsApplication")
+    tokenRepository(RememberMeTokenRepository) {
+        grailsApplication = ref("grailsApplication")
     }
 
-    switch(Environment.current) {
+    switch (Environment.current) {
 //        case Environment.PRODUCTION:
 //            fileService(AmazonFileService){
 //                grailsApplication=ref("grailsApplication")
@@ -58,11 +59,11 @@ beans = {
 //                grailsApplication=grailsApplication
 //                burningImageService=burningImageService
 //            }
-            fileService(AmazonFileService){
-                grailsApplication=ref("grailsApplication")
-                burningImageService=ref("burningImageService")
-                restKuorumApiService=ref("restKuorumApiService")
-                springSecurityService=ref("springSecurityService")
+            fileService(AmazonFileService) {
+                grailsApplication = ref("grailsApplication")
+                burningImageService = ref("burningImageService")
+                restKuorumApiService = ref("restKuorumApiService")
+                springSecurityService = ref("springSecurityService")
             }
             break
     }
@@ -72,43 +73,48 @@ beans = {
     passwordEncoder(BCryptPasswordEncoder, conf.password.bcrypt.logrounds)
 
 
-
     //SWICH USER
 
     switchFilter(kuorum.web.filters.KuorumSecuritySwitchFilter) {
         authenticationManager = ref('authenticationManager')
 //        interchangeAuthenticationProvider = ref('interchangeAuthenticationProvider')
         securityMetadataSource = ref('objectDefinitionSource')
-        springSecurityService = ref ('springSecurityService')
+        springSecurityService = ref('springSecurityService')
     }
 
-    facebookSuccessHandler(SuccessAuthenticationHandler){
+    facebookSuccessHandler(SuccessAuthenticationHandler) {
         kuorumUserService = ref('kuorumUserService')
     }
 
 
     // ACL
     permissionEvaluator(KuorumPermissionEvaluator) {
-        grailsApplication     = ref('grailsApplication')
+        grailsApplication = ref('grailsApplication')
         springSecurityService = ref('springSecurityService')
     }
 
     //Ping
-    pingSpringFilter(PingSpringFilter){
+    pingSpringFilter(PingSpringFilter) {
 
     }
 
-    // CACHE
-    cacheResponseSpringFilter(CacheResponseSpringFilter){
+    //CACHE
+    servletResponseCache(HasMapServletResponseCacheImpl) {
         springSecurityService = ref('springSecurityService')
-        urlMappingsHolder = ref('grailsUrlMappingsHolder')
     }
+
+    //CACHE FILTER
+    cacheResponseSpringFilter(CacheResponseSpringFilter) {
+        urlMappingsHolder = ref('grailsUrlMappingsHolder')
+        servletResponseCache = ref('servletResponseCache')
+    }
+
     // DOMAIN
-    customDomainSpringFilter(CustomDomainSpringFilter){
+    customDomainSpringFilter(CustomDomainSpringFilter) {
         domainService = ref('domainService')
     }
     // MDC LOGS
-    kuorumLogSpringFilter(KuorumLogSpringFilter){
-        springSecurityService = ref ('springSecurityService')
+    kuorumLogSpringFilter(KuorumLogSpringFilter) {
+        springSecurityService = ref('springSecurityService')
     }
 }

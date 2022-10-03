@@ -1,7 +1,6 @@
 package kuorum.core.customDomain.filter
 
-import grails.plugin.springsecurity.SpringSecurityService
-import kuorum.register.KuorumUserSession
+import kuorum.core.navigation.cache.ServletResponseCache
 import org.codehaus.groovy.grails.web.mapping.UrlMappingInfo
 import org.codehaus.groovy.grails.web.mapping.UrlMappingsHolder
 import org.springframework.web.filter.GenericFilterBean
@@ -16,8 +15,8 @@ import javax.servlet.http.HttpServletResponse
 class CacheResponseSpringFilter extends GenericFilterBean {
 
     public static final String CACHE_ACTIVE = "cacheActive"
-    SpringSecurityService springSecurityService
     UrlMappingsHolder urlMappingsHolder
+    ServletResponseCache servletResponseCache
 
     public static final String HEADER_LAST_MODIFIED = "Last-Modified";
     public static final String HEADER_CONTENT_TYPE = "Content-Type";
@@ -33,19 +32,19 @@ class CacheResponseSpringFilter extends GenericFilterBean {
     HashMap<String, ResponseContent> fakeCache = new HashMap<>();
 
     // Last Modified parameter
-    public static final long LAST_MODIFIED_INITIAL = -1;
+    public static final long LAST_MODIFIED_INITIAL = -1
 
     // Expires parameter
-    public static final long EXPIRES_ON = 1;
-    public static final long MAX_AGE_TIME = -60;
+    public static final long EXPIRES_ON = 1
+    public static final long MAX_AGE_TIME = -60
 
-    private int time = 60 * 60;
-    private long lastModified = LAST_MODIFIED_INITIAL;
-    private long expires = EXPIRES_ON;
-    private long cacheControlMaxAge = MAX_AGE_TIME;
+    private int time = 60 * 60
+    private long lastModified = LAST_MODIFIED_INITIAL
+    private long expires = EXPIRES_ON
+    private long cacheControlMaxAge = MAX_AGE_TIME
 
     void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
-        HttpServletRequest httpServletRequest = (HttpServletRequest)request
+        HttpServletRequest httpServletRequest = (HttpServletRequest) request
 
         if (isCacheable(httpServletRequest)) {
             // Evita llamadas repetidas
@@ -56,23 +55,23 @@ class CacheResponseSpringFilter extends GenericFilterBean {
             request.setAttribute(REQUEST_FILTERED, Boolean.TRUE);
 
             URL url = new URL(httpServletRequest.getRequestURL().toString())
-            String key = buildKey(url);
-            ResponseContent responseContent = fakeCache.get(key);
-            if (responseContent != null) {
-                responseContent.writeTo(response);
-                return;
-            }
 
-            CacheHttpServletResponseWrapper cacheResponse = new CacheHttpServletResponseWrapper((HttpServletResponse) response,
-                    time * 1000L, lastModified, expires, cacheControlMaxAge);
-            filterChain.doFilter(request, cacheResponse);
-            cacheResponse.flushBuffer();
-            // Store as the cache content the result of the response
-            fakeCache.put(key, cacheResponse.getContent());
+            if (!servletResponseCache.get(url, response)) {
+                CacheHttpServletResponseWrapper cacheResponse = wrapResponse(request, response, filterChain)
+                servletResponseCache.put(url, cacheResponse.getContent())
+            }
         } else {
             filterChain.doFilter(request, response);
         }
 
+    }
+
+    private CacheHttpServletResponseWrapper wrapResponse(ServletRequest request, ServletResponse response, FilterChain filterChain) {
+        CacheHttpServletResponseWrapper cacheResponse = new CacheHttpServletResponseWrapper((HttpServletResponse) response,
+                time * 1000L, lastModified, expires, cacheControlMaxAge);
+        filterChain.doFilter(request, cacheResponse);
+        cacheResponse.flushBuffer();
+        return cacheResponse
     }
 
     private Boolean isCacheable(HttpServletRequest httpServletRequest) {
@@ -86,14 +85,6 @@ class CacheResponseSpringFilter extends GenericFilterBean {
         }
 
         return cacheable;
-    }
-
-    String buildKey(URL url) {
-        if (springSecurityService.isLoggedIn()) {
-            return url.toString() + ((KuorumUserSession) springSecurityService.principal).id
-        } else {
-            return url.toString();
-        }
     }
 
     /**
