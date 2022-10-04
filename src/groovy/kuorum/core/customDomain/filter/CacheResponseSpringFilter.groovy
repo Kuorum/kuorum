@@ -1,23 +1,31 @@
 package kuorum.core.customDomain.filter
 
+import grails.plugin.springsecurity.SpringSecurityService
 import kuorum.core.navigation.cache.CacheHttpServletResponseWrapper
 import kuorum.core.navigation.cache.ServletResponseCache
+import kuorum.web.constants.WebConstants
 import org.codehaus.groovy.grails.web.mapping.UrlMappingInfo
 import org.codehaus.groovy.grails.web.mapping.UrlMappingsHolder
 import org.springframework.web.filter.GenericFilterBean
+import org.springframework.web.servlet.i18n.CookieLocaleResolver
 
 import javax.servlet.FilterChain
 import javax.servlet.ServletException
 import javax.servlet.ServletRequest
 import javax.servlet.ServletResponse
+import javax.servlet.http.Cookie
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
+
+import static java.lang.Boolean.parseBoolean
+import static org.apache.commons.lang.LocaleUtils.toLocale
 
 class CacheResponseSpringFilter extends GenericFilterBean {
 
     public static final String CACHE_ACTIVE = "cacheActive"
     UrlMappingsHolder urlMappingsHolder
     ServletResponseCache servletResponseCache
+    SpringSecurityService springSecurityService
 
     private static final String REQUEST_FILTERED = "cache_filter_" + CacheResponseSpringFilter.class.getName();
 
@@ -34,10 +42,9 @@ class CacheResponseSpringFilter extends GenericFilterBean {
             request.setAttribute(REQUEST_FILTERED, Boolean.TRUE);
 
             URL url = new URL(httpServletRequest.getRequestURL().toString())
-
-            if (!servletResponseCache.get(url, response)) {
-                CacheHttpServletResponseWrapper cacheResponse = wrapResponse(request, response, filterChain)
-                servletResponseCache.put(url, cacheResponse.getContent())
+            Locale locale = getLocale(request, response)
+            if (!servletResponseCache.get(url, response, locale)) {
+                servletResponseCache.put(url, wrapResponse(request, response, filterChain), locale)
             }
         } else {
             filterChain.doFilter(request, response);
@@ -52,16 +59,12 @@ class CacheResponseSpringFilter extends GenericFilterBean {
     }
 
     private Boolean isCacheable(HttpServletRequest httpServletRequest) {
+        return !springSecurityService.isLoggedIn() && isUriCacheable(httpServletRequest)
+    }
+
+    private boolean isUriCacheable(HttpServletRequest httpServletRequest) {
         UrlMappingInfo urlMappingInfo = urlMappingsHolder.match(httpServletRequest.forwardURI.replaceFirst(httpServletRequest.contextPath, ""))
-        Boolean cacheable
-
-        if (urlMappingInfo && urlMappingInfo.parameters.containsKey(CACHE_ACTIVE)) {
-            cacheable = Boolean.parseBoolean(urlMappingInfo.parameters.get(CACHE_ACTIVE) as String)
-        } else {
-            cacheable = false
-        }
-
-        return cacheable;
+        return urlMappingInfo && urlMappingInfo.parameters.containsKey(CACHE_ACTIVE) && parseBoolean(urlMappingInfo.parameters.get(CACHE_ACTIVE) as String)
     }
 
     /**
@@ -76,4 +79,32 @@ class CacheResponseSpringFilter extends GenericFilterBean {
         return request.getAttribute(REQUEST_FILTERED) != null;
     }
 
+    Locale getLocale(HttpServletRequest request, HttpServletResponse response) {
+        String urlParamLang = request.getParameter(WebConstants.WEB_PARAM_LANG)
+        if (urlParamLang) {
+            updateCookieIfNeeded(request, response, urlParamLang)
+            return toLocale(urlParamLang)
+        }
+        String cookieLocaleString = lookForCookieLocale(request)
+        if (cookieLocaleString) {
+            return toLocale(cookieLocaleString)
+        }
+        return response.getLocale()
+    }
+
+    private void updateCookieIfNeeded(HttpServletRequest request,HttpServletResponse response, String urlParamLang) {
+        Cookie cookie = getLocaleCookie(request)
+        if (cookie && !cookie.getValue().startsWith(urlParamLang)) {
+            cookie.setValue(urlParamLang)
+            response.addCookie(cookie)
+        }
+    }
+
+    private String lookForCookieLocale(HttpServletRequest servletRequest) {
+        getLocaleCookie(servletRequest)?.value
+    }
+
+    private Cookie getLocaleCookie(HttpServletRequest servletRequest) {
+        ((HttpServletRequest) servletRequest).getCookies().find({ cookie -> cookie.name == CookieLocaleResolver.LOCALE_REQUEST_ATTRIBUTE_NAME })
+    }
 }

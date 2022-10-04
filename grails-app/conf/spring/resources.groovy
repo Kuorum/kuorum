@@ -107,6 +107,7 @@ beans = {
     cacheResponseSpringFilter(CacheResponseSpringFilter) {
         urlMappingsHolder = ref('grailsUrlMappingsHolder')
         servletResponseCache = ref('servletResponseCache')
+        springSecurityService = ref('springSecurityService')
     }
 
     // DOMAIN
