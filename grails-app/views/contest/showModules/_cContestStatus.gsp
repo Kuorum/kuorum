@@ -86,7 +86,12 @@
                                id="modalEditParticipatoryBudgetStatusButtonClose">
                                 <g:message code="participatoryBudget.status.change.modal.cancel"/>
                             </a>
-
+                            <g:link mapping="contestEditStatus"
+                                    params="${contest.encodeAsLinkProperties() + [status: "STATUS"]}"
+                                    class="btn btn-blue inverted btn-lg"
+                                    elementId="modalEditParticipatoryBudgetStatusButtonOk">
+                                <g:message code="participatoryBudget.status.change.modal.submit"/>
+                            </g:link>
                         </fieldset>
 
                     </div>
