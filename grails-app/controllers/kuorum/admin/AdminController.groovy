@@ -523,62 +523,9 @@ class AdminController {
     }
 
 
-    def designLandingPage() {
-        [command: new DomainConfigStep1Command(colorHexCode: CustomDomainResolver.domainRSDTO.mainColor)]
-    }
-
-    def saveDesignLandingPage(DomainConfigStep1Command command) {
-        CommonsMultipartFile customLogo = request.getFile('logo')
-        if (!customLogo || customLogo.empty || command.hasErrors()) {
-            if (!customLogo || customLogo.empty) {
-                command.errors.rejectValue("logoName", "kuorum.web.admin.domain.DomainConfigStep1Command.logoName.nullable")
-            }
-//            flash.error = message(code: 'admin.menu.domainConfig.uploadLogo.unsuccess')
-            render view: "designLandingPage", model: [command: command]
-            return
-        }
-
-        try {
-            domainResourcesService.uploadLogoFile(customLogo.getInputStream())
-        } catch (Exception e) {
-            log.error(e)
-            flash.error = message(code: 'admin.menu.domainConfig.uploadLogo.unsuccess')
-            render view: "designLandingPage", model: [command: command]
-            return
-        }
-
-        String domain = CustomDomainResolver.domain
-        KuorumFile slideFile1 = KuorumFile.get(command.slideId1)
-        KuorumFile slideFile2 = KuorumFile.get(command.slideId2)
-        KuorumFile slideFile3 = KuorumFile.get(command.slideId3)
-        domainResourcesService.uploadCarouselImages(slideFile1, slideFile2, slideFile3, domain)
-
-        DomainRDTO domainRDTO = getPopulatedDomainRDTO()
-        domainRDTO.carouselFooter1 = command.carouselFooter1
-        domainRDTO.carouselFooter2 = command.carouselFooter2
-        domainRDTO.carouselFooter3 = command.carouselFooter3
-        domainRDTO.slogan = command.slogan
-        domainRDTO.name = command.slogan
-        domainRDTO.subtitle = command.subtitle
-        domainRDTO.mainColor = command.colorHexCode.encodeAsHashtag() // ADD # if its necesary
-        domainRDTO.mainColorShadowed = null
-        domainRDTO.secondaryColor = null
-        domainRDTO.secondaryColorShadowed = null
-        DomainRSDTO domainRSDTO = domainService.updateConfig(domainRDTO)
-        lessCompilerService.compileCssForDomain(domainRSDTO)
-
-        redirect mapping: 'adminDomainRegisterStep2'
-    }
 
 
-    def userRights() {
-        modelAuthorizedCampaigns()
-    }
 
-    def saveUserRights() {
-        updateDomainUserRights(true)
-        redirect mapping: 'dashboard'
-    }
 
     def editDomainPlan() {
         DomainPaymentInfoRSDTO domainPaymentInfo = domainService.getPaymentInfo()
