@@ -4,10 +4,6 @@
         <span class="info"><g:message code="debate.timesSeen" args="[districtProposal.visits]" /></span>
     </li>
     <li>
-        <span class="fal fa-users" aria-hidden="true"></span>
-        <span class="info"><g:message code="debate.authorFollowers" args="[campaignUser.numFollowers]" /></span>
-    </li>
-    <li>
         <span class="fal fa-building" aria-hidden="true"></span>
         <span class="info"><g:message code="org.kuorum.rest.model.communication.participatoryBudget.BackerTypeRSDTO.${districtProposal.backerType}" /></span>
     </li>
