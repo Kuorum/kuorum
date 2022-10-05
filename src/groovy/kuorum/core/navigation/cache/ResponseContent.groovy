@@ -11,8 +11,8 @@ import javax.servlet.ServletResponse
  */
 class ResponseContent implements Serializable {
 
-    private transient ByteArrayOutputStream bout = new ByteArrayOutputStream(1000);
-    private byte[] content = null;
+    private transient ByteArrayOutputStream bout = new ByteArrayOutputStream(1000)
+    private byte[] content = null
 
     /**
      * Get an output stream. This is used by the
@@ -22,8 +22,8 @@ class ResponseContent implements Serializable {
      * @return the original (uncached) response, returns null if response is
      *         already committed.
      */
-    public OutputStream getOutputStream() {
-        return bout;
+    OutputStream getOutputStream() {
+        return bout
     }
 
     /**
@@ -32,8 +32,8 @@ class ResponseContent implements Serializable {
      * @return The size of the content, in bytes. If no content exists, this
      *         method returns <code>-1</code>.
      */
-    public int getSize() {
-        return (content != null) ? content.length : (-1);
+    int getSize() {
+        return (content != null) ? content.length : (-1)
     }
 
     /**
@@ -41,10 +41,10 @@ class ResponseContent implements Serializable {
      * commits the response output stream by converting the output stream into a
      * byte array.
      */
-    public void commit() {
+    void commit() {
         if (bout != null) {
-            content = bout.toByteArray();
-            bout = null;
+            content = bout.toByteArray()
+            bout = null
         }
     }
 
@@ -54,11 +54,11 @@ class ResponseContent implements Serializable {
      * @param response The servlet response to output the cached content to.
      * @throws IOException
      */
-    public void writeTo(ServletResponse response) throws IOException {
-        OutputStream out = new BufferedOutputStream(response.getOutputStream());
+    void writeTo(ServletResponse response) throws IOException {
+        OutputStream out = new BufferedOutputStream(response.getOutputStream())
 
-        response.setContentLength(content.length);
-        out.write(content);
-        out.flush();
+        response.setContentLength(content.length)
+        out.write(content)
+        out.flush()
     }
 }

@@ -27,34 +27,34 @@ class CacheResponseSpringFilter extends GenericFilterBean {
     ServletResponseCache servletResponseCache
     SpringSecurityService springSecurityService
 
-    private static final String REQUEST_FILTERED = "cache_filter_" + CacheResponseSpringFilter.class.getName();
+    private static final String REQUEST_FILTERED = "cache_filter_" + CacheResponseSpringFilter.class.getName()
 
 
     void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
-        HttpServletRequest httpServletRequest = (HttpServletRequest) request
+        HttpServletRequest httpServletRequest = request as HttpServletRequest
 
         if (isCacheable(httpServletRequest)) {
             // Evita llamadas repetidas
             if (isFilteredBefore(request)) {
-                filterChain.doFilter(request, response);
-                return;
+                filterChain.doFilter(request, response)
+                return
             }
-            request.setAttribute(REQUEST_FILTERED, Boolean.TRUE);
+            request.setAttribute(REQUEST_FILTERED, Boolean.TRUE)
 
             URL url = new URL(httpServletRequest.getRequestURL().toString())
-            Locale locale = getLocale(request, response)
+            Locale locale = getLocale(httpServletRequest, response as HttpServletResponse)
             if (!servletResponseCache.get(url, response, locale)) {
                 servletResponseCache.put(url, wrapResponse(request, response, filterChain), locale)
             }
         } else {
-            filterChain.doFilter(request, response);
+            filterChain.doFilter(request, response)
         }
     }
 
     private CacheHttpServletResponseWrapper wrapResponse(ServletRequest request, ServletResponse response, FilterChain filterChain) {
-        CacheHttpServletResponseWrapper cacheResponse = new CacheHttpServletResponseWrapper((HttpServletResponse) response);
-        filterChain.doFilter(request, cacheResponse);
-        cacheResponse.flushBuffer();
+        CacheHttpServletResponseWrapper cacheResponse = new CacheHttpServletResponseWrapper((HttpServletResponse) response)
+        filterChain.doFilter(request, cacheResponse)
+        cacheResponse.flushBuffer()
         return cacheResponse
     }
 
@@ -75,8 +75,8 @@ class CacheResponseSpringFilter extends GenericFilterBean {
      * @param request checks if the request was filtered before.
      * @return true if it is the first execution
      */
-    public boolean isFilteredBefore(ServletRequest request) {
-        return request.getAttribute(REQUEST_FILTERED) != null;
+    boolean isFilteredBefore(ServletRequest request) {
+        return request.getAttribute(REQUEST_FILTERED) != null
     }
 
     Locale getLocale(HttpServletRequest request, HttpServletResponse response) {
@@ -89,10 +89,10 @@ class CacheResponseSpringFilter extends GenericFilterBean {
         if (cookieLocaleString) {
             return toLocale(cookieLocaleString)
         }
-        return response.getLocale()
+        return request.getLocale()
     }
 
-    private void updateCookieIfNeeded(HttpServletRequest request,HttpServletResponse response, String urlParamLang) {
+    private void updateCookieIfNeeded(HttpServletRequest request, HttpServletResponse response, String urlParamLang) {
         Cookie cookie = getLocaleCookie(request)
         if (cookie && !cookie.getValue().startsWith(urlParamLang)) {
             cookie.setValue(urlParamLang)

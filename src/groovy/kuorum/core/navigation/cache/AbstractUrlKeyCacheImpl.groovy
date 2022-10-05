@@ -5,11 +5,12 @@ import kuorum.register.KuorumUserSession
 
 abstract class AbstractUrlKeyCacheImpl implements ServletResponseCache {
 
+    AbstractUrlKeyCacheImpl(){}
+
     AbstractUrlKeyCacheImpl(SpringSecurityService springSecurityService) {
         this.springSecurityService = springSecurityService
     }
 
-    //TODO If cache only for don't logged, this go out
     SpringSecurityService springSecurityService
 
     String buildKey(URL url) {
@@ -19,21 +20,15 @@ abstract class AbstractUrlKeyCacheImpl implements ServletResponseCache {
     String buildKey(URL url, Locale locale) {
         String key = url.toString()
         key += localeInfo(locale)
-        key += securityInfo(key)
+        key += securityInfo()
         return key
     }
 
-    private String securityInfo(String key) {
-        if (springSecurityService.isLoggedIn()) {
-            return ((KuorumUserSession) springSecurityService.principal).id
-        }
-        return ""
+    private String securityInfo() {
+            return springSecurityService.isLoggedIn()?((KuorumUserSession) springSecurityService.principal).id:""
     }
 
     private String localeInfo(Locale locale) {
-        if(locale!=null){
-            return locale.getLanguage().toString()
-        }
-        return ""
+            return locale!=null?locale.getLanguage():""
     }
 }

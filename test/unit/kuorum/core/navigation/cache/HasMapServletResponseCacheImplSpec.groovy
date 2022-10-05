@@ -30,7 +30,7 @@ class HasMapServletResponseCacheImplSpec extends Specification {
     URL url1 = new URL(URL_TEST_1)
     URL url2 = new URL(URL_TEST_2)
 
-    void 'When call to evict all languages cached must be invalidated'() {
+    void 'when call to evict all languages cached must be invalidated'() {
         given:
         hasMapServletResponseCache.put(url1, wrapper, locale1)
         hasMapServletResponseCache.put(url2, wrapper, locale1)

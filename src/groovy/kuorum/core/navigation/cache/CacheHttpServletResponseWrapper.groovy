@@ -11,14 +11,14 @@ import javax.servlet.http.HttpServletResponseWrapper
  */
 class CacheHttpServletResponseWrapper extends HttpServletResponseWrapper {
 
-    private PrintWriter cachedWriter = null;
-    private ResponseContent result = null;
-    private SplitServletOutputStream cacheOut = null;
+    private PrintWriter cachedWriter = null
+    private ResponseContent result = null
+    private SplitServletOutputStream cacheOut = null
 
 
     CacheHttpServletResponseWrapper(HttpServletResponse response) {
-        super(response);
-        this.result = new ResponseContent();
+        super(response)
+        this.result = new ResponseContent()
     }
 
     /**
@@ -29,13 +29,13 @@ class CacheHttpServletResponseWrapper extends HttpServletResponseWrapper {
     ResponseContent getContent() {
         // Flush the buffer
         try {
-            flush();
+            flush()
         } catch (IOException ignore) {
         }
         // Create the byte array
-        result.commit();
+        result.commit()
         // Return the result from this response
-        return result;
+        return result
     }
 
     /**
@@ -46,9 +46,9 @@ class CacheHttpServletResponseWrapper extends HttpServletResponseWrapper {
     ServletOutputStream getOutputStream() throws IOException {
         // Pass this faked servlet output stream that captures what is sent
         if (cacheOut == null) {
-            cacheOut = new SplitServletOutputStream(result.getOutputStream(), super.getOutputStream());
+            cacheOut = new SplitServletOutputStream(result.getOutputStream(), super.getOutputStream())
         }
-        return cacheOut;
+        return cacheOut
     }
 
     /**
@@ -58,15 +58,15 @@ class CacheHttpServletResponseWrapper extends HttpServletResponseWrapper {
      */
     PrintWriter getWriter() throws IOException {
         if (cachedWriter == null) {
-            String encoding = getCharacterEncoding();
+            String encoding = getCharacterEncoding()
             if (encoding != null) {
-                cachedWriter = new PrintWriter(new OutputStreamWriter(getOutputStream(), encoding));
+                cachedWriter = new PrintWriter(new OutputStreamWriter(getOutputStream(), encoding))
             } else { // using the default character encoding
-                cachedWriter = new PrintWriter(new OutputStreamWriter(getOutputStream()));
+                cachedWriter = new PrintWriter(new OutputStreamWriter(getOutputStream()))
             }
         }
 
-        return cachedWriter;
+        return cachedWriter
     }
 
     /**
@@ -76,16 +76,16 @@ class CacheHttpServletResponseWrapper extends HttpServletResponseWrapper {
      */
     private void flush() throws IOException {
         if (cacheOut != null) {
-            cacheOut.flush();
+            cacheOut.flush()
         }
 
         if (cachedWriter != null) {
-            cachedWriter.flush();
+            cachedWriter.flush()
         }
     }
 
     void flushBuffer() throws IOException {
-        super.flushBuffer();
-        flush();
+        super.flushBuffer()
+        flush()
     }
 }
