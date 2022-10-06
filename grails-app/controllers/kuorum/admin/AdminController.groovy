@@ -129,6 +129,7 @@ class AdminController {
         domainValidationCommand.defaultPhonePrefix = domainRSDTO.defaultPhonePrefix
         domainValidationCommand.isSocialNetwork = domainRSDTO.isSocialNetwork
         domainValidationCommand.isUserProfileExtended = domainRSDTO.isUserProfileExtended
+        domainValidationCommand.tourEnabled = domainRSDTO.tourEnabled
 
         domainValidationCommand.providerBasicEmailForm = domainRSDTO.loginSettings.providerBasicEmailForm
         domainValidationCommand.providerGoogle = domainRSDTO.loginSettings.providerGoogle
@@ -153,6 +154,7 @@ class AdminController {
             domainRDTO.validationTokenMail = command.validationTokenMail ?: false
             domainRDTO.isSocialNetwork = command.isSocialNetwork ?: false
             domainRDTO.isUserProfileExtended = command.isUserProfileExtended ?: false
+            domainRDTO.tourEnabled = command.tourEnabled != null && command.tourEnabled
             domainRDTO.smsDomainName = command.smsDomainName ?: ''
             domainRDTO.defaultPhonePrefix = command.defaultPhonePrefix
 
