@@ -153,6 +153,8 @@ grails.project.dependency.resolution = {
 
         compile group: 'com.twelvemonkeys.imageio', name: 'imageio-jpeg', version: '3.8.1'
 
+        compile group: 'net.spy', name: 'spymemcached', version: '2.12.3'
+
 
         // https://mvnrepository.com/artifact/de.javakaffee.msm/memcached-session-manager
 //        compile group: 'de.javakaffee.msm', name: 'memcached-session-manager', version: '2.3.2'
