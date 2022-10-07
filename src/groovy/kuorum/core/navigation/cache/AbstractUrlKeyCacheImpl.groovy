@@ -19,8 +19,8 @@ abstract class AbstractUrlKeyCacheImpl implements ServletResponseCache {
 
     String buildKey(URL url, Locale locale) {
         String key = url.toString()
-        key += localeInfo(locale)
         key += securityInfo()
+        key += localeInfo(locale)
         return key
     }
 
@@ -28,7 +28,7 @@ abstract class AbstractUrlKeyCacheImpl implements ServletResponseCache {
             return springSecurityService.isLoggedIn()?((KuorumUserSession) springSecurityService.principal).id:""
     }
 
-    private String localeInfo(Locale locale) {
+    protected String localeInfo(Locale locale) {
             return locale!=null?locale.getLanguage():""
     }
 }

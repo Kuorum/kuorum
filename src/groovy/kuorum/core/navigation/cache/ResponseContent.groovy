@@ -11,6 +11,8 @@ import javax.servlet.ServletResponse
  */
 class ResponseContent implements Serializable {
 
+    private static final long serialVersionUID = 3815371067383546908L
+
     private transient ByteArrayOutputStream bout = new ByteArrayOutputStream(1000)
     private byte[] content = null
 
@@ -60,5 +62,9 @@ class ResponseContent implements Serializable {
         response.setContentLength(content.length)
         out.write(content)
         out.flush()
+    }
+
+    byte[] getContent(){
+        return content
     }
 }

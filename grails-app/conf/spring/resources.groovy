@@ -5,13 +5,17 @@ import kuorum.core.customDomain.filter.CacheResponseSpringFilter
 import kuorum.core.customDomain.filter.CustomDomainSpringFilter
 import kuorum.core.customDomain.filter.KuorumLogSpringFilter
 import kuorum.core.customDomain.filter.PingSpringFilter
-import kuorum.core.navigation.cache.HasMapServletResponseCacheImpl
+import kuorum.core.navigation.cache.MemcachedServletResponseCacheImpl
 import kuorum.core.springSecurity.handlers.SuccessAuthenticationHandler
 import kuorum.files.AmazonFileService
 import kuorum.register.MongoUserDetailsService
 import kuorum.security.permission.KuorumPermissionEvaluator
 import kuorum.security.rememberMe.RememberMeTokenRepository
 import kuorum.web.constants.WebConstants
+import net.spy.memcached.AddrUtil
+import net.spy.memcached.ConnectionFactoryBuilder
+import net.spy.memcached.MemcachedClient
+import net.spy.memcached.transcoders.SerializingTranscoder
 
 // Place your Spring DSL code here
 beans = {
@@ -99,8 +103,12 @@ beans = {
     }
 
     //CACHE
-    servletResponseCache(HasMapServletResponseCacheImpl) {
+    servletResponseCache(MemcachedServletResponseCacheImpl) {
         springSecurityService = ref('springSecurityService')
+        memcachedClient = new MemcachedClient(new ConnectionFactoryBuilder()
+                .setTranscoder(new SerializingTranscoder())
+                .setProtocol(ConnectionFactoryBuilder.Protocol.BINARY)
+                .build(), AddrUtil.getAddresses(application.config.kuorum.memcache.host))
     }
 
     //CACHE FILTER

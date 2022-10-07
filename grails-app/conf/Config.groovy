@@ -48,6 +48,8 @@ log4j = {
     info stdout: 'grails.app','org.kuorum', 'kuorum'
     info    'grails.app','org.kuorum', 'kuorum'
 
+    debug 'kuorum.core.navigation.cache.MemcachedServletResponseCacheImpl'
+
     error   'groovyx.net.http.RESTClient',        // Exception parsing WARN not visible
             'org.codehaus.groovy.grails.web.servlet',        // controllers
             'org.codehaus.groovy.grails.web.pages',          // GSP
