@@ -34,11 +34,20 @@ $(function () {
     })
     $("#contestApplicationsReviewTable").on("click", ".box-ppal-action a", function (e) {
         e.preventDefault();
-        var $a = $(this);
+        $("#changeContestApplicationStatusModal").modal("show")
+        const $approveOrRejectButton = $(this);
+        const $modalOkButton = $("#modalEditParticipatoryBudgetStatusButtonOk");
+
+        const statusParam = $approveOrRejectButton.attr("href");
+        const urlUpdateStatus = kuorumUrls.contestApplicationUpdateReview + statusParam;
+        $modalOkButton.attr("href", urlUpdateStatus);
+    })
+    $("#changeContestApplicationStatusModal").on("click", "#modalEditParticipatoryBudgetStatusButtonOk", function (e) {
+        e.preventDefault()
         pageLoadingOn();
-        var urlUpdateStatus = $a.attr("href")
-        var data = {}
-        $.post(urlUpdateStatus, data)
+
+        const data = {}
+        $.post($(this).attr("href"), data)
             .done(function (response) {
                 if (response.success) {
                     contestListProposalHelper.refreshTable();
@@ -51,8 +60,8 @@ $(function () {
             })
             .always(function () {
                 pageLoadingOff();
+                $("#changeContestApplicationStatusModal").modal("hide");
             });
-
     })
 });
 
@@ -78,8 +87,8 @@ function detailFormatterActions(index, campaignRow) {
         const paramsApprove = jQuery.param(params);
 
         return "" +
-            "<a href='" + kuorumUrls.contestApplicationUpdateReview + "?" + paramsReject + "' class='btn btn-grey-light'>" + i18n.kuorum.web.commands.payment.contest.reject + "</a>" +
-            "<a href='" + kuorumUrls.contestApplicationUpdateReview + "?" + paramsApprove + "' class='btn btn-blue'>" + i18n.kuorum.web.commands.payment.contest.approve + "</a>";
+        "<a href='"+ "?" + paramsReject + "' class='btn btn-grey-light' >" + i18n.kuorum.web.commands.payment.contest.reject + "</a>" +
+            "<a href='" + "?" + paramsApprove + "' class='btn btn-blue'>" + i18n.kuorum.web.commands.payment.contest.approve + "</a>";
     } else {
         return "";
     }
