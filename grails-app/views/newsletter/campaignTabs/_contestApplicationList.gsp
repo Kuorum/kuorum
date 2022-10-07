@@ -115,3 +115,37 @@
         </div>
     </div>
 </div>
+
+<!-- MODAL CHANGE CAMPAIGN STATUS-->
+<div class="modal fade in" id="changeContestApplicationStatusModal" tabindex="-1" role="dialog"
+     aria-labelledby="modalEditParticipatoryBudgetStatusTitle" aria-hidden="true">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                    <span aria-hidden="true" class="fal fa-times-circle fa"></span><span
+                        class="sr-only"><g:message code="modalDefend.close"/></span>
+                </button>
+                <h4>
+                    <g:message code="modal.changeContestApplicationStatusModal.title"/>
+                </h4>
+            </div>
+
+            <div class="modal-body">
+                <p><g:message code="modal.changeContestApplicationStatusModal.text"/></p>
+                <fieldset aria-live="polite" class="text-right">
+                    <a href="#" class="btn btn-grey-light btn-lg" data-dismiss="modal"
+                       id="modalEditParticipatoryBudgetStatusButtonClose">
+                        <g:message code="participatoryBudget.status.change.modal.cancel"/>
+                    </a>
+                    <a href="#"
+                       class="btn btn-blue inverted btn-lg"
+                       id="modalEditParticipatoryBudgetStatusButtonOk">
+                        <g:message code="participatoryBudget.status.change.modal.submit"/>
+                    </a>
+                </fieldset>
+
+            </div>
+        </div>
+    </div>
+</div>
