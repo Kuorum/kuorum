@@ -25,7 +25,7 @@
             <h3><g:message code="customRegister.step4.congratulations"/></h3>
         <fieldset aria-live="polite" class="row">
             <div class="form-group">
-                <g:link class="btn btn-lg" mapping="dashboard" params="[tour:true]">
+                <g:link class="btn btn-lg" mapping="dashboard" params="[tour:kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.tourEnabled]">
                         <g:message code="customRegister.step4.goToDashboard"/>
                     </g:link>
                 </div>

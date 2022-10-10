@@ -16,6 +16,13 @@
                                disabled="${!disabledForAdmins}"/>
         </div>
     </fieldset>
+
+    <fieldset aria-live="polite" class="row">
+        <div class="form-group col-md-6">
+            <formUtil:checkBox command="${command}" field="tourEnabled" showLabel="true"
+                               disabled="${!disabledForAdmins}"/>
+        </div>
+    </fieldset>
     <h4 class="box-ppal-section-title"><g:message code="kuorum.web.admin.domain.contentPrivacy.label"/></h4>
     <fieldset aria-live="polite" class="row">
         <div class="form-group col-md-12">
