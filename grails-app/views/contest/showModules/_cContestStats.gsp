@@ -14,7 +14,7 @@
                                       args="[contest.numWinnerApplications ?: '--']"/>
     </li>
     <li>
-        <span class="fal fa-scroll" aria-hidden="true"></span>
+        <span class="fal fa-box-ballot" aria-hidden="true"></span>
         <span class="info"><g:message code="contest.numApplications" args="[contest.numApplications ?: '--']"/>
     </li>
 </ul>

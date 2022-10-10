@@ -21,7 +21,7 @@
                 code="org.kuorum.rest.model.communication.contest.ContestApplicationFocusTypeDTO.${contestApplication.focusType}"/></span>
     </li>
     <li>
-        <span class="fal fa-scroll" aria-hidden="true"></span>
+        <span class="fal fa-box-ballot" aria-hidden="true"></span>
         <span class="info">
             <span class="number">${contestApplication.votes}</span>
             <g:message code="contestApplication.stats.numVotes"/></span>
