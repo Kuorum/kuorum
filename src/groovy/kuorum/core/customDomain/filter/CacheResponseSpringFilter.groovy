@@ -41,6 +41,7 @@ class CacheResponseSpringFilter extends GenericFilterBean {
             }
             request.setAttribute(REQUEST_FILTERED, Boolean.TRUE)
 
+            //TODO why????
             URL url = new URL(httpServletRequest.getRequestURL().toString())
             Locale locale = getLocale(httpServletRequest, response as HttpServletResponse)
             if (!servletResponseCache.get(url, response, locale)) {

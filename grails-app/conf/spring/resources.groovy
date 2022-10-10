@@ -3,6 +3,7 @@ import grails.plugin.springsecurity.authentication.encoding.BCryptPasswordEncode
 import grails.util.Environment
 import kuorum.core.customDomain.filter.CacheResponseSpringFilter
 import kuorum.core.customDomain.filter.CustomDomainSpringFilter
+import kuorum.core.customDomain.filter.EvictResponseSpringFilter
 import kuorum.core.customDomain.filter.KuorumLogSpringFilter
 import kuorum.core.customDomain.filter.PingSpringFilter
 import kuorum.core.navigation.cache.MemcachedServletResponseCacheImpl
@@ -116,6 +117,11 @@ beans = {
         urlMappingsHolder = ref('grailsUrlMappingsHolder')
         servletResponseCache = ref('servletResponseCache')
         springSecurityService = ref('springSecurityService')
+    }
+
+    evictResponseSpringFilter(EvictResponseSpringFilter) {
+        urlMappingsHolder = ref('grailsUrlMappingsHolder')
+        servletResponseCache = ref('servletResponseCache')
     }
 
     // DOMAIN
