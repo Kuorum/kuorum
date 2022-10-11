@@ -4,14 +4,16 @@ import spock.lang.Specification
 import spock.lang.Subject
 import spock.lang.Unroll
 
-class PathKeyExtractorServiceSpec extends Specification {
+class PathKeyExtractorSpec extends Specification {
 
     private static String OWNER = "testOwner"
 
-    private static String CAMPAIGN = "testCampaignWithALotOfNumbers7777andThinks"
+    private static String CAMPAIGN = "testCampaignWithNumbersAndThinks-7777"
+
+    private static String SUBCAMPAIGN = "testSubCampaign-888"
 
     @Subject
-    PathKeyExtractorService pathKeyExtractorService = new PathKeyExtractorService()
+    PathKeyExtractor pathKeyExtractorService = new PathKeyExtractor()
 
     @Unroll
     void 'Should extract owner an campaign from patter #path'(){
@@ -23,7 +25,9 @@ class PathKeyExtractorServiceSpec extends Specification {
         path << [
                 '/'+OWNER+'/'+CAMPAIGN,
                 '/account/'+OWNER+'/cta/'+CAMPAIGN+'/proyecto10101731-3539/edit-content',
-                '/account/'+OWNER+'/pb/'+CAMPAIGN+'/new-proposal'
+                '/account/'+OWNER+'/pb/'+CAMPAIGN+'/new-proposal',
+                '/ajax/'+OWNER+'/ct/'+CAMPAIGN+'/cta/'+SUBCAMPAIGN+'campaignId/vote',
+                '/ajax/account/'+OWNER+'/pb/' +CAMPAIGN+'/remove'
         ]
     }
 }

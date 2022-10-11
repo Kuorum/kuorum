@@ -1,7 +1,6 @@
 package kuorum.core.customDomain.filter
 
-
-import kuorum.core.navigation.cache.ServletResponseCache
+import kuorum.core.navigation.cache.ServletRequestResponseCache
 import org.codehaus.groovy.grails.web.mapping.UrlMappingInfo
 import org.codehaus.groovy.grails.web.mapping.UrlMappingsHolder
 import org.springframework.web.filter.GenericFilterBean
@@ -18,7 +17,7 @@ class EvictResponseSpringFilter extends GenericFilterBean {
 
     public static final String CACHE_EVICT = "cacheEvict"
     UrlMappingsHolder urlMappingsHolder
-    ServletResponseCache servletResponseCache
+    ServletRequestResponseCache servletResponseCache
 
     private static final String REQUEST_FILTERED = "cache_filter_" + EvictResponseSpringFilter.class.getName()
 
@@ -36,8 +35,7 @@ class EvictResponseSpringFilter extends GenericFilterBean {
             }
             request.setAttribute(REQUEST_FILTERED, Boolean.TRUE)
 
-            URL url = new URL(httpServletRequest.getRequestURL().toString())
-            servletResponseCache.evict(url)
+            servletResponseCache.evict(httpServletRequest)
         }
     }
 

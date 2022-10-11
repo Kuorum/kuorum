@@ -1,12 +1,8 @@
 import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.authentication.encoding.BCryptPasswordEncoder
 import grails.util.Environment
-import kuorum.core.customDomain.filter.CacheResponseSpringFilter
-import kuorum.core.customDomain.filter.CustomDomainSpringFilter
-import kuorum.core.customDomain.filter.EvictResponseSpringFilter
-import kuorum.core.customDomain.filter.KuorumLogSpringFilter
-import kuorum.core.customDomain.filter.PingSpringFilter
-import kuorum.core.navigation.cache.MemcachedServletResponseCacheImpl
+import kuorum.core.customDomain.filter.*
+import kuorum.core.navigation.cache.MemcachedRequestResponseCacheImpl
 import kuorum.core.springSecurity.handlers.SuccessAuthenticationHandler
 import kuorum.files.AmazonFileService
 import kuorum.register.MongoUserDetailsService
@@ -104,8 +100,7 @@ beans = {
     }
 
     //CACHE
-    servletResponseCache(MemcachedServletResponseCacheImpl) {
-        springSecurityService = ref('springSecurityService')
+    servletResponseCache(MemcachedRequestResponseCacheImpl) {
         memcachedClient = new MemcachedClient(new ConnectionFactoryBuilder()
                 .setTranscoder(new SerializingTranscoder())
                 .setProtocol(ConnectionFactoryBuilder.Protocol.BINARY)
