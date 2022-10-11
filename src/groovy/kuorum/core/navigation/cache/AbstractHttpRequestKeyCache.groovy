@@ -12,11 +12,15 @@ abstract class AbstractHttpRequestKeyCache implements ServletRequestResponseCach
     }
 
     String buildKey(HttpServletRequest request, Locale locale) {
-        String key = request.getLocalAddr() + request.getContextPath()
+        String key = buildGlobalKey(request)
         key += pathKeyExtractor.extractKey(request.getServletPath())
         if (locale) {
             key += locale.getLanguage()
         }
         return key
+    }
+
+    String buildGlobalKey(HttpServletRequest request) {
+        return request.getLocalAddr() + request.getContextPath()
     }
 }

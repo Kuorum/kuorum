@@ -58,8 +58,17 @@ class MemcachedRequestResponseCacheImpl extends AbstractHttpRequestKeyCache {
     }
 
     @Override
-    void evict(HttpServletRequest request) {
-        String simpleKey = buildKey(request)
+    void evictCampaing(HttpServletRequest request) {
+        evictMultilanguageKey(buildKey(request))
+    }
+
+    @Override
+    void evictGlobal(HttpServletRequest request) {
+        evictMultilanguageKey(buildGlobalKey(request))
+
+    }
+
+    private void evictMultilanguageKey(String simpleKey) {
         String cachedLanguages = memcachedClient.get(simpleKey) as String
         if (cachedLanguages) {
             cachedLanguages.split(SEPARATOR).each {

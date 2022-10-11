@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse
 
 import static java.lang.Boolean.parseBoolean
 
-class CacheResponseSpringFilter extends GenericFilterBean {
+class CacheResponseSpringFilter extends AbstractWrappedResponseFilter {
 
     public static final String CACHE_ACTIVE = "cacheActive"
     UrlMappingsHolder urlMappingsHolder
@@ -43,13 +43,6 @@ class CacheResponseSpringFilter extends GenericFilterBean {
         } else {
             filterChain.doFilter(request, response)
         }
-    }
-
-    private CacheHttpServletResponseWrapper wrapResponse(ServletRequest request, ServletResponse response, FilterChain filterChain) {
-        CacheHttpServletResponseWrapper cacheResponse = new CacheHttpServletResponseWrapper((HttpServletResponse) response)
-        filterChain.doFilter(request, cacheResponse)
-        cacheResponse.flushBuffer()
-        return cacheResponse
     }
 
     private Boolean isCacheable(HttpServletRequest httpServletRequest) {

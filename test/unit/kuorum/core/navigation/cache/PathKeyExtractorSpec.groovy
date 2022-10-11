@@ -16,18 +16,27 @@ class PathKeyExtractorSpec extends Specification {
     PathKeyExtractor pathKeyExtractorService = new PathKeyExtractor()
 
     @Unroll
-    void 'Should extract owner an campaign from patter #path'(){
+    void 'Should extract owner an campaign from patter #path'() {
         when:
         String key = pathKeyExtractorService.extractKey(path)
         then:
-            key == OWNER + CAMPAIGN
+        key == OWNER + CAMPAIGN
         where:
         path << [
-                '/'+OWNER+'/'+CAMPAIGN,
-                '/account/'+OWNER+'/cta/'+CAMPAIGN+'/proyecto10101731-3539/edit-content',
-                '/account/'+OWNER+'/pb/'+CAMPAIGN+'/new-proposal',
-                '/ajax/'+OWNER+'/ct/'+CAMPAIGN+'/cta/'+SUBCAMPAIGN+'campaignId/vote',
-                '/ajax/account/'+OWNER+'/pb/' +CAMPAIGN+'/remove'
+                '/' + OWNER + '/' + CAMPAIGN,
+                '/account/' + OWNER + '/cta/' + CAMPAIGN + '/proyecto10101731-3539/edit-content',
+                '/account/' + OWNER + '/pb/' + CAMPAIGN + '/new-proposal',
+                '/ajax/' + OWNER + '/ct/' + CAMPAIGN + '/cta/' + SUBCAMPAIGN + 'campaignId/vote',
+                '/ajax/account/' + OWNER + '/pb/' + CAMPAIGN + '/remove'
         ]
+    }
+
+    void 'Should retrun empty on default path'() {
+        given:
+        String defaultPath = "/index.html"
+        when:
+        String key = pathKeyExtractorService.extractKey(defaultPath)
+        then:
+        key == ""
     }
 }

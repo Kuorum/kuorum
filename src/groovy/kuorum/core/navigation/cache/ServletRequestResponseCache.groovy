@@ -10,6 +10,8 @@ interface ServletRequestResponseCache {
 
     boolean get(HttpServletRequest request, ServletResponse response)
 
-    void evict(HttpServletRequest request)
+    void evictCampaing(HttpServletRequest request)
+
+    void evictGlobal(HttpServletRequest request)
 
 }

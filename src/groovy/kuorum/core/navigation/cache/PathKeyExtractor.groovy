@@ -4,9 +4,9 @@ import com.google.common.collect.Sets
 
 class PathKeyExtractor {
 
-    private static final int TOKENS_TO_LOCATE = 2 //TODO parameter?
+    private static final int TOKENS_TO_LOCATE = 2
 
-    private static final Set TOKENS_TO_IGNORE = Sets.newHashSet("","account","cta","pb","ct","ajax")
+    private static final Set TOKENS_TO_IGNORE = Sets.newHashSet("","account","cta","pb","ct","ajax","index.html")
 
     String extractKey(String path) {
         StringBuilder stringBuilder = new StringBuilder()

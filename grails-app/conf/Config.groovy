@@ -48,7 +48,8 @@ log4j = {
     info stdout: 'grails.app','org.kuorum', 'kuorum'
     info    'grails.app','org.kuorum', 'kuorum'
 
-    debug 'kuorum.core.navigation.cache'
+    debug   'kuorum.core.navigation.cache',
+            'kuorum.core.customDomain.filter'
 
     error   'groovyx.net.http.RESTClient',        // Exception parsing WARN not visible
             'org.codehaus.groovy.grails.web.servlet',        // controllers

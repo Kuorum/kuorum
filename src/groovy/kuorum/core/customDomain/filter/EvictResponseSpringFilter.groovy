@@ -1,21 +1,28 @@
 package kuorum.core.customDomain.filter
 
+import grails.converters.JSON
+import kuorum.core.navigation.cache.CacheHttpServletResponseWrapper
 import kuorum.core.navigation.cache.ServletRequestResponseCache
+import org.codehaus.groovy.grails.web.converters.exceptions.ConverterException
+import org.codehaus.groovy.grails.web.json.JSONElement
 import org.codehaus.groovy.grails.web.mapping.UrlMappingInfo
 import org.codehaus.groovy.grails.web.mapping.UrlMappingsHolder
-import org.springframework.web.filter.GenericFilterBean
+import org.springframework.web.bind.annotation.RequestMethod
 
 import javax.servlet.FilterChain
 import javax.servlet.ServletException
 import javax.servlet.ServletRequest
 import javax.servlet.ServletResponse
 import javax.servlet.http.HttpServletRequest
+import java.nio.charset.Charset
 
 import static java.lang.Boolean.parseBoolean
 
-class EvictResponseSpringFilter extends GenericFilterBean {
+class EvictResponseSpringFilter extends AbstractWrappedResponseFilter {
 
-    public static final String CACHE_EVICT = "cacheEvict"
+    public static final String CAMPAIGN_EVICT = "cacheCampaignEvict"
+    public static final String GLOBAL_EVICT = "cacheGlobalEvict"
+    public static final String AJAX_PREFIX = "/ajax"
     UrlMappingsHolder urlMappingsHolder
     ServletRequestResponseCache servletResponseCache
 
@@ -23,26 +30,41 @@ class EvictResponseSpringFilter extends GenericFilterBean {
 
 
     void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
-        filterChain.doFilter(request, response)
+        CacheHttpServletResponseWrapper wrappedResponse = wrapResponse(request, response, filterChain)
+        HttpServletRequest httpServletRequest = request as HttpServletRequest
 
-
-        def httpServletRequest = request as HttpServletRequest
-        if (haveEvict(httpServletRequest)) {
-            // Evita llamadas repetidas TODO revisar
-            if (isFilteredBefore(request)) {
-                filterChain.doFilter(request, response)
-                return
+        //Avoid action on AJAX request fail
+        if (httpServletRequest.getServletPath()?.startsWith(AJAX_PREFIX)) {
+            try {
+                JSONElement json = JSON.parse(new String(wrappedResponse.getContent().getContent(), Charset.defaultCharset()))
+                if (json.success == false) {
+                    logger.debug("Ajax not success response")
+                    return
+                }
+            } catch (ConverterException e) {
+                logger.debug("Ajax html response")
             }
-            request.setAttribute(REQUEST_FILTERED, Boolean.TRUE)
+        }
 
-            servletResponseCache.evict(httpServletRequest)
+        // Avoid repeated calls
+        if (isFilteredBefore(request)) {
+            filterChain.doFilter(request, response)
+            return
+        }
+        request.setAttribute(REQUEST_FILTERED, Boolean.TRUE)
+
+        UrlMappingInfo urlMappingInfo = urlMappingsHolder.match(httpServletRequest.forwardURI.replaceFirst(httpServletRequest.contextPath, ""))
+        String method = httpServletRequest.method
+        if (haveEvict(urlMappingInfo, method, CAMPAIGN_EVICT)) {
+            servletResponseCache.evictCampaing(httpServletRequest)
+        }
+        if (haveEvict(urlMappingInfo, method, GLOBAL_EVICT)) {
+            servletResponseCache.evictGlobal(httpServletRequest)
         }
     }
 
-    private Boolean haveEvict(HttpServletRequest httpServletRequest) {
-        UrlMappingInfo urlMappingInfo = urlMappingsHolder.match(httpServletRequest.forwardURI.replaceFirst(httpServletRequest.contextPath, ""))
-        //TODO POST from constant
-        return urlMappingInfo && httpServletRequest.method == "POST" && urlMappingInfo.parameters.containsKey(CACHE_EVICT) && parseBoolean(urlMappingInfo.parameters.get(CACHE_EVICT) as String)
+    private Boolean haveEvict(UrlMappingInfo urlMappingInfo, method, String cacheParameter) {
+        return urlMappingInfo && method == RequestMethod.POST.toString() && urlMappingInfo.parameters.containsKey(cacheParameter) && parseBoolean(urlMappingInfo.parameters.get(cacheParameter) as String)
     }
 
     /**
