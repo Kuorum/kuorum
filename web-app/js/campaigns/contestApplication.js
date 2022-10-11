@@ -10,6 +10,10 @@ $(function () {
         console.log("Contest application voting NO LOGGED :: RELOADING")
         contestApplicationFunctions.onClickVoteContestApplication($button, noLoggedCallbacks.reloadPage);
     };
+    $(".actions.call-to-action-mobile.go-to-vote button").on("click", function(e){
+        e.preventDefault();
+        moveSmooth("div.comment-box.call-to-action.call-to-action-add-proposal")
+    });
 });
 
 var contestApplicationFunctions = {
