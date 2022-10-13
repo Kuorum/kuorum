@@ -38,3 +38,5 @@ grails.resources.mappers.baseurl.default = "https://${System.getenv("UPLOADED_RE
 
 
 grails.mongo.replicaSet=["${System.getenv("MONGO_HOST")}:${System.getenv( "MONGO_PORT")}"]
+
+kuorum.memcache.host="${System.getenv("MEMCACHE_URL")}:${System.getenv( "MEMCACHE_PORT")}"
