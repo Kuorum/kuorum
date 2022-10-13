@@ -70,7 +70,7 @@ class CookieUUIDService {
         // NOT WORKING
         def cookie = cookieService.findCookie(WebConstants.COOKIE_USER_UUID)
         setUserUUID(DELETED_COOKIE_VALUE)
-        cookieService.deleteCookie(cookie)
+        cookieService.deleteCookieByCookie(cookie)
     }
 
     /**
@@ -103,7 +103,7 @@ class CookieUUIDService {
     }
 
     void deleteDomainCookie(String cookieName){
-        cookieService.deleteCookie(cookieName, WebConstants.COOKIE_PATH, CustomDomainResolver.domain)
+        cookieService.deleteCookieByName(cookieName, WebConstants.COOKIE_PATH, CustomDomainResolver.domain)
     }
 
     String getRememberPasswordRedirect(){
