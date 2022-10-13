@@ -4194,7 +4194,7 @@ fieldset > .multiple-range-selector:first-child {margin-top:40px;}
     margin-bottom: 20px;
 }
 
-.uploaderImageContainer .qq-upload-drop-area .button-container {width: 80%; margin: 0 auto; border-radius: 4px; padding: 0; }
+.uploaderImageContainer .qq-upload-drop-area .button-container {width: 100%; margin: 0 auto; border-radius: 4px; padding: 0; }
 
 .uploaderImageContainer.USER_AVATAR {
     width: 220px;
