@@ -56,10 +56,10 @@ class EvictResponseSpringFilter extends AbstractWrappedResponseFilter {
         UrlMappingInfo urlMappingInfo = urlMappingsHolder.match(httpServletRequest.forwardURI.replaceFirst(httpServletRequest.contextPath, ""))
         String method = httpServletRequest.method
         if (haveEvict(urlMappingInfo, method, CAMPAIGN_EVICT)) {
-            servletResponseCache.evictCampaing(httpServletRequest)
+            servletResponseCache.evictCampaign(urlMappingInfo)
         }
         if (haveEvict(urlMappingInfo, method, GLOBAL_EVICT)) {
-            servletResponseCache.evictGlobal(httpServletRequest)
+            servletResponseCache.evictGlobal(urlMappingInfo)
         }
     }
 

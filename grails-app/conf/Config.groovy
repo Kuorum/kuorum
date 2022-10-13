@@ -199,7 +199,7 @@ grails.plugin.springsecurity.ui.password.maxLength=64
 //grails.plugin.springsecurity.ui.password.validationRegex="^.*(?=.*\\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&]).*$"
 grails.plugin.springsecurity.ui.password.validationRegex='^.*$'
 
-grails.plugin.springsecurity.filterChain.filterNames = ['evictResponseSpringFilter','customDomainSpringFilter','securityContextPersistenceFilter','logoutFilter','authenticationProcessingFilter','rememberMeAuthenticationFilter','anonymousAuthenticationFilter','exceptionTranslationFilter','filterInvocationInterceptor','logoutFilter','authenticationProcessingFilter','switchFilter','switchUserProcessingFilter','kuorumLogSpringFilter', 'cacheResponseSpringFilter']
+grails.plugin.springsecurity.filterChain.filterNames = ['customDomainSpringFilter','evictResponseSpringFilter','securityContextPersistenceFilter','logoutFilter','authenticationProcessingFilter','rememberMeAuthenticationFilter','anonymousAuthenticationFilter','exceptionTranslationFilter','filterInvocationInterceptor','logoutFilter','authenticationProcessingFilter','switchFilter','switchUserProcessingFilter','kuorumLogSpringFilter', 'cacheResponseSpringFilter']
 //SWITCH USER
 grails.plugin.springsecurity.useSwitchUserFilter = true
 grails.plugin.springsecurity.controllerAnnotations.staticRules=[

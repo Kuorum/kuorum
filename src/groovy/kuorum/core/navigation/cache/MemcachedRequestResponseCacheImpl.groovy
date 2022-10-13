@@ -1,18 +1,12 @@
 package kuorum.core.navigation.cache
 
-import kuorum.web.constants.WebConstants
 import net.spy.memcached.MemcachedClient
 import net.spy.memcached.internal.OperationFuture
 import org.apache.commons.logging.Log
 import org.apache.commons.logging.LogFactory
-import org.springframework.web.servlet.i18n.CookieLocaleResolver
+import org.codehaus.groovy.grails.web.mapping.UrlMappingInfo
 
 import javax.servlet.ServletResponse
-import javax.servlet.http.Cookie
-import javax.servlet.http.HttpServletRequest
-import javax.servlet.http.HttpServletResponse
-
-import static org.apache.commons.lang.LocaleUtils.toLocale
 
 class MemcachedRequestResponseCacheImpl extends AbstractHttpRequestKeyCache {
 
@@ -30,24 +24,26 @@ class MemcachedRequestResponseCacheImpl extends AbstractHttpRequestKeyCache {
     }
 
     @Override
-    void put(HttpServletRequest request, CacheHttpServletResponseWrapper response) {
-        def key = buildKey(request, getLocale(request, response))
+    void put(UrlMappingInfo urlMappingInfo, CacheHttpServletResponseWrapper response, Locale locale) {
+        def key = buildKey(urlMappingInfo, locale)
         memcachedClient.set(key, expirationInADay, response.getContent().getContent())
 
-        String language = getLocale(request,response).getLanguage()
-        OperationFuture<Boolean> appendTry = memcachedClient.append(buildKey(request), SEPARATOR + language)
+        String language = locale.getLanguage()
+
+        def simpleKey = buildKey(urlMappingInfo)
+        OperationFuture<Boolean> appendTry = memcachedClient.append(simpleKey, SEPARATOR + language)
         if (appendTry.getStatus().isSuccess()) {
-            logger.debug("language ${language} append")
+            logger.debug("language ${language} append on ${simpleKey}")
         } else {
-            memcachedClient.set(buildKey(request), expirationInADay, language)
-            logger.debug("language ${language} new cached")
+            memcachedClient.set(simpleKey, expirationInADay, language)
+            logger.debug("language ${language} new cached on ${simpleKey}")
         }
         logger.debug("Key $key cached")
     }
 
     @Override
-    boolean get(HttpServletRequest request, ServletResponse response) {
-        String key = buildKey(request, getLocale(request, response))
+    boolean get(UrlMappingInfo urlMappingInfo, ServletResponse response, Locale locale) {
+        String key = buildKey(urlMappingInfo, locale)
         byte[] cached = memcachedClient.get(key)
         if (cached == null) {
             return false
@@ -58,13 +54,13 @@ class MemcachedRequestResponseCacheImpl extends AbstractHttpRequestKeyCache {
     }
 
     @Override
-    void evictCampaing(HttpServletRequest request) {
-        evictMultilanguageKey(buildKey(request))
+    void evictCampaign(UrlMappingInfo urlMappingInfo) {
+        evictMultilanguageKey(buildKey(urlMappingInfo))
     }
 
     @Override
-    void evictGlobal(HttpServletRequest request) {
-        evictMultilanguageKey(buildGlobalKey(request))
+    void evictGlobal(UrlMappingInfo urlMappingInfo) {
+        evictMultilanguageKey(buildGlobalKey(urlMappingInfo))
 
     }
 
@@ -86,34 +82,4 @@ class MemcachedRequestResponseCacheImpl extends AbstractHttpRequestKeyCache {
         out.write(content)
         out.flush()
     }
-
-    Locale getLocale(HttpServletRequest request, HttpServletResponse response) {
-        String urlParamLang = request.getParameter(WebConstants.WEB_PARAM_LANG)
-        if (urlParamLang) {
-            updateCookieIfNeeded(request, response, urlParamLang)
-            return toLocale(urlParamLang)
-        }
-        String cookieLocaleString = lookForCookieLocale(request)
-        if (cookieLocaleString) {
-            return toLocale(cookieLocaleString)
-        }
-        return request.getLocale()
-    }
-
-    private void updateCookieIfNeeded(HttpServletRequest request, HttpServletResponse response, String urlParamLang) {
-        Cookie cookie = getLocaleCookie(request)
-        if (cookie && !cookie.getValue().startsWith(urlParamLang)) {
-            cookie.setValue(urlParamLang)
-            response.addCookie(cookie)
-        }
-    }
-
-    private String lookForCookieLocale(HttpServletRequest servletRequest) {
-        getLocaleCookie(servletRequest)?.value
-    }
-
-    private Cookie getLocaleCookie(HttpServletRequest servletRequest) {
-        ((HttpServletRequest) servletRequest).getCookies().find({ cookie -> cookie.name == CookieLocaleResolver.LOCALE_REQUEST_ATTRIBUTE_NAME })
-    }
-
 }

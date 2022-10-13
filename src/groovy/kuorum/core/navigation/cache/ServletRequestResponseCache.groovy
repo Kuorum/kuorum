@@ -1,17 +1,17 @@
 package kuorum.core.navigation.cache
 
+import org.codehaus.groovy.grails.web.mapping.UrlMappingInfo
 
 import javax.servlet.ServletResponse
-import javax.servlet.http.HttpServletRequest
 
 interface ServletRequestResponseCache {
 
-    void put(HttpServletRequest request, CacheHttpServletResponseWrapper response)
+    void put(UrlMappingInfo urlMappingInfo, CacheHttpServletResponseWrapper response, Locale locale)
 
-    boolean get(HttpServletRequest request, ServletResponse response)
+    boolean get(UrlMappingInfo urlMappingInfo, ServletResponse response, Locale locale)
 
-    void evictCampaing(HttpServletRequest request)
+    void evictCampaign(UrlMappingInfo urlMappingInfo)
 
-    void evictGlobal(HttpServletRequest request)
+    void evictGlobal(UrlMappingInfo urlMappingInfo)
 
 }
