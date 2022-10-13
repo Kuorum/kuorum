@@ -36,7 +36,7 @@
            value="${g.message(code: "contest.callToAction.${contest.status}.button", args: [campaignUser.name])}"/>
 </g:elseif>
 
-<div class="comment-box call-to-action ${hideXs ? 'hidden-sm hidden-xs' : ''}">
+<div class="comment-box call-to-action ${hideXs ? 'hidden-sm hidden-xs' : ''} ${hideXl ? 'hidden-md hidden-lg' : ''}">
     <div class="comment-header">
         <span class="call-title">${callTitleMsg}</span>
         <span class="call-subTitle">${callSubtitleMsg}</span>
