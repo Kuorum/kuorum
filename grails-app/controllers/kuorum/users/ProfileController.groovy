@@ -612,12 +612,14 @@ class ProfileController {
 
         }
 
+        Boolean tourEnabled = CustomDomainResolver.getDomainRSDTO().getTourEnabled();
+
         if (campaignRSDTO != null && campaignRSDTO.campaignType.equals(CampaignTypeRSDTO.CONTEST)) {
             redirect mapping: 'contestApplicationCreate', params: campaignRSDTO.encodeAsLinkProperties()
         } else if (campaignRSDTO != null && campaignRSDTO.campaignType.equals(CampaignTypeRSDTO.PARTICIPATORY_BUDGET)) {
-            redirect mapping: 'home', params: [tour: true]
+            redirect mapping: 'home', params: [tour: tourEnabled]
         } else {
-            redirect mapping: 'home', params: [tour: true]
+            redirect mapping: 'home', params: [tour: tourEnabled]
         }
     }
 

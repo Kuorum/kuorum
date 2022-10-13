@@ -6,6 +6,8 @@ import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.register.KuorumUserSession
 import kuorum.web.constants.WebConstants
 
+import javax.servlet.http.Cookie
+
 class CookieUUIDService {
 
     SpringSecurityService springSecurityService
@@ -68,9 +70,11 @@ class CookieUUIDService {
 
     void removeUserUUID() {
         // NOT WORKING
-        def cookie = cookieService.findCookie(WebConstants.COOKIE_USER_UUID)
+        Cookie cookie = cookieService.findCookie(WebConstants.COOKIE_USER_UUID)
         setUserUUID(DELETED_COOKIE_VALUE)
-        cookieService.deleteCookieByCookie(cookie)
+        if (cookie) {
+            cookieService.deleteCookie(cookie)
+        }
     }
 
     /**
