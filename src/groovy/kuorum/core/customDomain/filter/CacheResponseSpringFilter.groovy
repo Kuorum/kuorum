@@ -32,7 +32,7 @@ class CacheResponseSpringFilter extends AbstractWrappedResponseFilter {
         HttpServletRequest httpServletRequest = request as HttpServletRequest
 
 
-        UrlMappingInfo urlMappingInfo = urlMappingsHolder.match(httpServletRequest.forwardURI.replaceFirst(httpServletRequest.contextPath, ""))
+        UrlMappingInfo urlMappingInfo = getUrlMapping(httpServletRequest)
         if (isCacheable(urlMappingInfo)) {
             // Evita llamadas repetidas
             if (isFilteredBefore(request)) {
@@ -49,6 +49,10 @@ class CacheResponseSpringFilter extends AbstractWrappedResponseFilter {
         } else {
             filterChain.doFilter(request, response)
         }
+    }
+
+    private UrlMappingInfo getUrlMapping(HttpServletRequest httpServletRequest) {
+        urlMappingsHolder.matchAll(httpServletRequest.forwardURI.replaceFirst(httpServletRequest.contextPath, "")).find {it.actionName }
     }
 
     private Boolean isCacheable(UrlMappingInfo urlMappingInfo) {

@@ -17,7 +17,7 @@
 
 <content tag="cColumn">
     <g:render template="/contestApplication/showModules/cCallToAction"
-              model="[contestApplication: contestApplication, campaignUser: campaignUser, hideXs: true]"/>
+              model="[contestApplication: contestApplication, campaignUser: campaignUser, hideXs: false]"/>
     <g:render template="/campaigns/columnCModules/campaignFiles" model="[campaignFiles: campaignFiles]"/>
     <g:render template="/campaigns/columnCModules/campaignContactFiles"
               model="[contact: contact, contactFiles: contactFiles]"/>
