@@ -561,12 +561,12 @@ class AdminController {
     }
 
     @Secured(['IS_AUTHENTICATED_FULLY', 'ROLE_SUPER_ADMIN'])
-    void updateDomainCss() {
-
+    def updateDomainCss() {
+        log.debug("kk")
     }
 
     @Secured(['IS_AUTHENTICATED_FULLY', 'ROLE_SUPER_ADMIN'])
-    void updateDomainCssPost() {
+    def updateDomainCssPost() {
         domainService.updateAllDomainCss(false)
         flash.message = "Executing asynchronously"
         redirect mapping: 'adminRecerateCss'

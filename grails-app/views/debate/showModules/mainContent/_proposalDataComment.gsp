@@ -11,27 +11,29 @@
     <div class="footer clearfix">
         <div class="pull-right">
             <userUtil:ifUserIsTheLoggedOne user="[comment.user, debate.user]">
-                <button type="button" class="delete" data-ajaxDelete='${g.createLink(mapping: 'debateProposalDeleteComment')}' data-commentId="${comment.id}">
+                <button type="button" class="delete"
+                        data-ajaxDelete='${g.createLink(mapping: 'debateProposalDeleteComment', params: debate.encodeAsLinkProperties())}'
+                        data-commentId="${comment.id}">
                     <span class="middle-point right"><g:message code="post.show.comments.delete"/></span>
                 </button>
             </userUtil:ifUserIsTheLoggedOne>
 
-            <div class="footer-comment-votes ${comment.userVote>0?'vote-up':comment.userVote<0?'vote-down':''}">
+            <div class="footer-comment-votes ${comment.userVote > 0 ? 'vote-up' : comment.userVote < 0 ? 'vote-down' : ''}">
 
                 <button type="button" class="angle vote-up"
-                        data-ajaxVote='${g.createLink(mapping: 'debateProposalVoteComment')}'
+                        data-ajaxVote='${g.createLink(mapping: 'debateProposalVoteComment', params: debate.encodeAsLinkProperties())}'
                         data-commentId="${comment.id}"
                         data-userAlias="${sec.username()}"
                         data-campaignValidationActive="${debate.checkValidationActive}"
-                        data-campaignGroupValidationActive="${debate.groupValidation?g.createLink(mapping: "campaignCheckGroupValidation", params: debate.encodeAsLinkProperties()):''}"
+                        data-campaignGroupValidationActive="${debate.groupValidation ? g.createLink(mapping: "campaignCheckGroupValidation", params: debate.encodeAsLinkProperties()) : ''}"
                         data-campaignId="${debate.id}">
                     <span class="fal fa-angle-up" aria-hidden="true"></span>
                 </button>
                 <button type="button" class="angle vote-down"
-                        data-ajaxVote='${g.createLink(mapping: 'debateProposalVoteComment')}'
+                        data-ajaxVote='${g.createLink(mapping: 'debateProposalVoteComment', params: debate.encodeAsLinkProperties())}'
                         data-commentId="${comment.id}"
                         data-userAlias="${sec.username()}"
-                        data-campaignGroupValidationActive="${debate.groupValidation?g.createLink(mapping: "campaignCheckGroupValidation", params: debate.encodeAsLinkProperties()):''}"
+                        data-campaignGroupValidationActive="${debate.groupValidation ? g.createLink(mapping: "campaignCheckGroupValidation", params: debate.encodeAsLinkProperties()) : ''}"
                         data-campaignValidationActive="${debate.checkValidationActive}"
                         data-campaignId="${debate.id}">
                     <span class="fal fa-angle-down" aria-hidden="true"></span>

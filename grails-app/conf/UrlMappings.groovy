@@ -15,26 +15,17 @@ class UrlMappings {
 
         /**/
         /** NEW LANDIGNS **/
-        name landingServices: "/"(controller: "landing", action: "landingServices") { mappingName = "landingServices";
-            cacheActive = "true" }
-        name en_landingServices: "/"(controller: "landing", action: "landingServices") { mappingName = "landingServices";
-            cacheActive = "true" }
-        name es_landingServices: "/"(controller: "landing", action: "landingServices") { mappingName = "landingServices";
-            cacheActive = "true" }
-        name de_landingServices: "/"(controller: "landing", action: "landingServices") { mappingName = "landingServices";
-            cacheActive = "true" }
-        name ca_landingServices: "/"(controller: "landing", action: "landingServices") { mappingName = "landingServices";
-            cacheActive = "true" }
+        name landingServices: "/"(controller: "landing", action: "landingServices") { mappingName = "landingServices";cacheActive = "true" }
+        name en_landingServices: "/"(controller: "landing", action: "landingServices") { mappingName = "landingServices";cacheActive = "true" }
+        name es_landingServices: "/"(controller: "landing", action: "landingServices") { mappingName = "landingServices";cacheActive = "true" }
+        name de_landingServices: "/"(controller: "landing", action: "landingServices") { mappingName = "landingServices";cacheActive = "true" }
+        name ca_landingServices: "/"(controller: "landing", action: "landingServices") { mappingName = "landingServices";cacheActive = "true" }
 
         name home: "/"(controller: "landing", action: "landingServices") { mappingName = "home"; cacheActive = "true" }
-        name en_home: "/"(controller: "landing", action: "landingServices") { mappingName = "home";
-            cacheActive = "true" }
-        name es_home: "/"(controller: "landing", action: "landingServices") { mappingName = "home";
-            cacheActive = "true" }
-        name de_home: "/"(controller: "landing", action: "landingServices") { mappingName = "home";
-            cacheActive = "true" }
-        name ca_home: "/"(controller: "landing", action: "landingServices") { mappingName = "home";
-            cacheActive = "true" }
+        name en_home: "/"(controller: "landing", action: "landingServices") { mappingName = "home";cacheActive = "true" }
+        name es_home: "/"(controller: "landing", action: "landingServices") { mappingName = "home";cacheActive = "true" }
+        name de_home: "/"(controller: "landing", action: "landingServices") { mappingName = "home";cacheActive = "true" }
+        name ca_home: "/"(controller: "landing", action: "landingServices") { mappingName = "home";cacheActive = "true" }
 
         name footerPrivacyPolicy: "/legal/privacy-policy"(controller: "footer", action: "privacyPolicy") { mappingName = "footerPrivacyPolicy" }
         name en_footerPrivacyPolicy: "/legal/privacy-policy"(controller: "footer", action: "privacyPolicy") { mappingName = "footerPrivacyPolicy" }
@@ -164,53 +155,49 @@ class UrlMappings {
         name dashboard: "/dashboard"(controller: "dashboard", action: "dashboard")
         name dashboardCampaignsSeeMore: "/ajax/dashboard/campaigns/see-more"(controller: "dashboard", action: "dashboardCampaigns")
 
-        name debateCreate: "/account/debate/new"(controller: "debate") { action = [GET: "create", POST: "saveSettings"] ; cacheGlobalEvict="true" }
-        name debateEdit: "/account/$userAlias/d/$urlTitle-$campaignId/edit-settings"(controller: "debate") { action = [GET: "editSettingsStep", POST: "saveSettings"] ; cacheGlobalEvict="true"}
-        name debateEditEvent: "/account/$userAlias/d/$urlTitle-$campaignId/edit-event"(controller: "event") { action = [GET: "editEvent", POST: "updateEvent"] ; cacheGlobalEvict="true"}
-        name debateEditContent: "/account/$userAlias/d/$urlTitle-$campaignId/edit-content"(controller: "debate") { action = [GET: "editContentStep", POST: "saveContent"] ; cacheGlobalEvict="true"}
+        name debateCreate: "/account/debate/new"(controller: "debate") { action = [GET: "create", POST: "saveSettings"] ; cacheGlobalEvict="POST" }
+        name debateEdit: "/account/$userAlias/d/$urlTitle-$campaignId/edit-settings"(controller: "debate") { action = [GET: "editSettingsStep", POST: "saveSettings"] ; cacheGlobalEvict="POST"; cacheCampaignEvict="POST"}
+        name debateEditEvent: "/account/$userAlias/d/$urlTitle-$campaignId/edit-event"(controller: "event") { action = [GET: "editEvent", POST: "updateEvent"] ; cacheGlobalEvict="POST"; cacheCampaignEvict="POST"}
+        name debateEditContent: "/account/$userAlias/d/$urlTitle-$campaignId/edit-content"(controller: "debate") { action = [GET: "editContentStep", POST: "saveContent"] ; cacheGlobalEvict="POST"; cacheCampaignEvict="POST"}
 
-        name debateRemove: "/ajax/account/$userAlias/d/$urlTitle-$campaignId/remove"(controller: "debate", action: "remove")
-        name debateShow: "/$userAlias/$urlTitle-$campaignId"(controller: "campaign", action: "show") { constraints { userAlias(validator: { !UrlMappings.RESERVED_PATHS.contains(it) }) };
-            cacheActive = "true" }
-        "/$userAlias/-$campaignId"(controller: "campaign", action: "show") { constraints { userAlias(validator: { !UrlMappings.RESERVED_PATHS.contains(it) }) };
-            cacheActive = "true" }
+        name debateRemove: "/ajax/account/$userAlias/d/$urlTitle-$campaignId/remove"(controller: "debate", action: "remove"){cacheGlobalEvict="POST"; cacheCampaignEvict="POST"}
+        name debateShow: "/$userAlias/$urlTitle-$campaignId"(controller: "campaign", action: "show") { constraints { userAlias(validator: { !UrlMappings.RESERVED_PATHS.contains(it) }) }; cacheActive = "true" }
+        "/$userAlias/-$campaignId"(controller: "campaign", action: "show") { constraints { userAlias(validator: { !UrlMappings.RESERVED_PATHS.contains(it) }) }; cacheActive = "true" }
         name debateCopy: "/account/debate/$campaignId/copy"(controller: "debate", action: "copy")
 
-        name debateProposalNew: "/ajax/addProposal"(controller: "debateProposal", action: "addProposal"){ cacheGlobalEvict="true"}
-        name debateProposalDelete: "/ajax/deleteProposal"(controller: "debateProposal", action: "deleteProposal"){ cacheGlobalEvict="true"}
-        name debateProposalPin: "/ajax/pinProposal"(controller: "debateProposal", action: "pinProposal"){ cacheGlobalEvict="true"}
-        name debateProposalLike: "/ajax/likeProposal"(controller: "debateProposal", action: "likeProposal"){ cacheGlobalEvict="true"}
-        name debateProposalComment: "/ajax/proposalComment/add"(controller: "debateProposal", action: "addComment"){ cacheGlobalEvict="true"}
-        name debateProposalDeleteComment: "/ajax/proposalComment/delete"(controller: "debateProposal", action: "deleteComment"){ cacheGlobalEvict="true"}
-        name debateProposalVoteComment: "/ajax/proposalComment/vote"(controller: "debateProposal", action: "voteComment"){ cacheGlobalEvict="true"}
+        name debateProposalNew: "/ajax/$userAlias/d/$urlTitle-$campaignId/addProposal"(controller: "debateProposal", action: "addProposal"){ cacheGlobalEvict="POST"; cacheCampaignEvict="POST"}
+        name debateProposalDelete: "/ajax/$userAlias/d/$urlTitle-$campaignId/deleteProposal"(controller: "debateProposal", action: "deleteProposal"){ cacheGlobalEvict="POST"; cacheCampaignEvict="POST"}
+        name debateProposalPin: "/ajax/$userAlias/d/$urlTitle-$campaignId/pinProposal"(controller: "debateProposal", action: "pinProposal"){ cacheGlobalEvict="POST"; cacheCampaignEvict="POST"}
+        name debateProposalLike: "/ajax/$userAlias/d/$urlTitle-$campaignId/likeProposal"(controller: "debateProposal", action: "likeProposal"){ cacheCampaignEvict="POST"}
+        name debateProposalComment: "/ajax/$userAlias/d/$urlTitle-$campaignId/proposalComment/add"(controller: "debateProposal", action: "addComment"){ cacheCampaignEvict="POST"}
+        name debateProposalDeleteComment: "/ajax/$userAlias/d/$urlTitle-$campaignId/proposalComment/delete"(controller: "debateProposal", action: "deleteComment"){ cacheCampaignEvict="POST"}
+        name debateProposalVoteComment: "/ajax/$userAlias/d/$urlTitle-$campaignId/proposalComment/vote"(controller: "debateProposal", action: "voteComment"){ cacheCampaignEvict="POST"}
 
-        name eventBookTicket: "/ajax/$userAlias/event/$urlTitle-$campaignId/book"(controller: "event", action: "bookTicket")
+        name eventBookTicket: "/ajax/$userAlias/event/$urlTitle-$campaignId/book"(controller: "event", action: "bookTicket"){cacheGlobalEvict="POST"; cacheCampaignEvict="POST"}
         name eventConfirmAssistance: "/account/event/$campaignId/confirm"(controller: "event", action: "checkIn")
         name eventAssistanceReport: "/ajax/account/event/$campaignId/report"(controller: "event", action: "sendReport")
 
-        name postLike: "/ajax/likePost"(controller: "post", action: "likePost"){ cacheGlobalEvict="true"}
-        name postRemove: "/ajax/account/$userAlias/p/$urlTitle-$campaignId/remove"(controller: "post", action: "remove"){ cacheGlobalEvict="true"}
-        name postCreate: "/account/post/new"(controller: "post") { action = [GET: "create", POST: "saveSettings"] }{ cacheGlobalEvict="true"}
-        name postEdit: "/account/$userAlias/p/$urlTitle-$campaignId/edit-settings"(controller: "post") { action = [GET: "editSettingsStep", POST: "saveSettings"] }{ cacheGlobalEvict="true"}
-        name postEditEvent: "/account/$userAlias/p/$urlTitle-$campaignId/edit-event"(controller: "event") { action = [GET: "editEvent", POST: "updateEvent"] }{ cacheGlobalEvict="true"}
-        name postEditContent: "/account/$userAlias/p/$urlTitle-$campaignId/edit-content"(controller: "post") { action = [GET: "editContentStep", POST: "saveContent"] }{ cacheGlobalEvict="true"}
-        name postShow: "/$userAlias/$urlTitle-$campaignId"(controller: "campaign", action: "show") { constraints { userAlias(validator: { !UrlMappings.RESERVED_PATHS.contains(it) }) };
-            cacheActive = "true" }
+        name postLike: "/ajax/$userAlias/p/$urlTitle-$campaignId/likePost"(controller: "post", action: "likePost"){ cacheGlobalEvict="POST"; cacheCampaignEvict="POST"}
+        name postRemove: "/ajax/account/$userAlias/p/$urlTitle-$campaignId/remove"(controller: "post", action: "remove"){ cacheGlobalEvict="POST"; cacheCampaignEvict="POST"}
+        name postCreate: "/account/post/new"(controller: "post") { action = [GET: "create", POST: "saveSettings"] }{ cacheGlobalEvict="POST"}
+        name postEdit: "/account/$userAlias/p/$urlTitle-$campaignId/edit-settings"(controller: "post") { action = [GET: "editSettingsStep", POST: "saveSettings"] ; cacheGlobalEvict="POST"; cacheCampaignEvict="POST"}
+        name postEditEvent: "/account/$userAlias/p/$urlTitle-$campaignId/edit-event"(controller: "event") { action = [GET: "editEvent", POST: "updateEvent"] ; cacheGlobalEvict="POST"; cacheCampaignEvict="POST"}
+        name postEditContent: "/account/$userAlias/p/$urlTitle-$campaignId/edit-content"(controller: "post") { action = [GET: "editContentStep", POST: "saveContent"] ; cacheGlobalEvict="POST"; cacheCampaignEvict="POST"}
+        name postShow: "/$userAlias/$urlTitle-$campaignId"(controller: "campaign", action: "show") { constraints { userAlias(validator: { !UrlMappings.RESERVED_PATHS.contains(it) }) }; cacheActive = "true" }
         name postCopy: "/account/post/$campaignId/copy"(controller: "post", action: "copy")
 
 
-        name surveyRemove: "/ajax/account/$userAlias/s/$urlTitle-$campaignId/remove"(controller: "survey", action: "remove"){ cacheGlobalEvict="true"}
-        name surveyCreate: "/account/survey/new"(controller: "survey") { action = [GET: "create", POST: "saveSettings"] }{ cacheGlobalEvict="true"}
-        name surveyEditSettings: "/account/$userAlias/s/$urlTitle-$campaignId/edit-settings"(controller: "survey") { action = [GET: "editSettingsStep", POST: "saveSettings"] }{ cacheGlobalEvict="true"}
-        name surveyEditContent: "/account/$userAlias/s/$urlTitle-$campaignId/edit-content"(controller: "survey") { action = [GET: "editContentStep", POST: "saveContent"] }{ cacheGlobalEvict="true"}
-        name surveyEditQuestions: "/account/$userAlias/s/$urlTitle-$campaignId/edit-questions"(controller: "survey") { action = [GET: "editQuestionsStep", POST: "saveQuestions"] }{ cacheGlobalEvict="true"}
-        name surveyShow: "/$userAlias/$urlTitle-$campaignId"(controller: "campaign", action: "show") { constraints { userAlias(validator: { !UrlMappings.RESERVED_PATHS.contains(it) }) }
-            cacheActive = "true" }
+        name surveyRemove: "/ajax/account/$userAlias/s/$urlTitle-$campaignId/remove"(controller: "survey", action: "remove"){ cacheGlobalEvict="POST"; cacheCampaignEvict="POST"}
+        name surveyCreate: "/account/survey/new"(controller: "survey") { action = [GET: "create", POST: "saveSettings"] }{ cacheGlobalEvict="POST"; cacheCampaignEvict="POST"}
+        name surveyEditSettings: "/account/$userAlias/s/$urlTitle-$campaignId/edit-settings"(controller: "survey") { action = [GET: "editSettingsStep", POST: "saveSettings"] ; cacheGlobalEvict="POST"; cacheCampaignEvict="POST"}
+        name surveyEditContent: "/account/$userAlias/s/$urlTitle-$campaignId/edit-content"(controller: "survey") { action = [GET: "editContentStep", POST: "saveContent"] ; cacheGlobalEvict="POST"; cacheCampaignEvict="POST"}
+        name surveyEditQuestions: "/account/$userAlias/s/$urlTitle-$campaignId/edit-questions"(controller: "survey") { action = [GET: "editQuestionsStep", POST: "saveQuestions"] ; cacheGlobalEvict="POST"; cacheCampaignEvict="POST"}
+        name surveyShow: "/$userAlias/$urlTitle-$campaignId"(controller: "campaign", action: "show") { constraints { userAlias(validator: { !UrlMappings.RESERVED_PATHS.contains(it) }) }; cacheActive = "true" }
         name surveySaveAnswer: "/ajax/$userAlias/$urlTitle-$campaignId/saveAnswer"(controller: "survey", action: "saveAnswer") { constraints { userAlias(validator: { !UrlMappings.RESERVED_PATHS.contains(it) }) } }
-        name surveyCopy: "/account/survey/$campaignId/copy"(controller: "survey", action: "copy"){ cacheGlobalEvict="true"}
+        name surveyCopy: "/account/survey/$campaignId/copy"(controller: "survey", action: "copy"){ cacheGlobalEvict="POST"}
         name surveySummoning: "/account/survey/$campaignId/summoning"(controller: "survey", action: "createSummoning")
         name ajaxSurveyQuestionStats: "/ajax/survey/$userAlias/$campaignId/question/$questionId/stats"(controller: 'survey', action: "questionStats")
-        name surveyInitDomainEditQuestions: "/start/survey/$campaignId/edit-questions"(controller: "survey") { action = [GET: "editInitialSurveyQuestionsStep", POST: "saveInitialSurveyQuestionsStep"] }
+        name surveyInitDomainEditQuestions: "/start/survey/$campaignId/edit-questions"(controller: "survey") { action = [GET: "editInitialSurveyQuestionsStep", POST: "saveInitialSurveyQuestionsStep"]; cacheGlobalEvict="POST"; cacheCampaignEvict="POST" }
         name surveyInitDomainEditSumonContacts: "/start/survey/$campaignId/add-contacts"(controller: "survey") { action = [GET: "editInitialSurveyAddContactsStep", POST: "saveInitialSurveyAddContactsStep"] }
         name surveyInitDomainSuccess: "/start/survey/$campaignId/success"(controller: "survey", action: "editInitialSurveyFinish");
         name surveyCloseNow: "/ajax/survey/$campaignId/close"(controller: "survey", action: "closeSurvey");
@@ -218,76 +205,71 @@ class UrlMappings {
 
         name eventCreate: "/account/event/new"(controller: "event") { action = [GET: "create", POST: "saveSettings"] }
 
-        name participatoryBudgetCreate: "/account/participatory-budget/new"(controller: "participatoryBudget") { action = [GET: "create", POST: "saveSettings"] ; cacheGlobalEvict="true" }
-        name participatoryBudgetEditSettings: "/account/$userAlias/pb/$urlTitle-$campaignId/edit-settings"(controller: "participatoryBudget") { action = [GET: "editSettingsStep", POST: "saveSettings"] ; cacheGlobalEvict="true" }
-        name participatoryBudgetEditDistricts: "/account/$userAlias/pb/$urlTitle-$campaignId/edit-districts"(controller: "participatoryBudget") { action = [GET: "editDistricts", POST: "saveDistricts"] ; cacheGlobalEvict="true" }
-        name participatoryBudgetEditDeadlines: "/account/$userAlias/pb/$urlTitle-$campaignId/edit-deadlines"(controller: "participatoryBudget") { action = [GET: "editDeadlines", POST: "saveDeadlines"] ; cacheGlobalEvict="true" }
-        name participatoryBudgetEditContent: "/account/$userAlias/pb/$urlTitle-$campaignId/edit-content"(controller: "participatoryBudget") { action = [GET: "editContentStep", POST: "saveContent"] ; cacheGlobalEvict="true" }
-        name participatoryBudgetRemove: "/ajax/account/$userAlias/pb/$urlTitle-$campaignId/remove"(controller: "participatoryBudget", action: "remove") { cacheGlobalEvict="true" }
+        name participatoryBudgetCreate: "/account/participatory-budget/new"(controller: "participatoryBudget") { action = [GET: "create", POST: "saveSettings"] ; cacheGlobalEvict="POST"; cacheCampaignEvict="POST" }
+        name participatoryBudgetEditSettings: "/account/$userAlias/pb/$urlTitle-$campaignId/edit-settings"(controller: "participatoryBudget") { action = [GET: "editSettingsStep", POST: "saveSettings"] ; cacheGlobalEvict="POST"; cacheCampaignEvict="POST" }
+        name participatoryBudgetEditDistricts: "/account/$userAlias/pb/$urlTitle-$campaignId/edit-districts"(controller: "participatoryBudget") { action = [GET: "editDistricts", POST: "saveDistricts"] ; cacheGlobalEvict="POST"; cacheCampaignEvict="POST"}
+        name participatoryBudgetEditDeadlines: "/account/$userAlias/pb/$urlTitle-$campaignId/edit-deadlines"(controller: "participatoryBudget") { action = [GET: "editDeadlines", POST: "saveDeadlines"] ; cacheGlobalEvict="POST"; cacheCampaignEvict="POST" }
+        name participatoryBudgetEditContent: "/account/$userAlias/pb/$urlTitle-$campaignId/edit-content"(controller: "participatoryBudget") { action = [GET: "editContentStep", POST: "saveContent"] ; cacheGlobalEvict="POST"; cacheCampaignEvict="POST"}
+        name participatoryBudgetRemove: "/ajax/account/$userAlias/pb/$urlTitle-$campaignId/remove"(controller: "participatoryBudget", action: "remove") {cacheGlobalEvict="POST"; cacheCampaignEvict="POST" }
         name participatoryBudgetShow: "/$userAlias/$urlTitle-$campaignId"(controller: "campaign", action: "show") { constraints { userAlias(validator: { !UrlMappings.RESERVED_PATHS.contains(it) }) }; cacheActive = "true" }
         name participatoryBudgetList: "/ajax/account/participatory-budgets"(controller: "participatoryBudget", action: "listActiveParticipativeBudgets")
-        name participatoryBudgetEditStatus: "/ajax/account/$userAlias/pb/$urlTitle-$campaignId/edit-status"(controller: "participatoryBudget", action: "editStatus") { cacheGlobalEvict="true" }
+        name participatoryBudgetEditStatus: "/ajax/account/$userAlias/pb/$urlTitle-$campaignId/edit-status"(controller: "participatoryBudget", action: "editStatus") { cacheGlobalEvict="POST"; cacheCampaignEvict="GET"}
         name participatoryBudgetDistrictProposals: "/ajax/$userAlias/$urlTitle-$campaignId/district-$districtId/proposals"(controller: "participatoryBudget", action: "findDistrictProposals")
-        name participatoryBudgetDistrictProposalSupport: "/ajax/$userAlias/$participatoryBudgetTitle-$participatoryBudgetId/$urlTitle-$campaignId/support"(controller: "participatoryBudget", action: "supportDistrictProposal")
-        name participatoryBudgetDistrictProposalVote: "/ajax/$userAlias/$participatoryBudgetTitle-$participatoryBudgetId/$urlTitle-$campaignId/vote"(controller: "participatoryBudget", action: "voteDistrictProposal") { cacheCampaignEvict="true" }
+        name participatoryBudgetDistrictProposalSupport: "/ajax/$userAlias/$participatoryBudgetTitle-$participatoryBudgetId/$urlTitle-$campaignId/support"(controller: "participatoryBudget", action: "supportDistrictProposal") {cacheCampaignEvict="POST"}
+        name participatoryBudgetDistrictProposalVote: "/ajax/$userAlias/$participatoryBudgetTitle-$participatoryBudgetId/$urlTitle-$campaignId/vote"(controller: "participatoryBudget", action: "voteDistrictProposal") { cacheGlobalEvict="POST"; cacheCampaignEvict="POST" }
         name participatoryBudgetDistrictProposalsPagination: "/ajax/$userAlias/$urlTitle-$campaignId/proposals"(controller: "participatoryBudget", action: "paginateParticipatoryBudgetProposalsJson")
         name participatoryBudgetDistrictProposalsTechnicalReview: "/ajax/$userAlias/$urlTitle-$campaignId/proposals/technicalReview"(controller: "participatoryBudget", action: "updateTechnicalReview")
         name participatory_budgetCopy: "/account/pb/$campaignId/copy"(controller: "participatoryBudget", action: "copy")
 
-        name districtProposalCreate: "/account/$userAlias/pb/$urlTitle-$campaignId/new-proposal"(controller: "districtProposal") { action = [GET: "create", POST: "saveNewProposal"] ; cacheCampaignEvict="true" }
-        name districtProposalEditSettings: "/account/$userAlias/pb/$participatoryBudgetTitle-$participatoryBudgetId/$urlTitle-$campaignId/edit-settings"(controller: "districtProposal") { action = [GET: "editSettingsStep", POST: "saveSettings"] ; cacheCampaignEvict="true" }
-        name districtProposalEditDistrict: "/account/$userAlias/pb/$participatoryBudgetTitle-$participatoryBudgetId/$urlTitle-$campaignId/edit-district"(controller: "districtProposal") { action = [GET: "editDistrict", POST: "saveDistrict"] ; cacheCampaignEvict="true" }
-        name districtProposalEditContent: "/account/$userAlias/pb/$participatoryBudgetTitle-$participatoryBudgetId/$urlTitle-$campaignId/edit-content"(controller: "districtProposal") { action = [GET: "editContentStep", POST: "saveContent"] ; cacheCampaignEvict="true" }
-        name districtProposalShow: "/$userAlias/$participatoryBudgetTitle-$participatoryBudgetId/$urlTitle-$campaignId"(controller: "campaign", action: "show") { constraints { userAlias(validator: { !UrlMappings.RESERVED_PATHS.contains(it) }) };
-            cacheActive = "true" }
-        name districtProposalRemove: "/ajax/account/$userAlias/pb/$participatoryBudgetTitle-$participatoryBudgetId/$urlTitle-$campaignId/remove"(controller: "districtProposal", action: "remove")
+        name districtProposalCreate: "/account/$userAlias/pb/$urlTitle-$campaignId/new-proposal"(controller: "districtProposal") { action = [GET: "create", POST: "saveNewProposal"] ; cacheCampaignEvict="POST" }
+        name districtProposalEditSettings: "/account/$userAlias/pb/$participatoryBudgetTitle-$participatoryBudgetId/$urlTitle-$campaignId/edit-settings"(controller: "districtProposal") { action = [GET: "editSettingsStep", POST: "saveSettings"] ; cacheGlobalEvict="POST"; cacheCampaignEvict="POST" }
+        name districtProposalEditDistrict: "/account/$userAlias/pb/$participatoryBudgetTitle-$participatoryBudgetId/$urlTitle-$campaignId/edit-district"(controller: "districtProposal") { action = [GET: "editDistrict", POST: "saveDistrict"] ; cacheGlobalEvict="POST"; cacheCampaignEvict="POST" }
+        name districtProposalEditContent: "/account/$userAlias/pb/$participatoryBudgetTitle-$participatoryBudgetId/$urlTitle-$campaignId/edit-content"(controller: "districtProposal") { action = [GET: "editContentStep", POST: "saveContent"] ; cacheGlobalEvict="POST"; cacheCampaignEvict="POST" }
+        name districtProposalShow: "/$userAlias/$participatoryBudgetTitle-$participatoryBudgetId/$urlTitle-$campaignId"(controller: "campaign", action: "show") { constraints { userAlias(validator: { !UrlMappings.RESERVED_PATHS.contains(it) }) }; cacheActive = "true" }
+        name districtProposalRemove: "/ajax/account/$userAlias/pb/$participatoryBudgetTitle-$participatoryBudgetId/$urlTitle-$campaignId/remove"(controller: "districtProposal", action: "remove") {cacheGlobalEvict="POST"; cacheCampaignEvict="POST"}
 
-        name petitionSign: "/ajax/$userAlias/pt/$urlTitle-$campaignId/sign"(controller: "petition", action: "signPetition")
-        name petitionRemove: "/ajax/account/$userAlias/pt/$urlTitle-$campaignId/remove"(controller: "petition", action: "remove")
+        name petitionSign: "/ajax/$userAlias/pt/$urlTitle-$campaignId/sign"(controller: "petition", action: "signPetition"){cacheGlobalEvict="POST"; cacheCampaignEvict="POST"}
+        name petitionRemove: "/ajax/account/$userAlias/pt/$urlTitle-$campaignId/remove"(controller: "petition", action: "remove"){cacheGlobalEvict="POST"; cacheCampaignEvict="POST"}
         name petitionCreate: "/account/petition/new"(controller: "petition") { action = [GET: "create", POST: "saveSettings"] }
-        name petitionEdit: "/account/$userAlias/pt/$urlTitle-$campaignId/edit-settings"(controller: "petition") { action = [GET: "editSettingsStep", POST: "saveSettings"] }
-        name petitionEditContent: "/account/$userAlias/pt/$urlTitle-$campaignId/edit-content"(controller: "petition") { action = [GET: "editContentStep", POST: "saveContent"] }
-        name petitionShow: "/$userAlias/$urlTitle-$campaignId"(controller: "campaign", action: "show") { constraints { userAlias(validator: { !UrlMappings.RESERVED_PATHS.contains(it) }) };
-            cacheActive = "true" }
+        name petitionEdit: "/account/$userAlias/pt/$urlTitle-$campaignId/edit-settings"(controller: "petition") { action = [GET: "editSettingsStep", POST: "saveSettings"]; cacheGlobalEvict="POST"; cacheCampaignEvict="POST" }
+        name petitionEditContent: "/account/$userAlias/pt/$urlTitle-$campaignId/edit-content"(controller: "petition") { action = [GET: "editContentStep", POST: "saveContent"]; cacheGlobalEvict="POST"; cacheCampaignEvict="POST" }
+        name petitionShow: "/$userAlias/$urlTitle-$campaignId"(controller: "campaign", action: "show") { constraints { userAlias(validator: { !UrlMappings.RESERVED_PATHS.contains(it) }) }; cacheActive = "true" }
         name petitionCopy: "/account/petition/$campaignId/copy"(controller: "petition", action: "copy")
-        name petitionPdfRequest: "/ajax/account/petition/$campaignId/pdf/request"(controller: "petition", action: "requestPdfToSign")
-        name petitionPdfView: "/account/petition/$campaignId/pdf/view"(controller: "petition", action: "downloadPdfToSign")
+        name petitionPdfRequest: "/ajax/$userAlias/pt/$urlTitle-$campaignId/pdf/request"(controller: "petition", action: "requestPdfToSign"){cacheCampaignEvict="POST"}
+        name petitionPdfView: "/account/$userAlias/pt/$urlTitle-$campaignId/pdf/view"(controller: "petition", action: "downloadPdfToSign"){cacheCampaignEvict="POST"}
 
 
-        name contestCreate: "/account/contest/new"(controller: "contest") { action = [GET: "create", POST: "saveSettings"] ; cacheGlobalEvict="true" }
-        name contestCopy: "/account/contest/$campaignId/copy"(controller: "contest", action: "copy") { cacheGlobalEvict="true"}
-        name contestEditSettings: "/account/$userAlias/ct/$urlTitle-$campaignId/edit-settings"(controller: "contest") { action = [GET: "editSettingsStep", POST: "saveSettings"] ; cacheGlobalEvict="true" }
-        name contestEditDeadlines: "/account/$userAlias/ct/$urlTitle-$campaignId/edit-deadlines"(controller: "contest") { action = [GET: "editDeadlines", POST: "saveDeadlines"] ; cacheGlobalEvict="true" }
-        name contestEditContent: "/account/$userAlias/ct/$urlTitle-$campaignId/edit-content"(controller: "contest") { action = [GET: "editContentStep", POST: "saveContent"] ; cacheGlobalEvict="true" }
-        name contestEditConfigContest: "/account/$userAlias/ct/$urlTitle-$campaignId/edit-areas"(controller: "contest") { action = [GET: "editContestConfig", POST: "saveContestConfig"] ; cacheGlobalEvict="true" }
-        name contestRemove: "/ajax/account/$userAlias/ct/$urlTitle-$campaignId/remove"(controller: "contest", action: "remove"){ cacheGlobalEvict="true"}
-        name contestShow: "/$userAlias/$urlTitle-$campaignId"(controller: "campaign", action: "show") { constraints { userAlias(validator: { !UrlMappings.RESERVED_PATHS.contains(it) }) };
-            cacheActive = "true" }
+        name contestCreate: "/account/contest/new"(controller: "contest") { action = [GET: "create", POST: "saveSettings"] ; cacheGlobalEvict="POST" }
+        name contestCopy: "/account/contest/$campaignId/copy"(controller: "contest", action: "copy") { cacheGlobalEvict="POST"}
+        name contestEditSettings: "/account/$userAlias/ct/$urlTitle-$campaignId/edit-settings"(controller: "contest") { action = [GET: "editSettingsStep", POST: "saveSettings"] ; cacheGlobalEvict="POST"; cacheCampaignEvict="POST" }
+        name contestEditDeadlines: "/account/$userAlias/ct/$urlTitle-$campaignId/edit-deadlines"(controller: "contest") { action = [GET: "editDeadlines", POST: "saveDeadlines"] ; cacheGlobalEvict="POST"; cacheCampaignEvict="POST" }
+        name contestEditContent: "/account/$userAlias/ct/$urlTitle-$campaignId/edit-content"(controller: "contest") { action = [GET: "editContentStep", POST: "saveContent"] ; cacheGlobalEvict="POST"; cacheCampaignEvict="POST" }
+        name contestEditConfigContest: "/account/$userAlias/ct/$urlTitle-$campaignId/edit-areas"(controller: "contest") { action = [GET: "editContestConfig", POST: "saveContestConfig"] ; cacheGlobalEvict="POST"; cacheCampaignEvict="POST" }
+        name contestRemove: "/ajax/account/$userAlias/ct/$urlTitle-$campaignId/remove"(controller: "contest", action: "remove"){ cacheGlobalEvict="POST"; cacheCampaignEvict="POST"}
+        name contestShow: "/$userAlias/$urlTitle-$campaignId"(controller: "campaign", action: "show") { constraints { userAlias(validator: { !UrlMappings.RESERVED_PATHS.contains(it) }) };cacheActive = "true" }
         name contestRanking: "/$userAlias/$urlTitle-$campaignId/ranking"(controller: "contest", action: "ranking") { constraints { userAlias(validator: { !UrlMappings.RESERVED_PATHS.contains(it) }) } }
         name contestRankingApplications: "/ajax/$userAlias/$urlTitle-$campaignId/ranking/data"(controller: "contest", action: "rankingContestApplicationList") { constraints { userAlias(validator: { !UrlMappings.RESERVED_PATHS.contains(it) }) } }
         name contestListApplications: "/ajax/$userAlias/$urlTitle-$campaignId/applications"(controller: "contest", action: "findContestApplications")
-        name contestEditStatus: "/ajax/account/$userAlias/ct/$urlTitle-$campaignId/edit-status"(controller: "contest", action: "editStatus"){ cacheGlobalEvict="true"}
+        name contestEditStatus: "/ajax/account/$userAlias/ct/$urlTitle-$campaignId/edit-status"(controller: "contest", action: "editStatus"){ cacheGlobalEvict="POST"; cacheCampaignEvict="POST"}
         name contestListApplciationsPaggination: "/ajax/account/$userAlias/ct/$urlTitle-$campaignId/applications/pagination"(controller: "contest", action: "paginateContestApplicationJson")
-        name contestApplicationUpdateReview: "/ajax/account/ct/applications/review"(controller: "contest", action: "updateReview"){ cacheGlobalEvict="true"}
+        name contestApplicationUpdateReview: "/ajax/account/ct/applications/review"(controller: "contest", action: "updateReview"){ cacheGlobalEvict="POST"; cacheCampaignEvict="POST"}
         name contestApplicationsReport: "/ajax/account/contest/$campaignId/report"(controller: "contest", action: "sendApplicationsReport")
         name contestVotesReport: "/ajax/account/contest/$campaignId/votes/report"(controller: "contest", action: "sendVotesReport")
         name contestCampaignStatsShow: "/account/campaign/$campaignId"(controller: "newsletter", action: "showCampaignStats")
 
 
-        name contestApplicationCreate: "/account/$userAlias/pb/$urlTitle-$campaignId/new-application"(controller: "contestApplication") { action = [GET: "create", POST: "saveNewApplication"] ; cacheCampaignEvict="true" }
+        name contestApplicationCreate: "/account/$userAlias/pb/$urlTitle-$campaignId/new-application"(controller: "contestApplication") { action = [GET: "create", POST: "saveNewApplication"] ; cacheCampaignEvict="POST" }
         name contestApplicationCopy: "/account/contestApplication/$campaignId/copy"(controller: "contestApplication", action: "copy")
-        name contestApplicationEditSettings: "/account/$userAlias/cta/$contestTitle-$contestId/$urlTitle-$campaignId/edit-settings"(controller: "contestApplication") { action = [GET: "editSettingsStep", POST: "saveSettings"] ; cacheCampaignEvict="true" }
-        name contestApplicationEditContent: "/account/$userAlias/cta/$contestTitle-$contestId/$urlTitle-$campaignId/edit-content"(controller: "contestApplication") { action = [GET: "editContentStep", POST: "saveContent"] ; cacheCampaignEvict="true" }
-        name contestApplicationEditProfile: "/account/$userAlias/cta/$urlTitle-$campaignId/edit-profile"(controller: "contestApplication") { action = [GET: "editProfileStep", POST: "saveProfileStep"]  ; cacheCampaignEvict="true" }
-        name contestApplicationEditScope: "/account/$userAlias/cta/$contestTitle-$contestId/$urlTitle-$campaignId/edit-scope"(controller: "contestApplication") { action = [GET: "editScopeStep", POST: "saveScope"]  ; cacheCampaignEvict="true" }
-        name contestApplicationEditAuthorizations: "/account/$userAlias/cta/$contestTitle-$contestId/$urlTitle-$campaignId/edit-authorizations"(controller: "contestApplication") { action = [GET: "editAuthorizationsStep", POST: "saveAuthorizations"]  ; cacheCampaignEvict="true" }
-        name contestApplicationRemove: "/ajax/account/$userAlias/cta/$urlTitle-$campaignId/remove"(controller: "contestApplication", action: "remove"){ cacheCampaignEvict="true" }
-        name contestApplicationShow: "/$userAlias/$contestTitle-$contestId/$urlTitle-$campaignId"(controller: "campaign", action: "show") { constraints { userAlias(validator: { !UrlMappings.RESERVED_PATHS.contains(it) }) };
-            cacheActive = "true" }
-        name contestApplicationVote: "/ajax/$userAlias/ct/$contestTitle-$contestId/cta/$urlTitle-$campaignId/vote"(controller: "contest", action: "vote"){ cacheCampaignEvict="true" }
+        name contestApplicationEditSettings: "/account/$userAlias/cta/$contestTitle-$contestId/$urlTitle-$campaignId/edit-settings"(controller: "contestApplication") { action = [GET: "editSettingsStep", POST: "saveSettings"] ; cacheGlobalEvict="POST"; cacheCampaignEvict="POST" }
+        name contestApplicationEditContent: "/account/$userAlias/cta/$contestTitle-$contestId/$urlTitle-$campaignId/edit-content"(controller: "contestApplication") { action = [GET: "editContentStep", POST: "saveContent"] ; cacheGlobalEvict="POST"; cacheCampaignEvict="POST" }
+        name contestApplicationEditProfile: "/account/$userAlias/cta/$urlTitle-$campaignId/edit-profile"(controller: "contestApplication") { action = [GET: "editProfileStep", POST: "saveProfileStep"]  ; cacheGlobalEvict="POST"; cacheCampaignEvict="POST" }
+        name contestApplicationEditScope: "/account/$userAlias/cta/$contestTitle-$contestId/$urlTitle-$campaignId/edit-scope"(controller: "contestApplication") { action = [GET: "editScopeStep", POST: "saveScope"]  ; cacheGlobalEvict="POST"; cacheCampaignEvict="POST" }
+        name contestApplicationEditAuthorizations: "/account/$userAlias/cta/$contestTitle-$contestId/$urlTitle-$campaignId/edit-authorizations"(controller: "contestApplication") { action = [GET: "editAuthorizationsStep", POST: "saveAuthorizations"]  ; cacheGlobalEvict="POST"; cacheCampaignEvict="POST" }
+        name contestApplicationRemove: "/ajax/account/$userAlias/cta/$urlTitle-$campaignId/remove"(controller: "contestApplication", action: "remove"){ cacheGlobalEvict="POST"; cacheCampaignEvict="POST" }
+        name contestApplicationShow: "/$userAlias/$contestTitle-$contestId/$urlTitle-$campaignId"(controller: "campaign", action: "show") { constraints { userAlias(validator: { !UrlMappings.RESERVED_PATHS.contains(it) }) }; cacheActive = "true" }
+        name contestApplicationVote: "/ajax/$userAlias/ct/$contestTitle-$contestId/cta/$urlTitle-$campaignId/vote"(controller: "contest", action: "vote"){ cacheGlobalEvict="POST"; cacheCampaignEvict="POST" }
 
-        name campaignShow: "/$userAlias/$urlTitle-$campaignId"(controller: "campaign", action: "show") { constraints { userAlias(validator: { !UrlMappings.RESERVED_PATHS.contains(it) }) };
-            cacheActive = "true" }
+        name campaignShow: "/$userAlias/$urlTitle-$campaignId"(controller: "campaign", action: "show") { constraints { userAlias(validator: { !UrlMappings.RESERVED_PATHS.contains(it) }) }; cacheActive = "true" }
         name campaignCheckValidation: "/ajax/$userAlias/$urlTitle-$campaignId/validation/check"(controller: "campaign", action: "campaignUserValidChecker")
         name campaignCheckGroupValidation: "/ajax/$userAlias/$urlTitle-$campaignId/group/check"(controller: "campaign", action: "checkGroupCampaignValidation")
         name campaignPause: "/ajax/account/$userAlias/$urlTitle-$campaignId/pause"(controller: "newsletter", action: "pauseCampaign")
@@ -375,12 +357,12 @@ class UrlMappings {
         name adminDomainConfig: "/sec/admin/domain"(controller: "admin") { action = [GET: "domainConfig", POST: "domainConfigSave"] }
         name adminDomainConfigLanding: "/sec/admin/domain/landing"(controller: "admin") { action = [GET: "editLandingInfo", POST: "editLandingInfoSave"] }
         name adminDomainConfigLegalInfo: "/sec/admin/domain/editLegalInfo"(controller: "admin") { action = [GET: "editLegalInfo", POST: "updateLegalInfo"] }
-        name adminAuthorizedCampaigns: "/sec/admin/domain/authorizedCampaigns"(controller: "admin") { action = [GET: "editAuthorizedCampaigns", POST: "updateAuthorizedCampaigns"] }
-        name adminDomainConfigUploadLogo: "/sec/admin/domain/uploadLogo"(controller: "admin") { action = [GET: "editLogo", POST: "uploadLogo"] }
-        name adminDomainConfigUploadCarouselImages: "/sec/admin/domain/editCarousel"(controller: "admin") { action = [GET: "editCarousel", POST: "uploadCarousel"] }
-        name adminDomainConfigRelevantCampagins: "/sec/admin/domain/relevantCampaigns"(controller: "admin") { action = [GET: "editDomainRelevantCampaigns", POST: "updateDomainRelevantCampaigns"] }
+        name adminAuthorizedCampaigns: "/sec/admin/domain/authorizedCampaigns"(controller: "admin") { action = [GET: "editAuthorizedCampaigns", POST: "updateAuthorizedCampaigns"];  cacheGlobalEvict="POST"; }
+        name adminDomainConfigUploadLogo: "/sec/admin/domain/uploadLogo"(controller: "admin") { action = [GET: "editLogo", POST: "uploadLogo"];  cacheGlobalEvict="POST"; }
+        name adminDomainConfigUploadCarouselImages: "/sec/admin/domain/editCarousel"(controller: "admin") { action = [GET: "editCarousel", POST: "uploadCarousel"];  cacheGlobalEvict="POST"; }
+        name adminDomainConfigRelevantCampagins: "/sec/admin/domain/relevantCampaigns"(controller: "admin") { action = [GET: "editDomainRelevantCampaigns", POST: "updateDomainRelevantCampaigns"]; cacheGlobalEvict="POST";}
         name adminDomainConfigPlan: "/sec/admin/domain/update-plan"(controller: "admin") { action = [GET: "editDomainPlan", POST: "saveNewDomainPlan"] }
-        name adminDomainConfigGoogleValidation: "/sec/admin/domain/google-validation"(controller: "admin", action: "validateDomain")
+        name adminDomainConfigGoogleValidation: "/sec/admin/domain/google-validation"(controller: "admin", action: "validateDomain"){ cacheGlobalEvict="POST";}
         name adminDomainValidation: "/sec/admin/domain/validation"(controller: "admin") { action = [GET: "domainValidation", POST: "domainValidationSave"] }
         name adminRequestEmailSender: "/sec/admin/domain/requestSender"(controller: "admin") { action = [GET: "requestedEmailSender", POST: "requestedEmailSenderSend"] }
         name adminEditDomainEmailSender: "/sec/admin/domain/setSender"(controller: "admin") { action = [GET: "editDomainEmailSender", POST: "updateDomainEmailSender"] }

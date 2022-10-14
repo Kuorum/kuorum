@@ -66,7 +66,7 @@ class EvictResponseSpringFilter extends AbstractWrappedResponseFilter {
     }
 
     private Boolean haveEvict(UrlMappingInfo urlMappingInfo, method, String cacheParameter) {
-        return urlMappingInfo && method == RequestMethod.POST.toString() && urlMappingInfo.parameters.containsKey(cacheParameter) && parseBoolean(urlMappingInfo.parameters.get(cacheParameter) as String)
+        return urlMappingInfo && urlMappingInfo.parameters.containsKey(cacheParameter) && urlMappingInfo.parameters.get(cacheParameter) == method
     }
 
     /**

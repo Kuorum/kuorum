@@ -70,12 +70,14 @@ class MemcachedRequestResponseCacheImpl extends AbstractHttpRequestKeyCache {
 
     @Override
     void evictCampaign(UrlMappingInfo urlMappingInfo) {
-        evictMultilanguageKey(buildKey(urlMappingInfo))
+        String key = buildKey(urlMappingInfo)
+        evictMultilanguageKey(key)
+        evictChildren(key)
     }
 
     @Override
     void evictGlobal(UrlMappingInfo urlMappingInfo) {
-        String key = buildGlobalKey(urlMappingInfo)
+        String key = buildGlobalKey()
         evictMultilanguageKey(key)
         evictChildren(key)
     }
@@ -84,7 +86,7 @@ class MemcachedRequestResponseCacheImpl extends AbstractHttpRequestKeyCache {
         String cachedChilds = memcachedClient.get(key + PARENT_SUFIX)
         if (cachedChilds) {
             cachedChilds.split(SEPARATOR).each {
-                evictMultilanguageKey(it)
+                deleteKey(it)
             }
         }
     }
@@ -93,12 +95,16 @@ class MemcachedRequestResponseCacheImpl extends AbstractHttpRequestKeyCache {
         String cachedLanguages = memcachedClient.get(simpleKey) as String
         if (cachedLanguages) {
             cachedLanguages.split(SEPARATOR).each {
-                memcachedClient.delete(simpleKey + it)
-                logger.debug("Key ${simpleKey + it} deleted cache")
+                deleteKey(simpleKey + it)
             }
-            memcachedClient.delete(simpleKey)
-            logger.debug("Key ${simpleKey} deleted cache")
+            deleteKey(simpleKey)
         }
+    }
+
+    private void deleteKey(String simpleKey) {
+        memcachedClient.delete(simpleKey)
+        logger.debug("Key ${simpleKey} deleted cache")
+
     }
 
     private writeTo(ServletResponse response, byte[] content) {
