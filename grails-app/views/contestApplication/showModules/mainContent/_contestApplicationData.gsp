@@ -4,6 +4,7 @@
     <div class="header">
         <h1 class="title" itemprop="headline">${contestApplication.title}</h1>
         <userUtil:showUser user="${campaignUser}" showRole="true" itemprop="author"/>
+        <g:render template="/contestApplication/showModules/mainContent/contestApplicationDataMobileCallToAction"/>
         %{--<g:render template="/participatoryBudget/showModules/mainContent/participatoryBudgetDataMobileCallToAction"/>--}%
         <g:render template="/campaigns/showModules/campaignDataDatePublished"
                   model="[campaign: contestApplication, campaignUser: campaignUser, editMappingName: 'contestApplicationEditContent']"/>
