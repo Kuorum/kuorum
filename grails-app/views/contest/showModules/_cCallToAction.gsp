@@ -61,10 +61,12 @@
                 <g:link mapping="politicianCampaigns" class="btn btn-lg btn-lg">${callButtonMsg}</g:link>
             </g:elseif>
             <g:elseif test="${contest.status == org.kuorum.rest.model.communication.contest.ContestStatusDTO.VOTING}">
-                <a href="#contest-applications-list" class="btn btn-blue btn-lg ${contest.status}">${callButtonMsg}</a>
+                <a href="#contest-applications-list"
+                   class="btn btn-blue btn-lg ${contest.status} smooth">${callButtonMsg}</a>
             </g:elseif>
             <g:elseif test="${contest.status == org.kuorum.rest.model.communication.contest.ContestStatusDTO.RESULTS}">
-                <a href="#contest-applications-list" class="btn btn-blue btn-lg ${contest.status}">${callButtonMsg}</a>
+                <a href="#contest-applications-list"
+                   class="btn btn-blue btn-lg ${contest.status} smooth">${callButtonMsg}</a>
             </g:elseif>
         </div>
     </g:if>
