@@ -28,17 +28,32 @@ class MemcachedRequestResponseCacheImpl extends AbstractHttpRequestKeyCache {
         def key = buildKey(urlMappingInfo, locale)
         memcachedClient.set(key, expirationInADay, response.getContent().getContent())
 
-        String language = locale.getLanguage()
+        cacheLanguageKeys(urlMappingInfo, key, locale)
+        cacheParentRelation(urlMappingInfo, key)
 
-        def simpleKey = buildKey(urlMappingInfo)
-        OperationFuture<Boolean> appendTry = memcachedClient.append(simpleKey, SEPARATOR + language)
-        if (appendTry.getStatus().isSuccess()) {
-            logger.debug("language ${language} append on ${simpleKey}")
-        } else {
-            memcachedClient.set(simpleKey, expirationInADay, language)
-            logger.debug("language ${language} new cached on ${simpleKey}")
-        }
         logger.debug("Key $key cached")
+    }
+
+    private void cacheParentRelation(UrlMappingInfo urlMappingInfo, String key) {
+        String parentKey = buildParentKey(urlMappingInfo)
+        if (parentKey) {
+            safetyAppendCache(parentKey, key)
+        }
+    }
+
+    private void cacheLanguageKeys(UrlMappingInfo urlMappingInfo, String key, Locale locale) {
+        safetyAppendCache(buildKey(urlMappingInfo), locale.getLanguage())
+    }
+
+    private void safetyAppendCache(String simpleKey, String content) {
+        String codeToStorage = SEPARATOR + content
+        OperationFuture<Boolean> appendTry = memcachedClient.append(simpleKey, codeToStorage)
+        if (appendTry.getStatus().isSuccess()) {
+            logger.debug("SubValue ${content} append on ${simpleKey}")
+        } else {
+            memcachedClient.set(simpleKey, expirationInADay, content)
+            logger.debug("Subvalue ${content} new cached on ${simpleKey}")
+        }
     }
 
     @Override
@@ -60,8 +75,18 @@ class MemcachedRequestResponseCacheImpl extends AbstractHttpRequestKeyCache {
 
     @Override
     void evictGlobal(UrlMappingInfo urlMappingInfo) {
-        evictMultilanguageKey(buildGlobalKey(urlMappingInfo))
+        String key = buildGlobalKey(urlMappingInfo)
+        evictMultilanguageKey(key)
+        evictChildren(key)
+    }
 
+    private void evictChildren(String key) {
+        String cachedChilds = memcachedClient.get(key + PARENT_SUFIX)
+        if (cachedChilds) {
+            cachedChilds.split(SEPARATOR).each {
+                evictMultilanguageKey(it)
+            }
+        }
     }
 
     private void evictMultilanguageKey(String simpleKey) {
@@ -82,4 +107,5 @@ class MemcachedRequestResponseCacheImpl extends AbstractHttpRequestKeyCache {
         out.write(content)
         out.flush()
     }
+
 }

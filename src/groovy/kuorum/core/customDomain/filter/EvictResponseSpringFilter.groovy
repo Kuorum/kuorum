@@ -43,6 +43,8 @@ class EvictResponseSpringFilter extends AbstractWrappedResponseFilter {
                 }
             } catch (ConverterException e) {
                 logger.debug("Ajax html response")
+            } catch (MissingPropertyException e) {
+                logger.debug("Ajax is not following success structure: Ajax call ->\n {}", new String(wrappedResponse.getContent().getContent(), Charset.defaultCharset()))
             }
         }
 
