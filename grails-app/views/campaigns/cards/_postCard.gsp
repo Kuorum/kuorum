@@ -29,12 +29,12 @@
                     <sec:ifLoggedIn><g:set var="isLogged" value="${true}"/></sec:ifLoggedIn>
                     <sec:ifNotLoggedIn><g:set var="isLogged" value="${false}"/></sec:ifNotLoggedIn>
                     <li>
-                        <a class="post-like ${post.liked && isLogged?'active':''}"
+                        <a class="post-like ${post.liked && isLogged ? 'active' : ''}"
                            data-postId="${post.id}"
                            data-postUserId="${post.user.id}"
-                           data-urlAction="${g.createLink(mapping: "postLike")}"
+                           data-urlAction="${g.createLink(mapping: "postLike", params: post.encodeAsLinkProperties())}"
                            data-loggedUser="${sec.username()}">
-                            <span class="${post.liked && isLogged?'fas':'fal'} fa-heart fa-lg"></span>
+                            <span class="${post.liked && isLogged ? 'fas' : 'fal'} fa-heart fa-lg"></span>
                             <span class="number">${post.likes}</span>
                         </a>
                     </li>

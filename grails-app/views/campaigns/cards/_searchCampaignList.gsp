@@ -63,16 +63,16 @@
                             <span class="number">${campaign.numProposals}</span>
                         </g:link>
                     </g:elseif>
-                    <g:elseif test="${campaign.type== org.kuorum.rest.model.search.SearchTypeRSDTO.POST}">
-                        <a class="post-like ${campaign.liked?'active':''}"
+                    <g:elseif test="${campaign.type == org.kuorum.rest.model.search.SearchTypeRSDTO.POST}">
+                        <a class="post-like ${campaign.liked ? 'active' : ''}"
                            data-postId="${campaign.id}"
                            data-postUserId="${campaign.ownerId}"
-                           data-urlAction="${g.createLink(mapping: "postLike")}"
+                           data-urlAction="${g.createLink(mapping: "postLike", params: campaign.encodeAsLinkProperties())}"
                            data-campaignValidationActive="${campaign.checkValidationActive}"
-                           data-campaignGroupValidationActive="${campaign.groupValidation?g.createLink(mapping: "campaignCheckGroupValidation", params: campaign.encodeAsLinkProperties()):''}"
+                           data-campaignGroupValidationActive="${campaign.groupValidation ? g.createLink(mapping: "campaignCheckGroupValidation", params: campaign.encodeAsLinkProperties()) : ''}"
                            data-campaignId="${campaign.id}"
                            data-loggedUser="${sec.username()}">
-                            <span class="${campaign.liked?'fas':'fal'} fa-heart fa-lg"></span>
+                            <span class="${campaign.liked ? 'fas' : 'fal'} fa-heart fa-lg"></span>
                             <span class="number">${campaign.likes}</span>
                         </a>
                     </g:elseif>
