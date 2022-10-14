@@ -69,8 +69,7 @@ $(function () {
     $(".call-to-action").on("click", "a.btn.ADDING_APPLICATIONS", contestApplicationHelper.bindActionClickAddDistrictProposal);
 
     $(".actions.call-to-action-mobile.go-to-action button").on("click", function(e){
-        e.preventDefault();
-        moveSmooth("div.comment-box.call-to-action.hidden-md.hidden-lg")
+        $(".actions.clearfix a")[0].click()
     });
 });
 
