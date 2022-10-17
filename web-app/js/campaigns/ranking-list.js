@@ -127,14 +127,20 @@ var rankingHelper = {
     },
 
     startTimer: function () {
-        if (rankingHelper.timeoutInSeconds > 0) {
-            rankingHelper.reloadDataTimer = setInterval(rankingHelper.reloadAfterTimeOut, 1000); // Each second
+        if (rankingHelper._isActiveTimer()) {
+            if (rankingHelper.timeoutInSeconds > 0) {
+                rankingHelper.reloadDataTimer = setInterval(rankingHelper.reloadAfterTimeOut, 1000); // Each second
+            }
+        } else {
+            $(".reloading").remove();
         }
     },
     stopTimer: function () {
         clearTimeout(rankingHelper.reloadDataTimer);
     },
-
+    _isActiveTimer: function () {
+        return $("#rankingListCampaigns").attr("data-autorelaod") == "true";
+    },
     _savePageStatus: function () {
         rankingHelper.sortInfo.a = $(".sort-options .sort.active")
         rankingHelper.sortInfo.order = rankingHelper.sortInfo.a.hasClass("desc") ? "desc" : "asc"
