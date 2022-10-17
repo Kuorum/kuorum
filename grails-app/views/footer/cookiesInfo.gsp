@@ -85,9 +85,20 @@
                 <td><g:message code="footer.menu.footerCookiesInfo.cookie.i18n_CookieLocaleResolver.description"/></td>
                 <td><g:message code="footer.menu.footerCookiesInfo.cookie.expiration.browsingSession"/></td>
             </tr>
+            <tr>
+                <td>VISITOR_INFO1_LIVE</td>
+                <td><g:message code="footer.menu.footerCookiesInfo.cookie.VISITOR_INFO1_LIVE.description"/></td>
+                <td><g:message code="footer.menu.footerCookiesInfo.cookie.expiration.sixMonth"/></td>
+            </tr>
             </tbody>
         </table>
     </div>
+
+    <p>
+        <g:message code="footer.menu.footerCookiesInfo.shareServices" args="[legalInfo.domainOwner]"/>
+    </p>
+
+
     <label class="checkbox">
         <input id="technicalCookiesAccepted" type="checkbox"/>
         <span class="check-box-icon"></span>
