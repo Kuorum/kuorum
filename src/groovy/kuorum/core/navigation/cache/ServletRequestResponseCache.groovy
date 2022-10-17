@@ -12,6 +12,6 @@ interface ServletRequestResponseCache {
 
     void evictCampaign(UrlMappingInfo urlMappingInfo)
 
-    void evictGlobal(UrlMappingInfo urlMappingInfo)
+    void evictGlobal()
 
 }
