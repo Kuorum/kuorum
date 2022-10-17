@@ -398,6 +398,7 @@ class UrlMappings {
         name politicianContactFilterData: "/ajax/account/contacts/filters/data"(controller: "contactFilters", action: "getFilterData")
         name politicianContactFilterDelete: "/ajax/account/contacts/filters/delete"(controller: "contactFilters", action: "deleteFilter")
         name politicianContactActivity: "/ajax/account/contacts/$contactId/activity"(controller: "contacts", action: "contactActivity")
+        name politicianContactBulletin: "/ajax/account/contacts/bulletin"(controller: "contacts", action: "contactBulletins")
         name politicianContactEdit: "/account/contacts/$contactId/edit"(controller: "contacts") { action = [GET: "editContact", POST: "updateContact"] }
         name politicianContactPersonalCodeGenerate: "/account/contacts/$contactId/edit/personalCode/generate"(controller: "contacts", action: "generatePersonalCode")
         name politicianContactPersonalCodeRemove: "/account/contacts/$contactId/edit/personalCode/remove"(controller: "contacts", action: "removePersonalCode")

@@ -93,6 +93,8 @@
                     code="tools.contact.edit.tabs.extraInfo"/></a></li>
             <li role="presentation"><a href="#files" data-toggle="tab"><g:message
                     code="tools.contact.edit.tabs.files"/></a></li>
+            <li role="presentation"><a href="#bulletins" data-toggle="tab"><g:message
+                    code="tools.contact.edit.tabs.bulletins"/></a></li>
         </ul>
 
         <div id="tabs-edit-contact" class="tab-content">
@@ -196,6 +198,10 @@
                 <div class="textareaContainer col-xs-12">
                     <formUtil:uploadContactFiles contact="${contact}"/>
                 </div>
+            </div>
+
+            <div class="tab-pane" id="bulletins">
+                <modulesUtil:delayedModule mapping="politicianContactBulletin" elementId="contact-bulletin-history-list-id"/>
             </div>
         </div>
     </div>
