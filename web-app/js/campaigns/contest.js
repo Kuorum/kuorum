@@ -75,7 +75,11 @@ $(function () {
 
 var contestApplicationHelper = {
     containerId: "contest-applications-list",
-    showListApplications: function (listSelector = "random") {
+    showListApplications: function (listSelector) {
+        if (listSelector == undefined) {
+            listSelector = $("#contest-applications-list").attr("contest-applications-list") == "VOTING" ? "random" : "vote";
+            console.log("Defautl list; " + listSelector)
+        }
         $("#" + contestApplicationHelper.containerId).find(".search-list").hide();
         var $activeList = $("#" + contestApplicationHelper.containerId).find(".search-list." + listSelector);
         $activeList.show();
