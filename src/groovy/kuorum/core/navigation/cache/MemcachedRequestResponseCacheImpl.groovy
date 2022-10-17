@@ -27,11 +27,11 @@ class MemcachedRequestResponseCacheImpl extends AbstractHttpRequestKeyCache {
     void put(UrlMappingInfo urlMappingInfo, CacheHttpServletResponseWrapper response, Locale locale) {
         def key = buildKey(urlMappingInfo, locale)
         memcachedClient.set(key, expirationInADay, response.getContent().getContent())
-
-        cacheLanguageKeys(urlMappingInfo, key, locale)
-        cacheParentRelation(urlMappingInfo, key)
-
         logger.debug("Key $key cached")
+
+        def simpleKey = buildKey(urlMappingInfo)
+        cacheLanguageKeys(simpleKey, locale)
+        cacheParentRelation(urlMappingInfo, simpleKey)
     }
 
     private void cacheParentRelation(UrlMappingInfo urlMappingInfo, String key) {
@@ -41,8 +41,8 @@ class MemcachedRequestResponseCacheImpl extends AbstractHttpRequestKeyCache {
         }
     }
 
-    private void cacheLanguageKeys(UrlMappingInfo urlMappingInfo, String key, Locale locale) {
-        safetyAppendCache(buildKey(urlMappingInfo), locale.getLanguage())
+    private void cacheLanguageKeys(String key, Locale locale) {
+        safetyAppendCache(key, locale.getLanguage())
     }
 
     private void safetyAppendCache(String simpleKey, String content) {
@@ -76,18 +76,18 @@ class MemcachedRequestResponseCacheImpl extends AbstractHttpRequestKeyCache {
     }
 
     @Override
-    void evictGlobal(UrlMappingInfo urlMappingInfo) {
-        String key = buildGlobalKey()
-        evictMultilanguageKey(key)
-        evictChildren(key)
+    void evictGlobal() {
+        evictMultilanguageKey(buildGlobalKey())
     }
 
     private void evictChildren(String key) {
-        String cachedChilds = memcachedClient.get(key + PARENT_SUFIX)
-        if (cachedChilds) {
-            cachedChilds.split(SEPARATOR).each {
-                deleteKey(it)
+        def childrenKey = key + PARENT_SUFIX
+        String cachedChildren = memcachedClient.get(childrenKey)
+        if (cachedChildren) {
+            cachedChildren.split(SEPARATOR).each {
+                evictMultilanguageKey(it)
             }
+            deleteKey(childrenKey)
         }
     }
 
@@ -104,7 +104,6 @@ class MemcachedRequestResponseCacheImpl extends AbstractHttpRequestKeyCache {
     private void deleteKey(String simpleKey) {
         memcachedClient.delete(simpleKey)
         logger.debug("Key ${simpleKey} deleted cache")
-
     }
 
     private writeTo(ServletResponse response, byte[] content) {
@@ -113,5 +112,4 @@ class MemcachedRequestResponseCacheImpl extends AbstractHttpRequestKeyCache {
         out.write(content)
         out.flush()
     }
-
 }

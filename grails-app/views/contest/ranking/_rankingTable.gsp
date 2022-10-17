@@ -3,8 +3,8 @@
     <!-- LISTADO DE CAMPAÑAS -->
     <div class="box-ppal list-campaigns">
         <div class="pag-list-campaigns">
-            <div class="pagination">
-                <span class="reloading">Reloading in <span class="reloading-counter">5</span> seconds</span>
+            <div class="pagination ranking-pagination">
+                <span class="reloading"><g:message code="contest.ranking.list.reloading"/><span class="reloading-counter">5</span><g:message code="contest.ranking.list.reloading.seconds"/></span>
                 <ul class="paginationTop"></ul>
                 <span class="counterList"><g:message code="tools.massMailing.list.pagination.label"/> <span
                         class="totalList"></span></span>

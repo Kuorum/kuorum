@@ -36,7 +36,7 @@
            value="${g.message(code: "contest.callToAction.${contest.status}.button", args: [campaignUser.name])}"/>
 </g:elseif>
 
-<div class="comment-box call-to-action ${hideXs ? 'hidden-sm hidden-xs' : ''}">
+<div class="comment-box call-to-action ${hideXs ? 'hidden-sm hidden-xs' : ''} ${hideXl ? 'hidden-md hidden-lg' : ''}">
     <div class="comment-header">
         <span class="call-title">${callTitleMsg}</span>
         <span class="call-subTitle">${callSubtitleMsg}</span>
@@ -61,10 +61,12 @@
                 <g:link mapping="politicianCampaigns" class="btn btn-lg btn-lg">${callButtonMsg}</g:link>
             </g:elseif>
             <g:elseif test="${contest.status == org.kuorum.rest.model.communication.contest.ContestStatusDTO.VOTING}">
-                <a href="#contest-applications-list" class="btn btn-blue btn-lg ${contest.status}">${callButtonMsg}</a>
+                <a href="#contest-applications-list"
+                   class="btn btn-blue btn-lg ${contest.status} smooth">${callButtonMsg}</a>
             </g:elseif>
             <g:elseif test="${contest.status == org.kuorum.rest.model.communication.contest.ContestStatusDTO.RESULTS}">
-                <a href="#contest-applications-list" class="btn btn-blue btn-lg ${contest.status}">${callButtonMsg}</a>
+                <a href="#contest-applications-list"
+                   class="btn btn-blue btn-lg ${contest.status} smooth">${callButtonMsg}</a>
             </g:elseif>
         </div>
     </g:if>

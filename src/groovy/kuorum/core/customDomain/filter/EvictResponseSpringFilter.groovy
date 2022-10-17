@@ -61,7 +61,7 @@ class EvictResponseSpringFilter extends AbstractWrappedResponseFilter {
             servletResponseCache.evictCampaign(urlMappingInfo)
         }
         if (haveEvict(urlMappingInfo, method, GLOBAL_EVICT)) {
-            servletResponseCache.evictGlobal(urlMappingInfo)
+            servletResponseCache.evictGlobal()
         }
     }
 
