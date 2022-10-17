@@ -140,12 +140,16 @@ var contestApplicationHelper = {
         }
     },
     _getRandomSeedFromContainer: function ($ulIdSelector) {
-        var randomSeed = $ulIdSelector.attr("data-randomseed")
-        if (randomSeed == undefined || randomSeed == "") {
-            randomSeed = Math.random();
-            $ulIdSelector.attr("data-randomseed", randomSeed)
+        if ($ulIdSelector.hasClass("random")) {
+            var randomSeed = $ulIdSelector.attr("data-randomseed")
+            if (randomSeed == undefined || randomSeed == "") {
+                randomSeed = Math.random();
+                $ulIdSelector.attr("data-randomseed", randomSeed)
+            }
+            return randomSeed;
+        } else {
+            return undefined;
         }
-        return randomSeed;
     },
 
     bindActionClickAddDistrictProposal: function (e) {
