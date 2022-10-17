@@ -122,6 +122,7 @@ var rankingHelper = {
             rankingHelper.init(data);
             rankingHelper.startTimer();
             rankingHelper.restarConuter();
+            rankingHelper.updateNumVotes();
             // pageLoadingOff();
         });
     },
@@ -179,5 +180,14 @@ var rankingHelper = {
         rankingHelper.rankingCampaignList.search(keyword);
         $('#rankingListCampaigns').unmark().mark(keyword, rankingHelper.options);
         $('.totalList').text(rankingHelper.rankingCampaignList.visibleItems.length);
+    },
+
+    updateNumVotes() {
+        var total = 0;
+        $.each($(".ranking-numVotes"), function (i, val) {
+            total = total + parseInt($(val).html())
+        });
+        $(".ranking-total-votes-num").html(total);
+        $(".ranking-total-votes").show();
     }
 }
