@@ -15,7 +15,7 @@
     %{--    </g:if>--}%
     <ul class="search-list clearfix random"
         data-page="0"
-        data-randomSeed="${randomSeed}"
+        data-randomSeed=""
         data-loadProposals="${g.createLink(mapping: 'contestListApplications', params: contest.encodeAsLinkProperties())}"></ul>
     <ul class="search-list clearfix vote"
         data-page="0"

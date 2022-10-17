@@ -89,7 +89,7 @@ var contestApplicationHelper = {
         // console.dir({loading:loading, noMoreResults: noMoreResults, isUndefined:!noMoreResults, isLoading:loading === undefined || loading=="false", total:noMoreResults != undefined && (loading === undefined || loading=="true")})
         if (!noMoreResults && (loading === undefined || loading == "false")) {
             console.log("Loading more contests applications");
-            $ulIdSelector.attr("loading", "true");
+            $ulIdSelector.attr("loading", "true"); // Prevents double click
             var urlLoadMoreDistrictProposals = $ulIdSelector.attr("data-loadProposals");
             var params = {
                 page: $ulIdSelector.attr("data-page")
@@ -98,7 +98,7 @@ var contestApplicationHelper = {
             if (typeof direction !== typeof undefined && direction !== false) {
                 params['direction'] = direction
             }
-            var randomSeed = $ulIdSelector.attr("data-randomSeed");
+            var randomSeed = contestApplicationHelper._getRandomSeedFromContainer($ulIdSelector);
             if (typeof randomSeed !== typeof undefined && randomSeed !== false) {
                 params['randomSeed'] = randomSeed
             }
@@ -138,6 +138,14 @@ var contestApplicationHelper = {
         } else {
             // NO MORE RESULTS
         }
+    },
+    _getRandomSeedFromContainer: function ($ulIdSelector) {
+        var randomSeed = $ulIdSelector.attr("data-randomseed")
+        if (randomSeed == undefined || randomSeed == "") {
+            randomSeed = Math.random();
+            $ulIdSelector.attr("data-randomseed", randomSeed)
+        }
+        return randomSeed;
     },
 
     bindActionClickAddDistrictProposal: function (e) {
