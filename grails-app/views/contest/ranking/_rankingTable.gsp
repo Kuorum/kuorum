@@ -1,4 +1,5 @@
-<div id="rankingListCampaigns">
+<div id="rankingListCampaigns"
+     data-autoRelaod="${contest.status == org.kuorum.rest.model.communication.contest.ContestStatusDTO.VOTING}">
     <g:render template="ranking/rankingFilter"/>
     <!-- LISTADO DE CAMPAÑAS -->
     <div class="box-ppal list-campaigns">

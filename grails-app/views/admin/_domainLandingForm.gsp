@@ -61,8 +61,8 @@
                 </div>
 
                 <div class="form-group col-md-5">
-                    <formUtil:url field="url" command="${listCommand}" prefixFieldName="${prefixField}"
-                                  showLabel="true"/>
+                    <formUtil:input field="url" command="${listCommand}" prefixFieldName="${prefixField}"
+                                    showLabel="true"/>
                 </div>
 
                 <div class="form-group col-md-1 form-group-remove">

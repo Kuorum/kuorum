@@ -1,4 +1,4 @@
-<r:require modules="customFileUploader" />
+<r:require modules="customFileUploader"/>
 <g:set var="divId" value="multiple-file-uploader-${elementId}"/>
 <g:if test="${label}">
     <label>${label}</label>
@@ -11,27 +11,38 @@
 </div>
 
 <!-- MODAL REMOVE FILE -->
-<div class="modal fade in modal-remove-file" id="multi-uploader-remove-file-modal-${divId}" tabindex="-1" role="dialog" aria-labelledby="multi-uploader-remove-file-modal-title" aria-hidden="true">
+<div class="modal fade in modal-remove-file" id="multi-uploader-remove-file-modal-${divId}" tabindex="-1" role="dialog"
+     aria-labelledby="multi-uploader-remove-file-modal-title" aria-hidden="true">
     <div class="modal-dialog ">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
-                    <span aria-hidden="true" class="fal fa-times-circle fa"></span><span class="sr-only"><g:message code="modalDefend.close"/></span>
+                    <span aria-hidden="true" class="fal fa-times-circle fa"></span><span class="sr-only"><g:message
+                        code="modalDefend.close"/></span>
                 </button>
                 <h4>
                     <g:message code="uploader.multiFile.removeFile.modal.title"/>
                 </h4>
             </div>
+
             <div class="modal-body">
                 <p>Remove file - replaced</p>
             </div>
+
             <div class="modal-actions">
-                <a href="" role="button" class="btn btn-blue inverted btn-lg confirm-button"><g:message code="uploader.multiFile.removeFile.modal.confirm"/></a>
-                <a href="" role="button" class="btn btn-grey-light btn-lg close-modal"><g:message code="uploader.multiFile.removeFile.modal.cancel"/></a>
+                <a href="" role="button" class="btn btn-blue inverted btn-lg confirm-button"><g:message
+                        code="uploader.multiFile.removeFile.modal.confirm"/></a>
+                <a href="" role="button" class="btn btn-grey-light btn-lg close-modal"><g:message
+                        code="uploader.multiFile.removeFile.modal.cancel"/></a>
             </div>
         </div>
     </div>
 </div>
+<g:set var="htmlLinkIcon" value=""/>
+<g:if test="${!hideLinkIcon}">
+    <g:set var="htmlLinkIcon"><div class='qq-upload-success'><span class='fal fa-link'></span></div></g:set>
+</g:if>
+
 
 <r:script>
     var removeCallbackAction = function(){console.log("Remove action is not defined");};
@@ -74,7 +85,7 @@
 '<span class="fal fa-exclamation-circle"></span>' +
 '</abbr>' +
 '</div>' +
-'<div class="qq-upload-success"><span class="fal fa-link"></span></div>' +
+"${raw(htmlLinkIcon)}" +
 '<div class="qq-upload-delete"><a href="#" class="qq-upload-delete-action fal fa-trash"></a></div>' +
 '</li>',
             removeConfirmModal: function(fileName, msgConfirm, deleteActionCallback){

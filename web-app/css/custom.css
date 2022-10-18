@@ -4321,7 +4321,7 @@ fieldset > .multiple-range-selector:first-child {margin-top:40px;}
 }
 
 .qq-uploader-multiple-files .qq-upload-list li .qq-upload-file {
-    width: calc(100% - 110px);
+    width: calc(100% - 70px);
     line-height: 18px;
 }
 

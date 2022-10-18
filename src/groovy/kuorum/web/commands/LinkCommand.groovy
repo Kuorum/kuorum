@@ -9,6 +9,6 @@ class LinkCommand {
 
     static constraints = {
         title nullable:false
-        url nullable: true, url: true
+        url nullable: true
     }
 }

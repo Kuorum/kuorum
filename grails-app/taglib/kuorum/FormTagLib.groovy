@@ -200,6 +200,7 @@ class FormTagLib {
             actionDelete = g.createLink(mapping:'ajaxDeleteMassMailingAttachFile', params: [campaignId: campaignRSDTO.id])
         }
         alreadyUploadedFiles = alreadyUploadedFiles.collect{it.split('\\?').first()}
+
         def model = [
                 alreadyUploadedFiles:alreadyUploadedFiles,
                 elementId: campaignRSDTO.id,
@@ -207,7 +208,9 @@ class FormTagLib {
                 confirmRemoveFile: true,
                 actionUpload: actionUpload,
                 actionDelete: actionDelete,
-                label:label
+                label:label,
+                hideLinkIcon: false
+
         ]
         out << g.render(template:'/layouts/form/uploadMultipleFiles', model:model)
 
@@ -219,6 +222,7 @@ class FormTagLib {
         Boolean adminContact = attrs.adminContact ? Boolean.parseBoolean(attrs.adminContact) : false;
         KuorumUserSession userSession = springSecurityService.principal
         String contactOwnerId = adminContact ? WebConstants.FAKE_LANDING_ALIAS_USER : userSession.id.toString()
+
         List<String> alreadyUploadedFiles = contactService.getFiles(contactOwnerId, contact)
         alreadyUploadedFiles = alreadyUploadedFiles.collect { it.split('\\?').first() }
         def model = [
@@ -228,7 +232,8 @@ class FormTagLib {
                 confirmRemoveFile   : true,
                 actionUpload        : g.createLink(mapping: 'ajaxUploadContactFile', params: [contactId: contact.id, userAlias: contactOwnerId, adminContact: adminContact]),
                 actionDelete        : g.createLink(mapping: 'ajaxDeleteContactFile', params: [contactId: contact.id, userAlias: contactOwnerId, adminContact: adminContact]),
-                label               : label
+                label               : label,
+                hideLinkIcon        : true
         ]
         out << g.render(template: '/layouts/form/uploadMultipleFiles', model: model)
     }
@@ -260,7 +265,8 @@ class FormTagLib {
                 confirmRemoveFile: false,
                 actionUpload: g.createLink(mapping:'ajaxUploadQuestionOptionFile', params: [userAlias:survey.user.alias, surveyId: survey.id, questionId: question.id, questionOptionId:questionOption.id]),
                 actionDelete: g.createLink(mapping:'ajaxDeleteQuestionOptionFile', params: [userAlias:survey.user.alias, surveyId: survey.id, questionId: question.id, questionOptionId:questionOption.id]),
-                label:label
+                label:label,
+                hideLinkIcon: false
         ]
         out << g.render(template:'/layouts/form/uploadMultipleFiles', model:model)
     }
