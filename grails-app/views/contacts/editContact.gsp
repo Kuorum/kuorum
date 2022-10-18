@@ -201,7 +201,7 @@
             </div>
 
             <div class="tab-pane" id="bulletins">
-                <modulesUtil:delayedModule mapping="politicianContactBulletin" elementId="contact-bulletin-history-list-id"/>
+                <modulesUtil:delayedModule mapping="politicianContactBulletin" params="${[contactId: contact.id]}" elementId="contact-bulletin-history-list-id"/>
             </div>
         </div>
     </div>

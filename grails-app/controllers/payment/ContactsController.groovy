@@ -875,9 +875,9 @@ class ContactsController {
         searchContactRSDTO.quickSearch = params.quickSearchByName
     }
 
-    def contactBulletins() {
+    def contactBulletins(Long contactId) {
         KuorumUserSession user = springSecurityService.principal
         List<BulletinRSDTO> bulletins = bulletinService.findAll(user)
-        render template: "/contacts/contactBulletins", model: [bulletins: bulletins]
+        render template: "/contacts/contactBulletins", model: [bulletins: bulletins, contactId: contactId]
     }
 }
