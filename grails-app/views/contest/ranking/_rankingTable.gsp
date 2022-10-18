@@ -8,7 +8,8 @@
                     class="reloading-counter">5</span><g:message code="contest.ranking.list.reloading.seconds"/></span>
 
             <div class="pagination ranking-pagination">
-                <span class="ranking-total-votes">Votos totales: <span class="ranking-total-votes-num"></span></span>
+                <span class="ranking-total-votes"><g:message code="contest.ranking.list.totalVotes"/>: <span
+                        class="ranking-total-votes-num"></span></span>
                 <ul class="paginationTop"></ul>
                 <span class="counterList"><g:message code="tools.massMailing.list.pagination.label"/> <span
                         class="totalList"></span></span>
