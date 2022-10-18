@@ -285,8 +285,9 @@ class ContactsController {
 
     def contactActivity(Long contactId) {
         KuorumUserSession user = springSecurityService.principal
+        ContactRSDTO contact = contactService.getContact(user, contactId)
         ContactActivityPageRSDTO activites = contactService.findContactActivity(user, contactId, 0, 10);
-        render template: "/contacts/contactActivity", model: [activites: activites]
+        render template: "/contacts/contactActivity", model: [contact: contact, activites: activites]
     }
 
     def importContacts() {
