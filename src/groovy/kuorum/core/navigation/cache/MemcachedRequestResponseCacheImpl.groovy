@@ -35,9 +35,9 @@ class MemcachedRequestResponseCacheImpl extends AbstractHttpRequestKeyCache {
     }
 
     private void cacheParentRelation(UrlMappingInfo urlMappingInfo, String key) {
-        String parentKey = buildParentKey(urlMappingInfo) + PARENT_SUFIX
+        String parentKey = buildParentKey(urlMappingInfo)
         if (parentKey) {
-            safetyAppendCache(parentKey, key)
+            safetyAppendCache(parentKey + PARENT_SUFIX, key)
         }
     }
 
