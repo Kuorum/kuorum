@@ -35,7 +35,7 @@ class MemcachedRequestResponseCacheImpl extends AbstractHttpRequestKeyCache {
     }
 
     private void cacheParentRelation(UrlMappingInfo urlMappingInfo, String key) {
-        String parentKey = buildParentKey(urlMappingInfo)
+        String parentKey = buildParentKey(urlMappingInfo) + PARENT_SUFIX
         if (parentKey) {
             safetyAppendCache(parentKey, key)
         }
@@ -72,6 +72,7 @@ class MemcachedRequestResponseCacheImpl extends AbstractHttpRequestKeyCache {
     void evictCampaign(UrlMappingInfo urlMappingInfo) {
         String key = buildKey(urlMappingInfo)
         evictMultilanguageKey(key)
+        evictMultilanguageKey(buildParentKey(urlMappingInfo))
         evictChildren(key)
     }
 
