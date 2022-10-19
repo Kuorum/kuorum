@@ -45,7 +45,7 @@ var cookiesHelper = {
     acceptedAllCookies: function () {
         cookiesHelper.acceptTechnicalCookies()
         cookiesHelper.acceptThirdCookies(true)
-        if (cookiesInfo) {
+        if (typeof (cookiesInfo) != 'undefined') {
             cookiesInfo.initTechnicalBox(true)
             cookiesInfo.initThirdBox(true)
         }
