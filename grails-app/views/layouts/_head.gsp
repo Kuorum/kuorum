@@ -6,16 +6,19 @@
             <nav:ifPageProperty pageProperty="disableLogoLink" nullValue="false">
                 <g:set var="disableLogoLinkClass" value="disabled"/>
             </nav:ifPageProperty>
-            <g:render template="/layouts/brandAndLogo" model="[disableLogoLinkClass:disableLogoLinkClass]"/>
+            <g:render template="/layouts/brandAndLogo" model="[disableLogoLinkClass: disableLogoLinkClass]"/>
             <div class="collapse navbar-collapse" id="navbar-collapse">
-                <g:render template="/layouts/searchHeadForm"/>
+            <g:if test="${_isSocialNetwork}">
+                    <g:render template="/layouts/searchHeadForm"/>
+            </g:if>
                 <nav:ifPageProperty pageProperty="showNavBar">
                     <sec:ifLoggedIn>
                         <nav:headNotifications/>
                     </sec:ifLoggedIn>
                     <sec:ifNotLoggedIn>
-                        %{--<g:include controller="login" action="headAuth"/>--}%
-                        <g:render template="/layouts/noLoggedHead" model="[registerCommand: new springSecurity.KuorumRegisterCommand()]"/>
+                    %{--<g:include controller="login" action="headAuth"/>--}%
+                        <g:render template="/layouts/noLoggedHead"
+                                  model="[registerCommand: new springSecurity.KuorumRegisterCommand()]"/>
                     </sec:ifNotLoggedIn>
                 </nav:ifPageProperty>
             </div>
