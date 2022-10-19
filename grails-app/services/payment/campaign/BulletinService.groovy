@@ -164,4 +164,16 @@ class BulletinService implements CampaignCreatorService<BulletinRSDTO, BulletinR
         }
         bulletinRSDTO
     }
+
+    void copyAndSend(String userId, String contactId, Long campaignId) {
+        Map<String, String> params = [userId: userId, contactId: contactId, campaignId: campaignId.toString()]
+        Map<String, String> query = [:]
+        def response = restKuorumApiService.post(
+                RestKuorumApiService.ApiMethod.ACCOUNT_BULLETIN_COPY_AND_SEND,
+                params,
+                query,
+                null,
+                new TypeReference<BulletinRSDTO>() {}
+        )
+    }
 }
