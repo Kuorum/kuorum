@@ -84,14 +84,17 @@ var rankingHelper = {
         if (rankingHelper.rankingCampaignList == undefined) {
             rankingHelper.options = this._buildDefaultOptions();
             $("#rankingList").html(data);
+            rankingHelper.updateNumVotes(); // UPDATE VOTES BEFORE FILTER/PAGINATE DATA
             rankingHelper.rankingCampaignList = new List('rankingListCampaigns', rankingHelper.options);
             rankingHelper._savePageStatus();
         } else {
             rankingHelper._savePageStatus();
             rankingHelper.rankingCampaignList.clear();
             $("#rankingList").html(data);
+            rankingHelper.updateNumVotes(); // UPDATE VOTES BEFORE FILTER/PAGINATE DATA
             rankingHelper.rankingCampaignList.reIndex();
         }
+
         rankingHelper.applyFiltersToList();
         rankingHelper._recoverPageStatus();
         $('.totalList').text(rankingHelper.rankingCampaignList.matchingItems.length);
@@ -185,5 +188,14 @@ var rankingHelper = {
         rankingHelper.rankingCampaignList.search(keyword);
         $('#rankingListCampaigns').unmark().mark(keyword, rankingHelper.options);
         $('.totalList').text(rankingHelper.rankingCampaignList.visibleItems.length);
+    },
+
+    updateNumVotes() {
+        var total = 0;
+        $.each($(".ranking-numVotes"), function (i, val) {
+            total = total + parseInt($(val).html())
+        });
+        $(".ranking-total-votes-num").html(total);
+        $(".ranking-total-votes").show();
     }
 }
