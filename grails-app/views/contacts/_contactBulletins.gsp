@@ -11,6 +11,7 @@
         </thead>
         <tbody>
         <g:each in="${bulletins}" var="bulletin">
+            <g:if test="${!bulletin.getResent()}">
             <tr>
                 <td>${bulletin.name}</td>
                 <td>${bulletin.title}</td>
@@ -23,6 +24,7 @@
                     </g:link>
                 </td>
             </tr>
+            </g:if>
         </g:each>
         </tbody>
     </table>

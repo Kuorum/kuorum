@@ -79,7 +79,7 @@
     </div>
     <ul id="campaignsList" class="list">
         <g:each in="${campaigns}" var="campaign" status="i">
-            <g:if test="${campaign.getCampaignType().equals(org.kuorum.rest.model.communication.CampaignTypeRSDTO.BULLETIN)}">
+            <g:if test="${campaign.getCampaignType().equals(org.kuorum.rest.model.communication.CampaignTypeRSDTO.BULLETIN) && !campaign.getResent()}">
                 <g:render template="liCampaignNewsletter" model="[bulletin:campaign, user:user, idx:campaign.id]"/>
             </g:if>
             <g:else>
