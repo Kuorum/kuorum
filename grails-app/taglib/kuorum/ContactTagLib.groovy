@@ -1,7 +1,11 @@
 package kuorum
 
 import grails.plugin.springsecurity.SpringSecurityService
+import kuorum.payment.contact.outlook.model.Contact
+import org.kuorum.rest.model.communication.CampaignTypeRSDTO
+import org.kuorum.rest.model.contact.ContactActivityRSDTO
 import org.kuorum.rest.model.contact.ContactRSDTO
+import org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO
 import payment.contact.ContactService
 
 class ContactTagLib {
@@ -87,12 +91,36 @@ class ContactTagLib {
 
     }
 
-    def importSocialContact= { attrs, body ->
+    def importSocialContact = { attrs, body ->
         String provider = attrs.provider
         String userId = springSecurityService.principal.id.toString()
         String url = contactService.getSocialImportContactUrl(userId, provider);
         out << "<a href='${url}' id='${provider}' provider='${provider}' role='button' class='actionIcon'>"
         out << body()
         out << "</a>"
+    }
+
+    def showResendBulletin = { attrs, body ->
+        ContactRSDTO contact = attrs.contact
+        ContactActivityRSDTO activity = attrs.activity
+        ContactActivityRSDTO.ContactActivityEventRSDTO event = attrs.event
+        if (showResendButton(contact, activity, event)) {
+            if (contact.blackList) {
+                out << "<span>No valid email or it is unsubscribed</span>"
+            } else {
+                out << """
+            <a href="${g.createLink(mapping: "politicianMassMailingTrackEventsResend", params: [campaignId: activity.campaignId, tackingMailId: activity.trackingId])}" class="btn btn-blue inverted resend-email">
+                ${g.message(code: "tools.massMailing.actions.resend")}
+                <span class="fal fa-angle-double-right"></span>
+            </a>
+            """
+            }
+        }
+    }
+
+    private def STATUS_WITH_RESENT_BUTTON = [TrackingMailStatusRSDTO.SENT, TrackingMailStatusRSDTO.RESENT, TrackingMailStatusRSDTO.BOUNCED, TrackingMailStatusRSDTO.HARD_BOUNCED, TrackingMailStatusRSDTO.NOT_SENT, TrackingMailStatusRSDTO.REJECT, TrackingMailStatusRSDTO.SPAM]
+
+    private Boolean showResendButton(ContactRSDTO contact, ContactActivityRSDTO activity, ContactActivityRSDTO.ContactActivityEventRSDTO event) {
+        return STATUS_WITH_RESENT_BUTTON.contains(event.status) && activity.trackingId && activity.campaignType == CampaignTypeRSDTO.BULLETIN
     }
 }

@@ -1861,13 +1861,26 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 }
 
 #rankingListCampaigns .reloading {
-    float: left;
+    display: block;
+    width: 100%;
+    text-align: center;
     font-size: 13px;
+    margin-top: -15px;
 }
 
 #rankingListCampaigns .reloading .reloading-counter {
     font-weight: bold;
 }
+
+#rankingListCampaigns .ranking-total-votes {
+    float: left;
+    font-weight: bold;
+    width: 100%;
+    text-align: left;
+    display: none;
+    padding-left: 10px;
+}
+
 
 #rankingListCampaigns .box-order-options ul,
 #rankingListCampaigns .box-order-options ul li {
@@ -4308,7 +4321,7 @@ fieldset > .multiple-range-selector:first-child {margin-top:40px;}
 }
 
 .qq-uploader-multiple-files .qq-upload-list li .qq-upload-file {
-    width: calc(100% - 110px);
+    width: calc(100% - 70px);
     line-height: 18px;
 }
 
@@ -6971,6 +6984,10 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     #rankingListCampaigns .box-order-options .ranking-title-author-header {
         width: calc(90% - 400px);
         display: inline-block;
+    }
+
+    #rankingListCampaigns .ranking-total-votes {
+        width: 50%;
     }
 
     .campaignDelete, .contactDelete {
