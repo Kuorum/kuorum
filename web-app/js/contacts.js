@@ -726,6 +726,8 @@ function FilterContacts() {
             activeOperator = ".participatoryBudget-operator"
         } else if (val == "CONTEST") {
             activeOperator = ".contest-operator"
+        } else if (val == "ISSUES") {
+            activeOperator = ".issues-operator"
         }
 
         $fieldSet.find(".filter-operator").addClass("hide");

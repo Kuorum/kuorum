@@ -8,18 +8,25 @@ import kuorum.web.commands.payment.survey.QuestionOptionCommand
 import kuorum.web.constants.WebConstants
 import org.bson.types.ObjectId
 import org.codehaus.groovy.grails.validation.*
+import org.kuorum.rest.model.communication.CampaignLightPageRSDTO
 import org.kuorum.rest.model.communication.CampaignRSDTO
 import org.kuorum.rest.model.communication.CampaignTypeRSDTO
 import org.kuorum.rest.model.communication.contest.ContestRSDTO
 import org.kuorum.rest.model.communication.event.EventRSDTO
 import org.kuorum.rest.model.communication.participatoryBudget.ParticipatoryBudgetRSDTO
+import org.kuorum.rest.model.communication.search.CampaignFieldRDTO
+import org.kuorum.rest.model.communication.search.SearchCampaignRDTO
+import org.kuorum.rest.model.communication.search.SortCampaignRDTO
 import org.kuorum.rest.model.communication.survey.QuestionOptionRSDTO
 import org.kuorum.rest.model.communication.survey.QuestionOptionTypeRDTO
 import org.kuorum.rest.model.communication.survey.QuestionRSDTO
 import org.kuorum.rest.model.communication.survey.SurveyRSDTO
 import org.kuorum.rest.model.communication.survey.answer.QuestionAnswerFilesRDTO
 import org.kuorum.rest.model.contact.ContactRSDTO
+import org.kuorum.rest.model.contact.sort.SortContactsRDTO
 import org.kuorum.rest.model.geolocation.RegionRSDTO
+import org.kuorum.rest.model.pagination.PageRSDTO
+import org.kuorum.rest.model.search.DirectionDTO
 import org.springframework.context.i18n.LocaleContextHolder
 import payment.campaign.CampaignService
 import payment.campaign.ContestService
@@ -904,7 +911,7 @@ class FormTagLib {
             case "EVENT": selectValues = eventSelectKeyValue(); break;
             case "PARTICIPATORY_BUDGET": selectValues = participatoryBudgetSelectKeyValue(); break;
             case "CONTEST": selectValues = contestKeyValue(); break;
-            default: throw new KuorumException("Campaign selector ('${campaignType}') not suported")
+            default: selectValues = campaignKeyValue(); break;
         }
         selectValues.each{selectValue ->
             Boolean selected = (selectValue.id==command."$field")
@@ -936,6 +943,15 @@ class FormTagLib {
         KuorumUserSession user = springSecurityService.principal
         List<ContestRSDTO> contests = contestService.findAll(user)
         return contests.findAll { it.published }.collect { [id: it.id, value: it.name] }
+    }
+
+    private def campaignKeyValue() {
+        KuorumUserSession user = springSecurityService.principal
+        SearchCampaignRDTO searchCampaignRDTO = new SearchCampaignRDTO()
+        searchCampaignRDTO.setSize(100)
+        searchCampaignRDTO.setSort(new SortCampaignRDTO(field: CampaignFieldRDTO.TITLE, direction: DirectionDTO.DESC))
+        CampaignLightPageRSDTO pageCampaigns = campaignService.findAllCampaigns(user, searchCampaignRDTO)
+        return pageCampaigns.data.collect { [id: it.id, value: it.name] }
     }
 
     def selectTimeZone = { attrs ->
