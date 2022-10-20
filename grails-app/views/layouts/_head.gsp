@@ -8,9 +8,7 @@
             </nav:ifPageProperty>
             <g:render template="/layouts/brandAndLogo" model="[disableLogoLinkClass: disableLogoLinkClass]"/>
             <div class="collapse navbar-collapse" id="navbar-collapse">
-            <g:if test="${_isSocialNetwork}">
-                    <g:render template="/layouts/searchHeadForm"/>
-            </g:if>
+                <g:render template="/layouts/searchHeadForm"/>
                 <nav:ifPageProperty pageProperty="showNavBar">
                     <sec:ifLoggedIn>
                         <nav:headNotifications/>
