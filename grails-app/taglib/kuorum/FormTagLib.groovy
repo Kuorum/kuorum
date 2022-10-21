@@ -25,6 +25,7 @@ import payment.campaign.CampaignService
 import payment.campaign.ContestService
 import payment.campaign.NewsletterService
 import payment.campaign.ParticipatoryBudgetService
+import payment.campaign.SurveyService
 import payment.campaign.event.EventService
 import payment.contact.ContactService
 
@@ -41,6 +42,7 @@ class FormTagLib {
     CampaignService campaignService
     NewsletterService newsletterService
     ContactService contactService
+    SurveyService surveyService
 
     static namespace = "formUtil"
 
@@ -904,6 +906,7 @@ class FormTagLib {
             case "EVENT": selectValues = eventSelectKeyValue(); break;
             case "PARTICIPATORY_BUDGET": selectValues = participatoryBudgetSelectKeyValue(); break;
             case "CONTEST": selectValues = contestKeyValue(); break;
+            case "SURVEY": selectValues = surveyKeyValue(); break;
             default: throw new KuorumException("Campaign selector ('${campaignType}') not suported")
         }
         selectValues.each{selectValue ->
@@ -936,6 +939,12 @@ class FormTagLib {
         KuorumUserSession user = springSecurityService.principal
         List<ContestRSDTO> contests = contestService.findAll(user)
         return contests.findAll { it.published }.collect { [id: it.id, value: it.name] }
+    }
+
+    private def surveyKeyValue() {
+        KuorumUserSession user = springSecurityService.principal
+        List<SurveyRSDTO> surveys = surveyService.findAll(user)
+        return surveys.findAll { it.published }.collect { [id: it.id, value: it.name] }
     }
 
     def selectTimeZone = { attrs ->
