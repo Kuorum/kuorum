@@ -14,7 +14,9 @@ import kuorum.web.binder.FormattedDoubleConverter
 import kuorum.web.commands.payment.contact.*
 import kuorum.web.constants.WebConstants
 import kuorum.web.session.CSVDataSession
-import org.kuorum.rest.model.communication.bulletin.BulletinRSDTO
+import org.kuorum.rest.model.communication.CampaignLightPageRSDTO
+import org.kuorum.rest.model.communication.CampaignTypeRSDTO
+import org.kuorum.rest.model.communication.search.SearchCampaignRDTO
 import org.kuorum.rest.model.contact.*
 import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
 import org.kuorum.rest.model.contact.filter.FilterRDTO
@@ -29,7 +31,7 @@ import org.kuorum.rest.model.search.DirectionDTO
 import org.mozilla.universalchardet.UniversalDetector
 import org.springframework.web.multipart.MultipartFile
 import org.springframework.web.multipart.MultipartHttpServletRequest
-import payment.campaign.BulletinService
+import payment.campaign.CampaignService
 import payment.contact.ContactService
 
 @Secured(['IS_AUTHENTICATED_REMEMBERED'])
@@ -43,7 +45,7 @@ class ContactsController {
     SpringSecurityService springSecurityService
     DashboardService dashboardService
     KuorumUserService kuorumUserService
-    BulletinService bulletinService
+    CampaignService campaignService
 
     // Grails renderer -> For CSV hack
     grails.gsp.PageRenderer groovyPageRenderer
@@ -878,7 +880,13 @@ class ContactsController {
 
     def contactBulletins(Long contactId) {
         KuorumUserSession user = springSecurityService.principal
-        List<BulletinRSDTO> bulletins = bulletinService.findAll(user)
-        render template: "/contacts/contactBulletins", model: [bulletins: bulletins, contactId: contactId]
+        SearchCampaignRDTO searchCampaignRDTO = new SearchCampaignRDTO(
+                page:0,
+                size: 300,
+                onlyPublications: false,
+                campaignType: CampaignTypeRSDTO.BULLETIN
+        )
+        CampaignLightPageRSDTO campaignsPage = campaignService.findAllCampaigns(user, searchCampaignRDTO);
+        render template: "/contacts/contactBulletins", model: [bulletins: campaignsPage.data, contactId: contactId]
     }
 }
