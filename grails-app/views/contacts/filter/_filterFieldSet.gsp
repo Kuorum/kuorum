@@ -187,6 +187,27 @@
                             labelCssClass="sr-only"/>
                 </div>
             </div>
+
+            <div class="filter-operator survey-operator">
+                <div class="col-sm-3">
+                    <formUtil:selectEnum
+                            field="operatorSurvey"
+                            defaultEmpty="false"
+                            command="${listCommand}"
+                            prefixFieldName="${prefixField}"
+                            enumClass="${org.kuorum.rest.model.contact.filter.condition.SurveyConditionOperatorTypeRDTO.class}"
+                            labelCssClass="sr-only"/>
+                </div>
+
+                <div class="col-sm-4">
+                    <formUtil:selectCampaign
+                            field="value"
+                            campaignType="SURVEY"
+                            command="${listCommand}"
+                            prefixFieldName="${prefixField}"
+                            labelCssClass="sr-only"/>
+                </div>
+            </div>
         </fieldset>
     </formUtil:dynamicComplexInputs>
 
