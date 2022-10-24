@@ -10406,7 +10406,5 @@ div.horizontal-scroll-cookies {
 }
 
 table.table-cookies td {
-    max-width: 220px;
-    min-width: 220px;
     white-space: break-spaces;
 }

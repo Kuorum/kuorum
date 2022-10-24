@@ -1,5 +1,6 @@
 package kuorum.core.navigation.cache
 
+import kuorum.core.customDomain.filter.CacheResponseSpringFilter
 import net.spy.memcached.MemcachedClient
 import net.spy.memcached.internal.OperationFuture
 import org.apache.commons.logging.Log
@@ -10,7 +11,11 @@ import javax.servlet.ServletResponse
 
 class MemcachedRequestResponseCacheImpl extends AbstractHttpRequestKeyCache {
 
-    Integer expirationInADay = 24 * 60 * 60 * 1 // 1 days
+    Map<String, Integer> expirationTimes = [
+            "LANDING" : 24 * 60 * 60 * 1, // 1 days
+            "CAMPAIGN": 24 * 60 * 60 * 1, // 1 days
+            "RANKING" : 3 // 3 seconds
+    ]
     private final static String SEPARATOR = "&"
 
     protected final Log logger = LogFactory.getLog(getClass())
@@ -26,32 +31,37 @@ class MemcachedRequestResponseCacheImpl extends AbstractHttpRequestKeyCache {
     @Override
     void put(UrlMappingInfo urlMappingInfo, CacheHttpServletResponseWrapper response, Locale locale) {
         def key = buildKey(urlMappingInfo, locale)
-        memcachedClient.set(key, expirationInADay, response.getContent().getContent())
+        int expiration = getExpiration(urlMappingInfo)
+        memcachedClient.set(key, expiration, response.getContent().getContent())
         logger.debug("Key $key cached")
 
         def simpleKey = buildKey(urlMappingInfo)
-        cacheLanguageKeys(simpleKey, locale)
+        cacheLanguageKeys(urlMappingInfo, simpleKey, locale)
         cacheParentRelation(urlMappingInfo, simpleKey)
+    }
+
+    private int getExpiration(UrlMappingInfo urlMappingInfo) {
+        return expirationTimes.get(urlMappingInfo.parameters.get(CacheResponseSpringFilter.CACHE_ACTIVE))
     }
 
     private void cacheParentRelation(UrlMappingInfo urlMappingInfo, String key) {
         String parentKey = buildParentKey(urlMappingInfo)
         if (parentKey) {
-            safetyAppendCache(parentKey + PARENT_SUFIX, key)
+            safetyAppendCache(urlMappingInfo, parentKey + PARENT_SUFIX, key)
         }
     }
 
-    private void cacheLanguageKeys(String key, Locale locale) {
-        safetyAppendCache(key, locale.getLanguage())
+    private void cacheLanguageKeys(UrlMappingInfo urlMappingInfo, String key, Locale locale) {
+        safetyAppendCache(urlMappingInfo, key, locale.getLanguage())
     }
 
-    private void safetyAppendCache(String simpleKey, String content) {
+    private void safetyAppendCache(UrlMappingInfo urlMappingInfo, String simpleKey, String content) {
         String codeToStorage = SEPARATOR + content
         OperationFuture<Boolean> appendTry = memcachedClient.append(simpleKey, codeToStorage)
         if (appendTry.getStatus().isSuccess()) {
             logger.debug("SubValue ${content} append on ${simpleKey}")
         } else {
-            memcachedClient.set(simpleKey, expirationInADay, content)
+            memcachedClient.set(simpleKey, getExpiration(urlMappingInfo), content)
             logger.debug("Subvalue ${content} new cached on ${simpleKey}")
         }
     }

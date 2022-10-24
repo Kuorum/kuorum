@@ -85,9 +85,20 @@
                 <td><g:message code="footer.menu.footerCookiesInfo.cookie.i18n_CookieLocaleResolver.description"/></td>
                 <td><g:message code="footer.menu.footerCookiesInfo.cookie.expiration.browsingSession"/></td>
             </tr>
+            <tr>
+                <td>VISITOR_INFO1_LIVE</td>
+                <td><g:message code="footer.menu.footerCookiesInfo.cookie.VISITOR_INFO1_LIVE.description"/></td>
+                <td><g:message code="footer.menu.footerCookiesInfo.cookie.expiration.sixMonth"/></td>
+            </tr>
             </tbody>
         </table>
     </div>
+
+    <p>
+        <g:message code="footer.menu.footerCookiesInfo.shareServices" args="[legalInfo.domainOwner]"/>
+    </p>
+
+
     <label class="checkbox">
         <input id="technicalCookiesAccepted" type="checkbox"/>
         <span class="check-box-icon"></span>
@@ -119,6 +130,49 @@
         <p>
             <g:message code="footer.menu.footerCookiesInfo.description0304"/>
         </p>
+
+        <div class="horizontal-scroll-cookies">
+            <table class="table table-cookies">
+                <thead>
+                <tr>
+                    <th class="col-md-2"><g:message code="footer.menu.footerCookiesInfo.cookie.tableHead.name"/></th>
+                    <th class="col-md-1"><g:message
+                            code="footer.menu.footerCookiesInfo.cookie.tableHead.provider"/></th>
+                    <th class="col-md-4"><g:message
+                            code="footer.menu.footerCookiesInfo.cookie.tableHead.description"/></th>
+                    <th class="col-md-2"><g:message
+                            code="footer.menu.footerCookiesInfo.cookie.tableHead.expiration"/></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>_ga</td>
+                    <td>Google</td>
+                    <td>Se usa para distinguir a los usuarios.</td>
+                    <td>2 años</td>
+                </tr>
+                <tr>
+                    <td>_gid</td>
+                    <td>Google</td>
+                    <td>Se usa para distinguir a los usuarios.</td>
+                    <td>24 horas</td>
+                </tr>
+                <tr>
+                    <td>_gat</td>
+                    <td>Google</td>
+                    <td>Se usa para limitar el porcentaje de solicitudes. Si se ha implementado Google Analytics mediante Google Tag Manager, esta cookie se llamará _dc_gtm_<property-
+                            id>.</td>
+                    <td>1 minuto</td>
+                </tr>
+                <tr>
+                    <td>AMP_TOKEN</td>
+                    <td>Google</td>
+                    <td>ncluye un token que se puede utilizar para recuperar un ID de cliente del servicio de IDs de cliente de AMP. Otros posibles valores indican inhabilitaciones, solicitudes en curso o errores obtenidos al recuperar un ID del servicio de IDs de cliente de AMP.</td>
+                    <td>De 30 segundos a 1 año</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <div class="columns1">
