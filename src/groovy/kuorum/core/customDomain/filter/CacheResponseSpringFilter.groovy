@@ -60,7 +60,7 @@ class CacheResponseSpringFilter extends AbstractWrappedResponseFilter {
     }
 
     private boolean isUriCacheable(UrlMappingInfo urlMappingInfo) {
-        return urlMappingInfo && urlMappingInfo.parameters.containsKey(CACHE_ACTIVE) && parseBoolean(urlMappingInfo.parameters.get(CACHE_ACTIVE) as String)
+        return urlMappingInfo && urlMappingInfo.parameters.containsKey(CACHE_ACTIVE)
     }
 
     /**

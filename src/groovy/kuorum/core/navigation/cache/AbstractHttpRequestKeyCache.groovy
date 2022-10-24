@@ -1,6 +1,7 @@
 package kuorum.core.navigation.cache
 
 import kuorum.core.customDomain.CustomDomainResolver
+import kuorum.core.customDomain.filter.CacheResponseSpringFilter
 import org.codehaus.groovy.grails.web.mapping.UrlMappingInfo
 
 abstract class AbstractHttpRequestKeyCache implements ServletRequestResponseCache {
@@ -30,6 +31,7 @@ abstract class AbstractHttpRequestKeyCache implements ServletRequestResponseCach
         String key = buildGlobalKey()
         key += getPropertyOrEmpty(urlMappingInfo, USER_ALIAS_PARAM_NAME)
         key += getPropertyOrEmpty(urlMappingInfo, CAMPAIGN_ID_PARAM_NAME)
+        key += getCacheName(urlMappingInfo)
         if (locale) {
             key += locale.getLanguage()
         }
@@ -38,6 +40,11 @@ abstract class AbstractHttpRequestKeyCache implements ServletRequestResponseCach
 
     String buildGlobalKey() {
         return CustomDomainResolver.domain
+    }
+
+    String getCacheName(UrlMappingInfo urlMappingInfo) {
+        String cacheName = urlMappingInfo.parameters.get(CacheResponseSpringFilter.CACHE_ACTIVE)
+        return cacheName == "RANKING" ? cacheName : ""
     }
 
     private String getPropertyOrEmpty(UrlMappingInfo urlMappingInfo, String parameterName) {
