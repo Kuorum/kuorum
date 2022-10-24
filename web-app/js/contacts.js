@@ -728,6 +728,8 @@ function FilterContacts() {
             activeOperator = ".contest-operator"
         } else if (val == "ISSUES") {
             activeOperator = ".issues-operator"
+        } else if (val == "SURVEY") {
+            activeOperator = ".survey-operator"
         }
 
         $fieldSet.find(".filter-operator").addClass("hide");

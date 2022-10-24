@@ -58,6 +58,7 @@ class ContactFilterOptionCommand{
         this.operatorParticipatoryBudget = ParticipatoryBudgetConditionOperatorTypeRDTO.CREATED_PROPOSAL
         this.operatorContest = ContestConditionOperatorTypeRDTO.CREATED_CONTEST_APPLICATION
         this.operatorIssues = IssueConditionOperatorTypeRDTO.WITH_ISSUES
+        this.operatorSurvey = SurveyConditionOperatorTypeRDTO.VOTED_SURVEY
     }
     ContactFilterOptionCommand(ConditionRDTO conditionRDTO){
         this()
@@ -77,6 +78,8 @@ class ContactFilterOptionCommand{
             this.operatorParticipatoryBudget = conditionRDTO.operator
         } else if (conditionRDTO instanceof ConditionContestRDTO) {
             this.operatorContest = conditionRDTO.operator
+        } else if (conditionRDTO instanceof ConditionSurveyRDTO) {
+            this.operatorSurvey = conditionRDTO.operator
         } else {
             this.operatorNumber = conditionRDTO.operator
         }
@@ -94,6 +97,7 @@ class ContactFilterOptionCommand{
     ParticipatoryBudgetConditionOperatorTypeRDTO operatorParticipatoryBudget;
     ContestConditionOperatorTypeRDTO operatorContest;
     IssueConditionOperatorTypeRDTO operatorIssues;
+    SurveyConditionOperatorTypeRDTO operatorSurvey;
     String value;
 
     public String getOperator() {
@@ -115,6 +119,8 @@ class ContactFilterOptionCommand{
             return operatorContest.toString();
         } else if (ConditionFieldTypeRDTO.ISSUES.equals(field)) {
             return operatorIssues.toString();
+        } else if (ConditionFieldTypeRDTO.SURVEY.equals(field)) {
+            return operatorSurvey.toString();
         } else {
             return operatorText.toString()
         }
