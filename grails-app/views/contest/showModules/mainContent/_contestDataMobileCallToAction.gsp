@@ -6,11 +6,11 @@
 
 
     <div class="actions call-to-action-mobile go-to-action">
-        <button type="button" class="comment-box btn btn-blue btn-lg call-message" name="${callButtonMsg}">
+        <button type="button" class="btn btn-blue btn-lg call-message" name="${callButtonMsg}">
             ${callButtonMsg}
         </button>
         <span class="fas fa-caret-down arrow"></span>
-        <button type="button" class="comment-box btn btn-blue btn-xl btn-circle call-button" name="${callButtonMsg}">
+        <button type="button" class="btn btn-blue btn-xl btn-circle call-button" name="${callButtonMsg}">
             <span class="fal fa-rocket fa-2x"></span>
         </button>
     </div>
