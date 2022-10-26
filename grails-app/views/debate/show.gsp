@@ -31,8 +31,6 @@
         <g:render template="/debate/showModules/pinnedUsers" model="[pinnedUsers:pinnedUsers, debateUser: debateUser]" />
     </g:if>
     <g:render template="/campaigns/columnCModules/campaignFiles" model="[campaignFiles:campaignFiles]"/>
-    <g:render template="/campaigns/columnCModules/campaignFiles"
-              model="[campaignFiles: contactFiles, title: g.message(code: 'campaign.show.contact-files.title'), subtitle: g.message(code: 'campaign.show.contact-files.subtitle')]"/>
     <g:render template="/debate/showModules/cColumn" model="[debate: debate, debateUser: debateUser, proposalPage:proposalPage, lastActivity:lastActivity,displayTimeZone:displayTimeZone]" />
 </content>
 

@@ -18,8 +18,6 @@
     <g:render template="/petition/showModules/cCallToAction" model="[petition: petition, campaignUser: petitionUser, hideXs:false]"/>
     <g:render template="/petition/showModules/signedUsers" model="[petition: petition, signs: signs,campaignUser: petitionUser]"/>
     <g:render template="/campaigns/columnCModules/campaignFiles" model="[campaignFiles:campaignFiles]"/>
-    <g:render template="/campaigns/columnCModules/campaignFiles"
-              model="[campaignFiles: contactFiles, title: g.message(code: 'campaign.show.contact-files.title'), subtitle: g.message(code: 'campaign.show.contact-files.subtitle')]"/>
     <g:render template="/petition/showModules/mainContent/cPetitionStats" model="[petition: petition, campaignUser: petitionUser,displayTimeZone:displayTimeZone]"/>
 </content>
 
