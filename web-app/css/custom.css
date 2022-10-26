@@ -1660,8 +1660,15 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .pag-list-campaigns {margin: 20px 0;}
 .pag-list-contacts {margin: 0 0 20px;}
 .pag-list-campaigns .pagination,
-.pag-list-contacts .pagination {display:block; margin:0; float: right;}
-.pagination.ranking-pagination {padding-bottom: 5px;}
+.pag-list-contacts .pagination {
+    display: block;
+    margin: 0;
+    float: right;
+}
+
+.pagination.ranking-pagination {
+    margin-bottom: 10px;
+}
 /* OVERWRITE PAGINATION BOOTSTRAP DEFAULT*/
 .pagination {color: #a8a8a8;font-size: 1.8rem; width:100%; text-align: right;}
 .pagination ul {padding: 0; margin: 0;float:right;}
@@ -1857,7 +1864,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 }
 
 #rankingListCampaigns .pag-list-campaigns {
-    margin: 0;
+    margin-top: 5px;
 }
 
 #rankingListCampaigns .reloading {
@@ -5069,9 +5076,9 @@ h5#results {margin: 0 0 15px;}
 .noty_text a {color:#167caa;}
 .noty_text a:hover{color:#116083;}
 .noty_type_cookie {
-    background: rgba(255,148,49, 0.4);
+    background: #FFFFFF;
     border-radius: 5px;
-    border: 1px solid rgba(255,148,49,1);
+    border: 3px solid rgba(255,148,49,1);
     box-shadow: rgba(255, 148, 49, 0.1) 0px 2px 4px;
     padding: 5px 10px;
     color: #FFFFFF;
@@ -5079,11 +5086,13 @@ h5#results {margin: 0 0 15px;}
 
 .noty_type_cookie p {
     font-size: 15px;
+    color:#545454;
 }
 
 .noty_type_cookie .noty_text a {
     color: #ffffff;
     font-weight: bold;
+    color:#545454;
 }
 
 .noty_close_fake {

@@ -140,35 +140,40 @@
                             code="footer.menu.footerCookiesInfo.cookie.tableHead.provider"/></th>
                     <th class="col-md-4"><g:message
                             code="footer.menu.footerCookiesInfo.cookie.tableHead.description"/></th>
-                    <th class="col-md-2"><g:message
+                    <th class="col-md-1"><g:message
                             code="footer.menu.footerCookiesInfo.cookie.tableHead.expiration"/></th>
+                    <th class="col-md-1"><g:message
+                            code="footer.menu.footerCookiesInfo.cookie.tableHead.type"/></th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
                     <td>_ga</td>
                     <td>Google</td>
-                    <td>Se usa para distinguir a los usuarios.</td>
-                    <td>2 años</td>
+                    <td><g:message code="footer.menu.footerCookiesInfo.cookie.google._ga"/></td>
+                    <td><g:message code="footer.menu.footerCookiesInfo.cookie.google._ga.expiration"/></td>
+                    <td><g:message code="footer.menu.footerCookiesInfo.cookie.type.analitycs"/></td>
                 </tr>
                 <tr>
                     <td>_gid</td>
                     <td>Google</td>
-                    <td>Se usa para distinguir a los usuarios.</td>
-                    <td>24 horas</td>
+                    <td><g:message code="footer.menu.footerCookiesInfo.cookie.google._gid"/></td>
+                    <td><g:message code="footer.menu.footerCookiesInfo.cookie.google._gid.expiration"/></td>
+                    <td><g:message code="footer.menu.footerCookiesInfo.cookie.type.analitycs"/></td>
                 </tr>
                 <tr>
                     <td>_gat</td>
                     <td>Google</td>
-                    <td>Se usa para limitar el porcentaje de solicitudes. Si se ha implementado Google Analytics mediante Google Tag Manager, esta cookie se llamará _dc_gtm_<property-
-                            id>.</td>
-                    <td>1 minuto</td>
+                    <td><g:message code="footer.menu.footerCookiesInfo.cookie.google._gat"/></td>
+                    <td><g:message code="footer.menu.footerCookiesInfo.cookie.google._gat.expiration"/></td>
+                    <td><g:message code="footer.menu.footerCookiesInfo.cookie.type.analitycs"/></td>
                 </tr>
                 <tr>
                     <td>AMP_TOKEN</td>
                     <td>Google</td>
-                    <td>ncluye un token que se puede utilizar para recuperar un ID de cliente del servicio de IDs de cliente de AMP. Otros posibles valores indican inhabilitaciones, solicitudes en curso o errores obtenidos al recuperar un ID del servicio de IDs de cliente de AMP.</td>
-                    <td>De 30 segundos a 1 año</td>
+                    <td><g:message code="footer.menu.footerCookiesInfo.cookie.google.AMP_TOKEN"/></td>
+                    <td><g:message code="footer.menu.footerCookiesInfo.cookie.google.AMP_TOKEN.expiration"/></td>
+                    <td><g:message code="footer.menu.footerCookiesInfo.cookie.type.analitycs"/></td>
                 </tr>
                 </tbody>
             </table>
