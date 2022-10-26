@@ -1,7 +1,6 @@
 package kuorum
 
 import grails.plugin.springsecurity.SpringSecurityService
-import kuorum.payment.contact.outlook.model.Contact
 import org.kuorum.rest.model.communication.CampaignTypeRSDTO
 import org.kuorum.rest.model.contact.ContactActivityRSDTO
 import org.kuorum.rest.model.contact.ContactRSDTO
@@ -106,7 +105,7 @@ class ContactTagLib {
         ContactActivityRSDTO.ContactActivityEventRSDTO event = attrs.event
         if (showResendButton(contact, activity, event)) {
             if (contact.blackList) {
-                out << "<span>No valid email or it is unsubscribed</span>"
+                out << "<span>${g.message(code: "contact.tag.lib.blackList.message")}</span>"
             } else {
                 out << """
             <a href="${g.createLink(mapping: "politicianMassMailingTrackEventsResend", params: [campaignId: activity.campaignId, tackingMailId: activity.trackingId])}" class="btn btn-blue inverted resend-email">
