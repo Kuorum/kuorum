@@ -1660,8 +1660,15 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .pag-list-campaigns {margin: 20px 0;}
 .pag-list-contacts {margin: 0 0 20px;}
 .pag-list-campaigns .pagination,
-.pag-list-contacts .pagination {display:block; margin:0; float: right;}
-.pagination.ranking-pagination {padding-bottom: 5px;}
+.pag-list-contacts .pagination {
+    display: block;
+    margin: 0;
+    float: right;
+}
+
+.pagination.ranking-pagination {
+    margin-bottom: 10px;
+}
 /* OVERWRITE PAGINATION BOOTSTRAP DEFAULT*/
 .pagination {color: #a8a8a8;font-size: 1.8rem; width:100%; text-align: right;}
 .pagination ul {padding: 0; margin: 0;float:right;}
@@ -1857,7 +1864,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 }
 
 #rankingListCampaigns .pag-list-campaigns {
-    margin: 0;
+    margin-top: 5px;
 }
 
 #rankingListCampaigns .reloading {
