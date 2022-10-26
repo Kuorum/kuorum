@@ -382,6 +382,7 @@ class KuorumUserTagLib {
 
     def ifUserIsTheLoggedOne={attrs, body->
         Boolean authorizedSuperAdmin = !attrs.authorizedSuperAdmin?false:Boolean.parseBoolean(attrs.authorizedSuperAdmin)
+        Boolean and = attrs.and == null ? true : attrs.and
         List<String> userIds = []
         if (attrs.user instanceof BasicDataKuorumUserRSDTO){
             userIds = [attrs.user.id]
@@ -395,7 +396,7 @@ class KuorumUserTagLib {
             if (authorizedSuperAdmin){
                 authorized = authorized || grails.plugin.springsecurity.SpringSecurityUtils.ifAllGranted("ROLE_SUPER_ADMIN");
             }
-            if (authorized){
+            if (authorized && and) {
                 out << body()
             }
         }
