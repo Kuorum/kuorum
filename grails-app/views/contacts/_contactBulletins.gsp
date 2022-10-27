@@ -17,10 +17,7 @@
             <td></td>
             <td><kuorumDate:humanDate date="${bulletin.datePublished}"/></td>
             <td>
-                <g:link mapping="politicianMassMailingBulletinCopyAndSend" params="[campaignId:bulletin.id, contactId:contactId]" class="btn btn-blue inverted resend-bulletin">
-                    <g:message code="tools.massMailing.actions.resend"/>
-                    <span class="fal fa-angle-double-right"></span>
-                </g:link>
+                <contactUtil:showCopyAndSendBulletin contact="${contact}" bulletin="${bulletin}"/>
             </td>
         </tr>
         </g:each>

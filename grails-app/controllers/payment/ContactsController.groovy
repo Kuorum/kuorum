@@ -880,6 +880,7 @@ class ContactsController {
 
     def contactBulletins(Long contactId) {
         KuorumUserSession user = springSecurityService.principal
+        ContactRSDTO contact = contactService.getContact(user, contactId)
         SearchCampaignRDTO searchCampaignRDTO = new SearchCampaignRDTO(
                 page:0,
                 size: 300,
@@ -887,6 +888,6 @@ class ContactsController {
                 campaignType: CampaignTypeRSDTO.BULLETIN
         )
         CampaignLightPageRSDTO campaignsPage = campaignService.findAllCampaigns(user, searchCampaignRDTO);
-        render template: "/contacts/contactBulletins", model: [bulletins: campaignsPage.data, contactId: contactId]
+        render template: "/contacts/contactBulletins", model: [bulletins: campaignsPage.data, contact: contact]
     }
 }
