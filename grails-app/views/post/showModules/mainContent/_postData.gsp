@@ -1,5 +1,5 @@
 <!-- ^leader-post !-->
-<div class="leader-post">
+<div class="leader-post ${post.published? 'campaign-published': '' }">
     <g:render template="/campaigns/showModules/campaignDataMultimedia" model="[campaign: post]"/>
     <div class="header">
         <h1 class="title" itemprop="headline">${post.title}</h1>
