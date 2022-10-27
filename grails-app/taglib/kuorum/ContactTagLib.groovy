@@ -1,7 +1,7 @@
 package kuorum
 
 import grails.plugin.springsecurity.SpringSecurityService
-import kuorum.payment.contact.outlook.model.Contact
+import org.kuorum.rest.model.communication.CampaignLightRSDTO
 import org.kuorum.rest.model.communication.CampaignTypeRSDTO
 import org.kuorum.rest.model.contact.ContactActivityRSDTO
 import org.kuorum.rest.model.contact.ContactRSDTO
@@ -104,17 +104,29 @@ class ContactTagLib {
         ContactRSDTO contact = attrs.contact
         ContactActivityRSDTO activity = attrs.activity
         ContactActivityRSDTO.ContactActivityEventRSDTO event = attrs.event
+        String linkButton = g.createLink(mapping: "politicianMassMailingTrackEventsResend", params: [campaignId: activity.campaignId, tackingMailId: activity.trackingId])
         if (showResendButton(contact, activity, event)) {
-            if (contact.blackList) {
-                out << "<span>No valid email or it is unsubscribed</span>"
-            } else {
-                out << """
-            <a href="${g.createLink(mapping: "politicianMassMailingTrackEventsResend", params: [campaignId: activity.campaignId, tackingMailId: activity.trackingId])}" class="btn btn-blue inverted resend-email">
+            checkContactBlacklisted(contact, linkButton, "resend-email")
+        }
+    }
+
+    def showCopyAndSendBulletin = {attrs, body ->
+        ContactRSDTO contact = attrs.contact
+        CampaignLightRSDTO bulletin = attrs.bulletin
+        String linkButton = g.createLink(mapping:"politicianMassMailingBulletinCopyAndSend", params: [campaignId: bulletin.id, contactId: contact.id])
+        checkContactBlacklisted(contact, linkButton, "resend-bulletin")
+    }
+
+    private void checkContactBlacklisted(ContactRSDTO contact, String linkButton, String extraCssClass) {
+        if (contact.blackList) {
+            out << "<span>${g.message(code: "contact.tag.lib.blackList.message")}</span>"
+        } else {
+            out << """
+            <a href="${linkButton}" class="btn btn-blue inverted ${extraCssClass}">
                 ${g.message(code: "tools.massMailing.actions.resend")}
                 <span class="fal fa-angle-double-right"></span>
             </a>
             """
-            }
         }
     }
 
