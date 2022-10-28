@@ -1,7 +1,11 @@
 package kuorum
 
 import grails.plugin.springsecurity.SpringSecurityService
+import org.kuorum.rest.model.communication.CampaignLightRSDTO
+import org.kuorum.rest.model.communication.CampaignTypeRSDTO
+import org.kuorum.rest.model.contact.ContactActivityRSDTO
 import org.kuorum.rest.model.contact.ContactRSDTO
+import org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO
 import payment.contact.ContactService
 
 class ContactTagLib {
@@ -87,12 +91,48 @@ class ContactTagLib {
 
     }
 
-    def importSocialContact= { attrs, body ->
+    def importSocialContact = { attrs, body ->
         String provider = attrs.provider
         String userId = springSecurityService.principal.id.toString()
         String url = contactService.getSocialImportContactUrl(userId, provider);
         out << "<a href='${url}' id='${provider}' provider='${provider}' role='button' class='actionIcon'>"
         out << body()
         out << "</a>"
+    }
+
+    def showResendBulletin = { attrs, body ->
+        ContactRSDTO contact = attrs.contact
+        ContactActivityRSDTO activity = attrs.activity
+        ContactActivityRSDTO.ContactActivityEventRSDTO event = attrs.event
+        String linkButton = g.createLink(mapping: "politicianMassMailingTrackEventsResend", params: [campaignId: activity.campaignId, tackingMailId: activity.trackingId])
+        if (showResendButton(contact, activity, event)) {
+            checkContactBlacklisted(contact, linkButton, "resend-email")
+        }
+    }
+
+    def showCopyAndSendBulletin = {attrs, body ->
+        ContactRSDTO contact = attrs.contact
+        CampaignLightRSDTO bulletin = attrs.bulletin
+        String linkButton = g.createLink(mapping:"politicianMassMailingBulletinCopyAndSend", params: [campaignId: bulletin.id, contactId: contact.id])
+        checkContactBlacklisted(contact, linkButton, "resend-bulletin")
+    }
+
+    private void checkContactBlacklisted(ContactRSDTO contact, String linkButton, String extraCssClass) {
+        if (contact.blackList) {
+            out << "<span>${g.message(code: "contact.tag.lib.blackList.message")}</span>"
+        } else {
+            out << """
+            <a href="${linkButton}" class="btn btn-blue inverted ${extraCssClass}">
+                ${g.message(code: "tools.massMailing.actions.resend")}
+                <span class="fal fa-angle-double-right"></span>
+            </a>
+            """
+        }
+    }
+
+    private def STATUS_WITH_RESENT_BUTTON = [TrackingMailStatusRSDTO.SENT, TrackingMailStatusRSDTO.RESENT, TrackingMailStatusRSDTO.BOUNCED, TrackingMailStatusRSDTO.HARD_BOUNCED, TrackingMailStatusRSDTO.NOT_SENT, TrackingMailStatusRSDTO.REJECT, TrackingMailStatusRSDTO.SPAM]
+
+    private Boolean showResendButton(ContactRSDTO contact, ContactActivityRSDTO activity, ContactActivityRSDTO.ContactActivityEventRSDTO event) {
+        return STATUS_WITH_RESENT_BUTTON.contains(event.status) && activity.trackingId && activity.campaignType == CampaignTypeRSDTO.BULLETIN
     }
 }

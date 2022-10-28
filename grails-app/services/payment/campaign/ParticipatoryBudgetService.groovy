@@ -213,10 +213,7 @@ class ParticipatoryBudgetService extends AbstractCampaignCreatorService<Particip
 
     @Override
     def buildView(ParticipatoryBudgetRSDTO participatoryBudget, BasicDataKuorumUserRSDTO campaignUser, String viewerUid, def params) {
-        Random seed = new Random()
-        Double randomSeed = seed.nextDouble()
-
-        def model = [participatoryBudget: participatoryBudget, campaignUser: campaignUser, randomSeed: randomSeed]
+        def model = [participatoryBudget: participatoryBudget, campaignUser: campaignUser]
         return [view: '/participatoryBudget/show', model: model]
     }
 

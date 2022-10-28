@@ -635,4 +635,11 @@ class NewsletterController extends CampaignController{
         def reportsList = printableNewsletterReportList(loggedUser, campaignId)
         render template: '/newsletter/campaignTabs/campaignReportsList', model: [reportsList: reportsList]
     }
+
+    @Secured(['ROLE_CAMPAIGN_NEWSLETTER'])
+    def copyBulletinAndSend(Long campaignId, String contactId) {
+        KuorumUserSession loggedUser = springSecurityService.principal
+        bulletinService.copyAndSend(loggedUser.getId().toString(), contactId, campaignId)
+        render([success: true, message: g.message(code: 'tools.bulletins.resend.success')] as JSON)
+    }
 }

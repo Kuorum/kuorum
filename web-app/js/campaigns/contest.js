@@ -67,11 +67,19 @@ $(function () {
     });
 
     $(".call-to-action").on("click", "a.btn.ADDING_APPLICATIONS", contestApplicationHelper.bindActionClickAddDistrictProposal);
+
+    $(".actions.call-to-action-mobile.go-to-action button").on("click", function(e){
+        $("#aside-ppal > .call-to-action:first-child > .actions > a.btn").click()
+    });
 });
 
 var contestApplicationHelper = {
     containerId: "contest-applications-list",
-    showListApplications: function (listSelector = "random") {
+    showListApplications: function (listSelector) {
+        if (listSelector == undefined) {
+            listSelector = $("#contest-applications-list").attr("contest-applications-list") == "VOTING" ? "random" : "vote";
+            console.log("Defautl list; " + listSelector)
+        }
         $("#" + contestApplicationHelper.containerId).find(".search-list").hide();
         var $activeList = $("#" + contestApplicationHelper.containerId).find(".search-list." + listSelector);
         $activeList.show();
@@ -85,7 +93,7 @@ var contestApplicationHelper = {
         // console.dir({loading:loading, noMoreResults: noMoreResults, isUndefined:!noMoreResults, isLoading:loading === undefined || loading=="false", total:noMoreResults != undefined && (loading === undefined || loading=="true")})
         if (!noMoreResults && (loading === undefined || loading == "false")) {
             console.log("Loading more contests applications");
-            $ulIdSelector.attr("loading", "true");
+            $ulIdSelector.attr("loading", "true"); // Prevents double click
             var urlLoadMoreDistrictProposals = $ulIdSelector.attr("data-loadProposals");
             var params = {
                 page: $ulIdSelector.attr("data-page")
@@ -94,7 +102,7 @@ var contestApplicationHelper = {
             if (typeof direction !== typeof undefined && direction !== false) {
                 params['direction'] = direction
             }
-            var randomSeed = $ulIdSelector.attr("data-randomSeed");
+            var randomSeed = contestApplicationHelper._getRandomSeedFromContainer($ulIdSelector);
             if (typeof randomSeed !== typeof undefined && randomSeed !== false) {
                 params['randomSeed'] = randomSeed
             }
@@ -133,6 +141,18 @@ var contestApplicationHelper = {
                 });
         } else {
             // NO MORE RESULTS
+        }
+    },
+    _getRandomSeedFromContainer: function ($ulIdSelector) {
+        if ($ulIdSelector.hasClass("random")) {
+            var randomSeed = $ulIdSelector.attr("data-randomseed")
+            if (randomSeed == undefined || randomSeed == "") {
+                randomSeed = Math.random();
+                $ulIdSelector.attr("data-randomseed", randomSeed)
+            }
+            return randomSeed;
+        } else {
+            return undefined;
         }
     },
 

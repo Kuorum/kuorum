@@ -41,7 +41,7 @@
                     type="button"
                     class="btn btn-blue btn-lg publish publish-proposal"
                     data-userLoggedAlias="${userUtil.loggedUserId()}"
-                    data-postUrl="${g.createLink(mapping: 'debateProposalNew')}"
+                    data-postUrl="${g.createLink(mapping: 'debateProposalNew', params: debate.encodeAsLinkProperties())}"
                     data-debateId="${debate.id}"
                     data-debateAlias="${debateUser.alias}">
                 ${callButtonMsg}

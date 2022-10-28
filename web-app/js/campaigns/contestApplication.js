@@ -10,6 +10,10 @@ $(function () {
         console.log("Contest application voting NO LOGGED :: RELOADING")
         contestApplicationFunctions.onClickVoteContestApplication($button, noLoggedCallbacks.reloadPage);
     };
+    $(".actions.call-to-action-mobile.go-to-vote button").on("click", function(e){
+        e.preventDefault();
+        moveSmooth("div.comment-box.call-to-action.call-to-action-add-proposal")
+    });
 });
 
 var contestApplicationFunctions = {
@@ -130,7 +134,7 @@ var contestApplicationFunctions = {
         const $buttonMain = $("section#main .leader-post .contestApplication-vote");
         const $buttonContestApplicationList = $("#contest-applications-list  .contestApplication-vote-" + contestApplicationVote.vote.contestApplicationId);
         const $buttonColumnCallToAction = $("#aside-ppal .call-to-action .actions a");
-        const $badgeNumVotesStats = $(".leader-post-stats .fa-scroll").parents("li");
+        const $badgeNumVotesStats = $(".leader-post-stats .fa-box-ballot").parents("li");
 
         const buttons = [$buttonMain, $buttonContestApplicationList, $buttonColumnCallToAction]
         const stats = [$buttonMain,$buttonContestApplicationList, $badgeNumVotesStats]

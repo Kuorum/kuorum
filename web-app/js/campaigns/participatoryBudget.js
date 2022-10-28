@@ -102,7 +102,7 @@ var participatoryBudgetHelper={
         if (typeof direction !== typeof undefined && direction !== false){
             params['direction']=direction
         }
-        var randomSeed = $(ulIdSelector).attr("data-randomSeed");
+        var randomSeed = participatoryBudgetHelper._getRandomSeedFromContainer($(ulIdSelector));
         if (typeof randomSeed !== typeof undefined && randomSeed !== false){
             params['randomSeed']=randomSeed
         }
@@ -129,22 +129,33 @@ var participatoryBudgetHelper={
                 }
                 prepareYoutubeVideosClick();
             })
-            .fail(function(messageError) {
+            .fail(function (messageError) {
                 display.warn("Error");
             })
-            .always(function() {
+            .always(function () {
                 // pageLoadingOff("Load more districts");
                 $(ulIdSelector).find(".loading").remove()
                 // $liLoading.remove()
             });
     },
-
-    clickOrderTabDirection:function($a){
+    _getRandomSeedFromContainer: function ($ulIdSelector) {
+        if ($ulIdSelector.hasClass("random")) {
+            var randomSeed = $ulIdSelector.attr("data-randomseed")
+            if (randomSeed == undefined || randomSeed == "") {
+                randomSeed = Math.random();
+                $ulIdSelector.attr("data-randomseed", randomSeed)
+            }
+            return randomSeed;
+        } else {
+            return undefined;
+        }
+    },
+    clickOrderTabDirection: function ($a) {
         var districtId = $a.attr("data-districtId");
         var selector = $a.attr("data-listSelector");
-        var divId = "#proposal-district-"+districtId;
-        var ulId = divId +"> ul.search-list."+selector;
-        if ($(ulId+ " > li").length <= 0 || $a.parent().hasClass("active") && $(ulId+ " > li").length > 0){ // No clicked || Changing order
+        var divId = "#proposal-district-" + districtId;
+        var ulId = divId + "> ul.search-list." + selector;
+        if ($(ulId + " > li").length <= 0 || $a.parent().hasClass("active") && $(ulId + " > li").length > 0) { // No clicked || Changing order
             $a.parent().parent().children().removeClass("active"); // Removes active of other tab links
             $a.parent().addClass("active"); // Set as active the current tab
 

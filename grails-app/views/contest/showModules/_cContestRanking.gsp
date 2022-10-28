@@ -1,5 +1,5 @@
 <g:if test="${[org.kuorum.rest.model.communication.contest.ContestStatusDTO.VOTING, org.kuorum.rest.model.communication.contest.ContestStatusDTO.RESULTS].contains(contest.status)}">
-    <div class="comment-box call-to-action">
+    <div class="comment-box call-to-action ${hideXs ? 'hidden-sm hidden-xs' : ''} ${hideXl ? 'hidden-md hidden-lg' : ''}">
         <div class="comment-header">
             <span class="call-title">
                 <g:message code="contest.columnC.ranking.title"/>

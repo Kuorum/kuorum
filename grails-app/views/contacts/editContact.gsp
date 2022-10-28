@@ -83,16 +83,18 @@
                     code="tools.contact.edit.tabs.basic"/></a></li>
             <li role="presentation"><a href="#activity" data-toggle="tab"><g:message
                     code="tools.contact.edit.tabs.activity"/></a></li>
-            <li role="presentation"><a href="#socialNetwork" data-toggle="tab"><g:message
-                    code="tools.contact.edit.tabs.socialNetworks"/></a></li>
-            <li role="presentation"><a href="#notes" data-toggle="tab"><g:message
-                    code="tools.contact.edit.tabs.notes"/></a></li>
+            <li role="presentation"><a href="#bulletins" data-toggle="tab"><g:message
+                    code="tools.contact.edit.tabs.bulletins"/></a></li>
             <li role="presentation"><a href="#contactIssues" data-toggle="tab"><g:message
                     code="tools.contact.edit.tabs.contactIssues"/></a></li>
+            <li role="presentation"><a href="#files" data-toggle="tab"><g:message
+            code="tools.contact.edit.tabs.files"/></a></li>
             <li role="presentation"><a href="#extraInfo" data-toggle="tab"><g:message
                     code="tools.contact.edit.tabs.extraInfo"/></a></li>
-            <li role="presentation"><a href="#files" data-toggle="tab"><g:message
-                    code="tools.contact.edit.tabs.files"/></a></li>
+            <li role="presentation"><a href="#notes" data-toggle="tab"><g:message
+            code="tools.contact.edit.tabs.notes"/></a></li>
+            <li role="presentation"><a href="#socialNetwork" data-toggle="tab"><g:message
+                    code="tools.contact.edit.tabs.socialNetworks"/></a></li>
         </ul>
 
         <div id="tabs-edit-contact" class="tab-content">
@@ -196,6 +198,10 @@
                 <div class="textareaContainer col-xs-12">
                     <formUtil:uploadContactFiles contact="${contact}"/>
                 </div>
+            </div>
+
+            <div class="tab-pane" id="bulletins">
+                <modulesUtil:delayedModule mapping="politicianContactBulletin" params="${[contactId: contact.id]}" elementId="contact-bulletin-history-list-id"/>
             </div>
         </div>
     </div>

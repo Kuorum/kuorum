@@ -266,6 +266,7 @@ class RestKuorumApiService {
         ACCOUNT_BULLETINS("/communication/campaign/bulletin/{userId}"),
         ACCOUNT_BULLETIN("/communication/campaign/bulletin/{userId}/{campaignId}"),
         ACCOUNT_BULLETIN_COPY("/communication/campaign/bulletin/{userId}/{campaignId}/copy"),
+        ACCOUNT_BULLETIN_COPY_AND_SEND("/communication/campaign/bulletin/{userId}/{campaignId}/send/{contactId}"),
 
         ACCOUNT_SURVEYS("/communication/campaign/survey/{userId}"),
         ACCOUNT_SURVEY_EXAMPLE("/communication/campaign/survey/{userId}/example"),

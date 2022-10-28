@@ -147,7 +147,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
             redirect mapping: 'surveyInitDomainEditQuestions', params: [campaignId: surveyRSDTO.getId()]
         } else {
             log.info("Redirecting for default configuration of the domain ${CustomDomainResolver.domain}")
-            redirect mapping: 'politicianCampaigns', params: [tour: true]
+            redirect mapping: 'politicianCampaigns', params: [tour: CustomDomainResolver.getDomainRSDTO().getTourEnabled()]
         }
     }
 
@@ -247,7 +247,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         if (registerService.isPasswordSetByUser(user)){
             redirect mapping:'dashboard'
         }else{
-            redirect mapping:'customProcessRegisterStep2', params: [tour:true]
+            redirect mapping:'customProcessRegisterStep2', params: [tour:CustomDomainResolver.getDomainRSDTO().getTourEnabled()]
         }
 
         // REDIRECT USING registrationCode redirectLink
