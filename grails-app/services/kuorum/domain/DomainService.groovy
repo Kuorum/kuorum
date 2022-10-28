@@ -214,7 +214,7 @@ class DomainService {
     void updateAllDomainCss(Boolean waitUntilFinish = false){
         URL url = new URL("https://kuorum.org/kuorum")
         CustomDomainResolver.setUrl(url, "")
-        List<DomainRSDTO> domains = domainService.findAllDomains()
+        List<DomainRSDTO> domains = this.findAllDomains()
         List<Promise> asyncUpdateConfig = []
         domains.each { domainRSDTO ->
             asyncUpdateConfig << grails.async.Promises.task {

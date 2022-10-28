@@ -8,10 +8,10 @@
             <userUtil:ifUserIsTheLoggedOne user="${debate.user}">
                 <li>
                     <button
-                            class="pin-proposal kuorum-tooltip ${proposal.pinned?'active':''}"
+                            class="pin-proposal kuorum-tooltip ${proposal.pinned ? 'active' : ''}"
                             rel="tooltip"
                             type="button"
-                            data-urlAction="${g.createLink(mapping: 'debateProposalPin')}"
+                            data-urlAction="${g.createLink(mapping: 'debateProposalPin', params: debate.encodeAsLinkProperties())}"
                             data-debateId="${debate.id}"
                             data-debateUserId="${debate.user.id}"
                             data-proposalId="${proposal.id}"
@@ -19,7 +19,7 @@
                             data-toggle="tooltip"
                             data-placement="bottom"
                             title=""
-                            data-original-title="${g.message(code:'debate.show.proposal.pin.tooltip')}">
+                            data-original-title="${g.message(code: 'debate.show.proposal.pin.tooltip')}">
                         <span class="fa-stack fa-lg" aria-hidden="true">
                             <span class="fas fa-circle dark fa-stack-2x"></span>
                             <span class="fas fa-flag fa-stack-1x fa-inverse"></span>
@@ -63,31 +63,31 @@
 
             <div class="comment-counter pull-right">
                 <userUtil:ifUserIsTheLoggedOne user="[proposal.user, debate.user]">
-                    <button type="button" class="delete" data-ajaxDelete='${g.createLink(mapping: 'debateProposalDelete')}'>
+                    <button type="button" class="delete"
+                            data-ajaxDelete='${g.createLink(mapping: 'debateProposalDelete', params: debate.encodeAsLinkProperties())}'>
                         <span class="middle-point right"><g:message code="post.show.comments.delete"/></span>
                     </button>
                 </userUtil:ifUserIsTheLoggedOne>
                 <g:if test="${!debate.hideResults}">
                     <button type="button" class="comment">
                         <span class="fal fa-comment" aria-hidden="true"></span>
-                        <span class="number">${proposal.comments?.size()?:0}</span>
+                        <span class="number">${proposal.comments?.size() ?: 0}</span>
                     </button>
                 </g:if>
                 <sec:ifLoggedIn><g:set var="isLogged" value="${true}"/></sec:ifLoggedIn>
                 <sec:ifNotLoggedIn><g:set var="isLogged" value="${false}"/></sec:ifNotLoggedIn>
                 <g:set var="activeButton" value="${proposal.liked && isLogged}"/>
                 <button type="button"
-                        class="proposal-like ${activeButton?'active':''}"
-                        data-urlAction="${g.createLink(mapping: 'debateProposalLike')}"
+                        class="proposal-like ${activeButton ? 'active' : ''}"
+                        data-urlAction="${g.createLink(mapping: 'debateProposalLike', params: debate.encodeAsLinkProperties())}"
                         data-campaignValidationActive="${debate.checkValidationActive}"
-                        data-campaignGroupValidationActive="${debate.groupValidation?g.createLink(mapping: "campaignCheckGroupValidation", params: debate.encodeAsLinkProperties()):''}"
+                        data-campaignGroupValidationActive="${debate.groupValidation ? g.createLink(mapping: "campaignCheckGroupValidation", params: debate.encodeAsLinkProperties()) : ''}"
                         data-debateId="${debate.id}"
                         data-campaignId="${debate.id}"
                         data-debateUserId="${debate.user.id}"
                         data-proposalId="${proposal.id}"
-                        data-userLogged="${userUtil.loggedUserId()}"
-                    >
-                    <span class="${activeButton?'fas':'fal'} fa-heart" aria-hidden="true"></span>
+                        data-userLogged="${userUtil.loggedUserId()}">
+                    <span class="${activeButton ? 'fas' : 'fal'} fa-heart" aria-hidden="true"></span>
                     <span class="number">${proposal.likes}</span>
                 </button>
             </div>

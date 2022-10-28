@@ -44,21 +44,21 @@
 
         <div class="actions clearfix">
             %{--<div class="pull-left">--}%
-                %{--<button type="button" class="go-up stack" data-anchor="conversation-box">--}%
-                    %{--<span class="pull-left fa-stack fa-lg" aria-hidden="true">--}%
-                        %{--<span class="fas fa-circle dark fa-stack-2x"></span>--}%
-                        %{--<span class="angle fal fa-angle-down fa-stack-1x fa-inverse"></span>--}%
-                    %{--</span>--}%
-                %{--</button>--}%
+            %{--<button type="button" class="go-up stack" data-anchor="conversation-box">--}%
+            %{--<span class="pull-left fa-stack fa-lg" aria-hidden="true">--}%
+            %{--<span class="fas fa-circle dark fa-stack-2x"></span>--}%
+            %{--<span class="angle fal fa-angle-down fa-stack-1x fa-inverse"></span>--}%
+            %{--</span>--}%
+            %{--</button>--}%
             %{--</div>--}%
             <button
-                type="button"
-                class="pull-right btn btn-grey publish save-comment"
-                data-postUrl="${g.createLink(mapping: 'debateProposalComment')}"
-                data-debateId="${debate.id}"
-                data-proposalId="${proposal.id}"
-                data-debateAlias="${debate.user.alias}"
-                data-userLogged="${userUtil.loggedUserId()}">
+                    type="button"
+                    class="pull-right btn btn-grey publish save-comment"
+                    data-postUrl="${g.createLink(mapping: 'debateProposalComment', params: debate.encodeAsLinkProperties())}"
+                    data-debateId="${debate.id}"
+                    data-proposalId="${proposal.id}"
+                    data-debateAlias="${debate.user.alias}"
+                    data-userLogged="${userUtil.loggedUserId()}">
                 <g:message code="debate.show.proposal.comments.save"/>
             </button>
         </div>

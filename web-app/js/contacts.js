@@ -458,6 +458,32 @@ $(function () {
         resend($link, $button);
     });
 
+    $('body').on('click','.resend-bulletin', function(e) {
+        e.preventDefault();
+        var $a = $(this)
+        var link = $a.attr("href")
+        $("#activity-resend-bulletin-confirm").modal("show");
+        $("#activity-resend-bulletin-confirm").find(".modal-footer button").attr("data-link", link);
+    });
+
+    $("#bulletins").on("click","#activity-resend-bulletin-confirm .modal-footer button", function(e){
+        e.preventDefault();
+        console.log("CLICK ON BUTTON")
+        const $button = $(this);
+        const url = $button.attr("data-link");
+        $.post(url)
+            .done(function(data) {
+                display.success(data.message)
+                $("#activity-resend-bulletin-confirm").modal("hide");
+            })
+            .fail(function(messageError) {
+                display.error("Error");
+            })
+            .always(function() {
+                pageLoadingOff();
+            });
+    });
+
     function resend($link, $button){
         var $icon = $button.find("span.fa-angle-double-right")
         var url = $link.attr("href");
@@ -700,6 +726,10 @@ function FilterContacts() {
             activeOperator = ".participatoryBudget-operator"
         } else if (val == "CONTEST") {
             activeOperator = ".contest-operator"
+        } else if (val == "ISSUES") {
+            activeOperator = ".issues-operator"
+        } else if (val == "SURVEY") {
+            activeOperator = ".survey-operator"
         }
 
         $fieldSet.find(".filter-operator").addClass("hide");

@@ -2,7 +2,6 @@ package kuorum.web.admin.domain
 
 import grails.validation.Validateable
 import org.kuorum.rest.model.domain.DomainPrivacyRDTO
-import org.kuorum.rest.model.kuorumUser.LanguageRSDTO
 
 @Validateable
 class DomainValidationCommand {
@@ -17,6 +16,7 @@ class DomainValidationCommand {
 
     Boolean isSocialNetwork
     Boolean isUserProfileExtended
+    Boolean tourEnabled
 
     Boolean providerBasicEmailForm
     Boolean providerGoogle
@@ -31,6 +31,7 @@ class DomainValidationCommand {
         validationTokenMail nullable: true
         isSocialNetwork nullable: true
         isUserProfileExtended nullable: true
+        tourEnabled nullable: true
         smsDomainName nullable: true, matches: '[a-zA-Z0-9]*[a-zA-Z]+[a-zA-Z0-9]*', maxSize: 11
         defaultPhonePrefix nullable: true
         providerBasicEmailForm nullable: true

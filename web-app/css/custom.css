@@ -1660,7 +1660,15 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .pag-list-campaigns {margin: 20px 0;}
 .pag-list-contacts {margin: 0 0 20px;}
 .pag-list-campaigns .pagination,
-.pag-list-contacts .pagination {display:block; margin:0; float: right;}
+.pag-list-contacts .pagination {
+    display: block;
+    margin: 0;
+    float: right;
+}
+
+.pagination.ranking-pagination {
+    margin-bottom: 10px;
+}
 /* OVERWRITE PAGINATION BOOTSTRAP DEFAULT*/
 .pagination {color: #a8a8a8;font-size: 1.8rem; width:100%; text-align: right;}
 .pagination ul {padding: 0; margin: 0;float:right;}
@@ -1856,16 +1864,30 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 }
 
 #rankingListCampaigns .pag-list-campaigns {
-    margin: 0;
+    margin-top: 5px;
 }
 
 #rankingListCampaigns .reloading {
-    float: left;
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-size: 13px;
+    margin-top: -15px;
 }
 
 #rankingListCampaigns .reloading .reloading-counter {
     font-weight: bold;
 }
+
+#rankingListCampaigns .ranking-total-votes {
+    float: left;
+    font-weight: bold;
+    width: 100%;
+    text-align: left;
+    display: none;
+    padding-left: 10px;
+}
+
 
 #rankingListCampaigns .box-order-options ul,
 #rankingListCampaigns .box-order-options ul li {
@@ -4194,7 +4216,7 @@ fieldset > .multiple-range-selector:first-child {margin-top:40px;}
     margin-bottom: 20px;
 }
 
-.uploaderImageContainer .qq-upload-drop-area .button-container {width: 80%; margin: 0 auto; border-radius: 4px; padding: 0; }
+.uploaderImageContainer .qq-upload-drop-area .button-container {width: 100%; margin: 0 auto; border-radius: 4px; padding: 0; }
 
 .uploaderImageContainer.USER_AVATAR {
     width: 220px;
@@ -4306,7 +4328,7 @@ fieldset > .multiple-range-selector:first-child {margin-top:40px;}
 }
 
 .qq-uploader-multiple-files .qq-upload-list li .qq-upload-file {
-    width: calc(100% - 110px);
+    width: calc(100% - 70px);
     line-height: 18px;
 }
 
@@ -5054,9 +5076,9 @@ h5#results {margin: 0 0 15px;}
 .noty_text a {color:#167caa;}
 .noty_text a:hover{color:#116083;}
 .noty_type_cookie {
-    background: rgba(255,148,49, 0.4);
+    background: #FFFFFF;
     border-radius: 5px;
-    border: 1px solid rgba(255,148,49,1);
+    border: 3px solid rgba(255,148,49,1);
     box-shadow: rgba(255, 148, 49, 0.1) 0px 2px 4px;
     padding: 5px 10px;
     color: #FFFFFF;
@@ -5064,11 +5086,13 @@ h5#results {margin: 0 0 15px;}
 
 .noty_type_cookie p {
     font-size: 15px;
+    color:#545454;
 }
 
 .noty_type_cookie .noty_text a {
     color: #ffffff;
     font-weight: bold;
+    color:#545454;
 }
 
 .noty_close_fake {
@@ -6969,6 +6993,10 @@ p.email > span.follower + .tooltip.bottom .tooltip-arrow{
     #rankingListCampaigns .box-order-options .ranking-title-author-header {
         width: calc(90% - 400px);
         display: inline-block;
+    }
+
+    #rankingListCampaigns .ranking-total-votes {
+        width: 50%;
     }
 
     .campaignDelete, .contactDelete {
@@ -10387,7 +10415,5 @@ div.horizontal-scroll-cookies {
 }
 
 table.table-cookies td {
-    max-width: 220px;
-    min-width: 220px;
     white-space: break-spaces;
 }

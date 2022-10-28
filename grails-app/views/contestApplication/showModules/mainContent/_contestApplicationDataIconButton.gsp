@@ -15,6 +15,6 @@
         data-disabledText="${g.message(code: 'contestApplication.callToAction.VOTING.SENT.button.disabled')}"
         class="contestApplication-vote contestApplication-vote-${contestApplication.id} ${contestApplicationVoted ? 'active disabled' : ''}"
         btn-disabled="${contestApplicationVoted}">
-    <span class="${contestApplicationVoted ? 'fas' : 'fal'} fa-scroll" aria-hidden="true"></span>
+    <span class="${contestApplicationVoted ? 'fas' : 'fal'} fa-box-ballot" aria-hidden="true"></span>
     <span class="number">${contestApplication.votes}</span>
 </g:link>

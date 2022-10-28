@@ -47,7 +47,7 @@
             </g:elseif>
             <ul class="search-list clearfix random"
                 data-page="0"
-                data-randomSeed="${randomSeed}"
+                data-randomSeed=""
                 data-loadProposals="${g.createLink(mapping:'participatoryBudgetDistrictProposals', params:participatoryBudget.encodeAsLinkProperties()+[participatoryBudgetStatus:participatoryBudget.status, districtId:district.id])}"></ul>
             <ul class="search-list clearfix price"
                 data-page="0"

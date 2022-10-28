@@ -4,13 +4,13 @@
             %{--campaignList contains the js to open modal when the debate is scheduled --}%
             <r:require modules="campaignList"/>
 
-            <g:if test="${summoningButton}">
-                    <g:link class="edit summoing-call" mapping="surveySummoning"
+            <userUtil:ifUserIsTheLoggedOne user="${campaign.user}" and="${summoningButton}">
+                <g:link class="edit summoing-call" mapping="surveySummoning"
                         params="${campaign.encodeAsLinkProperties()}"><span class="fal fa-envelope fa-2x"
                                                                             aria-hidden="true"></span><span
                         class="sr-only">Summoning button</span></g:link>
                 <g:render template="/campaigns/showModules/campingModalCreateSummoning" model="[]"/>
-            </g:if>
+            </userUtil:ifUserIsTheLoggedOne>
 
             <g:if test="${campaign.statsEnabled}">
                 <g:link mapping="politicianCampaignStatsShow" params="[campaignId: campaign.id]" role="button"

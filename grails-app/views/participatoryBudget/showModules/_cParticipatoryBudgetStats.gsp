@@ -4,10 +4,6 @@
         <span class="info"><g:message code="debate.timesSeen" args="[participatoryBudget.visits]" /></span>
     </li>
     <li>
-        <span class="fal fa-users" aria-hidden="true"></span>
-        <span class="info"><g:message code="debate.authorFollowers" args="[campaignUser.numFollowers]" /></span>
-    </li>
-    <li>
         <span class="fal fa-money-bill-alt" aria-hidden="true"></span>
         <span class="info"><g:message code="participatoryBufget.columnC.basicStats.numProposals" args="[participatoryBudget.basicStats.numProposals]" /></span>
     </li>

@@ -407,7 +407,7 @@ $(document).ready(function() {
         event.preventDefault();
         event.stopPropagation();
         $(this).blur();
-        moveToHash($(this).attr("href"))
+        moveSmooth($(this).attr("href"))
     });
     moveToHash(window.location.hash);
 
