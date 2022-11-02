@@ -80,6 +80,8 @@ class ContactFilterOptionCommand{
             this.operatorContest = conditionRDTO.operator
         } else if (conditionRDTO instanceof ConditionSurveyRDTO) {
             this.operatorSurvey = conditionRDTO.operator
+        } else if (conditionRDTO instanceof ConditionIssuesRDTO) {
+            this.operatorIssues = conditionRDTO.operator
         } else {
             this.operatorNumber = conditionRDTO.operator
         }
