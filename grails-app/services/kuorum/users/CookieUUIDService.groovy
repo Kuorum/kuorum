@@ -107,7 +107,9 @@ class CookieUUIDService {
     }
 
     void deleteDomainCookie(String cookieName){
-        cookieService.deleteCookieByName(cookieName, WebConstants.COOKIE_PATH, CustomDomainResolver.domain)
+        if (cookieName) {
+            cookieService.deleteCookie(cookieName, WebConstants.COOKIE_PATH, CustomDomainResolver.domain)
+        }
     }
 
     String getRememberPasswordRedirect(){
