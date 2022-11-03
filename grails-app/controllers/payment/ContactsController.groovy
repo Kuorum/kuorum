@@ -256,9 +256,6 @@ class ContactsController {
     }
 
     def saveContact(NewContactCommand command) {
-        if (!command.email) {
-            command.errors.rejectValue("email", "kuorum.web.commands.payment.contact.ContactCommand.email.nullable")
-        }
         if (command.hasErrors()) {
             render view: 'newContact', model: [command: command]
             return
@@ -404,8 +401,8 @@ class ContactsController {
         surveyVoteWeightPos = surveyVoteWeightPos < 0 || surveyVoteWeightPos > realPos.size() ? surveyVoteWeightPos : Integer.parseInt(realPos[surveyVoteWeightPos])
         tagsPos = tagsPos?.collect { Integer.parseInt(realPos[it.intValue()]) } ?: []
 
-        if ((namePos == -1 && (numOfTotalColumns - numOfEmptyColumns) != 1) || emailPos == -1) {
-
+//        if ((namePos == -1 && (numOfTotalColumns - numOfEmptyColumns) != 1) || emailPos == -1) {
+        if (namePos == -1 && (numOfTotalColumns - numOfEmptyColumns) != 1){
             flash.error = g.message(code: 'tools.contact.import.csv.error.notEmailNameColumnSelected')
 
             try {
@@ -592,9 +589,9 @@ class ContactsController {
         if (emailPos == null || emailPos < 0) {
             emailPos = detectEmailPosition(csv)
         }
-        if (emailPos == null) {
-            throw new KuorumException("tools.contact.import.csv.error.noEmailColumn")
-        }
+//        if (emailPos == null) {
+//            throw new KuorumException("tools.contact.import.csv.error.noEmailColumn")
+//        }
 
         // Save in session
         csvDataSession.numOfEmptyColumns = emptyColumns.size() - 1
