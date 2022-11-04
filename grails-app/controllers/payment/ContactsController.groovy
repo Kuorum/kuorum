@@ -481,7 +481,9 @@ class ContactsController {
                 }
 
                 ContactRDTO contact = new ContactRDTO()
-                contact.setEmail(line[positions.emailPos] as String)
+                if (positions.emailPos >= 0) {
+                    contact.setEmail(line[positions.emailPos] as String)
+                }
                 if (positions.namePos >= 0) {
                     contact.setName(line[positions.namePos] as String)
                 }
@@ -541,22 +543,10 @@ class ContactsController {
             contactService.addBulkContacts(loggedUser, contacts)
             log.info("Finisehd ${csv.absoluteFile}")
             csv.delete()
-//                return "SUCCESS";
         } catch (Exception e) {
             log.error("Captured exception importing contacts: ${e.message}", e)
         }
-//        }
-//        p.onError { Throwable err ->
-//            log.error("An error occured importing contacts: ${err.message}", err);
-//        }
-//        p.onComplete { result ->
-//            log.info("Imported contacts has sent: $result");
-//        }
-//        try{
-//            p.get(1, TimeUnit.MICROSECONDS)
-//        }catch (Throwable e){
-//            log.warn("Me la pela esta exception")
-//        }
+
     }
 
     private Map modelUploadCSVContacts(Integer emailPos = -1, Integer namePos = -1, surnamePos = -1, languagePos = -1, genderPos = -1) {
