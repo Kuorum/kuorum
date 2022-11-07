@@ -1,4 +1,4 @@
-<div id="contest-applications-list">
+<div id="contest-applications-list" contest-applications-list="${contest.status}">
     <ul class="nav nav-pills nav-pills-lvl2 nav-underline ${contest.status != org.kuorum.rest.model.communication.contest.ContestStatusDTO.VOTING ? 'hide' : ''}">
         <li class="${contest.status == org.kuorum.rest.model.communication.contest.ContestStatusDTO.VOTING ? "active active-no-click" : ""}">
             <a href="#" data-listSelector="random">
