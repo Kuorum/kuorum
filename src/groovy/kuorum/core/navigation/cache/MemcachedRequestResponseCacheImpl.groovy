@@ -30,14 +30,16 @@ class MemcachedRequestResponseCacheImpl extends AbstractHttpRequestKeyCache {
 
     @Override
     void put(UrlMappingInfo urlMappingInfo, CacheHttpServletResponseWrapper response, Locale locale) {
-        def key = buildKey(urlMappingInfo, locale)
-        int expiration = getExpiration(urlMappingInfo)
-        memcachedClient.set(key, expiration, response.getContent().getContent())
-        logger.debug("Key $key cached")
+        if (response.getStatus() == 200) {
+            def key = buildKey(urlMappingInfo, locale)
+            int expiration = getExpiration(urlMappingInfo)
+            memcachedClient.set(key, expiration, response.getContent().getContent())
+            logger.debug("Key $key cached")
 
-        def simpleKey = buildKey(urlMappingInfo)
-        cacheLanguageKeys(urlMappingInfo, simpleKey, locale)
-        cacheParentRelation(urlMappingInfo, simpleKey)
+            def simpleKey = buildKey(urlMappingInfo)
+            cacheLanguageKeys(urlMappingInfo, simpleKey, locale)
+            cacheParentRelation(urlMappingInfo, simpleKey)
+        }
     }
 
     private int getExpiration(UrlMappingInfo urlMappingInfo) {
