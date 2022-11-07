@@ -11,7 +11,9 @@
             </div>
 
             <div class="modal-body">
-                <p><g:message code="petition.modal.sign.body"/></p>
+                <p data-message-loaded="<g:message code="petition.modal.sign.body.loaded" args="[petition.name]"/>">
+                    <g:message code="petition.modal.sign.body" args="[petition.name]"/>
+                </p>
 
                 <p class="loading"></p>
                 <iframe src="https://materialdeclase.com/wp-content/uploads/descargar.pdf" width="100%"
@@ -22,7 +24,10 @@
             </div>
 
             <div class="modal-actions">
-                <a href="" role="button" class="btn btn-blue inverted btn-lg modal-sign"><g:message
+                <a href="" role="button" class="btn btn-grey-light btn-lg disabled modal-download"
+                   target="_blank" rel="noopener noreferrer">
+                    <g:message code="petition.modal.download.button"/></a>
+                <a href="" role="button" class="btn btn-blue inverted btn-lg modal-sign" ><g:message
                         code="petition.modal.sign.button"/></a>
             </div>
         </div>
