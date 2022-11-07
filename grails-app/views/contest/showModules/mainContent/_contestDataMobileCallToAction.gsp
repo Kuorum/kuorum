@@ -11,7 +11,7 @@
         </button>
         <span class="fas fa-caret-down arrow"></span>
         <button type="button" class="btn btn-blue btn-xl btn-circle call-button" name="${callButtonMsg}">
-            <span class="fal fa-rocket fa-2x"></span>
+            <span class="fal ${org.kuorum.rest.model.communication.contest.ContestStatusDTO.VOTING.equals(contest.status) ? "fa-box-ballot" : "fa-scroll"} fa-2x"></span>
         </button>
     </div>
 </g:if>
