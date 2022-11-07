@@ -12,7 +12,7 @@
     </button>
     <span class="fas fa-caret-down arrow"></span>
     <button type="button" class=" btn btn-blue btn-xl btn-circle call-button" name="${callButtonMsg}">
-        <span class="fal fa-rocket fa-2x"></span>
+        <span class="fal fa-box-ballot fa-2x"></span>
     </button>
 </div>
 </g:if>
