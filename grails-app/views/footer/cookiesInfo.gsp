@@ -90,6 +90,26 @@
                 <td><g:message code="footer.menu.footerCookiesInfo.cookie.VISITOR_INFO1_LIVE.description"/></td>
                 <td><g:message code="footer.menu.footerCookiesInfo.cookie.expiration.sixMonth"/></td>
             </tr>
+            <tr>
+                <td>_GRECAPTCHA</td>
+                <td><g:message code="footer.menu.footerCookiesInfo.cookie.google.GRECAPTCHA"/></td>
+                <td><g:message code="footer.menu.footerCookiesInfo.cookie.expiration.browsingSession"/></td>
+            </tr>
+            <tr>
+                <td>AWSALB</td>
+                <td><g:message code="footer.menu.footerCookiesInfo.cookie.google.AWSALB"/></td>
+                <td><g:message code="footer.menu.footerCookiesInfo.cookie.expiration.oneweek"/></td>
+            </tr>
+            <tr>
+                <td>AWSALBCORS</td>
+                <td><g:message code="footer.menu.footerCookiesInfo.cookie.google.AWSALBCORS"/></td>
+                <td><g:message code="footer.menu.footerCookiesInfo.cookie.expiration.oneweek"/></td>
+            </tr>
+            <tr>
+                <td>YSC</td>
+                <td><g:message code="footer.menu.footerCookiesInfo.cookie.google.YSC"/></td>
+                <td><g:message code="footer.menu.footerCookiesInfo.cookie.expiration.browsingSession"/></td>
+            </tr>
             </tbody>
         </table>
     </div>

@@ -354,7 +354,7 @@ class UrlMappings {
         name adminSearcherFullIndex: "/sec/admin/searcher/full-index"(controller: "admin", action: "fullIndex")
         name adminSearcherFullIndex: "/sec/admin/searcher/full-index"(controller: "admin", action: "fullIndex")
         name adminRecerateAllCss: "/sec/admin/css/recreateAllCss"(controller: "admin") { action = [GET: "updateDomainCss", POST: "updateDomainCssPost"] }
-        name adminDomainConfig: "/sec/admin/domain"(controller: "admin") { action = [GET: "domainConfig", POST: "domainConfigSave"] }
+        name adminDomainConfig: "/sec/admin/domain"(controller: "admin") { action = [GET: "domainConfig", POST: "domainConfigSave"]; cacheGlobalEvict="POST"; }
         name adminDomainConfigLanding: "/sec/admin/domain/landing"(controller: "admin") { action = [GET: "editLandingInfo", POST: "editLandingInfoSave"] }
         name adminDomainConfigLegalInfo: "/sec/admin/domain/editLegalInfo"(controller: "admin") { action = [GET: "editLegalInfo", POST: "updateLegalInfo"] }
         name adminAuthorizedCampaigns: "/sec/admin/domain/authorizedCampaigns"(controller: "admin") { action = [GET: "editAuthorizedCampaigns", POST: "updateAuthorizedCampaigns"];  cacheGlobalEvict="POST"; }
