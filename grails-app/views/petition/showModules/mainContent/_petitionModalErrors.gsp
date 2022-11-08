@@ -11,8 +11,8 @@
             </div>
 
             <div class="modal-body">
-                <p data-message-loaded="<g:message code="petition.modal.sign.body.loaded" args="[petition.name]"/>">
-                    <g:message code="petition.modal.sign.body" args="[petition.name]"/>
+                <p id="modal-pdf-message" data-message-unloaded="<g:message code="petition.modal.sign.body" args="[petition.name]"/>"
+                   data-message-loaded="<g:message code="petition.modal.sign.body.loaded" args="[petition.name]"/>">
                 </p>
 
                 <p class="loading"></p>
@@ -24,7 +24,7 @@
             </div>
 
             <div class="modal-actions">
-                <a href="" role="button" class="btn btn-grey-light btn-lg disabled modal-download"
+                <a href="" role="button" class="btn btn-grey-light btn-lg modal-download"
                    target="_blank" rel="noopener noreferrer">
                     <g:message code="petition.modal.download.button"/></a>
                 <a href="" role="button" class="btn btn-blue inverted btn-lg modal-sign" ><g:message

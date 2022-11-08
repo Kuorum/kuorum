@@ -68,6 +68,12 @@ var petitionFunctions = {
         var viewPdfUrl = $button.attr('data-viewPdfUrl');
         var $modal = $("#petition-sign-pdf-modal-" + petitionId);
         var $modalSubmitButton = $modal.find(".modal-sign");
+        var $modalMessage = $modal.find("#modal-pdf-message")
+        var $downloadButton = $modal.find(".modal-download")
+
+        $modalMessage.html($modalMessage.attr("data-message-unloaded"))
+        $downloadButton.addClass("disabled")
+
         $modalSubmitButton.attr("href", signUrl);
         if ($modalSubmitButton.attr("href") !== '') {
             // BIND CLICK
@@ -167,11 +173,10 @@ var petitionFunctions = {
         var $iframe = $modal.find("iframe");
         var $loading = $modal.find(".loading");
         var $downloadButton = $modal.find(".modal-download")
-        var $modalMessage = $modal.find("p")
+        var $modalMessage = $modal.find("#modal-pdf-message")
         $modalMessage.html($modalMessage.attr("data-message-loaded"))
         $downloadButton.removeClass("disabled")
         $downloadButton.attr("href", $iframe.attr("src"))
-        //$iframe.show();
         $loading.hide();
     }
 };
