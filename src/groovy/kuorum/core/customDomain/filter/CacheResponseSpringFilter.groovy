@@ -15,7 +15,6 @@ import javax.servlet.http.Cookie
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
-import static java.lang.Boolean.parseBoolean
 import static org.apache.commons.lang.LocaleUtils.toLocale
 
 class CacheResponseSpringFilter extends AbstractWrappedResponseFilter {
@@ -33,7 +32,7 @@ class CacheResponseSpringFilter extends AbstractWrappedResponseFilter {
 
 
         UrlMappingInfo urlMappingInfo = getUrlMapping(httpServletRequest)
-        if (isCacheable(urlMappingInfo)) {
+        if (isCacheable(urlMappingInfo, httpServletRequest)) {
             // Evita llamadas repetidas
             if (isFilteredBefore(request)) {
                 filterChain.doFilter(request, response)
@@ -55,8 +54,8 @@ class CacheResponseSpringFilter extends AbstractWrappedResponseFilter {
         urlMappingsHolder.matchAll(httpServletRequest.forwardURI.replaceFirst(httpServletRequest.contextPath, "")).find {it.actionName }
     }
 
-    private Boolean isCacheable(UrlMappingInfo urlMappingInfo) {
-        return !springSecurityService.isLoggedIn() && isUriCacheable(urlMappingInfo)
+    private Boolean isCacheable(UrlMappingInfo urlMappingInfo, HttpServletRequest request) {
+        return !springSecurityService.isLoggedIn() && isUriCacheable(urlMappingInfo) && !request.getQueryString()
     }
 
     private boolean isUriCacheable(UrlMappingInfo urlMappingInfo) {

@@ -1,7 +1,7 @@
 <g:if test="${starredCampaign}">
     <div id="starredCampaign">
         <div class="starredCampaign-title col-md-10 col-xs-8">
-            <campaignUtil:showIcon campaign="${starredCampaign}"/>
+            <span class="fal fa-megaphone"></span>
             <span class="starredCampaing-title-text">
                 <span class="hidden-xs"><g:message code="landingPage.starredCampaign.whatsGoingOn"/>:</span>
                 ${starredCampaign.title}

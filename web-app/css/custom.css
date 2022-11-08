@@ -4295,6 +4295,10 @@ fieldset > .multiple-range-selector:first-child {margin-top:40px;}
     display: inline-table;
 }
 
+.qq-uploader-multiple-files .button-container .qq-upload-button.btn > input[type=file] {
+    height: 50px; /* Firefox needs this height. If is not present the input[type=file] is over the next button */
+}
+
 .qq-uploader-multiple-files .qq-upload-list {
     padding: 0;
     margin: 0;
