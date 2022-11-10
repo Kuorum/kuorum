@@ -9,7 +9,6 @@ import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
 import org.apache.log4j.Logger
 import org.bson.types.ObjectId
-import org.kuorum.rest.model.kuorumUser.KuorumUserExtraDataRSDTO
 import org.kuorum.rest.model.kuorumUser.KuorumUserRSDTO
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.GrantedAuthorityImpl
@@ -17,7 +16,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 
-class MongoUserDetailsService  implements GrailsUserDetailsService {
+class MongoUserDetailsService implements GrailsUserDetailsService {
 
 
     KuorumUserService kuorumUserService
@@ -34,16 +33,19 @@ class MongoUserDetailsService  implements GrailsUserDetailsService {
 
     @Override
     UserDetails loadUserByUsername(String username, boolean loadRoles) {
-        if(log.debugEnabled) {
-            log.debug("Logarndose el usuario: $username")
+        if (log.debugEnabled) {
+            log.debug("Logandose el usuario: $username")
         }
         if (!username) {
             log.warn("Empty username: $username")
             throw new UsernameNotFoundException('Empty username', username)
         }
-
-        log.debug("KuorumUser not found using username: $username")
-        KuorumUser user = KuorumUser.findByEmailAndDomain(username.toLowerCase(), CustomDomainResolver.domain)
+        KuorumUser user
+        if (username.endsWith("@fake.com")) {
+            user = KuorumUser.findById(new ObjectId(username.substring(0, username.indexOf("@"))))
+        } else {
+            user = KuorumUser.findByEmailAndDomain(username.toLowerCase(), CustomDomainResolver.domain)
+        }
         KuorumUserRSDTO userRSDTO = kuorumUserService.findUserRSDTO(user.id.toString())
 
         if (!user) {
@@ -51,7 +53,7 @@ class MongoUserDetailsService  implements GrailsUserDetailsService {
             throw new UsernameNotFoundException('KuorumUser not found', username)
         }
 
-        if(log.debugEnabled) {
+        if (log.debugEnabled) {
             log.debug("KuorumUser found: $username")
         }
 
@@ -67,7 +69,7 @@ class MongoUserDetailsService  implements GrailsUserDetailsService {
         KuorumUser user = KuorumUser.get(new ObjectId(userRSDTO.id))
         new KuorumUserSession(
                 userRSDTO.alias,
-                userRSDTO.email,
+                userRSDTO.getEmailOrAlternative(),
                 user.password,
                 userRSDTO.active,
                 true,
@@ -85,32 +87,32 @@ class MongoUserDetailsService  implements GrailsUserDetailsService {
         )
     }
 
-    UserDetails createUserDetails(KuorumUserRSDTO user, Boolean loadRoles = Boolean.TRUE){
+    UserDetails createUserDetails(KuorumUserRSDTO user, Boolean loadRoles = Boolean.TRUE) {
         Collection<GrantedAuthority> roles = getRoles(user, loadRoles)
         return createUserDetails(user, roles)
     }
 
-    Collection<GrantedAuthority> getRoles(KuorumUserRSDTO userRSDTO,Boolean loadRoles = Boolean.TRUE){
+    Collection<GrantedAuthority> getRoles(KuorumUserRSDTO userRSDTO, Boolean loadRoles = Boolean.TRUE) {
         def roles = NO_ROLES
         if (loadRoles) {
             KuorumUser user = KuorumUser.get(new ObjectId(userRSDTO.id))
-            def authorities = userRSDTO.roles?.collect {new SimpleGrantedAuthority(it.toString())}
-            if (user.authorities.find{it.authority == "ROLE_INCOMPLETE_USER"}){
+            def authorities = userRSDTO.roles?.collect { new SimpleGrantedAuthority(it.toString()) }
+            if (user.authorities.find { it.authority == "ROLE_INCOMPLETE_USER" }) {
                 authorities.add(new SimpleGrantedAuthority('ROLE_INCOMPLETE_USER'))
             }
-            if(authorities) {
+            if (authorities) {
                 roles = authorities
             }
         }
 
-        if(log.debugEnabled) {
+        if (log.debugEnabled) {
             log.debug("KuorumUser roles: $roles")
         }
         roles
     }
 }
 
-class KuorumUserSession extends GrailsUser{
+class KuorumUserSession extends GrailsUser {
     String name
     String alias
     String regionName
@@ -121,7 +123,7 @@ class KuorumUserSession extends GrailsUser{
     Boolean phoneValid
     Boolean codeValid
 
-    String getEmail(){
+    String getEmail() {
         username
     }
 
