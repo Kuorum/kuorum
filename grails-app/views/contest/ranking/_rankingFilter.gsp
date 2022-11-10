@@ -18,7 +18,7 @@
                     <option value="all" name="all" id="all"><g:message
                             code="tools.massMailing.list.filter.all"/></option>
 
-                    <g:each in="${contest.causes}" var="cause">
+                    <g:each in="${contest.causes.sort()}" var="cause">
                         <option value="${cause}" id="${cause}">${cause}</option>
                     </g:each>
                 </select>
