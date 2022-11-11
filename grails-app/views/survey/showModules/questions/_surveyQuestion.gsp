@@ -6,8 +6,9 @@
                  org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.MULTIPLE_OPTION_WEIGHTED,
                  org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.MULTIPLE_OPTION_POINTS]}"/>
 
-<g:set var="oneOptionQuestion" value="${[(question.points<=1)?org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.ONE_OPTION_WEIGHTED:"",
-                                         org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.ONE_OPTION]}"/>
+<g:set var="oneOptionQuestion"
+       value="${[(question.points <= 1) ? org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.ONE_OPTION_WEIGHTED : "",
+                 org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.ONE_OPTION]}"/>
 
 <g:if test="${questionTypeMultiples.contains(question.questionType)}">
     <g:set var="questionClass" value="multi-answer"/>
@@ -26,45 +27,63 @@
 <g:set var="groupAnswersId" value="group-answers-question-${question.id}"/>
 <fieldset aria-live="polite"
           class="comment-box survey-question ${questionClass} no-padding ${survey.closed || question.answered ? 'answered' : ''} ${activeQuestionId == question.id ? 'active-question' : ''} ${isQuestionWithImages ? 'questions-with-images' : ''}"
-        id="question-${question.id}"
-        data-ajaxQuestionStats="${g.createLink(mapping: 'ajaxSurveyQuestionStats', params: survey.encodeAsLinkProperties() + [questionId: question.id])}"
-        data-question-id="${question.id}"
-        data-numAnswers="0"
-        data-minAnswers="${question.minAnswers}"
-        data-maxAnswers="${question.maxAnswers}"
-        data-points="${question.points}"
-        data-questionType="${question.questionType}">
+          id="question-${question.id}"
+          data-ajaxQuestionStats="${g.createLink(mapping: 'ajaxSurveyQuestionStats', params: survey.encodeAsLinkProperties() + [questionId: question.id])}"
+          data-question-id="${question.id}"
+          data-numAnswers="0"
+          data-minAnswers="${question.minAnswers}"
+          data-maxAnswers="${question.maxAnswers}"
+          data-points="${question.points}"
+          data-questionType="${question.questionType}">
 
     <legend class="survey-question-header" id="${legendId}">
         <span class="survery-question-number">
             <span class="survey-quiestion-number-idx">${numQuestion}</span>
-%{--            <span class="survey-quiestion-number-total hidden-xs">/${questionsTotal}</span>--}%
+            %{--            <span class="survey-quiestion-number-total hidden-xs">/${questionsTotal}</span>--}%
             <span class="survey-quiestion-number-total hidden-xs">.</span>
         </span>
+
         <h2 class="survey-question-title">
             ${question.text}
         </h2>
-        <g:render template="/survey/showModules/questions/surveyQuestionHeaderExtraInfo" model="[survey:survey, question:question, questionTypeMultiples:questionTypeMultiples]"/>
+        <g:render template="/survey/showModules/questions/surveyQuestionHeaderExtraInfo"
+                  model="[survey: survey, question: question, questionTypeMultiples: questionTypeMultiples, oneOptionQuestion: oneOptionQuestion]"/>
     </legend>
-    <div class="survey-question-answers" data-answer-selected="" ${roleAriaGroup} aria-labelledby="${legendId}" id="${groupAnswersId}">
+
+    <div class="survey-question-answers" data-answer-selected="" ${roleAriaGroup} aria-labelledby="${legendId}"
+         id="${groupAnswersId}">
         <g:each in="${question.options}" var="option" status="optionIdx">
             <g:if test="${oneOptionQuestion.contains(question.questionType)}">
-                <g:render template="/survey/showModules/questions/singleQuestionOption" model="[survey:survey, question:question, option:option, isQuestionWithImages: isQuestionWithImages, optionIdx:optionIdx]"/>
+
+                <g:render template="/survey/showModules/questions/singleQuestionOption"
+                          model="[survey: survey, question: question, option: option, isQuestionWithImages: isQuestionWithImages, optionIdx: optionIdx]"/>
+
             </g:if>
-            <g:elseif test="${question.questionType == org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.RATING_OPTION}">
-                <g:render template="/survey/showModules/questions/ratingQuestionOption" model="[survey:survey, question:question, option:option, optionIdx:optionIdx]"/>
+            <g:elseif
+                    test="${question.questionType == org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.RATING_OPTION}">
+                <g:render template="/survey/showModules/questions/ratingQuestionOption"
+                          model="[survey: survey, question: question, option: option, optionIdx: optionIdx]"/>
+                <g:render template="/survey/showModules/questions/surveyQuestionHeaderExtraInfo"
+                          model="[survey: survey, question: question, questionTypeMultiples: questionTypeMultiples]"/>
+
             </g:elseif>
             <g:elseif test="${questionTypeMultiples.contains(question.questionType)}">
-                <g:render template="/survey/showModules/questions/multipleQuestionOption" model="[survey:survey, question:question, option:option, isQuestionWithImages: isQuestionWithImages, optionIdx:optionIdx]"/>
+                <g:render template="/survey/showModules/questions/multipleQuestionOption"
+                          model="[survey: survey, question: question, option: option, isQuestionWithImages: isQuestionWithImages, optionIdx: optionIdx]"/>
             </g:elseif>
-            <g:elseif test="${question.questionType == org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.CONTACT_GENDER}">
-                <g:render template="/survey/showModules/questions/genderQuestionOption" model="[survey:survey, question:question, option:option, optionIdx:optionIdx]"/>
+            <g:elseif
+                    test="${question.questionType == org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.CONTACT_GENDER}">
+                <g:render template="/survey/showModules/questions/genderQuestionOption"
+                          model="[survey: survey, question: question, option: option, optionIdx: optionIdx]"/>
             </g:elseif>
-            <g:elseif test="${question.questionType == org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.CONTACT_UPLOAD_FILES}">
-                <g:render template="/survey/showModules/questions/fileQuestionOption" model="[survey:survey, question:question, option:option, optionIdx:optionIdx]"/>
+            <g:elseif
+                    test="${question.questionType == org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.CONTACT_UPLOAD_FILES}">
+                <g:render template="/survey/showModules/questions/fileQuestionOption"
+                          model="[survey: survey, question: question, option: option, optionIdx: optionIdx]"/>
             </g:elseif>
             <g:else>
-                <g:render template="/survey/showModules/questions/singleInputQuestionOption" model="[survey:survey, question:question, option:option]"/>
+                <g:render template="/survey/showModules/questions/singleInputQuestionOption"
+                          model="[survey: survey, question: question, option: option]"/>
             </g:else>
         </g:each>
     </div>
@@ -72,15 +91,18 @@
     <div class="survey-question-progress-info">
         <div class="progress-info">
             <div class="progress-bar-counter">-</div>
+
             <div class="progress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="3" aria-valuemin="0" aria-valuemax="5" data-answer-percent-selected="50" data-answer-percent="30">
+                <div class="progress-bar" role="progressbar" aria-valuenow="3" aria-valuemin="0" aria-valuemax="5"
+                     data-answer-percent-selected="50" data-answer-percent="30">
                     <span class="sr-only">30% Complete</span>
                 </div>
             </div>
         </div>
     </div>
+
     <div class="footer padding-box">
-        <g:render template="/campaigns/showModules/campaignDataSocial" model="[campaign:survey]"/>
+        <g:render template="/campaigns/showModules/campaignDataSocial" model="[campaign: survey]"/>
         <div class="actions next-section pull-right">
             <userUtil:ifUserIsTheLoggedOne user="${campaignUser}" authorizedSuperAdmin="true">
                 <a href="#" class="skip-survey"><g:message code="survey.questions.footer.ownerSurveyNext"/></a>
@@ -91,8 +113,8 @@
                     class="btn btn-blue btn-lg disabled"
                     data-userLoggedAlias="${userUtil.loggedUserId()}"
                     data-campaignValidationActive="${survey.checkValidationActive}"
-                    data-campaignGroupValidationActive="${survey.groupValidation?g.createLink(mapping: "campaignCheckGroupValidation", params: survey.encodeAsLinkProperties()):''}"
-                    data-postUrl="${g.createLink(mapping:"surveySaveAnswer", params:survey.encodeAsLinkProperties())}"
+                    data-campaignGroupValidationActive="${survey.groupValidation ? g.createLink(mapping: "campaignCheckGroupValidation", params: survey.encodeAsLinkProperties()) : ''}"
+                    data-postUrl="${g.createLink(mapping: "surveySaveAnswer", params: survey.encodeAsLinkProperties())}"
                     data-campaignId="${survey.id}"
                     data-campaignAlias="${survey.user.alias}"
                     tabindex="0">

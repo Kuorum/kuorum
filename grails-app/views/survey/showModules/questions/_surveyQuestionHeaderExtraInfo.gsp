@@ -2,17 +2,25 @@
 <g:if test="${questionTypeMultiples.contains(question.questionType) ||
         question.questionType == org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.ONE_OPTION_WEIGHTED}">
     <div class="survey-question-extra-info question-${question.id}">
+
         <g:if test="${question.questionType == org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.ONE_OPTION_WEIGHTED}">
             <g:if test="${question.points != 1}">
                 <div class="survey-question-extra-info-range"><g:message
                         code="survey.questions.header.extrainfo.multi.QuestionLimitAnswersType.one.option"
                         args="[question.points]"/></div>
+                <g:render template="/survey/showModules/questions/surveyQuestionContactWeighing"
+                          model="[question: question, oneOptionQuestion: oneOptionQuestion, questionTypeMultiples: questionTypeMultiples, contact: contact]"/>
+
             </g:if>
         </g:if>
+
         <g:else>
+
             <div class="survey-question-extra-info-range"><g:message
                     code="survey.questions.header.extrainfo.multi.QuestionLimitAnswersType.${kuorum.web.commands.payment.survey.QuestionLimitAnswersType.inferType(question)}"
                     args="[question.minAnswers, question.maxAnswers]"/></div>
+            <g:render template="/survey/showModules/questions/surveyQuestionContactWeighing"
+                      model="[question: question, oneOptionQuestion: oneOptionQuestion, questionTypeMultiples: questionTypeMultiples, contact: contact]"/>
             <g:if test="${[org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.MULTIPLE_OPTION_POINTS].contains(question.questionType)}">
                 <div class="survey-question-extra-info-points"><g:message
                         code="survey.questions.header.extrainfo.multi.points" args="[question.points]"/></div>
@@ -28,3 +36,7 @@
         </g:else>
     </div>
 </g:if>
+<g:else>
+    <g:render template="/survey/showModules/questions/surveyQuestionContactWeighing"
+              model="[question: question, oneOptionQuestion: oneOptionQuestion, questionTypeMultiples: questionTypeMultiples, contact: contact]"/>
+</g:else>
