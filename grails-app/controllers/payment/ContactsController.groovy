@@ -260,10 +260,8 @@ class ContactsController {
             render view: 'newContact', model: [command: command]
             return
         }
-        FilterRDTO filterRDTO = new FilterRDTO()
-        filterRDTO.setFilterConditions([ConditionRDTO.factory(ConditionFieldTypeRDTO.EMAIL, TextConditionOperatorTypeRDTO.EQUALS.toString(), command.email)])
         KuorumUserSession user = springSecurityService.principal
-        ContactPageRSDTO alreadyExistsContact = contactService.getUsers(user, filterRDTO)
+        ContactPageRSDTO alreadyExistsContact = getContactsByEmail(command, user)
 
         ContactRDTO contactRDTO = new ContactRDTO()
         contactRDTO.name = command.name
@@ -281,6 +279,16 @@ class ContactsController {
         } else {
             flash.error = g.message(code: 'tools.contact.new.error', args: [displayerName])
             render view: 'newContact', model: [command: command]
+        }
+    }
+
+    private ContactPageRSDTO getContactsByEmail(NewContactCommand command, KuorumUserSession user) {
+        if(command.email) {
+            FilterRDTO filterRDTO = new FilterRDTO()
+            filterRDTO.setFilterConditions([ConditionRDTO.factory(ConditionFieldTypeRDTO.EMAIL, TextConditionOperatorTypeRDTO.EQUALS.toString(), command.email)])
+            return contactService.getUsers(user, filterRDTO)
+        }else{
+            new ContactPageRSDTO()
         }
     }
 
