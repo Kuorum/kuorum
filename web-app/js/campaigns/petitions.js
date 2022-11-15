@@ -68,13 +68,19 @@ var petitionFunctions = {
         var viewPdfUrl = $button.attr('data-viewPdfUrl');
         var $modal = $("#petition-sign-pdf-modal-" + petitionId);
         var $modalSubmitButton = $modal.find(".modal-sign");
+        var $modalMessage = $modal.find("#modal-pdf-message")
+        var $downloadButton = $modal.find(".modal-download")
+
+        $modalMessage.html($modalMessage.attr("data-message-unloaded"))
+        $downloadButton.addClass("disabled")
+
+        $modalSubmitButton.attr("href", signUrl);
         if ($modalSubmitButton.attr("href") !== '') {
             // BIND CLICK
             $modalSubmitButton.on("click", function (e) {
                 e.preventDefault();
                 petitionFunctions.__executableAsyncPetitionSign(params)
             });
-            $modalSubmitButton.attr("href", signUrl);
         }
 
         var data = {};
@@ -116,6 +122,8 @@ var petitionFunctions = {
             success: function(petitionSign){
                 var petitionRSDTO = petitionSign.petition;
                 var $buttons = $(".petition-sign-"+petitionRSDTO.id);
+                var petitionId = $button.attr('data-petitionId');
+                var $modal = $("#petition-sign-pdf-modal-" + petitionId);
                 $buttons.toggleClass('active');
                 $buttons.toggleClass('on');
                 $buttons.find('.fa-microphone').toggleClass("fas fal");
@@ -126,6 +134,7 @@ var petitionFunctions = {
                     callback();
                 }
                 $(".petition-sign-call-to-action").fadeOut();
+                $modal.modal("hide");
             },
             error: function () {
 
@@ -163,7 +172,11 @@ var petitionFunctions = {
     _showIframeWithPdf: function ($modal) {
         var $iframe = $modal.find("iframe");
         var $loading = $modal.find(".loading");
-        $iframe.show();
+        var $downloadButton = $modal.find(".modal-download")
+        var $modalMessage = $modal.find("#modal-pdf-message")
+        $modalMessage.html($modalMessage.attr("data-message-loaded"))
+        $downloadButton.removeClass("disabled")
+        $downloadButton.attr("href", $iframe.attr("src"))
         $loading.hide();
     }
 };
