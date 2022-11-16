@@ -105,12 +105,15 @@ class MemcachedRequestResponseCacheImpl extends AbstractHttpRequestKeyCache {
     }
 
     private void evictMultilanguageKey(String simpleKey) {
-        String cachedLanguages = memcachedClient.get(simpleKey) as String
-        if (cachedLanguages) {
-            cachedLanguages.split(SEPARATOR).each {
-                deleteKey(simpleKey + it)
+        if (simpleKey){
+            def cachedLanguages = memcachedClient.get(simpleKey)
+
+            if (cachedLanguages) {
+                cachedLanguages.split(SEPARATOR).each {
+                    deleteKey(simpleKey + it)
+                }
+                deleteKey(simpleKey)
             }
-            deleteKey(simpleKey)
         }
     }
 
