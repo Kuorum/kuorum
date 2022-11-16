@@ -190,6 +190,9 @@ var contestApplicationHelper = {
             $('#registro').find("form").attr("callback", "contestAddApplicationAction");
             $('#registro').find("form").attr("data-buttonId", buttonId);
             $('#registro').modal('show');
+        } else {
+            //Hidden button isn't doing default behaviour
+            window.location = $button.attr("href");
         }
     }
 }
