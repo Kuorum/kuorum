@@ -11,7 +11,7 @@
                 </div>
             </div>
 
-            <div class="col-sm-3">
+            <div class="col-sm-3 col-xs-12">
                 <label for="filterCampaignsByCause"><g:message code="contest.ranking.filter.byCause"/></label>
                 <select name="filterCampaignsByCause" class="form-control rankingFilter" id="filterCampaignsByCause"
                         data-filter="ranking-cause">
@@ -24,7 +24,7 @@
                 </select>
             </div>
 
-            <div class="col-sm-3">
+            <div class="col-sm-3 col-xs-12">
                 <label for="filterCampaignsByFocusType"><g:message
                         code="org.kuorum.rest.model.communication.contest.ContestApplicationFocusTypeDTO.label"/></label>
                 <select name="filterCampaignsByFocusType" class="form-control rankingFilter"
@@ -40,7 +40,7 @@
                 </select>
             </div>
 
-            <div class="col-sm-3">
+            <div class="col-sm-3 col-xs-12">
                 <label for="filterCampaignsByFocusType"><g:message
                         code="org.kuorum.rest.model.communication.contest.ContestApplicationActivityTypeDTO.label"/></label>
                 <select name="filterCampaignsByActivityType" class="form-control rankingFilter"
