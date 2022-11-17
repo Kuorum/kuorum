@@ -13,8 +13,9 @@
         data-deadLineVotesErrorMsg="${g.message(code: 'contestApplication.callToAction.VOTING.error.api.SERVICE_CAMPAIGN_CONTEST_OUT_OF_TIME', args: [contestApplication.contest.title, g.formatDate([format: g.message(code: 'default.date.format'), date: contestApplication.contest.deadLineVotes, timeZone: contestApplication.contest.timeZone])])}"
         data-deadLineVotesTimeStamp="${contestApplication.contest.deadLineVotes.time}"
         data-disabledText="${g.message(code: 'contestApplication.callToAction.VOTING.SENT.button.disabled')}"
-        class="contestApplication-vote contestApplication-vote-${contestApplication.id} ${contestApplicationVoted ? 'active disabled' : ''}"
-        btn-disabled="${contestApplicationVoted}">
+        class="contestApplication-vote contestApplication-vote-${contestApplication.id} ${contestApplicationVoted ||
+                !org.kuorum.rest.model.communication.contest.ContestStatusDTO.VOTING.equals(contestApplication.contest.status) ? 'active disabled' : ''}"
+        btn-disabled="${contestApplicationVoted || !org.kuorum.rest.model.communication.contest.ContestStatusDTO.VOTING.equals(contestApplication.contest.status)}">
     <span class="${contestApplicationVoted ? 'fas' : 'fal'} fa-box-ballot" aria-hidden="true"></span>
     <span class="number">${contestApplication.votes}</span>
 </g:link>
