@@ -52,8 +52,6 @@ import payment.contact.ContactService
 
 import javax.servlet.http.HttpServletResponse
 
-import static kuorum.util.rest.RestKuorumApiService.ApiMethod.ACCOUNT_PARTICIPATORY_BUDGET_REPORT
-
 class CampaignController {
 
     PostService postService
@@ -623,6 +621,20 @@ class CampaignController {
                 codeValidation     : [success: userValidationRSDTO.codeStatus.isGranted(), data: [:]]
 
         ]
+    }
+
+    protected def downloadReportPdf(Closure serviceMethod) {
+        try {
+            ByteArrayOutputStream outPdf = new ByteArrayOutputStream();
+            serviceMethod(outPdf)
+            outPdf.writeTo(response.outputStream);
+            response.setContentType("application/pdf")
+            response.setHeader("Content-disposition", "filename=${fileName}")
+            response.outputStream.flush()
+            return
+        } catch (Exception e) {
+            render "<html><head><title>File not found</title></head><body>File not found</body></html>"
+        }
     }
 
 }

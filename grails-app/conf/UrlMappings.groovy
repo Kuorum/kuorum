@@ -201,6 +201,7 @@ class UrlMappings {
         name surveyInitDomainEditSumonContacts: "/start/survey/$campaignId/add-contacts"(controller: "survey") { action = [GET: "editInitialSurveyAddContactsStep", POST: "saveInitialSurveyAddContactsStep"] }
         name surveyInitDomainSuccess: "/start/survey/$campaignId/success"(controller: "survey", action: "editInitialSurveyFinish");
         name surveyCloseNow: "/ajax/survey/$campaignId/close"(controller: "survey", action: "closeSurvey");
+        name surveySignedVotesPdfView: "/account/$userAlias/s/$urlTitle-$campaignId/pdf/view"(controller: "survey", action: "downloadSignedVotesPdf"){cacheCampaignEvict="POST"}
 
 
         name eventCreate: "/account/event/new"(controller: "event") { action = [GET: "create", POST: "saveSettings"] }
