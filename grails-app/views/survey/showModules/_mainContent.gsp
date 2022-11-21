@@ -15,3 +15,5 @@
     </div>
 
 </div>
+
+<g:render template="/survey/showModules/mainContent/surveyModalErrors" model="[survey: survey]"/>

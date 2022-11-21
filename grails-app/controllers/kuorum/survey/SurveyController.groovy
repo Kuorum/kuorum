@@ -486,5 +486,10 @@ class SurveyController extends CampaignController {
         redirect mapping: 'politicianMassMailingContent', params: bulletinSummoning.encodeAsLinkProperties()
     }
 
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def downloadSignedVotesPdf(Long campaignId) {
+        KuorumUserSession loggedUser = springSecurityService.principal
+        downloadReportPdf({ByteArrayOutputStream arrayOutputStream -> surveyService.getSignedReport(loggedUser, campaignId, arrayOutputStream)})
+    }
 
 }

@@ -105,17 +105,8 @@ class PetitionController extends CampaignController{
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def downloadPdfToSign(Long campaignId) {
         KuorumUserSession loggedUser = springSecurityService.principal
-        try {
-            ByteArrayOutputStream outPdf = new ByteArrayOutputStream();
-            petitionService.getSignedReport(loggedUser, campaignId, outPdf)
-            outPdf.writeTo(response.outputStream);
-            response.setContentType("application/pdf")
-            response.setHeader("Content-disposition", "filename=${fileName}")
-            response.outputStream.flush()
-            return
-        } catch (Exception e) {
-            render "<html><heaad><title>File not found</title></head><body>File not found</body></html>"
-        }
-
+        ByteArrayOutputStream outPdf = new ByteArrayOutputStream();
+        petitionService.getSignedReport(loggedUser, campaignId, outPdf)
+        downloadReportPdf({ByteArrayOutputStream arrayOutputStream -> petitionService.getSignedReport(loggedUser, campaignId, outPdf)})
     }
 }

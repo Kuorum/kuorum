@@ -306,4 +306,15 @@ class SurveyService extends AbstractCampaignCreatorService<SurveyRSDTO, SurveyRD
         )
         return response.data
     }
+
+    void getSignedReport(KuorumUserSession user, Long campaignId, OutputStream outputStream) {
+        Map<String, String> params = [surveyId: campaignId.toString(), userId: user.getId().toString()]
+        Map<String, String> query = [viewerUid: user.getId().toString()]
+        def response = restKuorumApiService.getFile(
+                RestKuorumApiService.ApiMethod.ACCOUNT_SURVEY_REPORT_SIGNED_VOTES,
+                params,
+                query,
+                outputStream
+        )
+    }
 }
