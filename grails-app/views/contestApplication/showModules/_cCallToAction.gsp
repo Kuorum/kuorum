@@ -1,3 +1,4 @@
+<%@ page import="org.kuorum.rest.model.communication.contest.ContestStatusDTO" %>
 <g:set var="callTitleMsg"
        value="${g.message(code: 'contestApplication.callToAction.' + contestApplication.campaignStatusRSDTO + '.title')}"/>
 <g:set var="callSubtitleMsg"
@@ -35,8 +36,10 @@
                     data-campaignId="${contestApplication.id}"
                     data-contestRemainingVotes="${contestApplication.contest.remainingVotes}"
                     data-disabledText="${g.message(code: 'contestApplication.callToAction.VOTING.SENT.button.disabled')}"
-                    class="btn btn-blue btn-lg contestApplication-vote contestApplication-vote-${contestApplication.id} ${contestApplicationVoted ? 'active disabled' : ''}"
-                    btn-disabled="${contestApplicationVoted}">
+                    class="btn btn-blue btn-lg contestApplication-vote contestApplication-vote-${contestApplication.id} ${contestApplicationVoted ||
+                            !org.kuorum.rest.model.communication.contest.ContestStatusDTO.VOTING.equals(contestApplication.contest.status)? 'active disabled' : ''}"
+                    btn-disabled="${contestApplicationVoted ||
+                            !org.kuorum.rest.model.communication.contest.ContestStatusDTO.VOTING.equals(contestApplication.contest.status) }">
                 ${!contestApplicationVoted ? callButtonMsg : callButtonMsgDisabled}
             </g:link>
         </div>

@@ -65,7 +65,7 @@
 
     <userUtil:ifUserIsTheLoggedOne user="${campaignUser}">
         <!-- MODAL CHANGE CAMPAIGN STATUS-->
-        <div class="modal fade in" id="modalEditParticipatoryBudgetStatus" tabindex="-1" role="dialog"
+        <div class="modal fade in" id="changeContestApplicationStatusModal" tabindex="-1" role="dialog"
              aria-labelledby="modalEditParticipatoryBudgetStatusTitle" aria-hidden="true">
             <div class="modal-dialog ">
                 <div class="modal-content">

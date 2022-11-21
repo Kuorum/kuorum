@@ -4,17 +4,14 @@ $(function () {
         e.preventDefault();
         var status = $(this).attr("data-status");
         var statusText = $(this).attr("data-status-text");
-        console.log(status)
-        console.log(statusText)
-
         var link = $("#modalEditParticipatoryBudgetStatusButtonOk").attr("href");
+
         link = link.replace(/status=.*/, "status=" + status);
         $("#modalEditParticipatoryBudgetStatusButtonOk").attr("href", link);
+        $("#changeContestApplicationStatusModal .modal-body p strong").html(statusText);
 
 
-        $("#modalEditParticipatoryBudgetStatus .modal-body p strong").html(statusText);
-        $("#modalEditParticipatoryBudgetStatus").modal("show")
-
+        $("#changeContestApplicationStatusModal").modal("show")
     });
 
     $("#contest-applications-list .nav-underline a").on("click", function (e) {
@@ -70,6 +67,29 @@ $(function () {
 
     $(".actions.call-to-action-mobile.go-to-action button").on("click", function(e){
         $("#aside-ppal > .call-to-action:first-child > .actions > a.btn").click()
+    });
+
+    $("#changeContestApplicationStatusModal").on("click", "#modalEditParticipatoryBudgetStatusButtonOk", function (e) {
+        console.log("Change contest status js event");
+        e.preventDefault()
+        pageLoadingOn();
+
+        const data = {}
+        $.post($(this).attr("href"), data)
+            .done(function (response) {
+                if (response.success) {
+                    window.location.reload();
+                } else {
+                    display.error("Error updating contest status")
+                }
+            })
+            .fail(function (messageError) {
+                display.error("Error updating contest status")
+            })
+            .always(function () {
+                pageLoadingOff();
+                $("#changeContestApplicationStatusModal").modal("hide");
+            });
     });
 });
 
@@ -170,6 +190,9 @@ var contestApplicationHelper = {
             $('#registro').find("form").attr("callback", "contestAddApplicationAction");
             $('#registro').find("form").attr("data-buttonId", buttonId);
             $('#registro').modal('show');
+        } else {
+            //Hidden button isn't doing default behaviour
+            window.location = $button.attr("href");
         }
     }
 }
