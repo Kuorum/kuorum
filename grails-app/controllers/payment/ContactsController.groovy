@@ -143,7 +143,7 @@ class ContactsController {
         ContactRSDTO contact = contactService.getContact(user, contactId)
         ContactCommand command = new ContactCommand()
         command.name = contact.name
-        command.email = contact.email ?: g.message(code: 'tools.contact.edit.noMailVisible')
+        command.email = contact.visibleEmail ? contact.email : g.message(code: 'tools.contact.edit.noMailVisible')
         command.externalId = contact.externalId
         command.phonePrefix = contact.phonePrefix
         command.phone = contact.phone
@@ -256,17 +256,12 @@ class ContactsController {
     }
 
     def saveContact(NewContactCommand command) {
-        if (!command.email) {
-            command.errors.rejectValue("email", "kuorum.web.commands.payment.contact.ContactCommand.email.nullable")
-        }
         if (command.hasErrors()) {
             render view: 'newContact', model: [command: command]
             return
         }
-        FilterRDTO filterRDTO = new FilterRDTO()
-        filterRDTO.setFilterConditions([ConditionRDTO.factory(ConditionFieldTypeRDTO.EMAIL, TextConditionOperatorTypeRDTO.EQUALS.toString(), command.email)])
         KuorumUserSession user = springSecurityService.principal
-        ContactPageRSDTO alreadyExistsContact = contactService.getUsers(user, filterRDTO)
+        ContactPageRSDTO alreadyExistsContact = getContactsByEmail(command, user)
 
         ContactRDTO contactRDTO = new ContactRDTO()
         contactRDTO.name = command.name
@@ -284,6 +279,16 @@ class ContactsController {
         } else {
             flash.error = g.message(code: 'tools.contact.new.error', args: [displayerName])
             render view: 'newContact', model: [command: command]
+        }
+    }
+
+    private ContactPageRSDTO getContactsByEmail(NewContactCommand command, KuorumUserSession user) {
+        if(command.email) {
+            FilterRDTO filterRDTO = new FilterRDTO()
+            filterRDTO.setFilterConditions([ConditionRDTO.factory(ConditionFieldTypeRDTO.EMAIL, TextConditionOperatorTypeRDTO.EQUALS.toString(), command.email)])
+            return contactService.getUsers(user, filterRDTO)
+        }else{
+            new ContactPageRSDTO()
         }
     }
 
@@ -404,8 +409,8 @@ class ContactsController {
         surveyVoteWeightPos = surveyVoteWeightPos < 0 || surveyVoteWeightPos > realPos.size() ? surveyVoteWeightPos : Integer.parseInt(realPos[surveyVoteWeightPos])
         tagsPos = tagsPos?.collect { Integer.parseInt(realPos[it.intValue()]) } ?: []
 
-        if ((namePos == -1 && (numOfTotalColumns - numOfEmptyColumns) != 1) || emailPos == -1) {
-
+//        if ((namePos == -1 && (numOfTotalColumns - numOfEmptyColumns) != 1) || emailPos == -1) {
+        if (namePos == -1 && (numOfTotalColumns - numOfEmptyColumns) != 1){
             flash.error = g.message(code: 'tools.contact.import.csv.error.notEmailNameColumnSelected')
 
             try {
@@ -484,7 +489,9 @@ class ContactsController {
                 }
 
                 ContactRDTO contact = new ContactRDTO()
-                contact.setEmail(line[positions.emailPos] as String)
+                if (positions.emailPos >= 0) {
+                    contact.setEmail(line[positions.emailPos] as String)
+                }
                 if (positions.namePos >= 0) {
                     contact.setName(line[positions.namePos] as String)
                 }
@@ -544,22 +551,10 @@ class ContactsController {
             contactService.addBulkContacts(loggedUser, contacts)
             log.info("Finisehd ${csv.absoluteFile}")
             csv.delete()
-//                return "SUCCESS";
         } catch (Exception e) {
             log.error("Captured exception importing contacts: ${e.message}", e)
         }
-//        }
-//        p.onError { Throwable err ->
-//            log.error("An error occured importing contacts: ${err.message}", err);
-//        }
-//        p.onComplete { result ->
-//            log.info("Imported contacts has sent: $result");
-//        }
-//        try{
-//            p.get(1, TimeUnit.MICROSECONDS)
-//        }catch (Throwable e){
-//            log.warn("Me la pela esta exception")
-//        }
+
     }
 
     private Map modelUploadCSVContacts(Integer emailPos = -1, Integer namePos = -1, surnamePos = -1, languagePos = -1, genderPos = -1) {
@@ -592,9 +587,9 @@ class ContactsController {
         if (emailPos == null || emailPos < 0) {
             emailPos = detectEmailPosition(csv)
         }
-        if (emailPos == null) {
-            throw new KuorumException("tools.contact.import.csv.error.noEmailColumn")
-        }
+//        if (emailPos == null) {
+//            throw new KuorumException("tools.contact.import.csv.error.noEmailColumn")
+//        }
 
         // Save in session
         csvDataSession.numOfEmptyColumns = emptyColumns.size() - 1

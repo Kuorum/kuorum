@@ -158,7 +158,6 @@ class ContactService {
     ContactPageRSDTO getUsers(Object userId, SearchContactRSDTO searchContactRSDTO) {
         Map<String, String> params = [userId: userId.toString()]
 
-
         Map<String, String> query = searchContactRSDTO.encodeAsQueryParams()
 
         def response = restKuorumApiService.get(
