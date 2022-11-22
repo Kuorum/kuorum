@@ -42,27 +42,6 @@ $(function () {
         const urlUpdateStatus = kuorumUrls.contestApplicationUpdateReview + statusParam;
         $modalOkButton.attr("href", urlUpdateStatus);
     })
-    $("#changeContestApplicationStatusModal").on("click", "#modalEditParticipatoryBudgetStatusButtonOk", function (e) {
-        e.preventDefault()
-        pageLoadingOn();
-
-        const data = {}
-        $.post($(this).attr("href"), data)
-            .done(function (response) {
-                if (response.success) {
-                    contestListProposalHelper.refreshTable();
-                } else {
-                    display.error("Error updating application - Malformed data")
-                }
-            })
-            .fail(function (messageError) {
-                display.error("Error updating application")
-            })
-            .always(function () {
-                pageLoadingOff();
-                $("#changeContestApplicationStatusModal").modal("hide");
-            });
-    })
 });
 
 function contestApplicationTableRowStyle(contestApplicationRow, index) {
