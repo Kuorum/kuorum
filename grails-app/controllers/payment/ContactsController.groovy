@@ -143,7 +143,7 @@ class ContactsController {
         ContactRSDTO contact = contactService.getContact(user, contactId)
         ContactCommand command = new ContactCommand()
         command.name = contact.name
-        command.email = contact.email ?: g.message(code: 'tools.contact.edit.noMailVisible')
+        command.email = contact.visibleEmail ? contact.email : g.message(code: 'tools.contact.edit.noMailVisible')
         command.externalId = contact.externalId
         command.phonePrefix = contact.phonePrefix
         command.phone = contact.phone
