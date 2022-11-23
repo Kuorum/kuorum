@@ -1035,10 +1035,18 @@ var surveyFunctions = {
             $closeButton.addClass("disabled")
             surveyFunctions._loadPDFIframe($modal, viewPdfUrl);
         } else {
-            $modalMessage.html($modalMessage.attr("data-message-unsigned"))
-            $downloadButton.addClass(".d.none")
+            $modalMessage.html($modalMessage.attr("data-message-unsigned"));
+            $downloadButton.hide();
+            surveyFunctions._hidePDFIframe($modal);
         }
         $modal.modal("show");
+    },
+
+    _hidePDFIframe: function($modal) {
+        var iframe = $modal.find("iframe");
+        var $loading = $modal.find(".loading");
+        iframe.hide();
+        $loading.hide();
     },
 
     _loadPDFIframe: function ($modal, viewPdfUrl) {
