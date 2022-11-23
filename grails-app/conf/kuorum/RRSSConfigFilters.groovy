@@ -7,6 +7,7 @@ import kuorum.domain.DomainService
 import org.codehaus.groovy.grails.commons.GrailsApplication
 import org.kuorum.rest.model.domain.DomainPrivacyRDTO
 import org.kuorum.rest.model.domain.DomainTypeRSDTO
+import org.kuorum.rest.model.domain.DomainValidationRDTO
 import org.kuorum.rest.model.kuorumUser.UserRoleRSDTO
 
 class RRSSConfigFilters {
@@ -44,7 +45,8 @@ class RRSSConfigFilters {
                             census    : CustomDomainResolver.domainRSDTO.validationCensus,
                             phone     : CustomDomainResolver.domainRSDTO.validationPhone,
                             customCode: CustomDomainResolver.domainRSDTO.validationCode,
-                            tokenMail : CustomDomainResolver.domainRSDTO.validationTokenMail
+                            tokenMail : CustomDomainResolver.domainRSDTO.firstFactorValidation.equals(DomainValidationRDTO.TOKEN),
+                            qr        : CustomDomainResolver.domainRSDTO.firstFactorValidation.equals(DomainValidationRDTO.QR)
                     ])
                 }
             }
