@@ -45,6 +45,7 @@ class CampaignValidationController {
 
     def step0RegisterWithCensusCode() {
         String censusLogin = params['censusLogin'];
+
         CensusLoginRDTO censusLoginData = censusService.getContactByCensusCode(censusLogin)
         if (censusLoginData == null) {
             censusService.deleteCensusCode(censusLogin)
@@ -81,7 +82,8 @@ class CampaignValidationController {
                     log.info("[censusLogion: ${censusLogin}] : User exists, but we are going to show the contact data page ")
                     // Reathenticating to remove an external redirec
                     KuorumUserRSDTO userFromContact = kuorumUserService.findUserRSDTO(contact.getMongoId())
-                    springSecurityService.reauthenticate userFromContact.getEmail()
+
+                    springSecurityService.reauthenticate userFromContact.getEmailOrAlternative()
                     render view: '/campaignValidation/step0RegisterWithCensusCode', model: [
                             contact    : contact,
                             censusLogin: censusLogin,
@@ -91,7 +93,7 @@ class CampaignValidationController {
                 } else {
                     log.info("[censusLogion: ${censusLogin}] : User already exists. Recovering user and reauthenticate it ")
                     KuorumUserRSDTO userFromContact = censusService.createUserByCensusCode(censusLogin, evidences);
-                    springSecurityService.reauthenticate userFromContact.getEmail()
+                    springSecurityService.reauthenticate userFromContact.getEmailOrAlternative()
                     redirect uri: calcNextStepMappingName(campaign)
                 }
             }else{
@@ -129,7 +131,9 @@ class CampaignValidationController {
             log.info("[censusLogion: ${censusLogin}] : Valid census login => Creating user")
             Evidences evidences = new HttpRequestRecoverEvidences(request);
             KuorumUserRSDTO userRSDTO = censusService.createUserByCensusCode(censusLogin,evidences);
-            springSecurityService.reauthenticate userRSDTO.email
+            springSecurityService.reauthenticate userRSDTO.getEmailOrAlternative()
+            //TODO adecuado???? permite continuar???
+            censusService.deleteCensusCode(censusLogin)
             redirect uri:calcNextStepMappingName(censusLoginRDTO.getCampaign())
         }
     }

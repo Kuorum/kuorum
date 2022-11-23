@@ -41,7 +41,8 @@ $(function () {
         const statusParam = $approveOrRejectButton.attr("href");
         const urlUpdateStatus = kuorumUrls.contestApplicationUpdateReview + statusParam;
         $modalOkButton.attr("href", urlUpdateStatus);
-    })
+    });
+
     $("#changeContestApplicationStatusModal").on("click", "#modalEditParticipatoryBudgetStatusButtonOk", function (e) {
         e.preventDefault()
         pageLoadingOn();
@@ -62,7 +63,7 @@ $(function () {
                 pageLoadingOff();
                 $("#changeContestApplicationStatusModal").modal("hide");
             });
-    })
+    });
 });
 
 function contestApplicationTableRowStyle(contestApplicationRow, index) {
