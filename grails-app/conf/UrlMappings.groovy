@@ -15,17 +15,19 @@ class UrlMappings {
 
         /**/
         /** NEW LANDIGNS **/
-        name landingServices: "/"(controller: "landing", action: "landingServices") { mappingName = "landingServices";cacheActive = "LANDING" }
-        name en_landingServices: "/"(controller: "landing", action: "landingServices") { mappingName = "landingServices";cacheActive = "LANDING" }
-        name es_landingServices: "/"(controller: "landing", action: "landingServices") { mappingName = "landingServices";cacheActive = "LANDING" }
-        name de_landingServices: "/"(controller: "landing", action: "landingServices") { mappingName = "landingServices";cacheActive = "LANDING" }
-        name ca_landingServices: "/"(controller: "landing", action: "landingServices") { mappingName = "landingServices";cacheActive = "LANDING" }
+        name landingServices: "/"(controller: "landing", action: "landingServices") { formName = "registerForm"; mappingName = "landingServices";cacheActive = "LANDING" }
+        name en_landingServices: "/"(controller: "landing", action: "landingServices") { formName = "registerForm"; mappingName = "landingServices";cacheActive = "LANDING" }
+        name es_landingServices: "/"(controller: "landing", action: "landingServices") { formName = "registerForm"; mappingName = "landingServices";cacheActive = "LANDING" }
+        name de_landingServices: "/"(controller: "landing", action: "landingServices") { formName = "registerForm"; mappingName = "landingServices";cacheActive = "LANDING" }
+        name ca_landingServices: "/"(controller: "landing", action: "landingServices") { formName = "registerForm"; mappingName = "landingServices";cacheActive = "LANDING" }
+        name joinDomain: "/join"(controller:"landing" , action: "landingServices" ) { formName = "joinForm" }
+        name joinDomainCheck: "/join/$joinCode"(controller:"landing" , action:"joinCheck")
 
-        name home: "/"(controller: "landing", action: "landingServices") { mappingName = "home"; cacheActive = "LANDING" }
-        name en_home: "/"(controller: "landing", action: "landingServices") { mappingName = "home";cacheActive = "LANDING" }
-        name es_home: "/"(controller: "landing", action: "landingServices") { mappingName = "home";cacheActive = "LANDING" }
-        name de_home: "/"(controller: "landing", action: "landingServices") { mappingName = "home";cacheActive = "LANDING" }
-        name ca_home: "/"(controller: "landing", action: "landingServices") { mappingName = "home";cacheActive = "LANDING" }
+        name home: "/"(controller: "landing", action: "landingServices") { formName = "registerForm"; mappingName = "home"; cacheActive = "LANDING" }
+        name en_home: "/"(controller: "landing", action: "landingServices") { formName = "registerForm"; mappingName = "home";cacheActive = "LANDING" }
+        name es_home: "/"(controller: "landing", action: "landingServices") { formName = "registerForm"; mappingName = "home";cacheActive = "LANDING" }
+        name de_home: "/"(controller: "landing", action: "landingServices") { formName = "registerForm"; mappingName = "home";cacheActive = "LANDING" }
+        name ca_home: "/"(controller: "landing", action: "landingServices") { formName = "registerForm"; mappingName = "home";cacheActive = "LANDING" }
 
         name footerPrivacyPolicy: "/legal/privacy-policy"(controller: "footer", action: "privacyPolicy") { mappingName = "footerPrivacyPolicy" }
         name en_footerPrivacyPolicy: "/legal/privacy-policy"(controller: "footer", action: "privacyPolicy") { mappingName = "footerPrivacyPolicy" }
@@ -454,6 +456,8 @@ class UrlMappings {
         name sitemapSearchs: "/sitemap/searchs"(controller: "siteMap", action: "sitemapSearchs")
         name sitemapUsersIdx: "/sitemap/users"(controller: "siteMap", action: "sitemapUsersIndex")
         name sitemapUsers: "/sitemap/users/$year/$month"(controller: "siteMap", action: "sitemapUsers")
+
+
 
 
         // TODO: REVIEW BASIC URL -> RegisterController:sendConfirmationEmail || Reset password and others
