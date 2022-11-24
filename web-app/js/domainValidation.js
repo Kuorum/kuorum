@@ -1,20 +1,25 @@
 $(document).ready(function () {
     domainValidationFunctions.checkSmsFieldsVisibility();
+    domainValidationFunctions.checkExternalIdFieldsVisibility();
 
     if ($("#validationPhone").click(function () {
         domainValidationFunctions.checkSmsFieldsVisibility();
+    })) ;
+    if ($('input[name=firstFactorValidation]').click(function () {
+        domainValidationFunctions.checkExternalIdFieldsVisibility();
     })) ;
 });
 
 var domainValidationFunctions = {
     smsName:$("#smsDomainName").val(),
     phonePrefix:$("#defaultPhonePrefix").val(),
+    externalIdName:$("#externalIdName").val(),
     toogleInputVisibility: function (disableFields = false) {
         $("#smsDomainName").prop('disabled', disableFields);
         $("#defaultPhonePrefix").prop('disabled', disableFields);
         if (disableFields) {
             domainValidationFunctions.getVariableValueFromInput();
-            domainValidationFunctions.setInputValuesToBlank();
+            domainValidationFunctions.setInputValuesToBlank([$("#smsDomainName"), $("#defaultPhonePrefix")]);
         } else {
             domainValidationFunctions.setVariablesValuesOnInput();
         }
@@ -22,6 +27,10 @@ var domainValidationFunctions = {
     getVariableValueFromInput: function () {
         domainValidationFunctions.smsName = $("#smsDomainName").val();
         domainValidationFunctions.phonePrefix = $("#defaultPhonePrefix").val();
+    },
+    setVariablesValuesOnInput() {
+        $("#smsDomainName").val(domainValidationFunctions.smsName);
+        $("#defaultPhonePrefix").val(domainValidationFunctions.phonePrefix);
     },
     checkSmsFieldsVisibility: function () {
         var validationPhoneDisabled = $("#validationPhone").attr("disabled") == 'disabled';
@@ -31,12 +40,32 @@ var domainValidationFunctions = {
         console.log("Visibility:" + (!validationPhoneDisabled && !isValidationPhoneChecked));
         domainValidationFunctions.toogleInputVisibility(validationPhoneDisabled || !isValidationPhoneChecked);
     },
-    setInputValuesToBlank: function (){
-        $("#smsDomainName").val('');
-        $("#defaultPhonePrefix").val('');
+    checkExternalIdFieldsVisibility: function () {
+        var firstFactorDisabled = $("#firstFactor").attr("disabled") == 'disabled';
+        var isQRFirstFactorSelected = $('input[name=firstFactorValidation]:checked', '#domainConfigValidationForm').val() === 'QR';
+        console.log("Disabled: " + firstFactorDisabled)
+        console.log("Checked: " + isQRFirstFactorSelected)
+        console.log("Visibility:" + (!firstFactorDisabled && !isQRFirstFactorSelected));
+        domainValidationFunctions.toogleInputVisibilityExternalIdName(firstFactorDisabled || !isQRFirstFactorSelected);
     },
-    setVariablesValuesOnInput() {
-        $("#smsDomainName").val(domainValidationFunctions.smsName);
-        $("#defaultPhonePrefix").val(domainValidationFunctions.phonePrefix);
+    toogleInputVisibilityExternalIdName: function (disableFields = false) {
+        $("#externalIdName").prop('disabled', disableFields);
+        if (disableFields) {
+            domainValidationFunctions.getVariableValueFromInputExternalIdName();
+            domainValidationFunctions.setInputValuesToBlank([$("#externalIdName")]);
+        } else {
+            domainValidationFunctions.setVariablesValuesOnInputExternalIdName();
+        }
+    },
+    setInputValuesToBlank: function ($inputArray){
+        for (const $input in $inputArray) {
+            $inputArray[$input].val('');
+        }
+    },
+    setVariablesValuesOnInputExternalIdName() {
+        $("#externalIdName").val(domainValidationFunctions.externalIdName);
+    },
+    getVariableValueFromInputExternalIdName: function () {
+        domainValidationFunctions.externalIdName = $("#externalIdName").val();
     }
 }
