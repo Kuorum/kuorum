@@ -32,7 +32,7 @@ function joinRegisterCallback() {
     var $form = $('[name=sign]');
     var dataRecaptcha = $('#join-code-submit').attr('data-recaptcha');
     if ($form.valid()) {
-        window.location +="/"+$form.find('input[name="joinCode"]').val()
+        window.location +="/"+$form.find('input[name="qrCode"]').val()
     } else {
         grecaptcha.reset(dataRecaptcha);
     }

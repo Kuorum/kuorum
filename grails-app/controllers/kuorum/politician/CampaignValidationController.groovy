@@ -234,6 +234,16 @@ class CampaignValidationController {
         }
     }
 
+    def joinId() {
+        def campaign = campaignService.find()indByQrCode(params.get("qrCode"))
+        if(campaign) {
+            redirect uri: calcNextStepMappingName(campaign)
+        }else{
+            flash.error = message(code: "kuorum.langings.join.qrCode.error")
+            redirect uri: g.createLink(mapping: "joinDomain")
+        }
+    }
+
     private def modelInputPhoneValidationStep(DomainUserPhoneValidationCommand command, CampaignRSDTO campaign){
         if (command == null){
             command = new DomainUserPhoneValidationCommand()
