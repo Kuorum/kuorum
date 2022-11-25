@@ -15,14 +15,13 @@
     <div class="box-ppal auto-width-center">
         <sec:ifNotLoggedIn>
             <formUtil:validateForm bean="${command}" form="sign"/>
-            <g:form mapping="joinDomain" autocomplete="off" method="post" name="sign" class="form-inline"
+            <g:form mapping="joinDomain" autocomplete="off" method="post" name="sign"
                     role="form">
                 <fieldset aria-live="polite">
                     <div class="form-group">
                         <formUtil:input
                                 command="${command}"
                                 field="qrCode"
-                                labelCssClass="sr-only"
                                 showLabel="true"
                                 showCharCounter="false"
                                 required="true"/>
@@ -34,8 +33,8 @@
                                 data-sitekey="${siteKey}"
                                 data-size="invisible"
                                 data-callback='joinRegisterCallback'
-                                class="btn btn-lg g-recaptcha">
-                            <g:message code="springSecurity.join.form.submit"/>
+                                class="btn btn-lg g-recaptcha col-xs-12">
+                            <g:message code="springSecurity.CodeJoinCommand.submit"/>
                         </button>
                     </div>
                     <r:require modules="recaptcha_register"/>

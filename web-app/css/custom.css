@@ -1232,6 +1232,7 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 .box-ppal.auto-width-center {
     max-width: 480px;
     margin: auto;
+    padding-bottom: 24px;
 }
 
 .login-social {
@@ -4079,7 +4080,6 @@ form#sign {
 
 .landing + .row.main .onecol .sign-in-option {
     margin-top: 24px;
-    margin-bottom: 16px;
 }
 
 .landing + .row.main .onecol .login .cancel {
