@@ -190,6 +190,18 @@ class ContactService {
         }
     }
 
+    ContactRSDTO getContactByExternalId(String ownerId, String externalId){
+        Map<String, String> params = [ownerId: userId, contactId: externalId]
+        Map<String, String> query = [:]
+
+        def response = restKuorumApiService.get(
+                RestKuorumApiService.ApiMethod.USER_CONTACT_EXTERNAL_ID,
+                params,
+                query,
+                new TypeReference<ContactRSDTO>() {})
+        response.data?:null
+    }
+
     ContactRSDTO getContact(KuorumUserSession user, Long contactId) {
         return getContact(user.id.toString(), contactId)
     }

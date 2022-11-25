@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.type.TypeReference
 import grails.transaction.Transactional
 import kuorum.core.exception.KuorumException
 import kuorum.register.KuorumUserSession
-import kuorum.solr.IndexSolrService
 import kuorum.util.rest.RestKuorumApiService
 import kuorum.web.constants.WebConstants
 import org.kuorum.rest.model.communication.CampaignLightPageRSDTO
@@ -96,6 +95,25 @@ class CampaignService {
 
     CampaignRSDTO find(BasicDataKuorumUserRSDTO user, Long campaignId, String viewerUid = null) {
         find(user.getAlias(), campaignId, viewerUid)
+    }
+
+    CampaignRSDTO findByQrCode(String qrCode) {
+        Map<String, String> params = [qrCode: qrCode]
+        try {
+            def response = restKuorumApiService.get(RestKuorumApiService.ApiMethod.CAMPAIGN_QR_CODE,
+                    params,
+                    [:],
+                    new TypeReference<CampaignRSDTO>() {}
+            )
+            CampaignRSDTO campaignRSDTO = null
+            if (response.data) {
+                campaignRSDTO = (CampaignRSDTO) response.data
+            }
+            return campaignRSDTO
+        } catch (Exception e) { //TODO que mierda es esto
+            log.info("Error recovering campaign by qr code $qrCode : ${e.message}")
+            return null
+        }
     }
 
 //    @Cacheable(value="debate", key='#campaignId')

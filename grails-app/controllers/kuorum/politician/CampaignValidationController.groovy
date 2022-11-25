@@ -26,6 +26,7 @@ import org.kuorum.rest.model.kuorumUser.domainValidation.UserPhoneValidationRDTO
 import org.kuorum.rest.model.kuorumUser.validation.UserValidationRSDTO
 import payment.campaign.CampaignService
 import payment.contact.CensusService
+import payment.contact.ContactService
 import springSecurity.KuorumRegisterCommand
 
 class CampaignValidationController {
@@ -35,6 +36,7 @@ class CampaignValidationController {
     SpringSecurityService springSecurityService
     CensusService censusService
     RegisterService registerService
+    ContactService contactService
 
     private Boolean showLandingData = true;
 
@@ -56,6 +58,8 @@ class CampaignValidationController {
         }else{
             CampaignLightRSDTO campaign = censusLoginData.getCampaign();
             ContactRSDTO contact = censusLoginData.getContact();
+
+            //Aqui es dinde hay que cortar
             logoutIfContactDifferentAsLoggedUser(contact, censusLogin);
             log.info("[censusLogion: ${censusLogin}] : Receviced a valid censusLogin -> Contact: ${contact.email}")
             Evidences evidences = new HttpRequestRecoverEvidences(request);
@@ -234,12 +238,13 @@ class CampaignValidationController {
         }
     }
 
-    def joinId() {
-        def campaign = campaignService.find()indByQrCode(params.get("qrCode"))
+    def step0RegisterWithExternalId() {
+        KuorumUserSession user = springSecurityService.principal
+        CampaignRSDTO campaign = campaignService.find(user,params.get("campaignId"))
+        ContactRSDTO contact = contactService.getContactByExternalId(campaign.getUser().getId(),params.get("externalId"))
         if(campaign) {
-            redirect uri: calcNextStepMappingName(campaign)
         }else{
-            flash.error = message(code: "kuorum.langings.join.qrCode.error")
+            flash.error = message(code: "kuorum.langings.join.external.error")
             redirect uri: g.createLink(mapping: "joinDomain")
         }
     }

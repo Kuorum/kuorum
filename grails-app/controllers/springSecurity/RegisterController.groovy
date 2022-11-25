@@ -26,7 +26,6 @@ import org.codehaus.groovy.grails.web.context.ServletContextHolder
 import org.codehaus.groovy.grails.web.servlet.GrailsApplicationAttributes
 import org.kuorum.rest.model.communication.CampaignRSDTO
 import org.kuorum.rest.model.communication.survey.SurveyRSDTO
-import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.web.authentication.RememberMeServices
@@ -355,9 +354,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
     }
 
     def joinCheck() {
-        BasicDataKuorumUserRSDTO user = kuorumUserService.findBasicUserRSDTO(params.userAlias)
-        CampaignRSDTO campaignRSDTO = campaignService.find(user, Long.parseLong(params.campaignId))
-
+        CampaignRSDTO campaign = campaignService.findByQrCode(params.get("qrCode"))
         if (campaign) {
             return [command: new ExternIdJoinCommand(campaignId: campaign.id)]
         } else {

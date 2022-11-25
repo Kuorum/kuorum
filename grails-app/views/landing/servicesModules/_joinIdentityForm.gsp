@@ -6,7 +6,7 @@
             <div class="form-group col-sm-offset-2 col-sm-4">
                 <formUtil:input
                         command="${command}"
-                        field="qrCode"
+                        field="externalId"
                         labelCssClass="sr-only"
                         showLabel="true"
                         showCharCounter="true"
@@ -15,7 +15,7 @@
 
             <div class="form-group col-sm-offset-1 col-sm-3 submit-button">
                 <button type="submit"
-                        id="join-code-submit"
+                        id="join-external-submit"
                         data-sitekey="${siteKey}"
                         data-size="invisible"
                         data-callback='joinRegisterCallback'
