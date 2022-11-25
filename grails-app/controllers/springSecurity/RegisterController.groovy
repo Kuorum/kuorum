@@ -355,8 +355,9 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
 
     def joinCheck() {
         CampaignRSDTO campaign = campaignService.findByQrCode(params.get("qrCode"))
+        String labelExternalId = CustomDomainResolver.domainRSDTO.externalIdName
         if (campaign) {
-            return [command: new ExternIdJoinCommand(campaignId: campaign.id)]
+            return [command: new ExternIdJoinCommand(campaignId: campaign.id), labelExternalId: labelExternalId, campaign: campaign]
         } else {
             flash.error = message(code: "springSecurity.join.qrCode.error")
             redirect uri: g.createLink(mapping: "joinDomain")
