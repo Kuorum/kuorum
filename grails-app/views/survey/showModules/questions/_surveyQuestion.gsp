@@ -63,8 +63,6 @@
                     test="${question.questionType == org.kuorum.rest.model.communication.survey.QuestionTypeRSDTO.RATING_OPTION}">
                 <g:render template="/survey/showModules/questions/ratingQuestionOption"
                           model="[survey: survey, question: question, option: option, optionIdx: optionIdx]"/>
-                <g:render template="/survey/showModules/questions/surveyQuestionHeaderExtraInfo"
-                          model="[survey: survey, question: question, questionTypeMultiples: questionTypeMultiples]"/>
 
             </g:elseif>
             <g:elseif test="${questionTypeMultiples.contains(question.questionType)}">

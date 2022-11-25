@@ -8,9 +8,6 @@
                 <div class="survey-question-extra-info-range"><g:message
                         code="survey.questions.header.extrainfo.multi.QuestionLimitAnswersType.one.option"
                         args="[question.points]"/></div>
-                <g:render template="/survey/showModules/questions/surveyQuestionContactWeighing"
-                          model="[question: question, oneOptionQuestion: oneOptionQuestion, questionTypeMultiples: questionTypeMultiples, contact: contact]"/>
-
             </g:if>
         </g:if>
 
