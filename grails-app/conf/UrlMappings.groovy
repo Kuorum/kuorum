@@ -354,19 +354,19 @@ class UrlMappings {
         name adminSearcherIndex: "/sec/admin/searcher/indexar"(controller: "admin", action: "solrIndex")
         name adminSearcherFullIndex: "/sec/admin/searcher/full-index"(controller: "admin", action: "fullIndex")
         name adminSearcherFullIndex: "/sec/admin/searcher/full-index"(controller: "admin", action: "fullIndex")
-        name adminRecerateAllCss: "/sec/admin/css/recreateAllCss"(controller: "admin") { action = [GET: "updateDomainCss", POST: "updateDomainCssPost"] }
+        name adminRecerateAllCss: "/sec/admin/css/recreateAllCss"(controller: "admin") { action = [GET: "updateDomainCss", POST: "updateDomainCssPost"]; cacheGlobalEvict="POST"; }
         name adminDomainConfig: "/sec/admin/domain"(controller: "admin") { action = [GET: "domainConfig", POST: "domainConfigSave"]; cacheGlobalEvict="POST"; }
-        name adminDomainConfigLanding: "/sec/admin/domain/landing"(controller: "admin") { action = [GET: "editLandingInfo", POST: "editLandingInfoSave"] }
-        name adminDomainConfigLegalInfo: "/sec/admin/domain/editLegalInfo"(controller: "admin") { action = [GET: "editLegalInfo", POST: "updateLegalInfo"] }
+        name adminDomainConfigLanding: "/sec/admin/domain/landing"(controller: "admin") { action = [GET: "editLandingInfo", POST: "editLandingInfoSave"]; cacheGlobalEvict="POST"; }
+        name adminDomainConfigLegalInfo: "/sec/admin/domain/editLegalInfo"(controller: "admin") { action = [GET: "editLegalInfo", POST: "updateLegalInfo"]; cacheGlobalEvict="POST"; }
         name adminAuthorizedCampaigns: "/sec/admin/domain/authorizedCampaigns"(controller: "admin") { action = [GET: "editAuthorizedCampaigns", POST: "updateAuthorizedCampaigns"];  cacheGlobalEvict="POST"; }
         name adminDomainConfigUploadLogo: "/sec/admin/domain/uploadLogo"(controller: "admin") { action = [GET: "editLogo", POST: "uploadLogo"];  cacheGlobalEvict="POST"; }
         name adminDomainConfigUploadCarouselImages: "/sec/admin/domain/editCarousel"(controller: "admin") { action = [GET: "editCarousel", POST: "uploadCarousel"];  cacheGlobalEvict="POST"; }
         name adminDomainConfigRelevantCampagins: "/sec/admin/domain/relevantCampaigns"(controller: "admin") { action = [GET: "editDomainRelevantCampaigns", POST: "updateDomainRelevantCampaigns"]; cacheGlobalEvict="POST";}
-        name adminDomainConfigPlan: "/sec/admin/domain/update-plan"(controller: "admin") { action = [GET: "editDomainPlan", POST: "saveNewDomainPlan"] }
+        name adminDomainConfigPlan: "/sec/admin/domain/update-plan"(controller: "admin") { action = [GET: "editDomainPlan", POST: "saveNewDomainPlan"]; cacheGlobalEvict="POST"; }
         name adminDomainConfigGoogleValidation: "/sec/admin/domain/google-validation"(controller: "admin", action: "validateDomain"){ cacheGlobalEvict="POST";}
-        name adminDomainValidation: "/sec/admin/domain/validation"(controller: "admin") { action = [GET: "domainValidation", POST: "domainValidationSave"] }
-        name adminRequestEmailSender: "/sec/admin/domain/requestSender"(controller: "admin") { action = [GET: "requestedEmailSender", POST: "requestedEmailSenderSend"] }
-        name adminEditDomainEmailSender: "/sec/admin/domain/setSender"(controller: "admin") { action = [GET: "editDomainEmailSender", POST: "updateDomainEmailSender"] }
+        name adminDomainValidation: "/sec/admin/domain/validation"(controller: "admin") { action = [GET: "domainValidation", POST: "domainValidationSave"]; cacheGlobalEvict="POST"; }
+        name adminRequestEmailSender: "/sec/admin/domain/requestSender"(controller: "admin") { action = [GET: "requestedEmailSender", POST: "requestedEmailSenderSend"]; cacheGlobalEvict="POST"; }
+        name adminEditDomainEmailSender: "/sec/admin/domain/setSender"(controller: "admin") { action = [GET: "editDomainEmailSender", POST: "updateDomainEmailSender"]; cacheGlobalEvict="POST"; }
         name adminDomainDelete: "/sec/admin/domain/delete"(controller: "admin") { action = [GET: "deleteDomain", POST: "deleteDomainConfirm"] }
 
         // REMOVE This entries and his actions
