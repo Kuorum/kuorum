@@ -357,7 +357,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         CampaignRSDTO campaign = campaignService.findByQrCode(params.get("qrCode"))
         String labelExternalId = CustomDomainResolver.domainRSDTO.externalIdName
         if (campaign) {
-            return [command: new ExternIdJoinCommand(campaignId: campaign.id), labelExternalId: labelExternalId, campaign: campaign]
+            return [command: new ExternIdJoinCommand(campaignId: campaign.id, ownerId: campaign.user.id), labelExternalId: labelExternalId, campaign: campaign]
         } else {
             flash.error = message(code: "springSecurity.join.qrCode.error")
             redirect uri: g.createLink(mapping: "joinDomain")
@@ -407,6 +407,9 @@ class KuorumRegisterCommand {
     String password
     Boolean conditions
     String redirectUrl
+    String ownerId
+    String externalId
+    String campaignId
 
     String getUsername() { email }// RegisterController.passwordValidator uses username
     static constraints = {
@@ -451,13 +454,15 @@ class CodeJoinCommand {
 @Validateable
 class ExternIdJoinCommand {
 
-    String externId
+    String externalId
     String campaignId
+    String ownerId
     Boolean conditions
 
     static constraints = {
-        externId nullable: false
+        externalId nullable: false
         campaignId nullable: false
+        ownerId nullable: false
         conditions nullable: false
     }
 }

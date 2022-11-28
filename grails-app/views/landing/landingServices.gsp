@@ -3,20 +3,11 @@
 <head>
     <title>${subtitle}</title>
     <meta name="layout" content="landingLayout">
-    <g:if test="${formName == 'registerForm'}">
         <parameter name="extraHeadCss" value="landing"/>
         <parameter name="showLatestActivities"
                    value="${org.apache.commons.collections.CollectionUtils.isNotEmpty(campaigns)}"/>
         <parameter name="showHowItWorks"
                    value="${org.apache.commons.collections.CollectionUtils.isNotEmpty(landingVisibleRoles)}"/>
-    </g:if>
-    <g:else>
-        <parameter name="disableLogoLink" value="true"/>
-        <parameter name="showNavBar" value="false"/>
-        <parameter name="showHeadSearch" value="false"/>
-        <parameter name="extraHeadCss" value="landing"/>
-    </g:else>
-
     <g:render template="/dashboard/landingMetaTags"
               model="[
                       kuorumTitle      : slogan,
@@ -35,21 +26,19 @@
     <g:render template="/landing/servicesModules/leadersCarousel"
               model="[msgPrefix      : 'landingServices', slogan: slogan, subtitle: subtitle,
                       carouselFooter1: carouselFooter1, carouselFooter2: carouselFooter2,
-                      carouselFooter3: carouselFooter3, command: command, formName: formName]"/>
-
+                                                                          carouselFooter3:carouselFooter3, command: command]"/>
     <g:if test="${domainDescription}">
         <div id="domain-description-landing-main">
             ${raw(domainDescription)}
         </div>
     </g:if>
 </content>
-<g:if test="${formName == 'registerForm'}">
+
     <content tag="howItWorks">
         <g:if test="${landingVisibleRoles}">
             <g:render template="/landing/servicesModules/services" model="[landingVisibleRoles: landingVisibleRoles]"/>
         </g:if>
     </content>
-</g:if>
 
 <content tag="latestActivities">
     <div class="section-header">

@@ -187,10 +187,12 @@ class RestKuorumApiService {
         USER_CONTACT_SUBSCRIBE("/contacts/{userId}/suscribe"),
         USER_CONTACT_REPORT("/contacts/{userId}/report"),
         USER_CONTACT_SOCIAL_IMPORT("/contacts/social/{provider}/request"),
-        USER_CONTACT_EXTERNAL_ID('/contact/{ownerId}/external/{externalId}'),
+        USER_CONTACT_EXTERNAL_ID('/contacts/{ownerId}/external/{externalId}'),
 
         CENSUS_LOGIN("/census/loginByCode/{censusCode}"),
         CENSUS_LOGIN_POST("/census/loginByCode"),
+
+        EXTERNAL_ID_LOGIN_POST("/census/loginByExternalId"),
 
         USER_FOLLOWER("/user/{userId}/follower/"),
         USER_FOLLOWER_FOLLOWING("/user/{userId}/follower/following"),

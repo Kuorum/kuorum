@@ -24,10 +24,13 @@
         <li class=""><div class="step-label"><g:message code="customRegister.step4.title"/></div></li>
     </ol>
     <formUtil:validateForm bean="${command}" form="step0" autocomplete="off"/>
-    <g:form mapping="campaignValidationLinkCheck" name="step0" role="form" method="POST" autocomplete="off"  class="signup step0">
+    <g:form mapping="${formMapping}" name="step0" role="form" method="POST" autocomplete="off"  class="signup step0">
         <input type="hidden" name="censusLogin" value="${censusLogin}"/>
         <input type="hidden" name="email" value="${contact.email}"/>
         <input type="hidden" name="name" value="${contact.name}"/>
+        <input type="hidden" name="externalId" value="${contact.externalId}"/>
+        <input type="hidden" name="ownerId" value="${campaign.user.id}"/>
+        <input type="hidden" name="campaignId" value="${campaign.id}"/>
         <input type="hidden" name="password" value="XXXX"/>
         <fieldset aria-live="polite" class="row">
             <div class="form-group col-xs-12 center">

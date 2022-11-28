@@ -54,45 +54,32 @@ class CampaignValidationController {
             log.info("[censusLogion: ${censusLogin}] : Receviced an invalid census login")
             // Sending to campaign when the code is invalid.
             String censusRedirect = getCensusRedirect(true)
-            render view: '/campaignValidation/step0RegisterWithCensusCode_ERROR' , model:[redirectUrl:censusRedirect]
-        }else{
+            render view: '/campaignValidation/step0RegisterWithCensusCode_ERROR', model: [redirectUrl: censusRedirect]
+        } else {
             CampaignLightRSDTO campaign = censusLoginData.getCampaign();
             ContactRSDTO contact = censusLoginData.getContact();
-
-            //Aqui es dinde hay que cortar
+            //DLV
             logoutIfContactDifferentAsLoggedUser(contact, censusLogin);
             log.info("[censusLogion: ${censusLogin}] : Receviced a valid censusLogin -> Contact: ${contact.email}")
             Evidences evidences = new HttpRequestRecoverEvidences(request);
-            if (campaign.closed){
+            if (campaign.closed) {
                 // The closed view needs the OwnerTimeZone which is not mapped on camapaign ligh
-                CampaignRSDTO campaignRSDTO = campaignService.find(campaign.getUser(), campaign.id, null)
-                if (campaign.getStartDate().after(new Date())) {
-                    // CAMPAIGN NOT OPEN
-                    render view: '/campaignValidation/step0RegisterWithCensusCode_NOT_ACTIVE', model: [redirectUrl: null, contact: contact, campaign: campaignRSDTO]
-                    log.info("[censusLogion: ${censusLogin}] : Receviced a valid censusLogin -> Campaign is not open.");
-                } else {
-                    // CAMPAIGN FINISHED
-                    log.info("[censusLogion: ${censusLogin}] : Receviced a valid censusLogin -> Campaign is finished.");
-                    render view: '/campaignValidation/campaignClosed', model: [redirectUrl: null, contact: contact, campaign: campaignRSDTO]
-                }
-            } else if (springSecurityService.isLoggedIn()){
+                campaignClosedError(campaignService.find(campaign.getUser(), campaign.id, null), contact)
+            } else if (springSecurityService.isLoggedIn()) {
 //                flash.message="You are already logged"
                 log.info("[censusLogion: ${censusLogin}] : Receviced a valid censusLogin -> User is logged and is the same as the censusLogin.");
-                KuorumUserRSDTO userFromContact = censusService.createUserByCensusCode(censusLogin, evidences); // THis method creates the user if not exists and then validates it.
+                KuorumUserRSDTO userFromContact = censusService.createUserByCensusCode(censusLogin, evidences);
+                // THis method creates the user if not exists and then validates it.
                 censusService.deleteCensusCode(censusLogin)
-                redirect uri:calcNextStepMappingName(campaign)
-            }else if (contact.getMongoId()) {
+                redirect uri: calcNextStepMappingName(campaign)
+            } else if (contact.getMongoId()) {
                 if (showLandingData) {
                     log.info("[censusLogion: ${censusLogin}] : User exists, but we are going to show the contact data page ")
                     // Reathenticating to remove an external redirec
                     KuorumUserRSDTO userFromContact = kuorumUserService.findUserRSDTO(contact.getMongoId())
 
                     springSecurityService.reauthenticate userFromContact.getEmailOrAlternative()
-                    render view: '/campaignValidation/step0RegisterWithCensusCode', model: [
-                            contact    : contact,
-                            censusLogin: censusLogin,
-                            campaign   : campaign,
-                            command    : new KuorumRegisterCommand()]
+                    redirectToRegister0(contact, censusLogin, campaign, 'campaignValidationLinkCheck')
 
                 } else {
                     log.info("[censusLogion: ${censusLogin}] : User already exists. Recovering user and reauthenticate it ")
@@ -100,187 +87,248 @@ class CampaignValidationController {
                     springSecurityService.reauthenticate userFromContact.getEmailOrAlternative()
                     redirect uri: calcNextStepMappingName(campaign)
                 }
-            }else{
+            } else {
                 // DEFAULT
                 log.info("[censusLogion: ${censusLogin}] : User doesn't exists. Showing contact data page ")
-                render view: '/campaignValidation/step0RegisterWithCensusCode', model:[
-                        contact: contact,
-                        censusLogin:censusLogin,
-                        campaign: campaign,
-                        command:new KuorumRegisterCommand()]
+                redirectToRegister0(contact, censusLogin, campaign, 'campaignValidationLinkCheck')
             }
         }
     }
 
-    private void logoutIfContactDifferentAsLoggedUser(ContactRSDTO contact, String censusLogin){
-        if (springSecurityService.isLoggedIn()){
+    private redirectToRegister0(ContactRSDTO contact, String censusLogin, BasicCampaignInfoRSDTO campaign, String formMapping) {
+        render view: '/campaignValidation/step0RegisterWithCensusCode', model: [
+                contact    : contact,
+                censusLogin: censusLogin,
+                campaign   : campaign,
+                formMapping: formMapping,
+                command    : new KuorumRegisterCommand()]
+    }
+
+    def step0RegisterWithExternalId() {
+        CampaignRSDTO campaign = campaignService.find(params.get("ownerId"), Long.valueOf(params.get("campaignId")), null)
+        if (campaign) {
+            ContactRSDTO contact = contactService.getContactByExternalId(campaign.getUser().getId(), params.get("externalId"))
+            if (contact) {
+
+                logoutIfContactDifferentAsLoggedUser(contact, null);
+                log.info("[externalIdJoin: ${params.get("externalId")}] : Receviced a valid Contact: ${contact.name},${contact.email}")
+                Evidences evidences = new HttpRequestRecoverEvidences(request);
+
+                if (campaign.closed) {
+                    campaignClosedError(campaign, contact)
+                } else if (springSecurityService.isLoggedIn()) {
+                    log.info("[externalIdJoin: ${contact}] : Receviced a valid contact -> User is logged and is the same as the censusLogin.");
+                    KuorumUserRSDTO userFromContact = censusService.createUserByExternalId(contact, evidences, campaign.user.id, campaign.id);
+                    // THis method creates the user if not exists and then validates it.
+                    redirect uri: calcNextStepMappingName(campaign)
+                } else if (contact.getMongoId()) {
+                    if (showLandingData) {
+                        log.info("[externalIdJoin: ${contact}] : User exists, but we are going to show the contact data page ")
+                        // Reathenticating to remove an external redirec
+                        KuorumUserRSDTO userFromContact = kuorumUserService.findUserRSDTO(contact.getMongoId())
+
+                        springSecurityService.reauthenticate userFromContact.getEmailOrAlternative()
+                        redirectToRegister0(contact, null, campaign, 'campaignValidationLinkCheckExternal')
+                    } else {
+                        log.info("[externalIdJoin: ${contact}] : User already exists. Recovering user and reauthenticate it ")
+                        KuorumUserRSDTO userFromContact = censusService.createUserByExternalId(contact, evidences, campaign.user.id, campaign.id);
+                        springSecurityService.reauthenticate userFromContact.getEmailOrAlternative()
+                        redirect uri: calcNextStepMappingName(campaign)
+                    }
+                } else {
+                    // DEFAULT
+                    log.info("[externalIdJoin: ${contact}] : User doesn't exists. Showing contact data page ")
+                    redirectToRegister0(contact, null, campaign, 'campaignValidationLinkCheckExternal')
+                }
+            } else {
+                flash.error = message(code: "kuorum.langings.join.external.error")
+                redirect uri: g.createLink(mapping: "joinDomainCheck", params: [qrCode: campaign.qrCode])
+            }
+        } else {
+            flash.error = message(code: "kuorum.langings.join.external.error")
+            redirect uri: g.createLink(mapping: "joinDomain")
+        }
+    }
+
+    private void campaignClosedError(CampaignRSDTO campaign, ContactRSDTO contact) {
+        if (campaign.getStartDate().after(new Date())) {
+            // CAMPAIGN NOT OPEN
+            render view: '/campaignValidation/step0RegisterWithCensusCode_NOT_ACTIVE', model: [redirectUrl: null, contact: contact, campaign: campaign]
+            log.info("[contactLogion: ${contact.email}] : Receviced a valid censusLogin -> Campaign is not open.");
+        } else {
+            // CAMPAIGN FINISHED
+            log.info("[contactLogion: ${contact.email}] : Receviced a valid censusLogin -> Campaign is finished.");
+            render view: '/campaignValidation/campaignClosed', model: [redirectUrl: null, contact: contact, campaign: campaign]
+        }
+    }
+
+    private void logoutIfContactDifferentAsLoggedUser(ContactRSDTO contact, String censusLogin) {
+        if (springSecurityService.isLoggedIn()) {
             KuorumUserSession userSession = springSecurityService.principal
-            if (userSession.email != contact.email){
-                log.info("[censusLogion: ${censusLogin}] : Logging out user (${userSession.email}) because it is using a censusLogin of different contact (${contact.email}")
+            if (userSession.email != contact.email) {
+                log.info("[censusOrExternalIdLogion: ${censusLogin ?: userSession.name}] : Logging out user (${userSession.email}) because it is using a censusLogin of different contact (${contact.email}")
                 registerService.logout(request, response)
             }
         }
     }
 
-    def step0RegisterWithCensusCodeSave(KuorumRegisterCommand command){
+    def step0RegisterWithCensusCodeSave(KuorumRegisterCommand command) {
 
         String censusLogin = params['censusLogin'];
         CensusLoginRDTO censusLoginRDTO = censusService.getContactByCensusCode(censusLogin)
 
-        if (!censusLoginRDTO){
+        if (!censusLoginRDTO) {
             log.warn("[censusLogion: ${censusLogin}] : Invalid census login. Redirecting to home")
-            flash.error="Your link is not valid. "
-            redirect mapping:'home'
-        }else{
+            flash.error = "Your link is not valid. "
+            redirect mapping: 'home'
+        } else {
             log.info("[censusLogion: ${censusLogin}] : Valid census login => Creating user")
             Evidences evidences = new HttpRequestRecoverEvidences(request);
-            KuorumUserRSDTO userRSDTO = censusService.createUserByCensusCode(censusLogin,evidences);
+            KuorumUserRSDTO userRSDTO = censusService.createUserByCensusCode(censusLogin, evidences);
             springSecurityService.reauthenticate userRSDTO.getEmailOrAlternative()
             //TODO adecuado???? permite continuar???
             censusService.deleteCensusCode(censusLogin)
-            redirect uri:calcNextStepMappingName(censusLoginRDTO.getCampaign())
+            redirect uri: calcNextStepMappingName(censusLoginRDTO.getCampaign())
         }
+    }
+
+    def step0RegisterWithExternalIdSave(KuorumRegisterCommand command) {
+
+        log.info("[externalIdLogion: ${command.externalId}] : Valid contact login => Creating user")
+        Evidences evidences = new HttpRequestRecoverEvidences(request);
+        KuorumUserRSDTO userRSDTO = censusService.createUserByExternalId(contactService.getContactByExternalId(command.ownerId, command.externalId), evidences, command.ownerId, command.campaignId.toLong());
+        springSecurityService.reauthenticate userRSDTO.getEmailOrAlternative()
+        redirect uri: calcNextStepMappingName(campaignService.find(command.ownerId, command.campaignId.toLong()), null)
     }
 
 
     @Secured('IS_AUTHENTICATED_REMEMBERED')
-    def stepCampaignValidationCensus(){
+    def stepCampaignValidationCensus() {
         log.info("Loading form of validation via CENSUS")
         CampaignRSDTO campaign = getCampaignRSDTO(params)
         [command: new DomainValidationCommand(), campaign: campaign]
     }
 
     @Secured('IS_AUTHENTICATED_REMEMBERED')
-    def stepCampaignValidationCensusSave(DomainValidationCommand command){
+    def stepCampaignValidationCensusSave(DomainValidationCommand command) {
         log.info("Saving form of validation via CENSUS")
         CampaignRSDTO campaign = getCampaignRSDTO(params)
-        if (command.hasErrors()){
-            render view: "stepCampaignValidationCensus", model:[command:command,campaign: campaign]
+        if (command.hasErrors()) {
+            render view: "stepCampaignValidationCensus", model: [command: command, campaign: campaign]
             return
         }
-        KuorumUserSession user =  springSecurityService.principal
+        KuorumUserSession user = springSecurityService.principal
         Evidences evidences = new HttpRequestRecoverEvidences(request);
         UserValidationRSDTO validationRSDTO = kuorumUserService.userDomainValidation(user, evidences, campaign.getId(), command.ndi, command.postalCode, command.birthDate)
-        if (validationRSDTO.censusStatus.isGranted()){
-            redirect uri:calcNextStepMappingName(campaign,validationRSDTO)
-        }else{
-            flash.error =g.message(code:'kuorum.web.commands.profile.DomainValidationCommand.validationError')
-            render view: "stepCampaignValidationCensus", model:[command:command, campaign: campaign]
+        if (validationRSDTO.censusStatus.isGranted()) {
+            redirect uri: calcNextStepMappingName(campaign, validationRSDTO)
+        } else {
+            flash.error = g.message(code: 'kuorum.web.commands.profile.DomainValidationCommand.validationError')
+            render view: "stepCampaignValidationCensus", model: [command: command, campaign: campaign]
         }
     }
 
     @Secured('IS_AUTHENTICATED_REMEMBERED')
-    def stepCampaignValidationCustomCode(){
+    def stepCampaignValidationCustomCode() {
         log.info("Loading form of validation via CODE")
         CampaignRSDTO campaign = getCampaignRSDTO(params)
-        [command: new DomainUserCustomCodeValidationCommand(), campaign:campaign]
+        [command: new DomainUserCustomCodeValidationCommand(), campaign: campaign]
     }
 
+
     @Secured('IS_AUTHENTICATED_REMEMBERED')
-    def stepCampaignValidationCustomCodeSave(DomainUserCustomCodeValidationCommand command){
+    def stepCampaignValidationCustomCodeSave(DomainUserCustomCodeValidationCommand command) {
         log.info("Saving form of validation via CODE")
         CampaignRSDTO campaign = getCampaignRSDTO(params)
-        if (command.hasErrors()){
-            render view: "stepCampaignValidationCustomCode", model:[command:command,campaign:campaign]
+        if (command.hasErrors()) {
+            render view: "stepCampaignValidationCustomCode", model: [command: command, campaign: campaign]
             return
         }
-        KuorumUserSession userSession =  springSecurityService.principal
+        KuorumUserSession userSession = springSecurityService.principal
         Evidences evidences = new HttpRequestRecoverEvidences(request);
         UserValidationRSDTO userValidationRSDTO = kuorumUserService.userCodeDomainValidation(userSession, evidences, campaign.getId(), command.customCode)
         String msg;
-        if (userValidationRSDTO.codeStatus.isGranted()){
+        if (userValidationRSDTO.codeStatus.isGranted()) {
             msg = "Success validation"
-        }else{
-            msg = g.message(code:"kuorum.web.commands.profile.DomainUserCustomCodeValidationCommand.customCode.validationError", args:[userSession.email.replaceFirst(/([^@]{3}).*@(..).*/,"\$1***@\$2***")])
+        } else {
+            msg = g.message(code: "kuorum.web.commands.profile.DomainUserCustomCodeValidationCommand.customCode.validationError", args: [userSession.email.replaceFirst(/([^@]{3}).*@(..).*/, "\$1***@\$2***")])
             log.info("Error validating user: ${msg}")
         }
 
-        if (userValidationRSDTO.codeStatus.isGranted()){
-            redirect uri:calcNextStepMappingName(campaign,userValidationRSDTO)
-        }else{
-            command.errors.rejectValue('customCode',"validationError", msg)
-            render view: "stepCampaignValidationCustomCode", model:[command:command, campaign:campaign]
+        if (userValidationRSDTO.codeStatus.isGranted()) {
+            redirect uri: calcNextStepMappingName(campaign, userValidationRSDTO)
+        } else {
+            command.errors.rejectValue('customCode', "validationError", msg)
+            render view: "stepCampaignValidationCustomCode", model: [command: command, campaign: campaign]
         }
     }
 
-
     @Secured('IS_AUTHENTICATED_REMEMBERED')
-    def stepCampaignValidationPhoneNumber(){
+    def stepCampaignValidationPhoneNumber() {
         log.info("Loading form of validation via PHONE [input phone/show contact phone]")
         CampaignRSDTO campaign = getCampaignRSDTO(params)
         return modelInputPhoneValidationStep(null, campaign)
     }
 
     @Secured('IS_AUTHENTICATED_REMEMBERED')
-    def stepCampaignValidationPhoneCode(DomainUserPhoneValidationCommand command){
+    def stepCampaignValidationPhoneCode(DomainUserPhoneValidationCommand command) {
         log.info("Sending code for validation via PHONE ")
         CampaignRSDTO campaign = getCampaignRSDTO(params)
-        if (command.hasErrors()){
-            render view: "stepCampaignValidationPhoneNumber", model:modelInputPhoneValidationStep(command, campaign)
+        if (command.hasErrors()) {
+            render view: "stepCampaignValidationPhoneNumber", model: modelInputPhoneValidationStep(command, campaign)
             return
         }
-        KuorumUserSession userSession =  springSecurityService.principal
-        try{
-            UserPhoneValidationRDTO userPhoneValidationRDTO = kuorumUserService.sendSMSWithValidationCode(userSession,campaign.getId(), command.phoneNumber.toString(), command.phoneNumberPrefix)
-            [command:new DomainUserPhoneCodeValidationCommand(
+        KuorumUserSession userSession = springSecurityService.principal
+        try {
+            UserPhoneValidationRDTO userPhoneValidationRDTO = kuorumUserService.sendSMSWithValidationCode(userSession, campaign.getId(), command.phoneNumber.toString(), command.phoneNumberPrefix)
+            [command : new DomainUserPhoneCodeValidationCommand(
                     phoneHash: userPhoneValidationRDTO.getHash(),
                     validationPhoneNumberPrefix: userPhoneValidationRDTO.getPhoneNumberPrefix(),
                     validationPhoneNumber: userPhoneValidationRDTO.getPhoneNumber()),
-            campaign: campaign]
-        }catch(KuorumException e){
+             campaign: campaign]
+        } catch (KuorumException e) {
             command.errors.rejectValue("phoneNumber", 'kuorum.web.commands.profile.DomainUserPhoneValidationCommand.phoneNumber.repeatedNumber')
-            render view: "stepCampaignValidationPhoneNumber", model:modelInputPhoneValidationStep(command, campaign)
+            render view: "stepCampaignValidationPhoneNumber", model: modelInputPhoneValidationStep(command, campaign)
             return
-        }catch(Exception e){
-            flash.message="Internal error. Try again or contact with info@kuorum.org"
-            render view: "stepCampaignValidationPhoneNumber", model:modelInputPhoneValidationStep(command, campaign)
+        } catch (Exception e) {
+            flash.message = "Internal error. Try again or contact with info@kuorum.org"
+            render view: "stepCampaignValidationPhoneNumber", model: modelInputPhoneValidationStep(command, campaign)
             return
         }
     }
 
-    def step0RegisterWithExternalId() {
-        KuorumUserSession user = springSecurityService.principal
-        CampaignRSDTO campaign = campaignService.find(user,params.get("campaignId"))
-        ContactRSDTO contact = contactService.getContactByExternalId(campaign.getUser().getId(),params.get("externalId"))
-        if(campaign) {
-        }else{
-            flash.error = message(code: "kuorum.langings.join.external.error")
-            redirect uri: g.createLink(mapping: "joinDomain")
-        }
-    }
-
-    private def modelInputPhoneValidationStep(DomainUserPhoneValidationCommand command, CampaignRSDTO campaign){
-        if (command == null){
+    private def modelInputPhoneValidationStep(DomainUserPhoneValidationCommand command, CampaignRSDTO campaign) {
+        if (command == null) {
             command = new DomainUserPhoneValidationCommand()
         }
-        KuorumUserSession userSession =  springSecurityService.principal
+        KuorumUserSession userSession = springSecurityService.principal
         KuorumUserExtraDataRSDTO extraDataRSDTO = kuorumUserService.findUserExtendedDataRSDTO(userSession)
         String phone = extraDataRSDTO.phoneNumber?.encodeAsHiddenPhone()
-        Boolean predefinedPhone = extraDataRSDTO.phoneNumber?true:false;
-        return [predefinedPhone:predefinedPhone, phone:phone, command: command, campaign: campaign]
+        Boolean predefinedPhone = extraDataRSDTO.phoneNumber ? true : false;
+        return [predefinedPhone: predefinedPhone, phone: phone, command: command, campaign: campaign]
     }
 
     @Secured('IS_AUTHENTICATED_REMEMBERED')
-    def stepCampaignValidationPhoneCodeSave(DomainUserPhoneCodeValidationCommand command){
+    def stepCampaignValidationPhoneCodeSave(DomainUserPhoneCodeValidationCommand command) {
         log.info("Saving form of validation via PHONE [checking code]")
         CampaignRSDTO campaign = getCampaignRSDTO(params)
-        if (command.hasErrors()){
-            render view: "stepCampaignValidationPhoneCode", model:[command:command, campaign: campaign]
+        if (command.hasErrors()) {
+            render view: "stepCampaignValidationPhoneCode", model: [command: command, campaign: campaign]
             return
         }
         KuorumUserSession userSession = springSecurityService.principal
         Evidences evidences = new HttpRequestRecoverEvidences(request);
-        UserValidationRSDTO userValidationRSDTO = kuorumUserService.userPhoneDomainValidation(userSession, evidences, campaign.getId(),command.validationPhoneNumberPrefix, command.validationPhoneNumber, command.phoneHash, command.phoneCode)
-        if (userValidationRSDTO.phoneStatus.isGranted()){
-            redirect uri:calcNextStepMappingName(campaign,userValidationRSDTO)
-        }else{
-            command.errors.rejectValue("phoneCode","kuorum.web.commands.profile.DomainUserPhoneCodeValidationCommand.phoneCode.validationError");
-            render view: "stepCampaignValidationPhoneCode", model:[command:command, campaign: campaign]
+        UserValidationRSDTO userValidationRSDTO = kuorumUserService.userPhoneDomainValidation(userSession, evidences, campaign.getId(), command.validationPhoneNumberPrefix, command.validationPhoneNumber, command.phoneHash, command.phoneCode)
+        if (userValidationRSDTO.phoneStatus.isGranted()) {
+            redirect uri: calcNextStepMappingName(campaign, userValidationRSDTO)
+        } else {
+            command.errors.rejectValue("phoneCode", "kuorum.web.commands.profile.DomainUserPhoneCodeValidationCommand.phoneCode.validationError");
+            render view: "stepCampaignValidationPhoneCode", model: [command: command, campaign: campaign]
         }
     }
 
 
-    private String calcNextStepMappingName(BasicCampaignInfoRSDTO campaignRSDTO, UserValidationRSDTO validationRSDTO=null) {
+    private String calcNextStepMappingName(BasicCampaignInfoRSDTO campaignRSDTO, UserValidationRSDTO validationRSDTO = null) {
         if (springSecurityService.isLoggedIn()) {
             KuorumUserSession userSession = springSecurityService.principal
             if (!validationRSDTO) {
@@ -288,20 +336,20 @@ class CampaignValidationController {
             }
             if (!validationRSDTO.censusStatus.granted) {
                 return g.createLink(mapping: "campaignValidationCensus", params: campaignRSDTO.encodeAsLinkProperties());
-            }else if (!validationRSDTO.codeStatus.granted){
-                return g.createLink(mapping: "campaignValidationCode",params: campaignRSDTO.encodeAsLinkProperties());
-            }else if (!validationRSDTO.phoneStatus.granted) {
+            } else if (!validationRSDTO.codeStatus.granted) {
+                return g.createLink(mapping: "campaignValidationCode", params: campaignRSDTO.encodeAsLinkProperties());
+            } else if (!validationRSDTO.phoneStatus.granted) {
                 return g.createLink(mapping: "campaignValidationPhoneNumber", params: campaignRSDTO.encodeAsLinkProperties())
-            }else if (campaignRSDTO){
+            } else if (campaignRSDTO) {
                 return g.createLink(mapping: "campaignShow", params: campaignRSDTO.encodeAsLinkProperties(), fragment: "survey-questions")
-            }else {
+            } else {
                 return getCensusRedirect(true);
             }
         } else {
             // NO LOGGED
             String censusRedirect = getCensusRedirect(true);
             log.info("Calculating redirect for an unlogged user: Campaign ${campaignRSDTO}")
-            if (campaignRSDTO){
+            if (campaignRSDTO) {
                 return g.createLink(mapping: "campaignShow", params: campaignRSDTO.encodeAsLinkProperties())
             } else {
                 return censusRedirect;
@@ -309,7 +357,7 @@ class CampaignValidationController {
         }
     }
 
-    private CampaignRSDTO getCampaignRSDTO(def params){
+    private CampaignRSDTO getCampaignRSDTO(def params) {
         BasicDataKuorumUserRSDTO user = kuorumUserService.findBasicUserRSDTO(params.userAlias)
         CampaignRSDTO campaignRSDTO = campaignService.find(user, Long.parseLong(params.campaignId))
         if (!campaignRSDTO) {
@@ -318,12 +366,12 @@ class CampaignValidationController {
         return campaignRSDTO;
     }
 
-    private String getCensusRedirect(Boolean deleteCookie){
+    private String getCensusRedirect(Boolean deleteCookie) {
         String censusRedirect = cookieUUIDService.getDomainCookie(WebConstants.COOKIE_URL_CALLBACK_CENSUS_LOGIN)
-        if (deleteCookie){
+        if (deleteCookie) {
             cookieUUIDService.deleteDomainCookie(WebConstants.COOKIE_URL_CALLBACK_CENSUS_LOGIN)
         }
-        if (!censusRedirect){
+        if (!censusRedirect) {
             censusRedirect = g.createLink(mapping: "home");
         }
         return censusRedirect

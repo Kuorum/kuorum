@@ -23,7 +23,7 @@ class UrlMappings {
 
         name joinDomain: "/join"(controller: "register") { action = [GET: "join"] }
         name joinDomainCheck: "/join/$qrCode"(controller: "register" , action:"joinCheck")
-        name joinDomainId: "/joinExternalId"(controller: "campaignValidation") { action = [POST: "joinId"] }
+        name joinDomainId: "/join/id"(controller: "campaignValidation") { action = [POST: "step0RegisterWithExternalId"] }
 
         name home: "/"(controller: "landing", action: "landingServices") { formName = "registerForm"; mappingName = "home"; cacheActive = "LANDING" }
         name en_home: "/"(controller: "landing", action: "landingServices") { formName = "registerForm"; mappingName = "home";cacheActive = "LANDING" }
@@ -325,6 +325,7 @@ class UrlMappings {
 
         name campaignValidationInitProcess: "/$userAlias/$urlTitle-$campaignId/validation"(controller: "campaignValidation", action: 'initValidation')
         name campaignValidationLinkCheck: "/sign-up/census"(controller: "campaignValidation") { action = [GET: "step0RegisterWithCensusCode", POST: "step0RegisterWithCensusCodeSave"] }
+        name campaignValidationLinkCheckExternal: "/sign-up/external"(controller: "campaignValidation") { action = [POST: "step0RegisterWithExternalIdSave"] }
         name campaignValidationCensus: "/$userAlias/$urlTitle-$campaignId/validation/census"(controller: "campaignValidation") { action = [GET: "stepCampaignValidationCensus", POST: "stepCampaignValidationCensusSave"] }
         name campaignValidationCode: "/$userAlias/$urlTitle-$campaignId/validation/customCode"(controller: "campaignValidation") { action = [GET: "stepCampaignValidationCustomCode", POST: "stepCampaignValidationCustomCodeSave"] }
         name campaignValidationPhoneNumber: "/$userAlias/$urlTitle-$campaignId/validation/phone/number"(controller: "campaignValidation") { action = [GET: "stepCampaignValidationPhoneNumber"] }

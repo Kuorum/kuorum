@@ -20,7 +20,7 @@
                 <div class="form-group">
                     <formUtil:input
                             command="${command}"
-                            field="externId"
+                            field="externalId"
                             showLabel="true"
                             label="${labelExternalId}"
                             showCharCounter="false"
@@ -37,7 +37,8 @@
                         <g:message code="springSecurity.CodeJoinCommand.submit"/>
                     </button>
                 </div>
-                <input type="hidden" value="${command.campaignId}">
+                <input type="hidden" name="campaignId" value="${command.campaignId}">
+                <input type="hidden" name="ownerId" value="${command.ownerId}">
                 <r:require modules="recaptcha_register"/>
             </fieldset>
         </g:form>
