@@ -37,7 +37,12 @@ class CensusService {
     }
 
     KuorumUserRSDTO createUserByExternalId(ContactRSDTO contact, Evidences evidences, String ownerId, Long campaignId) {
-        ExternalIdValidationDTO externalIdValidationDTO = new ExternalIdValidationDTO(externalId: contact.externalId, ownerId: ownerId, campaignId: campaignId, ip: evidences.getIp(), browserType: evidences.getBrowser())
+        ExternalIdValidationDTO externalIdValidationDTO = new ExternalIdValidationDTO(
+                externalId: contact.externalId,
+                ownerId: ownerId,
+                campaignId: campaignId,
+                ip: evidences.getIp(),
+                browserType: evidences.getBrowser())
         def response = restKuorumApiService.post(
                 RestKuorumApiService.ApiMethod.EXTERNAL_ID_LOGIN_POST,
                 [:],

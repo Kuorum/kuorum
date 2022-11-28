@@ -16,15 +16,20 @@
 
 <content tag="mainContent">
     <ol class="stepsSign">
-        <li class="active"><div class="step-label"><g:message code="kuorum.web.commands.profile.directCensusLogin.title"/></div></li>
-        <g:if test="${_domainValidations.census}"><li class=""><div class="step-label"><g:message code="kuorum.web.commands.profile.DomainValidationCommand.title"/></div></li></g:if>
-        <g:if test="${_domainValidations.customCode}"><li class=""><div class="step-label"><g:message code="kuorum.web.commands.profile.DomainUserCustomCodeValidationCommand.title"/></div></li></g:if>
-        <g:if test="${_domainValidations.phone}"><li class=""><div class="step-label"><g:message code="kuorum.web.commands.profile.DomainUserPhoneValidationCommand.title"/></div></li></g:if>
-        <g:if test="${_domainValidations.phone}"><li class=""><div class="step-label"><g:message code="kuorum.web.commands.profile.DomainUserPhoneCodeValidationCommand.title"/></div></li></g:if>
+        <li class="active"><div class="step-label"><g:message
+                code="kuorum.web.commands.profile.directCensusLogin.title"/></div></li>
+        <g:if test="${_domainValidations.census}"><li class=""><div class="step-label"><g:message
+                code="kuorum.web.commands.profile.DomainValidationCommand.title"/></div></li></g:if>
+        <g:if test="${_domainValidations.customCode}"><li class=""><div class="step-label"><g:message
+                code="kuorum.web.commands.profile.DomainUserCustomCodeValidationCommand.title"/></div></li></g:if>
+        <g:if test="${_domainValidations.phone}"><li class=""><div class="step-label"><g:message
+                code="kuorum.web.commands.profile.DomainUserPhoneValidationCommand.title"/></div></li></g:if>
+        <g:if test="${_domainValidations.phone}"><li class=""><div class="step-label"><g:message
+                code="kuorum.web.commands.profile.DomainUserPhoneCodeValidationCommand.title"/></div></li></g:if>
         <li class=""><div class="step-label"><g:message code="customRegister.step4.title"/></div></li>
     </ol>
     <formUtil:validateForm bean="${command}" form="step0" autocomplete="off"/>
-    <g:form mapping="${formMapping}" name="step0" role="form" method="POST" autocomplete="off"  class="signup step0">
+    <g:form mapping="${formMapping}" name="step0" role="form" method="POST" autocomplete="off" class="signup step0">
         <input type="hidden" name="censusLogin" value="${censusLogin}"/>
         <input type="hidden" name="email" value="${contact.email}"/>
         <input type="hidden" name="name" value="${contact.name}"/>
@@ -34,8 +39,16 @@
         <input type="hidden" name="password" value="XXXX"/>
         <fieldset aria-live="polite" class="row">
             <div class="form-group col-xs-12 center">
-                <p><g:message code="kuorum.web.commands.profile.directCensusLogin.intro" args="[contact.name]" encodeAs="raw"/></p>
-                <g:render template="step0RegisterWithCensusCode_CodeData" model="[contact:contact, campaign:campaign]"/>
+                <p>
+                    <g:if test="${formMapping == 'campaignValidationLinkCheck'}">
+                        <g:message code="kuorum.web.commands.profile.directCensusLogin.singleUse" args="[contact.name]"
+                                   encodeAs="raw"/>
+                    </g:if>
+                    <g:message code="kuorum.web.commands.profile.directCensusLogin.intro" args="[contact.name]"
+                               encodeAs="raw"/>
+                </p>
+                <g:render template="step0RegisterWithCensusCode_CodeData"
+                          model="[contact: contact, campaign: campaign]"/>
             </div>
         </fieldset>
         <fieldset aria-live="polite" class="row">

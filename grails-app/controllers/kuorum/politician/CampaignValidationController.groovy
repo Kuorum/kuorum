@@ -116,19 +116,21 @@ class CampaignValidationController {
 
                 if (campaign.closed) {
                     campaignClosedError(campaign, contact)
+
                 } else if (springSecurityService.isLoggedIn()) {
                     log.info("[externalIdJoin: ${contact}] : Receviced a valid contact -> User is logged and is the same as the censusLogin.");
                     KuorumUserRSDTO userFromContact = censusService.createUserByExternalId(contact, evidences, campaign.user.id, campaign.id);
                     // THis method creates the user if not exists and then validates it.
                     redirect uri: calcNextStepMappingName(campaign)
+
                 } else if (contact.getMongoId()) {
                     if (showLandingData) {
                         log.info("[externalIdJoin: ${contact}] : User exists, but we are going to show the contact data page ")
                         // Reathenticating to remove an external redirec
                         KuorumUserRSDTO userFromContact = kuorumUserService.findUserRSDTO(contact.getMongoId())
-
                         springSecurityService.reauthenticate userFromContact.getEmailOrAlternative()
                         redirectToRegister0(contact, null, campaign, 'campaignValidationLinkCheckExternal')
+
                     } else {
                         log.info("[externalIdJoin: ${contact}] : User already exists. Recovering user and reauthenticate it ")
                         KuorumUserRSDTO userFromContact = censusService.createUserByExternalId(contact, evidences, campaign.user.id, campaign.id);
@@ -196,8 +198,13 @@ class CampaignValidationController {
 
         log.info("[externalIdLogion: ${command.externalId}] : Valid contact login => Creating user")
         Evidences evidences = new HttpRequestRecoverEvidences(request);
-        KuorumUserRSDTO userRSDTO = censusService.createUserByExternalId(contactService.getContactByExternalId(command.ownerId, command.externalId), evidences, command.ownerId, command.campaignId.toLong());
-        springSecurityService.reauthenticate userRSDTO.getEmailOrAlternative()
+        try {
+            KuorumUserRSDTO userRSDTO = censusService.createUserByExternalId(contactService.getContactByExternalId(command.ownerId, command.externalId), evidences, command.ownerId, command.campaignId.toLong());
+            springSecurityService.reauthenticate userRSDTO.getEmailOrAlternative()
+        } catch (Exception e) {
+            flash.error = "Your data is not valid. "
+            redirect mapping: 'home'
+        }
         redirect uri: calcNextStepMappingName(campaignService.find(command.ownerId, command.campaignId.toLong()), null)
     }
 

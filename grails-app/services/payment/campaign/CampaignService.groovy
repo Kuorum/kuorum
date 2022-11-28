@@ -105,12 +105,8 @@ class CampaignService {
                     [:],
                     new TypeReference<CampaignRSDTO>() {}
             )
-            CampaignRSDTO campaignRSDTO = null
-            if (response.data) {
-                campaignRSDTO = (CampaignRSDTO) response.data
-            }
-            return campaignRSDTO
-        } catch (Exception e) { //TODO que mierda es esto
+            return response.data?:null
+        } catch (Exception e) {
             log.info("Error recovering campaign by qr code $qrCode : ${e.message}")
             return null
         }
