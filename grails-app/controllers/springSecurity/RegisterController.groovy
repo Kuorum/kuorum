@@ -24,10 +24,12 @@ import kuorum.web.commands.customRegister.ForgotUserPasswordCommand
 import kuorum.web.users.KuorumRegistrationCode
 import org.codehaus.groovy.grails.web.context.ServletContextHolder
 import org.codehaus.groovy.grails.web.servlet.GrailsApplicationAttributes
+import org.kuorum.rest.model.communication.CampaignRSDTO
 import org.kuorum.rest.model.communication.survey.SurveyRSDTO
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.web.authentication.RememberMeServices
+import payment.campaign.CampaignService
 import payment.campaign.SurveyService
 
 class RegisterController extends grails.plugin.springsecurity.ui.RegisterController {
@@ -40,6 +42,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
     SpringSecurityUiService springSecurityUiService
     NotificationService notificationService
     IndexSolrService indexSolrService
+    CampaignService campaignService
 
     FileService fileService
     CookieUUIDService cookieUUIDService
@@ -91,12 +94,12 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         def response = mailKuorumServices.get(
                 path: path,
                 headers: ["User-Agent": "Kuorum Web"],
-                query:query,
-                requestContentType : groovyx.net.http.ContentType.JSON
+                query: query,
+                requestContentType: groovyx.net.http.ContentType.JSON
         )
 
         log.info("Checking CAPTCHA :: Google response - ${response.data.hostname} || domain : ${CustomDomainResolver.domain}")
-        if(!response.data.success && response.data.hostname != CustomDomainResolver.domain)
+        if (!response.data.success && response.data.hostname != CustomDomainResolver.domain)
             return false
         else
             return true
@@ -104,17 +107,18 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
 
     RememberMeServices rememberMeServices
 
-    def registerRRSSOAuthAjax(){
+    def registerRRSSOAuthAjax() {
         params.remove("controller")
         params.remove("action")
         params.remove("language")
         String providerName = params.remove("provider")
-        String redirectAdminConfig= params.remove("redirectAdminConfig") // This params is used from kuorum.org to redirect first time to domain configuration
+        String redirectAdminConfig = params.remove("redirectAdminConfig")
+        // This params is used from kuorum.org to redirect first time to domain configuration
         IOAuthService providerService = grailsApplication.mainContext.getBean("${providerName}OAuthService")
         org.scribe.model.Token token = providerService.createTokenFromAjaxParams(params)
-        if (!token){
+        if (!token) {
             flash.message = "This code is already used or not exists"
-            redirect mapping:'home'
+            redirect mapping: 'home'
             return
         }
         grails.plugin.springsecurity.oauth.OAuthToken oAuthToken = providerService.createAuthToken(token)
@@ -157,8 +161,8 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
             return
         }
 
-        if(!verifyRegister()){
-            render ([success:false, error:'You looks like a robot'] as JSON)
+        if (!verifyRegister()) {
+            render([success: false, error: 'You looks like a robot'] as JSON)
             return
         }
 
@@ -166,60 +170,59 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
 //        String automaticAlias = kuorumUserService.generateValidAlias(user.name)
 //        kuorumUserService.updateAlias(user, automaticAlias)
 //        kuorumUserService.updateUser(user)
-        if (user){
-            render ([success:true] as JSON)
-        }else{
-            render ([success:false] as JSON)
+        if (user) {
+            render([success: true] as JSON)
+        } else {
+            render([success: false] as JSON)
         }
     }
 
-    def checkEmail(String email){
+    def checkEmail(String email) {
         KuorumUser user = KuorumUser.findByEmailAndDomain(email, CustomDomainResolver.domain)
-        if (user){
+        if (user) {
             render Boolean.FALSE.toString()
-        }else{
+        } else {
             render Boolean.TRUE.toString()
         }
     }
 
-    def registerSuccess(){}
+    def registerSuccess() {}
 
-    def resendRegisterVerification(){
-        [command:new ResendVerificationMailCommand(email: params.email)]
+    def resendRegisterVerification() {
+        [command: new ResendVerificationMailCommand(email: params.email)]
     }
 
-    def resendVerification(ResendVerificationMailCommand command){
-        KuorumUser user = KuorumUser.findByEmailAndDomain(command.email.toLowerCase(),CustomDomainResolver.domain)
-        if (!user){
-            flash.error=message(code:'springSecurity.ResendVerificationMailCommand.email.notUserExists')
+    def resendVerification(ResendVerificationMailCommand command) {
+        KuorumUser user = KuorumUser.findByEmailAndDomain(command.email.toLowerCase(), CustomDomainResolver.domain)
+        if (!user) {
+            flash.error = message(code: 'springSecurity.ResendVerificationMailCommand.email.notUserExists')
             command.errors.rejectValue('email', 'springSecurity.ResendVerificationMailCommand.email.notUserExists')
         }
         KuorumRegistrationCode registrationCode = KuorumRegistrationCode.findByUsername(user.email)
-        if (!registrationCode){
-            flash.error=message(code:'springSecurity.ResendVerificationMailCommand.email.notUserExists')
+        if (!registrationCode) {
+            flash.error = message(code: 'springSecurity.ResendVerificationMailCommand.email.notUserExists')
             command.errors.rejectValue('email', 'springSecurity.ResendVerificationMailCommand.email.notToken')
         }
-        if (command.hasErrors()){
-            render view: 'resendRegisterVerification', model:[command:command]
+        if (command.hasErrors()) {
+            render view: 'resendRegisterVerification', model: [command: command]
             return
         }
 
         log.info("Usuario $user.name recordando token  $registrationCode.token")
         String url = generateLinkWithMapping('registerVerifyAccount', [t: registrationCode.token])
 
-        kuorumMailService.sendRegisterUser(user,url)
-        flash.chainedParams = [link:url]
-        flash.message=message(code:'register.locked.resendSuccess')
-        redirect mapping:"registerSuccess"
+        kuorumMailService.sendRegisterUser(user, url)
+        flash.chainedParams = [link: url]
+        flash.message = message(code: 'register.locked.resendSuccess')
+        redirect mapping: "registerSuccess"
     }
 
 
-
-    def sendConfirmationEmail(){
+    def sendConfirmationEmail() {
         KuorumUser user = KuorumUser.findById(springSecurityService.principal.id)
-        String url=createLink(absolute: true, mapping:'registerVerifyAccount', params: [t: params.t])
-        kuorumMailService.sendRegisterUser(user,url)
-        redirect mapping:'home'
+        String url = createLink(absolute: true, mapping: 'registerVerifyAccount', params: [t: params.t])
+        kuorumMailService.sendRegisterUser(user, url)
+        redirect mapping: 'home'
     }
 
 
@@ -244,10 +247,10 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
             redirect uri: redirectUrl
             return
         }
-        if (registerService.isPasswordSetByUser(user)){
-            redirect mapping:'dashboard'
-        }else{
-            redirect mapping:'customProcessRegisterStep2', params: [tour:CustomDomainResolver.getDomainRSDTO().getTourEnabled()]
+        if (registerService.isPasswordSetByUser(user)) {
+            redirect mapping: 'dashboard'
+        } else {
+            redirect mapping: 'customProcessRegisterStep2', params: [tour: CustomDomainResolver.getDomainRSDTO().getTourEnabled()]
         }
 
         // REDIRECT USING registrationCode redirectLink
@@ -265,25 +268,25 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
 
         if (command.hasErrors()) {
             render Boolean.FALSE.toString()
-        }else{
+        } else {
             render Boolean.TRUE.toString()
         }
     }
 
-    def forgotPassword(){
+    def forgotPassword() {
         [command: new ForgotUserPasswordCommand()]
     }
     def forgotPasswordPost = { ForgotUserPasswordCommand command ->
 
         if (command.hasErrors()) {
-            render view: "forgotPassword", model:[command:command]
+            render view: "forgotPassword", model: [command: command]
             return
         }
 
-        KuorumUser user =  KuorumUser.findByEmailAndDomain(command.email, CustomDomainResolver.domain)
-        if (!user){
+        KuorumUser user = KuorumUser.findByEmailAndDomain(command.email, CustomDomainResolver.domain)
+        if (!user) {
             command.errors.rejectValue("email", "kuorum.web.commands.customRegister.ForgotUserPasswordCommand.email.invalid")
-            render view: "forgotPassword", model:[command:command]
+            render view: "forgotPassword", model: [command: command]
             return
         }
 
@@ -294,7 +297,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
 
         kuorumMailService.sendResetPasswordMail(user, url)
 
-        redirect mapping:"resetPasswordSent"
+        redirect mapping: "resetPasswordSent"
     }
 
     def forgotPasswordSuccess = {
@@ -312,23 +315,23 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         }
 
         String ulrCallback = cookieUUIDService.getRememberPasswordRedirect()
-        String urlCancelResetPassword = g.createLink(mapping:"login")
-        if (!ulrCallback){
+        String urlCancelResetPassword = g.createLink(mapping: "login")
+        if (!ulrCallback) {
             def conf = SpringSecurityUtils.securityConfig
             ulrCallback = conf.ui.register.postResetUrl ?: conf.successHandler.defaultTargetUrl
-        }else{
+        } else {
             urlCancelResetPassword = ulrCallback
         }
         if (!request.post) {
             //Request change password via GET [Not form filled]
-            return [token: token, command: new ResetPasswordCommand(), urlCancelResetPassword:urlCancelResetPassword]
+            return [token: token, command: new ResetPasswordCommand(), urlCancelResetPassword: urlCancelResetPassword]
         }
 
         command.username = registrationCode.username
         command.validate()
 
         if (command.hasErrors()) {
-            return [token: token, command: command, urlCancelResetPassword:urlCancelResetPassword]
+            return [token: token, command: command, urlCancelResetPassword: urlCancelResetPassword]
         }
 
         String salt = saltSource instanceof NullSaltSource ? null : registrationCode.username
@@ -344,6 +347,21 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
 
         flash.message = message(code: 'spring.security.ui.resetPassword.success')
         redirect uri: ulrCallback
+    }
+
+    def join() {
+        return [command: new CodeJoinCommand()]
+    }
+
+    def joinCheck() {
+        CampaignRSDTO campaign = campaignService.findByQrCode(params.get("qrCode"))
+        String labelExternalId = CustomDomainResolver.domainRSDTO.externalIdName
+        if (campaign) {
+            return [command: new ExternIdJoinCommand(campaignId: campaign.id, ownerId: campaign.user.id), labelExternalId: labelExternalId, campaign: campaign]
+        } else {
+            flash.error = message(code: "springSecurity.join.qrCode.error")
+            redirect uri: g.createLink(mapping: "joinDomain")
+        }
     }
 
     /**
@@ -380,7 +398,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
 }
 
 @Validateable
-class KuorumRegisterCommand{
+class KuorumRegisterCommand {
 
     def grailsApplication
 
@@ -389,34 +407,65 @@ class KuorumRegisterCommand{
     String password
     Boolean conditions
     String redirectUrl
+    String ownerId
+    String externalId
+    String campaignId
 
-    String getUsername(){ email }// RegisterController.passwordValidator uses username
+    String getUsername() { email }// RegisterController.passwordValidator uses username
     static constraints = {
         name nullable: false, maxSize: 15
-        email nullable:false, email:true, validator: { val, obj ->
+        email nullable: false, email: true, validator: { val, obj ->
 
             Object appContext = ServletContextHolder.servletContext.getAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT)
-            RegisterService registerService = (RegisterService)appContext.registerService
-            obj.email = val?val.toLowerCase():""
+            RegisterService registerService = (RegisterService) appContext.registerService
+            obj.email = val ? val.toLowerCase() : ""
             String codeError = registerService.checkValidEmail(val)
-            if (codeError){
+            if (codeError) {
                 return codeError
             }
         }
-        password nullable:false
+        password nullable: false
         conditions nullable: false
-        redirectUrl nullable:true
+        redirectUrl nullable: true
+        ownerId nullable: true
+        externalId nullable: true
+        campaignId nullable: true
 //      validator: RegisterController.passwordValidator
     }
 }
 
 @Validateable
-class ResendVerificationMailCommand{
+class ResendVerificationMailCommand {
 
     String email
     static constraints = {
-        email nullable:false, email:true
+        email nullable: false, email: true
     }
 }
 
 
+@Validateable
+class CodeJoinCommand {
+
+    String qrCode
+
+    static constraints = {
+        qrCode maxSize: 6, minSize: 6, nullable: false
+    }
+}
+
+@Validateable
+class ExternIdJoinCommand {
+
+    String externalId
+    String campaignId
+    String ownerId
+    Boolean conditions
+
+    static constraints = {
+        externalId nullable: false
+        campaignId nullable: false
+        ownerId nullable: false
+        conditions nullable: false
+    }
+}
