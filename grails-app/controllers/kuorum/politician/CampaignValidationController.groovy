@@ -58,7 +58,6 @@ class CampaignValidationController {
         } else {
             CampaignLightRSDTO campaign = censusLoginData.getCampaign();
             ContactRSDTO contact = censusLoginData.getContact();
-            //DLV
             logoutIfContactDifferentAsLoggedUser(contact, censusLogin);
             log.info("[censusLogion: ${censusLogin}] : Receviced a valid censusLogin -> Contact: ${contact.email}")
             Evidences evidences = new HttpRequestRecoverEvidences(request);
