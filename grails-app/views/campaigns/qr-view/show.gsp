@@ -20,9 +20,9 @@
         </div>
         <div class="row">
             <div class="text-center qr-text-container">
-                <a href="${"https://" + kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.domain + "/join/" + campaign.qrCode}">
+                <g:link mapping="joinDomainCheck" params="[qrCode: campaign.qrCode]">
                     <span class="qr-code-text text-center">${campaign.qrCode}</span>
-                </a>
+                </g:link>
             </div>
         </div>
     </div>
