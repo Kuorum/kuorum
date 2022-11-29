@@ -427,6 +427,9 @@ class KuorumRegisterCommand {
         password nullable: false
         conditions nullable: false
         redirectUrl nullable: true
+        ownerId nullable: true
+        externalId nullable: true
+        campaignId nullable: true
 //      validator: RegisterController.passwordValidator
     }
 }
