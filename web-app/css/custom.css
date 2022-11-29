@@ -10425,3 +10425,17 @@ div.horizontal-scroll-cookies {
 table.table-cookies td {
     white-space: break-spaces;
 }
+
+
+.qr-code-text {
+    font-size: 5.5rem;
+}
+
+.qr-text-container {
+    margin-top: 40px;
+}
+
+.qr-code-container {
+    margin-top: 50px;
+    margin-bottom: 25px;
+}

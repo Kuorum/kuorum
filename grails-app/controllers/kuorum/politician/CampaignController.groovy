@@ -163,6 +163,13 @@ class CampaignController {
         render adminCampaigns.data as JSON
     }
 
+    def viewQrPage(Long campaignId) {
+        KuorumUserSession loggedUser = springSecurityService.principal
+        CampaignRSDTO campaign = campaignService.find(loggedUser, campaignId, loggedUser.getId().toString())
+        def model = [campaign: campaign]
+        render view: '/campaigns/qr-view/show', model: model
+    }
+
     protected def modelSettings(CampaignSettingsCommand command, CampaignRSDTO campaignRSDTO = null) {
         KuorumUserSession user = springSecurityService.principal
         List<FilterRSDTO> filters = contactService.getUserFilters(user)
