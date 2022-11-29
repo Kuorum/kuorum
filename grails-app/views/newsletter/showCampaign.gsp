@@ -57,8 +57,7 @@
                 <li role="presentation" class="active"><a href="#applicationLists" data-toggle="tab"><g:message
                         code="tools.massMailing.view.contest.applicationsList"/></a></li>
             </g:if>
-            <g:if test="${kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.firstFactorValidation
-                    .equals(org.kuorum.rest.model.domain.DomainValidationRDTO.QR)}">
+            <g:if test="${org.kuorum.rest.model.domain.DomainValidationRDTO.QR.equals(kuorum.core.customDomain.CustomDomainResolver.domainRSDTO.firstFactorValidation)}">
                 <li role="presentation"><a href="#qr-view" data-toggle="tab"><g:message
                         code="tools.massMailing.view.qrView"/></a></li>
             </g:if>
@@ -254,7 +253,7 @@
                 </div>
             </g:if>
 
-    <!-- MODAL CONTEST -->
+        <!-- MODAL CONTEST -->
             <g:if test="${campaign && campaign instanceof org.kuorum.rest.model.communication.contest.ContestRSDTO}">
                 <div id="export-votesList-modal" class="modal fade in" tabindex="-1" role="dialog"
                      aria-labelledby="exportContestStatsTitle" aria-hidden="true">
