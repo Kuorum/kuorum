@@ -2,6 +2,7 @@ package kuorum.politician
 
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
+import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.exception.KuorumException
 import kuorum.register.KuorumUserSession
 import kuorum.register.RegisterService
@@ -46,8 +47,7 @@ class CampaignValidationController {
     }
 
     def step0RegisterWithCensusCode() {
-        String censusLogin = params['censusLogin'];
-
+        String censusLogin = params['censusLogin']
         CensusLoginRDTO censusLoginData = censusService.getContactByCensusCode(censusLogin)
         if (censusLoginData == null) {
             censusService.deleteCensusCode(censusLogin)
@@ -100,6 +100,7 @@ class CampaignValidationController {
                 censusLogin: censusLogin,
                 campaign   : campaign,
                 formMapping: formMapping,
+                domain     : CustomDomainResolver.getDomainRSDTO(),
                 command    : new KuorumRegisterCommand()]
     }
 
