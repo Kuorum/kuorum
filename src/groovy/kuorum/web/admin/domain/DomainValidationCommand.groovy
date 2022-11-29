@@ -2,11 +2,14 @@ package kuorum.web.admin.domain
 
 import grails.validation.Validateable
 import org.kuorum.rest.model.domain.DomainPrivacyRDTO
+import org.kuorum.rest.model.domain.DomainValidationRDTO
 
 @Validateable
 class DomainValidationCommand {
 
     DomainPrivacyRDTO domainPrivacy
+    DomainValidationRDTO firstFactorValidation
+    String externalIdName
     Boolean validationCensus
     Boolean validationPhone
     Boolean validationCode
@@ -25,6 +28,8 @@ class DomainValidationCommand {
 
     static constraints = {
         domainPrivacy nullable: false
+        firstFactorValidation nullable: false
+        externalIdName nullable: true
         validationCensus nullable: true
         validationPhone nullable: true
         validationCode nullable: true

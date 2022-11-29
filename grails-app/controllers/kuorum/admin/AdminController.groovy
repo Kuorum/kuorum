@@ -121,15 +121,16 @@ class AdminController {
         DomainRSDTO domainRSDTO = domainService.getConfig(CustomDomainResolver.domain)
         DomainValidationCommand domainValidationCommand = new DomainValidationCommand()
         domainValidationCommand.domainPrivacy = domainRSDTO.domainPrivacy
+        domainValidationCommand.firstFactorValidation = domainRSDTO.firstFactorValidation
         domainValidationCommand.validationCensus = domainRSDTO.validationCensus
         domainValidationCommand.validationPhone = domainRSDTO.validationPhone
         domainValidationCommand.validationCode = domainRSDTO.validationCode
-        domainValidationCommand.validationTokenMail = domainRSDTO.validationTokenMail
         domainValidationCommand.smsDomainName = domainRSDTO.smsDomainName
         domainValidationCommand.defaultPhonePrefix = domainRSDTO.defaultPhonePrefix
         domainValidationCommand.isSocialNetwork = domainRSDTO.isSocialNetwork
         domainValidationCommand.isUserProfileExtended = domainRSDTO.isUserProfileExtended
         domainValidationCommand.tourEnabled = domainRSDTO.tourEnabled
+        domainValidationCommand.externalIdName = domainRSDTO.externalIdName
 
         domainValidationCommand.providerBasicEmailForm = domainRSDTO.loginSettings.providerBasicEmailForm
         domainValidationCommand.providerGoogle = domainRSDTO.loginSettings.providerGoogle
@@ -151,12 +152,13 @@ class AdminController {
             domainRDTO.validationCensus = command.validationCensus ?: false
             domainRDTO.validationCode = command.validationCode ?: false
             domainRDTO.validationPhone = command.validationPhone ?: false
-            domainRDTO.validationTokenMail = command.validationTokenMail ?: false
             domainRDTO.isSocialNetwork = command.isSocialNetwork ?: false
             domainRDTO.isUserProfileExtended = command.isUserProfileExtended ?: false
             domainRDTO.tourEnabled = command.tourEnabled != null && command.tourEnabled
             domainRDTO.smsDomainName = command.smsDomainName ?: ''
             domainRDTO.defaultPhonePrefix = command.defaultPhonePrefix
+            domainRDTO.firstFactorValidation = command.firstFactorValidation
+            domainRDTO.externalIdName = command.externalIdName
 
             domainRDTO.loginSettings.providerBasicEmailForm = command.providerBasicEmailForm ?: false
             domainRDTO.loginSettings.providerGoogle = command.providerGoogle ?: false

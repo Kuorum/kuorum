@@ -187,9 +187,12 @@ class RestKuorumApiService {
         USER_CONTACT_SUBSCRIBE("/contacts/{userId}/suscribe"),
         USER_CONTACT_REPORT("/contacts/{userId}/report"),
         USER_CONTACT_SOCIAL_IMPORT("/contacts/social/{provider}/request"),
+        USER_CONTACT_EXTERNAL_ID('/contacts/{ownerId}/external/{externalId}'),
 
         CENSUS_LOGIN("/census/loginByCode/{censusCode}"),
         CENSUS_LOGIN_POST("/census/loginByCode"),
+
+        EXTERNAL_ID_LOGIN_POST("/census/loginByExternalId"),
 
         USER_FOLLOWER("/user/{userId}/follower/"),
         USER_FOLLOWER_FOLLOWING("/user/{userId}/follower/following"),
@@ -242,6 +245,7 @@ class RestKuorumApiService {
         ACCOUNT_CAMPAIGN_PICTURE("/communication/campaign/{userId}/{campaignId}/picture"),
         ACCOUNT_CAMPAIGN_PAUSE("/communication/campaign/{userId}/{campaignId}/pause"),
         ACCOUNT_CAMPAIGN_GROUPS("/communication/campaign/{userId}/{campaignId}/groups/{filterId}"),
+        CAMPAIGN_QR_CODE("/communication/campaign/qr/{qrCode}"),
 
 
         ACCOUNT_DEBATES_ALL("/communication/campaign/debate/"),

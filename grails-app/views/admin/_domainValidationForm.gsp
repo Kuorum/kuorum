@@ -31,15 +31,21 @@
         </div>
     </fieldset>
     <h4 class="box-ppal-section-title"><g:message code="kuorum.web.admin.domain.validation.label"/></h4>
+    <h5 class="box-ppal-section-title"><g:message code="kuorum.web.admin.domain.firstFactor.label"/></h5>
+    <fieldset aria-live="polite" class="row">
+        <div class="form-group col-md-12">
+            <formUtil:radioEnum command="${command}" field="firstFactorValidation" showLabel="false" multiLine="true"
+                                disabled="${!disabledForAdmins}"/>
+        </div>
+        <div class="form-group col-md-6">
+            <formUtil:input command="${command}" field="externalIdName" showLabel="true"
+                            disabled="${!disabledForAdmins}"/>
+        </div>
+    </fieldset>
+    <h5 class="box-ppal-section-title"><g:message code="kuorum.web.admin.domain.secondFactor.label"/></h5>
     <fieldset aria-live="polite" class="row">
         <div class="form-group col-md-6">
             <formUtil:checkBox command="${command}" field="validationCensus" showLabel="true"
-                               disabled="${!disabledForAdmins}"/>
-        </div>
-    </fieldset>
-    <fieldset aria-live="polite" class="row">
-        <div class="form-group col-md-6">
-            <formUtil:checkBox command="${command}" field="validationTokenMail" showLabel="true"
                                disabled="${!disabledForAdmins}"/>
         </div>
     </fieldset>
