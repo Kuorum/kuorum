@@ -355,7 +355,21 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
             qrDisabledRedirect()
             return
         }
-        return [command: new CodeJoinCommand()]
+        CodeJoinCommand command = new CodeJoinCommand();
+        if (flash.error && !command.hasErrors()) {
+            // Error passed as param
+            command.errors.rejectValue('qrCode', flash.error)
+            flash.error = "";
+        }
+        return [command: command]
+    }
+
+    def joinPost(CodeJoinCommand command) {
+        if (command.hasErrors()) {
+            render view: 'join', model: [command: command]
+            return
+        }
+        redirect mapping: 'joinDomainCheck', params: [qrCode: command.qrCode]
     }
 
     private boolean isQrEnableOnDomain() {
@@ -369,10 +383,11 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         }
         CampaignRSDTO campaign = campaignService.findByQrCode(params.get("qrCode"))
         if (campaign) {
-            return [command: new ExternIdJoinCommand(campaignId: campaign.id, ownerId: campaign.user.id), labelExternalId: CustomDomainResolver.domainRSDTO.externalIdName, campaign: campaign]
+            ExternIdJoinCommand command = new ExternIdJoinCommand(campaignId: campaign.id, ownerId: campaign.user.id)
+            return [command: command, labelExternalId: CustomDomainResolver.domainRSDTO.externalIdName, campaign: campaign]
         } else {
-            flash.error = message(code: "springSecurity.join.qrCode.error")
-            redirect uri: g.createLink(mapping: "joinDomain")
+            flash.error = "springSecurity.join.qrCode.error"
+            redirect mapping: "joinDomain"
         }
     }
 

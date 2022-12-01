@@ -21,8 +21,9 @@ class UrlMappings {
         name de_landingServices: "/"(controller: "landing", action: "landingServices") { formName = "registerForm"; mappingName = "landingServices";cacheActive = "LANDING" }
         name ca_landingServices: "/"(controller: "landing", action: "landingServices") { formName = "registerForm"; mappingName = "landingServices";cacheActive = "LANDING" }
 
-        name joinDomain: "/join"(controller: "register") { action = [GET: "join"] }
-        name joinDomainCheck: "/join/$qrCode"(controller: "register" , action:"joinCheck")
+        name joinDomain: "/join"(controller: "register") {action = [GET: "join", POST: "joinPost"]}
+        name joinDomainCheck: "/join/$qrCode"(controller: "register", action: 'joinCheck', method: 'GET')
+        name joinDomainCheck: "/join/$qrCode"(controller: "campaignValidation", action: 'step0RegisterWithExternalId', method: 'POST')
         name joinDomainId: "/join/id"(controller: "campaignValidation") { action = [POST: "step0RegisterWithExternalId"] }
 
         name home: "/"(controller: "landing", action: "landingServices") { formName = "registerForm"; mappingName = "home"; cacheActive = "LANDING" }

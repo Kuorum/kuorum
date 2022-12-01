@@ -14,7 +14,8 @@
 <content tag="mainContent">
     <div class="box-ppal auto-width-center">
         <formUtil:validateForm bean="${command}" form="sign"/>
-        <g:form mapping="joinDomainId" autocomplete="off" method="post" name="sign"
+        <g:form mapping="joinDomainCheck" params="[qrCode: campaign.qrCode]" autocomplete="off" method="post"
+                name="sign"
                 role="form">
             <fieldset aria-live="polite">
                 <div class="form-group">
