@@ -4,6 +4,7 @@ import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.core.customDomain.CustomDomainResolver
 import kuorum.core.exception.KuorumException
+import kuorum.domain.DomainService
 import kuorum.register.KuorumUserSession
 import kuorum.register.RegisterService
 import kuorum.security.evidences.Evidences
@@ -20,6 +21,7 @@ import org.kuorum.rest.model.communication.BasicCampaignInfoRSDTO
 import org.kuorum.rest.model.communication.CampaignLightRSDTO
 import org.kuorum.rest.model.communication.CampaignRSDTO
 import org.kuorum.rest.model.contact.ContactRSDTO
+import org.kuorum.rest.model.domain.DomainValidationRDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 import org.kuorum.rest.model.kuorumUser.KuorumUserExtraDataRSDTO
 import org.kuorum.rest.model.kuorumUser.KuorumUserRSDTO
@@ -38,6 +40,7 @@ class CampaignValidationController {
     CensusService censusService
     RegisterService registerService
     ContactService contactService
+    DomainService domainService
 
     private Boolean showLandingData = true;
 
@@ -106,6 +109,10 @@ class CampaignValidationController {
 
     def step0RegisterWithExternalId() {
         CampaignRSDTO campaign = campaignService.find(params.get("ownerId"), Long.valueOf(params.get("campaignId")), null)
+        if(!campaign.isQrEnabled()){
+            qrDisabledRedirect()
+            return
+        }
         if (campaign) {
             ContactRSDTO contact = contactService.getContactByExternalId(campaign.getUser().getId(), params.get("externalId"))
             if (contact) {
@@ -175,7 +182,6 @@ class CampaignValidationController {
     }
 
     def step0RegisterWithCensusCodeSave(KuorumRegisterCommand command) {
-
         String censusLogin = params['censusLogin'];
         CensusLoginRDTO censusLoginRDTO = censusService.getContactByCensusCode(censusLogin)
 
@@ -195,7 +201,11 @@ class CampaignValidationController {
     }
 
     def step0RegisterWithExternalIdSave(KuorumRegisterCommand command) {
-
+        CampaignRSDTO campaign = campaignService.find(command.ownerId, command.campaignId.toLong())
+        if(!campaign.isQrEnabled()){
+            qrDisabledRedirect()
+            return
+        }
         log.info("[externalIdLogion: ${command.externalId}] : Valid contact login => Creating user")
         Evidences evidences = new HttpRequestRecoverEvidences(request);
         try {
@@ -205,7 +215,7 @@ class CampaignValidationController {
             flash.error = "Your data is not valid. "
             redirect mapping: 'home'
         }
-        redirect uri: calcNextStepMappingName(campaignService.find(command.ownerId, command.campaignId.toLong()), null)
+        redirect uri: calcNextStepMappingName(campaign, null)
     }
 
 
@@ -382,5 +392,11 @@ class CampaignValidationController {
             censusRedirect = g.createLink(mapping: "home");
         }
         return censusRedirect
+    }
+
+    private void qrDisabledRedirect() {
+        log.warn("Try to use qr validation on a don't enable domain");
+        flash.error = message(code: "landingPage.join.enabled.error")
+        redirect uri: g.createLink(mapping: "home")
     }
 }
