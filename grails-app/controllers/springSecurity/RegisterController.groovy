@@ -26,6 +26,7 @@ import org.codehaus.groovy.grails.web.context.ServletContextHolder
 import org.codehaus.groovy.grails.web.servlet.GrailsApplicationAttributes
 import org.kuorum.rest.model.communication.CampaignRSDTO
 import org.kuorum.rest.model.communication.survey.SurveyRSDTO
+import org.kuorum.rest.model.domain.DomainValidationRDTO
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.web.authentication.RememberMeServices
@@ -350,14 +351,25 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
     }
 
     def join() {
+        if (!isQrEnableOnDomain()) {
+            qrDisabledRedirect()
+            return
+        }
         return [command: new CodeJoinCommand()]
     }
 
+    private boolean isQrEnableOnDomain() {
+        CustomDomainResolver.getDomainRSDTO().getFirstFactorValidation() == DomainValidationRDTO.QR
+    }
+
     def joinCheck() {
+        if (!isQrEnableOnDomain()) {
+            qrDisabledRedirect()
+            return
+        }
         CampaignRSDTO campaign = campaignService.findByQrCode(params.get("qrCode"))
-        String labelExternalId = CustomDomainResolver.domainRSDTO.externalIdName
         if (campaign) {
-            return [command: new ExternIdJoinCommand(campaignId: campaign.id, ownerId: campaign.user.id), labelExternalId: labelExternalId, campaign: campaign]
+            return [command: new ExternIdJoinCommand(campaignId: campaign.id, ownerId: campaign.user.id), labelExternalId: CustomDomainResolver.domainRSDTO.externalIdName, campaign: campaign]
         } else {
             flash.error = message(code: "springSecurity.join.qrCode.error")
             redirect uri: g.createLink(mapping: "joinDomain")
@@ -395,6 +407,11 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         registerUser(command, "funnelFillBasicData", [campaignId: params.campaignId])
     }
 
+    private void qrDisabledRedirect() {
+        log.warn("Try to use qr validation on a don't enable domain")
+        flash.error = message code: 'landingPage.join.enabled.error'
+        redirect mapping: "home", params: [evictCache: "true"]
+    }
 }
 
 @Validateable
