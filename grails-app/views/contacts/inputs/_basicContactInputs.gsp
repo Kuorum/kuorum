@@ -6,7 +6,8 @@
         <formUtil:input command="${command}" field="surname" showLabel="true"/>
     </div>
     <div class="form-group col-md-4">
-        <formUtil:input command="${command}" field="externalId" showLabel="true"/>
+        <formUtil:input command="${command}" field="externalId" showLabel="true"
+                        label="${kuorum.core.customDomain.CustomDomainResolver.getDomainRSDTO().externalIdName}"/>
     </div>
 </div>
 <div class="row">
