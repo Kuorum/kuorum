@@ -30,6 +30,7 @@ import org.kuorum.rest.model.kuorumUser.validation.UserValidationRSDTO
 import payment.campaign.CampaignService
 import payment.contact.CensusService
 import payment.contact.ContactService
+import springSecurity.ExternIdJoinCommand
 import springSecurity.KuorumRegisterCommand
 
 class CampaignValidationController {
@@ -150,8 +151,9 @@ class CampaignValidationController {
                     redirectToRegister0(contact, null, campaign, 'campaignValidationLinkCheckExternal')
                 }
             } else {
-                flash.error = message(code: "kuorum.langings.join.external.error")
-                redirect uri: g.createLink(mapping: "joinDomainCheck", params: [qrCode: campaign.qrCode])
+                ExternIdJoinCommand command = new ExternIdJoinCommand(campaignId: campaign.id, ownerId: campaign.user.id)
+                command.errors.rejectValue("externalId", "kuorum.langings.join.external.error")
+                render view: '/register/joinCheck', model: [command: command, labelExternalId: CustomDomainResolver.domainRSDTO.externalIdName, campaign: campaign]
             }
         } else {
             flash.error = message(code: "kuorum.langings.join.external.error")
@@ -214,6 +216,7 @@ class CampaignValidationController {
         } catch (Exception e) {
             flash.error = "Your data is not valid. "
             redirect mapping: 'home'
+            return;
         }
         redirect uri: calcNextStepMappingName(campaign, null)
     }

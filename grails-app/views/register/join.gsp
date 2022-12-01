@@ -14,7 +14,7 @@
 <content tag="mainContent">
     <div class="box-ppal auto-width-center">
         <formUtil:validateForm bean="${command}" form="sign"/>
-        <g:form mapping="joinDomain" autocomplete="off" method="post" name="sign"
+        <g:form mapping="joinDomain" autocomplete="off" method="POST" name="sign"
                 role="form">
             <fieldset aria-live="polite">
                 <div class="form-group">
