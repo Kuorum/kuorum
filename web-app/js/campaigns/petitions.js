@@ -71,7 +71,7 @@ var petitionFunctions = {
         var $modalMessage = $modal.find("#modal-pdf-message")
         var $downloadButton = $modal.find(".modal-download")
 
-        $modalMessage.html($modalMessage.attr("data-message-unloaded"))
+        $modalMessage.html($modalMessage.attr("data-message-noEmail-loading"))
         $downloadButton.addClass("disabled")
 
         $modalSubmitButton.attr("href", signUrl);
@@ -174,7 +174,7 @@ var petitionFunctions = {
         var $loading = $modal.find(".loading");
         var $downloadButton = $modal.find(".modal-download")
         var $modalMessage = $modal.find("#modal-pdf-message")
-        $modalMessage.html($modalMessage.attr("data-message-loaded"))
+        $modalMessage.html($modalMessage.attr("data-message-noEmail-loaded"))
         $downloadButton.removeClass("disabled")
         $downloadButton.attr("href", $iframe.attr("src"))
         $loading.hide();
