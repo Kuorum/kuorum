@@ -1093,6 +1093,14 @@ var surveyFunctions = {
             $downloadButton.hide();
             $closeButton.removeClass("hide")
         },
+        _prepareModalError: function ($modal) {
+            const $downloadButton = $modal.find(".modal-download");
+            const $closeButton = $modal.find(".modal-download-close");
+            const $loading = $modal.find(".loading-container");
+            $downloadButton.html("ERROR")
+            $closeButton.removeClass("hide")
+            $loading.remove();
+        },
         _prepareColumnCAsPDFLoading: function ($modal) {
             const $downloadReportColumnC = $("#columc-downlaod-report");
             const downloadButton = $downloadReportColumnC.find(".download-report-button");
@@ -1113,6 +1121,15 @@ var surveyFunctions = {
             $downloadButton.attr("href", pdfLink);
             $downloadButton.removeClass("disabled");
             $loading.remove();
+        },
+        _prepareColumnCAsError: function ($modal) {
+            const $downloadReportColumnC = $("#columc-downlaod-report");
+            const $downloadButton = $downloadReportColumnC.find(".download-report-button");
+            const $loading = $downloadReportColumnC.find(".loading-container");
+            $downloadReportColumnC.removeClass("hide");
+            $downloadButton.addClass("disabled");
+            $downloadButton.html("ERROR")
+            $loading.remove();
         }
     },
     _hidePDFIframe: function ($modal) {
@@ -1123,33 +1140,71 @@ var surveyFunctions = {
     },
 
     _loadPDFIframe: function ($modal) {
-        const iframe = $modal.find("iframe");
+        const $iframe = $modal.find("iframe");
         const viewPdfUrl = $modal.attr('data-viewPdfUrl');
         const $loading = $modal.find(".loading-container");
         $loading.show()
-        iframe.attr("src", viewPdfUrl);
-        iframe.hide();
         surveyFunctions._prepareModal._prepareColumnCAsPDFLoading($modal);
-        const reloadUntilCorrectPdf = function (e) {
-            setTimeout(function () {
-                const title = iframe.contents().find("title").html();
-                console.log("Reloading until pdf generated. Title = " + title)
-                if (title == "File not found") { // Title checking
-                    console.log("Reloading IFRAME")
-                    iframe.attr('src', function (i, val) {
-                        return val;
-                    }); // resets iframe
-                    iframe.attr('data', function (i, val) {
-                        return val;
-                    }); // resets iframe
-                } else {
-                    console.log("PDF Loaded")
-                    surveyFunctions._prepareModal.prepareModal(true);
-                    surveyFunctions._prepareModal._prepareColumnCAsPDFReady($modal);
-                }
-            }, 500);
+        const successFunctionPdfLoaded = function () {
+            surveyFunctions._prepareModal.prepareModal(true);
+            surveyFunctions._prepareModal._prepareColumnCAsPDFReady($modal);
         }
-        iframe.load(reloadUntilCorrectPdf);
+        const errorFunctionPdfLoaded = function () {
+            surveyFunctions._prepareModal._prepareModalError($modal);
+            surveyFunctions._prepareModal._prepareColumnCAsError($modal);
+        }
+        surveyFunctions._iframeHelp.init($iframe, viewPdfUrl, successFunctionPdfLoaded, errorFunctionPdfLoaded);
+
+    },
+    _iframeHelp: {
+        NUM_REQUEST_REPORT: 0,
+        WAIT_BETWEEN_REQUESTS_MS: 1000,
+        $IFRAME: null,
+        IFRAME_URL: "",
+        NOT_FOUND_TITLE: "File not found",
+        SUCCESS_FUNCTION_LOADED: undefined,
+        ERROR_FUNCTION_LOADED: undefined,
+        MAX_RELOAD_ATTEMPTS: 10,
+        init: function ($iframe, url, successFunction, errorFunction) {
+            if (surveyFunctions._iframeHelp.$IFRAME == undefined) {
+                console.log("IFRAME :: Pdf loading system initialized")
+                surveyFunctions._iframeHelp.$IFRAME = $iframe;
+                surveyFunctions._iframeHelp.IFRAME_URL = url;
+                surveyFunctions._iframeHelp.SUCCESS_FUNCTION_LOADED = successFunction;
+                surveyFunctions._iframeHelp.ERROR_FUNCTION_LOADED = errorFunction;
+                $iframe.attr("src", url);
+                $iframe.hide();
+                $iframe.on("load", surveyFunctions._iframeHelp._reloadUntilCorrectPdf);
+            }
+        },
+        _resetIframe: function (i, newSource) {
+            console.log("IFRAME :: Reloading " + newSource)
+            return newSource;
+        },
+        _reloadIframe: function ($iframe) {
+            console.log("IFRAME :: Reload Iframe")
+            if (surveyFunctions._iframeHelp.NUM_REQUEST_REPORT < surveyFunctions._iframeHelp.MAX_RELOAD_ATTEMPTS) {
+                $iframe.attr('src', surveyFunctions._iframeHelp._resetIframe); // resets iframe
+                // $iframe.attr('data', surveyFunctions._iframeHelp._resetIframe); // resets iframe
+            } else {
+                console.log("IFRAME :: Error :: Max attempts reloading Iframe")
+                surveyFunctions._iframeHelp.ERROR_FUNCTION_LOADED();
+            }
+            surveyFunctions._iframeHelp.NUM_REQUEST_REPORT++;
+        },
+        _reloadUntilCorrectPdf: function (e) {
+            const $iframe = surveyFunctions._iframeHelp.$IFRAME;
+            const title = $iframe.contents().find("title").html();
+            console.log("IFRAME :: Reloading until pdf generated. Times= " + surveyFunctions._iframeHelp.NUM_REQUEST_REPORT)
+            if (title == surveyFunctions._iframeHelp.NOT_FOUND_TITLE) { // Title checking
+                setTimeout(function () {
+                    surveyFunctions._iframeHelp._reloadIframe($iframe)
+                }, surveyFunctions._iframeHelp.WAIT_BETWEEN_REQUESTS_MS);
+            } else {
+                console.log("IFRAME :: PDF Loaded")
+                surveyFunctions._iframeHelp.SUCCESS_FUNCTION_LOADED();
+            }
+        }
     },
 
     _reportDownloadButtonHandler: function () {
@@ -1160,7 +1215,7 @@ var surveyFunctions = {
         $modal.modal("hide")
     },
 
-    _showDownloadCertificateCard:function() {
+    _showDownloadCertificateCard: function () {
         const $modal = $("#survey-pdf-modal");
         if ($modal.attr('data-survey-signed-votes') === "true") {
             const $iframe = $modal.find("iframe");
