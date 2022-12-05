@@ -631,28 +631,37 @@ var surveyFunctions = {
             $nextQuestion = $('.survey-question[data-question-id="' + nextQuestionId + '"]')
         }
         $nextQuestion.addClass("active-question")
-        $nextQuestion.prevAll(":not(."+surveyFunctions.ANSWERED_CLASS+")").addClass(surveyFunctions.SKIPPED_CLASS)
-        var nextQuestionCounter = $nextQuestion.prevAll(".survey-question."+surveyFunctions.ANSWERED_CLASS).length +1;
+        $nextQuestion.prevAll(":not(." + surveyFunctions.ANSWERED_CLASS + ")").addClass(surveyFunctions.SKIPPED_CLASS)
+        var nextQuestionCounter = $nextQuestion.prevAll(".survey-question." + surveyFunctions.ANSWERED_CLASS).length + 1;
         $nextQuestion.find(".survery-question-number .survey-quiestion-number-idx").html(nextQuestionCounter)
         $(currentQuestion).removeClass("active-question")
         surveyFunctions._updateSurveyProgressBar();
-        if (currentQuestion.parentElement.classList.contains("survey-vote-secret")){
+        if (currentQuestion.parentElement.classList.contains("survey-vote-secret")) {
             surveyFunctions._clearAnswer(currentQuestion);
         }
         surveyFunctions._updateQuestionStats(currentQuestionId);
-        if ($nextQuestion.hasClass("survey-end")) {
-            surveyFunctions._requestVoteCertificate();
+        if (surveyFunctions._isFinishSurvey()) {
+            surveyFunctions._finishSurvey();
         }
     },
 
-    _clearAnswer: function(question){
-        $(question).find(".survey-question-answer.checked .option-extra-content").remove();
-        $(question).find(".survey-question-answer.checked").removeClass("checked");
-        $(question).attr("data-answer-selected","")
-        $(question).find(".survey-question-answer").attr("data-question-extra-content","")
+    _isFinishSurvey: function () {
+        const finishedByJsCode = $(".survey-end").is(":visible");
+        const finishedByClassesAddedToSurveyMainParent = $(".campaign-survey").hasClass("survey-closed") && $(".campaign-survey").hasClass("survey-completed")
+        return finishedByJsCode || finishedByClassesAddedToSurveyMainParent;
+    },
+    _finishSurvey: function () {
+        surveyFunctions._requestVoteCertificate();
     },
 
-    _switchOffOptionClickEventsOfQuestion : function(questionId){
+    _clearAnswer: function (question) {
+        $(question).find(".survey-question-answer.checked .option-extra-content").remove();
+        $(question).find(".survey-question-answer.checked").removeClass("checked");
+        $(question).attr("data-answer-selected", "")
+        $(question).find(".survey-question-answer").attr("data-question-extra-content", "")
+    },
+
+    _switchOffOptionClickEventsOfQuestion: function (questionId) {
         var question = document.querySelector('.survey-question[data-question-id="' + questionId + '"]');
         var options = question.querySelectorAll('.survey-question-answer');
         var optionIdx; // IE10 not supports forEach
@@ -1024,14 +1033,12 @@ var surveyFunctions = {
     _requestVoteCertificate: function () {
         pageLoadingOff();
         var $modal = $("#survey-pdf-modal");
-        var isActiveEmail = surveyFunctions._prepareModal._isEmailActive($modal);
-        console.log("Is active EMAIL " + isActiveEmail)
-        surveyFunctions._prepareModal.prepareModal(false);
+        surveyFunctions._prepareModal.prepareDownloadPDFModules(false);
         $modal.modal("show");
     },
 
     _prepareModal: {
-        prepareModal: function (pdfReady) {
+        prepareDownloadPDFModules: function (pdfReady) {
             const $modal = $("#survey-pdf-modal");
             const isActiveEmail = surveyFunctions._prepareModal._isEmailActive($modal);
             const signedVotes = $modal.attr('data-survey-signed-votes') === "true";
@@ -1103,11 +1110,11 @@ var surveyFunctions = {
         },
         _prepareColumnCAsPDFLoading: function ($modal) {
             const $downloadReportColumnC = $("#columc-downlaod-report");
-            const downloadButton = $downloadReportColumnC.find(".download-report-button");
+            const $downloadButton = $downloadReportColumnC.find(".download-report-button");
             $downloadReportColumnC.find(".call-subTitle.waiting").show();
             $downloadReportColumnC.find(".call-subTitle.success").hide();
             $downloadReportColumnC.removeClass("hide");
-            downloadButton.addClass("disabled")
+            $downloadButton.addClass("disabled")
         },
         _prepareColumnCAsPDFReady: function ($modal) {
             const $downloadReportColumnC = $("#columc-downlaod-report");
@@ -1146,7 +1153,7 @@ var surveyFunctions = {
         $loading.show()
         surveyFunctions._prepareModal._prepareColumnCAsPDFLoading($modal);
         const successFunctionPdfLoaded = function () {
-            surveyFunctions._prepareModal.prepareModal(true);
+            surveyFunctions._prepareModal.prepareDownloadPDFModules(true);
             surveyFunctions._prepareModal._prepareColumnCAsPDFReady($modal);
         }
         const errorFunctionPdfLoaded = function () {
