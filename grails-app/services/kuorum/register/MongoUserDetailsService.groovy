@@ -47,14 +47,11 @@ class MongoUserDetailsService implements GrailsUserDetailsService {
             user = KuorumUser.findByEmailAndDomain(username.toLowerCase(), CustomDomainResolver.domain)
         }
         if (!user) {
-            log.error("User not found with username {} on domain {}", username, CustomDomainResolver.domain)
+            log.error("Kuorum User not found with username {} on domain {}", username, CustomDomainResolver.domain)
+            throw new UsernameNotFoundException('KuorumUser not found', username)
         }
         KuorumUserRSDTO userRSDTO = kuorumUserService.findUserRSDTO(user.id.toString())
 
-        if (!user) {
-            log.warn("KuorumUser not found: $username")
-            throw new UsernameNotFoundException('KuorumUser not found', username)
-        }
 
         if (log.debugEnabled) {
             log.debug("KuorumUser found: $username")
