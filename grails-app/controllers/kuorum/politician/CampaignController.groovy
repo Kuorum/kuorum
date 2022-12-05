@@ -164,8 +164,8 @@ class CampaignController {
     }
 
     def viewQrPage(Long campaignId) {
-        KuorumUserSession loggedUser = springSecurityService.principal
-        CampaignRSDTO campaign = campaignService.find(loggedUser, campaignId, loggedUser.getId().toString())
+        KuorumUserSession loggedUser = springSecurityService.isLoggedIn() ? springSecurityService.principal : null
+        CampaignRSDTO campaign = campaignService.find(WebConstants.FAKE_LANDING_ALIAS_USER, campaignId, loggedUser?.getId()?.toString() ?: null)
         def model = [campaign: campaign]
         render view: '/campaigns/qr-view/show', model: model
     }
