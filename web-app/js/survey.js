@@ -1050,7 +1050,7 @@ var surveyFunctions = {
                 surveyFunctions._loadPDFIframe($modal);
             } else if (signedVotes && !isActiveEmail && pdfReady) {
                 surveyFunctions._prepareModal._prepareModalNoEmailReady($modal);
-                surveyFunctions._loadPDFIframe($modal);
+                surveyFunctions._prepareModal._prepareColumnCAsPDFReady($modal);
             } else {
                 surveyFunctions._prepareModal._prepareModalLoadingUnsigned($modal);
                 surveyFunctions._hidePDFIframe($modal);
@@ -1228,7 +1228,7 @@ var surveyFunctions = {
             const $iframe = $modal.find("iframe");
             const urlPdf = $iframe.attr("src")
             if (urlPdf !== "#"){
-                surveyFunctions._loadPDFIframe($modal)
+                surveyFunctions._prepareModal._prepareColumnCAsPDFReady($modal)
             }
         }
     }
