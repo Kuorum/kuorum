@@ -214,6 +214,7 @@ class CampaignValidationController {
             KuorumUserRSDTO userRSDTO = censusService.createUserByExternalId(contactService.getContactByExternalId(command.ownerId, command.externalId), evidences, command.ownerId, command.campaignId.toLong());
             springSecurityService.reauthenticate userRSDTO.getEmailOrAlternative()
         } catch (Exception e) {
+            log.error("Exception Error creating user using External Id", e)
             flash.error = "Your data is not valid. "
             redirect mapping: 'home'
             return;
