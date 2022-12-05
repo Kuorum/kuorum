@@ -31,9 +31,9 @@
 
             <div class="modal-actions">
                 <a role="button" data-dismiss="modal" target="_blank"
-                   class="btn btn-orange inverted btn-lg modal-download-close hide">
+                   class="btn btn-blue inverted btn-lg modal-download-close hide">
                     <g:message code="survey.modal.close.button"/></a>
-                <a href="" role="button" class="btn btn-grey inverted btn-lg modal-download"
+                <a href="" role="button" class="btn btn-blue btn-lg modal-download"
                    target="_blank" rel="noopener noreferrer">
                     <g:message code="survey.modal.download.button"/>
                 </a>
