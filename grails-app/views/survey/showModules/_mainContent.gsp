@@ -6,7 +6,7 @@
     </g:if>
 </g:if>
 
-<div class="campaign-survey ${survey.hideResults ? 'campaign-hide-results' : ''} ${surveyClosedClasses} ${survey.completed} ${survey.completed ? 'survey-completed' : ''}">
+<div class="campaign-survey ${survey.hideResults ? 'campaign-hide-results' : ''} ${surveyClosedClasses} ${survey.completed ? 'survey-completed' : ''}">
     <g:render template="/survey/showModules/surveyData" model="[survey: survey, campaignUser: campaignUser]"/>
     <g:render template="/campaigns/showModules/campingModalEditScheduled"/>
 
