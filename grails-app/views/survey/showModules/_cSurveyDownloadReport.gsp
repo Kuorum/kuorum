@@ -9,7 +9,7 @@
         <div class="loading-container">
             <div class="loading"></div>
         </div>
-        <a href="" class="btn btn-lg btn-grey inverted download-report-button" target="_blank">
+        <a href="" class="btn btn-lg btn-blue inverted download-report-button" target="_blank">
             <g:message code="survey.report.download.button"/>
         </a>
     </div>
