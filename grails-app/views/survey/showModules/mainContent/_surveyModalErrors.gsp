@@ -13,7 +13,7 @@
             <div class="modal-body center">
                 <p data-message-noEmail-loading="<g:message code="survey.modal.report.body.noemail.loading"
                                                             args="[survey.name]"/>"
-                   data-message-noEmail-loaded="<g:message code="survey.modal.report.body.noemail.loading"
+                   data-message-noEmail-loaded="<g:message code="survey.modal.report.body.noemail.loaded"
                                                            args="[survey.name]"/>"
                    data-message-unsigned="<g:message code="survey.modal.report.body.unsigned" args="[survey.name]"/>"
                    data-message-sentByEmail="<g:message code="survey.modal.report.body.sentByEmail"
