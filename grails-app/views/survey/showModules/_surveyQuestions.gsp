@@ -21,13 +21,6 @@
         </div>
     </div><!-- ^survey-progress !-->
 
-    <div id="survey-download-report" class="comment-box survey-progress" data-question-pos="0" style="display: none;">
-        <div class="survey-progress-numerical-info survey-download-report-card-message"><g:message code="survey.show.download.pdf.card"/>:</div>
-        <a id="survey-download-report-button" href="" class="btn btn-grey inverted btn-sm" target="_blank" rel="noopener noreferrer">
-            <g:message code="survey.show.download.pdf.card.button"/>
-        </a>
-    </div>
-
     <form class="survey-questions ${survey.voteType == org.kuorum.rest.model.communication.survey.SurveyVoteTypeDTO.SECRET?'survey-vote-secret':''}">
         <g:set var="numQuestion" value="${0}"/>
         <g:each in="${survey.questions}" var="question" status="i">

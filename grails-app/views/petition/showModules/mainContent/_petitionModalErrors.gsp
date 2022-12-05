@@ -11,8 +11,10 @@
             </div>
 
             <div class="modal-body">
-                <p id="modal-pdf-message" data-message-unloaded="<g:message code="petition.modal.sign.body" args="[petition.name]"/>"
-                   data-message-loaded="<g:message code="petition.modal.sign.body.loaded" args="[petition.name]"/>">
+                <p id="modal-pdf-message"
+                   data-message-noEmail-loading="<g:message code="petition.modal.sign.body" args="[petition.name]"/>"
+                   data-message-noEmail-loaded="<g:message code="petition.modal.sign.body.loaded"
+                                                           args="[petition.name]"/>">
                 </p>
 
                 <p class="loading"></p>
