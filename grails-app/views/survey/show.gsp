@@ -20,5 +20,6 @@
               model="[contact: contact, contactFiles: contactFiles]"/>
     <g:render template="/survey/showModules/cSurveyStats"
               model="[survey: survey, campaignUser: campaignUser, displayTimeZone: displayTimeZone]"/>
+    <g:render template="/survey/showModules/cSurveyDownloadReport"/>
 </content>
 

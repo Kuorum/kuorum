@@ -162,7 +162,7 @@ class CampaignValidationController {
     }
 
     private void campaignClosedError(CampaignRSDTO campaign, ContactRSDTO contact) {
-        if (campaign.getStartDate().after(new Date())) {
+        if (campaign.getStartDate() != null && campaign.getStartDate().after(new Date())) {
             // CAMPAIGN NOT OPEN
             render view: '/campaignValidation/step0RegisterWithCensusCode_NOT_ACTIVE', model: [redirectUrl: null, contact: contact, campaign: campaign]
             log.info("[contactLogion: ${contact.email}] : Receviced a valid censusLogin -> Campaign is not open.");

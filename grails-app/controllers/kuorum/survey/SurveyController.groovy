@@ -489,7 +489,7 @@ class SurveyController extends CampaignController {
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def downloadSignedVotesPdf(Long campaignId) {
         KuorumUserSession loggedUser = springSecurityService.principal
-        downloadReportPdf({ByteArrayOutputStream arrayOutputStream -> surveyService.getSignedReport(loggedUser, campaignId, arrayOutputStream)})
+        downloadReportPdf({ ByteArrayOutputStream arrayOutputStream -> surveyService.getSignedReport(loggedUser, campaignId, arrayOutputStream) })
     }
 
 }
