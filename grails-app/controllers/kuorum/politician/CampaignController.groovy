@@ -5,6 +5,7 @@ import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.annotation.Secured
 import groovy.time.TimeCategory
+import javassist.NotFoundException
 import kuorum.KuorumFile
 import kuorum.core.FileType
 import kuorum.core.customDomain.CustomDomainResolver

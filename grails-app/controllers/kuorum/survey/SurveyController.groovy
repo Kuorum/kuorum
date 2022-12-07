@@ -2,6 +2,7 @@ package kuorum.survey
 
 import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
+import javassist.NotFoundException
 import kuorum.core.exception.KuorumException
 import kuorum.politician.CampaignController
 import kuorum.register.KuorumUserSession
@@ -484,6 +485,16 @@ class SurveyController extends CampaignController {
         SurveyRDTO rdto = surveyService.map(survey)
         def result = saveAndSendCampaign(loggedUser, rdto, campaignId, new Date(), CampaignContentCommand.CAMPAIGN_SEND_TYPE_SEND, surveyService)
         redirect mapping: 'politicianMassMailingContent', params: bulletinSummoning.encodeAsLinkProperties()
+    }
+
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def checkSignedVotesPdf(Long campaignId) {
+        KuorumUserSession loggedUser = springSecurityService.principal
+        Boolean fileExists = surveyService.checkSignedReport(loggedUser, campaignId)
+        if (!fileExists) {
+            throw new NotFoundException("Report not generated yet")
+        }
+        render "OK"
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
