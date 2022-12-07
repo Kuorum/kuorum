@@ -19,13 +19,14 @@
                         class="edit"><span class="fal fa-chart-line fa-2x"></span><span
                         class="sr-only">Stats</span></g:link>
             </g:if>
-                <g:if test="${campaign.qrEnabled}">
-                    <g:link class="edit" mapping="politicianCampaignViewQr" params="[campaignId: campaign.id]"
-                            role="button" target="_blank">
-                        <span class="fal fa-qrcode fa-2x" aria-hidden="true"></span>
-                        <span class="sr-only">Show QR</span>
-                    </g:link>
-                </g:if>
+
+            <userUtil:ifUserIsTheLoggedOne user="${campaign.user}" and="${campaign.qrEnabled}">
+                <g:link class="edit" mapping="politicianCampaignViewQr" params="[campaignId: campaign.id]"
+                        role="button" target="_blank">
+                    <span class="fal fa-qrcode fa-2x" aria-hidden="true"></span>
+                    <span class="sr-only">Show QR</span>
+                </g:link>
+            </userUtil:ifUserIsTheLoggedOne>
             <g:if test="${campaign.editable}">
                 <g:set var="modal"
                        value="${campaign.newsletter.status == org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SCHEDULED ? 'modalEditScheduled' : ''}"/>
