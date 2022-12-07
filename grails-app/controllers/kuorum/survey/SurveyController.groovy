@@ -28,6 +28,8 @@ import org.kuorum.rest.model.contact.filter.condition.ConditionTextRDTO
 import org.kuorum.rest.model.contact.filter.condition.TextConditionOperatorTypeRDTO
 import payment.campaign.BulletinService
 
+import javax.servlet.http.HttpServletResponse
+
 class SurveyController extends CampaignController {
 
     BulletinService bulletinService;
@@ -492,9 +494,10 @@ class SurveyController extends CampaignController {
         KuorumUserSession loggedUser = springSecurityService.principal
         Boolean fileExists = surveyService.checkSignedReport(loggedUser, campaignId)
         if (!fileExists) {
-            throw new NotFoundException("Report not generated yet")
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        } else {
+            render "OK"
         }
-        render "OK"
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])

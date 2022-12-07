@@ -1165,7 +1165,7 @@ var surveyFunctions = {
         REPORT_URL: undefined,
         SUCCESS_FUNCTION_LOADED: undefined,
         ERROR_FUNCTION_LOADED: undefined,
-        MAX_RELOAD_ATTEMPTS: 10,
+        MAX_RELOAD_ATTEMPTS: 20,
         PDF_READY: false,
         init: function (url, successFunction, errorFunction) {
             if (surveyFunctions._checkPDFReadyHelper.REPORT_URL == undefined) {
